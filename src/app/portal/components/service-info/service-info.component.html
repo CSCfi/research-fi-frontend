@@ -14,53 +14,51 @@
         <app-breadcrumb [type]="'simple'" [title]="title"></app-breadcrumb>
       </div>
     </div>
-    <div class="row">
-      <div class="col">
-        <h1 class="pb-4" i18n="@@serviceInfoHeader">Tietoa palvelusta</h1>
-      </div>
-    </div>
     <div class="row base">
       <div class="col">
-        <div class="content" #mainFocus tabindex="0">
-          <mat-accordion>
-            <mat-expansion-panel
-              *ngFor="let item of content; let i = index"
-              [expanded]="openedIdx === i"
-              (opened)="open(i)"
-              (closed)="close()"
-              id="{{ i }}"
-            >
-              <mat-expansion-panel-header collapsedHeight="61px">
-                <mat-panel-title>
-                  <fa-icon class="icon" [icon]="faInfo"></fa-icon>
-                  <div class="title align-self-center">
-                    <h2 [id]="item['title' + currentLocale]">
-                      {{ item['title' + currentLocale] }}
-                    </h2>
-                  </div>
-                </mat-panel-title>
-                <span
-                  *ngIf="openedIdx !== i"
-                  class="align-self-center mr-2"
-                  i18n="@@open"
-                  >Avaa</span
-                >
-                <span
-                  *ngIf="openedIdx === i"
-                  class="align-self-center mr-2"
-                  i18n="@@close"
-                  >Sulje</span
-                >
-              </mat-expansion-panel-header>
-              <div class="row">
-                <div
-                  class="col-12 description"
-                  [innerHTML]="item['content' + currentLocale] | sanitizeHtml"
-                ></div>
-              </div>
-            </mat-expansion-panel>
-          </mat-accordion>
-        </div>
+        <mat-accordion #mainFocus tabindex="0">
+          <ng-container *ngFor="let section of sections; let j = index">
+            <h1 class="pb-4" [class.pt-4]="j > 0">{{ section.header }}</h1>
+            <div class="content">
+              <mat-expansion-panel
+                *ngFor="let item of section.items; let i = index"
+                [expanded]="openedIdx === item.id"
+                (opened)="open(item.id)"
+                (closed)="close()"
+                [id]="item.id"
+              >
+                <mat-expansion-panel-header collapsedHeight="61px">
+                  <mat-panel-title>
+                    <fa-icon class="icon" [icon]="faInfo"></fa-icon>
+                    <div class="title align-self-center">
+                      <h2 [id]="item['title' + currentLocale]">
+                        {{ item['title' + currentLocale] }}
+                      </h2>
+                    </div>
+                  </mat-panel-title>
+                  <span
+                    *ngIf="openedIdx !== item.id"
+                    class="align-self-center mr-2"
+                    i18n="@@open"
+                    >Avaa</span
+                  >
+                  <span
+                    *ngIf="openedIdx === item.id"
+                    class="align-self-center mr-2"
+                    i18n="@@close"
+                    >Sulje</span
+                  >
+                </mat-expansion-panel-header>
+                <div class="row">
+                  <div
+                    class="col-12 info-panel"
+                    [innerHTML]="item['content' + currentLocale] | sanitizeHtml"
+                  ></div>
+                </div>
+              </mat-expansion-panel>
+            </div>
+          </ng-container>
+        </mat-accordion>
       </div>
     </div>
   </div>
