@@ -69,9 +69,9 @@ export class SingleFigureAdapter implements Adapter<SingleFigure> {
       item.visual_file_fi,
       item.visual_file_sv,
       item.visual_file_en,
-      item.update_date_fi,
-      item.update_date_sv,
-      item.update_date_en
+      item.visual_update_date_fi,
+      item.visual_update_date_sv,
+      item.visual_update_date_en
     );
   }
 }
