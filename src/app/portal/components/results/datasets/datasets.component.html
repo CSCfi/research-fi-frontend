@@ -117,6 +117,14 @@
                   }}<fa-icon icon="external-link-alt"></fa-icon></a
               ></span>
             </div>
+            <div *ngIf="dataset.urn?.trim()" class="doi">
+              <span class="doi-tag">URN</span>
+              <span class="doi-link"
+                ><a href="http://urn.fi/{{ dataset.urn }}" target="_blank"
+                  >{{ dataset.urn
+                  }}<fa-icon icon="external-link-alt"></fa-icon></a
+              ></span>
+            </div>
           </div>
         </div>
         <div class="col col-lg-5 col-xl-3 d-none d-lg-block">
@@ -151,6 +159,14 @@
               <span class="doi-link"
                 ><a href="https://doi.org/{{ dataset.doi }}" target="_blank"
                   >{{ dataset.doi
+                  }}<fa-icon icon="external-link-alt"></fa-icon></a
+              ></span>
+            </div>
+            <div *ngIf="dataset.urn?.trim()" class="doi">
+              <span class="doi-tag">URN</span>
+              <span class="doi-link"
+                ><a href="http://urn.fi/{{ dataset.urn }}" target="_blank"
+                  >{{ dataset.urn
                   }}<fa-icon icon="external-link-alt"></fa-icon></a
               ></span>
             </div>
