@@ -1579,7 +1579,7 @@
       </trans-unit>
       <trans-unit id="figureUpdateDate" datatype="html">
         <source>Vuosittainen päivitysajankohta</source>
-        <target state="translated">Annual update</target>
+        <target>Annual update</target>
       </trans-unit>
       <trans-unit id="downloadCSV">
         <source>Lataa tiedostona (csv)</source>
