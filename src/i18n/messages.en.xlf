@@ -1577,6 +1577,10 @@
           <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="figureSource" datatype="html">
+        <source>Vuosittainen päivitysajankohta</source>
+        <target state="translated">Annual update</target>
+      </trans-unit>
       <trans-unit id="downloadCSV">
         <source>Lataa tiedostona (csv)</source>
         <target>Download file (csv)</target>
@@ -1600,6 +1604,10 @@
           <context context-type="sourcefile">app/portal/components/service-info/service-info.component.html</context>
           <context context-type="linenumber">19</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="faq" datatype="html">
+        <source>Usein kysytyt kysymykset</source>
+        <target>FAQ</target>
       </trans-unit>
       <trans-unit id="privacyHeader" datatype="html">
         <source>Tietosuoja</source>

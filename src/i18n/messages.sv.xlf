@@ -1571,6 +1571,10 @@
           <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="figureSource" datatype="html">
+        <source>Vuosittainen päivitysajankohta</source>
+        <target state="translated">Årlig uppdatering</target>
+      </trans-unit>
       <trans-unit id="downloadCSV" datatype="html">
         <source>Lataa tiedostona (csv)</source>
         <target>Ladda ner filen (csv)</target>
@@ -1595,6 +1599,9 @@
           <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="faq" datatype="html">
+        <source>Usein kysytyt kysymykset</source>
+        <target>Frågor och svar</target>
       <trans-unit id="privacyHeader" datatype="html">
         <source>Tietosuoja</source>
         <target state="translated">Dataskydd</target>

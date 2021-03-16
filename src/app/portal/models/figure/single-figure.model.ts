@@ -33,6 +33,7 @@ export class SingleFigure {
     public visualFileFi: string,
     public visualFileSv: string,
     public visualFileEn: string,
+    public visualUpdateDate: string
   ) {}
 }
 
@@ -66,6 +67,7 @@ export class SingleFigureAdapter implements Adapter<SingleFigure> {
       item.visual_file_fi,
       item.visual_file_sv,
       item.visual_file_en,
+      item.update_date
     );
   }
 }
