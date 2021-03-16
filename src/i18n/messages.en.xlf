@@ -1577,7 +1577,7 @@
           <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="figureSource" datatype="html">
+      <trans-unit id="figureUpdateDate" datatype="html">
         <source>Vuosittainen päivitysajankohta</source>
         <target state="translated">Annual update</target>
       </trans-unit>
