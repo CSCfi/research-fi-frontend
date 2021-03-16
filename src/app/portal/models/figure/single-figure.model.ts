@@ -33,7 +33,9 @@ export class SingleFigure {
     public visualFileFi: string,
     public visualFileSv: string,
     public visualFileEn: string,
-    public visualUpdateDate: string
+    public visualUpdateDateFi: string,
+    public visualUpdateDateSv: string,
+    public visualUpdateDateEn: string
   ) {}
 }
 
@@ -67,7 +69,9 @@ export class SingleFigureAdapter implements Adapter<SingleFigure> {
       item.visual_file_fi,
       item.visual_file_sv,
       item.visual_file_en,
-      item.update_date
+      item.visual_update_date_fi,
+      item.visual_update_date_sv,
+      item.visual_update_date_en
     );
   }
 }
