@@ -36,7 +36,7 @@ export class AppSettingsService {
             exact: true,
           },
           {
-            label: $localize`:@@headerLink5:Tiede ja tutkimus lukuina`,
+            label: $localize`:@@headerLink5:Lukuja tieteestä ja tutkimuksesta`,
             link: '/science-innovation-policy/science-research-figures/',
             exact: true,
           },
