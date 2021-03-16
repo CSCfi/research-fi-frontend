@@ -20,6 +20,7 @@ export interface OrganizationActor {
 export interface Actor {
   name: string;
   roles: string[];
+  orcid?: string;
 }
 
 
@@ -94,7 +95,7 @@ export class DatasetAdapter implements Adapter<Dataset> {
               orgObj.actors.push({name: this.lang.testLang('organizationUnitName', orgUnit), roles: [role]});
             }
             orgUnit?.person?.forEach(person => {
-              orgObj.actors.push({name: person.authorFullName, roles: [role]});
+              orgObj.actors.push({name: person.authorFullName, roles: [role], orcid: person?.Orcid});
             })
           })
         })
@@ -122,6 +123,8 @@ export class DatasetAdapter implements Adapter<Dataset> {
       orgsSorted.push(...orgsSorted.splice(0, 1));
       orgsSorted[orgsSorted.length - 1].name = $localize`:@@missingOrg:Organisaatio puuttuu`; 
     }
+
+    console.log(orgsSorted)
 
     let urn = '';
     let doi = '';
