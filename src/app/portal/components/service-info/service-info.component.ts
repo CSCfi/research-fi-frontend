@@ -8,6 +8,8 @@ import {
   ElementRef,
   OnDestroy,
   PLATFORM_ID,
+  ViewEncapsulation,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { faInfo } from '@fortawesome/free-solid-svg-icons';
 import { Title } from '@angular/platform-browser';
@@ -23,6 +25,7 @@ import { ReviewComponent } from 'src/app/layout/review/review.component';
   selector: 'app-service-info',
   templateUrl: './service-info.component.html',
   styleUrls: ['./service-info.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   faInfo = faInfo;
@@ -30,13 +33,18 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('mainFocus') mainFocus: ElementRef;
   focusSub: any;
   title: string;
-  openedIdx = -1;
+  openedIdx: any;
   currentLocale: string;
 
   private metaTags = serviceInfo;
   private commonTags = common;
   content: any[];
   reviewDialogRef: MatDialogRef<ReviewComponent>;
+
+  sections = [
+    { header: $localize`:@@serviceInfoHeader:Tietoa palvelusta`, items: [] },
+    { header: $localize`:@@faq:Usein kysytyt kysymykset`, items: [] },
+  ];
 
   constructor(
     private titleService: Title,
@@ -47,7 +55,8 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
     private route: ActivatedRoute,
     @Inject(DOCUMENT) private document: any,
     @Inject(PLATFORM_ID) private platformId: object,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private cdr: ChangeDetectorRef
   ) {
     // Capitalize first letter of locale
     this.currentLocale =
@@ -57,7 +66,14 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     // Get page data. Data is passed with resolver in router
     const pageData = this.route.snapshot.data.pages;
-    this.content = pageData.filter((el) => el.id.includes('service-info'));
+
+    // Set Service info content
+    this.sections[0].items = pageData.filter((el) =>
+      el.id.includes('service-info')
+    );
+
+    // Set FAQ content
+    this.sections[1].items = pageData.filter((el) => el.id.includes('faq'));
 
     this.utilityService.addMeta(
       this.metaTags['title' + this.currentLocale],
@@ -83,7 +99,7 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
     this.tabChangeService.toggleSkipToInput(false);
 
     this.title = this.getTitle();
-    this.openedIdx = +this.location.path(true).split('#')[1];
+    this.openedIdx = this.location.path(true).split('#')[1];
   }
 
   setTitle(title: string) {
@@ -119,11 +135,10 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
     this.reviewDialogRef = this.dialog.open(ReviewComponent, {
       maxWidth: '800px',
       minWidth: '320px',
-      // minHeight: '60vh'
     });
   }
 
-  open(id: number) {
+  open(id: string) {
     this.openedIdx = id;
     // Timeout because by default open() is executed before close()
     setTimeout(() => {
@@ -132,8 +147,8 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   close() {
-    this.openedIdx = -1;
     this.location.replaceState(this.location.path());
+    this.cdr.detectChanges();
   }
 
   ngOnDestroy() {
