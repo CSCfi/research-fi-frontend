@@ -124,8 +124,6 @@ export class DatasetAdapter implements Adapter<Dataset> {
       orgsSorted[orgsSorted.length - 1].name = $localize`:@@missingOrg:Organisaatio puuttuu`; 
     }
 
-    console.log(orgsSorted)
-
     let urn = '';
     let doi = '';
 
