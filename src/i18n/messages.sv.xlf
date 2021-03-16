@@ -1573,7 +1573,7 @@
       </trans-unit>
       <trans-unit id="figureUpdateDate" datatype="html">
         <source>Vuosittainen päivitysajankohta</source>
-        <target state="translated">Årlig uppdatering</target>
+        <target>Årlig uppdatering</target>
       </trans-unit>
       <trans-unit id="downloadCSV" datatype="html">
         <source>Lataa tiedostona (csv)</source>
@@ -1602,6 +1602,7 @@
       <trans-unit id="faq" datatype="html">
         <source>Usein kysytyt kysymykset</source>
         <target>Frågor och svar</target>
+      </trans-unit>
       <trans-unit id="privacyHeader" datatype="html">
         <source>Tietosuoja</source>
         <target state="translated">Dataskydd</target>
