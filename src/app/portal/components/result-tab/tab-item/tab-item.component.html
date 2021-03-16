@@ -18,7 +18,6 @@
   [title]="tab.tooltip"
   placement="bottom"
   triggers="focus keydown"
-  containerClass="tooltip-{{ tab.link }}{{ tooltipClass }}"
   (mouseenter)="utilityService.tooltipMouseenter(elem)"
   (keydown)="utilityService.tooltipKeydown(elem, $event)"
   #elem
