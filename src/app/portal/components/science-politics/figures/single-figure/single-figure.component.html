@@ -98,7 +98,10 @@
                 <span>{{ item['source' + currentLocale] }}</span>
               </div>
             </div>
-            <div *ngIf="item.visualUpdateDate" class="row pb-3">
+            <div
+              *ngIf="item['visualUpdateDate' + currentLocale]"
+              class="row pb-3"
+            >
               <div class="col pl-0">
                 <span class="strong d-block" i18n="@@figureUpdateDate"
                   >Vuosittainen päivitysajankohta:</span
