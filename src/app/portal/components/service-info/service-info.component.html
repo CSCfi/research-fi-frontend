@@ -24,7 +24,7 @@
                 *ngFor="let item of section.items; let i = index"
                 [expanded]="openedIdx === item.id"
                 (opened)="open(item.id)"
-                (closed)="close()"
+                (closed)="close(item.id)"
                 [id]="item.id"
               >
                 <mat-expansion-panel-header collapsedHeight="61px">
