@@ -146,7 +146,8 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
     }, 1);
   }
 
-  close() {
+  close(id: string) {
+    if (this.openedIdx === id) this.openedIdx = '';
     this.location.replaceState(this.location.path());
     this.cdr.detectChanges();
   }
