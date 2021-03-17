@@ -657,14 +657,14 @@ app-search-bar {
     height: 52px;
   }
 
-  .search-help button.down span:after {
+  .search-help button.down span.mat-button-wrapper:after {
     font-family: 'FontAwesome';
     content: '\f078';
     display: inline-block;
     padding-left: 0.25rem;
   }
 
-  .search-help button.up span:after {
+  .search-help button.up span.mat-button-wrapper:after {
     font-family: 'FontAwesome';
     content: '\f077';
     display: inline-block;

@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Injectable, ElementRef, Inject, LOCALE_ID } from '@angular/core';
-import { BsModalService } from 'ngx-bootstrap';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SortService } from '../../portal/services/sort.service';

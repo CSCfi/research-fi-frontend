@@ -32,7 +32,7 @@ import { WINDOW } from 'src/app/shared/services/window.service';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { singleFigure, common } from 'src/assets/static-data/meta-tags.json';
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 import { ContentDataService } from 'src/app/portal/services/content-data.service';
 import { Figure } from 'src/app/portal/models/figure/figure.model';
 

@@ -30,7 +30,7 @@ import { FilterService } from '../../services/filters/filter.service';
 import { DataService } from '../../services/data.service';
 import { Subscription, combineLatest, Subject, merge } from 'rxjs';
 import { WINDOW } from 'src/app/shared/services/window.service';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { SettingsService } from 'src/app/portal/services/settings.service';
 import {

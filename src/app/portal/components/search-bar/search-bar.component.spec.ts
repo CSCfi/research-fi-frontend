@@ -5,14 +5,14 @@ import {
   tick,
 } from '@angular/core/testing';
 import { SearchService } from 'src/app/portal/services/search.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { WINDOW_PROVIDERS } from 'src/app/shared/services/window.service';
 import { ActivatedRouteStub } from 'src/testing/activated-route-stub';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AppConfigService } from 'src/app/shared/services/app-config-service.service';
 import { AppConfigServiceMock } from 'src/app/portal/services/search.service.spec';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { NO_ERRORS_SCHEMA, QueryList } from '@angular/core';
 import { SearchBarComponent } from './search-bar.component';
 import { AutosuggestService } from 'src/app/portal/services/autosuggest.service';

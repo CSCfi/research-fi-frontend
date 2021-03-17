@@ -11,7 +11,8 @@ import { CommonModule } from '@angular/common';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { TypeaheadModule, ModalModule } from 'ngx-bootstrap';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -123,9 +124,7 @@ import { ScrollSpyDirective } from './directives/scroll-spy.directive';
 import { CutContentPipe } from './pipes/cut-content.pipe';
 import { SingleFigureComponent } from './components/science-politics/figures/single-figure/single-figure.component';
 import { RelatedLinksComponent } from './components/single/related-links/related-links.component';
-import { Event, Scroll, Router } from '@angular/router'; // Router required by ApmService and scroll logic
-import 'reflect-metadata'; // Required by ApmService
-import { ApmService } from '@elastic/apm-rum-angular';
+import { Event, Scroll, Router } from '@angular/router'; // Router required by scroll logic
 import { FilterListComponent } from './components/results/active-filters/filter-list/filter-list.component';
 import { ServiceInfoComponent } from './components/service-info/service-info.component';
 import { PrivacyComponent } from './components/privacy/privacy.component';
@@ -272,11 +271,6 @@ import { BannerComponent } from './components/home-page/banner/banner.component'
     {
       provide: ErrorHandler,
       useClass: ErrorHandlerService,
-    },
-    {
-      provide: ApmService,
-      useClass: ApmService,
-      deps: [Router],
     },
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,

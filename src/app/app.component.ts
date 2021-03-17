@@ -5,10 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, Inject } from '@angular/core';
-import { AppConfigService } from './shared/services/app-config-service.service';
-import 'reflect-metadata'; // Required by ApmService
-import { ApmService } from '@elastic/apm-rum-angular';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -18,29 +15,5 @@ import { ApmService } from '@elastic/apm-rum-angular';
 export class AppComponent {
   title = 'research-fi-portal';
 
-  /*
-  Application performance monitoring (APM) service must be initialized on component init.
-  Values for APM Configuration parameters 'serverUrl' and 'environment' are taken from AppConfigService.
-  https://www.elastic.co/guide/en/apm/agent/rum-js/current/configuration.html
-  */
-  constructor(
-    @Inject(ApmService) service: ApmService,
-    private appConfigService: AppConfigService
-  ) {
-    const apm = service.init({
-      serviceName: 'Angular',
-      serverUrl: this.appConfigService.apmUrl,
-      environment: this.appConfigService.environmentName,
-      eventsLimit: 10,
-      transactionSampleRate: 0.1,
-      disableInstrumentations: [
-        // 'page-load',
-        'history',
-        'eventtarget',
-        'xmlhttprequest',
-        'fetch',
-        // 'error'
-      ],
-    });
-  }
+  constructor() {}
 }

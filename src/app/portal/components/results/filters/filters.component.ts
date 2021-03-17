@@ -26,7 +26,7 @@ import { SortService } from '../../../services/sort.service';
 import { ResizeService } from 'src/app/shared/services/resize.service';
 import { Subscription } from 'rxjs';
 import { WINDOW } from 'src/app/shared/services/window.service';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 
 import { PublicationFilterService } from 'src/app/portal/services/filters/publication-filter.service';
@@ -84,7 +84,8 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   activeElement: any;
   filterSearchHeader = $localize`:@@filterSearchHeader:Rajaa hakua`;
   filterNewsHeader = $localize`:@@filterNewsHeader:Rajaa uutisia`;
-  coPublicationTooltip = 'Valitsemalla ”näytä vain yhteisjulkaisut” voit tarkastella suomalaisten organisaatioiden yhteisiä julkaisuja. Hakutulos näyttää tällöin vain sellaiset julkaisut, joissa kaikki alla olevasta listasta valitut organisaatiot ovat mukana. Jos yhtään organisaatiota ei ole valittu, hakutulos näyttää kaikki yhteisjulkaisut';
+  coPublicationTooltip =
+    'Valitsemalla ”näytä vain yhteisjulkaisut” voit tarkastella suomalaisten organisaatioiden yhteisiä julkaisuja. Hakutulos näyttää tällöin vain sellaiset julkaisut, joissa kaikki alla olevasta listasta valitut organisaatiot ovat mukana. Jos yhtään organisaatiota ei ole valittu, hakutulos näyttää kaikki yhteisjulkaisut';
 
   constructor(
     private router: Router,

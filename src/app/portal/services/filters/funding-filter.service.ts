@@ -8,7 +8,7 @@
 import { Injectable, Inject, LOCALE_ID } from '@angular/core';
 import { FilterMethodService } from './filter-method.service';
 import { StaticDataService } from '../static-data.service';
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 
 @Injectable({
   providedIn: 'root',

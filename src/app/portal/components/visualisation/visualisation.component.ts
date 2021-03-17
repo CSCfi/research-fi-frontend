@@ -17,7 +17,7 @@ import {
 import { Visual } from 'src/app/portal/models/visualisation/visualisations.model';
 import { DOCUMENT } from '@angular/common';
 import { WINDOW } from 'src/app/shared/services/window.service';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-visualisation',
