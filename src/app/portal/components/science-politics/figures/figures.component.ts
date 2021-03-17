@@ -40,7 +40,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HistoryService } from 'src/app/portal/services/history.service';
 import { figures, common } from 'src/assets/static-data/meta-tags.json';
 import { UtilityService } from 'src/app/shared/services/utility.service';
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 import { ContentDataService } from 'src/app/portal/services/content-data.service';
 import { Figure } from 'src/app/portal/models/figure/figure.model';
 

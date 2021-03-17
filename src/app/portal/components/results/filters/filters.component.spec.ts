@@ -10,7 +10,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FiltersComponent } from './filters.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { WINDOW_PROVIDERS } from 'src/app/shared/services/window.service';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import AggResponse from '../../../../../testdata/aggregationresponse.json';

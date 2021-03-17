@@ -54,14 +54,6 @@ export class AppConfigService {
     return this.appConfig.cmsUrl;
   }
 
-  // Application performance monitoring Url
-  get apmUrl() {
-    if (!this.appConfig) {
-      throw Error('Config file not loaded!');
-    }
-    return this.appConfig.apiUrl + '/apm/';
-  }
-
   // Build info
   get buildInfo() {
     if (!this.appConfig) {
