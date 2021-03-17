@@ -86,7 +86,7 @@ export class DatasetAdapter implements Adapter<Dataset> {
             orgs.push(orgObj);
           }
           // Add role if org has no children
-          if(!org.organizationUnit) {
+          if(!org?.organizationUnit?.person) {
             orgObj.roles.push(role);
           }
           org?.organizationUnit?.forEach(orgUnit => {
