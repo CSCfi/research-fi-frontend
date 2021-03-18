@@ -20,11 +20,13 @@ import 'zone.js/dist/zone-node';
 import { enableProdMode } from '@angular/core';
 import express from 'express';
 import * as compression from 'compression';
-import helmet from 'helmet';
 import featurePolicy from 'feature-policy';
 import { join } from 'path';
 import { EXPRESS_HTTP_PORT } from './src/app/app.global';
 import { EmailService } from './src/app/shared/services/email.service';
+
+const { expressCspHeader, INLINE, NONE, SELF } = require('express-csp-header');
+const referrerPolicy = require('referrer-policy');
 
 // Add timestamp to logs
 require('log-timestamp');
@@ -45,12 +47,8 @@ const routes = [
 
 app.use(bodyParser.json());
 app.use(compression());
-app.use(helmet());
-app.use(
-  helmet({
-    referrerPolicy: { policy: 'same-origin' },
-  })
-);
+app.use(referrerPolicy({ policy: 'same-origin' }));
+
 app.use(
   featurePolicy({
     features: {
@@ -80,9 +78,10 @@ const getAppConfig = new Promise((resolve, reject) => {
 
 getAppConfig.then((data: any) => {
   app.use(
-    helmet.contentSecurityPolicy({
+    expressCspHeader({
       directives: {
-        defaultSrc: [
+        'default-src': [
+          SELF,
           "'self'",
           'ws://localhost:4200',
           'ws://localhost:5003',
@@ -103,28 +102,26 @@ getAppConfig.then((data: any) => {
           'https://fonts.googleapis.com:*',
           data.cmsUrl,
         ],
-        styleSrc: [
-          "'self'",
-          "'unsafe-inline'",
-          'https://*.twitter.com:*',
-          'https://fonts.googleapis.com:*',
-          'https://*.twimg.com:*',
-        ],
-        scriptSrc: [
-          "'self'",
+        'script-src': [
+          SELF,
+          INLINE,
           "'unsafe-inline'",
           "'unsafe-eval'",
           'https://*.csc.fi:*',
           'https://*.twitter.com:*',
           'https://cdn.syndication.twimg.com:*',
         ],
-        frameSrc: [
-          'https://app.powerbi.com:*',
-          'https://rihmatomo-analytics.csc.fi:*',
+        'style-src': [
+          SELF,
+          'mystyles.net',
+          "'self'",
+          "'unsafe-inline'",
           'https://*.twitter.com:*',
+          'https://fonts.googleapis.com:*',
+          'https://*.twimg.com:*',
         ],
-        fontSrc: ["'self'", 'fonts.googleapis.com:*', 'fonts.gstatic.com:*'],
-        imgSrc: [
+        'img-src': [
+          'data:',
           "'self'",
           'ws://localhost:4200',
           'ws://localhost:5003',
@@ -143,6 +140,19 @@ getAppConfig.then((data: any) => {
           'data:',
           data.cmsUrl,
         ],
+        'worker-src': [NONE],
+        'frame-src': [
+          'https://app.powerbi.com:*',
+          'https://rihmatomo-analytics.csc.fi:*',
+          'https://*.twitter.com:*',
+        ],
+        'font-src': [
+          SELF,
+          "'self'",
+          'fonts.googleapis.com:*',
+          'fonts.gstatic.com:*',
+        ],
+        'block-all-mixed-content': true,
       },
     })
   );
