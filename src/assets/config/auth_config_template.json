@@ -1,0 +1,11 @@
+{
+  "stsServer": "<server address>",
+  "redirectUrl": "<redirect url>",
+  "postLogoutRedirectUri": "<post logout url>",
+  "clientId": "js",
+  "scope": "openid profile api1",
+  "responseType": "code",
+  "silentRenew": true,
+  "useRefreshToken": true,
+  "postLoginRoute": "/mydata/welcome"
+}

@@ -17,7 +17,7 @@
         <ng-container *ngSwitchCase="1">
           <div class="row pb-4">
             <div class="col text-center">
-              <h2 class="primary-color">Tervetuloa {{ userName }}!</h2>
+              <h2 class="primary-color">Tervetuloa {{ firstName }}!</h2>
             </div>
           </div>
 
@@ -235,7 +235,7 @@
         <div class="col col-lg-4">
           <app-secondary-button
             content="Kyllä, peruutan käyttöönoton"
-            routerLink=""
+            routerLink="/mydata"
             [big]="true"
           >
           </app-secondary-button>

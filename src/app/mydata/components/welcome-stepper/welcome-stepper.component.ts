@@ -11,8 +11,9 @@ import {
   faAngleDoubleLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import { ProfileService } from '../../services/profile.service';
-import { AuthService } from '../../services/auth.service';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-welcome-stepper',
@@ -27,21 +28,24 @@ export class WelcomeStepperComponent implements OnInit {
   termsApproved = false;
   personalDataHandlingApproved = false;
   fetching = false;
-  userData: any;
-  userName: string;
 
   faAngleDoubleRight = faAngleDoubleRight;
   faAngleDoubleLeft = faAngleDoubleLeft;
-  tokenSub: Subscription;
+
+  firstName: string;
+  editorData: Object;
 
   constructor(
     private profileService: ProfileService,
-    private authService: AuthService
-  ) {}
+    public oidcSecurityService: OidcSecurityService
+  ) {
+    this.editorData = null;
+  }
 
   ngOnInit() {
-    const userData = this.authService.getUserData();
-    // this.userName = userData.name.split(' ')[0];
+    this.oidcSecurityService.userData$.pipe(take(1)).subscribe((data) => {
+      this.firstName = data.name.split(' ')[0];
+    });
   }
 
   increment() {
@@ -68,11 +72,39 @@ export class WelcomeStepperComponent implements OnInit {
     this.fetchData();
   }
 
+  checkProfileExists() {
+    this.profileService
+      .checkProfileExists()
+      .subscribe((data) => console.log(data));
+  }
+
   createProfile() {
     this.profileService.createProfile().subscribe((data) => console.log(data));
   }
 
   deleteProfile() {
     this.profileService.deleteProfile().subscribe((data) => console.log(data));
+  }
+
+  getOrcidData() {
+    this.profileService.getOrcidData().subscribe((data) => console.log(data));
+  }
+
+  getProfileData() {
+    this.editorData = null;
+    this.profileService.getProfileData().subscribe((data) => {
+      console.log(data);
+      this.editorData = data;
+    });
+  }
+
+  patchProfileDataSingle(item) {
+    let patchItem = {
+      id: item.id,
+      show: !item.show,
+    };
+    this.profileService
+      .patchProfileDataSingle(patchItem)
+      .subscribe((data) => console.log(data));
   }
 }

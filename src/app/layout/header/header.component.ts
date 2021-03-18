@@ -18,12 +18,10 @@ import {
   Renderer2,
   ViewEncapsulation,
   HostListener,
-  EventEmitter,
-  Output,
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { ResizeService } from 'src/app/shared/services/resize.service';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { WINDOW } from 'src/app/shared/services/window.service';
 import { isPlatformBrowser } from '@angular/common';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
@@ -39,7 +37,8 @@ import { BetaInfoComponent } from '../beta-info/beta-info.component';
 import { PrivacyService } from 'src/app/portal/services/privacy.service';
 import { ContentDataService } from 'src/app/portal/services/content-data.service';
 import { AppSettingsService } from 'src/app/shared/services/app-settings.service';
-import { AuthService } from 'src/app/mydata/services/auth.service';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
@@ -54,7 +53,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild('start', { static: false }) start: ElementRef;
   @ViewChild('overlay', { static: false }) overlay: ElementRef;
   @ViewChildren('navLink') navLink: any;
-  @Output() emitClick: EventEmitter<any> = new EventEmitter();
 
   navbarOpen = false;
   hideOverflow = true;
@@ -93,6 +91,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   pageDataSub: Subscription;
 
   appSettings: object;
+  isAuthenticated: Observable<boolean>;
+  loggedIn: boolean;
 
   constructor(
     private resizeService: ResizeService,
@@ -109,12 +109,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private privacyService: PrivacyService,
     private appSettingsService: AppSettingsService,
-    private authService: AuthService
+    private oidcSecurityService: OidcSecurityService
   ) {
     this.lang = localeId;
     this.currentLang = this.getLang(this.lang);
     this.routeEvent(router);
     this.widthFlag = false;
+    this.isAuthenticated = this.oidcSecurityService.isAuthenticated$;
   }
 
   // Get current url
@@ -153,9 +154,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
         });
         this.currentRoute = e.urlAfterRedirects.split('#')[0];
 
+        // Set header items based on base url
         this.appSettings = this.currentRoute.includes('/mydata')
           ? this.appSettingsService.myDataSettings
           : this.appSettingsService.portalSettings;
+
+        // Login / logout link
+        // Click functionality is handled in handleClick method
+        this.isAuthenticated.pipe(take(1)).subscribe((status) => {
+          this.loggedIn = status;
+          this.appSettingsService.myDataSettings.navItems[0].label = status
+            ? 'Kirjaudu ulos'
+            : 'Kirjaudu sisään';
+        });
       }
       // Check if consent has been chosen & set variable. This is used in linking between language versions
       if (isPlatformBrowser(this.platformId)) {
@@ -262,7 +273,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     // Set the overlay lower so skip links dont mess up overlay
     if (this.navbarOpen) {
       setTimeout(() => {
-        // tslint:disable-next-line: no-unused-expression
         this.overlay &&
           this.renderer.setStyle(this.overlay?.nativeElement, 'top', '350px');
       }, 500);
@@ -299,15 +309,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     return current;
   }
 
-  // Navigation links can fire methods on parent components
-  emitToParent(method) {
-    this.emitClick.emit(method);
-  }
-
   handleLinkClick(item) {
     if (this.navbarOpen) this.toggleNavbar();
 
     if (item.loginProcess) {
+      this.loggedIn
+        ? this.oidcSecurityService.logoff()
+        : this.oidcSecurityService.authorize();
     }
   }
 
