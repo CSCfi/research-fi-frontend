@@ -46,7 +46,11 @@ const routes = [
 app.use(bodyParser.json());
 app.use(compression());
 app.use(helmet());
-// app.use(helmet.referrerPolicy({ policy: 'same-origin' }));
+app.use(
+  helmet({
+    referrerPolicy: { policy: 'same-origin' },
+  })
+);
 app.use(
   featurePolicy({
     features: {
@@ -54,13 +58,6 @@ app.use(
       payment: ["'none'"],
       syncXhr: ["'none'"],
     },
-  })
-);
-
-// This disables the `contentSecurityPolicy` middleware but keeps the rest.
-app.use(
-  helmet({
-    contentSecurityPolicy: false,
   })
 );
 
@@ -81,77 +78,75 @@ const getAppConfig = new Promise((resolve, reject) => {
   );
 });
 
-// getAppConfig.then((data: any) => {
-//   app.use(
-//     helmet({
-//       contentSecurityPolicy: {
-//         directives: {
-//           defaultSrc: [
-//             "'self'",
-//             'ws://localhost:4200',
-//             'ws://localhost:5003',
-//             'http://localhost:*',
-//             'http://*.csc.fi:*',
-//             'https://*.csc.fi:*',
-//             'http://*.rahtiapp.fi:*',
-//             'https://*.rahtiapp.fi:*',
-//             'http://*.tiedejatutkimus.fi:*',
-//             'https://*.tiedejatutkimus.fi:*',
-//             'http://*.forskning.fi:*',
-//             'https://*.forskning.fi:*',
-//             'http://*.research.fi:*',
-//             'https://*.research.fi:*',
-//             'https://doi.org:*',
-//             'https://data.crossref.org:*',
-//             'https://app.powerbi.com:*',
-//             'https://fonts.googleapis.com:*',
-//             data.cmsUrl,
-//           ],
-//           styleSrc: [
-//             "'self'",
-//             "'unsafe-inline'",
-//             'https://*.twitter.com:*',
-//             'https://fonts.googleapis.com:*',
-//             'https://*.twimg.com:*',
-//           ],
-//           scriptSrc: [
-//             "'self'",
-//             "'unsafe-inline'",
-//             "'unsafe-eval'",
-//             'https://*.csc.fi:*',
-//             'https://*.twitter.com:*',
-//             'https://cdn.syndication.twimg.com:*',
-//           ],
-//           frameSrc: [
-//             'https://app.powerbi.com:*',
-//             'https://rihmatomo-analytics.csc.fi:*',
-//             'https://*.twitter.com:*',
-//           ],
-//           fontSrc: ["'self'", 'fonts.googleapis.com:*', 'fonts.gstatic.com:*'],
-//           imgSrc: [
-//             "'self'",
-//             'ws://localhost:4200',
-//             'ws://localhost:5003',
-//             'http://localhost:*',
-//             'https://apps.utu.fi:*',
-//             'https://tt.eduuni.fi:*',
-//             'https://www.maanmittauslaitos.fi:*',
-//             'https://rihmatomo-analytics.csc.fi:*',
-//             'https://wiki.eduuni.fi:*',
-//             'https://www.hamk.fi:*',
-//             'https://mediapankki.tuni.fi:*',
-//             'https://www.turkuamk.fi:*',
-//             'https://*.twitter.com:*',
-//             'https://*.twimg.com:*',
-//             'https://*.w3.org:*',
-//             'data:',
-//             data.cmsUrl,
-//           ],
-//         },
-//       },
-//     })
-//   );
-// });
+getAppConfig.then((data: any) => {
+  app.use(
+    helmet.contentSecurityPolicy({
+      directives: {
+        defaultSrc: [
+          "'self'",
+          'ws://localhost:4200',
+          'ws://localhost:5003',
+          'http://localhost:*',
+          'http://*.csc.fi:*',
+          'https://*.csc.fi:*',
+          'http://*.rahtiapp.fi:*',
+          'https://*.rahtiapp.fi:*',
+          'http://*.tiedejatutkimus.fi:*',
+          'https://*.tiedejatutkimus.fi:*',
+          'http://*.forskning.fi:*',
+          'https://*.forskning.fi:*',
+          'http://*.research.fi:*',
+          'https://*.research.fi:*',
+          'https://doi.org:*',
+          'https://data.crossref.org:*',
+          'https://app.powerbi.com:*',
+          'https://fonts.googleapis.com:*',
+          data.cmsUrl,
+        ],
+        styleSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          'https://*.twitter.com:*',
+          'https://fonts.googleapis.com:*',
+          'https://*.twimg.com:*',
+        ],
+        scriptSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          "'unsafe-eval'",
+          'https://*.csc.fi:*',
+          'https://*.twitter.com:*',
+          'https://cdn.syndication.twimg.com:*',
+        ],
+        frameSrc: [
+          'https://app.powerbi.com:*',
+          'https://rihmatomo-analytics.csc.fi:*',
+          'https://*.twitter.com:*',
+        ],
+        fontSrc: ["'self'", 'fonts.googleapis.com:*', 'fonts.gstatic.com:*'],
+        imgSrc: [
+          "'self'",
+          'ws://localhost:4200',
+          'ws://localhost:5003',
+          'http://localhost:*',
+          'https://apps.utu.fi:*',
+          'https://tt.eduuni.fi:*',
+          'https://www.maanmittauslaitos.fi:*',
+          'https://rihmatomo-analytics.csc.fi:*',
+          'https://wiki.eduuni.fi:*',
+          'https://www.hamk.fi:*',
+          'https://mediapankki.tuni.fi:*',
+          'https://www.turkuamk.fi:*',
+          'https://*.twitter.com:*',
+          'https://*.twimg.com:*',
+          'https://*.w3.org:*',
+          'data:',
+          data.cmsUrl,
+        ],
+      },
+    })
+  );
+});
 
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
 // We have one configuration per locale and use designated server file for matching route.
