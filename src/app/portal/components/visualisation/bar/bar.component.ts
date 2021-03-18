@@ -228,16 +228,17 @@ export class BarComponent implements OnInit, OnChanges {
             this.innerHeight - this.y(d.doc_count / (percentage ? totalSum : 1))
         ) // Divide by total sum to get percentage, otherwise keep original
         .attr('width', (_) => this.x.bandwidth())
-        .on('mouseenter', (d, i, n: any) =>
-          this.showInfo(
-            d,
-            i,
-            n,
-            color,
-            percentage ? (d.doc_count / totalSum).toFixed(1) + '%' : undefined
-          )
-        ) // Pass percentage if selected
-        .on('mouseout', (d, i, n: any) => this.hideInfo(d, i, n))
+        // .on('mouseenter', (d, i, n: any) =>
+        //   this.showInfo(
+        //     d,
+        //     i,
+        //     n,
+        //     color,
+        //     percentage ? (d.doc_count / totalSum).toFixed(1) + '%' : undefined
+        //   )
+        // )
+        // Pass percentage if selected
+        // .on('mouseout', (d, i, n: any) => this.hideInfo(d, i, n))
         .on('click', (d) => this.onClick(d))
         .style('cursor', (d) =>
           this.categoryObject.filter &&
