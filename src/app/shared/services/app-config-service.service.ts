@@ -74,6 +74,14 @@ export class AppConfigService {
    *  MyData configurations
    */
 
+  // Profile API Url
+  get profileApiUrl() {
+    if (!this.appConfig) {
+      throw Error('Config file not loaded!');
+    }
+    return this.appConfig.profileApiUrl;
+  }
+
   // Auth config
   // get myDataAuthConfig() {
   //   if (!this.appConfig) {
@@ -82,11 +90,19 @@ export class AppConfigService {
   //   return this.appConfig.myData.authConfig;
   // }
 
-  // API Url
-  get myDataApiUrl() {
-    if (!this.appConfig) {
-      throw Error('Config file not loaded!');
-    }
-    return this.appConfig.myData.apiUrl;
-  }
+  // Auth config
+  // get myDataAuthConfig() {
+  //   if (!this.appConfig) {
+  //     throw Error('Config file not loaded!');
+  //   }
+  //   return this.appConfig.myData.authConfig;
+  // }
+
+  // // API Url
+  // get myDataApiUrl() {
+  //   if (!this.appConfig) {
+  //     throw Error('Config file not loaded!');
+  //   }
+  //   return this.appConfig.myData.apiUrl;
+  // }
 }

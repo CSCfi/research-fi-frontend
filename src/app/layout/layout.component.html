@@ -11,7 +11,7 @@
 
   <div
     class="row justify-content-center main-loader"
-    *ngIf="loading || (authInitialized | async); else content"
+    *ngIf="loading; else content"
   >
     <div class="col-auto align-self-center">
       <mat-spinner
