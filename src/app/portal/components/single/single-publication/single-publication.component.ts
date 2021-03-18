@@ -27,7 +27,7 @@ import { DOCUMENT } from '@angular/common';
 import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { faQuoteRight, faCopy } from '@fortawesome/free-solid-svg-icons';
 import { HttpHeaders } from '@angular/common/http';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { Search } from 'src/app/portal/models/search.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -367,52 +367,50 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   }
 
   getData(id: string) {
-    this.singleService
-      .getSinglePublication(id)
-      .subscribe(
-        (responseData) => {
-          this.responseData = responseData;
+    this.singleService.getSinglePublication(id).subscribe(
+      (responseData) => {
+        this.responseData = responseData;
 
-          // Reset authors & organizations on new result
-          this.authorAndOrganization = [];
-          if (this.responseData.publications[0]) {
-            switch (this.localeId) {
-              case 'fi': {
-                this.setTitle(
-                  this.responseData.publications[0].title +
-                    ' - Tiedejatutkimus.fi'
-                );
-                break;
-              }
-              case 'en': {
-                this.setTitle(
-                  this.responseData.publications[0].title + ' - Research.fi'
-                );
-                break;
-              }
-              case 'sv': {
-                this.setTitle(
-                  this.responseData.publications[0].title + ' - Forskning.fi'
-                );
-                break;
-              }
+        // Reset authors & organizations on new result
+        this.authorAndOrganization = [];
+        if (this.responseData.publications[0]) {
+          switch (this.localeId) {
+            case 'fi': {
+              this.setTitle(
+                this.responseData.publications[0].title +
+                  ' - Tiedejatutkimus.fi'
+              );
+              break;
             }
-            const titleString = this.titleService.getTitle();
-            this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
-            this.utilityService.addMeta(
-              titleString,
-              this.metaTags['description' + this.currentLocale],
-              this.commonTags['imgAlt' + this.currentLocale]
-            );
-            // juFoCode is used for exact search
-            this.juFoCode = this.responseData.publications[0].jufoCode;
-            this.shapeData();
-            this.filterData();
-            this.checkDoi();
+            case 'en': {
+              this.setTitle(
+                this.responseData.publications[0].title + ' - Research.fi'
+              );
+              break;
+            }
+            case 'sv': {
+              this.setTitle(
+                this.responseData.publications[0].title + ' - Forskning.fi'
+              );
+              break;
+            }
           }
-        },
-        (error) => (this.errorMessage = error as any)
-      );
+          const titleString = this.titleService.getTitle();
+          this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
+          this.utilityService.addMeta(
+            titleString,
+            this.metaTags['description' + this.currentLocale],
+            this.commonTags['imgAlt' + this.currentLocale]
+          );
+          // juFoCode is used for exact search
+          this.juFoCode = this.responseData.publications[0].jufoCode;
+          this.shapeData();
+          this.filterData();
+          this.checkDoi();
+        }
+      },
+      (error) => (this.errorMessage = error as any)
+    );
   }
 
   checkDoi() {

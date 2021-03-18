@@ -6,7 +6,7 @@ import {
   PLATFORM_ID,
   Inject,
 } from '@angular/core';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Subscription } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DataService } from 'src/app/portal/services/data.service';

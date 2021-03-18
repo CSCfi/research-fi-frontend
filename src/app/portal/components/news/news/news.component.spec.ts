@@ -8,7 +8,7 @@ import { ActivatedRouteStub } from 'src/testing/activated-route-stub';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AppConfigService } from 'src/app/shared/services/app-config-service.service';
 import { AppConfigServiceMock } from 'src/app/portal/services/search.service.spec';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('NewsComponent', () => {

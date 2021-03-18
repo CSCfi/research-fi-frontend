@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-  <file source-language="fi" datatype="plaintext" original="ng2.template" target-language="en">
+  <file source-language="fi" datatype="plaintext" original="ng2.template" target-language="sv">
     <body>
       <trans-unit id="404" datatype="html">
         <source>404 - Virheellinen osoite</source>

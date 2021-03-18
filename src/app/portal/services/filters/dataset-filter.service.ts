@@ -1,6 +1,6 @@
 import { isNgTemplate } from '@angular/compiler';
 import { Injectable } from '@angular/core';
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 import { StaticDataService } from '../static-data.service';
 import { FilterMethodService } from './filter-method.service';
 
@@ -88,22 +88,27 @@ export class DatasetFilterService {
 
   singleFilterData = [];
 
-  constructor(private filterMethodService: FilterMethodService, private staticDataService: StaticDataService) {}
+  constructor(
+    private filterMethodService: FilterMethodService,
+    private staticDataService: StaticDataService
+  ) {}
 
   shapeData(data) {
     const source = data.aggregations;
     source.year.buckets = this.mapYear(source.year.years.buckets);
     source.organization = this.organization(source.organization);
-    source.dataSource.buckets = this.filterEmptyKeys(source.dataSource.dataSources.buckets);
+    source.dataSource.buckets = this.filterEmptyKeys(
+      source.dataSource.dataSources.buckets
+    );
     source.lang.buckets = this.lang(source.lang.langs.buckets);
-    
+
     source.field.buckets = this.minorField(
-      source.field.fields.buckets.filter(
-        (item) => item.doc_count > 0
-      )
+      source.field.fields.buckets.filter((item) => item.doc_count > 0)
     );
 
-    source.accessType.buckets = this.accessType(source.accessType.accessTypes.buckets);
+    source.accessType.buckets = this.accessType(
+      source.accessType.accessTypes.buckets
+    );
     source.shaped = true;
     return source;
   }
@@ -163,7 +168,7 @@ export class DatasetFilterService {
   }
 
   accessType(data) {
-    data.forEach(type => {
+    data.forEach((type) => {
       switch (type.key) {
         case 'open': {
           type.label = $localize`:@@datasetAccessOpen:Avoin`;
@@ -186,25 +191,25 @@ export class DatasetFilterService {
           break;
         }
       }
-    })
+    });
     return data;
   }
 
   lang(data) {
-    const langs = data.map(lang => {
+    const langs = data.map((lang) => {
       return {
-        label: lang.language.buckets[0]?.key !== 'undefined'
-          ? lang.language.buckets[0]?.key
-          : $localize`:@@notKnown:Ei tiedossa`,
+        label:
+          lang.language.buckets[0]?.key !== 'undefined'
+            ? lang.language.buckets[0]?.key
+            : $localize`:@@notKnown:Ei tiedossa`,
         key: lang.key.toLowerCase(),
-        doc_count: lang.doc_count
-      }
+        doc_count: lang.doc_count,
+      };
     });
     // Move no language content to the end
-    const noLangIdx = langs.findIndex(x => x.key === 'zxx');
+    const noLangIdx = langs.findIndex((x) => x.key === 'zxx');
     langs.push(...langs.splice(noLangIdx, 1));
 
-    return langs.filter(lang => lang.key !== ' '); 
+    return langs.filter((lang) => lang.key !== ' ');
   }
-
 }

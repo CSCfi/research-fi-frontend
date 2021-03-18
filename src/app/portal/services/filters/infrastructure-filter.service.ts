@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Injectable } from '@angular/core';
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 
 @Injectable({
   providedIn: 'root',
