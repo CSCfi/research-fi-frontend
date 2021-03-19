@@ -75,12 +75,12 @@ export class AppConfigService {
    */
 
   // Auth config
-  get myDataAuthConfig() {
-    if (!this.appConfig) {
-      throw Error('Config file not loaded!');
-    }
-    return this.appConfig.myData.authConfig;
-  }
+  // get myDataAuthConfig() {
+  //   if (!this.appConfig) {
+  //     throw Error('Config file not loaded!');
+  //   }
+  //   return this.appConfig.myData.authConfig;
+  // }
 
   // API Url
   get myDataApiUrl() {

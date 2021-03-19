@@ -166,6 +166,7 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
       node.id = 'matomo-consent';
       node.type = 'text/javascript';
       node.innerHTML = `var _paq = window._paq || [];
+      _paq.push(['forgetUserOptOut']);
       _paq.push(['rememberConsentGiven']);
       `;
       this.document.getElementsByTagName('head')[0].appendChild(node);
@@ -174,6 +175,7 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
     this.snackBar.open($localize`:@@cookiesApproved:Evästeet hyväksytty`);
   }
 
+  // Not in use, will leave if needed in future
   setTwitterCookie() {
     const node = this.document.createElement('script');
     node.id = 'twitter-cookie';

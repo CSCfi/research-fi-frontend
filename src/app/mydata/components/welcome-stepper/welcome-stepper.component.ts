@@ -41,7 +41,7 @@ export class WelcomeStepperComponent implements OnInit {
 
   ngOnInit() {
     const userData = this.authService.getUserData();
-    this.userName = userData.name.split(' ')[0];
+    // this.userName = userData.name.split(' ')[0];
   }
 
   increment() {

@@ -9,8 +9,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { OAuthModule } from 'angular-oauth2-oidc';
-
 import { MyDataRoutingModule } from './mydata-routing.module';
 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -41,12 +39,6 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     CommonModule,
     FormsModule,
-    OAuthModule.forRoot({
-      resourceServer: {
-        allowedUrls: [],
-        sendAccessToken: true,
-      },
-    }),
     MyDataRoutingModule,
     MatProgressSpinnerModule,
     MatCheckboxModule,
