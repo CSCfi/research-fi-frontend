@@ -4,16 +4,31 @@
  :license: MIT -->
 
 <div class="mobile mx-auto" id="navbar-toggle" [class.d-block]="showButton">
-  <app-secondary-button [content]="tabData === 'news' ? filterNewsHeader : filterSearchHeader" [icon]="faSlidersH" [noSmIcon]="true" [big]="true" (click)="openModal(filterModal)" (keydown.enter)="openModal(filterModal)" #openFilters tabindex="-1"></app-secondary-button>
+  <app-secondary-button
+    [content]="tabData === 'news' ? filterNewsHeader : filterSearchHeader"
+    [icon]="faSlidersH"
+    [noSmIcon]="true"
+    [big]="true"
+    (click)="openModal(filterModal)"
+    (keydown.enter)="openModal(filterModal)"
+    #openFilters
+    tabindex="-1"
+  ></app-secondary-button>
 </div>
 
 <ng-template #filterModal>
   <div cdkTrapFocus>
     <div class="modal-header">
       <h5 class="modal-title">
-        <fa-icon class="filter-icon" [icon]="faSlidersH"></fa-icon>{{ tabData === 'news' ? filterNewsHeader : filterSearchHeader }}
+        <fa-icon class="filter-icon" [icon]="faSlidersH"></fa-icon
+        >{{ tabData === 'news' ? filterNewsHeader : filterSearchHeader }}
       </h5>
-      <app-close-button (click)="closeModal()" (keydown.enter)="closeModal()" autofocus tabindex="-1"></app-close-button>
+      <app-close-button
+        (click)="closeModal()"
+        (keydown.enter)="closeModal()"
+        autofocus
+        tabindex="-1"
+      ></app-close-button>
     </div>
     <div class="modal-body">
       <ng-container *ngTemplateOutlet="filters"></ng-container>
@@ -23,18 +38,33 @@
 
 <!-- showButton enables mobile behaviour on desktop -->
 <ng-container *ngIf="!mobile && !showButton">
-  <mat-spinner *ngIf="!responseData" i18n-aria-label="@@loading" aria-label="Ladataan"></mat-spinner>
+  <mat-spinner
+    *ngIf="!responseData"
+    i18n-aria-label="@@loading"
+    aria-label="Ladataan"
+  ></mat-spinner>
   <ng-container *ngTemplateOutlet="filters"></ng-container>
 </ng-container>
 
 <ng-template #filters>
   <div class="filter-sidebar" *ngIf="responseData">
     <h3 class="header" *ngIf="!mobile && !showButton">
-      <fa-icon class="filter-icon" [icon]="faSlidersH"></fa-icon>{{ tabData === 'news' ? filterNewsHeader : filterSearchHeader }}
+      <fa-icon class="filter-icon" [icon]="faSlidersH"></fa-icon
+      >{{ tabData === 'news' ? filterNewsHeader : filterSearchHeader }}
     </h3>
     <div class="filter-wrapper">
-      <mat-expansion-panel *ngFor="let filter of currentFilter; let i = index" class="parent" [expanded]="filter.open" (opened)="setOpenStatus(filter.field)" (closed)="closePanel(filter.field)">
-        <mat-expansion-panel-header expandedHeight="{{ panelHeight }}" collapsedHeight="{{ panelHeight }}" [ngClass]="filter.hasSubFields ? 'has-children' : 'single'">
+      <mat-expansion-panel
+        *ngFor="let filter of currentFilter; let i = index"
+        class="parent"
+        [expanded]="filter.open"
+        (opened)="setOpenStatus(filter.field)"
+        (closed)="closePanel(filter.field)"
+      >
+        <mat-expansion-panel-header
+          expandedHeight="{{ panelHeight }}"
+          collapsedHeight="{{ panelHeight }}"
+          [ngClass]="filter.hasSubFields ? 'has-children' : 'single'"
+        >
           <mat-panel-title>
             <div class="row d-flex justify-content-between">
               <!-- Show / hide sub filters -->
@@ -55,7 +85,15 @@
                   <ng-template #tooltipTemplate>
                     <div [innerHtml]="filter?.tooltip"></div>
                   </ng-template>
-                  <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                  <span
+                    [tooltip]="tooltipTemplate"
+                    tabindex="0"
+                    triggers="focus keydown"
+                    placement="top"
+                    (mouseenter)="utilityService.tooltipMouseenter(elem)"
+                    (keydown)="utilityService.tooltipKeydown(elem, $event)"
+                    #elem
+                  >
                     <fa-icon class="info-icon" icon="info-circle"></fa-icon>
                   </span>
                 </ng-container>
@@ -63,8 +101,20 @@
                   <ng-template #tooltipTemplate>
                     <div [innerHtml]="filter?.errorTooltip"></div>
                   </ng-template>
-                  <span class="ml-2" [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
-                    <fa-icon class="info-icon error-color" icon="info-circle"></fa-icon>
+                  <span
+                    class="ml-2"
+                    [tooltip]="tooltipTemplate"
+                    tabindex="0"
+                    triggers="focus keydown"
+                    placement="top"
+                    (mouseenter)="utilityService.tooltipMouseenter(elem)"
+                    (keydown)="utilityService.tooltipKeydown(elem, $event)"
+                    #elem
+                  >
+                    <fa-icon
+                      class="info-icon error-color"
+                      icon="info-circle"
+                    ></fa-icon>
                   </span>
                 </ng-container>
               </div>
@@ -79,11 +129,19 @@
         <!-- Co publications toggle -->
         <div class="row" *ngIf="filter.relatedPublications">
           <div class="col py-3">
-            <mat-slide-toggle class="slider" (change)="selectionChange('coPublication', true)" (keydown.enter)="selectionChange('coPublication', true)" [labelPosition]="'before'" [checked]="
+            <mat-slide-toggle
+              class="slider"
+              (change)="selectionChange('coPublication', true)"
+              (keydown.enter)="selectionChange('coPublication', true)"
+              [labelPosition]="'before'"
+              [checked]="
                 (activeFilters ? activeFilters.coPublication?.length : 0) > 0
-              ">
+              "
+            >
               <strong>
-                <ng-container i18n="@@filterCoPublications">Näytä ainoastaan yhteisjulkaisut</ng-container>
+                <ng-container i18n="@@filterCoPublications"
+                  >Näytä ainoastaan yhteisjulkaisut</ng-container
+                >
               </strong>
             </mat-slide-toggle>
             <div class="pl-2 d-inline-block">
@@ -97,7 +155,15 @@
                   yhteisjulkaisut.
                 </div>
               </ng-template>
-              <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+              <span
+                [tooltip]="tooltipTemplate"
+                tabindex="0"
+                triggers="focus keydown"
+                placement="top"
+                (mouseenter)="utilityService.tooltipMouseenter(elem)"
+                (keydown)="utilityService.tooltipKeydown(elem, $event)"
+                #elem
+              >
                 <fa-icon class="info-icon" icon="info-circle"></fa-icon>
               </span>
             </div>
@@ -105,17 +171,32 @@
         </div>
         <!-- Search in Filter -->
         <ng-container *ngIf="!filter.hasSubFields">
-          <label for="filter-query-{{ i }}" class="sr-only" i18n="SR Search@@SRSearch">Hae</label>
-          <input [id]="'filter-query-' + i" #filterSearch *ngIf="
-              (responseData.aggregations[filter.field]?.buckets?.length > 5 ||
+          <label
+            for="filter-query-{{ i }}"
+            class="sr-only"
+            i18n="SR Search@@SRSearch"
+            >Hae</label
+          >
+          <input
+            [id]="'filter-query-' + i"
+            #filterSearch
+            *ngIf="
+              (responseData.aggregations[filter.field]?.buckets?.length > 7 ||
                 responseData.aggregations[filter.field]?.original?.length >
-                  5) &&
+                  7) &&
               !filter.hideSearch
-            " i18n-placeholder placeholder="Hae" autocomplete="off" (keyup)="filterInput($event, filter.field)" class="filter-search" [value]="
+            "
+            i18n-placeholder
+            placeholder="Hae"
+            autocomplete="off"
+            (keyup)="filterInput($event, filter.field)"
+            class="filter-search"
+            [value]="
               responseData.aggregations[filter.field]?.filterTerm
                 ? responseData.aggregations[filter.field]?.filterTerm
                 : ''
-            " />
+            "
+          />
           <!-- Time frame for year filter -->
           <ng-container *ngIf="filter.hideSearch">
             <div class="row">
@@ -126,15 +207,28 @@
             <div class="row">
               <div class="col-4">
                 <mat-form-field>
-                  <mat-label i18n="Year start filter@@yearRangeStart">Alku</mat-label>
-                  <mat-select (selectionChange)="
+                  <mat-label i18n="Year start filter@@yearRangeStart"
+                    >Alku</mat-label
+                  >
+                  <mat-select
+                    (selectionChange)="
                       rangeChange($event, 'fromYear'); range($event, 'from')
-                    " [value]="activeFilters['fromYear']?.slice(1)">
-                    <mat-option i18n="
-                        Year range filter no selection@@yearRangeNoSelection">Ei valintaa</mat-option>
-                    <mat-option *ngFor="
+                    "
+                    [value]="activeFilters['fromYear']?.slice(1)"
+                  >
+                    <mat-option
+                      i18n="
+                        Year range filter no selection@@yearRangeNoSelection"
+                      >Ei valintaa</mat-option
+                    >
+                    <mat-option
+                      *ngFor="
                         let year of responseData.aggregations?.year?.buckets
-                      " [ngClass]="{ 'd-none': year.key >= toYear }" [value]="year.key">{{ year.key }}</mat-option>
+                      "
+                      [ngClass]="{ 'd-none': year.key >= toYear }"
+                      [value]="year.key"
+                      >{{ year.key }}</mat-option
+                    >
                   </mat-select>
                 </mat-form-field>
               </div>
@@ -143,15 +237,28 @@
               </div>
               <div class="col-4">
                 <mat-form-field>
-                  <mat-label i18n="Year end filter@@yearRangeEnd">Loppu</mat-label>
-                  <mat-select (selectionChange)="
+                  <mat-label i18n="Year end filter@@yearRangeEnd"
+                    >Loppu</mat-label
+                  >
+                  <mat-select
+                    (selectionChange)="
                       rangeChange($event, 'toYear'); range($event, 'to')
-                    " [value]="activeFilters['toYear']?.slice(1)">
-                    <mat-option i18n="
-                        Year range filter no selection@@yearRangeNoSelection">Ei valintaa</mat-option>
-                    <mat-option *ngFor="
+                    "
+                    [value]="activeFilters['toYear']?.slice(1)"
+                  >
+                    <mat-option
+                      i18n="
+                        Year range filter no selection@@yearRangeNoSelection"
+                      >Ei valintaa</mat-option
+                    >
+                    <mat-option
+                      *ngFor="
                         let year of responseData.aggregations?.year?.buckets
-                      " [ngClass]="{ 'd-none': year.key <= fromYear }" [value]="year.key">{{ year.key }}</mat-option>
+                      "
+                      [ngClass]="{ 'd-none': year.key <= fromYear }"
+                      [value]="year.key"
+                      >{{ year.key }}</mat-option
+                    >
                   </mat-select>
                 </mat-form-field>
               </div>
@@ -165,11 +272,16 @@
             </div>
           </ng-container>
           <!-- TODO: Change aria label field when content available -->
-          <mat-selection-list [attr.aria-label]="filter.field" (selectionChange)="
+          <mat-selection-list
+            [attr.aria-label]="filter.field"
+            (selectionChange)="
               selectionChange(filter.field, $event.option.value)
-            ">
+            "
+          >
             <!-- Options -->
-            <mat-list-option checkboxPosition="before" *ngFor="
+            <mat-list-option
+              checkboxPosition="before"
+              *ngFor="
                 let item of responseData.aggregations[
                   filter.field
                 ]?.buckets?.slice(
@@ -180,93 +292,163 @@
                 );
                 let j = index;
                 trackBy: trackByFn
-              " [value]="item.key" [selected]="
+              "
+              [value]="item.key"
+              [selected]="
                 activeFilters[filter.field] &&
                 activeFilters[filter.field].indexOf(item.key) > -1
-              ">
+              "
+            >
               <div class="row d-flex justify-content-around">
                 <div class="col-8 pr-0">
                   <span class="label pr-2">{{
                     item.label ? item.label : item.key
-                    }}</span>
+                  }}</span>
                 </div>
                 <div class="col-2 pr-0 text-right" *ngIf="item.tooltip">
                   <ng-template #tooltipTemplate>
                     <div [innerHtml]="item?.tooltip"></div>
                   </ng-template>
-                  <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                  <span
+                    [tooltip]="tooltipTemplate"
+                    tabindex="0"
+                    triggers="focus keydown"
+                    placement="top"
+                    (mouseenter)="utilityService.tooltipMouseenter(elem)"
+                    (keydown)="utilityService.tooltipKeydown(elem, $event)"
+                    #elem
+                  >
                     <fa-icon class="info-icon" icon="info-circle"></fa-icon>
                   </span>
                 </div>
                 <div class="col-2 count">
-                  <span class="amount" [innerHtml]="item.doc_count | thousandSeparator"></span>
+                  <span
+                    class="amount"
+                    [innerHtml]="item.doc_count | thousandSeparator"
+                  ></span>
                 </div>
               </div>
             </mat-list-option>
-            <div *ngIf="!responseData.aggregations[filter.field]?.buckets?.length" class="empty-filter-search" role="alert">
+            <div
+              *ngIf="!responseData.aggregations[filter.field]?.buckets?.length"
+              class="empty-filter-search"
+              role="alert"
+            >
               <ng-container i18n="@@noResults">Ei tuloksia.</ng-container><br />
-              <ng-container i18n="@@noResultsInfo">Hakutermissä voi olla kirjoitusvirhe, tai sitä vastaavaa
-                rajaustekijää ei ole tarjolla tässä osiossa.</ng-container>
+              <ng-container i18n="@@noResultsInfo"
+                >Hakutermissä voi olla kirjoitusvirhe, tai sitä vastaavaa
+                rajaustekijää ei ole tarjolla tässä osiossa.</ng-container
+              >
             </div>
           </mat-selection-list>
           <!-- Shor more / Less -->
-          <div *ngIf="
+          <div
+            *ngIf="
               responseData.aggregations[filter.field]?.buckets?.length >
               defaultOpen
-            " class="button-wrapper">
-            <button [disabled]="
+            "
+            class="button-wrapper"
+          >
+            <button
+              [disabled]="
                 (showMoreCount[filter.field]
                   ? showMoreCount[filter.field].count
                   : defaultOpen) >=
                 responseData.aggregations[filter.field]?.buckets?.length
-              " mat-button class="show-more" (click)="showMore(filter.field)" i18n="@@showMore">
+              "
+              mat-button
+              class="show-more"
+              (click)="showMore(filter.field)"
+              i18n="@@showMore"
+            >
               Näytä enemmän
             </button>
-            <button [disabled]="
+            <button
+              [disabled]="
                 !(
                   showMoreCount[filter.field] &&
                   showMoreCount[filter.field].count > defaultOpen
                 )
-              " mat-button class="show-more" (click)="showLess(filter.field)" i18n="@@showLess">
+              "
+              mat-button
+              class="show-more"
+              (click)="showLess(filter.field)"
+              i18n="@@showLess"
+            >
               Näytä vähemmän
             </button>
           </div>
         </ng-container>
         <!-- Filters with subfields -->
         <div class="subFields" *ngIf="filter.hasSubFields">
-          <div *ngFor="
+          <div
+            *ngFor="
               let item of responseData.aggregations[filter.field]?.buckets;
               let k = index
-            ">
-            <mat-expansion-panel *ngIf="item.subData?.length > 0 || item.original?.length > 0" [expanded]="subPanel === item.key" (opened)="subPanel = item.key">
-              <mat-expansion-panel-header collapsedHeight="{{ panelHeight }}" expandedHeight="{{ panelHeight }}">
+            "
+          >
+            <mat-expansion-panel
+              *ngIf="item.subData?.length > 0 || item.original?.length > 0"
+              [expanded]="subPanel === item.key"
+              (opened)="subPanel = item.key"
+            >
+              <mat-expansion-panel-header
+                collapsedHeight="{{ panelHeight }}"
+                expandedHeight="{{ panelHeight }}"
+              >
                 <mat-panel-title>
                   <div class="row d-flex justify-content-between">
                     <div class="col col-10 label">{{ item.key }}</div>
-                    <!-- <div class="col col-1 amount">{{item.subData?.length}}</div> -->
                   </div>
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <!-- Search in filter -->
-              <label for="filter-query-{{ i }}{{ k }}" i18n="@@search" class="sr-only">Hae</label>
-              <input [id]="'filter-query-' + i + k" #filterSearch *ngIf="item.subData.length > 5 || item.original?.length > 5" i18n-placeholder placeholder="Hae" autocomplete="off" (keyup)="subFilterInput($event, filter.field, item.key)" class="filter-search" [value]="item.filterTerm ? item.filterTerm : ''" />
+              <label
+                for="filter-query-{{ i }}{{ k }}"
+                i18n="@@search"
+                class="sr-only"
+                >Hae</label
+              >
+              <input
+                [id]="'filter-query-' + i + k"
+                #filterSearch
+                *ngIf="item.subData.length > 7 || item.original?.length > 7"
+                i18n-placeholder
+                placeholder="Hae"
+                autocomplete="off"
+                (keyup)="subFilterInput($event, filter.field, item.key)"
+                class="filter-search"
+                [value]="item.filterTerm ? item.filterTerm : ''"
+              />
               <!-- TODO: Change aria label field when content available -->
               <mat-selection-list [attr.aria-label]="filter.field">
                 <!-- Select all -->
-                <mat-list-option *ngIf="item.subData?.length" checkboxPosition="before" (click)="selectAll(filter.field, item)" (keydown.enter)="selectAll(filter.field, item)" (keydown.space)="selectAll(filter.field, item)" [selected]="
+                <mat-list-option
+                  *ngIf="item.subData?.length"
+                  checkboxPosition="before"
+                  (click)="selectAll(filter.field, item)"
+                  (keydown.enter)="selectAll(filter.field, item)"
+                  (keydown.space)="selectAll(filter.field, item)"
+                  [selected]="
                     item
                       | filterItem
                         : (activeFilters ? activeFilters[filter.field] : '')
-                  " [id]="filter.field + 'all' | replaceSpace">
+                  "
+                  [id]="filter.field + 'all' | replaceSpace"
+                >
                   <div class="row d-flex justify-content-start">
                     <div class="col-9">
-                      <span class="font-weight-bold label" i18n="@@selectAll">Valitse kaikki</span>
+                      <span class="font-weight-bold label" i18n="@@selectAll"
+                        >Valitse kaikki</span
+                      >
                     </div>
                   </div>
                   <!-- <div class="col col-3 count align-self-center"><span class="amount" [innerHtml]="(item.subData | filterSum) | thousandSeparator"></span></div> -->
                 </mat-list-option>
                 <!-- Options -->
-                <mat-list-option checkboxPosition="before" *ngFor="
+                <mat-list-option
+                  checkboxPosition="before"
+                  *ngFor="
                     let field of item.subData.slice(
                       0,
                       showMoreCount[item.key]
@@ -274,40 +456,72 @@
                         : defaultOpen
                     );
                     trackBy: trackByFn
-                  " (click)="selectionChange(filter.field, field.key)" (keydown.enter)="selectionChange(filter.field, field.key)" (keydown.space)="selectionChange(filter.field, field.key)" [value]="field.key" [selected]="
+                  "
+                  (click)="selectionChange(filter.field, field.key)"
+                  (keydown.enter)="selectionChange(filter.field, field.key)"
+                  (keydown.space)="selectionChange(filter.field, field.key)"
+                  [value]="field.key"
+                  [selected]="
                     activeFilters[filter.field] &&
                     activeFilters[filter.field].indexOf(field.key) > -1
-                  " [id]="filter.field + field.key | replaceSpace">
+                  "
+                  [id]="filter.field + field.key | replaceSpace"
+                >
                   <div class="row d-flex justify-content-around">
                     <div class="col-9">
                       <span class="label">{{ field.label }}</span>
                     </div>
                     <div class="col-3 count align-self-center">
-                      <span class="amount" [innerHtml]="field.doc_count | thousandSeparator"></span>
+                      <span
+                        class="amount"
+                        [innerHtml]="field.doc_count | thousandSeparator"
+                      ></span>
                     </div>
                   </div>
                 </mat-list-option>
-                <div *ngIf="!item.subData.length" class="empty-filter-search" role="alert">
-                  <ng-container i18n="@@noResults">Ei tuloksia.</ng-container><br />
-                  <ng-container i18n="@@noResultsInfo">Hakutermissä voi olla kirjoitusvirhe, tai sitä vastaavaa
-                    rajaustekijää ei ole tarjolla tässä osiossa.</ng-container>
+                <div
+                  *ngIf="!item.subData.length"
+                  class="empty-filter-search"
+                  role="alert"
+                >
+                  <ng-container i18n="@@noResults">Ei tuloksia.</ng-container
+                  ><br />
+                  <ng-container i18n="@@noResultsInfo"
+                    >Hakutermissä voi olla kirjoitusvirhe, tai sitä vastaavaa
+                    rajaustekijää ei ole tarjolla tässä osiossa.</ng-container
+                  >
                 </div>
               </mat-selection-list>
               <!-- Shor more / Less -->
-              <div *ngIf="item.subData?.length > defaultOpen" class="button-wrapper">
-                <button [disabled]="
+              <div
+                *ngIf="item.subData?.length > defaultOpen"
+                class="button-wrapper"
+              >
+                <button
+                  [disabled]="
                     (showMoreCount[item.key]
                       ? showMoreCount[item.key].count
                       : defaultOpen) >= item.subData?.length
-                  " mat-button class="show-more" (click)="showMore(item.key)" i18n="@@showMore">
+                  "
+                  mat-button
+                  class="show-more"
+                  (click)="showMore(item.key)"
+                  i18n="@@showMore"
+                >
                   Näytä enemmän
                 </button>
-                <button [disabled]="
+                <button
+                  [disabled]="
                     !(
                       showMoreCount[item.key] &&
                       showMoreCount[item.key].count > defaultOpen
                     )
-                  " mat-button class="show-more" (click)="showLess(item.key)" i18n="@@showLess">
+                  "
+                  mat-button
+                  class="show-more"
+                  (click)="showLess(item.key)"
+                  i18n="@@showLess"
+                >
                   Näytä vähemmän
                 </button>
               </div>
@@ -315,13 +529,19 @@
           </div>
         </div>
         <!-- Add empty pading if there are no results -->
-        <div *ngIf="responseData.aggregations[filter.field]?.buckets?.length == 0" class="empty-pad"></div>
+        <div
+          *ngIf="responseData.aggregations[filter.field]?.buckets?.length == 0"
+          class="empty-pad"
+        ></div>
       </mat-expansion-panel>
       <!-- Items with single checkbox -->
       <div class="single-checkbox" *ngFor="let item of currentSingleFilter">
         <div class="row single">
           <div class="col">
-            <div class="row" *ngIf="responseData.aggregations[item.field]?.buckets?.length > 0" (click)="
+            <div
+              class="row"
+              *ngIf="responseData.aggregations[item.field]?.buckets?.length > 0"
+              (click)="
                 selectionChange(
                   item.field,
                   responseData.aggregations[item?.field]?.buckets[0]
@@ -330,7 +550,8 @@
                         .key_as_string
                     : responseData.aggregations[item?.field]?.buckets[0].key
                 )
-              " (keydown.enter)="
+              "
+              (keydown.enter)="
                 selectionChange(
                   item.field,
                   responseData.aggregations[item?.field]?.buckets[0]
@@ -339,14 +560,23 @@
                         .key_as_string
                     : responseData.aggregations[item?.field]?.buckets[0].key
                 )
-              ">
+              "
+            >
               <div class="col row">
                 <span class="label pr-2">{{ item?.label }}</span>
                 <ng-container *ngIf="item.tooltip">
                   <ng-template #tooltipTemplate>
                     <div [innerHtml]="item.tooltip"></div>
                   </ng-template>
-                  <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                  <span
+                    [tooltip]="tooltipTemplate"
+                    tabindex="0"
+                    triggers="focus keydown"
+                    placement="top"
+                    (mouseenter)="utilityService.tooltipMouseenter(elem)"
+                    (keydown)="utilityService.tooltipKeydown(elem, $event)"
+                    #elem
+                  >
                     <fa-icon class="info-icon" icon="info-circle"></fa-icon>
                   </span>
                 </ng-container>
@@ -356,11 +586,17 @@
                                 <fa-icon tabindex="0" [tooltip]="tooltipTemplate" placement="right" class="info-icon" icon="info-circle"></fa-icon>
                             </div> -->
             </div>
-            <div class="row slider d-flex justify-content-between" *ngIf="responseData.aggregations[item.field]?.buckets?.length > 0">
+            <div
+              class="row slider d-flex justify-content-between"
+              *ngIf="responseData.aggregations[item.field]?.buckets?.length > 0"
+            >
               <div class="col col-2">
-                <mat-slide-toggle class="slider" [checked]="
+                <mat-slide-toggle
+                  class="slider"
+                  [checked]="
                     (activeFilters ? activeFilters[item?.field]?.length : 0) > 0
-                  " (change)="
+                  "
+                  (change)="
                     selectionChange(
                       item.field,
                       responseData.aggregations[item?.field]?.buckets[0]
@@ -369,7 +605,8 @@
                             .key_as_string
                         : responseData.aggregations[item?.field]?.buckets[0].key
                     )
-                  " (keydown.enter)="
+                  "
+                  (keydown.enter)="
                     selectionChange(
                       item.field,
                       responseData.aggregations[item?.field]?.buckets[0]
@@ -378,14 +615,19 @@
                             .key_as_string
                         : responseData.aggregations[item?.field]?.buckets[0].key
                     )
-                  ">
+                  "
+                >
                 </mat-slide-toggle>
               </div>
               <div class="col col-3 count align-self-center">
-                <span class="amount" *ngIf="responseData.aggregations[item.field].buckets">{{
-                  responseData.aggregations[item.field]?.buckets[0]?.doc_count
-                  | thousandSeparator
-                  }}</span>
+                <span
+                  class="amount"
+                  *ngIf="responseData.aggregations[item.field].buckets"
+                  >{{
+                    responseData.aggregations[item.field]?.buckets[0]?.doc_count
+                      | thousandSeparator
+                  }}</span
+                >
               </div>
             </div>
           </div>
