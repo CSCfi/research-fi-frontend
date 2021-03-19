@@ -13,6 +13,8 @@ import { ResizeService } from 'src/app/shared/services/resize.service';
 import { WINDOW } from 'src/app/shared/services/window.service';
 import { Search } from 'src/app/portal/models/search.model';
 import {
+  faAngleRight,
+  faAngleLeft,
   faAngleDoubleRight,
   faAngleDoubleLeft,
 } from '@fortawesome/free-solid-svg-icons';
@@ -38,6 +40,8 @@ export class PaginationComponent implements OnInit {
   previousPage = $localize`:@@previousPage:Edellinen sivu`;
   nextPage = $localize`:@@nextPage:Seuraava sivu`;
 
+  faAngleRight = faAngleRight;
+  faAngleLeft = faAngleLeft;
   faAngleDoubleRight = faAngleDoubleRight;
   faAngleDoubleLeft = faAngleDoubleLeft;
 
@@ -117,7 +121,19 @@ export class PaginationComponent implements OnInit {
     this.navigate();
   }
 
-  onResize(size) {
+  goToFirstPage(pageSize) {
+    this.page = 1;
+    this.searchService.updatePageNumber(this.page, pageSize);
+    this.navigate();
+  }
+
+  goToLastPage(pageSize) {
+    this.page = this.getHighestPage(this.responseData.total, this.pageSize);
+    this.searchService.updatePageNumber(this.page, pageSize);
+    this.navigate();
+  }
+
+  onResize(size: { width: any; height?: number }) {
     const w = size.width;
     // Change if swap to or from desktop
     const changePages =

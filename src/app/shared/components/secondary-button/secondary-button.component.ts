@@ -9,6 +9,7 @@ import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 export class SecondaryButtonComponent implements OnInit {
   @Input() icon: IconDefinition;
   @Input() iconAfter: boolean;
+  @Input() iconOnly: boolean;
   @Input() noSmIcon: boolean;
   @Input() content: string;
   @Input() disabled: boolean;
