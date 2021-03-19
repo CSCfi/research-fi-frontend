@@ -14,6 +14,7 @@ import {
   Inject,
   TemplateRef,
   LOCALE_ID,
+  AfterViewInit,
 } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
@@ -41,7 +42,8 @@ import {
   templateUrl: './single-publication.component.html',
   styleUrls: ['./single-publication.component.scss'],
 })
-export class SinglePublicationComponent implements OnInit, OnDestroy {
+export class SinglePublicationComponent
+  implements OnInit, AfterViewInit, OnDestroy {
   public singleId: any;
   responseData: Search;
   searchTerm: string;
@@ -266,7 +268,9 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
   errorMessage = [];
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
+  @ViewChild('backToResultsLink') backToResultsLink: ElementRef;
   citeButton: any;
+  focusSub: Subscription;
   @ViewChild('citeButton', { read: ElementRef }) set ft(btn: ElementRef) {
     this.citeButton = btn;
   }
@@ -325,8 +329,20 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     this.searchTerm = this.searchService.searchTerm;
   }
 
+  ngAfterViewInit() {
+    // Focus with skip-links
+    this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(
+      (target) => {
+        if (target === 'main-link') {
+          this.backToResultsLink.nativeElement.focus();
+        }
+      }
+    );
+  }
+
   ngOnDestroy() {
     this.idSub?.unsubscribe();
+    this.focusSub?.unsubscribe();
     this.settingsService.related = false;
   }
 

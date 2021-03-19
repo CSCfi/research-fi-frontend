@@ -41,7 +41,6 @@ export class SingleDatasetComponent implements OnInit {
   showMore = $localize`:@@showMore:Näytä enemmän`;
   showLess = $localize`:@@showLess:Näytä vähemmän`;
 
-
   tab = 'datasets';
 
   infoFields = [
@@ -49,46 +48,71 @@ export class SingleDatasetComponent implements OnInit {
     { label: $localize`:@@yearOfPublication:Julkaisuvuosi`, field: 'year' },
     { label: $localize`:@@datasetType:Aineiston tyyppi`, field: 'type' },
   ];
-  
+
   authors = [
-    { label: $localize`:@@datasetAuthors:Tekijät`, field: 'authors', tooltip: $localize`:@@datasetAuthorsTooltip:Tutkimukseen tai aineiston tekemiseen osallistuneet henkilöt ja organisaatiot. ` },
-  ]
+    {
+      label: $localize`:@@datasetAuthors:Tekijät`,
+      field: 'authors',
+      tooltip: $localize`:@@datasetAuthorsTooltip:Tutkimukseen tai aineiston tekemiseen osallistuneet henkilöt ja organisaatiot. `,
+    },
+  ];
 
   project = [
-    { label: $localize`:@@datasetProject:Projekti`, field: 'project', tooltip: $localize`:@@datasetProjectTooltip:Projekti, jonka tuotoksena aineisto on luotu. ` },
-  ]
-  
+    {
+      label: $localize`:@@datasetProject:Projekti`,
+      field: 'project',
+      tooltip: $localize`:@@datasetProjectTooltip:Projekti, jonka tuotoksena aineisto on luotu. `,
+    },
+  ];
 
   otherInfoFields = [
-    { label: $localize`:@@fieldsOfScience:Tieteenalat`, field: 'fieldsOfScience', tooltip: $localize`:@@datasetFieldFilterTooltip:Tilastokeskuksen tieteenalaluokitus.` },
-    { label: $localize`:@@language:Kieli`, field: 'lang', tooltip: $localize`:@@datasetLangFilterTooltip:Aineistossa käytetty kieli.` },
-    { label: $localize`:@@datasetAccess:Saatavuus`, field: 'availability',
+    {
+      label: $localize`:@@fieldsOfScience:Tieteenalat`,
+      field: 'fieldsOfScience',
+      tooltip: $localize`:@@datasetFieldFilterTooltip:Tilastokeskuksen tieteenalaluokitus.`,
+    },
+    {
+      label: $localize`:@@language:Kieli`,
+      field: 'lang',
+      tooltip: $localize`:@@datasetLangFilterTooltip:Aineistossa käytetty kieli.`,
+    },
+    {
+      label: $localize`:@@datasetAccess:Saatavuus`,
+      field: 'availability',
       tooltip:
-      '<p><strong>' +
-      $localize`:@@datasetAccessOpen:Avoin` +
-      ': </strong>' +
-      $localize`:@@datasetAccessOpenTooltip:Aineisto on avoimesti saatavilla` +
-      '</p><p><strong>' +
-      $localize`:@@datasetAccessRestricted:Saatavuutta rajoitettu` +
-      ': </strong>' +
-      $localize`:@@datasetAccessRestrictedTooltip:Aineiston saatavuutta on rajoitettu. Katso rajoituksen tarkemmat tiedot aineiston lähteestä.` +
-      '</p><p><strong>' +
-      $localize`:@@datasetAccessLogin:Vaatii kirjautumisen` +
-      ': </strong>' +
-      $localize`:@@datasetAccessLoginTooltip:Pääsy aineistoon vaatii kirjautumisen Fairdata-palvelussa.` +
-      '</p><p><strong>' +
-      $localize`:@@datasetAccessPermit:Vaatii luvan` +
-      ': </strong>' +
-      $localize`:@@datasetAccessPermitTooltip:Pääsy aineistoon vaatii luvan hakemista Fairdata-palvelussa.` +
-      '</p><p><strong>' +
-      $localize`:@@datasetAccessEmbargo:Embargo` +
-      ': </strong>' +
-      $localize`:@@datasetAccessEmbargoTooltip:Embargo eli julkaisuviive määrittää ajankohdan, jolloin aineisto on saatavilla.` +
-      '</p>',
-     },
-    { label: $localize`:@@license:Lisenssi`, field: 'license', tooltip: $localize`:@@datasetLicenseTooltip:Lisenssi, joka määrittelee aineiston käyttöehdot.` },
+        '<p><strong>' +
+        $localize`:@@datasetAccessOpen:Avoin` +
+        ': </strong>' +
+        $localize`:@@datasetAccessOpenTooltip:Aineisto on avoimesti saatavilla` +
+        '</p><p><strong>' +
+        $localize`:@@datasetAccessRestricted:Saatavuutta rajoitettu` +
+        ': </strong>' +
+        $localize`:@@datasetAccessRestrictedTooltip:Aineiston saatavuutta on rajoitettu. Katso rajoituksen tarkemmat tiedot aineiston lähteestä.` +
+        '</p><p><strong>' +
+        $localize`:@@datasetAccessLogin:Vaatii kirjautumisen` +
+        ': </strong>' +
+        $localize`:@@datasetAccessLoginTooltip:Pääsy aineistoon vaatii kirjautumisen Fairdata-palvelussa.` +
+        '</p><p><strong>' +
+        $localize`:@@datasetAccessPermit:Vaatii luvan` +
+        ': </strong>' +
+        $localize`:@@datasetAccessPermitTooltip:Pääsy aineistoon vaatii luvan hakemista Fairdata-palvelussa.` +
+        '</p><p><strong>' +
+        $localize`:@@datasetAccessEmbargo:Embargo` +
+        ': </strong>' +
+        $localize`:@@datasetAccessEmbargoTooltip:Embargo eli julkaisuviive määrittää ajankohdan, jolloin aineisto on saatavilla.` +
+        '</p>',
+    },
+    {
+      label: $localize`:@@license:Lisenssi`,
+      field: 'license',
+      tooltip: $localize`:@@datasetLicenseTooltip:Lisenssi, joka määrittelee aineiston käyttöehdot.`,
+    },
     { label: $localize`:@@keywords:Avainsanat`, field: 'keywords' },
-    { label: $localize`:@@temporalCoverage:Ajallinen kattavuus`, field: 'coverage', tooltip: $localize`:@@datasetTemporalCoverageTooltip:Ajanjakso, jonka aineisto kattaa(esim. aikaväli jolloin havaintoja on tehty).` },
+    {
+      label: $localize`:@@temporalCoverage:Ajallinen kattavuus`,
+      field: 'coverage',
+      tooltip: $localize`:@@datasetTemporalCoverageTooltip:Ajanjakso, jonka aineisto kattaa(esim. aikaväli jolloin havaintoja on tehty).`,
+    },
   ];
 
   otherFields = [
@@ -129,6 +153,7 @@ export class SingleDatasetComponent implements OnInit {
 
   errorMessage = [];
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
+  @ViewChild('backToResultsLink') backToResultsLink: ElementRef;
   idSub: Subscription;
   expand: boolean;
   latestSubUnitYear: string;
@@ -136,6 +161,7 @@ export class SingleDatasetComponent implements OnInit {
   subUnitSlice = 10;
   currentLocale: string;
   tabData: any;
+  focusSub: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -170,8 +196,20 @@ export class SingleDatasetComponent implements OnInit {
     this.searchTerm = this.searchService.searchTerm;
   }
 
+  ngAfterViewInit() {
+    // Focus with skip-links
+    this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(
+      (target) => {
+        if (target === 'main-link') {
+          this.backToResultsLink.nativeElement.focus();
+        }
+      }
+    );
+  }
+
   ngOnDestroy() {
     this.idSub?.unsubscribe();
+    this.focusSub?.unsubscribe();
     this.settingsService.related = false;
   }
 
