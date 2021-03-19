@@ -42,7 +42,6 @@
     "@gorniv/ngx-transfer-http": "^2.2.9",
     "@nguniversal/common": "^11.2.1",
     "@nguniversal/express-engine": "^11.2.1",
-    "angular-oauth2-oidc": "^10.0.3",
     "array-flat-polyfill": "^1.0.1",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.6.0",
