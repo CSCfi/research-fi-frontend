@@ -266,6 +266,10 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
   errorMessage = [];
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
+  citeButton: any;
+  @ViewChild('citeButton', { read: ElementRef }) set ft(btn: ElementRef) {
+    this.citeButton = btn;
+  }
   idSub: Subscription;
   juFoCode: any;
 
@@ -336,6 +340,9 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
   closeModal() {
     this.modalRef.hide();
+    // Focus cite button
+    if (this.citeButton)
+      (this.citeButton.nativeElement.firstChild as HTMLElement).focus();
   }
 
   openSnackBar() {

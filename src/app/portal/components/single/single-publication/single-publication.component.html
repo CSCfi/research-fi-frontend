@@ -556,10 +556,7 @@
             </div>
           </ng-container>
           <div class="row content">
-            <h2
-              class="col-12 col-sm-6 col-lg-3 th"
-              i18n="@@otherInfo"
-            >
+            <h2 class="col-12 col-sm-6 col-lg-3 th" i18n="@@otherInfo">
               Muut tiedot
             </h2>
             <div
@@ -626,7 +623,7 @@
                         icon="info-circle"
                       ></fa-icon>
                     </span>
-                  </ng-container>  
+                  </ng-container>
                 </h3>
                 <p class="td" innerHtml="{{ item[row.field] }}"></p>
               </div>
@@ -638,7 +635,9 @@
                   {{ otherFields.slice(2)[i + 1].label }}
                   <ng-container *ngIf="otherFields.slice(2)[i + 1].tooltip">
                     <ng-template #tooltipTemplate>
-                      <div [innerHtml]="otherFields.slice(2)[i + 1].tooltip"></div>
+                      <div
+                        [innerHtml]="otherFields.slice(2)[i + 1].tooltip"
+                      ></div>
                     </ng-template>
                     <span
                       [tooltip]="tooltipTemplate"
@@ -654,7 +653,7 @@
                         icon="info-circle"
                       ></fa-icon>
                     </span>
-                  </ng-container>  
+                  </ng-container>
                 </h3>
                 <p
                   class="td"
@@ -787,6 +786,7 @@
           <div>
             <div class="reference">
               <app-secondary-button
+                #citeButton
                 (click)="openModal(citeModal)"
                 [content]="copyReferences"
                 [icon]="faQuoteRight"
