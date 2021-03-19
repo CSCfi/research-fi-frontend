@@ -6,7 +6,7 @@
 <div class="pagination-container" *ngFor="let response of [responseData]">
   <div class="pagination">
     <div class="buttons row" *ngIf="response?.total">
-      <div class="col-auto col-md-3 p-0">
+      <div class="col-auto col-md-3 col-xl-auto p-0">
         <div class="row">
           <!-- Results start -->
           <app-secondary-button
@@ -19,7 +19,7 @@
           </app-secondary-button>
 
           <app-secondary-button
-            class="col-auto col-md-3 p-0 pagination-button text-left text-lg-right"
+            class="col-auto p-0 pagination-button text-left text-lg-right"
             [class.pagination-link-active]="fromPage > 1"
             (click)="goToPage(page - 1, pageSize)"
             [disabled]="fromPage <= 1"
@@ -43,10 +43,10 @@
         </button>
       </div>
 
-      <div class="col-auto col-md-3 p-0">
-        <div class="row d-flex justify-content-end justify-content-md-start">
+      <div class="col-auto col-md-3 col-xl-auto p-0">
+        <div class="row d-flex justify-content-end">
           <app-secondary-button
-            class="col-auto col-md-3 pl-0 pagination-button text-right text-lg-left"
+            class="col-auto p-0 pr-3 pr-md-0 pagination-button text-right text-lg-left"
             [class.pagination-link-active]="
               fromPage + pageSize < response.total
             "
