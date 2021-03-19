@@ -20,7 +20,6 @@ import { SearchService } from '../../../services/search.service';
 import { Title } from '@angular/platform-browser';
 import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { Subscription } from 'rxjs';
-import { map } from 'rxjs/internal/operators/map';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { Search } from 'src/app/portal/models/search.model';
@@ -196,6 +195,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
 
   errorMessage = [];
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
+  @ViewChild('backToResultsLink') backToResultsLink: ElementRef;
   idSub: Subscription;
   expand: boolean;
   latestSubUnitYear: string;
@@ -203,6 +203,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   subUnitSlice = 10;
   currentLocale: string;
   tabData: any;
+  focusSub: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -237,8 +238,20 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     this.searchTerm = this.searchService.searchTerm;
   }
 
+  ngAfterViewInit() {
+    // Focus with skip-links
+    this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(
+      (target) => {
+        if (target === 'main-link') {
+          this.backToResultsLink.nativeElement.focus();
+        }
+      }
+    );
+  }
+
   ngOnDestroy() {
     this.idSub?.unsubscribe();
+    this.focusSub?.unsubscribe();
     this.settingsService.related = false;
   }
 
