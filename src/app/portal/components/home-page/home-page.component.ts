@@ -74,8 +74,6 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   focusSub: any;
   currentLocale: string;
   reviewDialogRef: MatDialogRef<ReviewComponent>;
-  consentStatus: string;
-  consentStatusSub: any;
   shortcutData: Shortcut[] = [];
 
   constructor(
@@ -145,17 +143,6 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
       this.onResize()
     );
 
-    // Get consent status
-    if (isPlatformBrowser(this.platformId)) {
-      this.consentStatusSub = this.privacyService.currentConsentStatus.subscribe(
-        (status) => {
-          this.consentStatus = localStorage.getItem('cookieConsent')
-            ? localStorage.getItem('cookieConsent')
-            : status;
-        }
-      );
-    }
-
     // Get shortcuts from Resolver
     this.shortcutData = this.route.snapshot.data.shortcuts;
   }
@@ -214,6 +201,5 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.resizeSub?.unsubscribe();
-    this.consentStatusSub?.unsubscribe();
   }
 }

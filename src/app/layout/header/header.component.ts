@@ -124,8 +124,24 @@ export class HeaderComponent implements OnInit, OnDestroy {
         // Prevent multiple anchors
         this.route.queryParams.subscribe((params) => {
           this.params = params;
-          // Remove consent param
+
+          // Set Matomo opt-out cookie if user has choosen to opt-out in another locale
           if (params.consent) {
+            if (
+              params.consent === 'declined' &&
+              isPlatformBrowser(this.platformId)
+            ) {
+              localStorage.setItem('cookieConsent', 'declined');
+              const node = this.document.createElement('script');
+              node.type = 'text/javascript';
+              node.innerHTML = `var _paq = window._paq || [];
+                _paq.push(['optUserOut']);
+                _paq.push(['forgetConsentGiven']);
+                `;
+              this.document.getElementsByTagName('head')[0].appendChild(node);
+            }
+
+            // Remove consent param
             this.router.navigate([], {
               queryParams: {
                 consent: null,
@@ -156,12 +172,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       if (!this.cds.pageDataFlag) {
         this.pageDataSub = this.cds.getPages().subscribe((data) => {
           this.cds.setPageData(data);
-          // sessionStorage.setItem('pageData', JSON.stringify(data));
         });
       }
-      // this.window.addEventListener('keydown', this.handleTabPressed);
-      // this.window.addEventListener('mousedown', this.handleMouseDown);
-      // this.window.addEventListener('keydown', this.escapeListener);
       this.resizeSub = this.resizeService.onResize$.subscribe((dims) =>
         this.onResize(dims)
       );
@@ -296,9 +308,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (this.navbarOpen) this.toggleNavbar();
 
     if (item.loginProcess) {
-      this.authService.hasValidTokens()
-        ? this.authService.logout()
-        : this.authService.login();
     }
   }
 

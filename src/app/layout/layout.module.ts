@@ -28,7 +28,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { ReviewComponent } from './review/review.component';
 import { BetaInfoComponent } from './beta-info/beta-info.component';
-import { CookieConsentComponent } from './cookie-consent/cookie-consent.component';
 import { WINDOW_PROVIDERS } from '../shared/services/window.service';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
@@ -40,7 +39,6 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
     ErrorModalComponent,
     ReviewComponent,
     BetaInfoComponent,
-    CookieConsentComponent,
   ],
   imports: [
     CommonModule,
