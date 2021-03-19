@@ -10,14 +10,31 @@
 
 <div class="wrapper" *ngIf="responseData" id="main-content">
   <!-- Breadcrumb -->
-  <app-breadcrumb [type]="'single'" [responseData]="responseData" [tab]="tab" [tabName]="tabData.label" [resultNameField]="'name'" [queryParams]="tabQueryParams"></app-breadcrumb>
+  <app-breadcrumb
+    [type]="'single'"
+    [responseData]="responseData"
+    [tab]="tab"
+    [tabName]="tabData.label"
+    [resultNameField]="'name'"
+    [queryParams]="tabQueryParams"
+  ></app-breadcrumb>
   <div class="row shared">
     <p class="back col-12">
-      <a routerLink="/results/{{ tab }}/{{ searchTerm }}" [queryParams]="tabQueryParams">&lt;
-        <ng-container i18n="@@backToResults">Takaisin hakutuloksiin</ng-container>
+      <a
+        #backToResultsLink
+        routerLink="/results/{{ tab }}/{{ searchTerm }}"
+        [queryParams]="tabQueryParams"
+        >&lt;
+        <ng-container i18n="@@backToResults"
+          >Takaisin hakutuloksiin</ng-container
+        >
       </a>
     </p>
-    <div class="col-12" style="margin: 10px 0 10px 0" *ngIf="responseData.total === 0">
+    <div
+      class="col-12"
+      style="margin: 10px 0 10px 0"
+      *ngIf="responseData.total === 0"
+    >
       <h2 i18n="@@404">404 - Virheellinen osoite</h2>
     </div>
     <main class="col-12 col-md-8">
@@ -26,7 +43,10 @@
           <div class="col p-0">
             <h1 class="result-header">{{ item.name }}</h1>
           </div>
-          <div *ngIf="item.logo && item.logo !== null" class="col p-0 org-logo text-right align-self-center">
+          <div
+            *ngIf="item.logo && item.logo !== null"
+            class="col p-0 org-logo text-right align-self-center"
+          >
             <img [src]="item.logo | safeUrl" />
           </div>
         </div>
@@ -41,7 +61,15 @@
                 <ng-template #tooltipTemplate>
                   <div [innerHtml]="row.tooltip"></div>
                 </ng-template>
-                <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                <span
+                  [tooltip]="tooltipTemplate"
+                  tabindex="0"
+                  triggers="focus keydown"
+                  placement="top"
+                  (mouseenter)="utilityService.tooltipMouseenter(elem)"
+                  (keydown)="utilityService.tooltipKeydown(elem, $event)"
+                  #elem
+                >
                   <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
                 </span>
               </ng-container>
@@ -50,10 +78,15 @@
               <div [ngClass]="expand ? 'expand' : 'short'">
                 {{ item[row.field] }}
               </div>
-              <a href="javascript:void(0)" class="read-more" *ngIf="
-                  row.field === 'description' &&
-                  item.description?.length > 256
-                " (click)="expandDescription()" [innerHTML]="expand ? showLess : showMore"></a>
+              <a
+                href="javascript:void(0)"
+                class="read-more"
+                *ngIf="
+                  row.field === 'description' && item.description?.length > 256
+                "
+                (click)="expandDescription()"
+                [innerHTML]="expand ? showLess : showMore"
+              ></a>
             </div>
           </div>
 
@@ -66,24 +99,51 @@
                 <ng-template #tooltipTemplate>
                   <div [innerHtml]="row.tooltip"></div>
                 </ng-template>
-                <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                <span
+                  [tooltip]="tooltipTemplate"
+                  tabindex="0"
+                  triggers="focus keydown"
+                  placement="top"
+                  (mouseenter)="utilityService.tooltipMouseenter(elem)"
+                  (keydown)="utilityService.tooltipKeydown(elem, $event)"
+                  #elem
+                >
                   <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
                 </span>
               </ng-container>
             </h2>
-            <div class="col-12 col-sm-6 col-lg-9 td" [class.offset-sm-6]="!isFirst" [class.offset-lg-3]="!isFirst" *ngFor="let org of item.authors; first as isFirst">
-              <a *ngIf="org.id" class="th" href="/results/organization/{{org.id}}">{{org.name}}</a>
-              <p *ngIf="!org.id" class="th">{{org.name}}<span *ngIf="org.roles.length > 0" class="font-weight-normal"> - {{org.roles.join(', ')}}</span></p>
+            <div
+              class="col-12 col-sm-6 col-lg-9 td"
+              [class.offset-sm-6]="!isFirst"
+              [class.offset-lg-3]="!isFirst"
+              *ngFor="let org of item.authors; first as isFirst"
+            >
+              <a
+                *ngIf="org.id"
+                class="th"
+                href="/results/organization/{{ org.id }}"
+                >{{ org.name }}</a
+              >
+              <p *ngIf="!org.id" class="th">
+                {{ org.name
+                }}<span *ngIf="org.roles.length > 0" class="font-weight-normal">
+                  - {{ org.roles.join(', ') }}</span
+                >
+              </p>
               <div *ngFor="let actor of org.actors">
-                <p class="td">{{actor.name}}
-                  <app-orcid *ngIf="actor.orcid" [orcid]="actor.orcid"></app-orcid>
-                  <span *ngIf="actor.roles.length > 0"> - {{actor.roles.join(', ')}}</span>
+                <p class="td">
+                  {{ actor.name }}
+                  <app-orcid
+                    *ngIf="actor.orcid"
+                    [orcid]="actor.orcid"
+                  ></app-orcid>
+                  <span *ngIf="actor.roles.length > 0">
+                    - {{ actor.roles.join(', ') }}</span
+                  >
                 </p>
               </div>
-
             </div>
           </div>
-
 
           <!-- Project -->
           <div class="row content" *ngFor="let row of project">
@@ -94,7 +154,15 @@
                 <ng-template #tooltipTemplate>
                   <div [innerHtml]="row.tooltip"></div>
                 </ng-template>
-                <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                <span
+                  [tooltip]="tooltipTemplate"
+                  tabindex="0"
+                  triggers="focus keydown"
+                  placement="top"
+                  (mouseenter)="utilityService.tooltipMouseenter(elem)"
+                  (keydown)="utilityService.tooltipKeydown(elem, $event)"
+                  #elem
+                >
                   <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
                 </span>
               </ng-container>
@@ -109,64 +177,125 @@
             <h2 class="col-12 col-sm-6 col-lg-3 th" i18n="@@otherInfo">
               Muut tiedot
             </h2>
-            <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 first-no-offset-mobile td" *ngFor="let row of otherInfoFields?.slice(0, 3)">
+            <div
+              class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 first-no-offset-mobile td"
+              *ngFor="let row of otherInfoFields?.slice(0, 3)"
+            >
               <h3 class="th">
                 {{ row.label }}
                 <ng-container *ngIf="row.tooltip">
                   <ng-template #tooltipTemplate>
                     <div [innerHtml]="row.tooltip"></div>
                   </ng-template>
-                  <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
-                    <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                  <span
+                    [tooltip]="tooltipTemplate"
+                    tabindex="0"
+                    triggers="focus keydown"
+                    placement="top"
+                    (mouseenter)="utilityService.tooltipMouseenter(elem)"
+                    (keydown)="utilityService.tooltipKeydown(elem, $event)"
+                    #elem
+                  >
+                    <fa-icon
+                      class="info-icon pl-2"
+                      icon="info-circle"
+                    ></fa-icon>
                   </span>
                 </ng-container>
               </h3>
               <p class="td" innerHtml="{{ item[row.field] }}"></p>
             </div>
           </div>
-          <ng-container *ngFor="let row of otherInfoFields.slice(3); let i = index">
+          <ng-container
+            *ngFor="let row of otherInfoFields.slice(3); let i = index"
+          >
             <div *ngIf="i % 3 == 0"></div>
             <div class="row content" *ngIf="i % 3 == 0">
               <!-- First col -->
-              <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-3 td">
+              <div
+                class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-3 td"
+              >
                 <h3 class="th">
                   {{ row.label }}
                   <ng-container *ngIf="row.tooltip">
                     <ng-template #tooltipTemplate>
                       <div [innerHtml]="row.tooltip"></div>
                     </ng-template>
-                    <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
-                      <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                    <span
+                      [tooltip]="tooltipTemplate"
+                      tabindex="0"
+                      triggers="focus keydown"
+                      placement="top"
+                      (mouseenter)="utilityService.tooltipMouseenter(elem)"
+                      (keydown)="utilityService.tooltipKeydown(elem, $event)"
+                      #elem
+                    >
+                      <fa-icon
+                        class="info-icon pl-2"
+                        icon="info-circle"
+                      ></fa-icon>
                     </span>
                   </ng-container>
                 </h3>
                 <span *ngIf="!row['link']">{{ item[row.field] }}</span>
               </div>
               <!-- Second col -->
-              <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td" *ngIf="otherInfoFields.slice(3).length > i + 1">
+              <div
+                class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td"
+                *ngIf="otherInfoFields.slice(3).length > i + 1"
+              >
                 <h3 class="th">
                   {{ otherInfoFields.slice(3)[i + 1].label }}
                   <ng-container *ngIf="otherInfoFields.slice(3)[i + 1].tooltip">
                     <ng-template #tooltipTemplate>
-                      <div [innerHtml]="otherInfoFields.slice(3)[i + 1].tooltip"></div>
+                      <div
+                        [innerHtml]="otherInfoFields.slice(3)[i + 1].tooltip"
+                      ></div>
                     </ng-template>
-                    <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
-                      <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                    <span
+                      [tooltip]="tooltipTemplate"
+                      tabindex="0"
+                      triggers="focus keydown"
+                      placement="top"
+                      (mouseenter)="utilityService.tooltipMouseenter(elem)"
+                      (keydown)="utilityService.tooltipKeydown(elem, $event)"
+                      #elem
+                    >
+                      <fa-icon
+                        class="info-icon pl-2"
+                        icon="info-circle"
+                      ></fa-icon>
                     </span>
                   </ng-container>
                 </h3>
                 <span>{{ item[otherInfoFields.slice(3)[i + 1].field] }}</span>
               </div>
               <!-- Third col -->
-              <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td" *ngIf="otherInfoFields.slice(3).length > i + 2">
+              <div
+                class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td"
+                *ngIf="otherInfoFields.slice(3).length > i + 2"
+              >
                 <h3 class="th">
                   {{ otherInfoFields.slice(3)[i + 2].label }}
                   <ng-container *ngIf="otherInfoFields.slice(3)[i + 2].tooltip">
                     <ng-template #tooltipTemplate>
-                      <div [innerHtml]="otherInfoFields.slice(3)[i + 2].tooltip"></div>
+                      <div
+                        [innerHtml]="otherInfoFields.slice(3)[i + 2].tooltip"
+                      ></div>
                     </ng-template>
-                    <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
-                      <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                    <span
+                      [tooltip]="tooltipTemplate"
+                      tabindex="0"
+                      triggers="focus keydown"
+                      placement="top"
+                      (mouseenter)="utilityService.tooltipMouseenter(elem)"
+                      (keydown)="utilityService.tooltipKeydown(elem, $event)"
+                      #elem
+                    >
+                      <fa-icon
+                        class="info-icon pl-2"
+                        icon="info-circle"
+                      ></fa-icon>
                     </span>
                   </ng-container>
                 </h3>
@@ -183,8 +312,19 @@
                   <ng-template #tooltipTemplate>
                     <div [innerHtml]="row.tooltip"></div>
                   </ng-template>
-                  <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
-                    <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                  <span
+                    [tooltip]="tooltipTemplate"
+                    tabindex="0"
+                    triggers="focus keydown"
+                    placement="top"
+                    (mouseenter)="utilityService.tooltipMouseenter(elem)"
+                    (keydown)="utilityService.tooltipKeydown(elem, $event)"
+                    #elem
+                  >
+                    <fa-icon
+                      class="info-icon pl-2"
+                      icon="info-circle"
+                    ></fa-icon>
                   </span>
                 </ng-container>
               </h2>
@@ -209,7 +349,10 @@
                 <div class="col link doi">
                   <span class="doi-tag">DOI</span>
                   <span class="doi-link">
-                    <a [attr.href]="'https://doi.org/' + item.doi" target="_blank">{{ item.doi }}
+                    <a
+                      [attr.href]="'https://doi.org/' + item.doi"
+                      target="_blank"
+                      >{{ item.doi }}
                       <fa-icon icon="external-link-alt"></fa-icon>
                     </a>
                   </span>
@@ -219,7 +362,8 @@
                 <div class="col link doi">
                   <span class="doi-tag">URN</span>
                   <span class="doi-link">
-                    <a [attr.href]="'http://urn.fi/' + item.urn" target="_blank">{{ item.urn }}
+                    <a [attr.href]="'http://urn.fi/' + item.urn" target="_blank"
+                      >{{ item.urn }}
                       <fa-icon icon="external-link-alt"></fa-icon>
                     </a>
                   </span>
@@ -228,17 +372,29 @@
             </div>
             <!-- Self archived addresses -->
             <ng-container *ngFor="let selfArchived of item.selfArchivedData">
-              <div class="row links" *ngFor="let row of selfArchived.selfArchived">
+              <div
+                class="row links"
+                *ngFor="let row of selfArchived.selfArchived"
+              >
                 <div class="info-link-wrapper">
                   <div class="col link">
-                    <a class="info-link" href="{{ row.selfArchivedAddress }}" target="_blank">{{ row.selfArchivedAddress | cutContent: 40
-                      }}<fa-icon icon="external-link-alt"></fa-icon></a>
+                    <a
+                      class="info-link"
+                      href="{{ row.selfArchivedAddress }}"
+                      target="_blank"
+                      >{{ row.selfArchivedAddress | cutContent: 40
+                      }}<fa-icon icon="external-link-alt"></fa-icon
+                    ></a>
                   </div>
                 </div>
               </div>
             </ng-container>
 
-            <div *ngIf="!linksFields.length && !item.selfArchivedData" class="no-links" i18n="@@noDatasetLinks">
+            <div
+              *ngIf="!linksFields.length && !item.selfArchivedData"
+              class="no-links"
+              i18n="@@noDatasetLinks"
+            >
               Tutkimusaineistoon ei ole tarjolla linkkejä tässä portaalissa
             </div>
           </mat-card>
@@ -246,7 +402,9 @@
         <mat-card>
           <mat-card-title>
             <h2>
-              <ng-container i18n="@@relatedDatasets">Hae tutkimusaineistoon liittyvät</ng-container>
+              <ng-container i18n="@@relatedDatasets"
+                >Hae tutkimusaineistoon liittyvät</ng-container
+              >
               (<ng-container i18n="@@comingSoon">tulossa</ng-container>)
             </h2>
           </mat-card-title>

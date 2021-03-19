@@ -152,6 +152,7 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
 
   errorMessage = [];
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
+  @ViewChild('backToResultsLink') backToResultsLink: ElementRef;
   idSub: Subscription;
   infoExpand: boolean[] = [];
   serviceExpand: boolean[] = [];
@@ -164,6 +165,7 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   showMore = $localize`:@@showMore:Näytä enemmän`;
   showLess = $localize`:@@showLess:Näytä vähemmän`;
   relatedData: {};
+  focusSub: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -198,8 +200,20 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     this.searchTerm = this.searchService.searchTerm;
   }
 
+  ngAfterViewInit() {
+    // Focus with skip-links
+    this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(
+      (target) => {
+        if (target === 'main-link') {
+          this.backToResultsLink.nativeElement.focus();
+        }
+      }
+    );
+  }
+
   ngOnDestroy() {
     this.idSub?.unsubscribe();
+    this.focusSub?.unsubscribe();
     this.settingsService.related = false;
   }
 

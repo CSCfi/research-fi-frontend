@@ -94,7 +94,12 @@
 
     <div class="row">
       <div class="col-auto px-0 py-3 py-lg-0">
-        <a routerLink="/service-info" fragment="1" class="theme-link">
+        <a
+          #serviceInfoLink
+          routerLink="/service-info"
+          fragment="1"
+          class="theme-link"
+        >
           <strong>
             <ng-container i18n="@@resultInfo1">Mitä</ng-container>
             <ng-container i18n="@@newsServiceIncludes">
@@ -115,6 +120,7 @@
               }})
             </h2>
             <app-news-card
+              #cards
               *ngFor="let item of data"
               [item]="item"
               [term]="currentTerm"

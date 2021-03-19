@@ -22,7 +22,7 @@
         <nav>
           <ul class="list-unstyled">
             <li [ngClass]="{ active: currentSection === 's0' }">
-              <a [routerLink]="['.']" [queryParams]="queryParams">
+              <a #mainFocus [routerLink]="['.']" [queryParams]="queryParams">
                 <div class="row">
                   <div class="col-auto pr-0">
                     <fa-icon class="icon" [icon]="faIconCircle"></fa-icon>

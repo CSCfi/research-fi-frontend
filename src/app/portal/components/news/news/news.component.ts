@@ -46,6 +46,7 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   dataCopy: any;
   errorMessage: any;
   focusSub: any;
+  @ViewChild('serviceInfoLink') serviceInfoLink: ElementRef;
   @ViewChild('searchInput') searchInput: ElementRef;
   @ViewChild('older') olderHeader: ElementRef;
   @ViewChildren(NewsCardComponent, { read: ElementRef })
@@ -166,7 +167,7 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
           this.searchInput.nativeElement.focus();
         }
         if (target === 'main-link') {
-          this.cards.first.nativeElement.focus();
+          this.serviceInfoLink.nativeElement.focus();
         }
       }
     );
