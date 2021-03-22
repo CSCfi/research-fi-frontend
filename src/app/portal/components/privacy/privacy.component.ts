@@ -170,7 +170,6 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
       _paq.push(['rememberConsentGiven']);
       `;
       this.document.getElementsByTagName('head')[0].appendChild(node);
-      this.setTwitterCookie();
     }
     this.snackBar.open($localize`:@@cookiesApproved:Evästeet hyväksytty`);
   }
