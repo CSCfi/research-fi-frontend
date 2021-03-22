@@ -20,6 +20,7 @@ import { PortalModule } from './portal/portal.module';
 import { PortalRoutingModule } from './portal/portal-routing.module';
 import { MyDataModule } from './mydata/mydata.module';
 import { MyDataRoutingModule } from './mydata/mydata-routing.module';
+import { AuthConfigModule } from './auth-config.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,6 +35,7 @@ import { MyDataRoutingModule } from './mydata/mydata-routing.module';
     PortalRoutingModule,
     MyDataModule,
     MyDataRoutingModule,
+    AuthConfigModule,
   ],
   providers: [
     AppConfigService,

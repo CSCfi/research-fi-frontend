@@ -20,6 +20,7 @@ import { HomeComponent } from './components/home/home.component';
 import { WelcomeStepperComponent } from './components/welcome-stepper/welcome-stepper.component';
 import { OrcidDataHandlerComponent } from './components/welcome-stepper/orcid-data-handler/orcid-data-handler.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { RedirectComponent } from './components/redirect/redirect.component';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LoginComponent } from './components/login/login.component';
@@ -34,6 +35,7 @@ import { SharedModule } from '../shared/shared.module';
     WelcomeStepperComponent,
     OrcidDataHandlerComponent,
     NotFoundComponent,
+    RedirectComponent,
     LoginComponent,
   ],
   imports: [

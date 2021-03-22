@@ -1,5 +1,12 @@
+//  This file is part of the research.fi API service
+//
+//  Copyright 2019 Ministry of Education and Culture, Finland
+//
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
 
 @Component({
   selector: 'app-login',
@@ -7,15 +14,15 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  constructor(private authService: AuthService) {}
+  constructor(public oidcSecurityService: OidcSecurityService) {}
 
-  ngOnInit() {}
+  ngOnInit(): void {}
 
   login() {
-    this.authService.login();
+    this.oidcSecurityService.authorize();
   }
 
   logout() {
-    this.authService.logout();
+    this.oidcSecurityService.logoff();
   }
 }
