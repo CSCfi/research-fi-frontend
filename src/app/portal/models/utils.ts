@@ -25,34 +25,35 @@ export class LanguageCheck {
     const content = item[field + capitalizedLocale]?.toString()?.trim() || '';
     // Check if the original locale has valuable content
     const contentIsValid = UtilityService.stringHasContent(content);
-    // Return content based on locale and priority
-    switch (contentIsValid) {
-      // If field doesn't exist in its original locale
-      case false: {
-        switch (this.localeId) {
-          case 'fi': {
-            return UtilityService.stringHasContent(item[field + 'En'])
-              ? item[field + 'En']
-              : item[field + 'Sv'];
-          }
-          case 'en': {
-            return UtilityService.stringHasContent(item[field + 'Fi'])
-              ? item[field + 'Fi']
-              : item[field + 'Sv'];
-          }
-          case 'sv': {
-            return UtilityService.stringHasContent(item[field + 'En'])
-              ? item[field + 'En']
-              : item[field + 'Fi'];
-          }
-        }
-        break;
+
+    // Dont perform checks if content is valid
+    if (contentIsValid) {
+      return content;
+    }
+    // Return content based on locale and priority if field doesn't exist in its original locale
+    let res;
+    switch (this.localeId) {
+      case 'fi': {
+        res = UtilityService.stringHasContent(item[field + 'En'])
+          ? item[field + 'En']
+          : item[field + 'Sv'];
       }
-      // If field exists in its original locale, take that
-      default: {
-        return item[field + capitalizedLocale];
+      case 'en': {
+        res = UtilityService.stringHasContent(item[field + 'Fi'])
+          ? item[field + 'Fi']
+          : item[field + 'Sv'];
+      }
+      case 'sv': {
+        res = UtilityService.stringHasContent(item[field + 'En'])
+          ? item[field + 'En']
+          : item[field + 'Fi'];
       }
     }
+    // If still no content and Und exists, take that
+    res = !UtilityService.stringHasContent(res) && item[field + 'Und']
+      ? item[field + 'Und']
+      : res;
+    return res;
   }
 
   translateFieldOfScience(item) {
