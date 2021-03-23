@@ -135,7 +135,7 @@ export class DatasetFilterService {
       item.subData.map((subItem) => {
         subItem.label = subItem.label || subItem.key;
         subItem.key = subItem.orgId.buckets[0].key;
-        subItem.doc_count = subItem.doc_count;
+        subItem.doc_count = subItem.filtered.doc_count;
       });
       item.doc_count = item.subData
         .map((s) => s.doc_count)
@@ -206,10 +206,7 @@ export class DatasetFilterService {
         doc_count: lang.doc_count,
       };
     });
-    // Move no language content to the end
-    const noLangIdx = langs.findIndex((x) => x.key === 'zxx');
-    langs.push(...langs.splice(noLangIdx, 1));
 
-    return langs.filter((lang) => lang.key !== ' ');
+    return langs.filter((lang) => lang.key !== ' ').sort((a, b) => b.doc_count - a.doc_count);
   }
 }
