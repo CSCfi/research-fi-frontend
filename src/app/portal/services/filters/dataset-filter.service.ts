@@ -135,7 +135,7 @@ export class DatasetFilterService {
       item.subData.map((subItem) => {
         subItem.label = subItem.label || subItem.key;
         subItem.key = subItem.orgId.buckets[0].key;
-        subItem.doc_count = subItem.doc_count;
+        subItem.doc_count = subItem.filtered.doc_count;
       });
       item.doc_count = item.subData
         .map((s) => s.doc_count)
