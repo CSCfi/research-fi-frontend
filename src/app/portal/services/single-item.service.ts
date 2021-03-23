@@ -74,7 +74,7 @@ export class SingleItemService {
   }
   getSingleDataset(id): Observable<Search> {
     return this.http
-      .post<Search>(this.datasetApiUrl, this.constructPayload('identifier', id))
+      .post<Search>(this.datasetApiUrl, this.constructPayload('identifier.keyword', id))
       .pipe(map((data: any) => this.searchAdapter.adapt(data, 'datasets')));
   }
 
