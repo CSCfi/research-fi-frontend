@@ -1,0 +1,11 @@
+{
+  "stsServer": "https://identitytest-ts.rahtiapp.fi",
+  "redirectUrl": "https://localhost:5003/mydata/redirect",
+  "postLogoutRedirectUri": "https://localhost:5003/mydata",
+  "clientId": "js",
+  "scope": "openid profile api1",
+  "responseType": "code",
+  "silentRenew": true,
+  "useRefreshToken": true,
+  "postLoginRoute": "/mydata/welcome"
+}
