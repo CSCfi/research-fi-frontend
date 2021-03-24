@@ -179,6 +179,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
+      // Set mobile status
+      this.appSettingsService.updateMobileStatus(this.mobile);
+
       // Get page data from API and set to localStorage. This data is used to generate content on certain pages
       if (!this.cds.pageDataFlag) {
         this.pageDataSub = this.cds.getPages().subscribe((data) => {
@@ -275,7 +278,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.document.body.classList.add('modal-open');
       setTimeout(() => {
         this.overlay &&
-        this.renderer.setStyle(this.overlay?.nativeElement, 'top', '350px');
+          this.renderer.setStyle(this.overlay?.nativeElement, 'top', '350px');
       }, 500);
     } else {
       this.document.body.classList.remove('modal-open');
@@ -326,6 +329,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.height = dims.height;
     this.width = dims.width;
     if (this.width >= 1200) {
+      this.appSettingsService.updateMobileStatus(false);
       this.mobile = false;
       if (this.navbarOpen) {
         this.toggleNavbar();
@@ -333,6 +337,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
       if (this.mainNavbar) this.mainNavbar.nativeElement.style.cssText = '';
     } else {
+      this.appSettingsService.updateMobileStatus(true);
       this.mobile = true;
     }
   }

@@ -15,6 +15,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { HomeComponent } from './components/home/home.component';
 import { WelcomeStepperComponent } from './components/welcome-stepper/welcome-stepper.component';
@@ -28,6 +32,12 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './services/auth-guard.service';
 
 import { SharedModule } from '../shared/shared.module';
+import { OrcidIdInfoComponent } from './components/welcome-stepper/orcid-id-info/orcid-id-info.component';
+import { StepperNavigationComponent } from './components/welcome-stepper/stepper-navigation/stepper-navigation.component';
+
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { ProfilePanelComponent } from './components/welcome-stepper/orcid-data-handler/profile-panel/profile-panel.component';
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -37,6 +47,10 @@ import { SharedModule } from '../shared/shared.module';
     NotFoundComponent,
     RedirectComponent,
     LoginComponent,
+    OrcidIdInfoComponent,
+    StepperNavigationComponent,
+    ProfilePanelComponent,
+    FilterPipe,
   ],
   imports: [
     CommonModule,
@@ -46,8 +60,13 @@ import { SharedModule } from '../shared/shared.module';
     MatCheckboxModule,
     MatRadioModule,
     MatExpansionModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatButtonToggleModule,
+    MatSlideToggleModule,
     FontAwesomeModule,
     SharedModule,
+    ModalModule,
   ],
   providers: [AuthGuard],
 })
