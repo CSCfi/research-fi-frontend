@@ -140,18 +140,24 @@ objects:
                 items:
                   - key: configfile
                     path: config.json
+                  - key: configfile_auth_fi
+                    path: auth_config.json
             - name: config-volume-sv
               configMap:
                 name: frontend-config-production
                 items:
                   - key: configfile
                     path: config.json
+                  - key: configfile_auth_sv
+                    path: auth_config.json
             - name: config-volume-en
               configMap:
                 name: frontend-config-production
                 items:
                   - key: configfile
                     path: config.json
+                  - key: configfile_auth_en
+                    path: auth_config.json
       replicas: 1
       triggers:
         - type: ConfigChange
