@@ -63,7 +63,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                         mat-flat-button
                         color="primary"
                         (click)="changeConsent('declined')"
-                        *ngIf="consentStatus === 'approved'"
+                        *ngIf="consentStatus === 'approved' || !consentStatus"
                       >
                         <ng-container i18n="@@disableTracking"
                           >Poista seuranta käytöstä</ng-container
@@ -73,7 +73,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                         mat-flat-button
                         color="primary"
                         (click)="changeConsent('approved')"
-                        *ngIf="consentStatus === 'declined' || !consentStatus"
+                        *ngIf="consentStatus === 'declined'"
                       >
                         <ng-container i18n="@@enableTracking"
                           >Ota seuranta käyttöön</ng-container
