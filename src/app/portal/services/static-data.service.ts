@@ -586,6 +586,13 @@ export class StaticDataService {
           'organizationConsortium.consortiumOrganizationId',
           'fundingGroupPerson.consortiumOrganizationId',
         ];
+        break;
+      }
+      case 'dataset': {
+        res = [
+          'actor.sector.organization.organizationId',
+        ];
+        break;
       }
     }
     return res;

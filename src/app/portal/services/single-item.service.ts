@@ -117,6 +117,7 @@ export class SingleItemService {
                   ),
                   this.settingsService.querySettings('person', id),
                   this.settingsService.querySettings('funding', id),
+                  this.settingsService.querySettings('dataset', id),
                   this.settingsService.querySettings('infrastructure', id),
                   this.settingsService.querySettings('organization', id),
                 ],
@@ -142,6 +143,11 @@ export class SingleItemService {
               fundings: {
                 match: {
                   _index: 'funding',
+                },
+              },
+              datasets: {
+                match: {
+                  _index: 'dataset',
                 },
               },
               infrastructures: {
