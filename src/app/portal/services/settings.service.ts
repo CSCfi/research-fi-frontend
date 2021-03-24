@@ -105,6 +105,9 @@ export class SettingsService {
                 ...(index === 'funding'
                   ? [{ bool: { should: this.generateNested('funding', term) } }]
                   : []),
+                ...(index === 'dataset'
+                  ? [{ bool: { should: this.generateNested('dataset', term) } }]
+                  : []),
                 // News content field has umlauts converted to coded characters, query needs to be made with both coded and decoded umlauts
                 ...(index === 'news'
                   ? [
@@ -219,6 +222,23 @@ export class SettingsService {
             },
           },
         ];
+        break;
+      }
+      case 'dataset': {
+        res = {
+          nested: {
+            path: 'actor.sector',
+            query: {
+              multi_match: {
+                query: term,
+                type: 'cross_fields',
+                fields: targetFields.length > 0 ? targetFields : '',
+                operator: 'AND',
+                lenient: 'true',
+              },
+            },
+          },
+        };
         break;
       }
     }
