@@ -429,12 +429,12 @@ export class StaticDataService {
           'descriptionEn',
           'descriptionSv',
           'datasetCreated',
-          'actor.sector.organizationNameFi',
-          'actor.sector.organizationNameEn',
-          'actor.sector.organizationNameSv',
-          'actor.sector.organization.organizationUnitNameFi',
-          'actor.sector.organization.organizationUnitNameEn',
-          'actor.sector.organization.organizationUnitNameSv',
+          'actor.sector.organization.organizationNameFi',
+          'actor.sector.organization.organizationNameEn',
+          'actor.sector.organization.organizationNameSv',
+          'actor.sector.organization.organizationUnit.organizationUnitNameFi',
+          'actor.sector.organization.organizationUnit.organizationUnitNameEn',
+          'actor.sector.organization.organizationUnit.organizationUnitNameSv',
           'actor.sector.organization.organizationUnit.person.authorFullName',
           'fieldsOfScience.nameFiScience',
           'fieldsOfScience.nameEnScience',
@@ -707,9 +707,9 @@ export class StaticDataService {
           }
           case 'dataset': {
             res = [
-              'actors.sector.organizationNameFi',
-              'actors.sector.organizationNameEn',
-              'actors.sector.organizationNameSv',
+              'actor.sector.organization.organizationNameFi',
+              'actor.sector.organization.organizationNameEn',
+              'actor.sector.organization.organizationNameSv',
             ];
             break;
           }
