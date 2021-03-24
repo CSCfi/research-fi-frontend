@@ -141,6 +141,9 @@ export class DatasetFilterService {
         .map((s) => s.doc_count)
         .reduce((a, b) => a + b, 0);
     });
+
+    // Sort based on sector id
+    source.buckets = source.buckets.sort((a, b) => a.sectorId.buckets[0].key - b.sectorId.buckets[0].key)
     return source;
   }
 

@@ -429,13 +429,6 @@ export class StaticDataService {
           'descriptionEn',
           'descriptionSv',
           'datasetCreated',
-          'actor.sector.organizationNameFi',
-          'actor.sector.organizationNameEn',
-          'actor.sector.organizationNameSv',
-          'actor.sector.organization.organizationUnitNameFi',
-          'actor.sector.organization.organizationUnitNameEn',
-          'actor.sector.organization.organizationUnitNameSv',
-          'actor.sector.organization.organizationUnit.person.authorFullName',
           'fieldsOfScience.nameFiScience',
           'fieldsOfScience.nameEnScience',
           'fieldsOfScience.nameSvScience',
@@ -534,6 +527,19 @@ export class StaticDataService {
           'fundingGroupPerson.roleInFundingGroup',
           'fundingGroupPerson.consortiumProject',
         ];
+        break;
+      }
+      case 'dataset': {
+        res = [
+          'actor.sector.organization.OrganizationNameFi',
+          'actor.sector.organization.OrganizationNameEn',
+          'actor.sector.organization.OrganizationNameSv',
+          'actor.sector.organization.organizationUnit.organizationUnitNameFi',
+          'actor.sector.organization.organizationUnit.organizationUnitNameEn',
+          'actor.sector.organization.organizationUnit.organizationUnitNameSv',
+          'actor.sector.organization.organizationUnit.person.authorFullName'
+        ];
+        break;
       }
     }
     return res;
@@ -586,6 +592,13 @@ export class StaticDataService {
           'organizationConsortium.consortiumOrganizationId',
           'fundingGroupPerson.consortiumOrganizationId',
         ];
+        break;
+      }
+      case 'dataset': {
+        res = [
+          'actor.sector.organization.organizationId',
+        ];
+        break;
       }
     }
     return res;
@@ -700,9 +713,9 @@ export class StaticDataService {
           }
           case 'dataset': {
             res = [
-              'actors.sector.organizationNameFi',
-              'actors.sector.organizationNameEn',
-              'actors.sector.organizationNameSv',
+              'actor.sector.organization.OrganizationNameFi',
+              'actor.sector.organization.OrganizationNameEn',
+              'actor.sector.organization.OrganizationNameSv',
             ];
             break;
           }
@@ -800,6 +813,12 @@ export class StaticDataService {
             ];
             break;
           }
+          case 'dataset': {
+            res = [
+              'actor.sector.organization.organizationUnit.person.authorFullName',
+            ];
+            break;
+          }
         }
         break;
       }
@@ -821,6 +840,14 @@ export class StaticDataService {
               'fundingGroupPerson.consortiumOrganizationNameFi',
               'fundingGroupPerson.consortiumOrganizationNameEn',
               'fundingGroupPerson.consortiumOrganizationNameSv',
+            ];
+            break;
+          }
+          case 'dataset': {
+            res = [
+              'actor.sector.organization.organizationNameFi',
+              'actor.sector.organization.organizationNameEn',
+              'actor.sector.organization.organizationNameSv'
             ];
             break;
           }

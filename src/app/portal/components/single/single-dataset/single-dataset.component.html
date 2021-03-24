@@ -71,8 +71,8 @@
               </ng-container>
             </h2>
             <div class="col-12 col-sm-6 col-lg-9 td" [class.offset-sm-6]="!isFirst" [class.offset-lg-3]="!isFirst" *ngFor="let org of item.authors; first as isFirst">
-              <a *ngIf="org.id" class="th" href="/results/organization/{{ org.id }}">{{ org.name }}</a><span *ngIf="org.roles.length > 0" class="font-weight-normal">
-                - {{ org.roles.join(', ') }}</span>
+              <ng-container *ngIf="org.id"><a class="th" href="/results/organization/{{ org.id }}">{{ org.name }}</a><span *ngIf="org.roles.length > 0" class="font-weight-normal">
+                  - {{ org.roles.join(', ') }}</span></ng-container>
               <p *ngIf="!org.id" class="th">
                 {{ org.name
                 }}<span *ngIf="org.roles.length > 0" class="font-weight-normal">
