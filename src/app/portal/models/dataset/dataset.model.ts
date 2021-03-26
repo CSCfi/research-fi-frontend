@@ -8,7 +8,10 @@
 import { Injectable } from '@angular/core';
 import { Adapter } from '../adapter.model';
 import { LanguageCheck } from '../utils';
-import { FieldOfScience, FieldOfScienceAdapter } from '../publication/field-of-science.model';
+import {
+  FieldOfScience,
+  FieldOfScienceAdapter,
+} from '../publication/field-of-science.model';
 
 export interface OrganizationActor {
   name: string;
@@ -22,7 +25,6 @@ export interface Actor {
   roles: string[];
   orcid?: string;
 }
-
 
 export class Dataset {
   constructor(
@@ -44,7 +46,8 @@ export class Dataset {
     public openAccess: boolean,
     public relatedDatasets: string,
     public doi: string,
-    public urn: string
+    public urn: string,
+    public fairdataUrl: string
   ) {}
 }
 
@@ -69,69 +72,88 @@ export class DatasetAdapter implements Adapter<Dataset> {
     // Create string from array
     const fieldsOfScienceString = fieldsOfScience.map((x) => x.name).join('; ');
 
-    const temporalCoverage = item.temporalCoverageStart === item.temporalCoverageEnd ? '' + item.temporalCoverageStart : item.temporalCoverageStart + ' - ' + item.temporalCoverageEnd;
+    const temporalCoverage =
+      item.temporalCoverageStart === item.temporalCoverageEnd
+        ? '' + item.temporalCoverageStart
+        : item.temporalCoverageStart + ' - ' + item.temporalCoverageEnd;
 
     const orgs: OrganizationActor[] = [];
 
-    item.actor?.forEach(actorRole => {
+    item.actor?.forEach((actorRole) => {
       const role: string = this.lang.testLang('actorRoleName', actorRole);
-      actorRole.sector.forEach(sector => {
-        sector.organization.forEach(org => {
+      actorRole.sector.forEach((sector) => {
+        sector.organization.forEach((org) => {
           const orgName = this.lang.testLang('OrganizationName', org).trim();
           // Create or find the organization object to be added and referenced later
-          const orgExists = orgs.find(x => x.name === orgName)
-          const orgObj: OrganizationActor = orgExists ? orgExists : {name: orgName, id: org.organizationId.trim(), actors: [], roles: []};
+          const orgExists = orgs.find((x) => x.name === orgName);
+          const orgObj: OrganizationActor = orgExists
+            ? orgExists
+            : {
+                name: orgName,
+                id: org.organizationId.trim(),
+                actors: [],
+                roles: [],
+              };
           // Push if new org
           if (!orgExists) {
             orgs.push(orgObj);
           }
           // Add role if org has no children (or has an unnecessary subUnit)
-          if(!org?.organizationUnit?.slice().shift().person) {
+          if (!org?.organizationUnit?.slice().shift().person) {
             orgObj.roles.push(role);
           }
-          org?.organizationUnit?.forEach(orgUnit => {
+          org?.organizationUnit?.forEach((orgUnit) => {
             // Check if subunit is "valid"
             if (orgUnit.OrgUnitId !== '-1' && orgUnit.OrgUnitId !== ' ') {
-              orgObj.actors.push({name: this.lang.testLang('organizationUnitName', orgUnit), roles: [role]});
+              orgObj.actors.push({
+                name: this.lang.testLang('organizationUnitName', orgUnit),
+                roles: [role],
+              });
             }
-            orgUnit?.person?.forEach(person => {
-              orgObj.actors.push({name: person.authorFullName, roles: [role], orcid: person?.Orcid});
-            })
-          })
-        })
-      })
+            orgUnit?.person?.forEach((person) => {
+              orgObj.actors.push({
+                name: person.authorFullName,
+                roles: [role],
+                orcid: person?.Orcid,
+              });
+            });
+          });
+        });
+      });
     });
 
     // Combine actors with multiple roles
-    orgs.forEach(org => {
+    orgs.forEach((org) => {
       const unique = [];
-      org.actors.forEach(actor => {
+      org.actors.forEach((actor) => {
         if (!unique.includes(actor.name)) {
           unique.push(actor.name);
         } else {
-          const actorObj = org.actors.find(a => a.name === actor.name);
+          const actorObj = org.actors.find((a) => a.name === actor.name);
           actorObj.roles.push(...actor.roles);
         }
       });
       org.actors = org.actors.slice(0, unique.length);
-    })
+    });
 
     // Sort by organization name
-    let orgsSorted = orgs.sort((a, b) => (+(a.name > b.name) - 0.5));
+    let orgsSorted = orgs.sort((a, b) => +(a.name > b.name) - 0.5);
     // Move empty org to the end
     if (orgsSorted.length > 0 && !orgsSorted[0]?.name.trim()) {
       orgsSorted.push(...orgsSorted.splice(0, 1));
-      orgsSorted[orgsSorted.length - 1].name = $localize`:@@missingOrg:Organisaatio puuttuu`; 
+      orgsSorted[
+        orgsSorted.length - 1
+      ].name = $localize`:@@missingOrg:Organisaatio puuttuu`;
     }
 
     let urn = '';
     let doi = '';
 
-    item.preferredIdentifiers?.forEach(id => {
+    item.preferredIdentifiers?.forEach((id) => {
       if (id.pidType === 'doi') {
-        doi = (id.pidContent.slice(4))
+        doi = id.pidContent.slice(4);
       } else if (id.pidType === 'urn') {
-        urn = (id.pidContent)
+        urn = id.pidContent;
       }
     });
 
@@ -145,16 +167,19 @@ export class DatasetAdapter implements Adapter<Dataset> {
       item.creatorsText,
       item.project, // Missing
       fieldsOfScienceString,
-      item.languages?.map(x => this.lang.testLang('languageName', x))?.join(', '),
+      item.languages
+        ?.map((x) => this.lang.testLang('languageName', x))
+        ?.join(', '),
       this.lang.translateAccessType(item.accessType),
       this.lang.testLang('licenseName', item),
       keywords.join(', '),
       temporalCoverage,
-      item.dataCatalog?.map(x => this.lang.testLang('name', x))?.join(', '),
+      item.dataCatalog?.map((x) => this.lang.testLang('name', x))?.join(', '),
       item.accessType === 'open',
       item.relatedDatasets, // Missing
       doi, // Missing?
-      urn
+      urn,
+      item.fairdataUrl
     );
   }
 }
