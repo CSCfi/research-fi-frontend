@@ -4156,8 +4156,8 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         </context-group>
       </trans-unit>
       <trans-unit id="CMHeader" datatype="html">
-        <source>Hallinnoi evästeasetuksia</source>
-        <target>Manage cookies</target>
+        <source>Käyttäjätilastointi ja seurannan hallinta</source>
+        <target>Användarstatistik och övervakningskontroll</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/portal/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">231</context>
@@ -4166,6 +4166,14 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
           <context context-type="sourcefile">app/portal/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">229</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="CMHeader1">
+        <source>Käyttäjätilastointi</source>
+        <target>Användarstatistik</target>
+      </trans-unit>
+      <trans-unit id="CMHeader2">
+        <source>Seurannan hallinta</source>
+        <target>Övervakningskontroll</target>
       </trans-unit>
       <!-- Review form -->
       <trans-unit id="fromAccessibility">
