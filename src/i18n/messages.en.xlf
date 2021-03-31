@@ -2796,6 +2796,10 @@
       <target>A website outside the research.fi service that contains more detailed information on the project.</target>
       </trans-unit>
       <!-- Datasets -->
+      <trans-unit id="datasetBetaInfo">
+        <source>Tutkimusaineistojen kuvailutiedot ovat uusi tietokokonaisuus Tiedejatutkimus.fi -portaalissa. Tietojen lähteenä ovat Fairdata-palveluista löytyvät kuvailutiedot. Koska kyseessä on uusi kokonaisuus, toivomme palautetta tiedejatutkimus@csc.fi osoitteeseen.</source>
+        <target>Research data is a new section in Research.fi -portal. The source for the section's metadata are the Fairdata.fi -services. For this new section in Research.fi, all feedback is welcome and should be sent to tiedejatutkimus@csc.fi</target>
+      </trans-unit>
       <trans-unit id="datasetName">
         <source>Tutkimusaineiston nimi</source>
         <target>Name</target>
@@ -4159,8 +4163,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="CMHeader" datatype="html">
-        <source>Hallinnoi evästeasetuksia</source>
-        <target>Manage cookies</target>
+        <source>Käyttäjätilastointi ja seurannan hallinta</source>
+        <target>User statistics and monitoring management</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/portal/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">231</context>
@@ -4169,6 +4173,14 @@
           <context context-type="sourcefile">app/portal/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">229</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="CMHeader1">
+        <source>Käyttäjätilastointi</source>
+        <target>User statistics</target>
+      </trans-unit>
+      <trans-unit id="CMHeader2">
+        <source>Seurannan hallinta</source>
+        <target>Monitoring management</target>
       </trans-unit>
       <!-- Review form -->
       <trans-unit id="fromAccessibility">

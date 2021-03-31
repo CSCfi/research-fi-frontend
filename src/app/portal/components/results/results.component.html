@@ -26,12 +26,14 @@ Copyright 2019 Ministry of Education and Culture, Finland
             >
               {{ selectedTabData.label }} -
               <span class="total">{{ parsedTotal }}</span>
+              <span *ngIf="selectedTabData.link === 'datasets'" class="ml-3" [tooltip]="betaTooltip" triggers="focus keydown" placement="top" tabindex="-1" (mouseenter)="utilityService.tooltipMouseenter(beta)" (keydown)="utilityService.tooltipKeydown(beta, $event)" #beta>
+                <app-secondary-button [icon]="'info-circle'" content="Beta"></app-secondary-button>
+              </span>
               <span class="sr-only" i18n="@@resultCount">hakutulosta</span>
             </h2>
           </div>
-          <div
-            class="col-auto col-lg-9 justify-content-end align-items-center row"
-          >
+          <!-- Change to col-lg-9 after removing beta-info -->
+          <div class="col-auto col-lg-7 justify-content-end align-items-center row">
             <div class="col-auto px-0 pr-lg-3" *ngIf="selectedTabData">
               <app-result-count></app-result-count>
             </div>
