@@ -97,7 +97,7 @@ export class DatasetFilterService {
     const source = data.aggregations;
     source.year.buckets = this.mapYear(source.year.years.buckets);
     source.organization = this.organization(source.organization);
-    source.dataSource.buckets = this.filterEmptyKeys(
+    source.dataSource.buckets = this.dataSource(
       source.dataSource.dataSources.buckets
     );
     source.lang.buckets = this.lang(source.lang.langs.buckets);
@@ -146,6 +146,13 @@ export class DatasetFilterService {
     source.buckets = source.buckets.sort((a, b) => a.sectorId.buckets[0].key - b.sectorId.buckets[0].key)
     return source;
   }
+
+  dataSource(data) {
+    const removeString = $localize`:@@datasetSourceMetadata:Metatietopalvelu`; 
+    data.forEach(x => x.label = x.key.replace(removeString, ''));
+    return this.filterEmptyKeys(data);
+  }
+
 
   minorField(data) {
     if (data.length) {
