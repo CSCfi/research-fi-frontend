@@ -1,0 +1,145 @@
+<!-- # This file is part of the research.fi API service
+#
+# Copyright 2019 Ministry of Education and Culture, Finland
+#
+# :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+# :license: MIT -->
+<div class="full-width"></div>
+<main id="main-content">
+  <div class="row justify-content-center" *ngIf="loading">
+    <mat-spinner
+      [diameter]="40"
+      i18n-aria-label="@@loading"
+      aria-label="Ladataan"
+    ></mat-spinner>
+  </div>
+  <div class="wrapper" *ngIf="!loading">
+    <app-breadcrumb [responseData]="result" [type]="'figure'"></app-breadcrumb>
+    <a
+      routerLink="/science-innovation-policy/science-research-figures/"
+      class="back"
+      ><< <ng-container i18n="@@back">Takaisin</ng-container></a
+    >
+    <div class="row" *ngFor="let item of result; trackBy: trackByFn">
+      <div class="col-12 px-lg-0 pb-2">
+        <div class="row">
+          <h1>{{ item['title' + currentLocale] }}</h1>
+        </div>
+      </div>
+      <div class="col-12 col-lg-10 px-lg-0 pb-2">
+        <div class="row d-flex justify-content-between">
+          <div class="col-auto px-0">
+            <a
+              href="javascript:void(0)"
+              (click)="showHelp = !showHelp"
+              (clickOutside)="onClickedOutsideHelp($event)"
+              #keyboardHelp
+              i18n="@@kbHelpHint"
+              >Ohje näppäimistökäyttäjälle</a
+            >
+            <div *ngIf="showHelp" class="help p-3">
+              <div class="m-0">
+                <p i18n="@@figureKeyboardHelp1">
+                  Saat näppäimistöohjeet esiin näppäinyhdistelmällä
+                  “vaihtonäppäin + ?" silloin, kun selaimesi fokus on
+                  allaolevassa visualisoinnissa.
+                </p>
+                <p i18n="@@figureKeyboardHelp2">
+                  Näppäimistöohje esitetään selaimesi kieliasetuksen mukaisella
+                  kielellä.
+                </p>
+              </div>
+            </div>
+          </div>
+          <mat-basic-chip
+            *ngIf="item.roadmap"
+            class="tag align-self-center"
+            [disableRipple]="true"
+            i18n="@@TKIRoadmap"
+            >TKI-tiekartan seurantamittari</mat-basic-chip
+          >
+        </div>
+      </div>
+      <div class="col col-lg-10 base content" #content>
+        <iframe
+          width="{{ colWidth }}"
+          height="600"
+          [src]="item['iframe' + currentLocale] | safeUrl"
+          frameborder="0"
+          allowFullScreen="true"
+        ></iframe>
+        <div class="row d-flex justify-content-between">
+          <div
+            class="col-12 col-lg-8 pl-0"
+            [innerHtml]="item['description' + currentLocale]"
+          ></div>
+          <div class="col col-lg-3 pl-0 pl-lg-4">
+            <div class="row pb-3">
+              <div class="col align-self-center pl-0">
+                <div>
+                  <app-figures-info
+                    *ngIf="item['info' + currentLocale]"
+                    i18n-labelText="@@additionalInfo"
+                    labelText="Lisätietoa"
+                    [content]="item['info' + currentLocale]"
+                  ></app-figures-info>
+                  <a
+                    class="strong text-uppercase info-label"
+                    [class.pl-2]="item['info' + currentLocale]"
+                    i18n="@@additionalInfo"
+                    >Lisätietoa</a
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="row pb-3">
+              <div class="col pl-0">
+                <span class="strong d-block" i18n="@@figureSource">Lähde:</span>
+                <span>{{ item['source' + currentLocale] }}</span>
+              </div>
+            </div>
+            <div
+              *ngIf="item['visualUpdateDate' + currentLocale]"
+              class="row pb-3"
+            >
+              <div class="col pl-0">
+                <span class="strong d-block" i18n="@@figureUpdateDate"
+                  >Vuosittainen päivitysajankohta:</span
+                >
+                <span>{{ item['visualUpdateDate' + currentLocale] }}</span>
+              </div>
+            </div>
+            <div class="row pb-3">
+              <div class="col pl-0">
+                <strong i18n="@@shareThisPage">Jaa tämä sivu:</strong>
+                <app-share [id]="item.id" [big]="false"></app-share>
+              </div>
+            </div>
+            <div *ngIf="item['visualFile' + currentLocale]" class="row">
+              <div class="col pl-0">
+                <a href="{{ item['visualFile' + currentLocale] }}"
+                  ><app-secondary-button
+                    i18n-content="@@downloadCSV"
+                    content="Lataa tiedostona (csv)"
+                  ></app-secondary-button
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-wrapper">
+        <h2 class="pb-3" i18n="@@moreFiguresFrom">
+          Lisää lukuja tieteestä ja tutkimuksesta
+        </h2>
+        <app-figure-filters [filter]="queryParams.filter"></app-figure-filters>
+        <app-carousel
+          [data]="flatData"
+          [id]="currentItem"
+          [queryParams]="queryParams"
+          class="carousel"
+        ></app-carousel>
+      </div>
+    </div>
+  </div>
+</main>

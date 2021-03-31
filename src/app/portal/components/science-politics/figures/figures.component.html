@@ -1,0 +1,249 @@
+<!-- # This file is part of the research.fi API service
+#
+# Copyright 2019 Ministry of Education and Culture, Finland
+#
+# :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+# :license: MIT -->
+<div class="full-width"></div>
+<div class="bg-bubble d-none d-lg-block"></div>
+<div id="main-content" #mainContent>
+  <div class="wrapper">
+    <div class="row">
+      <div class="col-12 col-lg-3 px-0 nav">
+        <div
+          class="row d-flex justify-content-between mobile-header"
+          *ngIf="mobile"
+        >
+          <div class="col-auto">
+            <h1 i18n="@@figuresHeader">Lukuja tieteestä ja tutkimuksesta</h1>
+          </div>
+        </div>
+        <!-- Navigation -->
+        <nav>
+          <ul class="list-unstyled">
+            <li [ngClass]="{ active: currentSection === 's0' }">
+              <a #mainFocus [routerLink]="['.']" [queryParams]="queryParams">
+                <div class="row">
+                  <div class="col-auto pr-0">
+                    <fa-icon class="icon" [icon]="faIconCircle"></fa-icon>
+                  </div>
+                  <div class="col" i18n="@@figuresSecHeader">
+                    Tiedon lähteet ja tuottajat
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li *ngIf="loading">
+              <mat-spinner
+                [diameter]="40"
+                i18n-aria-label="@@loading"
+                aria-label="Ladataan"
+              ></mat-spinner>
+            </li>
+            <li
+              *ngFor="let item of figureData"
+              [ngClass]="{ active: currentSection === item.id }"
+            >
+              <a
+                [class.disabled]="item['disabled']"
+                [routerLink]="['.']"
+                fragment="{{ item['disabled'] ? null : item.id }}"
+                [queryParams]="queryParams"
+              >
+                <div class="row">
+                  <div class="col-auto pr-0">
+                    <fa-icon
+                      class="icon"
+                      [icon]="item.placement > 0 ? faChartBar : faIconCircle"
+                    ></fa-icon>
+                  </div>
+                  <div class="col">
+                    {{ item['title' + currentLocale] }}
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <form (keydown.enter)="$event.preventDefault()">
+                <div class="row">
+                  <div class="col">
+                    <div class="search">
+                      <fa-icon [icon]="faSearch" class="search-icon"></fa-icon>
+                      <input
+                        type="text"
+                        #searchInput
+                        class="search"
+                        [formControl]="queryField"
+                        i18n-placeholder="@@figuresSearchPlaceholder"
+                        placeholder="Hae tilastoa..."
+                      />
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </li>
+            <li class="pl-3">
+              <app-figure-filters
+                [filter]="queryParams.filter"
+                [narrow]="true"
+                (clicked)="scrollTo($event)"
+              ></app-figure-filters>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <!-- Content -->
+      <div class="col-12 col-lg-9 px-0 px-lg-3">
+        <main>
+          <div class="row justify-content-center" *ngIf="loading">
+            <mat-spinner
+              [diameter]="40"
+              i18n-aria-label="@@loading"
+              aria-label="Ladataan"
+            ></mat-spinner>
+          </div>
+          <div
+            *ngIf="
+              hasResults && queryTerm.length === 0;
+              else queryResultTemplate
+            "
+            appScrollSpy
+            [spiedTags]="['DIV']"
+            (sectionChange)="onSectionChange($event)"
+          >
+            <div class="dropdown px-2 pb-4">
+              <button
+                mat-button
+                class="dropdown d-flex"
+                *ngIf="mobile"
+                (click)="showIntro = !showIntro"
+                href="javascript:void(0)"
+              >
+                <h2 i18n="@@informationSourceProducers">
+                  Tiedon lähteet ja tuottajat
+                </h2>
+                <fa-icon
+                  class="dropdown-icon align-self-center"
+                  [icon]="showIntro ? faChevronUp : faChevronDown"
+                ></fa-icon>
+              </button>
+            </div>
+            <ng-container *ngIf="showIntro && content && !loading">
+              <div class="segment" id="s0">
+                <h1 *ngIf="!mobile">{{ content['title' + currentLocale] }}</h1>
+                <div class="row">
+                  <div class="col p-1">
+                    <div
+                      class="base content intro"
+                      [innerHTML]="content['content' + currentLocale]"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+            <!-- Figures -->
+            <ng-container *ngIf="!loading">
+              <div
+                class="segment"
+                #segments
+                *ngFor="
+                  let figure of filteredData?.length > 0
+                    ? filteredData
+                    : figureData
+                "
+                id="{{ figure.id }}"
+              >
+                <ng-container *ngIf="figure.figures.length">
+                  <h2 class="px-2 lx-lg-0">
+                    {{ figure['title' + currentLocale] }}
+                  </h2>
+                  <ng-container
+                    *ngTemplateOutlet="
+                      figureTemplate;
+                      context: {
+                        data: { figures: figure.figures, parent: figure.id }
+                      }
+                    "
+                  ></ng-container>
+                </ng-container>
+              </div>
+            </ng-container>
+          </div>
+          <!-- Search results -->
+          <ng-template #queryResultTemplate>
+            <div class="segment" #segments *ngIf="hasResults; else noResults">
+              <h3 class="px-2 lx-lg-0">
+                <ng-container i18n="@@figureSearchResults"
+                  >Haun tulokset</ng-container
+                >
+                ({{ queryResults.length }})
+              </h3>
+              <ng-container
+                *ngTemplateOutlet="
+                  figureTemplate;
+                  context: { data: { figures: queryResults } }
+                "
+              ></ng-container>
+            </div>
+            <ng-template #noResults>
+              <div role="alert" class="col-auto">
+                <h3 i18n="@@noResults">Ei tuloksia</h3>
+                <p i18n="@@noResultsInfo">
+                  Hakutermissä voi olla kirjoitusvirhe, tai sitä vastaavaa
+                  rajaustekijää ei ole tarjolla tässä portaalissa.
+                </p>
+              </div>
+            </ng-template>
+          </ng-template>
+          <!-- Template -->
+          <ng-template let-data="data" #figureTemplate>
+            <div class="row">
+              <div class="col p-1">
+                <div class="base content">
+                  <div class="card list" *ngFor="let item of data.figures">
+                    <a
+                      [routerLink]="data.parent + '_' + item.placement"
+                      [queryParams]="queryParams"
+                    >
+                      <div class="row d-flex justify-content-around">
+                        <div class="col-12 col-md-8">
+                          <h3 class="title">
+                            {{ item['title' + currentLocale] }}
+                          </h3>
+                          <div class="col-12 figure d-block d-md-none">
+                            <img [src]="item.img" />
+                          </div>
+                          <div class="description">
+                            <p
+                              [innerHtml]="
+                                item['description' + currentLocale]
+                                  | cutContent: 200
+                              "
+                            ></p>
+                          </div>
+                        </div>
+                        <div class="col-4 figure d-none d-md-block">
+                          <img [src]="item.thumbnail" />
+                        </div>
+                      </div>
+                    </a>
+                    <div class="row" *ngIf="item.roadmap">
+                      <div class="col-12 tags">
+                        <mat-basic-chip
+                          class="tag"
+                          [disableRipple]="true"
+                          i18n="@@TKIRoadmap"
+                          >TKI-tiekartan seurantamittari</mat-basic-chip
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </main>
+      </div>
+    </div>
+  </div>
+</div>

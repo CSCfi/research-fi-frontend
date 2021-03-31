@@ -24,8 +24,8 @@ import '@angular/localize/init';
 
 /** IE10 and IE11 requires the following for NgClass support on SVG elements */
 // import 'classlist.js';  // Run `npm install --save classlist.js`.
-import 'core-js/es7/array';
-import 'core-js/es7/object';
+// import 'core-js/es7/array';
+// import 'core-js/es7/object';
 import 'array-flat-polyfill';
 
 /**
@@ -67,4 +67,4 @@ import 'zone.js/dist/zone'; // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
-import 'core-js/es7/reflect';
+// import 'core-js/es7/reflect';

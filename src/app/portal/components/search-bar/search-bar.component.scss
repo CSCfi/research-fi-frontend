@@ -1,0 +1,783 @@
+//  This file is part of the research.fi API service
+//
+//  Copyright 2019 Ministry of Education and Culture, Finland
+//
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
+app-search-bar {
+  .badge-area img {
+    max-width: 150px;
+    height: auto;
+  }
+
+  .search {
+    padding: 2rem 0;
+    transition: 0.2s linear;
+  }
+
+  .no-heading.search {
+    padding: 10px;
+  }
+
+  // search target
+  .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+
+  .mat-form-field {
+    border-top-left-radius: 0.25rem !important;
+    border-bottom-left-radius: 0.25rem !important;
+    margin-right: 4px;
+  }
+
+  .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+
+  .mat-form-field-type-mat-select .mat-form-field-label {
+    width: 100%;
+  }
+
+  .mat-form-field-appearance-legacy .mat-form-field-label.mat-form-field-empty {
+    margin-top: 17px;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  .mat-form-field-appearance-legacy .mat-form-field-infix {
+    margin-top: -20px;
+  }
+
+  .mat-form-field-underline {
+    display: none;
+  }
+
+  .mat-form-field,
+  .mat-select {
+    z-index: 101;
+  }
+
+  .mat-select {
+    margin-top: 17px;
+    width: 99%;
+    margin-left: 1px;
+  }
+
+  .mat-select-arrow-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+    padding-right: 0.1px;
+  }
+
+  .mat-select-arrow {
+    display: none;
+  }
+
+  .search-target mat-label::after,
+  .mat-select-value-text:after {
+    font-family: 'FontAwesome';
+    content: '\f078';
+    display: inline-block;
+    padding-left: 0.25rem;
+  }
+
+  .mat-select-value {
+    text-align: center;
+  }
+
+  .mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float
+    .mat-form-field-label,
+  .mat-form-field-appearance-legacy.mat-form-field-can-float
+    .mat-input-server:focus
+    + .mat-form-field-label-wrapper
+    .mat-form-field-label {
+    text-align: left;
+  }
+
+  // Input
+  .form-control {
+    border: none;
+  }
+
+  .search-input {
+    padding: 5px 0;
+  }
+
+  .search-input input {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    border: none;
+  }
+
+  .col-12.search.increase {
+    padding-bottom: 100px;
+  }
+
+  .has-search .form-control {
+    padding: 0;
+    font-size: 25px;
+    border-top-right-radius: 0.25rem !important;
+    border-bottom-right-radius: 0.25rem !important;
+  }
+
+  .has-search .form-control-feedback {
+    position: absolute;
+    z-index: 100;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+  }
+
+  // Hide "blue glow" on focus
+  .form-control:focus {
+    box-shadow: none;
+  }
+
+  .input-group > .form-control:focus {
+    z-index: 104;
+  }
+
+  .form-group.has-search {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 15px;
+  }
+
+  input,
+  .search-input {
+    z-index: 102;
+  }
+
+  .input-group-append {
+    z-index: 101;
+  }
+
+  input[placeholder] {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  ::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    font-size: 17px;
+    font-style: normal;
+  }
+
+  :-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    font-size: 17px;
+    font-style: normal;
+  }
+
+  p.text-right.ext-search {
+    margin-top: 16px;
+    margin-bottom: -16px;
+  }
+
+  p.text-right.ext-search a {
+    cursor: pointer;
+  }
+
+  p.text-right.ext-search a:hover {
+    -webkit-filter: opacity(0.7);
+    filter: opacity(0.7);
+    text-decoration: none;
+  }
+
+  // Completion
+  // input width count span
+  #completionAssist {
+    overflow: auto;
+    font-size: 25px;
+    position: absolute;
+    z-index: -999;
+    // left: -9999px;
+  }
+
+  .completion {
+    font-size: 25px;
+    opacity: 0.4;
+    height: 100%;
+    display: flex;
+  }
+
+  // Reset search
+  .reset {
+    margin-top: -4px;
+  }
+
+  #resetSearch {
+    cursor: pointer;
+    font-size: 1rem;
+  }
+
+  // Button
+  .input-group-append {
+    margin-left: 4px;
+  }
+
+  span.search-button {
+    padding-right: 10px;
+    display: inline-block;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .fa-search {
+    padding: 0 5px;
+  }
+
+  button.btn.btn-search {
+    border-left: 0;
+    font-size: 1rem;
+    border-radius: 0.25rem !important;
+  }
+
+  button.btn.btn-search:focus {
+    box-shadow: none;
+  }
+
+  button.btn.btn-search:focus span {
+    text-decoration: underline;
+  }
+
+  .input-group > .input-group-append:not(:last-child) > .btn {
+    border-top-right-radius: 0.25rem;
+  }
+
+  // Auto suggest
+  .auto-suggest {
+    padding: 10px 0;
+    background: #fff;
+    z-index: 100;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -20px;
+    margin-top: 56px;
+    max-width: 687px;
+    border-radius: 0.25rem;
+  }
+
+  .row.results {
+    padding: 10px 0;
+  }
+
+  .auto-suggest h2,
+  .auto-suggest h3 {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .auto-suggest h2::first-letter,
+  .auto-suggest h3::first-letter {
+    text-transform: uppercase;
+  }
+
+  .auto-suggest ul {
+    list-style: none;
+    padding-inline-start: 0;
+  }
+
+  .list-group-item {
+    border: none;
+    border-radius: 0.25rem;
+  }
+
+  .list-group-item a {
+    font-weight: bold;
+    display: block;
+  }
+
+  .list-group-item a:hover {
+    text-decoration: none;
+  }
+
+  .list-group-item.active {
+    border: 0;
+  }
+
+  .auto-suggest li:empty {
+    display: none;
+  }
+
+  .top-results ul li {
+    padding: 4px 0;
+  }
+
+  .top-results ul li.active {
+    text-decoration: underline;
+    font-weight: bold;
+  }
+
+  .search {
+    padding: 2rem 0;
+    transition: 0.2s linear;
+  }
+
+  .no-heading.search {
+    padding: 10px;
+  }
+
+  // search target
+  .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+
+  .mat-form-field {
+    border-top-left-radius: 0.25rem !important;
+    border-bottom-left-radius: 0.25rem !important;
+    margin-right: 4px;
+  }
+
+  .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+
+  .mat-form-field-type-mat-select .mat-form-field-label {
+    width: 100%;
+  }
+
+  .mat-form-field-appearance-legacy .mat-form-field-label.mat-form-field-empty {
+    margin-top: 17px;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  .mat-form-field-appearance-legacy .mat-form-field-infix {
+    margin-top: -20px;
+  }
+
+  .mat-form-field-underline {
+    display: none;
+  }
+
+  .mat-form-field,
+  .mat-select {
+    z-index: 101;
+  }
+
+  .mat-select {
+    margin-top: 17px;
+    width: 99%;
+    margin-left: 1px;
+  }
+
+  .mat-select-arrow-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+    padding-right: 0.1px;
+  }
+
+  .mat-select-arrow {
+    display: none;
+  }
+
+  .search-target mat-label::after,
+  .mat-select-value-text:after {
+    font-family: 'FontAwesome';
+    content: '\f078';
+    display: inline-block;
+    padding-left: 0.25rem;
+  }
+
+  .mat-select-value {
+    text-align: center;
+  }
+
+  .mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float
+    .mat-form-field-label,
+  .mat-form-field-appearance-legacy.mat-form-field-can-float
+    .mat-input-server:focus
+    + .mat-form-field-label-wrapper
+    .mat-form-field-label {
+    text-align: left;
+  }
+
+  // Input
+  .form-control {
+    border: none;
+  }
+
+  .search-input {
+    padding: 5px 0;
+  }
+
+  .search-input input {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    border: none;
+  }
+
+  .col-12.search.increase {
+    padding-bottom: 100px;
+  }
+
+  .has-search .form-control {
+    padding: 0;
+    font-size: 25px;
+    border-top-right-radius: 0.25rem !important;
+    border-bottom-right-radius: 0.25rem !important;
+  }
+
+  .has-search .form-control-feedback {
+    position: absolute;
+    z-index: 100;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+  }
+
+  // Hide "blue glow" on focus
+  .form-control:focus {
+    box-shadow: none;
+  }
+
+  .input-group > .form-control:focus {
+    z-index: 104;
+  }
+
+  .form-group.has-search {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 15px;
+  }
+
+  input,
+  .search-input {
+    z-index: 102;
+  }
+
+  .input-group-append {
+    z-index: 101;
+  }
+
+  input[placeholder] {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  ::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    font-size: 17px;
+    font-style: normal;
+  }
+
+  :-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    font-size: 17px;
+    font-style: normal;
+  }
+
+  p.text-right.ext-search {
+    margin-top: 16px;
+    margin-bottom: -16px;
+  }
+
+  p.text-right.ext-search a {
+    cursor: pointer;
+  }
+
+  p.text-right.ext-search a:hover {
+    -webkit-filter: opacity(0.7);
+    filter: opacity(0.7);
+    text-decoration: none;
+  }
+
+  // Completion
+  // input width count span
+  #completionAssist {
+    overflow: auto;
+    font-size: 25px;
+    position: absolute;
+    z-index: -999;
+    // left: -9999px;
+  }
+
+  .completion {
+    font-size: 25px;
+    opacity: 0.4;
+    height: 100%;
+    display: flex;
+  }
+
+  // Reset search
+  .reset {
+    margin-top: -4px;
+  }
+
+  #resetSearch {
+    cursor: pointer;
+    font-size: 1rem;
+  }
+
+  // Button
+  .input-group-append {
+    margin-left: 4px;
+  }
+
+  span.search-button {
+    padding-right: 10px;
+    display: inline-block;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .fa-search {
+    padding: 0 5px;
+  }
+
+  button.btn.btn-search {
+    border-left: 0;
+    font-size: 1rem;
+    border-radius: 0.25rem !important;
+  }
+
+  button.btn.btn-search:focus {
+    box-shadow: none;
+  }
+
+  button.btn.btn-search:focus span {
+    text-decoration: underline;
+  }
+
+  .input-group > .input-group-append:not(:last-child) > .btn {
+    border-top-right-radius: 0.25rem;
+  }
+
+  // Auto suggest
+  .auto-suggest {
+    padding: 10px 0;
+    background: #fff;
+    z-index: 100;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -20px;
+    margin-top: 56px;
+    max-width: 687px;
+    border-radius: 0.25rem;
+  }
+
+  .row.results {
+    padding: 10px 0;
+  }
+
+  .auto-suggest h2,
+  .auto-suggest h3 {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .auto-suggest h2::first-letter,
+  .auto-suggest h3::first-letter {
+    text-transform: uppercase;
+  }
+
+  .auto-suggest ul {
+    list-style: none;
+    padding-inline-start: 0;
+  }
+
+  .list-group-item {
+    border: none;
+    border-radius: 0.25rem;
+  }
+
+  .list-group-item a {
+    font-weight: bold;
+    display: block;
+  }
+
+  .list-group-item a:hover {
+    text-decoration: none;
+  }
+
+  .list-group-item.active {
+    border: 0;
+  }
+
+  .auto-suggest li:empty {
+    display: none;
+  }
+
+  .top-results ul li {
+    padding: 4px 0;
+  }
+
+  .top-results ul li.active {
+    text-decoration: underline;
+    font-weight: bold;
+  }
+
+  .auto-suggest .other-links a:after {
+    font-family: 'FontAwesome';
+    margin-left: 8px;
+    content: '\f061';
+  }
+
+  .other-links ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  .other-links ul li {
+    padding-top: 20px;
+  }
+
+  .query-history {
+    padding-top: 25px;
+  }
+
+  .query-history .list-group-item a {
+    font-weight: normal;
+  }
+
+  // Search help
+  .search-help {
+    margin-right: -110px;
+  }
+
+  .search-help button {
+    height: 52px;
+  }
+
+  .search-help button.down span.mat-button-wrapper:after {
+    font-family: 'FontAwesome';
+    content: '\f078';
+    display: inline-block;
+    padding-left: 0.25rem;
+  }
+
+  .search-help button.up span.mat-button-wrapper:after {
+    font-family: 'FontAwesome';
+    content: '\f077';
+    display: inline-block;
+    padding-left: 0.25rem;
+  }
+
+  .search-helper {
+    position: absolute;
+    z-index: 9999;
+    width: 211px;
+    padding: 1rem 0.5rem;
+    right: -110px;
+    margin-top: 4px;
+    border-radius: 0.25rem;
+  }
+
+  // Overlay
+  #overlay {
+    position: absolute;
+    z-index: 98;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+  }
+
+  // Responsive
+  @media (max-width: 1054px) {
+    .search-help {
+      display: none;
+    }
+  }
+
+  @media (max-width: 991px) {
+    .h1 {
+      font-size: 2rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .search {
+      padding: 30px 0 !important;
+    }
+
+    .no-heading.search {
+      padding: 10px 0;
+    }
+
+    .form-group.has-search {
+      padding: 0;
+      padding-top: 15px;
+    }
+
+    .has-search .form-control,
+    .search-input input {
+      border-radius: 0.25rem !important;
+    }
+
+    .list-group-item {
+      margin: 0 -15px;
+    }
+
+    i.fa.fa-search {
+      display: none;
+    }
+
+    span.search-button {
+      padding: 0;
+    }
+
+    .input-group-append {
+      margin-left: 0.8rem;
+    }
+
+    button.btn.btn-search {
+      padding: 0 1.5rem;
+    }
+
+    // Target
+    .search-target {
+      display: none;
+    }
+  }
+
+  @media (min-width: 769px) {
+    .row.results .col,
+    .row.helper .col,
+    .row.history .col {
+      padding: 0;
+    }
+
+    .auto-suggest h2,
+    .auto-suggest h3,
+    .helper span,
+    .list-group-item {
+      padding: 0.4rem 1.6rem;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .h1 {
+      font-size: 1.6rem;
+    }
+
+    .reset {
+      margin-top: 2px;
+    }
+
+    .form-group.has-search .form-control {
+      font-size: 1rem;
+    }
+
+    button.btn.btn-search {
+      padding: 0 1rem;
+    }
+  }
+}

@@ -20,10 +20,13 @@ import 'zone.js/dist/zone-node';
 import { enableProdMode } from '@angular/core';
 import express from 'express';
 import * as compression from 'compression';
-import * as helmet from 'helmet';
+import featurePolicy from 'feature-policy';
 import { join } from 'path';
 import { EXPRESS_HTTP_PORT } from './src/app/app.global';
-import { EmailService } from './src/app/services/email.service';
+import { EmailService } from './src/app/shared/services/email.service';
+
+const { expressCspHeader, INLINE, NONE, SELF } = require('express-csp-header');
+const referrerPolicy = require('referrer-policy');
 
 // Add timestamp to logs
 require('log-timestamp');
@@ -44,10 +47,10 @@ const routes = [
 
 app.use(bodyParser.json());
 app.use(compression());
-app.use(helmet());
-app.use(helmet.referrerPolicy({ policy: 'same-origin' }));
+app.use(referrerPolicy({ policy: 'same-origin' }));
+
 app.use(
-  helmet.featurePolicy({
+  featurePolicy({
     features: {
       fullscreen: ["'self'"],
       payment: ["'none'"],
@@ -75,11 +78,13 @@ const getAppConfig = new Promise((resolve, reject) => {
 
 getAppConfig.then((data: any) => {
   app.use(
-    helmet.contentSecurityPolicy({
+    expressCspHeader({
       directives: {
-        defaultSrc: [
+        'default-src': [
+          SELF,
           "'self'",
           'ws://localhost:4200',
+          'ws://localhost:5003',
           'http://localhost:*',
           'http://*.csc.fi:*',
           'https://*.csc.fi:*',
@@ -97,30 +102,29 @@ getAppConfig.then((data: any) => {
           'https://fonts.googleapis.com:*',
           data.cmsUrl,
         ],
-        styleSrc: [
-          "'self'",
-          "'unsafe-inline'",
-          'https://*.twitter.com:*',
-          'https://fonts.googleapis.com:*',
-          'https://*.twimg.com:*',
-        ],
-        scriptSrc: [
-          "'self'",
+        'script-src': [
+          SELF,
+          INLINE,
           "'unsafe-inline'",
           "'unsafe-eval'",
           'https://*.csc.fi:*',
           'https://*.twitter.com:*',
           'https://cdn.syndication.twimg.com:*',
         ],
-        frameSrc: [
-          'https://app.powerbi.com:*',
-          'https://rihmatomo-analytics.csc.fi:*',
+        'style-src': [
+          SELF,
+          'mystyles.net',
+          "'self'",
+          "'unsafe-inline'",
           'https://*.twitter.com:*',
+          'https://fonts.googleapis.com:*',
+          'https://*.twimg.com:*',
         ],
-        fontSrc: ["'self'", 'fonts.googleapis.com:*', 'fonts.gstatic.com:*'],
-        imgSrc: [
+        'img-src': [
+          'data:',
           "'self'",
           'ws://localhost:4200',
+          'ws://localhost:5003',
           'http://localhost:*',
           'https://apps.utu.fi:*',
           'https://tt.eduuni.fi:*',
@@ -136,6 +140,19 @@ getAppConfig.then((data: any) => {
           'data:',
           data.cmsUrl,
         ],
+        'worker-src': [NONE],
+        'frame-src': [
+          'https://app.powerbi.com:*',
+          'https://rihmatomo-analytics.csc.fi:*',
+          'https://*.twitter.com:*',
+        ],
+        'font-src': [
+          SELF,
+          "'self'",
+          'fonts.googleapis.com:*',
+          'fonts.gstatic.com:*',
+        ],
+        'block-all-mixed-content': true,
       },
     })
   );
@@ -145,21 +162,15 @@ getAppConfig.then((data: any) => {
 // We have one configuration per locale and use designated server file for matching route.
 const {
   AppServerModule: AppServerModuleFi,
-  LAZY_MODULE_MAP: LAZY_MODULE_MAP_FI,
   ngExpressEngine: ngExpressEngineFi,
-  provideModuleMap: provideModuleMapFi,
 } = require('./dist/server/fi/main');
 const {
   AppServerModule: AppServerModuleEn,
-  LAZY_MODULE_MAP: LAZY_MODULE_MAP_EN,
   ngExpressEngine: ngExpressEngineEn,
-  provideModuleMap: provideModuleMapEn,
 } = require('./dist/server/en/main');
 const {
   AppServerModule: AppServerModuleSv,
-  LAZY_MODULE_MAP: LAZY_MODULE_MAP_SV,
   ngExpressEngine: ngExpressEngineSv,
-  provideModuleMap: provideModuleMapSv,
 } = require('./dist/server/sv/main');
 
 // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
@@ -177,7 +188,6 @@ routes.forEach((route) => {
         'html',
         ngExpressEngineEn({
           bootstrap: AppServerModuleEn,
-          providers: [provideModuleMapEn(LAZY_MODULE_MAP_EN)],
         })
       );
       app.set('view engine', 'html');
@@ -188,7 +198,6 @@ routes.forEach((route) => {
         res,
         engine: ngExpressEngineEn({
           bootstrap: AppServerModuleEn,
-          providers: [provideModuleMapEn(LAZY_MODULE_MAP_EN), { req, res }],
         }),
       });
     });
@@ -199,7 +208,6 @@ routes.forEach((route) => {
         'html',
         ngExpressEngineSv({
           bootstrap: AppServerModuleSv,
-          providers: [provideModuleMapSv(LAZY_MODULE_MAP_SV)],
         })
       );
       app.set('view engine', 'html');
@@ -208,10 +216,7 @@ routes.forEach((route) => {
       res.render(route.view, {
         req,
         res,
-        engine: ngExpressEngineSv({
-          bootstrap: AppServerModuleSv,
-          providers: [provideModuleMapSv(LAZY_MODULE_MAP_SV), { req, res }],
-        }),
+        engine: ngExpressEngineSv({}),
       });
     });
   } else {
@@ -221,7 +226,6 @@ routes.forEach((route) => {
         'html',
         ngExpressEngineFi({
           bootstrap: AppServerModuleFi,
-          providers: [provideModuleMapFi(LAZY_MODULE_MAP_FI)],
         })
       );
       app.set('view engine', 'html');
@@ -232,7 +236,6 @@ routes.forEach((route) => {
         res,
         engine: ngExpressEngineFi({
           bootstrap: AppServerModuleFi,
-          providers: [provideModuleMapFi(LAZY_MODULE_MAP_FI), { req, res }],
         }),
       });
     });

@@ -1,6 +1,6 @@
 //  This file is part of the research.fi API service
 //
-//  Copyright 2019 Ministry of Education and Culture, Finland
+//  Copyright 2021 Ministry of Education and Culture, Finland
 //
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
@@ -20,8 +20,8 @@ import { EXPRESS_HTTP_PORT } from './app.global';
 import 'rxjs/add/operator/map';
 
 /*
-HttpInterceptor to enable proper handling of config file 'config.json'.
-Angular application requests the config file without absolute URL, because
+HttpInterceptor to enable proper handling of config files 'config.json' and 'auth_config.json'.
+Angular application requests the config files without absolute URL, because
 the server URL cannot be hard coded.
 
 HttpInterceptor will catch the request and modifies the request to contain
@@ -39,21 +39,28 @@ export class UniversalInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     let serverReq: HttpRequest<any> = req;
     /*
-    Modify request for 'config.json'.
+    Modify requests for 'config.json' and 'auth_config.json'.
     Ensure full path including port number, so that the request works with Angular Universal and Docker.
-
-    Overwrite property 'email' in response. This prevents email configuration from leaking to 'view source', because
-    of Angular's Transfer State functionality https://angular.io/api/platform-browser/TransferState
-    It is safe to remove 'email', because config.json will be read independently in server.ts.
     */
-    if (this.request && req.url.indexOf('config.json') !== -1) {
+    if (this.request && req.url.indexOf('auth_config.json') !== -1) {
+      let authConfigJsonUrl = `http://localhost:${EXPRESS_HTTP_PORT}/${this.localeId.slice(
+        0,
+        2
+      )}/assets/config/auth_config.json`;
+      serverReq = req.clone({ url: authConfigJsonUrl });
+      return next.handle(serverReq);
+    } else if (this.request && req.url.indexOf('config.json') !== -1) {
       let configJsonUrl = `http://localhost:${EXPRESS_HTTP_PORT}/${this.localeId.slice(
         0,
         2
       )}/assets/config/config.json`;
       serverReq = req.clone({ url: configJsonUrl });
 
-      // Overwrite property 'email' in config.json response.
+      /*
+      Overwrite property 'email' in config.json response. This prevents email configuration from leaking to browser's 'view source', because
+      of Angular's Transfer State functionality https://angular.io/api/platform-browser/TransferState
+      It is safe to remove 'email', because config.json will be read independently in server.ts.
+      */
       return next.handle(serverReq).map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
           event.body['email'] = {};

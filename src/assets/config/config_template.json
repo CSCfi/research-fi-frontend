@@ -10,5 +10,6 @@
     "username": "<optional username>",
     "password": "<optional password>",
     "receiver": "<receiver email address>"
-  }
+  },
+  "profileApiUrl": "<MYDATA_API_HOST>/api"
 }
