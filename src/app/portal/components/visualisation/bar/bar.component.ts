@@ -6,16 +6,8 @@ import {
   SimpleChanges,
   Inject,
 } from '@angular/core';
-import * as d3 from 'd3';
-import {
-  ScaleLinear,
-  scaleLinear,
-  scaleBand,
-  ScaleBand,
-  axisBottom,
-  axisLeft,
-  max,
-} from 'd3';
+import * as d3 from 'd3v4';
+import * as c from 'd3-scale-chromatic';
 import {
   Visual,
   VisualData,
@@ -53,8 +45,8 @@ export class BarComponent implements OnInit, OnChanges {
   g: d3.Selection<SVGElement, any, HTMLElement, any>;
   svg: d3.Selection<SVGElement, any, HTMLElement, any>;
 
-  x: ScaleBand<any>;
-  y: ScaleLinear<number, number>;
+  x: d3.ScaleBand<any>;
+  y: d3.ScaleLinear<number, number>;
 
   @Input() visIdx: string;
 
@@ -125,7 +117,7 @@ export class BarComponent implements OnInit, OnChanges {
     this.innerWidth = this.width - 3 * this.margin - this.legendWidth;
 
     // Get the doc count of the year with the highest doc count
-    const maxByDocCount = max(
+    const maxByDocCount = d3.max(
       sample.map((x) => x.data.reduce((a, b) => a + b.doc_count, 0))
     );
 
@@ -134,13 +126,13 @@ export class BarComponent implements OnInit, OnChanges {
     const seedrandom = require('seedrandom');
     seedrandom('randomseed', { global: true });
 
-    const len = max(sample.map((x) => x.data.length));
+    const len = d3.max(sample.map((x) => x.data.length));
     // Create color scale
     const color = d3.scaleOrdinal(
       // Shuffle the color order from the first onward (year colors stay same)
       UtilityService.shuffle(
         // Quantize the desired scale to the length of data
-        d3.quantize(d3.interpolateSinebow, max([len + 1, 3])).slice(0, -1),
+        d3.quantize(c.interpolateSinebow, d3.max([len + 1, 3])).slice(0, -1),
         1 // quantize() sets first and last element to same
       )
     );
@@ -162,21 +154,21 @@ export class BarComponent implements OnInit, OnChanges {
     legendSvg.selectAll('*').remove();
 
     // X scale
-    this.x = scaleBand()
+    this.x = d3.scaleBand()
       .range([0, this.innerWidth])
       // Reverse the year to ascending domain
       .domain(sample.map((d) => d.key.toString()).reverse())
       .padding(0.2);
 
     // Y scale
-    this.y = scaleLinear()
+    this.y = d3.scaleLinear()
       .range([this.innerHeight, 0])
       .domain([0, percentage ? 100 : maxByDocCount])
       .nice(5);
 
     // Y axis
     this.g.append('g').call(
-      axisLeft(this.y)
+      d3.axisLeft(this.y)
         // Only show integer ticks
         .tickValues(this.y.ticks().filter((t) => Number.isInteger(t)))
         // .tickFormat(d => d + (percentage ? '%' : '')));
@@ -187,14 +179,14 @@ export class BarComponent implements OnInit, OnChanges {
     this.g
       .append('g')
       .attr('transform', `translate(0, ${this.innerHeight})`)
-      .call(axisBottom(this.x));
+      .call(d3.axisBottom(this.x));
 
     // Add horizontal lines
     this.g
       .append('g')
       .attr('class', 'grid')
       .call(
-        axisLeft(this.y)
+        d3.axisLeft(this.y)
           // Limit ticks on small amount of results
           .ticks(
             Math.min(
@@ -228,17 +220,17 @@ export class BarComponent implements OnInit, OnChanges {
             this.innerHeight - this.y(d.doc_count / (percentage ? totalSum : 1))
         ) // Divide by total sum to get percentage, otherwise keep original
         .attr('width', (_) => this.x.bandwidth())
-        // .on('mouseenter', (d, i, n: any) =>
-        //   this.showInfo(
-        //     d,
-        //     i,
-        //     n,
-        //     color,
-        //     percentage ? (d.doc_count / totalSum).toFixed(1) + '%' : undefined
-        //   )
-        // )
+        .on('mouseenter', (d, i, n: any) => 
+          this.showInfo(
+            d,
+            i,
+            n,
+            color,
+            percentage ? (d.doc_count / totalSum).toFixed(1) + '%' : undefined
+          )
+        )
         // Pass percentage if selected
-        // .on('mouseout', (d, i, n: any) => this.hideInfo(d, i, n))
+        .on('mouseout', (d, i, n: any) => this.hideInfo(d, i, n))
         .on('click', (d) => this.onClick(d))
         .style('cursor', (d) =>
           this.categoryObject.filter &&
