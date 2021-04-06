@@ -17,7 +17,7 @@ export class FilterMethodService {
   constructor(private staticDataService: StaticDataService) {}
 
   // Map minor fields of science to arrays by major
-  separateMinor(source, tab='publication') {
+  separateMinor(source) {
     let mapped: any;
     this.combined = [];
     // Map fields by field & nested id
@@ -29,7 +29,7 @@ export class FilterMethodService {
         id: majorField.fieldId.buckets[0]?.key || -1,
         doc_count: majorField.fieldId.buckets[0]?.key
           // Separate logic for publications and datasets
-          ? (tab === 'publication' ? majorField.filtered.filterCount.doc_count : majorField.doc_count)
+          ? majorField.filtered.filterCount.doc_count
           : -1,
       }));
     }

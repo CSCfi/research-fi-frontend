@@ -129,12 +129,12 @@ export class DatasetFilterService {
     source.buckets = source.sectorName ? source.sectorName.buckets : [];
     source.buckets.forEach((item) => {
       item.subData = item.org.organization.buckets.filter(
-        (x) => x.doc_count > 0 && x.key.trim().length > 0
+        (x) => x.filtered.filterCount.doc_count > 0 && x.key.trim().length > 0
       );
       item.subData.map((subItem) => {
         subItem.label = subItem.label || subItem.key;
         subItem.key = subItem.orgId.buckets[0].key;
-        subItem.doc_count = subItem.filtered.doc_count;
+        subItem.doc_count = subItem.filtered.filterCount.doc_count;
       });
       item.doc_count = item.subData
         .map((s) => s.doc_count)
@@ -157,7 +157,7 @@ export class DatasetFilterService {
     if (data.length) {
       // check if major aggregation is available
       const combinedMajorFields = data.length
-        ? this.filterMethodService.separateMinor(data ? data : [], 'dataset')
+        ? this.filterMethodService.separateMinor(data ? data : [])
         : [];
 
       const result = cloneDeep(this.staticDataService.majorFieldsOfScience);
@@ -212,10 +212,10 @@ export class DatasetFilterService {
             ? lang.language.buckets[0]?.key
             : $localize`:@@notKnown:Ei tiedossa`,
         key: lang.key.toLowerCase(),
-        doc_count: lang.doc_count,
+        doc_count: lang.filtered.filterCount.doc_count,
       };
     });
 
-    return langs.filter((lang) => lang.key !== ' ').sort((a, b) => b.doc_count - a.doc_count);
+    return langs.filter((lang) => lang.key !== ' ' && lang.doc_count > 0).sort((a, b) => b.doc_count - a.doc_count);
   }
 }
