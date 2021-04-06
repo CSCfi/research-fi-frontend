@@ -7,7 +7,7 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
-import * as d3 from 'd3';
+import * as d3 from 'd3v4';
 import { Router } from '@angular/router';
 
 @Component({
