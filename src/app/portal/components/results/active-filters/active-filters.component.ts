@@ -592,9 +592,22 @@ export class ActiveFiltersComponent
                     : result.key;
                 }, 1);
               }
-
+              
               // Datasets
-
+              if (val.category === 'dataSource' && source.dataSource) {
+                setTimeout((t) => {
+                  const result = source.dataSource.dataSources.buckets.find(
+                    (key) => key.key === val.value
+                  );
+                  const foundIndex = this.activeFilters.findIndex(
+                    (x) => x.value === val.value
+                  );
+                  this.activeFilters[foundIndex].translation = result.label
+                    ? result.label
+                    : result.key;
+                }, 1);
+              }
+              
               // Infrastructures
               // Type
               if (val.category === 'type' && source.type) {

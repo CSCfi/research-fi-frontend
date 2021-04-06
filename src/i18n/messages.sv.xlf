@@ -2149,7 +2149,7 @@
       </trans-unit>
       <trans-unit id="footerHeader4" datatype="html">
         <source>Info ja yhteystiedot</source>
-        <target>Info and contact information</target>
+        <target>Info och kontaktinformation</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">43</context>
@@ -2386,11 +2386,11 @@
       </trans-unit>
       <trans-unit id="gMonograph">
         <source>Monografiaväitöskirja</source>
-        <target>Doctoral dissertation (monograph)</target>
+        <target>Monografiavhandling</target>
       </trans-unit>
       <trans-unit id="gArticle">
         <source>Artikkeliväitöskirja</source>
-        <target>Doctoral dissertation (articles)</target>
+        <target>Artikelavhandling</target>
       </trans-unit>
       <!-- JUFO codes -->
       <trans-unit id="3426911634399671069">
@@ -2792,6 +2792,10 @@
       <trans-unit id="datasetBetaInfo">
         <source>Tutkimusaineistojen kuvailutiedot ovat uusi tietokokonaisuus Tiedejatutkimus.fi -portaalissa. Tietojen lähteenä ovat Fairdata-palveluista löytyvät kuvailutiedot. Koska kyseessä on uusi kokonaisuus, toivomme palautetta tiedejatutkimus@csc.fi osoitteeseen.</source>
         <target>Research data is a new section in Research.fi -portal. The source for the section's metadata are the Fairdata.fi -services. For this new section in Research.fi, all feedback is welcome and should be sent to tiedejatutkimus@csc.fi</target>
+      </trans-unit>
+      <trans-unit id="datasetSourceMetadata">
+        <source>Metatietopalvelu</source>
+        <target>Metadata portal</target>
       </trans-unit>
       <trans-unit id="datasetName">
         <source>Tutkimusaineiston nimi</source>
