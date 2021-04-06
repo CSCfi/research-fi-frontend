@@ -1,4 +1,3 @@
-import { isNgTemplate } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { cloneDeep } from 'lodash-es';
 import { StaticDataService } from '../static-data.service';

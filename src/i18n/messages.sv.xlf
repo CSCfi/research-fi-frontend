@@ -2386,11 +2386,11 @@
       </trans-unit>
       <trans-unit id="gMonograph">
         <source>Monografiaväitöskirja</source>
-        <target>Doctoral dissertation (monograph)</target>
+        <target>Monografiavhandling</target>
       </trans-unit>
       <trans-unit id="gArticle">
         <source>Artikkeliväitöskirja</source>
-        <target>Doctoral dissertation (articles)</target>
+        <target>Artikelavhandling</target>
       </trans-unit>
       <!-- JUFO codes -->
       <trans-unit id="3426911634399671069">
