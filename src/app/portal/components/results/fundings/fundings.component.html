@@ -102,11 +102,8 @@
           [title]="
             (funding.description ? funding.description : '') | cutContent: 200
           "
-          (mouseenter)="utilityService.tooltipMouseenter(elem)"
-          (keydown.escape)="utilityService.tooltipKeydown(elem, $event)"
           #elem
           placement="top"
-          triggers="focus keydown.escape"
           [isDisabled]="funding.description?.trim().length > 0 ? false : true"
         >
           <h4

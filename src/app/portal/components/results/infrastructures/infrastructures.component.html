@@ -21,10 +21,7 @@
         tabindex="0"
         i18n-tooltip="@@acronymTooltip"
         tooltip="Tutkimusinfrastruktuurin lyhenne. Infrastruktuureille on tyypillistä, että ne tunnetaan lyhenteellään."
-        triggers="focus keydown.escape"
         placement="top"
-        (mouseenter)="utilityService.tooltipMouseenter(main)"
-        (keydown.escape)="utilityService.tooltipKeydown(main, $event)"
         class="bold uppercase"
         [ngClass]="
           sortColumn === 'acronym'
@@ -57,10 +54,7 @@
         tabindex="0"
         i18n-tooltip="@@infraOrganizationTooltip"
         tooltip="Tutkimusinfrastruktuurin vastuuorganisaatio. Etenkin suurilla infrastruktuureilla voi olla useita palveluita, joista vastaa joku muu organisaatio. Muut organisaatiot näkee infrastruktuurin tietosivulta."
-        triggers="focus keydown.escape"
         placement="top"
-        (mouseenter)="utilityService.tooltipMouseenter(elem)"
-        (keydown.escape)="utilityService.tooltipKeydown(elem, $event)"
         #elem
         class="bold uppercase"
         [ngClass]="
@@ -130,8 +124,6 @@
                 tooltip="Tutkimusinfrastruktuurin palveluiden lukumäärä."
                 triggers="focus kedown.escape"
                 placement="top"
-                (mouseenter)="utilityService.tooltipMouseenter(elem)"
-                (keydown.escape)="utilityService.tooltipKeydown(elem, $event)"
                 #elem
               >
                 <ng-container i18n="@@infraServicesLabel"
@@ -146,8 +138,6 @@
                 tooltip="Tutkimusinfrastruktuuri on voimassaolevalla Suomen Akatemian tiekartalla."
                 triggers="focus kedown.escape"
                 placement="top"
-                (mouseenter)="utilityService.tooltipMouseenter(elem)"
-                (keydown.escape)="utilityService.tooltipKeydown(elem, $event)"
                 #elem
               >
                 <ng-container i18n="@@finlandRoadmap">Tiekartalla</ng-container

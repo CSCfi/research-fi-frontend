@@ -17,9 +17,6 @@
   [tabindex]="isHomepage && tab.data.length !== 0 ? 0 : -1"
   [title]="tab.tooltip"
   placement="bottom"
-  triggers="focus keydown"
-  (mouseenter)="utilityService.tooltipMouseenter(elem)"
-  (keydown)="utilityService.tooltipKeydown(elem, $event)"
   #elem
 >
   <div *ngIf="tab.data.length > 0; else disabledTab" #tabList [id]="tab.link">

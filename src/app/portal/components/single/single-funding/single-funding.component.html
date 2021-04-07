@@ -53,10 +53,7 @@
                     <span
                       [tooltip]="tooltipTemplate"
                       tabindex="0"
-                      triggers="focus keydown"
                       placement="top"
-                      (mouseenter)="utilityService.tooltipMouseenter(elem)"
-                      (keydown)="utilityService.tooltipKeydown(elem, $event)"
                       #elem
                     >
                       <fa-icon
@@ -97,10 +94,7 @@
                 <span
                   [tooltip]="tooltipTemplate"
                   tabindex="0"
-                  triggers="focus keydown"
                   placement="top"
-                  (mouseenter)="utilityService.tooltipMouseenter(elem)"
-                  (keydown)="utilityService.tooltipKeydown(elem, $event)"
                   #elem
                 >
                   <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
@@ -240,10 +234,7 @@
                 <span
                   [tooltip]="tooltipTemplate"
                   tabindex="0"
-                  triggers="focus keydown"
                   placement="top"
-                  (mouseenter)="utilityService.tooltipMouseenter(elem)"
-                  (keydown)="utilityService.tooltipKeydown(elem, $event)"
                   #elem
                 >
                   <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
@@ -309,10 +300,7 @@
                 <span
                   [tooltip]="tooltipTemplate"
                   tabindex="0"
-                  triggers="focus keydown"
                   placement="top"
-                  (mouseenter)="utilityService.tooltipMouseenter(elem)"
-                  (keydown)="utilityService.tooltipKeydown(elem, $event)"
                   #elem
                 >
                   <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
@@ -443,10 +431,7 @@
                 <span
                   [tooltip]="tooltipTemplate"
                   tabindex="0"
-                  triggers="focus keydown"
                   placement="top"
-                  (mouseenter)="utilityService.tooltipMouseenter(elem)"
-                  (keydown)="utilityService.tooltipKeydown(elem, $event)"
                   #elem
                 >
                   <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
@@ -456,7 +441,6 @@
                 {{ item.funder.name }}
               </div>
             </div>
-
             <div class="row" *ngFor="let row of funderFields">
               <h2 class="col-12 col-sm-4 col-lg-3 th">
                 {{ row.label }}
@@ -467,10 +451,7 @@
                   <span
                     [tooltip]="tooltipTemplate"
                     tabindex="0"
-                    triggers="focus keydown"
                     placement="top"
-                    (mouseenter)="utilityService.tooltipMouseenter(elem)"
-                    (keydown)="utilityService.tooltipKeydown(elem, $event)"
                     #elem
                   >
                     <fa-icon
@@ -484,7 +465,6 @@
                 {{ item.funder[row.field] }}
               </div>
             </div>
-
             <!-- Eu vs normal funding callProgramme logic -->
             <div
               class="row"
@@ -501,10 +481,7 @@
                 <span
                   [tooltip]="tooltipTemplate"
                   tabindex="0"
-                  triggers="focus keydown"
                   placement="top"
-                  (mouseenter)="utilityService.tooltipMouseenter(elem)"
-                  (keydown)="utilityService.tooltipKeydown(elem, $event)"
                   #elem
                 >
                   <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
@@ -579,10 +556,7 @@
                   <span
                     [tooltip]="tooltipTemplate"
                     tabindex="0"
-                    triggers="focus keydown"
                     placement="top"
-                    (mouseenter)="utilityService.tooltipMouseenter(elem)"
-                    (keydown)="utilityService.tooltipKeydown(elem, $event)"
                     #elem
                   >
                     <fa-icon
@@ -618,10 +592,7 @@
                 <span
                   [tooltip]="tooltipTemplate"
                   tabindex="0"
-                  triggers="focus keydown"
                   placement="top"
-                  (mouseenter)="utilityService.tooltipMouseenter(elem)"
-                  (keydown)="utilityService.tooltipKeydown(elem, $event)"
                   #elem
                 >
                   <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
