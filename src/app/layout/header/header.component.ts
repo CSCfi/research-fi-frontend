@@ -217,10 +217,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       !this.utilityService.modalOpen &&
       !this.utilityService.tooltipOpen
     ) {
-      this.toggleNavbar();
-      setTimeout(() => {
-        this.navbarToggler.nativeElement.focus();
-      }, 1);
+      // this.toggleNavbar();
+      // setTimeout(() => {
+      //   this.navbarToggler.nativeElement.focus();
+      // }, 1);
     }
   }
 
@@ -272,10 +272,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     // Set the overlay lower so skip links dont mess up overlay
     if (this.navbarOpen) {
+      this.document.body.classList.add('modal-open');
       setTimeout(() => {
         this.overlay &&
-          this.renderer.setStyle(this.overlay?.nativeElement, 'top', '350px');
+        this.renderer.setStyle(this.overlay?.nativeElement, 'top', '350px');
       }, 500);
+    } else {
+      this.document.body.classList.remove('modal-open');
     }
 
     // Allow menu to slide out before hiding
