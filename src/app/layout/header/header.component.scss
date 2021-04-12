@@ -210,12 +210,6 @@ ul.dropdown li a {
 }
 
 // Language selector
-mat-form-field.lang-select {
-  text-align: center !important;
-  width: 68px;
-  border: 0 !important;
-}
-
 mat-form-field .mat-select-panel {
   background: white !important;
 }
@@ -229,6 +223,9 @@ mat-form-field .mat-select-value-text {
 }
 
 mat-form-field.lang-select {
+  text-align: center !important;
+  border: 0 !important;
+
   .mat-select-value {
     max-width: unset;
     width: 100%;
@@ -266,7 +263,8 @@ mat-form-field.lang-select {
 }
 
 .mat-form-field-appearance-legacy .mat-form-field-infix {
-  padding: 0.36em 0 !important;
+  padding: 0.36em 0.5rem !important;
+  width: unset;
 }
 
 // mobile menu
