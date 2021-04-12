@@ -212,7 +212,7 @@ ul.dropdown li a {
 // Language selector
 mat-form-field.lang-select {
   text-align: center !important;
-  width: 54px;
+  width: 68px;
   border: 0 !important;
 }
 
@@ -228,42 +228,45 @@ mat-form-field .mat-select-value-text {
   font-weight: 500;
 }
 
-mat-form-field.lang-select .mat-select-arrow {
-  border: 0 !important;
-}
+mat-form-field.lang-select {
+  .mat-select-value {
+    max-width: unset;
+    width: 100%;
+    overflow: visible;
+  }
 
-mat-form-field.lang-select .mat-form-field-infix {
-  border: 0;
-}
+  .mat-select-arrow-wrapper {
+    display: none;
+  }
 
-mat-form-field.lang-select .mat-select-value-text:after {
-  font-family: 'FontAwesome';
-  margin-left: 8px;
-  content: '\f078' !important;
-}
+  .mat-form-field-infix {
+    border: 0;
+  }
 
-.mat-select-value {
-  padding-left: 0.5rem;
-}
+  .mat-select-value-text:after {
+    font-family: 'FontAwesome';
+    margin-left: 8px;
+    content: '\f078' !important;
+  }
 
-mat-form-field.lang-select.mat-form-field-appearance-legacy
-  .mat-form-field-wrapper {
-  padding-bottom: 0 !important;
+  .mat-form-field-underline {
+    display: none !important;
+  }
+
+  &.mat-form-field-appearance-legacy .mat-form-field-wrapper {
+    padding-bottom: 0 !important;
+  }
+
+  &,
+  mat-select {
+    font-size: inherit;
+    font-weight: 500;
+    font-family: inherit !important;
+  }
 }
 
 .mat-form-field-appearance-legacy .mat-form-field-infix {
   padding: 0.36em 0 !important;
-}
-
-mat-form-field.lang-select,
-mat-select {
-  font-size: inherit;
-  font-weight: 500;
-  font-family: inherit !important;
-}
-
-mat-form-field.lang-select .mat-form-field-underline {
-  display: none !important;
 }
 
 // mobile menu
