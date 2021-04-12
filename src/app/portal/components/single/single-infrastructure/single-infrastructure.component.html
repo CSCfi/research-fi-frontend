@@ -1,7 +1,5 @@
 <!--  This file is part of the research.fi API service
-
  Copyright 2019 Ministry of Education and Culture, Finland
-
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
@@ -55,10 +53,7 @@
                     <span
                       [tooltip]="tooltipTemplate"
                       tabindex="0"
-                      triggers="focus keydown"
                       placement="top"
-                      (mouseenter)="utilityService.tooltipMouseenter(elem)"
-                      (keydown)="utilityService.tooltipKeydown(elem, $event)"
                       #elem
                     >
                       <fa-icon
@@ -98,10 +93,7 @@
                             Palvelut voivat olla ulkopuolisten tahojen käytettävissä tai tarkoitettu oman organisaation tutkimusryhmälle. 
                             Palvelu voi olla tarjolla myös muista kuin vastuuorganisaatiosta, jolloin sillä on useampi palvelupiste."
                 tabindex="0"
-                triggers="focus keydown"
                 placement="top"
-                (mouseenter)="utilityService.tooltipMouseenter(elem)"
-                (keydown)="utilityService.tooltipKeydown(elem, $event)"
                 #elem
               >
                 <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
@@ -139,14 +131,7 @@
                           <span
                             [tooltip]="tooltipTemplate"
                             tabindex="0"
-                            triggers="focus keydown"
                             placement="top"
-                            (mouseenter)="
-                              utilityService.tooltipMouseenter(elem)
-                            "
-                            (keydown)="
-                              utilityService.tooltipKeydown(elem, $event)
-                            "
                             #elem
                           >
                             <fa-icon
@@ -202,12 +187,7 @@
                           tooltip="Kertoo palvelun yhteystiedot ja mahdolliset käyttöehdot. 
                                                 Kuvauksessa voidaan kertoa palvelupisteestä tarkemmin. Joskus palvelu voi olla erilainen eri palvelupisteissä esimerkiksi tarjolla olevan laitteiston kannalta."
                           tabindex="0"
-                          triggers="focus keydown"
                           placement="top"
-                          (mouseenter)="utilityService.tooltipMouseenter(elem)"
-                          (keydown)="
-                            utilityService.tooltipKeydown(elem, $event)
-                          "
                           #elem
                         >
                           <fa-icon
@@ -294,10 +274,7 @@
                       <span
                         [tooltip]="tooltipTemplate"
                         tabindex="0"
-                        triggers="focus keydown"
                         placement="top"
-                        (mouseenter)="utilityService.tooltipMouseenter(elem)"
-                        (keydown)="utilityService.tooltipKeydown(elem, $event)"
                         #elem
                       >
                         <fa-icon

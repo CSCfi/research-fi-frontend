@@ -1,4 +1,3 @@
-import { isNgTemplate } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { cloneDeep } from 'lodash-es';
 import { StaticDataService } from '../static-data.service';
@@ -97,7 +96,7 @@ export class DatasetFilterService {
     const source = data.aggregations;
     source.year.buckets = this.mapYear(source.year.years.buckets);
     source.organization = this.organization(source.organization);
-    source.dataSource.buckets = this.filterEmptyKeys(
+    source.dataSource.buckets = this.dataSource(
       source.dataSource.dataSources.buckets
     );
     source.lang.buckets = this.lang(source.lang.langs.buckets);
@@ -130,12 +129,12 @@ export class DatasetFilterService {
     source.buckets = source.sectorName ? source.sectorName.buckets : [];
     source.buckets.forEach((item) => {
       item.subData = item.org.organization.buckets.filter(
-        (x) => x.doc_count > 0 && x.key.trim().length > 0
+        (x) => x.filtered.filterCount.doc_count > 0 && x.key.trim().length > 0
       );
       item.subData.map((subItem) => {
         subItem.label = subItem.label || subItem.key;
         subItem.key = subItem.orgId.buckets[0].key;
-        subItem.doc_count = subItem.filtered.doc_count;
+        subItem.doc_count = subItem.filtered.filterCount.doc_count;
       });
       item.doc_count = item.subData
         .map((s) => s.doc_count)
@@ -147,11 +146,18 @@ export class DatasetFilterService {
     return source;
   }
 
+  dataSource(data) {
+    const removeString = $localize`:@@datasetSourceMetadata:Metatietopalvelu`; 
+    data.forEach(x => x.label = x.key.replace(removeString, ''));
+    return this.filterEmptyKeys(data);
+  }
+
+
   minorField(data) {
     if (data.length) {
       // check if major aggregation is available
       const combinedMajorFields = data.length
-        ? this.filterMethodService.separateMinor(data ? data : [], 'dataset')
+        ? this.filterMethodService.separateMinor(data ? data : [])
         : [];
 
       const result = cloneDeep(this.staticDataService.majorFieldsOfScience);
@@ -206,10 +212,10 @@ export class DatasetFilterService {
             ? lang.language.buckets[0]?.key
             : $localize`:@@notKnown:Ei tiedossa`,
         key: lang.key.toLowerCase(),
-        doc_count: lang.doc_count,
+        doc_count: lang.filtered.filterCount.doc_count,
       };
     });
 
-    return langs.filter((lang) => lang.key !== ' ').sort((a, b) => b.doc_count - a.doc_count);
+    return langs.filter((lang) => lang.key !== ' ' && lang.doc_count > 0).sort((a, b) => b.doc_count - a.doc_count);
   }
 }
