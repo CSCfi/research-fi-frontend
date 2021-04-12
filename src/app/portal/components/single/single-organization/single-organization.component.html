@@ -1,7 +1,5 @@
 <!--  This file is part of the research.fi API service
-
  Copyright 2019 Ministry of Education and Culture, Finland
-
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
@@ -69,10 +67,7 @@
                 <span
                   [tooltip]="tooltipTemplate"
                   tabindex="0"
-                  triggers="focus keydown"
                   placement="top"
-                  (mouseenter)="utilityService.tooltipMouseenter(elem)"
-                  (keydown)="utilityService.tooltipKeydown(elem, $event)"
                   #elem
                 >
                   <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
@@ -94,10 +89,7 @@
                 i18n-tooltip="@@vipunenSource"
                 tooltip="Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi"
                 tabindex="0"
-                triggers="focus keydown"
                 placement="top"
-                (mouseenter)="utilityService.tooltipMouseenter(elem)"
-                (keydown)="utilityService.tooltipKeydown(elem, $event)"
                 #elem
               >
                 <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
@@ -160,10 +152,7 @@
                 <span
                   [tooltip]="tooltipTemplate"
                   tabindex="0"
-                  triggers="focus keydown"
                   placement="top"
-                  (mouseenter)="utilityService.tooltipMouseenter(elem)"
-                  (keydown)="utilityService.tooltipKeydown(elem, $event)"
                   #elem
                 >
                   <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>

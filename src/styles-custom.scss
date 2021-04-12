@@ -170,6 +170,11 @@ mark,
   background: white !important;
 }
 
+// Material form field focus
+mat-form-field.mat-focused {
+  outline: -webkit-focus-ring-color auto 1px;
+}
+
 // Tooltip
 .tooltip-inner {
   max-width: 276px;

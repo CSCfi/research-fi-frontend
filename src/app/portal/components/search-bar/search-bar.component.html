@@ -35,8 +35,6 @@
               tabindex="-1"
               i18n-title="@@searchTooltip"
               title="Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa."
-              triggers="focus keydown"
-              (keydown)="utilityService.tooltipKeydown(elem, $event)"
               #elem
             ></span>
           </div>
@@ -65,8 +63,6 @@
                 type="text"
                 i18n-title="@@searchTooltip"
                 title="Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa."
-                triggers="focus keydown.escape"
-                (mouseenter)="utilityService.tooltipMouseenter(elem)"
                 i18n-placeholder
                 placeholder="Esim. julkaisu, tieteenala, asiasana"
                 id="searchInput"
@@ -92,8 +88,6 @@
                   "
                   i18n-title="@@resetSearchTooltip"
                   title="Tyhjennä haku"
-                  triggers="focus keydown.escape"
-                  (keydown)="utilityService.tooltipKeydown(elem, $event)"
                 >
                   <i class="fa fa-times"></i>
                 </span>

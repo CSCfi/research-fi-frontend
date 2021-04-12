@@ -55,11 +55,8 @@
                     class="reset"
                     *ngIf="queryField?.value?.length > 0"
                     (click)="resetSearch()"
-                    (mouseenter)="utilityService.tooltipMouseenter(reset)"
                     i18n-tooltip="@@resetSearchTooltip"
                     tooltip="Tyhjennä haku"
-                    triggers="focus keydown.escape"
-                    (keydown)="utilityService.tooltipKeydown($event)"
                   >
                     <i class="fa fa-times"></i>
                   </span>

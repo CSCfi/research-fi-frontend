@@ -49,9 +49,6 @@
         i18n-tooltip="@@publicationMediumTooltip"
         tooltip="Lehti, kustantaja tai sarja, jossa julkaisu on ilmestynyt."
         placement="top"
-        triggers="focus keydown.escape"
-        (mouseenter)="utilityService.tooltipMouseenter(elem)"
-        (keydown.escape)="utilityService.tooltipKeydown(elem, $event)"
         #elem
         class="bold uppercase"
         [ngClass]="
