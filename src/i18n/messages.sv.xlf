@@ -174,11 +174,11 @@
       </trans-unit>
       <trans-unit id="researchfiTwitter">
         <source>Tiedejatutkimus.fi Twitterissä</source>
-        <target>Senaste vetenskaps- och forskningsnyheterna</target>
+        <target>Forskning.fi på twitter</target>
       </trans-unit>
       <trans-unit id="homeNewsHeaderPlain">
         <source>Tiede ja tutkimus Suomessa</source>
-        <target>Forskning.fi på twitter</target>
+        <target>Senaste vetenskaps- och forskningsnyheterna</target>
       </trans-unit>
       <trans-unit id="homeNewsHeader" datatype="html">
         <source>Uusimmat tiede- ja tutkimusuutiset 
