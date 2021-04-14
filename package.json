@@ -66,6 +66,7 @@
     "ng-click-outside": "^7.0.1",
     "ngx-bootstrap": "^6.2.0",
     "ngx-countup": "^7.3.3",
+    "ngx-infinite-scroll": "^10.0.1",
     "nodemailer": "^6.5.0",
     "popper.js": "^1.16.0",
     "referrer-policy": "^1.2.0",
