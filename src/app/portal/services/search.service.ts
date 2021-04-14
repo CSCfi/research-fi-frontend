@@ -322,12 +322,13 @@ export class SearchService {
   }
 
   // News page content
-  getNews(size?: number): Observable<News[]> {
+  getNews(size?: number, from: number = 0): Observable<News[]> {
     const sort = { timestamp: { order: 'desc' } };
     const payload = {
       query: this.filterService.constructNewsPayload(this.searchTerm),
       size,
       sort: [sort],
+      from: from,
     };
 
     return this.http
@@ -344,7 +345,7 @@ export class SearchService {
     const payload = {
       query: this.filterService.constructNewsPayload(this.searchTerm),
       size,
-      from: this.fromNewsPage + 5,
+      from: this.fromNewsPage,
       sort: [sort],
     };
 
