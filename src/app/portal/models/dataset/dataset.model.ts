@@ -105,9 +105,12 @@ export class DatasetAdapter implements Adapter<Dataset> {
           org?.organizationUnit?.forEach((orgUnit) => {
             // Check if subunit is "valid"
             if (orgUnit.OrgUnitId !== '-1' && orgUnit.OrgUnitId !== ' ') {
+              // Only add role to subUnit if no person
+              const roles = [];
+              if (!orgUnit.person) {roles.push(role)}
               orgObj.actors.push({
                 name: this.lang.testLang('organizationUnitName', orgUnit),
-                roles: [role],
+                roles: roles,
               });
             }
             orgUnit?.person?.forEach((person) => {
