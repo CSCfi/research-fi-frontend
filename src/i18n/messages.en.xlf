@@ -129,6 +129,14 @@
         <source>Hae uutisista...</source>
         <target>Search for news...</target>
       </trans-unit>
+      <trans-unit id="searchNews" datatype="html">
+        <source>Hae uutisia</source>
+        <target>Search for news</target>
+      </trans-unit>
+      <trans-unit id="scrollToLoadMore">
+        <source>Rullaa alas ladataksesi lisää</source>
+        <target>Scroll down to see more</target>
+      </trans-unit>
       <trans-unit id="suggestResults1" datatype="html">
         <source>Ei ehdotuksia</source>
         <target>No suggestions</target>
@@ -221,6 +229,10 @@
       <trans-unit id="researchFinland">
         <source>Tiede ja tutkimus Suomessa</source>
         <target>Science and research in Finland</target>
+      </trans-unit>
+      <trans-unit id="singleResult">
+        <source>hakutulos</source>
+        <target>search result</target>
       </trans-unit>
       <trans-unit id="resultCount" datatype="html">
         <source>hakutulosta</source>
