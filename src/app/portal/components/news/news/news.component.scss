@@ -15,8 +15,41 @@ app-news {
     font-size: 1.3rem;
   }
 
-  .side-news {
-    height: max-content;
+  // Tab
+  .mat-tab-header {
+    width: 75%;
+    overflow: visible;
+    position: relative;
+  }
+
+  .mat-tab-label-container {
+    overflow: visible;
+    position: relative;
+  }
+
+  .mat-tab-label-container,
+  .mat-tab-label-active {
+    height: 54px;
+    margin-top: 0 !important;
+  }
+
+  .mat-tab-label-active {
+    position: relative;
+    z-index: 4;
+    margin-top: 1px !important;
+  }
+
+  .mat-tab-label {
+    opacity: 1;
+    margin-top: 6px;
+  }
+
+  .mat-ink-bar {
+    display: none;
+  }
+
+  .mat-tab-body-content {
+    overflow: hidden;
   }
 
   app-filters {
@@ -31,7 +64,7 @@ app-news {
   }
 
   input.search {
-    width: 97.5%;
+    width: 100%;
     padding: 8px;
     border: none;
     background: none;
@@ -70,6 +103,12 @@ app-news {
   // Override filter button width
   .mobile {
     max-width: 100% !important;
+  }
+
+  @media (max-width: 991px) {
+    .mat-tab-header {
+      width: 100%;
+    }
   }
 }
 

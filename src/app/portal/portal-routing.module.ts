@@ -111,6 +111,10 @@ const routes: Routes = [
     component: NewsComponent,
   },
   {
+    path: 'news/:tab',
+    component: NewsComponent,
+  },
+  {
     path: 'science-innovation-policy',
     component: ResearchInnovationSystemComponent,
     pathMatch: 'full',

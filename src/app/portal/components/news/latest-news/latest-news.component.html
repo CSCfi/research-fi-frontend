@@ -1,0 +1,32 @@
+<!-- # This file is part of the research.fi API service
+#
+# Copyright 2019 Ministry of Education and Culture, Finland
+#
+# :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+# :license: MIT -->
+
+<div class="row d-flex justify-content-between pt-3">
+  <div class="col-12 col-lg-9 col px-0" [class.p-0]="mobile">
+    <main>
+      <div
+        *ngIf="visible"
+        class="row content"
+        infiniteScroll
+        [infiniteScrollDistance]="0"
+        [infiniteScrollThrottle]="50"
+        (scrolled)="loadMoreNews()"
+      >
+        <app-news-card
+          #cards
+          *ngFor="let item of data"
+          [item]="item"
+        ></app-news-card>
+      </div>
+    </main>
+  </div>
+  <div class="col-12 col-lg-9 text-right">
+    <p>
+      <span i18n="@@scrollToLoadMore">Rullaa alas ladataksesi lisää</span>...
+    </p>
+  </div>
+</div>
