@@ -17,6 +17,7 @@ import { AppConfigService } from '@shared/services/app-config-service.service';
 })
 export class AppComponent {
   title = 'research-fi-portal';
+  siteId: number;
 
   constructor(
     public oidcSecurityService: OidcSecurityService,
