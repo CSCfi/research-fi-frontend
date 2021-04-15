@@ -53,6 +53,8 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   queryParamSub: Subscription;
 
   isBrowser: boolean;
+  dataFetched: any;
+  dataFetched2: any;
 
   constructor(
     public searchService: SearchService,
@@ -156,14 +158,13 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   navigate(event) {
     this.selectedIndex = event.index;
-
     // Hide skip to input on first tab
     this.tabChangeService.toggleSkipToInput(event.index === 0 ? false : true);
 
     switch (event.index) {
       case 1: {
         this.router.navigate(['news', event.index], {
-          queryParams: this.queryParams,
+          queryParams: { ...this.queryParams },
         });
         break;
       }
