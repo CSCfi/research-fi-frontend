@@ -613,7 +613,7 @@
       </trans-unit>
       <trans-unit id="tooManyResultsNavigationDisabled" datatype="html">
         <source>Liikaa tuloksia. Haun loppuun navigoiminen estetty.</source>
-        <target></target>
+        <target>För många resultat. Navigeringen till slutet av sökresultaten är förhindrat.</target>
       </trans-unit>
       <trans-unit id="paginationResultCount" datatype="html">
         <source>Näytetään tulokset</source>
