@@ -17,7 +17,6 @@ import { AppConfigService } from '@shared/services/app-config-service.service';
 })
 export class AppComponent {
   title = 'research-fi-portal';
-  siteId: number;
 
   constructor(
     public oidcSecurityService: OidcSecurityService,
@@ -25,10 +24,6 @@ export class AppComponent {
     @Inject(PLATFORM_ID) private platformId: object,
     @Inject(DOCUMENT) private document: any
   ) {
-    // Set site ID according to environment
-    this.siteId =
-      this.appConfigService.environmentName === 'production' ? 1 : 4;
-
     // SSR platform check
     if (isPlatformBrowser(this.platformId)) {
       // Start auth process
@@ -49,7 +44,7 @@ export class AppComponent {
       (function () {
         var u = 'https://rihmatomo-analytics.csc.fi/';
         _paq.push(['setTrackerUrl', u + 'matomo.php']);
-        _paq.push(['setSiteId', '${this.siteId}']);
+        _paq.push(['setSiteId', '${this.appConfigService.matomoSiteId}']);
         var d = document,
           g = d.createElement('script'),
           s = d.getElementsByTagName('script')[0];
