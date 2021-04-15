@@ -70,6 +70,14 @@ export class AppConfigService {
     return this.appConfig.environmentName;
   }
 
+  // Environment name
+  get matomoSiteId() {
+    if (!this.appConfig) {
+      throw Error('Config file not loaded!');
+    }
+    return this.appConfig.matomoSiteId;
+  }
+
   /*
    *  MyData configurations
    */

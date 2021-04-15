@@ -11,5 +11,6 @@
     "password": "<optional password>",
     "receiver": "<receiver email address>"
   },
-  "profileApiUrl": "<MYDATA_API_HOST>/api"
+  "profileApiUrl": "<MYDATA_API_HOST>/api",
+  "matomoSiteId": "<SITE_ID>"
 }
