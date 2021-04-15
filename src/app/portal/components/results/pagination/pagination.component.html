@@ -62,10 +62,13 @@
           <!-- Results end -->
           <app-secondary-button
             class="col-auto p-0 d-block d-md-none"
-            [icon]="faAngleDoubleRight"
+            [icon]="response.total >= 10000 ? faInfoCircle : faAngleDoubleRight"
             [iconOnly]="true"
-            (click)="goToLastPage(pageSize)"
-            [disabled]="fromPage + pageSize >= response.total"
+            (click)="response.total >= 10000 ? null : goToLastPage(pageSize)"
+            [disabled]="
+              fromPage + pageSize >= response.total || response.total >= 10000
+            "
+            [attr.title]="response.total >= 10000 ? tooManyResultstext : null"
           >
           </app-secondary-button>
         </div>

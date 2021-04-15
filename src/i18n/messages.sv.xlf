@@ -611,6 +611,10 @@
           <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="tooManyResultsNavigationDisabled" datatype="html">
+        <source>Liikaa tuloksia. Haun loppuun navigoiminen estetty.</source>
+        <target>För många resultat. Navigeringen till slutet av sökresultaten är förhindrat.</target>
+      </trans-unit>
       <trans-unit id="paginationResultCount" datatype="html">
         <source>Näytetään tulokset</source>
         <target state="translated">Resultaten visas</target>
