@@ -2429,6 +2429,10 @@
         <target>No rating</target>
       </trans-unit>
       <!-- Errors -->
+      <trans-unit id="error">
+        <source>Virhe</source>
+        <target>Error</target>
+      </trans-unit>
       <trans-unit id="2890418748435169527">
         <source>HTTP pyyntöä ei voitu käsitellä</source>
         <target>HTTP request cannot be handled</target>

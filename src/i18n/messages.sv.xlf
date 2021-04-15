@@ -2422,6 +2422,10 @@
         <target state="translated">Inte bedömned</target>
       </trans-unit>
       <!-- Errors -->
+      <trans-unit id="error">
+        <source>Virhe</source>
+        <target>Error</target>
+      </trans-unit>
       <trans-unit id="2890418748435169527">
         <source>HTTP pyyntöä ei voitu käsitellä</source>
         <target state="translated">Tyvärr kunde http-begäran inte behandlas</target>

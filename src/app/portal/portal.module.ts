@@ -116,7 +116,7 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { CleanCitationPipe } from './pipes/clean-citation';
 import { ReplaceSpacePipe } from './pipes/replace-space';
 
-import { ErrorHandlerService } from './services/error-handler.service';
+import { ErrorHandlerService } from '../shared/services/error-handler.service';
 import { FilterSumPipe } from './pipes/filter-sum.pipe';
 import { ResearchInnovationSystemComponent } from './components/science-politics/research-innovation-system/research-innovation-system.component';
 import { FiguresComponent } from './components/science-politics/figures/figures.component';
