@@ -8,7 +8,7 @@
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { environment } from 'src/environments/environment';
+import { AppConfigService } from '@shared/services/app-config-service.service';
 
 @Component({
   selector: 'app-root',
@@ -21,11 +21,13 @@ export class AppComponent {
 
   constructor(
     public oidcSecurityService: OidcSecurityService,
+    private appConfigService: AppConfigService,
     @Inject(PLATFORM_ID) private platformId: object,
     @Inject(DOCUMENT) private document: any
   ) {
     // Set site ID according to environment
-    this.siteId = environment.production ? 1 : 4;
+    this.siteId =
+      this.appConfigService.environmentName === 'production' ? 1 : 4;
 
     // SSR platform check
     if (isPlatformBrowser(this.platformId)) {
