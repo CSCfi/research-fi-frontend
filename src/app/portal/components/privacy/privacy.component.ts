@@ -49,6 +49,7 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
 
   privacyPolicyContent: any[];
   cookiePolicyContent: any[];
+  userStatisticsContent: any[];
 
   constructor(
     private titleService: Title,
@@ -79,6 +80,10 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
       (el) => el.id === 'privacy-statement'
     );
     this.cookiePolicyContent = pageData.find((el) => el.id === 'cookie-policy');
+
+    this.userStatisticsContent = pageData.find(
+      (el) => el.id === 'user-statistics'
+    );
 
     // Open tab
     this.routeSub = this.route.params.subscribe((param) => {
