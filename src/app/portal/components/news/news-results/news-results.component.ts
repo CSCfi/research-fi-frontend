@@ -169,7 +169,6 @@ export class NewsResultsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.searchInput.nativeElement.value = '';
     this.currentTerm = '';
     this.searchService.updateInput('');
-    this.queryParams = null;
     const params = Object.assign({}, this.queryParams);
     params.search = null;
     this.router.navigate([], { queryParams: params });
