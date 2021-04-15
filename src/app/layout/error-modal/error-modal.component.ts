@@ -38,7 +38,6 @@ export class ErrorModalComponent implements OnInit {
 
   ngOnInit() {
     this.errorSub = this.dataService.currentError.subscribe((error) => {
-      console.log(error);
       this.error = error;
       // Only allow a single modal to be active at a time
       if (isPlatformBrowser(this.platformId)) {
