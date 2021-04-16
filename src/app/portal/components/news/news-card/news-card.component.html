@@ -1,5 +1,5 @@
 <mat-card
-  class="col-12 news-card mat-elevation-z pl-0 mx-auto"
+  class="col-12 news-card mat-elevation-z pl-0"
   [class.side]="sideNews"
   [class.limit-width]="isHomepage"
 >
@@ -27,7 +27,7 @@
         <span *ngIf="item.author" class="col-2">{{ item.author }}</span>
         <span
           class="col pr-0 text-right"
-          [innerHTML]="item.organizationNameFi | highlight: term"
+          [innerHTML]="item.organizationNameFi.trim() | highlight: term"
         ></span>
       </div>
     </mat-card-subtitle>
@@ -44,7 +44,7 @@
         *ngIf="item.mediaUri?.length === 0"
         [ngClass]="item.mediaUri?.length > 0 ? 'col-10' : 'col-12'"
       ></div>
-      <div *ngIf="item.mediaUri?.length > 0" class="col-2 px-0">
+      <div *ngIf="item.mediaUri?.length > 0" class="col-2 pr-0 text-right">
         <img [src]="item.mediaUri | safeUrl" />
       </div>
     </div>

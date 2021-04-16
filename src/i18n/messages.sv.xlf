@@ -135,6 +135,10 @@
         <source>Rullaa alas ladataksesi lisää</source>
         <target>Scrolla ner för att se mer</target>
       </trans-unit>
+      <trans-unit id="loadMoreNews">
+        <source>Lataa lisää uutisia</source>
+        <target>Ladda ner fler nyheter</target>
+      </trans-unit>
       <trans-unit id="suggestResults1" datatype="html">
         <source>Ei ehdotuksia</source>
         <target state="translated">Inga förslag</target>

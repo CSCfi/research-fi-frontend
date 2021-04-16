@@ -16,7 +16,7 @@ import { take } from 'rxjs/operators';
 export class LatestNewsComponent implements OnInit {
   data: any = [];
   errorMessage: any;
-  currentPageSize: number = 5;
+  currentPageSize: number = 20;
   @Input() mobile: any;
   @Input() visible: boolean;
 
@@ -26,7 +26,7 @@ export class LatestNewsComponent implements OnInit {
     this.getLatestNews(this.currentPageSize);
   }
 
-  getLatestNews(size: number = 5, from: number = 0) {
+  getLatestNews(size: number, from: number = 0) {
     this.searchService
       .getNews(size, from)
       .pipe(take(1))
@@ -39,6 +39,6 @@ export class LatestNewsComponent implements OnInit {
   }
 
   loadMoreNews() {
-    this.getLatestNews(5, this.currentPageSize);
+    this.getLatestNews(20, this.currentPageSize);
   }
 }

@@ -137,6 +137,10 @@
         <source>Rullaa alas ladataksesi lisää</source>
         <target>Scroll down to see more</target>
       </trans-unit>
+      <trans-unit id="loadMoreNews">
+        <source>Lataa lisää uutisia</source>
+        <target>Load more news</target>
+      </trans-unit>
       <trans-unit id="suggestResults1" datatype="html">
         <source>Ei ehdotuksia</source>
         <target>No suggestions</target>
