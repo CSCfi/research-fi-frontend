@@ -17,6 +17,7 @@ import {
   PLATFORM_ID,
   ViewEncapsulation,
   Input,
+  OnChanges,
 } from '@angular/core';
 import { SearchService } from 'src/app/portal/services/search.service';
 import { Title } from '@angular/platform-browser';
@@ -37,7 +38,8 @@ import { take } from 'rxjs/operators';
   templateUrl: './news-results.component.html',
   encapsulation: ViewEncapsulation.None,
 })
-export class NewsResultsComponent implements OnInit, AfterViewInit, OnDestroy {
+export class NewsResultsComponent
+  implements OnInit, AfterViewInit, OnDestroy, OnChanges {
   @Input() mobile: any;
   @Input() tab: any;
 
@@ -92,17 +94,12 @@ export class NewsResultsComponent implements OnInit, AfterViewInit, OnDestroy {
       // Check for Angular Univeral SSR, get filters if browser
       if (isPlatformBrowser(this.platformId)) {
         this.filters = this.filterService.filterList(queryParams);
-      }
-
-      // Check for Angular Univeral SSR, update filters if browser
-      if (isPlatformBrowser(this.platformId)) {
         this.filterService.updateFilters(this.filters);
       }
 
       // Get data
       if (this.tab === 1) {
-        this.getFilterNews();
-        this.getFilterData();
+        this.getData();
       }
     });
 
@@ -111,6 +108,13 @@ export class NewsResultsComponent implements OnInit, AfterViewInit, OnDestroy {
       (input) => (this.currentTerm = input)
     );
     this.queryField = new FormControl(this.currentTerm);
+  }
+
+  ngOnChanges() {
+    // Get data when tab changes first time
+    if (!this.data.length && this.tab === 1 && this.queryParams) {
+      this.getData();
+    }
   }
 
   ngAfterViewInit() {
@@ -126,6 +130,11 @@ export class NewsResultsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public setTitle(newTitle: string) {
     this.titleService.setTitle(newTitle);
+  }
+
+  getData() {
+    this.getFilterNews();
+    this.getFilterData();
   }
 
   getFilterNews(size: number = 5) {

@@ -149,7 +149,6 @@ import { DatasetsComponent } from './components/results/datasets/datasets.compon
 import { SingleDatasetComponent } from './components/single/single-dataset/single-dataset.component';
 import { ExternalLinksComponent } from './components/science-politics/external-links/external-links.component';
 import { BannerComponent } from './components/home-page/banner/banner.component';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { LatestNewsComponent } from './components/news/latest-news/latest-news.component';
 import { NewsResultsComponent } from './components/news/news-results/news-results.component';
 
@@ -255,7 +254,6 @@ import { NewsResultsComponent } from './components/news/news-results/news-result
     SharedModule,
     A11yModule,
     TooltipModule.forRoot(),
-    InfiniteScrollModule,
   ],
   providers: [
     SearchService,
