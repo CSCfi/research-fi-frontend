@@ -65,10 +65,9 @@
             [icon]="response.total >= 10000 ? faInfoCircle : faAngleDoubleRight"
             [iconOnly]="true"
             (click)="response.total >= 10000 ? null : goToLastPage(pageSize)"
-            [disabled]="
-              fromPage + pageSize >= response.total || response.total >= 10000
-            "
-            [attr.title]="response.total >= 10000 ? tooManyResultstext : null"
+            [disabled]="fromPage + pageSize >= response.total"
+            [tooltip]="response.total >= 10000 ? tooManyResultstext : null"
+            triggers="focus"
           >
           </app-secondary-button>
         </div>
