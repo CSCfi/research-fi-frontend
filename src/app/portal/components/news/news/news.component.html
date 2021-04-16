@@ -43,6 +43,7 @@
       class="pt-lg-3"
     >
       <mat-tab i18n-label="@@latest" label="Uusimmat">
+        <h2 class="font-weight-bold mt-4" i18n="@@latest">Uusimmat</h2>
         <app-latest-news
           [mobile]="mobile"
           [visible]="selectedIndex === 0"
@@ -50,6 +51,7 @@
       </mat-tab>
 
       <mat-tab i18n-label="@@searchNews" label="Hae uutisia">
+        <h2 class="font-weight-bold mt-4" i18n="@@searchNews">Hae uutisia</h2>
         <app-news-results
           [mobile]="mobile"
           [tab]="selectedIndex"

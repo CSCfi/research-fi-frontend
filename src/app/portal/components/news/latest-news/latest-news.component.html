@@ -5,17 +5,10 @@
 # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 # :license: MIT -->
 
-<div class="row d-flex justify-content-between pt-3">
-  <div class="col-12 col-lg-9 col px-0" [class.p-0]="mobile">
+<div class="row d-flex justify-content-between">
+  <div class="col-12 col-lg-8 col px-0" [class.p-0]="mobile">
     <main>
-      <div
-        *ngIf="visible"
-        class="row content"
-        infiniteScroll
-        [infiniteScrollDistance]="0"
-        [infiniteScrollThrottle]="50"
-        (scrolled)="loadMoreNews()"
-      >
+      <div *ngIf="visible" class="row content">
         <app-news-card
           #cards
           *ngFor="let item of data"
@@ -24,9 +17,14 @@
       </div>
     </main>
   </div>
-  <div class="col-12 col-lg-9 text-right">
-    <p>
-      <span i18n="@@scrollToLoadMore">Rullaa alas ladataksesi lisää</span>...
-    </p>
+</div>
+
+<div class="row">
+  <div class="col p-1">
+    <app-secondary-button
+      i18n-content="@@loadMoreNews"
+      [content]="'Lataa lisää uutisia'"
+      (click)="loadMoreNews()"
+    ></app-secondary-button>
   </div>
 </div>
