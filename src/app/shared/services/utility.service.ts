@@ -190,4 +190,12 @@ export class UtilityService {
       content: 'https://tiedejatutkimus.fi/fi/assets/img/logo.jpg',
     });
   }
+
+  uniqueArray(arr: any[], key: (any) => any = x => x) {
+    const seen = new Set();
+    return arr.filter(item => {
+      const k = key(item);
+      return seen.has(k) ? false : seen.add(k);
+    });
+  }
 }

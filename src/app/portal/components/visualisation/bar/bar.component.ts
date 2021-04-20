@@ -60,7 +60,8 @@ export class BarComponent implements OnInit, OnChanges {
   constructor(
     private staticDataService: StaticDataService,
     @Inject(DOCUMENT) private document: Document,
-    private dataService: DataService
+    private dataService: DataService,
+    private utils: UtilityService
   ) {}
 
   ngOnInit(): void {
@@ -199,7 +200,7 @@ export class BarComponent implements OnInit, OnChanges {
       );
 
     // Keep track of all keys inserted so far
-    const cumulativeKeys: string[] = [];
+    const cumulativeKeys: {name: string, id?: string}[] = [];
 
     // Insert bars
     for (let i = 0; i < sample.length; i++) {
@@ -247,12 +248,12 @@ export class BarComponent implements OnInit, OnChanges {
             .call((d: any) => (sum += d.datum().doc_count));
         });
 
-      // Add all the keys of the current bar
-      cumulativeKeys.push(...sample[i].data.map((x) => x.name));
+      // Add all the keys of the current bar, dont add id if not filterable
+      cumulativeKeys.push(...sample[i].data.map((x) => {return this.categoryObject.filter ? {name: x.name, id: x.id} : {name: x.name}}));
     }
 
     // Create array with each unique key once
-    const uniqueKeys = [...new Set(cumulativeKeys)].filter((x) => x).sort();
+    const uniqueKeys = this.utils.uniqueArray(cumulativeKeys, x => x.name).filter(x => x.name).sort((a, b) => +(a.name > b.name) - 0.5);
 
     // Init legend with correct height
     const legend = legendSvg
@@ -270,7 +271,9 @@ export class BarComponent implements OnInit, OnChanges {
       .attr('cx', 10)
       .attr('cy', (_, j) => this.margin / 2 + j * 25)
       .attr('r', 7)
-      .attr('fill', (d) => color(d));
+      .attr('fill', (d) => color(d.name))
+      .on('click', (d) => this.onClick(d))
+      .style('cursor', this.categoryObject.filter ? 'pointer' : 'default');
 
     // Add legend labels
     legend
@@ -287,7 +290,12 @@ export class BarComponent implements OnInit, OnChanges {
       .style('white-space', 'nowrap')
       .style('text-overflow', 'ellipsis')
       .style('overflow', 'hidden')
-      .html((d) => d);
+      .style('font-size', '16px')
+      .html((d) => d.name)
+      .on('click', (d) => this.onClick(d))
+      .on('mouseenter', (d, i, n) => this.increaseFontSize(i, n))
+      .on('mouseout', (d, i, n) => this.decreaseFontSize(i, n))
+      .style('cursor', this.categoryObject.filter ? 'pointer' : 'default');
 
     // Add axis and graph labels
     this.g
@@ -341,7 +349,7 @@ export class BarComponent implements OnInit, OnChanges {
     // .html(this.categoryObject.message);
   }
 
-  onClick(d: { id: string; parent: string }) {
+  onClick(d: { id: string; parent?: string }) {
     const filterName = this.categoryObject.filter;
 
     // Only filter if a valid filter with id is available or year
@@ -351,7 +359,9 @@ export class BarComponent implements OnInit, OnChanges {
         this.dataService.changeFilter(filterName, d.id);
       }
       setTimeout(() => {
-        this.dataService.changeFilter('year', d.parent);
+        if (d.parent) {
+          this.dataService.changeFilter('year', d.parent);
+        }
       }, 1);
     }
   }
@@ -486,5 +496,28 @@ export class BarComponent implements OnInit, OnChanges {
         d.parent
       }`
     ).remove();
+  }
+
+  increaseFontSize(i: number, n: any[]) {
+    if (this.categoryObject.filter) {
+
+      const elem: any = d3.select(n[i]);
+      
+      elem
+      .transition()
+      .duration(300)
+      .style('font-size', '18px')
+      .style('margin-top', '-2px')
+    }
+  }
+
+  decreaseFontSize(i: number, n: any[]) {
+    const elem: any = d3.select(n[i]);
+
+    elem
+      .transition()
+      .duration(300)
+      .style('font-size', '16px')
+      .style('margin-top', '0')
   }
 }

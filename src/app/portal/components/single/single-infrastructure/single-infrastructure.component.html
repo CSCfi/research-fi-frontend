@@ -210,7 +210,23 @@
                           <div
                             class="offset-0 offset-sm-6 offset-lg-3 col-12 col-sm-6 col-lg-9 pt-0 pb-0 td"
                           >
-                            {{ servicePoint[row.field] }}
+                            <ng-container
+                              *ngIf="
+                                row.field === 'emailAddress';
+                                else nonEmailAddress
+                              "
+                              ><a
+                                href="javascript:void(0)"
+                                (click)="
+                                  showEmail($event, servicePoint[row.field])
+                                "
+                                i18n="@@showEmailAddress"
+                                >Näytä sähköpostiosoite</a
+                              ></ng-container
+                            >
+                            <ng-template #nonEmailAddress>{{
+                              servicePoint[row.field]
+                            }}</ng-template>
                           </div>
                         </ng-container>
                       </div>
@@ -223,9 +239,17 @@
                             {{ row.label }}
                           </h5>
                           <div class="col-12 col-sm-6 col-lg-9 td">
-                            <a href="{{ servicePoint[row.field] }}">{{
-                              servicePoint[row.field]
-                            }}</a>
+                            <a
+                              [target]="
+                                row.field === 'infoUrl' ? '_blank' : null
+                              "
+                              href="{{ servicePoint[row.field] }}"
+                              >{{ servicePoint[row.field] }}
+                              <i
+                                *ngIf="row.field === 'infoUrl'"
+                                class="fas fa-external-link-alt"
+                              ></i
+                            ></a>
                           </div>
                         </ng-container>
                       </div>
@@ -290,6 +314,9 @@
                 </ng-container>
               </div>
             </div>
+
+            <!-- Contact -->
+
             <div *ngIf="contactFields?.length > 0" class="row">
               <h3
                 class="col-12 col-sm-6 col-lg-3 pt-0 pb-0 contact th"
@@ -302,8 +329,19 @@
                 *ngFor="let row of contactFields.slice(0, 1); let i = index"
               >
                 <ng-container *ngIf="item[row.field]">
-                  <h4 class="th sr-only">{{ row.label }}</h4>
-                  <div>{{ item[row.field] }}</div>
+                  <ng-container *ngIf="row.field === 'email'; else nonEmail">
+                    <h4 class="th sr-only">{{ row.label }}</h4>
+                    <a
+                      href="javascript:void(0)"
+                      (click)="showEmail($event, item[row.field])"
+                      i18n="@@showEmailAddress"
+                      >Näytä sähköpostiosoite</a
+                    ></ng-container
+                  >
+                  <ng-template #nonEmail>
+                    <h4 class="th sr-only">{{ row.label }}</h4>
+                    <div>{{ item[row.field] }}</div>
+                  </ng-template>
                 </ng-container>
               </div>
               <div
@@ -311,11 +349,23 @@
                 *ngFor="let row of contactFields.slice(1); let i = index"
               >
                 <ng-container *ngIf="item[row.field]">
-                  <h4 class="th sr-only">{{ row.label }}</h4>
-                  <div>{{ item[row.field] }}</div>
+                  <ng-container *ngIf="row.field === 'email'; else nonEmail">
+                    <h4 class="th sr-only">{{ row.label }}</h4>
+                    <a
+                      href="javascript:void(0)"
+                      (click)="showEmail($event, item[row.field])"
+                      i18n="@@showEmailAddress"
+                      >Näytä sähköpostiosoite</a
+                    ></ng-container
+                  >
+                  <ng-template #nonEmail>
+                    <h4 class="th sr-only">{{ row.label }}</h4>
+                    <div>{{ item[row.field] }}</div>
+                  </ng-template>
                 </ng-container>
               </div>
             </div>
+
             <ng-container *ngFor="let row of otherFields; let i = index">
               <div class="row" *ngIf="item[row.field]">
                 <h2 class="col-12 col-sm-6 col-lg-3 th">{{ row.label }}</h2>
@@ -328,6 +378,9 @@
         </div>
       </div>
     </main>
+
+    <!-- Sidebar -->
+
     <div
       *ngFor="let item of [responseData.infrastructures[0]]"
       class="col-12 col-md-4"
