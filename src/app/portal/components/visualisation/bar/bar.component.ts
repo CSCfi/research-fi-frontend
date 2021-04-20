@@ -254,7 +254,7 @@ export class BarComponent implements OnInit, OnChanges {
 
     // Create array with each unique key once
     // const uniqueKeys = [...new Set(cumulativeKeys)].filter((x) => x).sort();
-    const uniqueKeys = [... new Set(cumulativeKeys.map(x => JSON.stringify(x)))].map(s => JSON.parse(s)).sort((a, b) => +(a.name > b.name) - 0.5);
+    const uniqueKeys = [... new Set(cumulativeKeys.map(x => JSON.stringify(x)))].map(s => JSON.parse(s)).filter(x => x.name).sort((a, b) => +(a.name > b.name) - 0.5);
 
     // Init legend with correct height
     const legend = legendSvg
