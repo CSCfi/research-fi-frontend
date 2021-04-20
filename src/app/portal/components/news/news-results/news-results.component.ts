@@ -62,6 +62,8 @@ export class NewsResultsComponent
   inputSub: Subscription;
   focusSub: Subscription;
 
+  loading: boolean = false;
+
   constructor(
     public searchService: SearchService,
     private titleService: Title,
@@ -133,6 +135,7 @@ export class NewsResultsComponent
   }
 
   getData() {
+    this.loading = true;
     this.getFilterNews();
     this.getFilterData();
   }
@@ -144,6 +147,7 @@ export class NewsResultsComponent
       .subscribe(
         (data) => {
           this.data = data;
+          this.loading = false;
         },
         (error) => (this.errorMessage = error as any)
       );
