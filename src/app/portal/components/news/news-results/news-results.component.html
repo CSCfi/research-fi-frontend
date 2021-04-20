@@ -67,7 +67,17 @@
       <app-active-filters></app-active-filters>
     </aside>
 
-    <div class="pb-2 font-italic h5 font-weight-normal">
+    <div class="row" *ngIf="loading">
+      <div class="col-auto px-0 pb-3">
+        <mat-spinner
+          [diameter]="80"
+          i18n-aria-label="@@loading"
+          aria-label="Ladataan"
+        ></mat-spinner>
+      </div>
+    </div>
+
+    <div *ngIf="!loading" class="pb-2 font-italic h5 font-weight-normal">
       {{ data[0]?.total | thousandSeparator }}
       <span
         *ngIf="data[0]?.total === 1; else resultsLabel"
@@ -89,7 +99,7 @@
 
     <!-- Fallback if no news -->
     <div
-      *ngIf="!data?.length"
+      *ngIf="!loading && data.length === 0"
       role="alert"
       class="col-12 justify-content-center justify-content-lg-start mt-4 d-flex flex-column px-0"
     >

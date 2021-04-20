@@ -19,6 +19,7 @@ export class LatestNewsComponent implements OnInit {
   currentPageSize: number = 20;
   @Input() mobile: any;
   @Input() visible: boolean;
+  loading: boolean = false;
 
   constructor(public searchService: SearchService) {}
 
@@ -27,12 +28,14 @@ export class LatestNewsComponent implements OnInit {
   }
 
   getLatestNews(size: number, from: number = 0) {
+    this.loading = true;
     this.searchService
       .getNews(size, from)
       .pipe(take(1))
       .subscribe(
         (data) => {
           this.data = this.data.concat(data);
+          this.loading = false;
         },
         (error) => (this.errorMessage = error as any)
       );

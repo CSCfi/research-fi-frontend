@@ -358,183 +358,115 @@
               </div>
             </div>
           </ng-container>
+
           <!-- Medium -->
           <div class="row content" *ngIf="mediumFields?.length > 0">
-            <!-- Top row links, switch case to check for different search targets -->
             <h2
               class="col-12 col-sm-6 col-lg-3 th"
               i18n="@@publicationMediumInfo"
             >
               Julkaisukanavan tiedot
             </h2>
-            <div
-              class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 first-no-offset-mobile td"
-              *ngFor="let row of mediumFields.slice(0, 3)"
-            >
-              <h3 class="th">
-                {{ row.label }}
-                <ng-container *ngIf="row.tooltip">
-                  <ng-template #tooltipTemplate>
-                    <div [innerHtml]="row.tooltip"></div>
-                  </ng-template>
-                  <span
-                    [tooltip]="tooltipTemplate"
-                    tabindex="0"
-                    placement="top"
-                    #elem
+            <div class="col px-0">
+              <div class="row">
+                <div
+                  class="col-12 col-lg-4 td"
+                  *ngFor="let row of mediumFields"
+                >
+                  <h3 class="th">
+                    {{ row.label }}
+                    <ng-container *ngIf="row.tooltip">
+                      <ng-template #tooltipTemplate>
+                        <div [innerHtml]="row.tooltip"></div>
+                      </ng-template>
+                      <span
+                        [tooltip]="tooltipTemplate"
+                        tabindex="0"
+                        placement="top"
+                        #elem
+                      >
+                        <fa-icon
+                          class="info-icon pl-2"
+                          icon="info-circle"
+                        ></fa-icon>
+                      </span>
+                    </ng-container>
+                  </h3>
+                  <p
+                    class="td"
+                    *ngIf="row.link"
+                    [attr.lang]="
+                      row['lang'] && item.languageCode !== documentLang
+                        ? item.languageCode
+                        : null
+                    "
+                    [ngSwitch]="true"
                   >
-                    <fa-icon
-                      class="info-icon pl-2"
-                      icon="info-circle"
-                    ></fa-icon>
-                  </span>
-                </ng-container>
-              </h3>
-              <p
-                class="td"
-                *ngIf="row.link"
-                [attr.lang]="
-                  row['lang'] && item.languageCode !== documentLang
-                    ? item.languageCode
-                    : null
-                "
-                [ngSwitch]="true"
-              >
-                <!-- Check if fields are issn or isbn and target search with exact field  -->
-                <a
-                  class="td"
-                  *ngSwitchCase="row.field === 'issn' || row.field === 'isbn'"
-                  routerLink="{{ row.linkPath }}{{ item[row.field] }}"
-                  [queryParams]="{ target: row.field }"
-                >
-                  {{ item[row.field] }}
-                </a>
-                <!-- JuFo code links to external path -->
-                <a
-                  class="td"
-                  *ngSwitchCase="row.field === 'jufoCode'"
-                  href="{{ row.linkPath }}{{ item[row.field] }}"
-                  target="_blank"
-                >
-                  {{ item[row.field]
-                  }}<fa-icon class="icon" icon="external-link-alt"></fa-icon>
-                </a>
-                <!-- Parent publication name -->
-                <a
-                  class="td"
-                  *ngSwitchCase="row.field === 'parentPublicationName'"
-                  routerLink="{{ row.linkPath }}{{ item[row.field] }}"
-                  [queryParams]="{ target: row.field }"
-                >
-                  {{ item[row.field] }}
-                </a>
-                <ng-container *ngSwitchDefault>
-                  <ng-container
-                    *ngIf="item.jufoCode?.length > 1; else noJufoCode"
-                  >
-                    <!-- Every other link field uses jufoCode as search term -->
+                    <!-- Check if fields are issn or isbn and target search with exact field  -->
                     <a
                       class="td"
-                      routerLink="{{ row.linkPath }}{{ item.jufoCode }}"
-                      [queryParams]="{ target: 'jufoCode' }"
+                      *ngSwitchCase="
+                        row.field === 'issn' || row.field === 'isbn'
+                      "
+                      routerLink="{{ row.linkPath }}&quot;{{
+                        item[row.field]
+                      }}&quot;"
+                      [queryParams]="{ target: row.field }"
                     >
                       {{ item[row.field] }}
                     </a>
-                  </ng-container>
-                  <ng-template #noJufoCode>
-                    {{ item[row.field] }}
-                  </ng-template>
-                </ng-container>
-              </p>
-              <!-- Show label only if no search functionality -->
-              <p class="td" *ngIf="!row.link">{{ item[row.field] }}</p>
+                    <!-- JuFo code links to external path -->
+                    <a
+                      class="td"
+                      *ngSwitchCase="row.field === 'jufoCode'"
+                      href="{{ row.linkPath }}{{ item[row.field] }}"
+                      target="_blank"
+                    >
+                      {{ item[row.field]
+                      }}<fa-icon
+                        class="icon"
+                        icon="external-link-alt"
+                      ></fa-icon>
+                    </a>
+                    <!-- Parent publication name -->
+                    <a
+                      class="td"
+                      *ngSwitchCase="row.field === 'parentPublicationName'"
+                      routerLink="{{ row.linkPath }}&quot;{{
+                        item[row.field]
+                      }}&quot;"
+                      [queryParams]="{ target: row.field }"
+                    >
+                      {{ item[row.field] }}
+                    </a>
+                    <ng-container *ngSwitchDefault>
+                      <ng-container
+                        *ngIf="item.jufoCode?.length > 1; else noJufoCode"
+                      >
+                        <!-- Every other link field uses jufoCode as search term -->
+                        <a
+                          class="td"
+                          routerLink="{{ row.linkPath }}&quot;{{
+                            item.jufoCode
+                          }}&quot;"
+                          [queryParams]="{ target: 'jufoCode' }"
+                        >
+                          {{ item[row.field] }}
+                        </a>
+                      </ng-container>
+                      <ng-template #noJufoCode>
+                        {{ item[row.field] }}
+                      </ng-template>
+                    </ng-container>
+                  </p>
+                  <!-- Show label only if no search functionality -->
+                  <p class="td" *ngIf="!row.link">{{ item[row.field] }}</p>
+                </div>
+              </div>
             </div>
           </div>
-          <ng-container
-            *ngFor="let row of mediumFields.slice(3); let i = index"
-          >
-            <div *ngIf="i % 3 == 0"></div>
-            <div class="row content" *ngIf="i % 3 == 0">
-              <!-- First col -->
-              <div
-                class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-3 td"
-              >
-                <h3 class="th">{{ row.label }}</h3>
-                <a
-                  class="td"
-                  *ngIf="row.link"
-                  href="{{ row.linkPath }}{{ item[row.field] }}"
-                  [target]="row.field === 'jufoCode' ? '_blank' : ''"
-                >
-                  {{ item[row.field] }}
-                  <fa-icon
-                    *ngIf="row.field === 'jufoCode'"
-                    class="icon"
-                    icon="external-link-alt"
-                  ></fa-icon>
-                </a>
-                <span *ngIf="!row.link">{{ item[row.field] }}</span>
-              </div>
-              <!-- Second col -->
-              <div
-                class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td"
-                *ngIf="mediumFields.slice(3).length > i + 1"
-              >
-                <h3 class="th">{{ mediumFields.slice(3)[i + 1].label }}</h3>
-                <a
-                  class="td"
-                  *ngIf="mediumFields.slice(3)[i + 1].link"
-                  href="{{ mediumFields.slice(3)[i + 1].linkPath }}{{
-                    item[mediumFields.slice(3)[i + 1].field]
-                  }}"
-                  [target]="
-                    mediumFields.slice(3)[i + 1].field === 'jufoCode'
-                      ? '_blank'
-                      : ''
-                  "
-                >
-                  {{ item[mediumFields.slice(3)[i + 1].field] }}
-                  <fa-icon
-                    *ngIf="mediumFields.slice(3)[i + 1].field === 'jufoCode'"
-                    class="icon"
-                    icon="external-link-alt"
-                  ></fa-icon>
-                </a>
-                <span *ngIf="!mediumFields.slice(3)[i + 1].link">{{
-                  item[mediumFields.slice(3)[i + 1].field]
-                }}</span>
-              </div>
-              <!-- Third col -->
-              <div
-                class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td"
-                *ngIf="mediumFields.slice(3).length > i + 2"
-              >
-                <h3 class="th">{{ mediumFields.slice(3)[i + 2].label }}</h3>
-                <a
-                  class="td"
-                  *ngIf="mediumFields.slice(3)[i + 2].link"
-                  href="{{ mediumFields.slice(3)[i + 2].linkPath }}{{
-                    item[mediumFields.slice(3)[i + 2].field]
-                  }}"
-                  [target]="
-                    mediumFields.slice(3)[i + 2].field === 'jufoCode'
-                      ? '_blank'
-                      : ''
-                  "
-                >
-                  {{ item[mediumFields.slice(3)[i + 2].field] }}
-                  <fa-icon
-                    *ngIf="mediumFields.slice(3)[i + 2].field === 'jufoCode'"
-                    class="icon"
-                    icon="external-link-alt"
-                  ></fa-icon>
-                </a>
-                <span *ngIf="!mediumFields.slice(3)[i + 2].link">{{
-                  item[mediumFields.slice(3)[i + 2].field]
-                }}</span>
-              </div>
-            </div>
-          </ng-container>
+
+          <!-- Other info -->
           <div class="row content">
             <h2 class="col-12 col-sm-6 col-lg-3 th" i18n="@@otherInfo">
               Muut tiedot
