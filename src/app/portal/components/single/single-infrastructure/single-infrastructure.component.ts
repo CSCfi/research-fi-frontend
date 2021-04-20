@@ -255,7 +255,6 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
 
           this.shapeData();
           this.filterData();
-          console.log(this.responseData.infrastructures[0]);
         }
       },
       (error) => (this.errorMessage = error as any)
