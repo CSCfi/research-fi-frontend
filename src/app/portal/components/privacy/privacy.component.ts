@@ -131,12 +131,12 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
 
   changeConsent(status) {
     switch (status) {
-      case 'approved': {
-        this.approve();
+      case 'declined': {
+        this.decline();
         break;
       }
       default: {
-        this.decline();
+        this.approve();
       }
     }
     this.privacyService.hideConsentBar(true);
