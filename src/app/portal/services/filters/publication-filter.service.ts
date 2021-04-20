@@ -243,7 +243,9 @@ export class PublicationFilterService {
     });
 
     // Sort based on sector id
-    source.buckets = source.buckets.sort((a, b) => a.sectorId.buckets[0].key - b.sectorId.buckets[0].key)
+    source.buckets = source.buckets.sort(
+      (a, b) => a.sectorId.buckets[0].key - b.sectorId.buckets[0].key
+    );
     return source;
   }
 
@@ -299,6 +301,11 @@ export class PublicationFilterService {
     }
     combined = [...new Set(combined)];
     const staticData = this.staticDataService.publicationClass;
+
+    // Check that no unknows publication types are handled
+    const classList = staticData.map((item) => item.class);
+
+    combined = combined.filter((val) => classList.includes(val));
 
     // Map items for subData
     const result = combined.map(
