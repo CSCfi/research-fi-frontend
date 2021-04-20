@@ -60,7 +60,8 @@ export class BarComponent implements OnInit, OnChanges {
   constructor(
     private staticDataService: StaticDataService,
     @Inject(DOCUMENT) private document: Document,
-    private dataService: DataService
+    private dataService: DataService,
+    private utils: UtilityService
   ) {}
 
   ngOnInit(): void {
@@ -201,7 +202,6 @@ export class BarComponent implements OnInit, OnChanges {
     // Keep track of all keys inserted so far
     const cumulativeKeys: {name: string, id?: string}[] = [];
 
-    console.log(sample)
     // Insert bars
     for (let i = 0; i < sample.length; i++) {
       let sum = 0;
@@ -253,8 +253,7 @@ export class BarComponent implements OnInit, OnChanges {
     }
 
     // Create array with each unique key once
-    // const uniqueKeys = [...new Set(cumulativeKeys)].filter((x) => x).sort();
-    const uniqueKeys = [... new Set(cumulativeKeys.map(x => JSON.stringify(x)))].map(s => JSON.parse(s)).filter(x => x.name).sort((a, b) => +(a.name > b.name) - 0.5);
+    const uniqueKeys = this.utils.uniqueArray(cumulativeKeys, x => x.name).filter(x => x.name).sort((a, b) => +(a.name > b.name) - 0.5);
 
     // Init legend with correct height
     const legend = legendSvg
