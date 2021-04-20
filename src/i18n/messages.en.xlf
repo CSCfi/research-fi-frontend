@@ -1278,6 +1278,10 @@
           <context context-type="linenumber">153</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="showEmailAddress" datatype="html">
+        <source>Näytä sähköpostiosoite</source>
+        <target>Show email address</target>
+      </trans-unit>
       <trans-unit id="noInfraLinks" datatype="html">
         <source>Infrastruktuuriin ei ole tarjolla linkkejä tässä portaalissa</source>
         <target>There are no links to the organization on this service</target>
