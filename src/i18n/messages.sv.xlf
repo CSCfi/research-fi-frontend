@@ -2938,8 +2938,8 @@
         <target>Sök sådana som är relaterade till forskningsdata</target>
       </trans-unit>
       <trans-unit id="datasetOrgFilterTooltip">
-        <source>Tutkimukseen tai aineiston tekemiseen osallistuneet organisaatiot. Palvelu ei toistaiseksi sisällä tietoja aineistojen ulkomaisista organisaatioista.</source>
-        <target>Organisationer som deltagit i undersökningen eller utarbetandet av materialet. Tjänsten innehåller tills vidare inga uppgifter om materialets utländska organisationer. </target>
+        <source>Tutkimukseen tai aineiston tekemiseen osallistuneet organisaatiot. Palvelu ei toistaiseksi sisällä tietoja aineistojen ulkomaisista organisaatioista. Organisaatiotietoa ei kaikissa tapauksissa ole yhdistetty aineistoihin. Pyrimme parantamaan linkityksiä aineistojen ja organisaatioiden välillä.</source>
+        <target>Organisationer som deltagit i undersökningen eller utarbetandet av materialet. Tjänsten innehåller tills vidare inga uppgifter om materialets utländska organisationer. Information om organisationer kombineras inte med dataset i alla fall. Vi strävar efter att förbättra länkar mellan dataset och organisationer.</target>
       </trans-unit>
       <trans-unit id="datasetSourceFilterTooltip">
         <source>Lähde, josta aineisto on peräisin.</source>

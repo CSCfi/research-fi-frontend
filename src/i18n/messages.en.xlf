@@ -2945,8 +2945,8 @@
         <target>Search for items related to the research data</target>
       </trans-unit>
       <trans-unit id="datasetOrgFilterTooltip">
-        <source>Tutkimukseen tai aineiston tekemiseen osallistuneet organisaatiot. Palvelu ei toistaiseksi sisällä tietoja aineistojen ulkomaisista organisaatioista.</source>
-        <target>The organizations involved in the research or the production of research data. Currently, the service does not contain any information on foreign organizations involved in the research data.</target>
+        <source>Tutkimukseen tai aineiston tekemiseen osallistuneet organisaatiot. Palvelu ei toistaiseksi sisällä tietoja aineistojen ulkomaisista organisaatioista. Organisaatiotietoa ei kaikissa tapauksissa ole yhdistetty aineistoihin. Pyrimme parantamaan linkityksiä aineistojen ja organisaatioiden välillä.</source>
+        <target>The organizations involved in the research or the production of research data. Currently, the service does not contain any information on foreign organizations involved in the research data. Information on organizations is not combined with datasets in all cases. We aim to improve links between datasets and organizations.</target>
       </trans-unit>
       <trans-unit id="datasetSourceFilterTooltip">
         <source>Lähde, josta aineisto on peräisin.</source>
