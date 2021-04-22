@@ -1,0 +1,40 @@
+<!-- # This file is part of the research.fi API service
+#
+# Copyright 2019 Ministry of Education and Culture, Finland
+#
+# :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+# :license: MIT -->
+
+<div class="row d-flex justify-content-between">
+  <div class="col-12 col-lg-8 col px-0" [class.p-0]="mobile">
+    <main>
+      <div *ngIf="visible" class="row content">
+        <app-news-card
+          #cards
+          *ngFor="let item of data"
+          [item]="item"
+        ></app-news-card>
+      </div>
+    </main>
+  </div>
+</div>
+
+<div class="row" *ngIf="loading">
+  <div class="col-auto px-0 pb-3">
+    <mat-spinner
+      [diameter]="80"
+      i18n-aria-label="@@loading"
+      aria-label="Ladataan"
+    ></mat-spinner>
+  </div>
+</div>
+
+<div class="row" *ngIf="!loading">
+  <div class="col p-1">
+    <app-secondary-button
+      i18n-content="@@loadMoreNews"
+      content="Lataa lisää uutisia"
+      (click)="loadMoreNews()"
+    ></app-secondary-button>
+  </div>
+</div>

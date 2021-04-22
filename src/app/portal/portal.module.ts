@@ -116,7 +116,7 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { CleanCitationPipe } from './pipes/clean-citation';
 import { ReplaceSpacePipe } from './pipes/replace-space';
 
-import { ErrorHandlerService } from './services/error-handler.service';
+import { ErrorHandlerService } from '../shared/services/error-handler.service';
 import { FilterSumPipe } from './pipes/filter-sum.pipe';
 import { ResearchInnovationSystemComponent } from './components/science-politics/research-innovation-system/research-innovation-system.component';
 import { FiguresComponent } from './components/science-politics/figures/figures.component';
@@ -149,6 +149,8 @@ import { DatasetsComponent } from './components/results/datasets/datasets.compon
 import { SingleDatasetComponent } from './components/single/single-dataset/single-dataset.component';
 import { ExternalLinksComponent } from './components/science-politics/external-links/external-links.component';
 import { BannerComponent } from './components/home-page/banner/banner.component';
+import { LatestNewsComponent } from './components/news/latest-news/latest-news.component';
+import { NewsResultsComponent } from './components/news/news-results/news-results.component';
 
 @NgModule({
   declarations: [
@@ -215,6 +217,8 @@ import { BannerComponent } from './components/home-page/banner/banner.component'
     SingleDatasetComponent,
     ExternalLinksComponent,
     BannerComponent,
+    LatestNewsComponent,
+    NewsResultsComponent,
   ],
   imports: [
     PortalRoutingModule,

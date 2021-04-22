@@ -129,6 +129,18 @@
         <source>Hae uutisista...</source>
         <target>Search for news...</target>
       </trans-unit>
+      <trans-unit id="searchNews" datatype="html">
+        <source>Hae uutisia</source>
+        <target>Search for news</target>
+      </trans-unit>
+      <trans-unit id="scrollToLoadMore">
+        <source>Rullaa alas ladataksesi lisää</source>
+        <target>Scroll down to see more</target>
+      </trans-unit>
+      <trans-unit id="loadMoreNews">
+        <source>Lataa lisää uutisia</source>
+        <target>Load more news</target>
+      </trans-unit>
       <trans-unit id="suggestResults1" datatype="html">
         <source>Ei ehdotuksia</source>
         <target>No suggestions</target>
@@ -221,6 +233,10 @@
       <trans-unit id="researchFinland">
         <source>Tiede ja tutkimus Suomessa</source>
         <target>Science and research in Finland</target>
+      </trans-unit>
+      <trans-unit id="singleResult">
+        <source>hakutulos</source>
+        <target>search result</target>
       </trans-unit>
       <trans-unit id="resultCount" datatype="html">
         <source>hakutulosta</source>
@@ -604,6 +620,10 @@
           <context context-type="sourcefile">app/portal/components/results/pagination/pagination.component.html</context>
           <context context-type="linenumber">18</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="tooManyResultsNavigationDisabled" datatype="html">
+        <source>Liikaa tuloksia. Haun loppuun navigoiminen estetty.</source>
+        <target>Too many results. Navigating to the end of search results is disabled.</target>
       </trans-unit>
       <trans-unit id="paginationResultCount" datatype="html">
         <source>Näytetään tulokset</source>
@@ -1257,6 +1277,10 @@
           <context context-type="sourcefile">app/portal/components/single/single-infrastructure/single-infrastructure.component.html</context>
           <context context-type="linenumber">153</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="showEmailAddress" datatype="html">
+        <source>Näytä sähköpostiosoite</source>
+        <target>Show email address</target>
       </trans-unit>
       <trans-unit id="noInfraLinks" datatype="html">
         <source>Infrastruktuuriin ei ole tarjolla linkkejä tässä portaalissa</source>
@@ -2417,6 +2441,10 @@
         <target>No rating</target>
       </trans-unit>
       <!-- Errors -->
+      <trans-unit id="error">
+        <source>Virhe</source>
+        <target>Error</target>
+      </trans-unit>
       <trans-unit id="2890418748435169527">
         <source>HTTP pyyntöä ei voitu käsitellä</source>
         <target>HTTP request cannot be handled</target>
@@ -2917,8 +2945,8 @@
         <target>Search for items related to the research data</target>
       </trans-unit>
       <trans-unit id="datasetOrgFilterTooltip">
-        <source>Tutkimukseen tai aineiston tekemiseen osallistuneet organisaatiot. Palvelu ei toistaiseksi sisällä tietoja aineistojen ulkomaisista organisaatioista.</source>
-        <target>The organizations involved in the research or the production of research data. Currently, the service does not contain any information on foreign organizations involved in the research data.</target>
+        <source>Tutkimukseen tai aineiston tekemiseen osallistuneet organisaatiot. Palvelu ei toistaiseksi sisällä tietoja aineistojen ulkomaisista organisaatioista. Organisaatiotietoa ei kaikissa tapauksissa ole yhdistetty aineistoihin. Pyrimme parantamaan linkityksiä aineistojen ja organisaatioiden välillä.</source>
+        <target>The organizations involved in the research or the production of research data. Currently, the service does not contain any information on foreign organizations involved in the research data. Information on organizations is not combined with datasets in all cases. We aim to improve links between datasets and organizations.</target>
       </trans-unit>
       <trans-unit id="datasetSourceFilterTooltip">
         <source>Lähde, josta aineisto on peräisin.</source>

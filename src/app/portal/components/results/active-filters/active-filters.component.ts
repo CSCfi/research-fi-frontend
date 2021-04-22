@@ -592,7 +592,7 @@ export class ActiveFiltersComponent
                     : result.key;
                 }, 1);
               }
-              
+
               // Datasets
               if (val.category === 'dataSource' && source.dataSource) {
                 setTimeout((t) => {
@@ -607,7 +607,7 @@ export class ActiveFiltersComponent
                     : result.key;
                 }, 1);
               }
-              
+
               // Infrastructures
               // Type
               if (val.category === 'type' && source.type) {
@@ -760,7 +760,13 @@ export class ActiveFiltersComponent
 
     params.sort = this.sortService.sortMethod;
 
-    this.router.navigate([], { queryParams: params });
+    this.router.navigate([], {
+      queryParams: {
+        ...params,
+        target: this.settingsService.target,
+        search: this.searchService.searchTerm,
+      },
+    });
   }
 
   clearFilters() {

@@ -14,6 +14,7 @@ import {
   LOCALE_ID,
   Inject,
 } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
 import { SearchService } from '../../../services/search.service';
@@ -175,7 +176,8 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     private tabChangeService: TabChangeService,
     @Inject(LOCALE_ID) protected localeId: string,
     public utilityService: UtilityService,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    @Inject(DOCUMENT) private document: any
   ) {
     // Capitalize first letter of locale
     this.currentLocale =
@@ -346,5 +348,11 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
 
   serviceExpandId(serviceId: number, fieldId: number) {
     return this.serviceFields.length * serviceId + fieldId;
+  }
+
+  showEmail(event, address) {
+    const span = this.document.createElement('span');
+    span.innerHTML = address;
+    event.target.replaceWith(span);
   }
 }
