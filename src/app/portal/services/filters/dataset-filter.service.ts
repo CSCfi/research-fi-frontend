@@ -24,7 +24,7 @@ export class DatasetFilterService {
       open: false,
       limitHeight: true,
       hideSearch: false,
-      tooltip: $localize`:@@datasetOrgFilterTooltip:Tutkimukseen tai aineiston tekemiseen osallistuneet organisaatiot. Palvelu ei toistaiseksi sisällä tietoja aineistojen ulkomaisista organisaatioista.`,
+      tooltip: $localize`:@@datasetOrgFilterTooltip:Tutkimukseen tai aineiston tekemiseen osallistuneet organisaatiot. Palvelu ei toistaiseksi sisällä tietoja aineistojen ulkomaisista organisaatioista. Organisaatiotietoa ei kaikissa tapauksissa ole yhdistetty aineistoihin. Pyrimme parantamaan linkityksiä aineistojen ja organisaatioiden välillä.`,
     },
     {
       field: 'dataSource',
@@ -142,16 +142,17 @@ export class DatasetFilterService {
     });
 
     // Sort based on sector id
-    source.buckets = source.buckets.sort((a, b) => a.sectorId.buckets[0].key - b.sectorId.buckets[0].key)
+    source.buckets = source.buckets.sort(
+      (a, b) => a.sectorId.buckets[0].key - b.sectorId.buckets[0].key
+    );
     return source;
   }
 
   dataSource(data) {
-    const removeString = $localize`:@@datasetSourceMetadata:Metatietopalvelu`; 
-    data.forEach(x => x.label = x.key.replace(removeString, ''));
+    const removeString = $localize`:@@datasetSourceMetadata:Metatietopalvelu`;
+    data.forEach((x) => (x.label = x.key.replace(removeString, '')));
     return this.filterEmptyKeys(data);
   }
-
 
   minorField(data) {
     if (data.length) {
@@ -216,6 +217,8 @@ export class DatasetFilterService {
       };
     });
 
-    return langs.filter((lang) => lang.key !== ' ' && lang.doc_count > 0).sort((a, b) => b.doc_count - a.doc_count);
+    return langs
+      .filter((lang) => lang.key !== ' ' && lang.doc_count > 0)
+      .sort((a, b) => b.doc_count - a.doc_count);
   }
 }

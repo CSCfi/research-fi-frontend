@@ -86,6 +86,12 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
       fieldsOfScience.push(this.lang.testLang('name', obj))
     );
 
+    const keywords = []
+      .concat(item.keywords, item.keywordsEn, item.keywordsSv)
+      .filter((item) => item && item.keyword.trim().length > 0)
+      .map((item) => item.keyword)
+      .join(', ');
+
     const fieldsOfScienceString = fieldsOfScience?.join(', ');
 
     return new Infrastructure(
@@ -113,7 +119,7 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
       item.replacingInfraStructure,
       item.fieldsOfScience,
       services,
-      this.lang.translateKeywords(item),
+      keywords,
       fieldsOfScienceString
     );
   }
