@@ -49,7 +49,6 @@ export class NewsPaginationComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     // Initialize fromPage
     this.fromPage = (this.page - 1) * this.pageSize;
-    console.log(this.fromPage);
 
     // Get updates for window resize
     this.resizeSub = this.resizeService.onResize$.subscribe((size) =>
@@ -59,7 +58,8 @@ export class NewsPaginationComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     // Reset pagination
-    this.page = this.searchService.newsPageNumber || 1;
+    this.page = this.searchService.newsPageNumber;
+    console.log(this.page);
     this.pages = this.generatePages(this.page, this.pageSize);
   }
 
@@ -97,7 +97,7 @@ export class NewsPaginationComponent implements OnInit, OnChanges {
 
   goToPage(n: number) {
     this.page = n;
-    this.fromPage = (this.page - 1) * 10;
+    this.fromPage = (this.page - 1) * this.pageSize;
     this.searchService.updateNewsPageNumber(this.page);
     this.pages = this.generatePages(this.page, this.pageSize);
     this.tabChangeService.focus = 'olderNews';
