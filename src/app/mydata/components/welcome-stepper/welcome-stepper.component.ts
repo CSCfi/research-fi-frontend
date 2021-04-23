@@ -22,7 +22,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
   encapsulation: ViewEncapsulation.None,
 })
 export class WelcomeStepperComponent implements OnInit {
-  step = 3;
+  step = 1;
   cancel = false;
 
   termsApproved = false;
