@@ -15,9 +15,6 @@ export class DataService {
   private totalResultsSource = new BehaviorSubject<number | string>(0);
   currentTotal = this.totalResultsSource.asObservable();
 
-  private errorSource = new Subject<HttpErrorResponse>();
-  currentError = this.errorSource.asObservable();
-
   private filterSource = new Subject<{ filter: string; key: string }>();
   newFilter = this.filterSource.asObservable();
 
@@ -35,10 +32,6 @@ export class DataService {
 
   changeActiveFilterHeight(height: any) {
     this.activeFilterHeightSource.next(height);
-  }
-
-  updateError(error: HttpErrorResponse) {
-    this.errorSource.next(error);
   }
 
   updateTotalResultsValue(amount: number | string) {

@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, ErrorHandler } from '@angular/core';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -21,6 +21,7 @@ import { PortalRoutingModule } from './portal/portal-routing.module';
 import { MyDataModule } from './mydata/mydata.module';
 import { MyDataRoutingModule } from './mydata/mydata-routing.module';
 import { AuthConfigModule } from './auth-config.module';
+import { ErrorHandlerService } from './shared/services/error-handler.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -54,6 +55,10 @@ import { AuthConfigModule } from './auth-config.module';
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptService,
       multi: true,
+    },
+    {
+      provide: ErrorHandler,
+      useClass: ErrorHandlerService,
     },
   ],
   bootstrap: [AppComponent],

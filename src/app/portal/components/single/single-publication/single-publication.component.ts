@@ -393,6 +393,7 @@ export class SinglePublicationComponent
     this.singleService.getSinglePublication(id).subscribe(
       (responseData) => {
         this.responseData = responseData;
+        console.log(responseData.publications[0]);
 
         // Reset authors & organizations on new result
         this.authorAndOrganization = [];

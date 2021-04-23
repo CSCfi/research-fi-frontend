@@ -6,10 +6,8 @@
 //  :license: MIT
 
 import { Title, Meta } from '@angular/platform-browser';
-import { NgModule, ErrorHandler } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -107,7 +105,6 @@ import { InfrastructuresComponent } from './components/results/infrastructures/i
 import { ShareComponent } from './components/single/share/share.component';
 import { SingleInfrastructureComponent } from './components/single/single-infrastructure/single-infrastructure.component';
 import { OrcidComponent } from './components/single/orcid/orcid.component';
-import { InterceptService } from '../shared/services/intercept.service';
 import { ThousandSeparatorPipe } from './pipes/thousand-separator.pipe';
 import { FiltersComponent } from './components/results/filters/filters.component';
 import { CounterPipe } from './pipes/counter.pipe';
@@ -116,7 +113,6 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { CleanCitationPipe } from './pipes/clean-citation';
 import { ReplaceSpacePipe } from './pipes/replace-space';
 
-import { ErrorHandlerService } from '../shared/services/error-handler.service';
 import { FilterSumPipe } from './pipes/filter-sum.pipe';
 import { ResearchInnovationSystemComponent } from './components/science-politics/research-innovation-system/research-innovation-system.component';
 import { FiguresComponent } from './components/science-politics/figures/figures.component';
@@ -266,15 +262,6 @@ import { NewsResultsComponent } from './components/news/news-results/news-result
     {
       provide: LocationStrategy,
       useClass: PathLocationStrategy,
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: InterceptService,
-      multi: true,
-    },
-    {
-      provide: ErrorHandler,
-      useClass: ErrorHandlerService,
     },
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,

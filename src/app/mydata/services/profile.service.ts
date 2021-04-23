@@ -9,6 +9,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { AppConfigService } from 'src/app/shared/services/app-config-service.service';
+import { Orcid, OrcidAdapter } from '@mydata/models/orcid.model';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +22,8 @@ export class ProfileService {
   constructor(
     private http: HttpClient,
     private appConfigService: AppConfigService,
-    public oidcSecurityService: OidcSecurityService
+    public oidcSecurityService: OidcSecurityService,
+    private orcidAdapter: OrcidAdapter
   ) {
     this.apiUrl = this.appConfigService.profileApiUrl;
   }
@@ -33,6 +36,7 @@ export class ProfileService {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       }),
+      observe: 'response',
     };
   }
 
@@ -65,7 +69,9 @@ export class ProfileService {
 
   getProfileData() {
     this.updateTokenInHttpAuthHeader();
-    return this.http.get(this.apiUrl + '/profiledata/', this.httpOptions);
+    return this.http
+      .get<Orcid[]>(this.apiUrl + '/profiledata/', this.httpOptions)
+      .pipe(map((data) => this.orcidAdapter.adapt(data)));
   }
 
   patchProfileDataSingle(modificationItem) {

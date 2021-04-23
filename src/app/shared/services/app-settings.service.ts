@@ -5,6 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +17,11 @@ import { Injectable } from '@angular/core';
   and for this reason these apps are used as feature modules instead of separate projects.
 */
 export class AppSettingsService {
+  // Project wide settings
+  private mobileSource = new BehaviorSubject(false);
+  mobileStatus = this.mobileSource.asObservable();
+
+  // Module related settings
   portalSettings = {
     label: $localize`:@@appSlogan:Tiedejatutkimus.fi`,
     baseRoute: '',
@@ -72,4 +78,8 @@ export class AppSettingsService {
   };
 
   constructor() {}
+
+  updateMobileStatus(status) {
+    this.mobileSource.next(status);
+  }
 }
