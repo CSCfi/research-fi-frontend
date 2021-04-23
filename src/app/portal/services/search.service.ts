@@ -92,9 +92,9 @@ export class SearchService {
   }
 
   // We use different method for news page number
-  updateNewsPageNumber(pageNumber: number) {
+  updateNewsPageNumber(pageNumber: number, pageSize: number = 5) {
     this.newsPageNumber = pageNumber;
-    this.fromNewsPage = this.newsPageNumber * 10 - 10;
+    this.fromNewsPage = (this.newsPageNumber - 1) * pageSize;
     if (isNaN(this.newsPageNumber) || this.newsPageNumber < 0) {
       this.fromNewsPage = 0;
       this.newsPageNumber = 1;
