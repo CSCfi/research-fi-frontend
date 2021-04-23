@@ -31,6 +31,7 @@ export class NewsPaginationComponent implements OnInit, OnChanges {
   desktop = this.window.innerWidth >= 1200;
   navSmall = this.window.innerWidth >= 992;
   order = this.window.innerWidth >= 768;
+  pageSize = 5;
 
   previous = $localize`:@@previous:Edellinen`;
   next = $localize`:@@next:Seuraava`;
@@ -47,7 +48,8 @@ export class NewsPaginationComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     // Initialize fromPage
-    this.fromPage = (this.page - 1) * 10;
+    this.fromPage = (this.page - 1) * this.pageSize;
+    console.log(this.fromPage);
 
     // Get updates for window resize
     this.resizeSub = this.resizeService.onResize$.subscribe((size) =>
@@ -57,11 +59,11 @@ export class NewsPaginationComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     // Reset pagination
-    this.page = this.searchService.newsPageNumber;
-    this.pages = this.generatePages(this.page, 5);
+    this.page = this.searchService.newsPageNumber || 1;
+    this.pages = this.generatePages(this.page, this.pageSize);
   }
 
-  generatePages(currentPage: number, length: number = 5) {
+  generatePages(currentPage: number, length: number = this.pageSize) {
     // Get the highest page number for the query
     this.maxPage = this.getHighestPage(this.responseData[0]?.total);
     // Init array to correct length, make it odd and squish if not enough pages
@@ -88,7 +90,7 @@ export class NewsPaginationComponent implements OnInit, OnChanges {
     return res;
   }
 
-  getHighestPage(results: number, interval: number = 10) {
+  getHighestPage(results: number, interval: number = this.pageSize) {
     // tslint:disable-next-line: no-bitwise
     return ((results - 1) / interval + 1) | 0;
   }
@@ -97,7 +99,7 @@ export class NewsPaginationComponent implements OnInit, OnChanges {
     this.page = n;
     this.fromPage = (this.page - 1) * 10;
     this.searchService.updateNewsPageNumber(this.page);
-    this.pages = this.generatePages(this.page, 5);
+    this.pages = this.generatePages(this.page, this.pageSize);
     this.tabChangeService.focus = 'olderNews';
     this.navigate();
   }
@@ -112,7 +114,7 @@ export class NewsPaginationComponent implements OnInit, OnChanges {
     this.order = w >= 768;
     // Generate 5 pages and 4 more if desktop (9 total for desktop so it's odd)
     if (changePages) {
-      this.pages = this.generatePages(this.page, 5);
+      this.pages = this.generatePages(this.page, this.pageSize);
     }
   }
 
