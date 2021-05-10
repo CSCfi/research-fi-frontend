@@ -38,6 +38,7 @@ import { StepperNavigationComponent } from './components/welcome-stepper/stepper
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ProfilePanelComponent } from './components/welcome-stepper/orcid-data-handler/profile-panel/profile-panel.component';
 import { FilterPipe } from './pipes/filter.pipe';
+import { EditorModalComponent } from './components/welcome-stepper/orcid-data-handler/editor-modal/editor-modal.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { FilterPipe } from './pipes/filter.pipe';
     StepperNavigationComponent,
     ProfilePanelComponent,
     FilterPipe,
+    EditorModalComponent,
   ],
   imports: [
     CommonModule,

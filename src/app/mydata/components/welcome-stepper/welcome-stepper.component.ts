@@ -22,7 +22,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
   encapsulation: ViewEncapsulation.None,
 })
 export class WelcomeStepperComponent implements OnInit {
-  step = 1;
+  step = 3;
   cancel = false;
 
   termsApproved = false;
@@ -135,7 +135,7 @@ export class WelcomeStepperComponent implements OnInit {
       show: !item.show,
     };
     this.profileService
-      .patchProfileDataSingle(patchItem)
+      .patchProfileData([patchItem])
       .subscribe((data) => console.log(data));
   }
 }

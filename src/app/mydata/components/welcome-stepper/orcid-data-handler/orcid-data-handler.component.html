@@ -58,7 +58,7 @@
             </div>
 
             <!-- Field values -->
-            <div class="row" *ngIf="!field.length; else fieldArrayTemplate">
+            <div class="row" *ngIf="!field.items; else fieldArrayTemplate">
               <div class="col ml-3 field-value">
                 {{ field.name }}
 
@@ -70,7 +70,10 @@
             </div>
             <ng-template #fieldArrayTemplate>
               <!-- TODO: array items should have matching property names -->
-              <div class="col ml-3 field-value" *ngFor="let value of field">
+              <div
+                class="col ml-3 field-value"
+                *ngFor="let value of field.items"
+              >
                 {{ value.webLink.url }}
 
                 <span class="pl-3 opacity-3">
@@ -86,68 +89,12 @@
 
       <!-- Editor modal -->
       <ng-template #editorModal>
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 id="dialog-sizes-name1" class="modal-title pull-left">
-              Muokkaa
-              <small class="pl-3">
-                {{ (item.fields | filter: checkSelected).length }} /
-                {{ item.fields.length }} valittu</small
-              >
-            </h4>
-
-            <app-close-button
-              class="pull-right"
-              (click)="closeModal()"
-              (keydown.enter)="closeModal()"
-              autofocus
-              tabindex="-1"
-            ></app-close-button>
-          </div>
-          <div class="modal-body">
-            <div class="row d-flex justify-content-center">
-              <div class="col col-lg-10">
-                <div class="row">
-                  <div class="col">
-                    <app-profile-panel
-                      [dataSources]="dataSources"
-                      [selectedSource]="selectedSource"
-                      [data]="selectedData"
-                      (dataChange)="changeData($event)"
-                    ></app-profile-panel>
-                  </div>
-                </div>
-
-                <div class="row pb-3">
-                  <div class="col">
-                    <mat-slide-toggle
-                      [checked]="allSelected"
-                      labelPosition="before"
-                      (change)="toggleAll()"
-                      >Valitse kaikki</mat-slide-toggle
-                    >
-                  </div>
-                  <div class="col px-0">
-                    <div class="row">
-                      <div class="col pl-0">
-                        <app-secondary-button
-                          (click)="closeModal()"
-                          content="Peruuta"
-                        ></app-secondary-button>
-                      </div>
-                      <div class="col pr-0">
-                        <app-primary-action-button
-                          (click)="saveChanges(i)"
-                          content="Tallenna"
-                        ></app-primary-action-button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <app-editor-modal
+          [data]="selectedData"
+          [dataSources]="dataSources"
+          (emitClose)="closeModal($event)"
+          (dataChange)="changeData($event)"
+        ></app-editor-modal>
       </ng-template>
 
       <div class="row d-flex justify-content-end">

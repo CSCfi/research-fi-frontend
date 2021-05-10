@@ -20,6 +20,7 @@ import {
   ModalDirective,
 } from 'ngx-bootstrap/modal';
 import { cloneDeep } from 'lodash-es';
+import { ProfileService } from '@mydata/services/profile.service';
 
 @Component({
   selector: 'app-orcid-data-handler',
@@ -40,6 +41,7 @@ export class OrcidDataHandlerComponent implements OnInit {
 
   dataSources = ['Orcid', 'Korkeakoulu A', 'Korkeakoulu B'];
   selectedSource = this.dataSources[0];
+  selectedIndex = 0;
 
   openPanels: any = [];
 
@@ -48,36 +50,36 @@ export class OrcidDataHandlerComponent implements OnInit {
 
   testData = [
     {
-      label: 'Yhteystiedot',
-      fields: [
-        {
-          label: 'Nimi',
-          values: [{ value: 'Etunimi Sukunimi' }],
-        },
-        {
-          label: 'Muut nimet',
-          disabled: true,
-          values: [
-            { value: 'Etu Toinen Sukunimi', source: 'Orcid' },
-            { value: 'E Sukunimi', source: 'Korkeakoulu A' },
-          ],
-        },
-        { label: 'Sähköpostiosoite' },
-        { label: 'Puhelinnumero' },
-        { label: 'Linkit' },
-      ],
-      expanded: true,
+      id: 1,
+      fieldIdentifier: 101,
+      show: true,
+      name: 'Sauli Purhonen',
+      webLink: null,
+      sourceId: null,
+      label: 'Nimi',
     },
-    { label: 'Tutkimustoiminnan kuvaus', fields: [] },
-    { label: 'Affiliaatiot', fields: [] },
-    { label: 'Koulutus', fields: [] },
-    { label: 'Julkaisut', fields: [] },
-    { label: 'Tutkimusaineistot', fields: [] },
-    { label: 'Hankkeet', fields: [] },
-    { label: 'Muut hankkeet', fields: [] },
-    { label: 'Tutkimusinfrastruktuurit', fields: [] },
-    { label: 'Muut tutkimusaktiviteetit', fields: [] },
-    { label: 'Meriitit', fields: [] },
+    {
+      label: 'Linkit',
+      show: true,
+      items: [
+        {
+          id: 3,
+          fieldIdentifier: 110,
+          show: false,
+          name: null,
+          webLink: { url: 'https://tiedejatutkimus.fi/fi/', urlLabel: 'TTV' },
+          sourceId: null,
+        },
+        {
+          id: 4,
+          fieldIdentifier: 110,
+          show: false,
+          name: null,
+          webLink: { url: 'https://forskning.fi/sv/', urlLabel: 'Forskning' },
+          sourceId: null,
+        },
+      ],
+    },
   ];
 
   profileData = [
@@ -100,18 +102,19 @@ export class OrcidDataHandlerComponent implements OnInit {
 
   selectedData: any;
 
-  constructor(private modalService: BsModalService) {}
+  constructor(
+    private modalService: BsModalService,
+    private profileService: ProfileService
+  ) {}
 
   ngOnInit(): void {
     this.primarySource = this.dataSources[0];
-
-    console.log(this.orcidData.contactFields.fields);
-
     this.mapData();
   }
 
   mapData() {
     this.profileData[0].fields = this.orcidData.contactFields.fields;
+    // this.profileData[0].fields = this.testData;
   }
 
   setOpenPanel(i: number) {
@@ -124,34 +127,36 @@ export class OrcidDataHandlerComponent implements OnInit {
 
   openModal(event, index, template: TemplateRef<any>) {
     event.stopPropagation();
+    this.selectedData = cloneDeep(this.profileData[index]);
 
-    // this.selectedData = cloneDeep(this.profileData[index]);
-    this.selectedData = this.profileData[index];
-
-    this.allSelected = this.selectedData.fields.find((item) => item.show)
-      ? true
-      : false;
     this.modalRef = this.modalService.show(template);
     this.modalRef.setClass('modal-lg');
   }
 
-  closeModal() {
+  closeModal(event) {
     this.modalRef.hide();
   }
 
-  toggleAll() {
-    this.selectedData.fields.forEach((item) => (item.show = true));
-    this.changeData(this.selectedData);
-  }
-
   changeData(data) {
-    this.allSelected = data.fields.find((item) => !item.show) ? false : true;
-    this.editedData = data;
-  }
+    if (data) {
+      this.profileData[this.selectedIndex] = data;
+      console.log(data);
 
-  saveChanges(index) {
-    if (this.editedData) this.profileData[index] = this.editedData;
-    this.closeModal();
+      const payload = data.fields
+        .map((item) => {
+          if (item.items) {
+            return item.items.map((x) => {
+              return { id: x.id, show: x.show };
+            });
+          } else {
+            return { id: item.id, show: item.show };
+          }
+        })
+        .flat(1);
+      this.profileService
+        .patchProfileData(payload)
+        .subscribe((response) => console.log(response));
+    }
   }
 
   checkSelected = (item) => {

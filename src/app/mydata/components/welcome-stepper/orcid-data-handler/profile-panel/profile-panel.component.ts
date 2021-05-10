@@ -41,14 +41,11 @@ export class ProfilePanelComponent implements OnInit, OnChanges {
     this.checked = [this.selectedSource];
   }
 
-  ngOnChanges() {
-    console.log(this.data);
-  }
+  ngOnChanges() {}
 
   toggleField(index: number) {
     this.data.fields[index].show = !this.data.fields[index].show;
 
-    // Pass change to parent
     this.dataChange.emit(this.data);
   }
 }

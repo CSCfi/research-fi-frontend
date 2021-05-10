@@ -11,10 +11,8 @@ import { Adapter } from './adapter.model';
 
 export class ContactFields {
   constructor(
-    public fields: any[] // public firstName: string, // public lastName: string,
-  ) // public fullName: string,
-  // public webLinks: any[]
-  {}
+    public fields: any[] // public firstName: string, // public lastName: string, // public fullName: string, // public webLinks: any[]
+  ) {}
 }
 
 @Injectable({
@@ -39,7 +37,7 @@ export class ContactFieldsAdapter implements Adapter<ContactFields> {
       // Object.assign(getFieldById(102), { label: 'Etunimi', show: true }),
       // Object.assign(getFieldById(101), { label: 'Sukunimi', show: true }),
       Object.assign(fullName, { label: 'Nimi', show: true }),
-      Object.assign(webLinks, { label: 'Linkit', show: true }),
+      { label: 'Linkit', show: true, items: webLinks },
     ]);
   }
 }

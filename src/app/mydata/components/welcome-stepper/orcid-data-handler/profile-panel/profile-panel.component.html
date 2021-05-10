@@ -25,7 +25,7 @@
           </div>
 
           <!-- Field values -->
-          <div class="row" *ngIf="!field.length; else fieldArrayTemplate">
+          <div class="row" *ngIf="!field.items; else fieldArrayTemplate">
             <div class="col field-value">
               {{ field.name }}
 
@@ -37,7 +37,7 @@
           </div>
           <ng-template #fieldArrayTemplate>
             <!-- TODO: array items should have matching property names -->
-            <div class="col field-value" *ngFor="let value of field">
+            <div class="col field-value" *ngFor="let value of field.items">
               {{ value.webLink.url }}
 
               <span class="pl-3 opacity-3">

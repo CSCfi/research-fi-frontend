@@ -74,9 +74,9 @@ export class ProfileService {
       .pipe(map((data) => this.orcidAdapter.adapt(data)));
   }
 
-  patchProfileDataSingle(modificationItem) {
+  patchProfileData(modificationItem) {
     this.updateTokenInHttpAuthHeader();
-    let body = [modificationItem];
+    let body = modificationItem;
     return this.http.patch(
       this.apiUrl + '/profiledata/',
       body,
