@@ -283,7 +283,7 @@ export class SinglePublicationComponent
   publicationType: any;
   publicationTypeLabel: string;
   showSubUnits = false;
-  hasSubUnits: boolean;
+  hasSubUnits = false;
 
   citations = [];
   hasDoi = false;
@@ -393,7 +393,6 @@ export class SinglePublicationComponent
     this.singleService.getSinglePublication(id).subscribe(
       (responseData) => {
         this.responseData = responseData;
-        console.log(responseData.publications[0]);
 
         // Reset authors & organizations on new result
         this.authorAndOrganization = [];
@@ -598,19 +597,6 @@ export class SinglePublicationComponent
           });
         });
       });
-
-      // Default subUnits checks to false and check if any authors or organizations have sub units. Show button if sub units
-      this.hasSubUnits = false;
-      const combinedSubUnits = [
-        ...this.authorAndOrganization[0].authors,
-        ...this.authorAndOrganization[0].orgUnits,
-      ];
-
-      this.hasSubUnits = combinedSubUnits.find(
-        (item) => item.subUnit && item.subUnit !== null
-      )
-        ? true
-        : false;
     }
 
     // Remove duplicate organizations
@@ -618,35 +604,29 @@ export class SinglePublicationComponent
       (v, i, a) => a.findIndex((t) => t.orgName === v.orgName) === i
     );
 
+    // Check if sub units exist
+    const authors = this.authorAndOrganization
+      .map((item) => item.authors)
+      .flat(1);
+
+    const subUnits = authors
+      .map((item) => item.subUnits)
+      .filter((item) => item[0]);
+
+    this.hasSubUnits = subUnits.length > 0 ? true : false;
+
     // RelatedQ
     this.relatedData = {
       organizations: this.authorAndOrganization.map((item) => item.orgId),
     };
 
-    // Is this needed anymore?
-    let yes = '';
-    let no = '';
-    switch (this.localeId) {
-      case 'en': {
-        yes = 'Yes';
-        no = 'No';
-        break;
-      }
-      case 'sv': {
-        yes = 'Ja';
-        no = 'Nej';
-        break;
-      }
-      default: {
-        yes = 'Kyllä';
-        no = 'Ei';
-      }
-    }
-
     source.internationalCollaboration = source.internationalCollaboration
-      ? yes
-      : no;
-    source.businessCollaboration = source.businessCollaboration ? yes : no;
+      ? $localize`:@@yes:Kyllä`
+      : $localize`:@@no:Ei`;
+
+    source.businessCollaboration = source.businessCollaboration
+      ? $localize`:@@yes:Kyllä`
+      : $localize`:@@no:Ei`;
 
     // Get & set publication type label
     this.publicationTypeLabel =
