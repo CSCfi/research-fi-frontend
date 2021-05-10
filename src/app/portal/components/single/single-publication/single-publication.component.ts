@@ -605,7 +605,10 @@ export class SinglePublicationComponent
         ...this.authorAndOrganization[0].authors,
         ...this.authorAndOrganization[0].orgUnits,
       ];
-      this.hasSubUnits = combinedSubUnits.find((item) => item.subUnit !== null)
+
+      this.hasSubUnits = combinedSubUnits.find(
+        (item) => item.subUnit && item.subUnit !== null
+      )
         ? true
         : false;
     }
