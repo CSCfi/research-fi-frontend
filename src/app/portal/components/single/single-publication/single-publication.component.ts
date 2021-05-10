@@ -613,7 +613,12 @@ export class SinglePublicationComponent
       .map((item) => item.subUnits)
       .filter((item) => item[0]);
 
-    this.hasSubUnits = subUnits.length > 0 ? true : false;
+    const orgUnits = this.authorAndOrganization
+      .map((item) => item.orgUnits)
+      .filter((item) => item.length > 0);
+
+    this.hasSubUnits =
+      subUnits.length > 0 || orgUnits.length > 0 ? true : false;
 
     // RelatedQ
     this.relatedData = {
