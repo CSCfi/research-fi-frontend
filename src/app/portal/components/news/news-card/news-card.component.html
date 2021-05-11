@@ -36,7 +36,7 @@
     <div class="row">
       <span
         class="preview"
-        [innerHTML]="item.content | highlight: term"
+        [innerHTML]="item.content | highlight: term | cutContent: 250"
         [ngClass]="item.mediaUri?.length > 0 ? 'col-10 px-0' : ''"
       ></span>
       <div
