@@ -92,7 +92,7 @@ export class WelcomeStepperComponent implements OnInit {
         if (data.ok) {
           console.log('checkProfileExists: ', data);
           // TODO: Redirect to profile component when component is available
-          data.body.success ? this.getOrcidData() : this.getOrcidData();
+          data.body.success ? this.getOrcidData() : this.createProfile();
         } else {
           console.log('Connection problem');
         }
