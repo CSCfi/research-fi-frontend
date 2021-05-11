@@ -107,6 +107,14 @@ ul {
   color: mat-color($primary, 500);
 }
 
+.background-primary {
+  background-color: mat-color($primary, 500);
+}
+
+.background-light {
+  background-color: mat-color($primary, 50);
+}
+
 #main-content {
   margin-top: 1.5rem;
 }

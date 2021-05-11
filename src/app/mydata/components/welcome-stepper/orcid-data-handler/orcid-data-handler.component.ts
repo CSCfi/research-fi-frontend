@@ -34,6 +34,7 @@ export class OrcidDataHandlerComponent implements OnInit {
   primarySource: string;
   allSelected: boolean;
   editedData: any;
+  testData: any;
 
   @Input() orcidData: any;
 
@@ -47,40 +48,6 @@ export class OrcidDataHandlerComponent implements OnInit {
 
   modalRef: BsModalRef;
   @ViewChild('editorModal') editorModal: ModalDirective;
-
-  testData = [
-    {
-      id: 1,
-      fieldIdentifier: 101,
-      show: true,
-      name: 'Sauli Purhonen',
-      webLink: null,
-      sourceId: null,
-      label: 'Nimi',
-    },
-    {
-      label: 'Linkit',
-      show: true,
-      items: [
-        {
-          id: 3,
-          fieldIdentifier: 110,
-          show: false,
-          name: null,
-          webLink: { url: 'https://tiedejatutkimus.fi/fi/', urlLabel: 'TTV' },
-          sourceId: null,
-        },
-        {
-          id: 4,
-          fieldIdentifier: 110,
-          show: false,
-          name: null,
-          webLink: { url: 'https://forskning.fi/sv/', urlLabel: 'Forskning' },
-          sourceId: null,
-        },
-      ],
-    },
-  ];
 
   profileData = [
     {
@@ -105,7 +72,9 @@ export class OrcidDataHandlerComponent implements OnInit {
   constructor(
     private modalService: BsModalService,
     private profileService: ProfileService
-  ) {}
+  ) {
+    this.testData = profileService.testData;
+  }
 
   ngOnInit(): void {
     this.primarySource = this.dataSources[0];

@@ -1,0 +1,54 @@
+<main id="main-content">
+  <div class="wrapper">
+    <div class="row">
+      <div class="col-6 px-0">
+        <div class="row d-flex">
+          <h1 class="col-auto px-0">Profiili</h1>
+          <div class="col align-self-center">
+            <img
+              class="orcid-icon mt-n1 pr-2"
+              src="assets/img/orcid_icon.svg"
+              alt="Orcid -palvelun logo"
+            />
+            <span>{{ orcid }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-5 px-0">
+        <div class="row d-flex justify-content-end">
+          <div class="col-auto">
+            <i class="fas fa-user text-center primary-color d-block h1"></i>
+            <a href="javascript:void(0)" disabled>Lisää profiilikuva...</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-lg-6 px-0">
+        <mat-tab-group mat-align-tabs="end">
+          <mat-tab label="Tiedot"
+            ><app-orcid-data-handler
+              class="d-block pt-3"
+            ></app-orcid-data-handler
+          ></mat-tab>
+          <mat-tab label="Tietolähteet">Tietolähteet</mat-tab>
+        </mat-tab-group>
+      </div>
+
+      <div class="col-12 col-lg-5 px-0 px-lg-3">
+        <div class="background-light p-3 mt-lg-5">
+          <span class="font-weight-bold d-block pb-3">Yhteistyö</span>
+          <section class="example-section">
+            <mat-checkbox
+              *ngFor="let option of collaborationOptions"
+              class=""
+              >{{ option.label }}</mat-checkbox
+            >
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

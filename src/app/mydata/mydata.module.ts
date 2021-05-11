@@ -19,6 +19,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { HomeComponent } from './components/home/home.component';
 import { WelcomeStepperComponent } from './components/welcome-stepper/welcome-stepper.component';
@@ -39,6 +40,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { ProfilePanelComponent } from './components/welcome-stepper/orcid-data-handler/profile-panel/profile-panel.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import { EditorModalComponent } from './components/welcome-stepper/orcid-data-handler/editor-modal/editor-modal.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +55,7 @@ import { EditorModalComponent } from './components/welcome-stepper/orcid-data-ha
     ProfilePanelComponent,
     FilterPipe,
     EditorModalComponent,
+    ProfileComponent,
   ],
   imports: [
     CommonModule,
@@ -66,6 +69,7 @@ import { EditorModalComponent } from './components/welcome-stepper/orcid-data-ha
     MatSelectModule,
     MatButtonToggleModule,
     MatSlideToggleModule,
+    MatTabsModule,
     FontAwesomeModule,
     SharedModule,
     ModalModule,

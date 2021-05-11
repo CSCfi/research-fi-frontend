@@ -19,6 +19,40 @@ export class ProfileService {
   apiUrl: string;
   httpOptions: object;
 
+  testData = [
+    {
+      id: 1,
+      fieldIdentifier: 101,
+      show: true,
+      name: 'Sauli Purhonen',
+      webLink: null,
+      sourceId: null,
+      label: 'Nimi',
+    },
+    {
+      label: 'Linkit',
+      show: true,
+      items: [
+        {
+          id: 3,
+          fieldIdentifier: 110,
+          show: false,
+          name: null,
+          webLink: { url: 'https://tiedejatutkimus.fi/fi/', urlLabel: 'TTV' },
+          sourceId: null,
+        },
+        {
+          id: 4,
+          fieldIdentifier: 110,
+          show: false,
+          name: null,
+          webLink: { url: 'https://forskning.fi/sv/', urlLabel: 'Forskning' },
+          sourceId: null,
+        },
+      ],
+    },
+  ];
+
   constructor(
     private http: HttpClient,
     private appConfigService: AppConfigService,
@@ -42,13 +76,13 @@ export class ProfileService {
 
   checkProfileExists() {
     this.updateTokenInHttpAuthHeader();
-    return this.http.get(this.apiUrl + '/researcherprofile/', this.httpOptions);
+    return this.http.get(this.apiUrl + '/userprofile/', this.httpOptions);
   }
 
   createProfile() {
     this.updateTokenInHttpAuthHeader();
     return this.http.post(
-      this.apiUrl + '/researcherprofile/',
+      this.apiUrl + '/userprofile/',
       null,
       this.httpOptions
     );
@@ -56,10 +90,7 @@ export class ProfileService {
 
   deleteProfile() {
     this.updateTokenInHttpAuthHeader();
-    return this.http.delete(
-      this.apiUrl + '/researcherprofile/',
-      this.httpOptions
-    );
+    return this.http.delete(this.apiUrl + '/userprofile/', this.httpOptions);
   }
 
   getOrcidData() {
@@ -72,6 +103,26 @@ export class ProfileService {
     return this.http
       .get<Orcid[]>(this.apiUrl + '/profiledata/', this.httpOptions)
       .pipe(map((data) => this.orcidAdapter.adapt(data)));
+  }
+
+  patchProfileDataSingleGroup(group) {
+    this.updateTokenInHttpAuthHeader();
+    let body = { groups: [group], items: [] };
+    return this.http.patch(
+      this.apiUrl + '/profiledata/',
+      body,
+      this.httpOptions
+    );
+  }
+
+  patchProfileDataSingleItem(item) {
+    this.updateTokenInHttpAuthHeader();
+    let body = { groups: [], items: [item] };
+    return this.http.patch(
+      this.apiUrl + '/profiledata/',
+      body,
+      this.httpOptions
+    );
   }
 
   patchProfileData(modificationItem) {
