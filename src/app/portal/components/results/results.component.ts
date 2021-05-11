@@ -138,6 +138,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   modalRef: BsModalRef;
   showInfo = true;
   fundingAmount = false;
+  visualisationType = false;
 
   faDownload = faDownload;
   faTrash = faTrash;
@@ -146,6 +147,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   additionalInfo = $localize`:@@additionalInfo:Lisätietoa`;
   clearActiveFilters = $localize`:@@clearActiveFilters: Tyhjennä rajaukset`;
   downloadImage = $localize`:@@downloadAsImage:Lataa kuvana (tulossa)`;
+  
 
   // tslint:disable-next-line: max-line-length
   betaTooltip =

@@ -147,6 +147,7 @@ import { ExternalLinksComponent } from './components/science-politics/external-l
 import { BannerComponent } from './components/home-page/banner/banner.component';
 import { LatestNewsComponent } from './components/news/latest-news/latest-news.component';
 import { NewsResultsComponent } from './components/news/news-results/news-results.component';
+import { PieComponent } from './components/visualisation/pie/pie.component';
 
 @NgModule({
   declarations: [
@@ -215,6 +216,7 @@ import { NewsResultsComponent } from './components/news/news-results/news-result
     BannerComponent,
     LatestNewsComponent,
     NewsResultsComponent,
+    PieComponent,
   ],
   imports: [
     PortalRoutingModule,

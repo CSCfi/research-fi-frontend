@@ -325,6 +325,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
             [loading]="visualLoading"
             [searchTerm]="searchTerm"
             [searchTarget]="searchTargetName"
+            [visualisationType]="visualisationType"
           ></app-visualisation>
           <div class="row vis-info">
             <div *ngIf="tab === 'publications'" class="vis-style-toggles row">
@@ -373,6 +374,15 @@ Copyright 2019 Ministry of Education and Culture, Finland
                 i18n="@@asPercentFunding"
               >
                 % hankkeiden määrästä
+              </button>
+              <button
+                class="col-6 vis-style-toggle ttv-button"
+                (click)="
+                visualisationType = !visualisationType
+                "
+                i18n="@@asPercentFunding"
+              >
+                Piiraskuvaaja
               </button>
               <div class="col-12"></div>
               <!-- <button class="col-6 vis-style-toggle ttv-button" [class.active]="!percentage && fundingAmount" (click)="changeVisual({fundingAmount: true}); percentage=false; fundingAmount=true;" i18n="@@asAmount">Myöntösumma (eur)</button>

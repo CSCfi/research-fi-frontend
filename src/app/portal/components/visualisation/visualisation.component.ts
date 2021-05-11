@@ -41,7 +41,7 @@ export class VisualisationComponent implements OnInit {
   @Input() percentage: boolean;
   @Input() searchTarget: string;
   @Input() searchTerm: string;
-
+  @Input() visualisationType: boolean;
   title = '';
 
   modalRef: BsModalRef;
