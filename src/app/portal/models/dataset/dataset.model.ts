@@ -99,7 +99,9 @@ export class DatasetAdapter implements Adapter<Dataset> {
             orgs.push(orgObj);
           }
           // Add role if org has no children (or has an unnecessary subUnit)
-          const subUnitHasName = !!(org?.organizationUnit?.organizationUnitNameEn + org?.organizationUnit?.organizationUnitNameFi + org?.organizationUnit?.organizationUnitNameSv).trim()
+          const subUnitHasName = !!(org?.organizationUnit?.slice().shift().organizationUnitNameEn || 
+                                    org?.organizationUnit?.slice().shift().organizationUnitNameFi || 
+                                    org?.organizationUnit?.slice().shift().organizationUnitNameSv)
           if (!org?.organizationUnit?.slice().shift().person && !subUnitHasName) {
             orgObj.roles.push(role);
           }
