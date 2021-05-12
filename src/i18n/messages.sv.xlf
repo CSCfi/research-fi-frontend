@@ -3304,6 +3304,10 @@
         <source>Teemat</source>
         <target state="translated">Teman</target>
       </trans-unit>
+      <trans-unit id="FAResearchFields">
+        <source>Suomen Akatemian tutkimusalat</source>
+        <target>Finlands Akademis forskningsområden</target>
+      </trans-unit>
       <trans-unit id="iYearFTooltip">
         <source>Tutkimusinfrastruktuurin toiminnan aloitusvuosi. Jos aloitusvuosi ei ole tiedossa, käytetään vuotta jolloin tiedot on toimitettu tiedejatutkimus.fi-palveluun.</source>
         <target state="translated">Startåret för forskningsinfrastrukturens verksamhet. Om startåret inte är känt används det år då uppgifterna har levererats till forskning.fi.</target>

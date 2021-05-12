@@ -306,7 +306,7 @@ export class FundingFilterService {
           break;
         }
         case 'Tutkimusala': {
-          item.key = 'Suomen Akatemian tutkimusalat';
+          item.key = $localize`:@@FAResearchFields:Suomen Akatemian tutkimusalat`;
           break;
         }
       }
