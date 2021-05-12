@@ -963,34 +963,6 @@ export class AggregationService {
           },
         };
 
-        // payLoad.aggs.field = {
-        //   filter: {
-        //     bool: {
-        //       filter: filterActive('fields_of_science.fieldIdScience')
-        //     }
-        //   },
-        //   aggs: {
-        //     fields: {
-        //       terms: {
-        //         field: 'fields_of_science.name' + this.localeC + 'Science.keyword',
-        //         exclude: ' ',
-        //         size: 250,
-        //         order: {
-        //           _key: 'asc'
-        //         }
-        //       },
-        //       aggs: {
-        //         fieldId: {
-        //           terms: {
-        //             field: 'fields_of_science.fieldIdScience.keyword',
-        //             size: 1
-        //           }
-        //         }
-        //       }
-        //     }
-        //   }
-        // };
-        // Funding status
         payLoad.aggs.fundingStatus = {
           filter: {
             bool: {
@@ -1010,42 +982,36 @@ export class AggregationService {
             },
           },
         };
-        // Scheme & Keywords
-        payLoad.aggs.scheme = {
-          filter: {
-            bool: {
-              filter: filterActive('keywords.scheme.keyword'),
-            },
-          },
-          aggs: {
-            types: {
-              terms: {
-                field: 'keywords.scheme.keyword',
-                size: 10,
-              },
-              aggs: {
-                typeName: {
-                  terms: {
-                    field:
-                      'keywords.keyword.keyword' + this.localeC + '.keyword',
-                  },
-                },
-              },
-            },
-          },
-        };
-        payLoad.aggs.faField = {
+
+        payLoad.aggs.topic = {
           filter: {
             bool: {
               filter: filterActive('keywords.keyword.keyword'),
             },
           },
           aggs: {
-            faFields: {
+            scheme: {
               terms: {
-                field: 'keywords.keyword.keyword',
-                size: 50,
+                field: 'keywords.scheme.keyword',
                 exclude: ' ',
+                size: 10,
+                order: {
+                  _key: 'asc',
+                },
+              },
+              aggs: {
+                keywords: {
+                  terms: {
+                    exclude: ' ',
+                    size: 250,
+                    field: 'keywords.keyword.keyword',
+                  },
+                },
+                lang: {
+                  terms: {
+                    field: 'keywords.language.keyword',
+                  },
+                },
               },
             },
           },
@@ -1115,7 +1081,8 @@ export class AggregationService {
                         orgId: {
                           terms: {
                             size: 10,
-                            field: 'actor.sector.organization.organizationId.keyword',
+                            field:
+                              'actor.sector.organization.organizationId.keyword',
                           },
                         },
                       },
@@ -1133,8 +1100,7 @@ export class AggregationService {
           aggs: {
             langs: {
               terms: {
-                field:
-                  'languages.languageCode.keyword',
+                field: 'languages.languageCode.keyword',
                 exclude: ' ',
                 size: 250,
                 order: {

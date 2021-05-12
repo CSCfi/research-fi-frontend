@@ -247,7 +247,8 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         }
         case 'infrastructures': {
           this.currentFilter = this.infrastructureFilters.filterData;
-          this.currentSingleFilter = this.infrastructureFilters.singleFilterData;
+          this.currentSingleFilter =
+            this.infrastructureFilters.singleFilterData;
           this.infrastructureFilters.shapeData(this.responseData);
           break;
         }
@@ -267,9 +268,9 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
       // Restore focus after clicking a filter
       if (this.activeElement && isPlatformBrowser(this.platformId)) {
         setTimeout(() => {
-          (this.document.querySelector(
-            '#' + this.activeElement
-          ) as HTMLElement)?.focus();
+          (
+            this.document.querySelector('#' + this.activeElement) as HTMLElement
+          )?.focus();
         }, 1);
       }
     }

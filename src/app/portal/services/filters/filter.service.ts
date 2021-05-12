@@ -41,7 +41,7 @@ export class FilterService {
   internationalCollaborationFilter: any;
   coPublicationFilter: any;
   sectorFilter: any;
-  faFieldFilter: any;
+  topicFilter: any;
   organizationFilter: any;
   dataSourceFilter: any;
   accessTypeFilter: any;
@@ -69,7 +69,7 @@ export class FilterService {
     scheme: [],
     fundingStatus: [],
     fundingAmount: [],
-    faFieldFilter: [],
+    topicFilter: [],
     sector: [],
     organization: [],
     dataSource: [],
@@ -103,7 +103,7 @@ export class FilterService {
     scheme: any[];
     fundingStatus: any[];
     fundingAmount: any[];
-    faFieldFilter: any[];
+    topicFilter: any[];
     sector: any[];
     organization: any[];
     dataSource: any[];
@@ -223,19 +223,19 @@ export class FilterService {
         .flat()
         .filter((x) => x)
         .sort(),
-      faField: [source.faField]
+      topic: [source.topic]
         .flat()
         .filter((x) => x)
         .sort(),
       // Datasets
       dataSource: [source.dataSource]
-      .flat()
-      .filter((x) => x)
-      .sort(),
+        .flat()
+        .filter((x) => x)
+        .sort(),
       accessType: [source.accessType]
-      .flat()
-      .filter((x) => x)
-      .sort(),
+        .flat()
+        .filter((x) => x)
+        .sort(),
       // Infrastructures
       type: [source.type]
         .flat()
@@ -279,9 +279,10 @@ export class FilterService {
     this.countryCodeFilter = this.filterByCountryCode(filter.countryCode);
     this.langFilter = this.basicFilter(filter.lang, 'languages.languageCode');
     this.openAccessFilter = this.filterByOpenAccess(filter.openAccess);
-    this.internationalCollaborationFilter = this.filterByInternationalCollaboration(
-      filter.internationalCollaboration
-    );
+    this.internationalCollaborationFilter =
+      this.filterByInternationalCollaboration(
+        filter.internationalCollaboration
+      );
     this.coPublicationFilter = this.customValueFilter(
       filter.coPublication,
       'publicationStatusCode.keyword',
@@ -300,10 +301,10 @@ export class FilterService {
       filter.scheme,
       'keywords.scheme.keyword'
     );
-    this.faFieldFilter = this.basicFilter(
-      filter.faField,
+    this.topicFilter = this.basicFilter(
+      filter.topic,
       'keywords.keyword.keyword'
-    ); // Finnish Academy field
+    );
     // Datasets
     this.dataSourceFilter = this.basicFilter(
       filter.dataSource,
@@ -313,10 +314,7 @@ export class FilterService {
       filter.accessType,
       'accessType.keyword'
     );
-    this.langFilter = this.basicFilter(
-      filter.lang,
-      'languages.languageCode'
-    );
+    this.langFilter = this.basicFilter(filter.lang, 'languages.languageCode');
     // Infrastructure
     this.typeFilter = this.basicFilter(
       filter.type,
@@ -425,8 +423,7 @@ export class FilterService {
         break;
       }
       case 'datasets': {
-        const filterString =
-          'actor.sector.organization.organizationId.keyword';
+        const filterString = 'actor.sector.organization.organizationId.keyword';
         filter.forEach((value) => {
           res.push({ term: { [filterString]: value } });
         });
@@ -714,7 +711,7 @@ export class FilterService {
         : []),
       ...basicFilter('funding', this.funderFilter),
       ...basicFilter('funding', this.typeOfFundingFilter),
-      ...basicFilter('funding', this.faFieldFilter),
+      ...basicFilter('funding', this.topicFilter),
       ...nestedFilter('funding', this.fieldFilter, 'fieldsOfScience'),
       ...basicFilter('funding', this.fundingSchemeFilter),
       ...basicFilter('funding', this.statusFilter),

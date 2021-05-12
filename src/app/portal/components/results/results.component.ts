@@ -102,7 +102,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     fundingStatus: any[];
     fundingAmount: any[];
     sector: any[];
-    faField: any[];
+    topic: any[];
   };
   infrastructureFilters: { type: any[] };
   filters: any;
@@ -292,15 +292,17 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
           switch (this.tab) {
             case 'publications':
               this.visualisationCategories = this.visualPublication;
-              this.visualisationInfo = this.staticDataService.visualisationData[
-                'publicationTooltip' + this.currentLocale
-              ];
+              this.visualisationInfo =
+                this.staticDataService.visualisationData[
+                  'publicationTooltip' + this.currentLocale
+                ];
               break;
             case 'fundings':
               this.visualisationCategories = this.visualFunding;
-              this.visualisationInfo = this.staticDataService.visualisationData[
-                'fundingTooltip' + this.currentLocale
-              ];
+              this.visualisationInfo =
+                this.staticDataService.visualisationData[
+                  'fundingTooltip' + this.currentLocale
+                ];
               break;
             default:
               this.visualisationCategories = [];
