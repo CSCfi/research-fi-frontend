@@ -346,6 +346,7 @@ export class StaticDataService {
     404: $localize`Haluttua tietoa ei ole olemassa`,
     405: $localize`:@@forbiddenRequest:Pyyntömetodi ei ole sallittu`,
     500: $localize`Palvelinvirhe. Palvelimella tapahtui virhe pyyntöä käsitellessä`,
+    default: $localize`HTTP pyyntöä ei voitu käsitellä`,
   };
 
   constructor() {}
@@ -537,7 +538,7 @@ export class StaticDataService {
           'actor.sector.organization.organizationUnit.organizationUnitNameFi',
           'actor.sector.organization.organizationUnit.organizationUnitNameEn',
           'actor.sector.organization.organizationUnit.organizationUnitNameSv',
-          'actor.sector.organization.organizationUnit.person.authorFullName'
+          'actor.sector.organization.organizationUnit.person.authorFullName',
         ];
         break;
       }
@@ -595,9 +596,7 @@ export class StaticDataService {
         break;
       }
       case 'dataset': {
-        res = [
-          'actor.sector.organization.organizationId',
-        ];
+        res = ['actor.sector.organization.organizationId'];
         break;
       }
     }
@@ -651,11 +650,7 @@ export class StaticDataService {
             break;
           }
           case 'dataset': {
-            res = [
-              'nameFi',
-              'nameSv',
-              'nameEn',
-            ];
+            res = ['nameFi', 'nameSv', 'nameEn'];
             break;
           }
           case 'infrastructure': {
@@ -847,7 +842,7 @@ export class StaticDataService {
             res = [
               'actor.sector.organization.organizationNameFi',
               'actor.sector.organization.organizationNameEn',
-              'actor.sector.organization.organizationNameSv'
+              'actor.sector.organization.organizationNameSv',
             ];
             break;
           }

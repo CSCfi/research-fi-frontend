@@ -50,9 +50,10 @@ export class LanguageCheck {
       }
     }
     // If still no content and Und exists, take that
-    res = !UtilityService.stringHasContent(res) && item[field + 'Und']
-      ? item[field + 'Und']
-      : res;
+    res =
+      !UtilityService.stringHasContent(res) && item[field + 'Und']
+        ? item[field + 'Und']
+        : res;
     return res;
   }
 

@@ -65,7 +65,9 @@ export class RecipientAdapter implements Adapter<Recipient> {
         combined =
           finnish.length > 1
             ? finnish
-                .map((x) => this.lang.testLang('consortiumOrganizationName', x).trim())
+                .map((x) =>
+                  this.lang.testLang('consortiumOrganizationName', x).trim()
+                )
                 .join('; ')
             : this.lang.testLang(
                 'consortiumOrganizationName',
@@ -133,17 +135,17 @@ export class RecipientAdapter implements Adapter<Recipient> {
                 x.fundingGroupPersonLastName +
                 (this.lang
                   .testLang('consortiumOrganizationName', recipientObj)
-                  .trim().length > 0
+                  ?.trim().length > 0
                   ? ', ' +
                     this.lang
                       .testLang('consortiumOrganizationName', recipientObj)
-                      .trim()
+                      ?.trim()
                   : null)
               : this.lang
                   .testLang('consortiumOrganizationName', recipientObj)
-                  .trim()
+                  ?.trim()
           )
-          .join('; ');
+          ?.join('; ');
       }
       // If no match with Finnish organization
     } else if (item.recipientType === 'person') {
@@ -164,7 +166,9 @@ export class RecipientAdapter implements Adapter<Recipient> {
       } else if (item.organizationConsortium) {
         combined = item.organizationConsortium
           .filter((x) => !x.countryCode || x.countryCode === 'FI')
-          .map((x) => this.lang.testLang('consortiumOrganizationName', x).trim())
+          .map((x) =>
+            this.lang.testLang('consortiumOrganizationName', x).trim()
+          )
           .join('; ');
       }
     } else {
