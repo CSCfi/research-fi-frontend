@@ -470,7 +470,8 @@
               class="row"
               *ngIf="
                 (item.euFunding && item.funder.euCallProgrammes.length > 0) ||
-                (!item.euFunding && item.funder.callProgrammeName)
+                (!item.euFunding &&
+                  item.funder.callProgrammeName?.trim()?.length > 0)
               "
             >
               <h2 class="col-12 col-sm-4 col-lg-3 th">
