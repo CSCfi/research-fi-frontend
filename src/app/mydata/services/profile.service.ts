@@ -19,37 +19,71 @@ export class ProfileService {
   apiUrl: string;
   httpOptions: object;
 
+  // testData = [
+  //   {
+  //     id: 1,
+  //     fieldIdentifier: 101,
+  //     show: true,
+  //     name: 'Sauli Purhonen',
+  //     webLink: null,
+  //     sourceId: null,
+  //     label: 'Nimi',
+  //   },
+  //   {
+  //     label: 'Linkit',
+  //     show: true,
+  //     items: [
+  //       {
+  //         id: 3,
+  //         fieldIdentifier: 110,
+  //         show: false,
+  //         name: null,
+  //         webLink: { url: 'https://tiedejatutkimus.fi/fi/', urlLabel: 'TTV' },
+  //         sourceId: null,
+  //       },
+  //       {
+  //         id: 4,
+  //         fieldIdentifier: 110,
+  //         show: false,
+  //         name: null,
+  //         webLink: { url: 'https://forskning.fi/sv/', urlLabel: 'Forskning' },
+  //         sourceId: null,
+  //       },
+  //     ],
+  //   },
+  // ];
+
   testData = [
     {
-      id: 1,
-      fieldIdentifier: 101,
-      show: true,
-      name: 'Sauli Purhonen',
-      webLink: null,
-      sourceId: null,
-      label: 'Nimi',
+      dataSource: { id: 1, name: 'ORCID' },
+      items: [{ value: 'Sauli', itemMeta: { id: 2, type: 102, show: false } }],
+      groupMeta: { id: 6, type: 102, show: true },
+      label: 'Etunimi',
     },
     {
-      label: 'Linkit',
-      show: true,
+      dataSource: { id: 1, name: 'ORCID' },
+      items: [
+        { value: 'Purhonen', itemMeta: { id: 2, type: 101, show: false } },
+      ],
+      groupMeta: { id: 7, type: 101, show: true },
+      label: 'Sukunimi',
+    },
+    {
+      dataSource: { id: 1, name: 'ORCID' },
       items: [
         {
-          id: 3,
-          fieldIdentifier: 110,
-          show: false,
-          name: null,
-          webLink: { url: 'https://tiedejatutkimus.fi/fi/', urlLabel: 'TTV' },
-          sourceId: null,
+          url: 'https://tiedejatutkimus.fi/fi/',
+          linkLabel: 'TTV',
+          itemMeta: { id: 3, type: 110, show: false },
         },
         {
-          id: 4,
-          fieldIdentifier: 110,
-          show: false,
-          name: null,
-          webLink: { url: 'https://forskning.fi/sv/', urlLabel: 'Forskning' },
-          sourceId: null,
+          url: 'https://forskning.fi/sv/',
+          linkLabel: 'Forskning',
+          itemMeta: { id: 4, type: 110, show: false },
         },
       ],
+      groupMeta: { id: 9, type: 110, show: true },
+      label: 'Linkit',
     },
   ];
 

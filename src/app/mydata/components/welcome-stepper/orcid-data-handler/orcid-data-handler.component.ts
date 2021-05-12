@@ -36,7 +36,7 @@ export class OrcidDataHandlerComponent implements OnInit {
   editedData: any;
   testData: any;
 
-  @Input() orcidData: any;
+  @Input() response: any;
 
   faCheckCircle = faCheckCircle;
 
@@ -82,8 +82,10 @@ export class OrcidDataHandlerComponent implements OnInit {
   }
 
   mapData() {
-    this.profileData[0].fields = this.orcidData.contactFields.fields;
-    // this.profileData[0].fields = this.testData;
+    console.log(this.testData);
+    this.profileData[0].fields = this.testData;
+    // console.log(JSON.stringify(this.response.personal));
+    // this.profileData[0].fields = this.response.personal;
   }
 
   setOpenPanel(i: number) {
@@ -109,7 +111,10 @@ export class OrcidDataHandlerComponent implements OnInit {
   changeData(data) {
     if (data) {
       this.profileData[this.selectedIndex] = data;
-      console.log(data);
+
+      // TODO: Map payload by new API schema
+      // TODO: Patch only with data that has changed
+      console.log(data.fields.map((item) => item.items[0].itemMeta));
 
       const payload = data.fields
         .map((item) => {
@@ -129,7 +134,7 @@ export class OrcidDataHandlerComponent implements OnInit {
   }
 
   checkSelected = (item) => {
-    return item.show;
+    return item.groupMeta.show;
   };
 
   checkEmpty = (item: { values: string | any[] }) => {

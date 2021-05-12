@@ -35,6 +35,7 @@ export class ProfilePanelComponent implements OnInit, OnChanges {
   checked: any[];
   mobileStatusSub: Subscription;
 
+  // appSettingsService is used in Template
   constructor(private appSettingsService: AppSettingsService) {}
 
   ngOnInit(): void {
@@ -44,8 +45,11 @@ export class ProfilePanelComponent implements OnInit, OnChanges {
   ngOnChanges() {}
 
   toggleField(index: number) {
-    this.data.fields[index].show = !this.data.fields[index].show;
+    this.data.fields[index].groupMeta.show =
+      !this.data.fields[index].groupMeta.show;
 
+    // TODO: Pass only changed data and index numer
+    // eg. this.dataChange.emit(this.data.fields[index], index)
     this.dataChange.emit(this.data);
   }
 }

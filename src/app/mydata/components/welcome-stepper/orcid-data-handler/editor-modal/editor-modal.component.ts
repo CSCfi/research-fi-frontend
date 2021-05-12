@@ -23,7 +23,9 @@ export class EditorModalComponent implements OnInit {
   ngOnInit(): void {
     this.selectedSource = this.dataSources[0];
 
-    this.allSelected = !!this.data.fields.find((item) => item.show === false)
+    this.allSelected = !!this.data.fields.find(
+      (item) => item.groupMeta.show === false
+    )
       ? false
       : true;
   }
@@ -37,7 +39,9 @@ export class EditorModalComponent implements OnInit {
   };
 
   changeData(data) {
-    this.allSelected = !!data.fields.find((item) => item.show === false)
+    this.allSelected = !!data.fields.find(
+      (item) => item.groupMeta.show === false
+    )
       ? false
       : true;
 
@@ -45,7 +49,7 @@ export class EditorModalComponent implements OnInit {
   }
 
   toggleAll() {
-    this.data.fields.forEach((item) => (item.show = true));
+    this.data.fields.forEach((item) => (item.groupMeta.show = true));
     this.changeData(this.data);
   }
 

@@ -16,7 +16,7 @@
 
             <div class="col-auto">
               <mat-slide-toggle
-                [checked]="field.show"
+                [checked]="field.groupMeta.show"
                 (change)="toggleField(i)"
                 labelPosition="before"
                 >Näytä profiilissani</mat-slide-toggle
@@ -25,9 +25,12 @@
           </div>
 
           <!-- Field values -->
-          <div class="row" *ngIf="!field.items; else fieldArrayTemplate">
+          <div
+            class="row"
+            *ngIf="field.items.length === 1; else fieldArrayTemplate"
+          >
             <div class="col field-value">
-              {{ field.name }}
+              {{ field.value }}
 
               <span class="pl-3 opacity-3">
                 Orcid
@@ -38,7 +41,10 @@
           <ng-template #fieldArrayTemplate>
             <!-- TODO: array items should have matching property names -->
             <div class="col field-value" *ngFor="let value of field.items">
-              {{ value.webLink.url }}
+              <!-- TODO: Map group type id to human readable label -->
+              <ng-container [ngSwitch]="field.groupMeta.type">
+                <ng-container *ngSwitchCase="110">{{ value.url }}</ng-container>
+              </ng-container>
 
               <span class="pl-3 opacity-3">
                 <!-- TODO: map source by ID -->

@@ -23,7 +23,7 @@ import { Router } from '@angular/router';
   encapsulation: ViewEncapsulation.None,
 })
 export class WelcomeStepperComponent implements OnInit {
-  step = 3;
+  step = 4;
   cancel = false;
 
   termsApproved = false;
@@ -90,7 +90,6 @@ export class WelcomeStepperComponent implements OnInit {
       .pipe(take(1))
       .subscribe((data: any) => {
         if (data.ok) {
-          console.log('checkProfileExists: ', data);
           // TODO: Redirect to profile component when component is available
           data.body.success ? this.getOrcidData() : this.createProfile();
         } else {

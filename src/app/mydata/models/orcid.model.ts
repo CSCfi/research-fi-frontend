@@ -7,30 +7,26 @@
 
 import { Injectable } from '@angular/core';
 import { Adapter } from './adapter.model';
-import { ContactFields, ContactFieldsAdapter } from './contact.model';
+import { PersonalFields, PersonalFieldsAdapter } from './personal.model';
 
 export class Orcid {
-  constructor(public contactFields: any) {}
+  constructor(public personal: any) {}
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class OrcidAdapter implements Adapter<Orcid> {
-  constructor(private cf: ContactFieldsAdapter) {}
+  constructor(private pf: PersonalFieldsAdapter) {}
 
   adapt(item: any): Orcid {
     const data = item.body.data;
 
-    const contactFieldIdentifiers = [101, 102, 110];
-
-    const contactFields = data
-      .map((item) => {
-        if (contactFieldIdentifiers.includes(item.fieldIdentifier)) return item;
-      })
-      .filter((item) => item);
-
-    return new Orcid(this.cf.adapt(contactFields));
+    return new Orcid(
+      Object.values(this.pf.adapt(data.personal)).filter(
+        (item) => item.items.length > 0
+      )
+    );
   }
 
   adaptMany(item: any): Orcid[] {

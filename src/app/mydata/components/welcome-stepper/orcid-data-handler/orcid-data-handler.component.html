@@ -36,7 +36,7 @@
       </mat-expansion-panel-header>
 
       <ng-container *ngFor="let field of item.fields">
-        <div class="row field" [class.disabled]="!field.show">
+        <div class="row field" [class.disabled]="!field.groupMeta.show">
           <div class="col px-0 px-sm-3">
             <div class="row d-flex justify-content-between">
               <span class="col-auto h6 field-label">
@@ -44,7 +44,7 @@
               </span>
               <div
                 class="col-auto opacity-3"
-                *ngIf="field.show; else disabledLabelTemplate"
+                *ngIf="field.groupMeta.show; else disabledLabelTemplate"
               >
                 <i class="fas fa-check-circle pr-1"></i>
                 <span>Näytetään profiilissa</span>
@@ -58,28 +58,36 @@
             </div>
 
             <!-- Field values -->
-            <div class="row" *ngIf="!field.items; else fieldArrayTemplate">
-              <div class="col ml-3 field-value">
-                {{ field.name }}
-
-                <span class="pl-3 opacity-3">
-                  Orcid
-                  <!-- {{ field.sourceId }} -->
-                </span>
-              </div>
-            </div>
-            <ng-template #fieldArrayTemplate>
-              <!-- TODO: array items should have matching property names -->
+            <div
+              class="row"
+              *ngIf="field.items.length === 1; else fieldArrayTemplate"
+            >
               <div
                 class="col ml-3 field-value"
                 *ngFor="let value of field.items"
               >
-                {{ value.webLink.url }}
+                {{ value.value }}
 
                 <span class="pl-3 opacity-3">
-                  <!-- TODO: map source by ID -->
-                  Orcid
-                  <!-- {{ field.sourceId }} -->
+                  {{ field.dataSource.name }}
+                </span>
+              </div>
+            </div>
+
+            <ng-template #fieldArrayTemplate>
+              <div
+                class="col ml-3 field-value"
+                *ngFor="let value of field.items"
+              >
+                <!-- TODO: Map group type id to human readable label -->
+                <ng-container [ngSwitch]="field.groupMeta.type">
+                  <ng-container *ngSwitchCase="110">{{
+                    value.url
+                  }}</ng-container>
+                </ng-container>
+
+                <span class="pl-3 opacity-3">
+                  {{ field.dataSource.name }}
                 </span>
               </div>
             </ng-template>
