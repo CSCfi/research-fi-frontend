@@ -45,6 +45,7 @@
     "angular-auth-oidc-client": "^11.6.4",
     "array-flat-polyfill": "^1.0.1",
     "body-parser": "^1.19.0",
+    "bootstrap": "^4.6.0",
     "bowser": "2.11.0",
     "cacache": "^15.0.5",
     "compression": "^1.7.4",
