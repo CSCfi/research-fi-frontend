@@ -9,6 +9,8 @@ Application is separated into 4 main modules:
 
 From these modules both Portal ande MyData modules work as an independent projects and both serve their own purpose but are closely tied together. We use these as modules rather than Angular projects since in this case there is no need to develop and maintain an library for shared components.
 
+Portal and MyData modules have project related settings that are activated depending on application route. Settings can be found at: `app/shared/services/app-settings.service`
+
 ## Styling and theme
 
 We use both [Angular Material](https://material.angular.io/) and [NGX Bootstrap](https://valor-software.com/ngx-bootstrap/#/) together. Bootstrap is mainly for grid and Material library for styled components.
