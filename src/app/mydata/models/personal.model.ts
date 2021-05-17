@@ -12,7 +12,9 @@ export class PersonalFields {
   constructor(
     public firstName: any,
     public lastName: any,
+    public OtherNames: any,
     public researcherDescriptionGroups: any,
+    public keywords: any,
     public webLinks: any
   ) {}
 }
@@ -34,7 +36,9 @@ export class PersonalFieldsAdapter implements Adapter<PersonalFields> {
       // TODO: Localize
       mapGroup(item.firstNamesGroups, 'Etunimi'),
       mapGroup(item.lastNameGroups, 'Sukunimi'),
+      mapGroup(item.otherNamesGroups, 'Muut nimet'),
       mapGroup(item.researcherDescriptionGroups, 'Kuvaus'),
+      mapGroup(item.keywordGroups, 'Avainsanat'),
       mapGroup(item.webLinkGroups, 'Linkit')
     );
   }

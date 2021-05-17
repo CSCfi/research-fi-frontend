@@ -82,10 +82,10 @@ export class OrcidDataHandlerComponent implements OnInit {
   }
 
   mapData() {
-    console.log(this.testData);
-    this.profileData[0].fields = this.testData;
-    // console.log(JSON.stringify(this.response.personal));
-    // this.profileData[0].fields = this.response.personal;
+    // console.log(this.testData);
+    // this.profileData[0].fields = this.testData;
+    console.log(this.response.personal);
+    this.profileData[0].fields = this.response.personal;
   }
 
   setOpenPanel(i: number) {
