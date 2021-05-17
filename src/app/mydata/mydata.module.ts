@@ -20,6 +20,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { HomeComponent } from './components/home/home.component';
 import { WelcomeStepperComponent } from './components/welcome-stepper/welcome-stepper.component';
@@ -70,6 +71,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     MatButtonToggleModule,
     MatSlideToggleModule,
     MatTabsModule,
+    MatSnackBarModule,
     FontAwesomeModule,
     SharedModule,
     ModalModule,

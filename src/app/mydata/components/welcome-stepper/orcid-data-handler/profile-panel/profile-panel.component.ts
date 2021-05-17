@@ -9,7 +9,6 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnChanges,
   OnInit,
   Output,
   ViewEncapsulation,
@@ -23,33 +22,28 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./profile-panel.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ProfilePanelComponent implements OnInit, OnChanges {
+export class ProfilePanelComponent implements OnInit {
   @Input() dataSources: any;
   @Input() selectedSource: string;
   @Input() data: any;
 
-  @Output() dataChange = new EventEmitter<object>();
+  @Output() onToggle = new EventEmitter<any>();
 
   allSelected: boolean;
 
   checked: any[];
   mobileStatusSub: Subscription;
 
-  // appSettingsService is used in Template
+  /*
+   * appSettingsService is used in Template
+   */
   constructor(private appSettingsService: AppSettingsService) {}
 
   ngOnInit(): void {
     this.checked = [this.selectedSource];
   }
 
-  ngOnChanges() {}
-
   toggleField(index: number) {
-    this.data.fields[index].groupMeta.show =
-      !this.data.fields[index].groupMeta.show;
-
-    // TODO: Pass only changed data and index numer
-    // eg. this.dataChange.emit(this.data.fields[index], index)
-    this.dataChange.emit(this.data);
+    this.onToggle.emit(index);
   }
 }

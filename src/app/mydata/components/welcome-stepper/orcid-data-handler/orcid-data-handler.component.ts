@@ -21,6 +21,8 @@ import {
 } from 'ngx-bootstrap/modal';
 import { cloneDeep } from 'lodash-es';
 import { ProfileService } from '@mydata/services/profile.service';
+import { checkSelected, checkEmpty } from '../utils';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-orcid-data-handler',
@@ -40,7 +42,7 @@ export class OrcidDataHandlerComponent implements OnInit {
 
   faCheckCircle = faCheckCircle;
 
-  dataSources = ['Orcid', 'Korkeakoulu A', 'Korkeakoulu B'];
+  dataSources = ['ORCID', 'Korkeakoulu A', 'Korkeakoulu B'];
   selectedSource = this.dataSources[0];
   selectedIndex = 0;
 
@@ -48,6 +50,9 @@ export class OrcidDataHandlerComponent implements OnInit {
 
   modalRef: BsModalRef;
   @ViewChild('editorModal') editorModal: ModalDirective;
+
+  checkSelected = checkSelected;
+  checkEmpty = checkEmpty;
 
   profileData = [
     {
@@ -71,7 +76,8 @@ export class OrcidDataHandlerComponent implements OnInit {
 
   constructor(
     private modalService: BsModalService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private snackBar: MatSnackBar
   ) {
     this.testData = profileService.testData;
   }
@@ -82,10 +88,10 @@ export class OrcidDataHandlerComponent implements OnInit {
   }
 
   mapData() {
-    // console.log(this.testData);
-    // this.profileData[0].fields = this.testData;
-    console.log(this.response.personal);
-    this.profileData[0].fields = this.response.personal;
+    console.log(this.testData);
+    this.profileData[0].fields = this.testData;
+    // console.log(JSON.stringify(this.response.personal));
+    // this.profileData[0].fields = this.response.personal;
   }
 
   setOpenPanel(i: number) {
@@ -104,40 +110,20 @@ export class OrcidDataHandlerComponent implements OnInit {
     this.modalRef.setClass('modal-lg');
   }
 
-  closeModal(event) {
+  closeModal() {
     this.modalRef.hide();
   }
 
   changeData(data) {
-    if (data) {
-      this.profileData[this.selectedIndex] = data;
+    if (data.data) {
+      this.profileData[this.selectedIndex] = data.data;
 
-      // TODO: Map payload by new API schema
-      // TODO: Patch only with data that has changed
-      console.log(data.fields.map((item) => item.items[0].itemMeta));
-
-      const payload = data.fields
-        .map((item) => {
-          if (item.items) {
-            return item.items.map((x) => {
-              return { id: x.id, show: x.show };
-            });
-          } else {
-            return { id: item.id, show: item.show };
-          }
-        })
-        .flat(1);
       this.profileService
-        .patchProfileData(payload)
-        .subscribe((response) => console.log(response));
+        .patchProfileDataSingleItem(data.patchItems)
+        .subscribe((response) => {
+          console.log(response);
+          this.snackBar.open('Muutokset tallennettu');
+        });
     }
   }
-
-  checkSelected = (item) => {
-    return item.groupMeta.show;
-  };
-
-  checkEmpty = (item: { values: string | any[] }) => {
-    return item.values?.length > 0;
-  };
 }

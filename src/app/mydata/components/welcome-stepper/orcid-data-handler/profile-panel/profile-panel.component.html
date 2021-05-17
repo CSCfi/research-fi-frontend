@@ -30,16 +30,14 @@
             *ngIf="field.items.length === 1; else fieldArrayTemplate"
           >
             <div class="col field-value">
-              {{ field.value }}
+              {{ field.items[0].value }}
 
               <span class="pl-3 opacity-3">
-                Orcid
-                <!-- {{ field.sourceId }} -->
+                {{ field.dataSource.name }}
               </span>
             </div>
           </div>
           <ng-template #fieldArrayTemplate>
-            <!-- TODO: array items should have matching property names -->
             <div class="col field-value" *ngFor="let value of field.items">
               <!-- TODO: Map group type id to human readable label -->
               <ng-container [ngSwitch]="field.groupMeta.type">
@@ -47,9 +45,7 @@
               </ng-container>
 
               <span class="pl-3 opacity-3">
-                <!-- TODO: map source by ID -->
-                Orcid
-                <!-- {{ field.sourceId }} -->
+                {{ field.dataSource.name }}
               </span>
             </div>
           </ng-template>
