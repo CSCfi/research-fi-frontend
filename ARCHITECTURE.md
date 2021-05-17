@@ -1,10 +1,13 @@
 ## Structure
 
-Application is separated into 3 main modules:
+Application is separated into 4 main modules:
 
+- Layout
 - Portal
 - MyData
 - Shared
+
+From these modules both Portal ande MyData modules work as an independent projects and both serve their own purpose but are closely tied together. We use these as modules rather than Angular projects since in this case there is no need to develop and maintain an library for shared components.
 
 ## Styling and theme
 
@@ -39,7 +42,11 @@ Twitter embed plugin is used without cookies.
 
 Users are able to disable all tracking in `/privacy` route.
 
-## Portal
+## Layout Module
+
+Simple module serving common UI elements, such as header, footer, review & error dialogs and component wrapper for dynamic content.
+
+## Portal Module
 
 Portal consists from few main content types: Informative pages, search results, news and science and research elsewhere -section.
 
@@ -93,12 +100,12 @@ Search result visualisations are made with `D3` library.
 
 This area consists of data gathered from Researh.fi CMS system.
 
-## MyData
+## MyData Module
 
 Mydata -module is still in WIP-state.
 
 Authentication process is started at the application root level.
 
-## Shared
+## Shared Module
 
 Shared -modules consists of components and services that should be reusable throughout application.
