@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { checkSelected } from '../../utils';
+import { checkSelected } from '../../welcome-stepper/utils';
 
 @Component({
   selector: 'app-editor-modal',

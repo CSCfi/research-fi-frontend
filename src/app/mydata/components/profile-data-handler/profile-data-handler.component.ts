@@ -21,17 +21,17 @@ import {
 } from 'ngx-bootstrap/modal';
 import { cloneDeep } from 'lodash-es';
 import { ProfileService } from '@mydata/services/profile.service';
-import { checkSelected, checkEmpty } from '../utils';
+import { checkSelected, checkEmpty } from '../welcome-stepper/utils';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 
 @Component({
-  selector: 'app-orcid-data-handler',
-  templateUrl: './orcid-data-handler.component.html',
-  styleUrls: ['./orcid-data-handler.component.scss'],
+  selector: 'app-profile-data-handler',
+  templateUrl: './profile-data-handler.component.html',
+  styleUrls: ['./profile-data-handler.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class OrcidDataHandlerComponent implements OnInit {
+export class ProfileDataHandlerComponent implements OnInit {
   testData: any;
 
   @Input() response: any;

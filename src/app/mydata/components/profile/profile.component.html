@@ -30,10 +30,10 @@
         <ng-container *ngIf="profileData; else loadingTemplate">
           <mat-tab-group mat-align-tabs="end">
             <mat-tab label="Tiedot"
-              ><app-orcid-data-handler
+              ><app-profile-data-handler
                 [response]="profileData"
                 class="d-block pt-3"
-              ></app-orcid-data-handler
+              ></app-profile-data-handler
             ></mat-tab>
             <mat-tab label="Tietolähteet">Tietolähteet</mat-tab>
           </mat-tab-group>

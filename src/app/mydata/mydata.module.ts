@@ -24,7 +24,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { HomeComponent } from './components/home/home.component';
 import { WelcomeStepperComponent } from './components/welcome-stepper/welcome-stepper.component';
-import { OrcidDataHandlerComponent } from './components/welcome-stepper/orcid-data-handler/orcid-data-handler.component';
+import { ProfileDataHandlerComponent } from './components/profile-data-handler/profile-data-handler.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { RedirectComponent } from './components/redirect/redirect.component';
 
@@ -38,16 +38,16 @@ import { OrcidIdInfoComponent } from './components/welcome-stepper/orcid-id-info
 import { StepperNavigationComponent } from './components/welcome-stepper/stepper-navigation/stepper-navigation.component';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { ProfilePanelComponent } from './components/welcome-stepper/orcid-data-handler/profile-panel/profile-panel.component';
+import { ProfilePanelComponent } from './components/profile-data-handler/profile-panel/profile-panel.component';
 import { FilterPipe } from './pipes/filter.pipe';
-import { EditorModalComponent } from './components/welcome-stepper/orcid-data-handler/editor-modal/editor-modal.component';
+import { EditorModalComponent } from './components/profile-data-handler/editor-modal/editor-modal.component';
 import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     WelcomeStepperComponent,
-    OrcidDataHandlerComponent,
+    ProfileDataHandlerComponent,
     NotFoundComponent,
     RedirectComponent,
     LoginComponent,
