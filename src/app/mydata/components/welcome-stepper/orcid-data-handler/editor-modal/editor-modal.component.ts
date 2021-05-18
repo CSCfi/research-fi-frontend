@@ -44,12 +44,16 @@ export class EditorModalComponent implements OnInit {
     this.emitClose.emit(true);
   }
 
-  changeData(index) {
-    // TODO: Remove item if duplicate
-    this.editedItems.push(this.data.fields[index].items[0].itemMeta);
+  /*
+   * Handle object add / remove from patch object list when values change
+   */
 
-    this.data.fields[index].groupMeta.show =
-      !this.data.fields[index].groupMeta.show;
+  changeData(index) {
+    const currentItem = this.data.fields[index];
+
+    this.handlePatchObject(currentItem);
+
+    currentItem.groupMeta.show = !currentItem.groupMeta.show;
 
     this.allSelected = !!this.data.fields.find(
       (item) => item.groupMeta.show === false
@@ -59,7 +63,19 @@ export class EditorModalComponent implements OnInit {
   }
 
   toggleAll() {
-    this.data.fields.forEach((item) => (item.groupMeta.show = true));
+    this.data.fields.forEach((field) => {
+      field.groupMeta.show = true;
+
+      this.handlePatchObject(field);
+    });
+  }
+
+  handlePatchObject(currentItem) {
+    this.editedItems.find((item) => item.id === currentItem.groupMeta.id)
+      ? (this.editedItems = this.editedItems.filter(
+          (item) => item.id !== currentItem.groupMeta.id
+        ))
+      : this.editedItems.push(currentItem.groupMeta);
   }
 
   saveChanges() {

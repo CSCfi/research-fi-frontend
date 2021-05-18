@@ -13,7 +13,11 @@ import {
 import { ProfileService } from 'src/app/mydata/services/profile.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { take } from 'rxjs/operators';
-import { ModalDirective } from 'ngx-bootstrap/modal';
+import {
+  BsModalRef,
+  BsModalService,
+  ModalDirective,
+} from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
 
 @Component({
@@ -23,7 +27,7 @@ import { Router } from '@angular/router';
   encapsulation: ViewEncapsulation.None,
 })
 export class WelcomeStepperComponent implements OnInit {
-  step = 4;
+  step = 1;
   cancel = false;
 
   termsApproved = false;
@@ -37,6 +41,8 @@ export class WelcomeStepperComponent implements OnInit {
   editorData: Object;
 
   @ViewChild('smModal') smModal: ModalDirective;
+  @ViewChild('termsTemplate') termsTemplate: ModalDirective;
+  modalRef: BsModalRef;
 
   profileCreated: boolean;
   orcidData: Object;
@@ -44,6 +50,7 @@ export class WelcomeStepperComponent implements OnInit {
   constructor(
     private profileService: ProfileService,
     public oidcSecurityService: OidcSecurityService,
+    private modalService: BsModalService,
     private router: Router
   ) {
     this.editorData = null;
@@ -79,6 +86,14 @@ export class WelcomeStepperComponent implements OnInit {
     this.cancel = !this.cancel;
   }
 
+  openModal(template) {
+    this.modalRef = this.modalService.show(template);
+  }
+
+  closeModal() {
+    this.modalRef.hide();
+  }
+
   fetchData() {
     this.smModal.show();
     this.checkProfileExists();
@@ -90,8 +105,10 @@ export class WelcomeStepperComponent implements OnInit {
       .pipe(take(1))
       .subscribe((data: any) => {
         if (data.ok) {
-          // TODO: Redirect to profile component when component is available
-          data.body.success ? this.getOrcidData() : this.createProfile();
+          data.body.success
+            ? // ? this.router.navigate(['/profile'])
+              this.getProfileData()
+            : this.createProfile();
         } else {
           console.log('Connection problem');
         }
@@ -131,15 +148,5 @@ export class WelcomeStepperComponent implements OnInit {
       this.smModal.hide();
       this.increment();
     });
-  }
-
-  patchProfileDataSingle(item) {
-    let patchItem = {
-      id: item.id,
-      show: !item.show,
-    };
-    this.profileService
-      .patchProfileData([patchItem])
-      .subscribe((data) => console.log(data));
   }
 }

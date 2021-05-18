@@ -19,69 +19,55 @@ export class ProfileService {
   apiUrl: string;
   httpOptions: object;
 
-  // testData = [
-  //   {
-  //     id: 1,
-  //     fieldIdentifier: 101,
-  //     show: true,
-  //     name: 'Sauli Purhonen',
-  //     webLink: null,
-  //     sourceId: null,
-  //     label: 'Nimi',
-  //   },
-  //   {
-  //     label: 'Linkit',
-  //     show: true,
-  //     items: [
-  //       {
-  //         id: 3,
-  //         fieldIdentifier: 110,
-  //         show: false,
-  //         name: null,
-  //         webLink: { url: 'https://tiedejatutkimus.fi/fi/', urlLabel: 'TTV' },
-  //         sourceId: null,
-  //       },
-  //       {
-  //         id: 4,
-  //         fieldIdentifier: 110,
-  //         show: false,
-  //         name: null,
-  //         webLink: { url: 'https://forskning.fi/sv/', urlLabel: 'Forskning' },
-  //         sourceId: null,
-  //       },
-  //     ],
-  //   },
-  // ];
-
   testData = [
     {
       dataSource: { id: 1, name: 'ORCID' },
-      items: [{ value: 'Sauli', itemMeta: { id: 6, type: 102, show: false } }],
-      groupMeta: { id: 21, type: 102, show: true },
-      label: 'Etunimi',
+      items: [
+        {
+          firstNames: 'Matti',
+          lastName: 'Mallikas',
+          fullName: '',
+          itemMeta: { id: 8, type: 112, show: false },
+          value: 'Matti Mallikas',
+        },
+      ],
+      groupMeta: { id: 28, type: 110, show: false },
+      label: 'Nimi',
+    },
+    {
+      dataSource: { id: 1, name: 'Korkeakoulu A' },
+      items: [
+        {
+          firstNames: 'Matti',
+          lastName: 'Mallikas',
+          fullName: '',
+          itemMeta: { id: 8, type: 112, show: false },
+          value: 'Matti Mallikas',
+        },
+      ],
+      groupMeta: { id: 28, type: 110, show: false },
+      label: 'Nimi',
     },
     {
       dataSource: { id: 1, name: 'ORCID' },
       items: [
-        { value: 'Purhonen', itemMeta: { id: 6, type: 101, show: false } },
+        {
+          firstNames: '',
+          lastName: '',
+          fullName: 'MM Mallikas',
+          itemMeta: { id: 9, type: 120, show: false },
+          value: 'MM Mallikas',
+        },
       ],
-      groupMeta: { id: 22, type: 101, show: true },
-      label: 'Sukunimi',
-    },
-    {
-      dataSource: { id: 1, name: 'ORCID' },
-      items: [
-        { value: 'SM Purhonen', itemMeta: { id: 7, type: 103, show: false } },
-      ],
-      groupMeta: { id: 23, type: 103, show: true },
+      groupMeta: { id: 29, type: 120, show: false },
       label: 'Muut nimet',
     },
     {
       dataSource: { id: 1, name: 'ORCID' },
       items: [
-        { value: 'Angular', itemMeta: { id: 7, type: 106, show: false } },
+        { value: 'Angular', itemMeta: { id: 8, type: 150, show: false } },
       ],
-      groupMeta: { id: 27, type: 106, show: true },
+      groupMeta: { id: 33, type: 150, show: false },
       label: 'Avainsanat',
     },
     {
@@ -90,15 +76,15 @@ export class ProfileService {
         {
           url: 'https://tiedejatutkimus.fi/fi/',
           linkLabel: 'TTV',
-          itemMeta: { id: 7, type: 110, show: false },
+          itemMeta: { id: 9, type: 180, show: false },
         },
         {
           url: 'https://forskning.fi/sv/',
           linkLabel: 'Forskning',
-          itemMeta: { id: 8, type: 110, show: false },
+          itemMeta: { id: 10, type: 180, show: false },
         },
       ],
-      groupMeta: { id: 25, type: 110, show: true },
+      groupMeta: { id: 31, type: 180, show: false },
       label: 'Linkit',
     },
   ];
@@ -157,7 +143,7 @@ export class ProfileService {
 
   patchProfileDataSingleGroup(group) {
     this.updateTokenInHttpAuthHeader();
-    let body = { groups: [group], items: [] };
+    let body = { groups: group, items: [] };
     return this.http.patch(
       this.apiUrl + '/profiledata/',
       body,
@@ -168,16 +154,6 @@ export class ProfileService {
   patchProfileDataSingleItem(item) {
     this.updateTokenInHttpAuthHeader();
     let body = { groups: [], items: item };
-    return this.http.patch(
-      this.apiUrl + '/profiledata/',
-      body,
-      this.httpOptions
-    );
-  }
-
-  patchProfileData(modificationItem) {
-    this.updateTokenInHttpAuthHeader();
-    let body = modificationItem;
     return this.http.patch(
       this.apiUrl + '/profiledata/',
       body,

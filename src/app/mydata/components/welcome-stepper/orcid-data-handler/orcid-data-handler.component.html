@@ -79,11 +79,13 @@
                 class="col ml-3 field-value"
                 *ngFor="let value of field.items"
               >
-                <!-- TODO: Map group type id to human readable label -->
                 <ng-container [ngSwitch]="field.groupMeta.type">
-                  <ng-container *ngSwitchCase="110">{{
+                  <ng-container *ngSwitchCase="fieldTypes.webLink">{{
                     value.url
                   }}</ng-container>
+                  <ng-container *ngSwitchDefault>
+                    {{ value.value }}
+                  </ng-container>
                 </ng-container>
 
                 <span class="pl-3 opacity-3">

@@ -23,6 +23,7 @@ import { cloneDeep } from 'lodash-es';
 import { ProfileService } from '@mydata/services/profile.service';
 import { checkSelected, checkEmpty } from '../utils';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FieldTypes } from '@mydata/constants/fieldTypes';
 
 @Component({
   selector: 'app-orcid-data-handler',
@@ -31,18 +32,18 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   encapsulation: ViewEncapsulation.None,
 })
 export class OrcidDataHandlerComponent implements OnInit {
-  success: boolean;
-  checkAll: boolean;
-  primarySource: string;
-  allSelected: boolean;
-  editedData: any;
   testData: any;
 
   @Input() response: any;
 
   faCheckCircle = faCheckCircle;
 
-  dataSources = ['ORCID', 'Korkeakoulu A', 'Korkeakoulu B'];
+  dataSources = [
+    { label: 'ORCID' },
+    { label: 'Korkeakoulu A', disabled: true },
+    { label: 'Korkeakoulu B', disabled: true },
+  ];
+
   selectedSource = this.dataSources[0];
   selectedIndex = 0;
 
@@ -74,6 +75,8 @@ export class OrcidDataHandlerComponent implements OnInit {
 
   selectedData: any;
 
+  fieldTypes = FieldTypes;
+
   constructor(
     private modalService: BsModalService,
     private profileService: ProfileService,
@@ -83,15 +86,14 @@ export class OrcidDataHandlerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.primarySource = this.dataSources[0];
     this.mapData();
   }
 
   mapData() {
-    console.log(this.testData);
-    this.profileData[0].fields = this.testData;
+    // console.log(this.testData);
+    // this.profileData[0].fields = this.testData;
     // console.log(JSON.stringify(this.response.personal));
-    // this.profileData[0].fields = this.response.personal;
+    this.profileData[0].fields = this.response.personal;
   }
 
   setOpenPanel(i: number) {
@@ -119,7 +121,7 @@ export class OrcidDataHandlerComponent implements OnInit {
       this.profileData[this.selectedIndex] = data.data;
 
       this.profileService
-        .patchProfileDataSingleItem(data.patchItems)
+        .patchProfileDataSingleGroup(data.patchItems)
         .subscribe((response) => {
           console.log(response);
           this.snackBar.open('Muutokset tallennettu');

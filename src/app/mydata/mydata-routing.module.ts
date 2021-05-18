@@ -29,13 +29,13 @@ const routes: Routes = [
     path: 'welcome',
     pathMatch: 'full',
     component: WelcomeStepperComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'profile',
     pathMatch: 'full',
     component: ProfileComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'redirect',

@@ -15,6 +15,7 @@ import {
 } from '@angular/core';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
+import { FieldTypes } from '@mydata/constants/fieldTypes';
 
 @Component({
   selector: 'app-profile-panel',
@@ -33,6 +34,8 @@ export class ProfilePanelComponent implements OnInit {
 
   checked: any[];
   mobileStatusSub: Subscription;
+
+  fieldTypes = FieldTypes;
 
   /*
    * appSettingsService is used in Template

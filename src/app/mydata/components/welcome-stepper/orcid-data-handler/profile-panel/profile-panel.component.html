@@ -39,9 +39,13 @@
           </div>
           <ng-template #fieldArrayTemplate>
             <div class="col field-value" *ngFor="let value of field.items">
-              <!-- TODO: Map group type id to human readable label -->
               <ng-container [ngSwitch]="field.groupMeta.type">
-                <ng-container *ngSwitchCase="110">{{ value.url }}</ng-container>
+                <ng-container *ngSwitchCase="fieldTypes.webLink">{{
+                  value.url
+                }}</ng-container>
+                <ng-container *ngSwitchDefault>
+                  {{ value.value }}
+                </ng-container>
               </ng-container>
 
               <span class="pl-3 opacity-3">
@@ -54,9 +58,9 @@
     </ng-container>
 
     <div class="row pt-3">
-      <span class="col-12">Valitse lähteet:</span>
+      <span class="col-12 px-lg-0">Valitse lähde:</span>
       <app-button-group
-        class="col-12 pb-3"
+        class="col-12 pb-3 px-lg-0"
         [data]="dataSources"
         [checked]="checked"
         [vertical]="appSettingsService.mobileStatus | async"

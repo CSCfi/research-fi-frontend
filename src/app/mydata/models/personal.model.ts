@@ -10,9 +10,9 @@ import { Adapter } from './adapter.model';
 
 export class PersonalFields {
   constructor(
-    public firstName: any,
-    public lastName: any,
-    public OtherNames: any,
+    public name: any,
+    public otherNames: any,
+    public email: any,
     public researcherDescriptionGroups: any,
     public keywords: any,
     public webLinks: any
@@ -26,17 +26,28 @@ export class PersonalFieldsAdapter implements Adapter<PersonalFields> {
   constructor() {}
 
   adapt(item: any): PersonalFields {
+    console.log(item);
     const mapGroup = (group, label) => {
-      group[0].groupMeta.show = true;
+      return group.map((obj) => ({ ...obj, label: label }))[0];
+    };
+
+    const mapNameGroup = (group, label) => {
+      group[0].items.forEach(
+        (el) =>
+          (el.value =
+            el.fullName.trim().length > 0
+              ? el.fullName
+              : el.firstNames + ' ' + el.lastName)
+      );
 
       return group.map((obj) => ({ ...obj, label: label }))[0];
     };
 
     return new PersonalFields(
       // TODO: Localize
-      mapGroup(item.firstNamesGroups, 'Etunimi'),
-      mapGroup(item.lastNameGroups, 'Sukunimi'),
-      mapGroup(item.otherNamesGroups, 'Muut nimet'),
+      mapNameGroup(item.nameGroups, 'Nimi'),
+      mapNameGroup(item.otherNameGroups, 'Muut nimet'),
+      mapGroup(item.emailGroups, 'Sähköposti'),
       mapGroup(item.researcherDescriptionGroups, 'Kuvaus'),
       mapGroup(item.keywordGroups, 'Avainsanat'),
       mapGroup(item.webLinkGroups, 'Linkit')

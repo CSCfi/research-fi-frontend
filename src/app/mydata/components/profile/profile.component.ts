@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProfileService } from '@mydata/services/profile.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { take } from 'rxjs/operators';
@@ -10,6 +11,7 @@ import { take } from 'rxjs/operators';
   encapsulation: ViewEncapsulation.None,
 })
 export class ProfileComponent implements OnInit {
+  profileData: any;
   testData: any;
   orcid: string;
 
@@ -29,16 +31,35 @@ export class ProfileComponent implements OnInit {
   ];
 
   constructor(
-    private profileSerice: ProfileService,
-    public oidcSecurityService: OidcSecurityService
+    private profileService: ProfileService,
+    public oidcSecurityService: OidcSecurityService,
+    private router: Router
   ) {
-    this.testData = profileSerice.testData;
+    this.testData = profileService.testData;
   }
 
   ngOnInit(): void {
     this.oidcSecurityService.userData$.pipe(take(1)).subscribe((data) => {
-      console.log(data);
+      // console.log(data);
       this.orcid = data.orcid;
     });
+
+    this.profileService
+      .getProfileData()
+      .pipe(take(1))
+      .subscribe((data) => {
+        this.profileData = data;
+        console.log(data);
+      });
+  }
+
+  deleteProfile() {
+    this.profileService
+      .deleteProfile()
+      .pipe(take(1))
+      .subscribe((data) => {
+        console.log(data);
+        this.router.navigate(['/mydata']);
+      });
   }
 }

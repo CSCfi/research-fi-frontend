@@ -27,14 +27,21 @@
 
     <div class="row">
       <div class="col-12 col-lg-6 px-0">
-        <mat-tab-group mat-align-tabs="end">
-          <mat-tab label="Tiedot"
-            ><app-orcid-data-handler
-              class="d-block pt-3"
-            ></app-orcid-data-handler
-          ></mat-tab>
-          <mat-tab label="Tietolähteet">Tietolähteet</mat-tab>
-        </mat-tab-group>
+        <ng-container *ngIf="profileData; else loadingTemplate">
+          <mat-tab-group mat-align-tabs="end">
+            <mat-tab label="Tiedot"
+              ><app-orcid-data-handler
+                [response]="profileData"
+                class="d-block pt-3"
+              ></app-orcid-data-handler
+            ></mat-tab>
+            <mat-tab label="Tietolähteet">Tietolähteet</mat-tab>
+          </mat-tab-group>
+        </ng-container>
+
+        <ng-template #loadingTemplate>
+          <mat-spinner class="mx-auto" [diameter]="80"> </mat-spinner>
+        </ng-template>
       </div>
 
       <div class="col-12 col-lg-5 px-0 px-lg-3">
@@ -48,6 +55,12 @@
             >
           </section>
         </div>
+
+        <app-primary-action-button
+          class="d-block pt-3"
+          (click)="deleteProfile()"
+          content="Poista profiili"
+        ></app-primary-action-button>
       </div>
     </div>
   </div>
