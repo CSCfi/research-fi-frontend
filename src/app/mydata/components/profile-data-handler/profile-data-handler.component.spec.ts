@@ -7,20 +7,20 @@
 
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OrcidDataHandlerComponent } from './orcid-data-handler.component';
+import { ProfileDataHandlerComponent } from './profile-data-handler.component';
 
-describe('OrcidDataHandlerComponent', () => {
-  let component: OrcidDataHandlerComponent;
-  let fixture: ComponentFixture<OrcidDataHandlerComponent>;
+describe('ProfileDataHandlerComponent', () => {
+  let component: ProfileDataHandlerComponent;
+  let fixture: ComponentFixture<ProfileDataHandlerComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [OrcidDataHandlerComponent],
+      declarations: [ProfileDataHandlerComponent],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OrcidDataHandlerComponent);
+    fixture = TestBed.createComponent(ProfileDataHandlerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

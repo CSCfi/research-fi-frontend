@@ -1,0 +1,122 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<div class="row pb-3 d-flex justify-content-center">
+  <div class="col px-0">
+    <mat-expansion-panel
+      class="mat-elevation-z1"
+      *ngFor="let item of profileData; let i = index"
+      [expanded]="item.expanded"
+      (opened)="setOpenPanel(i)"
+      (closed)="closePanel(i)"
+      [disabled]="item.fields.length === 0"
+    >
+      <mat-expansion-panel-header
+        class="row pl-0 pl-lg-3"
+        [expandedHeight]="'auto'"
+      >
+        <div class="row d-flex" [class.py-3]="openPanels.includes(i)">
+          <div
+            class="font-weight-bold align-self-center px-3"
+            [class.h5]="openPanels.includes(i)"
+          >
+            {{ item.label }}
+          </div>
+
+          <div
+            class="px-3 align-self-center"
+            [class.mt-n1]="openPanels.includes(i)"
+          >
+            {{ (item.fields | filter: checkSelected).length }} /
+            {{ item.fields.length }} valittu
+          </div>
+        </div>
+      </mat-expansion-panel-header>
+
+      <ng-container *ngFor="let field of item.fields">
+        <div class="row field" [class.disabled]="!field.groupMeta.show">
+          <div class="col px-0 px-sm-3">
+            <div class="row d-flex justify-content-between">
+              <span class="col-auto h6 field-label">
+                {{ field.label }}
+              </span>
+              <div
+                class="col-auto opacity-3"
+                *ngIf="field.groupMeta.show; else disabledLabelTemplate"
+              >
+                <i class="fas fa-check-circle pr-1"></i>
+                <span>Näytetään profiilissa</span>
+              </div>
+
+              <ng-template #disabledLabelTemplate>
+                <div class="col-auto mb-2 mb-lg-0 align-self-center">
+                  <div class="field-disabled-label">Ei näytetä profiilissa</div>
+                </div>
+              </ng-template>
+            </div>
+
+            <!-- Field values -->
+            <div
+              class="row"
+              *ngIf="field.items.length === 1; else fieldArrayTemplate"
+            >
+              <div
+                class="col ml-3 field-value"
+                *ngFor="let value of field.items"
+              >
+                {{ value.value }}
+
+                <span class="pl-3 opacity-3">
+                  {{ field.dataSource.name }}
+                </span>
+              </div>
+            </div>
+
+            <ng-template #fieldArrayTemplate>
+              <div
+                class="col ml-3 field-value"
+                *ngFor="let value of field.items"
+              >
+                <ng-container [ngSwitch]="field.groupMeta.type">
+                  <ng-container *ngSwitchCase="fieldTypes.webLink">{{
+                    value.url
+                  }}</ng-container>
+                  <ng-container *ngSwitchDefault>
+                    {{ value.value }}
+                  </ng-container>
+                </ng-container>
+
+                <span class="pl-3 opacity-3">
+                  {{ field.dataSource.name }}
+                </span>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Editor modal -->
+      <ng-template #editorModal>
+        <app-editor-modal
+          [data]="selectedData"
+          [dataSources]="dataSources"
+          (emitClose)="closeModal()"
+          (dataChange)="changeData($event)"
+        ></app-editor-modal>
+      </ng-template>
+
+      <div class="row d-flex justify-content-end">
+        <div class="col-auto pt-3">
+          <app-secondary-button
+            class="px-3"
+            [content]="'Muokkaa'"
+            (click)="openModal($event, i, editorModal)"
+            (keydown.enter)="openModal($event, i, editorModal)"
+          ></app-secondary-button>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </div>
+</div>

@@ -12,8 +12,9 @@
 >
   <mat-button-toggle
     *ngFor="let item of data"
-    [value]="item"
+    [value]="item.label"
+    [disabled]="item.disabled"
     [checked]="checked?.includes(item)"
-    >{{ item }}</mat-button-toggle
+    >{{ item.label }}</mat-button-toggle
   >
 </mat-button-toggle-group>

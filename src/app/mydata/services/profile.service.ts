@@ -19,6 +19,76 @@ export class ProfileService {
   apiUrl: string;
   httpOptions: object;
 
+  testData = [
+    {
+      dataSource: { id: 1, name: 'ORCID' },
+      items: [
+        {
+          firstNames: 'Matti',
+          lastName: 'Mallikas',
+          fullName: '',
+          itemMeta: { id: 8, type: 112, show: false },
+          value: 'Matti Mallikas',
+        },
+      ],
+      groupMeta: { id: 28, type: 110, show: false },
+      label: 'Nimi',
+    },
+    {
+      dataSource: { id: 1, name: 'Korkeakoulu A' },
+      items: [
+        {
+          firstNames: 'Matti',
+          lastName: 'Mallikas',
+          fullName: '',
+          itemMeta: { id: 8, type: 112, show: false },
+          value: 'Matti Mallikas',
+        },
+      ],
+      groupMeta: { id: 28, type: 110, show: false },
+      label: 'Nimi',
+    },
+    {
+      dataSource: { id: 1, name: 'ORCID' },
+      items: [
+        {
+          firstNames: '',
+          lastName: '',
+          fullName: 'MM Mallikas',
+          itemMeta: { id: 9, type: 120, show: false },
+          value: 'MM Mallikas',
+        },
+      ],
+      groupMeta: { id: 29, type: 120, show: false },
+      label: 'Muut nimet',
+    },
+    {
+      dataSource: { id: 1, name: 'ORCID' },
+      items: [
+        { value: 'Angular', itemMeta: { id: 8, type: 150, show: false } },
+      ],
+      groupMeta: { id: 33, type: 150, show: false },
+      label: 'Avainsanat',
+    },
+    {
+      dataSource: { id: 1, name: 'ORCID' },
+      items: [
+        {
+          url: 'https://tiedejatutkimus.fi/fi/',
+          linkLabel: 'TTV',
+          itemMeta: { id: 9, type: 180, show: false },
+        },
+        {
+          url: 'https://forskning.fi/sv/',
+          linkLabel: 'Forskning',
+          itemMeta: { id: 10, type: 180, show: false },
+        },
+      ],
+      groupMeta: { id: 31, type: 180, show: false },
+      label: 'Linkit',
+    },
+  ];
+
   constructor(
     private http: HttpClient,
     private appConfigService: AppConfigService,
@@ -42,13 +112,13 @@ export class ProfileService {
 
   checkProfileExists() {
     this.updateTokenInHttpAuthHeader();
-    return this.http.get(this.apiUrl + '/researcherprofile/', this.httpOptions);
+    return this.http.get(this.apiUrl + '/userprofile/', this.httpOptions);
   }
 
   createProfile() {
     this.updateTokenInHttpAuthHeader();
     return this.http.post(
-      this.apiUrl + '/researcherprofile/',
+      this.apiUrl + '/userprofile/',
       null,
       this.httpOptions
     );
@@ -56,10 +126,7 @@ export class ProfileService {
 
   deleteProfile() {
     this.updateTokenInHttpAuthHeader();
-    return this.http.delete(
-      this.apiUrl + '/researcherprofile/',
-      this.httpOptions
-    );
+    return this.http.delete(this.apiUrl + '/userprofile/', this.httpOptions);
   }
 
   getOrcidData() {
@@ -74,9 +141,19 @@ export class ProfileService {
       .pipe(map((data) => this.orcidAdapter.adapt(data)));
   }
 
-  patchProfileDataSingle(modificationItem) {
+  patchProfileDataSingleGroup(group) {
     this.updateTokenInHttpAuthHeader();
-    let body = [modificationItem];
+    let body = { groups: group, items: [] };
+    return this.http.patch(
+      this.apiUrl + '/profiledata/',
+      body,
+      this.httpOptions
+    );
+  }
+
+  patchProfileDataSingleItem(item) {
+    this.updateTokenInHttpAuthHeader();
+    let body = { groups: [], items: item };
     return this.http.patch(
       this.apiUrl + '/profiledata/',
       body,

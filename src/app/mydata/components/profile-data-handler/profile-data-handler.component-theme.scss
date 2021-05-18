@@ -7,10 +7,10 @@
 
 @import '~@angular/material/theming';
 
-@mixin app-orcid-data-handler-theme($theme) {
+@mixin app-profile-data-handler-theme($theme) {
   $primary: map-get($theme, primary);
 
-  app-orcid-data-handler,
+  app-profile-data-handler,
   app-profile-panel {
     .field-label {
       color: mat-contrast($primary, 300);

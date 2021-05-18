@@ -16,7 +16,7 @@
 
             <div class="col-auto">
               <mat-slide-toggle
-                [checked]="field.show"
+                [checked]="field.groupMeta.show"
                 (change)="toggleField(i)"
                 labelPosition="before"
                 >Näytä profiilissani</mat-slide-toggle
@@ -25,25 +25,31 @@
           </div>
 
           <!-- Field values -->
-          <div class="row" *ngIf="!field.length; else fieldArrayTemplate">
+          <div
+            class="row"
+            *ngIf="field.items.length === 1; else fieldArrayTemplate"
+          >
             <div class="col field-value">
-              {{ field.name }}
+              {{ field.items[0].value }}
 
               <span class="pl-3 opacity-3">
-                Orcid
-                <!-- {{ field.sourceId }} -->
+                {{ field.dataSource.name }}
               </span>
             </div>
           </div>
           <ng-template #fieldArrayTemplate>
-            <!-- TODO: array items should have matching property names -->
-            <div class="col field-value" *ngFor="let value of field">
-              {{ value.webLink.url }}
+            <div class="col field-value" *ngFor="let value of field.items">
+              <ng-container [ngSwitch]="field.groupMeta.type">
+                <ng-container *ngSwitchCase="fieldTypes.webLink">{{
+                  value.url
+                }}</ng-container>
+                <ng-container *ngSwitchDefault>
+                  {{ value.value }}
+                </ng-container>
+              </ng-container>
 
               <span class="pl-3 opacity-3">
-                <!-- TODO: map source by ID -->
-                Orcid
-                <!-- {{ field.sourceId }} -->
+                {{ field.dataSource.name }}
               </span>
             </div>
           </ng-template>
@@ -52,9 +58,9 @@
     </ng-container>
 
     <div class="row pt-3">
-      <span class="col-12">Valitse lähteet:</span>
+      <span class="col-12 px-lg-0">Valitse lähde:</span>
       <app-button-group
-        class="col-12 pb-3"
+        class="col-12 pb-3 px-lg-0"
         [data]="dataSources"
         [checked]="checked"
         [vertical]="appSettingsService.mobileStatus | async"
