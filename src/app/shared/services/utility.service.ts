@@ -192,6 +192,7 @@ export class UtilityService {
   }
 
   uniqueArray(arr: any[], key: (any) => any = x => x) {
+    if (!arr) return undefined;
     const seen = new Set();
     return arr.filter(item => {
       const k = key(item);

@@ -128,7 +128,7 @@ export class FundingAdapter implements Adapter<Funding> {
 
     const recipient = this.r.adapt(item);
 
-    const relatedFundings = item?.relatedFunding?.map((x) => this.rf.adapt(x));
+    const relatedFundings = item?.relatedFunding?.map((x) => this.rf.adapt(x)) || [];
 
     // Sum of original funding and related fundings, or only original if no related fundings
     const totalFundingAmount = relatedFundings
@@ -140,9 +140,10 @@ export class FundingAdapter implements Adapter<Funding> {
 
     // Get all unique organizations in related fundings
     const relatedOrgs = this.util.uniqueArray(relatedFundings.map(x => {return {name: x.orgName.trim(), orgId: x.orgId}}), x => x.orgName);
+    
     // Get all organizations in related fundings that are not part of the original funding
     const additionalOrgs = relatedOrgs.filter(x => x.name !== recipient.affiliation)
-
+    
     // Funding end year as the latest end year of related fundings, or original if no related fundings
     const endYear = Math.max(item.fundingEndYear, ...relatedFundings.map(x => x.fundingEndYear))
     
@@ -164,7 +165,7 @@ export class FundingAdapter implements Adapter<Funding> {
       .join(', ');
 
     return new Funding(
-      item.projectId,
+      item.mainProjectId || item.projectId,
       this.lang.testLang('projectName', item),
       item.projectAcronym,
       this.lang.testLang('projectDescription', item),
