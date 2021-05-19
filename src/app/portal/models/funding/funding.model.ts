@@ -135,6 +135,11 @@ export class FundingAdapter implements Adapter<Funding> {
           ?.reduce((a, b) => a + b, 0)
       : recipient.amountEur;
 
+    // Funding end year as the latest end year of related fundings, or original if no related fundings
+    const endYear = Math.max(item.fundingEndYear, ...relatedFundings.map(x => x.fundingEndYear))
+    
+    console.log(relatedFundings)
+    
     // TODO: Translate
     const science = item.fieldsOfScience
       ?.map((x) => this.lang.translateFieldOfScience(x))
@@ -158,10 +163,7 @@ export class FundingAdapter implements Adapter<Funding> {
       item.projectAcronym,
       this.lang.testLang('projectDescription', item),
       item.fundingStartYear,
-      (item.fundingEndYear =
-        item.fundingEndYear > item.fundingStartYear
-          ? item.fundingEndYear
-          : undefined),
+      endYear > item.fundingStartYear ? endYear : undefined,
       recipientObj?.roleInFundingGroup,
       otherConsortiumObjs,
       recipient,
@@ -174,10 +176,10 @@ export class FundingAdapter implements Adapter<Funding> {
       item.projetHomepage,
       item.recipientType,
       item.euFunding,
-      // relatedFundings,
-      undefined, // Temporary related fundings
-      // totalFundingAmount
-      recipient.amountEur // Temporary fundingAmount
+      relatedFundings,
+      // undefined, // Temporary related fundings
+      totalFundingAmount
+      // recipient.amountEur // Temporary fundingAmount
     );
   }
 }
