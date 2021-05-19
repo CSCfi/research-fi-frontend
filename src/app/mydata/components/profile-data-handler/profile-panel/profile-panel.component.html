@@ -18,6 +18,7 @@
               <mat-slide-toggle
                 [checked]="field.groupMeta.show"
                 (change)="toggleField(i)"
+                [disabled]="field.disabled"
                 labelPosition="before"
                 >Näytä profiilissani</mat-slide-toggle
               >
@@ -55,16 +56,18 @@
           </ng-template>
         </div>
       </div>
-    </ng-container>
 
-    <div class="row pt-3">
-      <span class="col-12 px-lg-0">Valitse lähde:</span>
-      <app-button-group
-        class="col-12 pb-3 px-lg-0"
-        [data]="dataSources"
-        [checked]="checked"
-        [vertical]="appSettingsService.mobileStatus | async"
-      ></app-button-group>
-    </div>
+      <div class="row pt-3">
+        <span class="col-12 px-lg-0">Valitse lähde:</span>
+        <app-button-group
+          class="col-12 pb-3 px-lg-0"
+          [data]="dataSources"
+          [checked]="checked"
+          [vertical]="appSettingsService.mobileStatus | async"
+        ></app-button-group>
+      </div>
+
+      <hr class="my-1" />
+    </ng-container>
   </div>
 </div>

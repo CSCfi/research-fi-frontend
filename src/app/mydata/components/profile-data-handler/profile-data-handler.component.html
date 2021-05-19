@@ -8,7 +8,7 @@
     <mat-expansion-panel
       class="mat-elevation-z1"
       *ngFor="let item of profileData; let i = index"
-      [expanded]="item.expanded"
+      [expanded]="item.expanded || openPanels.includes(i)"
       (opened)="setOpenPanel(i)"
       (closed)="closePanel(i)"
       [disabled]="item.fields.length === 0"

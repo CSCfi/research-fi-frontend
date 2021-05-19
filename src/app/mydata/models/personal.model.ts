@@ -7,6 +7,7 @@
 
 import { Injectable } from '@angular/core';
 import { Adapter } from './adapter.model';
+import { mapGroup, mapNameGroup } from './utils';
 
 export class PersonalFields {
   constructor(
@@ -14,7 +15,6 @@ export class PersonalFields {
     public otherNames: any,
     public email: any,
     public researcherDescriptionGroups: any,
-    public keywords: any,
     public webLinks: any
   ) {}
 }
@@ -23,34 +23,21 @@ export class PersonalFields {
   providedIn: 'root',
 })
 export class PersonalFieldsAdapter implements Adapter<PersonalFields> {
+  mapGroup = mapGroup;
+  mapNameGroup = mapNameGroup;
   constructor() {}
 
   adapt(item: any): PersonalFields {
-    console.log(item);
-    const mapGroup = (group, label) => {
-      return group.map((obj) => ({ ...obj, label: label }))[0];
-    };
-
-    const mapNameGroup = (group, label) => {
-      group[0].items.forEach(
-        (el) =>
-          (el.value =
-            el.fullName.trim().length > 0
-              ? el.fullName
-              : el.firstNames + ' ' + el.lastName)
-      );
-
-      return group.map((obj) => ({ ...obj, label: label }))[0];
-    };
-
     return new PersonalFields(
       // TODO: Localize
-      mapNameGroup(item.nameGroups, 'Nimi'),
-      mapNameGroup(item.otherNameGroups, 'Muut nimet'),
-      mapGroup(item.emailGroups, 'Sähköposti'),
-      mapGroup(item.researcherDescriptionGroups, 'Kuvaus'),
-      mapGroup(item.keywordGroups, 'Avainsanat'),
-      mapGroup(item.webLinkGroups, 'Linkit')
+      this.mapNameGroup(item.nameGroups, 'Nimi', {
+        disabled: true,
+        forceShow: true,
+      }),
+      this.mapNameGroup(item.otherNameGroups, 'Muut nimet'),
+      this.mapGroup(item.emailGroups, 'Sähköposti'),
+      this.mapGroup(item.researcherDescriptionGroups, 'Kuvaus'),
+      this.mapGroup(item.webLinkGroups, 'Linkit')
     );
   }
 }

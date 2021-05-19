@@ -55,6 +55,7 @@ export class ProfileDataHandlerComponent implements OnInit {
   checkSelected = checkSelected;
   checkEmpty = checkEmpty;
 
+  // TODO: Localize
   profileData = [
     {
       label: 'Yhteystiedot',
@@ -93,7 +94,9 @@ export class ProfileDataHandlerComponent implements OnInit {
     // console.log(this.testData);
     // this.profileData[0].fields = this.testData;
     // console.log(JSON.stringify(this.response.personal));
+    console.log(this.response);
     this.profileData[0].fields = this.response.personal;
+    this.profileData[1].fields = this.response.description;
   }
 
   setOpenPanel(i: number) {
@@ -106,6 +109,7 @@ export class ProfileDataHandlerComponent implements OnInit {
 
   openModal(event, index, template: TemplateRef<any>) {
     event.stopPropagation();
+    this.selectedIndex = index;
     this.selectedData = cloneDeep(this.profileData[index]);
 
     this.modalRef = this.modalService.show(template);
@@ -118,6 +122,7 @@ export class ProfileDataHandlerComponent implements OnInit {
 
   changeData(data) {
     if (data.data) {
+      console.log(this.profileData[this.selectedIndex]);
       this.profileData[this.selectedIndex] = data.data;
 
       this.profileService
