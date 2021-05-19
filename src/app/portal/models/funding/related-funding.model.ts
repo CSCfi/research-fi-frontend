@@ -14,7 +14,7 @@ export class RelatedFunding {
     public typeOfFundingName: string,
     public typeOfFundingId: number,
     public shareOfFunding: number,
-    public recipientName: string,
+    public orgName: string,
     public orgId: string,
     public fundingStartYear: number,
     public fundingEndYear: number,

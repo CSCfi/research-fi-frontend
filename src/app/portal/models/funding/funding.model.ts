@@ -10,6 +10,7 @@ import { Recipient, RecipientAdapter } from './recipient.model';
 import { Funder, FunderAdapter } from './funder.model';
 import { LanguageCheck } from '../utils';
 import { RelatedFunding, RelatedFundingAdapter } from './related-funding.model';
+import { UtilityService } from '@shared/services/utility.service';
 
 export class Funding {
   constructor(
@@ -32,6 +33,7 @@ export class Funding {
     public recipientType: string,
     public euFunding: boolean,
     public relatedFundings: RelatedFunding[],
+    public additionalOrgs: {name: string, orgId: number}[],
     public totalFundingAmount: number
   ) {}
 }
@@ -44,7 +46,8 @@ export class FundingAdapter implements Adapter<Funding> {
     private r: RecipientAdapter,
     private f: FunderAdapter,
     private rf: RelatedFundingAdapter,
-    private lang: LanguageCheck
+    private lang: LanguageCheck,
+    private util: UtilityService
   ) {}
   adapt(item: any): Funding {
     const recipientObj = item.fundingGroupPerson
@@ -135,10 +138,13 @@ export class FundingAdapter implements Adapter<Funding> {
           ?.reduce((a, b) => a + b, 0)
       : recipient.amountEur;
 
+    // Get all unique organizations in related fundings
+    const relatedOrgs = this.util.uniqueArray(relatedFundings.map(x => {return {name: x.orgName.trim(), orgId: x.orgId}}), x => x.orgName);
+    // Get all organizations in related fundings that are not part of the original funding
+    const additionalOrgs = relatedOrgs.filter(x => x.name !== recipient.affiliation)
+
     // Funding end year as the latest end year of related fundings, or original if no related fundings
     const endYear = Math.max(item.fundingEndYear, ...relatedFundings.map(x => x.fundingEndYear))
-    
-    console.log(relatedFundings)
     
     // TODO: Translate
     const science = item.fieldsOfScience
@@ -177,6 +183,7 @@ export class FundingAdapter implements Adapter<Funding> {
       item.recipientType,
       item.euFunding,
       relatedFundings,
+      additionalOrgs,
       // undefined, // Temporary related fundings
       totalFundingAmount
       // recipient.amountEur // Temporary fundingAmount
