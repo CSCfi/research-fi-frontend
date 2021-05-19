@@ -14,7 +14,11 @@ export class RelatedFunding {
     public typeOfFundingName: string,
     public typeOfFundingId: number,
     public shareOfFunding: number,
-    public recipientName: string
+    public orgName: string,
+    public orgId: string,
+    public fundingStartYear: number,
+    public fundingEndYear: number,
+    public funderProjectNumber: string
   ) {}
 }
 
@@ -28,7 +32,11 @@ export class RelatedFundingAdapter implements Adapter<RelatedFunding> {
       this.lang.testLang('typeOfFundingName', item),
       item.typeOfFundingId,
       item.shareOfFundingInEur,
-      ''
+      this.lang.testLang('consortiumOrganizationName', item),
+      item.consortiumOrganizationId,
+      item.fundingStartYear,
+      item.fundingEndYear,
+      item.funderProjectNumber
     );
   }
 }
