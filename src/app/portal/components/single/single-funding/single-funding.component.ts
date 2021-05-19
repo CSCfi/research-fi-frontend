@@ -78,7 +78,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
 
   other = [
     {
-      label: $localize`Rahoituspäätöksen numero`,
+      label: $localize`:@@funderProjectNumber:Rahoituspäätöksen numero`,
       field: 'funderProjectNumber',
     },
     {
