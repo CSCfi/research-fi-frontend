@@ -110,6 +110,8 @@
                   <div
                     class="col-12 col-lg-3 td pr-0"
                     *ngIf="item.recipient.personName?.trim().length > 0"
+                    i18n-aria-label="@@fundingRecipient"
+                    aria-label="Rahoituksen saaja"
                   >
                     {{ item.recipient.personName }}
                     <app-orcid
@@ -122,7 +124,10 @@
                     *ngIf="item.recipient.affiliation?.length > 0"
                   >
                     <div class="row">
-                      <div class="col-12 p-0">
+                      <div class="col-12 p-0"
+                        i18n-aria-label="@@organization"
+                        aria-label="organisaatio"
+                      >
                         <a
                           *ngIf="item.recipient.organizationId"
                           routerLink="/results/organization/{{
@@ -134,7 +139,10 @@
                           item.recipient.affiliation
                         }}</ng-container>
                       </div>
-                      <div *ngFor="let org of item.additionalOrgs" class="col-12 p-0 pt-1">
+                      <div *ngFor="let org of item.additionalOrgs" class="col-12 p-0 pt-1"
+                        i18n-aria-label="@@organization"
+                        aria-label="organisaatio"
+                      >
                         <a
                           *ngIf="org.orgId"
                           routerLink="/results/organization/{{
@@ -268,9 +276,9 @@
               >
                 <div class="row">
                   <div class="col-12 col-lg-3 td pr-0">
-                    <!-- i18n-aria-label="@@fundingRecipient"
-                    aria-label="Rahoituksen saaja" -->
                     <span
+                    i18n-aria-label="@@funderProjectNumber"
+                    aria-label="Rahoituspäätöksen numero"
                       >{{ relatedFunding.funderProjectNumber }}</span
                     >
                   </div>
@@ -280,7 +288,14 @@
                       i18n-aria-label="@@typeOfFunding"
                       aria-label="Rahoitusmuoto"
                       >{{ relatedFunding.typeOfFundingName }}</span
-                    > ({{relatedFunding.fundingStartYear}})
+                    >
+                    <span
+                      *ngIf="relatedFunding.typeOfFundingName?.length > 0"
+                      i18n-aria-label="@@startYear"
+                      aria-label="aloitusvuosi"
+                      class="pl-1"
+                      >({{relatedFunding.fundingStartYear}})</span
+                    >
                   </div>
                   <div
                     class="td col-12 col-lg-3"
