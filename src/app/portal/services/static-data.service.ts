@@ -527,6 +527,7 @@ export class StaticDataService {
           'fundingGroupPerson.consortiumOrganizationNameSv',
           'fundingGroupPerson.roleInFundingGroup',
           'fundingGroupPerson.consortiumProject',
+          'keywords.keyword',
         ];
         break;
       }

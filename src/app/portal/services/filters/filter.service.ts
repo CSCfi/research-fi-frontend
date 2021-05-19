@@ -711,7 +711,7 @@ export class FilterService {
         : []),
       ...basicFilter('funding', this.funderFilter),
       ...basicFilter('funding', this.typeOfFundingFilter),
-      ...basicFilter('funding', this.topicFilter),
+      ...nestedFilter('funding', this.topicFilter, 'keywords'),
       ...nestedFilter('funding', this.fieldFilter, 'fieldsOfScience'),
       ...basicFilter('funding', this.fundingSchemeFilter),
       ...basicFilter('funding', this.statusFilter),
