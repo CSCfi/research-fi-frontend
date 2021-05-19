@@ -165,7 +165,7 @@ export class FundingAdapter implements Adapter<Funding> {
       .join(', ');
 
     return new Funding(
-      item.projectId,
+      item.mainProjectId || item.projectId,
       this.lang.testLang('projectName', item),
       item.projectAcronym,
       this.lang.testLang('projectDescription', item),
