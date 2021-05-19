@@ -147,6 +147,7 @@ import { ExternalLinksComponent } from './components/science-politics/external-l
 import { BannerComponent } from './components/home-page/banner/banner.component';
 import { LatestNewsComponent } from './components/news/latest-news/latest-news.component';
 import { NewsResultsComponent } from './components/news/news-results/news-results.component';
+import { ConvertToArrayPipe } from './pipes/convert-to-array.pipe';
 
 @NgModule({
   declarations: [
@@ -215,6 +216,7 @@ import { NewsResultsComponent } from './components/news/news-results/news-result
     BannerComponent,
     LatestNewsComponent,
     NewsResultsComponent,
+    ConvertToArrayPipe,
   ],
   imports: [
     PortalRoutingModule,
@@ -323,9 +325,8 @@ export class PortalModule {
       .pipe(filter((e: Event): e is Scroll => e instanceof Scroll))
       .subscribe((e) => {
         // Trigger new page so first tab focuses skip links
-        const prevPageLocation = this.historyService.history[
-          this.historyService.history.length - 2
-        ];
+        const prevPageLocation =
+          this.historyService.history[this.historyService.history.length - 2];
         const currentPageLocation = e.routerEvent.url;
         if (this.newPage(prevPageLocation, currentPageLocation)) {
           this.tabChangeService.triggerNewPage();

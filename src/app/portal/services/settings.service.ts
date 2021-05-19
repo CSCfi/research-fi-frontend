@@ -154,91 +154,37 @@ export class SettingsService {
       ? this.staticDataService.nestedRelatedFields(index)
       : this.staticDataService.nestedQueryFields(index);
 
+    const query = (path) => ({
+      nested: {
+        path: path,
+        query: {
+          multi_match: {
+            query: term,
+            type: 'cross_fields',
+            fields: targetFields.length > 0 ? targetFields : '',
+            operator: 'AND',
+            lenient: 'true',
+          },
+        },
+      },
+    });
+
     let res;
     switch (index) {
       case 'publication': {
-        res = {
-          nested: {
-            path: 'author',
-            query: {
-              multi_match: {
-                query: term,
-                type: 'cross_fields',
-                fields: targetFields.length > 0 ? targetFields : '',
-                operator: 'AND',
-                lenient: 'true',
-              },
-            },
-          },
-        };
+        res = query('author');
         break;
       }
       case 'funding': {
         res = [
-          {
-            nested: {
-              path: 'organizationConsortium',
-              query: {
-                bool: {
-                  filter: {
-                    term: {
-                      'organizationConsortium.isFinnishOrganization': 1,
-                    },
-                  },
-                  must: {
-                    multi_match: {
-                      query: term,
-                      type: 'cross_fields',
-                      fields: targetFields.length > 0 ? targetFields : '',
-                      operator: 'AND',
-                      lenient: 'true',
-                    },
-                  },
-                },
-              },
-            },
-          },
-          {
-            nested: {
-              path: 'fundingGroupPerson',
-              query: {
-                bool: {
-                  filter: {
-                    term: {
-                      'fundingGroupPerson.fundedPerson': 1,
-                    },
-                  },
-                  must: {
-                    multi_match: {
-                      query: term,
-                      type: 'cross_fields',
-                      fields: targetFields.length > 0 ? targetFields : '',
-                      operator: 'AND',
-                      lenient: 'true',
-                    },
-                  },
-                },
-              },
-            },
-          },
+          query('organizationConsortium'),
+          query('fundingGroupPerson'),
+          query('keywords'),
         ];
         break;
       }
       case 'dataset': {
-        res = {
-          nested: {
-            path: 'actor.sector',
-            query: {
-              multi_match: {
-                query: term,
-                type: 'cross_fields',
-                fields: targetFields.length > 0 ? targetFields : '',
-                operator: 'AND',
-                lenient: 'true',
-              },
-            },
-          },
-        };
+        res = query('actor.sector');
         break;
       }
     }

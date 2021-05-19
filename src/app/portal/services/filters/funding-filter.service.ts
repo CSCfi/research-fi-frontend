@@ -92,6 +92,7 @@ export class FundingFilterService {
 
   shapeData(data) {
     const source = data.aggregations;
+
     if (!source.shaped) {
       // Year
       source.year.buckets = this.mapYear(source.year.years.buckets);
@@ -293,8 +294,15 @@ export class FundingFilterService {
 
   mapTopic(data) {
     data.forEach((item) => {
-      item.subData = item.keywords.buckets;
-      item.subData.map((x) => (x.label = x.key));
+      item.subData = item.keywords.buckets.filter(
+        (x) => x.filtered.filterCount.doc_count > 0
+      );
+
+      item.subData.map(
+        (x) => (
+          (x.label = x.key), (x.doc_count = x.filtered.filterCount.doc_count)
+        )
+      );
 
       switch (item.key) {
         case 'Avainsana': {

@@ -450,8 +450,9 @@
                   (keydown.space)="selectionChange(filter.field, field.key)"
                   [value]="field.key"
                   [selected]="
-                    activeFilters[filter.field] &&
-                    activeFilters[filter.field].indexOf(field.key) > -1
+                    (activeFilters[filter.field] | convertToArray)?.indexOf(
+                      field.key
+                    ) > -1
                   "
                   [id]="filter.field + field.key | replaceSpace"
                 >

@@ -984,10 +984,8 @@ export class AggregationService {
         };
 
         payLoad.aggs.topic = {
-          filter: {
-            bool: {
-              filter: filterActive('keywords.keyword.keyword'),
-            },
+          nested: {
+            path: 'keywords',
           },
           aggs: {
             scheme: {
@@ -1002,20 +1000,30 @@ export class AggregationService {
               aggs: {
                 keywords: {
                   terms: {
+                    field: 'keywords.keyword.keyword',
                     exclude: ' ',
                     size: 250,
-                    field: 'keywords.keyword.keyword',
                   },
-                },
-                lang: {
-                  terms: {
-                    field: 'keywords.language.keyword',
+                  aggs: {
+                    filtered: {
+                      reverse_nested: {},
+                      aggs: {
+                        filterCount: {
+                          filter: {
+                            bool: {
+                              filter: filterActiveNested('keywords'),
+                            },
+                          },
+                        },
+                      },
+                    },
                   },
                 },
               },
             },
           },
         };
+
         break;
       // Datasets
       case 'datasets':
