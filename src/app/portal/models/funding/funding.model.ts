@@ -139,7 +139,7 @@ export class FundingAdapter implements Adapter<Funding> {
       : recipient.amountEur;
 
     // Get all unique organizations in related fundings
-    const relatedOrgs = this.util.uniqueArray(relatedFundings.map(x => {return {name: x.orgName.trim(), orgId: x.orgId}}), x => x.orgName);
+    const relatedOrgs = this.util.uniqueArray(relatedFundings.map(x => {return {name: x.orgName.trim(), orgId: x.orgId}}), x => x.name);
     
     // Get all organizations in related fundings that are not part of the original funding
     const additionalOrgs = relatedOrgs.filter(x => x.name !== recipient.affiliation)
