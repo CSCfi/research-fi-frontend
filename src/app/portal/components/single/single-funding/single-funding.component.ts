@@ -78,7 +78,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
 
   other = [
     {
-      label: $localize`Rahoituspäätöksen numero`,
+      label: $localize`:@@funderProjectNumber:Rahoituspäätöksen numero`,
       field: 'funderProjectNumber',
     },
     {
@@ -268,9 +268,10 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
       this.funder.filter((item) => checkNestedEmpty('funder', item))
     );
     // Filter out empty organization names
-    this.responseData.fundings[0].recipient.organizations = this.responseData.fundings[0].recipient.organizations.filter(
-      (item) => item.name !== '' && item.name !== null
-    );
+    this.responseData.fundings[0].recipient.organizations =
+      this.responseData.fundings[0].recipient.organizations.filter(
+        (item) => item.name !== '' && item.name !== null
+      );
 
     // Filter funderProjectNumber from links for non eu funding
     if (!this.responseData.fundings[0].euFunding) {

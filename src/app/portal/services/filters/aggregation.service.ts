@@ -963,34 +963,6 @@ export class AggregationService {
           },
         };
 
-        // payLoad.aggs.field = {
-        //   filter: {
-        //     bool: {
-        //       filter: filterActive('fields_of_science.fieldIdScience')
-        //     }
-        //   },
-        //   aggs: {
-        //     fields: {
-        //       terms: {
-        //         field: 'fields_of_science.name' + this.localeC + 'Science.keyword',
-        //         exclude: ' ',
-        //         size: 250,
-        //         order: {
-        //           _key: 'asc'
-        //         }
-        //       },
-        //       aggs: {
-        //         fieldId: {
-        //           terms: {
-        //             field: 'fields_of_science.fieldIdScience.keyword',
-        //             size: 1
-        //           }
-        //         }
-        //       }
-        //     }
-        //   }
-        // };
-        // Funding status
         payLoad.aggs.fundingStatus = {
           filter: {
             bool: {
@@ -1010,46 +982,48 @@ export class AggregationService {
             },
           },
         };
-        // Scheme & Keywords
-        payLoad.aggs.scheme = {
-          filter: {
-            bool: {
-              filter: filterActive('keywords.scheme.keyword'),
-            },
+
+        payLoad.aggs.topic = {
+          nested: {
+            path: 'keywords',
           },
           aggs: {
-            types: {
+            scheme: {
               terms: {
                 field: 'keywords.scheme.keyword',
+                exclude: ' ',
                 size: 10,
+                order: {
+                  _key: 'asc',
+                },
               },
               aggs: {
-                typeName: {
+                keywords: {
                   terms: {
-                    field:
-                      'keywords.keyword.keyword' + this.localeC + '.keyword',
+                    field: 'keywords.keyword.keyword',
+                    exclude: ' ',
+                    size: 250,
+                  },
+                  aggs: {
+                    filtered: {
+                      reverse_nested: {},
+                      aggs: {
+                        filterCount: {
+                          filter: {
+                            bool: {
+                              filter: filterActiveNested('keywords'),
+                            },
+                          },
+                        },
+                      },
+                    },
                   },
                 },
               },
             },
           },
         };
-        payLoad.aggs.faField = {
-          filter: {
-            bool: {
-              filter: filterActive('keywords.keyword.keyword'),
-            },
-          },
-          aggs: {
-            faFields: {
-              terms: {
-                field: 'keywords.keyword.keyword',
-                size: 50,
-                exclude: ' ',
-              },
-            },
-          },
-        };
+
         break;
       // Datasets
       case 'datasets':
@@ -1115,7 +1089,8 @@ export class AggregationService {
                         orgId: {
                           terms: {
                             size: 10,
-                            field: 'actor.sector.organization.organizationId.keyword',
+                            field:
+                              'actor.sector.organization.organizationId.keyword',
                           },
                         },
                       },
@@ -1133,8 +1108,7 @@ export class AggregationService {
           aggs: {
             langs: {
               terms: {
-                field:
-                  'languages.languageCode.keyword',
+                field: 'languages.languageCode.keyword',
                 exclude: ' ',
                 size: 250,
                 order: {

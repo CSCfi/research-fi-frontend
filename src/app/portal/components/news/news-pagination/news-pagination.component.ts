@@ -59,7 +59,6 @@ export class NewsPaginationComponent implements OnInit, OnChanges {
   ngOnChanges() {
     // Reset pagination
     this.page = this.searchService.newsPageNumber;
-    console.log(this.page);
     this.pages = this.generatePages(this.page, this.pageSize);
   }
 

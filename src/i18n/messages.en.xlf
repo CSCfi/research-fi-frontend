@@ -2743,7 +2743,7 @@
         <source>Haun tunniste</source>
         <target>Call ID</target>
       </trans-unit>
-      <trans-unit id="1429405664221353899">
+      <trans-unit id="funderProjectNumber">
         <source>Rahoituspäätöksen numero</source>
         <target>Funding decision number</target>
       </trans-unit>
@@ -3306,6 +3306,10 @@
       <trans-unit id="FAField">
         <source>Teemat</source>
         <target>Themes</target>
+      </trans-unit>
+      <trans-unit id="FAResearchFields">
+        <source>Suomen Akatemian tutkimusalat</source>
+        <target>Academy of Finland's research fields</target>
       </trans-unit>
       <trans-unit id="iYearFTooltip">
         <source>Tutkimusinfrastruktuurin toiminnan aloitusvuosi. Jos aloitusvuosi ei ole tiedossa, käytetään vuotta jolloin tiedot on toimitettu tiedejatutkimus.fi-palveluun.</source>

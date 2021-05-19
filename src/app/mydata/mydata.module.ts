@@ -15,10 +15,16 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { HomeComponent } from './components/home/home.component';
 import { WelcomeStepperComponent } from './components/welcome-stepper/welcome-stepper.component';
-import { OrcidDataHandlerComponent } from './components/welcome-stepper/orcid-data-handler/orcid-data-handler.component';
+import { ProfileDataHandlerComponent } from './components/profile-data-handler/profile-data-handler.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { RedirectComponent } from './components/redirect/redirect.component';
 
@@ -28,15 +34,29 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './services/auth-guard.service';
 
 import { SharedModule } from '../shared/shared.module';
+import { OrcidIdInfoComponent } from './components/welcome-stepper/orcid-id-info/orcid-id-info.component';
+import { StepperNavigationComponent } from './components/welcome-stepper/stepper-navigation/stepper-navigation.component';
+
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { ProfilePanelComponent } from './components/profile-data-handler/profile-panel/profile-panel.component';
+import { FilterPipe } from './pipes/filter.pipe';
+import { EditorModalComponent } from './components/profile-data-handler/editor-modal/editor-modal.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     WelcomeStepperComponent,
-    OrcidDataHandlerComponent,
+    ProfileDataHandlerComponent,
     NotFoundComponent,
     RedirectComponent,
     LoginComponent,
+    OrcidIdInfoComponent,
+    StepperNavigationComponent,
+    ProfilePanelComponent,
+    FilterPipe,
+    EditorModalComponent,
+    ProfileComponent,
   ],
   imports: [
     CommonModule,
@@ -46,8 +66,15 @@ import { SharedModule } from '../shared/shared.module';
     MatCheckboxModule,
     MatRadioModule,
     MatExpansionModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatButtonToggleModule,
+    MatSlideToggleModule,
+    MatTabsModule,
+    MatSnackBarModule,
     FontAwesomeModule,
     SharedModule,
+    ModalModule,
   ],
   providers: [AuthGuard],
 })

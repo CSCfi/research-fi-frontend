@@ -110,6 +110,8 @@
                   <div
                     class="col-12 col-lg-3 td pr-0"
                     *ngIf="item.recipient.personName?.trim().length > 0"
+                    i18n-aria-label="@@fundingRecipient"
+                    aria-label="Rahoituksen saaja"
                   >
                     {{ item.recipient.personName }}
                     <app-orcid
@@ -121,16 +123,39 @@
                     class="td col-12 col-lg-4"
                     *ngIf="item.recipient.affiliation?.length > 0"
                   >
-                    <a
-                      *ngIf="item.recipient.organizationId"
-                      routerLink="/results/organization/{{
-                        item.recipient.organizationId
-                      }}"
-                      >{{ item.recipient.affiliation }}</a
-                    >
-                    <ng-container *ngIf="!item.recipient.organizationId">{{
-                      item.recipient.affiliation
-                    }}</ng-container>
+                    <div class="row">
+                      <div class="col-12 p-0"
+                        i18n-aria-label="@@organization"
+                        aria-label="organisaatio"
+                      >
+                        <a
+                          *ngIf="item.recipient.organizationId"
+                          routerLink="/results/organization/{{
+                            item.recipient.organizationId
+                          }}"
+                          >{{ item.recipient.affiliation }}</a
+                        >
+                        <ng-container *ngIf="!item.recipient.organizationId">{{
+                          item.recipient.affiliation
+                        }}</ng-container>
+                      </div>
+                      <div *ngFor="let org of item.additionalOrgs" class="col-12 p-0 pt-1"
+                        i18n-aria-label="@@organization"
+                        aria-label="organisaatio"
+                      >
+                        <a
+                          *ngIf="org.orgId"
+                          routerLink="/results/organization/{{
+                            org.orgId
+                          }}"
+                          >{{ org.name }}</a
+                        >
+                        <ng-container *ngIf="!org.orgId">{{
+                          org.name
+                        }}</ng-container>
+
+                      </div>
+                    </div>
                   </div>
                   <div class="td col-12 col-lg-3">
                     {{ item.recipient.shareOfFundingEur | thousandSeparator }} €
@@ -252,10 +277,9 @@
                 <div class="row">
                   <div class="col-12 col-lg-3 td pr-0">
                     <span
-                      *ngIf="relatedFunding.recipientName?.length > 0"
-                      i18n-aria-label="@@fundingRecipient"
-                      aria-label="Rahoituksen saaja"
-                      >{{ relatedFunding.recipientName }}</span
+                    i18n-aria-label="@@funderProjectNumber"
+                    aria-label="Rahoituspäätöksen numero"
+                      >{{ relatedFunding.funderProjectNumber }}</span
                     >
                   </div>
                   <div class="td col-12 col-lg-4">
@@ -264,6 +288,13 @@
                       i18n-aria-label="@@typeOfFunding"
                       aria-label="Rahoitusmuoto"
                       >{{ relatedFunding.typeOfFundingName }}</span
+                    >
+                    <span
+                      *ngIf="relatedFunding.typeOfFundingName?.length > 0"
+                      i18n-aria-label="@@startYear"
+                      aria-label="aloitusvuosi"
+                      class="pl-1"
+                      >({{relatedFunding.fundingStartYear}})</span
                     >
                   </div>
                   <div
@@ -470,7 +501,8 @@
               class="row"
               *ngIf="
                 (item.euFunding && item.funder.euCallProgrammes.length > 0) ||
-                (!item.euFunding && item.funder.callProgrammeName)
+                (!item.euFunding &&
+                  item.funder.callProgrammeName?.trim()?.length > 0)
               "
             >
               <h2 class="col-12 col-sm-4 col-lg-3 th">

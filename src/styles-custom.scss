@@ -94,9 +94,29 @@ a.ext::after {
   margin-left: 0.3rem;
 }
 
+p a {
+  text-decoration: underline;
+}
+
 ul {
   list-style: disc;
   padding-inline-start: 1rem;
+}
+
+.primary-color {
+  color: mat-color($primary, 500);
+}
+
+.background-primary {
+  background-color: mat-color($primary, 500);
+}
+
+.background-light {
+  background-color: mat-color($primary, 50);
+}
+
+.border-primary {
+  border-color: mat-color($primary, 500) !important;
 }
 
 #main-content {
@@ -247,6 +267,26 @@ mat-basic-chip.tag {
       list-style: inside !important;
     }
   }
+}
+
+// Opacity
+.opacity-0 {
+  opacity: 0 !important;
+}
+.opacity-1 {
+  opacity: 0.2 !important;
+}
+.opacity-2 {
+  opacity: 0.4 !important;
+}
+.opacity-3 {
+  opacity: 0.6 !important;
+}
+.opacity-4 {
+  opacity: 0.8 !important;
+}
+.opacity-5 {
+  opacity: 1 !important;
 }
 
 @media (max-width: 575px) {
