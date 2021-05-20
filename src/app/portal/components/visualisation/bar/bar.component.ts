@@ -1,4 +1,3 @@
-// Testi
 import {
   Component,
   OnInit,

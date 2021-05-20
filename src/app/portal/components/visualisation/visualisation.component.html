@@ -31,8 +31,15 @@ Copyright 2019 Ministry of Education and Culture, Finland
       [searchTarget]="searchTarget"
     ></app-bar>
     <app-pie 
-    *ngIf="!visualisationType"
-    [data]="data">
+      *ngIf="!visualisationType"
+      [data]="data"
+      [tab]="tab"
+      [height]="height"
+      [width]="width"
+      [visIdx]="visIdx"
+      [percentage]="percentage"
+      [searchTerm]="searchTerm"
+      [searchTarget]="searchTarget">
       
     </app-pie>
   </div>
