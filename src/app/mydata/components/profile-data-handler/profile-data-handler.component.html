@@ -102,6 +102,7 @@
         <app-editor-modal
           [data]="selectedData"
           [dataSources]="dataSources"
+          [editLabel]="item.editLabel"
           (emitClose)="closeModal()"
           (dataChange)="changeData($event)"
         ></app-editor-modal>

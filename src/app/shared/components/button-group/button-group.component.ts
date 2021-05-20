@@ -5,14 +5,15 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-button-group',
   templateUrl: './button-group.component.html',
   styleUrls: ['./button-group.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
-export class ButtonGroupComponent {
+export class ButtonGroupComponent implements OnChanges {
   @Input() multiple: boolean;
   @Input() vertical: boolean;
   @Input() data: any[];
@@ -20,5 +21,11 @@ export class ButtonGroupComponent {
   @Input() ariaLabel: string;
   @Input() checked: any[];
 
-  constructor() {}
+  constructor() {
+    // console.log(this.data);
+  }
+
+  ngOnChanges() {
+    console.log(this.data);
+  }
 }

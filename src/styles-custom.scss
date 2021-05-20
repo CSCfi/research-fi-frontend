@@ -103,6 +103,14 @@ ul {
   padding-inline-start: 1rem;
 }
 
+.font-size-small {
+  font-size: 0.75rem;
+}
+
+.font-size-smaller {
+  font-size: 0.875rem;
+}
+
 .primary-color {
   color: mat-color($primary, 500);
 }
@@ -172,6 +180,12 @@ mark,
   font-weight: 400;
   color: mat-contrast($primary, 300);
   background-color: #ffc000;
+}
+
+// Columns
+.col {
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 // Forms
