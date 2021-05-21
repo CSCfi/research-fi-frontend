@@ -9,9 +9,16 @@ import { Injectable } from '@angular/core';
 import { Adapter } from './adapter.model';
 import { PersonalFieldsAdapter } from './personal.model';
 import { DescriptionFieldsAdapter } from './description.model';
+import { EducationFieldsAdapter } from './education.model';
+import { PublicationFieldsAdapter } from './publication.model';
 
 export class Orcid {
-  constructor(public personal: any, public description: any) {}
+  constructor(
+    public personal: any,
+    public description: any,
+    public education: any,
+    public publication: any
+  ) {}
 }
 
 @Injectable({
@@ -19,21 +26,26 @@ export class Orcid {
 })
 export class OrcidAdapter implements Adapter<Orcid> {
   constructor(
-    private pf: PersonalFieldsAdapter,
-    private df: DescriptionFieldsAdapter
+    private personalFieldsAdapter: PersonalFieldsAdapter,
+    private descriptionFieldsAdapter: DescriptionFieldsAdapter,
+    private educationFieldsAdapter: EducationFieldsAdapter,
+    private publicationFieldsAdapter: PublicationFieldsAdapter
   ) {}
 
   adapt(item: any): Orcid {
     const data = item.body.data;
+    console.log(data);
 
     const mapModel = (adapter, data) =>
       Object.values(adapter.adapt(data)).filter(
-        (item: any) => item.items.length > 0
+        (item: any) => item?.items.length > 0
       );
 
     return new Orcid(
-      mapModel(this.pf, data.personal),
-      mapModel(this.df, data.personal) // Description
+      mapModel(this.personalFieldsAdapter, data.personal),
+      mapModel(this.descriptionFieldsAdapter, data.personal),
+      mapModel(this.educationFieldsAdapter, data.activity),
+      mapModel(this.publicationFieldsAdapter, data.activity)
     );
   }
 

@@ -80,7 +80,7 @@
                 *ngFor="let value of field.items"
               >
                 <ng-container [ngSwitch]="field.groupMeta.type">
-                  <ng-container *ngSwitchCase="fieldTypes.webLink">{{
+                  <ng-container *ngSwitchCase="fieldTypes.personWebLink">{{
                     value.url
                   }}</ng-container>
                   <ng-container *ngSwitchDefault>
