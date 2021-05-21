@@ -4,21 +4,22 @@
  :license: MIT -->
 
 <div class="row" *ngIf="data">
-  <div class="col py-3 px-0">
+  <div class="col pt-3 pb-4 px-0">
     <ng-container *ngFor="let field of data.fields; let i = index">
-      <div class="row field">
+      <div class="row pt-3 pb-4">
         <div class="col px-0">
           <!-- Field -->
           <div class="row">
-            <span class="col px-0 h6 field-label">
+            <span class="col px-0 h6 m-0 pb-4 field-label">
               {{ field.label }}
             </span>
 
-            <div class="col-auto">
+            <div class="col-auto pr-0" *ngIf="!field.disabled">
               <mat-slide-toggle
                 [checked]="field.groupMeta.show"
                 (change)="toggleField(i)"
-                labelPosition="before"
+                [disabled]="field.disabled"
+                labelPosition="after"
                 >Näytä profiilissani</mat-slide-toggle
               >
             </div>
@@ -26,45 +27,64 @@
 
           <!-- Field values -->
           <div
-            class="row"
+            class="row field-value d-flex justify-content-between"
             *ngIf="field.items.length === 1; else fieldArrayTemplate"
           >
-            <div class="col field-value">
+            <div class="col-auto font-size-smaller">
               {{ field.items[0].value }}
+            </div>
 
-              <span class="pl-3 opacity-3">
-                {{ field.dataSource.name }}
-              </span>
+            <div class="col-auto pr-0 text-right opacity-3 font-size-small">
+              {{ field.dataSource.name }}
             </div>
           </div>
           <ng-template #fieldArrayTemplate>
-            <div class="col field-value" *ngFor="let value of field.items">
-              <ng-container [ngSwitch]="field.groupMeta.type">
-                <ng-container *ngSwitchCase="fieldTypes.webLink">{{
+            <div
+              class="row field-value d-flex justify-content-between"
+              *ngFor="let value of field.items"
+            >
+              <div
+                [ngSwitch]="field.groupMeta.type"
+                class="col-auto font-size-smaller"
+              >
+                <ng-container *ngSwitchCase="fieldTypes.personWebLink">{{
                   value.url
                 }}</ng-container>
                 <ng-container *ngSwitchDefault>
                   {{ value.value }}
                 </ng-container>
-              </ng-container>
+              </div>
 
-              <span class="pl-3 opacity-3">
+              <div class="col-auto pr-0 text-right opacity-3 font-size-small">
                 {{ field.dataSource.name }}
-              </span>
+              </div>
             </div>
           </ng-template>
         </div>
       </div>
-    </ng-container>
 
-    <div class="row pt-3">
-      <span class="col-12 px-lg-0">Valitse lähde:</span>
-      <app-button-group
-        class="col-12 pb-3 px-lg-0"
-        [data]="dataSources"
-        [checked]="checked"
-        [vertical]="appSettingsService.mobileStatus | async"
-      ></app-button-group>
-    </div>
+      <div class="row" *ngIf="!field.disabled">
+        <span class="col-12 px-lg-0 pb-2 font-size-small"
+          >Valitse lähteet:</span
+        >
+        <app-button-group
+          class="col-12 pb-2 px-lg-0"
+          [data]="dataSources"
+          [multiple]="true"
+          [checked]="checked"
+          [vertical]="appSettingsService.mobileStatus | async"
+        ></app-button-group>
+      </div>
+
+      <div class="row pb-4 font-size-small" *ngIf="!field.disabled">
+        <div class="col col-lg-6 pl-0">
+          <fa-icon class="pr-1 opacity-3" icon="info-circle"></fa-icon>
+          <span>Voit valita useamman lähteen</span>
+        </div>
+        <div class="col pr-0 opacity-3"><span>1 lähde valittu</span></div>
+      </div>
+
+      <hr class="m-0" />
+    </ng-container>
   </div>
 </div>

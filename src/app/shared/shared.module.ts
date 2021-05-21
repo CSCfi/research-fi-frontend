@@ -18,6 +18,8 @@ import { ButtonGroupComponent } from './components/button-group/button-group.com
 
 import { MatRippleModule } from '@angular/material/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     FontAwesomeModule,
     MatRippleModule,
     MatButtonToggleModule,
+    MatRadioModule,
+    MatCheckboxModule,
   ],
 })
 export class SharedModule {}

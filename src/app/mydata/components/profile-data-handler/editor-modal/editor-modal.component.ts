@@ -16,6 +16,7 @@ import { checkSelected } from '../../welcome-stepper/utils';
 export class EditorModalComponent implements OnInit {
   @Input() data: any;
   @Input() dataSources: any;
+  @Input() editLabel: string;
 
   allSelected: boolean;
 
@@ -63,6 +64,8 @@ export class EditorModalComponent implements OnInit {
   }
 
   toggleAll() {
+    this.allSelected = true;
+
     this.data.fields.forEach((field) => {
       field.groupMeta.show = true;
 

@@ -8,7 +8,7 @@
     <mat-expansion-panel
       class="mat-elevation-z1"
       *ngFor="let item of profileData; let i = index"
-      [expanded]="item.expanded"
+      [expanded]="item.expanded || openPanels.includes(i)"
       (opened)="setOpenPanel(i)"
       (closed)="closePanel(i)"
       [disabled]="item.fields.length === 0"
@@ -80,7 +80,7 @@
                 *ngFor="let value of field.items"
               >
                 <ng-container [ngSwitch]="field.groupMeta.type">
-                  <ng-container *ngSwitchCase="fieldTypes.webLink">{{
+                  <ng-container *ngSwitchCase="fieldTypes.personWebLink">{{
                     value.url
                   }}</ng-container>
                   <ng-container *ngSwitchDefault>
@@ -102,6 +102,7 @@
         <app-editor-modal
           [data]="selectedData"
           [dataSources]="dataSources"
+          [editLabel]="item.editLabel"
           (emitClose)="closeModal()"
           (dataChange)="changeData($event)"
         ></app-editor-modal>
