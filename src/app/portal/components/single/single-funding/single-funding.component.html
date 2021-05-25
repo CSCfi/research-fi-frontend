@@ -246,13 +246,15 @@
             </div>
             <!-- Related fundings -->
             <div class="row" *ngIf="item.relatedFundings?.length">
-              <h2
-                class="col-12 col-sm-4 col-lg-3 th"
-                i18n="@@relatedFundings"
-                i18n-aria-label="@@additionalInfo"
-                aria-label="Lisätietoa"
-              >
-                Muut päätökset
+              <h2 class="col-12 col-sm-4 col-lg-3 th">
+                <ng-container
+                  i18n="@@relatedFundings"
+                  i18n-aria-label="@@additionalInfo"
+                  aria-label="Lisätietoa"
+                >
+                  Muut päätökset
+                </ng-container>
+                <ng-container>
                 <ng-template #tooltipTemplate>
                   <div [innerHtml]="relatedFundingsTooltip.tooltip"></div>
                 </ng-template>
@@ -264,6 +266,7 @@
                 >
                   <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
                 </span>
+                </ng-container>
               </h2>
               <div
                 *ngFor="
