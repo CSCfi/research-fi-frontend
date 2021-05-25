@@ -5,14 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
@@ -20,8 +13,7 @@ import { FieldTypes } from '@mydata/constants/fieldTypes';
 @Component({
   selector: 'app-profile-panel',
   templateUrl: './profile-panel.component.html',
-  styleUrls: ['./profile-panel.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+  // Shared styles with parent, see profile-data-handler
 })
 export class ProfilePanelComponent implements OnInit {
   @Input() dataSources: any;

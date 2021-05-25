@@ -4,7 +4,6 @@
  :license: MIT -->
 
 <mat-button-toggle-group
-  class="my-3"
   [multiple]="multiple"
   [vertical]="vertical"
   [name]="name"
@@ -15,6 +14,22 @@
     [value]="item.label"
     [disabled]="item.disabled"
     [checked]="checked?.includes(item)"
-    >{{ item.label }}</mat-button-toggle
-  >
+    ><ng-container *ngIf="multiple; else singleOptionTemplate"
+      ><mat-checkbox
+        [disabled]="item.disabled"
+        [checked]="checked?.includes(item)"
+        >{{ item.label }}</mat-checkbox
+      ></ng-container
+    >
+    <ng-template #singleOptionTemplate>
+      <mat-radio-group name="item.label">
+        <mat-radio-button
+          [disabled]="item.disabled"
+          [checked]="checked?.includes(item)"
+          value="item.label"
+          >{{ item.label }}</mat-radio-button
+        ></mat-radio-group
+      ></ng-template
+    >
+  </mat-button-toggle>
 </mat-button-toggle-group>

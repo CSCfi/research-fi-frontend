@@ -27,7 +27,7 @@ import { Router } from '@angular/router';
   encapsulation: ViewEncapsulation.None,
 })
 export class WelcomeStepperComponent implements OnInit {
-  step = 1;
+  step = 3;
   cancel = false;
 
   termsApproved = false;

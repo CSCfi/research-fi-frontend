@@ -246,6 +246,7 @@ export class FundingFilterService {
 
     // Rearrange with custom order
     const rearranged = [];
+
     data.forEach((item) => {
       switch (item.id) {
         case '0004': {
@@ -263,6 +264,9 @@ export class FundingFilterService {
         case '0003': {
           rearranged.push(item);
           break;
+        }
+        default: {
+          rearranged.push(item);
         }
       }
     });

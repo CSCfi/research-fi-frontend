@@ -19,75 +19,67 @@ export class ProfileService {
   apiUrl: string;
   httpOptions: object;
 
-  testData = [
-    {
-      dataSource: { id: 1, name: 'ORCID' },
-      items: [
-        {
-          firstNames: 'Matti',
-          lastName: 'Mallikas',
-          fullName: '',
-          itemMeta: { id: 8, type: 112, show: false },
-          value: 'Matti Mallikas',
-        },
-      ],
-      groupMeta: { id: 28, type: 110, show: false },
-      label: 'Nimi',
-    },
-    {
-      dataSource: { id: 1, name: 'Korkeakoulu A' },
-      items: [
-        {
-          firstNames: 'Matti',
-          lastName: 'Mallikas',
-          fullName: '',
-          itemMeta: { id: 8, type: 112, show: false },
-          value: 'Matti Mallikas',
-        },
-      ],
-      groupMeta: { id: 28, type: 110, show: false },
-      label: 'Nimi',
-    },
-    {
-      dataSource: { id: 1, name: 'ORCID' },
-      items: [
-        {
-          firstNames: '',
-          lastName: '',
-          fullName: 'MM Mallikas',
-          itemMeta: { id: 9, type: 120, show: false },
-          value: 'MM Mallikas',
-        },
-      ],
-      groupMeta: { id: 29, type: 120, show: false },
-      label: 'Muut nimet',
-    },
-    {
-      dataSource: { id: 1, name: 'ORCID' },
-      items: [
-        { value: 'Angular', itemMeta: { id: 8, type: 150, show: false } },
-      ],
-      groupMeta: { id: 33, type: 150, show: false },
-      label: 'Avainsanat',
-    },
-    {
-      dataSource: { id: 1, name: 'ORCID' },
-      items: [
-        {
-          url: 'https://tiedejatutkimus.fi/fi/',
-          linkLabel: 'TTV',
-          itemMeta: { id: 9, type: 180, show: false },
-        },
-        {
-          url: 'https://forskning.fi/sv/',
-          linkLabel: 'Forskning',
-          itemMeta: { id: 10, type: 180, show: false },
-        },
-      ],
-      groupMeta: { id: 31, type: 180, show: false },
-      label: 'Linkit',
-    },
-  ];
+  testData = {
+    personal: [
+      {
+        dataSource: { id: 1, name: 'ORCID' },
+        items: [
+          {
+            firstNames: 'Matti',
+            lastName: 'Mallikas',
+            fullName: '',
+            itemMeta: { id: 23, type: 112, show: false },
+            value: 'Matti Mallikas',
+          },
+        ],
+        groupMeta: { id: 76, type: 110, show: true },
+        label: 'Nimi',
+        disabled: true,
+      },
+      {
+        dataSource: { id: 1, name: 'ORCID' },
+        items: [
+          {
+            firstNames: '',
+            lastName: '',
+            fullName: 'MM Mallikas',
+            itemMeta: { id: 24, type: 120, show: false },
+            value: 'MM Mallikas',
+          },
+        ],
+        groupMeta: { id: 77, type: 120, show: false },
+        label: 'Muut nimet',
+      },
+      {
+        dataSource: { id: 1, name: 'ORCID' },
+        items: [
+          {
+            url: 'https://tiedejatutkimus.fi/fi/',
+            linkLabel: 'TTV',
+            itemMeta: { id: 21, type: 180, show: false },
+          },
+          {
+            url: 'https://forskning.fi/sv/',
+            linkLabel: 'Forskning',
+            itemMeta: { id: 22, type: 180, show: false },
+          },
+        ],
+        groupMeta: { id: 79, type: 180, show: false },
+        label: 'Linkit',
+      },
+    ],
+    description: [
+      {
+        dataSource: { id: 1, name: 'ORCID' },
+        items: [
+          { value: 'Angular', itemMeta: { id: 23, type: 150, show: false } },
+          { value: 'TTV', itemMeta: { id: 24, type: 150, show: false } },
+        ],
+        groupMeta: { id: 81, type: 150, show: false },
+        label: 'Avainsanat',
+      },
+    ],
+  };
 
   constructor(
     private http: HttpClient,
