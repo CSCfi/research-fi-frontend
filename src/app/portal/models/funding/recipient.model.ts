@@ -133,17 +133,17 @@ export class RecipientAdapter implements Adapter<Recipient> {
                 x.fundingGroupPersonLastName +
                 (this.lang
                   .testLang('consortiumOrganizationName', recipientObj)
-                  .trim().length > 0
+                  ?.trim().length > 0
                   ? ', ' +
                     this.lang
                       .testLang('consortiumOrganizationName', recipientObj)
-                      .trim()
+                      ?.trim()
                   : null)
               : this.lang
                   .testLang('consortiumOrganizationName', recipientObj)
-                  .trim()
+                  ?.trim()
           )
-          .join('; ');
+          ?.join('; ');
       }
       // If no match with Finnish organization
     } else if (item.recipientType === 'person') {
