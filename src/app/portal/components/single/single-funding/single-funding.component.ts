@@ -105,7 +105,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   };
 
   relatedFundingsTooltip = {
-    tooltip: $localize`:@@relatedFundingtooltip:Rahoituspäätökseen liittyvät muut päätökset, kuten esimerkiksi samalle hankkeelle myönnetty tutkimuskulurahoitus. Sisältää tiedot liittyvän päätöksen tunnisteesta, rahoitusmuodosta, aloitusvuodesta sekä myönnetyn rahoituksen määrästä.`,
+    tooltip: $localize`:@@relatedFundingTooltip:Rahoituspäätökseen liittyvät muut päätökset, kuten esimerkiksi samalle hankkeelle myönnetty tutkimuskulurahoitus. Sisältää tiedot liittyvän päätöksen tunnisteesta, rahoitusmuodosta, aloitusvuodesta sekä myönnetyn rahoituksen määrästä.`,
   };
 
   funderTooltip = {
