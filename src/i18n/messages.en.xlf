@@ -2796,8 +2796,8 @@
         <target>Year for which funding was granted. In funding covering several years, the first year of funding.</target>
       </trans-unit>
       <trans-unit id="sfEndYearTooltip">
-        <source>Rahoituskauden päättymisvuosi.</source>
-        <target>Ending year of funding.</target>
+        <source>Rahoituskauden päättymisvuosi. Useamman päätöksen kokonaisuudessa viimeisimmän päätöksen päättymisvuosi.</source>
+        <target>Ending year of funding. In the group of multiple decisions, the ending year of the latest decision.</target>
       </trans-unit>
       <trans-unit id="sfTypeOfFundingTooltip">
         <source>Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuodot ovat usein rahoittajakohtaisia.</source>

@@ -58,7 +58,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     {
       label: $localize`Päättymisvuosi`,
       field: 'endYear',
-      tooltip: $localize`:@@sfEndYearTooltip:Rahoituskauden päättymisvuosi.`,
+      tooltip: $localize`:@@sfEndYearTooltip:Rahoituskauden päättymisvuosi. Useamman päätöksen kokonaisuudessa viimeisimmän päätöksen päättymisvuosi.`,
     },
   ];
 
