@@ -101,11 +101,11 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   };
 
   fundingAmountTooltip = {
-    tooltip: $localize`Rahoittajan rahoituspäätöksessään myöntämä rahoitus. Summa ei sisällä hankkeen kaikkia kustannuksia. Organisaatio, jossa hanke toteutetaan, voi rahoittaa siitä tietyn osan (ns. omarahoitusosuus) ja hankkeella voi olla muitakin rahoittajia.`,
+    tooltip: $localize`:@@fundingAmountTooltip:Rahoittajan hankkeelle myöntämä yhteissumma. Summa ei sisällä hankkeen kaikkia kustannuksia. Organisaatio, jossa hanke toteutetaan, voi rahoittaa siitä tietyn osan (ns. omarahoitusosuus) ja hankkeella voi olla muitakin rahoittajia.`,
   };
 
   relatedFundingsTooltip = {
-    tooltip: 'Placeholder tooltip',
+    tooltip: $localize`:@@relatedFundingtooltip:Rahoituspäätökseen liittyvät muut päätökset, kuten esimerkiksi samalle hankkeelle myönnetty tutkimuskulurahoitus. Sisältää tiedot liittyvän päätöksen tunnisteesta, rahoitusmuodosta, aloitusvuodesta sekä myönnetyn rahoituksen määrästä.`,
   };
 
   funderTooltip = {
