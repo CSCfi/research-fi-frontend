@@ -5,252 +5,333 @@
 
 <main id="main-content">
   <div class="wrapper">
-    <ng-container *ngIf="!cancel; else cancelTemplate">
-      <div class="row" *ngIf="step !== 4 || (step === 4 && dataFetched)">
-        <div class="col text-center">
-          <h2>{{ step }} / 4</h2>
-        </div>
-      </div>
+    <div class="row d-flex justify-content-center">
+      <div class="col col-lg-6 px-0">
+        <ng-container *ngIf="!cancel; else cancelTemplate">
+          <div class="row">
+            <div class="col text-center">
+              <h1 class="step-header">{{ step }} / 4</h1>
+            </div>
+          </div>
 
-      <ng-container [ngSwitch]="step">
-        <!-- First step -->
-        <ng-container *ngSwitchCase="1">
+          <ng-container [ngSwitch]="step">
+            <!-- First step -->
+            <ng-container *ngSwitchCase="1">
+              <div class="row pb-4">
+                <div class="col text-center">
+                  <h1 class="step-header">Tervetuloa {{ firstName }}!</h1>
+                </div>
+                <!-- Icon -->
+                <i
+                  class="col-12 pt-3 h1 primary-color text-center fas fa-smile"
+                ></i>
+              </div>
+
+              <div class="row pb-4 d-flex justify-content-center">
+                <div class="col text-center">
+                  <p>
+                    Ottaaksesi palvelun käyttöön, pyydämme sinua lukemaan ja
+                    hyväksymään palvelun käyttöehdot ja tietosuojaselosteen.
+                  </p>
+                </div>
+              </div>
+
+              <div class="row pb-3 d-flex justify-content-center">
+                <div class="col col-lg-8">
+                  <app-primary-action-button
+                    content="Avaa käyttöehdot"
+                    (click)="increment()"
+                    [big]="true"
+                  >
+                  </app-primary-action-button>
+                </div>
+              </div>
+              <div class="row d-flex justify-content-center">
+                <div class="col col-lg-8">
+                  <app-secondary-button
+                    content="Peruuta käyttöönotto"
+                    (click)="toggleCancel()"
+                    [big]="true"
+                  >
+                  </app-secondary-button>
+                </div>
+              </div>
+            </ng-container>
+
+            <!-- Second step -->
+            <ng-container *ngSwitchCase="2">
+              <div class="row pb-4">
+                <div class="col text-center">
+                  <h1 class="step-header">Käyttöehdot</h1>
+                </div>
+                <!-- Icon -->
+                <i
+                  class="
+                    col-12
+                    pt-3
+                    h1
+                    primary-color
+                    text-center
+                    fas
+                    fa-file-alt
+                  "
+                ></i>
+              </div>
+
+              <div class="row pb-4 d-flex justify-content-center">
+                <h2 class="col-12 h6 pb-2">
+                  Tutkijan profiilityökalun käyttöehdot
+                </h2>
+                <div class="col-12 pb-3">
+                  <button
+                    class="row border border-primary rounded btn d-flex w-100"
+                    (click)="openModal(termsTemplate)"
+                  >
+                    <div class="col-auto">
+                      <i class="pt-3 pb-2 h1 primary-color fas fa-file-alt"></i>
+                    </div>
+                    <div class="col align-self-center">
+                      <span class="d-block align-self-center text-left"
+                        >Avaa käyttöehdot</span
+                      >
+                    </div>
+                  </button>
+                </div>
+                <div class="col">
+                  <mat-checkbox color="primary" [(ngModel)]="termsApproved"
+                    >Olen lukenut palvelun käyttöehdot, ja hyväksyn
+                    ne</mat-checkbox
+                  >
+                </div>
+              </div>
+
+              <ng-template #termsTemplate>
+                <div class="modal-header">
+                  <h4 id="dialog-sizes-name1" class="modal-title pull-left">
+                    Tutkijan profiilityökalun käyttöehdot
+                  </h4>
+
+                  <app-close-button
+                    class="pull-right"
+                    (click)="closeModal()"
+                    (keydown.enter)="closeModal()"
+                    autofocus
+                    tabindex="-1"
+                  ></app-close-button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col col-lg-10 py-3">Tulossa</div>
+                  </div>
+                </div>
+              </ng-template>
+
+              <div class="row pb-4 d-flex justify-content-center">
+                <h2 class="col-12 h6 pb-2">Henkilötietojen käsittely</h2>
+                <div class="col-12 pb-3">
+                  <button
+                    class="row border border-primary rounded btn d-flex w-100"
+                    (click)="openModal(personalDataHandlingTermsTemplate)"
+                  >
+                    <div class="col-auto">
+                      <i class="pt-3 pb-2 h1 primary-color fas fa-file-alt"></i>
+                    </div>
+                    <div class="col align-self-center">
+                      <span class="d-block align-self-center text-left"
+                        >Avaa henkilötietojen käsittelyperiaatteet</span
+                      >
+                    </div>
+                  </button>
+                </div>
+                <div class="col">
+                  <mat-checkbox
+                    color="primary"
+                    [(ngModel)]="personalDataHandlingApproved"
+                    >Hyväksyn henkilötietojeni käsittelyn</mat-checkbox
+                  >
+                </div>
+              </div>
+
+              <ng-template #personalDataHandlingTermsTemplate>
+                <div class="modal-header">
+                  <h4 id="dialog-sizes-name1" class="modal-title pull-left">
+                    Henkilötietojen käsittelyperiaatteet
+                  </h4>
+
+                  <app-close-button
+                    class="pull-right"
+                    (click)="closeModal()"
+                    (keydown.enter)="closeModal()"
+                    autofocus
+                    tabindex="-1"
+                  ></app-close-button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col col-lg-10 py-3">Tulossa</div>
+                  </div>
+                </div>
+              </ng-template>
+
+              <app-stepper-navigation
+                (changeStep)="changeStep($event)"
+                [disableNext]="!termsApproved || !personalDataHandlingApproved"
+              ></app-stepper-navigation>
+            </ng-container>
+
+            <!-- Third step -->
+            <ng-container *ngSwitchCase="3">
+              <div class="row pb-4">
+                <div class="col text-center">
+                  <h1 class="step-header">Tietojen tuominen Orcidista</h1>
+                </div>
+                <!-- Icon -->
+                <i
+                  class="
+                    col-12
+                    pt-3
+                    h1
+                    primary-color
+                    text-center
+                    fas
+                    fa-download
+                  "
+                ></i>
+              </div>
+
+              <div class="row pb-3 d-flex justify-content-center">
+                <div class="col">
+                  <p>
+                    Tutkijan tiedot -palvelun käyttöönotto edellyttää, että
+                    Orcid-tietosi tuodaan ja tallennetaan palveluun. Aloita
+                    tuonti painamalla "Tuo Orcid-tietoni" painiketta.
+                  </p>
+                  <p>Tässä vaiheessa emme vielä julkaise profiiliasi.</p>
+                  <p>
+                    Jos päivität tietojasi Orcidissa tämän tuonnin jälkeen,
+                    kyseiset tiedot päivittyvät myös Tutkijan tiedot
+                    -profiiliisi
+                  </p>
+                  <p>
+                    <a href="javascript:void(0)"
+                      >Lisätietoja palvelun toimintaperiaatteesta</a
+                    >
+                  </p>
+                </div>
+              </div>
+
+              <!-- Data fetching indicator -->
+              <div
+                bsModal
+                #smModal="bs-modal"
+                class="modal fade"
+                tabindex="-1"
+                role="dialog"
+              >
+                <div class="modal-dialog modal-sm modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-body text-center">
+                      <mat-spinner class="mx-auto" [diameter]="80">
+                      </mat-spinner>
+                      <span class="d-block pt-3"
+                        >Tietoja tuodaan, odota hetki...</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <app-stepper-navigation
+                (changeStep)="changeStep($event)"
+                nextContent="Tuo Orcid-tietoni"
+              ></app-stepper-navigation>
+            </ng-container>
+
+            <!-- Fourth step -->
+            <ng-container *ngSwitchCase="4">
+              <div class="row pb-4">
+                <div class="col text-center">
+                  <h1 class="step-header">Tiedot tuotu!</h1>
+                  <h2 class="step-header">Mitkä tiedot tuodaan julkisiksi?</h2>
+                </div>
+                <!-- Icon -->
+                <i
+                  class="
+                    col-12
+                    pt-3
+                    h1
+                    primary-color
+                    text-center
+                    fas
+                    fa-check-circle
+                  "
+                ></i>
+              </div>
+
+              <div class="row pb-4 d-flex justify-content-center">
+                <div class="col px-0 px-lg-3">
+                  <app-profile-data-handler
+                    [response]="orcidData"
+                  ></app-profile-data-handler>
+                </div>
+              </div>
+              <app-stepper-navigation
+                (changeStep)="changeStep($event)"
+              ></app-stepper-navigation>
+            </ng-container>
+
+            <!-- Default to 404 -->
+            <app-not-found *ngSwitchDefault></app-not-found>
+          </ng-container>
+        </ng-container>
+
+        <!-- Cancel -->
+        <ng-template #cancelTemplate>
           <div class="row pb-4">
             <div class="col text-center">
-              <h2 class="primary-color">Tervetuloa {{ firstName }}!</h2>
+              <h1 class="step-header">Peruutetaanko palvelun käyttöönotto?</h1>
             </div>
           </div>
 
           <div class="row pb-4 d-flex justify-content-center">
-            <div class="col col-lg-4 text-center">
+            <div class="col">
               <p>
-                Ottaaksesi palvelun käyttöön, pyydämme sinua lukemaan ja
-                hyväksymään palvelun käyttöehdot ja tietosuojaselosteen.
+                Käyttöönotto keskeytetään, ja mitään tietoja ei tallenneta.<br />
+                Mikäli haluat ottaa palvelun käyttöön myöhemmin, aloitat
+                käyttöönoton alusta.
               </p>
             </div>
           </div>
 
           <div class="row pb-3 d-flex justify-content-center">
-            <div class="col col-lg-auto">
-              <app-primary-action-button
-                content="Avaa käyttöehdot ja tietosuoja"
-                (click)="increment()"
+            <div class="col">
+              <app-secondary-button
+                content="Kyllä, peruutan käyttöönoton"
+                routerLink="/mydata"
                 [big]="true"
               >
-              </app-primary-action-button>
+              </app-secondary-button>
             </div>
           </div>
           <div class="row d-flex justify-content-center">
-            <div class="col col-lg-auto">
+            <div class="col">
               <app-secondary-button
-                content="Peruuta käyttöönotto"
+                content="Ei, jatkan käyttöönottoa"
                 (click)="toggleCancel()"
                 [big]="true"
               >
               </app-secondary-button>
             </div>
           </div>
-        </ng-container>
+        </ng-template>
 
-        <!-- Second step -->
-        <ng-container *ngSwitchCase="2">
-          <div class="row pb-4">
-            <div class="col text-center">
-              <h2 class="primary-color">Käyttöehdot ja tietosuoja</h2>
-            </div>
-          </div>
-
-          <div class="row pb-4 d-flex justify-content-center">
-            <div class="col col-lg-4">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </p>
-              <p>
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                laboris nisi ut aliquip ex ea commodo consequat.
-              </p>
-              <p>
-                Duis aute irure dolor in reprehenderit in voluptate velit esse
-                cillum dolore eu fugiat nulla pariatur.
-              </p>
-              <p>
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa
-                qui officia deserunt mollit anim id est laborum.
-              </p>
-              <a href="#" class="d-block text-right font-weight-bold"
-                >Lue lisää palvelun tietosuojasta</a
-              >
-            </div>
-          </div>
-
-          <div class="row pb-4 d-flex justify-content-center">
-            <div class="col col-lg-4">
-              <mat-checkbox color="primary" [(ngModel)]="termsApproved"
-                >Olen lukenut palvelun käyttöehdot ja tietosuojan, ja hyväksyn
-                ne</mat-checkbox
-              >
-              <mat-checkbox
-                color="primary"
-                [(ngModel)]="personalDataHandlingApproved"
-                >Hyväksyn henkilötietojeni käsittelyn</mat-checkbox
-              >
-              <a href="#" class="d-block text-right font-weight-bold"
-                >Lue lisää palvelun tietosuojasta</a
-              >
-            </div>
-          </div>
-
-          <div class="row pb-4 d-flex justify-content-center">
-            <div class="col-6 col-lg-2">
-              <app-secondary-button
-                content="Edellinen"
-                (click)="decrement()"
-                [big]="true"
-                [icon]="faAngleDoubleLeft"
-                [noSmIcon]="true"
-              >
-              </app-secondary-button>
-            </div>
-            <div class="col-6 col-lg-2">
-              <app-primary-action-button
-                content="Seuraava"
-                [disabled]="!termsApproved || !personalDataHandlingApproved"
-                (click)="increment()"
-                [big]="true"
-                [icon]="faAngleDoubleRight"
-                [iconAfter]="true"
-                [noSmIcon]="true"
-              >
-              </app-primary-action-button>
-            </div>
-          </div>
-        </ng-container>
-
-        <!-- Third step -->
-        <ng-container *ngSwitchCase="3">
-          <div class="row pb-4">
-            <div class="col text-center">
-              <h2 class="primary-color">Tietojen tuominen Orcidista</h2>
-            </div>
-          </div>
-
-          <div class="row pb-3 d-flex justify-content-center">
-            <div class="col col-lg-4">
-              <p>Ota palvelu käyttöön tuomalla tietosi Orcidista.</p>
-              <p>Tässä vaiheessa emme vielä julkaise tietojasi.</p>
-              <p>
-                Voit hallinnoida Orcid-tietojesi jakamista ja näkyvyyttä tuonnin
-                jälkeen.
-              </p>
-            </div>
-          </div>
-
-          <div class="row pt-5 mt-5 pb-4 d-flex justify-content-center">
-            <div class="col-6 col-lg-2">
-              <app-secondary-button
-                content="Edellinen"
-                (click)="decrement()"
-                [big]="true"
-                [icon]="faAngleDoubleLeft"
-                [noSmIcon]="true"
-              >
-              </app-secondary-button>
-            </div>
-            <div class="col-6 col-lg-2">
-              <app-primary-action-button
-                content="Tuo tiedot"
-                (click)="increment()"
-                [big]="true"
-                [icon]="faAngleDoubleRight"
-                [iconAfter]="true"
-                [noSmIcon]="true"
-              >
-              </app-primary-action-button>
-            </div>
-          </div>
-        </ng-container>
-
-        <!-- Fourth step -->
-        <ng-container *ngSwitchCase="4">
-          <div class="row pb-4 d-flex justify-content-center">
-            <div class="col">
-              <app-orcid-data-handler
-                (cancel)="onCancelClick($event)"
-                (dataFlag)="setDataFlag($event)"
-              ></app-orcid-data-handler>
-            </div>
-          </div>
-          <div
-            *ngIf="dataFetched"
-            class="row pb-4 d-flex justify-content-center"
-          >
-            <div class="col-6 col-lg-2">
-              <app-secondary-button
-                content="Edellinen"
-                (click)="decrement()"
-                [big]="true"
-                [icon]="faAngleDoubleLeft"
-                [noSmIcon]="true"
-              >
-              </app-secondary-button>
-            </div>
-            <div class="col-6 col-lg-2">
-              <app-primary-action-button
-                content="Seuraava"
-                [big]="true"
-                [icon]="faAngleDoubleRight"
-                [iconAfter]="true"
-                [noSmIcon]="true"
-              >
-              </app-primary-action-button>
-            </div>
-          </div>
-        </ng-container>
-
-        <!-- Default to 404 -->
-        <app-not-found *ngSwitchDefault></app-not-found>
-      </ng-container>
-    </ng-container>
-
-    <!-- Cancel -->
-    <ng-template #cancelTemplate>
-      <div class="row pb-4">
-        <div class="col text-center">
-          <h2 class="primary-color">Peruutetaanko palvelun käyttöönotto?</h2>
+        <div class="row py-5">
+          <app-orcid-id-info
+            class="col text-center"
+            [userData]="userData"
+          ></app-orcid-id-info>
         </div>
       </div>
-
-      <div class="row pb-4 d-flex justify-content-center">
-        <div class="col col-lg-4">
-          <p>
-            Käyttöönotto keskeytetään, ja mitään tietoja ei tallenneta.<br />
-            Mikäli haluat ottaa palvelun käyttöön myöhemmin, aloitat
-            käyttöönoton alusta.
-          </p>
-        </div>
-      </div>
-
-      <div class="row pb-3 d-flex justify-content-center">
-        <div class="col col-lg-4">
-          <app-secondary-button
-            content="Kyllä, peruutan käyttöönoton"
-            routerLink="/mydata"
-            [big]="true"
-          >
-          </app-secondary-button>
-        </div>
-      </div>
-      <div class="row d-flex justify-content-center">
-        <div class="col col-lg-4">
-          <app-secondary-button
-            content="Ei, jatkan käyttöönottoa"
-            (click)="toggleCancel()"
-            [big]="true"
-          >
-          </app-secondary-button>
-        </div>
-      </div>
-    </ng-template>
+    </div>
   </div>
 </main>

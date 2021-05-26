@@ -2743,7 +2743,7 @@
         <source>Haun tunniste</source>
         <target>Call ID</target>
       </trans-unit>
-      <trans-unit id="1429405664221353899">
+      <trans-unit id="funderProjectNumber">
         <source>Rahoituspäätöksen numero</source>
         <target>Funding decision number</target>
       </trans-unit>
@@ -2796,8 +2796,8 @@
         <target>Year for which funding was granted. In funding covering several years, the first year of funding.</target>
       </trans-unit>
       <trans-unit id="sfEndYearTooltip">
-        <source>Rahoituskauden päättymisvuosi.</source>
-        <target>Ending year of funding.</target>
+        <source>Rahoituskauden päättymisvuosi. Useamman päätöksen kokonaisuudessa viimeisimmän päätöksen päättymisvuosi.</source>
+        <target>Ending year of funding. In the group of multiple decisions, the ending year of the latest decision.</target>
       </trans-unit>
       <trans-unit id="sfTypeOfFundingTooltip">
         <source>Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuodot ovat usein rahoittajakohtaisia.</source>
@@ -2807,13 +2807,21 @@
         <source>Rahoittajan haku, josta rahoitus on myönnetty. Kilpailtu tutkimusrahoitus myönnetään usein avoimien hakujen kautta, joissa rahoituksen myöntämisen perusteena ovat ennalta määrätyt kriteerit. Hakemukset arvioidaan ja rahoitus myönnetään kriteerien ja muiden tavoitteiden perusteella parhaiksi katsotuille hakemuksille.</source>
         <target>Funder´s call granting the funding. Competed research funding is often granted through open calls, in which funding is granted on the basis of prescribed criteria. Applications are evaluated and funding is granted to the best</target>
       </trans-unit>
+      <trans-unit id="relatedFundingTooltip">
+        <source>Rahoituspäätökseen liittyvät muut päätökset, kuten esimerkiksi samalle hankkeelle myönnetty tutkimuskulurahoitus. Sisältää tiedot liittyvän päätöksen tunnisteesta, rahoitusmuodosta, aloitusvuodesta sekä myönnetyn rahoituksen määrästä.</source>
+        <target>Other decisions related to this funding decision, e.g. granted funding for research costs. Includes information on the related decision’s identifier, funding method, starting year, and the amount of funding granted.</target>
+      </trans-unit>
+      <trans-unit id="otherRelatedFundings">
+        <source>Muut päätösket</source>
+        <target>Related funding decisions</target>
+      </trans-unit>
       <trans-unit id="4073996987769162370">
         <source>Rahoituksen saaja voi olla henkilö tai organisaatio. Usein saajaksi mainittu henkilö on vastuullinen tutkija, joka ei itse käytä myönnettyä rahoitusta vaan sillä katetaan hankkeen kustannuksia.</source>
         <target>The funding recipient may be a person or organization. In many cases, the specified funding recipient is a principal investigator (PI), who will not personally be using the funding as it will instead be used to cover project costs.</target>
       </trans-unit>
-      <trans-unit id="1600561099075815966">
-        <source>Rahoittajan rahoituspäätöksessään myöntämä rahoitus. Summa ei sisällä hankkeen kaikkia kustannuksia. Organisaatio, jossa hanke toteutetaan, voi rahoittaa siitä tietyn osan (ns. omarahoitusosuus) ja hankkeella voi olla muitakin rahoittajia.</source>
-        <target state="translated">Funding granted by the funder in its funding decision. The amount does not include all project costs. The organization in which the project is being run may fund a certain part of it (i.e. self-financing contribution) and the project may also have other funders.</target>
+      <trans-unit id="fundingAmountTooltip">
+        <source>Rahoittajan hankkeelle myöntämä yhteissumma. Summa ei sisällä hankkeen kaikkia kustannuksia. Organisaatio, jossa hanke toteutetaan, voi rahoittaa siitä tietyn osan (ns. omarahoitusosuus) ja hankkeella voi olla muitakin rahoittajia.</source>
+        <target state="translated">The total amount granted by the funder for the project. The amount does not include all project costs. The organisation in which the project is carried out may fund a certain part of it (i-e. self-financing contribution) and the project may also have other funders.</target>
       </trans-unit>
       <trans-unit id="6174779948491913415">
         <source>Tutkimusrahoittaja, joka on myöntänyt rahoituksen. Kaikki tiedejatutkimus.fi ‑palveluun tietoja toimittavat tutkimusrahoittajat ovat organisaatiot-osiossa.</source>
@@ -3306,6 +3314,10 @@
       <trans-unit id="FAField">
         <source>Teemat</source>
         <target>Themes</target>
+      </trans-unit>
+      <trans-unit id="FAResearchFields">
+        <source>Suomen Akatemian tutkimusalat</source>
+        <target>Academy of Finland's research fields</target>
       </trans-unit>
       <trans-unit id="iYearFTooltip">
         <source>Tutkimusinfrastruktuurin toiminnan aloitusvuosi. Jos aloitusvuosi ei ole tiedossa, käytetään vuotta jolloin tiedot on toimitettu tiedejatutkimus.fi-palveluun.</source>

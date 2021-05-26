@@ -1,0 +1,85 @@
+//  This file is part of the research.fi API service
+//
+//  Copyright 2019 Ministry of Education and Culture, Finland
+//
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
+app-profile-data-handler {
+  .mat-content {
+    display: block;
+  }
+
+  // Mat-select overrides
+  .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+
+  .mat-form-field-appearance-fill .mat-form-field-flex {
+    padding: 0;
+  }
+
+  .mat-form-field-appearance-fill .mat-form-field-infix {
+    padding: 0.25rem 0;
+  }
+
+  .mat-form-field-infix {
+    border-top: 0;
+  }
+
+  .mat-form-field-appearance-fill .mat-select-arrow-wrapper {
+    transform: translateY(0%);
+  }
+
+  .mat-form-field-underline {
+    bottom: 0;
+  }
+
+  .mat-select-value-text {
+    padding-left: 0.5rem;
+  }
+
+  // Expansion panel overrides
+  .mat-expansion-panel {
+    background: none !important;
+  }
+
+  .panel-header-item {
+    flex: 1;
+  }
+
+  .panel-action-button {
+    flex: 3;
+  }
+
+  .break {
+    flex-basis: 100%;
+    height: 0;
+  }
+
+  .mat-expansion-panel-body {
+    padding: 0 0 1rem;
+  }
+
+  .mat-elevation-z1 {
+    box-shadow: none;
+    border: 1px solid #0000001a;
+    margin-bottom: -1px;
+  }
+
+  // Panel fields
+  .field {
+    padding: 1rem 0;
+  }
+
+  .field-disabled-label {
+    padding: 0.25rem 1rem;
+    border-radius: 0.25rem;
+  }
+
+  @media (min-width: 576px) {
+    .modal-dialog {
+      max-width: 700px !important;
+    }
+  }
+}

@@ -65,7 +65,9 @@ export class RecipientAdapter implements Adapter<Recipient> {
         combined =
           finnish.length > 1
             ? finnish
-                .map((x) => this.lang.testLang('consortiumOrganizationName', x).trim())
+                .map((x) =>
+                  this.lang.testLang('consortiumOrganizationName', x).trim()
+                )
                 .join('; ')
             : this.lang.testLang(
                 'consortiumOrganizationName',
@@ -166,7 +168,9 @@ export class RecipientAdapter implements Adapter<Recipient> {
       } else if (item.organizationConsortium) {
         combined = item.organizationConsortium
           .filter((x) => !x.countryCode || x.countryCode === 'FI')
-          .map((x) => this.lang.testLang('consortiumOrganizationName', x).trim())
+          .map((x) =>
+            this.lang.testLang('consortiumOrganizationName', x).trim()
+          )
           .join('; ');
       }
     } else {

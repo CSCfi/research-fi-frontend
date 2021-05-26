@@ -18,7 +18,8 @@
     "lib": ["es2018", "dom", "esnext.array"],
     "paths": {
       "@portal/*": ["src/app/portal/*"],
-      "@shared/*": ["src/app/shared/*"],
+      "@mydata/*": ["src/app/mydata/*"],
+      "@shared/*": ["src/app/shared/*"]
     }
   }
 }

@@ -2736,7 +2736,7 @@
         <source>Haun tunniste</source>
         <target state="translated">Utlysnings ID</target>
       </trans-unit>
-      <trans-unit id="1429405664221353899">
+      <trans-unit id="funderProjectNumber">
         <source>Rahoituspäätöksen numero</source>
         <target state="translated">Finansieringsbeslutets nummer</target>
       </trans-unit>
@@ -2789,8 +2789,8 @@
         <target>År för vilket finansiering har beviljats. Det första året i finansiering för flera år.</target>
       </trans-unit>
       <trans-unit id="sfEndYearTooltip">
-        <source>Rahoituskauden päättymisvuosi.</source>
-        <target>Upphörande av finansieringsperiod</target>
+        <source>Rahoituskauden päättymisvuosi. Useamman päätöksen kokonaisuudessa viimeisimmän päätöksen päättymisvuosi.</source>
+        <target>Upphörande av finansieringsperiod. Om projektet består av flera beslut, slutåret för det senaste beslutet.</target>
       </trans-unit>
       <trans-unit id="sfTypeOfFundingTooltip">
         <source>Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuodot ovat usein rahoittajakohtaisia.</source>
@@ -2800,13 +2800,21 @@
         <source>Rahoittajan haku, josta rahoitus on myönnetty. Kilpailtu tutkimusrahoitus myönnetään usein avoimien hakujen kautta, joissa rahoituksen myöntämisen perusteena ovat ennalta määrätyt kriteerit. Hakemukset arvioidaan ja rahoitus myönnetään kriteerien ja muiden tavoitteiden perusteella parhaiksi katsotuille hakemuksille.</source>
         <target>Utlysning av finansiär som har beviljat finansiering. Konkurrensutsatt forskningsfinansiering beviljas ofta genom öppna ansökningar, där beviljandet av finansiering grundar sig på kriterier som fastställts på förhand.</target>
       </trans-unit>
+      <trans-unit id="otherRelatedFundings">
+        <source>Muut päätösket</source>
+        <target>Andra beslut</target>
+      </trans-unit>
+      <trans-unit id="relatedFundingTooltip">
+        <source>Rahoituspäätökseen liittyvät muut päätökset, kuten esimerkiksi samalle hankkeelle myönnetty tutkimuskulurahoitus. Sisältää tiedot liittyvän päätöksen tunnisteesta, rahoitusmuodosta, aloitusvuodesta sekä myönnetyn rahoituksen määrästä.</source>
+        <target>Andra beslut relaterade till finansieringsbeslutet, t.ex. beviljat finansiering för forskningskostnader för samma projekt. Innehåller information om det relaterade beslutets identifierare, finansieringstyp, startår och beviljad finansiering.</target>
+      </trans-unit>
       <trans-unit id="4073996987769162370">
         <source>Rahoituksen saaja voi olla henkilö tai organisaatio. Usein saajaksi mainittu henkilö on vastuullinen tutkija, joka ei itse käytä myönnettyä rahoitusta vaan sillä katetaan hankkeen kustannuksia.</source>
         <target state="translated">Finansieringsmottagaren kan vara en person eller en organisation. Ofta är den person som nämns som mottagare en ansvarig forskare som inte själv använder den beviljade finansieringen utan den används för att täcka projektets kostnader.</target>
       </trans-unit>
-      <trans-unit id="1600561099075815966">
-        <source>Rahoittajan rahoituspäätöksessään myöntämä rahoitus. Summa ei sisällä hankkeen kaikkia kustannuksia. Organisaatio, jossa hanke toteutetaan, voi rahoittaa siitä tietyn osan (ns. omarahoitusosuus) ja hankkeella voi olla muitakin rahoittajia.</source>
-        <target state="translated">Finansiering som finansiären beviljat i sitt finansieringsbeslut. I beloppet ingår inte alla kostnader för projektet. Den organisation där projektet genomförs kan finansiera en viss del av projektet (s.k. självfinansieringsandel) och projektet kan även ha andra finansiärer.</target>
+      <trans-unit id="fundingAmountTooltip">
+        <source>Rahoittajan hankkeelle myöntämä yhteissumma. Summa ei sisällä hankkeen kaikkia kustannuksia. Organisaatio, jossa hanke toteutetaan, voi rahoittaa siitä tietyn osan (ns. omarahoitusosuus) ja hankkeella voi olla muitakin rahoittajia.</source>
+        <target state="translated">Det totala belopp som finansiären har beviljat för projektet. I beloppet ingår inte alla kostnader för projektet. Den organisation där projektet genomförs kan finansiera en viss del av projekt (s.k. självfinansieringsandel) och projektet kan även ha andra finansiärer.</target>
       </trans-unit>
       <trans-unit id="6174779948491913415">
         <source>Tutkimusrahoittaja, joka on myöntänyt rahoituksen. Kaikki tiedejatutkimus.fi ‑palveluun tietoja toimittavat tutkimusrahoittajat ovat organisaatiot-osiossa.</source>
@@ -2814,7 +2822,7 @@
       </trans-unit>
       <trans-unit id="6587616297300188756">
         <source>Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa.</source>
-      <target state="translated">En webbplats utanför tjänsten forskning.fi där det finns mer detaljerad information om projektet</target>
+        <target state="translated">En webbplats utanför tjänsten forskning.fi där det finns mer detaljerad information om projektet</target>
       </trans-unit>
       <!-- Datasets -->
       <trans-unit id="datasetBetaInfo">
@@ -3303,6 +3311,10 @@
       <trans-unit id="FAField">
         <source>Teemat</source>
         <target state="translated">Teman</target>
+      </trans-unit>
+      <trans-unit id="FAResearchFields">
+        <source>Suomen Akatemian tutkimusalat</source>
+        <target>Finlands Akademis forskningsområden</target>
       </trans-unit>
       <trans-unit id="iYearFTooltip">
         <source>Tutkimusinfrastruktuurin toiminnan aloitusvuosi. Jos aloitusvuosi ei ole tiedossa, käytetään vuotta jolloin tiedot on toimitettu tiedejatutkimus.fi-palveluun.</source>

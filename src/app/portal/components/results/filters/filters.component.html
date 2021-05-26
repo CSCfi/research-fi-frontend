@@ -141,12 +141,12 @@
             <div class="pl-2 d-inline-block">
               <ng-template #tooltipTemplate>
                 <div i18n="@@filterCoPublicationsTooltip">
-                  Valitsemalla ”näytä ainoastaan yhteisjulkaisut” voit tarkastella
-                  suomalaisten organisaatioiden yhteisiä julkaisuja. Hakutulos
-                  näyttää tällöin vain sellaiset julkaisut, joissa kaikki alla
-                  olevasta listasta valitut organisaatiot ovat mukana. Jos
-                  yhtään organisaatiota ei ole valittu, hakutulos näyttää kaikki
-                  yhteisjulkaisut.
+                  Valitsemalla ”näytä ainoastaan yhteisjulkaisut” voit
+                  tarkastella suomalaisten organisaatioiden yhteisiä julkaisuja.
+                  Hakutulos näyttää tällöin vain sellaiset julkaisut, joissa
+                  kaikki alla olevasta listasta valitut organisaatiot ovat
+                  mukana. Jos yhtään organisaatiota ei ole valittu, hakutulos
+                  näyttää kaikki yhteisjulkaisut.
                 </div>
               </ng-template>
               <span
@@ -450,8 +450,9 @@
                   (keydown.space)="selectionChange(filter.field, field.key)"
                   [value]="field.key"
                   [selected]="
-                    activeFilters[filter.field] &&
-                    activeFilters[filter.field].indexOf(field.key) > -1
+                    (activeFilters[filter.field] | convertToArray)?.indexOf(
+                      field.key
+                    ) > -1
                   "
                   [id]="filter.field + field.key | replaceSpace"
                 >

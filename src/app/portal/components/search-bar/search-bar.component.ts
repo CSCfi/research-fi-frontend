@@ -66,6 +66,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   docList = [
     { index: 'publication', field: 'publicationName', link: 'publicationId' },
     { index: 'funding', field: 'projectNameFi', link: 'projectId' },
+    { index: 'dataset', field: 'name', link: 'identifier' },
     { index: 'infrastructure', field: 'name', link: 'name' },
     { index: 'organization', field: 'nameFi', link: 'organizationId' },
   ];
@@ -204,8 +205,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
               // Sort indices with highest doc count
               const arr = [];
               this.autoSuggestResponse = response;
-              const source = this.autoSuggestResponse[0].aggregations._index
-                .buckets;
+              const source =
+                this.autoSuggestResponse[0].aggregations._index.buckets;
               Object.keys(source)
                 .sort((a, b) => source[b].doc_count - source[a].doc_count)
                 .forEach((key) => {

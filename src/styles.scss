@@ -52,10 +52,12 @@
 @import './app/shared/components/primary-action-button/primary-action-button.component.scss-theme.scss';
 @import './app/shared/components/close-button/close-button.component.scss-theme.scss';
 @import './app/shared/components/divider/divider.component-theme.scss';
+@import './app/shared/components/button-group/button-group.component-theme.scss';
 @import './app/layout/review/review.component.scss-theme.scss';
 @import './app/portal/components/results/pagination/pagination.component.scss';
 @import './app/portal/components/science-politics/figures/carousel/carousel.component.scss-theme.scss';
 @import './app/portal/components/visualisation/bar/bar.component.scss-theme.scss';
+@import './app/mydata/components/profile-data-handler/profile-data-handler.component-theme.scss';
 
 // Global element color definitions
 @mixin researchfi-components-theme($theme) {
@@ -91,6 +93,7 @@
   @include app-primary-action-button-theme($theme);
   @include app-close-button-theme($theme);
   @include app-divider-theme($theme);
+  @include app-button-group-theme($theme);
   @include app-service-info-theme($theme);
   @include app-news-theme($theme);
   @include app-news-card-theme($theme);
@@ -98,6 +101,7 @@
   @include app-pagination-shared;
   @include app-carousel-theme($theme);
   @include app-bar-chart-theme($theme);
+  @include app-profile-data-handler-theme($theme);
 
   $primary: map-get($theme, primary);
 
