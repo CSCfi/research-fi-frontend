@@ -2799,6 +2799,10 @@
       <trans-unit id="sfCallProgrammeTooltip">
         <source>Rahoittajan haku, josta rahoitus on myönnetty. Kilpailtu tutkimusrahoitus myönnetään usein avoimien hakujen kautta, joissa rahoituksen myöntämisen perusteena ovat ennalta määrätyt kriteerit. Hakemukset arvioidaan ja rahoitus myönnetään kriteerien ja muiden tavoitteiden perusteella parhaiksi katsotuille hakemuksille.</source>
         <target>Utlysning av finansiär som har beviljat finansiering. Konkurrensutsatt forskningsfinansiering beviljas ofta genom öppna ansökningar, där beviljandet av finansiering grundar sig på kriterier som fastställts på förhand.</target>
+      <trans-unit id="otherRelatedFundings">
+        <source>Muut päätösket</source>
+        <target>Andra beslut</target>
+      </trans-unit>
       <trans-unit id="relatedFundingTooltip">
         <source>Rahoituspäätökseen liittyvät muut päätökset, kuten esimerkiksi samalle hankkeelle myönnetty tutkimuskulurahoitus. Sisältää tiedot liittyvän päätöksen tunnisteesta, rahoitusmuodosta, aloitusvuodesta sekä myönnetyn rahoituksen määrästä.</source>
         <target>Andra beslut relaterade till finansieringsbeslutet, t.ex. beviljat finansiering för forskningskostnader för samma projekt. Innehåller information om det relaterade beslutets identifierare, finansieringstyp, startår och beviljad finansiering.</target>
@@ -2818,7 +2822,7 @@
       </trans-unit>
       <trans-unit id="6587616297300188756">
         <source>Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa.</source>
-      <target state="translated">En webbplats utanför tjänsten forskning.fi där det finns mer detaljerad information om projektet</target>
+        <target state="translated">En webbplats utanför tjänsten forskning.fi där det finns mer detaljerad information om projektet</target>
       </trans-unit>
       <!-- Datasets -->
       <trans-unit id="datasetBetaInfo">

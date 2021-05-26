@@ -2811,6 +2811,10 @@
         <source>Rahoituspäätökseen liittyvät muut päätökset, kuten esimerkiksi samalle hankkeelle myönnetty tutkimuskulurahoitus. Sisältää tiedot liittyvän päätöksen tunnisteesta, rahoitusmuodosta, aloitusvuodesta sekä myönnetyn rahoituksen määrästä.</source>
         <target>Other decisions related to this funding decision, e.g. granted funding for research costs. Includes information on the related decision’s identifier, funding method, starting year, and the amount of funding granted.</target>
       </trans-unit>
+      <trans-unit id="otherRelatedFundings">
+        <source>Muut päätösket</source>
+        <target>Related funding decisions</target>
+      </trans-unit>
       <trans-unit id="4073996987769162370">
         <source>Rahoituksen saaja voi olla henkilö tai organisaatio. Usein saajaksi mainittu henkilö on vastuullinen tutkija, joka ei itse käytä myönnettyä rahoitusta vaan sillä katetaan hankkeen kustannuksia.</source>
         <target>The funding recipient may be a person or organization. In many cases, the specified funding recipient is a principal investigator (PI), who will not personally be using the funding as it will instead be used to cover project costs.</target>
