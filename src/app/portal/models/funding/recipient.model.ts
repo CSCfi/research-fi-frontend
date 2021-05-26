@@ -146,8 +146,6 @@ export class RecipientAdapter implements Adapter<Recipient> {
                   ?.trim()
           )
           ?.join('; ');
-        // TEMPORARY FIX FOR INVALID LOGIC
-        combined = '';
       }
       // If no match with Finnish organization
     } else if (item.recipientType === 'consortium') {
