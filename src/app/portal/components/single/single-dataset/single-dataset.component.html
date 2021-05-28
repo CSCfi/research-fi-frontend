@@ -431,6 +431,20 @@
           <app-share [id]="item.id"></app-share>
         </mat-card>
       </aside>
+      <aside>
+        <mat-card>
+          <mat-card-title>
+            <h2 i18n="@@datasetSource">Tutkimusaineistotiedon lähde</h2>
+          </mat-card-title>
+          <div>
+            <p *ngIf="item.dataCatalog?.length > 0">{{ item.dataCatalog }}</p>
+            <p *ngIf="item.dataCatalog?.length === 0">
+              Tiedon lähde ei saatavilla.
+            </p>
+          </div>
+          <div class="clear"></div>
+        </mat-card>
+      </aside>
     </div>
   </div>
 </div>
