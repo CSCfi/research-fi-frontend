@@ -112,6 +112,12 @@ export class LanguageCheck {
           case 'partner': {
             return 'Partneri';
           }
+          case 'Organiser': {
+            return 'Toteuttaja';
+          }
+          case 'Co-organiser': {
+            return 'Osatoteuttaja';
+          }
         }
         break;
       }
@@ -126,6 +132,12 @@ export class LanguageCheck {
           case 'partner': {
             return 'Partner';
           }
+          case 'Organiser': {
+            return 'Organiser';
+          }
+          case 'Co-organiser': {
+            return 'Co-organiser';
+          }
         }
         break;
       }
@@ -139,6 +151,12 @@ export class LanguageCheck {
           }
           case 'partner': {
             return 'Partner';
+          }
+          case 'Organiser': {
+            return 'Genomförare';
+          }
+          case 'Co-organiser': {
+            return 'Delgenomförare';
           }
         }
       }
