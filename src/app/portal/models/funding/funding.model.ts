@@ -32,6 +32,7 @@ export class Funding {
     public projectHomepage: string,
     public recipientType: string,
     public euFunding: boolean,
+    public structuralFund: boolean,
     public relatedFundings: RelatedFunding[],
     public additionalOrgs: { name: string; orgId: number }[],
     public totalFundingAmount: number
@@ -126,6 +127,9 @@ export class FundingAdapter implements Adapter<Funding> {
     item.euFunding =
       item.funderNameFi.toLowerCase() === 'euroopan unioni' ? true : false;
 
+    item.structuralFund =
+      item.typeOfFundingId === 'EAKR' || item.typeOfFundingId === 'ESR';
+
     const recipient = this.r.adapt(item);
 
     const relatedFundings =
@@ -194,6 +198,7 @@ export class FundingAdapter implements Adapter<Funding> {
       item.projetHomepage,
       item.recipientType,
       item.euFunding,
+      item.structuralFund,
       relatedFundings,
       additionalOrgs,
       // undefined, // Temporary related fundings

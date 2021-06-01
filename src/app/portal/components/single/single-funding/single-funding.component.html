@@ -640,12 +640,10 @@
                   <a
                     *ngIf="row.field === 'funderProjectNumber'"
                     class="info-link"
-                    href="https://cordis.europa.eu/project/id/{{
-                      item[row.field]
-                    }}"
+                    [href]="(item.structuralFund ? euraLink : cordisProjectLink) + item[row.field]"
                     target="_blank"
-                    >https://cordis.europa.eu/project/id/{{ item[row.field]
-                    }}<fa-icon icon="external-link-alt"></fa-icon
+                    >{{(item.structuralFund ? euraLink : cordisProjectLink) + item[row.field]}}
+                    <fa-icon icon="external-link-alt"></fa-icon
                   ></a>
                   <a
                     *ngIf="row.field !== 'funderProjectNumber'"
