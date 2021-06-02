@@ -100,7 +100,7 @@
                   <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
                 </span>
               </h2>
-              <!-- Switch by recipien type -->
+              <!-- Switch by recipient type -->
               <div
                 class="col-12 col-sm-8 col-lg-9 px-0"
                 [ngSwitch]="item.recipientType"
@@ -212,7 +212,7 @@
                       <div
                         class="col-12 td col-sm-3 mobile-list"
                         *ngIf="
-                          org.shareOfFundingEur !== item.recipient.amountEur
+                          org.shareOfFundingEur && org.shareOfFundingEur !== item.recipient.amountEur
                         "
                       >
                         {{ org.shareOfFundingEur | thousandSeparator }} €
@@ -640,12 +640,10 @@
                   <a
                     *ngIf="row.field === 'funderProjectNumber'"
                     class="info-link"
-                    href="https://cordis.europa.eu/project/id/{{
-                      item[row.field]
-                    }}"
+                    [href]="(item.structuralFund ? euraLink : cordisProjectLink) + item[row.field]"
                     target="_blank"
-                    >https://cordis.europa.eu/project/id/{{ item[row.field]
-                    }}<fa-icon icon="external-link-alt"></fa-icon
+                    >{{(item.structuralFund ? euraLink : cordisProjectLink) + item[row.field]}}
+                    <fa-icon icon="external-link-alt"></fa-icon
                   ></a>
                   <a
                     *ngIf="row.field !== 'funderProjectNumber'"

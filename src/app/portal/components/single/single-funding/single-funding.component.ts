@@ -121,6 +121,8 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   };
 
   cordisLink = 'https://cordis.europa.eu/programme/id/';
+  cordisProjectLink = 'https://cordis.europa.eu/project/id/';
+  euraLink = 'https://www.eura2014.fi/rrtiepa/projekti.php?projektikoodi=';
 
   errorMessage = [];
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
