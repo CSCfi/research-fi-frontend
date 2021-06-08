@@ -705,6 +705,15 @@
           <div *ngFor="let source of responseData.fundings">
             <p *ngIf="source.funder.name.trim().length > 0">
               {{ source.funder.name }}
+              <!-- Structural fund source link -->
+              (<a
+                    *ngIf="item.structuralFund"
+                    class=""
+                    href="https://www.eura2014.fi/rrtiepa/"
+                    target="_blank"
+                    >eura2014.fi
+                    <fa-icon icon="external-link-alt"></fa-icon
+              ></a>)
             </p>
             <p
               *ngIf="source.funder.name.trim().length === 0"
