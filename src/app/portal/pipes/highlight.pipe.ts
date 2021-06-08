@@ -7,7 +7,6 @@
 
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { windowWhen } from 'rxjs/operators';
 
 @Pipe({
   name: 'highlight',
