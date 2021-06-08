@@ -217,14 +217,16 @@ export class FundingFilterService {
   }
 
   typeOfFunding(d) {
+    const locale = this.currentLocale;
+
     // Copy data and check that localized data exists. If not, default to english
     const data = [...d];
     data.forEach((item) => {
-      if (!item['header' + this.currentLocale].buckets.length) {
-        item['header' + this.currentLocale] = item.headerEn;
-        item['header' + this.currentLocale].buckets.forEach((type) => {
-          if (!type['typeName' + this.currentLocale].buckets.length) {
-            type['typeName' + this.currentLocale] = type.typeNameEn;
+      if (!item['header' + locale].buckets.length) {
+        item['header' + locale] = item.headerEn;
+        item['header' + locale].buckets.forEach((type) => {
+          if (!type['typeName' + locale].buckets.length) {
+            type['typeName' + locale] = type.typeNameEn;
           }
         });
       }
@@ -232,11 +234,11 @@ export class FundingFilterService {
     // Map sub items
     data.map((item) => {
       item.id = item.key;
-      item.key = item['header' + this.currentLocale].buckets[0].key;
-      item.subData =
-        item['header' + this.currentLocale].buckets[0][
-          'typeName' + this.currentLocale
-        ].buckets;
+      item.key = item['header' + locale].buckets[0].key;
+      item.subData = item['header' + locale].buckets[0]['typeName' + locale]
+        .buckets.length
+        ? item['header' + locale].buckets[0]['typeName' + locale].buckets
+        : item['headerEn'].buckets[0]['typeNameEn'].buckets;
       item.subData.map((type) => {
         (type.label = type.label ? type.label : type.key),
           (type.key = type.typeId.buckets[0].key),
