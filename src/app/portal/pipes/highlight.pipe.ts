@@ -7,6 +7,7 @@
 
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { windowWhen } from 'rxjs/operators';
 
 @Pipe({
   name: 'highlight',
@@ -34,10 +35,11 @@ export class HighlightSearch implements PipeTransform {
     // Map value keys and loop through args, replace with tags
     const match = valueArr.map((e) => {
       argsArr.forEach((word) => {
-        if (word.length > 2 && e.toLowerCase().includes(word.toLowerCase())) {
+        if (word.length > 0 && e.toLowerCase() == word.toLowerCase()) {
           // 'gi' stands for case insensitive, use 'g' if needed for case sensitive
           const src = new RegExp(word, 'gi');
           const found = e.match(src);
+          console.log(found)
           if (!found) {
             return e;
           }
