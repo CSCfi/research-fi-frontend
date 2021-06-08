@@ -121,7 +121,6 @@ export class FundingAdapter implements Adapter<Funding> {
       );
     }
 
-    const funder = this.f.adapt(item);
 
     // Set EU funding status
     item.euFunding =
@@ -129,6 +128,8 @@ export class FundingAdapter implements Adapter<Funding> {
 
     item.structuralFund =
       item.typeOfFundingId === 'EAKR' || item.typeOfFundingId === 'ESR';
+
+    const funder = this.f.adapt(item);
 
     const recipient = this.r.adapt(item);
 
