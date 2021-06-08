@@ -15,11 +15,14 @@ import { CloseButtonComponent } from './components/close-button/close-button.com
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { DividerComponent } from './components/divider/divider.component';
 import { ButtonGroupComponent } from './components/button-group/button-group.component';
+import { SelectComponent } from './components/select/select.component';
 
 import { MatRippleModule } from '@angular/material/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -30,6 +33,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     NotFoundComponent,
     DividerComponent,
     ButtonGroupComponent,
+    SelectComponent,
   ],
   exports: [
     InfoComponent,
@@ -38,6 +42,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     CloseButtonComponent,
     DividerComponent,
     ButtonGroupComponent,
+    SelectComponent,
   ],
   imports: [
     CommonModule,
@@ -46,6 +51,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatButtonToggleModule,
     MatRadioModule,
     MatCheckboxModule,
+    MatSelectModule,
+    MatFormFieldModule,
   ],
 })
 export class SharedModule {}

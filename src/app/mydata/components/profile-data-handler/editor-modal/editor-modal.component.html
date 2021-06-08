@@ -1,3 +1,8 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
 <div class="modal-content">
   <div class="modal-header">
     <h4 id="dialog-sizes-name1" class="modal-title pull-left col">
@@ -21,19 +26,16 @@
               [dataSources]="dataSources"
               [selectedSource]="selectedSource"
               [data]="data"
-              (onToggle)="changeData($event)"
+              (onGroupToggle)="changeGroup($event)"
+              (onSingleItemToggle)="changeSingle($event)"
             ></app-profile-panel>
           </div>
         </div>
 
         <div class="row pb-3">
           <div class="col">
-            <mat-slide-toggle
-              [checked]="allSelected"
-              [disabled]="allSelected"
-              labelPosition="before"
-              (change)="toggleAll()"
-              >Valitse kaikki</mat-slide-toggle
+            <mat-checkbox [checked]="allSelected" (change)="toggleAll()"
+              >Valitse kaikki</mat-checkbox
             >
           </div>
           <div class="col px-0">

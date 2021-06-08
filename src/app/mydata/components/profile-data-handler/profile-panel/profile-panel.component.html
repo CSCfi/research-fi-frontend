@@ -10,14 +10,14 @@
         <div class="col px-0">
           <!-- Field -->
           <div class="row">
-            <span class="col px-0 h6 m-0 pb-4 field-label">
+            <span class="col px-0 h6 m-0 pb-4">
               {{ field.label }}
             </span>
 
             <div class="col-auto pr-0" *ngIf="!field.disabled">
               <mat-slide-toggle
                 [checked]="field.groupMeta.show"
-                (change)="toggleField(i)"
+                (change)="toggleGroup(i)"
                 [disabled]="field.disabled"
                 labelPosition="after"
                 >Näytä profiilissani</mat-slide-toggle
@@ -26,44 +26,84 @@
           </div>
 
           <!-- Field values -->
-          <div
-            class="row field-value d-flex justify-content-between"
-            *ngIf="field.items.length === 1; else fieldArrayTemplate"
-          >
-            <div class="col-auto font-size-smaller">
-              {{ field.items[0].value }}
-            </div>
-
-            <div class="col-auto pr-0 text-right opacity-3 font-size-small">
-              {{ field.dataSource.name }}
-            </div>
-          </div>
-          <ng-template #fieldArrayTemplate>
+          <ng-container *ngIf="field.groupMeta.show">
             <div
-              class="row field-value d-flex justify-content-between"
-              *ngFor="let value of field.items"
+              class="row d-flex justify-content-between"
+              *ngIf="field.items.length === 1; else fieldArrayTemplate"
             >
               <div
-                [ngSwitch]="field.groupMeta.type"
-                class="col-auto font-size-smaller"
+                class="col-auto px-0 font-size-smaller"
+                [ngSwitch]="field.single"
               >
-                <ng-container *ngSwitchCase="fieldTypes.personWebLink">{{
-                  value.url
-                }}</ng-container>
-                <ng-container *ngSwitchDefault>
-                  {{ value.value }}
-                </ng-container>
+                <mat-radio-button
+                  *ngSwitchCase="true"
+                  [value]="field.items[0].value"
+                  [checked]="field.disabled"
+                >
+                  {{ field.items[0].value }}
+                </mat-radio-button>
+
+                <mat-checkbox
+                  [checked]="field.items[0].itemMeta.show"
+                  (change)="toggleItem($event, item, i)"
+                  *ngSwitchDefault
+                  >{{ field.items[0].value }}</mat-checkbox
+                >
               </div>
 
-              <div class="col-auto pr-0 text-right opacity-3 font-size-small">
+              <div
+                class="col-auto pr-0 text-right opacity-3 font-size-small py-1"
+              >
                 {{ field.dataSource.name }}
               </div>
             </div>
-          </ng-template>
+            <ng-template #fieldArrayTemplate>
+              <div
+                class="row d-flex justify-content-between"
+                *ngFor="let item of field.items"
+              >
+                <div
+                  class="col px-0 font-size-smaller"
+                  [ngSwitch]="field.single"
+                >
+                  <mat-radio-button *ngSwitchCase="true">
+                    <app-panel-array-item
+                      [item]="item"
+                      [fieldType]="field.groupMeta.type"
+                    ></app-panel-array-item>
+                  </mat-radio-button>
+
+                  <mat-checkbox
+                    [checked]="item.itemMeta.show"
+                    *ngSwitchDefault
+                    (change)="toggleItem($event, item, i)"
+                  >
+                    <app-panel-array-item
+                      [item]="item"
+                      [fieldType]="field.groupMeta.type"
+                    ></app-panel-array-item>
+                  </mat-checkbox>
+                </div>
+
+                <div
+                  class="
+                    col-auto
+                    pr-0
+                    text-right
+                    opacity-3
+                    font-size-small
+                    py-1
+                  "
+                >
+                  {{ field.dataSource.name }}
+                </div>
+              </div>
+            </ng-template>
+          </ng-container>
         </div>
       </div>
 
-      <div class="row" *ngIf="!field.disabled">
+      <!-- <div class="row" *ngIf="!field.disabled">
         <span class="col-12 px-lg-0 pb-2 font-size-small"
           >Valitse lähteet:</span
         >
@@ -74,17 +114,17 @@
           [checked]="checked"
           [vertical]="appSettingsService.mobileStatus | async"
         ></app-button-group>
-      </div>
+      </div> -->
 
-      <div class="row pb-4 font-size-small" *ngIf="!field.disabled">
+      <!-- <div class="row pb-4 font-size-small" *ngIf="!field.disabled">
         <div class="col col-lg-6 pl-0">
           <fa-icon class="pr-1 opacity-3" icon="info-circle"></fa-icon>
           <span>Voit valita useamman lähteen</span>
         </div>
         <div class="col pr-0 opacity-3"><span>1 lähde valittu</span></div>
-      </div>
+      </div> -->
 
-      <hr class="m-0" />
+      <hr *ngIf="i + 1 < data.fields.length" class="m-0" />
     </ng-container>
   </div>
 </div>

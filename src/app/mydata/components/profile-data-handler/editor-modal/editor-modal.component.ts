@@ -49,10 +49,10 @@ export class EditorModalComponent implements OnInit {
    * Handle object add / remove from patch object list when values change
    */
 
-  changeData(index) {
+  changeGroup(index) {
     const currentItem = this.data.fields[index];
 
-    this.handlePatchObject(currentItem);
+    this.handlePatchObjectGroup(currentItem);
 
     currentItem.groupMeta.show = !currentItem.groupMeta.show;
 
@@ -63,17 +63,28 @@ export class EditorModalComponent implements OnInit {
       : true;
   }
 
+  changeSingle(res) {
+    const currentItem = this.data.fields[res.index].items.find(
+      (item) => item.itemMeta.id === res.itemMeta.id
+    );
+
+    currentItem.itemMeta = res.itemMeta;
+
+    this.handlePatchSingleObject(res.itemMeta);
+  }
+
+  // editedItemsiin pitäis saada myös kaikkien muuttuneiden itemien itemMeta
   toggleAll() {
     this.allSelected = true;
 
     this.data.fields.forEach((field) => {
       field.groupMeta.show = true;
 
-      this.handlePatchObject(field);
+      this.handlePatchObjectGroup(field);
     });
   }
 
-  handlePatchObject(currentItem) {
+  handlePatchObjectGroup(currentItem) {
     this.editedItems.find((item) => item.id === currentItem.groupMeta.id)
       ? (this.editedItems = this.editedItems.filter(
           (item) => item.id !== currentItem.groupMeta.id
@@ -81,7 +92,16 @@ export class EditorModalComponent implements OnInit {
       : this.editedItems.push(currentItem.groupMeta);
   }
 
+  handlePatchSingleObject(currentItem) {
+    this.editedItems.find((item) => item.id === currentItem.id)
+      ? (this.editedItems = this.editedItems.filter(
+          (item) => item.id !== currentItem.id
+        ))
+      : this.editedItems.push(currentItem);
+  }
+
   saveChanges() {
+    console.log('editedItems: ', this.editedItems);
     this.dataChange.emit({ data: this.data, patchItems: this.editedItems });
     this.closeModal();
   }

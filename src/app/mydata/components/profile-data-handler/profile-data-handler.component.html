@@ -5,6 +5,29 @@
 
 <div class="row pb-3 d-flex justify-content-center">
   <div class="col px-0">
+    <div
+      class="p-3 mat-elevation-z1 rounded"
+      *ngFor="let item of profileData; let i = index"
+    >
+      <div class="row d-flex justify-content-between">
+        <div class="col font-weight-bold">
+          {{ item.label }}
+        </div>
+
+        <div class="col-auto">
+          {{ (item.fields | filter: checkSelected).length }} /
+          {{ item.fields.length }} valittu
+        </div>
+
+        <a
+          href="javascript:void(0)"
+          (click)="openModal($event, i, editorModal)"
+          class="col-auto"
+          >Muokkaa...</a
+        >
+      </div>
+    </div>
+
     <mat-expansion-panel
       class="mat-elevation-z1"
       *ngFor="let item of profileData; let i = index"

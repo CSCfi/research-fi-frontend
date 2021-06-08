@@ -8,6 +8,7 @@
 type settingsType = {
   disabled: boolean;
   forceShow: boolean;
+  single: boolean;
 };
 
 export function mapGroup(group, label, settings?: settingsType) {
@@ -15,6 +16,7 @@ export function mapGroup(group, label, settings?: settingsType) {
     ...obj,
     label: label,
     disabled: settings?.disabled,
+    single: settings?.single,
   }))[0];
 }
 
@@ -35,5 +37,6 @@ export function mapNameGroup(group, label, settings?: settingsType) {
       show: settings?.forceShow ? settings.forceShow : obj.groupMeta.show,
     },
     disabled: settings?.disabled,
+    single: settings?.single,
   }))[0];
 }

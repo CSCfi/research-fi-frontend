@@ -33,6 +33,7 @@ export class PersonalFieldsAdapter implements Adapter<PersonalFields> {
       this.mapNameGroup(item.nameGroups, 'Nimi', {
         disabled: true,
         forceShow: true,
+        single: true,
       }),
       this.mapNameGroup(item.otherNameGroups, 'Muut nimet'),
       this.mapGroup(item.emailGroups, 'Sähköposti'),
