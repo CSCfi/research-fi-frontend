@@ -39,7 +39,6 @@ export class HighlightSearch implements PipeTransform {
           // 'gi' stands for case insensitive, use 'g' if needed for case sensitive
           const src = new RegExp(word, 'gi');
           const found = e.match(src);
-          console.log(found)
           if (!found) {
             return e;
           }
