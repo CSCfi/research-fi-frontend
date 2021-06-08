@@ -3,59 +3,61 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<div class="modal-content">
-  <div class="modal-header">
-    <h4 id="dialog-sizes-name1" class="modal-title pull-left col">
-      Muokkaa {{ editLabel }}
-    </h4>
-
-    <app-close-button
-      class="pull-right pr-3"
-      (click)="closeModal()"
-      (keydown.enter)="closeModal()"
-      autofocus
-      tabindex="-1"
-    ></app-close-button>
+<mat-dialog-content>
+  <div class="row d-flex justify-content-between dialog-header">
+    <div class="col">
+      <h4 id="dialog-sizes-name1" class="modal-title pull-left col">
+        Muokkaa {{ editLabel }}
+      </h4>
+    </div>
+    <div class="col-auto">
+      <app-close-button
+        class="pull-right pr-3"
+        (click)="close()"
+        (keydown.enter)="close()"
+        autofocus
+        tabindex="-1"
+      ></app-close-button>
+    </div>
   </div>
-  <div class="modal-body">
-    <div class="row d-flex justify-content-center">
-      <div class="col">
-        <div class="row">
-          <div class="col">
-            <app-profile-panel
-              [dataSources]="dataSources"
-              [selectedSource]="selectedSource"
-              [data]="data"
-              (onGroupToggle)="changeGroup($event)"
-              (onSingleItemToggle)="changeSingle($event)"
-            ></app-profile-panel>
-          </div>
-        </div>
 
-        <div class="row pb-3">
-          <div class="col">
-            <mat-checkbox [checked]="allSelected" (change)="toggleAll()"
-              >Valitse kaikki</mat-checkbox
-            >
-          </div>
-          <div class="col px-0">
-            <div class="row d-flex justify-content-end">
-              <div class="col-auto pr-0">
-                <app-secondary-button
-                  (click)="closeModal()"
-                  content="Peruuta"
-                ></app-secondary-button>
-              </div>
-              <div class="col-auto">
-                <app-primary-action-button
-                  (click)="saveChanges()"
-                  content="Tallenna"
-                ></app-primary-action-button>
-              </div>
+  <div class="row d-flex justify-content-center">
+    <div class="col">
+      <div class="row">
+        <div class="col">
+          <app-profile-panel
+            [dataSources]="editorData.dataSources"
+            [selectedSource]="selectedSource"
+            [data]="editorData.data"
+            (onGroupToggle)="changeGroup($event)"
+            (onSingleItemToggle)="changeSingle($event)"
+          ></app-profile-panel>
+        </div>
+      </div>
+
+      <div class="row pb-3">
+        <div class="col">
+          <mat-checkbox [checked]="allSelected" (change)="toggleAll()"
+            >Valitse kaikki</mat-checkbox
+          >
+        </div>
+        <div class="col px-0">
+          <div class="row d-flex justify-content-end">
+            <div class="col-auto pr-0">
+              <app-secondary-button
+                (click)="close()"
+                content="Peruuta"
+              ></app-secondary-button>
+            </div>
+            <div class="col-auto">
+              <app-primary-action-button
+                (click)="saveChanges()"
+                content="Tallenna"
+              ></app-primary-action-button>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</mat-dialog-content>

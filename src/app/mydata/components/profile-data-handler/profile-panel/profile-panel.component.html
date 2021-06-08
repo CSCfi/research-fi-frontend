@@ -16,7 +16,9 @@
 
             <div class="col-auto pr-0" *ngIf="!field.disabled">
               <mat-slide-toggle
-                [checked]="field.groupMeta.show"
+                [checked]="
+                  (field.groupItems | filter: checkGroupShow).length > 0
+                "
                 (change)="toggleGroup(i)"
                 [disabled]="field.disabled"
                 labelPosition="after"
@@ -25,8 +27,58 @@
             </div>
           </div>
 
+          <ng-container
+            *ngIf="(field.groupItems | filter: checkGroupShow).length > 0"
+          >
+            <ng-container *ngFor="let groupItem of field.groupItems">
+              <div
+                class="row d-flex justify-content-between"
+                *ngFor="let item of groupItem.items"
+              >
+                <div
+                  class="col px-0 font-size-smaller"
+                  [ngSwitch]="field.single"
+                >
+                  <mat-radio-button
+                    *ngSwitchCase="true"
+                    [checked]="item.itemMeta.show"
+                  >
+                    <app-panel-array-item
+                      [item]="item"
+                      [fieldType]="groupItem.groupMeta.type"
+                    ></app-panel-array-item>
+                  </mat-radio-button>
+
+                  <mat-checkbox
+                    [checked]="item.itemMeta.show"
+                    *ngSwitchDefault
+                    (change)="toggleItem($event, item, i)"
+                  >
+                    <app-panel-array-item
+                      [item]="item"
+                      [fieldType]="groupItem.groupMeta.type"
+                    ></app-panel-array-item>
+                  </mat-checkbox>
+                </div>
+
+                <div
+                  class="
+                    col-auto
+                    pr-0
+                    text-right
+                    opacity-3
+                    font-size-small
+                    py-2
+                  "
+                >
+                  {{ groupItem.dataSource.name }}
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+
           <!-- Field values -->
-          <ng-container *ngIf="field.groupMeta.show">
+          <!-- <ng-container *ngIf="(field | filter: checkSelected).length > 0">
             <div
               class="row d-flex justify-content-between"
               *ngIf="field.items.length === 1; else fieldArrayTemplate"
@@ -99,7 +151,7 @@
                 </div>
               </div>
             </ng-template>
-          </ng-container>
+          </ng-container> -->
         </div>
       </div>
 

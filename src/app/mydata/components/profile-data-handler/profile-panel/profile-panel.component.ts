@@ -9,6 +9,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
+import { checkGroupShow } from '../utils';
 
 @Component({
   selector: 'app-profile-panel',
@@ -30,6 +31,8 @@ export class ProfilePanelComponent implements OnInit {
 
   fieldTypes = FieldTypes;
 
+  checkGroupShow = checkGroupShow;
+
   /*
    * appSettingsService is used in Template
    */
@@ -37,11 +40,14 @@ export class ProfilePanelComponent implements OnInit {
 
   ngOnInit(): void {
     this.checked = [this.selectedSource];
+    console.log(this.data);
   }
 
   toggleGroup(index: number) {
+    // Check items
+    //  this.data.fields[index].items.map((item) => (item.itemMeta.show = true));
+
     this.onGroupToggle.emit(index);
-    this.data.fields[index].items.map((item) => (item.itemMeta.show = true));
   }
 
   toggleItem(event, item, index) {

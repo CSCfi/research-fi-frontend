@@ -9,6 +9,10 @@
  * Common pipeable functions
  */
 export function checkSelected(item) {
+  return item.groupItems.find((val) => val.groupMeta.show);
+}
+
+export function checkGroupShow(item) {
   return item.groupMeta.show;
 }
 

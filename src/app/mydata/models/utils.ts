@@ -12,31 +12,36 @@ type settingsType = {
 };
 
 export function mapGroup(group, label, settings?: settingsType) {
-  return group.map((obj) => ({
-    ...obj,
+  return {
     label: label,
+    groupItems: group.filter((item) => item.items.length > 0),
     disabled: settings?.disabled,
     single: settings?.single,
-  }))[0];
+  };
 }
 
 export function mapNameGroup(group, label, settings?: settingsType) {
-  group[0].items.forEach(
-    (el) =>
-      (el.value =
-        el.fullName.trim().length > 0
-          ? el.fullName
-          : el.firstNames + ' ' + el.lastName)
+  group.map((item) =>
+    item.items.forEach(
+      (el) =>
+        (el.value =
+          el.fullName.trim().length > 0
+            ? el.fullName
+            : el.firstNames + ' ' + el.lastName)
+    )
   );
 
-  return group.map((obj) => ({
-    ...obj,
+  // Set default value
+  if (settings?.forceShow) {
+    const defaultItem = group.find((item) => item.dataSource.name === 'ORCID');
+    defaultItem.groupMeta.show = true;
+    defaultItem.items[0].itemMeta.show = true;
+  }
+
+  return {
     label: label,
-    groupMeta: {
-      ...obj.groupMeta,
-      show: settings?.forceShow ? settings.forceShow : obj.groupMeta.show,
-    },
+    groupItems: group.filter((item) => item.items.length > 0),
     disabled: settings?.disabled,
     single: settings?.single,
-  }))[0];
+  };
 }

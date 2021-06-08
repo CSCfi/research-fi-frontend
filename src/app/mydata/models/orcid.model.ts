@@ -34,12 +34,12 @@ export class OrcidAdapter implements Adapter<Orcid> {
 
   adapt(item: any): Orcid {
     const data = item.body.data;
-    console.log(data);
 
     const mapModel = (adapter, data) =>
-      Object.values(adapter.adapt(data)).filter(
-        (item: any) => item?.items.length > 0
-      );
+      // Object.values(adapter.adapt(data)).filter(
+      //   (item: any) => item?.items.length > 0
+      // );
+      Object.values(adapter.adapt(data));
 
     return new Orcid(
       mapModel(this.personalFieldsAdapter, data.personal),

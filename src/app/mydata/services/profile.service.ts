@@ -22,73 +22,366 @@ export class ProfileService {
   testData = {
     personal: [
       {
-        dataSource: { id: 1, name: 'ORCID' },
-        items: [
+        label: 'Nimi',
+        groupItems: [
           {
-            firstNames: 'Sauli',
-            lastName: 'Purhonen',
-            fullName: '',
-            itemMeta: { id: 3, type: 112, show: false, primaryValue: false },
-            value: 'Sauli Purhonen',
+            dataSource: { id: 1, name: 'ORCID' },
+            items: [
+              {
+                firstNames: 'Sauli',
+                lastName: 'Purhonen',
+                fullName: '',
+                itemMeta: {
+                  id: 10,
+                  type: 112,
+                  show: true,
+                  primaryValue: false,
+                },
+                value: 'Sauli Purhonen',
+              },
+            ],
+            groupMeta: { id: 29, type: 110, show: true },
+          },
+          {
+            dataSource: { id: 2, name: 'Yliopisto A' },
+            items: [
+              {
+                firstNames: 'Tuisku',
+                lastName: 'Tutkija',
+                fullName: '',
+                itemMeta: {
+                  id: 6,
+                  type: 112,
+                  show: false,
+                  primaryValue: false,
+                },
+                value: 'Tuisku Tutkija',
+              },
+            ],
+            groupMeta: { id: 44, type: 110, show: false },
+          },
+          {
+            dataSource: { id: 3, name: 'Tutkimuslaitos X' },
+            items: [
+              {
+                firstNames: 'Ami',
+                lastName: 'Asiantuntija',
+                fullName: '',
+                itemMeta: {
+                  id: 5,
+                  type: 112,
+                  show: false,
+                  primaryValue: false,
+                },
+                value: 'Ami Asiantuntija',
+              },
+            ],
+            groupMeta: { id: 56, type: 110, show: false },
           },
         ],
-        groupMeta: { id: 17, type: 110, show: true },
-        label: 'Nimi',
         disabled: true,
         single: true,
       },
       {
-        dataSource: { id: 1, name: 'ORCID' },
-        items: [
+        label: 'Muut nimet',
+        groupItems: [
           {
-            firstNames: '',
-            lastName: '',
-            fullName: 'SM Purhonen',
-            itemMeta: { id: 4, type: 120, show: false, primaryValue: false },
-            value: 'SM Purhonen',
+            dataSource: { id: 1, name: 'ORCID' },
+            items: [
+              {
+                firstNames: '',
+                lastName: '',
+                fullName: 'SM Purhonen',
+                itemMeta: {
+                  id: 11,
+                  type: 120,
+                  show: false,
+                  primaryValue: false,
+                },
+                value: 'SM Purhonen',
+              },
+            ],
+            groupMeta: { id: 30, type: 120, show: false },
+          },
+          {
+            dataSource: { id: 2, name: 'Yliopisto A' },
+            items: [
+              {
+                firstNames: '',
+                lastName: '',
+                fullName: 'T.A. Tutkija',
+                itemMeta: {
+                  id: 8,
+                  type: 120,
+                  show: false,
+                  primaryValue: false,
+                },
+                value: 'T.A. Tutkija',
+              },
+              {
+                firstNames: '',
+                lastName: '',
+                fullName: 'T. Tutkija',
+                itemMeta: {
+                  id: 9,
+                  type: 120,
+                  show: false,
+                  primaryValue: false,
+                },
+                value: 'T. Tutkija',
+              },
+            ],
+            groupMeta: { id: 43, type: 120, show: false },
+          },
+          {
+            dataSource: { id: 3, name: 'Tutkimuslaitos X' },
+            items: [
+              {
+                firstNames: '',
+                lastName: '',
+                fullName: 'Tuisku Tutkija',
+                itemMeta: {
+                  id: 7,
+                  type: 120,
+                  show: false,
+                  primaryValue: false,
+                },
+                value: 'Tuisku Tutkija',
+              },
+            ],
+            groupMeta: { id: 55, type: 120, show: false },
           },
         ],
-        groupMeta: { id: 18, type: 120, show: false },
-        label: 'Muut nimet',
       },
       {
-        dataSource: { id: 1, name: 'ORCID' },
-        items: [
+        label: 'Sähköposti',
+        groupItems: [
           {
-            url: 'https://tiedejatutkimus.fi/fi/',
-            linkLabel: 'TTV',
-            itemMeta: { id: 3, type: 180, show: true, primaryValue: false },
+            dataSource: { id: 2, name: 'Yliopisto A' },
+            items: [
+              {
+                value: 'tuisku.tutkija@yliopisto.fi',
+                itemMeta: {
+                  id: 3,
+                  type: 171,
+                  show: false,
+                  primaryValue: false,
+                },
+              },
+            ],
+            groupMeta: { id: 48, type: 171, show: false },
           },
           {
-            url: 'https://forskning.fi/sv/',
-            linkLabel: 'Forskning',
-            itemMeta: { id: 4, type: 180, show: false, primaryValue: false },
+            dataSource: { id: 3, name: 'Tutkimuslaitos X' },
+            items: [
+              {
+                value: 'ami.asiantuntija@tutkimuslaitos.fi',
+                itemMeta: {
+                  id: 2,
+                  type: 171,
+                  show: false,
+                  primaryValue: false,
+                },
+              },
+            ],
+            groupMeta: { id: 60, type: 171, show: false },
           },
         ],
-        groupMeta: { id: 21, type: 180, show: false },
+      },
+      {
+        label: 'Kuvaus',
+        groupItems: [
+          {
+            dataSource: { id: 2, name: 'Yliopisto A' },
+            items: [
+              {
+                researchDescriptionFi:
+                  'Tutkimuksen kuvausta suomeksi. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                researchDescriptionEn:
+                  'Description of my research in English. Duis ullamcorper sem in sapien pretium bibendum. Vestibulum ex dui, volutpat commodo condimentum sed, lobortis at justo.',
+                researchDescriptionSv:
+                  'Beskrivning av forskningen på svenska. Fusce in lorem tempor, feugiat nunc ut, consectetur erat. Integer purus sem, hendrerit at bibendum vel, laoreet nec tellus.',
+                itemMeta: {
+                  id: 3,
+                  type: 140,
+                  show: false,
+                  primaryValue: false,
+                },
+              },
+            ],
+            groupMeta: { id: 42, type: 140, show: false },
+          },
+          {
+            dataSource: { id: 3, name: 'Tutkimuslaitos X' },
+            items: [
+              {
+                researchDescriptionFi:
+                  'Tutkimuksen kuvausta suomeksi. Duis finibus velit rutrum euismod scelerisque. Praesent sit amet fermentum ex. Donec vitae tellus eu nisl dignissim laoreet.',
+                researchDescriptionEn: null,
+                researchDescriptionSv: null,
+                itemMeta: {
+                  id: 2,
+                  type: 140,
+                  show: false,
+                  primaryValue: false,
+                },
+              },
+            ],
+            groupMeta: { id: 54, type: 140, show: false },
+          },
+        ],
+      },
+      {
         label: 'Linkit',
+        groupItems: [
+          {
+            dataSource: { id: 1, name: 'ORCID' },
+            items: [
+              {
+                url: 'https://tiedejatutkimus.fi/fi/',
+                linkLabel: 'TTV',
+                itemMeta: {
+                  id: 5,
+                  type: 180,
+                  show: false,
+                  primaryValue: false,
+                },
+              },
+              {
+                url: 'https://forskning.fi/sv/',
+                linkLabel: 'Forskning',
+                itemMeta: {
+                  id: 6,
+                  type: 180,
+                  show: false,
+                  primaryValue: false,
+                },
+              },
+            ],
+            groupMeta: { id: 33, type: 180, show: false },
+          },
+        ],
       },
     ],
     description: [
       {
-        dataSource: { id: 1, name: 'ORCID' },
-        items: [
+        label: 'Avainsanat',
+        groupItems: [
           {
-            value: 'Angular',
-            itemMeta: { id: 5, type: 150, show: false, primaryValue: false },
+            dataSource: { id: 1, name: 'ORCID' },
+            items: [
+              {
+                value: 'Angular',
+                itemMeta: {
+                  id: 15,
+                  type: 150,
+                  show: false,
+                  primaryValue: false,
+                },
+              },
+              {
+                value: 'TTV',
+                itemMeta: {
+                  id: 16,
+                  type: 150,
+                  show: false,
+                  primaryValue: false,
+                },
+              },
+            ],
+            groupMeta: { id: 28, type: 150, show: false },
           },
           {
-            value: 'TTV',
-            itemMeta: { id: 6, type: 150, show: false, primaryValue: false },
+            dataSource: { id: 2, name: 'Yliopisto A' },
+            items: [
+              {
+                value: 'Suomen historia',
+                itemMeta: {
+                  id: 11,
+                  type: 150,
+                  show: false,
+                  primaryValue: false,
+                },
+              },
+              {
+                value: 'sisätaudit',
+                itemMeta: {
+                  id: 12,
+                  type: 150,
+                  show: false,
+                  primaryValue: false,
+                },
+              },
+              {
+                value: 'aerosolit',
+                itemMeta: {
+                  id: 13,
+                  type: 150,
+                  show: false,
+                  primaryValue: false,
+                },
+              },
+              {
+                value: 'digitalisaatio',
+                itemMeta: {
+                  id: 14,
+                  type: 150,
+                  show: false,
+                  primaryValue: false,
+                },
+              },
+            ],
+            groupMeta: { id: 45, type: 150, show: false },
+          },
+          {
+            dataSource: { id: 3, name: 'Tutkimuslaitos X' },
+            items: [
+              {
+                value: 'history of Finland',
+                itemMeta: {
+                  id: 7,
+                  type: 150,
+                  show: false,
+                  primaryValue: false,
+                },
+              },
+              {
+                value: 'internal medicine',
+                itemMeta: {
+                  id: 8,
+                  type: 150,
+                  show: false,
+                  primaryValue: false,
+                },
+              },
+              {
+                value: 'aerosols',
+                itemMeta: {
+                  id: 9,
+                  type: 150,
+                  show: false,
+                  primaryValue: false,
+                },
+              },
+              {
+                value: 'digitalization',
+                itemMeta: {
+                  id: 10,
+                  type: 150,
+                  show: false,
+                  primaryValue: false,
+                },
+              },
+            ],
+            groupMeta: { id: 57, type: 150, show: false },
           },
         ],
-        groupMeta: { id: 16, type: 150, show: false },
-        label: 'Avainsanat',
       },
     ],
-    education: [],
-    publication: [],
+    education: [{ label: 'Koulutus', groupItems: [] }],
+    publication: [{ label: 'Julkaisut', groupItems: [] }],
   };
+
   constructor(
     private http: HttpClient,
     private appConfigService: AppConfigService,

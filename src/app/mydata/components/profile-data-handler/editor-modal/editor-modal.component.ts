@@ -5,18 +5,30 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { checkSelected } from '../../welcome-stepper/utils';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { checkSelected } from '../utils';
 
 @Component({
   selector: 'app-editor-modal',
   templateUrl: './editor-modal.component.html',
   styleUrls: ['./editor-modal.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class EditorModalComponent implements OnInit {
-  @Input() data: any;
-  @Input() dataSources: any;
-  @Input() editLabel: string;
+  editorData: any;
+  editLabel: string;
+  // @Input() data: any;
+  // @Input() dataSources: any;
+  // @Input() editLabel: string;
 
   allSelected: boolean;
 
@@ -29,13 +41,20 @@ export class EditorModalComponent implements OnInit {
 
   checkSelected = checkSelected;
 
-  constructor() {}
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private dialogRef: MatDialogRef<EditorModalComponent>
+  ) {}
 
   ngOnInit(): void {
-    this.selectedSource = this.dataSources[0];
+    console.log(this.data);
+    this.editorData = this.data;
+    this.editLabel = this.data.editLabel;
 
-    this.allSelected = !!this.data.fields.find(
-      (item) => item.groupMeta.show === false
+    this.selectedSource = this.editorData.dataSources[0];
+
+    this.allSelected = !!this.editorData.data.fields.some((field) =>
+      field.groupItems.find((item) => item.groupMeta.show === false)
     )
       ? false
       : true;
@@ -50,21 +69,21 @@ export class EditorModalComponent implements OnInit {
    */
 
   changeGroup(index) {
-    const currentItem = this.data.fields[index];
-
-    this.handlePatchObjectGroup(currentItem);
+    const currentItem = this.editorData.data.fields[index];
 
     currentItem.groupMeta.show = !currentItem.groupMeta.show;
 
-    this.allSelected = !!this.data.fields.find(
+    this.allSelected = !!this.editorData.data.fields.find(
       (item) => item.groupMeta.show === false
     )
       ? false
       : true;
+
+    this.handlePatchObjectGroup(currentItem);
   }
 
   changeSingle(res) {
-    const currentItem = this.data.fields[res.index].items.find(
+    const currentItem = this.editorData.data.fields[res.index].items.find(
       (item) => item.itemMeta.id === res.itemMeta.id
     );
 
@@ -73,11 +92,10 @@ export class EditorModalComponent implements OnInit {
     this.handlePatchSingleObject(res.itemMeta);
   }
 
-  // editedItemsiin pitäis saada myös kaikkien muuttuneiden itemien itemMeta
   toggleAll() {
     this.allSelected = true;
 
-    this.data.fields.forEach((field) => {
+    this.editorData.data.fields.forEach((field) => {
       field.groupMeta.show = true;
 
       this.handlePatchObjectGroup(field);
@@ -102,7 +120,14 @@ export class EditorModalComponent implements OnInit {
 
   saveChanges() {
     console.log('editedItems: ', this.editedItems);
-    this.dataChange.emit({ data: this.data, patchItems: this.editedItems });
+    this.editorData.dataChange.emit({
+      data: this.editorData.data,
+      patchItems: this.editedItems,
+    });
     this.closeModal();
+  }
+
+  close() {
+    this.dialogRef.close();
   }
 }

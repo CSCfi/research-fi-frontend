@@ -21,8 +21,11 @@ import {
 } from 'ngx-bootstrap/modal';
 import { cloneDeep } from 'lodash-es';
 import { ProfileService } from '@mydata/services/profile.service';
-import { checkSelected, checkEmpty } from '../welcome-stepper/utils';
+import { checkSelected, checkEmpty } from './utils';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { EditorModalComponent } from './editor-modal/editor-modal.component';
+
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 
 @Component({
@@ -82,10 +85,13 @@ export class ProfileDataHandlerComponent implements OnInit {
 
   fieldTypes = FieldTypes;
 
+  dialogRef: MatDialogRef<EditorModalComponent>;
+
   constructor(
     private modalService: BsModalService,
     private profileService: ProfileService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    public dialog: MatDialog
   ) {
     this.testData = profileService.testData;
   }
@@ -100,7 +106,7 @@ export class ProfileDataHandlerComponent implements OnInit {
     this.profileData[1].fields = this.testData.description;
 
     // console.log(JSON.stringify(this.response));
-    // console.log(this.response);
+    // console.log('res: ', this.response.personal);
     // this.profileData[0].fields = this.response.personal;
     // this.profileData[1].fields = this.response.description;
   }
@@ -111,6 +117,23 @@ export class ProfileDataHandlerComponent implements OnInit {
 
   closePanel(i: number) {
     this.openPanels = this.openPanels.filter((val) => val !== i);
+  }
+
+  openDialog(event, index, editLabel) {
+    event.stopPropagation();
+    this.selectedIndex = index;
+    this.selectedData = cloneDeep(this.profileData[index]);
+
+    this.dialogRef = this.dialog.open(EditorModalComponent, {
+      // maxWidth: '60vw',
+      minWidth: '44vw',
+      // maxHeight: '90vw',
+      data: {
+        data: cloneDeep(this.profileData[index]),
+        dataSources: this.dataSources,
+        editLabel: editLabel,
+      },
+    });
   }
 
   openModal(event, index, template: TemplateRef<any>) {
