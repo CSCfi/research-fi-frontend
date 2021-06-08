@@ -1,0 +1,8 @@
+<ng-container [ngSwitch]="fieldType">
+  <ng-container *ngSwitchCase="fieldTypes.personWebLink">{{
+    item.url
+  }}</ng-container>
+  <ng-container *ngSwitchDefault>
+    {{ item.value }}
+  </ng-container>
+</ng-container>

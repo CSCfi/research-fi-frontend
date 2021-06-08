@@ -10,8 +10,7 @@
 @mixin app-profile-data-handler-theme($theme) {
   $primary: map-get($theme, primary);
 
-  app-profile-data-handler,
-  app-profile-panel {
+  app-profile-data-handler {
     .field-label {
       color: mat-contrast($primary, 300);
     }

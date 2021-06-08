@@ -13,14 +13,15 @@ import { FieldTypes } from '@mydata/constants/fieldTypes';
 @Component({
   selector: 'app-profile-panel',
   templateUrl: './profile-panel.component.html',
-  // Shared styles with parent, see profile-data-handler
+  styleUrls: ['./profile-panel.component.scss'],
 })
 export class ProfilePanelComponent implements OnInit {
   @Input() dataSources: any;
   @Input() selectedSource: string;
   @Input() data: any;
 
-  @Output() onToggle = new EventEmitter<any>();
+  @Output() onGroupToggle = new EventEmitter<any>();
+  @Output() onSingleItemToggle = new EventEmitter<any>();
 
   allSelected: boolean;
 
@@ -38,7 +39,20 @@ export class ProfilePanelComponent implements OnInit {
     this.checked = [this.selectedSource];
   }
 
-  toggleField(index: number) {
-    this.onToggle.emit(index);
+  toggleGroup(index: number) {
+    this.onGroupToggle.emit(index);
+    this.data.fields[index].items.map((item) => (item.itemMeta.show = true));
+  }
+
+  toggleItem(event, item, index) {
+    const change = {
+      index: index,
+      itemMeta: {
+        ...item.itemMeta,
+        show: event.checked,
+      },
+    };
+
+    this.onSingleItemToggle.emit(change);
   }
 }

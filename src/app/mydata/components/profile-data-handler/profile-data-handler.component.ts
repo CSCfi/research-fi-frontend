@@ -61,7 +61,6 @@ export class ProfileDataHandlerComponent implements OnInit {
       label: 'Yhteystiedot',
       editLabel: 'yhteystietoja',
       fields: [],
-      expanded: true,
     },
     {
       label: 'Tutkimustoiminnan kuvaus',
@@ -97,13 +96,13 @@ export class ProfileDataHandlerComponent implements OnInit {
 
   mapData() {
     // console.log(this.testData);
-    // this.profileData[0].fields = this.testData.personal;
-    // this.profileData[1].fields = this.testData.description;
+    this.profileData[0].fields = this.testData.personal;
+    this.profileData[1].fields = this.testData.description;
 
     // console.log(JSON.stringify(this.response));
     // console.log(this.response);
-    this.profileData[0].fields = this.response.personal;
-    this.profileData[1].fields = this.response.description;
+    // this.profileData[0].fields = this.response.personal;
+    // this.profileData[1].fields = this.response.description;
   }
 
   setOpenPanel(i: number) {
@@ -129,7 +128,7 @@ export class ProfileDataHandlerComponent implements OnInit {
 
   changeData(data) {
     if (data.data) {
-      console.log(this.profileData[this.selectedIndex]);
+      // console.log(this.profileData[this.selectedIndex]);
       this.profileData[this.selectedIndex] = data.data;
 
       this.profileService

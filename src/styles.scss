@@ -53,6 +53,7 @@
 @import './app/shared/components/close-button/close-button.component.scss-theme.scss';
 @import './app/shared/components/divider/divider.component-theme.scss';
 @import './app/shared/components/button-group/button-group.component-theme.scss';
+@import './app/shared/components/select/select.component-theme.scss';
 @import './app/layout/review/review.component.scss-theme.scss';
 @import './app/portal/components/results/pagination/pagination.component.scss';
 @import './app/portal/components/science-politics/figures/carousel/carousel.component.scss-theme.scss';
@@ -94,6 +95,7 @@
   @include app-close-button-theme($theme);
   @include app-divider-theme($theme);
   @include app-button-group-theme($theme);
+  @include app-select-theme($theme);
   @include app-service-info-theme($theme);
   @include app-news-theme($theme);
   @include app-news-card-theme($theme);

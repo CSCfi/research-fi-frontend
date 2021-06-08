@@ -270,9 +270,23 @@
 
               <div class="row pb-4 d-flex justify-content-center">
                 <div class="col px-0 px-lg-3">
-                  <app-profile-data-handler
-                    [response]="orcidData"
-                  ></app-profile-data-handler>
+                  <mat-tab-group mat-align-tabs="center">
+                    <mat-tab label="Valitse julkaistavat tiedot">
+                      <app-select
+                        label="Ensisijainen lähde"
+                        [options]="['Orcid']"
+                        [labelBefore]="true"
+                        [defaultToFirst]="true"
+                      ></app-select>
+
+                      <app-profile-data-handler
+                        [response]="orcidData"
+                      ></app-profile-data-handler>
+                    </mat-tab>
+                    <mat-tab label="Aseta kaikki julkisiksi"
+                      >Aseta kaikki julkisiksi</mat-tab
+                    >
+                  </mat-tab-group>
                 </div>
               </div>
               <app-stepper-navigation

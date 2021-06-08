@@ -25,16 +25,17 @@ export class ProfileService {
         dataSource: { id: 1, name: 'ORCID' },
         items: [
           {
-            firstNames: 'Matti',
-            lastName: 'Mallikas',
+            firstNames: 'Sauli',
+            lastName: 'Purhonen',
             fullName: '',
-            itemMeta: { id: 23, type: 112, show: false },
-            value: 'Matti Mallikas',
+            itemMeta: { id: 3, type: 112, show: false, primaryValue: false },
+            value: 'Sauli Purhonen',
           },
         ],
-        groupMeta: { id: 76, type: 110, show: true },
+        groupMeta: { id: 17, type: 110, show: true },
         label: 'Nimi',
         disabled: true,
+        single: true,
       },
       {
         dataSource: { id: 1, name: 'ORCID' },
@@ -42,12 +43,12 @@ export class ProfileService {
           {
             firstNames: '',
             lastName: '',
-            fullName: 'MM Mallikas',
-            itemMeta: { id: 24, type: 120, show: false },
-            value: 'MM Mallikas',
+            fullName: 'SM Purhonen',
+            itemMeta: { id: 4, type: 120, show: false, primaryValue: false },
+            value: 'SM Purhonen',
           },
         ],
-        groupMeta: { id: 77, type: 120, show: false },
+        groupMeta: { id: 18, type: 120, show: false },
         label: 'Muut nimet',
       },
       {
@@ -56,15 +57,15 @@ export class ProfileService {
           {
             url: 'https://tiedejatutkimus.fi/fi/',
             linkLabel: 'TTV',
-            itemMeta: { id: 21, type: 180, show: false },
+            itemMeta: { id: 3, type: 180, show: true, primaryValue: false },
           },
           {
             url: 'https://forskning.fi/sv/',
             linkLabel: 'Forskning',
-            itemMeta: { id: 22, type: 180, show: false },
+            itemMeta: { id: 4, type: 180, show: false, primaryValue: false },
           },
         ],
-        groupMeta: { id: 79, type: 180, show: false },
+        groupMeta: { id: 21, type: 180, show: false },
         label: 'Linkit',
       },
     ],
@@ -72,15 +73,22 @@ export class ProfileService {
       {
         dataSource: { id: 1, name: 'ORCID' },
         items: [
-          { value: 'Angular', itemMeta: { id: 23, type: 150, show: false } },
-          { value: 'TTV', itemMeta: { id: 24, type: 150, show: false } },
+          {
+            value: 'Angular',
+            itemMeta: { id: 5, type: 150, show: false, primaryValue: false },
+          },
+          {
+            value: 'TTV',
+            itemMeta: { id: 6, type: 150, show: false, primaryValue: false },
+          },
         ],
-        groupMeta: { id: 81, type: 150, show: false },
+        groupMeta: { id: 16, type: 150, show: false },
         label: 'Avainsanat',
       },
     ],
+    education: [],
+    publication: [],
   };
-
   constructor(
     private http: HttpClient,
     private appConfigService: AppConfigService,

@@ -42,6 +42,7 @@ import { ProfilePanelComponent } from './components/profile-data-handler/profile
 import { FilterPipe } from './pipes/filter.pipe';
 import { EditorModalComponent } from './components/profile-data-handler/editor-modal/editor-modal.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { PanelArrayItemComponent } from './components/profile-data-handler/profile-panel/panel-array-item/panel-array-item.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     FilterPipe,
     EditorModalComponent,
     ProfileComponent,
+    PanelArrayItemComponent,
   ],
   imports: [
     CommonModule,

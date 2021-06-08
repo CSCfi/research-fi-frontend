@@ -1,0 +1,44 @@
+// This file is part of the research.fi API service
+//
+// Copyright 2019 Ministry of Education and Culture, Finland
+//
+// :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+// :license: MIT
+
+app-select {
+  display: block;
+  padding: 1rem 0;
+
+  // Mat-select overrides
+  .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+
+  .mat-form-field-appearance-fill .mat-form-field-label {
+    margin-top: 0;
+  }
+
+  .mat-form-field-appearance-fill .mat-form-field-flex {
+    padding: 0;
+  }
+
+  .mat-form-field-appearance-fill .mat-form-field-infix {
+    padding: 0.25rem 0;
+  }
+
+  .mat-form-field-infix {
+    border-top: 0;
+  }
+
+  .mat-form-field-appearance-fill .mat-select-arrow-wrapper {
+    transform: translateY(0%);
+  }
+
+  .mat-form-field-underline {
+    bottom: 0;
+  }
+
+  .mat-select-value-text {
+    padding-left: 0.5rem;
+  }
+}
