@@ -704,7 +704,8 @@
           >
           <div *ngFor="let source of responseData.fundings">
             <p *ngIf="source.funder.name.trim().length > 0">
-              {{ source.funder.name }}
+              <ng-container *ngIf="!item.structuralFund">{{ source.funder.name }}</ng-container>
+              <ng-container *ngIf="item.structuralFund">Rakennerahastotietopalvelu</ng-container>
               <!-- Structural fund source link -->
               (<a
                     *ngIf="item.structuralFund"

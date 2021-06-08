@@ -43,7 +43,7 @@ export class FunderAdapter implements Adapter<Funder> {
     });
 
     return new Funder(
-      item.structuralFund ? 'Rakennerahastotietopalvelu' : this.lang.testLang('funderName', item),
+      this.lang.testLang('funderName', item),
       item.funderNameUnd,
       item.typeOfFundingId,
       this.lang.testLang('typeOfFundingName', item).trim().length > 0
