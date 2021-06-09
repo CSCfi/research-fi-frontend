@@ -705,16 +705,12 @@
           <div *ngFor="let source of responseData.fundings">
             <p *ngIf="source.funder.name.trim().length > 0">
               <ng-container *ngIf="!item.structuralFund">{{ source.funder.name }}</ng-container>
-              <ng-container *ngIf="item.structuralFund">Rakennerahastotietopalvelu</ng-container>
-              <!-- Structural fund source link -->
-              (<a
-                    *ngIf="item.structuralFund"
-                    class=""
-                    href="https://www.eura2014.fi/rrtiepa/"
-                    target="_blank"
-                    >eura2014.fi
-                    <fa-icon icon="external-link-alt"></fa-icon
-              ></a>)
+              <ng-container *ngIf="item.structuralFund">Rakennerahastotietopalvelu 
+                  <!-- Structural fund source link -->
+                  (<a href="https://www.eura2014.fi/rrtiepa/" target="_blank">eura2014.fi
+                    <fa-icon icon="external-link-alt"></fa-icon>
+                  </a>)
+              </ng-container>
             </p>
             <p
               *ngIf="source.funder.name.trim().length === 0"
