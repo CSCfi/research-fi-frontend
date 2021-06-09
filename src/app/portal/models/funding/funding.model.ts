@@ -32,6 +32,7 @@ export class Funding {
     public projectHomepage: string,
     public recipientType: string,
     public euFunding: boolean,
+    public structuralFund: boolean,
     public relatedFundings: RelatedFunding[],
     public additionalOrgs: { name: string; orgId: number }[],
     public totalFundingAmount: number
@@ -120,11 +121,15 @@ export class FundingAdapter implements Adapter<Funding> {
       );
     }
 
-    const funder = this.f.adapt(item);
 
     // Set EU funding status
     item.euFunding =
       item.funderNameFi.toLowerCase() === 'euroopan unioni' ? true : false;
+
+    item.structuralFund =
+      item.typeOfFundingId === 'EAKR' || item.typeOfFundingId === 'ESR';
+
+    const funder = this.f.adapt(item);
 
     const recipient = this.r.adapt(item);
 
@@ -194,6 +199,7 @@ export class FundingAdapter implements Adapter<Funding> {
       item.projetHomepage,
       item.recipientType,
       item.euFunding,
+      item.structuralFund,
       relatedFundings,
       additionalOrgs,
       // undefined, // Temporary related fundings
