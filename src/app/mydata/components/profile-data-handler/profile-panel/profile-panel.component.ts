@@ -18,20 +18,22 @@ import { checkGroupShow } from '../utils';
 })
 export class ProfilePanelComponent implements OnInit {
   @Input() dataSources: any;
-  @Input() selectedSource: string;
+  @Input() primarySource: string;
   @Input() data: any;
 
   @Output() onGroupToggle = new EventEmitter<any>();
+  @Output() onRadioItemToggle = new EventEmitter<any>();
   @Output() onSingleItemToggle = new EventEmitter<any>();
 
   allSelected: boolean;
 
-  checked: any[];
   mobileStatusSub: Subscription;
 
   fieldTypes = FieldTypes;
 
   checkGroupShow = checkGroupShow;
+
+  openPanels = [];
 
   /*
    * appSettingsService is used in Template
@@ -39,26 +41,73 @@ export class ProfilePanelComponent implements OnInit {
   constructor(private appSettingsService: AppSettingsService) {}
 
   ngOnInit(): void {
-    this.checked = [this.selectedSource];
-    console.log(this.data);
+    // console.log(this.data);
   }
 
-  toggleGroup(index: number) {
-    // Check items
-    //  this.data.fields[index].items.map((item) => (item.itemMeta.show = true));
+  toggleGroup(event: any, index: number, data: any) {
+    const patchGroups = [];
+    const patchItems = [];
 
-    this.onGroupToggle.emit(index);
-  }
+    this.openPanels.includes(index)
+      ? (this.openPanels = this.openPanels.filter((item) => item !== index))
+      : this.openPanels.push(index);
 
-  toggleItem(event, item, index) {
-    const change = {
+    data.groupItems.map((groupItem) => {
+      groupItem.groupMeta.show = event.checked;
+      patchGroups.push(groupItem.groupMeta);
+
+      groupItem.items.map((item) => {
+        item.itemMeta.show = event.checked;
+        patchItems.push(item.itemMeta);
+      });
+    });
+
+    this.onGroupToggle.emit({
+      data: data,
+      patchGroups: patchGroups,
+      patchItems: patchItems,
       index: index,
+    });
+  }
+
+  toggleRadioItem(event, index) {
+    let selectedItem = {};
+
+    const fields = this.data.fields[index];
+
+    fields.groupItems.map((groupItem) => {
+      const currentSelection = groupItem.items.find(
+        (item) => item.itemMeta.id === event.value
+      );
+
+      if (currentSelection) selectedItem = currentSelection;
+
+      groupItem.groupMeta.show = currentSelection ? true : false;
+
+      groupItem.items.map(
+        (item) =>
+          (item.itemMeta.show = item.itemMeta.id === event.value ? true : false)
+      );
+    });
+
+    this.onRadioItemToggle.emit({
+      data: fields,
+      selectedGroup: fields.groupItems.find(
+        (groupItem) => groupItem.groupMeta.show
+      ),
+      selectedItem: selectedItem,
+      index: index,
+    });
+  }
+
+  toggleItem(event, groupItem, item, index) {
+    this.onSingleItemToggle.emit({
+      index: index,
+      groupId: groupItem.groupMeta.id,
       itemMeta: {
         ...item.itemMeta,
         show: event.checked,
       },
-    };
-
-    this.onSingleItemToggle.emit(change);
+    });
   }
 }

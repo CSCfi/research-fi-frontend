@@ -7,7 +7,8 @@
 
 type settingsType = {
   disabled: boolean;
-  forceShow: boolean;
+  expanded: boolean;
+  setDefault: boolean;
   single: boolean;
 };
 
@@ -32,16 +33,16 @@ export function mapNameGroup(group, label, settings?: settingsType) {
   );
 
   // Set default value
-  if (settings?.forceShow) {
-    const defaultItem = group.find((item) => item.dataSource.name === 'ORCID');
-    defaultItem.groupMeta.show = true;
-    defaultItem.items[0].itemMeta.show = true;
-  }
+  // if (settings?.setDefault) {
+  //   group[0].groupMeta.show = true;
+  //   group[0].items[0].itemMeta.show = true;
+  // }
 
   return {
     label: label,
     groupItems: group.filter((item) => item.items.length > 0),
     disabled: settings?.disabled,
     single: settings?.single,
+    expanded: settings?.expanded,
   };
 }

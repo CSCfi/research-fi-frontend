@@ -3,6 +3,14 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
+<app-select
+  label="Ensisijainen lähde"
+  [options]="dataSources"
+  [labelBefore]="true"
+  [defaultToFirst]="true"
+  (onSelectionChange)="setPrimaryDataSource($event)"
+></app-select>
+
 <div class="row pb-3 d-flex justify-content-center">
   <div class="col px-0">
     <div
@@ -28,15 +36,16 @@
       </div>
 
       <!-- Editor modal -->
-      <ng-template #editorModal>
+      <!-- <ng-template #editorModal>
         <app-editor-modal
           [data]="selectedData"
           [dataSources]="dataSources"
+          [primarySource]="primarySource"
           [editLabel]="item.editLabel"
           (emitClose)="closeModal()"
-          (dataChange)="changeData($event)"
+          (dataChange)="patchData($event)"
         ></app-editor-modal>
-      </ng-template>
+      </ng-template> -->
     </div>
   </div>
 </div>

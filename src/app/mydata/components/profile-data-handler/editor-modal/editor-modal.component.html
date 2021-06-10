@@ -27,10 +27,11 @@
         <div class="col">
           <app-profile-panel
             [dataSources]="editorData.dataSources"
-            [selectedSource]="selectedSource"
+            [primarySource]="primarySource"
             [data]="editorData.data"
-            (onGroupToggle)="changeGroup($event)"
-            (onSingleItemToggle)="changeSingle($event)"
+            (onGroupToggle)="toggleGroup($event)"
+            (onRadioItemToggle)="toggleRadio($event)"
+            (onSingleItemToggle)="toggleSingle($event)"
           ></app-profile-panel>
         </div>
       </div>

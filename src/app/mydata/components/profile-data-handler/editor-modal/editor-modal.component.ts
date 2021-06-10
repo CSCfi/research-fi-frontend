@@ -9,13 +9,13 @@ import {
   Component,
   EventEmitter,
   Inject,
-  Input,
   OnInit,
   Output,
   ViewEncapsulation,
 } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { checkSelected } from '../utils';
+import { cloneDeep } from 'lodash-es';
 
 @Component({
   selector: 'app-editor-modal',
@@ -26,18 +26,17 @@ import { checkSelected } from '../utils';
 export class EditorModalComponent implements OnInit {
   editorData: any;
   editLabel: string;
-  // @Input() data: any;
-  // @Input() dataSources: any;
-  // @Input() editLabel: string;
+  originalEditorData: any;
 
   allSelected: boolean;
 
-  selectedSource: string;
+  primarySource: string;
 
   @Output() emitClose = new EventEmitter<boolean>();
   @Output() dataChange = new EventEmitter<object>();
 
-  editedItems: any[] = [];
+  groupPayload: any[];
+  itemPayload: any[];
 
   checkSelected = checkSelected;
 
@@ -47,49 +46,157 @@ export class EditorModalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.data);
     this.editorData = this.data;
+    this.originalEditorData = cloneDeep(this.data);
     this.editLabel = this.data.editLabel;
-
-    this.selectedSource = this.editorData.dataSources[0];
+    this.primarySource = this.editorData.primarySource;
 
     this.allSelected = !!this.editorData.data.fields.some((field) =>
       field.groupItems.find((item) => item.groupMeta.show === false)
     )
       ? false
       : true;
+
+    // Radio options have default values. Add these values on init
+    this.addInitialOptions(this.editorData.data);
   }
 
   closeModal() {
     this.emitClose.emit(true);
   }
 
+  addInitialOptions(data) {
+    const radioGroups = data.fields.filter((field) => field.single);
+
+    const patchGroups = [];
+    const patchItems = [];
+
+    radioGroups.forEach((group) =>
+      group.groupItems.map((groupItem) => {
+        if (groupItem.groupMeta.show) {
+          patchGroups.push(groupItem.groupMeta);
+          patchItems.push(
+            groupItem.items.find((item) => item.itemMeta.show).itemMeta
+          );
+        }
+      })
+    );
+
+    this.groupPayload = patchGroups;
+    this.itemPayload = patchItems;
+  }
+
   /*
    * Handle object add / remove from patch object list when values change
    */
 
-  changeGroup(index) {
-    const currentItem = this.editorData.data.fields[index];
+  toggleGroup(response: {
+    data: any;
+    patchGroups: any[];
+    patchItems: any[];
+    index: string | number;
+  }) {
+    // console.log('response: ', response);
 
-    currentItem.groupMeta.show = !currentItem.groupMeta.show;
+    // const currentItem = this.editorData.data.fields[response.index];
+    // console.log(currentItem);
+    // console.log(this.editorData.data.fields[index]);
 
-    this.allSelected = !!this.editorData.data.fields.find(
-      (item) => item.groupMeta.show === false
-    )
-      ? false
-      : true;
+    // currentItem.groupItems.map((item) => (item.groupMeta.show = true));
 
-    this.handlePatchObjectGroup(currentItem);
-  }
+    // currentItem.groupMeta.show = !currentItem.groupMeta.show;
 
-  changeSingle(res) {
-    const currentItem = this.editorData.data.fields[res.index].items.find(
-      (item) => item.itemMeta.id === res.itemMeta.id
+    // this.allSelected = !!this.editorData.data.fields.find(
+    //   (item) => item.groupMeta.show === false
+    // )
+    //   ? false
+    //   : true;
+
+    const original = this.originalEditorData.data.fields[response.index];
+    // console.log(
+    //   'og: ',
+    //   original.groupItems.map((groupItem) => groupItem.groupMeta)
+    // );
+    // console.log('response patchGroups: ', response.patchGroups);
+
+    const originalGroupItemMeta = original.groupItems.map(
+      (groupItem) => groupItem.groupMeta
     );
 
-    currentItem.itemMeta = res.itemMeta;
+    originalGroupItemMeta.forEach((item) => {
+      if (
+        response.patchGroups.find(
+          (group) => group.id === item.id && group.show === item.show
+        )
+      ) {
+        this.removeFromPayload('group', item);
+      } else {
+        this.handlePatchObjectGroup(response.patchGroups, response.patchItems);
+      }
+    });
+  }
 
-    this.handlePatchSingleObject(res.itemMeta);
+  toggleRadio(response: {
+    data: any;
+    selectedGroup: any;
+    selectedItem: any;
+    index: string | number;
+  }) {
+    const original = this.originalEditorData.data.fields[response.index];
+
+    const patchGroups = [];
+    const patchObjects = [];
+
+    const previousSelection = original.groupItems.find(
+      (groupItem) => groupItem.groupMeta.show
+    );
+
+    // Add to patch items only if new selection
+    if (
+      previousSelection &&
+      previousSelection.groupMeta.id !== response.selectedGroup.groupMeta.id
+    ) {
+      // Set original group show to false
+      patchGroups.push({ ...previousSelection.groupMeta, show: false });
+
+      // Set original item show to false
+      previousSelection.items.forEach((item) =>
+        patchObjects.push({ ...item.itemMeta, show: false })
+      );
+
+      // Set selected group
+      patchGroups.push(response.selectedGroup.groupMeta);
+
+      // Set selected item
+      patchObjects.push(response.selectedItem.itemMeta);
+
+      this.handlePatchRadioObject(patchGroups, patchObjects);
+    }
+  }
+
+  toggleSingle(response: {
+    groupId: number;
+    itemMeta: any;
+    index: string | number;
+  }) {
+    const parentGroup = this.editorData.data.fields[
+      response.index
+    ].groupItems.find((group) => group.groupMeta.id === response.groupId);
+
+    const currentItem = parentGroup.items.find(
+      (item) => item.itemMeta.id === response.itemMeta.id
+    );
+
+    currentItem.itemMeta.show = response.itemMeta.show;
+
+    // Set group show to false if no selected items
+    if (!parentGroup.items.find((item) => item.itemMeta.show)) {
+      parentGroup.groupMeta.show = false;
+      this.handlePatchObjectGroup([parentGroup.groupMeta], [response.itemMeta]);
+    } else {
+      // Add selection to patch items
+      this.handlePatchSingleObject(response.itemMeta);
+    }
   }
 
   toggleAll() {
@@ -98,33 +205,95 @@ export class EditorModalComponent implements OnInit {
     this.editorData.data.fields.forEach((field) => {
       field.groupMeta.show = true;
 
-      this.handlePatchObjectGroup(field);
+      // this.handlePatchObjectGroup(field);
     });
   }
 
-  handlePatchObjectGroup(currentItem) {
-    this.editedItems.find((item) => item.id === currentItem.groupMeta.id)
-      ? (this.editedItems = this.editedItems.filter(
-          (item) => item.id !== currentItem.groupMeta.id
-        ))
-      : this.editedItems.push(currentItem.groupMeta);
+  /*
+   * Remove from payload if value same as original
+   */
+
+  removeFromPayload(type, meta) {
+    switch (type) {
+      case 'group': {
+        this.groupPayload = this.groupPayload.filter(
+          (item) => item.id === meta.id
+        );
+      }
+      case 'item': {
+        this.itemPayload = this.itemPayload.filter(
+          (item) => item.id === meta.id
+        );
+      }
+    }
   }
 
-  handlePatchSingleObject(currentItem) {
-    this.editedItems.find((item) => item.id === currentItem.id)
-      ? (this.editedItems = this.editedItems.filter(
-          (item) => item.id !== currentItem.id
+  /*
+   * Handle group & item meta data for patch operations
+   */
+
+  handlePatchObjectGroup(patchGroups: any[], patchObjects: any[]) {
+    // Overwrite duplicates
+    // console.log('patchGroups: ', patchGroups);
+    // console.log('patchObjects: ', patchObjects);
+
+    this.groupPayload = [...new Set([...this.groupPayload, ...patchGroups])];
+    this.itemPayload = [...new Set([...this.itemPayload, ...patchObjects])];
+
+    // console.log(this.groupPayload);
+
+    // this.itemPayload.find((item) => item.id === currentItem.groupMeta.id)
+    //   ? (this.itemPayload = this.itemPayload.filter(
+    //       (item) => item.id !== currentItem.groupMeta.id
+    //     ))
+    //   : this.itemPayload.push(currentItem.groupMeta);
+  }
+
+  handlePatchRadioObject(patchGroups: any[], patchObjects: any[]) {
+    // Overwrite existing patch items
+    const patchObjectTypes = [
+      ...new Set(patchObjects.map((object) => object.type)),
+    ];
+
+    this.itemPayload = this.itemPayload.filter(
+      (object) => !patchObjectTypes.includes(object.type)
+    );
+
+    this.groupPayload = [...this.groupPayload, ...patchGroups];
+    this.itemPayload = [...this.itemPayload, ...patchObjects];
+  }
+
+  handlePatchSingleObject(itemMeta) {
+    this.itemPayload.find((item) => item.id === itemMeta.id)
+      ? (this.itemPayload = this.itemPayload.filter(
+          (item) => item.id !== itemMeta.id
         ))
-      : this.editedItems.push(currentItem);
+      : this.itemPayload.push(itemMeta);
+
+    // console.log(this.itemPayload);
   }
 
   saveChanges() {
-    console.log('editedItems: ', this.editedItems);
-    this.editorData.dataChange.emit({
+    // console.log('save');
+    console.log('groupPayload', this.groupPayload);
+    console.log('itemPayload', this.itemPayload);
+    // console.log(
+    //   'itemPayload',
+    //   this.itemPayload.filter((item) => item.show)
+    // );
+
+    this.dialogRef.close({
       data: this.editorData.data,
-      patchItems: this.editedItems,
+      patchGroups: this.groupPayload,
+      patchItems: this.itemPayload,
     });
-    this.closeModal();
+
+    // console.log('editedItems: ', this.editedItems);
+    // this.editorData.dataChange.emit({
+    //   data: this.editorData.data,
+    //   patchItems: this.editedItems,
+    // });
+    // this.closeModal();
   }
 
   close() {

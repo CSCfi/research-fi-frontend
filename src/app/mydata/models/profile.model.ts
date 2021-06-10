@@ -12,7 +12,7 @@ import { DescriptionFieldsAdapter } from './description.model';
 import { EducationFieldsAdapter } from './education.model';
 import { PublicationFieldsAdapter } from './publication.model';
 
-export class Orcid {
+export class Profile {
   constructor(
     public personal: any,
     public description: any,
@@ -24,7 +24,7 @@ export class Orcid {
 @Injectable({
   providedIn: 'root',
 })
-export class OrcidAdapter implements Adapter<Orcid> {
+export class ProfileAdapter implements Adapter<Profile> {
   constructor(
     private personalFieldsAdapter: PersonalFieldsAdapter,
     private descriptionFieldsAdapter: DescriptionFieldsAdapter,
@@ -32,7 +32,7 @@ export class OrcidAdapter implements Adapter<Orcid> {
     private publicationFieldsAdapter: PublicationFieldsAdapter
   ) {}
 
-  adapt(item: any): Orcid {
+  adapt(item: any): Profile {
     const data = item.body.data;
 
     const mapModel = (adapter, data) =>
@@ -41,7 +41,7 @@ export class OrcidAdapter implements Adapter<Orcid> {
       // );
       Object.values(adapter.adapt(data));
 
-    return new Orcid(
+    return new Profile(
       mapModel(this.personalFieldsAdapter, data.personal),
       mapModel(this.descriptionFieldsAdapter, data.personal),
       mapModel(this.educationFieldsAdapter, data.activity),
@@ -49,8 +49,8 @@ export class OrcidAdapter implements Adapter<Orcid> {
     );
   }
 
-  adaptMany(item: any): Orcid[] {
-    const entries: Orcid[] = [];
+  adaptMany(item: any): Profile[] {
+    const entries: Profile[] = [];
     const source = item;
     source.forEach((el) => entries.push(this.adapt(el)));
     return entries;

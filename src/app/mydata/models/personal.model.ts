@@ -32,7 +32,8 @@ export class PersonalFieldsAdapter implements Adapter<PersonalFields> {
       // TODO: Localize
       this.mapNameGroup(item.nameGroups, 'Nimi', {
         disabled: true,
-        forceShow: true,
+        expanded: true,
+        setDefault: true,
         single: true,
       }),
       this.mapNameGroup(item.otherNameGroups, 'Muut nimet'),

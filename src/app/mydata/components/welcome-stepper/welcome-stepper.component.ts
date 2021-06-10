@@ -27,7 +27,7 @@ import { Router } from '@angular/router';
   encapsulation: ViewEncapsulation.None,
 })
 export class WelcomeStepperComponent implements OnInit {
-  step = 4;
+  step = 3;
   cancel = false;
 
   termsApproved = false;
@@ -38,14 +38,13 @@ export class WelcomeStepperComponent implements OnInit {
 
   userData: any;
   firstName: string;
-  editorData: Object;
 
   @ViewChild('smModal') smModal: ModalDirective;
   @ViewChild('termsTemplate') termsTemplate: ModalDirective;
   modalRef: BsModalRef;
 
   profileCreated: boolean;
-  orcidData: Object;
+  profileData: Object;
 
   constructor(
     private profileService: ProfileService,
@@ -53,7 +52,7 @@ export class WelcomeStepperComponent implements OnInit {
     private modalService: BsModalService,
     private router: Router
   ) {
-    this.editorData = null;
+    this.profileData = null;
   }
 
   ngOnInit() {
@@ -141,10 +140,9 @@ export class WelcomeStepperComponent implements OnInit {
   }
 
   getProfileData() {
-    this.editorData = null;
+    this.profileData = null;
     this.profileService.getProfileData().subscribe((data) => {
-      this.orcidData = data;
-      this.editorData = data;
+      this.profileData = data;
       this.smModal.hide();
       this.increment();
     });

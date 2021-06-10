@@ -16,19 +16,21 @@
 
             <div class="col-auto pr-0" *ngIf="!field.disabled">
               <mat-slide-toggle
-                [checked]="
-                  (field.groupItems | filter: checkGroupShow).length > 0
-                "
-                (change)="toggleGroup(i)"
+                [checked]="field.groupItems | filter: checkGroupShow:'boolean'"
+                (change)="toggleGroup($event, i, data.fields[i])"
                 [disabled]="field.disabled"
                 labelPosition="after"
-                >Näytä profiilissani</mat-slide-toggle
-              >
+                >Näytä profiilissani
+              </mat-slide-toggle>
             </div>
           </div>
 
           <ng-container
-            *ngIf="(field.groupItems | filter: checkGroupShow).length > 0"
+            *ngIf="
+              field.expanded ||
+              (field.groupItems | filter: checkGroupShow:'boolean') ||
+              openPanels.indexOf(i) > -1
+            "
           >
             <ng-container *ngFor="let groupItem of field.groupItems">
               <div
@@ -41,6 +43,8 @@
                 >
                   <mat-radio-button
                     *ngSwitchCase="true"
+                    [value]="item.itemMeta.id"
+                    (change)="toggleRadioItem($event, i)"
                     [checked]="item.itemMeta.show"
                   >
                     <app-panel-array-item
@@ -52,13 +56,16 @@
                   <mat-checkbox
                     [checked]="item.itemMeta.show"
                     *ngSwitchDefault
-                    (change)="toggleItem($event, item, i)"
+                    (change)="toggleItem($event, groupItem, item, i)"
                   >
                     <app-panel-array-item
                       [item]="item"
                       [fieldType]="groupItem.groupMeta.type"
                     ></app-panel-array-item>
                   </mat-checkbox>
+
+                  itemId: {{ item.itemMeta.id }} | groupId:
+                  {{ groupItem.groupMeta.id }}
                 </div>
 
                 <div
@@ -71,110 +78,23 @@
                     py-2
                   "
                 >
-                  {{ groupItem.dataSource.name }}
+                  {{ groupItem.source.organization.nameFi }}
                 </div>
               </div>
             </ng-container>
           </ng-container>
-
-          <!-- Field values -->
-          <!-- <ng-container *ngIf="(field | filter: checkSelected).length > 0">
-            <div
-              class="row d-flex justify-content-between"
-              *ngIf="field.items.length === 1; else fieldArrayTemplate"
-            >
-              <div
-                class="col-auto px-0 font-size-smaller"
-                [ngSwitch]="field.single"
-              >
-                <mat-radio-button
-                  *ngSwitchCase="true"
-                  [value]="field.items[0].value"
-                  [checked]="field.disabled"
-                >
-                  {{ field.items[0].value }}
-                </mat-radio-button>
-
-                <mat-checkbox
-                  [checked]="field.items[0].itemMeta.show"
-                  (change)="toggleItem($event, item, i)"
-                  *ngSwitchDefault
-                  >{{ field.items[0].value }}</mat-checkbox
-                >
-              </div>
-
-              <div
-                class="col-auto pr-0 text-right opacity-3 font-size-small py-1"
-              >
-                {{ field.dataSource.name }}
-              </div>
-            </div>
-            <ng-template #fieldArrayTemplate>
-              <div
-                class="row d-flex justify-content-between"
-                *ngFor="let item of field.items"
-              >
-                <div
-                  class="col px-0 font-size-smaller"
-                  [ngSwitch]="field.single"
-                >
-                  <mat-radio-button *ngSwitchCase="true">
-                    <app-panel-array-item
-                      [item]="item"
-                      [fieldType]="field.groupMeta.type"
-                    ></app-panel-array-item>
-                  </mat-radio-button>
-
-                  <mat-checkbox
-                    [checked]="item.itemMeta.show"
-                    *ngSwitchDefault
-                    (change)="toggleItem($event, item, i)"
-                  >
-                    <app-panel-array-item
-                      [item]="item"
-                      [fieldType]="field.groupMeta.type"
-                    ></app-panel-array-item>
-                  </mat-checkbox>
-                </div>
-
-                <div
-                  class="
-                    col-auto
-                    pr-0
-                    text-right
-                    opacity-3
-                    font-size-small
-                    py-1
-                  "
-                >
-                  {{ field.dataSource.name }}
-                </div>
-              </div>
-            </ng-template>
-          </ng-container> -->
         </div>
       </div>
-
-      <!-- <div class="row" *ngIf="!field.disabled">
-        <span class="col-12 px-lg-0 pb-2 font-size-small"
-          >Valitse lähteet:</span
-        >
-        <app-button-group
-          class="col-12 pb-2 px-lg-0"
-          [data]="dataSources"
-          [multiple]="true"
-          [checked]="checked"
-          [vertical]="appSettingsService.mobileStatus | async"
-        ></app-button-group>
-      </div> -->
-
-      <!-- <div class="row pb-4 font-size-small" *ngIf="!field.disabled">
+      <div class="row pb-4 font-size-small">
         <div class="col col-lg-6 pl-0">
           <fa-icon class="pr-1 opacity-3" icon="info-circle"></fa-icon>
-          <span>Voit valita useamman lähteen</span>
+          <ng-container [ngSwitch]="field.single">
+            <span *ngSwitchCase="true">Voit valita yhden vaihtoehdon</span>
+            <span *ngSwitchDefault>Voit valita usean vaihtoehdon</span>
+          </ng-container>
         </div>
-        <div class="col pr-0 opacity-3"><span>1 lähde valittu</span></div>
-      </div> -->
+        <!-- <div class="col pr-0 opacity-3"><span>1 lähde valittu</span></div> -->
+      </div>
 
       <hr *ngIf="i + 1 < data.fields.length" class="m-0" />
     </ng-container>
