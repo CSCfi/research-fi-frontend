@@ -6,10 +6,11 @@
 //  :license: MIT
 
 type settingsType = {
-  disabled: boolean;
-  expanded: boolean;
-  setDefault: boolean;
-  single: boolean;
+  disabled?: boolean;
+  expanded?: boolean;
+  setDefault?: boolean;
+  single?: boolean;
+  localized?: boolean;
 };
 
 export function mapGroup(group, label, settings?: settingsType) {
@@ -44,5 +45,21 @@ export function mapNameGroup(group, label, settings?: settingsType) {
     disabled: settings?.disabled,
     single: settings?.single,
     expanded: settings?.expanded,
+  };
+}
+
+export function mapGroupFieldName(
+  group,
+  label,
+  fieldName,
+  settings?: settingsType
+) {
+  group.map((groupItem) => groupItem.items.forEach((item) => item.value));
+
+  return {
+    label: label,
+    groupItems: group.filter((item) => item.items.length > 0),
+    localized: settings?.localized,
+    fieldName: fieldName,
   };
 }

@@ -41,6 +41,7 @@ import { StepperNavigationComponent } from './components/welcome-stepper/stepper
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ProfilePanelComponent } from './components/profile-data-handler/profile-panel/profile-panel.component';
 import { FilterPipe } from './pipes/filter.pipe';
+import { GetLocalizedValuesPipe } from './pipes/getLocalizedValues.pipe';
 import { EditorModalComponent } from './components/profile-data-handler/editor-modal/editor-modal.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { PanelArrayItemComponent } from './components/profile-data-handler/profile-panel/panel-array-item/panel-array-item.component';
@@ -57,6 +58,7 @@ import { PanelArrayItemComponent } from './components/profile-data-handler/profi
     StepperNavigationComponent,
     ProfilePanelComponent,
     FilterPipe,
+    GetLocalizedValuesPipe,
     EditorModalComponent,
     ProfileComponent,
     PanelArrayItemComponent,

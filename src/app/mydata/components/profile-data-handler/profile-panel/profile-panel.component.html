@@ -61,9 +61,12 @@
                     <app-panel-array-item
                       [item]="item"
                       [fieldType]="groupItem.groupMeta.type"
+                      [localized]="field.localized"
                     ></app-panel-array-item>
                   </mat-checkbox>
+                </div>
 
+                <div class="col-auto" style="color: red">
                   itemId: {{ item.itemMeta.id }} | groupId:
                   {{ groupItem.groupMeta.id }}
                 </div>
@@ -78,7 +81,7 @@
                     py-2
                   "
                 >
-                  {{ groupItem.source.organization.nameFi }}
+                  {{ groupItem.source.organization['name' + locale] }}
                 </div>
               </div>
             </ng-container>

@@ -193,6 +193,14 @@ mark,
   background: #fff;
 }
 
+// Multiline checkboxes
+.mat-checkbox-layout {
+  white-space: normal !important;
+}
+.mat-checkbox-inner-container {
+  margin-top: 0.25rem !important;
+}
+
 // Help icon
 .info-icon {
   color: mat-color($primary, 500);

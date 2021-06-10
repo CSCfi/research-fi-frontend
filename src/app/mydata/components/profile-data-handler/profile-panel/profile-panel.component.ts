@@ -35,6 +35,9 @@ export class ProfilePanelComponent implements OnInit {
 
   openPanels = [];
 
+  // TODO: Dynamic locale
+  locale = 'Fi';
+
   /*
    * appSettingsService is used in Template
    */

@@ -1,8 +1,25 @@
-<ng-container [ngSwitch]="fieldType">
-  <ng-container *ngSwitchCase="fieldTypes.personWebLink">{{
-    item.url
-  }}</ng-container>
-  <ng-container *ngSwitchDefault>
-    {{ item.value }}
+<ng-container *ngIf="!localized; else localizedTemplate">
+  <ng-container [ngSwitch]="fieldType">
+    <ng-container *ngSwitchCase="fieldTypes.personWebLink">{{
+      item.url
+    }}</ng-container>
+    <ng-container *ngSwitchDefault>
+      {{ item.value }}
+    </ng-container>
   </ng-container>
 </ng-container>
+
+<ng-template #localizedTemplate>
+  <ng-container *ngFor="let value of item | getLocalizedValues">
+    <div class="row font-weight-bold">
+      <div class="col">
+        {{ value.locale.toUpperCase() }}
+      </div>
+    </div>
+    <div class="row pb-3">
+      <div class="col">
+        {{ value.value }}
+      </div>
+    </div>
+  </ng-container>
+</ng-template>

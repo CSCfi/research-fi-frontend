@@ -80,13 +80,14 @@ export class ProfileDataHandlerComponent implements OnInit {
   }
 
   mapData() {
-    // console.log(this.testData);
-    // this.profileData[0].fields = this.testData.personal;
-    // this.profileData[1].fields = this.testData.description;
+    console.log(this.testData);
+    this.profileData[0].fields = this.testData.personal;
+    this.profileData[1].fields = this.testData.description;
 
     // console.log('res: ', this.response.personal);
-    this.profileData[0].fields = this.response.personal;
-    this.profileData[1].fields = this.response.description;
+    // console.log(JSON.stringify(this.response));
+    // this.profileData[0].fields = this.response.personal;
+    // this.profileData[1].fields = this.response.description;
 
     // TODO: Check locale
     this.dataSources = [
