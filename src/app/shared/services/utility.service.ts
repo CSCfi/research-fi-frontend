@@ -187,7 +187,7 @@ export class UtilityService {
     this.meta.updateTag({ name: 'twitter:description', content: description });
     this.meta.updateTag({
       name: 'twitter:image',
-      content: 'https://tiedejatutkimus.fi/fi/assets/img/logo.jpg',
+      content: 'https://tiedejatutkimus.fi/fi/assets/img/Tiedejatutkimus.fi_logo.png',
     });
   }
 
