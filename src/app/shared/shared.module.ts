@@ -16,6 +16,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { DividerComponent } from './components/divider/divider.component';
 import { ButtonGroupComponent } from './components/button-group/button-group.component';
 import { SelectComponent } from './components/select/select.component';
+import { MenuComponent } from './components/menu/menu.component';
 
 import { MatRippleModule } from '@angular/material/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -23,6 +24,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -34,6 +37,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     DividerComponent,
     ButtonGroupComponent,
     SelectComponent,
+    MenuComponent,
   ],
   exports: [
     InfoComponent,
@@ -43,6 +47,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     DividerComponent,
     ButtonGroupComponent,
     SelectComponent,
+    MenuComponent,
   ],
   imports: [
     CommonModule,
@@ -53,6 +58,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatCheckboxModule,
     MatSelectModule,
     MatFormFieldModule,
+    MatMenuModule,
+    MatButtonModule,
   ],
 })
 export class SharedModule {}

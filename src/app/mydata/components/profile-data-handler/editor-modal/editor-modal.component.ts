@@ -185,7 +185,7 @@ export class EditorModalComponent implements OnInit {
       (item) => item.itemMeta.id === response.itemMeta.id
     );
 
-    currentItem.itemMeta.show = response.itemMeta.show;
+    currentItem.itemMeta = response.itemMeta;
 
     // Set group show to false if no selected items
     if (!parentGroup.items.find((item) => item.itemMeta.show)) {
@@ -195,6 +195,10 @@ export class EditorModalComponent implements OnInit {
       // Add selection to patch items
       this.handlePatchSingleObject(response.itemMeta);
     }
+  }
+
+  togglePrimaryValue(patchObjects) {
+    [...this.itemPayload, ...patchObjects];
   }
 
   toggleAll() {
@@ -267,8 +271,6 @@ export class EditorModalComponent implements OnInit {
           (item) => item.id !== itemMeta.id
         ))
       : this.itemPayload.push(itemMeta);
-
-    // console.log(this.itemPayload);
   }
 
   saveChanges() {
@@ -285,13 +287,6 @@ export class EditorModalComponent implements OnInit {
       patchGroups: this.groupPayload,
       patchItems: this.itemPayload,
     });
-
-    // console.log('editedItems: ', this.editedItems);
-    // this.editorData.dataChange.emit({
-    //   data: this.editorData.data,
-    //   patchItems: this.editedItems,
-    // });
-    // this.closeModal();
   }
 
   close() {

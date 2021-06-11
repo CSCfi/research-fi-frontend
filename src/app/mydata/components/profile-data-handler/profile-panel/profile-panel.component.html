@@ -32,6 +32,18 @@
               openPanels.indexOf(i) > -1
             "
           >
+            <!-- Primary source -->
+            <div class="row pb-3" *ngIf="field.label === 'Affiliaatiot'">
+              <app-menu
+                label="Vaihda ensisijainen affiliaatio"
+                [options]="
+                  data.fields | getPrimaryOptions: i:locale:'organizationName'
+                "
+                (onSelectionChange)="setPrimaryValue($event, field)"
+              ></app-menu>
+            </div>
+
+            <!-- Options -->
             <ng-container *ngFor="let groupItem of field.groupItems">
               <div
                 class="row d-flex justify-content-between"
@@ -66,21 +78,19 @@
                   </mat-checkbox>
                 </div>
 
+                <div class="col-auto mt-1">
+                  <app-primary-badge
+                    *ngIf="item.itemMeta.primaryValue"
+                    label="Ensisijainen"
+                  ></app-primary-badge>
+                </div>
+
                 <div class="col-auto" style="color: red">
                   itemId: {{ item.itemMeta.id }} | groupId:
                   {{ groupItem.groupMeta.id }}
                 </div>
 
-                <div
-                  class="
-                    col-auto
-                    pr-0
-                    text-right
-                    opacity-3
-                    font-size-small
-                    py-2
-                  "
-                >
+                <div class="col-auto pr-0 text-right opacity-3 font-size-small">
                   {{ groupItem.source.organization['name' + locale] }}
                 </div>
               </div>

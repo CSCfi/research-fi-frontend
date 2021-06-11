@@ -11,6 +11,7 @@ type settingsType = {
   setDefault?: boolean;
   single?: boolean;
   localized?: boolean;
+  primaryValue?: boolean;
 };
 
 export function mapGroup(group, label, settings?: settingsType) {
@@ -19,6 +20,7 @@ export function mapGroup(group, label, settings?: settingsType) {
     groupItems: group.filter((item) => item.items.length > 0),
     disabled: settings?.disabled,
     single: settings?.single,
+    hasPrimaryValue: settings?.primaryValue,
   };
 }
 

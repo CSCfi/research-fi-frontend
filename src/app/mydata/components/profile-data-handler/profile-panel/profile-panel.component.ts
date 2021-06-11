@@ -14,7 +14,6 @@ import { checkGroupShow } from '../utils';
 @Component({
   selector: 'app-profile-panel',
   templateUrl: './profile-panel.component.html',
-  styleUrls: ['./profile-panel.component.scss'],
 })
 export class ProfilePanelComponent implements OnInit {
   @Input() dataSources: any;
@@ -24,6 +23,7 @@ export class ProfilePanelComponent implements OnInit {
   @Output() onGroupToggle = new EventEmitter<any>();
   @Output() onRadioItemToggle = new EventEmitter<any>();
   @Output() onSingleItemToggle = new EventEmitter<any>();
+  @Output() onPrimaryValueChange = new EventEmitter<any>();
 
   allSelected: boolean;
 
@@ -44,7 +44,45 @@ export class ProfilePanelComponent implements OnInit {
   constructor(private appSettingsService: AppSettingsService) {}
 
   ngOnInit(): void {
-    console.log(this.data);
+    this.setDefaultPrimaryValue(this.data.fields);
+  }
+
+  setDefaultPrimaryValue(data) {
+    // Set default only if primary value is not set
+    data.map((group) => {
+      if (group.hasPrimaryValue) {
+        const groupItems = group.groupItems.map((groupItem) => groupItem.items);
+        const itemArr = [].concat.apply([], groupItems);
+
+        if (!itemArr.some((item) => item.itemMeta.primaryValue === true))
+          group.groupItems[0].items[0].itemMeta.primaryValue = true;
+      }
+    });
+  }
+
+  setPrimaryValue(option, data) {
+    const patchItems = [];
+
+    data.groupItems.map((groupItem) =>
+      groupItem.items.forEach((item) => {
+        // Set default primary value to false
+        if (item.itemMeta.primaryValue === true) {
+          item.itemMeta.primaryValue = false;
+          patchItems.push(item.itemMeta);
+        }
+
+        // Set selected primary value and add to patch items
+        if (item.itemMeta.id === option.id) {
+          // Check item if chosen item isn't selected
+          if (!item.itemMeta.show) item.itemMeta.show = true;
+
+          item.itemMeta.primaryValue = true;
+          patchItems.push(item.itemMeta);
+        }
+      })
+    );
+
+    this.onPrimaryValueChange.emit(patchItems);
   }
 
   toggleGroup(event: any, index: number, data: any) {
@@ -104,6 +142,11 @@ export class ProfilePanelComponent implements OnInit {
   }
 
   toggleItem(event, groupItem, item, index) {
+    if (item.itemMeta.primaryValue && !event.checked) {
+      item.itemMeta.primaryValue = false;
+      this.setDefaultPrimaryValue(this.data.fields);
+    }
+
     this.onSingleItemToggle.emit({
       index: index,
       groupId: groupItem.groupMeta.id,

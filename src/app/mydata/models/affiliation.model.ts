@@ -23,7 +23,9 @@ export class AffiliationFieldsAdapter implements Adapter<AffiliationFields> {
 
   adapt(item: any): AffiliationFields {
     return new AffiliationFields(
-      this.mapGroup(item.affiliationGroups, 'Affiliaatiot')
+      this.mapGroup(item.affiliationGroups, 'Affiliaatiot', {
+        primaryValue: true,
+      })
     );
   }
 }

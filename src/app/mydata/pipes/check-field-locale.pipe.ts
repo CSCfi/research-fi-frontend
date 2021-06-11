@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'checkFieldLocale',
 })
 export class CheckFieldLocalePipe implements PipeTransform {
-  transform(item: any, locale: string, fieldName: string): unknown {
+  transform(item: any, locale: string, fieldName: string) {
     if (item[fieldName + locale]) return item[fieldName + locale];
 
     switch (locale) {

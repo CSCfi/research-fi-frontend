@@ -48,6 +48,8 @@ import { PanelArrayItemComponent } from './components/profile-data-handler/profi
 import { CheckFieldLocalePipe } from './pipes/check-field-locale.pipe';
 import { ParseDatePipe } from './pipes/parse-date.pipe';
 import { ActivityItemComponent } from './components/profile-data-handler/profile-panel/activity-item/activity-item.component';
+import { GetPrimaryOptionsPipe } from './pipes/get-primary-options.pipe';
+import { PrimaryBadgeComponent } from './components/profile-data-handler/profile-panel/primary-badge/primary-badge.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +70,8 @@ import { ActivityItemComponent } from './components/profile-data-handler/profile
     CheckFieldLocalePipe,
     ParseDatePipe,
     ActivityItemComponent,
+    GetPrimaryOptionsPipe,
+    PrimaryBadgeComponent,
   ],
   imports: [
     CommonModule,

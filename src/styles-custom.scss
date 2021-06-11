@@ -117,6 +117,7 @@ ul {
 
 .background-primary {
   background-color: mat-color($primary, 500);
+  color: mat-contrast($primary, 500);
 }
 
 .background-light {
