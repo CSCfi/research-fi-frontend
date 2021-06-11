@@ -7,21 +7,23 @@
 
 import { Injectable } from '@angular/core';
 import { Adapter } from './adapter.model';
-import { mapGroup } from './utils';
+import { mapGroup, mapGroupFieldName } from './utils';
 
-export class EducationFields {
-  constructor(public education: any) {}
+export class AffiliationFields {
+  constructor(public affiliation: any) {}
 }
 
 @Injectable({
   providedIn: 'root',
 })
-export class EducationFieldsAdapter implements Adapter<EducationFields> {
+export class AffiliationFieldsAdapter implements Adapter<AffiliationFields> {
   mapGroup = mapGroup;
+  mapGroupFieldName = mapGroupFieldName;
   constructor() {}
 
-  adapt(item: any): EducationFields {
-    console.log(item);
-    return new EducationFields(this.mapGroup(item.educationGroups, 'Koulutus'));
+  adapt(item: any): AffiliationFields {
+    return new AffiliationFields(
+      this.mapGroup(item.affiliationGroups, 'Affiliaatiot')
+    );
   }
 }

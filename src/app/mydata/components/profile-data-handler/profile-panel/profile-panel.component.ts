@@ -44,7 +44,7 @@ export class ProfilePanelComponent implements OnInit {
   constructor(private appSettingsService: AppSettingsService) {}
 
   ngOnInit(): void {
-    // console.log(this.data);
+    console.log(this.data);
   }
 
   toggleGroup(event: any, index: number, data: any) {

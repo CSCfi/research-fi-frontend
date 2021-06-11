@@ -45,6 +45,9 @@ import { GetLocalizedValuesPipe } from './pipes/getLocalizedValues.pipe';
 import { EditorModalComponent } from './components/profile-data-handler/editor-modal/editor-modal.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { PanelArrayItemComponent } from './components/profile-data-handler/profile-panel/panel-array-item/panel-array-item.component';
+import { CheckFieldLocalePipe } from './pipes/check-field-locale.pipe';
+import { ParseDatePipe } from './pipes/parse-date.pipe';
+import { ActivityItemComponent } from './components/profile-data-handler/profile-panel/activity-item/activity-item.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +65,9 @@ import { PanelArrayItemComponent } from './components/profile-data-handler/profi
     EditorModalComponent,
     ProfileComponent,
     PanelArrayItemComponent,
+    CheckFieldLocalePipe,
+    ParseDatePipe,
+    ActivityItemComponent,
   ],
   imports: [
     CommonModule,

@@ -25,7 +25,6 @@ import { cloneDeep } from 'lodash-es';
 })
 export class EditorModalComponent implements OnInit {
   editorData: any;
-  editLabel: string;
   originalEditorData: any;
 
   allSelected: boolean;
@@ -48,7 +47,6 @@ export class EditorModalComponent implements OnInit {
   ngOnInit(): void {
     this.editorData = this.data;
     this.originalEditorData = cloneDeep(this.data);
-    this.editLabel = this.data.editLabel;
     this.primarySource = this.editorData.primarySource;
 
     this.allSelected = !!this.editorData.data.fields.some((field) =>

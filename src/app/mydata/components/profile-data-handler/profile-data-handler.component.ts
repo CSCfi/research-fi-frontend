@@ -42,12 +42,10 @@ export class ProfileDataHandlerComponent implements OnInit {
   profileData = [
     {
       label: 'Yhteystiedot',
-      editLabel: 'yhteystietoja',
       fields: [],
     },
     {
       label: 'Tutkimustoiminnan kuvaus',
-      editLabel: 'tutkimustoiminnan kuvausta',
       fields: [],
     },
     { label: 'Affiliaatiot', fields: [] },
@@ -80,14 +78,18 @@ export class ProfileDataHandlerComponent implements OnInit {
   }
 
   mapData() {
-    console.log(this.testData);
+    // console.log(this.testData);
     this.profileData[0].fields = this.testData.personal;
     this.profileData[1].fields = this.testData.description;
+    this.profileData[2].fields = this.testData.affiliation;
+    this.profileData[3].fields = this.testData.education;
 
     // console.log('res: ', this.response.personal);
     // console.log(JSON.stringify(this.response));
     // this.profileData[0].fields = this.response.personal;
     // this.profileData[1].fields = this.response.description;
+    // this.profileData[2].fields = this.response.affiliation;
+    // this.profileData[3].fields = this.response.education;
 
     // TODO: Check locale
     this.dataSources = [
@@ -149,7 +151,7 @@ export class ProfileDataHandlerComponent implements OnInit {
     this.openPanels = this.openPanels.filter((val) => val !== i);
   }
 
-  openDialog(event, index, editLabel) {
+  openDialog(event, index) {
     event.stopPropagation();
     this.selectedIndex = index;
     this.selectedData = cloneDeep(this.profileData[index]);
@@ -160,7 +162,6 @@ export class ProfileDataHandlerComponent implements OnInit {
         data: cloneDeep(this.profileData[index]),
         dataSources: this.dataSources,
         primarySource: this.primarySource,
-        editLabel: editLabel,
       },
     });
 

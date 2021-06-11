@@ -9,6 +9,7 @@ import { Injectable } from '@angular/core';
 import { Adapter } from './adapter.model';
 import { PersonalFieldsAdapter } from './personal.model';
 import { DescriptionFieldsAdapter } from './description.model';
+import { AffiliationFieldsAdapter } from './affiliation.model';
 import { EducationFieldsAdapter } from './education.model';
 import { PublicationFieldsAdapter } from './publication.model';
 
@@ -16,6 +17,7 @@ export class Profile {
   constructor(
     public personal: any,
     public description: any,
+    public affiliation: any,
     public education: any,
     public publication: any
   ) {}
@@ -28,6 +30,7 @@ export class ProfileAdapter implements Adapter<Profile> {
   constructor(
     private personalFieldsAdapter: PersonalFieldsAdapter,
     private descriptionFieldsAdapter: DescriptionFieldsAdapter,
+    private affiliationFieldsAdapter: AffiliationFieldsAdapter,
     private educationFieldsAdapter: EducationFieldsAdapter,
     private publicationFieldsAdapter: PublicationFieldsAdapter
   ) {}
@@ -44,6 +47,7 @@ export class ProfileAdapter implements Adapter<Profile> {
     return new Profile(
       mapModel(this.personalFieldsAdapter, data.personal),
       mapModel(this.descriptionFieldsAdapter, data.personal),
+      mapModel(this.affiliationFieldsAdapter, data.activity),
       mapModel(this.educationFieldsAdapter, data.activity),
       mapModel(this.publicationFieldsAdapter, data.activity)
     );

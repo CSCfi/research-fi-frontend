@@ -19,5 +19,8 @@ export class PanelArrayItemComponent {
 
   fieldTypes = FieldTypes;
 
+  // TODO: Dynamic locale
+  locale = 'Fi';
+
   constructor() {}
 }
