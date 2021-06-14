@@ -117,7 +117,7 @@ import { FilterSumPipe } from './pipes/filter-sum.pipe';
 import { ResearchInnovationSystemComponent } from './components/science-politics/research-innovation-system/research-innovation-system.component';
 import { FiguresComponent } from './components/science-politics/figures/figures.component';
 import { ScrollSpyDirective } from './directives/scroll-spy.directive';
-import { CutContentPipe } from './pipes/cut-content.pipe';
+import { CutContentPipe } from '../shared/pipes/cut-content.pipe';
 import { SingleFigureComponent } from './components/science-politics/figures/single-figure/single-figure.component';
 import { RelatedLinksComponent } from './components/single/related-links/related-links.component';
 import { Event, Scroll, Router } from '@angular/router'; // Router required by scroll logic
