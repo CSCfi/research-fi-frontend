@@ -36,6 +36,7 @@ export class EditorModalComponent implements OnInit {
 
   groupPayload: any[];
   itemPayload: any[];
+  publicationPayload: any[];
 
   checkSelected = checkSelected;
 
@@ -57,10 +58,6 @@ export class EditorModalComponent implements OnInit {
 
     // Radio options have default values. Add these values on init
     this.addInitialOptions(this.editorData.data);
-  }
-
-  closeModal() {
-    this.emitClose.emit(true);
   }
 
   addInitialOptions(data) {
@@ -185,10 +182,16 @@ export class EditorModalComponent implements OnInit {
       (item) => item.itemMeta.id === response.itemMeta.id
     );
 
+    const publications =
+      this.editorData.data.fields[response.index].selectedPublications;
+
     currentItem.itemMeta = response.itemMeta;
 
     // Set group show to false if no selected items
-    if (!parentGroup.items.find((item) => item.itemMeta.show)) {
+    if (
+      !parentGroup.items.find((item) => item.itemMeta.show) &&
+      !publications?.find((item) => item.show)
+    ) {
       parentGroup.groupMeta.show = false;
       this.handlePatchObjectGroup([parentGroup.groupMeta], [response.itemMeta]);
     } else {
@@ -199,6 +202,10 @@ export class EditorModalComponent implements OnInit {
 
   togglePrimaryValue(patchObjects) {
     [...this.itemPayload, ...patchObjects];
+  }
+
+  togglePublication() {
+    console.log(this.editorData);
   }
 
   toggleAll() {
@@ -275,8 +282,9 @@ export class EditorModalComponent implements OnInit {
 
   saveChanges() {
     // console.log('save');
-    console.log('groupPayload', this.groupPayload);
-    console.log('itemPayload', this.itemPayload);
+    // console.log('groupPayload', this.groupPayload);
+    // console.log('itemPayload', this.itemPayload);
+    console.log(this.data);
     // console.log(
     //   'itemPayload',
     //   this.itemPayload.filter((item) => item.show)
@@ -286,6 +294,10 @@ export class EditorModalComponent implements OnInit {
       data: this.editorData.data,
       patchGroups: this.groupPayload,
       patchItems: this.itemPayload,
+      patchPublications:
+        this.editorData.data.fields[0].selectedPublications?.filter(
+          (item) => item.show
+        ),
     });
   }
 

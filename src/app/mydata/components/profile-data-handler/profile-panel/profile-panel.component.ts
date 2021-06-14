@@ -10,6 +10,9 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { checkGroupShow } from '../utils';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { SearchPublicationsComponent } from './search-publications/search-publications.component';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile-panel',
@@ -24,6 +27,7 @@ export class ProfilePanelComponent implements OnInit {
   @Output() onRadioItemToggle = new EventEmitter<any>();
   @Output() onSingleItemToggle = new EventEmitter<any>();
   @Output() onPrimaryValueChange = new EventEmitter<any>();
+  @Output() onPublicationToggle = new EventEmitter<any>();
 
   allSelected: boolean;
 
@@ -38,10 +42,15 @@ export class ProfilePanelComponent implements OnInit {
   // TODO: Dynamic locale
   locale = 'Fi';
 
+  dialogRef: MatDialogRef<SearchPublicationsComponent>;
+
   /*
    * appSettingsService is used in Template
    */
-  constructor(private appSettingsService: AppSettingsService) {}
+  constructor(
+    private appSettingsService: AppSettingsService,
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.setDefaultPrimaryValue(this.data.fields);
@@ -88,6 +97,7 @@ export class ProfilePanelComponent implements OnInit {
   toggleGroup(event: any, index: number, data: any) {
     const patchGroups = [];
     const patchItems = [];
+    let patchPublications = [];
 
     this.openPanels.includes(index)
       ? (this.openPanels = this.openPanels.filter((item) => item !== index))
@@ -103,10 +113,18 @@ export class ProfilePanelComponent implements OnInit {
       });
     });
 
+    // Handle fetched publications
+    if (data.selectedPublications) {
+      data.selectedPublications.map((item) => (item.show = event.checked));
+      patchPublications = data.selectedPublications;
+    }
+
+    // Pass to parent
     this.onGroupToggle.emit({
       data: data,
       patchGroups: patchGroups,
       patchItems: patchItems,
+      patchPublications: patchPublications,
       index: index,
     });
   }
@@ -155,5 +173,33 @@ export class ProfilePanelComponent implements OnInit {
         show: event.checked,
       },
     });
+  }
+
+  togglePublication(event, publication) {
+    publication.show = event.checked;
+    this.onPublicationToggle.emit();
+  }
+
+  // Search publications
+  openDialog() {
+    this.dialogRef = this.dialog.open(SearchPublicationsComponent, {
+      minWidth: '44vw',
+      maxWidth: '44vw',
+    });
+
+    // Set selected publications to field items
+    this.dialogRef
+      .afterClosed()
+      .pipe(take(1))
+      .subscribe((result: { selectedPublications: any[] }) => {
+        if (result) {
+          this.data.fields[0].selectedPublications = this.data.fields[0]
+            .selectedPublications
+            ? this.data.fields[0].selectedPublications.concat(
+                result.selectedPublications
+              )
+            : result.selectedPublications;
+        }
+      });
   }
 }

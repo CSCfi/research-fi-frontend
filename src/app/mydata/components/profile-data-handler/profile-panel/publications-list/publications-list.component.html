@@ -1,0 +1,39 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<div class="grid-container font-weight-bold">
+  <div></div>
+  <div>Vuosi</div>
+  <div>Nimi</div>
+  <div></div>
+</div>
+<mat-divider></mat-divider>
+
+<ng-container *ngFor="let item of data; let i = index">
+  <div class="grid-container">
+    <div>
+      <mat-checkbox (change)="togglePublication($event, i)"></mat-checkbox>
+    </div>
+    <div>{{ item._source.publicationYear }}</div>
+    <div [class.text-overflow-ellipsis]="showMoreArray.indexOf(i) === -1">
+      {{ item._source.publicationName }}
+    </div>
+    <div>
+      <a
+        *ngIf="showMoreArray.indexOf(i) === -1"
+        href="javascript:void(0)"
+        (click)="showMore(i)"
+        >Näytä lisää</a
+      >
+      <a
+        *ngIf="showMoreArray.indexOf(i) >= 0"
+        href="javascript:void(0)"
+        (click)="showLess(i)"
+        >Näytä vähemmän</a
+      >
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+</ng-container>

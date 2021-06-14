@@ -9,11 +9,26 @@
       <div class="row pt-3 pb-4">
         <div class="col px-0">
           <!-- Field -->
-          <div class="row">
-            <span class="col px-0 h6 m-0 pb-4">
+          <div class="row d-flex justify-content-between">
+            <span class="col-auto font-weight-bold px-0 m-0 pb-4">
               {{ field.label }}
             </span>
 
+            <!-- Search publications -->
+            <a
+              href="javascript:void(0)"
+              class="col-auto primary-color"
+              *ngIf="
+                field.label === 'Julkaisut' &&
+                (openPanels.indexOf(i) > -1 ||
+                  (field.groupItems | filter: checkGroupShow:'boolean'))
+              "
+              (click)="openDialog()"
+            >
+              <u>Puuttuuko jokin julkaisu tiedoistasi?</u>
+            </a>
+
+            <!-- Toggle group -->
             <div class="col-auto pr-0" *ngIf="!field.disabled">
               <mat-slide-toggle
                 [checked]="field.groupItems | filter: checkGroupShow:'boolean'"
@@ -32,7 +47,8 @@
               openPanels.indexOf(i) > -1
             "
           >
-            <!-- Primary source -->
+            <!-- Primary source selector -->
+            <!-- TODO: Check group some other way than by label name -->
             <div class="row pb-3" *ngIf="field.label === 'Affiliaatiot'">
               <app-menu
                 label="Vaihda ensisijainen affiliaatio"
@@ -78,33 +94,78 @@
                   </mat-checkbox>
                 </div>
 
-                <div class="col-auto mt-1">
-                  <app-primary-badge
-                    *ngIf="item.itemMeta.primaryValue"
-                    label="Ensisijainen"
-                  ></app-primary-badge>
+                <!-- Primary badge -->
+                <div class="col-auto mt-1" *ngIf="item.itemMeta.primaryValue">
+                  <app-primary-badge label="Ensisijainen"></app-primary-badge>
                 </div>
 
-                <div class="col-auto" style="color: red">
+                <div class="col-auto font-size-small mt-1" style="color: red">
                   itemId: {{ item.itemMeta.id }} | groupId:
                   {{ groupItem.groupMeta.id }}
                 </div>
 
-                <div class="col-auto pr-0 text-right opacity-3 font-size-small">
+                <div
+                  class="
+                    col-auto
+                    pr-0
+                    mt-1
+                    text-right
+                    opacity-3
+                    font-size-small
+                  "
+                >
                   {{ groupItem.source.organization['name' + locale] }}
+                </div>
+              </div>
+            </ng-container>
+
+            <!-- Fetched publications -->
+            <ng-container *ngIf="field.selectedPublications">
+              <div
+                class="row d-flex justify-content-between"
+                *ngFor="
+                  let publication of field.selectedPublications;
+                  let j = index
+                "
+              >
+                <div class="col px-0 font-size-smaller">
+                  <mat-checkbox
+                    [checked]="publication.show"
+                    (change)="togglePublication($event, publication)"
+                  >
+                    <app-panel-array-item
+                      [item]="publication"
+                      [fieldType]="fieldTypes.activityPublication"
+                    ></app-panel-array-item>
+                  </mat-checkbox>
+                </div>
+
+                <div
+                  class="
+                    col-auto
+                    pr-0
+                    mt-1
+                    text-right
+                    opacity-3
+                    font-size-small
+                  "
+                >
+                  Tutkimustietovaranto
                 </div>
               </div>
             </ng-container>
           </ng-container>
         </div>
       </div>
-      <div class="row pb-4 font-size-small">
+
+      <div class="row pb-4 font-size-small" *ngIf="field.single">
         <div class="col col-lg-6 pl-0">
           <fa-icon class="pr-1 opacity-3" icon="info-circle"></fa-icon>
-          <ng-container [ngSwitch]="field.single">
+          <!-- <ng-container [ngSwitch]="field.single">
             <span *ngSwitchCase="true">Voit valita yhden vaihtoehdon</span>
             <span *ngSwitchDefault>Voit valita usean vaihtoehdon</span>
-          </ng-container>
+          </ng-container> -->
+          <span>Voit valita yhden vaihtoehdon</span>
         </div>
         <!-- <div class="col pr-0 opacity-3"><span>1 lähde valittu</span></div> -->
       </div>

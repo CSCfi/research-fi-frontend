@@ -30,7 +30,9 @@ $researchfi-theme: map_merge(
 $primary: map-get($researchfi-theme, primary);
 
 html.cdk-global-scrollblock {
-  overflow: hidden !important;
+  body {
+    overflow: hidden !important;
+  }
 }
 
 body {
@@ -47,7 +49,8 @@ h1,
 h2,
 h3,
 h4,
-h5 {
+h5,
+h6 {
   // color: map-get(map-get($researchfi-primary, contrast), 200);
   color: mat-contrast($primary, 200);
   // line-height: 1.5;
@@ -181,6 +184,12 @@ mark,
   font-weight: 400;
   color: mat-contrast($primary, 300);
   background-color: #ffc000;
+}
+
+.text-overflow-ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 // Columns

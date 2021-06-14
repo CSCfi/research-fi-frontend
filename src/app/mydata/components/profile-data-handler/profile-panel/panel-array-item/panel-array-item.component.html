@@ -8,6 +8,7 @@
     <ng-container *ngSwitchCase="fieldTypes.personWebLink">{{
       item.url
     }}</ng-container>
+
     <ng-container *ngSwitchCase="fieldTypes.activityAffiliation">
       <app-activity-item
         [rows]="[
@@ -17,6 +18,7 @@
         ]"
       ></app-activity-item>
     </ng-container>
+
     <ng-container *ngSwitchCase="fieldTypes.activityEducation">
       <app-activity-item
         [rows]="[
@@ -26,6 +28,13 @@
         ]"
       ></app-activity-item>
     </ng-container>
+
+    <ng-container *ngSwitchCase="fieldTypes.activityPublication">
+      <app-activity-item
+        [rows]="[item.publicationName, item.publicationYear]"
+      ></app-activity-item>
+    </ng-container>
+
     <ng-container *ngSwitchDefault>
       {{ item.value }}
     </ng-container>

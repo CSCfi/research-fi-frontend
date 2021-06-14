@@ -40,14 +40,8 @@ export class ProfileDataHandlerComponent implements OnInit {
 
   // TODO: Localize
   profileData = [
-    {
-      label: 'Yhteystiedot',
-      fields: [],
-    },
-    {
-      label: 'Tutkimustoiminnan kuvaus',
-      fields: [],
-    },
+    { label: 'Yhteystiedot', fields: [] },
+    { label: 'Tutkimustoiminnan kuvaus', fields: [] },
     { label: 'Affiliaatiot', fields: [] },
     { label: 'Koulutus', fields: [] },
     { label: 'Julkaisut', fields: [] },
@@ -83,6 +77,7 @@ export class ProfileDataHandlerComponent implements OnInit {
     this.profileData[1].fields = this.testData.description;
     this.profileData[2].fields = this.testData.affiliation;
     this.profileData[3].fields = this.testData.education;
+    this.profileData[4].fields = this.testData.publication;
 
     // console.log('res: ', this.response.personal);
     // console.log(JSON.stringify(this.response));
@@ -158,6 +153,7 @@ export class ProfileDataHandlerComponent implements OnInit {
 
     this.dialogRef = this.dialog.open(EditorModalComponent, {
       minWidth: '44vw',
+      maxWidth: '44vw',
       data: {
         data: cloneDeep(this.profileData[index]),
         dataSources: this.dataSources,
@@ -171,6 +167,7 @@ export class ProfileDataHandlerComponent implements OnInit {
       .subscribe(
         (result: { data: any; patchGroups: any[]; patchItems: any[] }) => {
           if (result) {
+            console.log(result);
             this.profileData[this.selectedIndex] = result.data;
             // this.patchData(result.patchGroups, result.patchItems);
           }

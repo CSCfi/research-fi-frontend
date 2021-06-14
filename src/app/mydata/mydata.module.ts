@@ -22,6 +22,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatTableModule } from '@angular/material/table';
 
 import { HomeComponent } from './components/home/home.component';
 import { WelcomeStepperComponent } from './components/welcome-stepper/welcome-stepper.component';
@@ -50,6 +52,8 @@ import { ParseDatePipe } from './pipes/parse-date.pipe';
 import { ActivityItemComponent } from './components/profile-data-handler/profile-panel/activity-item/activity-item.component';
 import { GetPrimaryOptionsPipe } from './pipes/get-primary-options.pipe';
 import { PrimaryBadgeComponent } from './components/profile-data-handler/profile-panel/primary-badge/primary-badge.component';
+import { SearchPublicationsComponent } from './components/profile-data-handler/profile-panel/search-publications/search-publications.component';
+import { PublicationsListComponent } from './components/profile-data-handler/profile-panel/publications-list/publications-list.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +76,8 @@ import { PrimaryBadgeComponent } from './components/profile-data-handler/profile
     ActivityItemComponent,
     GetPrimaryOptionsPipe,
     PrimaryBadgeComponent,
+    SearchPublicationsComponent,
+    PublicationsListComponent,
   ],
   imports: [
     CommonModule,
@@ -88,6 +94,8 @@ import { PrimaryBadgeComponent } from './components/profile-data-handler/profile
     MatTabsModule,
     MatSnackBarModule,
     MatDialogModule,
+    MatDividerModule,
+    MatTableModule,
     FontAwesomeModule,
     SharedModule,
     ModalModule,

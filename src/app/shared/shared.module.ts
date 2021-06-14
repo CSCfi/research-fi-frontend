@@ -9,14 +9,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InfoComponent } from './components/info/info.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { SecondaryButtonComponent } from './components/secondary-button/secondary-button.component';
-import { PrimaryActionButtonComponent } from './components/primary-action-button/primary-action-button.component';
-import { CloseButtonComponent } from './components/close-button/close-button.component';
-import { NotFoundComponent } from './components/not-found/not-found.component';
-import { DividerComponent } from './components/divider/divider.component';
-import { ButtonGroupComponent } from './components/button-group/button-group.component';
-import { SelectComponent } from './components/select/select.component';
-import { MenuComponent } from './components/menu/menu.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatRippleModule } from '@angular/material/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -26,6 +19,17 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+
+import { SecondaryButtonComponent } from './components/secondary-button/secondary-button.component';
+import { PrimaryActionButtonComponent } from './components/primary-action-button/primary-action-button.component';
+import { CloseButtonComponent } from './components/close-button/close-button.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { DividerComponent } from './components/divider/divider.component';
+import { ButtonGroupComponent } from './components/button-group/button-group.component';
+import { SelectComponent } from './components/select/select.component';
+import { MenuComponent } from './components/menu/menu.component';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +42,7 @@ import { MatButtonModule } from '@angular/material/button';
     ButtonGroupComponent,
     SelectComponent,
     MenuComponent,
+    SearchComponent,
   ],
   exports: [
     InfoComponent,
@@ -48,10 +53,13 @@ import { MatButtonModule } from '@angular/material/button';
     ButtonGroupComponent,
     SelectComponent,
     MenuComponent,
+    SearchComponent,
   ],
   imports: [
     CommonModule,
     FontAwesomeModule,
+    FormsModule,
+    ReactiveFormsModule,
     MatRippleModule,
     MatButtonToggleModule,
     MatRadioModule,
@@ -60,6 +68,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatFormFieldModule,
     MatMenuModule,
     MatButtonModule,
+    MatInputModule,
   ],
 })
 export class SharedModule {}
