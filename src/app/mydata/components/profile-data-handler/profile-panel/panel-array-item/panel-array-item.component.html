@@ -31,7 +31,8 @@
 
     <ng-container *ngSwitchCase="fieldTypes.activityPublication">
       <app-activity-item
-        [rows]="[item.publicationName, item.publicationYear]"
+        [rows]="[item.publicationName, item.authorsText, item.publicationYear]"
+        [smallLastItem]="true"
       ></app-activity-item>
     </ng-container>
 

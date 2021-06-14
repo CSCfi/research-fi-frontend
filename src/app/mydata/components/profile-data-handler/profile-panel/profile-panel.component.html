@@ -17,7 +17,7 @@
             <!-- Search publications -->
             <a
               href="javascript:void(0)"
-              class="col-auto primary-color"
+              class="col-auto primary-color font-weight-500"
               *ngIf="
                 field.label === 'Julkaisut' &&
                 (openPanels.indexOf(i) > -1 ||
@@ -62,7 +62,7 @@
             <!-- Options -->
             <ng-container *ngFor="let groupItem of field.groupItems">
               <div
-                class="row d-flex justify-content-between"
+                class="row d-flex justify-content-between py-3"
                 *ngFor="let item of groupItem.items"
               >
                 <div
@@ -124,7 +124,7 @@
             <!-- Fetched publications -->
             <ng-container *ngIf="field.selectedPublications">
               <div
-                class="row d-flex justify-content-between"
+                class="row d-flex justify-content-between py-3"
                 *ngFor="
                   let publication of field.selectedPublications;
                   let j = index

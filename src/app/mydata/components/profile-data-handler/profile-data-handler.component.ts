@@ -83,6 +83,7 @@ export class ProfileDataHandlerComponent implements OnInit {
     this.profileData[1].fields = this.response.description;
     this.profileData[2].fields = this.response.affiliation;
     this.profileData[3].fields = this.response.education;
+    this.profileData[4].fields = this.response.publication;
 
     // TODO: Check locale
     this.dataSources = [

@@ -83,7 +83,10 @@
         </div>
       </div>
     </div>
-    <nav class="nav-top col-auto col-5 col-xs-3 col-xl-10 p-0">
+    <nav
+      class="nav-top col-auto col-5 col-xs-3 p-0"
+      [ngClass]="appSettings.beta ? 'col-xl-9' : 'col-xl-10'"
+    >
       <div class="mobile ml-auto toggle-button-wrapper">
         <button
           *ngIf="!navbarOpen"
