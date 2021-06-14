@@ -282,9 +282,17 @@
                   </mat-tab-group>
                 </div>
               </div>
-              <app-stepper-navigation
+
+              <!-- <app-stepper-navigation
                 (changeStep)="changeStep($event)"
-              ></app-stepper-navigation>
+              ></app-stepper-navigation> -->
+              <div class="row">
+                <app-primary-action-button
+                  [disabled]="true"
+                  class="col text-center"
+                  content="Julkaise"
+                ></app-primary-action-button>
+              </div>
             </ng-container>
 
             <!-- Default to 404 -->

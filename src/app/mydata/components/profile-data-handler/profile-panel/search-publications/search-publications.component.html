@@ -41,7 +41,7 @@
       <div class="col opacity-3">
         <ng-container [ngSwitch]="true">
           <ng-container *ngSwitchCase="total > 0"
-            >{{ total }}
+            >{{ total | thousandSeparator }}
             <span *ngIf="total === 1; else resultsLabel" i18n="@@singleResult"
               >hakutulos</span
             >

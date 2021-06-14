@@ -31,6 +31,9 @@ import { SelectComponent } from './components/select/select.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { SearchComponent } from './components/search/search.component';
 
+import { ThousandSeparatorPipe } from './pipes/thousand-separator.pipe';
+import { CutContentPipe } from './pipes/cut-content.pipe';
+
 @NgModule({
   declarations: [
     InfoComponent,
@@ -43,6 +46,8 @@ import { SearchComponent } from './components/search/search.component';
     SelectComponent,
     MenuComponent,
     SearchComponent,
+    ThousandSeparatorPipe,
+    CutContentPipe,
   ],
   exports: [
     InfoComponent,
@@ -54,6 +59,8 @@ import { SearchComponent } from './components/search/search.component';
     SelectComponent,
     MenuComponent,
     SearchComponent,
+    ThousandSeparatorPipe,
+    CutContentPipe,
   ],
   imports: [
     CommonModule,

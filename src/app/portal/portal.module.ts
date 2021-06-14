@@ -105,7 +105,6 @@ import { InfrastructuresComponent } from './components/results/infrastructures/i
 import { ShareComponent } from './components/single/share/share.component';
 import { SingleInfrastructureComponent } from './components/single/single-infrastructure/single-infrastructure.component';
 import { OrcidComponent } from './components/single/orcid/orcid.component';
-import { ThousandSeparatorPipe } from './pipes/thousand-separator.pipe';
 import { FiltersComponent } from './components/results/filters/filters.component';
 import { CounterPipe } from './pipes/counter.pipe';
 import { FilterItemPipe } from './pipes/filter-item.pipe';
@@ -117,7 +116,6 @@ import { FilterSumPipe } from './pipes/filter-sum.pipe';
 import { ResearchInnovationSystemComponent } from './components/science-politics/research-innovation-system/research-innovation-system.component';
 import { FiguresComponent } from './components/science-politics/figures/figures.component';
 import { ScrollSpyDirective } from './directives/scroll-spy.directive';
-import { CutContentPipe } from '../shared/pipes/cut-content.pipe';
 import { SingleFigureComponent } from './components/science-politics/figures/single-figure/single-figure.component';
 import { RelatedLinksComponent } from './components/single/related-links/related-links.component';
 import { Event, Scroll, Router } from '@angular/router'; // Router required by scroll logic
@@ -182,7 +180,6 @@ import { ConvertToArrayPipe } from './pipes/convert-to-array.pipe';
     ShareComponent,
     SingleInfrastructureComponent,
     OrcidComponent,
-    ThousandSeparatorPipe,
     FiltersComponent,
     CounterPipe,
     FilterItemPipe,
@@ -191,7 +188,6 @@ import { ConvertToArrayPipe } from './pipes/convert-to-array.pipe';
     ResearchInnovationSystemComponent,
     FiguresComponent,
     ScrollSpyDirective,
-    CutContentPipe,
     CleanCitationPipe,
     ReplaceSpacePipe,
     SingleFigureComponent,

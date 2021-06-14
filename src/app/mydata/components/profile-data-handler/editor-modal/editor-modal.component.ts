@@ -211,11 +211,32 @@ export class EditorModalComponent implements OnInit {
   toggleAll() {
     this.allSelected = true;
 
-    this.editorData.data.fields.forEach((field) => {
-      field.groupMeta.show = true;
+    // Change detection won't work if nested properties change
+    const copy = cloneDeep(this.editorData);
+    const data = copy.data.fields;
+    this.editorData = {};
 
-      // this.handlePatchObjectGroup(field);
-    });
+    const patchGroups = [];
+    const patchItems = [];
+
+    data.forEach((field) =>
+      field.groupItems.map((groupItem) => {
+        groupItem.groupMeta.show = true;
+
+        // Single selections should always have show as true. Therefore these items shouldn't be altered
+        if (!field.single) {
+          patchGroups.push(groupItem.groupMeta);
+          groupItem.items.map((item) => {
+            item.itemMeta.show = true;
+            patchItems.push(item.itemMeta);
+          });
+        }
+      })
+    );
+
+    this.editorData = copy;
+
+    this.handlePatchObjectGroup(patchGroups, patchItems);
   }
 
   /*
@@ -241,13 +262,13 @@ export class EditorModalComponent implements OnInit {
    * Handle group & item meta data for patch operations
    */
 
-  handlePatchObjectGroup(patchGroups: any[], patchObjects: any[]) {
+  handlePatchObjectGroup(patchGroups: any[], patchItems: any[]) {
     // Overwrite duplicates
     // console.log('patchGroups: ', patchGroups);
     // console.log('patchObjects: ', patchObjects);
 
     this.groupPayload = [...new Set([...this.groupPayload, ...patchGroups])];
-    this.itemPayload = [...new Set([...this.itemPayload, ...patchObjects])];
+    this.itemPayload = [...new Set([...this.itemPayload, ...patchItems])];
 
     // console.log(this.groupPayload);
 
