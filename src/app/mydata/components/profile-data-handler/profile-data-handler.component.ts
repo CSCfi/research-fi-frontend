@@ -72,17 +72,18 @@ export class ProfileDataHandlerComponent implements OnInit {
   }
 
   mapData() {
-    // this.profileData[0].fields = this.testData.personal;
-    // this.profileData[1].fields = this.testData.description;
-    // this.profileData[2].fields = this.testData.affiliation;
-    // this.profileData[3].fields = this.testData.education;
-    // this.profileData[4].fields = this.testData.publication;
+    this.profileData[0].fields = this.testData.personal;
+    this.profileData[1].fields = this.testData.description;
+    this.profileData[2].fields = this.testData.affiliation;
+    this.profileData[3].fields = this.testData.education;
+    this.profileData[4].fields = this.testData.publication;
 
     // console.log(JSON.stringify(this.response));
-    this.profileData[0].fields = this.response.personal;
-    this.profileData[1].fields = this.response.description;
-    this.profileData[2].fields = this.response.affiliation;
-    this.profileData[3].fields = this.response.education;
+    // this.profileData[0].fields = this.response.personal;
+    // this.profileData[1].fields = this.response.description;
+    // this.profileData[2].fields = this.response.affiliation;
+    // this.profileData[3].fields = this.response.education;
+    // this.profileData[4].fields = this.response.publication;
 
     // TODO: Check locale
     this.dataSources = [

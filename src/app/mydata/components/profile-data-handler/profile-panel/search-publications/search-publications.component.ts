@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { PublicationsService } from '@mydata/services/publications.service';
 import { take } from 'rxjs/operators';
@@ -14,6 +14,7 @@ import { take } from 'rxjs/operators';
   selector: 'app-search-publications',
   templateUrl: './search-publications.component.html',
   styleUrls: ['./search-publications.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class SearchPublicationsComponent implements OnInit {
   results: any;

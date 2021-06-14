@@ -340,7 +340,7 @@
           </div>
         </ng-template>
 
-        <div class="row py-5">
+        <div class="row py-5" *ngIf="userData">
           <app-orcid-id-info
             class="col text-center"
             [userData]="userData"

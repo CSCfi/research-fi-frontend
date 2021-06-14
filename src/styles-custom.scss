@@ -63,6 +63,7 @@ h1 {
 }
 h2 {
   font-size: 1.7rem;
+  font-weight: 700;
 }
 h3 {
   font-size: 1.5rem;
@@ -101,9 +102,35 @@ p a {
   text-decoration: underline;
 }
 
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+  text-decoration: none;
+}
+
 ul {
   list-style: disc;
   padding-inline-start: 1rem;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+span.bold {
+  font-weight: bold;
+}
+
+.strong {
+  font-weight: bold;
+}
+
+mark,
+.mark {
+  padding: 0;
+  font-weight: 400;
+  color: mat-contrast($primary, 300);
+  background-color: #ffc000;
 }
 
 .font-size-small {
@@ -113,6 +140,12 @@ ul {
 .font-size-smaller {
   font-size: 0.875rem;
 }
+
+.font-weight-500 {
+  font-weight: 500;
+}
+
+// Colors
 
 .primary-color {
   color: mat-color($primary, 500);
@@ -130,6 +163,8 @@ ul {
 .border-primary {
   border-color: mat-color($primary, 500) !important;
 }
+
+// Content
 
 #main-content {
   margin-top: 1.5rem;
@@ -151,39 +186,6 @@ ul {
 .container {
   padding-right: 0px !important;
   padding-left: 0px !important;
-}
-
-// Disable link
-a.disabled {
-  pointer-events: none;
-  cursor: default;
-  text-decoration: none;
-}
-
-// Typography
-h2 {
-  font-weight: 700;
-}
-
-.uppercase {
-  text-transform: uppercase;
-}
-
-span.bold {
-  font-weight: bold;
-}
-
-.strong {
-  font-weight: bold;
-}
-
-mark,
-.mark {
-  padding: 0;
-  // font-weight: bold;
-  font-weight: 400;
-  color: mat-contrast($primary, 300);
-  background-color: #ffc000;
 }
 
 .text-overflow-ellipsis {

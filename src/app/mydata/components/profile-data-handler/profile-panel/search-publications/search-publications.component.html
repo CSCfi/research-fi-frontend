@@ -51,7 +51,10 @@
             >
           </ng-container>
           <span *ngSwitchCase="total === 0">Ei hakutuloksia</span>
-          <span class="d-block pb-5" *ngSwitchDefault
+          <span
+            class="d-block pb-5"
+            [ngClass]="loading ? '' : 'mb-5'"
+            *ngSwitchDefault
             >Tietolähteenä käytetään Tutkimustietovarannon tietokantaa</span
           >
         </ng-container>
@@ -74,20 +77,21 @@
         ></app-publications-list>
       </div>
     </div>
-
-    <div class="row d-flex justify-content-end">
-      <div class="col-auto">
-        <app-secondary-button
-          (click)="close()"
-          content="Peruuta"
-        ></app-secondary-button>
-      </div>
-      <div class="col-auto pl-0" *ngIf="total > 0">
-        <app-primary-action-button
-          (click)="saveChanges()"
-          content="Tallenna"
-        ></app-primary-action-button>
-      </div>
-    </div>
   </div>
 </mat-dialog-content>
+<mat-dialog-actions class="d-flex justify-content-end pb-3">
+  <div class="row">
+    <div class="col-auto">
+      <app-secondary-button
+        (click)="close()"
+        content="Peruuta"
+      ></app-secondary-button>
+    </div>
+    <div class="col-auto pl-0" *ngIf="total > 0">
+      <app-primary-action-button
+        (click)="saveChanges()"
+        content="Tallenna"
+      ></app-primary-action-button>
+    </div>
+  </div>
+</mat-dialog-actions>
