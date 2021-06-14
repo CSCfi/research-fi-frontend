@@ -14,8 +14,9 @@
 <div class="row pb-3 d-flex justify-content-center">
   <div class="col px-0">
     <div
-      class="p-3 mat-elevation-z1 rounded"
       *ngFor="let item of profileData; let i = index"
+      class="p-3 mat-elevation-z1 rounded"
+      [class.opacity-3]="item.fields.length === 0"
     >
       <div class="row d-flex justify-content-between">
         <div class="col font-weight-bold">
@@ -31,6 +32,7 @@
           href="javascript:void(0)"
           (click)="openDialog($event, i, item.editLabel)"
           class="col-auto"
+          [class.disabled]="item.fields.length === 0"
           >Muokkaa...</a
         >
       </div>

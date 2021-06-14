@@ -27,7 +27,7 @@ import { Router } from '@angular/router';
   encapsulation: ViewEncapsulation.None,
 })
 export class WelcomeStepperComponent implements OnInit {
-  step = 4;
+  step = 1;
   cancel = false;
 
   termsApproved = false;
@@ -58,6 +58,7 @@ export class WelcomeStepperComponent implements OnInit {
   ngOnInit() {
     this.oidcSecurityService.userData$.pipe(take(1)).subscribe((data) => {
       this.userData = data;
+      console.log(data);
       this.firstName = data?.name.split(' ')[0];
     });
   }

@@ -13,7 +13,7 @@ import { Component, Input, OnChanges, ViewEncapsulation } from '@angular/core';
   styleUrls: ['./button-group.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ButtonGroupComponent implements OnChanges {
+export class ButtonGroupComponent {
   @Input() multiple: boolean;
   @Input() vertical: boolean;
   @Input() data: any[];
@@ -21,11 +21,5 @@ export class ButtonGroupComponent implements OnChanges {
   @Input() ariaLabel: string;
   @Input() checked: any[];
 
-  constructor() {
-    // console.log(this.data);
-  }
-
-  ngOnChanges() {
-    console.log(this.data);
-  }
+  constructor() {}
 }

@@ -21,7 +21,6 @@ export class EducationFieldsAdapter implements Adapter<EducationFields> {
   constructor() {}
 
   adapt(item: any): EducationFields {
-    console.log(item);
     return new EducationFields(this.mapGroup(item.educationGroups, 'Koulutus'));
   }
 }

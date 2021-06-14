@@ -50,11 +50,7 @@ export class EditorModalComponent implements OnInit {
     this.originalEditorData = cloneDeep(this.data);
     this.primarySource = this.editorData.primarySource;
 
-    this.allSelected = !!this.editorData.data.fields.some((field) =>
-      field.groupItems.find((item) => item.groupMeta.show === false)
-    )
-      ? false
-      : true;
+    this.checkAllSelected();
 
     // Radio options have default values. Add these values on init
     this.addInitialOptions(this.editorData.data);
@@ -81,6 +77,19 @@ export class EditorModalComponent implements OnInit {
     this.itemPayload = patchItems;
   }
 
+  checkAllSelected() {
+    const fields = this.editorData.data.fields;
+
+    // Single selections are handled on init
+    this.allSelected = !!fields
+      .filter((field) => !field.single)
+      .some((field) =>
+        field.groupItems.find((item) => item.groupMeta.show === false)
+      )
+      ? false
+      : true;
+  }
+
   /*
    * Handle object add / remove from patch object list when values change
    */
@@ -91,28 +100,8 @@ export class EditorModalComponent implements OnInit {
     patchItems: any[];
     index: string | number;
   }) {
-    // console.log('response: ', response);
-
-    // const currentItem = this.editorData.data.fields[response.index];
-    // console.log(currentItem);
-    // console.log(this.editorData.data.fields[index]);
-
-    // currentItem.groupItems.map((item) => (item.groupMeta.show = true));
-
-    // currentItem.groupMeta.show = !currentItem.groupMeta.show;
-
-    // this.allSelected = !!this.editorData.data.fields.find(
-    //   (item) => item.groupMeta.show === false
-    // )
-    //   ? false
-    //   : true;
-
+    // Compare response with original values. Patch only if change on value
     const original = this.originalEditorData.data.fields[response.index];
-    // console.log(
-    //   'og: ',
-    //   original.groupItems.map((groupItem) => groupItem.groupMeta)
-    // );
-    // console.log('response patchGroups: ', response.patchGroups);
 
     const originalGroupItemMeta = original.groupItems.map(
       (groupItem) => groupItem.groupMeta
@@ -129,6 +118,8 @@ export class EditorModalComponent implements OnInit {
         this.handlePatchObjectGroup(response.patchGroups, response.patchItems);
       }
     });
+
+    this.checkAllSelected();
   }
 
   toggleRadio(response: {
@@ -205,7 +196,8 @@ export class EditorModalComponent implements OnInit {
   }
 
   togglePublication() {
-    console.log(this.editorData);
+    // TODO: Find if there's need for this method.
+    // Fetched publications could be handled as now without this method.
   }
 
   toggleAll() {
@@ -263,20 +255,9 @@ export class EditorModalComponent implements OnInit {
    */
 
   handlePatchObjectGroup(patchGroups: any[], patchItems: any[]) {
-    // Overwrite duplicates
-    // console.log('patchGroups: ', patchGroups);
-    // console.log('patchObjects: ', patchObjects);
-
+    // TODO: Better check for duplicates. Add only latest changes
     this.groupPayload = [...new Set([...this.groupPayload, ...patchGroups])];
     this.itemPayload = [...new Set([...this.itemPayload, ...patchItems])];
-
-    // console.log(this.groupPayload);
-
-    // this.itemPayload.find((item) => item.id === currentItem.groupMeta.id)
-    //   ? (this.itemPayload = this.itemPayload.filter(
-    //       (item) => item.id !== currentItem.groupMeta.id
-    //     ))
-    //   : this.itemPayload.push(currentItem.groupMeta);
   }
 
   handlePatchRadioObject(patchGroups: any[], patchObjects: any[]) {
@@ -302,15 +283,6 @@ export class EditorModalComponent implements OnInit {
   }
 
   saveChanges() {
-    // console.log('save');
-    // console.log('groupPayload', this.groupPayload);
-    // console.log('itemPayload', this.itemPayload);
-    console.log(this.data);
-    // console.log(
-    //   'itemPayload',
-    //   this.itemPayload.filter((item) => item.show)
-    // );
-
     this.dialogRef.close({
       data: this.editorData.data,
       patchGroups: this.groupPayload,
