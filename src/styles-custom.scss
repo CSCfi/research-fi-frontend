@@ -30,7 +30,9 @@ $researchfi-theme: map_merge(
 $primary: map-get($researchfi-theme, primary);
 
 html.cdk-global-scrollblock {
-  overflow: hidden !important;
+  body {
+    overflow: hidden !important;
+  }
 }
 
 body {
@@ -47,7 +49,8 @@ h1,
 h2,
 h3,
 h4,
-h5 {
+h5,
+h6 {
   // color: map-get(map-get($researchfi-primary, contrast), 200);
   color: mat-contrast($primary, 200);
   // line-height: 1.5;
@@ -117,6 +120,7 @@ ul {
 
 .background-primary {
   background-color: mat-color($primary, 500);
+  color: mat-contrast($primary, 500);
 }
 
 .background-light {
@@ -182,6 +186,12 @@ mark,
   background-color: #ffc000;
 }
 
+.text-overflow-ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 // Columns
 .col {
   padding-left: 1rem;
@@ -191,6 +201,14 @@ mark,
 // Forms
 .mat-pseudo-checkbox {
   background: #fff;
+}
+
+// Multiline checkboxes
+.mat-checkbox-layout {
+  white-space: normal !important;
+}
+.mat-checkbox-inner-container {
+  margin-top: 0.25rem !important;
 }
 
 // Help icon

@@ -17,7 +17,14 @@ import { Pipe, PipeTransform } from '@angular/core';
  * Declare callback function in component
  */
 export class FilterPipe implements PipeTransform {
-  transform(value: any, callback: any): unknown {
-    return value.filter(callback);
+  transform(value: any, callback: any, type?: string): unknown {
+    switch (type) {
+      case 'boolean': {
+        return !!(value.filter(callback).length > 0);
+      }
+      default: {
+        return value.filter(callback);
+      }
+    }
   }
 }

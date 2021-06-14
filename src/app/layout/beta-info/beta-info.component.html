@@ -3,140 +3,19 @@
  :author: CSC - IT Center for Science Ldiv., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<div class="row">
-  <div class="col col-12">
-    <p>
-      Käytät parhaillaan tiedejatutkimus.fi-palvelun betaversiota, joka on
-      testausvaiheessa. Siihen on tulossa vielä korjauksia ja muutoksia ennen
-      varsinaisen palvelun julkaisemista.
-    </p>
-    <p>
-      <strong
-        >Tulossa on mm. seuraavia ominaisuuksia ja muutoksia ennen julkaisua
-        9.6.2020:</strong
-      >
-    </p>
-    <ul>
-      <li>
-        <strong>Yleistä</strong>
-        <ul>
-          <li>
-            Portaali tulee olemaan käytössä suomen lisäksi ruotsin- ja
-            englanninkielisenä.
-          </li>
-          <li>
-            Mobiilinäkymää sekä saavutettavuuteen liittyviä ominaisuuksia
-            parannetaan.
-          </li>
-          <li>
-            Hakutulosten suodattimia parannetaan siten, että suodattimiin
-            liittyvien hakutulosten (julkaisut, hankkeet jne.) lukumäärät
-            päivittyvät tehtyjen rajausten mukaan.
-          </li>
-          <li>
-            Yhdistyneet organisaatiot näkyvät joissakin osioissa vielä vanhan
-            organisaatiorakenteen mukaisesti. Ne korjataan nykyiseen
-            organisaatiorakenteeseen.
-          </li>
-        </ul>
-      </li>
-      <li>
-        <strong>Julkaisut</strong>
-        <ul>
-          <li>
-            Julkaisutiedot poimittu 16.4.2020. Sen jälkeen VIRTAan toimitetut
-            julkaisut eivät vielä toistaiseksi näy.
-          </li>
-          <li>
-            Tieto rinnakkaistallennuksesta lisätään avoin saatavuus -kenttään.
-          </li>
-          <li>MPKK:n julkaisuista puuttuva organisaatiotieto korjataan.</li>
-        </ul>
-      </li>
-      <li>
-        <strong>Hankkeet</strong>
-        <ul>
-          <li>
-            Hanketietoja päivitetään ja lisätään beta-testauksen aikana
-            portaalissa jo näkyvien rahoittajien sekä mahdollisten uusien
-            rahoittajien osalta.
-          </li>
-          <li>
-            Esimerkiksi Business Finlandin päätöstiedot lisätään testauksen
-            aikana ja EU-hankkeista lisätään tietosisältöä.
-          </li>
-        </ul>
-      </li>
-      <li>
-        <strong>Infrastruktuurit</strong>
-        <ul>
-          <li>Tiekarttainfrastruktuurien vanhentuneita tietoja päivitetään.</li>
-          <li>
-            Hakutuloksen suodattimiin lisätään organisaatio ja tieteenala.
-          </li>
-        </ul>
-      </li>
-      <li>
-        <strong>Tutkimusuutiset</strong>
-        <ul>
-          <li>
-            Uutisia lisätään vielä mm. seuraavien organisaatioiden osalta:
-            Jyväskylän yliopisto, Ruokavirasto, Maanmittauslaitos, Vaasan
-            yliopisto, Tampereen yliopisto, Tampereen ammattikorkeakoulu, Turun
-            ammattikorkeakoulu.
-          </li>
-          <li>
-            Uutisvirtaan lisätään rajausmahdollisuus organisaation ja aikavälin
-            mukaan.
-          </li>
-          <li>
-            Uutisten yhteydessä näytetään organisaation logo, mikäli se on
-            toimitettu. Logot näytetään myös organisaatiokohtaisilla sivuilla.
-          </li>
-        </ul>
-      </li>
-      <li>
-        <strong>Tiede ja tutkimus lukuina</strong>
-        <ul>
-          <li>
-            Web of Science -aineistoon perustuvat bibliometriset analyysit Tiede
-            ja tutkimus lukuina -osiossa päivitetään uusimmalla aineistolla.
-          </li>
-        </ul>
-      </li>
-      <li>
-        <strong>Organisaatiot</strong>
-        <ul>
-          <li>
-            Listaan lisätään myös rahoittajat, jotka tuovat tietojaan
-            tutkimustietovarantoon.
-          </li>
-        </ul>
-      </li>
-    </ul>
-    <p>
-      <strong
-        >Myöhemmin julkaistaviin versioihin on lisäksi suunniteltu seuraavia
-        ominaisuuksia:</strong
-      >
-    </p>
-    <ul>
-      <li>
-        Hakualgoritmin parantaminen siten, että haku tunnistaa paremmin
-        hakusanaan liittyviä aiheita (syksy 2020)
-      </li>
-      <li>Tutkimusaineistojen tiedot (2020-21)</li>
-      <li>Tutkijoiden ja muiden tutkimusaktiviteettien tiedot (2021)</li>
-      <li>Avoimet rahoitushaut (2020-21)</li>
-      <li>
-        Visualisointeja esim. julkaisuista, organisaatioista, hankkeista
-        (2020-21)
-      </li>
-      <li>Avoimen tieteen indikaattoreita (2020-21)</li>
-    </ul>
-
-    <button tabindex="0" mat-raised-button color="primary" (click)="close()">
-      Sulje
-    </button>
+<mat-dialog-content>
+  <div class="row d-flex justify-content-between dialog-header">
+    <div class="col">
+      <h2 class="modal-title pull-left col h5">Beta info</h2>
+    </div>
+    <div class="col-auto">
+      <app-close-button
+        class="pull-right pr-3"
+        (click)="close()"
+        (keydown.enter)="close()"
+        autofocus
+        tabindex="-1"
+      ></app-close-button>
+    </div>
   </div>
-</div>
+</mat-dialog-content>

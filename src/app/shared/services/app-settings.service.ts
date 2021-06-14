@@ -67,6 +67,7 @@ export class AppSettingsService {
   };
 
   myDataSettings = {
+    beta: true,
     label: 'Tutkijan tiedot',
     baseRoute: 'mydata',
     navItems: [{ label: 'Kirjaudu sisään', link: '', loginProcess: true }],

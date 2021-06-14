@@ -9,13 +9,15 @@ import { Injectable } from '@angular/core';
 import { Adapter } from './adapter.model';
 import { PersonalFieldsAdapter } from './personal.model';
 import { DescriptionFieldsAdapter } from './description.model';
+import { AffiliationFieldsAdapter } from './affiliation.model';
 import { EducationFieldsAdapter } from './education.model';
 import { PublicationFieldsAdapter } from './publication.model';
 
-export class Orcid {
+export class Profile {
   constructor(
     public personal: any,
     public description: any,
+    public affiliation: any,
     public education: any,
     public publication: any
   ) {}
@@ -24,33 +26,35 @@ export class Orcid {
 @Injectable({
   providedIn: 'root',
 })
-export class OrcidAdapter implements Adapter<Orcid> {
+export class ProfileAdapter implements Adapter<Profile> {
   constructor(
     private personalFieldsAdapter: PersonalFieldsAdapter,
     private descriptionFieldsAdapter: DescriptionFieldsAdapter,
+    private affiliationFieldsAdapter: AffiliationFieldsAdapter,
     private educationFieldsAdapter: EducationFieldsAdapter,
     private publicationFieldsAdapter: PublicationFieldsAdapter
   ) {}
 
-  adapt(item: any): Orcid {
+  adapt(item: any): Profile {
     const data = item.body.data;
-    console.log(data);
 
     const mapModel = (adapter, data) =>
-      Object.values(adapter.adapt(data)).filter(
-        (item: any) => item?.items.length > 0
-      );
+      // Object.values(adapter.adapt(data)).filter(
+      //   (item: any) => item?.items.length > 0
+      // );
+      Object.values(adapter.adapt(data));
 
-    return new Orcid(
+    return new Profile(
       mapModel(this.personalFieldsAdapter, data.personal),
       mapModel(this.descriptionFieldsAdapter, data.personal),
+      mapModel(this.affiliationFieldsAdapter, data.activity),
       mapModel(this.educationFieldsAdapter, data.activity),
       mapModel(this.publicationFieldsAdapter, data.activity)
     );
   }
 
-  adaptMany(item: any): Orcid[] {
-    const entries: Orcid[] = [];
+  adaptMany(item: any): Profile[] {
+    const entries: Profile[] = [];
     const source = item;
     source.forEach((el) => entries.push(this.adapt(el)));
     return entries;
