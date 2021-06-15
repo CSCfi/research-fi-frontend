@@ -12,7 +12,7 @@ $researchfi-theme: mat-light-theme(
 
 // Insert custom background color
 // https://stackoverflow.com/questions/43919927/angular-material2-theming-how-to-set-app-background
-$background-color: map-get($researchfi-primary, 100);
+$background-color: map-get($researchfi-primary, default-contrast);
 $background: map-get($researchfi-theme, background);
 $background: map_merge(
   $background,
@@ -38,6 +38,17 @@ html.cdk-global-scrollblock {
 body {
   color: mat-contrast($primary, 300);
   font-family: 'Roboto', sans-serif;
+}
+
+// Dont show outlines for mouse users
+body:not(.user-tabbing) {
+  button:focus,
+  input:focus,
+  select:focus,
+  textarea:focus,
+  *:focus {
+    outline: none;
+  }
 }
 
 // Override for mat select
@@ -106,6 +117,7 @@ a.disabled {
   pointer-events: none;
   cursor: default;
   text-decoration: none;
+  color: mat-color($primary, lighter) !important;
 }
 
 ul {
@@ -165,6 +177,15 @@ mark,
 }
 
 // Content
+.full-width {
+  background: mat-color($primary);
+  min-height: 3rem;
+}
+
+.wrapper {
+  max-width: 1440px;
+  margin: auto;
+}
 
 #main-content {
   margin-top: 1.5rem;
@@ -192,6 +213,19 @@ mark,
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+}
+
+// Buttons
+.ttv-button {
+  border-radius: 6px;
+  height: 44px;
+  font-size: 1rem;
+  padding: 0 32px;
+}
+
+// Icons
+fa-icon[icon='external-link-alt'] {
+  padding-left: 5px;
 }
 
 // Columns
@@ -279,6 +313,12 @@ mat-basic-chip.tag {
   background: mat-color($primary, 200);
 }
 
+// Modal
+// Modal doesnt scroll page
+.modal-open modal-container.modal {
+  overflow-y: hidden;
+}
+
 // Visualisation modal
 .wide-modal {
   max-width: 97%;
@@ -350,6 +390,17 @@ mat-basic-chip.tag {
 @media (max-width: 991px) {
   .info-icon {
     display: none;
+  }
+}
+
+@media (max-width: 1199px) {
+  .wrapper {
+    padding: 0 8px;
+  }
+}
+@media (min-width: 1200px) and (max-width: 1440px) {
+  .wrapper {
+    max-width: 90vw;
   }
 }
 // .tooltip-inner {

@@ -18,6 +18,8 @@ export interface Publication {
 })
 export class PublicationsService {
   apiUrl: string;
+  currentSort: any;
+  pageSettings: any;
 
   constructor(
     private http: HttpClient,
@@ -26,21 +28,42 @@ export class PublicationsService {
     this.apiUrl = this.appConfigService.apiUrl;
   }
 
+  updateSort(sortSettings) {
+    switch (sortSettings.active) {
+      case 'year': {
+        this.currentSort = {
+          publicationYear: { order: sortSettings.direction },
+        };
+      }
+    }
+  }
+
+  updatePageSettings(pageSettings) {
+    this.pageSettings = pageSettings;
+  }
+
   getPublications(term) {
+    // Default sort to descending publicationYear
+    const sort = this.currentSort
+      ? this.currentSort
+      : { publicationYear: { order: 'desc' } };
+
+    const pageSettings = this.pageSettings;
+
     const query = {
       query_string: {
         query: term,
       },
     };
 
-    const sort = [{ publicationYear: { order: 'desc' } }];
-
     let payload = {
       track_total_hits: true,
       sort: sort,
+      from: pageSettings ? pageSettings.pageIndex * pageSettings.pageSize : 0,
+      size: pageSettings ? pageSettings.pageSize : 10,
     };
 
-    if (term.length) payload = Object.assign(payload, { query: query });
+    if (term?.length) payload = Object.assign(payload, { query: query });
 
     // TODO: Map response
     return this.http.post<Publication>(

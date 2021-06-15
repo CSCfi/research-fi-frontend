@@ -21,6 +21,7 @@ export class SearchPublicationsComponent implements OnInit {
   total: number;
   loading: boolean;
   currentSelection: any[];
+  currentTerm: string;
 
   constructor(
     private dialogRef: MatDialogRef<SearchPublicationsComponent>,
@@ -29,7 +30,13 @@ export class SearchPublicationsComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  searchPublications(term) {
+  handleSearch(term) {
+    this.currentTerm = term;
+    this.searchPublications(term);
+  }
+
+  searchPublications(term: string) {
+    this.results = [];
     this.loading = true;
 
     this.publicationService
@@ -44,6 +51,16 @@ export class SearchPublicationsComponent implements OnInit {
 
   handleSelection(arr) {
     this.currentSelection = arr;
+  }
+
+  changePage(pageSettings) {
+    this.publicationService.updatePageSettings(pageSettings);
+    this.searchPublications(this.currentTerm);
+  }
+
+  sort(sortSettings) {
+    this.publicationService.updateSort(sortSettings);
+    this.searchPublications(this.currentTerm);
   }
 
   close() {

@@ -24,6 +24,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 import { HomeComponent } from './components/home/home.component';
 import { WelcomeStepperComponent } from './components/welcome-stepper/welcome-stepper.component';
@@ -54,6 +57,7 @@ import { GetPrimaryOptionsPipe } from './pipes/get-primary-options.pipe';
 import { PrimaryBadgeComponent } from './components/profile-data-handler/profile-panel/primary-badge/primary-badge.component';
 import { SearchPublicationsComponent } from './components/profile-data-handler/profile-panel/search-publications/search-publications.component';
 import { PublicationsListComponent } from './components/profile-data-handler/profile-panel/publications-list/publications-list.component';
+import { CustomPaginatorIntlComponent } from './components/profile-data-handler/profile-panel/custom-paginator-intl/custom-paginator-intl.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +87,9 @@ import { PublicationsListComponent } from './components/profile-data-handler/pro
     CommonModule,
     FormsModule,
     MyDataRoutingModule,
+    SharedModule,
+    ModalModule,
+    FontAwesomeModule,
     MatProgressSpinnerModule,
     MatCheckboxModule,
     MatRadioModule,
@@ -96,10 +103,12 @@ import { PublicationsListComponent } from './components/profile-data-handler/pro
     MatDialogModule,
     MatDividerModule,
     MatTableModule,
-    FontAwesomeModule,
-    SharedModule,
-    ModalModule,
+    MatPaginatorModule,
+    MatSortModule,
   ],
-  providers: [AuthGuard],
+  providers: [
+    AuthGuard,
+    { provide: MatPaginatorIntl, useClass: CustomPaginatorIntlComponent },
+  ],
 })
 export class MyDataModule {}

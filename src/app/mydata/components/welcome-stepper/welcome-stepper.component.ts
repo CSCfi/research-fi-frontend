@@ -58,7 +58,6 @@ export class WelcomeStepperComponent implements OnInit {
   ngOnInit() {
     this.oidcSecurityService.userData$.pipe(take(1)).subscribe((data) => {
       this.userData = data;
-      console.log(data);
       this.firstName = data?.name.split(' ')[0];
     });
   }
