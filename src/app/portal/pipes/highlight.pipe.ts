@@ -33,7 +33,6 @@ export class HighlightSearch implements PipeTransform {
       .filter(Boolean)
       .map((item) => item.replace(/,|;/g, ''));
 
-    console.log(argsArr);
     // Map value keys and loop through args, replace with tags
     const match = valueArr.map((e) => {
       for (let i = 0; i < argsArr.length; i++) {
