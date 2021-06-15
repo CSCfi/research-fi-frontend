@@ -23,7 +23,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { HomeComponent } from './components/home/home.component';
 import { WelcomeStepperComponent } from './components/welcome-stepper/welcome-stepper.component';
@@ -95,7 +95,7 @@ import { PublicationsListComponent } from './components/profile-data-handler/pro
     MatSnackBarModule,
     MatDialogModule,
     MatDividerModule,
-    MatTableModule,
+    MatPaginatorModule,
     FontAwesomeModule,
     SharedModule,
     ModalModule,
