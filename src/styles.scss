@@ -106,34 +106,6 @@
   @include app-carousel-theme($theme);
   @include app-bar-chart-theme($theme);
   @include app-profile-data-handler-theme($theme);
-
-  $primary: map-get($theme, primary);
-
-  .full-width {
-    background: mat-color($primary);
-    min-height: 3rem;
-  }
-
-  .wrapper {
-    max-width: 1440px;
-    margin: auto;
-  }
-
-  @media (max-width: 1199px) {
-    .wrapper {
-      padding: 0 8px;
-    }
-  }
-  @media (min-width: 1200px) and (max-width: 1440px) {
-    .wrapper {
-      max-width: 90vw;
-    }
-  }
-
-  // Disable link
-  a.disabled {
-    color: mat-color($primary, lighter) !important;
-  }
 }
 
 // Global style definitions
@@ -146,33 +118,6 @@ html {
 *:before,
 *:after {
   box-sizing: inherit;
-}
-
-.ttv-button {
-  border-radius: 6px;
-  height: 44px;
-  font-size: 1rem;
-  padding: 0 32px;
-}
-
-fa-icon[icon='external-link-alt'] {
-  padding-left: 5px;
-}
-
-// Modal doesnt scroll page
-.modal-open modal-container.modal {
-  overflow-y: hidden;
-}
-
-// Dont show outlines for mouse users
-body:not(.user-tabbing) {
-  button:focus,
-  input:focus,
-  select:focus,
-  textarea:focus,
-  *:focus {
-    outline: none;
-  }
 }
 
 body {
