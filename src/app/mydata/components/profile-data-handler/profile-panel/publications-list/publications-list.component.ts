@@ -5,21 +5,46 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+} from '@angular/core';
+import { PublicationsService } from '@mydata/services/publications.service';
 
 @Component({
   selector: 'app-publications-list',
   templateUrl: './publications-list.component.html',
   styleUrls: ['./publications-list.component.scss'],
 })
-export class PublicationsListComponent {
+export class PublicationsListComponent implements OnChanges {
   @Input() data: any[];
+  @Input() total: number;
   @Output() onPublicationToggle = new EventEmitter<any>();
+  @Output() onPageChange = new EventEmitter<any>();
+  @Output() onSortToggle = new EventEmitter<any>();
 
   showMoreArray = [];
   publicationArray = [];
 
-  constructor() {}
+  currentPage = 1;
+  currentPageSize = 10;
+  pageCount: number;
+
+  displayedColumns: string[] = ['selection', 'year', 'name', 'edit'];
+
+  sortSettings: any;
+
+  constructor(private publicationService: PublicationsService) {
+    this.sortSettings = publicationService.currentSort;
+    console.log(this.sortSettings);
+  }
+
+  ngOnChanges() {
+    this.pageCount = Math.ceil(this.total / this.currentPageSize);
+  }
 
   showMore(index) {
     this.showMoreArray.push(index);
@@ -44,5 +69,19 @@ export class PublicationsListComponent {
       : (arr = arr.filter((item) => item.id !== selectedPublication.id));
 
     this.onPublicationToggle.emit(arr);
+  }
+
+  sortData(sortSettings) {
+    this.onSortToggle.emit(sortSettings);
+  }
+
+  navigate(event) {
+    this.data = [];
+    this.currentPage = event.pageIndex + 1;
+    this.currentPageSize = event.pageSize;
+
+    this.pageCount = Math.ceil(this.total / event.pageSize);
+
+    this.onPageChange.emit(event);
   }
 }
