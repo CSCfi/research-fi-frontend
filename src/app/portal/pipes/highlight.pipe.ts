@@ -28,47 +28,53 @@ export class HighlightSearch implements PipeTransform {
     args = args.replace(/[\])}[{(]/g, '').replace(/\*/g, '');
     const valueArr = value.split(' ');
     // Remove empty strings
-    const argsArr = args.split(' ').filter(Boolean);
+    const argsArr = args
+      .split(' ')
+      .filter(Boolean)
+      .map((item) => item.replace(/,|;/g, ''));
 
+    console.log(argsArr);
     // Map value keys and loop through args, replace with tags
     const match = valueArr.map((e) => {
-      for(let i = 0; i< argsArr.length; i++) {
-
+      for (let i = 0; i < argsArr.length; i++) {
         //Neutralising the effect of accents
-        const temp_e = e.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-        const temp_word = argsArr[i].normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-  
-        if (temp_word.length > 0 && temp_e.toLowerCase().includes(temp_word.toLowerCase())) {
+        const temp_e = e.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        const temp_word = argsArr[i]
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '');
+
+        if (
+          temp_word.length > 0 &&
+          temp_e.toLowerCase().includes(temp_word.toLowerCase())
+        ) {
           // 'gi' stands for case insensitive, use 'g' if needed for case sensitive
-          const src = new RegExp(argsArr[i],'gi');
+          const src = new RegExp(argsArr[i], 'gi');
           const found = e.match(src);
-          const src_accent = new RegExp(temp_word,'gi');
+          const src_accent = new RegExp(temp_word, 'gi');
           const found_accent = temp_e.match(src_accent);
-          
-          
-          if (found){
+
+          if (found) {
             e = e.replace(src, '<mark>' + found[0] + '</mark>');
-            if(temp_word.length == temp_e.length){
-              argsArr.splice(i,1)
+            if (temp_word.length == temp_e.length) {
+              argsArr.splice(i, 1);
               i--;
-          }
-          break;
-          }
-
-          else if (found_accent){
-            e = temp_e.replace(src_accent, '<mark>' + found_accent[0] + '</mark>');
-            if(temp_word.length == temp_e.length){
-              argsArr.splice(i,1)
+            }
+            break;
+          } else if (found_accent) {
+            e = temp_e.replace(
+              src_accent,
+              '<mark>' + found_accent[0] + '</mark>'
+            );
+            if (temp_word.length == temp_e.length) {
+              argsArr.splice(i, 1);
               i--;
-              }
-          break;
-          }
-
-          else {
+            }
+            break;
+          } else {
             return e;
           }
         }
-      };
+      }
       return e;
     });
 
