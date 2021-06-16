@@ -65,10 +65,10 @@ export class ProfileDataHandlerComponent implements OnInit {
     public dialog: MatDialog
   ) {
     this.testData = profileService.testData;
-    // this.response = this.testData
   }
 
   ngOnInit(): void {
+    // this.response = this.testData;
     this.mapData();
   }
 

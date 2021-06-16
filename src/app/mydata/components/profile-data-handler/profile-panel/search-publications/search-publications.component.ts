@@ -5,8 +5,8 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PublicationsService } from '@mydata/services/publications.service';
 import { take } from 'rxjs/operators';
 
@@ -25,7 +25,8 @@ export class SearchPublicationsComponent implements OnInit {
 
   constructor(
     private dialogRef: MatDialogRef<SearchPublicationsComponent>,
-    private publicationService: PublicationsService
+    private publicationService: PublicationsService,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
   ngOnInit(): void {}

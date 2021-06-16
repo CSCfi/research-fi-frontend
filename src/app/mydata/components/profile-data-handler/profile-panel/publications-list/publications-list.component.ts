@@ -10,6 +10,7 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnInit,
   Output,
 } from '@angular/core';
 import { PublicationsService } from '@mydata/services/publications.service';
@@ -19,9 +20,10 @@ import { PublicationsService } from '@mydata/services/publications.service';
   templateUrl: './publications-list.component.html',
   styleUrls: ['./publications-list.component.scss'],
 })
-export class PublicationsListComponent implements OnChanges {
+export class PublicationsListComponent implements OnInit, OnChanges {
   @Input() data: any[];
   @Input() total: number;
+  @Input() selectedItems: any;
   @Output() onPublicationToggle = new EventEmitter<any>();
   @Output() onPageChange = new EventEmitter<any>();
   @Output() onSortToggle = new EventEmitter<any>();
@@ -36,10 +38,15 @@ export class PublicationsListComponent implements OnChanges {
   displayedColumns: string[] = ['selection', 'year', 'name', 'edit'];
 
   sortSettings: any;
+  selectedItemsIdArray: any[];
 
   constructor(private publicationService: PublicationsService) {
-    this.sortSettings = publicationService.currentSort;
-    console.log(this.sortSettings);
+    this.sortSettings = this.publicationService.currentSort;
+  }
+
+  ngOnInit() {
+    // Check match in template
+    this.selectedItemsIdArray = this.selectedItems.map((item) => item.id);
   }
 
   ngOnChanges() {
@@ -59,14 +66,22 @@ export class PublicationsListComponent implements OnChanges {
 
   togglePublication(event, index) {
     const selectedPublication = this.data[index]._source;
+    let selectedItems = this.selectedItems;
 
     let arr = this.publicationArray;
 
-    event.checked
-      ? arr.find((item) => item.id === selectedPublication.id)
-        ? null // Prevent adding of duplicate items
-        : arr.push({ ...selectedPublication, show: true })
-      : (arr = arr.filter((item) => item.id !== selectedPublication.id));
+    if (selectedItems.find((item) => item.id === selectedPublication.id)) {
+      arr.push({
+        ...selectedItems.find((item) => item.id === selectedPublication.id),
+        show: event.checked,
+      });
+    } else {
+      event.checked
+        ? arr.find((item) => item.id === selectedPublication.id)
+          ? null // Prevent adding of duplicate items
+          : arr.push({ ...selectedPublication, show: true })
+        : (arr = arr.filter((item) => item.id !== selectedPublication.id));
+    }
 
     this.onPublicationToggle.emit(arr);
   }

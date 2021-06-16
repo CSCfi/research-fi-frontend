@@ -15,7 +15,10 @@
   <ng-container matColumnDef="selection">
     <mat-header-cell *matHeaderCellDef></mat-header-cell>
     <mat-cell *matCellDef="let item; let i = index">
-      <mat-checkbox (change)="togglePublication($event, i)"></mat-checkbox>
+      <mat-checkbox
+        [checked]="selectedItemsIdArray.indexOf(item._source.id) > -1"
+        (change)="togglePublication($event, i)"
+      ></mat-checkbox>
     </mat-cell>
   </ng-container>
 

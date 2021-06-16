@@ -13,6 +13,7 @@ import { checkGroupShow } from '../utils';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SearchPublicationsComponent } from './search-publications/search-publications.component';
 import { take } from 'rxjs/operators';
+import { PublicationsService } from '@mydata/services/publications.service';
 
 @Component({
   selector: 'app-profile-panel',
@@ -49,7 +50,8 @@ export class ProfilePanelComponent implements OnInit {
    */
   constructor(
     private appSettingsService: AppSettingsService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private publicationService: PublicationsService
   ) {}
 
   ngOnInit(): void {
@@ -180,11 +182,24 @@ export class ProfilePanelComponent implements OnInit {
     this.onPublicationToggle.emit();
   }
 
+  removePublication(publication) {
+    let selectedPublications = this.data.fields[0].selectedPublications;
+
+    selectedPublications = selectedPublications.filter(
+      (item) => item.id !== publication.id
+    );
+
+    this.data.fields[0].selectedPublications = selectedPublications;
+  }
+
   // Search publications
   openDialog() {
     this.dialogRef = this.dialog.open(SearchPublicationsComponent, {
       minWidth: '44vw',
       maxWidth: '44vw',
+      data: {
+        selectedPublications: this.data.fields[0].selectedPublications,
+      },
     });
 
     // Set selected publications to field items
@@ -192,13 +207,33 @@ export class ProfilePanelComponent implements OnInit {
       .afterClosed()
       .pipe(take(1))
       .subscribe((result: { selectedPublications: any[] }) => {
+        // Reset sort when dialog closes
+        this.publicationService.resetSort();
+
         if (result) {
-          this.data.fields[0].selectedPublications = this.data.fields[0]
-            .selectedPublications
-            ? this.data.fields[0].selectedPublications.concat(
-                result.selectedPublications
-              )
-            : result.selectedPublications;
+          const selectedPublications = this.data.fields[0].selectedPublications;
+
+          if (result.selectedPublications) {
+            const publicationArr = [];
+
+            // Check if selection already exists. Set show status for previously selected items
+            result.selectedPublications.forEach((publication) => {
+              if (
+                selectedPublications &&
+                selectedPublications.find((item) => item.id === publication.id)
+              ) {
+                this.data.fields[0].selectedPublications.find(
+                  (item) => item.id === publication.id
+                ).show = publication.show;
+              } else {
+                publicationArr.push(publication);
+              }
+            });
+
+            this.data.fields[0].selectedPublications = selectedPublications
+              ? selectedPublications.concat(publicationArr)
+              : result.selectedPublications;
+          }
         }
       });
   }
