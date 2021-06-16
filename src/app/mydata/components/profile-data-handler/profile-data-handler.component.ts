@@ -17,6 +17,9 @@ import { EditorModalComponent } from './editor-modal/editor-modal.component';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { take } from 'rxjs/operators';
 
+// Remove in production
+import { AppSettingsService } from '@shared/services/app-settings.service';
+
 @Component({
   selector: 'app-profile-data-handler',
   templateUrl: './profile-data-handler.component.html',
@@ -62,13 +65,16 @@ export class ProfileDataHandlerComponent implements OnInit {
   constructor(
     private profileService: ProfileService,
     private snackBar: MatSnackBar,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private appSettingsService: AppSettingsService
   ) {
     this.testData = profileService.testData;
   }
 
   ngOnInit(): void {
-    // this.response = this.testData;
+    this.response = this.appSettingsService.myDataSettings.develop
+      ? this.testData
+      : this.response;
     this.mapData();
   }
 

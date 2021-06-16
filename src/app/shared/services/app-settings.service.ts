@@ -67,6 +67,7 @@ export class AppSettingsService {
   };
 
   myDataSettings = {
+    develop: true,
     beta: true,
     label: 'Tutkijan tiedot',
     baseRoute: 'mydata',
