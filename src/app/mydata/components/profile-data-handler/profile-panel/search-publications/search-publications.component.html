@@ -77,6 +77,7 @@
           (onSortToggle)="sort($event)"
           [data]="results"
           [total]="total"
+          [selectedItems]="data.selectedPublications || []"
         ></app-publications-list>
       </div>
     </div>
@@ -93,7 +94,7 @@
     <div class="col-auto pl-0" *ngIf="total > 0">
       <app-primary-action-button
         (click)="saveChanges()"
-        content="Tallenna"
+        content="Lisää julkaisu"
       ></app-primary-action-button>
     </div>
   </div>

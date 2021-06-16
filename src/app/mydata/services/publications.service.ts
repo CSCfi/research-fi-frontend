@@ -38,6 +38,12 @@ export class PublicationsService {
     }
   }
 
+  resetSort() {
+    this.currentSort = {
+      publicationYear: { order: 'desc' },
+    };
+  }
+
   updatePageSettings(pageSettings) {
     this.pageSettings = pageSettings;
   }
