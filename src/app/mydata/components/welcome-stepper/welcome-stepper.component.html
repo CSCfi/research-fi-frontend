@@ -270,7 +270,10 @@
 
               <div class="row pb-4 d-flex justify-content-center">
                 <div class="col px-0 px-lg-3">
-                  <mat-tab-group mat-align-tabs="center">
+                  <app-profile-data-handler
+                    [response]="profileData"
+                  ></app-profile-data-handler>
+                  <!-- <mat-tab-group mat-align-tabs="center">
                     <mat-tab label="Valitse julkaistavat tiedot">
                       <app-profile-data-handler
                         [response]="profileData"
@@ -279,14 +282,30 @@
                     <mat-tab disabled label="Aseta kaikki julkisiksi"
                       >Aseta kaikki julkisiksi</mat-tab
                     >
-                  </mat-tab-group>
+                  </mat-tab-group> -->
                 </div>
               </div>
 
               <!-- <app-stepper-navigation
                 (changeStep)="changeStep($event)"
               ></app-stepper-navigation> -->
-              <div class="row">
+
+              <div class="row pb-5 d-flex justify-content-center">
+                <div class="col-auto">
+                  <app-secondary-button
+                    disabled
+                    content="Aseta kaikki julkisiksi"
+                  ></app-secondary-button>
+                </div>
+                <div class="col-auto">
+                  <app-secondary-button
+                    disabled
+                    content="Tyhjennä kaikki valinnat"
+                  ></app-secondary-button>
+                </div>
+              </div>
+
+              <div class="row pt-3">
                 <app-primary-action-button
                   [disabled]="true"
                   class="col text-center"

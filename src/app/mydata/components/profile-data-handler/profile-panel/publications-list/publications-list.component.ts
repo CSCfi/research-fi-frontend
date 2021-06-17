@@ -12,6 +12,7 @@ import {
   OnChanges,
   OnInit,
   Output,
+  ViewEncapsulation,
 } from '@angular/core';
 import { PublicationsService } from '@mydata/services/publications.service';
 
@@ -19,6 +20,7 @@ import { PublicationsService } from '@mydata/services/publications.service';
   selector: 'app-publications-list',
   templateUrl: './publications-list.component.html',
   styleUrls: ['./publications-list.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class PublicationsListComponent implements OnInit, OnChanges {
   @Input() data: any[];

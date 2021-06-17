@@ -17,6 +17,9 @@ import { EditorModalComponent } from './editor-modal/editor-modal.component';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { take } from 'rxjs/operators';
 
+// Remove in production
+import { AppSettingsService } from '@shared/services/app-settings.service';
+
 @Component({
   selector: 'app-profile-data-handler',
   templateUrl: './profile-data-handler.component.html',
@@ -44,7 +47,7 @@ export class ProfileDataHandlerComponent implements OnInit {
     { label: 'Tutkimustoiminnan kuvaus', fields: [] },
     { label: 'Affiliaatiot', fields: [] },
     { label: 'Koulutus', fields: [] },
-    { label: 'Julkaisut', fields: [] },
+    { label: 'Julkaisut', fields: [], countGroupItems: true },
     { label: 'Tutkimusaineistot', fields: [] },
     { label: 'Hankkeet', fields: [] },
     { label: 'Muut hankkeet', fields: [] },
@@ -62,18 +65,20 @@ export class ProfileDataHandlerComponent implements OnInit {
   constructor(
     private profileService: ProfileService,
     private snackBar: MatSnackBar,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private appSettingsService: AppSettingsService
   ) {
     this.testData = profileService.testData;
   }
 
   ngOnInit(): void {
-    // this.response = this.testData;
+    this.response = this.appSettingsService.myDataSettings.develop
+      ? this.testData
+      : this.response;
     this.mapData();
   }
 
   mapData() {
-    // console.log(JSON.stringify(this.response));
     this.profileData[0].fields = this.response.personal;
     this.profileData[1].fields = this.response.description;
     this.profileData[2].fields = this.response.affiliation;
@@ -161,7 +166,7 @@ export class ProfileDataHandlerComponent implements OnInit {
       .subscribe(
         (result: { data: any; patchGroups: any[]; patchItems: any[] }) => {
           if (result) {
-            console.log(result);
+            console.log('On editor modal close: ', result);
             this.profileData[this.selectedIndex] = result.data;
             // this.patchData(result.patchGroups, result.patchItems);
           }

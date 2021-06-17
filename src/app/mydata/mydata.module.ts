@@ -27,6 +27,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { MatButtonModule } from '@angular/material/button';
 
 import { HomeComponent } from './components/home/home.component';
 import { WelcomeStepperComponent } from './components/welcome-stepper/welcome-stepper.component';
@@ -58,6 +59,7 @@ import { PrimaryBadgeComponent } from './components/profile-data-handler/profile
 import { SearchPublicationsComponent } from './components/profile-data-handler/profile-panel/search-publications/search-publications.component';
 import { PublicationsListComponent } from './components/profile-data-handler/profile-panel/publications-list/publications-list.component';
 import { CustomPaginatorIntlComponent } from './components/profile-data-handler/profile-panel/custom-paginator-intl/custom-paginator-intl.component';
+import { CountGroupItemsPipe } from './pipes/count-group-items.pipe';
 
 @NgModule({
   declarations: [
@@ -82,6 +84,7 @@ import { CustomPaginatorIntlComponent } from './components/profile-data-handler/
     PrimaryBadgeComponent,
     SearchPublicationsComponent,
     PublicationsListComponent,
+    CountGroupItemsPipe,
   ],
   imports: [
     CommonModule,
@@ -105,6 +108,7 @@ import { CustomPaginatorIntlComponent } from './components/profile-data-handler/
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatButtonModule,
   ],
   providers: [
     AuthGuard,

@@ -153,6 +153,14 @@ mark,
   font-size: 0.875rem;
 }
 
+.font-size-big {
+  font-size: 1.025rem;
+}
+
+.font-size-bigger {
+  font-size: 1.25rem;
+}
+
 .font-weight-500 {
   font-weight: 500;
 }
@@ -343,6 +351,22 @@ mat-basic-chip.tag {
   }
 }
 
+// Mat Dialog
+.mat-dialog-container {
+  padding: 1rem !important;
+}
+
+.dialog-header {
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.mat-dialog-content {
+  max-height: 85vh !important;
+  margin: 0 -1rem !important;
+  padding: 0 !important;
+}
+
 // Opacity
 .opacity-0 {
   opacity: 0 !important;
@@ -363,6 +387,12 @@ mat-basic-chip.tag {
   opacity: 1 !important;
 }
 
+// Events
+.pointer-events-none {
+  pointer-events: none;
+}
+
+// Responsive
 @media (max-width: 575px) {
   h1 {
     font-size: 1.8rem;
