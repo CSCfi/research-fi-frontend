@@ -263,6 +263,11 @@ mat-form-field.mat-focused {
   outline: -webkit-focus-ring-color auto 1px;
 }
 
+// Mat-card
+body mat-card.mat-card {
+  background: mat-color($primary, 100);
+}
+
 // Tooltip
 .tooltip-inner {
   max-width: 276px;
