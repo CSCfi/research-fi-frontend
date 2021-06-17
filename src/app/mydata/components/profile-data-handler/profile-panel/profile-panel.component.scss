@@ -1,0 +1,70 @@
+//  This file is part of the research.fi API service
+//
+//  Copyright 2019 Ministry of Education and Culture, Finland
+//
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
+app-profile-panel {
+  .mat-expansion-panel {
+    border-radius: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .mat-expansion-panel-spacing {
+    margin: 0;
+  }
+
+  .mat-expansion-panel:not([class*='mat-elevation-z']) {
+    box-shadow: none;
+  }
+
+  .mat-expansion-panel-header {
+    padding: 0 1rem;
+  }
+
+  .mat-expansion-panel-body {
+    padding: 0 1rem 1rem;
+  }
+
+  .mat-expansion-panel
+    .mat-expansion-panel-header.cdk-keyboard-focused:not([aria-disabled='true']),
+  .mat-expansion-panel
+    .mat-expansion-panel-header.cdk-program-focused:not([aria-disabled='true']),
+  .mat-expansion-panel:not(.mat-expanded)
+    .mat-expansion-panel-header:hover:not([aria-disabled='true']) {
+    background: none;
+  }
+
+  .mat-accordion .mat-expansion-panel {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .mat-accordion .mat-expansion-panel:first-of-type,
+  .mat-accordion .mat-expansion-panel:last-of-type {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .mat-accordion .mat-expansion-panel:last-of-type {
+    border-bottom: none;
+    padding-bottom: 2rem;
+  }
+
+  mat-panel-title.mat-expansion-panel-header-title {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  .mat-expansion-indicator::after {
+    border-width: 0 3px 3px 0;
+    padding: 6px;
+  }
+
+  span.mat-expansion-indicator {
+    margin-top: -0.5rem;
+  }
+}

@@ -34,8 +34,8 @@ export class EditorModalComponent implements OnInit {
   @Output() emitClose = new EventEmitter<boolean>();
   @Output() dataChange = new EventEmitter<object>();
 
-  groupPayload: any[];
-  itemPayload: any[];
+  groupPayload = [];
+  itemPayload = [];
   publicationPayload: any[];
 
   checkSelected = checkSelected;
@@ -53,7 +53,7 @@ export class EditorModalComponent implements OnInit {
     this.checkAllSelected();
 
     // Radio options have default values. Add these values on init
-    this.addInitialOptions(this.editorData.data);
+    // this.addInitialOptions(this.editorData.data);
   }
 
   addInitialOptions(data) {
@@ -211,7 +211,10 @@ export class EditorModalComponent implements OnInit {
     const patchGroups = [];
     const patchItems = [];
 
-    data.forEach((field) =>
+    data.forEach((field) => {
+      if (field.selectedPublications)
+        field.selectedPublications.map((item) => (item.show = true));
+
       field.groupItems.map((groupItem) => {
         groupItem.groupMeta.show = true;
 
@@ -223,8 +226,8 @@ export class EditorModalComponent implements OnInit {
             patchItems.push(item.itemMeta);
           });
         }
-      })
-    );
+      });
+    });
 
     this.editorData = copy;
 
@@ -256,8 +259,8 @@ export class EditorModalComponent implements OnInit {
 
   handlePatchObjectGroup(patchGroups: any[], patchItems: any[]) {
     // TODO: Better check for duplicates. Add only latest changes
-    this.groupPayload = [...new Set([...this.groupPayload, ...patchGroups])];
-    this.itemPayload = [...new Set([...this.itemPayload, ...patchItems])];
+    // this.groupPayload = [...new Set([...this.groupPayload, ...patchGroups])];
+    // this.itemPayload = [...new Set([...this.itemPayload, ...patchItems])];
   }
 
   handlePatchRadioObject(patchGroups: any[], patchObjects: any[]) {

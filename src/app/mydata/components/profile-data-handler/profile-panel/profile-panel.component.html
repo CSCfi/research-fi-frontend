@@ -3,183 +3,154 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<div class="row" *ngIf="data">
-  <div class="col pt-3 pb-4 px-0">
-    <ng-container *ngFor="let field of data.fields; let i = index">
-      <div class="row pt-3 pb-4">
-        <div class="col px-0">
-          <!-- Field -->
-          <div class="row d-flex justify-content-between">
-            <span class="col-auto font-weight-bold px-0 m-0 pb-4">
-              {{ field.label }}
-            </span>
+<div [@.disabled]="disableAnimation">
+  <mat-accordion *ngIf="data" multi>
+    <mat-expansion-panel
+      *ngFor="let field of data.fields; let i = index"
+      [expanded]="
+        field.expanded ||
+        !!(field.groupItems | filter: checkGroupSelected).length ||
+        openPanels.indexOf(i) > -1 ||
+        data.fields.length === 1
+      "
+      [hideToggle]="field.disabled || data.fields.length === 1"
+      (opened)="toggleGroup($event, i, data.fields[i])"
+      (closed)="closePanel(i)"
+    >
+      <mat-expansion-panel-header
+        *ngIf="data.fields.length > 1"
+        [class.pointer-events-none]="field.disabled || data.fields.length === 1"
+      >
+        <mat-panel-title>
+          {{ field.label }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
 
+      <!-- Header if only one field -->
+      <ng-container *ngIf="data.fields.length === 1">
+        <div class="row d-flex justify-content-between py-4">
+          <div class="col px-0 font-size-big">
+            Valitse profiilissasi näytettävät tiedot
+          </div>
+          <div class="col-auto px-0" *ngIf="field.label === 'Julkaisut'">
             <!-- Search publications -->
             <a
               href="javascript:void(0)"
-              class="col-auto primary-color font-weight-500"
-              *ngIf="
-                field.label === 'Julkaisut' &&
-                (openPanels.indexOf(i) > -1 ||
-                  (field.groupItems | filter: checkGroupShow:'boolean'))
-              "
+              class="primary-color font-weight-500"
               (click)="openDialog()"
             >
               <u>Puuttuuko jokin julkaisu tiedoistasi?</u>
             </a>
-
-            <!-- Toggle group -->
-            <div class="col-auto pr-0" *ngIf="!field.disabled">
-              <mat-slide-toggle
-                [checked]="field.groupItems | filter: checkGroupShow:'boolean'"
-                (change)="toggleGroup($event, i, data.fields[i])"
-                [disabled]="field.disabled"
-                labelPosition="after"
-                >Näytä profiilissani
-              </mat-slide-toggle>
-            </div>
           </div>
-
-          <ng-container
-            *ngIf="
-              field.expanded ||
-              (field.groupItems | filter: checkGroupShow:'boolean') ||
-              openPanels.indexOf(i) > -1
-            "
-          >
-            <!-- Primary source selector -->
-            <!-- TODO: Check group some other way than by label name -->
-            <div class="row pb-3" *ngIf="field.label === 'Affiliaatiot'">
-              <app-menu
-                label="Vaihda ensisijainen affiliaatio"
-                [options]="
-                  data.fields | getPrimaryOptions: i:locale:'organizationName'
-                "
-                (onSelectionChange)="setPrimaryValue($event, field)"
-              ></app-menu>
-            </div>
-
-            <!-- Options -->
-            <ng-container *ngFor="let groupItem of field.groupItems">
-              <div
-                class="row d-flex justify-content-between py-3"
-                *ngFor="let item of groupItem.items"
-              >
-                <div
-                  class="col px-0 font-size-smaller"
-                  [ngSwitch]="field.single"
-                >
-                  <mat-radio-button
-                    *ngSwitchCase="true"
-                    [value]="item.itemMeta.id"
-                    (change)="toggleRadioItem($event, i)"
-                    [checked]="item.itemMeta.show"
-                  >
-                    <app-panel-array-item
-                      [item]="item"
-                      [fieldType]="groupItem.groupMeta.type"
-                    ></app-panel-array-item>
-                  </mat-radio-button>
-
-                  <mat-checkbox
-                    [checked]="item.itemMeta.show"
-                    *ngSwitchDefault
-                    (change)="toggleItem($event, groupItem, item, i)"
-                  >
-                    <app-panel-array-item
-                      [item]="item"
-                      [fieldType]="groupItem.groupMeta.type"
-                      [localized]="field.localized"
-                    ></app-panel-array-item>
-                  </mat-checkbox>
-                </div>
-
-                <!-- Primary badge -->
-                <div class="col-auto mt-1" *ngIf="item.itemMeta.primaryValue">
-                  <app-primary-badge label="Ensisijainen"></app-primary-badge>
-                </div>
-
-                <!-- Debugging -->
-                <!-- <div class="col-auto font-size-small mt-1" style="color: red">
-                  itemId: {{ item.itemMeta.id }} | groupId:
-                  {{ groupItem.groupMeta.id }}
-                </div> -->
-
-                <!-- Source -->
-                <div
-                  class="
-                    col-auto
-                    pr-0
-                    mt-1
-                    text-right
-                    opacity-3
-                    font-size-small
-                  "
-                >
-                  {{ groupItem.source.organization['name' + locale] }}
-                </div>
-              </div>
-            </ng-container>
-
-            <!-- Fetched publications -->
-            <ng-container *ngIf="field.selectedPublications">
-              <div
-                class="row d-flex justify-content-between py-3"
-                *ngFor="
-                  let publication of field.selectedPublications;
-                  let j = index
-                "
-              >
-                <div class="col px-0 font-size-smaller">
-                  <mat-checkbox
-                    [checked]="publication.show"
-                    (change)="togglePublication($event, publication)"
-                  >
-                    <app-panel-array-item
-                      [item]="publication"
-                      [fieldType]="fieldTypes.activityPublication"
-                    ></app-panel-array-item>
-                  </mat-checkbox>
-                </div>
-
-                <div class="col-auto mt-1">
-                  <app-secondary-button
-                    content="Poista"
-                    (click)="removePublication(publication)"
-                  ></app-secondary-button>
-                </div>
-
-                <div
-                  class="
-                    col-auto
-                    pr-0
-                    mt-1
-                    text-right
-                    opacity-3
-                    font-size-small
-                  "
-                >
-                  Tiedejatutkimus.fi
-                </div>
-              </div>
-            </ng-container>
-          </ng-container>
         </div>
+      </ng-container>
+
+      <!-- Primary source selector -->
+      <!-- TODO: Check group some other way than by label name -->
+      <div class="row pb-3" *ngIf="field.label === 'Affiliaatiot'">
+        <app-menu
+          label="Vaihda ensisijainen affiliaatio"
+          [options]="
+            data.fields | getPrimaryOptions: i:locale:'organizationName'
+          "
+          (onSelectionChange)="setPrimaryValue($event, field)"
+        ></app-menu>
       </div>
 
-      <div class="row pb-4 font-size-small" *ngIf="field.single">
+      <!-- Options -->
+      <ng-container *ngFor="let groupItem of field.groupItems">
+        <div
+          class="row d-flex justify-content-between py-1"
+          *ngFor="let item of groupItem.items"
+        >
+          <div class="col px-0 font-size-smaller" [ngSwitch]="field.single">
+            <mat-radio-button
+              *ngSwitchCase="true"
+              [value]="item.itemMeta.id"
+              (change)="toggleRadioItem($event, i)"
+              [checked]="item.itemMeta.show"
+            >
+              <app-panel-array-item
+                [item]="item"
+                [fieldType]="groupItem.groupMeta.type"
+              ></app-panel-array-item>
+            </mat-radio-button>
+
+            <mat-checkbox
+              [checked]="item.itemMeta.show"
+              *ngSwitchDefault
+              (change)="toggleItem($event, groupItem, item, i)"
+            >
+              <app-panel-array-item
+                [item]="item"
+                [fieldType]="groupItem.groupMeta.type"
+                [localized]="field.localized"
+              ></app-panel-array-item>
+            </mat-checkbox>
+          </div>
+
+          <!-- Primary badge -->
+          <div class="col-auto mt-1" *ngIf="item.itemMeta.primaryValue">
+            <app-primary-badge label="Ensisijainen"></app-primary-badge>
+          </div>
+
+          <!-- Debugging -->
+          <!-- <div class="col-auto font-size-small mt-1" style="color: red">
+          itemId: {{ item.itemMeta.id }} | groupId:
+          {{ groupItem.groupMeta.id }}
+        </div> -->
+
+          <!-- Source -->
+          <div class="col-auto px-0 mt-1 text-right opacity-3 font-size-small">
+            {{ groupItem.source.organization['name' + locale] }}
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Fetched publications -->
+      <ng-container *ngIf="field.selectedPublications">
+        <div
+          class="row d-flex justify-content-between py-3"
+          *ngFor="let publication of field.selectedPublications; let j = index"
+        >
+          <div class="col px-0 font-size-smaller">
+            <mat-checkbox
+              [checked]="publication.show"
+              (change)="togglePublication($event, publication)"
+            >
+              <app-panel-array-item
+                [item]="publication"
+                [fieldType]="fieldTypes.activityPublication"
+              ></app-panel-array-item>
+            </mat-checkbox>
+          </div>
+
+          <div class="col-auto mt-1">
+            <app-secondary-button
+              content="Poista"
+              (click)="removePublication(publication)"
+            ></app-secondary-button>
+          </div>
+
+          <div class="col-auto pr-0 mt-1 text-right opacity-3 font-size-small">
+            Tiedejatutkimus.fi
+          </div>
+        </div>
+      </ng-container>
+
+      <div class="row py-3 font-size-small" *ngIf="field.single">
         <div class="col col-lg-6 pl-0">
           <fa-icon class="pr-1 opacity-3" icon="info-circle"></fa-icon>
           <!-- <ng-container [ngSwitch]="field.single">
-            <span *ngSwitchCase="true">Voit valita yhden vaihtoehdon</span>
-            <span *ngSwitchDefault>Voit valita usean vaihtoehdon</span>
-          </ng-container> -->
+          <span *ngSwitchCase="true">Voit valita yhden vaihtoehdon</span>
+          <span *ngSwitchDefault>Voit valita usean vaihtoehdon</span>
+        </ng-container> -->
           <span>Voit valita yhden vaihtoehdon</span>
         </div>
         <!-- <div class="col pr-0 opacity-3"><span>1 lähde valittu</span></div> -->
       </div>
 
-      <hr *ngIf="i + 1 < data.fields.length" class="m-0" />
-    </ng-container>
-  </div>
+      <!-- <hr *ngIf="i + 1 < data.fields.length" class="m-0" /> -->
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>

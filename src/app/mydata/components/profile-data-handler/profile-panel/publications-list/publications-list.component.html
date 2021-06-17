@@ -40,9 +40,16 @@
       >
         {{ item._source.publicationName }}
       </div>
+      <!-- TODO: Check empty and loop -->
       <ng-container *ngIf="showMoreArray.indexOf(i) > -1">
         <div class="row mt-2 font-size-small">
           {{ item._source.authorsText }}
+        </div>
+        <div class="row mt-2 font-size-small">
+          {{ item._source.parentPublicationName }}
+        </div>
+        <div class="row mt-2 font-size-small">
+          {{ item._source.doi }}
         </div>
       </ng-container>
     </mat-cell>

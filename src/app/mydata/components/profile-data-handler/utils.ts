@@ -8,12 +8,29 @@
 /*
  * Common pipeable functions
  */
-export function checkSelected(item) {
-  return item.groupItems.find((val) => val.groupMeta.show);
+export function checkSelected(group) {
+  const itemMetaGroup = [];
+
+  group.groupItems.map((groupItem) =>
+    groupItem.items.forEach((item) => itemMetaGroup.push(item.itemMeta))
+  );
+
+  // Map fetched publications
+  if (group.selectedPublications) {
+    group.selectedPublications.forEach((publication) =>
+      itemMetaGroup.push({ show: publication.show })
+    );
+  }
+
+  return itemMetaGroup.some((item) => item.show);
 }
 
-export function checkGroupShow(item) {
-  return item.groupMeta.show;
+export function checkGroupSelected(group) {
+  return group.items.find((item) => item.itemMeta.show);
+}
+
+export function checkGroupShow(group) {
+  return group.groupMeta.show;
 }
 
 export function checkEmpty(item: { values: string | any[] }) {

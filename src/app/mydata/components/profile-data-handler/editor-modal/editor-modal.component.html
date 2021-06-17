@@ -6,9 +6,14 @@
 <mat-dialog-content>
   <div class="row d-flex justify-content-between dialog-header">
     <div class="col">
-      <h2 class="modal-title pull-left col h5">
+      <h2 class="modal-title pull-left col h5 mt-n1">
         {{ editorData.data.label }}
       </h2>
+    </div>
+    <div class="col-auto">
+      <mat-checkbox [checked]="allSelected" (change)="toggleAll()"
+        >Valitse kaikki</mat-checkbox
+      >
     </div>
     <div class="col-auto">
       <app-close-button
@@ -24,7 +29,7 @@
   <div class="row d-flex justify-content-center">
     <div class="col">
       <div class="row">
-        <div class="col">
+        <div class="col px-0">
           <app-profile-panel
             [dataSources]="editorData.dataSources"
             [primarySource]="primarySource"
@@ -37,12 +42,7 @@
         </div>
       </div>
 
-      <div class="row pb-3">
-        <div class="col">
-          <mat-checkbox [checked]="allSelected" (change)="toggleAll()"
-            >Valitse kaikki</mat-checkbox
-          >
-        </div>
+      <div class="row pt-3 pb-3">
         <div class="col px-0">
           <div class="row d-flex justify-content-end">
             <div class="col-auto pr-0">

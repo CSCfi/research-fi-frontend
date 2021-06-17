@@ -47,7 +47,7 @@ export class ProfileDataHandlerComponent implements OnInit {
     { label: 'Tutkimustoiminnan kuvaus', fields: [] },
     { label: 'Affiliaatiot', fields: [] },
     { label: 'Koulutus', fields: [] },
-    { label: 'Julkaisut', fields: [] },
+    { label: 'Julkaisut', fields: [], countGroupItems: true },
     { label: 'Tutkimusaineistot', fields: [] },
     { label: 'Hankkeet', fields: [] },
     { label: 'Muut hankkeet', fields: [] },
@@ -79,7 +79,6 @@ export class ProfileDataHandlerComponent implements OnInit {
   }
 
   mapData() {
-    // console.log(JSON.stringify(this.response));
     this.profileData[0].fields = this.response.personal;
     this.profileData[1].fields = this.response.description;
     this.profileData[2].fields = this.response.affiliation;
@@ -167,7 +166,7 @@ export class ProfileDataHandlerComponent implements OnInit {
       .subscribe(
         (result: { data: any; patchGroups: any[]; patchItems: any[] }) => {
           if (result) {
-            console.log(result);
+            console.log('On editor modal close: ', result);
             this.profileData[this.selectedIndex] = result.data;
             // this.patchData(result.patchGroups, result.patchItems);
           }

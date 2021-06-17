@@ -5,21 +5,32 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
-import { checkGroupShow } from '../utils';
+import { checkGroupShow, checkGroupSelected } from '../utils';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SearchPublicationsComponent } from './search-publications/search-publications.component';
 import { take } from 'rxjs/operators';
 import { PublicationsService } from '@mydata/services/publications.service';
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-profile-panel',
   templateUrl: './profile-panel.component.html',
+  styleUrls: ['./profile-panel.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
-export class ProfilePanelComponent implements OnInit {
+export class ProfilePanelComponent implements OnInit, AfterViewInit {
   @Input() dataSources: any;
   @Input() primarySource: string;
   @Input() data: any;
@@ -37,6 +48,7 @@ export class ProfilePanelComponent implements OnInit {
   fieldTypes = FieldTypes;
 
   checkGroupShow = checkGroupShow;
+  checkGroupSelected = checkGroupSelected;
 
   openPanels = [];
 
@@ -44,6 +56,11 @@ export class ProfilePanelComponent implements OnInit {
   locale = 'Fi';
 
   dialogRef: MatDialogRef<SearchPublicationsComponent>;
+
+  faChevronDown = faChevronDown;
+  faChevronUp = faChevronUp;
+
+  disableAnimation = true;
 
   /*
    * appSettingsService is used in Template
@@ -56,6 +73,12 @@ export class ProfilePanelComponent implements OnInit {
 
   ngOnInit(): void {
     this.setDefaultPrimaryValue(this.data.fields);
+  }
+
+  // Fix for Mat Expansion Panel render FOUC
+  ngAfterViewInit(): void {
+    // timeout required to avoid the dreaded 'ExpressionChangedAfterItHasBeenCheckedError'
+    setTimeout(() => (this.disableAnimation = false));
   }
 
   setDefaultPrimaryValue(data) {
@@ -105,30 +128,34 @@ export class ProfilePanelComponent implements OnInit {
       ? (this.openPanels = this.openPanels.filter((item) => item !== index))
       : this.openPanels.push(index);
 
-    data.groupItems.map((groupItem) => {
-      groupItem.groupMeta.show = event.checked;
-      patchGroups.push(groupItem.groupMeta);
+    // data.groupItems.map((groupItem) => {
+    //   groupItem.groupMeta.show = event.checked;
+    //   patchGroups.push(groupItem.groupMeta);
 
-      groupItem.items.map((item) => {
-        item.itemMeta.show = event.checked;
-        patchItems.push(item.itemMeta);
-      });
-    });
+    //   groupItem.items.map((item) => {
+    //     item.itemMeta.show = event.checked;
+    //     patchItems.push(item.itemMeta);
+    //   });
+    // });
 
-    // Handle fetched publications
-    if (data.selectedPublications) {
-      data.selectedPublications.map((item) => (item.show = event.checked));
-      patchPublications = data.selectedPublications;
-    }
+    // // Handle fetched publications
+    // if (data.selectedPublications) {
+    //   data.selectedPublications.map((item) => (item.show = event.checked));
+    //   patchPublications = data.selectedPublications;
+    // }
 
-    // Pass to parent
-    this.onGroupToggle.emit({
-      data: data,
-      patchGroups: patchGroups,
-      patchItems: patchItems,
-      patchPublications: patchPublications,
-      index: index,
-    });
+    // // Pass to parent
+    // this.onGroupToggle.emit({
+    //   data: data,
+    //   patchGroups: patchGroups,
+    //   patchItems: patchItems,
+    //   patchPublications: patchPublications,
+    //   index: index,
+    // });
+  }
+
+  closePanel(index) {
+    this.openPanels = this.openPanels.filter((item) => item !== index);
   }
 
   toggleRadioItem(event, index) {
