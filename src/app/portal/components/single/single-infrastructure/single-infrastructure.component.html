@@ -246,7 +246,7 @@
                               href="{{ servicePoint[row.field] }}"
                               >{{ servicePoint[row.field] }}
                               <i
-                                *ngIf="row.field === 'infoUrl'"
+                                *ngIf="row.field === 'infoUrl' || row.field === 'accessPolicyUrl'"
                                 class="fas fa-external-link-alt"
                               ></i
                             ></a>
