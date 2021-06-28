@@ -16,6 +16,7 @@ import {
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { checkSelected } from '../utils';
 import { cloneDeep } from 'lodash-es';
+import { PatchService } from '@mydata/services/patch.service';
 
 @Component({
   selector: 'app-editor-modal',
@@ -42,7 +43,8 @@ export class EditorModalComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogRef: MatDialogRef<EditorModalComponent>
+    private dialogRef: MatDialogRef<EditorModalComponent>,
+    private patchService: PatchService
   ) {}
 
   ngOnInit(): void {
@@ -90,44 +92,13 @@ export class EditorModalComponent implements OnInit {
       : true;
   }
 
-  /*
-   * Handle object add / remove from patch object list when values change
-   */
-
-  toggleGroup(response: {
-    data: any;
-    patchGroups: any[];
-    patchItems: any[];
-    index: string | number;
-  }) {
-    // Compare response with original values. Patch only if change on value
-    const original = this.originalEditorData.data.fields[response.index];
-
-    const originalGroupItemMeta = original.groupItems.map(
-      (groupItem) => groupItem.groupMeta
-    );
-
-    originalGroupItemMeta.forEach((item) => {
-      if (
-        response.patchGroups.find(
-          (group) => group.id === item.id && group.show === item.show
-        )
-      ) {
-        this.removeFromPayload('group', item);
-      } else {
-        this.handlePatchObjectGroup(response.patchGroups, response.patchItems);
-      }
-    });
-
-    this.checkAllSelected();
-  }
-
   toggleRadio(response: {
     data: any;
-    selectedGroup: any;
     selectedItem: any;
     index: string | number;
   }) {
+    console.log(response.data);
+
     const original = this.originalEditorData.data.fields[response.index];
 
     const patchGroups = [];
@@ -138,23 +109,16 @@ export class EditorModalComponent implements OnInit {
     );
 
     // Add to patch items only if new selection
-    if (
-      previousSelection &&
-      previousSelection.groupMeta.id !== response.selectedGroup.groupMeta.id
-    ) {
-      // Set original group show to false
-      patchGroups.push({ ...previousSelection.groupMeta, show: false });
-
+    if (previousSelection) {
       // Set original item show to false
       previousSelection.items.forEach((item) =>
         patchObjects.push({ ...item.itemMeta, show: false })
       );
 
-      // Set selected group
-      patchGroups.push(response.selectedGroup.groupMeta);
-
       // Set selected item
       patchObjects.push(response.selectedItem.itemMeta);
+
+      // this.patchService.addToPatchItems(patchObjects);
 
       this.handlePatchRadioObject(patchGroups, patchObjects);
     }
@@ -178,22 +142,24 @@ export class EditorModalComponent implements OnInit {
 
     currentItem.itemMeta = response.itemMeta;
 
+    this.checkAllSelected();
+
     // Set group show to false if no selected items
     if (
       !parentGroup.items.find((item) => item.itemMeta.show) &&
       !publications?.find((item) => item.show)
     ) {
-      parentGroup.groupMeta.show = false;
-      this.handlePatchObjectGroup([parentGroup.groupMeta], [response.itemMeta]);
+      // parentGroup.groupMeta.show = false;
+      // this.handlePatchObjectGroup([parentGroup.groupMeta], [response.itemMeta]);
     } else {
       // Add selection to patch items
-      this.handlePatchSingleObject(response.itemMeta);
+      // this.handlePatchSingleObject(response.itemMeta);
     }
   }
 
-  togglePrimaryValue(patchObjects) {
-    [...this.itemPayload, ...patchObjects];
-  }
+  // togglePrimaryValue(patchObjects) {
+  //   [...this.itemPayload, ...patchObjects];
+  // }
 
   togglePublication() {
     // TODO: Find if there's need for this method.
@@ -216,20 +182,23 @@ export class EditorModalComponent implements OnInit {
         field.selectedPublications.map((item) => (item.show = true));
 
       field.groupItems.map((groupItem) => {
-        groupItem.groupMeta.show = true;
+        // groupItem.groupMeta.show = true;
 
         // Single selections should always have show as true. Therefore these items shouldn't be altered
         if (!field.single) {
-          patchGroups.push(groupItem.groupMeta);
           groupItem.items.map((item) => {
-            item.itemMeta.show = true;
-            patchItems.push(item.itemMeta);
+            if (!item.itemMeta.show) {
+              item.itemMeta.show = true;
+              patchItems.push(item.itemMeta);
+            }
           });
         }
       });
     });
 
     this.editorData = copy;
+    // console.log(patchItems);
+    this.patchService.addToPatchItems(patchItems);
 
     this.handlePatchObjectGroup(patchGroups, patchItems);
   }

@@ -7,14 +7,20 @@ export class CountGroupItemsPipe implements PipeTransform {
   transform(group: any, filterSelected?: boolean) {
     const combinedItems = [];
 
-    group.forEach((item) => {
-      item.groupItems.map((groupItem) =>
-        groupItem.items.forEach((item) => combinedItems.push(item.itemMeta))
+    group.forEach((el) => {
+      el.groupItems.map((groupItem) =>
+        groupItem.items.forEach((item) =>
+          el.single
+            ? item.itemMeta.show === true
+              ? combinedItems.push(item.itemMeta)
+              : null
+            : combinedItems.push(item.itemMeta)
+        )
       );
 
       // Check for fetched publications
-      if (item.selectedPublications) {
-        item.selectedPublications.forEach((publication) =>
+      if (el.selectedPublications) {
+        el.selectedPublications.forEach((publication) =>
           combinedItems.push({ show: publication.show })
         );
       }

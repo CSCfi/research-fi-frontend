@@ -28,6 +28,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
+import { MatRippleModule } from '@angular/material/core';
 
 import { HomeComponent } from './components/home/home.component';
 import { WelcomeStepperComponent } from './components/welcome-stepper/welcome-stepper.component';
@@ -109,6 +110,7 @@ import { CountGroupItemsPipe } from './pipes/count-group-items.pipe';
     MatPaginatorModule,
     MatSortModule,
     MatButtonModule,
+    MatRippleModule,
   ],
   providers: [
     AuthGuard,

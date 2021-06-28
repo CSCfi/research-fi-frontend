@@ -34,10 +34,9 @@
             [dataSources]="editorData.dataSources"
             [primarySource]="primarySource"
             [data]="editorData.data"
-            (onGroupToggle)="toggleGroup($event)"
+            [originalData]="originalEditorData"
             (onRadioItemToggle)="toggleRadio($event)"
             (onSingleItemToggle)="toggleSingle($event)"
-            (onPrimaryValueChange)="togglePrimaryValue($event)"
           ></app-profile-panel>
         </div>
       </div>

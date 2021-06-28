@@ -17,6 +17,8 @@ import { EditorModalComponent } from './editor-modal/editor-modal.component';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { take } from 'rxjs/operators';
 
+import { PatchService } from '@mydata/services/patch.service';
+
 // Remove in production
 import { AppSettingsService } from '@shared/services/app-settings.service';
 
@@ -47,7 +49,7 @@ export class ProfileDataHandlerComponent implements OnInit {
     { label: 'Tutkimustoiminnan kuvaus', fields: [] },
     { label: 'Affiliaatiot', fields: [] },
     { label: 'Koulutus', fields: [] },
-    { label: 'Julkaisut', fields: [], countGroupItems: true },
+    { label: 'Julkaisut', fields: [] },
     { label: 'Tutkimusaineistot', fields: [] },
     { label: 'Hankkeet', fields: [] },
     { label: 'Muut hankkeet', fields: [] },
@@ -66,7 +68,8 @@ export class ProfileDataHandlerComponent implements OnInit {
     private profileService: ProfileService,
     private snackBar: MatSnackBar,
     public dialog: MatDialog,
-    private appSettingsService: AppSettingsService
+    private appSettingsService: AppSettingsService,
+    private patchService: PatchService
   ) {
     this.testData = profileService.testData;
   }
@@ -166,10 +169,15 @@ export class ProfileDataHandlerComponent implements OnInit {
       .subscribe(
         (result: { data: any; patchGroups: any[]; patchItems: any[] }) => {
           if (result) {
-            console.log('On editor modal close: ', result);
+            console.log(
+              'On editor modal close: ',
+              this.patchService.currentPatchItems
+            );
             this.profileData[this.selectedIndex] = result.data;
             // this.patchData(result.patchGroups, result.patchItems);
           }
+
+          this.patchService.clearPatchPayload();
         }
       );
   }
