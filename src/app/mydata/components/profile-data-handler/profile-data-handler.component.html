@@ -25,20 +25,10 @@
         </div>
 
         <div class="col-auto">
-          {{
-            (item.countGroupItems
-              ? (item.fields | countGroupItems: true)
-              : (item.fields | filter: checkSelected)
-            ).length
-          }}
+          {{ (item.fields | countGroupItems: true).length }}
 
           /
-          {{
-            (item.countGroupItems
-              ? (item.fields | countGroupItems)
-              : item.fields
-            ).length
-          }}
+          {{ (item.fields | countGroupItems).length }}
           valittu
         </div>
 

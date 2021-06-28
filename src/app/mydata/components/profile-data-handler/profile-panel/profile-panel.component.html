@@ -14,7 +14,7 @@
         data.fields.length === 1
       "
       [hideToggle]="field.disabled || data.fields.length === 1"
-      (opened)="toggleGroup($event, i, data.fields[i])"
+      (opened)="toggleGroup(i)"
       (closed)="closePanel(i)"
     >
       <mat-expansion-panel-header
@@ -45,66 +45,80 @@
         </div>
       </ng-container>
 
-      <!-- Primary source selector -->
-      <!-- TODO: Check group some other way than by label name -->
-      <div class="row pb-3" *ngIf="field.label === 'Affiliaatiot'">
-        <app-menu
-          label="Vaihda ensisijainen affiliaatio"
-          [options]="
-            data.fields | getPrimaryOptions: i:locale:'organizationName'
-          "
-          (onSelectionChange)="setPrimaryValue($event, field)"
-        ></app-menu>
-      </div>
+      <ng-container *ngIf="field.label === 'Affiliaatiot'">
+        <p class="row m-0">
+          Voit valita enimmillään 3 ensisijaista affiliaatiota.
+        </p>
+        <p class="row">
+          Ensisijaiset näytetään profiilissasi listan ensimmäisinä.
+        </p>
+      </ng-container>
 
       <!-- Options -->
       <ng-container *ngFor="let groupItem of field.groupItems">
-        <div
-          class="row d-flex justify-content-between py-1"
-          *ngFor="let item of groupItem.items"
-        >
-          <div class="col px-0 font-size-smaller" [ngSwitch]="field.single">
-            <mat-radio-button
-              *ngSwitchCase="true"
-              [value]="item.itemMeta.id"
-              (change)="toggleRadioItem($event, i)"
-              [checked]="item.itemMeta.show"
+        <ng-container *ngFor="let item of groupItem.items">
+          <div class="row d-flex justify-content-between py-1">
+            <div class="col px-0 font-size-smaller" [ngSwitch]="field.single">
+              <mat-radio-button
+                *ngSwitchCase="true"
+                [value]="item.itemMeta.id"
+                (change)="toggleRadioItem($event, i)"
+                [checked]="item.itemMeta.show"
+              >
+                <app-panel-array-item
+                  [item]="item"
+                  [fieldType]="groupItem.groupMeta.type"
+                ></app-panel-array-item>
+              </mat-radio-button>
+
+              <mat-checkbox
+                [checked]="item.itemMeta.show"
+                *ngSwitchDefault
+                (change)="toggleItem($event, groupItem, item, i)"
+              >
+                <app-panel-array-item
+                  [item]="item"
+                  [fieldType]="groupItem.groupMeta.type"
+                  [localized]="field.localized"
+                ></app-panel-array-item>
+              </mat-checkbox>
+            </div>
+
+            <!-- Debugging -->
+            <div class="col-auto font-size-small mt-1" style="color: red">
+              itemId: {{ item.itemMeta.id }} | groupId:
+              {{ groupItem.groupMeta.id }}
+            </div>
+
+            <!-- Source -->
+            <div
+              class="col-auto px-0 mt-1 text-right opacity-3 font-size-small"
             >
-              <app-panel-array-item
-                [item]="item"
-                [fieldType]="groupItem.groupMeta.type"
-              ></app-panel-array-item>
-            </mat-radio-button>
+              {{ groupItem.source.organization['name' + locale] }}
+            </div>
+          </div>
 
-            <mat-checkbox
-              [checked]="item.itemMeta.show"
-              *ngSwitchDefault
-              (change)="toggleItem($event, groupItem, item, i)"
+          <!-- Primary affiliation -->
+          <div class="row pb-3 mt-n2">
+            <div
+              class="col-auto px-4 mx-3 cursor-pointer"
+              *ngIf="
+                groupItem.groupMeta.type === fieldTypes.activityAffiliation
+              "
             >
-              <app-panel-array-item
+              <app-primary-badge
+                [label]="
+                  item.itemMeta.primaryValue
+                    ? 'Ensisijainen'
+                    : 'Aseta ensisijaiseksi'
+                "
                 [item]="item"
-                [fieldType]="groupItem.groupMeta.type"
-                [localized]="field.localized"
-              ></app-panel-array-item>
-            </mat-checkbox>
+                [data]="field"
+                [selected]="item.itemMeta.primaryValue"
+              ></app-primary-badge>
+            </div>
           </div>
-
-          <!-- Primary badge -->
-          <div class="col-auto mt-1" *ngIf="item.itemMeta.primaryValue">
-            <app-primary-badge label="Ensisijainen"></app-primary-badge>
-          </div>
-
-          <!-- Debugging -->
-          <!-- <div class="col-auto font-size-small mt-1" style="color: red">
-          itemId: {{ item.itemMeta.id }} | groupId:
-          {{ groupItem.groupMeta.id }}
-        </div> -->
-
-          <!-- Source -->
-          <div class="col-auto px-0 mt-1 text-right opacity-3 font-size-small">
-            {{ groupItem.source.organization['name' + locale] }}
-          </div>
-        </div>
+        </ng-container>
       </ng-container>
 
       <!-- Fetched publications -->

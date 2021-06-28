@@ -16,6 +16,7 @@
           item | checkFieldLocale: locale:'organizationName',
           (item.startDate | parseDate) + ' - ' + (item.endDate | parseDate)
         ]"
+        [smallLastItem]="true"
       ></app-activity-item>
     </ng-container>
 
