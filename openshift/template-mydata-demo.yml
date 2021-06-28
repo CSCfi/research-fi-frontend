@@ -111,7 +111,7 @@ objects:
           volumes:
             - name: config-volume-fi
               configMap:
-                name: mydata-demo-frontend-config
+                name: frontend-config-mydata-demo
                 items:
                   - key: configfile
                     path: config.json
@@ -119,7 +119,7 @@ objects:
                     path: auth_config.json
             - name: config-volume-sv
               configMap:
-                name: mydata-demo-frontend-config
+                name: frontend-config-mydata-demo
                 items:
                   - key: configfile
                     path: config.json
@@ -127,7 +127,7 @@ objects:
                     path: auth_config.json
             - name: config-volume-en
               configMap:
-                name: mydata-demo-frontend-config
+                name: frontend-config-mydata-demo
                 items:
                   - key: configfile
                     path: config.json
