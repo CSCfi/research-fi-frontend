@@ -7,6 +7,9 @@ import {
   OnDestroy,
   PLATFORM_ID,
   ViewEncapsulation,
+  ViewChild,
+  ElementRef,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { SearchService } from 'src/app/portal/services/search.service';
 import { Title } from '@angular/platform-browser';
@@ -17,8 +20,9 @@ import { WINDOW } from 'src/app/shared/services/window.service';
 import { ResizeService } from 'src/app/shared/services/resize.service';
 import { common } from 'src/assets/static-data/meta-tags.json';
 import { UtilityService } from 'src/app/shared/services/utility.service';
-import { Subscription } from 'rxjs';
+import { combineLatest, merge, Subject, Subscription } from 'rxjs';
 import { Aurora } from '@portal/models/aurora.model';
+import { debounceTime, map, multicast, skip, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-aurora',
@@ -28,6 +32,8 @@ import { Aurora } from '@portal/models/aurora.model';
 export class AuroraComponent implements OnInit, AfterViewInit {
     width = this.window.innerWidth;
     mobile = this.width < 992;
+    @ViewChild('skipToResults') skipToResults: ElementRef;
+
   
     private currentLocale: string;
     private metaTags = {};
@@ -36,6 +42,7 @@ export class AuroraComponent implements OnInit, AfterViewInit {
     queryParams: any;
     currentTerm: string;
   
+    combinedRouteParams: Subscription;
     focusSub: Subscription;
     resizeSub: Subscription;
     routeSub: Subscription;
@@ -46,8 +53,13 @@ export class AuroraComponent implements OnInit, AfterViewInit {
     dataFetched: any;
 
     resultData: Aurora[];
+    page: number;
     loading: boolean;
     errorMessage: string;
+
+    tabSub: Subscription;
+    showSkipLinks: boolean;
+  
 
     selectedTabData: {
       data: string;
@@ -67,7 +79,8 @@ export class AuroraComponent implements OnInit, AfterViewInit {
       @Inject(WINDOW) private window: Window,
       private resizeService: ResizeService,
       public utilityService: UtilityService,
-      private router: Router
+      private router: Router,
+      private cdr: ChangeDetectorRef,
     ) {
       this.isBrowser = isPlatformBrowser(this.platformId);
       this.currentLocale =
@@ -79,6 +92,25 @@ export class AuroraComponent implements OnInit, AfterViewInit {
       this.tabChangeService.tab = 'aurora';
       this.selectedTabData = this.tabChangeService.aurora;
   
+      this.combinedRouteParams = combineLatest([
+        this.route.params,
+        this.route.queryParams,
+      ])
+        .pipe(
+          map((results) => ({ params: results[0], query: results[1] })),
+          multicast(new Subject(), (s) =>
+            merge(
+              s.pipe(take(1)), // First call is instant, after that debounce
+              s.pipe(skip(1), debounceTime(1))
+            )
+          )
+        )
+        .subscribe((results) => {
+          const query = results.query;
+          const params = results.params;
+          this.page = +query.page || 1;
+      })
+    
       this.searchService.updateInput('');
   
       // Set title
@@ -122,15 +154,31 @@ export class AuroraComponent implements OnInit, AfterViewInit {
     }
   
     ngAfterViewInit() {
-      // Focus with skip-links
-      this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(
-        (target) => {
-          if (target === 'main-link') {
-            //this.serviceInfoLink.nativeElement.focus();
-          }
+      // Set focus to header
+      this.tabSub = this.tabChangeService.currentFocus.subscribe((focus) => {
+        if (focus) {
+          this.showSkipLinks = true;
+          this.skipToResults.nativeElement.focus();
         }
-      );
+      });
+      // Focus to skip-to results link when clicked from header skip-links
+      this.tabChangeService.currentFocusTarget.subscribe((target) => {
+        if (target === 'main-link') {
+          this.skipToResults.nativeElement.focus();
+        }
+      });
+      this.cdr.detectChanges();
     }
+  
+    changeFocusTarget(target) {
+      this.tabChangeService.targetFocus(target);
+    }
+
+    // Reset focus on blur
+    resetFocus() {
+      this.tabChangeService.changeFocus(false);
+    }
+
 
     getData(size: number = 10) {
       this.searchService
