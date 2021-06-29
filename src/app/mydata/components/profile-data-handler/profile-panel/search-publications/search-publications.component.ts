@@ -52,6 +52,13 @@ export class SearchPublicationsComponent implements OnInit {
 
   handleSelection(arr) {
     this.currentSelection = arr;
+    console.log(JSON.stringify(arr[0]));
+    console.log(arr[0].publicationId);
+
+    this.publicationService
+      .patchPublication(arr[0].publicationId)
+      .pipe(take(1))
+      .subscribe((res) => console.log(res));
   }
 
   changePage(pageSettings) {

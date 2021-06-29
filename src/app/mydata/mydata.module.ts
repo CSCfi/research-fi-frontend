@@ -61,6 +61,7 @@ import { SearchPublicationsComponent } from './components/profile-data-handler/p
 import { PublicationsListComponent } from './components/profile-data-handler/profile-panel/publications-list/publications-list.component';
 import { CustomPaginatorIntlComponent } from './components/profile-data-handler/profile-panel/custom-paginator-intl/custom-paginator-intl.component';
 import { CountGroupItemsPipe } from './pipes/count-group-items.pipe';
+import { MydataBetaInfoComponent } from './components/mydata-beta-info/mydata-beta-info.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import { CountGroupItemsPipe } from './pipes/count-group-items.pipe';
     SearchPublicationsComponent,
     PublicationsListComponent,
     CountGroupItemsPipe,
+    MydataBetaInfoComponent,
   ],
   imports: [
     CommonModule,

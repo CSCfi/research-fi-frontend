@@ -1,0 +1,25 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<div class="beta-info d-block p-3">
+  <div class="row pb-3">
+    <div class="col offset-2 text-center">
+      <i class="fas fa-exclamation-triangle font-size-bigger"></i>
+    </div>
+    <div class="col-2 text-right">
+      <button mat-button (click)="toggle()">
+        <ng-container *ngIf="open">
+          <i class="fas fa-times mt-n1"></i> Sulje
+        </ng-container>
+        <ng-container *ngIf="!open"> Avaa </ng-container>
+      </button>
+    </div>
+    <div class="col-12 text-center">
+      <span class="h5 font-weight-bold">Huomio!</span>
+    </div>
+  </div>
+
+  <ng-container *ngIf="open" [ngTemplateOutlet]="template"></ng-container>
+</div>
