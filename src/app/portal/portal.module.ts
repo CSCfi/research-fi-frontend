@@ -146,6 +146,8 @@ import { BannerComponent } from './components/home-page/banner/banner.component'
 import { LatestNewsComponent } from './components/news/latest-news/latest-news.component';
 import { NewsResultsComponent } from './components/news/news-results/news-results.component';
 import { ConvertToArrayPipe } from './pipes/convert-to-array.pipe';
+import { AuroraComponent } from './components/aurora/aurora.component';
+import { SingleAuroraComponent } from './components/aurora/single-aurora/single-aurora.component';
 
 @NgModule({
   declarations: [
@@ -213,6 +215,8 @@ import { ConvertToArrayPipe } from './pipes/convert-to-array.pipe';
     LatestNewsComponent,
     NewsResultsComponent,
     ConvertToArrayPipe,
+    AuroraComponent,
+    SingleAuroraComponent,
   ],
   imports: [
     PortalRoutingModule,

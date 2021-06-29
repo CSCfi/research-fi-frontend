@@ -21,6 +21,7 @@ import {
   Visual,
 } from '../models/visualisation/visualisations.model';
 import { AggregationService } from './filters/aggregation.service';
+import { Aurora, AuroraAdapter } from '@portal/models/aurora.model';
 
 @Injectable()
 export class SearchService {
@@ -57,6 +58,7 @@ export class SearchService {
     private settingsService: SettingsService,
     private searchAdapter: SearchAdapter,
     private newsAdapter: NewsAdapter,
+    private auroraAdapter: AuroraAdapter,
     private visualAdapter: VisualAdapter,
     private aggService: AggregationService
   ) {
@@ -338,7 +340,7 @@ export class SearchService {
       )
       .pipe(map((data) => this.newsAdapter.adaptMany(data)));
   }
-
+  
   // News page older news content
   getOlderNews(size?: number): Observable<News[]> {
     const sort = { timestamp: { order: 'desc' } };
@@ -348,12 +350,30 @@ export class SearchService {
       from: this.fromNewsPage,
       sort: [sort],
     };
-
+    
     return this.http
-      .post<News[]>(
-        this.apiUrl + 'news' + '/_search?' + 'request_cache=true',
-        payload
+    .post<News[]>(
+      this.apiUrl + 'news' + '/_search?' + 'request_cache=true',
+      payload
       )
       .pipe(map((data) => this.newsAdapter.adaptMany(data)));
-  }
+    }
+
+    // News page content
+    getAurora(size?: number, from: number = 0): Observable<Aurora[]> {
+      const sort = { callProgrammeDueDate: { order: 'desc' } };
+      const payload = {
+        query: this.filterService.constructAuroraPayload(this.searchTerm),
+        size,
+        sort: [sort],
+        from: from,
+      };
+  
+      return this.http
+        .post<Aurora[]>(
+          this.apiUrl + 'aurora' + '/_search?',
+          payload
+        )
+        .pipe(map((data) => this.auroraAdapter.adaptMany(data)));
+    }
 }

@@ -48,6 +48,7 @@ export class FilterService {
   typeFilter: any;
   infraFieldFilter: any;
   currentFilters: any;
+  dateFilter: any;
 
   private filterSource = new BehaviorSubject({
     toYear: [],
@@ -76,6 +77,8 @@ export class FilterService {
     accessType: [],
     type: [],
     coPublication: [],
+    fromDate: [],
+    toDate: []
   });
   filters = this.filterSource.asObservable();
   localeC: string;
@@ -110,6 +113,8 @@ export class FilterService {
     accessType: any[];
     type: any[];
     coPublication: any[];
+    fromDate: any[],
+    toDate: any[]
   }) {
     // Create new filters first before sending updated values to components
     this.currentFilters = filters;
@@ -326,6 +331,8 @@ export class FilterService {
     );
     // Organization
     this.sectorFilter = this.filterBySector(filter.sector);
+    // Aurora
+    this.dateFilter = this.filterByDateRange(filter.fromDate, filter.toDate)
   }
 
   // Regular terms filter
@@ -389,8 +396,21 @@ export class FilterService {
     } else if (t) {
       res.push({ range: { publicationYear: { lte: t } } });
     }
-
+    
     return res;
+  }
+  
+  filterByDateRange(from, to) {
+    const f = parseInt(from[0].slice(1), 10);
+    const t = parseInt(to[0].slice(1), 10);
+    const res = [];
+    if (f && t) {
+      res.push({ range: { callProgrammeDueDate: {gte: f, lte: t}}})
+    } else if (f) {
+      res.push({ range: { callProgrammeDueDate: { gte: f } } });
+    } else if (t) {
+      res.push({ range: { callProgrammeDueDate: { lte: t } } });    
+    }
   }
 
   filterByOrganization(filter: any[]) {
@@ -446,6 +466,12 @@ export class FilterService {
       case 'news': {
         filter.forEach((value) => {
           res.push({ term: { 'organizationId.keyword': value } });
+        });
+        break;
+      }
+      case 'aurora': {
+        filter.forEach((value) => {
+          res.push({ term: { 'foundation.organization_id.keyword': value } });
         });
         break;
       }
@@ -738,10 +764,16 @@ export class FilterService {
 
       // News
       ...basicFilter('news', this.organizationFilter),
+      
+      // Aurora
+      ...basicFilter('aurora', this.organizationFilter),
+      ...basicFilter('aurora', this.dateFilter),
 
       // Global filters
       ...globalFilter(this.yearFilter),
     ];
+    console.log(index)
+    console.log(filters)
     return filters;
   }
 
@@ -803,6 +835,11 @@ export class FilterService {
 
   constructNewsPayload(searchTerm: string) {
     const query = this.constructQuery('news', searchTerm);
+    return query;
+  }
+
+  constructAuroraPayload(searchTerm: string) {
+    const query = this.constructQuery('aurora', searchTerm);
     return query;
   }
 
