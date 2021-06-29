@@ -54,6 +54,11 @@ export class AppSettingsService {
         ],
       },
       {
+        label: $localize`:@@headerLink7:Rahoitushaut`,
+        link: '/aurora',
+        exact: true,
+      },
+      {
         label: $localize`:@@headerLink6:Tiede- ja tutkimusuutiset`,
         link: '/news',
         exact: true,

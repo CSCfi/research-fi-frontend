@@ -45,9 +45,17 @@ export class AuroraComponent implements OnInit, AfterViewInit {
     isBrowser: boolean;
     dataFetched: any;
 
-    data: Aurora[];
+    resultData: Aurora[];
     loading: boolean;
     errorMessage: string;
+
+    selectedTabData: {
+      data: string;
+      label: string;
+      link: string;
+      icon: any;
+      singular: any;
+    };
   
     constructor(
       public searchService: SearchService,
@@ -69,6 +77,7 @@ export class AuroraComponent implements OnInit, AfterViewInit {
     ngOnInit() {
       // Tab change is needed for data fetch
       this.tabChangeService.tab = 'aurora';
+      this.selectedTabData = this.tabChangeService.aurora;
   
       this.searchService.updateInput('');
   
@@ -125,10 +134,10 @@ export class AuroraComponent implements OnInit, AfterViewInit {
 
     getData(size: number = 10) {
       this.searchService
-        .getAurora()
+        .getAurora(size)
         .subscribe(
           (data) => {
-            this.data = data;
+            this.resultData = data;
             console.log(data)
             this.loading = false;
           },

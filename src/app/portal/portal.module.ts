@@ -148,6 +148,7 @@ import { NewsResultsComponent } from './components/news/news-results/news-result
 import { ConvertToArrayPipe } from './pipes/convert-to-array.pipe';
 import { AuroraComponent } from './components/aurora/aurora.component';
 import { SingleAuroraComponent } from './components/aurora/single-aurora/single-aurora.component';
+import { AuroraResultsComponent } from './components/aurora/aurora-results/aurora-results.component';
 
 @NgModule({
   declarations: [
@@ -217,6 +218,7 @@ import { SingleAuroraComponent } from './components/aurora/single-aurora/single-
     ConvertToArrayPipe,
     AuroraComponent,
     SingleAuroraComponent,
+    AuroraResultsComponent,
   ],
   imports: [
     PortalRoutingModule,

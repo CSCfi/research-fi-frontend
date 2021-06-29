@@ -1,1 +1,100 @@
-<p>aurora works!</p>
+<!--  This file is part of the research.fi API service
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
+
+<h1 #srHeader aria-live="polite" class="sr-only"></h1>
+<aside>
+  <app-search-bar></app-search-bar>
+</aside>
+
+<!-- <div class="text-center" *ngIf="!tabValues || !filterValues">
+    <mat-spinner [diameter]="40"></mat-spinner>
+</div> -->
+
+<div class="center-content wrapper" style="margin-top: 0">
+  <div class="row">
+    <div class="col-12 px-0">
+      <div class="total" #totalHeader>
+        <div class="row justify-content-between">
+          <div class="col-auto p-0">
+            <h2
+              role="status"
+              class="total"
+              *ngIf="selectedTabData ? selectedTabData.label : ''"
+            >
+              {{ selectedTabData.label }} -
+              <span class="total">{{ parsedTotal }}</span>
+              <span *ngIf="selectedTabData.link === 'datasets'" class="ml-3" [tooltip]="betaTooltip" placement="top" tabindex="-1" #beta>
+                <app-secondary-button [icon]="'info-circle'" content="Beta"></app-secondary-button>
+              </span>
+              <span class="sr-only" i18n="@@resultCount">hakutulosta</span>
+            </h2>
+          </div>
+          <!-- Change to col-lg-9 after removing beta-info -->
+          <div class="col-auto col-lg-7 justify-content-end align-items-center row">
+            <div class="col-auto px-0 pr-lg-3" *ngIf="selectedTabData">
+              <app-result-count></app-result-count>
+            </div>
+            <!-- <div class="col-12"></div> -->
+            <div class="col-auto text-right d-none d-lg-block">
+              <a routerLink="/service-info" fragment="1" class="theme-link">
+                <strong>
+                    <!-- TRANSLATE -->
+                    <ng-container>Mitä rahoitushakuja palvelu sisältää</ng-container> 
+                </strong>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Uncomment for visualization toggle -->
+      <div>
+        <!-- <mat-slide-toggle [(ngModel)]="visual" class="d-none d-xl-inline-block" *ngIf="visualisationCategories?.length">Tarkastele visualisaationa</mat-slide-toggle> -->
+        <!-- <button mat-raised-button (click)="openModal(visualModal)" class="mb-2">Avaa visualisaatio</button> -->
+      </div>
+      <div
+        id="sr-helper"
+        class="row skip-links pb-2"
+        [ngClass]="showSkipLinks ? 'show' : 'sr-only'"
+      >
+        <a
+          (focus)="showSkipLinks = true"
+          #skipToResults
+          tabindex="0"
+          (click)="changeFocusTarget('main')"
+          (keydown.enter)="changeFocusTarget('main')"
+          (blur)="resetFocus(); showSkipLinks = false"
+          href="javascript:void(0)"
+        >
+          <span i18n="@@skipToResults">Hyppää hakutuloksiin</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="page <= 1000; else pageOverflow">
+    <div class="row">
+      <div
+        *ngIf="mobile; else desktop"
+        class="col-12 row d-flex justify-content-between"
+        style="padding: 0"
+      >
+        <aside class="col col-6 col-sm-6 filters">
+          <app-filters
+            [responseData]="filterValues"
+            [tabData]="tabData[0].data"
+          ></app-filters>
+        </aside>
+        <aside class="col col-6 col-sm-6 sort">
+          <app-sort></app-sort>
+        </aside>
+        <main class="col-12" id="main-content">
+          <app-active-filters></app-active-filters>
+          <app-aurora-results
+            [results]="resultData"
+          ></app-aurora-results>
+        </main>
+      </div>
+    </div>
+  </div>
+</div>

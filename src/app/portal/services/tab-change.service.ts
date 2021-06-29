@@ -73,6 +73,15 @@ export class TabChangeService {
     },
   ];
 
+  aurora = {
+    data: 'aurora',
+    label: '',
+    link: 'aurora',
+    icon: faCalculator,
+    singular: 'aurora',
+    tooltip: ''
+  }
+
   private tabSource = new BehaviorSubject({
     data: '',
     label: '',

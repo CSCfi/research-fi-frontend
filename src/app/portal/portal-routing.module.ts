@@ -30,6 +30,8 @@ import { ResearchInnovationSystemSectorResolver } from './resolvers/research-inn
 import { ExternalLinkResolver } from './resolvers/external-link-resolver.service';
 import { ShortcutResolverService } from './resolvers/shortcut-resolver.service';
 import { SingleDatasetComponent } from './components/single/single-dataset/single-dataset.component';
+import { AuroraComponent } from './components/aurora/aurora.component';
+import { SingleAuroraComponent } from './components/aurora/single-aurora/single-aurora.component';
 
 const routes: Routes = [
   {
@@ -113,6 +115,15 @@ const routes: Routes = [
   {
     path: 'news/:tab',
     component: NewsComponent,
+  },
+  {
+    path: 'aurora',
+    pathMatch: 'full',
+    component: AuroraComponent,
+  },
+  {
+    path: 'aurora/:id',
+    component: SingleAuroraComponent,
   },
   {
     path: 'science-innovation-policy',
