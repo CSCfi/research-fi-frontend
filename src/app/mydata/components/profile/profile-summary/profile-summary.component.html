@@ -1,0 +1,99 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<mat-accordion multi>
+  <mat-expansion-panel
+    *ngFor="let group of data.profileData; let i = index"
+    [expanded]="i === 0"
+    [disabled]="group.fields.length === 0"
+  >
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ group.label }}
+      </mat-panel-title>
+
+      <div class="col-auto">
+        {{ (group.fields | countGroupItems: true).length }}
+
+        /
+        {{ (group.fields | countGroupItems).length }}
+        valittu
+      </div>
+    </mat-expansion-panel-header>
+
+    <ng-container *ngFor="let field of group.fields">
+      <div
+        class="row py-2"
+        *ngIf="(field.groupItems | filter: checkGroupSelected).length"
+      >
+        <div class="col px-0">
+          <span
+            class="font-weight-bold d-block py-2"
+            *ngIf="group.fields.length > 1"
+            >{{ field.label }}
+          </span>
+
+          <ng-container *ngFor="let groupItem of field.groupItems">
+            <ng-container *ngFor="let item of groupItem.items">
+              <div
+                class="row d-flex justify-content-between py-1"
+                *ngIf="item.itemMeta.show"
+              >
+                <div class="col px-0 font-size-smaller">
+                  <app-panel-array-item
+                    [item]="item"
+                    [fieldType]="groupItem.groupMeta.type"
+                    [localized]="field.localized"
+                  ></app-panel-array-item>
+                </div>
+
+                <!-- Debugging -->
+                <!-- <div class="col-auto font-size-small mt-1" style="color: red">
+                itemId: {{ item.itemMeta.id }} | groupId:
+                {{ groupItem.groupMeta.id }}
+              </div> -->
+
+                <!-- Source -->
+                <!-- <div
+                class="col-auto px-0 mt-1 text-right opacity-3 font-size-small"
+              >
+                {{ groupItem.source.organization['name' + locale] }}
+              </div> -->
+              </div>
+
+              <!-- Primary affiliation -->
+              <!-- <div class="row pb-3 mt-n2">
+              <div
+                class="col-auto px-4 mx-1 cursor-pointer"
+                *ngIf="
+                  groupItem.groupMeta.type === fieldTypes.activityAffiliation
+                "
+              >
+                <app-primary-badge
+                  [label]="
+                    item.itemMeta.primaryValue
+                      ? 'Ensisijainen'
+                      : 'Aseta ensisijaiseksi'
+                  "
+                  [item]="item"
+                  [data]="field"
+                  [selected]="item.itemMeta.primaryValue"
+                ></app-primary-badge>
+              </div>
+            </div> -->
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="row pt-3">
+      <app-secondary-button
+        content="Muokkaa"
+        (click)="openDialog($event, i, group.editLabel)"
+      ></app-secondary-button>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

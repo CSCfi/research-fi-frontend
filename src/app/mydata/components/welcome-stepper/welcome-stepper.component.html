@@ -296,16 +296,6 @@
                   <app-profile-data-handler
                     [response]="profileData"
                   ></app-profile-data-handler>
-                  <!-- <mat-tab-group mat-align-tabs="center">
-                    <mat-tab label="Valitse julkaistavat tiedot">
-                      <app-profile-data-handler
-                        [response]="profileData"
-                      ></app-profile-data-handler>
-                    </mat-tab>
-                    <mat-tab disabled label="Aseta kaikki julkisiksi"
-                      >Aseta kaikki julkisiksi</mat-tab
-                    >
-                  </mat-tab-group> -->
                 </div>
               </div>
 
@@ -315,7 +305,7 @@
 
               <div class="row pt-3">
                 <app-primary-action-button
-                  [disabled]="true"
+                  routerLink="/mydata/profile"
                   class="col text-center"
                   content="Julkaise"
                 ></app-primary-action-button>

@@ -12,12 +12,11 @@ import {
   Input,
   OnInit,
   Output,
-  ViewEncapsulation,
 } from '@angular/core';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
-import { checkGroupShow, checkGroupSelected } from '../utils';
+import { checkGroupSelected } from '../../../utils';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SearchPublicationsComponent } from './search-publications/search-publications.component';
 import { take } from 'rxjs/operators';
@@ -28,8 +27,6 @@ import { PatchService } from '@mydata/services/patch.service';
 @Component({
   selector: 'app-profile-panel',
   templateUrl: './profile-panel.component.html',
-  styleUrls: ['./profile-panel.component.scss'],
-  encapsulation: ViewEncapsulation.None,
 })
 export class ProfilePanelComponent implements OnInit, AfterViewInit {
   @Input() dataSources: any;
@@ -49,7 +46,6 @@ export class ProfilePanelComponent implements OnInit, AfterViewInit {
 
   fieldTypes = FieldTypes;
 
-  checkGroupShow = checkGroupShow;
   checkGroupSelected = checkGroupSelected;
 
   openPanels = [];
