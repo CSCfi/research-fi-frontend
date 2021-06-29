@@ -6,8 +6,9 @@
 //  :license: MIT
 
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppConfigService } from '@shared/services/app-config-service.service';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
 
 export interface Publication {
   hits: any;
@@ -18,14 +19,30 @@ export interface Publication {
 })
 export class PublicationsService {
   apiUrl: string;
+  profileApiUrl: string;
   currentSort: any;
   pageSettings: any;
+  httpOptions: object;
 
   constructor(
     private http: HttpClient,
-    private appConfigService: AppConfigService
+    private appConfigService: AppConfigService,
+    public oidcSecurityService: OidcSecurityService
   ) {
     this.apiUrl = this.appConfigService.apiUrl;
+    this.profileApiUrl = this.appConfigService.profileApiUrl;
+  }
+
+  updateTokenInHttpAuthHeader() {
+    const token = this.oidcSecurityService.getToken();
+
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      }),
+      observe: 'response',
+    };
   }
 
   updateSort(sortSettings) {
@@ -75,6 +92,23 @@ export class PublicationsService {
     return this.http.post<Publication>(
       this.apiUrl + 'publication/_search?',
       payload
+    );
+  }
+
+  patchPublication(publicationId: string) {
+    this.updateTokenInHttpAuthHeader();
+    let body = { publicationId: publicationId };
+    return this.http.post(
+      this.profileApiUrl + '/publication/',
+      body,
+      this.httpOptions
+    );
+  }
+
+  deletePublication(publicationId) {
+    this.updateTokenInHttpAuthHeader();
+    return this.http.delete(
+      this.profileApiUrl + '/publication/' + publicationId
     );
   }
 }

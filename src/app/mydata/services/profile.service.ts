@@ -32,7 +32,7 @@ export class ProfileService {
   }
 
   updateTokenInHttpAuthHeader() {
-    var token = this.oidcSecurityService.getToken();
+    const token = this.oidcSecurityService.getToken();
 
     this.httpOptions = {
       headers: new HttpHeaders({

@@ -41,7 +41,7 @@
         </div>
       </div>
 
-      <div class="row pt-3 pb-3">
+      <!-- <div class="row pt-3 pb-3">
         <div class="col px-0">
           <div class="row d-flex justify-content-end">
             <div class="col-auto pr-0">
@@ -58,7 +58,24 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </mat-dialog-content>
+
+<mat-dialog-actions class="d-flex justify-content-end">
+  <div class="row">
+    <div class="col-auto">
+      <app-secondary-button
+        (click)="close()"
+        content="Peruuta"
+      ></app-secondary-button>
+    </div>
+    <div class="col-auto pl-0">
+      <app-primary-action-button
+        (click)="saveChanges()"
+        content="Tallenna"
+      ></app-primary-action-button>
+    </div>
+  </div>
+</mat-dialog-actions>

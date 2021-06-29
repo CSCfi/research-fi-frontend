@@ -220,6 +220,29 @@
                 </div>
               </div>
 
+              <div class="row pb-3 d-flex justify-content-center">
+                <div class="col">
+                  <app-mydata-beta-info
+                    [template]="betaInfo"
+                  ></app-mydata-beta-info>
+
+                  <ng-template #betaInfo>
+                    <p>
+                      Tämä on Tutkijan tiedot -työkalun betaversio.
+                      Testikäyttäjien palautetta hyödynnetään palvelun
+                      toiminnallisuuksien kehittämisessä. Testauksessa
+                      syöttämiäsi tietoja ei julkaista Tiedejatutkimus.fi:ssä.
+                    </p>
+                    <p>
+                      <a href="" target="_blank"
+                        >Lue lisää...
+                        <fa-icon icon="external-link-alt"></fa-icon
+                      ></a>
+                    </p>
+                  </ng-template>
+                </div>
+              </div>
+
               <!-- Data fetching indicator -->
               <div
                 bsModal

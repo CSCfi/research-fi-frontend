@@ -358,6 +358,7 @@ mat-basic-chip.tag {
 
 // Mat Dialog
 .mat-dialog-container {
+  overflow: hidden !important;
   padding: 1rem !important;
 }
 
@@ -370,6 +371,10 @@ mat-basic-chip.tag {
   max-height: 85vh !important;
   margin: 0 -1rem !important;
   padding: 0 !important;
+}
+
+.mat-dialog-actions {
+  margin-bottom: 0 !important;
 }
 
 // Opacity
