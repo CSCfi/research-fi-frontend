@@ -2,6 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'countGroupItems',
+  pure: false,
 })
 export class CountGroupItemsPipe implements PipeTransform {
   transform(group: any, filterSelected?: boolean) {

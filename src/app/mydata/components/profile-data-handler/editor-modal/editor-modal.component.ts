@@ -55,19 +55,17 @@ export class EditorModalComponent implements OnInit {
     this.checkAllSelected();
 
     // Radio options have default values. Add these values on init
-    // this.addInitialOptions(this.editorData.data);
+    this.addInitialOptions(this.editorData.data);
   }
 
   addInitialOptions(data) {
     const radioGroups = data.fields.filter((field) => field.single);
 
-    const patchGroups = [];
     const patchItems = [];
 
     radioGroups.forEach((group) =>
       group.groupItems.map((groupItem) => {
         if (groupItem.groupMeta.show) {
-          patchGroups.push(groupItem.groupMeta);
           patchItems.push(
             groupItem.items.find((item) => item.itemMeta.show).itemMeta
           );
@@ -75,8 +73,7 @@ export class EditorModalComponent implements OnInit {
       })
     );
 
-    this.groupPayload = patchGroups;
-    this.itemPayload = patchItems;
+    this.patchService.addToPatchItems(patchItems);
   }
 
   checkAllSelected() {
