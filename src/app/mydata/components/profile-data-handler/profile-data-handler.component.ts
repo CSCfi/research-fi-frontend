@@ -130,14 +130,37 @@ export class ProfileDataHandlerComponent implements OnInit {
     radioGroups.forEach((group) =>
       group.groupItems.map((groupItem) => {
         if (groupItem.source.organization.nameFi === primarySource) {
-          groupItem.groupMeta.show = true;
           groupItem.items[0].itemMeta.show = true;
+          this.patchService.addToPatchItems(groupItem.items[0].itemMeta);
         } else {
-          groupItem.groupMeta.show = false;
           groupItem.items[0].itemMeta.show = false;
         }
       })
     );
+  }
+
+  toggleSelectAll(selectAll: boolean) {
+    const fields = this.profileData;
+    const patchItems = [];
+
+    for (const field of fields) {
+      field.fields.forEach((group) => {
+        if (!group.single) {
+          group.groupItems.forEach((groupItem) =>
+            groupItem.items.map((item) => {
+              item.itemMeta.show = selectAll;
+              if (selectAll) patchItems.push(item.itemMeta);
+            })
+          );
+        }
+      });
+    }
+
+    this.profileData = fields;
+
+    selectAll
+      ? this.patchService.addToPatchItems(patchItems)
+      : this.patchService.clearPatchPayload();
   }
 
   setOpenPanel(i: number) {
