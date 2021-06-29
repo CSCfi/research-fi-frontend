@@ -14,13 +14,7 @@ import { EducationFieldsAdapter } from './education.model';
 import { PublicationFieldsAdapter } from './publication.model';
 
 export class Profile {
-  constructor(
-    public personal: any,
-    public description: any,
-    public affiliation: any,
-    public education: any,
-    public publication: any
-  ) {}
+  constructor(public profileData: any) {}
 }
 
 @Injectable({
@@ -38,19 +32,37 @@ export class ProfileAdapter implements Adapter<Profile> {
   adapt(item: any): Profile {
     const data = item.body.data;
 
-    const mapModel = (adapter, data) =>
-      // Object.values(adapter.adapt(data)).filter(
-      //   (item: any) => item?.items.length > 0
-      // );
-      Object.values(adapter.adapt(data));
+    const mapModel = (adapter, data) => Object.values(adapter.adapt(data));
 
-    return new Profile(
-      mapModel(this.personalFieldsAdapter, data.personal),
-      mapModel(this.descriptionFieldsAdapter, data.personal),
-      mapModel(this.affiliationFieldsAdapter, data.activity),
-      mapModel(this.educationFieldsAdapter, data.activity),
-      mapModel(this.publicationFieldsAdapter, data.activity)
-    );
+    // TODO: Localize labels
+    return new Profile([
+      {
+        label: 'Yhteystiedot',
+        fields: mapModel(this.personalFieldsAdapter, data.personal),
+      },
+      {
+        label: 'Tutkimustoiminnan kuvaus',
+        fields: mapModel(this.descriptionFieldsAdapter, data.personal),
+      },
+      {
+        label: 'Affiliaatiot',
+        fields: mapModel(this.affiliationFieldsAdapter, data.activity),
+      },
+      {
+        label: 'Koulutus',
+        fields: mapModel(this.educationFieldsAdapter, data.activity),
+      },
+      {
+        label: 'Julkaisut',
+        fields: mapModel(this.publicationFieldsAdapter, data.activity),
+      },
+      { label: 'Tutkimusaineistot', fields: [] },
+      { label: 'Hankkeet', fields: [] },
+      { label: 'Muut hankkeet', fields: [] },
+      { label: 'Tutkimusinfrastruktuurit', fields: [] },
+      { label: 'Muut tutkimusaktiviteetit', fields: [] },
+      { label: 'Meriitit', fields: [] },
+    ]);
   }
 
   adaptMany(item: any): Profile[] {

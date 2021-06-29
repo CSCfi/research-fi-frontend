@@ -77,6 +77,7 @@
                 (change)="toggleItem($event, groupItem, item, i)"
               >
                 <app-panel-array-item
+                  class="pl-1 d-block"
                   [item]="item"
                   [fieldType]="groupItem.groupMeta.type"
                   [localized]="field.localized"
@@ -101,7 +102,7 @@
           <!-- Primary affiliation -->
           <div class="row pb-3 mt-n2">
             <div
-              class="col-auto px-4 mx-3 cursor-pointer"
+              class="col-auto px-4 mx-1 cursor-pointer"
               *ngIf="
                 groupItem.groupMeta.type === fieldTypes.activityAffiliation
               "

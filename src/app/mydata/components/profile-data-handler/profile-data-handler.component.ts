@@ -9,7 +9,7 @@ import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { cloneDeep } from 'lodash-es';
 import { ProfileService } from '@mydata/services/profile.service';
-import { checkSelected, checkEmpty } from './utils';
+import { checkSelected, getDataSources } from '../../utils';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { EditorModalComponent } from './editor-modal/editor-modal.component';
@@ -37,28 +37,12 @@ export class ProfileDataHandlerComponent implements OnInit {
 
   dataSources: any[];
   primarySource: string;
-  selectedIndex = 0;
   openPanels: any = [];
 
   checkSelected = checkSelected;
-  checkEmpty = checkEmpty;
+  getDataSources = getDataSources;
 
-  // TODO: Localize
-  profileData = [
-    { label: 'Yhteystiedot', fields: [] },
-    { label: 'Tutkimustoiminnan kuvaus', fields: [] },
-    { label: 'Affiliaatiot', fields: [] },
-    { label: 'Koulutus', fields: [] },
-    { label: 'Julkaisut', fields: [] },
-    { label: 'Tutkimusaineistot', fields: [] },
-    { label: 'Hankkeet', fields: [] },
-    { label: 'Muut hankkeet', fields: [] },
-    { label: 'Tutkimusinfrastruktuurit', fields: [] },
-    { label: 'Muut tutkimusaktiviteetit', fields: [] },
-    { label: 'Meriitit', fields: [] },
-  ];
-
-  selectedData: any;
+  profileData: any;
 
   fieldTypes = FieldTypes;
 
@@ -78,38 +62,14 @@ export class ProfileDataHandlerComponent implements OnInit {
     this.response = this.appSettingsService.myDataSettings.develop
       ? this.testData
       : this.response;
-    this.mapData();
-  }
 
-  mapData() {
-    this.profileData[0].fields = this.response.personal;
-    this.profileData[1].fields = this.response.description;
-    this.profileData[2].fields = this.response.affiliation;
-    this.profileData[3].fields = this.response.education;
-    this.profileData[4].fields = this.response.publication;
+    this.profileData = this.response.profileData;
 
-    // TODO: Check locale
-    this.dataSources = [
-      ...new Map(
-        this.getDataSources(this.profileData).map((item) => [
-          item['nameFi'],
-          item,
-        ])
-      ).values(),
-    ].map((item) => item['nameFi']);
+    // Get data sources
+    this.dataSources = getDataSources(this.profileData);
 
     // Set primary data source on init. Defaults to ORCID
     this.setPrimaryDataSource(this.dataSources[0]);
-  }
-
-  getDataSources(profileData) {
-    return profileData
-      .map((item) => item.fields)
-      .filter((field) => field.length)
-      .flat()
-      .map((field) => field.groupItems)
-      .flat()
-      .map((field) => field.source.organization);
   }
 
   setPrimaryDataSource(option) {
@@ -173,14 +133,13 @@ export class ProfileDataHandlerComponent implements OnInit {
 
   openDialog(event, index) {
     event.stopPropagation();
-    this.selectedIndex = index;
-    this.selectedData = cloneDeep(this.profileData[index]);
+    const selectedField = cloneDeep(this.profileData[index]);
 
     this.dialogRef = this.dialog.open(EditorModalComponent, {
       minWidth: '44vw',
       maxWidth: '44vw',
       data: {
-        data: cloneDeep(this.profileData[index]),
+        data: selectedField,
         dataSources: this.dataSources,
         primarySource: this.primarySource,
       },
@@ -196,7 +155,7 @@ export class ProfileDataHandlerComponent implements OnInit {
               'On editor modal close: ',
               this.patchService.currentPatchItems
             );
-            this.profileData[this.selectedIndex] = result.data;
+            this.profileData[index] = result.data;
             // this.patchData(result.patchGroups, result.patchItems);
           }
 

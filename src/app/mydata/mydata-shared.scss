@@ -1,10 +1,11 @@
-//  This file is part of the research.fi API service
+// This file is part of the research.fi API service
 //
-//  Copyright 2019 Ministry of Education and Culture, Finland
+// Copyright 2019 Ministry of Education and Culture, Finland
 //
-//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
-//  :license: MIT
+// :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+// :license: MIT
 
+app-profile-summary,
 app-profile-panel {
   .mat-expansion-panel {
     border-radius: 0;
@@ -19,7 +20,7 @@ app-profile-panel {
   }
 
   .mat-expansion-panel:not([class*='mat-elevation-z']) {
-    box-shadow: none;
+    box-shadow: none !important;
   }
 
   .mat-expansion-panel-header {
@@ -66,5 +67,10 @@ app-profile-panel {
 
   span.mat-expansion-indicator {
     margin-top: -0.5rem;
+  }
+
+  .mat-expanded
+    span.mat-expansion-indicator.ng-trigger.ng-trigger-indicatorRotate {
+    margin-top: 0.5rem;
   }
 }

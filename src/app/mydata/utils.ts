@@ -25,14 +25,30 @@ export function checkSelected(group) {
   return itemMetaGroup.some((item) => item.show);
 }
 
+// Check if group has a selected item
 export function checkGroupSelected(group) {
   return group.items.find((item) => item.itemMeta.show);
 }
 
-export function checkGroupShow(group) {
-  return group.groupMeta.show;
-}
+/*
+ * Shared methods
+ */
 
-export function checkEmpty(item: { values: string | any[] }) {
-  return item.values?.length > 0;
+export function getDataSources(profileData, locale: string = 'Fi') {
+  // Remove default locale when app is localized
+  const mapDataSources = (data) => {
+    return data
+      .map((item) => item.fields)
+      .filter((field) => field.length)
+      .flat()
+      .map((field) => field.groupItems)
+      .flat()
+      .map((field) => field.source.organization);
+  };
+
+  return [
+    ...new Map(
+      mapDataSources(profileData).map((item) => [item['name' + locale], item])
+    ).values(),
+  ].map((item) => item['name' + locale]);
 }
