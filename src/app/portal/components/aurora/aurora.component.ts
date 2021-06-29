@@ -23,6 +23,8 @@ import { UtilityService } from 'src/app/shared/services/utility.service';
 import { combineLatest, merge, Subject, Subscription } from 'rxjs';
 import { Aurora } from '@portal/models/aurora.model';
 import { debounceTime, map, multicast, skip, take } from 'rxjs/operators';
+import { SortService } from '@portal/services/sort.service';
+import { FilterService } from '@portal/services/filters/filter.service';
 
 @Component({
   selector: 'app-aurora',
@@ -52,6 +54,9 @@ export class AuroraComponent implements OnInit, AfterViewInit {
     isBrowser: boolean;
     dataFetched: any;
 
+    filterValues: unknown;
+    filters: any;  
+
     resultData: Aurora[];
     page: number;
     loading: boolean;
@@ -79,6 +84,8 @@ export class AuroraComponent implements OnInit, AfterViewInit {
       @Inject(WINDOW) private window: Window,
       private resizeService: ResizeService,
       public utilityService: UtilityService,
+      public sortService: SortService,
+      public filterService: FilterService,
       private router: Router,
       private cdr: ChangeDetectorRef,
     ) {
@@ -88,30 +95,34 @@ export class AuroraComponent implements OnInit, AfterViewInit {
     }
   
     ngOnInit() {
-      // Tab change is needed for data fetch
-      this.tabChangeService.tab = 'aurora';
-      this.selectedTabData = this.tabChangeService.aurora;
+      this.routeSub = this.route.queryParams.subscribe((queryParams) => {
+        this.queryParams = queryParams;
   
-      this.combinedRouteParams = combineLatest([
-        this.route.params,
-        this.route.queryParams,
-      ])
-        .pipe(
-          map((results) => ({ params: results[0], query: results[1] })),
-          multicast(new Subject(), (s) =>
-            merge(
-              s.pipe(take(1)), // First call is instant, after that debounce
-              s.pipe(skip(1), debounceTime(1))
-            )
-          )
-        )
-        .subscribe((results) => {
-          const query = results.query;
-          const params = results.params;
-          this.page = +query.page || 1;
-      })
-    
-      this.searchService.updateInput('');
+        if (queryParams.search) {
+          this.searchService.updateInput(queryParams.search);
+        } else {
+          this.searchService.updateInput('');
+        }
+  
+        // Update sort
+        this.sortService.updateTab('news');
+  
+        this.searchService.updateNewsPageNumber(parseInt(queryParams.page));
+  
+        // Check for Angular Univeral SSR, get filters if browser
+        if (isPlatformBrowser(this.platformId)) {
+          this.filters = this.filterService.filterList(queryParams);
+          this.filterService.updateFilters(this.filters);
+        }
+  
+        // Get data
+        this.getData();
+      });
+  
+      // Search input handler
+      this.inputSub = this.searchService.currentInput.subscribe(
+        (input) => (this.currentTerm = input)
+      );
   
       // Set title
       switch (this.localeId) {
@@ -131,7 +142,6 @@ export class AuroraComponent implements OnInit, AfterViewInit {
         }
       }
 
-      this.getData();
   
       this.utilityService.addMeta(
         // this.metaTags['title' + this.currentLocale],
@@ -193,7 +203,7 @@ export class AuroraComponent implements OnInit, AfterViewInit {
         );
     }
   
-    public setTitle(newTitle: string) {
+    setTitle(newTitle: string) {
       this.titleService.setTitle(newTitle);
     }
   
