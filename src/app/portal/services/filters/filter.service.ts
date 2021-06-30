@@ -772,8 +772,6 @@ export class FilterService {
       // Global filters
       ...globalFilter(this.yearFilter),
     ];
-    console.log(index)
-    console.log(filters)
     return filters;
   }
 

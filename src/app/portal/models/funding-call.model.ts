@@ -34,8 +34,6 @@ export class FundingCallAdapter implements Adapter<FundingCall> {
     @Inject(LOCALE_ID) protected localeId: string
   ) {}
   adapt(item: any): FundingCall {
-      console.log(item)
-
     const foundation: any = {}
     const f = item.foundation.pop();
     foundation.name = this.lang.testLang('name', f);

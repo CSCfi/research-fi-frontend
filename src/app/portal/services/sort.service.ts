@@ -385,6 +385,35 @@ export class SortService {
         }
         break;
       }
+      case 'funding-calls': {
+        switch (this.sortColumn) {
+          case 'name': {
+            const sortString = 'name' + this.localeC + '.keyword';
+            this.sort = [
+              {
+                [sortString]: {
+                  order: this.sortDirection ? 'desc' : 'asc',
+                  unmapped_type: 'long'
+                }
+              }
+            ];
+            break;
+          }
+          default: {
+            const sortString = 'name' + this.localeC + '.keyword';
+            this.sort = [
+              {
+                [sortString]: {
+                  order: this.sortDirection ? 'desc' : 'asc',
+                  unmapped_type: 'long'
+                }
+              }
+            ];
+            break;
+          }
+        }
+        break;
+      }
       default: {
         this.sort = ['defaultSort'];
       }

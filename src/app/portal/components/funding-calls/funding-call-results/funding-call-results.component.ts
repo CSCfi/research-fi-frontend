@@ -2,6 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FundingCall } from '@portal/models/funding-call.model';
+import { Search } from '@portal/models/search.model';
 import { DataService } from '@portal/services/data.service';
 import { SearchService } from '@portal/services/search.service';
 import { SortService } from '@portal/services/sort.service';
@@ -14,7 +15,7 @@ import { UtilityService } from '@shared/services/utility.service';
   styleUrls: ['./funding-call-results.component.scss']
 })
 export class FundingCallResultsComponent implements OnInit, OnDestroy, AfterViewInit {
-  @Input() resultData: FundingCall[];
+  @Input() resultData: Search;
   expandStatus: Array<boolean> = [];
   sortColumn: string;
   sortDirection: boolean;
