@@ -37,6 +37,13 @@
       ></app-activity-item>
     </ng-container>
 
+    <!-- <ng-container *ngSwitchCase="fieldTypes.personKeyword">
+      <app-activity-item
+        [rows]="[item.publicationName, item.authorsText, item.publicationYear]"
+        [smallLastItem]="true"
+      ></app-activity-item>
+    </ng-container> -->
+
     <ng-container *ngSwitchDefault>
       {{ item.value }}
     </ng-container>

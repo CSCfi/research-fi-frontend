@@ -29,7 +29,7 @@
       <!-- Header if only one field -->
       <ng-container *ngIf="data.fields.length === 1">
         <div class="row d-flex justify-content-between py-4">
-          <div class="col px-0 font-size-big">
+          <div class="col-12 col-md-6 pl-0 font-size-big pb-3 pb-md-0">
             Valitse profiilissasi näytettävät tiedot
           </div>
           <div class="col-auto px-0" *ngIf="field.label === 'Julkaisut'">
@@ -56,39 +56,16 @@
 
       <!-- Options -->
       <ng-container *ngFor="let groupItem of field.groupItems">
-        <ng-container *ngFor="let item of groupItem.items">
-          <div class="row d-flex justify-content-between py-1">
-            <div class="col px-0 font-size-smaller" [ngSwitch]="field.single">
-              <mat-radio-button
-                *ngSwitchCase="true"
-                [value]="item.itemMeta.id"
-                (change)="toggleRadioItem($event, i)"
-                [checked]="item.itemMeta.show"
-              >
-                <app-panel-array-item
-                  [item]="item"
-                  [fieldType]="groupItem.groupMeta.type"
-                ></app-panel-array-item>
-              </mat-radio-button>
-
+        <!-- Keywords have values that need to be joined -->
+        <ng-container [ngSwitch]="groupItem.groupMeta.type">
+          <div class="row" *ngSwitchCase="fieldTypes.personKeyword">
+            <div class="col px-0 font-size-smaller">
               <mat-checkbox
-                [checked]="item.itemMeta.show"
-                *ngSwitchDefault
-                (change)="toggleItem($event, groupItem, item, i)"
+                [checked]="groupItem.items | findSelectedItem"
+                (change)="toggleJoined($event, groupItem)"
               >
-                <app-panel-array-item
-                  class="pl-1 d-block"
-                  [item]="item"
-                  [fieldType]="groupItem.groupMeta.type"
-                  [localized]="field.localized"
-                ></app-panel-array-item>
+                {{ groupItem.items | joinItems: 'value' }}
               </mat-checkbox>
-            </div>
-
-            <!-- Debugging -->
-            <div class="col-auto font-size-small mt-1" style="color: red">
-              itemId: {{ item.itemMeta.id }} | groupId:
-              {{ groupItem.groupMeta.id }}
             </div>
 
             <!-- Source -->
@@ -99,31 +76,88 @@
             </div>
           </div>
 
-          <!-- Primary affiliation -->
-          <div class="row pb-3 mt-n2">
-            <div
-              class="col-auto px-4 mx-1 cursor-pointer"
-              *ngIf="
-                groupItem.groupMeta.type === fieldTypes.activityAffiliation
-              "
-            >
-              <app-primary-badge
-                [label]="
-                  item.itemMeta.primaryValue
-                    ? 'Ensisijainen'
-                    : 'Aseta ensisijaiseksi'
-                "
-                [item]="item"
-                [data]="field"
-                [selected]="item.itemMeta.primaryValue"
-              ></app-primary-badge>
-            </div>
-          </div>
+          <ng-container *ngSwitchDefault>
+            <ng-container *ngFor="let item of groupItem.items">
+              <div class="row d-flex justify-content-between py-1">
+                <div
+                  class="col px-0 font-size-smaller"
+                  [ngSwitch]="field.single"
+                >
+                  <mat-radio-button
+                    *ngSwitchCase="true"
+                    [value]="item.itemMeta.id"
+                    (change)="toggleRadioItem($event, i)"
+                    [checked]="item.itemMeta.show"
+                  >
+                    <app-panel-array-item
+                      [item]="item"
+                      [fieldType]="groupItem.groupMeta.type"
+                    ></app-panel-array-item>
+                  </mat-radio-button>
+
+                  <mat-checkbox
+                    [checked]="item.itemMeta.show"
+                    *ngSwitchDefault
+                    (change)="toggleItem($event, groupItem, item, i)"
+                  >
+                    <app-panel-array-item
+                      class="pl-1 d-block"
+                      [item]="item"
+                      [fieldType]="groupItem.groupMeta.type"
+                      [localized]="field.localized"
+                    ></app-panel-array-item>
+                  </mat-checkbox>
+                </div>
+
+                <!-- Debugging -->
+                <!-- <div class="col-auto font-size-small mt-1" style="color: red">
+                  itemId: {{ item.itemMeta.id }} | groupId:
+                  {{ groupItem.groupMeta.id }}
+                </div> -->
+
+                <!-- Source -->
+                <div
+                  class="
+                    col-auto
+                    px-0
+                    mt-1
+                    text-right
+                    opacity-3
+                    font-size-small
+                  "
+                >
+                  {{ groupItem.source.organization['name' + locale] }}
+                </div>
+              </div>
+
+              <!-- Primary affiliation -->
+              <div class="row pb-3 mt-n2">
+                <div
+                  class="col-auto px-4 mx-1 cursor-pointer"
+                  *ngIf="
+                    groupItem.groupMeta.type === fieldTypes.activityAffiliation
+                  "
+                >
+                  <app-primary-badge
+                    [label]="
+                      item.itemMeta.primaryValue
+                        ? 'Ensisijainen'
+                        : 'Aseta ensisijaiseksi'
+                    "
+                    [item]="item"
+                    [data]="field"
+                    [selected]="item.itemMeta.primaryValue"
+                  ></app-primary-badge>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
         </ng-container>
       </ng-container>
 
       <!-- Fetched publications -->
       <ng-container *ngIf="field.selectedPublications">
+        <span class="font-size-big">Tuodut julkaisut</span>
         <div
           class="row d-flex justify-content-between py-3"
           *ngFor="let publication of field.selectedPublications; let j = index"
@@ -134,6 +168,7 @@
               (change)="togglePublication($event, publication)"
             >
               <app-panel-array-item
+                class="pl-1 d-block"
                 [item]="publication"
                 [fieldType]="fieldTypes.activityPublication"
               ></app-panel-array-item>

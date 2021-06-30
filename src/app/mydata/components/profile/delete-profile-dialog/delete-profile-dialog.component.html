@@ -1,0 +1,40 @@
+<mat-dialog-content>
+  <div class="row d-flex justify-content-between dialog-header">
+    <div class="col">
+      <h2 class="modal-title pull-left col h5 mt-n1">Poista profiili</h2>
+    </div>
+    <div class="col-auto">
+      <app-close-button
+        class="pull-right pr-3"
+        (click)="close()"
+        (keydown.enter)="close()"
+        autofocus
+        tabindex="-1"
+      ></app-close-button>
+    </div>
+  </div>
+
+  <div class="row">
+    <p class="col p-3 mx-3">
+      Tämä toiminto poistaa Tutkijan tiedot -testisovelluksen profiilin.
+    </p>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions class="d-flex justify-content-end">
+  <div class="row">
+    <div class="col-auto pb-3 pb-md-0">
+      <app-secondary-button
+        (click)="close()"
+        content="Peruuta"
+        cdkFocusInitial
+      ></app-secondary-button>
+    </div>
+    <div class="col-auto">
+      <app-primary-action-button
+        content="Poista profiili"
+        (click)="deleteProfile()"
+      ></app-primary-action-button>
+    </div>
+  </div>
+</mat-dialog-actions>

@@ -63,6 +63,9 @@ import { CustomPaginatorIntlComponent } from './components/profile-data-handler/
 import { CountGroupItemsPipe } from './pipes/count-group-items.pipe';
 import { MydataBetaInfoComponent } from './components/mydata-beta-info/mydata-beta-info.component';
 import { ProfileSummaryComponent } from './components/profile/profile-summary/profile-summary.component';
+import { DeleteProfileDialogComponent } from './components/profile/delete-profile-dialog/delete-profile-dialog.component';
+import { JoinItemsPipe } from './pipes/join-items.pipe';
+import { FindSelectedItemPipe } from './pipes/find-selected-item.pipe';
 
 @NgModule({
   declarations: [
@@ -90,6 +93,9 @@ import { ProfileSummaryComponent } from './components/profile/profile-summary/pr
     CountGroupItemsPipe,
     MydataBetaInfoComponent,
     ProfileSummaryComponent,
+    DeleteProfileDialogComponent,
+    JoinItemsPipe,
+    FindSelectedItemPipe,
   ],
   imports: [
     CommonModule,

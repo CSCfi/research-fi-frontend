@@ -23,6 +23,7 @@ export class AppSettingsService {
 
   // Module related settings
   portalSettings = {
+    appName: 'portal',
     label: $localize`:@@appSlogan:Tiedejatutkimus.fi`,
     baseRoute: '',
     navItems: [
@@ -67,8 +68,9 @@ export class AppSettingsService {
   };
 
   myDataSettings = {
-    develop: true,
+    develop: false,
     beta: true,
+    appName: 'myData',
     label: 'Tutkijan tiedot',
     baseRoute: 'mydata',
     navItems: [{ label: 'Kirjaudu sisään', link: '', loginProcess: true }],
@@ -79,9 +81,23 @@ export class AppSettingsService {
     ],
   };
 
+  currentAppSettings: object;
+
   constructor() {}
 
   updateMobileStatus(status) {
     this.mobileSource.next(status);
+  }
+
+  setCurrentAppSettings(app) {
+    switch (app) {
+      case 'myData': {
+        this.currentAppSettings = this.myDataSettings;
+        break;
+      }
+      default: {
+        this.currentAppSettings = this.portalSettings;
+      }
+    }
   }
 }

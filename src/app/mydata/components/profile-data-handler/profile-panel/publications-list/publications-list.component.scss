@@ -6,7 +6,7 @@
 
 app-publications-list {
   .mat-checkbox-inner-container {
-    margin-top: 0.5rem !important;
+    margin-top: 0.175rem !important;
   }
 
   table {
@@ -27,10 +27,15 @@ app-publications-list {
   mat-header-cell,
   mat-footer-cell {
     padding: 0.5rem;
+    align-items: flex-start;
+  }
+
+  mat-cell {
+    margin-top: 0.25rem;
   }
 
   .mat-column-selection {
-    flex: 0 0 44px;
+    flex: 0 0 2rem;
     overflow: visible;
   }
 
@@ -38,9 +43,9 @@ app-publications-list {
     flex: 0 0 3.5rem;
   }
 
-  // .mat-column-name {
-  //   flex: 0 0 70%;
-  // }
+  .mat-column-name {
+    flex-direction: column;
+  }
 
   .mat-column-edit {
     flex: 0 0 6.5rem;

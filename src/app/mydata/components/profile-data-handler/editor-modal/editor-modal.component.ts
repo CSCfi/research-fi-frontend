@@ -79,14 +79,24 @@ export class EditorModalComponent implements OnInit {
   checkAllSelected() {
     const fields = this.editorData.data.fields;
 
-    // Single selections are handled on init
-    this.allSelected = !!fields
+    const items = fields
       .filter((field) => !field.single)
-      .some((field) =>
-        field.groupItems.find((item) => item.groupMeta.show === false)
-      )
-      ? false
-      : true;
+      .flatMap((field) => field.groupItems)
+      .flatMap((groupItem) => groupItem.items);
+
+    this.allSelected = !!!items.some((item) => item.itemMeta.show === false);
+  }
+
+  checkSomeSelected() {
+    const fields = this.editorData.data.fields;
+
+    const items = fields
+      .filter((field) => !field.single)
+      .flatMap((field) => field.groupItems)
+      .flatMap((groupItem) => groupItem.items);
+
+    if (!this.allSelected)
+      return !!items.some((item) => item.itemMeta.show === true);
   }
 
   toggleRadio(response: {
@@ -94,11 +104,8 @@ export class EditorModalComponent implements OnInit {
     selectedItem: any;
     index: string | number;
   }) {
-    console.log(response.data);
-
     const original = this.originalEditorData.data.fields[response.index];
 
-    const patchGroups = [];
     const patchObjects = [];
 
     const previousSelection = original.groupItems.find(
@@ -115,9 +122,9 @@ export class EditorModalComponent implements OnInit {
       // Set selected item
       patchObjects.push(response.selectedItem.itemMeta);
 
-      // this.patchService.addToPatchItems(patchObjects);
+      this.patchService.addToPatchItems(patchObjects);
 
-      this.handlePatchRadioObject(patchGroups, patchObjects);
+      // this.handlePatchRadioObject(patchGroups, patchObjects);
     }
   }
 
@@ -140,18 +147,6 @@ export class EditorModalComponent implements OnInit {
     currentItem.itemMeta = response.itemMeta;
 
     this.checkAllSelected();
-
-    // Set group show to false if no selected items
-    if (
-      !parentGroup.items.find((item) => item.itemMeta.show) &&
-      !publications?.find((item) => item.show)
-    ) {
-      // parentGroup.groupMeta.show = false;
-      // this.handlePatchObjectGroup([parentGroup.groupMeta], [response.itemMeta]);
-    } else {
-      // Add selection to patch items
-      // this.handlePatchSingleObject(response.itemMeta);
-    }
   }
 
   // togglePrimaryValue(patchObjects) {
@@ -163,41 +158,36 @@ export class EditorModalComponent implements OnInit {
     // Fetched publications could be handled as now without this method.
   }
 
-  toggleAll() {
-    this.allSelected = true;
+  toggleAll(event) {
+    this.allSelected = event.checked;
 
     // Change detection won't work if nested properties change
     const copy = cloneDeep(this.editorData);
     const data = copy.data.fields;
-    this.editorData = {};
 
-    const patchGroups = [];
+    this.editorData = {};
     const patchItems = [];
 
-    data.forEach((field) => {
+    copy.data.fields.forEach((field) => {
       if (field.selectedPublications)
-        field.selectedPublications.map((item) => (item.show = true));
+        field.selectedPublications.map((item) => (item.show = event.checked));
 
       field.groupItems.map((groupItem) => {
-        // groupItem.groupMeta.show = true;
-
         // Single selections should always have show as true. Therefore these items shouldn't be altered
         if (!field.single) {
           groupItem.items.map((item) => {
-            if (!item.itemMeta.show) {
-              item.itemMeta.show = true;
-              patchItems.push(item.itemMeta);
-            }
+            item.itemMeta.show = event.checked;
+            patchItems.push(item.itemMeta);
           });
         }
       });
     });
 
-    this.editorData = copy;
-    // console.log(patchItems);
-    this.patchService.addToPatchItems(patchItems);
+    this.editorData = { ...copy };
 
-    this.handlePatchObjectGroup(patchGroups, patchItems);
+    event.checked
+      ? this.patchService.addToPatchItems(patchItems)
+      : this.patchService.clearPatchPayload();
   }
 
   /*
@@ -220,14 +210,8 @@ export class EditorModalComponent implements OnInit {
   }
 
   /*
-   * Handle group & item meta data for patch operations
+   * Item meta data for patch operations
    */
-
-  handlePatchObjectGroup(patchGroups: any[], patchItems: any[]) {
-    // TODO: Better check for duplicates. Add only latest changes
-    // this.groupPayload = [...new Set([...this.groupPayload, ...patchGroups])];
-    // this.itemPayload = [...new Set([...this.itemPayload, ...patchItems])];
-  }
 
   handlePatchRadioObject(patchGroups: any[], patchObjects: any[]) {
     // Overwrite existing patch items

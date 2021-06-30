@@ -6,7 +6,7 @@
 <main id="main-content">
   <div class="wrapper">
     <div class="row d-flex justify-content-between">
-      <div class="col-6 px-0">
+      <div class="col-12 col-md-6 px-0">
         <div class="row d-flex">
           <h1 class="col-auto px-0">Profiili</h1>
           <div class="col align-self-center">
@@ -20,7 +20,7 @@
         </div>
       </div>
 
-      <div class="col-5 px-0">
+      <div class="col-5 px-0 d-none d-sm-block">
         <div class="row d-flex justify-content-end">
           <div class="col-auto opacity-3">
             <i class="fas fa-user text-center primary-color d-block h1"></i>
@@ -71,7 +71,7 @@
                 Tiedejatutkimus.fi:ssä.
               </p>
               <p>
-                <a href="" target="_blank"
+                <a href="https://wiki.eduuni.fi/x/YwMJDQ" target="_blank"
                   >Lue lisää... <fa-icon icon="external-link-alt"></fa-icon
                 ></a>
               </p>
@@ -81,7 +81,7 @@
 
         <app-primary-action-button
           class="d-block pt-3"
-          (click)="deleteProfile()"
+          (click)="openDeleteProfileDialog()"
           content="Poista profiili"
         ></app-primary-action-button>
       </div>

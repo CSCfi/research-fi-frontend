@@ -43,8 +43,16 @@ export class PatchService {
     this.itemSource.next(this.currentPatchItems);
   }
 
-  removeItem(item) {
-    console.log(item);
+  removeItem(id) {
+    this.currentPatchItems = this.currentPatchItems.filter(
+      (item) => item.id !== id
+    );
+  }
+
+  removeItemsWithType(type) {
+    this.currentPatchItems = this.currentPatchItems.filter(
+      (item) => item.type !== type
+    );
   }
 
   clearPatchPayload() {

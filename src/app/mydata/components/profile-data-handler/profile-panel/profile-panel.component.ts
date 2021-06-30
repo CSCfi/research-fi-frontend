@@ -7,9 +7,11 @@
 
 import {
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
   Output,
 } from '@angular/core';
@@ -28,7 +30,7 @@ import { PatchService } from '@mydata/services/patch.service';
   selector: 'app-profile-panel',
   templateUrl: './profile-panel.component.html',
 })
-export class ProfilePanelComponent implements OnInit, AfterViewInit {
+export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() dataSources: any;
   @Input() primarySource: string;
   @Input() data: any;
@@ -67,11 +69,16 @@ export class ProfilePanelComponent implements OnInit, AfterViewInit {
     private appSettingsService: AppSettingsService,
     public dialog: MatDialog,
     private publicationService: PublicationsService,
-    private patchService: PatchService
+    private patchService: PatchService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     // this.setDefaultPrimaryValue(this.data.fields);
+  }
+
+  ngOnChanges() {
+    this.cdr.detectChanges();
   }
 
   // Fix for Mat Expansion Panel render FOUC
@@ -159,6 +166,12 @@ export class ProfilePanelComponent implements OnInit, AfterViewInit {
     if (previousSelection.itemMeta.id !== selectedItem.itemMeta.id)
       patchObjects.push({ ...previousSelection.itemMeta, show: false });
 
+    // Remove patch items with type same as radio button item type
+    this.patchService.removeItemsWithType(selectedItem.itemMeta.type);
+
+    // Add to patch items
+    this.patchService.addToPatchItems(patchObjects);
+
     this.onRadioItemToggle.emit({
       data: group,
       selectedItem: selectedItem,
@@ -187,6 +200,14 @@ export class ProfilePanelComponent implements OnInit, AfterViewInit {
     });
   }
 
+  toggleJoined(event, groupItem) {
+    groupItem.items.map((item) => (item.itemMeta.show = event.checked));
+
+    const patchItems = groupItem.items.map((item) => item.itemMeta);
+
+    this.patchService.addToPatchItems(patchItems);
+  }
+
   togglePublication(event, publication) {
     publication.show = event.checked;
     this.onPublicationToggle.emit();
@@ -206,7 +227,7 @@ export class ProfilePanelComponent implements OnInit, AfterViewInit {
   openDialog() {
     this.dialogRef = this.dialog.open(SearchPublicationsComponent, {
       minWidth: '44vw',
-      maxWidth: '44vw',
+      maxWidth: '100vw',
       data: {
         selectedPublications: this.data.fields[0].selectedPublications,
       },

@@ -4,6 +4,8 @@ import { ProfileService } from '@mydata/services/profile.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { take } from 'rxjs/operators';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { DeleteProfileDialogComponent } from './delete-profile-dialog/delete-profile-dialog.component';
 
 @Component({
   selector: 'app-profile',
@@ -35,7 +37,8 @@ export class ProfileComponent implements OnInit {
     private profileService: ProfileService,
     public oidcSecurityService: OidcSecurityService,
     private router: Router,
-    private appSettingsService: AppSettingsService
+    private appSettingsService: AppSettingsService,
+    public dialog: MatDialog
   ) {
     this.testData = profileService.testData;
   }
@@ -53,18 +56,13 @@ export class ProfileComponent implements OnInit {
         .pipe(take(1))
         .subscribe((data) => {
           this.profileData = data;
-          console.log(data);
         });
     }
   }
 
-  deleteProfile() {
-    this.profileService
-      .deleteProfile()
-      .pipe(take(1))
-      .subscribe((data) => {
-        console.log(data);
-        this.router.navigate(['/mydata']);
-      });
+  openDeleteProfileDialog(): void {
+    this.dialog.open(DeleteProfileDialogComponent, {
+      minWidth: '44vw',
+    });
   }
 }

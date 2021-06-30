@@ -6,12 +6,15 @@
 <mat-dialog-content>
   <div class="row d-flex justify-content-between dialog-header">
     <div class="col">
-      <h2 class="modal-title pull-left col h5 mt-n1">
+      <h2 class="modal-title pull-left px-lg-3 h5 mt-n1">
         {{ editorData.data.label }}
       </h2>
     </div>
     <div class="col-auto">
-      <mat-checkbox [checked]="allSelected" (change)="toggleAll()"
+      <mat-checkbox
+        [checked]="allSelected"
+        (change)="toggleAll($event)"
+        [indeterminate]="checkSomeSelected()"
         >Valitse kaikki</mat-checkbox
       >
     </div>
@@ -46,13 +49,13 @@
 
 <mat-dialog-actions class="d-flex justify-content-end">
   <div class="row">
-    <div class="col-auto">
+    <div class="col-auto pb-3 pb-md-0">
       <app-secondary-button
         (click)="close()"
         content="Peruuta"
       ></app-secondary-button>
     </div>
-    <div class="col-auto pl-0">
+    <div class="col-auto">
       <app-primary-action-button
         (click)="saveChanges()"
         content="Tallenna"

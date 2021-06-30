@@ -5,7 +5,7 @@
 
 <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
   <div class="row d-flex">
-    <div class="col input px-0">
+    <div class="col-12 col-md-6 input px-0">
       <label for="searchInput" class="sr-only">{{ placeholder }}</label>
       <input
         #searchInput
@@ -28,7 +28,15 @@
         <i class="fa fa-times"></i>
       </span>
     </div>
-    <div class="col-auto pr-0">
+    <div
+      class="
+        col-12 col-md-auto
+        px-0 px-md-3
+        pr-md-0
+        text-center text-md-left
+        mt-3 mt-md-0
+      "
+    >
       <app-primary-action-button
         content="Hae"
         i18n-content="Search@@searchButton"
