@@ -107,7 +107,8 @@ export class FundingCallsComponent implements OnInit, AfterViewInit {
         // Update sort
         this.sortService.updateTab('funding-calls');
   
-        this.searchService.updateNewsPageNumber(parseInt(queryParams.page));
+        this.page = parseInt(queryParams.page) || 1;
+        // this.searchService.updateNewsPageNumber(parseInt(queryParams.page));
   
         // Check for Angular Univeral SSR, get filters if browser
         if (isPlatformBrowser(this.platformId)) {

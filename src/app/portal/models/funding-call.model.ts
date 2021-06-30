@@ -11,6 +11,7 @@ import { LanguageCheck } from './utils';
 
 export class FundingCall {
   constructor(
+    public id: number,
     public name: number,
     public description: string,
     public terms: string,
@@ -34,14 +35,16 @@ export class FundingCallAdapter implements Adapter<FundingCall> {
       console.log(item)
 
     const foundation: any = {}
-    foundation.name = this.lang.testLang('name', item?.foundation);
-    foundation.orgId = item?.foundation.organization_id;
-    foundation.url = item?.foundation.url;
+    const f = item.foundation.pop();
+    foundation.name = this.lang.testLang('name', f);
+    foundation.orgId = f?.organization_id;
+    foundation.url = f?.url;
 
     const categories = [];
     item.categories.forEach(c => categories.push({id: c.codeValue, name: this.lang.testLang('name', c)}));
 
     return new FundingCall(
+      item.id,
       this.lang.testLang('name', item),
       this.lang.testLang('description', item),
       this.lang.testLang('applicationTerms', item),

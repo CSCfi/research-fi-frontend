@@ -11,8 +11,7 @@
     <!-- Results -->
     <!-- <div class="row no-margin sticky-header" [ngStyle]="{'top': marginTop + 'px'}"> -->
     <div class="row no-margin sticky-header">
-      <div class="col col-1 icon"></div>
-      <div class="col col-lg-5 col-xl-4 d-none d-lg-block">
+      <div class="col col-lg-6 col-xl-5 d-none d-lg-block">
         <span
           #main
           tabindex="0"
@@ -22,28 +21,28 @@
           "
           (click)="utilityService.sortBy('name')"
           (keydown.enter)="utilityService.sortBy('name')"
-          i18n="@@publicationName"
-          >Julkaisun nimi</span
+          i18n="@@callName"
+          >Haun nimi</span
         >
       </div>
-      <div class="col col-lg-5 col-xl-3 d-none d-lg-block">
+      <div class="col col-lg-6 col-xl-3 d-none d-lg-block">
         <span
           tabindex="0"
           class="bold uppercase"
           [ngClass]="
-            sortColumn === 'author'
+            sortColumn === 'foundation'
               ? !sortDirection
                 ? 'asc'
                 : 'desc'
               : 'unsorted'
           "
-          (click)="utilityService.sortBy('author')"
-          (keydown.enter)="utilityService.sortBy('author')"
-          i18n="@@publicationAuthors"
-          >Tekijät</span
+          (click)="utilityService.sortBy('foundation')"
+          (keydown.enter)="utilityService.sortBy('foundation')"
+          i18n="@@funder"
+          >Rahoittaja</span
         >
       </div>
-      <div class="col col-xl-3 d-none d-xl-block">
+      <div class="col col-xl-2 d-none d-xl-block">
         <span
           tabindex="0"
           i18n-tooltip="@@publicationMediumTooltip"
@@ -52,121 +51,59 @@
           #elem
           class="bold uppercase"
           [ngClass]="
-            sortColumn === 'medium'
+            sortColumn === 'callOpenDate'
               ? !sortDirection
                 ? 'asc'
                 : 'desc'
               : 'unsorted'
           "
-          (click)="utilityService.sortBy('medium')"
-          (keydown.enter)="utilityService.sortBy('medium')"
-          i18n="@@publicationMedium"
-          >Julkaisukanava</span
+          (click)="utilityService.sortBy('callOpenDate')"
+          (keydown.enter)="utilityService.sortBy('callOpenDate')"
+          i18n="@@callOpenDate"
+          >Haku alkaa</span
         >
       </div>
-      <div class="col col-lg-1 d-none d-lg-block">
+      <div class="col col-lg-2 d-none d-lg-block">
         <span
           tabindex="0"
           class="bold uppercase"
           [ngClass]="
-            sortColumn === 'year' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'
+            sortColumn === 'callDueDate' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'
           "
-          (click)="utilityService.sortBy('year')"
-          (keydown.enter)="utilityService.sortBy('year')"
-          i18n="@@year"
-          >Vuosi</span
+          (click)="utilityService.sortBy('callDueDate')"
+          (keydown.enter)="utilityService.sortBy('callDueDate')"
+          i18n="@@callDueDate"
+          >Haku päättyy</span
         >
       </div>
     </div>
     <div *ngIf="resultData" class="result-container">
       <div
-        *ngFor="let publication of resultData.publications; let i = index"
+        *ngFor="let call of resultData; let i = index"
         class="single"
       >
         <div class="row no-margin">
-          <div class="col col-1 icon">
-            <a
-              routerLink="/results/publication/{{ publication.id }}"
-              class="icon"
-              tabindex="-1"
-              title="Julkaisujen tiedon ikoni"
-            >
-              <fa-icon [icon]="faIcon"></fa-icon>
-            </a>
-          </div>
-          <div class="col col-8 col-lg-5 col-xl-4 title">
-            <a routerLink="/results/publication/{{ publication.id }}">
+          <div class="col col-8 col-lg-6 col-xl-5 title">
+            <a routerLink="/results/funding-call/{{ call.id }}">
               <h4
                 class="result-title"
-                [attr.lang]="
-                  publication.languageCode !== documentLang
-                    ? publication.languageCode
-                    : null
-                "
-                [innerHtml]="publication.title | highlight: input"
+                [innerHtml]="call.name | highlight: input"
               ></h4>
             </a>
-            <div class="tags">
-              <div
-                *ngIf="isReviewed(publication.publicationTypeCode)"
-                class="peer-reviewed"
-                i18n="@@peerReviewed"
-              >
-                Vertaisarvioitu
-              </div>
-              <a
-                *ngIf="publication.openAccess && (publication | links)"
-                href="{{ publication | links }}"
-                target="_blank"
-                class="open-access div"
-              >
-                <span class="open-access-image"></span>
-                <span i18n="@@openAccess">Avoin saatavuus</span
-                ><fa-icon icon="external-link-alt"></fa-icon>
-              </a>
-              <!-- Span is for publications that doesn't have OA link. Angular doesn't allow void(0) to be passed without unsafe warnings -->
-              <span
-                *ngIf="publication.openAccess && !(publication | links)"
-                class="open-access div"
-              >
-                <span class="open-access-image"></span>
-                <span i18n="@@openAccess">Avoin saatavuus</span>
-              </span>
-              <div *ngIf="publication.doi?.trim()" class="doi">
-                <span class="doi-tag">DOI</span>
-                <span class="doi-link"
-                  ><a href="https://doi.org/{{ publication.doi }}" target="_blank"
-                    >{{ publication.doi
-                    }}<fa-icon icon="external-link-alt"></fa-icon></a
-                ></span>
-              </div>
-            </div>
           </div>
-          <div class="col col-lg-5 col-xl-3 d-none d-lg-block">
+          <div class="col col-lg-6 col-xl-3 d-none d-lg-block">
             <span
-              [innerHtml]="
-                publication.authors | cutContent: 100 | highlight: input
-              "
+              [innerHtml]="call.foundation.name | highlight: input"
             ></span>
           </div>
-          <div class="col col-xl-3 shorten d-none d-xl-block">
+          <div class="col col-xl-2 shorten d-none d-xl-block">
             <span
-              [attr.lang]="
-                publication.languageCode !== documentLang
-                  ? publication.languageCode
-                  : null
-              "
-              [innerHtml]="
-                publication.publicationChannel
-                  | cutContent: 100
-                  | highlight: input
-              "
-            >
-            </span>
+              [innerHtml]="call.openDate | highlight: input"
+            ></span>
           </div>
-          <div class="col col-lg-1">
+          <div class="col col-lg-2">
             <span
-              [innerHtml]="publication.publicationYear | highlight: input"
+              [innerHtml]="call.dueDate | highlight: input"
             ></span>
           </div>
         </div>

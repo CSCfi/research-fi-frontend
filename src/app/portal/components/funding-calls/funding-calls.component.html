@@ -91,13 +91,32 @@ Copyright 2019 Ministry of Education and Culture, Finland
         <main class="col-12" id="main-content">
           <app-active-filters></app-active-filters>
           <app-funding-call-results
-            [results]="resultData"
+            [resultData]="resultData"
           ></app-funding-call-results>
         </main>
       </div>
     </div>
   </div>
 </div>
+
+<ng-template #desktop>
+  <aside class="col-4 col-xl-3 filters" *ngIf="!modalRef">
+    <app-filters
+      [responseData]="filterValues"
+      [tabData]="'funding-call'"
+    ></app-filters>
+  </aside>
+  <div class="col-8 col-xl-9 row main-content pr-xl-0">
+    <main class="col-12 pr-xl-0">
+      <app-active-filters></app-active-filters>
+      <h3 class="sr-only">Hakutulokset</h3>
+      <app-funding-call-results
+        id="main-content"
+        [resultData]="resultData"
+      ></app-funding-call-results>
+    </main>
+  </div>
+</ng-template>
 
 <ng-template #pageOverflow>
     <div class="row main-content">
