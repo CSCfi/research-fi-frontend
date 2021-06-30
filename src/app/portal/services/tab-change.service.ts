@@ -73,12 +73,12 @@ export class TabChangeService {
     },
   ];
 
-  aurora = {
-    data: 'aurora',
+  fundingCall = {
+    data: 'fundingCalls',
     label: '',
-    link: 'aurora',
+    link: 'fundingCalls',
     icon: faCalculator,
-    singular: 'aurora',
+    singular: 'rahoitushaku',
     tooltip: ''
   }
 

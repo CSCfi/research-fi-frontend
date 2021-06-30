@@ -55,7 +55,7 @@ export class AppSettingsService {
       },
       {
         label: $localize`:@@headerLink7:Rahoitushaut`,
-        link: '/aurora',
+        link: '/fundingCalls',
         exact: true,
       },
       {

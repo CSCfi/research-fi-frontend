@@ -21,17 +21,17 @@ import { ResizeService } from 'src/app/shared/services/resize.service';
 import { common } from 'src/assets/static-data/meta-tags.json';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { combineLatest, merge, Subject, Subscription } from 'rxjs';
-import { Aurora } from '@portal/models/aurora.model';
+import { FundingCall } from '@portal/models/fundingCall.model';
 import { debounceTime, map, multicast, skip, take } from 'rxjs/operators';
 import { SortService } from '@portal/services/sort.service';
 import { FilterService } from '@portal/services/filters/filter.service';
 
 @Component({
-  selector: 'app-aurora',
-  templateUrl: './aurora.component.html',
-  styleUrls: ['./aurora.component.scss']
+  selector: 'app-funding-calls',
+  templateUrl: './funding-calls.component.html',
+  styleUrls: ['./funding-calls.component.scss']
 })
-export class AuroraComponent implements OnInit, AfterViewInit {
+export class FundingCallsComponent implements OnInit, AfterViewInit {
     width = this.window.innerWidth;
     mobile = this.width < 992;
     @ViewChild('skipToResults') skipToResults: ElementRef;
@@ -57,7 +57,7 @@ export class AuroraComponent implements OnInit, AfterViewInit {
     filterValues: unknown;
     filters: any;  
 
-    resultData: Aurora[];
+    resultData: FundingCall[];
     page: number;
     loading: boolean;
     errorMessage: string;
@@ -105,7 +105,7 @@ export class AuroraComponent implements OnInit, AfterViewInit {
         }
   
         // Update sort
-        this.sortService.updateTab('news');
+        this.sortService.updateTab('fundingCalls');
   
         this.searchService.updateNewsPageNumber(parseInt(queryParams.page));
   
@@ -192,7 +192,7 @@ export class AuroraComponent implements OnInit, AfterViewInit {
 
     getData(size: number = 10) {
       this.searchService
-        .getAurora(size)
+        .getFundingCalls(size)
         .subscribe(
           (data) => {
             this.resultData = data;

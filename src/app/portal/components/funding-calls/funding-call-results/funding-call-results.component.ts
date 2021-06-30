@@ -1,7 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Aurora } from '@portal/models/aurora.model';
+import { FundingCall } from '@portal/models/fundingCall.model';
 import { DataService } from '@portal/services/data.service';
 import { SearchService } from '@portal/services/search.service';
 import { SortService } from '@portal/services/sort.service';
@@ -9,18 +9,18 @@ import { TabChangeService } from '@portal/services/tab-change.service';
 import { UtilityService } from '@shared/services/utility.service';
 
 @Component({
-  selector: 'app-aurora-results',
-  templateUrl: './aurora-results.component.html',
-  styleUrls: ['./aurora-results.component.scss']
+  selector: 'app-funding-call-results',
+  templateUrl: './funding-call-results.component.html',
+  styleUrls: ['./funding-call-results.component.scss']
 })
-export class AuroraResultsComponent implements OnInit, OnDestroy, AfterViewInit {
-  @Input() resultData: Aurora[];
+export class FundingCallResultsComponent implements OnInit, OnDestroy, AfterViewInit {
+  @Input() resultData: FundingCall[];
   expandStatus: Array<boolean> = [];
   sortColumn: string;
   sortDirection: boolean;
   @ViewChild('main') mainContent: ElementRef;
 
-  faIcon = this.tabChangeService.aurora.icon;
+  faIcon = this.tabChangeService.fundingCall.icon;
   documentLang: any;
   input: string;
   inputSub: any;

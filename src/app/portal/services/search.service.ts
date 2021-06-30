@@ -21,7 +21,7 @@ import {
   Visual,
 } from '../models/visualisation/visualisations.model';
 import { AggregationService } from './filters/aggregation.service';
-import { Aurora, AuroraAdapter } from '@portal/models/aurora.model';
+import { FundingCall, FundingCallAdapter } from '@portal/models/fundingCall.model';
 
 @Injectable()
 export class SearchService {
@@ -58,7 +58,7 @@ export class SearchService {
     private settingsService: SettingsService,
     private searchAdapter: SearchAdapter,
     private newsAdapter: NewsAdapter,
-    private auroraAdapter: AuroraAdapter,
+    private fundingCallAdapter: FundingCallAdapter,
     private visualAdapter: VisualAdapter,
     private aggService: AggregationService
   ) {
@@ -360,20 +360,20 @@ export class SearchService {
     }
 
     // News page content
-    getAurora(size?: number, from: number = 0): Observable<Aurora[]> {
+    getFundingCalls(size?: number, from: number = 0): Observable<FundingCall[]> {
       const sort = { callProgrammeDueDate: { order: 'desc' } };
       const payload = {
-        query: this.filterService.constructAuroraPayload(this.searchTerm),
+        query: this.filterService.constructFundingCallPayload(this.searchTerm),
         size,
         sort: [sort],
         from: from,
       };
   
       return this.http
-        .post<Aurora[]>(
-          this.apiUrl + 'aurora' + '/_search?',
+        .post<FundingCall[]>(
+          this.apiUrl + 'fundingCall' + '/_search?',
           payload
         )
-        .pipe(map((data) => this.auroraAdapter.adaptMany(data)));
+        .pipe(map((data) => this.fundingCallAdapter.adaptMany(data)));
     }
 }

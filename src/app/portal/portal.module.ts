@@ -146,9 +146,9 @@ import { BannerComponent } from './components/home-page/banner/banner.component'
 import { LatestNewsComponent } from './components/news/latest-news/latest-news.component';
 import { NewsResultsComponent } from './components/news/news-results/news-results.component';
 import { ConvertToArrayPipe } from './pipes/convert-to-array.pipe';
-import { AuroraComponent } from './components/aurora/aurora.component';
-import { SingleAuroraComponent } from './components/aurora/single-aurora/single-aurora.component';
-import { AuroraResultsComponent } from './components/aurora/aurora-results/aurora-results.component';
+import { FundingCallsComponent } from './components/funding-calls/funding-calls.component';
+import { SingleFundingCallComponent } from './components/funding-calls/single-funding-call/single-funding-call.component';
+import { FundingCallResultsComponent } from './components/funding-calls/funding-call-results/funding-call-results.component';
 
 @NgModule({
   declarations: [
@@ -216,9 +216,9 @@ import { AuroraResultsComponent } from './components/aurora/aurora-results/auror
     LatestNewsComponent,
     NewsResultsComponent,
     ConvertToArrayPipe,
-    AuroraComponent,
-    SingleAuroraComponent,
-    AuroraResultsComponent,
+    FundingCallsComponent,
+    SingleFundingCallComponent,
+    FundingCallResultsComponent,
   ],
   imports: [
     PortalRoutingModule,

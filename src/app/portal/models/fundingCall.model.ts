@@ -9,7 +9,7 @@ import { Inject, Injectable, LOCALE_ID } from '@angular/core';
 import { Adapter } from './adapter.model';
 import { LanguageCheck } from './utils';
 
-export class Aurora {
+export class FundingCall {
   constructor(
     public name: number,
     public description: string,
@@ -25,12 +25,12 @@ export class Aurora {
 @Injectable({
   providedIn: 'root',
 })
-export class AuroraAdapter implements Adapter<Aurora> {
+export class FundingCallAdapter implements Adapter<FundingCall> {
   constructor(
     private lang: LanguageCheck,
     @Inject(LOCALE_ID) protected localeId: string
   ) {}
-  adapt(item: any): Aurora {
+  adapt(item: any): FundingCall {
       console.log(item)
 
     const foundation: any = {}
@@ -41,7 +41,7 @@ export class AuroraAdapter implements Adapter<Aurora> {
     const categories = [];
     item.categories.forEach(c => categories.push({id: c.codeValue, name: this.lang.testLang('name', c)}));
 
-    return new Aurora(
+    return new FundingCall(
       this.lang.testLang('name', item),
       this.lang.testLang('description', item),
       this.lang.testLang('applicationTerms', item),
@@ -53,14 +53,14 @@ export class AuroraAdapter implements Adapter<Aurora> {
     );
   }
 
-  adaptMany(item: any): Aurora[] {
-    const auroras: Aurora[] = [];
+  adaptMany(item: any): FundingCall[] {
+    const fundingCalls: FundingCall[] = [];
     const source = item.hits.hits;
     const totalValue = item.hits.total.value;
     // Add total count
     source.forEach((el) =>
-      auroras.push(this.adapt({ ...el._source, total: totalValue }))
+      fundingCalls.push(this.adapt({ ...el._source, total: totalValue }))
     );
-    return auroras;
+    return fundingCalls;
   }
 }

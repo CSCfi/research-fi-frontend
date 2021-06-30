@@ -331,7 +331,7 @@ export class FilterService {
     );
     // Organization
     this.sectorFilter = this.filterBySector(filter.sector);
-    // Aurora
+    // FundingCalls
     // this.dateFilter = this.filterByDateRange(filter.fromDate, filter.toDate)
   }
 
@@ -469,7 +469,7 @@ export class FilterService {
         });
         break;
       }
-      case 'aurora': {
+      case 'fundingCalls': {
         filter.forEach((value) => {
           res.push({ term: { 'foundation.organization_id.keyword': value } });
         });
@@ -765,9 +765,9 @@ export class FilterService {
       // News
       ...basicFilter('news', this.organizationFilter),
       
-      // Aurora
-      ...basicFilter('aurora', this.organizationFilter),
-      // ...basicFilter('aurora', this.dateFilter),
+      // FundingCalls
+      ...basicFilter('fundingCall', this.organizationFilter),
+      // ...basicFilter('fundingCall', this.dateFilter),
 
       // Global filters
       ...globalFilter(this.yearFilter),
@@ -838,8 +838,8 @@ export class FilterService {
     return query;
   }
 
-  constructAuroraPayload(searchTerm: string) {
-    const query = this.constructQuery('aurora', searchTerm);
+  constructFundingCallPayload(searchTerm: string) {
+    const query = this.constructQuery('fundingCall', searchTerm);
     return query;
   }
 

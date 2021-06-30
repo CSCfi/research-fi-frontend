@@ -30,8 +30,8 @@ import { ResearchInnovationSystemSectorResolver } from './resolvers/research-inn
 import { ExternalLinkResolver } from './resolvers/external-link-resolver.service';
 import { ShortcutResolverService } from './resolvers/shortcut-resolver.service';
 import { SingleDatasetComponent } from './components/single/single-dataset/single-dataset.component';
-import { AuroraComponent } from './components/aurora/aurora.component';
-import { SingleAuroraComponent } from './components/aurora/single-aurora/single-aurora.component';
+import { FundingCallsComponent } from './components/funding-calls/funding-calls.component';
+import { SingleFundingCallComponent } from './components/funding-calls/single-funding-call/single-funding-call.component';
 
 const routes: Routes = [
   {
@@ -117,13 +117,17 @@ const routes: Routes = [
     component: NewsComponent,
   },
   {
-    path: 'aurora',
+    path: 'fundingCalls',
     pathMatch: 'full',
-    component: AuroraComponent,
+    component: FundingCallsComponent,
   },
   {
-    path: 'aurora/:id',
-    component: SingleAuroraComponent,
+    path: 'fundingCalls/:input',
+    component: FundingCallsComponent,
+  },
+  {
+    path: 'fundingCall/:id',
+    component: SingleFundingCallComponent,
   },
   {
     path: 'science-innovation-policy',
