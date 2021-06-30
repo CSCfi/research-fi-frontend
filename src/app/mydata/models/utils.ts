@@ -12,6 +12,7 @@ type settingsType = {
   single?: boolean;
   localized?: boolean;
   primaryValue?: boolean;
+  joined?: boolean;
 };
 
 export function mapGroup(group, label, settings?: settingsType) {
@@ -21,6 +22,7 @@ export function mapGroup(group, label, settings?: settingsType) {
     disabled: settings?.disabled,
     single: settings?.single,
     hasPrimaryValue: settings?.primaryValue,
+    joined: settings?.joined,
   };
 }
 

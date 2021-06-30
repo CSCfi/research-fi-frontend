@@ -70,12 +70,12 @@
             />
           </a>
         </div>
-        <div class="col-auto align-self-center p-0 pl-1">
+        <div class="col-auto align-self-center p-0 pl-1 pr-3">
           <a class="logo-text" [routerLink]="appSettings.baseRoute"
             ><span>{{ appSettings.label }}</span></a
           >
         </div>
-        <div class="col-auto mt-1" *ngIf="appSettings.beta">
+        <div class="col-auto px-0 mt-2 mt-md-1" *ngIf="appSettings.beta">
           <app-primary-action-button
             content="Beta"
             (click)="toggleBetaInfo()"
@@ -85,7 +85,7 @@
     </div>
     <nav
       class="nav-top col-auto col-5 col-xs-3 p-0"
-      [ngClass]="appSettings.beta ? 'col-xl-9' : 'col-xl-10'"
+      [ngClass]="appSettings.beta ? 'col-xl-9 beta-mobile-menu' : 'col-xl-10'"
     >
       <div class="mobile ml-auto toggle-button-wrapper">
         <button
@@ -118,7 +118,10 @@
           #mainNavbar
         >
           <!-- Lang selector -->
-          <div class="navbar-expand mx-auto navbar-nav lang mobile">
+          <div
+            class="navbar-expand mx-auto navbar-nav lang mobile"
+            *ngIf="!appSettings.beta"
+          >
             <ul class="navbar-nav mx-auto">
               <li
                 *ngFor="let domain of appSettings.localizedDomains"
@@ -128,6 +131,7 @@
                   class="nav-item nav-link lang-box"
                   [class.active-lang]="currentLang === domain.locale"
                   [href]="domain.url + currentRoute"
+                  [disabled]="appSettings.beta"
                 >
                   <span class="label">{{ domain.label }}</span>
                 </a>
@@ -197,7 +201,10 @@
                 <div class="navbar-expand navbar-nav lang langSelect">
                   <mat-form-field class="lang-select">
                     <!-- Navigate with consent if consent is set -->
-                    <mat-select [(value)]="currentLang">
+                    <mat-select
+                      [(value)]="currentLang"
+                      [disabled]="appSettings.beta"
+                    >
                       <a
                         *ngFor="let domain of appSettings.localizedDomains"
                         [href]="

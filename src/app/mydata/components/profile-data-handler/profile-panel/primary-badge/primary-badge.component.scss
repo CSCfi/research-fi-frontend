@@ -4,3 +4,8 @@
 //
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
+
+// Fix for hidden right border
+.mat-ripple:not(:empty) {
+  transform: none;
+}

@@ -34,21 +34,27 @@
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef> Nimi </mat-header-cell>
     <mat-cell *matCellDef="let item; let i = index">
-      <div
-        class="row"
-        [class.text-overflow-ellipsis]="showMoreArray.indexOf(i) === -1"
-      >
-        {{ item._source.publicationName }}
+      <div class="row">
+        <div
+          [class.text-overflow-ellipsis]="showMoreArray.indexOf(i) === -1"
+          class="col px-0"
+        >
+          {{ item._source.publicationName }}
+        </div>
+      </div>
+
+      <div class="row mt-2 font-size-small" *ngIf="item._source.authorsText">
+        {{ item._source.authorsText }}
       </div>
       <!-- TODO: Check empty and loop -->
       <ng-container *ngIf="showMoreArray.indexOf(i) > -1">
-        <div class="row mt-2 font-size-small">
-          {{ item._source.authorsText }}
-        </div>
-        <div class="row mt-2 font-size-small">
+        <div
+          class="row mt-2 font-size-small"
+          *ngIf="item._source.parentPublicationName"
+        >
           {{ item._source.parentPublicationName }}
         </div>
-        <div class="row mt-2 font-size-small">
+        <div class="row mt-2 font-size-small" *ngIf="item._source.doi">
           {{ item._source.doi }}
         </div>
       </ng-container>

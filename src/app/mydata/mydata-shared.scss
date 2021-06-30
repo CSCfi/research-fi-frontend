@@ -24,11 +24,11 @@ app-profile-panel {
   }
 
   .mat-expansion-panel-header {
-    padding: 0 1rem;
+    padding: 0;
   }
 
   .mat-expansion-panel-body {
-    padding: 0 1rem 1rem;
+    padding: 0 0 1rem;
   }
 
   .mat-expansion-panel
@@ -72,5 +72,15 @@ app-profile-panel {
   .mat-expanded
     span.mat-expansion-indicator.ng-trigger.ng-trigger-indicatorRotate {
     margin-top: 0.5rem;
+  }
+
+  @media (min-width: 992px) {
+    .mat-expansion-panel-header {
+      padding: 0 1rem;
+    }
+
+    .mat-expansion-panel-body {
+      padding: 0 1rem 1rem;
+    }
   }
 }

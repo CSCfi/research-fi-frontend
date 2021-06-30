@@ -34,8 +34,6 @@ export class ProfileSummaryComponent implements OnInit {
   constructor(public dialog: MatDialog, private patchService: PatchService) {}
 
   ngOnInit(): void {
-    console.log(this.data.profileData);
-
     // Get data sources
     this.dataSources = getDataSources(this.data.profileData);
 
@@ -72,7 +70,7 @@ export class ProfileSummaryComponent implements OnInit {
 
     this.dialogRef = this.dialog.open(EditorModalComponent, {
       minWidth: '44vw',
-      maxWidth: '44vw',
+      maxWidth: '100vw',
       data: {
         data: selectedField,
         dataSources: this.dataSources,
