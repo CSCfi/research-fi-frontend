@@ -21,7 +21,7 @@ import { ResizeService } from 'src/app/shared/services/resize.service';
 import { common } from 'src/assets/static-data/meta-tags.json';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { combineLatest, merge, Subject, Subscription } from 'rxjs';
-import { FundingCall } from '@portal/models/fundingCall.model';
+import { FundingCall } from '@portal/models/funding-call.model';
 import { debounceTime, map, multicast, skip, take } from 'rxjs/operators';
 import { SortService } from '@portal/services/sort.service';
 import { FilterService } from '@portal/services/filters/filter.service';
@@ -105,7 +105,7 @@ export class FundingCallsComponent implements OnInit, AfterViewInit {
         }
   
         // Update sort
-        this.sortService.updateTab('fundingCalls');
+        this.sortService.updateTab('funding-calls');
   
         this.searchService.updateNewsPageNumber(parseInt(queryParams.page));
   

@@ -1,7 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FundingCall } from '@portal/models/fundingCall.model';
+import { FundingCall } from '@portal/models/funding-call.model';
 import { DataService } from '@portal/services/data.service';
 import { SearchService } from '@portal/services/search.service';
 import { SortService } from '@portal/services/sort.service';

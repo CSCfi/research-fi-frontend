@@ -117,16 +117,16 @@ const routes: Routes = [
     component: NewsComponent,
   },
   {
-    path: 'fundingCalls',
+    path: 'funding-calls',
     pathMatch: 'full',
     component: FundingCallsComponent,
   },
   {
-    path: 'fundingCalls/:input',
+    path: 'funding-calls/:input',
     component: FundingCallsComponent,
   },
   {
-    path: 'fundingCall/:id',
+    path: 'funding-call/:id',
     component: SingleFundingCallComponent,
   },
   {

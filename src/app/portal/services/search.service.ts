@@ -21,7 +21,7 @@ import {
   Visual,
 } from '../models/visualisation/visualisations.model';
 import { AggregationService } from './filters/aggregation.service';
-import { FundingCall, FundingCallAdapter } from '@portal/models/fundingCall.model';
+import { FundingCall, FundingCallAdapter } from '@portal/models/funding-call.model';
 
 @Injectable()
 export class SearchService {
@@ -371,7 +371,7 @@ export class SearchService {
   
       return this.http
         .post<FundingCall[]>(
-          this.apiUrl + 'fundingCall' + '/_search?',
+          this.apiUrl + 'funding-call' + '/_search?',
           payload
         )
         .pipe(map((data) => this.fundingCallAdapter.adaptMany(data)));

@@ -74,9 +74,9 @@ export class TabChangeService {
   ];
 
   fundingCall = {
-    data: 'fundingCalls',
+    data: 'funding-calls',
     label: '',
-    link: 'fundingCalls',
+    link: 'funding-calls',
     icon: faCalculator,
     singular: 'rahoitushaku',
     tooltip: ''

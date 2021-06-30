@@ -469,7 +469,7 @@ export class FilterService {
         });
         break;
       }
-      case 'fundingCalls': {
+      case 'funding-calls': {
         filter.forEach((value) => {
           res.push({ term: { 'foundation.organization_id.keyword': value } });
         });
@@ -766,8 +766,8 @@ export class FilterService {
       ...basicFilter('news', this.organizationFilter),
       
       // FundingCalls
-      ...basicFilter('fundingCall', this.organizationFilter),
-      // ...basicFilter('fundingCall', this.dateFilter),
+      ...basicFilter('funding-call', this.organizationFilter),
+      // ...basicFilter('funding-call', this.dateFilter),
 
       // Global filters
       ...globalFilter(this.yearFilter),
@@ -839,7 +839,7 @@ export class FilterService {
   }
 
   constructFundingCallPayload(searchTerm: string) {
-    const query = this.constructQuery('fundingCall', searchTerm);
+    const query = this.constructQuery('funding-call', searchTerm);
     return query;
   }
 
