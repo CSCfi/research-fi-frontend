@@ -98,14 +98,15 @@
           </div>
           <div class="col col-xl-2 shorten d-none d-xl-block">
             <span
-              [innerHtml]="call.openDate.toLocaleDateString('fi') | highlight: input"
+              [innerHtml]="call.openDateString | highlight: input"
+              ></span>
+            </div>
+            <div class="col col-lg-2">
+              <span
+              [innerHtml]="call.dueDateString | highlight: input"
             ></span>
           </div>
-          <div class="col col-lg-2">
-            <span
-              [innerHtml]="call.dueDate.toLocaleDateString('fi') | highlight: input"
-            ></span>
-          </div>
+          <div class="col-12 col-lg-9" [innerHTML]="call.description | cutContent: 100 | highlight: input"></div>
         </div>
         <!-- <app-related-results class="row related-fields" [class.expand]="expandStatus[i]"></app-related-results> -->
       </div>

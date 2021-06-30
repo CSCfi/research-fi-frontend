@@ -18,6 +18,8 @@ export class FundingCall {
     public contactInfo: string,
     public openDate: Date,
     public dueDate: Date,
+    public openDateString: string,
+    public dueDateString: string,
     public foundation: { name: string; orgId: string; url: string },
     public categories: { id: string; name: string }[]
   ) {}
@@ -46,6 +48,11 @@ export class FundingCallAdapter implements Adapter<FundingCall> {
     const openDate = new Date(item.callProgrammeOpenDate)
     const dueDate = new Date(item.callProgrammeDueDate)
 
+    function pad(n) {return n < 10 ? '0'+n : n};
+
+    const openDateString = pad(openDate.getDate()) + '.' + pad(openDate.getMonth() + 1) + '.' + openDate.getFullYear()
+    const dueDateString = pad(dueDate.getDate()) + '.' + pad(dueDate.getMonth() + 1) + '.' + dueDate.getFullYear()
+
     return new FundingCall(
       item.id,
       this.lang.testLang('name', item),
@@ -54,6 +61,8 @@ export class FundingCallAdapter implements Adapter<FundingCall> {
       this.lang.testLang('contactInformation', item),
       openDate,
       dueDate,
+      openDateString,
+      dueDateString,
       foundation,
       categories
     );

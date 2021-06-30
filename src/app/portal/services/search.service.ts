@@ -360,7 +360,7 @@ export class SearchService {
     }
 
     // News page content
-    getFundingCalls(size?: number, from: number = 0): Observable<FundingCall[]> {
+    getFundingCalls(size?: number, from: number = 0): Observable<Search> {
       const sort = { callProgrammeDueDate: { order: 'desc' } };
       const payload = {
         query: this.filterService.constructFundingCallPayload(this.searchTerm),
@@ -370,10 +370,10 @@ export class SearchService {
       };
   
       return this.http
-        .post<FundingCall[]>(
+        .post<Search>(
           this.apiUrl + 'funding-call' + '/_search?',
           payload
         )
-        .pipe(map((data) => this.fundingCallAdapter.adaptMany(data)));
+        .pipe(map((data) => this.searchAdapter.adapt(data, 'funding-calls')));
     }
 }

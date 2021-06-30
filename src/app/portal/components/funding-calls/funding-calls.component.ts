@@ -25,6 +25,7 @@ import { FundingCall } from '@portal/models/funding-call.model';
 import { debounceTime, map, multicast, skip, take } from 'rxjs/operators';
 import { SortService } from '@portal/services/sort.service';
 import { FilterService } from '@portal/services/filters/filter.service';
+import { DataService } from '@portal/services/data.service';
 
 @Component({
   selector: 'app-funding-calls',
@@ -50,7 +51,11 @@ export class FundingCallsComponent implements OnInit, AfterViewInit {
     routeSub: Subscription;
     queryParamSub: Subscription;
     inputSub: Subscription;
+    totalSub: Subscription;
   
+    total: number;
+    parsedTotal: string;
+
     isBrowser: boolean;
     dataFetched: any;
 
@@ -86,6 +91,7 @@ export class FundingCallsComponent implements OnInit, AfterViewInit {
       public utilityService: UtilityService,
       public sortService: SortService,
       public filterService: FilterService,
+      public dataService: DataService,
       private router: Router,
       private cdr: ChangeDetectorRef,
     ) {
@@ -103,9 +109,16 @@ export class FundingCallsComponent implements OnInit, AfterViewInit {
         } else {
           this.searchService.updateInput('');
         }
-  
-        // Update sort
-        this.sortService.updateTab('funding-calls');
+
+        // Update search service stuff
+        this.sortService.updateSort(queryParams.sort);
+        this.searchService.updatePageNumber(
+          this.page,
+          this.searchService.pageSize
+        );
+        this.searchService.updateQueryParams(queryParams);
+
+        this.searchService.pageSize = parseInt(queryParams.size) || 10;
   
         this.page = parseInt(queryParams.page) || 1;
         // this.searchService.updateNewsPageNumber(parseInt(queryParams.page));
@@ -117,13 +130,30 @@ export class FundingCallsComponent implements OnInit, AfterViewInit {
         }
   
         // Get data
-        this.getData();
+        this.getData(this.searchService.pageSize);
       });
+
+      this.totalSub = this.searchService.currentTotal.subscribe((total) => {
+        this.total = total || 0;
+        // Add thousand separators and set total to 0 if no hits
+        this.parsedTotal = this.total
+          ? total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+          : '0';
+        this.cdr.detectChanges();
+        this.dataService.updateTotalResultsValue(this.total);
+      });
+
   
+      // Update tab
+      this.selectedTabData = this.tabChangeService.fundingCall;
+      this.tabChangeService.changeTab(this.selectedTabData);
+      this.sortService.updateTab('funding-calls');
+      
       // Search input handler
       this.inputSub = this.searchService.currentInput.subscribe(
         (input) => (this.currentTerm = input)
       );
+
   
       // Set title
       switch (this.localeId) {
@@ -196,7 +226,8 @@ export class FundingCallsComponent implements OnInit, AfterViewInit {
         .getFundingCalls(size)
         .subscribe(
           (data) => {
-            this.resultData = data;
+            this.resultData = data.fundingCalls;
+            this.searchService.updateTotal(data.total)
             console.log(data)
             this.loading = false;
           },

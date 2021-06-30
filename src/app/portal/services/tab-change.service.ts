@@ -75,7 +75,7 @@ export class TabChangeService {
 
   fundingCall = {
     data: 'funding-calls',
-    label: '',
+    label: $localize`:@@fundingCalls:Rahoitushaut`,
     link: 'funding-calls',
     icon: faCalculator,
     singular: 'rahoitushaku',
