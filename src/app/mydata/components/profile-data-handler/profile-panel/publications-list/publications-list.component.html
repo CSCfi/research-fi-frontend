@@ -34,7 +34,7 @@
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef> Nimi </mat-header-cell>
     <mat-cell *matCellDef="let item; let i = index">
-      <div class="row">
+      <div class="row w-100">
         <div
           [class.text-overflow-ellipsis]="showMoreArray.indexOf(i) === -1"
           class="col px-0"
@@ -43,8 +43,16 @@
         </div>
       </div>
 
-      <div class="row mt-2 font-size-small" *ngIf="item._source.authorsText">
-        {{ item._source.authorsText }}
+      <div
+        class="row mt-2 font-size-small w-100"
+        *ngIf="item._source.authorsText"
+      >
+        <div
+          [class.text-overflow-ellipsis]="showMoreArray.indexOf(i) === -1"
+          class="col px-0"
+        >
+          {{ item._source.authorsText }}
+        </div>
       </div>
       <!-- TODO: Check empty and loop -->
       <ng-container *ngIf="showMoreArray.indexOf(i) > -1">
