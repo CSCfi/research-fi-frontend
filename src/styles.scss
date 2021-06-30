@@ -59,7 +59,11 @@
 @import './app/portal/components/results/pagination/pagination.component.scss';
 @import './app/portal/components/science-politics/figures/carousel/carousel.component.scss-theme.scss';
 @import './app/portal/components/visualisation/bar/bar.component.scss-theme.scss';
+
+// Mydata
+@import './app/mydata/mydata-shared.scss';
 @import './app/mydata/components/profile-data-handler/profile-data-handler.component-theme.scss';
+@import './app/mydata/components/profile-data-handler/profile-panel/primary-badge/primary-badge.component-theme.scss';
 
 // Global element color definitions
 @mixin researchfi-components-theme($theme) {
@@ -106,6 +110,7 @@
   @include app-carousel-theme($theme);
   @include app-bar-chart-theme($theme);
   @include app-profile-data-handler-theme($theme);
+  @include app-primary-badge-theme($theme);
 }
 
 // Global style definitions

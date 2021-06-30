@@ -72,6 +72,16 @@ export class PublicationsListComponent implements OnInit, OnChanges {
 
     let arr = this.publicationArray;
 
+    // Patch operations
+    switch (event.checked) {
+      case true: {
+        break;
+      }
+      case false: {
+        break;
+      }
+    }
+
     if (selectedItems.find((item) => item.id === selectedPublication.id)) {
       arr.push({
         ...selectedItems.find((item) => item.id === selectedPublication.id),

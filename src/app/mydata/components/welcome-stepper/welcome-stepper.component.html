@@ -220,6 +220,29 @@
                 </div>
               </div>
 
+              <div class="row pb-3 d-flex justify-content-center">
+                <div class="col">
+                  <app-mydata-beta-info
+                    [template]="betaInfo"
+                  ></app-mydata-beta-info>
+
+                  <ng-template #betaInfo>
+                    <p>
+                      Tämä on Tutkijan tiedot -työkalun betaversio.
+                      Testikäyttäjien palautetta hyödynnetään palvelun
+                      toiminnallisuuksien kehittämisessä. Testauksessa
+                      syöttämiäsi tietoja ei julkaista Tiedejatutkimus.fi:ssä.
+                    </p>
+                    <p>
+                      <a href="https://wiki.eduuni.fi/x/YwMJDQ" target="_blank"
+                        >Lue lisää...
+                        <fa-icon icon="external-link-alt"></fa-icon
+                      ></a>
+                    </p>
+                  </ng-template>
+                </div>
+              </div>
+
               <!-- Data fetching indicator -->
               <div
                 bsModal
@@ -273,16 +296,6 @@
                   <app-profile-data-handler
                     [response]="profileData"
                   ></app-profile-data-handler>
-                  <!-- <mat-tab-group mat-align-tabs="center">
-                    <mat-tab label="Valitse julkaistavat tiedot">
-                      <app-profile-data-handler
-                        [response]="profileData"
-                      ></app-profile-data-handler>
-                    </mat-tab>
-                    <mat-tab disabled label="Aseta kaikki julkisiksi"
-                      >Aseta kaikki julkisiksi</mat-tab
-                    >
-                  </mat-tab-group> -->
                 </div>
               </div>
 
@@ -290,24 +303,9 @@
                 (changeStep)="changeStep($event)"
               ></app-stepper-navigation> -->
 
-              <div class="row pb-5 d-flex justify-content-center">
-                <div class="col-auto">
-                  <app-secondary-button
-                    disabled
-                    content="Aseta kaikki julkisiksi"
-                  ></app-secondary-button>
-                </div>
-                <div class="col-auto">
-                  <app-secondary-button
-                    disabled
-                    content="Tyhjennä kaikki valinnat"
-                  ></app-secondary-button>
-                </div>
-              </div>
-
               <div class="row pt-3">
                 <app-primary-action-button
-                  [disabled]="true"
+                  routerLink="/mydata/profile"
                   class="col text-center"
                   content="Julkaise"
                 ></app-primary-action-button>

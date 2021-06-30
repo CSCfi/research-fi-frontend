@@ -6,12 +6,15 @@
 <mat-dialog-content>
   <div class="row d-flex justify-content-between dialog-header">
     <div class="col">
-      <h2 class="modal-title pull-left col h5 mt-n1">
+      <h2 class="modal-title pull-left px-lg-3 h5 mt-n1">
         {{ editorData.data.label }}
       </h2>
     </div>
     <div class="col-auto">
-      <mat-checkbox [checked]="allSelected" (change)="toggleAll()"
+      <mat-checkbox
+        [checked]="allSelected"
+        (change)="toggleAll($event)"
+        [indeterminate]="checkSomeSelected()"
         >Valitse kaikki</mat-checkbox
       >
     </div>
@@ -34,32 +37,29 @@
             [dataSources]="editorData.dataSources"
             [primarySource]="primarySource"
             [data]="editorData.data"
-            (onGroupToggle)="toggleGroup($event)"
+            [originalData]="originalEditorData"
             (onRadioItemToggle)="toggleRadio($event)"
             (onSingleItemToggle)="toggleSingle($event)"
-            (onPrimaryValueChange)="togglePrimaryValue($event)"
           ></app-profile-panel>
-        </div>
-      </div>
-
-      <div class="row pt-3 pb-3">
-        <div class="col px-0">
-          <div class="row d-flex justify-content-end">
-            <div class="col-auto pr-0">
-              <app-secondary-button
-                (click)="close()"
-                content="Peruuta"
-              ></app-secondary-button>
-            </div>
-            <div class="col-auto">
-              <app-primary-action-button
-                (click)="saveChanges()"
-                content="Tallenna"
-              ></app-primary-action-button>
-            </div>
-          </div>
         </div>
       </div>
     </div>
   </div>
 </mat-dialog-content>
+
+<mat-dialog-actions class="d-flex justify-content-end">
+  <div class="row">
+    <div class="col-auto pb-3 pb-md-0">
+      <app-secondary-button
+        (click)="close()"
+        content="Peruuta"
+      ></app-secondary-button>
+    </div>
+    <div class="col-auto">
+      <app-primary-action-button
+        (click)="saveChanges()"
+        content="Tallenna"
+      ></app-primary-action-button>
+    </div>
+  </div>
+</mat-dialog-actions>

@@ -334,6 +334,12 @@ app-header {
     }
   }
 
+  // Beta mobile menu position
+  .beta-mobile-menu {
+    align-self: flex-start;
+    top: 0.875rem;
+  }
+
   // Disable menu for beta
   .navbar-expand.navbar-nav.lang.langSelect.disabled,
   ul.navbar-nav.mx-auto.disabled {

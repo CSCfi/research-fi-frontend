@@ -159,6 +159,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
           ? this.appSettingsService.myDataSettings
           : this.appSettingsService.portalSettings;
 
+        // Set current app and app settings
+        if (this.currentRoute.includes('/mydata')) {
+          this.appSettingsService.setCurrentAppSettings('myData');
+        } else {
+          this.appSettingsService.setCurrentAppSettings('portal');
+        }
+
         // Login / logout link
         // Click functionality is handled in handleClick method
         this.isAuthenticated.pipe(take(1)).subscribe((status) => {

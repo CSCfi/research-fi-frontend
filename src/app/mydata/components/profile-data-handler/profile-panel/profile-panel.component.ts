@@ -7,33 +7,34 @@
 
 import {
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
   Output,
-  ViewEncapsulation,
 } from '@angular/core';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
-import { checkGroupShow, checkGroupSelected } from '../utils';
+import { checkGroupSelected } from '../../../utils';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SearchPublicationsComponent } from './search-publications/search-publications.component';
 import { take } from 'rxjs/operators';
 import { PublicationsService } from '@mydata/services/publications.service';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import { PatchService } from '@mydata/services/patch.service';
 
 @Component({
   selector: 'app-profile-panel',
   templateUrl: './profile-panel.component.html',
-  styleUrls: ['./profile-panel.component.scss'],
-  encapsulation: ViewEncapsulation.None,
 })
-export class ProfilePanelComponent implements OnInit, AfterViewInit {
+export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() dataSources: any;
   @Input() primarySource: string;
   @Input() data: any;
+  @Input() originalData: any;
 
   @Output() onGroupToggle = new EventEmitter<any>();
   @Output() onRadioItemToggle = new EventEmitter<any>();
@@ -47,7 +48,6 @@ export class ProfilePanelComponent implements OnInit, AfterViewInit {
 
   fieldTypes = FieldTypes;
 
-  checkGroupShow = checkGroupShow;
   checkGroupSelected = checkGroupSelected;
 
   openPanels = [];
@@ -68,11 +68,17 @@ export class ProfilePanelComponent implements OnInit, AfterViewInit {
   constructor(
     private appSettingsService: AppSettingsService,
     public dialog: MatDialog,
-    private publicationService: PublicationsService
+    private publicationService: PublicationsService,
+    private patchService: PatchService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    this.setDefaultPrimaryValue(this.data.fields);
+    // this.setDefaultPrimaryValue(this.data.fields);
+  }
+
+  ngOnChanges() {
+    this.cdr.detectChanges();
   }
 
   // Fix for Mat Expansion Panel render FOUC
@@ -119,39 +125,10 @@ export class ProfilePanelComponent implements OnInit, AfterViewInit {
     this.onPrimaryValueChange.emit(patchItems);
   }
 
-  toggleGroup(event: any, index: number, data: any) {
-    const patchGroups = [];
-    const patchItems = [];
-    let patchPublications = [];
-
+  toggleGroup(index: number) {
     this.openPanels.includes(index)
       ? (this.openPanels = this.openPanels.filter((item) => item !== index))
       : this.openPanels.push(index);
-
-    // data.groupItems.map((groupItem) => {
-    //   groupItem.groupMeta.show = event.checked;
-    //   patchGroups.push(groupItem.groupMeta);
-
-    //   groupItem.items.map((item) => {
-    //     item.itemMeta.show = event.checked;
-    //     patchItems.push(item.itemMeta);
-    //   });
-    // });
-
-    // // Handle fetched publications
-    // if (data.selectedPublications) {
-    //   data.selectedPublications.map((item) => (item.show = event.checked));
-    //   patchPublications = data.selectedPublications;
-    // }
-
-    // // Pass to parent
-    // this.onGroupToggle.emit({
-    //   data: data,
-    //   patchGroups: patchGroups,
-    //   patchItems: patchItems,
-    //   patchPublications: patchPublications,
-    //   index: index,
-    // });
   }
 
   closePanel(index) {
@@ -159,18 +136,21 @@ export class ProfilePanelComponent implements OnInit, AfterViewInit {
   }
 
   toggleRadioItem(event, index) {
-    let selectedItem = {};
+    let selectedItem: { itemMeta: any };
+    const patchObjects = [];
 
-    const fields = this.data.fields[index];
+    const original = this.originalData.data.fields[index];
+    const group = this.data.fields[index];
 
-    fields.groupItems.map((groupItem) => {
+    group.groupItems.map((groupItem) => {
       const currentSelection = groupItem.items.find(
         (item) => item.itemMeta.id === event.value
       );
 
-      if (currentSelection) selectedItem = currentSelection;
-
-      groupItem.groupMeta.show = currentSelection ? true : false;
+      if (currentSelection) {
+        selectedItem = currentSelection;
+        patchObjects.push({ ...currentSelection.itemMeta, show: true });
+      }
 
       groupItem.items.map(
         (item) =>
@@ -178,11 +158,22 @@ export class ProfilePanelComponent implements OnInit, AfterViewInit {
       );
     });
 
+    const previousSelection = original.groupItems
+      .map((groupItem) => groupItem.items)
+      .flat()
+      .find((item) => item.itemMeta.show);
+
+    if (previousSelection.itemMeta.id !== selectedItem.itemMeta.id)
+      patchObjects.push({ ...previousSelection.itemMeta, show: false });
+
+    // Remove patch items with type same as radio button item type
+    this.patchService.removeItemsWithType(selectedItem.itemMeta.type);
+
+    // Add to patch items
+    this.patchService.addToPatchItems(patchObjects);
+
     this.onRadioItemToggle.emit({
-      data: fields,
-      selectedGroup: fields.groupItems.find(
-        (groupItem) => groupItem.groupMeta.show
-      ),
+      data: group,
       selectedItem: selectedItem,
       index: index,
     });
@@ -194,6 +185,11 @@ export class ProfilePanelComponent implements OnInit, AfterViewInit {
       this.setDefaultPrimaryValue(this.data.fields);
     }
 
+    this.patchService.addToPatchItems({
+      ...item.itemMeta,
+      show: event.checked,
+    });
+
     this.onSingleItemToggle.emit({
       index: index,
       groupId: groupItem.groupMeta.id,
@@ -202,6 +198,14 @@ export class ProfilePanelComponent implements OnInit, AfterViewInit {
         show: event.checked,
       },
     });
+  }
+
+  toggleJoined(event, groupItem) {
+    groupItem.items.map((item) => (item.itemMeta.show = event.checked));
+
+    const patchItems = groupItem.items.map((item) => item.itemMeta);
+
+    this.patchService.addToPatchItems(patchItems);
   }
 
   togglePublication(event, publication) {
@@ -223,7 +227,7 @@ export class ProfilePanelComponent implements OnInit, AfterViewInit {
   openDialog() {
     this.dialogRef = this.dialog.open(SearchPublicationsComponent, {
       minWidth: '44vw',
-      maxWidth: '44vw',
+      maxWidth: '100vw',
       data: {
         selectedPublications: this.data.fields[0].selectedPublications,
       },

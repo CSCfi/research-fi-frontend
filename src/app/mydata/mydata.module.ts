@@ -28,6 +28,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
+import { MatRippleModule } from '@angular/material/core';
 
 import { HomeComponent } from './components/home/home.component';
 import { WelcomeStepperComponent } from './components/welcome-stepper/welcome-stepper.component';
@@ -60,6 +61,11 @@ import { SearchPublicationsComponent } from './components/profile-data-handler/p
 import { PublicationsListComponent } from './components/profile-data-handler/profile-panel/publications-list/publications-list.component';
 import { CustomPaginatorIntlComponent } from './components/profile-data-handler/profile-panel/custom-paginator-intl/custom-paginator-intl.component';
 import { CountGroupItemsPipe } from './pipes/count-group-items.pipe';
+import { MydataBetaInfoComponent } from './components/mydata-beta-info/mydata-beta-info.component';
+import { ProfileSummaryComponent } from './components/profile/profile-summary/profile-summary.component';
+import { DeleteProfileDialogComponent } from './components/profile/delete-profile-dialog/delete-profile-dialog.component';
+import { JoinItemsPipe } from './pipes/join-items.pipe';
+import { FindSelectedItemPipe } from './pipes/find-selected-item.pipe';
 
 @NgModule({
   declarations: [
@@ -85,6 +91,11 @@ import { CountGroupItemsPipe } from './pipes/count-group-items.pipe';
     SearchPublicationsComponent,
     PublicationsListComponent,
     CountGroupItemsPipe,
+    MydataBetaInfoComponent,
+    ProfileSummaryComponent,
+    DeleteProfileDialogComponent,
+    JoinItemsPipe,
+    FindSelectedItemPipe,
   ],
   imports: [
     CommonModule,
@@ -109,6 +120,7 @@ import { CountGroupItemsPipe } from './pipes/count-group-items.pipe';
     MatPaginatorModule,
     MatSortModule,
     MatButtonModule,
+    MatRippleModule,
   ],
   providers: [
     AuthGuard,

@@ -9,13 +9,15 @@ import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { cloneDeep } from 'lodash-es';
 import { ProfileService } from '@mydata/services/profile.service';
-import { checkSelected, checkEmpty } from './utils';
+import { checkSelected, getDataSources } from '../../utils';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { EditorModalComponent } from './editor-modal/editor-modal.component';
 
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { take } from 'rxjs/operators';
+
+import { PatchService } from '@mydata/services/patch.service';
 
 // Remove in production
 import { AppSettingsService } from '@shared/services/app-settings.service';
@@ -35,28 +37,12 @@ export class ProfileDataHandlerComponent implements OnInit {
 
   dataSources: any[];
   primarySource: string;
-  selectedIndex = 0;
   openPanels: any = [];
 
   checkSelected = checkSelected;
-  checkEmpty = checkEmpty;
+  getDataSources = getDataSources;
 
-  // TODO: Localize
-  profileData = [
-    { label: 'Yhteystiedot', fields: [] },
-    { label: 'Tutkimustoiminnan kuvaus', fields: [] },
-    { label: 'Affiliaatiot', fields: [] },
-    { label: 'Koulutus', fields: [] },
-    { label: 'Julkaisut', fields: [], countGroupItems: true },
-    { label: 'Tutkimusaineistot', fields: [] },
-    { label: 'Hankkeet', fields: [] },
-    { label: 'Muut hankkeet', fields: [] },
-    { label: 'Tutkimusinfrastruktuurit', fields: [] },
-    { label: 'Muut tutkimusaktiviteetit', fields: [] },
-    { label: 'Meriitit', fields: [] },
-  ];
-
-  selectedData: any;
+  profileData: any;
 
   fieldTypes = FieldTypes;
 
@@ -66,7 +52,8 @@ export class ProfileDataHandlerComponent implements OnInit {
     private profileService: ProfileService,
     private snackBar: MatSnackBar,
     public dialog: MatDialog,
-    private appSettingsService: AppSettingsService
+    private appSettingsService: AppSettingsService,
+    private patchService: PatchService
   ) {
     this.testData = profileService.testData;
   }
@@ -75,38 +62,14 @@ export class ProfileDataHandlerComponent implements OnInit {
     this.response = this.appSettingsService.myDataSettings.develop
       ? this.testData
       : this.response;
-    this.mapData();
-  }
 
-  mapData() {
-    this.profileData[0].fields = this.response.personal;
-    this.profileData[1].fields = this.response.description;
-    this.profileData[2].fields = this.response.affiliation;
-    this.profileData[3].fields = this.response.education;
-    this.profileData[4].fields = this.response.publication;
+    this.profileData = this.response.profileData;
 
-    // TODO: Check locale
-    this.dataSources = [
-      ...new Map(
-        this.getDataSources(this.profileData).map((item) => [
-          item['nameFi'],
-          item,
-        ])
-      ).values(),
-    ].map((item) => item['nameFi']);
+    // Get data sources
+    this.dataSources = getDataSources(this.profileData);
 
     // Set primary data source on init. Defaults to ORCID
     this.setPrimaryDataSource(this.dataSources[0]);
-  }
-
-  getDataSources(profileData) {
-    return profileData
-      .map((item) => item.fields)
-      .filter((field) => field.length)
-      .flat()
-      .map((field) => field.groupItems)
-      .flat()
-      .map((field) => field.source.organization);
   }
 
   setPrimaryDataSource(option) {
@@ -127,14 +90,37 @@ export class ProfileDataHandlerComponent implements OnInit {
     radioGroups.forEach((group) =>
       group.groupItems.map((groupItem) => {
         if (groupItem.source.organization.nameFi === primarySource) {
-          groupItem.groupMeta.show = true;
           groupItem.items[0].itemMeta.show = true;
+          this.patchService.addToPatchItems(groupItem.items[0].itemMeta);
         } else {
-          groupItem.groupMeta.show = false;
           groupItem.items[0].itemMeta.show = false;
         }
       })
     );
+  }
+
+  toggleSelectAll(selectAll: boolean) {
+    const fields = this.profileData;
+    const patchItems = [];
+
+    for (const field of fields) {
+      field.fields.forEach((group) => {
+        if (!group.single) {
+          group.groupItems.forEach((groupItem) =>
+            groupItem.items.map((item) => {
+              item.itemMeta.show = selectAll;
+              if (selectAll) patchItems.push(item.itemMeta);
+            })
+          );
+        }
+      });
+    }
+
+    this.profileData = fields;
+
+    selectAll
+      ? this.patchService.addToPatchItems(patchItems)
+      : this.patchService.clearPatchPayload();
   }
 
   setOpenPanel(i: number) {
@@ -147,14 +133,19 @@ export class ProfileDataHandlerComponent implements OnInit {
 
   openDialog(event, index) {
     event.stopPropagation();
-    this.selectedIndex = index;
-    this.selectedData = cloneDeep(this.profileData[index]);
+    const selectedField = cloneDeep(this.profileData[index]);
+
+    let mobile: boolean;
+
+    this.appSettingsService.mobileStatus.pipe(take(1)).subscribe((status) => {
+      mobile = status;
+    });
 
     this.dialogRef = this.dialog.open(EditorModalComponent, {
       minWidth: '44vw',
-      maxWidth: '44vw',
+      maxWidth: mobile ? '100vw' : '44vw',
       data: {
-        data: cloneDeep(this.profileData[index]),
+        data: selectedField,
         dataSources: this.dataSources,
         primarySource: this.primarySource,
       },
@@ -166,10 +157,15 @@ export class ProfileDataHandlerComponent implements OnInit {
       .subscribe(
         (result: { data: any; patchGroups: any[]; patchItems: any[] }) => {
           if (result) {
-            console.log('On editor modal close: ', result);
-            this.profileData[this.selectedIndex] = result.data;
+            console.log(
+              'On editor modal close: ',
+              this.patchService.currentPatchItems
+            );
+            this.profileData[index] = result.data;
             // this.patchData(result.patchGroups, result.patchItems);
           }
+
+          this.patchService.clearPatchPayload();
         }
       );
   }
