@@ -16,8 +16,8 @@ export class FundingCall {
     public description: string,
     public terms: string,
     public contactInfo: string,
-    public openDate: number,
-    public dueDate: number,
+    public openDate: Date,
+    public dueDate: Date,
     public foundation: { name: string; orgId: string; url: string },
     public categories: { id: string; name: string }[]
   ) {}
@@ -43,14 +43,17 @@ export class FundingCallAdapter implements Adapter<FundingCall> {
     const categories = [];
     item.categories.forEach(c => categories.push({id: c.codeValue, name: this.lang.testLang('name', c)}));
 
+    const openDate = new Date(item.callProgrammeOpenDate)
+    const dueDate = new Date(item.callProgrammeDueDate)
+
     return new FundingCall(
       item.id,
       this.lang.testLang('name', item),
       this.lang.testLang('description', item),
       this.lang.testLang('applicationTerms', item),
       this.lang.testLang('contactInformation', item),
-      Date.parse(item.callProgrammeOpenDate),
-      Date.parse(item.callProgrammeDueDate),
+      openDate,
+      dueDate,
       foundation,
       categories
     );
