@@ -12,7 +12,7 @@ import { LanguageCheck } from './utils';
 export class FundingCall {
   constructor(
     public id: number,
-    public name: number,
+    public name: string,
     public description: string,
     public terms: string,
     public contactInfo: string,
