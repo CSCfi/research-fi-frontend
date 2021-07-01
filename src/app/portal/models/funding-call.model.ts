@@ -62,7 +62,7 @@ export class FundingCallAdapter implements Adapter<FundingCall> {
       openDateString,
       dueDateString,
       foundation,
-      categories
+      categories.sort((a, b) => +(a.name > b.name) - 0.5)
     );
   }
 

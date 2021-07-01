@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, Input, LOCALE_ID, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FundingCall } from '@portal/models/funding-call.model';
 import { Search } from '@portal/models/search.model';
@@ -22,25 +22,29 @@ export class FundingCallResultsComponent implements OnInit, OnDestroy, AfterView
   @ViewChild('main') mainContent: ElementRef;
 
   faIcon = this.tabChangeService.fundingCall.icon;
-  documentLang: any;
   input: string;
   inputSub: any;
   focusSub: any;
   marginTop = 0;
   heightSub: any;
 
+  currentLocale: string;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private sortService: SortService,
     @Inject(DOCUMENT) private document: any,
+    @Inject(LOCALE_ID) protected localeId: string,
     private tabChangeService: TabChangeService,
     private searchService: SearchService,
     private cdr: ChangeDetectorRef,
     private dataService: DataService,
     public utilityService: UtilityService
   ) {
-    this.documentLang = this.document.documentElement.lang;
+    this.currentLocale =
+        this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+      console.log(this.currentLocale)
   }
 
   ngOnInit() {

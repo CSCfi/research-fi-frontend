@@ -90,6 +90,15 @@
                 [innerHtml]="call.name | highlight: input"
               ></h4>
             </a>
+            <div class="tags">
+              <div
+                *ngFor="let category of call.categories.slice(0, 5);"
+                class="category"
+              >
+                {{ category.name }}
+              </div>
+              <span *ngIf="call.categories.length > 5" class="category-overflow">. . .</span>
+            </div>
           </div>
           <div class="col col-lg-6 col-xl-3 d-none d-lg-block">
             <a *ngIf="call.foundation.orgId" routerLink="/results/organization/{{ call.foundation.orgId }}">
