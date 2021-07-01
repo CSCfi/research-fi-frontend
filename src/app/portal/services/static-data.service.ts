@@ -452,20 +452,30 @@ export class StaticDataService {
           'descriptionFi',
           'descriptionEn',
           'descriptionSv',
-          'scientificDescription',
+          'scientificDescriptionFi',
+          'scientificDescriptionSv',
+          'scientificDescriptionEn',
           'startYear',
           'acronym',
           'responsibleOrganizationNameFi',
           'responsibleOrganizationNameEn',
           'responsibleOrganizationNameSv',
-          'keywords.keyword',
-          'services.serviceName',
-          'services.serviceDescription',
+          'keywordsFi.keyword',
+          'keywordsSv.keyword',
+          'keywordsEn.keyword',
+          'services.serviceNameFi',
+          'services.serviceNameSv',
+          'services.serviceNameEn',
+          'services.serviceDescriptionFi',
+          'services.serviceDescriptionSv',
+          'services.serviceDescriptionEn',
           'services.serviceType',
           'services.servicePointName',
           'services.serviceAcronym',
           'services.servicePointEmailAddress',
-          'services.servicePointInfoUrl',
+          'services.servicePointInfoUrlFi',
+          'services.servicePointInfoUrlEn',
+          'services.servicePointInfoUrlSv',
           'services.servicePointPhoneNumber',
           'services.servicePointVisitingAddress',
         ];
@@ -489,6 +499,20 @@ export class StaticDataService {
       }
       case 'news': {
         res = ['newsHeadline', 'newsContent', 'organizationNameFi'];
+        break;
+      }
+      case 'funding-call': {
+        res = [
+          'nameFi^2',
+          'nameEn^2',
+          'nameSv^2',
+          'descriptionFi',
+          'descriptionSv',
+          'descriptionEn',
+          'foundation.nameFi',
+          'foundation.nameSv',
+          'foundation.nameEn',
+        ];
         break;
       }
     }

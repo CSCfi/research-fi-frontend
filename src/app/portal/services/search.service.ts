@@ -376,4 +376,13 @@ export class SearchService {
         )
         .pipe(map((data) => this.searchAdapter.adapt(data, 'funding-calls')));
     }
+
+    getFundingCallFilters(): Observable<Search[]> {
+      const aggs = this.filterService.constructFilterPayload(
+        'funding-calls',
+        this.searchTerm
+      );
+      const payload = Object.assign(aggs);
+      return this.http.post<Search[]>(this.apiUrl + 'funding-call/_search?', payload);
+    }
 }

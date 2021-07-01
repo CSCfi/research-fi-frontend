@@ -232,6 +232,37 @@ export class FundingCallsComponent implements OnInit, AfterViewInit {
           (error) => (this.errorMessage = error as any)
         );
     }
+
+    searchFundingCalls(term) {
+      this.searchService.updateInput(term);
+      const params = Object.assign({}, this.queryParams);
+      params.search = term;
+      this.router.navigate([], { queryParams: params });
+      this.getData();
+      this.getFilterData();
+    }
+
+    getFilterData() {
+      // Check for Angular Univeral SSR, get filter data if browser
+      if (isPlatformBrowser(this.platformId)) {
+        this.searchService.getFundingCallFilters().subscribe(
+          (filterValues) => {
+            this.filterValues = filterValues;
+            // Send response to data service
+            this.dataService.changeResponse(this.filterValues);
+          },
+          (error) => (this.errorMessage = error as any)
+        );
+      }
+    }
+
+    resetSearch() {
+      this.currentTerm = '';
+      this.searchService.updateInput('');
+      const params = Object.assign({}, this.queryParams);
+      params.search = null;
+      this.router.navigate([], { queryParams: params });
+    }
   
     setTitle(newTitle: string) {
       this.titleService.setTitle(newTitle);

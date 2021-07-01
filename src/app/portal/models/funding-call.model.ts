@@ -37,8 +37,8 @@ export class FundingCallAdapter implements Adapter<FundingCall> {
     const foundation: any = {}
     const f = item.foundation.pop();
     foundation.name = this.lang.testLang('name', f);
-    foundation.orgId = f?.organization_id;
-    foundation.url = f?.url;
+    foundation.orgId = f?.organization_id?.trim();
+    foundation.url = f?.url?.trim();
 
     const categories = [];
     item.categories.forEach(c => categories.push({id: c.codeValue, name: this.lang.testLang('name', c)}));

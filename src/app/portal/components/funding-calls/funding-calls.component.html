@@ -4,8 +4,20 @@ Copyright 2019 Ministry of Education and Culture, Finland
 :license: MIT -->
 
 <h1 #srHeader aria-live="polite" class="sr-only"></h1>
-<aside>
-  <app-search-bar></app-search-bar>
+<aside class="wrapper">
+  <div class="row justify-content-center">
+    <div class="col-6 img">
+      <img src="/assets/img/home/news.jpeg" class="cover-img">
+    </div>
+    <app-search
+      class="col-6"
+      i18n-placeholder="@@searchFundingCallsPlaceHolder"
+      placeholder="Hae rahoitushakuja..."
+      (getSearchTerm)="searchFundingCalls($event)"
+      (resetSearch)="resetSearch()"
+      [initialTerm]="searchService.currentInput | async"
+    ></app-search>
+  </div>
 </aside>
 
 <!-- <div class="text-center" *ngIf="!tabValues || !filterValues">
