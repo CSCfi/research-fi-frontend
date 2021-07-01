@@ -18,7 +18,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { WINDOW } from 'src/app/shared/services/window.service';
 import { ResizeService } from 'src/app/shared/services/resize.service';
-import { common } from 'src/assets/static-data/meta-tags.json';
+import { common, fundingCalls } from 'src/assets/static-data/meta-tags.json';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { combineLatest, merge, Subject, Subscription } from 'rxjs';
 import { FundingCall } from '@portal/models/funding-call.model';
@@ -40,7 +40,7 @@ export class FundingCallsComponent implements OnInit, AfterViewInit {
 
   
     private currentLocale: string;
-    private metaTags = {};
+    private metaTags = fundingCalls;
     private commonTags = common;
   
     queryParams: any;
@@ -156,27 +156,23 @@ export class FundingCallsComponent implements OnInit, AfterViewInit {
       // Set title
       switch (this.localeId) {
         case 'fi': {
-          this.setTitle('');
+          this.setTitle('Rahoitushaut - Tiedejatutkimus.fi');
           break;
         }
         case 'en': {
-          this.setTitle('');
+          this.setTitle('Funding calls - Research.fi');
           break;
         }
         case 'sv': {
-          this.setTitle(
-            ''
-          );
+          this.setTitle('Funding calls - Research.fi');
           break;
         }
       }
 
   
       this.utilityService.addMeta(
-        // this.metaTags['title' + this.currentLocale],
-        '',
-        // this.metaTags['description' + this.currentLocale],
-        '',
+        this.metaTags['title' + this.currentLocale],
+        this.metaTags['description' + this.currentLocale],
         this.commonTags['imgAlt' + this.currentLocale]
       );
   
@@ -217,7 +213,6 @@ export class FundingCallsComponent implements OnInit, AfterViewInit {
     resetFocus() {
       this.tabChangeService.changeFocus(false);
     }
-
 
     getData() {
       this.searchService

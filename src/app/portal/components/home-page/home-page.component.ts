@@ -125,7 +125,6 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     switch (this.localeId) {
       case 'fi': {
         this.setTitle('Etusivu - Tiedejatutkimus.fi');
-
         break;
       }
       case 'en': {

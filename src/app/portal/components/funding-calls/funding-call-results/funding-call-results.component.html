@@ -103,12 +103,12 @@
           </div>
           <div class="col col-xl-2 shorten d-none d-xl-block">
             <span
-              [innerHtml]="call.openDateString | highlight: input"
+              [innerHtml]="call.openDate.getYear() ? (call.openDateString | highlight: input) : '-'"
               ></span>
             </div>
             <div class="col col-lg-2">
               <span
-              [innerHtml]="call.dueDateString | highlight: input"
+              [innerHtml]="call.dueDate.getYear() ? (call.dueDateString | highlight: input) : '-'"
             ></span>
           </div>
           <div class="col-12 col-lg-9" [innerHTML]="call.description | cutContent: 100 | highlight: input"></div>
