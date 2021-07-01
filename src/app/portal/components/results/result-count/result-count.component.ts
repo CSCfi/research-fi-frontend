@@ -35,13 +35,10 @@ export class ResultCountComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.totalSub = this.dataService.currentTotal.subscribe((total) => {
-      console.log(total)
       this.currentSize = this.searchService.pageSize;
-      console.log(this.currentSize)
       this.total = total;
       // Get current page
       this.page = this.searchService.pageNumber;
-      console.log(this.page)
       // Initialize fromPage
       this.fromPage = (this.page - 1) * this.currentSize;
     });

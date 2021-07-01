@@ -1347,6 +1347,68 @@ export class AggregationService {
           },
         };
         break;
+      // Funding-calls
+      case 'funding-calls':
+        // payLoad.aggs.year = yearAgg;
+        payLoad.aggs.field = {
+          nested: {
+            path: 'categories',
+          },
+          aggs: {
+            fieldName: {
+              terms: {
+                field: 'categories.name' + this.localeC + '.keyword',
+                size: 100
+              },
+              aggs: {
+                filtered: {
+                  reverse_nested: {},
+                  aggs: {
+                    filterCount: {
+                      filter: {
+                        bool: {
+                          filter: filterActiveNested('categories'),
+                        },
+                      },
+                    },
+                  },
+                },
+                fieldId: {
+                  terms: {
+                    field: 'categories.codeValue.keyword',
+                  },
+                },
+              },
+            },
+          },
+        };
+        payLoad.aggs.organization = {
+          filter: {
+            bool: {
+              filter: filterActive('foundation.organization_id.keyword'),
+            },
+          },
+          aggs: {
+            orgId: {
+              terms: {
+                field: 'foundation.organization_id.keyword',
+                size: 100,
+                order: {
+                  _key: 'asc',
+                },
+                exclude: ' '
+              },
+              aggs: {
+                orgName: {
+                  terms: {
+                    field: 'foundation.name' + this.localeC + '.keyword',
+                  },
+                },
+              },
+            },
+          },
+        };
+        break;
       // News
       case 'news':
         payLoad.aggs.organization = {

@@ -49,6 +49,7 @@ export class FilterService {
   infraFieldFilter: any;
   currentFilters: any;
   dateFilter: any;
+  fundingCallCategoryFilter: any;
 
   private filterSource = new BehaviorSubject({
     toYear: [],
@@ -333,6 +334,10 @@ export class FilterService {
     this.sectorFilter = this.filterBySector(filter.sector);
     // FundingCalls
     // this.dateFilter = this.filterByDateRange(filter.fromDate, filter.toDate)
+    this.fundingCallCategoryFilter = this.basicFilter(
+      filter.field,
+      'categories.codeValue.keyword'
+    );
   }
 
   // Regular terms filter
@@ -767,6 +772,7 @@ export class FilterService {
       
       // FundingCalls
       ...basicFilter('funding-call', this.organizationFilter),
+      ...nestedFilter('funding-call', this.fundingCallCategoryFilter, 'categories'),
       // ...basicFilter('funding-call', this.dateFilter),
 
       // Global filters

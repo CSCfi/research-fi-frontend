@@ -40,6 +40,7 @@ import { faSlidersH, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { isPlatformBrowser, DOCUMENT } from '@angular/common';
 import { tap } from 'rxjs/operators';
 import { DataService } from 'src/app/portal/services/data.service';
+import { FundingCallFilterService } from '@portal/services/filters/funding-call-filter.service';
 
 @Component({
   selector: 'app-filters',
@@ -102,6 +103,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     private datasetFilters: DatasetFilterService,
     private infrastructureFilters: InfrastructureFilterService,
     private organizationFilters: OrganizationFilterService,
+    private fundingCallFilters: FundingCallFilterService,
     private newsFilters: NewsFilterService,
     @Inject(PLATFORM_ID) private platformId: object,
     private dataService: DataService
@@ -212,7 +214,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
-  ngOnChanges() {
+  ngOnChanges(changes: any) {
     // Save active element
     if (isPlatformBrowser(this.platformId)) {
       this.activeElement = this.document.activeElement.id;
@@ -256,6 +258,12 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
           this.currentFilter = this.organizationFilters.filterData;
           this.currentSingleFilter = this.organizationFilters.singleFilterData;
           this.organizationFilters.shapeData(this.responseData);
+          break;
+        }
+        case 'funding-calls': {
+          this.currentFilter = this.fundingCallFilters.filterData;
+          this.currentSingleFilter = this.fundingCallFilters.singleFilterData;
+          this.fundingCallFilters.shapeData(this.responseData);
           break;
         }
         case 'news': {

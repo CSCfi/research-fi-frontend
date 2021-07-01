@@ -136,6 +136,7 @@ export class FundingCallsComponent implements OnInit, AfterViewInit {
         
         // Get data
         this.getData();
+        this.getFilterData();
       });
 
       this.totalSub = this.searchService.currentTotal.subscribe((total) => {

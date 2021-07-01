@@ -44,7 +44,6 @@ export class FundingCallResultsComponent implements OnInit, OnDestroy, AfterView
   ) {
     this.currentLocale =
         this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
-      console.log(this.currentLocale)
   }
 
   ngOnInit() {
