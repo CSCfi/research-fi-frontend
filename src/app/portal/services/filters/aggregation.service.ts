@@ -1355,7 +1355,7 @@ export class AggregationService {
             path: 'categories',
           },
           aggs: {
-            fieldName: {
+            field: {
               terms: {
                 field: 'categories.name' + this.localeC + '.keyword',
                 size: 100

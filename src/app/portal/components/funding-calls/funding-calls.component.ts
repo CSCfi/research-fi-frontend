@@ -130,7 +130,6 @@ export class FundingCallsComponent implements OnInit, AfterViewInit {
 
         // Update search service stuff
         this.sortService.updateSort(queryParams.sort);
-        console.log(this.page)
         this.searchService.updatePageNumber(
           this.page,
           this.searchService.pageSize

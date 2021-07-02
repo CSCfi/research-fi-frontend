@@ -40,6 +40,7 @@ import { SettingsService } from 'src/app/portal/services/settings.service';
 import { NewsFilterService } from 'src/app/portal/services/filters/news-filter.service';
 import { SearchService } from 'src/app/portal/services/search.service';
 import { isPlatformBrowser } from '@angular/common';
+import { FundingCallFilterService } from '@portal/services/filters/funding-call-filter.service';
 
 @Component({
   selector: 'app-active-filters',
@@ -101,6 +102,7 @@ export class ActiveFiltersComponent
     private datasetFilters: DatasetFilterService,
     private infrastructureFilters: InfrastructureFilterService,
     private organizationFilters: OrganizationFilterService,
+    private fundingCallFilters: FundingCallFilterService,
     private newsFilters: NewsFilterService,
     private settingsService: SettingsService,
     @Inject(PLATFORM_ID) private platformId: object,
@@ -133,6 +135,9 @@ export class ActiveFiltersComponent
       //   break;
       case 'organizations':
         this.tabFilters = this.organizationFilters.filterData;
+        break;
+      case 'funding-calls':
+        this.tabFilters = this.fundingCallFilters.filterData;
         break;
       case 'news':
         this.tabFilters = this.newsFilters.filterData;
@@ -233,6 +238,10 @@ export class ActiveFiltersComponent
             }
             case 'organizations': {
               this.response = this.organizationFilters.shapeData(response);
+              break;
+            }
+            case 'funding-calls': {
+              this.response = this.fundingCallFilters.shapeData(response);
               break;
             }
             case 'news': {
@@ -488,6 +497,7 @@ export class ActiveFiltersComponent
                       });
                     }
                   }, 1);
+                  // Organizations organization name
                 } else if (tab === 'organizations') {
                   if (
                     source.organization?.organizationName?.buckets?.length > 0
@@ -501,6 +511,24 @@ export class ActiveFiltersComponent
                           this.activeFilters[
                             foundIndex
                           ].translation = org.key?.trim();
+                        }
+                      }
+                    );
+                  }
+                  // Funding calls organization name
+                } else if (tab === 'funding-calls') {
+                  if (
+                    source.organization?.orgId?.buckets?.length > 0
+                  ) {
+                    source.organization.orgId.buckets.forEach(
+                      (org) => {
+                        if (org.key === val.value) {
+                          const foundIndex = this.activeFilters.findIndex(
+                            (x) => x.value === val.value
+                          );
+                          this.activeFilters[
+                            foundIndex
+                          ].translation = org.orgName.buckets[0]?.key?.trim();
                         }
                       }
                     );

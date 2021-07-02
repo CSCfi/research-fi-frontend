@@ -58,7 +58,6 @@ export class SearchService {
     private settingsService: SettingsService,
     private searchAdapter: SearchAdapter,
     private newsAdapter: NewsAdapter,
-    private fundingCallAdapter: FundingCallAdapter,
     private visualAdapter: VisualAdapter,
     private aggService: AggregationService
   ) {

@@ -64,7 +64,7 @@
                             </ng-container>
                         </h2>
                         <div class="col-12 col-sm-8 col-lg-9 td">
-                            <div [ngClass]="expandDescription ? 'expand' : 'short'" [innerHTML]="call[row.field]">
+                            <div [ngClass]="row.field !== 'description' || expandDescription ? 'expand' : 'short'" [innerHTML]="call[row.field]">
                                 <!-- {{ call[row.field] }} -->
                             </div>
                             <a 
@@ -113,7 +113,7 @@
                             </ng-container>
                         </h2>
                         <div class="col-12 col-sm-8 col-lg-9 td">
-                            <div [ngClass]="expandTerms ? 'expand' : 'short'" [innerHTML]="call[row.field]">
+                            <div [ngClass]="row.field !== 'terms' || expandTerms ? 'expand' : 'short'" [innerHTML]="call[row.field]">
                                 <!-- {{ call[row.field] }} -->
                             </div>
                             <a 
@@ -180,7 +180,7 @@
                         <h2 i18n="@@fundingCallSource">Rahoitushaun lähde</h2>
                     </mat-card-title>
                     <div class="links">
-                        <a href="https://www.aurora-tietokanta.fi/">Aurora tietokanta <fa-icon icon="external-link-alt"></fa-icon></a>
+                        <a href="https://www.aurora-tietokanta.fi/"><ng-container i18n="@@auroraDatabase">Aurora-tietokanta </ng-container><fa-icon icon="external-link-alt"></fa-icon></a>
                     </div>
                     <!-- <div>
                         <p *ngIf="!call.dataCatalog?.length">

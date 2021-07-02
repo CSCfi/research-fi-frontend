@@ -41,7 +41,7 @@ export class FundingCallFilterService {
     // Organization
     this.organization(source.organization);
     // Field of science
-    source.field = this.field(source.field.fieldName);
+    source.field = this.field(source.field.field);
     source.shaped = true;
     return source;
   }
@@ -60,12 +60,18 @@ export class FundingCallFilterService {
   field(data) {
     data.buckets.map((item) => {
       item.label = item.key;
-      item.key = item.fieldId.buckets.pop()?.key;
+      item.key = item.fieldId.buckets[0]?.key;
       item.id = item.key;
       item.doc_count = item.filtered.filterCount.doc_count;
     });
     // Sort by category name
     data.buckets.sort((a, b) => +(a.label > b.label) - 0.5);
+    
+    // Add extra field for active-filters
+    const cp = cloneDeep(data.buckets);
+    cp.forEach(f => f.key = f.label);
+    data.fields = {buckets: cp};
+
     return data;
   }
 } 
