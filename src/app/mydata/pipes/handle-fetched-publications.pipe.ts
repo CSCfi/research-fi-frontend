@@ -10,23 +10,23 @@ import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { cloneDeep } from 'lodash-es';
 
 @Pipe({
-  name: 'removeFetchedPublications',
+  name: 'handleFetchedPublications',
 })
 
 /*
  * Fetched publications have primaryValue as true. Publications from profile have their dedicated list.
  */
-export class RemoveFetchedPublicationsPipe implements PipeTransform {
+export class HandleFetchedPublicationsPipe implements PipeTransform {
   fieldTypes = FieldTypes;
 
-  transform(groupItems: any) {
+  transform(groupItems: any, showFetched = false) {
     const publicationType = this.fieldTypes.activityPublication;
 
     if (groupItems[0].groupMeta.type === publicationType) {
       const groupItemsClone = cloneDeep(groupItems);
       for (const group of groupItemsClone) {
-        group.items = group.items.filter(
-          (item) => item.itemMeta.primaryValue === false
+        group.items = group.items.filter((item) =>
+          item.itemMeta.primaryValue === showFetched ? true : false
         );
       }
       return groupItemsClone;
