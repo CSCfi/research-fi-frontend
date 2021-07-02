@@ -35,12 +35,27 @@ export class SingleFundingCallComponent implements OnInit {
 
   tab = 'funding-calls';
 
-  infoFields = [
-    { label: $localize`:@@description:Kuvaus`, field: 'description' },
-    { label: $localize`:@@terms:Käyttöehdot`, field: 'applicationTerms' },
+  applicationPeriodFields = [
+    { label: $localize`:@@applicationPeriod:Hakuaika`, field: '' },
   ];
 
-  linksFields = []
+  infoFields = [
+    { label: $localize`:@@description:Kuvaus`, field: 'description' },
+  ];
+
+  categories = [
+    { label: $localize`:@@categories:Hakualat`, field: 'categories' },
+  ];
+  
+  applicationInfoFields = [
+    { label: $localize`:@@applicationInstructions:Hakuohjeet`, field: 'terms' },
+    { label: $localize`:@@applicationSite:Hakusivu`, field: '' },
+    { label: $localize`:@@contactInfo:Yhteystiedot`, field: 'contactInfo' },
+  ]
+  
+  funderFields = [
+    { label: $localize`:@@funder:Rahoittaja`, field: 'foundation' },
+  ]
 
   copyToClipboard = $localize`:@@copyToClipboard:Kopioi leikepöydälle`;
 
@@ -48,7 +63,8 @@ export class SingleFundingCallComponent implements OnInit {
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
   @ViewChild('backToResultsLink') backToResultsLink: ElementRef;
   idSub: Subscription;
-  expand: boolean;
+  expandDescription: boolean;
+  expandTerms: boolean;
   latestSubUnitYear: string;
   faIcon = faAlignLeft;
   subUnitSlice = 10;
@@ -154,13 +170,21 @@ export class SingleFundingCallComponent implements OnInit {
     };
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter((item) => checkEmpty(item));
+    this.applicationInfoFields = this.applicationInfoFields.filter((item) => checkEmpty(item));
   }
 
   shapeData() {
     const source = this.responseData.fundingCalls[0];
   }
 
-  expandDescription() {
-    this.expand = !this.expand;
+  expand(field: string) {
+    switch (field) { 
+      case 'description':
+        this.expandDescription = !this.expandDescription;
+        break;
+      case 'terms':
+        this.expandTerms = !this.expandTerms;
+        break
+    }
   }
 }

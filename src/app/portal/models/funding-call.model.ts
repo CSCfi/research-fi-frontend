@@ -56,7 +56,7 @@ export class FundingCallAdapter implements Adapter<FundingCall> {
       this.lang.testLang('name', item),
       this.lang.testLang('description', item),
       this.lang.testLang('applicationTerms', item),
-      this.lang.testLang('contactInformation', item),
+      item.contactInformation,
       openDate,
       dueDate,
       openDateString,

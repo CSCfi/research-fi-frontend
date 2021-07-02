@@ -29,6 +29,26 @@
                 </div>
 
                 <div id="info" class="table">
+                    <!-- ApplicationPeriod -->
+                    <div class="row content" *ngFor="let row of applicationPeriodFields">
+                        <!-- Labels -->
+                        <h2 class="col-12 col-sm-6 col-lg-3 th">
+                            {{ row.label }}
+                            <ng-container *ngIf="row.tooltip">
+                                <ng-template #tooltipTemplate>
+                                    <div [innerHtml]="row.tooltip"></div>
+                                </ng-template>
+                                <span [tooltip]="tooltipTemplate" tabindex="0" placement="top" #elem>
+                                    <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                </span>
+                            </ng-container>
+                        </h2>
+                        <div class="col-12 col-sm-8 col-lg-9 td">
+                            <div [ngClass]="expand ? 'expand' : 'short'" >
+                                {{ call.openDateString + ' - ' + call.dueDateString}}
+                            </div>
+                        </div>
+                    </div>
                     <!-- InfoFields -->
                     <div class="row content" *ngFor="let row of infoFields">
                         <!-- Labels -->
@@ -44,16 +64,66 @@
                             </ng-container>
                         </h2>
                         <div class="col-12 col-sm-8 col-lg-9 td">
-                            <div [ngClass]="expand ? 'expand' : 'short'" [innerHTML]="call[row.field]">
+                            <div [ngClass]="expandDescription ? 'expand' : 'short'" [innerHTML]="call[row.field]">
                                 <!-- {{ call[row.field] }} -->
                             </div>
                             <a 
                             href="javascript:void(0)" 
                                 class="read-more" 
                                 *ngIf="row.field === 'description' && call.description?.length > 256" 
-                                (click)="expandDescription()" 
-                                [innerHTML]="expand ? showLess : showMore">
+                                (click)="expand('description')" 
+                                [innerHTML]="expandDescription ? showLess : showMore">
                             </a>
+                        </div>
+                    </div>
+                    <!-- Categories -->
+                    <div class="row content" *ngFor="let row of categories">
+                        <!-- Labels -->
+                        <h2 class="col-12 col-sm-6 col-lg-3 th">
+                            {{ row.label }}
+                            <ng-container *ngIf="row.tooltip">
+                                <ng-template #tooltipTemplate>
+                                    <div [innerHtml]="row.tooltip"></div>
+                                </ng-template>
+                                <span [tooltip]="tooltipTemplate" tabindex="0" placement="top" #elem>
+                                    <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                </span>
+                            </ng-container>
+                        </h2>
+                        <div class="col-12 col-sm-8 col-lg-9 td">
+                            <div>
+                                <span *ngFor="let category of call.categories; let last = last">
+                                    {{category.name}}<ng-container *ngIf="!last">, </ng-container>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ApplicationInfoFields -->
+                    <div class="row content" *ngFor="let row of applicationInfoFields">
+                        <!-- Labels -->
+                        <h2 class="col-12 col-sm-6 col-lg-3 th">
+                            {{ row.label }}
+                            <ng-container *ngIf="row.tooltip">
+                                <ng-template #tooltipTemplate>
+                                    <div [innerHtml]="row.tooltip"></div>
+                                </ng-template>
+                                <span [tooltip]="tooltipTemplate" tabindex="0" placement="top" #elem>
+                                    <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                </span>
+                            </ng-container>
+                        </h2>
+                        <div class="col-12 col-sm-8 col-lg-9 td">
+                            <div [ngClass]="expandTerms ? 'expand' : 'short'" [innerHTML]="call[row.field]">
+                                <!-- {{ call[row.field] }} -->
+                            </div>
+                            <a 
+                            href="javascript:void(0)" 
+                                class="read-more" 
+                                *ngIf="row.field === 'terms' && call.terms?.length > 256" 
+                                (click)="expand('terms')" 
+                                [innerHTML]="expandTerms ? showLess : showMore">
+                            </a>
+
                         </div>
                     </div>
                 </div>
@@ -64,12 +134,14 @@
                 <aside>
                     <mat-card>
                         <mat-card-title>
-                            <h2 i18n="@@fundingCallLinks">Linkit rahoitushakuun</h2>
+                            <h2 i18n="@@funder">Rahoittaja</h2>
                         </mat-card-title>
-                        <div class="row links" *ngFor="let row of linksFields"></div>
-
-                        <div *ngIf="!linksFields.length && !call.selfArchivedData" class="no-links" i18n="@@noFundingCallLinks">
-                            Rahoitushakuun ei ole tarjolla linkkejä tässä portaalissa
+                        <div class="row links" *ngFor="let row of funderFields">
+                            <div class="col-12 font-weight-normal">{{call[row.field].name}}</div>
+                            <div class="col-12" *ngIf="call[row.field].url"><a [href]="call[row.field].url">{{call[row.field].url}}</a></div>
+                            <!-- <div *ngIf="!linksFields.length && !call.selfArchivedData" class="no-links" i18n="@@noFundingCallLinks">
+                                Rahoitushakuun ei ole tarjolla linkkejä tässä portaalissa
+                            </div> -->
                         </div>
                     </mat-card>
                 </aside>
@@ -107,11 +179,14 @@
                     <mat-card-title>
                         <h2 i18n="@@fundingCallSource">Rahoitushaun lähde</h2>
                     </mat-card-title>
-                    <div>
+                    <div class="links">
+                        <a href="https://www.aurora-tietokanta.fi/">Aurora tietokanta <fa-icon icon="external-link-alt"></fa-icon></a>
+                    </div>
+                    <!-- <div>
                         <p *ngIf="!call.dataCatalog?.length">
                             Tiedon lähde ei saatavilla.
                         </p>
-                    </div>
+                    </div> -->
                     <div class="clear"></div>
                 </mat-card>
             </aside>
