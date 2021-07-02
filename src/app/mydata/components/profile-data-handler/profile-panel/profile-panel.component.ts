@@ -274,8 +274,6 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
       (groupItem) => groupItem.items
     );
 
-    console.log('item: ', items);
-
     // Combine groups and sort. Display items in summary only from first group
     const sortedItems = items.sort(
       (a, b) => b.publicationYear - a.publicationYear
