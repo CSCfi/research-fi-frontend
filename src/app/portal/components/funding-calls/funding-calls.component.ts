@@ -136,6 +136,8 @@ export class FundingCallsComponent implements OnInit, AfterViewInit {
         );
         this.searchService.updateQueryParams(queryParams);
         
+        // Reset data so old is not shown while loading
+        this.resultData = undefined;
         // Get data
         this.getData();
         this.getFilterData();
