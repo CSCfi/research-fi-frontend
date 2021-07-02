@@ -1,10 +1,16 @@
+//  This file is part of the research.fi API service
+//
+//  Copyright 2019 Ministry of Education and Culture, Finland
+//
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
 import { ProfileService } from '@mydata/services/profile.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { take } from 'rxjs/operators';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { DeleteProfileDialogComponent } from './delete-profile-dialog/delete-profile-dialog.component';
 
 @Component({
@@ -36,7 +42,6 @@ export class ProfileComponent implements OnInit {
   constructor(
     private profileService: ProfileService,
     public oidcSecurityService: OidcSecurityService,
-    private router: Router,
     private appSettingsService: AppSettingsService,
     public dialog: MatDialog
   ) {
