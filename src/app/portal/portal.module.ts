@@ -346,6 +346,22 @@ export class PortalModule {
             viewportScroller.scrollToPosition([0, 0]);
           }
           this.startPage = targetPage;
+
+        // Similar to /results but for /funding-calls
+        } else if (e.routerEvent.url.includes('/funding-calls')) {
+          const targetPage =
+            +router.parseUrl(e.routerEvent.url).queryParams.page || 1;
+          // Different page or coming from different route
+          if (
+            this.startPage !== targetPage ||
+            !this.historyService.history[
+              this.historyService.history.length - 2
+            ]?.includes('/funding-calls')
+          ) {
+            viewportScroller.scrollToPosition([0, 0]);
+          }
+          this.startPage = targetPage;
+          
         } else if (e.routerEvent.url.includes('/science-research-figures')) {
           // scroll to top only in single figure view
           if (

@@ -137,6 +137,7 @@ export class FundingCallsComponent implements OnInit, AfterViewInit {
         this.searchService.updateQueryParams(queryParams);
         
         // Reset data so old is not shown while loading
+        // Prevent page scrolling on query param changes in portal.module.ts
         this.resultData = undefined;
         // Get data
         this.getData();
