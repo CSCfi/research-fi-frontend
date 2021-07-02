@@ -146,6 +146,9 @@ import { BannerComponent } from './components/home-page/banner/banner.component'
 import { LatestNewsComponent } from './components/news/latest-news/latest-news.component';
 import { NewsResultsComponent } from './components/news/news-results/news-results.component';
 import { ConvertToArrayPipe } from './pipes/convert-to-array.pipe';
+import { FundingCallsComponent } from './components/funding-calls/funding-calls.component';
+import { SingleFundingCallComponent } from './components/funding-calls/single-funding-call/single-funding-call.component';
+import { FundingCallResultsComponent } from './components/funding-calls/funding-call-results/funding-call-results.component';
 
 @NgModule({
   declarations: [
@@ -213,6 +216,9 @@ import { ConvertToArrayPipe } from './pipes/convert-to-array.pipe';
     LatestNewsComponent,
     NewsResultsComponent,
     ConvertToArrayPipe,
+    FundingCallsComponent,
+    SingleFundingCallComponent,
+    FundingCallResultsComponent,
   ],
   imports: [
     PortalRoutingModule,
@@ -340,6 +346,22 @@ export class PortalModule {
             viewportScroller.scrollToPosition([0, 0]);
           }
           this.startPage = targetPage;
+
+        // Similar to /results but for /funding-calls
+        } else if (e.routerEvent.url.includes('/funding-calls')) {
+          const targetPage =
+            +router.parseUrl(e.routerEvent.url).queryParams.page || 1;
+          // Different page or coming from different route
+          if (
+            this.startPage !== targetPage ||
+            !this.historyService.history[
+              this.historyService.history.length - 2
+            ]?.includes('/funding-calls')
+          ) {
+            viewportScroller.scrollToPosition([0, 0]);
+          }
+          this.startPage = targetPage;
+          
         } else if (e.routerEvent.url.includes('/science-research-figures')) {
           // scroll to top only in single figure view
           if (

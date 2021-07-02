@@ -73,6 +73,15 @@ export class TabChangeService {
     },
   ];
 
+  fundingCall = {
+    data: 'funding-calls',
+    label: $localize`:@@fundingCalls:Rahoitushaut`,
+    link: 'funding-calls',
+    icon: faCalculator,
+    singular: 'rahoitushaku',
+    tooltip: ''
+  }
+
   private tabSource = new BehaviorSubject({
     data: '',
     label: '',

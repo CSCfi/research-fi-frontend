@@ -48,6 +48,8 @@ export class FilterService {
   typeFilter: any;
   infraFieldFilter: any;
   currentFilters: any;
+  dateFilter: any;
+  fundingCallCategoryFilter: any;
 
   private filterSource = new BehaviorSubject({
     toYear: [],
@@ -76,6 +78,8 @@ export class FilterService {
     accessType: [],
     type: [],
     coPublication: [],
+    // fromDate: [],
+    // toDate: []
   });
   filters = this.filterSource.asObservable();
   localeC: string;
@@ -110,6 +114,8 @@ export class FilterService {
     accessType: any[];
     type: any[];
     coPublication: any[];
+    // fromDate: any[],
+    // toDate: any[]
   }) {
     // Create new filters first before sending updated values to components
     this.currentFilters = filters;
@@ -326,6 +332,12 @@ export class FilterService {
     );
     // Organization
     this.sectorFilter = this.filterBySector(filter.sector);
+    // FundingCalls
+    // this.dateFilter = this.filterByDateRange(filter.fromDate, filter.toDate)
+    this.fundingCallCategoryFilter = this.basicFilter(
+      filter.field,
+      'categories.codeValue.keyword'
+    );
   }
 
   // Regular terms filter
@@ -389,8 +401,21 @@ export class FilterService {
     } else if (t) {
       res.push({ range: { publicationYear: { lte: t } } });
     }
-
+    
     return res;
+  }
+  
+  filterByDateRange(from, to) {
+    const f = parseInt(from?.slice(1), 10);
+    const t = parseInt(to?.slice(1), 10);
+    const res = [];
+    if (f && t) {
+      res.push({ range: { callProgrammeDueDate: {gte: f, lte: t}}})
+    } else if (f) {
+      res.push({ range: { callProgrammeDueDate: { gte: f } } });
+    } else if (t) {
+      res.push({ range: { callProgrammeDueDate: { lte: t } } });    
+    }
   }
 
   filterByOrganization(filter: any[]) {
@@ -446,6 +471,12 @@ export class FilterService {
       case 'news': {
         filter.forEach((value) => {
           res.push({ term: { 'organizationId.keyword': value } });
+        });
+        break;
+      }
+      case 'funding-calls': {
+        filter.forEach((value) => {
+          res.push({ term: { 'foundation.organization_id.keyword': value } });
         });
         break;
       }
@@ -738,6 +769,11 @@ export class FilterService {
 
       // News
       ...basicFilter('news', this.organizationFilter),
+      
+      // FundingCalls
+      ...basicFilter('funding-call', this.organizationFilter),
+      ...nestedFilter('funding-call', this.fundingCallCategoryFilter, 'categories'),
+      // ...basicFilter('funding-call', this.dateFilter),
 
       // Global filters
       ...globalFilter(this.yearFilter),
@@ -803,6 +839,11 @@ export class FilterService {
 
   constructNewsPayload(searchTerm: string) {
     const query = this.constructQuery('news', searchTerm);
+    return query;
+  }
+
+  constructFundingCallPayload(searchTerm: string) {
+    const query = this.constructQuery('funding-call', searchTerm);
     return query;
   }
 

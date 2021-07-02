@@ -1,0 +1,28 @@
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 0.7rem;
+    margin-top: 0.5rem;
+    > div,
+    .div {
+      border-radius: 3px;
+      font-weight: bold;
+      margin: 4px;
+      width: fit-content;
+      height: fit-content;
+      white-space: nowrap;
+      display: flex;
+      margin-inline-start: 0;
+    }
+
+    .category {
+      padding: 3px 15px;
+    }
+    fa-icon {
+      padding-left: 0.25rem;
+    }
+    .category-overflow {
+        font-weight: bold;
+        margin: 10px 0 0 0;
+    }
+}

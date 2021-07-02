@@ -46,6 +46,17 @@
       </li>
       <li class="breadcrumb-item arrow_box last" aria-current="page"></li>
     </ol>
+    <ol class="breadcrumb px-0 m-0" *ngIf="type === 'funding-call'">
+      <li class="breadcrumb-item arrow_box first" style="z-index: 3">
+        <a i18n="@@fundingCalls"
+          >Rahoitushaut</a
+        >
+      </li>
+      <li class="breadcrumb-item arrow_box active" aria-current="page">
+        {{ responseData.fundingCalls[0].name }}
+      </li>
+      <li class="breadcrumb-item arrow_box last" aria-current="page"></li>
+    </ol>
   </nav>
 </ng-container>
 <ng-template #noData>

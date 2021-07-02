@@ -21,6 +21,7 @@ import {
   Visual,
 } from '../models/visualisation/visualisations.model';
 import { AggregationService } from './filters/aggregation.service';
+import { FundingCall, FundingCallAdapter } from '@portal/models/funding-call.model';
 
 @Injectable()
 export class SearchService {
@@ -338,7 +339,7 @@ export class SearchService {
       )
       .pipe(map((data) => this.newsAdapter.adaptMany(data)));
   }
-
+  
   // News page older news content
   getOlderNews(size?: number): Observable<News[]> {
     const sort = { timestamp: { order: 'desc' } };
@@ -348,12 +349,39 @@ export class SearchService {
       from: this.fromNewsPage,
       sort: [sort],
     };
-
+    
     return this.http
-      .post<News[]>(
-        this.apiUrl + 'news' + '/_search?' + 'request_cache=true',
-        payload
+    .post<News[]>(
+      this.apiUrl + 'news' + '/_search?' + 'request_cache=true',
+      payload
       )
       .pipe(map((data) => this.newsAdapter.adaptMany(data)));
-  }
+    }
+
+    // News page content
+    getFundingCalls(size?: number, from: number = 0): Observable<Search> {
+      const sort = { callProgrammeDueDate: { order: 'desc' } };
+      const payload = {
+        query: this.filterService.constructFundingCallPayload(this.searchTerm),
+        size,
+        sort: [sort],
+        from: from,
+      };
+  
+      return this.http
+        .post<Search>(
+          this.apiUrl + 'funding-call' + '/_search?',
+          payload
+        )
+        .pipe(map((data) => this.searchAdapter.adapt(data, 'funding-calls')));
+    }
+
+    getFundingCallFilters(): Observable<Search[]> {
+      const aggs = this.filterService.constructFilterPayload(
+        'funding-calls',
+        this.searchTerm
+      );
+      const payload = Object.assign(aggs);
+      return this.http.post<Search[]>(this.apiUrl + 'funding-call/_search?', payload);
+    }
 }
