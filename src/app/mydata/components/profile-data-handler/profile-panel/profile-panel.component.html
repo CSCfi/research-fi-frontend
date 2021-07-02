@@ -55,7 +55,9 @@
       </ng-container>
 
       <!-- Options -->
-      <ng-container *ngFor="let groupItem of field.groupItems">
+      <ng-container
+        *ngFor="let groupItem of field.groupItems | removeFetchedPublications"
+      >
         <!-- Keywords have values that need to be joined -->
         <ng-container [ngSwitch]="groupItem.groupMeta.type">
           <div class="row" *ngSwitchCase="fieldTypes.personKeyword">
@@ -115,6 +117,21 @@
                   {{ groupItem.groupMeta.id }}
                 </div> -->
 
+                <!-- Enable deletion of publications that are added from TTV -->
+                <div
+                  class="col-auto mt-1"
+                  *ngIf="
+                    groupItem.groupMeta.type ===
+                      fieldTypes.activityPublication &&
+                    item.itemMeta.primaryValue
+                  "
+                >
+                  <app-secondary-button
+                    content="Poista"
+                    (click)="removePublication(item)"
+                  ></app-secondary-button>
+                </div>
+
                 <!-- Source -->
                 <div
                   class="
@@ -126,7 +143,19 @@
                     font-size-small
                   "
                 >
-                  {{ groupItem.source.organization['name' + locale] }}
+                  <ng-container *ngIf="item.merged; else singleSource">
+                    <div
+                      class="row"
+                      *ngFor="let source of item.source.organizations"
+                    >
+                      <div class="col px-0">
+                        {{ source['name' + locale] }}
+                      </div>
+                    </div>
+                  </ng-container>
+                  <ng-template #singleSource>{{
+                    groupItem.source.organization['name' + locale]
+                  }}</ng-template>
                 </div>
               </div>
 
@@ -156,15 +185,18 @@
       </ng-container>
 
       <!-- Fetched publications -->
-      <ng-container *ngIf="field.selectedPublications">
-        <span class="font-size-big">Tuodut julkaisut</span>
+      <ng-container *ngIf="(field.groupItems | mapFetchedPublications).length">
+        <span class="font-size-big d-block pb-3">Tuodut julkaisut</span>
         <div
-          class="row d-flex justify-content-between py-3"
-          *ngFor="let publication of field.selectedPublications; let j = index"
+          class="row d-flex justify-content-between py-2"
+          *ngFor="
+            let publication of field.groupItems | mapFetchedPublications;
+            let j = index
+          "
         >
           <div class="col px-0 font-size-smaller">
             <mat-checkbox
-              [checked]="publication.show"
+              [checked]="publication.itemMeta.show"
               (change)="togglePublication($event, publication)"
             >
               <app-panel-array-item
@@ -182,11 +214,44 @@
             ></app-secondary-button>
           </div>
 
-          <div class="col-auto pr-0 mt-1 text-right opacity-3 font-size-small">
+          <div class="col-auto pr-0 text-right opacity-3 font-size-small">
             Tiedejatutkimus.fi
           </div>
         </div>
       </ng-container>
+
+      <!-- SERVES NO PURPOSE -->
+      <!-- Merged publications -->
+      <!-- <ng-container *ngIf="field.mergedPublications?.length">
+        <span class="font-size-big">Yhdistetyt julkaisut</span>
+        <div
+          class="row d-flex justify-content-between py-3"
+          *ngFor="let publication of field.mergedPublications"
+        >
+          <div class="col px-0 font-size-smaller">
+            <mat-checkbox
+              [checked]="publication.itemMeta.show"
+              (change)="togglePublication($event, publication)"
+            >
+              <app-panel-array-item
+                class="pl-1 d-block"
+                [item]="publication"
+                [fieldType]="fieldTypes.activityPublication"
+              ></app-panel-array-item>
+            </mat-checkbox>
+          </div>
+
+          <div class="col-auto pr-0 text-right opacity-3 font-size-small">
+            <span
+              *ngIf="
+                publication.source.organization['name' + locale] !== ttvLabel
+              "
+              >{{ publication.source.organization['name' + locale] }} <br
+            /></span>
+            {{ ttvLabel }}
+          </div>
+        </div>
+      </ng-container> -->
 
       <div class="row py-3 font-size-small" *ngIf="field.single">
         <div class="col col-lg-6 pl-0">
@@ -199,8 +264,6 @@
         </div>
         <!-- <div class="col pr-0 opacity-3"><span>1 lähde valittu</span></div> -->
       </div>
-
-      <!-- <hr *ngIf="i + 1 < data.fields.length" class="m-0" /> -->
     </mat-expansion-panel>
   </mat-accordion>
 </div>

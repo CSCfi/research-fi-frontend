@@ -133,6 +133,7 @@ export class EditorModalComponent implements OnInit {
     itemMeta: any;
     index: string | number;
   }) {
+    console.log(response);
     const parentGroup = this.editorData.data.fields[
       response.index
     ].groupItems.find((group) => group.groupMeta.id === response.groupId);

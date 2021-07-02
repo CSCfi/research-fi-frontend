@@ -70,6 +70,10 @@ export class ProfileDataHandlerComponent implements OnInit {
 
     // Set primary data source on init. Defaults to ORCID
     this.setPrimaryDataSource(this.dataSources[0]);
+
+    // Merge publications
+    // TODO: Find better way to pass array element than index numver. Eg. type
+    this.mergePublications(this.profileData[4]);
   }
 
   setPrimaryDataSource(option) {
@@ -80,6 +84,42 @@ export class ProfileDataHandlerComponent implements OnInit {
       this.profileData.filter((element) => element.fields.length),
       option
     );
+  }
+
+  mergePublications(data) {
+    const publications = data.fields[0].groupItems;
+
+    for (let [i, publication] of publications[0].items.entries()) {
+      if (publications.length === 2) {
+        const match = publications[1].items.find(
+          (item) => item.doi === publication.doi
+        );
+
+        if (match) {
+          publications[0].items[i] = {
+            ...publication,
+            merged: true,
+            source: {
+              organizations: [
+                publications[0].source.organization,
+                publications[1].source.organization,
+              ],
+            },
+          };
+
+          // Remove duplicate
+          publications[1].items = publications[1].items.filter(
+            (item) => item.doi !== publication.doi
+          );
+        }
+        // else {
+        //   for (const group of publications.shift()) {
+        //     if (group.items.find((item) => item.doi === publication.doi)) {
+        //     }
+        //   }
+        // }
+      }
+    }
   }
 
   setDefaultOptions(data, primarySource) {

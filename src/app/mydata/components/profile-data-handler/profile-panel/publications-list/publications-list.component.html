@@ -16,7 +16,12 @@
     <mat-header-cell *matHeaderCellDef></mat-header-cell>
     <mat-cell *matCellDef="let item; let i = index">
       <mat-checkbox
-        [checked]="selectedItemsIdArray.indexOf(item._source.id) > -1"
+        [checked]="
+          selectedItemsIdArray.indexOf(item._source.publicationId) > -1
+        "
+        [disabled]="
+          selectedItemsIdArray.indexOf(item._source.publicationId) > -1
+        "
         (change)="togglePublication($event, i)"
       ></mat-checkbox>
     </mat-cell>

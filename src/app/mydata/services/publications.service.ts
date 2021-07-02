@@ -95,9 +95,9 @@ export class PublicationsService {
     );
   }
 
-  patchPublication(publicationId: string) {
+  addPublications(publications: any[]) {
     this.updateTokenInHttpAuthHeader();
-    let body = { publicationId: publicationId };
+    let body = publications;
     return this.http.post(
       this.profileApiUrl + '/publication/',
       body,
@@ -108,7 +108,8 @@ export class PublicationsService {
   deletePublication(publicationId) {
     this.updateTokenInHttpAuthHeader();
     return this.http.delete(
-      this.profileApiUrl + '/publication/' + publicationId
+      this.profileApiUrl + '/publication/' + publicationId,
+      this.httpOptions
     );
   }
 }

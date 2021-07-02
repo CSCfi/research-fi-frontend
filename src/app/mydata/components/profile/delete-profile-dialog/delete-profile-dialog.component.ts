@@ -9,6 +9,9 @@ import { take } from 'rxjs/operators';
   templateUrl: './delete-profile-dialog.component.html',
 })
 export class DeleteProfileDialogComponent {
+  loading: boolean;
+  connProblem: boolean;
+
   constructor(
     private profileService: ProfileService,
     private router: Router,
@@ -16,13 +19,26 @@ export class DeleteProfileDialogComponent {
   ) {}
 
   deleteProfile() {
+    this.connProblem = false;
+    this.loading = true;
     this.profileService
       .deleteProfile()
       .pipe(take(1))
-      .subscribe((data) => {
-        this.router.navigate(['/mydata']);
-        this.dialogRef.close();
-      });
+      .subscribe(
+        (res: any) => {
+          this.loading = false;
+          if (res.ok && res.body.success) {
+            this.router.navigate(['/mydata']);
+            this.dialogRef.close();
+          }
+        },
+        (error) => {
+          this.loading = false;
+          if (!error.ok) {
+            this.connProblem = true;
+          }
+        }
+      );
   }
 
   close() {

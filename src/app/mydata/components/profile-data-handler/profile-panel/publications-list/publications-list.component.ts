@@ -25,6 +25,7 @@ import { PublicationsService } from '@mydata/services/publications.service';
 export class PublicationsListComponent implements OnInit, OnChanges {
   @Input() data: any[];
   @Input() total: number;
+  @Input() profilePublications: any;
   @Input() selectedItems: any;
   @Output() onPublicationToggle = new EventEmitter<any>();
   @Output() onPageChange = new EventEmitter<any>();
@@ -48,7 +49,17 @@ export class PublicationsListComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     // Check match in template
-    this.selectedItemsIdArray = this.selectedItems.map((item) => item.id);
+
+    const profileItems = this.profilePublications
+      .flatMap((item) => item.items)
+      .map((item) => item.publicationId)
+      .filter((item) => item.trim().length);
+
+    const preSelection = this.selectedItems;
+
+    this.selectedItemsIdArray = preSelection
+      .map((item) => item.publicationId)
+      .concat(profileItems);
   }
 
   ngOnChanges() {
@@ -72,27 +83,27 @@ export class PublicationsListComponent implements OnInit, OnChanges {
 
     let arr = this.publicationArray;
 
-    // Patch operations
-    switch (event.checked) {
-      case true: {
-        break;
-      }
-      case false: {
-        break;
-      }
-    }
-
-    if (selectedItems.find((item) => item.id === selectedPublication.id)) {
+    if (
+      selectedItems.find(
+        (item) => item.publicationId === selectedPublication.publicationId
+      )
+    ) {
       arr.push({
-        ...selectedItems.find((item) => item.id === selectedPublication.id),
+        ...selectedItems.find(
+          (item) => item.publicationId === selectedPublication.publicationId
+        ),
         show: event.checked,
       });
     } else {
       event.checked
-        ? arr.find((item) => item.id === selectedPublication.id)
+        ? arr.find(
+            (item) => item.publicationId === selectedPublication.publicationId
+          )
           ? null // Prevent adding of duplicate items
           : arr.push({ ...selectedPublication, show: true })
-        : (arr = arr.filter((item) => item.id !== selectedPublication.id));
+        : (arr = arr.filter(
+            (item) => item.publicationId !== selectedPublication.publicationId
+          ));
     }
 
     this.onPublicationToggle.emit(arr);

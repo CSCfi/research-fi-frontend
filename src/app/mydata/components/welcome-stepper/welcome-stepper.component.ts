@@ -60,7 +60,7 @@ export class WelcomeStepperComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.step = this.appSettingsService.myDataSettings.develop ? 4 : 1;
+    this.step = this.appSettingsService.myDataSettings.develop ? 4 : 3;
 
     this.oidcSecurityService.userData$.pipe(take(1)).subscribe((data) => {
       this.userData = data;

@@ -52,13 +52,6 @@ export class SearchPublicationsComponent implements OnInit {
 
   handleSelection(arr) {
     this.currentSelection = arr;
-    console.log(JSON.stringify(arr[0]));
-    console.log(arr[0].publicationId);
-
-    this.publicationService
-      .patchPublication(arr[0].publicationId)
-      .pipe(take(1))
-      .subscribe((res) => console.log(res));
   }
 
   changePage(pageSettings) {
@@ -76,8 +69,33 @@ export class SearchPublicationsComponent implements OnInit {
   }
 
   saveChanges() {
-    this.dialogRef.close({
-      selectedPublications: this.currentSelection,
-    });
+    const publications = this.currentSelection.map((item) => ({
+      publicationId: item.publicationId,
+      show: true,
+      primaryValue: true,
+    }));
+
+    this.publicationService
+      .addPublications(publications)
+      .pipe(take(1))
+      .subscribe((res: any) => {
+        if (res.ok && res.body.success) {
+          const data = res.body.data;
+
+          const preSelection = this.data.selectedPublications;
+
+          this.dialogRef.close({
+            selectedPublications: preSelection
+              ? data.publicationsAdded.concat(preSelection)
+              : data.publicationsAdded,
+            publicationsNotFound: data.publicationsNotFound,
+            publicationsAlreadyInProfile: data.publicationsAlreadyInProfile,
+          });
+        }
+      });
+
+    // this.dialogRef.close({
+    //   selectedPublications: this.currentSelection,
+    // });
   }
 }
