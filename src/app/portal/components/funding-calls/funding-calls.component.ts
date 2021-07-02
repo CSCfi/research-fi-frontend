@@ -104,6 +104,8 @@ export class FundingCallsComponent implements OnInit, AfterViewInit {
     ngOnInit() {
       this.routeSub = this.route.queryParams.subscribe((queryParams) => {
         this.queryParams = queryParams;
+
+        this.tabChangeService.tabQueryParams.fundingCall = this.queryParams;
   
         if (queryParams.search) {
           this.searchService.updateInput(queryParams.search);

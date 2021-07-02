@@ -10,10 +10,10 @@
 
 <div class="wrapper" *ngIf="responseData" id="main-content">
     <!-- Breadcrumb -->
-    <app-breadcrumb [type]="'single'" [responseData]="responseData" [tab]="tab" [tabName]="tabData.label" [resultNameField]="'name'" [queryParams]="tabQueryParams"></app-breadcrumb>
+    <app-breadcrumb [type]="'funding-call'" [responseData]="responseData" [tab]="tab" [tabName]="tabData.label" [resultNameField]="'name'" [queryParams]="tabQueryParams"></app-breadcrumb>
     <div class="row shared">
         <p class="back col-12">
-            <a #backToResultsLink routerLink="/results/{{ tab }}/{{ searchTerm }}" [queryParams]="tabQueryParams">&lt;
+            <a #backToResultsLink routerLink="/funding-calls/{{ searchTerm }}" [queryParams]="tabQueryParams">&lt;
                 <ng-container i18n="@@backToResults">Takaisin hakutuloksiin</ng-container>
             </a>
         </p>

@@ -33,7 +33,7 @@ export class SingleFundingCallComponent implements OnInit {
   showMore = $localize`:@@showMore:Näytä enemmän`;
   showLess = $localize`:@@showLess:Näytä vähemmän`;
 
-  tab = 'datasets';
+  tab = 'funding-calls';
 
   infoFields = [
     { label: $localize`:@@description:Kuvaus`, field: 'description' },
