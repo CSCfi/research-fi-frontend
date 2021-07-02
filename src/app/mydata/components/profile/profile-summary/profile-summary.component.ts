@@ -7,6 +7,8 @@ import { EditorModalComponent } from '../../profile-data-handler/editor-modal/ed
 import { take } from 'rxjs/operators';
 import { PatchService } from '@mydata/services/patch.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { ProfileService } from '@mydata/services/profile.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-profile-summary',
@@ -34,8 +36,10 @@ export class ProfileSummaryComponent implements OnInit {
 
   constructor(
     private appSettingsService: AppSettingsService,
+    private snackBar: MatSnackBar,
     public dialog: MatDialog,
-    private patchService: PatchService
+    private patchService: PatchService,
+    private profileService: ProfileService
   ) {}
 
   ngOnInit(): void {
@@ -115,16 +119,27 @@ export class ProfileSummaryComponent implements OnInit {
       .subscribe(
         (result: { data: any; patchGroups: any[]; patchItems: any[] }) => {
           if (result) {
-            console.log(
-              'On editor modal close: ',
-              this.patchService.currentPatchItems
-            );
+            const currentPatchItems = this.patchService.currentPatchItems;
+            console.log('On editor modal close: ', currentPatchItems);
             this.data.profileData[index] = result.data;
-            // this.patchData(result.patchGroups, result.patchItems);
+            this.patchItems(currentPatchItems);
           }
 
           this.patchService.clearPatchPayload();
         }
       );
+  }
+
+  patchItems(patchItems) {
+    this.profileService
+      .patchObjects(patchItems)
+      .pipe(take(1))
+      .subscribe((response) => {
+        console.log(response);
+        this.snackBar.open('Muutokset tallennettu', 'Sulje', {
+          horizontalPosition: 'start',
+        });
+        // TODO: Alert when error
+      });
   }
 }

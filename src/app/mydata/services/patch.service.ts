@@ -38,7 +38,7 @@ export class PatchService {
         : this.currentPatchItems.push(payload);
     }
 
-    console.log(this.currentPatchItems);
+    // console.log(this.currentPatchItems);
 
     this.itemSource.next(this.currentPatchItems);
   }
