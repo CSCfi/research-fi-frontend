@@ -14,6 +14,7 @@ import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 })
 export class MydataBetaInfoComponent implements OnInit {
   @Input() template: TemplateRef<any>;
+  @Input() showCloseButton: boolean;
 
   open = true;
 
