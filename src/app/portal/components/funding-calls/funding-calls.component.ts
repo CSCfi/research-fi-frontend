@@ -130,6 +130,7 @@ export class FundingCallsComponent implements OnInit, AfterViewInit {
 
         // Update search service stuff
         this.sortService.updateSort(queryParams.sort);
+        console.log(this.page)
         this.searchService.updatePageNumber(
           this.page,
           this.searchService.pageSize
@@ -224,7 +225,6 @@ export class FundingCallsComponent implements OnInit, AfterViewInit {
           (data) => {
             this.resultData = data;
             this.searchService.updateTotal(data.total)
-            console.log(data)
             this.loading = false;
           },
           (error) => (this.errorMessage = error as any)

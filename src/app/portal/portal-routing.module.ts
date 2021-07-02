@@ -130,6 +130,11 @@ const routes: Routes = [
     component: SingleFundingCallComponent,
   },
   {
+    path: 'funding-call',
+    redirectTo: 'funding-calls',
+    pathMatch: 'full',
+  },
+  {
     path: 'science-innovation-policy',
     component: ResearchInnovationSystemComponent,
     pathMatch: 'full',

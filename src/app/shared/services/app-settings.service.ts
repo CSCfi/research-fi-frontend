@@ -55,7 +55,7 @@ export class AppSettingsService {
       },
       {
         label: $localize`:@@headerLink7:Rahoitushaut`,
-        link: '/funding-calls',
+        link: '/funding-call', // Incomplete link to allow header link active route highlight
         exact: false,
       },
       {
