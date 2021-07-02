@@ -214,7 +214,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
-  ngOnChanges(changes: any) {
+  ngOnChanges() {
     // Save active element
     if (isPlatformBrowser(this.platformId)) {
       this.activeElement = this.document.activeElement.id;
