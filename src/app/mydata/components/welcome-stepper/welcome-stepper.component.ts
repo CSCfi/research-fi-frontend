@@ -48,6 +48,9 @@ export class WelcomeStepperComponent implements OnInit {
 
   profileCreated: boolean;
   profileData: Object;
+  showDialog: boolean;
+  dialogTemplate: any;
+  dialogTitle: any;
 
   constructor(
     private profileService: ProfileService,
@@ -132,6 +135,18 @@ export class WelcomeStepperComponent implements OnInit {
           console.log('Cannot create profile');
         }
       });
+  }
+
+  openDialog(title, template) {
+    this.dialogTitle = title;
+    this.showDialog = true;
+    this.dialogTemplate = template;
+  }
+
+  resetDialog() {
+    this.dialogTitle = '';
+    this.showDialog = false;
+    this.dialogTemplate = null;
   }
 
   deleteProfile() {
