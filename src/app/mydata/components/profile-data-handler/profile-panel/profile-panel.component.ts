@@ -62,6 +62,8 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
 
   disableAnimation = true;
 
+  ttvLabel = 'Tiedejatutkimus.fi';
+
   /*
    * appSettingsService is used in Template
    */
@@ -83,7 +85,6 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
 
   // Fix for Mat Expansion Panel render FOUC
   ngAfterViewInit(): void {
-    // timeout required to avoid the dreaded 'ExpressionChangedAfterItHasBeenCheckedError'
     setTimeout(() => (this.disableAnimation = false));
   }
 
@@ -180,7 +181,13 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   toggleItem(event, groupItem, item, index) {
-    if (item.itemMeta.primaryValue && !event.checked) {
+    const publicationType = this.fieldTypes.activityPublication;
+
+    if (
+      item.itemMeta.primaryValue &&
+      !event.checked &&
+      groupItem.groupMeta.type !== publicationType
+    ) {
       item.itemMeta.primaryValue = false;
       this.setDefaultPrimaryValue(this.data.fields);
     }
@@ -209,18 +216,42 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   togglePublication(event, publication) {
-    publication.show = event.checked;
-    this.onPublicationToggle.emit();
+    // publication.show = event.checked;
+
+    this.patchService.addToPatchItems({
+      ...publication.itemMeta,
+      show: event.checked,
+    });
+
+    // this.onPublicationToggle.emit();
   }
 
   removePublication(publication) {
-    let selectedPublications = this.data.fields[0].selectedPublications;
+    console.log(publication);
+    this.publicationService
+      .deletePublication(publication.publicationId)
+      .pipe(take(1))
+      .subscribe((res: any) => {
+        if (res.ok && res.body.success) {
+          // Remove from state
+          let selectedPublications = this.data.fields[0].selectedPublications;
+          if (selectedPublications?.length) {
+            selectedPublications = selectedPublications.filter(
+              (item) => item.publicationId !== publication.publicationId
+            );
 
-    selectedPublications = selectedPublications.filter(
-      (item) => item.id !== publication.id
-    );
+            this.data.fields[0].selectedPublications = selectedPublications;
+          } else {
+            const groupItems = this.data.fields[0].groupItems;
 
-    this.data.fields[0].selectedPublications = selectedPublications;
+            for (const group of groupItems) {
+              group.items = group.items.filter(
+                (item) => item.publicationId !== publication.publicationId
+              );
+            }
+          }
+        }
+      });
   }
 
   // Search publications
@@ -231,11 +262,14 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
       mobile = status;
     });
 
+    const fields = this.data.fields[0];
+
     this.dialogRef = this.dialog.open(SearchPublicationsComponent, {
       minWidth: '44vw',
       maxWidth: mobile ? '100vw' : '44vw',
       data: {
-        selectedPublications: this.data.fields[0].selectedPublications,
+        profilePublications: fields.groupItems,
+        selectedPublications: fields.selectedPublications,
       },
     });
 
@@ -243,35 +277,66 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     this.dialogRef
       .afterClosed()
       .pipe(take(1))
-      .subscribe((result: { selectedPublications: any[] }) => {
-        // Reset sort when dialog closes
-        this.publicationService.resetSort();
+      .subscribe(
+        (result: {
+          selectedPublications: any[];
+          publicationsNotFound: any[];
+          publicationsAlreadyInProfile: any[];
+        }) => {
+          // Reset sort when dialog closes
+          this.publicationService.resetSort();
 
-        if (result) {
-          const selectedPublications = this.data.fields[0].selectedPublications;
+          if (result) {
+            this.data.fields[0].selectedPublications =
+              result.selectedPublications;
 
-          if (result.selectedPublications) {
-            const publicationArr = [];
+            this.cdr.detectChanges();
 
-            // Check if selection already exists. Set show status for previously selected items
-            result.selectedPublications.forEach((publication) => {
-              if (
-                selectedPublications &&
-                selectedPublications.find((item) => item.id === publication.id)
-              ) {
-                this.data.fields[0].selectedPublications.find(
-                  (item) => item.id === publication.id
-                ).show = publication.show;
-              } else {
-                publicationArr.push(publication);
-              }
-            });
+            const patchItems = this.data.fields[0].selectedPublications.map(
+              (item) => item.itemMeta
+            );
 
-            this.data.fields[0].selectedPublications = selectedPublications
-              ? selectedPublications.concat(publicationArr)
-              : result.selectedPublications;
+            this.patchService.addToPatchItems(patchItems);
+
+            // Initialize merged publications
+            // this.data.fields[0].mergedPublications = result.mergedPublications
+            //   ? result.mergedPublications
+            //   : [];
+
+            // Merge publications if selected publication DOI matches one in profile
+            // const newSelection = this.data.fields[0].selectedPublications;
+            // const groupItems = this.data.fields[0].groupItems;
+
+            // const mergedPublications = [];
+
+            // for (const group of groupItems) {
+            //   for (const publication of newSelection) {
+            //     const match = group.items.find(
+            //       (item) => publication.doi === item.doi
+            //     );
+
+            //     if (match) {
+            //       mergedPublications.push({
+            //         ...publication,
+            //         itemMeta: match.itemMeta,
+            //         source: group.source,
+            //       });
+
+            //       // Remove merged publication from selectedPublications and original groupItems
+            //       this.data.fields[0].selectedPublications =
+            //         newSelection.filter((item) => item.id !== publication.id);
+
+            //       group.items = group.items.filter(
+            //         (item) => publication.doi !== item.doi
+            //       );
+            //     }
+            //   }
+            // }
+
+            // this.data.fields[0].mergedPublications =
+            //   this.data.fields[0].mergedPublications.concat(mergedPublications);
           }
         }
-      });
+      );
   }
 }

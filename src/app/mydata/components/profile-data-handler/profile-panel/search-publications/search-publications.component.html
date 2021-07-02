@@ -24,7 +24,7 @@
   <div class="px-0 px-md-3">
     <div class="row d-flex justify-content-center py-3">
       <span class="col h6 m-0">
-        Hae julkaisua omalla nimelläsi tai julkaisun nimellä
+        Hae julkaisua tekijän tai julkaisun nimellä
       </span>
     </div>
 
@@ -77,6 +77,7 @@
           (onSortToggle)="sort($event)"
           [data]="results"
           [total]="total"
+          [profilePublications]="data.profilePublications || []"
           [selectedItems]="data.selectedPublications || []"
         ></app-publications-list>
       </div>
