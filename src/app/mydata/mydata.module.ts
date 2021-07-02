@@ -66,6 +66,8 @@ import { ProfileSummaryComponent } from './components/profile/profile-summary/pr
 import { DeleteProfileDialogComponent } from './components/profile/delete-profile-dialog/delete-profile-dialog.component';
 import { JoinItemsPipe } from './pipes/join-items.pipe';
 import { FindSelectedItemPipe } from './pipes/find-selected-item.pipe';
+import { HandleFetchedPublicationsPipe } from './pipes/handle-fetched-publications.pipe';
+import { SortPublicationsPipe } from './pipes/sort-publications.pipe';
 
 @NgModule({
   declarations: [
@@ -96,6 +98,8 @@ import { FindSelectedItemPipe } from './pipes/find-selected-item.pipe';
     DeleteProfileDialogComponent,
     JoinItemsPipe,
     FindSelectedItemPipe,
+    HandleFetchedPublicationsPipe,
+    SortPublicationsPipe,
   ],
   imports: [
     CommonModule,

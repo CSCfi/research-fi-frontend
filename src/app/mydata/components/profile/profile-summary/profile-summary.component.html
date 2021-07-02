@@ -36,53 +36,93 @@
           </span>
 
           <ng-container *ngFor="let groupItem of field.groupItems">
-            <ng-container *ngFor="let item of groupItem.items">
-              <div
-                class="row d-flex justify-content-between py-1"
-                *ngIf="item.itemMeta.show"
-              >
+            <ng-container [ngSwitch]="groupItem.groupMeta.type">
+              <div class="row" *ngSwitchCase="fieldTypes.personKeyword">
                 <div class="col px-0 font-size-smaller">
-                  <app-panel-array-item
-                    [item]="item"
-                    [fieldType]="groupItem.groupMeta.type"
-                    [localized]="field.localized"
-                  ></app-panel-array-item>
+                  {{ groupItem.items | joinItems: 'value' }}
                 </div>
 
-                <!-- Debugging -->
-                <!-- <div class="col-auto font-size-small mt-1" style="color: red">
+                <!-- Source -->
+                <!-- <div
+                  class="col-auto px-0 mt-1 text-right opacity-3 font-size-small"
+                >
+                  {{ groupItem.source.organization['name' + locale] }}
+                </div> -->
+              </div>
+              <ng-container *ngSwitchDefault>
+                <ng-container *ngFor="let item of groupItem.items">
+                  <div
+                    class="row d-flex justify-content-between py-1"
+                    [class.justify-content-between]="
+                      groupItem.groupMeta.type !==
+                      fieldTypes.activityAffiliation
+                    "
+                    *ngIf="item.itemMeta.show"
+                  >
+                    <div
+                      class="col px-0 font-size-smaller"
+                      [class.col-auto]="
+                        groupItem.groupMeta.type ===
+                        fieldTypes.activityAffiliation
+                      "
+                    >
+                      <app-panel-array-item
+                        [item]="item"
+                        [fieldType]="groupItem.groupMeta.type"
+                        [localized]="field.localized"
+                      ></app-panel-array-item>
+                    </div>
+
+                    <div
+                      *ngIf="
+                        item.itemMeta.primaryValue &&
+                        groupItem.groupMeta.type ===
+                          fieldTypes.activityAffiliation
+                      "
+                      class="col-auto px-4 mx-1 cursor-pointer"
+                    >
+                      <app-primary-badge
+                        label="Ensisijainen"
+                        [selected]="true"
+                        [disableClick]="true"
+                      ></app-primary-badge>
+                    </div>
+
+                    <!-- Debugging -->
+                    <!-- <div class="col-auto font-size-small mt-1" style="color: red">
                 itemId: {{ item.itemMeta.id }} | groupId:
                 {{ groupItem.groupMeta.id }}
               </div> -->
 
-                <!-- Source -->
-                <!-- <div
+                    <!-- Source -->
+                    <!-- <div
                 class="col-auto px-0 mt-1 text-right opacity-3 font-size-small"
               >
                 {{ groupItem.source.organization['name' + locale] }}
               </div> -->
-              </div>
+                  </div>
 
-              <!-- Primary affiliation -->
-              <!-- <div class="row pb-3 mt-n2">
-              <div
-                class="col-auto px-4 mx-1 cursor-pointer"
-                *ngIf="
-                  groupItem.groupMeta.type === fieldTypes.activityAffiliation
-                "
-              >
-                <app-primary-badge
-                  [label]="
-                    item.itemMeta.primaryValue
-                      ? 'Ensisijainen'
-                      : 'Aseta ensisijaiseksi'
-                  "
-                  [item]="item"
-                  [data]="field"
-                  [selected]="item.itemMeta.primaryValue"
-                ></app-primary-badge>
-              </div>
-            </div> -->
+                  <!-- Primary affiliation -->
+                  <!-- <div
+                    class="row pb-3 mt-n2"
+                    *ngIf="item.itemMeta.primaryValue"
+                  >
+                    <div
+                      class="col-auto px-4 mx-1 cursor-pointer"
+                      *ngIf="
+                        groupItem.groupMeta.type ===
+                        fieldTypes.activityAffiliation
+                      "
+                    >
+                      <app-primary-badge
+                        label="Ensisijainen"
+                        [selected]="true"
+                        [disableClick]="true"
+                      ></app-primary-badge>
+                    </div>
+                  </div> -->
+                </ng-container>
+              </ng-container>
             </ng-container>
           </ng-container>
         </div>

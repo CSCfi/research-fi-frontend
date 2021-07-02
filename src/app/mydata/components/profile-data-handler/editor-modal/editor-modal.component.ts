@@ -141,8 +141,8 @@ export class EditorModalComponent implements OnInit {
       (item) => item.itemMeta.id === response.itemMeta.id
     );
 
-    const publications =
-      this.editorData.data.fields[response.index].selectedPublications;
+    // const publications =
+    //   this.editorData.data.fields[response.index].selectedPublications;
 
     currentItem.itemMeta = response.itemMeta;
 
@@ -152,11 +152,6 @@ export class EditorModalComponent implements OnInit {
   // togglePrimaryValue(patchObjects) {
   //   [...this.itemPayload, ...patchObjects];
   // }
-
-  togglePublication() {
-    // TODO: Find if there's need for this method.
-    // Fetched publications could be handled as now without this method.
-  }
 
   toggleAll(event) {
     this.allSelected = event.checked;

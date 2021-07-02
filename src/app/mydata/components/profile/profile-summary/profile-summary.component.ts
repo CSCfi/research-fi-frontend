@@ -6,6 +6,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { EditorModalComponent } from '../../profile-data-handler/editor-modal/editor-modal.component';
 import { take } from 'rxjs/operators';
 import { PatchService } from '@mydata/services/patch.service';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   selector: 'app-profile-summary',
@@ -31,13 +32,19 @@ export class ProfileSummaryComponent implements OnInit {
 
   dialogRef: MatDialogRef<EditorModalComponent>;
 
-  constructor(public dialog: MatDialog, private patchService: PatchService) {}
+  constructor(
+    private appSettingsService: AppSettingsService,
+    public dialog: MatDialog,
+    private patchService: PatchService
+  ) {}
 
   ngOnInit(): void {
     // Get data sources
     this.dataSources = getDataSources(this.data.profileData);
 
     this.primarySource = this.dataSources[0];
+
+    this.sortPublications(this.data.profileData);
   }
 
   getSelectedItems() {
@@ -63,14 +70,38 @@ export class ProfileSummaryComponent implements OnInit {
     this.selectedData = dataCopy.filter((item) => item.fields.length);
   }
 
+  sortPublications(data) {
+    const index = data.findIndex((item) => item.label === 'Julkaisut');
+
+    const items = data[index].fields[0].groupItems.flatMap(
+      (groupItem) => groupItem.items
+    );
+
+    // Combine groups and sort. Display items in summary only from first group
+    const sortedItems = items.sort(
+      (a, b) => b.publicationYear - a.publicationYear
+    );
+
+    data[index].fields[0].groupItems[0].items = sortedItems;
+
+    this.data.profileData[index].fields[0].groupItems = [
+      data[index].fields[0].groupItems[0],
+    ];
+  }
+
   openDialog(event, index) {
     event.stopPropagation();
-    // this.selectedIndex = index;
+    let mobile: boolean;
+
     const selectedField = cloneDeep(this.data.profileData[index]);
+
+    this.appSettingsService.mobileStatus.pipe(take(1)).subscribe((status) => {
+      mobile = status;
+    });
 
     this.dialogRef = this.dialog.open(EditorModalComponent, {
       minWidth: '44vw',
-      maxWidth: '100vw',
+      maxWidth: mobile ? '100vw' : '44vw',
       data: {
         data: selectedField,
         dataSources: this.dataSources,

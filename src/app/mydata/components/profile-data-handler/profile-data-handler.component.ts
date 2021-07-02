@@ -70,6 +70,10 @@ export class ProfileDataHandlerComponent implements OnInit {
 
     // Set primary data source on init. Defaults to ORCID
     this.setPrimaryDataSource(this.dataSources[0]);
+
+    // Merge publications
+    // TODO: Find better way to pass array element than index number. Eg. type
+    this.mergePublications(this.profileData[4]);
   }
 
   setPrimaryDataSource(option) {
@@ -80,6 +84,42 @@ export class ProfileDataHandlerComponent implements OnInit {
       this.profileData.filter((element) => element.fields.length),
       option
     );
+  }
+
+  mergePublications(data) {
+    const publications = data.fields[0].groupItems;
+
+    for (let [i, publication] of publications[0].items.entries()) {
+      if (publications.length === 2) {
+        const match = publications[1].items.find(
+          (item) => item.doi === publication.doi
+        );
+
+        if (match) {
+          publications[0].items[i] = {
+            ...publication,
+            merged: true,
+            source: {
+              organizations: [
+                publications[0].source.organization,
+                publications[1].source.organization,
+              ],
+            },
+          };
+
+          // Remove duplicate
+          publications[1].items = publications[1].items.filter(
+            (item) => item.doi !== publication.doi
+          );
+        }
+        // else {
+        //   for (const group of publications.shift()) {
+        //     if (group.items.find((item) => item.doi === publication.doi)) {
+        //     }
+        //   }
+        // }
+      }
+    }
   }
 
   setDefaultOptions(data, primarySource) {
@@ -109,18 +149,26 @@ export class ProfileDataHandlerComponent implements OnInit {
           group.groupItems.forEach((groupItem) =>
             groupItem.items.map((item) => {
               item.itemMeta.show = selectAll;
-              if (selectAll) patchItems.push(item.itemMeta);
+              patchItems.push(item.itemMeta);
             })
           );
+        }
+        if (group.selectedPublications) {
+          group.selectedPublications.forEach((publication) => {
+            publication.itemMeta.show = selectAll;
+            patchItems.push(publication.itemMeta);
+          });
         }
       });
     }
 
     this.profileData = fields;
 
-    selectAll
-      ? this.patchService.addToPatchItems(patchItems)
-      : this.patchService.clearPatchPayload();
+    // selectAll
+    //   ? this.patchService.addToPatchItems(patchItems)
+    //   : this.patchService.clearPatchPayload();
+
+    this.patchItems(patchItems);
   }
 
   setOpenPanel(i: number) {
@@ -157,12 +205,11 @@ export class ProfileDataHandlerComponent implements OnInit {
       .subscribe(
         (result: { data: any; patchGroups: any[]; patchItems: any[] }) => {
           if (result) {
-            console.log(
-              'On editor modal close: ',
-              this.patchService.currentPatchItems
-            );
+            const currentPatchItems = this.patchService.currentPatchItems;
+
+            console.log('On editor modal close: ', currentPatchItems);
             this.profileData[index] = result.data;
-            // this.patchData(result.patchGroups, result.patchItems);
+            this.patchItems(currentPatchItems);
           }
 
           this.patchService.clearPatchPayload();
@@ -170,13 +217,15 @@ export class ProfileDataHandlerComponent implements OnInit {
       );
   }
 
-  patchData(patchGroups, patchItems) {
+  patchItems(patchItems) {
     this.profileService
-      .patchObjects(patchGroups, patchItems)
+      .patchObjects(patchItems)
       .pipe(take(1))
       .subscribe((response) => {
         console.log(response);
-        this.snackBar.open('Muutokset tallennettu');
+        this.snackBar.open('Muutokset tallennettu', 'Sulje', {
+          horizontalPosition: 'start',
+        });
         // TODO: Alert when error
       });
   }

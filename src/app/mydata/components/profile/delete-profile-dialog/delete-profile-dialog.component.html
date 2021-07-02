@@ -19,6 +19,28 @@
       Tämä toiminto poistaa Tutkijan tiedot -testisovelluksen profiilin.
     </p>
   </div>
+
+  <div
+    class="row d-flex justify-content-center pb-3"
+    *ngIf="loading && !connProblem"
+  >
+    <div class="col-auto align-self-center">
+      <mat-spinner
+        class="mx-auto"
+        [diameter]="80"
+        i18n-aria-label="@@loading"
+        aria-label="Ladataan"
+      ></mat-spinner>
+      <span class="d-block pt-3">Profiilia poistetaan, odota hetki...</span>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="connProblem">
+    <div class="col mx-3 pb-3">
+      <i class="fas fa-exclamation-triangle"></i> Yhteysongelma. Profiilin
+      poisto ei onnistu. Kokeile hetken kuluttua uudestaan.
+    </div>
+  </div>
 </mat-dialog-content>
 
 <mat-dialog-actions class="d-flex justify-content-end">
@@ -27,12 +49,14 @@
       <app-secondary-button
         (click)="close()"
         content="Peruuta"
+        [disabled]="loading"
         cdkFocusInitial
       ></app-secondary-button>
     </div>
     <div class="col-auto">
       <app-primary-action-button
         content="Poista profiili"
+        [disabled]="loading"
         (click)="deleteProfile()"
       ></app-primary-action-button>
     </div>

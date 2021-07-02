@@ -45,7 +45,7 @@ export class CountGroupItemsPipe implements PipeTransform {
       // Check for fetched publications
       if (el.selectedPublications) {
         el.selectedPublications.forEach((publication) =>
-          combinedItems.push({ show: publication.show })
+          combinedItems.push({ show: publication.itemMeta.show })
         );
       }
     });
