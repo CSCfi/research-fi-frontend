@@ -56,7 +56,7 @@
 
       <!-- Options -->
       <ng-container
-        *ngFor="let groupItem of field.groupItems | removeFetchedPublications"
+        *ngFor="let groupItem of field.groupItems | handleFetchedPublications"
       >
         <!-- Keywords have values that need to be joined -->
         <ng-container [ngSwitch]="groupItem.groupMeta.type">
@@ -185,73 +185,83 @@
       </ng-container>
 
       <!-- Fetched publications -->
-      <ng-container *ngIf="(field.groupItems | mapFetchedPublications).length">
+      <ng-container
+        *ngIf="
+          field.groupItems[0].groupMeta.type ===
+            fieldTypes.activityPublication &&
+          (field.selectedPublications || hasFetchedPublications)
+        "
+      >
         <span class="font-size-big d-block pb-3">Tuodut julkaisut</span>
-        <div
-          class="row d-flex justify-content-between py-2"
-          *ngFor="
-            let publication of field.groupItems | mapFetchedPublications;
-            let j = index
-          "
-        >
-          <div class="col px-0 font-size-smaller">
-            <mat-checkbox
-              [checked]="publication.itemMeta.show"
-              (change)="togglePublication($event, publication)"
+        <ng-container *ngFor="let group of field.groupItems">
+          <ng-container *ngIf="group.items.length">
+            <ng-container
+              *ngFor="let publication of group.items | sortPublications"
             >
-              <app-panel-array-item
-                class="pl-1 d-block"
-                [item]="publication"
-                [fieldType]="fieldTypes.activityPublication"
-              ></app-panel-array-item>
-            </mat-checkbox>
-          </div>
+              <div
+                class="row d-flex justify-content-between py-2"
+                *ngIf="publication.itemMeta.primaryValue"
+              >
+                <div class="col px-0 font-size-smaller">
+                  <mat-checkbox
+                    [checked]="publication.itemMeta.show"
+                    (change)="toggleItem($event, group, publication, i)"
+                  >
+                    <app-panel-array-item
+                      class="pl-1 d-block"
+                      [item]="publication"
+                      [fieldType]="fieldTypes.activityPublication"
+                    ></app-panel-array-item>
+                  </mat-checkbox>
+                </div>
 
-          <div class="col-auto mt-1">
-            <app-secondary-button
-              content="Poista"
-              (click)="removePublication(publication)"
-            ></app-secondary-button>
-          </div>
+                <div class="col-auto mt-1">
+                  <app-secondary-button
+                    content="Poista"
+                    (click)="removePublication(publication)"
+                  ></app-secondary-button>
+                </div>
 
-          <div class="col-auto pr-0 text-right opacity-3 font-size-small">
-            Tiedejatutkimus.fi
+                <div class="col-auto pr-0 text-right opacity-3 font-size-small">
+                  Tiedejatutkimus.fi
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+
+        <!-- Publications fetched in current session -->
+        <ng-container *ngIf="field.selectedPublications">
+          <div
+            class="row d-flex justify-content-between py-2"
+            *ngFor="let publication of field.selectedPublications"
+          >
+            <div class="col px-0 font-size-smaller">
+              <mat-checkbox
+                [checked]="publication.itemMeta.show"
+                (change)="togglePublication($event, publication)"
+              >
+                <app-panel-array-item
+                  class="pl-1 d-block"
+                  [item]="publication"
+                  [fieldType]="fieldTypes.activityPublication"
+                ></app-panel-array-item>
+              </mat-checkbox>
+            </div>
+
+            <div class="col-auto mt-1">
+              <app-secondary-button
+                content="Poista"
+                (click)="removePublication(publication)"
+              ></app-secondary-button>
+            </div>
+
+            <div class="col-auto pr-0 text-right opacity-3 font-size-small">
+              Tiedejatutkimus.fi
+            </div>
           </div>
-        </div>
+        </ng-container>
       </ng-container>
-
-      <!-- SERVES NO PURPOSE -->
-      <!-- Merged publications -->
-      <!-- <ng-container *ngIf="field.mergedPublications?.length">
-        <span class="font-size-big">Yhdistetyt julkaisut</span>
-        <div
-          class="row d-flex justify-content-between py-3"
-          *ngFor="let publication of field.mergedPublications"
-        >
-          <div class="col px-0 font-size-smaller">
-            <mat-checkbox
-              [checked]="publication.itemMeta.show"
-              (change)="togglePublication($event, publication)"
-            >
-              <app-panel-array-item
-                class="pl-1 d-block"
-                [item]="publication"
-                [fieldType]="fieldTypes.activityPublication"
-              ></app-panel-array-item>
-            </mat-checkbox>
-          </div>
-
-          <div class="col-auto pr-0 text-right opacity-3 font-size-small">
-            <span
-              *ngIf="
-                publication.source.organization['name' + locale] !== ttvLabel
-              "
-              >{{ publication.source.organization['name' + locale] }} <br
-            /></span>
-            {{ ttvLabel }}
-          </div>
-        </div>
-      </ng-container> -->
 
       <div class="row py-3 font-size-small" *ngIf="field.single">
         <div class="col col-lg-6 pl-0">

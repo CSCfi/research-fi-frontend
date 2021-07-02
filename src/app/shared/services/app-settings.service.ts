@@ -21,6 +21,9 @@ export class AppSettingsService {
   private mobileSource = new BehaviorSubject(false);
   mobileStatus = this.mobileSource.asObservable();
 
+  private appSettingsSource = new Subject<any>();
+  appSettings = this.appSettingsSource.asObservable();
+
   // Module related settings
   portalSettings = {
     appName: 'portal',
@@ -68,7 +71,7 @@ export class AppSettingsService {
   };
 
   myDataSettings = {
-    develop: true,
+    develop: false,
     beta: true,
     appName: 'myData',
     label: 'Tutkijan tiedot',
@@ -99,5 +102,7 @@ export class AppSettingsService {
         this.currentAppSettings = this.portalSettings;
       }
     }
+
+    this.appSettingsSource.next(this.currentAppSettings);
   }
 }

@@ -61,6 +61,7 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   faChevronUp = faChevronUp;
 
   disableAnimation = true;
+  hasFetchedPublications: boolean;
 
   ttvLabel = 'Tiedejatutkimus.fi';
 
@@ -77,6 +78,16 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
 
   ngOnInit(): void {
     // this.setDefaultPrimaryValue(this.data.fields);
+
+    const publicationType = this.fieldTypes.activityPublication;
+
+    // TODO: Better check for data. Maybe type when mapping response
+    if (this.data.label === 'Julkaisut') {
+      this.findFetchedPublications(this.data.fields[0].groupItems);
+    }
+
+    // Sort publications that come frome profile creation
+    this.sortPublications(this.data.fields);
   }
 
   ngOnChanges() {
@@ -215,26 +226,21 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     this.patchService.addToPatchItems(patchItems);
   }
 
+  // Publication toggle method is ment to be used with publications fetched in current session.
   togglePublication(event, publication) {
-    // publication.show = event.checked;
+    publication.itemMeta.show = event.checked;
 
-    this.patchService.addToPatchItems({
-      ...publication.itemMeta,
-      show: event.checked,
-    });
-
-    // this.onPublicationToggle.emit();
+    this.patchService.addToPatchItems(publication.itemMeta);
   }
 
   removePublication(publication) {
-    console.log(publication);
     this.publicationService
       .deletePublication(publication.publicationId)
       .pipe(take(1))
       .subscribe((res: any) => {
         if (res.ok && res.body.success) {
-          // Remove from state
           let selectedPublications = this.data.fields[0].selectedPublications;
+
           if (selectedPublications?.length) {
             selectedPublications = selectedPublications.filter(
               (item) => item.publicationId !== publication.publicationId
@@ -252,6 +258,32 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
           }
         }
       });
+  }
+
+  findFetchedPublications(data) {
+    const items = data.flatMap((group) => group.items);
+
+    if (items.find((item) => item.itemMeta.primaryValue))
+      this.hasFetchedPublications = true;
+  }
+
+  sortPublications(data) {
+    const index = data.findIndex((item) => item.label === 'Julkaisut');
+
+    const items = data[index].groupItems.flatMap(
+      (groupItem) => groupItem.items
+    );
+
+    console.log('item: ', items);
+
+    // Combine groups and sort. Display items in summary only from first group
+    const sortedItems = items.sort(
+      (a, b) => b.publicationYear - a.publicationYear
+    );
+
+    data[index].groupItems[0].items = sortedItems;
+
+    this.data.fields[index].groupItems = [data[index].groupItems[0]];
   }
 
   // Search publications
