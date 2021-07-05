@@ -6,15 +6,15 @@ import { cloneDeep } from 'lodash';
 })
 export class FundingCallFilterService {
   filterData = [
-    // {
-    //   field: 'year',
-    //   label: $localize`:@@fundingYear:Aloitusvuosi`,
-    //   hasSubFields: false,
-    //   open: true,
-    //   limitHeight: true,
-    //   hideSearch: true,
-    //   tooltip: $localize`:@@iYearFTooltip:Tutkimusinfrastruktuurin toiminnan aloitusvuosi. Jos aloitusvuosi ei ole tiedossa, käytetään vuotta jolloin tiedot on toimitettu tiedejatutkimus.fi-palveluun.`,
-    // },
+    {
+      field: 'date',
+      label: $localize`:@@callPeriod:Hakuaika`,
+      hasSubFields: false,
+      open: true,
+      limitHeight: true,
+      hideSearch: true,
+      // tooltip: $localize`:@@iYearFTooltip:Tutkimusinfrastruktuurin toiminnan aloitusvuosi. Jos aloitusvuosi ei ole tiedossa, käytetään vuotta jolloin tiedot on toimitettu tiedejatutkimus.fi-palveluun.`,
+    },
     {
       field: 'field',
       label: $localize`:@@fundingCallCategory:Hakuala`,
