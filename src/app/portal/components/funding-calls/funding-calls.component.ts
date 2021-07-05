@@ -116,17 +116,17 @@ export class FundingCallsComponent implements OnInit, AfterViewInit {
         // Get values
         this.page = parseInt(queryParams.page) || 1;
         this.searchService.pageSize = parseInt(queryParams.size) || 10;
+
+        // Update tab
+        this.selectedTabData = this.tabChangeService.fundingCall;
+        this.tabChangeService.changeTab(this.selectedTabData);
+        this.sortService.updateTab('funding-calls');
   
         // Check for Angular Univeral SSR, get filters if browser
         if (isPlatformBrowser(this.platformId)) {
           this.filters = this.filterService.filterList(queryParams);
           this.filterService.updateFilters(this.filters);
         }
-  
-        // Update tab
-        this.selectedTabData = this.tabChangeService.fundingCall;
-        this.tabChangeService.changeTab(this.selectedTabData);
-        this.sortService.updateTab('funding-calls');
 
         // Update search service stuff
         this.sortService.updateSort(queryParams.sort);

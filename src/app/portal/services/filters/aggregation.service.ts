@@ -1385,14 +1385,14 @@ export class AggregationService {
         payLoad.aggs.organization = {
           filter: {
             bool: {
-              filter: filterActive('foundation.organization_id.keyword'),
+              filter: filterActive('foundation.name' + this.localeC + '.keyword'),
             },
           },
           aggs: {
             orgId: {
               terms: {
-                field: 'foundation.organization_id.keyword',
-                size: 100,
+                field: 'foundation.name' + this.localeC + '.keyword',
+                size: 250,
                 order: {
                   _key: 'asc',
                 },
