@@ -1,0 +1,338 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<ng-container
+  *ngIf="currentTemplate"
+  [ngTemplateOutlet]="currentTemplate"
+></ng-container>
+
+<ng-template #termsTemplate>
+  <h1 class="h4">Tutkijan tiedot -palvelun testauksen käyttöehdot</h1>
+  <small class="py-3 d-block">6.7.2021</small>
+  <p>
+    Huom! Nämä käyttöehdot koskevat vain palvelun testausta, eivät vielä
+    varsinaista vuonna 2022 käyttöönotettavaa palvelua.
+  </p>
+  <p>
+    Kiitos, kun testaat Tiedejatutkimus.fi-palvelun Tutkijan tiedot -palvelua!
+    Testityökalua käyttäessäsi hyväksyt samalla nämä ehdot ja sitoudut
+    noudattamaan niitä. Perehdy niihin siis huolellisesti.
+  </p>
+  <p>
+    Opetus- ja kulttuuriministeriö varaa oikeuden muuttaa näitä ehtoja. Opetus-
+    ja kulttuuriministeriö ilmoittaa kohtuullisessa ajassa ennen muutosten
+    käyttöönottoa käyttäjille olosuhteisiin soveltuvalla tavalla, esimerkiksi
+    palvelun käyttäjätiedotteissa tai sähköpostitse, jos se tekee olennaisia
+    muutoksia näihin ehtoihin.
+  </p>
+  <br />
+  <h3 class="h5 py-3">
+    1. Testipalvelu on tarkoitettu kaikille Tiedejatutkimus.fi-palvelun
+    kehittämisestä kiinnostuneille
+  </h3>
+  <p>
+    Kehitteillä oleva Tiedejatutkimus.fi:n Tutkijan tiedot -palvelu on
+    tarkoitettu erityisesti suomalaisten tutkimusorganisaatioiden tutkijoille.
+  </p>
+  <p>
+    Testivaiheessa palvelua voi käyttää ORCID-tunnistautumisella kuka tahansa
+    sovittuun tarkoitukseen: oman profiilin luomiseen ja palvelun testaamiseen.
+  </p>
+  <p>
+    Käyttäjä kirjautuu palveluun ORCID-tunnisteellaan. Testityökalussa käyttäjä
+    voi tuoda profiiliinsa tiedot ORCID-palvelusta tai valmiiksi
+    Tiedejatutkimus.fi:ssä olevista julkisista tiedoista.
+  </p>
+  <p>Testiprofiili voi sisältää seuraavia tietoja:</p>
+  <ul>
+    <li>Nimi ja tutkijatunnisteet</li>
+    <li>Yhteystiedot</li>
+    <li>Tutkimuksen kuvaus, tieteenalat ja asiasanat</li>
+    <li>Affiliaatiot</li>
+    <li>Koulutus</li>
+    <li>Muut tutkimusaktiviteetit</li>
+    <li>Julkaisut</li>
+  </ul>
+  Tietoja ei julkaista eikä niitä luovuteta testipalvelusta ulospäin.
+
+  <h3 class="h5 py-3">
+    2. Palveluun siirrettävien tietojen tulee olla lainmukaisia
+  </h3>
+  <p>
+    Käyttäjän on huolehdittava, että hän tallentaa profiiliinsa vain omia
+    tietojaan. Tiedot eivät saa sisältää arkaluonteisia tai voimassa olevaan
+    tietosuojasääntelynmukaisia erityiseen henkilötietoryhmään kuuluvia tietoja.
+  </p>
+  <p>
+    Kiellettyjä sisältöjä ovat yhdenvertaisuutta ja tasa-arvoa loukkaavat tai
+    muuten lain tai hyvän tavan vastaiset sisällöt, virheelliset tai
+    harhaanjohtavat sisällöt.
+  </p>
+  <p>
+    Käyttäjä vastaa siitä, että hänen profiilissaan oleva sisältö ei ole lain
+    tai hyvien tapojen, eikä näiden käyttöehtojen vastainen.
+  </p>
+
+  <h3 class="h5 py-3">3. Käyttäjätiedot ja niiden poistaminen</h3>
+  <p>
+    Käyttäjä antaa opetus- ja kulttuuriministeriölle oikeuden käsitellä
+    sisältöä, ml. tallentamiasi tietoja, palvelun tuottamistarkoituksissa, joita
+    ovat esimerkiksi automaattinen monitorointi, tietoturvahaavoittuvuuksien
+    havainnointi, tunkeutumisen havainnointi ja esto, varmuuskopioiden
+    ottaminen, sisällön kopiointi tai siirto sekä virheiden jäljitys.
+  </p>
+  <p>
+    Testityökalu edellyttää tunnistautumista ORCID-tunnisteella.
+    Tunnistautumisen yhteydessä käyttäjästä tallentuu myös tietoja palveluun ja
+    niitä säilytetään palvelussa 28.2.2021 asti. Lisätietoa henkilötietojen
+    käsittelystä löydät palvelun tietosuojailmoituksesta.
+  </p>
+  <p>
+    Opetus- ja kulttuuriministeriön pidättää oikeuden säilyttää niitä sisältöjä
+    ja henkilötietoja, joita tarvitaan kolmansien osapuolien oikeuksien
+    turvaamiseksi esimerkiksi tekijänoikeusloukkauksien osoittamiseksi.
+  </p>
+  <p>
+    Opetus- ja kulttuuriministeriöllä on oikeus julkaista tilastotietoa
+    käyttäjistä kuitenkin siten, ettei yksittäisiä käyttäjiä voi tunnistaa. Nämä
+    yleistiedot kattavat käyttäjien määrän esimerkiksi organisaatioittain ja
+    tieteenaloittain.
+  </p>
+  <p>
+    Opetus- ja kulttuuriministeriö voi harkintansa mukaan sulkea tai keskeyttää
+    käyttäjätunnuksen käytön ilmoittamatta:
+  </p>
+  <ul>
+    <li>palveluiden luvattoman käytön vuoksi;</li>
+    <li>
+      jos opetus- ja kulttuuriministeriöllä on perusteltu syy epäillä, että
+      palveluja käytetään näiden ehtojen vastaisesti.
+    </li>
+  </ul>
+
+  <div class="row">
+    <div class="col">
+      <h4 class="h5 py-3">3.1. Tietojen poistaminen</h4>
+      <p>
+        Opetus- ja kulttuuriministeriöllä on oikeus poistaa sisältö, jonka se
+        katsoo olevan näiden käyttöehtojen vastaista.
+      </p>
+      <p>
+        Käyttäjä voi halutessaan poistaa profiilinsa ja siihen liittyvät
+        tietonsa milloin tahansa.
+      </p>
+      <p>
+        Käyttäjään liittyviä poistettuja tietoja ei voi palauttaa sen jälkeen,
+        kun käyttäjätunnus on poistettu palvelusta. Poistaminen ei koske
+        Tiedejatutkimus.fi-palvelun sisältämiä julkisia tietoja, kuten
+        julkaisujen tietoja.
+      </p>
+    </div>
+  </div>
+
+  <h3 class="h5 py-3">4. Palvelutason kuvaus ja vastuunrajoitus</h3>
+  <p>
+    Palvelun ylläpidossa pyritään siihen että se on käytettävissä jatkuvasti ja
+    luotettavasti. Vikatilanteissa palvelupyyntö otetaan käsittelyyn 1-3
+    työpäivän kuluessa
+  </p>
+  <p>
+    Opetus- ja kulttuuriministeriö ei takaa, että palvelu toimii virheettömästi
+    ja keskeytyksettä. Tiedejatutkimus.fi-palvelun sekä testityökalun
+    ylläpidossa noudatetaan alan parhaita käytäntöjä ja
+    turvallisuustoimenpiteitä.
+  </p>
+  <p>
+    Opetus- ja kulttuuriministeriö pidättää oikeuden muuttaa, siirtää tai
+    lopettaa kunkin toiminnallisuuden milloin tahansa.
+  </p>
+
+  <h3 class="h5 py-3">5. Jos jotain menee pieleen</h3>
+  <p>
+    Otamme mielellämme vastaan käyttäjien palautetta näistä käyttöehdoista ja
+    muista palveluihimme liittyvistä asioista osoitteeseen
+    <a href="mailto:tiedejatutkimus@csc.fi">tiedejatutkimus@csc.fi</a>.
+  </p>
+</ng-template>
+
+<ng-template #personalDataHandlingTermsTemplate>
+  <h1 class="h5">Tietosuojailmoitus</h1>
+  <small class="py-3 d-block">Julkaistu 6.7.2021</small>
+  <p>Opetus- ja kulttuuriministeriön tietosuojailmoitus rekisteröidylle</p>
+  <p>Tutkijan tiedot -palvelun testauksessa käsiteltävät henkilötiedo</p>
+
+  <h3 class="h5 py-3">1. Yleistä</h3>
+  <p>
+    Tämä tietosuojailmoitus sisältää EU:n tietosuoja-asetuksen (EU) 679/2016 13
+    ja 14 artiklan mukaiset tiedot rekisteröidylle (luonnolliselle henkilölle).
+    Tämä ilmoitus annetaan rekisteröidylle henkilötietoja kerättäessä.
+  </p>
+
+  <h3 class="h5 py-3">2. Rekisterinpitäjät</h3>
+  <p>
+    Tutkijan tiedot -palvelun testauksen rekisterinpitäjänä toimii:<br />
+    Opetus- ja kulttuuriministeriö<br />
+    Kirjaamon käyntiosoite: Ritarikatu 2 b, Helsinki<br />
+    Postiosoite: PL 29, 00023 VALTIONEUVOSTO<br />
+    Sähköpostiosoite: kirjaamo@minedu.fi<br />
+    Puh. 0295 16001 (keskus)
+  </p>
+
+  <h3 class="h5 py-3">3. Tietosuojavastaavan yhteystiedot</h3>
+  <p>
+    Opetus- ja kulttuuriministeriön tietosuojavastaava<br />
+    Sähköpostiosoite: okmtietosuojavastaava@minedu.fi<br />
+    Postiosoite: Opetus- ja kulttuuriministeriö, PL 29, 00023 VALTIONEUVOSTO
+  </p>
+
+  <h3 class="h5 py-3">
+    4. Henkilötietojen käsittelyn tarkoitukset, henkilötietoryhmät ja
+    oikeusperusteet
+  </h3>
+  <strong>Henkilötietojen käyttötarkoitukset ovat:</strong>
+  <ul class="pt-3">
+    <li>
+      Tiedejatutkimus.fi-palveluu kehitettävän tutkija Tutkijan tiedot -palvelun
+      toiminnallisuuksien testaus:
+    </li>
+    <ul class="list-style-circle pb-3">
+      <li>Palvelun käyttöönotto</li>
+      <li>Kirjautuminen ORCID-tunnuksella</li>
+      <li>Tietojen tuominen ORCID-palvelusta</li>
+      <li>Profiilin muokkaus</li>
+      <li>Tietojen julkisuuden valinta</li>
+    </ul>
+    <li>
+      Testaukseen osallistuvan käyttäjän ORCID-rekisterissä olevien tietojen
+      siirtäminen Tutkijan tiedot -palvelun testitietokantaan käyttäjän annettua
+      palvelussa suostumuksensa.
+    </li>
+    <li>
+      Testikäyttäjien käyttölokitietojen hallinta, käyttäjätilastointi sekä
+      palvelun käytössä tarvittavien evästeiden hallinta.
+    </li>
+    <li>Palvelun testaukseen liittyvä tilastointi, analytiikka ja hallinta.</li>
+  </ul>
+  <strong>Käsiteltävät henkilötietoryhmät:</strong>
+  <ul class="pt-3">
+    <li>
+      Käyttäjän ORCID-rekisterissä olevat tiedot, kuten esimerkiksi hänen
+      nimensä, yhteystietonsa, affiliaationsa, ja muut henkilön ORCID-profiilin
+      tiedot sekä ORCID-rekisterissä säilytettävien tutkimustuotosten
+      metatiedot.
+    </li>
+    <li>
+      IT-hallintatiedot kuten laitteistojen tiedot liittyen tarjottuihin
+      palveluihin, mukaan lukien tekniset tunnisteet, sijainti, yhteystiedot,
+      viestintätiedot ja metatieto ja tekniset tapahtumat, jotka liittyvät
+      tarjottuihin palveluihin mukaan lukien järjestelmä- ja sovelluslokitiedot.
+    </li>
+  </ul>
+  <strong>Henkilötietojen käsittelyn oikeusperusteet:</strong>
+  <p>
+    Henkilötietoja käsitellään Tutkijan tiedot –palvelun testauksessa vain
+    käyttäjän antamaan suostumukseen perustuen.
+  </p>
+
+  <h3 class="h5 py-3">5. Henkilötietojen käsittelijät</h3>
+  <p>
+    Henkilötietojen käsittelijöitä ovat CSC - Tieteen tietotekniikan keskus Oy
+    ja sen alihankkijat, jotka toteuttavat opetus- ja kulttuuriministeriön
+    kanssa tehtyyn sopimukseen perustuen palvelun kehitystä, ylläpitoa ja
+    säilytystä.
+  </p>
+  <p>Tietoja ei luovuteta kolmansille osapuolille.</p>
+
+  <h3 class="h5 py-3">
+    6. Henkilötietojen siirtäminen kolmansiin maihin tai kansainvälisille
+    järjestöille
+  </h3>
+  <p>Tietoja ei siirretä EU/ETA-alueen ulkopuolelle.</p>
+
+  <h3 class="h5 py-3">7. Henkilötietojen säilyttämisajat</h3>
+  <p>
+    Tutkijan tiedot -palvelun testausta varten kerätyt henkilötiedot säilytetään
+    testitietokannassa 28.2.2021 saakka, minkä jälkeen ne poistetaan.
+  </p>
+
+  <h3 class="h5 py-3">8. Rekisteröidyn oikeudet</h3>
+  <p>
+    Seuraavat rekisteröidyn oikeudet ovat ehdottomia ja seuraavat
+    tietosuoja-asetuksesta:
+  </p>
+
+  <div class="row">
+    <div class="col">
+      <strong>Tarkastusoikeus</strong>
+      <p>
+        Rekisteröidyllä on oikeus tarkastaa palvelussa itseään koskevat
+        henkilötiedot. Tietosuojapyynnön lisäksi ne voi tarkastaa palvelussa:
+        <a href="https://researchfi-mydata.rahtiapp.fi/fi/mydata/profile"
+          >https://researchfi-mydata.rahtiapp.fi/fi/mydata/profile</a
+        >
+      </p>
+
+      <strong>Oikeus oikaisuun</strong>
+      <p>
+        Rekisteröidyllä on oikeus pyytää oikaisemaan palveluun tallennetut
+        virheelliset tai epätarkat henkilötiedot.
+      </p>
+
+      <strong>Valitusoikeus</strong>
+      <p>
+        Rekisteröidyllä on oikeus jättää valitus tietosuojavaltuutetulle, jos
+        hän katsoo, ettei henkilötietojen käsittely ole lainmukaista.
+        Tietosuojavaltuutettuun saa yhteyden täältä:
+        <a href="https://tietosuoja.fi/yhteystiedot" target="_blank"
+          >https://tietosuoja.fi/yhteystiedot
+          <fa-icon icon="external-link-alt"></fa-icon></a
+        >.
+      </p>
+      <p>
+        Seuraavat tietosuoja-asetuksen mukaiset rekisteröidyn oikeudet ovat
+        ehdollisia ja edellyttävät tiettyjen ehtojen täyttymistä:
+      </p>
+
+      <strong>Käsittelyn rajoittaminen</strong>
+      <p>
+        Tietyissä tilanteissa rekisteröidyllä on oikeus vaatia henkilötietojen
+        käsittelyn rajoittamista palvelussa. Esimerkiksi tarvitessaan niitä
+        oikeudellista vaadetta varten.
+      </p>
+
+      <strong>Käsittelyn vastustaminen</strong>
+      <p>
+        Rekisteröidyllä voi olla oikeus vastustaa henkilötietojen käsittelyä.
+      </p>
+      <p>
+        Seuraava tietosuoja-asetuksen mukainen rekisteröidyn oikeus seuraavat
+        tietojen keräämiseen käytetystä oikeusperusteesta:
+      </p>
+
+      <strong>Henkilötietojen poistaminen</strong>
+      <p>
+        Rekisteröidyllä on oikeus peruuttaa suostumuksensa milloin tahansa,
+        jolloin kaikki Tutkijan tiedot -palvelun testausta varten kerätyt
+        henkilötiedot poistetaan palvelusta. Käyttäjä voi peruuttaa suostumuksen
+        poistamalla profiilinsa esikatselunäkymässä:
+        https://researchfi-mydata.rahtiapp.fi/fi/mydata/profile
+      </p>
+    </div>
+  </div>
+
+  <h3 class="h5 py-3">9. Henkilötietojen lähde/lähteet</h3>
+  <p>
+    Henkilötietojen lähde Tutkijan tiedot -palvelun testauksessa on
+    ORCID-järjestön ylläpitämä ORCID-rekisteri sekä julkaisujen osalta lisäksi
+    Tiedejatutkimus.fi-palvelu.
+  </p>
+
+  <h3 class="h5 py-3">10. Henkilötietojen käsittelyn suojaaminen</h3>
+  <p>
+    Opetus- ja kulttuuriministeriö tutkimustietovarannon teknisenä ylläpitäjänä
+    on toteuttanut tarvittavat tekniset ja organisatoriset toimet sekä vaatii
+    sitä myös henkilötietojen käsittelijöiltä.
+  </p>
+</ng-template>

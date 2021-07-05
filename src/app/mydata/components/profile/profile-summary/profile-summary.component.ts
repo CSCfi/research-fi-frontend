@@ -29,6 +29,8 @@ export class ProfileSummaryComponent implements OnInit {
   dataSources: any[];
   primarySource: string;
 
+  openPanels = [];
+
   // TODO: Dynamic locale
   locale = 'Fi';
 
@@ -95,6 +97,9 @@ export class ProfileSummaryComponent implements OnInit {
 
   openDialog(event, index) {
     event.stopPropagation();
+
+    if (!this.openPanels.includes(index)) this.openPanels.push(index);
+
     let mobile: boolean;
 
     const selectedField = cloneDeep(this.data.profileData[index]);
@@ -134,12 +139,19 @@ export class ProfileSummaryComponent implements OnInit {
     this.profileService
       .patchObjects(patchItems)
       .pipe(take(1))
-      .subscribe((response) => {
-        console.log(response);
-        this.snackBar.open('Muutokset tallennettu', 'Sulje', {
-          horizontalPosition: 'start',
-        });
-        // TODO: Alert when error
-      });
+      .subscribe(
+        (result) => {
+          this.snackBar.open('Muutokset tallennettu', 'Sulje', {
+            horizontalPosition: 'start',
+            panelClass: 'mydata-snackbar',
+          });
+        },
+        (error) => {
+          this.snackBar.open('Virhe tiedon tallennuksessa', 'Sulje', {
+            horizontalPosition: 'start',
+            panelClass: 'mydata-snackbar',
+          });
+        }
+      );
   }
 }

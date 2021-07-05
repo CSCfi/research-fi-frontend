@@ -173,8 +173,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
         // Handle session timeout
         this.isAuthenticated.subscribe((authenticated) => {
           if (this.currentRoute.includes('/mydata')) {
-            if (this.loggedIn && !authenticated) {
-              this.openDialog('Uloskirjaus', this.authExpiredTemplate);
+            if (
+              this.loggedIn &&
+              !authenticated &&
+              !this.appSettingsService.myDataSettings.develop
+            ) {
+              // this.openDialog('Uloskirjaus', this.authExpiredTemplate);
+              this.login();
             } else {
               this.loggedIn = authenticated;
             }
