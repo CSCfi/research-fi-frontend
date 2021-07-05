@@ -11,8 +11,6 @@ import { FormsModule } from '@angular/forms';
 
 import { MyDataRoutingModule } from './mydata-routing.module';
 
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
-
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
@@ -70,6 +68,7 @@ import { JoinItemsPipe } from './pipes/join-items.pipe';
 import { FindSelectedItemPipe } from './pipes/find-selected-item.pipe';
 import { HandleFetchedPublicationsPipe } from './pipes/handle-fetched-publications.pipe';
 import { SortPublicationsPipe } from './pipes/sort-publications.pipe';
+import { EulaComponent } from './components/eula/eula.component';
 
 @NgModule({
   declarations: [
@@ -102,6 +101,7 @@ import { SortPublicationsPipe } from './pipes/sort-publications.pipe';
     FindSelectedItemPipe,
     HandleFetchedPublicationsPipe,
     SortPublicationsPipe,
+    EulaComponent,
   ],
   imports: [
     CommonModule,
@@ -110,7 +110,6 @@ import { SortPublicationsPipe } from './pipes/sort-publications.pipe';
     SharedModule,
     ModalModule,
     FontAwesomeModule,
-    TooltipModule,
     MatProgressSpinnerModule,
     MatCheckboxModule,
     MatRadioModule,
