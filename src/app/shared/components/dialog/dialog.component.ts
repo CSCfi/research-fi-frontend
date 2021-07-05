@@ -14,10 +14,10 @@ import { DialogTemplateComponent } from './dialog-template/dialog-template.compo
 @Component({
   selector: 'app-dialog',
   templateUrl: './dialog.component.html',
-  styleUrls: ['./dialog.component.scss'],
 })
 export class DialogComponent implements OnInit {
   @Input() template: any;
+  @Input() actions: any;
   @Input() title: string;
   @Output() onDialogClose = new EventEmitter<any>();
 
@@ -42,7 +42,11 @@ export class DialogComponent implements OnInit {
     this.dialogRef = this.dialog.open(DialogTemplateComponent, {
       minWidth: '44vw',
       maxWidth: mobile ? '100vw' : '44vw',
-      data: { title: this.title, template: this.template },
+      data: {
+        title: this.title,
+        template: this.template,
+        actions: this.actions,
+      },
     });
 
     this.dialogRef

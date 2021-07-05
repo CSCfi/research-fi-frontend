@@ -3,7 +3,9 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<main id="main-content">
+<app-redirect *ngIf="!profileChecked"></app-redirect>
+
+<main id="main-content" *ngIf="profileChecked">
   <div class="wrapper">
     <div class="row d-flex justify-content-center">
       <div class="col col-lg-6 px-0">
@@ -566,7 +568,7 @@
                     profiilipalveluun.
                   </p>
                   <p>
-                    Valitsemalla "Tuo ORCID-tietoni annat luvan ORCID:iin
+                    Valitsemalla "Tuo ORCID-tietoni" annat luvan ORCID:iin
                     tallentamiesi julkisten tietojesi tallentamisen Tutkijan
                     profiilipalveluun.
                   </p>

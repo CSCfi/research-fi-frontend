@@ -24,3 +24,9 @@
     </p>
   </div>
 </mat-dialog-content>
+
+<mat-dialog-actions class="d-flex justify-content-end" *ngIf="data.actions">
+  <div class="row">
+    <ng-container [ngTemplateOutlet]="data.actions"></ng-container>
+  </div>
+</mat-dialog-actions>

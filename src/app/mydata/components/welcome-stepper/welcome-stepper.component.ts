@@ -30,7 +30,7 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class WelcomeStepperComponent implements OnInit {
-  step = 4;
+  step: number;
   cancel = false;
 
   termsApproved = false;
@@ -46,8 +46,11 @@ export class WelcomeStepperComponent implements OnInit {
   @ViewChild('termsTemplate') termsTemplate: ModalDirective;
   modalRef: BsModalRef;
 
+  profileChecked: boolean;
   profileCreated: boolean;
   profileData: Object;
+
+  // Dialog variables
   showDialog: boolean;
   dialogTemplate: any;
   dialogTitle: any;
@@ -63,6 +66,8 @@ export class WelcomeStepperComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.checkProfileExists();
+
     this.step = this.appSettingsService.myDataSettings.develop ? 4 : 1;
 
     this.oidcSecurityService.userData$.pipe(take(1)).subscribe((data) => {
@@ -104,24 +109,25 @@ export class WelcomeStepperComponent implements OnInit {
 
   fetchData() {
     this.smModal.show();
-    this.checkProfileExists();
+    this.createProfile();
   }
 
+  // Redirect to profile summary if profile exists.
   checkProfileExists() {
     this.profileService
       .checkProfileExists()
       .pipe(take(1))
       .subscribe((data: any) => {
         if (data.ok) {
-          data.body.success
-            ? // ? this.router.navigate(['/profile'])
-              this.getProfileData()
-            : this.createProfile();
+          if (data.body.success) this.router.navigate(['/mydata/profile']);
+
+          this.profileChecked = true;
         } else {
         }
       });
   }
 
+  // Create profile when proceeding from step 3. Get ORCID and profile data after profile creation
   createProfile() {
     return this.profileService
       .createProfile()
@@ -162,7 +168,7 @@ export class WelcomeStepperComponent implements OnInit {
     this.profileData = null;
     this.profileService.getProfileData().subscribe((data) => {
       this.profileData = data;
-      this.smModal.hide();
+      this.smModal?.hide();
       this.increment();
     });
   }

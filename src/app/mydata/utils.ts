@@ -52,3 +52,39 @@ export function getDataSources(profileData, locale: string = 'Fi') {
     ).values(),
   ].map((item) => item['name' + locale]);
 }
+
+export function mergePublications(data) {
+  const publications = data.fields[0].groupItems;
+
+  for (let [i, publication] of publications[0].items.entries()) {
+    if (publications.length === 2) {
+      const match = publications[1].items.find(
+        (item) => item.doi === publication.doi
+      );
+
+      if (match) {
+        publications[0].items[i] = {
+          ...publication,
+          merged: true,
+          source: {
+            organizations: [
+              publications[0].source.organization,
+              publications[1].source.organization,
+            ],
+          },
+        };
+
+        // Remove duplicate
+        publications[1].items = publications[1].items.filter(
+          (item) => item.doi !== publication.doi
+        );
+      }
+      // else {
+      //   for (const group of publications.shift()) {
+      //     if (group.items.find((item) => item.doi === publication.doi)) {
+      //     }
+      //   }
+      // }
+    }
+  }
+}

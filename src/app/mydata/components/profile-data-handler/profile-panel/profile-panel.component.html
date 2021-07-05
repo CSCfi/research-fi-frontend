@@ -31,6 +31,24 @@
         <div class="row d-flex justify-content-between py-4">
           <div class="col-12 col-md-6 pl-0 font-size-big pb-3 pb-md-0">
             Valitse profiilissasi näytettävät tiedot
+
+            <ng-container *ngIf="field.label === 'Julkaisut'">
+              <ng-template #tooltipTemplate>
+                <div
+                  [innerHtml]="
+                    'Tiedejatutkimus.fi-palvelun julkaisut on lisätty profiiliisi automaattisesti, jos niissä on ORCID-tunnuksesi. Julkaisuja, joihin ORCID-tunnusta ei ole valmiiksi liitetty, voit etsiä ”Puuttuuko jokin julkaisu tiedoistasi?” –toiminnolla.'
+                  "
+                ></div>
+              </ng-template>
+              <span
+                [tooltip]="tooltipTemplate"
+                tabindex="0"
+                placement="bottom"
+                #elem
+              >
+                <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+              </span>
+            </ng-container>
           </div>
           <div class="col-auto px-0" *ngIf="field.label === 'Julkaisut'">
             <!-- Search publications -->
