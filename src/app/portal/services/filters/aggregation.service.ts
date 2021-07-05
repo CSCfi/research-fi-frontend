@@ -49,8 +49,7 @@ export class AggregationService {
       (item) =>
         item.bool?.should.length > 0 &&
         !item.bool.should[0].nested &&
-        !item.bool.should[0].bool &&
-        !item.bool.should[0].range
+        !item.bool.should[0].bool
     );
     // Active bool filters come from aggregations that contain multiple terms, eg composite aggregation
     const activeBool = filters.filter((item) => item.bool?.should[0]?.bool);
