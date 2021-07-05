@@ -65,6 +65,7 @@
 
 // Mydata
 @import './app/mydata/mydata-shared.scss';
+@import './app/mydata/mydata-shared-theme.scss';
 @import './app/mydata/components/profile-data-handler/profile-data-handler.component-theme.scss';
 @import './app/mydata/components/profile-data-handler/profile-panel/primary-badge/primary-badge.component-theme.scss';
 
@@ -115,6 +116,7 @@
   @include app-pagination-shared;
   @include app-carousel-theme($theme);
   @include app-bar-chart-theme($theme);
+  @include app-mydata-shared-theme($theme);
   @include app-profile-data-handler-theme($theme);
   @include app-primary-badge-theme($theme);
 }
