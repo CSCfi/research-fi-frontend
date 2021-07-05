@@ -12,6 +12,7 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { take } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteProfileDialogComponent } from './delete-profile-dialog/delete-profile-dialog.component';
+import { mergePublications } from '@mydata/utils';
 
 @Component({
   selector: 'app-profile',
@@ -23,6 +24,8 @@ export class ProfileComponent implements OnInit {
   profileData: any;
   testData: any;
   orcid: string;
+
+  mergePublications = mergePublications;
 
   collaborationOptions = [
     { label: 'Olen kiinnostunut tiedotusvälineiden yhteydenotoista', id: 0 },
@@ -55,12 +58,17 @@ export class ProfileComponent implements OnInit {
 
     if (this.appSettingsService.myDataSettings.develop) {
       this.profileData = this.testData;
+      this.mergePublications(this.profileData.profileData[4]);
     } else {
       this.profileService
         .getProfileData()
         .pipe(take(1))
         .subscribe((data) => {
           this.profileData = data;
+
+          // Merge publications
+          // TODO: Find better way to pass array element than index number. Eg. type
+          this.mergePublications(data.profileData[4]);
         });
     }
   }

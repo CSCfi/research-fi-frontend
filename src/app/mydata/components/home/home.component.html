@@ -19,15 +19,15 @@
   </div>
 </div>
 <main id="main-content">
-  <div class="row pb-4 d-lg-none">
+  <div class="row pt-4 pb-4 d-lg-none">
     <div class="col text-center">
       <p>
-        Hallinnoi julkista tutkijaprofiiliasi tiedejatutkimus.fi
-        -hakuportaalissa
+        Luo itsellesi profiili <br />
+        Tiedejatutkimus.fi -palveluun.
       </p>
     </div>
   </div>
-  <div class="row d-flex justify-content-center py-3">
+  <div class="row d-flex justify-content-center py-0 pb-3 py-md-3">
     <div class="col col-lg-auto">
       <app-primary-action-button
         content="Luo profiili"
@@ -38,10 +38,15 @@
     </div>
   </div>
 
-  <div class="row d-flex justify-content-center py-3">
-    <div class="col-3 px-0 pb-3 text-center">
+  <div class="row d-flex justify-content-center py-md-3">
+    <div class="col py-3 text-center">
       <span class="pr-2">Oletko luonut jo tunnukset?</span>
-      <a href="asd" class="font-weight-bold">Kirjaudu sisään</a>
+      <a
+        href="javascript:void(0)"
+        class="d-block d-md-inline font-weight-bold py-3 py-md-0"
+        (click)="login()"
+        >Kirjaudu sisään</a
+      >
     </div>
   </div>
 

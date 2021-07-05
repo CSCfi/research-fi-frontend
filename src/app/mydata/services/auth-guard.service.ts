@@ -36,10 +36,6 @@ export class AuthGuard implements CanActivate {
 
     return this.oidcSecurityService.isAuthenticated$.pipe(
       map((isAuthorized: boolean) => {
-        console.log(
-          'AuthorizationGuard, canActivate isAuthorized: ' + isAuthorized
-        );
-
         if (!isAuthorized) {
           this.router.navigate(['/mydata']);
           return false;
