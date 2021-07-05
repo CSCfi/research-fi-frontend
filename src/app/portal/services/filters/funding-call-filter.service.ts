@@ -53,8 +53,8 @@ export class FundingCallFilterService {
       item.label = item.orgName.buckets[0]?.key;
       item.doc_count = item.orgName.buckets[0]?.doc_count;
     });
-    // Sort by sector id
-    data.buckets.sort((a, b) => parseInt(a.id, 10) - parseInt(b.id, 10));
+    // Sort by number of docs
+    data.buckets.sort((a, b) => b.doc_count - a.doc_count);
   }
   
   field(data) {
@@ -66,7 +66,7 @@ export class FundingCallFilterService {
     });
     // Sort by category name
     data.buckets.sort((a, b) => +(a.label > b.label) - 0.5);
-    
+
     // Add extra field for active-filters
     const cp = cloneDeep(data.buckets);
     cp.forEach(f => f.key = f.label);
