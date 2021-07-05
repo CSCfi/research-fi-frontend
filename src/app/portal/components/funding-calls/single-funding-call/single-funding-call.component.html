@@ -64,7 +64,8 @@
                             </ng-container>
                         </h2>
                         <div class="col-12 col-sm-8 col-lg-9 td">
-                            <div [ngClass]="row.field !== 'description' || expandDescription ? 'expand' : 'short'" [innerHTML]="call[row.field]">
+                            <!-- Strip HTML tags for short preview. Makes line-clamp work on Firefox -->
+                            <div [ngClass]="row.field !== 'description' || expandDescription ? 'expand' : 'short'" [innerHTML]="call[row.field + ((row.field !== 'description' || expandDescription) ? '' : 'short')]">
                                 <!-- {{ call[row.field] }} -->
                             </div>
                             <a 
@@ -113,7 +114,8 @@
                             </ng-container>
                         </h2>
                         <div class="col-12 col-sm-8 col-lg-9 td">
-                            <div [ngClass]="row.field !== 'terms' || expandTerms ? 'expand' : 'short'" [innerHTML]="call[row.field]">
+                            <!-- Strip HTML tags for short preview. Makes line-clamp work on Firefox -->
+                            <div [ngClass]="row.field !== 'terms' || expandTerms ? 'expand' : 'short'" [innerHTML]="call[row.field + ((row.field !== 'terms' || expandTerms) ? '' : 'short')]">
                                 <!-- {{ call[row.field] }} -->
                             </div>
                             <a 

@@ -168,9 +168,19 @@ export class SingleFundingCallComponent implements OnInit {
         this.responseData.fundingCalls[0][item.field]
       );
     };
+    // Strip HTML tags from content
+    const parseString = (item: {field: string }) => {
+      let doc = new DOMParser().parseFromString(this.responseData.fundingCalls[0][item.field] ,'text/html');
+      return doc.body.textContent || '';
+    }
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter((item) => checkEmpty(item));
     this.applicationInfoFields = this.applicationInfoFields.filter((item) => checkEmpty(item));
+
+    // Short version is not HTML formatted
+    this.infoFields.forEach((item) => { this.responseData.fundingCalls[0][item.field + 'short'] = parseString(item) })
+    this.applicationInfoFields.forEach((item) => { this.responseData.fundingCalls[0][item.field + 'short'] = parseString(item) })
+    console.log(this.responseData.fundingCalls[0])
   }
 
   shapeData() {
