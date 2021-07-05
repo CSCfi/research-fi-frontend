@@ -37,10 +37,15 @@ export class ProfileComponent implements OnInit {
     { label: 'Olen kiinnostunut yhteistyöstä yritysten kanssa', id: 2 },
     {
       label:
-        'Olen kiinnostunut toimimaan tieteellisten julkaisujen vertaisarvioiana',
+        'Olen kiinnostunut toimimaan tieteellisten julkaisujen vertaisarvioijana',
       id: 3,
     },
   ];
+
+  // Dialog variables
+  showDialog: boolean;
+  dialogTemplate: any;
+  dialogTitle: any;
 
   constructor(
     private profileService: ProfileService,
@@ -77,5 +82,17 @@ export class ProfileComponent implements OnInit {
     this.dialog.open(DeleteProfileDialogComponent, {
       minWidth: '44vw',
     });
+  }
+
+  openDialog(title, template) {
+    this.dialogTitle = title;
+    this.showDialog = true;
+    this.dialogTemplate = template;
+  }
+
+  resetDialog() {
+    this.dialogTitle = '';
+    this.showDialog = false;
+    this.dialogTemplate = null;
   }
 }
