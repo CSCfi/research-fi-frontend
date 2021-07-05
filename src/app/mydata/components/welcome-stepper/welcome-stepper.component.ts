@@ -54,6 +54,7 @@ export class WelcomeStepperComponent implements OnInit {
   showDialog: boolean;
   dialogTemplate: any;
   dialogTitle: any;
+  develop: boolean;
 
   constructor(
     private profileService: ProfileService,
@@ -66,9 +67,15 @@ export class WelcomeStepperComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.checkProfileExists();
+    this.develop = this.appSettingsService.myDataSettings.develop;
 
-    this.step = this.appSettingsService.myDataSettings.develop ? 4 : 1;
+    if (!this.develop) {
+      this.checkProfileExists();
+    } else {
+      this.profileChecked = true;
+    }
+
+    this.step = this.develop ? 4 : 1;
 
     this.oidcSecurityService.userData$.pipe(take(1)).subscribe((data) => {
       this.userData = data;

@@ -202,13 +202,20 @@ export class ProfileDataHandlerComponent implements OnInit {
     this.profileService
       .patchObjects(patchItems)
       .pipe(take(1))
-      .subscribe((response) => {
-        console.log(response);
-        if (!hideNotification)
-          this.snackBar.open('Muutokset tallennettu', 'Sulje', {
+      .subscribe(
+        (result) => {
+          if (!hideNotification)
+            this.snackBar.open('Muutokset tallennettu', 'Sulje', {
+              horizontalPosition: 'start',
+              panelClass: 'mydata-snackbar',
+            });
+        },
+        (error) => {
+          this.snackBar.open('Virhe tiedon tallennuksessa', 'Sulje', {
             horizontalPosition: 'start',
+            panelClass: 'mydata-snackbar',
           });
-        // TODO: Alert when error
-      });
+        }
+      );
   }
 }

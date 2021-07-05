@@ -5,7 +5,7 @@
 
 <main id="main-content">
   <div class="wrapper">
-    <div class="row d-flex justify-content-between">
+    <div class="row d-flex justify-content-between pb-3 pb-md-0">
       <div class="col-12 col-md-6 px-0">
         <div class="row d-flex">
           <h1 class="col-auto px-0">Profiili</h1>
@@ -79,8 +79,72 @@
           </div>
         </div>
 
+        <!-- EULA -->
+        <div class="row pb-3 d-flex justify-content-center">
+          <div class="col-12 px-0">
+            <button
+              class="row border border-primary rounded btn d-flex w-100"
+              (click)="
+                openDialog(
+                  'Tutkijan tiedot -työkalun käyttöehdot',
+                  termsTemplate
+                )
+              "
+            >
+              <div class="col-auto">
+                <i class="pt-3 pb-2 h1 primary-color fas fa-file-alt"></i>
+              </div>
+              <div class="col align-self-center">
+                <span class="d-block align-self-center text-left"
+                  >Avaa käyttöehdot</span
+                >
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <div class="row d-flex justify-content-center">
+          <div class="col-12 px-0">
+            <button
+              class="row border border-primary rounded btn d-flex w-100"
+              (click)="
+                openDialog(
+                  'Henkilötietojen käsittely',
+                  personalDataHandlingTermsTemplate
+                )
+              "
+            >
+              <div class="col-auto">
+                <i class="pt-3 pb-2 h1 primary-color fas fa-file-alt"></i>
+              </div>
+              <div class="col align-self-center">
+                <span class="d-block align-self-center text-left"
+                  >Avaa henkilötietojen käsittelyperiaatteet</span
+                >
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <ng-template #personalDataHandlingTermsTemplate>
+          <app-eula template="personalDataHandlingTermsTemplate"></app-eula>
+        </ng-template>
+
+        <app-dialog
+          *ngIf="showDialog"
+          [template]="dialogTemplate"
+          [title]="dialogTitle"
+          (onDialogClose)="resetDialog()"
+        ></app-dialog>
+
+        <ng-template #termsTemplate>
+          <app-eula template="termsTemplate"></app-eula>
+        </ng-template>
+
+        <!-- Delete profile -->
+
         <app-primary-action-button
-          class="d-block pt-3"
+          class="d-block pt-5 pb-4"
           (click)="openDeleteProfileDialog()"
           content="Poista profiili"
         ></app-primary-action-button>
