@@ -9,12 +9,12 @@ import {
   Component,
   OnInit,
   ViewChild,
+  ViewChildren,
   ElementRef,
   OnDestroy,
   Inject,
   LOCALE_ID,
   PLATFORM_ID,
-  ViewChildren,
   Renderer2,
   ViewEncapsulation,
   HostListener,
@@ -32,13 +32,10 @@ import {
   faInfoCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { BetaInfoComponent } from '../beta-info/beta-info.component';
 import { PrivacyService } from 'src/app/portal/services/privacy.service';
 import { ContentDataService } from 'src/app/portal/services/content-data.service';
 import { AppSettingsService } from 'src/app/shared/services/app-settings.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
@@ -52,6 +49,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild('overflowHider', { static: true }) overflowHider: ElementRef;
   @ViewChild('start', { static: false }) start: ElementRef;
   @ViewChild('overlay', { static: false }) overlay: ElementRef;
+  @ViewChild('authExpiredTemplate', { static: true })
+  authExpiredTemplate: ElementRef;
   @ViewChildren('navLink') navLink: any;
 
   navbarOpen = false;
@@ -85,7 +84,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   newPageSub: Subscription;
   firstTab: boolean;
 
-  betaReviewDialogRef: MatDialogRef<BetaInfoComponent>;
   consentStatusSub: Subscription;
   consent: string;
   pageDataSub: Subscription;
@@ -93,6 +91,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   appSettings: object;
   isAuthenticated: Observable<boolean>;
   loggedIn: boolean;
+
+  // Dialog variables
+  showDialog: boolean;
+  dialogTemplate: any;
+  dialogTitle: any;
 
   constructor(
     private resizeService: ResizeService,
@@ -106,7 +109,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private renderer: Renderer2,
     private route: ActivatedRoute,
     private tabChangeService: TabChangeService,
-    public dialog: MatDialog,
     private privacyService: PrivacyService,
     private appSettingsService: AppSettingsService,
     private oidcSecurityService: OidcSecurityService
@@ -168,11 +170,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
         // Login / logout link
         // Click functionality is handled in handleClick method
-        this.isAuthenticated.pipe(take(1)).subscribe((status) => {
-          this.loggedIn = status;
-          this.appSettingsService.myDataSettings.navItems[0].label = status
-            ? 'Kirjaudu ulos'
-            : 'Kirjaudu sisään';
+        // Handle session timeout
+        this.isAuthenticated.subscribe((authenticated) => {
+          if (this.currentRoute.includes('/mydata')) {
+            if (this.loggedIn && !authenticated) {
+              this.openDialog('Uloskirjaus', this.authExpiredTemplate);
+            } else {
+              this.loggedIn = authenticated;
+            }
+          }
+          this.appSettingsService.myDataSettings.navItems[0].label =
+            authenticated ? 'Kirjaudu ulos' : 'Kirjaudu sisään';
         });
       }
       // Check if consent has been chosen & set variable. This is used in linking between language versions
@@ -357,12 +365,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.tabChangeService.targetFocus(target);
   }
 
-  toggleBetaInfo() {
-    this.betaReviewDialogRef = this.dialog.open(BetaInfoComponent, {
-      height: '700px',
-      maxWidth: '60vw',
-      minWidth: '400px',
-      autoFocus: false,
-    });
+  openDialog(title, template) {
+    this.dialogTitle = title;
+    this.showDialog = true;
+    this.dialogTemplate = template;
+  }
+
+  resetDialog() {
+    this.dialogTitle = '';
+    this.showDialog = false;
+    this.dialogTemplate = null;
+  }
+
+  login() {
+    this.oidcSecurityService.authorize();
   }
 }

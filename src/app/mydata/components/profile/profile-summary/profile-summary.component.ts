@@ -122,7 +122,7 @@ export class ProfileSummaryComponent implements OnInit {
             const currentPatchItems = this.patchService.currentPatchItems;
             console.log('On editor modal close: ', currentPatchItems);
             this.data.profileData[index] = result.data;
-            this.patchItems(currentPatchItems);
+            if (currentPatchItems.length) this.patchItems(currentPatchItems);
           }
 
           this.patchService.clearPatchPayload();

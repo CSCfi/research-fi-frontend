@@ -62,7 +62,10 @@
     >
       <div class="row logo-wrapper">
         <div class="col-auto p-0">
-          <a class="navbar-brand" routerLink="">
+          <a
+            class="navbar-brand"
+            [routerLink]="appSettings.beta ? '/mydata' : ''"
+          >
             <img
               src="assets/img/logo.svg"
               i18n-alt
@@ -78,9 +81,28 @@
         <div class="col-auto px-0 mt-2 mt-md-1" *ngIf="appSettings.beta">
           <app-primary-action-button
             content="Beta"
-            (click)="toggleBetaInfo()"
+            (click)="openDialog('Beta', betaInfoTemplate)"
           ></app-primary-action-button>
         </div>
+
+        <ng-template #betaInfoTemplate>
+          <p>
+            Tämä on Tutkijan tiedot -työkalun betaversio. Testikäyttäjien
+            palautetta hyödynnetään palvelun toiminnallisuuksien kehittämisessä.
+          </p>
+          <p>
+            <a href="https://wiki.eduuni.fi/x/YwMJDQ" target="_blank"
+              >Lue lisää... <fa-icon icon="external-link-alt"></fa-icon
+            ></a>
+          </p>
+        </ng-template>
+
+        <app-dialog
+          *ngIf="showDialog"
+          [template]="dialogTemplate"
+          [title]="dialogTitle"
+          (onDialogClose)="resetDialog()"
+        ></app-dialog>
       </div>
     </div>
     <nav
@@ -225,5 +247,16 @@
       </div>
     </nav>
   </div>
+
+  <!-- Auth session expired template -->
+  <ng-template #authExpiredTemplate>
+    <p>Istunto on vanhentunut. Kirjaudu sisään jatkaaksesi.</p>
+
+    <app-primary-action-button
+      (click)="login()"
+      content="Kirjaudu sisään"
+    ></app-primary-action-button>
+  </ng-template>
+
   <div *ngIf="navbarOpen" id="overlay" (click)="toggleNavbar()" #overlay></div>
 </header>

@@ -78,16 +78,15 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
 
   ngOnInit(): void {
     // this.setDefaultPrimaryValue(this.data.fields);
-
     const publicationType = this.fieldTypes.activityPublication;
 
     // TODO: Better check for data. Maybe type when mapping response
     if (this.data.label === 'Julkaisut') {
       this.findFetchedPublications(this.data.fields[0].groupItems);
-    }
 
-    // Sort publications that come frome profile creation
-    this.sortPublications(this.data.fields);
+      // Sort publications that come frome profile creation
+      this.sortPublications(this.data.fields);
+    }
   }
 
   ngOnChanges() {

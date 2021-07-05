@@ -9,7 +9,11 @@ import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { cloneDeep } from 'lodash-es';
 import { ProfileService } from '@mydata/services/profile.service';
-import { checkSelected, getDataSources } from '../../utils';
+import {
+  checkSelected,
+  getDataSources,
+  mergePublications,
+} from '@mydata/utils';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { EditorModalComponent } from './editor-modal/editor-modal.component';
@@ -41,6 +45,7 @@ export class ProfileDataHandlerComponent implements OnInit {
 
   checkSelected = checkSelected;
   getDataSources = getDataSources;
+  mergePublications = mergePublications;
 
   profileData: any;
 
@@ -68,8 +73,10 @@ export class ProfileDataHandlerComponent implements OnInit {
     // Get data sources
     this.dataSources = getDataSources(this.profileData);
 
+    const initialPrimarySource = this.dataSources[0];
+
     // Set primary data source on init. Defaults to ORCID
-    this.setPrimaryDataSource(this.dataSources[0]);
+    this.setPrimaryDataSource(initialPrimarySource);
 
     // Merge publications
     // TODO: Find better way to pass array element than index number. Eg. type
@@ -86,57 +93,26 @@ export class ProfileDataHandlerComponent implements OnInit {
     );
   }
 
-  mergePublications(data) {
-    const publications = data.fields[0].groupItems;
-
-    for (let [i, publication] of publications[0].items.entries()) {
-      if (publications.length === 2) {
-        const match = publications[1].items.find(
-          (item) => item.doi === publication.doi
-        );
-
-        if (match) {
-          publications[0].items[i] = {
-            ...publication,
-            merged: true,
-            source: {
-              organizations: [
-                publications[0].source.organization,
-                publications[1].source.organization,
-              ],
-            },
-          };
-
-          // Remove duplicate
-          publications[1].items = publications[1].items.filter(
-            (item) => item.doi !== publication.doi
-          );
-        }
-        // else {
-        //   for (const group of publications.shift()) {
-        //     if (group.items.find((item) => item.doi === publication.doi)) {
-        //     }
-        //   }
-        // }
-      }
-    }
-  }
-
   setDefaultOptions(data, primarySource) {
     const radioGroups = data
       .flatMap((el) => el.fields.find((field) => field.single))
       .filter((item) => item);
 
+    const patchItems = [];
+
     radioGroups.forEach((group) =>
       group.groupItems.map((groupItem) => {
         if (groupItem.source.organization.nameFi === primarySource) {
           groupItem.items[0].itemMeta.show = true;
-          this.patchService.addToPatchItems(groupItem.items[0].itemMeta);
+          patchItems.push(groupItem.items[0].itemMeta);
         } else {
           groupItem.items[0].itemMeta.show = false;
         }
       })
     );
+
+    // Patch default options, hide snackbar notification
+    this.patchItems(patchItems, true);
   }
 
   toggleSelectAll(selectAll: boolean) {
@@ -148,8 +124,17 @@ export class ProfileDataHandlerComponent implements OnInit {
         if (!group.single) {
           group.groupItems.forEach((groupItem) =>
             groupItem.items.map((item) => {
-              item.itemMeta.show = selectAll;
-              patchItems.push(item.itemMeta);
+              if (selectAll) {
+                if (!item.itemMeta.show) {
+                  item.itemMeta.show = true;
+                  patchItems.push(item.itemMeta);
+                }
+              } else {
+                if (item.itemMeta.show) {
+                  item.itemMeta.show = false;
+                  patchItems.push(item.itemMeta);
+                }
+              }
             })
           );
         }
@@ -163,10 +148,6 @@ export class ProfileDataHandlerComponent implements OnInit {
     }
 
     this.profileData = fields;
-
-    // selectAll
-    //   ? this.patchService.addToPatchItems(patchItems)
-    //   : this.patchService.clearPatchPayload();
 
     this.patchItems(patchItems);
   }
@@ -209,7 +190,7 @@ export class ProfileDataHandlerComponent implements OnInit {
 
             console.log('On editor modal close: ', currentPatchItems);
             this.profileData[index] = result.data;
-            this.patchItems(currentPatchItems);
+            if (currentPatchItems.length) this.patchItems(currentPatchItems);
           }
 
           this.patchService.clearPatchPayload();
@@ -217,15 +198,16 @@ export class ProfileDataHandlerComponent implements OnInit {
       );
   }
 
-  patchItems(patchItems) {
+  patchItems(patchItems, hideNotification = false) {
     this.profileService
       .patchObjects(patchItems)
       .pipe(take(1))
       .subscribe((response) => {
         console.log(response);
-        this.snackBar.open('Muutokset tallennettu', 'Sulje', {
-          horizontalPosition: 'start',
-        });
+        if (!hideNotification)
+          this.snackBar.open('Muutokset tallennettu', 'Sulje', {
+            horizontalPosition: 'start',
+          });
         // TODO: Alert when error
       });
   }

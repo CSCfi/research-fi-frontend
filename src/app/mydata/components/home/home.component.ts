@@ -6,6 +6,7 @@
 //  :license: MIT
 
 import { Component } from '@angular/core';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
 
 @Component({
   selector: 'app-home',
@@ -13,5 +14,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  constructor() {}
+  constructor(public oidcSecurityService: OidcSecurityService) {}
+
+  login() {
+    this.oidcSecurityService.authorize();
+  }
 }
