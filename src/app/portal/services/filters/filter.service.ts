@@ -78,8 +78,8 @@ export class FilterService {
     accessType: [],
     type: [],
     coPublication: [],
-    // fromDate: [],
-    // toDate: []
+    fromDate: [],
+    toDate: []
   });
   filters = this.filterSource.asObservable();
   localeC: string;
@@ -114,8 +114,8 @@ export class FilterService {
     accessType: any[];
     type: any[];
     coPublication: any[];
-    // fromDate: any[],
-    // toDate: any[]
+    fromDate: any[],
+    toDate: any[]
   }) {
     // Create new filters first before sending updated values to components
     this.currentFilters = filters;
@@ -247,6 +247,15 @@ export class FilterService {
         .flat()
         .filter((x) => x)
         .sort(),
+      // Funding calls
+      fromDate: [source.fromDate]
+        .flat()
+        .filter((x) => x)
+        .sort(),
+      toDate: [source.toDate]
+        .flat()
+        .filter((x) => x)
+        .sort(),
     };
   }
 
@@ -333,7 +342,7 @@ export class FilterService {
     // Organization
     this.sectorFilter = this.filterBySector(filter.sector);
     // FundingCalls
-    // this.dateFilter = this.filterByDateRange(filter.fromDate, filter.toDate)
+    this.dateFilter = this.filterByDateRange(filter.fromDate, filter.toDate)
     this.fundingCallCategoryFilter = this.basicFilter(
       filter.field,
       'categories.codeValue.keyword'
@@ -406,16 +415,16 @@ export class FilterService {
   }
   
   filterByDateRange(from, to) {
-    const f = parseInt(from?.slice(1), 10);
-    const t = parseInt(to?.slice(1), 10);
+    const f = from.length ? new Date(from[0]).toLocaleDateString('sv') : undefined; // sv locale uses dashes and correct order
+    const t = to.length ? new Date(to).toLocaleDateString('sv') : undefined;
     const res = [];
-    if (f && t) {
-      res.push({ range: { callProgrammeDueDate: {gte: f, lte: t}}})
-    } else if (f) {
-      res.push({ range: { callProgrammeDueDate: { gte: f } } });
-    } else if (t) {
-      res.push({ range: { callProgrammeDueDate: { lte: t } } });    
+    if (f) {
+      res.push({ range: { callProgrammeOpenDate: {gte: f }}})
     }
+    if (t) {
+      res.push({ range: { callProgrammeDueDate: { lte: t } } });
+    }
+    return res
   }
 
   filterByOrganization(filter: any[]) {
@@ -774,7 +783,7 @@ export class FilterService {
       // FundingCalls
       ...basicFilter('funding-call', this.organizationFilter),
       ...nestedFilter('funding-call', this.fundingCallCategoryFilter, 'categories'),
-      // ...basicFilter('funding-call', this.dateFilter),
+      ...basicFilter('funding-call', this.dateFilter),
 
       // Global filters
       ...globalFilter(this.yearFilter),
