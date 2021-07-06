@@ -11,6 +11,8 @@ import { FormsModule } from '@angular/forms';
 
 import { MyDataRoutingModule } from './mydata-routing.module';
 
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
@@ -110,6 +112,7 @@ import { EulaComponent } from './components/eula/eula.component';
     SharedModule,
     ModalModule,
     FontAwesomeModule,
+    TooltipModule.forRoot(),
     MatProgressSpinnerModule,
     MatCheckboxModule,
     MatRadioModule,
