@@ -429,8 +429,38 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         break;
       }
     }
-
     this.selectionChange('year', selected);
+  }
+
+  dateChange(event, dir) {
+    let start = this.getActiveDate('start')?.toLocaleDateString('sv');
+    let end = this.getActiveDate('end')?.toLocaleDateString('sv');
+    switch (dir) {
+      case 'start': {
+        start = event?.value?.toLocaleDateString('sv') || ''; // In case new value is null
+        break;
+      }
+      case 'end': {
+        end = event?.value?.toLocaleDateString('sv') || ''; // In case new value is null
+        break;
+      }
+    }
+    // Create filter string format
+    const filterString = (start || end) ? (start || '') + '|' + (end || '') : ''; // Replace 'undefined' with empty string. On manual clear, empty string for the whole thing.
+    // this.activeFilters = Object.assign({}, this.activeFilters, {date: [filterString]});
+    this.selectionChange('date', [filterString]);
+  }
+
+  getActiveDate(dir) {
+    // Initially string, then array. Convert into same format regardless
+    const activeDate = [...(this.activeFilters.date || [])].join('');
+    const start = activeDate?.split('|')[0] // Check if active start date exists
+      ? new Date(activeDate?.split('|')[0]) 
+      : null;
+    const end = activeDate?.split('|')[1] // Check if active end date exists
+      ? new Date(activeDate?.split('|')[1]) 
+      : null;
+    return dir === 'start' ? start : end;
   }
 
   filterInput(event, parent) {
