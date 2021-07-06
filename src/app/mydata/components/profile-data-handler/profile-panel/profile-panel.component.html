@@ -33,23 +33,21 @@
           <div class="col-12 col-md-6 pl-0 font-size-big pb-3 pb-md-0">
             Valitse profiilissasi näytettävät tiedot
 
-            <ng-container *ngIf="field.label === 'Julkaisut'">
-              <ng-template #tooltipTemplate>
-                <div
-                  [innerHtml]="
-                    'Tiedejatutkimus.fi-palvelun julkaisut on lisätty profiiliisi automaattisesti, jos niissä on ORCID-tunnuksesi. Julkaisuja, joihin ORCID-tunnusta ei ole valmiiksi liitetty, voit etsiä ”Puuttuuko jokin julkaisu tiedoistasi?” –toiminnolla.'
-                  "
-                ></div>
-              </ng-template>
-              <span
-                [tooltip]="tooltipTemplate"
-                tabindex="0"
-                placement="bottom"
-                #elem
-              >
-                <fa-icon class="info-icon" icon="info-circle"></fa-icon>
-              </span>
-            </ng-container>
+            <ng-template #tooltipTemplate>
+              <div
+                innerHtml="
+                  'Tiedejatutkimus.fi-palvelun julkaisut on lisätty profiiliisi automaattisesti, jos niissä on ORCID-tunnuksesi. Julkaisuja, joihin ORCID-tunnusta ei ole valmiiksi liitetty, voit etsiä ”Puuttuuko jokin julkaisu tiedoistasi?” –toiminnolla.'
+                "
+              ></div>
+            </ng-template>
+            <span
+              tooltip="Tiedejatutkimus.fi-palvelun julkaisut on lisätty profiiliisi automaattisesti, jos niissä on ORCID-tunnuksesi. Julkaisuja, joihin ORCID-tunnusta ei ole valmiiksi liitetty, voit etsiä ”Puuttuuko jokin julkaisu tiedoistasi?” –toiminnolla."
+              tabindex="0"
+              placement="bottom"
+              #elem
+            >
+              <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+            </span>
           </div>
           <div class="col-auto px-0" *ngIf="field.label === 'Julkaisut'">
             <!-- Search publications -->
@@ -249,7 +247,7 @@
         </ng-container>
 
         <!-- Publications fetched in current session -->
-        <ng-container *ngIf="field.selectedPublications">
+        <!-- <ng-container *ngIf="field.selectedPublications">
           <div
             class="row d-flex justify-content-between py-2"
             *ngFor="let publication of field.selectedPublications"
@@ -278,7 +276,7 @@
               Tiedejatutkimus.fi
             </div>
           </div>
-        </ng-container>
+        </ng-container> -->
       </ng-container>
 
       <div class="row py-3 font-size-small" *ngIf="field.single">
