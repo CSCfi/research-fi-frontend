@@ -262,6 +262,12 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
             }
             this.data.fields[0].groupItems = groupItems;
           }
+
+          // Set fetched publications flag
+          this.hasFetchedPublications =
+            this.data.fields[0].groupItems[0].items.filter(
+              (item) => item.itemMeta.primaryValue
+            ).length > 0;
         }
       });
   }
@@ -333,13 +339,12 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
             const preSelection = this.data.fields[0].groupItems.flatMap(
               (group) => group.items
             );
-            console.log(this.data.fields[0]);
 
             const mergedPublications = preSelection
               .concat(result.selectedPublications)
               .sort((a, b) => b.publicationYear - a.publicationYear);
 
-            console.log(mergedPublications);
+            this.hasFetchedPublications = true;
 
             this.data.fields[0].groupItems[0].items = mergedPublications;
 

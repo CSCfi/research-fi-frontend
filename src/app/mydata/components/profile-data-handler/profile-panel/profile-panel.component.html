@@ -204,16 +204,13 @@
       <ng-container
         *ngIf="
           field.groupItems[0].groupMeta.type ===
-            fieldTypes.activityPublication &&
-          (field.selectedPublications || hasFetchedPublications)
+            fieldTypes.activityPublication && hasFetchedPublications
         "
       >
         <span class="font-size-big d-block pb-3">Tuodut julkaisut</span>
         <ng-container *ngFor="let group of field.groupItems">
           <ng-container *ngIf="group.items.length">
-            <ng-container
-              *ngFor="let publication of group.items | sortPublications"
-            >
+            <ng-container *ngFor="let publication of group.items">
               <div
                 class="row d-flex justify-content-between py-2"
                 *ngIf="publication.itemMeta.primaryValue"

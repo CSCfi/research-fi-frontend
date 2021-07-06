@@ -10,9 +10,10 @@ import { ProfileService } from '@mydata/services/profile.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { take } from 'rxjs/operators';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DeleteProfileDialogComponent } from './delete-profile-dialog/delete-profile-dialog.component';
 import { mergePublications } from '@mydata/utils';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -47,11 +48,14 @@ export class ProfileComponent implements OnInit {
   dialogTemplate: any;
   dialogTitle: any;
 
+  deleteProfileDialogRef: MatDialogRef<DeleteProfileDialogComponent>;
+
   constructor(
     private profileService: ProfileService,
     public oidcSecurityService: OidcSecurityService,
     private appSettingsService: AppSettingsService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private router: Router
   ) {
     this.testData = profileService.testData;
   }
@@ -79,9 +83,21 @@ export class ProfileComponent implements OnInit {
   }
 
   openDeleteProfileDialog(): void {
-    this.dialog.open(DeleteProfileDialogComponent, {
-      minWidth: '44vw',
-    });
+    this.deleteProfileDialogRef = this.dialog.open(
+      DeleteProfileDialogComponent,
+      {
+        minWidth: '44vw',
+      }
+    );
+
+    this.deleteProfileDialogRef
+      .afterClosed()
+      .pipe(take(1))
+      .subscribe((result) => {
+        if (result) {
+          this.router.navigate(['/mydata']);
+        }
+      });
   }
 
   openDialog(title, template) {

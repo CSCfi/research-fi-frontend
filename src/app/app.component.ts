@@ -27,11 +27,7 @@ export class AppComponent {
     // SSR platform check
     if (isPlatformBrowser(this.platformId)) {
       // Start auth process
-      this.oidcSecurityService
-        .checkAuth()
-        .subscribe((isAuthenticated) =>
-          console.log('app authenticated', isAuthenticated)
-        );
+      this.oidcSecurityService.checkAuth().subscribe((isAuthenticated) => {});
 
       // Add initial Matomo script with dynamic site ID
       const node = this.document.createElement('script');
