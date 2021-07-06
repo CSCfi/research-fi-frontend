@@ -65,9 +65,6 @@
       </ng-container>
 
       <ng-container *ngIf="field.label === 'Affiliaatiot'">
-        <p class="row m-0">
-          Voit valita enimmillään 3 ensisijaista affiliaatiota.
-        </p>
         <p class="row">
           Ensisijaiset näytetään profiilissasi listan ensimmäisinä.
         </p>
@@ -194,6 +191,8 @@
                     "
                     [item]="item"
                     [data]="field"
+                    [class.opacity-3]="!item.itemMeta.show"
+                    [disabled]="!item.itemMeta.show"
                     [selected]="item.itemMeta.primaryValue"
                   ></app-primary-badge>
                 </div>

@@ -84,7 +84,7 @@
                       <app-primary-badge
                         label="Ensisijainen"
                         [selected]="true"
-                        [disableClick]="true"
+                        [disabled]="true"
                       ></app-primary-badge>
                     </div>
 
@@ -101,26 +101,6 @@
                 {{ groupItem.source.organization['name' + locale] }}
               </div> -->
                   </div>
-
-                  <!-- Primary affiliation -->
-                  <!-- <div
-                    class="row pb-3 mt-n2"
-                    *ngIf="item.itemMeta.primaryValue"
-                  >
-                    <div
-                      class="col-auto px-4 mx-1 cursor-pointer"
-                      *ngIf="
-                        groupItem.groupMeta.type ===
-                        fieldTypes.activityAffiliation
-                      "
-                    >
-                      <app-primary-badge
-                        label="Ensisijainen"
-                        [selected]="true"
-                        [disableClick]="true"
-                      ></app-primary-badge>
-                    </div>
-                  </div> -->
                 </ng-container>
               </ng-container>
             </ng-container>
