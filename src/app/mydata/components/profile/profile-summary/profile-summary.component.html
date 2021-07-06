@@ -37,18 +37,21 @@
 
           <ng-container *ngFor="let groupItem of field.groupItems">
             <ng-container [ngSwitch]="groupItem.groupMeta.type">
-              <div class="row" *ngSwitchCase="fieldTypes.personKeyword">
-                <div class="col px-0 font-size-smaller">
-                  {{ groupItem.items | joinItems: 'value' }}
-                </div>
+              <ng-container *ngSwitchCase="fieldTypes.personKeyword">
+                <!-- Display joined keywords only if item has show property set to true -->
+                <div class="row" *ngIf="groupItem.items[0].itemMeta.show">
+                  <div class="col px-0 pb-2 font-size-smaller">
+                    {{ groupItem.items | joinItems: 'value' }}
+                  </div>
 
-                <!-- Source -->
-                <!-- <div
+                  <!-- Source -->
+                  <!-- <div
                   class="col-auto px-0 mt-1 text-right opacity-3 font-size-small"
                 >
                   {{ groupItem.source.organization['name' + locale] }}
                 </div> -->
-              </div>
+                </div>
+              </ng-container>
               <ng-container *ngSwitchDefault>
                 <ng-container *ngFor="let item of groupItem.items">
                   <div

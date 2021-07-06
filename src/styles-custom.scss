@@ -29,10 +29,15 @@ $researchfi-theme: map_merge(
 
 $primary: map-get($researchfi-theme, primary);
 
-html.cdk-global-scrollblock {
-  body {
-    overflow: hidden !important;
-  }
+// html.cdk-global-scrollblock {
+//   body {
+//     overflow: hidden !important;
+//   }
+// }
+
+// Show disabled vertical scroll when dialog opens. Prevents elements filling the space if there's no scroll bar
+.cdk-global-scrollblock {
+  overflow-y: inherit;
 }
 
 body {

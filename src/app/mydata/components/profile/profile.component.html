@@ -142,12 +142,15 @@
         </ng-template>
 
         <!-- Delete profile -->
-
-        <app-primary-action-button
-          class="d-block pt-5 pb-4"
-          (click)="openDeleteProfileDialog()"
-          content="Poista profiili"
-        ></app-primary-action-button>
+        <div class="row">
+          <div class="col px-0 text-center text-md-left">
+            <app-primary-action-button
+              class="d-block pt-5 pb-4"
+              (click)="openDeleteProfileDialog()"
+              content="Poista profiili"
+            ></app-primary-action-button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
