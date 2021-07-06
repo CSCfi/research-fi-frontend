@@ -1,3 +1,10 @@
+//  This file is part of the research.fi API service
+//
+//  Copyright 2019 Ministry of Education and Culture, Finland
+//
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { cloneDeep } from 'lodash-es';
@@ -149,7 +156,7 @@ export class ProfileSummaryComponent implements OnInit {
         (result: { data: any; patchGroups: any[]; patchItems: any[] }) => {
           if (result) {
             const currentPatchItems = this.patchService.currentPatchItems;
-            console.log('On editor modal close: ', currentPatchItems);
+
             this.data.profileData[index] = result.data;
 
             // Sort

@@ -5,7 +5,14 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, ViewEncapsulation, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ViewEncapsulation,
+  OnInit,
+  ViewChild,
+  Inject,
+  PLATFORM_ID,
+} from '@angular/core';
 import {
   faAngleDoubleRight,
   faAngleDoubleLeft,
@@ -19,9 +26,11 @@ import {
   ModalDirective,
 } from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
+import { WINDOW } from '@shared/services/window.service';
 
 // Remove in production
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-welcome-stepper',
@@ -61,7 +70,9 @@ export class WelcomeStepperComponent implements OnInit {
     public oidcSecurityService: OidcSecurityService,
     private modalService: BsModalService,
     private router: Router,
-    private appSettingsService: AppSettingsService
+    private appSettingsService: AppSettingsService,
+    @Inject(PLATFORM_ID) private platformId: object,
+    @Inject(WINDOW) private window: Window
   ) {
     this.profileData = null;
   }
@@ -84,6 +95,11 @@ export class WelcomeStepperComponent implements OnInit {
   }
 
   changeStep(direction) {
+    // Scroll to top on step change
+    if (isPlatformBrowser(this.platformId)) {
+      this.window.scrollTo(0, 0);
+    }
+
     // Fetch data if on step 3 and user has initialized Orcid data fetch
     if (this.step === 3 && direction === 'increment') {
       this.fetchData();
@@ -130,7 +146,7 @@ export class WelcomeStepperComponent implements OnInit {
 
           this.profileChecked = true;
         } else {
-          console.log('Connection problem');
+          // TODO: Alert problem
         }
       });
   }
@@ -145,7 +161,7 @@ export class WelcomeStepperComponent implements OnInit {
           this.getOrcidData();
           this.profileCreated = true;
         } else {
-          console.log('Cannot create profile');
+          // TODO: Alert problem
         }
       });
   }
@@ -163,7 +179,7 @@ export class WelcomeStepperComponent implements OnInit {
   }
 
   deleteProfile() {
-    this.profileService.deleteProfile().subscribe((data) => console.log(data));
+    this.profileService.deleteProfile();
   }
 
   async getOrcidData() {

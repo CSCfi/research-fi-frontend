@@ -262,6 +262,12 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
             }
             this.data.fields[0].groupItems = groupItems;
           }
+
+          // Set fetched publications flag
+          this.hasFetchedPublications =
+            this.data.fields[0].groupItems[0].items.filter(
+              (item) => item.itemMeta.primaryValue
+            ).length > 0;
         }
       });
   }
@@ -323,16 +329,28 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
           this.publicationService.resetSort();
 
           if (result) {
-            this.data.fields[0].selectedPublications =
-              result.selectedPublications;
+            // this.data.fields[0].selectedPublications =
+            //   result.selectedPublications;
 
-            this.cdr.detectChanges();
-
-            const patchItems = this.data.fields[0].selectedPublications.map(
+            const patchItems = result.selectedPublications.map(
               (item) => item.itemMeta
             );
 
+            const preSelection = this.data.fields[0].groupItems.flatMap(
+              (group) => group.items
+            );
+
+            const mergedPublications = preSelection
+              .concat(result.selectedPublications)
+              .sort((a, b) => b.publicationYear - a.publicationYear);
+
+            this.hasFetchedPublications = true;
+
+            this.data.fields[0].groupItems[0].items = mergedPublications;
+
             this.patchService.addToPatchItems(patchItems);
+
+            this.cdr.detectChanges();
 
             // Initialize merged publications
             // this.data.fields[0].mergedPublications = result.mergedPublications

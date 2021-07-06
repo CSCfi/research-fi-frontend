@@ -188,8 +188,8 @@ export class ProfileDataHandlerComponent implements OnInit {
           if (result) {
             const currentPatchItems = this.patchService.currentPatchItems;
 
-            console.log('On editor modal close: ', currentPatchItems);
             this.profileData[index] = result.data;
+
             if (currentPatchItems.length) this.patchItems(currentPatchItems);
           }
 
