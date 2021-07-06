@@ -189,7 +189,7 @@
             "
           />
           <!-- Time frame for year filter -->
-          <ng-container *ngIf="filter.hideSearch">
+          <ng-container *ngIf="filter.hideSearch && filter.field === 'year'">
             <div class="row">
               <div class="col">
                 <p i18n="Year range filter@@yearRange">Valitse aikaväli</p>
@@ -262,6 +262,57 @@
               </div>
             </div>
           </ng-container>
+          <ng-container *ngIf="filter.hideSearch && filter.field === 'date'">
+            <div class="row">
+              <div class="col">
+                <p i18n="@@yearRange">Valitse aikaväli</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-10">
+                <!-- Start date -->
+                <mat-form-field appearance="fill">
+                  <mat-label i18n="@@dateRange"
+                  >Alkupäivä</mat-label
+                  >
+                  <input matInput 
+                  (dateChange)="dateChange($event, 'start')" 
+                  placeholder="Aloituspäivä"
+                  [value]="getActiveDate('start')"
+                  [matDatepicker]="startPicker"
+                  [max]="getActiveDate('end')"
+                  >
+                  <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                  <mat-datepicker-toggle matSuffix (click)="dateChange(null, 'start')">
+                    <mat-icon matDatepickerToggleIcon color="warn">clear</mat-icon>
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #startPicker></mat-datepicker>
+                  
+                </mat-form-field>
+              </div>
+              <!-- End date -->
+              <div class="col-10">
+                <mat-form-field appearance="fill">
+                  <mat-label i18n="@@dateRange"
+                    >Loppupäivä</mat-label
+                  >
+                      <input matInput 
+                        (dateChange)="dateChange($event, 'end')" 
+                        placeholder="Päättymispäivä"
+                        [value]="getActiveDate('end')"
+                        [matDatepicker]="endPicker"
+                        [min]="getActiveDate('start')"
+                      >
+                    <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+                    <mat-datepicker-toggle matSuffix (click)="dateChange(null, 'end')">
+                      <mat-icon matDatepickerToggleIcon color="warn">clear</mat-icon>
+                    </mat-datepicker-toggle>  
+                    <mat-datepicker #endPicker></mat-datepicker>
+
+                </mat-form-field>
+              </div>
+            </div>
+          </ng-container>
           <!-- TODO: Change aria label field when content available -->
           <mat-selection-list
             [attr.aria-label]="filter.field"
@@ -318,7 +369,7 @@
               </div>
             </mat-list-option>
             <div
-              *ngIf="!responseData.aggregations[filter.field]?.buckets?.length"
+              *ngIf="!responseData.aggregations[filter.field]?.buckets?.length && filter.field !== 'date'"
               class="empty-filter-search"
               role="alert"
             >

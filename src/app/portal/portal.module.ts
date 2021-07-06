@@ -41,6 +41,8 @@ import { AppConfigService } from '../shared/services/app-config-service.service'
 
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatListModule } from '@angular/material/list';
@@ -233,6 +235,8 @@ import { FundingCallResultsComponent } from './components/funding-calls/funding-
     MatFormFieldModule,
     MatCheckboxModule,
     MatCardModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatRadioModule,
     MatSelectModule,
     MatListModule,

@@ -18,6 +18,7 @@ import {
   Input,
   Inject,
   PLATFORM_ID,
+  LOCALE_ID,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
@@ -106,6 +107,7 @@ export class ActiveFiltersComponent
     private newsFilters: NewsFilterService,
     private settingsService: SettingsService,
     @Inject(PLATFORM_ID) private platformId: object,
+    @Inject(LOCALE_ID) protected localeId: string,
     private searchService: SearchService
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
@@ -138,6 +140,7 @@ export class ActiveFiltersComponent
         break;
       case 'funding-calls':
         this.tabFilters = this.fundingCallFilters.filterData;
+        this.yearRange = $localize`:@@callPeriod:Hakuaika` + ': ';
         break;
       case 'news':
         this.tabFilters = this.newsFilters.filterData;
@@ -292,6 +295,21 @@ export class ActiveFiltersComponent
                   if (val.value <= this.toYear) {
                     val.hide = true;
                   }
+                }
+              }
+
+              if (val.category === 'date') {
+                const dateString = filter.date ? filter.date[0] : ''; 
+                const startDate = dateString?.split('|')[0];
+                const endDate = dateString?.split('|')[1];
+                const startDateString = startDate ? new Date(startDate).toLocaleDateString(this.localeId) : '';
+                const endDateString = endDate ? new Date(endDate).toLocaleDateString(this.localeId) : '';
+                if (startDateString && endDateString) {
+                  val.translation = this.yearRange + startDateString + ' - ' + endDateString;
+                } else if (startDateString) {
+                  val.translation = this.yearRange + startDateString + $localize`:@@yearFrom: alkaen` 
+                } else if (endDateString) {
+                  val.translation = this.yearRange + endDateString + $localize`:@@yearTo: päättyen` 
                 }
               }
 

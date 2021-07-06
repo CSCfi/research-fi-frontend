@@ -78,8 +78,7 @@ export class FilterService {
     accessType: [],
     type: [],
     coPublication: [],
-    // fromDate: [],
-    // toDate: []
+    date: [],
   });
   filters = this.filterSource.asObservable();
   localeC: string;
@@ -114,8 +113,7 @@ export class FilterService {
     accessType: any[];
     type: any[];
     coPublication: any[];
-    // fromDate: any[],
-    // toDate: any[]
+    date: any[],
   }) {
     // Create new filters first before sending updated values to components
     this.currentFilters = filters;
@@ -247,6 +245,11 @@ export class FilterService {
         .flat()
         .filter((x) => x)
         .sort(),
+      // Funding calls
+      date: [source.date]
+        .flat()
+        .filter((x) => x)
+        .sort(),
     };
   }
 
@@ -333,7 +336,7 @@ export class FilterService {
     // Organization
     this.sectorFilter = this.filterBySector(filter.sector);
     // FundingCalls
-    // this.dateFilter = this.filterByDateRange(filter.fromDate, filter.toDate)
+    this.dateFilter = this.filterByDateRange(filter.date)
     this.fundingCallCategoryFilter = this.basicFilter(
       filter.field,
       'categories.codeValue.keyword'
@@ -405,17 +408,24 @@ export class FilterService {
     return res;
   }
   
-  filterByDateRange(from, to) {
-    const f = parseInt(from?.slice(1), 10);
-    const t = parseInt(to?.slice(1), 10);
+  filterByDateRange(dateString) {
+    console.log(dateString)
+    // Date string format: yyyy-mm-dd|yyyy-mm-dd
+    dateString = dateString.length ? dateString[0] : '|';
+    const split = dateString.split('|');
+    const from = split[0];
+    const to = split[1];
+
+    const f = from ? new Date(from).toLocaleDateString('sv') : undefined; // sv locale uses dashes and correct order
+    const t = to ? new Date(to).toLocaleDateString('sv') : undefined;
     const res = [];
-    if (f && t) {
-      res.push({ range: { callProgrammeDueDate: {gte: f, lte: t}}})
-    } else if (f) {
-      res.push({ range: { callProgrammeDueDate: { gte: f } } });
-    } else if (t) {
-      res.push({ range: { callProgrammeDueDate: { lte: t } } });    
+    if (f) {
+      res.push({ range: { callProgrammeOpenDate: {gte: f }}})
     }
+    if (t) {
+      res.push({ range: { callProgrammeDueDate: { lte: t } } });
+    }
+    return res
   }
 
   filterByOrganization(filter: any[]) {
@@ -665,6 +675,13 @@ export class FilterService {
         : [];
     };
 
+    const rangeFilter = (i, f) => {
+      return index === i
+      ? f?.length 
+      ? [{ bool: { should: { bool: { filter: f } } } } ] : []
+      : []
+    }
+
     const coPublicationOrgs = () => {
       if (this.coPublicationFilter[0]) {
         const res = [];
@@ -774,7 +791,7 @@ export class FilterService {
       // FundingCalls
       ...basicFilter('funding-call', this.organizationFilter),
       ...nestedFilter('funding-call', this.fundingCallCategoryFilter, 'categories'),
-      // ...basicFilter('funding-call', this.dateFilter),
+      ...rangeFilter('funding-call', this.dateFilter),
 
       // Global filters
       ...globalFilter(this.yearFilter),
