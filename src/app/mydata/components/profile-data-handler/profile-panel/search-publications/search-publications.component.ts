@@ -84,10 +84,16 @@ export class SearchPublicationsComponent implements OnInit {
 
           const preSelection = this.data.selectedPublications;
 
+          const sortPublications = (publications) => {
+            return publications.sort(
+              (a, b) => b.publicationYear - a.publicationYear
+            );
+          };
+
           this.dialogRef.close({
             selectedPublications: preSelection
-              ? data.publicationsAdded.concat(preSelection)
-              : data.publicationsAdded,
+              ? sortPublications(data.publicationsAdded.concat(preSelection))
+              : sortPublications(data.publicationsAdded),
             publicationsNotFound: data.publicationsNotFound,
             publicationsAlreadyInProfile: data.publicationsAlreadyInProfile,
           });

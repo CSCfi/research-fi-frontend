@@ -240,7 +240,13 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
         if (res.ok && res.body.success) {
           let selectedPublications = this.data.fields[0].selectedPublications;
 
-          if (selectedPublications?.length) {
+          // Publications are stored in either selectedPublications, which consists of publications fetched in current session
+          // and groupItems, which consists of added publications.
+          if (
+            selectedPublications?.findIndex(
+              (item) => item.publicationId === publication.publicationId
+            ) > -1
+          ) {
             selectedPublications = selectedPublications.filter(
               (item) => item.publicationId !== publication.publicationId
             );
@@ -254,6 +260,7 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
                 (item) => item.publicationId !== publication.publicationId
               );
             }
+            this.data.fields[0].groupItems = groupItems;
           }
         }
       });

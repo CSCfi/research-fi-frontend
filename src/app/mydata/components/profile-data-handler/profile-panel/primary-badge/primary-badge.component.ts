@@ -18,6 +18,7 @@ export class PrimaryBadgeComponent {
   @Input() selected: boolean;
   @Input() item: any;
   @Input() data: any;
+  @Input() disabled: boolean;
   @Input() disableClick: boolean;
 
   constructor(private patchService: PatchService) {}

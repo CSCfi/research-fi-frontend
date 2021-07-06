@@ -50,6 +50,7 @@ export class ProfileSummaryComponent implements OnInit {
 
     this.primarySource = this.dataSources[0];
 
+    this.sortAffiliations(this.data.profileData);
     this.sortPublications(this.data.profileData);
   }
 
@@ -77,15 +78,38 @@ export class ProfileSummaryComponent implements OnInit {
   }
 
   sortPublications(data) {
+    // Combine groups and sort. Display items in summary only from first group
     const index = data.findIndex((item) => item.label === 'Julkaisut');
+
+    const selectedItems = data[index].fields[0].selectedPublications;
 
     const items = data[index].fields[0].groupItems.flatMap(
       (groupItem) => groupItem.items
     );
 
-    // Combine groups and sort. Display items in summary only from first group
-    const sortedItems = items.sort(
+    const merged = selectedItems?.length ? items.concat(selectedItems) : items;
+
+    const sortedItems = merged.sort(
       (a, b) => b.publicationYear - a.publicationYear
+    );
+
+    data[index].fields[0].groupItems[0].items = sortedItems;
+
+    this.data.profileData[index].fields[0].groupItems = [
+      data[index].fields[0].groupItems[0],
+    ];
+  }
+
+  // Sort primary affiliations first
+  sortAffiliations(data) {
+    const index = data.findIndex((item) => item.label === 'Affiliaatiot');
+
+    const items = data[index].fields[0].groupItems.flatMap(
+      (groupItem) => groupItem.items
+    );
+
+    const sortedItems = items.sort(
+      (a, b) => b.itemMeta.primaryValue - a.itemMeta.primaryValue
     );
 
     data[index].fields[0].groupItems[0].items = sortedItems;
@@ -127,6 +151,11 @@ export class ProfileSummaryComponent implements OnInit {
             const currentPatchItems = this.patchService.currentPatchItems;
             console.log('On editor modal close: ', currentPatchItems);
             this.data.profileData[index] = result.data;
+
+            // Sort
+            this.sortAffiliations(this.data.profileData);
+            this.sortPublications(this.data.profileData);
+
             if (currentPatchItems.length) this.patchItems(currentPatchItems);
           }
 
