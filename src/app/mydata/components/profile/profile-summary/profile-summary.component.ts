@@ -142,6 +142,7 @@ export class ProfileSummaryComponent implements OnInit {
     this.dialogRef = this.dialog.open(EditorModalComponent, {
       minWidth: '44vw',
       maxWidth: mobile ? '100vw' : '44vw',
+      maxHeight: '100vh',
       data: {
         data: selectedField,
         dataSources: this.dataSources,

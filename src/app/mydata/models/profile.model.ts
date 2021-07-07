@@ -38,30 +38,40 @@ export class ProfileAdapter implements Adapter<Profile> {
     return new Profile([
       {
         label: 'Yhteystiedot',
+        editLabel: 'yhteystietoja',
         fields: mapModel(this.personalFieldsAdapter, data.personal),
       },
       {
         label: 'Tutkimustoiminnan kuvaus',
+        editLabel: 'tutkimustoiminnan kuvausta',
         fields: mapModel(this.descriptionFieldsAdapter, data.personal),
       },
       {
         label: 'Affiliaatiot',
+        editLabel: 'affiliaatioita',
         fields: mapModel(this.affiliationFieldsAdapter, data.activity),
       },
       {
         label: 'Koulutus',
+        editLabel: 'koulutusta',
         fields: mapModel(this.educationFieldsAdapter, data.activity),
       },
       {
         label: 'Julkaisut',
+        editLabel: 'julkaisuja',
         fields: mapModel(this.publicationFieldsAdapter, data.activity),
       },
-      { label: 'Tutkimusaineistot', fields: [] },
-      { label: 'Hankkeet', fields: [] },
-      { label: 'Muut hankkeet', fields: [] },
-      { label: 'Tutkimusinfrastruktuurit', fields: [] },
-      { label: 'Muut tutkimusaktiviteetit', fields: [] },
-      { label: 'Meriitit', fields: [] },
+      {
+        label: 'Tutkimusaineistot',
+        editLabel: 'tutkimusaineistoja',
+        fields: [],
+      },
+      { label: 'Hankkeet', editLabel: 'hankkeita', fields: [] },
+      {
+        label: 'Aktiviteetit ja palkinnot',
+        editLabel: 'aktiviteetteja ja palkintoja',
+        fields: [],
+      },
     ]);
   }
 

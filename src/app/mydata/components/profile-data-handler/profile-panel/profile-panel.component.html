@@ -3,6 +3,32 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
+<div class="row d-flex justify-content-between py-2">
+  <div class="col-12 col-md-6 font-size-big pt-3">
+    Valitse profiilissasi näytettävät tiedot
+
+    <span
+      *ngIf="data.label === 'Julkaisut'"
+      tooltip="Tiedejatutkimus.fi-palvelun julkaisut on lisätty profiiliisi automaattisesti, jos niissä on ORCID-tunnuksesi. Julkaisuja, joihin ORCID-tunnusta ei ole valmiiksi liitetty, voit etsiä ”Puuttuuko jokin julkaisu tiedoistasi?” –toiminnolla."
+      tabindex="0"
+      placement="bottom"
+      container="body"
+    >
+      <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+    </span>
+  </div>
+  <div class="col-auto py-3" *ngIf="data.label === 'Julkaisut'">
+    <!-- Search publications -->
+    <a
+      href="javascript:void(0)"
+      class="primary-color font-weight-500"
+      (click)="openDialog()"
+    >
+      <u>Puuttuuko jokin julkaisu tiedoistasi?</u>
+    </a>
+  </div>
+</div>
+
 <div [@.disabled]="disableAnimation">
   <mat-accordion *ngIf="data" multi>
     <mat-expansion-panel
@@ -13,6 +39,7 @@
         openPanels.indexOf(i) > -1 ||
         data.fields.length === 1
       "
+      [class.pt-2]="data.fields.length === 1"
       [hideToggle]="field.disabled || data.fields.length === 1"
       (opened)="toggleGroup(i)"
       (closed)="closePanel(i)"
@@ -26,41 +53,6 @@
           {{ field.label }}
         </mat-panel-title>
       </mat-expansion-panel-header>
-
-      <!-- Header if only one field -->
-      <ng-container *ngIf="data.fields.length === 1">
-        <div class="row d-flex justify-content-between py-4">
-          <div class="col-12 col-md-6 pl-0 font-size-big pb-3 pb-md-0">
-            Valitse profiilissasi näytettävät tiedot
-
-            <ng-template #tooltipTemplate>
-              <div
-                innerHtml="
-                  'Tiedejatutkimus.fi-palvelun julkaisut on lisätty profiiliisi automaattisesti, jos niissä on ORCID-tunnuksesi. Julkaisuja, joihin ORCID-tunnusta ei ole valmiiksi liitetty, voit etsiä ”Puuttuuko jokin julkaisu tiedoistasi?” –toiminnolla.'
-                "
-              ></div>
-            </ng-template>
-            <span
-              tooltip="Tiedejatutkimus.fi-palvelun julkaisut on lisätty profiiliisi automaattisesti, jos niissä on ORCID-tunnuksesi. Julkaisuja, joihin ORCID-tunnusta ei ole valmiiksi liitetty, voit etsiä ”Puuttuuko jokin julkaisu tiedoistasi?” –toiminnolla."
-              tabindex="0"
-              placement="bottom"
-              #elem
-            >
-              <fa-icon class="info-icon" icon="info-circle"></fa-icon>
-            </span>
-          </div>
-          <div class="col-auto px-0" *ngIf="field.label === 'Julkaisut'">
-            <!-- Search publications -->
-            <a
-              href="javascript:void(0)"
-              class="primary-color font-weight-500"
-              (click)="openDialog()"
-            >
-              <u>Puuttuuko jokin julkaisu tiedoistasi?</u>
-            </a>
-          </div>
-        </div>
-      </ng-container>
 
       <ng-container *ngIf="field.label === 'Affiliaatiot'">
         <p class="row">
@@ -215,7 +207,7 @@
                 class="row d-flex justify-content-between py-2"
                 *ngIf="publication.itemMeta.primaryValue"
               >
-                <div class="col px-0 font-size-smaller">
+                <div class="col-6 col-md px-0 font-size-smaller">
                   <mat-checkbox
                     [checked]="publication.itemMeta.show"
                     (change)="toggleItem($event, group, publication, i)"
@@ -235,45 +227,25 @@
                   ></app-secondary-button>
                 </div>
 
-                <div class="col-auto pr-0 text-right opacity-3 font-size-small">
+                <div
+                  class="
+                    col-auto
+                    pr-0
+                    text-right
+                    opacity-3
+                    font-size-small
+                    pl-4
+                    ml-1
+                    pl-md-3
+                    ml-md-0
+                  "
+                >
                   Tiedejatutkimus.fi
                 </div>
               </div>
             </ng-container>
           </ng-container>
         </ng-container>
-
-        <!-- Publications fetched in current session -->
-        <!-- <ng-container *ngIf="field.selectedPublications">
-          <div
-            class="row d-flex justify-content-between py-2"
-            *ngFor="let publication of field.selectedPublications"
-          >
-            <div class="col px-0 font-size-smaller">
-              <mat-checkbox
-                [checked]="publication.itemMeta.show"
-                (change)="togglePublication($event, publication)"
-              >
-                <app-panel-array-item
-                  class="pl-1 d-block"
-                  [item]="publication"
-                  [fieldType]="fieldTypes.activityPublication"
-                ></app-panel-array-item>
-              </mat-checkbox>
-            </div>
-
-            <div class="col-auto mt-1">
-              <app-secondary-button
-                content="Poista"
-                (click)="removePublication(publication)"
-              ></app-secondary-button>
-            </div>
-
-            <div class="col-auto pr-0 text-right opacity-3 font-size-small">
-              Tiedejatutkimus.fi
-            </div>
-          </div>
-        </ng-container> -->
       </ng-container>
 
       <div class="row py-3 font-size-small" *ngIf="field.single">

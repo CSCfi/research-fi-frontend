@@ -309,6 +309,7 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     this.dialogRef = this.dialog.open(SearchPublicationsComponent, {
       minWidth: '44vw',
       maxWidth: mobile ? '100vw' : '44vw',
+      maxHeight: '100vh',
       data: {
         profilePublications: fields.groupItems,
         selectedPublications: fields.selectedPublications,

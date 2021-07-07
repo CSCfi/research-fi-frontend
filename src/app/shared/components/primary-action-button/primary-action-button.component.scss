@@ -41,6 +41,11 @@
   }
 }
 
+.beta-button {
+  min-height: unset;
+  padding: 0.25rem 1rem;
+}
+
 @media (max-width: 575px) {
   .primary-action {
     &.no-sm-icon {
