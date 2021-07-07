@@ -4,7 +4,7 @@
  :license: MIT -->
 
 <div class="beta-info d-block p-3">
-  <div class="row pb-3">
+  <div class="row" [class.pb-3]="open">
     <div
       class="col text-center"
       [ngClass]="showCloseButton ? 'offset-3 offset-md-2 ' : ''"

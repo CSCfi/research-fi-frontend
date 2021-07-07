@@ -73,13 +73,13 @@
             />
           </a>
         </div>
-        <div class="col-auto align-self-center p-0 pl-1 pr-3">
+        <div class="col-auto align-self-center p-0 pl-1 pr-2 pr-md-3">
           <a class="logo-text" [routerLink]="appSettings.baseRoute"
             ><span>{{ appSettings.label }}</span></a
           >
         </div>
         <div
-          class="col-auto px-0 mt-2 mt-md-1 align-self-center"
+          class="col-auto px-0 mt-0 mt-md-1 align-self-center"
           *ngIf="appSettings.beta"
         >
           <app-primary-action-button
