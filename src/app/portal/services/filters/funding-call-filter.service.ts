@@ -13,7 +13,15 @@ export class FundingCallFilterService {
       open: true,
       limitHeight: true,
       hideSearch: true,
+      hideNoResults: true,
       // tooltip: $localize`:@@iYearFTooltip:Tutkimusinfrastruktuurin toiminnan aloitusvuosi. Jos aloitusvuosi ei ole tiedossa, käytetään vuotta jolloin tiedot on toimitettu tiedejatutkimus.fi-palveluun.`,
+    },
+    {
+      field: 'status',
+      label: $localize`:@@fundincCallStatus:Rahoitushaun tila`,
+      hasSubFields: false,
+      open: true,
+      limitHeight: true,
     },
     {
       field: 'field',
@@ -42,6 +50,8 @@ export class FundingCallFilterService {
     this.organization(source.organization);
     // Field of science
     source.field = this.field(source.field.field);
+    // Status
+    source.status.buckets = this.status(source.status);
     source.shaped = true;
     return source;
   }
@@ -64,6 +74,8 @@ export class FundingCallFilterService {
       item.id = item.key;
       item.doc_count = item.filtered.filterCount.doc_count;
     });
+    // Don't show empty fields
+    data.buckets = data.buckets.filter(x => x.doc_count);
     // Sort by category name
     data.buckets.sort((a, b) => +(a.label > b.label) - 0.5);
 
@@ -73,5 +85,33 @@ export class FundingCallFilterService {
     data.fields = {buckets: cp};
 
     return data;
+  }
+
+  status(data) {
+    const dates = data.buckets;
+    let openDocs = 0;
+    let closedDocs = 0;
+    let futureDocs = 0;
+    let continuousDocs = 0;
+    
+    const now = new Date().toLocaleDateString('sv');
+
+    console.log(dates)
+    // Continuous
+    dates.filter(date => date.key.dueDate === '1900-01-01').forEach(date => continuousDocs += date.filtered.doc_count);
+    // Open
+    dates.filter(date => date.key.openDate < now && date.key.dueDate > now).forEach(date => openDocs += date.filtered.doc_count);
+    // Closed
+    dates.filter(date => date.key.dueDate < now && date.key.dueDate !== '1900-01-01').forEach(date => closedDocs += date.filtered.doc_count);
+    // Future
+    dates.filter(date => date.key.openDate > now).forEach(date => futureDocs += date.filtered.doc_count);
+
+    const buckets = [
+      {label: $localize`:@@openFundingCalls:Avoimet haut`, key: 'open', doc_count: openDocs},
+      {label: $localize`:@@closedFundingCalls:Menneet haut`, key: 'closed', doc_count: closedDocs},
+      {label: $localize`:@@futureFundingCalls:Tulevat haut`, key: 'future', doc_count: futureDocs},
+      {label: $localize`:@@continuousFundingCalls:Jatkuvat haut`, key: 'continuous', doc_count: continuousDocs},
+    ]
+    return buckets;
   }
 } 

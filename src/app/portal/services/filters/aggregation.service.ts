@@ -53,6 +53,8 @@ export class AggregationService {
     );
     // Active bool filters come from aggregations that contain multiple terms, eg composite aggregation
     const activeBool = filters.filter((item) => item.bool?.should[0]?.bool);
+    // Active filtered filters come from date ranges
+    const activeFiltered = filters.filter((item) => item.bool?.should?.bool?.filter.length);
     const activeNested = filters.filter(
       (item) =>
         item.nested?.query.bool.should?.length > 0 ||
@@ -85,6 +87,7 @@ export class AggregationService {
                 'selfArchivedCode'
           );
           return filteredActive.concat(
+            activeFiltered,
             activeNested,
             activeMultipleNested,
             coPublication ? coPublicationFilter : []
@@ -96,6 +99,7 @@ export class AggregationService {
                 Object.keys(item.bool.should[0].term)?.toString() !== field
             )
             .concat(
+              activeFiltered,
               activeNested,
               activeMultipleNested,
               activeBool,
@@ -112,6 +116,7 @@ export class AggregationService {
           .concat(
             active,
             activeMultipleNested,
+            activeFiltered,
             activeBool,
             coPublication ? coPublicationFilter : []
           );
@@ -132,6 +137,7 @@ export class AggregationService {
         return res.concat(
           active,
           activeNested,
+          activeFiltered,
           activeBool,
           coPublication ? coPublicationFilter : []
         );
@@ -1403,6 +1409,40 @@ export class AggregationService {
                   terms: {
                     field: 'foundation.name' + this.localeC + '.keyword',
                   },
+                },
+              },
+            },
+          },
+        };
+        payLoad.aggs.status = {
+          composite: {
+            size: 500,
+            sources: [
+              {
+                openDate: {
+                  date_histogram: {
+                    field: 'callProgrammeOpenDate',
+                    calendar_interval: "1d",
+                    format: "yyyy-MM-dd",
+                  },
+                },
+              },
+              {
+                dueDate: {
+                  date_histogram: {
+                    field: 'callProgrammeDueDate',
+                    calendar_interval: "1d",
+                    format: "yyyy-MM-dd",
+                  },
+                },
+              },
+            ],
+          },
+          aggs: {
+            filtered: {
+              filter: {
+                bool: {
+                  filter: filterActive('status'),
                 },
               },
             },
