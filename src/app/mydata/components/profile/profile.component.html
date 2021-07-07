@@ -53,9 +53,11 @@
         <div class="background-light p-3 mt-lg-5">
           <span class="font-weight-bold d-block pb-3">Yhteistyö</span>
           <section>
-            <mat-checkbox *ngFor="let option of collaborationOptions">{{
-              option.label
-            }}</mat-checkbox>
+            <mat-checkbox
+              class="py-1 py-lg-0"
+              *ngFor="let option of collaborationOptions"
+              >{{ option.label }}</mat-checkbox
+            >
           </section>
         </div>
 

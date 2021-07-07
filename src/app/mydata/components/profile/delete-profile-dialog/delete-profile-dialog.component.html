@@ -1,11 +1,10 @@
 <mat-dialog-content>
   <div class="row d-flex justify-content-between dialog-header">
     <div class="col">
-      <h2 class="modal-title pull-left col h5 mt-n1">Poista profiili</h2>
+      <h2 class="modal-title h5">Poista profiili</h2>
     </div>
-    <div class="col-auto">
+    <div class="col-auto align-self-center">
       <app-close-button
-        class="pull-right pr-3"
         (click)="close()"
         (keydown.enter)="close()"
         autofocus
@@ -15,7 +14,7 @@
   </div>
 
   <div class="row">
-    <p class="col p-3 mx-3">
+    <p class="col py-3">
       Tämä toiminto poistaa Tutkijan tiedot -testisovelluksen profiilin.
     </p>
   </div>
@@ -45,7 +44,7 @@
   </div>
 </mat-dialog-content>
 
-<mat-dialog-actions class="d-flex justify-content-end mb-0">
+<mat-dialog-actions class="d-block mb-0 pb-0 px-lg-3">
   <div class="row justify-content-center">
     <div class="col-auto pb-3 pb-md-0">
       <app-secondary-button
