@@ -175,7 +175,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
         // Login / logout link
         // Click functionality is handled in handleClick method
-        // Handle session timeout
         this.isAuthenticated.subscribe((authenticated) => {
           if (this.currentRoute.includes('/mydata')) {
             this.loggedIn = authenticated;
