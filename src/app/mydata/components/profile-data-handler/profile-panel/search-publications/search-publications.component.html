@@ -6,7 +6,7 @@
 <mat-dialog-content>
   <div class="row d-flex justify-content-between dialog-header">
     <div class="col">
-      <h2 class="modal-title pull-left h5 px-lg-3 h5 mt-n1">
+      <h2 class="modal-title pull-left h5 mt-n1">
         Puuttuvan julkaisun hakeminen
       </h2>
     </div>
@@ -21,11 +21,9 @@
     </div>
   </div>
 
-  <div class="px-0 px-md-3">
-    <div class="row d-flex justify-content-center py-3">
-      <span class="col h6 m-0">
-        Hae julkaisua tekijän tai julkaisun nimellä
-      </span>
+  <div class="col px-0 px-lg-3">
+    <div class="row py-3">
+      <div class="col h6 m-0">Hae julkaisua tekijän tai julkaisun nimellä</div>
     </div>
 
     <div class="row">
@@ -85,19 +83,16 @@
   </div>
 </mat-dialog-content>
 
-<mat-dialog-actions class="d-block mb-0 pb-0">
-  <div class="row justify-content-between justify-content-md-end pt-2">
-    <div class="col-auto pl-0 pl-md-3">
+<mat-dialog-actions class="d-block mb-0 pb-0 px-lg-3">
+  <div class="row justify-content-between justify-content-md-end">
+    <div class="col-auto">
       <app-secondary-button
         [small]="mobile"
         (click)="close()"
         content="Peruuta"
       ></app-secondary-button>
     </div>
-    <div
-      class="col-auto pl-0 px-1 px-md-3"
-      *ngIf="total > 0 && currentSelection?.length > 0"
-    >
+    <div class="col-auto" *ngIf="total > 0 && currentSelection?.length > 0">
       <app-primary-action-button
         [small]="mobile"
         (click)="saveChanges()"

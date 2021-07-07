@@ -5,10 +5,10 @@
 
 <mat-dialog-content>
   <div class="row d-flex justify-content-between dialog-header">
-    <div class="col">
-      <h2 class="modal-title pull-left col h4 mt-n1">{{ data.title }}</h2>
+    <div class="col-12 col-md pb-3 pb-md-0">
+      <h2 class="modal-title h5">{{ data.title }}</h2>
     </div>
-    <div class="col-auto">
+    <div class="col-auto align-self-center">
       <app-close-button
         mat-dialog-close
         class="pull-right pr-3"
@@ -19,13 +19,13 @@
   </div>
 
   <div class="row">
-    <p class="col p-3 mx-3">
+    <div class="col py-3">
       <ng-container [ngTemplateOutlet]="data.template"></ng-container>
-    </p>
+    </div>
   </div>
 </mat-dialog-content>
 
-<mat-dialog-actions class="d-flex justify-content-end" *ngIf="data.actions">
+<mat-dialog-actions class="d-block mb-0 pb-0 px-lg-3" *ngIf="data.actions">
   <div class="row">
     <ng-container [ngTemplateOutlet]="data.actions"></ng-container>
   </div>
