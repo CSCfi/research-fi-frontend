@@ -3242,7 +3242,7 @@
       <!-- Funding calls -->
       <trans-unit id="fundingCallBeta">
         <source>Rahoitushaut ovat uusi tietokokonaisuus Tiedejatutkimus.fi-palvelussa. Tiedot haetaan automaattisesti Aurora-tietokannasta. Otamme mielellämme vastaan palautetta rahoitushakukokonaisuuden toimivuudesta: tiedejatutkimus@csc.fi</source>
-        <target>Funding calls is a new section in Research.fi. The information is automatically retrieved from the Aurora database. All feedback on the funding calls section is welcome: tiedejatutkimus@csc.fi</target>
+        <target>Forskningsfinansiering är ett nytt avsnitt i Forskning.fi. Informationen om finansieringsutlysningar hämtas automatiskt från Aurora-databasen. All feedback är välkommen: tiedejatutkimus@csc.fi</target>
       </trans-unit>
       <!-- Filters -->
       <trans-unit id="filterSearchHeader">
