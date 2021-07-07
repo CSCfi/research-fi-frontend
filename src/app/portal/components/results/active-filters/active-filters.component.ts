@@ -68,6 +68,10 @@ export class ActiveFiltersComponent
     login: $localize`:@@datasetAccessLogin:Vaatii kirjautumisen Fairdata-palvelussa`,
     restricted: $localize`:@@datasetAccessRestricted:Saatavuutta rajoitettu`,
     embargo: $localize`:@@datasetAccessEmbargo:Embargo`,
+    // Funding-call status
+    closed: $localize`:@@closedFundingCalls:Menneet haut`,
+    future: $localize`:@@futureFundingCalls:Tulevat haut`,
+    continuous: $localize`:@@continuousFundingCalls:Jatkuvat haut`,
   };
 
   filterResponse: any;
@@ -310,6 +314,14 @@ export class ActiveFiltersComponent
                   val.translation = this.yearRange + startDateString + $localize`:@@yearFrom: alkaen` 
                 } else if (endDateString) {
                   val.translation = this.yearRange + endDateString + $localize`:@@yearTo: päättyen` 
+                }
+              }
+
+              // Only open status is translated here because it clashes with dataset open filter,
+              // others are translated via hardcoding
+              if (val.category === 'status' && source.status?.buckets) {
+                if (val.value === 'open') {
+                  val.translation = $localize`:@@openCalls:Avoimet haut`;
                 }
               }
 
