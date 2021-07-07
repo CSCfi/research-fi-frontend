@@ -26,6 +26,18 @@
   min-height: 420px;
 }
 
+// Total
+h2 {
+  font-size: 1.75rem;
+  font-weight: 500;
+}
+
+// Filters
+.filters {
+  padding: 0;
+  align-self: flex-start;
+}
+
 // Responsive
 @media (min-width: 1440px) {
   // .container {

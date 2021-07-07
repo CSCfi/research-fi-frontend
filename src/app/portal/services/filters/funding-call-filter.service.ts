@@ -96,7 +96,6 @@ export class FundingCallFilterService {
     
     const now = new Date().toLocaleDateString('sv');
 
-    console.log(dates)
     // Continuous
     dates.filter(date => date.key.dueDate === '1900-01-01').forEach(date => continuousDocs += date.filtered.doc_count);
     // Open

@@ -273,8 +273,8 @@
               <div class="col-10">
                 <!-- Start date -->
                 <mat-form-field appearance="fill">
-                  <mat-label i18n="@@dateRange"
-                  >Alkupäivä</mat-label
+                  <mat-label i18n="@@dateRangeStart"
+                  >Haku alkaa aikaisintaan</mat-label
                   >
                   <input matInput 
                     (dateChange)="dateChange($event, 'start')" 
@@ -295,8 +295,8 @@
               <!-- End date -->
               <div class="col-10">
                 <mat-form-field appearance="fill">
-                  <mat-label i18n="@@dateRange"
-                    >Loppupäivä</mat-label
+                  <mat-label i18n="@@dateRangeEnd"
+                    >Haku päättyy viimeistään</mat-label
                   >
                       <input matInput 
                         (dateChange)="dateChange($event, 'end')" 

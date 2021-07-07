@@ -7,8 +7,20 @@ Copyright 2019 Ministry of Education and Culture, Finland
 <div class="bar"></div>
 <aside class="wrapper">
   <div class="row justify-content-center">
-    <div class="col-6 img">
-      <img src="/assets/img/home/news.jpeg" class="cover-img">
+    <div class="col-6 p-0">
+      <h2
+      role="status"
+      class="total"
+      *ngIf="selectedTabData ? selectedTabData.label : ''"
+    >
+      {{ selectedTabData.label }} -
+      <span class="total">{{ parsedTotal }}</span>
+      <!-- BETA TOOLTIP -->
+      <span class="ml-3" [tooltip]="betaTooltip" placement="top" tabindex="-1" #beta>
+        <app-secondary-button [icon]="'info-circle'" content="Beta"></app-secondary-button>
+      </span>
+      <span class="sr-only" i18n="@@resultCount">hakutulosta</span>
+    </h2>
     </div>
     <app-search
       class="col-6"
@@ -36,15 +48,15 @@ Copyright 2019 Ministry of Education and Culture, Finland
             <div class="col-auto px-0 pr-lg-3" *ngIf="selectedTabData">
               <app-result-count></app-result-count>
             </div>
-            <!-- <div class="col-12"></div> -->
-            <div class="col-auto text-right d-none d-lg-block">
+            <!-- ADD WHEN INFO EXISTS -->
+            <!-- <div class="col-auto text-right d-none d-lg-block">
               <a routerLink="/service-info" fragment="1" class="theme-link">
                 <strong>
-                    <!-- TRANSLATE -->
+                    TRANSLATE
                     <ng-container>Mitä rahoitushakuja palvelu sisältää?</ng-container> 
                 </strong>
               </a>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
