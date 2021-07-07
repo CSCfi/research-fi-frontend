@@ -276,16 +276,17 @@
                   >Alkupäivä</mat-label
                   >
                   <input matInput 
-                  (dateChange)="dateChange($event, 'start')" 
-                  placeholder="Aloituspäivä"
-                  [value]="getActiveDate('start')"
-                  [matDatepicker]="startPicker"
-                  [max]="getActiveDate('end')"
+                    (dateChange)="dateChange($event, 'start')" 
+                    placeholder="Aloituspäivä"
+                    [value]="getActiveDate('start')"
+                    [matDatepicker]="startPicker"
+                    [max]="getActiveDate('end')"
+                    #startDate
                   >
-                  <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
-                  <mat-datepicker-toggle matSuffix (click)="dateChange(null, 'start')">
+                  <mat-datepicker-toggle *ngIf="startDate.value" matSuffix (click)="dateChange(null, 'start')">
                     <mat-icon matDatepickerToggleIcon color="warn">clear</mat-icon>
                   </mat-datepicker-toggle>
+                  <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
                   <mat-datepicker #startPicker></mat-datepicker>
                   
                 </mat-form-field>
@@ -302,11 +303,12 @@
                         [value]="getActiveDate('end')"
                         [matDatepicker]="endPicker"
                         [min]="getActiveDate('start')"
+                        #endDate
                       >
+                      <mat-datepicker-toggle *ngIf="endDate.value" matSuffix (click)="dateChange(null, 'end')">
+                        <mat-icon matDatepickerToggleIcon color="warn">clear</mat-icon>
+                      </mat-datepicker-toggle>  
                     <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
-                    <mat-datepicker-toggle matSuffix (click)="dateChange(null, 'end')">
-                      <mat-icon matDatepickerToggleIcon color="warn">clear</mat-icon>
-                    </mat-datepicker-toggle>  
                     <mat-datepicker #endPicker></mat-datepicker>
 
                 </mat-form-field>
