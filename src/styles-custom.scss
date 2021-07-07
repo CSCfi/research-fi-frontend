@@ -369,23 +369,24 @@ mat-basic-chip.tag {
 // Mat Dialog
 .mat-dialog-container {
   overflow: hidden !important;
-  padding: 1rem !important;
+  padding: 0 0 1rem !important;
 }
 
 .dialog-header {
-  padding: 1rem 0;
+  padding: 1rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .mat-dialog-content {
   // max-height: 85vh !important;
-  margin: 0 -1rem !important;
+  margin: 0 !important;
   padding: 0 !important;
 }
 
-// .mat-dialog-actions {
-//   margin-bottom: 0 !important;
-// }
+.mat-dialog-actions {
+  padding: 1rem 1rem 0 !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
 
 // Opacity
 .opacity-0 {
@@ -440,6 +441,14 @@ mat-basic-chip.tag {
 @media (max-width: 991px) {
   .info-icon {
     display: none;
+  }
+
+  .dialog-header {
+    padding: 1rem 0;
+  }
+
+  .mat-dialog-actions {
+    padding: 1rem 0 0 !important;
   }
 }
 

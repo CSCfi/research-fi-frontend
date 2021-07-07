@@ -4,7 +4,7 @@
  :license: MIT -->
 
 <div class="row d-flex justify-content-between py-2">
-  <div class="col-12 col-md-6 font-size-big pt-3 px-0 px-md-3">
+  <div class="col-12 col-lg-6 font-size-big pt-3">
     Valitse profiilissasi näytettävät tiedot
 
     <span
@@ -17,7 +17,7 @@
       <fa-icon class="info-icon" icon="info-circle"></fa-icon>
     </span>
   </div>
-  <div class="col-auto py-3 px-0 px-md-3" *ngIf="data.label === 'Julkaisut'">
+  <div class="col-auto py-3" *ngIf="data.label === 'Julkaisut'">
     <!-- Search publications -->
     <a
       href="javascript:void(0)"
@@ -46,7 +46,6 @@
     >
       <mat-expansion-panel-header
         *ngIf="data.fields.length > 1"
-        class="pr-1 pr-md-3"
         [class.pointer-events-none]="field.disabled || data.fields.length === 1"
       >
         <mat-panel-title>
@@ -207,7 +206,7 @@
                 class="row d-flex justify-content-between py-2"
                 *ngIf="publication.itemMeta.primaryValue"
               >
-                <div class="col-6 col-md px-0 font-size-smaller">
+                <div class="col-6 col-lg px-0 font-size-smaller">
                   <mat-checkbox
                     [checked]="publication.itemMeta.show"
                     (change)="toggleItem($event, group, publication, i)"
@@ -236,8 +235,8 @@
                     font-size-small
                     pl-4
                     ml-1
-                    pl-md-3
-                    ml-md-0
+                    pl-lg-3
+                    ml-lg-0
                   "
                 >
                   Tiedejatutkimus.fi
