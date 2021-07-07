@@ -3239,6 +3239,11 @@
         <source>Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi</source>
         <target state="translated">Källa: Vipunen – utbildningsförvaltningens statistiktjänst vipunen.fi</target>
       </trans-unit>
+      <!-- Funding calls -->
+      <trans-unit id="fundingCallBeta">
+        <source>Rahoitushaut ovat uusi tietokokonaisuus Tiedejatutkimus.fi-palvelussa. Tiedot haetaan automaattisesti Aurora-tietokannasta. Otamme mielellämme vastaan palautetta rahoitushakukokonaisuuden toimivuudesta: tiedejatutkimus@csc.fi</source>
+        <target>Funding calls is a new section in Research.fi. The information is automatically retrieved from the Aurora database. All feedback on the funding calls section is welcome: tiedejatutkimus@csc.fi</target>
+      </trans-unit>
       <!-- Filters -->
       <trans-unit id="filterSearchHeader">
         <source>Rajaa hakua</source>
