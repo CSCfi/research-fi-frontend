@@ -262,6 +262,7 @@
               </div>
             </div>
           </ng-container>
+          <!-- Date selector for funding calls -->
           <ng-container *ngIf="filter.hideSearch && filter.field === 'date'">
             <div class="row">
               <div class="col">
@@ -371,7 +372,7 @@
               </div>
             </mat-list-option>
             <div
-              *ngIf="!responseData.aggregations[filter.field]?.buckets?.length && filter.field !== 'date'"
+              *ngIf="!responseData.aggregations[filter.field]?.buckets?.length && !filter.hideNoResults"
               class="empty-filter-search"
               role="alert"
             >
