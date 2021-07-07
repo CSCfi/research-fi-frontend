@@ -529,7 +529,7 @@ export class FilterService {
         break;
       }
       case 'funding-calls': {
-        const field = 'foundation.name' + this.localeC + '.keyword';
+        const field = 'foundation.businessId.keyword';
         filter.forEach((value) => {
           res.push({ term: { [field]: value } });
         });
