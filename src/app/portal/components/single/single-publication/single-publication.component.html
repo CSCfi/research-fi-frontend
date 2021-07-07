@@ -8,27 +8,29 @@
   <app-search-bar></app-search-bar>
 </aside>
 <div class="wrapper" *ngIf="responseData" id="main-content">
+  <div class="row shared">
+  <p class="back col-12">
+    <a
+      #backToResultsLink
+      routerLink="/results/{{ tab }}/{{ searchTerm }}"
+      [queryParams]="tabQueryParams"
+      >&lt;
+      <ng-container i18n="@@backToResults"
+        >Takaisin hakutuloksiin</ng-container
+      ></a
+    >
+  </p>
+  </div>
   <!-- Breadcrumb -->
   <app-breadcrumb
-    [type]="'single'"
-    [responseData]="responseData"
-    [tab]="tab"
-    [tabName]="tabData.label"
-    [resultNameField]="'title'"
-    [queryParams]="tabQueryParams"
+  [type]="'single'"
+  [responseData]="responseData"
+  [tab]="tab"
+  [tabName]="tabData.label"
+  [resultNameField]="'title'"
+  [queryParams]="tabQueryParams"
   ></app-breadcrumb>
   <div class="row shared">
-    <p class="back col-12">
-      <a
-        #backToResultsLink
-        routerLink="/results/{{ tab }}/{{ searchTerm }}"
-        [queryParams]="tabQueryParams"
-        >&lt;
-        <ng-container i18n="@@backToResults"
-          >Takaisin hakutuloksiin</ng-container
-        ></a
-      >
-    </p>
     <div
       class="col-12"
       style="margin: 10px 0 10px 0"
