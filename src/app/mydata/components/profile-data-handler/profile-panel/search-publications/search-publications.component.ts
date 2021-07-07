@@ -8,6 +8,7 @@
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PublicationsService } from '@mydata/services/publications.service';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 import { take } from 'rxjs/operators';
 
 @Component({
@@ -22,14 +23,22 @@ export class SearchPublicationsComponent implements OnInit {
   loading: boolean;
   currentSelection: any[];
   currentTerm: string;
+  mobile: boolean;
 
   constructor(
     private dialogRef: MatDialogRef<SearchPublicationsComponent>,
     private publicationService: PublicationsService,
+    private appSettingsService: AppSettingsService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.appSettingsService.mobileStatus
+      .subscribe((status) => {
+        this.mobile = status;
+      })
+      .unsubscribe();
+  }
 
   handleSearch(term) {
     this.currentTerm = term;

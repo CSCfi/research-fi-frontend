@@ -78,10 +78,15 @@
             ><span>{{ appSettings.label }}</span></a
           >
         </div>
-        <div class="col-auto px-0 mt-2 mt-md-1" *ngIf="appSettings.beta">
+        <div
+          class="col-auto px-0 mt-2 mt-md-1 align-self-center"
+          *ngIf="appSettings.beta"
+        >
           <app-primary-action-button
             content="Beta"
             (click)="openDialog('Beta', betaInfoTemplate)"
+            [disabledRounded]="true"
+            [betaButton]="true"
           ></app-primary-action-button>
         </div>
 

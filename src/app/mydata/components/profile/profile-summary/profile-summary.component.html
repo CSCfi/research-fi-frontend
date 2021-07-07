@@ -114,7 +114,7 @@
 
     <div class="row pt-3">
       <app-secondary-button
-        content="Muokkaa"
+        [content]="'Muokkaa' + ' ' + group.editLabel"
         (click)="openDialog($event, i, group.editLabel)"
       ></app-secondary-button>
     </div>

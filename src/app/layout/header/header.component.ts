@@ -88,7 +88,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   consent: string;
   pageDataSub: Subscription;
 
-  appSettings: object;
+  appSettings: any;
   isAuthenticated: Observable<boolean>;
   loggedIn: boolean;
 
@@ -185,21 +185,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.appSettingsService.setCurrentAppSettings('portal');
         }
 
+        // Redirect all other than mydata routes to mydata during myData beta
+        if (!this.currentRoute.includes('/mydata')) {
+          this.router.navigate(['/mydata']);
+        }
+
         // Login / logout link
         // Click functionality is handled in handleClick method
         // Handle session timeout
         this.isAuthenticated.subscribe((authenticated) => {
           if (this.currentRoute.includes('/mydata')) {
-            if (
-              this.loggedIn &&
-              !authenticated &&
-              !this.appSettingsService.myDataSettings.develop
-            ) {
-              // this.openDialog('Uloskirjaus', this.authExpiredTemplate);
-              this.login();
-            } else {
-              this.loggedIn = authenticated;
-            }
+            this.loggedIn = authenticated;
           }
           this.appSettingsService.myDataSettings.navItems[0].label =
             authenticated ? 'Kirjaudu ulos' : 'Kirjaudu sisään';

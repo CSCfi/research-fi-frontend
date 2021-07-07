@@ -85,19 +85,21 @@
   </div>
 </mat-dialog-content>
 
-<mat-dialog-actions class="d-flex justify-content-end">
-  <div class="row">
-    <div class="col-auto">
+<mat-dialog-actions class="mx-n2 mx-md-0 d-block pt-3 pt-md-0">
+  <div class="row justify-content-between justify-content-md-end">
+    <div class="col-auto px-1 px-md-3">
       <app-secondary-button
+        [small]="mobile"
         (click)="close()"
         content="Peruuta"
       ></app-secondary-button>
     </div>
     <div
-      class="col-auto pl-0"
+      class="col-auto pl-0 px-1 px-md-3"
       *ngIf="total > 0 && currentSelection?.length > 0"
     >
       <app-primary-action-button
+        [small]="mobile"
         (click)="saveChanges()"
         [content]="
           currentSelection.length > 1 ? 'Lisää julkaisut' : 'Lisää julkaisu'
