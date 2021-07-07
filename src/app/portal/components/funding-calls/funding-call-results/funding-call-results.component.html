@@ -90,15 +90,6 @@
                 [innerHtml]="call.name | highlight: input"
               ></h4>
             </a>
-            <div class="tags">
-              <div
-                *ngFor="let category of call.categories.slice(0, 5);"
-                class="category"
-              >
-                {{ category.name }}
-              </div>
-              <span *ngIf="call.categories.length > 5" class="category-overflow">. . .</span>
-            </div>
           </div>
           <div class="col col-lg-6 col-xl-3 d-none d-lg-block">
             <a *ngIf="call.foundation.orgId" routerLink="/results/organization/{{ call.foundation.orgId }}">
@@ -120,6 +111,17 @@
               [innerHtml]="call.dueDate.getYear() ? (call.dueDateString | highlight: input) : '-'"
             ></span>
           </div>
+          <!-- Categories -->
+          <div class="categories col-12 col-lg-9 pb-2">
+            <span
+              *ngFor="let category of call.categories.slice(0, 10); let last = last;"
+              class="category"
+            >
+              {{ category.name }}<ng-container *ngIf="!last">,</ng-container>
+            </span>
+            <span *ngIf="call.categories.length > 10" class="category-overflow">...</span>
+          </div>
+          <!-- Description -->
           <div class="col-12 col-lg-9" [innerHTML]="call.description | cutContent: 100 | highlight: input"></div>
         </div>
         <!-- <app-related-results class="row related-fields" [class.expand]="expandStatus[i]"></app-related-results> -->
