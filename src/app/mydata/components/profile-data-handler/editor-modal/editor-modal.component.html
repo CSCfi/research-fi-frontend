@@ -5,20 +5,24 @@
 
 <mat-dialog-content>
   <div class="row d-flex justify-content-between dialog-header">
-    <div class="col-12 col-md pb-3 pb-md-0">
-      <h2 class="modal-title h5">
-        {{ editorData.data.label }}
-      </h2>
+    <div class="col-8 col-sm">
+      <div class="row">
+        <h2 class="col-12 col-sm pl-0 modal-title h5">
+          {{ editorData.data.label }}
+        </h2>
+
+        <div class="col-12 col-sm-auto pl-0 pt-3 pt-sm-0 align-self-center">
+          <mat-checkbox
+            [checked]="allSelected"
+            (change)="toggleAll($event)"
+            [indeterminate]="checkSomeSelected()"
+            >Valitse kaikki</mat-checkbox
+          >
+        </div>
+      </div>
     </div>
-    <div class="col-auto align-self-center">
-      <mat-checkbox
-        [checked]="allSelected"
-        (change)="toggleAll($event)"
-        [indeterminate]="checkSomeSelected()"
-        >Valitse kaikki</mat-checkbox
-      >
-    </div>
-    <div class="col-auto align-self-center">
+
+    <div class="col-auto mt-1 mt-sm-0 align-self-sm-center">
       <app-close-button
         (click)="close()"
         (keydown.enter)="close()"

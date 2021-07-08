@@ -19,7 +19,10 @@ export class DialogComponent implements OnInit {
   @Input() template: any;
   @Input() actions: any;
   @Input() title: string;
+  @Input() small: boolean;
+  @Input() disableClose: boolean;
   @Output() onDialogClose = new EventEmitter<any>();
+  @Output() onActionClick = new EventEmitter<any>();
 
   dialogRef: MatDialogRef<DialogTemplateComponent>;
 
@@ -33,15 +36,18 @@ export class DialogComponent implements OnInit {
   }
 
   openDialog() {
-    let mobile: boolean;
+    const dialogSettings = { ...this.appSettingsService.dialogSettings };
 
-    this.appSettingsService.mobileStatus.pipe(take(1)).subscribe((status) => {
-      mobile = status;
-    });
+    if (this.small) {
+      dialogSettings.minWidth = 'unset';
+      dialogSettings.width = 'unset';
+      dialogSettings.maxHeight = 'unset';
+      dialogSettings.height = 'unset';
+    }
 
     this.dialogRef = this.dialog.open(DialogTemplateComponent, {
-      minWidth: '44vw',
-      maxWidth: mobile ? '100vw' : '44vw',
+      ...dialogSettings,
+      autoFocus: false,
       data: {
         title: this.title,
         template: this.template,
@@ -52,8 +58,8 @@ export class DialogComponent implements OnInit {
     this.dialogRef
       .afterClosed()
       .pipe(take(1))
-      .subscribe(() => {
-        this.onDialogClose.emit(true);
+      .subscribe((result) => {
+        this.onActionClick.emit(result?.method);
       });
   }
 }

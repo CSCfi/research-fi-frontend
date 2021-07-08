@@ -159,7 +159,8 @@
                 *ngIf="showDialog"
                 [template]="dialogTemplate"
                 [title]="dialogTitle"
-                (onDialogClose)="resetDialog()"
+                (onActionClick)="doDialogAction($event)"
+                [actions]="dialogActions"
               ></app-dialog>
 
               <app-stepper-navigation

@@ -63,6 +63,8 @@ export class WelcomeStepperComponent implements OnInit {
   showDialog: boolean;
   dialogTemplate: any;
   dialogTitle: any;
+  dialogActions = [{ label: 'Sulje', primary: true, method: 'close' }];
+
   develop: boolean;
 
   constructor(
@@ -172,7 +174,7 @@ export class WelcomeStepperComponent implements OnInit {
     this.dialogTemplate = template;
   }
 
-  resetDialog() {
+  doDialogAction() {
     this.dialogTitle = '';
     this.showDialog = false;
     this.dialogTemplate = null;

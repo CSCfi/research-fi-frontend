@@ -90,12 +90,22 @@ export class AppSettingsService {
     ],
   };
 
+  dialogSettings: {
+    minWidth: string;
+    maxWidth: string;
+    width: string;
+    maxHeight: string;
+    height: string;
+  };
+
   currentAppSettings: object;
 
   constructor() {}
 
   updateMobileStatus(status) {
     this.mobileSource.next(status);
+
+    this.updateDialogSettings(status);
   }
 
   setCurrentAppSettings(app) {
@@ -110,5 +120,15 @@ export class AppSettingsService {
     }
 
     this.appSettingsSource.next(this.currentAppSettings);
+  }
+
+  updateDialogSettings(mobile) {
+    this.dialogSettings = {
+      minWidth: '44vw',
+      maxWidth: mobile ? '100vw' : '44vw',
+      width: mobile ? '100%' : 'unset',
+      maxHeight: '100vh',
+      height: mobile ? '100vh' : 'unset',
+    };
   }
 }

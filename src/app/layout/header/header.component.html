@@ -91,11 +91,11 @@
         </div>
 
         <ng-template #betaInfoTemplate>
-          <p class="col">
+          <p>
             Tämä on Tutkijan tiedot -työkalun betaversio. Testikäyttäjien
             palautetta hyödynnetään palvelun toiminnallisuuksien kehittämisessä.
           </p>
-          <p class="col">
+          <p>
             <a href="https://wiki.eduuni.fi/x/YwMJDQ" target="_blank"
               >Lue lisää... <fa-icon icon="external-link-alt"></fa-icon
             ></a>
@@ -106,7 +106,8 @@
           *ngIf="showDialog"
           [template]="dialogTemplate"
           [title]="dialogTitle"
-          (onDialogClose)="resetDialog()"
+          (onActionClick)="doDialogAction($event)"
+          [actions]="dialogActions"
         ></app-dialog>
       </div>
     </div>

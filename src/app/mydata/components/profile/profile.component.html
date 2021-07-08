@@ -89,7 +89,8 @@
               (click)="
                 openDialog(
                   'Tutkijan tiedot -työkalun käyttöehdot',
-                  termsTemplate
+                  termsTemplate,
+                  basicDialogActions
                 )
               "
             >
@@ -112,7 +113,8 @@
               (click)="
                 openDialog(
                   'Henkilötietojen käsittely',
-                  personalDataHandlingTermsTemplate
+                  personalDataHandlingTermsTemplate,
+                  basicDialogActions
                 )
               "
             >
@@ -132,25 +134,82 @@
           <app-eula template="personalDataHandlingTermsTemplate"></app-eula>
         </ng-template>
 
+        <ng-template #termsTemplate>
+          <app-eula template="termsTemplate"></app-eula>
+        </ng-template>
+
         <app-dialog
           *ngIf="showDialog"
           [template]="dialogTemplate"
           [title]="dialogTitle"
-          (onDialogClose)="resetDialog()"
+          (onActionClick)="doDialogAction($event)"
+          [actions]="currentDialogActions"
         ></app-dialog>
-
-        <ng-template #termsTemplate>
-          <app-eula template="termsTemplate"></app-eula>
-        </ng-template>
 
         <!-- Delete profile -->
         <div class="row">
           <div class="col px-0 text-center text-md-left">
             <app-primary-action-button
               class="d-block pt-5 pb-4"
-              (click)="openDeleteProfileDialog()"
+              (click)="
+                openDialog(
+                  'Poista profiili',
+                  deleteProfileTemplate,
+                  deleteProfileDialogActions
+                )
+              "
               content="Poista profiili"
             ></app-primary-action-button>
+
+            <ng-template #deleteProfileTemplate>
+              <p>
+                Tämä toiminto poistaa Tutkijan tiedot -testisovelluksen
+                profiilin.
+              </p>
+            </ng-template>
+
+            <ng-template #deletingProfileTemplate>
+              <div
+                class="row d-flex justify-content-center"
+                *ngIf="loading && !connProblem"
+              >
+                <div class="col-auto align-self-center">
+                  <mat-spinner
+                    class="mx-auto"
+                    [diameter]="80"
+                    i18n-aria-label="@@loading"
+                    aria-label="Ladataan"
+                  ></mat-spinner>
+                  <span class="d-block col pt-3 text-center"
+                    >Profiilia poistetaan, odota hetki...</span
+                  >
+                </div>
+              </div>
+
+              <ng-container *ngIf="connProblem">
+                <div class="row">
+                  <div class="col mx-3">
+                    <i class="fas fa-exclamation-triangle"></i> Yhteysongelma.
+                    Profiilin poisto ei onnistu. Kokeile hetken kuluttua
+                    uudestaan.
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col text-center">
+                    <app-primary-action-button
+                      content="Sulje"
+                      (click)="closeDialog()"
+                    ></app-primary-action-button>
+                  </div></div
+              ></ng-container>
+            </ng-template>
+
+            <app-dialog
+              *ngIf="deletingProfile"
+              [template]="deletingProfileTemplate"
+              [small]="true"
+              [disableClose]="true"
+            ></app-dialog>
           </div>
         </div>
       </div>
