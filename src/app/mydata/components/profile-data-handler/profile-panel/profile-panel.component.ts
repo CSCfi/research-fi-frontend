@@ -298,18 +298,10 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
 
   // Search publications
   openDialog() {
-    let mobile: boolean;
-
-    this.appSettingsService.mobileStatus.pipe(take(1)).subscribe((status) => {
-      mobile = status;
-    });
-
     const fields = this.data.fields[0];
 
     this.dialogRef = this.dialog.open(SearchPublicationsComponent, {
-      minWidth: '44vw',
-      maxWidth: mobile ? '100vw' : '44vw',
-      maxHeight: '100vh',
+      ...this.appSettingsService.dialogSettings,
       data: {
         profilePublications: fields.groupItems,
         selectedPublications: fields.selectedPublications,

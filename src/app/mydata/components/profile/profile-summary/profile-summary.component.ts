@@ -131,18 +131,10 @@ export class ProfileSummaryComponent implements OnInit {
 
     if (!this.openPanels.includes(index)) this.openPanels.push(index);
 
-    let mobile: boolean;
-
     const selectedField = cloneDeep(this.data.profileData[index]);
 
-    this.appSettingsService.mobileStatus.pipe(take(1)).subscribe((status) => {
-      mobile = status;
-    });
-
     this.dialogRef = this.dialog.open(EditorModalComponent, {
-      minWidth: '44vw',
-      maxWidth: mobile ? '100vw' : '44vw',
-      maxHeight: '100vh',
+      ...this.appSettingsService.dialogSettings,
       data: {
         data: selectedField,
         dataSources: this.dataSources,

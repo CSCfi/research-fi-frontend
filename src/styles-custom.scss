@@ -286,6 +286,12 @@ body mat-card.mat-card {
   background: mat-color($primary, 100);
 }
 
+// Mat ripple
+// Fix for hidden right border
+.mat-ripple:not(:empty) {
+  transform: none;
+}
+
 // Tooltip
 .tooltip-inner {
   max-width: 276px;
@@ -449,6 +455,10 @@ mat-basic-chip.tag {
 
   .mat-dialog-actions {
     padding: 1rem 0 0 !important;
+    position: absolute;
+    background: white;
+    bottom: 0.75rem;
+    width: 100%;
   }
 }
 
@@ -456,32 +466,14 @@ mat-basic-chip.tag {
   .wrapper {
     padding: 0 8px;
   }
+
+  .mat-dialog-content {
+    max-height: calc(100vh - 5rem) !important;
+  }
 }
+
 @media (min-width: 1200px) and (max-width: 1440px) {
   .wrapper {
     max-width: 90vw;
   }
 }
-// .tooltip-inner {
-//     color: #000;
-//     background-color: #fff;
-//     box-shadow: 0 1rem 1rem 0 rgba(0, 0, 0, 0.2);
-// }
-
-// .tooltip.show {
-//     opacity: 1;
-// }
-
-// .bs-tooltip-top .arrow::before, .bs-tooltip-auto[x-placement^="top"] .arrow::before {
-//     border-top-color: #fff;
-// }
-
-// .bs-tooltip-right .arrow::before, .bs-tooltip-auto[x-placement^="right"] .arrow::before {
-//     border-right-color: #fff;
-// }
-
-// Img alt test, delete in production
-// img:not([alt]) {
-//     transform: rotate(0.5turn);
-//     filter: blur(5px);
-// }

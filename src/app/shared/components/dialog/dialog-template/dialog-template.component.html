@@ -4,29 +4,49 @@
  :license: MIT -->
 
 <mat-dialog-content>
-  <div class="row d-flex justify-content-between dialog-header">
-    <div class="col-12 col-md pb-3 pb-md-0">
+  <div
+    class="row d-flex justify-content-between dialog-header"
+    *ngIf="data.title"
+  >
+    <div class="col-12 col-md">
       <h2 class="modal-title h5">{{ data.title }}</h2>
-    </div>
-    <div class="col-auto align-self-center">
-      <app-close-button
-        mat-dialog-close
-        class="pull-right pr-3"
-        autofocus
-        tabindex="-1"
-      ></app-close-button>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col py-3">
-      <ng-container [ngTemplateOutlet]="data.template"></ng-container>
+  <div class="col px-0 px-lg-3 pt-3">
+    <div class="row">
+      <div class="col">
+        <ng-container [ngTemplateOutlet]="data.template"></ng-container>
+      </div>
     </div>
   </div>
 </mat-dialog-content>
 
 <mat-dialog-actions class="d-block mb-0 pb-0 px-lg-3" *ngIf="data.actions">
-  <div class="row">
-    <ng-container [ngTemplateOutlet]="data.actions"></ng-container>
+  <div
+    class="row justify-content-lg-end"
+    [ngClass]="
+      mobile && data.actions.length === 1
+        ? 'justify-content-center'
+        : 'justify-content-end'
+    "
+  >
+    <ng-container *ngFor="let action of data.actions">
+      <div class="col-auto">
+        <app-primary-action-button
+          *ngIf="action.primary"
+          (click)="doAction(action.method)"
+          [content]="action.label"
+          [ngClass]="mobile ? 'py-2 d-block' : ''"
+        ></app-primary-action-button>
+
+        <app-secondary-button
+          *ngIf="!action.primary"
+          (click)="doAction(action.method)"
+          [content]="action.label"
+          [ngClass]="mobile ? 'py-2 d-block' : ''"
+        ></app-secondary-button>
+      </div>
+    </ng-container>
   </div>
 </mat-dialog-actions>
