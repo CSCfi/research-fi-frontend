@@ -21,7 +21,8 @@ export class FundingCall {
     public openDateString: string,
     public dueDateString: string,
     public foundation: { name: string; orgId: string; url: string },
-    public categories: { id: string; name: string }[]
+    public categories: { id: string; name: string }[],
+    public daysLeft: number
   ) {}
 }
 
@@ -43,13 +44,13 @@ export class FundingCallAdapter implements Adapter<FundingCall> {
     const categories = [];
     item.categories.forEach(c => categories.push({id: c.codeValue, name: this.lang.testLang('name', c)}));
 
-    const openDate = new Date(item.callProgrammeOpenDate)
-    const dueDate = new Date(item.callProgrammeDueDate)
+    const openDate = new Date(item.callProgrammeOpenDate);
+    const dueDate = new Date(item.callProgrammeDueDate);
 
     function pad(n) {return n < 10 ? '0'+n : n};
 
-    const openDateString = pad(openDate.getDate()) + '.' + pad(openDate.getMonth() + 1) + '.' + openDate.getFullYear()
-    const dueDateString = pad(dueDate.getDate()) + '.' + pad(dueDate.getMonth() + 1) + '.' + dueDate.getFullYear()
+    const openDateString = pad(openDate.getDate()) + '.' + pad(openDate.getMonth() + 1) + '.' + openDate.getFullYear();
+    const dueDateString = pad(dueDate.getDate()) + '.' + pad(dueDate.getMonth() + 1) + '.' + dueDate.getFullYear();
 
     return new FundingCall(
       item.id,
@@ -62,7 +63,8 @@ export class FundingCallAdapter implements Adapter<FundingCall> {
       openDateString,
       dueDateString,
       foundation,
-      categories.sort((a, b) => +(a.name > b.name) - 0.5)
+      categories.sort((a, b) => +(a.name > b.name) - 0.5),
+      new Date().getDay() - dueDate.getDay()
     );
   }
 
