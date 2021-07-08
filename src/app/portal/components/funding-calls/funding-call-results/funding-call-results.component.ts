@@ -16,9 +16,9 @@ import { UtilityService } from '@shared/services/utility.service';
 })
 export class FundingCallResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() resultData: Search;
+  @Input() sortDirection: boolean;
+  @Input() sortColumn: string;
   expandStatus: Array<boolean> = [];
-  sortColumn: string;
-  sortDirection: boolean;
   @ViewChild('main') mainContent: ElementRef;
 
   faIcon = this.tabChangeService.fundingCall.icon;
@@ -49,8 +49,6 @@ export class FundingCallResultsComponent implements OnInit, OnDestroy, AfterView
   ngOnInit() {
     // Check url for sorting, default to empty
     this.sortService.initSort(this.route.snapshot.queryParams.sort || '');
-    this.sortColumn = this.sortService.sortColumn;
-    this.sortDirection = this.sortService.sortDirection;
     this.searchService.currentInput.subscribe((input) => {
       this.input = input;
       this.cdr.detectChanges();
