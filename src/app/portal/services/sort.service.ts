@@ -412,7 +412,7 @@ export class SortService {
             break;
           }
           case 'callOpenDate': {
-            const sortString = 'callOpenDate.keyword';
+            const sortString = 'callProgrammeOpenDate';
             this.sort = [
               {
                 [sortString]: {
@@ -424,7 +424,7 @@ export class SortService {
             break;
           }
           case 'callDueDate': {
-            const sortString = 'callDueDate.keyword';
+            const sortString = 'callProgrammeDueDate';
             this.sort = [
               {
                 [sortString]: {
@@ -436,7 +436,7 @@ export class SortService {
             break;
           }
           default: {
-            const sortString = 'callDueDate.keyword';
+            const sortString = 'callProgrammeDueDate';
             this.sort = [
               {
                 [sortString]: {
