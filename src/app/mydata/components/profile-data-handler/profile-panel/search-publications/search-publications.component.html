@@ -81,30 +81,21 @@
   </div>
 </mat-dialog-content>
 
-<mat-dialog-actions class="d-block mb-0 pb-0 px-lg-3">
-  <div
-    class="row justify-content-md-end"
-    [ngClass]="
-      mobile && (!currentSelection || currentSelection.length === 0)
-        ? 'justify-content-end'
-        : 'justify-content-center'
-    "
-  >
-    <div class="col-auto">
-      <app-secondary-button
-        [small]="mobile"
-        (click)="close()"
-        content="Peruuta"
-      ></app-secondary-button>
-    </div>
-    <div class="col-auto" *ngIf="total > 0 && currentSelection?.length > 0">
-      <app-primary-action-button
-        [small]="mobile"
-        (click)="saveChanges()"
-        [content]="
-          currentSelection.length > 1 ? 'Lisää julkaisut' : 'Lisää julkaisu'
-        "
-      ></app-primary-action-button>
-    </div>
+<mat-dialog-actions>
+  <div class="col-auto">
+    <app-secondary-button
+      [small]="mobile"
+      (click)="close()"
+      content="Peruuta"
+    ></app-secondary-button>
+  </div>
+  <div class="col-auto" *ngIf="total > 0 && currentSelection?.length > 0">
+    <app-primary-action-button
+      [small]="mobile"
+      (click)="saveChanges()"
+      [content]="
+        currentSelection.length > 1 ? 'Lisää julkaisut' : 'Lisää julkaisu'
+      "
+    ></app-primary-action-button>
   </div>
 </mat-dialog-actions>

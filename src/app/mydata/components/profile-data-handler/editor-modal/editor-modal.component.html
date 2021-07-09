@@ -46,19 +46,17 @@
   </div>
 </mat-dialog-content>
 
-<mat-dialog-actions class="d-block mb-0 pb-0 px-lg-3">
-  <div class="row justify-content-center justify-content-md-end">
-    <div class="col-auto">
-      <app-secondary-button
-        (click)="close()"
-        content="Peruuta"
-      ></app-secondary-button>
-    </div>
-    <div class="col-auto">
-      <app-primary-action-button
-        (click)="saveChanges()"
-        content="Tallenna"
-      ></app-primary-action-button>
-    </div>
+<mat-dialog-actions>
+  <div class="col-auto">
+    <app-secondary-button
+      (click)="close()"
+      content="Peruuta"
+    ></app-secondary-button>
+  </div>
+  <div class="col-auto">
+    <app-primary-action-button
+      (click)="saveChanges()"
+      content="Tallenna"
+    ></app-primary-action-button>
   </div>
 </mat-dialog-actions>
