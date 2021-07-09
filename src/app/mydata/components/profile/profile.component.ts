@@ -5,13 +5,18 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewEncapsulation,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { ProfileService } from '@mydata/services/profile.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { take } from 'rxjs/operators';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { DeleteProfileDialogComponent } from './delete-profile-dialog/delete-profile-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 import { mergePublications } from '@mydata/utils';
 import { Router } from '@angular/router';
 
@@ -47,8 +52,17 @@ export class ProfileComponent implements OnInit {
   showDialog: boolean;
   dialogTemplate: any;
   dialogTitle: any;
+  currentDialogActions: any[];
+  basicDialogActions = [{ label: 'Sulje', primary: true, method: 'close' }];
+  deleteProfileDialogActions = [
+    { label: 'Peruuta', primary: false, method: 'close' },
+    { label: 'Poista profiili', primary: true, method: 'delete' },
+  ];
+  @ViewChild('deletingProfileTemplate') deletingProfileTemplate: ElementRef;
 
-  deleteProfileDialogRef: MatDialogRef<DeleteProfileDialogComponent>;
+  connProblem: boolean;
+  loading: boolean;
+  deletingProfile: boolean;
 
   constructor(
     private profileService: ProfileService,
@@ -82,33 +96,56 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  openDeleteProfileDialog(): void {
-    this.deleteProfileDialogRef = this.dialog.open(
-      DeleteProfileDialogComponent,
-      {
-        minWidth: '44vw',
-      }
-    );
-
-    this.deleteProfileDialogRef
-      .afterClosed()
-      .pipe(take(1))
-      .subscribe((result) => {
-        if (result) {
-          this.router.navigate(['/mydata']);
-        }
-      });
-  }
-
-  openDialog(title, template) {
+  openDialog(title, template, actions) {
     this.dialogTitle = title;
     this.showDialog = true;
     this.dialogTemplate = template;
+    this.currentDialogActions = actions;
   }
 
-  resetDialog() {
+  doDialogAction(event) {
+    this.dialog.closeAll();
     this.dialogTitle = '';
     this.showDialog = false;
     this.dialogTemplate = null;
+
+    if (event === 'delete') {
+      this.deleteProfile();
+    }
+  }
+
+  deleteProfile() {
+    this.deletingProfile = true;
+    this.loading = true;
+    this.connProblem = false;
+
+    this.profileService
+      .deleteProfile()
+      .pipe(take(1))
+      .subscribe(
+        (res: any) => {
+          this.loading = false;
+          if (res.ok && res.body.success) {
+            this.dialog.closeAll();
+
+            // Wait for dialog to close
+            setTimeout(() => this.router.navigate(['/mydata']), 500);
+          }
+        },
+        (error) => {
+          this.loading = false;
+          if (!error.ok) {
+            this.connProblem = true;
+          }
+        }
+      );
+  }
+
+  closeDialog() {
+    this.dialog.closeAll();
+    this.dialogTitle = '';
+    this.showDialog = false;
+    this.dialogTemplate = null;
+    this.deletingProfile = false;
   }
 }

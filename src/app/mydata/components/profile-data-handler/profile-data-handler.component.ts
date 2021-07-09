@@ -162,18 +162,11 @@ export class ProfileDataHandlerComponent implements OnInit {
 
   openDialog(event, index) {
     event.stopPropagation();
+
     const selectedField = cloneDeep(this.profileData[index]);
 
-    let mobile: boolean;
-
-    this.appSettingsService.mobileStatus.pipe(take(1)).subscribe((status) => {
-      mobile = status;
-    });
-
     this.dialogRef = this.dialog.open(EditorModalComponent, {
-      minWidth: '44vw',
-      maxWidth: mobile ? '100vw' : '44vw',
-      maxHeight: '100vh',
+      ...this.appSettingsService.dialogSettings,
       data: {
         data: selectedField,
         dataSources: this.dataSources,

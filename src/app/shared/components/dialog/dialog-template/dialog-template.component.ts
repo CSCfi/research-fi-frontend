@@ -1,5 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AppSettingsService } from '@shared/services/app-settings.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dialog-template',
@@ -7,7 +9,23 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./dialog-template.component.scss'],
 })
 export class DialogTemplateComponent implements OnInit {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
+  mobile: boolean;
 
-  ngOnInit(): void {}
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private dialogRef: MatDialogRef<DialogTemplateComponent>,
+    private appSettingsService: AppSettingsService
+  ) {}
+
+  ngOnInit(): void {
+    this.appSettingsService.mobileStatus
+      .pipe(take(1))
+      .subscribe((status) => (this.mobile = status));
+  }
+
+  doAction(method) {
+    this.dialogRef.close({
+      method: method,
+    });
+  }
 }

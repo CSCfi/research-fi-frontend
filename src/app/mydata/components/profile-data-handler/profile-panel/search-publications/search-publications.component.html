@@ -6,13 +6,11 @@
 <mat-dialog-content>
   <div class="row d-flex justify-content-between dialog-header">
     <div class="col">
-      <h2 class="modal-title pull-left h5 mt-n1">
-        Puuttuvan julkaisun hakeminen
-      </h2>
+      <h2 class="modal-title h5">Puuttuvan julkaisun hakeminen</h2>
     </div>
-    <div class="col-auto">
+
+    <div class="col-auto mt-1 mt-sm-0 align-self-sm-center">
       <app-close-button
-        class="pull-right pr-3"
         (click)="close()"
         (keydown.enter)="close()"
         autofocus
@@ -84,7 +82,14 @@
 </mat-dialog-content>
 
 <mat-dialog-actions class="d-block mb-0 pb-0 px-lg-3">
-  <div class="row justify-content-between justify-content-md-end">
+  <div
+    class="row justify-content-md-end"
+    [ngClass]="
+      mobile && (!currentSelection || currentSelection.length === 0)
+        ? 'justify-content-end'
+        : 'justify-content-center'
+    "
+  >
     <div class="col-auto">
       <app-secondary-button
         [small]="mobile"

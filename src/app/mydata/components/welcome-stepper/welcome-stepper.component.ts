@@ -12,6 +12,7 @@ import {
   ViewChild,
   Inject,
   PLATFORM_ID,
+  ElementRef,
 } from '@angular/core';
 import {
   faAngleDoubleRight,
@@ -20,17 +21,11 @@ import {
 import { ProfileService } from 'src/app/mydata/services/profile.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { take } from 'rxjs/operators';
-import {
-  BsModalRef,
-  BsModalService,
-  ModalDirective,
-} from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
 import { WINDOW } from '@shared/services/window.service';
-
-// Remove in production
-import { AppSettingsService } from '@shared/services/app-settings.service';
 import { isPlatformBrowser } from '@angular/common';
+import { AppSettingsService } from '@shared/services/app-settings.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-welcome-stepper',
@@ -39,6 +34,7 @@ import { isPlatformBrowser } from '@angular/common';
   encapsulation: ViewEncapsulation.None,
 })
 export class WelcomeStepperComponent implements OnInit {
+  develop: boolean;
   step: number;
   cancel = false;
 
@@ -51,9 +47,7 @@ export class WelcomeStepperComponent implements OnInit {
   userData: any;
   firstName: string;
 
-  @ViewChild('smModal') smModal: ModalDirective;
-  @ViewChild('termsTemplate') termsTemplate: ModalDirective;
-  modalRef: BsModalRef;
+  @ViewChild('fetchingTemplate') fetchingTemplate: ElementRef;
 
   profileChecked: boolean;
   profileCreated: boolean;
@@ -63,16 +57,18 @@ export class WelcomeStepperComponent implements OnInit {
   showDialog: boolean;
   dialogTemplate: any;
   dialogTitle: any;
-  develop: boolean;
+  dialogActions = [{ label: 'Sulje', primary: true, method: 'close' }];
+
+  loading: boolean;
 
   constructor(
     private profileService: ProfileService,
     public oidcSecurityService: OidcSecurityService,
-    private modalService: BsModalService,
     private router: Router,
     private appSettingsService: AppSettingsService,
     @Inject(PLATFORM_ID) private platformId: object,
-    @Inject(WINDOW) private window: Window
+    @Inject(WINDOW) private window: Window,
+    public dialog: MatDialog
   ) {
     this.profileData = null;
   }
@@ -122,16 +118,8 @@ export class WelcomeStepperComponent implements OnInit {
     this.cancel = !this.cancel;
   }
 
-  openModal(template) {
-    this.modalRef = this.modalService.show(template);
-  }
-
-  closeModal() {
-    this.modalRef.hide();
-  }
-
   fetchData() {
-    this.smModal.show();
+    this.openDataFetchingDialog();
     this.createProfile();
   }
 
@@ -172,10 +160,20 @@ export class WelcomeStepperComponent implements OnInit {
     this.dialogTemplate = template;
   }
 
+  doDialogAction() {
+    // Perform actions
+    this.resetDialog();
+  }
+
   resetDialog() {
     this.dialogTitle = '';
     this.showDialog = false;
     this.dialogTemplate = null;
+  }
+
+  openDataFetchingDialog() {
+    this.loading = true;
+    this.dialogTemplate = this.fetchingTemplate;
   }
 
   deleteProfile() {
@@ -193,7 +191,9 @@ export class WelcomeStepperComponent implements OnInit {
     this.profileData = null;
     this.profileService.getProfileData().subscribe((data) => {
       this.profileData = data;
-      this.smModal?.hide();
+      this.dialog.closeAll();
+      this.loading = false;
+      this.resetDialog();
       this.increment();
     });
   }
