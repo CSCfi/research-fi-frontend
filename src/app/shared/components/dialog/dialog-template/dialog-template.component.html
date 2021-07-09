@@ -8,8 +8,17 @@
     class="row d-flex justify-content-between dialog-header"
     *ngIf="data.title"
   >
-    <div class="col-12 col-md">
+    <div class="col-8 col-sm">
       <h2 class="modal-title h5">{{ data.title }}</h2>
+    </div>
+
+    <div class="col-auto mt-1 mt-sm-0 align-self-sm-center">
+      <app-close-button
+        (click)="close()"
+        (keydown.enter)="close()"
+        autofocus
+        tabindex="-1"
+      ></app-close-button>
     </div>
   </div>
 

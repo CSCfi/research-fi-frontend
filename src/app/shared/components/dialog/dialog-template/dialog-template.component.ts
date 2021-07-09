@@ -28,4 +28,8 @@ export class DialogTemplateComponent implements OnInit {
       method: method,
     });
   }
+
+  close() {
+    this.dialogRef.close();
+  }
 }
