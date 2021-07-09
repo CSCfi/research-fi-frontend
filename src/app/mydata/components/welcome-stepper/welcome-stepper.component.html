@@ -155,14 +155,6 @@
                 ></app-eula>
               </ng-template>
 
-              <app-dialog
-                *ngIf="showDialog"
-                [template]="dialogTemplate"
-                [title]="dialogTitle"
-                (onActionClick)="doDialogAction($event)"
-                [actions]="dialogActions"
-              ></app-dialog>
-
               <app-stepper-navigation
                 (changeStep)="changeStep($event)"
                 [disableNext]="!termsApproved || !personalDataHandlingApproved"
@@ -235,25 +227,21 @@
               </div>
 
               <!-- Data fetching indicator -->
-              <div
-                bsModal
-                #smModal="bs-modal"
-                class="modal fade"
-                tabindex="-1"
-                role="dialog"
-              >
-                <div class="modal-dialog modal-sm modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-body text-center">
-                      <mat-spinner class="mx-auto" [diameter]="80">
-                      </mat-spinner>
-                      <span class="d-block pt-3"
-                        >Tietoja tuodaan, odota hetki...</span
-                      >
-                    </div>
+              <ng-template #fetchingTemplate>
+                <div class="row d-flex justify-content-center">
+                  <div class="col-auto align-self-center">
+                    <mat-spinner
+                      class="mx-auto"
+                      [diameter]="80"
+                      i18n-aria-label="@@loading"
+                      aria-label="Ladataan"
+                    ></mat-spinner>
+                    <span class="d-block col pt-3 text-center"
+                      >Tietoja tuodaan, odota hetki...</span
+                    >
                   </div>
                 </div>
-              </div>
+              </ng-template>
 
               <app-stepper-navigation
                 (changeStep)="changeStep($event)"
@@ -289,10 +277,6 @@
                   ></app-profile-data-handler>
                 </div>
               </div>
-
-              <!-- <app-stepper-navigation
-                (changeStep)="changeStep($event)"
-              ></app-stepper-navigation> -->
 
               <div class="row pt-3">
                 <app-primary-action-button
@@ -352,6 +336,17 @@
           </div>
         </ng-template>
 
+        <!-- Reusable dialog -->
+        <app-dialog
+          *ngIf="showDialog || loading"
+          [template]="dialogTemplate"
+          [title]="dialogTitle"
+          [small]="loading"
+          (onActionClick)="doDialogAction($event)"
+          [actions]="loading ? [] : dialogActions"
+        ></app-dialog>
+
+        <!-- ORCID info -->
         <div class="row py-5" *ngIf="userData">
           <app-orcid-id-info
             class="col text-center"

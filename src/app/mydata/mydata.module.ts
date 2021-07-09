@@ -47,7 +47,6 @@ import { SharedModule } from '../shared/shared.module';
 import { OrcidIdInfoComponent } from './components/welcome-stepper/orcid-id-info/orcid-id-info.component';
 import { StepperNavigationComponent } from './components/welcome-stepper/stepper-navigation/stepper-navigation.component';
 
-import { ModalModule } from 'ngx-bootstrap/modal';
 import { ProfilePanelComponent } from './components/profile-data-handler/profile-panel/profile-panel.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import { GetLocalizedValuesPipe } from './pipes/getLocalizedValues.pipe';
@@ -110,7 +109,6 @@ import { EulaComponent } from './components/eula/eula.component';
     FormsModule,
     MyDataRoutingModule,
     SharedModule,
-    ModalModule,
     FontAwesomeModule,
     TooltipModule.forRoot(),
     MatProgressSpinnerModule,
