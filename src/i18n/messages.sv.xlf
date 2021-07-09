@@ -3244,6 +3244,36 @@
         <source>Rahoitushaut ovat uusi tietokokonaisuus Tiedejatutkimus.fi-palvelussa. Tiedot haetaan automaattisesti Aurora-tietokannasta. Otamme mielellämme vastaan palautetta rahoitushakukokonaisuuden toimivuudesta: tiedejatutkimus@csc.fi</source>
         <target>Forskningsfinansiering är ett nytt avsnitt i Forskning.fi. Informationen om finansieringsutlysningar hämtas automatiskt från Aurora-databasen. All feedback är välkommen: tiedejatutkimus@csc.fi</target>
       </trans-unit>
+      <trans-unit id="applicationPeriod">
+        <source>Hakuaika</source>
+        <target>Ansökningstid</target>
+      </trans-unit>
+      <trans-unit id="fundingCallPeriodTooltip">
+        <source>Aika, jolloin rahoitushaku on käynnissä. Voit rajata hakuaikaa rahoitushaun alkamis- ja päättymispäivämäärän tai vuoden mukaan.</source>
+        <target>Den tid då finansieringsansökan pågår. Du kan begränsa söktiden enligt ansökningstidens start- och slutdatum eller enligt år.</target>
+      </trans-unit>
+      <trans-unit id="fundingCallStatus">
+        <source>Rahoitushaun tila</source>
+        <target>Finansieringsansökans status</target>
+      </trans-unit>
+      <trans-unit id="fundingCallStatusTooltip">
+        <source>Tutkimustietovarannossa hakuja seurataan päivän tarkkuudella. Haun päättymisen kellonaika kerrotaan hakuilmoituksessa tai rahoittajan palvelussa.</source>
+        <target>Sökningarna i Datalagret för forskningsinformation följs upp med en dags noggrannhet. Tidpunkten för när ansökan avslutas anges i annonsen eller i finansiärens tjänst.</target>
+      </trans-unit>
+      <trans-unit id="fundingCallCategory">
+        <source>Hakuala</source>
+        <target>Ämnesområde</target>
+      </trans-unit>
+      <trans-unit id="fundingCallCategoryTooltip">
+        <source>Tieteen ja taiteen rahoitustietokanta Auroran hakualakoodiston mukaiset hakualat vastaavat suurelta osin tieteenaloja.</source>
+        <target>Ämnesområdena i finansieringsdatabasen för vetenskap och konst Aurora motsvarar till stor del vetenskapsområdena.</target>
+      </trans-unit>
+
+      <trans-unit id="fundingCallfunderTooltip">
+        <source>Rahoitushausta vastaava tutkimusrahoittaja.</source>
+        <target>Forskningsfinansiär som ansvarar för finansieringsansökan.</target>
+      </trans-unit>
+
       <!-- Filters -->
       <trans-unit id="filterSearchHeader">
         <source>Rajaa hakua</source>
