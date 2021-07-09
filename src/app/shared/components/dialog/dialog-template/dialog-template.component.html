@@ -22,7 +22,10 @@
   </div>
 </mat-dialog-content>
 
-<mat-dialog-actions class="d-block mb-0 pb-0 px-lg-3" *ngIf="data.actions">
+<mat-dialog-actions
+  class="d-block mb-0 pb-0 px-lg-3"
+  *ngIf="data.actions?.length"
+>
   <div
     class="row justify-content-lg-end"
     [ngClass]="
