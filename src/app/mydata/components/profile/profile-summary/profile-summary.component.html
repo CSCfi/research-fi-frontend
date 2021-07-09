@@ -43,13 +43,6 @@
                   <div class="col px-0 pb-2 font-size-smaller">
                     {{ groupItem.items | joinItems: 'value' }}
                   </div>
-
-                  <!-- Source -->
-                  <!-- <div
-                  class="col-auto px-0 mt-1 text-right opacity-3 font-size-small"
-                >
-                  {{ groupItem.source.organization['name' + locale] }}
-                </div> -->
                 </div>
               </ng-container>
               <ng-container *ngSwitchDefault>
@@ -90,19 +83,6 @@
                         [disabled]="true"
                       ></app-primary-badge>
                     </div>
-
-                    <!-- Debugging -->
-                    <!-- <div class="col-auto font-size-small mt-1" style="color: red">
-                itemId: {{ item.itemMeta.id }} | groupId:
-                {{ groupItem.groupMeta.id }}
-              </div> -->
-
-                    <!-- Source -->
-                    <!-- <div
-                class="col-auto px-0 mt-1 text-right opacity-3 font-size-small"
-              >
-                {{ groupItem.source.organization['name' + locale] }}
-              </div> -->
                   </div>
                 </ng-container>
               </ng-container>
