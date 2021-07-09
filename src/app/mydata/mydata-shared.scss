@@ -74,6 +74,13 @@ app-profile-panel {
     margin-top: 0.5rem;
   }
 
+  @media (max-width: 991px) {
+    .mat-accordion {
+      display: block;
+      padding-bottom: 2rem;
+    }
+  }
+
   @media (min-width: 992px) {
     .mat-expansion-panel-header {
       padding: 0 1rem;
