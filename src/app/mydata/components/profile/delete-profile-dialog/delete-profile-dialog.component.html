@@ -44,21 +44,19 @@
   </div>
 </mat-dialog-content>
 
-<mat-dialog-actions class="d-block mb-0 pb-0 px-lg-3">
-  <div class="row justify-content-center">
-    <div class="col-auto pb-3 pb-md-0">
-      <app-secondary-button
-        (click)="close()"
-        content="Peruuta"
-        [disabled]="loading"
-      ></app-secondary-button>
-    </div>
-    <div class="col-auto">
-      <app-primary-action-button
-        content="Poista profiili"
-        [disabled]="loading"
-        (click)="deleteProfile()"
-      ></app-primary-action-button>
-    </div>
+<mat-dialog-actions>
+  <div class="col-auto">
+    <app-secondary-button
+      (click)="close()"
+      content="Peruuta"
+      [disabled]="loading"
+    ></app-secondary-button>
+  </div>
+  <div class="col-auto">
+    <app-primary-action-button
+      content="Poista profiili"
+      [disabled]="loading"
+      (click)="deleteProfile()"
+    ></app-primary-action-button>
   </div>
 </mat-dialog-actions>

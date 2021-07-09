@@ -375,7 +375,7 @@ mat-basic-chip.tag {
 // Mat Dialog
 .mat-dialog-container {
   overflow: hidden !important;
-  padding: 0 0 1rem !important;
+  padding: 0 !important;
 }
 
 .dialog-header {
@@ -390,7 +390,12 @@ mat-basic-chip.tag {
 }
 
 .mat-dialog-actions {
-  padding: 1rem 1rem 0 !important;
+  display: flex !important;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  // display: block !important;
+  margin-bottom: 0 !important;
+  padding: 1rem !important;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
@@ -454,10 +459,10 @@ mat-basic-chip.tag {
   }
 
   .mat-dialog-actions {
-    padding: 1rem 0 0 !important;
+    padding: 0.5rem 0 !important;
     position: absolute;
     background: white;
-    bottom: 0.75rem;
+    bottom: 0;
     width: 100%;
   }
 }
@@ -468,7 +473,17 @@ mat-basic-chip.tag {
   }
 
   .mat-dialog-content {
-    max-height: calc(100vh - 5rem) !important;
+    max-height: calc(100vh - 6rem) !important;
+  }
+
+  .mat-dialog-actions {
+    justify-content: center;
+
+    app-primary-action-button,
+    app-secondary-button {
+      display: block;
+      padding: 0.5rem 0;
+    }
   }
 }
 
