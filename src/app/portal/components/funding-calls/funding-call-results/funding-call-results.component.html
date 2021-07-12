@@ -11,7 +11,8 @@
     <!-- Results -->
     <!-- <div class="row no-margin sticky-header" [ngStyle]="{'top': marginTop + 'px'}"> -->
     <div class="row no-margin sticky-header">
-      <div class="col col-lg-6 col-xl-5 d-none d-lg-block">
+      <div class="col col-1 icon"></div>
+      <div class="col col-lg-5 col-xl-3 d-none d-lg-block">
         <span
           #main
           tabindex="0"
@@ -25,7 +26,7 @@
           >Haun nimi</span
         >
       </div>
-      <div class="col col-lg-6 col-xl-3 d-none d-lg-block">
+      <div class="col col-lg-4 col-xl-2 d-none d-lg-block">
         <span
           tabindex="0"
           class="bold uppercase"
@@ -40,6 +41,14 @@
           (keydown.enter)="utilityService.sortBy('foundation')"
           i18n="@@funder"
           >Rahoittaja</span
+        >
+      </div>
+      <div class="col col-lg-2 d-none d-lg-block">
+        <span
+          tabindex="0"
+          class="bold uppercase"
+          i18n="@@fundingCallCategory"
+          >Hakuala</span
         >
       </div>
       <div class="col col-xl-2 d-none d-xl-block">
@@ -81,7 +90,17 @@
         class="single"
       >
         <div class="row no-margin">
-          <div class="col col-8 col-lg-6 col-xl-5 title">
+          <div class="col col-1 icon">
+            <a
+              class="icon"
+              routerLink="/funding-call/{{ call.id }}"
+              tabindex="-1"
+              title="Rahoitushakujen ikoni"
+            >
+              <fa-icon [icon]="faIcon"></fa-icon>
+            </a>
+          </div>
+          <div class="col col-7 col-lg-5 col-xl-3 title">
             <a routerLink="/funding-call/{{ call.id }}">
               <h4
                 class="result-title"
@@ -89,7 +108,7 @@
               ></h4>
             </a>
           </div>
-          <div class="col col-lg-6 col-xl-3 d-none d-lg-block">
+          <div class="col col-lg-4 col-xl-2 d-none d-lg-block foundation">
             <a *ngIf="call.foundation.orgId" routerLink="/results/organization/{{ call.foundation.orgId }}">
               <span
                 [innerHtml]="call.foundation.name | highlight: input"
@@ -98,6 +117,15 @@
             <span *ngIf="!call.foundation.orgId"
               [innerHtml]="call.foundation.name | highlight: input"
             ></span>
+          </div>
+          <div class="col col-lg-2 shorten d-none d-xl-block categories">
+            <span
+              *ngFor="let category of call.categories.slice(0, 5); let last = last;"
+              class="category"
+            >
+              {{ category.name }}<ng-container *ngIf="!last">,</ng-container>
+            </span>
+            <span *ngIf="call.categories.length > 5" class="category-overflow">...</span>
           </div>
           <div class="col col-xl-2 shorten d-none d-xl-block">
             <span
@@ -110,7 +138,8 @@
             ></span>
           </div>
           <!-- Categories -->
-          <div class="categories col-12 col-lg-9 pb-2">
+          <!-- <div class="col col-1 icon"></div>
+          <div class="categories col-11 col-lg-9 pb-2">
             <span
               *ngFor="let category of call.categories.slice(0, 10); let last = last;"
               class="category"
@@ -119,8 +148,10 @@
             </span>
             <span *ngIf="call.categories.length > 10" class="category-overflow">...</span>
           </div>
+          <div class="col-12"></div> -->
           <!-- Description -->
-          <div class="col-12 col-lg-9" [innerHTML]="call.description | cutContent: 100 | highlight: input"></div>
+          <div class="col col-1 icon"></div>
+          <div class="col-11 col-lg-9" [innerHTML]="call.description | cutContent: 100 | highlight: input"></div>
         </div>
         <!-- <app-related-results class="row related-fields" [class.expand]="expandStatus[i]"></app-related-results> -->
       </div>
