@@ -151,7 +151,7 @@
           <div class="col-12"></div> -->
           <!-- Description -->
           <div class="col col-1 icon d-none d-lg-block"></div>
-          <div class="col-lg-9 d-none d-lg-block" [innerHTML]="call.description | cutContent: 100 | highlight: input"></div>
+          <div class="col-lg-9 d-none d-lg-block description"> {{call.descriptionParsed | cutContent: 100 | highlight: input}}</div>
         </div>
         <!-- <app-related-results class="row related-fields" [class.expand]="expandStatus[i]"></app-related-results> -->
       </div>

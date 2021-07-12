@@ -178,7 +178,6 @@ export class SingleFundingCallComponent implements OnInit {
     this.applicationInfoFields = this.applicationInfoFields.filter((item) => checkEmpty(item));
 
     // Short version is not HTML formatted
-    this.infoFields.forEach((item) => { this.responseData.fundingCalls[0][item.field + 'short'] = parseString(item) })
     this.applicationInfoFields.forEach((item) => { this.responseData.fundingCalls[0][item.field + 'short'] = parseString(item) })
   }
 

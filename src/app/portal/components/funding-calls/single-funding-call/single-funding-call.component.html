@@ -63,7 +63,7 @@
                         </h2>
                         <div class="col-12 col-sm-8 col-lg-9 td">
                             <!-- Strip HTML tags for short preview. Makes line-clamp work on Firefox -->
-                            <div [ngClass]="row.field !== 'description' || expandDescription ? 'expand' : 'short'" [innerHTML]="call[row.field + ((row.field !== 'description' || expandDescription) ? '' : 'short')]">
+                            <div [ngClass]="row.field !== 'description' || expandDescription ? 'expand' : 'short'" [innerHTML]="call[row.field + ((row.field !== 'description' || expandDescription) ? '' : 'Parsed')]">
                                 <!-- {{ call[row.field] }} -->
                             </div>
                             <a 
