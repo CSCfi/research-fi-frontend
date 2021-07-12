@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Search } from '@portal/models/search.model';
+import { FundingCall } from '@portal/models/funding-call.model';
 
 @Component({
   selector: 'app-funding-call-preview',
@@ -8,7 +8,7 @@ import { Search } from '@portal/models/search.model';
 })
 export class FundingCallPreviewComponent implements OnInit {
 
-  @Input() resultData: Search;
+  @Input() resultData: FundingCall[];
   constructor() { }
 
   ngOnInit(): void {

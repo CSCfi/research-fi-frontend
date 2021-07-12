@@ -7,7 +7,7 @@
     <mat-spinner [diameter]="80"></mat-spinner>
   </div>
   <!-- Data -->
-  <div *ngIf="resultData && resultData.total > 0; else noResults">
+  <div *ngIf="resultData && resultData.length > 0; else noResults">
     <!-- Results -->
     <!-- <div class="row no-margin sticky-header" [ngStyle]="{'top': marginTop + 'px'}"> -->
     <div class="row no-margin sticky-header">
@@ -39,7 +39,7 @@
     </div>
     <div *ngIf="resultData" class="result-container">
       <div
-        *ngFor="let call of resultData.fundingCalls; let i = index"
+        *ngFor="let call of resultData; let i = index"
         class="single"
       >
         <div class="row no-margin">
@@ -48,6 +48,7 @@
               <h4
                 class="result-title"
                 [innerHtml]="call.name | highlight: input"
+                [title]="call.name"
               ></h4>
             </a>
           </div>

@@ -50,7 +50,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   errorMessage = [];
   status = false;
   news: News[] = [];
-  fundingCalls: Search;
+  resultData: Search;
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
   @ViewChildren('shortcutItem') shortcutItem: QueryList<ElementRef>;
   @ViewChild('main') mainContent: ElementRef;
@@ -121,8 +121,8 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     // Get funding calls data
-    this.searchService.getHomepageFundingCalls(5).subscribe((data) => {
-      this.fundingCalls = data;
+    this.searchService.getHomepageFundingCalls(10).subscribe((data) => {
+      this.resultData = data;
     });
 
     // Reset sort
