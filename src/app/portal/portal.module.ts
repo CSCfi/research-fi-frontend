@@ -151,6 +151,7 @@ import { ConvertToArrayPipe } from './pipes/convert-to-array.pipe';
 import { FundingCallsComponent } from './components/funding-calls/funding-calls.component';
 import { SingleFundingCallComponent } from './components/funding-calls/single-funding-call/single-funding-call.component';
 import { FundingCallResultsComponent } from './components/funding-calls/funding-call-results/funding-call-results.component';
+import { FundingCallPreviewComponent } from './components/funding-calls/funding-call-preview/funding-call-preview.component';
 
 @NgModule({
   declarations: [
@@ -221,6 +222,7 @@ import { FundingCallResultsComponent } from './components/funding-calls/funding-
     FundingCallsComponent,
     SingleFundingCallComponent,
     FundingCallResultsComponent,
+    FundingCallPreviewComponent,
   ],
   imports: [
     PortalRoutingModule,

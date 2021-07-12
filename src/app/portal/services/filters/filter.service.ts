@@ -723,11 +723,11 @@ export class FilterService {
       return index === i
       ? f?.length 
       ? [{ bool: { should: { bool: { filter: f } } } } ] : []
-      : []
+      : [];
     }
 
     const multipleRangeFilter = (i, f) => {
-      const shouldArr = f?.map(range => range = { bool: {filter: range } } );
+      const shouldArr = f?.map(range => range = { bool: { filter: range } } );
       return index === i
       ? f?.length
       ? [{bool: {should: shouldArr } }] : []
@@ -913,8 +913,20 @@ export class FilterService {
     return query;
   }
 
-  constructFundingCallPayload(searchTerm: string) {
-    const query = this.constructQuery('funding-call', searchTerm);
+  // Get open calls
+  constructFundingCallPayload() {
+    const today = new Date().toLocaleDateString('sv');
+    const query = {
+      bool: {
+        must: [
+          { term: { _index: 'funding-call' } },
+          { bool: { filter: [
+            { range: { callProgrammeOpenDate: { lte: today } } },
+            { range: { callProgrammeDueDate:  { gte: today } } },
+          ]}}
+        ]
+      }
+    }
     return query;
   }
 

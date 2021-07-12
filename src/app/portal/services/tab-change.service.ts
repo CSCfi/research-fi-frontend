@@ -8,6 +8,7 @@ import {
   faAlignLeft,
   faCalculator,
   faUniversity,
+  faBullhorn,
 } from '@fortawesome/free-solid-svg-icons';
 
 @Injectable({
@@ -77,7 +78,7 @@ export class TabChangeService {
     data: 'funding-calls',
     label: $localize`:@@fundingCalls:Rahoitushaut`,
     link: 'funding-calls',
-    icon: faCalculator,
+    icon: faBullhorn,
     singular: 'rahoitushaku',
     tooltip: ''
   }

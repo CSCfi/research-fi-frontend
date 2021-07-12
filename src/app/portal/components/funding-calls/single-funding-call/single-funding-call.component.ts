@@ -180,7 +180,6 @@ export class SingleFundingCallComponent implements OnInit {
     // Short version is not HTML formatted
     this.infoFields.forEach((item) => { this.responseData.fundingCalls[0][item.field + 'short'] = parseString(item) })
     this.applicationInfoFields.forEach((item) => { this.responseData.fundingCalls[0][item.field + 'short'] = parseString(item) })
-    console.log(this.responseData.fundingCalls[0])
   }
 
   shapeData() {
