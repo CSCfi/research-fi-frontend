@@ -436,7 +436,7 @@ export class SortService {
             break;
           }
           default: {
-            const sortString = 'callProgrammeDueDate';
+            const sortString = 'callProgrammeOpenDate';
             this.sort = [
               {
                 [sortString]: {
