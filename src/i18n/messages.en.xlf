@@ -3247,6 +3247,34 @@
         <source>Rahoitushaut ovat uusi tietokokonaisuus Tiedejatutkimus.fi-palvelussa. Tiedot haetaan automaattisesti Aurora-tietokannasta. Otamme mielellämme vastaan palautetta rahoitushakukokonaisuuden toimivuudesta: tiedejatutkimus@csc.fi</source>
         <target>Funding calls is a new section in Research.fi. The information is automatically retrieved from the Aurora database. All feedback on the funding calls section is welcome: tiedejatutkimus@csc.fi</target>
       </trans-unit>
+      <trans-unit id="applicationPeriod">
+        <source>Hakuaika</source>
+        <target>Application period</target>
+      </trans-unit>
+      <trans-unit id="fundingCallPeriodTooltip">
+        <source>Aika, jolloin rahoitushaku on käynnissä. Voit rajata hakuaikaa rahoitushaun alkamis- ja päättymispäivämäärän tai vuoden mukaan.</source>
+        <target>The period when the funding call is open. You can filter the application periods by the start date, end date or year of the funding call.</target>
+      </trans-unit>
+      <trans-unit id="fundingCallStatus">
+        <source>Rahoitushaun tila</source>
+        <target>Funding call status</target>
+      </trans-unit>
+      <trans-unit id="fundingCallStatusTooltip">
+        <source>Tutkimustietovarannossa hakuja seurataan päivän tarkkuudella. Haun päättymisen kellonaika kerrotaan hakuilmoituksessa tai rahoittajan palvelussa.</source>
+        <target>In the National Research Information Hub, all call application periods are monitored by date. If you wish to check the exact time when an application period is set to end, check the call notice or the funding provider’s service.</target>
+      </trans-unit>
+      <trans-unit id="fundingCallCategory">
+        <source>Hakuala</source>
+        <target>Category</target>
+      </trans-unit>
+      <trans-unit id="fundingCallCategoryTooltip">
+        <source>Tieteen ja taiteen rahoitustietokanta Auroran hakualakoodiston mukaiset hakualat vastaavat suurelta osin tieteenaloja.</source>
+        <target>The categories specified in the Aurora Funding Database for Science and Arts are largely based on the fields of science classification</target>
+      </trans-unit>
+      <trans-unit id="fundingCallfunderTooltip">
+        <source>Rahoitushausta vastaava tutkimusrahoittaja.</source>
+        <target>The research funder responsible for the funding call.</target>
+      </trans-unit>
       <!-- Filters -->
       <trans-unit id="filterSearchHeader">
         <source>Rajaa hakua</source>

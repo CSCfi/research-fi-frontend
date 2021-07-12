@@ -73,8 +73,6 @@ export class FundingCallsComponent implements OnInit, AfterViewInit {
 
     betaTooltip = $localize`:@@fundingCallBeta:Rahoitushaut ovat uusi tietokokonaisuus Tiedejatutkimus.fi-palvelussa. Tiedot haetaan automaattisesti Aurora-tietokannasta. Otamme mielellämme vastaan palautetta rahoitushakukokonaisuuden toimivuudesta: tiedejatutkimus@csc.fi`;
     
-  
-
     selectedTabData: {
       data: string;
       label: string;

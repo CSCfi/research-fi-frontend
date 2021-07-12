@@ -103,7 +103,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
         <main class="col-12" id="main-content">
           <app-active-filters></app-active-filters>
           <app-funding-call-results
-            [resultData]="resultData"
+            [resultData]="resultData" [sortDirection]="sortService.sortDirection" [sortColumn]="sortService.sortColumn"
           ></app-funding-call-results>
         </main>
       </div>
@@ -124,7 +124,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
       <h3 class="sr-only">Hakutulokset</h3>
       <app-funding-call-results
         id="main-content"
-        [resultData]="resultData"
+        [resultData]="resultData" [sortDirection]="sortService.sortDirection" [sortColumn]="sortService.sortColumn"
       ></app-funding-call-results>
     </main>
   </div>

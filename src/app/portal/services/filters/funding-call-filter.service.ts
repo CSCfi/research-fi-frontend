@@ -8,13 +8,13 @@ export class FundingCallFilterService {
   filterData = [
     {
       field: 'date',
-      label: $localize`:@@callPeriod:Hakuaika`,
+      label: $localize`:@@applicationPeriod:Hakuaika`,
       hasSubFields: false,
       open: true,
       limitHeight: true,
       hideSearch: true,
       hideNoResults: true,
-      // tooltip: $localize`:@@iYearFTooltip:Tutkimusinfrastruktuurin toiminnan aloitusvuosi. Jos aloitusvuosi ei ole tiedossa, käytetään vuotta jolloin tiedot on toimitettu tiedejatutkimus.fi-palveluun.`,
+      tooltip: $localize`:@@fundingCallPeriodTooltip:Aika, jolloin rahoitushaku on käynnissä. Voit rajata hakuaikaa rahoitushaun alkamis- ja päättymispäivämäärän tai vuoden mukaan.`,
     },
     {
       field: 'status',
@@ -22,6 +22,7 @@ export class FundingCallFilterService {
       hasSubFields: false,
       open: true,
       limitHeight: true,
+      // tooltip: $localize`:@@fundingCallStatusTooltip:Tutkimustietovarannossa hakuja seurataan päivän tarkkuudella. Haun päättymisen kellonaika kerrotaan hakuilmoituksessa tai rahoittajan palvelussa.`
     },
     {
       field: 'field',
@@ -29,6 +30,7 @@ export class FundingCallFilterService {
       hasSubFields: false,
       open: true,
       limitHeight: true,
+      tooltip: $localize`:@@fundingCallCategoryTooltip:Tieteen ja taiteen rahoitustietokanta Auroran hakualakoodiston mukaiset hakualat vastaavat suurelta osin tieteenaloja.`
     },
     {
       field: 'organization',
@@ -36,6 +38,7 @@ export class FundingCallFilterService {
       hasSubFields: false,
       open: true,
       limitHeight: true,
+      tooltip: $localize`:@@fundingCallFunderTooltip:Rahoitushausta vastaava tutkimusrahoittaja.`
     },
   ];
 

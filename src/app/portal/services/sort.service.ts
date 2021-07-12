@@ -399,12 +399,48 @@ export class SortService {
             ];
             break;
           }
-          default: {
-            const sortString = 'name' + this.localeC + '.keyword';
+          case 'foundation': {
+            const sortString = 'foundation.name' + this.localeC + '.keyword';
             this.sort = [
               {
                 [sortString]: {
                   order: this.sortDirection ? 'desc' : 'asc',
+                  unmapped_type: 'long'
+                }
+              }
+            ];
+            break;
+          }
+          case 'callOpenDate': {
+            const sortString = 'callProgrammeOpenDate';
+            this.sort = [
+              {
+                [sortString]: {
+                  order: this.sortDirection ? 'desc' : 'asc',
+                  unmapped_type: 'long'
+                }
+              }
+            ];
+            break;
+          }
+          case 'callDueDate': {
+            const sortString = 'callProgrammeDueDate';
+            this.sort = [
+              {
+                [sortString]: {
+                  order: this.sortDirection ? 'desc' : 'asc',
+                  unmapped_type: 'long'
+                }
+              }
+            ];
+            break;
+          }
+          default: {
+            const sortString = 'callProgrammeDueDate';
+            this.sort = [
+              {
+                [sortString]: {
+                  order: 'asc',
                   unmapped_type: 'long'
                 }
               }
