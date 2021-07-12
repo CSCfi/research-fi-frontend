@@ -913,8 +913,20 @@ export class FilterService {
     return query;
   }
 
-  constructFundingCallPayload(searchTerm: string) {
-    const query = this.constructQuery('funding-call', searchTerm);
+  // Get open calls
+  constructFundingCallPayload() {
+    const today = new Date().toLocaleDateString('sv');
+    const query = {
+      bool: {
+        must: [
+          { term: { _index: 'funding-call' } },
+          { bool: { filter: [
+            { range: { callProgrammeOpenDate: { lte: today } } },
+            { range: { callProgrammeDueDate:  { gte: today } } },
+          ]}}
+        ]
+      }
+    }
     return query;
   }
 

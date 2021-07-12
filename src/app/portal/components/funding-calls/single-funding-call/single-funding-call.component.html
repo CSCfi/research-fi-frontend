@@ -3,12 +3,10 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<h1 #srHeader class="sr-only"></h1>
-<!-- <aside>
-   <app-search-bar></app-search-bar>
- </aside> -->
-
-<div class="wrapper" *ngIf="responseData" id="main-content">
+ <div class="bar background-primary"></div>
+ <h1 #srHeader class="sr-only"></h1>
+ 
+ <div class="wrapper" *ngIf="responseData" id="main-content">
     <!-- Breadcrumb -->
     <app-breadcrumb [type]="'funding-call'" [responseData]="responseData" [tab]="tab" [tabName]="tabData.label" [resultNameField]="'name'" [queryParams]="tabQueryParams"></app-breadcrumb>
     <div class="row shared">

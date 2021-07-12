@@ -52,6 +52,8 @@ export class FundingCallAdapter implements Adapter<FundingCall> {
     const openDateString = pad(openDate.getDate()) + '.' + pad(openDate.getMonth() + 1) + '.' + openDate.getFullYear();
     const dueDateString = pad(dueDate.getDate()) + '.' + pad(dueDate.getMonth() + 1) + '.' + dueDate.getFullYear();
 
+    const daysLeft = (dueDate.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24);
+
     return new FundingCall(
       item.id,
       this.lang.testLang('name', item),
@@ -64,7 +66,7 @@ export class FundingCallAdapter implements Adapter<FundingCall> {
       dueDateString,
       foundation,
       categories.sort((a, b) => +(a.name > b.name) - 0.5),
-      new Date().getDay() - dueDate.getDay()
+      Math.floor(daysLeft)
     );
   }
 

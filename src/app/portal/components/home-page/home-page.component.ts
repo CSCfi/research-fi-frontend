@@ -37,6 +37,7 @@ import { ReviewComponent } from 'src/app/layout/review/review.component';
 import { PrivacyService } from 'src/app/portal/services/privacy.service';
 import { WINDOW } from '@shared/services/window.service';
 import { ActivatedRoute } from '@angular/router';
+import { Search } from '@portal/models/search.model';
 
 @Component({
   providers: [SearchBarComponent],
@@ -49,6 +50,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   errorMessage = [];
   status = false;
   news: News[] = [];
+  fundingCalls: Search;
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
   @ViewChildren('shortcutItem') shortcutItem: QueryList<ElementRef>;
   @ViewChild('main') mainContent: ElementRef;
@@ -116,6 +118,11 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     // Get news data
     this.searchService.getNews(10).subscribe((data) => {
       this.news = data;
+    });
+
+    // Get funding calls data
+    this.searchService.getHomepageFundingCalls(5).subscribe((data) => {
+      this.fundingCalls = data;
     });
 
     // Reset sort

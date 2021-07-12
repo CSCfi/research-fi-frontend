@@ -359,13 +359,12 @@ export class SearchService {
     }
 
     // News page content
-    getFundingCalls(size?: number, from: number = 0): Observable<Search> {
-      const sort = { callProgrammeDueDate: { order: 'desc' } };
+    getHomepageFundingCalls(size = 5): Observable<Search> {
+      const sort = { callProgrammeDueDate: { order: 'asc' } };
       const payload = {
-        query: this.filterService.constructFundingCallPayload(this.searchTerm),
+        query: this.filterService.constructFundingCallPayload(),
         size,
-        sort: [sort],
-        from: from,
+        sort: [sort]
       };
   
       return this.http

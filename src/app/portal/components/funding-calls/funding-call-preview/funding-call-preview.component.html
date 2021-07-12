@@ -11,47 +11,27 @@
     <!-- Results -->
     <!-- <div class="row no-margin sticky-header" [ngStyle]="{'top': marginTop + 'px'}"> -->
     <div class="row no-margin sticky-header">
-      <div class="col col-1 icon"></div>
-      <div class="col col-lg-5 col-xl-3 d-none d-lg-block">
+      <div class="col col-4">
         <span
           #main
           tabindex="0"
           class="bold uppercase"
-          [ngClass]="
-            sortColumn === 'name' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'
-          "
-          (click)="utilityService.sortBy('name')"
-          (keydown.enter)="utilityService.sortBy('name')"
           i18n="@@callName"
           >Haun nimi</span
         >
       </div>
-      <div class="col col-lg-4 col-xl-2 d-none d-lg-block">
+      <div class="col col-4">
         <span
           tabindex="0"
           class="bold uppercase"
-          [ngClass]="
-            sortColumn === 'foundation'
-              ? !sortDirection
-                ? 'asc'
-                : 'desc'
-              : 'unsorted'
-          "
-          (click)="utilityService.sortBy('foundation')"
-          (keydown.enter)="utilityService.sortBy('foundation')"
           i18n="@@funder"
           >Rahoittaja</span
         >
       </div>
-      <div class="col col-2 d-none d-lg-block">
+      <div class="col col-4">
         <span
           tabindex="0"
           class="bold uppercase"
-          [ngClass]="
-            sortColumn === 'callDueDate' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'
-          "
-          (click)="utilityService.sortBy('callDueDate')"
-          (keydown.enter)="utilityService.sortBy('callDueDate')"
           i18n="@@callDueDate"
           >Haku päättyy</span
         >
@@ -63,17 +43,7 @@
         class="single"
       >
         <div class="row no-margin">
-          <div class="col col-1 icon">
-            <a
-              class="icon"
-              routerLink="/funding-call/{{ call.id }}"
-              tabindex="-1"
-              title="Rahoitushakujen ikoni"
-            >
-              <fa-icon [icon]="faIcon"></fa-icon>
-            </a>
-          </div>
-          <div class="col col-7 col-lg-5 col-xl-3 title">
+          <div class="col col-4 title">
             <a routerLink="/funding-call/{{ call.id }}">
               <h4
                 class="result-title"
@@ -81,7 +51,7 @@
               ></h4>
             </a>
           </div>
-          <div class="col col-lg-4 col-xl-2 foundation">
+          <div class="col col-4 foundation">
             <a *ngIf="call.foundation.orgId" routerLink="/results/organization/{{ call.foundation.orgId }}">
               <span
                 [innerHtml]="call.foundation.name | highlight: input"
@@ -91,7 +61,7 @@
               [innerHtml]="call.foundation.name | highlight: input"
             ></span>
           </div>
-          <div class="col col-lg-2">
+          <div class="col col-4" [class.soon]="call.daysLeft <= 3">
             <span
                 [innerHtml]="call.dueDate.getYear() ? (call.dueDateString | highlight: input) : '-'"
             ></span>
@@ -99,12 +69,12 @@
       </div>
     </div>
   </div>
+</div>
   
-  <ng-template #noResults>
-    <div class="row main-content" *ngIf="resultData && resultData.total === 0">
-      <div class="col text-center no-results" role="alert">
-        <h2 i18n="@@noFundingCalls">Ei rahoitushakuja</h2>
-      </div>
+<ng-template #noResults>
+<div class="row main-content" *ngIf="resultData && resultData.total === 0">
+    <div class="col text-center no-results" role="alert">
+    <h2 i18n="@@noFundingCalls">Ei rahoitushakuja</h2>
     </div>
-  </ng-template>
-  
+</div>
+</ng-template>
