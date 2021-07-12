@@ -56,6 +56,7 @@ export class AppSettingsService {
       {
         label: $localize`:@@headerLink7:Rahoitushaut`,
         link: '/funding-calls',
+        queryParams: {status: 'open'},
         exact: false,
       },
       {
