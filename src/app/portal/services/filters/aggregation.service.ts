@@ -53,7 +53,7 @@ export class AggregationService {
     );
     // Active bool filters come from aggregations that contain multiple terms, eg composite aggregation
     const activeBool = filters.filter((item) => item.bool?.should[0]?.bool);
-    // Active filtered filters come from date ranges
+    // Active bool filtered filters come from date ranges (status)
     const activeFiltered = filters.filter((item) => item.bool?.should?.bool?.filter.length);
     const activeNested = filters.filter(
       (item) =>
@@ -118,6 +118,20 @@ export class AggregationService {
             activeMultipleNested,
             activeFiltered,
             activeBool,
+            coPublication ? coPublicationFilter : []
+          );
+      }
+    }
+
+    function filterActiveFiltered() {
+      if (!disableFiltering) {
+        return activeBool
+          .filter((item) => !item.bool.should[0].bool.filter)
+          .concat(
+            active,
+            activeNested,
+            activeFiltered,
+            activeMultipleNested,
             coPublication ? coPublicationFilter : []
           );
       }
@@ -1442,7 +1456,7 @@ export class AggregationService {
             filtered: {
               filter: {
                 bool: {
-                  filter: filterActive('status'),
+                  filter: filterActiveFiltered(),
                 },
               },
             },

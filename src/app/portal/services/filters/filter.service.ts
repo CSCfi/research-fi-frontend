@@ -723,11 +723,11 @@ export class FilterService {
       return index === i
       ? f?.length 
       ? [{ bool: { should: { bool: { filter: f } } } } ] : []
-      : []
+      : [];
     }
 
     const multipleRangeFilter = (i, f) => {
-      const shouldArr = f?.map(range => range = { bool: {filter: range } } );
+      const shouldArr = f?.map(range => range = { bool: { filter: range } } );
       return index === i
       ? f?.length
       ? [{bool: {should: shouldArr } }] : []
