@@ -44,7 +44,7 @@ export class SingleFundingCallComponent implements OnInit {
   ];
 
   categories = [
-    { label: $localize`:@@categories:Hakualat`, field: 'categories' },
+    { label: $localize`:@@fundingCallCategories:Hakualat`, field: 'categories' },
   ];
   
   applicationInfoFields = [
@@ -54,7 +54,7 @@ export class SingleFundingCallComponent implements OnInit {
   ]
   
   funderFields = [
-    { label: $localize`:@@funder:Rahoittaja`, field: 'foundation' },
+    { label: $localize`:@@fundingFunder:Rahoittaja`, field: 'foundation' },
   ]
 
   copyToClipboard = $localize`:@@copyToClipboard:Kopioi leikepöydälle`;

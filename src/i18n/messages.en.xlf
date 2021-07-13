@@ -3267,11 +3267,15 @@
         <source>Hakuala</source>
         <target>Category</target>
       </trans-unit>
+      <trans-unit id="fundingCallCategories">
+        <source>Hakualat</source>
+        <target>Categories</target>
+      </trans-unit>
       <trans-unit id="fundingCallCategoryTooltip">
         <source>Tieteen ja taiteen rahoitustietokanta Auroran hakualakoodiston mukaiset hakualat vastaavat suurelta osin tieteenaloja.</source>
         <target>The categories specified in the Aurora Funding Database for Science and Arts are largely based on the fields of science classification</target>
       </trans-unit>
-      <trans-unit id="fundingCallfunderTooltip">
+      <trans-unit id="fundingCallFunderTooltip">
         <source>Rahoitushausta vastaava tutkimusrahoittaja.</source>
         <target>The research funder responsible for the funding call.</target>
       </trans-unit>

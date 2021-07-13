@@ -3264,12 +3264,16 @@
         <source>Hakuala</source>
         <target>Ämnesområde</target>
       </trans-unit>
+      <trans-unit id="fundingCallCategory">
+        <source>Hakualat</source>
+        <target>Ämnesområden</target>
+      </trans-unit>
       <trans-unit id="fundingCallCategoryTooltip">
         <source>Tieteen ja taiteen rahoitustietokanta Auroran hakualakoodiston mukaiset hakualat vastaavat suurelta osin tieteenaloja.</source>
         <target>Ämnesområdena i finansieringsdatabasen för vetenskap och konst Aurora motsvarar till stor del vetenskapsområdena.</target>
       </trans-unit>
 
-      <trans-unit id="fundingCallfunderTooltip">
+      <trans-unit id="fundingCallFunderTooltip">
         <source>Rahoitushausta vastaava tutkimusrahoittaja.</source>
         <target>Forskningsfinansiär som ansvarar för finansieringsansökan.</target>
       </trans-unit>

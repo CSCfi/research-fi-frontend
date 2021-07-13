@@ -18,7 +18,7 @@ export class FundingCallFilterService {
     },
     {
       field: 'status',
-      label: $localize`:@@fundincCallStatus:Rahoitushaun tila`,
+      label: $localize`:@@fundingCallStatus:Rahoitushaun tila`,
       hasSubFields: false,
       open: true,
       limitHeight: true,
@@ -34,7 +34,7 @@ export class FundingCallFilterService {
     },
     {
       field: 'organization',
-      label: $localize`:@@funder:Rahoittaja`,
+      label: $localize`:@@fundingFunder:Rahoittaja`,
       hasSubFields: false,
       open: true,
       limitHeight: true,
