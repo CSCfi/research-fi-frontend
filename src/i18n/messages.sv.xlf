@@ -2022,6 +2022,10 @@
           <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="headerLink7" datatype="html">
+        <source>Rahoitushaut</source>
+        <target>Forskningsfinansiering</target>
+      </trans-unit>
       <trans-unit id="footerLink1" datatype="html">
         <source>Tietoa palvelusta</source>
         <target state="translated">Information om tjänsten</target>
@@ -3240,6 +3244,66 @@
         <target state="translated">Källa: Vipunen – utbildningsförvaltningens statistiktjänst vipunen.fi</target>
       </trans-unit>
       <!-- Funding calls -->
+      <trans-unit id="fundingCalls">
+        <source>Rahoitushaut</source>
+        <target>Utlysningar</target>
+      </trans-unit>
+      <trans-unit id="callName">
+        <source>Haun nimi</source>
+        <target>Namnet på utlysningen</target>
+      </trans-unit>
+      <trans-unit id="callOpenDate">
+        <source>Haku alkaa</source>
+        <target>Ansökningstiden börjar</target>
+      </trans-unit>
+      <trans-unit id="callDueDate">
+        <source>Haku päättyy</source>
+        <target>Ansökningstiden utgår</target>
+      </trans-unit>
+      <trans-unit id="noFundingCalls">
+        <source>Ei rahoitushakuja</source>
+        <target>Inga utlysningar</target>
+      </trans-unit>
+      <trans-unit id="searchFundingCallsPlaceHolder">
+        <source>Hae rahoitushakuja...</source>
+        <target>Sök utlysningar...</target>
+      </trans-unit>
+      <trans-unit id="applicationInstructions">
+        <source>Hakuohjeet</source>
+        <target>Sökanvisning</target>
+      </trans-unit>
+      <trans-unit id="auroraDatabase">
+        <source>Aurora-tietokanta</source>
+        <target>Aurora-databasen</target>
+      </trans-unit>
+      <trans-unit id="fundingCallSource">
+        <source>Rahoitushaun lähde</source>
+        <target>Utlysningsinformationens källa</target>
+      </trans-unit>
+      <trans-unit id="openFundingCalls">
+        <source>Avoimet rahoitushaut</source>
+        <target>Öppna utlysningar</target>
+      </trans-unit>
+      <trans-unit id="openCalls">
+        <source>Avoimet haut</source>
+        <target>Öppna utlysningar</target>
+      </trans-unit>
+      <trans-unit id="futureCalls">
+        <source>Tulevat haut</source>
+        <target>Kommande utlysningar</target>
+      </trans-unit>
+      <trans-unit id="closedCalls">
+        <source>Menneet haut</source>
+        <target>Avslutade utlysningar</target>
+      </trans-unit>
+      <trans-unit id="dateRangeStart">
+        <source>Haku alkaa aikaisintaan</source>
+        <target>Ansökningstiden börjar tidigast</target>
+      </trans-unit>
+      <trans-unit id="dateRangeEnd">
+        <source>Haku päättyy viimeistään</source>
+        <target>Ansökningstiden går ut senast</target>
+      </trans-unit>
       <trans-unit id="fundingCallBeta">
         <source>Rahoitushaut ovat uusi tietokokonaisuus Tiedejatutkimus.fi-palvelussa. Tiedot haetaan automaattisesti Aurora-tietokannasta. Otamme mielellämme vastaan palautetta rahoitushakukokonaisuuden toimivuudesta: tiedejatutkimus@csc.fi</source>
         <target>Forskningsfinansiering är ett nytt avsnitt i Forskning.fi. Informationen om finansieringsutlysningar hämtas automatiskt från Aurora-databasen. All feedback är välkommen: tiedejatutkimus@csc.fi</target>
@@ -3264,7 +3328,7 @@
         <source>Hakuala</source>
         <target>Ämnesområde</target>
       </trans-unit>
-      <trans-unit id="fundingCallCategory">
+      <trans-unit id="fundingCallCategories">
         <source>Hakualat</source>
         <target>Ämnesområden</target>
       </trans-unit>
@@ -3272,12 +3336,10 @@
         <source>Tieteen ja taiteen rahoitustietokanta Auroran hakualakoodiston mukaiset hakualat vastaavat suurelta osin tieteenaloja.</source>
         <target>Ämnesområdena i finansieringsdatabasen för vetenskap och konst Aurora motsvarar till stor del vetenskapsområdena.</target>
       </trans-unit>
-
       <trans-unit id="fundingCallFunderTooltip">
         <source>Rahoitushausta vastaava tutkimusrahoittaja.</source>
         <target>Forskningsfinansiär som ansvarar för finansieringsansökan.</target>
       </trans-unit>
-
       <!-- Filters -->
       <trans-unit id="filterSearchHeader">
         <source>Rajaa hakua</source>

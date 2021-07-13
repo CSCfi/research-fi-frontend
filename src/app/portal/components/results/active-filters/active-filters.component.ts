@@ -69,9 +69,9 @@ export class ActiveFiltersComponent
     restricted: $localize`:@@datasetAccessRestricted:Saatavuutta rajoitettu`,
     embargo: $localize`:@@datasetAccessEmbargo:Embargo`,
     // Funding-call status
-    closed: $localize`:@@closedFundingCalls:Menneet haut`,
-    future: $localize`:@@futureFundingCalls:Tulevat haut`,
-    continuous: $localize`:@@continuousFundingCalls:Jatkuvat haut`,
+    closed: $localize`:@@closedCalls:Menneet haut`,
+    future: $localize`:@@futureCalls:Tulevat haut`,
+    continuous: $localize`:@@continuousCalls:Jatkuvat haut`,
   };
 
   filterResponse: any;
@@ -144,7 +144,7 @@ export class ActiveFiltersComponent
         break;
       case 'funding-calls':
         this.tabFilters = this.fundingCallFilters.filterData;
-        this.yearRange = $localize`:@@callPeriod:Hakuaika` + ': ';
+        this.yearRange = $localize`:@@applicationPeriod:Hakuaika` + ': ';
         break;
       case 'news':
         this.tabFilters = this.newsFilters.filterData;

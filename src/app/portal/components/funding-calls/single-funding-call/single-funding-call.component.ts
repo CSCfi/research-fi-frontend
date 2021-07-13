@@ -49,7 +49,7 @@ export class SingleFundingCallComponent implements OnInit {
   
   applicationInfoFields = [
     { label: $localize`:@@applicationInstructions:Hakuohjeet`, field: 'terms' },
-    { label: $localize`:@@applicationSite:Hakusivu`, field: '' },
+    // { label: $localize`:@@applicationSite:Hakusivu`, field: '' },
     { label: $localize`:@@contactInfo:Yhteystiedot`, field: 'contactInfo' },
   ]
   

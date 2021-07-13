@@ -109,9 +109,9 @@ export class FundingCallFilterService {
     dates.filter(date => date.key.openDate > now).forEach(date => futureDocs += date.filtered.doc_count);
 
     const buckets = [
-      {label: $localize`:@@openFundingCalls:Avoimet haut`, key: 'open', doc_count: openDocs + continuousDocs},
-      {label: $localize`:@@closedFundingCalls:Menneet haut`, key: 'closed', doc_count: closedDocs},
-      {label: $localize`:@@futureFundingCalls:Tulevat haut`, key: 'future', doc_count: futureDocs},
+      {label: $localize`:@@openCalls:Avoimet haut`, key: 'open', doc_count: openDocs + continuousDocs},
+      {label: $localize`:@@closedCalls:Menneet haut`, key: 'closed', doc_count: closedDocs},
+      {label: $localize`:@@futureCalls:Tulevat haut`, key: 'future', doc_count: futureDocs},
       // {label: $localize`:@@continuousFundingCalls:Jatkuvat haut`, key: 'continuous', doc_count: continuousDocs},
     ]
     return buckets;
