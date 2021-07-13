@@ -144,8 +144,8 @@
                             <h2 i18n="@@fundingFunder">Rahoittaja</h2>
                         </mat-card-title>
                         <div class="row links" *ngFor="let row of funderFields">
-                            <div class="col-12 font-weight-normal">{{call[row.field].name}}</div>
-                            <div class="col-12" *ngIf="call[row.field].url"><a [href]="call[row.field].url">{{call[row.field].url}}</a></div>
+                            <div class="col-12 font-weight-normal name">{{call[row.field].name}}</div>
+                            <div class="col-12 link" *ngIf="call[row.field].url"><a [href]="call[row.field].url">{{call[row.field].url}}</a></div>
                             <!-- <div *ngIf="!linksFields.length && !call.selfArchivedData" class="no-links" i18n="@@noFundingCallLinks">
                                 Rahoitushakuun ei ole tarjolla linkkejä tässä portaalissa
                             </div> -->
