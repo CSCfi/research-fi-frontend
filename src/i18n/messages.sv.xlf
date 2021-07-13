@@ -3296,6 +3296,14 @@
         <source>Menneet haut</source>
         <target>Avslutade utlysningar</target>
       </trans-unit>
+      <trans-unit id="continuousCalls">
+        <source>Jatkuvat haut</source>
+        <target>Fortlöpande ansökan</target>
+      </trans-unit>
+      <trans-unit id="continuous">
+        <source>Jatkuva</source>
+        <target>Fortlöpande</target>
+      </trans-unit>
       <trans-unit id="dateRangeStart">
         <source>Haku alkaa aikaisintaan</source>
         <target>Ansökningstiden börjar tidigast</target>

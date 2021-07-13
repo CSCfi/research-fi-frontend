@@ -3299,6 +3299,14 @@
         <source>Menneet haut</source>
         <target>Closed calls</target>
       </trans-unit>
+      <trans-unit id="continuousCalls">
+        <source>Jatkuvat haut</source>
+        <target>Continuous application</target>
+      </trans-unit>
+      <trans-unit id="continuous">
+        <source>Jatkuva</source>
+        <target>Continuous</target>
+      </trans-unit>
       <trans-unit id="dateRangeStart">
         <source>Haku alkaa aikaisintaan</source>
         <target>Call opens at the earliest</target>
