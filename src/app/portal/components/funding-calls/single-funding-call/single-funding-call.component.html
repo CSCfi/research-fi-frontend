@@ -42,8 +42,15 @@
                             </ng-container>
                         </h2>
                         <div class="col-12 col-sm-8 col-lg-9 td">
-                            <div [ngClass]="expand ? 'expand' : 'short'" >
-                                {{ call.openDateString + ' - ' + call.dueDateString}}
+                            <div [ngClass]="expand ? 'expand' : 'short'">
+                                <!-- Not continuous -->
+                                <ng-container *ngIf="call.dueDate.getYear()">
+                                    <!-- Show open date only if not 1900 -->
+                                    <ng-container *ngIf="call.openDate.getYear()">
+                                        {{call.openDateString }}
+                                    </ng-container>{{ ' - ' + call.dueDateString}}
+                                </ng-container>
+                                <ng-container *ngIf="!call.dueDate.getYear()" i18n="@@continuous">Jatkuva</ng-container>
                             </div>
                         </div>
                     </div>

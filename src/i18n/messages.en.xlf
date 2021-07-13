@@ -3271,10 +3271,10 @@
         <source>Hae rahoitushakuja...</source>
         <target>Search for calls...</target>
       </trans-unit>
-      <!-- <trans-unit id="applicationInstructions">
+      <trans-unit id="applicationInstructions">
         <source>Hakuohjeet</source>
-        <target>???</target>
-      </trans-unit> -->
+        <target>Application guidelines</target>
+      </trans-unit>
       <trans-unit id="auroraDatabase">
         <source>Aurora-tietokanta</source>
         <target>Aurora Database</target>
