@@ -18,7 +18,7 @@ export class FundingCallFilterService {
     },
     {
       field: 'status',
-      label: $localize`:@@fundincCallStatus:Rahoitushaun tila`,
+      label: $localize`:@@fundingCallStatus:Rahoitushaun tila`,
       hasSubFields: false,
       open: true,
       limitHeight: true,
@@ -34,7 +34,7 @@ export class FundingCallFilterService {
     },
     {
       field: 'organization',
-      label: $localize`:@@funder:Rahoittaja`,
+      label: $localize`:@@fundingFunder:Rahoittaja`,
       hasSubFields: false,
       open: true,
       limitHeight: true,
@@ -109,10 +109,10 @@ export class FundingCallFilterService {
     dates.filter(date => date.key.openDate > now).forEach(date => futureDocs += date.filtered.doc_count);
 
     const buckets = [
-      {label: $localize`:@@openFundingCalls:Avoimet haut`, key: 'open', doc_count: openDocs},
-      {label: $localize`:@@closedFundingCalls:Menneet haut`, key: 'closed', doc_count: closedDocs},
-      {label: $localize`:@@futureFundingCalls:Tulevat haut`, key: 'future', doc_count: futureDocs},
-      {label: $localize`:@@continuousFundingCalls:Jatkuvat haut`, key: 'continuous', doc_count: continuousDocs},
+      {label: $localize`:@@openCalls:Avoimet haut`, key: 'open', doc_count: openDocs + continuousDocs},
+      {label: $localize`:@@closedCalls:Menneet haut`, key: 'closed', doc_count: closedDocs},
+      {label: $localize`:@@futureCalls:Tulevat haut`, key: 'future', doc_count: futureDocs},
+      // {label: $localize`:@@continuousFundingCalls:Jatkuvat haut`, key: 'continuous', doc_count: continuousDocs},
     ]
     return buckets;
   }

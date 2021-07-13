@@ -442,9 +442,14 @@ export class FilterService {
     filter.forEach(s => {
       switch(s) {
         case 'open': {
-          const arr = [];
+          // Open
+          let arr = [];
           arr.push({ range: { callProgrammeOpenDate: {lte: now }}});
           arr.push({ range: { callProgrammeDueDate: {gte: now }}});
+          res.push(arr);
+          arr = [];
+          // Continuous
+          arr.push({ range: { callProgrammeDueDate: {lte: noDate }}});
           res.push(arr);
           break;
         }
@@ -461,6 +466,7 @@ export class FilterService {
           res.push(arr);
           break;
         }
+        // Combined with open calls
         case 'continuous': {
           const arr = [];
           arr.push({ range: { callProgrammeDueDate: {lte: noDate }}});

@@ -44,17 +44,17 @@ export class SingleFundingCallComponent implements OnInit {
   ];
 
   categories = [
-    { label: $localize`:@@categories:Hakualat`, field: 'categories' },
+    { label: $localize`:@@fundingCallCategories:Hakualat`, field: 'categories' },
   ];
   
   applicationInfoFields = [
     { label: $localize`:@@applicationInstructions:Hakuohjeet`, field: 'terms' },
-    { label: $localize`:@@applicationSite:Hakusivu`, field: '' },
+    // { label: $localize`:@@applicationSite:Hakusivu`, field: '' },
     { label: $localize`:@@contactInfo:Yhteystiedot`, field: 'contactInfo' },
   ]
   
   funderFields = [
-    { label: $localize`:@@funder:Rahoittaja`, field: 'foundation' },
+    { label: $localize`:@@fundingFunder:Rahoittaja`, field: 'foundation' },
   ]
 
   copyToClipboard = $localize`:@@copyToClipboard:Kopioi leikepöydälle`;
@@ -178,7 +178,6 @@ export class SingleFundingCallComponent implements OnInit {
     this.applicationInfoFields = this.applicationInfoFields.filter((item) => checkEmpty(item));
 
     // Short version is not HTML formatted
-    this.infoFields.forEach((item) => { this.responseData.fundingCalls[0][item.field + 'short'] = parseString(item) })
     this.applicationInfoFields.forEach((item) => { this.responseData.fundingCalls[0][item.field + 'short'] = parseString(item) })
   }
 

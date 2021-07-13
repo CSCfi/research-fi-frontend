@@ -14,6 +14,7 @@ export class FundingCall {
     public id: number,
     public name: string,
     public description: string,
+    public descriptionParsed: string,
     public terms: string,
     public contactInfo: string,
     public openDate: Date,
@@ -35,6 +36,13 @@ export class FundingCallAdapter implements Adapter<FundingCall> {
     @Inject(LOCALE_ID) protected localeId: string
   ) {}
   adapt(item: any): FundingCall {
+
+    const description = this.lang.testLang('description', item);
+    // Description without HTML
+    let doc = new DOMParser().parseFromString(description ,'text/html');
+    const descriptionParsed = doc.body.textContent || '';
+
+
     const foundation: any = {}
     const f = item.foundation.pop();
     foundation.name = this.lang.testLang('name', f);
@@ -57,7 +65,8 @@ export class FundingCallAdapter implements Adapter<FundingCall> {
     return new FundingCall(
       item.id,
       this.lang.testLang('name', item),
-      this.lang.testLang('description', item),
+      description,
+      descriptionParsed,
       this.lang.testLang('applicationTerms', item),
       item.contactInformation,
       openDate,

@@ -42,8 +42,15 @@
                             </ng-container>
                         </h2>
                         <div class="col-12 col-sm-8 col-lg-9 td">
-                            <div [ngClass]="expand ? 'expand' : 'short'" >
-                                {{ call.openDateString + ' - ' + call.dueDateString}}
+                            <div [ngClass]="expand ? 'expand' : 'short'">
+                                <!-- Not continuous -->
+                                <ng-container *ngIf="call.dueDate.getYear()">
+                                    <!-- Show open date only if not 1900 -->
+                                    <ng-container *ngIf="call.openDate.getYear()">
+                                        {{call.openDateString }}
+                                    </ng-container>{{ ' - ' + call.dueDateString}}
+                                </ng-container>
+                                <ng-container *ngIf="!call.dueDate.getYear()" i18n="@@continuous">Jatkuva</ng-container>
                             </div>
                         </div>
                     </div>
@@ -63,7 +70,7 @@
                         </h2>
                         <div class="col-12 col-sm-8 col-lg-9 td">
                             <!-- Strip HTML tags for short preview. Makes line-clamp work on Firefox -->
-                            <div [ngClass]="row.field !== 'description' || expandDescription ? 'expand' : 'short'" [innerHTML]="call[row.field + ((row.field !== 'description' || expandDescription) ? '' : 'short')]">
+                            <div [ngClass]="row.field !== 'description' || expandDescription ? 'expand' : 'short'" [innerHTML]="call[row.field + ((row.field !== 'description' || expandDescription) ? '' : 'Parsed')]">
                                 <!-- {{ call[row.field] }} -->
                             </div>
                             <a 
@@ -134,11 +141,11 @@
                 <aside>
                     <mat-card>
                         <mat-card-title>
-                            <h2 i18n="@@funder">Rahoittaja</h2>
+                            <h2 i18n="@@fundingFunder">Rahoittaja</h2>
                         </mat-card-title>
                         <div class="row links" *ngFor="let row of funderFields">
-                            <div class="col-12 font-weight-normal">{{call[row.field].name}}</div>
-                            <div class="col-12" *ngIf="call[row.field].url"><a [href]="call[row.field].url">{{call[row.field].url}}</a></div>
+                            <div class="col-12 font-weight-normal name">{{call[row.field].name}}</div>
+                            <div class="col-12 link" *ngIf="call[row.field].url"><a [href]="call[row.field].url">{{call[row.field].url}}</a></div>
                             <!-- <div *ngIf="!linksFields.length && !call.selfArchivedData" class="no-links" i18n="@@noFundingCallLinks">
                                 Rahoitushakuun ei ole tarjolla linkkejä tässä portaalissa
                             </div> -->
