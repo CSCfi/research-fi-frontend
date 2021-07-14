@@ -306,14 +306,14 @@ export class ActiveFiltersComponent
                 const dateString = filter.date ? filter.date[0] : ''; 
                 const startDate = dateString?.split('|')[0];
                 const endDate = dateString?.split('|')[1];
-                const startDateString = startDate ? new Date(startDate).toLocaleDateString(this.localeId) : '';
-                const endDateString = endDate ? new Date(endDate).toLocaleDateString(this.localeId) : '';
+                const startDateString = startDate ? new Date(startDate).toLocaleDateString('fi') : '';
+                const endDateString = endDate ? new Date(endDate).toLocaleDateString('fi') : '';
                 if (startDateString && endDateString) {
                   val.translation = this.yearRange + startDateString + ' - ' + endDateString;
                 } else if (startDateString) {
-                  val.translation = this.yearRange + startDateString + $localize`:@@yearFrom: alkaen` 
+                  val.translation = this.yearRange + $localize`:@@startsEarliest:Alkaa aikaisintaan` + ' ' + startDateString;  
                 } else if (endDateString) {
-                  val.translation = this.yearRange + endDateString + $localize`:@@yearTo: päättyen` 
+                  val.translation = this.yearRange + $localize`:@@closesLatest:Päättyy viimeistään` + ' ' + endDateString;
                 }
               }
 
