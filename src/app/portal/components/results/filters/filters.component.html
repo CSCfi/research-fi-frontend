@@ -277,7 +277,8 @@
                   >Haku alkaa aikaisintaan</mat-label
                   >
                   <input matInput 
-                    (dateChange)="dateChange($event, 'start')" 
+                    (dateChange)="dateChange($event, 'start')"
+                    i18n-placeholder="@@startDate"
                     placeholder="Aloituspäivä"
                     [value]="getActiveDate('start')"
                     [matDatepicker]="startPicker"
@@ -299,7 +300,8 @@
                     >Haku päättyy viimeistään</mat-label
                   >
                       <input matInput 
-                        (dateChange)="dateChange($event, 'end')" 
+                        (dateChange)="dateChange($event, 'end')"
+                        i18n-placeholder="@@endDate"
                         placeholder="Päättymispäivä"
                         [value]="getActiveDate('end')"
                         [matDatepicker]="endPicker"

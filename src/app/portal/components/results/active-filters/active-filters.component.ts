@@ -311,9 +311,9 @@ export class ActiveFiltersComponent
                 if (startDateString && endDateString) {
                   val.translation = this.yearRange + startDateString + ' - ' + endDateString;
                 } else if (startDateString) {
-                  val.translation = this.yearRange + startDateString + $localize`:@@yearFrom: alkaen` 
+                  val.translation = this.yearRange + $localize`:@@startsEarliest:Alkaa aikaisintaan` + ' ' + startDateString;  
                 } else if (endDateString) {
-                  val.translation = this.yearRange + endDateString + $localize`:@@yearTo: päättyen` 
+                  val.translation = this.yearRange + $localize`:@@closesLatest:Päättyy viimeistään` + ' ' + endDateString;
                 }
               }
 

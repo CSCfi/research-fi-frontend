@@ -3311,9 +3311,25 @@
         <source>Haku alkaa aikaisintaan</source>
         <target>Call opens at the earliest</target>
       </trans-unit>
+      <trans-unit id="startsEarliest">
+        <source>Alkaa aikaisintaan</source>
+        <target>Opens at the earliest</target>
+      </trans-unit>
+      <trans-unit id="startDate">
+        <source>Aloituspäivä</source>
+        <target>Start date</target>
+      </trans-unit>
       <trans-unit id="dateRangeEnd">
         <source>Haku päättyy viimeistään</source>
         <target>Call closes at the latest</target>
+      </trans-unit>
+      <trans-unit id="closesLatest">
+        <source>Päättyy ennen</source>
+        <target>Closes at the latest</target>
+      </trans-unit>
+      <trans-unit id="endDate">
+        <source>Päättymispäivä</source>
+        <target>End date</target>
       </trans-unit>
       <trans-unit id="fundingCallBeta">
         <source>Rahoitushaut ovat uusi tietokokonaisuus Tiedejatutkimus.fi-palvelussa. Tiedot haetaan automaattisesti Aurora-tietokannasta. Otamme mielellämme vastaan palautetta rahoitushakukokonaisuuden toimivuudesta: tiedejatutkimus@csc.fi</source>
