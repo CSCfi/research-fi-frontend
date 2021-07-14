@@ -64,7 +64,7 @@
           </div>
           <div class="col col-4" [class.soon]="call.daysLeft <= 3">
             <span
-                [innerHtml]="call.dueDate.getYear() ? (call.dueDateString | highlight: input) : '-'"
+                [innerHtml]="call.dueDate.getFullYear() !== 2100 ? (call.dueDateString | highlight: input) : '-'"
             ></span>
         </div>
       </div>

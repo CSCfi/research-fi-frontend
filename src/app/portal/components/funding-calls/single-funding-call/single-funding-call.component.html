@@ -44,13 +44,18 @@
                         <div class="col-12 col-sm-8 col-lg-9 td">
                             <div [ngClass]="expand ? 'expand' : 'short'">
                                 <!-- Not continuous -->
-                                <ng-container *ngIf="call.dueDate.getYear()">
                                     <!-- Show open date only if not 1900 -->
                                     <ng-container *ngIf="call.openDate.getYear()">
-                                        {{call.openDateString }}
-                                    </ng-container>{{ ' - ' + call.dueDateString}}
-                                </ng-container>
-                                <ng-container *ngIf="!call.dueDate.getYear()" i18n="@@continuous">Jatkuva</ng-container>
+                                        {{call.openDateString}}
+                                    </ng-container>
+                                    <!-- Show dash if range -->
+                                    <ng-container *ngIf="call.openDate.getYear() || call.dueDate.getFullYear() !== 2100"> - </ng-container>
+                                    <!-- Show due date if not continuous -->
+                                    <ng-container *ngIf="call.dueDate.getFullYear() !== 2100">
+                                        {{call.dueDateString}}
+                                    </ng-container>
+                                <!-- Continuous -->
+                                <ng-container *ngIf="call.dueDate.getFullYear() === 2100" i18n="@@continuous">Jatkuva</ng-container>
                             </div>
                         </div>
                     </div>

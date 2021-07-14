@@ -413,10 +413,15 @@ export class SortService {
           }
           case 'callOpenDate': {
             const sortString = 'callProgrammeOpenDate';
+            const sortStringSecondary = 'callProgrammeDueDate';
             this.sort = [
               {
                 [sortString]: {
                   order: this.sortDirection ? 'desc' : 'asc',
+                  unmapped_type: 'long'
+                },
+                [sortStringSecondary]: {
+                  order: 'asc',
                   unmapped_type: 'long'
                 }
               }
@@ -425,10 +430,15 @@ export class SortService {
           }
           case 'callDueDate': {
             const sortString = 'callProgrammeDueDate';
+            const sortStringSecondary = 'callProgrammeOpenDate';
             this.sort = [
               {
                 [sortString]: {
                   order: this.sortDirection ? 'desc' : 'asc',
+                  unmapped_type: 'long'
+                },
+                [sortStringSecondary]: {
+                  order: 'asc',
                   unmapped_type: 'long'
                 }
               }
@@ -436,10 +446,15 @@ export class SortService {
             break;
           }
           default: {
-            const sortString = 'callProgrammeOpenDate';
+            const sortString = 'callProgrammeDueDate';
+            const sortStringSecondary = 'callProgrammeOpenDate';
             this.sort = [
               {
                 [sortString]: {
+                  order: 'asc',
+                  unmapped_type: 'long'
+                },
+                [sortStringSecondary]: {
                   order: 'asc',
                   unmapped_type: 'long'
                 }

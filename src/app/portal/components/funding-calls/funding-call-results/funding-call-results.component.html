@@ -46,7 +46,7 @@
       <div class="col col-xl-2 d-none d-xl-block">
         <span
           tabindex="0"
-          class="bold uppercase"
+          class="bold uppercase cursor-default"
           i18n="@@fundingCallCategory"
           >Hakuala</span
         >
@@ -133,9 +133,8 @@
               ></span>
             </div>
             <div class="col col-lg-2">
-              <span
-              [innerHtml]="call.dueDate.getYear() ? (call.dueDateString | highlight: input) : '-'"
-            ></span>
+              <span *ngIf="call.dueDate.getFullYear() !== 2100">{{call.dueDateString | highlight: input}}</span>
+              <span *ngIf="call.dueDate.getFullYear() === 2100" i18n="@@continuous">Jatkuva</span>
           </div>
           <!-- Categories -->
           <!-- <div class="col col-1 icon"></div>
