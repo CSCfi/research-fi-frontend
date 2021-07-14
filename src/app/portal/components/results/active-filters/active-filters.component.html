@@ -8,15 +8,12 @@
   class="row active-filters"
   *ngIf="activeFilters.length > 0 && translationFlag"
 >
-  <div class="full-size">
-  <h4 class="h6">
-    <ng-container i18n="@@activeFilters">Rajaukset</ng-container> ({{
-      parsedFilters.length
-    }}):
-  </h4>
-</div>
-  <div style="height: 40px;">
-  <ul aria-live="polite">
+    <h4 class="h6">
+      <ng-container i18n="@@activeFilters">Rajaukset</ng-container> ({{
+        parsedFilters.length
+      }}):
+    </h4>
+  <ul aria-live="polite" class="mb-0">
     <ng-container
       *ngFor="let activeFilter of parsedFilters.slice(0, 7); let i = index"
     >
@@ -58,27 +55,28 @@
     >
       ...
     </div>
-    <button
-      *ngIf="parsedFilters.length > 6"
-      class="clear filter"
-      mat-stroked-button
-      color="primary"
-      (click)="openModal()"
-      i18n="@@showAll"
-    >
-      Näytä kaikki
-    </button>
-    <button
-      class="clear filter"
-      mat-button
-      color="primary"
-      (click)="clearFilters()"
-    >
-      <fa-icon class="clear" [icon]="faTrashAlt"></fa-icon>
-      <ng-container i18n="@@clearActiveFilters"
-        >Tyhjennä rajaukset</ng-container
+    <div class="d-inline-flex">
+      <button
+        *ngIf="parsedFilters.length > 6"
+        class="show filter"
+        mat-button
+        color="primary"
+        (click)="openModal()"
+        i18n="@@showAll"
       >
-    </button>
+        Näytä kaikki
+      </button>
+      <button
+        class="clear filter"
+        mat-button
+        color="primary"
+        (click)="clearFilters()"
+      >
+        <fa-icon class="clear" [icon]="faTrashAlt"></fa-icon>
+        <ng-container i18n="@@clearActiveFilters"
+          >Tyhjennä rajaukset</ng-container
+        >
+      </button>
+    </div>
   </ul>
-</div>
 </div>
