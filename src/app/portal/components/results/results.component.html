@@ -33,12 +33,12 @@ Copyright 2019 Ministry of Education and Culture, Finland
             </h2>
           </div>
           <!-- Change to col-lg-9 after removing beta-info -->
-          <div class="col-auto col-lg-7 justify-content-end align-items-center row">
-            <div class="col-auto px-0 pr-lg-3" *ngIf="selectedTabData">
+          <div class="col-auto col-lg-7 justify-content-end align-items-center row pr-0">
+            <div class="col-auto px-0" *ngIf="selectedTabData">
               <app-result-count></app-result-count>
             </div>
             <!-- <div class="col-12"></div> -->
-            <div class="col-auto text-right d-none d-lg-block">
+            <div class="col-auto text-right d-none d-lg-block pl-4 pr-0">
               <a routerLink="/service-info" fragment="1" class="theme-link">
                 <strong>
                   <ng-container i18n="@@resultInfo1">Mitä</ng-container

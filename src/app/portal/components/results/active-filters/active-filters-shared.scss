@@ -16,6 +16,10 @@
       padding: 0 1rem 0 0;
     }
 
+    .full-size {
+      width: 100%;
+    }
+
     .active-filters ul {
       list-style: none;
       padding: 0;
@@ -39,7 +43,8 @@
     }
 
     button.clear {
-      border-radius: 5px;
+      border: 2px solid #4546b9;
+      border-radius: 4px;
       padding-right: 15px;
       padding-left: 15px;
       font-size: inherit;

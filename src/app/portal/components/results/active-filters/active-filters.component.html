@@ -8,11 +8,14 @@
   class="row active-filters"
   *ngIf="activeFilters.length > 0 && translationFlag"
 >
-  <h4>
+  <div class="full-size">
+  <h4 class="h6">
     <ng-container i18n="@@activeFilters">Rajaukset</ng-container> ({{
       parsedFilters.length
     }}):
   </h4>
+</div>
+  <div style="height: 40px;">
   <ul aria-live="polite">
     <ng-container
       *ngFor="let activeFilter of parsedFilters.slice(0, 7); let i = index"
@@ -77,4 +80,5 @@
       >
     </button>
   </ul>
+</div>
 </div>

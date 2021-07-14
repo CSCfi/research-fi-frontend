@@ -14,7 +14,10 @@
     }
 
     .row.active-filters {
-      background: white;
+      border: 1px solid #4545B9;
+      padding: 16px;
+      background:#F7F7Fb;
+      border-radius: 4px;
     }
   }
 }
