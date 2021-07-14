@@ -95,24 +95,20 @@ export class FundingCallFilterService {
     let openDocs = 0;
     let closedDocs = 0;
     let futureDocs = 0;
-    let continuousDocs = 0;
-    
+
     const now = new Date().toLocaleDateString('sv');
 
-    // Continuous
-    dates.filter(date => date.key.dueDate === '1900-01-01').forEach(date => continuousDocs += date.filtered.doc_count);
     // Open
     dates.filter(date => date.key.openDate < now && date.key.dueDate > now).forEach(date => openDocs += date.filtered.doc_count);
     // Closed
-    dates.filter(date => date.key.dueDate < now && date.key.dueDate !== '1900-01-01').forEach(date => closedDocs += date.filtered.doc_count);
+    dates.filter(date => date.key.dueDate < now).forEach(date => closedDocs += date.filtered.doc_count);
     // Future
     dates.filter(date => date.key.openDate > now).forEach(date => futureDocs += date.filtered.doc_count);
 
     const buckets = [
-      {label: $localize`:@@openCalls:Avoimet haut`, key: 'open', doc_count: openDocs + continuousDocs},
+      {label: $localize`:@@openCalls:Avoimet haut`, key: 'open', doc_count: openDocs},
       {label: $localize`:@@closedCalls:Menneet haut`, key: 'closed', doc_count: closedDocs},
       {label: $localize`:@@futureCalls:Tulevat haut`, key: 'future', doc_count: futureDocs},
-      // {label: $localize`:@@continuousFundingCalls:Jatkuvat haut`, key: 'continuous', doc_count: continuousDocs},
     ]
     return buckets;
   }

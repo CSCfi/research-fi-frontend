@@ -436,10 +436,15 @@ export class SortService {
             break;
           }
           default: {
-            const sortString = 'callProgrammeOpenDate';
+            const sortString = 'callProgrammeDueDate';
+            const sortStringSecondary = 'callProgrammeOpenDate';
             this.sort = [
               {
                 [sortString]: {
+                  order: 'asc',
+                  unmapped_type: 'long'
+                },
+                [sortStringSecondary]: {
                   order: 'asc',
                   unmapped_type: 'long'
                 }
