@@ -3310,7 +3310,7 @@
       </trans-unit>
       <trans-unit id="startsEarliest">
         <source>Alkaa aikaisintaan</source>
-        <target>Borjar tidigast</target>
+        <target>Börjar tidigast</target>
       </trans-unit>
       <trans-unit id="startDate">
         <source>Aloituspäivä</source>
