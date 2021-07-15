@@ -271,13 +271,47 @@
               <div class="row pb-4 d-flex justify-content-center">
                 <div class="col px-0 px-lg-3">
                   <app-profile-data-handler
-                    [response]="orcidData"
+                    [response]="profileData"
                   ></app-profile-data-handler>
+                  <!-- <mat-tab-group mat-align-tabs="center">
+                    <mat-tab label="Valitse julkaistavat tiedot">
+                      <app-profile-data-handler
+                        [response]="profileData"
+                      ></app-profile-data-handler>
+                    </mat-tab>
+                    <mat-tab disabled label="Aseta kaikki julkisiksi"
+                      >Aseta kaikki julkisiksi</mat-tab
+                    >
+                  </mat-tab-group> -->
                 </div>
               </div>
-              <app-stepper-navigation
+
+              <!-- <app-stepper-navigation
                 (changeStep)="changeStep($event)"
-              ></app-stepper-navigation>
+              ></app-stepper-navigation> -->
+
+              <div class="row pb-5 d-flex justify-content-center">
+                <div class="col-auto">
+                  <app-secondary-button
+                    disabled
+                    content="Aseta kaikki julkisiksi"
+                  ></app-secondary-button>
+                </div>
+                <div class="col-auto">
+                  <app-secondary-button
+                    disabled
+                    content="Tyhjennä kaikki valinnat"
+                  ></app-secondary-button>
+                </div>
+              </div>
+
+              <div class="row pt-3">
+                <app-primary-action-button
+                  [disabled]="true"
+                  class="col text-center"
+                  content="Julkaise"
+                ></app-primary-action-button>
+              </div>
             </ng-container>
 
             <!-- Default to 404 -->
@@ -325,7 +359,7 @@
           </div>
         </ng-template>
 
-        <div class="row py-5">
+        <div class="row py-5" *ngIf="userData">
           <app-orcid-id-info
             class="col text-center"
             [userData]="userData"

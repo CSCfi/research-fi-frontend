@@ -18,6 +18,7 @@ import {
   Input,
   Inject,
   PLATFORM_ID,
+  LOCALE_ID,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
@@ -40,6 +41,7 @@ import { SettingsService } from 'src/app/portal/services/settings.service';
 import { NewsFilterService } from 'src/app/portal/services/filters/news-filter.service';
 import { SearchService } from 'src/app/portal/services/search.service';
 import { isPlatformBrowser } from '@angular/common';
+import { FundingCallFilterService } from '@portal/services/filters/funding-call-filter.service';
 
 @Component({
   selector: 'app-active-filters',
@@ -66,6 +68,10 @@ export class ActiveFiltersComponent
     login: $localize`:@@datasetAccessLogin:Vaatii kirjautumisen Fairdata-palvelussa`,
     restricted: $localize`:@@datasetAccessRestricted:Saatavuutta rajoitettu`,
     embargo: $localize`:@@datasetAccessEmbargo:Embargo`,
+    // Funding-call status
+    closed: $localize`:@@closedCalls:Menneet haut`,
+    future: $localize`:@@futureCalls:Tulevat haut`,
+    continuous: $localize`:@@continuousCalls:Jatkuvat haut`,
   };
 
   filterResponse: any;
@@ -101,9 +107,11 @@ export class ActiveFiltersComponent
     private datasetFilters: DatasetFilterService,
     private infrastructureFilters: InfrastructureFilterService,
     private organizationFilters: OrganizationFilterService,
+    private fundingCallFilters: FundingCallFilterService,
     private newsFilters: NewsFilterService,
     private settingsService: SettingsService,
     @Inject(PLATFORM_ID) private platformId: object,
+    @Inject(LOCALE_ID) protected localeId: string,
     private searchService: SearchService
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
@@ -133,6 +141,10 @@ export class ActiveFiltersComponent
       //   break;
       case 'organizations':
         this.tabFilters = this.organizationFilters.filterData;
+        break;
+      case 'funding-calls':
+        this.tabFilters = this.fundingCallFilters.filterData;
+        this.yearRange = $localize`:@@applicationPeriod:Hakuaika` + ': ';
         break;
       case 'news':
         this.tabFilters = this.newsFilters.filterData;
@@ -235,6 +247,10 @@ export class ActiveFiltersComponent
               this.response = this.organizationFilters.shapeData(response);
               break;
             }
+            case 'funding-calls': {
+              this.response = this.fundingCallFilters.shapeData(response);
+              break;
+            }
             case 'news': {
               this.response = this.newsFilters.shapeData(response);
               break;
@@ -283,6 +299,29 @@ export class ActiveFiltersComponent
                   if (val.value <= this.toYear) {
                     val.hide = true;
                   }
+                }
+              }
+
+              if (val.category === 'date') {
+                const dateString = filter.date ? filter.date[0] : ''; 
+                const startDate = dateString?.split('|')[0];
+                const endDate = dateString?.split('|')[1];
+                const startDateString = startDate ? new Date(startDate).toLocaleDateString('fi') : '';
+                const endDateString = endDate ? new Date(endDate).toLocaleDateString('fi') : '';
+                if (startDateString && endDateString) {
+                  val.translation = this.yearRange + startDateString + ' - ' + endDateString;
+                } else if (startDateString) {
+                  val.translation = this.yearRange + $localize`:@@startsEarliest:Alkaa aikaisintaan` + ' ' + startDateString;  
+                } else if (endDateString) {
+                  val.translation = this.yearRange + $localize`:@@closesLatest:Päättyy viimeistään` + ' ' + endDateString;
+                }
+              }
+
+              // Only open status is translated here because it clashes with dataset open filter,
+              // others are translated via hardcoding
+              if (val.category === 'status' && source.status?.buckets) {
+                if (val.value === 'open') {
+                  val.translation = $localize`:@@openCalls:Avoimet haut`;
                 }
               }
 
@@ -488,6 +527,7 @@ export class ActiveFiltersComponent
                       });
                     }
                   }, 1);
+                  // Organizations organization name
                 } else if (tab === 'organizations') {
                   if (
                     source.organization?.organizationName?.buckets?.length > 0
@@ -501,6 +541,24 @@ export class ActiveFiltersComponent
                           this.activeFilters[
                             foundIndex
                           ].translation = org.key?.trim();
+                        }
+                      }
+                    );
+                  }
+                  // Funding calls organization name
+                } else if (tab === 'funding-calls') {
+                  if (
+                    source.organization?.orgId?.buckets?.length > 0
+                  ) {
+                    source.organization.orgId.buckets.forEach(
+                      (org) => {
+                        if (org.key === val.value) {
+                          const foundIndex = this.activeFilters.findIndex(
+                            (x) => x.value === val.value
+                          );
+                          this.activeFilters[
+                            foundIndex
+                          ].translation = org.orgName.buckets[0]?.key?.trim();
                         }
                       }
                     );

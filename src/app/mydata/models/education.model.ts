@@ -10,7 +10,7 @@ import { Adapter } from './adapter.model';
 import { mapGroup } from './utils';
 
 export class EducationFields {
-  constructor(public keywords: any) {}
+  constructor(public education: any) {}
 }
 
 @Injectable({

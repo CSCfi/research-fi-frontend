@@ -1,0 +1,15 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<span *ngIf="labelBefore">{{ label }}: </span>
+
+<mat-form-field appearance="fill">
+  <mat-label *ngIf="label && !labelBefore">{{ label }}</mat-label>
+  <mat-select [value]="selectedOption" (selectionChange)="selectOption($event)">
+    <mat-option [value]="option" *ngFor="let option of options">{{
+      option
+    }}</mat-option>
+  </mat-select>
+</mat-form-field>

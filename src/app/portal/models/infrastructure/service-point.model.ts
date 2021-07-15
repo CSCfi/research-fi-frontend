@@ -7,6 +7,7 @@
 
 import { Injectable } from '@angular/core';
 import { Adapter } from '../adapter.model';
+import { LanguageCheck } from '../utils';
 
 export class ServicePoint {
   constructor(
@@ -25,16 +26,16 @@ export class ServicePoint {
   providedIn: 'root',
 })
 export class ServicePointAdapter implements Adapter<ServicePoint> {
-  constructor() {}
+  constructor(private lang: LanguageCheck) {}
   adapt(item: any): ServicePoint {
     return new ServicePoint(
-      item.servicePointName,
-      item.servicePointDescription,
+      this.lang.testLang('servicePointName', item),
+      this.lang.testLang('servicePointDescription', item),
       item.servicePointVisitingAddress,
       item.servicePointPhoneNumber,
       item.servicePointEmailAddress,
-      item.servicePointInfoUrl,
-      item.servicePointAccessPolicyUrl,
+      this.lang.testLang('servicePointInfoUrl', item),
+      this.lang.testLang('servicePointAccessPolicyUrl', item),
       item.servicePointInternationalInfraUrl
     );
   }
