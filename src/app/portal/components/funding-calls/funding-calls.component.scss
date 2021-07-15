@@ -45,7 +45,11 @@ h2 {
   // }
 }
 
-@media (min-width: 992px) {
+@media (min-width: 768px) {
+  .search {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
 }
 
 @media (max-width: 991px) {
