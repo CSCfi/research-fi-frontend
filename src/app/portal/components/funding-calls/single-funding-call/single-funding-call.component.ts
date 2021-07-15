@@ -50,7 +50,7 @@ export class SingleFundingCallComponent implements OnInit {
   applicationInfoFields = [
     { label: $localize`:@@applicationInstructions:Hakuohjeet`, field: 'terms' },
     // { label: $localize`:@@applicationSite:Hakusivu`, field: '' },
-    { label: $localize`:@@contactInfo:Yhteystiedot`, field: 'contactInfo' },
+    // { label: $localize`:@@contactInfo:Yhteystiedot`, field: 'contactInfo' }, // Check terms with aurora before enabling
   ]
   
   funderFields = [
