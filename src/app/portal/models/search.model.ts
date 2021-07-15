@@ -18,6 +18,7 @@ import {
   InfrastructureAdapter,
   Infrastructure,
 } from './infrastructure/infrastructure.model';
+import { FundingCall, FundingCallAdapter } from './funding-call.model';
 
 export class Search {
   constructor(
@@ -26,7 +27,8 @@ export class Search {
     public fundings: Funding[],
     public datasets: Dataset[],
     public infrastructures: Infrastructure[],
-    public organizations: Organization[]
+    public organizations: Organization[],
+    public fundingCalls: FundingCall[]
   ) {}
 }
 
@@ -39,7 +41,8 @@ export class SearchAdapter implements Adapter<Search> {
     private fundingAdapter: FundingAdapter,
     private datasetAdapter: DatasetAdapter,
     private organizationAdapter: OrganizationAdapter,
-    private infrastructureAdapter: InfrastructureAdapter
+    private infrastructureAdapter: InfrastructureAdapter,
+    private fundingCallAdapter: FundingCallAdapter,
   ) {}
   adapt(item: any, tab?: string): Search {
     const publications: Publication[] = [];
@@ -47,6 +50,7 @@ export class SearchAdapter implements Adapter<Search> {
     const datasets: Dataset[] = [];
     const infrastructures: Infrastructure[] = [];
     const organizations: Organization[] = [];
+    const fundingCalls: FundingCall[] = [];
 
     switch (tab) {
       case 'publications':
@@ -74,6 +78,11 @@ export class SearchAdapter implements Adapter<Search> {
           organizations.push(this.organizationAdapter.adapt(e._source))
         );
         break;
+      case 'funding-calls':
+        item.hits.hits.forEach((e) =>
+          fundingCalls.push(this.fundingCallAdapter.adapt(e._source))
+        );
+        break;
     }
 
     return new Search(
@@ -82,7 +91,8 @@ export class SearchAdapter implements Adapter<Search> {
       fundings,
       datasets,
       infrastructures,
-      organizations
+      organizations,
+      fundingCalls
     );
   }
 }

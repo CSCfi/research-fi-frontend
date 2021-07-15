@@ -29,7 +29,6 @@ import { FilterService } from 'src/app/portal/services/filters/filter.service';
 import { SortService } from 'src/app/portal/services/sort.service';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { UtilityService } from 'src/app/shared/services/utility.service';
-import { FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 
@@ -39,7 +38,8 @@ import { take } from 'rxjs/operators';
   encapsulation: ViewEncapsulation.None,
 })
 export class NewsResultsComponent
-  implements OnInit, AfterViewInit, OnDestroy, OnChanges {
+  implements OnInit, AfterViewInit, OnDestroy, OnChanges
+{
   @Input() mobile: any;
   @Input() tab: any;
 
@@ -52,8 +52,6 @@ export class NewsResultsComponent
   filterValues: unknown;
   filters: any;
   modalRef: BsModalRef;
-
-  queryField: FormControl = new FormControl();
 
   currentTerm: string;
   queryParams: any;
@@ -109,7 +107,6 @@ export class NewsResultsComponent
     this.inputSub = this.searchService.currentInput.subscribe(
       (input) => (this.currentTerm = input)
     );
-    this.queryField = new FormControl(this.currentTerm);
   }
 
   ngOnChanges() {
@@ -167,19 +164,16 @@ export class NewsResultsComponent
     }
   }
 
-  searchNews() {
-    const searchTerm = this.searchInput.nativeElement.value;
-    this.searchService.updateInput(searchTerm);
+  searchNews(term) {
+    this.searchService.updateInput(term);
     const params = Object.assign({}, this.queryParams);
-    params.search = searchTerm;
+    params.search = term;
     this.router.navigate([], { queryParams: params });
     this.getFilterNews();
     this.getFilterData();
   }
 
   resetSearch() {
-    this.queryField.reset();
-    this.searchInput.nativeElement.value = '';
     this.currentTerm = '';
     this.searchService.updateInput('');
     const params = Object.assign({}, this.queryParams);

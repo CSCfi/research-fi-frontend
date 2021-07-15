@@ -41,6 +41,8 @@ import { AppConfigService } from '../shared/services/app-config-service.service'
 
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatListModule } from '@angular/material/list';
@@ -105,7 +107,6 @@ import { InfrastructuresComponent } from './components/results/infrastructures/i
 import { ShareComponent } from './components/single/share/share.component';
 import { SingleInfrastructureComponent } from './components/single/single-infrastructure/single-infrastructure.component';
 import { OrcidComponent } from './components/single/orcid/orcid.component';
-import { ThousandSeparatorPipe } from './pipes/thousand-separator.pipe';
 import { FiltersComponent } from './components/results/filters/filters.component';
 import { CounterPipe } from './pipes/counter.pipe';
 import { FilterItemPipe } from './pipes/filter-item.pipe';
@@ -117,7 +118,6 @@ import { FilterSumPipe } from './pipes/filter-sum.pipe';
 import { ResearchInnovationSystemComponent } from './components/science-politics/research-innovation-system/research-innovation-system.component';
 import { FiguresComponent } from './components/science-politics/figures/figures.component';
 import { ScrollSpyDirective } from './directives/scroll-spy.directive';
-import { CutContentPipe } from './pipes/cut-content.pipe';
 import { SingleFigureComponent } from './components/science-politics/figures/single-figure/single-figure.component';
 import { RelatedLinksComponent } from './components/single/related-links/related-links.component';
 import { Event, Scroll, Router } from '@angular/router'; // Router required by scroll logic
@@ -148,6 +148,10 @@ import { BannerComponent } from './components/home-page/banner/banner.component'
 import { LatestNewsComponent } from './components/news/latest-news/latest-news.component';
 import { NewsResultsComponent } from './components/news/news-results/news-results.component';
 import { ConvertToArrayPipe } from './pipes/convert-to-array.pipe';
+import { FundingCallsComponent } from './components/funding-calls/funding-calls.component';
+import { SingleFundingCallComponent } from './components/funding-calls/single-funding-call/single-funding-call.component';
+import { FundingCallResultsComponent } from './components/funding-calls/funding-call-results/funding-call-results.component';
+import { FundingCallPreviewComponent } from './components/funding-calls/funding-call-preview/funding-call-preview.component';
 
 @NgModule({
   declarations: [
@@ -182,7 +186,6 @@ import { ConvertToArrayPipe } from './pipes/convert-to-array.pipe';
     ShareComponent,
     SingleInfrastructureComponent,
     OrcidComponent,
-    ThousandSeparatorPipe,
     FiltersComponent,
     CounterPipe,
     FilterItemPipe,
@@ -191,7 +194,6 @@ import { ConvertToArrayPipe } from './pipes/convert-to-array.pipe';
     ResearchInnovationSystemComponent,
     FiguresComponent,
     ScrollSpyDirective,
-    CutContentPipe,
     CleanCitationPipe,
     ReplaceSpacePipe,
     SingleFigureComponent,
@@ -217,6 +219,10 @@ import { ConvertToArrayPipe } from './pipes/convert-to-array.pipe';
     LatestNewsComponent,
     NewsResultsComponent,
     ConvertToArrayPipe,
+    FundingCallsComponent,
+    SingleFundingCallComponent,
+    FundingCallResultsComponent,
+    FundingCallPreviewComponent,
   ],
   imports: [
     PortalRoutingModule,
@@ -231,6 +237,8 @@ import { ConvertToArrayPipe } from './pipes/convert-to-array.pipe';
     MatFormFieldModule,
     MatCheckboxModule,
     MatCardModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatRadioModule,
     MatSelectModule,
     MatListModule,
@@ -344,6 +352,22 @@ export class PortalModule {
             viewportScroller.scrollToPosition([0, 0]);
           }
           this.startPage = targetPage;
+
+        // Similar to /results but for /funding-calls
+        } else if (e.routerEvent.url.includes('/funding-calls')) {
+          const targetPage =
+            +router.parseUrl(e.routerEvent.url).queryParams.page || 1;
+          // Different page or coming from different route
+          if (
+            this.startPage !== targetPage ||
+            !this.historyService.history[
+              this.historyService.history.length - 2
+            ]?.includes('/funding-calls')
+          ) {
+            viewportScroller.scrollToPosition([0, 0]);
+          }
+          this.startPage = targetPage;
+          
         } else if (e.routerEvent.url.includes('/science-research-figures')) {
           // scroll to top only in single figure view
           if (

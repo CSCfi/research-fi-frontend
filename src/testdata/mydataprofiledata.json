@@ -1,0 +1,663 @@
+{
+  "personal": [
+    {
+      "label": "Nimi",
+      "groupItems": [
+        {
+          "source": {
+            "id": 1,
+            "registeredDataSource": "ORCID",
+            "organization": {
+              "nameFi": "ORCID",
+              "nameEn": "ORCID",
+              "nameSv": "ORCID"
+            }
+          },
+          "items": [
+            {
+              "firstNames": "Testaaja",
+              "lastName": "Testinen",
+              "fullName": "",
+              "itemMeta": {
+                "id": 27,
+                "type": 112,
+                "show": false,
+                "primaryValue": false
+              },
+              "value": "Testaaja Testinen"
+            }
+          ],
+          "groupMeta": { "id": 113, "type": 110, "show": false }
+        },
+        {
+          "source": {
+            "id": 3,
+            "registeredDataSource": "Testidata",
+            "organization": {
+              "nameFi": "Yliopisto A",
+              "nameEn": null,
+              "nameSv": null
+            }
+          },
+          "items": [
+            {
+              "firstNames": "Tuisku",
+              "lastName": "Tutkija",
+              "fullName": "",
+              "itemMeta": {
+                "id": 23,
+                "type": 112,
+                "show": false,
+                "primaryValue": false
+              },
+              "value": "Tuisku Tutkija"
+            }
+          ],
+          "groupMeta": { "id": 128, "type": 110, "show": false }
+        },
+        {
+          "source": {
+            "id": 2,
+            "registeredDataSource": "Testidata",
+            "organization": {
+              "nameFi": "Tutkimuslaitos X",
+              "nameEn": null,
+              "nameSv": null
+            }
+          },
+          "items": [
+            {
+              "firstNames": "Ami",
+              "lastName": "Asiantuntija",
+              "fullName": "",
+              "itemMeta": {
+                "id": 22,
+                "type": 112,
+                "show": false,
+                "primaryValue": false
+              },
+              "value": "Ami Asiantuntija"
+            }
+          ],
+          "groupMeta": { "id": 140, "type": 110, "show": false }
+        }
+      ],
+      "disabled": true,
+      "single": true,
+      "expanded": true
+    },
+    {
+      "label": "Muut nimet",
+      "groupItems": [
+        {
+          "source": {
+            "id": 1,
+            "registeredDataSource": "ORCID",
+            "organization": {
+              "nameFi": "ORCID",
+              "nameEn": "ORCID",
+              "nameSv": "ORCID"
+            }
+          },
+          "items": [
+            {
+              "firstNames": "",
+              "lastName": "",
+              "fullName": "TT Testinen",
+              "itemMeta": {
+                "id": 28,
+                "type": 120,
+                "show": false,
+                "primaryValue": false
+              },
+              "value": "TT Testinen"
+            }
+          ],
+          "groupMeta": { "id": 114, "type": 120, "show": false }
+        },
+        {
+          "source": {
+            "id": 3,
+            "registeredDataSource": "Testidata",
+            "organization": {
+              "nameFi": "Yliopisto A",
+              "nameEn": null,
+              "nameSv": null
+            }
+          },
+          "items": [
+            {
+              "firstNames": "",
+              "lastName": "",
+              "fullName": "T.A. Tutkija",
+              "itemMeta": {
+                "id": 25,
+                "type": 120,
+                "show": false,
+                "primaryValue": false
+              },
+              "value": "T.A. Tutkija"
+            },
+            {
+              "firstNames": "",
+              "lastName": "",
+              "fullName": "T. Tutkija",
+              "itemMeta": {
+                "id": 26,
+                "type": 120,
+                "show": false,
+                "primaryValue": false
+              },
+              "value": "T. Tutkija"
+            }
+          ],
+          "groupMeta": { "id": 127, "type": 120, "show": false }
+        },
+        {
+          "source": {
+            "id": 2,
+            "registeredDataSource": "Testidata",
+            "organization": {
+              "nameFi": "Tutkimuslaitos X",
+              "nameEn": null,
+              "nameSv": null
+            }
+          },
+          "items": [
+            {
+              "firstNames": "",
+              "lastName": "",
+              "fullName": "Tuisku Tutkija",
+              "itemMeta": {
+                "id": 24,
+                "type": 120,
+                "show": false,
+                "primaryValue": false
+              },
+              "value": "Tuisku Tutkija"
+            }
+          ],
+          "groupMeta": { "id": 139, "type": 120, "show": false }
+        }
+      ]
+    },
+    {
+      "label": "Sähköposti",
+      "groupItems": [
+        {
+          "source": {
+            "id": 3,
+            "registeredDataSource": "Testidata",
+            "organization": {
+              "nameFi": "Yliopisto A",
+              "nameEn": null,
+              "nameSv": null
+            }
+          },
+          "items": [
+            {
+              "value": "tuisku.tutkija@yliopisto.fi",
+              "itemMeta": {
+                "id": 9,
+                "type": 171,
+                "show": false,
+                "primaryValue": false
+              }
+            }
+          ],
+          "groupMeta": { "id": 132, "type": 171, "show": false }
+        },
+        {
+          "source": {
+            "id": 2,
+            "registeredDataSource": "Testidata",
+            "organization": {
+              "nameFi": "Tutkimuslaitos X",
+              "nameEn": null,
+              "nameSv": null
+            }
+          },
+          "items": [
+            {
+              "value": "ami.asiantuntija@tutkimuslaitos.fi",
+              "itemMeta": {
+                "id": 8,
+                "type": 171,
+                "show": false,
+                "primaryValue": false
+              }
+            }
+          ],
+          "groupMeta": { "id": 144, "type": 171, "show": false }
+        }
+      ]
+    },
+    {
+      "label": "Linkit",
+      "groupItems": [
+        {
+          "source": {
+            "id": 1,
+            "registeredDataSource": "ORCID",
+            "organization": {
+              "nameFi": "ORCID",
+              "nameEn": "ORCID",
+              "nameSv": "ORCID"
+            }
+          },
+          "items": [
+            {
+              "url": "https://tiedejatutkimus.fi/fi/",
+              "linkLabel": "TTV",
+              "itemMeta": {
+                "id": 11,
+                "type": 180,
+                "show": false,
+                "primaryValue": false
+              }
+            },
+            {
+              "url": "https://forskning.fi/sv/",
+              "linkLabel": "Forskning",
+              "itemMeta": {
+                "id": 12,
+                "type": 180,
+                "show": false,
+                "primaryValue": false
+              }
+            }
+          ],
+          "groupMeta": { "id": 117, "type": 180, "show": false }
+        },
+        {
+          "source": {
+            "id": 3,
+            "registeredDataSource": "Testidata",
+            "organization": {
+              "nameFi": "Yliopisto A",
+              "nameEn": null,
+              "nameSv": null
+            }
+          },
+          "items": [
+            {
+              "url": "https://tutkijanomaverkkosivu.yliopisto.fii",
+              "linkLabel": "Tutkijan oma verkkosivu",
+              "itemMeta": {
+                "id": 10,
+                "type": 180,
+                "show": false,
+                "primaryValue": false
+              }
+            }
+          ],
+          "groupMeta": { "id": 124, "type": 180, "show": false }
+        }
+      ]
+    }
+  ],
+  "description": [
+    {
+      "label": "Kuvaus",
+      "groupItems": [
+        {
+          "source": {
+            "id": 3,
+            "registeredDataSource": "Testidata",
+            "organization": {
+              "nameFi": "Yliopisto A",
+              "nameEn": null,
+              "nameSv": null
+            }
+          },
+          "items": [
+            {
+              "researchDescriptionFi": "Tutkimuksen kuvausta suomeksi. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+              "researchDescriptionEn": "Description of my research in English. Duis ullamcorper sem in sapien pretium bibendum. Vestibulum ex dui, volutpat commodo condimentum sed, lobortis at justo.",
+              "researchDescriptionSv": "Beskrivning av forskningen på svenska. Fusce in lorem tempor, feugiat nunc ut, consectetur erat. Integer purus sem, hendrerit at bibendum vel, laoreet nec tellus.",
+              "itemMeta": {
+                "id": 9,
+                "type": 140,
+                "show": false,
+                "primaryValue": false
+              }
+            }
+          ],
+          "groupMeta": { "id": 126, "type": 140, "show": false }
+        },
+        {
+          "source": {
+            "id": 2,
+            "registeredDataSource": "Testidata",
+            "organization": {
+              "nameFi": "Tutkimuslaitos X",
+              "nameEn": null,
+              "nameSv": null
+            }
+          },
+          "items": [
+            {
+              "researchDescriptionFi": "Tutkimuksen kuvausta suomeksi. Duis finibus velit rutrum euismod scelerisque. Praesent sit amet fermentum ex. Donec vitae tellus eu nisl dignissim laoreet.",
+              "researchDescriptionEn": null,
+              "researchDescriptionSv": null,
+              "itemMeta": {
+                "id": 8,
+                "type": 140,
+                "show": false,
+                "primaryValue": false
+              }
+            }
+          ],
+          "groupMeta": { "id": 138, "type": 140, "show": false }
+        }
+      ],
+      "localized": true,
+      "fieldName": "researchDescription"
+    },
+    {
+      "label": "Avainsanat",
+      "groupItems": [
+        {
+          "source": {
+            "id": 1,
+            "registeredDataSource": "ORCID",
+            "organization": {
+              "nameFi": "ORCID",
+              "nameEn": "ORCID",
+              "nameSv": "ORCID"
+            }
+          },
+          "items": [
+            {
+              "value": "Angular",
+              "itemMeta": {
+                "id": 41,
+                "type": 150,
+                "show": false,
+                "primaryValue": false
+              }
+            },
+            {
+              "value": "TTV",
+              "itemMeta": {
+                "id": 42,
+                "type": 150,
+                "show": false,
+                "primaryValue": false
+              }
+            }
+          ],
+          "groupMeta": { "id": 112, "type": 150, "show": false }
+        },
+        {
+          "source": {
+            "id": 3,
+            "registeredDataSource": "Testidata",
+            "organization": {
+              "nameFi": "Yliopisto A",
+              "nameEn": null,
+              "nameSv": null
+            }
+          },
+          "items": [
+            {
+              "value": "Suomen historia",
+              "itemMeta": {
+                "id": 37,
+                "type": 150,
+                "show": false,
+                "primaryValue": false
+              }
+            },
+            {
+              "value": "sisätaudit",
+              "itemMeta": {
+                "id": 38,
+                "type": 150,
+                "show": false,
+                "primaryValue": false
+              }
+            },
+            {
+              "value": "aerosolit",
+              "itemMeta": {
+                "id": 39,
+                "type": 150,
+                "show": false,
+                "primaryValue": false
+              }
+            },
+            {
+              "value": "digitalisaatio",
+              "itemMeta": {
+                "id": 40,
+                "type": 150,
+                "show": false,
+                "primaryValue": false
+              }
+            }
+          ],
+          "groupMeta": { "id": 129, "type": 150, "show": false }
+        },
+        {
+          "source": {
+            "id": 2,
+            "registeredDataSource": "Testidata",
+            "organization": {
+              "nameFi": "Tutkimuslaitos X",
+              "nameEn": null,
+              "nameSv": null
+            }
+          },
+          "items": [
+            {
+              "value": "history of Finland",
+              "itemMeta": {
+                "id": 33,
+                "type": 150,
+                "show": false,
+                "primaryValue": false
+              }
+            },
+            {
+              "value": "internal medicine",
+              "itemMeta": {
+                "id": 34,
+                "type": 150,
+                "show": false,
+                "primaryValue": false
+              }
+            },
+            {
+              "value": "aerosols",
+              "itemMeta": {
+                "id": 35,
+                "type": 150,
+                "show": false,
+                "primaryValue": false
+              }
+            },
+            {
+              "value": "digitalization",
+              "itemMeta": {
+                "id": 36,
+                "type": 150,
+                "show": false,
+                "primaryValue": false
+              }
+            }
+          ],
+          "groupMeta": { "id": 141, "type": 150, "show": false }
+        }
+      ]
+    }
+  ],
+  "affiliation": [
+    {
+      "label": "Affiliaatiot",
+      "groupItems": [
+        {
+          "source": {
+            "id": 1,
+            "registeredDataSource": "ORCID",
+            "organization": {
+              "nameFi": "ORCID",
+              "nameEn": "ORCID",
+              "nameSv": "ORCID"
+            }
+          },
+          "items": [
+            {
+              "organizationNameFi": null,
+              "organizationNameEn": "Visma Consulting Oy",
+              "organizationNameSv": null,
+              "positionNameFi": null,
+              "positionNameEn": "Software Developer",
+              "positionNameSv": null,
+              "type": " ",
+              "startDate": { "year": 2019, "month": 2, "day": 1 },
+              "endDate": { "year": 0, "month": 0, "day": 0 },
+              "itemMeta": {
+                "id": 11,
+                "type": 300,
+                "show": false,
+                "primaryValue": false
+              }
+            }
+          ],
+          "groupMeta": { "id": 118, "type": 300, "show": false }
+        },
+        {
+          "source": {
+            "id": 3,
+            "registeredDataSource": "Testidata",
+            "organization": {
+              "nameFi": "Yliopisto A",
+              "nameEn": null,
+              "nameSv": null
+            }
+          },
+          "items": [
+            {
+              "organizationNameFi": "Yliopisto A",
+              "organizationNameEn": null,
+              "organizationNameSv": null,
+              "positionNameFi": "Akatemiatutkija",
+              "positionNameEn": null,
+              "positionNameSv": null,
+              "type": "Työsuhde",
+              "startDate": { "year": 2020, "month": 1, "day": 1 },
+              "endDate": { "year": 0, "month": 0, "day": 0 },
+              "itemMeta": {
+                "id": 9,
+                "type": 300,
+                "show": false,
+                "primaryValue": false
+              }
+            }
+          ],
+          "groupMeta": { "id": 123, "type": 300, "show": false }
+        },
+        {
+          "source": {
+            "id": 2,
+            "registeredDataSource": "Testidata",
+            "organization": {
+              "nameFi": "Tutkimuslaitos X",
+              "nameEn": null,
+              "nameSv": null
+            }
+          },
+          "items": [
+            {
+              "organizationNameFi": "Tutkimuslaitos X",
+              "organizationNameEn": null,
+              "organizationNameSv": null,
+              "positionNameFi": "Erikoistutkija",
+              "positionNameEn": null,
+              "positionNameSv": null,
+              "type": "Työsuhde",
+              "startDate": { "year": 2016, "month": 1, "day": 1 },
+              "endDate": { "year": 2019, "month": 12, "day": 31 },
+              "itemMeta": {
+                "id": 10,
+                "type": 300,
+                "show": false,
+                "primaryValue": false
+              }
+            }
+          ],
+          "groupMeta": { "id": 135, "type": 300, "show": false }
+        }
+      ],
+      "hasPrimaryValue": true
+    }
+  ],
+  "education": [
+    {
+      "label": "Koulutus",
+      "groupItems": [
+        {
+          "source": {
+            "id": 2,
+            "registeredDataSource": "Testidata",
+            "organization": {
+              "nameFi": "Tutkimuslaitos X",
+              "nameEn": null,
+              "nameSv": null
+            }
+          },
+          "items": [
+            {
+              "nameFi": "Filosofian tohtori, luonnontieteellinen ala",
+              "nameEn": null,
+              "nameSv": null,
+              "degreeGrantingInstitutionName": "Yliopisto Y",
+              "startDate": { "year": 0, "month": 0, "day": 0 },
+              "endDate": { "year": 2011, "month": 0, "day": 0 },
+              "itemMeta": {
+                "id": 4,
+                "type": 400,
+                "show": false,
+                "primaryValue": false
+              }
+            }
+          ],
+          "groupMeta": { "id": 134, "type": 400, "show": false }
+        }
+      ]
+    }
+  ],
+  "publication": [
+    {
+      "label": "Julkaisut",
+      "groupItems": [
+        {
+          "source": {
+            "id": 1,
+            "registeredDataSource": "ORCID",
+            "organization": {
+              "nameFi": "ORCID",
+              "nameEn": "ORCID",
+              "nameSv": "ORCID"
+            }
+          },
+          "items": [
+            {
+              "publicationName": "Test publication",
+              "publicationYear": 2021,
+              "doiHandle": "",
+              "itemMeta": {
+                "id": 3,
+                "type": 400,
+                "show": false,
+                "primaryValue": false
+              }
+            }
+          ],
+          "groupMeta": { "id": 120, "type": 500, "show": false }
+        }
+      ]
+    }
+  ]
+}

@@ -14,12 +14,12 @@
     ></mat-spinner>
   </div>
   <div class="wrapper" *ngIf="!loading">
-    <app-breadcrumb [responseData]="result" [type]="'figure'"></app-breadcrumb>
     <a
       routerLink="/science-innovation-policy/science-research-figures/"
       class="back"
       ><< <ng-container i18n="@@back">Takaisin</ng-container></a
     >
+    <app-breadcrumb [responseData]="result" [type]="'figure'"></app-breadcrumb>
     <div class="row" *ngFor="let item of result; trackBy: trackByFn">
       <div class="col-12 px-lg-0 pb-2">
         <div class="row">

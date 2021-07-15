@@ -54,6 +54,12 @@ export class AppSettingsService {
         ],
       },
       {
+        label: $localize`:@@headerLink7:Rahoitushaut`,
+        link: '/funding-calls',
+        queryParams: {status: 'open'},
+        exact: false,
+      },
+      {
         label: $localize`:@@headerLink6:Tiede- ja tutkimusuutiset`,
         link: '/news',
         exact: true,
@@ -67,6 +73,8 @@ export class AppSettingsService {
   };
 
   myDataSettings = {
+    develop: false,
+    beta: true,
     label: 'Tutkijan tiedot',
     baseRoute: 'mydata',
     navItems: [{ label: 'Kirjaudu sisään', link: '', loginProcess: true }],

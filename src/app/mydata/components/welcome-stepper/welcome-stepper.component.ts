@@ -20,6 +20,9 @@ import {
 } from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
 
+// Remove in production
+import { AppSettingsService } from '@shared/services/app-settings.service';
+
 @Component({
   selector: 'app-welcome-stepper',
   templateUrl: './welcome-stepper.component.html',
@@ -27,7 +30,7 @@ import { Router } from '@angular/router';
   encapsulation: ViewEncapsulation.None,
 })
 export class WelcomeStepperComponent implements OnInit {
-  step = 3;
+  step = 4;
   cancel = false;
 
   termsApproved = false;
@@ -38,25 +41,27 @@ export class WelcomeStepperComponent implements OnInit {
 
   userData: any;
   firstName: string;
-  editorData: Object;
 
   @ViewChild('smModal') smModal: ModalDirective;
   @ViewChild('termsTemplate') termsTemplate: ModalDirective;
   modalRef: BsModalRef;
 
   profileCreated: boolean;
-  orcidData: Object;
+  profileData: Object;
 
   constructor(
     private profileService: ProfileService,
     public oidcSecurityService: OidcSecurityService,
     private modalService: BsModalService,
-    private router: Router
+    private router: Router,
+    private appSettingsService: AppSettingsService
   ) {
-    this.editorData = null;
+    this.profileData = null;
   }
 
   ngOnInit() {
+    this.step = this.appSettingsService.myDataSettings.develop ? 4 : 1;
+
     this.oidcSecurityService.userData$.pipe(take(1)).subscribe((data) => {
       this.userData = data;
       this.firstName = data?.name.split(' ')[0];
@@ -141,10 +146,9 @@ export class WelcomeStepperComponent implements OnInit {
   }
 
   getProfileData() {
-    this.editorData = null;
+    this.profileData = null;
     this.profileService.getProfileData().subscribe((data) => {
-      this.orcidData = data;
-      this.editorData = data;
+      this.profileData = data;
       this.smModal.hide();
       this.increment();
     });

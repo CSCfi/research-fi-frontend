@@ -2028,6 +2028,10 @@
           <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="headerLink7" datatype="html">
+        <source>Rahoitushaut</source>
+        <target>Funding calls</target>
+      </trans-unit>
       <trans-unit id="footerLink1" datatype="html">
         <source>Tietoa palvelusta</source>
         <target>About the service</target>
@@ -3241,6 +3245,127 @@
       <trans-unit id="vipunenSource">
         <source>Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi</source>
         <target>Source: Vipunen - Education Statistics Finland www.vipunen.fi</target>
+      </trans-unit>
+      <!-- Funding calls -->
+      <trans-unit id="fundingCalls">
+        <source>Rahoitushaut</source>
+        <target>Funding calls</target>
+      </trans-unit>
+      <trans-unit id="callName">
+        <source>Haun nimi</source>
+        <target>Call name</target>
+      </trans-unit>
+      <trans-unit id="callOpenDate">
+        <source>Haku alkaa</source>
+        <target>Call opens</target>
+      </trans-unit>
+      <trans-unit id="callDueDate">
+        <source>Haku päättyy</source>
+        <target>Call closes</target>
+      </trans-unit>
+      <trans-unit id="noFundingCalls">
+        <source>Ei rahoitushakuja</source>
+        <target>No funding calls</target>
+      </trans-unit>
+      <trans-unit id="searchFundingCallsPlaceHolder">
+        <source>Hae rahoitushakuja...</source>
+        <target>Search for calls...</target>
+      </trans-unit>
+      <trans-unit id="applicationInstructions">
+        <source>Hakuohjeet</source>
+        <target>Application guidelines</target>
+      </trans-unit>
+      <trans-unit id="auroraDatabase">
+        <source>Aurora-tietokanta</source>
+        <target>Aurora Database</target>
+      </trans-unit>
+      <trans-unit id="fundingCallSource">
+        <source>Rahoitushaun lähde</source>
+        <target>Source of funding call information</target>
+      </trans-unit>
+      <trans-unit id="openFundingCalls">
+        <source>Avoimet rahoitushaut</source>
+        <target>Open funding calls</target>
+      </trans-unit>
+      <trans-unit id="openCalls">
+        <source>Avoimet haut</source>
+        <target>Open calls</target>
+      </trans-unit>
+      <trans-unit id="futureCalls">
+        <source>Tulevat haut</source>
+        <target>Upcoming calls</target>
+      </trans-unit>
+      <trans-unit id="closedCalls">
+        <source>Menneet haut</source>
+        <target>Closed calls</target>
+      </trans-unit>
+      <trans-unit id="continuousCalls">
+        <source>Jatkuvat haut</source>
+        <target>Continuous application</target>
+      </trans-unit>
+      <trans-unit id="continuous">
+        <source>Jatkuva</source>
+        <target>Continuous</target>
+      </trans-unit>
+      <trans-unit id="dateRangeStart">
+        <source>Haku alkaa aikaisintaan</source>
+        <target>Call opens at the earliest</target>
+      </trans-unit>
+      <trans-unit id="startsEarliest">
+        <source>Alkaa aikaisintaan</source>
+        <target>Opens at the earliest</target>
+      </trans-unit>
+      <trans-unit id="startDate">
+        <source>Aloituspäivä</source>
+        <target>Start date</target>
+      </trans-unit>
+      <trans-unit id="dateRangeEnd">
+        <source>Haku päättyy viimeistään</source>
+        <target>Call closes at the latest</target>
+      </trans-unit>
+      <trans-unit id="closesLatest">
+        <source>Päättyy ennen</source>
+        <target>Closes at the latest</target>
+      </trans-unit>
+      <trans-unit id="endDate">
+        <source>Päättymispäivä</source>
+        <target>End date</target>
+      </trans-unit>
+      <trans-unit id="fundingCallBeta">
+        <source>Rahoitushaut ovat uusi tietokokonaisuus Tiedejatutkimus.fi-palvelussa. Tiedot haetaan automaattisesti Aurora-tietokannasta. Otamme mielellämme vastaan palautetta rahoitushakukokonaisuuden toimivuudesta: tiedejatutkimus@csc.fi</source>
+        <target>Funding calls is a new section in Research.fi. The information is automatically retrieved from the Aurora database. All feedback on the funding calls section is welcome: tiedejatutkimus@csc.fi</target>
+      </trans-unit>
+      <trans-unit id="applicationPeriod">
+        <source>Hakuaika</source>
+        <target>Application period</target>
+      </trans-unit>
+      <trans-unit id="fundingCallPeriodTooltip">
+        <source>Aika, jolloin rahoitushaku on käynnissä. Voit rajata hakuaikaa rahoitushaun alkamis- ja päättymispäivämäärän tai vuoden mukaan.</source>
+        <target>The period when the funding call is open. You can filter the application periods by the start date, end date or year of the funding call.</target>
+      </trans-unit>
+      <trans-unit id="fundingCallStatus">
+        <source>Rahoitushaun tila</source>
+        <target>Funding call status</target>
+      </trans-unit>
+      <trans-unit id="fundingCallStatusTooltip">
+        <source>Tutkimustietovarannossa hakuja seurataan päivän tarkkuudella. Haun päättymisen kellonaika kerrotaan hakuilmoituksessa tai rahoittajan palvelussa.</source>
+        <target>In the National Research Information Hub, all call application periods are monitored by date. If you wish to check the exact time when an application period is set to end, check the call notice or the funding provider’s service.</target>
+      </trans-unit>
+      <trans-unit id="fundingCallCategory">
+        <source>Hakuala</source>
+        <target>Category</target>
+      </trans-unit>
+      <trans-unit id="fundingCallCategories">
+        <source>Hakualat</source>
+        <target>Categories</target>
+      </trans-unit>
+      <trans-unit id="fundingCallCategoryTooltip">
+        <source>Tieteen ja taiteen rahoitustietokanta Auroran hakualakoodiston mukaiset hakualat vastaavat suurelta osin tieteenaloja.</source>
+        <target>The categories specified in the Aurora Funding Database for Science and Arts are largely based on the fields of science classification</target>
+      </trans-unit>
+      <trans-unit id="fundingCallFunderTooltip">
+        <source>Rahoitushausta vastaava tutkimusrahoittaja.</source>
+        <target>The research funder responsible for the funding call.</target>
       </trans-unit>
       <!-- Filters -->
       <trans-unit id="filterSearchHeader">

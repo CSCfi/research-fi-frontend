@@ -40,7 +40,6 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.oidcSecurityService.userData$.pipe(take(1)).subscribe((data) => {
-      // console.log(data);
       this.orcid = data.orcid;
     });
 

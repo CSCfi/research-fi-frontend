@@ -5,33 +5,39 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-.step-header {
-  font-size: 1.5rem;
-  font-weight: 500;
-}
+app-welcome-stepper {
+  .step-header {
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
 
-.mat-checkbox-layout {
-  white-space: normal !important;
-}
+  .mat-checkbox-layout {
+    white-space: normal;
+  }
 
-.mat-checkbox-inner-container {
-  margin-top: 4px !important;
-}
+  .mat-checkbox-inner-container {
+    margin-top: 4px;
+  }
 
-.example-radio-group {
-  display: flex;
-  flex-direction: column;
-  margin: 15px 0;
-}
+  .mat-radio-label {
+    white-space: normal;
+  }
 
-.example-radio-button {
-  margin: 5px;
-}
+  .mat-radio-label-content {
+    padding-left: 1rem;
+  }
 
-.mat-radio-label {
-  white-space: normal !important;
-}
+  // Tabs
 
-.mat-radio-label-content {
-  padding-left: 1rem !important;
+  .mat-tab-label {
+    min-width: 50%;
+  }
+
+  .mat-ink-bar {
+    height: 4px;
+  }
+
+  .mat-tab-body {
+    padding-top: 3rem;
+  }
 }

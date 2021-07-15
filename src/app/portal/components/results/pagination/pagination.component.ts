@@ -61,6 +61,24 @@ export class PaginationComponent implements OnInit {
 
   ngOnInit() {
     // Reset pagination
+    this.resetPagination();
+    // Get total value of results and send to search service
+    this.totalSub = this.searchService.currentTotal.subscribe(
+      (total) => (this.total = total.value)
+    );
+
+    // Get updates for window resize
+    this.resizeSub = this.resizeService.onResize$.subscribe((size) =>
+      this.onResize(size)
+    );
+  }
+
+  ngOnChanges() {
+    this.resetPagination()
+  }
+
+  resetPagination() {
+    // Reset pagination
     this.page = this.searchService.pageNumber;
 
     this.pageSize = this.searchService.pageSize;
@@ -73,16 +91,6 @@ export class PaginationComponent implements OnInit {
 
     // Initialize fromPage
     this.fromPage = (this.page - 1) * this.pageSize;
-
-    // Get total value of results and send to search service
-    this.totalSub = this.searchService.currentTotal.subscribe(
-      (total) => (this.total = total.value)
-    );
-
-    // Get updates for window resize
-    this.resizeSub = this.resizeService.onResize$.subscribe((size) =>
-      this.onResize(size)
-    );
   }
 
   generatePages(currentPage: number, length: number, pageSize: number) {

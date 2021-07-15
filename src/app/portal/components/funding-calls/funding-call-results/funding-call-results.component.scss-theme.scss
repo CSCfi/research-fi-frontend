@@ -1,0 +1,12 @@
+@import '~@angular/material/theming';
+
+@mixin app-funding-call-results-theme($theme) {
+  $primary: map-get($theme, primary);
+
+  app-funding-call-results {
+    .tags .category {
+        color: mat-color($primary);
+        border: 2px solid mat-color($primary);
+      }
+  }
+}
