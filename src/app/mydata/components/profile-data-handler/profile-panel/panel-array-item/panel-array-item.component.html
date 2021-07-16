@@ -1,0 +1,58 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<ng-container *ngIf="!localized; else localizedTemplate">
+  <ng-container [ngSwitch]="fieldType">
+    <ng-container *ngSwitchCase="fieldTypes.personWebLink">{{
+      item.url
+    }}</ng-container>
+
+    <ng-container *ngSwitchCase="fieldTypes.activityAffiliation">
+      <app-activity-item
+        [rows]="[
+          item | checkFieldLocale: locale:'positionName',
+          item | checkFieldLocale: locale:'organizationName',
+          (item.startDate | parseDate) + ' - ' + (item.endDate | parseDate)
+        ]"
+      ></app-activity-item>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="fieldTypes.activityEducation">
+      <app-activity-item
+        [rows]="[
+          item | checkFieldLocale: locale:'name',
+          item.degreeGrantingInstitutionName,
+          (item.startDate | parseDate) + ' - ' + (item.endDate | parseDate)
+        ]"
+      ></app-activity-item>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="fieldTypes.activityPublication">
+      <app-activity-item
+        [rows]="[item.publicationName, item.authorsText, item.publicationYear]"
+        [smallLastItem]="true"
+      ></app-activity-item>
+    </ng-container>
+
+    <ng-container *ngSwitchDefault>
+      {{ item.value }}
+    </ng-container>
+  </ng-container>
+</ng-container>
+
+<ng-template #localizedTemplate>
+  <ng-container *ngFor="let value of item | getLocalizedValues">
+    <div class="row font-weight-bold">
+      <div class="col">
+        {{ value.locale.toUpperCase() }}
+      </div>
+    </div>
+    <div class="row pb-3">
+      <div class="col">
+        {{ value.value }}
+      </div>
+    </div>
+  </ng-container>
+</ng-template>

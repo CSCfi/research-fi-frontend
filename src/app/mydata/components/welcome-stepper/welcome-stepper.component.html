@@ -66,25 +66,38 @@
                 </div>
                 <!-- Icon -->
                 <i
-                  class="col-12 pt-3 h1 primary-color text-center fas fa-file-alt"
+                  class="
+                    col-12
+                    pt-3
+                    h1
+                    primary-color
+                    text-center
+                    fas
+                    fa-file-alt
+                  "
                 ></i>
               </div>
 
               <div class="row pb-4 d-flex justify-content-center">
-                <h2 class="col-12 h6 pb-2">Käyttöehdot</h2>
+                <h2 class="col-12 h6 pb-2">
+                  Tutkijan profiilityökalun käyttöehdot
+                </h2>
+                <div class="col-12 pb-3">
+                  <button
+                    class="row border border-primary rounded btn d-flex w-100"
+                    (click)="openModal(termsTemplate)"
+                  >
+                    <div class="col-auto">
+                      <i class="pt-3 pb-2 h1 primary-color fas fa-file-alt"></i>
+                    </div>
+                    <div class="col align-self-center">
+                      <span class="d-block align-self-center text-left"
+                        >Avaa käyttöehdot</span
+                      >
+                    </div>
+                  </button>
+                </div>
                 <div class="col">
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua.
-                  </p>
-                  <p>
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                    laboris.
-                    <a href="javascript:void(0)"
-                      >Näytä käyttöehdot kokonaisuudessaan</a
-                    >
-                  </p>
                   <mat-checkbox color="primary" [(ngModel)]="termsApproved"
                     >Olen lukenut palvelun käyttöehdot, ja hyväksyn
                     ne</mat-checkbox
@@ -92,22 +105,45 @@
                 </div>
               </div>
 
+              <ng-template #termsTemplate>
+                <div class="modal-header">
+                  <h4 id="dialog-sizes-name1" class="modal-title pull-left">
+                    Tutkijan profiilityökalun käyttöehdot
+                  </h4>
+
+                  <app-close-button
+                    class="pull-right"
+                    (click)="closeModal()"
+                    (keydown.enter)="closeModal()"
+                    autofocus
+                    tabindex="-1"
+                  ></app-close-button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col col-lg-10 py-3">Tulossa</div>
+                  </div>
+                </div>
+              </ng-template>
+
               <div class="row pb-4 d-flex justify-content-center">
                 <h2 class="col-12 h6 pb-2">Henkilötietojen käsittely</h2>
+                <div class="col-12 pb-3">
+                  <button
+                    class="row border border-primary rounded btn d-flex w-100"
+                    (click)="openModal(personalDataHandlingTermsTemplate)"
+                  >
+                    <div class="col-auto">
+                      <i class="pt-3 pb-2 h1 primary-color fas fa-file-alt"></i>
+                    </div>
+                    <div class="col align-self-center">
+                      <span class="d-block align-self-center text-left"
+                        >Avaa henkilötietojen käsittelyperiaatteet</span
+                      >
+                    </div>
+                  </button>
+                </div>
                 <div class="col">
-                  <p>
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur.
-                  </p>
-                  <p>
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                    laboris. Excepteur sint occaecat cupidatat non proident,
-                    sunt in culpa qui officia.
-                    <a href="javascript:void(0)"
-                      >Näytä henkilötietojen käsittelytiedot
-                      kokonaisuudessaan</a
-                    >
-                  </p>
                   <mat-checkbox
                     color="primary"
                     [(ngModel)]="personalDataHandlingApproved"
@@ -115,6 +151,27 @@
                   >
                 </div>
               </div>
+
+              <ng-template #personalDataHandlingTermsTemplate>
+                <div class="modal-header">
+                  <h4 id="dialog-sizes-name1" class="modal-title pull-left">
+                    Henkilötietojen käsittelyperiaatteet
+                  </h4>
+
+                  <app-close-button
+                    class="pull-right"
+                    (click)="closeModal()"
+                    (keydown.enter)="closeModal()"
+                    autofocus
+                    tabindex="-1"
+                  ></app-close-button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col col-lg-10 py-3">Tulossa</div>
+                  </div>
+                </div>
+              </ng-template>
 
               <app-stepper-navigation
                 (changeStep)="changeStep($event)"
@@ -130,7 +187,15 @@
                 </div>
                 <!-- Icon -->
                 <i
-                  class="col-12 pt-3 h1 primary-color text-center fas fa-download"
+                  class="
+                    col-12
+                    pt-3
+                    h1
+                    primary-color
+                    text-center
+                    fas
+                    fa-download
+                  "
                 ></i>
               </div>
 
@@ -191,21 +256,62 @@
                 </div>
                 <!-- Icon -->
                 <i
-                  class="col-12 pt-3 h1 primary-color text-center fas fa-check-circle"
+                  class="
+                    col-12
+                    pt-3
+                    h1
+                    primary-color
+                    text-center
+                    fas
+                    fa-check-circle
+                  "
                 ></i>
               </div>
 
               <div class="row pb-4 d-flex justify-content-center">
                 <div class="col px-0 px-lg-3">
-                  <app-orcid-data-handler
-                    [orcidData]="orcidData"
-                  ></app-orcid-data-handler>
+                  <app-profile-data-handler
+                    [response]="profileData"
+                  ></app-profile-data-handler>
+                  <!-- <mat-tab-group mat-align-tabs="center">
+                    <mat-tab label="Valitse julkaistavat tiedot">
+                      <app-profile-data-handler
+                        [response]="profileData"
+                      ></app-profile-data-handler>
+                    </mat-tab>
+                    <mat-tab disabled label="Aseta kaikki julkisiksi"
+                      >Aseta kaikki julkisiksi</mat-tab
+                    >
+                  </mat-tab-group> -->
                 </div>
               </div>
-              <app-stepper-navigation
+
+              <!-- <app-stepper-navigation
                 (changeStep)="changeStep($event)"
-                [disableNext]="true"
-              ></app-stepper-navigation>
+              ></app-stepper-navigation> -->
+
+              <div class="row pb-5 d-flex justify-content-center">
+                <div class="col-auto">
+                  <app-secondary-button
+                    disabled
+                    content="Aseta kaikki julkisiksi"
+                  ></app-secondary-button>
+                </div>
+                <div class="col-auto">
+                  <app-secondary-button
+                    disabled
+                    content="Tyhjennä kaikki valinnat"
+                  ></app-secondary-button>
+                </div>
+              </div>
+
+              <div class="row pt-3">
+                <app-primary-action-button
+                  [disabled]="true"
+                  class="col text-center"
+                  content="Julkaise"
+                ></app-primary-action-button>
+              </div>
             </ng-container>
 
             <!-- Default to 404 -->
@@ -253,7 +359,7 @@
           </div>
         </ng-template>
 
-        <div class="row py-5">
+        <div class="row py-5" *ngIf="userData">
           <app-orcid-id-info
             class="col text-center"
             [userData]="userData"

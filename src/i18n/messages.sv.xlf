@@ -2022,6 +2022,10 @@
           <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="headerLink7" datatype="html">
+        <source>Rahoitushaut</source>
+        <target>Forskningsfinansiering</target>
+      </trans-unit>
       <trans-unit id="footerLink1" datatype="html">
         <source>Tietoa palvelusta</source>
         <target state="translated">Information om tjänsten</target>
@@ -2736,7 +2740,7 @@
         <source>Haun tunniste</source>
         <target state="translated">Utlysnings ID</target>
       </trans-unit>
-      <trans-unit id="1429405664221353899">
+      <trans-unit id="funderProjectNumber">
         <source>Rahoituspäätöksen numero</source>
         <target state="translated">Finansieringsbeslutets nummer</target>
       </trans-unit>
@@ -2789,8 +2793,8 @@
         <target>År för vilket finansiering har beviljats. Det första året i finansiering för flera år.</target>
       </trans-unit>
       <trans-unit id="sfEndYearTooltip">
-        <source>Rahoituskauden päättymisvuosi.</source>
-        <target>Upphörande av finansieringsperiod</target>
+        <source>Rahoituskauden päättymisvuosi. Useamman päätöksen kokonaisuudessa viimeisimmän päätöksen päättymisvuosi.</source>
+        <target>Upphörande av finansieringsperiod. Om projektet består av flera beslut, slutåret för det senaste beslutet.</target>
       </trans-unit>
       <trans-unit id="sfTypeOfFundingTooltip">
         <source>Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuodot ovat usein rahoittajakohtaisia.</source>
@@ -2800,21 +2804,29 @@
         <source>Rahoittajan haku, josta rahoitus on myönnetty. Kilpailtu tutkimusrahoitus myönnetään usein avoimien hakujen kautta, joissa rahoituksen myöntämisen perusteena ovat ennalta määrätyt kriteerit. Hakemukset arvioidaan ja rahoitus myönnetään kriteerien ja muiden tavoitteiden perusteella parhaiksi katsotuille hakemuksille.</source>
         <target>Utlysning av finansiär som har beviljat finansiering. Konkurrensutsatt forskningsfinansiering beviljas ofta genom öppna ansökningar, där beviljandet av finansiering grundar sig på kriterier som fastställts på förhand.</target>
       </trans-unit>
+      <trans-unit id="otherRelatedFundings">
+        <source>Muut päätösket</source>
+        <target>Andra beslut</target>
+      </trans-unit>
+      <trans-unit id="relatedFundingTooltip">
+        <source>Rahoituspäätökseen liittyvät muut päätökset, kuten esimerkiksi samalle hankkeelle myönnetty tutkimuskulurahoitus. Sisältää tiedot liittyvän päätöksen tunnisteesta, rahoitusmuodosta, aloitusvuodesta sekä myönnetyn rahoituksen määrästä.</source>
+        <target>Andra beslut relaterade till finansieringsbeslutet, t.ex. beviljat finansiering för forskningskostnader för samma projekt. Innehåller information om det relaterade beslutets identifierare, finansieringstyp, startår och beviljad finansiering.</target>
+      </trans-unit>
       <trans-unit id="4073996987769162370">
         <source>Rahoituksen saaja voi olla henkilö tai organisaatio. Usein saajaksi mainittu henkilö on vastuullinen tutkija, joka ei itse käytä myönnettyä rahoitusta vaan sillä katetaan hankkeen kustannuksia.</source>
         <target state="translated">Finansieringsmottagaren kan vara en person eller en organisation. Ofta är den person som nämns som mottagare en ansvarig forskare som inte själv använder den beviljade finansieringen utan den används för att täcka projektets kostnader.</target>
       </trans-unit>
-      <trans-unit id="1600561099075815966">
-        <source>Rahoittajan rahoituspäätöksessään myöntämä rahoitus. Summa ei sisällä hankkeen kaikkia kustannuksia. Organisaatio, jossa hanke toteutetaan, voi rahoittaa siitä tietyn osan (ns. omarahoitusosuus) ja hankkeella voi olla muitakin rahoittajia.</source>
-        <target state="translated">Finansiering som finansiären beviljat i sitt finansieringsbeslut. I beloppet ingår inte alla kostnader för projektet. Den organisation där projektet genomförs kan finansiera en viss del av projektet (s.k. självfinansieringsandel) och projektet kan även ha andra finansiärer.</target>
+      <trans-unit id="fundingAmountTooltip">
+        <source>Rahoittajan hankkeelle myöntämä yhteissumma. Summa ei sisällä hankkeen kaikkia kustannuksia. Organisaatio, jossa hanke toteutetaan, voi rahoittaa siitä tietyn osan (ns. omarahoitusosuus) ja hankkeella voi olla muitakin rahoittajia.</source>
+        <target state="translated">Det totala belopp som finansiären har beviljat för projektet. I beloppet ingår inte alla kostnader för projektet. Den organisation där projektet genomförs kan finansiera en viss del av projekt (s.k. självfinansieringsandel) och projektet kan även ha andra finansiärer.</target>
       </trans-unit>
       <trans-unit id="6174779948491913415">
         <source>Tutkimusrahoittaja, joka on myöntänyt rahoituksen. Kaikki tiedejatutkimus.fi ‑palveluun tietoja toimittavat tutkimusrahoittajat ovat organisaatiot-osiossa.</source>
-        <target state="translated">Forskningsfinansiär som har beviljat finansiering. Alla forskningsfinansiärer som lämnar in uppgifter till tjänsten forskning.fi finns i avsnittet Organisatione</target>
+        <target state="translated">Forskningsfinansiär som har beviljat finansiering. Alla forskningsfinansiärer som lämnar in uppgifter till tjänsten forskning.fi finns i avsnittet Organisationer.</target>
       </trans-unit>
       <trans-unit id="6587616297300188756">
         <source>Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa.</source>
-      <target state="translated">En webbplats utanför tjänsten forskning.fi där det finns mer detaljerad information om projektet</target>
+        <target state="translated">En webbplats utanför tjänsten forskning.fi där det finns mer detaljerad information om projektet</target>
       </trans-unit>
       <!-- Datasets -->
       <trans-unit id="datasetBetaInfo">
@@ -3231,6 +3243,127 @@
         <source>Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi</source>
         <target state="translated">Källa: Vipunen – utbildningsförvaltningens statistiktjänst vipunen.fi</target>
       </trans-unit>
+      <!-- Funding calls -->
+      <trans-unit id="fundingCalls">
+        <source>Rahoitushaut</source>
+        <target>Utlysningar</target>
+      </trans-unit>
+      <trans-unit id="callName">
+        <source>Haun nimi</source>
+        <target>Namnet på utlysningen</target>
+      </trans-unit>
+      <trans-unit id="callOpenDate">
+        <source>Haku alkaa</source>
+        <target>Ansökningstiden börjar</target>
+      </trans-unit>
+      <trans-unit id="callDueDate">
+        <source>Haku päättyy</source>
+        <target>Ansökningstiden utgår</target>
+      </trans-unit>
+      <trans-unit id="noFundingCalls">
+        <source>Ei rahoitushakuja</source>
+        <target>Inga utlysningar</target>
+      </trans-unit>
+      <trans-unit id="searchFundingCallsPlaceHolder">
+        <source>Hae rahoitushakuja...</source>
+        <target>Sök utlysningar...</target>
+      </trans-unit>
+      <trans-unit id="applicationInstructions">
+        <source>Hakuohjeet</source>
+        <target>Sökanvisning</target>
+      </trans-unit>
+      <trans-unit id="auroraDatabase">
+        <source>Aurora-tietokanta</source>
+        <target>Aurora-databasen</target>
+      </trans-unit>
+      <trans-unit id="fundingCallSource">
+        <source>Rahoitushaun lähde</source>
+        <target>Utlysningsinformationens källa</target>
+      </trans-unit>
+      <trans-unit id="openFundingCalls">
+        <source>Avoimet rahoitushaut</source>
+        <target>Öppna utlysningar</target>
+      </trans-unit>
+      <trans-unit id="openCalls">
+        <source>Avoimet haut</source>
+        <target>Öppna utlysningar</target>
+      </trans-unit>
+      <trans-unit id="futureCalls">
+        <source>Tulevat haut</source>
+        <target>Kommande utlysningar</target>
+      </trans-unit>
+      <trans-unit id="closedCalls">
+        <source>Menneet haut</source>
+        <target>Avslutade utlysningar</target>
+      </trans-unit>
+      <trans-unit id="continuousCalls">
+        <source>Jatkuvat haut</source>
+        <target>Fortlöpande ansökan</target>
+      </trans-unit>
+      <trans-unit id="continuous">
+        <source>Jatkuva</source>
+        <target>Fortlöpande</target>
+      </trans-unit>
+      <trans-unit id="dateRangeStart">
+        <source>Haku alkaa aikaisintaan</source>
+        <target>Ansökningstiden börjar tidigast</target>
+      </trans-unit>
+      <trans-unit id="startsEarliest">
+        <source>Alkaa aikaisintaan</source>
+        <target>Börjar tidigast</target>
+      </trans-unit>
+      <trans-unit id="startDate">
+        <source>Aloituspäivä</source>
+        <target>Startdatum</target>
+      </trans-unit>
+      <trans-unit id="dateRangeEnd">
+        <source>Haku päättyy viimeistään</source>
+        <target>Ansökningstiden går ut senast</target>
+      </trans-unit>
+      <trans-unit id="closesLatest">
+        <source>Päättyy viimeistään</source>
+        <target>Går ut senast</target>
+      </trans-unit>
+      <trans-unit id="endDate">
+        <source>Päättymispäivä</source>
+        <target>Slutdatum</target>
+      </trans-unit>
+      <trans-unit id="fundingCallBeta">
+        <source>Rahoitushaut ovat uusi tietokokonaisuus Tiedejatutkimus.fi-palvelussa. Tiedot haetaan automaattisesti Aurora-tietokannasta. Otamme mielellämme vastaan palautetta rahoitushakukokonaisuuden toimivuudesta: tiedejatutkimus@csc.fi</source>
+        <target>Forskningsfinansiering är ett nytt avsnitt i Forskning.fi. Informationen om finansieringsutlysningar hämtas automatiskt från Aurora-databasen. All feedback är välkommen: tiedejatutkimus@csc.fi</target>
+      </trans-unit>
+      <trans-unit id="applicationPeriod">
+        <source>Hakuaika</source>
+        <target>Ansökningstid</target>
+      </trans-unit>
+      <trans-unit id="fundingCallPeriodTooltip">
+        <source>Aika, jolloin rahoitushaku on käynnissä. Voit rajata hakuaikaa rahoitushaun alkamis- ja päättymispäivämäärän tai vuoden mukaan.</source>
+        <target>Den tid då finansieringsansökan pågår. Du kan begränsa söktiden enligt ansökningstidens start- och slutdatum eller enligt år.</target>
+      </trans-unit>
+      <trans-unit id="fundingCallStatus">
+        <source>Rahoitushaun tila</source>
+        <target>Finansieringsansökans status</target>
+      </trans-unit>
+      <trans-unit id="fundingCallStatusTooltip">
+        <source>Tutkimustietovarannossa hakuja seurataan päivän tarkkuudella. Haun päättymisen kellonaika kerrotaan hakuilmoituksessa tai rahoittajan palvelussa.</source>
+        <target>Sökningarna i Datalagret för forskningsinformation följs upp med en dags noggrannhet. Tidpunkten för när ansökan avslutas anges i annonsen eller i finansiärens tjänst.</target>
+      </trans-unit>
+      <trans-unit id="fundingCallCategory">
+        <source>Hakuala</source>
+        <target>Ämnesområde</target>
+      </trans-unit>
+      <trans-unit id="fundingCallCategories">
+        <source>Hakualat</source>
+        <target>Ämnesområden</target>
+      </trans-unit>
+      <trans-unit id="fundingCallCategoryTooltip">
+        <source>Tieteen ja taiteen rahoitustietokanta Auroran hakualakoodiston mukaiset hakualat vastaavat suurelta osin tieteenaloja.</source>
+        <target>Ämnesområdena i finansieringsdatabasen för vetenskap och konst Aurora motsvarar till stor del vetenskapsområdena.</target>
+      </trans-unit>
+      <trans-unit id="fundingCallFunderTooltip">
+        <source>Rahoitushausta vastaava tutkimusrahoittaja.</source>
+        <target>Forskningsfinansiär som ansvarar för finansieringsansökan.</target>
+      </trans-unit>
       <!-- Filters -->
       <trans-unit id="filterSearchHeader">
         <source>Rajaa hakua</source>
@@ -3303,6 +3436,10 @@
       <trans-unit id="FAField">
         <source>Teemat</source>
         <target state="translated">Teman</target>
+      </trans-unit>
+      <trans-unit id="FAResearchFields">
+        <source>Suomen Akatemian tutkimusalat</source>
+        <target>Finlands Akademis forskningsområden</target>
       </trans-unit>
       <trans-unit id="iYearFTooltip">
         <source>Tutkimusinfrastruktuurin toiminnan aloitusvuosi. Jos aloitusvuosi ei ole tiedossa, käytetään vuotta jolloin tiedot on toimitettu tiedejatutkimus.fi-palveluun.</source>

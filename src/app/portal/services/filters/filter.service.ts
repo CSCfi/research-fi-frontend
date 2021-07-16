@@ -35,19 +35,21 @@ export class FilterService {
   funderFilter: any;
   typeOfFundingFilter: any;
   fundingSchemeFilter: any;
-  statusFilter: object;
   fundingAmountFilter: any;
   openAccessFilter: any;
   internationalCollaborationFilter: any;
   coPublicationFilter: any;
   sectorFilter: any;
-  faFieldFilter: any;
+  topicFilter: any;
   organizationFilter: any;
   dataSourceFilter: any;
   accessTypeFilter: any;
   typeFilter: any;
   infraFieldFilter: any;
   currentFilters: any;
+  dateFilter: any;
+  fundingCallCategoryFilter: any;
+  statusFilter: any;
 
   private filterSource = new BehaviorSubject({
     toYear: [],
@@ -69,13 +71,15 @@ export class FilterService {
     scheme: [],
     fundingStatus: [],
     fundingAmount: [],
-    faFieldFilter: [],
+    topicFilter: [],
     sector: [],
     organization: [],
     dataSource: [],
     accessType: [],
     type: [],
     coPublication: [],
+    date: [],
+    status: [],
   });
   filters = this.filterSource.asObservable();
   localeC: string;
@@ -103,13 +107,15 @@ export class FilterService {
     scheme: any[];
     fundingStatus: any[];
     fundingAmount: any[];
-    faFieldFilter: any[];
+    topicFilter: any[];
     sector: any[];
     organization: any[];
     dataSource: any[];
     accessType: any[];
     type: any[];
     coPublication: any[];
+    date: any[],
+    status: any[],
   }) {
     // Create new filters first before sending updated values to components
     this.currentFilters = filters;
@@ -223,21 +229,30 @@ export class FilterService {
         .flat()
         .filter((x) => x)
         .sort(),
-      faField: [source.faField]
+      topic: [source.topic]
         .flat()
         .filter((x) => x)
         .sort(),
       // Datasets
       dataSource: [source.dataSource]
-      .flat()
-      .filter((x) => x)
-      .sort(),
+        .flat()
+        .filter((x) => x)
+        .sort(),
       accessType: [source.accessType]
-      .flat()
-      .filter((x) => x)
-      .sort(),
+        .flat()
+        .filter((x) => x)
+        .sort(),
       // Infrastructures
       type: [source.type]
+        .flat()
+        .filter((x) => x)
+        .sort(),
+      // Funding calls
+      date: [source.date]
+        .flat()
+        .filter((x) => x)
+        .sort(),
+      status: [source.status]
         .flat()
         .filter((x) => x)
         .sort(),
@@ -279,9 +294,10 @@ export class FilterService {
     this.countryCodeFilter = this.filterByCountryCode(filter.countryCode);
     this.langFilter = this.basicFilter(filter.lang, 'languages.languageCode');
     this.openAccessFilter = this.filterByOpenAccess(filter.openAccess);
-    this.internationalCollaborationFilter = this.filterByInternationalCollaboration(
-      filter.internationalCollaboration
-    );
+    this.internationalCollaborationFilter =
+      this.filterByInternationalCollaboration(
+        filter.internationalCollaboration
+      );
     this.coPublicationFilter = this.customValueFilter(
       filter.coPublication,
       'publicationStatusCode.keyword',
@@ -300,10 +316,10 @@ export class FilterService {
       filter.scheme,
       'keywords.scheme.keyword'
     );
-    this.faFieldFilter = this.basicFilter(
-      filter.faField,
+    this.topicFilter = this.basicFilter(
+      filter.topic,
       'keywords.keyword.keyword'
-    ); // Finnish Academy field
+    );
     // Datasets
     this.dataSourceFilter = this.basicFilter(
       filter.dataSource,
@@ -313,10 +329,7 @@ export class FilterService {
       filter.accessType,
       'accessType.keyword'
     );
-    this.langFilter = this.basicFilter(
-      filter.lang,
-      'languages.languageCode'
-    );
+    this.langFilter = this.basicFilter(filter.lang, 'languages.languageCode');
     // Infrastructure
     this.typeFilter = this.basicFilter(
       filter.type,
@@ -328,6 +341,13 @@ export class FilterService {
     );
     // Organization
     this.sectorFilter = this.filterBySector(filter.sector);
+    // FundingCalls
+    this.dateFilter = this.filterByDateRange(filter.date)
+    this.statusFilter = this.filterByStatus(filter.status)
+    this.fundingCallCategoryFilter = this.basicFilter(
+      filter.field,
+      'categories.codeValue.keyword'
+    );
   }
 
   // Regular terms filter
@@ -391,8 +411,71 @@ export class FilterService {
     } else if (t) {
       res.push({ range: { publicationYear: { lte: t } } });
     }
-
+    
     return res;
+  }
+  
+  filterByDateRange(dateStrings: string[]) {
+    const res = [];
+    dateStrings.forEach(dateString => {
+      // Date string format: yyyy-mm-dd|yyyy-mm-dd
+      const split = dateString.split('|');
+      const from = split[0];
+      const to = split[1];
+
+      const f = from ? new Date(from).toLocaleDateString('sv') : undefined; // sv locale uses dashes and correct order
+      const t = to ? new Date(to).toLocaleDateString('sv') : undefined;
+      if (f) {
+        res.push({ range: { callProgrammeOpenDate: {gte: f }}});
+      }
+      if (t) {
+        res.push({ range: { callProgrammeDueDate: { lte: t } } });
+      }
+    })
+    return res
+  }
+
+  filterByStatus(filter: string[]) {
+    const now = new Date().toLocaleDateString('sv');
+    const noDate = '1900-01-01'
+    const res = [];
+    filter.forEach(s => {
+      switch(s) {
+        case 'open': {
+          // Open
+          let arr = [];
+          arr.push({ range: { callProgrammeOpenDate: {lte: now }}});
+          arr.push({ range: { callProgrammeDueDate: {gte: now }}});
+          res.push(arr);
+          arr = [];
+          // Continuous
+          arr.push({ range: { callProgrammeDueDate: {lte: noDate }}});
+          res.push(arr);
+          break;
+        }
+        case 'closed': {
+          const arr = [];
+          arr.push({ range: { callProgrammeDueDate: {gt: noDate }}});
+          arr.push({ range: { callProgrammeDueDate: {lt: now }}});
+          res.push(arr);
+          break;
+        }
+        case 'future': {
+          const arr = [];
+          arr.push({ range: { callProgrammeOpenDate: {gt: now }}});
+          res.push(arr);
+          break;
+        }
+        // Combined with open calls
+        case 'continuous': {
+          const arr = [];
+          arr.push({ range: { callProgrammeDueDate: {lte: noDate }}});
+          res.push(arr);
+          break;
+        }
+      }
+    })
+    return res
   }
 
   filterByOrganization(filter: any[]) {
@@ -425,8 +508,7 @@ export class FilterService {
         break;
       }
       case 'datasets': {
-        const filterString =
-          'actor.sector.organization.organizationId.keyword';
+        const filterString = 'actor.sector.organization.organizationId.keyword';
         filter.forEach((value) => {
           res.push({ term: { [filterString]: value } });
         });
@@ -449,6 +531,13 @@ export class FilterService {
       case 'news': {
         filter.forEach((value) => {
           res.push({ term: { 'organizationId.keyword': value } });
+        });
+        break;
+      }
+      case 'funding-calls': {
+        const field = 'foundation.businessId.keyword';
+        filter.forEach((value) => {
+          res.push({ term: { [field]: value } });
         });
         break;
       }
@@ -636,6 +725,21 @@ export class FilterService {
         : [];
     };
 
+    const rangeFilter = (i, f) => {
+      return index === i
+      ? f?.length 
+      ? [{ bool: { should: { bool: { filter: f } } } } ] : []
+      : [];
+    }
+
+    const multipleRangeFilter = (i, f) => {
+      const shouldArr = f?.map(range => range = { bool: { filter: range } } );
+      return index === i
+      ? f?.length
+      ? [{bool: {should: shouldArr } }] : []
+      : [];
+    }
+
     const coPublicationOrgs = () => {
       if (this.coPublicationFilter[0]) {
         const res = [];
@@ -714,7 +818,7 @@ export class FilterService {
         : []),
       ...basicFilter('funding', this.funderFilter),
       ...basicFilter('funding', this.typeOfFundingFilter),
-      ...basicFilter('funding', this.faFieldFilter),
+      ...nestedFilter('funding', this.topicFilter, 'keywords'),
       ...nestedFilter('funding', this.fieldFilter, 'fieldsOfScience'),
       ...basicFilter('funding', this.fundingSchemeFilter),
       ...basicFilter('funding', this.statusFilter),
@@ -741,6 +845,12 @@ export class FilterService {
 
       // News
       ...basicFilter('news', this.organizationFilter),
+      
+      // FundingCalls
+      ...basicFilter('funding-call', this.organizationFilter),
+      ...nestedFilter('funding-call', this.fundingCallCategoryFilter, 'categories'),
+      ...rangeFilter('funding-call', this.dateFilter),
+      ...multipleRangeFilter('funding-call', this.statusFilter),
 
       // Global filters
       ...globalFilter(this.yearFilter),
@@ -806,6 +916,23 @@ export class FilterService {
 
   constructNewsPayload(searchTerm: string) {
     const query = this.constructQuery('news', searchTerm);
+    return query;
+  }
+
+  // Get open calls
+  constructFundingCallPayload() {
+    const today = new Date().toLocaleDateString('sv');
+    const query = {
+      bool: {
+        must: [
+          { term: { _index: 'funding-call' } },
+          { bool: { filter: [
+            { range: { callProgrammeOpenDate: { lte: today } } },
+            { range: { callProgrammeDueDate:  { gte: today } } },
+          ]}}
+        ]
+      }
+    }
     return query;
   }
 

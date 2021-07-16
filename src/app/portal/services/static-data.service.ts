@@ -346,6 +346,7 @@ export class StaticDataService {
     404: $localize`Haluttua tietoa ei ole olemassa`,
     405: $localize`:@@forbiddenRequest:Pyyntömetodi ei ole sallittu`,
     500: $localize`Palvelinvirhe. Palvelimella tapahtui virhe pyyntöä käsitellessä`,
+    default: $localize`HTTP pyyntöä ei voitu käsitellä`,
   };
 
   constructor() {}
@@ -402,7 +403,6 @@ export class StaticDataService {
           'funderNameEn',
           'funderNameSv',
           'funderNameUnd',
-          '',
           'typeOfFundingId',
           'typeOfFundingNameFi',
           'typeOfFundingNameEn',
@@ -413,6 +413,7 @@ export class StaticDataService {
           'callProgrammeHomepage',
           'callProgrammeUnd',
           'funderProjectNumber',
+          'relatedFunding.funderProjectNumber',
           'keywords.keyword',
           'keyword.scheme',
           'fundedNameFi',
@@ -451,20 +452,30 @@ export class StaticDataService {
           'descriptionFi',
           'descriptionEn',
           'descriptionSv',
-          'scientificDescription',
+          'scientificDescriptionFi',
+          'scientificDescriptionSv',
+          'scientificDescriptionEn',
           'startYear',
           'acronym',
           'responsibleOrganizationNameFi',
           'responsibleOrganizationNameEn',
           'responsibleOrganizationNameSv',
-          'keywords.keyword',
-          'services.serviceName',
-          'services.serviceDescription',
+          'keywordsFi.keyword',
+          'keywordsSv.keyword',
+          'keywordsEn.keyword',
+          'services.serviceNameFi',
+          'services.serviceNameSv',
+          'services.serviceNameEn',
+          'services.serviceDescriptionFi',
+          'services.serviceDescriptionSv',
+          'services.serviceDescriptionEn',
           'services.serviceType',
           'services.servicePointName',
           'services.serviceAcronym',
           'services.servicePointEmailAddress',
-          'services.servicePointInfoUrl',
+          'services.servicePointInfoUrlFi',
+          'services.servicePointInfoUrlEn',
+          'services.servicePointInfoUrlSv',
           'services.servicePointPhoneNumber',
           'services.servicePointVisitingAddress',
         ];
@@ -488,6 +499,20 @@ export class StaticDataService {
       }
       case 'news': {
         res = ['newsHeadline', 'newsContent', 'organizationNameFi'];
+        break;
+      }
+      case 'funding-call': {
+        res = [
+          'nameFi^2',
+          'nameEn^2',
+          'nameSv^2',
+          'descriptionFi',
+          'descriptionSv',
+          'descriptionEn',
+          'foundation.nameFi',
+          'foundation.nameSv',
+          'foundation.nameEn',
+        ];
         break;
       }
     }
@@ -526,6 +551,7 @@ export class StaticDataService {
           'fundingGroupPerson.consortiumOrganizationNameSv',
           'fundingGroupPerson.roleInFundingGroup',
           'fundingGroupPerson.consortiumProject',
+          'keywords.keyword',
         ];
         break;
       }
@@ -537,7 +563,7 @@ export class StaticDataService {
           'actor.sector.organization.organizationUnit.organizationUnitNameFi',
           'actor.sector.organization.organizationUnit.organizationUnitNameEn',
           'actor.sector.organization.organizationUnit.organizationUnitNameSv',
-          'actor.sector.organization.organizationUnit.person.authorFullName'
+          'actor.sector.organization.organizationUnit.person.authorFullName',
         ];
         break;
       }
@@ -595,9 +621,7 @@ export class StaticDataService {
         break;
       }
       case 'dataset': {
-        res = [
-          'actor.sector.organization.organizationId',
-        ];
+        res = ['actor.sector.organization.organizationId'];
         break;
       }
     }
@@ -651,11 +675,7 @@ export class StaticDataService {
             break;
           }
           case 'dataset': {
-            res = [
-              'nameFi',
-              'nameSv',
-              'nameEn',
-            ];
+            res = ['nameFi', 'nameSv', 'nameEn'];
             break;
           }
           case 'infrastructure': {
@@ -847,7 +867,7 @@ export class StaticDataService {
             res = [
               'actor.sector.organization.organizationNameFi',
               'actor.sector.organization.organizationNameEn',
-              'actor.sector.organization.organizationNameSv'
+              'actor.sector.organization.organizationNameSv',
             ];
             break;
           }

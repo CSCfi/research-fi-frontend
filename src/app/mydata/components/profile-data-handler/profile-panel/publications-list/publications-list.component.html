@@ -1,0 +1,93 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<mat-table
+  matSort
+  (matSortChange)="sortData($event)"
+  [dataSource]="data"
+  matSortActive="year"
+  [matSortDirection]="
+    sortSettings ? sortSettings.publicationYear.order : 'desc'
+  "
+>
+  <ng-container matColumnDef="selection">
+    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+    <mat-cell *matCellDef="let item; let i = index">
+      <mat-checkbox
+        [checked]="selectedItemsIdArray.indexOf(item._source.id) > -1"
+        (change)="togglePublication($event, i)"
+      ></mat-checkbox>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="year">
+    <mat-header-cell *matHeaderCellDef mat-sort-header="year" disableClear>
+      Vuosi</mat-header-cell
+    >
+    <mat-cell *matCellDef="let item">
+      {{ item._source.publicationYear }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef> Nimi </mat-header-cell>
+    <mat-cell *matCellDef="let item; let i = index">
+      <div
+        class="row"
+        [class.text-overflow-ellipsis]="showMoreArray.indexOf(i) === -1"
+      >
+        {{ item._source.publicationName }}
+      </div>
+      <!-- TODO: Check empty and loop -->
+      <ng-container *ngIf="showMoreArray.indexOf(i) > -1">
+        <div class="row mt-2 font-size-small">
+          {{ item._source.authorsText }}
+        </div>
+        <div class="row mt-2 font-size-small">
+          {{ item._source.parentPublicationName }}
+        </div>
+        <div class="row mt-2 font-size-small">
+          {{ item._source.doi }}
+        </div>
+      </ng-container>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="edit">
+    <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+    <mat-cell *matCellDef="let item; let i = index">
+      <a
+        *ngIf="showMoreArray.indexOf(i) === -1"
+        href="javascript:void(0)"
+        (click)="showMore(i)"
+        >Näytä lisää</a
+      >
+      <a
+        *ngIf="showMoreArray.indexOf(i) > -1"
+        href="javascript:void(0)"
+        (click)="showLess(i)"
+        >Näytä vähemmän</a
+      >
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>
+
+<div class="row">
+  <div class="col-auto px-0 font-size-smaller mt-3">
+    Sivu {{ currentPage }} / {{ pageCount }}
+  </div>
+  <div class="col px-0">
+    <mat-paginator
+      [length]="total"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      (page)="navigate($event)"
+    >
+    </mat-paginator>
+  </div>
+</div>

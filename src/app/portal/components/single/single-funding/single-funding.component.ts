@@ -58,7 +58,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     {
       label: $localize`Päättymisvuosi`,
       field: 'endYear',
-      tooltip: $localize`:@@sfEndYearTooltip:Rahoituskauden päättymisvuosi.`,
+      tooltip: $localize`:@@sfEndYearTooltip:Rahoituskauden päättymisvuosi. Useamman päätöksen kokonaisuudessa viimeisimmän päätöksen päättymisvuosi.`,
     },
   ];
 
@@ -78,7 +78,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
 
   other = [
     {
-      label: $localize`Rahoituspäätöksen numero`,
+      label: $localize`:@@funderProjectNumber:Rahoituspäätöksen numero`,
       field: 'funderProjectNumber',
     },
     {
@@ -101,11 +101,11 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   };
 
   fundingAmountTooltip = {
-    tooltip: $localize`Rahoittajan rahoituspäätöksessään myöntämä rahoitus. Summa ei sisällä hankkeen kaikkia kustannuksia. Organisaatio, jossa hanke toteutetaan, voi rahoittaa siitä tietyn osan (ns. omarahoitusosuus) ja hankkeella voi olla muitakin rahoittajia.`,
+    tooltip: $localize`:@@fundingAmountTooltip:Rahoittajan hankkeelle myöntämä yhteissumma. Summa ei sisällä hankkeen kaikkia kustannuksia. Organisaatio, jossa hanke toteutetaan, voi rahoittaa siitä tietyn osan (ns. omarahoitusosuus) ja hankkeella voi olla muitakin rahoittajia.`,
   };
 
   relatedFundingsTooltip = {
-    tooltip: 'Placeholder tooltip',
+    tooltip: $localize`:@@relatedFundingTooltip:Rahoituspäätökseen liittyvät muut päätökset, kuten esimerkiksi samalle hankkeelle myönnetty tutkimuskulurahoitus. Sisältää tiedot liittyvän päätöksen tunnisteesta, rahoitusmuodosta, aloitusvuodesta sekä myönnetyn rahoituksen määrästä.`,
   };
 
   funderTooltip = {
@@ -121,6 +121,8 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   };
 
   cordisLink = 'https://cordis.europa.eu/programme/id/';
+  cordisProjectLink = 'https://cordis.europa.eu/project/id/';
+  euraLink = 'https://www.eura2014.fi/rrtiepa/projekti.php?projektikoodi=';
 
   errorMessage = [];
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
@@ -268,9 +270,10 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
       this.funder.filter((item) => checkNestedEmpty('funder', item))
     );
     // Filter out empty organization names
-    this.responseData.fundings[0].recipient.organizations = this.responseData.fundings[0].recipient.organizations.filter(
-      (item) => item.name !== '' && item.name !== null
-    );
+    this.responseData.fundings[0].recipient.organizations =
+      this.responseData.fundings[0].recipient.organizations.filter(
+        (item) => item.name !== '' && item.name !== null
+      );
 
     // Filter funderProjectNumber from links for non eu funding
     if (!this.responseData.fundings[0].euFunding) {

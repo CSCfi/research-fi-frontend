@@ -13,7 +13,15 @@ import {
 import { ProfileService } from 'src/app/mydata/services/profile.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { take } from 'rxjs/operators';
-import { ModalDirective } from 'ngx-bootstrap/modal';
+import {
+  BsModalRef,
+  BsModalService,
+  ModalDirective,
+} from 'ngx-bootstrap/modal';
+import { Router } from '@angular/router';
+
+// Remove in production
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   selector: 'app-welcome-stepper',
@@ -22,7 +30,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
   encapsulation: ViewEncapsulation.None,
 })
 export class WelcomeStepperComponent implements OnInit {
-  step = 1;
+  step = 4;
   cancel = false;
 
   termsApproved = false;
@@ -33,21 +41,27 @@ export class WelcomeStepperComponent implements OnInit {
 
   userData: any;
   firstName: string;
-  editorData: Object;
 
   @ViewChild('smModal') smModal: ModalDirective;
+  @ViewChild('termsTemplate') termsTemplate: ModalDirective;
+  modalRef: BsModalRef;
 
   profileCreated: boolean;
-  orcidData: Object;
+  profileData: Object;
 
   constructor(
     private profileService: ProfileService,
-    public oidcSecurityService: OidcSecurityService
+    public oidcSecurityService: OidcSecurityService,
+    private modalService: BsModalService,
+    private router: Router,
+    private appSettingsService: AppSettingsService
   ) {
-    this.editorData = null;
+    this.profileData = null;
   }
 
   ngOnInit() {
+    this.step = this.appSettingsService.myDataSettings.develop ? 4 : 1;
+
     this.oidcSecurityService.userData$.pipe(take(1)).subscribe((data) => {
       this.userData = data;
       this.firstName = data?.name.split(' ')[0];
@@ -58,6 +72,8 @@ export class WelcomeStepperComponent implements OnInit {
     // Fetch data if on step 3 and user has initialized Orcid data fetch
     if (this.step === 3 && direction === 'increment') {
       this.fetchData();
+    } else if (this.step === 4 && direction === 'increment') {
+      this.router.navigate(['/mydata/profile']);
     } else {
       direction === 'increment' ? this.increment() : this.decrement();
     }
@@ -75,6 +91,14 @@ export class WelcomeStepperComponent implements OnInit {
     this.cancel = !this.cancel;
   }
 
+  openModal(template) {
+    this.modalRef = this.modalService.show(template);
+  }
+
+  closeModal() {
+    this.modalRef.hide();
+  }
+
   fetchData() {
     this.smModal.show();
     this.checkProfileExists();
@@ -86,8 +110,10 @@ export class WelcomeStepperComponent implements OnInit {
       .pipe(take(1))
       .subscribe((data: any) => {
         if (data.ok) {
-          // TODO: Redirect to profile component when component is available
-          data.body.success ? this.getOrcidData() : this.createProfile();
+          data.body.success
+            ? // ? this.router.navigate(['/profile'])
+              this.getProfileData()
+            : this.createProfile();
         } else {
           console.log('Connection problem');
         }
@@ -120,22 +146,11 @@ export class WelcomeStepperComponent implements OnInit {
   }
 
   getProfileData() {
-    this.editorData = null;
+    this.profileData = null;
     this.profileService.getProfileData().subscribe((data) => {
-      this.orcidData = data;
-      this.editorData = data;
+      this.profileData = data;
       this.smModal.hide();
       this.increment();
     });
-  }
-
-  patchProfileDataSingle(item) {
-    let patchItem = {
-      id: item.id,
-      show: !item.show,
-    };
-    this.profileService
-      .patchProfileDataSingle(patchItem)
-      .subscribe((data) => console.log(data));
   }
 }

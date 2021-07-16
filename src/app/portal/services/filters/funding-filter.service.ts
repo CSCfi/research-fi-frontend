@@ -54,13 +54,21 @@ export class FundingFilterService {
       limitHeight: false,
       tooltip: $localize`:@@fFieldsOfScienceTooltip:Tilastokeskuksen tieteenalaluokitus. Yhteen hankkeeseen voi liittyä useita tieteenaloja. Kaikki rahoittajat eivät käytä tieteenaloja. Siksi suodatinta käyttämällä ei voi selvittää jonkin tieteenalan osuutta kokonaisrahoituksesta.`,
     },
-    // {field: 'scheme', label: 'Teema-ala', hasSubFields: false, limitHeight: false, open: true,
-    // tooltip: 'Teema-ala on tutkimusrahoittajan oma tapa luokitella rahoittamaansa tutkimusta.'}
+    // {
+    //   field: 'scheme',
+    //   label: 'Teema-ala',
+    //   hasSubFields: false,
+    //   limitHeight: false,
+    //   open: true,
+    //   tooltip:
+    //     'Teema-ala on tutkimusrahoittajan oma tapa luokitella rahoittamaansa tutkimusta.',
+    // },
     {
-      field: 'faField',
-      label: $localize`:@@FAField:Teemat`,
-      hasSubFields: false,
+      field: 'topic',
+      label: $localize`:@@funderTopic:Aihe`,
+      hasSubFields: true,
       open: true,
+      searchFromParent: true,
     },
   ];
 
@@ -84,6 +92,7 @@ export class FundingFilterService {
 
   shapeData(data) {
     const source = data.aggregations;
+
     if (!source.shaped) {
       // Year
       source.year.buckets = this.mapYear(source.year.years.buckets);
@@ -101,7 +110,7 @@ export class FundingFilterService {
       // Field of science
       source.field.buckets = this.minorField(source.field.fields.buckets);
       // Finnish Academy field
-      source.faField = source.faField.faFields;
+      source.topic.buckets = this.mapTopic(source.topic.scheme.buckets);
       source.fundingStatus.buckets = this.onGoing(
         source.fundingStatus.status.buckets
       );
@@ -208,14 +217,16 @@ export class FundingFilterService {
   }
 
   typeOfFunding(d) {
+    const locale = this.currentLocale;
+
     // Copy data and check that localized data exists. If not, default to english
     const data = [...d];
     data.forEach((item) => {
-      if (!item['header' + this.currentLocale].buckets.length) {
-        item['header' + this.currentLocale] = item.headerEn;
-        item['header' + this.currentLocale].buckets.forEach((type) => {
-          if (!type['typeName' + this.currentLocale].buckets.length) {
-            type['typeName' + this.currentLocale] = type.typeNameEn;
+      if (!item['header' + locale].buckets.length) {
+        item['header' + locale] = item.headerEn;
+        item['header' + locale].buckets.forEach((type) => {
+          if (!type['typeName' + locale].buckets.length) {
+            type['typeName' + locale] = type.typeNameEn;
           }
         });
       }
@@ -223,11 +234,11 @@ export class FundingFilterService {
     // Map sub items
     data.map((item) => {
       item.id = item.key;
-      item.key = item['header' + this.currentLocale].buckets[0].key;
-      item.subData =
-        item['header' + this.currentLocale].buckets[0][
-          'typeName' + this.currentLocale
-        ].buckets;
+      item.key = item['header' + locale].buckets[0].key;
+      item.subData = item['header' + locale].buckets[0]['typeName' + locale]
+        .buckets.length
+        ? item['header' + locale].buckets[0]['typeName' + locale].buckets
+        : item['headerEn'].buckets[0]['typeNameEn'].buckets;
       item.subData.map((type) => {
         (type.label = type.label ? type.label : type.key),
           (type.key = type.typeId.buckets[0].key),
@@ -237,6 +248,7 @@ export class FundingFilterService {
 
     // Rearrange with custom order
     const rearranged = [];
+
     data.forEach((item) => {
       switch (item.id) {
         case '0004': {
@@ -254,6 +266,9 @@ export class FundingFilterService {
         case '0003': {
           rearranged.push(item);
           break;
+        }
+        default: {
+          rearranged.push(item);
         }
       }
     });
@@ -281,6 +296,37 @@ export class FundingFilterService {
       res = [];
     }
     return res;
+  }
+
+  mapTopic(data) {
+    data.forEach((item) => {
+      item.subData = item.keywords.buckets.filter(
+        (x) => x.filtered.filterCount.doc_count > 0
+      );
+
+      item.subData.map(
+        (x) => (
+          (x.label = x.key), (x.doc_count = x.filtered.filterCount.doc_count)
+        )
+      );
+
+      switch (item.key) {
+        case 'Avainsana': {
+          item.key = $localize`:@@keywords:Avainsanat`;
+          break;
+        }
+        case 'Teema-ala': {
+          item.key = $localize`:@@FAField:Teemat`;
+          break;
+        }
+        case 'Tutkimusala': {
+          item.key = $localize`:@@FAResearchFields:Suomen Akatemian tutkimusalat`;
+          break;
+        }
+      }
+    });
+
+    return data;
   }
 
   onGoing(data) {

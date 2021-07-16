@@ -3,7 +3,7 @@
 @mixin app-results-theme-shared($theme) {
   $primary: map-get($theme, primary);
 
-  app-results {
+  app-results, app-funding-calls {
     h3 {
       color: mat-contrast($primary, 200);
     }
@@ -31,7 +31,8 @@
     app-datasets,
     app-infrastructures,
     app-organizations,
-    app-related-results {
+    app-related-results, 
+    app-funding-call-results {
       .row.expand {
         background: mat-color($primary, 50);
       }

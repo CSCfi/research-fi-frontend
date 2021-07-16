@@ -36,7 +36,7 @@ describe('FilterService', () => {
     filters = {
       coPublication: ['true'],
       countryCode: ['c1'],
-      faField: ['Biolääketieteet'],
+      topic: ['Biolääketieteet'],
       field: ['115'],
       fromYear: ['2016'],
       funder: ['2066823-5'],

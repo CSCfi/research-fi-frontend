@@ -187,11 +187,12 @@ export class UtilityService {
     this.meta.updateTag({ name: 'twitter:description', content: description });
     this.meta.updateTag({
       name: 'twitter:image',
-      content: 'https://tiedejatutkimus.fi/fi/assets/img/logo.jpg',
+      content: 'https://tiedejatutkimus.fi/fi/assets/img/Tiedejatutkimus.fi_logo.png',
     });
   }
 
   uniqueArray(arr: any[], key: (any) => any = x => x) {
+    if (!arr) return undefined;
     const seen = new Set();
     return arr.filter(item => {
       const k = key(item);

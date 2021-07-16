@@ -23,6 +23,7 @@ export class SingleItemService {
   datasetApiUrl = '';
   organizationApiUrl = '';
   infrastructureApiUrl = '';
+  fundingCallApiUrl = '';
   private getIdSubject = new Subject<string>();
   currentId = this.getIdSubject.asObservable();
   resultId: string;
@@ -39,6 +40,7 @@ export class SingleItemService {
     this.datasetApiUrl = this.apiUrl + 'dataset/_search';
     this.organizationApiUrl = this.apiUrl + 'organization/_search';
     this.infrastructureApiUrl = this.apiUrl + 'infrastructure/_search';
+    this.fundingCallApiUrl = this.apiUrl + 'funding-call/_search';
   }
 
   updateId(singleId: string) {
@@ -93,10 +95,21 @@ export class SingleItemService {
     return this.http
       .post<Search>(
         this.infrastructureApiUrl,
-        this.constructPayload('nameFi', id)
+        this.constructPayload('nameFi', decodeURIComponent(id)) // Decode escaped url characters with actual characters, elasticsearch match query doesn't work properly with escaped characters
       )
       .pipe(
         map((data: any) => this.searchAdapter.adapt(data, 'infrastructures'))
+      );
+  }
+
+  getSingleFundingCall(id): Observable<Search> {
+    return this.http
+      .post<Search>(
+        this.fundingCallApiUrl,
+        this.constructPayload('id', id)
+      )
+      .pipe(
+        map((data: any) => this.searchAdapter.adapt(data, 'funding-calls'))
       );
   }
 

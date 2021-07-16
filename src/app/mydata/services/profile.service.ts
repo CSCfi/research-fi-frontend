@@ -9,8 +9,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { AppConfigService } from 'src/app/shared/services/app-config-service.service';
-import { Orcid, OrcidAdapter } from '@mydata/models/orcid.model';
+import { Profile, ProfileAdapter } from '@mydata/models/profile.model';
 import { map } from 'rxjs/operators';
+import testData from 'src/testdata/mydataprofiledata.json';
 
 @Injectable({
   providedIn: 'root',
@@ -19,11 +20,13 @@ export class ProfileService {
   apiUrl: string;
   httpOptions: object;
 
+  testData = testData;
+
   constructor(
     private http: HttpClient,
     private appConfigService: AppConfigService,
     public oidcSecurityService: OidcSecurityService,
-    private orcidAdapter: OrcidAdapter
+    private profileAdapter: ProfileAdapter
   ) {
     this.apiUrl = this.appConfigService.profileApiUrl;
   }
@@ -42,13 +45,13 @@ export class ProfileService {
 
   checkProfileExists() {
     this.updateTokenInHttpAuthHeader();
-    return this.http.get(this.apiUrl + '/researcherprofile/', this.httpOptions);
+    return this.http.get(this.apiUrl + '/userprofile/', this.httpOptions);
   }
 
   createProfile() {
     this.updateTokenInHttpAuthHeader();
     return this.http.post(
-      this.apiUrl + '/researcherprofile/',
+      this.apiUrl + '/userprofile/',
       null,
       this.httpOptions
     );
@@ -56,10 +59,7 @@ export class ProfileService {
 
   deleteProfile() {
     this.updateTokenInHttpAuthHeader();
-    return this.http.delete(
-      this.apiUrl + '/researcherprofile/',
-      this.httpOptions
-    );
+    return this.http.delete(this.apiUrl + '/userprofile/', this.httpOptions);
   }
 
   getOrcidData() {
@@ -70,13 +70,33 @@ export class ProfileService {
   getProfileData() {
     this.updateTokenInHttpAuthHeader();
     return this.http
-      .get<Orcid[]>(this.apiUrl + '/profiledata/', this.httpOptions)
-      .pipe(map((data) => this.orcidAdapter.adapt(data)));
+      .get<Profile[]>(this.apiUrl + '/profiledata/', this.httpOptions)
+      .pipe(map((data) => this.profileAdapter.adapt(data)));
   }
 
-  patchProfileDataSingle(modificationItem) {
+  patchObjects(groups, items) {
     this.updateTokenInHttpAuthHeader();
-    let body = [modificationItem];
+    let body = { groups: groups, items: items };
+    return this.http.patch(
+      this.apiUrl + '/profiledata/',
+      body,
+      this.httpOptions
+    );
+  }
+
+  patchProfileDataSingleGroup(group) {
+    this.updateTokenInHttpAuthHeader();
+    let body = { groups: group, items: [] };
+    return this.http.patch(
+      this.apiUrl + '/profiledata/',
+      body,
+      this.httpOptions
+    );
+  }
+
+  patchProfileDataSingleItem(item) {
+    this.updateTokenInHttpAuthHeader();
+    let body = { groups: [], items: item };
     return this.http.patch(
       this.apiUrl + '/profiledata/',
       body,

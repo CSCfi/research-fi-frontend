@@ -1,0 +1,55 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<!-- Primary source -->
+<!-- <app-select
+  label="Ensisijainen lähde"
+  [options]="dataSources"
+  [labelBefore]="true"
+  [defaultToFirst]="true"
+  (onSelectionChange)="setPrimaryDataSource($event)"
+></app-select> -->
+
+<div class="row pb-3 d-flex justify-content-center">
+  <div class="col px-0">
+    <div
+      *ngFor="let item of profileData; let i = index"
+      class="p-3 mat-elevation-z1 rounded"
+      [class.opacity-3]="item.fields.length === 0"
+    >
+      <div class="row d-flex justify-content-between">
+        <div class="col font-weight-bold">
+          {{ item.label }}
+        </div>
+
+        <div class="col-auto">
+          {{
+            (item.countGroupItems
+              ? (item.fields | countGroupItems: true)
+              : (item.fields | filter: checkSelected)
+            ).length
+          }}
+
+          /
+          {{
+            (item.countGroupItems
+              ? (item.fields | countGroupItems)
+              : item.fields
+            ).length
+          }}
+          valittu
+        </div>
+
+        <a
+          href="javascript:void(0)"
+          (click)="openDialog($event, i, item.editLabel)"
+          class="col-auto"
+          [class.disabled]="item.fields.length === 0"
+          >Muokkaa...</a
+        >
+      </div>
+    </div>
+  </div>
+</div>

@@ -12,7 +12,7 @@ $researchfi-theme: mat-light-theme(
 
 // Insert custom background color
 // https://stackoverflow.com/questions/43919927/angular-material2-theming-how-to-set-app-background
-$background-color: map-get($researchfi-primary, 100);
+$background-color: map-get($researchfi-primary, default-contrast);
 $background: map-get($researchfi-theme, background);
 $background: map_merge(
   $background,
@@ -30,12 +30,25 @@ $researchfi-theme: map_merge(
 $primary: map-get($researchfi-theme, primary);
 
 html.cdk-global-scrollblock {
-  overflow: hidden !important;
+  body {
+    overflow: hidden !important;
+  }
 }
 
 body {
   color: mat-contrast($primary, 300);
   font-family: 'Roboto', sans-serif;
+}
+
+// Dont show outlines for mouse users
+body:not(.user-tabbing) {
+  button:focus,
+  input:focus,
+  select:focus,
+  textarea:focus,
+  *:focus {
+    outline: none;
+  }
 }
 
 // Override for mat select
@@ -47,7 +60,8 @@ h1,
 h2,
 h3,
 h4,
-h5 {
+h5,
+h6 {
   // color: map-get(map-get($researchfi-primary, contrast), 200);
   color: mat-contrast($primary, 200);
   // line-height: 1.5;
@@ -60,6 +74,7 @@ h1 {
 }
 h2 {
   font-size: 1.7rem;
+  font-weight: 700;
 }
 h3 {
   font-size: 1.5rem;
@@ -98,13 +113,86 @@ p a {
   text-decoration: underline;
 }
 
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+  text-decoration: none;
+  color: mat-color($primary, lighter) !important;
+}
+
 ul {
   list-style: disc;
   padding-inline-start: 1rem;
 }
 
+.uppercase {
+  text-transform: uppercase;
+}
+
+span.bold {
+  font-weight: bold;
+}
+
+.strong {
+  font-weight: bold;
+}
+
+mark,
+.mark {
+  padding: 0;
+  font-weight: 400;
+  color: mat-contrast($primary, 300);
+  background-color: #ffc000;
+}
+
+.font-size-small {
+  font-size: 0.75rem;
+}
+
+.font-size-smaller {
+  font-size: 0.875rem;
+}
+
+.font-size-big {
+  font-size: 1.025rem;
+}
+
+.font-size-bigger {
+  font-size: 1.25rem;
+}
+
+.font-weight-500 {
+  font-weight: 500;
+}
+
+// Colors
+
 .primary-color {
   color: mat-color($primary, 500);
+}
+
+.background-primary {
+  background-color: mat-color($primary, 500);
+  color: mat-contrast($primary, 500);
+}
+
+.background-light {
+  background-color: mat-color($primary, 50);
+}
+
+.border-primary {
+  border-color: mat-color($primary, 500) !important;
+}
+
+// Content
+.full-width {
+  background: mat-color($primary);
+  min-height: 3rem;
+}
+
+.wrapper {
+  max-width: 1440px;
+  margin: auto;
 }
 
 #main-content {
@@ -129,42 +217,42 @@ ul {
   padding-left: 0px !important;
 }
 
-// Disable link
-a.disabled {
-  pointer-events: none;
-  cursor: default;
-  text-decoration: none;
+.text-overflow-ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
-// Typography
-h2 {
-  font-weight: 700;
+// Buttons
+.ttv-button {
+  border-radius: 6px;
+  height: 44px;
+  font-size: 1rem;
+  padding: 0 32px;
 }
 
-.uppercase {
-  text-transform: uppercase;
+// Icons
+fa-icon[icon='external-link-alt'] {
+  padding-left: 5px;
 }
 
-span.bold {
-  font-weight: bold;
-}
-
-.strong {
-  font-weight: bold;
-}
-
-mark,
-.mark {
-  padding: 0;
-  // font-weight: bold;
-  font-weight: 400;
-  color: mat-contrast($primary, 300);
-  background-color: #ffc000;
+// Columns
+.col {
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 // Forms
 .mat-pseudo-checkbox {
   background: #fff;
+}
+
+// Multiline checkboxes
+.mat-checkbox-layout {
+  white-space: normal !important;
+}
+.mat-checkbox-inner-container {
+  margin-top: 0.25rem !important;
 }
 
 // Help icon
@@ -181,6 +269,11 @@ mark,
 // Material form field focus
 mat-form-field.mat-focused {
   outline: -webkit-focus-ring-color auto 1px;
+}
+
+// Mat-card
+body mat-card.mat-card {
+  background: mat-color($primary, 100);
 }
 
 // Tooltip
@@ -233,6 +326,12 @@ mat-basic-chip.tag {
   background: mat-color($primary, 200);
 }
 
+// Modal
+// Modal doesnt scroll page
+.modal-open modal-container.modal {
+  overflow-y: hidden;
+}
+
 // Visualisation modal
 .wide-modal {
   max-width: 97%;
@@ -257,6 +356,22 @@ mat-basic-chip.tag {
   }
 }
 
+// Mat Dialog
+.mat-dialog-container {
+  padding: 1rem !important;
+}
+
+.dialog-header {
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.mat-dialog-content {
+  max-height: 85vh !important;
+  margin: 0 -1rem !important;
+  padding: 0 !important;
+}
+
 // Opacity
 .opacity-0 {
   opacity: 0 !important;
@@ -277,6 +392,12 @@ mat-basic-chip.tag {
   opacity: 1 !important;
 }
 
+// Events
+.pointer-events-none {
+  pointer-events: none;
+}
+
+// Responsive
 @media (max-width: 575px) {
   h1 {
     font-size: 1.8rem;
@@ -304,6 +425,17 @@ mat-basic-chip.tag {
 @media (max-width: 991px) {
   .info-icon {
     display: none;
+  }
+}
+
+@media (max-width: 1199px) {
+  .wrapper {
+    padding: 0 8px;
+  }
+}
+@media (min-width: 1200px) and (max-width: 1440px) {
+  .wrapper {
+    max-width: 90vw;
   }
 }
 // .tooltip-inner {

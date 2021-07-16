@@ -10,6 +10,7 @@ import { Recipient, RecipientAdapter } from './recipient.model';
 import { Funder, FunderAdapter } from './funder.model';
 import { LanguageCheck } from '../utils';
 import { RelatedFunding, RelatedFundingAdapter } from './related-funding.model';
+import { UtilityService } from '@shared/services/utility.service';
 
 export class Funding {
   constructor(
@@ -31,7 +32,9 @@ export class Funding {
     public projectHomepage: string,
     public recipientType: string,
     public euFunding: boolean,
+    public structuralFund: boolean,
     public relatedFundings: RelatedFunding[],
+    public additionalOrgs: { name: string; orgId: number }[],
     public totalFundingAmount: number
   ) {}
 }
@@ -44,7 +47,8 @@ export class FundingAdapter implements Adapter<Funding> {
     private r: RecipientAdapter,
     private f: FunderAdapter,
     private rf: RelatedFundingAdapter,
-    private lang: LanguageCheck
+    private lang: LanguageCheck,
+    private util: UtilityService
   ) {}
   adapt(item: any): Funding {
     const recipientObj = item.fundingGroupPerson
@@ -117,15 +121,20 @@ export class FundingAdapter implements Adapter<Funding> {
       );
     }
 
-    const funder = this.f.adapt(item);
 
     // Set EU funding status
     item.euFunding =
       item.funderNameFi.toLowerCase() === 'euroopan unioni' ? true : false;
 
+    item.structuralFund =
+      item.typeOfFundingId === 'EAKR' || item.typeOfFundingId === 'ESR';
+
+    const funder = this.f.adapt(item);
+
     const recipient = this.r.adapt(item);
 
-    const relatedFundings = item?.relatedFunding?.map((x) => this.rf.adapt(x));
+    const relatedFundings =
+      item?.relatedFunding?.map((x) => this.rf.adapt(x)) || [];
 
     // Sum of original funding and related fundings, or only original if no related fundings
     const totalFundingAmount = relatedFundings
@@ -134,6 +143,25 @@ export class FundingAdapter implements Adapter<Funding> {
           ?.map((x) => x.shareOfFunding)
           ?.reduce((a, b) => a + b, 0)
       : recipient.amountEur;
+
+    // Get all unique organizations in related fundings
+    const relatedOrgs = this.util.uniqueArray(
+      relatedFundings.map((x) => {
+        return { name: x.orgName?.trim(), orgId: x.orgId };
+      }),
+      (x) => x.name
+    );
+
+    // Get all organizations in related fundings that are not part of the original funding
+    const additionalOrgs = relatedOrgs.filter(
+      (x) => x.name !== recipient.affiliation
+    );
+
+    // Funding end year as the latest end year of related fundings, or original if no related fundings
+    const endYear = Math.max(
+      item.fundingEndYear,
+      ...relatedFundings.map((x) => x.fundingEndYear)
+    );
 
     // TODO: Translate
     const science = item.fieldsOfScience
@@ -153,15 +181,12 @@ export class FundingAdapter implements Adapter<Funding> {
       .join(', ');
 
     return new Funding(
-      item.projectId,
+      item.mainProjectId || item.projectId,
       this.lang.testLang('projectName', item),
       item.projectAcronym,
       this.lang.testLang('projectDescription', item),
       item.fundingStartYear,
-      (item.fundingEndYear =
-        item.fundingEndYear > item.fundingStartYear
-          ? item.fundingEndYear
-          : undefined),
+      endYear > item.fundingStartYear ? endYear : undefined,
       recipientObj?.roleInFundingGroup,
       otherConsortiumObjs,
       recipient,
@@ -174,10 +199,12 @@ export class FundingAdapter implements Adapter<Funding> {
       item.projetHomepage,
       item.recipientType,
       item.euFunding,
-      // relatedFundings,
-      undefined, // Temporary related fundings
-      // totalFundingAmount
-      recipient.amountEur // Temporary fundingAmount
+      item.structuralFund,
+      relatedFundings,
+      additionalOrgs,
+      // undefined, // Temporary related fundings
+      totalFundingAmount
+      // recipient.amountEur // Temporary fundingAmount
     );
   }
 }

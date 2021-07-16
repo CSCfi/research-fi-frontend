@@ -1,0 +1,17 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<div class="row">
+  <div class="col">
+    <span
+      class="row"
+      *ngFor="let value of rows; let i = index"
+      [class.font-weight-bold]="i === 0"
+      [class.font-size-small]="i === rows.length - 1 && smallLastItem"
+    >
+      {{ value }}
+    </span>
+  </div>
+</div>

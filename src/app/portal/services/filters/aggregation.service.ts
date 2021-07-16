@@ -53,6 +53,8 @@ export class AggregationService {
     );
     // Active bool filters come from aggregations that contain multiple terms, eg composite aggregation
     const activeBool = filters.filter((item) => item.bool?.should[0]?.bool);
+    // Active bool filtered filters come from date ranges (status)
+    const activeFiltered = filters.filter((item) => item.bool?.should?.bool?.filter.length);
     const activeNested = filters.filter(
       (item) =>
         item.nested?.query.bool.should?.length > 0 ||
@@ -85,6 +87,7 @@ export class AggregationService {
                 'selfArchivedCode'
           );
           return filteredActive.concat(
+            activeFiltered,
             activeNested,
             activeMultipleNested,
             coPublication ? coPublicationFilter : []
@@ -96,6 +99,7 @@ export class AggregationService {
                 Object.keys(item.bool.should[0].term)?.toString() !== field
             )
             .concat(
+              activeFiltered,
               activeNested,
               activeMultipleNested,
               activeBool,
@@ -112,7 +116,22 @@ export class AggregationService {
           .concat(
             active,
             activeMultipleNested,
+            activeFiltered,
             activeBool,
+            coPublication ? coPublicationFilter : []
+          );
+      }
+    }
+
+    function filterActiveFiltered() {
+      if (!disableFiltering) {
+        return activeBool
+          .filter((item) => !item.bool.should[0].bool.filter)
+          .concat(
+            active,
+            activeNested,
+            activeFiltered,
+            activeMultipleNested,
             coPublication ? coPublicationFilter : []
           );
       }
@@ -132,6 +151,7 @@ export class AggregationService {
         return res.concat(
           active,
           activeNested,
+          activeFiltered,
           activeBool,
           coPublication ? coPublicationFilter : []
         );
@@ -963,34 +983,6 @@ export class AggregationService {
           },
         };
 
-        // payLoad.aggs.field = {
-        //   filter: {
-        //     bool: {
-        //       filter: filterActive('fields_of_science.fieldIdScience')
-        //     }
-        //   },
-        //   aggs: {
-        //     fields: {
-        //       terms: {
-        //         field: 'fields_of_science.name' + this.localeC + 'Science.keyword',
-        //         exclude: ' ',
-        //         size: 250,
-        //         order: {
-        //           _key: 'asc'
-        //         }
-        //       },
-        //       aggs: {
-        //         fieldId: {
-        //           terms: {
-        //             field: 'fields_of_science.fieldIdScience.keyword',
-        //             size: 1
-        //           }
-        //         }
-        //       }
-        //     }
-        //   }
-        // };
-        // Funding status
         payLoad.aggs.fundingStatus = {
           filter: {
             bool: {
@@ -1010,46 +1002,48 @@ export class AggregationService {
             },
           },
         };
-        // Scheme & Keywords
-        payLoad.aggs.scheme = {
-          filter: {
-            bool: {
-              filter: filterActive('keywords.scheme.keyword'),
-            },
+
+        payLoad.aggs.topic = {
+          nested: {
+            path: 'keywords',
           },
           aggs: {
-            types: {
+            scheme: {
               terms: {
                 field: 'keywords.scheme.keyword',
+                exclude: ' ',
                 size: 10,
+                order: {
+                  _key: 'asc',
+                },
               },
               aggs: {
-                typeName: {
+                keywords: {
                   terms: {
-                    field:
-                      'keywords.keyword.keyword' + this.localeC + '.keyword',
+                    field: 'keywords.keyword.keyword',
+                    exclude: ' ',
+                    size: 250,
+                  },
+                  aggs: {
+                    filtered: {
+                      reverse_nested: {},
+                      aggs: {
+                        filterCount: {
+                          filter: {
+                            bool: {
+                              filter: filterActiveNested('keywords'),
+                            },
+                          },
+                        },
+                      },
+                    },
                   },
                 },
               },
             },
           },
         };
-        payLoad.aggs.faField = {
-          filter: {
-            bool: {
-              filter: filterActive('keywords.keyword.keyword'),
-            },
-          },
-          aggs: {
-            faFields: {
-              terms: {
-                field: 'keywords.keyword.keyword',
-                size: 50,
-                exclude: ' ',
-              },
-            },
-          },
-        };
+
         break;
       // Datasets
       case 'datasets':
@@ -1115,7 +1109,8 @@ export class AggregationService {
                         orgId: {
                           terms: {
                             size: 10,
-                            field: 'actor.sector.organization.organizationId.keyword',
+                            field:
+                              'actor.sector.organization.organizationId.keyword',
                           },
                         },
                       },
@@ -1133,8 +1128,7 @@ export class AggregationService {
           aggs: {
             langs: {
               terms: {
-                field:
-                  'languages.languageCode.keyword',
+                field: 'languages.languageCode.keyword',
                 exclude: ' ',
                 size: 250,
                 order: {
@@ -1367,6 +1361,102 @@ export class AggregationService {
                   terms: {
                     field: 'organizationId.keyword',
                   },
+                },
+              },
+            },
+          },
+        };
+        break;
+      // Funding-calls
+      case 'funding-calls':
+        // payLoad.aggs.year = yearAgg;
+        payLoad.aggs.field = {
+          nested: {
+            path: 'categories',
+          },
+          aggs: {
+            field: {
+              terms: {
+                field: 'categories.name' + this.localeC + '.keyword',
+                size: 100
+              },
+              aggs: {
+                filtered: {
+                  reverse_nested: {},
+                  aggs: {
+                    filterCount: {
+                      filter: {
+                        bool: {
+                          filter: filterActiveNested('categories'),
+                        },
+                      },
+                    },
+                  },
+                },
+                fieldId: {
+                  terms: {
+                    field: 'categories.codeValue.keyword',
+                  },
+                },
+              },
+            },
+          },
+        };
+        payLoad.aggs.organization = {
+          filter: {
+            bool: {
+              filter: filterActive('foundation.businessId.keyword'),
+            },
+          },
+          aggs: {
+            orgId: {
+              terms: {
+                field: 'foundation.businessId.keyword',
+                size: 250,
+                order: {
+                  _key: 'asc',
+                },
+                exclude: ' '
+              },
+              aggs: {
+                orgName: {
+                  terms: {
+                    field: 'foundation.name' + this.localeC + '.keyword',
+                  },
+                },
+              },
+            },
+          },
+        };
+        payLoad.aggs.status = {
+          composite: {
+            size: 500,
+            sources: [
+              {
+                openDate: {
+                  date_histogram: {
+                    field: 'callProgrammeOpenDate',
+                    calendar_interval: "1d",
+                    format: "yyyy-MM-dd",
+                  },
+                },
+              },
+              {
+                dueDate: {
+                  date_histogram: {
+                    field: 'callProgrammeDueDate',
+                    calendar_interval: "1d",
+                    format: "yyyy-MM-dd",
+                  },
+                },
+              },
+            ],
+          },
+          aggs: {
+            filtered: {
+              filter: {
+                bool: {
+                  filter: filterActiveFiltered(),
                 },
               },
             },

@@ -19,10 +19,19 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatButtonModule } from '@angular/material/button';
 
 import { HomeComponent } from './components/home/home.component';
 import { WelcomeStepperComponent } from './components/welcome-stepper/welcome-stepper.component';
-import { OrcidDataHandlerComponent } from './components/welcome-stepper/orcid-data-handler/orcid-data-handler.component';
+import { ProfileDataHandlerComponent } from './components/profile-data-handler/profile-data-handler.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { RedirectComponent } from './components/redirect/redirect.component';
 
@@ -36,14 +45,27 @@ import { OrcidIdInfoComponent } from './components/welcome-stepper/orcid-id-info
 import { StepperNavigationComponent } from './components/welcome-stepper/stepper-navigation/stepper-navigation.component';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { ProfilePanelComponent } from './components/welcome-stepper/orcid-data-handler/profile-panel/profile-panel.component';
+import { ProfilePanelComponent } from './components/profile-data-handler/profile-panel/profile-panel.component';
 import { FilterPipe } from './pipes/filter.pipe';
+import { GetLocalizedValuesPipe } from './pipes/getLocalizedValues.pipe';
+import { EditorModalComponent } from './components/profile-data-handler/editor-modal/editor-modal.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { PanelArrayItemComponent } from './components/profile-data-handler/profile-panel/panel-array-item/panel-array-item.component';
+import { CheckFieldLocalePipe } from './pipes/check-field-locale.pipe';
+import { ParseDatePipe } from './pipes/parse-date.pipe';
+import { ActivityItemComponent } from './components/profile-data-handler/profile-panel/activity-item/activity-item.component';
+import { GetPrimaryOptionsPipe } from './pipes/get-primary-options.pipe';
+import { PrimaryBadgeComponent } from './components/profile-data-handler/profile-panel/primary-badge/primary-badge.component';
+import { SearchPublicationsComponent } from './components/profile-data-handler/profile-panel/search-publications/search-publications.component';
+import { PublicationsListComponent } from './components/profile-data-handler/profile-panel/publications-list/publications-list.component';
+import { CustomPaginatorIntlComponent } from './components/profile-data-handler/profile-panel/custom-paginator-intl/custom-paginator-intl.component';
+import { CountGroupItemsPipe } from './pipes/count-group-items.pipe';
 
 @NgModule({
   declarations: [
     HomeComponent,
     WelcomeStepperComponent,
-    OrcidDataHandlerComponent,
+    ProfileDataHandlerComponent,
     NotFoundComponent,
     RedirectComponent,
     LoginComponent,
@@ -51,11 +73,26 @@ import { FilterPipe } from './pipes/filter.pipe';
     StepperNavigationComponent,
     ProfilePanelComponent,
     FilterPipe,
+    GetLocalizedValuesPipe,
+    EditorModalComponent,
+    ProfileComponent,
+    PanelArrayItemComponent,
+    CheckFieldLocalePipe,
+    ParseDatePipe,
+    ActivityItemComponent,
+    GetPrimaryOptionsPipe,
+    PrimaryBadgeComponent,
+    SearchPublicationsComponent,
+    PublicationsListComponent,
+    CountGroupItemsPipe,
   ],
   imports: [
     CommonModule,
     FormsModule,
     MyDataRoutingModule,
+    SharedModule,
+    ModalModule,
+    FontAwesomeModule,
     MatProgressSpinnerModule,
     MatCheckboxModule,
     MatRadioModule,
@@ -64,10 +101,18 @@ import { FilterPipe } from './pipes/filter.pipe';
     MatSelectModule,
     MatButtonToggleModule,
     MatSlideToggleModule,
-    FontAwesomeModule,
-    SharedModule,
-    ModalModule,
+    MatTabsModule,
+    MatSnackBarModule,
+    MatDialogModule,
+    MatDividerModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatButtonModule,
   ],
-  providers: [AuthGuard],
+  providers: [
+    AuthGuard,
+    { provide: MatPaginatorIntl, useClass: CustomPaginatorIntlComponent },
+  ],
 })
 export class MyDataModule {}

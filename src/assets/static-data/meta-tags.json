@@ -145,6 +145,23 @@
     "descriptionEn": "Read more about the organization in Research.fi.",
     "descriptionSv": "Bekanta dig med närmare uppgifter om organisation i forksning.fi."
   },
+  "fundingCalls": {
+    "titleFi": "Rahoitushaut - Tiedejatutkimus.fi",
+    "titleEn": "Funding calls - Research.fi",
+    "titleSv": "Funding calls - Forskning.fi",
+    "descriptionFi": "Rahoitushaut tiedejatutkimus.fi-palvelussa. Hakutuloksia voi rajata haun jälkeen rajaa hakua -toiminnolla.",
+    "descriptionEn": "Funding calls in Research.fi. You can use the Refine search function to refine your search results.",
+    "descriptionSv": "Funding calls i forskning.fi. Sökresultaten kan avgränsas efter sökningen med funktionen Avgränsa sökningen.",
+    "link": "funding-calls"
+  },
+  "singleFundingCall": {
+    "titleFi": "",
+    "titleEn": "",
+    "titleSv": "",
+    "descriptionFi": "Tutustu rahoitushakuun tiedejatutkimus.fi-palvelussa.",
+    "descriptionEn": "Read more about the funding call in Research.fi.",
+    "descriptionSv": "Read more about the funding call in Research.fi."
+  },
   "researchInnovation": {
     "titleFi": "Suomalainen tutkimus ja innovaatiojärjestelmä | Tiedejatutkimus.fi",
     "titleEn": "Finnish research and innovation system | Research.fi",
