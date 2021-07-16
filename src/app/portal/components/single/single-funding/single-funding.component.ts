@@ -89,6 +89,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     { label: $localize`Teema-alat`, field: 'fieldsOfTheme' },
     { label: $localize`:@@fundingHomePage:Hankkeen verkkosivu`, field: '?' },
     { label: $localize`:@@keywords:Avainsanat`, field: 'keywords' },
+    { label: $localize`:@@topics:Tunnistetut aiheet`, field: 'topics' },
   ];
 
   link = [

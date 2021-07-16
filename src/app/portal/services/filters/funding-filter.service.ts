@@ -323,8 +323,14 @@ export class FundingFilterService {
           item.key = $localize`:@@FAResearchFields:Suomen Akatemian tutkimusalat`;
           break;
         }
+        case 'topic': {
+          item.key = $localize`:@@topics:Tunnistettu aihe`;
+          break;
+        }
       }
     });
+
+    [data[2], data[3]] = [data[3], data[2]]; //Sort
 
     return data;
   }
