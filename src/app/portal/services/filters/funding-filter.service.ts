@@ -330,7 +330,22 @@ export class FundingFilterService {
       }
     });
 
-    [data[2], data[3]] = [data[3], data[2]]; //Sort
+    //Sort
+    var rearranged_keys = data;
+    var topic_index = 0;
+
+    data.every((item, index) => {
+      if (item.key == 'Teemat') {
+        topic_index = rearranged_keys
+          .map(function (e) {
+            return e.key;
+          })
+          .indexOf('Tunnistettu aihe');
+        [data[index + 1], data[topic_index]] = [data[topic_index], data[index]];
+        return false;
+      }
+      return true;
+    });
 
     return data;
   }
