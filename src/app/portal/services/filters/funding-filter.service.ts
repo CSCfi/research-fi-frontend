@@ -324,7 +324,7 @@ export class FundingFilterService {
           break;
         }
         case 'topic': {
-          item.key = $localize`:@@topics:Tunnistettu aihe`;
+          item.key = $localize`:@@identifiedTopic:Tunnistettu aihe`;
           break;
         }
       }
