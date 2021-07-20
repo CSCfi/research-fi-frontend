@@ -323,7 +323,31 @@ export class FundingFilterService {
           item.key = $localize`:@@FAResearchFields:Suomen Akatemian tutkimusalat`;
           break;
         }
+        case 'topic': {
+          item.key = $localize`:@@identifiedTopic:Tunnistettu aihe`;
+          break;
+        }
       }
+    });
+
+    //Sort
+    var rearranged_keys = data;
+    var topic_index = 0;
+
+    data.every((item, index) => {
+      if (item.key == 'Teemat' && data[index + 1].key != 'Tunnistettu aihe') {
+        topic_index = rearranged_keys
+          .map(function (e) {
+            return e.key;
+          })
+          .indexOf('Tunnistettu aihe');
+        [data[index + 1], data[topic_index]] = [
+          data[topic_index],
+          data[index + 1],
+        ];
+        return false;
+      }
+      return true;
     });
 
     return data;
