@@ -43,7 +43,8 @@ import {
   styleUrls: ['./single-publication.component.scss'],
 })
 export class SinglePublicationComponent
-  implements OnInit, AfterViewInit, OnDestroy {
+  implements OnInit, AfterViewInit, OnDestroy
+{
   public singleId: any;
   responseData: Search;
   searchTerm: string;
@@ -211,6 +212,49 @@ export class SinglePublicationComponent
     },
   ];
 
+  open_accessFields = [
+    {
+      label: $localize`:@@publisherOpenAccess:Avoin saatavuus kustantajan palvelussa`, //Lisää käännös
+      field: 'openAccessText',
+      link: false,
+    },
+    {
+      label: $localize`Julkaisukanavan avoin saatavuus`,
+      field: 'publisherOpenAccessText',
+      link: false,
+    },
+    {
+      label: $localize`Lisenssi kustantajan palvelussa`,
+      field: 'licenseText',
+      link: false,
+    },
+    {
+      label: $localize`Rinnakkaistallennettu`,
+      field: 'archiveCodeText',
+      link: false,
+    },
+    {
+      label: $localize`Rinnakkaistallenteen versio`,
+      field: 'archiveCodeVersionText',
+      link: false,
+    },
+    {
+      label: $localize`Rinnakkaistallenteen lisenssi`,
+      field: 'archiveCodeLincenseText',
+      link: false,
+    },
+    {
+      label: $localize`Rinnakkaistallenteen julkaisuviiveen päättymispäivä:`,
+      field: 'archiveEbargoDate',
+      link: false,
+    },
+    /*{
+      label: $localize`Avoimen saatavuuden kirjoittajamaksu`,
+      field: 'archiveEbargoDate',
+      link: false,
+    },*/
+  ];
+
   linksFields = [
     { label: 'DOI', field: 'doi', path: 'https://doi.org/' },
     { label: '', field: 'doiHandle' },
@@ -222,7 +266,7 @@ export class SinglePublicationComponent
       field: 'fieldsOfScienceString',
       tooltip: $localize`:@@TKFOS:Tilastokeskuksen luokituksen mukaiset tieteenalat.`,
     },
-    {
+    /*{
       label: $localize`:@@openAccess:Avoin saatavuus`,
       field: 'openAccessText',
       tooltip:
@@ -240,6 +284,7 @@ export class SinglePublicationComponent
         $localize`Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.` +
         '</p>',
     },
+    */
     { label: $localize`:@@publicationCountry:Julkaisumaa`, field: 'countries' },
     { label: $localize`:@@language:Kieli`, field: 'languages' },
     {
@@ -460,6 +505,9 @@ export class SinglePublicationComponent
     this.mediumFields = this.mediumFields.filter((item) => checkEmpty(item));
     this.linksFields = this.linksFields.filter((item) => checkEmpty(item));
     this.otherFields = this.otherFields.filter((item) => checkEmpty(item));
+    this.open_accessFields = this.open_accessFields.filter((item) =>
+      checkEmpty(item)
+    );
   }
 
   shapeData() {
