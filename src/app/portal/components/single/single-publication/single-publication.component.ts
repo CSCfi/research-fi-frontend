@@ -298,6 +298,11 @@ export class SinglePublicationComponent
       tooltip: $localize`:@@publicationCompanyAuthors:Julkaisussa on tekijöitä vähintään yhdestä yrityksestä.`,
     },
     { label: $localize`:@@keywords:Avainsanat`, field: 'keywords' },
+    {
+      label: $localize`Julkaisu kuuluu opetus- ja kuulttuuriministeriön tiedonkeruuseen`,
+      field: 'publicationStatusText',
+      link: false,
+    },
   ];
 
   citationStyles = [

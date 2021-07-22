@@ -51,6 +51,7 @@ export class Publication {
     public archiveCodeVersionText: string,
     public archiveCodeLincenseText: string,
     public archiveEbargoDate: string,
+    public publicationStatusText: string,
     public openAccess: boolean, // openAccessCode + selfArchivedCode
     public openAccessText: string,
     public internationalPublication: boolean,
@@ -169,6 +170,18 @@ export class PublicationAdapter implements Adapter<Publication> {
       archiveEbargoDate = pvm2[2] + '.' + pvm2[1] + '.' + pvm2[0];
     }
 
+    //
+    let publicationStatusText = '';
+    if (
+      Number(item.publicationStatusCode) === 1 ||
+      Number(item.publicationStatusCode) === 2 ||
+      Number(item.publicationStatusCode) === 9
+    ) {
+      publicationStatusText = $localize`:@@yes:Kyllä`;
+    } else {
+      publicationStatusText = $localize`:@@no:Ei`;
+    }
+    //
     if (item.selfArchivedData) {
       item.selfArchivedAddress =
         item.selfArchivedData[0]?.selfArchived[0]?.selfArchivedAddress;
@@ -261,6 +274,7 @@ export class PublicationAdapter implements Adapter<Publication> {
       archiveCodeVersionText,
       archiveCodeLincenseText,
       archiveEbargoDate,
+      publicationStatusText,
       openAccess, // defined above
       openAccessText,
       item.internationalCollaboration,
