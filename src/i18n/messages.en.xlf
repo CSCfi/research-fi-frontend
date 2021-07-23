@@ -941,6 +941,14 @@
         <source>% hankkeiden määrästä</source>
         <target>Percentage of the number of projects</target>
       </trans-unit>
+      <trans-unit id="asBarChart">
+        <source>Pylväskuvaaja</source>
+        <target>Bar chart</target>
+      </trans-unit>
+      <trans-unit id="asPieChart">
+        <source>Piiraskuvaaja</source>
+        <target>Pie chart</target>
+      </trans-unit>
       <trans-unit id="asAmount">
         <source>Myöntösummana (eur)</source>
         <target>Granted amount (EUR)</target>

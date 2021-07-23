@@ -935,6 +935,14 @@
         <source>% hankkeiden määrästä</source>
         <target>Procent av antalet projekter</target>
       </trans-unit>
+      <trans-unit id="asBarChart">
+        <source>Pylväskuvaaja</source>
+        <target>Stapeldiagram</target>
+      </trans-unit>
+      <trans-unit id="asPieChart">
+        <source>Piiraskuvaaja</source>
+        <target>Tårtdiagram</target>
+      </trans-unit>
       <trans-unit id="asAmount">
         <source>Myöntösummana (eur)</source>
         <target>Beviljat belopp (EUR)</target>

@@ -20,7 +20,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
     <!-- <app-treemap *ngIf="!visType" (title)="updateTitle($event)" [style.min-height.px]="height + 90" [data]="allData" [width]="width" [hierarchy]="hierarchy" [height]="height"></app-treemap> -->
     <!-- <app-sunburst *ngIf="visType" (title)="updateTitle($event)"  [style.min-height.px]="height" [data]="allData" [index]="index" [hierarchy]="hierarchy" [width]="width" [height]="height"></app-sunburst> -->
     <app-bar
-     *ngIf="visualisationType"
+     *ngIf="!visualisationType"
       [data]="data"
       [tab]="tab"
       [height]="height"
@@ -31,7 +31,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
       [searchTarget]="searchTarget"
     ></app-bar>
     <app-pie 
-      *ngIf="!visualisationType"
+      *ngIf="visualisationType"
       [data]="data"
       [tab]="tab"
       [height]="height"

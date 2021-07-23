@@ -85,7 +85,7 @@ export class PieComponent implements OnInit, OnChanges {
     let visualisationData: PublicationVisual | FundingVisual;
     let ylabel = '';
     let format = ',';
-
+ 
     switch (this.tab) {
       case 'publications':
         visualisationData = this.data.publicationData;
@@ -104,14 +104,51 @@ export class PieComponent implements OnInit, OnChanges {
 
     this.categoryObject = this.categories[fieldIdx];
     const sample: VisualData[] = visualisationData[this.categoryObject.field];
-    // No legend for year graph
-    this.legendWidth = +this.visIdx ? 350 : 0;
-
+    
     // Funding amount graph is an exception
     if (this.categoryObject.field === 'amount') {
       this.legendWidth = 0;
       ylabel = 'Myönnetty summa';
       format = '$,';
+    }
+    
+    // Data is transformed into suitable form for pie chart
+
+    const newData = [];
+
+    const totalData = [];
+    for (let i = 0; i < sample.length; i++) {
+      totalData.push(...sample[i].data.map((d) => {return {doc_count: d.doc_count}}));
+    }
+
+    const totalSum = totalData.reduce(function(a, b) {
+      return a + b.doc_count;
+    }, 0);
+
+    if (this.categoryObject.field === 'year') {
+      for (let i = 0; i < sample.length; i++) {
+        newData.push(...sample[i].data.map((d) => {return {id: d.parent, name: d.parent, doc_count: d.doc_count, share: d.doc_count / totalSum}}));
+      }
+    }
+    else {
+      const tempData = [];
+
+      for (let i = 0; i < sample.length; i++) {
+        tempData.push(...sample[i].data.map((d) => {return {id: d.id, name: d.name, doc_count: d.doc_count, share: d.doc_count / totalSum}}));
+      }
+        // Objects are grouped by name
+      tempData.reduce(function(d, variable) {
+        if (!d[variable.name]) {
+          d[variable.name] = { id: variable.id, name: variable.name, doc_count: 0, share: 0};
+          newData.push(d[variable.name])
+        }
+        d[variable.name].doc_count += variable.doc_count;
+        d[variable.name].share += variable.share;
+        return d;
+      }, {});
+      newData.sort(function(a, b){
+        return b.doc_count-a.doc_count
+      })
     }
 
     // Height and width with margins
@@ -119,27 +156,22 @@ export class PieComponent implements OnInit, OnChanges {
     this.innerWidth = this.width - 3 * this.margin - this.legendWidth;
     this.Radius = Math.min(this.width, this.height) / 2;
 
-    // Get the doc count of the year with the highest doc count
-    const maxByDocCount = d3.max(
-      sample.map((x) => x.data.reduce((a, b) => a + b.doc_count, 0))
-    );
-
     // Color stuff
     // Init seeding again with seedrandom
     const seedrandom = require('seedrandom');
     seedrandom('randomseed', { global: true });
 
-    const len = d3.max(sample.map((x) => x.data.length));
+    const len = newData.length;
     // Create color scale
     const color = d3.scaleOrdinal(
-      // Shuffle the color order from the first onward (year colors stay same)
+      // Shuffle the color order from the first onward
       UtilityService.shuffle(
         // Quantize the desired scale to the length of data
-        d3.quantize(c.interpolateSinebow, d3.max([len, 3])).slice(0, -1),
+        d3.quantize(c.interpolateSinebow, d3.max([len + 1, 3])).slice(0, -1),
         1 // quantize() sets first and last element to same
       )
     );
-
+    
     // Clear contents
     this.svg = d3.select('svg#chart');
     this.svg.selectAll('*').remove();
@@ -156,30 +188,32 @@ export class PieComponent implements OnInit, OnChanges {
     const legendSvg = d3.select('svg#legend');
     legendSvg.selectAll('*').remove();
 
+    this.x = d3.scaleBand()
+      .range([0, this.innerWidth])
+      // Reverse the year to ascending domain
+      .domain(sample.map((d) => d.key.toString()).reverse())
+      .padding(0.2);
+
     const svg = d3.select("#chart"),
     width = this.width,
     height = this.height,
-    radius = Math.min(width, height) / 4,
-    g = svg.append("g").attr("transform", "translate(" + width / 4 + "," + height / 4 + ")");
+    radius = Math.min(width, height) / 3.5,
+    g = svg.append("g").attr("transform", "translate(" + width / 4 + "," + height / 1.5 + ")");
 
     // Generate the pie
-    const pie = d3.pie();
+    const pie = d3.pie()
+            .value(function(d) { return d.doc_count })
+            .sort(null);
 
     // Generate the arcs
     const arc = d3.arc()
-            .innerRadius(5)
+            .innerRadius(10)
             .outerRadius(radius)
             .cornerRadius(3);
 
-    const cumulativeKeys: {name: string, docs?: number, id?: string}[] = [];
-
-    for (let i = 0; i < sample.length; i++) {
-       cumulativeKeys.push(...sample[i].data.map((x) => {return this.categoryObject.filter ? {name: x.name, docs: x.doc_count, id: x.id} : {name: x.name}}))
-    }
-
     //Generate groups
     const arcs = g.selectAll("arc")
-            .data(pie(cumulativeKeys.map((x) => x.docs)))
+            .data(pie(newData))
             .enter()
             .append("g")
             .attr("class", "arc")
@@ -188,51 +222,50 @@ export class PieComponent implements OnInit, OnChanges {
             d,
             i,
             n,
-            color,
-            percentage ? (d.docs).toFixed(1) + '%' : undefined
+            color
           )
         )
+        // Pass percentage if selected
         .on('mouseout', (d, i, n: any) => this.hideInfo(d, i, n))
         .on('click', (d) => this.onClick(d))
-        .style('cursor', (d) =>
-          this.categoryObject.filter &&
-          (d.id || this.categoryObject.filter === 'year')
-            ? 'pointer'
-            : 'default'
-        )
-        .append("path")
-        .attr("fill", function(d, i) {
-          return color(i);
+            .style('cursor', (d) =>
+              this.categoryObject.filter &&
+              (d.id || this.categoryObject.filter === 'year')
+                ? 'pointer'
+                : 'default'
+              )
+            .append("path")
+            .attr("fill", function(d, i) {
+            return color(i);
       })
       .attr("d", arc);
-
-    
-      const uniqueKeys = this.utils.uniqueArray(cumulativeKeys, x => x.name).filter(x => x.name).sort((a, b) => +(a.name > b.name) - 0.5);
 
     // Init legend with correct height
     const legend = legendSvg
       .attr('width', this.legendWidth)
-      .attr('height', (uniqueKeys.length + 1) * 25)
+      .attr('height', (newData.length + 1) * 25)
       .append('g')
-      .attr('transform', `translate(0, 0)`);
+      .attr('transform', "translate(0,0)");
 
     // Add legend dots
     legend
       .selectAll('circle')
-      .data(uniqueKeys)
+      .data(newData)
       .enter()
       .append('circle')
       .attr('cx', 10)
       .attr('cy', (_, j) => this.margin / 2 + j * 25)
       .attr('r', 7)
-      .attr('fill', (d) => color(d.name))
-      .on('click', (d) => this.onClick(d))
+      .attr("fill", function(d, i) {
+        return color(i);
+      })
+      .on('click', (d) => this.onClickLegend(d))
       .style('cursor', this.categoryObject.filter ? 'pointer' : 'default');
 
        // Add legend labels
     legend
     .selectAll('text')
-    .data(uniqueKeys)
+    .data(newData)
     .enter()
     .append('foreignObject')
     .attr('width', this.legendWidth)
@@ -246,27 +279,12 @@ export class PieComponent implements OnInit, OnChanges {
     .style('overflow', 'hidden')
     .style('font-size', '16px')
     .html((d) => d.name)
-    .on('click', (d) => this.onClick(d))
+    .on('click', (d) => this.onClickLegend(d))
     .on('mouseenter', (d, i, n) => this.increaseFontSize(i, n))
     .on('mouseout', (d, i, n) => this.decreaseFontSize(i, n))
     .style('cursor', this.categoryObject.filter ? 'pointer' : 'default');
 
-    // Add axis and graph labels
-    this.g
-      .append('text')
-      .attr('x', -(this.innerHeight / 2))
-      .attr('y', -this.margin - 35)
-      .attr('transform', 'rotate(-90)')
-      .attr('text-anchor', 'middle');
-    // .text(ylabel);
-
-    this.g
-      .append('text')
-      .attr('x', this.innerWidth / 2)
-      .attr('y', this.innerHeight + this.margin - 5)
-      .attr('text-anchor', 'middle');
-    // .text('Vuosi');
-
+ 
     // Graph title
     this.g
       .append('text')
@@ -274,7 +292,7 @@ export class PieComponent implements OnInit, OnChanges {
       .attr('y', -this.margin / 2)
       .attr('text-anchor', 'middle')
       .attr('font-weight', 'bold');
-    // .text(this.categoryObject.title);
+    //.text(this.categoryObject.title);
 
     // Search term info
     this.g
@@ -302,43 +320,41 @@ export class PieComponent implements OnInit, OnChanges {
       .style('font-size', '14px');
   }
 
-  onClick(d: { id: string; parent?: string }) {
+  onClick(d: {data: {id: string; name: string; doc_count: number; share: number}, index: number; padAngle: number; startAngle: number; value: number }) {
     const filterName = this.categoryObject.filter;
+    // Filter by selected arc
+    setTimeout(() => {
+      this.dataService.changeFilter(filterName, d.data.id);
+    }, 1);
+  }
 
-    // Only filter if a valid filter with id is available or year
-    if (filterName && (d.id || filterName === 'year')) {
-      // Filter by selected bar (unless year) and year
-      if (d.id) {
-        this.dataService.changeFilter(filterName, d.id);
-      }
-      setTimeout(() => {
-        if (d.parent) {
-          this.dataService.changeFilter('year', d.parent);
-        }
-      }, 1);
-    }
+  onClickLegend(d: { id: string; name: string; doc_count: number; share: number }) {
+    const filterName = this.categoryObject.filter;
+    // Filter by selected arc
+    setTimeout(() => {
+      this.dataService.changeFilter(filterName, d.id);
+    }, 1);
   }
 
   showInfo(
-    d: { name: string; doc_count: number; parent: string },
+    d: {data: {id: string; name: string; doc_count: number; share: number}, index: number; padAngle: number; startAngle: number; value: number },
     i: number,
     n: any[],
     color: d3.ScaleOrdinal<string, string>,
     percent?: string
   ) {
     const shift = this.shift;
-
     const elem: d3.Selection<
       SVGRectElement,
       VisualDataObject,
       SVGElement,
       any
     > = d3.select(n[i]);
-    const x = +elem.attr('x');
+    const x = 100;
     const y = +elem.attr('y');
     const width = +elem.attr('width');
     const height = +elem.attr('height');
-
+    
     // Make hovered box wider
     elem
       .transition()
@@ -353,12 +369,13 @@ export class PieComponent implements OnInit, OnChanges {
     // Remove spaces and commas from name in id
     g.attr(
       'id',
-      `id-${UtilityService.replaceSpecialChars(d.name || d.parent)}-${d.parent}`
+      `id-${UtilityService.replaceSpecialChars(d.data.name)}`
     );
 
     // Append info rectangle so it's on top
     const rect = g.append('rect');
     const circle = g.append('circle');
+    const circle2 = g.append('circle');
 
     // Append foreignObject so text width can be calculated
     const fo = g.append('foreignObject');
@@ -368,7 +385,7 @@ export class PieComponent implements OnInit, OnChanges {
       .style('white-space', 'wrap')
       .style('width', 'max-content')
       .attr('id', 'name')
-      .html(d.name || d.parent);
+      .html(d.data.name);
 
     fo.append('xhtml:div')
       .style('font-size', '12px')
@@ -377,19 +394,27 @@ export class PieComponent implements OnInit, OnChanges {
       .style('width', 'max-content')
       .style('padding-left', '15px')
       .attr('id', 'amount')
-      // Show percentage if percentage graph is chosen
-      .html(
-        percent || UtilityService.thousandSeparator(d.doc_count.toString())
-      );
+      .html(d.data.doc_count.toString());
+
+    fo.append('xhtml:div')
+      .style('font-size', '12px')
+      .style('color', 'white')
+      .style('white-space', 'nowrap')
+      .style('width', 'max-content')
+      .style('padding-left', '15px')
+      .attr('id', 'share')
+      .html((d.data.share * 100).toFixed(1) + '%');
+
 
     // Get the div elements to get their widths
     const nameElem: HTMLElement = this.document.querySelector('#name');
     const amountElem: HTMLElement = this.document.querySelector('#amount');
+    const shareElem: HTMLElement = this.document.querySelector('#share');
 
     // Move rectangle so it's fully visible
     const padding = 10;
     const rectWidth =
-      Math.max(nameElem.offsetWidth, amountElem.offsetWidth) + 2 * padding;
+      Math.max(nameElem.offsetWidth, amountElem.offsetWidth, shareElem.offsetWidth) + 2 * padding;
     let rectX = x + this.x.bandwidth() + padding;
 
     // In case it's overflowing from the right
@@ -413,7 +438,7 @@ export class PieComponent implements OnInit, OnChanges {
       .attr('x', rectX)
       .attr('y', rectY)
       .attr('width', rectWidth)
-      .attr('height', rectHeight)
+      .attr('height', rectHeight * 1.3)
       .attr('fill', 'black')
       .attr('opacity', 0.8);
 
@@ -421,11 +446,17 @@ export class PieComponent implements OnInit, OnChanges {
       .attr('cx', rectX + padding + 5)
       .attr('cy', rectY + rectHeight - 17)
       .attr('r', 5)
-      .attr('fill', color(d.name));
+      .attr('fill', color(i));
+
+    circle2
+      .attr('cx', rectX + padding + 5)
+      .attr('cy', rectY + rectHeight + 2) 
+      .attr('r', 5)
+      .attr('fill', color(i));
   }
 
   hideInfo(
-    d: { name: string; doc_count: number; parent: string },
+    d: {data: {id: string; name: string; doc_count: number; share: number}, index: number; padAngle: number; startAngle: number; value: number },
     i: number,
     n: any[]
   ) {
@@ -440,14 +471,12 @@ export class PieComponent implements OnInit, OnChanges {
     elem
       .transition()
       .duration(300)
-      .attr('x', (d) => this.x(d.parent))
+      .attr('x', (d) => this.x(d.data.name))
       .attr('width', this.x.bandwidth());
 
     // Remove info box if bar has name
     d3.select(
-      `#id-${UtilityService.replaceSpecialChars(d.name || d.parent)}-${
-        d.parent
-      }`
+      `#id-${UtilityService.replaceSpecialChars(d.data.name)}`
     ).remove();
   }
 

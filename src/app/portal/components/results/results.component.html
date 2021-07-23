@@ -377,10 +377,21 @@ Copyright 2019 Ministry of Education and Culture, Finland
               </button>
               <button
                 class="col-6 vis-style-toggle ttv-button"
+                [class.active]="percentage && !fundingAmount"
                 (click)="
-                visualisationType = !visualisationType
+                visualisationType = false
                 "
-                i18n="@@asPercentFunding"
+                i18n="@@asPieChart"
+              >
+                Pylväskuvaaja
+              </button>
+              <button
+                class="col-6 vis-style-toggle ttv-button"
+                [class.active]="percentage && !fundingAmount"
+                (click)="
+                visualisationType = true
+                "
+                i18n="@@asBarChart"
               >
                 Piiraskuvaaja
               </button>
