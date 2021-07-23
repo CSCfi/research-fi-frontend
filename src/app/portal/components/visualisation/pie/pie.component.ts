@@ -394,7 +394,7 @@ export class PieComponent implements OnInit, OnChanges {
       .style('width', 'max-content')
       .style('padding-left', '15px')
       .attr('id', 'amount')
-      .html(d.data.doc_count.toString());
+      .html(UtilityService.thousandSeparator(d.data.doc_count.toString()));
 
     fo.append('xhtml:div')
       .style('font-size', '12px')

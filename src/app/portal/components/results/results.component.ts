@@ -459,7 +459,16 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   changeVisual(event: any) {
     // Check if theme is changed (or doesn't exist)
+
     const themeChanged = this.fundingAmount !== event.fundingAmount;
+
+    if (event.fundingAmount === undefined && this.fundingAmount === true){
+      event.fundingAmount = true;
+    }
+    else if (event.fundingAmount === undefined && this.fundingAmount === false){
+      event.fundingAmount = false;
+    }
+
     // Update idx
     this.visIdx = event.value || this.visIdx;
     // Get data (if changed)
