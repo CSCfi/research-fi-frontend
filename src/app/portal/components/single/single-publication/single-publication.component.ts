@@ -248,11 +248,16 @@ export class SinglePublicationComponent
       field: 'archiveEbargoDate',
       link: false,
     },
-    /*{
+    {
       label: $localize`Avoimen saatavuuden kirjoittajamaksu`,
-      field: 'archiveEbargoDate',
+      field: 'apcFee',
       link: false,
-    },*/
+    },
+    {
+      label: $localize`Avoimen saatavuuden kirjoittajamaksun vuosi:`,
+      field: 'apcPaymentYear',
+      link: false,
+    },
   ];
 
   linksFields = [

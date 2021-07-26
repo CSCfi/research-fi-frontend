@@ -52,6 +52,8 @@ export class Publication {
     public archiveCodeLincenseText: string,
     public archiveEbargoDate: string,
     public publicationStatusText: string,
+    public apcFee: string,
+    public apcPaymentYear: string,
     public openAccess: boolean, // openAccessCode + selfArchivedCode
     public openAccessText: string,
     public internationalPublication: boolean,
@@ -149,26 +151,7 @@ export class PublicationAdapter implements Adapter<Publication> {
     }
 
     let licenseText = '--';
-    let archiveCodeVersionText = '--';
-    let archiveCodeLincenseText = '--';
-
-    let embargoDate = '';
-    let archiveEbargoDate = '';
-    if (item.selfArchivedData[0].selfArchived[0].selfArchivedEmbargoDate) {
-      embargoDate =
-        item.selfArchivedData[0].selfArchived[0].selfArchivedEmbargoDate;
-      let pvm = '';
-      embargoDate.split('').every(function (item) {
-        if (item != 'T') {
-          pvm += item;
-          return true;
-        } else {
-          return false;
-        }
-      });
-      let pvm2 = pvm.split('-');
-      archiveEbargoDate = pvm2[2] + '.' + pvm2[1] + '.' + pvm2[0];
-    }
+    let archiveCodeVersionText = '';
 
     //
     let publicationStatusText = '';
@@ -181,6 +164,30 @@ export class PublicationAdapter implements Adapter<Publication> {
     } else {
       publicationStatusText = $localize`:@@no:Ei`;
     }
+
+    let archiveCodeLincenseText = '';
+    let apcFee = '';
+    let publicationType = item.publicationTypeCode.split('')[0];
+    let apcPaymentYear = item.apcPaymentYear || '';
+    let embargoDate = '';
+    let archiveEbargoDate = '';
+
+    if (['A', 'B'].includes(publicationType) && item.apcFeeEur) {
+      item.apcFeeEur > 6000 ||
+      item.openAccessCode == 0 ||
+      item.openAccess == false ||
+      (item.openAccess == true && item.publisherOpenAccessCode == 0)
+        ? ''
+        : (apcFee = item.apcFeeEur);
+    } else if (['C'].includes(publicationType) && item.apcFeeEur) {
+      item.apcFeeEur > 25000 ||
+      item.openAccessCode == 0 ||
+      item.openAccess == false ||
+      (item.openAccess == true && item.publisherOpenAccessCode == 0)
+        ? ''
+        : (apcFee = item.apcFeeEur);
+    }
+
     //
     if (item.selfArchivedData) {
       item.selfArchivedAddress =
@@ -194,6 +201,35 @@ export class PublicationAdapter implements Adapter<Publication> {
       item.selfArchivedData = item.selfArchivedData.filter(
         (x) => x.selfArchived.length
       );
+
+      archiveCodeLincenseText =
+        item.selfArchivedData[0].selfArchived[0]?.selfArchivedLicenseNameFi;
+
+      if (
+        item.selfArchivedData[0].selfArchived[0].selfArchivedVersionCode == 1
+      ) {
+        archiveCodeVersionText = $localize`Kustantajan versio`;
+      } else if (
+        item.selfArchivedData[0].selfArchived[0].selfArchivedVersionCode == 0
+      ) {
+        archiveCodeVersionText = $localize`Viimeinen käsikirjoitusversio`;
+      }
+
+      if (item.selfArchivedData[0].selfArchived[0].selfArchivedEmbargoDate) {
+        embargoDate =
+          item.selfArchivedData[0].selfArchived[0].selfArchivedEmbargoDate;
+        let pvm = '';
+        embargoDate.split('').every(function (item) {
+          if (item != 'T') {
+            pvm += item;
+            return true;
+          } else {
+            return false;
+          }
+        });
+        let pvm2 = pvm.split('-');
+        archiveEbargoDate = pvm2[2] + '.' + pvm2[1] + '.' + pvm2[0];
+      }
     }
 
     // Prioritize publication channel
@@ -275,6 +311,8 @@ export class PublicationAdapter implements Adapter<Publication> {
       archiveCodeLincenseText,
       archiveEbargoDate,
       publicationStatusText,
+      apcFee,
+      apcPaymentYear,
       openAccess, // defined above
       openAccessText,
       item.internationalCollaboration,
