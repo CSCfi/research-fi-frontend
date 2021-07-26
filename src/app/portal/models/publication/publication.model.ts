@@ -45,6 +45,15 @@ export class Publication {
     public doiHandle: string,
     public selfArchivedAddress: string,
     public keywords: any,
+    public archiveCodeText: string,
+    public publisherOpenAccessText: string,
+    public licenseText: string,
+    public archiveCodeVersionText: string,
+    public archiveCodeLincenseText: string,
+    public archiveEbargoDate: string,
+    public publicationStatusText: string,
+    public apcFee: string,
+    public apcPaymentYear: string,
     public openAccess: boolean, // openAccessCode + selfArchivedCode
     public openAccessText: string,
     public internationalPublication: boolean,
@@ -102,35 +111,125 @@ export class PublicationAdapter implements Adapter<Publication> {
       ];
     }
 
+    let archiveCodeText = '';
+    if (item.selfArchivedCode === 1) {
+      archiveCodeText = $localize`:@@yes:Kyllä`;
+    } else {
+      archiveCodeText = $localize`:@@no:Ei`;
+    }
+
     const openAccess: boolean =
       item.openAccessCode === 1 ||
       item.openAccessCode === 2 ||
-      item.selfArchivedCode === 1;
+      item.openAccess === true;
     let openAccessText = '';
     // Open Access can be added from multiple fields
     if (
       item.openAccessCode === 1 ||
       item.openAccessCode === 2 ||
-      item.selfArchivedCode === 1
+      item.openAccess === true
     ) {
       openAccessText = $localize`:@@yes:Kyllä`;
-    } else if (item.openAccessCode === 0 && item.selfArchivedCode === 0) {
+    } else if (item.openAccessCode === 0 && item.openAccess === false) {
       openAccessText = $localize`:@@no:Ei`;
     } else {
       openAccessText = $localize`:@@noInfo:Ei tietoa`;
     }
 
+    //For Open Access box
+    let publisherOpenAccessText = '';
+    //Lisää kieliversiot
+    if (item.openAccessCode === 1 || item.publisherOpenAccessCode === 1) {
+      publisherOpenAccessText = $localize`Kokonaan avoin julkaisukanava`;
+    } else if (
+      item.openAccessCode === 2 ||
+      item.publisherOpenAccessCode === 2
+    ) {
+      publisherOpenAccessText = $localize`Osittain avoin julkaisukanava`;
+    } else {
+      publisherOpenAccessText = $localize`Viivästetysti avoin julkaisukanava`;
+    }
+
+    let licenseText = '--';
+    let archiveCodeVersionText = '';
+
+    //
+    let publicationStatusText = '';
+    if (
+      Number(item.publicationStatusCode) === 1 ||
+      Number(item.publicationStatusCode) === 2 ||
+      Number(item.publicationStatusCode) === 9
+    ) {
+      publicationStatusText = $localize`:@@yes:Kyllä`;
+    } else {
+      publicationStatusText = $localize`:@@no:Ei`;
+    }
+
+    let archiveCodeLincenseText = '';
+    let apcFee = '';
+    let publicationType = item.publicationTypeCode.split('')[0];
+    let apcPaymentYear = item.apcPaymentYear || '';
+    let embargoDate = '';
+    let archiveEbargoDate = '';
+
+    if (['A', 'B'].includes(publicationType) && item.apcFeeEur) {
+      item.apcFeeEur > 6000 ||
+      item.openAccessCode == 0 ||
+      item.openAccess == false ||
+      (item.openAccess == true && item.publisherOpenAccessCode == 0)
+        ? ''
+        : (apcFee = item.apcFeeEur);
+    } else if (['C'].includes(publicationType) && item.apcFeeEur) {
+      item.apcFeeEur > 25000 ||
+      item.openAccessCode == 0 ||
+      item.openAccess == false ||
+      (item.openAccess == true && item.publisherOpenAccessCode == 0)
+        ? ''
+        : (apcFee = item.apcFeeEur);
+    }
+
+    //
     if (item.selfArchivedData) {
       item.selfArchivedAddress =
         item.selfArchivedData[0]?.selfArchived[0]?.selfArchivedAddress;
       // Check for empty addresses
-      item.selfArchivedData[0].selfArchived = item.selfArchivedData[0].selfArchived.filter(
-        (x) => x.selfArchivedAddress.trim().length > 0
-      );
+      item.selfArchivedData[0].selfArchived =
+        item.selfArchivedData[0].selfArchived.filter(
+          (x) => x.selfArchivedAddress.trim().length > 0
+        );
       // Filter empty items
       item.selfArchivedData = item.selfArchivedData.filter(
         (x) => x.selfArchived.length
       );
+
+      archiveCodeLincenseText =
+        item.selfArchivedData[0].selfArchived[0]?.selfArchivedLicenseNameFi;
+
+      if (
+        item.selfArchivedData[0].selfArchived[0].selfArchivedVersionCode == 1
+      ) {
+        archiveCodeVersionText = $localize`Kustantajan versio`;
+      } else if (
+        item.selfArchivedData[0].selfArchived[0].selfArchivedVersionCode == 0
+      ) {
+        archiveCodeVersionText = $localize`Viimeinen käsikirjoitusversio`;
+      }
+
+      if (item.selfArchivedData[0].selfArchived[0].selfArchivedEmbargoDate) {
+        embargoDate =
+          item.selfArchivedData[0].selfArchived[0].selfArchivedEmbargoDate;
+        let pvm = '';
+        embargoDate.split('').every(function (item) {
+          if (item != 'T') {
+            pvm += item;
+            return true;
+          } else {
+            return false;
+          }
+        });
+        let pvm2 = pvm.split('-');
+        archiveEbargoDate = pvm2[2] + '.' + pvm2[1] + '.' + pvm2[0];
+      }
     }
 
     // Prioritize publication channel
@@ -205,6 +304,15 @@ export class PublicationAdapter implements Adapter<Publication> {
       item.doiHandle,
       item.selfArchivedAddress,
       item.keywords,
+      archiveCodeText,
+      publisherOpenAccessText,
+      licenseText,
+      archiveCodeVersionText,
+      archiveCodeLincenseText,
+      archiveEbargoDate,
+      publicationStatusText,
+      apcFee,
+      apcPaymentYear,
       openAccess, // defined above
       openAccessText,
       item.internationalCollaboration,
