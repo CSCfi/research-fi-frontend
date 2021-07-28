@@ -218,9 +218,10 @@ export class PublicationAdapter implements Adapter<Publication> {
       if (item.selfArchivedData[0].selfArchived[0].selfArchivedEmbargoDate) {
         embargoDate =
           item.selfArchivedData[0].selfArchived[0].selfArchivedEmbargoDate;
-
-        let pvm = embargoDate.split('-');
-        archiveEbargoDate = pvm[0] + '.' + pvm[1] + '.' + pvm[2];
+        if (embargoDate != ' ') {
+          let pvm = embargoDate.split('-');
+          archiveEbargoDate = pvm[0] + '.' + pvm[1] + '.' + pvm[2];
+        }
       }
     }
 
