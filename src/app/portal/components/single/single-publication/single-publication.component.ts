@@ -303,6 +303,9 @@ export class SinglePublicationComponent
       tooltip: $localize`:@@publicationCompanyAuthors:Julkaisussa on tekijöitä vähintään yhdestä yrityksestä.`,
     },
     { label: $localize`:@@keywords:Avainsanat`, field: 'keywords' },
+  ];
+
+  publicationStatus = [
     {
       label: $localize`Julkaisu kuuluu opetus- ja kuulttuuriministeriön tiedonkeruuseen`,
       field: 'publicationStatusText',
