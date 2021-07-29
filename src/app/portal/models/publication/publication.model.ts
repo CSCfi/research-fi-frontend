@@ -55,6 +55,7 @@ export class Publication {
     public apcFee: string,
     public apcPaymentYear: string,
     public openAccess: boolean, // openAccessCode + selfArchivedCode
+    public show_logo: boolean,
     public openAccessText: string,
     public internationalPublication: boolean,
     public countryCode: string,
@@ -139,6 +140,12 @@ export class PublicationAdapter implements Adapter<Publication> {
       openAccessText = $localize`:@@noInfo:Ei tietoa`;
     }
 
+    //DOI logo
+    let show_logo: boolean =
+      item.openAccess === true ||
+      item.openAccessCode === 1 ||
+      item.openAccessCode === 2 ||
+      item.selfArchivedCode === 1;
     //For Open Access box
     let publisherOpenAccessText = '';
     //Lisää kieliversiot
@@ -310,6 +317,7 @@ export class PublicationAdapter implements Adapter<Publication> {
       apcFee,
       apcPaymentYear,
       openAccess, // defined above
+      show_logo,
       openAccessText,
       item.internationalCollaboration,
       item.publicationCountryCode,
