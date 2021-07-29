@@ -667,14 +667,16 @@
                 "
                 class="info-link-wrapper"
               >
-                <div class="col link">
+                <div class="col link doi">
+                  <span class="doi-tag">DOI</span>
+                  <span class="doi-link">
                   <a
-                    class="info-link"
                     href="{{ row.path }}{{ item[row.field] }}"
                     target="_blank"
-                    >{{ item[row.field] | cutContent: 40
-                    }}<fa-icon icon="external-link-alt"></fa-icon
+                    >{{ item[row.field] | cutContent: 40}}
+                    <fa-icon icon="external-link-alt"></fa-icon
                   ></a>
+                  </span>
                 </div>
               </div>
             </div>
@@ -685,14 +687,16 @@
                 *ngFor="let row of selfArchived.selfArchived"
               >
                 <div class="info-link-wrapper">
-                  <div class="col link">
+                  <div class="col link doi">
+                    <span class="doi-tag fa fa-link center" style="font-size:26px"></span>
+                    <span class="doi-link">
                     <a
-                      class="info-link"
                       href="{{ row.selfArchivedAddress }}"
                       target="_blank"
                       >{{ row.selfArchivedAddress | cutContent: 40
                       }}<fa-icon icon="external-link-alt"></fa-icon
                     ></a>
+                    </span>
                   </div>
                 </div>
               </div>

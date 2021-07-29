@@ -276,6 +276,12 @@ export class PublicationAdapter implements Adapter<Publication> {
       ? item.peerReviewed[0]['name' + this.capitalizedLocale + 'PeerReviewed']
       : undefined;
 
+    let doiHandle = '';
+    if (item.doiHandle) {
+      let doi_arr = item.doiHandle.split('/');
+      doiHandle = doi_arr.slice(-2).join('/');
+    }
+
     return new Publication(
       item.publicationId,
       item.publicationName,
@@ -304,7 +310,7 @@ export class PublicationAdapter implements Adapter<Publication> {
       item.jufoCode,
       item.jufoClassCode,
       item.doi,
-      item.doiHandle,
+      doiHandle,
       item.selfArchivedAddress,
       item.keywords,
       archiveCodeText,
