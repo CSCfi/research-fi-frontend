@@ -115,7 +115,7 @@
               Vertaisarvioitu
             </div>
             <a
-              *ngIf="publication.openAccess && (publication | links)"
+              *ngIf="publication.show_logo && (publication | links)"
               href="{{ publication | links }}"
               target="_blank"
               class="open-access div"
