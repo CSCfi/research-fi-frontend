@@ -16,7 +16,8 @@ export class FundingVisual {
     public funder: VisualData[],
     public organization: VisualData[],
     public typeOfFunding: VisualData[],
-    public fieldOfScience: VisualData[]
+    public fieldOfScience: VisualData[],
+    public identifiedTopic: VisualData[]
   ) {}
 }
 
@@ -28,16 +29,20 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
     year: '',
     funder: 'f.funder.buckets.shift().key',
     organization: '',
+    identifiedTopic: 'f.key',
     // Locale, english, finnish, key
     typeOfFunding:
       'f.typeName.buckets[0].key.split("|")[0].trim() || f.typeName.buckets[0].key.split("|")[1].trim() || f.typeName.buckets[0].key.split("|")[2].trim() || f.key',
     fieldOfScience: 'f.key',
+
   };
 
   private ids = {
     year: '',
     funder: 'f.key',
     organization: 'f.key',
+    identifiedTopic: 
+      'f.identifiedTopicId.buckets[0].key.split("|")[0].trim() || f.identifiedTopicId.buckets[0].key.split("|")[1].trim() || f.key',
     // Locale, english, finnish, key
     typeOfFunding: 'f.key',
     fieldOfScience: 'f.key',
@@ -92,6 +97,7 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
     const organization: VisualData[] = [];
     const typeOfFunding: VisualData[] = [];
     const fieldOfScience: VisualData[] = [];
+    const identifiedTopic: VisualData[] = [];
 
     const field = this.funding[categoryIdx].field;
 
@@ -170,6 +176,25 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
         this.sortByName(fieldOfScience);
         break;
 
+        case 'identifiedTopic':
+          item.aggregations.identifiedTopic.buckets.forEach((b) => tmp.push(b));
+          tmp.forEach((b) => {
+            b.data = [];
+            b.identifiedTopicNested.identifiedTopicId.buckets.forEach((f) => {
+              if(f.key.includes("|topic")){
+                const v: any = {}
+                v.name = f.identifiedTopic.buckets.shift().key;
+                v.id = f.key;
+                v.doc_count = f.doc_count;
+                v.parent = b.key;
+                b.data.push(v);
+              }
+            });
+            identifiedTopic.push(b);
+          });
+          this.sortByName(identifiedTopic);
+          break;
+
       default:
         const hierarchyField = this.funding[categoryIdx].hierarchy[1].name;
 
@@ -204,7 +229,8 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
       funder,
       organization,
       typeOfFunding,
-      fieldOfScience
+      fieldOfScience,
+      identifiedTopic
     );
   }
 }
