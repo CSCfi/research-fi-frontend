@@ -663,7 +663,7 @@
               <div
                 *ngIf="
                   row.field !== 'doi' &&
-                  item[row.field] !== 'https://doi.org/' + item.doi
+                  item[row.field] !== item.doi
                 "
                 class="info-link-wrapper"
               >
@@ -688,7 +688,7 @@
               >
                 <div class="info-link-wrapper">
                   <div class="col link doi">
-                    <span class="doi-tag fa fa-link center" style="font-size:26px"></span>
+                    <span class="doi-tag fa fa-link center" style="font-size:22px; padding:3px 12px"></span>
                     <span class="doi-link">
                     <a
                       href="{{ row.selfArchivedAddress }}"
