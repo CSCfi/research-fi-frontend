@@ -56,6 +56,7 @@ export class Publication {
     public apcPaymentYear: string,
     public openAccess: boolean, // openAccessCode + selfArchivedCode
     public show_logo: boolean,
+    public abstract: string,
     public openAccessText: string,
     public internationalPublication: boolean,
     public countryCode: string,
@@ -139,6 +140,9 @@ export class PublicationAdapter implements Adapter<Publication> {
     } else {
       openAccessText = $localize`:@@noInfo:Ei tietoa`;
     }
+
+    //Abstract
+    let abstract = item.abstract || '';
 
     //DOI logo
     let show_logo: boolean =
@@ -318,6 +322,7 @@ export class PublicationAdapter implements Adapter<Publication> {
       apcPaymentYear,
       openAccess, // defined above
       show_logo,
+      abstract,
       openAccessText,
       item.internationalCollaboration,
       item.publicationCountryCode,

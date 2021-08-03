@@ -53,6 +53,8 @@ export class SinglePublicationComponent
   tabQueryParams: any;
   private metaTags = singlePublication;
   private commonTags = common;
+  showMore = $localize`:@@showMore:Näytä enemmän`;
+  showLess = $localize`:@@showLess:Näytä vähemmän`;
 
   infoFields = [
     {
@@ -63,6 +65,11 @@ export class SinglePublicationComponent
       label: $localize`:@@publicationAuthors:Tekijät`,
       field: 'authors',
       tooltip: $localize`:@@publicationAuthorsTooltip:Julkaisun tekijät siinä järjestyksessä, jossa ne on listattu alkuperäisessä julkaisussa. Jos tekijöitä on yli 20, kaikkia ei ole välttämättä ilmoitettu.`,
+    },
+    {
+      label: $localize`Tiivistelmä`,
+      field: 'abstract',
+      tooltip: $localize`:@@spAbstracTooltip:Tiivistelmä kertoo tiiviisti julkaisusta`,
     },
   ];
 
@@ -334,7 +341,7 @@ export class SinglePublicationComponent
   }
   idSub: Subscription;
   juFoCode: any;
-
+  expand: boolean;
   faQuoteRight = faQuoteRight;
   faIcon = faFileAlt;
   faCopy = faCopy;
@@ -708,5 +715,9 @@ export class SinglePublicationComponent
 
     // tslint:disable-next-line: curly
     if (source.doiHandle === 'http://dx.doi.org/') source.doiHandle = '';
+  }
+
+  expandDescription() {
+    this.expand = !this.expand;
   }
 }
