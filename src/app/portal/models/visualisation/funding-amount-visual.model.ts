@@ -22,15 +22,15 @@ export class FundingVisualAmountAdapter implements Adapter<FundingVisual> {
     typeOfFunding:
       'f.key.split("|")[0].trim() || f.key.split("|")[1].trim() || f.key.split("|")[2].trim() || f.id',
     fieldOfScience: 'f.key',
-    identifiedTopic: 'f.key',
+    identifiedTopic: 
+    'f.key.split("|")[0].trim() || f.key.split("|")[1].trim() || f.id',
   };
 
   private ids = {
     year: '',
     funder: 'f.id',
     organization: 'f.key',
-    identifiedTopic: 
-    'f.key.split("|")[0].trim() || f.key.split("|")[1].trim() || f.id',
+    identifiedTopic: 'f.id',
     // Locale, english, finnish, key
     typeOfFunding: 'f.key',
     fieldOfScience: 'f.id',
@@ -205,7 +205,7 @@ export class FundingVisualAmountAdapter implements Adapter<FundingVisual> {
           item.aggregations.identifiedTopic.buckets.forEach((b) => {
             b.categs = [];
             b.identifiedTopicNested.identifiedTopicId.buckets.forEach((s) => {
-              if(s.key.includes("|topic")){
+              if (s.identifiedTopic.buckets !== undefined){
                 const f = s.identifiedTopic.buckets[0];
                 f.id = s.key;
                 b.categs.push(f);
@@ -220,7 +220,7 @@ export class FundingVisualAmountAdapter implements Adapter<FundingVisual> {
             // debugger;
             const target = comb2.find((x) => x.key === b.key);
             b.identifiedTopicNested.identifiedTopicId.buckets.forEach((s) => {
-              if(s.key.includes("|topic")){
+              if (s.identifiedTopic.buckets !== undefined){
                 const f = s.identifiedTopic.buckets[0];
                 f.id = s.key;
                 target.categs.push(f);
@@ -231,10 +231,9 @@ export class FundingVisualAmountAdapter implements Adapter<FundingVisual> {
           comb2.forEach((b) => {
             b.data = [];
             b.categs.forEach((f) => {
-                console.log(eval(this.ids[field]))
                 const v: any = {};
-                v.name = eval(this.names[field]);
-                v.id = v.name;
+                v.name =  eval(this.ids[field]);
+                v.id =  eval(this.ids[field]);
                 v.doc_count = this.getFundingSum(f, field);
                 v.parent = b.key;
                 b.data.push(v);

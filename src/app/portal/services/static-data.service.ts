@@ -1629,7 +1629,7 @@ export class StaticDataService {
         title: $localize`:@@fundingCountByIdentifiedTopic:Hankkeiden jakautuminen tunnistetun aiheen mukaan`,
         select: $localize`:@@identifiedTopic:Tunnistettu aihe`,
         // tslint:disable-next-line: max-line-length
-        filter: 'identifiedTopic',
+        filter: 'topic',
         hierarchy: [
           {
             field: 'fundingStartYear',
@@ -1642,16 +1642,16 @@ export class StaticDataService {
             nested: 'keywords',
           },
           {
-            script:
-              'doc["keywords.keyword.keyword"].value + "|" + doc["keywords.scheme.keyword"].value',
-           name: 'identifiedTopicId',
+            field: 'keywords.keyword.keyword',
+            name: 'identifiedTopicId',
             size: 10000,
             order: 1,
-            filterName: 'identifiedTopic',
-            exclude: [''],
+            filterName: 'topic',
+            exclude: [' '],
           },
           {
-            field: 'keywords.keyword.keyword',
+            script:
+              'doc["keywords.keyword.keyword"].value + "|" + doc["keywords.scheme.keyword"].value',
             name: 'identifiedTopic',
             size: 10000,
             order: 1,
@@ -1685,20 +1685,20 @@ export class StaticDataService {
             nested: 'keywords',
           },
           {
-            script:
-              'doc["keywords.keyword.keyword"].value + "|" + doc["keywords.scheme.keyword"].value',
+            field: 'keywords.keyword.keyword',
             name: 'identifiedTopicId',
             size: 10000,
             order: 1,
-            filterName: 'identifiedTopic',
-            exclude: [''],
+            filterName: 'topic',
+            exclude: [' '],
           },
           {
-            field: 'keywords.keyword.keyword',
-            name: 'identifiedTopic',
+            script:
+              'doc["keywords.keyword.keyword"].value + "|" + doc["keywords.scheme.keyword"].value',
+           name: 'identifiedTopic',
             size: 10000,
             order: 1,
-            exclude: [' '],
+            exclude: [''],
           },
           {
             name: 'orgNested',

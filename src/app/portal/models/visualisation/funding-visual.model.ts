@@ -29,7 +29,8 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
     year: '',
     funder: 'f.funder.buckets.shift().key',
     organization: '',
-    identifiedTopic: 'f.key',
+    identifiedTopic: 
+      'f.identifiedTopicId.buckets[0].key.split("|")[0].trim() || f.identifiedTopicId.buckets[0].key.split("|")[1].trim() || f.key',
     // Locale, english, finnish, key
     typeOfFunding:
       'f.typeName.buckets[0].key.split("|")[0].trim() || f.typeName.buckets[0].key.split("|")[1].trim() || f.typeName.buckets[0].key.split("|")[2].trim() || f.key',
@@ -41,8 +42,7 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
     year: '',
     funder: 'f.key',
     organization: 'f.key',
-    identifiedTopic: 
-      'f.identifiedTopicId.buckets[0].key.split("|")[0].trim() || f.identifiedTopicId.buckets[0].key.split("|")[1].trim() || f.key',
+    identifiedTopic: 'f.key',
     // Locale, english, finnish, key
     typeOfFunding: 'f.key',
     fieldOfScience: 'f.key',
@@ -181,10 +181,10 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
           tmp.forEach((b) => {
             b.data = [];
             b.identifiedTopicNested.identifiedTopicId.buckets.forEach((f) => {
-              if(f.key.includes("|topic")){
+              if(f.identifiedTopic.buckets.shift().key.includes("|topic")){
                 const v: any = {}
-                v.name = f.identifiedTopic.buckets.shift().key;
-                v.id = v.name;
+                v.name = f.key;
+                v.id = f.key;
                 v.doc_count = f.doc_count;
                 v.parent = b.key;
                 b.data.push(v);
