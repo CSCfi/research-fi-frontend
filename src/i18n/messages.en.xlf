@@ -935,7 +935,7 @@
       </trans-unit>
       <trans-unit id="asCountFunding">
         <source>Hankkeiden määrä</source>
-        <target>In numbers</target>
+        <target>Number of projects</target>
       </trans-unit>
       <trans-unit id="asPercentFunding">
         <source>% hankkeiden määrästä</source>
