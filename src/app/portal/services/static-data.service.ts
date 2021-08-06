@@ -1629,8 +1629,6 @@ export class StaticDataService {
         title: $localize`:@@fundingCountByIdentifiedTopic:Hankkeiden jakautuminen tunnistetun aiheen mukaan`,
         select: $localize`:@@identifiedTopic:Tunnistettu aihe`,
         // tslint:disable-next-line: max-line-length
-        message:
-          'Huom. Yhdellä hankkeella voi olla useita tieteenaloja. Hanke sisältyy tällöin jokaisen siihen liitetyn tieteenalan lukumäärään. Hankkeita, joille ei ole määritelty tieteenalaa, ei lasketa mukaan kuvaajaan.',
         filter: 'identifiedTopic',
         hierarchy: [
           {
@@ -1700,7 +1698,7 @@ export class StaticDataService {
             name: 'identifiedTopic',
             size: 10000,
             order: 1,
-            exclude: [''],
+            exclude: [' '],
           },
           {
             name: 'orgNested',

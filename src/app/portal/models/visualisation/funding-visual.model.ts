@@ -184,7 +184,7 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
               if(f.key.includes("|topic")){
                 const v: any = {}
                 v.name = f.identifiedTopic.buckets.shift().key;
-                v.id = f.key;
+                v.id = v.name;
                 v.doc_count = f.doc_count;
                 v.parent = b.key;
                 b.data.push(v);

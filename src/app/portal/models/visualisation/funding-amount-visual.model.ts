@@ -30,7 +30,7 @@ export class FundingVisualAmountAdapter implements Adapter<FundingVisual> {
     funder: 'f.id',
     organization: 'f.key',
     identifiedTopic: 
-    'f.id.split("|")[0].trim() || f.id.split("|")[1].trim() || f.id',
+    'f.key.split("|")[0].trim() || f.key.split("|")[1].trim() || f.id',
     // Locale, english, finnish, key
     typeOfFunding: 'f.key',
     fieldOfScience: 'f.id',
@@ -234,7 +234,7 @@ export class FundingVisualAmountAdapter implements Adapter<FundingVisual> {
                 console.log(eval(this.ids[field]))
                 const v: any = {};
                 v.name = eval(this.names[field]);
-                v.id = eval(this.ids[field]);
+                v.id = v.name;
                 v.doc_count = this.getFundingSum(f, field);
                 v.parent = b.key;
                 b.data.push(v);
