@@ -1624,6 +1624,106 @@ export class StaticDataService {
           },
         ],
       },
+      {
+        field: 'identifiedTopic',
+        title: $localize`:@@fundingCountByIdentifiedTopic:Hankkeiden jakautuminen tunnistetun aiheen mukaan`,
+        select: $localize`:@@identifiedTopic:Tunnistettu aihe`,
+        // tslint:disable-next-line: max-line-length
+        filter: 'topic',
+        hierarchy: [
+          {
+            field: 'fundingStartYear',
+            name: 'year',
+            size: 10,
+            order: 1,
+          },
+          {
+            name: 'identifiedTopicNested',
+            nested: 'keywords',
+          },
+          {
+            field: 'keywords.keyword.keyword',
+            name: 'identifiedTopicId',
+            size: 10000,
+            order: 1,
+            filterName: 'topic',
+            exclude: [' '],
+          },
+          {
+            script:
+              'doc["keywords.keyword.keyword"].value + "|" + doc["keywords.scheme.keyword"].value',
+            name: 'identifiedTopic',
+            size: 10000,
+            order: 1,
+            exclude: [''],
+          },
+          {
+            name: 'orgNested',
+            nested: 'fundingGroupPerson',
+          },
+          {
+            field: 'fundingGroupPerson.consortiumOrganizationId.keyword',
+            name: 'organizationId',
+            size: 100,
+            filterName: 'organization',
+          },
+          {
+            sum: 'fundingGroupPerson.shareOfFundingInEur',
+            name: 'moneySum',
+            size: 1,
+          },
+        ],
+        hierarchy2: [
+          {
+            field: 'fundingStartYear',
+            name: 'year',
+            size: 10,
+            order: 1,
+          },
+          {
+            name: 'identifiedTopicNested',
+            nested: 'keywords',
+          },
+          {
+            field: 'keywords.keyword.keyword',
+            name: 'identifiedTopicId',
+            size: 10000,
+            order: 1,
+            filterName: 'topic',
+            exclude: [' '],
+          },
+          {
+            script:
+              'doc["keywords.keyword.keyword"].value + "|" + doc["keywords.scheme.keyword"].value',
+           name: 'identifiedTopic',
+            size: 10000,
+            order: 1,
+            exclude: [''],
+          },
+          {
+            name: 'orgNested',
+            nested: 'organizationConsortium',
+          },
+          {
+            name: 'finnishOrganization',
+            filter: {
+              field: 'organizationConsortium.isFinnishOrganization',
+              value: [1],
+            },
+          },
+          {
+            field: 'organizationConsortium.consortiumOrganizationId.keyword',
+            name: 'organizationId',
+            size: 100,
+            filterName: 'organization',
+          },
+          {
+            sum: 'organizationConsortium.shareOfFundingInEur',
+            name: 'moneySum',
+            size: 1,
+          },
+        ],
+      },
     ],
   };
 }

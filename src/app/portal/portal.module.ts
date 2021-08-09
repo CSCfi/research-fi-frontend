@@ -147,6 +147,7 @@ import { ExternalLinksComponent } from './components/science-politics/external-l
 import { BannerComponent } from './components/home-page/banner/banner.component';
 import { LatestNewsComponent } from './components/news/latest-news/latest-news.component';
 import { NewsResultsComponent } from './components/news/news-results/news-results.component';
+import { PieComponent } from './components/visualisation/pie/pie.component';
 import { ConvertToArrayPipe } from './pipes/convert-to-array.pipe';
 import { FundingCallsComponent } from './components/funding-calls/funding-calls.component';
 import { SingleFundingCallComponent } from './components/funding-calls/single-funding-call/single-funding-call.component';
@@ -218,6 +219,7 @@ import { FundingCallPreviewComponent } from './components/funding-calls/funding-
     BannerComponent,
     LatestNewsComponent,
     NewsResultsComponent,
+    PieComponent,
     ConvertToArrayPipe,
     FundingCallsComponent,
     SingleFundingCallComponent,

@@ -22,12 +22,15 @@ export class FundingVisualAmountAdapter implements Adapter<FundingVisual> {
     typeOfFunding:
       'f.key.split("|")[0].trim() || f.key.split("|")[1].trim() || f.key.split("|")[2].trim() || f.id',
     fieldOfScience: 'f.key',
+    identifiedTopic: 
+    'f.key.split("|")[0].trim() || f.key.split("|")[1].trim() || f.id',
   };
 
   private ids = {
     year: '',
     funder: 'f.id',
     organization: 'f.key',
+    identifiedTopic: 'f.id',
     // Locale, english, finnish, key
     typeOfFunding: 'f.key',
     fieldOfScience: 'f.id',
@@ -43,7 +46,7 @@ export class FundingVisualAmountAdapter implements Adapter<FundingVisual> {
       // Group items with the same name under one object
       const grouped = d.data.reduce(
         (
-          a: { name: string; doc_count: number; parent: string; id: string }[],
+          a: { name: string; doc_count: number; parent: string; id: string}[],
           b
         ) => {
           // Get current name
@@ -93,6 +96,7 @@ export class FundingVisualAmountAdapter implements Adapter<FundingVisual> {
     const organization: VisualData[] = [];
     const typeOfFunding: VisualData[] = [];
     const fieldOfScience: VisualData[] = [];
+    const identifiedTopic: VisualData[] = [];
 
     const field = this.funding[categoryIdx].field;
 
@@ -195,6 +199,51 @@ export class FundingVisualAmountAdapter implements Adapter<FundingVisual> {
         });
         break;
 
+        case 'identifiedTopic':
+          const comb2 = [];
+
+          item.aggregations.identifiedTopic.buckets.forEach((b) => {
+            b.categs = [];
+            b.identifiedTopicNested.identifiedTopicId.buckets.forEach((s) => {
+              if (s.identifiedTopic.buckets !== undefined){
+                const f = s.identifiedTopic.buckets[0];
+                f.id = s.key;
+                b.categs.push(f);
+              }
+            });
+            comb2.push({ key: b.key, id: b.key, categs: b.categs });
+          });
+  
+          // debugger;
+  
+          item.aggregations.identifiedTopic2.buckets.forEach((b) => {
+            // debugger;
+            const target = comb2.find((x) => x.key === b.key);
+            b.identifiedTopicNested.identifiedTopicId.buckets.forEach((s) => {
+              if (s.identifiedTopic.buckets !== undefined){
+                const f = s.identifiedTopic.buckets[0];
+                f.id = s.key;
+                target.categs.push(f);
+              }
+            });
+          });
+  
+          comb2.forEach((b) => {
+            b.data = [];
+            b.categs.forEach((f) => {
+                const v: any = {};
+                v.name =  eval(this.ids[field]);
+                v.id =  eval(this.ids[field]);
+                v.doc_count = this.getFundingSum(f, field);
+                v.parent = b.key;
+                b.data.push(v);
+            });
+            // Push data to correct array
+            eval(`${field}.push(b)`);
+            eval(`this.sortByName(${field})`);
+          });
+          break;  
+
       default:
         const hierarchyField = this.funding[categoryIdx].hierarchy[1].name;
         const categoryHierarchy = this.funding[categoryIdx].hierarchy[2].name;
@@ -243,12 +292,14 @@ export class FundingVisualAmountAdapter implements Adapter<FundingVisual> {
     this.groupNames(organization);
     this.groupNames(typeOfFunding);
     this.groupNames(fieldOfScience);
+    this.groupNames(identifiedTopic);
     // Sort the mixed arrays alphabetically
     this.sortByName(year);
     this.sortByName(funder);
     this.sortByName(organization);
     this.sortByName(typeOfFunding);
     this.sortByName(fieldOfScience);
+    this.sortByName(identifiedTopic);
 
     return new FundingVisual(
       year,
@@ -256,7 +307,8 @@ export class FundingVisualAmountAdapter implements Adapter<FundingVisual> {
       funder,
       organization,
       typeOfFunding,
-      fieldOfScience
+      fieldOfScience,
+      identifiedTopic
     );
   }
 }

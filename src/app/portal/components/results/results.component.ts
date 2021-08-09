@@ -138,6 +138,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   modalRef: BsModalRef;
   showInfo = true;
   fundingAmount = false;
+  visualisationType = false;
 
   faDownload = faDownload;
   faTrash = faTrash;
@@ -146,6 +147,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   additionalInfo = $localize`:@@additionalInfo:Lisätietoa`;
   clearActiveFilters = $localize`:@@clearActiveFilters: Tyhjennä rajaukset`;
   downloadImage = $localize`:@@downloadAsImage:Lataa kuvana (tulossa)`;
+  
 
   // tslint:disable-next-line: max-line-length
   betaTooltip =
@@ -457,7 +459,16 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   changeVisual(event: any) {
     // Check if theme is changed (or doesn't exist)
+
     const themeChanged = this.fundingAmount !== event.fundingAmount;
+
+    if (event.fundingAmount === undefined && this.fundingAmount === true){
+      event.fundingAmount = true;
+    }
+    else if (event.fundingAmount === undefined && this.fundingAmount === false){
+      event.fundingAmount = false;
+    }
+
     // Update idx
     this.visIdx = event.value || this.visIdx;
     // Get data (if changed)
