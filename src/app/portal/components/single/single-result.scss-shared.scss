@@ -161,18 +161,24 @@
         margin: 0;
       }
 
+      .inner {
+        padding: 16px;
+        background-color: #fafafa;
+        border-radius: 2px;
+      }
+
       // Sidebar
       mat-card.mat-card {
         margin-bottom: 10px;
-        border-radius: 0px;
-        padding: 20px;
+        padding: 24px 16px;
         box-shadow: none;
+        border-radius: 2px;
       }
 
       .mat-card-title {
-        font-size: 0.85em;
+        font-size: 1rem;
         line-height: 1.275;
-        text-transform: uppercase;
+        font-weight: 500;
       }
 
       // Links
