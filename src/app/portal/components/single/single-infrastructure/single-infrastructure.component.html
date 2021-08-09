@@ -389,89 +389,97 @@
     >
       <aside>
         <mat-card>
-          <ng-container *ngIf="item.urn">
-            <mat-card-title><h2>Tunniste</h2></mat-card-title>
-            <div class="row pb-4">
-              <div>{{ item.urn }}</div>
-            </div>
-          </ng-container>
-          <mat-card-title
-            ><h2 i18n="@@infraHomePage">
-              Infrastruktuurin verkkosivu
-            </h2></mat-card-title
-          >
-          <div class="row links" *ngIf="linkFields?.length > 0">
-            <div *ngFor="let row of linkFields" class="info-link-wrapper">
-              <div class="col link">
-                <a
-                  class="info-link"
-                  href="{{ item[row.field] }}"
-                  target="_blank"
-                  >{{ item[row.field] | cutContent: 40
-                  }}<fa-icon icon="external-link-alt"></fa-icon
-                ></a>
+          <div class="inner">
+            <ng-container *ngIf="item.urn">
+              <mat-card-title><h2>Tunniste</h2></mat-card-title>
+              <div class="row pb-4">
+                <div>{{ item.urn }}</div>
+              </div>
+            </ng-container>
+            <mat-card-title
+              ><h2 i18n="@@infraHomePage">
+                Infrastruktuurin verkkosivu
+              </h2></mat-card-title
+            >
+            <div class="row links" *ngIf="linkFields?.length > 0">
+              <div *ngFor="let row of linkFields" class="info-link-wrapper">
+                <div class="col link">
+                  <a
+                    class="info-link"
+                    href="{{ item[row.field] }}"
+                    target="_blank"
+                    >{{ item[row.field] | cutContent: 40
+                    }}<fa-icon icon="external-link-alt"></fa-icon
+                  ></a>
+                </div>
               </div>
             </div>
-          </div>
-          <div
-            *ngIf="!linkFields.length"
-            class="no-links"
-            i18n="@@noInfraLinks"
-          >
-            Infrastruktuuriin ei ole tarjolla linkkejä tässä portaalissa
+            <div
+              *ngIf="!linkFields.length"
+              class="no-links"
+              i18n="@@noInfraLinks"
+            >
+              Infrastruktuuriin ei ole tarjolla linkkejä tässä portaalissa
+            </div>
           </div>
         </mat-card>
       </aside>
       <aside>
         <mat-card>
-          <mat-card-title
-            ><h2>
-              <ng-container i18n="@@relatedInfrastructures"
-                >Hae infrastruktuuriin liittyvät</ng-container
-              >
-              (<ng-container i18n="@@comingSoon">tulossa</ng-container>)
-            </h2></mat-card-title
-          >
-          <app-related-links
-            [id]=""
-            [relatedData]="relatedData"
-          ></app-related-links>
+          <div class="inner">
+            <mat-card-title
+              ><h2>
+                <ng-container i18n="@@relatedInfrastructures"
+                  >Hae infrastruktuuriin liittyvät</ng-container
+                >
+                (<ng-container i18n="@@comingSoon">tulossa</ng-container>)
+              </h2></mat-card-title
+            >
+            <app-related-links
+              [id]=""
+              [relatedData]="relatedData"
+            ></app-related-links>
+          </div>
         </mat-card>
       </aside>
       <!-- Social icons -->
       <aside>
         <mat-card>
-          <mat-card-title><h2 i18n="@@share">Jaa</h2></mat-card-title>
-          <app-share [id]="item.id"></app-share>
+          <div class="inner">
+            <mat-card-title><h2 i18n="@@share">Jaa</h2></mat-card-title>
+            <app-share [id]="item.id"></app-share>
+          </div>
         </mat-card>
       </aside>
       <!-- Source -->
       <aside>
         <mat-card>
-          <mat-card-title
-            ><h2 i18n="@@infraSource">
-              Infrastruktuuritiedon lähde
-            </h2></mat-card-title
-          >
-          <div *ngFor="let source of responseData.infrastructures">
-            <a
-              *ngIf="
-                source?.responsibleOrganization?.trim().length > 0;
-                else noSource
-              "
-              routerLink="/results/organization/{{
-                source.responsibleOrganizationId
-              }}"
+          <div class="inner">
+            <mat-card-title
+              ><h2 i18n="@@infraSource">
+                Infrastruktuuritiedon lähde
+              </h2></mat-card-title
             >
-              {{ source.responsibleOrganization }}
-            </a>
-            <ng-template #noSource>
-              <p class="font-italic m-0" i18n="@@missingInfraSource">
-                Infrastruktuuritiedon lähde puuttuu.
-              </p>
-            </ng-template>
+            <div *ngFor="let source of responseData.infrastructures">
+              <a
+                *ngIf="
+                  source?.responsibleOrganization?.trim().length > 0;
+                  else noSource
+                "
+                routerLink="/results/organization/{{
+                  source.responsibleOrganizationId
+                }}"
+              >
+                {{ source.responsibleOrganization }}
+              </a>
+              <ng-template #noSource>
+                <p class="font-italic m-0" i18n="@@missingInfraSource">
+                  Infrastruktuuritiedon lähde puuttuu.
+                </p>
+              </ng-template>
+            </div>
+            <div class="clear"></div>
           </div>
-          <div class="clear"></div>
         </mat-card>
       </aside>
     </div>
