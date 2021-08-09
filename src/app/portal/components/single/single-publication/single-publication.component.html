@@ -654,8 +654,8 @@
       class="col-12 col-md-4 col-xl-4"
     >
       <aside>
-        <aside>
-          <mat-card>
+        <mat-card>
+          <div class="inner">
             <mat-card-title>
               <h2 i18n="@@publicationLinks">Linkit julkaisuun</h2>
             </mat-card-title>
@@ -723,10 +723,12 @@
             >
               Julkaisuun ei ole tarjolla linkkejä tässä portaalissa
             </div>
-          </mat-card>
-        </aside>
-        <aside>
-          <mat-card>
+          </div>
+        </mat-card>
+      </aside>
+      <aside>
+        <mat-card>
+          <div class="inner">
             <mat-card-title>
               <h2 i18n="@@externalLinks">Hae julkaisua muualta</h2>
             </mat-card-title>
@@ -748,39 +750,45 @@
                 ></a>
               </div>
             </div>
-          </mat-card>
-        </aside>
-        <mat-card>
-          <mat-card-title>
-            <h2>
-              <ng-container i18n="@@relatedPublications"
-                >Hae julkaisuun liittyvät</ng-container
-              >
-              (<ng-container i18n="@@comingSoon">tulossa</ng-container>)
-            </h2>
-          </mat-card-title>
-          <app-related-links
-            [id]="authorAndOrganization[0]?.orgId"
-            [relatedData]="relatedData"
-          >
-          </app-related-links>
+          </div>
         </mat-card>
       </aside>
       <aside>
         <mat-card>
-          <mat-card-title>
-            <h2 i18n="@@citationHeader">Viittaa</h2>
-          </mat-card-title>
-          <div>
-            <div class="reference">
-              <app-secondary-button
-                #citeButton
-                (click)="openModal(citeModal)"
-                [content]="copyReferences"
-                [icon]="faQuoteRight"
-                [big]="true"
-              ></app-secondary-button>
-              <!-- <small *ngIf="!hasDoi" class="no-doi-warn" i18n="@@doiWarning">Viitetiedot eivät ole saatavilla, koska julkaisulla ei ole DOI-tunnistetta.</small> -->
+          <div class="inner">
+            <mat-card-title>
+              <h2>
+                <ng-container i18n="@@relatedPublications"
+                  >Hae julkaisuun liittyvät</ng-container
+                >
+                (<ng-container i18n="@@comingSoon">tulossa</ng-container>)
+              </h2>
+            </mat-card-title>
+            <app-related-links
+              [id]="authorAndOrganization[0]?.orgId"
+              [relatedData]="relatedData"
+            >
+            </app-related-links>
+          </div>
+        </mat-card>
+      </aside>
+      <aside>
+        <mat-card>
+          <div class="inner">
+            <mat-card-title>
+              <h2 i18n="@@citationHeader">Viittaa</h2>
+            </mat-card-title>
+            <div>
+              <div class="reference">
+                <app-secondary-button
+                  #citeButton
+                  (click)="openModal(citeModal)"
+                  [content]="copyReferences"
+                  [icon]="faQuoteRight"
+                  [big]="true"
+                ></app-secondary-button>
+                <!-- <small *ngIf="!hasDoi" class="no-doi-warn" i18n="@@doiWarning">Viitetiedot eivät ole saatavilla, koska julkaisulla ei ole DOI-tunnistetta.</small> -->
+              </div>
             </div>
           </div>
         </mat-card>
@@ -788,28 +796,32 @@
       <!-- Copy url -->
       <aside>
         <mat-card>
-          <mat-card-title>
-            <h2 i18n="@@shareHeader">Jaa</h2>
-          </mat-card-title>
-          <app-share [id]="item.id"></app-share>
+          <div class="inner">
+            <mat-card-title>
+              <h2 i18n="@@shareHeader">Jaa</h2>
+            </mat-card-title>
+            <app-share [id]="item.id"></app-share>
+          </div>
         </mat-card>
       </aside>
       <aside>
         <mat-card>
-          <mat-card-title>
-            <h2 i18n="@@publicationSource">Julkaisutiedon lähde</h2>
-          </mat-card-title>
-          <div *ngFor="let org of authorAndOrganization">
-            <p *ngIf="authorAndOrganization[0]?.orgName.length > 0">
-              <a routerLink="/results/organization/{{ org.orgId }}">{{
-                org.orgName
-              }}</a>
-            </p>
-            <p *ngIf="authorAndOrganization[0]?.orgName.length === 0">
-              Tiedon lähde ei saatavilla.
-            </p>
+          <div class="inner">
+            <mat-card-title>
+              <h2 i18n="@@publicationSource">Julkaisutiedon lähde</h2>
+            </mat-card-title>
+            <div *ngFor="let org of authorAndOrganization">
+              <p *ngIf="authorAndOrganization[0]?.orgName.length > 0">
+                <a routerLink="/results/organization/{{ org.orgId }}">{{
+                  org.orgName
+                }}</a>
+              </p>
+              <p *ngIf="authorAndOrganization[0]?.orgName.length === 0">
+                Tiedon lähde ei saatavilla.
+              </p>
+            </div>
+            <div class="clear"></div>
           </div>
-          <div class="clear"></div>
         </mat-card>
       </aside>
     </div>

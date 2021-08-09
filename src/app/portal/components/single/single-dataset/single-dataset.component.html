@@ -319,8 +319,8 @@
     </main>
     <div *ngFor="let item of responseData.datasets" class="col-12 col-md-4">
       <aside>
-        <aside>
-          <mat-card>
+        <mat-card>
+          <div class="inner">
             <mat-card-title>
               <h2 i18n="@@datasetLinks">Linkit tutkimusaineistoon</h2>
             </mat-card-title>
@@ -357,7 +357,7 @@
                   <span class="doi-tag">URL</span>
                   <span class="doi-link">
                     <a [attr.href]="item.fairdataUrl" target="_blank"
-                      >{{ item.fairdataUrl | cutContent: 40 }}
+                      >{{ item.fairdataUrl | cutContent: 38 }}
                       <fa-icon icon="external-link-alt"></fa-icon>
                     </a>
                   </span>
@@ -391,20 +391,24 @@
             >
               Tutkimusaineistoon ei ole tarjolla linkkejä tässä portaalissa
             </div>
-          </mat-card>
-        </aside>
-        <mat-card>
-          <mat-card-title>
-            <h2>
-              <ng-container i18n="@@relatedDatasets"
-                >Hae tutkimusaineistoon liittyvät</ng-container
-              >
-              (<ng-container i18n="@@comingSoon">tulossa</ng-container>)
-            </h2>
-          </mat-card-title>
-          <app-related-links [id]="item.id"> </app-related-links>
+          </div>
         </mat-card>
       </aside>
+      <aside>
+        <mat-card>
+          <div class="inner">
+            <mat-card-title>
+              <h2>
+                <ng-container i18n="@@relatedDatasets"
+                  >Hae tutkimusaineistoon liittyvät</ng-container
+                >
+                (<ng-container i18n="@@comingSoon">tulossa</ng-container>)
+              </h2>
+            </mat-card-title>
+            <app-related-links [id]="item.id"> </app-related-links>
+          </div>
+        </mat-card>
+    </aside>
       <!-- <aside>
         <mat-card>
           <mat-card-title>
@@ -427,24 +431,28 @@
       <!-- Copy url -->
       <aside>
         <mat-card>
-          <mat-card-title>
-            <h2 i18n="@@shareHeader">Jaa</h2>
-          </mat-card-title>
-          <app-share [id]="item.id"></app-share>
+          <div class="inner">
+            <mat-card-title>
+              <h2 i18n="@@shareHeader">Jaa</h2>
+            </mat-card-title>
+            <app-share [id]="item.id"></app-share>
+          </div>
         </mat-card>
       </aside>
       <aside>
         <mat-card>
-          <mat-card-title>
-            <h2 i18n="@@datasetSource">Tutkimusaineistotiedon lähde</h2>
-          </mat-card-title>
-          <div>
-            <p *ngIf="item.dataCatalog?.length > 0">{{ item.dataCatalog }}</p>
-            <p *ngIf="item.dataCatalog?.length === 0">
-              Tiedon lähde ei saatavilla.
-            </p>
+          <div class="inner">
+            <mat-card-title>
+              <h2 i18n="@@datasetSource">Tutkimusaineistotiedon lähde</h2>
+            </mat-card-title>
+            <div>
+              <p *ngIf="item.dataCatalog?.length > 0">{{ item.dataCatalog }}</p>
+              <p *ngIf="item.dataCatalog?.length === 0">
+                Tiedon lähde ei saatavilla.
+              </p>
+            </div>
+            <div class="clear"></div>
           </div>
-          <div class="clear"></div>
         </mat-card>
       </aside>
     </div>
