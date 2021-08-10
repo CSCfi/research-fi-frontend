@@ -106,7 +106,11 @@ export class SinglePublicationComponent
         '</p><p><strong>' +
         $localize`:@@poster:Posteri` +
         ': </strong>' +
-        $localize`:@@posterTooltipContent:sisältää konferenssiesitelmien posterit.`,
+        $localize`:@@posterTooltipContent:sisältää konferenssiesitelmien posterit.` +
+        '</p><p><strong>' +
+        $localize`:@@blog:Blogikirjoitus` +
+        ': </strong>' +
+        $localize`:@@blogTooltipContent:sisältää blogimuotoiset julkaisut, joiden julkaisemisesta on päättänyt riippumaton toimituskunta tai joiden julkaisualustalla on ISSN-tunnus.`,
     },
     {
       label: $localize`:@@parentPublicationType:Emojulkaisun tyyppi`,

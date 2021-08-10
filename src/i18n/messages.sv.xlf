@@ -2543,6 +2543,14 @@
         <source>sisältää konferenssiesitelmien posterit.</source>
         <target>omfattar postrar om konferenspresentationer.</target>
       </trans-unit>
+      <trans-unit id="blog">
+        <source>Blogikirjoitus</source>
+        <target>Blogginlägg</target>
+      </trans-unit>
+      <trans-unit id="blogTooltipContent">
+        <source>sisältää blogimuotoiset julkaisut, joiden julkaisemisesta on päättänyt riippumaton toimituskunta tai joiden julkaisualustalla on ISSN-tunnus</source>
+        <target>innehåller publikationer i bloggformat som har publicerats av en oberoende redaktion eller vars publikationsplattform har ett ISSN-nummer.</target>
+      </trans-unit>
       <trans-unit id="journal">
         <source>Lehti</source>
         <target>Tidning</target>

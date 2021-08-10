@@ -2550,6 +2550,14 @@
         <source>sisältää konferenssiesitelmien posterit.</source>
         <target>includes posters of conference presentations.</target>
       </trans-unit>
+      <trans-unit id="blog">
+        <source>Blogikirjoitus</source>
+        <target>Blog</target>
+      </trans-unit>
+      <trans-unit id="blogTooltipContent">
+        <source>sisältää blogimuotoiset julkaisut, joiden julkaisemisesta on päättänyt riippumaton toimituskunta tai joiden julkaisualustalla on ISSN-tunnus.</source>
+        <target>Contains blog publications that have been approved for publication by an independent editorial board or that are published on a platform assigned an ISSN number.</target>
+      </trans-unit>
       <trans-unit id="journal">
         <source>Lehti</source>
         <target>Journal</target>
