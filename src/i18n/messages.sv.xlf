@@ -2800,6 +2800,18 @@
         <source>Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuodot ovat usein rahoittajakohtaisia.</source>
         <target>Sätt att finansiera forskning. Typer av finansiering är till exempel forskningsbidrag, projektfinansiering och forskningsinfrastrukturfinansiering. Finansieringstyper är ofta finansiärspecifika.</target>
       </trans-unit>
+      <trans-unit id="identifiedTopic">
+        <source>Tunnistettu aihe</source>
+        <target>Identifieradetema</target>
+      </trans-unit>
+      <trans-unit id="identifiedTopics">
+        <source>Tunnistetut aiheet</source>
+        <target>Identifieradeteman</target>
+      </trans-unit>
+      <trans-unit id="identifiedTopicsTooltip">
+        <source>Koneoppimisen avulla hankkeiden tiedoista tutkimustietovarannossa muodostettu aiheluokittelu. Hanke liittyy aiheeseen, jota se todennäköisimmin käsittelee.</source>
+        <target>Med hjälp av maskininlärning bildas en ämneskategorisering från projektdata. Projektet relaterar till ämnet det i stor sannolikheten handlar.</target>
+      </trans-unit>
       <trans-unit id="sfCallProgrammeTooltip">
         <source>Rahoittajan haku, josta rahoitus on myönnetty. Kilpailtu tutkimusrahoitus myönnetään usein avoimien hakujen kautta, joissa rahoituksen myöntämisen perusteena ovat ennalta määrätyt kriteerit. Hakemukset arvioidaan ja rahoitus myönnetään kriteerien ja muiden tavoitteiden perusteella parhaiksi katsotuille hakemuksille.</source>
         <target>Utlysning av finansiär som har beviljat finansiering. Konkurrensutsatt forskningsfinansiering beviljas ofta genom öppna ansökningar, där beviljandet av finansiering grundar sig på kriterier som fastställts på förhand.</target>

@@ -92,6 +92,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     {
       label: $localize`:@@identifiedTopics:Tunnistetut aiheet`,
       field: 'topics',
+      tooltip: $localize`:@@identifiedTopicsTooltip:Koneoppimisen avulla hankkeiden tiedoista tutkimustietovarannossa muodostettu aiheluokittelu. Hanke liittyy aiheeseen, jota se todennäköisimmin käsittelee.`,
     },
   ];
 

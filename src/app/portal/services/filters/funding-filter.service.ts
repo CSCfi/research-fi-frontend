@@ -319,36 +319,42 @@ export class FundingFilterService {
           item.key = $localize`:@@FAField:Teemat`;
           break;
         }
-        case 'Tutkimusala': {
-          item.key = $localize`:@@FAResearchFields:Suomen Akatemian tutkimusalat`;
-          break;
-        }
         case 'topic': {
           item.key = $localize`:@@identifiedTopic:Tunnistettu aihe`;
+          break;
+        }
+        case 'Tutkimusala': {
+          item.key = $localize`:@@FAResearchFields:Suomen Akatemian tutkimusalat`;
           break;
         }
       }
     });
 
     //Sort
-    var rearranged_keys = data;
     var topic_index = 0;
-
+    var ind_themes = 0;
     data.every((item, index) => {
-      if (item.key == 'Teemat' && data[index + 1].key != 'Tunnistettu aihe') {
-        topic_index = rearranged_keys
-          .map(function (e) {
-            return e.key;
-          })
-          .indexOf('Tunnistettu aihe');
-        [data[index + 1], data[topic_index]] = [
-          data[topic_index],
-          data[index + 1],
-        ];
+      if (['Teemat', 'Themes', 'Teman'].includes(item.key)) {
+        ind_themes = index;
         return false;
       }
       return true;
     });
+    data.every((item, index) => {
+      if (
+        ['Tunnistettu aihe', 'Identified topic', 'Identifieradetema'].includes(
+          item.key
+        )
+      ) {
+        topic_index = index;
+        return false;
+      }
+      return true;
+    });
+    [data[ind_themes + 1], data[topic_index]] = [
+      data[topic_index],
+      data[ind_themes + 1],
+    ];
 
     return data;
   }

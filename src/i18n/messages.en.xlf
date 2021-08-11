@@ -2807,6 +2807,18 @@
         <source>Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuodot ovat usein rahoittajakohtaisia.</source>
         <target>Method of funding research. Instruments of funding include research grants, project funding and research infrastructure funding. Instruments are often specific to each funder.</target>
       </trans-unit>
+      <trans-unit id="identifiedTopic">
+        <source>Tunnistettu aihe</source>
+        <target>Identified topic</target>
+      </trans-unit>
+      <trans-unit id="identifiedTopics">
+        <source>Tunnistetut aiheet</source>
+        <target>Identified topics</target>
+      </trans-unit>
+      <trans-unit id="identifiedTopicsTooltip">
+        <source>Koneoppimisen avulla hankkeiden tiedoista tutkimustietovarannossa muodostettu aiheluokittelu. Hanke liittyy aiheeseen, jota se todennäköisimmin käsittelee.</source>
+        <target>Comprehensive topic categorisation, spanning all projects in the Hub, is formed with the help of machine learning. Then each project is assigned the topic it most likely addresses.</target>
+      </trans-unit>
       <trans-unit id="sfCallProgrammeTooltip">
         <source>Rahoittajan haku, josta rahoitus on myönnetty. Kilpailtu tutkimusrahoitus myönnetään usein avoimien hakujen kautta, joissa rahoituksen myöntämisen perusteena ovat ennalta määrätyt kriteerit. Hakemukset arvioidaan ja rahoitus myönnetään kriteerien ja muiden tavoitteiden perusteella parhaiksi katsotuille hakemuksille.</source>
         <target>Funder´s call granting the funding. Competed research funding is often granted through open calls, in which funding is granted on the basis of prescribed criteria. Applications are evaluated and funding is granted to the best</target>
