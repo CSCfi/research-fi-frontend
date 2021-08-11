@@ -87,7 +87,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   filterNewsHeader = $localize`:@@filterNewsHeader:Rajaa uutisia`;
   coPublicationTooltip =
     'Valitsemalla ”näytä vain yhteisjulkaisut” voit tarkastella suomalaisten organisaatioiden yhteisiä julkaisuja. Hakutulos näyttää tällöin vain sellaiset julkaisut, joissa kaikki alla olevasta listasta valitut organisaatiot ovat mukana. Jos yhtään organisaatiota ei ole valittu, hakutulos näyttää kaikki yhteisjulkaisut';
-
+  sgidentifiedTopicTooltip = $localize`:@@identifiedTopicsTooltip:Koneoppimisen avulla hankkeiden tiedoista tutkimustietovarannossa muodostettu aiheluokittelu. Hanke liittyy aiheeseen, jota se todennäköisimmin käsittelee.`;
   constructor(
     private router: Router,
     private resizeService: ResizeService,
@@ -446,7 +446,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
       }
     }
     // Create filter string format
-    const filterString = (start || end) ? (start || '') + '|' + (end || '') : ''; // Replace 'undefined' with empty string. On manual clear, empty string for the whole thing.
+    const filterString = start || end ? (start || '') + '|' + (end || '') : ''; // Replace 'undefined' with empty string. On manual clear, empty string for the whole thing.
     // this.activeFilters = Object.assign({}, this.activeFilters, {date: [filterString]});
     this.selectionChange('date', [filterString]);
   }
@@ -455,10 +455,10 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     // Initially string, then array. Convert into same format regardless
     const activeDate = [...(this.activeFilters.date || [])].join('');
     const start = activeDate?.split('|')[0] // Check if active start date exists
-      ? new Date(activeDate?.split('|')[0]) 
+      ? new Date(activeDate?.split('|')[0])
       : null;
     const end = activeDate?.split('|')[1] // Check if active end date exists
-      ? new Date(activeDate?.split('|')[1]) 
+      ? new Date(activeDate?.split('|')[1])
       : null;
     return dir === 'start' ? start : end;
   }
