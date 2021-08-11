@@ -55,6 +55,8 @@ export class Publication {
     public apcFee: string,
     public apcPaymentYear: string,
     public openAccess: boolean, // openAccessCode + selfArchivedCode
+    public show_logo: boolean,
+    public abstract: string,
     public openAccessText: string,
     public internationalPublication: boolean,
     public countryCode: string,
@@ -124,18 +126,30 @@ export class PublicationAdapter implements Adapter<Publication> {
       item.openAccess === true;
     let openAccessText = '';
     // Open Access can be added from multiple fields
-    if (
-      item.openAccessCode === 1 ||
-      item.openAccessCode === 2 ||
-      item.openAccess === true
+    if (item.openAccess === true) {
+      openAccessText = $localize`:@@yes:Kyllä`;
+    } else if (item.openAccess === false) {
+      openAccessText = $localize`:@@no:Ei`;
+    } else if (
+      !item.openAccess &&
+      (item.openAccessCode === 1 || item.openAccessCode === 2)
     ) {
       openAccessText = $localize`:@@yes:Kyllä`;
-    } else if (item.openAccessCode === 0 && item.openAccess === false) {
+    } else if (!item.openAccess && item.openAccessCode === 0) {
       openAccessText = $localize`:@@no:Ei`;
     } else {
       openAccessText = $localize`:@@noInfo:Ei tietoa`;
     }
 
+    //Abstract
+    let abstract = item.abstract || '';
+
+    //DOI logo
+    let show_logo: boolean =
+      item.openAccess === true ||
+      item.openAccessCode === 1 ||
+      item.openAccessCode === 2 ||
+      item.selfArchivedCode === 1;
     //For Open Access box
     let publisherOpenAccessText = '';
     //Lisää kieliversiot
@@ -266,6 +280,12 @@ export class PublicationAdapter implements Adapter<Publication> {
       ? item.peerReviewed[0]['name' + this.capitalizedLocale + 'PeerReviewed']
       : undefined;
 
+    let doiHandle = '';
+    if (item.doiHandle) {
+      let doi_arr = item.doiHandle.split('/');
+      doiHandle = doi_arr.slice(-2).join('/');
+    }
+
     return new Publication(
       item.publicationId,
       item.publicationName,
@@ -294,7 +314,7 @@ export class PublicationAdapter implements Adapter<Publication> {
       item.jufoCode,
       item.jufoClassCode,
       item.doi,
-      item.doiHandle,
+      doiHandle,
       item.selfArchivedAddress,
       item.keywords,
       archiveCodeText,
@@ -307,6 +327,8 @@ export class PublicationAdapter implements Adapter<Publication> {
       apcFee,
       apcPaymentYear,
       openAccess, // defined above
+      show_logo,
+      abstract,
       openAccessText,
       item.internationalCollaboration,
       item.publicationCountryCode,
