@@ -123,19 +123,19 @@ export class PublicationAdapter implements Adapter<Publication> {
     const openAccess: boolean =
       item.openAccessCode === 1 ||
       item.openAccessCode === 2 ||
-      item.openAccess === true;
+      item.openAccess === 1;
     let openAccessText = '';
     // Open Access can be added from multiple fields
-    if (item.openAccess === true) {
+    if (item.openAccess === 1) {
       openAccessText = $localize`:@@yes:Kyllä`;
-    } else if (item.openAccess === false) {
+    } else if (item.openAccess === 0) {
       openAccessText = $localize`:@@no:Ei`;
     } else if (
-      !item.openAccess &&
+      item.openAccess === 0 &&
       (item.openAccessCode === 1 || item.openAccessCode === 2)
     ) {
       openAccessText = $localize`:@@yes:Kyllä`;
-    } else if (!item.openAccess && item.openAccessCode === 0) {
+    } else if (item.openAccess === 0 && item.openAccessCode === 0) {
       openAccessText = $localize`:@@no:Ei`;
     } else {
       openAccessText = $localize`:@@noInfo:Ei tietoa`;
@@ -146,7 +146,7 @@ export class PublicationAdapter implements Adapter<Publication> {
 
     //DOI logo
     let show_logo: boolean =
-      item.openAccess === true ||
+      item.openAccess === 1 ||
       item.openAccessCode === 1 ||
       item.openAccessCode === 2 ||
       item.selfArchivedCode === 1;
@@ -164,7 +164,7 @@ export class PublicationAdapter implements Adapter<Publication> {
       publisherOpenAccessText = $localize`Viivästetysti avoin julkaisukanava`;
     }
 
-    let licenseText = '--';
+    let licenseText = item.license[0].licenseNameFi || '';
     let archiveCodeVersionText = '';
 
     //
@@ -188,16 +188,16 @@ export class PublicationAdapter implements Adapter<Publication> {
 
     if (['A', 'B'].includes(publicationType) && item.apcFeeEur) {
       item.apcFeeEur > 6000 ||
-      item.openAccessCode == 0 ||
-      item.openAccess == false ||
-      (item.openAccess == true && item.publisherOpenAccessCode == 0)
+      item.openAccessCode === 0 ||
+      item.openAccess === 0 ||
+      (item.openAccess === 1 && item.publisherOpenAccessCode === 0)
         ? ''
         : (apcFee = item.apcFeeEur);
     } else if (['C'].includes(publicationType) && item.apcFeeEur) {
       item.apcFeeEur > 25000 ||
-      item.openAccessCode == 0 ||
-      item.openAccess == false ||
-      (item.openAccess == true && item.publisherOpenAccessCode == 0)
+      item.openAccessCode === 0 ||
+      item.openAccess === 0 ||
+      (item.openAccess === 1 && item.publisherOpenAccessCode === 0)
         ? ''
         : (apcFee = item.apcFeeEur);
     }

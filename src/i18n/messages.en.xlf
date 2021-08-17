@@ -2626,6 +2626,106 @@
         <source>Emojulkaisun toimittajat</source>
         <target>Parent publication editors</target>
       </trans-unit>
+      <trans-unit id="publisherOpenAccess">
+        <source>Avoin saatavuus kustantajan palvelussa</source>
+        <target>Degree of open access in the publisher’s service</target>
+      </trans-unit>
+      <trans-unit id="embargoDate">
+        <source>Rinnakkaistallenteen julkaisuviiveen (embargo) päättymispäivä</source>
+        <target>Date when the embargo on self-archived document expires</target>
+      </trans-unit>
+      <trans-unit id="apcFee">
+        <source>Avoimen saatavuuden kirjoittajamaksu €</source>
+        <target>Article processing fee (EUR)</target>
+      </trans-unit>
+      <trans-unit id="apcPaymentYear">
+        <source>Avoimen saatavuuden kirjoittajamaksun vuosi</source>
+        <target>Year of payment for the open publication fee</target>
+      </trans-unit>
+      <trans-unit id="publicationChannelOa">
+        <source>Julkaisukanavan avoin saatavuus</source>
+        <target>Open access of publication channel</target>
+      </trans-unit>
+      <trans-unit id="publisherLicenseVersion">
+        <source>Kustantajan version lisenssi</source>
+        <target>License of the publisher’s version</target>
+      </trans-unit>
+      <trans-unit id="archivedLicenseVersion">
+        <source>Rinnakkaistallenteen versio</source>
+        <target>Version of the self-archived publication</target>
+      </trans-unit>
+      <trans-unit id="archivedLicense">
+        <source>Rinnakkaistallenteen lisenssi</source>
+        <target>License of the self-archived publication</target>
+      </trans-unit>
+      <trans-unit id="selfArchived">
+        <source>Rinnakkaistallennettu</source>
+        <target>Self-archived</target>
+      </trans-unit>
+      <trans-unit id="publicationChannelType">
+        <source>Julkaisun julkaisukanavan avoimen saatavuuden tyyppi.</source>
+        <target>The publication’s publication channel’s type of open access.</target>
+      </trans-unit>
+      <trans-unit id="OaFullyOpen">
+        <source>Kokonaan avoin julkaisukanava:</source>
+        <target>Fully open publication channel:</target>
+      </trans-unit>
+      <trans-unit id="OaFullyOpenTooltipContent">
+        <source>Julkaisukanavan kaikki julkaisut ovat välittömästi ja pysyvästi avoimesti saatavilla kustantajan palvelussa.</source>
+        <target>All publications are immediately and permanently accessible in the publisher’s service.</target>
+      </trans-unit>
+      <trans-unit id="OaPartiallyOpen">
+        <source>Osittain avoin julkaisukanava:</source>
+        <target>Partially open publication channel:</target>
+      </trans-unit>
+      <trans-unit id="OaPartiallyOpenTooltipContent">
+        <source>Osa julkaisukanavan julkaisuista on välittömästi ja pysyvästi avoimesti saatavilla kustantajan palvelussa. Esimerkiksi hybridilehdet.</source>
+        <target>Some of the publications (such as hybrid journals) are immediately and permanently accessible in the publisher’s service.</target>
+      </trans-unit>
+      <trans-unit id="OaDelayed">
+        <source>Viivästetysti avoin julkaisukanava:</source>
+        <target>Delayed open publication channel:</target>
+      </trans-unit>
+      <trans-unit id="OaDelayedTooltipContent">
+        <source>Osa tai kaikki julkaisukanavan julkaisuista avoimia kustantajan palvelussa vasta kustantajan määrittämän viiveajan (embargo) jälkeen.</source>
+        <target>Access to at least some of the publications remains blocked until the expiry of the embargo specified by the publisher.</target>
+      </trans-unit>
+      <trans-unit id="pubLicenseTooltip">
+        <source>Kustantajan palvelussa sijaitsevan julkaisun lisenssitieto.</source>
+        <target>License details of the publication accessible in the publisher’s service.</target>
+      </trans-unit>
+      <trans-unit id="selfArchivedTooltip">
+        <source>Julkaisusta avoimesti saatavilla oleva rinnakkaistallenne on tieteenala- tai organisaatiokohtaisessa julkaisuarkistossa.</source>
+        <target>Openly accessible self-archived version of the publication is kept in the publication archive of the relevant organization or field of science.</target>
+      </trans-unit>
+      <trans-unit id="selfLicenseTooltip">
+        <source>Tieteenala- tai organisaatiokohtaisessa julkaisuarkistossa sijaitsevan rinnakkaistallenteen lisenssitieto.</source>
+        <target>License details of the self-archived publication kept in the publication archive of the relevant organization or field of science.</target>
+      </trans-unit>
+      <trans-unit id="publisherVersion">
+        <source>Kustanatajan versio:</source>
+        <target>Publisher's version:</target>
+      </trans-unit>
+      <trans-unit id="publisherVersionTooltip">
+        <source>Kustantajan palvelussa julkaistu artikkeli.</source>
+        <target>The article published in the publisher’s service.</target>
+      </trans-unit>
+       <trans-unit id="finalDraft">
+        <source>Viimeinen käsikirjoitusversio:</source>
+        <target>Final draft:</target>
+      </trans-unit>
+       <trans-unit id="finalDraftTooltip">
+        <source>Kustantajalle lähetetty viimeinen (vertaisarvioitu) versio käsikirjoituksesta, joka on hyväksytty julkaistavaksi.</source>
+        <target>The final (peer-reviewed) draft sent to the publisher and approved for publication.</target>
+      </trans-unit>
+      <trans-unit id="apcTooltip">
+        <source>Julkaisun avoimesta julkaisemisesta maksettu summa euroina.</source>
+        <target>The fee paid for making the publication open access (in euros).</target>
+      </trans-unit>
+      <trans-unit id="apcJointPublication">
+        <source>Yhteisjulkaisuissa julkaisumaksu voi olla yhden tai useamman julkaisuun osallistuneen organisaation maksama. Julkaisumaksun summa voi myös olla puutteellinen, jos kaikkien organisaatioiden maksuja ei ole ilmoitettu.</source>
+        <target>In joint publications, the publication fee may be paid by one or more organizations participating in the publication. The actual fee may be higher if there are payments that have not been reported.</target>
+      </trans-unit>
       <trans-unit id="5762426248501746892">
         <source>Konferenssi</source>
         <target>Conference</target>
@@ -2798,6 +2898,10 @@
       <trans-unit id="links">
         <source>Linkit</source>
         <target>Links</target>
+      </trans-unit>
+      <trans-unit id="abstract">
+      <source>Tiivistelmä</source>
+      <target>Abstract</target>
       </trans-unit>
       <trans-unit id="sfDescriptionTooltip">
         <source>Kuvaus kertoo tiiviisti hankkeen tavoitteesta</source>

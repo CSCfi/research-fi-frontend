@@ -67,7 +67,7 @@ export class SinglePublicationComponent
       tooltip: $localize`:@@publicationAuthorsTooltip:Julkaisun tekijät siinä järjestyksessä, jossa ne on listattu alkuperäisessä julkaisussa. Jos tekijöitä on yli 20, kaikkia ei ole välttämättä ilmoitettu.`,
     },
     {
-      label: $localize`Tiivistelmä`,
+      label: $localize`:@@abstract:Tiivistelmä`,
       field: 'abstract',
       tooltip: $localize`:@@spAbstracTooltip:Tiivistelmä kertoo tiiviisti julkaisusta`,
     },
@@ -225,47 +225,82 @@ export class SinglePublicationComponent
 
   open_accessFields = [
     {
-      label: $localize`:@@publisherOpenAccess:Avoin saatavuus kustantajan palvelussa`, //Lisää käännös
+      label: $localize`:@@publisherOpenAccess:Avoin saatavuus kustantajan palvelussa`,
       field: 'openAccessText',
       link: false,
     },
     {
-      label: $localize`Julkaisukanavan avoin saatavuus`,
+      label: $localize`:@@publicationChannelOa:Julkaisukanavan avoin saatavuus`,
       field: 'publisherOpenAccessText',
       link: false,
+      tooltip:
+        '<p>' +
+        $localize`:@@publicationChannelType:Julkaisun julkaisukanavan avoimen saatavuuden tyyppi.` +
+        '</p>' +
+        '<p><strong>' +
+        $localize`:@@OaFullyOpen:Kokonaan avoin julkaisukanava` +
+        ': </strong>' +
+        $localize`:@@OaFullyOpenTooltipContent:Julkaisukanavan kaikki julkaisut ovat välittömästi ja pysyvästi avoimesti saatavilla kustantajan palvelussa.` +
+        '</p><p><strong>' +
+        $localize`:@@OapartiallyOpen:Osittain avoin julkaisukanava` +
+        ': </strong>' +
+        $localize`:@@OaPartiallyOpenTooltipContent:Osa julkaisukanavan julkaisuista on välittömästi ja pysyvästi avoimesti saatavilla kustantajan palvelussa. Esimerkiksi hybridilehdet.` +
+        '</p><p><strong>' +
+        $localize`:@@OaDelayed:Viivästetysti avoin julkaisukanava` +
+        ': </strong>' +
+        $localize`:@@OaDelayedTooltipContent:Osa tai kaikki julkaisukanavan julkaisuista avoimia kustantajan palvelussa vasta kustantajan määrittämän viiveajan (embargo) jälkeen.`,
     },
     {
-      label: $localize`Lisenssi kustantajan palvelussa`,
+      label: $localize`:@@publisherLicenseVersion:Kustantajan version lisenssi`,
       field: 'licenseText',
       link: false,
+      tooltip: $localize`:@@pubLicenseTooltip:Kustantajan palvelussa sijaitsevan julkaisun lisenssitieto.`,
     },
     {
-      label: $localize`Rinnakkaistallennettu`,
+      label: $localize`:@@selfArchived:Rinnakkaistallennettu`,
       field: 'archiveCodeText',
       link: false,
+      tooltip: $localize`:@@selfArchivedTooltip:Julkaisusta avoimesti saatavilla oleva rinnakkaistallenne on tieteenala- tai organisaatiokohtaisessa julkaisuarkistossa.`,
     },
     {
-      label: $localize`Rinnakkaistallenteen versio`,
+      label: $localize`:@@archivedLicenseVersion:Rinnakkaistallenteen versio`,
       field: 'archiveCodeVersionText',
       link: false,
+      tooltip:
+        '<p><strong>' +
+        $localize`:@@publisherVersion:Kustantajan versio:` +
+        '</strong>' +
+        $localize`:@@publisherVersionTooltip:Kustantajan palvelussa julkaistu artikkeli.` +
+        '</p><p><strong>' +
+        $localize`:@@finalDraft:Viimeinen käsikirjoitusversio:` +
+        '</strong>' +
+        $localize`:@@finalDraftTooltip:Kustantajalle lähetetty viimeinen (vertaisarvioitu) versio käsikirjoituksesta, joka on hyväksytty julkaistavaksi.` +
+        '</p>',
     },
     {
-      label: $localize`Rinnakkaistallenteen lisenssi`,
+      label: $localize`:@@archivedLicense:Rinnakkaistallenteen lisenssi`,
       field: 'archiveCodeLincenseText',
       link: false,
+      tooltip: $localize`:@@selfLicenseTooltip:Tieteenala- tai organisaatiokohtaisessa julkaisuarkistossa sijaitsevan rinnakkaistallenteen lisenssitieto.`,
     },
     {
-      label: $localize`Rinnakkaistallenteen julkaisuviiveen päättymispäivä:`,
+      label: $localize`:@@embargoDate:Rinnakkaistallenteen julkaisuviiveen (embargo) päättymispäivä`,
       field: 'archiveEbargoDate',
       link: false,
     },
     {
-      label: $localize`Avoimen saatavuuden kirjoittajamaksu`,
+      label: $localize`:@@apcFee:Avoimen saatavuuden kirjoittajamaksu €`,
       field: 'apcFee',
       link: false,
+      tooltip:
+        '<p>' +
+        $localize`:@@apcTooltip:Julkaisun avoimesta julkaisemisesta maksettu summa euroina.` +
+        '</p><p>' +
+        $localize`:@@apcJointPublication:Yhteisjulkaisuissa julkaisumaksu voi olla yhden tai useamman julkaisuun osallistuneen organisaation maksama. Julkaisumaksun summa voi myös olla puutteellinen, jos kaikkien organisaatioiden maksuja ei ole ilmoitettu.` +
+        '</p>',
     },
     {
-      label: $localize`Avoimen saatavuuden kirjoittajamaksun vuosi:`,
+      label: $localize`:@@apcPaymentYear:Avoimen saatavuuden kirjoittajamaksun vuosi`,
       field: 'apcPaymentYear',
       link: false,
     },
