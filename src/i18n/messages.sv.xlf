@@ -2727,6 +2727,14 @@
         <source>OKM:n tiedonkeruuseen kuuluvat julkaisut ovat korkeakoulujen, tutkimuslaitosten ja yliopistosairaaloiden vuosittain opetus- ja kulttuuriministeriölle raportoimia julkaisuja, jotka täyttävät julkaisutiedonkeruun vaatimukset (www.tiedonkeruu.fi) ja jotka huomioidaan mm. korkeakoulujen rahoitusmallissa.</source>
         <target>Publikationer som ingår i UKM:s datainsamling är publikationer som högskolorna, forskningsinstituten och universitetssjukhusen årligen rapporterar till undervisnings- och kulturministeriet och som uppfyller kraven för insamlingen av publikationsinformation (www.tiedonkeruu.fi) och som beaktas bl.a. i högskolornas finansieringsmodell.</target>
       </trans-unit>
+      <trans-unit id="onlinePlatform">
+        <source>Verkkoalusta</source>
+        <target>Webbplattform</target>
+      </trans-unit>
+      <trans-unit id="onlinePlatformTooltipContent">
+        <source>sisältää muilla sähköisillä alustoilla julkaistut julkaisut.</source>
+        <target>innehåller publikationer som publicerats på andra elektroniska plattformar.</target>
+      </trans-unit>
       <trans-unit id="5762426248501746892">
         <source>Konferenssi</source>
         <target state="translated">Konferens</target>

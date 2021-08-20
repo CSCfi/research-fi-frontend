@@ -2734,6 +2734,14 @@
         <source>OKM:n tiedonkeruuseen kuuluvat julkaisut ovat korkeakoulujen, tutkimuslaitosten ja yliopistosairaaloiden vuosittain opetus- ja kulttuuriministeriölle raportoimia julkaisuja, jotka täyttävät julkaisutiedonkeruun vaatimukset (www.tiedonkeruu.fi) ja jotka huomioidaan mm. korkeakoulujen rahoitusmallissa.</source>
         <target>The publication data collected by the Ministry of Education and Culture is contained in the publications reported to the Ministry each year by higher education institutions, research institutes and university hospitals that meet the criteria for the publication data collection and that are considered in the higher education institutions’ funding model.</target>
       </trans-unit>
+      <trans-unit id="onlinePlatform">
+        <source>Verkkoalusta</source>
+        <target>Online platform</target>
+      </trans-unit>
+      <trans-unit id="onlinePlatformTooltipContent">
+        <source>sisältää muilla sähköisillä alustoilla julkaistut julkaisut.</source>
+        <target>Contains publications published on other online platforms.</target>
+      </trans-unit>
       <trans-unit id="5762426248501746892">
         <source>Konferenssi</source>
         <target>Conference</target>
