@@ -154,14 +154,14 @@ export class PublicationAdapter implements Adapter<Publication> {
     let publisherOpenAccessText = '';
     //Lisää kieliversiot
     if (item.openAccessCode === 1 || item.publisherOpenAccessCode === 1) {
-      publisherOpenAccessText = $localize`Kokonaan avoin julkaisukanava`;
+      publisherOpenAccessText = $localize`:@@OaFullyOpen:Kokonaan avoin julkaisukanava`;
     } else if (
       item.openAccessCode === 2 ||
       item.publisherOpenAccessCode === 2
     ) {
-      publisherOpenAccessText = $localize`Osittain avoin julkaisukanava`;
+      publisherOpenAccessText = $localize`:@@OaPartiallyOpen:Osittain avoin julkaisukanava`;
     } else {
-      publisherOpenAccessText = $localize`Viivästetysti avoin julkaisukanava`;
+      publisherOpenAccessText = $localize`:@@OaDelayed:Viivästetysti avoin julkaisukanava`;
     }
 
     let licenseText = item.license[0].licenseNameFi || '';
@@ -182,7 +182,6 @@ export class PublicationAdapter implements Adapter<Publication> {
     let archiveCodeLincenseText = '';
     let apcFee = '';
     let publicationType = item.publicationTypeCode.split('')[0];
-    let apcPaymentYear = item.apcPaymentYear || '';
     let embargoDate = '';
     let archiveEbargoDate = '';
 
@@ -201,6 +200,9 @@ export class PublicationAdapter implements Adapter<Publication> {
         ? ''
         : (apcFee = item.apcFeeEur);
     }
+
+    let apcPaymentYear = '';
+    apcFee !== '' ? apcPaymentYear === item.apcPaymentYear : '';
 
     //
     if (item.selfArchivedData) {
@@ -222,11 +224,11 @@ export class PublicationAdapter implements Adapter<Publication> {
       if (
         item.selfArchivedData[0].selfArchived[0].selfArchivedVersionCode == 1
       ) {
-        archiveCodeVersionText = $localize`Kustantajan versio`;
+        archiveCodeVersionText = $localize`:@@publisherVersion:Kustantajan versio`;
       } else if (
         item.selfArchivedData[0].selfArchived[0].selfArchivedVersionCode == 0
       ) {
-        archiveCodeVersionText = $localize`Viimeinen käsikirjoitusversio`;
+        archiveCodeVersionText = $localize`:@@finalDraft:Viimeinen käsikirjoitusversio`;
       }
 
       if (item.selfArchivedData[0].selfArchived[0].selfArchivedEmbargoDate) {

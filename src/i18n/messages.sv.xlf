@@ -2676,8 +2676,8 @@
         <target>Alla publikationer i publikationskanalen är direkt och permanent tillgängliga i förläggarens tjänst.</target>
       </trans-unit>
       <trans-unit id="OaPartiallyOpen">
-        <source>Osittain avoin julkaisukanava:</source>
-        <target>Delvis öppen publikationskanal:</target>
+        <source>Osittain avoin julkaisukanava</source>
+        <target>Delvis öppen publikationskanal</target>
       </trans-unit>
       <trans-unit id="OaPartiallyOpenTooltipContent">
         <source>Osa julkaisukanavan julkaisuista on välittömästi ja pysyvästi avoimesti saatavilla kustantajan palvelussa. Esimerkiksi hybridilehdet.</source>
@@ -2726,6 +2726,14 @@
       <trans-unit id="apcJointPublication">
         <source>Yhteisjulkaisuissa julkaisumaksu voi olla yhden tai useamman julkaisuun osallistuneen organisaation maksama. Julkaisumaksun summa voi myös olla puutteellinen, jos kaikkien organisaatioiden maksuja ei ole ilmoitettu.</source>
         <target>I sampublikationer kan publikationsavgiften betalas av en eller flera organisationer som deltagit i publikationen. Publikationsavgiftens belopp kan också vara bristfälligt om alla organisationers betalningar inte har anmälts.</target>
+      </trans-unit>
+      <trans-unit id="publicationStatus">
+        <source>Julkaisu kuuluu opetus- ja kuulttuuriministeriön tiedonkeruuseen</source>
+        <target>Publikationen ingår i undervisnings- och kulturministeriets datainsamling</target>
+      </trans-unit>
+      <trans-unit id="publicationStatusTooltip">
+        <source>OKM:n tiedonkeruuseen kuuluvat julkaisut ovat korkeakoulujen, tutkimuslaitosten ja yliopistosairaaloiden vuosittain opetus- ja kulttuuriministeriölle raportoimia julkaisuja, jotka täyttävät julkaisutiedonkeruun vaatimukset (www.tiedonkeruu.fi) ja jotka huomioidaan mm. korkeakoulujen rahoitusmallissa.</source>
+        <target>Publikationer som ingår i UKM:s datainsamling är publikationer som högskolorna, forskningsinstituten och universitetssjukhusen årligen rapporterar till undervisnings- och kulturministeriet och som uppfyller kraven för insamlingen av publikationsinformation (www.tiedonkeruu.fi) och som beaktas bl.a. i högskolornas finansieringsmodell.</target>
       </trans-unit>
       <trans-unit id="5762426248501746892">
         <source>Konferenssi</source>

@@ -127,7 +127,11 @@ export class SinglePublicationComponent
         '</p><p><strong>' +
         $localize`:@@conferencePlatform:Konferenssialusta` +
         ': </strong>' +
-        $localize`:@@conferencePlatformTooltipContent:sisältää konferenssin painetut tai julkisesti saatavilla olevat julkaisut, ns. proceedings-julkaisut.`,
+        $localize`:@@conferencePlatformTooltipContent:sisältää konferenssin painetut tai julkisesti saatavilla olevat julkaisut, ns. proceedings-julkaisut.` +
+        '<p><strong>' +
+        $localize`:@@onlinePlatform:Verkkoalusta:` +
+        '</strong>' +
+        $localize`:@@onlinePlatformTooltipContent: sisältää muilla sähköisillä alustoilla julkaistut julkaisut.`,
     },
     {
       label: $localize`:@@audience:Yleisö`,
@@ -242,7 +246,7 @@ export class SinglePublicationComponent
         ': </strong>' +
         $localize`:@@OaFullyOpenTooltipContent:Julkaisukanavan kaikki julkaisut ovat välittömästi ja pysyvästi avoimesti saatavilla kustantajan palvelussa.` +
         '</p><p><strong>' +
-        $localize`:@@OapartiallyOpen:Osittain avoin julkaisukanava` +
+        $localize`:@@OaPartiallyOpen:Osittain avoin julkaisukanava` +
         ': </strong>' +
         $localize`:@@OaPartiallyOpenTooltipContent:Osa julkaisukanavan julkaisuista on välittömästi ja pysyvästi avoimesti saatavilla kustantajan palvelussa. Esimerkiksi hybridilehdet.` +
         '</p><p><strong>' +
@@ -353,9 +357,10 @@ export class SinglePublicationComponent
 
   publicationStatus = [
     {
-      label: $localize`Julkaisu kuuluu opetus- ja kuulttuuriministeriön tiedonkeruuseen`,
+      label: $localize`:@@publicationStatus:Julkaisu kuuluu opetus- ja kuulttuuriministeriön tiedonkeruuseen`,
       field: 'publicationStatusText',
       link: false,
+      tooltip: $localize`:@@publicationStatusTooltip:OKM:n tiedonkeruuseen kuuluvat julkaisut ovat korkeakoulujen, tutkimuslaitosten ja yliopistosairaaloiden vuosittain opetus- ja kulttuuriministeriölle raportoimia julkaisuja, jotka täyttävät julkaisutiedonkeruun vaatimukset (www.tiedonkeruu.fi) ja jotka huomioidaan mm. korkeakoulujen rahoitusmallissa.`,
     },
   ];
 

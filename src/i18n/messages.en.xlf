@@ -2636,7 +2636,7 @@
       </trans-unit>
       <trans-unit id="publisherOpenAccess">
         <source>Avoin saatavuus kustantajan palvelussa</source>
-        <target>Degree of open access in the publisher’s service</target>
+        <target>Open access in the publisher’s service</target>
       </trans-unit>
       <trans-unit id="embargoDate">
         <source>Rinnakkaistallenteen julkaisuviiveen (embargo) päättymispäivä</source>
@@ -2675,16 +2675,16 @@
         <target>The publication’s publication channel’s type of open access.</target>
       </trans-unit>
       <trans-unit id="OaFullyOpen">
-        <source>Kokonaan avoin julkaisukanava:</source>
-        <target>Fully open publication channel:</target>
+        <source>Kokonaan avoin julkaisukanava</source>
+        <target>Fully open publication channel</target>
       </trans-unit>
       <trans-unit id="OaFullyOpenTooltipContent">
         <source>Julkaisukanavan kaikki julkaisut ovat välittömästi ja pysyvästi avoimesti saatavilla kustantajan palvelussa.</source>
         <target>All publications are immediately and permanently accessible in the publisher’s service.</target>
       </trans-unit>
       <trans-unit id="OaPartiallyOpen">
-        <source>Osittain avoin julkaisukanava:</source>
-        <target>Partially open publication channel:</target>
+        <source>Osittain avoin julkaisukanava</source>
+        <target>Partially open publication channel</target>
       </trans-unit>
       <trans-unit id="OaPartiallyOpenTooltipContent">
         <source>Osa julkaisukanavan julkaisuista on välittömästi ja pysyvästi avoimesti saatavilla kustantajan palvelussa. Esimerkiksi hybridilehdet.</source>
@@ -2692,7 +2692,7 @@
       </trans-unit>
       <trans-unit id="OaDelayed">
         <source>Viivästetysti avoin julkaisukanava:</source>
-        <target>Delayed open publication channel:</target>
+        <target>Delayed open publication channel</target>
       </trans-unit>
       <trans-unit id="OaDelayedTooltipContent">
         <source>Osa tai kaikki julkaisukanavan julkaisuista avoimia kustantajan palvelussa vasta kustantajan määrittämän viiveajan (embargo) jälkeen.</source>
@@ -2720,7 +2720,7 @@
       </trans-unit>
        <trans-unit id="finalDraft">
         <source>Viimeinen käsikirjoitusversio:</source>
-        <target>Final draft:</target>
+        <target>Final draft</target>
       </trans-unit>
        <trans-unit id="finalDraftTooltip">
         <source>Kustantajalle lähetetty viimeinen (vertaisarvioitu) versio käsikirjoituksesta, joka on hyväksytty julkaistavaksi.</source>
@@ -2733,6 +2733,14 @@
       <trans-unit id="apcJointPublication">
         <source>Yhteisjulkaisuissa julkaisumaksu voi olla yhden tai useamman julkaisuun osallistuneen organisaation maksama. Julkaisumaksun summa voi myös olla puutteellinen, jos kaikkien organisaatioiden maksuja ei ole ilmoitettu.</source>
         <target>In joint publications, the publication fee may be paid by one or more organizations participating in the publication. The actual fee may be higher if there are payments that have not been reported.</target>
+      </trans-unit>
+      <trans-unit id="publicationStatus">
+        <source>Julkaisu kuuluu opetus- ja kuulttuuriministeriön tiedonkeruuseen</source>
+        <target>The publication is included in the Ministry of Education and Culture’s Publication data collection</target>
+      </trans-unit>
+      <trans-unit id="publicationStatusTooltip">
+        <source>OKM:n tiedonkeruuseen kuuluvat julkaisut ovat korkeakoulujen, tutkimuslaitosten ja yliopistosairaaloiden vuosittain opetus- ja kulttuuriministeriölle raportoimia julkaisuja, jotka täyttävät julkaisutiedonkeruun vaatimukset (www.tiedonkeruu.fi) ja jotka huomioidaan mm. korkeakoulujen rahoitusmallissa.</source>
+        <target>The publication data collected by the Ministry of Education and Culture is contained in the publications reported to the Ministry each year by higher education institutions, research institutes and university hospitals that meet the criteria for the publication data collection and that are considered in the higher education institutions’ funding model.</target>
       </trans-unit>
       <trans-unit id="5762426248501746892">
         <source>Konferenssi</source>
