@@ -114,7 +114,11 @@ export class PublicationFilterService {
         '</p><p><strong>' +
         $localize`:@@conferencePlatform:Konferenssialusta` +
         ': </strong>' +
-        $localize`:@@conferencePlatformTooltipContent:sisältää konferenssin painetut tai julkisesti saatavilla olevat julkaisut, ns. proceedings-julkaisut.`,
+        $localize`:@@conferencePlatformTooltipContent:sisältää konferenssin painetut tai julkisesti saatavilla olevat julkaisut, ns. proceedings-julkaisut.` +
+        '<p><strong>' +
+        $localize`:@@onlinePlatform:Verkkoalusta:` +
+        '</strong>' +
+        $localize`:@@onlinePlatformTooltipContent: sisältää muilla sähköisillä alustoilla julkaistut julkaisut.`,
     },
     {
       field: 'peerReviewed',
