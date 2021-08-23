@@ -6,7 +6,6 @@
 //  :license: MIT
 
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { AppConfigService } from '@shared/services/app-config-service.service';
 
@@ -19,20 +18,12 @@ export class AppComponent {
   title = 'research-fi-portal';
 
   constructor(
-    public oidcSecurityService: OidcSecurityService,
     private appConfigService: AppConfigService,
     @Inject(PLATFORM_ID) private platformId: object,
     @Inject(DOCUMENT) private document: any
   ) {
     // SSR platform check
     if (isPlatformBrowser(this.platformId)) {
-      // Start auth process
-      this.oidcSecurityService
-        .checkAuth()
-        .subscribe((isAuthenticated) =>
-          console.log('app authenticated', isAuthenticated)
-        );
-
       // Add initial Matomo script with dynamic site ID
       const node = this.document.createElement('script');
       node.type = 'text/javascript';

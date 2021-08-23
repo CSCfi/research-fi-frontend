@@ -118,11 +118,26 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.isAuthenticated = this.oidcSecurityService.isAuthenticated$;
   }
 
-  // Get current url
+  /*
+   * Current route based features
+   * MyData -module uses authentication and this process needs to start only in '/mydata' routes
+   */
   routeEvent(router: Router) {
     this.routeSub = router.events.subscribe((e) => {
       if (e instanceof NavigationEnd) {
-        // Prevent multiple anchors
+        if (isPlatformBrowser(this.platformId)) {
+          // Start MyData auth process
+          if (e.url.includes('/mydata')) {
+            this.oidcSecurityService.checkAuth().subscribe(() => {});
+          }
+
+          // Check if consent has been chosen & set variable. This is used in preserving consent status between language versions
+          if (localStorage.getItem('cookieConsent')) {
+            this.consent = localStorage.getItem('cookieConsent');
+          }
+        }
+
+        // Set tracking cookies according to consent parameter
         this.route.queryParams.subscribe((params) => {
           this.params = params;
 
@@ -142,7 +157,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
               this.document.getElementsByTagName('head')[0].appendChild(node);
             }
 
-            // Remove consent param
+            // Consent parameter is removed from url when user navigates between localized versions
             this.router.navigate([], {
               queryParams: {
                 consent: null,
@@ -152,6 +167,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
             });
           }
         });
+
+        // Prevent multiple anchors
         this.currentRoute = e.urlAfterRedirects.split('#')[0];
 
         // Set header items based on base url
@@ -159,7 +176,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           ? this.appSettingsService.myDataSettings
           : this.appSettingsService.portalSettings;
 
-        // Login / logout link
+        // Login / logout link in MyData app
         // Click functionality is handled in handleClick method
         this.isAuthenticated.pipe(take(1)).subscribe((status) => {
           this.loggedIn = status;
@@ -167,12 +184,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
             ? 'Kirjaudu ulos'
             : 'Kirjaudu sisään';
         });
-      }
-      // Check if consent has been chosen & set variable. This is used in linking between language versions
-      if (isPlatformBrowser(this.platformId)) {
-        if (localStorage.getItem('cookieConsent')) {
-          this.consent = localStorage.getItem('cookieConsent');
-        }
       }
     });
   }
