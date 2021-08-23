@@ -37,37 +37,44 @@ export class ProfileAdapter implements Adapter<Profile> {
     // TODO: Localize labels
     return new Profile([
       {
+        id: 'contact',
         label: 'Yhteystiedot',
         editLabel: 'yhteystietoja',
         fields: mapModel(this.personalFieldsAdapter, data.personal),
       },
       {
+        id: 'description',
         label: 'Tutkimustoiminnan kuvaus',
         editLabel: 'tutkimustoiminnan kuvausta',
         fields: mapModel(this.descriptionFieldsAdapter, data.personal),
       },
       {
+        id: 'affiliation',
         label: 'Affiliaatiot',
         editLabel: 'affiliaatioita',
         fields: mapModel(this.affiliationFieldsAdapter, data.activity),
       },
       {
+        id: 'educations',
         label: 'Koulutus',
         editLabel: 'koulutusta',
         fields: mapModel(this.educationFieldsAdapter, data.activity),
       },
       {
+        id: 'publication',
         label: 'Julkaisut',
         editLabel: 'julkaisuja',
         fields: mapModel(this.publicationFieldsAdapter, data.activity),
       },
       {
+        id: 'dataset',
         label: 'Tutkimusaineistot',
         editLabel: 'tutkimusaineistoja',
         fields: [],
       },
-      { label: 'Hankkeet', editLabel: 'hankkeita', fields: [] },
+      { id: 'project', label: 'Hankkeet', editLabel: 'hankkeita', fields: [] },
       {
+        id: 'activity',
         label: 'Aktiviteetit ja palkinnot',
         editLabel: 'aktiviteetteja ja palkintoja',
         fields: [],

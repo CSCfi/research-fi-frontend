@@ -18,7 +18,7 @@ import {
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
-import { checkGroupSelected } from '../../../utils';
+import { checkGroupSelected, isEmptySection } from '@mydata/utils';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SearchPublicationsComponent } from './search-publications/search-publications.component';
 import { take } from 'rxjs/operators';
@@ -49,6 +49,7 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   fieldTypes = FieldTypes;
 
   checkGroupSelected = checkGroupSelected;
+  isEmptySection = isEmptySection;
 
   openPanels = [];
 
@@ -64,6 +65,7 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   hasFetchedPublications: boolean;
 
   ttvLabel = 'Tiedejatutkimus.fi';
+  updated: Date;
 
   /*
    * appSettingsService is used in Template
@@ -81,11 +83,11 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     const publicationType = this.fieldTypes.activityPublication;
 
     // TODO: Better check for data. Maybe type when mapping response
-    if (this.data.label === 'Julkaisut') {
+    if (this.data.id === 'publication' && this.data.fields.length) {
       this.findFetchedPublications(this.data.fields[0].groupItems);
 
       // Sort publications that come frome profile creation
-      this.sortPublications(this.data.fields);
+      if (!isEmptySection(this.data)) this.sortPublications(this.data.fields);
     }
   }
 
@@ -317,6 +319,7 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
           selectedPublications: any[];
           publicationsNotFound: any[];
           publicationsAlreadyInProfile: any[];
+          source: any;
         }) => {
           // Reset sort when dialog closes
           this.publicationService.resetSort();
@@ -339,7 +342,18 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
 
             this.hasFetchedPublications = true;
 
-            this.data.fields[0].groupItems[0].items = mergedPublications;
+            // Else case is for when publications don't exist in user profile
+            if (!isEmptySection(this.data)) {
+              this.data.fields[0].groupItems[0].items = mergedPublications;
+            } else {
+              this.data.fields[0].groupItems.push({
+                items: mergedPublications,
+                groupMeta: { type: this.fieldTypes.activityPublication },
+                source: result.source,
+              });
+            }
+
+            this.updated = new Date();
 
             this.patchService.addToPatchItems(patchItems);
 

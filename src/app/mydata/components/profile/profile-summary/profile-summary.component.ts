@@ -8,7 +8,11 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { cloneDeep } from 'lodash-es';
-import { checkGroupSelected, getDataSources } from '../../../utils';
+import {
+  checkGroupSelected,
+  getDataSources,
+  isEmptySection,
+} from '@mydata/utils';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { EditorModalComponent } from '../../profile-data-handler/editor-modal/editor-modal.component';
 import { take } from 'rxjs/operators';
@@ -58,7 +62,9 @@ export class ProfileSummaryComponent implements OnInit {
     this.primarySource = this.dataSources[0];
 
     this.sortAffiliations(this.data.profileData);
-    this.sortPublications(this.data.profileData);
+
+    if (!isEmptySection(this.data.profileData[4]))
+      this.sortPublications(this.data.profileData);
   }
 
   getSelectedItems() {

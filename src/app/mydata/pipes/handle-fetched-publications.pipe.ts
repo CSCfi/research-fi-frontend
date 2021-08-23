@@ -19,14 +19,14 @@ import { cloneDeep } from 'lodash-es';
 export class HandleFetchedPublicationsPipe implements PipeTransform {
   fieldTypes = FieldTypes;
 
-  transform(groupItems: any, showFetched = false) {
+  transform(groupItems: any, update) {
     const publicationType = this.fieldTypes.activityPublication;
 
-    if (groupItems[0].groupMeta.type === publicationType) {
+    if (groupItems.length && groupItems[0].groupMeta.type === publicationType) {
       const groupItemsClone = cloneDeep(groupItems);
       for (const group of groupItemsClone) {
-        group.items = group.items.filter((item) =>
-          item.itemMeta.primaryValue === showFetched ? true : false
+        group.items = group.items.filter(
+          (item) => item.itemMeta.primaryValue === false
         );
       }
       return groupItemsClone;
