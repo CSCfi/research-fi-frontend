@@ -90,27 +90,27 @@ export class SinglePublicationComponent
         '<p><strong>' +
         $localize`:@@article:Artikkeli` +
         ': </strong>' +
-        $localize`:@@articleTooltipContent:sisältää alkuperäis- ja katsausartikkelit, kirjan tai lehden johdannot ja esipuheet, lyhyet tutkimusselostukset, pääkirjoitukset, keskustelupuheenvuorot ja kommentit. ` +
+        $localize`:@@articleTooltipContent:Sisältää alkuperäis- ja katsausartikkelit, kirjan tai lehden johdannot ja esipuheet, lyhyet tutkimusselostukset, pääkirjoitukset, keskustelupuheenvuorot ja kommentit. ` +
         '</p><p><strong>' +
         $localize`:@@monograph:Erillisteos` +
         ': </strong>' +
-        $localize`:@@monographTooltipContent:sisältää monografiat/kirjat, tutkimus- ja kehitystyöhön perustuva kehittämis- tai tutkimusraportti, selvitykset, ns. white paperit sekä working papers ja discussion papers -tyyppiset julkaisut. ` +
+        $localize`:@@monographTooltipContent:Sisältää monografiat/kirjat, tutkimus- ja kehitystyöhön perustuva kehittämis- tai tutkimusraportti, selvitykset, ns. white paperit sekä working papers ja discussion papers -tyyppiset julkaisut. ` +
         '</p><p><strong>' +
         $localize`:@@editorial:Toimitustyö` +
         ': </strong>' +
-        $localize`:@@editorialTooltipContent:sisältää useista eri kirjoittajien artikkeleista koostuvan tieteellisen kirjan tai lehden erikoisnumeron toimitustyöt ` +
+        $localize`:@@editorialTooltipContent:Sisältää useista eri kirjoittajien artikkeleista koostuvan tieteellisen kirjan tai lehden erikoisnumeron toimitustyöt ` +
         '</p><p><strong>' +
         $localize`:@@abstract:Abstrakti` +
         ': </strong>' +
-        $localize`:@@abstractTooltipContent:sisältää konferenssiesitelmien abstraktit sekä laajennetut abstraktit.` +
+        $localize`:@@abstractTooltipContent:Sisältää konferenssiesitelmien abstraktit sekä laajennetut abstraktit.` +
         '</p><p><strong>' +
         $localize`:@@poster:Posteri` +
         ': </strong>' +
-        $localize`:@@posterTooltipContent:sisältää konferenssiesitelmien posterit.` +
+        $localize`:@@posterTooltipContent:Sisältää konferenssiesitelmien posterit.` +
         '</p><p><strong>' +
         $localize`:@@blog:Blogikirjoitus` +
         ': </strong>' +
-        $localize`:@@blogTooltipContent:sisältää blogimuotoiset julkaisut, joiden julkaisemisesta on päättänyt riippumaton toimituskunta tai joiden julkaisualustalla on ISSN-tunnus.`,
+        $localize`:@@blogTooltipContent:Sisältää blogimuotoiset julkaisut, joiden julkaisemisesta on päättänyt riippumaton toimituskunta tai joiden julkaisualustalla on ISSN-tunnus.`,
     },
     {
       label: $localize`:@@parentPublicationType:Emojulkaisun tyyppi`,
