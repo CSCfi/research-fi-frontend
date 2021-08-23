@@ -164,10 +164,10 @@ export class PublicationAdapter implements Adapter<Publication> {
       publisherOpenAccessText = $localize`:@@OaDelayed:Viivästetysti avoin julkaisukanava`;
     }
 
-    let licenseText = this.lang.testLang('licenseName', item?.license[0]);
+    let licenseText = this.lang.testLang('licenseName', item?.license?.slice()?.shift());
     let archiveCodeVersionText = '';
 
-    //
+
     let publicationStatusText = '';
     if (
       Number(item.publicationStatusCode) === 1 ||
@@ -181,7 +181,7 @@ export class PublicationAdapter implements Adapter<Publication> {
 
     let archiveCodeLincenseText = '';
     let apcFee = '';
-    let publicationType = item.publicationTypeCode.split('')[0];
+    let publicationType = item.publicationTypeCode?.split('')[0];
     let embargoDate = '';
     let archiveEbargoDate = '';
 
@@ -204,7 +204,7 @@ export class PublicationAdapter implements Adapter<Publication> {
     let apcPaymentYear = '';
     apcFee !== '' ? apcPaymentYear === item.apcPaymentYear : '';
 
-    //
+
     if (item.selfArchivedData) {
       item.selfArchivedAddress =
         item.selfArchivedData[0]?.selfArchived[0]?.selfArchivedAddress;
@@ -219,24 +219,24 @@ export class PublicationAdapter implements Adapter<Publication> {
       );
 
       archiveCodeLincenseText =
-        item.selfArchivedData[0].selfArchived[0]?.selfArchivedLicenseNameFi;
+        item.selfArchivedData[0]?.selfArchived[0]?.selfArchivedLicenseNameFi;
 
       if (
-        item.selfArchivedData[0].selfArchived[0].selfArchivedVersionCode == 1
+        item.selfArchivedData[0]?.selfArchived[0]?.selfArchivedVersionCode === 1
       ) {
         archiveCodeVersionText = $localize`:@@publisherVersion:Kustantajan versio`;
       } else if (
-        item.selfArchivedData[0].selfArchived[0].selfArchivedVersionCode == 0
+        item.selfArchivedData[0]?.selfArchived[0]?.selfArchivedVersionCode == 0
       ) {
         archiveCodeVersionText = $localize`:@@finalDraft:Viimeinen käsikirjoitusversio`;
       }
 
-      if (item.selfArchivedData[0].selfArchived[0].selfArchivedEmbargoDate) {
+      if (item.selfArchivedData[0]?.selfArchived[0]?.selfArchivedEmbargoDate) {
         embargoDate =
-          item.selfArchivedData[0].selfArchived[0].selfArchivedEmbargoDate;
-        if (embargoDate != ' ') {
-          let pvm = embargoDate.split('-');
-          archiveEbargoDate = pvm[0] + '.' + pvm[1] + '.' + pvm[2];
+          item.selfArchivedData[0]?.selfArchived[0]?.selfArchivedEmbargoDate?.trim();
+        if (embargoDate) {
+          let date = embargoDate.split('-');
+          archiveEbargoDate = date[0] + '.' + date[1] + '.' + date[2];
         }
       }
     }
