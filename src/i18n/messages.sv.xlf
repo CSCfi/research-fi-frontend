@@ -2564,40 +2564,40 @@
         <target>Tidning</target>
       </trans-unit>
       <trans-unit id="journalTooltipContent">
-        <source>sisältää tieteelliset aikakauslehdet ja ammattilehdet.</source>
-        <target>omfattar vetenskapliga tidskrifter och facktidningar.</target>
+        <source>Sisältää tieteelliset aikakauslehdet ja ammattilehdet.</source>
+        <target>Omfattar vetenskapliga tidskrifter och facktidningar.</target>
       </trans-unit>
       <trans-unit id="researchBook">
         <source>Kokoomateos</source>
         <target>Samlingsverk</target>
       </trans-unit>
       <trans-unit id="researchBookTooltipContent">
-        <source>sisältää tieteelliset kokoomateokset, tieteelliset vuosikirjat ja vastaavat, ammatilliset käsi- tai opaskirjat, ammatilliset tietojärjestelmät tai kokoomateokset, oppikirja-aineistot sekä lyhyet ensyklopediatekstit.</source>
-        <target>omfattar vetenskapliga samlingsverk, vetenskapliga årsböcker och motsvarande, yrkesinriktade handböcker eller guider, yrkesinriktade informationssystem eller samlingsverk, läroboksmaterial och korta encyklopeditexter.</target>
+        <source>Sisältää tieteelliset kokoomateokset, tieteelliset vuosikirjat ja vastaavat, ammatilliset käsi- tai opaskirjat, ammatilliset tietojärjestelmät tai kokoomateokset, oppikirja-aineistot sekä lyhyet ensyklopediatekstit.</source>
+        <target>Omfattar vetenskapliga samlingsverk, vetenskapliga årsböcker och motsvarande, yrkesinriktade handböcker eller guider, yrkesinriktade informationssystem eller samlingsverk, läroboksmaterial och korta encyklopeditexter.</target>
       </trans-unit>
       <trans-unit id="conferencePlatform">
         <source>Konferenssialusta</source>
         <target>Konferensplattform</target>
       </trans-unit>
       <trans-unit id="conferencePlatformTooltipContent">
-        <source>sisältää konferenssin painetut tai julkisesti saatavilla olevat julkaisut, ns. proceedings-julkaisut.</source>
-        <target>omfattar tryckta eller offentligt tillgängliga publikationer, s.k. proceedings-publikationer för en konferens.</target>
+        <source>Sisältää konferenssin painetut tai julkisesti saatavilla olevat julkaisut, ns. proceedings-julkaisut.</source>
+        <target>Omfattar tryckta eller offentligt tillgängliga publikationer, s.k. proceedings-publikationer för en konferens.</target>
       </trans-unit>
       <trans-unit id="scientificPublication">
         <source>Tieteellinen julkaisu</source>
         <target>Vetenskaplig publikation</target>
       </trans-unit>
       <trans-unit id="scientificPublicationTooltipContent">
-        <source>julkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.</source>
-        <target>publikationer vars syfte är att främja vetenskap samt producera ny information.</target>
+        <source>Julkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.</source>
+        <target>Publikationer vars syfte är att främja vetenskap samt producera ny information.</target>
       </trans-unit>
       <trans-unit id="professionalPublication">
         <source>Ammatillinen julkaisu</source>
         <target>Yrkesinriktad publikation</target>
       </trans-unit>
       <trans-unit id="professionalPublicationTooltipContent">
-        <source>sjulkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.</source>
-        <target>publikationer som gör information som grundar sig på forsknings- och utvecklingsarbete tillgänglig för en yrkesgrupp.</target>
+        <source>Julkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.</source>
+        <target>Publikationer som gör information som grundar sig på forsknings- och utvecklingsarbete tillgänglig för en yrkesgrupp.</target>
       </trans-unit>
       <trans-unit id="popularPublication">
         <source>Yleistajuinen julkaisu</source>
@@ -2668,8 +2668,8 @@
         <target>Typ av öppen tillgång till publikationens publikationskanal.</target>
       </trans-unit>
       <trans-unit id="OaFullyOpen">
-        <source>Kokonaan avoin julkaisukanava:</source>
-        <target>Helt öppen publikationskanal:</target>
+        <source>Kokonaan avoin julkaisukanava</source>
+        <target>Helt öppen publikationskanal</target>
       </trans-unit>
       <trans-unit id="OaFullyOpenTooltipContent">
         <source>Julkaisukanavan kaikki julkaisut ovat välittömästi ja pysyvästi avoimesti saatavilla kustantajan palvelussa.</source>
@@ -2684,8 +2684,8 @@
         <target>En del av publikationerna i publikationskanalen är direkt och permanent tillgängliga i förläggarens tjänst. Till exempel hybridtidningar.</target>
       </trans-unit>
       <trans-unit id="OaDelayed">
-        <source>Viivästetysti avoin julkaisukanava:</source>
-        <target>Fördröjd öppen publikationskanal:</target>
+        <source>Viivästetysti avoin julkaisukanava</source>
+        <target>Fördröjd öppen publikationskanal</target>
       </trans-unit>
       <trans-unit id="OaDelayedTooltipContent">
         <source>Osa tai kaikki julkaisukanavan julkaisuista avoimia kustantajan palvelussa vasta kustantajan määrittämän viiveajan (embargo) jälkeen.</source>
@@ -2740,8 +2740,8 @@
         <target>Webbplattform</target>
       </trans-unit>
       <trans-unit id="onlinePlatformTooltipContent">
-        <source>sisältää muilla sähköisillä alustoilla julkaistut julkaisut.</source>
-        <target>innehåller publikationer som publicerats på andra elektroniska plattformar.</target>
+        <source>Sisältää muilla sähköisillä alustoilla julkaistut julkaisut.</source>
+        <target>Innehåller publikationer som publicerats på andra elektroniska plattformar.</target>
       </trans-unit>
       <trans-unit id="5762426248501746892">
         <source>Konferenssi</source>

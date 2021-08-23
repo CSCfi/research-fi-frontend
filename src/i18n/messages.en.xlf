@@ -2571,24 +2571,24 @@
         <target>Journal</target>
       </trans-unit>
       <trans-unit id="journalTooltipContent">
-        <source>sisältää tieteelliset aikakauslehdet ja ammattilehdet.</source>
-        <target>includes scientific journals and professional journals.</target>
+        <source>Sisältää tieteelliset aikakauslehdet ja ammattilehdet.</source>
+        <target>Includes scientific journals and professional journals.</target>
       </trans-unit>
       <trans-unit id="researchBook">
         <source>Kokoomateos</source>
         <target>Research book</target>
       </trans-unit>
       <trans-unit id="researchBookTooltipContent">
-        <source>sisältää tieteelliset kokoomateokset, tieteelliset vuosikirjat ja vastaavat, ammatilliset käsi- tai opaskirjat, ammatilliset tietojärjestelmät tai kokoomateokset, oppikirja-aineistot sekä lyhyet ensyklopediatekstit.</source>
-        <target>includes scientific research books, scientific yearbooks and similar publications, professional manuals or guides, professional information systems or research books, textbook materials, and short encyclopedia texts.</target>
+        <source>Sisältää tieteelliset kokoomateokset, tieteelliset vuosikirjat ja vastaavat, ammatilliset käsi- tai opaskirjat, ammatilliset tietojärjestelmät tai kokoomateokset, oppikirja-aineistot sekä lyhyet ensyklopediatekstit.</source>
+        <target>Includes scientific research books, scientific yearbooks and similar publications, professional manuals or guides, professional information systems or research books, textbook materials, and short encyclopedia texts.</target>
       </trans-unit>
       <trans-unit id="conferencePlatform">
         <source>Konferenssialusta</source>
         <target>Conference platform</target>
       </trans-unit>
       <trans-unit id="conferencePlatformTooltipContent">
-        <source>sisältää konferenssin painetut tai julkisesti saatavilla olevat julkaisut, ns. proceedings-julkaisut.</source>
-        <target>includes the printed publications and other openly accessible publications of the conference, the so-called proceedings.</target>
+        <source>Sisältää konferenssin painetut tai julkisesti saatavilla olevat julkaisut, ns. proceedings-julkaisut.</source>
+        <target>Includes the printed publications and other openly accessible publications of the conference, the so-called proceedings.</target>
       </trans-unit>
       <trans-unit id="scientificPublication">
         <source>Tieteellinen julkaisu</source>
@@ -2603,7 +2603,7 @@
         <target>Professional publication</target>
       </trans-unit>
       <trans-unit id="professionalPublicationTooltipContent">
-        <source>sjulkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.</source>
+        <source>julkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.</source>
         <target>publications disseminating information on research and development for a professional community.</target>
       </trans-unit>
       <trans-unit id="popularPublication">
@@ -2691,7 +2691,7 @@
         <target>Some of the publications (such as hybrid journals) are immediately and permanently accessible in the publisher’s service.</target>
       </trans-unit>
       <trans-unit id="OaDelayed">
-        <source>Viivästetysti avoin julkaisukanava:</source>
+        <source>Viivästetysti avoin julkaisukanava</source>
         <target>Delayed open publication channel</target>
       </trans-unit>
       <trans-unit id="OaDelayedTooltipContent">
@@ -2747,7 +2747,7 @@
         <target>Online platform</target>
       </trans-unit>
       <trans-unit id="onlinePlatformTooltipContent">
-        <source>sisältää muilla sähköisillä alustoilla julkaistut julkaisut.</source>
+        <source>Sisältää muilla sähköisillä alustoilla julkaistut julkaisut.</source>
         <target>Contains publications published on other online platforms.</target>
       </trans-unit>
       <trans-unit id="5762426248501746892">
