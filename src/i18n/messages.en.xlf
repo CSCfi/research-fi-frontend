@@ -2515,47 +2515,47 @@
         <target>Article</target>
       </trans-unit>
       <trans-unit id="articleTooltipContent">
-        <source>sisältää alkuperäis- ja katsausartikkelit, kirjan tai lehden johdannot ja esipuheet, lyhyet tutkimusselostukset, pääkirjoitukset, keskustelupuheenvuorot ja kommentit.</source>
-        <target>includes original and review articles, introductions and forewords of a book or journal, short research reports, editorials, contributions to a debate and comments.</target>
+        <source>Sisältää alkuperäis- ja katsausartikkelit, kirjan tai lehden johdannot ja esipuheet, lyhyet tutkimusselostukset, pääkirjoitukset, keskustelupuheenvuorot ja kommentit.</source>
+        <target>Includes original and review articles, introductions and forewords of a book or journal, short research reports, editorials, contributions to a debate and comments.</target>
       </trans-unit>
       <trans-unit id="monograph">
         <source>Erillisteos</source>
         <target>Monograph</target>
       </trans-unit>
       <trans-unit id="monographTooltipContent">
-        <source>sisältää monografiat/kirjat, tutkimus- ja kehitystyöhön perustuva kehittämis- tai tutkimusraportti, selvitykset, ns. white paperit sekä working papers ja discussion papers -tyyppiset julkaisut.</source>
-        <target>includes monographs/books, development or research reports based on R&D efforts, assessments, white papers, working papers and discussion papers.</target>
+        <source>Sisältää monografiat/kirjat, tutkimus- ja kehitystyöhön perustuva kehittämis- tai tutkimusraportti, selvitykset, ns. white paperit sekä working papers ja discussion papers -tyyppiset julkaisut.</source>
+        <target>Includes monographs/books, development or research reports based on R&D efforts, assessments, white papers, working papers and discussion papers.</target>
       </trans-unit>
       <trans-unit id="editorial">
         <source>Toimitustyö</source>
         <target>Editorial work</target>
       </trans-unit>
       <trans-unit id="editorialTooltipContent">
-        <source>sisältää useista eri kirjoittajien artikkeleista koostuvan tieteellisen kirjan tai lehden erikoisnumeron toimitustyöt.</source>
-        <target>includes editorial work in research books or special issues of journals consisting of various articles by several authors.</target>
+        <source>Sisältää useista eri kirjoittajien artikkeleista koostuvan tieteellisen kirjan tai lehden erikoisnumeron toimitustyöt.</source>
+        <target>Includes editorial work in research books or special issues of journals consisting of various articles by several authors.</target>
       </trans-unit>
       <trans-unit id="abstract">
         <source>Abstrakti</source>
         <target>Abstract</target>
       </trans-unit>
       <trans-unit id="abstractTooltipContent">
-        <source>sisältää konferenssiesitelmien abstraktit sekä laajennetut abstraktit.</source>
-        <target>includes abstracts and extended abstracts of conference presentations.</target>
+        <source>Sisältää konferenssiesitelmien abstraktit sekä laajennetut abstraktit.</source>
+        <target>Includes abstracts and extended abstracts of conference presentations.</target>
       </trans-unit>
       <trans-unit id="poster">
         <source>Posteri</source>
         <target>Poster</target>
       </trans-unit>
       <trans-unit id="posterTooltipContent">
-        <source>sisältää konferenssiesitelmien posterit.</source>
-        <target>includes posters of conference presentations.</target>
+        <source>Sisältää konferenssiesitelmien posterit.</source>
+        <target>Includes posters of conference presentations.</target>
       </trans-unit>
       <trans-unit id="blog">
         <source>Blogikirjoitus</source>
         <target>Blog</target>
       </trans-unit>
       <trans-unit id="blogTooltipContent">
-        <source>sisältää blogimuotoiset julkaisut, joiden julkaisemisesta on päättänyt riippumaton toimituskunta tai joiden julkaisualustalla on ISSN-tunnus.</source>
+        <source>Sisältää blogimuotoiset julkaisut, joiden julkaisemisesta on päättänyt riippumaton toimituskunta tai joiden julkaisualustalla on ISSN-tunnus.</source>
         <target>Contains blog publications that have been approved for publication by an independent editorial board or that are published on a platform assigned an ISSN number.</target>
       </trans-unit>
       <trans-unit id="journal">
@@ -2587,24 +2587,24 @@
         <target>Scientific publication</target>
       </trans-unit>
       <trans-unit id="scientificPublicationTooltipContent">
-        <source>julkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.</source>
-        <target>publications intended to promote science and to produce new information.</target>
+        <source>Julkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.</source>
+        <target>Publications intended to promote science and to produce new information.</target>
       </trans-unit>
       <trans-unit id="professionalPublication">
         <source>Ammatillinen julkaisu</source>
         <target>Professional publication</target>
       </trans-unit>
       <trans-unit id="professionalPublicationTooltipContent">
-        <source>julkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.</source>
-        <target>publications disseminating information on research and development for a professional community.</target>
+        <source>Julkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.</source>
+        <target>Publications disseminating information on research and development for a professional community.</target>
       </trans-unit>
       <trans-unit id="popularPublication">
         <source>Yleistajuinen julkaisu</source>
         <target>Popular publication</target>
       </trans-unit>
       <trans-unit id="popularPublicationTooltipContent">
-        <source>julkaisut, jotka levittävät tutkimus- ja kehitystyöhön perustuvaa tietoa suurelle yleisölle ja joiden sisällön ymmärtäminen ei edellytä erityistä perehtyneisyyttä alaan.</source>
-        <target>publications disseminating information on research and development for the public and the content of which does not require particular familiarity with the field.</target>
+        <source>Julkaisut, jotka levittävät tutkimus- ja kehitystyöhön perustuvaa tietoa suurelle yleisölle ja joiden sisällön ymmärtäminen ei edellytä erityistä perehtyneisyyttä alaan.</source>
+        <target>Publications disseminating information on research and development for the public and the content of which does not require particular familiarity with the field.</target>
       </trans-unit>
       <trans-unit id="peerReviewedTooltip">
         <source>Tieteellisten julkaisujen vertaisarvioinnilla tarkoitetaan menettelyä, jossa tutkimustuloksia julkaiseva lehti, konferenssi tai kirjakustantaja pyytää tieteenalan asiantuntijoita suorittamaan ennakkoarvion julkaistavaksi tarjottujen käsikirjoitusten tieteellisestä julkaisukelpoisuudesta.</source>

@@ -2508,48 +2508,48 @@
         <target>Artikel</target>
       </trans-unit>
       <trans-unit id="articleTooltipContent">
-        <source>sisältää alkuperäis- ja katsausartikkelit, kirjan tai lehden johdannot ja esipuheet, lyhyet tutkimusselostukset, pääkirjoitukset, keskustelupuheenvuorot ja kommentit.</source>
-        <target>omfattar original- och översiktsartiklar, inledningar och förord till en bok eller tidning, korta forskningsrapporter, ledare, debattinlägg och kommentarer.</target>
+        <source>Sisältää alkuperäis- ja katsausartikkelit, kirjan tai lehden johdannot ja esipuheet, lyhyet tutkimusselostukset, pääkirjoitukset, keskustelupuheenvuorot ja kommentit.</source>
+        <target>Omfattar original- och översiktsartiklar, inledningar och förord till en bok eller tidning, korta forskningsrapporter, ledare, debattinlägg och kommentarer.</target>
       </trans-unit>
       <trans-unit id="monograph">
         <source>Erillisteos</source>
         <target>Separat utgivna verk</target>
       </trans-unit>
       <trans-unit id="monographTooltipContent">
-        <source>sisältää monografiat/kirjat, tutkimus- ja kehitystyöhön perustuva kehittämis- tai tutkimusraportti, selvitykset, ns. white paperit sekä working papers ja discussion papers -tyyppiset julkaisut.</source>
-        <target>omfattar monografier/böcker, utvecklings- eller forskningsrapporter som baserar sig på forsknings- och utvecklingsarbete, utredningar, publikationer av typen whitepapers, working papers och discussion papers.</target>
+        <source>Sisältää monografiat/kirjat, tutkimus- ja kehitystyöhön perustuva kehittämis- tai tutkimusraportti, selvitykset, ns. white paperit sekä working papers ja discussion papers -tyyppiset julkaisut.</source>
+        <target>Omfattar monografier/böcker, utvecklings- eller forskningsrapporter som baserar sig på forsknings- och utvecklingsarbete, utredningar, publikationer av typen whitepapers, working papers och discussion papers.</target>
       </trans-unit>
       <trans-unit id="editorial">
         <source>Toimitustyö</source>
         <target>Redaktionsarbete</target>
       </trans-unit>
       <trans-unit id="editorialTooltipContent">
-        <source>sisältää useista eri kirjoittajien artikkeleista koostuvan tieteellisen kirjan tai lehden erikoisnumeron toimitustyöt.</source>
-        <target>omfattar redigerat verk av vetenskapliga böcker eller specialnummer av tidningar som består av flera artiklar av olika författare.</target>
+        <source>Sisältää useista eri kirjoittajien artikkeleista koostuvan tieteellisen kirjan tai lehden erikoisnumeron toimitustyöt.</source>
+        <target>Omfattar redigerat verk av vetenskapliga böcker eller specialnummer av tidningar som består av flera artiklar av olika författare.</target>
       </trans-unit>
       <trans-unit id="abstract">
         <source>Abstrakti</source>
         <target>Abstrakt</target>
       </trans-unit>
       <trans-unit id="abstractTooltipContent">
-        <source>sisältää konferenssiesitelmien abstraktit sekä laajennetut abstraktit.</source>
-        <target>omfattar abstrakta till konferenspresentationer och utvidgade abstrakta.</target>
+        <source>Sisältää konferenssiesitelmien abstraktit sekä laajennetut abstraktit.</source>
+        <target>Omfattar abstrakta till konferenspresentationer och utvidgade abstrakta.</target>
       </trans-unit>
       <trans-unit id="poster">
         <source>Posteri</source>
         <target>Poster</target>
       </trans-unit>
       <trans-unit id="posterTooltipContent">
-        <source>sisältää konferenssiesitelmien posterit.</source>
-        <target>omfattar postrar om konferenspresentationer.</target>
+        <source>Sisältää konferenssiesitelmien posterit.</source>
+        <target>Omfattar postrar om konferenspresentationer.</target>
       </trans-unit>
       <trans-unit id="blog">
         <source>Blogikirjoitus</source>
         <target>Blogginlägg</target>
       </trans-unit>
       <trans-unit id="blogTooltipContent">
-        <source>sisältää blogimuotoiset julkaisut, joiden julkaisemisesta on päättänyt riippumaton toimituskunta tai joiden julkaisualustalla on ISSN-tunnus</source>
-        <target>innehåller publikationer i bloggformat som har publicerats av en oberoende redaktion eller vars publikationsplattform har ett ISSN-nummer.</target>
+        <source>Sisältää blogimuotoiset julkaisut, joiden julkaisemisesta on päättänyt riippumaton toimituskunta tai joiden julkaisualustalla on ISSN-tunnus</source>
+        <target>Onnehåller publikationer i bloggformat som har publicerats av en oberoende redaktion eller vars publikationsplattform har ett ISSN-nummer.</target>
       </trans-unit>
       <trans-unit id="journal">
         <source>Lehti</source>
@@ -2596,8 +2596,8 @@
         <target>Populärvetenskaplig publikation</target>
       </trans-unit>
       <trans-unit id="popularPublicationTooltipContent">
-        <source>julkaisut, jotka levittävät tutkimus- ja kehitystyöhön perustuvaa tietoa suurelle yleisölle ja joiden sisällön ymmärtäminen ei edellytä erityistä perehtyneisyyttä alaan.</source>
-        <target>publikationer som gör information som grundar sig på forsknings- och utvecklingsarbete tillgänglig för allmänheten och vars innehåll kan förstås utan särskild kännedom om branschen.</target>
+        <source>Julkaisut, jotka levittävät tutkimus- ja kehitystyöhön perustuvaa tietoa suurelle yleisölle ja joiden sisällön ymmärtäminen ei edellytä erityistä perehtyneisyyttä alaan.</source>
+        <target>Publikationer som gör information som grundar sig på forsknings- och utvecklingsarbete tillgänglig för allmänheten och vars innehåll kan förstås utan särskild kännedom om branschen.</target>
       </trans-unit>
       <trans-unit id="peerReviewedTooltip">
         <source>Tieteellisten julkaisujen vertaisarvioinnilla tarkoitetaan menettelyä, jossa tutkimustuloksia julkaiseva lehti, konferenssi tai kirjakustantaja pyytää tieteenalan asiantuntijoita suorittamaan ennakkoarvion julkaistavaksi tarjottujen käsikirjoitusten tieteellisestä julkaisukelpoisuudesta.</source>
