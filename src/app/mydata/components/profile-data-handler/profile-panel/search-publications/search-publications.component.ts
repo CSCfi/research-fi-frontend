@@ -105,6 +105,7 @@ export class SearchPublicationsComponent implements OnInit {
               : sortPublications(data.publicationsAdded),
             publicationsNotFound: data.publicationsNotFound,
             publicationsAlreadyInProfile: data.publicationsAlreadyInProfile,
+            source: data.source,
           });
         }
       });

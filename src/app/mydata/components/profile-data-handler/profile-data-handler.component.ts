@@ -13,6 +13,7 @@ import {
   checkSelected,
   getDataSources,
   mergePublications,
+  isEmptySection,
 } from '@mydata/utils';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -46,6 +47,7 @@ export class ProfileDataHandlerComponent implements OnInit {
   checkSelected = checkSelected;
   getDataSources = getDataSources;
   mergePublications = mergePublications;
+  isEmptySection = isEmptySection;
 
   profileData: any;
 
@@ -80,7 +82,8 @@ export class ProfileDataHandlerComponent implements OnInit {
 
     // Merge publications
     // TODO: Find better way to pass array element than index number. Eg. type
-    this.mergePublications(this.profileData[4]);
+    const publications = this.profileData[4];
+    if (!isEmptySection(publications)) this.mergePublications(publications);
   }
 
   setPrimaryDataSource(option) {
