@@ -87,15 +87,15 @@ export class PublicationFilterService {
         '<p><strong>' +
         $localize`:@@scientificPublication:Tieteellinen julkaisu` +
         ': </strong>' +
-        $localize`:@@scientificPublicationTooltipContent:julkaisut, jotka on tarkoitettu edistämään tiedettä sekä tuottamaan uutta tietoa.` +
+        $localize`:@@scientificPublicationTooltipContent:Julkaisut, jotka on tarkoitettu edistämään tiedettä sekä tuottamaan uutta tietoa.` +
         '</p><p><strong>' +
         $localize`:@@professionalPublication:Ammatillinen julkaisu` +
         ': </strong>' +
-        $localize`:@@professionalPublicationTooltipContent:julkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.` +
+        $localize`:@@professionalPublicationTooltipContent:Julkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.` +
         '</p><p><strong>' +
         $localize`:@@popularPublication:Yleistajuinen julkaisu` +
         ': </strong>' +
-        $localize`:@@popularPublicationTooltipContent:julkaisut, jotka levittävät tutkimus- ja kehitystyöhön perustuvaa tietoa suurelle yleisölle ja joiden sisällön ymmärtäminen ei edellytä erityistä perehtyneisyyttä alaan.`,
+        $localize`:@@popularPublicationTooltipContent:Julkaisut, jotka levittävät tutkimus- ja kehitystyöhön perustuvaa tietoa suurelle yleisölle ja joiden sisällön ymmärtäminen ei edellytä erityistä perehtyneisyyttä alaan.`,
     },
     {
       field: 'parentPublicationType',
@@ -116,9 +116,9 @@ export class PublicationFilterService {
         ': </strong>' +
         $localize`:@@conferencePlatformTooltipContent:sisältää konferenssin painetut tai julkisesti saatavilla olevat julkaisut, ns. proceedings-julkaisut.` +
         '<p><strong>' +
-        $localize`:@@onlinePlatform:Verkkoalusta:` +
-        '</strong>' +
-        $localize`:@@onlinePlatformTooltipContent: sisältää muilla sähköisillä alustoilla julkaistut julkaisut.`,
+        $localize`:@@onlinePlatform:Verkkoalusta` +
+        ': </strong>' +
+        $localize`:@@onlinePlatformTooltipContent:Sisältää muilla sähköisillä alustoilla julkaistut julkaisut.`,
     },
     {
       field: 'peerReviewed',

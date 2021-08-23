@@ -81,6 +81,7 @@ export class Publication {
 export class PublicationAdapter implements Adapter<Publication> {
   capitalizedLocale: string;
   constructor(
+    private lang: LanguageCheck,
     private fs: FieldOfScienceAdapter,
     private citationAdapter: PublicationCitationAdapter,
     @Inject(LOCALE_ID) protected localeId: string
@@ -152,7 +153,6 @@ export class PublicationAdapter implements Adapter<Publication> {
       item.selfArchivedCode === 1;
     //For Open Access box
     let publisherOpenAccessText = '';
-    //Lisää kieliversiot
     if (item.openAccessCode === 1 || item.publisherOpenAccessCode === 1) {
       publisherOpenAccessText = $localize`:@@OaFullyOpen:Kokonaan avoin julkaisukanava`;
     } else if (
@@ -164,7 +164,7 @@ export class PublicationAdapter implements Adapter<Publication> {
       publisherOpenAccessText = $localize`:@@OaDelayed:Viivästetysti avoin julkaisukanava`;
     }
 
-    let licenseText = item.license[0].licenseNameFi || '';
+    let licenseText = this.lang.testLang('licenseName', item?.license[0]);
     let archiveCodeVersionText = '';
 
     //

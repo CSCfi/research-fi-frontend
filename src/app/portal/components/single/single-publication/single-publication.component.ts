@@ -119,19 +119,19 @@ export class SinglePublicationComponent
         '<p><strong>' +
         $localize`:@@journal:Lehti` +
         ': </strong>' +
-        $localize`:@@journalTooltipContent:sisältää tieteelliset aikakauslehdet ja ammattilehdet.` +
+        $localize`:@@journalTooltipContent:Sisältää tieteelliset aikakauslehdet ja ammattilehdet.` +
         '</p><p><strong>' +
         $localize`:@@researchBook:Kokoomateos` +
         ': </strong>' +
-        $localize`:@@researchBookTooltipContent:sisältää tieteelliset kokoomateokset, tieteelliset vuosikirjat ja vastaavat, ammatilliset käsi- tai opaskirjat, ammatilliset tietojärjestelmät tai kokoomateokset, oppikirja-aineistot sekä lyhyet ensyklopediatekstit. ` +
+        $localize`:@@researchBookTooltipContent:Sisältää tieteelliset kokoomateokset, tieteelliset vuosikirjat ja vastaavat, ammatilliset käsi- tai opaskirjat, ammatilliset tietojärjestelmät tai kokoomateokset, oppikirja-aineistot sekä lyhyet ensyklopediatekstit. ` +
         '</p><p><strong>' +
         $localize`:@@conferencePlatform:Konferenssialusta` +
         ': </strong>' +
-        $localize`:@@conferencePlatformTooltipContent:sisältää konferenssin painetut tai julkisesti saatavilla olevat julkaisut, ns. proceedings-julkaisut.` +
+        $localize`:@@conferencePlatformTooltipContent:Sisältää konferenssin painetut tai julkisesti saatavilla olevat julkaisut, ns. proceedings-julkaisut.` +
         '<p><strong>' +
-        $localize`:@@onlinePlatform:Verkkoalusta:` +
-        '</strong>' +
-        $localize`:@@onlinePlatformTooltipContent: sisältää muilla sähköisillä alustoilla julkaistut julkaisut.`,
+        $localize`:@@onlinePlatform:Verkkoalusta` +
+        ': </strong>' +
+        $localize`:@@onlinePlatformTooltipContent: Sisältää muilla sähköisillä alustoilla julkaistut julkaisut.`,
     },
     {
       label: $localize`:@@audience:Yleisö`,
@@ -143,15 +143,15 @@ export class SinglePublicationComponent
         '<p><strong>' +
         $localize`:@@scientificPublication:Tieteellinen julkaisu` +
         ': </strong>' +
-        $localize`:@@scientificPublicationTooltipContent:julkaisut, jotka on tarkoitettu edistämään tiedettä sekä tuottamaan uutta tietoa.` +
+        $localize`:@@scientificPublicationTooltipContent:Julkaisut, jotka on tarkoitettu edistämään tiedettä sekä tuottamaan uutta tietoa.` +
         '</p><p><strong>' +
         $localize`:@@professionalPublication:Ammatillinen julkaisu` +
         ': </strong>' +
-        $localize`:@@professionalPublicationTooltipContent:julkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.` +
+        $localize`:@@professionalPublicationTooltipContent:Julkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.` +
         '</p><p><strong>' +
         $localize`:@@popularPublication:Yleistajuinen julkaisu` +
         ': </strong>' +
-        $localize`:@@popularPublicationTooltipContent:julkaisut, jotka levittävät tutkimus- ja kehitystyöhön perustuvaa tietoa suurelle yleisölle ja joiden sisällön ymmärtäminen ei edellytä erityistä perehtyneisyyttä alaan.`,
+        $localize`:@@popularPublicationTooltipContent:Julkaisut, jotka levittävät tutkimus- ja kehitystyöhön perustuvaa tietoa suurelle yleisölle ja joiden sisällön ymmärtäminen ei edellytä erityistä perehtyneisyyttä alaan.`,
     },
     {
       label: $localize`:@@peerReviewedFilter:Vertaisarvioitu`,
@@ -272,12 +272,12 @@ export class SinglePublicationComponent
       link: false,
       tooltip:
         '<p><strong>' +
-        $localize`:@@publisherVersion:Kustantajan versio:` +
-        '</strong>' +
+        $localize`:@@publisherVersion:Kustantajan versio` +
+        ': </strong>' +
         $localize`:@@publisherVersionTooltip:Kustantajan palvelussa julkaistu artikkeli.` +
         '</p><p><strong>' +
-        $localize`:@@finalDraft:Viimeinen käsikirjoitusversio:` +
-        '</strong>' +
+        $localize`:@@finalDraft:Viimeinen käsikirjoitusversio` +
+        ': </strong>' +
         $localize`:@@finalDraftTooltip:Kustantajalle lähetetty viimeinen (vertaisarvioitu) versio käsikirjoituksesta, joka on hyväksytty julkaistavaksi.` +
         '</p>',
     },
