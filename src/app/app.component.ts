@@ -8,6 +8,9 @@
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { AppConfigService } from '@shared/services/app-config-service.service';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { NavigationStart, Router } from '@angular/router';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -19,11 +22,24 @@ export class AppComponent {
 
   constructor(
     private appConfigService: AppConfigService,
+    private oidcSecurityService: OidcSecurityService,
+    private router: Router,
     @Inject(PLATFORM_ID) private platformId: object,
     @Inject(DOCUMENT) private document: any
   ) {
     // SSR platform check
     if (isPlatformBrowser(this.platformId)) {
+      // Start auth process
+      this.router.events.pipe(take(1)).subscribe((e) => {
+        if (e instanceof NavigationStart) {
+          if (e.url.includes('/mydata')) {
+            this.oidcSecurityService.checkAuth().subscribe((a) => {
+              console.log(a);
+            });
+          }
+        }
+      });
+
       // Add initial Matomo script with dynamic site ID
       const node = this.document.createElement('script');
       node.type = 'text/javascript';

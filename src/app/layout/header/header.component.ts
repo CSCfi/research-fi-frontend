@@ -130,9 +130,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       if (e instanceof NavigationEnd) {
         if (isPlatformBrowser(this.platformId)) {
           // Start MyData auth process
-          if (e.url.includes('/mydata')) {
-            this.oidcSecurityService.checkAuth().subscribe(() => {});
-          }
+          // if (e.url.includes('/mydata')) {
+          //   this.oidcSecurityService.checkAuth().subscribe(() => {});
+          // }
 
           // Check if consent has been chosen & set variable. This is used in preserving consent status between language versions
           if (localStorage.getItem('cookieConsent')) {
@@ -186,10 +186,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.appSettingsService.setCurrentAppSettings('portal');
         }
 
-        // Redirect all other than mydata routes to mydata during myData beta
-        if (!this.currentRoute.includes('/mydata')) {
-          this.router.navigate(['/mydata']);
-        }
+        // // Redirect all other than mydata routes to mydata during myData beta
+        // if (!this.currentRoute.includes('/mydata')) {
+        //   this.router.navigate(['/mydata']);
+        // }
 
         // Login / logout link
         // Click functionality is handled in handleClick method
