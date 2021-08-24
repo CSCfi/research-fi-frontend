@@ -115,7 +115,6 @@ export class WelcomeStepperComponent implements OnInit {
               this.getProfileData()
             : this.createProfile();
         } else {
-          console.log('Connection problem');
         }
       });
   }
@@ -129,13 +128,12 @@ export class WelcomeStepperComponent implements OnInit {
           this.getOrcidData();
           this.profileCreated = true;
         } else {
-          console.log('Cannot create profile');
         }
       });
   }
 
   deleteProfile() {
-    this.profileService.deleteProfile().subscribe((data) => console.log(data));
+    this.profileService.deleteProfile().subscribe((data) => {});
   }
 
   async getOrcidData() {
