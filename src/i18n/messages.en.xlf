@@ -2734,11 +2734,15 @@
         <source>Yhteisjulkaisuissa julkaisumaksu voi olla yhden tai useamman julkaisuun osallistuneen organisaation maksama. Julkaisumaksun summa voi myös olla puutteellinen, jos kaikkien organisaatioiden maksuja ei ole ilmoitettu.</source>
         <target>In joint publications, the publication fee may be paid by one or more organizations participating in the publication. The actual fee may be higher if there are payments that have not been reported.</target>
       </trans-unit>
-      <trans-unit id="publicationStatus">
+      <trans-unit id="okmDataCollection">
         <source>Julkaisu kuuluu opetus- ja kuulttuuriministeriön tiedonkeruuseen</source>
         <target>The publication is included in the Ministry of Education and Culture’s Publication data collection</target>
       </trans-unit>
-      <trans-unit id="publicationStatusTooltip">
+      <trans-unit id="okmDataCollectionShort">
+        <source>Kuuluu OKM:n tiedonkeruuseen</source>
+        <target>Included in the Ministry of Education and Culture’s Publication data collection</target>
+      </trans-unit>
+      <trans-unit id="okmDataCollectionTooltip">
         <source>OKM:n tiedonkeruuseen kuuluvat julkaisut ovat korkeakoulujen, tutkimuslaitosten ja yliopistosairaaloiden vuosittain opetus- ja kulttuuriministeriölle raportoimia julkaisuja, jotka täyttävät julkaisutiedonkeruun vaatimukset (www.tiedonkeruu.fi) ja jotka huomioidaan mm. korkeakoulujen rahoitusmallissa.</source>
         <target>The publication data collected by the Ministry of Education and Culture is contained in the publications reported to the Ministry each year by higher education institutions, research institutes and university hospitals that meet the criteria for the publication data collection and that are considered in the higher education institutions’ funding model.</target>
       </trans-unit>

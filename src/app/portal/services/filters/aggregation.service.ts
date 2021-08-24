@@ -492,6 +492,21 @@ export class AggregationService {
             },
           },
         };
+        payLoad.aggs.okmDataCollection = {
+          filter: {
+            bool: {
+              filter: filterActive('publicationStatusCode.keyword'),
+            },
+          },
+          aggs: {
+            publicationStatusCodes: {
+              terms: {
+                field: 'publicationStatusCode.keyword',
+                size: 10,
+              },
+            },
+          },
+        };
         // Field of science
         payLoad.aggs.field = {
           nested: {
