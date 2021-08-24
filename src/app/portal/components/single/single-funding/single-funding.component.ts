@@ -84,8 +84,13 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     {
       label: $localize`:@@fieldsOfScience:Tieteenalat`,
       field: 'fieldsOfScience',
+      tooltip: $localize`:@@fieldOfScienceTooltip:Tilastokeskuksen tieteenalaluokitus. Yhteen hankkeeseen voi liittyä useita tieteenaloja. Kaikki rahoittajat eivät käytä tieteenalaluokitusta.`,
     },
-    { label: $localize`Tutkimusalat`, field: 'fieldsOfResearch' },
+    {
+      label: $localize`Tutkimusalat`,
+      field: 'fieldsOfResearch',
+      tooltip: $localize`:@@fieldsOfResearchTooltip:Suomen Akatemian luokittelee hankkeensa myös oman tutkimusalaluokittelunsa mukaisesti.`,
+    },
     { label: $localize`Teema-alat`, field: 'fieldsOfTheme' },
     { label: $localize`:@@fundingHomePage:Hankkeen verkkosivu`, field: '?' },
     { label: $localize`:@@keywords:Avainsanat`, field: 'keywords' },
