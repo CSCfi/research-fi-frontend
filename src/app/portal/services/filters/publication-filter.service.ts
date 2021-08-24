@@ -176,6 +176,11 @@ export class PublicationFilterService {
       label: $localize`:@@intCoPublication:Kansainvälinen yhteisjulkaisu`,
       tooltip: $localize`:@@intCoPublicationTooltip:Julkaisussa on tekijöitä myös muualta kuin suomalaisista tutkimusorganisaatioista.`,
     },
+    {
+      field: 'okmDataCollection',
+      label: $localize`:@@okmDataCollection:Julkaisu kuuluu opetus- ja kuulttuuriministeriön tiedonkeruuseen`,
+      tooltip: $localize`:@@okmDataCollectionTooltip:OKM:n tiedonkeruuseen kuuluvat julkaisut ovat korkeakoulujen, tutkimuslaitosten ja yliopistosairaaloiden vuosittain opetus- ja kulttuuriministeriölle raportoimia julkaisuja, jotka täyttävät julkaisutiedonkeruun vaatimukset (www.tiedonkeruu.fi) ja jotka huomioidaan mm. korkeakoulujen rahoitusmallissa.`,
+    },
   ];
 
   constructor(
@@ -225,9 +230,13 @@ export class PublicationFilterService {
       source.selfArchived.selfArchivedCodes.buckets,
       source.oaComposite
     );
-    // Internationatl collaboration
+    // International collaboration
     source.internationalCollaboration.buckets = this.getSingleAmount(
       source.internationalCollaboration.internationalCollaborationCodes.buckets
+    );
+    // MinEdu data collection
+    source.okmDataCollection.buckets = this.getOkmCollectedAmount(
+      source.okmDataCollection.publicationStatusCodes.buckets
     );
     source.shaped = true;
     return source;
@@ -555,5 +564,16 @@ export class PublicationFilterService {
     if (data.length > 0) {
       return data.filter((x) => x.key === 1);
     }
+  }
+
+  getOkmCollectedAmount(data: any[]) {
+    // Filter correct buckets
+    const trueSelection = data.filter(x => ['1', '2', '9'].includes(x.key));
+    // Combine doc_count into single object
+    const reduced = trueSelection.reduce((curr, next) => {
+      curr.doc_count += next.doc_count;
+      return curr;
+    }, {key_as_string: 'true', doc_count: 0});
+    return [reduced];
   }
 }

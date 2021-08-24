@@ -38,6 +38,7 @@ export class FilterService {
   fundingAmountFilter: any;
   openAccessFilter: any;
   internationalCollaborationFilter: any;
+  okmDataCollectionFilter: any;
   coPublicationFilter: any;
   sectorFilter: any;
   topicFilter: any;
@@ -66,6 +67,7 @@ export class FilterService {
     juFo: [],
     openAccess: [],
     internationalCollaboration: [],
+    okmDataCollection: [],
     funder: [],
     typeOfFunding: [],
     scheme: [],
@@ -102,6 +104,7 @@ export class FilterService {
     openAccess: any[];
     juFo: any[];
     internationalCollaboration: any[];
+    okmDataCollection: any[];
     funder: any[];
     typeOfFunding: any[];
     scheme: any[];
@@ -204,6 +207,10 @@ export class FilterService {
         .flat()
         .filter((x) => x)
         .sort(),
+      okmDataCollection: [source.okmDataCollection]
+        .flat()
+        .filter((x) => x)
+        .sort(),
       coPublication: [source.coPublication]
         .flat()
         .filter((x) => x)
@@ -298,6 +305,7 @@ export class FilterService {
       this.filterByInternationalCollaboration(
         filter.internationalCollaboration
       );
+    this.okmDataCollectionFilter = this.filterByOkmDataCollection(filter.okmDataCollection);
     this.coPublicationFilter = this.customValueFilter(
       filter.coPublication,
       'publicationStatusCode.keyword',
@@ -664,6 +672,14 @@ export class FilterService {
     }
   }
 
+  filterByOkmDataCollection(status: any) {
+    const res = [];
+    if (status.length > 0 && JSON.parse(status)) {
+      ['1', '2', '9'].forEach(n => res.push({ term: { 'publicationStatusCode.keyword': n } }));
+    }
+    return res;
+  }
+
   // Fundings
   filterByFundingAmount(val) {
     let res = {};
@@ -773,6 +789,7 @@ export class FilterService {
       ...basicFilter('publication', this.juFoCodeFilter),
       ...basicFilter('publication', this.openAccessFilter),
       ...basicFilter('publication', this.internationalCollaborationFilter),
+      ...basicFilter('publication', this.okmDataCollectionFilter),
       ...basicFilter('publication', this.coPublicationFilter),
       // Fundings
       // Funding organization filter differs from nested filter since we need to get filter values from two different parents

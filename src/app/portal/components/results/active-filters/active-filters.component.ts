@@ -447,6 +447,12 @@ export class ActiveFiltersComponent
                 ).translation = $localize`:@@intCoPublication:Kansainvälinen yhteisjulkaisu`;
               }
 
+              if (val.category === 'okmDataCollection') {
+                this.activeFilters.find(
+                  (item) => item.category === 'okmDataCollection'
+                ).translation = $localize`:@@okmDataCollectionShort:Kuuluu OKM:n tiedonkeruuseen`;
+              }
+
               // Global organization filter
               if (val.category === 'organization' && source.organization) {
                 // Publication organization name
