@@ -87,7 +87,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   filterNewsHeader = $localize`:@@filterNewsHeader:Rajaa uutisia`;
   coPublicationTooltip =
     'Valitsemalla ”näytä vain yhteisjulkaisut” voit tarkastella suomalaisten organisaatioiden yhteisiä julkaisuja. Hakutulos näyttää tällöin vain sellaiset julkaisut, joissa kaikki alla olevasta listasta valitut organisaatiot ovat mukana. Jos yhtään organisaatiota ei ole valittu, hakutulos näyttää kaikki yhteisjulkaisut';
-  sgidentifiedTopicTooltip = $localize`:@@identifiedTopicsTooltip:Koneoppimisen avulla hankkeiden tiedoista tutkimustietovarannossa muodostettu aiheluokittelu. Hanke liittyy aiheeseen, jota se todennäköisimmin käsittelee.`;
   constructor(
     private router: Router,
     private resizeService: ResizeService,

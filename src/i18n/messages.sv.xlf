@@ -2938,15 +2938,27 @@
       </trans-unit>
       <trans-unit id="identifiedTopic">
         <source>Tunnistettu aihe</source>
-        <target>Identifieradetema</target>
+        <target>Identifierade tema</target>
       </trans-unit>
       <trans-unit id="identifiedTopics">
         <source>Tunnistetut aiheet</source>
-        <target>Identifieradeteman</target>
+        <target>Identifierade teman</target>
       </trans-unit>
       <trans-unit id="identifiedTopicsTooltip">
         <source>Koneoppimisen avulla hankkeiden tiedoista tutkimustietovarannossa muodostettu aiheluokittelu. Hanke liittyy aiheeseen, jota se todennäköisimmin käsittelee.</source>
         <target>Med hjälp av maskininlärning bildas en ämneskategorisering från projektdata. Projektet relaterar till ämnet det i stor sannolikheten handlar.</target>
+      </trans-unit>
+      <trans-unit id="fkeywordsTooltip">
+        <source>Haun rajaus hankkeen tiedoissa olevien avainsanojen perusteella.</source>
+        <target>Begränsa sökningen enligt nyckelorden i projektdata.</target>
+      </trans-unit>
+      <trans-unit id="fthemesTooltip">
+        <source>Osa rahoittajista järjestää haut teemojen mukaisesti. Teemat ovat tyypillisesti rahoittajakohtaisia, jolloin hakutuloksessa näkyy vain yhden rahoittajan hankkeita.</source>
+        <target>Vissa finansiärer organiserar utlysningar efter teman. Teman är vanligtvis finansiärspecifika, i så fall visar sökresultatet bara projekt från en finansiär.</target>
+      </trans-unit>
+      <trans-unit id="fresearchFieldTooltip">
+        <source>Suomen Akatemian luokittelee hankkeensa myös oman tutkimusalaluokittelunsa mukaisesti. Valinta kohdistuu vain Akatemian myöntämään rahoitukseen.</source>
+        <target>Finlands Akademi använder också sina egna forskningsområden. Urvalet fokuserar endast finansiering beviljat av Finlands Akademi.</target>
       </trans-unit>
       <trans-unit id="sfCallProgrammeTooltip">
         <source>Rahoittajan haku, josta rahoitus on myönnetty. Kilpailtu tutkimusrahoitus myönnetään usein avoimien hakujen kautta, joissa rahoituksen myöntämisen perusteena ovat ennalta määrätyt kriteerit. Hakemukset arvioidaan ja rahoitus myönnetään kriteerien ja muiden tavoitteiden perusteella parhaiksi katsotuille hakemuksille.</source>
@@ -3580,6 +3592,10 @@
       <trans-unit id="fFieldsOfScienceTooltip">
         <source>Tilastokeskuksen tieteenalaluokitus. Yhteen hankkeeseen voi liittyä useita tieteenaloja. Kaikki rahoittajat eivät käytä tieteenaloja. Siksi suodatinta käyttämällä ei voi selvittää jonkin tieteenalan osuutta kokonaisrahoituksesta.</source>
         <target state="translated">Statistikcentralens klassificering av vetenskapsområden. Ett projekt kan omfatta flera vetenskapsområden. Alla finansiärer använder inte vetenskapsområden. Därför kan man inte genom att använda filtret reda ut vilken andel av den sammanlagda finansieringen ett visst vetenskapsområde står för.</target>
+      </trans-unit>
+      <trans-unit id="funderTopicTooltip">
+        <source>Hankkeen aihetta luokittelevia valintoja. Pääosin luokittelut eivät ole kattavia ja voivat olla rahoittajakohtaisia.</source>
+        <target>Val som klassificerar projektets tema. Klassificeringarna är inte heltäckande och kan vara finansiärspecifika.</target>
       </trans-unit>
       <trans-unit id="FAField">
         <source>Teemat</source>

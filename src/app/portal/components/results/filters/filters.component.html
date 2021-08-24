@@ -444,9 +444,9 @@
                   <div class="row d-flex justify-content-between">
                     <div class="col col-10 label">
                       {{ item.key }}
-                      <ng-container *ngIf="item.key == 'Tunnistettu aihe' || item.key == 'Identified topic' || item.key == 'Identifieradetema'">
+                      <ng-container *ngIf="item.tooltip">
                         <ng-template #tooltipTemplate>
-                          <div [innerHtml]="sgidentifiedTopicTooltip"></div>
+                          <div [innerHtml]="item?.tooltip"></div>
                         </ng-template>
                         <span
                           [tooltip]="tooltipTemplate"
