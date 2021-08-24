@@ -166,7 +166,6 @@ export class ProfileDataHandlerComponent implements OnInit {
       .subscribe(
         (result: { data: any; patchGroups: any[]; patchItems: any[] }) => {
           if (result) {
-            console.log('On editor modal close: ', result);
             this.profileData[this.selectedIndex] = result.data;
             // this.patchData(result.patchGroups, result.patchItems);
           }
@@ -179,7 +178,6 @@ export class ProfileDataHandlerComponent implements OnInit {
       .patchObjects(patchGroups, patchItems)
       .pipe(take(1))
       .subscribe((response) => {
-        console.log(response);
         this.snackBar.open('Muutokset tallennettu');
         // TODO: Alert when error
       });

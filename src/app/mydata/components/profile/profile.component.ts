@@ -48,7 +48,6 @@ export class ProfileComponent implements OnInit {
       .pipe(take(1))
       .subscribe((data) => {
         this.profileData = data;
-        console.log(data);
       });
   }
 
@@ -57,7 +56,6 @@ export class ProfileComponent implements OnInit {
       .deleteProfile()
       .pipe(take(1))
       .subscribe((data) => {
-        console.log(data);
         this.router.navigate(['/mydata']);
       });
   }
