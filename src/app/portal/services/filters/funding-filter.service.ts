@@ -69,6 +69,7 @@ export class FundingFilterService {
       hasSubFields: true,
       open: true,
       searchFromParent: true,
+      tooltip: $localize`:@@funderTopicTooltip:Hankkeen aihetta luokittelevia valintoja. Pääosin luokittelut eivät ole kattavia ja voivat olla rahoittajakohtaisia.`,
     },
   ];
 
@@ -313,18 +314,22 @@ export class FundingFilterService {
       switch (item.key) {
         case 'Avainsana': {
           item.key = $localize`:@@keywords:Avainsanat`;
+          item.tooltip = $localize`:@@fkeywordsTooltip:Haun rajaus hankkeen tiedoissa olevien avainsanojen perusteella.`;
           break;
         }
         case 'Teema-ala': {
           item.key = $localize`:@@FAField:Teemat`;
+          item.tooltip = $localize`:@@fthemesTooltip:Osa rahoittajista järjestää haut teemojen mukaisesti. Teemat ovat tyypillisesti rahoittajakohtaisia, jolloin hakutuloksessa näkyy vain yhden rahoittajan hankkeita.`;
           break;
         }
         case 'topic': {
           item.key = $localize`:@@identifiedTopic:Tunnistettu aihe`;
+          item.tooltip = $localize`:@@identifiedTopicsTooltip:Koneoppimisen avulla hankkeiden tiedoista tutkimustietovarannossa muodostettu aiheluokittelu. Hanke liittyy aiheeseen, jota se todennäköisimmin käsittelee.`;
           break;
         }
         case 'Tutkimusala': {
           item.key = $localize`:@@FAResearchFields:Suomen Akatemian tutkimusalat`;
+          item.tooltip = $localize`:@@fresearchFieldTooltip:Suomen Akatemian luokittelee hankkeensa myös oman tutkimusalaluokittelunsa mukaisesti. Valinta kohdistuu vain Akatemian myöntämään rahoitukseen.`;
           break;
         }
       }
@@ -342,7 +347,7 @@ export class FundingFilterService {
     });
     data.every((item, index) => {
       if (
-        ['Tunnistettu aihe', 'Identified topic', 'Identifieradetema'].includes(
+        ['Tunnistettu aihe', 'Identified topic', 'Identifierade tema'].includes(
           item.key
         )
       ) {
