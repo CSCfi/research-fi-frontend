@@ -228,7 +228,8 @@ export class PublicationFilterService {
     source.openAccess.buckets = this.openAccess(
       source.openAccess.openAccessCodes.buckets,
       source.selfArchived.selfArchivedCodes.buckets,
-      source.oaComposite
+      source.oaComposite,
+      source.oaPublisherComposite.buckets
     );
     // International collaboration
     source.internationalCollaboration.buckets = this.getSingleAmount(
@@ -412,45 +413,43 @@ export class PublicationFilterService {
     }
   }
 
-  openAccess(openAccess, selfArchived, oaComposite) {
+  openAccess(openAccess, selfArchived, oaComposite, publisherComposite) {
     let openAccessCodes = [];
     const result = [];
-    // Get composite aggreation result of selfArchived and openAccess 0 codes. This is used to get doc count for 'no open access' filter
-    const nonOpenAccess = oaComposite.buckets.find(
-      (item) =>
-        JSON.stringify(item.key) ===
-        JSON.stringify({ selfArchived: 0, openAccess: 0 })
-    );
-    const noOpenAccessData = oaComposite.buckets.find(
-      (item) =>
-        JSON.stringify(item.key) ===
-        JSON.stringify({ selfArchived: -1, openAccess: -1 })
-    );
-    // Get aggregation from response
-    if (openAccess && openAccess.length > 0) {
-      openAccess.forEach((val) => {
-        switch (val.key) {
-          case 1: {
+
+    if (publisherComposite && publisherComposite.length > 0) {
+      publisherComposite.forEach((val) => {
+        val.stringKey = '' + val.key.openAccess + val.key.publisherOpenAccess;
+        switch (val.stringKey) {
+          case '11': {
             openAccessCodes.push({
               key: 'openAccess',
               doc_count: val.doc_count,
-              label: $localize`:@@openAccessJournal:Open Access -lehti`,
             });
             break;
           }
-          case 2: {
+          case '03':
+          case '13': {
+            openAccessCodes.push({
+              key: 'delayedOpenAccess',
+              doc_count: val.doc_count,
+            });
+            break;
+          }
+          case '12': {
             openAccessCodes.push({
               key: 'otherOpen',
               doc_count: val.doc_count,
-              label: $localize`:@@otherOpenAccess:Muu avoin saatavuus`,
             });
             break;
           }
-          case 0: {
+          case '00':
+          case '01':
+          case '02':
+          case '09': {
             openAccessCodes.push({
               key: 'nonOpenAccess',
               doc_count: val.doc_count,
-              label: $localize`:@@nonOpen:Ei avoin`,
             });
             break;
           }
@@ -458,13 +457,13 @@ export class PublicationFilterService {
             openAccessCodes.push({
               key: 'noOpenAccessData',
               doc_count: val.doc_count,
-              label: $localize`:@@noInfo:Ei tietoa`,
             });
             break;
           }
         }
-      });
+      })
     }
+
 
     if (selfArchived && selfArchived.length > 0) {
       selfArchived.forEach((val) => {
@@ -473,23 +472,6 @@ export class PublicationFilterService {
             openAccessCodes.push({
               key: 'selfArchived',
               doc_count: val.doc_count,
-              label: $localize`:@@selfArchived:Rinnakkaistallennettu`,
-            });
-            break;
-          }
-          case 0: {
-            openAccessCodes.push({
-              key: 'selfArchivedNonOpen',
-              doc_count: val.doc_count,
-              label: $localize`:@@nonOpen:Ei avoin`,
-            });
-            break;
-          }
-          default: {
-            openAccessCodes.push({
-              key: 'noOpenAccessData',
-              doc_count: val.doc_count,
-              label: $localize`:@@noInfo:Ei tietoa`,
             });
             break;
           }
@@ -502,7 +484,7 @@ export class PublicationFilterService {
         .filter((obj) => {
           return obj.key === val.key;
         })
-        .pop() || { key: val.key, doc_count: 0, label: val.label };
+        .pop() || { key: val.key, doc_count: 0 };
 
       sum.doc_count += val.doc_count;
       item.push(sum);
@@ -529,6 +511,13 @@ export class PublicationFilterService {
         label: $localize`:@@selfArchived:Rinnakkaistallennettu`,
       });
     }
+    if (openAccessCodes.some((e) => e.key === 'delayedOpenAccess')) {
+      result.push({
+        key: 'delayedOpenAccess',
+        doc_count: docCount('delayedOpenAccess'),
+        label: $localize`:@@delayedOpenAccess:Viivästetty avoin saatavuus`,
+      });
+    }
     if (openAccessCodes.some((e) => e.key === 'otherOpen')) {
       result.push({
         key: 'otherOpen',
@@ -538,12 +527,11 @@ export class PublicationFilterService {
     }
 
     if (
-      openAccessCodes.some((e) => e.key === 'nonOpenAccess') &&
-      openAccessCodes.some((e) => e.key === 'selfArchivedNonOpen')
+      openAccessCodes.some((e) => e.key === 'nonOpenAccess')
     ) {
       result.push({
         key: 'nonOpen',
-        doc_count: nonOpenAccess?.filtered.doc_count,
+        doc_count: docCount('nonOpenAccess'),
         label: $localize`:@@nonOpen:Ei avoin`,
       });
     }
@@ -551,9 +539,7 @@ export class PublicationFilterService {
     if (openAccessCodes.some((e) => e.key === 'noOpenAccessData')) {
       result.push({
         key: 'noOpenAccessData',
-        doc_count: openAccessCodes.find(
-          (item) => item.key === 'noOpenAccessData'
-        )?.doc_count,
+        doc_count: docCount('noOpenAccessData'),
         label: $localize`:@@noInfo:Ei tietoa`,
       });
     }

@@ -584,10 +584,18 @@ export class FilterService {
     return res;
   }
 
-  filterByOpenAccess(code: string) {
+  filterByOpenAccess(code: string[]) {
     const res = [];
     if (code.includes('openAccess')) {
-      res.push({ term: { openAccessCode: 1 } });
+      // res.push({ term: { openAccessCode: 1 } });
+      res.push({
+        bool: {
+          must: [
+            { term: { openAccess: 1 } },
+            { term: { publisherOpenAccessCode: 1 } },
+          ],
+        },
+      });
     }
     if (code.includes('otherOpen')) {
       res.push({ term: { openAccessCode: 2 } });

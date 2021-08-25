@@ -604,6 +604,35 @@ export class AggregationService {
             },
           },
         };
+        payLoad.aggs.oaPublisherComposite = {
+          composite: {
+            sources: [
+              {
+                openAccess: {
+                  terms: {
+                    field: 'openAccess',
+                  },
+                },
+              },
+              {
+                publisherOpenAccess: {
+                  terms: {
+                    field: 'publisherOpenAccessCode',
+                  },
+                },
+              },
+            ],
+          },
+          aggs: {
+            filtered: {
+              filter: {
+                bool: {
+                  filter: filterActive('openAccess'),
+                },
+              },
+            },
+          },
+        };
         break;
       case 'fundings':
         payLoad.aggs.year = yearAgg;
