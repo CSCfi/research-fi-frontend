@@ -530,7 +530,7 @@ export class PublicationFilterService {
       openAccessCodes.some((e) => e.key === 'nonOpenAccess')
     ) {
       result.push({
-        key: 'nonOpen',
+        key: 'nonOpenAccess',
         doc_count: docCount('nonOpenAccess'),
         label: $localize`:@@nonOpen:Ei avoin`,
       });
