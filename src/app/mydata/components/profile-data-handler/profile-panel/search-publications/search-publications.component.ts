@@ -8,6 +8,7 @@
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PublicationsService } from '@mydata/services/publications.service';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 import { take } from 'rxjs/operators';
 
 @Component({
@@ -22,14 +23,22 @@ export class SearchPublicationsComponent implements OnInit {
   loading: boolean;
   currentSelection: any[];
   currentTerm: string;
+  mobile: boolean;
 
   constructor(
     private dialogRef: MatDialogRef<SearchPublicationsComponent>,
     private publicationService: PublicationsService,
+    private appSettingsService: AppSettingsService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.appSettingsService.mobileStatus
+      .subscribe((status) => {
+        this.mobile = status;
+      })
+      .unsubscribe();
+  }
 
   handleSearch(term) {
     this.currentTerm = term;
@@ -69,8 +78,40 @@ export class SearchPublicationsComponent implements OnInit {
   }
 
   saveChanges() {
-    this.dialogRef.close({
-      selectedPublications: this.currentSelection,
-    });
+    const publications = this.currentSelection.map((item) => ({
+      publicationId: item.publicationId,
+      show: true,
+      primaryValue: true,
+    }));
+
+    this.publicationService
+      .addPublications(publications)
+      .pipe(take(1))
+      .subscribe((res: any) => {
+        if (res.ok && res.body.success) {
+          const data = res.body.data;
+
+          const preSelection = this.data.selectedPublications;
+
+          const sortPublications = (publications) => {
+            return publications.sort(
+              (a, b) => b.publicationYear - a.publicationYear
+            );
+          };
+
+          this.dialogRef.close({
+            selectedPublications: preSelection
+              ? sortPublications(data.publicationsAdded.concat(preSelection))
+              : sortPublications(data.publicationsAdded),
+            publicationsNotFound: data.publicationsNotFound,
+            publicationsAlreadyInProfile: data.publicationsAlreadyInProfile,
+            source: data.source,
+          });
+        }
+      });
+
+    // this.dialogRef.close({
+    //   selectedPublications: this.currentSelection,
+    // });
   }
 }

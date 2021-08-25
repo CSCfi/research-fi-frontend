@@ -14,13 +14,7 @@ import { EducationFieldsAdapter } from './education.model';
 import { PublicationFieldsAdapter } from './publication.model';
 
 export class Profile {
-  constructor(
-    public personal: any,
-    public description: any,
-    public affiliation: any,
-    public education: any,
-    public publication: any
-  ) {}
+  constructor(public profileData: any) {}
 }
 
 @Injectable({
@@ -38,19 +32,54 @@ export class ProfileAdapter implements Adapter<Profile> {
   adapt(item: any): Profile {
     const data = item.body.data;
 
-    const mapModel = (adapter, data) =>
-      // Object.values(adapter.adapt(data)).filter(
-      //   (item: any) => item?.items.length > 0
-      // );
-      Object.values(adapter.adapt(data));
+    const mapModel = (adapter, data) => Object.values(adapter.adapt(data));
 
-    return new Profile(
-      mapModel(this.personalFieldsAdapter, data.personal),
-      mapModel(this.descriptionFieldsAdapter, data.personal),
-      mapModel(this.affiliationFieldsAdapter, data.activity),
-      mapModel(this.educationFieldsAdapter, data.activity),
-      mapModel(this.publicationFieldsAdapter, data.activity)
-    );
+    // TODO: Localize labels
+    return new Profile([
+      {
+        id: 'contact',
+        label: 'Yhteystiedot',
+        editLabel: 'yhteystietoja',
+        fields: mapModel(this.personalFieldsAdapter, data.personal),
+      },
+      {
+        id: 'description',
+        label: 'Tutkimustoiminnan kuvaus',
+        editLabel: 'tutkimustoiminnan kuvausta',
+        fields: mapModel(this.descriptionFieldsAdapter, data.personal),
+      },
+      {
+        id: 'affiliation',
+        label: 'Affiliaatiot',
+        editLabel: 'affiliaatioita',
+        fields: mapModel(this.affiliationFieldsAdapter, data.activity),
+      },
+      {
+        id: 'educations',
+        label: 'Koulutus',
+        editLabel: 'koulutusta',
+        fields: mapModel(this.educationFieldsAdapter, data.activity),
+      },
+      {
+        id: 'publication',
+        label: 'Julkaisut',
+        editLabel: 'julkaisuja',
+        fields: mapModel(this.publicationFieldsAdapter, data.activity),
+      },
+      {
+        id: 'dataset',
+        label: 'Tutkimusaineistot',
+        editLabel: 'tutkimusaineistoja',
+        fields: [],
+      },
+      { id: 'project', label: 'Hankkeet', editLabel: 'hankkeita', fields: [] },
+      {
+        id: 'activity',
+        label: 'Aktiviteetit ja palkinnot',
+        editLabel: 'aktiviteetteja ja palkintoja',
+        fields: [],
+      },
+    ]);
   }
 
   adaptMany(item: any): Profile[] {

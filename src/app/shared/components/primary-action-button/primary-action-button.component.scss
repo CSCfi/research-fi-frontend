@@ -41,8 +41,14 @@
   }
 }
 
+.beta-button {
+  min-height: unset;
+  padding: 0.25rem 1rem;
+  z-index: 999;
+}
+
 @media (max-width: 575px) {
-  .secondary-button {
+  .primary-action {
     &.no-sm-icon {
       padding-left: unset;
       padding-right: unset;

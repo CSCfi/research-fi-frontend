@@ -31,7 +31,11 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
-            "assets": ["src/assets/favicon.ico", "src/assets"],
+            "assets": [
+              "src/assets/favicon.ico",
+              "src/assets",
+              "src/silent-renew.html"
+            ],
             "styles": [
               "node_modules/@fortawesome/fontawesome-svg-core/styles.css",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
