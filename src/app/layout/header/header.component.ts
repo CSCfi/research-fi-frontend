@@ -19,7 +19,7 @@ import {
   ViewEncapsulation,
   HostListener,
 } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, PlatformLocation } from '@angular/common';
 import { ResizeService } from 'src/app/shared/services/resize.service';
 import { Observable, Subscription } from 'rxjs';
 import { WINDOW } from 'src/app/shared/services/window.service';
@@ -105,6 +105,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     @Inject(DOCUMENT) private document: any,
     @Inject(PLATFORM_ID) private platformId: object,
     private router: Router,
+    private platform: PlatformLocation,
     private utilityService: UtilityService,
     private cds: ContentDataService,
     private renderer: Renderer2,
@@ -129,10 +130,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.routeSub = router.events.subscribe((e) => {
       if (e instanceof NavigationEnd) {
         if (isPlatformBrowser(this.platformId)) {
-          // Start MyData auth process
-          // if (e.url.includes('/mydata')) {
-          //   this.oidcSecurityService.checkAuth().subscribe(() => {});
-          // }
+          // Prevent MyData routes in production
+          const allowedHostIdentifiers = ['localhost', 'test', 'qa', 'mydata'];
+          const checkHostMatch = (host: string) =>
+            this.platform.hostname.includes(host);
+
+          if (
+            !allowedHostIdentifiers.some(checkHostMatch) &&
+            e.url.includes('/mydata')
+          ) {
+            this.router.navigate(['/']);
+          }
 
           // Check if consent has been chosen & set variable. This is used in preserving consent status between language versions
           if (localStorage.getItem('cookieConsent')) {
@@ -185,11 +193,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
         } else {
           this.appSettingsService.setCurrentAppSettings('portal');
         }
-
-        // // Redirect all other than mydata routes to mydata during myData beta
-        // if (!this.currentRoute.includes('/mydata')) {
-        //   this.router.navigate(['/mydata']);
-        // }
 
         // Login / logout link
         // Click functionality is handled in handleClick method

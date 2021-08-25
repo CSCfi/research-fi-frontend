@@ -33,9 +33,7 @@ export class AppComponent {
       this.router.events.pipe(take(1)).subscribe((e) => {
         if (e instanceof NavigationStart) {
           if (e.url.includes('/mydata')) {
-            this.oidcSecurityService.checkAuth().subscribe((a) => {
-              console.log(a);
-            });
+            this.oidcSecurityService.checkAuth().subscribe(() => {});
           }
         }
       });
