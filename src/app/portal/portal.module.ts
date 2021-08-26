@@ -237,6 +237,10 @@ import { IsUrlPipe } from './pipes/is-url.pipe';
     FilterEmptyFieldPipe,
     HandleLinkDisplayPipe,
     IsUrlPipe,
+    OrganizationVisualisationsComponent,
+    OrganizationInformationComponent,
+    OrganizationSubUnitsComponent,
+    FilterEmptyFieldPipe,
   ],
   imports: [
     PortalRoutingModule,
