@@ -234,7 +234,7 @@ export class FundingVisualAmountAdapter implements Adapter<FundingVisual> {
                 const v: any = {};
                 v.name =  eval(this.ids[field]);
                 v.id =  eval(this.ids[field]);
-                v.doc_count = this.getFundingSum(f, field);
+                v.doc_count = this.getFundingSum(f, field, true);
                 v.parent = b.key;
                 b.data.push(v);
             });
