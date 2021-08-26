@@ -6,6 +6,7 @@
 //  :license: MIT
 
 import { Component, Input, OnInit } from '@angular/core';
+import { UtilityService } from 'src/app/shared/services/utility.service';
 
 @Component({
   selector: 'app-organization-information',
