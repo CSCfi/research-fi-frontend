@@ -157,8 +157,11 @@ import { OrganizationVisualisationsComponent } from './components/single/single-
 import { OrganizationInformationComponent } from './components/single/single-organization/organization-information/organization-information.component';
 import { OrganizationSubUnitsComponent } from './components/single/single-organization/organization-sub-units/organization-sub-units.component';
 import { FilterEmptyFieldPipe } from './pipes/filter-empty-field.pipe';
+<<<<<<< HEAD
 import { HandleLinkDisplayPipe } from './pipes/handle-link-display.pipe';
 import { IsUrlPipe } from './pipes/is-url.pipe';
+=======
+>>>>>>> 250ddf21 (Global custom Material Tab theme, tab layout to single organization)
 
 @NgModule({
   declarations: [
@@ -231,6 +234,7 @@ import { IsUrlPipe } from './pipes/is-url.pipe';
     SingleFundingCallComponent,
     FundingCallResultsComponent,
     FundingCallPreviewComponent,
+<<<<<<< HEAD
     HandleLinkDisplayPipe,
     IsUrlPipe,
     OrganizationVisualisationsComponent,
@@ -239,6 +243,8 @@ import { IsUrlPipe } from './pipes/is-url.pipe';
     FilterEmptyFieldPipe,
     HandleLinkDisplayPipe,
     IsUrlPipe,
+=======
+>>>>>>> 250ddf21 (Global custom Material Tab theme, tab layout to single organization)
     OrganizationVisualisationsComponent,
     OrganizationInformationComponent,
     OrganizationSubUnitsComponent,
