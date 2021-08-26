@@ -52,100 +52,6 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     vipunen: $localize`:@@vipunenSource:Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi`,
   };
 
-  infoFields = [
-    {
-      label: $localize`:@@orgNameTranslation:Nimi (EN, SV)`,
-      field: 'nameTranslations',
-    },
-    {
-      label: $localize`:@@orgOtherNames:Muut nimet`,
-      field: 'variantNames',
-      tooltip: this.sources.finto,
-    },
-    {
-      label: $localize`:@@orgEstablished:Perustettu`,
-      field: 'established',
-      tooltip: this.sources.finto,
-    },
-    {
-      label: $localize`:@@orgBackground:Lisätietoa`,
-      field: 'background',
-      tooltip: this.sources.finto,
-    },
-    {
-      label: $localize`:@@orgPredecessor:Edeltävä organisaatio`,
-      field: 'predecessors',
-      tooltip: this.sources.finto,
-    },
-    {
-      label: $localize`:@@orgRelated:Liittyvä organisaatio`,
-      field: 'related',
-      tooltip: this.sources.finto,
-    },
-    {
-      label: $localize`:@@orgType:Organisaatiomuoto`,
-      field: 'organizationType',
-      tooltip: this.sources.ytj,
-    },
-    {
-      label: $localize`:@@orgSector:Organisaation tyyppi`,
-      field: 'sectorNameFi',
-      tooltip: this.sources.ytj,
-    },
-    {
-      label: $localize`:@@orgVAddress:Käyntiosoite`,
-      field: 'visitingAddress',
-      tooltip: this.sources.ytj,
-    },
-    {
-      label: $localize`:@@orgAddress:Postiosoite`,
-      field: 'postalAddress',
-      tooltip: this.sources.ytj,
-    },
-    {
-      label: $localize`:@@orgBID:Y-tunnus`,
-      field: 'businessId',
-      tooltip: this.sources.ytj,
-    },
-    {
-      label: $localize`:@@orgSTID:Tilastokeskuksen oppilaitostunnus`,
-      field: 'statCenterId',
-      tooltip: this.sources.tk,
-    },
-    {
-      label: $localize`:@@orgStaffCount:Opetus- ja tutkimushenkilöstön määrä (htv)`,
-      field: 'staffCountAsFte',
-      tooltip: this.sources.vipunen,
-    },
-  ];
-
-  studentCounts = [
-    {
-      label: $localize`:@@orgThesisCountBsc:Alempi korkeakoulututkinto`,
-      field: 'thesisCountBsc',
-    },
-    {
-      label: $localize`:@@orgThesisCountMsc:Ylempi korkeakoulututkinto`,
-      field: 'thesisCountMsc',
-    },
-    {
-      label: $localize`:@@orgThesisCountLic:Lisensiaatintutkinto`,
-      field: 'thesisCountLic',
-    },
-    {
-      label: $localize`:@@orgThesisCountPhd:Tohtorintutkinto`,
-      field: 'thesisCountPhd',
-    },
-  ];
-
-  subUnitFields = [
-    {
-      label: $localize`:@@orgSubUnits:Alayksiköt`,
-      field: 'subUnits',
-      tooltip: this.sources.vipunen,
-    },
-  ];
-
   linkFields = [{ label: $localize`:@@links:Linkit`, field: 'homepage' }];
 
   relatedList = [
@@ -292,71 +198,18 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
           );
 
           this.shapeData();
-          this.filterData();
         }
       },
       (error) => (this.errorMessage = error as any)
     );
   }
 
-  filterData() {
-    // Helper function to check if the field exists and has data
-    const checkEmpty = (item: { field: string }) => {
-      return UtilityService.stringHasContent(
-        this.responseData.organizations[0][item.field]
-      );
-    };
-    // Filter all the fields to only include properties with defined data
-    this.infoFields = this.infoFields.filter((item) => checkEmpty(item));
-    this.studentCounts = this.studentCounts.filter((item) => checkEmpty(item));
-    this.subUnitFields = this.subUnitFields.filter((item) => checkEmpty(item));
-    this.linkFields = this.linkFields.filter((item) => checkEmpty(item));
-  }
-
   shapeData() {
     const source = this.responseData.organizations[0];
-    const locale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
-
-    const subUnits = source.subUnits;
 
     // Name translations
     source.nameTranslations = Object.values(source.nameTranslations)
       .filter((x) => UtilityService.stringHasContent(x))
       .join('; ');
-
-    // Hide statCenterId from other organizations than universities
-    if (
-      !(source.sectorNameFi === 'Ammattikorkeakoulu') &&
-      !(source.sectorNameFi === 'Yliopisto')
-    ) {
-      source.statCenterId = '';
-    }
-
-    // Check for applied university to display correct field name
-    if (source.sectorNameFi === 'Ammattikorkeakoulu') {
-      this.studentCounts[0].label = $localize`:@@orgThesisCountBscApplied:Alempi ammattikorkeakoulutukinto`;
-      this.studentCounts[1].label = $localize`:@@orgThesisCountMscApplied:Ylempi ammattikorkeakoulutukinto`;
-    }
-
-    if (subUnits && subUnits.length > 0) {
-      // Get latest year of subUnits. Data is in string format
-      const subUnitYears = [...new Set(subUnits.map((item) => item.year))];
-      const transformedYears = subUnitYears.map(Number);
-      this.latestSubUnitYear = Math.max(...transformedYears).toString();
-      source.subUnits = source.subUnits.filter(
-        (item) => item.year === this.latestSubUnitYear
-      );
-      // Sort sub units by name
-      source.subUnits.sort((a, b) => {
-        const x = a.subUnitName.toLowerCase();
-        const y = b.subUnitName.toLowerCase();
-        return x < y ? -1 : x > y ? 1 : 0;
-      });
-    }
-  }
-
-  expandDescription() {
-    this.expand = !this.expand;
   }
 }

@@ -155,6 +155,10 @@ import { FundingCallResultsComponent } from './components/funding-calls/funding-
 import { FundingCallPreviewComponent } from './components/funding-calls/funding-call-preview/funding-call-preview.component';
 import { HandleLinkDisplayPipe } from './pipes/handle-link-display.pipe';
 import { IsUrlPipe } from './pipes/is-url.pipe';
+import { OrganizationVisualisationsComponent } from './components/single/single-organization/organization-visualisations/organization-visualisations.component';
+import { OrganizationInformationComponent } from './components/single/single-organization/organization-information/organization-information.component';
+import { OrganizationSubUnitsComponent } from './components/single/single-organization/organization-sub-units/organization-sub-units.component';
+import { FilterEmptyFieldPipe } from './pipes/filter-empty-field.pipe';
 
 @NgModule({
   declarations: [
@@ -229,6 +233,10 @@ import { IsUrlPipe } from './pipes/is-url.pipe';
     FundingCallPreviewComponent,
     HandleLinkDisplayPipe,
     IsUrlPipe,
+    OrganizationVisualisationsComponent,
+    OrganizationInformationComponent,
+    OrganizationSubUnitsComponent,
+    FilterEmptyFieldPipe,
   ],
   imports: [
     PortalRoutingModule,
@@ -359,7 +367,7 @@ export class PortalModule {
           }
           this.startPage = targetPage;
 
-        // Similar to /results but for /funding-calls
+          // Similar to /results but for /funding-calls
         } else if (e.routerEvent.url.includes('/funding-calls')) {
           const targetPage =
             +router.parseUrl(e.routerEvent.url).queryParams.page || 1;
@@ -373,7 +381,6 @@ export class PortalModule {
             viewportScroller.scrollToPosition([0, 0]);
           }
           this.startPage = targetPage;
-          
         } else if (e.routerEvent.url.includes('/science-research-figures')) {
           // scroll to top only in single figure view
           if (

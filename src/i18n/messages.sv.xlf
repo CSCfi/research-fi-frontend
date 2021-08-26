@@ -3443,6 +3443,10 @@
         <source>Tutkintojen määrä</source>
         <target state="translated">Antal examina</target>
       </trans-unit>
+      <trans-unit id="below">
+        <source>Alle</source>
+        <target>Under</target>
+      </trans-unit>
       <trans-unit id="orgSubUnits">
         <source>Alayksiköt</source>
         <target state="translated">Underenheter</target>
