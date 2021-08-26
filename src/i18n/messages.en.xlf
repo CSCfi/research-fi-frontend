@@ -3450,6 +3450,10 @@
         <source>Tutkintojen määrä</source>
         <target>Number of degress attained</target>
       </trans-unit>
+      <trans-unit id="below">
+        <source>Alle</source>
+        <target>Below</target>
+      </trans-unit>
       <trans-unit id="orgSubUnits">
         <source>Alayksiköt</source>
         <target>Subunits</target>
