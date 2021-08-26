@@ -2690,6 +2690,10 @@
         <source>Osa julkaisukanavan julkaisuista on välittömästi ja pysyvästi avoimesti saatavilla kustantajan palvelussa. Esimerkiksi hybridilehdet.</source>
         <target>Some of the publications (such as hybrid journals) are immediately and permanently accessible in the publisher’s service.</target>
       </trans-unit>
+      <trans-unit id="delayedOpenAccess">
+        <source>Viivästetty avoin saatavuus</source>
+        <target>Delayed open access</target>
+      </trans-unit>
       <trans-unit id="OaDelayed">
         <source>Viivästetysti avoin julkaisukanava</source>
         <target>Delayed open publication channel</target>

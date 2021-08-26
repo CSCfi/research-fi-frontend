@@ -584,82 +584,70 @@ export class FilterService {
     return res;
   }
 
-  filterByOpenAccess(code: string) {
+  filterByOpenAccess(code: string[]) {
     const res = [];
     if (code.includes('openAccess')) {
-      res.push({ term: { openAccessCode: 1 } });
+      res.push({
+        bool: {
+          must: [
+            { term: { openAccess: 1 } },
+            { term: { publisherOpenAccessCode: 1 } },
+          ],
+        },
+      });
     }
     if (code.includes('otherOpen')) {
-      res.push({ term: { openAccessCode: 2 } });
+      res.push({
+        bool: {
+          must: [
+            { term: { openAccess: 1 } },
+            { term: { publisherOpenAccessCode: 2 } },
+          ],
+        },
+      });
     }
     if (code.includes('selfArchived')) {
       res.push({ term: { selfArchivedCode: 1 } });
     }
-    if (code.includes('nonOpen')) {
-      res.push({
-        bool: {
-          must: [
-            { term: { openAccessCode: 0 } },
-            { term: { selfArchivedCode: 0 } },
-          ],
-        },
+    if (code.includes('delayedOpenAccess')) {
+      [0, 1].forEach(val => { 
+        res.push({
+          bool: {
+            must: [
+              { term: { openAccess: val } },
+              { term: { publisherOpenAccessCode: 3 } },
+            ],
+          },
+        });
+      });
+    }
+    if (code.includes('nonOpenAccess')) {
+      [0, 1, 2, 9].forEach(val => { 
+        res.push({
+          bool: {
+            must: [
+              { term: { openAccess: 0 } },
+              { term: { publisherOpenAccessCode: val } },
+            ],
+          },
+        });
       });
     }
     if (code.includes('noOpenAccessData')) {
-      res.push({
-        bool: {
-          must_not: [
-            {
-              bool: {
-                must: [
-                  { term: { openAccessCode: 0 } },
-                  { term: { selfArchivedCode: 0 } },
-                ],
-              },
-            },
-            {
-              bool: {
-                must: [
-                  { term: { openAccessCode: 1 } },
-                  { term: { selfArchivedCode: 1 } },
-                ],
-              },
-            },
-            {
-              bool: {
-                must: [
-                  { term: { openAccessCode: 2 } },
-                  { term: { selfArchivedCode: 0 } },
-                ],
-              },
-            },
-            {
-              bool: {
-                must: [
-                  { term: { openAccessCode: 2 } },
-                  { term: { selfArchivedCode: 1 } },
-                ],
-              },
-            },
-            {
-              bool: {
-                must: [
-                  { term: { openAccessCode: 1 } },
-                  { term: { selfArchivedCode: 0 } },
-                ],
-              },
-            },
-            {
-              bool: {
-                must: [
-                  { term: { openAccessCode: 0 } },
-                  { term: { selfArchivedCode: 1 } },
-                ],
-              },
-            },
-          ],
-        },
-      });
+      const q = {bool: {must_not: []}}
+      const known = [[0, 0], [0, 1], [0, 2], [0, 3], [0, 9], [1, 1], [1, 2], [1, 3]];
+      known.forEach(pair => q.bool.must_not.push(
+        {
+          bool: {
+            must: [
+              {term: { openAccess: pair[0] } },
+              {term: { publisherOpenAccessCode: pair[1] } }
+            ]
+          }
+        }
+      ));
+      console.log(q)
+      res.push(q);
     }
     return res;
   }
