@@ -498,7 +498,12 @@ export class StaticDataService {
         break;
       }
       case 'news': {
-        res = ['newsHeadline', 'newsContent', 'organizationNameFi'];
+        res = [
+          'newsHeadline',
+          'newsContent',
+          'organizationNameFi',
+          'organizationId',
+        ];
         break;
       }
       case 'funding-call': {
@@ -1695,7 +1700,7 @@ export class StaticDataService {
           {
             script:
               'doc["keywords.keyword.keyword"].value + "|" + doc["keywords.scheme.keyword"].value',
-           name: 'identifiedTopic',
+            name: 'identifiedTopic',
             size: 10000,
             order: 1,
             exclude: [''],

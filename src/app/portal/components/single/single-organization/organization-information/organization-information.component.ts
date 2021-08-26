@@ -6,6 +6,7 @@
 //  :license: MIT
 
 import { Component, Input, OnInit } from '@angular/core';
+import { UtilityService } from 'src/app/shared/services/utility.service';
 
 @Component({
   selector: 'app-organization-information',
@@ -14,18 +15,19 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class OrganizationInformationComponent implements OnInit {
   @Input() item: any;
-  @Input() sources: {
-    finto: string;
-    ytkj: string;
-    tk: string;
-    vipunen: string;
+
+  sources = {
+    finto: $localize`:@@fintoSource:Lähde: Finto - sanasto- ja ontologiapalvelu www.finto.fi`,
+    ytj: $localize`:@@ytjSource:Lähde: Yritys- ja yhteisötietojärjestelmä (YTJ) www.ytj.fi`,
+    tk: $localize`:@@tkSource:Lähde: Tilastokeskus www.stat.fi`,
+    vipunen: $localize`:@@vipunenSource:Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi`,
   };
 
   infoFields = [
-    {
-      label: $localize`:@@orgNameTranslation:Nimi (EN, SV)`,
-      field: 'nameTranslations',
-    },
+    // {
+    //   label: $localize`:@@orgNameTranslation:Nimi (EN, SV)`,
+    //   field: 'nameTranslations',
+    // },
     {
       label: $localize`:@@orgOtherNames:Muut nimet`,
       field: 'variantNames',

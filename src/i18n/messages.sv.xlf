@@ -1192,6 +1192,10 @@
           <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="news">
+        <source>Uutiset</source>
+        <target>Nyheter</target>
+      </trans-unit>
       <trans-unit id="withTerm" datatype="html">
         <source>Joihin sisältyy hakutermi</source>
         <target state="translated">Som inkluderar söktermen</target>
