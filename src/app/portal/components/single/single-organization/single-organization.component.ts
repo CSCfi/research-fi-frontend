@@ -14,20 +14,20 @@ import {
   Inject,
   LOCALE_ID,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { SingleItemService } from '../../../services/single-item.service';
-import { SearchService } from '../../../services/search.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SingleItemService } from '@portal/services/single-item.service';
+import { SearchService } from '@portal/services/search.service';
 import { Title } from '@angular/platform-browser';
-import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { Subscription } from 'rxjs';
-import { TabChangeService } from 'src/app/portal/services/tab-change.service';
-import { UtilityService } from 'src/app/shared/services/utility.service';
-import { Search } from 'src/app/portal/models/search.model';
+import { TabChangeService } from '@portal/services/tab-change.service';
+import { UtilityService } from '@shared/services/utility.service';
+import { Search } from '@portal/models/search.model';
 import {
   singleOrganization,
   common,
 } from 'src/assets/static-data/meta-tags.json';
 import { SettingsService } from 'src/app/portal/services/settings.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-single-organization',
@@ -35,24 +35,13 @@ import { SettingsService } from 'src/app/portal/services/settings.service';
   styleUrls: ['./single-organization.component.scss'],
 })
 export class SingleOrganizationComponent implements OnInit, OnDestroy {
-  public singleId: any;
-  responseData: Search;
-  searchTerm: string;
-  pageNumber: any;
-  tabQueryParams: any;
-  private metaTags = singleOrganization;
-  private commonTags = common;
-
-  tab = 'organizations';
-
-  sources = {
-    finto: $localize`:@@fintoSource:Lähde: Finto - sanasto- ja ontologiapalvelu www.finto.fi`,
-    ytj: $localize`:@@ytjSource:Lähde: Yritys- ja yhteisötietojärjestelmä (YTJ) www.ytj.fi`,
-    tk: $localize`:@@tkSource:Lähde: Tilastokeskus www.stat.fi`,
-    vipunen: $localize`:@@vipunenSource:Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi`,
-  };
-
   linkFields = [{ label: $localize`:@@links:Linkit`, field: 'homepage' }];
+
+  contactFields = [
+    { label: 'Postiosoite', field: 'postalAddress' },
+    { label: 'Y-tunnus', field: 'businessId' },
+    { label: 'TK-oppilaitostunnus', field: 'statCenterId' },
+  ];
 
   relatedList = [
     {
@@ -99,20 +88,27 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     Sv: 'https://www.ytj.fi/sv/index.html',
   };
 
-  errorMessage = [];
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
   @ViewChild('backToResultsLink') backToResultsLink: ElementRef;
+
+  public singleId: any;
+  private metaTags = singleOrganization;
+  private commonTags = common;
+  responseData: Search;
+  news: any[];
+  searchTerm: string;
+  pageNumber: any;
+  tabQueryParams: any;
+  tab = 'organizations';
   idSub: Subscription;
-  expand: boolean;
-  latestSubUnitYear: string;
-  faIcon = faFileAlt;
-  subUnitSlice = 10;
   currentLocale: string;
   tabData: any;
   focusSub: Subscription;
+  showMoreNews = false;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private singleService: SingleItemService,
     private searchService: SearchService,
     private titleService: Title,
@@ -132,7 +128,9 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.idSub = this.route.params.subscribe((params) => {
+      this.searchService.searchTerm = params.id;
       this.getData(params.id);
+      this.getNews();
     });
     this.singleId = this.route.snapshot.params.id;
     this.singleService.updateId(this.singleId);
@@ -141,7 +139,6 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     this.tabData = this.tabChangeService.tabData.find(
       (item) => item.data === 'organizations'
     );
-    this.searchTerm = this.searchService.searchTerm;
   }
 
   ngAfterViewInit() {
@@ -162,46 +159,40 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   }
 
   getData(id: string) {
-    this.singleService.getSingleOrganization(id).subscribe(
-      (responseData) => {
-        this.responseData = responseData;
-        if (this.responseData.organizations[0]) {
-          switch (this.localeId) {
-            case 'fi': {
-              this.setTitle(
-                this.responseData.organizations[0].name +
-                  ' - Tiedejatutkimus.fi'
-              );
-              break;
-            }
-            case 'en': {
-              this.setTitle(
-                this.responseData.organizations[0].name.trim() +
-                  ' - Research.fi'
-              );
-              break;
-            }
-            case 'sv': {
-              this.setTitle(
-                this.responseData.organizations[0].name.trim() +
-                  ' - Forskning.fi'
-              );
-              break;
-            }
+    this.singleService.getSingleOrganization(id).subscribe((responseData) => {
+      this.responseData = responseData;
+      console.log(this.responseData.organizations[0]);
+      if (this.responseData.organizations[0]) {
+        switch (this.localeId) {
+          case 'fi': {
+            this.setTitle(
+              this.responseData.organizations[0].name + ' - Tiedejatutkimus.fi'
+            );
+            break;
           }
-          const titleString = this.titleService.getTitle();
-          this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
-          this.utilityService.addMeta(
-            titleString,
-            this.metaTags['description' + this.currentLocale],
-            this.commonTags['imgAlt' + this.currentLocale]
-          );
-
-          this.shapeData();
+          case 'en': {
+            this.setTitle(
+              this.responseData.organizations[0].name.trim() + ' - Research.fi'
+            );
+            break;
+          }
+          case 'sv': {
+            this.setTitle(
+              this.responseData.organizations[0].name.trim() + ' - Forskning.fi'
+            );
+            break;
+          }
         }
-      },
-      (error) => (this.errorMessage = error as any)
-    );
+        const titleString = this.titleService.getTitle();
+        this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
+        this.utilityService.addMeta(
+          titleString,
+          this.metaTags['description' + this.currentLocale],
+          this.commonTags['imgAlt' + this.currentLocale]
+        );
+        this.shapeData();
+      }
+    });
   }
 
   shapeData() {
@@ -211,5 +202,18 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     source.nameTranslations = Object.values(source.nameTranslations)
       .filter((x) => UtilityService.stringHasContent(x))
       .join('; ');
+  }
+
+  getNews() {
+    this.searchService
+      .getNews(5)
+      .pipe(take(1))
+      .subscribe((res) => (this.news = res));
+  }
+
+  navigateToNews() {
+    this.router.navigate(['/news/1'], {
+      queryParams: { organization: this.singleId },
+    });
   }
 }
