@@ -95,7 +95,7 @@ export class StaticDataService {
       id: 3,
       label: $localize`:@@dataArticle:Data-artikkeli`,
     },
-  ]
+  ];
 
   // Filters, Publication class
   publicationClass = [
@@ -522,7 +522,12 @@ export class StaticDataService {
         break;
       }
       case 'news': {
-        res = ['newsHeadline', 'newsContent', 'organizationNameFi'];
+        res = [
+          'newsHeadline',
+          'newsContent',
+          'organizationNameFi',
+          'organizationId',
+        ];
         break;
       }
       case 'funding-call': {
@@ -1578,7 +1583,7 @@ export class StaticDataService {
           },
           {
             name: 'reverse',
-            reverseNested: true
+            reverseNested: true,
           },
           {
             name: 'orgNested',
@@ -1622,7 +1627,7 @@ export class StaticDataService {
           },
           {
             name: 'reverse',
-            reverseNested: true
+            reverseNested: true,
           },
           {
             name: 'orgNested',
@@ -1648,7 +1653,7 @@ export class StaticDataService {
           },
         ],
       },
-      // REMOVED FROM CURRENT VERSION, uncomment to restore 
+      // REMOVED FROM CURRENT VERSION, uncomment to restore
       // {
       //   field: 'identifiedTopic',
       //   title: $localize`:@@fundingCountByIdentifiedTopic:Hankkeiden jakautuminen tunnistetun aiheen mukaan`,

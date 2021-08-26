@@ -43,7 +43,8 @@
       <div *ngFor="let item of responseData.organizations">
         <div class="row d-flex justify-content-around">
           <div class="col p-0">
-            <h1 class="result-header">{{ item.name }}</h1>
+            <h1 class="result-header mb-3">{{ item.name }}</h1>
+            <p>{{ item.nameTranslations }}</p>
           </div>
           <div
             *ngIf="item.logo && item.logo !== null"
@@ -82,10 +83,35 @@
         <mat-card>
           <div class="inner">
             <mat-card-title
-              ><h2 i18n="@@organizationHomepage">Organisaation verkkosivu</h2>
+              ><h2 i18n="@@news" class="pb-3">Uutiset</h2>
             </mat-card-title>
+
+            <app-news-card
+              *ngFor="let newsItem of news?.slice(0, showMoreNews ? 5 : 3)"
+              [item]="newsItem"
+              [sideNews]="true"
+            ></app-news-card>
+
+            <div class="text-center">
+              <a *ngIf="!showMoreNews" (click)="showMoreNews = true"
+                >Näytä lisää uutisia</a
+              >
+              <a *ngIf="showMoreNews" (click)="navigateToNews()"
+                >Näytä kaikki organisaation uutiset</a
+              >
+            </div>
+          </div>
+        </mat-card>
+      </aside>
+      <aside>
+        <mat-card>
+          <div class="inner">
+            <!-- Links -->
+            <h2 i18n="@@organizationHomepage" class="m-0">
+              Organisaation verkkosivu
+            </h2>
             <div
-              class="row links"
+              class="row links mt-0"
               *ngIf="
                 (linkFields | filterEmptyField: item).length;
                 else noHomePage
@@ -105,6 +131,17 @@
                 </ng-container>
               </div>
             </div>
+
+            <!-- Contact -->
+            <div
+              class="d-block"
+              *ngFor="let row of contactFields | filterEmptyField: item"
+            >
+              <h2>{{ row.label }}</h2>
+              <p>{{ item[row.field] }}</p>
+            </div>
+
+            <!-- Extra view for FMI -->
             <ng-container *ngIf="item.id === '4940015'">
               <div class="row links">
                 <strong class="pb-2" i18n="@@readMore">Lisätietoa</strong>:
