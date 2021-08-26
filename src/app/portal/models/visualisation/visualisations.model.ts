@@ -35,6 +35,7 @@ export interface VisualQueryHierarchy {
   filterName?: string;
   exclude?: string | string[] | number[];
   nested?: string;
+  reverseNested?: true;
   filter?: { field: string; value: any };
   sum?: string;
   script?: string;

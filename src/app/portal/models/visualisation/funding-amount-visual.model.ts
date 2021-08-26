@@ -77,9 +77,9 @@ export class FundingVisualAmountAdapter implements Adapter<FundingVisual> {
     arr.forEach((o) => o.data.sort((a, b) => +(b.name > a.name) - 0.5));
   }
 
-  getFundingSum(f: any, field: string): number {
+  getFundingSum(f: any, field: string, reverse = false): number {
     let res = 0;
-    let buckets = f.orgNested;
+    let buckets = reverse ? f.reverse.orgNested : f.orgNested;
     // Depends on which aggregation the bucket is from
     buckets = buckets.finnishOrganization
       ? buckets.finnishOrganization.organizationId.buckets
@@ -189,7 +189,7 @@ export class FundingVisualAmountAdapter implements Adapter<FundingVisual> {
             const v: any = {};
             v.name = eval(this.names[field]);
             v.id = eval(this.ids[field]);
-            v.doc_count = this.getFundingSum(f, field);
+            v.doc_count = this.getFundingSum(f, field, true);
             v.parent = b.key;
             b.data.push(v);
           });

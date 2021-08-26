@@ -1559,6 +1559,10 @@ export class StaticDataService {
             exclude: [' '],
           },
           {
+            name: 'reverse',
+            reverseNested: true
+          },
+          {
             name: 'orgNested',
             nested: 'fundingGroupPerson',
           },
@@ -1599,6 +1603,10 @@ export class StaticDataService {
             size: 1,
             order: 1,
             exclude: [' '],
+          },
+          {
+            name: 'reverse',
+            reverseNested: true
           },
           {
             name: 'orgNested',

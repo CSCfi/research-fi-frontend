@@ -1018,6 +1018,10 @@ export class FilterService {
               field: s.sum,
             },
           };
+        } else if (s.reverseNested) {
+          q.aggs[s.name] = {
+            reverse_nested: {}
+          }
         } else {
           // Add terms object
           q.aggs[s.name] = {
