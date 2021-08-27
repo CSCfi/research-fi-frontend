@@ -85,8 +85,11 @@ export class WelcomeStepperComponent implements OnInit {
     this.step = this.develop ? 4 : 1;
 
     this.oidcSecurityService.userData$.pipe(take(1)).subscribe((data) => {
-      this.userData = data;
-      this.firstName = data?.name.split(' ')[0];
+      if (data) {
+        this.userData = data;
+        this.firstName = data?.name.split(' ')[0];
+        this.appSettingsService.setOrcid(data.orcid);
+      }
     });
   }
 

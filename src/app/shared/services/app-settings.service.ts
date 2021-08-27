@@ -60,7 +60,7 @@ export class AppSettingsService {
       {
         label: $localize`:@@headerLink7:Rahoitushaut`,
         link: '/funding-calls',
-        queryParams: {status: 'open'},
+        queryParams: { status: 'open' },
         exact: false,
       },
       {
@@ -99,6 +99,7 @@ export class AppSettingsService {
   };
 
   currentAppSettings: object;
+  userOrcid: string; // Used in error monitoring
 
   constructor() {}
 
@@ -120,6 +121,10 @@ export class AppSettingsService {
     }
 
     this.appSettingsSource.next(this.currentAppSettings);
+  }
+
+  setOrcid(id: string) {
+    this.userOrcid = id;
   }
 
   updateDialogSettings(mobile) {
