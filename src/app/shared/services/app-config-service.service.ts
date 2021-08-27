@@ -46,6 +46,14 @@ export class AppConfigService {
     return this.appConfig.apiUrl + '/portalapi/';
   }
 
+  // APM url
+  get apmUrl() {
+    if (!this.appConfig) {
+      throw Error('Config file not loaded!');
+    }
+    return this.appConfig.apiUrl + '/apm/';
+  }
+
   // CMS Url
   get cmsUrl() {
     if (!this.appConfig) {

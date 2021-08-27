@@ -22,6 +22,8 @@ import { MyDataModule } from './mydata/mydata.module';
 import { MyDataRoutingModule } from './mydata/mydata-routing.module';
 import { AuthConfigModule } from './auth-config.module';
 import { ErrorHandlerService } from './shared/services/error-handler.service';
+import 'reflect-metadata'; // Required by ApmService
+import { ApmModule, ApmService } from '@elastic/apm-rum-angular';
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,8 +39,10 @@ import { ErrorHandlerService } from './shared/services/error-handler.service';
     MyDataModule,
     MyDataRoutingModule,
     AuthConfigModule,
+    ApmModule,
   ],
   providers: [
+    ApmService,
     AppConfigService,
     {
       provide: APP_INITIALIZER,

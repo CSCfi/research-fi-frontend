@@ -11,6 +11,8 @@ import { AppConfigService } from '@shared/services/app-config-service.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { NavigationStart, Router } from '@angular/router';
 import { take } from 'rxjs/operators';
+import 'reflect-metadata'; // Required by ApmService
+import { ApmService } from '@elastic/apm-rum-angular';
 
 @Component({
   selector: 'app-root',
@@ -25,10 +27,28 @@ export class AppComponent {
     private oidcSecurityService: OidcSecurityService,
     private router: Router,
     @Inject(PLATFORM_ID) private platformId: object,
-    @Inject(DOCUMENT) private document: any
+    @Inject(DOCUMENT) private document: any,
+    @Inject(ApmService) apmService: ApmService
   ) {
     // SSR platform check
     if (isPlatformBrowser(this.platformId)) {
+      // APM config
+      const apm = apmService.init({
+        serviceName: 'Angular',
+        serverUrl: this.appConfigService.apmUrl,
+        environment: this.appConfigService.environmentName,
+        eventsLimit: 10,
+        transactionSampleRate: 0.1,
+        disableInstrumentations: [
+          // 'page-load',
+          'history',
+          'eventtarget',
+          'xmlhttprequest',
+          'fetch',
+          // 'error'
+        ],
+      });
+
       // Start auth process
       this.router.events.pipe(take(1)).subscribe((e) => {
         if (e instanceof NavigationStart) {

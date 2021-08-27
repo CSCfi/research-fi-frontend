@@ -47,7 +47,12 @@
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js"
             ],
-            "allowedCommonJsDependencies": ["lodash"]
+            "allowedCommonJsDependencies": [
+              "lodash",
+              "opentracing/lib/span",
+              "opentracing/lib/tracer",
+              "error-stack-parser"
+            ]
           },
           "configurations": {
             "production": {
