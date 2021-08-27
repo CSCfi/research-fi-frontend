@@ -226,9 +226,7 @@ export class PublicationFilterService {
     source.juFo.buckets = this.juFoCode(source.juFo.juFoCodes.buckets);
     // Open access
     source.openAccess.buckets = this.openAccess(
-      source.openAccess.openAccessCodes.buckets,
       source.selfArchived.selfArchivedCodes.buckets,
-      source.oaComposite,
       source.oaPublisherComposite.buckets
     );
     // International collaboration
@@ -413,7 +411,7 @@ export class PublicationFilterService {
     }
   }
 
-  openAccess(openAccess, selfArchived, oaComposite, publisherComposite) {
+  openAccess(selfArchived, publisherComposite) {
     let openAccessCodes = [];
     const result = [];
 
@@ -461,9 +459,8 @@ export class PublicationFilterService {
             break;
           }
         }
-      })
+      });
     }
-
 
     if (selfArchived && selfArchived.length > 0) {
       selfArchived.forEach((val) => {
@@ -526,9 +523,7 @@ export class PublicationFilterService {
       });
     }
 
-    if (
-      openAccessCodes.some((e) => e.key === 'nonOpenAccess')
-    ) {
+    if (openAccessCodes.some((e) => e.key === 'nonOpenAccess')) {
       result.push({
         key: 'nonOpenAccess',
         doc_count: docCount('nonOpenAccess'),
@@ -554,12 +549,15 @@ export class PublicationFilterService {
 
   getOkmCollectedAmount(data: any[]) {
     // Filter correct buckets
-    const trueSelection = data.filter(x => ['1', '2', '9'].includes(x.key));
+    const trueSelection = data.filter((x) => ['1', '2', '9'].includes(x.key));
     // Combine doc_count into single object
-    const reduced = trueSelection.reduce((curr, next) => {
-      curr.doc_count += next.doc_count;
-      return curr;
-    }, {key_as_string: 'true', doc_count: 0});
+    const reduced = trueSelection.reduce(
+      (curr, next) => {
+        curr.doc_count += next.doc_count;
+        return curr;
+      },
+      { key_as_string: 'true', doc_count: 0 }
+    );
     return [reduced];
   }
 }
