@@ -146,8 +146,9 @@ export class FundingVisualAmountAdapter implements Adapter<FundingVisual> {
           b.data = [];
           b.orgs.forEach((f) => {
             const v: any = {};
+            // Assume that for each organization ID there is only one name (not truly the case for empty IDs but simpler)
             v.name = f.organizationName.buckets[0].key.toString();
-            v.doc_count = f.organizationName.buckets[0].moneySum.value;
+            v.doc_count = f.organizationName.buckets.map(x => x.moneySum.value).reduce((a, b) => a + b);
             v.id = f.key;
             v.parent = b.key;
             b.data.push(v);

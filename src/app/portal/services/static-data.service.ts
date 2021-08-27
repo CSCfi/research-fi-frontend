@@ -1365,7 +1365,6 @@ export class StaticDataService {
             name: 'sectorName',
             size: 10,
             order: 2,
-            exclude: ' |Rahoittaja',
           },
           {
             field: 'fundingGroupPerson.consortiumOrganizationId.keyword',
@@ -1378,7 +1377,7 @@ export class StaticDataService {
             field:
               'fundingGroupPerson.consortiumOrganizationName|locale|.keyword',
             name: 'organizationName',
-            size: 1,
+            size: 100,
             order: 0,
           },
           {
@@ -1409,9 +1408,8 @@ export class StaticDataService {
             field:
               'organizationConsortium.consortiumSectorName|locale|.keyword',
             name: 'sectorName',
-            size: 10,
+            size: 100,
             order: 2,
-            exclude: ' |Rahoittaja',
           },
           {
             field: 'organizationConsortium.consortiumOrganizationId.keyword',
@@ -1424,7 +1422,7 @@ export class StaticDataService {
             field:
               'organizationConsortium.consortiumOrganizationName|locale|.keyword',
             name: 'organizationName',
-            size: 1,
+            size: 100,
             order: 0,
           },
           {
@@ -1452,7 +1450,6 @@ export class StaticDataService {
             field: 'typeOfFundingId.keyword',
             name: 'typeId',
             size: 100,
-            exclude: ' *',
             order: 1,
           },
           {
@@ -1490,7 +1487,6 @@ export class StaticDataService {
             field: 'typeOfFundingId.keyword',
             name: 'typeId',
             size: 100,
-            exclude: ' *',
             order: 1,
           },
           {
@@ -1549,14 +1545,12 @@ export class StaticDataService {
             size: 100,
             order: 1,
             filterName: 'field',
-            exclude: [0],
           },
           {
             field: 'fieldsOfScience.name|locale|Science.keyword',
             name: 'fieldsOfScience',
-            size: 1,
+            size: 100,
             order: 1,
-            exclude: [' '],
           },
           {
             name: 'reverse',
@@ -1595,14 +1589,12 @@ export class StaticDataService {
             size: 100,
             order: 1,
             filterName: 'field',
-            exclude: [0],
           },
           {
             field: 'fieldsOfScience.name|locale|Science.keyword',
             name: 'fieldsOfScience',
             size: 1,
             order: 1,
-            exclude: [' '],
           },
           {
             name: 'reverse',
