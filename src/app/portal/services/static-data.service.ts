@@ -73,6 +73,30 @@ export class StaticDataService {
     },
   ];
 
+  // Filters, Publication article type
+  articleType = [
+    {
+      id: -1,
+      label: 'Ei tietoa'
+    },
+    {
+      id: 0,
+      label: 'Muu artikkeli'
+    },
+    {
+      id: 1,
+      label: 'Alkuperäisartikkeli'
+    },
+    {
+      id: 2,
+      label: 'Katsausartikkeli'
+    },
+    {
+      id: 3,
+      label: 'Data-artikkeli'
+    },
+  ]
+
   // Filters, Publication class
   publicationClass = [
     {
