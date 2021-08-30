@@ -77,23 +77,23 @@ export class StaticDataService {
   articleType = [
     {
       id: -1,
-      label: 'Ei tietoa'
+      label: $localize`:@@noInfo:Ei tietoa`,
     },
     {
       id: 0,
-      label: 'Muu artikkeli'
+      label: $localize`:@@otherArticle:Muu artikkeli`,
     },
     {
       id: 1,
-      label: 'Alkuperäisartikkeli'
+      label: $localize`:@@originalArticle:Alkuperäisartikkeli`,
     },
     {
       id: 2,
-      label: 'Katsausartikkeli'
+      label: $localize`:@@reviewArticle:Katsausartikkeli`,
     },
     {
       id: 3,
-      label: 'Data-artikkeli'
+      label: $localize`:@@dataArticle:Data-artikkeli`,
     },
   ]
 

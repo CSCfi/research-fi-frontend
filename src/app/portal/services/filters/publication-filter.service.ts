@@ -125,7 +125,23 @@ export class PublicationFilterService {
       label: $localize`:@@articleType:Artikkelin tyyppi`,
       hasSubFields: false,
       open: false,
-      tooltip: $localize`:@@articleTypeTooltip:`,
+      tooltip: 
+      '<p><strong>' +
+        $localize`:@@originalArticle:Alkuperäisartikkeli` +
+        ': </strong>' +
+        $localize`:@@originalArticleTooltip:on pääosin aiemmin julkaisemattomasta materiaalista koostuva tieteellinen artikkeli.` +
+        '</p><p><strong>' +
+        $localize`:@@reviewArticle:Katsausartikkeli` +
+        ': </strong>' +
+        $localize`:@@reviewArticleTooltip:perustuu aikaisempiin samasta aihepiiristä tehtyihin julkaisuihin.` +
+        '</p><p><strong>' +
+        $localize`:@@dataArticle:Data-artikkeli` +
+        ': </strong>' +
+        $localize`:@@dataArticleTooltip:sisältää ns. data journals -julkaisuissa ilmestyneet, tutkimusaineistoja kuvailevat artikkelit.` +
+        '<p><strong>' +
+        $localize`:@@otherArticle:Muu artikkeli` +
+        ': </strong>' +
+        $localize`:@@otherArticleTooltip:sisältää muihin luokkiin kuulumattomat artikkelit.`,
     },
     {
       field: 'peerReviewed',
