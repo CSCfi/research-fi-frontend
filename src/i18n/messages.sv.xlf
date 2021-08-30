@@ -2503,6 +2503,42 @@
         <source>Emojulkaisun tyyppi</source>
         <target>Moderpublikationens typ</target>
       </trans-unit>
+      <trans-unit id="articleType">
+        <source>Artikkelin tyyppi</source>
+        <target>Artikelstyp</target>
+      </trans-unit>
+      <trans-unit id="otherArticle">
+        <source>Muu artikkeli</source>
+        <target>Annan artikel</target>
+      </trans-unit>
+      <trans-unit id="originalArticle">
+        <source>Alkuperäisartikkeli</source>
+        <target>En originalartikel</target>
+      </trans-unit>
+      <trans-unit id="dataArticle">
+        <source>Data-artikkeli</source>
+        <target>En dataartikel</target>
+      </trans-unit>
+      <trans-unit id="reviewArticle">
+        <source>Katsausartikkeli</source>
+        <target>En översiktsartikel</target>
+      </trans-unit>
+      <trans-unit id="otherArticleTooltip">
+        <source>sisältää muihin luokkiin kuulumattomat artikkelit.</source>
+        <target>innehåller artiklar som inte hör till någon annan kategori.</target>
+      </trans-unit>
+      <trans-unit id="dataArticleTooltip">
+        <source>sisältää ns. data journals -julkaisuissa ilmestyneet, tutkimusaineistoja kuvailevat artikkelit.</source>
+        <target>omfattar artiklar som publicerats i så kallade data journals och som beskriver forskningsmaterial.</target>
+      </trans-unit>
+      <trans-unit id="reviewArticleTooltip">
+        <source>perustuu aikaisempiin samasta aihepiiristä tehtyihin julkaisuihin.</source>
+        <target>baserar sig på tidigare publikationer om samma ämnesområde.</target>
+      </trans-unit>
+      <trans-unit id="originalArticleTooltip">
+        <source>on pääosin aiemmin julkaisemattomasta materiaalista koostuva tieteellinen artikkeli.</source>
+        <target>är i huvudsak en vetenskaplig artikel som består av material som inte publicerats tidigare.</target>
+      </trans-unit>
       <trans-unit id="peerReviewedFilter">
         <source>Vertaisarvioitu</source>
         <target>Kollegialt utvärderad</target>
