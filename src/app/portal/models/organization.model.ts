@@ -41,7 +41,11 @@ export class Organization {
     public sectorNameFi: string,
     public subUnits: any[],
     public logo: string,
+<<<<<<< HEAD
     public visualIframeUrl: string
+=======
+    public visualIframeUrl: string,
+>>>>>>> a7bfbc18 (Added (hard coded) iframe to single organization)
   ) {}
 }
 
@@ -73,6 +77,10 @@ export class OrganizationAdapter implements Adapter<Organization> {
       ? item.related.map((x) => x.nameFi.trim()).join(', ')
       : '';
 
+<<<<<<< HEAD
+=======
+    const visualIframeUrl = 'https://app.powerbi.com/view?r=eyJrIjoiMTM1NGI1ZjgtZWZjMy00ZTcxLWEwZTctY2E5YzVjMmVkNTc2IiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9';
+>>>>>>> a7bfbc18 (Added (hard coded) iframe to single organization)
     return new Organization(
       item.organizationId,
       this.lang.testLang('name', item).trim(),
@@ -104,7 +112,11 @@ export class OrganizationAdapter implements Adapter<Organization> {
       item.sectorNameFi,
       item.subUnits,
       item.mediaUri,
+<<<<<<< HEAD
       null // Initial value for organization visual iFrame url
+=======
+      visualIframeUrl
+>>>>>>> a7bfbc18 (Added (hard coded) iframe to single organization)
     );
   }
 }
