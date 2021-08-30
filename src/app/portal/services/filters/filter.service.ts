@@ -29,6 +29,7 @@ export class FilterService {
   publicationFormatFilter: any;
   publicationAudienceFilter: any;
   parentPublicationTypeFilter: any;
+  articleTypeFilter: any;
   peerReviewedFilter: any;
   countryCodeFilter: any;
   langFilter: any;
@@ -61,6 +62,7 @@ export class FilterService {
     publicationFormat: [],
     publicationAudience: [],
     parentPublicationType: [],
+    articleType: [],
     peerReviewed: [],
     countryCode: [],
     lang: [],
@@ -98,6 +100,7 @@ export class FilterService {
     publicationFormat: any[];
     publicationAudience: any[];
     parentPublicationType: any[];
+    articleType: any[];
     peerReviewed: any[];
     countryCode: any[];
     lang: any[];
@@ -180,6 +183,10 @@ export class FilterService {
         .filter((x) => x)
         .sort(),
       parentPublicationType: [source.parentPublicationType]
+        .flat()
+        .filter((x) => x)
+        .sort(),
+      articleType: [source.articleType]
         .flat()
         .filter((x) => x)
         .sort(),
@@ -293,6 +300,10 @@ export class FilterService {
     this.parentPublicationTypeFilter = this.basicFilter(
       filter.parentPublicationType,
       'parentPublicationType.id.keyword'
+    );
+    this.articleTypeFilter = this.basicFilter(
+      filter.articleType,
+      'articleTypeCode'
     );
     this.peerReviewedFilter = this.basicFilter(
       filter.peerReviewed,
@@ -771,6 +782,7 @@ export class FilterService {
       ...basicFilter('publication', this.publicationFormatFilter),
       ...basicFilter('publication', this.publicationAudienceFilter),
       ...basicFilter('publication', this.parentPublicationTypeFilter),
+      ...basicFilter('publication', this.articleTypeFilter),
       ...basicFilter('publication', this.peerReviewedFilter),
       ...basicFilter('publication', this.countryCodeFilter),
       ...basicFilter('publication', this.langFilter),

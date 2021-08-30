@@ -42,6 +42,7 @@ import { NewsFilterService } from 'src/app/portal/services/filters/news-filter.s
 import { SearchService } from 'src/app/portal/services/search.service';
 import { isPlatformBrowser } from '@angular/common';
 import { FundingCallFilterService } from '@portal/services/filters/funding-call-filter.service';
+import { StaticDataService } from '@portal/services/static-data.service';
 
 @Component({
   selector: 'app-active-filters',
@@ -99,6 +100,7 @@ export class ActiveFiltersComponent
     private sortService: SortService,
     private filterService: FilterService,
     private dataService: DataService,
+    private staticDataService: StaticDataService,
     private tabChangeService: TabChangeService,
     public dialog: MatDialog,
     private publicationFilters: PublicationFilterService,
@@ -385,6 +387,32 @@ export class ActiveFiltersComponent
                     x.category === 'parentPublicationType' &&
                     x.value === val.value
                 );
+                this.activeFilters[foundIndex].translation = result?.label
+                  ? result.label
+                  : errorMsg;
+              }
+
+              if (
+                val.category === 'articleType' &&
+                source.articleType.buckets
+              ) {
+                const staticData = this.staticDataService.articleType;
+                const result = source.articleType.buckets.find(
+                  (item) => item.key.toString() === val.value
+                );
+                // Find corresponding label from static data service
+                result.label = staticData.find(x => val.value === x.id.toString()).label;
+                // If unknown, display filter name
+                if (val.value === '-1') {
+                  result.label = $localize`:@@articleType:Artikkelin tyyppi` + ': ' + result.label;
+                }
+
+                const foundIndex = this.activeFilters.findIndex(
+                  (x) =>
+                    x.category === 'articleType' &&
+                    x.value === val.value
+                );
+                
                 this.activeFilters[foundIndex].translation = result?.label
                   ? result.label
                   : errorMsg;

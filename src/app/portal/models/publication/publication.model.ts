@@ -58,6 +58,7 @@ export class Publication {
     public show_logo: boolean,
     public abstract: string,
     public openAccessText: string,
+    public articleTypeText: string,
     public internationalPublication: boolean,
     public countryCode: string,
     public languageCode: string,
@@ -121,6 +122,26 @@ export class PublicationAdapter implements Adapter<Publication> {
       archiveCodeText = $localize`:@@no:Ei`;
     }
 
+    let articleTypeText = '';
+    if (item.articleTypeCode) {
+      switch (item.articleTypeCode) {
+        case 0:
+          articleTypeText = $localize`:@@otherArticle:Muu artikkeli`;
+          break;
+        case 1:
+          articleTypeText = $localize`:@@originalArticle:Alkuperäisartikkeli`;
+          break;
+        case 2:
+          articleTypeText = $localize`:@@reviewArticle:Katsausartikkeli`;
+          break;
+        case 3:
+          articleTypeText = $localize`:@@dataArticle:Data-artikkeli`;
+          break;
+        default:
+          articleTypeText = '';
+      }
+    }
+
     const openAccess: boolean =
       item.openAccessCode === 1 ||
       item.openAccessCode === 2 ||
@@ -164,9 +185,11 @@ export class PublicationAdapter implements Adapter<Publication> {
       publisherOpenAccessText = $localize`:@@OaDelayed:Viivästetysti avoin julkaisukanava`;
     }
 
-    let licenseText = this.lang.testLang('licenseName', item?.license?.slice()?.shift());
+    let licenseText = this.lang.testLang(
+      'licenseName',
+      item?.license?.slice()?.shift()
+    );
     let archiveCodeVersionText = '';
-
 
     let publicationStatusText = '';
     if (
@@ -203,7 +226,6 @@ export class PublicationAdapter implements Adapter<Publication> {
 
     let apcPaymentYear = '';
     apcFee !== '' ? apcPaymentYear === item.apcPaymentYear : '';
-
 
     if (item.selfArchivedData) {
       item.selfArchivedAddress =
@@ -332,6 +354,7 @@ export class PublicationAdapter implements Adapter<Publication> {
       show_logo,
       abstract,
       openAccessText,
+      articleTypeText,
       item.internationalCollaboration,
       item.publicationCountryCode,
       item.publicationLanguageCode,

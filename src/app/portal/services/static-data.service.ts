@@ -73,6 +73,30 @@ export class StaticDataService {
     },
   ];
 
+  // Filters, Publication article type
+  articleType = [
+    {
+      id: -1,
+      label: $localize`:@@noInfo:Ei tietoa`,
+    },
+    {
+      id: 0,
+      label: $localize`:@@otherArticle:Muu artikkeli`,
+    },
+    {
+      id: 1,
+      label: $localize`:@@originalArticle:Alkuperäisartikkeli`,
+    },
+    {
+      id: 2,
+      label: $localize`:@@reviewArticle:Katsausartikkeli`,
+    },
+    {
+      id: 3,
+      label: $localize`:@@dataArticle:Data-artikkeli`,
+    },
+  ]
+
   // Filters, Publication class
   publicationClass = [
     {

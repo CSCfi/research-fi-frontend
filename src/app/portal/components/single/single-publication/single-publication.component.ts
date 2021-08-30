@@ -134,6 +134,27 @@ export class SinglePublicationComponent
         $localize`:@@onlinePlatformTooltipContent: Sisältää muilla sähköisillä alustoilla julkaistut julkaisut.`,
     },
     {
+      label: $localize`:@@articleType: Artikkelin tyyppi`,
+      field: 'articleTypeText',
+      tooltip:
+        '<p><strong>' +
+        $localize`:@@originalArticle:Alkuperäisartikkeli` +
+        ' </strong>' +
+        $localize`:@@originalArticleTooltip:on pääosin aiemmin julkaisemattomasta materiaalista koostuva tieteellinen artikkeli.` +
+        '</p><p><strong>' +
+        $localize`:@@reviewArticle:Katsausartikkeli` +
+        ' </strong>' +
+        $localize`:@@reviewArticleTooltip:perustuu aikaisempiin samasta aihepiiristä tehtyihin julkaisuihin.` +
+        '</p><p><strong>' +
+        $localize`:@@dataArticle:Data-artikkeli` +
+        ' </strong>' +
+        $localize`:@@dataArticleTooltip:sisältää ns. data journals -julkaisuissa ilmestyneet, tutkimusaineistoja kuvailevat artikkelit.` +
+        '</p><p><strong>' +
+        $localize`:@@otherArticle:Muu artikkeli` +
+        ' </strong>' +
+        $localize`:@@otherArticleTooltip:sisältää muihin luokkiin kuulumattomat artikkelit.`,
+    },
+    {
       label: $localize`:@@audience:Yleisö`,
       field: 'audience',
       tooltip:
@@ -357,10 +378,10 @@ export class SinglePublicationComponent
 
   publicationStatus = [
     {
-      label: $localize`:@@publicationStatus:Julkaisu kuuluu opetus- ja kuulttuuriministeriön tiedonkeruuseen`,
+      label: $localize`:@@okmDataCollection:Julkaisu kuuluu opetus- ja kuulttuuriministeriön tiedonkeruuseen`,
       field: 'publicationStatusText',
       link: false,
-      tooltip: $localize`:@@publicationStatusTooltip:OKM:n tiedonkeruuseen kuuluvat julkaisut ovat korkeakoulujen, tutkimuslaitosten ja yliopistosairaaloiden vuosittain opetus- ja kulttuuriministeriölle raportoimia julkaisuja, jotka täyttävät julkaisutiedonkeruun vaatimukset (www.tiedonkeruu.fi) ja jotka huomioidaan mm. korkeakoulujen rahoitusmallissa.`,
+      tooltip: $localize`:@@okmDataCollectionTooltip:OKM:n tiedonkeruuseen kuuluvat julkaisut ovat korkeakoulujen, tutkimuslaitosten ja yliopistosairaaloiden vuosittain opetus- ja kulttuuriministeriölle raportoimia julkaisuja, jotka täyttävät julkaisutiedonkeruun vaatimukset (www.tiedonkeruu.fi) ja jotka huomioidaan mm. korkeakoulujen rahoitusmallissa.`,
     },
   ];
 

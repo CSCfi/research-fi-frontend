@@ -121,6 +121,29 @@ export class PublicationFilterService {
         $localize`:@@onlinePlatformTooltipContent:Sisältää muilla sähköisillä alustoilla julkaistut julkaisut.`,
     },
     {
+      field: 'articleType',
+      label: $localize`:@@articleType:Artikkelin tyyppi`,
+      hasSubFields: false,
+      open: false,
+      tooltip: 
+      '<p><strong>' +
+        $localize`:@@originalArticle:Alkuperäisartikkeli` +
+        ': </strong>' +
+        $localize`:@@originalArticleTooltip:on pääosin aiemmin julkaisemattomasta materiaalista koostuva tieteellinen artikkeli.` +
+        '</p><p><strong>' +
+        $localize`:@@reviewArticle:Katsausartikkeli` +
+        ': </strong>' +
+        $localize`:@@reviewArticleTooltip:perustuu aikaisempiin samasta aihepiiristä tehtyihin julkaisuihin.` +
+        '</p><p><strong>' +
+        $localize`:@@dataArticle:Data-artikkeli` +
+        ': </strong>' +
+        $localize`:@@dataArticleTooltip:sisältää ns. data journals -julkaisuissa ilmestyneet, tutkimusaineistoja kuvailevat artikkelit.` +
+        '<p><strong>' +
+        $localize`:@@otherArticle:Muu artikkeli` +
+        ': </strong>' +
+        $localize`:@@otherArticleTooltip:sisältää muihin luokkiin kuulumattomat artikkelit.`,
+    },
+    {
       field: 'peerReviewed',
       label: $localize`:@@peerReviewedFilter:Vertaisarvioitu`,
       hasSubFields: false,
@@ -212,6 +235,9 @@ export class PublicationFilterService {
     );
     source.parentPublicationType.buckets = this.mapKey(
       source.parentPublicationType.parentPublicationTypes.buckets
+    );
+    source.articleType.buckets = this.articleType(
+      source.articleType.articleTypes.buckets
     );
     source.peerReviewed.buckets = this.mapKey(
       source.peerReviewed.peerReviewedValues.buckets
@@ -375,6 +401,20 @@ export class PublicationFilterService {
         })
     );
     return result;
+  }
+
+  articleType(data) {
+    const staticData = this.staticDataService.articleType;
+    const result = data.map(
+      (item) => 
+        (item = {
+          key: item.key,
+          label: staticData.find(x => item.key === x.id).label,
+          doc_count: item.doc_count,
+          value: item.key
+        })
+    );
+    return result.sort((a, b) => b.doc_count - a.doc_count);
   }
 
   juFoCode(data) {
