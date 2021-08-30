@@ -477,6 +477,23 @@ export class AggregationService {
             },
           },
         };
+        payLoad.aggs.articleType = {
+          filter: {
+            bool: {
+              filter: filterActive('articleTypeCode'),
+            },
+          },
+          aggs: {
+            articleTypes: {
+              terms: {
+                field: 'articleTypeCode',
+                order: {
+                  _key: 'desc',
+                },
+              },
+            },
+          },
+        };
         payLoad.aggs.internationalCollaboration = {
           filter: {
             bool: {
