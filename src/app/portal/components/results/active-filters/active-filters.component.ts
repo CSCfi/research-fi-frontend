@@ -397,15 +397,13 @@ export class ActiveFiltersComponent
                 source.articleType.buckets
               ) {
                 const staticData = this.staticDataService.articleType;
-                // Convert string to int for easier handling with other data
-                val.value = +val.value;
                 const result = source.articleType.buckets.find(
-                  (item) => item.key === val.value
+                  (item) => item.key.toString() === val.value
                 );
                 // Find corresponding label from static data service
-                result.label = staticData.find(x => val.value === x.id).label;
+                result.label = staticData.find(x => val.value === x.id.toString()).label;
                 // If unknown, display filter name
-                if (val.value === -1) {
+                if (val.value === '-1') {
                   result.label = $localize`:@@articleType:Artikkelin tyyppi` + ': ' + result.label;
                 }
 
