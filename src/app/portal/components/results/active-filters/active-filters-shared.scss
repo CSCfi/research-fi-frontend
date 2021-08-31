@@ -8,9 +8,13 @@
 @mixin app-active-filters-shared {
   app-active-filters,
   app-filter-list {
-    // .row.active-filters {
-    //     padding-inline-start: 1.4rem;
-    // }
+    .row.active-filters {
+      border-width: 1px;
+      border-style: solid;
+      padding: 16px;
+      border-radius: 4px;
+      margin-bottom: 2rem;
+    }
 
     .active-filters h4 {
       padding: 0 1rem 0 0;
@@ -30,7 +34,8 @@
     }
 
     .active-filters li,
-    button.clear {
+    button.clear,
+    button.show {
       padding: 2px 10px;
       margin: 0 4px 4px 0;
       border-radius: 10px;
@@ -38,8 +43,10 @@
       cursor: pointer;
     }
 
-    button.clear {
-      border-radius: 5px;
+    button.clear,
+    button.show {
+      border: 2px solid;
+      border-radius: 4px;
       padding-right: 15px;
       padding-left: 15px;
       font-size: inherit;

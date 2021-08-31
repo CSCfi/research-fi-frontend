@@ -9,13 +9,20 @@ import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { cloneDeep } from 'lodash-es';
 import { ProfileService } from '@mydata/services/profile.service';
-import { checkSelected, checkEmpty } from './utils';
+import {
+  checkSelected,
+  getDataSources,
+  mergePublications,
+  isEmptySection,
+} from '@mydata/utils';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { EditorModalComponent } from './editor-modal/editor-modal.component';
 
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { take } from 'rxjs/operators';
+
+import { PatchService } from '@mydata/services/patch.service';
 
 // Remove in production
 import { AppSettingsService } from '@shared/services/app-settings.service';
@@ -35,28 +42,14 @@ export class ProfileDataHandlerComponent implements OnInit {
 
   dataSources: any[];
   primarySource: string;
-  selectedIndex = 0;
   openPanels: any = [];
 
   checkSelected = checkSelected;
-  checkEmpty = checkEmpty;
+  getDataSources = getDataSources;
+  mergePublications = mergePublications;
+  isEmptySection = isEmptySection;
 
-  // TODO: Localize
-  profileData = [
-    { label: 'Yhteystiedot', fields: [] },
-    { label: 'Tutkimustoiminnan kuvaus', fields: [] },
-    { label: 'Affiliaatiot', fields: [] },
-    { label: 'Koulutus', fields: [] },
-    { label: 'Julkaisut', fields: [], countGroupItems: true },
-    { label: 'Tutkimusaineistot', fields: [] },
-    { label: 'Hankkeet', fields: [] },
-    { label: 'Muut hankkeet', fields: [] },
-    { label: 'Tutkimusinfrastruktuurit', fields: [] },
-    { label: 'Muut tutkimusaktiviteetit', fields: [] },
-    { label: 'Meriitit', fields: [] },
-  ];
-
-  selectedData: any;
+  profileData: any;
 
   fieldTypes = FieldTypes;
 
@@ -66,7 +59,8 @@ export class ProfileDataHandlerComponent implements OnInit {
     private profileService: ProfileService,
     private snackBar: MatSnackBar,
     public dialog: MatDialog,
-    private appSettingsService: AppSettingsService
+    private appSettingsService: AppSettingsService,
+    private patchService: PatchService
   ) {
     this.testData = profileService.testData;
   }
@@ -75,38 +69,21 @@ export class ProfileDataHandlerComponent implements OnInit {
     this.response = this.appSettingsService.myDataSettings.develop
       ? this.testData
       : this.response;
-    this.mapData();
-  }
 
-  mapData() {
-    this.profileData[0].fields = this.response.personal;
-    this.profileData[1].fields = this.response.description;
-    this.profileData[2].fields = this.response.affiliation;
-    this.profileData[3].fields = this.response.education;
-    this.profileData[4].fields = this.response.publication;
+    this.profileData = this.response.profileData;
 
-    // TODO: Check locale
-    this.dataSources = [
-      ...new Map(
-        this.getDataSources(this.profileData).map((item) => [
-          item['nameFi'],
-          item,
-        ])
-      ).values(),
-    ].map((item) => item['nameFi']);
+    // Get data sources
+    this.dataSources = getDataSources(this.profileData);
+
+    const initialPrimarySource = this.dataSources[0];
 
     // Set primary data source on init. Defaults to ORCID
-    this.setPrimaryDataSource(this.dataSources[0]);
-  }
+    this.setPrimaryDataSource(initialPrimarySource);
 
-  getDataSources(profileData) {
-    return profileData
-      .map((item) => item.fields)
-      .filter((field) => field.length)
-      .flat()
-      .map((field) => field.groupItems)
-      .flat()
-      .map((field) => field.source.organization);
+    // Merge publications
+    // TODO: Find better way to pass array element than index number. Eg. type
+    const publications = this.profileData[4];
+    if (!isEmptySection(publications)) this.mergePublications(publications);
   }
 
   setPrimaryDataSource(option) {
@@ -124,17 +101,58 @@ export class ProfileDataHandlerComponent implements OnInit {
       .flatMap((el) => el.fields.find((field) => field.single))
       .filter((item) => item);
 
+    const patchItems = [];
+
     radioGroups.forEach((group) =>
       group.groupItems.map((groupItem) => {
         if (groupItem.source.organization.nameFi === primarySource) {
-          groupItem.groupMeta.show = true;
           groupItem.items[0].itemMeta.show = true;
+          patchItems.push(groupItem.items[0].itemMeta);
         } else {
-          groupItem.groupMeta.show = false;
           groupItem.items[0].itemMeta.show = false;
         }
       })
     );
+
+    // Patch default options, hide snackbar notification
+    this.patchItems(patchItems, true);
+  }
+
+  toggleSelectAll(selectAll: boolean) {
+    const fields = this.profileData;
+    const patchItems = [];
+
+    for (const field of fields) {
+      field.fields.forEach((group) => {
+        if (!group.single) {
+          group.groupItems.forEach((groupItem) =>
+            groupItem.items.map((item) => {
+              if (selectAll) {
+                if (!item.itemMeta.show) {
+                  item.itemMeta.show = true;
+                  patchItems.push(item.itemMeta);
+                }
+              } else {
+                if (item.itemMeta.show) {
+                  item.itemMeta.show = false;
+                  patchItems.push(item.itemMeta);
+                }
+              }
+            })
+          );
+        }
+        if (group.selectedPublications) {
+          group.selectedPublications.forEach((publication) => {
+            publication.itemMeta.show = selectAll;
+            patchItems.push(publication.itemMeta);
+          });
+        }
+      });
+    }
+
+    this.profileData = fields;
+
+    this.patchItems(patchItems);
   }
 
   setOpenPanel(i: number) {
@@ -147,14 +165,13 @@ export class ProfileDataHandlerComponent implements OnInit {
 
   openDialog(event, index) {
     event.stopPropagation();
-    this.selectedIndex = index;
-    this.selectedData = cloneDeep(this.profileData[index]);
+
+    const selectedField = cloneDeep(this.profileData[index]);
 
     this.dialogRef = this.dialog.open(EditorModalComponent, {
-      minWidth: '44vw',
-      maxWidth: '44vw',
+      ...this.appSettingsService.dialogSettings,
       data: {
-        data: cloneDeep(this.profileData[index]),
+        data: selectedField,
         dataSources: this.dataSources,
         primarySource: this.primarySource,
       },
@@ -166,22 +183,36 @@ export class ProfileDataHandlerComponent implements OnInit {
       .subscribe(
         (result: { data: any; patchGroups: any[]; patchItems: any[] }) => {
           if (result) {
-            console.log('On editor modal close: ', result);
-            this.profileData[this.selectedIndex] = result.data;
-            // this.patchData(result.patchGroups, result.patchItems);
+            const currentPatchItems = this.patchService.currentPatchItems;
+
+            this.profileData[index] = result.data;
+
+            if (currentPatchItems.length) this.patchItems(currentPatchItems);
           }
+
+          this.patchService.clearPatchPayload();
         }
       );
   }
 
-  patchData(patchGroups, patchItems) {
+  patchItems(patchItems, hideNotification = false) {
     this.profileService
-      .patchObjects(patchGroups, patchItems)
+      .patchObjects(patchItems)
       .pipe(take(1))
-      .subscribe((response) => {
-        console.log(response);
-        this.snackBar.open('Muutokset tallennettu');
-        // TODO: Alert when error
-      });
+      .subscribe(
+        (result) => {
+          if (!hideNotification)
+            this.snackBar.open('Muutokset tallennettu', 'Sulje', {
+              horizontalPosition: 'start',
+              panelClass: 'mydata-snackbar',
+            });
+        },
+        (error) => {
+          this.snackBar.open('Virhe tiedon tallennuksessa', 'Sulje', {
+            horizontalPosition: 'start',
+            panelClass: 'mydata-snackbar',
+          });
+        }
+      );
   }
 }

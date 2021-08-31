@@ -20,6 +20,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { SecondaryButtonComponent } from './components/secondary-button/secondary-button.component';
 import { PrimaryActionButtonComponent } from './components/primary-action-button/primary-action-button.component';
@@ -33,6 +34,8 @@ import { SearchComponent } from './components/search/search.component';
 
 import { ThousandSeparatorPipe } from './pipes/thousand-separator.pipe';
 import { CutContentPipe } from './pipes/cut-content.pipe';
+import { DialogComponent } from './components/dialog/dialog.component';
+import { DialogTemplateComponent } from './components/dialog/dialog-template/dialog-template.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +51,8 @@ import { CutContentPipe } from './pipes/cut-content.pipe';
     SearchComponent,
     ThousandSeparatorPipe,
     CutContentPipe,
+    DialogComponent,
+    DialogTemplateComponent,
   ],
   exports: [
     InfoComponent,
@@ -61,6 +66,7 @@ import { CutContentPipe } from './pipes/cut-content.pipe';
     SearchComponent,
     ThousandSeparatorPipe,
     CutContentPipe,
+    DialogComponent,
   ],
   imports: [
     CommonModule,
@@ -76,6 +82,7 @@ import { CutContentPipe } from './pipes/cut-content.pipe';
     MatMenuModule,
     MatButtonModule,
     MatInputModule,
+    MatDialogModule,
   ],
 })
 export class SharedModule {}

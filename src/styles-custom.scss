@@ -29,10 +29,15 @@ $researchfi-theme: map_merge(
 
 $primary: map-get($researchfi-theme, primary);
 
-html.cdk-global-scrollblock {
-  body {
-    overflow: hidden !important;
-  }
+// html.cdk-global-scrollblock {
+//   body {
+//     overflow: hidden !important;
+//   }
+// }
+
+// Show disabled vertical scroll when dialog opens. Prevents elements filling the space if there's no scroll bar
+.cdk-global-scrollblock {
+  overflow-y: inherit;
 }
 
 body {
@@ -123,6 +128,10 @@ a.disabled {
 ul {
   list-style: disc;
   padding-inline-start: 1rem;
+}
+
+.list-style-circle {
+  list-style: circle;
 }
 
 .uppercase {
@@ -221,12 +230,13 @@ mark,
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  width: 100%;
 }
 
 // Buttons
 .ttv-button {
   border-radius: 6px;
-  height: 44px;
+  min-height: 44px;
   font-size: 1rem;
   padding: 0 32px;
 }
@@ -274,6 +284,12 @@ mat-form-field.mat-focused {
 // Mat-card
 body mat-card.mat-card {
   background: mat-color($primary, 100);
+}
+
+// Mat ripple
+// Fix for hidden right border
+.mat-ripple:not(:empty) {
+  transform: none;
 }
 
 // Tooltip
@@ -358,18 +374,29 @@ mat-basic-chip.tag {
 
 // Mat Dialog
 .mat-dialog-container {
-  padding: 1rem !important;
+  overflow: hidden !important;
+  padding: 0 !important;
 }
 
 .dialog-header {
-  padding: 1rem 0;
+  padding: 1rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .mat-dialog-content {
-  max-height: 85vh !important;
-  margin: 0 -1rem !important;
+  // max-height: 85vh !important;
+  margin: 0 !important;
   padding: 0 !important;
+}
+
+.mat-dialog-actions {
+  display: flex !important;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  // display: block !important;
+  margin-bottom: 0 !important;
+  padding: 1rem !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 // Opacity
@@ -426,38 +453,43 @@ mat-basic-chip.tag {
   .info-icon {
     display: none;
   }
+
+  .dialog-header {
+    padding: 1rem 0;
+  }
+
+  .mat-dialog-actions {
+    padding: 0.5rem 0 !important;
+    position: absolute;
+    background: white;
+    bottom: 0;
+    width: 100%;
+  }
 }
 
 @media (max-width: 1199px) {
   .wrapper {
     padding: 0 8px;
   }
+
+  .mat-dialog-content {
+    max-height: calc(100% - 5rem) !important;
+    padding-bottom: 4rem !important;
+  }
+
+  .mat-dialog-actions {
+    justify-content: center;
+
+    app-primary-action-button,
+    app-secondary-button {
+      display: block;
+      padding: 0.5rem 0;
+    }
+  }
 }
+
 @media (min-width: 1200px) and (max-width: 1440px) {
   .wrapper {
     max-width: 90vw;
   }
 }
-// .tooltip-inner {
-//     color: #000;
-//     background-color: #fff;
-//     box-shadow: 0 1rem 1rem 0 rgba(0, 0, 0, 0.2);
-// }
-
-// .tooltip.show {
-//     opacity: 1;
-// }
-
-// .bs-tooltip-top .arrow::before, .bs-tooltip-auto[x-placement^="top"] .arrow::before {
-//     border-top-color: #fff;
-// }
-
-// .bs-tooltip-right .arrow::before, .bs-tooltip-auto[x-placement^="right"] .arrow::before {
-//     border-right-color: #fff;
-// }
-
-// Img alt test, delete in production
-// img:not([alt]) {
-//     transform: rotate(0.5turn);
-//     filter: blur(5px);
-// }

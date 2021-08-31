@@ -32,7 +32,7 @@ export class ProfileService {
   }
 
   updateTokenInHttpAuthHeader() {
-    var token = this.oidcSecurityService.getToken();
+    const token = this.oidcSecurityService.getToken();
 
     this.httpOptions = {
       headers: new HttpHeaders({
@@ -74,9 +74,9 @@ export class ProfileService {
       .pipe(map((data) => this.profileAdapter.adapt(data)));
   }
 
-  patchObjects(groups, items) {
+  patchObjects(items) {
     this.updateTokenInHttpAuthHeader();
-    let body = { groups: groups, items: items };
+    let body = { groups: [], items: items };
     return this.http.patch(
       this.apiUrl + '/profiledata/',
       body,

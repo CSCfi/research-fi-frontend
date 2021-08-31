@@ -71,6 +71,9 @@
         ]
       }
     },
+    "oaPublisherComposite": {
+      "buckets": []
+    },
     "oaComposite": {
       "meta": {},
       "after_key": {

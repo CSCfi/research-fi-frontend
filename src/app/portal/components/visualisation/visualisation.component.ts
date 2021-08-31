@@ -41,7 +41,7 @@ export class VisualisationComponent implements OnInit {
   @Input() percentage: boolean;
   @Input() searchTarget: string;
   @Input() searchTerm: string;
-
+  @Input() visualisationType: boolean;
   title = '';
 
   modalRef: BsModalRef;
@@ -74,7 +74,6 @@ export class VisualisationComponent implements OnInit {
       this.height = this.window.innerHeight - 300;
       this.width = (this.window.innerWidth - 100) * 0.75;
       // this.width = this.main.nativeElement.offsetWidth + 400;
-      // console.log(this.main.nativeElement.offsetWidth)
       // this.openModal(this.modal);
     });
   }

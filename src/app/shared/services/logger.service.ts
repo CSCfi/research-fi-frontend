@@ -19,7 +19,7 @@ export class LoggerService {
 
   log(error: any, level = this.logLevel) {
     if (this.logLevel >= level) {
-      console.log('This error would be logged in the future');
+      console.warn('This error would be logged in the future');
     }
   }
 }

@@ -29,6 +29,7 @@ export class Funding {
     public fieldsOfResearch: string,
     public fieldsOfTheme: string,
     public keywords: string,
+    public topics: string,
     public projectHomepage: string,
     public recipientType: string,
     public euFunding: boolean,
@@ -121,7 +122,6 @@ export class FundingAdapter implements Adapter<Funding> {
       );
     }
 
-
     // Set EU funding status
     item.euFunding =
       item.funderNameFi.toLowerCase() === 'euroopan unioni' ? true : false;
@@ -179,6 +179,10 @@ export class FundingAdapter implements Adapter<Funding> {
       ?.filter((x) => x.scheme === 'Avainsana')
       .map((x) => x.keyword)
       .join(', ');
+    const topics = item.keywords
+      ?.filter((x) => x.scheme === 'topic')
+      .map((x) => x.keyword)
+      .join(', ');
 
     return new Funding(
       item.mainProjectId || item.projectId,
@@ -196,6 +200,7 @@ export class FundingAdapter implements Adapter<Funding> {
       research,
       theme,
       keyword,
+      topics,
       item.projetHomepage,
       item.recipientType,
       item.euFunding,

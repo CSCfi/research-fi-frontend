@@ -477,6 +477,23 @@ export class AggregationService {
             },
           },
         };
+        payLoad.aggs.articleType = {
+          filter: {
+            bool: {
+              filter: filterActive('articleTypeCode'),
+            },
+          },
+          aggs: {
+            articleTypes: {
+              terms: {
+                field: 'articleTypeCode',
+                order: {
+                  _key: 'desc',
+                },
+              },
+            },
+          },
+        };
         payLoad.aggs.internationalCollaboration = {
           filter: {
             bool: {
@@ -488,6 +505,21 @@ export class AggregationService {
               terms: {
                 field: 'internationalCollaboration',
                 size: 2,
+              },
+            },
+          },
+        };
+        payLoad.aggs.okmDataCollection = {
+          filter: {
+            bool: {
+              filter: filterActive('publicationStatusCode.keyword'),
+            },
+          },
+          aggs: {
+            publicationStatusCodes: {
+              terms: {
+                field: 'publicationStatusCode.keyword',
+                size: 10,
               },
             },
           },
@@ -574,6 +606,35 @@ export class AggregationService {
                 openAccess: {
                   terms: {
                     field: 'openAccessCode',
+                  },
+                },
+              },
+            ],
+          },
+          aggs: {
+            filtered: {
+              filter: {
+                bool: {
+                  filter: filterActive('openAccess'),
+                },
+              },
+            },
+          },
+        };
+        payLoad.aggs.oaPublisherComposite = {
+          composite: {
+            sources: [
+              {
+                openAccess: {
+                  terms: {
+                    field: 'openAccess',
+                  },
+                },
+              },
+              {
+                publisherOpenAccess: {
+                  terms: {
+                    field: 'publisherOpenAccessCode',
                   },
                 },
               },

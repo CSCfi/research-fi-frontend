@@ -43,7 +43,8 @@ import {
   styleUrls: ['./single-publication.component.scss'],
 })
 export class SinglePublicationComponent
-  implements OnInit, AfterViewInit, OnDestroy {
+  implements OnInit, AfterViewInit, OnDestroy
+{
   public singleId: any;
   responseData: Search;
   searchTerm: string;
@@ -52,6 +53,8 @@ export class SinglePublicationComponent
   tabQueryParams: any;
   private metaTags = singlePublication;
   private commonTags = common;
+  showMore = $localize`:@@showMore:Näytä enemmän`;
+  showLess = $localize`:@@showLess:Näytä vähemmän`;
 
   infoFields = [
     {
@@ -62,6 +65,11 @@ export class SinglePublicationComponent
       label: $localize`:@@publicationAuthors:Tekijät`,
       field: 'authors',
       tooltip: $localize`:@@publicationAuthorsTooltip:Julkaisun tekijät siinä järjestyksessä, jossa ne on listattu alkuperäisessä julkaisussa. Jos tekijöitä on yli 20, kaikkia ei ole välttämättä ilmoitettu.`,
+    },
+    {
+      label: $localize`:@@abstract:Tiivistelmä`,
+      field: 'abstract',
+      tooltip: $localize`:@@spAbstracTooltip:Tiivistelmä kertoo tiiviisti julkaisusta`,
     },
   ];
 
@@ -82,23 +90,27 @@ export class SinglePublicationComponent
         '<p><strong>' +
         $localize`:@@article:Artikkeli` +
         ': </strong>' +
-        $localize`:@@articleTooltipContent:sisältää alkuperäis- ja katsausartikkelit, kirjan tai lehden johdannot ja esipuheet, lyhyet tutkimusselostukset, pääkirjoitukset, keskustelupuheenvuorot ja kommentit. ` +
+        $localize`:@@articleTooltipContent:Sisältää alkuperäis- ja katsausartikkelit, kirjan tai lehden johdannot ja esipuheet, lyhyet tutkimusselostukset, pääkirjoitukset, keskustelupuheenvuorot ja kommentit. ` +
         '</p><p><strong>' +
         $localize`:@@monograph:Erillisteos` +
         ': </strong>' +
-        $localize`:@@monographTooltipContent:sisältää monografiat/kirjat, tutkimus- ja kehitystyöhön perustuva kehittämis- tai tutkimusraportti, selvitykset, ns. white paperit sekä working papers ja discussion papers -tyyppiset julkaisut. ` +
+        $localize`:@@monographTooltipContent:Sisältää monografiat/kirjat, tutkimus- ja kehitystyöhön perustuva kehittämis- tai tutkimusraportti, selvitykset, ns. white paperit sekä working papers ja discussion papers -tyyppiset julkaisut. ` +
         '</p><p><strong>' +
         $localize`:@@editorial:Toimitustyö` +
         ': </strong>' +
-        $localize`:@@editorialTooltipContent:sisältää useista eri kirjoittajien artikkeleista koostuvan tieteellisen kirjan tai lehden erikoisnumeron toimitustyöt ` +
+        $localize`:@@editorialTooltipContent:Sisältää useista eri kirjoittajien artikkeleista koostuvan tieteellisen kirjan tai lehden erikoisnumeron toimitustyöt ` +
         '</p><p><strong>' +
         $localize`:@@abstract:Abstrakti` +
         ': </strong>' +
-        $localize`:@@abstractTooltipContent:sisältää konferenssiesitelmien abstraktit sekä laajennetut abstraktit.` +
+        $localize`:@@abstractTooltipContent:Sisältää konferenssiesitelmien abstraktit sekä laajennetut abstraktit.` +
         '</p><p><strong>' +
         $localize`:@@poster:Posteri` +
         ': </strong>' +
-        $localize`:@@posterTooltipContent:sisältää konferenssiesitelmien posterit.`,
+        $localize`:@@posterTooltipContent:Sisältää konferenssiesitelmien posterit.` +
+        '</p><p><strong>' +
+        $localize`:@@blog:Blogikirjoitus` +
+        ': </strong>' +
+        $localize`:@@blogTooltipContent:Sisältää blogimuotoiset julkaisut, joiden julkaisemisesta on päättänyt riippumaton toimituskunta tai joiden julkaisualustalla on ISSN-tunnus.`,
     },
     {
       label: $localize`:@@parentPublicationType:Emojulkaisun tyyppi`,
@@ -107,15 +119,40 @@ export class SinglePublicationComponent
         '<p><strong>' +
         $localize`:@@journal:Lehti` +
         ': </strong>' +
-        $localize`:@@journalTooltipContent:sisältää tieteelliset aikakauslehdet ja ammattilehdet.` +
+        $localize`:@@journalTooltipContent:Sisältää tieteelliset aikakauslehdet ja ammattilehdet.` +
         '</p><p><strong>' +
         $localize`:@@researchBook:Kokoomateos` +
         ': </strong>' +
-        $localize`:@@researchBookTooltipContent:sisältää tieteelliset kokoomateokset, tieteelliset vuosikirjat ja vastaavat, ammatilliset käsi- tai opaskirjat, ammatilliset tietojärjestelmät tai kokoomateokset, oppikirja-aineistot sekä lyhyet ensyklopediatekstit. ` +
+        $localize`:@@researchBookTooltipContent:Sisältää tieteelliset kokoomateokset, tieteelliset vuosikirjat ja vastaavat, ammatilliset käsi- tai opaskirjat, ammatilliset tietojärjestelmät tai kokoomateokset, oppikirja-aineistot sekä lyhyet ensyklopediatekstit. ` +
         '</p><p><strong>' +
         $localize`:@@conferencePlatform:Konferenssialusta` +
         ': </strong>' +
-        $localize`:@@conferencePlatformTooltipContent:sisältää konferenssin painetut tai julkisesti saatavilla olevat julkaisut, ns. proceedings-julkaisut.`,
+        $localize`:@@conferencePlatformTooltipContent:Sisältää konferenssin painetut tai julkisesti saatavilla olevat julkaisut, ns. proceedings-julkaisut.` +
+        '<p><strong>' +
+        $localize`:@@onlinePlatform:Verkkoalusta` +
+        ': </strong>' +
+        $localize`:@@onlinePlatformTooltipContent: Sisältää muilla sähköisillä alustoilla julkaistut julkaisut.`,
+    },
+    {
+      label: $localize`:@@articleType: Artikkelin tyyppi`,
+      field: 'articleTypeText',
+      tooltip:
+        '<p><strong>' +
+        $localize`:@@originalArticle:Alkuperäisartikkeli` +
+        ' </strong>' +
+        $localize`:@@originalArticleTooltip:on pääosin aiemmin julkaisemattomasta materiaalista koostuva tieteellinen artikkeli.` +
+        '</p><p><strong>' +
+        $localize`:@@reviewArticle:Katsausartikkeli` +
+        ' </strong>' +
+        $localize`:@@reviewArticleTooltip:perustuu aikaisempiin samasta aihepiiristä tehtyihin julkaisuihin.` +
+        '</p><p><strong>' +
+        $localize`:@@dataArticle:Data-artikkeli` +
+        ' </strong>' +
+        $localize`:@@dataArticleTooltip:sisältää ns. data journals -julkaisuissa ilmestyneet, tutkimusaineistoja kuvailevat artikkelit.` +
+        '</p><p><strong>' +
+        $localize`:@@otherArticle:Muu artikkeli` +
+        ' </strong>' +
+        $localize`:@@otherArticleTooltip:sisältää muihin luokkiin kuulumattomat artikkelit.`,
     },
     {
       label: $localize`:@@audience:Yleisö`,
@@ -127,15 +164,15 @@ export class SinglePublicationComponent
         '<p><strong>' +
         $localize`:@@scientificPublication:Tieteellinen julkaisu` +
         ': </strong>' +
-        $localize`:@@scientificPublicationTooltipContent:julkaisut, jotka on tarkoitettu edistämään tiedettä sekä tuottamaan uutta tietoa.` +
+        $localize`:@@scientificPublicationTooltipContent:Julkaisut, jotka on tarkoitettu edistämään tiedettä sekä tuottamaan uutta tietoa.` +
         '</p><p><strong>' +
         $localize`:@@professionalPublication:Ammatillinen julkaisu` +
         ': </strong>' +
-        $localize`:@@professionalPublicationTooltipContent:julkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.` +
+        $localize`:@@professionalPublicationTooltipContent:Julkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.` +
         '</p><p><strong>' +
         $localize`:@@popularPublication:Yleistajuinen julkaisu` +
         ': </strong>' +
-        $localize`:@@popularPublicationTooltipContent:julkaisut, jotka levittävät tutkimus- ja kehitystyöhön perustuvaa tietoa suurelle yleisölle ja joiden sisällön ymmärtäminen ei edellytä erityistä perehtyneisyyttä alaan.`,
+        $localize`:@@popularPublicationTooltipContent:Julkaisut, jotka levittävät tutkimus- ja kehitystyöhön perustuvaa tietoa suurelle yleisölle ja joiden sisällön ymmärtäminen ei edellytä erityistä perehtyneisyyttä alaan.`,
     },
     {
       label: $localize`:@@peerReviewedFilter:Vertaisarvioitu`,
@@ -211,6 +248,89 @@ export class SinglePublicationComponent
     },
   ];
 
+  open_accessFields = [
+    {
+      label: $localize`:@@publisherOpenAccess:Avoin saatavuus kustantajan palvelussa`,
+      field: 'openAccessText',
+      link: false,
+    },
+    {
+      label: $localize`:@@publicationChannelOa:Julkaisukanavan avoin saatavuus`,
+      field: 'publisherOpenAccessText',
+      link: false,
+      tooltip:
+        '<p>' +
+        $localize`:@@publicationChannelType:Julkaisun julkaisukanavan avoimen saatavuuden tyyppi.` +
+        '</p>' +
+        '<p><strong>' +
+        $localize`:@@OaFullyOpen:Kokonaan avoin julkaisukanava` +
+        ': </strong>' +
+        $localize`:@@OaFullyOpenTooltipContent:Julkaisukanavan kaikki julkaisut ovat välittömästi ja pysyvästi avoimesti saatavilla kustantajan palvelussa.` +
+        '</p><p><strong>' +
+        $localize`:@@OaPartiallyOpen:Osittain avoin julkaisukanava` +
+        ': </strong>' +
+        $localize`:@@OaPartiallyOpenTooltipContent:Osa julkaisukanavan julkaisuista on välittömästi ja pysyvästi avoimesti saatavilla kustantajan palvelussa. Esimerkiksi hybridilehdet.` +
+        '</p><p><strong>' +
+        $localize`:@@OaDelayed:Viivästetysti avoin julkaisukanava` +
+        ': </strong>' +
+        $localize`:@@OaDelayedTooltipContent:Osa tai kaikki julkaisukanavan julkaisuista avoimia kustantajan palvelussa vasta kustantajan määrittämän viiveajan (embargo) jälkeen.`,
+    },
+    {
+      label: $localize`:@@publisherLicenseVersion:Kustantajan version lisenssi`,
+      field: 'licenseText',
+      link: false,
+      tooltip: $localize`:@@pubLicenseTooltip:Kustantajan palvelussa sijaitsevan julkaisun lisenssitieto.`,
+    },
+    {
+      label: $localize`:@@selfArchived:Rinnakkaistallennettu`,
+      field: 'archiveCodeText',
+      link: false,
+      tooltip: $localize`:@@selfArchivedTooltip:Julkaisusta avoimesti saatavilla oleva rinnakkaistallenne on tieteenala- tai organisaatiokohtaisessa julkaisuarkistossa.`,
+    },
+    {
+      label: $localize`:@@archivedLicenseVersion:Rinnakkaistallenteen versio`,
+      field: 'archiveCodeVersionText',
+      link: false,
+      tooltip:
+        '<p><strong>' +
+        $localize`:@@publisherVersion:Kustantajan versio` +
+        ': </strong>' +
+        $localize`:@@publisherVersionTooltip:Kustantajan palvelussa julkaistu artikkeli.` +
+        '</p><p><strong>' +
+        $localize`:@@finalDraft:Viimeinen käsikirjoitusversio` +
+        ': </strong>' +
+        $localize`:@@finalDraftTooltip:Kustantajalle lähetetty viimeinen (vertaisarvioitu) versio käsikirjoituksesta, joka on hyväksytty julkaistavaksi.` +
+        '</p>',
+    },
+    {
+      label: $localize`:@@archivedLicense:Rinnakkaistallenteen lisenssi`,
+      field: 'archiveCodeLincenseText',
+      link: false,
+      tooltip: $localize`:@@selfLicenseTooltip:Tieteenala- tai organisaatiokohtaisessa julkaisuarkistossa sijaitsevan rinnakkaistallenteen lisenssitieto.`,
+    },
+    {
+      label: $localize`:@@embargoDate:Rinnakkaistallenteen julkaisuviiveen (embargo) päättymispäivä`,
+      field: 'archiveEbargoDate',
+      link: false,
+    },
+    {
+      label: $localize`:@@apcFee:Avoimen saatavuuden kirjoittajamaksu €`,
+      field: 'apcFee',
+      link: false,
+      tooltip:
+        '<p>' +
+        $localize`:@@apcTooltip:Julkaisun avoimesta julkaisemisesta maksettu summa euroina.` +
+        '</p><p>' +
+        $localize`:@@apcJointPublication:Yhteisjulkaisuissa julkaisumaksu voi olla yhden tai useamman julkaisuun osallistuneen organisaation maksama. Julkaisumaksun summa voi myös olla puutteellinen, jos kaikkien organisaatioiden maksuja ei ole ilmoitettu.` +
+        '</p>',
+    },
+    {
+      label: $localize`:@@apcPaymentYear:Avoimen saatavuuden kirjoittajamaksun vuosi`,
+      field: 'apcPaymentYear',
+      link: false,
+    },
+  ];
+
   linksFields = [
     { label: 'DOI', field: 'doi', path: 'https://doi.org/' },
     { label: '', field: 'doiHandle' },
@@ -222,7 +342,7 @@ export class SinglePublicationComponent
       field: 'fieldsOfScienceString',
       tooltip: $localize`:@@TKFOS:Tilastokeskuksen luokituksen mukaiset tieteenalat.`,
     },
-    {
+    /*{
       label: $localize`:@@openAccess:Avoin saatavuus`,
       field: 'openAccessText',
       tooltip:
@@ -240,6 +360,7 @@ export class SinglePublicationComponent
         $localize`Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.` +
         '</p>',
     },
+    */
     { label: $localize`:@@publicationCountry:Julkaisumaa`, field: 'countries' },
     { label: $localize`:@@language:Kieli`, field: 'languages' },
     {
@@ -253,6 +374,15 @@ export class SinglePublicationComponent
       tooltip: $localize`:@@publicationCompanyAuthors:Julkaisussa on tekijöitä vähintään yhdestä yrityksestä.`,
     },
     { label: $localize`:@@keywords:Avainsanat`, field: 'keywords' },
+  ];
+
+  publicationStatus = [
+    {
+      label: $localize`:@@okmDataCollection:Julkaisu kuuluu opetus- ja kuulttuuriministeriön tiedonkeruuseen`,
+      field: 'publicationStatusText',
+      link: false,
+      tooltip: $localize`:@@okmDataCollectionTooltip:OKM:n tiedonkeruuseen kuuluvat julkaisut ovat korkeakoulujen, tutkimuslaitosten ja yliopistosairaaloiden vuosittain opetus- ja kulttuuriministeriölle raportoimia julkaisuja, jotka täyttävät julkaisutiedonkeruun vaatimukset (www.tiedonkeruu.fi) ja jotka huomioidaan mm. korkeakoulujen rahoitusmallissa.`,
+    },
   ];
 
   citationStyles = [
@@ -276,7 +406,7 @@ export class SinglePublicationComponent
   }
   idSub: Subscription;
   juFoCode: any;
-
+  expand: boolean;
   faQuoteRight = faQuoteRight;
   faIcon = faFileAlt;
   faCopy = faCopy;
@@ -460,6 +590,9 @@ export class SinglePublicationComponent
     this.mediumFields = this.mediumFields.filter((item) => checkEmpty(item));
     this.linksFields = this.linksFields.filter((item) => checkEmpty(item));
     this.otherFields = this.otherFields.filter((item) => checkEmpty(item));
+    this.open_accessFields = this.open_accessFields.filter((item) =>
+      checkEmpty(item)
+    );
   }
 
   shapeData() {
@@ -647,5 +780,9 @@ export class SinglePublicationComponent
 
     // tslint:disable-next-line: curly
     if (source.doiHandle === 'http://dx.doi.org/') source.doiHandle = '';
+  }
+
+  expandDescription() {
+    this.expand = !this.expand;
   }
 }

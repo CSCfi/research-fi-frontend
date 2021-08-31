@@ -53,23 +53,27 @@ export class PublicationFilterService {
         '<p><strong>' +
         $localize`:@@article:Artikkeli` +
         ': </strong>' +
-        $localize`:@@articleTooltipContent:sisältää alkuperäis- ja katsausartikkelit, kirjan tai lehden johdannot ja esipuheet, lyhyet tutkimusselostukset, pääkirjoitukset, keskustelupuheenvuorot ja kommentit. ` +
+        $localize`:@@articleTooltipContent:Sisältää alkuperäis- ja katsausartikkelit, kirjan tai lehden johdannot ja esipuheet, lyhyet tutkimusselostukset, pääkirjoitukset, keskustelupuheenvuorot ja kommentit. ` +
         '</p><p><strong>' +
         $localize`:@@monograph:Erillisteos` +
         ': </strong>' +
-        $localize`:@@monographTooltipContent:sisältää monografiat/kirjat, tutkimus- ja kehitystyöhön perustuva kehittämis- tai tutkimusraportti, selvitykset, ns. white paperit sekä working papers ja discussion papers -tyyppiset julkaisut. ` +
+        $localize`:@@monographTooltipContent:Sisältää monografiat/kirjat, tutkimus- ja kehitystyöhön perustuva kehittämis- tai tutkimusraportti, selvitykset, ns. white paperit sekä working papers ja discussion papers -tyyppiset julkaisut. ` +
         '</p><p><strong>' +
         $localize`:@@editorial:Toimitustyö` +
         ': </strong>' +
-        $localize`:@@editorialTooltipContent:sisältää useista eri kirjoittajien artikkeleista koostuvan tieteellisen kirjan tai lehden erikoisnumeron toimitustyöt ` +
+        $localize`:@@editorialTooltipContent:Sisältää useista eri kirjoittajien artikkeleista koostuvan tieteellisen kirjan tai lehden erikoisnumeron toimitustyöt ` +
         '</p><p><strong>' +
         $localize`:@@abstract:Abstrakti` +
         ': </strong>' +
-        $localize`:@@abstractTooltipContent:sisältää konferenssiesitelmien abstraktit sekä laajennetut abstraktit.` +
+        $localize`:@@abstractTooltipContent:Sisältää konferenssiesitelmien abstraktit sekä laajennetut abstraktit.` +
         '</p><p><strong>' +
         $localize`:@@poster:Posteri` +
         ': </strong>' +
-        $localize`:@@posterTooltipContent:sisältää konferenssiesitelmien posterit.`,
+        $localize`:@@posterTooltipContent:Sisältää konferenssiesitelmien posterit.` +
+        '</p><p><strong>' +
+        $localize`:@@blog:Blogikirjoitus` +
+        ': </strong>' +
+        $localize`:@@blogTooltipContent:Sisältää blogimuotoiset julkaisut, joiden julkaisemisesta on päättänyt riippumaton toimituskunta tai joiden julkaisualustalla on ISSN-tunnus.`,
     },
     {
       field: 'publicationAudience',
@@ -83,15 +87,15 @@ export class PublicationFilterService {
         '<p><strong>' +
         $localize`:@@scientificPublication:Tieteellinen julkaisu` +
         ': </strong>' +
-        $localize`:@@scientificPublicationTooltipContent:julkaisut, jotka on tarkoitettu edistämään tiedettä sekä tuottamaan uutta tietoa.` +
+        $localize`:@@scientificPublicationTooltipContent:Julkaisut, jotka on tarkoitettu edistämään tiedettä sekä tuottamaan uutta tietoa.` +
         '</p><p><strong>' +
         $localize`:@@professionalPublication:Ammatillinen julkaisu` +
         ': </strong>' +
-        $localize`:@@professionalPublicationTooltipContent:julkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.` +
+        $localize`:@@professionalPublicationTooltipContent:Julkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.` +
         '</p><p><strong>' +
         $localize`:@@popularPublication:Yleistajuinen julkaisu` +
         ': </strong>' +
-        $localize`:@@popularPublicationTooltipContent:julkaisut, jotka levittävät tutkimus- ja kehitystyöhön perustuvaa tietoa suurelle yleisölle ja joiden sisällön ymmärtäminen ei edellytä erityistä perehtyneisyyttä alaan.`,
+        $localize`:@@popularPublicationTooltipContent:Julkaisut, jotka levittävät tutkimus- ja kehitystyöhön perustuvaa tietoa suurelle yleisölle ja joiden sisällön ymmärtäminen ei edellytä erityistä perehtyneisyyttä alaan.`,
     },
     {
       field: 'parentPublicationType',
@@ -106,11 +110,38 @@ export class PublicationFilterService {
         '</p><p><strong>' +
         $localize`:@@researchBook:Kokoomateos` +
         ': </strong>' +
-        $localize`:@@researchBookTooltipContent:sisältää tieteelliset kokoomateokset, tieteelliset vuosikirjat ja vastaavat, ammatilliset käsi- tai opaskirjat, ammatilliset tietojärjestelmät tai kokoomateokset, oppikirja-aineistot sekä lyhyet ensyklopediatekstit. ` +
+        $localize`:@@researchBookTooltipContent:Sisältää tieteelliset kokoomateokset, tieteelliset vuosikirjat ja vastaavat, ammatilliset käsi- tai opaskirjat, ammatilliset tietojärjestelmät tai kokoomateokset, oppikirja-aineistot sekä lyhyet ensyklopediatekstit. ` +
         '</p><p><strong>' +
         $localize`:@@conferencePlatform:Konferenssialusta` +
         ': </strong>' +
-        $localize`:@@conferencePlatformTooltipContent:sisältää konferenssin painetut tai julkisesti saatavilla olevat julkaisut, ns. proceedings-julkaisut.`,
+        $localize`:@@conferencePlatformTooltipContent:Sisältää konferenssin painetut tai julkisesti saatavilla olevat julkaisut, ns. proceedings-julkaisut.` +
+        '<p><strong>' +
+        $localize`:@@onlinePlatform:Verkkoalusta` +
+        ': </strong>' +
+        $localize`:@@onlinePlatformTooltipContent:Sisältää muilla sähköisillä alustoilla julkaistut julkaisut.`,
+    },
+    {
+      field: 'articleType',
+      label: $localize`:@@articleType:Artikkelin tyyppi`,
+      hasSubFields: false,
+      open: false,
+      tooltip: 
+      '<p><strong>' +
+        $localize`:@@originalArticle:Alkuperäisartikkeli` +
+        ': </strong>' +
+        $localize`:@@originalArticleTooltip:on pääosin aiemmin julkaisemattomasta materiaalista koostuva tieteellinen artikkeli.` +
+        '</p><p><strong>' +
+        $localize`:@@reviewArticle:Katsausartikkeli` +
+        ': </strong>' +
+        $localize`:@@reviewArticleTooltip:perustuu aikaisempiin samasta aihepiiristä tehtyihin julkaisuihin.` +
+        '</p><p><strong>' +
+        $localize`:@@dataArticle:Data-artikkeli` +
+        ': </strong>' +
+        $localize`:@@dataArticleTooltip:sisältää ns. data journals -julkaisuissa ilmestyneet, tutkimusaineistoja kuvailevat artikkelit.` +
+        '<p><strong>' +
+        $localize`:@@otherArticle:Muu artikkeli` +
+        ': </strong>' +
+        $localize`:@@otherArticleTooltip:sisältää muihin luokkiin kuulumattomat artikkelit.`,
     },
     {
       field: 'peerReviewed',
@@ -147,8 +178,8 @@ export class PublicationFilterService {
       open: true,
       tooltip:
         '<p><strong>' +
-        $localize`:@@openAccessJournal:Open access -lehti ` +
-        '</strong>' +
+        $localize`:@@openAccessJournal:Open access -lehti` +
+        ': </strong>' +
         $localize`Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.` +
         '</p><p><strong>' +
         $localize`:@@selfArchived:Rinnakkaistallennettu` +
@@ -167,6 +198,11 @@ export class PublicationFilterService {
       field: 'internationalCollaboration',
       label: $localize`:@@intCoPublication:Kansainvälinen yhteisjulkaisu`,
       tooltip: $localize`:@@intCoPublicationTooltip:Julkaisussa on tekijöitä myös muualta kuin suomalaisista tutkimusorganisaatioista.`,
+    },
+    {
+      field: 'okmDataCollection',
+      label: $localize`:@@okmDataCollection:Julkaisu kuuluu opetus- ja kuulttuuriministeriön tiedonkeruuseen`,
+      tooltip: $localize`:@@okmDataCollectionTooltip:OKM:n tiedonkeruuseen kuuluvat julkaisut ovat korkeakoulujen, tutkimuslaitosten ja yliopistosairaaloiden vuosittain opetus- ja kulttuuriministeriölle raportoimia julkaisuja, jotka täyttävät julkaisutiedonkeruun vaatimukset (www.tiedonkeruu.fi) ja jotka huomioidaan mm. korkeakoulujen rahoitusmallissa.`,
     },
   ];
 
@@ -200,6 +236,9 @@ export class PublicationFilterService {
     source.parentPublicationType.buckets = this.mapKey(
       source.parentPublicationType.parentPublicationTypes.buckets
     );
+    source.articleType.buckets = this.articleType(
+      source.articleType.articleTypes.buckets
+    );
     source.peerReviewed.buckets = this.mapKey(
       source.peerReviewed.peerReviewedValues.buckets
     );
@@ -213,13 +252,16 @@ export class PublicationFilterService {
     source.juFo.buckets = this.juFoCode(source.juFo.juFoCodes.buckets);
     // Open access
     source.openAccess.buckets = this.openAccess(
-      source.openAccess.openAccessCodes.buckets,
       source.selfArchived.selfArchivedCodes.buckets,
-      source.oaComposite
+      source.oaPublisherComposite.buckets
     );
-    // Internationatl collaboration
+    // International collaboration
     source.internationalCollaboration.buckets = this.getSingleAmount(
       source.internationalCollaboration.internationalCollaborationCodes.buckets
+    );
+    // MinEdu data collection
+    source.okmDataCollection.buckets = this.getOkmCollectedAmount(
+      source.okmDataCollection.publicationStatusCodes.buckets
     );
     source.shaped = true;
     return source;
@@ -361,6 +403,20 @@ export class PublicationFilterService {
     return result;
   }
 
+  articleType(data) {
+    const staticData = this.staticDataService.articleType;
+    const result = data.map(
+      (item) => 
+        (item = {
+          key: item.key,
+          label: staticData.find(x => item.key === x.id).label,
+          doc_count: item.doc_count,
+          value: item.key
+        })
+    );
+    return result.sort((a, b) => b.doc_count - a.doc_count);
+  }
+
   juFoCode(data) {
     const staticData = this.staticDataService.juFoCode;
     const result = data.map(
@@ -395,45 +451,43 @@ export class PublicationFilterService {
     }
   }
 
-  openAccess(openAccess, selfArchived, oaComposite) {
+  openAccess(selfArchived, publisherComposite) {
     let openAccessCodes = [];
     const result = [];
-    // Get composite aggreation result of selfArchived and openAccess 0 codes. This is used to get doc count for 'no open access' filter
-    const nonOpenAccess = oaComposite.buckets.find(
-      (item) =>
-        JSON.stringify(item.key) ===
-        JSON.stringify({ selfArchived: 0, openAccess: 0 })
-    );
-    const noOpenAccessData = oaComposite.buckets.find(
-      (item) =>
-        JSON.stringify(item.key) ===
-        JSON.stringify({ selfArchived: -1, openAccess: -1 })
-    );
-    // Get aggregation from response
-    if (openAccess && openAccess.length > 0) {
-      openAccess.forEach((val) => {
-        switch (val.key) {
-          case 1: {
+
+    if (publisherComposite && publisherComposite.length > 0) {
+      publisherComposite.forEach((val) => {
+        val.stringKey = '' + val.key.openAccess + val.key.publisherOpenAccess;
+        switch (val.stringKey) {
+          case '11': {
             openAccessCodes.push({
               key: 'openAccess',
               doc_count: val.doc_count,
-              label: $localize`:@@openAccessJournal:Open Access -lehti`,
             });
             break;
           }
-          case 2: {
+          case '03':
+          case '13': {
+            openAccessCodes.push({
+              key: 'delayedOpenAccess',
+              doc_count: val.doc_count,
+            });
+            break;
+          }
+          case '12': {
             openAccessCodes.push({
               key: 'otherOpen',
               doc_count: val.doc_count,
-              label: $localize`:@@otherOpenAccess:Muu avoin saatavuus`,
             });
             break;
           }
-          case 0: {
+          case '00':
+          case '01':
+          case '02':
+          case '09': {
             openAccessCodes.push({
               key: 'nonOpenAccess',
               doc_count: val.doc_count,
-              label: $localize`:@@nonOpen:Ei avoin`,
             });
             break;
           }
@@ -441,7 +495,6 @@ export class PublicationFilterService {
             openAccessCodes.push({
               key: 'noOpenAccessData',
               doc_count: val.doc_count,
-              label: $localize`:@@noInfo:Ei tietoa`,
             });
             break;
           }
@@ -456,23 +509,6 @@ export class PublicationFilterService {
             openAccessCodes.push({
               key: 'selfArchived',
               doc_count: val.doc_count,
-              label: $localize`:@@selfArchived:Rinnakkaistallennettu`,
-            });
-            break;
-          }
-          case 0: {
-            openAccessCodes.push({
-              key: 'selfArchivedNonOpen',
-              doc_count: val.doc_count,
-              label: $localize`:@@nonOpen:Ei avoin`,
-            });
-            break;
-          }
-          default: {
-            openAccessCodes.push({
-              key: 'noOpenAccessData',
-              doc_count: val.doc_count,
-              label: $localize`:@@noInfo:Ei tietoa`,
             });
             break;
           }
@@ -485,7 +521,7 @@ export class PublicationFilterService {
         .filter((obj) => {
           return obj.key === val.key;
         })
-        .pop() || { key: val.key, doc_count: 0, label: val.label };
+        .pop() || { key: val.key, doc_count: 0 };
 
       sum.doc_count += val.doc_count;
       item.push(sum);
@@ -512,6 +548,13 @@ export class PublicationFilterService {
         label: $localize`:@@selfArchived:Rinnakkaistallennettu`,
       });
     }
+    if (openAccessCodes.some((e) => e.key === 'delayedOpenAccess')) {
+      result.push({
+        key: 'delayedOpenAccess',
+        doc_count: docCount('delayedOpenAccess'),
+        label: $localize`:@@delayedOpenAccess:Viivästetty avoin saatavuus`,
+      });
+    }
     if (openAccessCodes.some((e) => e.key === 'otherOpen')) {
       result.push({
         key: 'otherOpen',
@@ -520,13 +563,10 @@ export class PublicationFilterService {
       });
     }
 
-    if (
-      openAccessCodes.some((e) => e.key === 'nonOpenAccess') &&
-      openAccessCodes.some((e) => e.key === 'selfArchivedNonOpen')
-    ) {
+    if (openAccessCodes.some((e) => e.key === 'nonOpenAccess')) {
       result.push({
-        key: 'nonOpen',
-        doc_count: nonOpenAccess?.filtered.doc_count,
+        key: 'nonOpenAccess',
+        doc_count: docCount('nonOpenAccess'),
         label: $localize`:@@nonOpen:Ei avoin`,
       });
     }
@@ -534,9 +574,7 @@ export class PublicationFilterService {
     if (openAccessCodes.some((e) => e.key === 'noOpenAccessData')) {
       result.push({
         key: 'noOpenAccessData',
-        doc_count: openAccessCodes.find(
-          (item) => item.key === 'noOpenAccessData'
-        )?.doc_count,
+        doc_count: docCount('noOpenAccessData'),
         label: $localize`:@@noInfo:Ei tietoa`,
       });
     }
@@ -547,5 +585,19 @@ export class PublicationFilterService {
     if (data.length > 0) {
       return data.filter((x) => x.key === 1);
     }
+  }
+
+  getOkmCollectedAmount(data: any[]) {
+    // Filter correct buckets
+    const trueSelection = data.filter((x) => ['1', '2', '9'].includes(x.key));
+    // Combine doc_count into single object
+    const reduced = trueSelection.reduce(
+      (curr, next) => {
+        curr.doc_count += next.doc_count;
+        return curr;
+      },
+      { key_as_string: 'true', doc_count: 0 }
+    );
+    return [reduced];
   }
 }

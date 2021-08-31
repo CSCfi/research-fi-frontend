@@ -78,7 +78,7 @@
                   </span>
                 </button>
               </div>
-              <!-- Filter label -->
+              <!-- Filter label --> 
               <div [ngClass]="filter.hasSubFields ? 'px-1 ' : ''" class="col">
                 <span class="pr-2">{{ filter?.label }}</span>
                 <ng-container *ngIf="filter.tooltip">
@@ -440,9 +440,24 @@
                 collapsedHeight="{{ panelHeight }}"
                 expandedHeight="{{ panelHeight }}"
               >
-                <mat-panel-title>
+                <mat-panel-title> <!-- Aiheet-->
                   <div class="row d-flex justify-content-between">
-                    <div class="col col-10 label">{{ item.key }}</div>
+                    <div class="col col-10 label">
+                      {{ item.key }}
+                      <ng-container *ngIf="item.tooltip">
+                        <ng-template #tooltipTemplate>
+                          <div [innerHtml]="item?.tooltip"></div>
+                        </ng-template>
+                        <span
+                          [tooltip]="tooltipTemplate"
+                          tabindex="0"
+                          placement="top"
+                          #elem
+                        >
+                          <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                        </span>
+                      </ng-container>
+                    </div>
                   </div>
                 </mat-panel-title>
               </mat-expansion-panel-header>

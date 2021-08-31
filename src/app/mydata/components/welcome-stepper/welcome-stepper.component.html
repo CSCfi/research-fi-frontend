@@ -3,7 +3,9 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<main id="main-content">
+<app-redirect *ngIf="!profileChecked"></app-redirect>
+
+<main id="main-content" *ngIf="profileChecked">
   <div class="wrapper">
     <div class="row d-flex justify-content-center">
       <div class="col col-lg-6 px-0">
@@ -30,16 +32,18 @@
               <div class="row pb-4 d-flex justify-content-center">
                 <div class="col text-center">
                   <p>
-                    Ottaaksesi palvelun käyttöön, pyydämme sinua lukemaan ja
-                    hyväksymään palvelun käyttöehdot ja tietosuojaselosteen.
+                    Ennen palvelun käyttöönottoa pyydämme sinua tutustumaan
+                    palvelun käyttöehtoihin ja henkilötietojen
+                    käsittelyperiaatteisiin.
                   </p>
+                  <p>Huom: Käyttöehdot koskevat palvelun beta-versiota.</p>
                 </div>
               </div>
 
               <div class="row pb-3 d-flex justify-content-center">
                 <div class="col col-lg-8">
                   <app-primary-action-button
-                    content="Avaa käyttöehdot"
+                    content="Avaa käyttöehdot ja käsittelyperiaatteet"
                     (click)="increment()"
                     [big]="true"
                   >
@@ -62,7 +66,9 @@
             <ng-container *ngSwitchCase="2">
               <div class="row pb-4">
                 <div class="col text-center">
-                  <h1 class="step-header">Käyttöehdot</h1>
+                  <h1 class="step-header">
+                    Käyttöehdot ja henkilötietojen käsittely
+                  </h1>
                 </div>
                 <!-- Icon -->
                 <i
@@ -80,12 +86,17 @@
 
               <div class="row pb-4 d-flex justify-content-center">
                 <h2 class="col-12 h6 pb-2">
-                  Tutkijan profiilityökalun käyttöehdot
+                  Tutkijan tiedot -työkalun käyttöehdot
                 </h2>
                 <div class="col-12 pb-3">
                   <button
                     class="row border border-primary rounded btn d-flex w-100"
-                    (click)="openModal(termsTemplate)"
+                    (click)="
+                      openDialog(
+                        'Tutkijan tiedot -työkalun käyttöehdot',
+                        termsTemplate
+                      )
+                    "
                   >
                     <div class="col-auto">
                       <i class="pt-3 pb-2 h1 primary-color fas fa-file-alt"></i>
@@ -98,7 +109,7 @@
                   </button>
                 </div>
                 <div class="col">
-                  <mat-checkbox color="primary" [(ngModel)]="termsApproved"
+                  <mat-checkbox [(ngModel)]="termsApproved"
                     >Olen lukenut palvelun käyttöehdot, ja hyväksyn
                     ne</mat-checkbox
                   >
@@ -106,24 +117,7 @@
               </div>
 
               <ng-template #termsTemplate>
-                <div class="modal-header">
-                  <h4 id="dialog-sizes-name1" class="modal-title pull-left">
-                    Tutkijan profiilityökalun käyttöehdot
-                  </h4>
-
-                  <app-close-button
-                    class="pull-right"
-                    (click)="closeModal()"
-                    (keydown.enter)="closeModal()"
-                    autofocus
-                    tabindex="-1"
-                  ></app-close-button>
-                </div>
-                <div class="modal-body">
-                  <div class="row">
-                    <div class="col col-lg-10 py-3">Tulossa</div>
-                  </div>
-                </div>
+                <app-eula template="termsTemplate"></app-eula>
               </ng-template>
 
               <div class="row pb-4 d-flex justify-content-center">
@@ -131,7 +125,12 @@
                 <div class="col-12 pb-3">
                   <button
                     class="row border border-primary rounded btn d-flex w-100"
-                    (click)="openModal(personalDataHandlingTermsTemplate)"
+                    (click)="
+                      openDialog(
+                        'Henkilötietojen käsittely',
+                        personalDataHandlingTermsTemplate
+                      )
+                    "
                   >
                     <div class="col-auto">
                       <i class="pt-3 pb-2 h1 primary-color fas fa-file-alt"></i>
@@ -144,33 +143,16 @@
                   </button>
                 </div>
                 <div class="col">
-                  <mat-checkbox
-                    color="primary"
-                    [(ngModel)]="personalDataHandlingApproved"
+                  <mat-checkbox [(ngModel)]="personalDataHandlingApproved"
                     >Hyväksyn henkilötietojeni käsittelyn</mat-checkbox
                   >
                 </div>
               </div>
 
               <ng-template #personalDataHandlingTermsTemplate>
-                <div class="modal-header">
-                  <h4 id="dialog-sizes-name1" class="modal-title pull-left">
-                    Henkilötietojen käsittelyperiaatteet
-                  </h4>
-
-                  <app-close-button
-                    class="pull-right"
-                    (click)="closeModal()"
-                    (keydown.enter)="closeModal()"
-                    autofocus
-                    tabindex="-1"
-                  ></app-close-button>
-                </div>
-                <div class="modal-body">
-                  <div class="row">
-                    <div class="col col-lg-10 py-3">Tulossa</div>
-                  </div>
-                </div>
+                <app-eula
+                  template="personalDataHandlingTermsTemplate"
+                ></app-eula>
               </ng-template>
 
               <app-stepper-navigation
@@ -203,43 +185,63 @@
                 <div class="col">
                   <p>
                     Tutkijan tiedot -palvelun käyttöönotto edellyttää, että
-                    Orcid-tietosi tuodaan ja tallennetaan palveluun. Aloita
-                    tuonti painamalla "Tuo Orcid-tietoni" painiketta.
-                  </p>
-                  <p>Tässä vaiheessa emme vielä julkaise profiiliasi.</p>
-                  <p>
-                    Jos päivität tietojasi Orcidissa tämän tuonnin jälkeen,
-                    kyseiset tiedot päivittyvät myös Tutkijan tiedot
-                    -profiiliisi
+                    ORCID-palveluun tallentamansi julkiset tiedot tallennetaan
+                    Tutkijan tiedot -palveluun.
                   </p>
                   <p>
-                    <a href="javascript:void(0)"
-                      >Lisätietoja palvelun toimintaperiaatteesta</a
-                    >
+                    Valitsemalla "Tuo ORCID-tietoni" annat luvan ORCID:iin
+                    tallentamiesi julkisten tietojesi tallentamisen Tutkijan
+                    tiedot -palveluun.
+                  </p>
+                  <p class="font-weight-bold">
+                    Tässä vaiheessa emme vielä julkaise profiiliasi.
+                  </p>
+                  <p>
+                    Voit hallinnoida tietojesi näyttämistä seuraavissa
+                    vaiheissa.
                   </p>
                 </div>
               </div>
 
-              <!-- Data fetching indicator -->
-              <div
-                bsModal
-                #smModal="bs-modal"
-                class="modal fade"
-                tabindex="-1"
-                role="dialog"
-              >
-                <div class="modal-dialog modal-sm modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-body text-center">
-                      <mat-spinner class="mx-auto" [diameter]="80">
-                      </mat-spinner>
-                      <span class="d-block pt-3"
-                        >Tietoja tuodaan, odota hetki...</span
-                      >
-                    </div>
-                  </div>
+              <div class="row pb-3 d-flex justify-content-center">
+                <div class="col">
+                  <app-mydata-beta-info
+                    [template]="betaInfo"
+                  ></app-mydata-beta-info>
+
+                  <ng-template #betaInfo>
+                    <p>
+                      Tämä on Tutkijan tiedot -työkalun betaversio.
+                      Testikäyttäjien palautetta hyödynnetään palvelun
+                      toiminnallisuuksien kehittämisessä. Testauksessa
+                      syöttämiäsi tietoja ei julkaista Tiedejatutkimus.fi:ssä.
+                    </p>
+                    <p>
+                      <a href="https://wiki.eduuni.fi/x/YwMJDQ" target="_blank"
+                        >Lue lisää...
+                        <fa-icon icon="external-link-alt"></fa-icon
+                      ></a>
+                    </p>
+                  </ng-template>
                 </div>
               </div>
+
+              <!-- Data fetching indicator -->
+              <ng-template #fetchingTemplate>
+                <div class="row d-flex justify-content-center">
+                  <div class="col-auto align-self-center">
+                    <mat-spinner
+                      class="mx-auto"
+                      [diameter]="80"
+                      i18n-aria-label="@@loading"
+                      aria-label="Ladataan"
+                    ></mat-spinner>
+                    <span class="d-block col py-3 text-center"
+                      >Tietoja tuodaan, odota hetki...</span
+                    >
+                  </div>
+                </div>
+              </ng-template>
 
               <app-stepper-navigation
                 (changeStep)="changeStep($event)"
@@ -273,41 +275,12 @@
                   <app-profile-data-handler
                     [response]="profileData"
                   ></app-profile-data-handler>
-                  <!-- <mat-tab-group mat-align-tabs="center">
-                    <mat-tab label="Valitse julkaistavat tiedot">
-                      <app-profile-data-handler
-                        [response]="profileData"
-                      ></app-profile-data-handler>
-                    </mat-tab>
-                    <mat-tab disabled label="Aseta kaikki julkisiksi"
-                      >Aseta kaikki julkisiksi</mat-tab
-                    >
-                  </mat-tab-group> -->
-                </div>
-              </div>
-
-              <!-- <app-stepper-navigation
-                (changeStep)="changeStep($event)"
-              ></app-stepper-navigation> -->
-
-              <div class="row pb-5 d-flex justify-content-center">
-                <div class="col-auto">
-                  <app-secondary-button
-                    disabled
-                    content="Aseta kaikki julkisiksi"
-                  ></app-secondary-button>
-                </div>
-                <div class="col-auto">
-                  <app-secondary-button
-                    disabled
-                    content="Tyhjennä kaikki valinnat"
-                  ></app-secondary-button>
                 </div>
               </div>
 
               <div class="row pt-3">
                 <app-primary-action-button
-                  [disabled]="true"
+                  routerLink="/mydata/profile"
                   class="col text-center"
                   content="Julkaise"
                 ></app-primary-action-button>
@@ -325,10 +298,14 @@
             <div class="col text-center">
               <h1 class="step-header">Peruutetaanko palvelun käyttöönotto?</h1>
             </div>
+            <!-- Icon -->
+            <i
+              class="col-12 pt-3 h1 primary-color text-center fas fa-undo-alt"
+            ></i>
           </div>
 
           <div class="row pb-4 d-flex justify-content-center">
-            <div class="col">
+            <div class="col text-center">
               <p>
                 Käyttöönotto keskeytetään, ja mitään tietoja ei tallenneta.<br />
                 Mikäli haluat ottaa palvelun käyttöön myöhemmin, aloitat
@@ -359,6 +336,17 @@
           </div>
         </ng-template>
 
+        <!-- Reusable dialog -->
+        <app-dialog
+          *ngIf="showDialog || loading"
+          [template]="dialogTemplate"
+          [title]="dialogTitle"
+          [small]="loading"
+          (onActionClick)="doDialogAction($event)"
+          [actions]="loading ? [] : dialogActions"
+        ></app-dialog>
+
+        <!-- ORCID info -->
         <div class="row py-5" *ngIf="userData">
           <app-orcid-id-info
             class="col text-center"

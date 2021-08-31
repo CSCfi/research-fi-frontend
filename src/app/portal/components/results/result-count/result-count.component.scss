@@ -6,7 +6,7 @@
 //  :license: MIT
 
 .count {
-  font-weight: bold;
+  font-weight: normal;
 }
 
 select#page-results {
@@ -18,7 +18,7 @@ select#page-results {
   display: flex;
   align-items: flex-end;
   flex-direction: column;
-  font-weight: bold;
+  font-weight: normal;
 }
 
 .pagination span {

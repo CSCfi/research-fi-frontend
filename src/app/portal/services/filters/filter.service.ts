@@ -29,6 +29,7 @@ export class FilterService {
   publicationFormatFilter: any;
   publicationAudienceFilter: any;
   parentPublicationTypeFilter: any;
+  articleTypeFilter: any;
   peerReviewedFilter: any;
   countryCodeFilter: any;
   langFilter: any;
@@ -38,6 +39,7 @@ export class FilterService {
   fundingAmountFilter: any;
   openAccessFilter: any;
   internationalCollaborationFilter: any;
+  okmDataCollectionFilter: any;
   coPublicationFilter: any;
   sectorFilter: any;
   topicFilter: any;
@@ -60,12 +62,14 @@ export class FilterService {
     publicationFormat: [],
     publicationAudience: [],
     parentPublicationType: [],
+    articleType: [],
     peerReviewed: [],
     countryCode: [],
     lang: [],
     juFo: [],
     openAccess: [],
     internationalCollaboration: [],
+    okmDataCollection: [],
     funder: [],
     typeOfFunding: [],
     scheme: [],
@@ -96,12 +100,14 @@ export class FilterService {
     publicationFormat: any[];
     publicationAudience: any[];
     parentPublicationType: any[];
+    articleType: any[];
     peerReviewed: any[];
     countryCode: any[];
     lang: any[];
     openAccess: any[];
     juFo: any[];
     internationalCollaboration: any[];
+    okmDataCollection: any[];
     funder: any[];
     typeOfFunding: any[];
     scheme: any[];
@@ -180,6 +186,10 @@ export class FilterService {
         .flat()
         .filter((x) => x)
         .sort(),
+      articleType: [source.articleType]
+        .flat()
+        .filter((x) => x)
+        .sort(),
       peerReviewed: [source.peerReviewed]
         .flat()
         .filter((x) => x)
@@ -201,6 +211,10 @@ export class FilterService {
         .filter((x) => x)
         .sort(),
       internationalCollaboration: [source.internationalCollaboration]
+        .flat()
+        .filter((x) => x)
+        .sort(),
+      okmDataCollection: [source.okmDataCollection]
         .flat()
         .filter((x) => x)
         .sort(),
@@ -287,6 +301,10 @@ export class FilterService {
       filter.parentPublicationType,
       'parentPublicationType.id.keyword'
     );
+    this.articleTypeFilter = this.basicFilter(
+      filter.articleType,
+      'articleTypeCode'
+    );
     this.peerReviewedFilter = this.basicFilter(
       filter.peerReviewed,
       'peerReviewed.id.keyword'
@@ -298,6 +316,7 @@ export class FilterService {
       this.filterByInternationalCollaboration(
         filter.internationalCollaboration
       );
+    this.okmDataCollectionFilter = this.filterByOkmDataCollection(filter.okmDataCollection);
     this.coPublicationFilter = this.customValueFilter(
       filter.coPublication,
       'publicationStatusCode.keyword',
@@ -576,82 +595,70 @@ export class FilterService {
     return res;
   }
 
-  filterByOpenAccess(code: string) {
+  filterByOpenAccess(code: string[]) {
     const res = [];
     if (code.includes('openAccess')) {
-      res.push({ term: { openAccessCode: 1 } });
+      res.push({
+        bool: {
+          must: [
+            { term: { openAccess: 1 } },
+            { term: { publisherOpenAccessCode: 1 } },
+          ],
+        },
+      });
     }
     if (code.includes('otherOpen')) {
-      res.push({ term: { openAccessCode: 2 } });
+      res.push({
+        bool: {
+          must: [
+            { term: { openAccess: 1 } },
+            { term: { publisherOpenAccessCode: 2 } },
+          ],
+        },
+      });
     }
     if (code.includes('selfArchived')) {
       res.push({ term: { selfArchivedCode: 1 } });
     }
-    if (code.includes('nonOpen')) {
-      res.push({
-        bool: {
-          must: [
-            { term: { openAccessCode: 0 } },
-            { term: { selfArchivedCode: 0 } },
-          ],
-        },
+    if (code.includes('delayedOpenAccess')) {
+      [0, 1].forEach(val => { 
+        res.push({
+          bool: {
+            must: [
+              { term: { openAccess: val } },
+              { term: { publisherOpenAccessCode: 3 } },
+            ],
+          },
+        });
+      });
+    }
+    if (code.includes('nonOpenAccess')) {
+      [0, 1, 2, 9].forEach(val => { 
+        res.push({
+          bool: {
+            must: [
+              { term: { openAccess: 0 } },
+              { term: { publisherOpenAccessCode: val } },
+            ],
+          },
+        });
       });
     }
     if (code.includes('noOpenAccessData')) {
-      res.push({
-        bool: {
-          must_not: [
-            {
-              bool: {
-                must: [
-                  { term: { openAccessCode: 0 } },
-                  { term: { selfArchivedCode: 0 } },
-                ],
-              },
-            },
-            {
-              bool: {
-                must: [
-                  { term: { openAccessCode: 1 } },
-                  { term: { selfArchivedCode: 1 } },
-                ],
-              },
-            },
-            {
-              bool: {
-                must: [
-                  { term: { openAccessCode: 2 } },
-                  { term: { selfArchivedCode: 0 } },
-                ],
-              },
-            },
-            {
-              bool: {
-                must: [
-                  { term: { openAccessCode: 2 } },
-                  { term: { selfArchivedCode: 1 } },
-                ],
-              },
-            },
-            {
-              bool: {
-                must: [
-                  { term: { openAccessCode: 1 } },
-                  { term: { selfArchivedCode: 0 } },
-                ],
-              },
-            },
-            {
-              bool: {
-                must: [
-                  { term: { openAccessCode: 0 } },
-                  { term: { selfArchivedCode: 1 } },
-                ],
-              },
-            },
-          ],
-        },
-      });
+      const q = {bool: {must_not: []}}
+      const known = [[0, 0], [0, 1], [0, 2], [0, 3], [0, 9], [1, 1], [1, 2], [1, 3]];
+      known.forEach(pair => q.bool.must_not.push(
+        {
+          bool: {
+            must: [
+              {term: { openAccess: pair[0] } },
+              {term: { publisherOpenAccessCode: pair[1] } }
+            ]
+          }
+        }
+      ));
+      console.log(q)
+      res.push(q);
     }
     return res;
   }
@@ -662,6 +669,14 @@ export class FilterService {
     } else {
       return undefined;
     }
+  }
+
+  filterByOkmDataCollection(status: any) {
+    const res = [];
+    if (status.length > 0 && JSON.parse(status)) {
+      ['1', '2', '9'].forEach(n => res.push({ term: { 'publicationStatusCode.keyword': n } }));
+    }
+    return res;
   }
 
   // Fundings
@@ -767,12 +782,14 @@ export class FilterService {
       ...basicFilter('publication', this.publicationFormatFilter),
       ...basicFilter('publication', this.publicationAudienceFilter),
       ...basicFilter('publication', this.parentPublicationTypeFilter),
+      ...basicFilter('publication', this.articleTypeFilter),
       ...basicFilter('publication', this.peerReviewedFilter),
       ...basicFilter('publication', this.countryCodeFilter),
       ...basicFilter('publication', this.langFilter),
       ...basicFilter('publication', this.juFoCodeFilter),
       ...basicFilter('publication', this.openAccessFilter),
       ...basicFilter('publication', this.internationalCollaborationFilter),
+      ...basicFilter('publication', this.okmDataCollectionFilter),
       ...basicFilter('publication', this.coPublicationFilter),
       // Fundings
       // Funding organization filter differs from nested filter since we need to get filter values from two different parents

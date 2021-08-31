@@ -45,8 +45,20 @@ export class Publication {
     public doiHandle: string,
     public selfArchivedAddress: string,
     public keywords: any,
+    public archiveCodeText: string,
+    public publisherOpenAccessText: string,
+    public licenseText: string,
+    public archiveCodeVersionText: string,
+    public archiveCodeLincenseText: string,
+    public archiveEbargoDate: string,
+    public publicationStatusText: string,
+    public apcFee: string,
+    public apcPaymentYear: string,
     public openAccess: boolean, // openAccessCode + selfArchivedCode
+    public show_logo: boolean,
+    public abstract: string,
     public openAccessText: string,
+    public articleTypeText: string,
     public internationalPublication: boolean,
     public countryCode: string,
     public languageCode: string,
@@ -70,6 +82,7 @@ export class Publication {
 export class PublicationAdapter implements Adapter<Publication> {
   capitalizedLocale: string;
   constructor(
+    private lang: LanguageCheck,
     private fs: FieldOfScienceAdapter,
     private citationAdapter: PublicationCitationAdapter,
     @Inject(LOCALE_ID) protected localeId: string
@@ -102,35 +115,152 @@ export class PublicationAdapter implements Adapter<Publication> {
       ];
     }
 
+    let archiveCodeText = '';
+    if (item.selfArchivedCode === 1) {
+      archiveCodeText = $localize`:@@yes:Kyllä`;
+    } else {
+      archiveCodeText = $localize`:@@no:Ei`;
+    }
+
+    let articleTypeText = '';
+    if (item.articleTypeCode) {
+      switch (item.articleTypeCode) {
+        case 0:
+          articleTypeText = $localize`:@@otherArticle:Muu artikkeli`;
+          break;
+        case 1:
+          articleTypeText = $localize`:@@originalArticle:Alkuperäisartikkeli`;
+          break;
+        case 2:
+          articleTypeText = $localize`:@@reviewArticle:Katsausartikkeli`;
+          break;
+        case 3:
+          articleTypeText = $localize`:@@dataArticle:Data-artikkeli`;
+          break;
+        default:
+          articleTypeText = '';
+      }
+    }
+
     const openAccess: boolean =
       item.openAccessCode === 1 ||
       item.openAccessCode === 2 ||
-      item.selfArchivedCode === 1;
+      item.openAccess === 1;
     let openAccessText = '';
     // Open Access can be added from multiple fields
-    if (
-      item.openAccessCode === 1 ||
-      item.openAccessCode === 2 ||
-      item.selfArchivedCode === 1
+    if (item.openAccess === 1) {
+      openAccessText = $localize`:@@yes:Kyllä`;
+    } else if (item.openAccess === 0) {
+      openAccessText = $localize`:@@no:Ei`;
+    } else if (
+      item.openAccess === 0 &&
+      (item.openAccessCode === 1 || item.openAccessCode === 2)
     ) {
       openAccessText = $localize`:@@yes:Kyllä`;
-    } else if (item.openAccessCode === 0 && item.selfArchivedCode === 0) {
+    } else if (item.openAccess === 0 && item.openAccessCode === 0) {
       openAccessText = $localize`:@@no:Ei`;
     } else {
       openAccessText = $localize`:@@noInfo:Ei tietoa`;
     }
 
+    //Abstract
+    let abstract = item.abstract || '';
+
+    //DOI logo
+    let show_logo: boolean =
+      item.openAccess === 1 ||
+      item.openAccessCode === 1 ||
+      item.openAccessCode === 2 ||
+      item.selfArchivedCode === 1;
+    //For Open Access box
+    let publisherOpenAccessText = '';
+    if (item.openAccessCode === 1 || item.publisherOpenAccessCode === 1) {
+      publisherOpenAccessText = $localize`:@@OaFullyOpen:Kokonaan avoin julkaisukanava`;
+    } else if (
+      item.openAccessCode === 2 ||
+      item.publisherOpenAccessCode === 2
+    ) {
+      publisherOpenAccessText = $localize`:@@OaPartiallyOpen:Osittain avoin julkaisukanava`;
+    } else {
+      publisherOpenAccessText = $localize`:@@OaDelayed:Viivästetysti avoin julkaisukanava`;
+    }
+
+    let licenseText = this.lang.testLang(
+      'licenseName',
+      item?.license?.slice()?.shift()
+    );
+    let archiveCodeVersionText = '';
+
+    let publicationStatusText = '';
+    if (
+      Number(item.publicationStatusCode) === 1 ||
+      Number(item.publicationStatusCode) === 2 ||
+      Number(item.publicationStatusCode) === 9
+    ) {
+      publicationStatusText = $localize`:@@yes:Kyllä`;
+    } else {
+      publicationStatusText = $localize`:@@no:Ei`;
+    }
+
+    let archiveCodeLincenseText = '';
+    let apcFee = '';
+    let publicationType = item.publicationTypeCode?.split('')[0];
+    let embargoDate = '';
+    let archiveEbargoDate = '';
+
+    if (['A', 'B'].includes(publicationType) && item.apcFeeEur) {
+      item.apcFeeEur > 6000 ||
+      item.openAccessCode === 0 ||
+      item.openAccess === 0 ||
+      (item.openAccess === 1 && item.publisherOpenAccessCode === 0)
+        ? ''
+        : (apcFee = item.apcFeeEur);
+    } else if (['C'].includes(publicationType) && item.apcFeeEur) {
+      item.apcFeeEur > 25000 ||
+      item.openAccessCode === 0 ||
+      item.openAccess === 0 ||
+      (item.openAccess === 1 && item.publisherOpenAccessCode === 0)
+        ? ''
+        : (apcFee = item.apcFeeEur);
+    }
+
+    let apcPaymentYear = '';
+    apcFee !== '' ? apcPaymentYear === item.apcPaymentYear : '';
+
     if (item.selfArchivedData) {
       item.selfArchivedAddress =
         item.selfArchivedData[0]?.selfArchived[0]?.selfArchivedAddress;
       // Check for empty addresses
-      item.selfArchivedData[0].selfArchived = item.selfArchivedData[0].selfArchived.filter(
-        (x) => x.selfArchivedAddress.trim().length > 0
-      );
+      item.selfArchivedData[0].selfArchived =
+        item.selfArchivedData[0].selfArchived.filter(
+          (x) => x.selfArchivedAddress.trim().length > 0
+        );
       // Filter empty items
       item.selfArchivedData = item.selfArchivedData.filter(
         (x) => x.selfArchived.length
       );
+
+      archiveCodeLincenseText =
+        item.selfArchivedData[0]?.selfArchived[0]?.selfArchivedLicenseNameFi;
+
+      if (
+        item.selfArchivedData[0]?.selfArchived[0]?.selfArchivedVersionCode === 1
+      ) {
+        archiveCodeVersionText = $localize`:@@publisherVersion:Kustantajan versio`;
+      } else if (
+        item.selfArchivedData[0]?.selfArchived[0]?.selfArchivedVersionCode == 0
+      ) {
+        archiveCodeVersionText = $localize`:@@finalDraft:Viimeinen käsikirjoitusversio`;
+      }
+
+      if (item.selfArchivedData[0]?.selfArchived[0]?.selfArchivedEmbargoDate) {
+        embargoDate =
+          item.selfArchivedData[0]?.selfArchived[0]?.selfArchivedEmbargoDate?.trim();
+        if (embargoDate) {
+          let date = embargoDate.split('-');
+          archiveEbargoDate = date[0] + '.' + date[1] + '.' + date[2];
+        }
+      }
     }
 
     // Prioritize publication channel
@@ -174,6 +304,12 @@ export class PublicationAdapter implements Adapter<Publication> {
       ? item.peerReviewed[0]['name' + this.capitalizedLocale + 'PeerReviewed']
       : undefined;
 
+    let doiHandle = '';
+    if (item.doiHandle) {
+      let doi_arr = item.doiHandle.split('/');
+      doiHandle = doi_arr.slice(-2).join('/');
+    }
+
     return new Publication(
       item.publicationId,
       item.publicationName,
@@ -202,11 +338,23 @@ export class PublicationAdapter implements Adapter<Publication> {
       item.jufoCode,
       item.jufoClassCode,
       item.doi,
-      item.doiHandle,
+      doiHandle,
       item.selfArchivedAddress,
       item.keywords,
+      archiveCodeText,
+      publisherOpenAccessText,
+      licenseText,
+      archiveCodeVersionText,
+      archiveCodeLincenseText,
+      archiveEbargoDate,
+      publicationStatusText,
+      apcFee,
+      apcPaymentYear,
       openAccess, // defined above
+      show_logo,
+      abstract,
       openAccessText,
+      articleTypeText,
       item.internationalCollaboration,
       item.publicationCountryCode,
       item.publicationLanguageCode,
