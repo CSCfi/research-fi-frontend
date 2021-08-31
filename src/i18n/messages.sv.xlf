@@ -2266,6 +2266,10 @@
         <source>Ei tietoa</source>
         <target state="translated">Ingen information</target>
       </trans-unit>
+      <trans-unit id="informationMissing">
+        <source>Tieto puuttuu</source>
+        <target state="translated">Informationen saknas</target>
+      </trans-unit>
       <trans-unit id="nonOpen">
         <source>Ei avoin</source>
         <target state="translated">Inte öppen</target>

@@ -2273,6 +2273,10 @@
         <source>Ei tietoa</source>
         <target>No information</target>
       </trans-unit>
+      <trans-unit id="informationMissing">
+        <source>Tieto puuttuu</source>
+        <target>Missing information</target>
+      </trans-unit>
       <trans-unit id="nonOpen">
         <source>Ei avoin</source>
         <target>Non open</target>
