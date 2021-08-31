@@ -74,6 +74,7 @@ export class OrganizationAdapter implements Adapter<Organization> {
       : '';
 
     const visualIframeUrl = 'https://app.powerbi.com/view?r=eyJrIjoiMTM1NGI1ZjgtZWZjMy00ZTcxLWEwZTctY2E5YzVjMmVkNTc2IiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9';
+
     return new Organization(
       item.organizationId,
       this.lang.testLang('name', item).trim(),

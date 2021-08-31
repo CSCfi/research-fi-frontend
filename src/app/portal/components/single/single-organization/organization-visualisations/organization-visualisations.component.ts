@@ -22,7 +22,6 @@ export class OrganizationVisualisationsComponent implements OnInit {
   contentSub: Subscription;
 
   colWidth = 0;
-  colHeight = 0;
 
   constructor(private cdr: ChangeDetectorRef) {}
 
@@ -31,8 +30,11 @@ export class OrganizationVisualisationsComponent implements OnInit {
   ngAfterViewInit() {
     // Sometimes content can't be rendered fast enough so we use changes subsciption as fallback
     if (this.content && this.content.first) {
-      this.colWidth = this.content.first.nativeElement.offsetWidth - 15;
-      this.cdr.detectChanges();
+      // Timeout because this component is within an ngIf in its parent. Otherwise content width is 0.
+      setTimeout(() => {
+        this.colWidth = this.content.first.nativeElement.offsetWidth - 15;
+        this.cdr.detectChanges();
+      }, 1);
     } else {
       // It takes some time to load data so we need to subscribe to content ref changes to get first width
       this.contentSub = this.content.changes.subscribe((item) => {

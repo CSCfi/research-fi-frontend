@@ -56,7 +56,7 @@
 
         <!-- Tabs -->
         <mat-tab-group dynamicHeight>
-          <mat-tab label="Tunnuslukuja">
+          <mat-tab label="Tunnuslukuja" *ngIf="item.visualIframeUrl">
             <app-organization-visualisations [item]="item"></app-organization-visualisations>
           </mat-tab>
           <mat-tab label="Lisätiedot">
