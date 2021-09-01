@@ -28,6 +28,8 @@ import {
 } from 'src/assets/static-data/meta-tags.json';
 import { SettingsService } from 'src/app/portal/services/settings.service';
 import { take } from 'rxjs/operators';
+import { ResizeService } from '@shared/services/resize.service';
+import { WINDOW } from '@shared/services/window.service';
 
 @Component({
   selector: 'app-single-organization',
@@ -104,6 +106,8 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   currentLocale: string;
   tabData: any;
   focusSub: Subscription;
+  resizeSub: Subscription;
+  mobile: boolean;
   showMoreNews = false;
 
   constructor(
@@ -113,9 +117,11 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     private searchService: SearchService,
     private titleService: Title,
     @Inject(LOCALE_ID) protected localeId: string,
+    @Inject(WINDOW) private window: Window,
     private tabChangeService: TabChangeService,
     public utilityService: UtilityService,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private resizeService: ResizeService
   ) {
     // Capitalize first letter of locale
     this.currentLocale =
@@ -132,6 +138,9 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
       this.getData(params.id);
       this.getNews();
     });
+    this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.mobile = dims.width < 992);
+    this.mobile = this.window.innerWidth < 992;
+
     this.singleId = this.route.snapshot.params.id;
     this.singleService.updateId(this.singleId);
     this.pageNumber = this.searchService.pageNumber || 1;
@@ -155,6 +164,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.idSub?.unsubscribe();
     this.focusSub?.unsubscribe();
+    this.resizeSub?.unsubscribe();
     this.settingsService.related = false;
   }
 
