@@ -137,6 +137,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
       this.searchService.searchTerm = params.id;
       this.getData(params.id);
       this.getNews();
+      this.searchService.searchTerm = ''; // Empty search term so breadcrumb link is correct
     });
     this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.mobile = dims.width < 992);
     this.mobile = this.window.innerWidth < 992;
@@ -171,7 +172,6 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   getData(id: string) {
     this.singleService.getSingleOrganization(id).subscribe((responseData) => {
       this.responseData = responseData;
-      console.log(this.responseData.organizations[0]);
       if (this.responseData.organizations[0]) {
         switch (this.localeId) {
           case 'fi': {
