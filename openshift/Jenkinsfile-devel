@@ -36,8 +36,21 @@ pipeline {
               buildConfig.startBuild().logs("-f")
             }
           }
-        }
-      }
-    }
+        } // script
+      } // steps
+    } // stage
+
+    // Push image to Artifactory
+    stage('tag') {
+      steps {
+        script {
+          openshift.withCluster() {
+            openshift.withProject() {
+              openshift.tag("researchfi-frontend-devel:latest", "researchfi-frontend-docker-dev.artifactory.ci.csc.fi/angular:latest")
+            }
+          }
+        } // script
+      } // steps
+    } // stage
   }
 }
