@@ -210,7 +210,7 @@ export class PublicationAdapter implements Adapter<Publication> {
     }
 
     let apcPaymentYear = '';
-    apcFee !== '' ? apcPaymentYear === item.apcPaymentYear : '';
+    apcFee !== '' ? apcPaymentYear = item.apcPaymentYear : '';
 
     if (item.selfArchivedData) {
       item.selfArchivedAddress =
