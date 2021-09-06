@@ -455,8 +455,12 @@ export class PublicationFilterService {
     let openAccessCodes = [];
     const result = [];
 
-    if (publisherComposite && publisherComposite.length > 0) {
-      publisherComposite.forEach((val) => {
+    const publisherCompositeFiltered = publisherComposite.filter(x => !x.key.selfArchived);
+    console.log(publisherComposite)
+    console.log(publisherCompositeFiltered)
+
+    if (publisherCompositeFiltered && publisherCompositeFiltered.length > 0) {
+      publisherCompositeFiltered.forEach((val) => {
         val.stringKey = '' + val.key.openAccess + val.key.publisherOpenAccess;
         switch (val.stringKey) {
           case '11': {

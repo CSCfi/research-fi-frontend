@@ -637,6 +637,7 @@ export class FilterService {
         res.push({
           bool: {
             must: [
+              { term: { selfArchivedCode: 0 } },
               { term: { openAccess: 0 } },
               { term: { publisherOpenAccessCode: val } },
             ],
