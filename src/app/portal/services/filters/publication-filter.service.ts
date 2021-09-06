@@ -455,6 +455,17 @@ export class PublicationFilterService {
     let openAccessCodes = [];
     const result = [];
 
+    // Filter also based on selfArchived === 0 for non open
+    publisherComposite.filter(x => x.key.selfArchived === 0 && 
+                              x.key.openAccess === 0 && 
+                              x.key.publisherOpenAccess !== 3)
+                      .forEach(x => {
+                        openAccessCodes.push({
+                          key: 'nonOpenAccess',
+                          doc_count: x.doc_count,
+                        });
+                      });
+
     if (publisherComposite && publisherComposite.length > 0) {
       publisherComposite.forEach((val) => {
         val.stringKey = '' + val.key.openAccess + val.key.publisherOpenAccess;
@@ -481,13 +492,14 @@ export class PublicationFilterService {
             });
             break;
           }
+          // Separate implementation above for non open, add with 0 doc count so no doubles
           case '00':
           case '01':
           case '02':
           case '09': {
             openAccessCodes.push({
               key: 'nonOpenAccess',
-              doc_count: val.doc_count,
+              doc_count: 0,
             });
             break;
           }
