@@ -1546,6 +1546,7 @@ export class AggregationService {
             },
             orgName: {
               terms: {
+                size: 25,
                 field: 'organizationNameFi.keyword',
               },
               aggs: {
