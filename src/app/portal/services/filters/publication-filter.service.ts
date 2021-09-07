@@ -504,10 +504,13 @@ export class PublicationFilterService {
             break;
           }
           default: {
-            openAccessCodes.push({
-              key: 'noOpenAccessData',
-              doc_count: val.doc_count,
-            });
+            // Self archived is not unknown
+            if (!val.key.selfArchived) {
+              openAccessCodes.push({
+                key: 'noOpenAccessData',
+                doc_count: val.doc_count,
+              });
+            }
             break;
           }
         }
