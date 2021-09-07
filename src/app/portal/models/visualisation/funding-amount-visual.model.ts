@@ -232,12 +232,14 @@ export class FundingVisualAmountAdapter implements Adapter<FundingVisual> {
           comb2.forEach((b) => {
             b.data = [];
             b.categs.forEach((f) => {
+              if(f.key.includes("|topic")){
                 const v: any = {};
                 v.name =  eval(this.ids[field]);
                 v.id =  eval(this.ids[field]);
                 v.doc_count = this.getFundingSum(f, field, true);
                 v.parent = b.key;
                 b.data.push(v);
+              }
             });
             // Push data to correct array
             eval(`${field}.push(b)`);
