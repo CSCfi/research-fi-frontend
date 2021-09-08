@@ -81,7 +81,7 @@ List of tabs with result count for current search term.
 
 #### Filters
 
-Filters are rendered from aggregations that we query from Elastic Search.
+Filters are rendered from aggregations that we query from ElasticSearch.
 We query aggregations both with and without current search parameters. This is because we need all possible aggregation data in `active-filters` component.
 
 Tab-based filtering logic is handled in `portal/services/filters`, where filter data is mapped for both `active-filters` and `filters` components.
@@ -93,6 +93,15 @@ Active filters list is rendered by query parameters in url. We check filter key 
 #### Visualisations
 
 Search result visualisations are made with `D3` library.
+
+Visualisations consist of two main parts: first constructing the required aggregation queries to ElasticSearch and handling the response in a Model-Adapter pattern similarly to search results. Second, 
+constructing the actual visualisations from the data using the `D3` library.
+
+The queries consist mainly of stacked `terms` aggregations. For publications, there is a single aggregation for each category. For fundings, however two top-level aggregations are needed, since funding amount information
+exists in two different nested fields: `fundingGroupPerson` and `organizationConsortium`, these need to be handled separately. The structure of the queries can be found in `portal/services/static-data.service.ts`, while
+the construction of the queries is implemented in `portal/services/filters/filter.service.ts`.
+
+The construction of the visualisations is handled in components under `portal/components/visualisation`, one component for each type of visualisation.
 
 ### News
 
