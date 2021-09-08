@@ -2150,8 +2150,8 @@
         <note priority="1" from="description">Footer-header</note>
       </trans-unit>
       <trans-unit id="523f293e9145a7fa463284ffb6ca74f3de18e7c3" datatype="html">
-        <source>Opetus- ja kulttuuriministeriön logo, leijonavaakuna vihreällä pohjalla</source>
-        <target state="translated">Undervisnings- och kulturministeriets logotyp, lejonvapen på grön botten</target>
+        <source>Opetus- ja kulttuuriministeriön logo, leijonavaakuna</source>
+        <target state="translated">Undervisnings- och kulturministeriets logotyp, lejonvapen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">18</context>
@@ -2265,6 +2265,10 @@
       <trans-unit id="noInfo">
         <source>Ei tietoa</source>
         <target state="translated">Ingen information</target>
+      </trans-unit>
+      <trans-unit id="informationMissing">
+        <source>Tieto puuttuu</source>
+        <target state="translated">Informationen saknas</target>
       </trans-unit>
       <trans-unit id="nonOpen">
         <source>Ei avoin</source>

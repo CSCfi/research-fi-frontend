@@ -36,8 +36,8 @@ pipeline {
               buildConfig.startBuild().logs("-f")
             }
           }
-        }
-      }
-    }
+        } // script
+      } // steps
+    } // stage
   }
 }

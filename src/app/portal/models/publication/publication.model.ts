@@ -54,8 +54,7 @@ export class Publication {
     public publicationStatusText: string,
     public apcFee: string,
     public apcPaymentYear: string,
-    public openAccess: boolean, // openAccessCode + selfArchivedCode
-    public show_logo: boolean,
+    public openAccess: boolean,
     public abstract: string,
     public openAccessText: string,
     public articleTypeText: string,
@@ -142,47 +141,33 @@ export class PublicationAdapter implements Adapter<Publication> {
       }
     }
 
+    //Abstract
+    let abstract = item.abstract || '';
+
     const openAccess: boolean =
-      item.openAccessCode === 1 ||
-      item.openAccessCode === 2 ||
-      item.openAccess === 1;
+      item.openAccess === 1 || item.selfArchivedCode === 1;
+    // Open Access
     let openAccessText = '';
-    // Open Access can be added from multiple fields
-    if (item.openAccess === 1) {
+    if (openAccess) {
       openAccessText = $localize`:@@yes:Kyllä`;
-    } else if (item.openAccess === 0) {
-      openAccessText = $localize`:@@no:Ei`;
-    } else if (
-      item.openAccess === 0 &&
-      (item.openAccessCode === 1 || item.openAccessCode === 2)
-    ) {
-      openAccessText = $localize`:@@yes:Kyllä`;
-    } else if (item.openAccess === 0 && item.openAccessCode === 0) {
+    } else if (!item.openAccess) {
       openAccessText = $localize`:@@no:Ei`;
     } else {
       openAccessText = $localize`:@@noInfo:Ei tietoa`;
     }
 
-    //Abstract
-    let abstract = item.abstract || '';
-
-    //DOI logo
-    let show_logo: boolean =
-      item.openAccess === 1 ||
-      item.openAccessCode === 1 ||
-      item.openAccessCode === 2 ||
-      item.selfArchivedCode === 1;
     //For Open Access box
     let publisherOpenAccessText = '';
-    if (item.openAccessCode === 1 || item.publisherOpenAccessCode === 1) {
-      publisherOpenAccessText = $localize`:@@OaFullyOpen:Kokonaan avoin julkaisukanava`;
-    } else if (
-      item.openAccessCode === 2 ||
-      item.publisherOpenAccessCode === 2
-    ) {
-      publisherOpenAccessText = $localize`:@@OaPartiallyOpen:Osittain avoin julkaisukanava`;
-    } else {
-      publisherOpenAccessText = $localize`:@@OaDelayed:Viivästetysti avoin julkaisukanava`;
+    switch (item.publisherOpenAccessCode) {
+      case 1:
+        publisherOpenAccessText = $localize`:@@OaFullyOpen:Kokonaan avoin julkaisukanava`;
+        break;
+      case 2:
+        publisherOpenAccessText = $localize`:@@OaPartiallyOpen:Osittain avoin julkaisukanava`;
+        break;
+      case 3:
+        publisherOpenAccessText = $localize`:@@OaDelayed:Viivästetysti avoin julkaisukanava`;
+        break;
     }
 
     let licenseText = this.lang.testLang(
@@ -225,7 +210,7 @@ export class PublicationAdapter implements Adapter<Publication> {
     }
 
     let apcPaymentYear = '';
-    apcFee !== '' ? apcPaymentYear === item.apcPaymentYear : '';
+    apcFee !== '' ? apcPaymentYear = item.apcPaymentYear : '';
 
     if (item.selfArchivedData) {
       item.selfArchivedAddress =
@@ -351,7 +336,6 @@ export class PublicationAdapter implements Adapter<Publication> {
       apcFee,
       apcPaymentYear,
       openAccess, // defined above
-      show_logo,
       abstract,
       openAccessText,
       articleTypeText,

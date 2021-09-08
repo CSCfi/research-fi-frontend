@@ -623,6 +623,7 @@ export class AggregationService {
         };
         payLoad.aggs.oaPublisherComposite = {
           composite: {
+            size: 20,
             sources: [
               {
                 openAccess: {
@@ -635,6 +636,13 @@ export class AggregationService {
                 publisherOpenAccess: {
                   terms: {
                     field: 'publisherOpenAccessCode',
+                  },
+                },
+              },
+              {
+                selfArchived: {
+                  terms: {
+                    field: 'selfArchivedCode',
                   },
                 },
               },
@@ -1538,6 +1546,7 @@ export class AggregationService {
             },
             orgName: {
               terms: {
+                size: 25,
                 field: 'organizationNameFi.keyword',
               },
               aggs: {

@@ -57,6 +57,8 @@ export class BarComponent implements OnInit, OnChanges {
   categories = this.publication;
   categoryObject: VisualQuery;
 
+  missingInfoLabel = $localize`:@@informationMissing:Tieto puuttuu`
+
   constructor(
     private staticDataService: StaticDataService,
     @Inject(DOCUMENT) private document: Document,
@@ -202,6 +204,18 @@ export class BarComponent implements OnInit, OnChanges {
     // Keep track of all keys inserted so far
     const cumulativeKeys: {name: string, id?: string}[] = [];
 
+    // Trim data names, put empty at the end
+    sample.forEach(x => {
+      x.data.forEach(y => {
+        y.name = y.name?.trim();
+      })
+      const unknown = x.data.splice(x.data.findIndex(data => !data.name), 1).pop();
+      if (unknown) {
+        unknown.name = this.missingInfoLabel;
+        x.data.unshift(unknown);
+      }
+      
+    });
     // Insert bars
     for (let i = 0; i < sample.length; i++) {
       let sum = 0;
@@ -254,6 +268,12 @@ export class BarComponent implements OnInit, OnChanges {
 
     // Create array with each unique key once
     const uniqueKeys = this.utils.uniqueArray(cumulativeKeys, x => x.name).filter(x => x.name).sort((a, b) => +(a.name > b.name) - 0.5);
+
+    // Move missing info to the end if exists
+    const missingInfo = uniqueKeys.splice(uniqueKeys.findIndex(x => x.name === this.missingInfoLabel), 1).pop();
+    if (missingInfo) {
+      uniqueKeys.push({name: this.missingInfoLabel});
+    }
 
     // Init legend with correct height
     const legend = legendSvg

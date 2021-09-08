@@ -57,11 +57,12 @@ export class ActiveFiltersComponent
   translations = {
     noAccessInfo: $localize`:@@noInfo:Ei tietoa`,
     openAccess: $localize`:@@openAccessJournal:Open Access -lehti`,
-    nonOpen: $localize`:@@nonOpen:Ei avoin`,
+    nonOpenAccess: $localize`:@@nonOpen:Ei avoin`,
     noVal: $localize`:@@noRating:Ei arviota`,
     otherOpen: $localize`:@@otherOpenAccess:Muu avoin saatavuus`,
     noOpenAccessData: $localize`:@@noInfo:Ei tietoa`,
     selfArchived: $localize`:@@selfArchived:Rinnakkaistallennettu`,
+    delayedOpenAccess: $localize`:@@delayedOpenAccess:Viivästetty avoin saatavuus`,
     undefined: $localize`:@@notKnown:Ei tiedossa`,
     // Dataset access types
     open: $localize`:@@datasetAccessOpen:Avoin`,

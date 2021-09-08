@@ -69,7 +69,6 @@ export class SinglePublicationComponent
     {
       label: $localize`:@@abstract:Tiivistelmä`,
       field: 'abstract',
-      tooltip: $localize`:@@spAbstracTooltip:Tiivistelmä kertoo tiiviisti julkaisusta`,
     },
   ];
 

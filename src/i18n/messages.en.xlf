@@ -2155,9 +2155,9 @@
         </context-group>
         <note priority="1" from="description">Footer-header</note>
       </trans-unit>
-      <trans-unit id="523f293e9145a7fa463284ffb6ca74f3de18e7c3" datatype="html">
-        <source>Opetus- ja kulttuuriministeriön logo, leijonavaakuna vihreällä pohjalla</source>
-        <target>Ministry of Education and Culture logo, coat of arms - lion on a green fiel</target>
+      <trans-unit id="okmLogo" datatype="html">
+        <source>Opetus- ja kulttuuriministeriön logo</source>
+        <target>Ministry of Education and Culture logo, coat of arms - lion</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">18</context>
@@ -2272,6 +2272,10 @@
       <trans-unit id="noInfo">
         <source>Ei tietoa</source>
         <target>No information</target>
+      </trans-unit>
+      <trans-unit id="informationMissing">
+        <source>Tieto puuttuu</source>
+        <target>Missing information</target>
       </trans-unit>
       <trans-unit id="nonOpen">
         <source>Ei avoin</source>

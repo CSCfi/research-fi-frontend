@@ -637,6 +637,7 @@ export class FilterService {
         res.push({
           bool: {
             must: [
+              { term: { selfArchivedCode: 0 } },
               { term: { openAccess: 0 } },
               { term: { publisherOpenAccessCode: val } },
             ],
@@ -1018,6 +1019,10 @@ export class FilterService {
               field: s.sum,
             },
           };
+        } else if (s.reverseNested) {
+          q.aggs[s.name] = {
+            reverse_nested: {}
+          }
         } else {
           // Add terms object
           q.aggs[s.name] = {
