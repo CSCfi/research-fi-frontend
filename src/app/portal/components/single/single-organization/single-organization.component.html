@@ -9,27 +9,27 @@
 </aside>
 
 <div class="wrapper" *ngIf="responseData" id="main-content">
-<div class="row shared">
-  <p class="back col-12" style="padding-bottom: 0.25rem;">
-    <a
-      #backToResultsLink
-      routerLink="/results/{{ tab }}/{{ searchTerm }}"
-      [queryParams]="tabQueryParams"
-      >&lt;
-      <ng-container i18n="@@backToResults"
-        >Takaisin hakutuloksiin</ng-container
-      ></a
-    >
-  </p>
-</div>
+  <div class="row shared">
+    <p class="back col-12" style="padding-bottom: 0.25rem">
+      <a
+        #backToResultsLink
+        routerLink="/results/{{ tab }}/{{ searchTerm }}"
+        [queryParams]="tabQueryParams"
+        >&lt;
+        <ng-container i18n="@@backToResults"
+          >Takaisin hakutuloksiin</ng-container
+        ></a
+      >
+    </p>
+  </div>
   <!-- Breadcrumb -->
   <app-breadcrumb
-  [type]="'single'"
-  [responseData]="responseData"
-  [tab]="tab"
-  [tabName]="tabData.label"
-  [resultNameField]="'name'"
-  [queryParams]="tabQueryParams"
+    [type]="'single'"
+    [responseData]="responseData"
+    [tab]="tab"
+    [tabName]="tabData.label"
+    [resultNameField]="'name'"
+    [queryParams]="tabQueryParams"
   ></app-breadcrumb>
   <div class="row shared">
     <div
@@ -43,7 +43,8 @@
       <div *ngFor="let item of responseData.organizations">
         <div class="row d-flex justify-content-around">
           <div class="col p-0">
-            <h1 class="result-header">{{ item.name }}</h1>
+            <h1 class="result-header mb-3">{{ item.name }}</h1>
+            <p>{{ item.nameTranslations }}</p>
           </div>
           <div
             *ngIf="item.logo && item.logo !== null"
@@ -53,145 +54,27 @@
           </div>
         </div>
 
-        <div id="info" class="table">
-          <div class="row content" *ngFor="let row of infoFields">
-            <!-- Labels -->
-            <h2 class="col-12 col-sm-6 col-lg-3 th">
-              {{ row.label }}
-              <!-- Show year with staff count -->
-              <span *ngIf="row.field === 'staffCountAsFte'"
-                >({{ item.staffYear }})</span
-              >
-              <ng-container *ngIf="row.tooltip">
-                <ng-template #tooltipTemplate
-                  ><div [innerHtml]="row.tooltip"></div
-                ></ng-template>
-                <span
-                  [tooltip]="tooltipTemplate"
-                  tabindex="0"
-                  placement="top"
-                  #elem
-                >
-                  <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
-                </span>
-              </ng-container>
-            </h2>
-            <div class="col-12 col-sm-6 col-lg-9 td">
-              {{ item[row.field] }}<span *ngIf="row['fieldEn']">,</span>
-              {{ item[row['fieldEn']] }}
-            </div>
-          </div>
-          <div class="row content" *ngIf="studentCounts.length > 0">
-            <h2 class="col-12 col-sm-6 col-lg-3 th">
-              <ng-container i18n="@@thesisCount"
-                >Tutkintojen määrä</ng-container
-              >
-              ({{ item.thesisYear }})
-              <span
-                i18n-tooltip="@@vipunenSource"
-                tooltip="Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi"
-                tabindex="0"
-                placement="top"
-                #elem
-              >
-                <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
-              </span>
-            </h2>
-            <div
-              class="col-12 col-sm-6 col-lg-4 offset-0 offset-sm-6 offset-lg-0 first-no-offset-mobile td"
-              *ngFor="let row of studentCounts.slice(0, 2)"
-            >
-              <h3 class="th">{{ row.label }}</h3>
-              <p class="td">{{ item[row.field] }}</p>
-            </div>
-          </div>
-          <ng-container
-            *ngFor="let row of studentCounts.slice(2); let i = index"
-          >
-            <div *ngIf="i % 2 == 0"></div>
-            <div class="row content" *ngIf="i % 2 == 0">
-              <div
-                class="col-12 col-sm-6 col-lg-4 offset-0 offset-sm-6 offset-lg-3 td"
-              >
-                <h3 class="th">{{ row.label }}</h3>
-                <p class="td" *ngIf="item[row.field] !== 'below_5'">
-                  {{ item[row.field] }}
-                </p>
-                <p class="td" *ngIf="item[row.field] === 'below_5'">Alle 5</p>
-              </div>
-              <div
-                class="col-12 col-sm-6 col-lg-5 offset-0 offset-sm-6 offset-lg-0 td"
-                *ngIf="studentCounts.slice(2).length > i + 1"
-              >
-                <h3 class="th">{{ studentCounts.slice(2)[i + 1].label }}</h3>
-                <p
-                  class="td"
-                  *ngIf="
-                    item[studentCounts.slice(2)[i + 1].field] !== 'below_5'
-                  "
-                >
-                  {{ item[studentCounts.slice(2)[i + 1].field] }}
-                </p>
-                <p
-                  class="td"
-                  *ngIf="
-                    item[studentCounts.slice(2)[i + 1].field] === 'below_5'
-                  "
-                >
-                  Alle 5
-                </p>
-              </div>
-            </div>
-          </ng-container>
-          <!-- Sub units -->
-          <div class="row content" *ngFor="let row of subUnitFields">
-            <h2 class="col-12 col-sm-6 col-lg-3 th">
-              {{ row.label }} ({{ latestSubUnitYear }})
-              <ng-container *ngIf="row.tooltip">
-                <ng-template #tooltipTemplate
-                  ><div [innerHtml]="row.tooltip"></div
-                ></ng-template>
-                <span
-                  [tooltip]="tooltipTemplate"
-                  tabindex="0"
-                  placement="top"
-                  #elem
-                >
-                  <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
-                </span>
-              </ng-container>
-            </h2>
-            <div class="col-12 col-sm-6 col-lg-9 td">
-              <ul class="list-unstyled">
-                <li
-                  *ngFor="let subUnit of item.subUnits.slice(0, subUnitSlice)"
-                >
-                  {{ subUnit.subUnitName }}
-                </li>
-              </ul>
-              <a
-                href="javascript:void(0)"
-                class="read-more"
-                *ngIf="item.subUnits.length > subUnitSlice"
-                (click)="subUnitSlice = item.subUnits.length"
-                i18n="@@showMore"
-              >
-                Näytä enemmän
-              </a>
-              <a
-                href="javascript:void(0)"
-                class="read-more"
-                *ngIf="item.subUnits.length === subUnitSlice"
-                (click)="subUnitSlice = 10"
-                i18n="@@showLess"
-              >
-                Näytä vähemmän
-              </a>
-            </div>
-          </div>
-        </div>
+        <!-- Tabs -->
+        <mat-tab-group dynamicHeight>
+          <mat-tab label="Tunnuslukuja" *ngIf="item.visualIframeUrl && !mobile">
+            <app-organization-visualisations [item]="item"></app-organization-visualisations>
+          </mat-tab>
+          <mat-tab label="Lisätiedot">
+            <app-organization-information
+              [item]="item"
+              [sources]="sources"
+            ></app-organization-information>
+          </mat-tab>
+          <mat-tab label="Alayksiköt" *ngIf="item.subUnits?.length">
+            <app-organization-sub-units
+              [item]="item"
+            ></app-organization-sub-units>
+          </mat-tab>
+        </mat-tab-group>
       </div>
     </main>
+
+    <!-- Sidebar -->
     <div
       *ngFor="let item of responseData.organizations"
       class="col-12 col-md-4"
@@ -199,12 +82,41 @@
       <aside>
         <mat-card>
           <div class="inner">
-              <mat-card-title
-              ><h2 i18n="@@organizationHomepage">
-                Organisaation verkkosivu
-              </h2>
-              </mat-card-title>
-            <div class="row links" *ngIf="linkFields.length; else noHomePage">
+            <mat-card-title
+              ><h2 i18n="@@news" class="pb-3">Uutiset</h2>
+            </mat-card-title>
+
+            <app-news-card
+              *ngFor="let newsItem of news?.slice(0, showMoreNews ? 5 : 3)"
+              [item]="newsItem"
+              [sideNews]="true"
+            ></app-news-card>
+
+            <div class="text-center">
+              <a *ngIf="!showMoreNews" (click)="showMoreNews = true"
+                >Näytä lisää uutisia</a
+              >
+              <a *ngIf="showMoreNews" (click)="navigateToNews()"
+                >Näytä kaikki organisaation uutiset</a
+              >
+            </div>
+          </div>
+        </mat-card>
+      </aside>
+      <aside>
+        <mat-card>
+          <div class="inner">
+            <!-- Links -->
+            <h2 i18n="@@organizationHomepage" class="m-0">
+              Organisaation verkkosivu
+            </h2>
+            <div
+              class="row links mt-0"
+              *ngIf="
+                (linkFields | filterEmptyField: item).length;
+                else noHomePage
+              "
+            >
               <div *ngFor="let row of linkFields" class="info-link-wrapper">
                 <ng-container *ngIf="item[row.field]; else noHomePage">
                   <div class="col link">
@@ -219,6 +131,17 @@
                 </ng-container>
               </div>
             </div>
+
+            <!-- Contact -->
+            <div
+              class="d-block"
+              *ngFor="let row of contactFields | filterEmptyField: item"
+            >
+              <h2>{{ row.label }}</h2>
+              <p>{{ item[row.field] }}</p>
+            </div>
+
+            <!-- Extra view for FMI -->
             <ng-container *ngIf="item.id === '4940015'">
               <div class="row links">
                 <strong class="pb-2" i18n="@@readMore">Lisätietoa</strong>:
@@ -238,7 +161,8 @@
                     <a
                       href="https://julkaisut.fmi.fi/intl-peer-reviewed/"
                       target="_blank"
-                      ><ng-container i18n="@@publications">Julkaisut</ng-container
+                      ><ng-container i18n="@@publications"
+                        >Julkaisut</ng-container
                       ><fa-icon icon="external-link-alt"></fa-icon
                     ></a>
                   </div>
@@ -249,7 +173,7 @@
             <ng-template #noHomePage>
               <div class="no-links" i18n="@@noOrganizationLinks">
                 Organisaatioon ei ole tarjolla linkkejä tässä portaalissa
-              </div>  
+              </div>
             </ng-template>
           </div>
         </mat-card>
@@ -278,9 +202,9 @@
               [filter]="
                 item.sectorNameFi === 'Rahoittaja' ? 'funder' : 'organization'
               "
-             >
+            >
             </app-related-links>
-          </div>  
+          </div>
         </mat-card>
       </aside>
       <aside>
@@ -294,7 +218,7 @@
       <aside>
         <mat-card>
           <div class="inner">
-              <mat-card-title
+            <mat-card-title
               ><h2 i18n="@@orgInfoSource">
                 Organisaatiotiedon lähde
               </h2></mat-card-title
@@ -329,7 +253,7 @@
                 ></a>
               </li>
             </ul>
-          </div>   
+          </div>
         </mat-card>
       </aside>
     </div>
