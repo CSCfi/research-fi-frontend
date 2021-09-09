@@ -377,7 +377,7 @@ export class SinglePublicationComponent
 
   publicationStatus = [
     {
-      label: $localize`:@@okmDataCollection:Julkaisu kuuluu opetus- ja kuulttuuriministeriön tiedonkeruuseen`,
+      label: $localize`:@@okmDataCollection:Julkaisu kuuluu opetus- ja kulttuuriministeriön tiedonkeruuseen`,
       field: 'publicationStatusText',
       link: false,
       tooltip: $localize`:@@okmDataCollectionTooltip:OKM:n tiedonkeruuseen kuuluvat julkaisut ovat korkeakoulujen, tutkimuslaitosten ja yliopistosairaaloiden vuosittain opetus- ja kulttuuriministeriölle raportoimia julkaisuja, jotka täyttävät julkaisutiedonkeruun vaatimukset (www.tiedonkeruu.fi) ja jotka huomioidaan mm. korkeakoulujen rahoitusmallissa.`,
