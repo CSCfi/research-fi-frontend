@@ -221,9 +221,9 @@ export class BarComponent implements OnInit, OnChanges {
       x.data.forEach(y => {
         y.name = y.name?.trim();
       })
-      // See if there is an object without a name and replace it with missing info
+      // See if there is an object without a name and replace it with missing info. Years don't have names by design
       const unknownIndex = x.data.findIndex(data => !data.name);
-      if (unknownIndex > -1) {
+      if (unknownIndex > -1 && this.categoryObject.field !== 'year') {
         const unknown = x.data.splice(unknownIndex, 1).pop();
         unknown.name = this.missingInfoLabel;
         x.data.unshift(unknown);

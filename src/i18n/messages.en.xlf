@@ -1105,6 +1105,10 @@
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="asCountAmount">
+        <source>Myöntösumma</source>
+        <target>Amount granted</target>
+      </trans-unit>
       <trans-unit id="infraAcronym" datatype="html">
         <source>Lyhenne</source>
         <target>Abbreviation</target>
@@ -2156,7 +2160,7 @@
         <note priority="1" from="description">Footer-header</note>
       </trans-unit>
       <trans-unit id="okmLogo" datatype="html">
-        <source>Opetus- ja kulttuuriministeriön logo</source>
+        <source>Opetus- ja kulttuuriministeriön logo, leijonavaakuna</source>
         <target>Ministry of Education and Culture logo, coat of arms - lion</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
