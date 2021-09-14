@@ -264,6 +264,10 @@
           <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="fundingCallsIncluded" datatype="html">
+        <source>Mitä rahoitushakuja palvelu sisältää?</source>
+        <target>Vilka utlysningar innehåller tjänsten?</target>
+      </trans-unit>
       <trans-unit id="newsServiceIncludes" datatype="html">
         <source> uutisia palvelu sisältää?</source>
         <target> nyheter innehåller tjänsten?</target>
@@ -1098,6 +1102,10 @@
           <context context-type="sourcefile">app/portal/components/visualisation/visualisation.component.html</context>
           <context context-type="linenumber">10</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="asCountAmount">
+        <source>Myöntösumma</source>
+        <target>Beviljade finansiering</target>
       </trans-unit>
       <trans-unit id="infraAcronym" datatype="html">
         <source>Lyhenne</source>
@@ -2149,7 +2157,7 @@
         </context-group>
         <note priority="1" from="description">Footer-header</note>
       </trans-unit>
-      <trans-unit id="523f293e9145a7fa463284ffb6ca74f3de18e7c3" datatype="html">
+      <trans-unit id="okmLogo" datatype="html">
         <source>Opetus- ja kulttuuriministeriön logo, leijonavaakuna</source>
         <target state="translated">Undervisnings- och kulturministeriets logotyp, lejonvapen</target>
         <context-group purpose="location">
