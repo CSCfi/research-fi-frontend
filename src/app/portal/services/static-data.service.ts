@@ -95,7 +95,7 @@ export class StaticDataService {
       id: 3,
       label: $localize`:@@dataArticle:Data-artikkeli`,
     },
-  ]
+  ];
 
   // Filters, Publication class
   publicationClass = [
@@ -1583,7 +1583,7 @@ export class StaticDataService {
           },
           {
             name: 'reverse',
-            reverseNested: true
+            reverseNested: true,
           },
           {
             name: 'orgNested',
@@ -1627,7 +1627,7 @@ export class StaticDataService {
           },
           {
             name: 'reverse',
-            reverseNested: true
+            reverseNested: true,
           },
           {
             name: 'orgNested',
@@ -1688,7 +1688,7 @@ export class StaticDataService {
           },
           {
             name: 'reverse',
-            reverseNested: true
+            reverseNested: true,
           },
           {
             name: 'orgNested',
@@ -1735,7 +1735,7 @@ export class StaticDataService {
           },
           {
             name: 'reverse',
-            reverseNested: true
+            reverseNested: true,
           },
           {
             name: 'orgNested',
