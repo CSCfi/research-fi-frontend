@@ -264,6 +264,10 @@
           <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="fundingCallsIncluded" datatype="html">
+        <source>Mitä rahoitushakuja palvelu sisältää?</source>
+        <target>Vilka utlysningar innehåller tjänsten?</target>
+      </trans-unit>
       <trans-unit id="newsServiceIncludes" datatype="html">
         <source> uutisia palvelu sisältää?</source>
         <target> nyheter innehåller tjänsten?</target>
