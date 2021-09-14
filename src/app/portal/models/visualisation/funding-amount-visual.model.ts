@@ -32,7 +32,7 @@ export class FundingVisualAmountAdapter implements Adapter<FundingVisual> {
     organization: 'f.key',
     identifiedTopic: 'f.id',
     // Locale, english, finnish, key
-    typeOfFunding: 'f.key',
+    typeOfFunding: 'f.id',
     fieldOfScience: 'f.id',
   };
 

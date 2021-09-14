@@ -148,7 +148,7 @@ export class BarComponent implements OnInit, OnChanges {
     legendSvg.selectAll('*').remove();
     
     // If there is no data, display info text
-    const hasData = sample.map(x => x.data.length).reduce((a, b) => a + b) > 0;
+    const hasData = sample.map(x => x.data.length).reduce((a, b) => a + b, 0) > 0;
     if (!hasData) {
       // Ignore legend width for showing text
       this.svg.attr('width', this.width)
