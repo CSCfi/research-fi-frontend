@@ -13,6 +13,7 @@ import {
   ViewEncapsulation,
   ViewChild,
   ElementRef,
+  PLATFORM_ID,
 } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { AppConfigService } from '../../shared/services/app-config-service.service';
@@ -24,6 +25,10 @@ import {
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ReviewComponent } from '../review/review.component';
+import { AppSettingsService } from '@shared/services/app-settings.service';
+
+import { isPlatformBrowser } from '@angular/common';
+import { WINDOW } from '@shared/services/window.service';
 
 @Component({
   selector: 'app-footer',
@@ -37,24 +42,38 @@ export class FooterComponent implements OnInit {
   faFacebook = faFacebook;
   faLinkedin = faLinkedin;
   okmUrl: string;
+  locale: string;
 
   faTimes = faTimes;
   showReviewButton: boolean;
   reviewDialogRef: MatDialogRef<ReviewComponent>;
+
+  myDataBeta: boolean;
+
   @ViewChild('contact') contact: ElementRef;
 
   constructor(
     private appConfigService: AppConfigService,
     @Inject(LOCALE_ID) protected localeId: string,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private appSettingsService: AppSettingsService,
+    @Inject(PLATFORM_ID) private platformId: object,
+    @Inject(WINDOW) private window: Window
   ) {
     this.buildInfo = this.appConfigService.buildInfo;
     this.showReviewButton = true;
+    this.locale = this.localeId;
   }
 
   ngOnInit() {
     this.translateContent();
     this.obfuscate();
+
+    // Get current app settings
+
+    this.appSettingsService.appSettings.subscribe((res) => {
+      if (res.appName === 'myData') this.myDataBeta = true;
+    });
   }
 
   translateContent() {
@@ -80,11 +99,17 @@ export class FooterComponent implements OnInit {
   }
 
   toggleReview() {
-    this.reviewDialogRef = this.dialog.open(ReviewComponent, {
-      maxWidth: '800px',
-      minWidth: '320px',
-      // minHeight: '60vh'
-    });
+    if (isPlatformBrowser(this.platformId)) {
+      if (this.appSettingsService.currentAppSettings['appName'] === 'portal') {
+        this.reviewDialogRef = this.dialog.open(ReviewComponent, {
+          maxWidth: '800px',
+          minWidth: '320px',
+          // minHeight: '60vh'
+        });
+      } else {
+        this.window.open('https://link.webropolsurveys.com/S/CB5001526A6C174A');
+      }
+    }
   }
 
   // Email obfuscator

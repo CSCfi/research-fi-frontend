@@ -5,19 +5,25 @@
 
 <mat-dialog-content>
   <div class="row d-flex justify-content-between dialog-header">
-    <div class="col">
-      <h2 class="modal-title pull-left col h5 mt-n1">
-        {{ editorData.data.label }}
-      </h2>
+    <div class="col-8 col-sm">
+      <div class="row">
+        <h2 class="col-12 col-sm pl-0 modal-title h5">
+          {{ editorData.data.label }}
+        </h2>
+
+        <div class="col-12 col-sm-auto pl-0 pt-3 pt-sm-0 align-self-center">
+          <mat-checkbox
+            [checked]="allSelected"
+            (change)="toggleAll($event)"
+            [indeterminate]="checkSomeSelected()"
+            >Valitse kaikki</mat-checkbox
+          >
+        </div>
+      </div>
     </div>
-    <div class="col-auto">
-      <mat-checkbox [checked]="allSelected" (change)="toggleAll()"
-        >Valitse kaikki</mat-checkbox
-      >
-    </div>
-    <div class="col-auto">
+
+    <div class="col-auto mt-1 mt-sm-0 align-self-sm-center">
       <app-close-button
-        class="pull-right pr-3"
         (click)="close()"
         (keydown.enter)="close()"
         autofocus
@@ -27,39 +33,30 @@
   </div>
 
   <div class="row d-flex justify-content-center">
-    <div class="col">
-      <div class="row">
-        <div class="col px-0">
-          <app-profile-panel
-            [dataSources]="editorData.dataSources"
-            [primarySource]="primarySource"
-            [data]="editorData.data"
-            (onGroupToggle)="toggleGroup($event)"
-            (onRadioItemToggle)="toggleRadio($event)"
-            (onSingleItemToggle)="toggleSingle($event)"
-            (onPrimaryValueChange)="togglePrimaryValue($event)"
-          ></app-profile-panel>
-        </div>
-      </div>
-
-      <div class="row pt-3 pb-3">
-        <div class="col px-0">
-          <div class="row d-flex justify-content-end">
-            <div class="col-auto pr-0">
-              <app-secondary-button
-                (click)="close()"
-                content="Peruuta"
-              ></app-secondary-button>
-            </div>
-            <div class="col-auto">
-              <app-primary-action-button
-                (click)="saveChanges()"
-                content="Tallenna"
-              ></app-primary-action-button>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="col px-0 px-lg-3">
+      <app-profile-panel
+        [dataSources]="editorData.dataSources"
+        [primarySource]="primarySource"
+        [data]="editorData.data"
+        [originalData]="originalEditorData"
+        (onRadioItemToggle)="toggleRadio($event)"
+        (onSingleItemToggle)="toggleSingle($event)"
+      ></app-profile-panel>
     </div>
   </div>
 </mat-dialog-content>
+
+<mat-dialog-actions>
+  <div class="col-auto">
+    <app-secondary-button
+      (click)="close()"
+      content="Peruuta"
+    ></app-secondary-button>
+  </div>
+  <div class="col-auto">
+    <app-primary-action-button
+      (click)="saveChanges()"
+      content="Tallenna"
+    ></app-primary-action-button>
+  </div>
+</mat-dialog-actions>

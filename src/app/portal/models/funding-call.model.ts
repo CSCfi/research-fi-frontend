@@ -5,7 +5,8 @@
 // # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // # :license: MIT
 
-import { Inject, Injectable, LOCALE_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Inject, Injectable, LOCALE_ID, PLATFORM_ID } from '@angular/core';
 import { Adapter } from './adapter.model';
 import { LanguageCheck } from './utils';
 
@@ -33,34 +34,52 @@ export class FundingCall {
 export class FundingCallAdapter implements Adapter<FundingCall> {
   constructor(
     private lang: LanguageCheck,
-    @Inject(LOCALE_ID) protected localeId: string
+    @Inject(LOCALE_ID) protected localeId: string,
+    @Inject(PLATFORM_ID) private platformId: object
   ) {}
   adapt(item: any): FundingCall {
-
     const description = this.lang.testLang('description', item);
+    let descriptionParsed = '';
+
     // Description without HTML
-    let doc = new DOMParser().parseFromString(description ,'text/html');
-    const descriptionParsed = doc.body.textContent || '';
+    if (isPlatformBrowser(this.platformId)) {
+      let doc = new DOMParser().parseFromString(description, 'text/html');
+      descriptionParsed = doc.body.textContent || '';
+    }
 
-
-    const foundation: any = {}
+    const foundation: any = {};
     const f = item.foundation.pop();
     foundation.name = this.lang.testLang('name', f);
     foundation.orgId = f?.organization_id?.trim();
     foundation.url = f?.url?.trim();
 
     const categories = [];
-    item.categories.forEach(c => categories.push({id: c.codeValue, name: this.lang.testLang('name', c)}));
+    item.categories.forEach((c) =>
+      categories.push({ id: c.codeValue, name: this.lang.testLang('name', c) })
+    );
 
     const openDate = new Date(item.callProgrammeOpenDate);
     const dueDate = new Date(item.callProgrammeDueDate);
 
-    function pad(n) {return n < 10 ? '0'+n : n};
+    function pad(n) {
+      return n < 10 ? '0' + n : n;
+    }
 
-    const openDateString = pad(openDate.getDate()) + '.' + pad(openDate.getMonth() + 1) + '.' + openDate.getFullYear();
-    const dueDateString = pad(dueDate.getDate()) + '.' + pad(dueDate.getMonth() + 1) + '.' + dueDate.getFullYear();
+    const openDateString =
+      pad(openDate.getDate()) +
+      '.' +
+      pad(openDate.getMonth() + 1) +
+      '.' +
+      openDate.getFullYear();
+    const dueDateString =
+      pad(dueDate.getDate()) +
+      '.' +
+      pad(dueDate.getMonth() + 1) +
+      '.' +
+      dueDate.getFullYear();
 
-    const daysLeft = (dueDate.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24);
+    const daysLeft =
+      (dueDate.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24);
 
     return new FundingCall(
       item.id,

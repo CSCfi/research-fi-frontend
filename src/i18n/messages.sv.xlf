@@ -264,6 +264,10 @@
           <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="fundingCallsIncluded" datatype="html">
+        <source>Mitä rahoitushakuja palvelu sisältää?</source>
+        <target>Vilka utlysningar innehåller tjänsten?</target>
+      </trans-unit>
       <trans-unit id="newsServiceIncludes" datatype="html">
         <source> uutisia palvelu sisältää?</source>
         <target> nyheter innehåller tjänsten?</target>
@@ -935,6 +939,14 @@
         <source>% hankkeiden määrästä</source>
         <target>Procent av antalet projekter</target>
       </trans-unit>
+      <trans-unit id="asBarChart">
+        <source>Pylväskuvaaja</source>
+        <target>Stapeldiagram</target>
+      </trans-unit>
+      <trans-unit id="asPieChart">
+        <source>Piiraskuvaaja</source>
+        <target>Tårtdiagram</target>
+      </trans-unit>
       <trans-unit id="asAmount">
         <source>Myöntösummana (eur)</source>
         <target>Beviljat belopp (EUR)</target>
@@ -1090,6 +1102,10 @@
           <context context-type="sourcefile">app/portal/components/visualisation/visualisation.component.html</context>
           <context context-type="linenumber">10</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="asCountAmount">
+        <source>Myöntösumma</source>
+        <target>Beviljade finansiering</target>
       </trans-unit>
       <trans-unit id="infraAcronym" datatype="html">
         <source>Lyhenne</source>
@@ -2141,9 +2157,9 @@
         </context-group>
         <note priority="1" from="description">Footer-header</note>
       </trans-unit>
-      <trans-unit id="523f293e9145a7fa463284ffb6ca74f3de18e7c3" datatype="html">
-        <source>Opetus- ja kulttuuriministeriön logo, leijonavaakuna vihreällä pohjalla</source>
-        <target state="translated">Undervisnings- och kulturministeriets logotyp, lejonvapen på grön botten</target>
+      <trans-unit id="okmLogo" datatype="html">
+        <source>Opetus- ja kulttuuriministeriön logo, leijonavaakuna</source>
+        <target state="translated">Undervisnings- och kulturministeriets logotyp, lejonvapen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">18</context>
@@ -2257,6 +2273,10 @@
       <trans-unit id="noInfo">
         <source>Ei tietoa</source>
         <target state="translated">Ingen information</target>
+      </trans-unit>
+      <trans-unit id="informationMissing">
+        <source>Tieto puuttuu</source>
+        <target state="translated">Informationen saknas</target>
       </trans-unit>
       <trans-unit id="nonOpen">
         <source>Ei avoin</source>
@@ -2495,6 +2515,42 @@
         <source>Emojulkaisun tyyppi</source>
         <target>Moderpublikationens typ</target>
       </trans-unit>
+      <trans-unit id="articleType">
+        <source>Artikkelin tyyppi</source>
+        <target>Artikelstyp</target>
+      </trans-unit>
+      <trans-unit id="otherArticle">
+        <source>Muu artikkeli</source>
+        <target>Annan artikel</target>
+      </trans-unit>
+      <trans-unit id="originalArticle">
+        <source>Alkuperäisartikkeli</source>
+        <target>En originalartikel</target>
+      </trans-unit>
+      <trans-unit id="dataArticle">
+        <source>Data-artikkeli</source>
+        <target>En dataartikel</target>
+      </trans-unit>
+      <trans-unit id="reviewArticle">
+        <source>Katsausartikkeli</source>
+        <target>En översiktsartikel</target>
+      </trans-unit>
+      <trans-unit id="otherArticleTooltip">
+        <source>sisältää muihin luokkiin kuulumattomat artikkelit.</source>
+        <target>innehåller artiklar som inte hör till någon annan kategori.</target>
+      </trans-unit>
+      <trans-unit id="dataArticleTooltip">
+        <source>sisältää ns. data journals -julkaisuissa ilmestyneet, tutkimusaineistoja kuvailevat artikkelit.</source>
+        <target>omfattar artiklar som publicerats i så kallade data journals och som beskriver forskningsmaterial.</target>
+      </trans-unit>
+      <trans-unit id="reviewArticleTooltip">
+        <source>perustuu aikaisempiin samasta aihepiiristä tehtyihin julkaisuihin.</source>
+        <target>baserar sig på tidigare publikationer om samma ämnesområde.</target>
+      </trans-unit>
+      <trans-unit id="originalArticleTooltip">
+        <source>on pääosin aiemmin julkaisemattomasta materiaalista koostuva tieteellinen artikkeli.</source>
+        <target>är i huvudsak en vetenskaplig artikel som består av material som inte publicerats tidigare.</target>
+      </trans-unit>
       <trans-unit id="peerReviewedFilter">
         <source>Vertaisarvioitu</source>
         <target>Kollegialt utvärderad</target>
@@ -2508,88 +2564,96 @@
         <target>Artikel</target>
       </trans-unit>
       <trans-unit id="articleTooltipContent">
-        <source>sisältää alkuperäis- ja katsausartikkelit, kirjan tai lehden johdannot ja esipuheet, lyhyet tutkimusselostukset, pääkirjoitukset, keskustelupuheenvuorot ja kommentit.</source>
-        <target>omfattar original- och översiktsartiklar, inledningar och förord till en bok eller tidning, korta forskningsrapporter, ledare, debattinlägg och kommentarer.</target>
+        <source>Sisältää alkuperäis- ja katsausartikkelit, kirjan tai lehden johdannot ja esipuheet, lyhyet tutkimusselostukset, pääkirjoitukset, keskustelupuheenvuorot ja kommentit.</source>
+        <target>Omfattar original- och översiktsartiklar, inledningar och förord till en bok eller tidning, korta forskningsrapporter, ledare, debattinlägg och kommentarer.</target>
       </trans-unit>
       <trans-unit id="monograph">
         <source>Erillisteos</source>
         <target>Separat utgivna verk</target>
       </trans-unit>
       <trans-unit id="monographTooltipContent">
-        <source>sisältää monografiat/kirjat, tutkimus- ja kehitystyöhön perustuva kehittämis- tai tutkimusraportti, selvitykset, ns. white paperit sekä working papers ja discussion papers -tyyppiset julkaisut.</source>
-        <target>omfattar monografier/böcker, utvecklings- eller forskningsrapporter som baserar sig på forsknings- och utvecklingsarbete, utredningar, publikationer av typen whitepapers, working papers och discussion papers.</target>
+        <source>Sisältää monografiat/kirjat, tutkimus- ja kehitystyöhön perustuva kehittämis- tai tutkimusraportti, selvitykset, ns. white paperit sekä working papers ja discussion papers -tyyppiset julkaisut.</source>
+        <target>Omfattar monografier/böcker, utvecklings- eller forskningsrapporter som baserar sig på forsknings- och utvecklingsarbete, utredningar, publikationer av typen whitepapers, working papers och discussion papers.</target>
       </trans-unit>
       <trans-unit id="editorial">
         <source>Toimitustyö</source>
         <target>Redaktionsarbete</target>
       </trans-unit>
       <trans-unit id="editorialTooltipContent">
-        <source>sisältää useista eri kirjoittajien artikkeleista koostuvan tieteellisen kirjan tai lehden erikoisnumeron toimitustyöt.</source>
-        <target>omfattar redigerat verk av vetenskapliga böcker eller specialnummer av tidningar som består av flera artiklar av olika författare.</target>
+        <source>Sisältää useista eri kirjoittajien artikkeleista koostuvan tieteellisen kirjan tai lehden erikoisnumeron toimitustyöt.</source>
+        <target>Omfattar redigerat verk av vetenskapliga böcker eller specialnummer av tidningar som består av flera artiklar av olika författare.</target>
       </trans-unit>
       <trans-unit id="abstract">
         <source>Abstrakti</source>
         <target>Abstrakt</target>
       </trans-unit>
       <trans-unit id="abstractTooltipContent">
-        <source>sisältää konferenssiesitelmien abstraktit sekä laajennetut abstraktit.</source>
-        <target>omfattar abstrakta till konferenspresentationer och utvidgade abstrakta.</target>
+        <source>Sisältää konferenssiesitelmien abstraktit sekä laajennetut abstraktit.</source>
+        <target>Omfattar abstrakta till konferenspresentationer och utvidgade abstrakta.</target>
       </trans-unit>
       <trans-unit id="poster">
         <source>Posteri</source>
         <target>Poster</target>
       </trans-unit>
       <trans-unit id="posterTooltipContent">
-        <source>sisältää konferenssiesitelmien posterit.</source>
-        <target>omfattar postrar om konferenspresentationer.</target>
+        <source>Sisältää konferenssiesitelmien posterit.</source>
+        <target>Omfattar postrar om konferenspresentationer.</target>
+      </trans-unit>
+      <trans-unit id="blog">
+        <source>Blogikirjoitus</source>
+        <target>Blogginlägg</target>
+      </trans-unit>
+      <trans-unit id="blogTooltipContent">
+        <source>Sisältää blogimuotoiset julkaisut, joiden julkaisemisesta on päättänyt riippumaton toimituskunta tai joiden julkaisualustalla on ISSN-tunnus</source>
+        <target>Onnehåller publikationer i bloggformat som har publicerats av en oberoende redaktion eller vars publikationsplattform har ett ISSN-nummer.</target>
       </trans-unit>
       <trans-unit id="journal">
         <source>Lehti</source>
         <target>Tidning</target>
       </trans-unit>
       <trans-unit id="journalTooltipContent">
-        <source>sisältää tieteelliset aikakauslehdet ja ammattilehdet.</source>
-        <target>omfattar vetenskapliga tidskrifter och facktidningar.</target>
+        <source>Sisältää tieteelliset aikakauslehdet ja ammattilehdet.</source>
+        <target>Omfattar vetenskapliga tidskrifter och facktidningar.</target>
       </trans-unit>
       <trans-unit id="researchBook">
         <source>Kokoomateos</source>
         <target>Samlingsverk</target>
       </trans-unit>
       <trans-unit id="researchBookTooltipContent">
-        <source>sisältää tieteelliset kokoomateokset, tieteelliset vuosikirjat ja vastaavat, ammatilliset käsi- tai opaskirjat, ammatilliset tietojärjestelmät tai kokoomateokset, oppikirja-aineistot sekä lyhyet ensyklopediatekstit.</source>
-        <target>omfattar vetenskapliga samlingsverk, vetenskapliga årsböcker och motsvarande, yrkesinriktade handböcker eller guider, yrkesinriktade informationssystem eller samlingsverk, läroboksmaterial och korta encyklopeditexter.</target>
+        <source>Sisältää tieteelliset kokoomateokset, tieteelliset vuosikirjat ja vastaavat, ammatilliset käsi- tai opaskirjat, ammatilliset tietojärjestelmät tai kokoomateokset, oppikirja-aineistot sekä lyhyet ensyklopediatekstit.</source>
+        <target>Omfattar vetenskapliga samlingsverk, vetenskapliga årsböcker och motsvarande, yrkesinriktade handböcker eller guider, yrkesinriktade informationssystem eller samlingsverk, läroboksmaterial och korta encyklopeditexter.</target>
       </trans-unit>
       <trans-unit id="conferencePlatform">
         <source>Konferenssialusta</source>
         <target>Konferensplattform</target>
       </trans-unit>
       <trans-unit id="conferencePlatformTooltipContent">
-        <source>sisältää konferenssin painetut tai julkisesti saatavilla olevat julkaisut, ns. proceedings-julkaisut.</source>
-        <target>omfattar tryckta eller offentligt tillgängliga publikationer, s.k. proceedings-publikationer för en konferens.</target>
+        <source>Sisältää konferenssin painetut tai julkisesti saatavilla olevat julkaisut, ns. proceedings-julkaisut.</source>
+        <target>Omfattar tryckta eller offentligt tillgängliga publikationer, s.k. proceedings-publikationer för en konferens.</target>
       </trans-unit>
       <trans-unit id="scientificPublication">
         <source>Tieteellinen julkaisu</source>
         <target>Vetenskaplig publikation</target>
       </trans-unit>
       <trans-unit id="scientificPublicationTooltipContent">
-        <source>julkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.</source>
-        <target>publikationer vars syfte är att främja vetenskap samt producera ny information.</target>
+        <source>Julkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.</source>
+        <target>Publikationer vars syfte är att främja vetenskap samt producera ny information.</target>
       </trans-unit>
       <trans-unit id="professionalPublication">
         <source>Ammatillinen julkaisu</source>
         <target>Yrkesinriktad publikation</target>
       </trans-unit>
       <trans-unit id="professionalPublicationTooltipContent">
-        <source>sjulkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.</source>
-        <target>publikationer som gör information som grundar sig på forsknings- och utvecklingsarbete tillgänglig för en yrkesgrupp.</target>
+        <source>Julkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.</source>
+        <target>Publikationer som gör information som grundar sig på forsknings- och utvecklingsarbete tillgänglig för en yrkesgrupp.</target>
       </trans-unit>
       <trans-unit id="popularPublication">
         <source>Yleistajuinen julkaisu</source>
         <target>Populärvetenskaplig publikation</target>
       </trans-unit>
       <trans-unit id="popularPublicationTooltipContent">
-        <source>julkaisut, jotka levittävät tutkimus- ja kehitystyöhön perustuvaa tietoa suurelle yleisölle ja joiden sisällön ymmärtäminen ei edellytä erityistä perehtyneisyyttä alaan.</source>
-        <target>publikationer som gör information som grundar sig på forsknings- och utvecklingsarbete tillgänglig för allmänheten och vars innehåll kan förstås utan särskild kännedom om branschen.</target>
+        <source>Julkaisut, jotka levittävät tutkimus- ja kehitystyöhön perustuvaa tietoa suurelle yleisölle ja joiden sisällön ymmärtäminen ei edellytä erityistä perehtyneisyyttä alaan.</source>
+        <target>Publikationer som gör information som grundar sig på forsknings- och utvecklingsarbete tillgänglig för allmänheten och vars innehåll kan förstås utan särskild kännedom om branschen.</target>
       </trans-unit>
       <trans-unit id="peerReviewedTooltip">
         <source>Tieteellisten julkaisujen vertaisarvioinnilla tarkoitetaan menettelyä, jossa tutkimustuloksia julkaiseva lehti, konferenssi tai kirjakustantaja pyytää tieteenalan asiantuntijoita suorittamaan ennakkoarvion julkaistavaksi tarjottujen käsikirjoitusten tieteellisestä julkaisukelpoisuudesta.</source>
@@ -2610,6 +2674,130 @@
       <trans-unit id="parentPublicationPublisher">
         <source>Emojulkaisun toimittajat</source>
         <target>Moderpublikationens redaktörer</target>
+      </trans-unit>
+      <trans-unit id="publisherOpenAccess">
+        <source>Avoin saatavuus kustantajan palvelussa</source>
+        <target>Öppen tillgänglighet i förläggarens tjänst</target>
+      </trans-unit>
+      <trans-unit id="embargoDate">
+        <source>Rinnakkaistallenteen julkaisuviiveen (embargo) päättymispäivä</source>
+        <target>Slutdatum för parallellagringens publiceringsfördröjning (embargo)</target>
+      </trans-unit>
+      <trans-unit id="apcFee">
+        <source>Avoimen saatavuuden kirjoittajamaksu €</source>
+        <target>Publiceringsavgift för öppen tillgång €</target>
+      </trans-unit>
+      <trans-unit id="apcPaymentYear">
+        <source>Avoimen saatavuuden kirjoittajamaksun vuosi</source>
+        <target>Betalningsår för den öppen tillgång publiceringsavgiften</target>
+      </trans-unit>
+      <trans-unit id="publicationChannelOa">
+        <source>Julkaisukanavan avoin saatavuus</source>
+        <target>Öppen tillgång till publikationskanalen</target>
+      </trans-unit>
+      <trans-unit id="publisherLicenseVersion">
+        <source>Kustantajan version lisenssi</source>
+        <target>Licens för förläggarens version</target>
+      </trans-unit>
+      <trans-unit id="archivedLicenseVersion">
+        <source>Rinnakkaistallenteen versio</source>
+        <target>Parallellagringens version</target>
+      </trans-unit>
+      <trans-unit id="archivedLicense">
+        <source>Rinnakkaistallenteen lisenssi</source>
+        <target>Parallellagringens licens</target>
+      </trans-unit>
+      <trans-unit id="selfArchived">
+        <source>Rinnakkaistallennettu</source>
+        <target>Parallellsparad</target>
+      </trans-unit>
+      <trans-unit id="publicationChannelType">
+        <source>Julkaisun julkaisukanavan avoimen saatavuuden tyyppi.</source>
+        <target>Typ av öppen tillgång till publikationens publikationskanal.</target>
+      </trans-unit>
+      <trans-unit id="OaFullyOpen">
+        <source>Kokonaan avoin julkaisukanava</source>
+        <target>Helt öppen publikationskanal</target>
+      </trans-unit>
+      <trans-unit id="OaFullyOpenTooltipContent">
+        <source>Julkaisukanavan kaikki julkaisut ovat välittömästi ja pysyvästi avoimesti saatavilla kustantajan palvelussa.</source>
+        <target>Alla publikationer i publikationskanalen är direkt och permanent tillgängliga i förläggarens tjänst.</target>
+      </trans-unit>
+      <trans-unit id="OaPartiallyOpen">
+        <source>Osittain avoin julkaisukanava</source>
+        <target>Delvis öppen publikationskanal</target>
+      </trans-unit>
+      <trans-unit id="OaPartiallyOpenTooltipContent">
+        <source>Osa julkaisukanavan julkaisuista on välittömästi ja pysyvästi avoimesti saatavilla kustantajan palvelussa. Esimerkiksi hybridilehdet.</source>
+        <target>En del av publikationerna i publikationskanalen är direkt och permanent tillgängliga i förläggarens tjänst. Till exempel hybridtidningar.</target>
+      </trans-unit>
+      <trans-unit id="delayedOpenAccess">
+        <source>Viivästetty avoin saatavuus</source>
+        <target>Öppen tillgång med fördröjning</target>
+      </trans-unit>
+      <trans-unit id="OaDelayed">
+        <source>Viivästetysti avoin julkaisukanava</source>
+        <target>Fördröjd öppen publikationskanal</target>
+      </trans-unit>
+      <trans-unit id="OaDelayedTooltipContent">
+        <source>Osa tai kaikki julkaisukanavan julkaisuista avoimia kustantajan palvelussa vasta kustantajan määrittämän viiveajan (embargo) jälkeen.</source>
+        <target>En del eller alla publikationer i publikationskanalen är öppna i förläggarens tjänst först efter en publiceringfördröjning som anges av förläggaren (embargo).</target>
+      </trans-unit>
+      <trans-unit id="pubLicenseTooltip">
+        <source>Kustantajan palvelussa sijaitsevan julkaisun lisenssitieto.</source>
+        <target>Licens för en publikation som finns i förläggarens tjänst.</target>
+      </trans-unit>
+      <trans-unit id="selfArchivedTooltip">
+        <source>Julkaisusta avoimesti saatavilla oleva rinnakkaistallenne on tieteenala- tai organisaatiokohtaisessa julkaisuarkistossa.</source>
+        <target>En parallellagrad version på publikationen som är öppen för allmänheten, finns i ett publikationsarkiv som är specifikt för vetenskapsområdet eller organisationen.</target>
+      </trans-unit>
+      <trans-unit id="selfLicenseTooltip">
+        <source>Tieteenala- tai organisaatiokohtaisessa julkaisuarkistossa sijaitsevan rinnakkaistallenteen lisenssitieto.</source>
+        <target>Licens för parallellagringen i det vetenskapsområdes- eller organisationsspecifika publikationsarkivet.</target>
+      </trans-unit>
+      <trans-unit id="publisherVersion">
+        <source>Kustanatajan versio:</source>
+        <target>Förläggarens version:</target>
+      </trans-unit>
+       <trans-unit id="publisherVersionTooltip">
+        <source>Kustantajan palvelussa julkaistu artikkeli.</source>
+        <target>Artikel som publicerats i förläggarens tjänst.</target>
+      </trans-unit>
+       <trans-unit id="finalDraft">
+        <source>Viimeinen käsikirjoitusversio:</source>
+        <target>Sista manuskriptversionen:</target>
+      </trans-unit>
+      <trans-unit id="finalDraftTooltip">
+        <source>Kustantajalle lähetetty viimeinen (vertaisarvioitu) versio käsikirjoituksesta, joka on hyväksytty julkaistavaksi.</source>
+        <target>Den sista (referentgranskade) versionen av manuskriptet som skickats till förläggaren och som godkänts för publicering.</target>
+      </trans-unit>
+      <trans-unit id="apcTooltip">
+        <source>Julkaisun avoimesta julkaisemisesta maksettu summa euroina.</source>
+        <target>Beloppet i euro som betalats för öppen publicering av publikationen.</target>
+      </trans-unit>
+      <trans-unit id="apcJointPublication">
+        <source>Yhteisjulkaisuissa julkaisumaksu voi olla yhden tai useamman julkaisuun osallistuneen organisaation maksama. Julkaisumaksun summa voi myös olla puutteellinen, jos kaikkien organisaatioiden maksuja ei ole ilmoitettu.</source>
+        <target>I sampublikationer kan publikationsavgiften betalas av en eller flera organisationer som deltagit i publikationen. Publikationsavgiftens belopp kan också vara bristfälligt om alla organisationers betalningar inte har anmälts.</target>
+      </trans-unit>
+      <trans-unit id="okmDataCollection">
+        <source>Julkaisu kuuluu opetus- ja kuulttuuriministeriön tiedonkeruuseen</source>
+        <target>Publikationen ingår i undervisnings- och kulturministeriets datainsamling</target>
+      </trans-unit>
+      <trans-unit id="okmDataCollectionShort">
+        <source>Kuuluu OKM:n tiedonkeruuseen</source>
+        <target>Ingår i undervisnings- och kulturministeriets datainsamling</target>
+      </trans-unit>
+      <trans-unit id="okmDataCollectionTooltip">
+        <source>OKM:n tiedonkeruuseen kuuluvat julkaisut ovat korkeakoulujen, tutkimuslaitosten ja yliopistosairaaloiden vuosittain opetus- ja kulttuuriministeriölle raportoimia julkaisuja, jotka täyttävät julkaisutiedonkeruun vaatimukset (www.tiedonkeruu.fi) ja jotka huomioidaan mm. korkeakoulujen rahoitusmallissa.</source>
+        <target>Publikationer som ingår i UKM:s datainsamling är publikationer som högskolorna, forskningsinstituten och universitetssjukhusen årligen rapporterar till undervisnings- och kulturministeriet och som uppfyller kraven för insamlingen av publikationsinformation (www.tiedonkeruu.fi) och som beaktas bl.a. i högskolornas finansieringsmodell.</target>
+      </trans-unit>
+      <trans-unit id="onlinePlatform">
+        <source>Verkkoalusta</source>
+        <target>Webbplattform</target>
+      </trans-unit>
+      <trans-unit id="onlinePlatformTooltipContent">
+        <source>Sisältää muilla sähköisillä alustoilla julkaistut julkaisut.</source>
+        <target>Innehåller publikationer som publicerats på andra elektroniska plattformar.</target>
       </trans-unit>
       <trans-unit id="5762426248501746892">
         <source>Konferenssi</source>
@@ -2799,6 +2987,38 @@
       <trans-unit id="sfTypeOfFundingTooltip">
         <source>Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuodot ovat usein rahoittajakohtaisia.</source>
         <target>Sätt att finansiera forskning. Typer av finansiering är till exempel forskningsbidrag, projektfinansiering och forskningsinfrastrukturfinansiering. Finansieringstyper är ofta finansiärspecifika.</target>
+      </trans-unit>
+      <trans-unit id="identifiedTopic">
+        <source>Tunnistettu aihe</source>
+        <target>Identifierade tema</target>
+      </trans-unit>
+      <trans-unit id="identifiedTopics">
+        <source>Tunnistetut aiheet</source>
+        <target>Identifierade teman</target>
+      </trans-unit>
+      <trans-unit id="identifiedTopicsTooltip">
+        <source>Koneoppimisen avulla hankkeiden tiedoista tutkimustietovarannossa muodostettu aiheluokittelu. Hanke liittyy aiheeseen, jota se todennäköisimmin käsittelee.</source>
+        <target>Med hjälp av maskininlärning bildas en ämneskategorisering från projektdata. Projektet relaterar till ämnet det i stor sannolikheten handlar.</target>
+      </trans-unit>
+      <trans-unit id="fieldOfScienceTooltip">
+        <source>Tilastokeskuksen tieteenalaluokitus. Yhteen hankkeeseen voi liittyä useita tieteenaloja. Kaikki rahoittajat eivät käytä tieteenalaluokitusta.</source>
+        <target>Statistikcentralens klassificering av vetenskapsområden. Ett projekt kan omatta flera vetenskapsområden. Alla finansiärer använder inte vetenskapsområden.</target>
+      </trans-unit>
+       <trans-unit id="fieldsOfResearchTooltip">
+        <source>Suomen Akatemian luokittelee hankkeensa myös oman tutkimusalaluokittelunsa mukaisesti.</source>
+        <target>Finlands Akademi använder också sina egna forskningsområden.</target>
+      </trans-unit>
+      <trans-unit id="fkeywordsTooltip">
+        <source>Haun rajaus hankkeen tiedoissa olevien avainsanojen perusteella.</source>
+        <target>Begränsa sökningen enligt nyckelorden i projektdata.</target>
+      </trans-unit>
+      <trans-unit id="fthemesTooltip">
+        <source>Osa rahoittajista järjestää haut teemojen mukaisesti. Teemat ovat tyypillisesti rahoittajakohtaisia, jolloin hakutuloksessa näkyy vain yhden rahoittajan hankkeita.</source>
+        <target>Vissa finansiärer organiserar utlysningar efter teman. Teman är vanligtvis finansiärspecifika, i så fall visar sökresultatet bara projekt från en finansiär.</target>
+      </trans-unit>
+      <trans-unit id="fresearchFieldTooltip">
+        <source>Suomen Akatemian luokittelee hankkeensa myös oman tutkimusalaluokittelunsa mukaisesti. Valinta kohdistuu vain Akatemian myöntämään rahoitukseen.</source>
+        <target>Finlands Akademi använder också sina egna forskningsområden. Urvalet fokuserar endast finansiering beviljat av Finlands Akademi.</target>
       </trans-unit>
       <trans-unit id="sfCallProgrammeTooltip">
         <source>Rahoittajan haku, josta rahoitus on myönnetty. Kilpailtu tutkimusrahoitus myönnetään usein avoimien hakujen kautta, joissa rahoituksen myöntämisen perusteena ovat ennalta määrätyt kriteerit. Hakemukset arvioidaan ja rahoitus myönnetään kriteerien ja muiden tavoitteiden perusteella parhaiksi katsotuille hakemuksille.</source>
@@ -3433,9 +3653,17 @@
         <source>Tilastokeskuksen tieteenalaluokitus. Yhteen hankkeeseen voi liittyä useita tieteenaloja. Kaikki rahoittajat eivät käytä tieteenaloja. Siksi suodatinta käyttämällä ei voi selvittää jonkin tieteenalan osuutta kokonaisrahoituksesta.</source>
         <target state="translated">Statistikcentralens klassificering av vetenskapsområden. Ett projekt kan omfatta flera vetenskapsområden. Alla finansiärer använder inte vetenskapsområden. Därför kan man inte genom att använda filtret reda ut vilken andel av den sammanlagda finansieringen ett visst vetenskapsområde står för.</target>
       </trans-unit>
+      <trans-unit id="funderTopicTooltip">
+        <source>Hankkeen aihetta luokittelevia valintoja. Pääosin luokittelut eivät ole kattavia ja voivat olla rahoittajakohtaisia.</source>
+        <target>Val som klassificerar projektets tema. Klassificeringarna är inte heltäckande och kan vara finansiärspecifika.</target>
+      </trans-unit>
       <trans-unit id="FAField">
         <source>Teemat</source>
         <target state="translated">Teman</target>
+      </trans-unit>
+      <trans-unit id="abstract">
+      <source>Tiivistelmä</source>
+      <target>Sammanfattning</target>
       </trans-unit>
       <trans-unit id="FAResearchFields">
         <source>Suomen Akatemian tutkimusalat</source>

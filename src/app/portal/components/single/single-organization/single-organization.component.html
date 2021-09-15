@@ -10,7 +10,7 @@
 
 <div class="wrapper" *ngIf="responseData" id="main-content">
 <div class="row shared">
-  <p class="back col-12">
+  <p class="back col-12" style="padding-bottom: 0.25rem;">
     <a
       #backToResultsLink
       routerLink="/results/{{ tab }}/{{ searchTerm }}"
@@ -198,129 +198,138 @@
     >
       <aside>
         <mat-card>
-          <mat-card-title
-            ><h2 i18n="@@organizationHomepage">
-              Organisaation verkkosivu
-            </h2></mat-card-title
-          >
-          <div class="row links" *ngIf="linkFields.length; else noHomePage">
-            <div *ngFor="let row of linkFields" class="info-link-wrapper">
-              <ng-container *ngIf="item[row.field]; else noHomePage">
-                <div class="col link">
-                  <a
-                    class="info-link"
-                    href="{{ item[row.field] }}"
-                    target="_blank"
-                    >{{ item[row.field]
-                    }}<fa-icon icon="external-link-alt"></fa-icon
-                  ></a>
-                </div>
-              </ng-container>
-            </div>
-          </div>
-          <ng-container *ngIf="item.id === '4940015'">
-            <div class="row links">
-              <strong class="pb-2" i18n="@@readMore">Lisätietoa</strong>:
-              <div class="info-link-wrapper">
-                <div class="col link">
-                  <a
-                    href="https://en.ilmatieteenlaitos.fi/research"
-                    target="_blank"
-                    ><ng-container i18n="@@research"
-                      >Tutkimustoiminta</ng-container
-                    ><fa-icon icon="external-link-alt"></fa-icon
-                  ></a>
-                </div>
-              </div>
-              <div class="info-link-wrapper">
-                <div class="col link">
-                  <a
-                    href="https://julkaisut.fmi.fi/intl-peer-reviewed/"
-                    target="_blank"
-                    ><ng-container i18n="@@publications">Julkaisut</ng-container
-                    ><fa-icon icon="external-link-alt"></fa-icon
-                  ></a>
-                </div>
+          <div class="inner">
+              <mat-card-title
+              ><h2 i18n="@@organizationHomepage">
+                Organisaation verkkosivu
+              </h2>
+              </mat-card-title>
+            <div class="row links" *ngIf="linkFields.length; else noHomePage">
+              <div *ngFor="let row of linkFields" class="info-link-wrapper">
+                <ng-container *ngIf="item[row.field]; else noHomePage">
+                  <div class="col link">
+                    <a
+                      class="info-link"
+                      href="{{ item[row.field] }}"
+                      target="_blank"
+                      >{{ item[row.field]
+                      }}<fa-icon icon="external-link-alt"></fa-icon
+                    ></a>
+                  </div>
+                </ng-container>
               </div>
             </div>
-          </ng-container>
+            <ng-container *ngIf="item.id === '4940015'">
+              <div class="row links">
+                <strong class="pb-2" i18n="@@readMore">Lisätietoa</strong>:
+                <div class="info-link-wrapper">
+                  <div class="col link">
+                    <a
+                      href="https://en.ilmatieteenlaitos.fi/research"
+                      target="_blank"
+                      ><ng-container i18n="@@research"
+                        >Tutkimustoiminta</ng-container
+                      ><fa-icon icon="external-link-alt"></fa-icon
+                    ></a>
+                  </div>
+                </div>
+                <div class="info-link-wrapper">
+                  <div class="col link">
+                    <a
+                      href="https://julkaisut.fmi.fi/intl-peer-reviewed/"
+                      target="_blank"
+                      ><ng-container i18n="@@publications">Julkaisut</ng-container
+                      ><fa-icon icon="external-link-alt"></fa-icon
+                    ></a>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
 
-          <ng-template #noHomePage>
-            <div class="no-links" i18n="@@noOrganizationLinks">
-              Organisaatioon ei ole tarjolla linkkejä tässä portaalissa
-            </div>
-          </ng-template>
+            <ng-template #noHomePage>
+              <div class="no-links" i18n="@@noOrganizationLinks">
+                Organisaatioon ei ole tarjolla linkkejä tässä portaalissa
+              </div>  
+            </ng-template>
+          </div>
         </mat-card>
       </aside>
       <aside>
         <mat-card>
-          <mat-card-title>
-            <h2>
-              <ng-container
-                *ngIf="item.sectorNameFi !== 'Rahoittaja'"
-                i18n="@@relatedOrganizations"
-                >Hae organisaatioon liittyvät</ng-container
-              >
-              <ng-container
-                *ngIf="item.sectorNameFi === 'Rahoittaja'"
-                i18n="@@relatedFunded"
-                >Hae organisaation rahoittamat</ng-container
-              >
-            </h2>
-          </mat-card-title>
-          <app-related-links
-            [id]="
-              item.sectorNameFi === 'Rahoittaja' ? item.businessId : item.id
-            "
-            [filter]="
-              item.sectorNameFi === 'Rahoittaja' ? 'funder' : 'organization'
-            "
-          ></app-related-links>
+          <div class="inner">
+            <mat-card-title>
+              <h2>
+                <ng-container
+                  *ngIf="item.sectorNameFi !== 'Rahoittaja'"
+                  i18n="@@relatedOrganizations"
+                  >Hae organisaatioon liittyvät</ng-container
+                >
+                <ng-container
+                  *ngIf="item.sectorNameFi === 'Rahoittaja'"
+                  i18n="@@relatedFunded"
+                  >Hae organisaation rahoittamat</ng-container
+                >
+              </h2>
+            </mat-card-title>
+            <app-related-links
+              [id]="
+                item.sectorNameFi === 'Rahoittaja' ? item.businessId : item.id
+              "
+              [filter]="
+                item.sectorNameFi === 'Rahoittaja' ? 'funder' : 'organization'
+              "
+             >
+            </app-related-links>
+          </div>  
         </mat-card>
       </aside>
       <aside>
         <mat-card>
-          <mat-card-title><h2 i18n="@@share">Jaa</h2></mat-card-title>
-          <app-share [id]="item.id"></app-share>
+          <div class="inner">
+            <mat-card-title><h2 i18n="@@share">Jaa</h2></mat-card-title>
+            <app-share [id]="item.id"></app-share>
+          </div>
         </mat-card>
       </aside>
       <aside>
         <mat-card>
-          <mat-card-title
-            ><h2 i18n="@@orgInfoSource">
-              Organisaatiotiedon lähde
-            </h2></mat-card-title
-          >
-          <ul class="px-0">
-            <li class="py-2">
-              <a [href]="vipunenLink[currentLocale]" target="_blank"
-                ><ng-container i18n="@@vipunenSimple"
-                  >Vipunen - opetushallinnon tilastopalvelu</ng-container
-                ><fa-icon icon="external-link-alt"></fa-icon
-              ></a>
-            </li>
-            <li class="py-2">
-              <a [href]="fintoLink[currentLocale]" target="_blank"
-                ><ng-container i18n="@@finto"
-                  >Finto - sanasto- ja ontologiapalvelu</ng-container
-                ><fa-icon icon="external-link-alt"></fa-icon
-              ></a>
-            </li>
-            <li class="py-2">
-              <a [href]="ytjLink[currentLocale]" target="_blank"
-                ><ng-container i18n="@@ytj"
-                  >Yritys– ja yhteisötietojärjestelmä (YTJ)</ng-container
-                ><fa-icon icon="external-link-alt"></fa-icon
-              ></a>
-            </li>
-            <li class="py-2">
-              <a [href]="statcenterLink[currentLocale]" target="_blank"
-                ><ng-container i18n="@@tilastokeskus"
-                  >Tilastokeskus</ng-container
-                ><fa-icon icon="external-link-alt"></fa-icon
-              ></a>
-            </li>
-          </ul>
+          <div class="inner">
+              <mat-card-title
+              ><h2 i18n="@@orgInfoSource">
+                Organisaatiotiedon lähde
+              </h2></mat-card-title
+            >
+            <ul class="px-0">
+              <li class="py-2">
+                <a [href]="vipunenLink[currentLocale]" target="_blank"
+                  ><ng-container i18n="@@vipunenSimple"
+                    >Vipunen - opetushallinnon tilastopalvelu</ng-container
+                  ><fa-icon icon="external-link-alt"></fa-icon
+                ></a>
+              </li>
+              <li class="py-2">
+                <a [href]="fintoLink[currentLocale]" target="_blank"
+                  ><ng-container i18n="@@finto"
+                    >Finto - sanasto- ja ontologiapalvelu</ng-container
+                  ><fa-icon icon="external-link-alt"></fa-icon
+                ></a>
+              </li>
+              <li class="py-2">
+                <a [href]="ytjLink[currentLocale]" target="_blank"
+                  ><ng-container i18n="@@ytj"
+                    >Yritys– ja yhteisötietojärjestelmä (YTJ)</ng-container
+                  ><fa-icon icon="external-link-alt"></fa-icon
+                ></a>
+              </li>
+              <li class="py-2">
+                <a [href]="statcenterLink[currentLocale]" target="_blank"
+                  ><ng-container i18n="@@tilastokeskus"
+                    >Tilastokeskus</ng-container
+                  ><fa-icon icon="external-link-alt"></fa-icon
+                ></a>
+              </li>
+            </ul>
+          </div>   
         </mat-card>
       </aside>
     </div>

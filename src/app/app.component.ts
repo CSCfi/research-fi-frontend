@@ -6,9 +6,13 @@
 //  :license: MIT
 
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { AppConfigService } from '@shared/services/app-config-service.service';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { NavigationStart, Router } from '@angular/router';
+import { take } from 'rxjs/operators';
+import 'reflect-metadata'; // Required by ApmService
+import { ApmService } from '@elastic/apm-rum-angular';
 
 @Component({
   selector: 'app-root',
@@ -19,19 +23,40 @@ export class AppComponent {
   title = 'research-fi-portal';
 
   constructor(
-    public oidcSecurityService: OidcSecurityService,
     private appConfigService: AppConfigService,
+    private oidcSecurityService: OidcSecurityService,
+    private router: Router,
     @Inject(PLATFORM_ID) private platformId: object,
-    @Inject(DOCUMENT) private document: any
+    @Inject(DOCUMENT) private document: any,
+    @Inject(ApmService) apmService: ApmService
   ) {
     // SSR platform check
     if (isPlatformBrowser(this.platformId)) {
+      // APM config
+      const apm = apmService.init({
+        serviceName: 'Angular',
+        serverUrl: this.appConfigService.apmUrl,
+        environment: this.appConfigService.environmentName,
+        eventsLimit: 10,
+        transactionSampleRate: 0.1,
+        disableInstrumentations: [
+          // 'page-load',
+          'history',
+          'eventtarget',
+          'xmlhttprequest',
+          'fetch',
+          // 'error'
+        ],
+      });
+
       // Start auth process
-      this.oidcSecurityService
-        .checkAuth()
-        .subscribe((isAuthenticated) =>
-          console.log('app authenticated', isAuthenticated)
-        );
+      this.router.events.pipe(take(1)).subscribe((e) => {
+        if (e instanceof NavigationStart) {
+          if (e.url.includes('/mydata')) {
+            this.oidcSecurityService.checkAuth().subscribe(() => {});
+          }
+        }
+      });
 
       // Add initial Matomo script with dynamic site ID
       const node = this.document.createElement('script');

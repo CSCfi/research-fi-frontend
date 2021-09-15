@@ -25,10 +25,13 @@ export class InterceptService implements HttpInterceptor {
   ) {}
 
   handleError(error: HttpErrorResponse) {
-    if (!this.router.url.includes('mydata')) {
-      this.errorService.updateError(error);
-      return throwError(error);
-    }
+    this.errorService.updateError(error);
+    return throwError(error);
+
+    // if (!this.router.url.includes('mydata')) {
+    //   this.errorService.updateError(error);
+    //   return throwError(error);
+    // }
   }
 
   intercept(

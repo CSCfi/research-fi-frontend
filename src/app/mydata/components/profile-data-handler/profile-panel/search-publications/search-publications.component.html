@@ -6,13 +6,11 @@
 <mat-dialog-content>
   <div class="row d-flex justify-content-between dialog-header">
     <div class="col">
-      <h2 class="modal-title pull-left col h5">
-        Puuttuvan julkaisun hakeminen
-      </h2>
+      <h2 class="modal-title h5">Puuttuvan julkaisun hakeminen</h2>
     </div>
-    <div class="col-auto">
+
+    <div class="col-auto mt-1 mt-sm-0 align-self-sm-center">
       <app-close-button
-        class="pull-right pr-3"
         (click)="close()"
         (keydown.enter)="close()"
         autofocus
@@ -21,11 +19,9 @@
     </div>
   </div>
 
-  <div class="px-3">
-    <div class="row d-flex justify-content-center py-3">
-      <span class="col h6 m-0">
-        Hae julkaisua omalla nimelläsi tai julkaisun nimellä
-      </span>
+  <div class="col px-0 px-lg-3">
+    <div class="row py-3">
+      <div class="col h6 m-0">Hae julkaisua tekijän tai julkaisun nimellä</div>
     </div>
 
     <div class="row">
@@ -55,7 +51,7 @@
             class="d-block pb-5"
             [ngClass]="loading ? '' : 'mb-5'"
             *ngSwitchDefault
-            >Tietolähteenä käytetään Tutkimustietovarannon tietokantaa</span
+            >Tietolähteenä käytetään Tiedejatutkimus.fi-palvelua</span
           >
         </ng-container>
       </div>
@@ -77,25 +73,29 @@
           (onSortToggle)="sort($event)"
           [data]="results"
           [total]="total"
+          [profilePublications]="data.profilePublications || []"
           [selectedItems]="data.selectedPublications || []"
         ></app-publications-list>
       </div>
     </div>
   </div>
 </mat-dialog-content>
-<mat-dialog-actions class="d-flex justify-content-end pb-3">
-  <div class="row">
-    <div class="col-auto">
-      <app-secondary-button
-        (click)="close()"
-        content="Peruuta"
-      ></app-secondary-button>
-    </div>
-    <div class="col-auto pl-0" *ngIf="total > 0">
-      <app-primary-action-button
-        (click)="saveChanges()"
-        content="Lisää julkaisu"
-      ></app-primary-action-button>
-    </div>
+
+<mat-dialog-actions>
+  <div class="col-auto">
+    <app-secondary-button
+      [small]="mobile"
+      (click)="close()"
+      content="Peruuta"
+    ></app-secondary-button>
+  </div>
+  <div class="col-auto" *ngIf="total > 0 && currentSelection?.length > 0">
+    <app-primary-action-button
+      [small]="mobile"
+      (click)="saveChanges()"
+      [content]="
+        currentSelection.length > 1 ? 'Lisää julkaisut' : 'Lisää julkaisu'
+      "
+    ></app-primary-action-button>
   </div>
 </mat-dialog-actions>

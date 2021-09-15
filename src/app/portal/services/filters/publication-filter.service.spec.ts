@@ -76,9 +76,8 @@ describe('PublicationFilterService', () => {
 
   it('should map open access status', () => {
     const res = service.openAccess(
-      data.openAccess.openAccessCodes.buckets,
       data.selfArchived.selfArchivedCodes.buckets,
-      data.oaComposite
+      data.oaPublisherComposite.buckets
     );
 
     expect(

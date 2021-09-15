@@ -31,7 +31,7 @@ export class DescriptionFieldsAdapter implements Adapter<DescriptionFields> {
           localized: true,
         }
       ),
-      this.mapGroup(item.keywordGroups, 'Avainsanat')
+      this.mapGroup(item.keywordGroups, 'Avainsanat', { joined: true })
     );
   }
 }

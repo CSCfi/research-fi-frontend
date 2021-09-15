@@ -1,3 +1,15 @@
-<div class="background-primary py-1 px-2 font-italic font-size-smaller">
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<button
+  mat-ripple
+  class="py-1 px-2 font-italic font-size-smaller border border-primary"
+  [class.background-primary]="selected"
+  [class.unselected]="!selected"
+  [disabled]="disabled"
+  (click)="!disableClick && togglePrimary()"
+>
   {{ label }}
-</div>
+</button>

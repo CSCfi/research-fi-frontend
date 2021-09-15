@@ -42,6 +42,7 @@ import { NewsFilterService } from 'src/app/portal/services/filters/news-filter.s
 import { SearchService } from 'src/app/portal/services/search.service';
 import { isPlatformBrowser } from '@angular/common';
 import { FundingCallFilterService } from '@portal/services/filters/funding-call-filter.service';
+import { StaticDataService } from '@portal/services/static-data.service';
 
 @Component({
   selector: 'app-active-filters',
@@ -56,11 +57,12 @@ export class ActiveFiltersComponent
   translations = {
     noAccessInfo: $localize`:@@noInfo:Ei tietoa`,
     openAccess: $localize`:@@openAccessJournal:Open Access -lehti`,
-    nonOpen: $localize`:@@nonOpen:Ei avoin`,
+    nonOpenAccess: $localize`:@@nonOpen:Ei avoin`,
     noVal: $localize`:@@noRating:Ei arviota`,
     otherOpen: $localize`:@@otherOpenAccess:Muu avoin saatavuus`,
     noOpenAccessData: $localize`:@@noInfo:Ei tietoa`,
     selfArchived: $localize`:@@selfArchived:Rinnakkaistallennettu`,
+    delayedOpenAccess: $localize`:@@delayedOpenAccess:Viivästetty avoin saatavuus`,
     undefined: $localize`:@@notKnown:Ei tiedossa`,
     // Dataset access types
     open: $localize`:@@datasetAccessOpen:Avoin`,
@@ -99,6 +101,7 @@ export class ActiveFiltersComponent
     private sortService: SortService,
     private filterService: FilterService,
     private dataService: DataService,
+    private staticDataService: StaticDataService,
     private tabChangeService: TabChangeService,
     public dialog: MatDialog,
     private publicationFilters: PublicationFilterService,
@@ -391,6 +394,32 @@ export class ActiveFiltersComponent
               }
 
               if (
+                val.category === 'articleType' &&
+                source.articleType.buckets
+              ) {
+                const staticData = this.staticDataService.articleType;
+                const result = source.articleType.buckets.find(
+                  (item) => item.key.toString() === val.value
+                );
+                // Find corresponding label from static data service
+                result.label = staticData.find(x => val.value === x.id.toString()).label;
+                // If unknown, display filter name
+                if (val.value === '-1') {
+                  result.label = $localize`:@@articleType:Artikkelin tyyppi` + ': ' + result.label;
+                }
+
+                const foundIndex = this.activeFilters.findIndex(
+                  (x) =>
+                    x.category === 'articleType' &&
+                    x.value === val.value
+                );
+                
+                this.activeFilters[foundIndex].translation = result?.label
+                  ? result.label
+                  : errorMsg;
+              }
+
+              if (
                 val.category === 'peerReviewed' &&
                 source.peerReviewed.buckets
               ) {
@@ -445,6 +474,12 @@ export class ActiveFiltersComponent
                 this.activeFilters.find(
                   (item) => item.category === 'internationalCollaboration'
                 ).translation = $localize`:@@intCoPublication:Kansainvälinen yhteisjulkaisu`;
+              }
+
+              if (val.category === 'okmDataCollection') {
+                this.activeFilters.find(
+                  (item) => item.category === 'okmDataCollection'
+                ).translation = $localize`:@@okmDataCollectionShort:Kuuluu OKM:n tiedonkeruuseen`;
               }
 
               // Global organization filter

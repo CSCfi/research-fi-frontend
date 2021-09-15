@@ -7,133 +7,134 @@
 
 <footer>
   <nav class="footer wrapper">
-    <div class="row">
-      <div class="col col-12 col-md-4 col-xl-2">
-        <div class="row">
-          <div class="col-12 px-0 text-md-left text-center">
-            <h2 class="header pt-3" i18n="Footer-header@@footerHeader1">
-              Palvelun tarjoaa
-            </h2>
-          </div>
-          <div class="col-12 px-0">
-            <a href="{{ okmUrl }}" target="_blank">
-              <img
-                class="logo"
-                src="assets/img/okm_logo.svg"
-                i18n-alt
-                alt="Opetus- ja kulttuuriministeriön logo, leijonavaakuna vihreällä pohjalla"
-              />
-            </a>
-          </div>
-          <div class="col-12 px-0 text-md-left text-center">
-            <h2 class="header" i18n="Footer-header@@footerHeader2">
-              Yhteistyössä
-            </h2>
-          </div>
-          <div class="col-12 px-0">
-            <a href="https://www.csc.fi/" target="_blank">
-              <img
-                class="logo"
-                src="assets/img/csc_logo.png"
-                i18n-alt
-                alt="Organisaation CSC - Tieteen ja tietotekniikan keskus logo"
-              />
-            </a>
-          </div>
+    <div class="row d-flex justify-content-around">
+      <div class="col-12 col-md-auto">
+        <div class="row d-flex justify-content-center">
+          <h2 class="header pt-3" i18n="Footer-header@@footerHeader1">
+            Palvelun tarjoaa
+          </h2>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <a href="{{ okmUrl }}" target="_blank">
+            <img
+              class="logo"
+              src="{{'assets/img/okm_logo_' + locale + '.png'}}"
+              i18n-alt="@@okmLogo"
+              alt="Opetus- ja kulttuuriministeriön logo, leijonavaakuna"
+            />
+          </a>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <h2 class="header" i18n="Footer-header@@footerHeader2">
+            Yhteistyössä
+          </h2>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <a href="https://www.csc.fi/" target="_blank">
+            <img
+              class="logo"
+              src="assets/img/csc_logo.png"
+              i18n-alt
+              alt="Organisaation CSC - Tieteen ja tietotekniikan keskus logo"
+            />
+          </a>
         </div>
       </div>
-      <div class="col">
-        <div class="row">
-          <div class="col-12 col-xl-6">
-            <h2 class="header" i18n="Footer-header@@footerHeader3">
-              Palvelun käyttö
-            </h2>
-            <ul>
-              <li>
-                <a i18n="Footer-link@@footerLink1" routerLink="/service-info"
-                  >Tietoa palvelusta</a
-                >
-              </li>
-              <!-- <li><a i18n="Footer-link" href="#" class="disabled">Ajankohtaista palvelussa</a></li> -->
-              <!-- <li><a i18n="Footer-link" href="#" class="disabled">Käyttöehdot ja avoimuus</a></li> -->
-              <li>
-                <a i18n="Footer-link@@footerLink4" routerLink="/sitemap"
-                  >Sivukartta</a
-                >
-              </li>
-            </ul>
-          </div>
-          <div class="col-12 col-xl-6">
-            <h2 class="header" i18n="Footer-header@@footerHeader4">
-              Info ja yhteystiedot
-            </h2>
-            <ul>
-              <li>
-                <a
-                  i18n="Footer-link@@footerLink6"
-                  href="javascript:void(0)"
-                  (click)="toggleReview()"
-                  >Anna palautetta</a
-                >
-              </li>
-              <li>
-                <a
-                  tabindex="0"
-                  #contact
-                  class="href"
-                  (focus)="getMail()"
-                  (mouseover)="getMail()"
-                  ><span class="reverse">if.csc@sumiktutajedeit</span></a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
+
+      <div
+        class="col-12 col-md-auto text-center text-md-left"
+        *ngIf="!myDataBeta"
+      >
+        <h2 class="header" i18n="Footer-header@@footerHeader3">
+          Palvelun käyttö
+        </h2>
+        <ul>
+          <li>
+            <a i18n="Footer-link@@footerLink1" routerLink="/service-info"
+              >Tietoa palvelusta</a
+            >
+          </li>
+          <li>
+            <a i18n="Footer-link@@footerLink4" routerLink="/sitemap"
+              >Sivukartta</a
+            >
+          </li>
+        </ul>
       </div>
-      <div class="col">
-        <div class="row">
-          <div class="col-12 col-xl-6">
-            <h2 class="header" i18n="Footer-header@@footerHeader5">
-              Selosteet ja käytännöt
-            </h2>
-            <ul>
-              <li>
-                <a i18n="Footer-link@@footerLink8" routerLink="/accessibility"
-                  >Saavutettavuusseloste</a
-                >
-              </li>
-              <li>
-                <a i18n="Footer-link@@footerLink9" routerLink="/privacy"
-                  >Tietosuoja</a
-                >
-              </li>
-            </ul>
-          </div>
-          <div class="col-12 col-xl-6">
-            <div class="social">
-              <h2 i18n="@@followUs" class="header">Seuraa meitä!</h2>
-              <ul>
-                <!-- <a href="#" class="icon" title="Facebook -palvelun logo"><fa-icon [icon]="faFacebook"></fa-icon></a> -->
-                <li>
-                  <a
-                    href="https://twitter.com/tiedejatutkimus"
-                    class="d-flex justify-content-center justify-content-md-start align-items-center"
-                    target="_blank"
-                    i18n-title
-                    title="Twitter -palvelun logo"
-                    i18n="Twitter-footer@@twitterFooter"
-                  >
-                    <fa-icon class="social-icon" [icon]="faTwitter"></fa-icon
-                    >Tiedejatutkimus.fi Twitterissä</a
-                  >
-                </li>
-                <!-- <a href="#" class="icon" title="LinkedIn -palvelun logo"><fa-icon [icon]="faLinkedin"></fa-icon></a> -->
-              </ul>
-            </div>
-            <div class="build-info pull-right">
-              <span>{{ buildInfo }}</span>
-            </div>
-          </div>
+
+      <div class="col-12 col-md-auto text-center text-md-left">
+        <h2 class="header" i18n="Footer-header@@footerHeader4">
+          Info ja yhteystiedot
+        </h2>
+        <ul>
+          <li>
+            <a
+              i18n="Footer-link@@footerLink6"
+              href="javascript:void(0)"
+              (click)="toggleReview()"
+              >Anna palautetta
+              <fa-icon icon="external-link-alt" *ngIf="myDataBeta"></fa-icon
+            ></a>
+          </li>
+          <li>
+            <a
+              tabindex="0"
+              #contact
+              class="href"
+              (focus)="getMail()"
+              (mouseover)="getMail()"
+              ><span class="reverse">if.csc@sumiktutajedeit</span></a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <div
+        class="col-12 col-md-auto text-center text-md-left"
+        *ngIf="!myDataBeta"
+      >
+        <h2 class="header" i18n="Footer-header@@footerHeader5">
+          Selosteet ja käytännöt
+        </h2>
+        <ul>
+          <li>
+            <a i18n="Footer-link@@footerLink8" routerLink="/accessibility"
+              >Saavutettavuusseloste</a
+            >
+          </li>
+          <li>
+            <a i18n="Footer-link@@footerLink9" routerLink="/privacy"
+              >Tietosuoja</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-12 col-md-auto">
+        <div class="social">
+          <h2 i18n="@@followUs" class="header">Seuraa meitä!</h2>
+          <ul>
+            <li>
+              <a
+                href="https://twitter.com/tiedejatutkimus"
+                class="
+                  d-flex
+                  justify-content-center justify-content-md-start
+                  align-items-center
+                "
+                target="_blank"
+                i18n-title
+                title="Twitter -palvelun logo"
+                i18n="Twitter-footer@@twitterFooter"
+              >
+                <fa-icon class="social-icon" [icon]="faTwitter"></fa-icon
+                >Tiedejatutkimus.fi Twitterissä</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="build-info pull-right">
+          <span>{{ buildInfo }}</span>
         </div>
       </div>
     </div>
@@ -148,6 +149,7 @@
       i18n="Review-button@@reviewButton"
     >
       Anna palautetta!
+      <fa-icon icon="external-link-alt" *ngIf="myDataBeta"></fa-icon>
     </button>
     <button class="close" mat-raised-button (click)="close()">
       <fa-icon

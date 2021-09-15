@@ -9,7 +9,7 @@
 </aside>
 <div class="wrapper" *ngIf="responseData" id="main-content">
   <div class="row shared">
-  <p class="back col-12">
+  <p class="back col-12" style="padding-bottom: 0.25rem;">
     <a
       #backToResultsLink
       routerLink="/results/{{ tab }}/{{ searchTerm }}"
@@ -66,7 +66,21 @@
                 </span>
               </ng-container>
             </h2>
-            <div class="col-12 col-sm-6 col-lg-9 td">{{ item[row.field] }}</div>
+            <div class="col-12 col-sm-6 col-lg-9 td">
+              <div [ngClass]="expand ? 'expand' : 'short'">
+              {{ item[row.field] }}
+              </div>
+              <a
+              href="javascript:void(0)"
+              class="read-more"
+              *ngIf="
+                row.field === 'abstract' &&
+                item.abstract?.length > 256
+              "
+              (click)="expandDescription()"
+              [innerHTML]="expand ? showLess : showMore"
+            ></a>
+            </div>
           </div>
           <div
             class="row content pb-0"
@@ -468,6 +482,42 @@
             </div>
           </div>
 
+          <!-- Open access-->
+          <div class="row content" *ngIf="open_accessFields?.length > 0">
+            <h2 class="col-12 col-sm-6 col-lg-3 th" i18n="@@openAccess">
+              Avoin saatavuus
+            </h2>
+            <div class="col px-0">
+              <div class="row">
+                <div
+                  class="col-12 col-lg-4 td"
+                  *ngFor="let row of open_accessFields"
+                >
+                  <h3 class="th">
+                    {{ row.label }}
+                    <ng-container *ngIf="row.tooltip">
+                      <ng-template #tooltipTemplate>
+                        <div [innerHtml]="row.tooltip"></div>
+                      </ng-template>
+                      <span
+                        [tooltip]="tooltipTemplate"
+                        tabindex="0"
+                        placement="top"
+                        #elem
+                      >
+                        <fa-icon
+                          class="info-icon pl-2"
+                          icon="info-circle"
+                        ></fa-icon>
+                      </span>
+                    </ng-container>
+                  </h3>
+                  <p class="td">{{ item[row.field] }}</p>
+                </div>
+              </div>
+              </div>
+          </div>
+
           <!-- Other info -->
           <div class="row content">
             <h2 class="col-12 col-sm-6 col-lg-3 th" i18n="@@otherInfo">
@@ -567,6 +617,35 @@
               </div>
             </div>
           </ng-container>
+          <div class="row">
+            <h2 class="col-12 col-sm-6 col-lg-3 th" i18n="@@publicationstatus">
+            </h2>
+            <div
+              class="col-12 col-sm-6 col-lg-4 offset-0 offset-sm-6 offset-lg-0 first-no-offset-mobile td w-100"
+              *ngFor="let row of publicationStatus"
+            >
+              <h3 class="th w-100">
+                {{ row.label }}
+                <ng-container *ngIf="row.tooltip">
+                  <ng-template #tooltipTemplate>
+                    <div [innerHtml]="row.tooltip"></div>
+                  </ng-template>
+                  <span
+                    [tooltip]="tooltipTemplate"
+                    tabindex="0"
+                    placement="top"
+                    #elem
+                  >
+                    <fa-icon
+                      class="info-icon pl-2"
+                      icon="info-circle"
+                    ></fa-icon>
+                  </span>
+                </ng-container>
+              </h3>
+              <p class="td">{{ item[row.field] }}</p>
+            </div>
+          </div>
         </div>
       </div>
     </main>
@@ -575,8 +654,8 @@
       class="col-12 col-md-4 col-xl-4"
     >
       <aside>
-        <aside>
-          <mat-card>
+        <mat-card>
+          <div class="inner">
             <mat-card-title>
               <h2 i18n="@@publicationLinks">Linkit julkaisuun</h2>
             </mat-card-title>
@@ -598,18 +677,20 @@
               <div
                 *ngIf="
                   row.field !== 'doi' &&
-                  item[row.field] !== 'https://doi.org/' + item.doi
+                  item[row.field] !== item.doi
                 "
                 class="info-link-wrapper"
               >
-                <div class="col link">
+                <div class="col link doi">
+                  <span class="doi-tag">DOI</span>
+                  <span class="doi-link">
                   <a
-                    class="info-link"
                     href="{{ row.path }}{{ item[row.field] }}"
                     target="_blank"
-                    >{{ item[row.field] | cutContent: 40
-                    }}<fa-icon icon="external-link-alt"></fa-icon
+                    >{{ item[row.field] | cutContent: 40}}
+                    <fa-icon icon="external-link-alt"></fa-icon
                   ></a>
+                  </span>
                 </div>
               </div>
             </div>
@@ -620,14 +701,16 @@
                 *ngFor="let row of selfArchived.selfArchived"
               >
                 <div class="info-link-wrapper">
-                  <div class="col link">
+                  <div class="col link doi">
+                    <span class="doi-tag fa fa-link center" style="font-size:22px; padding:3px 12px"></span>
+                    <span class="doi-link">
                     <a
-                      class="info-link"
                       href="{{ row.selfArchivedAddress }}"
                       target="_blank"
                       >{{ row.selfArchivedAddress | cutContent: 40
                       }}<fa-icon icon="external-link-alt"></fa-icon
                     ></a>
+                    </span>
                   </div>
                 </div>
               </div>
@@ -640,10 +723,12 @@
             >
               Julkaisuun ei ole tarjolla linkkejä tässä portaalissa
             </div>
-          </mat-card>
-        </aside>
-        <aside>
-          <mat-card>
+          </div>
+        </mat-card>
+      </aside>
+      <aside>
+        <mat-card>
+          <div class="inner">
             <mat-card-title>
               <h2 i18n="@@externalLinks">Hae julkaisua muualta</h2>
             </mat-card-title>
@@ -665,39 +750,45 @@
                 ></a>
               </div>
             </div>
-          </mat-card>
-        </aside>
-        <mat-card>
-          <mat-card-title>
-            <h2>
-              <ng-container i18n="@@relatedPublications"
-                >Hae julkaisuun liittyvät</ng-container
-              >
-              (<ng-container i18n="@@comingSoon">tulossa</ng-container>)
-            </h2>
-          </mat-card-title>
-          <app-related-links
-            [id]="authorAndOrganization[0]?.orgId"
-            [relatedData]="relatedData"
-          >
-          </app-related-links>
+          </div>
         </mat-card>
       </aside>
       <aside>
         <mat-card>
-          <mat-card-title>
-            <h2 i18n="@@citationHeader">Viittaa</h2>
-          </mat-card-title>
-          <div>
-            <div class="reference">
-              <app-secondary-button
-                #citeButton
-                (click)="openModal(citeModal)"
-                [content]="copyReferences"
-                [icon]="faQuoteRight"
-                [big]="true"
-              ></app-secondary-button>
-              <!-- <small *ngIf="!hasDoi" class="no-doi-warn" i18n="@@doiWarning">Viitetiedot eivät ole saatavilla, koska julkaisulla ei ole DOI-tunnistetta.</small> -->
+          <div class="inner">
+            <mat-card-title>
+              <h2>
+                <ng-container i18n="@@relatedPublications"
+                  >Hae julkaisuun liittyvät</ng-container
+                >
+                (<ng-container i18n="@@comingSoon">tulossa</ng-container>)
+              </h2>
+            </mat-card-title>
+            <app-related-links
+              [id]="authorAndOrganization[0]?.orgId"
+              [relatedData]="relatedData"
+            >
+            </app-related-links>
+          </div>
+        </mat-card>
+      </aside>
+      <aside>
+        <mat-card>
+          <div class="inner">
+            <mat-card-title>
+              <h2 i18n="@@citationHeader">Viittaa</h2>
+            </mat-card-title>
+            <div>
+              <div class="reference">
+                <app-secondary-button
+                  #citeButton
+                  (click)="openModal(citeModal)"
+                  [content]="copyReferences"
+                  [icon]="faQuoteRight"
+                  [big]="true"
+                ></app-secondary-button>
+                <!-- <small *ngIf="!hasDoi" class="no-doi-warn" i18n="@@doiWarning">Viitetiedot eivät ole saatavilla, koska julkaisulla ei ole DOI-tunnistetta.</small> -->
+              </div>
             </div>
           </div>
         </mat-card>
@@ -705,28 +796,32 @@
       <!-- Copy url -->
       <aside>
         <mat-card>
-          <mat-card-title>
-            <h2 i18n="@@shareHeader">Jaa</h2>
-          </mat-card-title>
-          <app-share [id]="item.id"></app-share>
+          <div class="inner">
+            <mat-card-title>
+              <h2 i18n="@@shareHeader">Jaa</h2>
+            </mat-card-title>
+            <app-share [id]="item.id"></app-share>
+          </div>
         </mat-card>
       </aside>
       <aside>
         <mat-card>
-          <mat-card-title>
-            <h2 i18n="@@publicationSource">Julkaisutiedon lähde</h2>
-          </mat-card-title>
-          <div *ngFor="let org of authorAndOrganization">
-            <p *ngIf="authorAndOrganization[0]?.orgName.length > 0">
-              <a routerLink="/results/organization/{{ org.orgId }}">{{
-                org.orgName
-              }}</a>
-            </p>
-            <p *ngIf="authorAndOrganization[0]?.orgName.length === 0">
-              Tiedon lähde ei saatavilla.
-            </p>
+          <div class="inner">
+            <mat-card-title>
+              <h2 i18n="@@publicationSource">Julkaisutiedon lähde</h2>
+            </mat-card-title>
+            <div *ngFor="let org of authorAndOrganization">
+              <p *ngIf="authorAndOrganization[0]?.orgName.length > 0">
+                <a routerLink="/results/organization/{{ org.orgId }}">{{
+                  org.orgName
+                }}</a>
+              </p>
+              <p *ngIf="authorAndOrganization[0]?.orgName.length === 0">
+                Tiedon lähde ei saatavilla.
+              </p>
+            </div>
+            <div class="clear"></div>
           </div>
-          <div class="clear"></div>
         </mat-card>
       </aside>
     </div>

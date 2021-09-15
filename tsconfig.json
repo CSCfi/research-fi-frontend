@@ -19,7 +19,8 @@
     "paths": {
       "@portal/*": ["src/app/portal/*"],
       "@mydata/*": ["src/app/mydata/*"],
-      "@shared/*": ["src/app/shared/*"]
+      "@shared/*": ["src/app/shared/*"],
+      "core-js/es7/reflect": ["node_modules/core-js/proposals/reflect-metadata"]
     }
   }
 }
