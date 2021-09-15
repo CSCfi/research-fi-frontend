@@ -1393,7 +1393,7 @@ export class StaticDataService {
           {
             field: 'fundingGroupPerson.consortiumOrganizationId.keyword',
             name: 'organizationId',
-            size: 100,
+            size: 250,
             order: 2,
             filterName: 'organization',
           },
@@ -1438,7 +1438,7 @@ export class StaticDataService {
           {
             field: 'organizationConsortium.consortiumOrganizationId.keyword',
             name: 'organizationId',
-            size: 100,
+            size: 250,
             order: 2,
             filterName: 'organization',
           },
@@ -1450,7 +1450,7 @@ export class StaticDataService {
             order: 0,
           },
           {
-            sum: 'fundingGroupPerson.shareOfFundingInEur',
+            sum: 'organizationConsortium.shareOfFundingInEur',
             name: 'moneySum',
             size: 1,
           },
