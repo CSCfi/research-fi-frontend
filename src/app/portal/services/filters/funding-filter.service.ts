@@ -356,10 +356,10 @@ export class FundingFilterService {
       }
       return true;
     });
-    [data[ind_themes + 1], data[topic_index]] = [
-      data[topic_index],
-      data[ind_themes + 1],
-    ];
+    // [data[ind_themes + 1], data[topic_index]] = [
+    //   data[topic_index],
+    //   data[ind_themes + 1],
+    // ];
 
     return data;
   }
