@@ -61,6 +61,11 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
       id: 'selfArchived',
     },
     {
+      name: $localize`:@@delayedOpenAccess:Viivästetty avoin saatavuus`,
+      doc_count: 0,
+      id: 'delayedOpenAccess',
+    },
+    {
       name: $localize`:@@otherOpenAccess:Muu avoin saatavuus`,
       doc_count: 0,
       id: 'otherOpen',
@@ -152,32 +157,52 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
     res.forEach((d) => (d.parent = parent));
 
     data.forEach((d) => {
-      const openAccessCode = Math.floor(parseInt(d.key) / 10);
-      const selfArchivedCode = parseInt(d.key) % 10;
+      const selfArchivedCode = Math.floor(parseInt(d.key) / 100);
+      const openAccess = Math.floor(parseInt(d.key) / 10);
+      const publisherOpenAccess = parseInt(d.key) % 10;
 
-      // Flag to check if code is known
-      let valid = false;
+      const stringKey = '' + openAccess + publisherOpenAccess;
 
-      // No else ifs because multiple can be true
-      if (openAccessCode === 1) {
-        res[0].doc_count += d.doc_count;
-        valid = true;
-      }
-      if (selfArchivedCode === 1) {
-        res[1].doc_count += d.doc_count;
-        valid = true;
-      }
-      if (openAccessCode === 2) {
-        res[2].doc_count += d.doc_count;
-        valid = true;
-      }
-      if (openAccessCode === 0 && selfArchivedCode === 0) {
-        res[3].doc_count += d.doc_count;
-        valid = true;
-      }
-      if (!valid) {
+    // Filter also based on selfArchived === 0 for non open
+    if (selfArchivedCode === 0 && 
+       openAccess === 0 && 
+       publisherOpenAccess !== 3) {
         res[4].doc_count += d.doc_count;
+    };
+
+    if (selfArchivedCode === 1) {
+      res[1].doc_count += d.doc_count;
+    }
+
+    switch (stringKey) {
+      case '11': {
+        res[0].doc_count += d.doc_count;
+        break;
       }
+      case '03':
+      case '13': {
+        res[2].doc_count += d.doc_count;
+        break;
+      }
+      case '12': {
+        res[3].doc_count += d.doc_count;
+      }
+      // Separate implementation above for non open, add with 0 doc count so no doubles
+      case '00':
+      case '01':
+      case '02':
+      case '09': {
+        res[4].doc_count += 0;
+        break;
+      }
+      default: {
+        // Self archived is not unknown
+        if (!selfArchivedCode) {
+          res[5].doc_count += d.doc_count;
+        }
+        break;
+      }
+    }
     });
 
     return res.filter((x) => x.doc_count > 0);
