@@ -432,7 +432,7 @@
             "
           >
             <mat-expansion-panel
-              *ngIf="item?.subData?.length > 0 || item?.original?.length > 0"
+              *ngIf="item.subData?.length > 0 || item.original?.length > 0"
               [expanded]="subPanel === item.key"
               (opened)="subPanel = item.key"
             >
