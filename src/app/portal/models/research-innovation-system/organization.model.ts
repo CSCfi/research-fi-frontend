@@ -6,15 +6,15 @@
 //  :license: MIT
 
 import { Injectable } from '@angular/core';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Adapter } from '../adapter.model';
 
 export class Organization {
   constructor(
     public placement: number,
-    public nameFi: string,
-    public nameSv: string,
-    public nameEn: string,
-    public link: string
+    public name: string,
+    public link: string,
+    public iframe: string
   ) {}
 }
 
@@ -22,14 +22,15 @@ export class Organization {
   providedIn: 'root',
 })
 export class OrganizationAdapter implements Adapter<Organization> {
-  constructor() {}
+  constructor(private appSettingsService: AppSettingsService) {}
   adapt(item: any): Organization {
+    const currentLocale = this.appSettingsService.currentLocale;
+
     return new Organization(
       item.placement_id,
-      item.name_fi,
-      item.name_sv,
-      item.name_en,
-      item.link
+      item['name_' + currentLocale],
+      item.link,
+      item['iframe_' + currentLocale]
     );
   }
 }

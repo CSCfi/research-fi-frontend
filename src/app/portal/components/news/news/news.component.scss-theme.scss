@@ -29,21 +29,6 @@
       }
     }
 
-    // Tab
-    .mat-tab-label:not(.mat-tab-label-active) {
-      background: #e8e8f5;
-    }
-
-    .mat-tab-label-active {
-      background: mat-contrast($primary, 500);
-      border: 1px solid mat-color($primary);
-      border-bottom: 0;
-    }
-
-    .mat-tab-header {
-      border-bottom: 1px solid mat-color($primary);
-    }
-
     @media (max-width: 991px) {
       .side-news {
         border: none;

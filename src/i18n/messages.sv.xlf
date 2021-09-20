@@ -1200,6 +1200,10 @@
           <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="news">
+        <source>Uutiset</source>
+        <target>Nyheter</target>
+      </trans-unit>
       <trans-unit id="withTerm" datatype="html">
         <source>Joihin sisältyy hakutermi</source>
         <target state="translated">Som inkluderar söktermen</target>
@@ -3442,6 +3446,10 @@
       <trans-unit id="thesisCount">
         <source>Tutkintojen määrä</source>
         <target state="translated">Antal examina</target>
+      </trans-unit>
+      <trans-unit id="below">
+        <source>Alle</source>
+        <target>Under</target>
       </trans-unit>
       <trans-unit id="orgSubUnits">
         <source>Alayksiköt</source>
