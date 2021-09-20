@@ -59,4 +59,13 @@ export class OrganizationVisualisationsComponent implements OnInit {
     const handleLoad = () => (this.isLoading = false);
     this.iframe.nativeElement.addEventListener('load', handleLoad, true);
   }
+
+  handleLoad(event) {
+    // PowerBI visualizations have load twice. Hide loading indicator on second timestamp.
+    if (this.loadingTimeStamp > 0) {
+      this.isLoading = false;
+    }
+
+    this.loadingTimeStamp = event.timeStamp;
+  }
 }
