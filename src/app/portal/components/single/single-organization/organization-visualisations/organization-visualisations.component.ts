@@ -5,10 +5,17 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
 import { Organization } from '@portal/models/organization.model';
 import { Subscription } from 'rxjs';
-
 
 @Component({
   selector: 'app-organization-visualisations',
@@ -18,6 +25,9 @@ import { Subscription } from 'rxjs';
 export class OrganizationVisualisationsComponent implements OnInit {
   @Input() item: Organization;
   @ViewChildren('content') content: QueryList<ElementRef>;
+
+  loadingTimeStamp: number = 0;
+  isLoading = true;
 
   contentSub: Subscription;
 
@@ -42,5 +52,14 @@ export class OrganizationVisualisationsComponent implements OnInit {
         this.cdr.detectChanges();
       });
     }
+  }
+
+  handleLoad(event) {
+    // PowerBI visualizations have load twice. Hide loading indicator on second timestamp.
+    if (this.loadingTimeStamp > 0) {
+      this.isLoading = false;
+    }
+
+    this.loadingTimeStamp = event.timeStamp;
   }
 }

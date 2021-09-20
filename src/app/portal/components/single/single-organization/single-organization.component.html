@@ -55,9 +55,9 @@
         </div>
 
         <!-- Tabs -->
-        <mat-tab-group dynamicHeight>
+        <mat-tab-group dynamicHeight (selectedTabChange)="changeTab($event)">
           <mat-tab label="Tunnuslukuja" *ngIf="item.visualIframeUrl && !mobile">
-            <app-organization-visualisations [item]="item"></app-organization-visualisations>
+            <!-- Content is defined below -->
           </mat-tab>
           <mat-tab label="Lisätiedot">
             <app-organization-information
@@ -71,6 +71,13 @@
             ></app-organization-sub-units>
           </mat-tab>
         </mat-tab-group>
+
+        <!-- Prevents reload of visualization -->
+        <div [hidden]="!showVisual" *ngIf="item.visualIframeUrl && !mobile">
+          <app-organization-visualisations
+            [item]="item"
+          ></app-organization-visualisations>
+        </div>
       </div>
     </main>
 

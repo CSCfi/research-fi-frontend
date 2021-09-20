@@ -41,7 +41,7 @@ export class Organization {
     public sectorNameFi: string,
     public subUnits: any[],
     public logo: string,
-    public visualIframeUrl: string,
+    public visualIframeUrl: string
   ) {}
 }
 
@@ -72,8 +72,6 @@ export class OrganizationAdapter implements Adapter<Organization> {
     const related = item.related
       ? item.related.map((x) => x.nameFi.trim()).join(', ')
       : '';
-
-    const visualIframeUrl = 'https://app.powerbi.com/view?r=eyJrIjoiMTM1NGI1ZjgtZWZjMy00ZTcxLWEwZTctY2E5YzVjMmVkNTc2IiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9';
 
     return new Organization(
       item.organizationId,
@@ -106,7 +104,7 @@ export class OrganizationAdapter implements Adapter<Organization> {
       item.sectorNameFi,
       item.subUnits,
       item.mediaUri,
-      visualIframeUrl
+      null // Initial value for organization visual iFrame url
     );
   }
 }
