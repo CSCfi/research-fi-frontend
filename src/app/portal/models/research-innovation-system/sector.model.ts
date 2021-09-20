@@ -6,24 +6,17 @@
 //  :license: MIT
 
 import { Injectable } from '@angular/core';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Adapter } from '../adapter.model';
 import { Organization, OrganizationAdapter } from './organization.model';
 
 export class Sector {
   constructor(
     public placement: number,
-    public nameFi: string,
-    public nameSv: string,
-    public nameEn: string,
-    public descriptionFi: string,
-    public descriptionSv: string,
-    public descriptionEn: string,
-    public subtitleFi: string,
-    public subtitleSv: string,
-    public subtitleEn: string,
-    public iframeFi: string,
-    public iframeSv: string,
-    public iframeEn: string,
+    public name: string,
+    public description: string,
+    public subtitle: string,
+    public iframe: string,
     public icon: string,
     public organizations: Organization[]
   ) {}
@@ -33,8 +26,12 @@ export class Sector {
   providedIn: 'root',
 })
 export class SectorAdapter implements Adapter<Sector> {
-  constructor(private sf: OrganizationAdapter) {}
+  constructor(
+    private sf: OrganizationAdapter,
+    private appSettingsService: AppSettingsService
+  ) {}
   adapt(item: any): Sector {
+    const currentLocale = this.appSettingsService.currentLocale;
     let organizations: Organization[] = [];
     item.organizations
       ? item.organizations.forEach((el) =>
@@ -46,18 +43,10 @@ export class SectorAdapter implements Adapter<Sector> {
 
     return new Sector(
       item.placement_id,
-      item.name_fi,
-      item.name_sv,
-      item.name_en,
-      item.description_fi,
-      item.description_sv,
-      item.description_en,
-      item.subtitle_fi,
-      item.subtitle_sv,
-      item.subtitle_en,
-      item.iframe_fi,
-      item.iframe_sv,
-      item.iframe_en,
+      item['name_' + currentLocale],
+      item['description_' + currentLocale],
+      item['subtitle_' + currentLocale],
+      item['iframe_' + currentLocale],
       item.icon,
       organizations
     );

@@ -4,7 +4,7 @@
 //
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, LOCALE_ID } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
@@ -60,7 +60,7 @@ export class AppSettingsService {
       {
         label: $localize`:@@headerLink7:Rahoitushaut`,
         link: '/funding-calls',
-        queryParams: {status: 'open'},
+        queryParams: { status: 'open' },
         exact: false,
       },
       {
@@ -100,7 +100,14 @@ export class AppSettingsService {
 
   currentAppSettings: object;
 
-  constructor() {}
+  currentLocale: string;
+  capitalizedLocale: string;
+
+  constructor(@Inject(LOCALE_ID) protected localeId: string) {
+    this.currentLocale = this.localeId;
+    this.capitalizedLocale =
+      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+  }
 
   updateMobileStatus(status) {
     this.mobileSource.next(status);
