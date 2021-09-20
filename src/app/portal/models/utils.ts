@@ -20,7 +20,7 @@ export class LanguageCheck {
     if (!item) return undefined;
     // Change locale to field name format
     const capitalizedLocale =
-    this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
     // Get the content based on the current locale
     const content = item[field + capitalizedLocale]?.toString()?.trim() || '';
     // Check if the original locale has valuable content

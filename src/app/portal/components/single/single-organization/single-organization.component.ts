@@ -18,7 +18,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SingleItemService } from '@portal/services/single-item.service';
 import { SearchService } from '@portal/services/search.service';
 import { Title } from '@angular/platform-browser';
-import { Subscription } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
 import { TabChangeService } from '@portal/services/tab-change.service';
 import { UtilityService } from '@shared/services/utility.service';
 import { Search } from '@portal/models/search.model';
@@ -27,9 +27,10 @@ import {
   common,
 } from 'src/assets/static-data/meta-tags.json';
 import { SettingsService } from 'src/app/portal/services/settings.service';
-import { take } from 'rxjs/operators';
+import { take, tap } from 'rxjs/operators';
 import { ResizeService } from '@shared/services/resize.service';
 import { WINDOW } from '@shared/services/window.service';
+import { ContentDataService } from '@portal/services/content-data.service';
 
 @Component({
   selector: 'app-single-organization',
@@ -109,6 +110,8 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   resizeSub: Subscription;
   mobile: boolean;
   showMoreNews = false;
+  dataSub: Subscription;
+  showVisual = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -121,7 +124,8 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     private tabChangeService: TabChangeService,
     public utilityService: UtilityService,
     private settingsService: SettingsService,
-    private resizeService: ResizeService
+    private resizeService: ResizeService,
+    private cds: ContentDataService
   ) {
     // Capitalize first letter of locale
     this.currentLocale =
@@ -139,7 +143,9 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
       this.getNews();
       this.searchService.searchTerm = ''; // Empty search term so breadcrumb link is correct
     });
-    this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.mobile = dims.width < 992);
+    this.resizeSub = this.resizeService.onResize$.subscribe(
+      (dims) => (this.mobile = dims.width < 992)
+    );
     this.mobile = this.window.innerWidth < 992;
 
     this.singleId = this.route.snapshot.params.id;
@@ -166,30 +172,43 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     this.idSub?.unsubscribe();
     this.focusSub?.unsubscribe();
     this.resizeSub?.unsubscribe();
+    this.dataSub?.unsubscribe();
     this.settingsService.related = false;
   }
 
   getData(id: string) {
-    this.singleService.getSingleOrganization(id).subscribe((responseData) => {
-      this.responseData = responseData;
-      if (this.responseData.organizations[0]) {
+    // Organization may have an iFrame. This data comes from CMS.
+    // CMS data is handled in browsers storage
+    this.dataSub = forkJoin([
+      this.singleService.getSingleOrganization(id),
+      !sessionStorage.getItem('sectorData')
+        ? this.cds.getSectors()
+        : JSON.parse(sessionStorage.getItem('sectorData')),
+    ]).subscribe((response: any) => {
+      const orgCMSData = response[1]
+        ?.map((sector) => sector.organizations)
+        .flat()
+        .find((org) => org.link === id);
+
+      this.responseData = response[0];
+      const orgData = response[0].organizations[0];
+
+      if (orgData) {
+        // Set visualization url
+        if (orgCMSData?.iframe.trim().length > 0)
+          orgData.visualIframeUrl = orgCMSData.iframe;
+
         switch (this.localeId) {
           case 'fi': {
-            this.setTitle(
-              this.responseData.organizations[0].name + ' - Tiedejatutkimus.fi'
-            );
+            this.setTitle(orgData.name + ' - Tiedejatutkimus.fi');
             break;
           }
           case 'en': {
-            this.setTitle(
-              this.responseData.organizations[0].name.trim() + ' - Research.fi'
-            );
+            this.setTitle(orgData.name.trim() + ' - Research.fi');
             break;
           }
           case 'sv': {
-            this.setTitle(
-              this.responseData.organizations[0].name.trim() + ' - Forskning.fi'
-            );
+            this.setTitle(orgData.name.trim() + ' - Forskning.fi');
             break;
           }
         }
@@ -200,18 +219,23 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
           this.metaTags['description' + this.currentLocale],
           this.commonTags['imgAlt' + this.currentLocale]
         );
-        this.shapeData();
+        this.shapeData(orgData);
       }
     });
   }
 
-  shapeData() {
-    const source = this.responseData.organizations[0];
+  shapeData(data) {
+    const source = data;
 
     // Name translations
     source.nameTranslations = Object.values(source.nameTranslations)
       .filter((x) => UtilityService.stringHasContent(x))
       .join('; ');
+  }
+
+  // Prevent reloading of iFrame visualization
+  changeTab(event) {
+    this.showVisual = event.index === 0;
   }
 
   getNews() {

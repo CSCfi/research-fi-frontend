@@ -6,15 +6,14 @@
 //  :license: MIT
 
 import { Injectable } from '@angular/core';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Adapter } from '../adapter.model';
 import { ExternalLink, ExternalLinkAdapter } from './external-link.model';
 
 export class ExternalLinkGroup {
   constructor(
     public placement: number,
-    public titleFi: string,
-    public titleSv: string,
-    public titleEn: string,
+    public title: string,
     public links: ExternalLink[]
   ) {}
 }
@@ -23,7 +22,10 @@ export class ExternalLinkGroup {
   providedIn: 'root',
 })
 export class ExternalLinkGroupAdapter implements Adapter<ExternalLinkGroup> {
-  constructor(private sf: ExternalLinkAdapter) {}
+  constructor(
+    private sf: ExternalLinkAdapter,
+    private appSettingsService: AppSettingsService
+  ) {}
   adapt(item: any): ExternalLinkGroup {
     let links: ExternalLink[] = [];
     item.items
@@ -32,11 +34,11 @@ export class ExternalLinkGroupAdapter implements Adapter<ExternalLinkGroup> {
         )
       : (links = []);
 
+    const currentLocale = this.appSettingsService.currentLocale;
+
     return new ExternalLinkGroup(
       item.placement_id,
-      item.title_fi,
-      item.title_sv,
-      item.title_en,
+      item['title_' + currentLocale],
       links
     );
   }

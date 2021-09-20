@@ -35,7 +35,8 @@ import { Sector } from 'src/app/portal/models/research-innovation-system/sector.
   styleUrls: ['./research-innovation-system.component.scss'],
 })
 export class ResearchInnovationSystemComponent
-  implements OnInit, AfterViewInit, OnDestroy {
+  implements OnInit, AfterViewInit, OnDestroy
+{
   faTimes = faTimes;
   openedIdx = -1;
 
