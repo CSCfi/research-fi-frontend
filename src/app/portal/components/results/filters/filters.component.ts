@@ -40,6 +40,7 @@ import { faSlidersH, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { isPlatformBrowser, DOCUMENT } from '@angular/common';
 import { tap } from 'rxjs/operators';
 import { DataService } from 'src/app/portal/services/data.service';
+import { FundingCallFilterService } from '@portal/services/filters/funding-call-filter.service';
 
 @Component({
   selector: 'app-filters',
@@ -86,7 +87,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   filterNewsHeader = $localize`:@@filterNewsHeader:Rajaa uutisia`;
   coPublicationTooltip =
     'Valitsemalla ”näytä vain yhteisjulkaisut” voit tarkastella suomalaisten organisaatioiden yhteisiä julkaisuja. Hakutulos näyttää tällöin vain sellaiset julkaisut, joissa kaikki alla olevasta listasta valitut organisaatiot ovat mukana. Jos yhtään organisaatiota ei ole valittu, hakutulos näyttää kaikki yhteisjulkaisut';
-
   constructor(
     private router: Router,
     private resizeService: ResizeService,
@@ -102,6 +102,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     private datasetFilters: DatasetFilterService,
     private infrastructureFilters: InfrastructureFilterService,
     private organizationFilters: OrganizationFilterService,
+    private fundingCallFilters: FundingCallFilterService,
     private newsFilters: NewsFilterService,
     @Inject(PLATFORM_ID) private platformId: object,
     private dataService: DataService
@@ -256,6 +257,12 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
           this.currentFilter = this.organizationFilters.filterData;
           this.currentSingleFilter = this.organizationFilters.singleFilterData;
           this.organizationFilters.shapeData(this.responseData);
+          break;
+        }
+        case 'funding-calls': {
+          this.currentFilter = this.fundingCallFilters.filterData;
+          this.currentSingleFilter = this.fundingCallFilters.singleFilterData;
+          this.fundingCallFilters.shapeData(this.responseData);
           break;
         }
         case 'news': {
@@ -421,8 +428,38 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         break;
       }
     }
-
     this.selectionChange('year', selected);
+  }
+
+  dateChange(event, dir) {
+    let start = this.getActiveDate('start')?.toLocaleDateString('sv');
+    let end = this.getActiveDate('end')?.toLocaleDateString('sv');
+    switch (dir) {
+      case 'start': {
+        start = event?.value?.toLocaleDateString('sv') || ''; // In case new value is null
+        break;
+      }
+      case 'end': {
+        end = event?.value?.toLocaleDateString('sv') || ''; // In case new value is null
+        break;
+      }
+    }
+    // Create filter string format
+    const filterString = start || end ? (start || '') + '|' + (end || '') : ''; // Replace 'undefined' with empty string. On manual clear, empty string for the whole thing.
+    // this.activeFilters = Object.assign({}, this.activeFilters, {date: [filterString]});
+    this.selectionChange('date', [filterString]);
+  }
+
+  getActiveDate(dir) {
+    // Initially string, then array. Convert into same format regardless
+    const activeDate = [...(this.activeFilters.date || [])].join('');
+    const start = activeDate?.split('|')[0] // Check if active start date exists
+      ? new Date(activeDate?.split('|')[0])
+      : null;
+    const end = activeDate?.split('|')[1] // Check if active end date exists
+      ? new Date(activeDate?.split('|')[1])
+      : null;
+    return dir === 'start' ? start : end;
   }
 
   filterInput(event, parent) {

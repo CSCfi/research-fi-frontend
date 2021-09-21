@@ -9,27 +9,29 @@
 </aside>
 
 <div class="wrapper" *ngIf="responseData" id="main-content">
+  <div class="row shared">
+  <p class="back col-12" style="padding-bottom: 0.25rem;">
+    <a
+      #backToResultsLink
+      routerLink="/results/{{ tab }}/{{ searchTerm }}"
+      [queryParams]="tabQueryParams"
+      >&lt;
+      <ng-container i18n="@@backToResults"
+        >Takaisin hakutuloksiin</ng-container
+      ></a
+    >
+  </p>
+  </div>
   <!-- Breadcrumb -->
   <app-breadcrumb
-    [type]="'single'"
-    [responseData]="responseData"
-    [tab]="tab"
-    [tabName]="tabData.label"
-    [resultNameField]="'name'"
-    [queryParams]="tabQueryParams"
+  [type]="'single'"
+  [responseData]="responseData"
+  [tab]="tab"
+  [tabName]="tabData.label"
+  [resultNameField]="'name'"
+  [queryParams]="tabQueryParams"
   ></app-breadcrumb>
   <div class="row shared">
-    <p class="back col-12">
-      <a
-        #backToResultsLink
-        routerLink="/results/{{ tab }}/{{ searchTerm }}"
-        [queryParams]="tabQueryParams"
-        >&lt;
-        <ng-container i18n="@@backToResults"
-          >Takaisin hakutuloksiin</ng-container
-        ></a
-      >
-    </p>
     <div
       class="col-12"
       style="margin: 10px 0 10px 0"
@@ -100,7 +102,7 @@
                   <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
                 </span>
               </h2>
-              <!-- Switch by recipien type -->
+              <!-- Switch by recipient type -->
               <div
                 class="col-12 col-sm-8 col-lg-9 px-0"
                 [ngSwitch]="item.recipientType"
@@ -212,7 +214,7 @@
                       <div
                         class="col-12 td col-sm-3 mobile-list"
                         *ngIf="
-                          org.shareOfFundingEur !== item.recipient.amountEur
+                          org.shareOfFundingEur && org.shareOfFundingEur !== item.recipient.amountEur
                         "
                       >
                         {{ org.shareOfFundingEur | thousandSeparator }} €
@@ -614,8 +616,8 @@
       class="col-12 col-md-4 col-xl-4"
     >
       <aside>
-        <aside>
-          <mat-card>
+        <mat-card>
+          <div class="inner">
             <mat-card-title
               ><h2>
                 <ng-container i18n="@@fundingHomePage"
@@ -640,12 +642,10 @@
                   <a
                     *ngIf="row.field === 'funderProjectNumber'"
                     class="info-link"
-                    href="https://cordis.europa.eu/project/id/{{
-                      item[row.field]
-                    }}"
+                    [href]="(item.structuralFund ? euraLink : cordisProjectLink) + item[row.field]"
                     target="_blank"
-                    >https://cordis.europa.eu/project/id/{{ item[row.field]
-                    }}<fa-icon icon="external-link-alt"></fa-icon
+                    >{{(item.structuralFund ? euraLink : cordisProjectLink) + item[row.field]}}
+                    <fa-icon icon="external-link-alt"></fa-icon
                   ></a>
                   <a
                     *ngIf="row.field !== 'funderProjectNumber'"
@@ -665,21 +665,25 @@
             >
               Hankkeeseen ei ole tarjolla linkkejä tässä portaalissa
             </div>
-          </mat-card>
-        </aside>
+          </div>
+        </mat-card>
+      </aside>
+      <aside>
         <mat-card>
-          <mat-card-title
-            ><h2>
-              <ng-container i18n="@@relatedFundings"
-                >Hae hankkeeseen liittyvät</ng-container
-              >
-              (<ng-container i18n="@@comingSoon">tulossa</ng-container>)
-            </h2></mat-card-title
-          >
-          <app-related-links
-            [id]=""
-            [relatedData]="relatedData"
-          ></app-related-links>
+          <div class="inner">
+            <mat-card-title
+              ><h2>
+                <ng-container i18n="@@relatedFundings"
+                  >Hae hankkeeseen liittyvät</ng-container
+                >
+                (<ng-container i18n="@@comingSoon">tulossa</ng-container>)
+              </h2></mat-card-title
+            >
+            <app-related-links
+              [id]=""
+              [relatedData]="relatedData"
+            ></app-related-links>
+          </div>
         </mat-card>
       </aside>
       <!-- <aside>
@@ -695,27 +699,37 @@
       <!-- Copy url -->
       <aside>
         <mat-card>
-          <mat-card-title><h2 i18n="@@share">Jaa</h2></mat-card-title>
-          <app-share [id]="item.id"></app-share>
+          <div class="inner">
+            <mat-card-title><h2 i18n="@@share">Jaa</h2></mat-card-title>
+            <app-share [id]="item.id"></app-share>
+          </div>
         </mat-card>
       </aside>
       <aside>
         <mat-card>
-          <mat-card-title
-            ><h2 i18n="@@fundingSource">Hanketiedon lähde</h2></mat-card-title
-          >
-          <div *ngFor="let source of responseData.fundings">
-            <p *ngIf="source.funder.name.trim().length > 0">
-              {{ source.funder.name }}
-            </p>
-            <p
-              *ngIf="source.funder.name.trim().length === 0"
-              i18n="@@noInformationSource"
+          <div class="inner">
+            <mat-card-title
+              ><h2 i18n="@@fundingSource">Hanketiedon lähde</h2></mat-card-title
             >
-              Tiedon lähde ei saatavilla.
-            </p>
+            <div *ngFor="let source of responseData.fundings">
+              <p *ngIf="source.funder.name.trim().length > 0">
+                <ng-container *ngIf="!item.structuralFund">{{ source.funder.name }}</ng-container>
+                <ng-container *ngIf="item.structuralFund">Rakennerahastotietopalvelu 
+                    <!-- Structural fund source link -->
+                    (<a href="https://www.eura2014.fi/rrtiepa/" target="_blank">eura2014.fi
+                      <fa-icon icon="external-link-alt"></fa-icon>
+                    </a>)
+                </ng-container>
+              </p>
+              <p
+                *ngIf="source.funder.name.trim().length === 0"
+                i18n="@@noInformationSource"
+              >
+                Tiedon lähde ei saatavilla.
+              </p>
+            </div>
+            <div class="clear"></div>
           </div>
-          <div class="clear"></div>
         </mat-card>
       </aside>
     </div>

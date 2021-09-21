@@ -5,7 +5,15 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, ViewEncapsulation, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ViewEncapsulation,
+  OnInit,
+  ViewChild,
+  Inject,
+  PLATFORM_ID,
+  ElementRef,
+} from '@angular/core';
 import {
   faAngleDoubleRight,
   faAngleDoubleLeft,
@@ -13,12 +21,11 @@ import {
 import { ProfileService } from 'src/app/mydata/services/profile.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { take } from 'rxjs/operators';
-import {
-  BsModalRef,
-  BsModalService,
-  ModalDirective,
-} from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
+import { WINDOW } from '@shared/services/window.service';
+import { isPlatformBrowser } from '@angular/common';
+import { AppSettingsService } from '@shared/services/app-settings.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-welcome-stepper',
@@ -27,7 +34,8 @@ import { Router } from '@angular/router';
   encapsulation: ViewEncapsulation.None,
 })
 export class WelcomeStepperComponent implements OnInit {
-  step = 4;
+  develop: boolean;
+  step: number;
   cancel = false;
 
   termsApproved = false;
@@ -38,32 +46,59 @@ export class WelcomeStepperComponent implements OnInit {
 
   userData: any;
   firstName: string;
-  editorData: Object;
 
-  @ViewChild('smModal') smModal: ModalDirective;
-  @ViewChild('termsTemplate') termsTemplate: ModalDirective;
-  modalRef: BsModalRef;
+  @ViewChild('fetchingTemplate') fetchingTemplate: ElementRef;
 
+  profileChecked: boolean;
   profileCreated: boolean;
-  orcidData: Object;
+  profileData: Object;
+
+  // Dialog variables
+  showDialog: boolean;
+  dialogTemplate: any;
+  dialogTitle: any;
+  dialogActions = [{ label: 'Sulje', primary: true, method: 'close' }];
+
+  loading: boolean;
 
   constructor(
     private profileService: ProfileService,
     public oidcSecurityService: OidcSecurityService,
-    private modalService: BsModalService,
-    private router: Router
+    private router: Router,
+    private appSettingsService: AppSettingsService,
+    @Inject(PLATFORM_ID) private platformId: object,
+    @Inject(WINDOW) private window: Window,
+    public dialog: MatDialog
   ) {
-    this.editorData = null;
+    this.profileData = null;
   }
 
   ngOnInit() {
+    this.develop = this.appSettingsService.myDataSettings.develop;
+
+    if (!this.develop) {
+      this.checkProfileExists();
+    } else {
+      this.profileChecked = true;
+    }
+
+    this.step = this.develop ? 4 : 1;
+
     this.oidcSecurityService.userData$.pipe(take(1)).subscribe((data) => {
-      this.userData = data;
-      this.firstName = data?.name.split(' ')[0];
+      if (data) {
+        this.userData = data;
+        this.firstName = data?.name.split(' ')[0];
+        this.appSettingsService.setOrcid(data.orcid);
+      }
     });
   }
 
   changeStep(direction) {
+    // Scroll to top on step change
+    if (isPlatformBrowser(this.platformId)) {
+      this.window.scrollTo(0, 0);
+    }
+
     // Fetch data if on step 3 and user has initialized Orcid data fetch
     if (this.step === 3 && direction === 'increment') {
       this.fetchData();
@@ -86,35 +121,28 @@ export class WelcomeStepperComponent implements OnInit {
     this.cancel = !this.cancel;
   }
 
-  openModal(template) {
-    this.modalRef = this.modalService.show(template);
-  }
-
-  closeModal() {
-    this.modalRef.hide();
-  }
-
   fetchData() {
-    this.smModal.show();
-    this.checkProfileExists();
+    this.openDataFetchingDialog();
+    this.createProfile();
   }
 
+  // Redirect to profile summary if profile exists.
   checkProfileExists() {
     this.profileService
       .checkProfileExists()
       .pipe(take(1))
       .subscribe((data: any) => {
         if (data.ok) {
-          data.body.success
-            ? // ? this.router.navigate(['/profile'])
-              this.getProfileData()
-            : this.createProfile();
+          if (data.body.success) this.router.navigate(['/mydata/profile']);
+
+          this.profileChecked = true;
         } else {
-          console.log('Connection problem');
+          // TODO: Alert problem
         }
       });
   }
 
+  // Create profile when proceeding from step 3. Get ORCID and profile data after profile creation
   createProfile() {
     return this.profileService
       .createProfile()
@@ -124,13 +152,35 @@ export class WelcomeStepperComponent implements OnInit {
           this.getOrcidData();
           this.profileCreated = true;
         } else {
-          console.log('Cannot create profile');
+          // TODO: Alert problem
         }
       });
   }
 
+  openDialog(title, template) {
+    this.dialogTitle = title;
+    this.showDialog = true;
+    this.dialogTemplate = template;
+  }
+
+  doDialogAction() {
+    // Perform actions
+    this.resetDialog();
+  }
+
+  resetDialog() {
+    this.dialogTitle = '';
+    this.showDialog = false;
+    this.dialogTemplate = null;
+  }
+
+  openDataFetchingDialog() {
+    this.loading = true;
+    this.dialogTemplate = this.fetchingTemplate;
+  }
+
   deleteProfile() {
-    this.profileService.deleteProfile().subscribe((data) => console.log(data));
+    this.profileService.deleteProfile();
   }
 
   async getOrcidData() {
@@ -141,11 +191,12 @@ export class WelcomeStepperComponent implements OnInit {
   }
 
   getProfileData() {
-    this.editorData = null;
+    this.profileData = null;
     this.profileService.getProfileData().subscribe((data) => {
-      this.orcidData = data;
-      this.editorData = data;
-      this.smModal.hide();
+      this.profileData = data;
+      this.dialog.closeAll();
+      this.loading = false;
+      this.resetDialog();
       this.increment();
     });
   }

@@ -11,6 +11,8 @@ import { FormsModule } from '@angular/forms';
 
 import { MyDataRoutingModule } from './mydata-routing.module';
 
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
@@ -21,6 +23,14 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatButtonModule } from '@angular/material/button';
+import { MatRippleModule } from '@angular/material/core';
 
 import { HomeComponent } from './components/home/home.component';
 import { WelcomeStepperComponent } from './components/welcome-stepper/welcome-stepper.component';
@@ -37,12 +47,28 @@ import { SharedModule } from '../shared/shared.module';
 import { OrcidIdInfoComponent } from './components/welcome-stepper/orcid-id-info/orcid-id-info.component';
 import { StepperNavigationComponent } from './components/welcome-stepper/stepper-navigation/stepper-navigation.component';
 
-import { ModalModule } from 'ngx-bootstrap/modal';
 import { ProfilePanelComponent } from './components/profile-data-handler/profile-panel/profile-panel.component';
 import { FilterPipe } from './pipes/filter.pipe';
+import { GetLocalizedValuesPipe } from './pipes/getLocalizedValues.pipe';
 import { EditorModalComponent } from './components/profile-data-handler/editor-modal/editor-modal.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { PanelArrayItemComponent } from './components/profile-data-handler/profile-panel/panel-array-item/panel-array-item.component';
+import { CheckFieldLocalePipe } from './pipes/check-field-locale.pipe';
+import { ParseDatePipe } from './pipes/parse-date.pipe';
+import { ActivityItemComponent } from './components/profile-data-handler/profile-panel/activity-item/activity-item.component';
+import { GetPrimaryOptionsPipe } from './pipes/get-primary-options.pipe';
+import { PrimaryBadgeComponent } from './components/profile-data-handler/profile-panel/primary-badge/primary-badge.component';
+import { SearchPublicationsComponent } from './components/profile-data-handler/profile-panel/search-publications/search-publications.component';
+import { PublicationsListComponent } from './components/profile-data-handler/profile-panel/publications-list/publications-list.component';
+import { CustomPaginatorIntlComponent } from './components/profile-data-handler/profile-panel/custom-paginator-intl/custom-paginator-intl.component';
+import { CountGroupItemsPipe } from './pipes/count-group-items.pipe';
+import { MydataBetaInfoComponent } from './components/mydata-beta-info/mydata-beta-info.component';
+import { ProfileSummaryComponent } from './components/profile/profile-summary/profile-summary.component';
+import { JoinItemsPipe } from './pipes/join-items.pipe';
+import { FindSelectedItemPipe } from './pipes/find-selected-item.pipe';
+import { HandleFetchedPublicationsPipe } from './pipes/handle-fetched-publications.pipe';
+import { SortPublicationsPipe } from './pipes/sort-publications.pipe';
+import { EulaComponent } from './components/eula/eula.component';
 
 @NgModule({
   declarations: [
@@ -56,14 +82,33 @@ import { PanelArrayItemComponent } from './components/profile-data-handler/profi
     StepperNavigationComponent,
     ProfilePanelComponent,
     FilterPipe,
+    GetLocalizedValuesPipe,
     EditorModalComponent,
     ProfileComponent,
     PanelArrayItemComponent,
+    CheckFieldLocalePipe,
+    ParseDatePipe,
+    ActivityItemComponent,
+    GetPrimaryOptionsPipe,
+    PrimaryBadgeComponent,
+    SearchPublicationsComponent,
+    PublicationsListComponent,
+    CountGroupItemsPipe,
+    MydataBetaInfoComponent,
+    ProfileSummaryComponent,
+    JoinItemsPipe,
+    FindSelectedItemPipe,
+    HandleFetchedPublicationsPipe,
+    SortPublicationsPipe,
+    EulaComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
     MyDataRoutingModule,
+    SharedModule,
+    FontAwesomeModule,
+    TooltipModule.forRoot(),
     MatProgressSpinnerModule,
     MatCheckboxModule,
     MatRadioModule,
@@ -74,10 +119,17 @@ import { PanelArrayItemComponent } from './components/profile-data-handler/profi
     MatSlideToggleModule,
     MatTabsModule,
     MatSnackBarModule,
-    FontAwesomeModule,
-    SharedModule,
-    ModalModule,
+    MatDialogModule,
+    MatDividerModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatButtonModule,
+    MatRippleModule,
   ],
-  providers: [AuthGuard],
+  providers: [
+    AuthGuard,
+    { provide: MatPaginatorIntl, useClass: CustomPaginatorIntlComponent },
+  ],
 })
 export class MyDataModule {}

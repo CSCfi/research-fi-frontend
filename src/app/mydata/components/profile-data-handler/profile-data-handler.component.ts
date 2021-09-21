@@ -5,25 +5,27 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import {
-  Component,
-  Input,
-  OnInit,
-  TemplateRef,
-  ViewChild,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-import {
-  BsModalRef,
-  BsModalService,
-  ModalDirective,
-} from 'ngx-bootstrap/modal';
 import { cloneDeep } from 'lodash-es';
 import { ProfileService } from '@mydata/services/profile.service';
-import { checkSelected, checkEmpty } from '../welcome-stepper/utils';
+import {
+  checkSelected,
+  getDataSources,
+  mergePublications,
+  isEmptySection,
+} from '@mydata/utils';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { EditorModalComponent } from './editor-modal/editor-modal.component';
+
 import { FieldTypes } from '@mydata/constants/fieldTypes';
+import { take } from 'rxjs/operators';
+
+import { PatchService } from '@mydata/services/patch.service';
+
+// Remove in production
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   selector: 'app-profile-data-handler',
@@ -38,71 +40,119 @@ export class ProfileDataHandlerComponent implements OnInit {
 
   faCheckCircle = faCheckCircle;
 
-  dataSources = [
-    { label: 'ORCID' },
-    { label: 'Korkeakoulu A', disabled: true },
-    { label: 'Korkeakoulu B', disabled: true },
-  ];
-
-  selectedSource = this.dataSources[0];
-  selectedIndex = 0;
-
+  dataSources: any[];
+  primarySource: string;
   openPanels: any = [];
 
-  modalRef: BsModalRef;
-  @ViewChild('editorModal') editorModal: ModalDirective;
-
   checkSelected = checkSelected;
-  checkEmpty = checkEmpty;
+  getDataSources = getDataSources;
+  mergePublications = mergePublications;
+  isEmptySection = isEmptySection;
 
-  // TODO: Localize
-  profileData = [
-    {
-      label: 'Yhteystiedot',
-      editLabel: 'yhteystietoja',
-      fields: [],
-    },
-    {
-      label: 'Tutkimustoiminnan kuvaus',
-      editLabel: 'tutkimustoiminnan kuvausta',
-      fields: [],
-    },
-    { label: 'Affiliaatiot', fields: [] },
-    { label: 'Koulutus', fields: [] },
-    { label: 'Julkaisut', fields: [] },
-    { label: 'Tutkimusaineistot', fields: [] },
-    { label: 'Hankkeet', fields: [] },
-    { label: 'Muut hankkeet', fields: [] },
-    { label: 'Tutkimusinfrastruktuurit', fields: [] },
-    { label: 'Muut tutkimusaktiviteetit', fields: [] },
-    { label: 'Meriitit', fields: [] },
-  ];
-
-  selectedData: any;
+  profileData: any;
 
   fieldTypes = FieldTypes;
 
+  dialogRef: MatDialogRef<EditorModalComponent>;
+
   constructor(
-    private modalService: BsModalService,
     private profileService: ProfileService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    public dialog: MatDialog,
+    private appSettingsService: AppSettingsService,
+    private patchService: PatchService
   ) {
     this.testData = profileService.testData;
   }
 
   ngOnInit(): void {
-    this.mapData();
+    this.response = this.appSettingsService.myDataSettings.develop
+      ? this.testData
+      : this.response;
+
+    this.profileData = this.response.profileData;
+
+    // Get data sources
+    this.dataSources = getDataSources(this.profileData);
+
+    const initialPrimarySource = this.dataSources[0];
+
+    // Set primary data source on init. Defaults to ORCID
+    this.setPrimaryDataSource(initialPrimarySource);
+
+    // Merge publications
+    // TODO: Find better way to pass array element than index number. Eg. type
+    const publications = this.profileData[4];
+    if (!isEmptySection(publications)) this.mergePublications(publications);
   }
 
-  mapData() {
-    // console.log(this.testData);
-    this.profileData[0].fields = this.testData.personal;
-    this.profileData[1].fields = this.testData.description;
+  setPrimaryDataSource(option) {
+    this.primarySource = option;
 
-    // console.log(JSON.stringify(this.response));
-    // console.log(this.response);
-    // this.profileData[0].fields = this.response.personal;
-    // this.profileData[1].fields = this.response.description;
+    // Set default options for radio button groups
+    this.setDefaultOptions(
+      this.profileData.filter((element) => element.fields.length),
+      option
+    );
+  }
+
+  setDefaultOptions(data, primarySource) {
+    const radioGroups = data
+      .flatMap((el) => el.fields.find((field) => field.single))
+      .filter((item) => item);
+
+    const patchItems = [];
+
+    radioGroups.forEach((group) =>
+      group.groupItems.map((groupItem) => {
+        if (groupItem.source.organization.nameFi === primarySource) {
+          groupItem.items[0].itemMeta.show = true;
+          patchItems.push(groupItem.items[0].itemMeta);
+        } else {
+          groupItem.items[0].itemMeta.show = false;
+        }
+      })
+    );
+
+    // Patch default options, hide snackbar notification
+    this.patchItems(patchItems, true);
+  }
+
+  toggleSelectAll(selectAll: boolean) {
+    const fields = this.profileData;
+    const patchItems = [];
+
+    for (const field of fields) {
+      field.fields.forEach((group) => {
+        if (!group.single) {
+          group.groupItems.forEach((groupItem) =>
+            groupItem.items.map((item) => {
+              if (selectAll) {
+                if (!item.itemMeta.show) {
+                  item.itemMeta.show = true;
+                  patchItems.push(item.itemMeta);
+                }
+              } else {
+                if (item.itemMeta.show) {
+                  item.itemMeta.show = false;
+                  patchItems.push(item.itemMeta);
+                }
+              }
+            })
+          );
+        }
+        if (group.selectedPublications) {
+          group.selectedPublications.forEach((publication) => {
+            publication.itemMeta.show = selectAll;
+            patchItems.push(publication.itemMeta);
+          });
+        }
+      });
+    }
+
+    this.profileData = fields;
+
+    this.patchItems(patchItems);
   }
 
   setOpenPanel(i: number) {
@@ -113,30 +163,56 @@ export class ProfileDataHandlerComponent implements OnInit {
     this.openPanels = this.openPanels.filter((val) => val !== i);
   }
 
-  openModal(event, index, template: TemplateRef<any>) {
+  openDialog(event, index) {
     event.stopPropagation();
-    this.selectedIndex = index;
-    this.selectedData = cloneDeep(this.profileData[index]);
 
-    this.modalRef = this.modalService.show(template);
-    this.modalRef.setClass('modal-lg');
+    const selectedField = cloneDeep(this.profileData[index]);
+
+    this.dialogRef = this.dialog.open(EditorModalComponent, {
+      ...this.appSettingsService.dialogSettings,
+      data: {
+        data: selectedField,
+        dataSources: this.dataSources,
+        primarySource: this.primarySource,
+      },
+    });
+
+    this.dialogRef
+      .afterClosed()
+      .pipe(take(1))
+      .subscribe(
+        (result: { data: any; patchGroups: any[]; patchItems: any[] }) => {
+          if (result) {
+            const currentPatchItems = this.patchService.currentPatchItems;
+
+            this.profileData[index] = result.data;
+
+            if (currentPatchItems.length) this.patchItems(currentPatchItems);
+          }
+
+          this.patchService.clearPatchPayload();
+        }
+      );
   }
 
-  closeModal() {
-    this.modalRef.hide();
-  }
-
-  changeData(data) {
-    if (data.data) {
-      // console.log(this.profileData[this.selectedIndex]);
-      this.profileData[this.selectedIndex] = data.data;
-
-      this.profileService
-        .patchProfileDataSingleGroup(data.patchItems)
-        .subscribe((response) => {
-          console.log(response);
-          this.snackBar.open('Muutokset tallennettu');
-        });
-    }
+  patchItems(patchItems, hideNotification = false) {
+    this.profileService
+      .patchObjects(patchItems)
+      .pipe(take(1))
+      .subscribe(
+        (result) => {
+          if (!hideNotification)
+            this.snackBar.open('Muutokset tallennettu', 'Sulje', {
+              horizontalPosition: 'start',
+              panelClass: 'mydata-snackbar',
+            });
+        },
+        (error) => {
+          this.snackBar.open('Virhe tiedon tallennuksessa', 'Sulje', {
+            horizontalPosition: 'start',
+            panelClass: 'mydata-snackbar',
+          });
+        }
+      );
   }
 }

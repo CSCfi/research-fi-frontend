@@ -57,6 +57,8 @@ export class BarComponent implements OnInit, OnChanges {
   categories = this.publication;
   categoryObject: VisualQuery;
 
+  missingInfoLabel = $localize`:@@informationMissing:Tieto puuttuu`
+
   constructor(
     private staticDataService: StaticDataService,
     @Inject(DOCUMENT) private document: Document,
@@ -142,6 +144,22 @@ export class BarComponent implements OnInit, OnChanges {
     this.svg = d3.select('svg#chart');
     this.svg.selectAll('*').remove();
 
+    const legendSvg = d3.select('svg#legend');
+    legendSvg.selectAll('*').remove();
+    
+    // If there is no data, display info text
+    const hasData = sample.map(x => x.data.length).reduce((a, b) => a + b, 0) > 0;
+    if (!hasData) {
+      // Ignore legend width for showing text
+      this.svg.attr('width', this.width)
+        .append('text')
+        .text($localize`:@@noInfo:Ei tietoa`)
+        .attr('class', 'h2')
+        .attr('x', this.width / 2 - this.margin)
+        .attr('y', this.height / 2 - this.margin);
+      return;
+    }
+
     // Init dims for svg and add top-level group
     this.g = this.svg
       .attr('width', this.width - this.legendWidth)
@@ -149,10 +167,6 @@ export class BarComponent implements OnInit, OnChanges {
       .append('g')
       .attr('id', 'main')
       .attr('transform', `translate(${this.margin * 2}, ${this.margin * 2})`);
-
-    // Legend init
-    const legendSvg = d3.select('svg#legend');
-    legendSvg.selectAll('*').remove();
 
     // X scale
     this.x = d3.scaleBand()
@@ -202,6 +216,20 @@ export class BarComponent implements OnInit, OnChanges {
     // Keep track of all keys inserted so far
     const cumulativeKeys: {name: string, id?: string}[] = [];
 
+    // Trim data names, put empty at the end
+    sample.forEach(x => {
+      x.data.forEach(y => {
+        y.name = y.name?.trim();
+      })
+      // See if there is an object without a name and replace it with missing info. Years don't have names by design
+      const unknownIndex = x.data.findIndex(data => !data.name);
+      if (unknownIndex > -1 && this.categoryObject.field !== 'year') {
+        const unknown = x.data.splice(unknownIndex, 1).pop();
+        unknown.name = this.missingInfoLabel;
+        x.data.unshift(unknown);
+      }
+      
+    });
     // Insert bars
     for (let i = 0; i < sample.length; i++) {
       let sum = 0;
@@ -254,6 +282,13 @@ export class BarComponent implements OnInit, OnChanges {
 
     // Create array with each unique key once
     const uniqueKeys = this.utils.uniqueArray(cumulativeKeys, x => x.name).filter(x => x.name).sort((a, b) => +(a.name > b.name) - 0.5);
+
+    // Move missing info to the end if exists
+    const missingIndex = uniqueKeys.findIndex(x => x.name === this.missingInfoLabel);
+    if (missingIndex > -1) {
+      uniqueKeys.splice(missingIndex, 1).pop();
+      uniqueKeys.push({name: this.missingInfoLabel});
+    }
 
     // Init legend with correct height
     const legend = legendSvg

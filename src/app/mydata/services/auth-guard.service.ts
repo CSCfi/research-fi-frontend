@@ -12,28 +12,30 @@ import {
   RouterStateSnapshot,
   Router,
 } from '@angular/router';
-import { Observable } from 'rxjs';
+import { of, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
+
+// Remove in production
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 // https://github.com/damienbod/angular-auth-oidc-client/blob/main/docs/guards.md
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
     private readonly oidcSecurityService: OidcSecurityService,
-    private router: Router
+    private router: Router,
+    private appSettingsService: AppSettingsService
   ) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> {
+    if (this.appSettingsService.myDataSettings.develop) return of(true);
+
     return this.oidcSecurityService.isAuthenticated$.pipe(
       map((isAuthorized: boolean) => {
-        console.log(
-          'AuthorizationGuard, canActivate isAuthorized: ' + isAuthorized
-        );
-
         if (!isAuthorized) {
           this.router.navigate(['/mydata']);
           return false;

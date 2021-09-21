@@ -7,10 +7,10 @@
 
 import { Injectable } from '@angular/core';
 import { Adapter } from './adapter.model';
-import { mapGroup } from './utils';
+import { mapGroup, mapGroupFieldName } from './utils';
 
 export class DescriptionFields {
-  constructor(public keywords: any) {}
+  constructor(public researcherDescriptionGroups: any, public keywords: any) {}
 }
 
 @Injectable({
@@ -18,11 +18,20 @@ export class DescriptionFields {
 })
 export class DescriptionFieldsAdapter implements Adapter<DescriptionFields> {
   mapGroup = mapGroup;
+  mapGroupFieldName = mapGroupFieldName;
   constructor() {}
 
   adapt(item: any): DescriptionFields {
     return new DescriptionFields(
-      this.mapGroup(item.keywordGroups, 'Avainsanat')
+      this.mapGroupFieldName(
+        item.researcherDescriptionGroups,
+        'Kuvaus',
+        'researchDescription',
+        {
+          localized: true,
+        }
+      ),
+      this.mapGroup(item.keywordGroups, 'Avainsanat', { joined: true })
     );
   }
 }

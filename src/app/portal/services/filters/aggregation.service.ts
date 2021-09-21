@@ -53,6 +53,8 @@ export class AggregationService {
     );
     // Active bool filters come from aggregations that contain multiple terms, eg composite aggregation
     const activeBool = filters.filter((item) => item.bool?.should[0]?.bool);
+    // Active bool filtered filters come from date ranges (status)
+    const activeFiltered = filters.filter((item) => item.bool?.should?.bool?.filter.length);
     const activeNested = filters.filter(
       (item) =>
         item.nested?.query.bool.should?.length > 0 ||
@@ -85,6 +87,7 @@ export class AggregationService {
                 'selfArchivedCode'
           );
           return filteredActive.concat(
+            activeFiltered,
             activeNested,
             activeMultipleNested,
             coPublication ? coPublicationFilter : []
@@ -96,6 +99,7 @@ export class AggregationService {
                 Object.keys(item.bool.should[0].term)?.toString() !== field
             )
             .concat(
+              activeFiltered,
               activeNested,
               activeMultipleNested,
               activeBool,
@@ -112,7 +116,22 @@ export class AggregationService {
           .concat(
             active,
             activeMultipleNested,
+            activeFiltered,
             activeBool,
+            coPublication ? coPublicationFilter : []
+          );
+      }
+    }
+
+    function filterActiveFiltered() {
+      if (!disableFiltering) {
+        return activeBool
+          .filter((item) => !item.bool.should[0].bool.filter)
+          .concat(
+            active,
+            activeNested,
+            activeFiltered,
+            activeMultipleNested,
             coPublication ? coPublicationFilter : []
           );
       }
@@ -132,6 +151,7 @@ export class AggregationService {
         return res.concat(
           active,
           activeNested,
+          activeFiltered,
           activeBool,
           coPublication ? coPublicationFilter : []
         );
@@ -457,6 +477,23 @@ export class AggregationService {
             },
           },
         };
+        payLoad.aggs.articleType = {
+          filter: {
+            bool: {
+              filter: filterActive('articleTypeCode'),
+            },
+          },
+          aggs: {
+            articleTypes: {
+              terms: {
+                field: 'articleTypeCode',
+                order: {
+                  _key: 'desc',
+                },
+              },
+            },
+          },
+        };
         payLoad.aggs.internationalCollaboration = {
           filter: {
             bool: {
@@ -468,6 +505,21 @@ export class AggregationService {
               terms: {
                 field: 'internationalCollaboration',
                 size: 2,
+              },
+            },
+          },
+        };
+        payLoad.aggs.okmDataCollection = {
+          filter: {
+            bool: {
+              filter: filterActive('publicationStatusCode.keyword'),
+            },
+          },
+          aggs: {
+            publicationStatusCodes: {
+              terms: {
+                field: 'publicationStatusCode.keyword',
+                size: 10,
               },
             },
           },
@@ -554,6 +606,43 @@ export class AggregationService {
                 openAccess: {
                   terms: {
                     field: 'openAccessCode',
+                  },
+                },
+              },
+            ],
+          },
+          aggs: {
+            filtered: {
+              filter: {
+                bool: {
+                  filter: filterActive('openAccess'),
+                },
+              },
+            },
+          },
+        };
+        payLoad.aggs.oaPublisherComposite = {
+          composite: {
+            size: 20,
+            sources: [
+              {
+                openAccess: {
+                  terms: {
+                    field: 'openAccess',
+                  },
+                },
+              },
+              {
+                publisherOpenAccess: {
+                  terms: {
+                    field: 'publisherOpenAccessCode',
+                  },
+                },
+              },
+              {
+                selfArchived: {
+                  terms: {
+                    field: 'selfArchivedCode',
                   },
                 },
               },
@@ -1347,6 +1436,102 @@ export class AggregationService {
           },
         };
         break;
+      // Funding-calls
+      case 'funding-calls':
+        // payLoad.aggs.year = yearAgg;
+        payLoad.aggs.field = {
+          nested: {
+            path: 'categories',
+          },
+          aggs: {
+            field: {
+              terms: {
+                field: 'categories.name' + this.localeC + '.keyword',
+                size: 100
+              },
+              aggs: {
+                filtered: {
+                  reverse_nested: {},
+                  aggs: {
+                    filterCount: {
+                      filter: {
+                        bool: {
+                          filter: filterActiveNested('categories'),
+                        },
+                      },
+                    },
+                  },
+                },
+                fieldId: {
+                  terms: {
+                    field: 'categories.codeValue.keyword',
+                  },
+                },
+              },
+            },
+          },
+        };
+        payLoad.aggs.organization = {
+          filter: {
+            bool: {
+              filter: filterActive('foundation.businessId.keyword'),
+            },
+          },
+          aggs: {
+            orgId: {
+              terms: {
+                field: 'foundation.businessId.keyword',
+                size: 250,
+                order: {
+                  _key: 'asc',
+                },
+                exclude: ' '
+              },
+              aggs: {
+                orgName: {
+                  terms: {
+                    field: 'foundation.name' + this.localeC + '.keyword',
+                  },
+                },
+              },
+            },
+          },
+        };
+        payLoad.aggs.status = {
+          composite: {
+            size: 500,
+            sources: [
+              {
+                openDate: {
+                  date_histogram: {
+                    field: 'callProgrammeOpenDate',
+                    calendar_interval: "1d",
+                    format: "yyyy-MM-dd",
+                  },
+                },
+              },
+              {
+                dueDate: {
+                  date_histogram: {
+                    field: 'callProgrammeDueDate',
+                    calendar_interval: "1d",
+                    format: "yyyy-MM-dd",
+                  },
+                },
+              },
+            ],
+          },
+          aggs: {
+            filtered: {
+              filter: {
+                bool: {
+                  filter: filterActiveFiltered(),
+                },
+              },
+            },
+          },
+        };
+        break;
       // News
       case 'news':
         payLoad.aggs.organization = {
@@ -1361,6 +1546,7 @@ export class AggregationService {
             },
             orgName: {
               terms: {
+                size: 25,
                 field: 'organizationNameFi.keyword',
               },
               aggs: {

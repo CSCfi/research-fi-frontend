@@ -56,10 +56,16 @@
     class="navbar navbar-expand-xl navbar-light row"
     #mainHeader
   >
-    <div class="logo col-7 col-xs-9 col-xl-2">
+    <div
+      class="logo col-7 col-xs-9"
+      [ngClass]="appSettings.beta ? 'col-xl-3' : 'col-xl-2'"
+    >
       <div class="row logo-wrapper">
-        <div class="col col-auto p-0">
-          <a class="navbar-brand" routerLink="">
+        <div class="col-auto p-0">
+          <a
+            class="navbar-brand"
+            [routerLink]="appSettings.beta ? '/mydata' : ''"
+          >
             <img
               src="assets/img/logo.svg"
               i18n-alt
@@ -67,14 +73,48 @@
             />
           </a>
         </div>
-        <div class="col col-auto align-self-center p-0 pl-1">
+        <div class="col-auto align-self-center p-0 pl-1 pr-2 pr-md-3">
           <a class="logo-text" [routerLink]="appSettings.baseRoute"
             ><span>{{ appSettings.label }}</span></a
           >
         </div>
+        <div
+          class="col-auto px-0 mt-0 mt-md-1 align-self-center"
+          *ngIf="appSettings.beta"
+        >
+          <app-primary-action-button
+            content="Beta"
+            (click)="openDialog('Beta', betaInfoTemplate)"
+            [disabledRounded]="true"
+            [betaButton]="true"
+          ></app-primary-action-button>
+        </div>
+
+        <ng-template #betaInfoTemplate>
+          <p>
+            Tämä on Tutkijan tiedot -työkalun betaversio. Testikäyttäjien
+            palautetta hyödynnetään palvelun toiminnallisuuksien kehittämisessä.
+          </p>
+          <p>
+            <a href="https://wiki.eduuni.fi/x/YwMJDQ" target="_blank"
+              >Lue lisää... <fa-icon icon="external-link-alt"></fa-icon
+            ></a>
+          </p>
+        </ng-template>
+
+        <app-dialog
+          *ngIf="showDialog"
+          [template]="dialogTemplate"
+          [title]="dialogTitle"
+          (onActionClick)="doDialogAction($event)"
+          [actions]="dialogActions"
+        ></app-dialog>
       </div>
     </div>
-    <nav class="nav-top col-auto col-5 col-xs-3 col-xl-10 p-0">
+    <nav
+      class="nav-top col-auto col-5 col-xs-3 p-0"
+      [ngClass]="appSettings.beta ? 'col-xl-9 beta-mobile-menu' : 'col-xl-10'"
+    >
       <div class="mobile ml-auto toggle-button-wrapper">
         <button
           *ngIf="!navbarOpen"
@@ -106,7 +146,10 @@
           #mainNavbar
         >
           <!-- Lang selector -->
-          <div class="navbar-expand mx-auto navbar-nav lang mobile">
+          <div
+            class="navbar-expand mx-auto navbar-nav lang mobile"
+            *ngIf="!appSettings.beta"
+          >
             <ul class="navbar-nav mx-auto">
               <li
                 *ngFor="let domain of appSettings.localizedDomains"
@@ -116,6 +159,7 @@
                   class="nav-item nav-link lang-box"
                   [class.active-lang]="currentLang === domain.locale"
                   [href]="domain.url + currentRoute"
+                  [disabled]="appSettings.beta"
                 >
                   <span class="label">{{ domain.label }}</span>
                 </a>
@@ -134,6 +178,9 @@
                     class="nav-item nav-link"
                     [routerLink]="
                       item.link.trim().length > 0 ? item.link : currentRoute
+                    "
+                    [queryParams]="
+                      item.queryParams
                     "
                     routerLinkActive="active-link"
                     [routerLinkActiveOptions]="{ exact: item.exact }"
@@ -182,7 +229,10 @@
                 <div class="navbar-expand navbar-nav lang langSelect">
                   <mat-form-field class="lang-select">
                     <!-- Navigate with consent if consent is set -->
-                    <mat-select [(value)]="currentLang">
+                    <mat-select
+                      [(value)]="currentLang"
+                      [disabled]="appSettings.beta"
+                    >
                       <a
                         *ngFor="let domain of appSettings.localizedDomains"
                         [href]="
@@ -206,5 +256,16 @@
       </div>
     </nav>
   </div>
+
+  <!-- Auth session expired template -->
+  <ng-template #authExpiredTemplate>
+    <p>Istunto on vanhentunut. Kirjaudu sisään jatkaaksesi.</p>
+
+    <app-primary-action-button
+      (click)="login()"
+      content="Kirjaudu sisään"
+    ></app-primary-action-button>
+  </ng-template>
+
   <div *ngIf="navbarOpen" id="overlay" (click)="toggleNavbar()" #overlay></div>
 </header>

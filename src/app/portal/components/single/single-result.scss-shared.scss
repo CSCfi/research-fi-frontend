@@ -10,7 +10,8 @@
   app-single-funding,
   app-single-dataset,
   app-single-infrastructure,
-  app-single-organization {
+  app-single-organization,
+  app-single-funding-call {
     // Prevent style bleeding
     .shared {
       .header {
@@ -72,7 +73,7 @@
 
       .th,
       .td {
-        padding: 11px 15px;
+        padding: 11px 0px;
       }
 
       tr {
@@ -160,18 +161,24 @@
         margin: 0;
       }
 
+      .inner {
+        padding: 16px;
+        background-color: #fafafa;
+        border-radius: 2px;
+      }
+
       // Sidebar
       mat-card.mat-card {
         margin-bottom: 10px;
-        border-radius: 0px;
-        padding: 20px;
+        padding: 16px;
         box-shadow: none;
+        border-radius: 2px;
       }
 
       .mat-card-title {
-        font-size: 0.85em;
+        font-size: 1rem;
         line-height: 1.275;
-        text-transform: uppercase;
+        font-weight: 500;
       }
 
       // Links
@@ -222,6 +229,10 @@
           font-size: 35px;
           line-height: 0;
           max-width: 30px;
+        }
+
+        .name {
+          white-space: normal;
         }
       }
 

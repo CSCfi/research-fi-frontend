@@ -1,7 +1,12 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
 <main id="main-content">
   <div class="wrapper">
-    <div class="row">
-      <div class="col-6 px-0">
+    <div class="row d-flex justify-content-between pb-3 pb-md-0">
+      <div class="col-12 col-md-6 px-0">
         <div class="row d-flex">
           <h1 class="col-auto px-0">Profiili</h1>
           <div class="col align-self-center">
@@ -15,27 +20,27 @@
         </div>
       </div>
 
-      <div class="col-5 px-0">
+      <div class="col-5 px-0 d-none d-md-block">
         <div class="row d-flex justify-content-end">
-          <div class="col-auto">
+          <div class="col-auto opacity-3">
             <i class="fas fa-user text-center primary-color d-block h1"></i>
-            <a href="javascript:void(0)" disabled>Lisää profiilikuva...</a>
+            <a disabled>Lisää profiilikuva...(tulossa)</a>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="row">
+    <div class="row d-flex justify-content-between">
       <div class="col-12 col-lg-6 px-0">
         <ng-container *ngIf="profileData; else loadingTemplate">
           <mat-tab-group mat-align-tabs="end">
-            <mat-tab label="Tiedot"
-              ><app-profile-data-handler
-                [response]="profileData"
+            <mat-tab label="Tiedot">
+              <app-profile-summary
                 class="d-block pt-3"
-              ></app-profile-data-handler
-            ></mat-tab>
-            <mat-tab label="Tietolähteet">Tietolähteet</mat-tab>
+                [data]="profileData"
+              ></app-profile-summary>
+            </mat-tab>
+            <mat-tab disabled label="Tietolähteet">Tietolähteet</mat-tab>
           </mat-tab-group>
         </ng-container>
 
@@ -47,20 +52,166 @@
       <div class="col-12 col-lg-5 px-0 px-lg-3">
         <div class="background-light p-3 mt-lg-5">
           <span class="font-weight-bold d-block pb-3">Yhteistyö</span>
-          <section class="example-section">
+          <section>
             <mat-checkbox
+              class="py-1 py-lg-0"
               *ngFor="let option of collaborationOptions"
-              class=""
               >{{ option.label }}</mat-checkbox
             >
           </section>
         </div>
 
-        <app-primary-action-button
-          class="d-block pt-3"
-          (click)="deleteProfile()"
-          content="Poista profiili"
-        ></app-primary-action-button>
+        <div class="row py-3 d-flex justify-content-center">
+          <div class="col px-0">
+            <app-mydata-beta-info [template]="betaInfo"></app-mydata-beta-info>
+
+            <ng-template #betaInfo>
+              <p>
+                Tämä on Tutkijan tiedot -työkalun betaversio. Testikäyttäjien
+                palautetta hyödynnetään palvelun toiminnallisuuksien
+                kehittämisessä. Testauksessa syöttämiäsi tietoja ei julkaista
+                Tiedejatutkimus.fi:ssä.
+              </p>
+              <p>
+                <a href="https://wiki.eduuni.fi/x/YwMJDQ" target="_blank"
+                  >Lue lisää... <fa-icon icon="external-link-alt"></fa-icon
+                ></a>
+              </p>
+            </ng-template>
+          </div>
+        </div>
+
+        <!-- EULA -->
+        <div class="row pb-3 d-flex justify-content-center">
+          <div class="col-12 px-0">
+            <button
+              class="row border border-primary rounded btn d-flex w-100"
+              (click)="
+                openDialog(
+                  'Tutkijan tiedot -työkalun käyttöehdot',
+                  termsTemplate,
+                  basicDialogActions
+                )
+              "
+            >
+              <div class="col-auto">
+                <i class="pt-3 pb-2 h1 primary-color fas fa-file-alt"></i>
+              </div>
+              <div class="col align-self-center">
+                <span class="d-block align-self-center text-left"
+                  >Avaa käyttöehdot</span
+                >
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <div class="row d-flex justify-content-center">
+          <div class="col-12 px-0">
+            <button
+              class="row border border-primary rounded btn d-flex w-100"
+              (click)="
+                openDialog(
+                  'Henkilötietojen käsittely',
+                  personalDataHandlingTermsTemplate,
+                  basicDialogActions
+                )
+              "
+            >
+              <div class="col-auto">
+                <i class="pt-3 pb-2 h1 primary-color fas fa-file-alt"></i>
+              </div>
+              <div class="col align-self-center">
+                <span class="d-block align-self-center text-left"
+                  >Avaa henkilötietojen käsittelyperiaatteet</span
+                >
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <ng-template #personalDataHandlingTermsTemplate>
+          <app-eula template="personalDataHandlingTermsTemplate"></app-eula>
+        </ng-template>
+
+        <ng-template #termsTemplate>
+          <app-eula template="termsTemplate"></app-eula>
+        </ng-template>
+
+        <app-dialog
+          *ngIf="showDialog"
+          [template]="dialogTemplate"
+          [title]="dialogTitle"
+          (onActionClick)="doDialogAction($event)"
+          [actions]="currentDialogActions"
+        ></app-dialog>
+
+        <!-- Delete profile -->
+        <div class="row">
+          <div class="col px-0 text-center text-md-left">
+            <app-primary-action-button
+              class="d-block pt-5 pb-4"
+              (click)="
+                openDialog(
+                  'Poista profiili',
+                  deleteProfileTemplate,
+                  deleteProfileDialogActions
+                )
+              "
+              content="Poista profiili"
+            ></app-primary-action-button>
+
+            <ng-template #deleteProfileTemplate>
+              <p>
+                Tämä toiminto poistaa Tutkijan tiedot -testisovelluksen
+                profiilin.
+              </p>
+            </ng-template>
+
+            <ng-template #deletingProfileTemplate>
+              <div
+                class="row d-flex justify-content-center"
+                *ngIf="loading && !connProblem"
+              >
+                <div class="col-auto align-self-center">
+                  <mat-spinner
+                    class="mx-auto"
+                    [diameter]="80"
+                    i18n-aria-label="@@loading"
+                    aria-label="Ladataan"
+                  ></mat-spinner>
+                  <span class="d-block col py-3 text-center"
+                    >Profiilia poistetaan, odota hetki...</span
+                  >
+                </div>
+              </div>
+
+              <ng-container *ngIf="connProblem">
+                <div class="row">
+                  <div class="col mx-3">
+                    <i class="fas fa-exclamation-triangle"></i> Yhteysongelma.
+                    Profiilin poisto ei onnistu. Kokeile hetken kuluttua
+                    uudestaan.
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col text-center">
+                    <app-primary-action-button
+                      content="Sulje"
+                      (click)="closeDialog()"
+                    ></app-primary-action-button>
+                  </div></div
+              ></ng-container>
+            </ng-template>
+
+            <app-dialog
+              *ngIf="deletingProfile"
+              [template]="deletingProfileTemplate"
+              [small]="true"
+              [disableClose]="true"
+            ></app-dialog>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -9,17 +9,17 @@ import {
   Component,
   OnInit,
   ViewChild,
+  ViewChildren,
   ElementRef,
   OnDestroy,
   Inject,
   LOCALE_ID,
   PLATFORM_ID,
-  ViewChildren,
   Renderer2,
   ViewEncapsulation,
   HostListener,
 } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, PlatformLocation } from '@angular/common';
 import { ResizeService } from 'src/app/shared/services/resize.service';
 import { Observable, Subscription } from 'rxjs';
 import { WINDOW } from 'src/app/shared/services/window.service';
@@ -32,13 +32,10 @@ import {
   faInfoCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { BetaInfoComponent } from '../beta-info/beta-info.component';
 import { PrivacyService } from 'src/app/portal/services/privacy.service';
 import { ContentDataService } from 'src/app/portal/services/content-data.service';
 import { AppSettingsService } from 'src/app/shared/services/app-settings.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
@@ -52,6 +49,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild('overflowHider', { static: true }) overflowHider: ElementRef;
   @ViewChild('start', { static: false }) start: ElementRef;
   @ViewChild('overlay', { static: false }) overlay: ElementRef;
+  @ViewChild('authExpiredTemplate', { static: true })
+  authExpiredTemplate: ElementRef;
   @ViewChildren('navLink') navLink: any;
 
   navbarOpen = false;
@@ -85,14 +84,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
   newPageSub: Subscription;
   firstTab: boolean;
 
-  betaReviewDialogRef: MatDialogRef<BetaInfoComponent>;
   consentStatusSub: Subscription;
   consent: string;
   pageDataSub: Subscription;
 
-  appSettings: object;
+  appSettings: any;
   isAuthenticated: Observable<boolean>;
   loggedIn: boolean;
+
+  // Dialog variables
+  showDialog: boolean;
+  dialogTemplate: any;
+  dialogTitle: any;
+  dialogActions = [{ label: 'Sulje', primary: true, method: 'close' }];
 
   constructor(
     private resizeService: ResizeService,
@@ -101,12 +105,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     @Inject(DOCUMENT) private document: any,
     @Inject(PLATFORM_ID) private platformId: object,
     private router: Router,
+    private platform: PlatformLocation,
     private utilityService: UtilityService,
     private cds: ContentDataService,
     private renderer: Renderer2,
     private route: ActivatedRoute,
     private tabChangeService: TabChangeService,
-    public dialog: MatDialog,
     private privacyService: PrivacyService,
     private appSettingsService: AppSettingsService,
     private oidcSecurityService: OidcSecurityService
@@ -118,11 +122,33 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.isAuthenticated = this.oidcSecurityService.isAuthenticated$;
   }
 
-  // Get current url
+  /*
+   * Current route based features
+   * MyData -module uses authentication and this process needs to start only in '/mydata' routes
+   */
   routeEvent(router: Router) {
     this.routeSub = router.events.subscribe((e) => {
       if (e instanceof NavigationEnd) {
-        // Prevent multiple anchors
+        if (isPlatformBrowser(this.platformId)) {
+          // Prevent MyData routes in production
+          const allowedHostIdentifiers = ['localhost', 'test', 'qa', 'mydata'];
+          const checkHostMatch = (host: string) =>
+            this.platform.hostname.includes(host);
+
+          if (
+            !allowedHostIdentifiers.some(checkHostMatch) &&
+            e.url.includes('/mydata')
+          ) {
+            this.router.navigate(['/']);
+          }
+
+          // Check if consent has been chosen & set variable. This is used in preserving consent status between language versions
+          if (localStorage.getItem('cookieConsent')) {
+            this.consent = localStorage.getItem('cookieConsent');
+          }
+        }
+
+        // Set tracking cookies according to consent parameter
         this.route.queryParams.subscribe((params) => {
           this.params = params;
 
@@ -142,7 +168,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
               this.document.getElementsByTagName('head')[0].appendChild(node);
             }
 
-            // Remove consent param
+            // Consent parameter is removed from url when user navigates between localized versions
             this.router.navigate([], {
               queryParams: {
                 consent: null,
@@ -152,6 +178,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
             });
           }
         });
+
+        // Prevent multiple anchors
         this.currentRoute = e.urlAfterRedirects.split('#')[0];
 
         // Set header items based on base url
@@ -159,20 +187,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
           ? this.appSettingsService.myDataSettings
           : this.appSettingsService.portalSettings;
 
+        // Set current app and app settings
+        if (this.currentRoute.includes('/mydata')) {
+          this.appSettingsService.setCurrentAppSettings('myData');
+        } else {
+          this.appSettingsService.setCurrentAppSettings('portal');
+        }
+
         // Login / logout link
         // Click functionality is handled in handleClick method
-        this.isAuthenticated.pipe(take(1)).subscribe((status) => {
-          this.loggedIn = status;
-          this.appSettingsService.myDataSettings.navItems[0].label = status
-            ? 'Kirjaudu ulos'
-            : 'Kirjaudu sisään';
+        this.isAuthenticated.subscribe((authenticated) => {
+          if (this.currentRoute.includes('/mydata')) {
+            this.loggedIn = authenticated;
+          }
+          this.appSettingsService.myDataSettings.navItems[0].label =
+            authenticated ? 'Kirjaudu ulos' : 'Kirjaudu sisään';
         });
-      }
-      // Check if consent has been chosen & set variable. This is used in linking between language versions
-      if (isPlatformBrowser(this.platformId)) {
-        if (localStorage.getItem('cookieConsent')) {
-          this.consent = localStorage.getItem('cookieConsent');
-        }
       }
     });
   }
@@ -350,12 +380,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.tabChangeService.targetFocus(target);
   }
 
-  toggleBetaInfo() {
-    this.betaReviewDialogRef = this.dialog.open(BetaInfoComponent, {
-      height: '700px',
-      maxWidth: '60vw',
-      minWidth: '400px',
-      autoFocus: false,
-    });
+  openDialog(title, template) {
+    this.dialogTitle = title;
+    this.showDialog = true;
+    this.dialogTemplate = template;
+  }
+
+  doDialogAction() {
+    this.dialogTitle = '';
+    this.showDialog = false;
+    this.dialogTemplate = null;
+  }
+
+  login() {
+    this.oidcSecurityService.authorize();
   }
 }

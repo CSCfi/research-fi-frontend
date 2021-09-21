@@ -1,8 +1,24 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
+//  This file is part of the research.fi API service
+//
+//  Copyright 2019 Ministry of Education and Culture, Finland
+//
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
+import {
+  Component,
+  OnInit,
+  ViewEncapsulation,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { ProfileService } from '@mydata/services/profile.service';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { take } from 'rxjs/operators';
+import { MatDialog } from '@angular/material/dialog';
+import { mergePublications } from '@mydata/utils';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -15,6 +31,8 @@ export class ProfileComponent implements OnInit {
   testData: any;
   orcid: string;
 
+  mergePublications = mergePublications;
+
   collaborationOptions = [
     { label: 'Olen kiinnostunut tiedotusvälineiden yhteydenotoista', id: 0 },
     {
@@ -25,14 +43,32 @@ export class ProfileComponent implements OnInit {
     { label: 'Olen kiinnostunut yhteistyöstä yritysten kanssa', id: 2 },
     {
       label:
-        'Olen kiinnostunut toimimaan tieteellisten julkaisujen vertaisarvioiana',
+        'Olen kiinnostunut toimimaan tieteellisten julkaisujen vertaisarvioijana',
       id: 3,
     },
   ];
 
+  // Dialog variables
+  showDialog: boolean;
+  dialogTemplate: any;
+  dialogTitle: any;
+  currentDialogActions: any[];
+  basicDialogActions = [{ label: 'Sulje', primary: true, method: 'close' }];
+  deleteProfileDialogActions = [
+    { label: 'Peruuta', primary: false, method: 'close' },
+    { label: 'Poista profiili', primary: true, method: 'delete' },
+  ];
+  @ViewChild('deletingProfileTemplate') deletingProfileTemplate: ElementRef;
+
+  connProblem: boolean;
+  loading: boolean;
+  deletingProfile: boolean;
+
   constructor(
     private profileService: ProfileService,
     public oidcSecurityService: OidcSecurityService,
+    private appSettingsService: AppSettingsService,
+    public dialog: MatDialog,
     private router: Router
   ) {
     this.testData = profileService.testData;
@@ -40,26 +76,79 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.oidcSecurityService.userData$.pipe(take(1)).subscribe((data) => {
-      // console.log(data);
-      this.orcid = data.orcid;
+      if (data) {
+        this.orcid = data.orcid;
+        this.appSettingsService.setOrcid(data.orcid);
+      }
     });
 
-    this.profileService
-      .getProfileData()
-      .pipe(take(1))
-      .subscribe((data) => {
-        this.profileData = data;
-        console.log(data);
-      });
+    if (this.appSettingsService.myDataSettings.develop) {
+      this.profileData = this.testData;
+      this.mergePublications(this.profileData.profileData[4]);
+    } else {
+      this.profileService
+        .getProfileData()
+        .pipe(take(1))
+        .subscribe((data) => {
+          this.profileData = data;
+
+          // Merge publications
+          // TODO: Find better way to pass array element than index number. Eg. type
+          this.mergePublications(data.profileData[4]);
+        });
+    }
+  }
+
+  openDialog(title, template, actions) {
+    this.dialogTitle = title;
+    this.showDialog = true;
+    this.dialogTemplate = template;
+    this.currentDialogActions = actions;
+  }
+
+  doDialogAction(event) {
+    this.dialog.closeAll();
+    this.dialogTitle = '';
+    this.showDialog = false;
+    this.dialogTemplate = null;
+
+    if (event === 'delete') {
+      this.deleteProfile();
+    }
   }
 
   deleteProfile() {
+    this.deletingProfile = true;
+    this.loading = true;
+    this.connProblem = false;
+
     this.profileService
       .deleteProfile()
       .pipe(take(1))
-      .subscribe((data) => {
-        console.log(data);
-        this.router.navigate(['/mydata']);
-      });
+      .subscribe(
+        (res: any) => {
+          this.loading = false;
+          if (res.ok && res.body.success) {
+            this.dialog.closeAll();
+
+            // Wait for dialog to close
+            setTimeout(() => this.router.navigate(['/mydata']), 500);
+          }
+        },
+        (error) => {
+          this.loading = false;
+          if (!error.ok) {
+            this.connProblem = true;
+          }
+        }
+      );
+  }
+
+  closeDialog() {
+    this.dialog.closeAll();
+    this.dialogTitle = '';
+    this.showDialog = false;
+    this.dialogTemplate = null;
+    this.deletingProfile = false;
   }
 }

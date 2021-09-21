@@ -12,29 +12,62 @@
   <div class="row pb-4 d-none d-lg-block">
     <div class="col text-center">
       <p class="text-white">
-        Hallinnoi julkista tutkijaprofiiliasi tiedejatutkimus.fi
-        -hakuportaalissa
+        Luo itsellesi profiili <br />
+        Tiedejatutkimus.fi -palveluun.
       </p>
     </div>
   </div>
 </div>
 <main id="main-content">
-  <div class="row pb-4 d-lg-none">
+  <div class="row pt-4 pb-4 d-lg-none">
     <div class="col text-center">
       <p>
-        Hallinnoi julkista tutkijaprofiiliasi tiedejatutkimus.fi
-        -hakuportaalissa
+        Luo itsellesi profiili <br />
+        Tiedejatutkimus.fi -palveluun.
       </p>
     </div>
   </div>
-  <div class="row d-flex justify-content-center">
+  <div class="row d-flex justify-content-center py-0 pb-3 py-md-3">
     <div class="col col-lg-auto">
       <app-primary-action-button
-        content="Ota palvelu käyttöön"
+        content="Luo profiili"
         routerLink="login"
         [big]="true"
       >
       </app-primary-action-button>
+    </div>
+  </div>
+
+  <div class="row d-flex justify-content-center py-md-3">
+    <div class="col py-3 text-center">
+      <span class="pr-2">Oletko jo luonut profiilin?</span>
+      <a
+        href="javascript:void(0)"
+        class="d-block d-md-inline font-weight-bold py-3 py-md-0"
+        (click)="login()"
+        >Kirjaudu sisään</a
+      >
+    </div>
+  </div>
+
+  <div class="row d-flex justify-content-center">
+    <div class="col-12 col-md-4 px-0 pb-3">
+      <app-mydata-beta-info [template]="betaInfo"></app-mydata-beta-info>
+
+      <ng-template #betaInfo>
+        <p>
+          Tämä on Tutkijan tiedot -työkalun betaversio. Testikäyttäjien
+          palautetta hyödynnetään palvelun toiminnallisuuksien kehittämisessä.
+        </p>
+        <p class="font-weight-bold">
+          Testauksessa syöttämiäsi tietoja ei julkaista Tiedejatutkimus.fi:ssä.
+        </p>
+        <p>
+          <a href="https://wiki.eduuni.fi/x/YwMJDQ" target="_blank"
+            >Lue lisää... <fa-icon icon="external-link-alt"></fa-icon
+          ></a>
+        </p>
+      </ng-template>
     </div>
   </div>
 </main>

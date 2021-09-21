@@ -7,7 +7,7 @@
 
 <mat-form-field appearance="fill">
   <mat-label *ngIf="label && !labelBefore">{{ label }}</mat-label>
-  <mat-select [(value)]="selection">
+  <mat-select [value]="selectedOption" (selectionChange)="selectOption($event)">
     <mat-option [value]="option" *ngFor="let option of options">{{
       option
     }}</mat-option>

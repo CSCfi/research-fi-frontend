@@ -18,6 +18,7 @@ import {
   InfrastructureAdapter,
   Infrastructure,
 } from './infrastructure/infrastructure.model';
+import { FundingCall, FundingCallAdapter } from './funding-call.model';
 
 export class Search {
   constructor(
@@ -26,7 +27,8 @@ export class Search {
     public fundings: Funding[],
     public datasets: Dataset[],
     public infrastructures: Infrastructure[],
-    public organizations: Organization[]
+    public organizations: Organization[],
+    public fundingCalls: FundingCall[]
   ) {}
 }
 
@@ -39,7 +41,8 @@ export class SearchAdapter implements Adapter<Search> {
     private fundingAdapter: FundingAdapter,
     private datasetAdapter: DatasetAdapter,
     private organizationAdapter: OrganizationAdapter,
-    private infrastructureAdapter: InfrastructureAdapter
+    private infrastructureAdapter: InfrastructureAdapter,
+    private fundingCallAdapter: FundingCallAdapter
   ) {}
   adapt(item: any, tab?: string): Search {
     const publications: Publication[] = [];
@@ -47,32 +50,37 @@ export class SearchAdapter implements Adapter<Search> {
     const datasets: Dataset[] = [];
     const infrastructures: Infrastructure[] = [];
     const organizations: Organization[] = [];
+    const fundingCalls: FundingCall[] = [];
+
+    // Enables error handling when mapping data
+    const adaptResults = (tab, adapter) => {
+      item.hits.hits.forEach((e) => {
+        try {
+          tab.push(adapter.adapt(e._source));
+        } catch (error) {
+          console.error(error);
+        }
+      });
+    };
 
     switch (tab) {
       case 'publications':
-        item.hits.hits.forEach((e) =>
-          publications.push(this.publicationAdapter.adapt(e._source))
-        );
+        adaptResults(publications, this.publicationAdapter);
         break;
       case 'fundings':
-        item.hits.hits.forEach((e) =>
-          fundings.push(this.fundingAdapter.adapt(e._source))
-        );
+        adaptResults(fundings, this.fundingAdapter);
         break;
       case 'datasets':
-        item.hits.hits.forEach((e) =>
-          datasets.push(this.datasetAdapter.adapt(e._source))
-        );
+        adaptResults(datasets, this.datasetAdapter);
         break;
       case 'infrastructures':
-        item.hits.hits.forEach((e) =>
-          infrastructures.push(this.infrastructureAdapter.adapt(e._source))
-        );
+        adaptResults(infrastructures, this.infrastructureAdapter);
         break;
       case 'organizations':
-        item.hits.hits.forEach((e) =>
-          organizations.push(this.organizationAdapter.adapt(e._source))
-        );
+        adaptResults(organizations, this.organizationAdapter);
+        break;
+      case 'funding-calls':
+        adaptResults(fundingCalls, this.fundingCallAdapter);
         break;
     }
 
@@ -82,7 +90,8 @@ export class SearchAdapter implements Adapter<Search> {
       fundings,
       datasets,
       infrastructures,
-      organizations
+      organizations,
+      fundingCalls
     );
   }
 }

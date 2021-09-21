@@ -15,8 +15,12 @@ import { FieldTypes } from '@mydata/constants/fieldTypes';
 export class PanelArrayItemComponent {
   @Input() item: any;
   @Input() fieldType: string;
+  @Input() localized: boolean;
 
   fieldTypes = FieldTypes;
+
+  // TODO: Dynamic locale
+  locale = 'Fi';
 
   constructor() {}
 }

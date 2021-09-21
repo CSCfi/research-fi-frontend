@@ -1,0 +1,57 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<mat-dialog-content>
+  <div
+    class="row d-flex justify-content-between dialog-header"
+    *ngIf="data.title"
+  >
+    <div class="col-8 col-sm">
+      <h2 class="modal-title h5">{{ data.title }}</h2>
+    </div>
+
+    <div class="col-auto mt-1 mt-sm-0 align-self-sm-center">
+      <app-close-button
+        (click)="close()"
+        (keydown.enter)="close()"
+        autofocus
+        tabindex="-1"
+      ></app-close-button>
+    </div>
+  </div>
+
+  <div class="col px-0 px-lg-3 pt-3">
+    <div class="row">
+      <div class="col">
+        <ng-container [ngTemplateOutlet]="data.template"></ng-container>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions
+  *ngIf="data.actions?.length"
+  [ngClass]="
+    mobile && data.actions.length === 1
+      ? 'justify-content-center'
+      : 'justify-content-end'
+  "
+>
+  <ng-container *ngFor="let action of data.actions">
+    <div class="col-auto">
+      <app-primary-action-button
+        *ngIf="action.primary"
+        (click)="doAction(action.method)"
+        [content]="action.label"
+      ></app-primary-action-button>
+
+      <app-secondary-button
+        *ngIf="!action.primary"
+        (click)="doAction(action.method)"
+        [content]="action.label"
+      ></app-secondary-button>
+    </div>
+  </ng-container>
+</mat-dialog-actions>

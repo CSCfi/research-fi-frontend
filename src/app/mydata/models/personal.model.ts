@@ -14,7 +14,6 @@ export class PersonalFields {
     public name: any,
     public otherNames: any,
     public email: any,
-    public researcherDescriptionGroups: any,
     public webLinks: any
   ) {}
 }
@@ -32,12 +31,12 @@ export class PersonalFieldsAdapter implements Adapter<PersonalFields> {
       // TODO: Localize
       this.mapNameGroup(item.nameGroups, 'Nimi', {
         disabled: true,
-        forceShow: true,
+        expanded: true,
+        setDefault: true,
         single: true,
       }),
       this.mapNameGroup(item.otherNameGroups, 'Muut nimet'),
       this.mapGroup(item.emailGroups, 'Sähköposti'),
-      this.mapGroup(item.researcherDescriptionGroups, 'Kuvaus'),
       this.mapGroup(item.webLinkGroups, 'Linkit')
     );
   }

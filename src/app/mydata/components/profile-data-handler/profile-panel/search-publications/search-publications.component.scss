@@ -5,13 +5,9 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-/*
- * Common pipeable functions
- */
-export function checkSelected(item) {
-  return item.groupMeta.show;
-}
-
-export function checkEmpty(item: { values: string | any[] }) {
-  return item.values?.length > 0;
+app-search-publications {
+  .mat-dialog-content {
+    // max-height: 85vh;
+    // padding: 0rem;
+  }
 }

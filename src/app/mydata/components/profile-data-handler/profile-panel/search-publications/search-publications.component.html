@@ -1,0 +1,101 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<mat-dialog-content>
+  <div class="row d-flex justify-content-between dialog-header">
+    <div class="col">
+      <h2 class="modal-title h5">Puuttuvan julkaisun hakeminen</h2>
+    </div>
+
+    <div class="col-auto mt-1 mt-sm-0 align-self-sm-center">
+      <app-close-button
+        (click)="close()"
+        (keydown.enter)="close()"
+        autofocus
+        tabindex="-1"
+      ></app-close-button>
+    </div>
+  </div>
+
+  <div class="col px-0 px-lg-3">
+    <div class="row py-3">
+      <div class="col h6 m-0">Hae julkaisua tekijän tai julkaisun nimellä</div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <app-search
+          placeholder="Julkaisun tai tekijän nimi"
+          (getSearchTerm)="handleSearch($event)"
+        ></app-search>
+      </div>
+    </div>
+
+    <div class="row py-3">
+      <div class="col opacity-3">
+        <ng-container [ngSwitch]="true">
+          <ng-container *ngSwitchCase="total > 0"
+            >{{ total | thousandSeparator }}
+            <span *ngIf="total === 1; else resultsLabel" i18n="@@singleResult"
+              >hakutulos</span
+            >
+
+            <ng-template #resultsLabel
+              ><span i18n="@@resultCount">hakutulosta</span></ng-template
+            >
+          </ng-container>
+          <span *ngSwitchCase="total === 0">Ei hakutuloksia</span>
+          <span
+            class="d-block pb-5"
+            [ngClass]="loading ? '' : 'mb-5'"
+            *ngSwitchDefault
+            >Tietolähteenä käytetään Tiedejatutkimus.fi-palvelua</span
+          >
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="row d-flex justify-content-center py-3" *ngIf="loading">
+      <mat-spinner
+        [diameter]="80"
+        i18n-aria-label="@@loading"
+        aria-label="Ladataan"
+      ></mat-spinner>
+    </div>
+
+    <div class="row pb-3" *ngIf="total > 0">
+      <div class="col">
+        <app-publications-list
+          (onPublicationToggle)="handleSelection($event)"
+          (onPageChange)="changePage($event)"
+          (onSortToggle)="sort($event)"
+          [data]="results"
+          [total]="total"
+          [profilePublications]="data.profilePublications || []"
+          [selectedItems]="data.selectedPublications || []"
+        ></app-publications-list>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <div class="col-auto">
+    <app-secondary-button
+      [small]="mobile"
+      (click)="close()"
+      content="Peruuta"
+    ></app-secondary-button>
+  </div>
+  <div class="col-auto" *ngIf="total > 0 && currentSelection?.length > 0">
+    <app-primary-action-button
+      [small]="mobile"
+      (click)="saveChanges()"
+      [content]="
+        currentSelection.length > 1 ? 'Lisää julkaisut' : 'Lisää julkaisu'
+      "
+    ></app-primary-action-button>
+  </div>
+</mat-dialog-actions>

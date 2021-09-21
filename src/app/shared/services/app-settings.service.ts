@@ -21,8 +21,12 @@ export class AppSettingsService {
   private mobileSource = new BehaviorSubject(false);
   mobileStatus = this.mobileSource.asObservable();
 
+  private appSettingsSource = new Subject<any>();
+  appSettings = this.appSettingsSource.asObservable();
+
   // Module related settings
   portalSettings = {
+    appName: 'portal',
     label: $localize`:@@appSlogan:Tiedejatutkimus.fi`,
     baseRoute: '',
     navItems: [
@@ -54,6 +58,12 @@ export class AppSettingsService {
         ],
       },
       {
+        label: $localize`:@@headerLink7:Rahoitushaut`,
+        link: '/funding-calls',
+        queryParams: { status: 'open' },
+        exact: false,
+      },
+      {
         label: $localize`:@@headerLink6:Tiede- ja tutkimusuutiset`,
         link: '/news',
         exact: true,
@@ -67,6 +77,9 @@ export class AppSettingsService {
   };
 
   myDataSettings = {
+    develop: false,
+    beta: true,
+    appName: 'myData',
     label: 'Tutkijan tiedot',
     baseRoute: 'mydata',
     navItems: [{ label: 'Kirjaudu sisään', link: '', loginProcess: true }],
@@ -77,9 +90,50 @@ export class AppSettingsService {
     ],
   };
 
+  dialogSettings: {
+    minWidth: string;
+    maxWidth: string;
+    width: string;
+    maxHeight: string;
+    height: string;
+  };
+
+  currentAppSettings: object;
+  userOrcid: string; // Used in error monitoring
+
   constructor() {}
 
   updateMobileStatus(status) {
     this.mobileSource.next(status);
+
+    this.updateDialogSettings(status);
+  }
+
+  setCurrentAppSettings(app) {
+    switch (app) {
+      case 'myData': {
+        this.currentAppSettings = this.myDataSettings;
+        break;
+      }
+      default: {
+        this.currentAppSettings = this.portalSettings;
+      }
+    }
+
+    this.appSettingsSource.next(this.currentAppSettings);
+  }
+
+  setOrcid(id: string) {
+    this.userOrcid = id;
+  }
+
+  updateDialogSettings(mobile) {
+    this.dialogSettings = {
+      minWidth: '44vw',
+      maxWidth: mobile ? '100vw' : '44vw',
+      width: mobile ? '100%' : 'unset',
+      maxHeight: '100vh',
+      height: mobile ? '100vh' : 'unset',
+    };
   }
 }

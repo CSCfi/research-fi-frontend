@@ -31,16 +31,27 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
-            "assets": ["src/assets/favicon.ico", "src/assets"],
+            "assets": [
+              "src/assets/favicon.ico",
+              "src/assets",
+              "src/silent-renew.html"
+            ],
             "styles": [
               "node_modules/@fortawesome/fontawesome-svg-core/styles.css",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "./node_modules/material-design-icons/iconfont/material-icons.css",
               "src/styles.scss"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ],
+            "allowedCommonJsDependencies": [
+              "lodash",
+              "opentracing/lib/span",
+              "opentracing/lib/tracer",
+              "error-stack-parser"
             ]
           },
           "configurations": {

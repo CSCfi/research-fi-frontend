@@ -8,6 +8,7 @@ import {
   faAlignLeft,
   faCalculator,
   faUniversity,
+  faBullhorn,
 } from '@fortawesome/free-solid-svg-icons';
 
 @Injectable({
@@ -72,6 +73,15 @@ export class TabChangeService {
       tooltip: $localize`:@@organizationsTooltip:Tiedejatutkimus.fi -palveluun tietoja toimittavat tutkimusorganisaatiot ja &#8209;rahoittajat.`,
     },
   ];
+
+  fundingCall = {
+    data: 'funding-calls',
+    label: $localize`:@@fundingCalls:Rahoitushaut`,
+    link: 'funding-calls',
+    icon: faBullhorn,
+    singular: 'rahoitushaku',
+    tooltip: ''
+  }
 
   private tabSource = new BehaviorSubject({
     data: '',

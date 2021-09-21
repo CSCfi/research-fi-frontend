@@ -6,37 +6,64 @@
 //  :license: MIT
 
 type settingsType = {
-  disabled: boolean;
-  forceShow: boolean;
-  single: boolean;
+  disabled?: boolean;
+  expanded?: boolean;
+  setDefault?: boolean;
+  single?: boolean;
+  localized?: boolean;
+  primaryValue?: boolean;
+  joined?: boolean;
 };
 
 export function mapGroup(group, label, settings?: settingsType) {
-  return group.map((obj) => ({
-    ...obj,
+  return {
     label: label,
+    groupItems: group.filter((item) => item.items.length > 0),
     disabled: settings?.disabled,
     single: settings?.single,
-  }))[0];
+    hasPrimaryValue: settings?.primaryValue,
+    joined: settings?.joined,
+  };
 }
 
 export function mapNameGroup(group, label, settings?: settingsType) {
-  group[0].items.forEach(
-    (el) =>
-      (el.value =
-        el.fullName.trim().length > 0
-          ? el.fullName
-          : el.firstNames + ' ' + el.lastName)
+  group.map((item) =>
+    item.items.forEach(
+      (el) =>
+        (el.value =
+          el.fullName.trim().length > 0
+            ? el.fullName
+            : el.firstNames + ' ' + el.lastName)
+    )
   );
 
-  return group.map((obj) => ({
-    ...obj,
+  // Set default value
+  // if (settings?.setDefault) {
+  //   group[0].groupMeta.show = true;
+  //   group[0].items[0].itemMeta.show = true;
+  // }
+
+  return {
     label: label,
-    groupMeta: {
-      ...obj.groupMeta,
-      show: settings?.forceShow ? settings.forceShow : obj.groupMeta.show,
-    },
+    groupItems: group.filter((item) => item.items.length > 0),
     disabled: settings?.disabled,
     single: settings?.single,
-  }))[0];
+    expanded: settings?.expanded,
+  };
+}
+
+export function mapGroupFieldName(
+  group,
+  label,
+  fieldName,
+  settings?: settingsType
+) {
+  group.map((groupItem) => groupItem.items.forEach((item) => item.value));
+
+  return {
+    label: label,
+    groupItems: group.filter((item) => item.items.length > 0),
+    localized: settings?.localized,
+    fieldName: fieldName,
+  };
 }
