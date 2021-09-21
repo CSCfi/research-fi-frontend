@@ -153,6 +153,8 @@ import { FundingCallsComponent } from './components/funding-calls/funding-calls.
 import { SingleFundingCallComponent } from './components/funding-calls/single-funding-call/single-funding-call.component';
 import { FundingCallResultsComponent } from './components/funding-calls/funding-call-results/funding-call-results.component';
 import { FundingCallPreviewComponent } from './components/funding-calls/funding-call-preview/funding-call-preview.component';
+import { HandleLinkDisplayPipe } from './pipes/handle-link-display.pipe';
+import { IsUrlPipe } from './pipes/is-url.pipe';
 
 @NgModule({
   declarations: [
@@ -225,6 +227,8 @@ import { FundingCallPreviewComponent } from './components/funding-calls/funding-
     SingleFundingCallComponent,
     FundingCallResultsComponent,
     FundingCallPreviewComponent,
+    HandleLinkDisplayPipe,
+    IsUrlPipe,
   ],
   imports: [
     PortalRoutingModule,

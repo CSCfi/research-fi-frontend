@@ -1,9 +1,9 @@
-// # This file is part of the research.fi API service
-// #
-// # Copyright 2019 Ministry of Education and Culture, Finland
-// #
-// # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
-// # :license: MIT
+// This file is part of the research.fi API service
+//
+// Copyright 2019 Ministry of Education and Culture, Finland
+//
+// :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+// :license: MIT
 import {
   FieldOfScience,
   FieldOfScienceAdapter,
@@ -210,7 +210,7 @@ export class PublicationAdapter implements Adapter<Publication> {
     }
 
     let apcPaymentYear = '';
-    apcFee !== '' ? apcPaymentYear = item.apcPaymentYear : '';
+    apcFee !== '' ? (apcPaymentYear = item.apcPaymentYear) : '';
 
     if (item.selfArchivedData) {
       item.selfArchivedAddress =
@@ -289,12 +289,6 @@ export class PublicationAdapter implements Adapter<Publication> {
       ? item.peerReviewed[0]['name' + this.capitalizedLocale + 'PeerReviewed']
       : undefined;
 
-    let doiHandle = '';
-    if (item.doiHandle) {
-      let doi_arr = item.doiHandle.split('/');
-      doiHandle = doi_arr.slice(-2).join('/');
-    }
-
     return new Publication(
       item.publicationId,
       item.publicationName,
@@ -323,7 +317,7 @@ export class PublicationAdapter implements Adapter<Publication> {
       item.jufoCode,
       item.jufoClassCode,
       item.doi,
-      doiHandle,
+      item.doiHandle,
       item.selfArchivedAddress,
       item.keywords,
       archiveCodeText,
