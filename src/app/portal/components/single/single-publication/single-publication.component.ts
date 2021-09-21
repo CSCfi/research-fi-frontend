@@ -525,25 +525,19 @@ export class SinglePublicationComponent
 
         // Reset authors & organizations on new result
         this.authorAndOrganization = [];
-        if (this.responseData.publications[0]) {
+        const publication = this.responseData.publications[0];
+        if (publication) {
           switch (this.localeId) {
             case 'fi': {
-              this.setTitle(
-                this.responseData.publications[0].title +
-                  ' - Tiedejatutkimus.fi'
-              );
+              this.setTitle(publication.title + ' - Tiedejatutkimus.fi');
               break;
             }
             case 'en': {
-              this.setTitle(
-                this.responseData.publications[0].title + ' - Research.fi'
-              );
+              this.setTitle(publication.title + ' - Research.fi');
               break;
             }
             case 'sv': {
-              this.setTitle(
-                this.responseData.publications[0].title + ' - Forskning.fi'
-              );
+              this.setTitle(publication.title + ' - Forskning.fi');
               break;
             }
           }
@@ -555,7 +549,7 @@ export class SinglePublicationComponent
             this.commonTags['imgAlt' + this.currentLocale]
           );
           // juFoCode is used for exact search
-          this.juFoCode = this.responseData.publications[0].jufoCode;
+          this.juFoCode = publication.jufoCode;
           this.shapeData();
           this.filterData();
           this.checkDoi();
@@ -592,6 +586,8 @@ export class SinglePublicationComponent
     this.open_accessFields = this.open_accessFields.filter((item) =>
       checkEmpty(item)
     );
+
+    console.log(this.linksFields);
   }
 
   shapeData() {
@@ -777,8 +773,29 @@ export class SinglePublicationComponent
         source.publicationTypeCode.trim() + ' ' + this.publicationTypeLabel;
     }
 
-    // tslint:disable-next-line: curly
     if (source.doiHandle === 'http://dx.doi.org/') source.doiHandle = '';
+
+    // Handle duplicate links
+    if (source.doiHandle?.includes(source.doi)) source.doiHandle = null;
+
+    source.selfArchivedData?.forEach((group, i) => {
+      source.selfArchivedData[i].selfArchived = group.selfArchived.filter(
+        (item, index, self) =>
+          index ===
+          self.findIndex(
+            (obj: { selfArchivedAddress: any }) =>
+              obj.selfArchivedAddress === item.selfArchivedAddress
+          )
+      );
+    });
+
+    // Handle empty self archived data
+    if (
+      source.selfArchivedData &&
+      source.selfArchivedData[0]?.selfArchived[0].selfArchivedAddress?.trim() ===
+        ''
+    )
+      source.selfArchivedData = null;
   }
 
   expandDescription() {
