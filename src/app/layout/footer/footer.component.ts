@@ -42,6 +42,7 @@ export class FooterComponent implements OnInit {
   faFacebook = faFacebook;
   faLinkedin = faLinkedin;
   okmUrl: string;
+  locale: string;
 
   faTimes = faTimes;
   showReviewButton: boolean;
@@ -61,6 +62,7 @@ export class FooterComponent implements OnInit {
   ) {
     this.buildInfo = this.appConfigService.buildInfo;
     this.showReviewButton = true;
+    this.locale = this.localeId;
   }
 
   ngOnInit() {

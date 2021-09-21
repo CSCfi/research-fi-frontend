@@ -6,20 +6,15 @@
 //  :license: MIT
 
 import { Injectable } from '@angular/core';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Adapter } from '../adapter.model';
 
 export class ExternalLink {
   constructor(
     public placement: number,
-    public labelFi: string,
-    public labelSv: string,
-    public labelEn: string,
-    public contentFi: string,
-    public contentSv: string,
-    public contentEn: string,
-    public urlFi: string,
-    public urlSv: string,
-    public urlEn: string
+    public label: string,
+    public content: string,
+    public url: string
   ) {}
 }
 
@@ -27,19 +22,14 @@ export class ExternalLink {
   providedIn: 'root',
 })
 export class ExternalLinkAdapter implements Adapter<ExternalLink> {
-  constructor() {}
+  constructor(private appSettingsService: AppSettingsService) {}
   adapt(item: any): ExternalLink {
+    const currentLocale = this.appSettingsService.currentLocale;
     return new ExternalLink(
       item.placement_id,
-      item.label_fi,
-      item.label_sv,
-      item.label_en,
-      item.content_fi,
-      item.content_sv,
-      item.content_en,
-      item.url_fi,
-      item.url_sv,
-      item.url_en
+      item['label_' + currentLocale],
+      item['content_' + currentLocale],
+      item['url_' + currentLocale]
     );
   }
 }

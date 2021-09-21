@@ -1166,7 +1166,7 @@ export class StaticDataService {
           },
           {
             script:
-              'doc["openAccessCode"].value * 10 + doc["selfArchivedCode"].value',
+              'doc["selfArchivedCode"].value * 100 + doc["openAccess"].value * 10 + doc["publisherOpenAccessCode"].value',
             name: 'openAccess',
             size: 50,
             order: 2,
@@ -1398,7 +1398,7 @@ export class StaticDataService {
           {
             field: 'fundingGroupPerson.consortiumOrganizationId.keyword',
             name: 'organizationId',
-            size: 100,
+            size: 250,
             order: 2,
             filterName: 'organization',
           },
@@ -1443,7 +1443,7 @@ export class StaticDataService {
           {
             field: 'organizationConsortium.consortiumOrganizationId.keyword',
             name: 'organizationId',
-            size: 100,
+            size: 250,
             order: 2,
             filterName: 'organization',
           },
@@ -1455,7 +1455,7 @@ export class StaticDataService {
             order: 0,
           },
           {
-            sum: 'fundingGroupPerson.shareOfFundingInEur',
+            sum: 'organizationConsortium.shareOfFundingInEur',
             name: 'moneySum',
             size: 1,
           },

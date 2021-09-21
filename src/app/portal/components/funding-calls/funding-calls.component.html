@@ -48,15 +48,13 @@ Copyright 2019 Ministry of Education and Culture, Finland
             <div class="col-auto px-0 pr-lg-3" *ngIf="selectedTabData">
               <app-result-count></app-result-count>
             </div>
-            <!-- ADD WHEN INFO EXISTS -->
-            <!-- <div class="col-auto text-right d-none d-lg-block">
-              <a routerLink="/service-info" fragment="1" class="theme-link">
+            <div class="col-auto text-right d-none d-lg-block">
+              <a routerLink="/service-info" fragment="service-info-2" class="theme-link">
                 <strong>
-                    TRANSLATE
-                    <ng-container>Mitä rahoitushakuja palvelu sisältää?</ng-container> 
+                    <ng-container i18n="@@fundingCallsIncluded">Mitä rahoitushakuja palvelu sisältää?</ng-container> 
                 </strong>
               </a>
-            </div> -->
+            </div>
           </div>
         </div>
       </div>

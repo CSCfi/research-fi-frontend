@@ -76,7 +76,10 @@ export class SingleItemService {
   }
   getSingleDataset(id): Observable<Search> {
     return this.http
-      .post<Search>(this.datasetApiUrl, this.constructPayload('identifier.keyword', id))
+      .post<Search>(
+        this.datasetApiUrl,
+        this.constructPayload('identifier.keyword', id)
+      )
       .pipe(map((data: any) => this.searchAdapter.adapt(data, 'datasets')));
   }
 
@@ -104,10 +107,7 @@ export class SingleItemService {
 
   getSingleFundingCall(id): Observable<Search> {
     return this.http
-      .post<Search>(
-        this.fundingCallApiUrl,
-        this.constructPayload('id', id)
-      )
+      .post<Search>(this.fundingCallApiUrl, this.constructPayload('id', id))
       .pipe(
         map((data: any) => this.searchAdapter.adapt(data, 'funding-calls'))
       );
