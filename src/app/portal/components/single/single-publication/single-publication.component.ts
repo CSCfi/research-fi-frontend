@@ -586,6 +586,8 @@ export class SinglePublicationComponent
     this.open_accessFields = this.open_accessFields.filter((item) =>
       checkEmpty(item)
     );
+
+    console.log(this.linksFields);
   }
 
   shapeData() {
