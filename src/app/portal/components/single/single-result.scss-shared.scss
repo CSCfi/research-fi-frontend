@@ -190,11 +190,15 @@
         // display: flex;
         // height: fit-content;
         white-space: nowrap;
+        max-width: max-content;
         .doi,
         .info-link-wrapper {
           padding: 0;
           display: inherit;
           max-width: 100%;
+        }
+        .doi-link a {
+          display: flex;
         }
         .doi-tag,
         span.doi-link,
@@ -212,12 +216,20 @@
 
         span.doi-link,
         .link {
-          width: max-content;
-          max-width: max-content;
-          height: fit-content;
+          // width: max-content;
+          // max-width: max-content;
+          // height: fit-content;
+          // white-space: nowrap;
+          overflow: hidden;
+          // text-overflow: ellipsis;
+        }
+
+        span.link-label {
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+          width: 92%;
+          display: inline-block;
         }
 
         .link,
