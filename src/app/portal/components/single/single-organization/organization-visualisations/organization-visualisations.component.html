@@ -8,7 +8,7 @@
 
 <div #content>
   <iframe
-    (load)="handleLoad($event)"
+    #iframe
     [src]="item.visualIframeUrl | safeUrl"
     frameborder="0"
     height="{{ colWidth * 1.4 }}"
