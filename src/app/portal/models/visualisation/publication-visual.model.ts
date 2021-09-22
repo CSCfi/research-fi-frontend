@@ -162,7 +162,6 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
 
     // Add parent year
     res.forEach((d) => (d.parent = parent));
-
     data.forEach((d) => {
       const selfArchivedCode = Math.floor(parseInt(d.key) / 100);
       const openAccess = Math.floor(parseInt(d.key) / 10);
@@ -184,10 +183,12 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
       }
 
       if (
-        (selfArchivedCode === 1 &&
+        ((selfArchivedCode === 1 &&
           openAccess === 10 &&
           publisherOpenAccess !== 3) ||
-        stringKey === '199'
+          stringKey === '199') &&
+        (this.filters.source._value.openAccess.length === 0 ||
+          this.filters.source._value.openAccess.includes('selfArchived'))
       ) {
         res[1].doc_count += d.doc_count;
       }
@@ -332,10 +333,7 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
         case '113':
         default: {
           // Self archived is not unknown
-          if (
-            (!selfArchivedCode && stringKey.includes('9')) ||
-            stringKey === '10'
-          ) {
+          if ((!selfArchivedCode && stringKey === '99') || stringKey === '10') {
             res[5].doc_count += d.doc_count;
           }
           break;
