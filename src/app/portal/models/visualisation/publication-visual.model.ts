@@ -170,12 +170,18 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
         res[4].doc_count += d.doc_count;
     };
 
-    if (selfArchivedCode === 1) {
+    if (selfArchivedCode === 1 &&
+        openAccess === 10 &&
+        publisherOpenAccess !== 3) {
       res[1].doc_count += d.doc_count;
     }
 
     switch (stringKey) {
       case '11': {
+        res[0].doc_count += d.doc_count;
+        break;
+      }
+      case '111': {
         res[0].doc_count += d.doc_count;
         break;
       }
@@ -186,6 +192,11 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
       }
       case '12': {
         res[3].doc_count += d.doc_count;
+        break;
+      }
+      case '112': {
+        res[3].doc_count += d.doc_count;
+        break;
       }
       // Separate implementation above for non open, add with 0 doc count so no doubles
       case '00':
