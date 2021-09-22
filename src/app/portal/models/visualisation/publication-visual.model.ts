@@ -162,7 +162,7 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
       const publisherOpenAccess = parseInt(d.key) % 10;
 
       const stringKey = '' + openAccess + publisherOpenAccess;
-      console.log(d)
+
     // Filter also based on selfArchived === 0 for non open
     if (selfArchivedCode === 0 && 
        openAccess === 0 && 
@@ -215,7 +215,7 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
       }
     }
     });
-    console.log(res)
+
     return res.filter((x) => x.doc_count > 0);
   }
 
