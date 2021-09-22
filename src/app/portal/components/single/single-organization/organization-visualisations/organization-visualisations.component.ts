@@ -12,6 +12,7 @@ import {
   Input,
   OnInit,
   QueryList,
+  ViewChild,
   ViewChildren,
 } from '@angular/core';
 import { Organization } from '@portal/models/organization.model';
@@ -24,6 +25,7 @@ import { Subscription } from 'rxjs';
 })
 export class OrganizationVisualisationsComponent implements OnInit {
   @Input() item: Organization;
+  @ViewChild('iframe') iframe: ElementRef<any>;
   @ViewChildren('content') content: QueryList<ElementRef>;
 
   loadingTimeStamp: number = 0;
@@ -52,14 +54,9 @@ export class OrganizationVisualisationsComponent implements OnInit {
         this.cdr.detectChanges();
       });
     }
-  }
 
-  handleLoad(event) {
-    // PowerBI visualizations have load twice. Hide loading indicator on second timestamp.
-    if (this.loadingTimeStamp > 0) {
-      this.isLoading = false;
-    }
-
-    this.loadingTimeStamp = event.timeStamp;
+    // Handle iFrame loading indicator
+    const handleLoad = () => (this.isLoading = false);
+    this.iframe.nativeElement.addEventListener('load', handleLoad, true);
   }
 }
