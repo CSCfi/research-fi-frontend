@@ -30,6 +30,13 @@
       </div>
     </div>
 
+    <div class="row" *ngIf="draftService.draftData">
+      <app-primary-action-button
+        content="Julkaise"
+        (click)="publish()"
+      ></app-primary-action-button>
+    </div>
+
     <div class="row d-flex justify-content-between">
       <div class="col-12 col-lg-6 px-0">
         <ng-container *ngIf="profileData; else loadingTemplate">

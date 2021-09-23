@@ -19,6 +19,9 @@ import { take } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { mergePublications } from '@mydata/utils';
 import { Router } from '@angular/router';
+import { DraftService } from '@mydata/services/draft.service';
+import { PatchService } from '@mydata/services/patch.service';
+import { SnackbarService } from '@mydata/services/snackbar.service';
 
 @Component({
   selector: 'app-profile',
@@ -68,8 +71,11 @@ export class ProfileComponent implements OnInit {
     private profileService: ProfileService,
     public oidcSecurityService: OidcSecurityService,
     private appSettingsService: AppSettingsService,
+    public draftService: DraftService,
+    private patchService: PatchService,
     public dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private snackbarService: SnackbarService
   ) {
     this.testData = profileService.testData;
   }
@@ -150,5 +156,29 @@ export class ProfileComponent implements OnInit {
     this.showDialog = false;
     this.dialogTemplate = null;
     this.deletingProfile = false;
+  }
+
+  publish() {
+    const currentPatchItems = this.patchService.currentPatchItems;
+    this.patchItems(currentPatchItems);
+  }
+
+  /*
+   * Patch items to backend
+   */
+  patchItems(patchItems) {
+    this.profileService
+      .patchObjects(patchItems)
+      .pipe(take(1))
+      .subscribe(
+        (result) => {
+          this.snackbarService.show('Muutokset tallennettu', 'success');
+          this.patchService.clearPatchPayload();
+          this.draftService.clearData();
+        },
+        (error) => {
+          this.snackbarService.show('Virhe tiedon tallennuksessa', 'error');
+        }
+      );
   }
 }

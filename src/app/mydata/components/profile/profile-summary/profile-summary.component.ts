@@ -19,7 +19,7 @@ import { take } from 'rxjs/operators';
 import { PatchService } from '@mydata/services/patch.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { ProfileService } from '@mydata/services/profile.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarService } from '@mydata/services/snackbar.service';
 
 @Component({
   selector: 'app-profile-summary',
@@ -49,10 +49,10 @@ export class ProfileSummaryComponent implements OnInit {
 
   constructor(
     private appSettingsService: AppSettingsService,
-    private snackBar: MatSnackBar,
     public dialog: MatDialog,
     private patchService: PatchService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private snackbarService: SnackbarService
   ) {}
 
   ngOnInit(): void {
@@ -162,31 +162,27 @@ export class ProfileSummaryComponent implements OnInit {
             this.sortAffiliations(this.data.profileData);
             this.sortPublications(this.data.profileData);
 
-            if (currentPatchItems.length) this.patchItems(currentPatchItems);
+            this.snackbarService.show('Luonnos päivitetty', 'success');
+
+            // if (currentPatchItems.length) this.patchItems(currentPatchItems);
           }
 
-          this.patchService.clearPatchPayload();
+          // this.patchService.clearPatchPayload();
         }
       );
   }
 
-  patchItems(patchItems) {
-    this.profileService
-      .patchObjects(patchItems)
-      .pipe(take(1))
-      .subscribe(
-        (result) => {
-          this.snackBar.open('Muutokset tallennettu', 'Sulje', {
-            horizontalPosition: 'start',
-            panelClass: 'mydata-snackbar',
-          });
-        },
-        (error) => {
-          this.snackBar.open('Virhe tiedon tallennuksessa', 'Sulje', {
-            horizontalPosition: 'start',
-            panelClass: 'mydata-snackbar',
-          });
-        }
-      );
-  }
+  // patchItems(patchItems) {
+  //   this.profileService
+  //     .patchObjects(patchItems)
+  //     .pipe(take(1))
+  //     .subscribe(
+  //       (result) => {
+  //         this.snackBar.open('Muutokset tallennettu', 'Sulje');
+  //       },
+  //       (error) => {
+  //         this.snackBar.open('Virhe tiedon tallennuksessa', 'Sulje');
+  //       }
+  //     );
+  // }
 }
