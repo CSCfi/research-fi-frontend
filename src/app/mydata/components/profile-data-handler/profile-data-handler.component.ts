@@ -15,7 +15,7 @@ import {
   mergePublications,
   isEmptySection,
 } from '@mydata/utils';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarService } from '@mydata/services/snackbar.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { EditorModalComponent } from './editor-modal/editor-modal.component';
 
@@ -57,7 +57,7 @@ export class ProfileDataHandlerComponent implements OnInit {
 
   constructor(
     private profileService: ProfileService,
-    private snackBar: MatSnackBar,
+    private snackbarService: SnackbarService,
     public dialog: MatDialog,
     private appSettingsService: AppSettingsService,
     private patchService: PatchService
@@ -184,10 +184,10 @@ export class ProfileDataHandlerComponent implements OnInit {
         (result: { data: any; patchGroups: any[]; patchItems: any[] }) => {
           if (result) {
             const currentPatchItems = this.patchService.currentPatchItems;
-
+            console.log(currentPatchItems);
             this.profileData[index] = result.data;
 
-            if (currentPatchItems.length) this.patchItems(currentPatchItems);
+            // if (currentPatchItems.length) this.patchItems(currentPatchItems);
           }
 
           this.patchService.clearPatchPayload();
@@ -202,16 +202,10 @@ export class ProfileDataHandlerComponent implements OnInit {
       .subscribe(
         (result) => {
           if (!hideNotification)
-            this.snackBar.open('Muutokset tallennettu', 'Sulje', {
-              horizontalPosition: 'start',
-              panelClass: 'mydata-snackbar',
-            });
+            this.snackbarService.show('Muutokset tallennettu', 'success');
         },
         (error) => {
-          this.snackBar.open('Virhe tiedon tallennuksessa', 'Sulje', {
-            horizontalPosition: 'start',
-            panelClass: 'mydata-snackbar',
-          });
+          this.snackbarService.show('Virhe tiedon tallennuksessa', 'error');
         }
       );
   }

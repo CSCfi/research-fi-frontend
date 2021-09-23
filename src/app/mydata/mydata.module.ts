@@ -22,7 +22,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {
+  MatSnackBarModule,
+  MatSnackBarConfig,
+  MAT_SNACK_BAR_DEFAULT_OPTIONS,
+} from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
@@ -69,6 +73,12 @@ import { FindSelectedItemPipe } from './pipes/find-selected-item.pipe';
 import { HandleFetchedPublicationsPipe } from './pipes/handle-fetched-publications.pipe';
 import { SortPublicationsPipe } from './pipes/sort-publications.pipe';
 import { EulaComponent } from './components/eula/eula.component';
+
+const matSnackbarDefaultConfig: MatSnackBarConfig = {
+  verticalPosition: 'top',
+  horizontalPosition: 'center',
+  duration: 30000,
+};
 
 @NgModule({
   declarations: [
@@ -130,6 +140,10 @@ import { EulaComponent } from './components/eula/eula.component';
   providers: [
     AuthGuard,
     { provide: MatPaginatorIntl, useClass: CustomPaginatorIntlComponent },
+    {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+      useValue: matSnackbarDefaultConfig,
+    },
   ],
 })
 export class MyDataModule {}

@@ -17,6 +17,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { checkSelected } from '@mydata/utils';
 import { cloneDeep } from 'lodash-es';
 import { PatchService } from '@mydata/services/patch.service';
+import { DraftService } from '@mydata/services/draft.service';
 
 @Component({
   selector: 'app-editor-modal',
@@ -41,10 +42,13 @@ export class EditorModalComponent implements OnInit {
 
   checkSelected = checkSelected;
 
+  patchPayload = [];
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<EditorModalComponent>,
-    private patchService: PatchService
+    private patchService: PatchService,
+    private draftService: DraftService
   ) {}
 
   ngOnInit(): void {
@@ -231,6 +235,10 @@ export class EditorModalComponent implements OnInit {
   }
 
   saveChanges() {
+    this.draftService.handleSave({
+      patchItems: this.patchService.patchItems,
+    });
+
     this.dialogRef.close({
       data: this.editorData.data,
       patchGroups: this.groupPayload,
