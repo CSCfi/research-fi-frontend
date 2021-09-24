@@ -22,7 +22,7 @@
     <a
       href="javascript:void(0)"
       class="primary-color font-weight-500"
-      (click)="openDialog()"
+      (click)="openSearchPublicationsDialog()"
     >
       <u>Puuttuuko jokin julkaisu tiedoistasi?</u>
     </a>
@@ -128,10 +128,10 @@
                 </div>
 
                 <!-- Debugging -->
-                <!-- <div class="col-auto font-size-small mt-1" style="color: red">
+                <div class="col-auto font-size-small mt-1" style="color: red">
                   itemId: {{ item.itemMeta.id }} | groupId:
                   {{ groupItem.groupMeta.id }}
-                </div> -->
+                </div>
 
                 <!-- Enable deletion of publications that are added from TTV -->
                 <div

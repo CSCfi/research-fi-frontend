@@ -20,6 +20,8 @@ import { PatchService } from '@mydata/services/patch.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { ProfileService } from '@mydata/services/profile.service';
 import { SnackbarService } from '@mydata/services/snackbar.service';
+import { DraftService } from '@mydata/services/draft.service';
+import { Constants } from '@mydata/constants/';
 
 @Component({
   selector: 'app-profile-summary',
@@ -28,7 +30,7 @@ import { SnackbarService } from '@mydata/services/snackbar.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class ProfileSummaryComponent implements OnInit {
-  @Input() data: any;
+  @Input() profileData: any;
 
   fieldTypes = FieldTypes;
 
@@ -52,23 +54,24 @@ export class ProfileSummaryComponent implements OnInit {
     public dialog: MatDialog,
     private patchService: PatchService,
     private profileService: ProfileService,
-    private snackbarService: SnackbarService
+    private snackbarService: SnackbarService,
+    private draftService: DraftService
   ) {}
 
   ngOnInit(): void {
     // Get data sources
-    this.dataSources = getDataSources(this.data.profileData);
+    this.dataSources = getDataSources(this.profileData);
 
     this.primarySource = this.dataSources[0];
 
-    this.sortAffiliations(this.data.profileData);
+    this.sortAffiliations(this.profileData);
 
-    if (!isEmptySection(this.data.profileData[4]))
-      this.sortPublications(this.data.profileData);
+    if (!isEmptySection(this.profileData[4]))
+      this.sortPublications(this.profileData);
   }
 
   getSelectedItems() {
-    const dataCopy = cloneDeep(this.data.profileData);
+    const dataCopy = cloneDeep(this.profileData);
 
     for (let group of dataCopy) {
       group.fields.forEach((field) => {
@@ -108,7 +111,7 @@ export class ProfileSummaryComponent implements OnInit {
 
     data[index].fields[0].groupItems[0].items = sortedItems;
 
-    this.data.profileData[index].fields[0].groupItems = [
+    this.profileData[index].fields[0].groupItems = [
       data[index].fields[0].groupItems[0],
     ];
   }
@@ -127,7 +130,7 @@ export class ProfileSummaryComponent implements OnInit {
 
     data[index].fields[0].groupItems[0].items = sortedItems;
 
-    this.data.profileData[index].fields[0].groupItems = [
+    this.profileData[index].fields[0].groupItems = [
       data[index].fields[0].groupItems[0],
     ];
   }
@@ -137,7 +140,7 @@ export class ProfileSummaryComponent implements OnInit {
 
     if (!this.openPanels.includes(index)) this.openPanels.push(index);
 
-    const selectedField = cloneDeep(this.data.profileData[index]);
+    const selectedField = cloneDeep(this.profileData[index]);
 
     this.dialogRef = this.dialog.open(EditorModalComponent, {
       ...this.appSettingsService.dialogSettings,
@@ -156,15 +159,27 @@ export class ProfileSummaryComponent implements OnInit {
           if (result) {
             const currentPatchItems = this.patchService.currentPatchItems;
 
-            this.data.profileData[index] = result.data;
+            this.profileData[index] = result.data;
+
+            this.draftService.saveDraft(this.profileData);
+
+            if (this.appSettingsService.isBrowser) {
+              // Set draft profile data to storage
+              sessionStorage.setItem(
+                Constants.draftProfile,
+                JSON.stringify(this.profileData)
+              );
+            }
 
             // Sort
-            this.sortAffiliations(this.data.profileData);
-            this.sortPublications(this.data.profileData);
+            this.sortAffiliations(this.profileData);
+            this.sortPublications(this.profileData);
 
             this.snackbarService.show('Luonnos päivitetty', 'success');
 
             // if (currentPatchItems.length) this.patchItems(currentPatchItems);
+          } else {
+            this.patchService.clearPatchItems();
           }
 
           // this.patchService.clearPatchPayload();

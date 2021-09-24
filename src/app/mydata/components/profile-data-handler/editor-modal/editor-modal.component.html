@@ -38,9 +38,7 @@
         [dataSources]="editorData.dataSources"
         [primarySource]="primarySource"
         [data]="editorData.data"
-        [originalData]="originalEditorData"
-        (onRadioItemToggle)="toggleRadio($event)"
-        (onSingleItemToggle)="toggleSingle($event)"
+        (onSingleItemToggle)="checkAllSelected()"
       ></app-profile-panel>
     </div>
   </div>

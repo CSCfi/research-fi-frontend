@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { AppSettingsService } from '@shared/services/app-settings.service';
+import { Constants } from '@mydata/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -6,14 +8,18 @@ import { Injectable } from '@angular/core';
 export class DraftService {
   draftData: any = null;
 
-  constructor() {}
+  constructor(private appSettingsService: AppSettingsService) {}
 
-  handleSave(data) {
-    console.log(data);
+  saveDraft(data) {
     this.draftData = data;
   }
 
   clearData() {
     this.draftData = null;
+
+    if (this.appSettingsService.isBrowser) {
+      sessionStorage.removeItem(Constants.draftProfile);
+      sessionStorage.removeItem(Constants.draftPatchPayload);
+    }
   }
 }

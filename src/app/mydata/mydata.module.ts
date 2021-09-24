@@ -77,7 +77,7 @@ import { EulaComponent } from './components/eula/eula.component';
 const matSnackbarDefaultConfig: MatSnackBarConfig = {
   verticalPosition: 'top',
   horizontalPosition: 'center',
-  duration: 30000,
+  duration: 3000,
 };
 
 @NgModule({

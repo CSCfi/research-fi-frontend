@@ -19,6 +19,7 @@ import testData from 'src/testdata/mydataprofiledata.json';
 export class ProfileService {
   apiUrl: string;
   httpOptions: object;
+  currentProfileData: any[];
 
   testData = testData;
 
