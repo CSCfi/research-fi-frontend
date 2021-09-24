@@ -22,6 +22,10 @@ import { Router } from '@angular/router';
 import { DraftService } from '@mydata/services/draft.service';
 import { PatchService } from '@mydata/services/patch.service';
 import { SnackbarService } from '@mydata/services/snackbar.service';
+import { cloneDeep } from 'lodash-es';
+import { Constants } from '@mydata/constants/';
+import { forkJoin } from 'rxjs';
+import { PublicationsService } from '@mydata/services/publications.service';
 
 @Component({
   selector: 'app-profile',
@@ -71,11 +75,12 @@ export class ProfileComponent implements OnInit {
     private profileService: ProfileService,
     public oidcSecurityService: OidcSecurityService,
     private appSettingsService: AppSettingsService,
-    public draftService: DraftService,
-    private patchService: PatchService,
+    private draftService: DraftService,
     public dialog: MatDialog,
     private router: Router,
-    private snackbarService: SnackbarService
+    private snackbarService: SnackbarService,
+    public patchService: PatchService,
+    public publicationsService: PublicationsService
   ) {
     this.testData = profileService.testData;
   }
@@ -90,17 +95,42 @@ export class ProfileComponent implements OnInit {
 
     if (this.appSettingsService.myDataSettings.develop) {
       this.profileData = this.testData;
-      this.mergePublications(this.profileData.profileData[4]);
+      this.mergePublications(this.profileData[4]);
     } else {
       this.profileService
         .getProfileData()
         .pipe(take(1))
-        .subscribe((data) => {
-          this.profileData = data;
+        .subscribe((response) => {
+          // Get data from session storage if draft is available
+          if (this.appSettingsService.isBrowser) {
+            const draft = sessionStorage.getItem(Constants.draftProfile);
+            const draftPatchPayload = JSON.parse(
+              sessionStorage.getItem(Constants.draftPatchPayload)
+            );
+
+            // Display either draft profile or profile from database
+            if (draft) {
+              const parsedDraft = JSON.parse(draft);
+              this.draftService.saveDraft(parsedDraft);
+              this.profileData = parsedDraft;
+            } else {
+              this.profileData = response.profileData;
+            }
+
+            // Set draft patch payload from storage
+            if (draftPatchPayload)
+              this.patchService.addToPatchItems(draftPatchPayload);
+          }
+
+          // Set original data
+          this.profileService.currentProfileData = cloneDeep(
+            response.profileData
+          );
 
           // Merge publications
-          // TODO: Find better way to pass array element than index number. Eg. type
-          this.mergePublications(data.profileData[4]);
+          this.mergePublications(
+            response.profileData.find((item) => item.id === 'publication')
+          );
         });
     }
   }
@@ -159,22 +189,60 @@ export class ProfileComponent implements OnInit {
   }
 
   publish() {
-    const currentPatchItems = this.patchService.currentPatchItems;
-    this.patchItems(currentPatchItems);
+    // this.handlePublications();
+    this.patchItems();
+  }
+
+  reset() {
+    this.profileData = this.profileService.currentProfileData;
+    this.clearDraftData();
+  }
+
+  clearDraftData() {
+    this.patchService.clearPatchItems();
+    this.patchService.cancelConfirmedPatchPayload();
+    this.publicationsService.clearPayload();
+    this.publicationsService.cancelConfirmedPayload();
+    this.draftService.clearData();
+  }
+
+  /*
+   * Add selected publications to profile
+   */
+  handlePublications() {
+    const selectedPublications = this.publicationsService.publicationPayload;
+    console.log('selectedPublications: ', selectedPublications);
+
+    this.publicationsService
+      .addPublications()
+      .pipe(take(1))
+      .subscribe((result) => {
+        console.log(result);
+      });
   }
 
   /*
    * Patch items to backend
    */
-  patchItems(patchItems) {
+  patchItems() {
+    const patchItems = this.patchService.confirmedPatchItems;
+
+    // forkJoin([
+    //   this.publicationsService.addPublications(),
+    //   this.profileService.patchObjects(patchItems),
+    // ])
+    //   .pipe(take(1))
+    //   .subscribe((response: any) => {
+    //     console.log('publish: ', response);
+    //   });
+
     this.profileService
       .patchObjects(patchItems)
       .pipe(take(1))
       .subscribe(
         (result) => {
           this.snackbarService.show('Muutokset tallennettu', 'success');
-          this.patchService.clearPatchPayload();
-          this.draftService.clearData();
+          this.clearDraftData();
         },
         (error) => {
           this.snackbarService.show('Virhe tiedon tallennuksessa', 'error');

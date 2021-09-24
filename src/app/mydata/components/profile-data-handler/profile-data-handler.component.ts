@@ -23,9 +23,11 @@ import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { take } from 'rxjs/operators';
 
 import { PatchService } from '@mydata/services/patch.service';
+import { Constants } from '@mydata/constants/';
 
 // Remove in production
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { DraftService } from '@mydata/services/draft.service';
 
 @Component({
   selector: 'app-profile-data-handler',
@@ -60,7 +62,8 @@ export class ProfileDataHandlerComponent implements OnInit {
     private snackbarService: SnackbarService,
     public dialog: MatDialog,
     private appSettingsService: AppSettingsService,
-    private patchService: PatchService
+    private patchService: PatchService,
+    private draftService: DraftService
   ) {
     this.testData = profileService.testData;
   }
@@ -184,13 +187,22 @@ export class ProfileDataHandlerComponent implements OnInit {
         (result: { data: any; patchGroups: any[]; patchItems: any[] }) => {
           if (result) {
             const currentPatchItems = this.patchService.currentPatchItems;
-            console.log(currentPatchItems);
+
             this.profileData[index] = result.data;
+
+            this.draftService.saveDraft(this.profileData);
+
+            if (this.appSettingsService.isBrowser) {
+              sessionStorage.setItem(
+                Constants.draftProfile,
+                JSON.stringify(this.profileData)
+              );
+            }
 
             // if (currentPatchItems.length) this.patchItems(currentPatchItems);
           }
 
-          this.patchService.clearPatchPayload();
+          this.patchService.clearPatchItems();
         }
       );
   }

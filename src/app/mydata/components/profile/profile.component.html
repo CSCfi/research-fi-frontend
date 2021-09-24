@@ -29,11 +29,22 @@
         </div>
       </div>
     </div>
-
-    <div class="row" *ngIf="draftService.draftData">
+    <div
+      class="row"
+      *ngIf="
+        (publicationsService.currentPublicationPayload | async).length ||
+        (patchService.currentPatchItems | async).length
+      "
+    >
       <app-primary-action-button
+        class="col-auto"
         content="Julkaise"
         (click)="publish()"
+      ></app-primary-action-button>
+      <app-primary-action-button
+        class="col-auto"
+        content="Hylkää"
+        (click)="reset()"
       ></app-primary-action-button>
     </div>
 
@@ -44,7 +55,7 @@
             <mat-tab label="Tiedot">
               <app-profile-summary
                 class="d-block pt-3"
-                [data]="profileData"
+                [profileData]="profileData"
               ></app-profile-summary>
             </mat-tab>
             <mat-tab disabled label="Tietolähteet">Tietolähteet</mat-tab>

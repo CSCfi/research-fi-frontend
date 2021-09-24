@@ -10,11 +10,15 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnDestroy,
   OnInit,
   Output,
+  ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
 import { PublicationsService } from '@mydata/services/publications.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-publications-list',
@@ -22,7 +26,7 @@ import { PublicationsService } from '@mydata/services/publications.service';
   styleUrls: ['./publications-list.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class PublicationsListComponent implements OnInit, OnChanges {
+export class PublicationsListComponent implements OnInit, OnChanges, OnDestroy {
   @Input() data: any[];
   @Input() total: number;
   @Input() profilePublications: any;
@@ -43,13 +47,21 @@ export class PublicationsListComponent implements OnInit, OnChanges {
   sortSettings: any;
   selectedItemsIdArray: any[];
 
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  termSub: Subscription;
+
   constructor(private publicationService: PublicationsService) {
     this.sortSettings = this.publicationService.currentSort;
   }
 
   ngOnInit() {
-    // Check match in template
+    // Reset to first page on term change
+    this.termSub = this.publicationService.currentTerm.subscribe(() => {
+      this.currentPage = 1;
+      if (this.paginator) this.paginator.pageIndex = 0;
+    });
 
+    // Check match in template
     const profileItems = this.profilePublications
       .flatMap((item) => item.items)
       .map((item) => item.publicationId)
@@ -64,6 +76,10 @@ export class PublicationsListComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     this.pageCount = Math.ceil(this.total / this.currentPageSize);
+  }
+
+  ngOnDestroy() {
+    this.termSub?.unsubscribe();
   }
 
   showMore(index) {

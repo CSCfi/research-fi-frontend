@@ -40,7 +40,9 @@ export class SearchPublicationsComponent implements OnInit {
       .unsubscribe();
   }
 
-  handleSearch(term) {
+  handleSearch(term: string) {
+    this.publicationService.updateSearchTerm(term);
+    this.publicationService.updatePageSettings(null);
     this.currentTerm = term;
     this.searchPublications(term);
   }
@@ -63,7 +65,7 @@ export class SearchPublicationsComponent implements OnInit {
     this.currentSelection = arr;
   }
 
-  changePage(pageSettings) {
+  changePage(pageSettings: object) {
     this.publicationService.updatePageSettings(pageSettings);
     this.searchPublications(this.currentTerm);
   }
@@ -78,40 +80,45 @@ export class SearchPublicationsComponent implements OnInit {
   }
 
   saveChanges() {
-    const publications = this.currentSelection.map((item) => ({
+    const selectedPublications = this.currentSelection.map((item) => ({
       publicationId: item.publicationId,
-      show: true,
-      primaryValue: true,
+      publicationName: item.publicationName,
+      publicationYear: item.publicationYear,
+      itemMeta: { id: null, show: true, primaryValue: true },
     }));
 
-    this.publicationService
-      .addPublications(publications)
-      .pipe(take(1))
-      .subscribe((res: any) => {
-        if (res.ok && res.body.success) {
-          const data = res.body.data;
+    this.dialogRef.close({ selectedPublications: selectedPublications });
 
-          const preSelection = this.data.selectedPublications;
+    // const publications = this.currentSelection.map((item) => ({
+    //   publicationId: item.publicationId,
+    //   show: true,
+    //   primaryValue: true,
+    // }));
 
-          const sortPublications = (publications) => {
-            return publications.sort(
-              (a, b) => b.publicationYear - a.publicationYear
-            );
-          };
+    // this.publicationService
+    //   .addPublications(publications)
+    //   .pipe(take(1))
+    //   .subscribe((res: any) => {
+    //     if (res.ok && res.body.success) {
+    //       const data = res.body.data;
 
-          this.dialogRef.close({
-            selectedPublications: preSelection
-              ? sortPublications(data.publicationsAdded.concat(preSelection))
-              : sortPublications(data.publicationsAdded),
-            publicationsNotFound: data.publicationsNotFound,
-            publicationsAlreadyInProfile: data.publicationsAlreadyInProfile,
-            source: data.source,
-          });
-        }
-      });
+    //       const preSelection = this.data.selectedPublications;
 
-    // this.dialogRef.close({
-    //   selectedPublications: this.currentSelection,
-    // });
+    //       const sortPublications = (publications) => {
+    //         return publications.sort(
+    //           (a, b) => b.publicationYear - a.publicationYear
+    //         );
+    //       };
+
+    //       this.dialogRef.close({
+    //         selectedPublications: preSelection
+    //           ? sortPublications(data.publicationsAdded.concat(preSelection))
+    //           : sortPublications(data.publicationsAdded),
+    //         publicationsNotFound: data.publicationsNotFound,
+    //         publicationsAlreadyInProfile: data.publicationsAlreadyInProfile,
+    //         source: data.source,
+    //       });
+    //     }
+    //   });
   }
 }

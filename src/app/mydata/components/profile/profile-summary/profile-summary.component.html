@@ -5,7 +5,7 @@
 
 <mat-accordion multi>
   <mat-expansion-panel
-    *ngFor="let group of data.profileData; let i = index"
+    *ngFor="let group of profileData; let i = index"
     [expanded]="i === 0 || openPanels.indexOf(i) > -1"
     [disabled]="group.fields.length === 0"
   >
