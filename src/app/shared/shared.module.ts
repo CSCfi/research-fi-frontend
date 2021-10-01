@@ -36,6 +36,7 @@ import { ThousandSeparatorPipe } from './pipes/thousand-separator.pipe';
 import { CutContentPipe } from './pipes/cut-content.pipe';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { DialogTemplateComponent } from './components/dialog/dialog-template/dialog-template.component';
+import { BannerDividerComponent } from './components/banner-divider/banner-divider.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { DialogTemplateComponent } from './components/dialog/dialog-template/dia
     CutContentPipe,
     DialogComponent,
     DialogTemplateComponent,
+    BannerDividerComponent,
   ],
   exports: [
     InfoComponent,
@@ -67,6 +69,7 @@ import { DialogTemplateComponent } from './components/dialog/dialog-template/dia
     ThousandSeparatorPipe,
     CutContentPipe,
     DialogComponent,
+    BannerDividerComponent,
   ],
   imports: [
     CommonModule,

@@ -3,24 +3,33 @@ Copyright 2019 Ministry of Education and Culture, Finland
 :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 :license: MIT -->
 
-<div class="bar"></div>
+<app-banner-divider></app-banner-divider>
 <h1 #srHeader aria-live="polite" class="sr-only"></h1>
 <aside class="wrapper">
   <div class="row justify-content-center">
     <div class="col-12 col-md-6 p-0">
       <h2
-      role="status"
-      class="total"
-      *ngIf="selectedTabData ? selectedTabData.label : ''"
-    >
-      {{ selectedTabData.label }} -
-      <span class="total">{{ parsedTotal }}</span>
-      <!-- BETA TOOLTIP -->
-      <span class="ml-3" [tooltip]="betaTooltip" placement="top" tabindex="-1" #beta>
-        <app-secondary-button [icon]="'info-circle'" content="Beta"></app-secondary-button>
-      </span>
-      <span class="sr-only" i18n="@@resultCount">hakutulosta</span>
-    </h2>
+        role="status"
+        class="total"
+        *ngIf="selectedTabData ? selectedTabData.label : ''"
+      >
+        {{ selectedTabData.label }} -
+        <span class="total">{{ parsedTotal }}</span>
+        <!-- BETA TOOLTIP -->
+        <span
+          class="ml-3"
+          [tooltip]="betaTooltip"
+          placement="top"
+          tabindex="-1"
+          #beta
+        >
+          <app-secondary-button
+            [icon]="'info-circle'"
+            content="Beta"
+          ></app-secondary-button>
+        </span>
+        <span class="sr-only" i18n="@@resultCount">hakutulosta</span>
+      </h2>
     </div>
     <app-search
       class="col-12 col-md-6 search"
@@ -42,16 +51,23 @@ Copyright 2019 Ministry of Education and Culture, Finland
     <div class="col-12 px-0">
       <div class="total" #totalHeader>
         <div class="row justify-content-between">
-          <div class="col-auto p-0">
-          </div>
-          <div class="col-auto col-lg-7 justify-content-end align-items-center row">
+          <div class="col-auto p-0"></div>
+          <div
+            class="col-auto col-lg-7 justify-content-end align-items-center row"
+          >
             <div class="col-auto px-0 pr-lg-3" *ngIf="selectedTabData">
               <app-result-count></app-result-count>
             </div>
             <div class="col-auto text-right d-none d-lg-block">
-              <a routerLink="/service-info" fragment="service-info-2" class="theme-link">
+              <a
+                routerLink="/service-info"
+                fragment="service-info-2"
+                class="theme-link"
+              >
                 <strong>
-                    <ng-container i18n="@@fundingCallsIncluded">Mitä rahoitushakuja palvelu sisältää?</ng-container> 
+                  <ng-container i18n="@@fundingCallsIncluded"
+                    >Mitä rahoitushakuja palvelu sisältää?</ng-container
+                  >
                 </strong>
               </a>
             </div>
@@ -101,7 +117,9 @@ Copyright 2019 Ministry of Education and Culture, Finland
         <main class="col-12" id="main-content">
           <app-active-filters></app-active-filters>
           <app-funding-call-results
-            [resultData]="resultData" [sortDirection]="sortService.sortDirection" [sortColumn]="sortService.sortColumn"
+            [resultData]="resultData"
+            [sortDirection]="sortService.sortDirection"
+            [sortColumn]="sortService.sortColumn"
           ></app-funding-call-results>
         </main>
       </div>
@@ -122,19 +140,21 @@ Copyright 2019 Ministry of Education and Culture, Finland
       <h3 class="sr-only">Hakutulokset</h3>
       <app-funding-call-results
         id="main-content"
-        [resultData]="resultData" [sortDirection]="sortService.sortDirection" [sortColumn]="sortService.sortColumn"
+        [resultData]="resultData"
+        [sortDirection]="sortService.sortDirection"
+        [sortColumn]="sortService.sortColumn"
       ></app-funding-call-results>
     </main>
   </div>
 </ng-template>
 
 <ng-template #pageOverflow>
-    <div class="row main-content">
-      <div class="col text-center no-results">
-        <h2 i18n="@@maxResults1">Tuloksia näytetään enintään 10 000</h2>
-        <p i18n="@@maxResults2">
-          Jos hakemaasi tulosta ei löytynyt, yritä tarkentaa hakua.
-        </p>
-      </div>
+  <div class="row main-content">
+    <div class="col text-center no-results">
+      <h2 i18n="@@maxResults1">Tuloksia näytetään enintään 10 000</h2>
+      <p i18n="@@maxResults2">
+        Jos hakemaasi tulosta ei löytynyt, yritä tarkentaa hakua.
+      </p>
     </div>
-  </ng-template>
+  </div>
+</ng-template>
