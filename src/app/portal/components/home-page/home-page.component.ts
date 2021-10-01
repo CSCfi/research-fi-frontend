@@ -171,9 +171,9 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       }
     );
-    if (isPlatformBrowser(this.platformId)) {
-      (this.window as any).twttr?.widgets?.load();
-    }
+    // if (isPlatformBrowser(this.platformId)) {
+    //   (this.window as any).twttr?.widgets?.load();
+    // }
   }
 
   // Get height of div with most height
