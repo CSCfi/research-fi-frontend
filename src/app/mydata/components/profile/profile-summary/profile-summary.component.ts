@@ -157,8 +157,6 @@ export class ProfileSummaryComponent implements OnInit {
       .subscribe(
         (result: { data: any; patchGroups: any[]; patchItems: any[] }) => {
           if (result) {
-            const currentPatchItems = this.patchService.currentPatchItems;
-
             this.profileData[index] = result.data;
 
             this.draftService.saveDraft(this.profileData);
@@ -176,28 +174,10 @@ export class ProfileSummaryComponent implements OnInit {
             this.sortPublications(this.profileData);
 
             this.snackbarService.show('Luonnos päivitetty', 'success');
-
-            // if (currentPatchItems.length) this.patchItems(currentPatchItems);
           } else {
             this.patchService.clearPatchItems();
           }
-
-          // this.patchService.clearPatchPayload();
         }
       );
   }
-
-  // patchItems(patchItems) {
-  //   this.profileService
-  //     .patchObjects(patchItems)
-  //     .pipe(take(1))
-  //     .subscribe(
-  //       (result) => {
-  //         this.snackBar.open('Muutokset tallennettu', 'Sulje');
-  //       },
-  //       (error) => {
-  //         this.snackBar.open('Virhe tiedon tallennuksessa', 'Sulje');
-  //       }
-  //     );
-  // }
 }
