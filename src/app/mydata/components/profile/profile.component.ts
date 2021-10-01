@@ -33,6 +33,7 @@ import { PublicationsService } from '@mydata/services/publications.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class ProfileComponent implements OnInit {
+  orcidData: any;
   profileData: any;
   testData: any;
   orcid: string;
@@ -70,14 +71,16 @@ export class ProfileComponent implements OnInit {
   loading: boolean;
   deletingProfile: boolean;
 
+  draftPayload: any[];
+
   constructor(
     private profileService: ProfileService,
     public oidcSecurityService: OidcSecurityService,
     private appSettingsService: AppSettingsService,
-    private draftService: DraftService,
     public dialog: MatDialog,
     private router: Router,
     private snackbarService: SnackbarService,
+    public draftService: DraftService,
     public patchService: PatchService,
     public publicationsService: PublicationsService
   ) {
@@ -86,6 +89,8 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.oidcSecurityService.userData$.pipe(take(1)).subscribe((data) => {
+      this.orcidData = data;
+
       if (data) {
         this.orcid = data.orcid;
         this.appSettingsService.setOrcid(data.orcid);
@@ -106,6 +111,8 @@ export class ProfileComponent implements OnInit {
             const draftPatchPayload = JSON.parse(
               sessionStorage.getItem(Constants.draftPatchPayload)
             );
+
+            this.draftPayload = draftPatchPayload;
 
             // Display either draft profile or profile from database
             if (draft) {

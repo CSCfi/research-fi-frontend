@@ -3,71 +3,80 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
+<app-banner-divider></app-banner-divider>
 <main id="main-content">
   <div class="wrapper">
-    <div class="row d-flex justify-content-between pb-3 pb-md-0">
+    <div class="row d-flex justify-content-between pt-3 pb-5">
       <div class="col-12 col-md-6 px-0">
-        <div class="row d-flex">
-          <h1 class="col-auto px-0">Profiili</h1>
-          <div class="col align-self-center">
+        <div class="row d-flex" *ngIf="orcidData">
+          <h1 class="col-12 px-0">{{ orcidData.name }}</h1>
+          <div class="col align-self-center px-0">
             <img
               class="orcid-icon mt-n1 pr-2"
               src="assets/img/orcid_icon.svg"
               alt="Orcid -palvelun logo"
             />
-            <span>{{ orcid }}</span>
+            <span>{{ orcidData.orcid }}</span>
           </div>
         </div>
       </div>
 
-      <div class="col-5 px-0 d-none d-md-block">
-        <div class="row d-flex justify-content-end">
-          <div class="col-auto opacity-3">
-            <i class="fas fa-user text-center primary-color d-block h1"></i>
-            <a disabled>Lisää profiilikuva...(tulossa)</a>
+      <div class="col-5 d-none d-md-block px-lg-0">
+        <div class="row justify-content-end align-items-center">
+          <div class="col-auto profile-image-container opacity-3">
+            <i class="fas fa-user text-center d-block h1"></i>
           </div>
+          <a disabled class="disabled">+ Lisää Julkinen profiilikuva</a>
         </div>
       </div>
     </div>
-    <div
-      class="row"
-      *ngIf="
-        (publicationsService.currentPublicationPayload | async).length ||
-        (patchService.currentPatchItems | async).length
-      "
-    >
-      <app-primary-action-button
-        class="col-auto"
-        content="Julkaise"
-        (click)="publish()"
-      ></app-primary-action-button>
-      <app-primary-action-button
-        class="col-auto"
-        content="Hylkää"
-        (click)="reset()"
-      ></app-primary-action-button>
+    <div class="row">
+      <div class="col-12 col-md-6 px-0 align-self-end">
+        <h2 class="h4">Julkinen profiili</h2>
+      </div>
+
+      <div
+        class="col px-0 py-2 text-right"
+        *ngIf="
+          (publicationsService.currentPublicationPayload | async).length ||
+            (patchService.currentPatchItems | async).length ||
+            draftService.draftData;
+          draft
+        "
+      >
+        <app-primary-action-button
+          class="col-auto"
+          content="Julkaise..."
+          (click)="publish()"
+        ></app-primary-action-button>
+        <app-primary-action-button
+          class="col-auto pr-lg-0"
+          content="Hylkää muutokset..."
+          (click)="reset()"
+        ></app-primary-action-button>
+      </div>
     </div>
+
+    <!-- Divider -->
+    <app-banner-divider
+      heightInRem=".25"
+      class="opacity-3"
+    ></app-banner-divider>
 
     <div class="row d-flex justify-content-between">
-      <div class="col-12 col-lg-6 px-0">
-        <ng-container *ngIf="profileData; else loadingTemplate">
-          <mat-tab-group mat-align-tabs="end">
-            <mat-tab label="Tiedot">
-              <app-profile-summary
-                class="d-block pt-3"
-                [profileData]="profileData"
-              ></app-profile-summary>
-            </mat-tab>
-            <mat-tab disabled label="Tietolähteet">Tietolähteet</mat-tab>
-          </mat-tab-group>
-        </ng-container>
+      <div class="col-12 col-lg-6 px-0 mx-lg-n3">
+        <app-profile-summary
+          *ngIf="profileData; else loadingTemplate"
+          class="d-block pt-3"
+          [profileData]="profileData"
+        ></app-profile-summary>
 
         <ng-template #loadingTemplate>
           <mat-spinner class="mx-auto" [diameter]="80"> </mat-spinner>
         </ng-template>
       </div>
 
-      <div class="col-12 col-lg-5 px-0 px-lg-3">
+      <div class="col-12 col-lg-5 px-0 px-lg-3 mr-lg-n3">
         <div class="background-light p-3 mt-lg-5">
           <span class="font-weight-bold d-block pb-3">Yhteistyö</span>
           <section>
