@@ -12,7 +12,7 @@ export class SnackbarService {
 
   show(message: string, type: SnackBarType): void {
     this.zone.run(() => {
-      this.snackbar.open(message, 'sulje', {
+      this.snackbar.open(message, 'Sulje', {
         panelClass: ['snackbar-container', type],
       });
     });

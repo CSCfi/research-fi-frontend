@@ -17,8 +17,8 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { EditorModalComponent } from '../../profile-data-handler/editor-modal/editor-modal.component';
 import { take } from 'rxjs/operators';
 import { PatchService } from '@mydata/services/patch.service';
+import { PublicationsService } from '@mydata/services/publications.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
-import { ProfileService } from '@mydata/services/profile.service';
 import { SnackbarService } from '@mydata/services/snackbar.service';
 import { DraftService } from '@mydata/services/draft.service';
 import { Constants } from '@mydata/constants/';
@@ -53,7 +53,7 @@ export class ProfileSummaryComponent implements OnInit {
     private appSettingsService: AppSettingsService,
     public dialog: MatDialog,
     private patchService: PatchService,
-    private profileService: ProfileService,
+    private publicationsService: PublicationsService,
     private snackbarService: SnackbarService,
     private draftService: DraftService
   ) {}
@@ -156,24 +156,32 @@ export class ProfileSummaryComponent implements OnInit {
       .pipe(take(1))
       .subscribe(
         (result: { data: any; patchGroups: any[]; patchItems: any[] }) => {
-          if (result) {
-            this.profileData[index] = result.data;
+          const confirmedPatchItems = this.patchService.confirmedPatchItems;
+          const confirmedPublicationPayload =
+            this.publicationsService.confirmedPayload;
 
-            this.draftService.saveDraft(this.profileData);
+          this.profileData[index] = result.data;
 
-            if (this.appSettingsService.isBrowser) {
-              // Set draft profile data to storage
-              sessionStorage.setItem(
-                Constants.draftProfile,
-                JSON.stringify(this.profileData)
-              );
-            }
+          this.draftService.saveDraft(this.profileData);
+
+          if (this.appSettingsService.isBrowser) {
+            // Set draft profile data to storage
+            sessionStorage.setItem(
+              Constants.draftProfile,
+              JSON.stringify(this.profileData)
+            );
 
             // Sort
             this.sortAffiliations(this.profileData);
             this.sortPublications(this.profileData);
 
-            this.snackbarService.show('Luonnos päivitetty', 'success');
+            // Do actions only if user has made changes
+            if (
+              result &&
+              (confirmedPatchItems.length || confirmedPublicationPayload.length)
+            ) {
+              this.snackbarService.show('Luonnos päivitetty', 'success');
+            }
           } else {
             this.patchService.clearPatchItems();
           }

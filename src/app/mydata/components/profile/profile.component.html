@@ -39,9 +39,7 @@
         class="col px-0 py-2 text-right"
         *ngIf="
           (publicationsService.currentPublicationPayload | async).length ||
-            (patchService.currentPatchItems | async).length ||
-            draftService.draftData;
-          draft
+          (patchService.currentPatchItems | async).length
         "
       >
         <app-primary-action-button
@@ -182,7 +180,8 @@
                 openDialog(
                   'Poista profiili',
                   deleteProfileTemplate,
-                  deleteProfileDialogActions
+                  deleteProfileDialogActions,
+                  true
                 )
               "
               content="Poista profiili"
@@ -213,7 +212,7 @@
                 </div>
               </div>
 
-              <ng-container *ngIf="connProblem">
+              <div *ngIf="connProblem">
                 <div class="row">
                   <div class="col mx-3">
                     <i class="fas fa-exclamation-triangle"></i> Yhteysongelma.
@@ -221,21 +220,23 @@
                     uudestaan.
                   </div>
                 </div>
-                <div class="row">
+                <div class="row py-3">
                   <div class="col text-center">
                     <app-primary-action-button
                       content="Sulje"
                       (click)="closeDialog()"
                     ></app-primary-action-button>
-                  </div></div
-              ></ng-container>
+                  </div>
+                </div>
+              </div>
             </ng-template>
 
+            <!-- Reusable dialog -->
             <app-dialog
               *ngIf="deletingProfile"
               [template]="deletingProfileTemplate"
               [small]="true"
-              [disableClose]="true"
+              [disableClose]="disableDialogClose"
             ></app-dialog>
           </div>
         </div>
