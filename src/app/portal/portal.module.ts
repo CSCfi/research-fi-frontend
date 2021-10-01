@@ -231,6 +231,8 @@ import { IsUrlPipe } from './pipes/is-url.pipe';
     SingleFundingCallComponent,
     FundingCallResultsComponent,
     FundingCallPreviewComponent,
+    HandleLinkDisplayPipe,
+    IsUrlPipe,
     OrganizationVisualisationsComponent,
     OrganizationInformationComponent,
     OrganizationSubUnitsComponent,
