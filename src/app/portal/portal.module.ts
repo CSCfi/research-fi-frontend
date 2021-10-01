@@ -153,8 +153,6 @@ import { FundingCallsComponent } from './components/funding-calls/funding-calls.
 import { SingleFundingCallComponent } from './components/funding-calls/single-funding-call/single-funding-call.component';
 import { FundingCallResultsComponent } from './components/funding-calls/funding-call-results/funding-call-results.component';
 import { FundingCallPreviewComponent } from './components/funding-calls/funding-call-preview/funding-call-preview.component';
-import { HandleLinkDisplayPipe } from './pipes/handle-link-display.pipe';
-import { IsUrlPipe } from './pipes/is-url.pipe';
 import { OrganizationVisualisationsComponent } from './components/single/single-organization/organization-visualisations/organization-visualisations.component';
 import { OrganizationInformationComponent } from './components/single/single-organization/organization-information/organization-information.component';
 import { OrganizationSubUnitsComponent } from './components/single/single-organization/organization-sub-units/organization-sub-units.component';
