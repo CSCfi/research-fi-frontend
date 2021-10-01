@@ -60,6 +60,7 @@ export class ProfileComponent implements OnInit {
   dialogTemplate: any;
   dialogTitle: any;
   currentDialogActions: any[];
+  disableDialogClose: boolean;
   basicDialogActions = [{ label: 'Sulje', primary: true, method: 'close' }];
   deleteProfileDialogActions = [
     { label: 'Peruuta', primary: false, method: 'close' },
@@ -141,11 +142,12 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  openDialog(title, template, actions) {
+  openDialog(title, template, actions, disableDialogClose = false) {
     this.dialogTitle = title;
     this.showDialog = true;
     this.dialogTemplate = template;
     this.currentDialogActions = actions;
+    this.disableDialogClose = disableDialogClose;
   }
 
   doDialogAction(event) {
@@ -192,6 +194,7 @@ export class ProfileComponent implements OnInit {
     this.showDialog = false;
     this.dialogTemplate = null;
     this.deletingProfile = false;
+    this.disableDialogClose = false;
   }
 
   publish() {

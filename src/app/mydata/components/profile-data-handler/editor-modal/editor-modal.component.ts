@@ -37,8 +37,6 @@ export class EditorModalComponent implements OnInit {
   @Output() emitClose = new EventEmitter<boolean>();
   @Output() dataChange = new EventEmitter<object>();
 
-  groupPayload = [];
-  itemPayload = [];
   publicationPayload: any[];
 
   checkSelected = checkSelected;
@@ -135,25 +133,6 @@ export class EditorModalComponent implements OnInit {
       : this.patchService.clearPatchItems();
   }
 
-  /*
-   * Remove from payload if value same as original
-   */
-
-  removeFromPayload(type, meta) {
-    switch (type) {
-      case 'group': {
-        this.groupPayload = this.groupPayload.filter(
-          (item) => item.id === meta.id
-        );
-      }
-      case 'item': {
-        this.itemPayload = this.itemPayload.filter(
-          (item) => item.id === meta.id
-        );
-      }
-    }
-  }
-
   saveChanges() {
     this.patchService.confirmPatchItems();
     this.publicationsService.confirmPayload();
@@ -167,8 +146,6 @@ export class EditorModalComponent implements OnInit {
     // Pass data to parent on dialog close
     this.dialogRef.close({
       data: this.editorData.data,
-      patchGroups: this.groupPayload,
-      patchItems: this.itemPayload,
       patchPublications:
         this.editorData.data.fields[0].selectedPublications?.filter(
           (item) => item.show
