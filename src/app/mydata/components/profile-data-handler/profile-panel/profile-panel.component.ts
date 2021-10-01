@@ -288,29 +288,6 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
       },
     });
 
-    // this.dialogRef
-    //   .afterClosed()
-    //   .pipe(take(1))
-    //   .subscribe((result: { selectedPublications: any[] }) => {
-    //     console.log('publications: ', result.selectedPublications);
-    //     this.publicationService.addToPayload(result.selectedPublications);
-
-    //     this.selectedPublications = result.selectedPublications;
-
-    //     // const selectedPublications = result.selectedPublications;
-
-    //     // if (selectedPublications) {
-    //     //   this.publicationService
-    //     //     .addPublications(selectedPublications)
-    //     //     .pipe(take(1))
-    //     //     .subscribe((result: { ok: boolean }) => {
-    //     //       console.log(result);
-    //     //       if (result.ok) {
-    //     //       }
-    //     //     });
-    //     // }
-    //   });
-
     // Set selected publications to field items
     this.dialogRef
       .afterClosed()
@@ -326,14 +303,7 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
           this.publicationService.resetSort();
 
           if (result) {
-            console.log('publications: ', result.selectedPublications);
-            // Tää vasta kun painetaan TALLENNA
             this.publicationService.addToPayload(result.selectedPublications);
-
-            // // Handle publications
-            // const patchPublications = result.selectedPublications.map(
-            //   (item) => item.itemMeta
-            // );
 
             const preSelection = this.data.fields[0].groupItems.flatMap(
               (group) => group.items
@@ -359,8 +329,6 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
             }
 
             this.updated = new Date();
-
-            // this.patchService.addToPatchItems(patchPublications);
 
             this.cdr.detectChanges();
           }

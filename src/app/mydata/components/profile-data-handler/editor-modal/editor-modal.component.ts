@@ -19,7 +19,6 @@ import { cloneDeep } from 'lodash-es';
 import { PatchService } from '@mydata/services/patch.service';
 import { Constants } from '@mydata/constants';
 import { PublicationsService } from '@mydata/services/publications.service';
-import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-editor-modal',
@@ -180,7 +179,6 @@ export class EditorModalComponent implements OnInit {
   close() {
     this.patchService.clearPatchItems();
     this.publicationsService.clearPayload();
-    // this.dialogRef.close({ data: this.editorData.data });
     this.dialogRef.close();
   }
 }

@@ -24,7 +24,6 @@ import { PatchService } from '@mydata/services/patch.service';
 import { SnackbarService } from '@mydata/services/snackbar.service';
 import { cloneDeep } from 'lodash-es';
 import { Constants } from '@mydata/constants/';
-import { forkJoin } from 'rxjs';
 import { PublicationsService } from '@mydata/services/publications.service';
 
 @Component({
@@ -189,7 +188,8 @@ export class ProfileComponent implements OnInit {
   }
 
   publish() {
-    // this.handlePublications();
+    // TODO: Forkjoin both HTTP requests and handle results as single
+    this.handlePublications();
     this.patchItems();
   }
 
@@ -210,15 +210,10 @@ export class ProfileComponent implements OnInit {
    * Add selected publications to profile
    */
   handlePublications() {
-    const selectedPublications = this.publicationsService.publicationPayload;
-    console.log('selectedPublications: ', selectedPublications);
-
     this.publicationsService
       .addPublications()
       .pipe(take(1))
-      .subscribe((result) => {
-        console.log(result);
-      });
+      .subscribe(() => {});
   }
 
   /*
@@ -226,15 +221,6 @@ export class ProfileComponent implements OnInit {
    */
   patchItems() {
     const patchItems = this.patchService.confirmedPatchItems;
-
-    // forkJoin([
-    //   this.publicationsService.addPublications(),
-    //   this.profileService.patchObjects(patchItems),
-    // ])
-    //   .pipe(take(1))
-    //   .subscribe((response: any) => {
-    //     console.log('publish: ', response);
-    //   });
 
     this.profileService
       .patchObjects(patchItems)
