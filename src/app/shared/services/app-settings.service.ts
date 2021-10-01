@@ -4,7 +4,8 @@
 //
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
-import { Inject, Injectable, LOCALE_ID } from '@angular/core';
+import { Inject, Injectable, LOCALE_ID, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
@@ -104,10 +105,19 @@ export class AppSettingsService {
   currentLocale: string;
   capitalizedLocale: string;
 
-  constructor(@Inject(LOCALE_ID) protected localeId: string) {
+  isBrowser: boolean;
+
+  constructor(
+    @Inject(LOCALE_ID) protected localeId: string,
+    @Inject(PLATFORM_ID) private platformId: object
+  ) {
+    // Locale
     this.currentLocale = this.localeId;
     this.capitalizedLocale =
       this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+
+    // Browser check for SSR builds
+    this.isBrowser = isPlatformBrowser(this.platformId);
   }
 
   updateMobileStatus(status) {

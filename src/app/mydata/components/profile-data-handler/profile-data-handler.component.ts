@@ -15,7 +15,7 @@ import {
   mergePublications,
   isEmptySection,
 } from '@mydata/utils';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarService } from '@mydata/services/snackbar.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { EditorModalComponent } from './editor-modal/editor-modal.component';
 
@@ -23,9 +23,11 @@ import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { take } from 'rxjs/operators';
 
 import { PatchService } from '@mydata/services/patch.service';
+import { Constants } from '@mydata/constants/';
 
 // Remove in production
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { DraftService } from '@mydata/services/draft.service';
 
 @Component({
   selector: 'app-profile-data-handler',
@@ -57,10 +59,11 @@ export class ProfileDataHandlerComponent implements OnInit {
 
   constructor(
     private profileService: ProfileService,
-    private snackBar: MatSnackBar,
+    private snackbarService: SnackbarService,
     public dialog: MatDialog,
     private appSettingsService: AppSettingsService,
-    private patchService: PatchService
+    private patchService: PatchService,
+    private draftService: DraftService
   ) {
     this.testData = profileService.testData;
   }
@@ -187,10 +190,19 @@ export class ProfileDataHandlerComponent implements OnInit {
 
             this.profileData[index] = result.data;
 
-            if (currentPatchItems.length) this.patchItems(currentPatchItems);
+            this.draftService.saveDraft(this.profileData);
+
+            if (this.appSettingsService.isBrowser) {
+              sessionStorage.setItem(
+                Constants.draftProfile,
+                JSON.stringify(this.profileData)
+              );
+            }
+
+            // if (currentPatchItems.length) this.patchItems(currentPatchItems);
           }
 
-          this.patchService.clearPatchPayload();
+          this.patchService.clearPatchItems();
         }
       );
   }
@@ -202,16 +214,10 @@ export class ProfileDataHandlerComponent implements OnInit {
       .subscribe(
         (result) => {
           if (!hideNotification)
-            this.snackBar.open('Muutokset tallennettu', 'Sulje', {
-              horizontalPosition: 'start',
-              panelClass: 'mydata-snackbar',
-            });
+            this.snackbarService.show('Muutokset tallennettu', 'success');
         },
         (error) => {
-          this.snackBar.open('Virhe tiedon tallennuksessa', 'Sulje', {
-            horizontalPosition: 'start',
-            panelClass: 'mydata-snackbar',
-          });
+          this.snackbarService.show('Virhe tiedon tallennuksessa', 'error');
         }
       );
   }

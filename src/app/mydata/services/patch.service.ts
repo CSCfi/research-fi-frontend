@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Injectable({
   providedIn: 'root',
@@ -14,46 +14,51 @@ import { BehaviorSubject } from 'rxjs';
 export class PatchService {
   constructor() {}
 
-  private itemSource = new BehaviorSubject<any>([]);
-  patchItems = this.itemSource.asObservable();
+  patchItems = [];
+  confirmedPatchItems = [];
+  publicationsToPatch = [];
+  publicationsToRemove = [];
 
-  currentPatchItems = [];
+  private confirmedPatchItemsSource = new BehaviorSubject<any>([]);
+  currentPatchItems = this.confirmedPatchItemsSource.asObservable();
 
   addToPatchItems(payload) {
-    const patchItems = this.currentPatchItems;
+    const items = this.patchItems;
 
     if (Array.isArray(payload)) {
-      this.currentPatchItems = patchItems.concat(payload);
+      this.patchItems = items.concat(payload);
     } else {
-      const duplicate = patchItems.find(
-        (patchItem) => patchItem.id === payload.id
-      );
+      const duplicate = items.find((patchItem) => patchItem.id === payload.id);
 
       duplicate
         ? duplicate.show === payload.show
-          ? (this.currentPatchItems[patchItems.indexOf(duplicate)] = payload)
-          : (this.currentPatchItems = patchItems.filter(
+          ? (this.patchItems[items.indexOf(duplicate)] = payload)
+          : (this.patchItems = items.filter(
               (patchItem) => patchItem.id !== payload.id
             ))
-        : this.currentPatchItems.push(payload);
+        : this.patchItems.push(payload);
     }
+  }
 
-    this.itemSource.next(this.currentPatchItems);
+  confirmPatchItems() {
+    const merged = this.confirmedPatchItems.concat(this.patchItems);
+    this.confirmedPatchItems = merged;
+    this.confirmedPatchItemsSource.next(merged);
+  }
+
+  cancelConfirmedPatchPayload() {
+    this.confirmedPatchItemsSource.next([]);
   }
 
   removeItem(id) {
-    this.currentPatchItems = this.currentPatchItems.filter(
-      (item) => item.id !== id
-    );
+    this.patchItems = this.patchItems.filter((item) => item.id !== id);
   }
 
   removeItemsWithType(type) {
-    this.currentPatchItems = this.currentPatchItems.filter(
-      (item) => item.type !== type
-    );
+    this.patchItems = this.patchItems.filter((item) => item.type !== type);
   }
 
-  clearPatchPayload() {
-    this.currentPatchItems = [];
+  clearPatchItems() {
+    this.patchItems = [];
   }
 }

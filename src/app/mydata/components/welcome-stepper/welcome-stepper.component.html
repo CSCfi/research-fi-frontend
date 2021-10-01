@@ -249,44 +249,6 @@
               ></app-stepper-navigation>
             </ng-container>
 
-            <!-- Fourth step -->
-            <ng-container *ngSwitchCase="4">
-              <div class="row pb-4">
-                <div class="col text-center">
-                  <h1 class="step-header">Tiedot tuotu!</h1>
-                  <h2 class="step-header">Mitkä tiedot tuodaan julkisiksi?</h2>
-                </div>
-                <!-- Icon -->
-                <i
-                  class="
-                    col-12
-                    pt-3
-                    h1
-                    primary-color
-                    text-center
-                    fas
-                    fa-check-circle
-                  "
-                ></i>
-              </div>
-
-              <div class="row pb-4 d-flex justify-content-center">
-                <div class="col px-0 px-lg-3">
-                  <app-profile-data-handler
-                    [response]="profileData"
-                  ></app-profile-data-handler>
-                </div>
-              </div>
-
-              <div class="row pt-3">
-                <app-primary-action-button
-                  routerLink="/mydata/profile"
-                  class="col text-center"
-                  content="Julkaise"
-                ></app-primary-action-button>
-              </div>
-            </ng-container>
-
             <!-- Default to 404 -->
             <app-not-found *ngSwitchDefault></app-not-found>
           </ng-container>
@@ -344,6 +306,7 @@
           [small]="loading"
           (onActionClick)="doDialogAction($event)"
           [actions]="loading ? [] : dialogActions"
+          [disableClose]="disableDialogClose"
         ></app-dialog>
 
         <!-- ORCID info -->

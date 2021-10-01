@@ -17,6 +17,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { checkSelected } from '@mydata/utils';
 import { cloneDeep } from 'lodash-es';
 import { PatchService } from '@mydata/services/patch.service';
+import { Constants } from '@mydata/constants';
+import { PublicationsService } from '@mydata/services/publications.service';
 
 @Component({
   selector: 'app-editor-modal',
@@ -35,16 +37,17 @@ export class EditorModalComponent implements OnInit {
   @Output() emitClose = new EventEmitter<boolean>();
   @Output() dataChange = new EventEmitter<object>();
 
-  groupPayload = [];
-  itemPayload = [];
   publicationPayload: any[];
 
   checkSelected = checkSelected;
 
+  patchPayload = [];
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<EditorModalComponent>,
-    private patchService: PatchService
+    private patchService: PatchService,
+    private publicationsService: PublicationsService
   ) {}
 
   ngOnInit(): void {
@@ -99,66 +102,11 @@ export class EditorModalComponent implements OnInit {
       return !!items.some((item) => item.itemMeta.show === true);
   }
 
-  toggleRadio(response: {
-    data: any;
-    selectedItem: any;
-    index: string | number;
-  }) {
-    const original = this.originalEditorData.data.fields[response.index];
-
-    const patchObjects = [];
-
-    const previousSelection = original.groupItems.find(
-      (groupItem) => groupItem.groupMeta.show
-    );
-
-    // Add to patch items only if new selection
-    if (previousSelection) {
-      // Set original item show to false
-      previousSelection.items.forEach((item) =>
-        patchObjects.push({ ...item.itemMeta, show: false })
-      );
-
-      // Set selected item
-      patchObjects.push(response.selectedItem.itemMeta);
-
-      this.patchService.addToPatchItems(patchObjects);
-
-      // this.handlePatchRadioObject(patchGroups, patchObjects);
-    }
-  }
-
-  toggleSingle(response: {
-    groupId: number;
-    itemMeta: any;
-    index: string | number;
-  }) {
-    const parentGroup = this.editorData.data.fields[
-      response.index
-    ].groupItems.find((group) => group.groupMeta.id === response.groupId);
-
-    const currentItem = parentGroup.items.find(
-      (item) => item.itemMeta.id === response.itemMeta.id
-    );
-
-    // const publications =
-    //   this.editorData.data.fields[response.index].selectedPublications;
-
-    currentItem.itemMeta = response.itemMeta;
-
-    this.checkAllSelected();
-  }
-
-  // togglePrimaryValue(patchObjects) {
-  //   [...this.itemPayload, ...patchObjects];
-  // }
-
   toggleAll(event) {
     this.allSelected = event.checked;
 
     // Change detection won't work if nested properties change
     const copy = cloneDeep(this.editorData);
-    const data = copy.data.fields;
 
     this.editorData = {};
     const patchItems = [];
@@ -182,59 +130,22 @@ export class EditorModalComponent implements OnInit {
 
     event.checked
       ? this.patchService.addToPatchItems(patchItems)
-      : this.patchService.clearPatchPayload();
-  }
-
-  /*
-   * Remove from payload if value same as original
-   */
-
-  removeFromPayload(type, meta) {
-    switch (type) {
-      case 'group': {
-        this.groupPayload = this.groupPayload.filter(
-          (item) => item.id === meta.id
-        );
-      }
-      case 'item': {
-        this.itemPayload = this.itemPayload.filter(
-          (item) => item.id === meta.id
-        );
-      }
-    }
-  }
-
-  /*
-   * Item meta data for patch operations
-   */
-
-  handlePatchRadioObject(patchGroups: any[], patchObjects: any[]) {
-    // Overwrite existing patch items
-    const patchObjectTypes = [
-      ...new Set(patchObjects.map((object) => object.type)),
-    ];
-
-    this.itemPayload = this.itemPayload.filter(
-      (object) => !patchObjectTypes.includes(object.type)
-    );
-
-    this.groupPayload = [...this.groupPayload, ...patchGroups];
-    this.itemPayload = [...this.itemPayload, ...patchObjects];
-  }
-
-  handlePatchSingleObject(itemMeta) {
-    this.itemPayload.find((item) => item.id === itemMeta.id)
-      ? (this.itemPayload = this.itemPayload.filter(
-          (item) => item.id !== itemMeta.id
-        ))
-      : this.itemPayload.push(itemMeta);
+      : this.patchService.clearPatchItems();
   }
 
   saveChanges() {
+    this.patchService.confirmPatchItems();
+    this.publicationsService.confirmPayload();
+
+    // Set patch payload to store
+    sessionStorage.setItem(
+      Constants.draftPatchPayload,
+      JSON.stringify(this.patchService.confirmedPatchItems)
+    );
+
+    // Pass data to parent on dialog close
     this.dialogRef.close({
       data: this.editorData.data,
-      patchGroups: this.groupPayload,
-      patchItems: this.itemPayload,
       patchPublications:
         this.editorData.data.fields[0].selectedPublications?.filter(
           (item) => item.show
@@ -243,6 +154,8 @@ export class EditorModalComponent implements OnInit {
   }
 
   close() {
+    this.patchService.clearPatchItems();
+    this.publicationsService.clearPayload();
     this.dialogRef.close();
   }
 }

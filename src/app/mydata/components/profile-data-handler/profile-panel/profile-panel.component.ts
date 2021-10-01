@@ -9,11 +9,9 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
-  EventEmitter,
   Input,
   OnChanges,
   OnInit,
-  Output,
 } from '@angular/core';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
@@ -25,6 +23,7 @@ import { take } from 'rxjs/operators';
 import { PublicationsService } from '@mydata/services/publications.service';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { PatchService } from '@mydata/services/patch.service';
+import { ProfileService } from '@mydata/services/profile.service';
 
 @Component({
   selector: 'app-profile-panel',
@@ -34,13 +33,6 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() dataSources: any;
   @Input() primarySource: string;
   @Input() data: any;
-  @Input() originalData: any;
-
-  @Output() onGroupToggle = new EventEmitter<any>();
-  @Output() onRadioItemToggle = new EventEmitter<any>();
-  @Output() onSingleItemToggle = new EventEmitter<any>();
-  @Output() onPrimaryValueChange = new EventEmitter<any>();
-  @Output() onPublicationToggle = new EventEmitter<any>();
 
   allSelected: boolean;
 
@@ -66,27 +58,23 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
 
   ttvLabel = 'Tiedejatutkimus.fi';
   updated: Date;
+  selectedPublications: any[];
 
-  /*
-   * appSettingsService is used in Template
-   */
   constructor(
     private appSettingsService: AppSettingsService,
     public dialog: MatDialog,
     private publicationService: PublicationsService,
+    private profileService: ProfileService,
     private patchService: PatchService,
     private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    // this.setDefaultPrimaryValue(this.data.fields);
-    const publicationType = this.fieldTypes.activityPublication;
-
     // TODO: Better check for data. Maybe type when mapping response
     if (this.data.id === 'publication' && this.data.fields.length) {
       this.findFetchedPublications(this.data.fields[0].groupItems);
 
-      // Sort publications that come frome profile creation
+      // Sort publications that are fetched in  profile creation
       if (!isEmptySection(this.data)) this.sortPublications(this.data.fields);
     }
   }
@@ -113,31 +101,6 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     });
   }
 
-  setPrimaryValue(option, data) {
-    const patchItems = [];
-
-    data.groupItems.map((groupItem) =>
-      groupItem.items.forEach((item) => {
-        // Set default primary value to false
-        if (item.itemMeta.primaryValue === true) {
-          item.itemMeta.primaryValue = false;
-          patchItems.push(item.itemMeta);
-        }
-
-        // Set selected primary value and add to patch items
-        if (item.itemMeta.id === option.id) {
-          // Check item if chosen item isn't selected
-          if (!item.itemMeta.show) item.itemMeta.show = true;
-
-          item.itemMeta.primaryValue = true;
-          patchItems.push(item.itemMeta);
-        }
-      })
-    );
-
-    this.onPrimaryValueChange.emit(patchItems);
-  }
-
   toggleGroup(index: number) {
     this.openPanels.includes(index)
       ? (this.openPanels = this.openPanels.filter((item) => item !== index))
@@ -152,7 +115,10 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     let selectedItem: { itemMeta: any };
     const patchObjects = [];
 
-    const original = this.originalData.data.fields[index];
+    const original = this.profileService.currentProfileData.find(
+      (group) => group.id === this.data.id
+    ).fields[index];
+
     const group = this.data.fields[index];
 
     group.groupItems.map((groupItem) => {
@@ -184,12 +150,6 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
 
     // Add to patch items
     this.patchService.addToPatchItems(patchObjects);
-
-    this.onRadioItemToggle.emit({
-      data: group,
-      selectedItem: selectedItem,
-      index: index,
-    });
   }
 
   toggleItem(event, groupItem, item, index) {
@@ -204,18 +164,20 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
       this.setDefaultPrimaryValue(this.data.fields);
     }
 
+    const parentGroup = this.data.fields[index].groupItems.find(
+      (group: { groupMeta: { id: any } }) =>
+        group.groupMeta.id === groupItem.groupMeta.id
+    );
+
+    const currentItem = parentGroup.items.find(
+      (i: { itemMeta: { id: any } }) => i.itemMeta.id === item.itemMeta.id
+    );
+
+    currentItem.itemMeta.show = event.checked;
+
     this.patchService.addToPatchItems({
       ...item.itemMeta,
       show: event.checked,
-    });
-
-    this.onSingleItemToggle.emit({
-      index: index,
-      groupId: groupItem.groupMeta.id,
-      itemMeta: {
-        ...item.itemMeta,
-        show: event.checked,
-      },
     });
   }
 
@@ -227,51 +189,67 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     this.patchService.addToPatchItems(patchItems);
   }
 
-  // Publication toggle method is ment to be used with publications fetched in current session.
+  // Publication toggle method is meant to be used with publications fetched in current session.
   togglePublication(event, publication) {
     publication.itemMeta.show = event.checked;
 
     this.patchService.addToPatchItems(publication.itemMeta);
   }
 
-  removePublication(publication) {
-    this.publicationService
-      .deletePublication(publication.publicationId)
-      .pipe(take(1))
-      .subscribe((res: any) => {
-        if (res.ok && res.body.success) {
-          let selectedPublications = this.data.fields[0].selectedPublications;
+  removePublication(publication: {
+    publicationId: string;
+    itemMeta: { id: string | null };
+  }) {
+    const field = this.data.fields[0];
+    let selectedPublications = field.selectedPublications;
 
-          // Publications are stored in either selectedPublications, which consists of publications fetched in current session
-          // and groupItems, which consists of added publications.
-          if (
-            selectedPublications?.findIndex(
-              (item) => item.publicationId === publication.publicationId
-            ) > -1
-          ) {
-            selectedPublications = selectedPublications.filter(
-              (item) => item.publicationId !== publication.publicationId
-            );
+    // Method to remove publications added in current session
+    const handleRemoveFromSession = () => {
+      const groupItems = field.groupItems;
 
-            this.data.fields[0].selectedPublications = selectedPublications;
-          } else {
-            const groupItems = this.data.fields[0].groupItems;
+      for (const group of groupItems) {
+        group.items = group.items.filter(
+          (item) => item.publicationId !== publication.publicationId
+        );
+      }
+      field.groupItems = groupItems;
+    };
 
-            for (const group of groupItems) {
-              group.items = group.items.filter(
+    // Only publications from profile have item meta ID
+    if (publication.itemMeta.id) {
+      // this.publicationService.addToDeletables(publication);} // If we decide to let user reverse deletion
+
+      this.publicationService
+        .deletePublication(publication.publicationId)
+        .pipe(take(1))
+        .subscribe((res: any) => {
+          if (res.ok && res.body.success) {
+            // Publications are stored in either selectedPublications, which consists of publications fetched in current session
+            // and groupItems, which consists of added publications.
+            if (
+              selectedPublications?.findIndex(
+                (item) => item.publicationId === publication.publicationId
+              ) > -1
+            ) {
+              selectedPublications = selectedPublications.filter(
                 (item) => item.publicationId !== publication.publicationId
               );
-            }
-            this.data.fields[0].groupItems = groupItems;
-          }
 
-          // Set fetched publications flag
-          this.hasFetchedPublications =
-            this.data.fields[0].groupItems[0].items.filter(
-              (item) => item.itemMeta.primaryValue
-            ).length > 0;
-        }
-      });
+              field.selectedPublications = selectedPublications;
+            } else {
+              handleRemoveFromSession();
+            }
+
+            // Set fetched publications flag
+            this.hasFetchedPublications =
+              field.groupItems[0].items.filter(
+                (item) => item.itemMeta.primaryValue
+              ).length > 0;
+          }
+        });
+    } else {
+      handleRemoveFromSession();
+    }
   }
 
   findFetchedPublications(data) {
@@ -299,7 +277,7 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   // Search publications
-  openDialog() {
+  openSearchPublicationsDialog() {
     const fields = this.data.fields[0];
 
     this.dialogRef = this.dialog.open(SearchPublicationsComponent, {
@@ -325,12 +303,7 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
           this.publicationService.resetSort();
 
           if (result) {
-            // this.data.fields[0].selectedPublications =
-            //   result.selectedPublications;
-
-            const patchItems = result.selectedPublications.map(
-              (item) => item.itemMeta
-            );
+            this.publicationService.addToPayload(result.selectedPublications);
 
             const preSelection = this.data.fields[0].groupItems.flatMap(
               (group) => group.items
@@ -339,6 +312,8 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
             const mergedPublications = preSelection
               .concat(result.selectedPublications)
               .sort((a, b) => b.publicationYear - a.publicationYear);
+
+            console.log('merged: ', mergedPublications);
 
             this.hasFetchedPublications = true;
 
@@ -355,47 +330,7 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
 
             this.updated = new Date();
 
-            this.patchService.addToPatchItems(patchItems);
-
             this.cdr.detectChanges();
-
-            // Initialize merged publications
-            // this.data.fields[0].mergedPublications = result.mergedPublications
-            //   ? result.mergedPublications
-            //   : [];
-
-            // Merge publications if selected publication DOI matches one in profile
-            // const newSelection = this.data.fields[0].selectedPublications;
-            // const groupItems = this.data.fields[0].groupItems;
-
-            // const mergedPublications = [];
-
-            // for (const group of groupItems) {
-            //   for (const publication of newSelection) {
-            //     const match = group.items.find(
-            //       (item) => publication.doi === item.doi
-            //     );
-
-            //     if (match) {
-            //       mergedPublications.push({
-            //         ...publication,
-            //         itemMeta: match.itemMeta,
-            //         source: group.source,
-            //       });
-
-            //       // Remove merged publication from selectedPublications and original groupItems
-            //       this.data.fields[0].selectedPublications =
-            //         newSelection.filter((item) => item.id !== publication.id);
-
-            //       group.items = group.items.filter(
-            //         (item) => publication.doi !== item.doi
-            //       );
-            //     }
-            //   }
-            // }
-
-            // this.data.fields[0].mergedPublications =
-            //   this.data.fields[0].mergedPublications.concat(mergedPublications);
           }
         }
       );
