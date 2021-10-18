@@ -3371,6 +3371,26 @@
         <target state="translated">Anger kontaktuppgifter för tjänsten och eventuella användarvillkor. Beskriver serviceställets verksamhet närmare. Ibland kan servicen vara olika på olika serviceställen, till exempel avseende den tillgängliga utrustningen</target>
       </trans-unit>
       <!-- Organization -->
+      <trans-unit id="keyIndicator">
+        <source>Tunnuslukuja</source>
+        <target>Nyckletal</target>
+      </trans-unit>
+      <trans-unit id="furtherInformation">
+        <source>Lisätiedot</source>
+        <target>Ytterligare information</target>
+      </trans-unit>
+      <trans-unit id="showMoreNews">
+        <source>Näytä lisää uutisia</source>
+        <target>Visa fler nyheter</target>
+      </trans-unit>
+      <trans-unit id="showAllOrganizationNews">
+        <source>Näytä kaikki organisaation uutiset</source>
+        <target>Visa organisationens alla nyheter</target>
+      </trans-unit>
+      <trans-unit id="RDInstitutionId">
+        <source>TK-oppilaitostunnus</source>
+        <target>SC:s läroanstaltskod</target>
+      </trans-unit>
       <trans-unit id="orgOtherNames">
         <source>Muut nimet</source>
         <target state="translated">Övriga namn</target>

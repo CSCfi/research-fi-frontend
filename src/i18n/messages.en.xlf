@@ -3378,6 +3378,26 @@
         <target>It provides the service contact information and specifies any terms of use. Service point may be described in greater detail. In some cases, the service may differ from one service point to another, such as with regard to the available equipment</target>
       </trans-unit>
       <!-- Organization -->
+      <trans-unit id="keyIndicator">
+        <source>Tunnuslukuja</source>
+        <target>Key indicators</target>
+      </trans-unit>
+      <trans-unit id="furtherInformation">
+        <source>Lisätiedot</source>
+        <target>Further information</target>
+      </trans-unit>
+      <trans-unit id="showMoreNews">
+        <source>Näytä lisää uutisia</source>
+        <target>Show more news</target>
+      </trans-unit>
+      <trans-unit id="showAllOrganizationNews">
+        <source>Näytä kaikki organisaation uutiset</source>
+        <target>Show all organization news</target>
+      </trans-unit>
+      <trans-unit id="RDInstitutionId">
+        <source>TK-oppilaitostunnus</source>
+        <target>RD Institution ID</target>
+      </trans-unit>
       <trans-unit id="orgOtherNames">
         <source>Muut nimet</source>
         <target>Other names</target>
