@@ -27,7 +27,7 @@
   <div class="wrapper">
     <div class="row justify-content-center">
       <!-- First column -->
-      <div class="col-12 col-md-9 col-lg-5 col-xl-4 shortcuts">
+      <div class="col-12 col-md-9 col-lg-5 col-xl-4 p-2 mb-1">
         <div class="mx-1">
           <div class="col-header">
             <h2 i18n="@@researchFinland" class="text-center m-0">
@@ -71,7 +71,7 @@
       </div>
 
       <!-- Second column -->
-      <div class="col-12 col-md-9 col-lg-5 col-xl-4 news">
+      <div class="col-12 col-md-9 col-lg-5 col-xl-4 p-2 mb-1">
         <div class="mx-1 drop-shadow tint-background">
           <a class="header-link" routerLink="/news">
             <div class="col-header mb-xl-4">
@@ -97,56 +97,17 @@
           <!-- XL version -->
           <div class="col-12 col side-news p-0 d-none d-xl-block">
             <app-news-card
-              *ngFor="let item of news?.slice(0, 3)"
+              *ngFor="let item of news?.slice(0, 8)"
               [item]="item"
               [sideNews]="true"
               class="d-block px-3"
             ></app-news-card>
           </div>
-          <div class="d-none d-xl-block">
-            <a
-              class="header-link"
-              routerLink="/funding-calls"
-              [queryParams]="{ status: 'open' }"
-            >
-              <div class="col-header mb-4">
-                <h2 i18n="@@openFundingCalls" class="text-center m-0">
-                  Avoimet rahoitushaut
-                </h2>
-              </div>
-            </a>
-            <div class="col-12 col p-0">
-              <app-funding-call-preview
-                [resultData]="resultData?.fundingCalls.slice(0, 5)"
-              ></app-funding-call-preview>
-            </div>
-          </div>
         </div>
       </div>
 
-      <!-- Twitter -->
-      <!-- When enabled, enable twitter cookies settings in privacy and cookie consent components -->
-      <div class="col-12 col-md-9 col-lg-5 col-xl-4 twitter">
-        <a class="header-link" href="https://twitter.com/tiedejatutkimus">
-          <div class="col-header">
-            <h2 i18n="@@researchfiTwitter" class="text-center">
-              Tiedejatutkimus.fi Twitterissä
-            </h2>
-          </div>
-        </a>
-        <a
-          class="twitter-timeline"
-          data-width="700"
-          data-height="900"
-          data-lang="{{ currentLocale }}"
-          data-dnt="true"
-          href="https://twitter.com/tiedejatutkimus?ref_src=twsrc%5Etfw"
-          >Tweets by tiedejatutkimus</a
-        >
-      </div>
-
-      <!-- Fourth column on < XL -->
-      <div class="col-12 col-md-9 col-lg-5 d-xl-none funding-calls">
+      <!-- Third column -->
+      <div class="col-12 col-md-9 col-lg-5 col-xl-4 p-2 mb-1">
         <div class="mx-1 drop-shadow tint-background">
           <a
             class="header-link"
@@ -159,7 +120,7 @@
               </h2>
             </div>
           </a>
-          <div class="col-12 link-img">
+          <div class="col-12 link-img mb-xl-4 d-xl-none">
             <div class="cover-img" [title]="newsImage.alt">
               <img [src]="newsImage.imgPath" [alt]="newsImage.alt" />
             </div>
