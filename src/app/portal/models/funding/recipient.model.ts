@@ -148,6 +148,17 @@ export class RecipientAdapter implements Adapter<Recipient> {
           ?.join('; ');
       }
       // If no match with Finnish organization
+    } else if (item.recipientType === 'consortium') {
+      // Return consortium recipient name if no organization
+      if (
+        !this.lang.testLang('consortiumOrganizationName', recipientObj) &&
+        recipientObj.fundingGroupPersonLastName
+      ) {
+        combined =
+          recipientObj?.fundingGroupPersonFirstNames +
+          ' ' +
+          recipientObj?.fundingGroupPersonLastName;
+      }
     } else if (item.recipientType === 'person') {
       if (
         item.fundingGroupPerson.find(
