@@ -131,7 +131,7 @@ export class FundingAdapter implements Adapter<Funding> {
 
     const funder = this.f.adapt(item);
 
-    const recipient = this.r.adapt(item);
+    const recipient = this.r.adapt({ ...item, recipientObj: recipientObj });
 
     const relatedFundings =
       item?.relatedFunding?.map((x) => this.rf.adapt(x)) || [];
