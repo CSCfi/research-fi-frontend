@@ -56,16 +56,24 @@
 
         <!-- Tabs -->
         <mat-tab-group dynamicHeight (selectedTabChange)="changeTab($event)">
-          <mat-tab label="Tunnuslukuja" *ngIf="item.visualIframeUrl && !mobile">
+          <mat-tab
+            i18n-label="@@keyIndicator"
+            label="Tunnuslukuja"
+            *ngIf="item.visualIframeUrl && !mobile"
+          >
             <!-- Content is defined below -->
           </mat-tab>
-          <mat-tab label="Lisätiedot">
+          <mat-tab i18n-label="@@furtherInformation" label="Lisätiedot">
             <app-organization-information
               [item]="item"
               [sources]="sources"
             ></app-organization-information>
           </mat-tab>
-          <mat-tab label="Alayksiköt" *ngIf="item.subUnits?.length">
+          <mat-tab
+            i18n-label="@@orgSubUnits"
+            label="Alayksiköt"
+            *ngIf="item.subUnits?.length"
+          >
             <app-organization-sub-units
               [item]="item"
             ></app-organization-sub-units>
@@ -100,10 +108,16 @@
             ></app-news-card>
 
             <div class="text-center">
-              <a *ngIf="!showMoreNews" (click)="showMoreNews = true"
+              <a
+                i18n="@@showMoreNews"
+                *ngIf="!showMoreNews"
+                (click)="showMoreNews = true"
                 >Näytä lisää uutisia</a
               >
-              <a *ngIf="showMoreNews" (click)="navigateToNews()"
+              <a
+                i18n="@@showAllOrganizationNews"
+                *ngIf="showMoreNews"
+                (click)="navigateToNews()"
                 >Näytä kaikki organisaation uutiset</a
               >
             </div>

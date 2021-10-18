@@ -41,9 +41,12 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   linkFields = [{ label: $localize`:@@links:Linkit`, field: 'homepage' }];
 
   contactFields = [
-    { label: 'Postiosoite', field: 'postalAddress' },
-    { label: 'Y-tunnus', field: 'businessId' },
-    { label: 'TK-oppilaitostunnus', field: 'statCenterId' },
+    { label: $localize`:@@orgAddress:Postiosoite`, field: 'postalAddress' },
+    { label: $localize`:@@orgBID:Y-tunnus`, field: 'businessId' },
+    {
+      label: $localize`:@@RDInstitutionId:TK-oppilaitostunnus`,
+      field: 'statCenterId',
+    },
   ];
 
   relatedList = [
