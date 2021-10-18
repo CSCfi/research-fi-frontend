@@ -206,7 +206,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
 
     return new Recipient(
       recipientObj?.projectId,
-      recipientObj
+      recipientObj?.fundingGroupPersonLastName
         ? joinName(
             recipientObj.fundingGroupPersonFirstNames,
             recipientObj.fundingGroupPersonLastName
