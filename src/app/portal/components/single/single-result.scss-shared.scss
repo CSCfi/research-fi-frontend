@@ -191,30 +191,34 @@
         // height: fit-content;
         white-space: nowrap;
         max-width: max-content;
-        .doi,
-        .info-link-wrapper {
+        .link-wrapper {
           padding: 0;
           display: inherit;
           max-width: 100%;
+          .link {
+            padding: 0;
+            display: inherit;
+            max-width: 100%;
+          }
         }
-        .doi-link a {
+        .link-item a {
           display: flex;
         }
-        .doi-tag,
-        span.doi-link,
+        .link-tag,
+        span.link-item,
         .link {
           padding: 4px 10px 3px;
         }
-        .doi-link {
+        .link-item {
           padding: 3px 10px;
         }
 
-        .doi-tag,
-        .doi-link {
+        .link-tag,
+        .link-item {
           vertical-align: middle;
         }
 
-        span.doi-link,
+        span.link-item,
         .link {
           // width: max-content;
           // max-width: max-content;
@@ -248,7 +252,7 @@
         }
       }
 
-      .info-link-wrapper,
+      .link-wrapper,
       .info-link {
         width: 100%;
         padding-top: 10px;

@@ -128,21 +128,25 @@
         <mat-card>
           <div class="inner">
             <!-- Links -->
-            <h2 i18n="@@organizationHomepage" class="m-0">
+            <h2 i18n="@@organizationHomepage" class="m-0 pb-2">
               Organisaation verkkosivu
             </h2>
             <div
-              class="row links mt-0"
+              class="row links mt-0 pt-1"
               *ngIf="
                 (linkFields | filterEmptyField: item).length;
                 else noHomePage
               "
             >
-              <div *ngFor="let row of linkFields" class="info-link-wrapper">
+              <div *ngFor="let row of linkFields" class="link-wrapper">
                 <ng-container *ngIf="item[row.field]; else noHomePage">
                   <div class="col link">
+                    <span
+                      class="link-tag fa fa-link center"
+                      style="font-size: 22px; padding: 3px 12px"
+                    ></span>
                     <a
-                      class="info-link"
+                      class="link-item"
                       href="{{ item[row.field] }}"
                       target="_blank"
                       >{{ item[row.field]
@@ -166,7 +170,7 @@
             <ng-container *ngIf="item.id === '4940015'">
               <div class="row links">
                 <strong class="pb-2" i18n="@@readMore">Lisätietoa</strong>:
-                <div class="info-link-wrapper">
+                <div class="link-wrapper">
                   <div class="col link">
                     <a
                       href="https://en.ilmatieteenlaitos.fi/research"
@@ -177,7 +181,7 @@
                     ></a>
                   </div>
                 </div>
-                <div class="info-link-wrapper">
+                <div class="link-wrapper">
                   <div class="col link">
                     <a
                       href="https://julkaisut.fmi.fi/intl-peer-reviewed/"

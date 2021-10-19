@@ -159,6 +159,7 @@ import { OrganizationSubUnitsComponent } from './components/single/single-organi
 import { FilterEmptyFieldPipe } from './pipes/filter-empty-field.pipe';
 import { HandleLinkDisplayPipe } from './pipes/handle-link-display.pipe';
 import { IsUrlPipe } from './pipes/is-url.pipe';
+import { PublicationLinksComponent } from './components/single/single-publication/publication-links/publication-links.component';
 
 @NgModule({
   declarations: [
@@ -243,6 +244,7 @@ import { IsUrlPipe } from './pipes/is-url.pipe';
     OrganizationInformationComponent,
     OrganizationSubUnitsComponent,
     FilterEmptyFieldPipe,
+    PublicationLinksComponent,
   ],
   imports: [
     PortalRoutingModule,

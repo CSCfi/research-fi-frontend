@@ -342,10 +342,10 @@
               <h2 i18n="@@datasetLinks">Linkit tutkimusaineistoon</h2>
             </mat-card-title>
             <div class="row links" *ngFor="let row of linksFields">
-              <div *ngIf="row.field === 'doi'" class="info-link-wrapper">
+              <div *ngIf="row.field === 'doi'" class="link-wrapper">
                 <div class="col link doi">
-                  <span class="doi-tag">DOI</span>
-                  <span class="doi-link">
+                  <span class="link-tag">DOI</span>
+                  <span class="link-item">
                     <a
                       [attr.href]="'https://doi.org/' + item.doi"
                       target="_blank"
@@ -355,10 +355,10 @@
                   </span>
                 </div>
               </div>
-              <div *ngIf="row.field === 'urn'" class="info-link-wrapper">
+              <div *ngIf="row.field === 'urn'" class="link-wrapper">
                 <div class="col link doi">
-                  <span class="doi-tag">URN</span>
-                  <span class="doi-link">
+                  <span class="link-tag">URN</span>
+                  <span class="link-item">
                     <a [attr.href]="'http://urn.fi/' + item.urn" target="_blank"
                       >{{ item.urn }}
                       <fa-icon icon="external-link-alt"></fa-icon>
@@ -366,13 +366,10 @@
                   </span>
                 </div>
               </div>
-              <div
-                *ngIf="row.field === 'fairdataUrl'"
-                class="info-link-wrapper"
-              >
+              <div *ngIf="row.field === 'fairdataUrl'" class="link-wrapper">
                 <div class="col link doi">
-                  <span class="doi-tag">URL</span>
-                  <span class="doi-link">
+                  <span class="link-tag">URL</span>
+                  <span class="link-item">
                     <a [attr.href]="item.fairdataUrl" target="_blank"
                       >{{ item.fairdataUrl | cutContent: 38 }}
                       <fa-icon icon="external-link-alt"></fa-icon>
@@ -387,7 +384,7 @@
                 class="row links"
                 *ngFor="let row of selfArchived.selfArchived"
               >
-                <div class="info-link-wrapper">
+                <div class="link-wrapper">
                   <div class="col link">
                     <a
                       class="info-link"
