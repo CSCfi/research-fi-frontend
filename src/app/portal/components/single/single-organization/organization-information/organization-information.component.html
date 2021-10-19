@@ -18,7 +18,13 @@
           <ng-template #tooltipTemplate
             ><div [innerHtml]="sources[row.tooltip]"></div
           ></ng-template>
-          <span [tooltip]="tooltipTemplate" tabindex="0" placement="top" #elem>
+          <span
+            [tooltip]="tooltipTemplate"
+            container="body"
+            tabindex="0"
+            placement="top"
+            #elem
+          >
             <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
           </span>
         </ng-container>
