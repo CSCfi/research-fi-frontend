@@ -360,7 +360,7 @@
                   <span class="link-tag">URN</span>
                   <span class="link-item">
                     <a [attr.href]="'http://urn.fi/' + item.urn" target="_blank"
-                      >{{ item.urn }}
+                      ><span class="link-label">{{ item.urn }}</span>
                       <fa-icon icon="external-link-alt"></fa-icon>
                     </a>
                   </span>
@@ -371,7 +371,9 @@
                   <span class="link-tag">URL</span>
                   <span class="link-item">
                     <a [attr.href]="item.fairdataUrl" target="_blank"
-                      >{{ item.fairdataUrl | cutContent: 38 }}
+                      ><span class="link-label">{{
+                        item.fairdataUrl | handleLinkDisplay
+                      }}</span>
                       <fa-icon icon="external-link-alt"></fa-icon>
                     </a>
                   </span>
@@ -386,13 +388,18 @@
               >
                 <div class="link-wrapper">
                   <div class="col link">
-                    <a
-                      class="info-link"
-                      href="{{ row.selfArchivedAddress }}"
-                      target="_blank"
-                      >{{ row.selfArchivedAddress | cutContent: 40
-                      }}<fa-icon icon="external-link-alt"></fa-icon
-                    ></a>
+                    <span
+                      class="link-tag fa fa-link center"
+                      style="font-size: 22px; padding: 3px 12px"
+                    ></span>
+                    <span class="link-item">
+                      <a href="{{ row.selfArchivedAddress }}" target="_blank"
+                        ><span class="link-label">{{
+                          row.selfArchivedAddress | handleLinkDisplay
+                        }}</span
+                        ><fa-icon icon="external-link-alt"></fa-icon
+                      ></a>
+                    </span>
                   </div>
                 </div>
               </div>

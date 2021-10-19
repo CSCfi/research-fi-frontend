@@ -428,13 +428,14 @@
                     class="link-tag fa fa-link center"
                     style="font-size: 22px; padding: 3px 12px"
                   ></span>
-                  <a
-                    class="link-item"
-                    href="{{ item[row.field] }}"
-                    target="_blank"
-                    >{{ item[row.field] | cutContent: 40
-                    }}<fa-icon icon="external-link-alt"></fa-icon
-                  ></a>
+                  <span class="link-item">
+                    <a href="{{ item[row.field] }}" target="_blank"
+                      ><span class="link-label">{{
+                        item[row.field] | handleLinkDisplay
+                      }}</span>
+                      <fa-icon icon="external-link-alt"></fa-icon
+                    ></a>
+                  </span>
                 </div>
               </div>
             </div>

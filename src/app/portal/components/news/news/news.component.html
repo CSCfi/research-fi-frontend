@@ -51,7 +51,7 @@
       <mat-tab i18n-label="@@latest" label="Uusimmat">
         <h2 class="font-weight-bold mt-2" i18n="@@latest">Uusimmat</h2>
         <app-latest-news
-          [mobile]="mobile"
+          [mobile]="appSettingsService.mobileStatus | async"
           [visible]="selectedIndex === 0"
         ></app-latest-news>
       </mat-tab>
@@ -59,7 +59,7 @@
       <mat-tab i18n-label="@@searchNews" label="Hae uutisia">
         <h2 class="font-weight-bold mt-2" i18n="@@searchNews">Hae uutisia</h2>
         <app-news-results
-          [mobile]="mobile"
+          [mobile]="appSettingsService.mobileStatus | async"
           [tab]="selectedIndex"
         ></app-news-results>
       </mat-tab>

@@ -94,7 +94,7 @@
       *ngFor="let item of responseData.organizations"
       class="col-12 col-md-4"
     >
-      <aside>
+      <aside *ngIf="news.length">
         <mat-card>
           <div class="inner">
             <mat-card-title
@@ -145,13 +145,17 @@
                       class="link-tag fa fa-link center"
                       style="font-size: 22px; padding: 3px 12px"
                     ></span>
-                    <a
-                      class="link-item"
-                      href="{{ item[row.field] }}"
-                      target="_blank"
-                      >{{ item[row.field]
-                      }}<fa-icon icon="external-link-alt"></fa-icon
-                    ></a>
+                    <span class="link-item">
+                      <a
+                        class="link-item"
+                        href="{{ item[row.field] }}"
+                        target="_blank"
+                        ><span class="link-label">{{
+                          item[row.field] | handleLinkDisplay
+                        }}</span>
+                        <fa-icon icon="external-link-alt"></fa-icon
+                      ></a>
+                    </span>
                   </div>
                 </ng-container>
               </div>
