@@ -56,7 +56,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   navbarOpen = false;
   hideOverflow = true;
   dropdownOpen: any;
-  mobile = this.window.innerWidth < 1200;
+  maxWidth = 992;
+  mobile = this.window.innerWidth < this.maxWidth;
 
   height = this.window.innerHeight;
   width = this.window.innerWidth;
@@ -358,7 +359,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onResize(dims) {
     this.height = dims.height;
     this.width = dims.width;
-    if (this.width >= 1200) {
+    if (this.width >= this.maxWidth) {
       this.appSettingsService.updateMobileStatus(false);
       this.mobile = false;
       if (this.navbarOpen) {

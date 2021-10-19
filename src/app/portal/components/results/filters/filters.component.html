@@ -3,7 +3,12 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<div class="mobile mx-auto" id="navbar-toggle" [class.d-block]="showButton">
+<div
+  class="mx-auto"
+  id="navbar-toggle"
+  [class.d-block]="showButton"
+  [class.d-none]="!mobile"
+>
   <app-secondary-button
     [content]="tabData === 'news' ? filterNewsHeader : filterSearchHeader"
     [icon]="faSlidersH"
@@ -78,7 +83,7 @@
                   </span>
                 </button>
               </div>
-              <!-- Filter label --> 
+              <!-- Filter label -->
               <div [ngClass]="filter.hasSubFields ? 'px-1 ' : ''" class="col">
                 <span class="pr-2">{{ filter?.label }}</span>
                 <ng-container *ngIf="filter.tooltip">
@@ -274,9 +279,10 @@
                 <!-- Start date -->
                 <mat-form-field appearance="fill">
                   <mat-label i18n="@@dateRangeStart"
-                  >Haku alkaa aikaisintaan</mat-label
+                    >Haku alkaa aikaisintaan</mat-label
                   >
-                  <input matInput 
+                  <input
+                    matInput
                     (dateChange)="dateChange($event, 'start')"
                     i18n-placeholder="@@startDate"
                     placeholder="Aloituspäivä"
@@ -284,13 +290,21 @@
                     [matDatepicker]="startPicker"
                     [max]="getActiveDate('end')"
                     #startDate
+                  />
+                  <mat-datepicker-toggle
+                    *ngIf="startDate.value"
+                    matSuffix
+                    (click)="dateChange(null, 'start')"
                   >
-                  <mat-datepicker-toggle *ngIf="startDate.value" matSuffix (click)="dateChange(null, 'start')">
-                    <mat-icon matDatepickerToggleIcon color="warn">clear</mat-icon>
+                    <mat-icon matDatepickerToggleIcon color="warn"
+                      >clear</mat-icon
+                    >
                   </mat-datepicker-toggle>
-                  <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="startPicker"
+                  ></mat-datepicker-toggle>
                   <mat-datepicker #startPicker></mat-datepicker>
-                  
                 </mat-form-field>
               </div>
               <!-- End date -->
@@ -299,21 +313,30 @@
                   <mat-label i18n="@@dateRangeEnd"
                     >Haku päättyy viimeistään</mat-label
                   >
-                      <input matInput 
-                        (dateChange)="dateChange($event, 'end')"
-                        i18n-placeholder="@@endDate"
-                        placeholder="Päättymispäivä"
-                        [value]="getActiveDate('end')"
-                        [matDatepicker]="endPicker"
-                        [min]="getActiveDate('start')"
-                        #endDate
-                      >
-                      <mat-datepicker-toggle *ngIf="endDate.value" matSuffix (click)="dateChange(null, 'end')">
-                        <mat-icon matDatepickerToggleIcon color="warn">clear</mat-icon>
-                      </mat-datepicker-toggle>  
-                    <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
-                    <mat-datepicker #endPicker></mat-datepicker>
-
+                  <input
+                    matInput
+                    (dateChange)="dateChange($event, 'end')"
+                    i18n-placeholder="@@endDate"
+                    placeholder="Päättymispäivä"
+                    [value]="getActiveDate('end')"
+                    [matDatepicker]="endPicker"
+                    [min]="getActiveDate('start')"
+                    #endDate
+                  />
+                  <mat-datepicker-toggle
+                    *ngIf="endDate.value"
+                    matSuffix
+                    (click)="dateChange(null, 'end')"
+                  >
+                    <mat-icon matDatepickerToggleIcon color="warn"
+                      >clear</mat-icon
+                    >
+                  </mat-datepicker-toggle>
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="endPicker"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #endPicker></mat-datepicker>
                 </mat-form-field>
               </div>
             </div>
@@ -374,7 +397,10 @@
               </div>
             </mat-list-option>
             <div
-              *ngIf="!responseData.aggregations[filter.field]?.buckets?.length && !filter.hideNoResults"
+              *ngIf="
+                !responseData.aggregations[filter.field]?.buckets?.length &&
+                !filter.hideNoResults
+              "
               class="empty-filter-search"
               role="alert"
             >
@@ -440,7 +466,8 @@
                 collapsedHeight="{{ panelHeight }}"
                 expandedHeight="{{ panelHeight }}"
               >
-                <mat-panel-title> <!-- Aiheet-->
+                <mat-panel-title>
+                  <!-- Aiheet-->
                   <div class="row d-flex justify-content-between">
                     <div class="col col-10 label">
                       {{ item.key }}
@@ -454,7 +481,10 @@
                           placement="top"
                           #elem
                         >
-                          <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                          <fa-icon
+                            class="info-icon"
+                            icon="info-circle"
+                          ></fa-icon>
                         </span>
                       </ng-container>
                     </div>

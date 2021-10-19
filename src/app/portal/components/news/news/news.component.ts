@@ -28,6 +28,7 @@ import { news, common } from 'src/assets/static-data/meta-tags.json';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   selector: 'app-news',
@@ -66,7 +67,8 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
     @Inject(WINDOW) private window: Window,
     private resizeService: ResizeService,
     public utilityService: UtilityService,
-    private router: Router
+    private router: Router,
+    public appSettingsService: AppSettingsService
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
     this.currentLocale =
