@@ -466,7 +466,7 @@ export class PublicationFilterService {
       .forEach((x) => {
         openAccessCodes.push({
           key: 'nonOpenAccess',
-          doc_count: x.doc_count,
+          doc_count: x.filtered.doc_count,
         });
       });
 
