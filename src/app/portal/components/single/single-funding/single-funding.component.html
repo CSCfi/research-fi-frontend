@@ -10,26 +10,26 @@
 
 <div class="wrapper" *ngIf="responseData" id="main-content">
   <div class="row shared">
-  <p class="back col-12" style="padding-bottom: 0.25rem;">
-    <a
-      #backToResultsLink
-      routerLink="/results/{{ tab }}/{{ searchTerm }}"
-      [queryParams]="tabQueryParams"
-      >&lt;
-      <ng-container i18n="@@backToResults"
-        >Takaisin hakutuloksiin</ng-container
-      ></a
-    >
-  </p>
+    <p class="back col-12" style="padding-bottom: 0.25rem">
+      <a
+        #backToResultsLink
+        routerLink="/results/{{ tab }}/{{ searchTerm }}"
+        [queryParams]="tabQueryParams"
+        >&lt;
+        <ng-container i18n="@@backToResults"
+          >Takaisin hakutuloksiin</ng-container
+        ></a
+      >
+    </p>
   </div>
   <!-- Breadcrumb -->
   <app-breadcrumb
-  [type]="'single'"
-  [responseData]="responseData"
-  [tab]="tab"
-  [tabName]="tabData.label"
-  [resultNameField]="'name'"
-  [queryParams]="tabQueryParams"
+    [type]="'single'"
+    [responseData]="responseData"
+    [tab]="tab"
+    [tabName]="tabData.label"
+    [resultNameField]="'name'"
+    [queryParams]="tabQueryParams"
   ></app-breadcrumb>
   <div class="row shared">
     <div
@@ -126,7 +126,8 @@
                     *ngIf="item.recipient.affiliation?.length > 0"
                   >
                     <div class="row">
-                      <div class="col-12 p-0"
+                      <div
+                        class="col-12 p-0"
                         i18n-aria-label="@@organization"
                         aria-label="organisaatio"
                       >
@@ -141,21 +142,20 @@
                           item.recipient.affiliation
                         }}</ng-container>
                       </div>
-                      <div *ngFor="let org of item.additionalOrgs" class="col-12 p-0 pt-1"
+                      <div
+                        *ngFor="let org of item.additionalOrgs"
+                        class="col-12 p-0 pt-1"
                         i18n-aria-label="@@organization"
                         aria-label="organisaatio"
                       >
                         <a
                           *ngIf="org.orgId"
-                          routerLink="/results/organization/{{
-                            org.orgId
-                          }}"
+                          routerLink="/results/organization/{{ org.orgId }}"
                           >{{ org.name }}</a
                         >
                         <ng-container *ngIf="!org.orgId">{{
                           org.name
                         }}</ng-container>
-
                       </div>
                     </div>
                   </div>
@@ -214,7 +214,8 @@
                       <div
                         class="col-12 td col-sm-3 mobile-list"
                         *ngIf="
-                          org.shareOfFundingEur && org.shareOfFundingEur !== item.recipient.amountEur
+                          org.shareOfFundingEur &&
+                          org.shareOfFundingEur !== item.recipient.amountEur
                         "
                       >
                         {{ org.shareOfFundingEur | thousandSeparator }} €
@@ -257,17 +258,20 @@
                   Muut päätökset
                 </ng-container>
                 <ng-container>
-                <ng-template #tooltipTemplate>
-                  <div [innerHtml]="relatedFundingsTooltip.tooltip"></div>
-                </ng-template>
-                <span
-                  [tooltip]="tooltipTemplate"
-                  tabindex="0"
-                  placement="top"
-                  #elem
-                >
-                  <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
-                </span>
+                  <ng-template #tooltipTemplate>
+                    <div [innerHtml]="relatedFundingsTooltip.tooltip"></div>
+                  </ng-template>
+                  <span
+                    [tooltip]="tooltipTemplate"
+                    tabindex="0"
+                    placement="top"
+                    #elem
+                  >
+                    <fa-icon
+                      class="info-icon pl-2"
+                      icon="info-circle"
+                    ></fa-icon>
+                  </span>
                 </ng-container>
               </h2>
               <div
@@ -282,8 +286,8 @@
                 <div class="row">
                   <div class="col-12 col-lg-3 td pr-0">
                     <span
-                    i18n-aria-label="@@funderProjectNumber"
-                    aria-label="Rahoituspäätöksen numero"
+                      i18n-aria-label="@@funderProjectNumber"
+                      aria-label="Rahoituspäätöksen numero"
                       >{{ relatedFunding.funderProjectNumber }}</span
                     >
                   </div>
@@ -299,7 +303,7 @@
                       i18n-aria-label="@@startYear"
                       aria-label="aloitusvuosi"
                       class="pl-1"
-                      >({{relatedFunding.fundingStartYear}})</span
+                      >({{ relatedFunding.fundingStartYear }})</span
                     >
                   </div>
                   <div
@@ -636,23 +640,33 @@
                 </span></h2
             ></mat-card-title>
             <div class="row links">
-              <div *ngFor="let row of linkFields" class="info-link-wrapper">
+              <div *ngFor="let row of linkFields" class="link-wrapper">
                 <div class="col link">
+                  <span
+                    class="link-tag fa fa-link center"
+                    style="font-size: 22px; padding: 3px 12px"
+                  ></span>
                   <!-- Cordis link is displayed only with eu funding. Filtering is done in ts file -->
                   <a
                     *ngIf="row.field === 'funderProjectNumber'"
-                    class="info-link"
-                    [href]="(item.structuralFund ? euraLink : cordisProjectLink) + item[row.field]"
+                    class="link-item"
+                    [href]="
+                      (item.structuralFund ? euraLink : cordisProjectLink) +
+                      item[row.field]
+                    "
                     target="_blank"
-                    >{{(item.structuralFund ? euraLink : cordisProjectLink) + item[row.field]}}
+                    >{{
+                      (item.structuralFund ? euraLink : cordisProjectLink) +
+                        item[row.field] | handleLinkDisplay
+                    }}
                     <fa-icon icon="external-link-alt"></fa-icon
                   ></a>
                   <a
                     *ngIf="row.field !== 'funderProjectNumber'"
-                    class="info-link"
+                    class="link-item"
                     href="{{ item[row.field] }}"
                     target="_blank"
-                    >{{ item[row.field]
+                    >{{ item[row.field] | handleLinkDisplay
                     }}<fa-icon icon="external-link-alt"></fa-icon
                   ></a>
                 </div>
@@ -713,12 +727,16 @@
             >
             <div *ngFor="let source of responseData.fundings">
               <p *ngIf="source.funder.name.trim().length > 0">
-                <ng-container *ngIf="!item.structuralFund">{{ source.funder.name }}</ng-container>
-                <ng-container *ngIf="item.structuralFund">Rakennerahastotietopalvelu 
-                    <!-- Structural fund source link -->
-                    (<a href="https://www.eura2014.fi/rrtiepa/" target="_blank">eura2014.fi
-                      <fa-icon icon="external-link-alt"></fa-icon>
-                    </a>)
+                <ng-container *ngIf="!item.structuralFund">{{
+                  source.funder.name
+                }}</ng-container>
+                <ng-container *ngIf="item.structuralFund"
+                  >Rakennerahastotietopalvelu
+                  <!-- Structural fund source link -->
+                  (<a href="https://www.eura2014.fi/rrtiepa/" target="_blank"
+                    >eura2014.fi
+                    <fa-icon icon="external-link-alt"></fa-icon> </a
+                  >)
                 </ng-container>
               </p>
               <p

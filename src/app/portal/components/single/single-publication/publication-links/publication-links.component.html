@@ -1,0 +1,82 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<mat-card>
+  <div class="inner">
+    <mat-card-title>
+      <h2 i18n="@@publicationLinks">Linkit julkaisuun</h2>
+    </mat-card-title>
+    <div class="row links" *ngFor="let row of linksFields">
+      <div *ngIf="row.field === 'doi'" class="link-wrapper">
+        <div class="col link">
+          <span class="link-tag">DOI</span>
+          <span class="link-item">
+            <a [attr.href]="'https://doi.org/' + item.doi" target="_blank"
+              ><span class="link-label">{{ item.doi }}</span>
+              <fa-icon icon="external-link-alt"></fa-icon
+            ></a>
+          </span>
+        </div>
+      </div>
+      <!-- Check that doi & doiHandle mismatch -->
+      <div
+        *ngIf="
+          row.field !== 'doi' &&
+          item[row.field] !== item.doi &&
+          (item[row.field] | isUrl)
+        "
+        class="link-wrapper"
+      >
+        <div class="col link">
+          <span
+            class="link-tag fa fa-link center"
+            style="font-size: 22px; padding: 3px 12px"
+          ></span>
+          <span class="link-item">
+            <a href="{{ row.path }}{{ item[row.field] }}" target="_blank"
+              ><span class="link-label">{{
+                item[row.field] | handleLinkDisplay
+              }}</span>
+              <fa-icon icon="external-link-alt"></fa-icon
+            ></a>
+          </span>
+        </div>
+      </div>
+    </div>
+    <!-- Self archived addresses -->
+    <ng-container *ngFor="let selfArchived of item.selfArchivedData">
+      <ng-container *ngFor="let row of selfArchived.selfArchived">
+        <div class="row links" *ngIf="row.selfArchivedAddress | isUrl">
+          <div class="link-wrapper">
+            <div class="col link">
+              <span
+                class="link-tag fa fa-link center"
+                style="font-size: 22px; padding: 3px 12px"
+              ></span>
+              <span class="link-item">
+                <a href="{{ row.selfArchivedAddress }}" target="_blank"
+                  ><span class="link-label">{{
+                    row.selfArchivedAddress | handleLinkDisplay
+                  }}</span
+                  ><fa-icon icon="external-link-alt"></fa-icon
+                ></a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+    <div
+      *ngIf="
+        !linksFields.length &&
+        (!item.selfArchivedData || !item.selfArchivedData.length)
+      "
+      class="no-links"
+      i18n="@@noPublicationLinks"
+    >
+      Julkaisuun ei ole tarjolla linkkejä tässä portaalissa
+    </div>
+  </div>
+</mat-card>

@@ -40,8 +40,6 @@
 @import './app/portal/components/breadcrumb/breadcrumb.component.scss-theme.scss';
 @import './app/portal/components/results/filters/filters-shared.scss';
 @import './app/portal/components/results/filters/filters.theme-shared.scss';
-@import './app/portal/components/single/single-publication/single-publication.component.scss-theme.scss';
-@import './app/portal/components/single/single-dataset/single-dataset.component.scss-theme.scss';
 @import './app/portal/components/single/single-funding/single-funding.component.scss-theme.scss';
 @import './app/portal/components/science-politics/figures/figures.component.scss-theme.scss';
 @import './app/portal/components/science-politics/research-innovation-system/research-innovation-system.component.scss-theme.scss';
@@ -96,9 +94,7 @@
   @include app-active-filters-shared;
   @include app-active-filters-shared-theme($theme);
   @include app-breadcrumb-theme($theme);
-  @include app-single-publication-theme($theme);
   @include app-single-funding-theme($theme);
-  @include app-single-dataset-theme($theme);
   @include app-figures-theme($theme);
   @include app-research-innovation-system-theme($theme);
   @include app-single-figure-theme($theme);
