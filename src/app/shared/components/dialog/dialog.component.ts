@@ -17,7 +17,7 @@ import { DialogTemplateComponent } from './dialog-template/dialog-template.compo
 })
 export class DialogComponent implements OnInit {
   @Input() template: any;
-  @Input() actions: any;
+  @Input() actions: any[];
   @Input() title: string;
   @Input() small: boolean;
   @Input() disableClose: boolean;
@@ -36,9 +36,22 @@ export class DialogComponent implements OnInit {
   }
 
   openDialog() {
-    console.log(this.disableClose);
+    console.log(this.actions);
     const dialogSettings = { ...this.appSettingsService.dialogSettings };
 
+    // Separate actions into parent columns.
+    let spreadActions = false;
+
+    if (this.actions.find((action) => action.flexStart)) {
+      spreadActions = true;
+
+      this.actions = [
+        this.actions.filter((action) => action.flexStart),
+        this.actions.filter((action) => !action.flexStart),
+      ];
+    }
+
+    // Handle size
     if (this.small) {
       dialogSettings.minWidth = 'unset';
       dialogSettings.width = 'unset';
@@ -53,6 +66,7 @@ export class DialogComponent implements OnInit {
         title: this.title,
         template: this.template,
         actions: this.actions,
+        spreadActions: spreadActions,
       },
       disableClose: this.disableClose ? true : false,
     });
