@@ -33,25 +33,53 @@
 
 <mat-dialog-actions
   *ngIf="data.actions?.length"
-  [ngClass]="
-    mobile && data.actions.length === 1
-      ? 'justify-content-center'
-      : 'justify-content-end'
-  "
+  [class.justify-content-center]="mobile && data.actions.length === 1"
 >
-  <ng-container *ngFor="let action of data.actions">
-    <div class="col-auto">
-      <app-primary-action-button
-        *ngIf="action.primary"
-        (click)="doAction(action.method)"
-        [content]="action.label"
-      ></app-primary-action-button>
+  <!-- Some actions are spread into two columns -->
+  <ng-container *ngIf="data.spreadActions; else singleColumnActions">
+    <ng-container *ngFor="let group of data.actions; let i = index">
+      <div class="col px-0">
+        <!-- First array items should be on the left side -->
+        <div
+          class="row"
+          [ngClass]="i === 0 ? 'justify-content-start' : 'justify-content-end'"
+        >
+          <ng-container *ngFor="let action of group">
+            <div class="col-auto">
+              <app-primary-action-button
+                *ngIf="action.primary"
+                (click)="doAction(action.method)"
+                [content]="action.label"
+              ></app-primary-action-button>
 
-      <app-secondary-button
-        *ngIf="!action.primary"
-        (click)="doAction(action.method)"
-        [content]="action.label"
-      ></app-secondary-button>
-    </div>
+              <app-secondary-button
+                *ngIf="!action.primary"
+                (click)="doAction(action.method)"
+                [content]="action.label"
+              ></app-secondary-button>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
   </ng-container>
+
+  <!-- Regular single column render -->
+  <ng-template #singleColumnActions>
+    <ng-container *ngFor="let action of data.actions">
+      <div class="col-auto">
+        <app-primary-action-button
+          *ngIf="action.primary"
+          (click)="doAction(action.method)"
+          [content]="action.label"
+        ></app-primary-action-button>
+
+        <app-secondary-button
+          *ngIf="!action.primary"
+          (click)="doAction(action.method)"
+          [content]="action.label"
+        ></app-secondary-button>
+      </div>
+    </ng-container>
+  </ng-template>
 </mat-dialog-actions>

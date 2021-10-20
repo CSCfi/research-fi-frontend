@@ -63,7 +63,12 @@ export class ProfileComponent implements OnInit {
   disableDialogClose: boolean;
   basicDialogActions = [{ label: 'Sulje', primary: true, method: 'close' }];
   publishUpdatedProfileDialogActions = [
-    { label: 'Näytä julkaistavat tiedot', primary: false, method: 'preview' },
+    {
+      label: 'Näytä julkaistavat tiedot',
+      primary: false,
+      method: 'preview',
+      flexStart: true,
+    },
     { label: 'Peruuta', primary: false, method: 'cancel' },
     { label: 'Julkaise', primary: true, method: 'publish' },
   ];
