@@ -18,7 +18,7 @@ import { Subscription } from 'rxjs';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { checkGroupSelected, isEmptySection } from '@mydata/utils';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { SearchPublicationsComponent } from './search-publications/search-publications.component';
+import { SearchPublicationsComponent } from '../../profile/profile-panel/search-publications/search-publications.component';
 import { take } from 'rxjs/operators';
 import { PublicationsService } from '@mydata/services/publications.service';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
