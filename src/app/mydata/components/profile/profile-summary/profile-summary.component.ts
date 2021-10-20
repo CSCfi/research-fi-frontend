@@ -14,7 +14,7 @@ import {
   isEmptySection,
 } from '@mydata/utils';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { EditorModalComponent } from '../../profile-data-handler/editor-modal/editor-modal.component';
+import { EditorModalComponent } from '@mydata/components/profile/editor-modal/editor-modal.component';
 import { take } from 'rxjs/operators';
 import { PatchService } from '@mydata/services/patch.service';
 import { PublicationsService } from '@mydata/services/publications.service';
