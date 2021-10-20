@@ -40,7 +40,9 @@ export class PublicationsService {
     private appConfigService: AppConfigService,
     public oidcSecurityService: OidcSecurityService
   ) {
-    this.apiUrl = this.appConfigService.apiUrl;
+    // this.apiUrl = this.appConfigService.apiUrl;
+    this.apiUrl =
+      'https://researchfi-api-production-researchfi.rahtiapp.fi/portalapi/'; // Hardcoded production data url for dev purposes
     this.profileApiUrl = this.appConfigService.profileApiUrl;
   }
 

@@ -20,6 +20,7 @@ export class DraftService {
     if (this.appSettingsService.isBrowser) {
       sessionStorage.removeItem(Constants.draftProfile);
       sessionStorage.removeItem(Constants.draftPatchPayload);
+      sessionStorage.removeItem(Constants.draftPublicationPatchPayload);
     }
   }
 }
