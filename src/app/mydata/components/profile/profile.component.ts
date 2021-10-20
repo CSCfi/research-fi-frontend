@@ -62,6 +62,11 @@ export class ProfileComponent implements OnInit {
   currentDialogActions: any[];
   disableDialogClose: boolean;
   basicDialogActions = [{ label: 'Sulje', primary: true, method: 'close' }];
+  publishUpdatedProfileDialogActions = [
+    { label: 'Näytä julkaistavat tiedot', primary: false, method: 'preview' },
+    { label: 'Peruuta', primary: false, method: 'cancel' },
+    { label: 'Julkaise', primary: true, method: 'publish' },
+  ];
   deleteProfileDialogActions = [
     { label: 'Peruuta', primary: false, method: 'close' },
     { label: 'Poista profiili', primary: true, method: 'delete' },
@@ -112,6 +117,9 @@ export class ProfileComponent implements OnInit {
             const draftPatchPayload = JSON.parse(
               sessionStorage.getItem(Constants.draftPatchPayload)
             );
+            const draftPublicationPatchPayload = JSON.parse(
+              sessionStorage.getItem(Constants.draftPublicationPatchPayload)
+            );
 
             this.draftPayload = draftPatchPayload;
 
@@ -125,8 +133,18 @@ export class ProfileComponent implements OnInit {
             }
 
             // Set draft patch payload from storage
-            if (draftPatchPayload)
+            if (draftPatchPayload) {
               this.patchService.addToPatchItems(draftPatchPayload);
+              this.patchService.confirmPatchItems();
+            }
+
+            // Set draft publication patch payload from storage
+            if (draftPublicationPatchPayload) {
+              this.publicationsService.addToPayload(
+                draftPublicationPatchPayload
+              );
+              this.publicationsService.confirmPayload();
+            }
           }
 
           // Set original data
@@ -155,6 +173,10 @@ export class ProfileComponent implements OnInit {
     this.dialogTitle = '';
     this.showDialog = false;
     this.dialogTemplate = null;
+
+    if (event === 'publish') {
+      this.publish();
+    }
 
     if (event === 'delete') {
       this.deleteProfile();

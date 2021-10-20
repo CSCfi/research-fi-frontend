@@ -7,5 +7,6 @@
 
 export const Constants = {
   draftPatchPayload: 'mydata_draft_patch_payload',
+  draftPublicationPatchPayload: 'mydata_draft_publication_patch_payload',
   draftProfile: 'mydata_draft',
 };

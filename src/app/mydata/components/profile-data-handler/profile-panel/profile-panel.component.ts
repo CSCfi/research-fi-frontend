@@ -24,6 +24,7 @@ import { PublicationsService } from '@mydata/services/publications.service';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { PatchService } from '@mydata/services/patch.service';
 import { ProfileService } from '@mydata/services/profile.service';
+import { Constants } from '@mydata/constants';
 
 @Component({
   selector: 'app-profile-panel',
@@ -303,7 +304,12 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
           this.publicationService.resetSort();
 
           if (result) {
+            // Pass result to payload in service and in session storage
             this.publicationService.addToPayload(result.selectedPublications);
+            sessionStorage.setItem(
+              Constants.draftPublicationPatchPayload,
+              JSON.stringify(result.selectedPublications)
+            );
 
             const preSelection = this.data.fields[0].groupItems.flatMap(
               (group) => group.items
