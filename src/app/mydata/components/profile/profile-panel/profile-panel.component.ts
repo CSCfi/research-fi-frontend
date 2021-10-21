@@ -197,26 +197,6 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     this.patchService.addToPatchItems(publication.itemMeta);
   }
 
-  // removePublication(publication) {
-  //   this.publicationService.addToDeletables(publication.publicationId);
-
-  //   const field = this.data.fields[0];
-
-  //   // Method to remove publications added in current session
-  //   const handleRemoveFromSession = () => {
-  //     const groupItems = field.groupItems;
-
-  //     for (const group of groupItems) {
-  //       group.items = group.items.filter(
-  //         (item) => item.publicationId !== publication.publicationId
-  //       );
-  //     }
-  //     field.groupItems = groupItems;
-  //   };
-
-  //   handleRemoveFromSession();
-  // }
-
   removePublication(publication: {
     publicationId: string;
     itemMeta: { id: string | null };

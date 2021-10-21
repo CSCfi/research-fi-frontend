@@ -57,8 +57,9 @@ export class ProfileComponent implements OnInit {
 
   // Dialog variables
   showDialog: boolean;
-  dialogTemplate: any;
   dialogTitle: any;
+  dialogTemplate: any;
+  dialogExtraContentTemplate: any;
   currentDialogActions: any[];
   disableDialogClose: boolean;
   basicDialogActions = [{ label: 'Sulje', primary: true, method: 'close' }];
@@ -165,10 +166,25 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  openDialog(title, template, actions, disableDialogClose = false) {
+  openDialog(props: {
+    title: string;
+    template: any;
+    extraContentTemplate: any;
+    actions: any;
+    disableDialogClose: boolean;
+  }) {
+    const {
+      title,
+      template,
+      extraContentTemplate,
+      actions,
+      disableDialogClose,
+    } = props;
+
     this.dialogTitle = title;
     this.showDialog = true;
     this.dialogTemplate = template;
+    this.dialogExtraContentTemplate = extraContentTemplate;
     this.currentDialogActions = actions;
     this.disableDialogClose = disableDialogClose;
   }

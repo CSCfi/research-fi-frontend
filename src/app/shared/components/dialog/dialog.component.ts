@@ -16,9 +16,10 @@ import { DialogTemplateComponent } from './dialog-template/dialog-template.compo
   templateUrl: './dialog.component.html',
 })
 export class DialogComponent implements OnInit {
+  @Input() title: string;
   @Input() template: any;
   @Input() actions: any[];
-  @Input() title: string;
+  @Input() extraContentTemplate: any;
   @Input() small: boolean;
   @Input() disableClose: boolean;
   @Output() onDialogClose = new EventEmitter<any>();
@@ -58,6 +59,8 @@ export class DialogComponent implements OnInit {
       dialogSettings.height = 'unset';
     }
 
+    console.log(this.extraContentTemplate);
+
     this.dialogRef = this.dialog.open(DialogTemplateComponent, {
       ...dialogSettings,
       autoFocus: false,
@@ -65,6 +68,7 @@ export class DialogComponent implements OnInit {
         title: this.title,
         template: this.template,
         actions: this.actions,
+        extraContentTemplate: this.extraContentTemplate,
         spreadActions: spreadActions,
       },
       disableClose: this.disableClose ? true : false,
