@@ -197,12 +197,31 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     this.patchService.addToPatchItems(publication.itemMeta);
   }
 
+  // removePublication(publication) {
+  //   this.publicationService.addToDeletables(publication.publicationId);
+
+  //   const field = this.data.fields[0];
+
+  //   // Method to remove publications added in current session
+  //   const handleRemoveFromSession = () => {
+  //     const groupItems = field.groupItems;
+
+  //     for (const group of groupItems) {
+  //       group.items = group.items.filter(
+  //         (item) => item.publicationId !== publication.publicationId
+  //       );
+  //     }
+  //     field.groupItems = groupItems;
+  //   };
+
+  //   handleRemoveFromSession();
+  // }
+
   removePublication(publication: {
     publicationId: string;
     itemMeta: { id: string | null };
   }) {
     const field = this.data.fields[0];
-    let selectedPublications = field.selectedPublications;
 
     // Method to remove publications added in current session
     const handleRemoveFromSession = () => {
@@ -216,41 +235,18 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
       field.groupItems = groupItems;
     };
 
+    console.log('removePublication: ', publication);
+
     // Only publications from profile have item meta ID
     if (publication.itemMeta.id) {
-      // this.publicationService.addToDeletables(publication);} // If we decide to let user reverse deletion
-
-      this.publicationService
-        .deletePublication(publication.publicationId)
-        .pipe(take(1))
-        .subscribe((res: any) => {
-          if (res.ok && res.body.success) {
-            // Publications are stored in either selectedPublications, which consists of publications fetched in current session
-            // and groupItems, which consists of added publications.
-            if (
-              selectedPublications?.findIndex(
-                (item) => item.publicationId === publication.publicationId
-              ) > -1
-            ) {
-              selectedPublications = selectedPublications.filter(
-                (item) => item.publicationId !== publication.publicationId
-              );
-
-              field.selectedPublications = selectedPublications;
-            } else {
-              handleRemoveFromSession();
-            }
-
-            // Set fetched publications flag
-            this.hasFetchedPublications =
-              field.groupItems[0].items.filter(
-                (item) => item.itemMeta.primaryValue
-              ).length > 0;
-          }
-        });
-    } else {
-      handleRemoveFromSession();
+      this.hasFetchedPublications =
+        field.groupItems[0].items.filter((item) => item.itemMeta.primaryValue)
+          .length > 0;
     }
+
+    this.publicationService.addToDeletables(publication);
+
+    handleRemoveFromSession();
   }
 
   findFetchedPublications(data) {
@@ -318,8 +314,6 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
             const mergedPublications = preSelection
               .concat(result.selectedPublications)
               .sort((a, b) => b.publicationYear - a.publicationYear);
-
-            console.log('merged: ', mergedPublications);
 
             this.hasFetchedPublications = true;
 

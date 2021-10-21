@@ -160,7 +160,7 @@ export class ProfileSummaryComponent implements OnInit {
           const confirmedPublicationPayload =
             this.publicationsService.confirmedPayload;
 
-          this.profileData[index] = result.data;
+          if (result) this.profileData[index] = result.data;
 
           this.draftService.saveDraft(this.profileData);
 

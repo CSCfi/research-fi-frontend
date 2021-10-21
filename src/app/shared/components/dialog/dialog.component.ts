@@ -36,13 +36,12 @@ export class DialogComponent implements OnInit {
   }
 
   openDialog() {
-    console.log(this.actions);
     const dialogSettings = { ...this.appSettingsService.dialogSettings };
 
     // Separate actions into parent columns.
     let spreadActions = false;
 
-    if (this.actions.find((action) => action.flexStart)) {
+    if (this.actions?.find((action) => action.flexStart)) {
       spreadActions = true;
 
       this.actions = [
