@@ -128,11 +128,23 @@ export class PublicationsService {
 
   cancelConfirmedPayload() {
     this.clearPayload();
+    this.clearDeletables();
+    this.confirmedPayload = [];
     this.confirmedPayloadSource.next([]);
   }
 
-  addToDeletables(publication: { publicationId: any }) {
-    this.deletables.push(publication.publicationId);
+  removeFromConfirmed(publicationId: string) {
+    const filtered = this.confirmedPayload.filter(
+      (item) => item.publicationId !== publicationId
+    );
+
+    this.confirmedPayload = filtered;
+    this.confirmedPayloadSource.next(filtered);
+  }
+
+  addToDeletables(publication) {
+    console.log('addToDeletables');
+    this.deletables.push(publication);
   }
 
   clearDeletables() {
@@ -141,7 +153,7 @@ export class PublicationsService {
 
   addPublications() {
     this.updateTokenInHttpAuthHeader();
-    let body = this.publicationPayload.map((item) => ({
+    const body = this.publicationPayload.map((item) => ({
       publicationId: item.publicationId,
       show: item.itemMeta.show,
       primaryValue: item.itemMeta.primaryValue,
@@ -153,10 +165,13 @@ export class PublicationsService {
     );
   }
 
-  deletePublication(publicationId) {
+  removePublications(publications) {
     this.updateTokenInHttpAuthHeader();
-    return this.http.delete(
-      this.profileApiUrl + '/publication/' + publicationId,
+    const body = publications.map((publication) => publication.publicationId);
+    console.log('body: ', body);
+    return this.http.post(
+      this.profileApiUrl + '/publication/remove/',
+      body,
       this.httpOptions
     );
   }
