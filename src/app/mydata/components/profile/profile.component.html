@@ -53,6 +53,10 @@
         </p>
       </ng-template>
 
+      <ng-template #dataToPublishTemplate>
+        <p>Preview edited data - placeholder</p>
+      </ng-template>
+
       <div
         class="col px-0 py-2 text-right"
         *ngIf="
@@ -64,12 +68,12 @@
           class="col-auto"
           content="Julkaise..."
           (click)="
-            openDialog(
-              'Julkaise päivitetty profiili',
-              publishUpdatedProfileTemplate,
-              publishUpdatedProfileDialogActions,
-              true
-            )
+            openDialog({
+              title: 'Julkaise päivitetty profiili',
+              template: publishUpdatedProfileTemplate,
+              extraContentTemplate: dataToPublishTemplate,
+              actions: publishUpdatedProfileDialogActions
+            })
           "
         ></app-primary-action-button>
 
@@ -153,11 +157,11 @@
             <button
               class="row border border-primary rounded btn d-flex w-100"
               (click)="
-                openDialog(
-                  'Tutkijan tiedot -työkalun käyttöehdot',
-                  termsTemplate,
-                  basicDialogActions
-                )
+                openDialog({
+                  title: 'Tutkijan tiedot -työkalun käyttöehdot',
+                  template: termsTemplate,
+                  actions: basicDialogActions
+                })
               "
             >
               <div class="col-auto">
@@ -177,11 +181,11 @@
             <button
               class="row border border-primary rounded btn d-flex w-100"
               (click)="
-                openDialog(
-                  'Henkilötietojen käsittely',
-                  personalDataHandlingTermsTemplate,
-                  basicDialogActions
-                )
+                openDialog({
+                  title: 'Henkilötietojen käsittely',
+                  template: personalDataHandlingTermsTemplate,
+                  actions: basicDialogActions
+                })
               "
             >
               <div class="col-auto">
@@ -208,6 +212,7 @@
           *ngIf="showDialog"
           [template]="dialogTemplate"
           [title]="dialogTitle"
+          [extraContentTemplate]="dialogExtraContentTemplate"
           (onActionClick)="doDialogAction($event)"
           [actions]="currentDialogActions"
         ></app-dialog>
@@ -218,12 +223,12 @@
             <app-primary-action-button
               class="d-block pt-5 pb-4"
               (click)="
-                openDialog(
-                  'Poista profiili',
-                  deleteProfileTemplate,
-                  deleteProfileDialogActions,
-                  true
-                )
+                openDialog({
+                  title: 'Poista profiili',
+                  template: deleteProfileTemplate,
+                  actions: deleteProfileDialogActions,
+                  disableDialogClose: true
+                })
               "
               content="Poista profiili"
             ></app-primary-action-button>
@@ -272,7 +277,7 @@
               </div>
             </ng-template>
 
-            <!-- Reusable dialog -->
+            <!-- Dialog for delete profile loading indicator-->
             <app-dialog
               *ngIf="deletingProfile"
               [template]="deletingProfileTemplate"

@@ -83,3 +83,13 @@
     </ng-container>
   </ng-template>
 </mat-dialog-actions>
+
+<!-- Eg. mydata profile / publish / display data to publish toggle -->
+<mat-dialog-content *ngIf="displayExtraContent && data.extraContentTemplate"
+  ><div class="row px-3">
+    <div class="col">
+      <ng-container
+        [ngTemplateOutlet]="data.extraContentTemplate"
+      ></ng-container>
+    </div></div
+></mat-dialog-content>
