@@ -6,7 +6,7 @@
 <mat-accordion multi>
   <mat-expansion-panel
     *ngFor="let group of profileData; let i = index"
-    [expanded]="i === 0 || openPanels.indexOf(i) > -1"
+    [expanded]="openPanels.indexOf(i) > -1"
     [disabled]="group.fields.length === 0"
   >
     <mat-expansion-panel-header class="pr-1 pr-md-3">
@@ -15,7 +15,7 @@
       </mat-panel-title>
 
       <div class="col-auto align-self-center">
-        {{ (group.fields | countGroupItems: true).length }}
+        {{ (group.fields | countGroupItems: { filterSelected: true }).length }}
 
         /
         {{ (group.fields | countGroupItems).length }}

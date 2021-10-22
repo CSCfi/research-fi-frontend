@@ -20,7 +20,14 @@ export class DialogTemplateComponent implements OnInit {
   displayExtraContent = false;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA)
+    public data: {
+      title: string;
+      template: object;
+      actions: any[];
+      extraContentTemplate: object;
+      spreadActions: boolean;
+    },
     private dialogRef: MatDialogRef<DialogTemplateComponent>,
     private appSettingsService: AppSettingsService
   ) {}
@@ -31,15 +38,19 @@ export class DialogTemplateComponent implements OnInit {
       .subscribe((status) => (this.mobile = status));
   }
 
-  doAction(method: string) {
-    switch (method) {
+  doAction(action: { method: string; label: string }) {
+    switch (action.method) {
+      // Special use case for MyData patch preview button
       case 'preview': {
+        action.label = !this.displayExtraContent
+          ? 'Piilota julkaistavat tiedot'
+          : 'Näytä julkaistavat tiedot';
         this.displayExtraContent = !this.displayExtraContent;
         break;
       }
       default: {
         this.dialogRef.close({
-          method: method,
+          method: action.method,
         });
       }
     }

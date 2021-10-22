@@ -30,10 +30,15 @@ export function checkGroupSelected(group) {
   return group.items.find((item) => item.itemMeta.show);
 }
 
+// Check if group has item in patch items
+export function checkGroupPatchItem(group, patchItemIds) {
+  const items = group.flatMap((groupItem) => groupItem.items);
+  return items.find((item) => patchItemIds.includes(item.itemMeta.id));
+}
+
 /*
  * Shared methods
  */
-
 export function getDataSources(profileData, locale: string = 'Fi') {
   // Remove default locale when app is localized
   const mapDataSources = (data) => {

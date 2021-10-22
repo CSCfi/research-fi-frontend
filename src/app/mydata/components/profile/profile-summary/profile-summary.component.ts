@@ -163,8 +163,6 @@ export class ProfileSummaryComponent implements OnInit {
             this.publicationsService.confirmedPayload;
           const publicationsToDelete = this.publicationsService.deletables;
 
-          console.log('publicationsToDelete: ', publicationsToDelete);
-
           this.draftService.saveDraft(this.profileData);
 
           // Handle removal of publications
@@ -178,7 +176,6 @@ export class ProfileSummaryComponent implements OnInit {
 
           if (publicationsToDelete.length > 0) {
             for (const [i, publication] of publicationsToDelete.entries()) {
-              console.log(i, publication, publicationsToDelete.length);
               deletePublication(publication);
               if (i === publicationsToDelete.length - 1)
                 this.publicationsService.clearDeletables();
@@ -187,9 +184,7 @@ export class ProfileSummaryComponent implements OnInit {
             this.publicationsService
               .removePublications(publicationsToDelete)
               .pipe(take(1))
-              .subscribe((response: any) => {
-                console.log(response.body.data);
-              });
+              .subscribe((response: any) => {});
           }
 
           // Set current data

@@ -54,7 +54,10 @@
       </ng-template>
 
       <ng-template #dataToPublishTemplate>
-        <p>Preview edited data - placeholder</p>
+        <app-draft-summary
+          *ngIf="profileData"
+          [profileData]="profileData"
+        ></app-draft-summary>
       </ng-template>
 
       <div

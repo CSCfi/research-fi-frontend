@@ -268,9 +268,7 @@ export class ProfileComponent implements OnInit {
     this.publicationsService
       .addPublications()
       .pipe(take(1))
-      .subscribe((result) => {
-        console.log(result);
-      });
+      .subscribe((result) => {});
   }
 
   /*
