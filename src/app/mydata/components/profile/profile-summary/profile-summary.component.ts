@@ -22,6 +22,7 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
 import { SnackbarService } from '@mydata/services/snackbar.service';
 import { DraftService } from '@mydata/services/draft.service';
 import { Constants } from '@mydata/constants/';
+import { ProfileService } from '@mydata/services/profile.service';
 
 @Component({
   selector: 'app-profile-summary',
@@ -54,6 +55,7 @@ export class ProfileSummaryComponent implements OnInit {
     public dialog: MatDialog,
     private patchService: PatchService,
     private publicationsService: PublicationsService,
+    private profileService: ProfileService,
     private snackbarService: SnackbarService,
     private draftService: DraftService
   ) {}
@@ -159,10 +161,42 @@ export class ProfileSummaryComponent implements OnInit {
           const confirmedPatchItems = this.patchService.confirmedPatchItems;
           const confirmedPublicationPayload =
             this.publicationsService.confirmedPayload;
+          const publicationsToDelete = this.publicationsService.deletables;
 
-          if (result) this.profileData[index] = result.data;
+          console.log('publicationsToDelete: ', publicationsToDelete);
 
           this.draftService.saveDraft(this.profileData);
+
+          // Handle removal of publications
+          const deletePublication = (publication: {
+            publicationId: string;
+          }) => {
+            this.publicationsService.removeFromConfirmed(
+              publication.publicationId
+            );
+          };
+
+          if (publicationsToDelete.length > 0) {
+            for (const [i, publication] of publicationsToDelete.entries()) {
+              console.log(i, publication, publicationsToDelete.length);
+              deletePublication(publication);
+              if (i === publicationsToDelete.length - 1)
+                this.publicationsService.clearDeletables();
+            }
+
+            this.publicationsService
+              .removePublications(publicationsToDelete)
+              .pipe(take(1))
+              .subscribe((response: any) => {
+                console.log(response.body.data);
+              });
+          }
+
+          // Set current data
+          if (result) {
+            this.profileData[index] = result.data;
+            // this.profileService.setCurrentProfileData(this.profileData); // ei toimi tässä
+          }
 
           if (this.appSettingsService.isBrowser) {
             // Set draft profile data to storage
@@ -171,9 +205,23 @@ export class ProfileSummaryComponent implements OnInit {
               JSON.stringify(this.profileData)
             );
 
+            // Set patch payload to store
+            sessionStorage.setItem(
+              Constants.draftPatchPayload,
+              JSON.stringify(this.patchService.confirmedPatchItems)
+            );
+
+            // Update publication payload to store
+            sessionStorage.setItem(
+              Constants.draftPublicationPatchPayload,
+              JSON.stringify(this.publicationsService.confirmedPayload)
+            );
+
             // Sort
             this.sortAffiliations(this.profileData);
-            this.sortPublications(this.profileData);
+
+            if (!isEmptySection(this.profileData[4]))
+              this.sortPublications(this.profileData);
 
             // Do actions only if user has made changes
             if (

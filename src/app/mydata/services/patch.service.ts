@@ -47,6 +47,7 @@ export class PatchService {
   }
 
   cancelConfirmedPatchPayload() {
+    this.confirmedPatchItems = [];
     this.confirmedPatchItemsSource.next([]);
   }
 

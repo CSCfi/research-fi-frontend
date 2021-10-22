@@ -134,86 +134,9 @@ export class EditorModalComponent implements OnInit {
       : this.patchService.clearPatchItems();
   }
 
-  deletePublication(publication: {
-    publicationId: string;
-    itemMeta: { id: string };
-  }) {
-    const field = this.data.data.fields[0];
-    let selectedPublications = field.selectedPublications;
-
-    const handleRemoveFromSession = () => {
-      const groupItems = field.groupItems;
-
-      for (const group of groupItems) {
-        group.items = group.items.filter(
-          (item) => item.publicationId !== publication.publicationId
-        );
-      }
-      field.groupItems = groupItems;
-    };
-
-    // if (publication.itemMeta.id) {
-    //   this.publicationsService
-    //     .deletePublication(publication.publicationId)
-    //     .pipe(take(1))
-    //     .subscribe((res: any) => {
-    //       if (res.ok && res.body.success) {
-    //         // Publications are stored in either selectedPublications, which consists of publications fetched in current session
-    //         // and groupItems, which consists of added publications.
-    //         if (
-    //           selectedPublications?.findIndex(
-    //             (item) => item.publicationId === publication.publicationId
-    //           ) > -1
-    //         ) {
-    //           selectedPublications = selectedPublications.filter(
-    //             (item) => item.publicationId !== publication.publicationId
-    //           );
-
-    //           field.selectedPublications = selectedPublications;
-    //         } else {
-    //           handleRemoveFromSession();
-    //         }
-    //       }
-    //     });
-    // } else {
-    //   handleRemoveFromSession();
-    // }
-    handleRemoveFromSession();
-    this.publicationsService.removeFromConfirmed(publication.publicationId);
-  }
-
   saveChanges() {
     this.patchService.confirmPatchItems();
     this.publicationsService.confirmPayload();
-
-    const publicationsToDelete = this.publicationsService.deletables;
-
-    console.log('publicationsToDelete: ', publicationsToDelete);
-
-    for (const [i, publication] of publicationsToDelete.entries()) {
-      this.deletePublication(publication);
-      if (i === publicationsToDelete.length)
-        this.publicationsService.clearDeletables();
-    }
-
-    if (publicationsToDelete.length) {
-      this.publicationsService
-        .removePublications(publicationsToDelete)
-        .pipe(take(1))
-        .subscribe((res) => console.log(res));
-    }
-
-    // Set patch payload to store
-    sessionStorage.setItem(
-      Constants.draftPatchPayload,
-      JSON.stringify(this.patchService.confirmedPatchItems)
-    );
-
-    // Update publication payload to store
-    sessionStorage.setItem(
-      Constants.draftPublicationPatchPayload,
-      JSON.stringify(this.publicationsService.confirmedPayload)
-    );
 
     // Pass data to parent on dialog close
     this.dialogRef.close({

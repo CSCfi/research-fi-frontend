@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppConfigService } from '@shared/services/app-config-service.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 
 export interface Publication {
   hits: any;
@@ -143,7 +143,6 @@ export class PublicationsService {
   }
 
   addToDeletables(publication) {
-    console.log('addToDeletables');
     this.deletables.push(publication);
   }
 
@@ -168,7 +167,6 @@ export class PublicationsService {
   removePublications(publications) {
     this.updateTokenInHttpAuthHeader();
     const body = publications.map((publication) => publication.publicationId);
-    console.log('body: ', body);
     return this.http.post(
       this.profileApiUrl + '/publication/remove/',
       body,

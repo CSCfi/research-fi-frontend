@@ -59,8 +59,6 @@ export class DialogComponent implements OnInit {
       dialogSettings.height = 'unset';
     }
 
-    console.log(this.extraContentTemplate);
-
     this.dialogRef = this.dialog.open(DialogTemplateComponent, {
       ...dialogSettings,
       autoFocus: false,

@@ -154,8 +154,8 @@ export class ProfileComponent implements OnInit {
           }
 
           // Set original data
-          this.profileService.currentProfileData = cloneDeep(
-            response.profileData
+          this.profileService.setCurrentProfileData(
+            cloneDeep(response.profileData)
           );
 
           // Merge publications
@@ -244,10 +244,12 @@ export class ProfileComponent implements OnInit {
     // TODO: Forkjoin both HTTP requests and handle results as single
     this.handlePublications();
     this.patchItems();
+    this.profileService.setCurrentProfileData(this.profileData);
   }
 
   reset() {
-    this.profileData = this.profileService.currentProfileData;
+    sessionStorage.removeItem(Constants.draftProfile);
+    this.profileData = [...this.profileService.currentProfileData];
     this.clearDraftData();
   }
 
@@ -266,7 +268,9 @@ export class ProfileComponent implements OnInit {
     this.publicationsService
       .addPublications()
       .pipe(take(1))
-      .subscribe(() => {});
+      .subscribe((result) => {
+        console.log(result);
+      });
   }
 
   /*
