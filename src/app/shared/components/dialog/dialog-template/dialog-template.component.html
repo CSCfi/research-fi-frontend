@@ -48,13 +48,13 @@
             <div class="col-auto">
               <app-primary-action-button
                 *ngIf="action.primary"
-                (click)="doAction(action.method)"
+                (click)="doAction(action)"
                 [content]="action.label"
               ></app-primary-action-button>
 
               <app-secondary-button
                 *ngIf="!action.primary"
-                (click)="doAction(action.method)"
+                (click)="doAction(action)"
                 [content]="action.label"
               ></app-secondary-button>
             </div>
@@ -70,13 +70,13 @@
       <div class="col-auto">
         <app-primary-action-button
           *ngIf="action.primary"
-          (click)="doAction(action.method)"
+          (click)="doAction(action)"
           [content]="action.label"
         ></app-primary-action-button>
 
         <app-secondary-button
           *ngIf="!action.primary"
-          (click)="doAction(action.method)"
+          (click)="doAction(action)"
           [content]="action.label"
         ></app-secondary-button>
       </div>
@@ -86,7 +86,7 @@
 
 <!-- Eg. mydata profile / publish / display data to publish toggle -->
 <mat-dialog-content *ngIf="displayExtraContent && data.extraContentTemplate"
-  ><div class="row px-3">
+  ><div class="row px-3 pb-4">
     <div class="col">
       <ng-container
         [ngTemplateOutlet]="data.extraContentTemplate"

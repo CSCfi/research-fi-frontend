@@ -59,7 +59,7 @@ export class EditorModalComponent implements OnInit {
     this.checkAllSelected();
 
     // Radio options have default values. Add these values on init
-    this.addInitialOptions(this.editorData.data);
+    // this.addInitialOptions(this.editorData.data);
   }
 
   addInitialOptions(data) {

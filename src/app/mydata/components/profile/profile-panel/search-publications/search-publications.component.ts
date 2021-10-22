@@ -84,7 +84,8 @@ export class SearchPublicationsComponent implements OnInit {
       publicationId: item.publicationId,
       publicationName: item.publicationName,
       publicationYear: item.publicationYear,
-      itemMeta: { id: null, show: true, primaryValue: true },
+      itemMeta: { id: item.publicationId, show: true, primaryValue: true },
+      // itemMeta: { id: null, show: true, primaryValue: true }, id null, testing for draft summary
     }));
 
     this.dialogRef.close({ selectedPublications: selectedPublications });

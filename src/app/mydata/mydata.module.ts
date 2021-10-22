@@ -72,6 +72,7 @@ import { FindSelectedItemPipe } from './pipes/find-selected-item.pipe';
 import { HandleFetchedPublicationsPipe } from './pipes/handle-fetched-publications.pipe';
 import { SortPublicationsPipe } from './pipes/sort-publications.pipe';
 import { EulaComponent } from './components/eula/eula.component';
+import { DraftSummaryComponent } from './components/profile/draft-summary/draft-summary.component';
 
 const matSnackbarDefaultConfig: MatSnackBarConfig = {
   verticalPosition: 'top',
@@ -109,6 +110,7 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
     HandleFetchedPublicationsPipe,
     SortPublicationsPipe,
     EulaComponent,
+    DraftSummaryComponent,
   ],
   imports: [
     CommonModule,
