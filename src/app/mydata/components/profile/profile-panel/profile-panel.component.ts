@@ -25,6 +25,7 @@ import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { PatchService } from '@mydata/services/patch.service';
 import { ProfileService } from '@mydata/services/profile.service';
 import { Constants } from '@mydata/constants';
+import { cloneDeep } from 'lodash-es';
 
 @Component({
   selector: 'app-profile-panel',
@@ -116,9 +117,11 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     let selectedItem: { itemMeta: any };
     const patchObjects = [];
 
-    const original = this.profileService.currentProfileData.find(
-      (group) => group.id === this.data.id
-    ).fields[index];
+    const original = cloneDeep(
+      this.profileService.currentProfileData.find(
+        (group) => group.id === this.data.id
+      ).fields[index]
+    );
 
     const group = this.data.fields[index];
 
@@ -215,8 +218,6 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
       field.groupItems = groupItems;
     };
 
-    console.log('removePublication: ', publication);
-
     // Only publications from profile have item meta ID
     if (publication.itemMeta.id) {
       this.hasFetchedPublications =
@@ -269,50 +270,37 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     this.dialogRef
       .afterClosed()
       .pipe(take(1))
-      .subscribe(
-        (result: {
-          selectedPublications: any[];
-          publicationsNotFound: any[];
-          publicationsAlreadyInProfile: any[];
-          source: any;
-        }) => {
-          // Reset sort when dialog closes
-          this.publicationService.resetSort();
+      .subscribe((result: { selectedPublications: any[] }) => {
+        // Reset sort when dialog closes
+        this.publicationService.resetSort();
 
-          if (result) {
-            // Pass result to payload in service and in session storage
-            this.publicationService.addToPayload(result.selectedPublications);
-            sessionStorage.setItem(
-              Constants.draftPublicationPatchPayload,
-              JSON.stringify(result.selectedPublications)
-            );
+        if (result) {
+          this.publicationService.addToPayload(result.selectedPublications);
 
-            const preSelection = this.data.fields[0].groupItems.flatMap(
-              (group) => group.items
-            );
+          const preSelection = this.data.fields[0].groupItems.flatMap(
+            (group) => group.items
+          );
 
-            const mergedPublications = preSelection
-              .concat(result.selectedPublications)
-              .sort((a, b) => b.publicationYear - a.publicationYear);
+          const mergedPublications = preSelection
+            .concat(result.selectedPublications)
+            .sort((a, b) => b.publicationYear - a.publicationYear);
 
-            this.hasFetchedPublications = true;
+          this.hasFetchedPublications = true;
 
-            // Else case is for when publications don't exist in user profile
-            if (!isEmptySection(this.data)) {
-              this.data.fields[0].groupItems[0].items = mergedPublications;
-            } else {
-              this.data.fields[0].groupItems.push({
-                items: mergedPublications,
-                groupMeta: { type: this.fieldTypes.activityPublication },
-                source: result.source,
-              });
-            }
-
-            this.updated = new Date();
-
-            this.cdr.detectChanges();
+          // Else case is for when publications don't exist in user profile
+          if (!isEmptySection(this.data)) {
+            this.data.fields[0].groupItems[0].items = mergedPublications;
+          } else {
+            this.data.fields[0].groupItems.push({
+              items: mergedPublications,
+              groupMeta: { type: this.fieldTypes.activityPublication },
+            });
           }
+
+          this.updated = new Date();
+
+          this.cdr.detectChanges();
         }
-      );
+      });
   }
 }

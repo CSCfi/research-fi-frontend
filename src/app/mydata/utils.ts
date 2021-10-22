@@ -43,7 +43,8 @@ export function getDataSources(profileData, locale: string = 'Fi') {
       .flat()
       .map((field) => field.groupItems)
       .flat()
-      .map((field) => field.source.organization);
+      .map((field) => field.source && field.source.organization)
+      .filter((field) => field);
   };
 
   return [

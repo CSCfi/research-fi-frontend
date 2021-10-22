@@ -44,6 +44,10 @@ export class ProfileService {
     };
   }
 
+  setCurrentProfileData(data) {
+    this.currentProfileData = data;
+  }
+
   checkProfileExists() {
     this.updateTokenInHttpAuthHeader();
     return this.http.get(this.apiUrl + '/userprofile/', this.httpOptions);

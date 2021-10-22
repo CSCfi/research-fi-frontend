@@ -113,11 +113,11 @@
         <button (click)="reset()" mat-raised-button>Reset</button>
         <div class="row">
           currentPublicationPayload:
-          {{ publicationsService.currentPublicationPayload | async | json }}
+          {{ (publicationsService.currentPublicationPayload | async).length }}
         </div>
         <div class="row">
           currentPatchItems:
-          {{ patchService.currentPatchItems | async | json }}
+          {{ (patchService.currentPatchItems | async).length }}
         </div>
 
         <div class="background-light p-3 mt-lg-5">
