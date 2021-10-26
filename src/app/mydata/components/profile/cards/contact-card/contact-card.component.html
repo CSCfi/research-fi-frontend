@@ -1,0 +1,75 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<div class="row">
+  <div class="col px-0">
+    <span class="font-weight-bold">{{ label }}</span>
+  </div>
+  <div class="col-auto px-0">
+    <app-secondary-button
+      *ngIf="
+        (data[0].fields | countGroupItems: { filterSelected: true }).length > 1
+      "
+      content="Muokkaa"
+      (click)="openDialog()"
+    ></app-secondary-button>
+  </div>
+</div>
+
+<app-empty-card
+  *ngIf="
+    (data[0].fields | countGroupItems: { filterSelected: true }).length === 1
+  "
+  (onButtonClick)="openDialog()"
+></app-empty-card>
+
+<app-dialog
+  *ngIf="showDialog"
+  [template]="dialogTemplate"
+  title="Muokkaa yhteystietoja"
+  (onActionClick)="doDialogAction($event)"
+></app-dialog>
+
+<div class="d-block mt-3">
+  <ng-container
+    *ngFor="let field of data[0].fields.slice(1).reverse(); let i = index"
+  >
+    <ng-container [ngSwitch]="field.id">
+      <ng-container *ngSwitchCase="'otherNames'">
+        <div
+          class="row py-2"
+          *ngIf="(field.groupItems | filter: checkGroupSelected).length"
+        >
+          <div class="col px-0">
+            <span
+              class="font-weight-bold d-inline-block pr-3"
+              *ngIf="data[0].fields.length > 1"
+              >{{ field.label }}
+            </span>
+            <span>{{ field.groupItems | joinAllGroupItems }}</span>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngSwitchDefault>
+        <ng-container *ngFor="let groupItem of field.groupItems">
+          <ng-container *ngFor="let item of groupItem.items">
+            <div class="row py-1" *ngIf="item.itemMeta.show">
+              <fa-icon
+                *ngIf="item.icon"
+                [icon]="item.icon"
+                class="pr-2"
+              ></fa-icon>
+              <app-panel-array-item
+                [item]="item"
+                [fieldType]="groupItem.groupMeta.type"
+              ></app-panel-array-item>
+            </div>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</div>

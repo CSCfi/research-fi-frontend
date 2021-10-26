@@ -98,6 +98,7 @@
       class="opacity-3"
     ></app-banner-divider>
 
+    <!-- Groups -->
     <div class="row d-flex justify-content-between">
       <div class="col-12 col-lg-6 px-0 mx-lg-n3">
         <app-profile-summary
@@ -113,27 +114,32 @@
 
       <div class="col-12 col-lg-5 px-0 px-lg-3 mr-lg-n3">
         <!-- DEBUGGING -->
-        <button (click)="reset()" mat-raised-button>Reset</button>
-        <div class="row">
-          currentPublicationPayload:
-          {{ (publicationsService.currentPublicationPayload | async).length }}
-        </div>
-        <div class="row">
-          currentPatchItems:
-          {{ (patchService.currentPatchItems | async).length }}
-        </div>
+        <ng-container *ngIf="appSettingsService.myDataSettings.debug">
+          <button (click)="reset()" mat-raised-button>Reset</button>
+          <div class="row">
+            currentPublicationPayload:
+            {{ (publicationsService.currentPublicationPayload | async).length }}
+          </div>
+          <div class="row">
+            currentPatchItems:
+            {{ (patchService.currentPatchItems | async).length }}
+          </div>
+        </ng-container>
 
-        <div class="background-light p-3 mt-lg-5">
-          <span class="font-weight-bold d-block pb-3">Yhteistyö</span>
-          <section>
-            <mat-checkbox
-              class="py-1 py-lg-0"
-              *ngFor="let option of collaborationOptions"
-              >{{ option.label }}</mat-checkbox
-            >
-          </section>
-        </div>
+        <!-- Contact card -->
+        <aside *ngIf="profileData" class="profile-card">
+          <app-contact-card
+            label="Yhteystiedot"
+            [data]="profileData"
+          ></app-contact-card>
+        </aside>
 
+        <!-- Collaboration -->
+        <aside class="profile-card">
+          <app-collaboration-card label="Yhteistyö"></app-collaboration-card>
+        </aside>
+
+        <!-- Beta info -->
         <div class="row py-3 d-flex justify-content-center">
           <div class="col px-0">
             <app-mydata-beta-info [template]="betaInfo"></app-mydata-beta-info>

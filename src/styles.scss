@@ -71,6 +71,7 @@
 // Mydata
 @import './app/mydata/mydata-shared.scss';
 @import './app/mydata/mydata-shared-theme.scss';
+@import './app/mydata/components/profile/profile.component-theme.scss';
 @import './app/mydata/components/profile/profile-panel/primary-badge/primary-badge.component-theme.scss';
 
 // Global element color definitions
@@ -119,6 +120,7 @@
   @include app-carousel-theme($theme);
   @include app-bar-chart-theme($theme);
   @include app-mydata-shared-theme($theme);
+  @include app-profile-theme($theme);
   @include app-primary-badge-theme($theme);
   @include app-banner-divider-theme($theme);
 }
