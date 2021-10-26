@@ -22,7 +22,6 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
 import { SnackbarService } from '@mydata/services/snackbar.service';
 import { DraftService } from '@mydata/services/draft.service';
 import { Constants } from '@mydata/constants/';
-import { ProfileService } from '@mydata/services/profile.service';
 
 @Component({
   selector: 'app-profile-summary',
@@ -55,7 +54,6 @@ export class ProfileSummaryComponent implements OnInit {
     public dialog: MatDialog,
     private patchService: PatchService,
     private publicationsService: PublicationsService,
-    private profileService: ProfileService,
     private snackbarService: SnackbarService,
     private draftService: DraftService
   ) {}
@@ -226,7 +224,7 @@ export class ProfileSummaryComponent implements OnInit {
               this.snackbarService.show('Luonnos päivitetty', 'success');
             }
           } else {
-            this.patchService.clearPatchItems();
+            // this.patchService.clearPatchItems();
           }
         }
       );

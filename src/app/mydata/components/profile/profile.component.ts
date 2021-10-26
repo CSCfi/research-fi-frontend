@@ -40,21 +40,6 @@ export class ProfileComponent implements OnInit {
 
   mergePublications = mergePublications;
 
-  collaborationOptions = [
-    { label: 'Olen kiinnostunut tiedotusvälineiden yhteydenotoista', id: 0 },
-    {
-      label:
-        'Olen kiinnostunut yhteistyöstä muiden tutkijoiden ja tutkimusryhmien kanssa',
-      id: 1,
-    },
-    { label: 'Olen kiinnostunut yhteistyöstä yritysten kanssa', id: 2 },
-    {
-      label:
-        'Olen kiinnostunut toimimaan tieteellisten julkaisujen vertaisarvioijana',
-      id: 3,
-    },
-  ];
-
   // Dialog variables
   showDialog: boolean;
   dialogTitle: any;
@@ -88,7 +73,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     private profileService: ProfileService,
     public oidcSecurityService: OidcSecurityService,
-    private appSettingsService: AppSettingsService,
+    public appSettingsService: AppSettingsService,
     public dialog: MatDialog,
     private router: Router,
     private snackbarService: SnackbarService,
@@ -282,7 +267,10 @@ export class ProfileComponent implements OnInit {
       .pipe(take(1))
       .subscribe(
         (result) => {
-          this.snackbarService.show('Muutokset tallennettu', 'success');
+          this.snackbarService.show(
+            'Profiili julkaistu. Tiedot näkyvät muutaman minuutin kuluttua tiedejatutkimus.fi -palvelussa.',
+            'success'
+          );
           this.clearDraftData();
         },
         (error) => {

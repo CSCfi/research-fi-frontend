@@ -73,6 +73,10 @@ import { HandleFetchedPublicationsPipe } from './pipes/handle-fetched-publicatio
 import { SortPublicationsPipe } from './pipes/sort-publications.pipe';
 import { EulaComponent } from './components/eula/eula.component';
 import { DraftSummaryComponent } from './components/profile/draft-summary/draft-summary.component';
+import { ContactCardComponent } from './components/profile/cards/contact-card/contact-card.component';
+import { CollaborationCardComponent } from './components/profile/cards/collaboration-card/collaboration-card.component';
+import { JoinAllGroupItemsPipe } from './pipes/join-all-group-items.pipe';
+import { EmptyCardComponent } from './components/profile/cards/empty-card/empty-card.component';
 
 const matSnackbarDefaultConfig: MatSnackBarConfig = {
   verticalPosition: 'top',
@@ -111,6 +115,10 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
     SortPublicationsPipe,
     EulaComponent,
     DraftSummaryComponent,
+    ContactCardComponent,
+    CollaborationCardComponent,
+    JoinAllGroupItemsPipe,
+    EmptyCardComponent,
   ],
   imports: [
     CommonModule,

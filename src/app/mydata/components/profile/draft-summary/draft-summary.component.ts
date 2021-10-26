@@ -8,11 +8,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { PatchService } from '@mydata/services/patch.service';
 import { PublicationsService } from '@mydata/services/publications.service';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
-import {
-  checkGroupSelected,
-  getDataSources,
-  checkGroupPatchItem,
-} from '@mydata/utils';
+import { checkGroupSelected, checkGroupPatchItem } from '@mydata/utils';
 import { combineLatest } from 'rxjs';
 
 @Component({
@@ -29,7 +25,6 @@ export class DraftSummaryComponent implements OnInit, OnDestroy {
 
   checkGroupSelected = checkGroupSelected;
   checkGroupPatchItem = checkGroupPatchItem;
-  getDataSources = getDataSources;
 
   dataSources: any[];
   primarySource: string;

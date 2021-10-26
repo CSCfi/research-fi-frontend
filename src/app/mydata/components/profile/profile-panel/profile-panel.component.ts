@@ -24,7 +24,6 @@ import { PublicationsService } from '@mydata/services/publications.service';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { PatchService } from '@mydata/services/patch.service';
 import { ProfileService } from '@mydata/services/profile.service';
-import { Constants } from '@mydata/constants';
 import { cloneDeep } from 'lodash-es';
 
 @Component({
@@ -63,7 +62,7 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   selectedPublications: any[];
 
   constructor(
-    private appSettingsService: AppSettingsService,
+    public appSettingsService: AppSettingsService,
     public dialog: MatDialog,
     private publicationService: PublicationsService,
     private profileService: ProfileService,

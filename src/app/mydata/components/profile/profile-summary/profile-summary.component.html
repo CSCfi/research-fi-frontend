@@ -5,7 +5,7 @@
 
 <mat-accordion multi>
   <mat-expansion-panel
-    *ngFor="let group of profileData; let i = index"
+    *ngFor="let group of profileData.slice(1); let i = index"
     [expanded]="openPanels.indexOf(i) > -1"
     [disabled]="group.fields.length === 0"
   >
@@ -95,7 +95,7 @@
     <div class="row pt-3">
       <app-secondary-button
         [content]="'Muokkaa' + ' ' + group.editLabel"
-        (click)="openDialog($event, i, group.editLabel)"
+        (click)="openDialog($event, i + 1, group.editLabel)"
       ></app-secondary-button>
     </div>
   </mat-expansion-panel>

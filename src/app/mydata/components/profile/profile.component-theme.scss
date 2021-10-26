@@ -5,8 +5,13 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-// Checkbox & Radio button
-.mat-checkbox,
-.mat-radio-button {
-  padding: 0.5rem 0;
+@import '~@angular/material/theming';
+
+@mixin app-profile-theme($theme) {
+  app-profile {
+    app-profile-card,
+    .profile-card {
+      border-color: mat-color($primary, 100);
+    }
+  }
 }
