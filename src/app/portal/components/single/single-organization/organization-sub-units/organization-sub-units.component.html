@@ -17,11 +17,11 @@
   </h2>
   <div class="col-12 col-sm-6 col-lg-9 td">
     <ul class="list-unstyled">
-      <li *ngFor="let subUnit of item.subUnits.slice(0, subUnitSlice)">
+      <li *ngFor="let subUnit of item.subUnits">
         {{ subUnit.subUnitName }}
       </li>
     </ul>
-    <a
+    <!-- <a
       href="javascript:void(0)"
       class="read-more"
       *ngIf="item.subUnits.length > subUnitSlice"
@@ -38,6 +38,6 @@
       i18n="@@showLess"
     >
       Näytä vähemmän
-    </a>
+    </a> -->
   </div>
 </div>

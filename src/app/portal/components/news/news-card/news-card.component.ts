@@ -9,7 +9,7 @@ import { News } from 'src/app/portal/models/news.model';
 })
 export class NewsCardComponent implements OnInit {
   @Input() item: News;
-  @Input() sideNews: boolean;
+  @Input() dense: boolean;
   @Input() isHomepage = false;
   @Input() term: string;
 

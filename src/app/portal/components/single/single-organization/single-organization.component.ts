@@ -44,7 +44,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     { label: $localize`:@@orgAddress:Postiosoite`, field: 'postalAddress' },
     { label: $localize`:@@orgBID:Y-tunnus`, field: 'businessId' },
     {
-      label: $localize`:@@RDInstitutionId:TK-oppilaitostunnus`,
+      label: $localize`:@@orgSTID:Tilastokeskuksen oppilaitostunnus`,
       field: 'statCenterId',
     },
   ];
