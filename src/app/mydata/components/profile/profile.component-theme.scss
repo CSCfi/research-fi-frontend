@@ -9,9 +9,12 @@
 
 @mixin app-profile-theme($theme) {
   app-profile {
-    app-profile-card,
     .profile-card {
       border-color: mat-color($primary, 100);
+    }
+
+    .group-wrapper:nth-child(even) {
+      background-color: mat-color($primary, 50);
     }
   }
 }
