@@ -3,7 +3,104 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<mat-accordion multi>
+<div
+  class="group-wrapper"
+  *ngFor="let group of profileData.slice(1); let i = index"
+>
+  <div class="row py-2 justify-content-between">
+    <div class="col-4 align-self-center font-weight-bold">
+      {{ group.label }}
+    </div>
+    <div
+      class="col align-self-center font-italic"
+      *ngIf="
+        (group.fields | countGroupItems: { filterSelected: true }).length === 0
+      "
+    >
+      Et ole vielä valinnut julkisesti näytettäviä tietoja
+    </div>
+    <div class="col-auto">
+      <app-secondary-button
+        [content]="
+          (group.fields | countGroupItems: { filterSelected: true }).length
+            ? 'Muokkaa'
+            : 'Valitse'
+        "
+        (click)="openDialog($event, i + 1, group.editLabel)"
+      ></app-secondary-button>
+    </div>
+  </div>
+
+  <ng-container *ngFor="let field of group.fields">
+    <div
+      class="row py-2"
+      *ngIf="(field.groupItems | filter: checkGroupSelected).length"
+    >
+      <div class="col px-0">
+        <span
+          class="font-weight-bold d-block py-2"
+          *ngIf="group.fields.length > 1"
+          >{{ field.label }}
+        </span>
+
+        <ng-container *ngFor="let groupItem of field.groupItems">
+          <ng-container [ngSwitch]="groupItem.groupMeta.type">
+            <ng-container *ngSwitchCase="fieldTypes.personKeyword">
+              <!-- Display joined keywords only if item has show property set to true -->
+              <div class="row" *ngIf="groupItem.items[0].itemMeta.show">
+                <div class="col px-0 pb-2 font-size-smaller">
+                  {{ groupItem.items | joinItems: 'value' }}
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngSwitchDefault>
+              <ng-container *ngFor="let item of groupItem.items">
+                <div
+                  class="row d-flex justify-content-between py-1"
+                  [class.justify-content-between]="
+                    groupItem.groupMeta.type !== fieldTypes.activityAffiliation
+                  "
+                  *ngIf="item.itemMeta.show"
+                >
+                  <div
+                    class="col px-0 font-size-smaller"
+                    [class.col-auto]="
+                      groupItem.groupMeta.type ===
+                      fieldTypes.activityAffiliation
+                    "
+                  >
+                    <app-panel-array-item
+                      [item]="item"
+                      [fieldType]="groupItem.groupMeta.type"
+                      [localized]="field.localized"
+                    ></app-panel-array-item>
+                  </div>
+
+                  <div
+                    *ngIf="
+                      item.itemMeta.primaryValue &&
+                      groupItem.groupMeta.type ===
+                        fieldTypes.activityAffiliation
+                    "
+                    class="col-auto px-4 mx-1 cursor-pointer"
+                  >
+                    <app-primary-badge
+                      label="Ensisijainen"
+                      [selected]="true"
+                      [disabled]="true"
+                    ></app-primary-badge>
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<!-- <mat-accordion multi>
   <mat-expansion-panel
     *ngFor="let group of profileData.slice(1); let i = index"
     [expanded]="openPanels.indexOf(i) > -1"
@@ -38,7 +135,6 @@
           <ng-container *ngFor="let groupItem of field.groupItems">
             <ng-container [ngSwitch]="groupItem.groupMeta.type">
               <ng-container *ngSwitchCase="fieldTypes.personKeyword">
-                <!-- Display joined keywords only if item has show property set to true -->
                 <div class="row" *ngIf="groupItem.items[0].itemMeta.show">
                   <div class="col px-0 pb-2 font-size-smaller">
                     {{ groupItem.items | joinItems: 'value' }}
@@ -99,4 +195,4 @@
       ></app-secondary-button>
     </div>
   </mat-expansion-panel>
-</mat-accordion>
+</mat-accordion> -->

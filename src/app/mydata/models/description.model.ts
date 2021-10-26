@@ -25,6 +25,7 @@ export class DescriptionFieldsAdapter implements Adapter<DescriptionFields> {
     return new DescriptionFields(
       this.mapGroupFieldName(
         item.researcherDescriptionGroups,
+        'researchDescription',
         'Kuvaus',
         'researchDescription',
         {
