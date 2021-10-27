@@ -5,8 +5,14 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { FieldTypes } from '@mydata/constants/fieldTypes';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit,
+  ViewEncapsulation,
+} from '@angular/core';
+
 import { cloneDeep } from 'lodash-es';
 import {
   checkGroupSelected,
@@ -22,6 +28,8 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
 import { SnackbarService } from '@mydata/services/snackbar.service';
 import { DraftService } from '@mydata/services/draft.service';
 import { Constants } from '@mydata/constants/';
+import { FieldTypes } from '@mydata/constants/fieldTypes';
+import { GroupTypes } from '@mydata/constants/groupTypes';
 
 @Component({
   selector: 'app-profile-summary',
@@ -33,8 +41,9 @@ export class ProfileSummaryComponent implements OnInit {
   @Input() profileData: any;
 
   fieldTypes = FieldTypes;
+  groupTypes = GroupTypes;
 
-  selectedData: any;
+  filteredProfileData: any;
 
   checkGroupSelected = checkGroupSelected;
   getDataSources = getDataSources;
@@ -55,7 +64,8 @@ export class ProfileSummaryComponent implements OnInit {
     private patchService: PatchService,
     private publicationsService: PublicationsService,
     private snackbarService: SnackbarService,
-    private draftService: DraftService
+    private draftService: DraftService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -68,9 +78,13 @@ export class ProfileSummaryComponent implements OnInit {
 
     if (!isEmptySection(this.profileData[4]))
       this.sortPublications(this.profileData);
+
+    this.filterSelectedItems();
+
+    this.cdr.detectChanges();
   }
 
-  getSelectedItems() {
+  filterSelectedItems() {
     const dataCopy = cloneDeep(this.profileData);
 
     for (let group of dataCopy) {
@@ -90,7 +104,8 @@ export class ProfileSummaryComponent implements OnInit {
       group.fields = group.fields.filter((field) => field.groupItems.length);
     }
 
-    this.selectedData = dataCopy.filter((item) => item.fields.length);
+    // this.selectedData = dataCopy.filter((item) => item.fields.length);
+    this.filteredProfileData = dataCopy;
   }
 
   sortPublications(data) {
@@ -189,42 +204,43 @@ export class ProfileSummaryComponent implements OnInit {
           if (result) {
             this.profileData[index] = result.data;
             // this.profileService.setCurrentProfileData(this.profileData); // ei toimi tässä
-          }
 
-          if (this.appSettingsService.isBrowser) {
-            // Set draft profile data to storage
-            sessionStorage.setItem(
-              Constants.draftProfile,
-              JSON.stringify(this.profileData)
-            );
+            if (this.appSettingsService.isBrowser) {
+              // Set draft profile data to storage
+              sessionStorage.setItem(
+                Constants.draftProfile,
+                JSON.stringify(this.profileData)
+              );
 
-            // Set patch payload to store
-            sessionStorage.setItem(
-              Constants.draftPatchPayload,
-              JSON.stringify(this.patchService.confirmedPatchItems)
-            );
+              // Set patch payload to store
+              sessionStorage.setItem(
+                Constants.draftPatchPayload,
+                JSON.stringify(this.patchService.confirmedPatchItems)
+              );
 
-            // Update publication payload to store
-            sessionStorage.setItem(
-              Constants.draftPublicationPatchPayload,
-              JSON.stringify(this.publicationsService.confirmedPayload)
-            );
+              // Update publication payload to store
+              sessionStorage.setItem(
+                Constants.draftPublicationPatchPayload,
+                JSON.stringify(this.publicationsService.confirmedPayload)
+              );
 
-            // Sort
-            this.sortAffiliations(this.profileData);
+              // Sort
+              this.sortAffiliations(this.profileData);
 
-            if (!isEmptySection(this.profileData[4]))
-              this.sortPublications(this.profileData);
+              if (!isEmptySection(this.profileData[4]))
+                this.sortPublications(this.profileData);
 
-            // Do actions only if user has made changes
-            if (
-              result &&
-              (confirmedPatchItems.length || confirmedPublicationPayload.length)
-            ) {
-              this.snackbarService.show('Luonnos päivitetty', 'success');
+              // Do actions only if user has made changes
+              if (
+                result &&
+                (confirmedPatchItems.length ||
+                  confirmedPublicationPayload.length)
+              ) {
+                this.snackbarService.show('Luonnos päivitetty', 'success');
+              }
+            } else {
+              // this.patchService.clearPatchItems();
             }
-          } else {
-            // this.patchService.clearPatchItems();
           }
         }
       );
