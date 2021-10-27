@@ -78,6 +78,8 @@ import { CollaborationCardComponent } from './components/profile/cards/collabora
 import { JoinAllGroupItemsPipe } from './pipes/join-all-group-items.pipe';
 import { EmptyCardComponent } from './components/profile/cards/empty-card/empty-card.component';
 import { SummaryAffiliationComponent } from './components/profile/profile-summary/summary-affiliation/summary-affiliation.component';
+import { SummaryDividerComponent } from './components/profile/profile-summary/summary-divider/summary-divider.component';
+import { GetItemsByPipe } from './pipes/get-items-by.pipe';
 
 const matSnackbarDefaultConfig: MatSnackBarConfig = {
   verticalPosition: 'top',
@@ -121,6 +123,8 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
     JoinAllGroupItemsPipe,
     EmptyCardComponent,
     SummaryAffiliationComponent,
+    SummaryDividerComponent,
+    GetItemsByPipe,
   ],
   imports: [
     CommonModule,

@@ -12,6 +12,7 @@ import { DescriptionFieldsAdapter } from './description.model';
 import { AffiliationFieldsAdapter } from './affiliation.model';
 import { EducationFieldsAdapter } from './education.model';
 import { PublicationFieldsAdapter } from './publication.model';
+import { GroupTypes } from '@mydata/constants/groupTypes';
 
 export class Profile {
   constructor(public profileData: any) {}
@@ -37,44 +38,49 @@ export class ProfileAdapter implements Adapter<Profile> {
     // TODO: Localize labels
     return new Profile([
       {
-        id: 'contact',
+        id: GroupTypes.contact,
         label: 'Yhteystiedot',
         editLabel: 'yhteystietoja',
         fields: mapModel(this.personalFieldsAdapter, data.personal),
       },
       {
-        id: 'description',
+        id: GroupTypes.description,
         label: 'Tutkimustoiminnan kuvaus',
         editLabel: 'tutkimustoiminnan kuvausta',
         fields: mapModel(this.descriptionFieldsAdapter, data.personal),
       },
       {
-        id: 'affiliation',
+        id: GroupTypes.affiliation,
         label: 'Affiliaatiot',
         editLabel: 'affiliaatioita',
         fields: mapModel(this.affiliationFieldsAdapter, data.activity),
       },
       {
-        id: 'educations',
+        id: GroupTypes.education,
         label: 'Koulutus',
         editLabel: 'koulutusta',
         fields: mapModel(this.educationFieldsAdapter, data.activity),
       },
       {
-        id: 'publication',
+        id: GroupTypes.publication,
         label: 'Julkaisut',
         editLabel: 'julkaisuja',
         fields: mapModel(this.publicationFieldsAdapter, data.activity),
       },
       {
-        id: 'dataset',
+        id: GroupTypes.dataset,
         label: 'Tutkimusaineistot',
         editLabel: 'tutkimusaineistoja',
         fields: [],
       },
-      { id: 'project', label: 'Hankkeet', editLabel: 'hankkeita', fields: [] },
       {
-        id: 'activity',
+        id: GroupTypes.project,
+        label: 'Hankkeet',
+        editLabel: 'hankkeita',
+        fields: [],
+      },
+      {
+        id: GroupTypes.activity,
         label: 'Aktiviteetit ja palkinnot',
         editLabel: 'aktiviteetteja ja palkintoja',
         fields: [],

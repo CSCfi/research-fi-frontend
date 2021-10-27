@@ -1,1 +1,47 @@
-<p>summary-affiliation works!</p>
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<!--  Primary affiliations -->
+<ng-container *ngIf="(data.groupItems | getItemsBy: 'primaryValue').length">
+  <div class="row">
+    <div class="col font-weight-bold pb-3">Ensisijaiset</div>
+  </div>
+
+  <div
+    class="row"
+    *ngFor="let primaryItem of data.groupItems | getItemsBy: 'primaryValue'"
+  >
+    <div class="col-auto font-size-smaller">
+      {{ primaryItem.positionNameFi }}, {{ primaryItem.organizationNameFi }}
+    </div>
+  </div>
+
+  <app-summary-divider [thick]="true"></app-summary-divider>
+</ng-container>
+
+<!-- List affiliations -->
+<div class="summary-panel-wrapper" *ngFor="let groupItem of data.groupItems">
+  <ng-container *ngFor="let item of groupItem.items">
+    <div class="summary-panel" *ngIf="item.itemMeta.show">
+      <div class="row d-flex justify-content-between py-1">
+        <div class="col-auto font-size-smaller">
+          <app-panel-array-item
+            [item]="item"
+            [fieldType]="fieldTypes.activityAffiliation"
+            [localized]="data.localized"
+          ></app-panel-array-item>
+        </div>
+      </div>
+
+      <div class="row pt-3">
+        <div class="col-auto font-size-smaller">
+          Lähde: {{ groupItem.source.organization.nameFi }}
+        </div>
+      </div>
+
+      <app-summary-divider></app-summary-divider>
+    </div>
+  </ng-container>
+</div>
