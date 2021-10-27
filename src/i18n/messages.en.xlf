@@ -3378,9 +3378,17 @@
         <target>It provides the service contact information and specifies any terms of use. Service point may be described in greater detail. In some cases, the service may differ from one service point to another, such as with regard to the available equipment</target>
       </trans-unit>
       <!-- Organization -->
+      <trans-unit id="organizationVisualBetaText">
+        <source>Organisaatioiden tunnusluvut ovat uusi kokonaisuus Tiedejatutkimus.fi –portaalissa. Koska kyseessä on uusi kokonaisuus, toivomme palautetta tiedejatutkimus@csc.fi osoitteeseen.</source>
+        <target>The key figures of the organizations are a new section in Research.fi portal. For this is a new section, all feedback is welcome and should be sent to tiedejatutkimus@csc.fi.</target>
+      </trans-unit>
       <trans-unit id="keyIndicator">
         <source>Tunnuslukuja</source>
         <target>Key indicators</target>
+      </trans-unit>
+      <trans-unit id="basicInformation">
+        <source>Perustiedot</source>
+        <target>Basic information</target>
       </trans-unit>
       <trans-unit id="furtherInformation">
         <source>Lisätiedot</source>

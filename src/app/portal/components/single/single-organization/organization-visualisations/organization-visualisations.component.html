@@ -3,6 +3,22 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
+<div class="row justify-content-end">
+  <span
+    class="ml-3"
+    [tooltip]="betaTooltip"
+    placement="top"
+    tabindex="-1"
+    #beta
+  >
+    <app-secondary-button
+      class="pr-2"
+      [icon]="'info-circle'"
+      content="Beta"
+    ></app-secondary-button>
+  </span>
+</div>
+
 <mat-spinner *ngIf="isLoading" class="mx-auto pt-3" [diameter]="60">
 </mat-spinner>
 
@@ -11,7 +27,7 @@
     #iframe
     [src]="item.visualIframeUrl | safeUrl"
     frameborder="0"
-    height="{{ colWidth * 1.4 }}"
-    width="{{ colWidth }}"
+    [height]="colWidth * 1.4"
+    [width]="colWidth"
   ></iframe>
 </div>

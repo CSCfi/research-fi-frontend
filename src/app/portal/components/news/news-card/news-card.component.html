@@ -1,6 +1,6 @@
 <mat-card
-  class="col-12 news-card mat-elevation-z px-0 pr-lg-3"
-  [class.side]="sideNews"
+  class="col-12 news-card mat-elevation-z px-0"
+  [class.dense]="dense"
   [class.limit-width]="isHomepage"
 >
   <mat-card-header>
@@ -36,7 +36,7 @@
       </div>
     </mat-card-subtitle>
   </mat-card-header>
-  <mat-card-content *ngIf="!sideNews" [ngClass]="isHomepage ? '' : 'ml-0 mr-0'">
+  <mat-card-content *ngIf="!dense" [ngClass]="isHomepage ? '' : 'ml-0 mr-0'">
     <div class="row">
       <span
         class="preview"
@@ -53,7 +53,7 @@
       </div>
     </div>
   </mat-card-content>
-  <mat-card-actions *ngIf="!sideNews" [ngClass]="isHomepage ? '' : 'ml-0 mr-0'">
+  <mat-card-actions *ngIf="!dense" [ngClass]="isHomepage ? '' : 'ml-0 mr-0'">
     <div class="row">
       <!-- <div class="col pl-0" [ngClass]="item.mediaUri?.length > 0 ? 'link' : ''">
                 <a class="org-link" href="{{item.url}}" target="_blank" aria-label="Lue koko uutinen organisaation verkkosivuilla"><ng-container i18n="@@readOriginialNews">Lue koko uutinen organisaation verkkosivuilla </ng-container><fa-icon icon="external-link-alt"></fa-icon></a>

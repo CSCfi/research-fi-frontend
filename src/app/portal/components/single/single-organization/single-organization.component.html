@@ -31,6 +31,7 @@
     [resultNameField]="'name'"
     [queryParams]="tabQueryParams"
   ></app-breadcrumb>
+
   <div class="row shared">
     <div
       class="col-12"
@@ -41,10 +42,10 @@
     </div>
     <main class="col-12 col-md-8">
       <div *ngFor="let item of responseData.organizations">
-        <div class="row d-flex justify-content-around">
+        <div class="row d-flex justify-content-around pb-3">
           <div class="col p-0">
-            <h1 class="result-header mb-3">{{ item.name }}</h1>
-            <p>{{ item.nameTranslations }}</p>
+            <h1 class="organization-header mb-3">{{ item.name }}</h1>
+            <p class="m-0">{{ item.nameTranslations }}</p>
           </div>
           <div
             *ngIf="item.logo && item.logo !== null"
@@ -55,7 +56,11 @@
         </div>
 
         <!-- Tabs -->
-        <mat-tab-group dynamicHeight (selectedTabChange)="changeTab($event)">
+        <mat-tab-group
+          dynamicHeight
+          (selectedTabChange)="changeTab($event)"
+          class="pt-3"
+        >
           <mat-tab
             i18n-label="@@keyIndicator"
             label="Tunnuslukuja"
@@ -63,7 +68,7 @@
           >
             <!-- Content is defined below -->
           </mat-tab>
-          <mat-tab i18n-label="@@furtherInformation" label="Lisätiedot">
+          <mat-tab i18n-label="@@basicInformation" label="Perustiedot">
             <app-organization-information
               [item]="item"
               [sources]="sources"
@@ -94,7 +99,7 @@
       *ngFor="let item of responseData.organizations"
       class="col-12 col-md-4"
     >
-      <aside *ngIf="news.length">
+      <aside *ngIf="news?.length">
         <mat-card>
           <div class="inner">
             <mat-card-title
@@ -104,7 +109,7 @@
             <app-news-card
               *ngFor="let newsItem of news?.slice(0, showMoreNews ? 5 : 3)"
               [item]="newsItem"
-              [sideNews]="true"
+              [dense]="true"
             ></app-news-card>
 
             <div class="text-center">
