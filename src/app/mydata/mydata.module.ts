@@ -77,6 +77,7 @@ import { ContactCardComponent } from './components/profile/cards/contact-card/co
 import { CollaborationCardComponent } from './components/profile/cards/collaboration-card/collaboration-card.component';
 import { JoinAllGroupItemsPipe } from './pipes/join-all-group-items.pipe';
 import { EmptyCardComponent } from './components/profile/cards/empty-card/empty-card.component';
+import { SummaryAffiliationComponent } from './components/profile/profile-summary/summary-affiliation/summary-affiliation.component';
 
 const matSnackbarDefaultConfig: MatSnackBarConfig = {
   verticalPosition: 'top',
@@ -119,6 +120,7 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
     CollaborationCardComponent,
     JoinAllGroupItemsPipe,
     EmptyCardComponent,
+    SummaryAffiliationComponent,
   ],
   imports: [
     CommonModule,
