@@ -22,22 +22,39 @@
 </ng-container>
 
 <!-- List affiliations -->
-<div class="summary-panel-wrapper" *ngFor="let groupItem of data.groupItems">
-  <ng-container *ngFor="let item of groupItem.items">
+<div class="summary-panel-wrapper">
+  <ng-container *ngFor="let item of sortedItems">
     <div class="summary-panel" *ngIf="item.itemMeta.show">
-      <div class="row d-flex justify-content-between py-1">
-        <div class="col-auto font-size-smaller">
-          <app-panel-array-item
-            [item]="item"
-            [fieldType]="fieldTypes.activityAffiliation"
-            [localized]="data.localized"
-          ></app-panel-array-item>
-        </div>
+      <div class="col font-weight-bold pb-3">
+        {{ item['organizationName' + locale] }}
       </div>
 
-      <div class="row pt-3">
+      <div class="row d-flex justify-content-between py-1 font-size-smaller">
+        <ng-container *ngFor="let column of columns">
+          <div class="col-6 pb-3" *ngIf="item[column.field + locale]">
+            <div class="row font-weight-bold">{{ column.label }}</div>
+
+            <div class="row" [ngSwitch]="column.field">
+              <ng-container *ngSwitchCase="'positionName'">
+                {{ item[column.field + locale] }}
+                <ng-container>{{ item.startDate.year }}</ng-container>
+                -
+                <ng-container *ngIf="item.endDate.year > 0">{{
+                  item.endDate.year
+                }}</ng-container>
+              </ng-container>
+
+              <ng-container *ngSwitchDefault>{{
+                item[column.field + locale]
+              }}</ng-container>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="row">
         <div class="col-auto font-size-smaller">
-          Lähde: {{ groupItem.source.organization.nameFi }}
+          Lähde: {{ item.source.organization.nameFi }}
         </div>
       </div>
 

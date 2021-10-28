@@ -15,10 +15,41 @@ import { Component, Input, OnInit } from '@angular/core';
 export class SummaryAffiliationComponent implements OnInit {
   @Input() data: any;
   @Input() fieldTypes: any;
+  sortedItems: any[];
+
+  locale = 'Fi';
+
+  columns = [
+    { label: 'Yksikkö', field: 'unit' },
+    { label: 'Nimike', field: 'positionName' },
+    { label: 'Tutkimusyhteisö', field: 'researchCommunity' },
+    { label: 'Rooli tutkimusyhteisössä', field: 'roleInResearchCommunity' },
+  ];
 
   constructor() {}
 
   ngOnInit(): void {
-    console.log('SummaryAffiliationComponent', this.data);
+    this.sortAffiliations(this.data);
+
+    console.log(this.sortedItems[0]);
+  }
+
+  // Sort primary affiliations first
+  sortAffiliations(data) {
+    const groupItems = data.groupItems;
+
+    groupItems.map(
+      (groupItem) =>
+        (groupItem.items = groupItem.items.map((item) => ({
+          ...item,
+          source: groupItem.source,
+        })))
+    );
+
+    const items = [...groupItems].flatMap((groupItem) => groupItem.items);
+
+    this.sortedItems = items.sort(
+      (a, b) => b.itemMeta.primaryValue - a.itemMeta.primaryValue
+    );
   }
 }
