@@ -144,9 +144,9 @@ export class ProfileComponent implements OnInit {
           );
 
           // Merge publications
-          this.mergePublications(
-            response.profileData.find((item) => item.id === 'publication')
-          );
+          // this.(
+          //   response.profileData.find((item) => item.id === 'publication')
+          // );
         });
     }
   }

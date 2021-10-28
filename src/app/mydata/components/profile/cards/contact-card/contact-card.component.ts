@@ -42,9 +42,7 @@ export class ContactCardComponent implements OnInit {
     private draftService: DraftService
   ) {}
 
-  ngOnInit(): void {
-    // console.log(this.data[0]);
-  }
+  ngOnInit(): void {}
 
   openDialog() {
     this.dialogRef = this.dialog.open(EditorModalComponent, {
