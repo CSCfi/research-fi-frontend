@@ -14,20 +14,23 @@ import {
   Inject,
   LOCALE_ID,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { SingleItemService } from '../../../services/single-item.service';
-import { SearchService } from '../../../services/search.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SingleItemService } from '@portal/services/single-item.service';
+import { SearchService } from '@portal/services/search.service';
 import { Title } from '@angular/platform-browser';
-import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
-import { Subscription } from 'rxjs';
-import { TabChangeService } from 'src/app/portal/services/tab-change.service';
-import { UtilityService } from 'src/app/shared/services/utility.service';
-import { Search } from 'src/app/portal/models/search.model';
+import { forkJoin, Subscription } from 'rxjs';
+import { TabChangeService } from '@portal/services/tab-change.service';
+import { UtilityService } from '@shared/services/utility.service';
+import { Search } from '@portal/models/search.model';
 import {
   singleOrganization,
   common,
 } from 'src/assets/static-data/meta-tags.json';
 import { SettingsService } from 'src/app/portal/services/settings.service';
+import { take, tap } from 'rxjs/operators';
+import { ResizeService } from '@shared/services/resize.service';
+import { WINDOW } from '@shared/services/window.service';
+import { ContentDataService } from '@portal/services/content-data.service';
 
 @Component({
   selector: 'app-single-organization',
@@ -35,118 +38,16 @@ import { SettingsService } from 'src/app/portal/services/settings.service';
   styleUrls: ['./single-organization.component.scss'],
 })
 export class SingleOrganizationComponent implements OnInit, OnDestroy {
-  public singleId: any;
-  responseData: Search;
-  searchTerm: string;
-  pageNumber: any;
-  tabQueryParams: any;
-  private metaTags = singleOrganization;
-  private commonTags = common;
+  linkFields = [{ label: $localize`:@@links:Linkit`, field: 'homepage' }];
 
-  tab = 'organizations';
-
-  sources = {
-    finto: $localize`:@@fintoSource:Lähde: Finto - sanasto- ja ontologiapalvelu www.finto.fi`,
-    ytj: $localize`:@@ytjSource:Lähde: Yritys- ja yhteisötietojärjestelmä (YTJ) www.ytj.fi`,
-    tk: $localize`:@@tkSource:Lähde: Tilastokeskus www.stat.fi`,
-    vipunen: $localize`:@@vipunenSource:Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi`,
-  };
-
-  infoFields = [
-    {
-      label: $localize`:@@orgNameTranslation:Nimi (EN, SV)`,
-      field: 'nameTranslations',
-    },
-    {
-      label: $localize`:@@orgOtherNames:Muut nimet`,
-      field: 'variantNames',
-      tooltip: this.sources.finto,
-    },
-    {
-      label: $localize`:@@orgEstablished:Perustettu`,
-      field: 'established',
-      tooltip: this.sources.finto,
-    },
-    {
-      label: $localize`:@@orgBackground:Lisätietoa`,
-      field: 'background',
-      tooltip: this.sources.finto,
-    },
-    {
-      label: $localize`:@@orgPredecessor:Edeltävä organisaatio`,
-      field: 'predecessors',
-      tooltip: this.sources.finto,
-    },
-    {
-      label: $localize`:@@orgRelated:Liittyvä organisaatio`,
-      field: 'related',
-      tooltip: this.sources.finto,
-    },
-    {
-      label: $localize`:@@orgType:Organisaatiomuoto`,
-      field: 'organizationType',
-      tooltip: this.sources.ytj,
-    },
-    {
-      label: $localize`:@@orgSector:Organisaation tyyppi`,
-      field: 'sectorNameFi',
-      tooltip: this.sources.ytj,
-    },
-    {
-      label: $localize`:@@orgVAddress:Käyntiosoite`,
-      field: 'visitingAddress',
-      tooltip: this.sources.ytj,
-    },
-    {
-      label: $localize`:@@orgAddress:Postiosoite`,
-      field: 'postalAddress',
-      tooltip: this.sources.ytj,
-    },
-    {
-      label: $localize`:@@orgBID:Y-tunnus`,
-      field: 'businessId',
-      tooltip: this.sources.ytj,
-    },
+  contactFields = [
+    { label: $localize`:@@orgAddress:Postiosoite`, field: 'postalAddress' },
+    { label: $localize`:@@orgBID:Y-tunnus`, field: 'businessId' },
     {
       label: $localize`:@@orgSTID:Tilastokeskuksen oppilaitostunnus`,
       field: 'statCenterId',
-      tooltip: this.sources.tk,
-    },
-    {
-      label: $localize`:@@orgStaffCount:Opetus- ja tutkimushenkilöstön määrä (htv)`,
-      field: 'staffCountAsFte',
-      tooltip: this.sources.vipunen,
     },
   ];
-
-  studentCounts = [
-    {
-      label: $localize`:@@orgThesisCountBsc:Alempi korkeakoulututkinto`,
-      field: 'thesisCountBsc',
-    },
-    {
-      label: $localize`:@@orgThesisCountMsc:Ylempi korkeakoulututkinto`,
-      field: 'thesisCountMsc',
-    },
-    {
-      label: $localize`:@@orgThesisCountLic:Lisensiaatintutkinto`,
-      field: 'thesisCountLic',
-    },
-    {
-      label: $localize`:@@orgThesisCountPhd:Tohtorintutkinto`,
-      field: 'thesisCountPhd',
-    },
-  ];
-
-  subUnitFields = [
-    {
-      label: $localize`:@@orgSubUnits:Alayksiköt`,
-      field: 'subUnits',
-      tooltip: this.sources.vipunen,
-    },
-  ];
-
-  linkFields = [{ label: $localize`:@@links:Linkit`, field: 'homepage' }];
 
   relatedList = [
     {
@@ -193,27 +94,41 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     Sv: 'https://www.ytj.fi/sv/index.html',
   };
 
-  errorMessage = [];
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
   @ViewChild('backToResultsLink') backToResultsLink: ElementRef;
+
+  public singleId: any;
+  private metaTags = singleOrganization;
+  private commonTags = common;
+  responseData: Search;
+  news: any[];
+  searchTerm: string;
+  pageNumber: any;
+  tabQueryParams: any;
+  tab = 'organizations';
   idSub: Subscription;
-  expand: boolean;
-  latestSubUnitYear: string;
-  faIcon = faFileAlt;
-  subUnitSlice = 10;
   currentLocale: string;
   tabData: any;
   focusSub: Subscription;
+  resizeSub: Subscription;
+  mobile: boolean;
+  showMoreNews = false;
+  dataSub: Subscription;
+  showVisual = true;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private singleService: SingleItemService,
     private searchService: SearchService,
     private titleService: Title,
     @Inject(LOCALE_ID) protected localeId: string,
+    @Inject(WINDOW) private window: Window,
     private tabChangeService: TabChangeService,
     public utilityService: UtilityService,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private resizeService: ResizeService,
+    private cds: ContentDataService
   ) {
     // Capitalize first letter of locale
     this.currentLocale =
@@ -226,8 +141,16 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.idSub = this.route.params.subscribe((params) => {
+      this.searchService.searchTerm = params.id;
       this.getData(params.id);
+      this.getNews();
+      this.searchService.searchTerm = ''; // Empty search term so breadcrumb link is correct
     });
+    this.resizeSub = this.resizeService.onResize$.subscribe(
+      (dims) => (this.mobile = dims.width < 992)
+    );
+    this.mobile = this.window.innerWidth < 992;
+
     this.singleId = this.route.snapshot.params.id;
     this.singleService.updateId(this.singleId);
     this.pageNumber = this.searchService.pageNumber || 1;
@@ -235,7 +158,6 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     this.tabData = this.tabChangeService.tabData.find(
       (item) => item.data === 'organizations'
     );
-    this.searchTerm = this.searchService.searchTerm;
   }
 
   ngAfterViewInit() {
@@ -252,111 +174,83 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.idSub?.unsubscribe();
     this.focusSub?.unsubscribe();
+    this.resizeSub?.unsubscribe();
+    this.dataSub?.unsubscribe();
     this.settingsService.related = false;
   }
 
   getData(id: string) {
-    this.singleService.getSingleOrganization(id).subscribe(
-      (responseData) => {
-        this.responseData = responseData;
-        if (this.responseData.organizations[0]) {
-          switch (this.localeId) {
-            case 'fi': {
-              this.setTitle(
-                this.responseData.organizations[0].name +
-                  ' - Tiedejatutkimus.fi'
-              );
-              break;
-            }
-            case 'en': {
-              this.setTitle(
-                this.responseData.organizations[0].name.trim() +
-                  ' - Research.fi'
-              );
-              break;
-            }
-            case 'sv': {
-              this.setTitle(
-                this.responseData.organizations[0].name.trim() +
-                  ' - Forskning.fi'
-              );
-              break;
-            }
+    // Organization may have an iFrame. This data comes from CMS.
+    // CMS data is handled in browsers storage
+    this.dataSub = forkJoin([
+      this.singleService.getSingleOrganization(id),
+      !sessionStorage.getItem('sectorData')
+        ? this.cds.getSectors()
+        : JSON.parse(sessionStorage.getItem('sectorData')),
+    ]).subscribe((response: any) => {
+      const orgCMSData = response[1]
+        ?.map((sector) => sector.organizations)
+        .flat()
+        .find((org) => org.link === id);
+
+      this.responseData = response[0];
+      const orgData = response[0].organizations[0];
+
+      if (orgData) {
+        // Set visualization url
+        if (orgCMSData?.iframe.trim().length > 0)
+          orgData.visualIframeUrl = orgCMSData.iframe;
+
+        switch (this.localeId) {
+          case 'fi': {
+            this.setTitle(orgData.name + ' - Tiedejatutkimus.fi');
+            break;
           }
-          const titleString = this.titleService.getTitle();
-          this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
-          this.utilityService.addMeta(
-            titleString,
-            this.metaTags['description' + this.currentLocale],
-            this.commonTags['imgAlt' + this.currentLocale]
-          );
-
-          this.shapeData();
-          this.filterData();
+          case 'en': {
+            this.setTitle(orgData.name.trim() + ' - Research.fi');
+            break;
+          }
+          case 'sv': {
+            this.setTitle(orgData.name.trim() + ' - Forskning.fi');
+            break;
+          }
         }
-      },
-      (error) => (this.errorMessage = error as any)
-    );
+        const titleString = this.titleService.getTitle();
+        this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
+        this.utilityService.addMeta(
+          titleString,
+          this.metaTags['description' + this.currentLocale],
+          this.commonTags['imgAlt' + this.currentLocale]
+        );
+        this.shapeData(orgData);
+      }
+    });
   }
 
-  filterData() {
-    // Helper function to check if the field exists and has data
-    const checkEmpty = (item: { field: string }) => {
-      return UtilityService.stringHasContent(
-        this.responseData.organizations[0][item.field]
-      );
-    };
-    // Filter all the fields to only include properties with defined data
-    this.infoFields = this.infoFields.filter((item) => checkEmpty(item));
-    this.studentCounts = this.studentCounts.filter((item) => checkEmpty(item));
-    this.subUnitFields = this.subUnitFields.filter((item) => checkEmpty(item));
-    this.linkFields = this.linkFields.filter((item) => checkEmpty(item));
-  }
-
-  shapeData() {
-    const source = this.responseData.organizations[0];
-    const locale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
-
-    const subUnits = source.subUnits;
+  shapeData(data) {
+    const source = data;
 
     // Name translations
     source.nameTranslations = Object.values(source.nameTranslations)
       .filter((x) => UtilityService.stringHasContent(x))
       .join('; ');
-
-    // Hide statCenterId from other organizations than universities
-    if (
-      !(source.sectorNameFi === 'Ammattikorkeakoulu') &&
-      !(source.sectorNameFi === 'Yliopisto')
-    ) {
-      source.statCenterId = '';
-    }
-
-    // Check for applied university to display correct field name
-    if (source.sectorNameFi === 'Ammattikorkeakoulu') {
-      this.studentCounts[0].label = $localize`:@@orgThesisCountBscApplied:Alempi ammattikorkeakoulutukinto`;
-      this.studentCounts[1].label = $localize`:@@orgThesisCountMscApplied:Ylempi ammattikorkeakoulutukinto`;
-    }
-
-    if (subUnits && subUnits.length > 0) {
-      // Get latest year of subUnits. Data is in string format
-      const subUnitYears = [...new Set(subUnits.map((item) => item.year))];
-      const transformedYears = subUnitYears.map(Number);
-      this.latestSubUnitYear = Math.max(...transformedYears).toString();
-      source.subUnits = source.subUnits.filter(
-        (item) => item.year === this.latestSubUnitYear
-      );
-      // Sort sub units by name
-      source.subUnits.sort((a, b) => {
-        const x = a.subUnitName.toLowerCase();
-        const y = b.subUnitName.toLowerCase();
-        return x < y ? -1 : x > y ? 1 : 0;
-      });
-    }
   }
 
-  expandDescription() {
-    this.expand = !this.expand;
+  // Prevent reloading of iFrame visualization
+  changeTab(event) {
+    this.showVisual = event.index === 0;
+  }
+
+  getNews() {
+    this.searchService
+      .getNews(5)
+      .pipe(take(1))
+      .subscribe((res) => (this.news = res));
+  }
+
+  navigateToNews() {
+    this.router.navigate(['/news/1'], {
+      queryParams: { organization: this.singleId },
+    });
   }
 }

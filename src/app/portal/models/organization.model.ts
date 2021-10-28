@@ -40,7 +40,8 @@ export class Organization {
     public thesisCountPhdPercentage: number,
     public sectorNameFi: string,
     public subUnits: any[],
-    public logo: string
+    public logo: string,
+    public visualIframeUrl: string
   ) {}
 }
 
@@ -71,6 +72,7 @@ export class OrganizationAdapter implements Adapter<Organization> {
     const related = item.related
       ? item.related.map((x) => x.nameFi.trim()).join(', ')
       : '';
+
     return new Organization(
       item.organizationId,
       this.lang.testLang('name', item).trim(),
@@ -101,7 +103,8 @@ export class OrganizationAdapter implements Adapter<Organization> {
       item.thesisCountPhdPercentage,
       item.sectorNameFi,
       item.subUnits,
-      item.mediaUri
+      item.mediaUri,
+      null // Initial value for organization visual iFrame url
     );
   }
 }

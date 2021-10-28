@@ -56,10 +56,7 @@
     class="navbar navbar-expand-xl navbar-light row"
     #mainHeader
   >
-    <div
-      class="logo col-7 col-xs-9"
-      [ngClass]="appSettings.beta ? 'col-xl-3' : 'col-xl-2'"
-    >
+    <div class="logo col-7 col-xs-9 col-xl-auto">
       <div class="row logo-wrapper">
         <div class="col-auto p-0">
           <a
@@ -113,7 +110,7 @@
     </div>
     <nav
       class="nav-top col-auto col-5 col-xs-3 p-0"
-      [ngClass]="appSettings.beta ? 'col-xl-9 beta-mobile-menu' : 'col-xl-10'"
+      [ngClass]="appSettings.beta ? 'col-xl-9 beta-mobile-menu' : 'col-xl-auto'"
     >
       <div class="mobile ml-auto toggle-button-wrapper">
         <button
@@ -179,9 +176,7 @@
                     [routerLink]="
                       item.link.trim().length > 0 ? item.link : currentRoute
                     "
-                    [queryParams]="
-                      item.queryParams
-                    "
+                    [queryParams]="item.queryParams"
                     routerLinkActive="active-link"
                     [routerLinkActiveOptions]="{ exact: item.exact }"
                     (click)="handleLinkClick(item)"

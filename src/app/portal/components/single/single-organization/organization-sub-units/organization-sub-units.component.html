@@ -1,0 +1,49 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<div class="row content" *ngFor="let row of subUnitFields">
+  <h2 class="col-12 col-sm-6 col-lg-3 th">
+    {{ row.label }} ({{ latestSubUnitYear }})
+    <ng-container *ngIf="row.tooltip">
+      <ng-template #tooltipTemplate
+        ><div [innerHtml]="row.tooltip"></div
+      ></ng-template>
+      <span
+        [tooltip]="tooltipTemplate"
+        container="body"
+        tabindex="0"
+        placement="top"
+        #elem
+      >
+        <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+      </span>
+    </ng-container>
+  </h2>
+  <div class="col-12 col-sm-6 col-lg-9 td">
+    <ul class="list-unstyled">
+      <li *ngFor="let subUnit of item.subUnits">
+        {{ subUnit.subUnitName }}
+      </li>
+    </ul>
+    <!-- <a
+      href="javascript:void(0)"
+      class="read-more"
+      *ngIf="item.subUnits.length > subUnitSlice"
+      (click)="subUnitSlice = item.subUnits.length"
+      i18n="@@showMore"
+    >
+      Näytä enemmän
+    </a>
+    <a
+      href="javascript:void(0)"
+      class="read-more"
+      *ngIf="item.subUnits.length === subUnitSlice"
+      (click)="subUnitSlice = 10"
+      i18n="@@showLess"
+    >
+      Näytä vähemmän
+    </a> -->
+  </div>
+</div>

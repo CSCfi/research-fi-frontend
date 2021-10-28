@@ -2,10 +2,4 @@
 
 @mixin app-funding-calls-theme($theme) {
   $primary: map-get($theme, primary);
-
-  app-funding-calls {
-    .bar {
-        background: mat-color($primary);
-      }
-  }
 }

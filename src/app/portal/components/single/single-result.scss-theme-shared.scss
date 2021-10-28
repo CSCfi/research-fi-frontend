@@ -2,12 +2,13 @@
 
 @mixin app-single-result-theme-shared($theme) {
   $primary: map-get($theme, primary);
+  $warn: map-get($theme, warn);
 
   app-single-publication,
   app-single-funding,
   app-single-dataset,
   app-single-infrastructure,
-  app-single-organization, 
+  app-single-organization,
   app-single-funding-call {
     .shared {
       tr:nth-child(even),
@@ -48,6 +49,49 @@
       .guide-line-top {
         background: mat-color($primary);
       }
+
+      // Links
+      div.links {
+        .icon {
+          color: mat-color($primary);
+        }
+
+        .link-tag {
+          background: mat-contrast($primary, 200);
+          color: mat-contrast($primary, 500);
+        }
+        .link-item {
+          a {
+            color: mat-color($primary);
+          }
+        }
+
+        .link-tag,
+        .link-item {
+          vertical-align: middle;
+        }
+
+        .link {
+          color: black;
+          border: 2px solid rgba(0, 0, 0, 0.87);
+          background: white;
+          border-radius: 2px;
+        }
+      }
+
+      // Reference
+      .reference .no-doi-warn {
+        color: mat-color($warn);
+      }
+    }
+  }
+  .reference-modal {
+    h3.modal-title {
+      color: mat-contrast($primary, 50);
+    }
+
+    &.modal-body h4 {
+      color: mat-contrast($primary, 300);
     }
   }
 }

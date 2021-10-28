@@ -1,6 +1,6 @@
 <mat-card
-  class="col-12 news-card mat-elevation-z pl-0"
-  [class.side]="sideNews"
+  class="col-12 news-card mat-elevation-z px-0"
+  [class.dense]="dense"
   [class.limit-width]="isHomepage"
 >
   <mat-card-header>
@@ -9,10 +9,14 @@
         <a href="{{ item.url }}" target="_blank">
           <div class="row d-flex justify-content-between">
             <div class="col-11 pl-0">
-              <h3 *ngSwitchCase="true">{{ item.headline }}</h3>
-              <ng-container *ngSwitchDefault>
-                <h3 [innerHTML]="item.headline | highlight: term"></h3>
-              </ng-container>
+              <h3>
+                <ng-container *ngSwitchCase="true">{{
+                  item.headline
+                }}</ng-container>
+                <ng-container *ngSwitchDefault>
+                  <span [innerHTML]="item.headline | highlight: term"></span>
+                </ng-container>
+              </h3>
             </div>
             <div class="col-auto px-0 align-self-end mb-1">
               <fa-icon class="icon" icon="external-link-alt"></fa-icon>
@@ -32,11 +36,11 @@
       </div>
     </mat-card-subtitle>
   </mat-card-header>
-  <mat-card-content *ngIf="!sideNews" [ngClass]="isHomepage ? '' : 'ml-0 mr-0'">
+  <mat-card-content *ngIf="!dense" [ngClass]="isHomepage ? '' : 'ml-0 mr-0'">
     <div class="row">
       <span
         class="preview"
-        [innerHTML]="(item.content | cutContent: 250) | highlight: term"
+        [innerHTML]="item.content | cutContent: 250 | highlight: term"
         [ngClass]="item.mediaUri?.length > 0 ? 'col-10 px-0' : ''"
       ></span>
       <div
@@ -49,7 +53,7 @@
       </div>
     </div>
   </mat-card-content>
-  <mat-card-actions *ngIf="!sideNews" [ngClass]="isHomepage ? '' : 'ml-0 mr-0'">
+  <mat-card-actions *ngIf="!dense" [ngClass]="isHomepage ? '' : 'ml-0 mr-0'">
     <div class="row">
       <!-- <div class="col pl-0" [ngClass]="item.mediaUri?.length > 0 ? 'link' : ''">
                 <a class="org-link" href="{{item.url}}" target="_blank" aria-label="Lue koko uutinen organisaation verkkosivuilla"><ng-container i18n="@@readOriginialNews">Lue koko uutinen organisaation verkkosivuilla </ng-container><fa-icon icon="external-link-alt"></fa-icon></a>

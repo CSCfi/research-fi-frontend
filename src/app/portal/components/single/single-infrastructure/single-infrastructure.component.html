@@ -10,26 +10,26 @@
 
 <div class="wrapper" *ngIf="responseData" id="main-content">
   <div class="row shared">
-  <p class="back col-12" style="padding-bottom: 0.25rem;">
-    <a
-      #backToResultsLink
-      routerLink="/results/{{ tab }}/{{ searchTerm }}"
-      [queryParams]="tabQueryParams"
-      >&lt;
-      <ng-container i18n="@@backToResults"
-        >Takaisin hakutuloksiin</ng-container
-      ></a
-    >
-  </p>
+    <p class="back col-12" style="padding-bottom: 0.25rem">
+      <a
+        #backToResultsLink
+        routerLink="/results/{{ tab }}/{{ searchTerm }}"
+        [queryParams]="tabQueryParams"
+        >&lt;
+        <ng-container i18n="@@backToResults"
+          >Takaisin hakutuloksiin</ng-container
+        ></a
+      >
+    </p>
   </div>
   <!-- Breadcrumb -->
   <app-breadcrumb
-  [type]="'single'"
-  [responseData]="responseData"
-  [tab]="tab"
-  [tabName]="tabData.label"
-  [resultNameField]="'name'"
-  [queryParams]="tabQueryParams"
+    [type]="'single'"
+    [responseData]="responseData"
+    [tab]="tab"
+    [tabName]="tabData.label"
+    [resultNameField]="'name'"
+    [queryParams]="tabQueryParams"
   ></app-breadcrumb>
   <div class="row shared">
     <div
@@ -210,7 +210,13 @@
                         <ng-container *ngIf="servicePoint[row.field]?.trim()">
                           <h5 class="sr-only">{{ row.label }}</h5>
                           <div
-                            class="offset-0 offset-sm-6 offset-lg-3 col-12 col-sm-6 col-lg-9 pt-0 pb-0 td"
+                            class="
+                              offset-0 offset-sm-6 offset-lg-3
+                              col-12 col-sm-6 col-lg-9
+                              pt-0
+                              pb-0
+                              td
+                            "
                           >
                             <ng-container
                               *ngIf="
@@ -248,7 +254,10 @@
                               href="{{ servicePoint[row.field] }}"
                               >{{ servicePoint[row.field] }}
                               <i
-                                *ngIf="row.field === 'infoUrl' || row.field === 'accessPolicyUrl'"
+                                *ngIf="
+                                  row.field === 'infoUrl' ||
+                                  row.field === 'accessPolicyUrl'
+                                "
                                 class="fas fa-external-link-alt"
                               ></i
                             ></a>
@@ -287,7 +296,12 @@
                 Luokituksia
               </h3>
               <div
-                class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 first-no-offset-mobile td"
+                class="
+                  col-12 col-sm-6 col-lg-3
+                  offset-0 offset-sm-6 offset-lg-0
+                  first-no-offset-mobile
+                  td
+                "
                 *ngFor="let row of classificationFields; let i = index"
               >
                 <ng-container *ngIf="item[row.field]">
@@ -347,7 +361,13 @@
                 </ng-container>
               </div>
               <div
-                class="col-12 col-sm-6 offset-0 offset-sm-6 offset-lg-3 pt-0 pb-0 td"
+                class="
+                  col-12 col-sm-6
+                  offset-0 offset-sm-6 offset-lg-3
+                  pt-0
+                  pb-0
+                  td
+                "
                 *ngFor="let row of contactFields.slice(1); let i = index"
               >
                 <ng-container *ngIf="item[row.field]">
@@ -402,15 +422,20 @@
               </h2></mat-card-title
             >
             <div class="row links" *ngIf="linkFields?.length > 0">
-              <div *ngFor="let row of linkFields" class="info-link-wrapper">
+              <div *ngFor="let row of linkFields" class="link-wrapper">
                 <div class="col link">
-                  <a
-                    class="info-link"
-                    href="{{ item[row.field] }}"
-                    target="_blank"
-                    >{{ item[row.field] | cutContent: 40
-                    }}<fa-icon icon="external-link-alt"></fa-icon
-                  ></a>
+                  <span
+                    class="link-tag fa fa-link center"
+                    style="font-size: 22px; padding: 3px 12px"
+                  ></span>
+                  <span class="link-item">
+                    <a href="{{ item[row.field] }}" target="_blank"
+                      ><span class="link-label">{{
+                        item[row.field] | handleLinkDisplay
+                      }}</span>
+                      <fa-icon icon="external-link-alt"></fa-icon
+                    ></a>
+                  </span>
                 </div>
               </div>
             </div>

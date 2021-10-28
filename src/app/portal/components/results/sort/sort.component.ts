@@ -7,6 +7,7 @@
 
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 import { SortService } from '../../../services/sort.service';
 import { TabChangeService } from '../../../services/tab-change.service';
 
@@ -56,12 +57,15 @@ export class SortComponent implements OnInit, OnDestroy {
     { label: $localize`:@@sortOrgNameAsc:Organisaatio (A-Ö)`, value: 'name' },
     { label: $localize`:@@sortSectorNameAsc:Sektori (A-Ö)`, value: 'sector' },
   ];
+  mobileStatusSub: any;
+  mobile: boolean;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private sortService: SortService,
-    private tabChangeService: TabChangeService
+    private tabChangeService: TabChangeService,
+    private appSettingsService: AppSettingsService
   ) {}
 
   ngOnInit() {
@@ -90,6 +94,13 @@ export class SortComponent implements OnInit, OnDestroy {
       }
       this.sortBy = this.route.snapshot.queryParams.sort || 'reset';
     });
+
+    // Handle mobile status
+    this.mobileStatusSub = this.appSettingsService.mobileStatus.subscribe(
+      (status: boolean) => {
+        this.mobile = status;
+      }
+    );
   }
 
   // Send value to service and rewrite url

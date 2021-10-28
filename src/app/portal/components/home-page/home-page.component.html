@@ -90,7 +90,8 @@
             <app-news-card
               *ngFor="let item of news?.slice(0, 6)"
               [item]="item"
-              [sideNews]="true"
+              [dense]="true"
+              class="d-block px-3"
             ></app-news-card>
           </div>
           <!-- XL version -->
@@ -98,7 +99,8 @@
             <app-news-card
               *ngFor="let item of news?.slice(0, 8)"
               [item]="item"
-              [sideNews]="true"
+              [dense]="true"
+              class="d-block px-3"
             ></app-news-card>
           </div>
         </div>

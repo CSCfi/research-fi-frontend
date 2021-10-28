@@ -125,8 +125,8 @@ export class PublicationFilterService {
       label: $localize`:@@articleType:Artikkelin tyyppi`,
       hasSubFields: false,
       open: false,
-      tooltip: 
-      '<p><strong>' +
+      tooltip:
+        '<p><strong>' +
         $localize`:@@originalArticle:Alkuperäisartikkeli` +
         ': </strong>' +
         $localize`:@@originalArticleTooltip:on pääosin aiemmin julkaisemattomasta materiaalista koostuva tieteellinen artikkeli.` +
@@ -406,12 +406,12 @@ export class PublicationFilterService {
   articleType(data) {
     const staticData = this.staticDataService.articleType;
     const result = data.map(
-      (item) => 
+      (item) =>
         (item = {
           key: item.key,
-          label: staticData.find(x => item.key === x.id).label,
+          label: staticData.find((x) => item.key === x.id).label,
           doc_count: item.doc_count,
-          value: item.key
+          value: item.key,
         })
     );
     return result.sort((a, b) => b.doc_count - a.doc_count);
@@ -456,24 +456,29 @@ export class PublicationFilterService {
     const result = [];
 
     // Filter also based on selfArchived === 0 for non open
-    publisherComposite.filter(x => x.key.selfArchived === 0 && 
-                              x.key.openAccess === 0 && 
-                              x.key.publisherOpenAccess !== 3)
-                      .forEach(x => {
-                        openAccessCodes.push({
-                          key: 'nonOpenAccess',
-                          doc_count: x.doc_count,
-                        });
-                      });
+    publisherComposite
+      .filter(
+        (x) =>
+          x.key.selfArchived === 0 &&
+          x.key.openAccess === 0 &&
+          x.key.publisherOpenAccess !== 3
+      )
+      .forEach((x) => {
+        openAccessCodes.push({
+          key: 'nonOpenAccess',
+          doc_count: x.filtered.doc_count,
+        });
+      });
 
     if (publisherComposite && publisherComposite.length > 0) {
       publisherComposite.forEach((val) => {
         val.stringKey = '' + val.key.openAccess + val.key.publisherOpenAccess;
+
         switch (val.stringKey) {
           case '11': {
             openAccessCodes.push({
               key: 'openAccess',
-              doc_count: val.doc_count,
+              doc_count: val.filtered.doc_count,
             });
             break;
           }
@@ -481,14 +486,14 @@ export class PublicationFilterService {
           case '13': {
             openAccessCodes.push({
               key: 'delayedOpenAccess',
-              doc_count: val.doc_count,
+              doc_count: val.filtered.doc_count,
             });
             break;
           }
           case '12': {
             openAccessCodes.push({
               key: 'otherOpen',
-              doc_count: val.doc_count,
+              doc_count: val.filtered.doc_count,
             });
             break;
           }
@@ -508,7 +513,7 @@ export class PublicationFilterService {
             if (!val.key.selfArchived) {
               openAccessCodes.push({
                 key: 'noOpenAccessData',
-                doc_count: val.doc_count,
+                doc_count: val.filtered.doc_count,
               });
             }
             break;

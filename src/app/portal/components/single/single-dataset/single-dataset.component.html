@@ -10,26 +10,26 @@
 
 <div class="wrapper" *ngIf="responseData" id="main-content">
   <div class="row shared">
-  <p class="back col-12" style="padding-bottom: 0.25rem;">
-    <a
-      #backToResultsLink
-      routerLink="/results/{{ tab }}/{{ searchTerm }}"
-      [queryParams]="tabQueryParams"
-      >&lt;
-      <ng-container i18n="@@backToResults"
-        >Takaisin hakutuloksiin</ng-container
-      >
-    </a>
-  </p>
+    <p class="back col-12" style="padding-bottom: 0.25rem">
+      <a
+        #backToResultsLink
+        routerLink="/results/{{ tab }}/{{ searchTerm }}"
+        [queryParams]="tabQueryParams"
+        >&lt;
+        <ng-container i18n="@@backToResults"
+          >Takaisin hakutuloksiin</ng-container
+        >
+      </a>
+    </p>
   </div>
   <!-- Breadcrumb -->
   <app-breadcrumb
-  [type]="'single'"
-  [responseData]="responseData"
-  [tab]="tab"
-  [tabName]="tabData.label"
-  [resultNameField]="'name'"
-  [queryParams]="tabQueryParams"
+    [type]="'single'"
+    [responseData]="responseData"
+    [tab]="tab"
+    [tabName]="tabData.label"
+    [resultNameField]="'name'"
+    [queryParams]="tabQueryParams"
   ></app-breadcrumb>
   <div class="row shared">
     <div
@@ -173,7 +173,12 @@
               Muut tiedot
             </h2>
             <div
-              class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 first-no-offset-mobile td"
+              class="
+                col-12 col-sm-6 col-lg-3
+                offset-0 offset-sm-6 offset-lg-0
+                first-no-offset-mobile
+                td
+              "
               *ngFor="let row of otherInfoFields?.slice(0, 3)"
             >
               <h3 class="th">
@@ -205,7 +210,11 @@
             <div class="row content" *ngIf="i % 3 == 0">
               <!-- First col -->
               <div
-                class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-3 td"
+                class="
+                  col-12 col-sm-6 col-lg-3
+                  offset-0 offset-sm-6 offset-lg-3
+                  td
+                "
               >
                 <h3 class="th">
                   {{ row.label }}
@@ -230,7 +239,11 @@
               </div>
               <!-- Second col -->
               <div
-                class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td"
+                class="
+                  col-12 col-sm-6 col-lg-3
+                  offset-0 offset-sm-6 offset-lg-0
+                  td
+                "
                 *ngIf="otherInfoFields.slice(3).length > i + 1"
               >
                 <h3 class="th">
@@ -258,7 +271,11 @@
               </div>
               <!-- Third col -->
               <div
-                class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td"
+                class="
+                  col-12 col-sm-6 col-lg-3
+                  offset-0 offset-sm-6 offset-lg-0
+                  td
+                "
                 *ngIf="otherInfoFields.slice(3).length > i + 2"
               >
                 <h3 class="th">
@@ -325,10 +342,10 @@
               <h2 i18n="@@datasetLinks">Linkit tutkimusaineistoon</h2>
             </mat-card-title>
             <div class="row links" *ngFor="let row of linksFields">
-              <div *ngIf="row.field === 'doi'" class="info-link-wrapper">
+              <div *ngIf="row.field === 'doi'" class="link-wrapper">
                 <div class="col link doi">
-                  <span class="doi-tag">DOI</span>
-                  <span class="doi-link">
+                  <span class="link-tag">DOI</span>
+                  <span class="link-item">
                     <a
                       [attr.href]="'https://doi.org/' + item.doi"
                       target="_blank"
@@ -338,26 +355,25 @@
                   </span>
                 </div>
               </div>
-              <div *ngIf="row.field === 'urn'" class="info-link-wrapper">
+              <div *ngIf="row.field === 'urn'" class="link-wrapper">
                 <div class="col link doi">
-                  <span class="doi-tag">URN</span>
-                  <span class="doi-link">
+                  <span class="link-tag">URN</span>
+                  <span class="link-item">
                     <a [attr.href]="'http://urn.fi/' + item.urn" target="_blank"
-                      >{{ item.urn }}
+                      ><span class="link-label">{{ item.urn }}</span>
                       <fa-icon icon="external-link-alt"></fa-icon>
                     </a>
                   </span>
                 </div>
               </div>
-              <div
-                *ngIf="row.field === 'fairdataUrl'"
-                class="info-link-wrapper"
-              >
+              <div *ngIf="row.field === 'fairdataUrl'" class="link-wrapper">
                 <div class="col link doi">
-                  <span class="doi-tag">URL</span>
-                  <span class="doi-link">
+                  <span class="link-tag">URL</span>
+                  <span class="link-item">
                     <a [attr.href]="item.fairdataUrl" target="_blank"
-                      >{{ item.fairdataUrl | cutContent: 38 }}
+                      ><span class="link-label">{{
+                        item.fairdataUrl | handleLinkDisplay
+                      }}</span>
                       <fa-icon icon="external-link-alt"></fa-icon>
                     </a>
                   </span>
@@ -370,15 +386,20 @@
                 class="row links"
                 *ngFor="let row of selfArchived.selfArchived"
               >
-                <div class="info-link-wrapper">
+                <div class="link-wrapper">
                   <div class="col link">
-                    <a
-                      class="info-link"
-                      href="{{ row.selfArchivedAddress }}"
-                      target="_blank"
-                      >{{ row.selfArchivedAddress | cutContent: 40
-                      }}<fa-icon icon="external-link-alt"></fa-icon
-                    ></a>
+                    <span
+                      class="link-tag fa fa-link center"
+                      style="font-size: 22px; padding: 3px 12px"
+                    ></span>
+                    <span class="link-item">
+                      <a href="{{ row.selfArchivedAddress }}" target="_blank"
+                        ><span class="link-label">{{
+                          row.selfArchivedAddress | handleLinkDisplay
+                        }}</span
+                        ><fa-icon icon="external-link-alt"></fa-icon
+                      ></a>
+                    </span>
                   </div>
                 </div>
               </div>
@@ -408,7 +429,7 @@
             <app-related-links [id]="item.id"> </app-related-links>
           </div>
         </mat-card>
-    </aside>
+      </aside>
       <!-- <aside>
         <mat-card>
           <mat-card-title>
@@ -453,6 +474,20 @@
             </div>
             <div class="clear"></div>
           </div>
+        </mat-card>
+      </aside>
+      <aside>
+        <mat-card>
+          <mat-card-title>
+            <h2 i18n="@@datasetSource">Tutkimusaineistotiedon lähde</h2>
+          </mat-card-title>
+          <div>
+            <p *ngIf="item.dataCatalog?.length > 0">{{ item.dataCatalog }}</p>
+            <p *ngIf="item.dataCatalog?.length === 0">
+              Tiedon lähde ei saatavilla.
+            </p>
+          </div>
+          <div class="clear"></div>
         </mat-card>
       </aside>
       <aside>

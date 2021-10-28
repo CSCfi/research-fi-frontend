@@ -17,9 +17,11 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { EditorModalComponent } from '../../profile-data-handler/editor-modal/editor-modal.component';
 import { take } from 'rxjs/operators';
 import { PatchService } from '@mydata/services/patch.service';
+import { PublicationsService } from '@mydata/services/publications.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
-import { ProfileService } from '@mydata/services/profile.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarService } from '@mydata/services/snackbar.service';
+import { DraftService } from '@mydata/services/draft.service';
+import { Constants } from '@mydata/constants/';
 
 @Component({
   selector: 'app-profile-summary',
@@ -28,7 +30,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   encapsulation: ViewEncapsulation.None,
 })
 export class ProfileSummaryComponent implements OnInit {
-  @Input() data: any;
+  @Input() profileData: any;
 
   fieldTypes = FieldTypes;
 
@@ -49,26 +51,27 @@ export class ProfileSummaryComponent implements OnInit {
 
   constructor(
     private appSettingsService: AppSettingsService,
-    private snackBar: MatSnackBar,
     public dialog: MatDialog,
     private patchService: PatchService,
-    private profileService: ProfileService
+    private publicationsService: PublicationsService,
+    private snackbarService: SnackbarService,
+    private draftService: DraftService
   ) {}
 
   ngOnInit(): void {
     // Get data sources
-    this.dataSources = getDataSources(this.data.profileData);
+    this.dataSources = getDataSources(this.profileData);
 
     this.primarySource = this.dataSources[0];
 
-    this.sortAffiliations(this.data.profileData);
+    this.sortAffiliations(this.profileData);
 
-    if (!isEmptySection(this.data.profileData[4]))
-      this.sortPublications(this.data.profileData);
+    if (!isEmptySection(this.profileData[4]))
+      this.sortPublications(this.profileData);
   }
 
   getSelectedItems() {
-    const dataCopy = cloneDeep(this.data.profileData);
+    const dataCopy = cloneDeep(this.profileData);
 
     for (let group of dataCopy) {
       group.fields.forEach((field) => {
@@ -108,7 +111,7 @@ export class ProfileSummaryComponent implements OnInit {
 
     data[index].fields[0].groupItems[0].items = sortedItems;
 
-    this.data.profileData[index].fields[0].groupItems = [
+    this.profileData[index].fields[0].groupItems = [
       data[index].fields[0].groupItems[0],
     ];
   }
@@ -127,7 +130,7 @@ export class ProfileSummaryComponent implements OnInit {
 
     data[index].fields[0].groupItems[0].items = sortedItems;
 
-    this.data.profileData[index].fields[0].groupItems = [
+    this.profileData[index].fields[0].groupItems = [
       data[index].fields[0].groupItems[0],
     ];
   }
@@ -137,7 +140,7 @@ export class ProfileSummaryComponent implements OnInit {
 
     if (!this.openPanels.includes(index)) this.openPanels.push(index);
 
-    const selectedField = cloneDeep(this.data.profileData[index]);
+    const selectedField = cloneDeep(this.profileData[index]);
 
     this.dialogRef = this.dialog.open(EditorModalComponent, {
       ...this.appSettingsService.dialogSettings,
@@ -153,39 +156,35 @@ export class ProfileSummaryComponent implements OnInit {
       .pipe(take(1))
       .subscribe(
         (result: { data: any; patchGroups: any[]; patchItems: any[] }) => {
-          if (result) {
-            const currentPatchItems = this.patchService.currentPatchItems;
+          const confirmedPatchItems = this.patchService.confirmedPatchItems;
+          const confirmedPublicationPayload =
+            this.publicationsService.confirmedPayload;
 
-            this.data.profileData[index] = result.data;
+          this.profileData[index] = result.data;
+
+          this.draftService.saveDraft(this.profileData);
+
+          if (this.appSettingsService.isBrowser) {
+            // Set draft profile data to storage
+            sessionStorage.setItem(
+              Constants.draftProfile,
+              JSON.stringify(this.profileData)
+            );
 
             // Sort
-            this.sortAffiliations(this.data.profileData);
-            this.sortPublications(this.data.profileData);
+            this.sortAffiliations(this.profileData);
+            this.sortPublications(this.profileData);
 
-            if (currentPatchItems.length) this.patchItems(currentPatchItems);
+            // Do actions only if user has made changes
+            if (
+              result &&
+              (confirmedPatchItems.length || confirmedPublicationPayload.length)
+            ) {
+              this.snackbarService.show('Luonnos päivitetty', 'success');
+            }
+          } else {
+            this.patchService.clearPatchItems();
           }
-
-          this.patchService.clearPatchPayload();
-        }
-      );
-  }
-
-  patchItems(patchItems) {
-    this.profileService
-      .patchObjects(patchItems)
-      .pipe(take(1))
-      .subscribe(
-        (result) => {
-          this.snackBar.open('Muutokset tallennettu', 'Sulje', {
-            horizontalPosition: 'start',
-            panelClass: 'mydata-snackbar',
-          });
-        },
-        (error) => {
-          this.snackBar.open('Virhe tiedon tallennuksessa', 'Sulje', {
-            horizontalPosition: 'start',
-            panelClass: 'mydata-snackbar',
-          });
         }
       );
   }

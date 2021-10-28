@@ -16,7 +16,7 @@ export class FilterItemPipe implements PipeTransform {
   transform(value: any, active: any): any {
     const arr = [];
     value.subData.forEach((item) => {
-      arr.push(item.key.toString());
+      arr.push(item.key?.toString());
     });
 
     // Check if filters are present in active filters

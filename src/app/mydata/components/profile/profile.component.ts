@@ -19,6 +19,12 @@ import { take } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { mergePublications } from '@mydata/utils';
 import { Router } from '@angular/router';
+import { DraftService } from '@mydata/services/draft.service';
+import { PatchService } from '@mydata/services/patch.service';
+import { SnackbarService } from '@mydata/services/snackbar.service';
+import { cloneDeep } from 'lodash-es';
+import { Constants } from '@mydata/constants/';
+import { PublicationsService } from '@mydata/services/publications.service';
 
 @Component({
   selector: 'app-profile',
@@ -27,6 +33,7 @@ import { Router } from '@angular/router';
   encapsulation: ViewEncapsulation.None,
 })
 export class ProfileComponent implements OnInit {
+  orcidData: any;
   profileData: any;
   testData: any;
   orcid: string;
@@ -53,6 +60,7 @@ export class ProfileComponent implements OnInit {
   dialogTemplate: any;
   dialogTitle: any;
   currentDialogActions: any[];
+  disableDialogClose: boolean;
   basicDialogActions = [{ label: 'Sulje', primary: true, method: 'close' }];
   deleteProfileDialogActions = [
     { label: 'Peruuta', primary: false, method: 'close' },
@@ -64,18 +72,26 @@ export class ProfileComponent implements OnInit {
   loading: boolean;
   deletingProfile: boolean;
 
+  draftPayload: any[];
+
   constructor(
     private profileService: ProfileService,
     public oidcSecurityService: OidcSecurityService,
     private appSettingsService: AppSettingsService,
     public dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private snackbarService: SnackbarService,
+    public draftService: DraftService,
+    public patchService: PatchService,
+    public publicationsService: PublicationsService
   ) {
     this.testData = profileService.testData;
   }
 
   ngOnInit(): void {
     this.oidcSecurityService.userData$.pipe(take(1)).subscribe((data) => {
+      this.orcidData = data;
+
       if (data) {
         this.orcid = data.orcid;
         this.appSettingsService.setOrcid(data.orcid);
@@ -84,26 +100,54 @@ export class ProfileComponent implements OnInit {
 
     if (this.appSettingsService.myDataSettings.develop) {
       this.profileData = this.testData;
-      this.mergePublications(this.profileData.profileData[4]);
+      this.mergePublications(this.profileData[4]);
     } else {
       this.profileService
         .getProfileData()
         .pipe(take(1))
-        .subscribe((data) => {
-          this.profileData = data;
+        .subscribe((response) => {
+          // Get data from session storage if draft is available
+          if (this.appSettingsService.isBrowser) {
+            const draft = sessionStorage.getItem(Constants.draftProfile);
+            const draftPatchPayload = JSON.parse(
+              sessionStorage.getItem(Constants.draftPatchPayload)
+            );
+
+            this.draftPayload = draftPatchPayload;
+
+            // Display either draft profile or profile from database
+            if (draft) {
+              const parsedDraft = JSON.parse(draft);
+              this.draftService.saveDraft(parsedDraft);
+              this.profileData = parsedDraft;
+            } else {
+              this.profileData = response.profileData;
+            }
+
+            // Set draft patch payload from storage
+            if (draftPatchPayload)
+              this.patchService.addToPatchItems(draftPatchPayload);
+          }
+
+          // Set original data
+          this.profileService.currentProfileData = cloneDeep(
+            response.profileData
+          );
 
           // Merge publications
-          // TODO: Find better way to pass array element than index number. Eg. type
-          this.mergePublications(data.profileData[4]);
+          this.mergePublications(
+            response.profileData.find((item) => item.id === 'publication')
+          );
         });
     }
   }
 
-  openDialog(title, template, actions) {
+  openDialog(title, template, actions, disableDialogClose = false) {
     this.dialogTitle = title;
     this.showDialog = true;
     this.dialogTemplate = template;
     this.currentDialogActions = actions;
+    this.disableDialogClose = disableDialogClose;
   }
 
   doDialogAction(event) {
@@ -150,5 +194,55 @@ export class ProfileComponent implements OnInit {
     this.showDialog = false;
     this.dialogTemplate = null;
     this.deletingProfile = false;
+    this.disableDialogClose = false;
+  }
+
+  publish() {
+    // TODO: Forkjoin both HTTP requests and handle results as single
+    this.handlePublications();
+    this.patchItems();
+  }
+
+  reset() {
+    this.profileData = this.profileService.currentProfileData;
+    this.clearDraftData();
+  }
+
+  clearDraftData() {
+    this.patchService.clearPatchItems();
+    this.patchService.cancelConfirmedPatchPayload();
+    this.publicationsService.clearPayload();
+    this.publicationsService.cancelConfirmedPayload();
+    this.draftService.clearData();
+  }
+
+  /*
+   * Add selected publications to profile
+   */
+  handlePublications() {
+    this.publicationsService
+      .addPublications()
+      .pipe(take(1))
+      .subscribe(() => {});
+  }
+
+  /*
+   * Patch items to backend
+   */
+  patchItems() {
+    const patchItems = this.patchService.confirmedPatchItems;
+
+    this.profileService
+      .patchObjects(patchItems)
+      .pipe(take(1))
+      .subscribe(
+        (result) => {
+          this.snackbarService.show('Muutokset tallennettu', 'success');
+          this.clearDraftData();
+        },
+        (error) => {
+          this.snackbarService.show('Virhe tiedon tallennuksessa', 'error');
+        }
+      );
   }
 }

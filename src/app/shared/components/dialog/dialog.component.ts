@@ -36,6 +36,7 @@ export class DialogComponent implements OnInit {
   }
 
   openDialog() {
+    console.log(this.disableClose);
     const dialogSettings = { ...this.appSettingsService.dialogSettings };
 
     if (this.small) {
@@ -53,6 +54,7 @@ export class DialogComponent implements OnInit {
         template: this.template,
         actions: this.actions,
       },
+      disableClose: this.disableClose ? true : false,
     });
 
     this.dialogRef

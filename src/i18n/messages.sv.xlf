@@ -1200,6 +1200,10 @@
           <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="news">
+        <source>Uutiset</source>
+        <target>Nyheter</target>
+      </trans-unit>
       <trans-unit id="withTerm" datatype="html">
         <source>Joihin sisältyy hakutermi</source>
         <target state="translated">Som inkluderar söktermen</target>
@@ -3367,6 +3371,34 @@
         <target state="translated">Anger kontaktuppgifter för tjänsten och eventuella användarvillkor. Beskriver serviceställets verksamhet närmare. Ibland kan servicen vara olika på olika serviceställen, till exempel avseende den tillgängliga utrustningen</target>
       </trans-unit>
       <!-- Organization -->
+      <trans-unit id="organizationVisualBetaText">
+        <source>Organisaatioiden tunnusluvut ovat uusi kokonaisuus Tiedejatutkimus.fi –portaalissa. Koska kyseessä on uusi kokonaisuus, toivomme palautetta tiedejatutkimus@csc.fi osoitteeseen.</source>
+        <target>The key figures of the organizations are a new section in Research.fi portal. For this is a new section, all feedback is welcome and should be sent to tiedejatutkimus@csc.fi.</target>
+      </trans-unit>
+      <trans-unit id="keyIndicator">
+        <source>Tunnuslukuja</source>
+        <target>Nyckletal</target>
+      </trans-unit>
+      <trans-unit id="basicInformation">
+        <source>Perustiedot</source>
+        <target>Basinformation</target>
+      </trans-unit>
+      <trans-unit id="furtherInformation">
+        <source>Lisätiedot</source>
+        <target>Ytterligare information</target>
+      </trans-unit>
+      <trans-unit id="showMoreNews">
+        <source>Näytä lisää uutisia</source>
+        <target>Visa fler nyheter</target>
+      </trans-unit>
+      <trans-unit id="showAllOrganizationNews">
+        <source>Näytä kaikki organisaation uutiset</source>
+        <target>Visa organisationens alla nyheter</target>
+      </trans-unit>
+      <trans-unit id="RDInstitutionId">
+        <source>TK-oppilaitostunnus</source>
+        <target>SC:s läroanstaltskod</target>
+      </trans-unit>
       <trans-unit id="orgOtherNames">
         <source>Muut nimet</source>
         <target state="translated">Övriga namn</target>
@@ -3442,6 +3474,10 @@
       <trans-unit id="thesisCount">
         <source>Tutkintojen määrä</source>
         <target state="translated">Antal examina</target>
+      </trans-unit>
+      <trans-unit id="below">
+        <source>Alle</source>
+        <target>Under</target>
       </trans-unit>
       <trans-unit id="orgSubUnits">
         <source>Alayksiköt</source>

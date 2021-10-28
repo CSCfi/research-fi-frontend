@@ -58,6 +58,7 @@ export class WelcomeStepperComponent implements OnInit {
   dialogTemplate: any;
   dialogTitle: any;
   dialogActions = [{ label: 'Sulje', primary: true, method: 'close' }];
+  disableDialogClose: boolean;
 
   loading: boolean;
 
@@ -102,8 +103,6 @@ export class WelcomeStepperComponent implements OnInit {
     // Fetch data if on step 3 and user has initialized Orcid data fetch
     if (this.step === 3 && direction === 'increment') {
       this.fetchData();
-    } else if (this.step === 4 && direction === 'increment') {
-      this.router.navigate(['/mydata/profile']);
     } else {
       direction === 'increment' ? this.increment() : this.decrement();
     }
@@ -164,7 +163,6 @@ export class WelcomeStepperComponent implements OnInit {
   }
 
   doDialogAction() {
-    // Perform actions
     this.resetDialog();
   }
 
@@ -177,6 +175,7 @@ export class WelcomeStepperComponent implements OnInit {
   openDataFetchingDialog() {
     this.loading = true;
     this.dialogTemplate = this.fetchingTemplate;
+    this.disableDialogClose = true;
   }
 
   deleteProfile() {
@@ -197,7 +196,7 @@ export class WelcomeStepperComponent implements OnInit {
       this.dialog.closeAll();
       this.loading = false;
       this.resetDialog();
-      this.increment();
+      this.router.navigate(['/mydata/profile']);
     });
   }
 }

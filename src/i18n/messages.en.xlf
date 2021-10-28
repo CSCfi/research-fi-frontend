@@ -1206,6 +1206,10 @@
           <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="news">
+        <source>Uutiset</source>
+        <target>News</target>
+      </trans-unit>
       <trans-unit id="withTerm" datatype="html">
         <source>Joihin sisältyy hakutermi</source>
         <target>Containing the search term</target>
@@ -3374,6 +3378,34 @@
         <target>It provides the service contact information and specifies any terms of use. Service point may be described in greater detail. In some cases, the service may differ from one service point to another, such as with regard to the available equipment</target>
       </trans-unit>
       <!-- Organization -->
+      <trans-unit id="organizationVisualBetaText">
+        <source>Organisaatioiden tunnusluvut ovat uusi kokonaisuus Tiedejatutkimus.fi –portaalissa. Koska kyseessä on uusi kokonaisuus, toivomme palautetta tiedejatutkimus@csc.fi osoitteeseen.</source>
+        <target>The key figures of the organizations are a new section in Research.fi portal. For this is a new section, all feedback is welcome and should be sent to tiedejatutkimus@csc.fi.</target>
+      </trans-unit>
+      <trans-unit id="keyIndicator">
+        <source>Tunnuslukuja</source>
+        <target>Key indicators</target>
+      </trans-unit>
+      <trans-unit id="basicInformation">
+        <source>Perustiedot</source>
+        <target>Basic information</target>
+      </trans-unit>
+      <trans-unit id="furtherInformation">
+        <source>Lisätiedot</source>
+        <target>Further information</target>
+      </trans-unit>
+      <trans-unit id="showMoreNews">
+        <source>Näytä lisää uutisia</source>
+        <target>Show more news</target>
+      </trans-unit>
+      <trans-unit id="showAllOrganizationNews">
+        <source>Näytä kaikki organisaation uutiset</source>
+        <target>Show all organization news</target>
+      </trans-unit>
+      <trans-unit id="RDInstitutionId">
+        <source>TK-oppilaitostunnus</source>
+        <target>RD Institution ID</target>
+      </trans-unit>
       <trans-unit id="orgOtherNames">
         <source>Muut nimet</source>
         <target>Other names</target>
@@ -3449,6 +3481,10 @@
       <trans-unit id="thesisCount">
         <source>Tutkintojen määrä</source>
         <target>Number of degress attained</target>
+      </trans-unit>
+      <trans-unit id="below">
+        <source>Alle</source>
+        <target>Below</target>
       </trans-unit>
       <trans-unit id="orgSubUnits">
         <source>Alayksiköt</source>

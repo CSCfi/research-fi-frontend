@@ -9,6 +9,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppConfigService } from '@shared/services/app-config-service.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 export interface Publication {
   hits: any;
@@ -23,6 +24,16 @@ export class PublicationsService {
   currentSort: any;
   pageSettings: any;
   httpOptions: object;
+
+  publicationPayload = [];
+  confirmedPayload = [];
+  deletables = [];
+
+  private termSource = new BehaviorSubject<string>('');
+  currentTerm = this.termSource.asObservable();
+
+  private confirmedPayloadSource = new BehaviorSubject<any>([]);
+  currentPublicationPayload = this.confirmedPayloadSource.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -61,6 +72,10 @@ export class PublicationsService {
     };
   }
 
+  updateSearchTerm(term: string) {
+    this.termSource.next(term);
+  }
+
   updatePageSettings(pageSettings) {
     this.pageSettings = pageSettings;
   }
@@ -95,9 +110,40 @@ export class PublicationsService {
     );
   }
 
-  addPublications(publications: any[]) {
+  addToPayload(publications: any) {
+    this.publicationPayload = this.publicationPayload.concat(publications);
+  }
+
+  clearPayload() {
+    this.publicationPayload = [];
+  }
+
+  confirmPayload() {
+    const merged = this.confirmedPayload.concat(this.publicationPayload);
+    this.confirmedPayload = merged;
+    this.confirmedPayloadSource.next(merged);
+  }
+
+  cancelConfirmedPayload() {
+    this.clearPayload();
+    this.confirmedPayloadSource.next([]);
+  }
+
+  addToDeletables(publication: { publicationId: any }) {
+    this.deletables.push(publication.publicationId);
+  }
+
+  clearDeletables() {
+    this.deletables = [];
+  }
+
+  addPublications() {
     this.updateTokenInHttpAuthHeader();
-    let body = publications;
+    let body = this.publicationPayload.map((item) => ({
+      publicationId: item.publicationId,
+      show: item.itemMeta.show,
+      primaryValue: item.itemMeta.primaryValue,
+    }));
     return this.http.post(
       this.profileApiUrl + '/publication/',
       body,
