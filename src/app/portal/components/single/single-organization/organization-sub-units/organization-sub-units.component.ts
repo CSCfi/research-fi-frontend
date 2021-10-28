@@ -25,7 +25,7 @@ export class OrganizationSubUnitsComponent implements OnInit {
     {
       label: $localize`:@@orgSubUnits:Alayksiköt`,
       field: 'subUnits',
-      tooltip: 'vipunen',
+      tooltip: $localize`:@@vipunenSource:Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi`,
     },
   ];
 
