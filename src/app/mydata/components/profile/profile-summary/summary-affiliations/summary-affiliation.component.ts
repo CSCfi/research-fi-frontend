@@ -8,11 +8,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-summary-affiliation',
+  selector: 'app-summary-affiliations',
   templateUrl: './summary-affiliation.component.html',
-  styleUrls: ['./summary-affiliation.component.scss'],
 })
-export class SummaryAffiliationComponent implements OnInit {
+export class SummaryAffiliationsComponent implements OnInit {
   @Input() data: any;
   @Input() fieldTypes: any;
   sortedItems: any[];

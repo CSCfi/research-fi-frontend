@@ -202,6 +202,7 @@ export class ProfileComponent implements OnInit {
           this.loading = false;
           if (res.ok && res.body.success) {
             this.dialog.closeAll();
+            this.reset();
 
             // Wait for dialog to close
             setTimeout(() => this.router.navigate(['/mydata']), 500);
@@ -234,6 +235,8 @@ export class ProfileComponent implements OnInit {
 
   reset() {
     sessionStorage.removeItem(Constants.draftProfile);
+    sessionStorage.removeItem(Constants.draftPatchPayload);
+    sessionStorage.removeItem(Constants.draftPublicationPatchPayload);
     this.profileData = [...this.profileService.currentProfileData];
     this.clearDraftData();
   }

@@ -1,0 +1,36 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<div class="summary-panel-wrapper">
+  <ng-container class="row" *ngFor="let groupItem of data.groupItems">
+    <div
+      class="summary-panel"
+      *ngFor="let item of groupItem.items.slice(0, publicationDisplayCount)"
+    >
+      <div class="row" *ngIf="item.itemMeta.show">
+        <div class="col font-size-smaller">
+          <app-panel-array-item
+            [item]="item"
+            [fieldType]="groupItem.groupMeta.type"
+            [localized]="data.localized"
+          ></app-panel-array-item>
+        </div>
+      </div>
+      <app-summary-divider></app-summary-divider>
+    </div>
+  </ng-container>
+</div>
+
+<div class="row justify-content-center">
+  <button
+    *ngIf="publicationDisplayCount < 4"
+    class="col-auto"
+    mat-button
+    (click)="showAllPublications()"
+    color="primary"
+  >
+    Näytä kaikki julkaisut
+  </button>
+</div>

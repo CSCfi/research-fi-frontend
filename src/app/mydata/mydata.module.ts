@@ -77,9 +77,10 @@ import { ContactCardComponent } from './components/profile/cards/contact-card/co
 import { CollaborationCardComponent } from './components/profile/cards/collaboration-card/collaboration-card.component';
 import { JoinAllGroupItemsPipe } from './pipes/join-all-group-items.pipe';
 import { EmptyCardComponent } from './components/profile/cards/empty-card/empty-card.component';
-import { SummaryAffiliationComponent } from './components/profile/profile-summary/summary-affiliation/summary-affiliation.component';
+import { SummaryAffiliationsComponent } from './components/profile/profile-summary/summary-affiliations/summary-affiliation.component';
 import { SummaryDividerComponent } from './components/profile/profile-summary/summary-divider/summary-divider.component';
 import { GetItemsByPipe } from './pipes/get-items-by.pipe';
+import { SummaryPublicationsComponent } from './components/profile/profile-summary/summary-publications/summary-publications.component';
 
 const matSnackbarDefaultConfig: MatSnackBarConfig = {
   verticalPosition: 'top',
@@ -122,9 +123,10 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
     CollaborationCardComponent,
     JoinAllGroupItemsPipe,
     EmptyCardComponent,
-    SummaryAffiliationComponent,
+    SummaryAffiliationsComponent,
     SummaryDividerComponent,
     GetItemsByPipe,
+    SummaryPublicationsComponent,
   ],
   imports: [
     CommonModule,

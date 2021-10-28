@@ -42,11 +42,18 @@
         *ngIf="(field.groupItems | filter: checkGroupSelected).length"
       >
         <div class="col px-0 pb-3" [ngSwitch]="group.id">
-          <app-summary-affiliation
+          <app-summary-affiliations
             *ngSwitchCase="groupTypes.affiliation"
             [data]="field"
             [fieldTypes]="fieldTypes"
-          ></app-summary-affiliation>
+          ></app-summary-affiliations>
+
+          <app-summary-publications
+            *ngSwitchCase="groupTypes.publication"
+            [data]="field"
+            [fieldTypes]="fieldTypes"
+          >
+          </app-summary-publications>
 
           <ng-container *ngSwitchDefault>
             <div
@@ -77,39 +84,14 @@
                   >
                     <div
                       class="row d-flex justify-content-between py-1"
-                      [class.justify-content-between]="
-                        groupItem.groupMeta.type !==
-                        fieldTypes.activityAffiliation
-                      "
                       *ngIf="item.itemMeta.show"
                     >
-                      <div
-                        class="col font-size-smaller"
-                        [class.col-auto]="
-                          groupItem.groupMeta.type ===
-                          fieldTypes.activityAffiliation
-                        "
-                      >
+                      <div class="col font-size-smaller">
                         <app-panel-array-item
                           [item]="item"
                           [fieldType]="groupItem.groupMeta.type"
                           [localized]="field.localized"
                         ></app-panel-array-item>
-                      </div>
-
-                      <div
-                        *ngIf="
-                          item.itemMeta.primaryValue &&
-                          groupItem.groupMeta.type ===
-                            fieldTypes.activityAffiliation
-                        "
-                        class="col-auto px-4 mx-1 cursor-pointer"
-                      >
-                        <app-primary-badge
-                          label="Ensisijainen"
-                          [selected]="true"
-                          [disabled]="true"
-                        ></app-primary-badge>
                       </div>
                     </div>
                     <app-summary-divider></app-summary-divider>
