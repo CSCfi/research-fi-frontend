@@ -74,39 +74,39 @@ export class ProfileSummaryComponent implements OnInit {
 
     this.primarySource = this.dataSources[0];
 
-    this.sortAffiliations(this.profileData);
+    // this.sortAffiliations(this.profileData);
 
     if (!isEmptySection(this.profileData[4]))
       this.sortPublications(this.profileData);
 
-    this.filterSelectedItems();
+    // this.filterSelectedItems();
 
-    this.cdr.detectChanges();
+    // this.cdr.detectChanges();
   }
 
-  filterSelectedItems() {
-    const dataCopy = cloneDeep(this.profileData);
+  // filterSelectedItems() {
+  //   const dataCopy = cloneDeep(this.profileData);
 
-    for (let group of dataCopy) {
-      group.fields.forEach((field) => {
-        field.groupItems.map(
-          (groupItem) =>
-            (groupItem.items = groupItem.items.filter(
-              (item) => item.itemMeta.show
-            ))
-        );
+  //   for (let group of dataCopy) {
+  //     group.fields.forEach((field) => {
+  //       field.groupItems.map(
+  //         (groupItem) =>
+  //           (groupItem.items = groupItem.items.filter(
+  //             (item) => item.itemMeta.show
+  //           ))
+  //       );
 
-        field.groupItems = field.groupItems.filter(
-          (groupItem) => groupItem.items.length
-        );
-      });
+  //       field.groupItems = field.groupItems.filter(
+  //         (groupItem) => groupItem.items.length
+  //       );
+  //     });
 
-      group.fields = group.fields.filter((field) => field.groupItems.length);
-    }
+  //     group.fields = group.fields.filter((field) => field.groupItems.length);
+  //   }
 
-    // this.selectedData = dataCopy.filter((item) => item.fields.length);
-    this.filteredProfileData = dataCopy;
-  }
+  //   // this.selectedData = dataCopy.filter((item) => item.fields.length);
+  //   this.filteredProfileData = dataCopy;
+  // }
 
   sortPublications(data) {
     // Combine groups and sort. Display items in summary only from first group
@@ -132,23 +132,31 @@ export class ProfileSummaryComponent implements OnInit {
   }
 
   // Sort primary affiliations first
-  sortAffiliations(data) {
-    const index = data.findIndex((item) => item.label === 'Affiliaatiot');
+  // sortAffiliations(data) {
+  //   const index = data.findIndex((item) => item.label === 'Affiliaatiot');
 
-    const items = data[index].fields[0].groupItems.flatMap(
-      (groupItem) => groupItem.items
-    );
+  //   const groupItems = data[index].fields[0].groupItems;
 
-    const sortedItems = items.sort(
-      (a, b) => b.itemMeta.primaryValue - a.itemMeta.primaryValue
-    );
+  //   groupItems.map(
+  //     (groupItem) =>
+  //       (groupItem.items = groupItem.items.map((item) => ({
+  //         ...item,
+  //         source: groupItem.source,
+  //       })))
+  //   );
 
-    data[index].fields[0].groupItems[0].items = sortedItems;
+  //   const items = groupItems.flatMap((groupItem) => groupItem.items);
 
-    this.profileData[index].fields[0].groupItems = [
-      data[index].fields[0].groupItems[0],
-    ];
-  }
+  //   const sortedItems = items.sort(
+  //     (a, b) => b.itemMeta.primaryValue - a.itemMeta.primaryValue
+  //   );
+
+  //   data[index].fields[0].groupItems[0].items = sortedItems;
+
+  //   this.profileData[index].fields[0].groupItems = [
+  //     data[index].fields[0].groupItems[0],
+  //   ];
+  // }
 
   openDialog(event, index) {
     event.stopPropagation();
@@ -225,7 +233,7 @@ export class ProfileSummaryComponent implements OnInit {
               );
 
               // Sort
-              this.sortAffiliations(this.profileData);
+              // this.sortAffiliations(this.profileData);
 
               if (!isEmptySection(this.profileData[4]))
                 this.sortPublications(this.profileData);
