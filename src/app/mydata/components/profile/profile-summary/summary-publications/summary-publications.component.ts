@@ -6,17 +6,39 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class SummaryPublicationsComponent implements OnInit {
   @Input() data: any;
-  @Input() fieldTypews: any;
+  @Input() fieldTypes: any;
 
-  publicationDisplayCount = 1;
+  sortedItems: any[];
+
+  publicationDisplayCount = 3;
 
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.data);
+    this.sortPublications(this.data);
+  }
+
+  sortPublications(data) {
+    const groupItems = data.groupItems;
+
+    groupItems.map(
+      (groupItem) =>
+        (groupItem.items = groupItem.items.map((item) => ({
+          ...item,
+          source: groupItem.source,
+        })))
+    );
+
+    const items = [...groupItems].flatMap((groupItem) => groupItem.items);
+
+    this.sortedItems = items.sort(
+      (a, b) => b.publicationYear - a.publicationYear
+    );
+
+    console.log(this.sortedItems);
   }
 
   showAllPublications() {
-    this.publicationDisplayCount = this.data.groupItems[0].items.length;
+    this.publicationDisplayCount = this.sortedItems.length;
   }
 }

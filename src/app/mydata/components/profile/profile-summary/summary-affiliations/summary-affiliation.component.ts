@@ -29,8 +29,6 @@ export class SummaryAffiliationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.sortAffiliations(this.data);
-
-    console.log(this.sortedItems[0]);
   }
 
   // Sort primary affiliations first

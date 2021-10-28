@@ -71,13 +71,14 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    // TODO: Better check for data. Maybe type when mapping response
-    if (this.data.id === 'publication' && this.data.fields.length) {
-      this.findFetchedPublications(this.data.fields[0].groupItems);
+    console.log(this.data);
 
-      // Sort publications that are fetched in  profile creation
-      if (!isEmptySection(this.data)) this.sortPublications(this.data.fields);
-    }
+    // // TODO: Better check for data. Maybe type when mapping response
+    // if (this.data.id === 'publication' && this.data.fields.length) {
+    //   this.findFetchedPublications(this.data.fields[0].groupItems);
+    //   // Sort publications that are fetched in  profile creation
+    //   if (!isEmptySection(this.data)) this.sortPublications(this.data.fields);
+    // }
   }
 
   ngOnChanges() {
@@ -280,21 +281,49 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
             (group) => group.items
           );
 
-          const mergedPublications = preSelection
-            .concat(result.selectedPublications)
-            .sort((a, b) => b.publicationYear - a.publicationYear);
+          const groupItems = this.data.fields[0].groupItems;
 
-          this.hasFetchedPublications = true;
+          const fetchedPublications = groupItems.find(
+            (groupItem) =>
+              groupItem.groupMeta.type === this.fieldTypes.activityPublication
+          );
 
-          // Else case is for when publications don't exist in user profile
-          if (!isEmptySection(this.data)) {
-            this.data.fields[0].groupItems[0].items = mergedPublications;
+          if (fetchedPublications) {
+            this.data.fields[0].groupItems.find(
+              (groupItem) =>
+                groupItem.groupMeta.type === this.fieldTypes.activityPublication
+            ).items = fetchedPublications.items.concat(
+              result.selectedPublications
+            );
           } else {
             this.data.fields[0].groupItems.push({
-              items: mergedPublications,
               groupMeta: { type: this.fieldTypes.activityPublication },
+              source: {
+                organization: {
+                  nameFi: 'Tiedejatutkimus.fi',
+                  nameSv: 'Forskning.fi',
+                  nameEn: 'Research.fi',
+                },
+              },
+              items: result.selectedPublications,
             });
           }
+
+          // const mergedPublications = preSelection
+          //   .concat(result.selectedPublications)
+          //   .sort((a, b) => b.publicationYear - a.publicationYear);
+
+          // this.hasFetchedPublications = true;
+
+          // // Else case is for when publications don't exist in user profile
+          // if (!isEmptySection(this.data)) {
+          //   this.data.fields[0].groupItems[0].items = mergedPublications;
+          // } else {
+          //   this.data.fields[0].groupItems.push({
+          //     items: mergedPublications,
+          //     groupMeta: { type: this.fieldTypes.activityPublication },
+          //   });
+          // }
 
           this.updated = new Date();
 

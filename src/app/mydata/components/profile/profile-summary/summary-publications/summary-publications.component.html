@@ -4,28 +4,26 @@
  :license: MIT -->
 
 <div class="summary-panel-wrapper">
-  <ng-container class="row" *ngFor="let groupItem of data.groupItems">
-    <div
-      class="summary-panel"
-      *ngFor="let item of groupItem.items.slice(0, publicationDisplayCount)"
-    >
-      <div class="row" *ngIf="item.itemMeta.show">
-        <div class="col font-size-smaller">
-          <app-panel-array-item
-            [item]="item"
-            [fieldType]="groupItem.groupMeta.type"
-            [localized]="data.localized"
-          ></app-panel-array-item>
-        </div>
+  <div
+    class="summary-panel"
+    *ngFor="let item of sortedItems.slice(0, publicationDisplayCount)"
+  >
+    <div class="row" *ngIf="item.itemMeta.show">
+      <div class="col font-size-smaller">
+        <app-panel-array-item
+          [item]="item"
+          [fieldType]="fieldTypes.activityPublication"
+          [localized]="data.localized"
+        ></app-panel-array-item>
       </div>
-      <app-summary-divider></app-summary-divider>
     </div>
-  </ng-container>
+    <app-summary-divider></app-summary-divider>
+  </div>
 </div>
 
 <div class="row justify-content-center">
   <button
-    *ngIf="publicationDisplayCount < 4"
+    *ngIf="sortedItems.length > 3 && publicationDisplayCount === 3"
     class="col-auto"
     mat-button
     (click)="showAllPublications()"

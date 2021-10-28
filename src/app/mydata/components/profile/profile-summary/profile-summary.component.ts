@@ -76,8 +76,8 @@ export class ProfileSummaryComponent implements OnInit {
 
     // this.sortAffiliations(this.profileData);
 
-    if (!isEmptySection(this.profileData[4]))
-      this.sortPublications(this.profileData);
+    // if (!isEmptySection(this.profileData[4]))
+    //   this.sortPublications(this.profileData);
 
     // this.filterSelectedItems();
 
@@ -235,8 +235,8 @@ export class ProfileSummaryComponent implements OnInit {
               // Sort
               // this.sortAffiliations(this.profileData);
 
-              if (!isEmptySection(this.profileData[4]))
-                this.sortPublications(this.profileData);
+              // if (!isEmptySection(this.profileData[4]))
+              //   this.sortPublications(this.profileData);
 
               // Do actions only if user has made changes
               if (
