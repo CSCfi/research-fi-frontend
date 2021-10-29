@@ -108,28 +108,28 @@ export class ProfileSummaryComponent implements OnInit {
   //   this.filteredProfileData = dataCopy;
   // }
 
-  sortPublications(data) {
-    // Combine groups and sort. Display items in summary only from first group
-    const index = data.findIndex((item) => item.label === 'Julkaisut');
+  // sortPublications(data) {
+  //   // Combine groups and sort. Display items in summary only from first group
+  //   const index = data.findIndex((item) => item.label === 'Julkaisut');
 
-    const selectedItems = data[index].fields[0].selectedPublications;
+  //   const selectedItems = data[index].fields[0].selectedPublications;
 
-    const items = data[index].fields[0].groupItems.flatMap(
-      (groupItem) => groupItem.items
-    );
+  //   const items = data[index].fields[0].groupItems.flatMap(
+  //     (groupItem) => groupItem.items
+  //   );
 
-    const merged = selectedItems?.length ? items.concat(selectedItems) : items;
+  //   const merged = selectedItems?.length ? items.concat(selectedItems) : items;
 
-    const sortedItems = merged.sort(
-      (a, b) => b.publicationYear - a.publicationYear
-    );
+  //   const sortedItems = merged.sort(
+  //     (a, b) => b.publicationYear - a.publicationYear
+  //   );
 
-    data[index].fields[0].groupItems[0].items = sortedItems;
+  //   data[index].fields[0].groupItems[0].items = sortedItems;
 
-    this.profileData[index].fields[0].groupItems = [
-      data[index].fields[0].groupItems[0],
-    ];
-  }
+  //   this.profileData[index].fields[0].groupItems = [
+  //     data[index].fields[0].groupItems[0],
+  //   ];
+  // }
 
   // Sort primary affiliations first
   // sortAffiliations(data) {
