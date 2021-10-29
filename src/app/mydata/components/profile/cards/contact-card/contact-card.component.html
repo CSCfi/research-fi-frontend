@@ -73,8 +73,8 @@
                 <!-- Email -->
                 <a
                   *ngSwitchCase="fieldTypes.personEmailAddress"
-                  href="'mailto:' + item.url"
-                  >{{ item.url }}
+                  [href]="'mailto:' + item.value"
+                  >{{ item.value }}
                 </a>
                 <!-- Default -->
                 <ng-container *ngSwitchDefault>
