@@ -40,28 +40,24 @@ export class ProfileComponent implements OnInit {
 
   mergePublications = mergePublications;
 
-  collaborationOptions = [
-    { label: 'Olen kiinnostunut tiedotusvälineiden yhteydenotoista', id: 0 },
-    {
-      label:
-        'Olen kiinnostunut yhteistyöstä muiden tutkijoiden ja tutkimusryhmien kanssa',
-      id: 1,
-    },
-    { label: 'Olen kiinnostunut yhteistyöstä yritysten kanssa', id: 2 },
-    {
-      label:
-        'Olen kiinnostunut toimimaan tieteellisten julkaisujen vertaisarvioijana',
-      id: 3,
-    },
-  ];
-
   // Dialog variables
   showDialog: boolean;
-  dialogTemplate: any;
   dialogTitle: any;
+  dialogTemplate: any;
+  dialogExtraContentTemplate: any;
   currentDialogActions: any[];
   disableDialogClose: boolean;
   basicDialogActions = [{ label: 'Sulje', primary: true, method: 'close' }];
+  publishUpdatedProfileDialogActions = [
+    {
+      label: 'Näytä julkaistavat tiedot',
+      primary: false,
+      method: 'preview',
+      flexStart: true,
+    },
+    { label: 'Peruuta', primary: false, method: 'cancel' },
+    { label: 'Julkaise', primary: true, method: 'publish' },
+  ];
   deleteProfileDialogActions = [
     { label: 'Peruuta', primary: false, method: 'close' },
     { label: 'Poista profiili', primary: true, method: 'delete' },
@@ -77,7 +73,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     private profileService: ProfileService,
     public oidcSecurityService: OidcSecurityService,
-    private appSettingsService: AppSettingsService,
+    public appSettingsService: AppSettingsService,
     public dialog: MatDialog,
     private router: Router,
     private snackbarService: SnackbarService,
@@ -112,6 +108,9 @@ export class ProfileComponent implements OnInit {
             const draftPatchPayload = JSON.parse(
               sessionStorage.getItem(Constants.draftPatchPayload)
             );
+            const draftPublicationPatchPayload = JSON.parse(
+              sessionStorage.getItem(Constants.draftPublicationPatchPayload)
+            );
 
             this.draftPayload = draftPatchPayload;
 
@@ -125,27 +124,52 @@ export class ProfileComponent implements OnInit {
             }
 
             // Set draft patch payload from storage
-            if (draftPatchPayload)
+            if (draftPatchPayload) {
               this.patchService.addToPatchItems(draftPatchPayload);
+              this.patchService.confirmPatchItems();
+            }
+
+            // Set draft publication patch payload from storage
+            if (draftPublicationPatchPayload) {
+              this.publicationsService.addToPayload(
+                draftPublicationPatchPayload
+              );
+              this.publicationsService.confirmPayload();
+            }
           }
 
           // Set original data
-          this.profileService.currentProfileData = cloneDeep(
-            response.profileData
+          this.profileService.setCurrentProfileData(
+            cloneDeep(response.profileData)
           );
 
           // Merge publications
-          this.mergePublications(
-            response.profileData.find((item) => item.id === 'publication')
-          );
+          // this.(
+          //   response.profileData.find((item) => item.id === 'publication')
+          // );
         });
     }
   }
 
-  openDialog(title, template, actions, disableDialogClose = false) {
+  openDialog(props: {
+    title: string;
+    template: any;
+    extraContentTemplate: any;
+    actions: any;
+    disableDialogClose: boolean;
+  }) {
+    const {
+      title,
+      template,
+      extraContentTemplate,
+      actions,
+      disableDialogClose,
+    } = props;
+
     this.dialogTitle = title;
     this.showDialog = true;
     this.dialogTemplate = template;
+    this.dialogExtraContentTemplate = extraContentTemplate;
     this.currentDialogActions = actions;
     this.disableDialogClose = disableDialogClose;
   }
@@ -155,6 +179,10 @@ export class ProfileComponent implements OnInit {
     this.dialogTitle = '';
     this.showDialog = false;
     this.dialogTemplate = null;
+
+    if (event === 'publish') {
+      this.publish();
+    }
 
     if (event === 'delete') {
       this.deleteProfile();
@@ -174,6 +202,7 @@ export class ProfileComponent implements OnInit {
           this.loading = false;
           if (res.ok && res.body.success) {
             this.dialog.closeAll();
+            this.reset();
 
             // Wait for dialog to close
             setTimeout(() => this.router.navigate(['/mydata']), 500);
@@ -201,10 +230,14 @@ export class ProfileComponent implements OnInit {
     // TODO: Forkjoin both HTTP requests and handle results as single
     this.handlePublications();
     this.patchItems();
+    this.profileService.setCurrentProfileData(this.profileData);
   }
 
   reset() {
-    this.profileData = this.profileService.currentProfileData;
+    sessionStorage.removeItem(Constants.draftProfile);
+    sessionStorage.removeItem(Constants.draftPatchPayload);
+    sessionStorage.removeItem(Constants.draftPublicationPatchPayload);
+    this.profileData = [...this.profileService.currentProfileData];
     this.clearDraftData();
   }
 
@@ -223,7 +256,7 @@ export class ProfileComponent implements OnInit {
     this.publicationsService
       .addPublications()
       .pipe(take(1))
-      .subscribe(() => {});
+      .subscribe((result) => {});
   }
 
   /*
@@ -237,7 +270,10 @@ export class ProfileComponent implements OnInit {
       .pipe(take(1))
       .subscribe(
         (result) => {
-          this.snackbarService.show('Muutokset tallennettu', 'success');
+          this.snackbarService.show(
+            'Profiili julkaistu. Tiedot näkyvät muutaman minuutin kuluttua tiedejatutkimus.fi -palvelussa.',
+            'success'
+          );
           this.clearDraftData();
         },
         (error) => {

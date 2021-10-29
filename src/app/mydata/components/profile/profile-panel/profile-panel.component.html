@@ -95,6 +95,16 @@
           </div>
 
           <ng-container *ngSwitchDefault>
+            <!-- Header for publications that are added from research.fi portal -->
+            <span
+              *ngIf="
+                groupItem.groupMeta.type === fieldTypes.activityPublication &&
+                groupItem.items.length
+              "
+              class="font-size-big d-block pb-3"
+              >Tuodut julkaisut</span
+            >
+
             <ng-container *ngFor="let item of groupItem.items">
               <div class="row d-flex justify-content-between py-1">
                 <div
@@ -128,12 +138,14 @@
                 </div>
 
                 <!-- Debugging -->
-                <div class="col-auto font-size-small mt-1" style="color: red">
-                  itemId: {{ item.itemMeta.id }} | groupId:
-                  {{ groupItem.groupMeta.id }}
-                </div>
+                <ng-container *ngIf="appSettingsService.myDataSettings.debug">
+                  <div class="col-auto font-size-small mt-1" style="color: red">
+                    itemId: {{ item.itemMeta.id }} | groupId:
+                    {{ groupItem.groupMeta.id }}
+                  </div></ng-container
+                >
 
-                <!-- Enable deletion of publications that are added from TTV -->
+                <!-- Enable deletion of publications that are added from research.fi portal -->
                 <div
                   class="col-auto mt-1"
                   *ngIf="
@@ -197,62 +209,6 @@
                     [disabled]="!item.itemMeta.show"
                     [selected]="item.itemMeta.primaryValue"
                   ></app-primary-badge>
-                </div>
-              </div>
-            </ng-container>
-          </ng-container>
-        </ng-container>
-      </ng-container>
-
-      <!-- Fetched publications -->
-      <ng-container
-        *ngIf="
-          field.groupItems[0]?.groupMeta.type ===
-            fieldTypes.activityPublication && hasFetchedPublications
-        "
-      >
-        <span class="font-size-big d-block pb-3">Tuodut julkaisut</span>
-        <ng-container *ngFor="let group of field.groupItems">
-          <ng-container *ngIf="group.items.length">
-            <ng-container *ngFor="let publication of group.items">
-              <div
-                class="row d-flex justify-content-between py-2"
-                *ngIf="publication.itemMeta.primaryValue"
-              >
-                <div class="col-6 col-lg px-0 font-size-smaller">
-                  <mat-checkbox
-                    [checked]="publication.itemMeta.show"
-                    (change)="toggleItem($event, group, publication, i)"
-                  >
-                    <app-panel-array-item
-                      class="pl-1 d-block"
-                      [item]="publication"
-                      [fieldType]="fieldTypes.activityPublication"
-                    ></app-panel-array-item>
-                  </mat-checkbox>
-                </div>
-
-                <div class="col-auto mt-1">
-                  <app-secondary-button
-                    content="Poista"
-                    (click)="removePublication(publication)"
-                  ></app-secondary-button>
-                </div>
-
-                <div
-                  class="
-                    col-auto
-                    pr-0
-                    text-right
-                    opacity-3
-                    font-size-small
-                    pl-4
-                    ml-1
-                    pl-lg-3
-                    ml-lg-0
-                  "
-                >
-                  Tiedejatutkimus.fi
                 </div>
               </div>
             </ng-container>

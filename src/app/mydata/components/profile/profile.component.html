@@ -32,8 +32,33 @@
     </div>
     <div class="row">
       <div class="col-12 col-md-6 px-0 align-self-end">
-        <h2 class="h4">Julkinen profiili</h2>
+        <h2 class="h4 d-inline-block">Julkinen profiili</h2>
+        <span
+          class="d-inline-block pl-0 pl-lg-3 h6 font-italic"
+          *ngIf="
+            (publicationsService.currentPublicationPayload | async).length ||
+            (patchService.currentPatchItems | async).length
+          "
+        >
+          - <ng-container>Luonnos</ng-container></span
+        >
       </div>
+
+      <!-- Handle draft publish -->
+      <ng-template #publishUpdatedProfileTemplate>
+        <p>
+          Päivitetty tutkijaprofiilisi julkaistaan kohteessa tiedejatutkimus.fi
+          <br />
+          Julkisten tietojen päivittäminen kestää muutaman minuutin.
+        </p>
+      </ng-template>
+
+      <ng-template #dataToPublishTemplate>
+        <app-draft-summary
+          *ngIf="profileData"
+          [profileData]="profileData"
+        ></app-draft-summary>
+      </ng-template>
 
       <div
         class="col px-0 py-2 text-right"
@@ -45,13 +70,25 @@
         <app-primary-action-button
           class="col-auto"
           content="Julkaise..."
-          (click)="publish()"
+          (click)="
+            openDialog({
+              title: 'Julkaise päivitetty profiili',
+              template: publishUpdatedProfileTemplate,
+              extraContentTemplate: dataToPublishTemplate,
+              actions: publishUpdatedProfileDialogActions
+            })
+          "
         ></app-primary-action-button>
-        <app-primary-action-button
+
+        <!-- Discard draft -->
+        <button
+          mat-button
+          color="primary"
           class="col-auto pr-lg-0"
-          content="Hylkää muutokset..."
           (click)="reset()"
-        ></app-primary-action-button>
+        >
+          Hylkää muutokset...
+        </button>
       </div>
     </div>
 
@@ -61,8 +98,9 @@
       class="opacity-3"
     ></app-banner-divider>
 
+    <!-- Groups -->
     <div class="row d-flex justify-content-between">
-      <div class="col-12 col-lg-6 px-0 mx-lg-n3">
+      <div class="col-12 col-lg-7 mx-lg-n3">
         <app-profile-summary
           *ngIf="profileData; else loadingTemplate"
           class="d-block pt-3"
@@ -75,17 +113,33 @@
       </div>
 
       <div class="col-12 col-lg-5 px-0 px-lg-3 mr-lg-n3">
-        <div class="background-light p-3 mt-lg-5">
-          <span class="font-weight-bold d-block pb-3">Yhteistyö</span>
-          <section>
-            <mat-checkbox
-              class="py-1 py-lg-0"
-              *ngFor="let option of collaborationOptions"
-              >{{ option.label }}</mat-checkbox
-            >
-          </section>
-        </div>
+        <!-- DEBUGGING -->
+        <ng-container *ngIf="appSettingsService.myDataSettings.debug">
+          <button (click)="reset()" mat-raised-button>Reset</button>
+          <div class="row">
+            currentPublicationPayload:
+            {{ (publicationsService.currentPublicationPayload | async).length }}
+          </div>
+          <div class="row">
+            currentPatchItems:
+            {{ (patchService.currentPatchItems | async).length }}
+          </div>
+        </ng-container>
 
+        <!-- Contact card -->
+        <aside *ngIf="profileData" class="profile-card">
+          <app-contact-card
+            label="Yhteystiedot"
+            [data]="profileData"
+          ></app-contact-card>
+        </aside>
+
+        <!-- Collaboration -->
+        <aside class="profile-card">
+          <app-collaboration-card label="Yhteistyö"></app-collaboration-card>
+        </aside>
+
+        <!-- Beta info -->
         <div class="row py-3 d-flex justify-content-center">
           <div class="col px-0">
             <app-mydata-beta-info [template]="betaInfo"></app-mydata-beta-info>
@@ -112,11 +166,11 @@
             <button
               class="row border border-primary rounded btn d-flex w-100"
               (click)="
-                openDialog(
-                  'Tutkijan tiedot -työkalun käyttöehdot',
-                  termsTemplate,
-                  basicDialogActions
-                )
+                openDialog({
+                  title: 'Tutkijan tiedot -työkalun käyttöehdot',
+                  template: termsTemplate,
+                  actions: basicDialogActions
+                })
               "
             >
               <div class="col-auto">
@@ -136,11 +190,11 @@
             <button
               class="row border border-primary rounded btn d-flex w-100"
               (click)="
-                openDialog(
-                  'Henkilötietojen käsittely',
-                  personalDataHandlingTermsTemplate,
-                  basicDialogActions
-                )
+                openDialog({
+                  title: 'Henkilötietojen käsittely',
+                  template: personalDataHandlingTermsTemplate,
+                  actions: basicDialogActions
+                })
               "
             >
               <div class="col-auto">
@@ -167,6 +221,7 @@
           *ngIf="showDialog"
           [template]="dialogTemplate"
           [title]="dialogTitle"
+          [extraContentTemplate]="dialogExtraContentTemplate"
           (onActionClick)="doDialogAction($event)"
           [actions]="currentDialogActions"
         ></app-dialog>
@@ -177,12 +232,12 @@
             <app-primary-action-button
               class="d-block pt-5 pb-4"
               (click)="
-                openDialog(
-                  'Poista profiili',
-                  deleteProfileTemplate,
-                  deleteProfileDialogActions,
-                  true
-                )
+                openDialog({
+                  title: 'Poista profiili',
+                  template: deleteProfileTemplate,
+                  actions: deleteProfileDialogActions,
+                  disableDialogClose: true
+                })
               "
               content="Poista profiili"
             ></app-primary-action-button>
@@ -231,7 +286,7 @@
               </div>
             </ng-template>
 
-            <!-- Reusable dialog -->
+            <!-- Dialog for delete profile loading indicator-->
             <app-dialog
               *ngIf="deletingProfile"
               [template]="deletingProfileTemplate"

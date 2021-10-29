@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -47,6 +47,7 @@ export class PatchService {
   }
 
   cancelConfirmedPatchPayload() {
+    this.confirmedPatchItems = [];
     this.confirmedPatchItemsSource.next([]);
   }
 

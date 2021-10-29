@@ -1,0 +1,58 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<div class="row">
+  <div class="col px-0">
+    <span class="font-weight-bold">{{ label }}</span>
+  </div>
+  <div class="col-auto px-0" *ngIf="hasCheckedOption">
+    <app-secondary-button
+      content="Muokkaa"
+      (click)="openDialog()"
+    ></app-secondary-button>
+  </div>
+</div>
+
+<app-empty-card
+  *ngIf="!hasCheckedOption"
+  (onButtonClick)="openDialog()"
+></app-empty-card>
+
+<ng-template #dialogTemplate>
+  <div class="row pb-3">Valitse profiilissasi näytettävät tiedot</div>
+
+  <section class="py-3">
+    <mat-checkbox
+      class="py-1"
+      *ngFor="let option of collaborationOptions; let i = index"
+      (change)="toggleOption(i)"
+      [checked]="option.checked"
+      >{{ option.label }}</mat-checkbox
+    >
+  </section>
+</ng-template>
+
+<app-dialog
+  *ngIf="showDialog"
+  [template]="dialogTemplate"
+  [actions]="dialogActions"
+  title="Muokkaa yhteistyötä"
+  (onActionClick)="doDialogAction($event)"
+></app-dialog>
+
+<div class="row mt-3" *ngIf="hasCheckedOption">
+  <section>
+    <ng-container *ngFor="let option of collaborationOptions">
+      <mat-checkbox
+        class="py-1 py-lg-0"
+        *ngIf="option?.checked"
+        [checked]="true"
+        disabled
+      >
+        {{ option.label }}
+      </mat-checkbox>
+    </ng-container>
+  </section>
+</div>

@@ -18,12 +18,14 @@ import { Subscription } from 'rxjs';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { checkGroupSelected, isEmptySection } from '@mydata/utils';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { SearchPublicationsComponent } from './search-publications/search-publications.component';
+import { SearchPublicationsComponent } from '../../profile/profile-panel/search-publications/search-publications.component';
 import { take } from 'rxjs/operators';
 import { PublicationsService } from '@mydata/services/publications.service';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { PatchService } from '@mydata/services/patch.service';
 import { ProfileService } from '@mydata/services/profile.service';
+import { cloneDeep } from 'lodash-es';
+import { GroupTypes } from '@mydata/constants/groupTypes';
 
 @Component({
   selector: 'app-profile-panel',
@@ -39,6 +41,7 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   mobileStatusSub: Subscription;
 
   fieldTypes = FieldTypes;
+  groupTypes = GroupTypes;
 
   checkGroupSelected = checkGroupSelected;
   isEmptySection = isEmptySection;
@@ -59,9 +62,10 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   ttvLabel = 'Tiedejatutkimus.fi';
   updated: Date;
   selectedPublications: any[];
+  combinedItems: any[];
 
   constructor(
-    private appSettingsService: AppSettingsService,
+    public appSettingsService: AppSettingsService,
     public dialog: MatDialog,
     private publicationService: PublicationsService,
     private profileService: ProfileService,
@@ -70,13 +74,33 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    // TODO: Better check for data. Maybe type when mapping response
-    if (this.data.id === 'publication' && this.data.fields.length) {
-      this.findFetchedPublications(this.data.fields[0].groupItems);
+    console.log(this.data);
 
-      // Sort publications that are fetched in  profile creation
-      if (!isEmptySection(this.data)) this.sortPublications(this.data.fields);
-    }
+    // Combine items from groups
+
+    const groupItems = this.data.fields[0].groupItems;
+
+    groupItems.map(
+      (groupItem) =>
+        (groupItem.items = groupItem.items.map((item) => ({
+          ...item,
+          groupType: groupItem.groupMeta.type,
+          source: groupItem.source,
+        })))
+    );
+
+    const items = [...groupItems].flatMap((groupItem) => groupItem.items);
+
+    this.combinedItems = items;
+
+    console.log(items);
+
+    // // TODO: Better check for data. Maybe type when mapping response
+    // if (this.data.id === 'publication' && this.data.fields.length) {
+    //   this.findFetchedPublications(this.data.fields[0].groupItems);
+    //   // Sort publications that are fetched in  profile creation
+    //   if (!isEmptySection(this.data)) this.sortPublications(this.data.fields);
+    // }
   }
 
   ngOnChanges() {
@@ -115,9 +139,11 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     let selectedItem: { itemMeta: any };
     const patchObjects = [];
 
-    const original = this.profileService.currentProfileData.find(
-      (group) => group.id === this.data.id
-    ).fields[index];
+    const original = cloneDeep(
+      this.profileService.currentProfileData.find(
+        (group) => group.id === this.data.id
+      ).fields[index]
+    );
 
     const group = this.data.fields[index];
 
@@ -201,7 +227,6 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     itemMeta: { id: string | null };
   }) {
     const field = this.data.fields[0];
-    let selectedPublications = field.selectedPublications;
 
     // Method to remove publications added in current session
     const handleRemoveFromSession = () => {
@@ -217,39 +242,14 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
 
     // Only publications from profile have item meta ID
     if (publication.itemMeta.id) {
-      // this.publicationService.addToDeletables(publication);} // If we decide to let user reverse deletion
-
-      this.publicationService
-        .deletePublication(publication.publicationId)
-        .pipe(take(1))
-        .subscribe((res: any) => {
-          if (res.ok && res.body.success) {
-            // Publications are stored in either selectedPublications, which consists of publications fetched in current session
-            // and groupItems, which consists of added publications.
-            if (
-              selectedPublications?.findIndex(
-                (item) => item.publicationId === publication.publicationId
-              ) > -1
-            ) {
-              selectedPublications = selectedPublications.filter(
-                (item) => item.publicationId !== publication.publicationId
-              );
-
-              field.selectedPublications = selectedPublications;
-            } else {
-              handleRemoveFromSession();
-            }
-
-            // Set fetched publications flag
-            this.hasFetchedPublications =
-              field.groupItems[0].items.filter(
-                (item) => item.itemMeta.primaryValue
-              ).length > 0;
-          }
-        });
-    } else {
-      handleRemoveFromSession();
+      this.hasFetchedPublications =
+        field.groupItems[0].items.filter((item) => item.itemMeta.primaryValue)
+          .length > 0;
     }
+
+    this.publicationService.addToDeletables(publication);
+
+    handleRemoveFromSession();
   }
 
   findFetchedPublications(data) {
@@ -292,47 +292,65 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     this.dialogRef
       .afterClosed()
       .pipe(take(1))
-      .subscribe(
-        (result: {
-          selectedPublications: any[];
-          publicationsNotFound: any[];
-          publicationsAlreadyInProfile: any[];
-          source: any;
-        }) => {
-          // Reset sort when dialog closes
-          this.publicationService.resetSort();
+      .subscribe((result: { selectedPublications: any[] }) => {
+        // Reset sort when dialog closes
+        this.publicationService.resetSort();
 
-          if (result) {
-            this.publicationService.addToPayload(result.selectedPublications);
+        if (result) {
+          this.publicationService.addToPayload(result.selectedPublications);
 
-            const preSelection = this.data.fields[0].groupItems.flatMap(
-              (group) => group.items
+          const preSelection = this.data.fields[0].groupItems.flatMap(
+            (group) => group.items
+          );
+
+          const groupItems = this.data.fields[0].groupItems;
+
+          const fetchedPublications = groupItems.find(
+            (groupItem) =>
+              groupItem.groupMeta.type === this.fieldTypes.activityPublication
+          );
+
+          if (fetchedPublications) {
+            this.data.fields[0].groupItems.find(
+              (groupItem) =>
+                groupItem.groupMeta.type === this.fieldTypes.activityPublication
+            ).items = fetchedPublications.items.concat(
+              result.selectedPublications
             );
-
-            const mergedPublications = preSelection
-              .concat(result.selectedPublications)
-              .sort((a, b) => b.publicationYear - a.publicationYear);
-
-            console.log('merged: ', mergedPublications);
-
-            this.hasFetchedPublications = true;
-
-            // Else case is for when publications don't exist in user profile
-            if (!isEmptySection(this.data)) {
-              this.data.fields[0].groupItems[0].items = mergedPublications;
-            } else {
-              this.data.fields[0].groupItems.push({
-                items: mergedPublications,
-                groupMeta: { type: this.fieldTypes.activityPublication },
-                source: result.source,
-              });
-            }
-
-            this.updated = new Date();
-
-            this.cdr.detectChanges();
+          } else {
+            this.data.fields[0].groupItems.push({
+              groupMeta: { type: this.fieldTypes.activityPublication },
+              source: {
+                organization: {
+                  nameFi: 'Tiedejatutkimus.fi',
+                  nameSv: 'Forskning.fi',
+                  nameEn: 'Research.fi',
+                },
+              },
+              items: result.selectedPublications,
+            });
           }
+
+          // const mergedPublications = preSelection
+          //   .concat(result.selectedPublications)
+          //   .sort((a, b) => b.publicationYear - a.publicationYear);
+
+          // this.hasFetchedPublications = true;
+
+          // // Else case is for when publications don't exist in user profile
+          // if (!isEmptySection(this.data)) {
+          //   this.data.fields[0].groupItems[0].items = mergedPublications;
+          // } else {
+          //   this.data.fields[0].groupItems.push({
+          //     items: mergedPublications,
+          //     groupMeta: { type: this.fieldTypes.activityPublication },
+          //   });
+          // }
+
+          this.updated = new Date();
+
+          this.cdr.detectChanges();
         }
-      );
+      });
   }
 }

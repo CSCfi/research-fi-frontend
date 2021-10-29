@@ -15,8 +15,9 @@ type settingsType = {
   joined?: boolean;
 };
 
-export function mapGroup(group, label, settings?: settingsType) {
+export function mapGroup(group, id, label, settings?: settingsType) {
   return {
+    id: id,
     label: label,
     groupItems: group.filter((item) => item.items.length > 0),
     disabled: settings?.disabled,
@@ -26,7 +27,7 @@ export function mapGroup(group, label, settings?: settingsType) {
   };
 }
 
-export function mapNameGroup(group, label, settings?: settingsType) {
+export function mapNameGroup(group, id, label, settings?: settingsType) {
   group.map((item) =>
     item.items.forEach(
       (el) =>
@@ -44,6 +45,7 @@ export function mapNameGroup(group, label, settings?: settingsType) {
   // }
 
   return {
+    id: id,
     label: label,
     groupItems: group.filter((item) => item.items.length > 0),
     disabled: settings?.disabled,
@@ -54,6 +56,7 @@ export function mapNameGroup(group, label, settings?: settingsType) {
 
 export function mapGroupFieldName(
   group,
+  id,
   label,
   fieldName,
   settings?: settingsType
@@ -61,6 +64,7 @@ export function mapGroupFieldName(
   group.map((groupItem) => groupItem.items.forEach((item) => item.value));
 
   return {
+    id: id,
     label: label,
     groupItems: group.filter((item) => item.items.length > 0),
     localized: settings?.localized,

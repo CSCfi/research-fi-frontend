@@ -25,13 +25,16 @@ export class DescriptionFieldsAdapter implements Adapter<DescriptionFields> {
     return new DescriptionFields(
       this.mapGroupFieldName(
         item.researcherDescriptionGroups,
+        'researchDescription',
         'Kuvaus',
         'researchDescription',
         {
           localized: true,
         }
       ),
-      this.mapGroup(item.keywordGroups, 'Avainsanat', { joined: true })
+      this.mapGroup(item.keywordGroups, 'keywords', 'Avainsanat', {
+        joined: true,
+      })
     );
   }
 }

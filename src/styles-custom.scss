@@ -147,6 +147,10 @@ span.bold {
   font-weight: bold;
 }
 
+.text-strike {
+  text-decoration: line-through;
+}
+
 mark,
 .mark {
   padding: 0;
@@ -220,6 +224,7 @@ mark,
 
 .container-fluid {
   padding: 0px !important;
+  min-height: 700px;
 }
 
 .container {
@@ -492,6 +497,12 @@ mat-basic-chip.tag {
   }
   h3 {
     font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 679px) {
+  .container-fluid {
+    min-height: 700px;
   }
 }
 

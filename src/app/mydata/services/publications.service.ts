@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppConfigService } from '@shared/services/app-config-service.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 
 export interface Publication {
   hits: any;
@@ -40,7 +40,9 @@ export class PublicationsService {
     private appConfigService: AppConfigService,
     public oidcSecurityService: OidcSecurityService
   ) {
-    this.apiUrl = this.appConfigService.apiUrl;
+    // this.apiUrl = this.appConfigService.apiUrl;
+    this.apiUrl =
+      'https://researchfi-api-production-researchfi.rahtiapp.fi/portalapi/'; // Hardcoded production data url for dev purposes
     this.profileApiUrl = this.appConfigService.profileApiUrl;
   }
 
@@ -126,11 +128,22 @@ export class PublicationsService {
 
   cancelConfirmedPayload() {
     this.clearPayload();
+    this.clearDeletables();
+    this.confirmedPayload = [];
     this.confirmedPayloadSource.next([]);
   }
 
-  addToDeletables(publication: { publicationId: any }) {
-    this.deletables.push(publication.publicationId);
+  removeFromConfirmed(publicationId: string) {
+    const filtered = this.confirmedPayload.filter(
+      (item) => item.publicationId !== publicationId
+    );
+
+    this.confirmedPayload = filtered;
+    this.confirmedPayloadSource.next(filtered);
+  }
+
+  addToDeletables(publication) {
+    this.deletables.push(publication);
   }
 
   clearDeletables() {
@@ -139,7 +152,7 @@ export class PublicationsService {
 
   addPublications() {
     this.updateTokenInHttpAuthHeader();
-    let body = this.publicationPayload.map((item) => ({
+    const body = this.publicationPayload.map((item) => ({
       publicationId: item.publicationId,
       show: item.itemMeta.show,
       primaryValue: item.itemMeta.primaryValue,
@@ -151,10 +164,12 @@ export class PublicationsService {
     );
   }
 
-  deletePublication(publicationId) {
+  removePublications(publications) {
     this.updateTokenInHttpAuthHeader();
-    return this.http.delete(
-      this.profileApiUrl + '/publication/' + publicationId,
+    const body = publications.map((publication) => publication.publicationId);
+    return this.http.post(
+      this.profileApiUrl + '/publication/remove/',
+      body,
       this.httpOptions
     );
   }
