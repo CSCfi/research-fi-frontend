@@ -5,6 +5,8 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
+import { get } from 'lodash-es';
+
 /*
  * Common pipeable functions
  */
@@ -100,4 +102,21 @@ export function mergePublications(data) {
 // Publications can be empty if user has no imported data from ORCID
 export function isEmptySection(data) {
   return !data.fields[0].groupItems.length;
+}
+
+// Sort items and return unbinded data
+export function sortItemsBy(data, path) {
+  const groupItems = data.groupItems;
+
+  groupItems.map(
+    (groupItem) =>
+      (groupItem.items = groupItem.items.map((item) => ({
+        ...item,
+        source: groupItem.source,
+      })))
+  );
+
+  const items = [...groupItems].flatMap((groupItem) => groupItem.items);
+
+  return items.sort((a, b) => get(b, path) - get(a, path));
 }

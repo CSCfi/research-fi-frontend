@@ -25,6 +25,7 @@ import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { PatchService } from '@mydata/services/patch.service';
 import { ProfileService } from '@mydata/services/profile.service';
 import { cloneDeep } from 'lodash-es';
+import { GroupTypes } from '@mydata/constants/groupTypes';
 
 @Component({
   selector: 'app-profile-panel',
@@ -40,6 +41,7 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   mobileStatusSub: Subscription;
 
   fieldTypes = FieldTypes;
+  groupTypes = GroupTypes;
 
   checkGroupSelected = checkGroupSelected;
   isEmptySection = isEmptySection;
@@ -60,6 +62,7 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   ttvLabel = 'Tiedejatutkimus.fi';
   updated: Date;
   selectedPublications: any[];
+  combinedItems: any[];
 
   constructor(
     public appSettingsService: AppSettingsService,
@@ -72,6 +75,25 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
 
   ngOnInit(): void {
     console.log(this.data);
+
+    // Combine items from groups
+
+    const groupItems = this.data.fields[0].groupItems;
+
+    groupItems.map(
+      (groupItem) =>
+        (groupItem.items = groupItem.items.map((item) => ({
+          ...item,
+          groupType: groupItem.groupMeta.type,
+          source: groupItem.source,
+        })))
+    );
+
+    const items = [...groupItems].flatMap((groupItem) => groupItem.items);
+
+    this.combinedItems = items;
+
+    console.log(items);
 
     // // TODO: Better check for data. Maybe type when mapping response
     // if (this.data.id === 'publication' && this.data.fields.length) {

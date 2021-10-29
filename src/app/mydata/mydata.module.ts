@@ -81,6 +81,7 @@ import { SummaryAffiliationsComponent } from './components/profile/profile-summa
 import { SummaryDividerComponent } from './components/profile/profile-summary/summary-divider/summary-divider.component';
 import { GetItemsByPipe } from './pipes/get-items-by.pipe';
 import { SummaryPublicationsComponent } from './components/profile/profile-summary/summary-publications/summary-publications.component';
+import { SortByFieldTypePipe } from './pipes/sort-by-field-type.pipe';
 
 const matSnackbarDefaultConfig: MatSnackBarConfig = {
   verticalPosition: 'top',
@@ -127,6 +128,7 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
     SummaryDividerComponent,
     GetItemsByPipe,
     SummaryPublicationsComponent,
+    SortByFieldTypePipe,
   ],
   imports: [
     CommonModule,
