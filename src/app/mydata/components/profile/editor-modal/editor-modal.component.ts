@@ -129,9 +129,11 @@ export class EditorModalComponent implements OnInit {
 
     this.editorData = { ...copy };
 
-    event.checked
-      ? this.patchService.addToPatchItems(patchItems)
-      : this.patchService.clearPatchItems();
+    this.patchService.addToPatchItems(patchItems);
+
+    // event.checked
+    //   ? this.patchService.addToPatchItems(patchItems)
+    //   : this.patchService.clearPatchItems();
   }
 
   saveChanges() {
