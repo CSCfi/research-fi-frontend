@@ -62,10 +62,28 @@
                 [icon]="item.icon"
                 class="pr-3"
               ></fa-icon>
-              <app-panel-array-item
-                [item]="item"
-                [fieldType]="groupItem.groupMeta.type"
-              ></app-panel-array-item>
+              <ng-container [ngSwitch]="groupItem.groupMeta.type">
+                <!-- Links -->
+                <a
+                  *ngSwitchCase="fieldTypes.personWebLink"
+                  target="_blank"
+                  href="item.url"
+                  >{{ item.url }}<fa-icon icon="external-link-alt"></fa-icon
+                ></a>
+                <!-- Email -->
+                <a
+                  *ngSwitchCase="fieldTypes.personEmailAddress"
+                  href="'mailto:' + item.url"
+                  >{{ item.url }}
+                </a>
+                <!-- Default -->
+                <ng-container *ngSwitchDefault>
+                  <app-panel-array-item
+                    [item]="item"
+                    [fieldType]="groupItem.groupMeta.type"
+                  ></app-panel-array-item
+                ></ng-container>
+              </ng-container>
             </div>
           </ng-container>
         </ng-container>

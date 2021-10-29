@@ -14,7 +14,6 @@ import { get } from 'lodash-es';
 })
 export class SortByFieldTypePipe implements PipeTransform {
   transform(items: any[], fieldType: string): any[] {
-    console.log(items, fieldType);
     const groupTypes = GroupTypes;
 
     const sortBy = (path) => items.sort((a, b) => get(b, path) - get(a, path));
