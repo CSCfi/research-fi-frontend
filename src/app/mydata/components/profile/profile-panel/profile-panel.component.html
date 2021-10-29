@@ -69,6 +69,7 @@
         <ng-container [ngSwitch]="groupItem.groupMeta.type">
           <div class="row py-1" *ngSwitchCase="fieldTypes.personKeyword">
             <div class="col px-0 font-size-smaller">
+              asd
               <mat-checkbox
                 [checked]="groupItem.items | findSelectedItem"
                 (change)="toggleJoined($event, groupItem)"
