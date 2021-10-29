@@ -79,7 +79,7 @@ export class AppSettingsService {
 
   myDataSettings = {
     develop: false,
-    debug: false,
+    debug: true,
     beta: true,
     appName: 'myData',
     label: 'Tutkijan tiedot',
