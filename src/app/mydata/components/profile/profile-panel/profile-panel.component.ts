@@ -74,8 +74,6 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.data);
-
     // Combine items from groups
 
     const groupItems = this.data.fields[0].groupItems;
@@ -92,8 +90,6 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     const items = [...groupItems].flatMap((groupItem) => groupItem.items);
 
     this.combinedItems = items;
-
-    console.log(items);
 
     // // TODO: Better check for data. Maybe type when mapping response
     // if (this.data.id === 'publication' && this.data.fields.length) {
