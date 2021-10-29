@@ -6,6 +6,7 @@
 //  :license: MIT
 
 import { Component, Input, OnInit } from '@angular/core';
+import { sortItemsBy } from '@mydata/utils';
 
 @Component({
   selector: 'app-summary-affiliations',
@@ -14,6 +15,8 @@ import { Component, Input, OnInit } from '@angular/core';
 export class SummaryAffiliationsComponent implements OnInit {
   @Input() data: any;
   @Input() fieldTypes: any;
+
+  sortItemsBy = sortItemsBy;
   sortedItems: any[];
 
   locale = 'Fi';
@@ -28,25 +31,6 @@ export class SummaryAffiliationsComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.sortAffiliations(this.data);
-  }
-
-  // Sort primary affiliations first
-  sortAffiliations(data) {
-    const groupItems = data.groupItems;
-
-    groupItems.map(
-      (groupItem) =>
-        (groupItem.items = groupItem.items.map((item) => ({
-          ...item,
-          source: groupItem.source,
-        })))
-    );
-
-    const items = [...groupItems].flatMap((groupItem) => groupItem.items);
-
-    this.sortedItems = items.sort(
-      (a, b) => b.itemMeta.primaryValue - a.itemMeta.primaryValue
-    );
+    this.sortedItems = this.sortItemsBy(this.data, 'itemMeta.primaryValue');
   }
 }

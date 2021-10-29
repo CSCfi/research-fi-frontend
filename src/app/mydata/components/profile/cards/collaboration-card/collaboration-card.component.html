@@ -21,9 +21,11 @@
 ></app-empty-card>
 
 <ng-template #dialogTemplate>
-  <section>
+  <div class="row pb-3">Valitse profiilissasi näytettävät tiedot</div>
+
+  <section class="py-3">
     <mat-checkbox
-      class="py-1 py-lg-0"
+      class="py-1"
       *ngFor="let option of collaborationOptions; let i = index"
       (change)="toggleOption(i)"
       [checked]="option.checked"
