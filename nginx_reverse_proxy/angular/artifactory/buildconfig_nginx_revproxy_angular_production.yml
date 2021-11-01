@@ -1,0 +1,32 @@
+# This file is part of the research.fi service
+#
+# Copyright 2021 Ministry of Education and Culture, Finland
+#
+# :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+# :license: MIT
+apiVersion: v1
+kind: BuildConfig
+metadata:
+  name: artifactory-build-nginx-revproxy-angular-production
+spec:
+  source:
+    type: Git
+    git:
+      uri: https://github.com/CSCfi/research-fi-frontend.git
+      ref: master
+    contextDir: .
+  strategy:
+    type: Docker
+    dockerStrategy:
+      dockerfilePath: nginx_reverse_proxy/angular/production/Dockerfile
+  output:
+    to:
+      kind: DockerImage
+      name: researchfi-revproxy-angular-docker-prod.artifactory.ci.csc.fi/nginx-revproxy-angular-production:latest
+    pushSecret:
+      name: artifactory-researchfi-revproxy-angular-docker-prod
+  nodeSelector: {}
+  triggers: []
+  successfulBuildsHistoryLimit: 2
+  failedBuildsHistoryLimit: 2
+
