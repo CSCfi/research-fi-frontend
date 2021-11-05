@@ -8,15 +8,15 @@
 # OpenShift template and build configuration.
 # Template requires Artifactory base URL as a parameter.
 
-# Buildconfig builds production Nginx reverse proxy for Angular frontend.
+# Buildconfig builds production Angular frontend.
 # Image is pushed into Artifactory.
 
 apiVersion: v1
 kind: Template
 metadata:
-  name: template-artifactory-build-nginx-revproxy-angular-production
+  name: template-artifactory-build-frontend-production
   annotations:
-    description: This template adds build configuration, which builds production Nginx reverse proxy for Angular frontend and pushes the image into Artifactory.
+    description: This template adds build configuration, which builds Angular frontend and pushes the image into Artifactory.
 
 parameters:
   - name: ARTIFACTORY_BASE_URL 
@@ -24,12 +24,12 @@ parameters:
     description: Base URL of Artifactory. For example "myartifactory.mydomain.fi"
     value: 
     required: true 
-
+    
 objects:
   - apiVersion: v1
     kind: BuildConfig
     metadata:
-      name: artifactory-build-nginx-revproxy-angular-production
+      name: artifactory-build-frontend-production
     spec:
       source:
         type: Git
@@ -40,13 +40,13 @@ objects:
       strategy:
         type: Docker
         dockerStrategy:
-          dockerfilePath: nginx_reverse_proxy/angular/production/Dockerfile
+          dockerfilePath: openshift/Dockerfile
       output:
         to:
           kind: DockerImage
-          name: researchfi-revproxy-angular-docker-prod.${ARTIFACTORY_BASE_URL}/nginx-revproxy-angular-production:latest
+          name: researchfi-frontend-docker-prod.${ARTIFACTORY_BASE_URL}/researchfi-frontend-production:latest
         pushSecret:
-          name: artifactory-researchfi-revproxy-angular-docker-prod
+          name: artifactory-researchfi-frontend-docker-prod
       nodeSelector: {}
       triggers: []
       successfulBuildsHistoryLimit: 2
