@@ -48,6 +48,11 @@ objects:
         pushSecret:
           name: artifactory-researchfi-revproxy-angular-docker-prod
       nodeSelector: {}
-      triggers: []
+      triggers:
+        - type: ImageChange
+          imageChange:
+            from:
+              kind: ImageStreamTag
+              name: nginx-revproxy-angular-production:latest
       successfulBuildsHistoryLimit: 2
       failedBuildsHistoryLimit: 2
