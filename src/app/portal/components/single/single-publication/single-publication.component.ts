@@ -341,6 +341,7 @@ export class SinglePublicationComponent
       field: 'fieldsOfScienceString',
       tooltip: $localize`:@@TKFOS:Tilastokeskuksen luokituksen mukaiset tieteenalat.`,
     },
+    { label: $localize`:@@keywords:Avainsanat`, field: 'keywords' },
     /*{
       label: $localize`:@@openAccess:Avoin saatavuus`,
       field: 'openAccessText',
@@ -372,7 +373,7 @@ export class SinglePublicationComponent
       field: 'businessCollaboration',
       tooltip: $localize`:@@publicationCompanyAuthors:Julkaisussa on tekijöitä vähintään yhdestä yrityksestä.`,
     },
-    { label: $localize`:@@keywords:Avainsanat`, field: 'keywords' },
+
     { label: 'DOI', field: 'doi' },
   ];
 
