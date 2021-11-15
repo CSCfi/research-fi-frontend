@@ -50,13 +50,14 @@ import { StaticDataService } from '@portal/services/static-data.service';
   styleUrls: ['./active-filters.component.scss'],
 })
 export class ActiveFiltersComponent
-  implements OnInit, OnDestroy, AfterContentInit, AfterViewInit {
+  implements OnInit, OnDestroy, AfterContentInit, AfterViewInit
+{
   queryParams: any;
   activeFilters = [];
 
   translations = {
     noAccessInfo: $localize`:@@noInfo:Ei tietoa`,
-    openAccess: $localize`:@@openAccessJournal:Open Access -lehti`,
+    openAccess: $localize`:@@openAccessPublicationChannel:Open Access -julkaisukanava`,
     nonOpenAccess: $localize`:@@nonOpen:Ei avoin`,
     noVal: $localize`:@@noRating:Ei arviota`,
     otherOpen: $localize`:@@otherOpenAccess:Muu avoin saatavuus`,
@@ -306,17 +307,30 @@ export class ActiveFiltersComponent
               }
 
               if (val.category === 'date') {
-                const dateString = filter.date ? filter.date[0] : ''; 
+                const dateString = filter.date ? filter.date[0] : '';
                 const startDate = dateString?.split('|')[0];
                 const endDate = dateString?.split('|')[1];
-                const startDateString = startDate ? new Date(startDate).toLocaleDateString('fi') : '';
-                const endDateString = endDate ? new Date(endDate).toLocaleDateString('fi') : '';
+                const startDateString = startDate
+                  ? new Date(startDate).toLocaleDateString('fi')
+                  : '';
+                const endDateString = endDate
+                  ? new Date(endDate).toLocaleDateString('fi')
+                  : '';
                 if (startDateString && endDateString) {
-                  val.translation = this.yearRange + startDateString + ' - ' + endDateString;
+                  val.translation =
+                    this.yearRange + startDateString + ' - ' + endDateString;
                 } else if (startDateString) {
-                  val.translation = this.yearRange + $localize`:@@startsEarliest:Alkaa aikaisintaan` + ' ' + startDateString;  
+                  val.translation =
+                    this.yearRange +
+                    $localize`:@@startsEarliest:Alkaa aikaisintaan` +
+                    ' ' +
+                    startDateString;
                 } else if (endDateString) {
-                  val.translation = this.yearRange + $localize`:@@closesLatest:Päättyy viimeistään` + ' ' + endDateString;
+                  val.translation =
+                    this.yearRange +
+                    $localize`:@@closesLatest:Päättyy viimeistään` +
+                    ' ' +
+                    endDateString;
                 }
               }
 
@@ -402,18 +416,21 @@ export class ActiveFiltersComponent
                   (item) => item.key.toString() === val.value
                 );
                 // Find corresponding label from static data service
-                result.label = staticData.find(x => val.value === x.id.toString()).label;
+                result.label = staticData.find(
+                  (x) => val.value === x.id.toString()
+                ).label;
                 // If unknown, display filter name
                 if (val.value === '-1') {
-                  result.label = $localize`:@@articleType:Artikkelin tyyppi` + ': ' + result.label;
+                  result.label =
+                    $localize`:@@articleType:Artikkelin tyyppi` +
+                    ': ' +
+                    result.label;
                 }
 
                 const foundIndex = this.activeFilters.findIndex(
-                  (x) =>
-                    x.category === 'articleType' &&
-                    x.value === val.value
+                  (x) => x.category === 'articleType' && x.value === val.value
                 );
-                
+
                 this.activeFilters[foundIndex].translation = result?.label
                   ? result.label
                   : errorMsg;
@@ -494,11 +511,10 @@ export class ActiveFiltersComponent
                             const foundIndex = this.activeFilters.findIndex(
                               (x) => x.value === val.value
                             );
-                            this.activeFilters[
-                              foundIndex
-                            ].translation = sector.subData
-                              .find((x) => x.key === val.value)
-                              .label.trim();
+                            this.activeFilters[foundIndex].translation =
+                              sector.subData
+                                .find((x) => x.key === val.value)
+                                .label.trim();
                           }
                         }
                       );
@@ -514,11 +530,10 @@ export class ActiveFiltersComponent
                             const foundIndex = this.activeFilters.findIndex(
                               (x) => x.value === val.value
                             );
-                            this.activeFilters[
-                              foundIndex
-                            ].translation = sector.subData
-                              .find((x) => x.key === val.value)
-                              .label.trim();
+                            this.activeFilters[foundIndex].translation =
+                              sector.subData
+                                .find((x) => x.key === val.value)
+                                .label.trim();
                           }
                         }
                       );
@@ -534,11 +549,10 @@ export class ActiveFiltersComponent
                             const foundIndex = this.activeFilters.findIndex(
                               (x) => x.value === val.value
                             );
-                            this.activeFilters[
-                              foundIndex
-                            ].translation = sector.subData
-                              .find((x) => x.key === val.value)
-                              .label.trim();
+                            this.activeFilters[foundIndex].translation =
+                              sector.subData
+                                .find((x) => x.key === val.value)
+                                .label.trim();
                           }
                         }
                       );
@@ -553,11 +567,10 @@ export class ActiveFiltersComponent
                           const foundIndex = this.activeFilters.findIndex(
                             (x) => x.value === val.value
                           );
-                          this.activeFilters[
-                            foundIndex
-                          ].translation = sector.subData
-                            .find((x) => x.key === val.value)
-                            .label.trim();
+                          this.activeFilters[foundIndex].translation =
+                            sector.subData
+                              .find((x) => x.key === val.value)
+                              .label.trim();
                         }
                       });
                     }
@@ -573,30 +586,24 @@ export class ActiveFiltersComponent
                           const foundIndex = this.activeFilters.findIndex(
                             (x) => x.value === val.value
                           );
-                          this.activeFilters[
-                            foundIndex
-                          ].translation = org.key?.trim();
+                          this.activeFilters[foundIndex].translation =
+                            org.key?.trim();
                         }
                       }
                     );
                   }
                   // Funding calls organization name
                 } else if (tab === 'funding-calls') {
-                  if (
-                    source.organization?.orgId?.buckets?.length > 0
-                  ) {
-                    source.organization.orgId.buckets.forEach(
-                      (org) => {
-                        if (org.key === val.value) {
-                          const foundIndex = this.activeFilters.findIndex(
-                            (x) => x.value === val.value
-                          );
-                          this.activeFilters[
-                            foundIndex
-                          ].translation = org.orgName.buckets[0]?.key?.trim();
-                        }
+                  if (source.organization?.orgId?.buckets?.length > 0) {
+                    source.organization.orgId.buckets.forEach((org) => {
+                      if (org.key === val.value) {
+                        const foundIndex = this.activeFilters.findIndex(
+                          (x) => x.value === val.value
+                        );
+                        this.activeFilters[foundIndex].translation =
+                          org.orgName.buckets[0]?.key?.trim();
                       }
-                    );
+                    });
                   }
                 }
               }
@@ -661,11 +668,8 @@ export class ActiveFiltersComponent
                       const foundIndex = this.activeFilters.findIndex(
                         (x) => x.value === val.value
                       );
-                      this.activeFilters[
-                        foundIndex
-                      ].translation = type.subData.find(
-                        (x) => x.key === val.value
-                      ).label;
+                      this.activeFilters[foundIndex].translation =
+                        type.subData.find((x) => x.key === val.value).label;
                     }
                   }, 1);
                 });
@@ -768,11 +772,10 @@ export class ActiveFiltersComponent
                         const foundIndex = this.activeFilters.findIndex(
                           (x) => x.value === val.value
                         );
-                        this.activeFilters[
-                          foundIndex
-                        ].translation = sector.orgName.buckets
-                          .find((x) => x.orgId.buckets[0].key === val.value)
-                          .label.trim();
+                        this.activeFilters[foundIndex].translation =
+                          sector.orgName.buckets
+                            .find((x) => x.orgId.buckets[0].key === val.value)
+                            .label.trim();
                       }
                     });
                   }
