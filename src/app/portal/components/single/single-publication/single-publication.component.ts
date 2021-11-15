@@ -346,7 +346,7 @@ export class SinglePublicationComponent
       field: 'openAccessText',
       tooltip:
         '<p><strong>' +
-        $localize`:@@openAccessJournal:Open access -lehti` +
+        $localize`:@@openAccessPublicationChannel:Open access -julkaisukanava` +
         ': </strong>' +
         $localize`Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.` +
         '</p><p><strong>' +

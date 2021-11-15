@@ -178,7 +178,7 @@ export class PublicationFilterService {
       open: true,
       tooltip:
         '<p><strong>' +
-        $localize`:@@openAccessJournal:Open access -lehti` +
+        $localize`:@@openAccessPublicationChannel:Open access -julkaisukanava` +
         ': </strong>' +
         $localize`Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.` +
         '</p><p><strong>' +
@@ -558,7 +558,7 @@ export class PublicationFilterService {
       result.push({
         key: 'openAccess',
         doc_count: docCount('openAccess'),
-        label: $localize`:@@openAccessJournal:Open Access -lehti `,
+        label: $localize`:@@openAccessPublicationChannel:Open Access -julkaisukanava`,
       });
     }
     if (openAccessCodes.some((e) => e.key === 'selfArchived')) {
