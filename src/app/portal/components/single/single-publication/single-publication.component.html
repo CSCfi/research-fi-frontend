@@ -51,7 +51,7 @@
         <div id="info" class="table">
           <div class="row content" *ngFor="let row of infoFields">
             <h2 class="col-12 col-sm-6 col-lg-3 th">
-              <span class="pr-2">{{ row.label }}</span>
+              <span class="pr-1">{{ row.label }}</span>
               <ng-container *ngIf="row.tooltip">
                 <ng-template #tooltipTemplate>
                   <div [innerHtml]="row?.tooltip"></div>
@@ -94,7 +94,7 @@
               class="col-12 col-sm-6 col-lg-3 th"
               [class.auth-header-min-height]="hasSubUnits"
             >
-              <span class="pr-2" i18n="@@authorOrganization"
+              <span class="pr-1" i18n="@@authorOrganization"
                 >Organisaatiot ja tekijät</span
               >
               <ng-container>
@@ -277,7 +277,7 @@
               *ngFor="let row of typeFields?.slice(0, 3)"
             >
               <h3 class="th">
-                {{ row.label }}
+                <span class="pr-1">{{ row.label }}</span>
                 <ng-container *ngIf="row.tooltip">
                   <ng-template #tooltipTemplate>
                     <div [innerHtml]="row.tooltip"></div>
@@ -288,10 +288,7 @@
                     placement="top"
                     #elem
                   >
-                    <fa-icon
-                      class="info-icon pl-2"
-                      icon="info-circle"
-                    ></fa-icon>
+                    <fa-icon class="info-icon" icon="info-circle"></fa-icon>
                   </span>
                 </ng-container>
               </h3>
@@ -310,7 +307,7 @@
                 "
               >
                 <h3 class="th">
-                  {{ row.label }}
+                  <span class="pr-1">{{ row.label }}</span>
                   <ng-container *ngIf="row.tooltip">
                     <ng-template #tooltipTemplate>
                       <div [innerHtml]="row.tooltip"></div>
@@ -321,10 +318,7 @@
                       placement="top"
                       #elem
                     >
-                      <fa-icon
-                        class="info-icon pl-2"
-                        icon="info-circle"
-                      ></fa-icon>
+                      <fa-icon class="info-icon" icon="info-circle"></fa-icon>
                     </span>
                   </ng-container>
                 </h3>
@@ -340,7 +334,9 @@
                 *ngIf="typeFields.slice(3).length > i + 1"
               >
                 <h3 class="th">
-                  {{ typeFields.slice(3)[i + 1].label }}
+                  <span class="pr-1">{{
+                    typeFields.slice(3)[i + 1].label
+                  }}</span>
                   <ng-container *ngIf="typeFields.slice(3)[i + 1].tooltip">
                     <ng-template #tooltipTemplate>
                       <div
@@ -353,10 +349,7 @@
                       placement="top"
                       #elem
                     >
-                      <fa-icon
-                        class="info-icon pl-2"
-                        icon="info-circle"
-                      ></fa-icon>
+                      <fa-icon class="info-icon" icon="info-circle"></fa-icon>
                     </span>
                   </ng-container>
                 </h3>
@@ -372,7 +365,9 @@
                 *ngIf="typeFields.slice(3).length > i + 2"
               >
                 <h3 class="th">
-                  {{ typeFields.slice(3)[i + 2].label }}
+                  <span class="pr-1">{{
+                    typeFields.slice(3)[i + 2].label
+                  }}</span>
                   <ng-container *ngIf="typeFields.slice(3)[i + 2].tooltip">
                     <ng-template #tooltipTemplate>
                       <div
@@ -385,10 +380,7 @@
                       placement="top"
                       #elem
                     >
-                      <fa-icon
-                        class="info-icon pl-2"
-                        icon="info-circle"
-                      ></fa-icon>
+                      <fa-icon class="info-icon" icon="info-circle"></fa-icon>
                     </span>
                   </ng-container>
                 </h3>
@@ -412,7 +404,7 @@
                   *ngFor="let row of mediumFields"
                 >
                   <h3 class="th">
-                    {{ row.label }}
+                    <span class="pr-1">{{ row.label }}</span>
                     <ng-container *ngIf="row.tooltip">
                       <ng-template #tooltipTemplate>
                         <div [innerHtml]="row.tooltip"></div>
@@ -423,10 +415,7 @@
                         placement="top"
                         #elem
                       >
-                        <fa-icon
-                          class="info-icon pl-2"
-                          icon="info-circle"
-                        ></fa-icon>
+                        <fa-icon class="info-icon" icon="info-circle"></fa-icon>
                       </span>
                     </ng-container>
                   </h3>
@@ -516,7 +505,7 @@
                   *ngFor="let row of open_accessFields"
                 >
                   <h3 class="th">
-                    {{ row.label }}
+                    <span class="pr-1">{{ row.label }}</span>
                     <ng-container *ngIf="row.tooltip">
                       <ng-template #tooltipTemplate>
                         <div [innerHtml]="row.tooltip"></div>
@@ -527,10 +516,7 @@
                         placement="top"
                         #elem
                       >
-                        <fa-icon
-                          class="info-icon pl-2"
-                          icon="info-circle"
-                        ></fa-icon>
+                        <fa-icon class="info-icon" icon="info-circle"></fa-icon>
                       </span>
                     </ng-container>
                   </h3>
@@ -555,7 +541,7 @@
               *ngFor="let row of otherFields.slice(0, 2)"
             >
               <h3 class="th">
-                {{ row.label }}
+                <span class="pr-1">{{ row.label }}</span>
                 <ng-container *ngIf="row.tooltip">
                   <ng-template #tooltipTemplate>
                     <div [innerHtml]="row.tooltip"></div>
@@ -566,10 +552,7 @@
                     placement="top"
                     #elem
                   >
-                    <fa-icon
-                      class="info-icon pl-2"
-                      icon="info-circle"
-                    ></fa-icon>
+                    <fa-icon class="info-icon" icon="info-circle"></fa-icon>
                   </span>
                 </ng-container>
               </h3>
@@ -596,7 +579,7 @@
                 "
               >
                 <h3 class="th">
-                  {{ row.label }}
+                  <span class="pr-1">{{ row.label }}</span>
                   <ng-container *ngIf="row.tooltip">
                     <ng-template #tooltipTemplate>
                       <div [innerHtml]="row.tooltip"></div>
@@ -607,10 +590,7 @@
                       placement="top"
                       #elem
                     >
-                      <fa-icon
-                        class="info-icon pl-2"
-                        icon="info-circle"
-                      ></fa-icon>
+                      <fa-icon class="info-icon" icon="info-circle"></fa-icon>
                     </span>
                   </ng-container>
                 </h3>
@@ -625,7 +605,9 @@
                 *ngIf="otherFields.slice(2).length > i + 1"
               >
                 <h3 class="th">
-                  {{ otherFields.slice(2)[i + 1].label }}
+                  <span class="pr-1">
+                    {{ otherFields.slice(2)[i + 1].label }}</span
+                  >
                   <ng-container *ngIf="otherFields.slice(2)[i + 1].tooltip">
                     <ng-template #tooltipTemplate>
                       <div
@@ -638,10 +620,7 @@
                       placement="top"
                       #elem
                     >
-                      <fa-icon
-                        class="info-icon pl-2"
-                        icon="info-circle"
-                      ></fa-icon>
+                      <fa-icon class="info-icon" icon="info-circle"></fa-icon>
                     </span>
                   </ng-container>
                 </h3>
@@ -659,7 +638,7 @@
             ></h2>
             <div
               class="
-                col-12 col-sm-6 col-lg-4
+                col-12 col-sm-6 col-lg-9
                 offset-0 offset-sm-6 offset-lg-0
                 first-no-offset-mobile
                 td
@@ -668,7 +647,7 @@
               *ngFor="let row of publicationStatus"
             >
               <h3 class="th w-100">
-                {{ row.label }}
+                <span class="pr-1">{{ row.label }}</span>
                 <ng-container *ngIf="row.tooltip">
                   <ng-template #tooltipTemplate>
                     <div [innerHtml]="row.tooltip"></div>
@@ -679,10 +658,7 @@
                     placement="top"
                     #elem
                   >
-                    <fa-icon
-                      class="info-icon pl-2"
-                      icon="info-circle"
-                    ></fa-icon>
+                    <fa-icon class="info-icon" icon="info-circle"></fa-icon>
                   </span>
                 </ng-container>
               </h3>

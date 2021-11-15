@@ -373,6 +373,7 @@ export class SinglePublicationComponent
       tooltip: $localize`:@@publicationCompanyAuthors:Julkaisussa on tekijöitä vähintään yhdestä yrityksestä.`,
     },
     { label: $localize`:@@keywords:Avainsanat`, field: 'keywords' },
+    { label: 'DOI', field: 'doi' },
   ];
 
   publicationStatus = [
