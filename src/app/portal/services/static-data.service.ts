@@ -903,6 +903,31 @@ export class StaticDataService {
         }
         break;
       }
+      case 'subUnitID': {
+        switch (index) {
+          case 'publication': {
+            res = ['author.organization.organizationUnit.OrgUnitId'];
+            break;
+          }
+          case 'funding': {
+            res = [''];
+            break;
+          }
+          case 'dataset': {
+            res = [''];
+            break;
+          }
+          case 'infrastructure': {
+            res = [''];
+            break;
+          }
+          case 'organization': {
+            res = [''];
+            break;
+          }
+        }
+        break;
+      }
     }
     return res;
   }

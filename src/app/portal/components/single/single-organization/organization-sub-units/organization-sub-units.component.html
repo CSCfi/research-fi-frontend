@@ -24,26 +24,12 @@
   <div class="col-12 col-sm-6 col-lg-9 td">
     <ul class="list-unstyled">
       <li *ngFor="let subUnit of item.subUnits">
-        {{ subUnit.subUnitName }}
+        <a
+          [routerLink]="['/results/publications/' + subUnit.subUnitID]"
+          [queryParams]="{ target: 'subUnitID' }"
+          >{{ subUnit.subUnitName }}</a
+        >
       </li>
     </ul>
-    <!-- <a
-      href="javascript:void(0)"
-      class="read-more"
-      *ngIf="item.subUnits.length > subUnitSlice"
-      (click)="subUnitSlice = item.subUnits.length"
-      i18n="@@showMore"
-    >
-      Näytä enemmän
-    </a>
-    <a
-      href="javascript:void(0)"
-      class="read-more"
-      *ngIf="item.subUnits.length === subUnitSlice"
-      (click)="subUnitSlice = 10"
-      i18n="@@showLess"
-    >
-      Näytä vähemmän
-    </a> -->
   </div>
 </div>
