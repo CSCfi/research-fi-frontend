@@ -17,7 +17,6 @@ import {
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
-import { map } from 'rxjs/operators';
 import { SearchService } from '../../../services/search.service';
 import { Subscription } from 'rxjs';
 import { faQuoteRight } from '@fortawesome/free-solid-svg-icons';
