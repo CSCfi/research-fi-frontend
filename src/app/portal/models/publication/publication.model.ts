@@ -193,7 +193,7 @@ export class PublicationAdapter implements Adapter<Publication> {
     let apcFee = '';
     let publicationType = item.publicationTypeCode?.split('')[0];
     let embargoDate = '';
-    let archiveEbargoDate = '';
+    let archiveEmbargoDate = '';
 
     if (['A', 'B'].includes(publicationType) && item.apcFeeEur) {
       item.apcFeeEur > 6000 ||
@@ -245,7 +245,16 @@ export class PublicationAdapter implements Adapter<Publication> {
           item.selfArchivedData[0]?.selfArchived[0]?.selfArchivedEmbargoDate?.trim();
         if (embargoDate) {
           let date = embargoDate.split('-');
-          archiveEbargoDate = date[0] + '.' + date[1] + '.' + date[2];
+
+          const day = date[0];
+          const month = date[1];
+          const year = date[2];
+
+          const parsedDate = Date.parse(`${year}-${month}-${day}`);
+
+          if (parsedDate > Date.now()) {
+            archiveEmbargoDate = `${day}.${month}.${year}`;
+          }
         }
       }
     }
@@ -327,7 +336,7 @@ export class PublicationAdapter implements Adapter<Publication> {
       licenseText,
       archiveCodeVersionText,
       archiveCodeLincenseText,
-      archiveEbargoDate,
+      archiveEmbargoDate,
       publicationStatusText,
       apcFee,
       apcPaymentYear,
