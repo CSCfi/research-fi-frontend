@@ -5,7 +5,7 @@
 
 <div class="row content" *ngFor="let row of subUnitFields">
   <h2 class="col-12 col-sm-6 col-lg-3 th">
-    {{ row.label }} ({{ latestSubUnitYear }})
+    <span class="pr-1">{{ row.label }} ({{ latestSubUnitYear }})</span>
     <ng-container *ngIf="row.tooltip">
       <ng-template #tooltipTemplate
         ><div [innerHtml]="row.tooltip"></div
@@ -17,7 +17,7 @@
         placement="top"
         #elem
       >
-        <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+        <fa-icon class="info-icon" icon="info-circle"></fa-icon>
       </span>
     </ng-container>
   </h2>

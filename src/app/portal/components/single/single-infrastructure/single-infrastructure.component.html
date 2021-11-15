@@ -47,7 +47,7 @@
             <ng-container *ngFor="let row of infoFields; let i = index">
               <div class="row" *ngIf="item[row.field]">
                 <h2 class="col-12 col-sm-6 col-lg-3 th">
-                  {{ row.label }}
+                  <span class="pr-1">{{ row.label }}</span>
                   <ng-container *ngIf="row.tooltip">
                     <ng-template #tooltipTemplate
                       ><div [innerHtml]="row.tooltip"></div
@@ -58,10 +58,7 @@
                       placement="top"
                       #elem
                     >
-                      <fa-icon
-                        class="info-icon pl-2"
-                        icon="info-circle"
-                      ></fa-icon>
+                      <fa-icon class="info-icon" icon="info-circle"></fa-icon>
                     </span>
                   </ng-container>
                 </h2>
@@ -86,8 +83,8 @@
           </div>
           <div *ngIf="item.services.length > 0" class="content">
             <h2 class="subheader trHeader">
-              <ng-container i18n="@@infraServices"
-                >Tutkimusinfrastruktuurin palvelut</ng-container
+              <span class="pr-1" i18n="@@infraServices"
+                >Tutkimusinfrastruktuurin palvelut</span
               >
               <span
                 i18n-tooltip="@@infraServicesTooltip"
@@ -98,7 +95,7 @@
                 placement="top"
                 #elem
               >
-                <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                <fa-icon class="info-icon" icon="info-circle"></fa-icon>
               </span>
             </h2>
             <div
@@ -125,7 +122,7 @@
                   >
                     <ng-container *ngIf="stringHasContent(service[row.field])">
                       <h4 class="col-12 col-sm-6 col-lg-3 th">
-                        {{ row.label }}
+                        <span class="pr-1">{{ row.label }}</span>
                         <ng-container *ngIf="row.tooltip">
                           <ng-template #tooltipTemplate
                             ><div [innerHtml]="row.tooltip"></div
@@ -137,7 +134,7 @@
                             #elem
                           >
                             <fa-icon
-                              class="info-icon pl-2"
+                              class="info-icon"
                               icon="info-circle"
                             ></fa-icon>
                           </span>
@@ -181,8 +178,8 @@
                   >
                     <div class="row">
                       <h4 class="col-12 col-sm-6 col-lg-3 th">
-                        <ng-container i18n="@@infraServicePoint"
-                          >Palvelupiste</ng-container
+                        <span class="pr-1" i18n="@@infraServicePoint"
+                          >Palvelupiste</span
                         >
                         <span
                           i18n-tooltip="@@contactInfoTooltip"
@@ -193,7 +190,7 @@
                           #elem
                         >
                           <fa-icon
-                            class="info-icon pl-2"
+                            class="info-icon"
                             icon="info-circle"
                           ></fa-icon>
                         </span>
@@ -306,7 +303,7 @@
               >
                 <ng-container *ngIf="item[row.field]">
                   <h4 class="th classification">
-                    {{ row.label }}
+                    <span class="pr-1">{{ row.label }}</span>
                     <ng-container *ngIf="row.tooltip">
                       <ng-template #tooltipTemplate
                         ><div [innerHtml]="row.tooltip"></div
@@ -317,10 +314,7 @@
                         placement="top"
                         #elem
                       >
-                        <fa-icon
-                          class="info-icon pl-2"
-                          icon="info-circle"
-                        ></fa-icon>
+                        <fa-icon class="info-icon" icon="info-circle"></fa-icon>
                       </span>
                     </ng-container>
                   </h4>
