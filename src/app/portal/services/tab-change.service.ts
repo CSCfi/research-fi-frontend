@@ -80,8 +80,14 @@ export class TabChangeService {
     link: 'funding-calls',
     icon: faBullhorn,
     singular: 'rahoitushaku',
-    tooltip: ''
-  }
+    tooltip: '',
+  };
+
+  // List for tab / page data names. Used ie. in portal.module to check route
+  resultPageList = [
+    ...this.tabData.map((tab) => tab.data),
+    this.fundingCall.data,
+  ].filter((item) => item.length);
 
   private tabSource = new BehaviorSubject({
     data: '',

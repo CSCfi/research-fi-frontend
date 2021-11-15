@@ -354,51 +354,51 @@ export class PortalModule {
     router.events
       .pipe(filter((e: Event): e is Scroll => e instanceof Scroll))
       .subscribe((e) => {
+        const currentUrl = e.routerEvent.url;
+        const history = this.historyService.history;
+        const resultPages = tabChangeService.resultPageList;
+
         // Trigger new page so first tab focuses skip links
-        const prevPageLocation =
-          this.historyService.history[this.historyService.history.length - 2];
-        const currentPageLocation = e.routerEvent.url;
+        const prevPageLocation = history[history.length - 2];
+        const currentPageLocation = currentUrl;
         if (this.newPage(prevPageLocation, currentPageLocation)) {
           this.tabChangeService.triggerNewPage();
         }
-        if (e.routerEvent.url.includes('/results')) {
-          const targetPage =
-            +router.parseUrl(e.routerEvent.url).queryParams.page || 1;
+
+        // Check that route is in results and not in single result
+        if (
+          currentUrl.includes('/results') &&
+          !resultPages.some((item) =>
+            currentUrl.includes(`/${item.slice(0, -1)}/`)
+          )
+        ) {
+          const targetPage = +router.parseUrl(currentUrl).queryParams.page || 1;
           // Different page or coming from different route
           if (
             this.startPage !== targetPage ||
-            !this.historyService.history[
-              this.historyService.history.length - 2
-            ]?.includes('/results')
+            !history[history.length - 2]?.includes('/results')
           ) {
             viewportScroller.scrollToPosition([0, 0]);
           }
           this.startPage = targetPage;
 
           // Similar to /results but for /funding-calls
-        } else if (e.routerEvent.url.includes('/funding-calls')) {
-          const targetPage =
-            +router.parseUrl(e.routerEvent.url).queryParams.page || 1;
+        } else if (currentUrl.includes('/funding-calls')) {
+          const targetPage = +router.parseUrl(currentUrl).queryParams.page || 1;
           // Different page or coming from different route
           if (
             this.startPage !== targetPage ||
-            !this.historyService.history[
-              this.historyService.history.length - 2
-            ]?.includes('/funding-calls')
+            !history[history.length - 2]?.includes('/funding-calls')
           ) {
             viewportScroller.scrollToPosition([0, 0]);
           }
           this.startPage = targetPage;
-        } else if (e.routerEvent.url.includes('/science-research-figures')) {
+        } else if (currentUrl.includes('/science-research-figures')) {
           // scroll to top only in single figure view
-          if (
-            !this.historyService.history[
-              this.historyService.history.length - 2
-            ]?.includes('figures/s')
-          ) {
+          if (!history[history.length - 2]?.includes('figures/s')) {
             viewportScroller.scrollToPosition([0, 0]);
           }
-          if (!e.routerEvent.url.includes('filter')) {
+          if (!currentUrl.includes('filter')) {
             viewportScroller.scrollToPosition([0, 0]);
           }
         } else {
