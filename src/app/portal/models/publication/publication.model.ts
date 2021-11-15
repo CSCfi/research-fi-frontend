@@ -144,13 +144,15 @@ export class PublicationAdapter implements Adapter<Publication> {
     //Abstract
     let abstract = item.abstract || '';
 
+    // Open Access
     const openAccess: boolean =
       item.openAccess === 1 || item.selfArchivedCode === 1;
-    // Open Access
+
     let openAccessText = '';
-    if (openAccess) {
+
+    if (item.openAccess === 1) {
       openAccessText = $localize`:@@yes:Kyllä`;
-    } else if (!item.openAccess) {
+    } else if (item.openAccess === 0) {
       openAccessText = $localize`:@@no:Ei`;
     } else {
       openAccessText = $localize`:@@noInfo:Ei tietoa`;
