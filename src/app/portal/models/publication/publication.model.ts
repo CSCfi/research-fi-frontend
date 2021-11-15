@@ -235,7 +235,7 @@ export class PublicationAdapter implements Adapter<Publication> {
       ) {
         archiveCodeVersionText = $localize`:@@publisherVersion:Kustantajan versio`;
       } else if (
-        item.selfArchivedData[0]?.selfArchived[0]?.selfArchivedVersionCode == 0
+        item.selfArchivedData[0]?.selfArchived[0]?.selfArchivedVersionCode === 0
       ) {
         archiveCodeVersionText = $localize`:@@finalDraft:Viimeinen käsikirjoitusversio`;
       }
