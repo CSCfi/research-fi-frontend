@@ -43,9 +43,10 @@ export class RecipientAdapter implements Adapter<Recipient> {
     const recipientObj = item.recipientObj;
 
     // Filter empty properties
-    Object.keys(recipientObj).forEach(
-      (k) => recipientObj[k] == '' && delete recipientObj[k]
-    );
+    typeof recipientObj === 'object' &&
+      Object.keys(recipientObj).forEach(
+        (k) => recipientObj[k] == '' && delete recipientObj[k]
+      );
 
     const joinName = (firstNames: string, lastName: string) =>
       `${firstNames} ${lastName}`.trim();
