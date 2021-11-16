@@ -38,6 +38,8 @@ import { DialogComponent } from './components/dialog/dialog.component';
 import { DialogTemplateComponent } from './components/dialog/dialog-template/dialog-template.component';
 import { BannerDividerComponent } from './components/banner-divider/banner-divider.component';
 
+import { ClickOutsideDirective } from './directives/click-outside.directive';
+
 @NgModule({
   declarations: [
     InfoComponent,
@@ -55,6 +57,7 @@ import { BannerDividerComponent } from './components/banner-divider/banner-divid
     DialogComponent,
     DialogTemplateComponent,
     BannerDividerComponent,
+    ClickOutsideDirective,
   ],
   exports: [
     InfoComponent,
@@ -70,6 +73,7 @@ import { BannerDividerComponent } from './components/banner-divider/banner-divid
     CutContentPipe,
     DialogComponent,
     BannerDividerComponent,
+    ClickOutsideDirective,
   ],
   imports: [
     CommonModule,

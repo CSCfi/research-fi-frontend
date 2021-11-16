@@ -130,7 +130,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   percentage = false;
   visualSub: Subscription;
   modalRef: BsModalRef;
-  showInfo = true;
+  showInfo = false;
   fundingAmount = false;
   visualisationType = false;
 

@@ -125,7 +125,7 @@ import { FilterListComponent } from './components/results/active-filters/filter-
 import { ServiceInfoComponent } from './components/service-info/service-info.component';
 import { PrivacyComponent } from './components/privacy/privacy.component';
 import { AccessibilityComponent } from './components/accessibility/accessibility.component';
-import { ClickOutsideModule } from 'ng-click-outside';
+// import { ClickOutsideModule } from 'ng-click-outside';
 
 import { SharedModule } from '../shared/shared.module';
 import { filter } from 'rxjs/operators';
@@ -278,7 +278,7 @@ import { PublicationLinksComponent } from './components/single/single-publicatio
     FontAwesomeModule,
     TransferHttpCacheModule,
     ModalModule.forRoot(),
-    ClickOutsideModule,
+    // ClickOutsideModule,
     SharedModule,
     A11yModule,
     TooltipModule.forRoot(),
