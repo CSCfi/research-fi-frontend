@@ -23,7 +23,7 @@ import { SettingsService } from 'src/app/portal/services/settings.service';
 import { SingleItemService } from 'src/app/portal/services/single-item.service';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { UtilityService } from 'src/app/shared/services/utility.service';
-import { singleDataset, common } from 'src/assets/static-data/meta-tags.json';
+import MetaTags from 'src/assets/static-data/meta-tags.json';
 
 @Component({
   selector: 'app-single-dataset',
@@ -36,8 +36,8 @@ export class SingleDatasetComponent implements OnInit {
   searchTerm: string;
   pageNumber: any;
   tabQueryParams: any;
-  private metaTags = singleDataset;
-  private commonTags = common;
+  private metaTags = MetaTags.singleDataset;
+  private commonTags = MetaTags.common;
   showMore = $localize`:@@showMore:Näytä enemmän`;
   showLess = $localize`:@@showLess:Näytä vähemmän`;
 
