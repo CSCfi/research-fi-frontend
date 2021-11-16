@@ -58,6 +58,15 @@ export class SortService {
     this.sortColumn = this.sortDirection ? sort.slice(0, -4) : sort;
   }
 
+  generateNested(parent: string) {
+    return {
+      path: parent,
+      filter: {
+        match_all: {},
+      },
+    };
+  }
+
   private updateSortParam(sort: string, tab: string) {
     this.currentTab = tab;
     this.sortMethod = sort;
@@ -164,41 +173,33 @@ export class SortService {
               this.localeC +
               '.keyword';
             // Nested fields have to be sorted via path and filter
-            function generateNested(parent) {
-              return {
-                path: parent,
-                filter: {
-                  match_all: {},
-                },
-              };
-            }
             this.sort = [
               {
                 [personSortString]: {
                   order: this.sortDirection ? 'desc' : 'asc',
                   unmapped_type: 'long',
-                  nested: generateNested('fundingGroupPerson'),
+                  nested: this.generateNested('fundingGroupPerson'),
                 },
               },
               {
                 'fundingGroupPerson.fundingGroupPersonFirstNames.keyword': {
                   order: this.sortDirection ? 'desc' : 'asc',
                   unmapped_type: 'long',
-                  nested: generateNested('fundingGroupPerson'),
+                  nested: this.generateNested('fundingGroupPerson'),
                 },
               },
               {
                 'fundingGroupPerson.fundingGroupPersonLastName.keyword': {
                   order: this.sortDirection ? 'desc' : 'asc',
                   unmapped_type: 'long',
-                  nested: generateNested('fundingGroupPerson'),
+                  nested: this.generateNested('fundingGroupPerson'),
                 },
               },
               {
                 [organizationSortString]: {
                   order: this.sortDirection ? 'desc' : 'asc',
                   unmapped_type: 'long',
-                  nested: generateNested('organizationConsortium'),
+                  nested: this.generateNested('organizationConsortium'),
                 },
               },
             ];
@@ -393,9 +394,9 @@ export class SortService {
               {
                 [sortString]: {
                   order: this.sortDirection ? 'desc' : 'asc',
-                  unmapped_type: 'long'
-                }
-              }
+                  unmapped_type: 'long',
+                },
+              },
             ];
             break;
           }
@@ -405,9 +406,9 @@ export class SortService {
               {
                 [sortString]: {
                   order: this.sortDirection ? 'desc' : 'asc',
-                  unmapped_type: 'long'
-                }
-              }
+                  unmapped_type: 'long',
+                },
+              },
             ];
             break;
           }
@@ -418,13 +419,13 @@ export class SortService {
               {
                 [sortString]: {
                   order: this.sortDirection ? 'desc' : 'asc',
-                  unmapped_type: 'long'
+                  unmapped_type: 'long',
                 },
                 [sortStringSecondary]: {
                   order: 'asc',
-                  unmapped_type: 'long'
-                }
-              }
+                  unmapped_type: 'long',
+                },
+              },
             ];
             break;
           }
@@ -435,13 +436,13 @@ export class SortService {
               {
                 [sortString]: {
                   order: this.sortDirection ? 'desc' : 'asc',
-                  unmapped_type: 'long'
+                  unmapped_type: 'long',
                 },
                 [sortStringSecondary]: {
                   order: 'asc',
-                  unmapped_type: 'long'
-                }
-              }
+                  unmapped_type: 'long',
+                },
+              },
             ];
             break;
           }
@@ -452,13 +453,13 @@ export class SortService {
               {
                 [sortString]: {
                   order: 'asc',
-                  unmapped_type: 'long'
+                  unmapped_type: 'long',
                 },
                 [sortStringSecondary]: {
                   order: 'asc',
-                  unmapped_type: 'long'
-                }
-              }
+                  unmapped_type: 'long',
+                },
+              },
             ];
             break;
           }

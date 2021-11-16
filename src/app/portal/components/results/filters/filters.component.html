@@ -179,7 +179,7 @@
                   7) &&
               !filter.hideSearch
             "
-            i18n-placeholder
+            i18n-placeholder="@@search"
             placeholder="Hae"
             autocomplete="off"
             (keyup)="filterInput($event, filter.field)"
@@ -499,7 +499,7 @@
                 [id]="'filter-query-' + i + k"
                 #filterSearch
                 *ngIf="item.subData.length > 7 || item.original?.length > 7"
-                i18n-placeholder
+                i18n-placeholder="@@search"
                 placeholder="Hae"
                 autocomplete="off"
                 (keyup)="subFilterInput($event, filter.field, item.key)"
