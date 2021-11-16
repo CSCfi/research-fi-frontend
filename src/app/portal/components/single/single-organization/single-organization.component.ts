@@ -22,10 +22,7 @@ import { forkJoin, Subscription } from 'rxjs';
 import { TabChangeService } from '@portal/services/tab-change.service';
 import { UtilityService } from '@shared/services/utility.service';
 import { Search } from '@portal/models/search.model';
-import {
-  singleOrganization,
-  common,
-} from 'src/assets/static-data/meta-tags.json';
+import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { SettingsService } from 'src/app/portal/services/settings.service';
 import { take, tap } from 'rxjs/operators';
 import { ResizeService } from '@shared/services/resize.service';
@@ -98,8 +95,8 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   @ViewChild('backToResultsLink') backToResultsLink: ElementRef;
 
   public singleId: any;
-  private metaTags = singleOrganization;
-  private commonTags = common;
+  private metaTags = MetaTags.singleOrganization;
+  private commonTags = MetaTags.common;
   responseData: Search;
   news: any[];
   searchTerm: string;

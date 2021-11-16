@@ -15,7 +15,7 @@ import { Title } from '@angular/platform-browser';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { common, fundingCalls } from 'src/assets/static-data/meta-tags.json';
+import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { Subscription } from 'rxjs';
 import { SortService } from '@portal/services/sort.service';
@@ -34,8 +34,8 @@ export class FundingCallsComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('skipToResults') skipToResults: ElementRef;
 
   private currentLocale: string;
-  private metaTags = fundingCalls;
-  private commonTags = common;
+  private metaTags = MetaTags.fundingCalls;
+  private commonTags = MetaTags.common;
 
   queryParams: any;
   currentTerm: string;

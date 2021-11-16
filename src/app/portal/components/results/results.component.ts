@@ -33,14 +33,7 @@ import { WINDOW } from 'src/app/shared/services/window.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { SettingsService } from 'src/app/portal/services/settings.service';
-import {
-  publications,
-  fundings,
-  datasets,
-  infrastructures,
-  organizations,
-  common,
-} from 'src/assets/static-data/meta-tags.json';
+import MetaTags from 'src/assets/static-data/meta-tags.json';
 import {
   Visual,
   VisualQuery,
@@ -155,14 +148,14 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     $localize`:@@datasetBetaInfo:Tutkimusaineistojen kuvailutiedot ovat uusi tietokokonaisuus Tiedejatutkimus.fi -portaalissa. Tietojen lähteenä ovat Fairdata-palveluista löytyvät kuvailutiedot. Koska kyseessä on uusi kokonaisuus, toivomme palautetta tiedejatutkimus@csc.fi osoitteeseen.`;
 
   private metaTagsList = [
-    publications,
-    fundings,
-    datasets,
-    infrastructures,
-    organizations,
+    MetaTags.publications,
+    MetaTags.fundings,
+    MetaTags.datasets,
+    MetaTags.infrastructures,
+    MetaTags.organizations,
   ];
   private metaTags: { link: string };
-  private commonTags = common;
+  private commonTags = MetaTags.common;
   inputSub: Subscription;
   modalHideSub: Subscription;
   mobileStatusSub: Subscription;

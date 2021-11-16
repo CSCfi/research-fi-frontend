@@ -22,7 +22,7 @@ import { Subscription } from 'rxjs';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { ReviewComponent } from 'src/app/layout/review/review.component';
 import { UtilityService } from 'src/app/shared/services/utility.service';
-import { accessibility, common } from 'src/assets/static-data/meta-tags.json';
+import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { ActivatedRoute } from '@angular/router';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 
@@ -32,7 +32,8 @@ import { DOCUMENT, isPlatformBrowser } from '@angular/common';
   styleUrls: ['./accessibility.component.scss'],
 })
 export class AccessibilityComponent
-  implements OnInit, AfterViewInit, OnDestroy {
+  implements OnInit, AfterViewInit, OnDestroy
+{
   focusSub: Subscription;
   @ViewChild('mainFocus') mainFocus: ElementRef;
   @ViewChild('contentContainer', { static: false })
@@ -42,8 +43,8 @@ export class AccessibilityComponent
   currentLocale: string;
   loading = true;
 
-  private metaTags = accessibility;
-  private commonTags = common;
+  private metaTags = MetaTags.accessibility;
+  private commonTags = MetaTags.common;
   content: any[];
 
   constructor(

@@ -19,7 +19,7 @@ import {
   LOCALE_ID,
   OnDestroy,
 } from '@angular/core';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
@@ -31,7 +31,7 @@ import { Subscription } from 'rxjs';
 import { News } from 'src/app/portal/models/news.model';
 import { Shortcut } from 'src/app/portal/models/shortcut.model';
 import { UtilityService } from 'src/app/shared/services/utility.service';
-import { homepage, common } from 'src/assets/static-data/meta-tags.json';
+import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ReviewComponent } from 'src/app/layout/review/review.component';
 import { PrivacyService } from 'src/app/portal/services/privacy.service';
@@ -64,8 +64,8 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   resizeSub: Subscription;
 
-  private metaTags = homepage;
-  private commonTags = common;
+  private metaTags = MetaTags.homepage;
+  private commonTags = MetaTags.common;
 
   newsImage = {
     link: '/news',

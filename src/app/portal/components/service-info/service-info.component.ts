@@ -16,7 +16,7 @@ import { Title } from '@angular/platform-browser';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { DOCUMENT, isPlatformBrowser, Location } from '@angular/common';
 import { UtilityService } from 'src/app/shared/services/utility.service';
-import { serviceInfo, common } from 'src/assets/static-data/meta-tags.json';
+import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ReviewComponent } from 'src/app/layout/review/review.component';
@@ -36,8 +36,8 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   openedIdx: any;
   currentLocale: string;
 
-  private metaTags = serviceInfo;
-  private commonTags = common;
+  private metaTags = MetaTags.serviceInfo;
+  private commonTags = MetaTags.common;
   content: any[];
   reviewDialogRef: MatDialogRef<ReviewComponent>;
 

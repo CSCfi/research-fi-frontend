@@ -24,10 +24,7 @@ import { Subscription } from 'rxjs';
 import { Search } from 'src/app/portal/models/search.model';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { UtilityService } from 'src/app/shared/services/utility.service';
-import {
-  singleInfrastructure,
-  common,
-} from 'src/assets/static-data/meta-tags.json';
+import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { SettingsService } from 'src/app/portal/services/settings.service';
 
 @Component({
@@ -42,8 +39,8 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   pageNumber: any;
   tabQueryParams: any;
   stringHasContent = UtilityService.stringHasContent;
-  private metaTags = singleInfrastructure;
-  private commonTags = common;
+  private metaTags = MetaTags.singleInfrastructure;
+  private commonTags = MetaTags.common;
 
   tab = 'infrastructures';
   infoFields = [
@@ -301,9 +298,7 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
 
     // Filter out empty servicepoints and empty services
     source.services.forEach((service, idx) => {
-      source.services[
-        idx
-      ].servicePoints = service.servicePoints
+      source.services[idx].servicePoints = service.servicePoints
         .map((servicePoint) =>
           UtilityService.objectHasContent(servicePoint)
             ? servicePoint
@@ -341,9 +336,8 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   }
 
   toggleServicePoint(service: number, point: number) {
-    this.showServicePoint[service][point] = !this.showServicePoint[service][
-      point
-    ];
+    this.showServicePoint[service][point] =
+      !this.showServicePoint[service][point];
   }
 
   serviceExpandId(serviceId: number, fieldId: number) {
