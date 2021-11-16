@@ -24,7 +24,7 @@ import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { Search } from 'src/app/portal/models/search.model';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { UtilityService } from 'src/app/shared/services/utility.service';
-import { singleFunding, common } from 'src/assets/static-data/meta-tags.json';
+import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { SettingsService } from 'src/app/portal/services/settings.service';
 
 @Component({
@@ -39,8 +39,8 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   pageNumber: any;
   tabQueryParams: any;
   tab = 'fundings';
-  private metaTags = singleFunding;
-  private commonTags = common;
+  private metaTags = MetaTags.singleFunding;
+  private commonTags = MetaTags.common;
 
   info = [
     { label: $localize`Akronyymi`, field: 'acronym' },

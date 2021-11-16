@@ -23,7 +23,7 @@ import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { PrivacyService } from 'src/app/portal/services/privacy.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { privacy, common } from 'src/assets/static-data/meta-tags.json';
+import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { WINDOW } from 'src/app/shared/services/window.service';
 
@@ -44,8 +44,8 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
   selectedIndex: any;
   currentLocale: string;
 
-  private metaTags = privacy;
-  private commonTags = common;
+  private metaTags = MetaTags.privacy;
+  private commonTags = MetaTags.common;
 
   privacyPolicyContent: any[];
   cookiePolicyContent: any[];
@@ -119,13 +119,12 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // Get consent status
     if (isPlatformBrowser(this.platformId)) {
-      this.consentStatusSub = this.privacyService.currentConsentStatus.subscribe(
-        (status) => {
+      this.consentStatusSub =
+        this.privacyService.currentConsentStatus.subscribe((status) => {
           this.consentStatus = localStorage.getItem('cookieConsent')
             ? localStorage.getItem('cookieConsent')
             : status;
-        }
-      );
+        });
     }
   }
 

@@ -69,7 +69,7 @@
                 type="text"
                 i18n-title="@@searchTooltip"
                 title="Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa."
-                i18n-placeholder
+                i18n-placeholder="@@searchPlaceholder"
                 placeholder="Esim. julkaisu, tieteenala, asiasana"
                 id="searchInput"
                 autocomplete="off"
@@ -124,9 +124,7 @@
                 (keydown.enter)="newInput(undefined, undefined)"
               >
                 <i class="fa fa-search"></i>
-                <span i18n="Search@@searchButton" class="search-button"
-                  >Hae</span
-                >
+                <span i18n="Search@@search" class="search-button">Hae</span>
               </button>
             </div>
             <div class="search-help" (clickOutside)="onClickedOutside($event)">

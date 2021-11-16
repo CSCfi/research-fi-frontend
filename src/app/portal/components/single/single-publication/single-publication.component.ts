@@ -32,10 +32,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { Search } from 'src/app/portal/models/search.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {
-  singlePublication,
-  common,
-} from 'src/assets/static-data/meta-tags.json';
+import MetaTags from 'src/assets/static-data/meta-tags.json';
 
 @Component({
   selector: 'app-single-publication',
@@ -51,8 +48,8 @@ export class SinglePublicationComponent
   pageNumber: any;
   tab = 'publications';
   tabQueryParams: any;
-  private metaTags = singlePublication;
-  private commonTags = common;
+  private metaTags = MetaTags.singlePublication;
+  private commonTags = MetaTags.common;
   showMore = $localize`:@@showMore:Näytä enemmän`;
   showLess = $localize`:@@showLess:Näytä vähemmän`;
 

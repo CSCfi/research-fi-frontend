@@ -167,10 +167,7 @@
         </div>
         <!-- Search in Filter -->
         <ng-container *ngIf="!filter.hasSubFields">
-          <label
-            for="filter-query-{{ i }}"
-            class="sr-only"
-            i18n="SR Search@@SRSearch"
+          <label for="filter-query-{{ i }}" class="sr-only" i18n="@@search"
             >Hae</label
           >
           <input
@@ -182,7 +179,7 @@
                   7) &&
               !filter.hideSearch
             "
-            i18n-placeholder
+            i18n-placeholder="@@search"
             placeholder="Hae"
             autocomplete="off"
             (keyup)="filterInput($event, filter.field)"
@@ -502,7 +499,7 @@
                 [id]="'filter-query-' + i + k"
                 #filterSearch
                 *ngIf="item.subData.length > 7 || item.original?.length > 7"
-                i18n-placeholder
+                i18n-placeholder="@@search"
                 placeholder="Hae"
                 autocomplete="off"
                 (keyup)="subFilterInput($event, filter.field, item.key)"

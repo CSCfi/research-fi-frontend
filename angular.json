@@ -14,7 +14,6 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "spec": false,
           "style": "scss"
         }
       },
@@ -25,7 +24,6 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "aot": true,
             "outputPath": "dist/browser/",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -52,7 +50,13 @@
               "opentracing/lib/span",
               "opentracing/lib/tracer",
               "error-stack-parser"
-            ]
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -68,7 +72,6 @@
               "outputHashing": "all",
               "sourceMap": false,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -102,7 +105,8 @@
               ],
               "tsConfig": "./tsconfig.es5.json"
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -113,16 +117,13 @@
           },
           "configurations": {
             "fi": {
-              "browserTarget": "research-fi:build:fi",
-              "aot": true
+              "browserTarget": "research-fi:build:fi"
             },
             "en": {
-              "browserTarget": "research-fi:build:en",
-              "aot": true
+              "browserTarget": "research-fi:build:en"
             },
             "sv": {
-              "browserTarget": "research-fi:build:sv",
-              "aot": true
+              "browserTarget": "research-fi:build:sv"
             },
             "es5": {
               "browserTarget": "research-fi:build:es5"
@@ -179,7 +180,9 @@
           "options": {
             "main": "src/main.server.ts",
             "tsConfig": "src/tsconfig.server.json",
-            "localize": ["fi", "en", "sv"]
+            "localize": ["fi", "en", "sv"],
+            "sourceMap": true,
+            "optimization": false
           },
           "configurations": {
             "production": {
@@ -192,7 +195,8 @@
                 }
               ]
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "xliffmerge": {
           "builder": "@ngx-i18nsupport/tooling:xliffmerge",

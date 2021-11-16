@@ -16,11 +16,11 @@ import { SettingsService } from 'src/app/portal/services/settings.service';
 import { SingleItemService } from 'src/app/portal/services/single-item.service';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { UtilityService } from 'src/app/shared/services/utility.service';
-import { singleFundingCall, common } from 'src/assets/static-data/meta-tags.json';
+import MetaTags from 'src/assets/static-data/meta-tags.json';
 @Component({
   selector: 'app-single-funding-call',
   templateUrl: './single-funding-call.component.html',
-  styleUrls: ['./single-funding-call.component.scss']
+  styleUrls: ['./single-funding-call.component.scss'],
 })
 export class SingleFundingCallComponent implements OnInit {
   public singleId: any;
@@ -28,8 +28,8 @@ export class SingleFundingCallComponent implements OnInit {
   searchTerm: string;
   pageNumber: any;
   tabQueryParams: any;
-  private metaTags = singleFundingCall;
-  private commonTags = common;
+  private metaTags = MetaTags.singleFundingCall;
+  private commonTags = MetaTags.common;
   showMore = $localize`:@@showMore:Näytä enemmän`;
   showLess = $localize`:@@showLess:Näytä vähemmän`;
 
@@ -44,18 +44,21 @@ export class SingleFundingCallComponent implements OnInit {
   ];
 
   categories = [
-    { label: $localize`:@@fundingCallCategories:Hakualat`, field: 'categories' },
+    {
+      label: $localize`:@@fundingCallCategories:Hakualat`,
+      field: 'categories',
+    },
   ];
-  
+
   applicationInfoFields = [
     { label: $localize`:@@applicationInstructions:Hakuohjeet`, field: 'terms' },
     // { label: $localize`:@@applicationSite:Hakusivu`, field: '' },
     // { label: $localize`:@@contactInfo:Yhteystiedot`, field: 'contactInfo' }, // Check terms with aurora before enabling
-  ]
-  
+  ];
+
   funderFields = [
     { label: $localize`:@@fundingFunder:Rahoittaja`, field: 'foundation' },
-  ]
+  ];
 
   copyToClipboard = $localize`:@@copyToClipboard:Kopioi leikepöydälle`;
 
@@ -140,7 +143,8 @@ export class SingleFundingCallComponent implements OnInit {
             }
             case 'sv': {
               this.setTitle(
-                this.responseData.fundingCalls[0].name.trim() + ' - Forskning.fi'
+                this.responseData.fundingCalls[0].name.trim() +
+                  ' - Forskning.fi'
               );
               break;
             }
@@ -169,16 +173,24 @@ export class SingleFundingCallComponent implements OnInit {
       );
     };
     // Strip HTML tags from content
-    const parseString = (item: {field: string }) => {
-      let doc = new DOMParser().parseFromString(this.responseData.fundingCalls[0][item.field] ,'text/html');
+    const parseString = (item: { field: string }) => {
+      let doc = new DOMParser().parseFromString(
+        this.responseData.fundingCalls[0][item.field],
+        'text/html'
+      );
       return doc.body.textContent || '';
-    }
+    };
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter((item) => checkEmpty(item));
-    this.applicationInfoFields = this.applicationInfoFields.filter((item) => checkEmpty(item));
+    this.applicationInfoFields = this.applicationInfoFields.filter((item) =>
+      checkEmpty(item)
+    );
 
     // Short version is not HTML formatted
-    this.applicationInfoFields.forEach((item) => { this.responseData.fundingCalls[0][item.field + 'short'] = parseString(item) })
+    this.applicationInfoFields.forEach((item) => {
+      this.responseData.fundingCalls[0][item.field + 'short'] =
+        parseString(item);
+    });
   }
 
   shapeData() {
@@ -186,13 +198,13 @@ export class SingleFundingCallComponent implements OnInit {
   }
 
   expand(field: string) {
-    switch (field) { 
+    switch (field) {
       case 'description':
         this.expandDescription = !this.expandDescription;
         break;
       case 'terms':
         this.expandTerms = !this.expandTerms;
-        break
+        break;
     }
   }
 }

@@ -18,7 +18,7 @@
           <a href="{{ okmUrl }}" target="_blank">
             <img
               class="logo"
-              src="{{'assets/img/okm_logo_' + locale + '.png'}}"
+              src="{{ 'assets/img/okm_logo_' + locale + '.png' }}"
               i18n-alt="@@okmLogo"
               alt="Opetus- ja kulttuuriministeriön logo, leijonavaakuna"
             />
@@ -34,7 +34,7 @@
             <img
               class="logo"
               src="assets/img/csc_logo.png"
-              i18n-alt
+              i18n-alt="@@CSCLogoAltText"
               alt="Organisaation CSC - Tieteen ja tietotekniikan keskus logo"
             />
           </a>
@@ -123,7 +123,7 @@
                   align-items-center
                 "
                 target="_blank"
-                i18n-title
+                i18n-title="@@twitterTitleText"
                 title="Twitter -palvelun logo"
                 i18n="Twitter-footer@@twitterFooter"
               >

@@ -21,10 +21,7 @@ import { Title, DomSanitizer } from '@angular/platform-browser';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { ResizeService } from 'src/app/shared/services/resize.service';
 import { Subscription } from 'rxjs';
-import {
-  researchInnovation,
-  common,
-} from 'src/assets/static-data/meta-tags.json';
+import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { ActivatedRoute } from '@angular/router';
 import { Sector } from 'src/app/portal/models/research-innovation-system/sector.model';
@@ -40,8 +37,8 @@ export class ResearchInnovationSystemComponent
   faTimes = faTimes;
   openedIdx = -1;
 
-  private metaTags = researchInnovation;
-  private commonTags = common;
+  private metaTags = MetaTags.researchInnovation;
+  private commonTags = MetaTags.common;
 
   colWidth = 0;
 
