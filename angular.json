@@ -118,16 +118,13 @@
           },
           "configurations": {
             "fi": {
-              "browserTarget": "research-fi:build:fi",
-              "aot": true
+              "browserTarget": "research-fi:build:fi"
             },
             "en": {
-              "browserTarget": "research-fi:build:en",
-              "aot": true
+              "browserTarget": "research-fi:build:en"
             },
             "sv": {
-              "browserTarget": "research-fi:build:sv",
-              "aot": true
+              "browserTarget": "research-fi:build:sv"
             },
             "es5": {
               "browserTarget": "research-fi:build:es5"
