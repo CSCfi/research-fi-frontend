@@ -225,10 +225,7 @@
                 <div class="navbar-expand navbar-nav lang langSelect">
                   <mat-form-field class="lang-select">
                     <!-- Navigate with consent if consent is set -->
-                    <mat-select
-                      [(value)]="currentLang"
-                      [disabled]="appSettings.beta"
-                    >
+                    <mat-select [(value)]="currentLang">
                       <a
                         *ngFor="let domain of appSettings.localizedDomains"
                         [href]="
