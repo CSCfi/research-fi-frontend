@@ -17,6 +17,7 @@
       </div>
       <div
         class="col align-self-center font-italic"
+        i18n="@@youHaveNotSelectedAnyPublicData"
         *ngIf="
           (group.fields | countGroupItems: { filterSelected: true }).length ===
           0
@@ -28,10 +29,10 @@
         <app-secondary-button
           [content]="
             (group.fields | countGroupItems: { filterSelected: true }).length
-              ? 'Muokkaa'
-              : 'Valitse'
+              ? editString
+              : selectString
           "
-          (click)="openDialog($event, i + 1, group.editLabel)"
+          (click)="openDialog($event, i + 1)"
         ></app-secondary-button>
       </div>
     </div>

@@ -26,15 +26,20 @@ export class DescriptionFieldsAdapter implements Adapter<DescriptionFields> {
       this.mapGroupFieldName(
         item.researcherDescriptionGroups,
         'researchDescription',
-        'Kuvaus',
+        $localize`:@@description:Kuvaus`,
         'researchDescription',
         {
           localized: true,
         }
       ),
-      this.mapGroup(item.keywordGroups, 'keywords', 'Avainsanat', {
-        joined: true,
-      })
+      this.mapGroup(
+        item.keywordGroups,
+        'keywords',
+        $localize`:@@keywords:Avainsanat`,
+        {
+          joined: true,
+        }
+      )
     );
   }
 }

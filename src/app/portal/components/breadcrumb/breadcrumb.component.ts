@@ -6,6 +6,7 @@
 //  :license: MIT
 
 import { Component, OnInit, Input, Inject, LOCALE_ID } from '@angular/core';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 import { SearchService } from '../../services/search.service';
 
 @Component({
@@ -28,13 +29,13 @@ export class BreadcrumbComponent implements OnInit {
 
   constructor(
     private searchService: SearchService,
-    @Inject(LOCALE_ID) protected localeId: string
+    @Inject(LOCALE_ID) protected localeId: string,
+    private appSettingsService: AppSettingsService
   ) {
     this.searchTerm = this.searchService.searchTerm;
     this.pageNumber = this.searchService.pageNumber || 1;
-    // Capitalize first letter of locale
-    this.currentLocale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+
+    this.currentLocale = this.appSettingsService.capitalizedLocale;
   }
 
   ngOnInit() {}

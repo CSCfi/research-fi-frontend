@@ -4,7 +4,10 @@
  :license: MIT -->
 
 <div class="row d-flex justify-content-between py-2">
-  <div class="col-12 col-lg-auto font-size-big pt-3">
+  <div
+    class="col-12 col-lg-auto font-size-big pt-3"
+    i18n="@@selectInformationToDisplayInProfile"
+  >
     Valitse profiilissasi näytettävät tiedot
 
     <span
@@ -54,7 +57,7 @@
       </mat-expansion-panel-header>
 
       <ng-container *ngIf="field.label === 'Affiliaatiot'">
-        <p class="row">
+        <p class="row" i18n="@@primaryInfoWillAppearFirst">
           Ensisijaiset näytetään profiilissasi listan ensimmäisinä.
         </p>
       </ng-container>
@@ -223,7 +226,9 @@
           <span *ngSwitchCase="true">Voit valita yhden vaihtoehdon</span>
           <span *ngSwitchDefault>Voit valita usean vaihtoehdon</span>
         </ng-container> -->
-          <span>Voit valita yhden vaihtoehdon</span>
+          <span i18n="@@canSelectOnlyOneOption"
+            >Voit valita yhden vaihtoehdon</span
+          >
         </div>
         <!-- <div class="col pr-0 opacity-3"><span>1 lähde valittu</span></div> -->
       </div>

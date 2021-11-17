@@ -5,18 +5,12 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
-import {
-  Component,
-  OnInit,
-  Input,
-  OnChanges,
-  Inject,
-  LOCALE_ID,
-} from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import {
   faAngleDoubleRight,
   faAngleDoubleLeft,
 } from '@fortawesome/free-solid-svg-icons';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   selector: 'app-carousel',
@@ -38,10 +32,8 @@ export class CarouselComponent implements OnInit, OnChanges {
   next = $localize`:@@next:Seuraava`;
   previous = $localize`:@@previous:Edellinen`;
 
-  constructor(@Inject(LOCALE_ID) protected localeId: string) {
-    // Capitalize first letter of locale
-    this.currentLocale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+  constructor(private appSettingsService: AppSettingsService) {
+    this.currentLocale = this.appSettingsService.capitalizedLocale;
   }
 
   ngOnInit(): void {}

@@ -1,6 +1,7 @@
 <div class="row py-4 d-flex justify-content-center">
   <div class="col-6">
     <app-secondary-button
+      i18n-content="@@previous"
       content="Edellinen"
       (click)="decrement()"
       [big]="true"
@@ -11,6 +12,7 @@
   </div>
   <div class="col-6">
     <app-primary-action-button
+      i18n-content="@@next"
       [content]="nextContent || 'Seuraava'"
       (click)="increment()"
       [disabled]="disableNext"

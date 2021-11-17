@@ -92,8 +92,7 @@ export class FundingCallsComponent implements OnInit, AfterViewInit, OnDestroy {
     private appSettingsService: AppSettingsService
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
-    this.currentLocale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    this.currentLocale = this.appSettingsService.capitalizedLocale;
   }
 
   ngOnInit() {

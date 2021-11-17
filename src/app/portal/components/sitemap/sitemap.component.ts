@@ -12,6 +12,7 @@ import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { Title } from '@angular/platform-browser';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   selector: 'app-sitemap',
@@ -30,10 +31,10 @@ export class SitemapComponent implements OnInit, AfterViewInit, OnDestroy {
     private titleService: Title,
     @Inject(LOCALE_ID) protected localeId: string,
     private tabChangeService: TabChangeService,
-    private utilityService: UtilityService
+    private utilityService: UtilityService,
+    private appSettingsService: AppSettingsService
   ) {
-    this.currentLocale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    this.currentLocale = this.appSettingsService.capitalizedLocale;
   }
 
   ngOnInit(): void {

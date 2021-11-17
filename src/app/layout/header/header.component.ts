@@ -33,7 +33,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { PrivacyService } from 'src/app/portal/services/privacy.service';
-import { ContentDataService } from 'src/app/portal/services/content-data.service';
+import { CMSContentService } from '@shared/services/cms-content.service';
 import { AppSettingsService } from 'src/app/shared/services/app-settings.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 
@@ -108,7 +108,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private router: Router,
     private platform: PlatformLocation,
     private utilityService: UtilityService,
-    private cds: ContentDataService,
+    private cmsContentService: CMSContentService,
     private renderer: Renderer2,
     private route: ActivatedRoute,
     private tabChangeService: TabChangeService,
@@ -202,7 +202,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
             this.loggedIn = authenticated;
           }
           this.appSettingsService.myDataSettings.navItems[0].label =
-            authenticated ? 'Kirjaudu ulos' : 'Kirjaudu sisään';
+            authenticated
+              ? $localize`:@@logOut:Kirjaudu ulos`
+              : $localize`:@@logIn:Kirjaudu sisään`;
         });
       }
     });
@@ -214,10 +216,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.appSettingsService.updateMobileStatus(this.mobile);
 
       // Get page data from API and set to localStorage. This data is used to generate content on certain pages
-      if (!this.cds.pageDataFlag) {
-        this.pageDataSub = this.cds.getPages().subscribe((data) => {
-          this.cds.setPageData(data);
-        });
+      if (!this.cmsContentService.pageDataLoaded) {
+        this.pageDataSub = this.cmsContentService
+          .getPages()
+          .subscribe((data) => {
+            this.cmsContentService.setPageData(data);
+          });
       }
       this.resizeSub = this.resizeService.onResize$.subscribe((dims) =>
         this.onResize(dims)

@@ -965,7 +965,7 @@
         <source>Lataa kuvana (tulossa)</source>
         <target>Download as image (coming soon)</target>
       </trans-unit>
-      <trans-unit id="orgName" datatype="html">
+      <trans-unit id="name" datatype="html">
         <source>Nimi</source>
         <target>Name</target>
         <context-group purpose="location">
@@ -3398,7 +3398,7 @@
         <source>TK-oppilaitostunnus</source>
         <target>RD Institution ID</target>
       </trans-unit>
-      <trans-unit id="orgOtherNames">
+      <trans-unit id="otherNames">
         <source>Muut nimet</source>
         <target>Other names</target>
       </trans-unit>
@@ -4977,6 +4977,327 @@
       <trans-unit id="loading">
         <source>Ladataan</source>
         <target>Loading</target>
+      </trans-unit>
+
+      <!-- MyData translations -->
+      <trans-unit id="createProfileForYourself">
+        <source>Luo itsellesi profiili</source>
+        <target>Create a profile for yourself</target>
+      </trans-unit>
+      <trans-unit id="inResearchFiService">
+        <source>Tiedejatutkimus.fi -palveluun.</source>
+        <target>in the Research.fi service.</target>
+      </trans-unit>
+      <trans-unit id="researchersProfile">
+        <source>Tutkijan tiedot</source>
+        <target>Researcher’s Profile</target>
+      </trans-unit>
+      <trans-unit id="createProfile">
+        <source>Luo profiili</source>
+        <target>Create Profile</target>
+      </trans-unit>
+      <trans-unit id="haveYouCreatedProfile">
+        <source>Oletko jo luonut profiilin?</source>
+        <target>Have you already created a profile?</target>
+      </trans-unit>
+      <trans-unit id="logIn">
+        <source>Kirjaudu sisään</source>
+        <target>Log in</target>
+      </trans-unit>
+      <trans-unit id="logOut">
+        <source>Kirjaudu ulos</source>
+        <target>Log out</target>
+      </trans-unit>
+      <trans-unit id="note">
+        <source>Huomio</source>
+        <target>Note</target>
+      </trans-unit>
+      <trans-unit id="researcherProfileBetaText1">
+        <source>Tämä on Tutkijan tiedot -työkalun betaversio. Testikäyttäjien
+          palautetta hyödynnetään palvelun toiminnallisuuksien kehittämisessä.</source>
+        <target>This is the beta version of the Researcher’s Profile Tool. Feedback from test users will be used to develop service functionalities.</target>
+      </trans-unit>
+      <trans-unit id="researcherProfileBetaText2">
+        <source>Testauksessa syöttämiäsi tietoja ei julkaista Tiedejatutkimus.fi:ssä.</source>
+        <target>The information you entered in the test will not be published on Research.fi.</target>
+      </trans-unit>
+      <trans-unit id="serviceDeployment">
+        <source>Palvelun käyttöönotto</source>
+        <target>Service deployment</target>
+      </trans-unit>
+      <trans-unit id="mydataLoginText1">
+        <source>Tutkijan tiedot -palveluun kirjaudutaan ORCID-tunnuksilla. Jos sinulla
+          ei vielä ole ORCID-tunnuksia, voit</source>
+        <target>Log in to the Researcher’s Profile Tool using your ORCID ID. If you do not already have an ORCID ID,</target>
+      </trans-unit>
+      <trans-unit id="mydataLoginText2">
+        <source>luoda sellaiset ORCID-palvelussa</source>
+        <target>you can create one in ORCID.</target>
+      </trans-unit>
+      <trans-unit id="begin">
+        <source>Aloita</source>
+        <target>Begin</target>
+      </trans-unit>
+      <trans-unit id="cancel">
+        <source>Peruuta</source>
+        <target>Cancel</target>
+      </trans-unit>
+      <trans-unit id="redirecting">
+        <source>Uudelleenohjataan</source>
+        <target>Redirecting</target>
+      </trans-unit>
+      <trans-unit id="welcome">
+        <source>Tervetuloa</source>
+        <target>Welcome</target>
+      </trans-unit>
+      <trans-unit id="beforeUsingTheService">
+        <source>Ennen palvelun käyttöönottoa pyydämme sinua tutustumaan
+                    palvelun käyttöehtoihin ja henkilötietojen
+                    käsittelyperiaatteisiin.</source>
+        <target>Before using the service, we ask that you familiarise yourself with the terms of service use and the principles governing the processing of personal data.</target>
+      </trans-unit>
+      <trans-unit id="noteBetaTerms">
+        <source>Huom: Käyttöehdot koskevat palvelun beta-versiota.</source>
+        <target>Note: The terms of use apply to the beta version of the service.</target>
+      </trans-unit>
+      <trans-unit id="openTermsAndProcessingPrinciples">
+        <source>Avaa käyttöehdot ja käsittelyperiaatteet</source>
+        <target>Open the terms of use and processing principles</target>
+      </trans-unit>
+      <trans-unit id="cancelDeployment">
+        <source>Peruuta käyttöönotto</source>
+        <target>Cancel deployment</target>
+      </trans-unit>
+      <trans-unit id="cancelServiceDeployment">
+        <source>Peruutetaanko palvelun käyttöönotto?</source>
+        <target>Cancel service deployment?</target>
+      </trans-unit>
+      <trans-unit id="deploymentAbort">
+        <source>Käyttöönotto keskeytetään, ja mitään tietoja ei
+                  tallenneta.</source>
+        <target>The deployment will be aborted and no data will be saved.</target>
+      </trans-unit>
+      <trans-unit id="deployLaterStartOver">
+        <source>Mikäli haluat ottaa palvelun käyttöön myöhemmin, aloitat
+                  käyttöönoton alusta.</source>
+        <target>If you want to deploy the service later, you will have to start at the beginning of the deployment.</target>
+      </trans-unit>
+      <trans-unit id="yesCancelDeployment">
+        <source>Kyllä, peruutan käyttöönoton</source>
+        <target>Yes, I want to cancel the deployment</target>
+      </trans-unit>
+      <trans-unit id="noContinueDeployment">
+        <source>Ei, jatkan käyttöönottoa</source>
+        <target>No, I will continue the deployment</target>
+      </trans-unit>
+      <trans-unit id="termsPersonalDataProcessing">
+        <source>Käyttöehdot ja henkilötietojen käsittely</source>
+        <target>Terms of use and processing of personal data</target>
+      </trans-unit>
+      <trans-unit id="termsForTool">
+        <source>Tutkijan tiedot -työkalun käyttöehdot</source>
+        <target>Terms of use for the Researcher’s Profile Tool</target>
+      </trans-unit>
+      <trans-unit id="openTermsOfUse">
+        <source>Avaa käyttöehdot</source>
+        <target>Open the terms of use</target>
+      </trans-unit>
+      <trans-unit id="iHaveReadTermsAndAccept">
+        <source>Olen lukenut palvelun käyttöehdot, ja hyväksyn
+                    ne</source>
+        <target>I have read and agree to the terms of use for the service</target>
+      </trans-unit>
+      <trans-unit id="processingOfPersonalData">
+        <source>Henkilötietojen käsittely</source>
+        <target>Processing of personal data</target>
+      </trans-unit>
+      <trans-unit id="openPersonalDataProcessingPrinciples">
+        <source>Avaa henkilötietojen käsittelyperiaatteet</source>
+        <target>Open personal data processing principles</target>
+      </trans-unit>
+      <trans-unit id="iAcceptProcessingPersonalData">
+        <source>Hyväksyn henkilötietojeni käsittelyn</source>
+        <target>I hereby agree to the processing of my personal data</target>
+      </trans-unit>
+      <trans-unit id="importingDataFromOrcid">
+        <source>Tietojen tuominen Orcidista</source>
+        <target>Importing data from ORCID</target>
+      </trans-unit>
+      <trans-unit id="welcomeStep3_1">
+        <source>Tutkijan tiedot -palvelun käyttöönotto edellyttää, että
+                    ORCID-palveluun tallentamansi julkiset tiedot tallennetaan
+                    Tutkijan tiedot -palveluun.</source>
+        <target>To enable the Researcher’s Profile Tool, you must save the public information you have stored in ORCID to the Researcher’s Profile Tool.</target>
+      </trans-unit>
+      <trans-unit id="welcomeStep3_2">
+        <source>Valitsemalla "Tuo ORCID-tietoni" annat luvan ORCID:iin
+                    tallentamiesi julkisten tietojesi tallentamisen Tutkijan
+                    tiedot -palveluun.</source>
+        <target>Select "Import my ORCID information” to authorise saving your public information stored in ORCID in the Researcher’s Profile Tool.</target>
+      </trans-unit>
+      <trans-unit id="welcomeStep3_3">
+        <source>Tässä vaiheessa emme vielä julkaise profiiliasi.</source>
+        <target>At this point, we will not yet publish your profile.</target>
+      </trans-unit>
+      <trans-unit id="welcomeStep3_4">
+        <source>Voit hallinnoida tietojesi näyttämistä seuraavissa
+                    vaiheissa.</source>
+        <target>You can manage the display of your information in the following steps.</target>
+      </trans-unit>
+      <trans-unit id="importingDataWait">
+        <source>Tietoja tuodaan, odota hetki...</source>
+        <target>Importing data, please wait...</target>
+      </trans-unit>
+      <trans-unit id="importMyOrcidData">
+        <source>Tuo Orcid-tietoni</source>
+        <target>Import my ORCID data</target>
+      </trans-unit>
+      <trans-unit id="addPublicProfilePicture">
+        <source>Lisää Julkinen profiilikuva</source>
+        <target>Add public profile picture</target>
+      </trans-unit>
+      <trans-unit id="publicProfile">
+        <source>Julkinen profiili</source>
+        <target>Public profile</target>
+      </trans-unit>
+      <trans-unit id="updatedProfilePublishedAt">
+        <source>Päivitetty tutkijaprofiilisi julkaistaan kohteessa</source>
+        <target>Your updated researcher profile will be published at Research.fi</target>
+      </trans-unit>
+      <trans-unit id="updatingPublicDataTakesFewMinutes">
+        <source>Julkisten tietojen päivittäminen kestää muutaman
+            minuutin.</source>
+        <target>It takes a few minutes to update public information.</target>
+      </trans-unit>
+      <trans-unit id="draft">
+        <source>Luonnos</source>
+        <target>Draft</target>
+      </trans-unit>
+      <trans-unit id="publishUpdatedProfile">
+        <source>Julkaise päivitetty profiili</source>
+        <target>Publish updated profile</target>
+      </trans-unit>
+      <trans-unit id="discardChanges">
+        <source>Hylkää muutokset...</source>
+        <target>Discard changes...</target>
+      </trans-unit>
+      <trans-unit id="publish">
+        <source>Julkaise</source>
+        <target>Publish</target>
+      </trans-unit>
+      <trans-unit id="publishEllipsis">
+        <source>Julkaise...</source>
+        <target>Publish...</target>
+      </trans-unit>
+      <trans-unit id="deleteProfile">
+        <source>Poista profiili</source>
+        <target>Delete profile</target>
+      </trans-unit>
+      <trans-unit id="thisActionDeletesTestProfile">
+        <source>Tämä toiminto poistaa Tutkijan tiedot -testisovelluksen
+                profiilin.</source>
+        <target>This action deletes profile in Researcher's profile test application.</target>
+      </trans-unit>
+      <trans-unit id="deletingProfileWait">
+        <source>Profiilia poistetaan, odota hetki...</source>
+        <target>Deleting profile, please wait...</target>
+      </trans-unit>
+      <trans-unit id="deleteProfileConnProblem">
+        <source>Profiilin poisto ei onnistu. Kokeile hetken kuluttua
+                      uudestaan.</source>
+        <target>We encounterer a problem when deleting profile. Try again in few minutes.</target>
+      </trans-unit>
+      <trans-unit id="youHaveNotSelectedAnyPublicData">
+        <source>Et ole vielä valinnut julkisesti näytettäviä tietoja</source>
+        <target>You have not yet selected the information to be displayed publicly</target>
+      </trans-unit>
+      <trans-unit id="select">
+        <source>Valitse</source>
+        <target>Select</target>
+      </trans-unit>
+      <trans-unit id="cooperation">
+        <source>Yhteistyö</source>
+        <target>Cooperation</target>
+      </trans-unit>
+      <trans-unit id="edit">
+        <source>Muokkaa</source>
+        <target>Edit</target>
+      </trans-unit>
+      <trans-unit id="save">
+        <source>Tallenna</source>
+        <target>Save</target>
+      </trans-unit>
+      <trans-unit id="continue">
+        <source>Jatka</source>
+        <target>Continue</target>
+      </trans-unit>
+      <trans-unit id="showDataToPublish">
+        <source>Näytä julkaistavat tiedot</source>
+        <target>Show data to publish</target>
+      </trans-unit>
+      <trans-unit id="hideDataToPublish">
+        <source>Piilota julkaistavat tiedot</source>
+        <target>Hide data to publish</target>
+      </trans-unit>
+      <trans-unit id="descriptionOfResearchActivities">
+        <source>Tutkimustoiminnan kuvaus</source>
+        <target>Description of research activities</target>
+      </trans-unit>
+      <trans-unit id="affiliations">
+        <source>Affiliaatiot</source>
+        <target>Affiliations</target>
+      </trans-unit>
+      <trans-unit id="education">
+        <source>Koulutus</source>
+        <target>Education</target>
+      </trans-unit>
+      <trans-unit id="activitiesAndAwards">
+        <source>Aktiviteetit ja palkinnot</source>
+        <target>Activities and awards</target>
+      </trans-unit>
+      <trans-unit id="researchData">
+        <source>Tutkimusaineistot</source>
+        <target>Research data</target>
+      </trans-unit>
+      <trans-unit id="selectInformationToDisplayInProfile">
+        <source>Valitse profiilissasi näytettävät tiedot</source>
+        <target>Select the information to display in your profile</target>
+      </trans-unit>
+      <trans-unit id="primaryInfoWillAppearFirst">
+        <source>Ensisijaiset näytetään profiilissasi listan ensimmäisinä.</source>
+        <target>The primary information will appear first on the list in your profile.</target>
+      </trans-unit>
+      <trans-unit id="email">
+        <source>Sähköposti</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="canSelectOnlyOneOption">
+        <source>Voit valita yhden vaihtoehdon</source>
+        <target>You can select one option</target>
+      </trans-unit>
+      <trans-unit id="collabMediaContact">
+        <source>Olen kiinnostunut tiedotusvälineiden yhteydenotoista</source>
+        <target>I am interested in media contacts</target>
+      </trans-unit>
+      <trans-unit id="collabCooperationResearchers">
+        <source>Olen kiinnostunut yhteistyöstä muiden tutkijoiden ja tutkimusryhmien kanssa</source>
+        <target>I am interested in cooperation with other researchers and research groups</target>
+      </trans-unit>
+      <trans-unit id="collabCooperationOrgs">
+        <source>Olen kiinnostunut yhteistyöstä yritysten kanssa</source>
+        <target>I am interested in working with companies</target>
+      </trans-unit>
+      <trans-unit id="collabReviewer">
+        <source>Olen kiinnostunut toimimaan tieteellisten julkaisujen vertaisarvioijana</source>
+        <target>I am interested in being a peer reviewer for scientific publications</target>
+      </trans-unit>
+      <trans-unit id="profilePublishedToast">
+        <source>Profiili julkaistu. Tiedot näkyvät muutaman minuutin kuluttua tiedejatutkimus.fi -palvelussa.</source>
+        <target>Profile published. The information will be displayed in the Research.fi service in a few minutes.</target>
+      </trans-unit>
+      <trans-unit id="dataSavingError">
+        <source>Virhe tiedon tallennuksessa</source>
+        <target>Error saving data</target>
       </trans-unit>
     </body>
   </file>

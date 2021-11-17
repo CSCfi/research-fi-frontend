@@ -25,7 +25,7 @@ import { AccessibilityComponent } from './components/accessibility/accessibility
 import { SitemapComponent } from './components/sitemap/sitemap.component';
 import { SingleInfrastructureComponent } from './components/single/single-infrastructure/single-infrastructure.component';
 import { NotFoundComponent } from '../shared/components/not-found/not-found.component';
-import { PageResolverService } from './resolvers/page-resolver.service';
+import { PageResolverService } from '../shared/resolvers/page-resolver.service';
 import { ResearchInnovationSystemSectorResolver } from './resolvers/research-innovation-system-sector-resolver.service';
 import { ExternalLinkResolver } from './resolvers/external-link-resolver.service';
 import { ShortcutResolverService } from './resolvers/shortcut-resolver.service';

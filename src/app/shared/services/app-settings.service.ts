@@ -82,12 +82,18 @@ export class AppSettingsService {
     debug: false,
     beta: true,
     appName: 'myData',
-    label: 'Tutkijan tiedot',
+    label: $localize`:@@researchersProfile:Tutkijan tiedot`,
     baseRoute: 'mydata',
-    navItems: [{ label: 'Kirjaudu sisään', link: '', loginProcess: true }],
+    navItems: [
+      {
+        label: $localize`:@@logIn:Kirjaudu sisään`,
+        link: '',
+        loginProcess: true,
+      },
+    ],
     localizedDomains: [
       { label: 'Suomi', locale: 'FI', url: 'https://localhost:5003/fi' },
-      { label: 'Svenska', locale: 'SV', url: 'https://localhost:5003/sv' },
+      // { label: 'Svenska', locale: 'SV', url: 'https://localhost:5003/sv' },
       { label: 'English', locale: 'EN', url: 'https://localhost:5003/en' },
     ],
   };

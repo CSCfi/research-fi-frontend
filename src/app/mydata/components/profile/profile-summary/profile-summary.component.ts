@@ -30,6 +30,7 @@ import { DraftService } from '@mydata/services/draft.service';
 import { Constants } from '@mydata/constants/';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { GroupTypes } from '@mydata/constants/groupTypes';
+import { CommonStrings } from '@mydata/constants/strings';
 
 @Component({
   selector: 'app-profile-summary',
@@ -57,6 +58,9 @@ export class ProfileSummaryComponent implements OnInit {
   locale = 'Fi';
 
   dialogRef: MatDialogRef<EditorModalComponent>;
+
+  editString = CommonStrings.edit;
+  selectString = CommonStrings.select;
 
   constructor(
     private appSettingsService: AppSettingsService,
