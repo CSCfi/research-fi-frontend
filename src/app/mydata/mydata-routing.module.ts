@@ -13,6 +13,7 @@ import { RedirectComponent } from './components/redirect/redirect.component';
 import { WelcomeStepperComponent } from './components/welcome-stepper/welcome-stepper.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { AuthGuard } from './services/auth-guard.service';
+import { PageResolverService } from '@shared/resolvers/page-resolver.service';
 
 const routes: Routes = [
   {
@@ -36,6 +37,9 @@ const routes: Routes = [
     pathMatch: 'full',
     component: ProfileComponent,
     canActivate: [AuthGuard],
+    resolve: {
+      pages: PageResolverService,
+    },
   },
   {
     path: 'redirect',

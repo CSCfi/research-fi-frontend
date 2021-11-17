@@ -30,7 +30,7 @@ export class CMSContentService {
   apiUrl: string;
   private pageSource = new BehaviorSubject([]);
   pageData = this.pageSource.asObservable();
-  pageDataFlag = false;
+  pageDataLoaded = false;
 
   constructor(
     private http: HttpClient,
@@ -81,7 +81,7 @@ export class CMSContentService {
    * Set data
    */
   setPageData(data: any) {
-    this.pageDataFlag = true;
+    this.pageDataLoaded = true;
     this.pageSource.next(data);
   }
 }
