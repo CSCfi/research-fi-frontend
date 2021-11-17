@@ -14,15 +14,34 @@
     <div class="col-3 col-md-2 text-right" *ngIf="showCloseButton">
       <button mat-button (click)="toggle()">
         <ng-container *ngIf="open">
-          <i class="fas fa-times mt-n1"></i> Sulje
+          <i class="fas fa-times mt-n1"></i>
+          <ng-container i18n="@@close">Sulje</ng-container>
         </ng-container>
-        <ng-container *ngIf="!open"> Avaa </ng-container>
+        <ng-container *ngIf="!open">
+          <ng-container i18n="@@open">Avaa</ng-container>
+        </ng-container>
       </button>
     </div>
     <div class="col-12 text-center">
-      <span class="h5 font-weight-bold">Huomio!</span>
+      <span class="h5 font-weight-bold"
+        ><ng-container i18n="@@note">Huomio</ng-container>!</span
+      >
     </div>
   </div>
 
-  <ng-container *ngIf="open" [ngTemplateOutlet]="template"></ng-container>
+  <ng-container *ngIf="open">
+    <p i18n="@@researcherProfileBetaText1">
+      Tämä on Tutkijan tiedot -työkalun betaversio. Testikäyttäjien palautetta
+      hyödynnetään palvelun toiminnallisuuksien kehittämisessä.
+    </p>
+    <p class="font-weight-bold" i18n="@@researcherProfileBetaText2">
+      Testauksessa syöttämiäsi tietoja ei julkaista Tiedejatutkimus.fi:ssä.
+    </p>
+    <p>
+      <a href="https://wiki.eduuni.fi/x/YwMJDQ" target="_blank"
+        ><ng-container i18n="@@readMore">Lue lisää</ng-container>...
+        <fa-icon icon="external-link-alt"></fa-icon
+      ></a>
+    </p>
+  </ng-container>
 </div>

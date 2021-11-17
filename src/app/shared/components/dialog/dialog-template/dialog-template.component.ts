@@ -43,8 +43,8 @@ export class DialogTemplateComponent implements OnInit {
       // Special use case for MyData patch preview button
       case 'preview': {
         action.label = !this.displayExtraContent
-          ? 'Piilota julkaistavat tiedot'
-          : 'Näytä julkaistavat tiedot';
+          ? $localize`:@@hideDataToPublish:Hide julkaistavat tiedot`
+          : $localize`:@@showDataToPublish:Piilota julkaistavat tiedot`;
         this.displayExtraContent = !this.displayExtraContent;
         break;
       }

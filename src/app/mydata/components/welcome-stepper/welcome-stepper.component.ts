@@ -26,6 +26,7 @@ import { WINDOW } from '@shared/services/window.service';
 import { isPlatformBrowser } from '@angular/common';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { MatDialog } from '@angular/material/dialog';
+import { CommonStrings } from '@mydata/constants/strings';
 
 @Component({
   selector: 'app-welcome-stepper',
@@ -61,6 +62,9 @@ export class WelcomeStepperComponent implements OnInit {
   disableDialogClose: boolean;
 
   loading: boolean;
+
+  termsForTool = CommonStrings.termsForTool;
+  processingOfPersonalData = CommonStrings.processingOfPersonalData;
 
   constructor(
     private profileService: ProfileService,

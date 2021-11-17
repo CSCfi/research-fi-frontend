@@ -16,6 +16,7 @@
             [checked]="allSelected"
             (change)="toggleAll($event)"
             [indeterminate]="checkSomeSelected()"
+            i18n="@@selectAll"
             >Valitse kaikki</mat-checkbox
           >
         </div>
@@ -48,12 +49,14 @@
   <div class="col-auto">
     <app-secondary-button
       (click)="close()"
+      i18n-content="@@cancel"
       content="Peruuta"
     ></app-secondary-button>
   </div>
   <div class="col-auto">
     <app-primary-action-button
       (click)="saveChanges()"
+      i18n-content="@@save"
       content="Tallenna"
     ></app-primary-action-button>
   </div>

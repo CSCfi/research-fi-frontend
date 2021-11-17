@@ -7,7 +7,7 @@
   <div class="wrapper">
     <div class="row pb-4 text-center">
       <div class="col">
-        <h1 class="h4">Palvelun käyttöönotto</h1>
+        <h1 class="h4" i18n="@@serviceDeployment">Palvelun käyttöönotto</h1>
       </div>
       <!-- Icon -->
       <i
@@ -17,10 +17,15 @@
     <div class="row pb-4 d-flex justify-content-center">
       <div class="col col-lg-4 text-center">
         <p>
-          Tutkijan tiedot -palveluun kirjaudutaan ORCID-tunnuksilla. Jos sinulla
-          ei vielä ole ORCID-tunnuksia, voit
-          <a href="https://orcid.org/"
-            >luoda sellaiset ORCID-palvelussa
+          <ng-container i18n="@@mydataLoginText1">
+            Tutkijan tiedot -palveluun kirjaudutaan ORCID-tunnuksilla. Jos
+            sinulla ei vielä ole ORCID-tunnuksia, voit</ng-container
+          >
+
+          <a href="https://orcid.org/">
+            <ng-container i18n="@@mydataLoginText2"
+              >luoda sellaiset ORCID-palvelussa</ng-container
+            >
             <i class="fas fa-external-link-alt"></i></a
           >.
         </p>
@@ -30,6 +35,7 @@
     <div class="row pb-3 d-flex justify-content-center">
       <div class="col col-lg-3">
         <app-primary-action-button
+          i18n-content="@@begin"
           content="Aloita"
           [big]="true"
           (click)="login()"
@@ -40,6 +46,7 @@
     <div class="row d-flex justify-content-center">
       <div class="col col-lg-3">
         <app-secondary-button
+          i18n-content="@@cancel"
           content="Peruuta"
           routerLink="/mydata"
           [big]="true"

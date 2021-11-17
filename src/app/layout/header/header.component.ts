@@ -202,7 +202,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
             this.loggedIn = authenticated;
           }
           this.appSettingsService.myDataSettings.navItems[0].label =
-            authenticated ? 'Kirjaudu ulos' : 'Kirjaudu sisään';
+            authenticated
+              ? $localize`:@@logOut:Kirjaudu ulos`
+              : $localize`:@@logIn:Kirjaudu sisään`;
         });
       }
     });

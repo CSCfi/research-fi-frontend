@@ -57,8 +57,16 @@ export class PersonalFieldsAdapter implements Adapter<PersonalFields> {
       } else return faLink;
     };
 
-    const email = this.mapGroup(item.emailGroups, 'email', 'Sähköposti');
-    const webLinks = this.mapGroup(item.webLinkGroups, 'webLinks', 'Linkit');
+    const email = this.mapGroup(
+      item.emailGroups,
+      'email',
+      $localize`:@@email:Sähköposti`
+    );
+    const webLinks = this.mapGroup(
+      item.webLinkGroups,
+      'webLinks',
+      $localize`:@@links:Linkit`
+    );
 
     const mapIcons = (group, iconMethod: Function, field?: string) => {
       group['groupItems'].forEach(
@@ -75,14 +83,18 @@ export class PersonalFieldsAdapter implements Adapter<PersonalFields> {
 
     return new PersonalFields(
       // TODO: Localize
-      this.mapNameGroup(item.nameGroups, 'name', 'Nimi', {
+      this.mapNameGroup(item.nameGroups, 'name', $localize`:@@name:Nimi`, {
         disabled: true,
         expanded: true,
         setDefault: true,
         single: true,
       }),
-      this.mapNameGroup(item.otherNameGroups, 'otherNames', 'Muut nimet'),
-      this.mapGroup(item.emailGroups, 'email', 'Sähköposti'),
+      this.mapNameGroup(
+        item.otherNameGroups,
+        'otherNames',
+        $localize`:@@otherNames:Muut nimet`
+      ),
+      this.mapGroup(item.emailGroups, 'email', $localize`:@@email:Sähköposti`),
       webLinks
     );
   }

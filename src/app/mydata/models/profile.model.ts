@@ -39,50 +39,42 @@ export class ProfileAdapter implements Adapter<Profile> {
     return new Profile([
       {
         id: GroupTypes.contact,
-        label: 'Yhteystiedot',
-        editLabel: 'yhteystietoja',
+        label: $localize`:@@contactInfo:Yhteystiedot`,
         fields: mapModel(this.personalFieldsAdapter, data.personal),
       },
       {
         id: GroupTypes.description,
-        label: 'Tutkimustoiminnan kuvaus',
-        editLabel: 'tutkimustoiminnan kuvausta',
+        label: $localize`:@@descriptionOfResearchActivities:Tutkimustoiminnan kuvaus`,
         fields: mapModel(this.descriptionFieldsAdapter, data.personal),
       },
       {
         id: GroupTypes.affiliation,
-        label: 'Affiliaatiot',
-        editLabel: 'affiliaatioita',
+        label: $localize`:@@affiliations:Affiliaatiot`,
         fields: mapModel(this.affiliationFieldsAdapter, data.activity),
       },
       {
         id: GroupTypes.education,
-        label: 'Koulutus',
-        editLabel: 'koulutusta',
+        label: $localize`:@@education:Koulutus`,
         fields: mapModel(this.educationFieldsAdapter, data.activity),
       },
       {
         id: GroupTypes.publication,
-        label: 'Julkaisut',
-        editLabel: 'julkaisuja',
+        label: $localize`:@@publications:Julkaisut`,
         fields: mapModel(this.publicationFieldsAdapter, data.activity),
       },
       {
         id: GroupTypes.dataset,
-        label: 'Tutkimusaineistot',
-        editLabel: 'tutkimusaineistoja',
+        label: $localize`:@@researchData:Tutkimusaineistot`,
         fields: [],
       },
       {
         id: GroupTypes.project,
-        label: 'Hankkeet',
-        editLabel: 'hankkeita',
+        label: $localize`:@@fundings:Hankkeet`,
         fields: [],
       },
       {
         id: GroupTypes.activity,
-        label: 'Aktiviteetit ja palkinnot',
-        editLabel: 'aktiviteetteja ja palkintoja',
+        label: $localize`:@@activitiesAndAwards:Aktiviteetit ja palkinnotHankkeet`,
         fields: [],
       },
     ]);
