@@ -22,7 +22,11 @@ export class PublicationFieldsAdapter implements Adapter<PublicationFields> {
 
   adapt(item: any): PublicationFields {
     return new PublicationFields(
-      this.mapGroup(item.publicationGroups, 'publications', 'Julkaisut')
+      this.mapGroup(
+        item.publicationGroups,
+        'publications',
+        $localize`:@@publications:Julkaisut`
+      )
     );
   }
 }

@@ -25,6 +25,7 @@ import { SnackbarService } from '@mydata/services/snackbar.service';
 import { cloneDeep } from 'lodash-es';
 import { Constants } from '@mydata/constants/';
 import { PublicationsService } from '@mydata/services/publications.service';
+import { CommonStrings } from '@mydata/constants/strings';
 
 @Component({
   selector: 'app-profile',
@@ -47,20 +48,26 @@ export class ProfileComponent implements OnInit {
   dialogExtraContentTemplate: any;
   currentDialogActions: any[];
   disableDialogClose: boolean;
-  basicDialogActions = [{ label: 'Sulje', primary: true, method: 'close' }];
+  basicDialogActions = [
+    { label: $localize`:@@close:Sulje`, primary: true, method: 'close' },
+  ];
   publishUpdatedProfileDialogActions = [
     {
-      label: 'Näytä julkaistavat tiedot',
+      label: $localize`:@@showDataToPublish:Näytä julkaistavat tiedot`,
       primary: false,
       method: 'preview',
       flexStart: true,
     },
-    { label: 'Peruuta', primary: false, method: 'cancel' },
-    { label: 'Julkaise', primary: true, method: 'publish' },
+    { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'cancel' },
+    { label: $localize`:@@publish:Julkaise`, primary: true, method: 'publish' },
   ];
   deleteProfileDialogActions = [
-    { label: 'Peruuta', primary: false, method: 'close' },
-    { label: 'Poista profiili', primary: true, method: 'delete' },
+    { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'close' },
+    {
+      label: $localize`:@@deleteProfile:Poista profiili`,
+      primary: true,
+      method: 'delete',
+    },
   ];
   @ViewChild('deletingProfileTemplate') deletingProfileTemplate: ElementRef;
 
@@ -69,6 +76,11 @@ export class ProfileComponent implements OnInit {
   deletingProfile: boolean;
 
   draftPayload: any[];
+
+  publishUpdatedProfile = $localize`:@@publishUpdatedProfile:Julkaise päivitetty profiili`;
+  termsForTool = CommonStrings.termsForTool;
+  processingOfPersonalData = CommonStrings.processingOfPersonalData;
+  deleteProfileTitle = CommonStrings.deleteProfile;
 
   constructor(
     private profileService: ProfileService,
@@ -271,13 +283,16 @@ export class ProfileComponent implements OnInit {
       .subscribe(
         (result) => {
           this.snackbarService.show(
-            'Profiili julkaistu. Tiedot näkyvät muutaman minuutin kuluttua tiedejatutkimus.fi -palvelussa.',
+            $localize`:@@profilePublishedToast:Profiili julkaistu. Tiedot näkyvät muutaman minuutin kuluttua tiedejatutkimus.fi -palvelussa.`,
             'success'
           );
           this.clearDraftData();
         },
         (error) => {
-          this.snackbarService.show('Virhe tiedon tallennuksessa', 'error');
+          this.snackbarService.show(
+            $localize`:@@dataSavingError:Virhe tiedon tallennuksessa`,
+            'error'
+          );
         }
       );
   }

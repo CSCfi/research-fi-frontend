@@ -29,7 +29,7 @@ export class OrganizationInformationComponent implements OnInit {
     //   field: 'nameTranslations',
     // },
     {
-      label: $localize`:@@orgOtherNames:Muut nimet`,
+      label: $localize`:@@otherNames:Muut nimet`,
       field: 'variantNames',
       tooltip: 'finto',
     },

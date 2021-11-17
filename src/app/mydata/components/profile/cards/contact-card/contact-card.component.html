@@ -12,6 +12,7 @@
       *ngIf="
         (data[0].fields | countGroupItems: { filterSelected: true }).length > 1
       "
+      i18n="@@edit"
       content="Muokkaa"
       (click)="openDialog()"
     ></app-secondary-button>
@@ -28,7 +29,6 @@
 <app-dialog
   *ngIf="showDialog"
   [template]="dialogTemplate"
-  title="Muokkaa yhteystietoja"
   (onActionClick)="doDialogAction($event)"
 ></app-dialog>
 

@@ -22,7 +22,11 @@ export class EducationFieldsAdapter implements Adapter<EducationFields> {
 
   adapt(item: any): EducationFields {
     return new EducationFields(
-      this.mapGroup(item.educationGroups, 'education', 'Koulutus')
+      this.mapGroup(
+        item.educationGroups,
+        'education',
+        $localize`:@@education:Koulutus`
+      )
     );
   }
 }

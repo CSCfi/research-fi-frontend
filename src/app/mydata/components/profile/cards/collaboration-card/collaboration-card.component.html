@@ -9,6 +9,7 @@
   </div>
   <div class="col-auto px-0" *ngIf="hasCheckedOption">
     <app-secondary-button
+      i18n-content="@@edit"
       content="Muokkaa"
       (click)="openDialog()"
     ></app-secondary-button>
@@ -21,7 +22,9 @@
 ></app-empty-card>
 
 <ng-template #dialogTemplate>
-  <div class="row pb-3">Valitse profiilissasi näytettävät tiedot</div>
+  <div class="row pb-3" i18n="@@selectInformationToDisplayInProfile">
+    Valitse profiilissasi näytettävät tiedot
+  </div>
 
   <section class="py-3">
     <mat-checkbox
@@ -38,6 +41,7 @@
   *ngIf="showDialog"
   [template]="dialogTemplate"
   [actions]="dialogActions"
+  i18n-title="@@cooperation"
   title="Yhteistyö"
   (onActionClick)="doDialogAction($event)"
 ></app-dialog>

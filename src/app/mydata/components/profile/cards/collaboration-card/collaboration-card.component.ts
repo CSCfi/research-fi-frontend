@@ -16,24 +16,21 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class CollaborationCardComponent implements OnInit {
   @Input() label: string;
-
   collaborationOptions = [
     {
-      label: 'Olen kiinnostunut tiedotusvälineiden yhteydenotoista',
+      label: $localize`:@@collabMediaContact:Olen kiinnostunut tiedotusvälineiden yhteydenotoista`,
       checked: false,
     },
     {
-      label:
-        'Olen kiinnostunut yhteistyöstä muiden tutkijoiden ja tutkimusryhmien kanssa',
+      label: $localize`:@@collabCooperationResearchers:Olen kiinnostunut yhteistyöstä muiden tutkijoiden ja tutkimusryhmien kanssa`,
       checked: false,
     },
     {
-      label: 'Olen kiinnostunut yhteistyöstä yritysten kanssa',
+      label: $localize`:@@collabCooperationOrgs:Olen kiinnostunut yhteistyöstä yritysten kanssa`,
       checked: false,
     },
     {
-      label:
-        'Olen kiinnostunut toimimaan tieteellisten julkaisujen vertaisarvioijana',
+      label: $localize`:@@collabReviewer:Olen kiinnostunut toimimaan tieteellisten julkaisujen vertaisarvioijana`,
       checked: false,
     },
   ];
