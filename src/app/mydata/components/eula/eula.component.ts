@@ -10,8 +10,10 @@ import {
   ElementRef,
   Input,
   OnChanges,
+  OnInit,
   ViewChild,
 } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-eula',
@@ -22,7 +24,7 @@ import {
  *  EULA html templates are used in multiple places.
  *  Parent component sends template name and this component renders corresponding template which is passed to dialog component.
  */
-export class EulaComponent implements OnChanges {
+export class EulaComponent implements OnInit, OnChanges {
   @Input() template: string;
 
   @ViewChild('termsTemplate', { static: true }) termsTemplate: ElementRef;
@@ -30,8 +32,25 @@ export class EulaComponent implements OnChanges {
   personalDataHandlingTermsTemplate: ElementRef;
 
   currentTemplate: any;
+  currentLocale: string = 'Fi';
 
-  constructor() {}
+  useOfTermsContent: any;
+  personalDataHandlingTermsContent: any;
+
+  constructor(private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    // Get text content from CMS
+    const pageData = this.route.snapshot.data.pages;
+
+    this.useOfTermsContent = pageData.find(
+      (el) => el.id === 'mydata_terms_of_use'
+    );
+
+    this.personalDataHandlingTermsContent = pageData.find(
+      (el) => el.id === 'mydata_privacy_policy'
+    );
+  }
 
   ngOnChanges() {
     switch (this.template) {
