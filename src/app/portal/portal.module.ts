@@ -139,7 +139,6 @@ import { ResultCountComponent } from './components/results/result-count/result-c
 import { BarComponent } from './components/visualisation/bar/bar.component';
 import { FigureFiltersComponent } from './components/science-politics/figures/figure-filters/figure-filters.component';
 import { FiguresInfoComponent } from './components/science-politics/figures/figures-info/figures-info.component';
-import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
 import { DatasetsComponent } from './components/results/datasets/datasets.component';
 import { SingleDatasetComponent } from './components/single/single-dataset/single-dataset.component';
 import { ExternalLinksComponent } from './components/science-politics/external-links/external-links.component';
@@ -218,7 +217,6 @@ import { PublicationLinksComponent } from './components/single/single-publicatio
     BarComponent,
     FigureFiltersComponent,
     FiguresInfoComponent,
-    SanitizeHtmlPipe,
     DatasetsComponent,
     SingleDatasetComponent,
     ExternalLinksComponent,
