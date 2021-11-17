@@ -37,6 +37,7 @@ import { UtilityService } from 'src/app/shared/services/utility.service';
 import { FilterService } from 'src/app/portal/services/filters/filter.service';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { StaticDataService } from 'src/app/portal/services/static-data.service';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -120,11 +121,10 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
     public utilityService: UtilityService,
     @Inject(LOCALE_ID) protected localeId,
     private filterService: FilterService,
-    private staticDataService: StaticDataService
+    private staticDataService: StaticDataService,
+    private appSettingsService: AppSettingsService
   ) {
-    // Capitalize first letter of locale
-    this.currentLocale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    this.currentLocale = this.appSettingsService.capitalizedLocale;
     this.queryHistory = this.getHistory();
     this.completion = '';
     this.isBrowser = isPlatformBrowser(this.platformId);

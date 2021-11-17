@@ -35,6 +35,7 @@ import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { cloneDeep } from 'lodash-es';
 import { CMSContentService } from '@shared/services/cms-content.service';
 import { Figure } from 'src/app/portal/models/figure/figure.model';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   selector: 'app-single-figure',
@@ -83,11 +84,10 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
     @Inject(WINDOW) private window: Window,
     private tabChangeService: TabChangeService,
     private utilityService: UtilityService,
-    @Inject(PLATFORM_ID) private platformId: object
+    @Inject(PLATFORM_ID) private platformId: object,
+    private appSettingsService: AppSettingsService
   ) {
-    // Capitalize first letter of locale
-    this.currentLocale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    this.currentLocale = this.appSettingsService.capitalizedLocale;
   }
 
   public setTitle(newTitle: string) {

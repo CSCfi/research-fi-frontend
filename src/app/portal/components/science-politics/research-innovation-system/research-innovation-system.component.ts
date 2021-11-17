@@ -25,6 +25,7 @@ import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { ActivatedRoute } from '@angular/router';
 import { Sector } from 'src/app/portal/models/research-innovation-system/sector.model';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   selector: 'app-research-innovation-system',
@@ -63,12 +64,12 @@ export class ResearchInnovationSystemComponent
     private cdr: ChangeDetectorRef,
     private resizeService: ResizeService,
     private utilityService: UtilityService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private appSettingsService: AppSettingsService
   ) {
     this.selectedSector = null;
-    // Capitalize first letter of locale
-    this.currentLocale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+
+    this.currentLocale = this.appSettingsService.capitalizedLocale;
   }
 
   public setTitle(newTitle: string) {

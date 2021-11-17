@@ -14,6 +14,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   selector: 'app-eula',
@@ -32,12 +33,17 @@ export class EulaComponent implements OnInit, OnChanges {
   personalDataHandlingTermsTemplate: ElementRef;
 
   currentTemplate: any;
-  currentLocale: string = 'Fi';
+  currentLocale: string;
 
   useOfTermsContent: any;
   personalDataHandlingTermsContent: any;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private appSettingsService: AppSettingsService
+  ) {
+    this.currentLocale = this.appSettingsService.capitalizedLocale;
+  }
 
   ngOnInit() {
     // Get text content from CMS

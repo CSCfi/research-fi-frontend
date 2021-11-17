@@ -26,6 +26,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { WINDOW } from 'src/app/shared/services/window.service';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   selector: 'app-privacy',
@@ -62,11 +63,11 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private utilityService: UtilityService,
-    @Inject(WINDOW) private window: Window
+    @Inject(WINDOW) private window: Window,
+    private appSettingsService: AppSettingsService
   ) {
     this.locale = localeId;
-    this.currentLocale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    this.currentLocale = this.appSettingsService.capitalizedLocale;
     this.matomoUrl =
       'https://rihmatomo-analytics.csc.fi/index.php?module=CoreAdminHome&action=optOut&language=' +
       this.locale +

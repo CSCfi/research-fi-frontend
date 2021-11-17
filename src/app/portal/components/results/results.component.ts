@@ -187,9 +187,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     );
     this.isBrowser = isPlatformBrowser(this.platformId);
     this.total = 1;
-    // Capitalize first letter of locale
-    this.currentLocale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+
+    this.currentLocale = this.appSettingsService.capitalizedLocale;
   }
 
   public setTitle(newTitle: string) {

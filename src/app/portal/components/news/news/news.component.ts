@@ -71,8 +71,7 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
     public appSettingsService: AppSettingsService
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
-    this.currentLocale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    this.currentLocale = this.appSettingsService.capitalizedLocale;
   }
 
   ngOnInit() {
