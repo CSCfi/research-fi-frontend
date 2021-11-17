@@ -27,7 +27,7 @@ import { SettingsService } from 'src/app/portal/services/settings.service';
 import { take, tap } from 'rxjs/operators';
 import { ResizeService } from '@shared/services/resize.service';
 import { WINDOW } from '@shared/services/window.service';
-import { ContentDataService } from '@portal/services/content-data.service';
+import { CMSContentService } from '@shared/services/cms-content.service';
 
 @Component({
   selector: 'app-single-organization',
@@ -125,7 +125,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     public utilityService: UtilityService,
     private settingsService: SettingsService,
     private resizeService: ResizeService,
-    private cds: ContentDataService
+    private cmsContentService: CMSContentService
   ) {
     // Capitalize first letter of locale
     this.currentLocale =
@@ -182,7 +182,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     this.dataSub = forkJoin([
       this.singleService.getSingleOrganization(id),
       !sessionStorage.getItem('sectorData')
-        ? this.cds.getSectors()
+        ? this.cmsContentService.getSectors()
         : JSON.parse(sessionStorage.getItem('sectorData')),
     ]).subscribe((response: any) => {
       const orgCMSData = response[1]

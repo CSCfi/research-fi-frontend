@@ -8,17 +8,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
-import { Shortcut, ShortcutAdapter } from '../models/shortcut.model';
-import { Figure, FigureAdapter } from '../models/figure/figure.model';
-import { Page, PageAdapter } from '../models/page.model';
+import { Shortcut, ShortcutAdapter } from '../../portal/models/shortcut.model';
+import { Figure, FigureAdapter } from '../../portal/models/figure/figure.model';
+import { Page, PageAdapter } from '../../portal/models/page.model';
 import {
   ExternalLinkGroup,
   ExternalLinkGroupAdapter,
-} from '../models/research-innovation-system/external-link-group.model';
+} from '../../portal/models/research-innovation-system/external-link-group.model';
 import {
   Sector,
   SectorAdapter,
-} from '../models/research-innovation-system/sector.model';
+} from '../../portal/models/research-innovation-system/sector.model';
 import { map } from 'rxjs/operators';
 import { AppConfigService } from 'src/app/shared/services/app-config-service.service';
 import { BehaviorSubject } from 'rxjs';
@@ -26,7 +26,7 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class ContentDataService {
+export class CMSContentService {
   apiUrl: string;
   private pageSource = new BehaviorSubject([]);
   pageData = this.pageSource.asObservable();
