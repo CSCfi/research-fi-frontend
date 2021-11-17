@@ -93,7 +93,7 @@ export class AppSettingsService {
     ],
     localizedDomains: [
       { label: 'Suomi', locale: 'FI', url: 'https://localhost:5003/fi' },
-      { label: 'Svenska', locale: 'SV', url: 'https://localhost:5003/sv' },
+      // { label: 'Svenska', locale: 'SV', url: 'https://localhost:5003/sv' },
       { label: 'English', locale: 'EN', url: 'https://localhost:5003/en' },
     ],
   };
