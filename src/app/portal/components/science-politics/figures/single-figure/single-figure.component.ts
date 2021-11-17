@@ -33,7 +33,7 @@ import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { cloneDeep } from 'lodash-es';
-import { ContentDataService } from 'src/app/portal/services/content-data.service';
+import { CMSContentService } from '@shared/services/cms-content.service';
 import { Figure } from 'src/app/portal/models/figure/figure.model';
 
 @Component({
@@ -79,7 +79,7 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
     @Inject(LOCALE_ID) protected localeId: string,
     private resizeService: ResizeService,
     private route: ActivatedRoute,
-    private cds: ContentDataService,
+    private cmsContentService: CMSContentService,
     @Inject(WINDOW) private window: Window,
     private tabChangeService: TabChangeService,
     private utilityService: UtilityService,
@@ -104,7 +104,7 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
         // Call API only if no data in session storage
         if (isPlatformBrowser(this.platformId)) {
           if (!sessionStorage.getItem('figureData')) {
-            this.cds.getFigures().subscribe((data) => {
+            this.cmsContentService.getFigures().subscribe((data) => {
               this.figureData = data;
               sessionStorage.setItem('figureData', JSON.stringify(data));
               this.setContent(res);
