@@ -25,6 +25,7 @@ import { UtilityService } from 'src/app/shared/services/utility.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { ActivatedRoute } from '@angular/router';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   selector: 'app-accessibility',
@@ -55,10 +56,10 @@ export class AccessibilityComponent
     private utilityService: UtilityService,
     private route: ActivatedRoute,
     @Inject(DOCUMENT) private document: any,
-    @Inject(PLATFORM_ID) private platformId: object
+    @Inject(PLATFORM_ID) private platformId: object,
+    private appSettingsService: AppSettingsService
   ) {
-    this.currentLocale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    this.currentLocale = this.appSettingsService.capitalizedLocale;
   }
 
   ngOnInit(): void {

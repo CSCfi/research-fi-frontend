@@ -26,6 +26,7 @@ import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { SettingsService } from 'src/app/portal/services/settings.service';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   selector: 'app-single-infrastructure',
@@ -174,11 +175,10 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     @Inject(LOCALE_ID) protected localeId: string,
     public utilityService: UtilityService,
     private settingsService: SettingsService,
-    @Inject(DOCUMENT) private document: any
+    @Inject(DOCUMENT) private document: any,
+    private appSettingsService: AppSettingsService
   ) {
-    // Capitalize first letter of locale
-    this.currentLocale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    this.currentLocale = this.appSettingsService.capitalizedLocale;
   }
 
   public setTitle(newTitle: string) {

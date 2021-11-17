@@ -12,7 +12,6 @@ import {
   ViewChildren,
   ElementRef,
   Inject,
-  PLATFORM_ID,
   QueryList,
   AfterViewInit,
   ChangeDetectorRef,
@@ -34,10 +33,9 @@ import { UtilityService } from 'src/app/shared/services/utility.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ReviewComponent } from 'src/app/layout/review/review.component';
-import { PrivacyService } from 'src/app/portal/services/privacy.service';
-import { WINDOW } from '@shared/services/window.service';
 import { ActivatedRoute } from '@angular/router';
 import { Search } from '@portal/models/search.model';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   providers: [SearchBarComponent],
@@ -81,10 +79,8 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private searchService: SearchService,
     private sortService: SortService,
-    @Inject(WINDOW) private window: Window,
     private titleService: Title,
     @Inject(DOCUMENT) private document: any,
-    @Inject(PLATFORM_ID) private platformId: object,
     private cdr: ChangeDetectorRef,
     @Inject(LOCALE_ID) public localeId: string,
     private tabChangeService: TabChangeService,
@@ -92,11 +88,9 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     public utilityService: UtilityService,
     private route: ActivatedRoute,
     public dialog: MatDialog,
-    private privacyService: PrivacyService
+    private appSettingsService: AppSettingsService
   ) {
-    // Capitalize first letter of locale
-    this.currentLocale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    this.currentLocale = this.appSettingsService.capitalizedLocale;
   }
 
   public setTitle(newTitle: string) {

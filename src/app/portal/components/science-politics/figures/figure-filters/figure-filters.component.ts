@@ -2,14 +2,13 @@ import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
-  Inject,
   Input,
-  LOCALE_ID,
   OnChanges,
   OnInit,
   Output,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   selector: 'app-figure-filters',
@@ -41,11 +40,9 @@ export class FigureFiltersComponent implements OnInit, OnChanges {
   constructor(
     private router: Router,
     private cdr: ChangeDetectorRef,
-    @Inject(LOCALE_ID) protected localeId: string
+    private appSettingsService: AppSettingsService
   ) {
-    // Capitalize first letter of locale
-    this.currentLocale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    this.currentLocale = this.appSettingsService.capitalizedLocale;
   }
 
   ngOnInit(): void {}

@@ -33,6 +33,7 @@ import { UtilityService } from 'src/app/shared/services/utility.service';
 import { Search } from 'src/app/portal/models/search.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   selector: 'app-single-publication',
@@ -432,11 +433,10 @@ export class SinglePublicationComponent
     public utilityService: UtilityService,
     @Inject(LOCALE_ID) private localeId,
     private snackBar: MatSnackBar,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private appSettingsService: AppSettingsService
   ) {
-    // Capitalize first letter of locale
-    this.currentLocale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    this.currentLocale = this.appSettingsService.capitalizedLocale;
   }
 
   public setTitle(newTitle: string) {
@@ -588,9 +588,7 @@ export class SinglePublicationComponent
   }
 
   shapeData() {
-    // Capitalize first letter of locale
-    const locale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    const locale = this.currentLocale;
     const source = this.responseData.publications[0];
     const countries = source.countries;
     const languages = source.languages;

@@ -43,6 +43,7 @@ import { UtilityService } from 'src/app/shared/services/utility.service';
 import { cloneDeep } from 'lodash-es';
 import { CMSContentService } from '@shared/services/cms-content.service';
 import { Figure } from 'src/app/portal/models/figure/figure.model';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   selector: 'app-figures',
@@ -102,16 +103,15 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private cmsContentService: CMSContentService,
-    @Inject(PLATFORM_ID) private platformId: object
+    @Inject(PLATFORM_ID) private platformId: object,
+    private appSettingsService: AppSettingsService
   ) {
     // Default to first segment
     this.currentSection = 's0';
     this.queryResults = [];
     this.queryTerm = '';
     this.hasResults = true;
-    // Capitalize first letter of locale
-    this.currentLocale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    this.currentLocale = this.appSettingsService.capitalizedLocale;
   }
 
   public setTitle(newTitle: string) {

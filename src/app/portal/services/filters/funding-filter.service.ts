@@ -9,6 +9,7 @@ import { Injectable, Inject, LOCALE_ID } from '@angular/core';
 import { FilterMethodService } from './filter-method.service';
 import { StaticDataService } from '../static-data.service';
 import { cloneDeep } from 'lodash-es';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Injectable({
   providedIn: 'root',
@@ -84,11 +85,10 @@ export class FundingFilterService {
   constructor(
     private filterMethodService: FilterMethodService,
     private staticDataService: StaticDataService,
-    @Inject(LOCALE_ID) protected localeId: string
+    @Inject(LOCALE_ID) protected localeId: string,
+    private appSettingsService: AppSettingsService
   ) {
-    // Capitalize first letter of locale
-    this.currentLocale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    this.currentLocale = this.appSettingsService.capitalizedLocale;
   }
 
   shapeData(data) {

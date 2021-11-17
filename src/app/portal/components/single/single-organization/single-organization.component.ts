@@ -28,6 +28,7 @@ import { take, tap } from 'rxjs/operators';
 import { ResizeService } from '@shared/services/resize.service';
 import { WINDOW } from '@shared/services/window.service';
 import { CMSContentService } from '@shared/services/cms-content.service';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   selector: 'app-single-organization',
@@ -125,11 +126,10 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     public utilityService: UtilityService,
     private settingsService: SettingsService,
     private resizeService: ResizeService,
-    private cmsContentService: CMSContentService
+    private cmsContentService: CMSContentService,
+    private appSettingsService: AppSettingsService
   ) {
-    // Capitalize first letter of locale
-    this.currentLocale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    this.currentLocale = this.appSettingsService.capitalizedLocale;
   }
 
   public setTitle(newTitle: string) {
