@@ -31,6 +31,9 @@ const routes: Routes = [
     pathMatch: 'full',
     component: WelcomeStepperComponent,
     canActivate: [AuthGuard],
+    resolve: {
+      pages: PageResolverService,
+    },
   },
   {
     path: 'profile',
