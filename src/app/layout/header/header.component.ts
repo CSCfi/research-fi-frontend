@@ -214,7 +214,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.appSettingsService.updateMobileStatus(this.mobile);
 
       // Get page data from API and set to localStorage. This data is used to generate content on certain pages
-      if (!this.cmsContentService.pageDataFlag) {
+      if (!this.cmsContentService.pageDataLoaded) {
         this.pageDataSub = this.cmsContentService
           .getPages()
           .subscribe((data) => {

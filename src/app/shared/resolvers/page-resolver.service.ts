@@ -13,7 +13,7 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import { tap } from 'rxjs/operators';
-import { CMSContentService } from '../../shared/services/cms-content.service';
+import { CMSContentService } from '../services/cms-content.service';
 
 @Injectable({
   providedIn: 'root',
