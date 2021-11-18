@@ -170,12 +170,12 @@ export class ProfileSummaryComponent implements OnInit {
     const selectedField = cloneDeep(this.profileData[index]);
 
     this.dialogRef = this.dialog.open(EditorModalComponent, {
-      ...this.appSettingsService.dialogSettings,
       data: {
         data: selectedField,
         dataSources: this.dataSources,
         primarySource: this.primarySource,
       },
+      panelClass: this.appSettingsService.dialogPanelClass,
     });
 
     this.dialogRef

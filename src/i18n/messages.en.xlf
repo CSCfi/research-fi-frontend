@@ -5032,7 +5032,7 @@
       </trans-unit>
       <trans-unit id="mydataLoginText2">
         <source>luoda sellaiset ORCID-palvelussa</source>
-        <target>you can create one in ORCID.</target>
+        <target>you can create one in ORCID</target>
       </trans-unit>
       <trans-unit id="begin">
         <source>Aloita</source>
@@ -5298,6 +5298,46 @@
       <trans-unit id="dataSavingError">
         <source>Virhe tiedon tallennuksessa</source>
         <target>Error saving data</target>
+      </trans-unit>
+      <trans-unit id="draftUpdated">
+        <source>Luonnos päivitetty</source>
+        <target>Draft updated</target>
+      </trans-unit>
+      <trans-unit id="preferred">
+        <source>Ensisijainen</source>
+        <target>Preferred</target>
+      </trans-unit>
+      <trans-unit id="setAsPreferred">
+        <source>Aseta ensisijaiseksi</source>
+        <target>Set as preferred</target>
+      </trans-unit>
+      <trans-unit id="unit">
+        <source>Nimike</source>
+        <target>Title</target>
+      </trans-unit>
+      <trans-unit id="title">
+        <source>Nimike</source>
+        <target>Title</target>
+      </trans-unit>
+      <trans-unit id="researchCommunity">
+        <source>Tutkimusyhteisö</source>
+        <target>Research community</target>
+      </trans-unit>
+      <trans-unit id="roleInResearchCommunity">
+        <source>Rooli tutkimusyhteisössä</source>
+        <target>Role in research community</target>
+      </trans-unit>
+      <trans-unit id="source">
+        <source>Lähde</source>
+        <target>Source</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="">
+        <source></source>
+        <target></target>
       </trans-unit>
     </body>
   </file>

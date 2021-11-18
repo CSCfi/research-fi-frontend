@@ -68,11 +68,10 @@
         </h2>
         <ul>
           <li>
-            <a
-              i18n="Footer-link@@footerLink6"
-              href="javascript:void(0)"
-              (click)="toggleReview()"
-              >Anna palautetta
+            <a href="javascript:void(0)" (click)="toggleReview()">
+              <ng-container i18n="Footer-link@@footerLink6">
+                Anna palautetta
+              </ng-container>
               <fa-icon icon="external-link-alt" *ngIf="myDataBeta"></fa-icon
             ></a>
           </li>

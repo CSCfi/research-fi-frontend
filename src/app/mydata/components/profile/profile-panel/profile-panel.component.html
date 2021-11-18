@@ -202,9 +202,7 @@
                 >
                   <app-primary-badge
                     [label]="
-                      item.itemMeta.primaryValue
-                        ? 'Ensisijainen'
-                        : 'Aseta ensisijaiseksi'
+                      item.itemMeta.primaryValue ? preferred : setAsPreferred
                     "
                     [item]="item"
                     [data]="field"
@@ -222,15 +220,10 @@
       <div class="row py-3 font-size-small" *ngIf="field.single">
         <div class="col col-lg-6 pl-0">
           <fa-icon class="pr-1 opacity-3" icon="info-circle"></fa-icon>
-          <!-- <ng-container [ngSwitch]="field.single">
-          <span *ngSwitchCase="true">Voit valita yhden vaihtoehdon</span>
-          <span *ngSwitchDefault>Voit valita usean vaihtoehdon</span>
-        </ng-container> -->
           <span i18n="@@canSelectOnlyOneOption"
             >Voit valita yhden vaihtoehdon</span
           >
         </div>
-        <!-- <div class="col pr-0 opacity-3"><span>1 lähde valittu</span></div> -->
       </div>
     </mat-expansion-panel>
   </mat-accordion>

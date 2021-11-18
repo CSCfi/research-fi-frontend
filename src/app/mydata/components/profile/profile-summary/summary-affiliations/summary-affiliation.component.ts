@@ -22,10 +22,16 @@ export class SummaryAffiliationsComponent implements OnInit {
   locale = 'Fi';
 
   columns = [
-    { label: 'Yksikkö', field: 'unit' },
-    { label: 'Nimike', field: 'positionName' },
-    { label: 'Tutkimusyhteisö', field: 'researchCommunity' },
-    { label: 'Rooli tutkimusyhteisössä', field: 'roleInResearchCommunity' },
+    { label: $localize`:@@unit:Yksikkö`, field: 'unit' },
+    { label: $localize`:@@title:Nimike`, field: 'positionName' },
+    {
+      label: $localize`:@@researchCommunity:Tutkimusyhteisö`,
+      field: 'researchCommunity',
+    },
+    {
+      label: $localize`:@@roleInResearchCommunity:Rooli tutkimusyhteisössä`,
+      field: 'roleInResearchCommunity',
+    },
   ];
 
   constructor() {}

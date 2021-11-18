@@ -39,8 +39,8 @@ export class CollaborationCardComponent implements OnInit {
   hasCheckedOption: boolean;
 
   dialogActions = [
-    { label: 'Peruuta', primary: false, method: 'cancel' },
-    { label: 'Tallenna', primary: true, method: 'save' },
+    { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'cancel' },
+    { label: $localize`:@@save:Tallenna`, primary: true, method: 'save' },
   ];
   optionsToggled = [];
 

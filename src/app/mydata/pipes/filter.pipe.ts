@@ -20,11 +20,11 @@ export class FilterPipe implements PipeTransform {
   transform(
     value: any,
     callback: any,
-    extras: { type: string; patchItemIds: string[] }
+    extras: { type: string; patchItems: any[] }
   ) {
     // Case for checking if group items match patch item array
-    if (extras?.patchItemIds) {
-      return value.filter(() => callback(value, extras.patchItemIds)) || [];
+    if (extras?.patchItems) {
+      return value.filter(() => callback(value, extras.patchItems)) || [];
     }
 
     switch (extras?.type) {

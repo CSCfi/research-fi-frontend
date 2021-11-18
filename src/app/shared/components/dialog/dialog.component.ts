@@ -37,8 +37,6 @@ export class DialogComponent implements OnInit {
   }
 
   openDialog() {
-    const dialogSettings = { ...this.appSettingsService.dialogSettings };
-
     // Separate actions into parent columns.
     let spreadActions = false;
 
@@ -51,16 +49,15 @@ export class DialogComponent implements OnInit {
       ];
     }
 
-    // Handle size
-    if (this.small) {
-      dialogSettings.minWidth = 'unset';
-      dialogSettings.width = 'unset';
-      dialogSettings.maxHeight = 'unset';
-      dialogSettings.height = 'unset';
-    }
+    const smallDialogSettings = {
+      minWidth: 'unset',
+      width: 'unset',
+      maxHeight: 'unset',
+      height: 'unset',
+    };
 
     this.dialogRef = this.dialog.open(DialogTemplateComponent, {
-      ...dialogSettings,
+      ...(this.small ? smallDialogSettings : null),
       autoFocus: false,
       data: {
         title: this.title,
@@ -69,6 +66,7 @@ export class DialogComponent implements OnInit {
         extraContentTemplate: this.extraContentTemplate,
         spreadActions: spreadActions,
       },
+      panelClass: 'responsive-dialog',
       disableClose: this.disableClose ? true : false,
     });
 

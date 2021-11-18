@@ -17,12 +17,15 @@ export class StepperNavigationComponent implements OnInit {
   faAngleDoubleRight = faAngleDoubleRight;
   faAngleDoubleLeft = faAngleDoubleLeft;
 
+  previous = $localize`:@@previous:Edellinen`;
+  next = $localize`:@@next:Seuraava`;
+
   constructor() {}
 
   ngOnInit(): void {}
 
   increment() {
-    this.changeStep.emit('increment');
+    !this.disableNext && this.changeStep.emit('increment');
   }
 
   decrement() {
