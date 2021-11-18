@@ -14,7 +14,8 @@
     *ngFor="let primaryItem of data.groupItems | getItemsBy: 'primaryValue'"
   >
     <div class="col-auto font-size-smaller">
-      {{ primaryItem.positionNameFi }}, {{ primaryItem.organizationNameFi }}
+      {{ primaryItem['positionName' + locale] }},
+      {{ primaryItem['organizationName' + locale] }}
     </div>
   </div>
 
@@ -54,7 +55,8 @@
 
       <div class="row">
         <div class="col-auto font-size-smaller">
-          Lähde: {{ item.source.organization.nameFi }}
+          <ng-container i18n="@@source">Lähde</ng-container>:
+          {{ item.source.organization.nameFi }}
         </div>
       </div>
 

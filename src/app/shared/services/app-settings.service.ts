@@ -98,13 +98,7 @@ export class AppSettingsService {
     ],
   };
 
-  dialogSettings: {
-    minWidth: string;
-    maxWidth: string;
-    width: string;
-    maxHeight: string;
-    height: string;
-  };
+  dialogPanelClass = 'responsive-dialog';
 
   currentAppSettings: object;
   userOrcid: string; // Used in error monitoring
@@ -129,8 +123,6 @@ export class AppSettingsService {
 
   updateMobileStatus(status) {
     this.mobileSource.next(status);
-
-    this.updateDialogSettings(status);
   }
 
   setCurrentAppSettings(app) {
@@ -149,15 +141,5 @@ export class AppSettingsService {
 
   setOrcid(id: string) {
     this.userOrcid = id;
-  }
-
-  updateDialogSettings(mobile) {
-    this.dialogSettings = {
-      minWidth: '44vw',
-      maxWidth: mobile ? '100vw' : '44vw',
-      width: mobile ? '100%' : 'unset',
-      maxHeight: '100vh',
-      height: mobile ? '100vh' : 'unset',
-    };
   }
 }

@@ -10,6 +10,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PublicationsService } from '@mydata/services/publications.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { take } from 'rxjs/operators';
+import { FieldTypes } from '@mydata/constants/fieldTypes';
 
 @Component({
   selector: 'app-search-publications',
@@ -24,6 +25,8 @@ export class SearchPublicationsComponent implements OnInit {
   currentSelection: any[];
   currentTerm: string;
   mobile: boolean;
+
+  fieldTypes = FieldTypes;
 
   constructor(
     private dialogRef: MatDialogRef<SearchPublicationsComponent>,
@@ -84,7 +87,12 @@ export class SearchPublicationsComponent implements OnInit {
       publicationId: item.publicationId,
       publicationName: item.publicationName,
       publicationYear: item.publicationYear,
-      itemMeta: { id: item.publicationId, show: true, primaryValue: true },
+      itemMeta: {
+        id: item.publicationId,
+        type: this.fieldTypes.activityPublication,
+        show: true,
+        primaryValue: true,
+      },
       // itemMeta: { id: null, show: true, primaryValue: true }, id null, testing for draft summary
     }));
 

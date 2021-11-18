@@ -38,6 +38,7 @@ export class ProfileComponent implements OnInit {
   profileData: any;
   testData: any;
   orcid: string;
+  currentProfileName: string;
 
   mergePublications = mergePublications;
 
@@ -83,7 +84,7 @@ export class ProfileComponent implements OnInit {
   deleteProfileTitle = CommonStrings.deleteProfile;
 
   constructor(
-    private profileService: ProfileService,
+    public profileService: ProfileService,
     public oidcSecurityService: OidcSecurityService,
     public appSettingsService: AppSettingsService,
     public dialog: MatDialog,
@@ -97,8 +98,11 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    let nameFromOrcid: string;
+
     this.oidcSecurityService.userData$.pipe(take(1)).subscribe((data) => {
       this.orcidData = data;
+      nameFromOrcid = data.name;
 
       if (data) {
         this.orcid = data.orcid;
@@ -131,8 +135,12 @@ export class ProfileComponent implements OnInit {
               const parsedDraft = JSON.parse(draft);
               this.draftService.saveDraft(parsedDraft);
               this.profileData = parsedDraft;
+              this.profileService.setCurrentProfileName(
+                this.getName(parsedDraft)
+              );
             } else {
               this.profileData = response.profileData;
+              this.profileService.setCurrentProfileName(nameFromOrcid);
             }
 
             // Set draft patch payload from storage
@@ -161,6 +169,13 @@ export class ProfileComponent implements OnInit {
           // );
         });
     }
+  }
+
+  getName(data) {
+    return data
+      .find((item) => item.id === 'contact')
+      .fields[0].groupItems.flatMap((groupItem) => groupItem.items)
+      .find((item) => item.itemMeta.show).value;
   }
 
   openDialog(props: {
@@ -246,10 +261,14 @@ export class ProfileComponent implements OnInit {
   }
 
   reset() {
+    const currentProfileData = this.profileService.currentProfileData;
+
     sessionStorage.removeItem(Constants.draftProfile);
     sessionStorage.removeItem(Constants.draftPatchPayload);
     sessionStorage.removeItem(Constants.draftPublicationPatchPayload);
-    this.profileData = [...this.profileService.currentProfileData];
+    this.profileData = [...currentProfileData];
+    this.profileService.setCurrentProfileName(this.getName(currentProfileData));
+
     this.clearDraftData();
   }
 

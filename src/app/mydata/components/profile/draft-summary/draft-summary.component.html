@@ -10,7 +10,7 @@
         (
           group.fields
           | countGroupItems
-            : { filterSelected: true, patchItemIds: patchItemIds }
+            : { filterSelected: true, patchItems: combinedPatchItems }
         ).length > 0
       "
       [expanded]="openPanels.indexOf(i) > -1"
@@ -21,7 +21,7 @@
             (
               group.fields
               | countGroupItems
-                : { filterSelected: true, patchItemIds: patchItemIds }
+                : { filterSelected: true, patchItems: combinedPatchItems }
             ).length
           }})
         </mat-panel-title>
@@ -33,7 +33,7 @@
           *ngIf="
             (
               field.groupItems
-              | filter: checkGroupPatchItem:{ patchItemIds: patchItemIds }
+              | filter: checkGroupPatchItem:{ patchItems: combinedPatchItems }
             ).length
           "
         >
@@ -62,7 +62,7 @@
                         groupItem.groupMeta.type !==
                         fieldTypes.activityAffiliation
                       "
-                      *ngIf="patchItemIds.indexOf(item.itemMeta.id) > -1"
+                      *ngIf="combinedPatchItems | matchItem: item.itemMeta"
                     >
                       <div
                         class="col px-0 font-size-smaller"

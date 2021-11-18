@@ -3,18 +3,11 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<div class="row">
-  <div class="col px-0">
-    <span class="font-weight-bold">{{ label }}</span>
-  </div>
-  <div class="col-auto px-0" *ngIf="hasCheckedOption">
-    <app-secondary-button
-      i18n-content="@@edit"
-      content="Muokkaa"
-      (click)="openDialog()"
-    ></app-secondary-button>
-  </div>
-</div>
+<app-profile-editor-card-header
+  [label]="label"
+  [displayButton]="hasCheckedOption"
+  (handleOpenDialog)="openDialog()"
+></app-profile-editor-card-header>
 
 <app-empty-card
   *ngIf="!hasCheckedOption"

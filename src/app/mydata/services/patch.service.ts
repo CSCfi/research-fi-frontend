@@ -57,6 +57,9 @@ export class PatchService {
 
   removeItemsWithType(type) {
     this.patchItems = this.patchItems.filter((item) => item.type !== type);
+    this.confirmedPatchItems = this.confirmedPatchItems.filter(
+      (item) => item.type !== type
+    );
   }
 
   clearPatchItems() {

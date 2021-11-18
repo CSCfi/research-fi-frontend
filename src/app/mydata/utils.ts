@@ -33,9 +33,15 @@ export function checkGroupSelected(group) {
 }
 
 // Check if group has item in patch items
-export function checkGroupPatchItem(group, patchItemIds) {
+export function checkGroupPatchItem(group, patchItems) {
   const items = group.flatMap((groupItem) => groupItem.items);
-  return items.find((item) => patchItemIds.includes(item.itemMeta.id));
+  return items.find((item) =>
+    patchItems.find(
+      (patchItem) =>
+        patchItem.id === item.itemMeta.id &&
+        patchItem.type === item.itemMeta.type
+    )
+  );
 }
 
 /*

@@ -82,6 +82,8 @@ import { SummaryDividerComponent } from './components/profile/profile-summary/su
 import { GetItemsByPipe } from './pipes/get-items-by.pipe';
 import { SummaryPublicationsComponent } from './components/profile/profile-summary/summary-publications/summary-publications.component';
 import { SortByFieldTypePipe } from './pipes/sort-by-field-type.pipe';
+import { MatchItemPipe } from './pipes/match-item.pipe';
+import { ProfileEditorCardHeaderComponent } from './components/profile/cards/profile-editor-card-header/profile-editor-card-header.component';
 
 const matSnackbarDefaultConfig: MatSnackBarConfig = {
   verticalPosition: 'top',
@@ -129,6 +131,8 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
     GetItemsByPipe,
     SummaryPublicationsComponent,
     SortByFieldTypePipe,
+    MatchItemPipe,
+    ProfileEditorCardHeaderComponent,
   ],
   imports: [
     CommonModule,
