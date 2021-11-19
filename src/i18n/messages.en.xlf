@@ -5233,11 +5233,11 @@
       </trans-unit>
       <trans-unit id="showDataToPublish">
         <source>Näytä julkaistavat tiedot</source>
-        <target>Show data to publish</target>
+        <target>Preview data to be published</target>
       </trans-unit>
       <trans-unit id="hideDataToPublish">
         <source>Piilota julkaistavat tiedot</source>
-        <target>Hide data to publish</target>
+        <target>Close preview</target>
       </trans-unit>
       <trans-unit id="descriptionOfResearchActivities">
         <source>Tutkimustoiminnan kuvaus</source>
