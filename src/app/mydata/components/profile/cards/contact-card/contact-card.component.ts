@@ -70,11 +70,14 @@ export class ContactCardComponent implements OnInit {
                 )
               ) {
                 const selectedNameId = confirmedPatchItems.find(
-                  (item) => item.show
+                  (item) =>
+                    item.show && item.type === this.fieldTypes.personFirstNames
                 ).id;
+
                 const names = this.data[0].fields[0].groupItems.flatMap(
                   (groupItem) => groupItem.items
                 );
+
                 const selectedName = names.find(
                   (item) => item.itemMeta.id === selectedNameId
                 ).value;

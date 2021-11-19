@@ -5331,13 +5331,41 @@
         <source>Lähde</source>
         <target>Source</target>
       </trans-unit>
-      <trans-unit id="">
-        <source></source>
-        <target></target>
+      <trans-unit id="isPublicationMissingFromData">
+        <source>Puuttuuko jokin julkaisu tiedoistasi?</source>
+        <target>Is a publication missing from your data?</target>
       </trans-unit>
-      <trans-unit id="">
-        <source></source>
-        <target></target>
+      <trans-unit id="searchingForMissingPublication">
+        <source>Puuttuvan julkaisun hakeminen</source>
+        <target>Searching for a missing publication</target>
+      </trans-unit>
+      <trans-unit id="searchForPublicationWithName">
+        <source>Hae julkaisua tekijän tai julkaisun nimellä</source>
+        <target>Search for a publication under the name of the author or publication</target>
+      </trans-unit>
+      <trans-unit id="dataSourceIsResearchFi">
+        <source>Tietolähteenä käytetään Tiedejatutkimus.fi-palvelua</source>
+        <target>The data source used is the Research.fi service</target>
+      </trans-unit>
+      <trans-unit id="nameOfPublicationOrAuthor">
+        <source>Julkaisun tai tekijän nimi</source>
+        <target>Name of publication or author</target>
+      </trans-unit>
+      <trans-unit id="addPublication">
+        <source>Lisää julkaisu</source>
+        <target>Add publication</target>
+      </trans-unit>
+      <trans-unit id="addPublications">
+        <source>Lisää julkaisut</source>
+        <target>Add publications</target>
+      </trans-unit>
+      <trans-unit id="addedPublications">
+        <source>Tuodut julkaisut</source>
+        <target>Added publications</target>
+      </trans-unit>
+      <trans-unit id="remove">
+        <source>Poista</source>
+        <target>Remove</target>
       </trans-unit>
     </body>
   </file>

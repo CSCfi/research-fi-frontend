@@ -4,14 +4,11 @@
  :license: MIT -->
 
 <div class="row d-flex justify-content-between py-2">
-  <div
-    class="col-12 col-lg-auto font-size-big pt-3"
-    i18n="@@selectInformationToDisplayInProfile"
-  >
-    Valitse profiilissasi näytettävät tiedot
-
-    <span
-      *ngIf="data.label === 'Julkaisut'"
+  <div class="col-12 col-lg-auto font-size-big pt-3">
+    <span i18n="@@selectInformationToDisplayInProfile">
+      Valitse profiilissasi näytettävät tiedot </span
+    >&nbsp;<span
+      *ngIf="data.id === 'publication'"
       tooltip="Tiedejatutkimus.fi-palvelun julkaisut on lisätty profiiliisi automaattisesti, jos niissä on ORCID-tunnuksesi. Julkaisuja, joihin ORCID-tunnusta ei ole valmiiksi liitetty, voit etsiä ”Puuttuuko jokin julkaisu tiedoistasi?” –toiminnolla."
       tabindex="0"
       placement="bottom"
@@ -20,14 +17,16 @@
       <fa-icon class="info-icon" icon="info-circle"></fa-icon>
     </span>
   </div>
-  <div class="col-auto py-3" *ngIf="data.label === 'Julkaisut'">
+  <div class="col-auto py-3" *ngIf="data.id === 'publication'">
     <!-- Search publications -->
     <a
       href="javascript:void(0)"
       class="primary-color font-weight-500"
       (click)="openSearchPublicationsDialog()"
     >
-      <u>Puuttuuko jokin julkaisu tiedoistasi?</u>
+      <u i18n="@@isPublicationMissingFromData"
+        >Puuttuuko jokin julkaisu tiedoistasi?</u
+      >
     </a>
   </div>
 </div>
@@ -105,6 +104,7 @@
                 groupItem.items.length
               "
               class="font-size-big d-block pb-3"
+              i18n="@@addedPublications"
               >Tuodut julkaisut</span
             >
 
@@ -158,6 +158,7 @@
                   "
                 >
                   <app-secondary-button
+                    i18n-content="@@remove"
                     content="Poista"
                     (click)="removePublication(item)"
                   ></app-secondary-button>
