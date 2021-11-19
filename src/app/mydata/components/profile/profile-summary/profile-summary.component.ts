@@ -114,7 +114,7 @@ export class ProfileSummaryComponent implements OnInit {
 
   // sortPublications(data) {
   //   // Combine groups and sort. Display items in summary only from first group
-  //   const index = data.findIndex((item) => item.label === 'Julkaisut');
+  //   const index = data.findIndex((item) => item.id === 'publication');
 
   //   const selectedItems = data[index].fields[0].selectedPublications;
 
@@ -137,7 +137,7 @@ export class ProfileSummaryComponent implements OnInit {
 
   // Sort primary affiliations first
   // sortAffiliations(data) {
-  //   const index = data.findIndex((item) => item.label === 'Affiliaatiot');
+  //   const index = data.findIndex((item) => item.id === 'affiliation');
 
   //   const groupItems = data[index].fields[0].groupItems;
 
@@ -248,7 +248,10 @@ export class ProfileSummaryComponent implements OnInit {
                 (confirmedPatchItems.length ||
                   confirmedPublicationPayload.length)
               ) {
-                this.snackbarService.show('Luonnos päivitetty', 'success');
+                this.snackbarService.show(
+                  $localize`:@@draftUpdated:Luonnos päivitetty`,
+                  'success'
+                );
               }
             } else {
               // this.patchService.clearPatchItems();

@@ -98,11 +98,8 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let nameFromOrcid: string;
-
     this.oidcSecurityService.userData$.pipe(take(1)).subscribe((data) => {
       this.orcidData = data;
-      nameFromOrcid = data.name;
 
       if (data) {
         this.orcid = data.orcid;
@@ -140,7 +137,9 @@ export class ProfileComponent implements OnInit {
               );
             } else {
               this.profileData = response.profileData;
-              this.profileService.setCurrentProfileName(nameFromOrcid);
+              this.profileService.setCurrentProfileName(
+                this.getName(response.profileData)
+              );
             }
 
             // Set draft patch payload from storage

@@ -97,7 +97,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   showDialog: boolean;
   dialogTemplate: any;
   dialogTitle: any;
-  dialogActions = [{ label: 'Sulje', primary: true, method: 'close' }];
+  dialogActions = [
+    { label: $localize`:@@close:Sulje`, primary: true, method: 'close' },
+  ];
 
   constructor(
     private resizeService: ResizeService,
