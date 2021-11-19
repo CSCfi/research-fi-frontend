@@ -5303,13 +5303,17 @@
         <source>Luonnos päivitetty</source>
         <target>Draft updated</target>
       </trans-unit>
-      <trans-unit id="preferred">
+      <trans-unit id="primary">
         <source>Ensisijainen</source>
-        <target>Preferred</target>
+        <target>Primary</target>
       </trans-unit>
-      <trans-unit id="setAsPreferred">
+      <trans-unit id="setAsPrimary">
         <source>Aseta ensisijaiseksi</source>
-        <target>Set as preferred</target>
+        <target>Set as primary</target>
+      </trans-unit>
+      <trans-unit id="primaryPlural">
+        <source>Ensisijaiset</source>
+        <target>Primary</target>
       </trans-unit>
       <trans-unit id="unit">
         <source>Nimike</source>
