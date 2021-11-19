@@ -6,7 +6,9 @@
 <!--  Primary affiliations -->
 <ng-container *ngIf="(data.groupItems | getItemsBy: 'primaryValue').length">
   <div class="row">
-    <div class="col font-weight-bold pb-3">Ensisijaiset</div>
+    <div class="col font-weight-bold pb-3" i18n="@@primaryPlural">
+      Ensisijaiset
+    </div>
   </div>
 
   <div
@@ -14,8 +16,9 @@
     *ngFor="let primaryItem of data.groupItems | getItemsBy: 'primaryValue'"
   >
     <div class="col-auto font-size-smaller">
-      {{ primaryItem['positionName' + locale] }},
-      {{ primaryItem['organizationName' + locale] }}
+      {{
+        primaryItem | joinValues: ['positionName', 'organizationName']:locale
+      }}
     </div>
   </div>
 

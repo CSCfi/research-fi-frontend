@@ -65,8 +65,8 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   combinedItems: any[];
 
   ttvLabel = CommonStrings.ttvLabel;
-  preferred = CommonStrings.preferred;
-  setAsPreferred = CommonStrings.setAsPreferred;
+  primary = CommonStrings.primary;
+  setAsPrimary = CommonStrings.setAsPrimary;
 
   constructor(
     public appSettingsService: AppSettingsService,
