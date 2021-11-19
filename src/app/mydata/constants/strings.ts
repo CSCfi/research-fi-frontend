@@ -12,6 +12,6 @@ export const CommonStrings = {
   select: $localize`:@@select:Valitse`,
   edit: $localize`:@@edit:Muokkaa`,
   ttvLabel: $localize`:@@appSlogan:Tiedejatutkimus.fi`,
-  preferred: $localize`:@@preferred:Ensisijainen`,
-  setAsPreferred: $localize`:@@setAsPreferred:Aseta ensisijaiseksi`,
+  primary: $localize`:@@primary:Ensisijainen`,
+  setAsPrimary: $localize`:@@setAsPrimary:Aseta ensisijaiseksi`,
 };
