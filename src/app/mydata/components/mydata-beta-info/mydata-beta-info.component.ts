@@ -6,6 +6,7 @@
 //  :license: MIT
 
 import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   selector: 'app-mydata-beta-info',
@@ -18,7 +19,7 @@ export class MydataBetaInfoComponent implements OnInit {
 
   open = true;
 
-  constructor() {}
+  constructor(public appSettingsService: AppSettingsService) {}
 
   ngOnInit(): void {}
 

@@ -28,6 +28,9 @@ export class SearchPublicationsComponent implements OnInit {
 
   fieldTypes = FieldTypes;
 
+  addPublication = $localize`:@@addPublication:Lisää julkaisu`;
+  addPublications = $localize`:@@addPublications:Lisää julkaisut`;
+
   constructor(
     private dialogRef: MatDialogRef<SearchPublicationsComponent>,
     private publicationService: PublicationsService,

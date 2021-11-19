@@ -58,7 +58,9 @@ export class WelcomeStepperComponent implements OnInit {
   showDialog: boolean;
   dialogTemplate: any;
   dialogTitle: any;
-  dialogActions = [{ label: 'Sulje', primary: true, method: 'close' }];
+  dialogActions = [
+    { label: $localize`:@@close:Sulje`, primary: true, method: 'close' },
+  ];
   disableDialogClose: boolean;
 
   loading: boolean;

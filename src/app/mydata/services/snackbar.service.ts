@@ -12,7 +12,7 @@ export class SnackbarService {
 
   show(message: string, type: SnackBarType): void {
     this.zone.run(() => {
-      this.snackbar.open(message, 'Sulje', {
+      this.snackbar.open(message, $localize`:@@close:Sulje`, {
         panelClass: ['snackbar-container', type],
       });
     });

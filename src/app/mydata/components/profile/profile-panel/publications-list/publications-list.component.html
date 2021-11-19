@@ -28,7 +28,12 @@
   </ng-container>
 
   <ng-container matColumnDef="year">
-    <mat-header-cell *matHeaderCellDef mat-sort-header="year" disableClear>
+    <mat-header-cell
+      *matHeaderCellDef
+      mat-sort-header="year"
+      disableClear
+      i18n="@@year"
+    >
       Vuosi</mat-header-cell
     >
     <mat-cell *matCellDef="let item">
@@ -37,7 +42,7 @@
   </ng-container>
 
   <ng-container matColumnDef="name">
-    <mat-header-cell *matHeaderCellDef> Nimi </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef i18n="@@name"> Nimi </mat-header-cell>
     <mat-cell *matCellDef="let item; let i = index">
       <div class="row w-100">
         <div
@@ -82,12 +87,14 @@
         *ngIf="showMoreArray.indexOf(i) === -1"
         href="javascript:void(0)"
         (click)="showMore(i)"
+        i18n="@@showMore"
         >Näytä lisää</a
       >
       <a
         *ngIf="showMoreArray.indexOf(i) > -1"
         href="javascript:void(0)"
         (click)="showLess(i)"
+        i18n="@@showLess"
         >Näytä vähemmän</a
       >
     </mat-cell>
