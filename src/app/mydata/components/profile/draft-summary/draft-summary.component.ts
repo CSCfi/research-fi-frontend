@@ -10,6 +10,7 @@ import { PublicationsService } from '@mydata/services/publications.service';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { checkGroupSelected, checkGroupPatchItem } from '@mydata/utils';
 import { combineLatest } from 'rxjs';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   selector: 'app-draft-summary',
@@ -31,30 +32,32 @@ export class DraftSummaryComponent implements OnInit, OnDestroy {
 
   openPanels = [];
 
-  // TODO: Dynamic locale
-  locale = 'Fi';
+  locale: string;
 
-  patchItemIds: any[];
+  combinedPatchItems: any[];
   patchPayloadSub: any;
 
   constructor(
     private patchService: PatchService,
-    private publicationService: PublicationsService
-  ) {}
+    private publicationService: PublicationsService,
+    private appSettingsService: AppSettingsService
+  ) {
+    this.locale = this.appSettingsService.capitalizedLocale;
+  }
 
   ngOnInit(): void {
     this.patchPayloadSub = combineLatest([
       this.patchService.currentPatchItems,
       this.publicationService.currentPublicationPayload,
     ]).subscribe((res) => {
-      const patchItemIds = res[0].flatMap((item) => item.id);
-      const publicationIds = res[1].flatMap(
-        (publication) => publication.publicationId
+      const patchItems = res[0];
+      const patchPublications = res[1].flatMap(
+        (publication) => publication.itemMeta
       );
 
-      const merged = patchItemIds.concat(publicationIds);
+      const combinedItems = patchItems.concat(patchPublications);
 
-      this.patchItemIds = merged;
+      this.combinedPatchItems = combinedItems;
     });
   }
 

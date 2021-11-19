@@ -17,6 +17,7 @@ import { take } from 'rxjs/operators';
 import { Constants } from '@mydata/constants/';
 import { checkGroupSelected } from '@mydata/utils';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
+import { ProfileService } from '@mydata/services/profile.service';
 
 @Component({
   selector: 'app-contact-card',
@@ -39,17 +40,18 @@ export class ContactCardComponent implements OnInit {
     private appSettingsService: AppSettingsService,
     private patchService: PatchService,
     private snackbarService: SnackbarService,
-    private draftService: DraftService
+    private draftService: DraftService,
+    private profileService: ProfileService
   ) {}
 
   ngOnInit(): void {}
 
   openDialog() {
     this.dialogRef = this.dialog.open(EditorModalComponent, {
-      ...this.appSettingsService.dialogSettings,
       data: {
         data: cloneDeep(this.data[0]),
       },
+      panelClass: this.appSettingsService.dialogPanelClass,
     });
 
     this.dialogRef
@@ -60,15 +62,37 @@ export class ContactCardComponent implements OnInit {
           const confirmedPatchItems = this.patchService.confirmedPatchItems;
 
           if (this.appSettingsService.isBrowser) {
-            // Set current data
             if (result) {
+              // Set primary name to profile header
+              if (
+                confirmedPatchItems.find(
+                  (item) => item.type === FieldTypes.personFirstNames
+                )
+              ) {
+                const selectedNameId = confirmedPatchItems.find(
+                  (item) => item.show
+                ).id;
+                const names = this.data[0].fields[0].groupItems.flatMap(
+                  (groupItem) => groupItem.items
+                );
+                const selectedName = names.find(
+                  (item) => item.itemMeta.id === selectedNameId
+                ).value;
+
+                this.profileService.setCurrentProfileName(selectedName);
+              }
+
+              // Update summary data with selection
               this.data[0] = result.data;
 
               this.draftService.saveDraft(this.data);
 
               // Do actions only if user has made changes
               if (confirmedPatchItems.length) {
-                this.snackbarService.show('Luonnos päivitetty', 'success');
+                this.snackbarService.show(
+                  $localize`:@@draftUpdated:Luonnos päivitetty`,
+                  'success'
+                );
               }
             }
 

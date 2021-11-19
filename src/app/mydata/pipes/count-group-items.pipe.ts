@@ -18,7 +18,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class CountGroupItemsPipe implements PipeTransform {
   transform(
     group: any,
-    extras: { filterSelected: boolean; patchItemIds: any[] }
+    extras: { filterSelected: boolean; patchItems: any[] }
   ) {
     let combinedItems = [];
 
@@ -55,8 +55,12 @@ export class CountGroupItemsPipe implements PipeTransform {
 
     return extras?.filterSelected
       ? combinedItems.filter((item) =>
-          extras.patchItemIds
-            ? extras.patchItemIds.includes(item.id)
+          extras.patchItems
+            ? // ? extras.patchItemIds.includes(item.id)
+              extras.patchItems.find(
+                (patchItem) =>
+                  patchItem.id === item.id && patchItem.type === item.type
+              )
             : item.show
         )
       : combinedItems;

@@ -26,6 +26,7 @@ import { PatchService } from '@mydata/services/patch.service';
 import { ProfileService } from '@mydata/services/profile.service';
 import { cloneDeep } from 'lodash-es';
 import { GroupTypes } from '@mydata/constants/groupTypes';
+import { CommonStrings } from '@mydata/constants/strings';
 
 @Component({
   selector: 'app-profile-panel',
@@ -59,10 +60,13 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   disableAnimation = true;
   hasFetchedPublications: boolean;
 
-  ttvLabel = 'Tiedejatutkimus.fi';
   updated: Date;
   selectedPublications: any[];
   combinedItems: any[];
+
+  ttvLabel = CommonStrings.ttvLabel;
+  preferred = CommonStrings.preferred;
+  setAsPreferred = CommonStrings.setAsPreferred;
 
   constructor(
     public appSettingsService: AppSettingsService,
@@ -276,11 +280,11 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     const fields = this.data.fields[0];
 
     this.dialogRef = this.dialog.open(SearchPublicationsComponent, {
-      ...this.appSettingsService.dialogSettings,
       data: {
         profilePublications: fields.groupItems,
         selectedPublications: fields.selectedPublications,
       },
+      panelClass: this.appSettingsService.dialogPanelClass,
     });
 
     // Set selected publications to field items
