@@ -64,7 +64,11 @@
               {{ field.label }}
             </div>
 
-            <ng-container *ngFor="let groupItem of field.groupItems">
+            <ng-container
+              *ngFor="
+                let groupItem of field.groupItems | filter: checkGroupSelected
+              "
+            >
               <div class="summary-panel" [ngSwitch]="groupItem.groupMeta.type">
                 <ng-container *ngSwitchCase="fieldTypes.personKeyword">
                   <!-- Display joined keywords only if item has show property set to true -->

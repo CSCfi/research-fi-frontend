@@ -81,7 +81,7 @@
         >
           <app-primary-action-button
             content="Beta"
-            (click)="openDialog('Beta', betaInfoTemplate)"
+            (click)="openDialog('Beta', betaInfoTemplate, basicDialogActions)"
             [disabledRounded]="true"
             [betaButton]="true"
           ></app-primary-action-button>
@@ -260,6 +260,14 @@
       (click)="login()"
       content="Kirjaudu sisään"
     ></app-primary-action-button>
+  </ng-template>
+
+  <!-- Unsaved draft template -->
+  <ng-template #unsavedDraftTemplate>
+    <p>
+      Sinulla on julkaisemattomia muutoksia. Jos kirjaudut ulos, tiedot
+      menetetään.
+    </p>
   </ng-template>
 
   <div *ngIf="navbarOpen" id="overlay" (click)="toggleNavbar()" #overlay></div>

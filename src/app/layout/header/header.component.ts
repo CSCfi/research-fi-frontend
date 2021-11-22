@@ -36,6 +36,8 @@ import { PrivacyService } from 'src/app/portal/services/privacy.service';
 import { CMSContentService } from '@shared/services/cms-content.service';
 import { AppSettingsService } from 'src/app/shared/services/app-settings.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { Constants } from '@mydata/constants';
+import { DraftService } from '@mydata/services/draft.service';
 
 @Component({
   selector: 'app-header',
@@ -51,6 +53,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild('overlay', { static: false }) overlay: ElementRef;
   @ViewChild('authExpiredTemplate', { static: true })
   authExpiredTemplate: ElementRef;
+  @ViewChild('unsavedDraftTemplate', { static: true })
+  unsavedDraftTemplate: ElementRef;
+
   @ViewChildren('navLink') navLink: any;
 
   navbarOpen = false;
@@ -97,7 +102,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   showDialog: boolean;
   dialogTemplate: any;
   dialogTitle: any;
-  dialogActions = [
+  dialogActions: any[];
+  basicDialogActions = [
     { label: $localize`:@@close:Sulje`, primary: true, method: 'close' },
   ];
 
@@ -116,7 +122,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private tabChangeService: TabChangeService,
     private privacyService: PrivacyService,
     private appSettingsService: AppSettingsService,
-    private oidcSecurityService: OidcSecurityService
+    private oidcSecurityService: OidcSecurityService,
+    private draftService: DraftService
   ) {
     this.lang = localeId;
     this.currentLang = this.getLang(this.lang);
@@ -205,7 +212,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           }
           this.appSettingsService.myDataSettings.navItems[0].label =
             authenticated
-              ? $localize`:@@logOut:Kirjaudu ulos`
+              ? $localize`:@@logout:Kirjaudu ulos`
               : $localize`:@@logIn:Kirjaudu sisään`;
         });
       }
@@ -357,8 +364,37 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     if (item.loginProcess) {
       this.loggedIn
-        ? this.oidcSecurityService.logoff()
+        ? this.handleMyDataLogoff()
         : this.oidcSecurityService.authorize();
+    }
+  }
+
+  handleMyDataLogoff() {
+    if (isPlatformBrowser(this.platformId)) {
+      if (
+        sessionStorage.getItem(Constants.draftPatchPayload) ||
+        sessionStorage.getItem(Constants.draftPublicationPatchPayload)
+      ) {
+        const logoutDialogActions = [
+          {
+            label: $localize`:@@logout:Kirjaudu ulos`,
+            primary: true,
+            method: 'logout',
+          },
+          {
+            label: $localize`:@@cancel:Peruuta`,
+            method: 'close',
+          },
+        ];
+
+        this.openDialog(
+          'Kirjaudu ulos',
+          this.unsavedDraftTemplate,
+          logoutDialogActions
+        );
+      } else {
+        this.oidcSecurityService.logoff();
+      }
     }
   }
 
@@ -387,13 +423,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.tabChangeService.targetFocus(target);
   }
 
-  openDialog(title, template) {
+  openDialog(title, template, actions) {
     this.dialogTitle = title;
     this.showDialog = true;
     this.dialogTemplate = template;
+    this.dialogActions = actions;
   }
 
-  doDialogAction() {
+  doDialogAction(action) {
+    if (action === 'logout') {
+      this.oidcSecurityService.logoff();
+      this.draftService.clearData();
+    }
+
     this.dialogTitle = '';
     this.showDialog = false;
     this.dialogTemplate = null;

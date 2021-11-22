@@ -104,11 +104,23 @@
           mat-button
           color="primary"
           class="col-auto pr-lg-0"
-          (click)="reset()"
+          (click)="
+            openDialog({
+              title: discardChanges,
+              template: discardChangesTemplate,
+              actions: discardChangesActions
+            })
+          "
           i18n="@@discardChanges"
         >
           Hylkää muutokset...
         </button>
+
+        <ng-template #discardChangesTemplate>
+          <p i18n="@@doYouWantToDiscardChanges">
+            Hylätäänkö tämän istunnon aikana tekemäsi muutokset?
+          </p>
+        </ng-template>
       </div>
     </div>
 

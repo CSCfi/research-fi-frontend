@@ -9,6 +9,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { take } from 'rxjs/operators';
+import { cloneDeep } from 'lodash-es';
 
 @Component({
   selector: 'app-dialog-template',
@@ -18,6 +19,7 @@ import { take } from 'rxjs/operators';
 export class DialogTemplateComponent implements OnInit {
   mobile: boolean;
   displayExtraContent = false;
+  dialogActions: any[];
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
@@ -33,6 +35,9 @@ export class DialogTemplateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Unbind from original actions
+    this.dialogActions = cloneDeep(this.data.actions);
+
     this.appSettingsService.mobileStatus
       .pipe(take(1))
       .subscribe((status) => (this.mobile = status));
@@ -43,8 +48,8 @@ export class DialogTemplateComponent implements OnInit {
       // Special use case for MyData patch preview button
       case 'preview': {
         action.label = !this.displayExtraContent
-          ? $localize`:@@hideDataToPublish:Hide julkaistavat tiedot`
-          : $localize`:@@showDataToPublish:Piilota julkaistavat tiedot`;
+          ? $localize`:@@hideDataToPublish:Piilota julkaistavat tiedot`
+          : $localize`:@@showDataToPublish:Näytä julkaistavat tiedot`;
         this.displayExtraContent = !this.displayExtraContent;
         break;
       }
