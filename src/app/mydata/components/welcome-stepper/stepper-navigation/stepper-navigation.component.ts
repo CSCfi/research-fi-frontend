@@ -29,7 +29,6 @@ export class StepperNavigationComponent implements OnInit {
   }
 
   decrement() {
-    console.log(1);
     this.changeStep.emit('cancel');
   }
 }
