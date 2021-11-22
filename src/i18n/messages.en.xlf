@@ -5042,6 +5042,10 @@
         <source>Peruuta</source>
         <target>Cancel</target>
       </trans-unit>
+      <trans-unit id="cancelDeployment">
+        <source>Peruuta käyttöönotto</source>
+        <target>Cancel deployment</target>
+      </trans-unit>
       <trans-unit id="redirecting">
         <source>Uudelleenohjataan</source>
         <target>Redirecting</target>
@@ -5151,6 +5155,10 @@
       <trans-unit id="importMyOrcidData">
         <source>Tuo Orcid-tietoni</source>
         <target>Import my ORCID data</target>
+      </trans-unit>
+      <trans-unit id="profile">
+        <source>Profiili</source>
+        <target>Profile</target>
       </trans-unit>
       <trans-unit id="addPublicProfilePicture">
         <source>Lisää Julkinen profiilikuva</source>
@@ -5372,8 +5380,8 @@
         <target>Remove</target>
       </trans-unit>
       <trans-unit id="discardSessionChanges">
-        <source>Hylätäänkö tämän istunnon aikana tekemäsi muutokset?</source>
-        <target></target>
+        <source>Hylätäänkö julkaisemattomat muutokset?</source>
+        <target>Do you want to discard all unsaved changes?</target>
       </trans-unit>
     </body>
   </file>

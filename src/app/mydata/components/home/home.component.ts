@@ -5,7 +5,8 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { UtilityService } from '@shared/services/utility.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 
 @Component({
@@ -13,8 +14,17 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent {
-  constructor(public oidcSecurityService: OidcSecurityService) {}
+export class HomeComponent implements OnInit {
+  title = $localize`:@@researchersProfile:Tutkijan tiedot`;
+
+  constructor(
+    public oidcSecurityService: OidcSecurityService,
+    private utilityService: UtilityService
+  ) {}
+
+  ngOnInit() {
+    this.utilityService.setTitle(this.title);
+  }
 
   login() {
     this.oidcSecurityService.authorize();

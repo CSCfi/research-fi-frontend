@@ -27,6 +27,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonStrings } from '@mydata/constants/strings';
+import { UtilityService } from '@shared/services/utility.service';
 
 @Component({
   selector: 'app-welcome-stepper',
@@ -46,13 +47,21 @@ export class WelcomeStepperComponent implements OnInit {
   faAngleDoubleLeft = faAngleDoubleLeft;
 
   userData: any;
-  firstName: string;
+  profileName: string;
 
   @ViewChild('fetchingTemplate') fetchingTemplate: ElementRef;
 
   profileChecked: boolean;
   profileCreated: boolean;
   profileData: Object;
+
+  steps = [
+    { title: $localize`:@@welcome:Tervetuloa` },
+    {
+      title: $localize`:@@termsPersonalDataProcessing:Käyttöehdot ja henkilötietojen käsittely`,
+    },
+    { title: $localize`:@@importingDataFromOrcid:Tietojen tuominen Orcidista` },
+  ];
 
   // Dialog variables
   showDialog: boolean;
@@ -67,6 +76,7 @@ export class WelcomeStepperComponent implements OnInit {
 
   termsForTool = CommonStrings.termsForTool;
   processingOfPersonalData = CommonStrings.processingOfPersonalData;
+  cancelServiceDeployment = $localize`:@@cancelServiceDeployment:Peruutetaanko palvelun käyttöönotto?`;
 
   constructor(
     private profileService: ProfileService,
@@ -75,12 +85,15 @@ export class WelcomeStepperComponent implements OnInit {
     private appSettingsService: AppSettingsService,
     @Inject(PLATFORM_ID) private platformId: object,
     @Inject(WINDOW) private window: Window,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private utilityService: UtilityService
   ) {
     this.profileData = null;
   }
 
   ngOnInit() {
+    this.utilityService.setTitle(this.steps[0].title);
+
     this.develop = this.appSettingsService.myDataSettings.develop;
 
     if (!this.develop) {
@@ -94,35 +107,47 @@ export class WelcomeStepperComponent implements OnInit {
     this.oidcSecurityService.userData$.pipe(take(1)).subscribe((data) => {
       if (data) {
         this.userData = data;
-        this.firstName = data?.name.split(' ')[0];
+        this.profileName = data?.name;
         this.appSettingsService.setOrcid(data.orcid);
       }
     });
   }
 
-  changeStep(direction) {
+  changeStep(direction: string) {
     // Scroll to top on step change
     if (isPlatformBrowser(this.platformId)) {
       this.window.scrollTo(0, 0);
+    }
+
+    if (direction === 'cancel') {
+      return this.toggleCancel();
     }
 
     // Fetch data if on step 3 and user has initialized Orcid data fetch
     if (this.step === 3 && direction === 'increment') {
       this.fetchData();
     } else {
+      // Legacy support for previous step
       direction === 'increment' ? this.increment() : this.decrement();
     }
   }
 
   increment() {
     this.step = this.step + 1;
+    this.utilityService.setTitle(this.steps[this.step - 1].title);
   }
 
   decrement() {
     this.step = this.step - 1;
+    this.utilityService.setTitle(this.steps[this.step - 1].title);
   }
 
   toggleCancel() {
+    this.utilityService.setTitle(
+      this.cancel
+        ? this.steps[this.step - 1].title
+        : this.cancelServiceDeployment
+    );
     this.cancel = !this.cancel;
   }
 

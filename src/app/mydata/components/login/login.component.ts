@@ -6,6 +6,7 @@
 //  :license: MIT
 
 import { Component, OnInit } from '@angular/core';
+import { UtilityService } from '@shared/services/utility.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 
 @Component({
@@ -14,9 +15,15 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  constructor(public oidcSecurityService: OidcSecurityService) {}
+  title = $localize`:@@serviceDeployment:Palvelun käyttöönotto`;
+  constructor(
+    public oidcSecurityService: OidcSecurityService,
+    private utilityService: UtilityService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.utilityService.setTitle(this.title);
+  }
 
   login() {
     this.oidcSecurityService.authorize();

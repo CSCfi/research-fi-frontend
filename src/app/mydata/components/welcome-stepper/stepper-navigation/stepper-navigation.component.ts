@@ -17,8 +17,8 @@ export class StepperNavigationComponent implements OnInit {
   faAngleDoubleRight = faAngleDoubleRight;
   faAngleDoubleLeft = faAngleDoubleLeft;
 
-  previous = $localize`:@@previous:Edellinen`;
-  next = $localize`:@@next:Seuraava`;
+  continue = $localize`:@@continue:Jatka`;
+  cancelDeployment = $localize`:@@cancelDeployment:Peruuta käyttöönotto`;
 
   constructor() {}
 
@@ -29,6 +29,7 @@ export class StepperNavigationComponent implements OnInit {
   }
 
   decrement() {
-    this.changeStep.emit('decrement');
+    console.log(1);
+    this.changeStep.emit('cancel');
   }
 }
