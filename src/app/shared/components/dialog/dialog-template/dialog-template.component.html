@@ -32,12 +32,12 @@
 </mat-dialog-content>
 
 <mat-dialog-actions
-  *ngIf="data.actions?.length"
-  [class.justify-content-center]="mobile && data.actions.length === 1"
+  *ngIf="dialogActions?.length"
+  [class.justify-content-center]="mobile && dialogActions.length === 1"
 >
   <!-- Some actions are spread into two columns -->
   <ng-container *ngIf="data.spreadActions; else singleColumnActions">
-    <ng-container *ngFor="let group of data.actions; let i = index">
+    <ng-container *ngFor="let group of dialogActions; let i = index">
       <div class="col px-0">
         <!-- First array items should be on the left side -->
         <div
@@ -66,7 +66,7 @@
 
   <!-- Regular single column render -->
   <ng-template #singleColumnActions>
-    <ng-container *ngFor="let action of data.actions">
+    <ng-container *ngFor="let action of dialogActions">
       <div class="col-auto">
         <app-primary-action-button
           *ngIf="action.primary"

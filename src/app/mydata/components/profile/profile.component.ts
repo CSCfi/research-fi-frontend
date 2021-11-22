@@ -26,6 +26,7 @@ import { cloneDeep } from 'lodash-es';
 import { Constants } from '@mydata/constants/';
 import { PublicationsService } from '@mydata/services/publications.service';
 import { CommonStrings } from '@mydata/constants/strings';
+import { checkGroupSelected } from '@mydata/utils';
 
 @Component({
   selector: 'app-profile',
@@ -41,6 +42,12 @@ export class ProfileComponent implements OnInit {
   currentProfileName: string;
 
   mergePublications = mergePublications;
+
+  publishUpdatedProfile = $localize`:@@publishUpdatedProfile:Julkaise päivitetty profiili`;
+  discardChanges = $localize`:@@discardChanges:Hylkää muutokset`;
+  termsForTool = CommonStrings.termsForTool;
+  processingOfPersonalData = CommonStrings.processingOfPersonalData;
+  deleteProfileTitle = CommonStrings.deleteProfile;
 
   // Dialog variables
   showDialog: boolean;
@@ -70,6 +77,14 @@ export class ProfileComponent implements OnInit {
       method: 'delete',
     },
   ];
+  discardChangesActions = [
+    { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'close' },
+    {
+      label: this.discardChanges,
+      primary: true,
+      method: 'discard',
+    },
+  ];
   @ViewChild('deletingProfileTemplate') deletingProfileTemplate: ElementRef;
 
   connProblem: boolean;
@@ -78,10 +93,7 @@ export class ProfileComponent implements OnInit {
 
   draftPayload: any[];
 
-  publishUpdatedProfile = $localize`:@@publishUpdatedProfile:Julkaise päivitetty profiili`;
-  termsForTool = CommonStrings.termsForTool;
-  processingOfPersonalData = CommonStrings.processingOfPersonalData;
-  deleteProfileTitle = CommonStrings.deleteProfile;
+  checkGroupSelected = checkGroupSelected;
 
   constructor(
     public profileService: ProfileService,
@@ -200,18 +212,25 @@ export class ProfileComponent implements OnInit {
     this.disableDialogClose = disableDialogClose;
   }
 
-  doDialogAction(event) {
+  doDialogAction(action: string) {
     this.dialog.closeAll();
     this.dialogTitle = '';
     this.showDialog = false;
     this.dialogTemplate = null;
 
-    if (event === 'publish') {
-      this.publish();
-    }
-
-    if (event === 'delete') {
-      this.deleteProfile();
+    switch (action) {
+      case 'publish': {
+        this.publish();
+        break;
+      }
+      case 'delete': {
+        this.deleteProfile();
+        break;
+      }
+      case 'discard': {
+        this.reset();
+        break;
+      }
     }
   }
 

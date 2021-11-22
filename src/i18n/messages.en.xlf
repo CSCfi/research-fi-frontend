@@ -5004,7 +5004,7 @@
         <source>Kirjaudu sisään</source>
         <target>Log in</target>
       </trans-unit>
-      <trans-unit id="logOut">
+      <trans-unit id="logout">
         <source>Kirjaudu ulos</source>
         <target>Log out</target>
       </trans-unit>
@@ -5370,6 +5370,10 @@
       <trans-unit id="remove">
         <source>Poista</source>
         <target>Remove</target>
+      </trans-unit>
+      <trans-unit id="discardSessionChanges">
+        <source>Hylätäänkö tämän istunnon aikana tekemäsi muutokset?</source>
+        <target></target>
       </trans-unit>
     </body>
   </file>
