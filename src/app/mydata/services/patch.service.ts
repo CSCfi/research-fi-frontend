@@ -41,7 +41,18 @@ export class PatchService {
   }
 
   confirmPatchItems() {
-    const merged = this.confirmedPatchItems.concat(this.patchItems);
+    const patchItems = this.patchItems;
+
+    let merged = this.confirmedPatchItems.concat(patchItems);
+
+    // If user decides to deselect already confirmed item
+    patchItems.forEach((item) => {
+      if (merged.filter((mergedItem) => mergedItem.id === item.id).length > 1) {
+        merged = merged.filter((mergedItem) => mergedItem.id !== item.id);
+      }
+    });
+
+    this.patchItems = [];
     this.confirmedPatchItems = merged;
     this.confirmedPatchItemsSource.next(merged);
   }

@@ -78,7 +78,6 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.data);
     // Combine items from groups
     const groupItems = cloneDeep(this.data.fields[0].groupItems);
 
