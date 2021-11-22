@@ -5383,6 +5383,10 @@
         <source>Hylätäänkö julkaisemattomat muutokset?</source>
         <target>Do you want to discard all unsaved changes?</target>
       </trans-unit>
+      <trans-unit id="publicationsAddedFromResearchFITooltip">
+        <source>Tiedejatutkimus.fi-palvelun julkaisut on lisätty profiiliisi automaattisesti, jos niissä on ORCID-tunnuksesi. Julkaisuja, joihin ORCID-tunnusta ei ole valmiiksi liitetty, voit etsiä ”Puuttuuko jokin julkaisu tiedoistasi?” –toiminnolla.</source>
+        <target>Publications on Research.fi have been added to your profile automatically if they contain your ORCID ID. You can search publications that don't contain your ORCID ID by using the "Is a publication missing from your data?" feature.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
