@@ -16,6 +16,7 @@ export class PrimaryActionButtonComponent implements OnInit {
   @Input() small: boolean;
   @Input() disabledRounded: boolean;
   @Input() betaButton: boolean;
+  @Input() px0: boolean;
 
   constructor() {}
 

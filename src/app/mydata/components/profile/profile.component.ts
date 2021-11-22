@@ -27,6 +27,7 @@ import { Constants } from '@mydata/constants/';
 import { PublicationsService } from '@mydata/services/publications.service';
 import { CommonStrings } from '@mydata/constants/strings';
 import { checkGroupSelected } from '@mydata/utils';
+import { UtilityService } from '@shared/services/utility.service';
 
 @Component({
   selector: 'app-profile',
@@ -104,12 +105,15 @@ export class ProfileComponent implements OnInit {
     private snackbarService: SnackbarService,
     public draftService: DraftService,
     public patchService: PatchService,
-    public publicationsService: PublicationsService
+    public publicationsService: PublicationsService,
+    private utilityService: UtilityService
   ) {
     this.testData = profileService.testData;
   }
 
   ngOnInit(): void {
+    this.utilityService.setTitle($localize`:@@profile:Profiili`);
+
     this.oidcSecurityService.userData$.pipe(take(1)).subscribe((data) => {
       this.orcidData = data;
 

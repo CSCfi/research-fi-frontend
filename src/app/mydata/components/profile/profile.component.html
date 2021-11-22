@@ -118,7 +118,7 @@
 
         <ng-template #discardChangesTemplate>
           <p i18n="@@doYouWantToDiscardChanges">
-            Hylätäänkö tämän istunnon aikana tekemäsi muutokset?
+            Hylätäänkö julkaisemattomat muutokset?
           </p>
         </ng-template>
       </div>
@@ -291,6 +291,7 @@
                   <span
                     class="d-block col py-3 text-center"
                     i18n="@@deletingProfileWait"
+                    aria-live="polite"
                     >Profiilia poistetaan, odota hetki...</span
                   >
                 </div>

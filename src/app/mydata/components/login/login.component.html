@@ -3,52 +3,50 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<main id="main-content">
-  <div class="wrapper">
-    <div class="row pb-4 text-center">
-      <div class="col">
-        <h1 class="h4" i18n="@@serviceDeployment">Palvelun käyttöönotto</h1>
-      </div>
-      <!-- Icon -->
-      <i
-        class="col-12 pt-3 h1 primary-color text-center fas fa-hands-helping"
-      ></i>
+<main id="main-content" class="col col-lg-5 mx-auto">
+  <div class="row pb-4 text-center">
+    <div class="col">
+      <h1 class="h4">{{ title }}</h1>
     </div>
-    <div class="row pb-4 d-flex justify-content-center">
-      <div class="col col-lg-4 text-center">
-        <p>
-          <ng-container i18n="@@mydataLoginText1">
-            Tutkijan tiedot -palveluun kirjaudutaan ORCID-tunnuksilla. Jos
-            sinulla ei vielä ole ORCID-tunnuksia, voit </ng-container
-          >&nbsp;<a href="https://orcid.org/">
-            <ng-container i18n="@@mydataLoginText2"
-              >luoda sellaiset ORCID-palvelussa</ng-container
-            >&nbsp;<i class="fas fa-external-link-alt"></i></a
-          >.
-        </p>
-      </div>
+    <!-- Icon -->
+    <i
+      class="col-12 pt-3 h1 primary-color text-center fas fa-hands-helping"
+    ></i>
+  </div>
+  <div class="row pb-4 d-flex justify-content-center">
+    <div class="col">
+      <p>
+        <ng-container i18n="@@mydataLoginText1">
+          Tutkijan tiedot -palveluun kirjaudutaan ORCID-tunnuksilla. Jos sinulla
+          ei vielä ole ORCID-tunnuksia, voit </ng-container
+        >&nbsp;<a href="https://orcid.org/">
+          <ng-container i18n="@@mydataLoginText2"
+            >luoda sellaiset ORCID-palvelussa</ng-container
+          >&nbsp;<i class="fas fa-external-link-alt"></i></a
+        >.
+      </p>
     </div>
+  </div>
 
-    <div class="row pb-3 d-flex justify-content-center">
-      <div class="col col-lg-3">
-        <app-primary-action-button
-          i18n-content="@@begin"
-          content="Aloita"
-          [big]="true"
-          (click)="login()"
-        >
-        </app-primary-action-button>
-      </div>
+  <div class="row pb-3 d-flex justify-content-center">
+    <div class="col col-lg-6">
+      <app-primary-action-button
+        i18n-content="@@begin"
+        content="Aloita"
+        [big]="true"
+        (click)="login()"
+      >
+      </app-primary-action-button>
     </div>
-    <div class="row d-flex justify-content-center">
-      <div class="col col-lg-3">
-        <app-secondary-button
-          i18n-content="@@cancel"
-          content="Peruuta"
-          routerLink="/mydata"
-          [big]="true"
-        ></app-secondary-button>
-      </div>
+  </div>
+  <div class="row d-flex justify-content-center">
+    <div class="col col-lg-6">
+      <app-secondary-button
+        i18n-content="@@cancel"
+        content="Peruuta"
+        routerLink="/mydata"
+        [big]="true"
+      ></app-secondary-button>
     </div>
   </div>
 </main>
