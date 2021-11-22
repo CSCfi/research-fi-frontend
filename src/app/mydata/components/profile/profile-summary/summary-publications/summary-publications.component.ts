@@ -24,7 +24,10 @@ export class SummaryPublicationsComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.sortedItems = this.sortItemsBy(this.data, 'publicationYear');
+    // Sort and filter publications that shoudd be displayed
+    this.sortedItems = this.sortItemsBy(this.data, 'publicationYear').filter(
+      (item) => item.itemMeta.show
+    );
   }
 
   showAllPublications() {
