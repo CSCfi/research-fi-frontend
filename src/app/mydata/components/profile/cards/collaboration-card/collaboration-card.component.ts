@@ -40,7 +40,7 @@ export class CollaborationCardComponent implements OnInit {
 
   dialogActions = [
     { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'cancel' },
-    { label: $localize`:@@save:Tallenna`, primary: true, method: 'save' },
+    { label: $localize`:@@continue:Jatka`, primary: true, method: 'save' },
   ];
   optionsToggled = [];
 

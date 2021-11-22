@@ -1,24 +1,27 @@
-<div class="row py-4 d-flex justify-content-center">
-  <div class="col-6">
-    <app-secondary-button
-      [content]="previous"
-      (click)="decrement()"
-      [big]="true"
-      [icon]="faAngleDoubleLeft"
-      [noSmIcon]="true"
-    >
-    </app-secondary-button>
-  </div>
-  <div class="col-6">
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<div class="row pb-3 d-flex justify-content-center">
+  <div class="col col-lg-6">
     <app-primary-action-button
-      [content]="nextContent || next"
+      [content]="nextContent || continue"
       (click)="increment()"
       [disabled]="disableNext"
       [big]="true"
-      [icon]="faAngleDoubleRight"
-      [iconAfter]="true"
-      [noSmIcon]="true"
     >
     </app-primary-action-button>
+  </div>
+</div>
+
+<div class="row pb-3 d-flex justify-content-center">
+  <div class="col col-lg-6">
+    <app-secondary-button
+      [content]="cancelDeployment"
+      (click)="decrement()"
+      [big]="true"
+    >
+    </app-secondary-button>
   </div>
 </div>
