@@ -267,7 +267,9 @@ app-header {
   // mobile menu
   .collapse.navbar-collapse.menu.mobile-bar.open {
     // -8px because of .wrapper padding (styles.scss)
-    right: -8px;
+    height: calc(100vh - 6rem); // Fill remaining space below header
+    overflow: scroll;
+    right: -0.5rem;
   }
 
   .collapse.navbar-collapse.menu.mobile-bar {
