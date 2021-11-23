@@ -18,7 +18,10 @@
       <fa-icon class="info-icon" icon="info-circle"></fa-icon>
     </span>
   </div>
-  <div class="col-auto py-3" *ngIf="data.id === 'publication'">
+  <div
+    class="col-auto py-3"
+    *ngIf="data.id === 'publication' || data.id === 'dataset'"
+  >
     <!-- Search publications -->
     <a
       href="javascript:void(0)"

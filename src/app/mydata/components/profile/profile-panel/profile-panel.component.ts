@@ -330,6 +330,8 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
             });
           }
 
+          console.log('add: ', this.data);
+
           // const mergedPublications = preSelection
           //   .concat(result.selectedPublications)
           //   .sort((a, b) => b.publicationYear - a.publicationYear);
