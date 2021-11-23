@@ -79,7 +79,7 @@ export class AppSettingsService {
 
   myDataSettings = {
     develop: false,
-    debug: true,
+    debug: false,
     beta: true,
     appName: 'myData',
     label: $localize`:@@researchersProfile:Tutkijan tiedot`,

@@ -449,8 +449,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @HostListener('window:beforeunload', ['$event'])
   public checkForDraftData() {
     if (
-      sessionStorage.getItem(Constants.draftPatchPayload) ||
-      sessionStorage.getItem(Constants.draftPublicationPatchPayload)
+      !this.appSettingsService.myDataSettings.debug &&
+      this.currentRoute.includes('/mydata/profile') &&
+      (sessionStorage.getItem(Constants.draftPatchPayload) ||
+        sessionStorage.getItem(Constants.draftPublicationPatchPayload))
     )
       return false;
   }
