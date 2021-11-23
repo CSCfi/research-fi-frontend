@@ -15,6 +15,7 @@ import { cloneDeep } from 'lodash-es';
 
 /*
  * Fetched publications have primaryValue as true. Publications from profile have their dedicated list.
+ * update -parameter enables change detection
  */
 export class HandleFetchedPublicationsPipe implements PipeTransform {
   fieldTypes = FieldTypes;
@@ -26,7 +27,7 @@ export class HandleFetchedPublicationsPipe implements PipeTransform {
       const groupItemsClone = cloneDeep(groupItems);
       for (const group of groupItemsClone) {
         group.items = group.items.filter(
-          (item) => item.itemMeta.primaryValue === false
+          (item) => item.itemMeta.primaryValue === true
         );
       }
       return groupItemsClone;
