@@ -114,7 +114,8 @@
               [class.offset-lg-3]="!isFirst"
               *ngFor="let org of item.authors; first as isFirst"
             >
-              <ng-container *ngIf="org.id"
+              <app-dataset-author [org]="org"></app-dataset-author>
+              <!-- <ng-container *ngIf="org.id"
                 ><a class="th" href="/results/organization/{{ org.id }}">{{
                   org.name
                 }}</a
@@ -139,7 +140,7 @@
                     - {{ actor.roles.join(', ') }}</span
                   >
                 </p>
-              </div>
+              </div> -->
             </div>
           </div>
 

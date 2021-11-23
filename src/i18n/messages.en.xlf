@@ -5343,17 +5343,45 @@
         <source>Lähde</source>
         <target>Source</target>
       </trans-unit>
-      <trans-unit id="isPublicationMissingFromData">
-        <source>Puuttuuko jokin julkaisu tiedoistasi?</source>
-        <target>Is a publication missing from your data?</target>
+      <trans-unit id="isMissing">
+        <source>Puuttuuko jokin </source>
+        <target>Is a </target>
       </trans-unit>
-      <trans-unit id="searchingForMissingPublication">
+      <trans-unit id="fromYourData">
+        <source> tiedoistasi?</source>
+        <target> missing from your data?</target>
+      </trans-unit>
+      <trans-unit id="publicationItem">
+        <source>julkaisu</source>
+        <target>publication</target>
+      </trans-unit>
+      <trans-unit id="datasetItem">
+        <source>tutkimusaineisto</source>
+        <target>research data -item</target>
+      </trans-unit>
+      <trans-unit id="searchForMissingPublication">
         <source>Puuttuvan julkaisun hakeminen</source>
         <target>Searching for a missing publication</target>
       </trans-unit>
+      <trans-unit id="searchForMissingDataset">
+        <source>Puuttuvan tutkimusaineiston hakeminen</source>
+        <target>Searching for a missing research data</target>
+      </trans-unit>
+      <trans-unit id="searchForMissingProject">
+        <source>Puuttuvan hankkeen hakeminen</source>
+        <target>Searching for a missing project</target>
+      </trans-unit>
       <trans-unit id="searchForPublicationWithName">
-        <source>Hae julkaisua tekijän tai julkaisun nimellä</source>
+        <source>Hae omalla nimelläsi tai julkaisun nimellä</source>
         <target>Search for a publication under the name of the author or publication</target>
+      </trans-unit>
+      <trans-unit id="searchForDatasetWithName">
+        <source>Hae omalla nimelläsi tai tutkimusaineiston nimellä</source>
+        <target>Search for research data under the name of the author or publication</target>
+      </trans-unit>
+      <trans-unit id="searchForFundingWithName">
+        <source>Hae omalla nimelläsi tai hankkeen nimellä</source>
+        <target>Search for a project under the name of the author or publication</target>
       </trans-unit>
       <trans-unit id="dataSourceIsResearchFi">
         <source>Tietolähteenä käytetään Tiedejatutkimus.fi-palvelua</source>
@@ -5362,6 +5390,14 @@
       <trans-unit id="nameOfPublicationOrAuthor">
         <source>Julkaisun tai tekijän nimi</source>
         <target>Name of publication or author</target>
+      </trans-unit>
+      <trans-unit id="nameOfDatasetOrAuthor">
+        <source>Tutkimusaineiston tai tekijän nimi</source>
+        <target>Name of research data or author</target>
+      </trans-unit>
+      <trans-unit id="nameOfFundingOrAuthor">
+        <source>Hankkeen tai tekijän nimi</source>
+        <target>Name of funding or author</target>
       </trans-unit>
       <trans-unit id="addPublication">
         <source>Lisää julkaisu</source>
@@ -5374,6 +5410,10 @@
       <trans-unit id="addedPublications">
         <source>Tuodut julkaisut</source>
         <target>Added publications</target>
+      </trans-unit>
+      <trans-unit id="addedDatasets">
+        <source>Tuodut tutkimusaineistot</source>
+        <target>Added research data</target>
       </trans-unit>
       <trans-unit id="remove">
         <source>Poista</source>

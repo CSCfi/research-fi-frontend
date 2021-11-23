@@ -26,11 +26,16 @@
     <a
       href="javascript:void(0)"
       class="primary-color font-weight-500"
-      (click)="openSearchPublicationsDialog()"
+      (click)="openSearchFromResearchFiDialog(data.id)"
     >
-      <u i18n="@@isPublicationMissingFromData"
-        >Puuttuuko jokin julkaisu tiedoistasi?</u
-      >
+      <u>
+        <ng-container i18n="@@isMissing">Puuttuuko jokin </ng-container>
+        <ng-container [ngSwitch]="data.id">
+          <u *ngSwitchCase="'publication'" i18n="@@publicationItem">julkaisu</u>
+          <u *ngSwitchCase="'dataset'" i18n="@@datasetItem">tutkimusaineisto</u>
+        </ng-container>
+        <ng-container i18n="@@fromYourData"> tiedoistasi?</ng-container>
+      </u>
     </a>
   </div>
 </div>
@@ -90,7 +95,7 @@
                 px-0
                 pl-4
                 ml-1
-                align-self-center
+                mt-1
                 text-right
                 opacity-3
                 font-size-small
@@ -104,13 +109,25 @@
             <!-- Header for publications that are added from research.fi portal -->
             <span
               *ngIf="
-                groupItem.groupMeta.type === fieldTypes.activityPublication &&
+                (groupItem.groupMeta.type === fieldTypes.activityPublication ||
+                  groupItem.groupMeta.type === fieldTypes.activityDataset) &&
                 groupItem.items.length
               "
               class="font-size-big d-block pb-3"
-              i18n="@@addedPublications"
-              >Tuodut julkaisut</span
             >
+              <span
+                *ngIf="
+                  groupItem.groupMeta.type === fieldTypes.activityPublication
+                "
+                i18n="@@addedPublications"
+                >Tuodut julkaisut</span
+              >
+              <span
+                *ngIf="groupItem.groupMeta.type === fieldTypes.activityDataset"
+                i18n="@@addedDatasets"
+                >Tuodut tutkimusaineistot</span
+              >
+            </span>
 
             <ng-container *ngFor="let item of groupItem.items">
               <div class="row d-flex justify-content-between py-1">
@@ -175,7 +192,7 @@
                     px-0
                     pl-4
                     ml-1
-                    align-self-center
+                    mt-1
                     text-right
                     opacity-3
                     font-size-small

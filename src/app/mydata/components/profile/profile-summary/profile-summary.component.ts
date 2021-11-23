@@ -5,13 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import {
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnInit,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { cloneDeep } from 'lodash-es';
 import {
@@ -54,8 +48,7 @@ export class ProfileSummaryComponent implements OnInit {
 
   openPanels = [];
 
-  // TODO: Dynamic locale
-  locale = 'Fi';
+  locale: string;
 
   dialogRef: MatDialogRef<EditorModalComponent>;
 
@@ -68,99 +61,17 @@ export class ProfileSummaryComponent implements OnInit {
     private patchService: PatchService,
     private publicationsService: PublicationsService,
     private snackbarService: SnackbarService,
-    private draftService: DraftService,
-    private cdr: ChangeDetectorRef
-  ) {}
+    private draftService: DraftService
+  ) {
+    this.locale = this.appSettingsService.capitalizedLocale;
+  }
 
   ngOnInit(): void {
     // Get data sources
     this.dataSources = getDataSources(this.profileData);
 
     this.primarySource = this.dataSources[0];
-
-    // this.sortAffiliations(this.profileData);
-
-    // if (!isEmptySection(this.profileData[4]))
-    //   this.sortPublications(this.profileData);
-
-    // this.filterSelectedItems();
-
-    // this.cdr.detectChanges();
   }
-
-  // filterSelectedItems() {
-  //   const dataCopy = cloneDeep(this.profileData);
-
-  //   for (let group of dataCopy) {
-  //     group.fields.forEach((field) => {
-  //       field.groupItems.map(
-  //         (groupItem) =>
-  //           (groupItem.items = groupItem.items.filter(
-  //             (item) => item.itemMeta.show
-  //           ))
-  //       );
-
-  //       field.groupItems = field.groupItems.filter(
-  //         (groupItem) => groupItem.items.length
-  //       );
-  //     });
-
-  //     group.fields = group.fields.filter((field) => field.groupItems.length);
-  //   }
-
-  //   // this.selectedData = dataCopy.filter((item) => item.fields.length);
-  //   this.filteredProfileData = dataCopy;
-  // }
-
-  // sortPublications(data) {
-  //   // Combine groups and sort. Display items in summary only from first group
-  //   const index = data.findIndex((item) => item.id === 'publication');
-
-  //   const selectedItems = data[index].fields[0].selectedPublications;
-
-  //   const items = data[index].fields[0].groupItems.flatMap(
-  //     (groupItem) => groupItem.items
-  //   );
-
-  //   const merged = selectedItems?.length ? items.concat(selectedItems) : items;
-
-  //   const sortedItems = merged.sort(
-  //     (a, b) => b.publicationYear - a.publicationYear
-  //   );
-
-  //   data[index].fields[0].groupItems[0].items = sortedItems;
-
-  //   this.profileData[index].fields[0].groupItems = [
-  //     data[index].fields[0].groupItems[0],
-  //   ];
-  // }
-
-  // Sort primary affiliations first
-  // sortAffiliations(data) {
-  //   const index = data.findIndex((item) => item.id === 'affiliation');
-
-  //   const groupItems = data[index].fields[0].groupItems;
-
-  //   groupItems.map(
-  //     (groupItem) =>
-  //       (groupItem.items = groupItem.items.map((item) => ({
-  //         ...item,
-  //         source: groupItem.source,
-  //       })))
-  //   );
-
-  //   const items = groupItems.flatMap((groupItem) => groupItem.items);
-
-  //   const sortedItems = items.sort(
-  //     (a, b) => b.itemMeta.primaryValue - a.itemMeta.primaryValue
-  //   );
-
-  //   data[index].fields[0].groupItems[0].items = sortedItems;
-
-  //   this.profileData[index].fields[0].groupItems = [
-  //     data[index].fields[0].groupItems[0],
-  //   ];
-  // }
 
   openDialog(event, index) {
     event.stopPropagation();

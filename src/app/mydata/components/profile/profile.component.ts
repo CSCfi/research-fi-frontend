@@ -123,67 +123,55 @@ export class ProfileComponent implements OnInit {
       }
     });
 
-    if (this.appSettingsService.myDataSettings.develop) {
-      this.profileData = this.testData;
-      this.mergePublications(this.profileData[4]);
-    } else {
-      this.profileService
-        .getProfileData()
-        .pipe(take(1))
-        .subscribe((response) => {
-          // Get data from session storage if draft is available
-          if (this.appSettingsService.isBrowser) {
-            const draft = sessionStorage.getItem(Constants.draftProfile);
-            const draftPatchPayload = JSON.parse(
-              sessionStorage.getItem(Constants.draftPatchPayload)
-            );
-            const draftPublicationPatchPayload = JSON.parse(
-              sessionStorage.getItem(Constants.draftPublicationPatchPayload)
-            );
-
-            this.draftPayload = draftPatchPayload;
-
-            // Display either draft profile or profile from database
-            if (draft) {
-              const parsedDraft = JSON.parse(draft);
-              this.draftService.saveDraft(parsedDraft);
-              this.profileData = parsedDraft;
-              this.profileService.setCurrentProfileName(
-                this.getName(parsedDraft)
-              );
-            } else {
-              this.profileData = response.profileData;
-              this.profileService.setCurrentProfileName(
-                this.getName(response.profileData)
-              );
-            }
-
-            // Set draft patch payload from storage
-            if (draftPatchPayload) {
-              this.patchService.addToPatchItems(draftPatchPayload);
-              this.patchService.confirmPatchItems();
-            }
-
-            // Set draft publication patch payload from storage
-            if (draftPublicationPatchPayload) {
-              this.publicationsService.addToPayload(
-                draftPublicationPatchPayload
-              );
-              this.publicationsService.confirmPayload();
-            }
-          }
-
-          // Set original data
-          this.profileService.setCurrentProfileData(
-            cloneDeep(response.profileData)
+    this.profileService
+      .getProfileData()
+      .pipe(take(1))
+      .subscribe((response) => {
+        // Get data from session storage if draft is available
+        if (this.appSettingsService.isBrowser) {
+          const draft = sessionStorage.getItem(Constants.draftProfile);
+          const draftPatchPayload = JSON.parse(
+            sessionStorage.getItem(Constants.draftPatchPayload)
+          );
+          const draftPublicationPatchPayload = JSON.parse(
+            sessionStorage.getItem(Constants.draftPublicationPatchPayload)
           );
 
-          // Merge publications
-          // this.(
-          //   response.profileData.find((item) => item.id === 'publication')
-          // );
-        });
-    }
+          this.draftPayload = draftPatchPayload;
+
+          // Display either draft profile or profile from database
+          if (draft) {
+            const parsedDraft = JSON.parse(draft);
+            this.draftService.saveDraft(parsedDraft);
+            this.profileData = parsedDraft;
+            this.profileService.setCurrentProfileName(
+              this.getName(parsedDraft)
+            );
+          } else {
+            this.profileData = response.profileData;
+            this.profileService.setCurrentProfileName(
+              this.getName(response.profileData)
+            );
+          }
+
+          // Set draft patch payload from storage
+          if (draftPatchPayload) {
+            this.patchService.addToPatchItems(draftPatchPayload);
+            this.patchService.confirmPatchItems();
+          }
+
+          // Set draft publication patch payload from storage
+          if (draftPublicationPatchPayload) {
+            this.publicationsService.addToPayload(draftPublicationPatchPayload);
+            this.publicationsService.confirmPayload();
+          }
+        }
+
+        // Set original data
+        this.profileService.setCurrentProfileData(
+          cloneDeep(response.profileData)
+        );
+      });
   }
 
   getName(data) {

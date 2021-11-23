@@ -5,7 +5,7 @@
 
 <app-redirect *ngIf="!profileChecked"></app-redirect>
 
-<main id="main-content" class="col col-lg-5 mx-auto" *ngIf="profileChecked">
+<main id="main-content" class="col col-lg-3 mx-auto" *ngIf="profileChecked">
   <div class="row">
     <div class="col px-0">
       <ng-container *ngIf="!cancel; else cancelTemplate">
@@ -45,7 +45,7 @@
             </div>
 
             <div class="row pb-3 d-flex justify-content-center">
-              <div class="col col-lg-6">
+              <div class="col">
                 <app-primary-action-button
                   i18n-content="@@openTermsAndProcessingPrinciples"
                   content="Avaa käyttöehdot ja käsittelyperiaatteet"
@@ -57,7 +57,7 @@
               </div>
             </div>
             <div class="row d-flex justify-content-center">
-              <div class="col col-lg-6">
+              <div class="col">
                 <app-secondary-button
                   i18n-content="@@cancelDeployment"
                   content="Peruuta käyttöönotto"
@@ -266,7 +266,7 @@
         </div>
 
         <div class="row pb-3 d-flex justify-content-center">
-          <div class="col col-lg-6">
+          <div class="col">
             <app-secondary-button
               i18n-content="@@yesCancelDeployment"
               content="Kyllä, peruutan käyttöönoton"
@@ -277,7 +277,7 @@
           </div>
         </div>
         <div class="row d-flex justify-content-center">
-          <div class="col col-lg-6">
+          <div class="col">
             <app-secondary-button
               i18n-content="@@noContinueDeployment"
               content="Ei, jatkan käyttöönottoa"

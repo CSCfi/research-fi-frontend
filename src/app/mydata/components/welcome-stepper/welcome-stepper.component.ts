@@ -94,15 +94,9 @@ export class WelcomeStepperComponent implements OnInit {
   ngOnInit() {
     this.utilityService.setTitle(this.steps[0].title);
 
-    this.develop = this.appSettingsService.myDataSettings.develop;
+    this.checkProfileExists();
 
-    if (!this.develop) {
-      this.checkProfileExists();
-    } else {
-      this.profileChecked = true;
-    }
-
-    this.step = this.develop ? 4 : 1;
+    this.step = 1;
 
     this.oidcSecurityService.userData$.pipe(take(1)).subscribe((data) => {
       if (data) {

@@ -18,7 +18,7 @@ import { Subscription } from 'rxjs';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { checkGroupSelected, isEmptySection } from '@mydata/utils';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { SearchPublicationsComponent } from '../../profile/profile-panel/search-publications/search-publications.component';
+import { SearchPortalComponent } from './search-portal/search-portal.component';
 import { take } from 'rxjs/operators';
 import { PublicationsService } from '@mydata/services/publications.service';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
@@ -27,6 +27,7 @@ import { ProfileService } from '@mydata/services/profile.service';
 import { cloneDeep } from 'lodash-es';
 import { GroupTypes } from '@mydata/constants/groupTypes';
 import { CommonStrings } from '@mydata/constants/strings';
+import { SearchPortalService } from '@mydata/services/search-portal.service';
 
 @Component({
   selector: 'app-profile-panel',
@@ -52,7 +53,7 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   // TODO: Dynamic locale
   locale = 'Fi';
 
-  dialogRef: MatDialogRef<SearchPublicationsComponent>;
+  dialogRef: MatDialogRef<SearchPortalComponent>;
 
   faChevronDown = faChevronDown;
   faChevronUp = faChevronUp;
@@ -72,6 +73,7 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     public appSettingsService: AppSettingsService,
     public dialog: MatDialog,
     private publicationService: PublicationsService,
+    private searchPortalService: SearchPortalService,
     private profileService: ProfileService,
     private patchService: PatchService,
     private cdr: ChangeDetectorRef
@@ -276,58 +278,87 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   // Search publications
-  openSearchPublicationsDialog() {
+  openSearchFromResearchFiDialog(groupId: string) {
     const fields = this.data.fields[0];
 
-    this.dialogRef = this.dialog.open(SearchPublicationsComponent, {
+    this.dialogRef = this.dialog.open(SearchPortalComponent, {
       data: {
-        profilePublications: fields.groupItems,
-        selectedPublications: fields.selectedPublications,
+        groupId: groupId,
+        profilePublications: fields?.groupItems,
+        selectedPublications: fields?.selectedPublications,
       },
       panelClass: this.appSettingsService.dialogPanelClass,
     });
+
+    type PublicationsResult = { selection: any[] };
+    type DatasetsResult = { selection: any[] };
+
+    const handlePublications = (result: PublicationsResult) => {
+      this.publicationService.addToPayload(result.selection);
+
+      const groupItems = this.data.fields[0].groupItems;
+
+      const fetchedPublications = groupItems.find(
+        (groupItem) =>
+          groupItem.groupMeta.type === this.fieldTypes.activityPublication
+      );
+
+      if (fetchedPublications) {
+        this.data.fields[0].groupItems.find(
+          (groupItem) =>
+            groupItem.groupMeta.type === this.fieldTypes.activityPublication
+        ).items = fetchedPublications.items.concat(result.selection);
+      } else {
+        this.data.fields[0].groupItems.push({
+          groupMeta: { type: this.fieldTypes.activityPublication },
+          source: {
+            organization: {
+              nameFi: 'Tiedejatutkimus.fi',
+              nameSv: 'Forskning.fi',
+              nameEn: 'Research.fi',
+            },
+          },
+          items: result.selection,
+        });
+      }
+    };
+
+    const handleDatasets = (result: DatasetsResult) => {
+      this.data.fields[0].groupItems.push({
+        groupMeta: { type: this.fieldTypes.activityDataset }, // TODO: use correct field type
+        source: {
+          organization: {
+            nameFi: 'Tiedejatutkimus.fi',
+            nameSv: 'Forskning.fi',
+            nameEn: 'Research.fi',
+          },
+        },
+        items: result.selection,
+      });
+
+      console.log('handle datasets');
+      console.log('data.fields: ', this.data.fields);
+      console.log('result: ', result);
+    };
 
     // Set selected publications to field items
     this.dialogRef
       .afterClosed()
       .pipe(take(1))
-      .subscribe((result: { selectedPublications: any[] }) => {
+      .subscribe((result: any) => {
         // Reset sort when dialog closes
-        this.publicationService.resetSort();
+        this.searchPortalService.resetSort();
 
         if (result) {
-          this.publicationService.addToPayload(result.selectedPublications);
-
-          const preSelection = this.data.fields[0].groupItems.flatMap(
-            (group) => group.items
-          );
-
-          const groupItems = this.data.fields[0].groupItems;
-
-          const fetchedPublications = groupItems.find(
-            (groupItem) =>
-              groupItem.groupMeta.type === this.fieldTypes.activityPublication
-          );
-
-          if (fetchedPublications) {
-            this.data.fields[0].groupItems.find(
-              (groupItem) =>
-                groupItem.groupMeta.type === this.fieldTypes.activityPublication
-            ).items = fetchedPublications.items.concat(
-              result.selectedPublications
-            );
-          } else {
-            this.data.fields[0].groupItems.push({
-              groupMeta: { type: this.fieldTypes.activityPublication },
-              source: {
-                organization: {
-                  nameFi: 'Tiedejatutkimus.fi',
-                  nameSv: 'Forskning.fi',
-                  nameEn: 'Research.fi',
-                },
-              },
-              items: result.selectedPublications,
-            });
+          switch (groupId) {
+            case 'publication': {
+              handlePublications(result);
+              break;
+            }
+            case 'dataset': {
+              handleDatasets(result);
+              break;
+            }
           }
 
           this.updated = new Date();

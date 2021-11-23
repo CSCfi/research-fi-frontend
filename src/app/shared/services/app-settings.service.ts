@@ -7,6 +7,7 @@
 import { Inject, Injectable, LOCALE_ID, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -78,8 +79,7 @@ export class AppSettingsService {
   };
 
   myDataSettings = {
-    develop: false,
-    debug: false,
+    debug: !environment.production,
     beta: true,
     appName: 'myData',
     label: $localize`:@@researchersProfile:Tutkijan tiedot`,

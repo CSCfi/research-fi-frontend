@@ -9,23 +9,25 @@ import { Injectable } from '@angular/core';
 import { Adapter } from './adapter.model';
 import { mapGroup } from './utils';
 
-export class PublicationFields {
-  constructor(public publication: any) {}
+export class DatasetFields {
+  constructor(public dataset: any) {}
 }
 
 @Injectable({
   providedIn: 'root',
 })
-export class PublicationFieldsAdapter implements Adapter<PublicationFields> {
+export class DatasetFieldsAdapter implements Adapter<DatasetFields> {
   mapGroup = mapGroup;
   constructor() {}
 
-  adapt(item: any): PublicationFields {
-    return new PublicationFields(
+  adapt(item: any): DatasetFields {
+    item.datasetGroups = []; // Remove when data in API response
+
+    return new DatasetFields(
       this.mapGroup(
-        item.publicationGroups,
-        'publications',
-        $localize`:@@publications:Julkaisut`
+        item.datasetGroups,
+        'datasets',
+        $localize`:@@datasets:Tutkimusaineistot`
       )
     );
   }
