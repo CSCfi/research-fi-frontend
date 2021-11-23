@@ -62,7 +62,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   hideOverflow = true;
   dropdownOpen: any;
   maxWidth = 992;
+  mobileNavBreakPoint = 1200;
   mobile = this.window.innerWidth < this.maxWidth;
+  mobileMenu = this.window.innerWidth < this.mobileNavBreakPoint;
 
   height = this.window.innerHeight;
   width = this.window.innerWidth;
@@ -413,6 +415,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.appSettingsService.updateMobileStatus(true);
       this.mobile = true;
     }
+
+    this.width >= this.mobileNavBreakPoint
+      ? (this.mobileMenu = false)
+      : (this.mobileMenu = true);
   }
 
   onClickedOutside(e: Event) {

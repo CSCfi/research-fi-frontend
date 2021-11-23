@@ -134,15 +134,15 @@
       </div>
       <div
         class=""
-        [class.overflow-hider]="hideOverflow && mobile"
-        [class.absolute]="mobile"
-        [ngClass]="mobile ? (hideOverflow ? 'invisible' : 'visible') : ''"
+        [class.overflow-hider]="hideOverflow && mobileMenu"
+        [class.absolute]="mobileMenu"
+        [ngClass]="mobileMenu ? (hideOverflow ? 'invisible' : 'visible') : ''"
         #overflowHider
       >
         <div
           class="collapse navbar-collapse menu row"
-          [class.mobile-bar]="mobile"
-          [class.open]="navbarOpen && mobile"
+          [class.mobile-bar]="mobileMenu"
+          [class.open]="navbarOpen && mobileMenu"
           #mainNavbar
         >
           <!-- Lang selector -->
@@ -153,7 +153,7 @@
             <ul class="navbar-nav mx-auto">
               <li
                 *ngFor="let domain of appSettings.localizedDomains"
-                [class.col-4]="mobile"
+                [class.col-4]="mobileMenu"
               >
                 <a
                   class="nav-item nav-link lang-box"
@@ -168,7 +168,7 @@
           </div>
           <!-- Nav items -->
           <div class="col p-0">
-            <ul class="nav-right navbar-nav main" [class.row]="!mobile">
+            <ul class="nav-right navbar-nav main" [class.row]="!mobileMenu">
               <ng-container *ngFor="let item of appSettings.navItems">
                 <li
                   *ngIf="!item.dropdownItems; else dropdownLink"
@@ -244,7 +244,7 @@
                   </mat-form-field>
                 </div>
               </li>
-              <div *ngIf="mobile" class=""></div>
+              <div *ngIf="mobileMenu" class=""></div>
             </ul>
           </div>
         </div>

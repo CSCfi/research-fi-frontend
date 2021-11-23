@@ -330,24 +330,6 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
             });
           }
 
-          console.log('add: ', this.data);
-
-          // const mergedPublications = preSelection
-          //   .concat(result.selectedPublications)
-          //   .sort((a, b) => b.publicationYear - a.publicationYear);
-
-          // this.hasFetchedPublications = true;
-
-          // // Else case is for when publications don't exist in user profile
-          // if (!isEmptySection(this.data)) {
-          //   this.data.fields[0].groupItems[0].items = mergedPublications;
-          // } else {
-          //   this.data.fields[0].groupItems.push({
-          //     items: mergedPublications,
-          //     groupMeta: { type: this.fieldTypes.activityPublication },
-          //   });
-          // }
-
           this.updated = new Date();
 
           this.cdr.detectChanges();

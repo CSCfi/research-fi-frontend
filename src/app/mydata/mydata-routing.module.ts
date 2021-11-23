@@ -40,9 +40,9 @@ const routes: Routes = [
     pathMatch: 'full',
     component: ProfileComponent,
     canActivate: [AuthGuard],
-    // resolve: {
-    //   pages: PageResolverService,
-    // },
+    resolve: {
+      pages: PageResolverService,
+    },
   },
   {
     path: 'redirect',
