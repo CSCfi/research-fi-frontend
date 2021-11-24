@@ -220,7 +220,10 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         case 'publications': {
           this.currentFilter = this.publicationFilters.filterData;
           this.currentSingleFilter = this.publicationFilters.singleFilterData;
-          this.publicationFilters.shapeData(this.responseData);
+          this.publicationFilters.shapeData(
+            this.responseData,
+            this.activeFilters
+          );
           break;
         }
         case 'persons': {
