@@ -212,12 +212,13 @@
                       </div>
                       <div
                         class="col-12 td col-sm-3 mobile-list"
-                        *ngIf="
+                        ><span *ngIf="
                           org.shareOfFundingEur &&
                           org.shareOfFundingEur !== item.recipient.amountEur
                         "
                       >
                         {{ org.shareOfFundingEur | thousandSeparator }} €
+                        </span>
                       </div>
                       <div
                         class="col-12 td col-sm-3 mobile-list pb-3"
