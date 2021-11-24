@@ -211,12 +211,12 @@ export class PublicationFilterService {
     private staticDataService: StaticDataService
   ) {}
 
-  shapeData(data) {
+  shapeData(data, activeFilters?) {
     const source = data.aggregations;
     // Year
     source.year.buckets = this.mapYear(source.year.years.buckets);
     // Organization & sector
-    source.organization = this.organization(source.organization);
+    source.organization = this.organization(source.organization, activeFilters);
     // Field of science
     source.field.buckets = this.minorField(
       source.field.fields.buckets.filter(
@@ -267,7 +267,7 @@ export class PublicationFilterService {
     return source;
   }
 
-  organization(data) {
+  organization(data, activeFilters?) {
     const source = cloneDeep(data) || [];
     source.buckets = source.sectorName ? source.sectorName.buckets : [];
     source.buckets.forEach((item) => {
@@ -288,6 +288,27 @@ export class PublicationFilterService {
     source.buckets = source.buckets.sort(
       (a, b) => a.sectorId.buckets[0].key - b.sectorId.buckets[0].key
     );
+
+    // Filter organizations when targeted search for subunits
+    // ie. single-organization > navigate from sub units tab
+    if (activeFilters?.target === 'subUnitID' && activeFilters?.organization) {
+      const organizationParam = activeFilters.organization;
+      const orgId =
+        typeof organizationParam === 'string'
+          ? organizationParam
+          : organizationParam[0];
+      const buckets = source.sectorName.buckets;
+      const sector = buckets.findIndex((sector) =>
+        sector.subData.find((org) => org.key === orgId)
+      );
+
+      source.sectorName.buckets[sector].subData = source.sectorName.buckets[
+        sector
+      ].subData.filter((org) => org.key === orgId);
+
+      console.log(source);
+    }
+
     return source;
   }
 
