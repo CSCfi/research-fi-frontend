@@ -300,10 +300,6 @@ export class FundingFilterService {
   }
 
   mapTopic(data){
-    data.every((item, index) => {
-      return false;
-    });
-
     data.forEach((item) => {
       if (item.key !== 'YSA' && item.key !== 'YSO') {
         item.subData = item.keywords.buckets.filter(
