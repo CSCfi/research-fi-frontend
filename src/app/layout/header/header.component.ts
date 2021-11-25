@@ -61,7 +61,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   navbarOpen = false;
   hideOverflow = true;
   dropdownOpen: any;
-  maxWidth = 992;
+  maxWidth = 1200;
   mobileNavBreakPoint = 1200;
   mobile = this.window.innerWidth < this.maxWidth;
   mobileMenu = this.window.innerWidth < this.mobileNavBreakPoint;
