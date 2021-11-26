@@ -617,7 +617,7 @@ export class SinglePublicationComponent
             x.keyword.trim() +
             '</a>'
         )
-        .join(', ');
+        .join('; ');
     }
 
     // Get authors per organization
