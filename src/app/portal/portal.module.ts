@@ -158,6 +158,7 @@ import { FilterEmptyFieldPipe } from './pipes/filter-empty-field.pipe';
 import { HandleLinkDisplayPipe } from './pipes/handle-link-display.pipe';
 import { IsUrlPipe } from './pipes/is-url.pipe';
 import { PublicationLinksComponent } from './components/single/single-publication/publication-links/publication-links.component';
+import { DatasetAuthorComponent } from './components/single/single-dataset/dataset-author/dataset-author.component';
 
 @NgModule({
   declarations: [
@@ -242,6 +243,7 @@ import { PublicationLinksComponent } from './components/single/single-publicatio
     OrganizationSubUnitsComponent,
     FilterEmptyFieldPipe,
     PublicationLinksComponent,
+    DatasetAuthorComponent,
   ],
   imports: [
     PortalRoutingModule,
@@ -279,6 +281,7 @@ import { PublicationLinksComponent } from './components/single/single-publicatio
     A11yModule,
     TooltipModule.forRoot(),
   ],
+  exports: [DatasetAuthorComponent],
   providers: [
     SearchService,
     Title,

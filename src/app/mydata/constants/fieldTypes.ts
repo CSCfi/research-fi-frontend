@@ -21,4 +21,5 @@ export const FieldTypes = {
   activityEducation: 400,
   activityPublication: 500,
   activityOrcidPublication: 550,
+  activityDataset: 600,
 };

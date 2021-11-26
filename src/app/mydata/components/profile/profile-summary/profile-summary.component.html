@@ -8,7 +8,8 @@
     class="group-wrapper"
     *ngIf="
       (group.fields | countGroupItems).length ||
-      group.id === groupTypes.publication
+      group.id === groupTypes.publication ||
+      group.id === groupTypes.dataset
     "
   >
     <div class="row py-2 justify-content-between">
@@ -55,6 +56,13 @@
             [fieldTypes]="fieldTypes"
           >
           </app-summary-publications>
+
+          <app-summary-datasets
+            *ngSwitchCase="groupTypes.dataset"
+            [data]="field"
+            [fieldTypes]="fieldTypes"
+          >
+          </app-summary-datasets>
 
           <div class="summary-panel-wrapper" *ngSwitchDefault>
             <div

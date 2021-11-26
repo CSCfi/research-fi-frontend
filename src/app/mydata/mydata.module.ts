@@ -61,8 +61,8 @@ import { ParseDatePipe } from './pipes/parse-date.pipe';
 import { ActivityItemComponent } from './components/profile/profile-panel/activity-item/activity-item.component';
 import { GetPrimaryOptionsPipe } from './pipes/get-primary-options.pipe';
 import { PrimaryBadgeComponent } from './components/profile/profile-panel/primary-badge/primary-badge.component';
-import { SearchPublicationsComponent } from './components/profile/profile-panel/search-publications/search-publications.component';
-import { PublicationsListComponent } from './components/profile/profile-panel/publications-list/publications-list.component';
+import { SearchPortalComponent } from './components/profile/profile-panel/search-portal/search-portal.component';
+import { SearchPortalResultsComponent } from './components/profile/profile-panel/search-portal/search-portal-results/search-portal-results.component';
 import { CustomPaginatorIntlComponent } from './components/profile/profile-panel/custom-paginator-intl/custom-paginator-intl.component';
 import { CountGroupItemsPipe } from './pipes/count-group-items.pipe';
 import { MydataBetaInfoComponent } from './components/mydata-beta-info/mydata-beta-info.component';
@@ -85,6 +85,9 @@ import { SortByFieldTypePipe } from './pipes/sort-by-field-type.pipe';
 import { MatchItemPipe } from './pipes/match-item.pipe';
 import { ProfileEditorCardHeaderComponent } from './components/profile/cards/profile-editor-card-header/profile-editor-card-header.component';
 import { JoinValuesPipe } from './pipes/join-values.pipe';
+import { SummaryDatasetsComponent } from './components/profile/profile-summary/summary-datasets/summary-datasets.component';
+import { GetValuePipe } from './pipes/get-value.pipe';
+import { PortalModule } from '@portal/portal.module';
 
 const matSnackbarDefaultConfig: MatSnackBarConfig = {
   verticalPosition: 'top',
@@ -112,8 +115,8 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
     ActivityItemComponent,
     GetPrimaryOptionsPipe,
     PrimaryBadgeComponent,
-    SearchPublicationsComponent,
-    PublicationsListComponent,
+    SearchPortalComponent,
+    SearchPortalResultsComponent,
     CountGroupItemsPipe,
     MydataBetaInfoComponent,
     ProfileSummaryComponent,
@@ -135,6 +138,8 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
     MatchItemPipe,
     ProfileEditorCardHeaderComponent,
     JoinValuesPipe,
+    SummaryDatasetsComponent,
+    GetValuePipe,
   ],
   imports: [
     CommonModule,
@@ -160,6 +165,7 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
     MatSortModule,
     MatButtonModule,
     MatRippleModule,
+    PortalModule,
   ],
   providers: [
     AuthGuard,

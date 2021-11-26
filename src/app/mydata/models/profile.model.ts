@@ -12,6 +12,7 @@ import { DescriptionFieldsAdapter } from './description.model';
 import { AffiliationFieldsAdapter } from './affiliation.model';
 import { EducationFieldsAdapter } from './education.model';
 import { PublicationFieldsAdapter } from './publication.model';
+import { DatasetFieldsAdapter } from './dataset.model';
 import { GroupTypes } from '@mydata/constants/groupTypes';
 
 export class Profile {
@@ -27,7 +28,8 @@ export class ProfileAdapter implements Adapter<Profile> {
     private descriptionFieldsAdapter: DescriptionFieldsAdapter,
     private affiliationFieldsAdapter: AffiliationFieldsAdapter,
     private educationFieldsAdapter: EducationFieldsAdapter,
-    private publicationFieldsAdapter: PublicationFieldsAdapter
+    private publicationFieldsAdapter: PublicationFieldsAdapter,
+    private datasetFieldsAdapter: DatasetFieldsAdapter
   ) {}
 
   adapt(item: any): Profile {
@@ -65,7 +67,7 @@ export class ProfileAdapter implements Adapter<Profile> {
       {
         id: GroupTypes.dataset,
         label: $localize`:@@researchData:Tutkimusaineistot`,
-        fields: [],
+        fields: mapModel(this.datasetFieldsAdapter, data.activity),
       },
       {
         id: GroupTypes.project,

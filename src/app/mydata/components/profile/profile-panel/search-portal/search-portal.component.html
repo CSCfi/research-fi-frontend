@@ -6,8 +6,8 @@
 <mat-dialog-content>
   <div class="row d-flex justify-content-between dialog-header">
     <div class="col">
-      <h2 class="modal-title h5" i18n="@@searchingForMissingPublication">
-        Puuttuvan julkaisun hakeminen
+      <h2 class="modal-title h5">
+        {{ dialogTitle }}
       </h2>
     </div>
 
@@ -23,16 +23,15 @@
 
   <div class="col px-0 px-lg-3">
     <div class="row py-3">
-      <div class="col h6 m-0" i18n="@@searchForPublicationWithName">
-        Hae julkaisua tekijän tai julkaisun nimellä
+      <div class="col h6 m-0">
+        {{ searchHelpText }}
       </div>
     </div>
 
     <div class="row">
       <div class="col">
         <app-search
-          i18n-placeholder="@@nameOfPublicationOrAuthor"
-          placeholder="Julkaisun tai tekijän nimi"
+          [placeholder]="searchPlaceholder"
           (getSearchTerm)="handleSearch($event)"
         ></app-search>
       </div>
@@ -73,15 +72,16 @@
 
     <div class="row pb-3" *ngIf="total > 0">
       <div class="col">
-        <app-publications-list
-          (onPublicationToggle)="handleSelection($event)"
+        <app-search-portal-results
+          [groupId]="data.groupId"
+          (onItemToggle)="handleSelection($event)"
           (onPageChange)="changePage($event)"
           (onSortToggle)="sort($event)"
           [data]="results"
           [total]="total"
           [profilePublications]="data.profilePublications || []"
           [selectedItems]="data.selectedPublications || []"
-        ></app-publications-list>
+        ></app-search-portal-results>
       </div>
     </div>
   </div>
@@ -97,10 +97,16 @@
     ></app-secondary-button>
   </div>
   <div class="col-auto" *ngIf="total > 0 && currentSelection?.length > 0">
-    <app-primary-action-button
+    <!-- <app-primary-action-button
       [small]="mobile"
       (click)="saveChanges()"
       [content]="currentSelection.length > 1 ? addPublications : addPublication"
+    ></app-primary-action-button> -->
+    <app-primary-action-button
+      [small]="mobile"
+      (click)="saveChanges()"
+      i18n-content="@@continue"
+      content="Jatka"
     ></app-primary-action-button>
   </div>
 </mat-dialog-actions>

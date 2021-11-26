@@ -42,9 +42,15 @@
     >
     </ng-container>
 
+    <ng-container
+      *ngSwitchCase="fieldTypes.activityDataset"
+      [ngTemplateOutlet]="publicationTemplate"
+    >
+    </ng-container>
+
     <ng-template #publicationTemplate [ngTemplateOutlet]="currentTemplate">
       <app-activity-item
-        [rows]="[item.publicationName, item.authorsText, item.publicationYear]"
+        [rows]="[item.title, item.authors, item.year]"
         [smallLastItem]="true"
       ></app-activity-item>
     </ng-template>

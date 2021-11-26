@@ -1,0 +1,27 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<div class="py-1" *ngIf="org.id">
+  <span class="th" *ngIf="noLinks">{{ org.name }}</span>
+  <a *ngIf="!noLinks" class="th" href="/results/organization/{{ org.id }}">{{
+    org.name
+  }}</a
+  ><span *ngIf="org.roles.length > 0" class="font-weight-normal">
+    - {{ org.roles.join(', ') }}</span
+  >
+</div>
+<p *ngIf="!org.id" class="d-block th p-0 m-0 font-weight-500">
+  {{ org.name
+  }}<span *ngIf="org.roles.length > 0" class="font-weight-normal">
+    - {{ org.roles.join(', ') }}</span
+  >
+</p>
+<div *ngFor="let actor of org.actors">
+  <p class="td p-0 m-0">
+    {{ actor.name }}
+    <app-orcid *ngIf="actor.orcid" [orcid]="actor.orcid"></app-orcid>
+    <span *ngIf="actor.roles.length > 0"> - {{ actor.roles.join(', ') }}</span>
+  </p>
+</div>
