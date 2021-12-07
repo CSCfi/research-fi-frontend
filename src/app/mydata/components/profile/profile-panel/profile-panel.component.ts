@@ -28,6 +28,7 @@ import { cloneDeep } from 'lodash-es';
 import { GroupTypes } from '@mydata/constants/groupTypes';
 import { CommonStrings } from '@mydata/constants/strings';
 import { SearchPortalService } from '@mydata/services/search-portal.service';
+import { DatasetsService } from '@mydata/services/datasets.service';
 
 @Component({
   selector: 'app-profile-panel',
@@ -61,7 +62,7 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   disableAnimation = true;
   hasFetchedPublications: boolean;
 
-  updated: Date;
+  updated: Date; // Generate new Date to detect changes in pipes
   selectedPublications: any[];
   combinedItems: any[];
 
@@ -72,7 +73,8 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   constructor(
     public appSettingsService: AppSettingsService,
     public dialog: MatDialog,
-    private publicationService: PublicationsService,
+    private publicationsService: PublicationsService,
+    private datasetsService: DatasetsService,
     private searchPortalService: SearchPortalService,
     private profileService: ProfileService,
     private patchService: PatchService,
@@ -181,19 +183,22 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
 
   toggleItem(event, groupItem, item, index) {
     const publicationType = this.fieldTypes.activityPublication;
+    const datasetType = this.fieldTypes.activityDataset;
+
+    const groupMeta = groupItem.groupMeta;
 
     if (
       item.itemMeta.primaryValue &&
       !event.checked &&
-      groupItem.groupMeta.type !== publicationType
+      groupMeta.type !== publicationType &&
+      groupMeta.type !== datasetType
     ) {
       item.itemMeta.primaryValue = false;
       this.setDefaultPrimaryValue(this.data.fields);
     }
 
     const parentGroup = this.data.fields[index].groupItems.find(
-      (group: { groupMeta: { id: any } }) =>
-        group.groupMeta.id === groupItem.groupMeta.id
+      (group: { groupMeta: { id: any } }) => group.groupMeta.id === groupMeta.id
     );
 
     const currentItem = parentGroup.items.find(
@@ -223,34 +228,34 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     this.patchService.addToPatchItems(publication.itemMeta);
   }
 
-  removePublication(publication: {
-    publicationId: string;
-    itemMeta: { id: string | null };
-  }) {
+  removeItem(
+    groupType: number,
+    itemToRemove: { id: string; itemMeta: { id: string | null } }
+  ) {
     const field = this.data.fields[0];
+    const groupItems = field.groupItems;
 
-    // Method to remove publications added in current session
-    const handleRemoveFromSession = () => {
-      const groupItems = field.groupItems;
-
-      for (const group of groupItems) {
-        group.items = group.items.filter(
-          (item) => item.publicationId !== publication.publicationId
-        );
-      }
-      field.groupItems = groupItems;
-    };
-
-    // Only publications from profile have item meta ID
-    if (publication.itemMeta.id) {
-      this.hasFetchedPublications =
-        field.groupItems[0].items.filter((item) => item.itemMeta.primaryValue)
-          .length > 0;
+    for (const group of groupItems) {
+      group.items = group.items.filter(
+        (item) => item.itemMeta.id !== itemToRemove.itemMeta.id
+      );
     }
 
-    this.publicationService.addToDeletables(publication);
+    field.groupItems = groupItems;
 
-    handleRemoveFromSession();
+    switch (groupType) {
+      case this.fieldTypes.activityDataset: {
+        this.datasetsService.addToDeletables(itemToRemove);
+        break;
+      }
+      case this.fieldTypes.activityPublication: {
+        this.publicationsService.addToDeletables(itemToRemove);
+        break;
+      }
+    }
+
+    // Refresh pipes
+    this.updated = new Date();
   }
 
   findFetchedPublications(data) {
@@ -284,7 +289,7 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     this.dialogRef = this.dialog.open(SearchPortalComponent, {
       data: {
         groupId: groupId,
-        profilePublications: fields?.groupItems,
+        itemsInProfile: fields?.groupItems,
         selectedPublications: fields?.selectedPublications,
       },
       panelClass: this.appSettingsService.dialogPanelClass,
@@ -294,7 +299,7 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     type DatasetsResult = { selection: any[] };
 
     const handlePublications = (result: PublicationsResult) => {
-      this.publicationService.addToPayload(result.selection);
+      this.publicationsService.addToPayload(result.selection);
 
       const groupItems = this.data.fields[0].groupItems;
 
@@ -324,21 +329,29 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     };
 
     const handleDatasets = (result: DatasetsResult) => {
-      this.data.fields[0].groupItems.push({
-        groupMeta: { type: this.fieldTypes.activityDataset }, // TODO: use correct field type
-        source: {
-          organization: {
-            nameFi: 'Tiedejatutkimus.fi',
-            nameSv: 'Forskning.fi',
-            nameEn: 'Research.fi',
-          },
-        },
-        items: result.selection,
-      });
+      this.datasetsService.addToPayload(result.selection);
 
-      console.log('handle datasets');
-      console.log('data.fields: ', this.data.fields);
-      console.log('result: ', result);
+      let existingAddedDatasets = this.data.fields[0].groupItems.find(
+        (group) => group.groupMeta.type === this.fieldTypes.activityDataset
+      );
+
+      if (existingAddedDatasets) {
+        existingAddedDatasets.items = existingAddedDatasets.items.concat(
+          result.selection
+        );
+      } else {
+        this.data.fields[0].groupItems.push({
+          groupMeta: { type: this.fieldTypes.activityDataset },
+          source: {
+            organization: {
+              nameFi: 'Tiedejatutkimus.fi',
+              nameSv: 'Forskning.fi',
+              nameEn: 'Research.fi',
+            },
+          },
+          items: result.selection,
+        });
+      }
     };
 
     // Set selected publications to field items

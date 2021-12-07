@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import { DatasetAdapter } from '@portal/models/dataset/dataset.model';
 import { map } from 'rxjs/operators';
 import { Search, SearchAdapter } from '@portal/models/search.model';
+import { SettingsService } from '@portal/services/settings.service';
 
 export interface Respone {
   hits: any;
@@ -26,7 +27,7 @@ export class SearchPortalService {
     private http: HttpClient,
     private appConfigService: AppConfigService,
     private searchAdapter: SearchAdapter,
-    private datasetAdapter: DatasetAdapter
+    private searchSettingsService: SettingsService
   ) {
     // this.apiUrl = this.appConfigService.apiUrl;
     this.apiUrl =
@@ -79,7 +80,6 @@ export class SearchPortalService {
 
   getData(term: string, groupId: string) {
     // Default sort to descending
-
     const sort = this.currentSort
       ? this.currentSort
       : {
@@ -88,11 +88,8 @@ export class SearchPortalService {
 
     const pageSettings = this.pageSettings;
 
-    const query = {
-      query_string: {
-        query: term,
-      },
-    };
+    // Leverage query generation method from portal
+    const query = this.searchSettingsService.querySettings(groupId, term);
 
     let payload = {
       track_total_hits: true,
@@ -105,11 +102,7 @@ export class SearchPortalService {
 
     // TODO: Map response
     return this.http
-      .post<Search>(
-        // this.apiUrl + 'publication/_search?',
-        this.apiUrl + `${groupId}/_search?`,
-        payload
-      )
+      .post<Search>(this.apiUrl + `${groupId}/_search?`, payload)
       .pipe(map((data: any) => this.searchAdapter.adapt(data, groupId + 's')));
   }
 }

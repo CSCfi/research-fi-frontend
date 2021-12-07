@@ -20,6 +20,7 @@ import { PatchService } from '@mydata/services/patch.service';
 import { Constants } from '@mydata/constants';
 import { PublicationsService } from '@mydata/services/publications.service';
 import { take } from 'rxjs/operators';
+import { DatasetsService } from '@mydata/services/datasets.service';
 
 @Component({
   selector: 'app-editor-modal',
@@ -48,7 +49,8 @@ export class EditorModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<EditorModalComponent>,
     private patchService: PatchService,
-    private publicationsService: PublicationsService
+    private publicationsService: PublicationsService,
+    private datasetsService: DatasetsService
   ) {}
 
   ngOnInit(): void {
@@ -139,6 +141,7 @@ export class EditorModalComponent implements OnInit {
   saveChanges() {
     this.patchService.confirmPatchItems();
     this.publicationsService.confirmPayload();
+    this.datasetsService.confirmPayload();
 
     // Pass data to parent on dialog close
     this.dialogRef.close({

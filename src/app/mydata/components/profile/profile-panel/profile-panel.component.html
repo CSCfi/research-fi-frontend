@@ -122,11 +122,11 @@
                 i18n="@@addedPublications"
                 >Tuodut julkaisut</span
               >
-              <span
+              <!-- <span
                 *ngIf="groupItem.groupMeta.type === fieldTypes.activityDataset"
                 i18n="@@addedDatasets"
                 >Tuodut tutkimusaineistot</span
-              >
+              > -->
             </span>
 
             <ng-container *ngFor="let item of groupItem.items">
@@ -173,15 +173,17 @@
                 <div
                   class="col-auto mt-1"
                   *ngIf="
-                    groupItem.groupMeta.type ===
-                      fieldTypes.activityPublication &&
+                    (groupItem.groupMeta.type ===
+                      fieldTypes.activityPublication ||
+                      groupItem.groupMeta.type ===
+                        fieldTypes.activityDataset) &&
                     item.itemMeta.primaryValue
                   "
                 >
                   <app-secondary-button
                     i18n-content="@@remove"
                     content="Poista"
-                    (click)="removePublication(item)"
+                    (click)="removeItem(groupItem.groupMeta.type, item)"
                   ></app-secondary-button>
                 </div>
 

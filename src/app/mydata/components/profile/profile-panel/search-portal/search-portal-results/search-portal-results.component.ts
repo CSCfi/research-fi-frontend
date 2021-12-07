@@ -33,7 +33,7 @@ export class SearchPortalResultsComponent
   @Input() groupId: string;
   @Input() data: any[];
   @Input() total: number;
-  @Input() profilePublications: any;
+  @Input() itemsInProfile: any;
   @Input() selectedItems: any;
   @Output() onItemToggle = new EventEmitter<any>();
   @Output() onPageChange = new EventEmitter<any>();
@@ -136,17 +136,13 @@ export class SearchPortalResultsComponent
       if (this.paginator) this.paginator.pageIndex = 0;
     });
 
-    // Check match in template
-    const profileItems = this.profilePublications
+    // Create list of ids that we can match for existing selections in template
+    const profileItems = this.itemsInProfile
       .flatMap((item) => item.items)
       .map((item) => item.id)
-      .filter((item) => item.trim().length);
+      .filter((item) => item?.trim().length);
 
-    const preSelection = this.selectedItems;
-
-    this.selectedItemsIdArray = preSelection
-      .map((item) => item.id)
-      .concat(profileItems);
+    this.selectedItemsIdArray = profileItems;
   }
 
   ngOnChanges() {

@@ -7,6 +7,7 @@
 
 import { Injectable } from '@angular/core';
 import { Adapter } from './adapter.model';
+import { DatasetItemAdapter } from './item/dataset-item.model';
 import { mapGroup } from './utils';
 
 export class DatasetFields {
@@ -18,14 +19,19 @@ export class DatasetFields {
 })
 export class DatasetFieldsAdapter implements Adapter<DatasetFields> {
   mapGroup = mapGroup;
-  constructor() {}
+  constructor(private datasetItemAdapter: DatasetItemAdapter) {}
 
   adapt(item: any): DatasetFields {
-    item.datasetGroups = []; // Remove when data in API response
+    item.researchDatasetGroups.forEach(
+      (group) =>
+        (group.items = group.items.map(
+          (item) => (item = this.datasetItemAdapter.adapt(item))
+        ))
+    );
 
     return new DatasetFields(
       this.mapGroup(
-        item.datasetGroups,
+        item.researchDatasetGroups,
         'datasets',
         $localize`:@@datasets:Tutkimusaineistot`
       )
