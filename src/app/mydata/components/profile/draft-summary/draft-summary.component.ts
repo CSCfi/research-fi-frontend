@@ -11,6 +11,7 @@ import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { checkGroupSelected, checkGroupPatchItem } from '@mydata/utils';
 import { combineLatest } from 'rxjs';
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { DatasetsService } from '@mydata/services/datasets.service';
 
 @Component({
   selector: 'app-draft-summary',
@@ -39,7 +40,8 @@ export class DraftSummaryComponent implements OnInit, OnDestroy {
 
   constructor(
     private patchService: PatchService,
-    private publicationService: PublicationsService,
+    private publicationsService: PublicationsService,
+    private datasetsService: DatasetsService,
     private appSettingsService: AppSettingsService
   ) {
     this.locale = this.appSettingsService.capitalizedLocale;
@@ -48,14 +50,17 @@ export class DraftSummaryComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.patchPayloadSub = combineLatest([
       this.patchService.currentPatchItems,
-      this.publicationService.currentPublicationPayload,
+      this.publicationsService.currentPublicationPayload,
+      this.datasetsService.currentDatasetPayload,
     ]).subscribe((res) => {
       const patchItems = res[0];
-      const patchPublications = res[1].flatMap(
-        (publication) => publication.itemMeta
-      );
 
-      const combinedItems = patchItems.concat(patchPublications);
+      const patchPortalItems = res
+        .slice(1)
+        .flat()
+        .flatMap((item) => item.itemMeta);
+
+      const combinedItems = patchItems.concat(patchPortalItems);
 
       this.combinedPatchItems = combinedItems;
     });

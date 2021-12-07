@@ -28,6 +28,7 @@ import { PublicationsService } from '@mydata/services/publications.service';
 import { CommonStrings } from '@mydata/constants/strings';
 import { checkGroupSelected } from '@mydata/utils';
 import { UtilityService } from '@shared/services/utility.service';
+import { DatasetsService } from '@mydata/services/datasets.service';
 
 @Component({
   selector: 'app-profile',
@@ -106,6 +107,7 @@ export class ProfileComponent implements OnInit {
     public draftService: DraftService,
     public patchService: PatchService,
     public publicationsService: PublicationsService,
+    public datasetsService: DatasetsService,
     private utilityService: UtilityService
   ) {
     this.testData = profileService.testData;
@@ -136,6 +138,9 @@ export class ProfileComponent implements OnInit {
           const draftPublicationPatchPayload = JSON.parse(
             sessionStorage.getItem(Constants.draftPublicationPatchPayload)
           );
+          const draftDatasetPatchPayload = JSON.parse(
+            sessionStorage.getItem(Constants.draftDatasetPatchPayload)
+          );
 
           this.draftPayload = draftPatchPayload;
 
@@ -164,6 +169,12 @@ export class ProfileComponent implements OnInit {
           if (draftPublicationPatchPayload) {
             this.publicationsService.addToPayload(draftPublicationPatchPayload);
             this.publicationsService.confirmPayload();
+          }
+
+          // Set draft dataset patch payload from storage
+          if (draftDatasetPatchPayload) {
+            this.datasetsService.addToPayload(draftDatasetPatchPayload);
+            this.datasetsService.confirmPayload();
           }
         }
 
@@ -266,6 +277,7 @@ export class ProfileComponent implements OnInit {
   publish() {
     // TODO: Forkjoin both HTTP requests and handle results as single
     this.handlePublications();
+    this.handleDatasets();
     this.patchItems();
     this.profileService.setCurrentProfileData(this.profileData);
   }
@@ -276,6 +288,7 @@ export class ProfileComponent implements OnInit {
     sessionStorage.removeItem(Constants.draftProfile);
     sessionStorage.removeItem(Constants.draftPatchPayload);
     sessionStorage.removeItem(Constants.draftPublicationPatchPayload);
+    sessionStorage.removeItem(Constants.draftDatasetPatchPayload);
     this.profileData = [...currentProfileData];
     this.profileService.setCurrentProfileName(this.getName(currentProfileData));
 
@@ -287,15 +300,24 @@ export class ProfileComponent implements OnInit {
     this.patchService.cancelConfirmedPatchPayload();
     this.publicationsService.clearPayload();
     this.publicationsService.cancelConfirmedPayload();
+    this.datasetsService.clearPayload();
+    this.datasetsService.cancelConfirmedPayload();
     this.draftService.clearData();
   }
 
   /*
-   * Add selected publications to profile
+   * Add portal items to profile
    */
   handlePublications() {
     this.publicationsService
       .addPublications()
+      .pipe(take(1))
+      .subscribe((result) => {});
+  }
+
+  handleDatasets() {
+    this.datasetsService
+      .addDatasets()
       .pipe(take(1))
       .subscribe((result) => {});
   }

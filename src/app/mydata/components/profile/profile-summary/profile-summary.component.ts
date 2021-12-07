@@ -25,6 +25,7 @@ import { Constants } from '@mydata/constants/';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { GroupTypes } from '@mydata/constants/groupTypes';
 import { CommonStrings } from '@mydata/constants/strings';
+import { DatasetsService } from '@mydata/services/datasets.service';
 
 @Component({
   selector: 'app-profile-summary',
@@ -60,6 +61,7 @@ export class ProfileSummaryComponent implements OnInit {
     public dialog: MatDialog,
     private patchService: PatchService,
     private publicationsService: PublicationsService,
+    private datasetsService: DatasetsService,
     private snackbarService: SnackbarService,
     private draftService: DraftService
   ) {
@@ -145,6 +147,12 @@ export class ProfileSummaryComponent implements OnInit {
               sessionStorage.setItem(
                 Constants.draftPublicationPatchPayload,
                 JSON.stringify(this.publicationsService.confirmedPayload)
+              );
+
+              // Update dataset payload to store
+              sessionStorage.setItem(
+                Constants.draftDatasetPatchPayload,
+                JSON.stringify(this.datasetsService.confirmedPayload)
               );
 
               // Sort

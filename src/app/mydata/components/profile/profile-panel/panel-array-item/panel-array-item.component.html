@@ -32,23 +32,23 @@
 
     <ng-container
       *ngSwitchCase="fieldTypes.activityPublication"
-      [ngTemplateOutlet]="publicationTemplate"
+      [ngTemplateOutlet]="portalItemTemplate"
     >
     </ng-container>
 
     <ng-container
       *ngSwitchCase="fieldTypes.activityOrcidPublication"
-      [ngTemplateOutlet]="publicationTemplate"
+      [ngTemplateOutlet]="portalItemTemplate"
     >
     </ng-container>
 
     <ng-container
       *ngSwitchCase="fieldTypes.activityDataset"
-      [ngTemplateOutlet]="publicationTemplate"
+      [ngTemplateOutlet]="portalItemTemplate"
     >
     </ng-container>
 
-    <ng-template #publicationTemplate [ngTemplateOutlet]="currentTemplate">
+    <ng-template #portalItemTemplate [ngTemplateOutlet]="currentTemplate">
       <app-activity-item
         [rows]="[item.title, item.authors, item.year]"
         [smallLastItem]="true"

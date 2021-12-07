@@ -11,24 +11,24 @@ import { AppConfigService } from '@shared/services/app-config-service.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { BehaviorSubject } from 'rxjs';
 
-export interface Publication {
+export interface Dataset {
   hits: any;
 }
 
 @Injectable({
   providedIn: 'root',
 })
-export class PublicationsService {
+export class DatasetsService {
   apiUrl: string;
   profileApiUrl: string;
   httpOptions: object;
 
-  publicationPayload = [];
+  datasetPayload = [];
   confirmedPayload = [];
   deletables = [];
 
   private confirmedPayloadSource = new BehaviorSubject<any>([]);
-  currentPublicationPayload = this.confirmedPayloadSource.asObservable();
+  currentDatasetPayload = this.confirmedPayloadSource.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -53,16 +53,16 @@ export class PublicationsService {
     };
   }
 
-  addToPayload(publications: any) {
-    this.publicationPayload = this.publicationPayload.concat(publications);
+  addToPayload(datasets: any) {
+    this.datasetPayload = this.datasetPayload.concat(datasets);
   }
 
   clearPayload() {
-    this.publicationPayload = [];
+    this.datasetPayload = [];
   }
 
   confirmPayload() {
-    const merged = this.confirmedPayload.concat(this.publicationPayload);
+    const merged = this.confirmedPayload.concat(this.datasetPayload);
     this.confirmedPayload = merged;
     this.confirmedPayloadSource.next(merged);
   }
@@ -74,42 +74,40 @@ export class PublicationsService {
     this.confirmedPayloadSource.next([]);
   }
 
-  removeFromConfirmed(publicationId: string) {
-    const filtered = this.confirmedPayload.filter(
-      (item) => item.publicationId !== publicationId
-    );
+  removeFromConfirmed(id: string) {
+    const filtered = this.confirmedPayload.filter((item) => item.id !== id);
 
     this.confirmedPayload = filtered;
     this.confirmedPayloadSource.next(filtered);
   }
 
-  addToDeletables(publication) {
-    this.deletables.push(publication);
+  addToDeletables(dataset) {
+    this.deletables.push(dataset);
   }
 
   clearDeletables() {
     this.deletables = [];
   }
 
-  addPublications() {
+  addDatasets() {
     this.updateTokenInHttpAuthHeader();
-    const body = this.publicationPayload.map((item) => ({
-      publicationId: item.id,
+    const body = this.datasetPayload.map((item) => ({
+      localIdentifier: item.id,
       show: item.itemMeta.show,
       primaryValue: item.itemMeta.primaryValue,
     }));
     return this.http.post(
-      this.profileApiUrl + '/publication/',
+      this.profileApiUrl + '/researchdataset/',
       body,
       this.httpOptions
     );
   }
 
-  removePublications(publications) {
+  removeDatasets(datasets) {
     this.updateTokenInHttpAuthHeader();
-    const body = publications.map((publication) => publication.publicationId);
+    const body = datasets.map((dataset) => dataset.id);
     return this.http.post(
-      this.profileApiUrl + '/publication/remove/',
+      this.profileApiUrl + '/researchdataset/remove/',
       body,
       this.httpOptions
     );

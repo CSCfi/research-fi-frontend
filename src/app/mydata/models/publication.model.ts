@@ -8,6 +8,7 @@
 import { Injectable } from '@angular/core';
 import { Adapter } from './adapter.model';
 import { mapGroup } from './utils';
+import { PublicationItemAdapter } from './item/publication-item.model';
 
 export class PublicationFields {
   constructor(public publication: any) {}
@@ -18,9 +19,16 @@ export class PublicationFields {
 })
 export class PublicationFieldsAdapter implements Adapter<PublicationFields> {
   mapGroup = mapGroup;
-  constructor() {}
+  constructor(private publicationItemAdapter: PublicationItemAdapter) {}
 
   adapt(item: any): PublicationFields {
+    item.publicationGroups.forEach(
+      (group) =>
+        (group.items = group.items.map(
+          (item) => (item = this.publicationItemAdapter.adapt(item))
+        ))
+    );
+
     return new PublicationFields(
       this.mapGroup(
         item.publicationGroups,

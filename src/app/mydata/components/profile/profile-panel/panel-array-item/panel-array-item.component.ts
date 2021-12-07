@@ -5,22 +5,26 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   selector: 'app-panel-array-item',
   templateUrl: './panel-array-item.component.html',
 })
-export class PanelArrayItemComponent {
+export class PanelArrayItemComponent implements OnInit {
   @Input() item: any;
   @Input() fieldType: string;
   @Input() localized: boolean;
 
   fieldTypes = FieldTypes;
 
-  // TODO: Dynamic locale
-  locale = 'Fi';
+  locale: string;
 
-  constructor() {}
+  constructor(private appSettingsService: AppSettingsService) {
+    this.locale = this.appSettingsService.capitalizedLocale;
+  }
+
+  ngOnInit(): void {}
 }

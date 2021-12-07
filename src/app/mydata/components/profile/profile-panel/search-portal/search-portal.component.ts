@@ -112,7 +112,6 @@ export class SearchPortalComponent implements OnInit {
   }
 
   handleSelection(arr) {
-    console.log(arr);
     this.currentSelection = arr;
   }
 
@@ -134,48 +133,15 @@ export class SearchPortalComponent implements OnInit {
     const selection = this.currentSelection.map((item) => ({
       id: item.id,
       title: item.title || item.name,
-      year: item.year,
+      year: item.year || item.publicationYear,
       itemMeta: {
         id: item.id,
         type: this.fieldTypes.activityPublication,
         show: true,
         primaryValue: true,
       },
-      // itemMeta: { id: null, show: true, primaryValue: true }, id null, testing for draft summary
     }));
 
     this.dialogRef.close({ selection: selection });
-
-    // const publications = this.currentSelection.map((item) => ({
-    //   publicationId: item.publicationId,
-    //   show: true,
-    //   primaryValue: true,
-    // }));
-
-    // this.publicationService
-    //   .addPublications(publications)
-    //   .pipe(take(1))
-    //   .subscribe((res: any) => {
-    //     if (res.ok && res.body.success) {
-    //       const data = res.body.data;
-
-    //       const preSelection = this.data.selectedPublications;
-
-    //       const sortPublications = (publications) => {
-    //         return publications.sort(
-    //           (a, b) => b.publicationYear - a.publicationYear
-    //         );
-    //       };
-
-    //       this.dialogRef.close({
-    //         selectedPublications: preSelection
-    //           ? sortPublications(data.publicationsAdded.concat(preSelection))
-    //           : sortPublications(data.publicationsAdded),
-    //         publicationsNotFound: data.publicationsNotFound,
-    //         publicationsAlreadyInProfile: data.publicationsAlreadyInProfile,
-    //         source: data.source,
-    //       });
-    //     }
-    //   });
   }
 }

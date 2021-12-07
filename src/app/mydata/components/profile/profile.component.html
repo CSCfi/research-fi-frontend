@@ -49,6 +49,7 @@
           class="d-inline-block pl-0 pl-lg-3 h6 font-italic"
           *ngIf="
             (publicationsService.currentPublicationPayload | async).length ||
+            (datasetsService.currentDatasetPayload | async).length ||
             (patchService.currentPatchItems | async).length
           "
         >
@@ -82,6 +83,7 @@
         class="col px-0 py-2 text-right"
         *ngIf="
           (publicationsService.currentPublicationPayload | async).length ||
+          (datasetsService.currentDatasetPayload | async).length ||
           (patchService.currentPatchItems | async).length
         "
       >
@@ -151,6 +153,10 @@
           <div class="row">
             currentPublicationPayload:
             {{ (publicationsService.currentPublicationPayload | async).length }}
+          </div>
+          <div class="row">
+            currentDatasetPayload:
+            {{ (datasetsService.currentDatasetPayload | async).length }}
           </div>
           <div class="row">
             currentPatchItems:
