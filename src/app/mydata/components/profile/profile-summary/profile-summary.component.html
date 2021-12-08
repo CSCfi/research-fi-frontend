@@ -77,18 +77,25 @@
                 let groupItem of field.groupItems | filter: checkGroupSelected
               "
             >
-              <div class="summary-panel" [ngSwitch]="groupItem.groupMeta.type">
-                <ng-container *ngSwitchCase="fieldTypes.personKeyword">
+              <ng-container [ngSwitch]="groupItem.groupMeta.type">
+                <div
+                  class="summary-panel"
+                  *ngSwitchCase="fieldTypes.personKeyword"
+                >
                   <!-- Display joined keywords only if item has show property set to true -->
                   <div class="row" *ngIf="groupItem.items[0].itemMeta.show">
                     <div class="col pb-2 font-size-smaller">
                       {{ groupItem.items | joinItems: 'value' }}
                     </div>
                   </div>
-                </ng-container>
+                  <app-summary-divider></app-summary-divider>
+                </div>
 
                 <ng-container *ngSwitchDefault>
-                  <ng-container *ngFor="let item of groupItem.items">
+                  <div
+                    class="summary-panel"
+                    *ngFor="let item of groupItem.items"
+                  >
                     <div
                       class="row d-flex justify-content-between py-1"
                       *ngIf="item.itemMeta.show"
@@ -101,10 +108,10 @@
                         ></app-panel-array-item>
                       </div>
                     </div>
-                  </ng-container>
+                    <app-summary-divider></app-summary-divider>
+                  </div>
                 </ng-container>
-                <app-summary-divider></app-summary-divider>
-              </div>
+              </ng-container>
             </ng-container>
           </div>
         </div>

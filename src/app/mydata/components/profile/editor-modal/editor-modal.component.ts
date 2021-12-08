@@ -21,6 +21,7 @@ import { Constants } from '@mydata/constants';
 import { PublicationsService } from '@mydata/services/publications.service';
 import { take } from 'rxjs/operators';
 import { DatasetsService } from '@mydata/services/datasets.service';
+import { FundingsService } from '@mydata/services/fundings.service';
 
 @Component({
   selector: 'app-editor-modal',
@@ -50,7 +51,8 @@ export class EditorModalComponent implements OnInit {
     private dialogRef: MatDialogRef<EditorModalComponent>,
     private patchService: PatchService,
     private publicationsService: PublicationsService,
-    private datasetsService: DatasetsService
+    private datasetsService: DatasetsService,
+    private fundingsService: FundingsService
   ) {}
 
   ngOnInit(): void {
@@ -79,7 +81,7 @@ export class EditorModalComponent implements OnInit {
       })
     );
 
-    this.patchService.addToPatchItems(patchItems);
+    this.patchService.addToPayload(patchItems);
   }
 
   checkAllSelected() {
@@ -131,30 +133,27 @@ export class EditorModalComponent implements OnInit {
 
     this.editorData = { ...copy };
 
-    this.patchService.addToPatchItems(patchItems);
+    this.patchService.addToPayload(patchItems);
 
     // event.checked
-    //   ? this.patchService.addToPatchItems(patchItems)
-    //   : this.patchService.clearPatchItems();
+    //   ? this.patchService.addToPayload(patchItems)
+    //   : this.patchService.clearPayload();
   }
 
   saveChanges() {
-    this.patchService.confirmPatchItems();
+    this.patchService.confirmPayload();
     this.publicationsService.confirmPayload();
     this.datasetsService.confirmPayload();
+    this.fundingsService.confirmPayload();
 
     // Pass data to parent on dialog close
     this.dialogRef.close({
       data: this.editorData.data,
-      patchPublications:
-        this.editorData.data.fields[0].selectedPublications?.filter(
-          (item) => item.show
-        ),
     });
   }
 
   close() {
-    this.patchService.clearPatchItems();
+    this.patchService.clearPayload();
     this.publicationsService.clearPayload();
     this.publicationsService.clearDeletables();
     this.dialogRef.close();

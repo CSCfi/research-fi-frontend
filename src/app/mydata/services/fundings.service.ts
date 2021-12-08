@@ -11,24 +11,20 @@ import { AppConfigService } from '@shared/services/app-config-service.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { BehaviorSubject } from 'rxjs';
 
-export interface Dataset {
-  hits: any;
-}
-
 @Injectable({
   providedIn: 'root',
 })
-export class DatasetsService {
+export class FundingsService {
   apiUrl: string;
   profileApiUrl: string;
   httpOptions: object;
 
-  datasetPayload = [];
+  fundingPayload = [];
   confirmedPayload = [];
   deletables = [];
 
   private confirmedPayloadSource = new BehaviorSubject<any>([]);
-  currentDatasetPayload = this.confirmedPayloadSource.asObservable();
+  currentFundingPayload = this.confirmedPayloadSource.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -53,16 +49,16 @@ export class DatasetsService {
     };
   }
 
-  addToPayload(datasets: any) {
-    this.datasetPayload = this.datasetPayload.concat(datasets);
+  addToPayload(fundings: any) {
+    this.fundingPayload = this.fundingPayload.concat(fundings);
   }
 
   clearPayload() {
-    this.datasetPayload = [];
+    this.fundingPayload = [];
   }
 
   confirmPayload() {
-    const merged = this.confirmedPayload.concat(this.datasetPayload);
+    const merged = this.confirmedPayload.concat(this.fundingPayload);
     this.confirmedPayload = merged;
     this.confirmedPayloadSource.next(merged);
   }
@@ -81,33 +77,35 @@ export class DatasetsService {
     this.confirmedPayloadSource.next(filtered);
   }
 
-  addToDeletables(dataset) {
-    this.deletables.push(dataset);
+  addToDeletables(funding) {
+    this.deletables.push(funding);
   }
 
   clearDeletables() {
     this.deletables = [];
   }
 
-  addDatasets() {
+  addFundings() {
     this.updateTokenInHttpAuthHeader();
-    const body = this.datasetPayload.map((item) => ({
-      localIdentifier: item.id,
+
+    const body = this.fundingPayload.map((item) => ({
+      projectId: item.id,
       show: item.itemMeta.show,
       primaryValue: item.itemMeta.primaryValue,
     }));
+
     return this.http.post(
-      this.profileApiUrl + '/researchdataset/',
+      this.profileApiUrl + '/fundingdecision/',
       body,
       this.httpOptions
     );
   }
 
-  removeItems(datasets) {
+  removeItems(fundings) {
     this.updateTokenInHttpAuthHeader();
-    const body = datasets.map((dataset) => dataset.id);
+    const body = fundings.map((funding) => funding.id);
     return this.http.post(
-      this.profileApiUrl + '/researchdataset/remove/',
+      this.profileApiUrl + '/fundingdecision/remove/',
       body,
       this.httpOptions
     );

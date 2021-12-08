@@ -58,6 +58,10 @@ export class SearchPortalService {
         defaultSortField = 'datasetCreated';
         break;
       }
+      case 'funding': {
+        defaultSortField = 'fundingStartYear';
+        break;
+      }
     }
 
     return defaultSortField;

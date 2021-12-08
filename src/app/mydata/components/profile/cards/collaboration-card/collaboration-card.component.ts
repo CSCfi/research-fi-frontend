@@ -5,11 +5,18 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, Input, OnInit, ViewEncapsulation, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ViewEncapsulation,
+  EventEmitter,
+  Output,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ProfileService } from "@mydata/services/profile.service";
+import { ProfileService } from '@mydata/services/profile.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
-import {take} from "rxjs/operators";
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-collaboration-card',
@@ -33,10 +40,14 @@ export class CollaborationCardComponent implements OnInit {
   optionsToggled = [];
   nameLocale = '';
 
-  constructor(private dialog: MatDialog, private profileService: ProfileService, private appSettingsService: AppSettingsService) {}
+  constructor(
+    private dialog: MatDialog,
+    private profileService: ProfileService,
+    private appSettingsService: AppSettingsService
+  ) {}
 
   ngOnInit(): void {
-    this.reloadCollaborationChoices()
+    this.reloadCollaborationChoices();
   }
 
   public reloadCollaborationChoices() {

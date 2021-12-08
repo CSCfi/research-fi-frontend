@@ -29,8 +29,18 @@
 <div class="summary-panel-wrapper">
   <ng-container *ngFor="let item of sortedItems">
     <div class="summary-panel" *ngIf="item.itemMeta.show">
-      <div class="col font-weight-bold pb-3">
-        {{ item['organizationName' + locale] }}
+      <div class="col pb-3">
+        <span class="font-weight-bold">{{
+          item['organizationName' + locale]
+        }}</span>
+
+        <div class="font-size-smaller">
+          <ng-container>{{ item.startDate.year }}</ng-container>
+          -
+          <ng-container *ngIf="item.endDate.year > 0">{{
+            item.endDate.year
+          }}</ng-container>
+        </div>
       </div>
 
       <div class="row d-flex justify-content-between py-1 font-size-smaller">

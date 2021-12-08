@@ -48,7 +48,7 @@ export class SearchPortalComponent implements OnInit {
 
   publicationSearchPlaceholder = $localize`:@@nameOfPublicationOrAuthor:Julkaisun tai tekijän nimi`;
   datasetSearchPlaceholder = $localize`:@@nameOfDatasetOrAuthor:Tutkimusaineiston tai tekijän nimi`;
-  fundingSearchPlaceholder = $localize`:@@nameOfFundingOrAuthor:Name of funding or author`;
+  fundingSearchPlaceholder = $localize`:@@nameOfFundingOrAuthor:Hankkeen tai tekijän nimi`;
 
   constructor(
     private dialogRef: MatDialogRef<SearchPortalComponent>,
@@ -130,13 +130,30 @@ export class SearchPortalComponent implements OnInit {
   }
 
   saveChanges() {
+    let fieldType: number;
+
+    switch (this.data.groupId) {
+      case 'publication': {
+        fieldType = this.fieldTypes.activityPublication;
+        break;
+      }
+      case 'dataset': {
+        fieldType = this.fieldTypes.activityDataset;
+        break;
+      }
+      case 'funding': {
+        fieldType = this.fieldTypes.activityFunding;
+        break;
+      }
+    }
+
     const selection = this.currentSelection.map((item) => ({
       id: item.id,
       title: item.title || item.name,
       year: item.year || item.publicationYear,
       itemMeta: {
         id: item.id,
-        type: this.fieldTypes.activityPublication,
+        type: fieldType,
         show: true,
         primaryValue: true,
       },

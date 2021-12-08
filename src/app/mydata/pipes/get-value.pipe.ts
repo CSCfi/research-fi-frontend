@@ -6,10 +6,10 @@ import { get } from 'lodash-es';
 })
 
 /*
- * Get object value from array by string path
+ * Get object value with Lodasg get() method. Used eg. when collecting values with dot notation.
  */
 export class GetValuePipe implements PipeTransform {
-  transform(array: any[], path: string): string {
-    return get(array, path);
+  transform(values: any, path: string): string {
+    return get(values, path);
   }
 }

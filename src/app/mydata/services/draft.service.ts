@@ -29,6 +29,7 @@ export class DraftService {
       sessionStorage.removeItem(Constants.draftPatchPayload);
       sessionStorage.removeItem(Constants.draftPublicationPatchPayload);
       sessionStorage.removeItem(Constants.draftDatasetPatchPayload);
+      sessionStorage.removeItem(Constants.draftFundingPatchPayload);
     }
   }
 }

@@ -305,8 +305,6 @@ export class PublicationFilterService {
       source.sectorName.buckets[sector].subData = source.sectorName.buckets[
         sector
       ].subData.filter((org) => org.key === orgId);
-
-      console.log(source);
     }
 
     return source;

@@ -42,10 +42,18 @@
     >
     </ng-container>
 
-    <ng-container
-      *ngSwitchCase="fieldTypes.activityDataset"
-      [ngTemplateOutlet]="portalItemTemplate"
-    >
+    <ng-container *ngSwitchCase="fieldTypes.activityDataset">
+      <app-activity-item
+        [rows]="[item.title, item.funderName, item.year]"
+        [smallLastItem]="true"
+      ></app-activity-item>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="fieldTypes.activityFunding">
+      <app-activity-item
+        [rows]="[item.title, item.funderName, item.year]"
+        [smallLastItem]="true"
+      ></app-activity-item>
     </ng-container>
 
     <ng-template #portalItemTemplate [ngTemplateOutlet]="currentTemplate">

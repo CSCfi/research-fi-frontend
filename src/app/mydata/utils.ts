@@ -47,25 +47,6 @@ export function checkGroupPatchItem(group, patchItems) {
 /*
  * Shared methods
  */
-export function getDataSources(profileData, locale: string = 'Fi') {
-  // Remove default locale when app is localized
-  const mapDataSources = (data) => {
-    return data
-      .map((item) => item.fields)
-      .filter((field) => field.length)
-      .flat()
-      .map((field) => field.groupItems)
-      .flat()
-      .map((field) => field.source && field.source.organization)
-      .filter((field) => field);
-  };
-
-  return [
-    ...new Map(
-      mapDataSources(profileData).map((item) => [item['name' + locale], item])
-    ).values(),
-  ].map((item) => item['name' + locale]);
-}
 
 export function mergePublications(data) {
   if (!isEmptySection(data)) {

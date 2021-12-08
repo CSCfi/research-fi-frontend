@@ -12,6 +12,6 @@ export const GroupTypes = {
   education: 'education',
   publication: 'publication',
   dataset: 'dataset',
-  project: 'project',
+  funding: 'funding',
   activity: 'activity',
 };

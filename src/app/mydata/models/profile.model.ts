@@ -13,6 +13,7 @@ import { AffiliationFieldsAdapter } from './affiliation.model';
 import { EducationFieldsAdapter } from './education.model';
 import { PublicationFieldsAdapter } from './publication.model';
 import { DatasetFieldsAdapter } from './dataset.model';
+import { FundingFieldsAdapter } from './funding.model';
 import { GroupTypes } from '@mydata/constants/groupTypes';
 
 export class Profile {
@@ -29,7 +30,8 @@ export class ProfileAdapter implements Adapter<Profile> {
     private affiliationFieldsAdapter: AffiliationFieldsAdapter,
     private educationFieldsAdapter: EducationFieldsAdapter,
     private publicationFieldsAdapter: PublicationFieldsAdapter,
-    private datasetFieldsAdapter: DatasetFieldsAdapter
+    private datasetFieldsAdapter: DatasetFieldsAdapter,
+    private fundingFieldsAdapter: FundingFieldsAdapter
   ) {}
 
   adapt(item: any): Profile {
@@ -37,7 +39,6 @@ export class ProfileAdapter implements Adapter<Profile> {
 
     const mapModel = (adapter, data) => Object.values(adapter.adapt(data));
 
-    // TODO: Localize labels
     return new Profile([
       {
         id: GroupTypes.contact,
@@ -70,9 +71,9 @@ export class ProfileAdapter implements Adapter<Profile> {
         fields: mapModel(this.datasetFieldsAdapter, data.activity),
       },
       {
-        id: GroupTypes.project,
+        id: GroupTypes.funding,
         label: $localize`:@@fundings:Hankkeet`,
-        fields: [],
+        fields: mapModel(this.fundingFieldsAdapter, data.activity),
       },
       {
         id: GroupTypes.activity,

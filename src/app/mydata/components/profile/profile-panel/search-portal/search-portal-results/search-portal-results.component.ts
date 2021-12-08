@@ -46,7 +46,7 @@ export class SearchPortalResultsComponent
   currentPageSize = 10;
   pageCount: number;
 
-  columns: string[] = ['selection', 'year', 'name', 'edit'];
+  columns: string[] = ['selection', 'year', 'name', 'show-more'];
 
   sortSettings: any;
   selectedItemsIdArray: any[];
@@ -82,7 +82,7 @@ export class SearchPortalResultsComponent
 
   datasetsTable = {
     idField: 'id',
-    defaultSort: 'datasetCreated',
+    defaultSort: 'year',
     columns: [
       {
         id: 'year',
@@ -102,6 +102,44 @@ export class SearchPortalResultsComponent
           },
           { field: 'authors', useComponent: true, hidden: true },
           { field: 'urn', hidden: true },
+        ],
+      },
+    ],
+  };
+
+  fundingsTable = {
+    idField: 'id',
+    defaultSort: 'year',
+    columns: [
+      {
+        id: 'year',
+        label: $localize`:@@year:Vuosi`,
+        field: 'startYear',
+      },
+      {
+        id: 'name',
+        ellipsis: true,
+        label: $localize`:@@name:Nimi`,
+        field: 'name',
+        additionalFields: [
+          { field: 'funderProjectNumber' },
+          {
+            field: 'description',
+            ellipsis: true,
+            cutContent: true,
+          },
+          {
+            field: 'recipient.combined',
+            hidden: true,
+          },
+          {
+            field: 'funder.typeOfFundingName',
+            hidden: true,
+          },
+          {
+            field: 'funder.name',
+            hidden: true,
+          },
         ],
       },
     ],
@@ -128,6 +166,10 @@ export class SearchPortalResultsComponent
         this.currentTable = this.datasetsTable;
         break;
       }
+      case 'funding': {
+        this.currentTable = this.fundingsTable;
+        break;
+      }
     }
 
     // Reset to first page on term change
@@ -140,7 +182,7 @@ export class SearchPortalResultsComponent
     const profileItems = this.itemsInProfile
       .flatMap((item) => item.items)
       .map((item) => item.id)
-      .filter((item) => item?.trim().length);
+      .filter((item) => item?.toString().trim().length);
 
     this.selectedItemsIdArray = profileItems;
   }

@@ -50,7 +50,9 @@
           *ngIf="
             (publicationsService.currentPublicationPayload | async).length ||
             (datasetsService.currentDatasetPayload | async).length ||
-            (patchService.currentPatchItems | async).length
+            (fundingsService.currentFundingPayload | async).length ||
+            (patchService.currentPatchItems | async).length ||
+            collaborationOptionsChanged
           "
         >
           - <ng-container i18n="@@draft">Luonnos</ng-container></span
@@ -85,7 +87,9 @@
         *ngIf="
           (publicationsService.currentPublicationPayload | async).length ||
           (datasetsService.currentDatasetPayload | async).length ||
-          (patchService.currentPatchItems | async).length || collaborationOptionsChanged
+          (fundingsService.currentFundingPayload | async).length ||
+          (patchService.currentPatchItems | async).length ||
+          collaborationOptionsChanged
         "
       >
         <app-primary-action-button
@@ -160,8 +164,16 @@
             {{ (datasetsService.currentDatasetPayload | async).length }}
           </div>
           <div class="row">
+            currentFundingPayload:
+            {{ (fundingsService.currentFundingPayload | async).length }}
+          </div>
+          <div class="row">
             currentPatchItems:
             {{ (patchService.currentPatchItems | async).length }}
+          </div>
+          <div class="row">
+            collaborationOptionsChanged:
+            {{ collaborationOptionsChanged }}
           </div>
         </ng-container>
 
@@ -176,7 +188,8 @@
 
         <!-- Collaboration -->
         <aside class="profile-card">
-          <app-collaboration-card #collaborationComponentRef
+          <app-collaboration-card
+            #collaborationComponentRef
             i18n-label="@@cooperation"
             label="Yhteistyö"
             (collaborationOptionsChanges)="changeCollaborationOptions($event)"

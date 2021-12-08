@@ -29,6 +29,7 @@ import { CommonStrings } from '@mydata/constants/strings';
 import { checkGroupSelected } from '@mydata/utils';
 import { UtilityService } from '@shared/services/utility.service';
 import { DatasetsService } from '@mydata/services/datasets.service';
+import { FundingsService } from '@mydata/services/fundings.service';
 
 @Component({
   selector: 'app-profile',
@@ -113,6 +114,7 @@ export class ProfileComponent implements OnInit {
     public patchServiceCollaboration: PatchService,
     public publicationsService: PublicationsService,
     public datasetsService: DatasetsService,
+    public fundingsService: FundingsService,
     private utilityService: UtilityService
   ) {
     this.testData = profileService.testData;
@@ -134,7 +136,11 @@ export class ProfileComponent implements OnInit {
       .getProfileData()
       .pipe(take(1))
       .subscribe((response) => {
-        // Get data from session storage if draft is available
+        /*
+         * Draft data is stored in session storage.
+         * Set draft data to profile view if draft available.
+         * Drafts are deleted with reset ond publish methods
+         */
         if (this.appSettingsService.isBrowser) {
           const draft = sessionStorage.getItem(Constants.draftProfile);
           const draftPatchPayload = JSON.parse(
@@ -146,10 +152,13 @@ export class ProfileComponent implements OnInit {
           const draftDatasetPatchPayload = JSON.parse(
             sessionStorage.getItem(Constants.draftDatasetPatchPayload)
           );
+          const draftFundingPatchPayload = JSON.parse(
+            sessionStorage.getItem(Constants.draftFundingPatchPayload)
+          );
 
           this.draftPayload = draftPatchPayload;
 
-          // Display either draft profile or profile from database
+          // Display either draft profile from storage or profile from database
           if (draft) {
             const parsedDraft = JSON.parse(draft);
             this.draftService.saveDraft(parsedDraft);
@@ -164,23 +173,30 @@ export class ProfileComponent implements OnInit {
             );
           }
 
-          // Set draft patch payload from storage
-          if (draftPatchPayload) {
-            this.patchService.addToPatchItems(draftPatchPayload);
-            this.patchService.confirmPatchItems();
-          }
+          // Profile, publications, datasets and fundings have separate draft data
+          const draftItems = [
+            { payload: draftPatchPayload, service: this.patchService },
+            {
+              payload: draftPublicationPatchPayload,
+              service: this.publicationsService,
+            },
+            {
+              payload: draftDatasetPatchPayload,
+              service: this.datasetsService,
+            },
+            {
+              payload: draftFundingPatchPayload,
+              service: this.fundingsService,
+            },
+          ];
 
-          // Set draft publication patch payload from storage
-          if (draftPublicationPatchPayload) {
-            this.publicationsService.addToPayload(draftPublicationPatchPayload);
-            this.publicationsService.confirmPayload();
-          }
-
-          // Set draft dataset patch payload from storage
-          if (draftDatasetPatchPayload) {
-            this.datasetsService.addToPayload(draftDatasetPatchPayload);
-            this.datasetsService.confirmPayload();
-          }
+          // Set draft item into view if draft available in storage
+          draftItems.forEach((item) => {
+            if (item.payload) {
+              item.service.addToPayload(item.payload);
+              item.service.confirmPayload();
+            }
+          });
         }
 
         // Set original data
@@ -287,13 +303,15 @@ export class ProfileComponent implements OnInit {
       this.publicationsService
         .addPublications()
         .pipe(take(1))
-        .subscribe((result) => {
+        .subscribe(
+          (result) => {
             resolve(true);
           },
           (error) => {
             reject(error);
-          });}
-    );
+          }
+        );
+    });
   }
 
   /*
@@ -301,21 +319,20 @@ export class ProfileComponent implements OnInit {
    */
   private async patchItemsPromise() {
     return new Promise((resolve, reject) => {
-        const patchItems = this.patchService.confirmedPatchItems;
-        this.profileService
-          .patchObjects(patchItems)
-          .pipe(take(1))
-          .subscribe(
-            (result) => {
-              resolve(true);
-              this.clearDraftData();
-            },
-            (error) => {
-              reject(error);
-            }
-          );
-    }
-    );
+      const patchItems = this.patchService.confirmedPatchItems;
+      this.profileService
+        .patchObjects(patchItems)
+        .pipe(take(1))
+        .subscribe(
+          (result) => {
+            resolve(true);
+            this.clearDraftData();
+          },
+          (error) => {
+            reject(error);
+          }
+        );
+    });
   }
 
   /*
@@ -323,16 +340,37 @@ export class ProfileComponent implements OnInit {
    */
   private async handleDatasetsPromise() {
     return new Promise((resolve, reject) => {
-    this.datasetsService
-      .addDatasets()
-      .pipe(take(1))
-      .subscribe((result) => {
-          resolve(true);
-        },
-        (error) => {
-          reject(error);
-        });}
-    );
+      this.datasetsService
+        .addDatasets()
+        .pipe(take(1))
+        .subscribe(
+          (result) => {
+            resolve(true);
+          },
+          (error) => {
+            reject(error);
+          }
+        );
+    });
+  }
+
+  /*
+   * Patch fundings to backend
+   */
+  private async handleFundingsPromise() {
+    return new Promise((resolve, reject) => {
+      this.fundingsService
+        .addFundings()
+        .pipe(take(1))
+        .subscribe(
+          (result) => {
+            resolve(true);
+          },
+          (error) => {
+            reject(error);
+          }
+        );
+    });
   }
 
   /*
@@ -343,39 +381,44 @@ export class ProfileComponent implements OnInit {
       this.profileService
         .patchCooperationChoices(this.collaborationOptions)
         .pipe(take(1))
-        .subscribe((result) => {
+        .subscribe(
+          (result) => {
             resolve(true);
           },
           (error) => {
             reject(error);
-          });}
-    );
+          }
+        );
+    });
   }
 
   publish() {
     const promises = [];
     promises.push(this.handlePublicationsPromise());
     promises.push(this.handleDatasetsPromise());
+    promises.push(this.handleFundingsPromise());
     promises.push(this.patchItemsPromise());
     promises.push(this.patchCooperationChoicesPromise());
     Promise.all(promises)
-      .then(response => {
+      .then((response) => {
         if (response.includes(false)) {
-          this.collaborationOptionsChanged = false;
           this.showSaveSuccessfulMessage(false);
-        }
-        else {
+        } else {
           this.showSaveSuccessfulMessage(true);
+          this.collaborationOptionsChanged = false;
         }
       })
-      .catch(error => {
+      .catch((error) => {
         this.collaborationOptionsChanged = false;
         this.showSaveSuccessfulMessage(false);
-        console.log(`Error in data patching`, error)
+        console.log(`Error in data patching`, error);
       });
     this.profileService.setCurrentProfileData(this.profileData);
   }
 
+  /*
+   * Clear draft data from storage and service
+   */
   reset() {
     const currentProfileData = this.profileService.currentProfileData;
 
@@ -384,6 +427,8 @@ export class ProfileComponent implements OnInit {
     sessionStorage.removeItem(Constants.draftPatchPayload);
     sessionStorage.removeItem(Constants.draftPublicationPatchPayload);
     sessionStorage.removeItem(Constants.draftDatasetPatchPayload);
+    sessionStorage.removeItem(Constants.draftFundingPatchPayload);
+
     this.profileData = [...currentProfileData];
     this.profileService.setCurrentProfileName(this.getName(currentProfileData));
     this.collaborationOptionsChanged = false;
@@ -391,14 +436,19 @@ export class ProfileComponent implements OnInit {
   }
 
   clearDraftData() {
-    this.patchService.clearPatchItems();
-    this.patchService.cancelConfirmedPatchPayload();
-    this.patchServiceCollaboration.clearPatchItems();
-    this.patchServiceCollaboration.cancelConfirmedPatchPayload();
-    this.publicationsService.clearPayload();
-    this.publicationsService.cancelConfirmedPayload();
-    this.datasetsService.clearPayload();
-    this.datasetsService.cancelConfirmedPayload();
+    const itemServices = [
+      this.patchService,
+      this.patchServiceCollaboration,
+      this.publicationsService,
+      this.datasetsService,
+      this.fundingsService,
+    ];
+
+    itemServices.forEach((service) => {
+      service.clearPayload();
+      service.cancelConfirmedPayload();
+    });
+
     this.draftService.clearData();
   }
 
@@ -410,14 +460,13 @@ export class ProfileComponent implements OnInit {
     this.collaborationOptionsChanged = true;
   }
 
-  showSaveSuccessfulMessage(wasSuccessful: boolean){
-    if (wasSuccessful)  {
+  showSaveSuccessfulMessage(wasSuccessful: boolean) {
+    if (wasSuccessful) {
       this.snackbarService.show(
         $localize`:@@profilePublishedToast:Profiili julkaistu. Tiedot näkyvät muutaman minuutin kuluttua tiedejatutkimus.fi -palvelussa.`,
         'success'
       );
-    }
-    else {
+    } else {
       this.snackbarService.show(
         $localize`:@@dataSavingError:Virhe tiedon tallennuksessa`,
         'error'
