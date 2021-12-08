@@ -37,6 +37,9 @@ import { DatasetsService } from '@mydata/services/datasets.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class ProfileComponent implements OnInit {
+  @ViewChild('deletingProfileTemplate') deletingProfileTemplate: ElementRef;
+  @ViewChild('collaborationComponentRef') collaborationComponentRef;
+
   orcidData: any;
   profileData: any;
   testData: any;
@@ -87,7 +90,6 @@ export class ProfileComponent implements OnInit {
       method: 'discard',
     },
   ];
-  @ViewChild('deletingProfileTemplate') deletingProfileTemplate: ElementRef;
 
   connProblem: boolean;
   loading: boolean;
@@ -377,6 +379,7 @@ export class ProfileComponent implements OnInit {
   reset() {
     const currentProfileData = this.profileService.currentProfileData;
 
+    this.collaborationComponentRef.reloadCollaborationChoices();
     sessionStorage.removeItem(Constants.draftProfile);
     sessionStorage.removeItem(Constants.draftPatchPayload);
     sessionStorage.removeItem(Constants.draftPublicationPatchPayload);

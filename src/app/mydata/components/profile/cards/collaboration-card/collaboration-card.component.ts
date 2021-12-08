@@ -36,6 +36,10 @@ export class CollaborationCardComponent implements OnInit {
   constructor(private dialog: MatDialog, private profileService: ProfileService, private appSettingsService: AppSettingsService) {}
 
   ngOnInit(): void {
+    this.reloadCollaborationChoices()
+  }
+
+  public reloadCollaborationChoices() {
     this.nameLocale = 'name' + this.appSettingsService.capitalizedLocale;
     this.profileService
       .getCooperationChoices()
