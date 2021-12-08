@@ -94,6 +94,8 @@ export class ProfileComponent implements OnInit {
   deletingProfile: boolean;
 
   draftPayload: any[];
+  collaborationOptions: any[];
+  collaborationOptionsChanged: boolean;
 
   checkGroupSelected = checkGroupSelected;
 
@@ -106,6 +108,7 @@ export class ProfileComponent implements OnInit {
     private snackbarService: SnackbarService,
     public draftService: DraftService,
     public patchService: PatchService,
+    public patchServiceCollaboration: PatchService,
     public publicationsService: PublicationsService,
     public datasetsService: DatasetsService,
     private utilityService: UtilityService
@@ -274,11 +277,98 @@ export class ProfileComponent implements OnInit {
     this.disableDialogClose = false;
   }
 
+  /*
+   * Add selected publications to profile
+   */
+  private async handlePublicationsPromise() {
+    return new Promise((resolve, reject) => {
+      this.publicationsService
+        .addPublications()
+        .pipe(take(1))
+        .subscribe((result) => {
+            resolve(true);
+          },
+          (error) => {
+            reject(error);
+          });}
+    );
+  }
+
+  /*
+   * Patch items to backend
+   */
+  private async patchItemsPromise() {
+    return new Promise((resolve, reject) => {
+        const patchItems = this.patchService.confirmedPatchItems;
+        this.profileService
+          .patchObjects(patchItems)
+          .pipe(take(1))
+          .subscribe(
+            (result) => {
+              resolve(true);
+              this.clearDraftData();
+            },
+            (error) => {
+              reject(error);
+            }
+          );
+    }
+    );
+  }
+
+  /*
+   * Patch datasets to backend
+   */
+  private async handleDatasetsPromise() {
+    return new Promise((resolve, reject) => {
+    this.datasetsService
+      .addDatasets()
+      .pipe(take(1))
+      .subscribe((result) => {
+          resolve(true);
+        },
+        (error) => {
+          reject(error);
+        });}
+    );
+  }
+
+  /*
+   * Patch cooperation choices to backend
+   */
+  private async patchCooperationChoicesPromise() {
+    return new Promise((resolve, reject) => {
+      this.profileService
+        .patchCooperationChoices(this.collaborationOptions)
+        .pipe(take(1))
+        .subscribe((result) => {
+            resolve(true);
+          },
+          (error) => {
+            reject(error);
+          });}
+    );
+  }
+
   publish() {
-    // TODO: Forkjoin both HTTP requests and handle results as single
-    this.handlePublications();
-    this.handleDatasets();
-    this.patchItems();
+    const promises = [];
+    promises.push(this.handlePublicationsPromise());
+    promises.push(this.handleDatasetsPromise());
+    promises.push(this.patchItemsPromise());
+    promises.push(this.patchCooperationChoicesPromise());
+    Promise.all(promises)
+      .then(response => {
+        if (response.includes(false)) {
+          this.showSaveSuccessfulMessage(false);
+        }
+        else {
+          this.showSaveSuccessfulMessage(true);
+        }
+      })
+      .catch(error => {
+        this.showSaveSuccessfulMessage(false);
+        console.log(`Error in data patching`, error)
+      });
     this.profileService.setCurrentProfileData(this.profileData);
   }
 
@@ -298,6 +388,8 @@ export class ProfileComponent implements OnInit {
   clearDraftData() {
     this.patchService.clearPatchItems();
     this.patchService.cancelConfirmedPatchPayload();
+    this.patchServiceCollaboration.clearPatchItems();
+    this.patchServiceCollaboration.cancelConfirmedPatchPayload();
     this.publicationsService.clearPayload();
     this.publicationsService.cancelConfirmedPayload();
     this.datasetsService.clearPayload();
@@ -305,46 +397,26 @@ export class ProfileComponent implements OnInit {
     this.draftService.clearData();
   }
 
-  /*
-   * Add portal items to profile
-   */
-  handlePublications() {
-    this.publicationsService
-      .addPublications()
-      .pipe(take(1))
-      .subscribe((result) => {});
+  changeCollaborationOptions(input: any) {
+    this.collaborationOptions = input;
   }
 
-  handleDatasets() {
-    this.datasetsService
-      .addDatasets()
-      .pipe(take(1))
-      .subscribe((result) => {});
+  markCollaborationOptionsChanged() {
+    this.collaborationOptionsChanged = true;
   }
 
-  /*
-   * Patch items to backend
-   */
-  patchItems() {
-    const patchItems = this.patchService.confirmedPatchItems;
-
-    this.profileService
-      .patchObjects(patchItems)
-      .pipe(take(1))
-      .subscribe(
-        (result) => {
-          this.snackbarService.show(
-            $localize`:@@profilePublishedToast:Profiili julkaistu. Tiedot näkyvät muutaman minuutin kuluttua tiedejatutkimus.fi -palvelussa.`,
-            'success'
-          );
-          this.clearDraftData();
-        },
-        (error) => {
-          this.snackbarService.show(
-            $localize`:@@dataSavingError:Virhe tiedon tallennuksessa`,
-            'error'
-          );
-        }
+  showSaveSuccessfulMessage(wasSuccessful: boolean){
+    if (wasSuccessful)  {
+      this.snackbarService.show(
+        $localize`:@@profilePublishedToast:Profiili julkaistu. Tiedot näkyvät muutaman minuutin kuluttua tiedejatutkimus.fi -palvelussa.`,
+        'success'
       );
+    }
+    else {
+      this.snackbarService.show(
+        $localize`:@@dataSavingError:Virhe tiedon tallennuksessa`,
+        'error'
+      );
+    }
   }
 }

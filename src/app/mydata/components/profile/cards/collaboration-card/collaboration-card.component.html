@@ -21,11 +21,11 @@
 
   <section class="py-3">
     <mat-checkbox
-      class="py-1"
+      class="py-1 w-100"
       *ngFor="let option of collaborationOptions; let i = index"
       (change)="toggleOption(i)"
-      [checked]="option.checked"
-      >{{ option.label }}</mat-checkbox
+      [checked]="option.selected"
+      >{{ option[nameLocale] }}</mat-checkbox
     >
   </section>
 </ng-template>
@@ -43,12 +43,12 @@
   <section>
     <ng-container *ngFor="let option of collaborationOptions">
       <mat-checkbox
-        class="py-1 py-lg-0"
-        *ngIf="option?.checked"
+        class="py-1 py-lg-0 w-100"
+        *ngIf="option?.selected"
         [checked]="true"
         disabled
       >
-        {{ option.label }}
+        {{ option[nameLocale] }}
       </mat-checkbox>
     </ng-container>
   </section>

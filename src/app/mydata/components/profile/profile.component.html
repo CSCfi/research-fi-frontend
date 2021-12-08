@@ -76,6 +76,7 @@
         <app-draft-summary
           *ngIf="profileData"
           [profileData]="profileData"
+          [collaborationOptions]="collaborationOptions"
         ></app-draft-summary>
       </ng-template>
 
@@ -84,7 +85,7 @@
         *ngIf="
           (publicationsService.currentPublicationPayload | async).length ||
           (datasetsService.currentDatasetPayload | async).length ||
-          (patchService.currentPatchItems | async).length
+          (patchService.currentPatchItems | async).length || collaborationOptionsChanged
         "
       >
         <app-primary-action-button
@@ -178,6 +179,8 @@
           <app-collaboration-card
             i18n-label="@@cooperation"
             label="Yhteistyö"
+            (collaborationOptionsChanges)="changeCollaborationOptions($event)"
+            (collaborationOptionsChanged)="markCollaborationOptionsChanged()"
           ></app-collaboration-card>
         </aside>
 
