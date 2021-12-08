@@ -359,6 +359,7 @@ export class ProfileComponent implements OnInit {
     Promise.all(promises)
       .then(response => {
         if (response.includes(false)) {
+          this.collaborationOptionsChanged = false;
           this.showSaveSuccessfulMessage(false);
         }
         else {
@@ -366,6 +367,7 @@ export class ProfileComponent implements OnInit {
         }
       })
       .catch(error => {
+        this.collaborationOptionsChanged = false;
         this.showSaveSuccessfulMessage(false);
         console.log(`Error in data patching`, error)
       });
@@ -381,7 +383,7 @@ export class ProfileComponent implements OnInit {
     sessionStorage.removeItem(Constants.draftDatasetPatchPayload);
     this.profileData = [...currentProfileData];
     this.profileService.setCurrentProfileName(this.getName(currentProfileData));
-
+    this.collaborationOptionsChanged = false;
     this.clearDraftData();
   }
 
