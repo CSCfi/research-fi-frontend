@@ -1697,7 +1697,7 @@ export class StaticDataService {
           {
             field: 'keywords.keyword.keyword',
             name: 'identifiedTopicId',
-            size: 10000,
+            size: 1000,
             order: 1,
             filterName: 'topic',
             exclude: [' '],
@@ -1706,7 +1706,7 @@ export class StaticDataService {
             script:
               'doc["keywords.keyword.keyword"].value + "|" + doc["keywords.scheme.keyword"].value',
             name: 'identifiedTopic',
-            size: 10000,
+            size: 1000,
             order: 1,
             exclude: [''],
           },
@@ -1744,7 +1744,7 @@ export class StaticDataService {
           {
             field: 'keywords.keyword.keyword',
             name: 'identifiedTopicId',
-            size: 10000,
+            size: 1000,
             order: 1,
             filterName: 'topic',
             exclude: [' '],
@@ -1753,7 +1753,7 @@ export class StaticDataService {
             script:
               'doc["keywords.keyword.keyword"].value + "|" + doc["keywords.scheme.keyword"].value',
             name: 'identifiedTopic',
-            size: 10000,
+            size: 1000,
             order: 1,
             exclude: [''],
           },
