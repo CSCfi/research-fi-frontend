@@ -2232,6 +2232,9 @@
       <trans-unit id="infraServiceHeader">
         <source>Palvelu</source>
       </trans-unit>
+      <trans-unit id="collaborationHeader">
+        <source>Yhteistyö</source>
+      </trans-unit>
       <trans-unit id="infraClassifications" datatype="html">
         <source>Luokituksia</source>
         <context-group purpose="location">

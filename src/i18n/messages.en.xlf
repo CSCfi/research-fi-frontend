@@ -3345,6 +3345,10 @@
         <source>Palvelu</source>
         <target>Service</target>
       </trans-unit>
+      <trans-unit id="collaborationHeader">
+        <source>Yhteistyö</source>
+        <target>Collaboration</target>
+      </trans-unit>
       <trans-unit id="infraServicePoint">
         <source>Palvelupiste</source>
         <target>Service point</target>

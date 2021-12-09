@@ -5,8 +5,11 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation, EventEmitter, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ProfileService } from "@mydata/services/profile.service";
+import { AppSettingsService } from '@shared/services/app-settings.service';
+import {take} from "rxjs/operators";
 
 @Component({
   selector: 'app-collaboration-card',
@@ -16,25 +19,10 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class CollaborationCardComponent implements OnInit {
   @Input() label: string;
-  collaborationOptions = [
-    {
-      label: $localize`:@@collabMediaContact:Olen kiinnostunut tiedotusvälineiden yhteydenotoista`,
-      checked: false,
-    },
-    {
-      label: $localize`:@@collabCooperationResearchers:Olen kiinnostunut yhteistyöstä muiden tutkijoiden ja tutkimusryhmien kanssa`,
-      checked: false,
-    },
-    {
-      label: $localize`:@@collabCooperationOrgs:Olen kiinnostunut yhteistyöstä yritysten kanssa`,
-      checked: false,
-    },
-    {
-      label: $localize`:@@collabReviewer:Olen kiinnostunut toimimaan tieteellisten julkaisujen vertaisarvioijana`,
-      checked: false,
-    },
-  ];
+  @Output() collaborationOptionsChanges = new EventEmitter<any>();
+  @Output() collaborationOptionsChanged = new EventEmitter<any>();
 
+  collaborationOptions = [];
   showDialog: boolean;
   hasCheckedOption: boolean;
 
@@ -43,10 +31,29 @@ export class CollaborationCardComponent implements OnInit {
     { label: $localize`:@@continue:Jatka`, primary: true, method: 'save' },
   ];
   optionsToggled = [];
+  nameLocale = '';
 
-  constructor(public dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private profileService: ProfileService, private appSettingsService: AppSettingsService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.reloadCollaborationChoices()
+  }
+
+  public reloadCollaborationChoices() {
+    this.nameLocale = 'name' + this.appSettingsService.capitalizedLocale;
+    this.profileService
+      .getCooperationChoices()
+      .pipe(take(1))
+      .subscribe((response: any) => {
+        this.collaborationOptions = response?.body?.data;
+        this.collaborationOptionsChanges.emit(this.collaborationOptions);
+        this.collaborationOptions.forEach((item) => {
+          if (item?.selected) {
+            this.hasCheckedOption = true;
+          }
+        });
+      });
+  }
 
   openDialog() {
     this.showDialog = true;
@@ -59,12 +66,14 @@ export class CollaborationCardComponent implements OnInit {
     if (action === 'save') {
       this.optionsToggled.forEach((index) => {
         const option = this.collaborationOptions[index];
-        option.checked = !option.checked;
+        option.selected = !option.selected;
       });
+      this.collaborationOptionsChanges.emit(this.collaborationOptions);
+      this.collaborationOptionsChanged.emit(null);
     }
 
     this.hasCheckedOption = !!this.collaborationOptions.find(
-      (option) => option.checked
+      (option) => option.selected
     );
     this.optionsToggled = [];
   }
