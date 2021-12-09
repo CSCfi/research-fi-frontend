@@ -29,13 +29,13 @@ import { GroupTypes } from '@mydata/constants/groupTypes';
 import { CommonStrings } from '@mydata/constants/strings';
 import { SearchPortalService } from '@mydata/services/search-portal.service';
 import { DatasetsService } from '@mydata/services/datasets.service';
+import { FundingsService } from '@mydata/services/fundings.service';
 
 @Component({
   selector: 'app-profile-panel',
   templateUrl: './profile-panel.component.html',
 })
 export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
-  @Input() dataSources: any;
   @Input() primarySource: string;
   @Input() data: any;
 
@@ -75,6 +75,7 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     public dialog: MatDialog,
     private publicationsService: PublicationsService,
     private datasetsService: DatasetsService,
+    private fundingsService: FundingsService,
     private searchPortalService: SearchPortalService,
     private profileService: ProfileService,
     private patchService: PatchService,
@@ -97,13 +98,6 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     const items = [...groupItems].flatMap((groupItem) => groupItem.items);
 
     this.combinedItems = items;
-
-    // // TODO: Better check for data. Maybe type when mapping response
-    // if (this.data.id === 'publication' && this.data.fields.length) {
-    //   this.findFetchedPublications(this.data.fields[0].groupItems);
-    //   // Sort publications that are fetched in  profile creation
-    //   if (!isEmptySection(this.data)) this.sortPublications(this.data.fields);
-    // }
   }
 
   ngOnChanges() {
@@ -113,19 +107,6 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   // Fix for Mat Expansion Panel render FOUC
   ngAfterViewInit(): void {
     setTimeout(() => (this.disableAnimation = false));
-  }
-
-  setDefaultPrimaryValue(data) {
-    // Set default only if primary value is not set
-    data.map((group) => {
-      if (group.hasPrimaryValue) {
-        const groupItems = group.groupItems.map((groupItem) => groupItem.items);
-        const itemArr = [].concat.apply([], groupItems);
-
-        if (!itemArr.some((item) => item.itemMeta.primaryValue === true))
-          group.groupItems[0].items[0].itemMeta.primaryValue = true;
-      }
-    });
   }
 
   toggleGroup(index: number) {
@@ -178,24 +159,11 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     this.patchService.removeItemsWithType(selectedItem.itemMeta.type);
 
     // Add to patch items
-    this.patchService.addToPatchItems(patchObjects);
+    this.patchService.addToPayload(patchObjects);
   }
 
   toggleItem(event, groupItem, item, index) {
-    const publicationType = this.fieldTypes.activityPublication;
-    const datasetType = this.fieldTypes.activityDataset;
-
     const groupMeta = groupItem.groupMeta;
-
-    if (
-      item.itemMeta.primaryValue &&
-      !event.checked &&
-      groupMeta.type !== publicationType &&
-      groupMeta.type !== datasetType
-    ) {
-      item.itemMeta.primaryValue = false;
-      this.setDefaultPrimaryValue(this.data.fields);
-    }
 
     const parentGroup = this.data.fields[index].groupItems.find(
       (group: { groupMeta: { id: any } }) => group.groupMeta.id === groupMeta.id
@@ -207,7 +175,7 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
 
     currentItem.itemMeta.show = event.checked;
 
-    this.patchService.addToPatchItems({
+    this.patchService.addToPayload({
       ...item.itemMeta,
       show: event.checked,
     });
@@ -218,14 +186,7 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
 
     const patchItems = groupItem.items.map((item) => item.itemMeta);
 
-    this.patchService.addToPatchItems(patchItems);
-  }
-
-  // Publication toggle method is meant to be used with publications fetched in current session.
-  togglePublication(event, publication) {
-    publication.itemMeta.show = event.checked;
-
-    this.patchService.addToPatchItems(publication.itemMeta);
+    this.patchService.addToPayload(patchItems);
   }
 
   removeItem(
@@ -244,45 +205,27 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     field.groupItems = groupItems;
 
     switch (groupType) {
-      case this.fieldTypes.activityDataset: {
-        this.datasetsService.addToDeletables(itemToRemove);
-        break;
-      }
       case this.fieldTypes.activityPublication: {
         this.publicationsService.addToDeletables(itemToRemove);
         break;
       }
+      case this.fieldTypes.activityDataset: {
+        this.datasetsService.addToDeletables(itemToRemove);
+        break;
+      }
+      case this.fieldTypes.activityFunding: {
+        this.fundingsService.addToDeletables(itemToRemove);
+        break;
+      }
     }
 
-    // Refresh pipes
     this.updated = new Date();
   }
 
-  findFetchedPublications(data) {
-    const items = data.flatMap((group) => group.items);
-
-    if (items.find((item) => item.itemMeta.primaryValue))
-      this.hasFetchedPublications = true;
-  }
-
-  sortPublications(data) {
-    const index = data.findIndex((item) => item.id === 'publication');
-
-    const items = data[index].groupItems.flatMap(
-      (groupItem) => groupItem.items
-    );
-
-    // Combine groups and sort. Display items in summary only from first group
-    const sortedItems = items.sort(
-      (a, b) => b.publicationYear - a.publicationYear
-    );
-
-    data[index].groupItems[0].items = sortedItems;
-
-    this.data.fields[index].groupItems = [data[index].groupItems[0]];
-  }
-
-  // Search publications
+  /*
+   * Dynamic search from portal modal
+   * Search for Publications, Datasets and Fundings
+   */
   openSearchFromResearchFiDialog(groupId: string) {
     const fields = this.data.fields[0];
 
@@ -295,53 +238,49 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
       panelClass: this.appSettingsService.dialogPanelClass,
     });
 
-    type PublicationsResult = { selection: any[] };
-    type DatasetsResult = { selection: any[] };
+    type Result = { selection: any[] };
 
-    const handlePublications = (result: PublicationsResult) => {
-      this.publicationsService.addToPayload(result.selection);
+    /*
+     * Use group related service to add selected items into draft view and patch payload
+     */
+    const handlePortalItems = (groupId: string, result: Result) => {
+      let service: PublicationsService | DatasetsService | FundingsService;
+      let fieldType: number;
+
+      switch (groupId) {
+        case 'publication': {
+          service = this.publicationsService;
+          fieldType = this.fieldTypes.activityPublication;
+          break;
+        }
+        case 'dataset': {
+          service = this.datasetsService;
+          fieldType = this.fieldTypes.activityDataset;
+          break;
+        }
+        case 'funding': {
+          service = this.fundingsService;
+          fieldType = this.fieldTypes.activityFunding;
+          break;
+        }
+      }
+
+      service.addToPayload(result.selection);
 
       const groupItems = this.data.fields[0].groupItems;
 
-      const fetchedPublications = groupItems.find(
-        (groupItem) =>
-          groupItem.groupMeta.type === this.fieldTypes.activityPublication
+      // Items with primary value
+      let existingAddedItems = groupItems.find((group) =>
+        group.items.find((item) => item.itemMeta.primaryValue)
       );
 
-      if (fetchedPublications) {
-        this.data.fields[0].groupItems.find(
-          (groupItem) =>
-            groupItem.groupMeta.type === this.fieldTypes.activityPublication
-        ).items = fetchedPublications.items.concat(result.selection);
-      } else {
-        this.data.fields[0].groupItems.push({
-          groupMeta: { type: this.fieldTypes.activityPublication },
-          source: {
-            organization: {
-              nameFi: 'Tiedejatutkimus.fi',
-              nameSv: 'Forskning.fi',
-              nameEn: 'Research.fi',
-            },
-          },
-          items: result.selection,
-        });
-      }
-    };
-
-    const handleDatasets = (result: DatasetsResult) => {
-      this.datasetsService.addToPayload(result.selection);
-
-      let existingAddedDatasets = this.data.fields[0].groupItems.find(
-        (group) => group.groupMeta.type === this.fieldTypes.activityDataset
-      );
-
-      if (existingAddedDatasets) {
-        existingAddedDatasets.items = existingAddedDatasets.items.concat(
+      if (existingAddedItems) {
+        existingAddedItems.items = existingAddedItems.items.concat(
           result.selection
         );
       } else {
-        this.data.fields[0].groupItems.push({
-          groupMeta: { type: this.fieldTypes.activityDataset },
+        groupItems.push({
+          groupMeta: { type: fieldType },
           source: {
             organization: {
               nameFi: 'Tiedejatutkimus.fi',
@@ -354,7 +293,6 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
       }
     };
 
-    // Set selected publications to field items
     this.dialogRef
       .afterClosed()
       .pipe(take(1))
@@ -363,16 +301,8 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
         this.searchPortalService.resetSort();
 
         if (result) {
-          switch (groupId) {
-            case 'publication': {
-              handlePublications(result);
-              break;
-            }
-            case 'dataset': {
-              handleDatasets(result);
-              break;
-            }
-          }
+          // Add selected items into profile data and patch payload
+          handlePortalItems(groupId, result);
 
           this.updated = new Date();
 

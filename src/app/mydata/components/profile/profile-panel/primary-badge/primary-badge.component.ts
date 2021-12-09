@@ -41,6 +41,6 @@ export class PrimaryBadgeComponent {
 
     currentItemMeta.primaryValue = !currentItemMeta.primaryValue;
 
-    this.patchService.addToPatchItems(this.item.itemMeta);
+    this.patchService.addToPayload(this.item.itemMeta);
   }
 }

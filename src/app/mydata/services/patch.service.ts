@@ -22,7 +22,7 @@ export class PatchService {
   private confirmedPatchItemsSource = new BehaviorSubject<any>([]);
   currentPatchItems = this.confirmedPatchItemsSource.asObservable();
 
-  addToPatchItems(payload) {
+  addToPayload(payload) {
     const items = this.patchItems;
 
     if (Array.isArray(payload)) {
@@ -40,7 +40,7 @@ export class PatchService {
     }
   }
 
-  confirmPatchItems() {
+  confirmPayload() {
     const patchItems = this.patchItems;
 
     let merged = this.confirmedPatchItems.concat(patchItems);
@@ -57,7 +57,7 @@ export class PatchService {
     this.confirmedPatchItemsSource.next(merged);
   }
 
-  cancelConfirmedPatchPayload() {
+  cancelConfirmedPayload() {
     this.confirmedPatchItems = [];
     this.confirmedPatchItemsSource.next([]);
   }
@@ -73,7 +73,7 @@ export class PatchService {
     );
   }
 
-  clearPatchItems() {
+  clearPayload() {
     this.patchItems = [];
   }
 }

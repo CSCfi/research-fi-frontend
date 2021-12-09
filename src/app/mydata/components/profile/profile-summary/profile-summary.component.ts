@@ -8,11 +8,7 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { cloneDeep } from 'lodash-es';
-import {
-  checkGroupSelected,
-  getDataSources,
-  isEmptySection,
-} from '@mydata/utils';
+import { checkGroupSelected } from '@mydata/utils';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { EditorModalComponent } from '@mydata/components/profile/editor-modal/editor-modal.component';
 import { take } from 'rxjs/operators';
@@ -26,6 +22,7 @@ import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { GroupTypes } from '@mydata/constants/groupTypes';
 import { CommonStrings } from '@mydata/constants/strings';
 import { DatasetsService } from '@mydata/services/datasets.service';
+import { FundingsService } from '@mydata/services/fundings.service';
 
 @Component({
   selector: 'app-profile-summary',
@@ -42,10 +39,6 @@ export class ProfileSummaryComponent implements OnInit {
   filteredProfileData: any;
 
   checkGroupSelected = checkGroupSelected;
-  getDataSources = getDataSources;
-
-  dataSources: any[];
-  primarySource: string;
 
   openPanels = [];
 
@@ -62,18 +55,14 @@ export class ProfileSummaryComponent implements OnInit {
     private patchService: PatchService,
     private publicationsService: PublicationsService,
     private datasetsService: DatasetsService,
+    private fundingsService: FundingsService,
     private snackbarService: SnackbarService,
     private draftService: DraftService
   ) {
     this.locale = this.appSettingsService.capitalizedLocale;
   }
 
-  ngOnInit(): void {
-    // Get data sources
-    this.dataSources = getDataSources(this.profileData);
-
-    this.primarySource = this.dataSources[0];
-  }
+  ngOnInit(): void {}
 
   openDialog(event, index) {
     event.stopPropagation();
@@ -85,8 +74,6 @@ export class ProfileSummaryComponent implements OnInit {
     this.dialogRef = this.dialog.open(EditorModalComponent, {
       data: {
         data: selectedField,
-        dataSources: this.dataSources,
-        primarySource: this.primarySource,
       },
       panelClass: this.appSettingsService.dialogPanelClass,
     });
@@ -94,89 +81,84 @@ export class ProfileSummaryComponent implements OnInit {
     this.dialogRef
       .afterClosed()
       .pipe(take(1))
-      .subscribe(
-        (result: { data: any; patchGroups: any[]; patchItems: any[] }) => {
-          const confirmedPatchItems = this.patchService.confirmedPatchItems;
-          const confirmedPublicationPayload =
-            this.publicationsService.confirmedPayload;
-          const publicationsToDelete = this.publicationsService.deletables;
+      .subscribe((result: { data: any }) => {
+        const confirmedPatchItems = this.patchService.confirmedPatchItems;
 
-          this.draftService.saveDraft(this.profileData);
+        this.draftService.saveDraft(this.profileData);
 
-          // Handle removal of publications
-          const deletePublication = (publication: {
-            publicationId: string;
-          }) => {
-            this.publicationsService.removeFromConfirmed(
-              publication.publicationId
-            );
-          };
+        // Groups are used in different loops to set storage items and handle removal of items
+        const patchGroups = [
+          { key: Constants.draftProfile, data: this.profileData },
+          {
+            key: Constants.draftPatchPayload,
+            data: this.patchService.confirmedPatchItems,
+          },
+          {
+            id: GroupTypes.publication,
+            key: Constants.draftPublicationPatchPayload,
+            service: this.publicationsService,
+            data: this.publicationsService.confirmedPayload,
+            deletables: this.publicationsService.deletables,
+          },
+          {
+            id: GroupTypes.dataset,
+            key: Constants.draftDatasetPatchPayload,
+            service: this.datasetsService,
+            data: this.datasetsService.confirmedPayload,
+            deletables: this.datasetsService.deletables,
+          },
+          {
+            id: GroupTypes.funding,
+            key: Constants.draftFundingPatchPayload,
+            service: this.fundingsService,
+            data: this.fundingsService.confirmedPayload,
+            deletables: this.fundingsService.deletables,
+          },
+        ];
 
-          if (publicationsToDelete.length > 0) {
-            for (const [i, publication] of publicationsToDelete.entries()) {
-              deletePublication(publication);
-              if (i === publicationsToDelete.length - 1)
-                this.publicationsService.clearDeletables();
-            }
+        const portalPatchGroups = patchGroups.filter((group) => group.id);
 
-            this.publicationsService
-              .removePublications(publicationsToDelete)
-              .pipe(take(1))
-              .subscribe((response: any) => {});
-          }
+        if (result) {
+          // Update binded profile data. Renders changes into summary view
+          this.profileData[index] = result.data;
 
-          // Set current data
-          if (result) {
-            this.profileData[index] = result.data;
-            // this.profileService.setCurrentProfileData(this.profileData); // ei toimi tässä
+          // Handle removal of items added from portal search
+          portalPatchGroups.forEach((group) => {
+            if (result.data.id === group.id) {
+              if (group.deletables.length) {
+                const removeItem = (publication: { id: string }) => {
+                  this.publicationsService.removeFromConfirmed(publication.id);
+                };
 
-            if (this.appSettingsService.isBrowser) {
-              // Set draft profile data to storage
-              sessionStorage.setItem(
-                Constants.draftProfile,
-                JSON.stringify(this.profileData)
-              );
+                for (const [i, item] of group.deletables.entries()) {
+                  removeItem(item);
+                  if (i === group.deletables.length - 1)
+                    group.service.clearDeletables();
+                }
 
-              // Set patch payload to store
-              sessionStorage.setItem(
-                Constants.draftPatchPayload,
-                JSON.stringify(this.patchService.confirmedPatchItems)
-              );
-
-              // Update publication payload to store
-              sessionStorage.setItem(
-                Constants.draftPublicationPatchPayload,
-                JSON.stringify(this.publicationsService.confirmedPayload)
-              );
-
-              // Update dataset payload to store
-              sessionStorage.setItem(
-                Constants.draftDatasetPatchPayload,
-                JSON.stringify(this.datasetsService.confirmedPayload)
-              );
-
-              // Sort
-              // this.sortAffiliations(this.profileData);
-
-              // if (!isEmptySection(this.profileData[4]))
-              //   this.sortPublications(this.profileData);
-
-              // Do actions only if user has made changes
-              if (
-                result &&
-                (confirmedPatchItems.length ||
-                  confirmedPublicationPayload.length)
-              ) {
-                this.snackbarService.show(
-                  $localize`:@@draftUpdated:Luonnos päivitetty`,
-                  'success'
-                );
+                group.service
+                  .removeItems(group.deletables)
+                  .pipe(take(1))
+                  .subscribe(() => {});
               }
-            } else {
-              // this.patchService.clearPatchItems();
+            }
+          });
+
+          // Set draft data into storage with SSR check
+          if (this.appSettingsService.isBrowser) {
+            patchGroups.forEach((group) => {
+              sessionStorage.setItem(group.key, JSON.stringify(group.data));
+            });
+
+            // Display snackbar only if user has made changes
+            if (result && confirmedPatchItems.length) {
+              this.snackbarService.show(
+                $localize`:@@draftUpdated:Luonnos päivitetty`,
+                'success'
+              );
             }
           }
         }
-      );
+      });
   }
 }

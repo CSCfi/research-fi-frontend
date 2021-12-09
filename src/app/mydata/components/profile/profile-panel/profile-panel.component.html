@@ -20,7 +20,11 @@
   </div>
   <div
     class="col-auto py-3"
-    *ngIf="data.id === 'publication' || data.id === 'dataset'"
+    *ngIf="
+      data.id === 'publication' ||
+      data.id === 'dataset' ||
+      data.id === 'funding'
+    "
   >
     <!-- Search publications -->
     <a
@@ -33,6 +37,7 @@
         <ng-container [ngSwitch]="data.id">
           <u *ngSwitchCase="'publication'" i18n="@@publicationItem">julkaisu</u>
           <u *ngSwitchCase="'dataset'" i18n="@@datasetItem">tutkimusaineisto</u>
+          <u *ngSwitchCase="'funding'" i18n="@@fundingItem">hanke</u>
         </ng-container>
         <ng-container i18n="@@fromYourData"> tiedoistasi?</ng-container>
       </u>
@@ -106,27 +111,34 @@
           </div>
 
           <ng-container *ngSwitchDefault>
-            <!-- Header for publications that are added from research.fi portal -->
+            <!-- Header for items that are added from research.fi portal -->
             <span
               *ngIf="
                 (groupItem.groupMeta.type === fieldTypes.activityPublication ||
-                  groupItem.groupMeta.type === fieldTypes.activityDataset) &&
-                groupItem.items.length
+                  groupItem.groupMeta.type === fieldTypes.activityDataset ||
+                  groupItem.groupMeta.type === fieldTypes.activityFunding) &&
+                groupItem.items.length &&
+                (groupItem | hasFetchedItem)
               "
               class="font-size-big d-block pb-3"
             >
-              <span
-                *ngIf="
-                  groupItem.groupMeta.type === fieldTypes.activityPublication
-                "
-                i18n="@@addedPublications"
-                >Tuodut julkaisut</span
-              >
-              <!-- <span
-                *ngIf="groupItem.groupMeta.type === fieldTypes.activityDataset"
-                i18n="@@addedDatasets"
-                >Tuodut tutkimusaineistot</span
-              > -->
+              <ng-container [ngSwitch]="groupItem.groupMeta.type">
+                <span
+                  *ngSwitchCase="fieldTypes.activityPublication"
+                  i18n="@@addedPublications"
+                  >Tuodut julkaisut</span
+                >
+                <span
+                  *ngSwitchCase="fieldTypes.activityDataset"
+                  i18n="@@addedDatasets"
+                  >Tuodut tutkimusaineistot</span
+                >
+                <span
+                  *ngSwitchCase="fieldTypes.activityFunding"
+                  i18n="@@addedProjects"
+                  >Tuodut hankkeet</span
+                >
+              </ng-container>
             </span>
 
             <ng-container *ngFor="let item of groupItem.items">
@@ -163,7 +175,7 @@
 
                 <!-- Debugging -->
                 <ng-container *ngIf="appSettingsService.myDataSettings.debug">
-                  <div class="col-auto font-size-small mt-1" style="color: red">
+                  <div class="col-2 font-size-small mt-1" style="color: red">
                     itemId: {{ item.itemMeta.id }} | groupId:
                     {{ groupItem.groupMeta.id }}
                   </div></ng-container
@@ -175,8 +187,9 @@
                   *ngIf="
                     (groupItem.groupMeta.type ===
                       fieldTypes.activityPublication ||
+                      groupItem.groupMeta.type === fieldTypes.activityDataset ||
                       groupItem.groupMeta.type ===
-                        fieldTypes.activityDataset) &&
+                        fieldTypes.activityFunding) &&
                     item.itemMeta.primaryValue
                   "
                 >

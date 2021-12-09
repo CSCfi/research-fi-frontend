@@ -5363,6 +5363,10 @@
         <source>tutkimusaineisto</source>
         <target>research data -item</target>
       </trans-unit>
+      <trans-unit id="fundingItem">
+        <source>hanke</source>
+        <target>project</target>
+      </trans-unit>
       <trans-unit id="searchForMissingPublication">
         <source>Puuttuvan julkaisun hakeminen</source>
         <target>Searching for a missing publication</target>
@@ -5418,6 +5422,10 @@
       <trans-unit id="addedDatasets">
         <source>Tuodut tutkimusaineistot</source>
         <target>Added research data</target>
+      </trans-unit>
+      <trans-unit id="addedProjects">
+        <source>Tuodut hankkeet</source>
+        <target>Added projects</target>
       </trans-unit>
       <trans-unit id="remove">
         <source>Poista</source>

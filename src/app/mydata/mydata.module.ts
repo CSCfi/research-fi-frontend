@@ -88,6 +88,7 @@ import { JoinValuesPipe } from './pipes/join-values.pipe';
 import { SummaryDatasetsComponent } from './components/profile/profile-summary/summary-datasets/summary-datasets.component';
 import { GetValuePipe } from './pipes/get-value.pipe';
 import { PortalModule } from '@portal/portal.module';
+import { HasFetchedItemPipe } from './pipes/has-fetched-item.pipe';
 
 const matSnackbarDefaultConfig: MatSnackBarConfig = {
   verticalPosition: 'top',
@@ -140,6 +141,7 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
     JoinValuesPipe,
     SummaryDatasetsComponent,
     GetValuePipe,
+    HasFetchedItemPipe,
   ],
   imports: [
     CommonModule,

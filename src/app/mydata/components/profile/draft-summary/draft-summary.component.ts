@@ -12,6 +12,7 @@ import { checkGroupSelected, checkGroupPatchItem } from '@mydata/utils';
 import { combineLatest } from 'rxjs';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { DatasetsService } from '@mydata/services/datasets.service';
+import { FundingsService } from '@mydata/services/fundings.service';
 
 @Component({
   selector: 'app-draft-summary',
@@ -31,7 +32,6 @@ export class DraftSummaryComponent implements OnInit, OnDestroy {
   checkGroupSelected = checkGroupSelected;
   checkGroupPatchItem = checkGroupPatchItem;
 
-  dataSources: any[];
   primarySource: string;
 
   openPanels = [];
@@ -46,6 +46,7 @@ export class DraftSummaryComponent implements OnInit, OnDestroy {
     private patchService: PatchService,
     private publicationsService: PublicationsService,
     private datasetsService: DatasetsService,
+    private fundingsService: FundingsService,
     private appSettingsService: AppSettingsService
   ) {
     this.locale = this.appSettingsService.capitalizedLocale;
@@ -58,6 +59,7 @@ export class DraftSummaryComponent implements OnInit, OnDestroy {
       this.patchService.currentPatchItems,
       this.publicationsService.currentPublicationPayload,
       this.datasetsService.currentDatasetPayload,
+      this.fundingsService.currentFundingPayload,
     ]).subscribe((res) => {
       const patchItems = res[0];
 
