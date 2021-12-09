@@ -139,7 +139,7 @@ export class ProfileComponent implements OnInit {
         /*
          * Draft data is stored in session storage.
          * Set draft data to profile view if draft available.
-         * Drafts are deleted with reset ond publish methods
+         * Drafts are deleted with reset and publish methods
          */
         if (this.appSettingsService.isBrowser) {
           const draft = sessionStorage.getItem(Constants.draftProfile);
@@ -377,6 +377,10 @@ export class ProfileComponent implements OnInit {
    * Patch cooperation choices to backend
    */
   private async patchCooperationChoicesPromise() {
+    const patchFromSession = sessionStorage.getItem(Constants.draftCollaborationPatchPayload)
+    if (patchFromSession) {
+      this.collaborationOptions = JSON.parse(patchFromSession);
+    }
     return new Promise((resolve, reject) => {
       this.profileService
         .patchCooperationChoices(this.collaborationOptions)
@@ -384,6 +388,7 @@ export class ProfileComponent implements OnInit {
         .subscribe(
           (result) => {
             resolve(true);
+            sessionStorage.removeItem(Constants.draftCollaborationPatchPayload);
           },
           (error) => {
             reject(error);
@@ -428,6 +433,7 @@ export class ProfileComponent implements OnInit {
     sessionStorage.removeItem(Constants.draftPublicationPatchPayload);
     sessionStorage.removeItem(Constants.draftDatasetPatchPayload);
     sessionStorage.removeItem(Constants.draftFundingPatchPayload);
+    sessionStorage.removeItem(Constants.draftCollaborationPatchPayload);
 
     this.profileData = [...currentProfileData];
     this.profileService.setCurrentProfileName(this.getName(currentProfileData));
@@ -454,6 +460,7 @@ export class ProfileComponent implements OnInit {
 
   changeCollaborationOptions(input: any) {
     this.collaborationOptions = input;
+    sessionStorage.setItem(Constants.draftCollaborationPatchPayload, JSON.stringify(input));
   }
 
   markCollaborationOptionsChanged() {

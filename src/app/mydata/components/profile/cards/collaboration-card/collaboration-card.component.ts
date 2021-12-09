@@ -17,6 +17,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ProfileService } from '@mydata/services/profile.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { take } from 'rxjs/operators';
+import {Constants} from "@mydata/constants";
 
 @Component({
   selector: 'app-collaboration-card',
@@ -47,23 +48,34 @@ export class CollaborationCardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.nameLocale = 'name' + this.appSettingsService.capitalizedLocale;
     this.reloadCollaborationChoices();
   }
 
   public reloadCollaborationChoices() {
-    this.nameLocale = 'name' + this.appSettingsService.capitalizedLocale;
-    this.profileService
-      .getCooperationChoices()
-      .pipe(take(1))
-      .subscribe((response: any) => {
-        this.collaborationOptions = response?.body?.data;
-        this.collaborationOptionsChanges.emit(this.collaborationOptions);
-        this.collaborationOptions.forEach((item) => {
-          if (item?.selected) {
-            this.hasCheckedOption = true;
-          }
-        });
+    const fromSession = JSON.parse(sessionStorage.getItem(Constants.draftCollaborationPatchPayload));
+    if (fromSession) {
+      this.collaborationOptions = fromSession;
+      this.collaborationOptionsChanges.emit(fromSession);
+      this.collaborationOptions.forEach((item) => {
+        if (item?.selected) {
+          this.hasCheckedOption = true;
+        }
       });
+    } else {
+      this.profileService
+        .getCooperationChoices()
+        .pipe(take(1))
+        .subscribe((response: any) => {
+          this.collaborationOptions = response?.body?.data;
+          this.collaborationOptionsChanges.emit(this.collaborationOptions);
+          this.collaborationOptions.forEach((item) => {
+            if (item?.selected) {
+              this.hasCheckedOption = true;
+            }
+          });
+        });
+    }
   }
 
   openDialog() {

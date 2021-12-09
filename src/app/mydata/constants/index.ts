@@ -10,5 +10,6 @@ export const Constants = {
   draftPublicationPatchPayload: 'mydata_draft_publication_patch_payload',
   draftDatasetPatchPayload: 'mydata_draft_dataset_patch_payload',
   draftFundingPatchPayload: 'mydata_draft_funding_patch_payload',
+  draftCollaborationPatchPayload: 'mydata_draft_collaboration_patch_payload',
   draftProfile: 'mydata_draft',
 };
