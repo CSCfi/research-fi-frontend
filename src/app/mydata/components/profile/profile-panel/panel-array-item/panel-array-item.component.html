@@ -11,11 +11,7 @@
 
     <ng-container *ngSwitchCase="fieldTypes.activityAffiliation">
       <app-activity-item
-        [rows]="[
-          item | checkFieldLocale: locale:'positionName',
-          item | checkFieldLocale: locale:'organizationName',
-          (item.startDate | parseDate) + ' - ' + (item.endDate | parseDate)
-        ]"
+        [rows]="[item.positionName, item.organizationName, item.year]"
         [smallLastItem]="true"
       ></app-activity-item>
     </ng-container>
@@ -44,21 +40,21 @@
 
     <ng-container *ngSwitchCase="fieldTypes.activityDataset">
       <app-activity-item
-        [rows]="[item.title, item.funderName, item.year]"
+        [rows]="[item.name, item.funderName, item.year]"
         [smallLastItem]="true"
       ></app-activity-item>
     </ng-container>
 
     <ng-container *ngSwitchCase="fieldTypes.activityFunding">
       <app-activity-item
-        [rows]="[item.title, item.funderName, item.year]"
+        [rows]="[item.name, item.funder.name, item.year]"
         [smallLastItem]="true"
       ></app-activity-item>
     </ng-container>
 
     <ng-template #portalItemTemplate [ngTemplateOutlet]="currentTemplate">
       <app-activity-item
-        [rows]="[item.title, item.authors, item.year]"
+        [rows]="[item.title, item.authors, item.publicationYear]"
         [smallLastItem]="true"
       ></app-activity-item>
     </ng-template>

@@ -7,7 +7,6 @@
 
 import { Injectable } from '@angular/core';
 import { Adapter } from './adapter.model';
-import { mapGroup, mapNameGroup } from './utils';
 
 import {
   faTwitterSquare,
@@ -20,6 +19,7 @@ import {
   faEnvelope,
   faPhoneSquareAlt,
 } from '@fortawesome/free-solid-svg-icons';
+import { MydataUtilityService } from '@mydata/services/mydata-utility.service';
 
 export class PersonalFields {
   constructor(
@@ -34,17 +34,7 @@ export class PersonalFields {
   providedIn: 'root',
 })
 export class PersonalFieldsAdapter implements Adapter<PersonalFields> {
-  mapGroup = mapGroup;
-  mapNameGroup = mapNameGroup;
-
-  // faTwitterSquare = faTwitterSquare;
-  // faFacebookSquare = faFacebookSquare;
-  // faLinkedin = faLinkedin;
-  // faLink = faLink;
-  // faEnvelope = faEnvelope;
-  // faPhoneSquareAlt = faPhoneSquareAlt;
-
-  constructor() {}
+  constructor(private mydataUtils: MydataUtilityService) {}
 
   adapt(item: any): PersonalFields {
     const handleLinkIcon = (url: string | string[]) => {
@@ -57,12 +47,12 @@ export class PersonalFieldsAdapter implements Adapter<PersonalFields> {
       } else return faLink;
     };
 
-    const email = this.mapGroup(
+    const email = this.mydataUtils.mapGroup(
       item.emailGroups,
       'email',
       $localize`:@@email:Sähköposti`
     );
-    const webLinks = this.mapGroup(
+    const webLinks = this.mydataUtils.mapGroup(
       item.webLinkGroups,
       'webLinks',
       $localize`:@@links:Linkit`
@@ -82,19 +72,27 @@ export class PersonalFieldsAdapter implements Adapter<PersonalFields> {
     mapIcons(webLinks, handleLinkIcon, 'url');
 
     return new PersonalFields(
-      // TODO: Localize
-      this.mapNameGroup(item.nameGroups, 'name', $localize`:@@name:Nimi`, {
-        disabled: true,
-        expanded: true,
-        setDefault: true,
-        single: true,
-      }),
-      this.mapNameGroup(
+      this.mydataUtils.mapNameGroup(
+        item.nameGroups,
+        'name',
+        $localize`:@@name:Nimi`,
+        {
+          disabled: true,
+          expanded: true,
+          setDefault: true,
+          single: true,
+        }
+      ),
+      this.mydataUtils.mapNameGroup(
         item.otherNameGroups,
         'otherNames',
         $localize`:@@otherNames:Muut nimet`
       ),
-      this.mapGroup(item.emailGroups, 'email', $localize`:@@email:Sähköposti`),
+      this.mydataUtils.mapGroup(
+        item.emailGroups,
+        'email',
+        $localize`:@@email:Sähköposti`
+      ),
       webLinks
     );
   }

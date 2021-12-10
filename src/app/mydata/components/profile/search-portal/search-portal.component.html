@@ -33,7 +33,17 @@
         <app-search
           [placeholder]="searchPlaceholder"
           (getSearchTerm)="handleSearch($event)"
+          (resetSearch)="handleSearch('')"
         ></app-search>
+      </div>
+    </div>
+
+    <div class="row pt-3" *ngIf="data.groupId === groupTypes.publication">
+      <div class="col">
+        <span i18n="@@betaAddingOfMostRecentPublications"
+          >Huom! Kaikkein tuoreimpien julkaisujen lisääminen ei toimi
+          betaversiossa.</span
+        >
       </div>
     </div>
 

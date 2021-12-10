@@ -106,7 +106,7 @@
                 font-size-small
               "
             >
-              {{ groupItem.source.organization['name' + locale] }}
+              {{ groupItem.source.organization.name }}
             </div>
           </div>
 
@@ -219,12 +219,12 @@
                       *ngFor="let source of item.source.organizations"
                     >
                       <div class="col px-0">
-                        {{ source['name' + locale] }}
+                        {{ source.organization.name }}
                       </div>
                     </div>
                   </ng-container>
                   <ng-template #singleSource>{{
-                    groupItem.source.organization['name' + locale]
+                    groupItem.source.organization.name
                   }}</ng-template>
                 </div>
               </div>

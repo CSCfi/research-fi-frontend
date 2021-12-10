@@ -217,3 +217,7 @@ export class LanguageCheck {
     return type;
   }
 }
+
+export function parseYear(startYear, endYear) {
+  return `${startYear} - ${endYear > 0 ? endYear : ''}`;
+}

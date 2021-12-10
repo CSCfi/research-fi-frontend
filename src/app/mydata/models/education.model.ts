@@ -6,8 +6,8 @@
 // :license: MIT
 
 import { Injectable } from '@angular/core';
+import { MydataUtilityService } from '@mydata/services/mydata-utility.service';
 import { Adapter } from './adapter.model';
-import { mapGroup } from './utils';
 
 export class EducationFields {
   constructor(public education: any) {}
@@ -17,12 +17,11 @@ export class EducationFields {
   providedIn: 'root',
 })
 export class EducationFieldsAdapter implements Adapter<EducationFields> {
-  mapGroup = mapGroup;
-  constructor() {}
+  constructor(private mydataUtils: MydataUtilityService) {}
 
   adapt(item: any): EducationFields {
     return new EducationFields(
-      this.mapGroup(
+      this.mydataUtils.mapGroup(
         item.educationGroups,
         'education',
         $localize`:@@education:Koulutus`

@@ -84,7 +84,6 @@ export class PublicationsService {
   }
 
   addToDeletables(publication) {
-    console.log('addToDeletables: ', publication);
     this.deletables.push(publication);
   }
 
@@ -107,8 +106,9 @@ export class PublicationsService {
   }
 
   removeItems(publications) {
+    console.log(publications);
     this.updateTokenInHttpAuthHeader();
-    const body = publications.map((publication) => publication.publicationId);
+    const body = publications.map((publication) => publication.id);
     return this.http.post(
       this.profileApiUrl + '/publication/remove/',
       body,

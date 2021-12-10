@@ -6,9 +6,9 @@
 // :license: MIT
 
 import { Injectable } from '@angular/core';
+import { MydataUtilityService } from '@mydata/services/mydata-utility.service';
 import { Adapter } from './adapter.model';
-import { mapGroup } from './utils';
-import { PublicationItemAdapter } from './item/publication-item.model';
+import { PublicationAdapter } from '@portal/models/publication/publication.model';
 
 export class PublicationFields {
   constructor(public publication: any) {}
@@ -18,19 +18,28 @@ export class PublicationFields {
   providedIn: 'root',
 })
 export class PublicationFieldsAdapter implements Adapter<PublicationFields> {
-  mapGroup = mapGroup;
-  constructor(private publicationItemAdapter: PublicationItemAdapter) {}
+  constructor(
+    private publicationAdapter: PublicationAdapter,
+    private mydataUtils: MydataUtilityService
+  ) {}
 
   adapt(item: any): PublicationFields {
+    /*
+     * Leverage model from Portal.
+     */
     item.publicationGroups.forEach(
       (group) =>
         (group.items = group.items.map(
-          (item) => (item = this.publicationItemAdapter.adapt(item))
+          (item) =>
+            (item = {
+              ...this.publicationAdapter.adapt(item),
+              itemMeta: item.itemMeta,
+            })
         ))
     );
 
     return new PublicationFields(
-      this.mapGroup(
+      this.mydataUtils.mapGroup(
         item.publicationGroups,
         'publications',
         $localize`:@@publications:Julkaisut`

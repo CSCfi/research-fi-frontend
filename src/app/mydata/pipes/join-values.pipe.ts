@@ -15,11 +15,12 @@ import { Pipe, PipeTransform } from '@angular/core';
  * Find match for values and return joined string
  */
 export class JoinValuesPipe implements PipeTransform {
-  transform(items: any, fields: string[], locale: string) {
+  transform(items: any, fields: string[], locale?: string) {
     const arr = [];
 
     fields.forEach((field) => {
-      items[field + locale] && arr.push(items[field + locale]);
+      const fieldWithLocale = locale ? field + locale : field;
+      items[fieldWithLocale] && arr.push(items[fieldWithLocale]);
     });
 
     return arr.join(', ');
