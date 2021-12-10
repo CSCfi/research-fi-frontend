@@ -6,9 +6,9 @@
 // :license: MIT
 
 import { Injectable } from '@angular/core';
+import { MydataUtilityService } from '@mydata/services/mydata-utility.service';
 import { Adapter } from './adapter.model';
-import { FundingItemAdapter } from './item/funding-item.model';
-import { mapGroup } from './utils';
+import { FundingAdapter } from '@portal/models/funding/funding.model';
 
 export class FundingFields {
   constructor(public dataset: any) {}
@@ -18,19 +18,28 @@ export class FundingFields {
   providedIn: 'root',
 })
 export class FundingFieldsAdapter implements Adapter<FundingFields> {
-  mapGroup = mapGroup;
-  constructor(private fundingItemAdapter: FundingItemAdapter) {}
+  constructor(
+    private fundingAdapter: FundingAdapter,
+    private mydataUtils: MydataUtilityService
+  ) {}
 
   adapt(item: any): FundingFields {
+    /*
+     * Leverage model from Portal.
+     */
     item.fundingDecisionGroups.forEach(
       (group) =>
         (group.items = group.items.map(
-          (item) => (item = this.fundingItemAdapter.adapt(item))
+          (item) =>
+            (item = {
+              ...this.fundingAdapter.adapt(item),
+              itemMeta: item.itemMeta,
+            })
         ))
     );
 
     return new FundingFields(
-      this.mapGroup(
+      this.mydataUtils.mapGroup(
         item.fundingDecisionGroups,
         'fundings',
         $localize`:@@fundings:Hankkeet`

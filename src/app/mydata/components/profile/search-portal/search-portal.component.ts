@@ -11,6 +11,7 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
 import { take } from 'rxjs/operators';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { SearchPortalService } from '@mydata/services/search-portal.service';
+import { GroupTypes } from '@mydata/constants/groupTypes';
 
 @Component({
   selector: 'app-search-researchFi',
@@ -26,7 +27,8 @@ export class SearchPortalComponent implements OnInit {
   currentTerm: string;
   mobile: boolean;
 
-  fieldTypes = FieldTypes;
+  public fieldTypes = FieldTypes;
+  public groupTypes = GroupTypes;
 
   addPublication = $localize`:@@addPublication:Lisää julkaisu`;
   addPublications = $localize`:@@addPublications:Lisää julkaisut`;
@@ -43,12 +45,12 @@ export class SearchPortalComponent implements OnInit {
   searchForMissingFunding = $localize`:@@searchForMissingFunding:Puuttuvan hankkeen hakeminen`;
 
   searchForPublicationWithName = $localize`:@@searchForPublicationWithName:Hae omalla nimelläsi tai julkaisun nimellä`;
-  searchForDatasetsWithName = $localize`:@@searchForDatasetWithName:Hae omalla nimelläsi tai tutkimusaineiston nimellä`;
+  searchForDatasetsWithName = $localize`:@@searchForDatasetWithName:Hae nimellä tai organisaatiolla`;
   searchForFundingsWithName = $localize`:@@searchForFundingWithName:Hae omalla nimelläsi tai hankkeen nimellä`;
 
   publicationSearchPlaceholder = $localize`:@@nameOfPublicationOrAuthor:Julkaisun tai tekijän nimi`;
-  datasetSearchPlaceholder = $localize`:@@nameOfDatasetOrAuthor:Tutkimusaineiston tai tekijän nimi`;
-  fundingSearchPlaceholder = $localize`:@@nameOfFundingOrAuthor:Hankkeen tai tekijän nimi`;
+  datasetSearchPlaceholder = $localize`:@@datasetSearchPlaceholder:Tekijän nimi / aineiston nimi / organisaation nimi`;
+  fundingSearchPlaceholder = $localize`:@@enterPartOfName:Kirjoita osa nimestä`;
 
   constructor(
     private dialogRef: MatDialogRef<SearchPortalComponent>,
@@ -69,19 +71,19 @@ export class SearchPortalComponent implements OnInit {
 
   setLocalizedContent() {
     switch (this.data.groupId) {
-      case 'publication': {
+      case GroupTypes.publication: {
         this.dialogTitle = this.searchForMissingPublication;
         this.searchHelpText = this.searchForPublicationWithName;
         this.searchPlaceholder = this.publicationSearchPlaceholder;
         break;
       }
-      case 'dataset': {
+      case GroupTypes.dataset: {
         this.dialogTitle = this.searchForMissingDataset;
         this.searchHelpText = this.searchForDatasetsWithName;
         this.searchPlaceholder = this.datasetSearchPlaceholder;
         break;
       }
-      case 'funding': {
+      case GroupTypes.funding: {
         this.dialogTitle = this.searchForMissingFunding;
         this.searchHelpText = this.searchForFundingsWithName;
         this.searchPlaceholder = this.fundingSearchPlaceholder;
@@ -148,9 +150,7 @@ export class SearchPortalComponent implements OnInit {
     }
 
     const selection = this.currentSelection.map((item) => ({
-      id: item.id,
-      title: item.title || item.name,
-      year: item.year || item.publicationYear,
+      ...item,
       itemMeta: {
         id: item.id,
         type: fieldType,

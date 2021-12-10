@@ -7,20 +7,14 @@
 
 import { Injectable } from '@angular/core';
 import { AppSettingsService } from '@shared/services/app-settings.service';
-import { UtilityService } from '@shared/services/utility.service';
 import { Adapter } from '../adapter.model';
 
-export class Funding {
+export class Affiliation {
   constructor(
     public itemMeta: object,
-    public id: string,
-    public title: string,
-    public description: string,
-    public funderName: string,
-    public callProgrammeName: string,
-    public typeOfFundingName: string,
-    public acronym: string,
-    public amount: string,
+    public positionName: string,
+    public organizationName: string,
+    public departmentName: string,
     public year: string
   ) {}
 }
@@ -28,25 +22,20 @@ export class Funding {
 @Injectable({
   providedIn: 'root',
 })
-export class FundingItemAdapter implements Adapter<Funding> {
+export class AffiliationItemAdapter implements Adapter<Affiliation> {
   constructor(private appSettingsService: AppSettingsService) {}
-  adapt(item: any): Funding {
+  adapt(item: any): Affiliation {
     const locale = this.appSettingsService.capitalizedLocale;
 
     const year = `${item.startDate.year} - ${
       item.endDate.year > 0 ? item.endDate.year : ''
     }`;
 
-    return new Funding(
+    return new Affiliation(
       item.itemMeta,
-      item.projectId,
-      item['projectName' + locale],
-      item['projectDescription' + locale],
-      item['funderName' + locale],
-      item['callProgrammeName' + locale],
-      item['typeOfFundingName' + locale],
-      item.projectAcronym,
-      UtilityService.thousandSeparator(item.amountInEur) + '€',
+      item['positionName' + locale],
+      item['organizationName' + locale],
+      item['departmentName' + locale],
       year
     );
   }

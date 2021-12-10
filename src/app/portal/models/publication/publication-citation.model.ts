@@ -16,7 +16,8 @@ export class PublicationCitation {
   providedIn: 'root',
 })
 export class PublicationCitationAdapter
-  implements Adapter<PublicationCitation> {
+  implements Adapter<PublicationCitation>
+{
   types = [
     ['A1', 'A2', 'A4', 'B1', 'B3', 'D1', 'D3', 'E1'],
     ['A3', 'B2', 'D2'],
@@ -191,7 +192,7 @@ export class PublicationCitationAdapter
     const createChicago = (type: string): string => {
       let res = '';
 
-      const names = formatNames(item.authorsText);
+      const names = item.authorsText ? formatNames(item.authorsText) : null;
 
       const journal = `<i>${item.journalName || item.conferenceName}</i>`;
 
@@ -288,7 +289,7 @@ export class PublicationCitationAdapter
     const createMla = (type: string): string => {
       let res = '';
 
-      const names = formatNames(item.authorsText);
+      const names = item.authorsText ? formatNames(item.authorsText) : null;
 
       const journal = `<i>${item.journalName || item.conferenceName}</i>`;
 

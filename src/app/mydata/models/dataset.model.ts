@@ -6,9 +6,9 @@
 // :license: MIT
 
 import { Injectable } from '@angular/core';
+import { MydataUtilityService } from '@mydata/services/mydata-utility.service';
 import { Adapter } from './adapter.model';
-import { DatasetItemAdapter } from './item/dataset-item.model';
-import { mapGroup } from './utils';
+import { DatasetAdapter } from '@portal/models/dataset/dataset.model';
 
 export class DatasetFields {
   constructor(public dataset: any) {}
@@ -18,19 +18,28 @@ export class DatasetFields {
   providedIn: 'root',
 })
 export class DatasetFieldsAdapter implements Adapter<DatasetFields> {
-  mapGroup = mapGroup;
-  constructor(private datasetItemAdapter: DatasetItemAdapter) {}
+  constructor(
+    private datasetAdapter: DatasetAdapter,
+    private mydataUtils: MydataUtilityService
+  ) {}
 
   adapt(item: any): DatasetFields {
+    /*
+     * Leverage model from Portal.
+     */
     item.researchDatasetGroups.forEach(
       (group) =>
         (group.items = group.items.map(
-          (item) => (item = this.datasetItemAdapter.adapt(item))
+          (item) =>
+            (item = {
+              ...this.datasetAdapter.adapt(item),
+              itemMeta: item.itemMeta,
+            })
         ))
     );
 
     return new DatasetFields(
-      this.mapGroup(
+      this.mydataUtils.mapGroup(
         item.researchDatasetGroups,
         'datasets',
         $localize`:@@datasets:Tutkimusaineistot`

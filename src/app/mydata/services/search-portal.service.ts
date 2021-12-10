@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@shared/services/app-config-service.service';
 import { BehaviorSubject } from 'rxjs';
-import { DatasetAdapter } from '@portal/models/dataset/dataset.model';
 import { map } from 'rxjs/operators';
 import { Search, SearchAdapter } from '@portal/models/search.model';
 import { SettingsService } from '@portal/services/settings.service';
