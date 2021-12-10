@@ -204,6 +204,9 @@ export class ProfileComponent implements OnInit {
           cloneDeep(response.profileData)
         );
       });
+    if (sessionStorage.getItem(Constants.draftCollaborationPatchPayload)) {
+      this.markCollaborationOptionsChanged();
+    }
   }
 
   getName(data) {
@@ -414,7 +417,6 @@ export class ProfileComponent implements OnInit {
         }
       })
       .catch((error) => {
-        this.collaborationOptionsChanged = false;
         this.showSaveSuccessfulMessage(false);
         console.log(`Error in data patching`, error);
       });
