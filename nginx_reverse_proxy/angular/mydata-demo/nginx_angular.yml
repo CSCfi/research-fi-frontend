@@ -1,0 +1,99 @@
+# This file is part of the research.fi service
+#
+# Copyright 2021 Ministry of Education and Culture, Finland
+#
+# :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+# :license: MIT
+apiVersion: v1
+kind: Template
+metadata:
+  labels:
+    app: nginx-revproxy-angular-mydata-demo
+    template: nginx-revproxy-angular-mydata-demo
+  name: nginx-revproxy-angular-mydata-demo
+objects:
+  # Service
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: nginx-revproxy-angular-mydata-demo-service
+      labels:
+        app: nginx-revproxy-angular-mydata-demo
+      annotations:
+        description: Nginx reverse proxy for Angular web app - mydata demo
+    spec:
+      ports:
+        - name: nginx-revproxy-angular-mydata-demo
+          port: 8080
+          targetPort: 8080
+      selector:
+        depcfg: nginx-revproxy-angular-mydata-demo-deploymentconfig
+
+  # ImageStream
+  - apiVersion: v1
+    kind: ImageStream
+    metadata:
+      name: nginx-revproxy-angular-mydata-demo
+      labels:
+        app: nginx-revproxy-angular-mydata-demo
+
+  # BuildConfig using Docker build strategy
+  - apiVersion: v1
+    kind: BuildConfig
+    metadata:
+      name: nginx-revproxy-angular-mydata-demo-build
+      labels:
+        app: nginx-revproxy-angular-mydata-demo
+    spec:
+      source:
+        git:
+          uri: https://github.com/CSCfi/research-fi-frontend.git
+          ref: mydata_demo
+        contextDir: .
+      strategy:
+        dockerStrategy:
+          dockerfilePath: nginx_reverse_proxy/angular/mydata-demo/Dockerfile
+      output:
+        to:
+          kind: ImageStreamTag
+          name: nginx-revproxy-angular-mydata-demo:latest
+      successfulBuildsHistoryLimit: 4
+      failedBuildsHistoryLimit: 4
+
+  # Deployment config
+  - apiVersion: v1
+    kind: DeploymentConfig
+    metadata:
+      name: nginx-revproxy-angular-mydata-demo-deployment
+      labels:
+        app: nginx-revproxy-angular-mydata-demo
+    spec:
+      selector:
+        app: nginx-revproxy-angular-mydata-demo
+        depcfg: nginx-revproxy-angular-mydata-demo-deploymentconfig
+      template:
+        metadata:
+          labels:
+            app: nginx-revproxy-angular-mydata-demo
+            depcfg: nginx-revproxy-angular-mydata-demo-deploymentconfig
+        spec:
+          containers:
+            - name: nginx-revproxy-angular-mydata-demo-container
+              image: researchfi/nginx-revproxy-angular-mydata-demo
+              imagePullPolicy: Always
+              ports:
+                - containerPort: 8080
+                  protocol: TCP
+      replicas: 1
+      triggers:
+        - type: ConfigChange
+        - type: ImageChange
+          imageChangeParams:
+            automatic: true
+            containerNames:
+              - nginx-revproxy-angular-mydata-demo-container
+            from:
+              kind: ImageStreamTag
+              name: nginx-revproxy-angular-mydata-demo:latest
+      strategy:
+        type: Rolling
