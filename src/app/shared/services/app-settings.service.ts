@@ -92,9 +92,17 @@ export class AppSettingsService {
       },
     ],
     localizedDomains: [
-      { label: 'Suomi', locale: 'FI', url: 'https://localhost:5003/fi' },
+      {
+        label: 'Suomi',
+        locale: 'FI',
+        url: 'https://researchfi-mydata.rahtiapp.fi/fi',
+      },
       // { label: 'Svenska', locale: 'SV', url: 'https://localhost:5003/sv' },
-      { label: 'English', locale: 'EN', url: 'https://localhost:5003/en' },
+      {
+        label: 'English',
+        locale: 'EN',
+        url: 'https://researchfi-mydata-en.rahtiapp.fi/en',
+      },
     ],
   };
 
