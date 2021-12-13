@@ -2482,6 +2482,23 @@
         <source>Palvelinvirhe. Palvelimella tapahtui virhe pyyntöä käsitellessä</source>
         <target state="translated">Serverfel. Servern stötte på ett fel vid bearbetning av begäran</target>
       </trans-unit>
+      <trans-unit id="dataFetchError">
+        <source>Virhe tiedon hakemisessa</source>
+        <target>Fel vid hämtning av information</target>
+      </trans-unit>
+      <trans-unit id="cmsErrorContent1">
+        <source>Emme valitettavasti saa yhteyttä kaikkiin järjestelmämme osiin. </source>
+        <target>Tyvärr kan vi inte kontakta alla delar av systemet.</target>
+      </trans-unit>
+      <trans-unit id="cmsErrorContent2">
+        <source>Osa tiedejatutkimus.fi:stä on tilapäisesti poissa käytöstä.</source>
+        <target>En del av forskning.fi är tillfälligt ur funktion.</target>
+      </trans-unit>
+      <trans-unit id="cmsErrorContent3">
+        <source>Voit jatkaa portaalin käyttöä rajoitetulla tietosisällöllä.</source>
+        <target>Du kan fortsättä att användä portalen med begränsat informationsinnehåll.</target>
+      </trans-unit>
+
       <!-- Publications-->
       <trans-unit id="publicationType">
         <source>Julkaisutyyppi</source>

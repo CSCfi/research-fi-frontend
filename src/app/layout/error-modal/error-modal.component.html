@@ -1,22 +1,30 @@
+<!-- # This file is part of the research.fi API service
+
+ Copyright 2019 Ministry of Education and Culture, Finland
+
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
 <ng-template #errorModal>
-  <div class="modal-header align-items-center">
-    <h5 class="modal-title">
-      <span *ngIf="error.status !== 0">{{ error.status }} </span>
-      <span i18n="@@error">Virhe</span>
-    </h5>
-    <app-close-button
-      (click)="closeModal()"
-      (keydown.enter)="closeModal()"
-      autofocus
-      tabindex="-1"
-    ></app-close-button>
-  </div>
-  <div class="modal-body px-3 pt-3">
-    <p>
-      {{
-        staticDataService.httpErrors[error.status] ||
-          staticDataService.httpErrors.default
-      }}.
-    </p>
-  </div>
+  <p *ngIf="!cmsError; else cmsErrorContent">
+    {{ httpErrors[error.status] || httpErrors.default }}.
+  </p>
+
+  <ng-template #cmsErrorContent>
+    <div i18n="@@cmsErrorContent1">
+      Emme valitettavasti saa yhteyttä kaikkiin järjestelmämme osiin.
+    </div>
+    <div i18n="@@cmsErrorContent2">
+      Osa tiedejatutkimus.fi:stä on tilapäisesti poissa käytöstä.
+    </div>
+    <div i18n="@@cmsErrorContent3">
+      Voit jatkaa portaalin käyttöä rajoitetulla tietosisällöllä.
+    </div>
+  </ng-template>
 </ng-template>
+
+<app-dialog
+  *ngIf="showDialog"
+  [template]="dialogTemplate"
+  [title]="dialogTitle"
+></app-dialog>

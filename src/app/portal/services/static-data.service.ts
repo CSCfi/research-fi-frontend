@@ -363,16 +363,6 @@ export class StaticDataService {
   // Query parameters
   minScore = 10;
 
-  httpErrors = {
-    400: $localize`HTTP pyyntöä ei voitu käsitellä`,
-    401: $localize`Pyyntö vaatii sen käsittelyyn oikeutetut tunnukset`,
-    403: $localize`Ei oikeutta käsitellä pyyntöä`,
-    404: $localize`Haluttua tietoa ei ole olemassa`,
-    405: $localize`:@@forbiddenRequest:Pyyntömetodi ei ole sallittu`,
-    500: $localize`Palvelinvirhe. Palvelimella tapahtui virhe pyyntöä käsitellessä`,
-    default: $localize`HTTP pyyntöä ei voitu käsitellä`,
-  };
-
   constructor() {}
 
   // Query fields where exact match isn't needed
