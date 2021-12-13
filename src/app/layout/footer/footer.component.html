@@ -68,7 +68,7 @@
         </h2>
         <ul>
           <li>
-            <a href="javascript:void(0)" (click)="toggleReview()">
+            <a href="javascript:void(0)" (click)="openDialog(reviewDialog)">
               <ng-container i18n="Footer-link@@footerLink6">
                 Anna palautetta
               </ng-container>
@@ -142,7 +142,7 @@
     <button
       tabindex="0"
       class="review"
-      (click)="toggleReview()"
+      (click)="openDialog(reviewDialog)"
       mat-raised-button
       color="primary"
       i18n="Review-button@@reviewButton"
@@ -158,4 +158,16 @@
       ></fa-icon>
     </button>
   </div>
+
+  <ng-template #reviewDialog>
+    <app-review></app-review>
+  </ng-template>
+
+  <app-dialog
+    *ngIf="showDialog"
+    [template]="dialogTemplate"
+    [title]="dialogTitle"
+    [actions]="basicDialogActions"
+    (onActionClick)="closeDialog()"
+  ></app-dialog>
 </footer>
