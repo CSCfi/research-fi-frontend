@@ -106,7 +106,6 @@ export class PublicationsService {
   }
 
   removeItems(publications) {
-    console.log(publications);
     this.updateTokenInHttpAuthHeader();
     const body = publications.map((publication) => publication.id);
     return this.http.post(
