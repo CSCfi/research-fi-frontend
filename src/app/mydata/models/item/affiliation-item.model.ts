@@ -27,9 +27,10 @@ export class AffiliationItemAdapter implements Adapter<Affiliation> {
   adapt(item: any): Affiliation {
     const locale = this.appSettingsService.capitalizedLocale;
 
-    const year = `${item.startDate.year} - ${
-      item.endDate.year > 0 ? item.endDate.year : ''
-    }`;
+    const yearStart = (item.startDate.year > 0 && item.startDate.year) || '';
+    const yearEnd = (item.endDate.year > 0 && item.endDate.year) || '';
+
+    const year = `${yearStart} - ${yearEnd}`.trim();
 
     return new Affiliation(
       item.itemMeta,
