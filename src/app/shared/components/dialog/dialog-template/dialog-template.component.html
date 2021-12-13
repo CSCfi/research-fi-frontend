@@ -3,7 +3,7 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<mat-dialog-content>
+<mat-dialog-content [class.no-actions]="data.actions.length === 0">
   <div
     class="row d-flex justify-content-between dialog-header"
     *ngIf="data.title"
