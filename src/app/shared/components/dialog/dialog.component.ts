@@ -7,7 +7,6 @@
 
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { AppSettingsService } from '@shared/services/app-settings.service';
 import { take } from 'rxjs/operators';
 import { DialogTemplateComponent } from './dialog-template/dialog-template.component';
 
@@ -27,10 +26,7 @@ export class DialogComponent implements OnInit {
 
   dialogRef: MatDialogRef<DialogTemplateComponent>;
 
-  constructor(
-    public dialog: MatDialog,
-    private appSettingsService: AppSettingsService
-  ) {}
+  constructor(public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.openDialog();
@@ -62,7 +58,7 @@ export class DialogComponent implements OnInit {
       data: {
         title: this.title,
         template: this.template,
-        actions: this.actions,
+        actions: this.actions || [],
         extraContentTemplate: this.extraContentTemplate,
         spreadActions: spreadActions,
       },
