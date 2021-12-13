@@ -142,7 +142,10 @@
             </span>
 
             <ng-container *ngFor="let item of groupItem.items">
-              <div class="row d-flex justify-content-between py-1">
+              <div
+                class="row d-flex justify-content-between py-1"
+                *ngIf="item.itemMeta.id !== null"
+              >
                 <div
                   class="col px-0 font-size-smaller"
                   [ngSwitch]="field.single"
