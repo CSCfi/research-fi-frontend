@@ -290,7 +290,9 @@ export class PublicationFilterService {
     );
 
     // Filter organizations when targeted search for subunits
-    // ie. single-organization > navigate from sub units tab
+    // ie. single-organization > navigate from sub units tab.
+    // When subunit search is active, display only sector that
+    // includes selected subunit.
     if (activeFilters?.target === 'subUnitID' && activeFilters?.organization) {
       const organizationParam = activeFilters.organization;
       const orgId =
@@ -302,9 +304,15 @@ export class PublicationFilterService {
         sector.subData.find((org) => org.key === orgId)
       );
 
-      source.sectorName.buckets[sector].subData = source.sectorName.buckets[
-        sector
-      ].subData.filter((org) => org.key === orgId);
+      const activeSector = source.sectorName.buckets[sector];
+
+      activeSector.subData = activeSector.subData.filter(
+        (org) => org.key === orgId
+      );
+
+      source.buckets = source.buckets.filter(
+        (sector) => sector.key === activeSector.key
+      );
     }
 
     return source;
