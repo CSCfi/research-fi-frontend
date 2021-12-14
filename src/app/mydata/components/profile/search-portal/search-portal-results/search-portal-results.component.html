@@ -1,0 +1,145 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<mat-table
+  *ngIf="currentTable"
+  matSort
+  (matSortChange)="sortData($event)"
+  [dataSource]="data"
+  [matSortActive]="currentTable.defaultSort"
+  [matSortDirection]="
+    sortSettings ? sortSettings.publicationYear.order : 'desc'
+  "
+>
+  <ng-container matColumnDef="selection">
+    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+    <mat-cell *matCellDef="let item; let i = index">
+      <mat-checkbox
+        [checked]="
+          selectedItemsIdArray.indexOf(item[currentTable.idField]) > -1
+        "
+        [disabled]="
+          selectedItemsIdArray.indexOf(item[currentTable.idField]) > -1
+        "
+        (change)="toggleItem($event, i)"
+      ></mat-checkbox>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container *ngFor="let column of currentTable.columns">
+    <ng-container [matColumnDef]="column.id">
+      <mat-header-cell
+        *matHeaderCellDef
+        [mat-sort-header]="column.id"
+        disableClear
+      >
+        {{ column.label }}</mat-header-cell
+      >
+      <mat-cell *matCellDef="let item; let i = index">
+        <div class="row w-100">
+          <div
+            [class.text-overflow-ellipsis]="
+              column.ellipsis && showMoreArray.indexOf(i) === -1
+            "
+            class="col px-0"
+          >
+            {{ item[column.field] }}
+          </div>
+        </div>
+
+        <ng-container *ngIf="column.additionalFields">
+          <ng-container *ngFor="let additionalField of column.additionalFields">
+            <div
+              class="row mt-2 font-size-small w-100"
+              [class.d-none]="
+                additionalField.hidden && showMoreArray.indexOf(i) === -1
+              "
+              *ngIf="item | getValue: additionalField.field"
+            >
+              <!-- Special case for dataset author. Use component from portal / single-dataset -->
+              <div
+                class="col px-0"
+                *ngIf="
+                  additionalField.useComponent;
+                  else additionalFieldTemplate
+                "
+              >
+                <div
+                  class="py-2"
+                  *ngFor="let org of item[additionalField.field]"
+                >
+                  <app-dataset-author
+                    [org]="org"
+                    [noLinks]="true"
+                  ></app-dataset-author>
+                </div>
+              </div>
+
+              <ng-template #additionalFieldTemplate>
+                <div
+                  [class.text-overflow-ellipsis]="
+                    additionalField.ellipsis && showMoreArray.indexOf(i) === -1
+                  "
+                  class="col px-0"
+                >
+                  <ng-container
+                    *ngIf="
+                      additionalField.cutContent;
+                      else additionalFieldTemplate
+                    "
+                    >{{
+                      item | getValue: additionalField.field | cutContent: 200
+                    }}</ng-container
+                  >
+                  <ng-template #additionalFieldTemplate>{{
+                    item | getValue: additionalField.field
+                  }}</ng-template>
+                </div>
+              </ng-template>
+            </div>
+          </ng-container>
+        </ng-container>
+      </mat-cell>
+    </ng-container>
+  </ng-container>
+
+  <ng-container matColumnDef="show-more">
+    <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+    <mat-cell *matCellDef="let item; let i = index">
+      <a
+        *ngIf="showMoreArray.indexOf(i) === -1"
+        href="javascript:void(0)"
+        (click)="showMore(i)"
+        i18n="@@showMore"
+        >Näytä lisää</a
+      >
+      <a
+        *ngIf="showMoreArray.indexOf(i) > -1"
+        href="javascript:void(0)"
+        (click)="showLess(i)"
+        i18n="@@showLess"
+        >Näytä vähemmän</a
+      >
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columns"></mat-row>
+</mat-table>
+
+<div class="row">
+  <div class="col-auto px-0 font-size-smaller mt-3">
+    Sivu {{ currentPage }} / {{ pageCount }}
+  </div>
+  <div class="col px-0">
+    <mat-paginator
+      [length]="total"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      (page)="navigate($event)"
+    >
+    </mat-paginator>
+  </div>
+</div>

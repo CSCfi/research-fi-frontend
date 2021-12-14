@@ -7,7 +7,6 @@
 
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { AppSettingsService } from '@shared/services/app-settings.service';
 import { take } from 'rxjs/operators';
 import { DialogTemplateComponent } from './dialog-template/dialog-template.component';
 
@@ -16,9 +15,10 @@ import { DialogTemplateComponent } from './dialog-template/dialog-template.compo
   templateUrl: './dialog.component.html',
 })
 export class DialogComponent implements OnInit {
-  @Input() template: any;
-  @Input() actions: any;
   @Input() title: string;
+  @Input() template: any;
+  @Input() actions: any[];
+  @Input() extraContentTemplate: any;
   @Input() small: boolean;
   @Input() disableClose: boolean;
   @Output() onDialogClose = new EventEmitter<any>();
@@ -26,34 +26,43 @@ export class DialogComponent implements OnInit {
 
   dialogRef: MatDialogRef<DialogTemplateComponent>;
 
-  constructor(
-    public dialog: MatDialog,
-    private appSettingsService: AppSettingsService
-  ) {}
+  constructor(public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.openDialog();
   }
 
   openDialog() {
-    console.log(this.disableClose);
-    const dialogSettings = { ...this.appSettingsService.dialogSettings };
+    // Separate actions into parent columns.
+    let spreadActions = false;
 
-    if (this.small) {
-      dialogSettings.minWidth = 'unset';
-      dialogSettings.width = 'unset';
-      dialogSettings.maxHeight = 'unset';
-      dialogSettings.height = 'unset';
+    if (this.actions?.find((action) => action.flexStart)) {
+      spreadActions = true;
+
+      this.actions = [
+        this.actions.filter((action) => action.flexStart),
+        this.actions.filter((action) => !action.flexStart),
+      ];
     }
 
+    const smallDialogSettings = {
+      minWidth: 'unset',
+      width: 'unset',
+      maxHeight: 'unset',
+      height: 'unset',
+    };
+
     this.dialogRef = this.dialog.open(DialogTemplateComponent, {
-      ...dialogSettings,
+      ...(this.small ? smallDialogSettings : null),
       autoFocus: false,
       data: {
         title: this.title,
         template: this.template,
-        actions: this.actions,
+        actions: this.actions || [],
+        extraContentTemplate: this.extraContentTemplate,
+        spreadActions: spreadActions,
       },
+      panelClass: 'responsive-dialog',
       disableClose: this.disableClose ? true : false,
     });
 

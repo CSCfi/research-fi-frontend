@@ -9,6 +9,7 @@ import { Injectable, Inject, LOCALE_ID } from '@angular/core';
 import { FilterMethodService } from './filter-method.service';
 import { StaticDataService } from '../static-data.service';
 import { cloneDeep } from 'lodash-es';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Injectable({
   providedIn: 'root',
@@ -84,11 +85,10 @@ export class FundingFilterService {
   constructor(
     private filterMethodService: FilterMethodService,
     private staticDataService: StaticDataService,
-    @Inject(LOCALE_ID) protected localeId: string
+    @Inject(LOCALE_ID) protected localeId: string,
+    private appSettingsService: AppSettingsService
   ) {
-    // Capitalize first letter of locale
-    this.currentLocale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    this.currentLocale = this.appSettingsService.capitalizedLocale;
   }
 
   shapeData(data) {
@@ -299,67 +299,43 @@ export class FundingFilterService {
     return res;
   }
 
-  mapTopic(data) {
+  mapTopic(data){
     data.forEach((item) => {
-      item.subData = item.keywords.buckets.filter(
-        (x) => x.filtered.filterCount.doc_count > 0
-      );
+      if (item.key !== 'YSA' && item.key !== 'YSO') {
+        item.subData = item.keywords.buckets.filter(
+          (x) => x.filtered.filterCount.doc_count > 0
+        );
 
-      item.subData.map(
-        (x) => (
-          (x.label = x.key), (x.doc_count = x.filtered.filterCount.doc_count)
-        )
-      );
+        item.subData.map(
+          (x) => (
+            (x.label = x.key), (x.doc_count = x.filtered.filterCount.doc_count)
+          )
+        );
 
-      switch (item.key) {
-        case 'Avainsana': {
-          item.key = $localize`:@@keywords:Avainsanat`;
-          item.tooltip = $localize`:@@fkeywordsTooltip:Haun rajaus hankkeen tiedoissa olevien avainsanojen perusteella.`;
-          break;
-        }
-        case 'Teema-ala': {
-          item.key = $localize`:@@FAField:Teemat`;
-          item.tooltip = $localize`:@@fthemesTooltip:Osa rahoittajista järjestää haut teemojen mukaisesti. Teemat ovat tyypillisesti rahoittajakohtaisia, jolloin hakutuloksessa näkyy vain yhden rahoittajan hankkeita.`;
-          break;
-        }
-        case 'topic': {
-          item.key = $localize`:@@identifiedTopic:Tunnistettu aihe`;
-          item.tooltip = $localize`:@@identifiedTopicsTooltip:Koneoppimisen avulla hankkeiden tiedoista tutkimustietovarannossa muodostettu aiheluokittelu. Hanke liittyy aiheeseen, jota se todennäköisimmin käsittelee.`;
-          break;
-        }
-        case 'Tutkimusala': {
-          item.key = $localize`:@@FAResearchFields:Suomen Akatemian tutkimusalat`;
-          item.tooltip = $localize`:@@fresearchFieldTooltip:Suomen Akatemian luokittelee hankkeensa myös oman tutkimusalaluokittelunsa mukaisesti. Valinta kohdistuu vain Akatemian myöntämään rahoitukseen.`;
-          break;
+        switch (item.key) {
+          case 'Avainsana': {
+            item.key = $localize`:@@keywords:Avainsanat`;
+            item.tooltip = $localize`:@@fkeywordsTooltip:Haun rajaus hankkeen tiedoissa olevien avainsanojen perusteella.`;
+            break;
+          }
+          case 'Teema-ala': {
+            item.key = $localize`:@@FAField:Teemat`;
+            item.tooltip = $localize`:@@fthemesTooltip:Osa rahoittajista järjestää haut teemojen mukaisesti. Teemat ovat tyypillisesti rahoittajakohtaisia, jolloin hakutuloksessa näkyy vain yhden rahoittajan hankkeita.`;
+            break;
+          }
+          case 'topic': {
+            item.key = $localize`:@@identifiedTopic:Tunnistettu aihe`;
+            item.tooltip = $localize`:@@identifiedTopicsTooltip:Koneoppimisen avulla hankkeiden tiedoista tutkimustietovarannossa muodostettu aiheluokittelu. Hanke liittyy aiheeseen, jota se todennäköisimmin käsittelee.`;
+            break;
+          }
+          case 'Tutkimusala': {
+            item.key = $localize`:@@FAResearchFields:Suomen Akatemian tutkimusalat`;
+            item.tooltip = $localize`:@@fresearchFieldTooltip:Suomen Akatemian luokittelee hankkeensa myös oman tutkimusalaluokittelunsa mukaisesti. Valinta kohdistuu vain Akatemian myöntämään rahoitukseen.`;
+            break;
+          }
         }
       }
     });
-
-    //Sort
-    var topic_index = 0;
-    var ind_themes = 0;
-    data.every((item, index) => {
-      if (['Teemat', 'Themes', 'Teman'].includes(item.key)) {
-        ind_themes = index;
-        return false;
-      }
-      return true;
-    });
-    data.every((item, index) => {
-      if (
-        ['Tunnistettu aihe', 'Identified topic', 'Identifierade tema'].includes(
-          item.key
-        )
-      ) {
-        topic_index = index;
-        return false;
-      }
-      return true;
-    });
-    // [data[ind_themes + 1], data[topic_index]] = [
-    //   data[topic_index],
-    //   data[ind_themes + 1],
-    // ];
 
     return data;
   }

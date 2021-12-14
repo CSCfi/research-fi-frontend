@@ -24,7 +24,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { WINDOW } from 'src/app/shared/services/window.service';
 import { ResizeService } from 'src/app/shared/services/resize.service';
-import { news, common } from 'src/assets/static-data/meta-tags.json';
+import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -42,8 +42,8 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   mobile = this.width < 992;
 
   private currentLocale: string;
-  private metaTags = news;
-  private commonTags = common;
+  private metaTags = MetaTags.news;
+  private commonTags = MetaTags.common;
 
   queryParams: any;
   selectedIndex: any;
@@ -71,8 +71,7 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
     public appSettingsService: AppSettingsService
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
-    this.currentLocale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    this.currentLocale = this.appSettingsService.capitalizedLocale;
   }
 
   ngOnInit() {

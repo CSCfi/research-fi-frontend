@@ -7,7 +7,19 @@
 
 import { Injectable } from '@angular/core';
 import { Adapter } from './adapter.model';
-import { mapGroup, mapNameGroup } from './utils';
+
+import {
+  faTwitterSquare,
+  faFacebookSquare,
+  faLinkedin,
+} from '@fortawesome/free-brands-svg-icons';
+
+import {
+  faLink,
+  faEnvelope,
+  faPhoneSquareAlt,
+} from '@fortawesome/free-solid-svg-icons';
+import { MydataUtilityService } from '@mydata/services/mydata-utility.service';
 
 export class PersonalFields {
   constructor(
@@ -22,22 +34,66 @@ export class PersonalFields {
   providedIn: 'root',
 })
 export class PersonalFieldsAdapter implements Adapter<PersonalFields> {
-  mapGroup = mapGroup;
-  mapNameGroup = mapNameGroup;
-  constructor() {}
+  constructor(private mydataUtils: MydataUtilityService) {}
 
   adapt(item: any): PersonalFields {
+    const handleLinkIcon = (url: string | string[]) => {
+      if (url.includes('linkedin')) {
+        return faLinkedin;
+      } else if (url.includes('twitter')) {
+        return faTwitterSquare;
+      } else if (url.includes('facebook')) {
+        return faFacebookSquare;
+      } else return faLink;
+    };
+
+    const email = this.mydataUtils.mapGroup(
+      item.emailGroups,
+      'email',
+      $localize`:@@email:Sähköposti`
+    );
+    const webLinks = this.mydataUtils.mapGroup(
+      item.webLinkGroups,
+      'webLinks',
+      $localize`:@@links:Linkit`
+    );
+
+    const mapIcons = (group, iconMethod: Function, field?: string) => {
+      group['groupItems'].forEach(
+        (groupItem) =>
+          (groupItem.items = groupItem.items.map((item) => ({
+            ...item,
+            icon: iconMethod(item[field]),
+          })))
+      );
+    };
+
+    mapIcons(email, () => faEnvelope);
+    mapIcons(webLinks, handleLinkIcon, 'url');
+
     return new PersonalFields(
-      // TODO: Localize
-      this.mapNameGroup(item.nameGroups, 'Nimi', {
-        disabled: true,
-        expanded: true,
-        setDefault: true,
-        single: true,
-      }),
-      this.mapNameGroup(item.otherNameGroups, 'Muut nimet'),
-      this.mapGroup(item.emailGroups, 'Sähköposti'),
-      this.mapGroup(item.webLinkGroups, 'Linkit')
+      this.mydataUtils.mapNameGroup(
+        item.nameGroups,
+        'name',
+        $localize`:@@name:Nimi`,
+        {
+          disabled: true,
+          expanded: true,
+          setDefault: true,
+          single: true,
+        }
+      ),
+      this.mydataUtils.mapNameGroup(
+        item.otherNameGroups,
+        'otherNames',
+        $localize`:@@otherNames:Muut nimet`
+      ),
+      this.mydataUtils.mapGroup(
+        item.emailGroups,
+        'email',
+        $localize`:@@email:Sähköposti`
+      ),
+      webLinks
     );
   }
 }

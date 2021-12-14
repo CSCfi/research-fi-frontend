@@ -12,6 +12,9 @@ import { DescriptionFieldsAdapter } from './description.model';
 import { AffiliationFieldsAdapter } from './affiliation.model';
 import { EducationFieldsAdapter } from './education.model';
 import { PublicationFieldsAdapter } from './publication.model';
+import { DatasetFieldsAdapter } from './dataset.model';
+import { FundingFieldsAdapter } from './funding.model';
+import { GroupTypes } from '@mydata/constants/groupTypes';
 
 export class Profile {
   constructor(public profileData: any) {}
@@ -26,7 +29,9 @@ export class ProfileAdapter implements Adapter<Profile> {
     private descriptionFieldsAdapter: DescriptionFieldsAdapter,
     private affiliationFieldsAdapter: AffiliationFieldsAdapter,
     private educationFieldsAdapter: EducationFieldsAdapter,
-    private publicationFieldsAdapter: PublicationFieldsAdapter
+    private publicationFieldsAdapter: PublicationFieldsAdapter,
+    private datasetFieldsAdapter: DatasetFieldsAdapter,
+    private fundingFieldsAdapter: FundingFieldsAdapter
   ) {}
 
   adapt(item: any): Profile {
@@ -34,49 +39,45 @@ export class ProfileAdapter implements Adapter<Profile> {
 
     const mapModel = (adapter, data) => Object.values(adapter.adapt(data));
 
-    // TODO: Localize labels
     return new Profile([
       {
-        id: 'contact',
-        label: 'Yhteystiedot',
-        editLabel: 'yhteystietoja',
+        id: GroupTypes.contact,
+        label: $localize`:@@contactInfo:Yhteystiedot`,
         fields: mapModel(this.personalFieldsAdapter, data.personal),
       },
       {
-        id: 'description',
-        label: 'Tutkimustoiminnan kuvaus',
-        editLabel: 'tutkimustoiminnan kuvausta',
+        id: GroupTypes.description,
+        label: $localize`:@@descriptionOfResearchActivities:Tutkimustoiminnan kuvaus`,
         fields: mapModel(this.descriptionFieldsAdapter, data.personal),
       },
       {
-        id: 'affiliation',
-        label: 'Affiliaatiot',
-        editLabel: 'affiliaatioita',
+        id: GroupTypes.affiliation,
+        label: $localize`:@@affiliations:Affiliaatiot`,
         fields: mapModel(this.affiliationFieldsAdapter, data.activity),
       },
       {
-        id: 'educations',
-        label: 'Koulutus',
-        editLabel: 'koulutusta',
+        id: GroupTypes.education,
+        label: $localize`:@@education:Koulutus`,
         fields: mapModel(this.educationFieldsAdapter, data.activity),
       },
       {
-        id: 'publication',
-        label: 'Julkaisut',
-        editLabel: 'julkaisuja',
+        id: GroupTypes.publication,
+        label: $localize`:@@publications:Julkaisut`,
         fields: mapModel(this.publicationFieldsAdapter, data.activity),
       },
       {
-        id: 'dataset',
-        label: 'Tutkimusaineistot',
-        editLabel: 'tutkimusaineistoja',
-        fields: [],
+        id: GroupTypes.dataset,
+        label: $localize`:@@researchData:Tutkimusaineistot`,
+        fields: mapModel(this.datasetFieldsAdapter, data.activity),
       },
-      { id: 'project', label: 'Hankkeet', editLabel: 'hankkeita', fields: [] },
       {
-        id: 'activity',
-        label: 'Aktiviteetit ja palkinnot',
-        editLabel: 'aktiviteetteja ja palkintoja',
+        id: GroupTypes.funding,
+        label: $localize`:@@fundings:Hankkeet`,
+        fields: mapModel(this.fundingFieldsAdapter, data.activity),
+      },
+      {
+        id: GroupTypes.activity,
+        label: $localize`:@@activitiesAndAwards:Aktiviteetit ja palkinnotHankkeet`,
         fields: [],
       },
     ]);

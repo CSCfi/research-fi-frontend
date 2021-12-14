@@ -6,8 +6,8 @@
 // :license: MIT
 
 import { Injectable } from '@angular/core';
+import { MydataUtilityService } from '@mydata/services/mydata-utility.service';
 import { Adapter } from './adapter.model';
-import { mapGroup, mapGroupFieldName } from './utils';
 
 export class DescriptionFields {
   constructor(public researcherDescriptionGroups: any, public keywords: any) {}
@@ -17,21 +17,27 @@ export class DescriptionFields {
   providedIn: 'root',
 })
 export class DescriptionFieldsAdapter implements Adapter<DescriptionFields> {
-  mapGroup = mapGroup;
-  mapGroupFieldName = mapGroupFieldName;
-  constructor() {}
+  constructor(private mydataUtils: MydataUtilityService) {}
 
   adapt(item: any): DescriptionFields {
     return new DescriptionFields(
-      this.mapGroupFieldName(
+      this.mydataUtils.mapGroupFieldName(
         item.researcherDescriptionGroups,
-        'Kuvaus',
+        'researchDescription',
+        $localize`:@@description:Kuvaus`,
         'researchDescription',
         {
           localized: true,
         }
       ),
-      this.mapGroup(item.keywordGroups, 'Avainsanat', { joined: true })
+      this.mydataUtils.mapGroup(
+        item.keywordGroups,
+        'keywords',
+        $localize`:@@keywords:Avainsanat`,
+        {
+          joined: true,
+        }
+      )
     );
   }
 }

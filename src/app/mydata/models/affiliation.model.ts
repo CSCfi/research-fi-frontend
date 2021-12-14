@@ -6,8 +6,9 @@
 // :license: MIT
 
 import { Injectable } from '@angular/core';
+import { MydataUtilityService } from '@mydata/services/mydata-utility.service';
 import { Adapter } from './adapter.model';
-import { mapGroup, mapGroupFieldName } from './utils';
+import { AffiliationItemAdapter } from './item/affiliation-item.model';
 
 export class AffiliationFields {
   constructor(public affiliation: any) {}
@@ -17,15 +18,28 @@ export class AffiliationFields {
   providedIn: 'root',
 })
 export class AffiliationFieldsAdapter implements Adapter<AffiliationFields> {
-  mapGroup = mapGroup;
-  mapGroupFieldName = mapGroupFieldName;
-  constructor() {}
+  constructor(
+    private affiliationItemAdapter: AffiliationItemAdapter,
+    private mydataUtils: MydataUtilityService
+  ) {}
 
   adapt(item: any): AffiliationFields {
+    item.affiliationGroups.forEach(
+      (group) =>
+        (group.items = group.items.map(
+          (item) => (item = this.affiliationItemAdapter.adapt(item))
+        ))
+    );
+
     return new AffiliationFields(
-      this.mapGroup(item.affiliationGroups, 'Affiliaatiot', {
-        primaryValue: true,
-      })
+      this.mydataUtils.mapGroup(
+        item.affiliationGroups,
+        'affiliation',
+        $localize`:@@affiliations:Affiliaatiot`,
+        {
+          primaryValue: true,
+        }
+      )
     );
   }
 }

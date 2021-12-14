@@ -60,7 +60,7 @@ export class FunderAdapter implements Adapter<Funder> {
       this.lang.testLang('topicName', item),
       item?.topicId,
       item?.euCallId,
-      item.funderBusinessId[0].pid_content
+      item.funderBusinessId ? item.funderBusinessId[0].pid_content : null
     );
   }
 }

@@ -58,7 +58,7 @@
           <div class="row content" *ngFor="let row of infoFields">
             <!-- Labels -->
             <h2 class="col-12 col-sm-6 col-lg-3 th">
-              {{ row.label }}
+              <span class="pr-1">{{ row.label }}</span>
               <ng-container *ngIf="row.tooltip">
                 <ng-template #tooltipTemplate>
                   <div [innerHtml]="row.tooltip"></div>
@@ -69,7 +69,7 @@
                   placement="top"
                   #elem
                 >
-                  <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                  <fa-icon class="info-icon" icon="info-circle"></fa-icon>
                 </span>
               </ng-container>
             </h2>
@@ -93,7 +93,7 @@
           <div class="row content" *ngFor="let row of authors">
             <!-- Labels -->
             <h2 class="col-12 col-sm-6 col-lg-3 th">
-              {{ row.label }}
+              <span class="pr-1">{{ row.label }}</span>
               <ng-container *ngIf="row.tooltip">
                 <ng-template #tooltipTemplate>
                   <div [innerHtml]="row.tooltip"></div>
@@ -104,7 +104,7 @@
                   placement="top"
                   #elem
                 >
-                  <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                  <fa-icon class="info-icon" icon="info-circle"></fa-icon>
                 </span>
               </ng-container>
             </h2>
@@ -114,7 +114,8 @@
               [class.offset-lg-3]="!isFirst"
               *ngFor="let org of item.authors; first as isFirst"
             >
-              <ng-container *ngIf="org.id"
+              <app-dataset-author [org]="org"></app-dataset-author>
+              <!-- <ng-container *ngIf="org.id"
                 ><a class="th" href="/results/organization/{{ org.id }}">{{
                   org.name
                 }}</a
@@ -139,7 +140,7 @@
                     - {{ actor.roles.join(', ') }}</span
                   >
                 </p>
-              </div>
+              </div> -->
             </div>
           </div>
 
@@ -147,7 +148,7 @@
           <div class="row content" *ngFor="let row of project">
             <!-- Labels -->
             <h2 class="col-12 col-sm-6 col-lg-3 th">
-              {{ row.label }}
+              <span class="pr-1">{{ row.label }}</span>
               <ng-container *ngIf="row.tooltip">
                 <ng-template #tooltipTemplate>
                   <div [innerHtml]="row.tooltip"></div>
@@ -158,7 +159,7 @@
                   placement="top"
                   #elem
                 >
-                  <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                  <fa-icon class="info-icon" icon="info-circle"></fa-icon>
                 </span>
               </ng-container>
             </h2>
@@ -182,7 +183,7 @@
               *ngFor="let row of otherInfoFields?.slice(0, 3)"
             >
               <h3 class="th">
-                {{ row.label }}
+                <span class="pr-1">{{ row.label }}</span>
                 <ng-container *ngIf="row.tooltip">
                   <ng-template #tooltipTemplate>
                     <div [innerHtml]="row.tooltip"></div>
@@ -193,10 +194,7 @@
                     placement="top"
                     #elem
                   >
-                    <fa-icon
-                      class="info-icon pl-2"
-                      icon="info-circle"
-                    ></fa-icon>
+                    <fa-icon class="info-icon" icon="info-circle"></fa-icon>
                   </span>
                 </ng-container>
               </h3>
@@ -217,7 +215,7 @@
                 "
               >
                 <h3 class="th">
-                  {{ row.label }}
+                  <span class="pr-1">{{ row.label }}</span>
                   <ng-container *ngIf="row.tooltip">
                     <ng-template #tooltipTemplate>
                       <div [innerHtml]="row.tooltip"></div>
@@ -228,10 +226,7 @@
                       placement="top"
                       #elem
                     >
-                      <fa-icon
-                        class="info-icon pl-2"
-                        icon="info-circle"
-                      ></fa-icon>
+                      <fa-icon class="info-icon" icon="info-circle"></fa-icon>
                     </span>
                   </ng-container>
                 </h3>
@@ -247,7 +242,10 @@
                 *ngIf="otherInfoFields.slice(3).length > i + 1"
               >
                 <h3 class="th">
-                  {{ otherInfoFields.slice(3)[i + 1].label }}
+                  <span class="pr-1">{{
+                    otherInfoFields.slice(3)[i + 1].label
+                  }}</span>
+
                   <ng-container *ngIf="otherInfoFields.slice(3)[i + 1].tooltip">
                     <ng-template #tooltipTemplate>
                       <div
@@ -260,10 +258,7 @@
                       placement="top"
                       #elem
                     >
-                      <fa-icon
-                        class="info-icon pl-2"
-                        icon="info-circle"
-                      ></fa-icon>
+                      <fa-icon class="info-icon" icon="info-circle"></fa-icon>
                     </span>
                   </ng-container>
                 </h3>
@@ -279,7 +274,10 @@
                 *ngIf="otherInfoFields.slice(3).length > i + 2"
               >
                 <h3 class="th">
-                  {{ otherInfoFields.slice(3)[i + 2].label }}
+                  <span class="pr-1">{{
+                    otherInfoFields.slice(3)[i + 2].label
+                  }}</span>
+
                   <ng-container *ngIf="otherInfoFields.slice(3)[i + 2].tooltip">
                     <ng-template #tooltipTemplate>
                       <div
@@ -292,10 +290,7 @@
                       placement="top"
                       #elem
                     >
-                      <fa-icon
-                        class="info-icon pl-2"
-                        icon="info-circle"
-                      ></fa-icon>
+                      <fa-icon class="info-icon" icon="info-circle"></fa-icon>
                     </span>
                   </ng-container>
                 </h3>
@@ -307,7 +302,7 @@
             <ng-container *ngFor="let row of otherFields">
               <!-- Labels -->
               <h2 class="col-12 col-sm-6 col-lg-3 th">
-                {{ row.label }}
+                <span class="pr-1">{{ row.label }}</span>
                 <ng-container *ngIf="row.tooltip">
                   <ng-template #tooltipTemplate>
                     <div [innerHtml]="row.tooltip"></div>
@@ -318,10 +313,7 @@
                     placement="top"
                     #elem
                   >
-                    <fa-icon
-                      class="info-icon pl-2"
-                      icon="info-circle"
-                    ></fa-icon>
+                    <fa-icon class="info-icon" icon="info-circle"></fa-icon>
                   </span>
                 </ng-container>
               </h2>
@@ -474,34 +466,6 @@
             </div>
             <div class="clear"></div>
           </div>
-        </mat-card>
-      </aside>
-      <aside>
-        <mat-card>
-          <mat-card-title>
-            <h2 i18n="@@datasetSource">Tutkimusaineistotiedon lähde</h2>
-          </mat-card-title>
-          <div>
-            <p *ngIf="item.dataCatalog?.length > 0">{{ item.dataCatalog }}</p>
-            <p *ngIf="item.dataCatalog?.length === 0">
-              Tiedon lähde ei saatavilla.
-            </p>
-          </div>
-          <div class="clear"></div>
-        </mat-card>
-      </aside>
-      <aside>
-        <mat-card>
-          <mat-card-title>
-            <h2 i18n="@@datasetSource">Tutkimusaineistotiedon lähde</h2>
-          </mat-card-title>
-          <div>
-            <p *ngIf="item.dataCatalog?.length > 0">{{ item.dataCatalog }}</p>
-            <p *ngIf="item.dataCatalog?.length === 0">
-              Tiedon lähde ei saatavilla.
-            </p>
-          </div>
-          <div class="clear"></div>
         </mat-card>
       </aside>
     </div>

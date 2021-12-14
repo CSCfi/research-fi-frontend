@@ -25,6 +25,11 @@ import { SnackbarService } from '@mydata/services/snackbar.service';
 import { cloneDeep } from 'lodash-es';
 import { Constants } from '@mydata/constants/';
 import { PublicationsService } from '@mydata/services/publications.service';
+import { CommonStrings } from '@mydata/constants/strings';
+import { checkGroupSelected } from '@mydata/utils';
+import { UtilityService } from '@shared/services/utility.service';
+import { DatasetsService } from '@mydata/services/datasets.service';
+import { FundingsService } from '@mydata/services/fundings.service';
 
 @Component({
   selector: 'app-profile',
@@ -33,62 +38,91 @@ import { PublicationsService } from '@mydata/services/publications.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class ProfileComponent implements OnInit {
+  @ViewChild('deletingProfileTemplate') deletingProfileTemplate: ElementRef;
+  @ViewChild('collaborationComponentRef') collaborationComponentRef;
+
   orcidData: any;
   profileData: any;
   testData: any;
   orcid: string;
+  currentProfileName: string;
 
   mergePublications = mergePublications;
 
-  collaborationOptions = [
-    { label: 'Olen kiinnostunut tiedotusvälineiden yhteydenotoista', id: 0 },
-    {
-      label:
-        'Olen kiinnostunut yhteistyöstä muiden tutkijoiden ja tutkimusryhmien kanssa',
-      id: 1,
-    },
-    { label: 'Olen kiinnostunut yhteistyöstä yritysten kanssa', id: 2 },
-    {
-      label:
-        'Olen kiinnostunut toimimaan tieteellisten julkaisujen vertaisarvioijana',
-      id: 3,
-    },
-  ];
+  publishUpdatedProfile = $localize`:@@publishUpdatedProfile:Julkaise päivitetty profiili`;
+  discardChanges = $localize`:@@discardChanges:Hylkää muutokset`;
+  termsForTool = CommonStrings.termsForTool;
+  processingOfPersonalData = CommonStrings.processingOfPersonalData;
+  deleteProfileTitle = CommonStrings.deleteProfile;
 
   // Dialog variables
   showDialog: boolean;
-  dialogTemplate: any;
   dialogTitle: any;
+  dialogTemplate: any;
+  dialogExtraContentTemplate: any;
   currentDialogActions: any[];
   disableDialogClose: boolean;
-  basicDialogActions = [{ label: 'Sulje', primary: true, method: 'close' }];
-  deleteProfileDialogActions = [
-    { label: 'Peruuta', primary: false, method: 'close' },
-    { label: 'Poista profiili', primary: true, method: 'delete' },
+  basicDialogActions = [
+    { label: $localize`:@@close:Sulje`, primary: true, method: 'close' },
   ];
-  @ViewChild('deletingProfileTemplate') deletingProfileTemplate: ElementRef;
+  publishUpdatedProfileDialogActions = [
+    {
+      label: $localize`:@@showDataToPublish:Näytä julkaistavat tiedot`,
+      primary: false,
+      method: 'preview',
+      flexStart: true,
+    },
+    { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'cancel' },
+    { label: $localize`:@@publish:Julkaise`, primary: true, method: 'publish' },
+  ];
+  deleteProfileDialogActions = [
+    { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'close' },
+    {
+      label: $localize`:@@deleteProfile:Poista profiili`,
+      primary: true,
+      method: 'delete',
+    },
+  ];
+  discardChangesActions = [
+    { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'close' },
+    {
+      label: this.discardChanges,
+      primary: true,
+      method: 'discard',
+    },
+  ];
 
   connProblem: boolean;
   loading: boolean;
   deletingProfile: boolean;
 
   draftPayload: any[];
+  collaborationOptions: any[];
+  collaborationOptionsChanged: boolean;
+
+  checkGroupSelected = checkGroupSelected;
 
   constructor(
-    private profileService: ProfileService,
+    public profileService: ProfileService,
     public oidcSecurityService: OidcSecurityService,
-    private appSettingsService: AppSettingsService,
+    public appSettingsService: AppSettingsService,
     public dialog: MatDialog,
     private router: Router,
     private snackbarService: SnackbarService,
     public draftService: DraftService,
     public patchService: PatchService,
-    public publicationsService: PublicationsService
+    public patchServiceCollaboration: PatchService,
+    public publicationsService: PublicationsService,
+    public datasetsService: DatasetsService,
+    public fundingsService: FundingsService,
+    private utilityService: UtilityService
   ) {
     this.testData = profileService.testData;
   }
 
   ngOnInit(): void {
+    this.utilityService.setTitle($localize`:@@profile:Profiili`);
+
     this.oidcSecurityService.userData$.pipe(take(1)).subscribe((data) => {
       this.orcidData = data;
 
@@ -98,66 +132,129 @@ export class ProfileComponent implements OnInit {
       }
     });
 
-    if (this.appSettingsService.myDataSettings.develop) {
-      this.profileData = this.testData;
-      this.mergePublications(this.profileData[4]);
-    } else {
-      this.profileService
-        .getProfileData()
-        .pipe(take(1))
-        .subscribe((response) => {
-          // Get data from session storage if draft is available
-          if (this.appSettingsService.isBrowser) {
-            const draft = sessionStorage.getItem(Constants.draftProfile);
-            const draftPatchPayload = JSON.parse(
-              sessionStorage.getItem(Constants.draftPatchPayload)
+    this.profileService
+      .getProfileData()
+      .pipe(take(1))
+      .subscribe((response) => {
+        /*
+         * Draft data is stored in session storage.
+         * Set draft data to profile view if draft available.
+         * Drafts are deleted with reset ond publish methods
+         */
+        if (this.appSettingsService.isBrowser) {
+          const draft = sessionStorage.getItem(Constants.draftProfile);
+          const draftPatchPayload = JSON.parse(
+            sessionStorage.getItem(Constants.draftPatchPayload)
+          );
+          const draftPublicationPatchPayload = JSON.parse(
+            sessionStorage.getItem(Constants.draftPublicationPatchPayload)
+          );
+          const draftDatasetPatchPayload = JSON.parse(
+            sessionStorage.getItem(Constants.draftDatasetPatchPayload)
+          );
+          const draftFundingPatchPayload = JSON.parse(
+            sessionStorage.getItem(Constants.draftFundingPatchPayload)
+          );
+
+          this.draftPayload = draftPatchPayload;
+
+          // Display either draft profile from storage or profile from database
+          if (draft) {
+            const parsedDraft = JSON.parse(draft);
+            this.draftService.saveDraft(parsedDraft);
+            this.profileData = parsedDraft;
+            this.profileService.setCurrentProfileName(
+              this.getName(parsedDraft)
             );
-
-            this.draftPayload = draftPatchPayload;
-
-            // Display either draft profile or profile from database
-            if (draft) {
-              const parsedDraft = JSON.parse(draft);
-              this.draftService.saveDraft(parsedDraft);
-              this.profileData = parsedDraft;
-            } else {
-              this.profileData = response.profileData;
-            }
-
-            // Set draft patch payload from storage
-            if (draftPatchPayload)
-              this.patchService.addToPatchItems(draftPatchPayload);
+          } else {
+            this.profileData = response.profileData;
+            this.profileService.setCurrentProfileName(
+              this.getName(response.profileData)
+            );
           }
 
-          // Set original data
-          this.profileService.currentProfileData = cloneDeep(
-            response.profileData
-          );
+          // Profile, publications, datasets and fundings have separate draft data
+          const draftItems = [
+            { payload: draftPatchPayload, service: this.patchService },
+            {
+              payload: draftPublicationPatchPayload,
+              service: this.publicationsService,
+            },
+            {
+              payload: draftDatasetPatchPayload,
+              service: this.datasetsService,
+            },
+            {
+              payload: draftFundingPatchPayload,
+              service: this.fundingsService,
+            },
+          ];
 
-          // Merge publications
-          this.mergePublications(
-            response.profileData.find((item) => item.id === 'publication')
-          );
-        });
-    }
+          // Set draft item into view if draft available in storage
+          draftItems.forEach((item) => {
+            if (item.payload) {
+              item.service.addToPayload(item.payload);
+              item.service.confirmPayload();
+            }
+          });
+        }
+
+        // Set original data
+        this.profileService.setCurrentProfileData(
+          cloneDeep(response.profileData)
+        );
+      });
   }
 
-  openDialog(title, template, actions, disableDialogClose = false) {
+  getName(data) {
+    return data
+      .find((item) => item.id === 'contact')
+      .fields[0].groupItems.flatMap((groupItem) => groupItem.items)
+      .find((item) => item.itemMeta.show).value;
+  }
+
+  openDialog(props: {
+    title: string;
+    template: any;
+    extraContentTemplate: any;
+    actions: any;
+    disableDialogClose: boolean;
+  }) {
+    const {
+      title,
+      template,
+      extraContentTemplate,
+      actions,
+      disableDialogClose,
+    } = props;
+
     this.dialogTitle = title;
     this.showDialog = true;
     this.dialogTemplate = template;
+    this.dialogExtraContentTemplate = extraContentTemplate;
     this.currentDialogActions = actions;
     this.disableDialogClose = disableDialogClose;
   }
 
-  doDialogAction(event) {
+  doDialogAction(action: string) {
     this.dialog.closeAll();
     this.dialogTitle = '';
     this.showDialog = false;
     this.dialogTemplate = null;
 
-    if (event === 'delete') {
-      this.deleteProfile();
+    switch (action) {
+      case 'publish': {
+        this.publish();
+        break;
+      }
+      case 'delete': {
+        this.deleteProfile();
+        break;
+      }
+      case 'discard': {
+        this.reset();
+        break;
+      }
     }
   }
 
@@ -174,6 +271,7 @@ export class ProfileComponent implements OnInit {
           this.loading = false;
           if (res.ok && res.body.success) {
             this.dialog.closeAll();
+            this.reset();
 
             // Wait for dialog to close
             setTimeout(() => this.router.navigate(['/mydata']), 500);
@@ -197,52 +295,182 @@ export class ProfileComponent implements OnInit {
     this.disableDialogClose = false;
   }
 
-  publish() {
-    // TODO: Forkjoin both HTTP requests and handle results as single
-    this.handlePublications();
-    this.patchItems();
-  }
-
-  reset() {
-    this.profileData = this.profileService.currentProfileData;
-    this.clearDraftData();
-  }
-
-  clearDraftData() {
-    this.patchService.clearPatchItems();
-    this.patchService.cancelConfirmedPatchPayload();
-    this.publicationsService.clearPayload();
-    this.publicationsService.cancelConfirmedPayload();
-    this.draftService.clearData();
-  }
-
   /*
    * Add selected publications to profile
    */
-  handlePublications() {
-    this.publicationsService
-      .addPublications()
-      .pipe(take(1))
-      .subscribe(() => {});
+  private async handlePublicationsPromise() {
+    return new Promise((resolve, reject) => {
+      this.publicationsService
+        .addPublications()
+        .pipe(take(1))
+        .subscribe(
+          (result) => {
+            resolve(true);
+          },
+          (error) => {
+            reject(error);
+          }
+        );
+    });
   }
 
   /*
    * Patch items to backend
    */
-  patchItems() {
-    const patchItems = this.patchService.confirmedPatchItems;
+  private async patchItemsPromise() {
+    return new Promise((resolve, reject) => {
+      const patchItems = this.patchService.confirmedPatchItems;
+      this.profileService
+        .patchObjects(patchItems)
+        .pipe(take(1))
+        .subscribe(
+          (result) => {
+            resolve(true);
+            this.clearDraftData();
+          },
+          (error) => {
+            reject(error);
+          }
+        );
+    });
+  }
 
-    this.profileService
-      .patchObjects(patchItems)
-      .pipe(take(1))
-      .subscribe(
-        (result) => {
-          this.snackbarService.show('Muutokset tallennettu', 'success');
-          this.clearDraftData();
-        },
-        (error) => {
-          this.snackbarService.show('Virhe tiedon tallennuksessa', 'error');
+  /*
+   * Patch datasets to backend
+   */
+  private async handleDatasetsPromise() {
+    return new Promise((resolve, reject) => {
+      this.datasetsService
+        .addDatasets()
+        .pipe(take(1))
+        .subscribe(
+          (result) => {
+            resolve(true);
+          },
+          (error) => {
+            reject(error);
+          }
+        );
+    });
+  }
+
+  /*
+   * Patch fundings to backend
+   */
+  private async handleFundingsPromise() {
+    return new Promise((resolve, reject) => {
+      this.fundingsService
+        .addFundings()
+        .pipe(take(1))
+        .subscribe(
+          (result) => {
+            resolve(true);
+          },
+          (error) => {
+            reject(error);
+          }
+        );
+    });
+  }
+
+  /*
+   * Patch cooperation choices to backend
+   */
+  private async patchCooperationChoicesPromise() {
+    return new Promise((resolve, reject) => {
+      this.profileService
+        .patchCooperationChoices(this.collaborationOptions)
+        .pipe(take(1))
+        .subscribe(
+          (result) => {
+            resolve(true);
+          },
+          (error) => {
+            reject(error);
+          }
+        );
+    });
+  }
+
+  publish() {
+    const promises = [];
+    promises.push(this.handlePublicationsPromise());
+    promises.push(this.handleDatasetsPromise());
+    promises.push(this.handleFundingsPromise());
+    promises.push(this.patchItemsPromise());
+    promises.push(this.patchCooperationChoicesPromise());
+    Promise.all(promises)
+      .then((response) => {
+        if (response.includes(false)) {
+          this.showSaveSuccessfulMessage(false);
+        } else {
+          this.showSaveSuccessfulMessage(true);
+          this.collaborationOptionsChanged = false;
         }
+      })
+      .catch((error) => {
+        this.collaborationOptionsChanged = false;
+        this.showSaveSuccessfulMessage(false);
+        console.log(`Error in data patching`, error);
+      });
+    this.profileService.setCurrentProfileData(this.profileData);
+  }
+
+  /*
+   * Clear draft data from storage and service
+   */
+  reset() {
+    const currentProfileData = this.profileService.currentProfileData;
+
+    this.collaborationComponentRef.reloadCollaborationChoices();
+    sessionStorage.removeItem(Constants.draftProfile);
+    sessionStorage.removeItem(Constants.draftPatchPayload);
+    sessionStorage.removeItem(Constants.draftPublicationPatchPayload);
+    sessionStorage.removeItem(Constants.draftDatasetPatchPayload);
+    sessionStorage.removeItem(Constants.draftFundingPatchPayload);
+
+    this.profileData = [...currentProfileData];
+    this.profileService.setCurrentProfileName(this.getName(currentProfileData));
+    this.collaborationOptionsChanged = false;
+    this.clearDraftData();
+  }
+
+  clearDraftData() {
+    const itemServices = [
+      this.patchService,
+      this.patchServiceCollaboration,
+      this.publicationsService,
+      this.datasetsService,
+      this.fundingsService,
+    ];
+
+    itemServices.forEach((service) => {
+      service.clearPayload();
+      service.cancelConfirmedPayload();
+    });
+
+    this.draftService.clearData();
+  }
+
+  changeCollaborationOptions(input: any) {
+    this.collaborationOptions = input;
+  }
+
+  markCollaborationOptionsChanged() {
+    this.collaborationOptionsChanged = true;
+  }
+
+  showSaveSuccessfulMessage(wasSuccessful: boolean) {
+    if (wasSuccessful) {
+      this.snackbarService.show(
+        $localize`:@@profilePublishedToast:Profiili julkaistu. Tiedot näkyvät muutaman minuutin kuluttua tiedejatutkimus.fi -palvelussa.`,
+        'success'
       );
+    } else {
+      this.snackbarService.show(
+        $localize`:@@dataSavingError:Virhe tiedon tallennuksessa`,
+        'error'
+      );
+    }
   }
 }

@@ -8,8 +8,13 @@
   <div class="wrapper">
     <div class="row d-flex justify-content-between pt-3 pb-5">
       <div class="col-12 col-md-6 px-0">
-        <div class="row d-flex" *ngIf="orcidData">
-          <h1 class="col-12 px-0">{{ orcidData.name }}</h1>
+        <div
+          class="row d-flex"
+          *ngIf="profileService.currentProfileName | async"
+        >
+          <h1 class="col-12 px-0">
+            {{ profileService.currentProfileName | async }}
+          </h1>
           <div class="col align-self-center px-0">
             <img
               class="orcid-icon mt-n1 pr-2"
@@ -26,32 +31,103 @@
           <div class="col-auto profile-image-container opacity-3">
             <i class="fas fa-user text-center d-block h1"></i>
           </div>
-          <a disabled class="disabled">+ Lisää Julkinen profiilikuva</a>
+          <a disabled class="disabled"
+            >+
+            <ng-container i18n="@@addPublicProfilePicture"
+              >Lisää Julkinen profiilikuva</ng-container
+            ></a
+          >
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col-12 col-md-6 px-0 align-self-end">
-        <h2 class="h4">Julkinen profiili</h2>
+        <h2 class="h4 d-inline-block" i18n="@@publicProfile">
+          Julkinen profiili
+        </h2>
+        <span
+          class="d-inline-block pl-0 pl-lg-3 h6 font-italic"
+          *ngIf="
+            (publicationsService.currentPublicationPayload | async).length ||
+            (datasetsService.currentDatasetPayload | async).length ||
+            (fundingsService.currentFundingPayload | async).length ||
+            (patchService.currentPatchItems | async).length ||
+            collaborationOptionsChanged
+          "
+        >
+          - <ng-container i18n="@@draft">Luonnos</ng-container></span
+        >
       </div>
+
+      <!-- Handle draft publish -->
+      <ng-template #publishUpdatedProfileTemplate>
+        <p>
+          <ng-container i18n="@@updatedProfilePublishedAt"
+            >Päivitetty tutkijaprofiilisi julkaistaan kohteessa
+            tiedejatutkimus.fi</ng-container
+          >
+          <br />
+          <ng-container i18n="@@updatingPublicDataTakesFewMinutes"
+            >Julkisten tietojen päivittäminen kestää muutaman
+            minuutin.</ng-container
+          >
+        </p>
+      </ng-template>
+
+      <ng-template #dataToPublishTemplate>
+        <app-draft-summary
+          *ngIf="profileData"
+          [profileData]="profileData"
+          [collaborationOptions]="collaborationOptions"
+        ></app-draft-summary>
+      </ng-template>
 
       <div
         class="col px-0 py-2 text-right"
         *ngIf="
           (publicationsService.currentPublicationPayload | async).length ||
-          (patchService.currentPatchItems | async).length
+          (datasetsService.currentDatasetPayload | async).length ||
+          (fundingsService.currentFundingPayload | async).length ||
+          (patchService.currentPatchItems | async).length ||
+          collaborationOptionsChanged
         "
       >
         <app-primary-action-button
           class="col-auto"
+          i18n-content="@@publishEllipsis"
           content="Julkaise..."
-          (click)="publish()"
+          (click)="
+            openDialog({
+              title: publishUpdatedProfile,
+              template: publishUpdatedProfileTemplate,
+              extraContentTemplate: dataToPublishTemplate,
+              actions: publishUpdatedProfileDialogActions
+            })
+          "
         ></app-primary-action-button>
-        <app-primary-action-button
+
+        <!-- Discard draft -->
+        <button
+          mat-button
+          color="primary"
           class="col-auto pr-lg-0"
-          content="Hylkää muutokset..."
-          (click)="reset()"
-        ></app-primary-action-button>
+          (click)="
+            openDialog({
+              title: discardChanges,
+              template: discardChangesTemplate,
+              actions: discardChangesActions
+            })
+          "
+          i18n="@@discardChanges"
+        >
+          Hylkää muutokset...
+        </button>
+
+        <ng-template #discardChangesTemplate>
+          <p i18n="@@discardSessionChanges">
+            Hylätäänkö julkaisemattomat muutokset?
+          </p>
+        </ng-template>
       </div>
     </div>
 
@@ -61,8 +137,9 @@
       class="opacity-3"
     ></app-banner-divider>
 
+    <!-- Groups -->
     <div class="row d-flex justify-content-between">
-      <div class="col-12 col-lg-6 px-0 mx-lg-n3">
+      <div class="col-12 col-lg-7 mx-lg-n3">
         <app-profile-summary
           *ngIf="profileData; else loadingTemplate"
           class="d-block pt-3"
@@ -75,34 +152,55 @@
       </div>
 
       <div class="col-12 col-lg-5 px-0 px-lg-3 mr-lg-n3">
-        <div class="background-light p-3 mt-lg-5">
-          <span class="font-weight-bold d-block pb-3">Yhteistyö</span>
-          <section>
-            <mat-checkbox
-              class="py-1 py-lg-0"
-              *ngFor="let option of collaborationOptions"
-              >{{ option.label }}</mat-checkbox
-            >
-          </section>
-        </div>
+        <!-- DEBUGGING -->
+        <ng-container *ngIf="appSettingsService.myDataSettings.debug">
+          <button (click)="reset()" mat-raised-button>Reset</button>
+          <div class="row">
+            currentPublicationPayload:
+            {{ (publicationsService.currentPublicationPayload | async).length }}
+          </div>
+          <div class="row">
+            currentDatasetPayload:
+            {{ (datasetsService.currentDatasetPayload | async).length }}
+          </div>
+          <div class="row">
+            currentFundingPayload:
+            {{ (fundingsService.currentFundingPayload | async).length }}
+          </div>
+          <div class="row">
+            currentPatchItems:
+            {{ (patchService.currentPatchItems | async).length }}
+          </div>
+          <div class="row">
+            collaborationOptionsChanged:
+            {{ collaborationOptionsChanged }}
+          </div>
+        </ng-container>
 
+        <!-- Contact card -->
+        <aside *ngIf="profileData" class="profile-card">
+          <app-contact-card
+            i18n-label="@@contactInfo"
+            label="Yhteystiedot"
+            [data]="profileData"
+          ></app-contact-card>
+        </aside>
+
+        <!-- Collaboration -->
+        <aside class="profile-card">
+          <app-collaboration-card
+            #collaborationComponentRef
+            i18n-label="@@cooperation"
+            label="Yhteistyö"
+            (collaborationOptionsChanges)="changeCollaborationOptions($event)"
+            (collaborationOptionsChanged)="markCollaborationOptionsChanged()"
+          ></app-collaboration-card>
+        </aside>
+
+        <!-- Beta info -->
         <div class="row py-3 d-flex justify-content-center">
           <div class="col px-0">
-            <app-mydata-beta-info [template]="betaInfo"></app-mydata-beta-info>
-
-            <ng-template #betaInfo>
-              <p>
-                Tämä on Tutkijan tiedot -työkalun betaversio. Testikäyttäjien
-                palautetta hyödynnetään palvelun toiminnallisuuksien
-                kehittämisessä. Testauksessa syöttämiäsi tietoja ei julkaista
-                Tiedejatutkimus.fi:ssä.
-              </p>
-              <p>
-                <a href="https://wiki.eduuni.fi/x/YwMJDQ" target="_blank"
-                  >Lue lisää... <fa-icon icon="external-link-alt"></fa-icon
-                ></a>
-              </p>
-            </ng-template>
+            <app-mydata-beta-info></app-mydata-beta-info>
           </div>
         </div>
 
@@ -112,18 +210,20 @@
             <button
               class="row border border-primary rounded btn d-flex w-100"
               (click)="
-                openDialog(
-                  'Tutkijan tiedot -työkalun käyttöehdot',
-                  termsTemplate,
-                  basicDialogActions
-                )
+                openDialog({
+                  title: termsForTool,
+                  template: termsTemplate,
+                  actions: basicDialogActions
+                })
               "
             >
               <div class="col-auto">
                 <i class="pt-3 pb-2 h1 primary-color fas fa-file-alt"></i>
               </div>
               <div class="col align-self-center">
-                <span class="d-block align-self-center text-left"
+                <span
+                  class="d-block align-self-center text-left"
+                  i18n="@@openTermsOfUse"
                   >Avaa käyttöehdot</span
                 >
               </div>
@@ -136,18 +236,20 @@
             <button
               class="row border border-primary rounded btn d-flex w-100"
               (click)="
-                openDialog(
-                  'Henkilötietojen käsittely',
-                  personalDataHandlingTermsTemplate,
-                  basicDialogActions
-                )
+                openDialog({
+                  title: processingOfPersonalData,
+                  template: personalDataHandlingTermsTemplate,
+                  actions: basicDialogActions
+                })
               "
             >
               <div class="col-auto">
                 <i class="pt-3 pb-2 h1 primary-color fas fa-file-alt"></i>
               </div>
               <div class="col align-self-center">
-                <span class="d-block align-self-center text-left"
+                <span
+                  class="d-block align-self-center text-left"
+                  i18n="@@openPersonalDataProcessingPrinciples"
                   >Avaa henkilötietojen käsittelyperiaatteet</span
                 >
               </div>
@@ -167,6 +269,7 @@
           *ngIf="showDialog"
           [template]="dialogTemplate"
           [title]="dialogTitle"
+          [extraContentTemplate]="dialogExtraContentTemplate"
           (onActionClick)="doDialogAction($event)"
           [actions]="currentDialogActions"
         ></app-dialog>
@@ -177,18 +280,19 @@
             <app-primary-action-button
               class="d-block pt-5 pb-4"
               (click)="
-                openDialog(
-                  'Poista profiili',
-                  deleteProfileTemplate,
-                  deleteProfileDialogActions,
-                  true
-                )
+                openDialog({
+                  title: deleteProfileTitle,
+                  template: deleteProfileTemplate,
+                  actions: deleteProfileDialogActions,
+                  disableDialogClose: true
+                })
               "
+              i18n-content="@@deleteProfile"
               content="Poista profiili"
             ></app-primary-action-button>
 
             <ng-template #deleteProfileTemplate>
-              <p>
+              <p i18n="@@thisActionDeletesTestProfile">
                 Tämä toiminto poistaa Tutkijan tiedot -testisovelluksen
                 profiilin.
               </p>
@@ -206,7 +310,10 @@
                     i18n-aria-label="@@loading"
                     aria-label="Ladataan"
                   ></mat-spinner>
-                  <span class="d-block col py-3 text-center"
+                  <span
+                    class="d-block col pt-3 text-center"
+                    i18n="@@deletingProfileWait"
+                    aria-live="polite"
                     >Profiilia poistetaan, odota hetki...</span
                   >
                 </div>
@@ -215,14 +322,17 @@
               <div *ngIf="connProblem">
                 <div class="row">
                   <div class="col mx-3">
-                    <i class="fas fa-exclamation-triangle"></i> Yhteysongelma.
-                    Profiilin poisto ei onnistu. Kokeile hetken kuluttua
-                    uudestaan.
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <ng-container i18n="@@deleteProfileConnProblem"
+                      >Yhteysongelma. Profiilin poisto ei onnistu. Kokeile
+                      hetken kuluttua uudestaan.</ng-container
+                    >
                   </div>
                 </div>
                 <div class="row py-3">
                   <div class="col text-center">
                     <app-primary-action-button
+                      i18n-content="@@close"
                       content="Sulje"
                       (click)="closeDialog()"
                     ></app-primary-action-button>
@@ -231,7 +341,7 @@
               </div>
             </ng-template>
 
-            <!-- Reusable dialog -->
+            <!-- Dialog for delete profile loading indicator-->
             <app-dialog
               *ngIf="deletingProfile"
               [template]="deletingProfileTemplate"

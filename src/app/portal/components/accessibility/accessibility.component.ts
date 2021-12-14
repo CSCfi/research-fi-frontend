@@ -22,9 +22,10 @@ import { Subscription } from 'rxjs';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { ReviewComponent } from 'src/app/layout/review/review.component';
 import { UtilityService } from 'src/app/shared/services/utility.service';
-import { accessibility, common } from 'src/assets/static-data/meta-tags.json';
+import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { ActivatedRoute } from '@angular/router';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   selector: 'app-accessibility',
@@ -32,7 +33,8 @@ import { DOCUMENT, isPlatformBrowser } from '@angular/common';
   styleUrls: ['./accessibility.component.scss'],
 })
 export class AccessibilityComponent
-  implements OnInit, AfterViewInit, OnDestroy {
+  implements OnInit, AfterViewInit, OnDestroy
+{
   focusSub: Subscription;
   @ViewChild('mainFocus') mainFocus: ElementRef;
   @ViewChild('contentContainer', { static: false })
@@ -42,8 +44,8 @@ export class AccessibilityComponent
   currentLocale: string;
   loading = true;
 
-  private metaTags = accessibility;
-  private commonTags = common;
+  private metaTags = MetaTags.accessibility;
+  private commonTags = MetaTags.common;
   content: any[];
 
   constructor(
@@ -54,10 +56,10 @@ export class AccessibilityComponent
     private utilityService: UtilityService,
     private route: ActivatedRoute,
     @Inject(DOCUMENT) private document: any,
-    @Inject(PLATFORM_ID) private platformId: object
+    @Inject(PLATFORM_ID) private platformId: object,
+    private appSettingsService: AppSettingsService
   ) {
-    this.currentLocale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    this.currentLocale = this.appSettingsService.capitalizedLocale;
   }
 
   ngOnInit(): void {

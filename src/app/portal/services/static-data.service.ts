@@ -363,16 +363,6 @@ export class StaticDataService {
   // Query parameters
   minScore = 10;
 
-  httpErrors = {
-    400: $localize`HTTP pyyntöä ei voitu käsitellä`,
-    401: $localize`Pyyntö vaatii sen käsittelyyn oikeutetut tunnukset`,
-    403: $localize`Ei oikeutta käsitellä pyyntöä`,
-    404: $localize`Haluttua tietoa ei ole olemassa`,
-    405: $localize`:@@forbiddenRequest:Pyyntömetodi ei ole sallittu`,
-    500: $localize`Palvelinvirhe. Palvelimella tapahtui virhe pyyntöä käsitellessä`,
-    default: $localize`HTTP pyyntöä ei voitu käsitellä`,
-  };
-
   constructor() {}
 
   // Query fields where exact match isn't needed
@@ -898,6 +888,31 @@ export class StaticDataService {
               'actor.sector.organization.organizationNameEn',
               'actor.sector.organization.organizationNameSv',
             ];
+            break;
+          }
+        }
+        break;
+      }
+      case 'subUnitID': {
+        switch (index) {
+          case 'publication': {
+            res = ['author.organization.organizationUnit.OrgUnitId'];
+            break;
+          }
+          case 'funding': {
+            res = [''];
+            break;
+          }
+          case 'dataset': {
+            res = [''];
+            break;
+          }
+          case 'infrastructure': {
+            res = [''];
+            break;
+          }
+          case 'organization': {
+            res = [''];
             break;
           }
         }
@@ -1653,116 +1668,113 @@ export class StaticDataService {
           },
         ],
       },
-      /*
-       * Prevent filter from production
-       */
-      // {
-      //   field: 'identifiedTopic',
-      //   title: $localize`:@@fundingCountByIdentifiedTopic:Hankkeiden jakautuminen tunnistetun aiheen mukaan`,
-      //   select: $localize`:@@identifiedTopic:Tunnistettu aihe`,
-      //   filter: 'topic',
-      //   hierarchy: [
-      //     {
-      //       field: 'fundingStartYear',
-      //       name: 'year',
-      //       size: 10,
-      //       order: 1,
-      //     },
-      //     {
-      //       name: 'identifiedTopicNested',
-      //       nested: 'keywords',
-      //     },
-      //     {
-      //       field: 'keywords.keyword.keyword',
-      //       name: 'identifiedTopicId',
-      //       size: 10000,
-      //       order: 1,
-      //       filterName: 'topic',
-      //       exclude: [' '],
-      //     },
-      //     {
-      //       script:
-      //         'doc["keywords.keyword.keyword"].value + "|" + doc["keywords.scheme.keyword"].value',
-      //       name: 'identifiedTopic',
-      //       size: 10000,
-      //       order: 1,
-      //       exclude: [''],
-      //     },
-      //     {
-      //       name: 'reverse',
-      //       reverseNested: true,
-      //     },
-      //     {
-      //       name: 'orgNested',
-      //       nested: 'fundingGroupPerson',
-      //     },
-      //     {
-      //       field: 'fundingGroupPerson.consortiumOrganizationId.keyword',
-      //       name: 'organizationId',
-      //       size: 100,
-      //       filterName: 'organization',
-      //     },
-      //     {
-      //       sum: 'fundingGroupPerson.shareOfFundingInEur',
-      //       name: 'moneySum',
-      //       size: 1,
-      //     },
-      //   ],
-      //   hierarchy2: [
-      //     {
-      //       field: 'fundingStartYear',
-      //       name: 'year',
-      //       size: 10,
-      //       order: 1,
-      //     },
-      //     {
-      //       name: 'identifiedTopicNested',
-      //       nested: 'keywords',
-      //     },
-      //     {
-      //       field: 'keywords.keyword.keyword',
-      //       name: 'identifiedTopicId',
-      //       size: 10000,
-      //       order: 1,
-      //       filterName: 'topic',
-      //       exclude: [' '],
-      //     },
-      //     {
-      //       script:
-      //         'doc["keywords.keyword.keyword"].value + "|" + doc["keywords.scheme.keyword"].value',
-      //       name: 'identifiedTopic',
-      //       size: 10000,
-      //       order: 1,
-      //       exclude: [''],
-      //     },
-      //     {
-      //       name: 'reverse',
-      //       reverseNested: true,
-      //     },
-      //     {
-      //       name: 'orgNested',
-      //       nested: 'organizationConsortium',
-      //     },
-      //     {
-      //       name: 'finnishOrganization',
-      //       filter: {
-      //         field: 'organizationConsortium.isFinnishOrganization',
-      //         value: [1],
-      //       },
-      //     },
-      //     {
-      //       field: 'organizationConsortium.consortiumOrganizationId.keyword',
-      //       name: 'organizationId',
-      //       size: 100,
-      //       filterName: 'organization',
-      //     },
-      //     {
-      //       sum: 'organizationConsortium.shareOfFundingInEur',
-      //       name: 'moneySum',
-      //       size: 1,
-      //     },
-      //   ],
-      // },
+      {
+        field: 'identifiedTopic',
+        title: $localize`:@@fundingCountByIdentifiedTopic:Hankkeiden jakautuminen tunnistetun aiheen mukaan`,
+        select: $localize`:@@identifiedTopic:Tunnistettu aihe`,
+        filter: 'topic',
+        hierarchy: [
+          {
+            field: 'fundingStartYear',
+            name: 'year',
+            size: 10,
+            order: 1,
+          },
+          {
+            name: 'identifiedTopicNested',
+            nested: 'keywords',
+          },
+          {
+            field: 'keywords.keyword.keyword',
+            name: 'identifiedTopicId',
+            size: 1000,
+            order: 1,
+            filterName: 'topic',
+            exclude: [' '],
+          },
+          {
+            script:
+              'doc["keywords.keyword.keyword"].value + "|" + doc["keywords.scheme.keyword"].value',
+            name: 'identifiedTopic',
+            size: 1000,
+            order: 1,
+            exclude: [''],
+          },
+          {
+            name: 'reverse',
+            reverseNested: true,
+          },
+          {
+            name: 'orgNested',
+            nested: 'fundingGroupPerson',
+          },
+          {
+            field: 'fundingGroupPerson.consortiumOrganizationId.keyword',
+            name: 'organizationId',
+            size: 100,
+            filterName: 'organization',
+          },
+          {
+            sum: 'fundingGroupPerson.shareOfFundingInEur',
+            name: 'moneySum',
+            size: 1,
+          },
+        ],
+        hierarchy2: [
+          {
+            field: 'fundingStartYear',
+            name: 'year',
+            size: 10,
+            order: 1,
+          },
+          {
+            name: 'identifiedTopicNested',
+            nested: 'keywords',
+          },
+          {
+            field: 'keywords.keyword.keyword',
+            name: 'identifiedTopicId',
+            size: 1000,
+            order: 1,
+            filterName: 'topic',
+            exclude: [' '],
+          },
+          {
+            script:
+              'doc["keywords.keyword.keyword"].value + "|" + doc["keywords.scheme.keyword"].value',
+            name: 'identifiedTopic',
+            size: 1000,
+            order: 1,
+            exclude: [''],
+          },
+          {
+            name: 'reverse',
+            reverseNested: true,
+          },
+          {
+            name: 'orgNested',
+            nested: 'organizationConsortium',
+          },
+          {
+            name: 'finnishOrganization',
+            filter: {
+              field: 'organizationConsortium.isFinnishOrganization',
+              value: [1],
+            },
+          },
+          {
+            field: 'organizationConsortium.consortiumOrganizationId.keyword',
+            name: 'organizationId',
+            size: 100,
+            filterName: 'organization',
+          },
+          {
+            sum: 'organizationConsortium.shareOfFundingInEur',
+            name: 'moneySum',
+            size: 1,
+          },
+        ],
+      },
     ],
   };
 }

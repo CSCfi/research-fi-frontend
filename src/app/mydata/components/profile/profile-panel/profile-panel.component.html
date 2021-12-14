@@ -1,0 +1,270 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<div class="row d-flex justify-content-between py-2">
+  <div class="col-12 col-lg-auto font-size-big pt-3">
+    <span i18n="@@selectInformationToDisplayInProfile">
+      Valitse profiilissasi näytettävät tiedot </span
+    >&nbsp;<span
+      *ngIf="data.id === 'publication'"
+      i18n-tooltip="@@publicationsAddedFromResearchFITooltip"
+      tooltip="Tiedejatutkimus.fi-palvelun julkaisut on lisätty profiiliisi automaattisesti, jos niissä on ORCID-tunnuksesi. Julkaisuja, joihin ORCID-tunnusta ei ole valmiiksi liitetty, voit etsiä ”Puuttuuko jokin julkaisu tiedoistasi?” –toiminnolla."
+      tabindex="0"
+      placement="bottom"
+      container="body"
+    >
+      <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+    </span>
+  </div>
+  <div
+    class="col-auto py-3"
+    *ngIf="
+      data.id === 'publication' ||
+      data.id === 'dataset' ||
+      data.id === 'funding'
+    "
+  >
+    <!-- Search publications -->
+    <a
+      href="javascript:void(0)"
+      class="primary-color font-weight-500"
+      (click)="openSearchFromResearchFiDialog(data.id)"
+    >
+      <u>
+        <ng-container i18n="@@isMissing">Puuttuuko jokin </ng-container>
+        <ng-container [ngSwitch]="data.id">
+          <u *ngSwitchCase="'publication'" i18n="@@publicationItem">julkaisu</u>
+          <u *ngSwitchCase="'dataset'" i18n="@@datasetItem">tutkimusaineisto</u>
+          <u *ngSwitchCase="'funding'" i18n="@@fundingItem">hanke</u>
+        </ng-container>
+        <ng-container i18n="@@fromYourData"> tiedoistasi?</ng-container>
+      </u>
+    </a>
+  </div>
+</div>
+
+<div [@.disabled]="disableAnimation">
+  <mat-accordion *ngIf="data" multi>
+    <mat-expansion-panel
+      *ngFor="let field of data.fields; let i = index"
+      [expanded]="
+        field.expanded ||
+        !!(field.groupItems | filter: checkGroupSelected).length ||
+        openPanels.indexOf(i) > -1 ||
+        data.fields.length === 1
+      "
+      [class.pt-2]="data.fields.length === 1"
+      [hideToggle]="field.disabled || data.fields.length === 1"
+      (opened)="toggleGroup(i)"
+      (closed)="closePanel(i)"
+    >
+      <mat-expansion-panel-header
+        *ngIf="data.fields.length > 1"
+        [class.pointer-events-none]="field.disabled || data.fields.length === 1"
+      >
+        <mat-panel-title>
+          {{ field.label }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <ng-container *ngIf="field.label === 'Affiliaatiot'">
+        <p class="row" i18n="@@primaryInfoWillAppearFirst">
+          Ensisijaiset näytetään profiilissasi listan ensimmäisinä.
+        </p>
+      </ng-container>
+
+      <!-- Options -->
+      <ng-container
+        *ngFor="
+          let groupItem of field.groupItems | handleFetchedPublications: updated
+        "
+      >
+        <!-- Keywords have values that need to be joined -->
+        <ng-container [ngSwitch]="groupItem.groupMeta.type">
+          <div class="row py-1" *ngSwitchCase="fieldTypes.personKeyword">
+            <div class="col px-0 font-size-smaller">
+              <mat-checkbox
+                [checked]="groupItem.items | findSelectedItem"
+                (change)="toggleJoined($event, groupItem)"
+              >
+                {{ groupItem.items | joinItems: 'value' }}
+              </mat-checkbox>
+            </div>
+
+            <!-- Source -->
+            <div
+              class="
+                col-auto
+                px-0
+                pl-4
+                ml-1
+                mt-1
+                text-right
+                opacity-3
+                font-size-small
+              "
+            >
+              {{ groupItem.source.organization.name }}
+            </div>
+          </div>
+
+          <ng-container *ngSwitchDefault>
+            <!-- Header for items that are added from research.fi portal -->
+            <span
+              *ngIf="
+                (groupItem.groupMeta.type === fieldTypes.activityPublication ||
+                  groupItem.groupMeta.type === fieldTypes.activityDataset ||
+                  groupItem.groupMeta.type === fieldTypes.activityFunding) &&
+                groupItem.items.length &&
+                (groupItem | hasFetchedItem)
+              "
+              class="font-size-big d-block pb-3"
+            >
+              <ng-container [ngSwitch]="groupItem.groupMeta.type">
+                <span
+                  *ngSwitchCase="fieldTypes.activityPublication"
+                  i18n="@@addedPublications"
+                  >Tuodut julkaisut</span
+                >
+                <span
+                  *ngSwitchCase="fieldTypes.activityDataset"
+                  i18n="@@addedDatasets"
+                  >Tuodut tutkimusaineistot</span
+                >
+                <span
+                  *ngSwitchCase="fieldTypes.activityFunding"
+                  i18n="@@addedProjects"
+                  >Tuodut hankkeet</span
+                >
+              </ng-container>
+            </span>
+
+            <ng-container *ngFor="let item of groupItem.items">
+              <div
+                class="row d-flex justify-content-between py-1"
+                *ngIf="item.itemMeta.id !== null"
+              >
+                <div
+                  class="col px-0 font-size-smaller"
+                  [ngSwitch]="field.single"
+                >
+                  <mat-radio-button
+                    *ngSwitchCase="true"
+                    [value]="item.itemMeta.id"
+                    (change)="toggleRadioItem($event, i)"
+                    [checked]="item.itemMeta.show"
+                  >
+                    <app-panel-array-item
+                      [item]="item"
+                      [fieldType]="groupItem.groupMeta.type"
+                    ></app-panel-array-item>
+                  </mat-radio-button>
+
+                  <mat-checkbox
+                    [checked]="item.itemMeta.show"
+                    *ngSwitchDefault
+                    (change)="toggleItem($event, groupItem, item, i)"
+                  >
+                    <app-panel-array-item
+                      class="pl-1 d-block"
+                      [item]="item"
+                      [fieldType]="groupItem.groupMeta.type"
+                      [localized]="field.localized"
+                    ></app-panel-array-item>
+                  </mat-checkbox>
+                </div>
+
+                <!-- Debugging -->
+                <ng-container *ngIf="appSettingsService.myDataSettings.debug">
+                  <div class="col-2 font-size-small mt-1" style="color: red">
+                    itemId: {{ item.itemMeta.id }} | groupId:
+                    {{ groupItem.groupMeta.id }}
+                  </div></ng-container
+                >
+
+                <!-- Enable deletion of publications that are added from research.fi portal -->
+                <div
+                  class="col-auto mt-1"
+                  *ngIf="
+                    (groupItem.groupMeta.type ===
+                      fieldTypes.activityPublication ||
+                      groupItem.groupMeta.type === fieldTypes.activityDataset ||
+                      groupItem.groupMeta.type ===
+                        fieldTypes.activityFunding) &&
+                    item.itemMeta.primaryValue
+                  "
+                >
+                  <app-secondary-button
+                    i18n-content="@@remove"
+                    content="Poista"
+                    (click)="removeItem(groupItem.groupMeta.type, item)"
+                  ></app-secondary-button>
+                </div>
+
+                <!-- Source -->
+                <div
+                  class="
+                    col-auto
+                    px-0
+                    pl-4
+                    ml-1
+                    mt-1
+                    text-right
+                    opacity-3
+                    font-size-small
+                  "
+                >
+                  <ng-container *ngIf="item.merged; else singleSource">
+                    <div
+                      class="row"
+                      *ngFor="let source of item.source.organizations"
+                    >
+                      <div class="col px-0">
+                        {{ source.organization.name }}
+                      </div>
+                    </div>
+                  </ng-container>
+                  <ng-template #singleSource>{{
+                    groupItem.source.organization.name
+                  }}</ng-template>
+                </div>
+              </div>
+
+              <!-- Primary affiliation -->
+              <div class="row pb-3">
+                <div
+                  class="col-auto px-4 mx-1 cursor-pointer"
+                  *ngIf="
+                    groupItem.groupMeta.type === fieldTypes.activityAffiliation
+                  "
+                >
+                  <app-primary-badge
+                    [label]="
+                      item.itemMeta.primaryValue ? primary : setAsPrimary
+                    "
+                    [item]="item"
+                    [data]="field"
+                    [class.opacity-3]="!item.itemMeta.show"
+                    [disabled]="!item.itemMeta.show"
+                    [selected]="item.itemMeta.primaryValue"
+                  ></app-primary-badge>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+
+      <div class="row py-3 font-size-small" *ngIf="field.single">
+        <div class="col col-lg-6 pl-0">
+          <fa-icon class="pr-1 opacity-3" icon="info-circle"></fa-icon>
+          <span i18n="@@canSelectOnlyOneOption"
+            >Voit valita yhden vaihtoehdon</span
+          >
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

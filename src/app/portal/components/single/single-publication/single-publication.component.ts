@@ -32,10 +32,8 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { Search } from 'src/app/portal/models/search.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {
-  singlePublication,
-  common,
-} from 'src/assets/static-data/meta-tags.json';
+import MetaTags from 'src/assets/static-data/meta-tags.json';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   selector: 'app-single-publication',
@@ -51,8 +49,8 @@ export class SinglePublicationComponent
   pageNumber: any;
   tab = 'publications';
   tabQueryParams: any;
-  private metaTags = singlePublication;
-  private commonTags = common;
+  private metaTags = MetaTags.singlePublication;
+  private commonTags = MetaTags.common;
   showMore = $localize`:@@showMore:Näytä enemmän`;
   showLess = $localize`:@@showLess:Näytä vähemmän`;
 
@@ -341,12 +339,13 @@ export class SinglePublicationComponent
       field: 'fieldsOfScienceString',
       tooltip: $localize`:@@TKFOS:Tilastokeskuksen luokituksen mukaiset tieteenalat.`,
     },
+    { label: $localize`:@@keywords:Avainsanat`, field: 'keywords' },
     /*{
       label: $localize`:@@openAccess:Avoin saatavuus`,
       field: 'openAccessText',
       tooltip:
         '<p><strong>' +
-        $localize`:@@openAccessJournal:Open access -lehti` +
+        $localize`:@@openAccessPublicationChannel:Open access -julkaisukanava` +
         ': </strong>' +
         $localize`Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.` +
         '</p><p><strong>' +
@@ -372,7 +371,8 @@ export class SinglePublicationComponent
       field: 'businessCollaboration',
       tooltip: $localize`:@@publicationCompanyAuthors:Julkaisussa on tekijöitä vähintään yhdestä yrityksestä.`,
     },
-    { label: $localize`:@@keywords:Avainsanat`, field: 'keywords' },
+
+    { label: 'DOI', field: 'doi' },
   ];
 
   publicationStatus = [
@@ -433,11 +433,10 @@ export class SinglePublicationComponent
     public utilityService: UtilityService,
     @Inject(LOCALE_ID) private localeId,
     private snackBar: MatSnackBar,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private appSettingsService: AppSettingsService
   ) {
-    // Capitalize first letter of locale
-    this.currentLocale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    this.currentLocale = this.appSettingsService.capitalizedLocale;
   }
 
   public setTitle(newTitle: string) {
@@ -589,9 +588,7 @@ export class SinglePublicationComponent
   }
 
   shapeData() {
-    // Capitalize first letter of locale
-    const locale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    const locale = this.currentLocale;
     const source = this.responseData.publications[0];
     const countries = source.countries;
     const languages = source.languages;
@@ -620,7 +617,7 @@ export class SinglePublicationComponent
             x.keyword.trim() +
             '</a>'
         )
-        .join(', ');
+        .join('; ');
     }
 
     // Get authors per organization

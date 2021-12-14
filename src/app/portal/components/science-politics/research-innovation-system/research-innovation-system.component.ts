@@ -21,13 +21,11 @@ import { Title, DomSanitizer } from '@angular/platform-browser';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { ResizeService } from 'src/app/shared/services/resize.service';
 import { Subscription } from 'rxjs';
-import {
-  researchInnovation,
-  common,
-} from 'src/assets/static-data/meta-tags.json';
+import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { ActivatedRoute } from '@angular/router';
 import { Sector } from 'src/app/portal/models/research-innovation-system/sector.model';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   selector: 'app-research-innovation-system',
@@ -40,8 +38,8 @@ export class ResearchInnovationSystemComponent
   faTimes = faTimes;
   openedIdx = -1;
 
-  private metaTags = researchInnovation;
-  private commonTags = common;
+  private metaTags = MetaTags.researchInnovation;
+  private commonTags = MetaTags.common;
 
   colWidth = 0;
 
@@ -66,12 +64,12 @@ export class ResearchInnovationSystemComponent
     private cdr: ChangeDetectorRef,
     private resizeService: ResizeService,
     private utilityService: UtilityService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private appSettingsService: AppSettingsService
   ) {
     this.selectedSector = null;
-    // Capitalize first letter of locale
-    this.currentLocale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+
+    this.currentLocale = this.appSettingsService.capitalizedLocale;
   }
 
   public setTitle(newTitle: string) {

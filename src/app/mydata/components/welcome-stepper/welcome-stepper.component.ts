@@ -26,6 +26,8 @@ import { WINDOW } from '@shared/services/window.service';
 import { isPlatformBrowser } from '@angular/common';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { MatDialog } from '@angular/material/dialog';
+import { CommonStrings } from '@mydata/constants/strings';
+import { UtilityService } from '@shared/services/utility.service';
 
 @Component({
   selector: 'app-welcome-stepper',
@@ -45,7 +47,7 @@ export class WelcomeStepperComponent implements OnInit {
   faAngleDoubleLeft = faAngleDoubleLeft;
 
   userData: any;
-  firstName: string;
+  profileName: string;
 
   @ViewChild('fetchingTemplate') fetchingTemplate: ElementRef;
 
@@ -53,14 +55,28 @@ export class WelcomeStepperComponent implements OnInit {
   profileCreated: boolean;
   profileData: Object;
 
+  steps = [
+    { title: $localize`:@@welcome:Tervetuloa` },
+    {
+      title: $localize`:@@termsPersonalDataProcessing:Käyttöehdot ja henkilötietojen käsittely`,
+    },
+    { title: $localize`:@@importingDataFromOrcid:Tietojen tuominen Orcidista` },
+  ];
+
   // Dialog variables
   showDialog: boolean;
   dialogTemplate: any;
   dialogTitle: any;
-  dialogActions = [{ label: 'Sulje', primary: true, method: 'close' }];
+  dialogActions = [
+    { label: $localize`:@@close:Sulje`, primary: true, method: 'close' },
+  ];
   disableDialogClose: boolean;
 
   loading: boolean;
+
+  termsForTool = CommonStrings.termsForTool;
+  processingOfPersonalData = CommonStrings.processingOfPersonalData;
+  cancelServiceDeployment = $localize`:@@cancelServiceDeployment:Peruutetaanko palvelun käyttöönotto?`;
 
   constructor(
     private profileService: ProfileService,
@@ -69,35 +85,36 @@ export class WelcomeStepperComponent implements OnInit {
     private appSettingsService: AppSettingsService,
     @Inject(PLATFORM_ID) private platformId: object,
     @Inject(WINDOW) private window: Window,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private utilityService: UtilityService
   ) {
     this.profileData = null;
   }
 
   ngOnInit() {
-    this.develop = this.appSettingsService.myDataSettings.develop;
+    this.utilityService.setTitle(this.steps[0].title);
 
-    if (!this.develop) {
-      this.checkProfileExists();
-    } else {
-      this.profileChecked = true;
-    }
+    this.checkProfileExists();
 
-    this.step = this.develop ? 4 : 1;
+    this.step = 1;
 
     this.oidcSecurityService.userData$.pipe(take(1)).subscribe((data) => {
       if (data) {
         this.userData = data;
-        this.firstName = data?.name.split(' ')[0];
+        this.profileName = data?.name;
         this.appSettingsService.setOrcid(data.orcid);
       }
     });
   }
 
-  changeStep(direction) {
+  changeStep(direction: string) {
     // Scroll to top on step change
     if (isPlatformBrowser(this.platformId)) {
       this.window.scrollTo(0, 0);
+    }
+
+    if (direction === 'cancel') {
+      return this.toggleCancel();
     }
 
     // Fetch data if on step 3 and user has initialized Orcid data fetch
@@ -110,13 +127,20 @@ export class WelcomeStepperComponent implements OnInit {
 
   increment() {
     this.step = this.step + 1;
+    this.utilityService.setTitle(this.steps[this.step - 1].title);
   }
 
   decrement() {
     this.step = this.step - 1;
+    this.utilityService.setTitle(this.steps[this.step - 1].title);
   }
 
   toggleCancel() {
+    this.utilityService.setTitle(
+      this.cancel
+        ? this.steps[this.step - 1].title
+        : this.cancelServiceDeployment
+    );
     this.cancel = !this.cancel;
   }
 

@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +22,7 @@ export class PatchService {
   private confirmedPatchItemsSource = new BehaviorSubject<any>([]);
   currentPatchItems = this.confirmedPatchItemsSource.asObservable();
 
-  addToPatchItems(payload) {
+  addToPayload(payload) {
     const items = this.patchItems;
 
     if (Array.isArray(payload)) {
@@ -40,13 +40,25 @@ export class PatchService {
     }
   }
 
-  confirmPatchItems() {
-    const merged = this.confirmedPatchItems.concat(this.patchItems);
+  confirmPayload() {
+    const patchItems = this.patchItems;
+
+    let merged = this.confirmedPatchItems.concat(patchItems);
+
+    // If user decides to deselect already confirmed item
+    patchItems.forEach((item) => {
+      if (merged.filter((mergedItem) => mergedItem.id === item.id).length > 1) {
+        merged = merged.filter((mergedItem) => mergedItem.id !== item.id);
+      }
+    });
+
+    this.patchItems = [];
     this.confirmedPatchItems = merged;
     this.confirmedPatchItemsSource.next(merged);
   }
 
-  cancelConfirmedPatchPayload() {
+  cancelConfirmedPayload() {
+    this.confirmedPatchItems = [];
     this.confirmedPatchItemsSource.next([]);
   }
 
@@ -56,9 +68,12 @@ export class PatchService {
 
   removeItemsWithType(type) {
     this.patchItems = this.patchItems.filter((item) => item.type !== type);
+    this.confirmedPatchItems = this.confirmedPatchItems.filter(
+      (item) => item.type !== type
+    );
   }
 
-  clearPatchItems() {
+  clearPayload() {
     this.patchItems = [];
   }
 }

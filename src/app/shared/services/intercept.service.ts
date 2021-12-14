@@ -6,10 +6,11 @@ import {
   HttpHandler,
   HttpEvent,
 } from '@angular/common/http';
-import { throwError, Observable } from 'rxjs';
+import { throwError, Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ErrorHandlerService } from './error-handler.service';
 import { Router } from '@angular/router';
+import { AppConfigService } from './app-config-service.service';
 
 @Injectable({
   providedIn: 'root',
@@ -21,17 +22,19 @@ import { Router } from '@angular/router';
 export class InterceptService implements HttpInterceptor {
   constructor(
     private errorService: ErrorHandlerService,
-    private router: Router
+    private router: Router,
+    private appConfigService: AppConfigService
   ) {}
 
   handleError(error: HttpErrorResponse) {
     this.errorService.updateError(error);
-    return throwError(error);
 
-    // if (!this.router.url.includes('mydata')) {
-    //   this.errorService.updateError(error);
-    //   return throwError(error);
-    // }
+    // Allow user to continue the use of application if CMS service is down.
+    if (error.url.includes(this.appConfigService.cmsUrl)) {
+      return of(false);
+    }
+
+    return throwError(error);
   }
 
   intercept(

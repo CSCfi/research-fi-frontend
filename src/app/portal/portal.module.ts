@@ -125,7 +125,6 @@ import { FilterListComponent } from './components/results/active-filters/filter-
 import { ServiceInfoComponent } from './components/service-info/service-info.component';
 import { PrivacyComponent } from './components/privacy/privacy.component';
 import { AccessibilityComponent } from './components/accessibility/accessibility.component';
-import { ClickOutsideModule } from 'ng-click-outside';
 
 import { SharedModule } from '../shared/shared.module';
 import { filter } from 'rxjs/operators';
@@ -140,7 +139,6 @@ import { ResultCountComponent } from './components/results/result-count/result-c
 import { BarComponent } from './components/visualisation/bar/bar.component';
 import { FigureFiltersComponent } from './components/science-politics/figures/figure-filters/figure-filters.component';
 import { FiguresInfoComponent } from './components/science-politics/figures/figures-info/figures-info.component';
-import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
 import { DatasetsComponent } from './components/results/datasets/datasets.component';
 import { SingleDatasetComponent } from './components/single/single-dataset/single-dataset.component';
 import { ExternalLinksComponent } from './components/science-politics/external-links/external-links.component';
@@ -160,6 +158,7 @@ import { FilterEmptyFieldPipe } from './pipes/filter-empty-field.pipe';
 import { HandleLinkDisplayPipe } from './pipes/handle-link-display.pipe';
 import { IsUrlPipe } from './pipes/is-url.pipe';
 import { PublicationLinksComponent } from './components/single/single-publication/publication-links/publication-links.component';
+import { DatasetAuthorComponent } from './components/single/single-dataset/dataset-author/dataset-author.component';
 
 @NgModule({
   declarations: [
@@ -219,7 +218,6 @@ import { PublicationLinksComponent } from './components/single/single-publicatio
     BarComponent,
     FigureFiltersComponent,
     FiguresInfoComponent,
-    SanitizeHtmlPipe,
     DatasetsComponent,
     SingleDatasetComponent,
     ExternalLinksComponent,
@@ -245,6 +243,7 @@ import { PublicationLinksComponent } from './components/single/single-publicatio
     OrganizationSubUnitsComponent,
     FilterEmptyFieldPipe,
     PublicationLinksComponent,
+    DatasetAuthorComponent,
   ],
   imports: [
     PortalRoutingModule,
@@ -278,11 +277,11 @@ import { PublicationLinksComponent } from './components/single/single-publicatio
     FontAwesomeModule,
     TransferHttpCacheModule,
     ModalModule.forRoot(),
-    ClickOutsideModule,
     SharedModule,
     A11yModule,
     TooltipModule.forRoot(),
   ],
+  exports: [DatasetAuthorComponent],
   providers: [
     SearchService,
     Title,
@@ -354,51 +353,51 @@ export class PortalModule {
     router.events
       .pipe(filter((e: Event): e is Scroll => e instanceof Scroll))
       .subscribe((e) => {
+        const currentUrl = e.routerEvent.url;
+        const history = this.historyService.history;
+        const resultPages = tabChangeService.resultPageList;
+
         // Trigger new page so first tab focuses skip links
-        const prevPageLocation =
-          this.historyService.history[this.historyService.history.length - 2];
-        const currentPageLocation = e.routerEvent.url;
+        const prevPageLocation = history[history.length - 2];
+        const currentPageLocation = currentUrl;
         if (this.newPage(prevPageLocation, currentPageLocation)) {
           this.tabChangeService.triggerNewPage();
         }
-        if (e.routerEvent.url.includes('/results')) {
-          const targetPage =
-            +router.parseUrl(e.routerEvent.url).queryParams.page || 1;
+
+        // Check that route is in results and not in single result
+        if (
+          currentUrl.includes('/results') &&
+          !resultPages.some((item) =>
+            currentUrl.includes(`/${item.slice(0, -1)}/`)
+          )
+        ) {
+          const targetPage = +router.parseUrl(currentUrl).queryParams.page || 1;
           // Different page or coming from different route
           if (
             this.startPage !== targetPage ||
-            !this.historyService.history[
-              this.historyService.history.length - 2
-            ]?.includes('/results')
+            !history[history.length - 2]?.includes('/results')
           ) {
             viewportScroller.scrollToPosition([0, 0]);
           }
           this.startPage = targetPage;
 
           // Similar to /results but for /funding-calls
-        } else if (e.routerEvent.url.includes('/funding-calls')) {
-          const targetPage =
-            +router.parseUrl(e.routerEvent.url).queryParams.page || 1;
+        } else if (currentUrl.includes('/funding-calls')) {
+          const targetPage = +router.parseUrl(currentUrl).queryParams.page || 1;
           // Different page or coming from different route
           if (
             this.startPage !== targetPage ||
-            !this.historyService.history[
-              this.historyService.history.length - 2
-            ]?.includes('/funding-calls')
+            !history[history.length - 2]?.includes('/funding-calls')
           ) {
             viewportScroller.scrollToPosition([0, 0]);
           }
           this.startPage = targetPage;
-        } else if (e.routerEvent.url.includes('/science-research-figures')) {
+        } else if (currentUrl.includes('/science-research-figures')) {
           // scroll to top only in single figure view
-          if (
-            !this.historyService.history[
-              this.historyService.history.length - 2
-            ]?.includes('figures/s')
-          ) {
+          if (!history[history.length - 2]?.includes('figures/s')) {
             viewportScroller.scrollToPosition([0, 0]);
           }
-          if (!e.routerEvent.url.includes('filter')) {
+          if (!currentUrl.includes('filter')) {
             viewportScroller.scrollToPosition([0, 0]);
           }
         } else {

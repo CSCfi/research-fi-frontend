@@ -3,100 +3,119 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<mat-accordion multi>
-  <mat-expansion-panel
-    *ngFor="let group of profileData; let i = index"
-    [expanded]="i === 0 || openPanels.indexOf(i) > -1"
-    [disabled]="group.fields.length === 0"
+<ng-container *ngFor="let group of profileData.slice(1); let i = index">
+  <div
+    class="group-wrapper"
+    *ngIf="
+      (group.fields | countGroupItems).length ||
+      group.id === groupTypes.publication ||
+      group.id === groupTypes.dataset
+    "
   >
-    <mat-expansion-panel-header class="pr-1 pr-md-3">
-      <mat-panel-title>
+    <div class="row py-2 justify-content-between">
+      <div class="col-4 align-self-center font-weight-bold">
         {{ group.label }}
-      </mat-panel-title>
-
-      <div class="col-auto align-self-center">
-        {{ (group.fields | countGroupItems: true).length }}
-
-        /
-        {{ (group.fields | countGroupItems).length }}
-        valittu
       </div>
-    </mat-expansion-panel-header>
+      <div
+        class="col align-self-center font-italic"
+        i18n="@@youHaveNotSelectedAnyPublicData"
+        *ngIf="
+          (group.fields | countGroupItems: { filterSelected: true }).length ===
+          0
+        "
+      >
+        Et ole vielä valinnut julkisesti näytettäviä tietoja
+      </div>
+      <div class="col-auto">
+        <app-secondary-button
+          [content]="
+            (group.fields | countGroupItems: { filterSelected: true }).length
+              ? editString
+              : selectString
+          "
+          (click)="openDialog($event, i + 1)"
+        ></app-secondary-button>
+      </div>
+    </div>
 
     <ng-container *ngFor="let field of group.fields">
       <div
         class="row py-2"
         *ngIf="(field.groupItems | filter: checkGroupSelected).length"
       >
-        <div class="col px-0">
-          <span
-            class="font-weight-bold d-block py-2"
-            *ngIf="group.fields.length > 1"
-            >{{ field.label }}
-          </span>
+        <div class="col px-0 pb-3" [ngSwitch]="group.id">
+          <app-summary-affiliations
+            *ngSwitchCase="groupTypes.affiliation"
+            [data]="field"
+            [fieldTypes]="fieldTypes"
+          ></app-summary-affiliations>
 
-          <ng-container *ngFor="let groupItem of field.groupItems">
-            <ng-container [ngSwitch]="groupItem.groupMeta.type">
-              <ng-container *ngSwitchCase="fieldTypes.personKeyword">
-                <!-- Display joined keywords only if item has show property set to true -->
-                <div class="row" *ngIf="groupItem.items[0].itemMeta.show">
-                  <div class="col px-0 pb-2 font-size-smaller">
-                    {{ groupItem.items | joinItems: 'value' }}
+          <app-summary-publications
+            *ngSwitchCase="groupTypes.publication"
+            [data]="field"
+            [fieldTypes]="fieldTypes"
+          >
+          </app-summary-publications>
+
+          <app-summary-datasets
+            *ngSwitchCase="groupTypes.dataset"
+            [data]="field"
+            [fieldTypes]="fieldTypes"
+          >
+          </app-summary-datasets>
+
+          <div class="summary-panel-wrapper" *ngSwitchDefault>
+            <div
+              class="col font-weight-bold py-2"
+              *ngIf="group.fields.length > 1"
+            >
+              {{ field.label }}
+            </div>
+
+            <ng-container
+              *ngFor="
+                let groupItem of field.groupItems | filter: checkGroupSelected
+              "
+            >
+              <ng-container [ngSwitch]="groupItem.groupMeta.type">
+                <div
+                  class="summary-panel"
+                  *ngSwitchCase="fieldTypes.personKeyword"
+                >
+                  <!-- Display joined keywords only if item has show property set to true -->
+                  <div class="row" *ngIf="groupItem.items[0].itemMeta.show">
+                    <div class="col pb-2 font-size-smaller">
+                      {{ groupItem.items | joinItems: 'value' }}
+                    </div>
                   </div>
+                  <app-summary-divider></app-summary-divider>
                 </div>
-              </ng-container>
-              <ng-container *ngSwitchDefault>
-                <ng-container *ngFor="let item of groupItem.items">
+
+                <ng-container *ngSwitchDefault>
                   <div
-                    class="row d-flex justify-content-between py-1"
-                    [class.justify-content-between]="
-                      groupItem.groupMeta.type !==
-                      fieldTypes.activityAffiliation
-                    "
-                    *ngIf="item.itemMeta.show"
+                    class="summary-panel"
+                    *ngFor="let item of groupItem.items"
                   >
                     <div
-                      class="col px-0 font-size-smaller"
-                      [class.col-auto]="
-                        groupItem.groupMeta.type ===
-                        fieldTypes.activityAffiliation
-                      "
+                      class="row d-flex justify-content-between py-1"
+                      *ngIf="item.itemMeta.show"
                     >
-                      <app-panel-array-item
-                        [item]="item"
-                        [fieldType]="groupItem.groupMeta.type"
-                        [localized]="field.localized"
-                      ></app-panel-array-item>
+                      <div class="col font-size-smaller">
+                        <app-panel-array-item
+                          [item]="item"
+                          [fieldType]="groupItem.groupMeta.type"
+                          [localized]="field.localized"
+                        ></app-panel-array-item>
+                      </div>
                     </div>
-
-                    <div
-                      *ngIf="
-                        item.itemMeta.primaryValue &&
-                        groupItem.groupMeta.type ===
-                          fieldTypes.activityAffiliation
-                      "
-                      class="col-auto px-4 mx-1 cursor-pointer"
-                    >
-                      <app-primary-badge
-                        label="Ensisijainen"
-                        [selected]="true"
-                        [disabled]="true"
-                      ></app-primary-badge>
-                    </div>
+                    <app-summary-divider></app-summary-divider>
                   </div>
                 </ng-container>
               </ng-container>
             </ng-container>
-          </ng-container>
+          </div>
         </div>
       </div>
     </ng-container>
-
-    <div class="row pt-3">
-      <app-secondary-button
-        [content]="'Muokkaa' + ' ' + group.editLabel"
-        (click)="openDialog($event, i, group.editLabel)"
-      ></app-secondary-button>
-    </div>
-  </mat-expansion-panel>
-</mat-accordion>
+  </div>
+</ng-container>

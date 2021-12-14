@@ -1,0 +1,35 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<div class="summary-panel-wrapper">
+  <div
+    class="summary-panel"
+    *ngFor="let item of sortedItems.slice(0, itemDisplayCount)"
+  >
+    <ng-container *ngIf="item.itemMeta.show">
+      <div class="row">
+        <div class="col font-size-smaller">
+          <app-panel-array-item
+            [item]="item"
+            [fieldType]="fieldTypes.activityDataset"
+          ></app-panel-array-item>
+        </div>
+      </div>
+      <app-summary-divider></app-summary-divider>
+    </ng-container>
+  </div>
+</div>
+
+<div class="row justify-content-center">
+  <button
+    *ngIf="sortedItems.length > 3 && itemDisplayCount === 3"
+    class="col-auto"
+    mat-button
+    (click)="showAllItems()"
+    color="primary"
+  >
+    Näytä kaikki tutkimusaineistot
+  </button>
+</div>

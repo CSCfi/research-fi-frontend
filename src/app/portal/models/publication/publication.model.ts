@@ -144,13 +144,15 @@ export class PublicationAdapter implements Adapter<Publication> {
     //Abstract
     let abstract = item.abstract || '';
 
+    // Open Access
     const openAccess: boolean =
       item.openAccess === 1 || item.selfArchivedCode === 1;
-    // Open Access
+
     let openAccessText = '';
-    if (openAccess) {
+
+    if (item.openAccess === 1) {
       openAccessText = $localize`:@@yes:Kyllä`;
-    } else if (!item.openAccess) {
+    } else if (item.openAccess === 0) {
       openAccessText = $localize`:@@no:Ei`;
     } else {
       openAccessText = $localize`:@@noInfo:Ei tietoa`;
@@ -191,7 +193,7 @@ export class PublicationAdapter implements Adapter<Publication> {
     let apcFee = '';
     let publicationType = item.publicationTypeCode?.split('')[0];
     let embargoDate = '';
-    let archiveEbargoDate = '';
+    let archiveEmbargoDate = '';
 
     if (['A', 'B'].includes(publicationType) && item.apcFeeEur) {
       item.apcFeeEur > 6000 ||
@@ -233,7 +235,7 @@ export class PublicationAdapter implements Adapter<Publication> {
       ) {
         archiveCodeVersionText = $localize`:@@publisherVersion:Kustantajan versio`;
       } else if (
-        item.selfArchivedData[0]?.selfArchived[0]?.selfArchivedVersionCode == 0
+        item.selfArchivedData[0]?.selfArchived[0]?.selfArchivedVersionCode === 0
       ) {
         archiveCodeVersionText = $localize`:@@finalDraft:Viimeinen käsikirjoitusversio`;
       }
@@ -243,7 +245,16 @@ export class PublicationAdapter implements Adapter<Publication> {
           item.selfArchivedData[0]?.selfArchived[0]?.selfArchivedEmbargoDate?.trim();
         if (embargoDate) {
           let date = embargoDate.split('-');
-          archiveEbargoDate = date[0] + '.' + date[1] + '.' + date[2];
+
+          const day = date[0];
+          const month = date[1];
+          const year = date[2];
+
+          const parsedDate = Date.parse(`${year}-${month}-${day}`);
+
+          if (parsedDate > Date.now()) {
+            archiveEmbargoDate = `${day}.${month}.${year}`;
+          }
         }
       }
     }
@@ -325,7 +336,7 @@ export class PublicationAdapter implements Adapter<Publication> {
       licenseText,
       archiveCodeVersionText,
       archiveCodeLincenseText,
-      archiveEbargoDate,
+      archiveEmbargoDate,
       publicationStatusText,
       apcFee,
       apcPaymentYear,

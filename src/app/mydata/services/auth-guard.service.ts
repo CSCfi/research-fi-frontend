@@ -32,7 +32,7 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> {
-    if (this.appSettingsService.myDataSettings.develop) return of(true);
+    // if (this.appSettingsService.myDataSettings.develop) return of(true);
 
     return this.oidcSecurityService.isAuthenticated$.pipe(
       map((isAuthorized: boolean) => {

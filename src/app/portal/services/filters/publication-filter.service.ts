@@ -178,7 +178,7 @@ export class PublicationFilterService {
       open: true,
       tooltip:
         '<p><strong>' +
-        $localize`:@@openAccessJournal:Open access -lehti` +
+        $localize`:@@openAccessPublicationChannel:Open access -julkaisukanava` +
         ': </strong>' +
         $localize`Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.` +
         '</p><p><strong>' +
@@ -211,12 +211,12 @@ export class PublicationFilterService {
     private staticDataService: StaticDataService
   ) {}
 
-  shapeData(data) {
+  shapeData(data, activeFilters?) {
     const source = data.aggregations;
     // Year
     source.year.buckets = this.mapYear(source.year.years.buckets);
     // Organization & sector
-    source.organization = this.organization(source.organization);
+    source.organization = this.organization(source.organization, activeFilters);
     // Field of science
     source.field.buckets = this.minorField(
       source.field.fields.buckets.filter(
@@ -267,7 +267,7 @@ export class PublicationFilterService {
     return source;
   }
 
-  organization(data) {
+  organization(data, activeFilters?) {
     const source = cloneDeep(data) || [];
     source.buckets = source.sectorName ? source.sectorName.buckets : [];
     source.buckets.forEach((item) => {
@@ -288,6 +288,33 @@ export class PublicationFilterService {
     source.buckets = source.buckets.sort(
       (a, b) => a.sectorId.buckets[0].key - b.sectorId.buckets[0].key
     );
+
+    // Filter organizations when targeted search for subunits
+    // ie. single-organization > navigate from sub units tab.
+    // When subunit search is active, display only sector that
+    // includes selected subunit.
+    if (activeFilters?.target === 'subUnitID' && activeFilters?.organization) {
+      const organizationParam = activeFilters.organization;
+      const orgId =
+        typeof organizationParam === 'string'
+          ? organizationParam
+          : organizationParam[0];
+      const buckets = source.sectorName.buckets;
+      const sector = buckets.findIndex((sector) =>
+        sector.subData.find((org) => org.key === orgId)
+      );
+
+      const activeSector = source.sectorName.buckets[sector];
+
+      activeSector.subData = activeSector.subData.filter(
+        (org) => org.key === orgId
+      );
+
+      source.buckets = source.buckets.filter(
+        (sector) => sector.key === activeSector.key
+      );
+    }
+
     return source;
   }
 
@@ -558,7 +585,7 @@ export class PublicationFilterService {
       result.push({
         key: 'openAccess',
         doc_count: docCount('openAccess'),
-        label: $localize`:@@openAccessJournal:Open Access -lehti `,
+        label: $localize`:@@openAccessPublicationChannel:Open Access -julkaisukanava`,
       });
     }
     if (openAccessCodes.some((e) => e.key === 'selfArchived')) {

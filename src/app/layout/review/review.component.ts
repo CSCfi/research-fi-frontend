@@ -6,13 +6,12 @@
 //  :license: MIT
 
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Title } from '@angular/platform-browser';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-review',
@@ -44,7 +43,6 @@ export class ReviewComponent implements OnInit {
   success = false;
   faTimes = faTimes;
 
-  // TODO: Translate
   targets: string[] = [
     $localize`:@@fromAccessibility:Saavutettavuudesta`,
     $localize`:@@fromPrivacy:Tietosuojasta`,
@@ -56,11 +54,13 @@ export class ReviewComponent implements OnInit {
   sendText = $localize`:@@r15:Tarkista ja lähetä`;
   back = $localize`:@@back:Takaisin`;
 
+  // dialogRef: MatDialogRef<ReviewComponent>;
+
   constructor(
-    private dialogRef: MatDialogRef<ReviewComponent>,
     private router: Router,
     private titleService: Title,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private dialogRef: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -73,7 +73,7 @@ export class ReviewComponent implements OnInit {
   }
 
   close() {
-    this.dialogRef.close();
+    this.dialogRef.closeAll();
   }
 
   getBodyJson(): Object {
@@ -145,7 +145,8 @@ export class ReviewComponent implements OnInit {
   }
 
   validateEmail(email) {
-    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const re =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
   }
 

@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppConfigService } from '@shared/services/app-config-service.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 
 export interface Publication {
   hits: any;
@@ -21,16 +21,11 @@ export interface Publication {
 export class PublicationsService {
   apiUrl: string;
   profileApiUrl: string;
-  currentSort: any;
-  pageSettings: any;
   httpOptions: object;
 
   publicationPayload = [];
   confirmedPayload = [];
   deletables = [];
-
-  private termSource = new BehaviorSubject<string>('');
-  currentTerm = this.termSource.asObservable();
 
   private confirmedPayloadSource = new BehaviorSubject<any>([]);
   currentPublicationPayload = this.confirmedPayloadSource.asObservable();
@@ -40,7 +35,9 @@ export class PublicationsService {
     private appConfigService: AppConfigService,
     public oidcSecurityService: OidcSecurityService
   ) {
-    this.apiUrl = this.appConfigService.apiUrl;
+    // this.apiUrl = this.appConfigService.apiUrl;
+    this.apiUrl =
+      'https://researchfi-api-production-researchfi.rahtiapp.fi/portalapi/'; // Hardcoded production data url for dev purposes
     this.profileApiUrl = this.appConfigService.profileApiUrl;
   }
 
@@ -54,60 +51,6 @@ export class PublicationsService {
       }),
       observe: 'response',
     };
-  }
-
-  updateSort(sortSettings) {
-    switch (sortSettings.active) {
-      case 'year': {
-        this.currentSort = {
-          publicationYear: { order: sortSettings.direction },
-        };
-      }
-    }
-  }
-
-  resetSort() {
-    this.currentSort = {
-      publicationYear: { order: 'desc' },
-    };
-  }
-
-  updateSearchTerm(term: string) {
-    this.termSource.next(term);
-  }
-
-  updatePageSettings(pageSettings) {
-    this.pageSettings = pageSettings;
-  }
-
-  getPublications(term) {
-    // Default sort to descending publicationYear
-    const sort = this.currentSort
-      ? this.currentSort
-      : { publicationYear: { order: 'desc' } };
-
-    const pageSettings = this.pageSettings;
-
-    const query = {
-      query_string: {
-        query: term,
-      },
-    };
-
-    let payload = {
-      track_total_hits: true,
-      sort: sort,
-      from: pageSettings ? pageSettings.pageIndex * pageSettings.pageSize : 0,
-      size: pageSettings ? pageSettings.pageSize : 10,
-    };
-
-    if (term?.length) payload = Object.assign(payload, { query: query });
-
-    // TODO: Map response
-    return this.http.post<Publication>(
-      this.apiUrl + 'publication/_search?',
-      payload
-    );
   }
 
   addToPayload(publications: any) {
@@ -126,11 +69,22 @@ export class PublicationsService {
 
   cancelConfirmedPayload() {
     this.clearPayload();
+    this.clearDeletables();
+    this.confirmedPayload = [];
     this.confirmedPayloadSource.next([]);
   }
 
-  addToDeletables(publication: { publicationId: any }) {
-    this.deletables.push(publication.publicationId);
+  removeFromConfirmed(publicationId: string) {
+    const filtered = this.confirmedPayload.filter(
+      (item) => item.publicationId !== publicationId
+    );
+
+    this.confirmedPayload = filtered;
+    this.confirmedPayloadSource.next(filtered);
+  }
+
+  addToDeletables(publication) {
+    this.deletables.push(publication);
   }
 
   clearDeletables() {
@@ -139,8 +93,8 @@ export class PublicationsService {
 
   addPublications() {
     this.updateTokenInHttpAuthHeader();
-    let body = this.publicationPayload.map((item) => ({
-      publicationId: item.publicationId,
+    const body = this.publicationPayload.map((item) => ({
+      publicationId: item.id,
       show: item.itemMeta.show,
       primaryValue: item.itemMeta.primaryValue,
     }));
@@ -151,10 +105,12 @@ export class PublicationsService {
     );
   }
 
-  deletePublication(publicationId) {
+  removeItems(publications) {
     this.updateTokenInHttpAuthHeader();
-    return this.http.delete(
-      this.profileApiUrl + '/publication/' + publicationId,
+    const body = publications.map((publication) => publication.id);
+    return this.http.post(
+      this.profileApiUrl + '/publication/remove/',
+      body,
       this.httpOptions
     );
   }

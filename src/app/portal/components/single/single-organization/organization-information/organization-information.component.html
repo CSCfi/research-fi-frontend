@@ -8,7 +8,7 @@
     <div class="row content" *ngIf="item[row.field]">
       <!-- Label -->
       <h2 class="col-12 col-sm-6 col-lg-3 th">
-        {{ row.label }}
+        <span class="pr-1">{{ row.label }}</span>
         <!-- Show year with staff count -->
         <span *ngIf="row.field === 'staffCountAsFte'"
           >({{ item.staffYear }})</span
@@ -25,7 +25,7 @@
             placement="top"
             #elem
           >
-            <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+            <fa-icon class="info-icon" icon="info-circle"></fa-icon>
           </span>
         </ng-container>
       </h2>
@@ -41,7 +41,7 @@
   <ng-container *ngIf="(studentCounts | filterEmptyField: item).length">
     <div class="row content">
       <h2 class="col-12 col-sm-6 col-lg-3 th">
-        <ng-container i18n="@@thesisCount">Tutkintojen määrä</ng-container>
+        <span class="pr-1" i18n="@@thesisCount">Tutkintojen määrä</span>
         ({{ item.thesisYear }})
         <span
           i18n-tooltip="@@vipunenSource"
@@ -50,7 +50,7 @@
           placement="top"
           #elem
         >
-          <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+          <fa-icon class="info-icon" icon="info-circle"></fa-icon>
         </span>
       </h2>
       <div class="col px-0">

@@ -16,6 +16,7 @@ import {
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { faAlignLeft } from '@fortawesome/free-solid-svg-icons';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
 import { Search } from 'src/app/portal/models/search.model';
 import { SearchService } from 'src/app/portal/services/search.service';
@@ -23,7 +24,7 @@ import { SettingsService } from 'src/app/portal/services/settings.service';
 import { SingleItemService } from 'src/app/portal/services/single-item.service';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { UtilityService } from 'src/app/shared/services/utility.service';
-import { singleDataset, common } from 'src/assets/static-data/meta-tags.json';
+import MetaTags from 'src/assets/static-data/meta-tags.json';
 
 @Component({
   selector: 'app-single-dataset',
@@ -36,8 +37,8 @@ export class SingleDatasetComponent implements OnInit {
   searchTerm: string;
   pageNumber: any;
   tabQueryParams: any;
-  private metaTags = singleDataset;
-  private commonTags = common;
+  private metaTags = MetaTags.singleDataset;
+  private commonTags = MetaTags.common;
   showMore = $localize`:@@showMore:Näytä enemmän`;
   showLess = $localize`:@@showLess:Näytä vähemmän`;
 
@@ -172,11 +173,10 @@ export class SingleDatasetComponent implements OnInit {
     @Inject(LOCALE_ID) protected localeId: string,
     private tabChangeService: TabChangeService,
     public utilityService: UtilityService,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private appSettingsService: AppSettingsService
   ) {
-    // Capitalize first letter of locale
-    this.currentLocale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    this.currentLocale = this.appSettingsService.capitalizedLocale;
   }
 
   public setTitle(newTitle: string) {
