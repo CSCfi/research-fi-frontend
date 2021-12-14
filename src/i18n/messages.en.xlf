@@ -5380,6 +5380,18 @@
         <source>Lähde</source>
         <target>Source</target>
       </trans-unit>
+      <trans-unit id="showAllPublications">
+        <source>Näytä kaikki julkaisut</source>
+        <target>Show all publications</target>
+      </trans-unit>
+      <trans-unit id="showAllDatasets">
+        <source>Näytä kaikki tutkimusaineistot</source>
+        <target>Show all research data items</target>
+      </trans-unit>
+      <trans-unit id="showAllFundings">
+        <source>Näytä kaikki hankkeet</source>
+        <target>Show all projects</target>
+      </trans-unit>
       <trans-unit id="isMissing">
         <source>Puuttuuko jokin </source>
         <target>Is a </target>
@@ -5429,6 +5441,14 @@
           betaversiossa.</source>
         <target>Adding of most recent publications doesn't work in beta version.</target>
       </trans-unit>
+      <trans-unit id="betaAddingOfMostRecent">
+        <source>Huom! Kaikkein tuoreimpien </source>
+        <target>Adding of most recent </target>
+      </trans-unit>
+      <trans-unit id="doesNotWorkInBeta">
+        <source> lisääminen ei toimi betaversiossa.</source>
+        <target> doesn't work in beta version.</target>
+      </trans-unit>
       <trans-unit id="dataSourceIsResearchFi">
         <source>Tietolähteenä käytetään Tiedejatutkimus.fi-palvelua</source>
         <target>The data source used is the Research.fi service</target>
@@ -5449,7 +5469,7 @@
         <source>Esim. nimi, organisaatio</source>
         <target>For example, name, organization</target>
       </trans-unit>
-            <trans-unit id="enterPartOfName">
+      <trans-unit id="enterPartOfName">
         <source>Kirjoita osa nimestä</source>
         <target>Enter part of the name</target>
       </trans-unit>

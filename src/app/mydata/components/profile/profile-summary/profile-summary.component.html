@@ -50,19 +50,35 @@
             [fieldTypes]="fieldTypes"
           ></app-summary-affiliations>
 
-          <app-summary-publications
+          <app-summary-portal-items
             *ngSwitchCase="groupTypes.publication"
             [data]="field"
-            [fieldTypes]="fieldTypes"
+            [fieldType]="fieldTypes.activityPublication"
+            sortField="publicationYear"
+            showMoreLabel="julkaisut"
+            i18n-showMoreLabel="@@publications"
           >
-          </app-summary-publications>
+          </app-summary-portal-items>
 
-          <app-summary-datasets
+          <app-summary-portal-items
             *ngSwitchCase="groupTypes.dataset"
             [data]="field"
-            [fieldTypes]="fieldTypes"
+            [fieldType]="fieldTypes.activityDataset"
+            sortField="year"
+            showMoreLabel="tutkimusaineistot"
+            i18n-showMoreLabel="@@datasets"
           >
-          </app-summary-datasets>
+          </app-summary-portal-items>
+
+          <app-summary-portal-items
+            *ngSwitchCase="groupTypes.funding"
+            [data]="field"
+            [fieldType]="fieldTypes.activityFunding"
+            sortField="startYear"
+            showMoreLabel="hankkeet"
+            i18n-showMoreLabel="@@fundings"
+          >
+          </app-summary-portal-items>
 
           <div class="summary-panel-wrapper" *ngSwitchDefault>
             <div

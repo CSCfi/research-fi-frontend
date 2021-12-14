@@ -78,6 +78,10 @@ export class FundingsService {
   }
 
   addToDeletables(funding) {
+    this.fundingPayload = this.fundingPayload.filter(
+      (item) => item.id !== funding.id
+    );
+
     this.deletables.push(funding);
   }
 

@@ -76,7 +76,7 @@ export class DraftSummaryComponent implements OnInit, OnDestroy {
 
   countCheckedCollaborationOptions() {
     this.collaborationOptions.forEach((val) => {
-      if (Object.values(val).includes(true)){
+      if (Object.values(val).includes(true)) {
         this.checkedCollaborationItemsCount += 1;
       }
     });

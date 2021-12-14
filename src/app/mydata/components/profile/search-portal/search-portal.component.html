@@ -38,11 +38,24 @@
       </div>
     </div>
 
-    <div class="row pt-3" *ngIf="data.groupId === groupTypes.publication">
+    <div class="row pt-3">
       <div class="col">
-        <span i18n="@@betaAddingOfMostRecentPublications"
-          >Huom! Kaikkein tuoreimpien julkaisujen lisääminen ei toimi
-          betaversiossa.</span
+        <span i18n="@@betaAddingOfMostRecent">Huom! Kaikkein tuoreimpien </span>
+        <span class="text-lowercase" [ngSwitch]="data.groupId">
+          <ng-container
+            *ngSwitchCase="groupTypes.publication"
+            i18n="@@publications"
+            >julkaisujen</ng-container
+          >
+          <ng-container *ngSwitchCase="groupTypes.dataset" i18n="@@datasets"
+            >tutkimusaineistojen</ng-container
+          >
+          <ng-container *ngSwitchCase="groupTypes.funding" i18n="@@fundings"
+            >hankkeiden</ng-container
+          >
+        </span>
+        <span i18n="@@doesNotWorkInBeta">
+          lisääminen ei toimi betaversiossa.</span
         >
       </div>
     </div>
