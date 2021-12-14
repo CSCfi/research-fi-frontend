@@ -35,8 +35,14 @@
       <ng-container [ngTemplateOutlet]="createProfileText"></ng-container>
     </div>
   </div>
+
   <div class="row d-flex justify-content-center py-0 pb-3 py-md-3">
-    <div class="col">
+    <div class="col-12 text-center">
+      <span class="font-weight-bold" i18n="@@homeNewUser">Uusi käyttäjä?</span>
+      <span i18n="@@startHere"> Aloita tästä:</span>
+    </div>
+
+    <div class="col-12 py-3">
       <app-primary-action-button
         i18n-content="@@createProfile"
         content="Luo profiili"
@@ -47,18 +53,25 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="col"><hr /></div>
+  </div>
+
   <div class="row d-flex justify-content-center py-md-3">
-    <div class="col py-3 text-center">
-      <span class="pr-2" i18n="@@haveYouCreatedProfile"
-        >Oletko jo luonut profiilin?</span
-      >
-      <a
-        href="javascript:void(0)"
-        class="d-block d-md-inline font-weight-bold py-3 py-md-0"
+    <div class="col-12 text-center">
+      <span class="pr-2" i18n="@@haveYouCreatedProfile">
+        Oletko jo luonut profiilin tähän palveluun?
+      </span>
+    </div>
+
+    <div class="col-12 py-3">
+      <app-secondary-button
+        i18n-content="@@logIn"
+        content="Kirjaudu sisään"
         (click)="login()"
-        i18n="@@logIn"
-        >Kirjaudu sisään</a
+        [big]="true"
       >
+      </app-secondary-button>
     </div>
   </div>
 

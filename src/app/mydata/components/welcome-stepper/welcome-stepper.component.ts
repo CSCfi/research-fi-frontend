@@ -121,7 +121,6 @@ export class WelcomeStepperComponent implements OnInit {
     if (this.step === 3 && direction === 'increment') {
       this.fetchData();
     } else {
-      // Legacy support for previous step
       direction === 'increment' ? this.increment() : this.decrement();
     }
   }
