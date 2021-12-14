@@ -12,6 +12,7 @@ import {
 export class StepperNavigationComponent implements OnInit {
   @Input() nextContent: string;
   @Input() disableNext = false;
+  @Input() step: number;
   @Output() changeStep = new EventEmitter<string>();
 
   faAngleDoubleRight = faAngleDoubleRight;
@@ -24,11 +25,7 @@ export class StepperNavigationComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  increment() {
-    !this.disableNext && this.changeStep.emit('increment');
-  }
-
-  decrement() {
-    this.changeStep.emit('cancel');
+  navigate(action: 'increment' | 'decrement' | 'cancel') {
+    this.changeStep.emit(action);
   }
 }

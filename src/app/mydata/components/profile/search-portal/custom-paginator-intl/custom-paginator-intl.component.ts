@@ -10,9 +10,9 @@ import { MatPaginatorIntl } from '@angular/material/paginator';
 
 @Injectable()
 export class CustomPaginatorIntlComponent extends MatPaginatorIntl {
-  itemsPerPageLabel = 'Tuloksia sivulla';
-  nextPageLabel = 'Seuraava sivu';
-  previousPageLabel = 'Edellinen sivu';
+  itemsPerPageLabel = $localize`:@@resultsOnPage:Tuloksia sivulla`;
+  nextPageLabel = $localize`:@@nextPage:Seuraava sivu`;
+  previousPageLabel = $localize`:@@previousPage:Edellinen sivu`;
 
   getRangeLabel = function (page: number, pageSize: number, length: any) {
     if (length === 0 || pageSize === 0) {

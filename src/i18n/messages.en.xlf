@@ -609,6 +609,10 @@
           <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="resultsOnPage">
+        <source>Tuloksia sivulla</source>
+        <target>Results on page</target>
+      </trans-unit>
       <trans-unit id="previousPage" datatype="html">
         <source>Edellinen sivu</source>
         <target>Previous page</target>
@@ -3012,6 +3016,10 @@
         <source>Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuodot ovat usein rahoittajakohtaisia.</source>
         <target>Method of funding research. Instruments of funding include research grants, project funding and research infrastructure funding. Instruments are often specific to each funder.</target>
       </trans-unit>
+      <trans-unit id="fundingCountByIdentifiedTopic">
+        <source>Hankkeiden jakautuminen tunnistetun aiheen mukaan</source>
+        <target>Division of projects by identified topic</target>
+      </trans-unit>
       <trans-unit id="identifiedTopic">
         <source>Tunnistettu aihe</source>
         <target>Identified topic</target>
@@ -5013,6 +5021,14 @@
         <source>Tutkijan tiedot</source>
         <target>Researcher’s Profile</target>
       </trans-unit>
+      <trans-unit id="homeNewUser">
+        <source>Uusi käyttäjä?</source>
+        <target>New user?</target>
+      </trans-unit>
+      <trans-unit id="startHere">
+        <source> Aloita tästä:</source>
+        <target> Start here:</target>
+      </trans-unit>
       <trans-unit id="createProfile">
         <source>Luo profiili</source>
         <target>Create Profile</target>
@@ -5344,9 +5360,9 @@
         <source>Ensisijaiset</source>
         <target>Primary</target>
       </trans-unit>
-      <trans-unit id="unit">
-        <source>Nimike</source>
-        <target>Title</target>
+      <trans-unit id="organizationUnit">
+        <source>Organisaation yksikkö</source>
+        <target>Organization unit</target>
       </trans-unit>
       <trans-unit id="title">
         <source>Nimike</source>
@@ -5392,7 +5408,7 @@
         <source>Puuttuvan tutkimusaineiston hakeminen</source>
         <target>Searching for a missing research data</target>
       </trans-unit>
-      <trans-unit id="searchForMissingProject">
+      <trans-unit id="searchForMissingFunding">
         <source>Puuttuvan hankkeen hakeminen</source>
         <target>Searching for a missing project</target>
       </trans-unit>
@@ -5402,11 +5418,11 @@
       </trans-unit>
       <trans-unit id="searchForDatasetWithName">
         <source>Hae nimellä tai organisaatiolla</source>
-        <target>Search for research data under the name of the author or organization</target>
+        <target>Search for research data under the name of the author or organization </target>
       </trans-unit>
       <trans-unit id="searchForFundingWithName">
-        <source>Hae omalla nimelläsi tai hankkeen nimellä</source>
-        <target>Search for a project under the name of the author or publication</target>
+        <source>Hae hankkeen tai vastuullisen tutkijan nimellä</source>
+        <target>Search for a project with project name or principal investigator name</target>
       </trans-unit>
       <trans-unit id="betaAddingOfMostRecentPublications">
         <source>Huom! Kaikkein tuoreimpien julkaisujen lisääminen ei toimi
@@ -5430,8 +5446,8 @@
         <target>Name of funding or author</target>
       </trans-unit>
       <trans-unit id="datasetSearchPlaceholder">
-        <source>Tekijän nimi / aineiston nimi / organisaation nimi</source>
-        <target>Author name / research data name / organization name</target>
+        <source>Esim. nimi, organisaatio</source>
+        <target>For example, name, organization</target>
       </trans-unit>
             <trans-unit id="enterPartOfName">
         <source>Kirjoita osa nimestä</source>

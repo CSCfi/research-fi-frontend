@@ -46,10 +46,10 @@ export class SearchPortalComponent implements OnInit {
 
   searchForPublicationWithName = $localize`:@@searchForPublicationWithName:Hae omalla nimelläsi tai julkaisun nimellä`;
   searchForDatasetsWithName = $localize`:@@searchForDatasetWithName:Hae nimellä tai organisaatiolla`;
-  searchForFundingsWithName = $localize`:@@searchForFundingWithName:Hae omalla nimelläsi tai hankkeen nimellä`;
+  searchForFundingsWithName = $localize`:@@searchForFundingWithName:Hae hankkeen tai vastuullisen tutkijan nimellä`;
 
   publicationSearchPlaceholder = $localize`:@@nameOfPublicationOrAuthor:Julkaisun tai tekijän nimi`;
-  datasetSearchPlaceholder = $localize`:@@datasetSearchPlaceholder:Tekijän nimi / aineiston nimi / organisaation nimi`;
+  datasetSearchPlaceholder = $localize`:@@datasetSearchPlaceholder:Esim. nimi, organisaatio`;
   fundingSearchPlaceholder = $localize`:@@enterPartOfName:Kirjoita osa nimestä`;
 
   constructor(

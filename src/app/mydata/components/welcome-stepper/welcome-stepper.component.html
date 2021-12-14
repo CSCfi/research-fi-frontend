@@ -119,7 +119,7 @@
               <app-eula template="termsTemplate"></app-eula>
             </ng-template>
 
-            <div class="row pb-4 d-flex justify-content-center">
+            <div class="row pt-4 pb-5 d-flex justify-content-center">
               <h2 class="col-12 h6 pb-2" i18n="@@processingOfPersonalData">
                 Henkilötietojen käsittely
               </h2>
@@ -216,7 +216,7 @@
                     aria-label="Ladataan"
                   ></mat-spinner>
                   <span
-                    class="d-block col py-3 text-center"
+                    class="d-block col pt-3 text-center"
                     i18n="@@importingDataWait"
                     aria-live="polite"
                     >Tietoja tuodaan, odota hetki...</span
@@ -229,6 +229,7 @@
               (changeStep)="changeStep($event)"
               i18n-nextContent="@@importMyOrcidData"
               nextContent="Tuo Orcid-tietoni"
+              [step]="step"
             ></app-stepper-navigation>
           </ng-container>
 

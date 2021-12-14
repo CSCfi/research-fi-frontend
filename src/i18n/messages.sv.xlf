@@ -3001,6 +3001,10 @@
         <source>Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuodot ovat usein rahoittajakohtaisia.</source>
         <target>Sätt att finansiera forskning. Typer av finansiering är till exempel forskningsbidrag, projektfinansiering och forskningsinfrastrukturfinansiering. Finansieringstyper är ofta finansiärspecifika.</target>
       </trans-unit>
+      <trans-unit id="fundingCountByIdentifiedTopic">
+        <source>Hankkeiden jakautuminen tunnistetun aiheen mukaan</source>
+        <target>Fördelning av projekt efter identifierat ämne</target>
+      </trans-unit>
       <trans-unit id="identifiedTopic">
         <source>Tunnistettu aihe</source>
         <target>Identifierade tema</target>
