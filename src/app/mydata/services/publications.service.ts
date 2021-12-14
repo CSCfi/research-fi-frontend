@@ -76,7 +76,7 @@ export class PublicationsService {
 
   removeFromConfirmed(publicationId: string) {
     const filtered = this.confirmedPayload.filter(
-      (item) => item.publicationId !== publicationId
+      (item) => item.id !== publicationId
     );
 
     this.confirmedPayload = filtered;
@@ -84,6 +84,9 @@ export class PublicationsService {
   }
 
   addToDeletables(publication) {
+    this.publicationPayload = this.publicationPayload.filter(
+      (item) => item.id !== publication.id
+    );
     this.deletables.push(publication);
   }
 

@@ -127,7 +127,7 @@ export class ProfileSummaryComponent implements OnInit {
             if (result.data.id === group.id) {
               if (group.deletables.length) {
                 const removeItem = (publication: { id: string }) => {
-                  this.publicationsService.removeFromConfirmed(publication.id);
+                  group.service.removeFromConfirmed(publication.id);
                 };
 
                 for (const [i, item] of group.deletables.entries()) {

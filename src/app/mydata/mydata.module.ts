@@ -80,15 +80,14 @@ import { EmptyCardComponent } from './components/profile/cards/empty-card/empty-
 import { SummaryAffiliationsComponent } from './components/profile/profile-summary/summary-affiliations/summary-affiliation.component';
 import { SummaryDividerComponent } from './components/profile/profile-summary/summary-divider/summary-divider.component';
 import { GetItemsByPipe } from './pipes/get-items-by.pipe';
-import { SummaryPublicationsComponent } from './components/profile/profile-summary/summary-publications/summary-publications.component';
 import { SortByFieldTypePipe } from './pipes/sort-by-field-type.pipe';
 import { MatchItemPipe } from './pipes/match-item.pipe';
 import { ProfileEditorCardHeaderComponent } from './components/profile/cards/profile-editor-card-header/profile-editor-card-header.component';
 import { JoinValuesPipe } from './pipes/join-values.pipe';
-import { SummaryDatasetsComponent } from './components/profile/profile-summary/summary-datasets/summary-datasets.component';
 import { GetValuePipe } from './pipes/get-value.pipe';
 import { PortalModule } from '@portal/portal.module';
 import { HasFetchedItemPipe } from './pipes/has-fetched-item.pipe';
+import { SummaryPortalItemsComponent } from './components/profile/profile-summary/summary-portal-items/summary-portal-items.component';
 
 const matSnackbarDefaultConfig: MatSnackBarConfig = {
   verticalPosition: 'top',
@@ -134,14 +133,13 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
     SummaryAffiliationsComponent,
     SummaryDividerComponent,
     GetItemsByPipe,
-    SummaryPublicationsComponent,
     SortByFieldTypePipe,
     MatchItemPipe,
     ProfileEditorCardHeaderComponent,
     JoinValuesPipe,
-    SummaryDatasetsComponent,
     GetValuePipe,
     HasFetchedItemPipe,
+    SummaryPortalItemsComponent,
   ],
   imports: [
     CommonModule,

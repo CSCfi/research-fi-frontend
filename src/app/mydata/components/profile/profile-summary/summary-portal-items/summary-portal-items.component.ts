@@ -9,28 +9,32 @@ import { Component, Input, OnInit } from '@angular/core';
 import { sortItemsBy } from '@mydata/utils';
 
 @Component({
-  selector: 'app-summary-publications',
-  templateUrl: './summary-publications.component.html',
+  selector: 'app-summary-portal-items',
+  templateUrl: './summary-portal-items.component.html',
 })
-export class SummaryPublicationsComponent implements OnInit {
+export class SummaryPortalItemsComponent implements OnInit {
   @Input() data: any;
-  @Input() fieldTypes: any;
+  @Input() fieldType: any;
+  @Input() sortField: string;
+  @Input() showMoreLabel: string;
 
   sortItemsBy = sortItemsBy;
   sortedItems: any[];
 
-  publicationDisplayCount = 3;
+  itemDisplayCount = 3;
+
+  showMorePrefix = $localize`:@@showAll:Näytä kaikki`;
 
   constructor() {}
 
   ngOnInit(): void {
     // Sort and filter publications that shoudd be displayed
-    this.sortedItems = this.sortItemsBy(this.data, 'publicationYear').filter(
+    this.sortedItems = this.sortItemsBy(this.data, this.sortField).filter(
       (item) => item.itemMeta.show
     );
   }
 
-  showAllPublications() {
-    this.publicationDisplayCount = this.sortedItems.length;
+  showAllItems() {
+    this.itemDisplayCount = this.sortedItems.length;
   }
 }
