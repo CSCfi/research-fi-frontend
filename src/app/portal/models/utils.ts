@@ -221,3 +221,6 @@ export class LanguageCheck {
 export function parseYear(startYear, endYear) {
   return `${startYear} - ${endYear > 0 ? endYear : ''}`;
 }
+
+export const testFinnishBusinessId = (id: string) =>
+  id?.trim().slice(-2)[0] === '-' || id?.trim().slice(0, 2) === 'FI';

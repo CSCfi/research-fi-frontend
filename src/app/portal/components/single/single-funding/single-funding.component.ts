@@ -211,24 +211,19 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
       .subscribe(
         (responseData) => {
           this.responseData = responseData;
-          if (this.responseData.fundings[0]) {
+          const funding = this.responseData.fundings[0];
+          if (funding) {
             switch (this.localeId) {
               case 'fi': {
-                this.setTitle(
-                  this.responseData.fundings[0].name + ' - Tiedejatutkimus.fi'
-                );
+                this.setTitle(funding.name + ' - Tiedejatutkimus.fi');
                 break;
               }
               case 'en': {
-                this.setTitle(
-                  this.responseData.fundings[0].name + ' - Research.fi'
-                );
+                this.setTitle(funding.name + ' - Research.fi');
                 break;
               }
               case 'sv': {
-                this.setTitle(
-                  this.responseData.fundings[0].name + ' - Forskning.fi'
-                );
+                this.setTitle(funding.name + ' - Forskning.fi');
                 break;
               }
             }
