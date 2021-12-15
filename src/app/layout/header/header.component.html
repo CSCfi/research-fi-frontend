@@ -254,7 +254,9 @@
 
   <!-- Auth session expired template -->
   <ng-template #authExpiredTemplate>
-    <p>Istunto on vanhentunut. Kirjaudu sisään jatkaaksesi.</p>
+    <p i18n="@@sessionExpiredLogin">
+      Istunto on vanhentunut. Kirjaudu sisään jatkaaksesi.
+    </p>
 
     <app-primary-action-button
       (click)="login()"
@@ -264,7 +266,7 @@
 
   <!-- Unsaved draft template -->
   <ng-template #unsavedDraftTemplate>
-    <p>
+    <p i18n="@@youHaveUnpublishedChangesContinue">
       Sinulla on julkaisemattomia muutoksia. Jos kirjaudut ulos, tiedot
       menetetään.
     </p>

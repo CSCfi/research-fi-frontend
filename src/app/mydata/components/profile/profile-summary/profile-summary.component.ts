@@ -82,7 +82,7 @@ export class ProfileSummaryComponent implements OnInit {
       .afterClosed()
       .pipe(take(1))
       .subscribe((result: { data: any }) => {
-        const confirmedPatchItems = this.patchService.confirmedPatchItems;
+        const confirmedPayLoad = this.patchService.confirmedPayLoad;
 
         this.draftService.saveDraft(this.profileData);
 
@@ -91,7 +91,7 @@ export class ProfileSummaryComponent implements OnInit {
           { key: Constants.draftProfile, data: this.profileData },
           {
             key: Constants.draftPatchPayload,
-            data: this.patchService.confirmedPatchItems,
+            data: this.patchService.confirmedPayLoad,
           },
           {
             id: GroupTypes.publication,
@@ -151,7 +151,7 @@ export class ProfileSummaryComponent implements OnInit {
             });
 
             // Display snackbar only if user has made changes
-            if (result && confirmedPatchItems.length) {
+            if (result && confirmedPayLoad.length) {
               this.snackbarService.show(
                 $localize`:@@draftUpdated:Luonnos päivitetty`,
                 'success'

@@ -59,17 +59,17 @@ export class ContactCardComponent implements OnInit {
       .pipe(take(1))
       .subscribe(
         (result: { data: any; patchGroups: any[]; patchItems: any[] }) => {
-          const confirmedPatchItems = this.patchService.confirmedPatchItems;
+          const confirmedPayLoad = this.patchService.confirmedPayLoad;
 
           if (this.appSettingsService.isBrowser) {
             if (result) {
               // Set primary name to profile header
               if (
-                confirmedPatchItems.find(
+                confirmedPayLoad.find(
                   (item) => item.type === FieldTypes.personFirstNames
                 )
               ) {
-                const selectedNameId = confirmedPatchItems.find(
+                const selectedNameId = confirmedPayLoad.find(
                   (item) =>
                     item.show && item.type === this.fieldTypes.personFirstNames
                 ).id;
@@ -91,7 +91,7 @@ export class ContactCardComponent implements OnInit {
               this.draftService.saveDraft(this.data);
 
               // Do actions only if user has made changes
-              if (confirmedPatchItems.length) {
+              if (confirmedPayLoad.length) {
                 this.snackbarService.show(
                   $localize`:@@draftUpdated:Luonnos päivitetty`,
                   'success'
@@ -108,7 +108,7 @@ export class ContactCardComponent implements OnInit {
             // Set patch payload to store
             sessionStorage.setItem(
               Constants.draftPatchPayload,
-              JSON.stringify(this.patchService.confirmedPatchItems)
+              JSON.stringify(this.patchService.confirmedPayLoad)
             );
           }
         }
