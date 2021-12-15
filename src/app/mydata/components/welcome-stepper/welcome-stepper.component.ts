@@ -13,6 +13,7 @@ import {
   Inject,
   PLATFORM_ID,
   ElementRef,
+  OnDestroy,
 } from '@angular/core';
 import {
   faAngleDoubleRight,
@@ -21,13 +22,15 @@ import {
 import { ProfileService } from 'src/app/mydata/services/profile.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { take } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { WINDOW } from '@shared/services/window.service';
 import { isPlatformBrowser } from '@angular/common';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonStrings } from '@mydata/constants/strings';
 import { UtilityService } from '@shared/services/utility.service';
+import { Subscription } from 'rxjs';
+import { isNumber } from 'lodash';
 
 @Component({
   selector: 'app-welcome-stepper',
@@ -35,7 +38,7 @@ import { UtilityService } from '@shared/services/utility.service';
   styleUrls: ['./welcome-stepper.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class WelcomeStepperComponent implements OnInit {
+export class WelcomeStepperComponent implements OnInit, OnDestroy {
   develop: boolean;
   step: number;
   cancel = false;
@@ -77,10 +80,12 @@ export class WelcomeStepperComponent implements OnInit {
   termsForTool = CommonStrings.termsForTool;
   processingOfPersonalData = CommonStrings.processingOfPersonalData;
   cancelServiceDeployment = $localize`:@@cancelServiceDeployment:Peruutetaanko palvelun käyttöönotto?`;
+  routeSub: Subscription;
 
   constructor(
     private profileService: ProfileService,
     public oidcSecurityService: OidcSecurityService,
+    private route: ActivatedRoute,
     private router: Router,
     private appSettingsService: AppSettingsService,
     @Inject(PLATFORM_ID) private platformId: object,
@@ -96,8 +101,6 @@ export class WelcomeStepperComponent implements OnInit {
 
     this.checkProfileExists();
 
-    this.step = 1;
-
     this.oidcSecurityService.userData$.pipe(take(1)).subscribe((data) => {
       if (data) {
         this.userData = data;
@@ -105,6 +108,28 @@ export class WelcomeStepperComponent implements OnInit {
         this.appSettingsService.setOrcid(data.orcid);
       }
     });
+
+    // Enable route refresh / locale change
+    this.routeSub = this.route.queryParams.subscribe((params) => {
+      const step = params.step;
+      if (
+        step === '3' &&
+        !this.termsApproved &&
+        !this.personalDataHandlingApproved
+      ) {
+        this.navigateStep(2);
+        this.step = 2;
+      } else if (params.step === 'cancel') {
+        this.cancel = true;
+        this.step = this.step ? this.step : 1;
+      } else {
+        this.step = parseInt(step, 10) || 1;
+      }
+    });
+  }
+
+  navigateStep(step) {
+    this.router.navigate([], { queryParams: { step: step } });
   }
 
   changeStep(direction: string) {
@@ -128,14 +153,18 @@ export class WelcomeStepperComponent implements OnInit {
   increment() {
     this.step = this.step + 1;
     this.utilityService.setTitle(this.steps[this.step - 1].title);
+    this.navigateStep(this.step);
   }
 
   decrement() {
     this.step = this.step - 1;
     this.utilityService.setTitle(this.steps[this.step - 1].title);
+    this.navigateStep(this.step);
   }
 
   toggleCancel() {
+    this.navigateStep(!this.cancel ? 'cancel' : this.step);
+
     this.utilityService.setTitle(
       this.cancel
         ? this.steps[this.step - 1].title
@@ -222,5 +251,9 @@ export class WelcomeStepperComponent implements OnInit {
       this.resetDialog();
       this.router.navigate(['/mydata/profile']);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.routeSub?.unsubscribe();
   }
 }

@@ -13,6 +13,7 @@ import {
   ViewEncapsulation,
   ViewChild,
   ElementRef,
+  PLATFORM_ID,
 } from '@angular/core';
 import { AppConfigService } from '../../shared/services/app-config-service.service';
 import {
@@ -24,6 +25,8 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ReviewComponent } from '../review/review.component';
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { WINDOW } from '@shared/services/window.service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-footer',
@@ -57,7 +60,9 @@ export class FooterComponent implements OnInit {
   constructor(
     private appConfigService: AppConfigService,
     @Inject(LOCALE_ID) protected localeId: string,
-    private appSettingsService: AppSettingsService
+    private appSettingsService: AppSettingsService,
+    @Inject(WINDOW) private window: Window,
+    @Inject(PLATFORM_ID) private platformId: object
   ) {
     this.buildInfo = this.appConfigService.buildInfo;
     this.showReviewButton = true;
@@ -97,8 +102,17 @@ export class FooterComponent implements OnInit {
   }
 
   openDialog(template) {
-    this.showDialog = true;
-    this.dialogTemplate = template;
+    if (!this.myDataBeta) {
+      this.showDialog = true;
+      this.dialogTemplate = template;
+    } else {
+      if (isPlatformBrowser(this.platformId)) {
+        this.window.open(
+          'https://link.webropolsurveys.com/S/147262C4AB44ADC3',
+          '_blank'
+        );
+      }
+    }
   }
 
   closeDialog() {

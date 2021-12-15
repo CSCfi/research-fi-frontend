@@ -48,19 +48,22 @@ export function checkGroupPatchItem(group, patchItems) {
  * Shared methods
  */
 
+// User can add "duplicate" publications.
+// Publications from Orcid and Portal are related with DOI.
 export function mergePublications(data) {
   if (!isEmptySection(data)) {
-    const publications = data.fields[0].groupItems;
-
+    const publications = data.groupItems;
     for (let [i, publication] of publications[0].items.entries()) {
       if (publications.length === 2) {
         const match = publications[1].items.find(
           (item) => item.doi === publication.doi
         );
-
         if (match) {
           publications[0].items[i] = {
             ...publication,
+            ...match,
+            title: publication.title, // Keep title from ORCID
+            itemMeta: { ...publication.itemMeta, show: true }, // Keep original itemMeta
             merged: true,
             source: {
               organizations: [
@@ -70,17 +73,15 @@ export function mergePublications(data) {
             },
           };
 
+          publications[0].merged = publications[0].items
+            .filter((item) => item.doi === publication.doi)
+            .map((item) => item.itemMeta);
+
           // Remove duplicate
           publications[1].items = publications[1].items.filter(
             (item) => item.doi !== publication.doi
           );
         }
-        // else {
-        //   for (const group of publications.shift()) {
-        //     if (group.items.find((item) => item.doi === publication.doi)) {
-        //     }
-        //   }
-        // }
       }
     }
   }
@@ -88,7 +89,7 @@ export function mergePublications(data) {
 
 // Publications can be empty if user has no imported data from ORCID
 export function isEmptySection(data) {
-  return !data.fields[0].groupItems.length;
+  return !data.groupItems.length;
 }
 
 // Sort items and return unbinded data
