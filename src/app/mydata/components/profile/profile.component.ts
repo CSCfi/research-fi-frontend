@@ -319,14 +319,13 @@ export class ProfileComponent implements OnInit {
    */
   private async patchItemsPromise() {
     return new Promise((resolve, reject) => {
-      const patchItems = this.patchService.confirmedPatchItems;
+      const patchItems = this.patchService.confirmedPayLoad;
       this.profileService
         .patchObjects(patchItems)
         .pipe(take(1))
         .subscribe(
           (result) => {
             resolve(true);
-            this.clearDraftData();
           },
           (error) => {
             reject(error);
@@ -394,16 +393,41 @@ export class ProfileComponent implements OnInit {
 
   publish() {
     const promises = [];
-    promises.push(this.handlePublicationsPromise());
-    promises.push(this.handleDatasetsPromise());
-    promises.push(this.handleFundingsPromise());
-    promises.push(this.patchItemsPromise());
+
+    // Use of handler property as function prevents handler method firing when iterating
+    const promiseHandlers = [
+      {
+        handler: () => this.handlePublicationsPromise(),
+        payload: this.publicationsService.confirmedPayload,
+      },
+      {
+        handler: () => this.handleDatasetsPromise(),
+        payload: this.datasetsService.confirmedPayload,
+      },
+      {
+        handler: () => this.handleFundingsPromise(),
+        payload: this.fundingsService.confirmedPayload,
+      },
+      {
+        handler: () => this.patchItemsPromise(),
+        payload: this.patchService.confirmedPayLoad,
+      },
+    ];
+
+    // Prevent empty payload API requests
+    for (const item of promiseHandlers) {
+      if (item.payload.length > 0) {
+        promises.push(item.handler());
+      }
+    }
+
     promises.push(this.patchCooperationChoicesPromise());
     Promise.all(promises)
       .then((response) => {
         if (response.includes(false)) {
           this.showSaveSuccessfulMessage(false);
         } else {
+          this.clearDraftData();
           this.showSaveSuccessfulMessage(true);
           this.collaborationOptionsChanged = false;
         }
