@@ -6,7 +6,8 @@
 //  :license: MIT
 
 import { Component, Input, OnInit } from '@angular/core';
-import { sortItemsBy } from '@mydata/utils';
+import { mergePublications, sortItemsBy } from '@mydata/utils';
+import { cloneDeep } from 'lodash-es';
 
 @Component({
   selector: 'app-summary-portal-items',
@@ -28,8 +29,16 @@ export class SummaryPortalItemsComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    // Sort and filter publications that shoudd be displayed
-    this.sortedItems = this.sortItemsBy(this.data, this.sortField).filter(
+    // User can have duplicate publications, one from ORCID and one from Research.fi
+    // Merge these and display only one
+    const dataCopy = cloneDeep(this.data);
+
+    if (dataCopy.id === 'publications') {
+      mergePublications(dataCopy);
+    }
+
+    // Display only selected items
+    this.sortedItems = this.sortItemsBy(dataCopy, this.sortField).filter(
       (item) => item.itemMeta.show
     );
   }

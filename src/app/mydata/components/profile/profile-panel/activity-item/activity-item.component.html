@@ -9,7 +9,9 @@
       class="row"
       *ngFor="let value of rows; let i = index"
       [class.font-weight-bold]="i === 0"
-      [class.font-size-small]="i === rows.length - 1 && smallLastItem"
+      [class.font-size-small]="
+        rows.length > 1 && i === rows.length - 1 && smallLastItem
+      "
     >
       {{ value }}
     </span>

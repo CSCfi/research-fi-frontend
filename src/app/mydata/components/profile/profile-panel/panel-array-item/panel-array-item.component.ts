@@ -17,6 +17,7 @@ export class PanelArrayItemComponent implements OnInit {
   @Input() item: any;
   @Input() fieldType: string;
   @Input() localized: boolean;
+  @Input() summary: boolean;
 
   fieldTypes = FieldTypes;
 

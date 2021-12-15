@@ -23,6 +23,6 @@ export class ActivityItemComponent implements OnInit {
   ngOnInit() {
     // First row should be highlighted.
     // Row value is empty string if no match in profile data
-    this.rows = this.rows.filter((item) => item.toString().trim().length > 0);
+    this.rows = this.rows.filter((item) => item?.toString().trim().length > 0);
   }
 }
