@@ -52,7 +52,7 @@
             (datasetsService.currentDatasetPayload | async).length ||
             (fundingsService.currentFundingPayload | async).length ||
             (patchService.currentPatchItems | async).length ||
-            collaborationOptionsChanged
+            (collaborationsService.currentCollaborationsPayload | async).length
           "
         >
           - <ng-container i18n="@@draft">Luonnos</ng-container></span
@@ -89,7 +89,7 @@
           (datasetsService.currentDatasetPayload | async).length ||
           (fundingsService.currentFundingPayload | async).length ||
           (patchService.currentPatchItems | async).length ||
-          collaborationOptionsChanged
+          (collaborationsService.currentCollaborationsPayload | async).length
         "
       >
         <app-primary-action-button
@@ -172,8 +172,8 @@
             {{ (patchService.currentPatchItems | async).length }}
           </div>
           <div class="row">
-            collaborationOptionsChanged:
-            {{ collaborationOptionsChanged }}
+            currentCollaborationsPayload:
+            {{ (collaborationsService.currentCollaborationsPayload | async).length }}
           </div>
         </ng-container>
 
@@ -193,7 +193,6 @@
             i18n-label="@@cooperation"
             label="Yhteistyö"
             (collaborationOptionsChanges)="changeCollaborationOptions($event)"
-            (collaborationOptionsChanged)="markCollaborationOptionsChanged()"
           ></app-collaboration-card>
         </aside>
 
