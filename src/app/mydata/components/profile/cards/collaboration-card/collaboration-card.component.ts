@@ -5,18 +5,13 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import {
-  Component,
-  Input,
-  OnInit,
-  ViewEncapsulation,
-  EventEmitter,
-  Output,
-} from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ProfileService } from '@mydata/services/profile.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { CollaborationsService } from '@mydata/services/collaborations.service';
 import { take } from 'rxjs/operators';
+import { cloneDeep } from 'lodash-es';
+import { Constants } from '@mydata/constants';
 
 @Component({
   selector: 'app-collaboration-card',
@@ -26,9 +21,8 @@ import { take } from 'rxjs/operators';
 })
 export class CollaborationCardComponent implements OnInit {
   @Input() label: string;
-  @Output() collaborationOptionsChanges = new EventEmitter<any>();
-  @Output() collaborationOptionsChanged = new EventEmitter<any>();
 
+  originalCollaborationOptions;
   collaborationOptions = [];
   showDialog: boolean;
   hasCheckedOption: boolean;
@@ -42,28 +36,47 @@ export class CollaborationCardComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private profileService: ProfileService,
+    private collaborationsService: CollaborationsService,
     private appSettingsService: AppSettingsService
   ) {}
 
   ngOnInit(): void {
-    this.reloadCollaborationChoices();
+    this.nameLocale = 'name' + this.appSettingsService.capitalizedLocale;
+
+    this.fetchCollaborationChoices();
   }
 
-  public reloadCollaborationChoices() {
-    this.nameLocale = 'name' + this.appSettingsService.capitalizedLocale;
-    this.profileService
+  private fetchCollaborationChoices() {
+    this.collaborationsService
       .getCooperationChoices()
       .pipe(take(1))
       .subscribe((response: any) => {
-        this.collaborationOptions = response?.body?.data;
-        this.collaborationOptionsChanges.emit(this.collaborationOptions);
-        this.collaborationOptions.forEach((item) => {
-          if (item?.selected) {
-            this.hasCheckedOption = true;
-          }
-        });
+        const options = response?.body?.data;
+
+        this.originalCollaborationOptions = options;
+
+        this.setInitialValue(options);
+
+        // Check if draft in storage and set initial values
+        const draft = sessionStorage.getItem(
+          Constants.draftCollaborationPatchPayload
+        );
+
+        // Set options from storage if draft available
+        this.collaborationOptions = draft ? JSON.parse(draft) : options;
+
+        this.hasCheckedOption = this.hasSelectedOption();
       });
+  }
+
+  private setInitialValue(options) {
+    this.collaborationsService.setInitialValue(cloneDeep(options));
+  }
+
+  public resetInitialValue() {
+    this.collaborationOptions = cloneDeep(
+      this.collaborationsService.initialValue
+    );
   }
 
   openDialog() {
@@ -79,17 +92,18 @@ export class CollaborationCardComponent implements OnInit {
         const option = this.collaborationOptions[index];
         option.selected = !option.selected;
       });
-      this.collaborationOptionsChanges.emit(this.collaborationOptions);
-      this.collaborationOptionsChanged.emit(null);
+      this.collaborationsService.addToPayload(this.collaborationOptions);
     }
 
-    this.hasCheckedOption = !!this.collaborationOptions.find(
-      (option) => option.selected
-    );
+    this.hasCheckedOption = this.hasSelectedOption();
     this.optionsToggled = [];
   }
 
   toggleOption(i) {
     this.optionsToggled.push(i);
+  }
+
+  private hasSelectedOption(): boolean {
+    return !!this.collaborationOptions.find((option) => option.selected);
   }
 }

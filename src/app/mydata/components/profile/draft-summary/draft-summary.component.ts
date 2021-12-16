@@ -13,6 +13,7 @@ import { combineLatest } from 'rxjs';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { DatasetsService } from '@mydata/services/datasets.service';
 import { FundingsService } from '@mydata/services/fundings.service';
+import { CollaborationsService } from '@mydata/services/collaborations.service';
 
 @Component({
   selector: 'app-draft-summary',
@@ -47,12 +48,15 @@ export class DraftSummaryComponent implements OnInit, OnDestroy {
     private publicationsService: PublicationsService,
     private datasetsService: DatasetsService,
     private fundingsService: FundingsService,
-    private appSettingsService: AppSettingsService
+    private appSettingsService: AppSettingsService,
+    private collaborationsService: CollaborationsService
   ) {
     this.locale = this.appSettingsService.capitalizedLocale;
   }
 
   ngOnInit(): void {
+    this.collaborationOptions = this.collaborationsService.confirmedPayload;
+
     this.countCheckedCollaborationOptions();
     this.nameLocale = 'name' + this.appSettingsService.capitalizedLocale;
     this.patchPayloadSub = combineLatest([
