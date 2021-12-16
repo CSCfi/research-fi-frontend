@@ -13,11 +13,11 @@
     "
   >
     <div class="row py-2 justify-content-between">
-      <div class="col-4 align-self-center font-weight-bold">
+      <div class="col-6 col-lg-4 align-self-center font-weight-bold order-1">
         {{ group.label }}
       </div>
       <div
-        class="col align-self-center font-italic"
+        class="col align-self-center font-italic order-3 order-sm-2"
         i18n="@@youHaveNotSelectedAnyPublicData"
         *ngIf="
           (group.fields | countGroupItems: { filterSelected: true }).length ===
@@ -26,7 +26,7 @@
       >
         Et ole vielä valinnut julkisesti näytettäviä tietoja
       </div>
-      <div class="col-auto">
+      <div class="col-auto order-2 order-sm-3">
         <app-secondary-button
           [content]="
             (group.fields | countGroupItems: { filterSelected: true }).length

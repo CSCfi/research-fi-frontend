@@ -137,8 +137,8 @@
     ></app-banner-divider>
 
     <!-- Groups -->
-    <div class="row d-flex justify-content-between">
-      <div class="col-12 col-lg-7 mx-lg-n3">
+    <div class="row justify-content-between">
+      <div class="col-12 col-lg-7 px-0">
         <app-profile-summary
           *ngIf="profileData; else loadingTemplate"
           class="d-block pt-3"
@@ -150,7 +150,7 @@
         </ng-template>
       </div>
 
-      <div class="col-12 col-lg-5 px-0 px-lg-3 mr-lg-n3">
+      <div class="col-12 col-lg-5 px-0 px-lg-3">
         <!-- DEBUGGING -->
         <ng-container *ngIf="appSettingsService.myDataSettings.debug">
           <button (click)="reset()" mat-raised-button>Reset</button>
