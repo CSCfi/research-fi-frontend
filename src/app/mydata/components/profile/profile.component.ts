@@ -30,7 +30,7 @@ import { checkGroupSelected } from '@mydata/utils';
 import { UtilityService } from '@shared/services/utility.service';
 import { DatasetsService } from '@mydata/services/datasets.service';
 import { FundingsService } from '@mydata/services/fundings.service';
-import { CollaborationsService } from "@mydata/services/collaborations.service";
+import { CollaborationsService } from '@mydata/services/collaborations.service';
 
 @Component({
   selector: 'app-profile',
@@ -98,8 +98,6 @@ export class ProfileComponent implements OnInit {
   deletingProfile: boolean;
 
   draftPayload: any[];
-  collaborationOptions: any[];
-  collaborationOptionsChanged: boolean;
 
   checkGroupSelected = checkGroupSelected;
 
@@ -422,7 +420,7 @@ export class ProfileComponent implements OnInit {
       },
       {
         handler: () => this.patchCooperationChoicesPromise(),
-        payload: this.collaborationsService.confirmedPayLoad,
+        payload: this.collaborationsService.confirmedPayload,
       },
     ];
 
@@ -481,13 +479,8 @@ export class ProfileComponent implements OnInit {
       service.cancelConfirmedPayload();
     });
 
-    this.collaborationComponentRef.reFetchCollaborationChoices();
+    this.collaborationComponentRef.resetInitialValue();
     this.draftService.clearData();
-  }
-
-  changeCollaborationOptions(input: any) {
-    console.log('changeCollaborationOptions called');
-    this.collaborationOptions = input;
   }
 
   showSaveSuccessfulMessage(wasSuccessful: boolean) {

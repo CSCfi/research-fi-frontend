@@ -78,7 +78,6 @@
         <app-draft-summary
           *ngIf="profileData"
           [profileData]="profileData"
-          [collaborationOptions]="collaborationOptions"
         ></app-draft-summary>
       </ng-template>
 
@@ -173,7 +172,10 @@
           </div>
           <div class="row">
             currentCollaborationsPayload:
-            {{ (collaborationsService.currentCollaborationsPayload | async).length }}
+            {{
+              (collaborationsService.currentCollaborationsPayload | async)
+                .length
+            }}
           </div>
         </ng-container>
 
@@ -192,7 +194,6 @@
             #collaborationComponentRef
             i18n-label="@@cooperation"
             label="Yhteistyö"
-            (collaborationOptionsChanges)="changeCollaborationOptions($event)"
           ></app-collaboration-card>
         </aside>
 

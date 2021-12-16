@@ -122,7 +122,11 @@
     </mat-expansion-panel>
   </ng-container>
 
-  <mat-expansion-panel id="collaboration-options-panel" [expanded]="false">
+  <mat-expansion-panel
+    id="collaboration-options-panel"
+    [expanded]="false"
+    *ngIf="collaborationOptions.length"
+  >
     <mat-expansion-panel-header class="pr-1 pr-md-3">
       <mat-panel-title class="font-weight-bold">
         {{ collaborationHeader }} ({{ checkedCollaborationItemsCount }})
