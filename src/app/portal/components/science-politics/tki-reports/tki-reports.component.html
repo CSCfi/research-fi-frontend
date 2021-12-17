@@ -1,0 +1,56 @@
+<!-- # This file is part of the research.fi API service
+#
+# Copyright 2019 Ministry of Education and Culture, Finland
+#
+# :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+# :license: MIT -->
+
+<app-banner-divider></app-banner-divider>
+<main id="main-content">
+  <div class="wrapper">
+    <div class="row pt-4">
+      <div class="col text-center mt-3">
+        <h1 i18n="@@externalLinksHeader">Selvityksiä ja raportteja Suomen tutkimus- ja innovaatiojärjestelmästä</h1>
+      </div>
+    </div>
+      <app-divider [headingText]="'section.title'"></app-divider>
+      <div class="row">
+      </div>
+    <div class="search-input form-control row d-flex">
+      <input
+        class="col-10 col-sm-11 pr-0"
+        #searchInput
+        [formControl]="queryField"
+        mat-input
+        type="text"
+        i18n-title="@@searchTooltip"
+        title="Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa."
+        i18n-placeholder="@@searchPlaceholder"
+        placeholder="Esim. julkaisu, tieteenala, asiasana"
+        id="searchInput"
+        autocomplete="off"
+        tabindex="0"
+        value="{{ searchService.currentInput | async }}"
+        (focus)="onFocus()"
+        (keyup)="setCompletionWidth()"
+        (keydown)="onKeydown($event); disableKeys($event)"
+      />
+      <!-- Reset button -->
+      <div
+        class="col-2 col-sm-1 reset align-self-center text-center p-0"
+      >
+                <span
+                  #resetSearchElem
+                  id="resetSearch"
+                  *ngIf="searchInput.value !== ''"
+                  (click)="resetSearch()"
+                  tabindex="0"
+                  i18n-title="@@resetSearchTooltip"
+                  title="Tyhjennä haku"
+                >
+                  <i class="fa fa-times"></i>
+                </span>
+      </div>
+  </div>
+  </div>
+</main>

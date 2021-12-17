@@ -24,6 +24,7 @@ import { AuthConfigModule } from './auth-config.module';
 import { ErrorHandlerService } from './shared/services/error-handler.service';
 import 'reflect-metadata'; // Required by ApmService
 import { ApmModule, ApmService } from '@elastic/apm-rum-angular';
+import { TkiReportsComponent } from './portal/components/science-politics/tki-reports/tki-reports.component';
 
 @NgModule({
   declarations: [AppComponent],
