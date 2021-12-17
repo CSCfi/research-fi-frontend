@@ -121,6 +121,29 @@ export class PublicationFilterService {
         $localize`:@@onlinePlatformTooltipContent:Sisältää muilla sähköisillä alustoilla julkaistut julkaisut.`,
     },
     {
+      field: 'articleType',
+      label: $localize`:@@articleType:Artikkelin tyyppi`,
+      hasSubFields: false,
+      open: false,
+      tooltip:
+        '<p><strong>' +
+        $localize`:@@originalArticle:Alkuperäisartikkeli` +
+        ': </strong>' +
+        $localize`:@@originalArticleTooltip:on pääosin aiemmin julkaisemattomasta materiaalista koostuva tieteellinen artikkeli.` +
+        '</p><p><strong>' +
+        $localize`:@@reviewArticle:Katsausartikkeli` +
+        ': </strong>' +
+        $localize`:@@reviewArticleTooltip:perustuu aikaisempiin samasta aihepiiristä tehtyihin julkaisuihin.` +
+        '</p><p><strong>' +
+        $localize`:@@dataArticle:Data-artikkeli` +
+        ': </strong>' +
+        $localize`:@@dataArticleTooltip:sisältää ns. data journals -julkaisuissa ilmestyneet, tutkimusaineistoja kuvailevat artikkelit.` +
+        '<p><strong>' +
+        $localize`:@@otherArticle:Muu artikkeli` +
+        ': </strong>' +
+        $localize`:@@otherArticleTooltip:sisältää muihin luokkiin kuulumattomat artikkelit.`,
+    },
+    {
       field: 'peerReviewed',
       label: $localize`:@@peerReviewedFilter:Vertaisarvioitu`,
       hasSubFields: false,
@@ -155,7 +178,7 @@ export class PublicationFilterService {
       open: true,
       tooltip:
         '<p><strong>' +
-        $localize`:@@openAccessJournal:Open access -lehti` +
+        $localize`:@@openAccessPublicationChannel:Open access -julkaisukanava` +
         ': </strong>' +
         $localize`Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.` +
         '</p><p><strong>' +
@@ -178,7 +201,7 @@ export class PublicationFilterService {
     },
     {
       field: 'okmDataCollection',
-      label: $localize`:@@okmDataCollection:Julkaisu kuuluu opetus- ja kuulttuuriministeriön tiedonkeruuseen`,
+      label: $localize`:@@okmDataCollection:Julkaisu kuuluu opetus- ja kulttuuriministeriön tiedonkeruuseen`,
       tooltip: $localize`:@@okmDataCollectionTooltip:OKM:n tiedonkeruuseen kuuluvat julkaisut ovat korkeakoulujen, tutkimuslaitosten ja yliopistosairaaloiden vuosittain opetus- ja kulttuuriministeriölle raportoimia julkaisuja, jotka täyttävät julkaisutiedonkeruun vaatimukset (www.tiedonkeruu.fi) ja jotka huomioidaan mm. korkeakoulujen rahoitusmallissa.`,
     },
   ];
@@ -188,12 +211,12 @@ export class PublicationFilterService {
     private staticDataService: StaticDataService
   ) {}
 
-  shapeData(data) {
+  shapeData(data, activeFilters?) {
     const source = data.aggregations;
     // Year
     source.year.buckets = this.mapYear(source.year.years.buckets);
     // Organization & sector
-    source.organization = this.organization(source.organization);
+    source.organization = this.organization(source.organization, activeFilters);
     // Field of science
     source.field.buckets = this.minorField(
       source.field.fields.buckets.filter(
@@ -212,6 +235,9 @@ export class PublicationFilterService {
     );
     source.parentPublicationType.buckets = this.mapKey(
       source.parentPublicationType.parentPublicationTypes.buckets
+    );
+    source.articleType.buckets = this.articleType(
+      source.articleType.articleTypes.buckets
     );
     source.peerReviewed.buckets = this.mapKey(
       source.peerReviewed.peerReviewedValues.buckets
@@ -241,7 +267,7 @@ export class PublicationFilterService {
     return source;
   }
 
-  organization(data) {
+  organization(data, activeFilters?) {
     const source = cloneDeep(data) || [];
     source.buckets = source.sectorName ? source.sectorName.buckets : [];
     source.buckets.forEach((item) => {
@@ -262,6 +288,33 @@ export class PublicationFilterService {
     source.buckets = source.buckets.sort(
       (a, b) => a.sectorId.buckets[0].key - b.sectorId.buckets[0].key
     );
+
+    // Filter organizations when targeted search for subunits
+    // ie. single-organization > navigate from sub units tab.
+    // When subunit search is active, display only sector that
+    // includes selected subunit.
+    if (activeFilters?.target === 'subUnitID' && activeFilters?.organization) {
+      const organizationParam = activeFilters.organization;
+      const orgId =
+        typeof organizationParam === 'string'
+          ? organizationParam
+          : organizationParam[0];
+      const buckets = source.sectorName.buckets;
+      const sector = buckets.findIndex((sector) =>
+        sector.subData.find((org) => org.key === orgId)
+      );
+
+      const activeSector = source.sectorName.buckets[sector];
+
+      activeSector.subData = activeSector.subData.filter(
+        (org) => org.key === orgId
+      );
+
+      source.buckets = source.buckets.filter(
+        (sector) => sector.key === activeSector.key
+      );
+    }
+
     return source;
   }
 
@@ -377,6 +430,20 @@ export class PublicationFilterService {
     return result;
   }
 
+  articleType(data) {
+    const staticData = this.staticDataService.articleType;
+    const result = data.map(
+      (item) =>
+        (item = {
+          key: item.key,
+          label: staticData.find((x) => item.key === x.id).label,
+          doc_count: item.doc_count,
+          value: item.key,
+        })
+    );
+    return result.sort((a, b) => b.doc_count - a.doc_count);
+  }
+
   juFoCode(data) {
     const staticData = this.staticDataService.juFoCode;
     const result = data.map(
@@ -415,14 +482,30 @@ export class PublicationFilterService {
     let openAccessCodes = [];
     const result = [];
 
+    // Filter also based on selfArchived === 0 for non open
+    publisherComposite
+      .filter(
+        (x) =>
+          x.key.selfArchived === 0 &&
+          x.key.openAccess === 0 &&
+          x.key.publisherOpenAccess !== 3
+      )
+      .forEach((x) => {
+        openAccessCodes.push({
+          key: 'nonOpenAccess',
+          doc_count: x.filtered.doc_count,
+        });
+      });
+
     if (publisherComposite && publisherComposite.length > 0) {
       publisherComposite.forEach((val) => {
         val.stringKey = '' + val.key.openAccess + val.key.publisherOpenAccess;
+
         switch (val.stringKey) {
           case '11': {
             openAccessCodes.push({
               key: 'openAccess',
-              doc_count: val.doc_count,
+              doc_count: val.filtered.doc_count,
             });
             break;
           }
@@ -430,32 +513,36 @@ export class PublicationFilterService {
           case '13': {
             openAccessCodes.push({
               key: 'delayedOpenAccess',
-              doc_count: val.doc_count,
+              doc_count: val.filtered.doc_count,
             });
             break;
           }
           case '12': {
             openAccessCodes.push({
               key: 'otherOpen',
-              doc_count: val.doc_count,
+              doc_count: val.filtered.doc_count,
             });
             break;
           }
+          // Separate implementation above for non open, add with 0 doc count so no doubles
           case '00':
           case '01':
           case '02':
           case '09': {
             openAccessCodes.push({
               key: 'nonOpenAccess',
-              doc_count: val.doc_count,
+              doc_count: 0,
             });
             break;
           }
           default: {
-            openAccessCodes.push({
-              key: 'noOpenAccessData',
-              doc_count: val.doc_count,
-            });
+            // Self archived is not unknown
+            if (!val.key.selfArchived) {
+              openAccessCodes.push({
+                key: 'noOpenAccessData',
+                doc_count: val.filtered.doc_count,
+              });
+            }
             break;
           }
         }
@@ -498,7 +585,7 @@ export class PublicationFilterService {
       result.push({
         key: 'openAccess',
         doc_count: docCount('openAccess'),
-        label: $localize`:@@openAccessJournal:Open Access -lehti `,
+        label: $localize`:@@openAccessPublicationChannel:Open Access -julkaisukanava`,
       });
     }
     if (openAccessCodes.some((e) => e.key === 'selfArchived')) {

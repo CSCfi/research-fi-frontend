@@ -13,14 +13,14 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import { tap } from 'rxjs/operators';
-import { ContentDataService } from '../services/content-data.service';
+import { CMSContentService } from '../../shared/services/cms-content.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ShortcutResolverService implements Resolve<any> {
   constructor(
-    private cds: ContentDataService,
+    private cmsContentService: CMSContentService,
     @Inject(PLATFORM_ID) private platformId: object
   ) {}
 
@@ -28,7 +28,7 @@ export class ShortcutResolverService implements Resolve<any> {
     // Prevent API call if data exists in session storage
     if (isPlatformBrowser(this.platformId)) {
       if (!sessionStorage.getItem('shortcutData')) {
-        return this.cds
+        return this.cmsContentService
           .getShortcuts()
           .pipe(
             tap((data) =>
@@ -39,7 +39,7 @@ export class ShortcutResolverService implements Resolve<any> {
         return JSON.parse(sessionStorage.getItem('shortcutData'));
       }
     } else {
-      return this.cds.getShortcuts();
+      return this.cmsContentService.getShortcuts();
     }
   }
 }

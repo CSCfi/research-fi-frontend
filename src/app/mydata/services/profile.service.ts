@@ -12,6 +12,7 @@ import { AppConfigService } from 'src/app/shared/services/app-config-service.ser
 import { Profile, ProfileAdapter } from '@mydata/models/profile.model';
 import { map } from 'rxjs/operators';
 import testData from 'src/testdata/mydataprofiledata.json';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -19,8 +20,12 @@ import testData from 'src/testdata/mydataprofiledata.json';
 export class ProfileService {
   apiUrl: string;
   httpOptions: object;
+  currentProfileData: any[];
 
   testData = testData;
+
+  private currentProfileNameSource = new BehaviorSubject<string>('');
+  currentProfileName = this.currentProfileNameSource.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -41,6 +46,14 @@ export class ProfileService {
       }),
       observe: 'response',
     };
+  }
+
+  setCurrentProfileName(name: string) {
+    this.currentProfileNameSource.next(name);
+  }
+
+  setCurrentProfileData(data) {
+    this.currentProfileData = data;
   }
 
   checkProfileExists() {
@@ -66,6 +79,7 @@ export class ProfileService {
     this.updateTokenInHttpAuthHeader();
     return this.http.get(this.apiUrl + '/orcid/', this.httpOptions);
   }
+
 
   getProfileData() {
     this.updateTokenInHttpAuthHeader();

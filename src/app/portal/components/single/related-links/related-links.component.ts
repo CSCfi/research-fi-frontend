@@ -5,14 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import {
-  Component,
-  OnInit,
-  Input,
-  OnDestroy,
-  Inject,
-  LOCALE_ID,
-} from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { SingleItemService } from '../../../services/single-item.service';
 import {
   ActivatedRoute,
@@ -22,6 +15,7 @@ import {
   PRIMARY_OUTLET,
   UrlSegment,
 } from '@angular/router';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   selector: 'app-related-links',
@@ -73,11 +67,9 @@ export class RelatedLinksComponent implements OnInit, OnDestroy {
     private singleService: SingleItemService,
     private route: ActivatedRoute,
     private router: Router,
-    @Inject(LOCALE_ID) protected localeId: string
+    private appSettingsService: AppSettingsService
   ) {
-    // Capitalize first letter of locale
-    this.currentLocale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    this.currentLocale = this.appSettingsService.capitalizedLocale;
     this.docCountData = [];
   }
 

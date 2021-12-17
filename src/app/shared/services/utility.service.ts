@@ -5,12 +5,19 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Injectable, ElementRef, Inject, LOCALE_ID } from '@angular/core';
+import {
+  Injectable,
+  ElementRef,
+  Inject,
+  LOCALE_ID,
+  PLATFORM_ID,
+} from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SortService } from '../../portal/services/sort.service';
-import { Meta } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root',
@@ -20,11 +27,13 @@ export class UtilityService {
   private modalShowSub: Subscription;
 
   constructor(
+    @Inject(PLATFORM_ID) private platformId: object,
     private modalService: BsModalService,
     private route: ActivatedRoute,
     private sortService: SortService,
     private router: Router,
-    private meta: Meta
+    private meta: Meta,
+    private titleService: Title
   ) {
     // Subscribe to modal show and hide
     this.modalHideSub = this.modalService.onHide.subscribe((_) => {
@@ -95,7 +104,7 @@ export class UtilityService {
   }
 
   static replaceSpecialChars(s: string) {
-    return s.toString().replace(/ |,|\.|\(|\)|\&/g, '-');
+    return s.toString().replace(/ |,|\.|\(|\)|\&|\'/g, '-');
   }
 
   static thousandSeparator(s: string) {
@@ -168,6 +177,12 @@ export class UtilityService {
     });
   }
 
+  setTitle(newTitle: string) {
+    if (isPlatformBrowser(this.platformId)) {
+      this.titleService.setTitle(newTitle);
+    }
+  }
+
   addMeta(title: string, description: string, imageAlt: string) {
     this.meta.updateTag({ name: 'description', content: description });
     this.meta.updateTag({ property: 'og:title', content: title });
@@ -187,14 +202,15 @@ export class UtilityService {
     this.meta.updateTag({ name: 'twitter:description', content: description });
     this.meta.updateTag({
       name: 'twitter:image',
-      content: 'https://tiedejatutkimus.fi/fi/assets/img/Tiedejatutkimus.fi_logo.png',
+      content:
+        'https://tiedejatutkimus.fi/fi/assets/img/Tiedejatutkimus.fi_logo.png',
     });
   }
 
-  uniqueArray(arr: any[], key: (any) => any = x => x) {
+  uniqueArray(arr: any[], key: (any) => any = (x) => x) {
     if (!arr) return undefined;
     const seen = new Set();
-    return arr.filter(item => {
+    return arr.filter((item) => {
       const k = key(item);
       return seen.has(k) ? false : seen.add(k);
     });

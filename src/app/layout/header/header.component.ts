@@ -33,9 +33,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { PrivacyService } from 'src/app/portal/services/privacy.service';
-import { ContentDataService } from 'src/app/portal/services/content-data.service';
+import { CMSContentService } from '@shared/services/cms-content.service';
 import { AppSettingsService } from 'src/app/shared/services/app-settings.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { Constants } from '@mydata/constants';
+import { DraftService } from '@mydata/services/draft.service';
 
 @Component({
   selector: 'app-header',
@@ -51,12 +53,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild('overlay', { static: false }) overlay: ElementRef;
   @ViewChild('authExpiredTemplate', { static: true })
   authExpiredTemplate: ElementRef;
+  @ViewChild('unsavedDraftTemplate', { static: true })
+  unsavedDraftTemplate: ElementRef;
+
   @ViewChildren('navLink') navLink: any;
 
   navbarOpen = false;
   hideOverflow = true;
   dropdownOpen: any;
-  mobile = this.window.innerWidth < 1200;
+  maxWidth = 992;
+  mobileNavBreakPoint = 1200;
+  mobile = this.window.innerWidth < this.maxWidth;
+  mobileMenu = this.window.innerWidth < this.mobileNavBreakPoint;
 
   height = this.window.innerHeight;
   width = this.window.innerWidth;
@@ -96,7 +104,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   showDialog: boolean;
   dialogTemplate: any;
   dialogTitle: any;
-  dialogActions = [{ label: 'Sulje', primary: true, method: 'close' }];
+  dialogActions: any[];
+  basicDialogActions = [
+    { label: $localize`:@@close:Sulje`, primary: true, method: 'close' },
+  ];
 
   constructor(
     private resizeService: ResizeService,
@@ -107,13 +118,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private router: Router,
     private platform: PlatformLocation,
     private utilityService: UtilityService,
-    private cds: ContentDataService,
+    private cmsContentService: CMSContentService,
     private renderer: Renderer2,
     private route: ActivatedRoute,
     private tabChangeService: TabChangeService,
     private privacyService: PrivacyService,
     private appSettingsService: AppSettingsService,
-    private oidcSecurityService: OidcSecurityService
+    private oidcSecurityService: OidcSecurityService,
+    private draftService: DraftService
   ) {
     this.lang = localeId;
     this.currentLang = this.getLang(this.lang);
@@ -206,7 +218,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
             this.loggedIn = authenticated;
           }
           this.appSettingsService.myDataSettings.navItems[0].label =
-            authenticated ? 'Kirjaudu ulos' : 'Kirjaudu sisään';
+            authenticated
+              ? $localize`:@@logout:Kirjaudu ulos`
+              : $localize`:@@logIn:Kirjaudu sisään`;
         });
       }
     });
@@ -218,10 +232,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.appSettingsService.updateMobileStatus(this.mobile);
 
       // Get page data from API and set to localStorage. This data is used to generate content on certain pages
-      if (!this.cds.pageDataFlag) {
-        this.pageDataSub = this.cds.getPages().subscribe((data) => {
-          this.cds.setPageData(data);
-        });
+      if (!this.cmsContentService.pageDataLoaded) {
+        this.pageDataSub = this.cmsContentService
+          .getPages()
+          .subscribe((data) => {
+            this.cmsContentService.setPageData(data);
+          });
       }
       this.resizeSub = this.resizeService.onResize$.subscribe((dims) =>
         this.onResize(dims)
@@ -355,15 +371,44 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     if (item.loginProcess) {
       this.loggedIn
-        ? this.oidcSecurityService.logoff()
+        ? this.handleMyDataLogoff()
         : this.oidcSecurityService.authorize();
+    }
+  }
+
+  handleMyDataLogoff() {
+    if (isPlatformBrowser(this.platformId)) {
+      if (
+        sessionStorage.getItem(Constants.draftPatchPayload) ||
+        sessionStorage.getItem(Constants.draftPublicationPatchPayload)
+      ) {
+        const logoutDialogActions = [
+          {
+            label: $localize`:@@logout:Kirjaudu ulos`,
+            primary: true,
+            method: 'logout',
+          },
+          {
+            label: $localize`:@@cancel:Peruuta`,
+            method: 'close',
+          },
+        ];
+
+        this.openDialog(
+          'Kirjaudu ulos',
+          this.unsavedDraftTemplate,
+          logoutDialogActions
+        );
+      } else {
+        this.oidcSecurityService.logoff();
+      }
     }
   }
 
   onResize(dims) {
     this.height = dims.height;
     this.width = dims.width;
-    if (this.width >= 1200) {
+    if (this.width >= this.maxWidth) {
       this.appSettingsService.updateMobileStatus(false);
       this.mobile = false;
       if (this.navbarOpen) {
@@ -375,6 +420,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.appSettingsService.updateMobileStatus(true);
       this.mobile = true;
     }
+
+    this.width >= this.mobileNavBreakPoint
+      ? (this.mobileMenu = false)
+      : (this.mobileMenu = true);
   }
 
   onClickedOutside(e: Event) {
@@ -385,13 +434,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.tabChangeService.targetFocus(target);
   }
 
-  openDialog(title, template) {
+  openDialog(title, template, actions) {
     this.dialogTitle = title;
     this.showDialog = true;
     this.dialogTemplate = template;
+    this.dialogActions = actions;
   }
 
-  doDialogAction() {
+  doDialogAction(action) {
+    if (action === 'logout') {
+      this.oidcSecurityService.logoff();
+      this.draftService.clearData();
+    }
+
     this.dialogTitle = '';
     this.showDialog = false;
     this.dialogTemplate = null;
@@ -399,5 +454,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   login() {
     this.oidcSecurityService.authorize();
+  }
+
+  // Alert user if draft data in session storage
+  @HostListener('window:beforeunload', ['$event'])
+  public checkForDraftData() {
+    if (
+      !this.appSettingsService.myDataSettings.debug &&
+      this.currentRoute.includes('/mydata/profile') &&
+      (sessionStorage.getItem(Constants.draftPatchPayload) ||
+        sessionStorage.getItem(Constants.draftPublicationPatchPayload))
+    )
+      return false;
   }
 }

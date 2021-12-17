@@ -26,20 +26,42 @@ Copyright 2019 Ministry of Education and Culture, Finland
             >
               {{ selectedTabData.label }} -
               <span class="total">{{ parsedTotal }}</span>
-              <span *ngIf="selectedTabData.link === 'datasets'" class="ml-3" [tooltip]="betaTooltip" placement="top" tabindex="-1" #beta>
-                <app-secondary-button [icon]="'info-circle'" content="Beta"></app-secondary-button>
+              <span
+                *ngIf="selectedTabData.link === 'datasets'"
+                class="ml-3"
+                [tooltip]="betaTooltip"
+                placement="top"
+                tabindex="-1"
+                #beta
+              >
+                <app-secondary-button
+                  [icon]="'info-circle'"
+                  content="Beta"
+                ></app-secondary-button>
               </span>
               <span class="sr-only" i18n="@@resultCount">hakutulosta</span>
             </h2>
           </div>
           <!-- Change to col-lg-9 after removing beta-info -->
-          <div class="col-auto col-lg-7 justify-content-end align-items-center row pr-0">
+          <div
+            class="
+              col-auto col-lg-7
+              justify-content-end
+              align-items-center
+              row
+              pr-0
+            "
+          >
             <div class="col-auto px-0" *ngIf="selectedTabData">
               <app-result-count></app-result-count>
             </div>
             <!-- <div class="col-12"></div> -->
             <div class="col-auto text-right d-none d-lg-block pl-4 pr-0">
-              <a routerLink="/service-info" fragment="1" class="theme-link">
+              <a
+                routerLink="/service-info"
+                fragment="service-info-2"
+                class="theme-link"
+              >
                 <strong>
                   <ng-container i18n="@@resultInfo1">Mitä</ng-container
                   ><span> {{ selectedTabData?.singular.toLowerCase() }}</span>
@@ -148,7 +170,12 @@ Copyright 2019 Ministry of Education and Culture, Finland
 <ng-template #desktop>
   <aside class="col-4 col-xl-3 filters" *ngIf="!modalRef">
     <div
-      class="justify-content-center align-items-center d-none d-lg-flex visual-button-container"
+      class="
+        justify-content-center
+        align-items-center
+        d-none d-lg-flex
+        visual-button-container
+      "
       *ngIf="tab === 'publications' || tab === 'fundings'"
     >
       <app-primary-action-button
@@ -316,8 +343,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
           ></app-secondary-button>
         </div>
         <div class="col-9 row">
-          <div class="col-6"></div>
-          <div *ngIf="tab === 'fundings'" class="col-6">
+          <!-- <div *ngIf="tab === 'fundings'" class="ml-auto pb-2 col-6">
             <button
               class="col-6 vis-style-toggle ttv-button"
               [class.active]="!visualisationType"
@@ -337,7 +363,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
               i18n="@@asPieChart">
               Piiraskuvaaja
             </button> 
-          </div>  
+          </div>   -->
           <app-active-filters></app-active-filters>
           <app-visualisation
             [data]="visualData"
@@ -397,30 +423,32 @@ Copyright 2019 Ministry of Education and Culture, Finland
               >
                 % hankkeiden määrästä
               </button>
-             <!--  <button 
-                class="col-6 vis-style-toggle ttv-button" 
-                [class.active]="!percentage && fundingAmount"  
+              <button
+                class="col-6 vis-style-toggle ttv-button"
+                [class.active]="!percentage && fundingAmount"
                 (click)="
-                changeVisual({fundingAmount: true}); 
-                percentage=false; 
-                fundingAmount=true
-                " 
-                i18n="@@asCountAmount">
+                  changeVisual({ fundingAmount: true });
+                  percentage = false;
+                  fundingAmount = true
+                "
+                i18n="@@asCountAmount"
+              >
                 Myöntösumma
               </button>
-              <button 
-                class="col-6 vis-style-toggle ttv-button" 
-                [class.active]="percentage && fundingAmount"  
+              <button
+                class="col-6 vis-style-toggle ttv-button"
+                [class.active]="percentage && fundingAmount"
                 (click)="
-                changeVisual({fundingAmount: true}); 
-                percentage=true; 
-                fundingAmount=true
-                " 
-                i18n="@@asPercentAmount">
+                  changeVisual({ fundingAmount: true });
+                  percentage = true;
+                  fundingAmount = true
+                "
+                i18n="@@asPercentAmount"
+              >
                 % myöntösummasta
-              </button>        -->
+              </button>
               <div class="col-12"></div>
-              </div>
+            </div>
             <!-- <ng-template #tooltipTemplate><div [innerHtml]=visualisationInfo></div></ng-template>
                         <span [tooltip]="tooltipTemplate" triggers="focus keydown" placement="top" tabindex="-1" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                             <app-secondary-button [icon]="'info-circle'" [content]="'Info'" ></app-secondary-button>

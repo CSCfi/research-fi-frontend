@@ -5,6 +5,8 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
+import { get } from 'lodash-es';
+
 /*
  * Common pipeable functions
  */
@@ -30,42 +32,38 @@ export function checkGroupSelected(group) {
   return group.items.find((item) => item.itemMeta.show);
 }
 
+// Check if group has item in patch items
+export function checkGroupPatchItem(group, patchItems) {
+  const items = group.flatMap((groupItem) => groupItem.items);
+  return items.find((item) =>
+    patchItems.find(
+      (patchItem) =>
+        patchItem.id === item.itemMeta.id &&
+        patchItem.type === item.itemMeta.type
+    )
+  );
+}
+
 /*
  * Shared methods
  */
 
-export function getDataSources(profileData, locale: string = 'Fi') {
-  // Remove default locale when app is localized
-  const mapDataSources = (data) => {
-    return data
-      .map((item) => item.fields)
-      .filter((field) => field.length)
-      .flat()
-      .map((field) => field.groupItems)
-      .flat()
-      .map((field) => field.source.organization);
-  };
-
-  return [
-    ...new Map(
-      mapDataSources(profileData).map((item) => [item['name' + locale], item])
-    ).values(),
-  ].map((item) => item['name' + locale]);
-}
-
+// User can add "duplicate" publications.
+// Publications from Orcid and Portal are related with DOI.
 export function mergePublications(data) {
   if (!isEmptySection(data)) {
-    const publications = data.fields[0].groupItems;
-
+    const publications = data.groupItems;
     for (let [i, publication] of publications[0].items.entries()) {
       if (publications.length === 2) {
         const match = publications[1].items.find(
           (item) => item.doi === publication.doi
         );
-
         if (match) {
           publications[0].items[i] = {
             ...publication,
+            ...match,
+            title: publication.title, // Keep title from ORCID
+            itemMeta: { ...publication.itemMeta, show: true }, // Keep original itemMeta
             merged: true,
             source: {
               organizations: [
@@ -75,17 +73,15 @@ export function mergePublications(data) {
             },
           };
 
+          publications[0].merged = publications[0].items
+            .filter((item) => item.doi === publication.doi)
+            .map((item) => item.itemMeta);
+
           // Remove duplicate
           publications[1].items = publications[1].items.filter(
             (item) => item.doi !== publication.doi
           );
         }
-        // else {
-        //   for (const group of publications.shift()) {
-        //     if (group.items.find((item) => item.doi === publication.doi)) {
-        //     }
-        //   }
-        // }
       }
     }
   }
@@ -93,5 +89,22 @@ export function mergePublications(data) {
 
 // Publications can be empty if user has no imported data from ORCID
 export function isEmptySection(data) {
-  return !data.fields[0].groupItems.length;
+  return !data.groupItems.length;
+}
+
+// Sort items and return unbinded data
+export function sortItemsBy(data, path) {
+  const groupItems = data.groupItems;
+
+  groupItems.map(
+    (groupItem) =>
+      (groupItem.items = groupItem.items.map((item) => ({
+        ...item,
+        source: groupItem.source,
+      })))
+  );
+
+  const items = [...groupItems].flatMap((groupItem) => groupItem.items);
+
+  return items.sort((a, b) => get(b, path) - get(a, path));
 }

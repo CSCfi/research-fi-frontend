@@ -115,7 +115,7 @@
               Vertaisarvioitu
             </div>
             <a
-              *ngIf="publication.show_logo && (publication | links)"
+              *ngIf="publication.openAccess && (publication | links)"
               href="{{ publication | links }}"
               target="_blank"
               class="open-access div"
@@ -188,7 +188,7 @@
         verkkopalvelussa.
       </p>
       <p>
-        <a routerLink="/service-info" fragment="1" i18n="@@resultsAboutService"
+        <a routerLink="/service-info" fragment="service-info-2" i18n="@@resultsAboutService"
           >Mitä tietoja Tiedejatutkimus.fi sisältää?</a
         >
       </p>

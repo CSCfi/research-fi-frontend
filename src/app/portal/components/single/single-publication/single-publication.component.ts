@@ -32,10 +32,8 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { Search } from 'src/app/portal/models/search.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {
-  singlePublication,
-  common,
-} from 'src/assets/static-data/meta-tags.json';
+import MetaTags from 'src/assets/static-data/meta-tags.json';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   selector: 'app-single-publication',
@@ -51,8 +49,8 @@ export class SinglePublicationComponent
   pageNumber: any;
   tab = 'publications';
   tabQueryParams: any;
-  private metaTags = singlePublication;
-  private commonTags = common;
+  private metaTags = MetaTags.singlePublication;
+  private commonTags = MetaTags.common;
   showMore = $localize`:@@showMore:Näytä enemmän`;
   showLess = $localize`:@@showLess:Näytä vähemmän`;
 
@@ -69,7 +67,6 @@ export class SinglePublicationComponent
     {
       label: $localize`:@@abstract:Tiivistelmä`,
       field: 'abstract',
-      tooltip: $localize`:@@spAbstracTooltip:Tiivistelmä kertoo tiiviisti julkaisusta`,
     },
   ];
 
@@ -132,6 +129,27 @@ export class SinglePublicationComponent
         $localize`:@@onlinePlatform:Verkkoalusta` +
         ': </strong>' +
         $localize`:@@onlinePlatformTooltipContent: Sisältää muilla sähköisillä alustoilla julkaistut julkaisut.`,
+    },
+    {
+      label: $localize`:@@articleType: Artikkelin tyyppi`,
+      field: 'articleTypeText',
+      tooltip:
+        '<p><strong>' +
+        $localize`:@@originalArticle:Alkuperäisartikkeli` +
+        ' </strong>' +
+        $localize`:@@originalArticleTooltip:on pääosin aiemmin julkaisemattomasta materiaalista koostuva tieteellinen artikkeli.` +
+        '</p><p><strong>' +
+        $localize`:@@reviewArticle:Katsausartikkeli` +
+        ' </strong>' +
+        $localize`:@@reviewArticleTooltip:perustuu aikaisempiin samasta aihepiiristä tehtyihin julkaisuihin.` +
+        '</p><p><strong>' +
+        $localize`:@@dataArticle:Data-artikkeli` +
+        ' </strong>' +
+        $localize`:@@dataArticleTooltip:sisältää ns. data journals -julkaisuissa ilmestyneet, tutkimusaineistoja kuvailevat artikkelit.` +
+        '</p><p><strong>' +
+        $localize`:@@otherArticle:Muu artikkeli` +
+        ' </strong>' +
+        $localize`:@@otherArticleTooltip:sisältää muihin luokkiin kuulumattomat artikkelit.`,
     },
     {
       label: $localize`:@@audience:Yleisö`,
@@ -321,12 +339,13 @@ export class SinglePublicationComponent
       field: 'fieldsOfScienceString',
       tooltip: $localize`:@@TKFOS:Tilastokeskuksen luokituksen mukaiset tieteenalat.`,
     },
+    { label: $localize`:@@keywords:Avainsanat`, field: 'keywords' },
     /*{
       label: $localize`:@@openAccess:Avoin saatavuus`,
       field: 'openAccessText',
       tooltip:
         '<p><strong>' +
-        $localize`:@@openAccessJournal:Open access -lehti` +
+        $localize`:@@openAccessPublicationChannel:Open access -julkaisukanava` +
         ': </strong>' +
         $localize`Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.` +
         '</p><p><strong>' +
@@ -352,15 +371,16 @@ export class SinglePublicationComponent
       field: 'businessCollaboration',
       tooltip: $localize`:@@publicationCompanyAuthors:Julkaisussa on tekijöitä vähintään yhdestä yrityksestä.`,
     },
-    { label: $localize`:@@keywords:Avainsanat`, field: 'keywords' },
+
+    { label: 'DOI', field: 'doi' },
   ];
 
   publicationStatus = [
     {
-      label: $localize`:@@publicationStatus:Julkaisu kuuluu opetus- ja kuulttuuriministeriön tiedonkeruuseen`,
+      label: $localize`:@@okmDataCollection:Julkaisu kuuluu opetus- ja kulttuuriministeriön tiedonkeruuseen`,
       field: 'publicationStatusText',
       link: false,
-      tooltip: $localize`:@@publicationStatusTooltip:OKM:n tiedonkeruuseen kuuluvat julkaisut ovat korkeakoulujen, tutkimuslaitosten ja yliopistosairaaloiden vuosittain opetus- ja kulttuuriministeriölle raportoimia julkaisuja, jotka täyttävät julkaisutiedonkeruun vaatimukset (www.tiedonkeruu.fi) ja jotka huomioidaan mm. korkeakoulujen rahoitusmallissa.`,
+      tooltip: $localize`:@@okmDataCollectionTooltip:OKM:n tiedonkeruuseen kuuluvat julkaisut ovat korkeakoulujen, tutkimuslaitosten ja yliopistosairaaloiden vuosittain opetus- ja kulttuuriministeriölle raportoimia julkaisuja, jotka täyttävät julkaisutiedonkeruun vaatimukset (www.tiedonkeruu.fi) ja jotka huomioidaan mm. korkeakoulujen rahoitusmallissa.`,
     },
   ];
 
@@ -413,11 +433,10 @@ export class SinglePublicationComponent
     public utilityService: UtilityService,
     @Inject(LOCALE_ID) private localeId,
     private snackBar: MatSnackBar,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private appSettingsService: AppSettingsService
   ) {
-    // Capitalize first letter of locale
-    this.currentLocale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    this.currentLocale = this.appSettingsService.capitalizedLocale;
   }
 
   public setTitle(newTitle: string) {
@@ -505,25 +524,19 @@ export class SinglePublicationComponent
 
         // Reset authors & organizations on new result
         this.authorAndOrganization = [];
-        if (this.responseData.publications[0]) {
+        const publication = this.responseData.publications[0];
+        if (publication) {
           switch (this.localeId) {
             case 'fi': {
-              this.setTitle(
-                this.responseData.publications[0].title +
-                  ' - Tiedejatutkimus.fi'
-              );
+              this.setTitle(publication.title + ' - Tiedejatutkimus.fi');
               break;
             }
             case 'en': {
-              this.setTitle(
-                this.responseData.publications[0].title + ' - Research.fi'
-              );
+              this.setTitle(publication.title + ' - Research.fi');
               break;
             }
             case 'sv': {
-              this.setTitle(
-                this.responseData.publications[0].title + ' - Forskning.fi'
-              );
+              this.setTitle(publication.title + ' - Forskning.fi');
               break;
             }
           }
@@ -535,7 +548,7 @@ export class SinglePublicationComponent
             this.commonTags['imgAlt' + this.currentLocale]
           );
           // juFoCode is used for exact search
-          this.juFoCode = this.responseData.publications[0].jufoCode;
+          this.juFoCode = publication.jufoCode;
           this.shapeData();
           this.filterData();
           this.checkDoi();
@@ -575,9 +588,7 @@ export class SinglePublicationComponent
   }
 
   shapeData() {
-    // Capitalize first letter of locale
-    const locale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    const locale = this.currentLocale;
     const source = this.responseData.publications[0];
     const countries = source.countries;
     const languages = source.languages;
@@ -606,7 +617,7 @@ export class SinglePublicationComponent
             x.keyword.trim() +
             '</a>'
         )
-        .join(', ');
+        .join('; ');
     }
 
     // Get authors per organization
@@ -757,8 +768,29 @@ export class SinglePublicationComponent
         source.publicationTypeCode.trim() + ' ' + this.publicationTypeLabel;
     }
 
-    // tslint:disable-next-line: curly
     if (source.doiHandle === 'http://dx.doi.org/') source.doiHandle = '';
+
+    // Handle duplicate links
+    if (source.doiHandle?.includes(source.doi)) source.doiHandle = null;
+
+    source.selfArchivedData?.forEach((group, i) => {
+      source.selfArchivedData[i].selfArchived = group.selfArchived.filter(
+        (item, index, self) =>
+          index ===
+          self.findIndex(
+            (obj: { selfArchivedAddress: any }) =>
+              obj.selfArchivedAddress === item.selfArchivedAddress
+          )
+      );
+    });
+
+    // Handle empty self archived data
+    if (
+      source.selfArchivedData &&
+      source.selfArchivedData[0]?.selfArchived[0].selfArchivedAddress?.trim() ===
+        ''
+    )
+      source.selfArchivedData = null;
   }
 
   expandDescription() {

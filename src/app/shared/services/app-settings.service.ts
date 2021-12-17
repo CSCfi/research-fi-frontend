@@ -4,8 +4,10 @@
 //
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, LOCALE_ID, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -77,36 +79,58 @@ export class AppSettingsService {
   };
 
   myDataSettings = {
-    develop: false,
+    debug: !environment.production,
     beta: true,
     appName: 'myData',
-    label: 'Tutkijan tiedot',
+    label: $localize`:@@researchersProfile:Tutkijan tiedot`,
     baseRoute: 'mydata',
-    navItems: [{ label: 'Kirjaudu sisään', link: '', loginProcess: true }],
+    navItems: [
+      {
+        label: $localize`:@@logIn:Kirjaudu sisään`,
+        link: '',
+        loginProcess: true,
+      },
+    ],
     localizedDomains: [
-      { label: 'Suomi', locale: 'FI', url: 'https://localhost:5003/fi' },
-      { label: 'Svenska', locale: 'SV', url: 'https://localhost:5003/sv' },
-      { label: 'English', locale: 'EN', url: 'https://localhost:5003/en' },
+      {
+        label: 'Suomi',
+        locale: 'FI',
+        url: 'https://researchfi-mydata.rahtiapp.fi/fi',
+      },
+      // { label: 'Svenska', locale: 'SV', url: 'https://localhost:5003/sv' },
+      {
+        label: 'English',
+        locale: 'EN',
+        url: 'https://researchfi-mydata-en.rahtiapp.fi/en',
+      },
     ],
   };
 
-  dialogSettings: {
-    minWidth: string;
-    maxWidth: string;
-    width: string;
-    maxHeight: string;
-    height: string;
-  };
+  dialogPanelClass = 'responsive-dialog';
 
   currentAppSettings: object;
   userOrcid: string; // Used in error monitoring
 
-  constructor() {}
+  currentLocale: string;
+  capitalizedLocale: string;
+
+  isBrowser: boolean;
+
+  constructor(
+    @Inject(LOCALE_ID) protected localeId: string,
+    @Inject(PLATFORM_ID) private platformId: object
+  ) {
+    // Locale
+    this.currentLocale = this.localeId;
+    this.capitalizedLocale =
+      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+
+    // Browser check for SSR builds
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
 
   updateMobileStatus(status) {
     this.mobileSource.next(status);
-
-    this.updateDialogSettings(status);
   }
 
   setCurrentAppSettings(app) {
@@ -125,15 +149,5 @@ export class AppSettingsService {
 
   setOrcid(id: string) {
     this.userOrcid = id;
-  }
-
-  updateDialogSettings(mobile) {
-    this.dialogSettings = {
-      minWidth: '44vw',
-      maxWidth: mobile ? '100vw' : '44vw',
-      width: mobile ? '100%' : 'unset',
-      maxHeight: '100vh',
-      height: mobile ? '100vh' : 'unset',
-    };
   }
 }

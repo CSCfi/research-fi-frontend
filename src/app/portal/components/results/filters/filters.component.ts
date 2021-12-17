@@ -41,6 +41,7 @@ import { isPlatformBrowser, DOCUMENT } from '@angular/common';
 import { tap } from 'rxjs/operators';
 import { DataService } from 'src/app/portal/services/data.service';
 import { FundingCallFilterService } from '@portal/services/filters/funding-call-filter.service';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   selector: 'app-filters',
@@ -63,7 +64,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   filterSub: any;
   resizeSub: any;
   width = this.window.innerWidth;
-  mobile = this.width < 992;
+  mobile: boolean;
   modalRef: BsModalRef;
   activeFilters: any;
   queryParamSub: Subscription;
@@ -87,9 +88,9 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   filterNewsHeader = $localize`:@@filterNewsHeader:Rajaa uutisia`;
   coPublicationTooltip =
     'Valitsemalla ”näytä vain yhteisjulkaisut” voit tarkastella suomalaisten organisaatioiden yhteisiä julkaisuja. Hakutulos näyttää tällöin vain sellaiset julkaisut, joissa kaikki alla olevasta listasta valitut organisaatiot ovat mukana. Jos yhtään organisaatiota ei ole valittu, hakutulos näyttää kaikki yhteisjulkaisut';
+  mobileStatusSub: Subscription;
   constructor(
     private router: Router,
-    private resizeService: ResizeService,
     @Inject(WINDOW) private window: Window,
     @Inject(DOCUMENT) private document: Document,
     private modalService: BsModalService,
@@ -105,7 +106,8 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     private fundingCallFilters: FundingCallFilterService,
     private newsFilters: NewsFilterService,
     @Inject(PLATFORM_ID) private platformId: object,
-    private dataService: DataService
+    private dataService: DataService,
+    private appSettingsService: AppSettingsService
   ) {
     this.showMoreCount = [];
   }
@@ -184,12 +186,17 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         break;
       }
     }
-    // Browser check
-    if (isPlatformBrowser(this.platformId)) {
-      this.resizeSub = this.resizeService.onResize$.subscribe((dims) =>
-        this.onResize(dims)
-      );
-    }
+
+    // Handle mobile status
+    this.mobileStatusSub = this.appSettingsService.mobileStatus.subscribe(
+      (status: boolean) => {
+        this.mobile = status;
+
+        if (!status) {
+          this.modalRef && this.closeModal();
+        }
+      }
+    );
   }
 
   ngOnDestroy() {
@@ -198,18 +205,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
       this.resizeSub?.unsubscribe();
       this.queryParamSub?.unsubscribe();
       this.paramSub?.unsubscribe();
-    }
-  }
-
-  onResize(event) {
-    this.width = event.width;
-    if (this.width >= 992) {
-      this.mobile = false;
-      // Modal existence check
-      // tslint:disable-next-line: no-unused-expression
-      this.modalRef && this.closeModal();
-    } else {
-      this.mobile = true;
     }
   }
 
@@ -225,7 +220,10 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         case 'publications': {
           this.currentFilter = this.publicationFilters.filterData;
           this.currentSingleFilter = this.publicationFilters.singleFilterData;
-          this.publicationFilters.shapeData(this.responseData);
+          this.publicationFilters.shapeData(
+            this.responseData,
+            this.activeFilters
+          );
           break;
         }
         case 'persons': {

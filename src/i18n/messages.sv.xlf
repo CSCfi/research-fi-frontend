@@ -48,7 +48,7 @@
           <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="799bcf9270be412cb8063fd9e94d3d1f70192d2f" datatype="html">
+      <trans-unit id="searchPlaceholder" datatype="html">
         <source>Esim. julkaisu, tieteenala, asiasana</source>
         <target state="translated">Till exempel publikation, vetenskapsområde, ämnesord</target>
         <context-group purpose="location">
@@ -60,7 +60,7 @@
         <source>Tyhjennä haku</source>
         <target>Ta bort sökningen</target>
       </trans-unit>
-      <trans-unit id="searchButton" datatype="html">
+      <trans-unit id="search" datatype="html">
         <source>Hae</source>
         <target state="translated">Sök</target>
         <context-group purpose="location">
@@ -264,6 +264,10 @@
           <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="fundingCallsIncluded" datatype="html">
+        <source>Mitä rahoitushakuja palvelu sisältää?</source>
+        <target>Vilka utlysningar innehåller tjänsten?</target>
+      </trans-unit>
       <trans-unit id="newsServiceIncludes" datatype="html">
         <source> uutisia palvelu sisältää?</source>
         <target> nyheter innehåller tjänsten?</target>
@@ -344,7 +348,7 @@
           <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="736db59efa202cb6c4ddda729570e44719b2109e" datatype="html">
+      <trans-unit id="orgAndAuthorsTooltip" datatype="html">
         <source>Julkaisun tekijät, joilla on suomalainen organisaatio.</source>
         <target state="translated">Upphovspersoner till publikationen, som har en finländsk organisation.</target>
         <context-group purpose="location">
@@ -955,7 +959,7 @@
         <source>Lataa kuvana (tulossa)</source>
         <target>Ladda ner bild (på kommande)</target>
       </trans-unit>
-      <trans-unit id="orgName" datatype="html">
+      <trans-unit id="name" datatype="html">
         <source>Nimi</source>
         <target state="translated">Namn</target>
         <context-group purpose="location">
@@ -1099,6 +1103,10 @@
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="asCountAmount">
+        <source>Myöntösumma</source>
+        <target>Beviljade finansiering</target>
+      </trans-unit>
       <trans-unit id="infraAcronym" datatype="html">
         <source>Lyhenne</source>
         <target state="translated">Förkortning</target>
@@ -1167,7 +1175,7 @@
         <source>Kuvaus</source>
         <target>Beskrivning</target>
       </trans-unit>
-      <trans-unit id="06f7177479837b356eabf8274c9785f3d6c5829b" datatype="html">
+      <trans-unit id="descriptionNotAvailable" datatype="html">
         <source>Kuvausta ei saatavilla.</source>
         <target state="translated">Ingen beskrivning tillgänglig.</target>
         <context-group purpose="location">
@@ -1191,6 +1199,10 @@
           <context context-type="sourcefile">app/portal/components/news/news/news.component.html</context>
           <context context-type="linenumber">14</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="news">
+        <source>Uutiset</source>
+        <target>Nyheter</target>
       </trans-unit>
       <trans-unit id="withTerm" datatype="html">
         <source>Joihin sisältyy hakutermi</source>
@@ -1405,14 +1417,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/portal/components/results/filters/filters.component.html</context>
           <context context-type="linenumber">176</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="a818b5edba676050331e259094fc81116a60c329" datatype="html">
-        <source>Hae</source>
-        <target state="translated">Sök</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/portal/components/results/filters/filters.component.html</context>
-          <context context-type="linenumber">146</context>
         </context-group>
       </trans-unit>
       <trans-unit id="selectAll" datatype="html">
@@ -2106,7 +2110,7 @@
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="5c2d2055a2262a206484249f7f476d8b5378f2ba" datatype="html">
+      <trans-unit id="portalLogoAltText" datatype="html">
         <source>Tutkimustietovarannon portaalin logo, abstrakti ikkuna</source>
         <target state="translated">Portalens logotyp, ett abstrakt fönster</target>
         <context-group purpose="location">
@@ -2149,9 +2153,9 @@
         </context-group>
         <note priority="1" from="description">Footer-header</note>
       </trans-unit>
-      <trans-unit id="523f293e9145a7fa463284ffb6ca74f3de18e7c3" datatype="html">
-        <source>Opetus- ja kulttuuriministeriön logo, leijonavaakuna vihreällä pohjalla</source>
-        <target state="translated">Undervisnings- och kulturministeriets logotyp, lejonvapen på grön botten</target>
+      <trans-unit id="okmLogo" datatype="html">
+        <source>Opetus- ja kulttuuriministeriön logo, leijonavaakuna</source>
+        <target state="translated">Undervisnings- och kulturministeriets logotyp, lejonvapen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">18</context>
@@ -2166,7 +2170,7 @@
         </context-group>
         <note priority="1" from="description">Footer-header</note>
       </trans-unit>
-      <trans-unit id="babe40c53fe2da92826f7c65a0b48c5f721154ae" datatype="html">
+      <trans-unit id="CSCLogoAltText" datatype="html">
         <source>Organisaation CSC - Tieteen ja tietotekniikan keskus logo</source>
         <target state="translated">Logotyp för organisationen CSC – Tieteen ja tietotekniikan keskus</target>
         <context-group purpose="location">
@@ -2237,7 +2241,7 @@
         </context-group>
         <note priority="1" from="description">Twitter-footer</note>
       </trans-unit>
-      <trans-unit id="d35ddab289fbd3df7ee5b2a38fa533fb01e5312a" datatype="html">
+      <trans-unit id="twitterTitleText" datatype="html">
         <source>Twitter -palvelun logo</source>
         <target state="translated">Twitter-tjänstens logotyp</target>
         <context-group purpose="location">
@@ -2265,6 +2269,10 @@
       <trans-unit id="noInfo">
         <source>Ei tietoa</source>
         <target state="translated">Ingen information</target>
+      </trans-unit>
+      <trans-unit id="informationMissing">
+        <source>Tieto puuttuu</source>
+        <target state="translated">Informationen saknas</target>
       </trans-unit>
       <trans-unit id="nonOpen">
         <source>Ei avoin</source>
@@ -2474,6 +2482,23 @@
         <source>Palvelinvirhe. Palvelimella tapahtui virhe pyyntöä käsitellessä</source>
         <target state="translated">Serverfel. Servern stötte på ett fel vid bearbetning av begäran</target>
       </trans-unit>
+      <trans-unit id="dataFetchError">
+        <source>Virhe tiedon hakemisessa</source>
+        <target>Fel vid hämtning av information</target>
+      </trans-unit>
+      <trans-unit id="cmsErrorContent1">
+        <source>Emme valitettavasti saa yhteyttä kaikkiin järjestelmämme osiin. </source>
+        <target>Tyvärr kan vi inte kontakta alla delar av systemet.</target>
+      </trans-unit>
+      <trans-unit id="cmsErrorContent2">
+        <source>Osa tiedejatutkimus.fi:stä on tilapäisesti poissa käytöstä.</source>
+        <target>En del av forskning.fi är tillfälligt ur funktion.</target>
+      </trans-unit>
+      <trans-unit id="cmsErrorContent3">
+        <source>Voit jatkaa portaalin käyttöä rajoitetulla tietosisällöllä.</source>
+        <target>Du kan fortsättä att användä portalen med begränsat informationsinnehåll.</target>
+      </trans-unit>
+
       <!-- Publications-->
       <trans-unit id="publicationType">
         <source>Julkaisutyyppi</source>
@@ -2502,6 +2527,42 @@
       <trans-unit id="parentPublicationType">
         <source>Emojulkaisun tyyppi</source>
         <target>Moderpublikationens typ</target>
+      </trans-unit>
+      <trans-unit id="articleType">
+        <source>Artikkelin tyyppi</source>
+        <target>Artikelstyp</target>
+      </trans-unit>
+      <trans-unit id="otherArticle">
+        <source>Muu artikkeli</source>
+        <target>Annan artikel</target>
+      </trans-unit>
+      <trans-unit id="originalArticle">
+        <source>Alkuperäisartikkeli</source>
+        <target>En originalartikel</target>
+      </trans-unit>
+      <trans-unit id="dataArticle">
+        <source>Data-artikkeli</source>
+        <target>En dataartikel</target>
+      </trans-unit>
+      <trans-unit id="reviewArticle">
+        <source>Katsausartikkeli</source>
+        <target>En översiktsartikel</target>
+      </trans-unit>
+      <trans-unit id="otherArticleTooltip">
+        <source>sisältää muihin luokkiin kuulumattomat artikkelit.</source>
+        <target>innehåller artiklar som inte hör till någon annan kategori.</target>
+      </trans-unit>
+      <trans-unit id="dataArticleTooltip">
+        <source>sisältää ns. data journals -julkaisuissa ilmestyneet, tutkimusaineistoja kuvailevat artikkelit.</source>
+        <target>omfattar artiklar som publicerats i så kallade data journals och som beskriver forskningsmaterial.</target>
+      </trans-unit>
+      <trans-unit id="reviewArticleTooltip">
+        <source>perustuu aikaisempiin samasta aihepiiristä tehtyihin julkaisuihin.</source>
+        <target>baserar sig på tidigare publikationer om samma ämnesområde.</target>
+      </trans-unit>
+      <trans-unit id="originalArticleTooltip">
+        <source>on pääosin aiemmin julkaisemattomasta materiaalista koostuva tieteellinen artikkeli.</source>
+        <target>är i huvudsak en vetenskaplig artikel som består av material som inte publicerats tidigare.</target>
       </trans-unit>
       <trans-unit id="peerReviewedFilter">
         <source>Vertaisarvioitu</source>
@@ -2783,9 +2844,9 @@
         <source>Julkaisu­\u00ADfoorumitaso</source>
         <target state="translated">Publikationsforumsnivå</target>
       </trans-unit>
-      <trans-unit id="openAccessJournal">
-        <source>Open access -lehti</source>
-        <target state="translated">Open access -publikation</target>
+      <trans-unit id="openAccessPublicationChannel">
+        <source>Open access -julkaisukanava</source>
+        <target state="translated">Open access -publikationskanal</target>
       </trans-unit>
       <trans-unit id="8722392264873780327">
         <source>Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.</source>
@@ -2939,6 +3000,10 @@
       <trans-unit id="sfTypeOfFundingTooltip">
         <source>Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuodot ovat usein rahoittajakohtaisia.</source>
         <target>Sätt att finansiera forskning. Typer av finansiering är till exempel forskningsbidrag, projektfinansiering och forskningsinfrastrukturfinansiering. Finansieringstyper är ofta finansiärspecifika.</target>
+      </trans-unit>
+      <trans-unit id="fundingCountByIdentifiedTopic">
+        <source>Hankkeiden jakautuminen tunnistetun aiheen mukaan</source>
+        <target>Fördelning av projekt efter identifierat ämne</target>
       </trans-unit>
       <trans-unit id="identifiedTopic">
         <source>Tunnistettu aihe</source>
@@ -3319,7 +3384,35 @@
         <target state="translated">Anger kontaktuppgifter för tjänsten och eventuella användarvillkor. Beskriver serviceställets verksamhet närmare. Ibland kan servicen vara olika på olika serviceställen, till exempel avseende den tillgängliga utrustningen</target>
       </trans-unit>
       <!-- Organization -->
-      <trans-unit id="orgOtherNames">
+      <trans-unit id="organizationVisualBetaText">
+        <source>Organisaatioiden tunnusluvut ovat uusi kokonaisuus Tiedejatutkimus.fi –portaalissa. Koska kyseessä on uusi kokonaisuus, toivomme palautetta tiedejatutkimus@csc.fi osoitteeseen.</source>
+        <target>The key figures of the organizations are a new section in Research.fi portal. For this is a new section, all feedback is welcome and should be sent to tiedejatutkimus@csc.fi.</target>
+      </trans-unit>
+      <trans-unit id="keyIndicator">
+        <source>Tunnuslukuja</source>
+        <target>Nyckletal</target>
+      </trans-unit>
+      <trans-unit id="basicInformation">
+        <source>Perustiedot</source>
+        <target>Basinformation</target>
+      </trans-unit>
+      <trans-unit id="furtherInformation">
+        <source>Lisätiedot</source>
+        <target>Ytterligare information</target>
+      </trans-unit>
+      <trans-unit id="showMoreNews">
+        <source>Näytä lisää uutisia</source>
+        <target>Visa fler nyheter</target>
+      </trans-unit>
+      <trans-unit id="showAllOrganizationNews">
+        <source>Näytä kaikki organisaation uutiset</source>
+        <target>Visa organisationens alla nyheter</target>
+      </trans-unit>
+      <trans-unit id="RDInstitutionId">
+        <source>TK-oppilaitostunnus</source>
+        <target>SC:s läroanstaltskod</target>
+      </trans-unit>
+      <trans-unit id="otherNames">
         <source>Muut nimet</source>
         <target state="translated">Övriga namn</target>
       </trans-unit>
@@ -3394,6 +3487,10 @@
       <trans-unit id="thesisCount">
         <source>Tutkintojen määrä</source>
         <target state="translated">Antal examina</target>
+      </trans-unit>
+      <trans-unit id="below">
+        <source>Alle</source>
+        <target>Under</target>
       </trans-unit>
       <trans-unit id="orgSubUnits">
         <source>Alayksiköt</source>

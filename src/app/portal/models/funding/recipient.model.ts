@@ -40,146 +40,178 @@ export class RecipientAdapter implements Adapter<Recipient> {
     private lang: LanguageCheck
   ) {}
   adapt(item: any): Recipient {
-    const recipientObj = item.fundingGroupPerson
-      ?.filter((x) => x.consortiumProject === item.funderProjectNumber)
-      .shift();
-    const organizations: RecipientOrganization[] = [];
-    // Combine recipient names and organizations, this is used in funding results component
-    let combined = '';
-    if (item.recipientType === 'organization' && item.organizationConsortium) {
-      item.organizationConsortium.forEach((o) =>
-        organizations.push(this.roa.adapt({ ...o, euFunding: item.euFunding }))
-      );
-      // Get Finnish organizations only (based on business id)
-      if (
-        item.organizationConsortium.find(
-          (org) =>
-            org.consortiumOrganizationBusinessId?.trim().slice(-2)[0] === '-'
-        )
-      ) {
-        const finnish = item.organizationConsortium.filter(
-          (org) =>
-            org.consortiumOrganizationBusinessId?.trim().slice(-2)[0] === '-'
-        );
+    const recipientObj = item.recipientObj;
 
-        combined =
-          finnish.length > 1
-            ? finnish
-                .map((x) =>
-                  this.lang.testLang('consortiumOrganizationName', x).trim()
-                )
-                .join('; ')
-            : this.lang.testLang(
-                'consortiumOrganizationName',
-                finnish.find(
-                  (org) =>
-                    org.consortiumOrganizationBusinessId
-                      ?.trim()
-                      .slice(-2)[0] === '-'
-                )
-              );
-      } else {
-        combined = item.organizationConsortium
-          .filter(
-            (x) =>
-              this.lang.testLang('consortiumOrganizationName', x).trim() !==
-                '' &&
-              // Check for finnish business ID identifier
-              (x.consortiumOrganizationBusinessId?.trim().slice(-2)[0] ===
-                '-' ||
-                x.consortiumOrganizationBusinessId?.trim().slice(0, 2) === 'FI')
-          )
-          .map((x) =>
-            this.lang.testLang('consortiumOrganizationName', x).trim()
-          )
-          .join('; ');
-      }
-      // Check that a finnish organization is found
-    } else if (
-      item.fundingGroupPerson &&
-      item.fundingGroupPerson.find(
-        // Check for finnish business ID identifier
-        (x) =>
-          x.consortiumOrganizationBusinessId?.trim().slice(-2)[0] === '-' ||
-          x.consortiumOrganizationBusinessId?.trim().slice(0, 2) === 'FI'
-      )
-    ) {
-      // Get target recipient
-      const person = item.fundingGroupPerson.find(
-        (x) => x.consortiumProject === item.funderProjectNumber
+    // Filter empty properties
+    typeof recipientObj === 'object' &&
+      Object.keys(recipientObj).forEach(
+        (k) => recipientObj[k] == '' && delete recipientObj[k]
       );
-      // Map recipients
+
+    const joinName = (firstNames: string, lastName: string) =>
+      `${firstNames} ${lastName}`.trim();
+
+    const organizations: RecipientOrganization[] = [];
+    let combined = '';
+
+    if (recipientObj) {
+      // Combine recipient names and organizations, this is used in funding results component
       if (
-        person &&
-        this.lang.testLang('consortiumOrganizationName', person) !== ''
+        item.recipientType === 'organization' &&
+        item.organizationConsortium
       ) {
-        combined = person.fundingGroupPersonLastName
-          ? person.fundingGroupPersonFirstNames +
-            ' ' +
-            person.fundingGroupPersonLastName +
-            ', ' +
-            this.lang.testLang('consortiumOrganizationName', person)
-          : this.lang.testLang('consortiumOrganizationName', person);
-      } else if (person) {
-        combined =
-          person.fundingGroupPersonFirstNames +
-          ' ' +
-          person.fundingGroupPersonLastName;
-      } else {
-        // If no match with funderProjectNumber
-        combined = item.fundingGroupPerson
-          ?.map((x) =>
-            x.fundingGroupPersonLastName.trim().length > 0
-              ? x.fundingGroupPersonFirstNames +
-                ' ' +
-                x.fundingGroupPersonLastName +
-                (this.lang
-                  .testLang('consortiumOrganizationName', recipientObj)
-                  ?.trim().length > 0
-                  ? ', ' +
-                    this.lang
-                      .testLang('consortiumOrganizationName', recipientObj)
-                      ?.trim()
-                  : null)
-              : this.lang
-                  .testLang('consortiumOrganizationName', recipientObj)
-                  ?.trim()
+        item.organizationConsortium.forEach((o) =>
+          organizations.push(
+            this.roa.adapt({ ...o, euFunding: item.euFunding })
           )
-          ?.join('; ');
-      }
-      // If no match with Finnish organization
-    } else if (item.recipientType === 'person') {
-      if (
+        );
+        // Get Finnish organizations only (based on business id)
+        if (
+          item.organizationConsortium.find(
+            (org) =>
+              org.consortiumOrganizationBusinessId?.trim().slice(-2)[0] === '-'
+          )
+        ) {
+          const finnish = item.organizationConsortium.filter(
+            (org) =>
+              org.consortiumOrganizationBusinessId?.trim().slice(-2)[0] === '-'
+          );
+
+          combined =
+            finnish.length > 1
+              ? finnish
+                  .map((x) =>
+                    this.lang.testLang('consortiumOrganizationName', x).trim()
+                  )
+                  .join('; ')
+              : this.lang.testLang(
+                  'consortiumOrganizationName',
+                  finnish.find(
+                    (org) =>
+                      org.consortiumOrganizationBusinessId
+                        ?.trim()
+                        .slice(-2)[0] === '-'
+                  )
+                );
+        } else {
+          combined = item.organizationConsortium
+            .filter(
+              (x) =>
+                this.lang.testLang('consortiumOrganizationName', x).trim() !==
+                  '' &&
+                // Check for finnish business ID identifier
+                (x.consortiumOrganizationBusinessId?.trim().slice(-2)[0] ===
+                  '-' ||
+                  x.consortiumOrganizationBusinessId?.trim().slice(0, 2) ===
+                    'FI')
+            )
+            .map((x) =>
+              this.lang.testLang('consortiumOrganizationName', x).trim()
+            )
+            .join('; ');
+        }
+        // Check that a finnish organization is found
+      } else if (
+        item.fundingGroupPerson &&
         item.fundingGroupPerson.find(
-          (x) => x.fundingGroupPersonLastName?.trim().length > 0
+          // Check for finnish business ID identifier
+          (x) =>
+            x.consortiumOrganizationBusinessId?.trim().slice(-2)[0] === '-' ||
+            x.consortiumOrganizationBusinessId?.trim().slice(0, 2) === 'FI'
         )
       ) {
-        combined = item.fundingGroupPerson
-          ?.map((x) =>
-            x.fundingGroupPersonLastName.trim().length > 0
-              ? x.fundingGroupPersonFirstNames +
-                ' ' +
-                x.fundingGroupPersonLastName
-              : null
+        // Get target recipient
+        const person = item.fundingGroupPerson.find(
+          (x) => x.consortiumProject === item.funderProjectNumber
+        );
+        // Map recipients
+        if (
+          person &&
+          this.lang.testLang('consortiumOrganizationName', person) !== ''
+        ) {
+          combined = person.fundingGroupPersonLastName
+            ? person.fundingGroupPersonFirstNames +
+              ' ' +
+              person.fundingGroupPersonLastName +
+              ', ' +
+              this.lang.testLang('consortiumOrganizationName', person)
+            : this.lang.testLang('consortiumOrganizationName', person);
+        } else if (person) {
+          combined =
+            person.fundingGroupPersonFirstNames +
+            ' ' +
+            person.fundingGroupPersonLastName;
+        } else {
+          // If no match with funderProjectNumber
+          combined = item.fundingGroupPerson
+            ?.map((x) =>
+              x.fundingGroupPersonLastName.trim().length > 0
+                ? joinName(
+                    x.fundingGroupPersonFirstNames,
+                    x.fundingGroupPersonLastName
+                  ) +
+                  (this.lang
+                    .testLang('consortiumOrganizationName', recipientObj)
+                    ?.trim().length > 0
+                    ? ', ' +
+                      this.lang
+                        .testLang('consortiumOrganizationName', recipientObj)
+                        ?.trim()
+                    : null)
+                : this.lang
+                    .testLang('consortiumOrganizationName', recipientObj)
+                    ?.trim()
+            )
+            ?.join('; ');
+        }
+        // If no match with Finnish organization
+      } else if (item.recipientType === 'consortium') {
+        // Return consortium recipient name if no organization
+        if (
+          !this.lang.testLang('consortiumOrganizationName', recipientObj) &&
+          recipientObj.fundingGroupPersonLastName
+        ) {
+          combined = joinName(
+            recipientObj.fundingGroupPersonFirstNames,
+            recipientObj.fundingGroupPersonLastName
+          );
+        }
+      } else if (item.recipientType === 'person') {
+        if (
+          item.fundingGroupPerson.find(
+            (x) => x.fundingGroupPersonLastName?.trim().length > 0
           )
-          .join('; ');
-      } else if (item.organizationConsortium) {
-        combined = item.organizationConsortium
-          .filter((x) => !x.countryCode || x.countryCode === 'FI')
-          .map((x) =>
-            this.lang.testLang('consortiumOrganizationName', x).trim()
-          )
-          .join('; ');
+        ) {
+          combined = item.fundingGroupPerson
+            ?.map((x) =>
+              x.fundingGroupPersonLastName.trim().length > 0
+                ? joinName(
+                    x.fundingGroupPersonFirstNames,
+                    x.fundingGroupPersonLastName
+                  )
+                : null
+            )
+            .join('; ');
+        } else if (item.organizationConsortium) {
+          combined = item.organizationConsortium
+            .filter((x) => !x.countryCode || x.countryCode === 'FI')
+            .map((x) =>
+              this.lang.testLang('consortiumOrganizationName', x).trim()
+            )
+            .join('; ');
+        }
+      } else {
+        combined = '-';
       }
-    } else {
-      combined = '-';
     }
+
     return new Recipient(
       recipientObj?.projectId,
-      recipientObj
-        ? recipientObj?.fundingGroupPersonFirstNames +
-          ' ' +
-          recipientObj?.fundingGroupPersonLastName
+      recipientObj?.fundingGroupPersonLastName
+        ? joinName(
+            recipientObj.fundingGroupPersonFirstNames,
+            recipientObj.fundingGroupPersonLastName
+          )
         : '',
       recipientObj?.fundingGroupPersonOrcid,
       recipientObj

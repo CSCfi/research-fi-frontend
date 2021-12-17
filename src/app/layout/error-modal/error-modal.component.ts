@@ -1,3 +1,10 @@
+// This file is part of the research.fi API service
+//
+// Copyright 2019 Ministry of Education and Culture, Finland
+//
+// :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+// :license: MIT
+
 import {
   Component,
   OnInit,
@@ -6,13 +13,13 @@ import {
   PLATFORM_ID,
   Inject,
 } from '@angular/core';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Subscription } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { StaticDataService } from 'src/app/portal/services/static-data.service';
 import { isPlatformBrowser } from '@angular/common';
 import { ErrorHandlerService } from '@shared/services/error-handler.service';
+import { HttpErrors } from '@shared/constants';
 
 @Component({
   selector: 'app-error-modal',
@@ -22,12 +29,20 @@ import { ErrorHandlerService } from '@shared/services/error-handler.service';
 export class ErrorModalComponent implements OnInit {
   @ViewChild('errorModal', { static: true }) private modal: TemplateRef<any>;
   errorSub: Subscription;
-  modalRef: BsModalRef;
   error: HttpErrorResponse;
   isBrowser: boolean;
+  cmsError: boolean;
+
+  httpErrors = HttpErrors;
+
+  // Dialog variables
+  showDialog: boolean;
+  dialogTemplate: any;
+  dialogTitle: string;
+  dialogActions: any[];
+  basicDialogActions = [];
 
   constructor(
-    private modalService: BsModalService,
     private errorHandlerService: ErrorHandlerService,
     private utilityService: UtilityService,
     public staticDataService: StaticDataService,
@@ -38,6 +53,9 @@ export class ErrorModalComponent implements OnInit {
 
   ngOnInit() {
     this.errorSub = this.errorHandlerService.currentError.subscribe((error) => {
+      // Portal can be used if CMS server is down. This needs to be
+      // indicated to user and therefore we render dedicated error message
+      if (error.message.includes('cms')) this.cmsError = true;
       this.error = error;
       // Only allow a single modal to be active at a time
       if (isPlatformBrowser(this.platformId)) {
@@ -48,12 +66,16 @@ export class ErrorModalComponent implements OnInit {
     });
   }
 
-  openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template);
-  }
+  openModal(template) {
+    if (this.cmsError) {
+      this.dialogTitle = $localize`:@@dataFetchError:Virhe tiedon hakemisessa`;
+    } else {
+      const errorLabel = $localize`:@@error:Virhe`;
+      this.dialogTitle = `${this.error.status} ${errorLabel}`.trim();
+    }
 
-  closeModal() {
-    this.modalRef.hide();
+    this.showDialog = true;
+    this.dialogTemplate = template;
   }
 
   preventTab(event) {

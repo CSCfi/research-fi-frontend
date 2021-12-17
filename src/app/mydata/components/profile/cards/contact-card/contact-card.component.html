@@ -1,0 +1,85 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<app-profile-editor-card-header
+  [label]="label"
+  [displayButton]="
+    (data[0].fields | countGroupItems: { filterSelected: true }).length > 1
+  "
+  (handleOpenDialog)="openDialog()"
+></app-profile-editor-card-header>
+
+<app-empty-card
+  *ngIf="
+    (data[0].fields | countGroupItems: { filterSelected: true }).length === 1
+  "
+  (onButtonClick)="openDialog()"
+></app-empty-card>
+
+<app-dialog
+  *ngIf="showDialog"
+  [template]="dialogTemplate"
+  (onActionClick)="doDialogAction($event)"
+></app-dialog>
+
+<div class="d-block mt-3">
+  <ng-container
+    *ngFor="let field of data[0].fields.slice(1).reverse(); let i = index"
+  >
+    <ng-container [ngSwitch]="field.id">
+      <ng-container *ngSwitchCase="'otherNames'">
+        <div
+          class="row py-2"
+          *ngIf="(field.groupItems | filter: checkGroupSelected).length"
+        >
+          <div class="col px-0">
+            <span
+              class="font-weight-bold d-inline-block pr-3"
+              *ngIf="data[0].fields.length > 1"
+              >{{ field.label }}
+            </span>
+            <span>{{ field.groupItems | joinAllGroupItems }}</span>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngSwitchDefault>
+        <ng-container *ngFor="let groupItem of field.groupItems">
+          <ng-container *ngFor="let item of groupItem.items">
+            <div class="row py-1" *ngIf="item.itemMeta.show">
+              <fa-icon
+                *ngIf="item.icon"
+                [icon]="item.icon"
+                class="pr-3"
+              ></fa-icon>
+              <ng-container [ngSwitch]="groupItem.groupMeta.type">
+                <!-- Links -->
+                <a
+                  *ngSwitchCase="fieldTypes.personWebLink"
+                  target="_blank"
+                  href="item.url"
+                  >{{ item.url }}<fa-icon icon="external-link-alt"></fa-icon
+                ></a>
+                <!-- Email -->
+                <a
+                  *ngSwitchCase="fieldTypes.personEmailAddress"
+                  [href]="'mailto:' + item.value"
+                  >{{ item.value }}
+                </a>
+                <!-- Default -->
+                <ng-container *ngSwitchDefault>
+                  <app-panel-array-item
+                    [item]="item"
+                    [fieldType]="groupItem.groupMeta.type"
+                  ></app-panel-array-item
+                ></ng-container>
+              </ng-container>
+            </div>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</div>

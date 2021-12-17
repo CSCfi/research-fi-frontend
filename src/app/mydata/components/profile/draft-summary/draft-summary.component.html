@@ -1,0 +1,145 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<mat-accordion multi>
+  <ng-container *ngFor="let group of profileData; let i = index">
+    <mat-expansion-panel
+      *ngIf="
+        (
+          group.fields
+          | countGroupItems
+            : { filterSelected: true, patchItems: combinedPatchItems }
+        ).length > 0
+      "
+      [expanded]="openPanels.indexOf(i) > -1"
+    >
+      <mat-expansion-panel-header class="pr-1 pr-md-3">
+        <mat-panel-title class="font-weight-bold">
+          {{ group.label }} ({{
+            (
+              group.fields
+              | countGroupItems
+                : { filterSelected: true, patchItems: combinedPatchItems }
+            ).length
+          }})
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <ng-container *ngFor="let field of group.fields">
+        <div
+          class="row py-2"
+          *ngIf="
+            (
+              field.groupItems
+              | filter: checkGroupPatchItem:{ patchItems: combinedPatchItems }
+            ).length
+          "
+        >
+          <div class="col px-0">
+            <span
+              class="font-weight-bold d-block py-2"
+              *ngIf="group.fields.length > 1"
+              >{{ field.label }}
+            </span>
+
+            <ng-container *ngFor="let groupItem of field.groupItems">
+              <ng-container [ngSwitch]="groupItem.groupMeta.type">
+                <ng-container *ngSwitchCase="fieldTypes.personKeyword">
+                  <!-- 
+                    Special case for keywords. 
+                    Keywords are patched as separate keywords 
+                    but dispalyed as a joined list.
+                  -->
+                  <div
+                    class="row"
+                    *ngIf="
+                      combinedPatchItems
+                        | matchItem: groupItem.items[0].itemMeta
+                    "
+                  >
+                    <div
+                      class="col px-0 pb-2 font-size-smaller"
+                      [class.text-strike]="
+                        groupItem.items[0].itemMeta.show === false
+                      "
+                    >
+                      {{ groupItem.items | joinItems: 'value' }}
+                    </div>
+                  </div>
+                </ng-container>
+                <!-- Default view -->
+                <ng-container *ngSwitchDefault>
+                  <ng-container *ngFor="let item of groupItem.items">
+                    <div
+                      class="row d-flex justify-content-between py-1"
+                      [class.justify-content-between]="
+                        groupItem.groupMeta.type !==
+                        fieldTypes.activityAffiliation
+                      "
+                      *ngIf="combinedPatchItems | matchItem: item.itemMeta"
+                    >
+                      <div
+                        class="col px-0 font-size-smaller"
+                        [class.col-auto]="
+                          groupItem.groupMeta.type ===
+                          fieldTypes.activityAffiliation
+                        "
+                      >
+                        <app-panel-array-item
+                          [class.text-strike]="item.itemMeta.show === false"
+                          [item]="item"
+                          [fieldType]="groupItem.groupMeta.type"
+                          [localized]="field.localized"
+                          [strike]="item"
+                        ></app-panel-array-item>
+                      </div>
+
+                      <div
+                        *ngIf="
+                          item.itemMeta.primaryValue &&
+                          groupItem.groupMeta.type ===
+                            fieldTypes.activityAffiliation
+                        "
+                        class="col-auto px-4 mx-1 cursor-pointer"
+                      >
+                        <app-primary-badge
+                          i18n-label="@@primary"
+                          label="Ensisijainen"
+                          [selected]="true"
+                          [disabled]="true"
+                        ></app-primary-badge>
+                      </div>
+                    </div>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </mat-expansion-panel>
+  </ng-container>
+
+  <mat-expansion-panel
+    id="collaboration-options-panel"
+    [expanded]="false"
+    *ngIf="collaborationOptions.length"
+  >
+    <mat-expansion-panel-header class="pr-1 pr-md-3">
+      <mat-panel-title class="font-weight-bold">
+        {{ collaborationHeader }} ({{ collaborationOptions.length }})
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <ng-container *ngFor="let option of collaborationOptions">
+      <mat-checkbox
+        class="py-1 py-lg-0 w-100"
+        [checked]="option?.selected"
+        disabled
+      >
+        {{ option[nameLocale] }}
+      </mat-checkbox>
+    </ng-container>
+  </mat-expansion-panel>
+</mat-accordion>

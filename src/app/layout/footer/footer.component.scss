@@ -89,7 +89,7 @@ app-footer {
   }
 
   img.logo {
-    max-width: 150px;
+    max-width: 200px;
     height: auto;
     // margin-top: 20px;
     display: block;
@@ -163,11 +163,5 @@ app-footer {
     .pull-right {
       float: none;
     }
-  }
-
-  @media (min-width: 1200px) {
-  }
-
-  @media (min-width: 1440px) {
   }
 }

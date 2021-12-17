@@ -9,6 +9,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppConfigService } from '@shared/services/app-config-service.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { BehaviorSubject } from 'rxjs';
 
 export interface Publication {
   hits: any;
@@ -20,16 +21,23 @@ export interface Publication {
 export class PublicationsService {
   apiUrl: string;
   profileApiUrl: string;
-  currentSort: any;
-  pageSettings: any;
   httpOptions: object;
+
+  publicationPayload = [];
+  confirmedPayload = [];
+  deletables = [];
+
+  private confirmedPayloadSource = new BehaviorSubject<any>([]);
+  currentPublicationPayload = this.confirmedPayloadSource.asObservable();
 
   constructor(
     private http: HttpClient,
     private appConfigService: AppConfigService,
     public oidcSecurityService: OidcSecurityService
   ) {
-    this.apiUrl = this.appConfigService.apiUrl;
+    // this.apiUrl = this.appConfigService.apiUrl;
+    this.apiUrl =
+      'https://researchfi-api-production-researchfi.rahtiapp.fi/portalapi/'; // Hardcoded production data url for dev purposes
     this.profileApiUrl = this.appConfigService.profileApiUrl;
   }
 
@@ -45,59 +53,54 @@ export class PublicationsService {
     };
   }
 
-  updateSort(sortSettings) {
-    switch (sortSettings.active) {
-      case 'year': {
-        this.currentSort = {
-          publicationYear: { order: sortSettings.direction },
-        };
-      }
-    }
+  addToPayload(publications: any) {
+    this.publicationPayload = this.publicationPayload.concat(publications);
   }
 
-  resetSort() {
-    this.currentSort = {
-      publicationYear: { order: 'desc' },
-    };
+  clearPayload() {
+    this.publicationPayload = [];
   }
 
-  updatePageSettings(pageSettings) {
-    this.pageSettings = pageSettings;
+  confirmPayload() {
+    const merged = this.confirmedPayload.concat(this.publicationPayload);
+    this.confirmedPayload = merged;
+    this.confirmedPayloadSource.next(merged);
   }
 
-  getPublications(term) {
-    // Default sort to descending publicationYear
-    const sort = this.currentSort
-      ? this.currentSort
-      : { publicationYear: { order: 'desc' } };
+  cancelConfirmedPayload() {
+    this.clearPayload();
+    this.clearDeletables();
+    this.confirmedPayload = [];
+    this.confirmedPayloadSource.next([]);
+  }
 
-    const pageSettings = this.pageSettings;
-
-    const query = {
-      query_string: {
-        query: term,
-      },
-    };
-
-    let payload = {
-      track_total_hits: true,
-      sort: sort,
-      from: pageSettings ? pageSettings.pageIndex * pageSettings.pageSize : 0,
-      size: pageSettings ? pageSettings.pageSize : 10,
-    };
-
-    if (term?.length) payload = Object.assign(payload, { query: query });
-
-    // TODO: Map response
-    return this.http.post<Publication>(
-      this.apiUrl + 'publication/_search?',
-      payload
+  removeFromConfirmed(publicationId: string) {
+    const filtered = this.confirmedPayload.filter(
+      (item) => item.id !== publicationId
     );
+
+    this.confirmedPayload = filtered;
+    this.confirmedPayloadSource.next(filtered);
   }
 
-  addPublications(publications: any[]) {
+  addToDeletables(publication) {
+    this.publicationPayload = this.publicationPayload.filter(
+      (item) => item.id !== publication.id
+    );
+    this.deletables.push(publication);
+  }
+
+  clearDeletables() {
+    this.deletables = [];
+  }
+
+  addPublications() {
     this.updateTokenInHttpAuthHeader();
-    let body = publications;
+    const body = this.publicationPayload.map((item) => ({
+      publicationId: item.id,
+      show: item.itemMeta.show,
+      primaryValue: item.itemMeta.primaryValue,
+    }));
     return this.http.post(
       this.profileApiUrl + '/publication/',
       body,
@@ -105,10 +108,12 @@ export class PublicationsService {
     );
   }
 
-  deletePublication(publicationId) {
+  removeItems(publications) {
     this.updateTokenInHttpAuthHeader();
-    return this.http.delete(
-      this.profileApiUrl + '/publication/' + publicationId,
+    const body = publications.map((publication) => publication.id);
+    return this.http.post(
+      this.profileApiUrl + '/publication/remove/',
+      body,
       this.httpOptions
     );
   }

@@ -24,11 +24,9 @@ import { Subscription } from 'rxjs';
 import { Search } from 'src/app/portal/models/search.model';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { UtilityService } from 'src/app/shared/services/utility.service';
-import {
-  singleInfrastructure,
-  common,
-} from 'src/assets/static-data/meta-tags.json';
+import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { SettingsService } from 'src/app/portal/services/settings.service';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   selector: 'app-single-infrastructure',
@@ -42,8 +40,8 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   pageNumber: any;
   tabQueryParams: any;
   stringHasContent = UtilityService.stringHasContent;
-  private metaTags = singleInfrastructure;
-  private commonTags = common;
+  private metaTags = MetaTags.singleInfrastructure;
+  private commonTags = MetaTags.common;
 
   tab = 'infrastructures';
   infoFields = [
@@ -177,11 +175,10 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     @Inject(LOCALE_ID) protected localeId: string,
     public utilityService: UtilityService,
     private settingsService: SettingsService,
-    @Inject(DOCUMENT) private document: any
+    @Inject(DOCUMENT) private document: any,
+    private appSettingsService: AppSettingsService
   ) {
-    // Capitalize first letter of locale
-    this.currentLocale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    this.currentLocale = this.appSettingsService.capitalizedLocale;
   }
 
   public setTitle(newTitle: string) {
@@ -301,9 +298,7 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
 
     // Filter out empty servicepoints and empty services
     source.services.forEach((service, idx) => {
-      source.services[
-        idx
-      ].servicePoints = service.servicePoints
+      source.services[idx].servicePoints = service.servicePoints
         .map((servicePoint) =>
           UtilityService.objectHasContent(servicePoint)
             ? servicePoint
@@ -341,9 +336,8 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   }
 
   toggleServicePoint(service: number, point: number) {
-    this.showServicePoint[service][point] = !this.showServicePoint[service][
-      point
-    ];
+    this.showServicePoint[service][point] =
+      !this.showServicePoint[service][point];
   }
 
   serviceExpandId(serviceId: number, fieldId: number) {

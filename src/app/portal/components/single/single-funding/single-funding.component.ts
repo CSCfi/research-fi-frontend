@@ -17,7 +17,6 @@ import {
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
-import { map } from 'rxjs/operators';
 import { SearchService } from '../../../services/search.service';
 import { Subscription } from 'rxjs';
 import { faQuoteRight } from '@fortawesome/free-solid-svg-icons';
@@ -25,8 +24,9 @@ import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { Search } from 'src/app/portal/models/search.model';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { UtilityService } from 'src/app/shared/services/utility.service';
-import { singleFunding, common } from 'src/assets/static-data/meta-tags.json';
+import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { SettingsService } from 'src/app/portal/services/settings.service';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   selector: 'app-single-funding',
@@ -40,8 +40,8 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   pageNumber: any;
   tabQueryParams: any;
   tab = 'fundings';
-  private metaTags = singleFunding;
-  private commonTags = common;
+  private metaTags = MetaTags.singleFunding;
+  private commonTags = MetaTags.common;
 
   info = [
     { label: $localize`Akronyymi`, field: 'acronym' },
@@ -163,11 +163,10 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     @Inject(LOCALE_ID) protected localeId: string,
     private tabChangeService: TabChangeService,
     public utilityService: UtilityService,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private appSettingsService: AppSettingsService
   ) {
-    // Capitalize first letter of locale
-    this.currentLocale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    this.currentLocale = this.appSettingsService.capitalizedLocale;
   }
 
   public setTitle(newTitle: string) {

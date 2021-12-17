@@ -1,14 +1,14 @@
-// # This file is part of the research.fi API service
-// #
-// # Copyright 2019 Ministry of Education and Culture, Finland
-// #
-// # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
-// # :license: MIT
+// This file is part of the research.fi API service
+//
+// Copyright 2019 Ministry of Education and Culture, Finland
+//
+// :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+// :license: MIT
 import { Injectable } from '@angular/core';
 import { Adapter } from '../adapter.model';
 import { Recipient, RecipientAdapter } from './recipient.model';
 import { Funder, FunderAdapter } from './funder.model';
-import { LanguageCheck } from '../utils';
+import { LanguageCheck, parseYear } from '../utils';
 import { RelatedFunding, RelatedFundingAdapter } from './related-funding.model';
 import { UtilityService } from '@shared/services/utility.service';
 
@@ -20,6 +20,7 @@ export class Funding {
     public description: string, // projectDescriptionFi
     public startYear: number, // fundingStartYear
     public endYear: number, // FundingEndYear
+    public year: string, // Used in MyData app
     public academyConsortium: string, // fundingGroupPerson ->
     public otherConsortium: any[], // fundingGroupPerson ->
     public recipient: Recipient,
@@ -131,7 +132,7 @@ export class FundingAdapter implements Adapter<Funding> {
 
     const funder = this.f.adapt(item);
 
-    const recipient = this.r.adapt(item);
+    const recipient = this.r.adapt({ ...item, recipientObj: recipientObj });
 
     const relatedFundings =
       item?.relatedFunding?.map((x) => this.rf.adapt(x)) || [];
@@ -191,6 +192,7 @@ export class FundingAdapter implements Adapter<Funding> {
       this.lang.testLang('projectDescription', item),
       item.fundingStartYear,
       endYear > item.fundingStartYear ? endYear : undefined,
+      parseYear(item.fundingStartYear, item.fundingEndYear),
       recipientObj?.roleInFundingGroup,
       otherConsortiumObjs,
       recipient,

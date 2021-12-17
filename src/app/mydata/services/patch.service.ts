@@ -14,46 +14,66 @@ import { BehaviorSubject } from 'rxjs';
 export class PatchService {
   constructor() {}
 
-  private itemSource = new BehaviorSubject<any>([]);
-  patchItems = this.itemSource.asObservable();
+  patchItems = [];
+  confirmedPayLoad = [];
+  publicationsToPatch = [];
+  publicationsToRemove = [];
 
-  currentPatchItems = [];
+  private confirmedPayloadSource = new BehaviorSubject<any>([]);
+  currentPatchItems = this.confirmedPayloadSource.asObservable();
 
-  addToPatchItems(payload) {
-    const patchItems = this.currentPatchItems;
+  addToPayload(payload) {
+    const items = this.patchItems;
 
     if (Array.isArray(payload)) {
-      this.currentPatchItems = patchItems.concat(payload);
+      this.patchItems = items.concat(payload);
     } else {
-      const duplicate = patchItems.find(
-        (patchItem) => patchItem.id === payload.id
-      );
+      const duplicate = items.find((patchItem) => patchItem.id === payload.id);
 
       duplicate
         ? duplicate.show === payload.show
-          ? (this.currentPatchItems[patchItems.indexOf(duplicate)] = payload)
-          : (this.currentPatchItems = patchItems.filter(
+          ? (this.patchItems[items.indexOf(duplicate)] = payload)
+          : (this.patchItems = items.filter(
               (patchItem) => patchItem.id !== payload.id
             ))
-        : this.currentPatchItems.push(payload);
+        : this.patchItems.push(payload);
     }
+  }
 
-    this.itemSource.next(this.currentPatchItems);
+  confirmPayload() {
+    const patchItems = this.patchItems;
+
+    let merged = this.confirmedPayLoad.concat(patchItems);
+
+    // If user decides to deselect already confirmed item
+    patchItems.forEach((item) => {
+      if (merged.filter((mergedItem) => mergedItem.id === item.id).length > 1) {
+        merged = merged.filter((mergedItem) => mergedItem.id !== item.id);
+      }
+    });
+
+    this.patchItems = [];
+    this.confirmedPayLoad = merged;
+    this.confirmedPayloadSource.next(merged);
+  }
+
+  cancelConfirmedPayload() {
+    this.confirmedPayLoad = [];
+    this.confirmedPayloadSource.next([]);
   }
 
   removeItem(id) {
-    this.currentPatchItems = this.currentPatchItems.filter(
-      (item) => item.id !== id
-    );
+    this.patchItems = this.patchItems.filter((item) => item.id !== id);
   }
 
   removeItemsWithType(type) {
-    this.currentPatchItems = this.currentPatchItems.filter(
+    this.patchItems = this.patchItems.filter((item) => item.type !== type);
+    this.confirmedPayLoad = this.confirmedPayLoad.filter(
       (item) => item.type !== type
     );
   }
 
-  clearPatchPayload() {
-    this.currentPatchItems = [];
+  clearPayload() {
+    this.patchItems = [];
   }
 }

@@ -25,7 +25,7 @@
         "
         (click)="utilityService.sortBy('name')"
         (keydown.enter)="utilityService.sortBy('name')"
-        i18n="@@orgName"
+        i18n="@@name"
         >Nimi</span
       >
     </div>
@@ -90,7 +90,10 @@
         verkkopalvelussa.
       </p>
       <p>
-        <a routerLink="/service-info" fragment="1" i18n="@@resultsAboutService"
+        <a
+          routerLink="/service-info"
+          fragment="service-info-2"
+          i18n="@@resultsAboutService"
           >Mitä tietoja Tiedejatutkimus.fi sisältää?</a
         >
       </p>

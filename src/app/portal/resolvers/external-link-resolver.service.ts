@@ -13,14 +13,14 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import { tap } from 'rxjs/operators';
-import { ContentDataService } from '../services/content-data.service';
+import { CMSContentService } from '../../shared/services/cms-content.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ExternalLinkResolver implements Resolve<any> {
   constructor(
-    private cds: ContentDataService,
+    private cmsContentService: CMSContentService,
     @Inject(PLATFORM_ID) private platformId: object
   ) {}
 
@@ -28,7 +28,7 @@ export class ExternalLinkResolver implements Resolve<any> {
     // Prevent API call if data exists in session storage
     if (isPlatformBrowser(this.platformId)) {
       if (!sessionStorage.getItem('externalLinkData')) {
-        return this.cds
+        return this.cmsContentService
           .getExternalLinks()
           .pipe(
             tap((data) =>
@@ -39,7 +39,7 @@ export class ExternalLinkResolver implements Resolve<any> {
         return JSON.parse(sessionStorage.getItem('externalLinkData'));
       }
     } else {
-      return this.cds.getExternalLinks();
+      return this.cmsContentService.getExternalLinks();
     }
   }
 }

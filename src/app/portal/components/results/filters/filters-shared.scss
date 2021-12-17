@@ -380,11 +380,11 @@
       }
     }
 
-    @media (min-width: 992px) {
-      .mobile {
-        display: none;
-      }
-    }
+    // @media (min-width: 1199px) {
+    //   .mobile {
+    //     display: none;
+    //   }
+    // }
 
     @media (max-width: 400px) {
       .secondary-button fa-icon.before {

@@ -26,21 +26,18 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./external-links.component.scss'],
 })
 export class ExternalLinksComponent
-  implements OnInit, AfterViewInit, OnDestroy {
+  implements OnInit, AfterViewInit, OnDestroy
+{
   @ViewChild('mainFocus') mainFocus: ElementRef;
   focusSub: Subscription;
   data: any;
-  currentLocale: string;
 
   constructor(
     @Inject(LOCALE_ID) protected localeId: string,
     private titleService: Title,
     private tabChangeService: TabChangeService,
     private route: ActivatedRoute
-  ) {
-    this.currentLocale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
-  }
+  ) {}
 
   public setTitle(newTitle: string) {
     this.titleService.setTitle(newTitle);

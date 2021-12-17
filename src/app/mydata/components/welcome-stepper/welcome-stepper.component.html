@@ -5,354 +5,308 @@
 
 <app-redirect *ngIf="!profileChecked"></app-redirect>
 
-<main id="main-content" *ngIf="profileChecked">
-  <div class="wrapper">
-    <div class="row d-flex justify-content-center">
-      <div class="col col-lg-6 px-0">
-        <ng-container *ngIf="!cancel; else cancelTemplate">
-          <div class="row">
-            <div class="col text-center">
-              <h1 class="step-header">{{ step }} / 4</h1>
-            </div>
+<main id="main-content" class="col col-lg-3 mx-auto" *ngIf="profileChecked">
+  <div class="row">
+    <div class="col px-0">
+      <ng-container *ngIf="!cancel; else cancelTemplate">
+        <div class="row">
+          <div class="col text-center">
+            <h1 class="step-header">{{ step }} / 3</h1>
           </div>
+        </div>
 
-          <ng-container [ngSwitch]="step">
-            <!-- First step -->
-            <ng-container *ngSwitchCase="1">
-              <div class="row pb-4">
-                <div class="col text-center">
-                  <h1 class="step-header">Tervetuloa {{ firstName }}!</h1>
-                </div>
-                <!-- Icon -->
-                <i
-                  class="col-12 pt-3 h1 primary-color text-center fas fa-smile"
-                ></i>
+        <ng-container [ngSwitch]="step">
+          <!-- First step -->
+          <ng-container *ngSwitchCase="1">
+            <div class="row pb-4">
+              <div class="col text-center">
+                <h1 class="step-header">
+                  {{ steps[step - 1].title }}
+                  {{ profileName }}!
+                </h1>
               </div>
+              <!-- Icon -->
+              <i
+                class="col-12 pt-3 h1 primary-color text-center fas fa-smile"
+              ></i>
+            </div>
 
-              <div class="row pb-4 d-flex justify-content-center">
-                <div class="col text-center">
-                  <p>
-                    Ennen palvelun käyttöönottoa pyydämme sinua tutustumaan
-                    palvelun käyttöehtoihin ja henkilötietojen
-                    käsittelyperiaatteisiin.
-                  </p>
-                  <p>Huom: Käyttöehdot koskevat palvelun beta-versiota.</p>
-                </div>
+            <div class="row pb-4 d-flex justify-content-center">
+              <div class="col">
+                <p i18n="@@beforeUsingTheService">
+                  Ennen palvelun käyttöönottoa pyydämme sinua tutustumaan
+                  palvelun käyttöehtoihin ja henkilötietojen
+                  käsittelyperiaatteisiin.
+                </p>
+                <p i18n="@@noteBetaTerms">
+                  Huom: Käyttöehdot koskevat palvelun beta-versiota.
+                </p>
               </div>
+            </div>
 
-              <div class="row pb-3 d-flex justify-content-center">
-                <div class="col col-lg-8">
-                  <app-primary-action-button
-                    content="Avaa käyttöehdot ja käsittelyperiaatteet"
-                    (click)="increment()"
-                    [big]="true"
-                  >
-                  </app-primary-action-button>
-                </div>
+            <div class="row pb-3 d-flex justify-content-center">
+              <div class="col">
+                <app-primary-action-button
+                  i18n-content="@@openTermsAndProcessingPrinciples"
+                  content="Avaa käyttöehdot ja käsittelyperiaatteet"
+                  (click)="increment()"
+                  [big]="true"
+                  [px0]="true"
+                >
+                </app-primary-action-button>
               </div>
-              <div class="row d-flex justify-content-center">
-                <div class="col col-lg-8">
-                  <app-secondary-button
-                    content="Peruuta käyttöönotto"
-                    (click)="toggleCancel()"
-                    [big]="true"
-                  >
-                  </app-secondary-button>
-                </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+              <div class="col">
+                <app-secondary-button
+                  i18n-content="@@cancelDeployment"
+                  content="Peruuta käyttöönotto"
+                  (click)="toggleCancel()"
+                  [big]="true"
+                  [px0]="true"
+                >
+                </app-secondary-button>
               </div>
-            </ng-container>
+            </div>
+          </ng-container>
 
-            <!-- Second step -->
-            <ng-container *ngSwitchCase="2">
-              <div class="row pb-4">
-                <div class="col text-center">
-                  <h1 class="step-header">
-                    Käyttöehdot ja henkilötietojen käsittely
-                  </h1>
-                </div>
-                <!-- Icon -->
-                <i
-                  class="
-                    col-12
-                    pt-3
-                    h1
-                    primary-color
-                    text-center
-                    fas
-                    fa-file-alt
-                  "
-                ></i>
+          <!-- Second step -->
+          <ng-container *ngSwitchCase="2">
+            <div class="row pb-4">
+              <div class="col text-center">
+                <h1 class="step-header">
+                  {{ steps[step - 1].title }}
+                </h1>
               </div>
+              <!-- Icon -->
+              <i
+                class="col-12 pt-3 h1 primary-color text-center fas fa-file-alt"
+              ></i>
+            </div>
 
-              <div class="row pb-4 d-flex justify-content-center">
-                <h2 class="col-12 h6 pb-2">
-                  Tutkijan tiedot -työkalun käyttöehdot
-                </h2>
-                <div class="col-12 pb-3">
-                  <button
-                    class="row border border-primary rounded btn d-flex w-100"
-                    (click)="
-                      openDialog(
-                        'Tutkijan tiedot -työkalun käyttöehdot',
-                        termsTemplate
-                      )
-                    "
-                  >
-                    <div class="col-auto">
-                      <i class="pt-3 pb-2 h1 primary-color fas fa-file-alt"></i>
-                    </div>
-                    <div class="col align-self-center">
-                      <span class="d-block align-self-center text-left"
-                        >Avaa käyttöehdot</span
-                      >
-                    </div>
-                  </button>
-                </div>
-                <div class="col">
-                  <mat-checkbox [(ngModel)]="termsApproved"
-                    >Olen lukenut palvelun käyttöehdot, ja hyväksyn
-                    ne</mat-checkbox
-                  >
-                </div>
-              </div>
-
-              <ng-template #termsTemplate>
-                <app-eula template="termsTemplate"></app-eula>
-              </ng-template>
-
-              <div class="row pb-4 d-flex justify-content-center">
-                <h2 class="col-12 h6 pb-2">Henkilötietojen käsittely</h2>
-                <div class="col-12 pb-3">
-                  <button
-                    class="row border border-primary rounded btn d-flex w-100"
-                    (click)="
-                      openDialog(
-                        'Henkilötietojen käsittely',
-                        personalDataHandlingTermsTemplate
-                      )
-                    "
-                  >
-                    <div class="col-auto">
-                      <i class="pt-3 pb-2 h1 primary-color fas fa-file-alt"></i>
-                    </div>
-                    <div class="col align-self-center">
-                      <span class="d-block align-self-center text-left"
-                        >Avaa henkilötietojen käsittelyperiaatteet</span
-                      >
-                    </div>
-                  </button>
-                </div>
-                <div class="col">
-                  <mat-checkbox [(ngModel)]="personalDataHandlingApproved"
-                    >Hyväksyn henkilötietojeni käsittelyn</mat-checkbox
-                  >
-                </div>
-              </div>
-
-              <ng-template #personalDataHandlingTermsTemplate>
-                <app-eula
-                  template="personalDataHandlingTermsTemplate"
-                ></app-eula>
-              </ng-template>
-
-              <app-stepper-navigation
-                (changeStep)="changeStep($event)"
-                [disableNext]="!termsApproved || !personalDataHandlingApproved"
-              ></app-stepper-navigation>
-            </ng-container>
-
-            <!-- Third step -->
-            <ng-container *ngSwitchCase="3">
-              <div class="row pb-4">
-                <div class="col text-center">
-                  <h1 class="step-header">Tietojen tuominen Orcidista</h1>
-                </div>
-                <!-- Icon -->
-                <i
-                  class="
-                    col-12
-                    pt-3
-                    h1
-                    primary-color
-                    text-center
-                    fas
-                    fa-download
-                  "
-                ></i>
-              </div>
-
-              <div class="row pb-3 d-flex justify-content-center">
-                <div class="col">
-                  <p>
-                    Tutkijan tiedot -palvelun käyttöönotto edellyttää, että
-                    ORCID-palveluun tallentamansi julkiset tiedot tallennetaan
-                    Tutkijan tiedot -palveluun.
-                  </p>
-                  <p>
-                    Valitsemalla "Tuo ORCID-tietoni" annat luvan ORCID:iin
-                    tallentamiesi julkisten tietojesi tallentamisen Tutkijan
-                    tiedot -palveluun.
-                  </p>
-                  <p class="font-weight-bold">
-                    Tässä vaiheessa emme vielä julkaise profiiliasi.
-                  </p>
-                  <p>
-                    Voit hallinnoida tietojesi näyttämistä seuraavissa
-                    vaiheissa.
-                  </p>
-                </div>
-              </div>
-
-              <div class="row pb-3 d-flex justify-content-center">
-                <div class="col">
-                  <app-mydata-beta-info
-                    [template]="betaInfo"
-                  ></app-mydata-beta-info>
-
-                  <ng-template #betaInfo>
-                    <p>
-                      Tämä on Tutkijan tiedot -työkalun betaversio.
-                      Testikäyttäjien palautetta hyödynnetään palvelun
-                      toiminnallisuuksien kehittämisessä. Testauksessa
-                      syöttämiäsi tietoja ei julkaista Tiedejatutkimus.fi:ssä.
-                    </p>
-                    <p>
-                      <a href="https://wiki.eduuni.fi/x/YwMJDQ" target="_blank"
-                        >Lue lisää...
-                        <fa-icon icon="external-link-alt"></fa-icon
-                      ></a>
-                    </p>
-                  </ng-template>
-                </div>
-              </div>
-
-              <!-- Data fetching indicator -->
-              <ng-template #fetchingTemplate>
-                <div class="row d-flex justify-content-center">
-                  <div class="col-auto align-self-center">
-                    <mat-spinner
-                      class="mx-auto"
-                      [diameter]="80"
-                      i18n-aria-label="@@loading"
-                      aria-label="Ladataan"
-                    ></mat-spinner>
-                    <span class="d-block col py-3 text-center"
-                      >Tietoja tuodaan, odota hetki...</span
+            <div class="row pb-4 d-flex justify-content-center">
+              <h2 class="col-12 h6 pb-2" i18n="@@termsForTool">
+                Tutkijan tiedot -työkalun käyttöehdot
+              </h2>
+              <div class="col-12 pb-3">
+                <button
+                  class="row border border-primary rounded btn d-flex w-100"
+                  (click)="openDialog(termsForTool, termsTemplate)"
+                >
+                  <div class="col-auto">
+                    <i class="pt-3 pb-2 h1 primary-color fas fa-file-alt"></i>
+                  </div>
+                  <div class="col align-self-center">
+                    <span
+                      class="d-block align-self-center text-left"
+                      i18n="@@openTermsOfUse"
+                      >Avaa käyttöehdot</span
                     >
                   </div>
-                </div>
-              </ng-template>
+                </button>
+              </div>
+              <div class="col">
+                <mat-checkbox
+                  [(ngModel)]="termsApproved"
+                  i18n="@@iHaveReadTermsAndAccept"
+                  >Olen lukenut palvelun käyttöehdot, ja hyväksyn
+                  ne</mat-checkbox
+                >
+              </div>
+            </div>
 
-              <app-stepper-navigation
-                (changeStep)="changeStep($event)"
-                nextContent="Tuo Orcid-tietoni"
-              ></app-stepper-navigation>
-            </ng-container>
+            <ng-template #termsTemplate>
+              <app-eula template="termsTemplate"></app-eula>
+            </ng-template>
 
-            <!-- Fourth step -->
-            <ng-container *ngSwitchCase="4">
-              <div class="row pb-4">
-                <div class="col text-center">
-                  <h1 class="step-header">Tiedot tuotu!</h1>
-                  <h2 class="step-header">Mitkä tiedot tuodaan julkisiksi?</h2>
-                </div>
-                <!-- Icon -->
-                <i
-                  class="
-                    col-12
-                    pt-3
-                    h1
-                    primary-color
-                    text-center
-                    fas
-                    fa-check-circle
+            <div class="row pt-4 pb-5 d-flex justify-content-center">
+              <h2 class="col-12 h6 pb-2" i18n="@@processingOfPersonalData">
+                Henkilötietojen käsittely
+              </h2>
+              <div class="col-12 pb-3">
+                <button
+                  class="row border border-primary rounded btn d-flex w-100"
+                  (click)="
+                    openDialog(
+                      processingOfPersonalData,
+                      personalDataHandlingTermsTemplate
+                    )
                   "
-                ></i>
+                >
+                  <div class="col-auto">
+                    <i class="pt-3 pb-2 h1 primary-color fas fa-file-alt"></i>
+                  </div>
+                  <div class="col align-self-center">
+                    <span
+                      class="d-block align-self-center text-left"
+                      i18n="@@openPersonalDataProcessingPrinciples"
+                      >Avaa henkilötietojen käsittelyperiaatteet</span
+                    >
+                  </div>
+                </button>
               </div>
+              <div class="col">
+                <mat-checkbox
+                  [(ngModel)]="personalDataHandlingApproved"
+                  i18n="@@iAcceptProcessingPersonalData"
+                  >Hyväksyn henkilötietojeni käsittelyn</mat-checkbox
+                >
+              </div>
+            </div>
 
-              <div class="row pb-4 d-flex justify-content-center">
-                <div class="col px-0 px-lg-3">
-                  <app-profile-data-handler
-                    [response]="profileData"
-                  ></app-profile-data-handler>
+            <ng-template #personalDataHandlingTermsTemplate>
+              <app-eula template="personalDataHandlingTermsTemplate"></app-eula>
+            </ng-template>
+
+            <app-stepper-navigation
+              (changeStep)="changeStep($event)"
+              [disableNext]="!termsApproved || !personalDataHandlingApproved"
+            ></app-stepper-navigation>
+          </ng-container>
+
+          <!-- Third step -->
+          <ng-container *ngSwitchCase="3">
+            <div class="row pb-4">
+              <div class="col text-center">
+                <h1 class="step-header">
+                  {{ steps[step - 1].title }}
+                </h1>
+              </div>
+              <!-- Icon -->
+              <i
+                class="col-12 pt-3 h1 primary-color text-center fas fa-download"
+              ></i>
+            </div>
+
+            <div class="row pb-3 d-flex justify-content-center">
+              <div class="col">
+                <p i18n="@@welcomeStep3_1">
+                  Tutkijan tiedot -palvelun käyttöönotto edellyttää, että
+                  ORCID-palveluun tallentamansi julkiset tiedot tallennetaan
+                  Tutkijan tiedot -palveluun.
+                </p>
+                <p i18n="@@welcomeStep3_2">
+                  Valitsemalla "Tuo ORCID-tietoni" annat luvan ORCID:iin
+                  tallentamiesi julkisten tietojesi tallentamisen Tutkijan
+                  tiedot -palveluun.
+                </p>
+                <p class="font-weight-bold" i18n="@@welcomeStep3_3">
+                  Tässä vaiheessa emme vielä julkaise profiiliasi.
+                </p>
+                <p i18n="@@welcomeStep3_4">
+                  Voit hallinnoida tietojesi näyttämistä seuraavissa vaiheissa.
+                </p>
+              </div>
+            </div>
+
+            <div class="row pb-3 d-flex justify-content-center">
+              <div class="col">
+                <app-mydata-beta-info></app-mydata-beta-info>
+              </div>
+            </div>
+
+            <!-- Data fetching indicator -->
+            <ng-template #fetchingTemplate>
+              <div class="row d-flex justify-content-center">
+                <div class="col-auto align-self-center">
+                  <mat-spinner
+                    class="mx-auto"
+                    [diameter]="80"
+                    i18n-aria-label="@@loading"
+                    aria-label="Ladataan"
+                  ></mat-spinner>
+                  <span
+                    class="d-block col pt-3 text-center"
+                    i18n="@@importingDataWait"
+                    aria-live="polite"
+                    >Tietoja tuodaan, odota hetki...</span
+                  >
                 </div>
               </div>
+            </ng-template>
 
-              <div class="row pt-3">
-                <app-primary-action-button
-                  routerLink="/mydata/profile"
-                  class="col text-center"
-                  content="Julkaise"
-                ></app-primary-action-button>
-              </div>
-            </ng-container>
-
-            <!-- Default to 404 -->
-            <app-not-found *ngSwitchDefault></app-not-found>
+            <app-stepper-navigation
+              (changeStep)="changeStep($event)"
+              i18n-nextContent="@@importMyOrcidData"
+              nextContent="Tuo Orcid-tietoni"
+              [step]="step"
+            ></app-stepper-navigation>
           </ng-container>
+
+          <!-- Default to 404 -->
+          <app-not-found *ngSwitchDefault></app-not-found>
         </ng-container>
+      </ng-container>
 
-        <!-- Cancel -->
-        <ng-template #cancelTemplate>
-          <div class="row pb-4">
-            <div class="col text-center">
-              <h1 class="step-header">Peruutetaanko palvelun käyttöönotto?</h1>
-            </div>
-            <!-- Icon -->
-            <i
-              class="col-12 pt-3 h1 primary-color text-center fas fa-undo-alt"
-            ></i>
+      <!-- Cancel -->
+      <ng-template #cancelTemplate>
+        <div class="row pb-4">
+          <div class="col text-center">
+            <h1 class="step-header">{{ cancelServiceDeployment }}</h1>
           </div>
-
-          <div class="row pb-4 d-flex justify-content-center">
-            <div class="col text-center">
-              <p>
-                Käyttöönotto keskeytetään, ja mitään tietoja ei tallenneta.<br />
-                Mikäli haluat ottaa palvelun käyttöön myöhemmin, aloitat
-                käyttöönoton alusta.
-              </p>
-            </div>
-          </div>
-
-          <div class="row pb-3 d-flex justify-content-center">
-            <div class="col">
-              <app-secondary-button
-                content="Kyllä, peruutan käyttöönoton"
-                routerLink="/mydata"
-                [big]="true"
-              >
-              </app-secondary-button>
-            </div>
-          </div>
-          <div class="row d-flex justify-content-center">
-            <div class="col">
-              <app-secondary-button
-                content="Ei, jatkan käyttöönottoa"
-                (click)="toggleCancel()"
-                [big]="true"
-              >
-              </app-secondary-button>
-            </div>
-          </div>
-        </ng-template>
-
-        <!-- Reusable dialog -->
-        <app-dialog
-          *ngIf="showDialog || loading"
-          [template]="dialogTemplate"
-          [title]="dialogTitle"
-          [small]="loading"
-          (onActionClick)="doDialogAction($event)"
-          [actions]="loading ? [] : dialogActions"
-        ></app-dialog>
-
-        <!-- ORCID info -->
-        <div class="row py-5" *ngIf="userData">
-          <app-orcid-id-info
-            class="col text-center"
-            [userData]="userData"
-          ></app-orcid-id-info>
+          <!-- Icon -->
+          <i
+            class="col-12 pt-3 h1 primary-color text-center fas fa-undo-alt"
+          ></i>
         </div>
+
+        <div class="row pb-4 d-flex justify-content-center">
+          <div class="col">
+            <p>
+              <ng-container i18n="@@deploymentAbort"
+                >Käyttöönotto keskeytetään, ja mitään tietoja ei
+                tallenneta.</ng-container
+              >
+              <br />
+              <ng-container i18n="@@deployLaterStartOver"
+                >Mikäli haluat ottaa palvelun käyttöön myöhemmin, aloitat
+                käyttöönoton alusta.</ng-container
+              >
+            </p>
+          </div>
+        </div>
+
+        <div class="row pb-3 d-flex justify-content-center">
+          <div class="col">
+            <app-secondary-button
+              i18n-content="@@yesCancelDeployment"
+              content="Kyllä, peruutan käyttöönoton"
+              routerLink="/mydata"
+              [big]="true"
+            >
+            </app-secondary-button>
+          </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col">
+            <app-secondary-button
+              i18n-content="@@noContinueDeployment"
+              content="Ei, jatkan käyttöönottoa"
+              (click)="toggleCancel()"
+              [big]="true"
+            >
+            </app-secondary-button>
+          </div>
+        </div>
+      </ng-template>
+
+      <!-- Reusable dialog -->
+      <app-dialog
+        *ngIf="showDialog || loading"
+        [template]="dialogTemplate"
+        [title]="dialogTitle"
+        [small]="loading"
+        (onActionClick)="doDialogAction($event)"
+        [actions]="loading ? [] : dialogActions"
+        [disableClose]="disableDialogClose"
+      ></app-dialog>
+
+      <!-- ORCID info -->
+      <div class="row py-5" *ngIf="userData">
+        <app-orcid-id-info
+          class="col text-center"
+          [userData]="userData"
+        ></app-orcid-id-info>
       </div>
     </div>
   </div>

@@ -33,14 +33,7 @@ import { WINDOW } from 'src/app/shared/services/window.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { SettingsService } from 'src/app/portal/services/settings.service';
-import {
-  publications,
-  fundings,
-  datasets,
-  infrastructures,
-  organizations,
-  common,
-} from 'src/assets/static-data/meta-tags.json';
+import MetaTags from 'src/assets/static-data/meta-tags.json';
 import {
   Visual,
   VisualQuery,
@@ -51,6 +44,7 @@ import {
   faTrash,
   faChartBar,
 } from '@fortawesome/free-solid-svg-icons';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   selector: 'app-results',
@@ -136,7 +130,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   percentage = false;
   visualSub: Subscription;
   modalRef: BsModalRef;
-  showInfo = true;
+  showInfo = false;
   fundingAmount = false;
   visualisationType = false;
 
@@ -147,7 +141,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   additionalInfo = $localize`:@@additionalInfo:Lisätietoa`;
   clearActiveFilters = $localize`:@@clearActiveFilters: Tyhjennä rajaukset`;
   downloadImage = $localize`:@@downloadAsImage:Lataa kuvana (tulossa)`;
-  
 
   // tslint:disable-next-line: max-line-length
   betaTooltip =
@@ -155,16 +148,17 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     $localize`:@@datasetBetaInfo:Tutkimusaineistojen kuvailutiedot ovat uusi tietokokonaisuus Tiedejatutkimus.fi -portaalissa. Tietojen lähteenä ovat Fairdata-palveluista löytyvät kuvailutiedot. Koska kyseessä on uusi kokonaisuus, toivomme palautetta tiedejatutkimus@csc.fi osoitteeseen.`;
 
   private metaTagsList = [
-    publications,
-    fundings,
-    datasets,
-    infrastructures,
-    organizations,
+    MetaTags.publications,
+    MetaTags.fundings,
+    MetaTags.datasets,
+    MetaTags.infrastructures,
+    MetaTags.organizations,
   ];
   private metaTags: { link: string };
-  private commonTags = common;
+  private commonTags = MetaTags.common;
   inputSub: Subscription;
   modalHideSub: Subscription;
+  mobileStatusSub: Subscription;
 
   constructor(
     private searchService: SearchService,
@@ -183,7 +177,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     private modalService: BsModalService,
     private utilityService: UtilityService,
     private settingsService: SettingsService,
-    private staticDataService: StaticDataService
+    private staticDataService: StaticDataService,
+    private appSettingsService: AppSettingsService
   ) {
     this.filters = Object.assign(
       {},
@@ -192,9 +187,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     );
     this.isBrowser = isPlatformBrowser(this.platformId);
     this.total = 1;
-    // Capitalize first letter of locale
-    this.currentLocale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+
+    this.currentLocale = this.appSettingsService.capitalizedLocale;
   }
 
   public setTitle(newTitle: string) {
@@ -383,9 +377,16 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       (_) => (this.visual = false)
     );
 
-    // Subscribe to resize
-    this.resizeService.onResize$.subscribe((dims) => this.onResize(dims.width));
-    this.mobile = this.window.innerWidth < 992;
+    // Handle mobile status
+    this.mobileStatusSub = this.appSettingsService.mobileStatus.subscribe(
+      (status: boolean) => {
+        this.visual = this.visual && !status;
+        if (status && this.modalRef) {
+          this.closeModal();
+        }
+        this.mobile = status;
+      }
+    );
   }
 
   ngAfterViewInit() {
@@ -462,10 +463,12 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
     const themeChanged = this.fundingAmount !== event.fundingAmount;
 
-    if (event.fundingAmount === undefined && this.fundingAmount === true){
+    if (event.fundingAmount === undefined && this.fundingAmount === true) {
       event.fundingAmount = true;
-    }
-    else if (event.fundingAmount === undefined && this.fundingAmount === false){
+    } else if (
+      event.fundingAmount === undefined &&
+      this.fundingAmount === false
+    ) {
       event.fundingAmount = false;
     }
 
@@ -554,14 +557,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     );
   }
 
-  onResize(width) {
-    this.mobile = width < 992;
-    this.visual = this.visual && width >= 1200;
-    if (this.mobile && this.modalRef) {
-      this.closeModal();
-    }
-  }
-
   changeFocusTarget(target) {
     this.tabChangeService.targetFocus(target);
   }
@@ -581,6 +576,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.tabSub?.unsubscribe();
       this.inputSub?.unsubscribe();
       this.modalHideSub?.unsubscribe();
+      this.mobileStatusSub?.unsubscribe();
     }
   }
 }

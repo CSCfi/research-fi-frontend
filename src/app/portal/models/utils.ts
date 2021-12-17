@@ -20,7 +20,7 @@ export class LanguageCheck {
     if (!item) return undefined;
     // Change locale to field name format
     const capitalizedLocale =
-    this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
     // Get the content based on the current locale
     const content = item[field + capitalizedLocale]?.toString()?.trim() || '';
     // Check if the original locale has valuable content
@@ -216,4 +216,8 @@ export class LanguageCheck {
     // Return finnish if not english or swedish
     return type;
   }
+}
+
+export function parseYear(startYear, endYear) {
+  return `${startYear} - ${endYear > 0 ? endYear : ''}`;
 }

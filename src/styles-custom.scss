@@ -100,6 +100,7 @@ a {
   // Accessibility checked color
   color: #3366cc;
   font-weight: 400;
+  cursor: pointer;
 }
 
 a:hover {
@@ -144,6 +145,10 @@ span.bold {
 
 .strong {
   font-weight: bold;
+}
+
+.text-strike {
+  text-decoration: line-through;
 }
 
 mark,
@@ -219,6 +224,7 @@ mark,
 
 .container-fluid {
   padding: 0px !important;
+  min-height: 700px;
 }
 
 .container {
@@ -345,7 +351,7 @@ mat-basic-chip.tag {
 // Modal
 // Modal doesnt scroll page
 .modal-open modal-container.modal {
-  overflow-y: hidden;
+  // overflow-y: hidden;
 }
 
 // Visualisation modal
@@ -392,11 +398,65 @@ mat-basic-chip.tag {
 .mat-dialog-actions {
   display: flex !important;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: flex-end !important;
   // display: block !important;
   margin-bottom: 0 !important;
   padding: 1rem !important;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.responsive-dialog {
+  min-width: 44vw;
+  max-width: 44vw !important;
+  max-height: 100vh;
+  width: unset;
+  height: unset;
+  position: static;
+}
+
+// Custom Mat Tab
+.mat-tab-header {
+  overflow: visible !important;
+  position: relative !important;
+  border-bottom: 1px solid mat-color($primary, 500) !important;
+}
+
+.mat-tab-label-container {
+  overflow: visible !important;
+  position: relative;
+}
+
+.mat-tab-label-container,
+.mat-tab-label-active {
+  height: 54px !important;
+  margin-top: 0 !important;
+}
+
+.mat-tab-label-active {
+  position: relative;
+  z-index: 4;
+  margin-top: 1px !important;
+  background: mat-contrast($primary, 500);
+  border: 1px solid mat-color($primary, 500);
+  border-bottom: 0;
+}
+
+.mat-tab-label {
+  opacity: 1 !important;
+  margin-top: 6px;
+}
+
+.mat-tab-label:not(.mat-tab-label-active) {
+  background: #e8e8f5;
+}
+
+// .mat-tab-body-wrapper {
+//   padding-top: 1rem;
+// }
+
+.mat-tab-body-content {
+  overflow: hidden;
+  padding-top: 1rem;
 }
 
 // Opacity
@@ -449,27 +509,27 @@ mat-basic-chip.tag {
   }
 }
 
+@media (max-width: 679px) {
+  .container-fluid {
+    min-height: 700px;
+  }
+}
+
 @media (max-width: 991px) {
   .info-icon {
     display: none;
   }
 
+  .responsive-dialog {
+    max-width: 100vw !important;
+    width: 100%;
+    height: 100vh;
+    margin-left: 0;
+    margin-top: 0;
+  }
+
   .dialog-header {
     padding: 1rem 0;
-  }
-
-  .mat-dialog-actions {
-    padding: 0.5rem 0 !important;
-    position: absolute;
-    background: white;
-    bottom: 0;
-    width: 100%;
-  }
-}
-
-@media (max-width: 1199px) {
-  .wrapper {
-    padding: 0 8px;
   }
 
   .mat-dialog-content {
@@ -478,13 +538,24 @@ mat-basic-chip.tag {
   }
 
   .mat-dialog-actions {
-    justify-content: center;
+    padding: 0.5rem 0 !important;
+    position: absolute;
+    background: white;
+    bottom: 0;
+    width: 100%;
+    justify-content: center !important;
 
     app-primary-action-button,
     app-secondary-button {
       display: block;
       padding: 0.5rem 0;
     }
+  }
+}
+
+@media (max-width: 1199px) {
+  .wrapper {
+    padding: 0 8px;
   }
 }
 

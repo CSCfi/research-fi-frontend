@@ -3,162 +3,242 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
- <div class="bar background-primary"></div>
- <h1 #srHeader class="sr-only"></h1>
- 
- <div class="wrapper" *ngIf="responseData" id="main-content">
-    <!-- Breadcrumb -->
-    <app-breadcrumb [type]="'funding-call'" [responseData]="responseData" [tab]="tab" [tabName]="tabData.label" [resultNameField]="'name'" [queryParams]="tabQueryParams"></app-breadcrumb>
-    <div class="row shared">
-        <p class="back col-12">
-            <a #backToResultsLink routerLink="/funding-calls/{{ searchTerm }}" [queryParams]="tabQueryParams">&lt;
-                <ng-container i18n="@@backToResults">Takaisin hakutuloksiin</ng-container>
-            </a>
-        </p>
-        <div class="col-12" style="margin: 10px 0 10px 0" *ngIf="responseData.total === 0">
-            <h2 i18n="@@404">404 - Virheellinen osoite</h2>
+<div class="bar background-primary"></div>
+<h1 #srHeader class="sr-only"></h1>
+
+<div class="wrapper" *ngIf="responseData" id="main-content">
+  <!-- Breadcrumb -->
+  <app-breadcrumb
+    [type]="'funding-call'"
+    [responseData]="responseData"
+    [tab]="tab"
+    [tabName]="tabData.label"
+    [resultNameField]="'name'"
+    [queryParams]="tabQueryParams"
+  ></app-breadcrumb>
+  <div class="row shared">
+    <p class="back col-12">
+      <a
+        #backToResultsLink
+        routerLink="/funding-calls/{{ searchTerm }}"
+        [queryParams]="tabQueryParams"
+        >&lt;
+        <ng-container i18n="@@backToResults"
+          >Takaisin hakutuloksiin</ng-container
+        >
+      </a>
+    </p>
+    <div
+      class="col-12"
+      style="margin: 10px 0 10px 0"
+      *ngIf="responseData.total === 0"
+    >
+      <h2 i18n="@@404">404 - Virheellinen osoite</h2>
+    </div>
+    <main class="col-12 col-md-8">
+      <div *ngFor="let call of responseData.fundingCalls">
+        <div class="row d-flex justify-content-around">
+          <div class="col p-0">
+            <h1 class="result-header">{{ call.name }}</h1>
+          </div>
         </div>
-        <main class="col-12 col-md-8">
-            <div *ngFor="let call of responseData.fundingCalls">
-                <div class="row d-flex justify-content-around">
-                    <div class="col p-0">
-                        <h1 class="result-header">{{ call.name }}</h1>
-                    </div>
-                </div>
 
-                <div id="info" class="table">
-                    <!-- ApplicationPeriod -->
-                    <div class="row content" *ngFor="let row of applicationPeriodFields">
-                        <!-- Labels -->
-                        <h2 class="col-12 col-sm-6 col-lg-3 th">
-                            {{ row.label }}
-                            <ng-container *ngIf="row.tooltip">
-                                <ng-template #tooltipTemplate>
-                                    <div [innerHtml]="row.tooltip"></div>
-                                </ng-template>
-                                <span [tooltip]="tooltipTemplate" tabindex="0" placement="top" #elem>
-                                    <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
-                                </span>
-                            </ng-container>
-                        </h2>
-                        <div class="col-12 col-sm-8 col-lg-9 td">
-                            <div [ngClass]="expand ? 'expand' : 'short'">
-                                <!-- Not continuous -->
-                                    <!-- Show open date only if not 1900 -->
-                                    <ng-container *ngIf="call.openDate.getYear()">
-                                        {{call.openDateString}}
-                                    </ng-container>
-                                    <!-- Show dash if range -->
-                                    <ng-container *ngIf="call.openDate.getYear() || call.dueDate.getFullYear() !== 2100"> - </ng-container>
-                                    <!-- Show due date if not continuous -->
-                                    <ng-container *ngIf="call.dueDate.getFullYear() !== 2100">
-                                        {{call.dueDateString}}
-                                    </ng-container>
-                                <!-- Continuous -->
-                                <ng-container *ngIf="call.dueDate.getFullYear() === 2100" i18n="@@continuous">Jatkuva</ng-container>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- InfoFields -->
-                    <div class="row content" *ngFor="let row of infoFields">
-                        <!-- Labels -->
-                        <h2 class="col-12 col-sm-6 col-lg-3 th">
-                            {{ row.label }}
-                            <ng-container *ngIf="row.tooltip">
-                                <ng-template #tooltipTemplate>
-                                    <div [innerHtml]="row.tooltip"></div>
-                                </ng-template>
-                                <span [tooltip]="tooltipTemplate" tabindex="0" placement="top" #elem>
-                                    <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
-                                </span>
-                            </ng-container>
-                        </h2>
-                        <div class="col-12 col-sm-8 col-lg-9 td">
-                            <!-- Strip HTML tags for short preview. Makes line-clamp work on Firefox -->
-                            <div [ngClass]="row.field !== 'description' || expandDescription ? 'expand' : 'short'" [innerHTML]="call[row.field + ((row.field !== 'description' || expandDescription) ? '' : 'Parsed')]">
-                                <!-- {{ call[row.field] }} -->
-                            </div>
-                            <a 
-                            href="javascript:void(0)" 
-                                class="read-more" 
-                                *ngIf="row.field === 'description' && call.description?.length > 256" 
-                                (click)="expand('description')" 
-                                [innerHTML]="expandDescription ? showLess : showMore">
-                            </a>
-                        </div>
-                    </div>
-                    <!-- Categories -->
-                    <div class="row content" *ngFor="let row of categories">
-                        <!-- Labels -->
-                        <h2 class="col-12 col-sm-6 col-lg-3 th">
-                            {{ row.label }}
-                            <ng-container *ngIf="row.tooltip">
-                                <ng-template #tooltipTemplate>
-                                    <div [innerHtml]="row.tooltip"></div>
-                                </ng-template>
-                                <span [tooltip]="tooltipTemplate" tabindex="0" placement="top" #elem>
-                                    <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
-                                </span>
-                            </ng-container>
-                        </h2>
-                        <div class="col-12 col-sm-8 col-lg-9 td">
-                            <div>
-                                <span *ngFor="let category of call.categories; let last = last">
-                                    {{category.name}}<ng-container *ngIf="!last">, </ng-container>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- ApplicationInfoFields -->
-                    <div class="row content" *ngFor="let row of applicationInfoFields">
-                        <!-- Labels -->
-                        <h2 class="col-12 col-sm-6 col-lg-3 th">
-                            {{ row.label }}
-                            <ng-container *ngIf="row.tooltip">
-                                <ng-template #tooltipTemplate>
-                                    <div [innerHtml]="row.tooltip"></div>
-                                </ng-template>
-                                <span [tooltip]="tooltipTemplate" tabindex="0" placement="top" #elem>
-                                    <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
-                                </span>
-                            </ng-container>
-                        </h2>
-                        <div class="col-12 col-sm-8 col-lg-9 td">
-                            <!-- Strip HTML tags for short preview. Makes line-clamp work on Firefox -->
-                            <div [ngClass]="row.field !== 'terms' || expandTerms ? 'expand' : 'short'" [innerHTML]="call[row.field + ((row.field !== 'terms' || expandTerms) ? '' : 'short')]">
-                                <!-- {{ call[row.field] }} -->
-                            </div>
-                            <a 
-                            href="javascript:void(0)" 
-                                class="read-more" 
-                                *ngIf="row.field === 'terms' && call.terms?.length > 256" 
-                                (click)="expand('terms')" 
-                                [innerHTML]="expandTerms ? showLess : showMore">
-                            </a>
-
-                        </div>
-                    </div>
-                </div>
+        <div id="info" class="table">
+          <!-- ApplicationPeriod -->
+          <div class="row content" *ngFor="let row of applicationPeriodFields">
+            <!-- Labels -->
+            <h2 class="col-12 col-sm-6 col-lg-3 th">
+              <span class="pr-1">{{ row.label }}</span>
+              <ng-container *ngIf="row.tooltip">
+                <ng-template #tooltipTemplate>
+                  <div [innerHtml]="row.tooltip"></div>
+                </ng-template>
+                <span
+                  [tooltip]="tooltipTemplate"
+                  tabindex="0"
+                  placement="top"
+                  #elem
+                >
+                  <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                </span>
+              </ng-container>
+            </h2>
+            <div class="col-12 col-sm-8 col-lg-9 td">
+              <div [ngClass]="expand ? 'expand' : 'short'">
+                <!-- Not continuous -->
+                <!-- Show open date only if not 1900 -->
+                <ng-container *ngIf="call.openDate.getYear()">
+                  {{ call.openDateString }}
+                </ng-container>
+                <!-- Show dash if range -->
+                <ng-container
+                  *ngIf="
+                    call.openDate.getYear() ||
+                    call.dueDate.getFullYear() !== 2100
+                  "
+                >
+                  -
+                </ng-container>
+                <!-- Show due date if not continuous -->
+                <ng-container *ngIf="call.dueDate.getFullYear() !== 2100">
+                  {{ call.dueDateString }}
+                </ng-container>
+                <!-- Continuous -->
+                <ng-container
+                  *ngIf="call.dueDate.getFullYear() === 2100"
+                  i18n="@@continuous"
+                  >Jatkuva</ng-container
+                >
+              </div>
             </div>
-        </main>
-        <div *ngFor="let call of responseData.fundingCalls" class="col-12 col-md-4">
-            <aside>
-                <aside>
-                    <mat-card>
-                        <mat-card-title>
-                            <h2 i18n="@@fundingFunder">Rahoittaja</h2>
-                        </mat-card-title>
-                        <div class="row links" *ngFor="let row of funderFields">
-                            <div class="col-12 font-weight-normal name">{{call[row.field].name}}</div>
-                            <div class="col-12 link" *ngIf="call[row.field].url"><a [href]="call[row.field].url">{{call[row.field].url}}</a></div>
-                            <!-- <div *ngIf="!linksFields.length && !call.selfArchivedData" class="no-links" i18n="@@noFundingCallLinks">
+          </div>
+          <!-- InfoFields -->
+          <div class="row content" *ngFor="let row of infoFields">
+            <!-- Labels -->
+            <h2 class="col-12 col-sm-6 col-lg-3 th">
+              <span class="pr-1">{{ row.label }}</span>
+              <ng-container *ngIf="row.tooltip">
+                <ng-template #tooltipTemplate>
+                  <div [innerHtml]="row.tooltip"></div>
+                </ng-template>
+                <span
+                  [tooltip]="tooltipTemplate"
+                  tabindex="0"
+                  placement="top"
+                  #elem
+                >
+                  <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                </span>
+              </ng-container>
+            </h2>
+            <div class="col-12 col-sm-8 col-lg-9 td">
+              <!-- Strip HTML tags for short preview. Makes line-clamp work on Firefox -->
+              <div
+                [ngClass]="
+                  row.field !== 'description' || expandDescription
+                    ? 'expand'
+                    : 'short'
+                "
+                [innerHTML]="
+                  call[
+                    row.field +
+                      (row.field !== 'description' || expandDescription
+                        ? ''
+                        : 'Parsed')
+                  ]
+                "
+              >
+                <!-- {{ call[row.field] }} -->
+              </div>
+              <a
+                href="javascript:void(0)"
+                class="read-more"
+                *ngIf="
+                  row.field === 'description' && call.description?.length > 256
+                "
+                (click)="expand('description')"
+                [innerHTML]="expandDescription ? showLess : showMore"
+              >
+              </a>
+            </div>
+          </div>
+          <!-- Categories -->
+          <div class="row content" *ngFor="let row of categories">
+            <!-- Labels -->
+            <h2 class="col-12 col-sm-6 col-lg-3 th">
+              <span class="pr-1">{{ row.label }}</span>
+              <ng-container *ngIf="row.tooltip">
+                <ng-template #tooltipTemplate>
+                  <div [innerHtml]="row.tooltip"></div>
+                </ng-template>
+                <span
+                  [tooltip]="tooltipTemplate"
+                  tabindex="0"
+                  placement="top"
+                  #elem
+                >
+                  <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                </span>
+              </ng-container>
+            </h2>
+            <div class="col-12 col-sm-8 col-lg-9 td">
+              <div>
+                <span *ngFor="let category of call.categories; let last = last">
+                  {{ category.name
+                  }}<ng-container *ngIf="!last">, </ng-container>
+                </span>
+              </div>
+            </div>
+          </div>
+          <!-- ApplicationInfoFields -->
+          <div class="row content" *ngFor="let row of applicationInfoFields">
+            <!-- Labels -->
+            <h2 class="col-12 col-sm-6 col-lg-3 th">
+              <span class="pr-1">{{ row.label }}</span>
+              <ng-container *ngIf="row.tooltip">
+                <ng-template #tooltipTemplate>
+                  <div [innerHtml]="row.tooltip"></div>
+                </ng-template>
+                <span
+                  [tooltip]="tooltipTemplate"
+                  tabindex="0"
+                  placement="top"
+                  #elem
+                >
+                  <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                </span>
+              </ng-container>
+            </h2>
+            <div class="col-12 col-sm-8 col-lg-9 td">
+              <!-- Strip HTML tags for short preview. Makes line-clamp work on Firefox -->
+              <div
+                [ngClass]="
+                  row.field !== 'terms' || expandTerms ? 'expand' : 'short'
+                "
+                [innerHTML]="
+                  call[
+                    row.field +
+                      (row.field !== 'terms' || expandTerms ? '' : 'short')
+                  ]
+                "
+              >
+                <!-- {{ call[row.field] }} -->
+              </div>
+              <a
+                href="javascript:void(0)"
+                class="read-more"
+                *ngIf="row.field === 'terms' && call.terms?.length > 256"
+                (click)="expand('terms')"
+                [innerHTML]="expandTerms ? showLess : showMore"
+              >
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <div *ngFor="let call of responseData.fundingCalls" class="col-12 col-md-4">
+      <aside>
+        <aside>
+          <mat-card>
+            <mat-card-title>
+              <h2 i18n="@@fundingFunder">Rahoittaja</h2>
+            </mat-card-title>
+            <div class="row links" *ngFor="let row of funderFields">
+              <div class="col-12 px-0 font-weight-normal name">
+                {{ call[row.field].name }}
+              </div>
+              <div class="col-12 px-0 link" *ngIf="call[row.field].url">
+                <a [href]="call[row.field].url">{{ call[row.field].url }}</a>
+              </div>
+              <!-- <div *ngIf="!linksFields.length && !call.selfArchivedData" class="no-links" i18n="@@noFundingCallLinks">
                                 Rahoitushakuun ei ole tarjolla linkkejä tässä portaalissa
                             </div> -->
-                        </div>
-                    </mat-card>
-                </aside>
-            </aside>
-            <!-- <aside>
+            </div>
+          </mat-card>
+        </aside>
+      </aside>
+      <!-- <aside>
          <mat-card>
            <mat-card-title>
              <h2 i18n="@@citationHeader">Viittaa</h2>
@@ -177,31 +257,35 @@
            </div>
          </mat-card>
        </aside> -->
-            <!-- Copy url -->
-            <aside>
-                <mat-card>
-                    <mat-card-title>
-                        <h2 i18n="@@shareHeader">Jaa</h2>
-                    </mat-card-title>
-                    <app-share [id]="call.id"></app-share>
-                </mat-card>
-            </aside>
-            <aside>
-                <mat-card>
-                    <mat-card-title>
-                        <h2 i18n="@@fundingCallSource">Rahoitushaun lähde</h2>
-                    </mat-card-title>
-                    <div class="links">
-                        <a href="https://www.aurora-tietokanta.fi/"><ng-container i18n="@@auroraDatabase">Aurora-tietokanta </ng-container><fa-icon icon="external-link-alt"></fa-icon></a>
-                    </div>
-                    <!-- <div>
+      <!-- Copy url -->
+      <aside>
+        <mat-card>
+          <mat-card-title>
+            <h2 i18n="@@shareHeader">Jaa</h2>
+          </mat-card-title>
+          <app-share [id]="call.id"></app-share>
+        </mat-card>
+      </aside>
+      <aside>
+        <mat-card>
+          <mat-card-title>
+            <h2 i18n="@@fundingCallSource">Rahoitushaun lähde</h2>
+          </mat-card-title>
+          <div class="links">
+            <a href="https://www.aurora-tietokanta.fi/"
+              ><ng-container i18n="@@auroraDatabase"
+                >Aurora-tietokanta </ng-container
+              ><fa-icon icon="external-link-alt"></fa-icon
+            ></a>
+          </div>
+          <!-- <div>
                         <p *ngIf="!call.dataCatalog?.length">
                             Tiedon lähde ei saatavilla.
                         </p>
                     </div> -->
-                    <div class="clear"></div>
-                </mat-card>
-            </aside>
-        </div>
+          <div class="clear"></div>
+        </mat-card>
+      </aside>
     </div>
+  </div>
 </div>

@@ -1,0 +1,85 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<ng-container *ngIf="!localized; else localizedTemplate">
+  <ng-container [ngSwitch]="fieldType">
+    <ng-container *ngSwitchCase="fieldTypes.personWebLink">{{
+      item.url
+    }}</ng-container>
+
+    <ng-container *ngSwitchCase="fieldTypes.activityAffiliation">
+      <app-activity-item
+        [rows]="[item.positionName, item.organizationName, item.year]"
+        [smallLastItem]="true"
+      ></app-activity-item>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="fieldTypes.activityEducation">
+      <app-activity-item
+        [rows]="[
+          item | checkFieldLocale: locale:'name',
+          item.degreeGrantingInstitutionName,
+          (item.startDate | parseDate) + ' - ' + (item.endDate | parseDate)
+        ]"
+      ></app-activity-item>
+    </ng-container>
+
+    <ng-container
+      *ngSwitchCase="fieldTypes.activityPublication"
+      [ngTemplateOutlet]="publicationTemplate"
+    >
+    </ng-container>
+
+    <ng-container
+      *ngSwitchCase="fieldTypes.activityOrcidPublication"
+      [ngTemplateOutlet]="publicationTemplate"
+    >
+    </ng-container>
+
+    <ng-container *ngSwitchCase="fieldTypes.activityDataset">
+      <app-activity-item
+        [rows]="[item.name, item.funderName, item.year]"
+        [smallLastItem]="true"
+      ></app-activity-item>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="fieldTypes.activityFunding">
+      <app-activity-item
+        [rows]="[item.name, item.funder.name, item.year]"
+        [smallLastItem]="true"
+      ></app-activity-item>
+    </ng-container>
+
+    <ng-template #publicationTemplate [ngTemplateOutlet]="currentTemplate">
+      <app-activity-item
+        [rows]="
+          summary
+            ? [item.title, item.publicationYear]
+            : [item.title, item.authors, item.publicationYear]
+        "
+        [smallLastItem]="true"
+      ></app-activity-item>
+    </ng-template>
+
+    <ng-container *ngSwitchDefault>
+      {{ item.value }}
+    </ng-container>
+  </ng-container>
+</ng-container>
+
+<ng-template #localizedTemplate>
+  <ng-container *ngFor="let value of item | getLocalizedValues">
+    <div class="row font-weight-bold">
+      <div class="col px-0">
+        {{ value.locale.toUpperCase() }}
+      </div>
+    </div>
+    <div class="row pb-3">
+      <div class="col px-0">
+        {{ value.value }}
+      </div>
+    </div>
+  </ng-container>
+</ng-template>

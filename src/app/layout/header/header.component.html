@@ -56,10 +56,7 @@
     class="navbar navbar-expand-xl navbar-light row"
     #mainHeader
   >
-    <div
-      class="logo col-7 col-xs-9"
-      [ngClass]="appSettings.beta ? 'col-xl-3' : 'col-xl-2'"
-    >
+    <div class="logo col-7 col-xs-9 col-xl-auto">
       <div class="row logo-wrapper">
         <div class="col-auto p-0">
           <a
@@ -68,7 +65,7 @@
           >
             <img
               src="assets/img/logo.svg"
-              i18n-alt
+              i18n-alt="@@portalLogoAltText"
               alt="Tutkimustietovarannon portaalin logo, abstrakti ikkuna"
             />
           </a>
@@ -84,20 +81,23 @@
         >
           <app-primary-action-button
             content="Beta"
-            (click)="openDialog('Beta', betaInfoTemplate)"
+            (click)="openDialog('Beta', betaInfoTemplate, basicDialogActions)"
             [disabledRounded]="true"
             [betaButton]="true"
           ></app-primary-action-button>
         </div>
 
         <ng-template #betaInfoTemplate>
-          <p>
+          <p i18n="@@researcherProfileBetaText1">
             Tämä on Tutkijan tiedot -työkalun betaversio. Testikäyttäjien
             palautetta hyödynnetään palvelun toiminnallisuuksien kehittämisessä.
           </p>
           <p>
             <a href="https://wiki.eduuni.fi/x/YwMJDQ" target="_blank"
-              >Lue lisää... <fa-icon icon="external-link-alt"></fa-icon
+              ><ng-container i18n="@@readMore">Lue lisää</ng-container
+              ><ng-container *ngIf="appSettingsService.currentLocale === 'en'">
+                (in Finnish)</ng-container
+              >... <fa-icon icon="external-link-alt"></fa-icon
             ></a>
           </p>
         </ng-template>
@@ -113,7 +113,7 @@
     </div>
     <nav
       class="nav-top col-auto col-5 col-xs-3 p-0"
-      [ngClass]="appSettings.beta ? 'col-xl-9 beta-mobile-menu' : 'col-xl-10'"
+      [ngClass]="appSettings.beta ? 'col-xl-9 beta-mobile-menu' : 'col-xl-auto'"
     >
       <div class="mobile ml-auto toggle-button-wrapper">
         <button
@@ -134,15 +134,15 @@
       </div>
       <div
         class=""
-        [class.overflow-hider]="hideOverflow && mobile"
-        [class.absolute]="mobile"
-        [ngClass]="mobile ? (hideOverflow ? 'invisible' : 'visible') : ''"
+        [class.overflow-hider]="hideOverflow && mobileMenu"
+        [class.absolute]="mobileMenu"
+        [ngClass]="mobileMenu ? (hideOverflow ? 'invisible' : 'visible') : ''"
         #overflowHider
       >
         <div
           class="collapse navbar-collapse menu row"
-          [class.mobile-bar]="mobile"
-          [class.open]="navbarOpen && mobile"
+          [class.mobile-bar]="mobileMenu"
+          [class.open]="navbarOpen && mobileMenu"
           #mainNavbar
         >
           <!-- Lang selector -->
@@ -153,7 +153,7 @@
             <ul class="navbar-nav mx-auto">
               <li
                 *ngFor="let domain of appSettings.localizedDomains"
-                [class.col-4]="mobile"
+                [class.col-4]="mobileMenu"
               >
                 <a
                   class="nav-item nav-link lang-box"
@@ -168,7 +168,7 @@
           </div>
           <!-- Nav items -->
           <div class="col p-0">
-            <ul class="nav-right navbar-nav main" [class.row]="!mobile">
+            <ul class="nav-right navbar-nav main" [class.row]="!mobileMenu">
               <ng-container *ngFor="let item of appSettings.navItems">
                 <li
                   *ngIf="!item.dropdownItems; else dropdownLink"
@@ -179,9 +179,7 @@
                     [routerLink]="
                       item.link.trim().length > 0 ? item.link : currentRoute
                     "
-                    [queryParams]="
-                      item.queryParams
-                    "
+                    [queryParams]="item.queryParams"
                     routerLinkActive="active-link"
                     [routerLinkActiveOptions]="{ exact: item.exact }"
                     (click)="handleLinkClick(item)"
@@ -229,10 +227,7 @@
                 <div class="navbar-expand navbar-nav lang langSelect">
                   <mat-form-field class="lang-select">
                     <!-- Navigate with consent if consent is set -->
-                    <mat-select
-                      [(value)]="currentLang"
-                      [disabled]="appSettings.beta"
-                    >
+                    <mat-select [(value)]="currentLang">
                       <a
                         *ngFor="let domain of appSettings.localizedDomains"
                         [href]="
@@ -249,7 +244,7 @@
                   </mat-form-field>
                 </div>
               </li>
-              <div *ngIf="mobile" class=""></div>
+              <div *ngIf="mobileMenu" class=""></div>
             </ul>
           </div>
         </div>
@@ -259,12 +254,22 @@
 
   <!-- Auth session expired template -->
   <ng-template #authExpiredTemplate>
-    <p>Istunto on vanhentunut. Kirjaudu sisään jatkaaksesi.</p>
+    <p i18n="@@sessionExpiredLogin">
+      Istunto on vanhentunut. Kirjaudu sisään jatkaaksesi.
+    </p>
 
     <app-primary-action-button
       (click)="login()"
       content="Kirjaudu sisään"
     ></app-primary-action-button>
+  </ng-template>
+
+  <!-- Unsaved draft template -->
+  <ng-template #unsavedDraftTemplate>
+    <p i18n="@@youHaveUnpublishedChangesContinue">
+      Sinulla on julkaisemattomia muutoksia. Jos kirjaudut ulos, tiedot
+      menetetään.
+    </p>
   </ng-template>
 
   <div *ngIf="navbarOpen" id="overlay" (click)="toggleNavbar()" #overlay></div>

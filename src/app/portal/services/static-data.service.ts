@@ -73,6 +73,30 @@ export class StaticDataService {
     },
   ];
 
+  // Filters, Publication article type
+  articleType = [
+    {
+      id: -1,
+      label: $localize`:@@noInfo:Ei tietoa`,
+    },
+    {
+      id: 0,
+      label: $localize`:@@otherArticle:Muu artikkeli`,
+    },
+    {
+      id: 1,
+      label: $localize`:@@originalArticle:Alkuperäisartikkeli`,
+    },
+    {
+      id: 2,
+      label: $localize`:@@reviewArticle:Katsausartikkeli`,
+    },
+    {
+      id: 3,
+      label: $localize`:@@dataArticle:Data-artikkeli`,
+    },
+  ];
+
   // Filters, Publication class
   publicationClass = [
     {
@@ -339,16 +363,6 @@ export class StaticDataService {
   // Query parameters
   minScore = 10;
 
-  httpErrors = {
-    400: $localize`HTTP pyyntöä ei voitu käsitellä`,
-    401: $localize`Pyyntö vaatii sen käsittelyyn oikeutetut tunnukset`,
-    403: $localize`Ei oikeutta käsitellä pyyntöä`,
-    404: $localize`Haluttua tietoa ei ole olemassa`,
-    405: $localize`:@@forbiddenRequest:Pyyntömetodi ei ole sallittu`,
-    500: $localize`Palvelinvirhe. Palvelimella tapahtui virhe pyyntöä käsitellessä`,
-    default: $localize`HTTP pyyntöä ei voitu käsitellä`,
-  };
-
   constructor() {}
 
   // Query fields where exact match isn't needed
@@ -498,7 +512,12 @@ export class StaticDataService {
         break;
       }
       case 'news': {
-        res = ['newsHeadline', 'newsContent', 'organizationNameFi'];
+        res = [
+          'newsHeadline',
+          'newsContent',
+          'organizationNameFi',
+          'organizationId',
+        ];
         break;
       }
       case 'funding-call': {
@@ -874,6 +893,31 @@ export class StaticDataService {
         }
         break;
       }
+      case 'subUnitID': {
+        switch (index) {
+          case 'publication': {
+            res = ['author.organization.organizationUnit.OrgUnitId'];
+            break;
+          }
+          case 'funding': {
+            res = [''];
+            break;
+          }
+          case 'dataset': {
+            res = [''];
+            break;
+          }
+          case 'infrastructure': {
+            res = [''];
+            break;
+          }
+          case 'organization': {
+            res = [''];
+            break;
+          }
+        }
+        break;
+      }
     }
     return res;
   }
@@ -1137,7 +1181,7 @@ export class StaticDataService {
           },
           {
             script:
-              'doc["openAccessCode"].value * 10 + doc["selfArchivedCode"].value',
+              'doc["selfArchivedCode"].value * 100 + doc["openAccess"].value * 10 + doc["publisherOpenAccessCode"].value',
             name: 'openAccess',
             size: 50,
             order: 2,
@@ -1365,12 +1409,11 @@ export class StaticDataService {
             name: 'sectorName',
             size: 10,
             order: 2,
-            exclude: ' |Rahoittaja',
           },
           {
             field: 'fundingGroupPerson.consortiumOrganizationId.keyword',
             name: 'organizationId',
-            size: 100,
+            size: 250,
             order: 2,
             filterName: 'organization',
           },
@@ -1378,7 +1421,7 @@ export class StaticDataService {
             field:
               'fundingGroupPerson.consortiumOrganizationName|locale|.keyword',
             name: 'organizationName',
-            size: 1,
+            size: 100,
             order: 0,
           },
           {
@@ -1409,14 +1452,13 @@ export class StaticDataService {
             field:
               'organizationConsortium.consortiumSectorName|locale|.keyword',
             name: 'sectorName',
-            size: 10,
+            size: 100,
             order: 2,
-            exclude: ' |Rahoittaja',
           },
           {
             field: 'organizationConsortium.consortiumOrganizationId.keyword',
             name: 'organizationId',
-            size: 100,
+            size: 250,
             order: 2,
             filterName: 'organization',
           },
@@ -1424,11 +1466,11 @@ export class StaticDataService {
             field:
               'organizationConsortium.consortiumOrganizationName|locale|.keyword',
             name: 'organizationName',
-            size: 1,
+            size: 100,
             order: 0,
           },
           {
-            sum: 'fundingGroupPerson.shareOfFundingInEur',
+            sum: 'organizationConsortium.shareOfFundingInEur',
             name: 'moneySum',
             size: 1,
           },
@@ -1452,7 +1494,6 @@ export class StaticDataService {
             field: 'typeOfFundingId.keyword',
             name: 'typeId',
             size: 100,
-            exclude: ' *',
             order: 1,
           },
           {
@@ -1490,7 +1531,6 @@ export class StaticDataService {
             field: 'typeOfFundingId.keyword',
             name: 'typeId',
             size: 100,
-            exclude: ' *',
             order: 1,
           },
           {
@@ -1549,14 +1589,16 @@ export class StaticDataService {
             size: 100,
             order: 1,
             filterName: 'field',
-            exclude: [0],
           },
           {
             field: 'fieldsOfScience.name|locale|Science.keyword',
             name: 'fieldsOfScience',
-            size: 1,
+            size: 100,
             order: 1,
-            exclude: [' '],
+          },
+          {
+            name: 'reverse',
+            reverseNested: true,
           },
           {
             name: 'orgNested',
@@ -1591,14 +1633,16 @@ export class StaticDataService {
             size: 100,
             order: 1,
             filterName: 'field',
-            exclude: [0],
           },
           {
             field: 'fieldsOfScience.name|locale|Science.keyword',
             name: 'fieldsOfScience',
             size: 1,
             order: 1,
-            exclude: [' '],
+          },
+          {
+            name: 'reverse',
+            reverseNested: true,
           },
           {
             name: 'orgNested',
@@ -1628,7 +1672,6 @@ export class StaticDataService {
         field: 'identifiedTopic',
         title: $localize`:@@fundingCountByIdentifiedTopic:Hankkeiden jakautuminen tunnistetun aiheen mukaan`,
         select: $localize`:@@identifiedTopic:Tunnistettu aihe`,
-        // tslint:disable-next-line: max-line-length
         filter: 'topic',
         hierarchy: [
           {
@@ -1644,7 +1687,7 @@ export class StaticDataService {
           {
             field: 'keywords.keyword.keyword',
             name: 'identifiedTopicId',
-            size: 10000,
+            size: 1000,
             order: 1,
             filterName: 'topic',
             exclude: [' '],
@@ -1653,9 +1696,13 @@ export class StaticDataService {
             script:
               'doc["keywords.keyword.keyword"].value + "|" + doc["keywords.scheme.keyword"].value',
             name: 'identifiedTopic',
-            size: 10000,
+            size: 1000,
             order: 1,
             exclude: [''],
+          },
+          {
+            name: 'reverse',
+            reverseNested: true,
           },
           {
             name: 'orgNested',
@@ -1687,7 +1734,7 @@ export class StaticDataService {
           {
             field: 'keywords.keyword.keyword',
             name: 'identifiedTopicId',
-            size: 10000,
+            size: 1000,
             order: 1,
             filterName: 'topic',
             exclude: [' '],
@@ -1695,10 +1742,14 @@ export class StaticDataService {
           {
             script:
               'doc["keywords.keyword.keyword"].value + "|" + doc["keywords.scheme.keyword"].value',
-           name: 'identifiedTopic',
-            size: 10000,
+            name: 'identifiedTopic',
+            size: 1000,
             order: 1,
             exclude: [''],
+          },
+          {
+            name: 'reverse',
+            reverseNested: true,
           },
           {
             name: 'orgNested',

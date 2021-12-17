@@ -38,11 +38,12 @@ import { DataService } from 'src/app/portal/services/data.service';
 import { WINDOW } from 'src/app/shared/services/window.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HistoryService } from 'src/app/portal/services/history.service';
-import { figures, common } from 'src/assets/static-data/meta-tags.json';
+import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { cloneDeep } from 'lodash-es';
-import { ContentDataService } from 'src/app/portal/services/content-data.service';
+import { CMSContentService } from '@shared/services/cms-content.service';
 import { Figure } from 'src/app/portal/models/figure/figure.model';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   selector: 'app-figures',
@@ -75,8 +76,8 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   showIntro: boolean;
   focusSub: any;
   currentLocale: string;
-  private metaTags = figures;
-  private commonTags = common;
+  private metaTags = MetaTags.figures;
+  private commonTags = MetaTags.common;
   roadmapFilter: string;
   filtered: any[];
   filteredQuery: any[];
@@ -101,17 +102,16 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
     private utilityService: UtilityService,
     private route: ActivatedRoute,
     private router: Router,
-    private cds: ContentDataService,
-    @Inject(PLATFORM_ID) private platformId: object
+    private cmsContentService: CMSContentService,
+    @Inject(PLATFORM_ID) private platformId: object,
+    private appSettingsService: AppSettingsService
   ) {
     // Default to first segment
     this.currentSection = 's0';
     this.queryResults = [];
     this.queryTerm = '';
     this.hasResults = true;
-    // Capitalize first letter of locale
-    this.currentLocale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    this.currentLocale = this.appSettingsService.capitalizedLocale;
   }
 
   public setTitle(newTitle: string) {
@@ -121,14 +121,14 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       // Get first segment content from content data service
-      this.contentSub = this.cds.pageData.subscribe((data) => {
+      this.contentSub = this.cmsContentService.pageData.subscribe((data) => {
         this.content = data.find((el) => el.id === 'figures-intro');
         this.loading = false;
       });
 
       // Get data from API and set into sessionStorage to be reusable in single figure view.
       if (!sessionStorage.getItem('figureData')) {
-        this.cds.getFigures().subscribe((data) => {
+        this.cmsContentService.getFigures().subscribe((data) => {
           this.figureData = data;
           sessionStorage.setItem('figureData', JSON.stringify(data));
         });

@@ -1,0 +1,25 @@
+//  This file is part of the research.fi API service
+//
+//  Copyright 2019 Ministry of Education and Culture, Finland
+//
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
+@import '~@angular/material/theming';
+
+@mixin app-profile-theme($theme) {
+  app-profile,
+  app-draft-summary {
+    .profile-card {
+      border-color: mat-color($primary, 100);
+    }
+
+    .group-wrapper:nth-child(even) {
+      background-color: mat-color($primary, 50);
+    }
+
+    .mat-checkbox-disabled.mat-checkbox-checked .mat-checkbox-background {
+      background-color: mat-color($primary, 500);
+    }
+  }
+}

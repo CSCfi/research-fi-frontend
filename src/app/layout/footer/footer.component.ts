@@ -1,9 +1,9 @@
-// # This file is part of the research.fi API service
-// #
-// # Copyright 2019 Ministry of Education and Culture, Finland
-// #
-// # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
-// # :license: MIT
+// This file is part of the research.fi API service
+//
+// Copyright 2019 Ministry of Education and Culture, Finland
+//
+// :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+// :license: MIT
 
 import {
   Component,
@@ -15,7 +15,6 @@ import {
   ElementRef,
   PLATFORM_ID,
 } from '@angular/core';
-import { environment } from '../../../environments/environment';
 import { AppConfigService } from '../../shared/services/app-config-service.service';
 import {
   faTwitter,
@@ -23,12 +22,11 @@ import {
   faLinkedin,
 } from '@fortawesome/free-brands-svg-icons';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { ReviewComponent } from '../review/review.component';
 import { AppSettingsService } from '@shared/services/app-settings.service';
-
-import { isPlatformBrowser } from '@angular/common';
 import { WINDOW } from '@shared/services/window.service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-footer',
@@ -42,6 +40,7 @@ export class FooterComponent implements OnInit {
   faFacebook = faFacebook;
   faLinkedin = faLinkedin;
   okmUrl: string;
+  locale: string;
 
   faTimes = faTimes;
   showReviewButton: boolean;
@@ -51,16 +50,23 @@ export class FooterComponent implements OnInit {
 
   @ViewChild('contact') contact: ElementRef;
 
+  // Dialog variables
+  showDialog: boolean;
+  dialogTemplate: any;
+  dialogTitle = $localize`:@@leaveReviewHeader:Anna palautetta tai kysy`;
+  dialogActions: any[];
+  basicDialogActions = [];
+
   constructor(
     private appConfigService: AppConfigService,
     @Inject(LOCALE_ID) protected localeId: string,
-    public dialog: MatDialog,
     private appSettingsService: AppSettingsService,
-    @Inject(PLATFORM_ID) private platformId: object,
-    @Inject(WINDOW) private window: Window
+    @Inject(WINDOW) private window: Window,
+    @Inject(PLATFORM_ID) private platformId: object
   ) {
     this.buildInfo = this.appConfigService.buildInfo;
     this.showReviewButton = true;
+    this.locale = this.localeId;
   }
 
   ngOnInit() {
@@ -68,7 +74,6 @@ export class FooterComponent implements OnInit {
     this.obfuscate();
 
     // Get current app settings
-
     this.appSettingsService.appSettings.subscribe((res) => {
       if (res.appName === 'myData') this.myDataBeta = true;
     });
@@ -96,18 +101,22 @@ export class FooterComponent implements OnInit {
     this.showReviewButton = false;
   }
 
-  toggleReview() {
-    if (isPlatformBrowser(this.platformId)) {
-      if (this.appSettingsService.currentAppSettings['appName'] === 'portal') {
-        this.reviewDialogRef = this.dialog.open(ReviewComponent, {
-          maxWidth: '800px',
-          minWidth: '320px',
-          // minHeight: '60vh'
-        });
-      } else {
-        this.window.open('https://link.webropolsurveys.com/S/CB5001526A6C174A');
+  openDialog(template) {
+    if (!this.myDataBeta) {
+      this.showDialog = true;
+      this.dialogTemplate = template;
+    } else {
+      if (isPlatformBrowser(this.platformId)) {
+        this.window.open(
+          'https://link.webropolsurveys.com/S/147262C4AB44ADC3',
+          '_blank'
+        );
       }
     }
+  }
+
+  closeDialog() {
+    this.showDialog = false;
   }
 
   // Email obfuscator

@@ -34,8 +34,12 @@ import { SearchComponent } from './components/search/search.component';
 
 import { ThousandSeparatorPipe } from './pipes/thousand-separator.pipe';
 import { CutContentPipe } from './pipes/cut-content.pipe';
+import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { DialogTemplateComponent } from './components/dialog/dialog-template/dialog-template.component';
+import { BannerDividerComponent } from './components/banner-divider/banner-divider.component';
+
+import { ClickOutsideDirective } from './directives/click-outside.directive';
 
 @NgModule({
   declarations: [
@@ -51,8 +55,11 @@ import { DialogTemplateComponent } from './components/dialog/dialog-template/dia
     SearchComponent,
     ThousandSeparatorPipe,
     CutContentPipe,
+    SanitizeHtmlPipe,
     DialogComponent,
     DialogTemplateComponent,
+    BannerDividerComponent,
+    ClickOutsideDirective,
   ],
   exports: [
     InfoComponent,
@@ -66,7 +73,10 @@ import { DialogTemplateComponent } from './components/dialog/dialog-template/dia
     SearchComponent,
     ThousandSeparatorPipe,
     CutContentPipe,
+    SanitizeHtmlPipe,
     DialogComponent,
+    BannerDividerComponent,
+    ClickOutsideDirective,
   ],
   imports: [
     CommonModule,

@@ -5,7 +5,7 @@
 # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 # :license: MIT -->
 
-<div class="full-width"></div>
+<app-banner-divider></app-banner-divider>
 <div class="bg-bubble d-none d-lg-block"></div>
 <main id="main-content">
   <div class="wrapper">
@@ -38,7 +38,7 @@
                 <mat-panel-title>
                   <i class="icon fas" [ngClass]="'fa-' + sector.icon"></i>
                   <div class="title align-self-center">
-                    <h2>{{ sector['name' + currentLocale] }}</h2>
+                    <h2>{{ sector.name }}</h2>
                   </div>
                 </mat-panel-title>
                 <span
@@ -57,30 +57,30 @@
               <div class="row">
                 <div
                   class="col-12 description"
-                  [innerHTML]="sector['description' + currentLocale]"
+                  [innerHTML]="sector.description"
                 ></div>
                 <div class="col-12 col-md-3">
-                  <h3>{{ sector['subtitle' + currentLocale] }}</h3>
+                  <h3>{{ sector.subtitle }}</h3>
                   <ul class="org-links">
                     <li
                       *ngFor="let org of sector?.organizations"
                       class="organization"
                     >
                       <a routerLink="/results/organization/{{ org.link }}"
-                        ><span>{{ org['name' + currentLocale] }}</span></a
+                        ><span>{{ org.name }}</span></a
                       >
                     </li>
                   </ul>
                 </div>
                 <div
-                  *ngIf="sector['iframe' + currentLocale].length > 0"
+                  *ngIf="sector.iframe.length > 0"
                   #iframe
                   class="col-12 col-md-8 iframe-container"
                 >
                   <iframe
                     width="{{ colWidth }}"
                     height="{{ colWidth * 0.75 }}"
-                    [src]="sector['iframe' + currentLocale] | safeUrl"
+                    [src]="sector.iframe | safeUrl"
                     frameborder="0"
                     allowfullscreen="true"
                   ></iframe>

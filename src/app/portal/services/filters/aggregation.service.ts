@@ -477,6 +477,23 @@ export class AggregationService {
             },
           },
         };
+        payLoad.aggs.articleType = {
+          filter: {
+            bool: {
+              filter: filterActive('articleTypeCode'),
+            },
+          },
+          aggs: {
+            articleTypes: {
+              terms: {
+                field: 'articleTypeCode',
+                order: {
+                  _key: 'desc',
+                },
+              },
+            },
+          },
+        };
         payLoad.aggs.internationalCollaboration = {
           filter: {
             bool: {
@@ -606,6 +623,7 @@ export class AggregationService {
         };
         payLoad.aggs.oaPublisherComposite = {
           composite: {
+            size: 20,
             sources: [
               {
                 openAccess: {
@@ -618,6 +636,13 @@ export class AggregationService {
                 publisherOpenAccess: {
                   terms: {
                     field: 'publisherOpenAccessCode',
+                  },
+                },
+              },
+              {
+                selfArchived: {
+                  terms: {
+                    field: 'selfArchivedCode',
                   },
                 },
               },
@@ -1521,6 +1546,7 @@ export class AggregationService {
             },
             orgName: {
               terms: {
+                size: 25,
                 field: 'organizationNameFi.keyword',
               },
               aggs: {

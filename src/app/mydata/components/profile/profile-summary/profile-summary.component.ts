@@ -6,20 +6,23 @@
 //  :license: MIT
 
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { FieldTypes } from '@mydata/constants/fieldTypes';
+
 import { cloneDeep } from 'lodash-es';
-import {
-  checkGroupSelected,
-  getDataSources,
-  isEmptySection,
-} from '@mydata/utils';
+import { checkGroupSelected } from '@mydata/utils';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { EditorModalComponent } from '../../profile-data-handler/editor-modal/editor-modal.component';
+import { EditorModalComponent } from '@mydata/components/profile/editor-modal/editor-modal.component';
 import { take } from 'rxjs/operators';
 import { PatchService } from '@mydata/services/patch.service';
+import { PublicationsService } from '@mydata/services/publications.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
-import { ProfileService } from '@mydata/services/profile.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarService } from '@mydata/services/snackbar.service';
+import { DraftService } from '@mydata/services/draft.service';
+import { Constants } from '@mydata/constants/';
+import { FieldTypes } from '@mydata/constants/fieldTypes';
+import { GroupTypes } from '@mydata/constants/groupTypes';
+import { CommonStrings } from '@mydata/constants/strings';
+import { DatasetsService } from '@mydata/services/datasets.service';
+import { FundingsService } from '@mydata/services/fundings.service';
 
 @Component({
   selector: 'app-profile-summary',
@@ -28,165 +31,134 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   encapsulation: ViewEncapsulation.None,
 })
 export class ProfileSummaryComponent implements OnInit {
-  @Input() data: any;
+  @Input() profileData: any;
 
   fieldTypes = FieldTypes;
+  groupTypes = GroupTypes;
 
-  selectedData: any;
+  filteredProfileData: any;
 
   checkGroupSelected = checkGroupSelected;
-  getDataSources = getDataSources;
-
-  dataSources: any[];
-  primarySource: string;
 
   openPanels = [];
 
-  // TODO: Dynamic locale
-  locale = 'Fi';
+  locale: string;
 
   dialogRef: MatDialogRef<EditorModalComponent>;
 
+  editString = CommonStrings.edit;
+  selectString = CommonStrings.select;
+
   constructor(
     private appSettingsService: AppSettingsService,
-    private snackBar: MatSnackBar,
     public dialog: MatDialog,
     private patchService: PatchService,
-    private profileService: ProfileService
-  ) {}
-
-  ngOnInit(): void {
-    // Get data sources
-    this.dataSources = getDataSources(this.data.profileData);
-
-    this.primarySource = this.dataSources[0];
-
-    this.sortAffiliations(this.data.profileData);
-
-    if (!isEmptySection(this.data.profileData[4]))
-      this.sortPublications(this.data.profileData);
+    private publicationsService: PublicationsService,
+    private datasetsService: DatasetsService,
+    private fundingsService: FundingsService,
+    private snackbarService: SnackbarService,
+    private draftService: DraftService
+  ) {
+    this.locale = this.appSettingsService.capitalizedLocale;
   }
 
-  getSelectedItems() {
-    const dataCopy = cloneDeep(this.data.profileData);
-
-    for (let group of dataCopy) {
-      group.fields.forEach((field) => {
-        field.groupItems.map(
-          (groupItem) =>
-            (groupItem.items = groupItem.items.filter(
-              (item) => item.itemMeta.show
-            ))
-        );
-
-        field.groupItems = field.groupItems.filter(
-          (groupItem) => groupItem.items.length
-        );
-      });
-
-      group.fields = group.fields.filter((field) => field.groupItems.length);
-    }
-
-    this.selectedData = dataCopy.filter((item) => item.fields.length);
-  }
-
-  sortPublications(data) {
-    // Combine groups and sort. Display items in summary only from first group
-    const index = data.findIndex((item) => item.label === 'Julkaisut');
-
-    const selectedItems = data[index].fields[0].selectedPublications;
-
-    const items = data[index].fields[0].groupItems.flatMap(
-      (groupItem) => groupItem.items
-    );
-
-    const merged = selectedItems?.length ? items.concat(selectedItems) : items;
-
-    const sortedItems = merged.sort(
-      (a, b) => b.publicationYear - a.publicationYear
-    );
-
-    data[index].fields[0].groupItems[0].items = sortedItems;
-
-    this.data.profileData[index].fields[0].groupItems = [
-      data[index].fields[0].groupItems[0],
-    ];
-  }
-
-  // Sort primary affiliations first
-  sortAffiliations(data) {
-    const index = data.findIndex((item) => item.label === 'Affiliaatiot');
-
-    const items = data[index].fields[0].groupItems.flatMap(
-      (groupItem) => groupItem.items
-    );
-
-    const sortedItems = items.sort(
-      (a, b) => b.itemMeta.primaryValue - a.itemMeta.primaryValue
-    );
-
-    data[index].fields[0].groupItems[0].items = sortedItems;
-
-    this.data.profileData[index].fields[0].groupItems = [
-      data[index].fields[0].groupItems[0],
-    ];
-  }
+  ngOnInit(): void {}
 
   openDialog(event, index) {
     event.stopPropagation();
 
     if (!this.openPanels.includes(index)) this.openPanels.push(index);
 
-    const selectedField = cloneDeep(this.data.profileData[index]);
+    const selectedField = cloneDeep(this.profileData[index]);
 
     this.dialogRef = this.dialog.open(EditorModalComponent, {
-      ...this.appSettingsService.dialogSettings,
       data: {
         data: selectedField,
-        dataSources: this.dataSources,
-        primarySource: this.primarySource,
       },
+      panelClass: this.appSettingsService.dialogPanelClass,
     });
 
     this.dialogRef
       .afterClosed()
       .pipe(take(1))
-      .subscribe(
-        (result: { data: any; patchGroups: any[]; patchItems: any[] }) => {
-          if (result) {
-            const currentPatchItems = this.patchService.currentPatchItems;
+      .subscribe((result: { data: any }) => {
+        const confirmedPayLoad = this.patchService.confirmedPayLoad;
 
-            this.data.profileData[index] = result.data;
+        this.draftService.saveDraft(this.profileData);
 
-            // Sort
-            this.sortAffiliations(this.data.profileData);
-            this.sortPublications(this.data.profileData);
+        // Groups are used in different loops to set storage items and handle removal of items
+        const patchGroups = [
+          { key: Constants.draftProfile, data: this.profileData },
+          {
+            key: Constants.draftPatchPayload,
+            data: this.patchService.confirmedPayLoad,
+          },
+          {
+            id: GroupTypes.publication,
+            key: Constants.draftPublicationPatchPayload,
+            service: this.publicationsService,
+            data: this.publicationsService.confirmedPayload,
+            deletables: this.publicationsService.deletables,
+          },
+          {
+            id: GroupTypes.dataset,
+            key: Constants.draftDatasetPatchPayload,
+            service: this.datasetsService,
+            data: this.datasetsService.confirmedPayload,
+            deletables: this.datasetsService.deletables,
+          },
+          {
+            id: GroupTypes.funding,
+            key: Constants.draftFundingPatchPayload,
+            service: this.fundingsService,
+            data: this.fundingsService.confirmedPayload,
+            deletables: this.fundingsService.deletables,
+          },
+        ];
 
-            if (currentPatchItems.length) this.patchItems(currentPatchItems);
+        const portalPatchGroups = patchGroups.filter((group) => group.id);
+
+        if (result) {
+          // Update binded profile data. Renders changes into summary view
+          this.profileData[index] = result.data;
+
+          // Handle removal of items added from portal search
+          portalPatchGroups.forEach((group) => {
+            if (result.data.id === group.id) {
+              if (group.deletables.length) {
+                const removeItem = (publication: { id: string }) => {
+                  group.service.removeFromConfirmed(publication.id);
+                };
+
+                for (const [i, item] of group.deletables.entries()) {
+                  removeItem(item);
+                  if (i === group.deletables.length - 1)
+                    group.service.clearDeletables();
+                }
+
+                group.service
+                  .removeItems(group.deletables)
+                  .pipe(take(1))
+                  .subscribe(() => {});
+              }
+            }
+          });
+
+          // Set draft data into storage with SSR check
+          if (this.appSettingsService.isBrowser) {
+            patchGroups.forEach((group) => {
+              sessionStorage.setItem(group.key, JSON.stringify(group.data));
+            });
+
+            // Display snackbar only if user has made changes
+            if (result && confirmedPayLoad.length) {
+              this.snackbarService.show(
+                $localize`:@@draftUpdated:Luonnos päivitetty`,
+                'success'
+              );
+            }
           }
-
-          this.patchService.clearPatchPayload();
         }
-      );
-  }
-
-  patchItems(patchItems) {
-    this.profileService
-      .patchObjects(patchItems)
-      .pipe(take(1))
-      .subscribe(
-        (result) => {
-          this.snackBar.open('Muutokset tallennettu', 'Sulje', {
-            horizontalPosition: 'start',
-            panelClass: 'mydata-snackbar',
-          });
-        },
-        (error) => {
-          this.snackBar.open('Virhe tiedon tallennuksessa', 'Sulje', {
-            horizontalPosition: 'start',
-            panelClass: 'mydata-snackbar',
-          });
-        }
-      );
+      });
   }
 }

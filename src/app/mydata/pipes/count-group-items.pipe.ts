@@ -16,7 +16,10 @@ import { Pipe, PipeTransform } from '@angular/core';
  * Count items in groups. Some items, Eg. single selections and joined items need to be handled differently.
  */
 export class CountGroupItemsPipe implements PipeTransform {
-  transform(group: any, filterSelected?: boolean) {
+  transform(
+    group: any,
+    extras: { filterSelected: boolean; patchItems: any[] }
+  ) {
     let combinedItems = [];
 
     group.forEach((el) => {
@@ -50,8 +53,16 @@ export class CountGroupItemsPipe implements PipeTransform {
       }
     });
 
-    return filterSelected
-      ? combinedItems.filter((item) => item.show)
+    return extras?.filterSelected
+      ? combinedItems.filter((item) =>
+          extras.patchItems
+            ? // ? extras.patchItemIds.includes(item.id)
+              extras.patchItems.find(
+                (patchItem) =>
+                  patchItem.id === item.id && patchItem.type === item.type
+              )
+            : item.show
+        )
       : combinedItems;
   }
 }

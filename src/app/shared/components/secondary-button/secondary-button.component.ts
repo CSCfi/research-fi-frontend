@@ -15,6 +15,7 @@ export class SecondaryButtonComponent implements OnInit {
   @Input() disabled: boolean;
   @Input() big: boolean;
   @Input() small: boolean;
+  @Input() px0: boolean;
 
   constructor() {}
 

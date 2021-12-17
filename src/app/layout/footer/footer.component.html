@@ -1,9 +1,9 @@
 <!-- # This file is part of the research.fi API service
-#
-# Copyright 2019 Ministry of Education and Culture, Finland
-#
-# :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
-# :license: MIT -->
+
+ Copyright 2019 Ministry of Education and Culture, Finland
+
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
 
 <footer>
   <nav class="footer wrapper">
@@ -14,13 +14,13 @@
             Palvelun tarjoaa
           </h2>
         </div>
-        <div class="row d-block">
+        <div class="row d-flex justify-content-center">
           <a href="{{ okmUrl }}" target="_blank">
             <img
               class="logo"
-              src="assets/img/okm_logo.svg"
-              i18n-alt
-              alt="Opetus- ja kulttuuriministeriön logo, leijonavaakuna vihreällä pohjalla"
+              src="{{ 'assets/img/okm_logo_' + locale + '.png' }}"
+              i18n-alt="@@okmLogo"
+              alt="Opetus- ja kulttuuriministeriön logo, leijonavaakuna"
             />
           </a>
         </div>
@@ -34,7 +34,7 @@
             <img
               class="logo"
               src="assets/img/csc_logo.png"
-              i18n-alt
+              i18n-alt="@@CSCLogoAltText"
               alt="Organisaation CSC - Tieteen ja tietotekniikan keskus logo"
             />
           </a>
@@ -68,11 +68,10 @@
         </h2>
         <ul>
           <li>
-            <a
-              i18n="Footer-link@@footerLink6"
-              href="javascript:void(0)"
-              (click)="toggleReview()"
-              >Anna palautetta
+            <a href="javascript:void(0)" (click)="openDialog(reviewDialog)">
+              <ng-container i18n="Footer-link@@footerLink6">
+                Anna palautetta
+              </ng-container>
               <fa-icon icon="external-link-alt" *ngIf="myDataBeta"></fa-icon
             ></a>
           </li>
@@ -123,7 +122,7 @@
                   align-items-center
                 "
                 target="_blank"
-                i18n-title
+                i18n-title="@@twitterTitleText"
                 title="Twitter -palvelun logo"
                 i18n="Twitter-footer@@twitterFooter"
               >
@@ -143,7 +142,7 @@
     <button
       tabindex="0"
       class="review"
-      (click)="toggleReview()"
+      (click)="openDialog(reviewDialog)"
       mat-raised-button
       color="primary"
       i18n="Review-button@@reviewButton"
@@ -159,4 +158,16 @@
       ></fa-icon>
     </button>
   </div>
+
+  <ng-template #reviewDialog>
+    <app-review></app-review>
+  </ng-template>
+
+  <app-dialog
+    *ngIf="showDialog"
+    [template]="dialogTemplate"
+    [title]="dialogTitle"
+    [actions]="basicDialogActions"
+    (onActionClick)="closeDialog()"
+  ></app-dialog>
 </footer>

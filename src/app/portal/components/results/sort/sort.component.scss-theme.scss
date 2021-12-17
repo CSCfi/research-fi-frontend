@@ -17,17 +17,15 @@
       color: mat-color($primary);
     }
 
-    @media (max-width: 991px) {
-      mat-form-field.mat-form-field {
-        border: 2px solid mat-color($primary);
-      }
-      .mat-select-value {
-        color: mat-contrast($primary, 200);
-        font-weight: 500;
-      }
-      .mat-form-field-flex::after {
-        color: mat-color($primary, 900);
-      }
+    mat-form-field.mat-form-field {
+      border: 2px solid mat-color($primary);
+    }
+    .mat-select-value {
+      color: mat-contrast($primary, 200);
+      font-weight: 500;
+    }
+    .mat-form-field-flex::after {
+      color: mat-color($primary, 900);
     }
   }
 }

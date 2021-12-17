@@ -29,6 +29,7 @@ export class FilterService {
   publicationFormatFilter: any;
   publicationAudienceFilter: any;
   parentPublicationTypeFilter: any;
+  articleTypeFilter: any;
   peerReviewedFilter: any;
   countryCodeFilter: any;
   langFilter: any;
@@ -61,6 +62,7 @@ export class FilterService {
     publicationFormat: [],
     publicationAudience: [],
     parentPublicationType: [],
+    articleType: [],
     peerReviewed: [],
     countryCode: [],
     lang: [],
@@ -98,6 +100,7 @@ export class FilterService {
     publicationFormat: any[];
     publicationAudience: any[];
     parentPublicationType: any[];
+    articleType: any[];
     peerReviewed: any[];
     countryCode: any[];
     lang: any[];
@@ -117,8 +120,8 @@ export class FilterService {
     accessType: any[];
     type: any[];
     coPublication: any[];
-    date: any[],
-    status: any[],
+    date: any[];
+    status: any[];
   }) {
     // Create new filters first before sending updated values to components
     this.currentFilters = filters;
@@ -180,6 +183,10 @@ export class FilterService {
         .filter((x) => x)
         .sort(),
       parentPublicationType: [source.parentPublicationType]
+        .flat()
+        .filter((x) => x)
+        .sort(),
+      articleType: [source.articleType]
         .flat()
         .filter((x) => x)
         .sort(),
@@ -294,6 +301,10 @@ export class FilterService {
       filter.parentPublicationType,
       'parentPublicationType.id.keyword'
     );
+    this.articleTypeFilter = this.basicFilter(
+      filter.articleType,
+      'articleTypeCode'
+    );
     this.peerReviewedFilter = this.basicFilter(
       filter.peerReviewed,
       'peerReviewed.id.keyword'
@@ -305,7 +316,9 @@ export class FilterService {
       this.filterByInternationalCollaboration(
         filter.internationalCollaboration
       );
-    this.okmDataCollectionFilter = this.filterByOkmDataCollection(filter.okmDataCollection);
+    this.okmDataCollectionFilter = this.filterByOkmDataCollection(
+      filter.okmDataCollection
+    );
     this.coPublicationFilter = this.customValueFilter(
       filter.coPublication,
       'publicationStatusCode.keyword',
@@ -350,8 +363,8 @@ export class FilterService {
     // Organization
     this.sectorFilter = this.filterBySector(filter.sector);
     // FundingCalls
-    this.dateFilter = this.filterByDateRange(filter.date)
-    this.statusFilter = this.filterByStatus(filter.status)
+    this.dateFilter = this.filterByDateRange(filter.date);
+    this.statusFilter = this.filterByStatus(filter.status);
     this.fundingCallCategoryFilter = this.basicFilter(
       filter.field,
       'categories.codeValue.keyword'
@@ -419,13 +432,13 @@ export class FilterService {
     } else if (t) {
       res.push({ range: { publicationYear: { lte: t } } });
     }
-    
+
     return res;
   }
-  
+
   filterByDateRange(dateStrings: string[]) {
     const res = [];
-    dateStrings.forEach(dateString => {
+    dateStrings.forEach((dateString) => {
       // Date string format: yyyy-mm-dd|yyyy-mm-dd
       const split = dateString.split('|');
       const from = split[0];
@@ -434,56 +447,56 @@ export class FilterService {
       const f = from ? new Date(from).toLocaleDateString('sv') : undefined; // sv locale uses dashes and correct order
       const t = to ? new Date(to).toLocaleDateString('sv') : undefined;
       if (f) {
-        res.push({ range: { callProgrammeOpenDate: {gte: f }}});
+        res.push({ range: { callProgrammeOpenDate: { gte: f } } });
       }
       if (t) {
         res.push({ range: { callProgrammeDueDate: { lte: t } } });
       }
-    })
-    return res
+    });
+    return res;
   }
 
   filterByStatus(filter: string[]) {
     const now = new Date().toLocaleDateString('sv');
-    const noDate = '1900-01-01'
+    const noDate = '1900-01-01';
     const res = [];
-    filter.forEach(s => {
-      switch(s) {
+    filter.forEach((s) => {
+      switch (s) {
         case 'open': {
           // Open
           let arr = [];
-          arr.push({ range: { callProgrammeOpenDate: {lte: now }}});
-          arr.push({ range: { callProgrammeDueDate: {gte: now }}});
+          arr.push({ range: { callProgrammeOpenDate: { lte: now } } });
+          arr.push({ range: { callProgrammeDueDate: { gte: now } } });
           res.push(arr);
           arr = [];
           // Continuous
-          arr.push({ range: { callProgrammeDueDate: {lte: noDate }}});
+          arr.push({ range: { callProgrammeDueDate: { lte: noDate } } });
           res.push(arr);
           break;
         }
         case 'closed': {
           const arr = [];
-          arr.push({ range: { callProgrammeDueDate: {gt: noDate }}});
-          arr.push({ range: { callProgrammeDueDate: {lt: now }}});
+          arr.push({ range: { callProgrammeDueDate: { gt: noDate } } });
+          arr.push({ range: { callProgrammeDueDate: { lt: now } } });
           res.push(arr);
           break;
         }
         case 'future': {
           const arr = [];
-          arr.push({ range: { callProgrammeOpenDate: {gt: now }}});
+          arr.push({ range: { callProgrammeOpenDate: { gt: now } } });
           res.push(arr);
           break;
         }
         // Combined with open calls
         case 'continuous': {
           const arr = [];
-          arr.push({ range: { callProgrammeDueDate: {lte: noDate }}});
+          arr.push({ range: { callProgrammeDueDate: { lte: noDate } } });
           res.push(arr);
           break;
         }
       }
-    })
-    return res
+    });
+    return res;
   }
 
   filterByOrganization(filter: any[]) {
@@ -610,7 +623,7 @@ export class FilterService {
       res.push({ term: { selfArchivedCode: 1 } });
     }
     if (code.includes('delayedOpenAccess')) {
-      [0, 1].forEach(val => { 
+      [0, 1].forEach((val) => {
         res.push({
           bool: {
             must: [
@@ -622,10 +635,11 @@ export class FilterService {
       });
     }
     if (code.includes('nonOpenAccess')) {
-      [0, 1, 2, 9].forEach(val => { 
+      [0, 1, 2, 9].forEach((val) => {
         res.push({
           bool: {
             must: [
+              { term: { selfArchivedCode: 0 } },
               { term: { openAccess: 0 } },
               { term: { publisherOpenAccessCode: val } },
             ],
@@ -634,19 +648,27 @@ export class FilterService {
       });
     }
     if (code.includes('noOpenAccessData')) {
-      const q = {bool: {must_not: []}}
-      const known = [[0, 0], [0, 1], [0, 2], [0, 3], [0, 9], [1, 1], [1, 2], [1, 3]];
-      known.forEach(pair => q.bool.must_not.push(
-        {
+      const q = { bool: { must_not: [] } };
+      const known = [
+        [0, 0],
+        [0, 1],
+        [0, 2],
+        [0, 3],
+        [0, 9],
+        [1, 1],
+        [1, 2],
+        [1, 3],
+      ];
+      known.forEach((pair) =>
+        q.bool.must_not.push({
           bool: {
             must: [
-              {term: { openAccess: pair[0] } },
-              {term: { publisherOpenAccessCode: pair[1] } }
-            ]
-          }
-        }
-      ));
-      console.log(q)
+              { term: { openAccess: pair[0] } },
+              { term: { publisherOpenAccessCode: pair[1] } },
+            ],
+          },
+        })
+      );
       res.push(q);
     }
     return res;
@@ -663,7 +685,9 @@ export class FilterService {
   filterByOkmDataCollection(status: any) {
     const res = [];
     if (status.length > 0 && JSON.parse(status)) {
-      ['1', '2', '9'].forEach(n => res.push({ term: { 'publicationStatusCode.keyword': n } }));
+      ['1', '2', '9'].forEach((n) =>
+        res.push({ term: { 'publicationStatusCode.keyword': n } })
+      );
     }
     return res;
   }
@@ -731,18 +755,22 @@ export class FilterService {
 
     const rangeFilter = (i, f) => {
       return index === i
-      ? f?.length 
-      ? [{ bool: { should: { bool: { filter: f } } } } ] : []
-      : [];
-    }
+        ? f?.length
+          ? [{ bool: { should: { bool: { filter: f } } } }]
+          : []
+        : [];
+    };
 
     const multipleRangeFilter = (i, f) => {
-      const shouldArr = f?.map(range => range = { bool: { filter: range } } );
+      const shouldArr = f?.map(
+        (range) => (range = { bool: { filter: range } })
+      );
       return index === i
-      ? f?.length
-      ? [{bool: {should: shouldArr } }] : []
-      : [];
-    }
+        ? f?.length
+          ? [{ bool: { should: shouldArr } }]
+          : []
+        : [];
+    };
 
     const coPublicationOrgs = () => {
       if (this.coPublicationFilter[0]) {
@@ -771,6 +799,7 @@ export class FilterService {
       ...basicFilter('publication', this.publicationFormatFilter),
       ...basicFilter('publication', this.publicationAudienceFilter),
       ...basicFilter('publication', this.parentPublicationTypeFilter),
+      ...basicFilter('publication', this.articleTypeFilter),
       ...basicFilter('publication', this.peerReviewedFilter),
       ...basicFilter('publication', this.countryCodeFilter),
       ...basicFilter('publication', this.langFilter),
@@ -850,10 +879,14 @@ export class FilterService {
 
       // News
       ...basicFilter('news', this.organizationFilter),
-      
+
       // FundingCalls
       ...basicFilter('funding-call', this.organizationFilter),
-      ...nestedFilter('funding-call', this.fundingCallCategoryFilter, 'categories'),
+      ...nestedFilter(
+        'funding-call',
+        this.fundingCallCategoryFilter,
+        'categories'
+      ),
       ...rangeFilter('funding-call', this.dateFilter),
       ...multipleRangeFilter('funding-call', this.statusFilter),
 
@@ -931,13 +964,17 @@ export class FilterService {
       bool: {
         must: [
           { term: { _index: 'funding-call' } },
-          { bool: { filter: [
-            { range: { callProgrammeOpenDate: { lte: today } } },
-            { range: { callProgrammeDueDate:  { gte: today } } },
-          ]}}
-        ]
-      }
-    }
+          {
+            bool: {
+              filter: [
+                { range: { callProgrammeOpenDate: { lte: today } } },
+                { range: { callProgrammeDueDate: { gte: today } } },
+              ],
+            },
+          },
+        ],
+      },
+    };
     return query;
   }
 
@@ -1005,6 +1042,10 @@ export class FilterService {
             sum: {
               field: s.sum,
             },
+          };
+        } else if (s.reverseNested) {
+          q.aggs[s.name] = {
+            reverse_nested: {},
           };
         } else {
           // Add terms object

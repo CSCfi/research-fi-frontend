@@ -17,8 +17,17 @@ import { Pipe, PipeTransform } from '@angular/core';
  * Declare callback function in component
  */
 export class FilterPipe implements PipeTransform {
-  transform(value: any, callback: any, type?: string): unknown {
-    switch (type) {
+  transform(
+    value: any,
+    callback: any,
+    extras: { type: string; patchItems: any[] }
+  ) {
+    // Case for checking if group items match patch item array
+    if (extras?.patchItems) {
+      return value.filter(() => callback(value, extras.patchItems)) || [];
+    }
+
+    switch (extras?.type) {
       case 'boolean': {
         return !!(value.filter(callback).length > 0);
       }
