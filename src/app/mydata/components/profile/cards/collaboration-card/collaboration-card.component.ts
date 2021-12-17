@@ -57,15 +57,28 @@ export class CollaborationCardComponent implements OnInit {
 
         this.setInitialValue(options);
 
-        // Check if draft in storage and set initial values
+        // Render selections from storage if draft available
         const draft = sessionStorage.getItem(
           Constants.draftCollaborationPatchPayload
         );
 
-        // Set options from storage if draft available
-        this.collaborationOptions = draft ? JSON.parse(draft) : options;
+        const draftOptions = draft && JSON.parse(draft);
 
-        this.hasCheckedOption = this.hasSelectedOption();
+        if (draftOptions) {
+          for (const [i, option] of options.entries()) {
+            const match = draftOptions.find(
+              (draftOption) => option.id === draftOption.id
+            );
+
+            if (match) {
+              options[i].selected = match.selected;
+            }
+          }
+        }
+
+        this.collaborationOptions = options;
+
+        this.checkForSelection();
       });
   }
 
@@ -77,6 +90,8 @@ export class CollaborationCardComponent implements OnInit {
     this.collaborationOptions = cloneDeep(
       this.collaborationsService.initialValue
     );
+
+    this.checkForSelection();
   }
 
   openDialog() {
@@ -88,22 +103,41 @@ export class CollaborationCardComponent implements OnInit {
     this.showDialog = false;
 
     if (action === 'save') {
-      this.optionsToggled.forEach((index) => {
-        const option = this.collaborationOptions[index];
-        option.selected = !option.selected;
+      this.optionsToggled.forEach((option) => {
+        const match = this.collaborationOptions.findIndex(
+          (item) => item.id === option.id
+        );
+
+        this.collaborationOptions[match].selected = option.selected;
       });
-      this.collaborationsService.addToPayload(this.collaborationOptions);
+
+      this.collaborationsService.addToPayload(this.optionsToggled);
     }
 
-    this.hasCheckedOption = this.hasSelectedOption();
+    this.checkForSelection();
     this.optionsToggled = [];
   }
 
-  toggleOption(i) {
-    this.optionsToggled.push(i);
+  toggleOption(i, event) {
+    const selectedOption = this.collaborationOptions[i];
+
+    // Check if selection differs from options saved in profile.
+    // Add to payload if new selection.
+    if (selectedOption.selected === event.checked) {
+      this.optionsToggled = this.optionsToggled.filter(
+        (option) => option.id !== selectedOption.id
+      );
+    } else {
+      this.optionsToggled.push({
+        ...selectedOption,
+        selected: event.checked,
+      });
+    }
   }
 
-  private hasSelectedOption(): boolean {
-    return !!this.collaborationOptions.find((option) => option.selected);
+  private checkForSelection() {
+    this.hasCheckedOption = !!this.collaborationOptions.find(
+      (option) => option.selected
+    );
   }
 }

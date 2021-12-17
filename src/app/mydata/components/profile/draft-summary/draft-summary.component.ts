@@ -26,7 +26,6 @@ export class DraftSummaryComponent implements OnInit, OnDestroy {
   @Input() profileData: any;
   @Input() collaborationOptions: any;
 
-  checkedCollaborationItemsCount = 0;
   collaborationHeader = $localize`:@@collaborationHeader:Yhteistyö`;
   selectedData: any;
 
@@ -57,7 +56,6 @@ export class DraftSummaryComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.collaborationOptions = this.collaborationsService.confirmedPayload;
 
-    this.countCheckedCollaborationOptions();
     this.nameLocale = 'name' + this.appSettingsService.capitalizedLocale;
     this.patchPayloadSub = combineLatest([
       this.patchService.currentPatchItems,
@@ -75,14 +73,6 @@ export class DraftSummaryComponent implements OnInit, OnDestroy {
       const combinedItems = patchItems.concat(patchPortalItems);
 
       this.combinedPatchItems = combinedItems;
-    });
-  }
-
-  countCheckedCollaborationOptions() {
-    this.collaborationOptions.forEach((val) => {
-      if (Object.values(val).includes(true)) {
-        this.checkedCollaborationItemsCount += 1;
-      }
     });
   }
 

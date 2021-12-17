@@ -4,7 +4,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppConfigService } from '@shared/services/app-config-service.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { Constants } from '@mydata/constants';
-import { differenceBy } from 'lodash-es';
 
 @Injectable({
   providedIn: 'root',
@@ -53,7 +52,22 @@ export class CollaborationsService {
   }
 
   addToPayload(payload: any) {
-    this.tempPayload = payload;
+    let temp = this.tempPayload;
+
+    // Patch only unique items
+    for (const option of payload) {
+      const match = temp.find((tempOption) => tempOption.id === option.id);
+
+      if (match) {
+        const filterMatch = (arr) =>
+          arr.filter((item) => item.id !== option.id);
+
+        temp = filterMatch(temp);
+        payload = filterMatch(payload);
+      }
+    }
+
+    this.tempPayload = temp.concat(payload);
 
     if (this.areInitialValuesChanged()) {
       this.confirmPayload();
