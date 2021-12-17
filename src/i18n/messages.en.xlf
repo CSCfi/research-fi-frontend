@@ -5181,9 +5181,9 @@
         <target>At this point, we will not yet publish your profile.</target>
       </trans-unit>
       <trans-unit id="welcomeStep3_4">
-        <source>Voit hallinnoida tietojesi näyttämistä seuraavissa
-                    vaiheissa.</source>
-        <target>You can manage the display of your information in the following steps.</target>
+        <source>Voit hallinnoida tietojesi näyttämistä seuraavassa
+                    vaiheessa.</source>
+        <target>You can manage the display of your information in the following step.</target>
       </trans-unit>
       <trans-unit id="importingDataWait">
         <source>Tietoja tuodaan, odota hetki...</source>
