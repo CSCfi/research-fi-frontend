@@ -463,6 +463,7 @@ export class ProfileComponent implements OnInit {
     this.profileData = [...currentProfileData];
     this.profileService.setCurrentProfileName(this.getName(currentProfileData));
     this.clearDraftData();
+    this.collaborationComponentRef.resetInitialValue();
   }
 
   clearDraftData() {
@@ -479,7 +480,6 @@ export class ProfileComponent implements OnInit {
       service.cancelConfirmedPayload();
     });
 
-    this.collaborationComponentRef.resetInitialValue();
     this.draftService.clearData();
   }
 

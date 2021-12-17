@@ -8,13 +8,18 @@
 @import '~@angular/material/theming';
 
 @mixin app-profile-theme($theme) {
-  app-profile {
+  app-profile,
+  app-draft-summary {
     .profile-card {
       border-color: mat-color($primary, 100);
     }
 
     .group-wrapper:nth-child(even) {
       background-color: mat-color($primary, 50);
+    }
+
+    .mat-checkbox-disabled.mat-checkbox-checked .mat-checkbox-background {
+      background-color: mat-color($primary, 500);
     }
   }
 }
