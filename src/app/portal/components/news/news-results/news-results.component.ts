@@ -27,7 +27,6 @@ import { DataService } from 'src/app/portal/services/data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FilterService } from 'src/app/portal/services/filters/filter.service';
 import { SortService } from 'src/app/portal/services/sort.service';
-import { BsModalRef } from 'ngx-bootstrap/modal';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -51,7 +50,6 @@ export class NewsResultsComponent
 
   filterValues: unknown;
   filters: any;
-  modalRef: BsModalRef;
 
   currentTerm: string;
   queryParams: any;
@@ -192,9 +190,5 @@ export class NewsResultsComponent
       this.filterService.updateFilters(this.filters);
     }
     this.routeSub?.unsubscribe();
-  }
-
-  closeModal() {
-    this.modalRef.hide();
   }
 }
