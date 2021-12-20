@@ -15,12 +15,12 @@ export class PatchService {
   constructor() {}
 
   patchItems = [];
-  confirmedPatchItems = [];
+  confirmedPayLoad = [];
   publicationsToPatch = [];
   publicationsToRemove = [];
 
-  private confirmedPatchItemsSource = new BehaviorSubject<any>([]);
-  currentPatchItems = this.confirmedPatchItemsSource.asObservable();
+  private confirmedPayloadSource = new BehaviorSubject<any>([]);
+  currentPatchItems = this.confirmedPayloadSource.asObservable();
 
   addToPayload(payload) {
     const items = this.patchItems;
@@ -43,7 +43,7 @@ export class PatchService {
   confirmPayload() {
     const patchItems = this.patchItems;
 
-    let merged = this.confirmedPatchItems.concat(patchItems);
+    let merged = this.confirmedPayLoad.concat(patchItems);
 
     // If user decides to deselect already confirmed item
     patchItems.forEach((item) => {
@@ -53,13 +53,13 @@ export class PatchService {
     });
 
     this.patchItems = [];
-    this.confirmedPatchItems = merged;
-    this.confirmedPatchItemsSource.next(merged);
+    this.confirmedPayLoad = merged;
+    this.confirmedPayloadSource.next(merged);
   }
 
   cancelConfirmedPayload() {
-    this.confirmedPatchItems = [];
-    this.confirmedPatchItemsSource.next([]);
+    this.confirmedPayLoad = [];
+    this.confirmedPayloadSource.next([]);
   }
 
   removeItem(id) {
@@ -68,7 +68,7 @@ export class PatchService {
 
   removeItemsWithType(type) {
     this.patchItems = this.patchItems.filter((item) => item.type !== type);
-    this.confirmedPatchItems = this.confirmedPatchItems.filter(
+    this.confirmedPayLoad = this.confirmedPayLoad.filter(
       (item) => item.type !== type
     );
   }

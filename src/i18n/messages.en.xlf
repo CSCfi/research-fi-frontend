@@ -5181,9 +5181,9 @@
         <target>At this point, we will not yet publish your profile.</target>
       </trans-unit>
       <trans-unit id="welcomeStep3_4">
-        <source>Voit hallinnoida tietojesi näyttämistä seuraavissa
-                    vaiheissa.</source>
-        <target>You can manage the display of your information in the following steps.</target>
+        <source>Voit hallinnoida tietojesi näyttämistä seuraavassa
+                    vaiheessa.</source>
+        <target>You can manage the display of your information in the following step.</target>
       </trans-unit>
       <trans-unit id="importingDataWait">
         <source>Tietoja tuodaan, odota hetki...</source>
@@ -5380,6 +5380,18 @@
         <source>Lähde</source>
         <target>Source</target>
       </trans-unit>
+      <trans-unit id="showAllPublications">
+        <source>Näytä kaikki julkaisut</source>
+        <target>Show all publications</target>
+      </trans-unit>
+      <trans-unit id="showAllDatasets">
+        <source>Näytä kaikki tutkimusaineistot</source>
+        <target>Show all research data items</target>
+      </trans-unit>
+      <trans-unit id="showAllFundings">
+        <source>Näytä kaikki hankkeet</source>
+        <target>Show all projects</target>
+      </trans-unit>
       <trans-unit id="isMissing">
         <source>Puuttuuko jokin </source>
         <target>Is a </target>
@@ -5429,6 +5441,14 @@
           betaversiossa.</source>
         <target>Adding of most recent publications doesn't work in beta version.</target>
       </trans-unit>
+      <trans-unit id="betaAddingOfMostRecent">
+        <source>Huom! Kaikkein tuoreimpien </source>
+        <target>Adding of most recent </target>
+      </trans-unit>
+      <trans-unit id="doesNotWorkInBeta">
+        <source> lisääminen ei toimi betaversiossa.</source>
+        <target> doesn't work in beta version.</target>
+      </trans-unit>
       <trans-unit id="dataSourceIsResearchFi">
         <source>Tietolähteenä käytetään Tiedejatutkimus.fi-palvelua</source>
         <target>The data source used is the Research.fi service</target>
@@ -5449,7 +5469,7 @@
         <source>Esim. nimi, organisaatio</source>
         <target>For example, name, organization</target>
       </trans-unit>
-            <trans-unit id="enterPartOfName">
+      <trans-unit id="enterPartOfName">
         <source>Kirjoita osa nimestä</source>
         <target>Enter part of the name</target>
       </trans-unit>
@@ -5484,6 +5504,14 @@
       <trans-unit id="publicationsAddedFromResearchFITooltip">
         <source>Tiedejatutkimus.fi-palvelun julkaisut on lisätty profiiliisi automaattisesti, jos niissä on ORCID-tunnuksesi. Julkaisuja, joihin ORCID-tunnusta ei ole valmiiksi liitetty, voit etsiä ”Puuttuuko jokin julkaisu tiedoistasi?” –toiminnolla.</source>
         <target>Publications on Research.fi have been added to your profile automatically if they contain your ORCID ID. You can search publications that don't contain your ORCID ID by using the "Is a publication missing from your data?" feature.</target>
+      </trans-unit>
+      <trans-unit id="sessionExpiredLogin">
+        <source>Istunto on vanhentunut. Kirjaudu sisään jatkaaksesi.</source>
+        <target>Session has expired. Log in to continue.</target>
+      </trans-unit>
+      <trans-unit id="youHaveUnpublishedChangesContinue">
+        <source>Sinulla on julkaisemattomia muutoksia. Jos kirjaudut ulos, tiedot menetetään.</source>
+        <target>You have unpublished changes. If you log out, the changes will be lost.</target>
       </trans-unit>
     </body>
   </file>

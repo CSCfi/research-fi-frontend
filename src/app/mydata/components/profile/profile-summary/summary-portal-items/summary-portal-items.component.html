@@ -13,7 +13,8 @@
         <div class="col font-size-smaller">
           <app-panel-array-item
             [item]="item"
-            [fieldType]="fieldTypes.activityDataset"
+            [fieldType]="fieldType"
+            [summary]="true"
           ></app-panel-array-item>
         </div>
       </div>
@@ -30,6 +31,6 @@
     (click)="showAllItems()"
     color="primary"
   >
-    Näytä kaikki tutkimusaineistot
+    {{ showMorePrefix }} {{ showMoreLabel | lowercase }}
   </button>
 </div>

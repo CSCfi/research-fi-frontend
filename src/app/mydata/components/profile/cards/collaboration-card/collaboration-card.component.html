@@ -23,7 +23,7 @@
     <mat-checkbox
       class="py-1 w-100"
       *ngFor="let option of collaborationOptions; let i = index"
-      (change)="toggleOption(i)"
+      (change)="toggleOption(i, $event)"
       [checked]="option.selected"
       >{{ option[nameLocale] }}</mat-checkbox
     >
@@ -47,6 +47,7 @@
         *ngIf="option?.selected"
         [checked]="true"
         disabled
+        color="primary"
       >
         {{ option[nameLocale] }}
       </mat-checkbox>

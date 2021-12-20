@@ -5,12 +5,12 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
+/*
+ * Theme colors defined in profile.component-theme.scss
+ */
+
 app-collaboration-card {
   .mat-checkbox-disabled span.mat-checkbox-label {
     color: inherit;
-  }
-
-  .mat-checkbox-disabled.mat-checkbox-checked .mat-checkbox-background {
-    background-color: #4caf50;
   }
 }

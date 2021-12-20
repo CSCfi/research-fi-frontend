@@ -30,6 +30,7 @@ import { checkGroupSelected } from '@mydata/utils';
 import { UtilityService } from '@shared/services/utility.service';
 import { DatasetsService } from '@mydata/services/datasets.service';
 import { FundingsService } from '@mydata/services/fundings.service';
+import { CollaborationsService } from '@mydata/services/collaborations.service';
 
 @Component({
   selector: 'app-profile',
@@ -97,8 +98,6 @@ export class ProfileComponent implements OnInit {
   deletingProfile: boolean;
 
   draftPayload: any[];
-  collaborationOptions: any[];
-  collaborationOptionsChanged: boolean;
 
   checkGroupSelected = checkGroupSelected;
 
@@ -111,7 +110,7 @@ export class ProfileComponent implements OnInit {
     private snackbarService: SnackbarService,
     public draftService: DraftService,
     public patchService: PatchService,
-    public patchServiceCollaboration: PatchService,
+    public collaborationsService: CollaborationsService,
     public publicationsService: PublicationsService,
     public datasetsService: DatasetsService,
     public fundingsService: FundingsService,
@@ -139,7 +138,7 @@ export class ProfileComponent implements OnInit {
         /*
          * Draft data is stored in session storage.
          * Set draft data to profile view if draft available.
-         * Drafts are deleted with reset ond publish methods
+         * Drafts are deleted with reset and publish methods
          */
         if (this.appSettingsService.isBrowser) {
           const draft = sessionStorage.getItem(Constants.draftProfile);
@@ -151,6 +150,9 @@ export class ProfileComponent implements OnInit {
           );
           const draftDatasetPatchPayload = JSON.parse(
             sessionStorage.getItem(Constants.draftDatasetPatchPayload)
+          );
+          const draftCollaborationPatchPayload = JSON.parse(
+            sessionStorage.getItem(Constants.draftCollaborationPatchPayload)
           );
           const draftFundingPatchPayload = JSON.parse(
             sessionStorage.getItem(Constants.draftFundingPatchPayload)
@@ -173,7 +175,7 @@ export class ProfileComponent implements OnInit {
             );
           }
 
-          // Profile, publications, datasets and fundings have separate draft data
+          // Profile, publications, datasets, collaborations and fundings have separate draft data
           const draftItems = [
             { payload: draftPatchPayload, service: this.patchService },
             {
@@ -187,6 +189,10 @@ export class ProfileComponent implements OnInit {
             {
               payload: draftFundingPatchPayload,
               service: this.fundingsService,
+            },
+            {
+              payload: draftCollaborationPatchPayload,
+              service: this.collaborationsService,
             },
           ];
 
@@ -319,14 +325,13 @@ export class ProfileComponent implements OnInit {
    */
   private async patchItemsPromise() {
     return new Promise((resolve, reject) => {
-      const patchItems = this.patchService.confirmedPatchItems;
+      const patchItems = this.patchService.confirmedPayLoad;
       this.profileService
         .patchObjects(patchItems)
         .pipe(take(1))
         .subscribe(
           (result) => {
             resolve(true);
-            this.clearDraftData();
           },
           (error) => {
             reject(error);
@@ -378,8 +383,8 @@ export class ProfileComponent implements OnInit {
    */
   private async patchCooperationChoicesPromise() {
     return new Promise((resolve, reject) => {
-      this.profileService
-        .patchCooperationChoices(this.collaborationOptions)
+      this.collaborationsService
+        .patchCollaborationChoices()
         .pipe(take(1))
         .subscribe(
           (result) => {
@@ -394,22 +399,48 @@ export class ProfileComponent implements OnInit {
 
   publish() {
     const promises = [];
-    promises.push(this.handlePublicationsPromise());
-    promises.push(this.handleDatasetsPromise());
-    promises.push(this.handleFundingsPromise());
-    promises.push(this.patchItemsPromise());
-    promises.push(this.patchCooperationChoicesPromise());
+
+    // Use of handler property as function prevents handler method firing when iterating
+    const promiseHandlers = [
+      {
+        handler: () => this.handlePublicationsPromise(),
+        payload: this.publicationsService.confirmedPayload,
+      },
+      {
+        handler: () => this.handleDatasetsPromise(),
+        payload: this.datasetsService.confirmedPayload,
+      },
+      {
+        handler: () => this.handleFundingsPromise(),
+        payload: this.fundingsService.confirmedPayload,
+      },
+      {
+        handler: () => this.patchItemsPromise(),
+        payload: this.patchService.confirmedPayLoad,
+      },
+      {
+        handler: () => this.patchCooperationChoicesPromise(),
+        payload: this.collaborationsService.confirmedPayload,
+      },
+    ];
+
+    // Prevent empty payload API requests
+    for (const item of promiseHandlers) {
+      if (item.payload.length > 0) {
+        promises.push(item.handler());
+      }
+    }
+
     Promise.all(promises)
       .then((response) => {
         if (response.includes(false)) {
           this.showSaveSuccessfulMessage(false);
         } else {
+          this.clearDraftData();
           this.showSaveSuccessfulMessage(true);
-          this.collaborationOptionsChanged = false;
         }
       })
       .catch((error) => {
-        this.collaborationOptionsChanged = false;
         this.showSaveSuccessfulMessage(false);
         console.log(`Error in data patching`, error);
       });
@@ -422,23 +453,23 @@ export class ProfileComponent implements OnInit {
   reset() {
     const currentProfileData = this.profileService.currentProfileData;
 
-    this.collaborationComponentRef.reloadCollaborationChoices();
     sessionStorage.removeItem(Constants.draftProfile);
     sessionStorage.removeItem(Constants.draftPatchPayload);
     sessionStorage.removeItem(Constants.draftPublicationPatchPayload);
     sessionStorage.removeItem(Constants.draftDatasetPatchPayload);
     sessionStorage.removeItem(Constants.draftFundingPatchPayload);
+    sessionStorage.removeItem(Constants.draftCollaborationPatchPayload);
 
     this.profileData = [...currentProfileData];
     this.profileService.setCurrentProfileName(this.getName(currentProfileData));
-    this.collaborationOptionsChanged = false;
     this.clearDraftData();
+    this.collaborationComponentRef.resetInitialValue();
   }
 
   clearDraftData() {
     const itemServices = [
       this.patchService,
-      this.patchServiceCollaboration,
+      this.collaborationsService,
       this.publicationsService,
       this.datasetsService,
       this.fundingsService,
@@ -450,14 +481,6 @@ export class ProfileComponent implements OnInit {
     });
 
     this.draftService.clearData();
-  }
-
-  changeCollaborationOptions(input: any) {
-    this.collaborationOptions = input;
-  }
-
-  markCollaborationOptionsChanged() {
-    this.collaborationOptionsChanged = true;
   }
 
   showSaveSuccessfulMessage(wasSuccessful: boolean) {

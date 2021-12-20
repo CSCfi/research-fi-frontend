@@ -5,18 +5,13 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import {
-  Component,
-  Input,
-  OnInit,
-  ViewEncapsulation,
-  EventEmitter,
-  Output,
-} from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ProfileService } from '@mydata/services/profile.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { CollaborationsService } from '@mydata/services/collaborations.service';
 import { take } from 'rxjs/operators';
+import { cloneDeep } from 'lodash-es';
+import { Constants } from '@mydata/constants';
 
 @Component({
   selector: 'app-collaboration-card',
@@ -26,9 +21,8 @@ import { take } from 'rxjs/operators';
 })
 export class CollaborationCardComponent implements OnInit {
   @Input() label: string;
-  @Output() collaborationOptionsChanges = new EventEmitter<any>();
-  @Output() collaborationOptionsChanged = new EventEmitter<any>();
 
+  originalCollaborationOptions;
   collaborationOptions = [];
   showDialog: boolean;
   hasCheckedOption: boolean;
@@ -42,28 +36,62 @@ export class CollaborationCardComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private profileService: ProfileService,
+    private collaborationsService: CollaborationsService,
     private appSettingsService: AppSettingsService
   ) {}
 
   ngOnInit(): void {
-    this.reloadCollaborationChoices();
+    this.nameLocale = 'name' + this.appSettingsService.capitalizedLocale;
+
+    this.fetchCollaborationChoices();
   }
 
-  public reloadCollaborationChoices() {
-    this.nameLocale = 'name' + this.appSettingsService.capitalizedLocale;
-    this.profileService
+  private fetchCollaborationChoices() {
+    this.collaborationsService
       .getCooperationChoices()
       .pipe(take(1))
       .subscribe((response: any) => {
-        this.collaborationOptions = response?.body?.data;
-        this.collaborationOptionsChanges.emit(this.collaborationOptions);
-        this.collaborationOptions.forEach((item) => {
-          if (item?.selected) {
-            this.hasCheckedOption = true;
+        const options = response?.body?.data;
+
+        this.originalCollaborationOptions = options;
+
+        this.setInitialValue(options);
+
+        // Render selections from storage if draft available
+        const draft = sessionStorage.getItem(
+          Constants.draftCollaborationPatchPayload
+        );
+
+        const draftOptions = draft && JSON.parse(draft);
+
+        if (draftOptions) {
+          for (const [i, option] of options.entries()) {
+            const match = draftOptions.find(
+              (draftOption) => option.id === draftOption.id
+            );
+
+            if (match) {
+              options[i].selected = match.selected;
+            }
           }
-        });
+        }
+
+        this.collaborationOptions = options;
+
+        this.checkForSelection();
       });
+  }
+
+  private setInitialValue(options) {
+    this.collaborationsService.setInitialValue(cloneDeep(options));
+  }
+
+  public resetInitialValue() {
+    this.collaborationOptions = cloneDeep(
+      this.collaborationsService.initialValue
+    );
+
+    this.checkForSelection();
   }
 
   openDialog() {
@@ -75,21 +103,41 @@ export class CollaborationCardComponent implements OnInit {
     this.showDialog = false;
 
     if (action === 'save') {
-      this.optionsToggled.forEach((index) => {
-        const option = this.collaborationOptions[index];
-        option.selected = !option.selected;
+      this.optionsToggled.forEach((option) => {
+        const match = this.collaborationOptions.findIndex(
+          (item) => item.id === option.id
+        );
+
+        this.collaborationOptions[match].selected = option.selected;
       });
-      this.collaborationOptionsChanges.emit(this.collaborationOptions);
-      this.collaborationOptionsChanged.emit(null);
+
+      this.collaborationsService.addToPayload(this.optionsToggled);
     }
 
-    this.hasCheckedOption = !!this.collaborationOptions.find(
-      (option) => option.selected
-    );
+    this.checkForSelection();
     this.optionsToggled = [];
   }
 
-  toggleOption(i) {
-    this.optionsToggled.push(i);
+  toggleOption(i, event) {
+    const selectedOption = this.collaborationOptions[i];
+
+    // Check if selection differs from options saved in profile.
+    // Add to payload if new selection.
+    if (selectedOption.selected === event.checked) {
+      this.optionsToggled = this.optionsToggled.filter(
+        (option) => option.id !== selectedOption.id
+      );
+    } else {
+      this.optionsToggled.push({
+        ...selectedOption,
+        selected: event.checked,
+      });
+    }
+  }
+
+  private checkForSelection() {
+    this.hasCheckedOption = !!this.collaborationOptions.find(
+      (option) => option.selected
+    );
   }
 }

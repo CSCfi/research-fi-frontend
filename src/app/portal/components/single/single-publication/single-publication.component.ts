@@ -607,7 +607,8 @@ export class SinglePublicationComponent
 
     // Link with targeted search for keywords
     // We need to espace parentheses because these are registered in Angular router as secondary segments.
-    if (keywords?.length > 0) {
+    // Broweser check is for SSR build. Current Node version doesn't support replaceAll function
+    if (keywords?.length > 0 && this.appSettingsService.isBrowser) {
       source.keywords = keywords
         .map(
           (x) =>

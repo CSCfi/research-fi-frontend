@@ -1,3 +1,10 @@
+//  This file is part of the research.fi API service
+//
+//  Copyright 2019 Ministry of Education and Culture, Finland
+//
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
 import {
   Component,
   OnInit,
@@ -10,11 +17,9 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { ComponentPortal, DomPortalOutlet } from '@angular/cdk/portal';
-import { createDomPortalHost } from './utils';
-import { SearchService } from '../../../services/search.service';
-import { DataService } from '../../../services/data.service';
+import { createDomPortalOutlet } from './utils';
+import { SearchService } from '@portal/services/search.service';
 import { Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { PublicationsComponent } from '../publications/publications.component';
 import { FundingsComponent } from '../fundings/fundings.component';
 import { OrganizationsComponent } from '../organizations/organizations.component';
@@ -23,6 +28,10 @@ import { InfrastructuresComponent } from '../infrastructures/infrastructures.com
 import { Search } from 'src/app/portal/models/search.model';
 import { DatasetsComponent } from '../datasets/datasets.component';
 
+/*
+ * Dynamically render component for selected tab.
+ * Eg. results/publications
+ */
 @Component({
   selector: 'app-search-results',
   template: '<div #portalHost></div>',
@@ -47,12 +56,11 @@ export class SearchResultsComponent implements OnInit, OnChanges {
 
   constructor(
     private injector: Injector,
-    private searchService: SearchService,
-    private dataService: DataService
+    private searchService: SearchService
   ) {}
 
   ngOnInit() {
-    this.portalHost = createDomPortalHost(this.elRef, this.injector);
+    this.portalHost = createDomPortalOutlet(this.elRef, this.injector);
     // Dont get results with invalid tab
     if (this.currentTab) {
       this.getResultData();

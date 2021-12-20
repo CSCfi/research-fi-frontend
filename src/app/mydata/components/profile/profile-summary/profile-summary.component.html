@@ -13,11 +13,11 @@
     "
   >
     <div class="row py-2 justify-content-between">
-      <div class="col-4 align-self-center font-weight-bold">
+      <div class="col-6 col-lg-4 align-self-center font-weight-bold order-1">
         {{ group.label }}
       </div>
       <div
-        class="col align-self-center font-italic"
+        class="col align-self-center font-italic order-3 order-sm-2"
         i18n="@@youHaveNotSelectedAnyPublicData"
         *ngIf="
           (group.fields | countGroupItems: { filterSelected: true }).length ===
@@ -26,7 +26,7 @@
       >
         Et ole vielä valinnut julkisesti näytettäviä tietoja
       </div>
-      <div class="col-auto">
+      <div class="col-auto order-2 order-sm-3">
         <app-secondary-button
           [content]="
             (group.fields | countGroupItems: { filterSelected: true }).length
@@ -50,19 +50,35 @@
             [fieldTypes]="fieldTypes"
           ></app-summary-affiliations>
 
-          <app-summary-publications
+          <app-summary-portal-items
             *ngSwitchCase="groupTypes.publication"
             [data]="field"
-            [fieldTypes]="fieldTypes"
+            [fieldType]="fieldTypes.activityPublication"
+            sortField="publicationYear"
+            showMoreLabel="julkaisut"
+            i18n-showMoreLabel="@@publications"
           >
-          </app-summary-publications>
+          </app-summary-portal-items>
 
-          <app-summary-datasets
+          <app-summary-portal-items
             *ngSwitchCase="groupTypes.dataset"
             [data]="field"
-            [fieldTypes]="fieldTypes"
+            [fieldType]="fieldTypes.activityDataset"
+            sortField="year"
+            showMoreLabel="tutkimusaineistot"
+            i18n-showMoreLabel="@@datasets"
           >
-          </app-summary-datasets>
+          </app-summary-portal-items>
+
+          <app-summary-portal-items
+            *ngSwitchCase="groupTypes.funding"
+            [data]="field"
+            [fieldType]="fieldTypes.activityFunding"
+            sortField="startYear"
+            showMoreLabel="hankkeet"
+            i18n-showMoreLabel="@@fundings"
+          >
+          </app-summary-portal-items>
 
           <div class="summary-panel-wrapper" *ngSwitchDefault>
             <div
