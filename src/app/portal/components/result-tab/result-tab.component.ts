@@ -90,7 +90,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     private router: Router,
     private dataService: DataService,
     @Inject(PLATFORM_ID) private platformId: object,
-    @Inject(WINDOW) private window: Window,
+    @Inject(WINDOW) private window: Window
   ) {
     this.locale = localeId;
   }
@@ -131,7 +131,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
       (params) => {
         this.queryParams[this.selectedTab] = params;
         this.tabChangeService.tabQueryParams = this.queryParams;
-        this.queryParams = {...this.queryParams}
+        this.queryParams = { ...this.queryParams };
       }
     );
 
@@ -142,7 +142,11 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   // Update scrollWidth and offsetWidth once data is available and DOM is rendered
   // https://stackoverflow.com/questions/34947154/angular-2-viewchild-annotation-returns-undefined
   ngOnChanges() {
-    if (this.allData && !this.isHomepage) {
+    if (
+      this.allData &&
+      !this.isHomepage &&
+      isPlatformBrowser(this.platformId)
+    ) {
       this.ref.changes.subscribe((result) => {
         this.scroll = result.first;
         // Subscribe to current tab and get count
