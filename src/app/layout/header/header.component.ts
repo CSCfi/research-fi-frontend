@@ -123,7 +123,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private tabChangeService: TabChangeService,
     private privacyService: PrivacyService,
-    private appSettingsService: AppSettingsService,
+    public appSettingsService: AppSettingsService,
     private oidcSecurityService: OidcSecurityService,
     private draftService: DraftService
   ) {

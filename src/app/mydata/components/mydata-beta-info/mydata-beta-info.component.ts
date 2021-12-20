@@ -18,10 +18,13 @@ export class MydataBetaInfoComponent implements OnInit {
   @Input() showCloseButton: boolean;
 
   open = true;
+  appSettings: any;
 
   constructor(public appSettingsService: AppSettingsService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.appSettings = this.appSettingsService.myDataSettings;
+  }
 
   toggle() {
     this.open = !this.open;
