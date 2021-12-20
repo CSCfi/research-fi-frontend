@@ -104,6 +104,8 @@ export class AppSettingsService {
         url: 'https://researchfi-mydata-en.rahtiapp.fi/en',
       },
     ],
+    readMoreLinkFi: 'https://wiki.eduuni.fi/x/YwMJDQ',
+    readMoreLinkEn: 'https://wiki.eduuni.fi/x/OavfDg',
   };
 
   dialogPanelClass = 'responsive-dialog';

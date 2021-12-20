@@ -93,11 +93,15 @@
             palautetta hyödynnetään palvelun toiminnallisuuksien kehittämisessä.
           </p>
           <p>
-            <a href="https://wiki.eduuni.fi/x/YwMJDQ" target="_blank"
-              ><ng-container i18n="@@readMore">Lue lisää</ng-container
-              ><ng-container *ngIf="appSettingsService.currentLocale === 'en'">
-                (in Finnish)</ng-container
-              >... <fa-icon icon="external-link-alt"></fa-icon
+            <a
+              [href]="
+                appSettings[
+                  'readMoreLink' + appSettingsService.capitalizedLocale
+                ]
+              "
+              target="_blank"
+              ><ng-container i18n="@@readMore">Lue lisää</ng-container>...
+              <fa-icon icon="external-link-alt"></fa-icon
             ></a>
           </p>
         </ng-template>
