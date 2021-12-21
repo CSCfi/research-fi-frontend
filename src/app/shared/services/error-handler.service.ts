@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { apm } from '@elastic/apm-rum';
 import { AppSettingsService } from './app-settings.service';
+import * as Bowser from 'bowser';
 
 @Injectable({
   providedIn: 'root',
@@ -27,6 +28,13 @@ export class ErrorHandlerService implements ErrorHandler {
     setTimeout(async () => {
       error.orcid = this.appSettingsService.userOrcid;
       error.url = this.router.url;
+
+      // Log browser
+      if (this.appSettingsService.isBrowser) {
+        const bowser = Bowser.getParser(window.navigator.userAgent);
+        const browser = bowser.getBrowser;
+        error.browser = browser;
+      }
 
       console.error(error);
       this.logger.log(error);
