@@ -101,11 +101,11 @@ export class WelcomeStepperComponent implements OnInit, OnDestroy {
 
     this.checkProfileExists();
 
-    this.oidcSecurityService.userData$.pipe(take(1)).subscribe((data) => {
+    this.oidcSecurityService.userData$.pipe(take(1)).subscribe((data: any) => {
       if (data) {
         this.userData = data;
         this.profileName = data?.name;
-        this.appSettingsService.setOrcid(data.orcid);
+        this.appSettingsService.setOrcid(data?.orcid);
       }
     });
 

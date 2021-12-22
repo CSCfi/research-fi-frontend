@@ -21,7 +21,7 @@ import {
 } from '@angular/core';
 import { DOCUMENT, PlatformLocation } from '@angular/common';
 import { ResizeService } from 'src/app/shared/services/resize.service';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, of as observableOf } from 'rxjs';
 import { WINDOW } from 'src/app/shared/services/window.service';
 import { isPlatformBrowser } from '@angular/common';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
@@ -38,6 +38,7 @@ import { AppSettingsService } from 'src/app/shared/services/app-settings.service
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { Constants } from '@mydata/constants';
 import { DraftService } from '@mydata/services/draft.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
@@ -98,6 +99,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   appSettings: any;
   isAuthenticated: Observable<boolean>;
+  isAuthenticatedSubscription: Subscription;
   loggedIn: boolean;
 
   // Dialog variables
@@ -131,7 +133,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.currentLang = this.getLang(this.lang);
     this.routeEvent(router);
     this.widthFlag = false;
-    this.isAuthenticated = this.oidcSecurityService.isAuthenticated$;
+    this.oidcSecurityService
+      .checkAuth()
+      .subscribe(({ isAuthenticated, userData, accessToken, idToken, configId }) => {
+        this.isAuthenticated = observableOf(isAuthenticated);
+      });
   }
 
   /*

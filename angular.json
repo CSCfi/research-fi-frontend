@@ -102,8 +102,7 @@
                   "type": "anyComponentStyle",
                   "maximumWarning": "6kb"
                 }
-              ],
-              "tsConfig": "./tsconfig.es5.json"
+              ]
             }
           },
           "defaultConfiguration": ""
@@ -153,8 +152,9 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
+            "eslintConfig": ".eslintrc.json",
             "tsConfig": [
               "src/tsconfig.app.json",
               "src/tsconfig.spec.json",
