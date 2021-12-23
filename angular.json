@@ -35,7 +35,7 @@
               "src/silent-renew.html"
             ],
             "styles": [
-              "node_modules/@fortawesome/fontawesome-svg-core/styles.css",
+              "./node_modules/@fortawesome/fontawesome-svg-core/styles.css",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "./node_modules/material-design-icons/iconfont/material-icons.css",
@@ -102,7 +102,8 @@
                   "type": "anyComponentStyle",
                   "maximumWarning": "6kb"
                 }
-              ]
+              ],
+              "tsConfig": "./tsconfig.json"
             }
           },
           "defaultConfiguration": ""
@@ -154,13 +155,8 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "eslintConfig": ".eslintrc.json",
-            "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json",
-              "e2e/tsconfig.json"
-            ],
-            "exclude": ["**/node_modules/**"]
+            "eslintConfig": ".eslintrc.js",
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
         },
         "e2e": {
@@ -232,8 +228,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": "e2e/tsconfig.e2e.json",
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": "e2e/tsconfig.e2e.json"
           }
         }
       }

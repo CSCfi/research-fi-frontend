@@ -67,12 +67,12 @@ export class NewsPaginationComponent implements OnInit, OnChanges {
     this.maxPage = this.getHighestPage(this.responseData[0]?.total);
     // Init array to correct length, make it odd and squish if not enough pages
     // Number of pages should be odd to make centering current page easy
-    // tslint:disable-next-line: curly
-    if (!(length % 2)) length++;
+    if (!(length % 2)) {
+      length++;
+    }
     length = Math.min(length, this.maxPage);
     const res = Array(length);
     // If page is at end, count from top
-    // tslint:disable-next-line: no-bitwise
     if (this.page > this.maxPage - ((length / 2) | 0)) {
       res[length - 1] = this.maxPage;
       for (let i = length - 2; i >= 0; i--) {
@@ -80,7 +80,6 @@ export class NewsPaginationComponent implements OnInit, OnChanges {
       }
       // Otherwise count from bottom
     } else {
-      // tslint:disable-next-line: no-bitwise
       res[0] = Math.max(1, currentPage - ((length / 2) | 0));
       for (let i = 1; i < length; i++) {
         res[i] = res[i - 1] + 1;
@@ -90,7 +89,6 @@ export class NewsPaginationComponent implements OnInit, OnChanges {
   }
 
   getHighestPage(results: number, interval: number = this.pageSize) {
-    // tslint:disable-next-line: no-bitwise
     return ((results - 1) / interval + 1) | 0;
   }
 

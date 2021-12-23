@@ -78,17 +78,14 @@ export class VisualAdapter implements Adapter<Visual> {
 
     switch (tab) {
       case 'publications':
-        publicationData = this.publicationVisualAdapter.adapt(
-          item,
-          categoryIdx
-        );
+        publicationData = this.publicationVisualAdapter.adapt(item, categoryIdx);
         break;
       case 'fundings':
-        // tslint:disable-next-line: curly
-        if (!fundingAmount)
+        if (!fundingAmount){
           fundingData = this.fundingVisualAdapter.adapt(item, categoryIdx);
-        // tslint:disable-next-line: curly
-        else fundingData = this.fundingAmountAdapter.adapt(item, categoryIdx);
+        } else {
+          fundingData = this.fundingAmountAdapter.adapt(item, categoryIdx);
+        }
         break;
     }
 

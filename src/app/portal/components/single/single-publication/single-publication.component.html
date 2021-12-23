@@ -737,7 +737,7 @@
               <div class="reference">
                 <app-secondary-button
                   #citeButton
-                  (click)="openModal(citeModal)"
+                  (click)="openDialog()"
                   [content]="copyReferences"
                   [icon]="faQuoteRight"
                   [big]="true"
@@ -783,12 +783,18 @@
   </div>
 </div>
 
-<ng-template #citeModal>
-  <div class="modal-header reference-modal align-items-center">
-    <h3 class="modal-title" i18n="@@copyReferences">Kopioi viitetiedot</h3>
-    <app-close-button (click)="closeModal()"></app-close-button>
-  </div>
-  <div class="modal-body reference-modal pb-5">
+<!-- Copy references dialog -->
+<app-dialog
+  *ngIf="showDialog"
+  [template]="citeDialog"
+  [footerTemplate]="citeDialogFooter"
+  (onActionClick)="showDialog = false"
+  title="Kopioi viitetiedot"
+  i18n-title="@@copyReferences"
+></app-dialog>
+
+<ng-template #citeDialog>
+  <div class="pb-5">
     <div *ngFor="let citation of citations; let i = index" class="cite-block">
       <h4>{{ citationStyles[i].label }}:</h4>
       <span [innerHTML]="citation | cleanCitation"></span>
@@ -811,21 +817,16 @@
               i18n-aria-label="@@loading"
               aria-label="Ladataan"
             ></mat-spinner>
-            <!-- <h2 class="error" *ngIf="errorTimeout">Yhteysongelma. Dataa ei saatavilla.</h2> -->
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div
-    class="
-      modal-footer
-      reference-modal
-      align-items-center
-      justify-content-center
-    "
-  >
-    <p>
+</ng-template>
+
+<ng-template #citeDialogFooter>
+  <div class="row">
+    <p class="col text-center">
       Automaattisesti luotujen viitteiden tiedoissa voi esiintyä virheitä.
       Tarkista aina viitteen tiedot.
     </p>

@@ -120,8 +120,9 @@ export class TreemapComponent implements OnInit, OnChanges {
         for (const item of hierarchy) {
           if (d[item]) {
             d['missing_' + item].key = 'Ei tietoa';
-            // tslint:disable-next-line: curly
-            if (!d.pushed) d[item].buckets.push(d['missing_' + item]);
+            if (!d.pushed) {
+              d[item].buckets.push(d['missing_' + item]);
+            }
             d.pushed = true;
             return d[item].buckets;
           }

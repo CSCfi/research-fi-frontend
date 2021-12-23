@@ -3029,8 +3029,8 @@
         <target>Identified topics</target>
       </trans-unit>
       <trans-unit id="identifiedTopicsTooltip">
-        <source>Koneoppimisen avulla hankkeiden tiedoista tutkimustietovarannossa muodostettu aiheluokittelu. Hanke liittyy aiheeseen, jota se todennäköisimmin käsittelee.</source>
-        <target>Comprehensive topic categorisation, spanning all projects in the Hub, is formed with the help of machine learning. Then each project is assigned the topic it most likely addresses.</target>
+        <source>Koneoppimisen avulla hankkeiden tiedoista tutkimustietovarannossa muodostettu aiheluokittelu. Hanke liittyy aiheeseen, jota se todennäköisimmin käsittelee. Kaikista hankkeista ei ole riittävästi tietoa aiheen päättelyyn.</source>
+        <target>Comprehensive topic categorisation, spanning all projects in the Hub, is formed with the help of machine learning. Then each project is assigned the topic it most likely addresses. There is not enough information on all projects to identify the topic.</target>
       </trans-unit>
       <trans-unit id="fieldOfScienceTooltip">
         <source>Tilastokeskuksen tieteenalaluokitus. Yhteen hankkeeseen voi liittyä useita tieteenaloja. Kaikki rahoittajat eivät käytä tieteenalaluokitusta.</source>
@@ -5181,9 +5181,9 @@
         <target>At this point, we will not yet publish your profile.</target>
       </trans-unit>
       <trans-unit id="welcomeStep3_4">
-        <source>Voit hallinnoida tietojesi näyttämistä seuraavissa
-                    vaiheissa.</source>
-        <target>You can manage the display of your information in the following steps.</target>
+        <source>Voit hallinnoida tietojesi näyttämistä seuraavassa
+                    vaiheessa.</source>
+        <target>You can manage the display of your information in the following step.</target>
       </trans-unit>
       <trans-unit id="importingDataWait">
         <source>Tietoja tuodaan, odota hetki...</source>

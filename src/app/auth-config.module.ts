@@ -7,11 +7,7 @@
 
 import { HttpClient } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
-import {
-  AuthModule,
-  OidcConfigService,
-  OidcSecurityService,
-} from 'angular-auth-oidc-client';
+import { AuthModule, OidcConfigService, OidcSecurityService } from 'angular-auth-oidc-client';
 import { map, switchMap } from 'rxjs/operators';
 
 export function configureAuth(
@@ -21,11 +17,11 @@ export function configureAuth(
   const setupAction$ = httpClient
     .get<any>(`assets/config/auth_config.json`)
     .pipe(
-      map((authConfig) => {
-        return authConfig;
-      }),
-      switchMap((config) => oidcConfigService.withConfig(config))
-    );
+    map((authConfig) => {
+      return authConfig;
+    }),
+    switchMap((config) => oidcConfigService.withConfig(config)),
+  );
 
   return () => setupAction$.toPromise();
 }

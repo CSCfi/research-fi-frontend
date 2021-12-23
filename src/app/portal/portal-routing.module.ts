@@ -14,7 +14,6 @@ import { SingleFundingComponent } from './components/single/single-funding/singl
 import { SingleOrganizationComponent } from './components/single/single-organization/single-organization.component';
 import { VisualisationComponent } from './components/visualisation/visualisation.component';
 import { NewsComponent } from './components/news/news/news.component';
-// tslint:disable-next-line: max-line-length
 import { ResearchInnovationSystemComponent } from './components/science-politics/research-innovation-system/research-innovation-system.component';
 import { FiguresComponent } from './components/science-politics/figures/figures.component';
 import { ExternalLinksComponent } from './components/science-politics/external-links/external-links.component';

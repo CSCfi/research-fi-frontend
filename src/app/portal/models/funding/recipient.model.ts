@@ -221,7 +221,6 @@ export class RecipientAdapter implements Adapter<Recipient> {
       recipientObj?.consortiumOrganizationId,
       recipientObj?.shareOfFundingInEur,
       Math.round(item.amount_in_EUR),
-      // tslint:disable-next-line: max-line-length
       (item.fundingContactPersonFirstNames || '') +
         ' ' +
         (item.fundingContactPersonLastName || ''), // Add "existence check" because of string operation

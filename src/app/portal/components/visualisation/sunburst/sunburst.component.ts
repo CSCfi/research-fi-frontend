@@ -107,11 +107,7 @@ export class SunburstComponent implements OnInit, OnChanges {
         for (const item of hierarchy) {
           if (d[item.resultField]) {
             d['missing_' + item.resultField].key = 'Ei tietoa';
-            // tslint:disable-next-line
-            if (!d.pushed)
-              d[item.resultField].buckets.push(
-                d['missing_' + item.resultField]
-              );
+            if (!d.pushed) d[item.resultField].buckets.push(d['missing_' + item.resultField]);
             d.pushed = true;
             return d[item.resultField].buckets;
           }
