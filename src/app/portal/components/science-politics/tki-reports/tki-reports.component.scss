@@ -1,0 +1,81 @@
+h2 {
+  font-size: 0.9rem;
+  line-height: 2rem;
+}
+
+.search-field {
+  height: 40px;
+  z-index: 2;
+}
+
+.search-field-width {
+  max-width: 300px;
+}
+
+.input {
+  box-shadow: #4546b9 0px 0px 0px 2px;
+  border-radius: 4px;
+  border: none;
+}
+
+.tki-search-inputs-row {
+  .search-button {
+    margin-left: 10px;
+    margin-top: -2px;
+    z-index: 2;
+  }
+  .reset-search {
+    margin: 9px 15px 0px -24px;
+    z-index: 2;
+    cursor: pointer;
+  }
+}
+
+
+.tki-search-results {
+  background: #fff scroll;
+  box-shadow: rgb(69, 70, 185) 0px 0px 0px 2px;
+  border-radius: 4px;
+  margin: -28px 0px 0px 9px;
+  min-width: 296px;
+  max-width: 600px;
+  z-index: 2;
+  position: absolute;
+  top: 40px;
+
+  ul {
+    margin: 16px 0px 0px 0px;
+    list-style: none;
+
+    li {
+      cursor: pointer;
+      padding: 15px;
+      margin: 0px -0px 0px -15px;
+
+      &:hover {
+        background: #e2e2f2;
+      }
+    }
+  }
+}
+
+.all-publications-link {
+  color: rgb(51, 102, 204);
+  font-weight: 700;
+}
+
+.modal-overlay {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 88px;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100vh;
+}
+
+hr {
+  margin-top: 6rem;
+  border: 0;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+}

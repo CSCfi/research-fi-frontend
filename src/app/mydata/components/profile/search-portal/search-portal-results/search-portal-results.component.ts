@@ -27,6 +27,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./search-portal-results.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
+
+
 export class SearchPortalResultsComponent
   implements OnInit, OnChanges, OnDestroy
 {

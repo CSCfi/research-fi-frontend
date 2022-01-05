@@ -14,12 +14,19 @@ import { EventManager } from '@angular/platform-browser';
   providedIn: 'root',
 })
 export class ResizeService {
-  public onResize$ = new EventEmitter<{ width: number; height: number }>();
+  public onResize$ = new EventEmitter<{
+    width: number;
+    height: number;
+    outerWidth: number;
+    outerHeight;
+  }>();
 
   private getDims = (e: any): void => {
     this.onResize$.emit({
       width: e.target.innerWidth,
       height: e.target.innerHeight,
+      outerHeight: e.target.outerHeight,
+      outerWidth: e.target.outerWidth,
     });
   };
 

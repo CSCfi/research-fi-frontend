@@ -4,53 +4,118 @@
 #
 # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 # :license: MIT -->
-
+<span *ngIf="modalOverlayVisible && value" class="modal-overlay" (click)="modalOverlayClick()"></span>
 <app-banner-divider></app-banner-divider>
 <main id="main-content">
   <div class="wrapper">
-    <div class="row pt-4">
-      <div class="col text-center mt-3">
-        <h1 i18n="@@externalLinksHeader">Selvityksiä ja raportteja Suomen tutkimus- ja innovaatiojärjestelmästä</h1>
+    <div class="row">
+      <div class="wrapper">
+        <div class="row pt-4">
+          <div class="col text-center mt-3">
+            <h1 i18n="@@externalLinksHeader">Selvityksiä ja raportteja Suomen tutkimus- ja innovaatiojärjestelmästä</h1>
+          </div>
+        </div>
       </div>
+      <br>
+      <br>
     </div>
-      <app-divider [headingText]="'section.title'"></app-divider>
-      <div class="row">
+
+    <br>
+    <br>
+    <div class="row pt-4 tki-search-inputs-row">
+      <div class="search-input d-flex col-12 col-md-12 ml-4 input search-field-width search-field">
+        <input matInput type="text" [(ngModel)]="value"
+               class="col-10 col-sm-11 pr-0"
+               #searchInput
+               mat-input
+               type="text"
+               i18n-title="@@searchTooltipTki"
+               title="Voit hakea selvityksiä ja raportteja Suomen tutkimus- ja innovaatiojärjestelmästä"
+               i18n-placeholder="@@searchPlaceholderTki"
+               placeholder="Esim. julkaisu, julkaisija, asiasana"
+               id="searchInput"
+               autocomplete="off"
+               tabindex="0"
+               (focus)="onFocus()"
+               (keyup)="onKeyup()"
+               (keydown)="onKeydown($event);
+        disableKeys($event)"
+        />
       </div>
-    <div class="search-input form-control row d-flex">
-      <input
-        class="col-10 col-sm-11 pr-0"
-        #searchInput
-        [formControl]="queryField"
-        mat-input
-        type="text"
-        i18n-title="@@searchTooltip"
-        title="Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa."
-        i18n-placeholder="@@searchPlaceholder"
-        placeholder="Esim. julkaisu, tieteenala, asiasana"
-        id="searchInput"
-        autocomplete="off"
+      <span
+        class="reset-search"
+        (click)="resetSearch()"
+        (keyup.enter)="resetSearch()"
         tabindex="0"
-        value="{{ searchService.currentInput | async }}"
-        (focus)="onFocus()"
-        (keyup)="setCompletionWidth()"
-        (keydown)="onKeydown($event); disableKeys($event)"
-      />
-      <!-- Reset button -->
-      <div
-        class="col-2 col-sm-1 reset align-self-center text-center p-0"
+        i18n-title="@@resetSearchTooltip"
+        title="Tyhjennä haku"
       >
-                <span
-                  #resetSearchElem
-                  id="resetSearch"
-                  *ngIf="searchInput.value !== ''"
-                  (click)="resetSearch()"
-                  tabindex="0"
-                  i18n-title="@@resetSearchTooltip"
-                  title="Tyhjennä haku"
-                >
                   <i class="fa fa-times"></i>
                 </span>
+      <app-primary-action-button
+        class="search-button"
+        content="Hae"
+        i18n-content="Search@@search"
+        [icon]="'faSearch'"
+        (click)="doSearch(false)"
+        (keyup.enter)="doSearch(false)"
+        type="submit"
+      ></app-primary-action-button>
+
+      <div *ngIf="modalOverlayVisible && value" class="row no-gutters d-flex col-12 col-md-12">
+        <div class="tki-search-results auto-suggest  search-field-width">
+          <ul>
+            <h2 *ngIf="matchedAuthors.size > 0">Authors</h2>
+
+            <ng-container *ngFor="let row of matchedAuthors.entries(); let i = index">
+              <p [innerHtml]="testiStringi | highlight: value"
+              ></p>
+              <li (click)="modalSearchClick(row[1])"><p [innerHtml]="row[0] | highlight: value"
+              ></p></li>
+            </ng-container>
+            <h2 *ngIf="matchedNames.size > 0">Publication names</h2>
+            <ng-container *ngFor="let row of matchedNames; let i = index">
+              <li [innerHTML]="row[0] | sanitizeHtml" (click)="modalSearchClick(row[1])"></li>
+            </ng-container>
+            <h2 *ngIf="matchedKeywords.size > 0">Keywords</h2>
+            <ng-container *ngFor="let row of matchedKeywords; let i = index">
+              <li [innerHTML]="row[0] | sanitizeHtml" (click)="modalSearchClick(row[1])"></li>
+            </ng-container>
+            <p
+              *ngIf="!matchedNames.size > 0 && !matchedAuthors.size > 0 && !matchedYears.size && !matchedKeywords.size > 0">
+              No results</p>
+          </ul>
+          <br>
+        </div>
       </div>
+    </div>
+
+    <mat-table [dataSource]="tableData">
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+        <mat-cell *matCellDef="let row"><a href="{{row.link}}" target="_blank">{{row.name}}</a></mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="year">
+        <mat-header-cell *matHeaderCellDef>Year</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.year}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="authors">
+        <mat-header-cell *matHeaderCellDef>Author</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.authors}}</mat-cell>
+      </ng-container>
+
+
+      <ng-container matColumnDef="keywords">
+        <mat-header-cell *matHeaderCellDef>Keywords</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.keywords}} </mat-cell>
+      </ng-container>
+
+      <!-- Header and Row Declarations -->
+      <mat-header-row *matHeaderRowDef="['name', 'year', 'authors', 'keywords']"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: ['name', 'year', 'authors', 'keywords']"></mat-row>
+    </mat-table>
   </div>
-  </div>
+
 </main>

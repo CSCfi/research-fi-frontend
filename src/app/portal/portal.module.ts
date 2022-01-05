@@ -159,7 +159,8 @@ import { HandleLinkDisplayPipe } from './pipes/handle-link-display.pipe';
 import { IsUrlPipe } from './pipes/is-url.pipe';
 import { PublicationLinksComponent } from './components/single/single-publication/publication-links/publication-links.component';
 import { DatasetAuthorComponent } from './components/single/single-dataset/dataset-author/dataset-author.component';
-import {TkiReportsComponent} from "@portal/components/science-politics/tki-reports/tki-reports.component";
+import { TkiReportsComponent } from '@portal/components/science-politics/tki-reports/tki-reports.component';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -282,6 +283,7 @@ import {TkiReportsComponent} from "@portal/components/science-politics/tki-repor
     SharedModule,
     A11yModule,
     TooltipModule.forRoot(),
+    MatTableModule
   ],
   exports: [DatasetAuthorComponent],
   providers: [
