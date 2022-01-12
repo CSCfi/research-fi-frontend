@@ -1,4 +1,5 @@
 h2 {
+  color: #4d4d4d;
   font-size: 0.9rem;
   line-height: 2rem;
 }
@@ -6,9 +7,6 @@ h2 {
 .search-field {
   height: 40px;
   z-index: 2;
-}
-
-.search-field-width {
   max-width: 300px;
 }
 
@@ -20,8 +18,9 @@ h2 {
 
 .tki-search-inputs-row {
   .search-button {
-    margin-left: 10px;
     margin-top: -2px;
+    margin-left: 10px;
+    margin-right: 25px;
     z-index: 2;
   }
   .reset-search {
@@ -31,17 +30,21 @@ h2 {
   }
 }
 
-
-.tki-search-results {
+.tki-search-results-modal {
   background: #fff scroll;
   box-shadow: rgb(69, 70, 185) 0px 0px 0px 2px;
   border-radius: 4px;
-  margin: -28px 0px 0px 9px;
-  min-width: 296px;
+  margin: -28px 25px 0px 9px;
+  min-width: 250px;
   max-width: 600px;
   z-index: 2;
   position: absolute;
   top: 40px;
+
+  mark {
+    font-weight: 900;
+    background-color: initial;
+  }
 
   ul {
     margin: 16px 0px 0px 0px;
@@ -57,11 +60,25 @@ h2 {
       }
     }
   }
+  hr:last-child {
+    display: none;
+  }
 }
 
 .all-publications-link {
   color: rgb(51, 102, 204);
   font-weight: 700;
+}
+
+.tki-search-result-mobile {
+  hr {
+    margin-top: 35px;
+    margin-bottom: 20px;
+  }
+  a {
+    color: #4546b9;
+    font-weight: 500;
+  }
 }
 
 .modal-overlay {
@@ -74,8 +91,17 @@ h2 {
   height: 100vh;
 }
 
-hr {
-  margin-top: 6rem;
-  border: 0;
-  border: 2px solid rgba(0, 0, 0, 0.2);
+mat-header-cell {
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: #4d4d4d;
+}
+
+mat-cell {
+  font-size: 0.95rem;
+  margin: 8px 0px;
+  a {
+    color: #4546b9;
+    font-weight: 500;
+  }
 }

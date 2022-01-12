@@ -1,5 +1,5 @@
 [
-  {"id": 0,
+  {"id": 222,
     "authors": [
       "OKM"
     ],
@@ -7,85 +7,82 @@
       "Tohtorit yhteiskuntaa uudistamassa – monipuolistuvat tutkijanurat : Tutkijanurakysymyksiä käsittelevän työryhmän loppuraportti"
     ],
     "link": "Linkki",
-    "year": [
-      "2021"
-    ],
+    "year": "2021"
+    ,
     "keywords": [
       "tiede, koulutus, tutkijakoulutus, kehittämistoiminta, innovaatiotoiminta, tutkimus, työelämä, tutkijanura"
     ]
   },
-  {"id": 1,
+  {"id": 153,
     "authors": ["Kimmo Halme, Vesa Salminen, Juha Kettinen, Henri Lahtinen,Arto Smolander, Jan Ljungman, Daniel Holmberg, Anete Vingre, Dominik Beckers, Gabriel Khalaf, Business Finlandin arviointi"],
     "name": [
       "Business Finlandin arviointi"
     ],
     "link": "Linkki",
-    "year": [
-      "2021"
-    ],
+    "year": "2021",
     "keywords": ["ministeriö, työ- ja elinkeinoministeriö, hallinto, innovaatiopolitiikka, viennin edistäminen,investoinnit, matkailun edistäminen, tulosohjaus, arviointi, Business Finland, Business Finland -uudistus"]
   },
-  {"id": 2,
+  {"id": 232,
     "authors": ["Ali-Yrkkö, Jyrki; Deschryvere, Matthias; Halme, Kimmo; Järvelin, Anne-Mari; Lehenkari, Janne; Pajarinen, Mika; Piirainen, Kalle; Suominen, Arho Yritysten t&k-toiminta ja t&k-investointien kasvattamisen edellytykset"],
     "name": ["Yritysten t&k-toiminta ja t&k-investointien kasvattamisen edellytykset"],
     "link": "Linkki",
-    "year": ["2021"],
+    "year": "2021",
     "keywords": ["tutkimus, tutkimustoiminta, tuotekehitys, t&k, innovaatiopolitiikka, yritys"]
   },
-  {"id": 3,
+  {"id": 3431,
     "authors": ["Teknologianeuvottelukunta"],
     "name": ["Suomen teknologiapolitiikka 2020-luvulla : Teknologialla ja tiedolla maailman kärkeen"],
     "link": "Linkki",
-    "year": ["2021"],
+    "year": "2021",
     "keywords": ["teknologia, digitalisaatio, hyvinvointi, kilpailukyky, osaaminen, tuottavuus, yritykset, elinkeinot, vihreä siirtymä, julkisen hallinnon ICT"]
   },
-  {"id": 4,
+  {"id": 442,
     "authors": ["Koski, Heli; Fornano, Paolo"],
     "name": ["Tarvitaanko Suomessa t&k-verokannustimia?"],
     "link": "Linkki",
-    "year": ["2021"],
+    "year": "2021",
     "keywords": ["T&k-verokannustimet, T&k-investoinnit, Innovaatiopolitiikka, Patentit"]
   },
-  {"id": 5,
+  {"id": 1542,
     "authors": ["Mattila, Juri; Pajarinen, Mika; Seppälä, Timo; Mäkäräinen, Kalle; Neuvonen, Vertti"],
     "name": ["Digibarometri"],
     "link": "Linkki",
-    "year": ["2021"],
+    "year": "2021",
     "keywords": [""]
   },
-  {"id": 6,
+  {"id": 653,
     "authors": ["Sirén, Hannu"],
     "name": ["Yhteistyöllä osaamista, aluekehitystä ja kansainvälisyyttä"],
     "link": "Linkki",
-    "year": ["2021"],
+    "year": "2021",
     "keywords": [""]
   },
-  {"id": 7,
+  {"id": 7111,
     "authors": ["Kestävän kasvun työryhmä"],
     "name": ["Kestävä talouskasvu ja hyvinvointimme tulevaisuus"],
     "link": "Linkki",
-    "year": ["2021"],
+    "year": "2021",
     "keywords": ["yritykset, elinkeinot, tuottavuus, talouspolitiikka, innovaatiotoiminta, talouskasvu"]
   },
-  {"id": 8,
+  {"id": 8111,
     "authors": ["TSV"],
     "name": ["Taipuu vaan ei taitu – Koronapandemiasta Suomen kriisinkestävyyden vahvistamiseen"],
     "link": "Linkki",
-    "year": ["2021"],
+    "year": "2021",
     "keywords": [""]
   },
-  {"id": 9,
+  {"id": 294,
     "authors": ["Arene"],
     "name": ["Vaikuttava ammattikorkeakoulu – Ammattikorkeakoulujen TKI-toiminta 2020"],
     "link": "Linkki",
-    "year": ["2021"],
+    "year": "2021",
     "keywords": [""]
   },
-  {"id": 10,
+  {"id": 111111,
     "authors": ["Euroopan komissio"],
     "name": ["European Innovation Scoreboard: Finland"],
     "link": "Linkki",
-    "year": ["2021"],
+    "year": "2021",
     "keywords": [""]
   }
 ]

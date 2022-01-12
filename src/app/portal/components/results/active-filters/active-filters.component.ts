@@ -691,9 +691,9 @@ export class ActiveFiltersComponent
               }
 
               // Datasets
-              if (val.category === 'dataSource' && source.dataSource) {
+              if (val.category === 'formattedTableData' && source.formattedTableData) {
                 setTimeout((t) => {
-                  const result = source.dataSource.dataSources.buckets.find(
+                  const result = source.formattedTableData.dataSources.buckets.find(
                     (key) => key.key === val.value
                   );
                   const foundIndex = this.activeFilters.findIndex(

@@ -161,6 +161,7 @@ import { PublicationLinksComponent } from './components/single/single-publicatio
 import { DatasetAuthorComponent } from './components/single/single-dataset/dataset-author/dataset-author.component';
 import { TkiReportsComponent } from '@portal/components/science-politics/tki-reports/tki-reports.component';
 import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -283,7 +284,8 @@ import { MatTableModule } from '@angular/material/table';
     SharedModule,
     A11yModule,
     TooltipModule.forRoot(),
-    MatTableModule
+    MatTableModule,
+    MatSortModule
   ],
   exports: [DatasetAuthorComponent],
   providers: [

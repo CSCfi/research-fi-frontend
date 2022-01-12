@@ -15,6 +15,7 @@ export class HighlightSearch implements PipeTransform {
   constructor(private sanitizer: DomSanitizer) {}
 
   transform(value: any, args: any): any {
+    console.log('pipe transform called', value, args);
     // Convert value to string to highlight numbers also
     value = value ? value.toString() : value;
 

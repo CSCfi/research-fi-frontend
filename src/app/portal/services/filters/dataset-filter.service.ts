@@ -96,8 +96,8 @@ export class DatasetFilterService {
     const source = data.aggregations;
     source.year.buckets = this.mapYear(source.year.years.buckets);
     source.organization = this.organization(source.organization);
-    source.dataSource.buckets = this.dataSource(
-      source.dataSource.dataSources.buckets
+    source.formattedTableData.buckets = this.dataSource(
+      source.formattedTableData.dataSources.buckets
     );
     source.lang.buckets = this.lang(source.lang.langs.buckets);
 

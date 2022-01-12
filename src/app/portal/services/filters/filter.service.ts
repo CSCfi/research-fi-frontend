@@ -248,7 +248,7 @@ export class FilterService {
         .filter((x) => x)
         .sort(),
       // Datasets
-      dataSource: [source.dataSource]
+      dataSource: [source.formattedTableData]
         .flat()
         .filter((x) => x)
         .sort(),
@@ -343,7 +343,7 @@ export class FilterService {
     );
     // Datasets
     this.dataSourceFilter = this.basicFilter(
-      filter.dataSource,
+      filter.formattedTableData,
       'dataCatalog.name' + this.localeC + '.keyword'
     );
     this.accessTypeFilter = this.basicFilter(
