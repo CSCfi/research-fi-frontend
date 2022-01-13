@@ -28,7 +28,11 @@ h2 {
     z-index: 2;
     cursor: pointer;
   }
+  button {
+    min-width: 121px;
+  }
 }
+
 
 .tki-search-results-modal {
   background: #fff scroll;
@@ -65,12 +69,17 @@ h2 {
   }
 }
 
+.tki-search-results-mobile mark {
+  font-weight: 900;
+  background-color: initial;
+}
+
 .all-publications-link {
   color: rgb(51, 102, 204);
   font-weight: 700;
 }
 
-.tki-search-result-mobile {
+.tki-search-results-mobile {
   hr {
     margin-top: 35px;
     margin-bottom: 20px;
@@ -82,7 +91,7 @@ h2 {
 }
 
 .modal-overlay {
-  position: fixed;
+  position: absolute;
   z-index: 1;
   left: 0;
   top: 88px;

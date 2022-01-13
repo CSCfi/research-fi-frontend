@@ -8,6 +8,7 @@ import {
   PLATFORM_ID,
   ViewChild
 } from '@angular/core';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import dummyData from 'src/app/portal/components/science-politics/tki-reports/tki-dummydata.json';
 import { DOCUMENT } from '@angular/common';
 import { UtilityService } from '@shared/services/utility.service';
@@ -15,6 +16,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
+import { ActiveDescendantKeyManager, InteractivityChecker } from '@angular/cdk/a11y';
+import { ListItemComponent } from '@portal/components/search-bar/list-item/list-item.component';
 
 export interface Report {
   id: number;
@@ -28,17 +31,17 @@ export interface Report {
 @Component({
   selector: 'app-tki-reports',
   templateUrl: './tki-reports.component.html',
-  styleUrls: ['./tki-reports.component.scss'],
+  styleUrls: ['./tki-reports.component.scss']
 })
 export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
-  @Inject(DOCUMENT) private document: Document;
-  @Inject(LOCALE_ID) protected localeId;
-  @Inject(PLATFORM_ID) private platformId: object;
+
   @ViewChild('searchInput') search: ElementRef;
 
   public utilityService: UtilityService;
   private isMobileSubscription: Subscription;
+
   filteredSourceData: Report[] = dummyData;
+  resultDataMobile: Report[] = dummyData;
   formattedTableData = new MatTableDataSource(this.filteredSourceData);
 
   displayedColumns = ['name', 'year', 'authors', 'keywords'];
@@ -54,8 +57,15 @@ export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
   matchedKeywords = new Set();
   matchedYears = new Set();
   filteredArticleIds = new Set();
+  faSearch = faSearch;
 
-  constructor(private appSettingsService: AppSettingsService) {}
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    @Inject(LOCALE_ID) protected localeId,
+    @Inject(PLATFORM_ID) private platformId: object,
+    private appSettingsService: AppSettingsService,
+    private interactivityChecker: InteractivityChecker,
+  ) {}
 
   ngOnInit() {
     this.isMobileSubscription = this.appSettingsService.mobileStatus.subscribe((status) => {
@@ -125,6 +135,7 @@ export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
     // This is called when search button is pressed. Table data is filtered only after modal is closed.
     if (!openSearchModal) {
       this.formattedTableData.data = this.filteredSourceData;
+      this.resultDataMobile = [...this.filteredSourceData];
       this.search.nativeElement.blur();
     }
   }
@@ -134,6 +145,7 @@ export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.filteredSourceData = this.filteredSourceData.filter((item) => {
       return item.id === atricleId;
     });
+    this.resultDataMobile = [...this.filteredSourceData];
     this.formattedTableData.data = this.filteredSourceData;
     this.modalOverlayVisible = false;
   }
@@ -143,7 +155,7 @@ export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.noSearchesDone) {
       this.value = '';
     }
-    this.modalOverlayHeight = this.document?.body.scrollHeight - this.HEADER_HEIGHT;
+    this.modalOverlayHeight = this.document.body.scrollHeight - this.HEADER_HEIGHT;
   }
 
   modalOverlayClick() {
