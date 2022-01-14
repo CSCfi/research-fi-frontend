@@ -38,7 +38,7 @@
                autocomplete="off"
                tabindex="0"
                (focus)="onFocus()"
-               (keyup)="onKeyup()"
+               (keyup)="onKeydown($event); ($event)"
                (keyup.enter)="doFiltering(false)"
         />
       </div>
@@ -66,27 +66,40 @@
 
     <div *ngIf="modalOverlayVisible && value" class="row no-gutters d-flex col-12 col-md-12">
       <div class="tki-search-results-modal auto-suggest search-field-width">
+
+
+        <h2 *ngIf="matchedNames.size > 0">Nimi</h2>
+          <ul>
+            <app-list-item *ngFor="let row of matchedNames; let index = index" class="list-group-item" [doc]="row[0]" [id]="row[1]">
+              <p (click)="modalSearchRowClick(row[1])">{{row[0]}}</p>
+            </app-list-item>
+          </ul>
+        <hr *ngIf="matchedNames.size > 0">
+
+        <h2 *ngIf="matchedAuthors.size > 0">Tekijät</h2>
         <ul>
-          <h2 *ngIf="matchedNames.size > 0">Nimi</h2>
-          <ng-container *ngFor="let row of matchedNames">
-            <li [innerHTML]="row[0] | highlight: value" (click)="modalSearchRowClick(row[1])" tabindex="0"
-                (keyup.enter)="modalSearchRowClick(row[1])"></li>
-          </ng-container>
-          <hr *ngIf="matchedNames.size > 0">
+          <app-list-item *ngFor="let row of matchedAuthors; let index = index" class="list-group-item" [doc]="row[0]" [id]="row[1]">
+            <p (click)="modalSearchRowClick(row[1])">{{row[0]}}</p>
+          </app-list-item>
+        </ul>
+        <hr *ngIf="matchedAuthors.size > 0">
 
-          <h2 *ngIf="matchedAuthors.size > 0">Tekijät</h2>
-          <ng-container *ngFor="let row of matchedAuthors">
-            <li [innerHTML]="row[0] | highlight: value" (click)="modalSearchRowClick(row[1])" tabindex="0"
-                (keyup.enter)="modalSearchRowClick(row[1])"></li>
-          </ng-container>
-          <hr *ngIf="matchedAuthors.size > 0">
+        <h2 *ngIf="matchedKeywords.size > 0">Asiasanat</h2>
+        <ul>
+          <app-list-item *ngFor="let row of matchedKeywords; let index = index" class="list-group-item" [doc]="row[0]" [id]="row[1]">
+            <p (click)="modalSearchRowClick(row[1])">{{row[0]}}</p>
+          </app-list-item>
+        </ul>
+        <hr *ngIf="matchedKeywords.size > 0">
 
-          <h2 *ngIf="matchedKeywords.size > 0">Asiasanat</h2>
-          <ng-container *ngFor="let row of matchedKeywords">
-            <li [innerHTML]="row[0] | highlight: value" (click)="modalSearchRowClick(row[1])" tabindex="0"
-                (keyup.enter)="modalSearchRowClick(row[1])"></li>
-          </ng-container>
-          <hr *ngIf="matchedKeywords.size > 0">
+        <h2 *ngIf="matchedYears.size > 0">Vuosi</h2>
+        <ul>
+          <app-list-item *ngFor="let row of matchedYears; let index = index" class="list-group-item" [doc]="row[0]" [id]="row[1]">
+            <p (click)="modalSearchRowClick(row[1])">{{row[0]}}</p>
+          </app-list-item>
+        </ul>
+        <hr *ngIf="matchedKeywords.size > 0">
+        <ul>
 
           <h2 *ngIf="matchedYears.size > 0">Vuosi</h2>
           <ng-container *ngFor="let row of matchedYears">

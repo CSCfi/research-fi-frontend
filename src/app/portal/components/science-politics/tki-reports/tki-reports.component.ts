@@ -5,8 +5,8 @@ import {
   Inject,
   LOCALE_ID, OnDestroy,
   OnInit,
-  PLATFORM_ID,
-  ViewChild
+  PLATFORM_ID, QueryList,
+  ViewChild, ViewChildren
 } from '@angular/core';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import dummyData from 'src/app/portal/components/science-politics/tki-reports/tki-dummydata.json';
@@ -18,6 +18,8 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
 import { ActiveDescendantKeyManager, InteractivityChecker } from '@angular/cdk/a11y';
 import { ListItemComponent } from '@portal/components/search-bar/list-item/list-item.component';
+import { _isNumberValue } from '@angular/cdk/coercion';
+import { arc } from 'd3-shape';
 
 export interface Report {
   id: number;
@@ -36,9 +38,11 @@ export interface Report {
 export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('searchInput') search: ElementRef;
+  @ViewChildren(ListItemComponent) items: QueryList<any>;
 
   public utilityService: UtilityService;
   private isMobileSubscription: Subscription;
+  private keyManager: ActiveDescendantKeyManager<ListItemComponent>;
 
   filteredSourceData: Report[] = dummyData;
   resultDataMobile: Report[] = dummyData;
@@ -64,8 +68,9 @@ export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
     @Inject(LOCALE_ID) protected localeId,
     @Inject(PLATFORM_ID) private platformId: object,
     private appSettingsService: AppSettingsService,
-    private interactivityChecker: InteractivityChecker,
-  ) {}
+    private interactivityChecker: InteractivityChecker
+  ) {
+  }
 
   ngOnInit() {
     this.isMobileSubscription = this.appSettingsService.mobileStatus.subscribe((status) => {
@@ -78,6 +83,8 @@ export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     this.formattedTableData.sort = this.sort;
+    this.keyManager = new ActiveDescendantKeyManager(this.items).withWrap().withTypeAhead();
+    this.keyManager.setFirstItemActive();
   }
 
   @HostListener('document:keyup', ['$event'])
@@ -87,8 +94,8 @@ export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  doFiltering(openSearchModal: boolean) {
-    this.modalOverlayVisible = openSearchModal;
+  doFiltering(keepModalOpen: boolean) {
+    this.modalOverlayVisible = keepModalOpen;
     this.noSearchesDone = false;
     const regEx = new RegExp(this.value, 'i');
     let ind = 0;
@@ -133,21 +140,24 @@ export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     // This is called when search button is pressed. Table data is filtered only after modal is closed.
-    if (!openSearchModal) {
+    if (!keepModalOpen) {
       this.formattedTableData.data = this.filteredSourceData;
       this.resultDataMobile = [...this.filteredSourceData];
       this.search.nativeElement.blur();
     }
   }
 
-  modalSearchRowClick(atricleId: number) {
+  modalSearchRowClick(articleId: number) {
+    console.log('search row click', articleId);
     this.filteredSourceData = [...dummyData];
     this.filteredSourceData = this.filteredSourceData.filter((item) => {
-      return item.id === atricleId;
+      return item.id === articleId;
     });
     this.resultDataMobile = [...this.filteredSourceData];
     this.formattedTableData.data = this.filteredSourceData;
     this.modalOverlayVisible = false;
+    this.keyManager.setFirstItemActive();
+    //this.keyManager.setActiveItem(2);
   }
 
   onFocus() {
@@ -167,8 +177,43 @@ export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.doFiltering(false);
   }
 
-  onKeyup() {
-    this.doFiltering(true);
+  // Keycodes
+  onKeydown(event) {
+    if (event.keyCode !== 78) {
+      this.keyManager.onKeydown(event);
+    }
+    switch (event) {
+      // Disable up & down arrows on input. Normally moves caret on start or end of input
+      case event.keyCode === 40 || event.keyCode === 38:
+        this.modalOverlayVisible = false;
+        break;
+      // Hide modal with esc key
+      case event.keyCode === 27:
+        this.modalOverlayVisible = false;
+        break;
+      // Handle enter
+      case event.keyCode === 13:
+        if (this.keyManager.activeItem) {
+          console.log('active', this.keyManager.activeItem);
+          this.modalSearchRowClick(this.keyManager.activeItem.id);
+        } else {
+          // Press search button as default action when nothing selected and close modal
+          this.doFiltering(false);
+        }
+        break;
+      // Close modal with right arrow when item is selected
+      case this.modalOverlayVisible === true && this.keyManager.activeItem && event.keyCode === 39:
+        break;
+      default:
+        this.doFiltering(true);
+    }
+  }
+
+  // Disable up & down arrows on input. Normally places caret on start or end of input
+  disableKeys(event) {
+    if (event.keyCode === 40 || event.keyCode === 38) {
+      return false;
+    }
   }
 
   ngOnDestroy(): void {
