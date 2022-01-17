@@ -304,14 +304,16 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
       }
 
       // Merge publications that share DOI
-      // Select merged ORCID item
-      if (this.data.id === 'publications') {
+      // Select merged ORCID publication
+      if (this.data.id === this.groupTypes.publication) {
         const field = this.data.fields[0];
-
         mergePublications(field);
 
+        // Patch original ORCID publications
         const merged = field.groupItems[0].merged;
-        this.patchService.addToPayload(merged);
+        if (merged && merged.length) {
+          this.patchService.addToPayload(merged);
+        }
       }
     };
 
