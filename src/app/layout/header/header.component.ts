@@ -206,9 +206,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.appSettingsService.setCurrentAppSettings('portal');
         }
 
-        // MYDATA BETA: Redirect all other than mydata routes to mydata during myData beta
-        if (!this.currentRoute.includes('/mydata')) {
-          this.router.navigate(['/mydata']);
+        // MYDATA DEMO: Redirect all other than mydata routes to mydata during myData beta
+        if (
+          isPlatformBrowser(this.platformId) &&
+          this.window.location.href.includes('researchfi-mydata.rahtiapp.fi')
+        ) {
+          if (!this.currentRoute.includes('/mydata')) {
+            this.router.navigate(['/mydata']);
+          }
         }
 
         // Login / logout link

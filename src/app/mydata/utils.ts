@@ -6,6 +6,7 @@
 //  :license: MIT
 
 import { get } from 'lodash-es';
+import { FieldTypes } from './constants/fieldTypes';
 
 /*
  * Common pipeable functions
@@ -52,34 +53,52 @@ export function checkGroupPatchItem(group, patchItems) {
 // Publications from Orcid and Portal are related with DOI.
 export function mergePublications(data) {
   if (!isEmptySection(data)) {
-    const publications = data.groupItems;
-    for (let [i, publication] of publications[0].items.entries()) {
-      if (publications.length === 2) {
-        const match = publications[1].items.find(
-          (item) => item.doi === publication.doi
+    const publicationGroups = data.groupItems;
+
+    const orcidPublications = publicationGroups.find(
+      (group) => group.groupMeta.type === FieldTypes.activityOrcidPublication
+    );
+
+    const addedPublications = publicationGroups.find(
+      (group) => group.groupMeta.type === FieldTypes.activityPublication
+    );
+
+    // DOI value is generated from doiHandle field when publication is patched to profile.
+    // Therefore find if orcid publication doi string is included in added publications doi field.
+    const matchPublication = (addedPublication, orcidPublication) =>
+      addedPublication.doi === orcidPublication.doi ||
+      addedPublication.doi?.includes(orcidPublication.doi);
+
+    for (let [i, orcidPublication] of orcidPublications.items.entries()) {
+      if (publicationGroups.length === 2) {
+        const match = addedPublications.items.find((addedPublication) =>
+          matchPublication(addedPublication, orcidPublication)
         );
         if (match) {
-          publications[0].items[i] = {
-            ...publication,
+          orcidPublications.items[i] = {
+            ...orcidPublication,
             ...match,
-            title: publication.title, // Keep title from ORCID
-            itemMeta: { ...publication.itemMeta, show: true }, // Keep original itemMeta
+            title: orcidPublication.title, // Keep title from ORCID
+            itemMeta: { ...orcidPublication.itemMeta, show: true }, // Keep original itemMeta, set selection
             merged: true,
             source: {
               organizations: [
-                publications[0].source.organization,
-                publications[1].source.organization,
+                orcidPublications.source.organization,
+                addedPublications.source.organization,
               ],
             },
           };
 
-          publications[0].merged = publications[0].items
-            .filter((item) => item.doi === publication.doi)
+          publicationGroups[0].merged = orcidPublications.items
+            .filter((addedPublication) =>
+              matchPublication(addedPublication, orcidPublication)
+            )
             .map((item) => item.itemMeta);
 
           // Remove duplicate
-          publications[1].items = publications[1].items.filter(
-            (item) => item.doi !== publication.doi
+          publicationGroups[1].items = addedPublications.items.filter(
+            (addedPublication) =>
+              !matchPublication(addedPublication, orcidPublication)
           );
         }
       }

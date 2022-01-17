@@ -28,7 +28,6 @@ import { DOCUMENT } from '@angular/common';
 import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { faQuoteRight, faCopy } from '@fortawesome/free-solid-svg-icons';
 import { HttpHeaders } from '@angular/common/http';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { Search } from 'src/app/portal/models/search.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -400,6 +399,7 @@ export class SinglePublicationComponent
   @ViewChild('backToResultsLink') backToResultsLink: ElementRef;
   citeButton: any;
   focusSub: Subscription;
+  showDialog: boolean;
   @ViewChild('citeButton', { read: ElementRef }) set ft(btn: ElementRef) {
     this.citeButton = btn;
   }
@@ -416,7 +416,6 @@ export class SinglePublicationComponent
 
   citations = [];
   hasDoi = false;
-  modalRef: BsModalRef;
   relatedData = {};
   currentLocale: any;
   tabData: any;
@@ -429,7 +428,6 @@ export class SinglePublicationComponent
     private tabChangeService: TabChangeService,
     @Inject(DOCUMENT) private document: any,
     private staticDataService: StaticDataService,
-    private modalService: BsModalService,
     public utilityService: UtilityService,
     @Inject(LOCALE_ID) private localeId,
     private snackBar: MatSnackBar,
@@ -474,19 +472,12 @@ export class SinglePublicationComponent
     this.settingsService.related = false;
   }
 
-  openModal(template: TemplateRef<any>) {
+  openDialog() {
     // Get the citations if they aren't loaded yet
     if (this.citations.length < this.citationStyles.length) {
       this.getCitations();
     }
-    this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
-  }
-
-  closeModal() {
-    this.modalRef.hide();
-    // Focus cite button
-    if (this.citeButton)
-      (this.citeButton.nativeElement.firstChild as HTMLElement).focus();
+    this.showDialog = true;
   }
 
   openSnackBar() {
@@ -607,7 +598,8 @@ export class SinglePublicationComponent
 
     // Link with targeted search for keywords
     // We need to espace parentheses because these are registered in Angular router as secondary segments.
-    if (keywords?.length > 0) {
+    // Broweser check is for SSR build. Current Node version doesn't support replaceAll function
+    if (keywords?.length > 0 && this.appSettingsService.isBrowser) {
       source.keywords = keywords
         .map(
           (x) =>

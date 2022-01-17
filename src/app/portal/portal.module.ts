@@ -159,6 +159,9 @@ import { HandleLinkDisplayPipe } from './pipes/handle-link-display.pipe';
 import { IsUrlPipe } from './pipes/is-url.pipe';
 import { PublicationLinksComponent } from './components/single/single-publication/publication-links/publication-links.component';
 import { DatasetAuthorComponent } from './components/single/single-dataset/dataset-author/dataset-author.component';
+import { TkiReportsComponent } from '@portal/components/science-politics/tki-reports/tki-reports.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -244,6 +247,7 @@ import { DatasetAuthorComponent } from './components/single/single-dataset/datas
     FilterEmptyFieldPipe,
     PublicationLinksComponent,
     DatasetAuthorComponent,
+    TkiReportsComponent
   ],
   imports: [
     PortalRoutingModule,
@@ -280,6 +284,8 @@ import { DatasetAuthorComponent } from './components/single/single-dataset/datas
     SharedModule,
     A11yModule,
     TooltipModule.forRoot(),
+    MatTableModule,
+    MatSortModule
   ],
   exports: [DatasetAuthorComponent],
   providers: [
