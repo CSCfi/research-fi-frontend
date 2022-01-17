@@ -65,6 +65,7 @@ export class PublicationsService {
     const merged = this.confirmedPayload.concat(this.publicationPayload);
     this.confirmedPayload = merged;
     this.confirmedPayloadSource.next(merged);
+    this.clearPayload();
   }
 
   cancelConfirmedPayload() {
@@ -96,7 +97,7 @@ export class PublicationsService {
 
   addPublications() {
     this.updateTokenInHttpAuthHeader();
-    const body = this.publicationPayload.map((item) => ({
+    const body = this.confirmedPayload.map((item) => ({
       publicationId: item.id,
       show: item.itemMeta.show,
       primaryValue: item.itemMeta.primaryValue,
