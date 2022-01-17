@@ -7,6 +7,7 @@
 
 import { get } from 'lodash-es';
 import { FieldTypes } from './constants/fieldTypes';
+import { PatchService } from './services/patch.service';
 
 /*
  * Common pipeable functions
@@ -51,7 +52,10 @@ export function checkGroupPatchItem(group, patchItems) {
 
 // User can add "duplicate" publications.
 // Publications from Orcid and Portal are related with DOI.
-export function mergePublications(data) {
+export function mergePublications(
+  data: { groupItems: any },
+  patchService: PatchService = null
+) {
   if (!isEmptySection(data)) {
     const publicationGroups = data.groupItems;
 
@@ -65,7 +69,10 @@ export function mergePublications(data) {
 
     // DOI value is generated from doiHandle field when publication is patched to profile.
     // Therefore find if orcid publication doi string is included in added publications doi field.
-    const matchPublication = (addedPublication, orcidPublication) =>
+    const matchPublication = (
+      addedPublication: { doi: string },
+      orcidPublication: { doi: string }
+    ) =>
       addedPublication.doi === orcidPublication.doi ||
       addedPublication.doi?.includes(orcidPublication.doi);
 
@@ -82,6 +89,7 @@ export function mergePublications(data) {
             itemMeta: { ...orcidPublication.itemMeta, show: true }, // Keep original itemMeta, set selection
             merged: true,
             source: {
+              // Merged publications have multiple sources
               organizations: [
                 orcidPublications.source.organization,
                 addedPublications.source.organization,
@@ -89,13 +97,10 @@ export function mergePublications(data) {
             },
           };
 
-          publicationGroups[0].merged = orcidPublications.items
-            .filter((addedPublication) =>
-              matchPublication(addedPublication, orcidPublication)
-            )
-            .map((item) => item.itemMeta);
+          // Patch publication from ORCID that has match
+          patchService?.addToPayload(orcidPublication.itemMeta);
 
-          // Remove duplicate
+          // Remove duplicate from added publications
           publicationGroups[1].items = addedPublications.items.filter(
             (addedPublication) =>
               !matchPublication(addedPublication, orcidPublication)
