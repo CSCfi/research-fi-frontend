@@ -207,9 +207,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
 
         // MYDATA BETA: Redirect all other than mydata routes to mydata during myData beta
-        if (!this.currentRoute.includes('/mydata')) {
-          this.router.navigate(['/mydata']);
-        }
+        // if (!this.currentRoute.includes('/mydata')) {
+        //   this.router.navigate(['/mydata']);
+        // }
 
         // Login / logout link
         // Click functionality is handled in handleClick method
