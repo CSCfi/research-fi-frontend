@@ -206,6 +206,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.appSettingsService.setCurrentAppSettings('portal');
         }
 
+        // MYDATA BETA: Redirect all other than mydata routes to mydata during myData beta
+        if (!this.currentRoute.includes('/mydata')) {
+          this.router.navigate(['/mydata']);
+        }
+
         // Login / logout link
         // Click functionality is handled in handleClick method
         this.isAuthenticated.subscribe((authenticated) => {
