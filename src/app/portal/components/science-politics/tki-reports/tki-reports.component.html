@@ -20,7 +20,6 @@
       <br>
       <br>
     </div>
-
     <br>
     <br>
     <div class="row pt-4 tki-search-inputs-row d-flex flex-nowrap">
@@ -38,8 +37,7 @@
                autocomplete="off"
                tabindex="0"
                (focus)="onFocus()"
-               (keyup)="onKeydown($event); ($event)"
-               (keyup.enter)="doFiltering(false)"
+               (keyup)="onKeyup($event); disableKeys($event)"
         />
       </div>
       <span
@@ -66,19 +64,19 @@
 
     <div *ngIf="modalOverlayVisible && value" class="row no-gutters d-flex col-12 col-md-12">
       <div class="tki-search-results-modal auto-suggest search-field-width">
-
-
         <h2 *ngIf="matchedNames.size > 0">Nimi</h2>
-          <ul>
-            <app-list-item *ngFor="let row of matchedNames; let index = index" class="list-group-item" [doc]="row[0]" [id]="row[1]">
-              <p (click)="modalSearchRowClick(row[1])">{{row[0]}}</p>
-            </app-list-item>
-          </ul>
+        <ul>
+          <app-list-item *ngFor="let row of matchedNames; let index = index" class="list-group-item" [doc]="row[0]"
+                         [id]="row[1]">
+            <p (click)="modalSearchRowClick(row[1])">{{row[0]}}</p>
+          </app-list-item>
+        </ul>
         <hr *ngIf="matchedNames.size > 0">
 
         <h2 *ngIf="matchedAuthors.size > 0">Tekijät</h2>
         <ul>
-          <app-list-item *ngFor="let row of matchedAuthors; let index = index" class="list-group-item" [doc]="row[0]" [id]="row[1]">
+          <app-list-item *ngFor="let row of matchedAuthors; let index = index" class="list-group-item" [doc]="row[0]"
+                         [id]="row[1]">
             <p (click)="modalSearchRowClick(row[1])">{{row[0]}}</p>
           </app-list-item>
         </ul>
@@ -86,7 +84,8 @@
 
         <h2 *ngIf="matchedKeywords.size > 0">Asiasanat</h2>
         <ul>
-          <app-list-item *ngFor="let row of matchedKeywords; let index = index" class="list-group-item" [doc]="row[0]" [id]="row[1]">
+          <app-list-item *ngFor="let row of matchedKeywords; let index = index" class="list-group-item" [doc]="row[0]"
+                         [id]="row[1]">
             <p (click)="modalSearchRowClick(row[1])">{{row[0]}}</p>
           </app-list-item>
         </ul>
@@ -94,22 +93,15 @@
 
         <h2 *ngIf="matchedYears.size > 0">Vuosi</h2>
         <ul>
-          <app-list-item *ngFor="let row of matchedYears; let index = index" class="list-group-item" [doc]="row[0]" [id]="row[1]">
+          <app-list-item *ngFor="let row of matchedYears; let index = index" class="list-group-item" [doc]="row[0]"
+                         [id]="row[1]">
             <p (click)="modalSearchRowClick(row[1])">{{row[0]}}</p>
           </app-list-item>
         </ul>
-        <hr *ngIf="matchedKeywords.size > 0">
-        <ul>
+        <p
+          *ngIf="!matchedNames.size > 0 && !matchedAuthors.size > 0 && !matchedYears.size && !matchedKeywords.size > 0">
+          Ei hakutuloksia</p>
 
-          <h2 *ngIf="matchedYears.size > 0">Vuosi</h2>
-          <ng-container *ngFor="let row of matchedYears">
-            <li [innerHTML]="row[0] | highlight: value" (click)="modalSearchRowClick(row[1])" tabindex="0"
-                (keyup.enter)="modalSearchRowClick(row[1])"></li>
-          </ng-container>
-          <p
-            *ngIf="!matchedNames.size > 0 && !matchedAuthors.size > 0 && !matchedYears.size && !matchedKeywords.size > 0">
-            Ei hakutuloksia</p>
-        </ul>
         <br>
       </div>
     </div>
@@ -132,34 +124,35 @@
     </div>
 
     <!-- Table view for desktop only -->
-    <div class="tki-search-result-desktop" [class.d-none]="isMobile">
-    <mat-table [dataSource]="formattedTableData" matSort>
-      <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">Nimi</mat-header-cell>
-        <mat-cell *matCellDef="let element"><a href="{{element.link}}" target="_blank">{{element.name}}</a></mat-cell>
-      </ng-container>
+    <div class="tki-search-results-desktop" [class.d-none]="isMobile">
+      <mat-table [dataSource]="formattedTableData" matSort>
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">Nimi
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element"><a href="{{element.link}}" target="_blank">{{element.name}}</a></mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="year">
-        <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">Vuosi
-        </mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.year}}</mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="year">
+          <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">Vuosi
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.year}}</mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="authors">
-        <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">Tekijät
-        </mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.authors}}</mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="authors">
+          <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">Tekijät
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.authors}}</mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="keywords">
-        <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">Asiasanat
-        </mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.keywords}}</mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="keywords">
+          <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">Asiasanat
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.keywords}}</mat-cell>
+        </ng-container>
 
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-    </mat-table>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
     </div>
     <br>
     <br>

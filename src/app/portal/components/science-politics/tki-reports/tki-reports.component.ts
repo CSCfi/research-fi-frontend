@@ -18,8 +18,6 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
 import { ActiveDescendantKeyManager, InteractivityChecker } from '@angular/cdk/a11y';
 import { ListItemComponent } from '@portal/components/search-bar/list-item/list-item.component';
-import { _isNumberValue } from '@angular/cdk/coercion';
-import { arc } from 'd3-shape';
 
 export interface Report {
   id: number;
@@ -69,8 +67,7 @@ export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
     @Inject(PLATFORM_ID) private platformId: object,
     private appSettingsService: AppSettingsService,
     private interactivityChecker: InteractivityChecker
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     this.isMobileSubscription = this.appSettingsService.mobileStatus.subscribe((status) => {
@@ -90,12 +87,11 @@ export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
   @HostListener('document:keyup', ['$event'])
   handleKeyboardEvents(event: KeyboardEvent) {
     if (event.key === 'Escape') {
-      this.modalOverlayVisible = false;
+      this.closeModal();
     }
   }
 
   doFiltering(keepModalOpen: boolean) {
-    this.modalOverlayVisible = keepModalOpen;
     this.noSearchesDone = false;
     const regEx = new RegExp(this.value, 'i');
     let ind = 0;
@@ -141,23 +137,22 @@ export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // This is called when search button is pressed. Table data is filtered only after modal is closed.
     if (!keepModalOpen) {
-      this.formattedTableData.data = this.filteredSourceData;
+      this.closeModal();
+      this.formattedTableData.data = [...this.filteredSourceData];
       this.resultDataMobile = [...this.filteredSourceData];
       this.search.nativeElement.blur();
     }
   }
 
-  modalSearchRowClick(articleId: number) {
-    console.log('search row click', articleId);
+  modalSearchRowClick(atricleId: number) {
     this.filteredSourceData = [...dummyData];
     this.filteredSourceData = this.filteredSourceData.filter((item) => {
-      return item.id === articleId;
+      return item.id === atricleId;
     });
     this.resultDataMobile = [...this.filteredSourceData];
-    this.formattedTableData.data = this.filteredSourceData;
-    this.modalOverlayVisible = false;
-    this.keyManager.setFirstItemActive();
-    //this.keyManager.setActiveItem(2);
+    this.formattedTableData.data = [...this.filteredSourceData];
+    this.closeModal();
+    this.search.nativeElement.blur();
   }
 
   onFocus() {
@@ -168,8 +163,13 @@ export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.modalOverlayHeight = this.document.body.scrollHeight - this.HEADER_HEIGHT;
   }
 
-  modalOverlayClick() {
+  closeModal() {
     this.modalOverlayVisible = false;
+    this.keyManager.setActiveItem(-1);
+  }
+
+  modalOverlayClick() {
+    this.closeModal();
   }
 
   resetSearch() {
@@ -178,34 +178,24 @@ export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   // Keycodes
-  onKeydown(event) {
-    if (event.keyCode !== 78) {
-      this.keyManager.onKeydown(event);
+  onKeyup(event) {
+    // Handle arrows
+    if (event.keyCode === 38) {
+    } else if (event.keyCode === 40) {
+    } else if (event.keyCode === 13 && this.keyManager.activeItem) {
+      // Do search with enter when an item is selected
+      this.modalSearchRowClick(this.keyManager.activeItem.id);
+    } else if (event.keyCode === 13 && !this.keyManager.activeItem) {
+      /// Do default search with enter when no items are selected
+      this.doFiltering(false);
+    } else {
+      this.doFiltering(true);
     }
-    switch (event) {
-      // Disable up & down arrows on input. Normally moves caret on start or end of input
-      case event.keyCode === 40 || event.keyCode === 38:
-        this.modalOverlayVisible = false;
-        break;
-      // Hide modal with esc key
-      case event.keyCode === 27:
-        this.modalOverlayVisible = false;
-        break;
-      // Handle enter
-      case event.keyCode === 13:
-        if (this.keyManager.activeItem) {
-          console.log('active', this.keyManager.activeItem);
-          this.modalSearchRowClick(this.keyManager.activeItem.id);
-        } else {
-          // Press search button as default action when nothing selected and close modal
-          this.doFiltering(false);
-        }
-        break;
-      // Close modal with right arrow when item is selected
-      case this.modalOverlayVisible === true && this.keyManager.activeItem && event.keyCode === 39:
-        break;
-      default:
-        this.doFiltering(true);
+    // Hide auto-suggest with esc key
+    if (event.keyCode === 27) {
+      this.modalOverlayVisible = false;
+    } else if (event.keyCode !== 78) {
+      this.keyManager.onKeydown(event);
     }
   }
 
