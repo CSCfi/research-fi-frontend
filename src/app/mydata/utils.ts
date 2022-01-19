@@ -74,7 +74,8 @@ export function mergePublications(
       orcidPublication: { doi: string }
     ) =>
       addedPublication.doi === orcidPublication.doi ||
-      addedPublication.doi?.includes(orcidPublication.doi);
+      (orcidPublication.doi.length > 0 &&
+        addedPublication.doi?.includes(orcidPublication.doi));
 
     for (let [i, orcidPublication] of orcidPublications.items.entries()) {
       if (publicationGroups.length === 2) {
