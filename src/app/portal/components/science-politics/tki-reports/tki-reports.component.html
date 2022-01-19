@@ -37,7 +37,8 @@
                autocomplete="off"
                tabindex="0"
                (focus)="onFocus()"
-               (keyup)="onKeyup($event); disableKeys($event)"
+               (keyup)="onKeyup($event)"
+               (keydown)="disableKeys($event)"
         />
       </div>
       <span
@@ -59,9 +60,9 @@
         (keyup.enter)="doFiltering(false)"
         type="submit"
       ></app-primary-action-button>
-
     </div>
 
+    <!-- Search result modal -->
     <div *ngIf="modalOverlayVisible && value" class="row no-gutters d-flex col-12 col-md-12">
       <div class="tki-search-results-modal auto-suggest search-field-width">
         <h2 *ngIf="matchedNames.size > 0">Nimi</h2>
@@ -156,6 +157,5 @@
     </div>
     <br>
     <br>
-
   </div>
 </main>

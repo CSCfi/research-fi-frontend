@@ -81,6 +81,9 @@ h2 {
       margin: 0px;
     }
   }
+  .list-group-item.active {
+    margin-top: 0px;
+  }
   hr:last-child {
     display: none !important;
   }
@@ -105,6 +108,15 @@ mat-cell {
   a {
     color: #4546b9;
     font-weight: 500;
+  }
+}
+
+.tki-search-inputs-row {
+  .search-input {
+    margin-top: -1px;
+  }
+  button {
+    margin-top: -1px;
   }
 }
 
