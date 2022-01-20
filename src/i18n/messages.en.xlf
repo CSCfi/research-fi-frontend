@@ -679,7 +679,10 @@
       </trans-unit>
       <trans-unit id="externalLinksHeader" datatype="html">
         <source>Tieteestä ja tutkimuksesta muualla</source>
-        <target>Science and research elsewhere</target>
+      <target>Science and research elsewhere</target>
+      <trans-unit id="tkiReportsHeader" datatype="html">
+        <source>Selvityksiä ja raportteja</source>
+        <target>Studies and reports</target>
       </trans-unit>
       <trans-unit id="figuresHeader" datatype="html">
         <source>Lukuja tieteestä ja tutkimuksesta</source>

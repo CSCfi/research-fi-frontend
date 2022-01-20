@@ -671,6 +671,10 @@
         <source>Tieteestä ja tutkimuksesta muualla</source>
         <target>Vetenskap och forskning annanstans</target>
       </trans-unit>
+       <trans-unit id="tkiReportsHeader" datatype="html">
+         <source>Selvityksiä ja raportteja</source>
+         <target>Utredningar och rapporter</target>
+       </trans-unit>
       <trans-unit id="figuresHeader" datatype="html">
         <source>Lukuja tieteestä ja tutkimuksesta</source>
         <target state="translated">Siffror om vetenskap och forskning</target>
