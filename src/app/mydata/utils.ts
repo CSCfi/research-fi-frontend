@@ -77,35 +77,37 @@ export function mergePublications(
       (orcidPublication.doi.length > 0 &&
         addedPublication.doi?.includes(orcidPublication.doi));
 
-    for (let [i, orcidPublication] of orcidPublications.items.entries()) {
-      if (publicationGroups.length === 2) {
-        const match = addedPublications.items.find((addedPublication) =>
-          matchPublication(addedPublication, orcidPublication)
-        );
-        if (match) {
-          orcidPublications.items[i] = {
-            ...orcidPublication,
-            ...match,
-            title: orcidPublication.title, // Keep title from ORCID
-            itemMeta: { ...orcidPublication.itemMeta, show: true }, // Keep original itemMeta, set selection
-            merged: true,
-            source: {
-              // Merged publications have multiple sources
-              organizations: [
-                orcidPublications.source.organization,
-                addedPublications.source.organization,
-              ],
-            },
-          };
-
-          // Patch publication from ORCID that has match
-          patchService?.addToPayload(orcidPublication.itemMeta);
-
-          // Remove duplicate from added publications
-          publicationGroups[1].items = addedPublications.items.filter(
-            (addedPublication) =>
-              !matchPublication(addedPublication, orcidPublication)
+    if (orcidPublications?.length > 0) {
+      for (let [i, orcidPublication] of orcidPublications.items.entries()) {
+        if (publicationGroups.length === 2) {
+          const match = addedPublications.items.find((addedPublication) =>
+            matchPublication(addedPublication, orcidPublication)
           );
+          if (match) {
+            orcidPublications.items[i] = {
+              ...orcidPublication,
+              ...match,
+              title: orcidPublication.title, // Keep title from ORCID
+              itemMeta: { ...orcidPublication.itemMeta, show: true }, // Keep original itemMeta, set selection
+              merged: true,
+              source: {
+                // Merged publications have multiple sources
+                organizations: [
+                  orcidPublications.source.organization,
+                  addedPublications.source.organization,
+                ],
+              },
+            };
+
+            // Patch publication from ORCID that has match
+            patchService?.addToPayload(orcidPublication.itemMeta);
+
+            // Remove duplicate from added publications
+            publicationGroups[1].items = addedPublications.items.filter(
+              (addedPublication) =>
+                !matchPublication(addedPublication, orcidPublication)
+            );
+          }
         }
       }
     }
