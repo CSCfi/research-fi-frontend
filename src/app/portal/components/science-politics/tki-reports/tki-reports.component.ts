@@ -1,12 +1,15 @@
 import {
   AfterViewInit,
-  Component, ElementRef,
+  Component,
+  ElementRef,
   HostListener,
   Inject,
-  LOCALE_ID, OnDestroy,
+  LOCALE_ID,
+  OnDestroy,
   OnInit,
-  PLATFORM_ID, QueryList,
-  ViewChild, ViewChildren
+  QueryList,
+  ViewChild,
+  ViewChildren,
 } from '@angular/core';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import dummyData from 'src/app/portal/components/science-politics/tki-reports/tki-dummydata.json';
@@ -16,8 +19,9 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
-import { ActiveDescendantKeyManager, InteractivityChecker } from '@angular/cdk/a11y';
+import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { ListItemComponent } from '@portal/components/search-bar/list-item/list-item.component';
+import { Title } from '@angular/platform-browser';
 
 export interface Report {
   id: number;
@@ -64,15 +68,28 @@ export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     @Inject(DOCUMENT) private document: Document,
     @Inject(LOCALE_ID) protected localeId,
-    @Inject(PLATFORM_ID) private platformId: object,
     private appSettingsService: AppSettingsService,
-    private interactivityChecker: InteractivityChecker
+    private titleService: Title,
   ) {}
 
   ngOnInit() {
     this.isMobileSubscription = this.appSettingsService.mobileStatus.subscribe((status) => {
       this.isMobile = status;
     });
+    switch (this.localeId) {
+      case 'fi': {
+        this.setTitle('Selvityksiä ja raportteja - Tiedejatutkimus.fi');
+        break;
+      }
+      case 'en': {
+        this.setTitle('Studies and reports - Research.fi');
+        break;
+      }
+      case 'sv': {
+        this.setTitle('Utredningar och rapporter - Forskning.fi');
+        break;
+      }
+    }
     //TODO: fetch data from back end here
   }
 
@@ -89,6 +106,10 @@ export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
     if (event.key === 'Escape') {
       this.closeModal();
     }
+  }
+
+  public setTitle(newTitle: string) {
+    this.titleService.setTitle(newTitle);
   }
 
   doFiltering(keepModalOpen: boolean) {
@@ -199,7 +220,7 @@ export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  // Disable up & down arrows on input. Normally places caret on start or end of input
+  // Disable up & down arrows on input. Normally moves caret on start or end of input
   disableKeys(event) {
     if (event.keyCode === 40 || event.keyCode === 38) {
       return false;

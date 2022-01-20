@@ -11,103 +11,101 @@
   <div class="wrapper">
     <div class="row">
       <div class="wrapper">
-        <div class="row pt-4">
+        <div class="row pt-4 pb-5">
           <div class="col text-center mt-3">
-            <h1 i18n="@@externalLinksHeader">Selvityksiä ja raportteja</h1>
+            <h1 i18n="@@tkiReportsHeader">Selvityksiä ja raportteja</h1>
           </div>
         </div>
       </div>
-      <br>
-      <br>
     </div>
-    <br>
-    <br>
-    <div class="row pt-4 tki-search-inputs-row d-flex flex-nowrap">
-      <div class="search-input d-flex col-xs-6 col-md-12 ml-4 input search-field">
-        <input matInput type="text" [(ngModel)]="value"
-               class="col-10 col-sm-11 pr-0"
-               #searchInput
-               mat-input
-               type="text"
-               i18n-title="@@searchTooltipTki"
-               title="Voit hakea selvityksiä ja raportteja Suomen tutkimus- ja innovaatiojärjestelmästä"
-               i18n-placeholder="@@searchPlaceholderTki"
-               placeholder="Hae raportti..."
-               id="searchInput"
-               autocomplete="off"
-               tabindex="0"
-               (focus)="onFocus()"
-               (keyup)="onKeyup($event)"
-               (keydown)="disableKeys($event)"
-        />
-      </div>
-      <span
-        class="reset-search"
-        (click)="resetSearch()"
-        (keyup.enter)="resetSearch()"
-        tabindex="0"
-        i18n-title="@@resetSearchTooltip"
-        title="Tyhjennä haku"
-      >
+    <div class="search-and-modal-wrapper mx-3 py-4 justify-content-center">
+      <div class="search-inputs-wrap">
+      <div class="tki-search-inputs-row d-flex flex-nowrap justify-content-left">
+        <div class="search-input d-flex col-xs-6 col-md-12 input search-field">
+          <input matInput type="text" [(ngModel)]="value"
+                 class="col-10 col-sm-11 pr-0"
+                 #searchInput
+                 mat-input
+                 type="text"
+                 i18n-title="@@searchTooltipTki"
+                 title="Voit hakea selvityksiä ja raportteja Suomen tutkimus- ja innovaatiojärjestelmästä"
+                 i18n-placeholder="@@searchPlaceholderTki"
+                 placeholder="Hae raportti..."
+                 id="searchInput"
+                 autocomplete="off"
+                 tabindex="0"
+                 aria-label="Hae selvityksiä ja raportteja"
+                 (focus)="onFocus()"
+                 (keyup)="onKeyup($event)"
+                 (keydown)="disableKeys($event)"
+          />
+          <span
+            class="reset-search"
+            (click)="resetSearch()"
+            (keyup.enter)="resetSearch()"
+            tabindex="0"
+            i18n-title="@@resetSearchTooltip"
+            title="Tyhjennä haku"
+          >
                   <i class="fa fa-times"></i>
                 </span>
-      <app-primary-action-button
-        class="search-button"
-        content="Hae"
-        i18n-content="Search@@search"
-        [icon]="faSearch"
-        (click)="doFiltering(false)"
-        (keyup.enter)="doFiltering(false)"
-        type="submit"
-      ></app-primary-action-button>
-    </div>
+        </div>
+        <app-primary-action-button
+          class="search-button"
+          content="Hae"
+          i18n-content="Search@@search"
+          [icon]="faSearch"
+          (click)="doFiltering(false)"
+          (keyup.enter)="doFiltering(false)"
+          type="submit"
+        ></app-primary-action-button>
+      </div>
+      </div>
 
-    <!-- Search result modal -->
-    <div *ngIf="modalOverlayVisible && value" class="row no-gutters d-flex col-12 col-md-12">
-      <div class="tki-search-results-modal auto-suggest search-field-width">
-        <h2 *ngIf="matchedNames.size > 0">Nimi</h2>
-        <ul>
-          <app-list-item *ngFor="let row of matchedNames; let index = index" class="list-group-item" [doc]="row[0]"
-                         [id]="row[1]">
-            <p (click)="modalSearchRowClick(row[1])">{{row[0]}}</p>
-          </app-list-item>
-        </ul>
-        <hr *ngIf="matchedNames.size > 0">
+      <!-- Search result modal -->
+      <div *ngIf="modalOverlayVisible && value" class="d-flex col-xs-6 col-md-12 justify-content-center">
+        <div class="tki-search-results-modal auto-suggest">
+          <h2 *ngIf="matchedNames.size > 0">Nimi</h2>
+          <ul>
+            <app-list-item *ngFor="let row of matchedNames; let index = index" class="list-group-item" [doc]="row[0]"
+                           [id]="row[1]">
+              <p (click)="modalSearchRowClick(row[1])">{{row[0]}}</p>
+            </app-list-item>
+          </ul>
+          <hr *ngIf="matchedNames.size > 0">
 
-        <h2 *ngIf="matchedAuthors.size > 0">Tekijät</h2>
-        <ul>
-          <app-list-item *ngFor="let row of matchedAuthors; let index = index" class="list-group-item" [doc]="row[0]"
-                         [id]="row[1]">
-            <p (click)="modalSearchRowClick(row[1])">{{row[0]}}</p>
-          </app-list-item>
-        </ul>
-        <hr *ngIf="matchedAuthors.size > 0">
+          <h2 *ngIf="matchedAuthors.size > 0">Tekijät</h2>
+          <ul>
+            <app-list-item *ngFor="let row of matchedAuthors; let index = index" class="list-group-item" [doc]="row[0]"
+                           [id]="row[1]">
+              <p (click)="modalSearchRowClick(row[1])">{{row[0]}}</p>
+            </app-list-item>
+          </ul>
+          <hr *ngIf="matchedAuthors.size > 0">
 
-        <h2 *ngIf="matchedKeywords.size > 0">Asiasanat</h2>
-        <ul>
-          <app-list-item *ngFor="let row of matchedKeywords; let index = index" class="list-group-item" [doc]="row[0]"
-                         [id]="row[1]">
-            <p (click)="modalSearchRowClick(row[1])">{{row[0]}}</p>
-          </app-list-item>
-        </ul>
-        <hr *ngIf="matchedKeywords.size > 0">
+          <h2 *ngIf="matchedKeywords.size > 0">Asiasanat</h2>
+          <ul>
+            <app-list-item *ngFor="let row of matchedKeywords; let index = index" class="list-group-item" [doc]="row[0]"
+                           [id]="row[1]">
+              <p (click)="modalSearchRowClick(row[1])">{{row[0]}}</p>
+            </app-list-item>
+          </ul>
+          <hr *ngIf="matchedKeywords.size > 0">
 
-        <h2 *ngIf="matchedYears.size > 0">Vuosi</h2>
-        <ul>
-          <app-list-item *ngFor="let row of matchedYears; let index = index" class="list-group-item" [doc]="row[0]"
-                         [id]="row[1]">
-            <p (click)="modalSearchRowClick(row[1])">{{row[0]}}</p>
-          </app-list-item>
-        </ul>
-        <p
-          *ngIf="!matchedNames.size > 0 && !matchedAuthors.size > 0 && !matchedYears.size && !matchedKeywords.size > 0">
-          Ei hakutuloksia</p>
-
-        <br>
+          <h2 *ngIf="matchedYears.size > 0">Vuosi</h2>
+          <ul>
+            <app-list-item *ngFor="let row of matchedYears; let index = index" class="list-group-item" [doc]="row[0]"
+                           [id]="row[1]">
+              <p (click)="modalSearchRowClick(row[1])">{{row[0]}}</p>
+            </app-list-item>
+          </ul>
+          <div class="no-results-wrap"*ngIf="!matchedNames.size > 0 && !matchedAuthors.size > 0 && !matchedYears.size && !matchedKeywords.size > 0">
+            <p>Ei hakutuloksia</p>
+          </div>
+          <br>
+        </div>
       </div>
     </div>
-    <br>
-    <br>
 
     <!-- List view for mobile only -->
     <div class="tki-search-results-mobile" [class.d-none]="!isMobile">
@@ -126,34 +124,36 @@
 
     <!-- Table view for desktop only -->
     <div class="tki-search-results-desktop" [class.d-none]="isMobile">
-      <mat-table [dataSource]="formattedTableData" matSort>
+      <table class="mat-table" mat-table [dataSource]="formattedTableData" matSort>
         <ng-container matColumnDef="name">
-          <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">Nimi
-          </mat-header-cell>
-          <mat-cell *matCellDef="let element"><a href="{{element.link}}" target="_blank">{{element.name}}</a></mat-cell>
+          <th class="mat-header-cell" mat-header-cell *matHeaderCellDef mat-sort-header
+              sortActionDescription="Sort by number">Nimi
+          </th>
+          <td class="mat-cell" mat-cell *matCellDef="let element"><h2><a href="{{element.link}}"
+                                                                         target="_blank">{{element.name}}</a></h2></td>
         </ng-container>
 
         <ng-container matColumnDef="year">
-          <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">Vuosi
-          </mat-header-cell>
-          <mat-cell *matCellDef="let element">{{element.year}}</mat-cell>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">Vuosi
+          </th>
+          <td class="mat-cell" mat-cell *matCellDef="let element">{{element.year}}</td>
         </ng-container>
 
         <ng-container matColumnDef="authors">
-          <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">Tekijät
-          </mat-header-cell>
-          <mat-cell *matCellDef="let element">{{element.authors}}</mat-cell>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">Tekijät
+          </th>
+          <td class="mat-cell" mat-cell *matCellDef="let element">{{element.authors}}</td>
         </ng-container>
 
         <ng-container matColumnDef="keywords">
-          <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">Asiasanat
-          </mat-header-cell>
-          <mat-cell *matCellDef="let element">{{element.keywords}}</mat-cell>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">Asiasanat
+          </th>
+          <td class="mat-cell" mat-cell *matCellDef="let element">{{element.keywords}}</td>
         </ng-container>
 
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-      </mat-table>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
     </div>
     <br>
     <br>
