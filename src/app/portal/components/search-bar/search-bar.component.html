@@ -8,19 +8,6 @@
 <div class="bar row" #searchBar>
   <!-- TTTV Banner badge only on home page -->
   <div class="col-3 badge-area align-self-center">
-    <a
-      [href]="
-        'https://tutkittutieto.fi/' +
-        (currentLocale !== 'Fi' ? currentLocale.toLowerCase() + '/' : '')
-      "
-      target="_blank"
-    >
-      <img
-        *ngIf="router.url === '/'"
-        class="d-none d-xl-block float-right"
-        [src]="'assets/img/SA_tunnus_' + localeId.toUpperCase() + '.svg'"
-      />
-    </a>
   </div>
   <!-- Search -->
   <div class="col-12 col-xl-6">
