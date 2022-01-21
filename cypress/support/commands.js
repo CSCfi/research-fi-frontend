@@ -1,33 +1,7 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-
 const mydataBaseUrl = 'https://localhost:5003/mydata/';
 
 Cypress.Commands.add('visitMyDataRoute', (route) => {
-  cy.visit(mydataBaseUrl + route);
+  cy.visit(mydataBaseUrl + (route ? route : ''));
 });
 
 /*
@@ -37,21 +11,33 @@ Cypress.Commands.add('visitMyDataRoute', (route) => {
  * top level domain changes in Cypress.
  */
 
+// Log in programmatically if user is not authenticated
+Cypress.Commands.add('myDataLogin', () => {
+  cy.visitMyDataRoute();
+  cy.get('button').contains('Valikko').click();
+  cy.get('a')
+    .contains('Kirjaudu')
+    .then(($loginLink) => {
+      cy.log($loginLink);
+      if ($loginLink.text() === 'Kirjaudu sisään') {
+        cy.loginOidc();
+        cy.get('a').contains('Kirjaudu').click();
+      } else {
+        cy.visitMyDataRoute('profile');
+      }
+    });
+});
+
+// Create cookie expiration.
 const { getUnixTime } = require('date-fns');
 
-/*
- * Create the cookie expiration.
- */
-function getFutureTime(minutesInFuture) {
+const getFutureTime = (minutesInFuture) => {
   const time = new Date(new Date().getTime() + minutesInFuture * 60000);
   return getUnixTime(time);
-}
+};
 
-/**
- * Create a cookie object.
- * @param {*} cookie
- */
-function createCookie(cookie) {
+// Create a cookie object.
+const createCookie = (cookie) => {
   return {
     name: cookie.name,
     value: cookie.value,
@@ -65,21 +51,10 @@ function createCookie(cookie) {
       session: cookie.session,
     },
   };
-}
+};
 
-/**
- * Login with Auth0.
- */
+// Login with ORCID.
 Cypress.Commands.add('loginOidc', () => {
-  // const existingCookies = sessions.auth0;
-  // if (existingCookies) {
-  //   cy.log('Loaded OIDC session from cache');
-
-  //   cy.clearCookies();
-  //   existingCookies.forEach((c) => cy.setCookie(c.name, c.value, c.options));
-  //   return;
-  // }
-
   cy.log('OIDC session not found, signing in');
 
   return cy
@@ -94,9 +69,7 @@ Cypress.Commands.add('loginOidc', () => {
     });
 });
 
-/**
- * Clear any storage (cookies, sessions).
- */
+// Clear any storage (cookies, sessions).
 Cypress.Commands.add('clearStorage', () => {
   cy.clearLocalStorage();
   cy.clearCookies();

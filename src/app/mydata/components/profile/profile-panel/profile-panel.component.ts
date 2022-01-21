@@ -249,6 +249,7 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
         selectedPublications: field?.selectedPublications,
       },
       panelClass: this.appSettingsService.dialogPanelClass,
+      id: 'search-from-research-fi-dialog',
     });
 
     type Result = { selection: any[] };

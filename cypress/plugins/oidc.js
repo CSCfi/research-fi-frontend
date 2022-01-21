@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 
 module.exports = async function Login() {
   const browser = await puppeteer.launch({
-    headless: true,
+    headless: false,
     ignoreHTTPSErrors: true,
   });
   const page = await browser.newPage();

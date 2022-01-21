@@ -12,8 +12,11 @@
       group.id === groupTypes.dataset
     "
   >
-    <div class="row py-2 justify-content-between">
-      <h3 class="col-6 col-lg-4 align-self-center font-weight-bold order-1 font-size-normal">
+    <div
+      class="row py-2 justify-content-between"
+      attr.data-test-id="profile-summary-{{ group.id }}-row"
+    >
+      <div class="col-6 col-lg-4 align-self-center font-weight-bold order-1 font-size-normal">
         {{ group.label }}
       </h3>
       <div
@@ -34,6 +37,7 @@
               : selectString
           "
           (click)="openDialog($event, i + 1)"
+          attr.data-test-id="{{ group.id }}-select-button"
         ></app-secondary-button>
       </div>
     </div>
