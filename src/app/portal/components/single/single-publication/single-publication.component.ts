@@ -752,7 +752,7 @@ export class SinglePublicationComponent
     this.publicationTypeLabel =
       this.staticDataService.publicationClass
         .find((val) => val.class === source.publicationTypeCode.slice(0, 1))
-        .types.find((type) => type.type === source.publicationTypeCode)
+        ?.types.find((type) => type.type === source.publicationTypeCode)
         ?.label || source.publicationTypeCode;
 
     if (this.publicationTypeLabel) {
