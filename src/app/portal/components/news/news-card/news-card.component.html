@@ -6,7 +6,7 @@
   <mat-card-header>
     <mat-card-title>
       <ng-container [ngSwitch]="isHomepage">
-        <a href="{{ item.url }}" target="_blank">
+        <a [attr.href]="item.url" target="_blank">
           <div class="row d-flex justify-content-between">
             <div class="col-11 pl-0">
               <h3>

@@ -35,7 +35,7 @@
             style="font-size: 22px; padding: 3px 12px"
           ></span>
           <span class="link-item">
-            <a href="{{ row.path }}{{ item[row.field] }}" target="_blank"
+            <a [attr.href]="row.path + item[row.field]" target="_blank"
               ><span class="link-label">{{
                 item[row.field] | handleLinkDisplay
               }}</span>
@@ -56,7 +56,7 @@
                 style="font-size: 22px; padding: 3px 12px"
               ></span>
               <span class="link-item">
-                <a href="{{ row.selfArchivedAddress }}" target="_blank"
+                <a [attr.href]="row.selfArchivedAddress" target="_blank"
                   ><span class="link-label">{{
                     row.selfArchivedAddress | handleLinkDisplay
                   }}</span
