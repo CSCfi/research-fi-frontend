@@ -243,7 +243,7 @@ routes.forEach((route) => {
 });
 
 // Rate limiting to prevent http request attacks.
-// Maximum of five requests per minute.
+// Maximum of five requests to '/feedback' endpoint per minute.
 import rateLimit from 'express-rate-limit';
 const limiter = rateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute
