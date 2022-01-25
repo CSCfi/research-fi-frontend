@@ -11,7 +11,7 @@
   <div class="wrapper">
     <div class="row">
       <div class="wrapper">
-        <div class="row pt-4 pb-5">
+        <div class="row pt-4 pb-4">
           <div class="col text-center mt-3">
             <h1 i18n="@@tkiReportsHeader">Selvityksiä ja raportteja</h1>
           </div>
@@ -83,7 +83,7 @@
           </ul>
           <hr *ngIf="matchedAuthors.size > 0">
 
-          <h2 *ngIf="matchedKeywords.size > 0">Asiasanat</h2>
+          <h2 *ngIf="matchedKeywords.size > 0">Asiasana</h2>
           <ul>
             <app-list-item *ngFor="let row of matchedKeywords; let index = index" class="list-group-item" [doc]="row[0]"
                            [id]="row[1]">
@@ -111,7 +111,7 @@
     <div class="tki-search-results-mobile" [class.d-none]="!isMobile">
       <div *ngFor="let row of resultDataMobile">
         <h2>Nimi</h2>
-        <a href="{{row.link}}" target="_blank"><p [innerHTML]="row.name"></p></a>
+        <a href="{{row.link}}" target="_blank"><p>{{row.name}}<fa-icon icon="external-link-alt"></fa-icon></p></a>
         <h2>Vuosi</h2>
         <p [innerHTML]="row.year | highlight: value"></p>
         <h2>Julkaisija</h2>
@@ -126,27 +126,32 @@
     <div class="tki-search-results-desktop" [class.d-none]="isMobile">
       <table class="mat-table" mat-table [dataSource]="formattedTableData" matSort>
         <ng-container matColumnDef="name">
-          <th class="mat-header-cell" mat-header-cell *matHeaderCellDef mat-sort-header
-              sortActionDescription="Sort by number">Nimi
+          <th class="mat-header-cell" mat-header-cell *matHeaderCellDef mat-sort-header i18n-sortActionDescription="@@sortByName"
+              sortActionDescription="Järjestä nimen mukaan">Nimi
           </th>
-          <td class="mat-cell" mat-cell *matCellDef="let element"><h2><a href="{{element.link}}"
-                                                                         target="_blank">{{element.name}}</a></h2></td>
+          <td class="mat-cell" mat-cell *matCellDef="let element">
+          <p>
+            <a href="{{element.link}}" target="_blank">{{element.name}}
+              <fa-icon icon="external-link-alt"></fa-icon>
+            </a>
+          </p>
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="year">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">Vuosi
+          <th mat-header-cell *matHeaderCellDef mat-sort-header i18n-sortActionDescription="@@sortByYear" sortActionDescription="Järjestä vuoden mukaan">Vuosi
           </th>
           <td class="mat-cell" mat-cell *matCellDef="let element">{{element.year}}</td>
         </ng-container>
 
         <ng-container matColumnDef="authors">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">Tekijät
+          <th mat-header-cell *matHeaderCellDef mat-sort-header i18n-sortActionDescription="@@sortByAuthor" sortActionDescription="Järjestä tekijöiden mukaan">Tekijät
           </th>
           <td class="mat-cell" mat-cell *matCellDef="let element">{{element.authors}}</td>
         </ng-container>
 
         <ng-container matColumnDef="keywords">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">Asiasanat
+          <th mat-header-cell *matHeaderCellDef mat-sort-header i18n-sortActionDescription="@@sortByDescription" sortActionDescription="Järjestä asiasanojen mukaan">Asiasanat
           </th>
           <td class="mat-cell" mat-cell *matCellDef="let element">{{element.keywords}}</td>
         </ng-container>

@@ -46,9 +46,9 @@ export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
   private isMobileSubscription: Subscription;
   private keyManager: ActiveDescendantKeyManager<ListItemComponent>;
 
-  filteredSourceData: Report[] = dummyData;
-  resultDataMobile: Report[] = dummyData;
-  formattedTableData = new MatTableDataSource(this.filteredSourceData);
+  filteredSourceData: Report[] = this.replaceEmptyKeywordsWithDash(dummyData);
+  resultDataMobile: Report[] = this.replaceEmptyKeywordsWithDash(dummyData);
+  formattedTableData = new MatTableDataSource(this.replaceEmptyKeywordsWithDash(this.filteredSourceData));
 
   displayedColumns = ['name', 'year', 'authors', 'keywords'];
   value = '';
@@ -139,7 +139,7 @@ export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
       });
 
       entry.keywords.forEach((kword) => {
-        if (kword.match(regEx)) {
+        if (kword.match(regEx) && this.value !== '-') {
           this.matchedKeywords.add([kword, dummyData[ind].id]);
           this.filteredArticleIds.add(dummyData[ind].id);
         }
@@ -165,13 +165,26 @@ export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  replaceEmptyKeywordsWithDash(sourceData: Report[]) {
+    sourceData = sourceData.map(report => {
+      report.keywords = report.keywords.map(keyword => {
+        if (keyword === '') {
+          keyword = '-';
+        }
+        return keyword;
+      });
+      return report;
+    });
+    return sourceData;
+  }
+
   modalSearchRowClick(atricleId: number) {
     this.filteredSourceData = [...dummyData];
     this.filteredSourceData = this.filteredSourceData.filter((item) => {
       return item.id === atricleId;
     });
-    this.resultDataMobile = [...this.filteredSourceData];
-    this.formattedTableData.data = [...this.filteredSourceData];
+    this.resultDataMobile = [...this.replaceEmptyKeywordsWithDash(this.filteredSourceData)];
+    this.formattedTableData.data = [...this.replaceEmptyKeywordsWithDash(this.filteredSourceData)];
     this.closeModal();
     this.search.nativeElement.blur();
   }

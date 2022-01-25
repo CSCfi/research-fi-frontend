@@ -126,10 +126,17 @@ h2 {
 }
 
 .tki-search-results-desktop {
+  th.mat-header-cell:first-of-type {
+    padding-left: 0px;
+  }
+
   .mat-header-cell {
     font-weight: bold;
     font-size: 0.9rem;
     color: #4d4d4d;
+  }
+  .mat-sort-header {
+    min-width: 100px;
   }
 
   .mat-cell {
