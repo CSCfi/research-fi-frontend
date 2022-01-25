@@ -242,9 +242,20 @@ routes.forEach((route) => {
   }
 });
 
+// Rate limiting to prevent http request attacks.
+// Maximum of five requests per minute.
+import rateLimit from 'express-rate-limit';
+const limiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 5,
+});
+
+app.use(limiter);
+
 // Send email.
 // Email server configuration is read from file config.json.
 // Email is sent using nodemailer.
+
 const emailService = new EmailService();
 app.post('/feedback', (req, res) => {
   const fs = require('fs');
