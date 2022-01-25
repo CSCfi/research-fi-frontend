@@ -1,8 +1,13 @@
 describe('MyData home page', () => {
-  beforeEach(() => {});
-
+  /*
+   * Note: Create profile with createProfile.spec.js before running this test
+   * TODO: Above should be automated
+   */
   it('Should add a publication using Research.fi publications', () => {
-    cy.myDataLogin();
+    cy.visitMyDataRoute();
+
+    // Login and navigate to profile view
+    cy.myDataLogin('profile');
 
     // Select publications dialog
     cy.get('[data-test-id="profile-summary-publication-row"]', {

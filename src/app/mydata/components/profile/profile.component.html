@@ -12,7 +12,7 @@
           class="row d-flex"
           *ngIf="profileService.currentProfileName | async"
         >
-          <h1 class="col-12 px-0">
+          <h1 class="col-12 px-0" data-testid="profile-name">
             {{ profileService.currentProfileName | async }}
           </h1>
           <div class="col align-self-center px-0">

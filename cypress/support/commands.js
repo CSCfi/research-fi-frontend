@@ -11,9 +11,8 @@ Cypress.Commands.add('visitMyDataRoute', (route) => {
  * top level domain changes in Cypress.
  */
 
-// Log in programmatically if user is not authenticated
-Cypress.Commands.add('myDataLogin', () => {
-  cy.visitMyDataRoute();
+// Log in programmatically if user is not authenticated.
+Cypress.Commands.add('myDataLogin', (route) => {
   cy.get('button').contains('Valikko').click();
   cy.get('a')
     .contains('Kirjaudu')
@@ -21,9 +20,13 @@ Cypress.Commands.add('myDataLogin', () => {
       cy.log($loginLink);
       if ($loginLink.text() === 'Kirjaudu sisään') {
         cy.loginOidc();
-        cy.get('a').contains('Kirjaudu').click();
+        cy.get('button').contains('Sulje').click();
+        if (route) cy.visitMyDataRoute(route);
+        // cy.get('a').contains('Kirjaudu').click();
+      } else if (route) {
+        cy.visitMyDataRoute(route);
       } else {
-        cy.visitMyDataRoute('profile');
+        cy.get('button').contains('Sulje').click();
       }
     });
 });
