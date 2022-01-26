@@ -77,9 +77,9 @@ export class AppSettingsService {
       },
     ],
     localizedDomains: [
-      { label: 'Suomi', locale: 'FI', url: 'https://tiedejatutkimus.fi/fi' },
-      { label: 'Svenska', locale: 'SV', url: 'https://forskning.fi/sv' },
-      { label: 'English', locale: 'EN', url: 'https://research.fi/en' },
+      { label: 'Suomeksi', locale: 'FI', url: 'https://tiedejatutkimus.fi/fi' },
+      { label: 'På svenska', locale: 'SV', url: 'https://forskning.fi/sv' },
+      { label: 'In English', locale: 'EN', url: 'https://research.fi/en' },
     ],
   };
 
@@ -98,13 +98,13 @@ export class AppSettingsService {
     ],
     localizedDomains: [
       {
-        label: 'Suomi',
+        label: 'Suomeksi',
         locale: 'FI',
         url: 'https://researchfi-mydata.rahtiapp.fi/fi',
       },
-      // { label: 'Svenska', locale: 'SV', url: 'https://localhost:5003/sv' },
+      // { label: 'På svenska', locale: 'SV', url: 'https://localhost:5003/sv' },
       {
-        label: 'English',
+        label: 'In English',
         locale: 'EN',
         url: 'https://researchfi-mydata-en.rahtiapp.fi/en',
       },

@@ -120,7 +120,7 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.utilityService.setTitle($localize`:@@profile:Profiili`);
+    this.utilityService.setMyDataTitle($localize`:@@profile:Profiili`);
 
     this.oidcSecurityService.userData$.pipe(take(1)).subscribe((data) => {
       this.orcidData = data;
