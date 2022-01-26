@@ -302,6 +302,18 @@ body mat-card.mat-card {
   transform: none;
 }
 
+// Mat menu
+// Search target menu
+
+.search-target.mat-menu-item {
+  width: 180px;
+}
+
+.search-target.mat-menu-item:focus {
+  box-shadow: none;
+}
+
+
 // Tooltip
 .tooltip-inner {
   max-width: 276px;

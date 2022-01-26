@@ -7,8 +7,7 @@
 
 <div class="bar row" #searchBar>
   <!-- TTTV Banner badge only on home page -->
-  <div class="col-3 badge-area align-self-center">
-  </div>
+  <div class="col-3 badge-area align-self-center"></div>
   <!-- Search -->
   <div class="col-12 col-xl-6">
     <div class="search" [class.no-heading]="router.url !== '/'">
@@ -33,7 +32,37 @@
           </div>
           <div class="input-group" #inputGroup>
             <!-- Search target -->
-            <mat-form-field class="search-target">
+            <button
+              mat-button
+              (blur)="showAutoSuggest = false"
+              class="btn btn-search-target mr-1 d-none d-md-block"
+              type="button"
+              [matMenuTriggerFor]="searchTargetMenu"
+              (keydown.enter)="searchTargetMenu.openMenu()"
+            >
+              <span class="pr-1">
+                <ng-container *ngIf="!selectedTarget" i18n="@@searchTarget"
+                  >Kohdista haku</ng-container
+                >
+                <ng-container *ngIf="selectedTarget">{{
+                  selectedTargetLabel
+                }}</ng-container>
+              </span>
+              <i class="fa fa-chevron-down"></i>
+            </button>
+
+            <mat-menu #searchTargetMenu="matMenu">
+              <button
+                mat-menu-item
+                *ngFor="let target of targets; let i = index"
+                class="search-target"
+                [disabled]="selectedTarget === target.value || (!selectedTarget && i === 0)"
+                (click)="changeTarget(target)"
+              >
+                {{ target['viewValue' + currentLocale] }}
+              </button>
+            </mat-menu>
+            <!-- <mat-form-field class="search-target">
               <mat-label i18n="@@searchTarget">Kohdista haku</mat-label>
               <mat-select
                 (selectionChange)="changeTarget($event)"
@@ -46,10 +75,10 @@
                   {{ target['viewValue' + currentLocale] }}
                 </mat-option>
               </mat-select>
-            </mat-form-field>
+            </mat-form-field> -->
             <div class="search-input form-control row d-flex">
               <input
-                class="col-10 col-sm-11 pr-0"
+                class="col-10 col-sm-12"
                 #searchInput
                 [formControl]="queryField"
                 mat-input

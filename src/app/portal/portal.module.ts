@@ -57,6 +57,7 @@ import {
   MatSnackBarModule,
   MAT_SNACK_BAR_DEFAULT_OPTIONS,
 } from '@angular/material/snack-bar';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ClipboardModule } from '@angular/cdk/clipboard';
@@ -277,6 +278,7 @@ import { HandleInfrastructureLinkPipe } from './pipes/handle-infrastructure-link
     MatSlideToggleModule,
     MatDialogModule,
     MatSnackBarModule,
+    MatMenuModule,
     ScrollingModule,
     ClipboardModule,
     CountUpModule,
