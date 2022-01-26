@@ -162,6 +162,7 @@ import { DatasetAuthorComponent } from './components/single/single-dataset/datas
 import { TkiReportsComponent } from '@portal/components/science-politics/tki-reports/tki-reports.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { HandleInfrastructureLinkPipe } from './pipes/handle-infrastructure-link.pipe';
 
 @NgModule({
   declarations: [
@@ -247,7 +248,8 @@ import { MatSortModule } from '@angular/material/sort';
     FilterEmptyFieldPipe,
     PublicationLinksComponent,
     DatasetAuthorComponent,
-    TkiReportsComponent
+    TkiReportsComponent,
+    HandleInfrastructureLinkPipe,
   ],
   imports: [
     PortalRoutingModule,
@@ -285,7 +287,7 @@ import { MatSortModule } from '@angular/material/sort';
     A11yModule,
     TooltipModule.forRoot(),
     MatTableModule,
-    MatSortModule
+    MatSortModule,
   ],
   exports: [DatasetAuthorComponent],
   providers: [

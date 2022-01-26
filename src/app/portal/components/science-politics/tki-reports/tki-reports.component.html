@@ -108,7 +108,7 @@
     <div class="tki-search-results-mobile" [class.d-none]="!isMobile">
       <div *ngFor="let row of resultDataMobile">
         <h2>Nimi</h2>
-        <a href="{{row.link}}" target="_blank"><p [innerHTML]="row.name"></p></a>
+        <a [attr.href]="row.link" target="_blank"><p [innerHTML]="row.name"></p></a>
         <h2>Vuosi</h2>
         <p [innerHTML]="row.year | highlight: value"></p>
         <h2>Julkaisija</h2>
@@ -124,7 +124,7 @@
     <mat-table [dataSource]="formattedTableData" matSort>
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">Nimi</mat-header-cell>
-        <mat-cell *matCellDef="let element"><a href="{{element.link}}" target="_blank">{{element.name}}</a></mat-cell>
+        <mat-cell *matCellDef="let element"><a [attr.href]="element.link" target="_blank">{{element.name}}</a></mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="year">
