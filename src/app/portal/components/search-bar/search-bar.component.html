@@ -12,7 +12,7 @@
   <!-- Search -->
   <div class="col-12 col-xl-6">
     <div class="search" [class.no-heading]="router.url !== '/'">
-      <form (keydown.enter)="$event.preventDefault()" class="wrapper">
+      <form role="search" (keydown.enter)="$event.preventDefault()" class="wrapper">
         <label
           i18n="@@searchSlogan"
           [class.sr-only]="router.url !== '/'"
@@ -53,7 +53,7 @@
                 #searchInput
                 [formControl]="queryField"
                 mat-input
-                type="text"
+                type="search"
                 i18n-title="@@searchTooltip"
                 title="Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa."
                 i18n-placeholder="@@searchPlaceholder"
