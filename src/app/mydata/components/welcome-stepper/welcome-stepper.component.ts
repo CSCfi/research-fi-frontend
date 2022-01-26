@@ -97,7 +97,7 @@ export class WelcomeStepperComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.utilityService.setTitle(this.steps[0].title);
+    this.utilityService.setMyDataTitle(this.steps[0].title);
 
     this.checkProfileExists();
 
@@ -152,20 +152,20 @@ export class WelcomeStepperComponent implements OnInit, OnDestroy {
 
   increment() {
     this.step = this.step + 1;
-    this.utilityService.setTitle(this.steps[this.step - 1].title);
+    this.utilityService.setMyDataTitle(this.steps[this.step - 1].title);
     this.navigateStep(this.step);
   }
 
   decrement() {
     this.step = this.step - 1;
-    this.utilityService.setTitle(this.steps[this.step - 1].title);
+    this.utilityService.setMyDataTitle(this.steps[this.step - 1].title);
     this.navigateStep(this.step);
   }
 
   toggleCancel() {
     this.navigateStep(!this.cancel ? 'cancel' : this.step);
 
-    this.utilityService.setTitle(
+    this.utilityService.setMyDataTitle(
       this.cancel
         ? this.steps[this.step - 1].title
         : this.cancelServiceDeployment
