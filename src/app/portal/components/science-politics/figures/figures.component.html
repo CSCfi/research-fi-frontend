@@ -22,7 +22,12 @@
         <nav>
           <ul class="list-unstyled">
             <li [ngClass]="{ active: currentSection === 's0' }">
-              <a #mainFocus [routerLink]="['.']" [queryParams]="queryParams">
+              <a
+                #mainFocus
+                class="d-block"
+                [routerLink]="['.']"
+                [queryParams]="queryParams"
+              >
                 <div class="row">
                   <div class="col-auto pr-0">
                     <fa-icon class="icon" [icon]="faIconCircle"></fa-icon>
@@ -45,6 +50,7 @@
               [ngClass]="{ active: currentSection === item.id }"
             >
               <a
+                class="d-block"
                 [class.disabled]="item['disabled']"
                 [routerLink]="['.']"
                 fragment="{{ item['disabled'] ? null : item.id }}"
