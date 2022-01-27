@@ -134,7 +134,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     this.routeSub = this.route.queryParams.subscribe((params) => {
       this.selectedTarget = params.target ? params.target : null;
-      if (params.target) this.getTargetLabel(params.target)
+      if (params.target) this.getTargetLabel(params.target);
       this.queryParams = params;
       this.topMargin =
         this.searchBar.nativeElement.offsetHight +
@@ -373,11 +373,13 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
     const target = selection.value !== 'all' ? selection.value : null;
     this.settingService.changeTarget(target);
     this.selectedTarget = target || null;
-    this.getTargetLabel(selection.value)
+    this.getTargetLabel(selection.value);
   }
 
-  getTargetLabel(target)  {
-    this.selectedTargetLabel = this.targets.find(item => item.value === target)['viewValue' + this.currentLocale]
+  getTargetLabel(target) {
+    this.selectedTargetLabel = this.targets.find(
+      (item) => item.value === target
+    )['viewValue' + this.currentLocale];
   }
 
   resetSearch() {

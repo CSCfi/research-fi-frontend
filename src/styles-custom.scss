@@ -45,6 +45,20 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+body {
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:not(.mat-input-element):focus-visible,
+  *:not(.bundler:not(.homepage)):not(.mat-expansion-panel-header):not(.mat-input-element):focus-visible {
+    // High contrast focus indicator for keyboard users
+    outline: 2px transparent solid !important;
+    box-shadow: 0 0 0 2px white, 0 0 0 4px mat-color($primary, default),
+      0 0 3px 5px white !important;
+    z-index: 100; // If no margin between next focusable element, high number because of target serach button
+  }
+}
+
 // Dont show outlines for mouse users
 body:not(.user-tabbing) {
   button:focus,
@@ -184,13 +198,12 @@ mark,
 }
 
 // Colors
-
 .primary-color {
-  color: mat-color($primary, 500);
+  color: mat-color($primary, default);
 }
 
 .background-primary {
-  background-color: mat-color($primary, 500);
+  background-color: mat-color($primary, default);
   color: mat-contrast($primary, 500);
 }
 
@@ -199,7 +212,7 @@ mark,
 }
 
 .border-primary {
-  border-color: mat-color($primary, 500) !important;
+  border-color: mat-color($primary, default) !important;
 }
 
 // Content
@@ -277,7 +290,7 @@ fa-icon[icon='external-link-alt'] {
 
 // Help icon
 .info-icon {
-  color: mat-color($primary, 500);
+  color: mat-color($primary, default);
   cursor: pointer;
 }
 
@@ -287,9 +300,9 @@ fa-icon[icon='external-link-alt'] {
 }
 
 // Material form field focus
-mat-form-field.mat-focused {
-  outline: -webkit-focus-ring-color auto 1px;
-}
+// mat-form-field.mat-focused {
+//   outline: -webkit-focus-ring-color auto 1px;
+// }
 
 // Mat-card
 body mat-card.mat-card {
@@ -304,15 +317,13 @@ body mat-card.mat-card {
 
 // Mat menu
 // Search target menu
-
 .search-target.mat-menu-item {
   width: 180px;
 }
 
 .search-target.mat-menu-item:focus {
-  box-shadow: none;
+  box-shadow: none !important;
 }
-
 
 // Tooltip
 .tooltip-inner {
@@ -366,9 +377,9 @@ mat-basic-chip.tag {
 
 // Modal
 // Modal doesnt scroll page
-.modal-open modal-container.modal {
-  // overflow-y: hidden;
-}
+// .modal-open modal-container.modal {
+//   // overflow-y: hidden;
+// }
 
 // Visualisation modal
 .wide-modal {
@@ -378,10 +389,10 @@ mat-basic-chip.tag {
   }
   .vis-style-toggle {
     background-color: mat-contrast($primary, 500);
-    color: mat-color($primary, 500);
-    border-color: mat-color($primary, 500);
+    color: mat-color($primary, default);
+    border-color: mat-color($primary, default);
     &.active {
-      background-color: mat-color($primary, 500);
+      background-color: mat-color($primary, default);
       color: mat-contrast($primary, 500);
     }
   }
@@ -434,7 +445,7 @@ mat-basic-chip.tag {
 .mat-tab-header {
   overflow: visible !important;
   position: relative !important;
-  border-bottom: 1px solid mat-color($primary, 500) !important;
+  border-bottom: 1px solid mat-color($primary, default) !important;
 }
 
 .mat-tab-label-container {
@@ -453,7 +464,7 @@ mat-basic-chip.tag {
   z-index: 4;
   margin-top: 1px !important;
   background: mat-contrast($primary, 500);
-  border: 1px solid mat-color($primary, 500);
+  border: 1px solid mat-color($primary, default);
   border-bottom: 0;
 }
 
