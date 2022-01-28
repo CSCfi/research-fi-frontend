@@ -66,7 +66,7 @@
       <div *ngIf="modalOverlayVisible && value" class="d-flex col-xs-6 col-md-12 justify-content-center">
         <div class="tki-search-results-modal auto-suggest">
           <h2 *ngIf="matchedNames.size > 0">Nimi</h2>
-          <ul>
+          <ul *ngIf="matchedNames.size > 0">
             <app-list-item *ngFor="let row of matchedNames; let index = index" class="list-group-item" [doc]="row[0]"
                            [id]="row[1]">
               <p (click)="modalSearchRowClick(row[1])" [innerHTML]="row[0] | highlight: value"></p>
@@ -75,7 +75,7 @@
           <hr *ngIf="matchedNames.size > 0">
 
           <h2 *ngIf="matchedAuthors.size > 0">Tekijät</h2>
-          <ul>
+          <ul *ngIf="matchedAuthors.size > 0">
             <app-list-item *ngFor="let row of matchedAuthors; let index = index" class="list-group-item" [doc]="row[0]"
                            [id]="row[1]">
               <p (click)="modalSearchRowClick(row[1])" [innerHTML]="row[0] | highlight: value"></p>
@@ -83,8 +83,8 @@
           </ul>
           <hr *ngIf="matchedAuthors.size > 0">
 
-          <h2 *ngIf="matchedKeywords.size > 0">Asiasana</h2>
-          <ul>
+          <h2 *ngIf="matchedKeywords.size > 0">Asiasanat</h2>
+          <ul *ngIf="matchedKeywords.size > 0">
             <app-list-item *ngFor="let row of matchedKeywords; let index = index" class="list-group-item" [doc]="row[0]"
                            [id]="row[1]">
               <p (click)="modalSearchRowClick(row[1])" [innerHTML]="row[0] | highlight: value"></p>
@@ -93,12 +93,13 @@
           <hr *ngIf="matchedKeywords.size > 0">
 
           <h2 *ngIf="matchedYears.size > 0">Vuosi</h2>
-          <ul>
+          <ul *ngIf="matchedYears.size > 0">
             <app-list-item *ngFor="let row of matchedYears; let index = index" class="list-group-item" [doc]="row[0]"
                            [id]="row[1]">
               <p (click)="modalSearchRowClick(row[1])" [innerHTML]="row[0] | highlight: value"></p>
             </app-list-item>
           </ul>
+          <hr *ngIf="matchedYears.size > 0">
           <div class="no-results-wrap"*ngIf="!matchedNames.size > 0 && !matchedAuthors.size > 0 && !matchedYears.size && !matchedKeywords.size > 0">
             <p>Ei hakutuloksia</p>
           </div>
@@ -127,7 +128,7 @@
       <table class="mat-table" mat-table [dataSource]="formattedTableData" matSort>
         <ng-container matColumnDef="name">
           <th class="mat-header-cell" mat-header-cell *matHeaderCellDef mat-sort-header i18n-sortActionDescription="@@sortByName"
-              sortActionDescription="Järjestä nimen mukaan">Nimi
+              sortActionDescription="Järjestä nimen mukaan">{{locName}}
           </th>
           <td class="mat-cell" mat-cell *matCellDef="let element">
           <p>
@@ -139,19 +140,19 @@
         </ng-container>
 
         <ng-container matColumnDef="year">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header i18n-sortActionDescription="@@sortByYear" sortActionDescription="Järjestä vuoden mukaan">Vuosi
+          <th mat-header-cell *matHeaderCellDef mat-sort-header i18n-sortActionDescription="@@sortByYear" sortActionDescription="Järjestä julkaisuvuoden mukaan">{{locYear}}
           </th>
           <td class="mat-cell" mat-cell *matCellDef="let element">{{element.year}}</td>
         </ng-container>
 
         <ng-container matColumnDef="authors">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header i18n-sortActionDescription="@@sortByAuthor" sortActionDescription="Järjestä tekijöiden mukaan">Tekijät
+          <th mat-header-cell *matHeaderCellDef mat-sort-header i18n-sortActionDescription="@@sortByAuthors" sortActionDescription="Järjestä tekijöiden mukaan">{{locAuthors}}
           </th>
           <td class="mat-cell" mat-cell *matCellDef="let element">{{element.authors}}</td>
         </ng-container>
 
         <ng-container matColumnDef="keywords">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header i18n-sortActionDescription="@@sortByDescription" sortActionDescription="Järjestä asiasanojen mukaan">Asiasanat
+          <th mat-header-cell *matHeaderCellDef mat-sort-header i18n-sortActionDescription="@@sortByKeywords" sortActionDescription="Järjestä avainsanojen mukaan">{{locKeywords}}
           </th>
           <td class="mat-cell" mat-cell *matCellDef="let element">{{element.keywords}}</td>
         </ng-container>

@@ -50,6 +50,11 @@ export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
   resultDataMobile: Report[] = this.replaceEmptyKeywordsWithDash(dummyData);
   formattedTableData = new MatTableDataSource(this.replaceEmptyKeywordsWithDash(this.filteredSourceData));
 
+  locAuthors =  $localize`:@@tkiAuthors:Tekijät`;
+  locName =  $localize`:@@tkiName:Nimi`;
+  locYear =  $localize`:@@yearOfPublication:Julkaisuvuosi`;
+  locKeywords =  $localize`:@@tkiKeywords:Asiasanat`;
+
   displayedColumns = ['name', 'year', 'authors', 'keywords'];
   value = '';
   noSearchesDone = true;

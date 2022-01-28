@@ -34,6 +34,42 @@
           <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="tkiReportsHeader" datatype="html">
+        <source>Selvityksiä ja raportteja</source>
+        <target>Studies and reports</target>
+      </trans-unit>
+      <trans-unit id="searchTooltipTki">
+         <source>Voit hakea selvityksiä ja raportteja Suomen tutkimus- ja innovaatiojärjestelmästä</source>
+         <target>You can search reports about the Finnish research and innovation system  </target>
+      </trans-unit>
+      <trans-unit id="sortByName">
+         <source>Järjestä nimen mukaan</source>
+         <target>Sort by title</target>
+      </trans-unit>
+      <trans-unit id="sortByYear">
+         <source>Järjestä julkaisuvuoden mukaan</source>
+         <target>Sort by year of publication</target>
+      </trans-unit>
+      <trans-unit id="sortByAuthors">
+         <source>Järjestä tekijöiden mukaan</source>
+         <target>Sort by authors</target>
+      </trans-unit>
+      <trans-unit id="sortByKeywords">
+        <source>Järjestä asiasanojen mukaan</source>
+        <target>Sort by keywords</target>
+      </trans-unit>
+      <trans-unit id="tkiKeywords">
+        <source>Asiasanat</source>
+        <target>Keywords</target>
+      </trans-unit>
+      <trans-unit id="tkiName">
+        <source>Nimi</source>
+        <target>Title</target>
+      </trans-unit>
+      <trans-unit id="tkiAuthors">
+        <source>Tekijät</source>
+        <target>Authors</target>
+      </trans-unit>
       <trans-unit id="669c69431c87e87b4bb5b28d781c27be00456a7f" datatype="html">
         <source>Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa.</source>
         <target>You can search for publications, funding decisions, infrastructures and organization descriptions.</target>
@@ -679,10 +715,7 @@
       </trans-unit>
       <trans-unit id="externalLinksHeader" datatype="html">
         <source>Tieteestä ja tutkimuksesta muualla</source>
-      <target>Science and research elsewhere</target>
-      <trans-unit id="tkiReportsHeader" datatype="html">
-        <source>Selvityksiä ja raportteja</source>
-        <target>Studies and reports</target>
+        <target>Science and research elsewhere</target>
       </trans-unit>
       <trans-unit id="figuresHeader" datatype="html">
         <source>Lukuja tieteestä ja tutkimuksesta</source>
@@ -3615,9 +3648,9 @@
         <source>Päättymispäivä</source>
         <target>End date</target>
       </trans-unit>
-      <trans-unit id="fundingCallBeta">
-        <source>Rahoitushaut ovat uusi tietokokonaisuus Tiedejatutkimus.fi-palvelussa. Tiedot haetaan automaattisesti Aurora-tietokannasta. Otamme mielellämme vastaan palautetta rahoitushakukokonaisuuden toimivuudesta: tiedejatutkimus@csc.fi</source>
-        <target>Funding calls is a new section in Research.fi. The information is automatically retrieved from the Aurora database. All feedback on the funding calls section is welcome: tiedejatutkimus@csc.fi</target>
+      <trans-unit id="fundingCallAuroraInfo">
+        <source>Huom! Tiedoissa voi olla epätarkkuuksia alkuvuodesta 2022 Aurora-tietokannan toiminnan lakkaamisesta ja uusien tiedonsiirtojen käyttöönotosta johtuen. Varmista tiedot rahoittajan omilta verkkosivuilta.</source>
+        <target>NB! Funding calls may contain inaccuracies at the beginning of 2022 due to the shutdown of the Aurora-database and introduction of new data transfers. Please verify information also from funders own web pages.</target>
       </trans-unit>
       <trans-unit id="applicationPeriod">
         <source>Hakuaika</source>
