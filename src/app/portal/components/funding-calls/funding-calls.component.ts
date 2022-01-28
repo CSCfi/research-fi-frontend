@@ -65,7 +65,7 @@ export class FundingCallsComponent implements OnInit, AfterViewInit, OnDestroy {
   tabSub: Subscription;
   showSkipLinks: boolean;
 
-  betaTooltip = $localize`:@@fundingCallBeta:Rahoitushaut ovat uusi tietokokonaisuus Tiedejatutkimus.fi-palvelussa. Tiedot haetaan automaattisesti Aurora-tietokannasta. Otamme mielellämme vastaan palautetta rahoitushakukokonaisuuden toimivuudesta: tiedejatutkimus@csc.fi`;
+  auroraInfo = $localize`:@@fundingCallAuroraInfo:Huom! Tiedoissa voi olla epätarkkuuksia alkuvuodesta 2022 Aurora-tietokannan toiminnan lakkaamisesta ja uusien tiedonsiirtojen käyttöönotosta johtuen. Varmista tiedot rahoittajan omilta verkkosivuilta.`;
 
   selectedTabData: {
     data: string;

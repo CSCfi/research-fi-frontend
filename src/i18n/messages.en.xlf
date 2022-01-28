@@ -3612,9 +3612,9 @@
         <source>Päättymispäivä</source>
         <target>End date</target>
       </trans-unit>
-      <trans-unit id="fundingCallBeta">
-        <source>Rahoitushaut ovat uusi tietokokonaisuus Tiedejatutkimus.fi-palvelussa. Tiedot haetaan automaattisesti Aurora-tietokannasta. Otamme mielellämme vastaan palautetta rahoitushakukokonaisuuden toimivuudesta: tiedejatutkimus@csc.fi</source>
-        <target>Funding calls is a new section in Research.fi. The information is automatically retrieved from the Aurora database. All feedback on the funding calls section is welcome: tiedejatutkimus@csc.fi</target>
+      <trans-unit id="fundingCallAuroraInfo">
+        <source>Huom! Tiedoissa voi olla epätarkkuuksia alkuvuodesta 2022 Aurora-tietokannan toiminnan lakkaamisesta ja uusien tiedonsiirtojen käyttöönotosta johtuen. Varmista tiedot rahoittajan omilta verkkosivuilta.</source>
+        <target>NB! Funding calls may contain inaccuracies at the beginning of 2022 due to the shutdown of the Aurora-database and introduction of new data transfers. Please verify information also from funders own web pages.</target>
       </trans-unit>
       <trans-unit id="applicationPeriod">
         <source>Hakuaika</source>
