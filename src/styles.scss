@@ -54,6 +54,7 @@
 @import './app/portal/components/news/news/news.component.scss-theme.scss';
 @import './app/portal/components/news/news-card/news-card.component.scss-theme.scss';
 @import './app/portal/components/results/pagination/pagination.component.scss';
+@import './app/portal/components/results/datasets/datasets.component-theme.scss';
 @import './app/portal/components/science-politics/figures/carousel/carousel.component.scss-theme.scss';
 @import './app/portal/components/visualisation/bar/bar.component.scss-theme.scss';
 @import './app/portal/components/science-politics/tki-reports/tki-reports.component.scss';
@@ -91,6 +92,7 @@
   @include app-single-result-theme-shared($theme);
   @include app-single-result-shared;
   @include app-pagination-theme($theme);
+  @include app-datasets-theme($theme);
   @include app-sort-theme($theme);
   @include app-active-filters-theme($theme);
   @include app-active-filters-shared;

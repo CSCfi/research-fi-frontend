@@ -8,7 +8,7 @@
   <app-search-bar></app-search-bar>
 </aside>
 
-<div class="wrapper" *ngIf="responseData" id="main-content">
+<div class="wrapper" *ngIf="responseData; else loading" id="main-content">
   <div class="row shared">
     <p class="back col-12" style="padding-bottom: 0.25rem">
       <a
@@ -41,16 +41,43 @@
     </div>
     <main class="col-12 col-md-8">
       <div *ngFor="let item of responseData.datasets">
-        <div class="row d-flex justify-content-around">
+        <div class="row d-flex justify-content-around header-row">
           <div class="col p-0">
-            <h1 class="result-header">{{ item.name }}</h1>
+            <h1 class="result-header m-0">{{ item.name }}</h1>
           </div>
+
           <div
             *ngIf="item.logo && item.logo !== null"
             class="col p-0 org-logo text-right align-self-center"
           >
             <img [src]="item.logo | safeUrl" />
           </div>
+
+          <!-- Dataset version selector -->
+          <div *ngIf="item.datasetVersions?.length > 0" class="col-auto">
+            <app-secondary-button
+              [content]="currentVersion"
+              [icon]="faChevronDown"
+              [iconAfter]="true"
+              [matMenuTriggerFor]="datasetVersionMenu"
+            ></app-secondary-button>
+          </div>
+
+          <mat-menu #datasetVersionMenu="matMenu">
+            <ng-container *ngFor="let version of item.datasetVersions">
+              <button
+                mat-menu-item
+                [ngClass]="
+                  version.id === item.id ? 'primary-color font-weight-bold' : ''
+                "
+                [disabled]="version.id === item.id"
+                (click)="changeDatasetVersion(version.id)"
+              >
+                <ng-container i18n="@@version">Versio</ng-container>
+                {{ version.versionNumber }}
+              </button>
+            </ng-container>
+          </mat-menu>
         </div>
 
         <div id="info" class="table">
@@ -174,12 +201,7 @@
               Muut tiedot
             </h2>
             <div
-              class="
-                col-12 col-sm-6 col-lg-3
-                offset-0 offset-sm-6 offset-lg-0
-                first-no-offset-mobile
-                td
-              "
+              class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 first-no-offset-mobile td"
               *ngFor="let row of otherInfoFields?.slice(0, 3)"
             >
               <h3 class="th">
@@ -208,11 +230,7 @@
             <div class="row content" *ngIf="i % 3 == 0">
               <!-- First col -->
               <div
-                class="
-                  col-12 col-sm-6 col-lg-3
-                  offset-0 offset-sm-6 offset-lg-3
-                  td
-                "
+                class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-3 td"
               >
                 <h3 class="th">
                   <span class="pr-1">{{ row.label }}</span>
@@ -234,11 +252,7 @@
               </div>
               <!-- Second col -->
               <div
-                class="
-                  col-12 col-sm-6 col-lg-3
-                  offset-0 offset-sm-6 offset-lg-0
-                  td
-                "
+                class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td"
                 *ngIf="otherInfoFields.slice(3).length > i + 1"
               >
                 <h3 class="th">
@@ -266,11 +280,7 @@
               </div>
               <!-- Third col -->
               <div
-                class="
-                  col-12 col-sm-6 col-lg-3
-                  offset-0 offset-sm-6 offset-lg-0
-                  td
-                "
+                class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td"
                 *ngIf="otherInfoFields.slice(3).length > i + 2"
               >
                 <h3 class="th">
@@ -471,3 +481,15 @@
     </div>
   </div>
 </div>
+
+<ng-template #loading>
+  <div class="row">
+    <div class="col-auto m-auto py-5">
+      <mat-spinner
+        [diameter]="80"
+        i18n-aria-label="@@loading"
+        aria-label="Ladataan"
+      ></mat-spinner>
+    </div>
+  </div>
+</ng-template>

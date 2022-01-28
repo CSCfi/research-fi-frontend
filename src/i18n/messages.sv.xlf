@@ -3070,6 +3070,14 @@
         <source>Tutkimusaineistojen kuvailutiedot ovat uusi tietokokonaisuus Tiedejatutkimus.fi -portaalissa. Tietojen lähteenä ovat Fairdata-palveluista löytyvät kuvailutiedot. Koska kyseessä on uusi kokonaisuus, toivomme palautetta tiedejatutkimus@csc.fi osoitteeseen.</source>
         <target>Research data is a new section in Research.fi -portal. The source for the section's metadata are the Fairdata.fi -services. For this new section in Research.fi, all feedback is welcome and should be sent to tiedejatutkimus@csc.fi</target>
       </trans-unit>
+      <trans-unit id="version">
+        <source>versio</source>
+        <target>versione</target>
+      </trans-unit>
+      <trans-unit id="versions">
+        <source>versiota</source>
+        <target>versioner</target>
+      </trans-unit>
       <trans-unit id="datasetSourceMetadata">
         <source>Metatietopalvelu</source>
         <target>Metadata portal</target>
