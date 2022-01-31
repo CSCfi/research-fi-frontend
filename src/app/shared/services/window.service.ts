@@ -1,3 +1,7 @@
+/*
+ * Enables window injection
+ */
+
 import { isPlatformBrowser } from '@angular/common';
 import {
   ClassProvider,

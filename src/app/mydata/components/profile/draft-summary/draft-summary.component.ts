@@ -13,6 +13,7 @@ import { combineLatest } from 'rxjs';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { DatasetsService } from '@mydata/services/datasets.service';
 import { FundingsService } from '@mydata/services/fundings.service';
+import { CollaborationsService } from '@mydata/services/collaborations.service';
 
 @Component({
   selector: 'app-draft-summary',
@@ -25,7 +26,6 @@ export class DraftSummaryComponent implements OnInit, OnDestroy {
   @Input() profileData: any;
   @Input() collaborationOptions: any;
 
-  checkedCollaborationItemsCount = 0;
   collaborationHeader = $localize`:@@collaborationHeader:Yhteistyö`;
   selectedData: any;
 
@@ -47,13 +47,15 @@ export class DraftSummaryComponent implements OnInit, OnDestroy {
     private publicationsService: PublicationsService,
     private datasetsService: DatasetsService,
     private fundingsService: FundingsService,
-    private appSettingsService: AppSettingsService
+    private appSettingsService: AppSettingsService,
+    private collaborationsService: CollaborationsService
   ) {
     this.locale = this.appSettingsService.capitalizedLocale;
   }
 
   ngOnInit(): void {
-    this.countCheckedCollaborationOptions();
+    this.collaborationOptions = this.collaborationsService.confirmedPayload;
+
     this.nameLocale = 'name' + this.appSettingsService.capitalizedLocale;
     this.patchPayloadSub = combineLatest([
       this.patchService.currentPatchItems,
@@ -71,14 +73,6 @@ export class DraftSummaryComponent implements OnInit, OnDestroy {
       const combinedItems = patchItems.concat(patchPortalItems);
 
       this.combinedPatchItems = combinedItems;
-    });
-  }
-
-  countCheckedCollaborationOptions() {
-    this.collaborationOptions.forEach((val) => {
-      if (Object.values(val).includes(true)){
-        this.checkedCollaborationItemsCount += 1;
-      }
     });
   }
 

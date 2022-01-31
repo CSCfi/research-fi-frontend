@@ -93,11 +93,15 @@
             palautetta hyödynnetään palvelun toiminnallisuuksien kehittämisessä.
           </p>
           <p>
-            <a href="https://wiki.eduuni.fi/x/YwMJDQ" target="_blank"
-              ><ng-container i18n="@@readMore">Lue lisää</ng-container
-              ><ng-container *ngIf="appSettingsService.currentLocale === 'en'">
-                (in Finnish)</ng-container
-              >... <fa-icon icon="external-link-alt"></fa-icon
+            <a
+              [href]="
+                appSettings[
+                  'readMoreLink' + appSettingsService.capitalizedLocale
+                ]
+              "
+              target="_blank"
+              ><ng-container i18n="@@readMore">Lue lisää</ng-container>...
+              <fa-icon icon="external-link-alt"></fa-icon
             ></a>
           </p>
         </ng-template>
@@ -148,7 +152,6 @@
           <!-- Lang selector -->
           <div
             class="navbar-expand mx-auto navbar-nav lang mobile"
-            *ngIf="!appSettings.beta"
           >
             <ul class="navbar-nav mx-auto">
               <li
@@ -237,7 +240,7 @@
                         "
                       >
                         <mat-option [value]="domain.locale.toUpperCase()">{{
-                          domain.locale.toUpperCase()
+                          domain.label
                         }}</mat-option>
                       </a>
                     </mat-select>
@@ -254,7 +257,9 @@
 
   <!-- Auth session expired template -->
   <ng-template #authExpiredTemplate>
-    <p>Istunto on vanhentunut. Kirjaudu sisään jatkaaksesi.</p>
+    <p i18n="@@sessionExpiredLogin">
+      Istunto on vanhentunut. Kirjaudu sisään jatkaaksesi.
+    </p>
 
     <app-primary-action-button
       (click)="login()"
@@ -264,7 +269,7 @@
 
   <!-- Unsaved draft template -->
   <ng-template #unsavedDraftTemplate>
-    <p>
+    <p i18n="@@youHaveUnpublishedChangesContinue">
       Sinulla on julkaisemattomia muutoksia. Jos kirjaudut ulos, tiedot
       menetetään.
     </p>

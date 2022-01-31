@@ -16,7 +16,11 @@ import {
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
-import { checkGroupSelected, isEmptySection } from '@mydata/utils';
+import {
+  checkGroupSelected,
+  isEmptySection,
+  mergePublications,
+} from '@mydata/utils';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SearchPortalComponent } from '../search-portal/search-portal.component';
 import { take } from 'rxjs/operators';
@@ -49,10 +53,10 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   checkGroupSelected = checkGroupSelected;
   isEmptySection = isEmptySection;
 
+  maxItems = 7;
   openPanels = [];
 
-  // TODO: Dynamic locale
-  locale = 'Fi';
+  locale: string;
 
   dialogRef: MatDialogRef<SearchPortalComponent>;
 
@@ -80,11 +84,15 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     private profileService: ProfileService,
     private patchService: PatchService,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) {
+    this.locale = appSettingsService.capitalizedLocale;
+  }
 
   ngOnInit(): void {
+    const field = this.data.fields[0];
+
     // Combine items from groups
-    const groupItems = cloneDeep(this.data.fields[0].groupItems);
+    const groupItems = cloneDeep(field.groupItems);
 
     groupItems.map(
       (groupItem) =>
@@ -98,6 +106,11 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     const items = [...groupItems].flatMap((groupItem) => groupItem.items);
 
     this.combinedItems = items;
+
+    // Merge publications that share DOI
+    if (this.data.id === this.groupTypes.publication) {
+      mergePublications(field);
+    }
   }
 
   ngOnChanges() {
@@ -227,13 +240,13 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
    * Search for Publications, Datasets and Fundings
    */
   openSearchFromResearchFiDialog(groupId: string) {
-    const fields = this.data.fields[0];
+    const field = this.data.fields[0];
 
     this.dialogRef = this.dialog.open(SearchPortalComponent, {
       data: {
         groupId: groupId,
-        itemsInProfile: fields?.groupItems,
-        selectedPublications: fields?.selectedPublications,
+        itemsInProfile: field?.groupItems,
+        selectedPublications: field?.selectedPublications,
       },
       panelClass: this.appSettingsService.dialogPanelClass,
     });
@@ -265,9 +278,10 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
         }
       }
 
-      service.addToPayload(result.selection);
+      const selection = result.selection;
+      const groupItems = field.groupItems;
 
-      const groupItems = this.data.fields[0].groupItems;
+      service.addToPayload(selection);
 
       // Items with primary value
       let existingAddedItems = groupItems.find((group) =>
@@ -275,21 +289,23 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
       );
 
       if (existingAddedItems) {
-        existingAddedItems.items = existingAddedItems.items.concat(
-          result.selection
-        );
+        existingAddedItems.items = existingAddedItems.items.concat(selection);
       } else {
         groupItems.push({
           groupMeta: { type: fieldType },
           source: {
             organization: {
-              nameFi: 'Tiedejatutkimus.fi',
-              nameSv: 'Forskning.fi',
-              nameEn: 'Research.fi',
+              name: CommonStrings.ttvLabel,
             },
           },
-          items: result.selection,
+          items: selection,
         });
+      }
+
+      // Merge publications that share DOI
+      // Select merged ORCID publication
+      if (this.data.id === this.groupTypes.publication) {
+        mergePublications(field, this.patchService);
       }
     };
 

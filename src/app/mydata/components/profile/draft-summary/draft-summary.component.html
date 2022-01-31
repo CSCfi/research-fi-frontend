@@ -47,13 +47,29 @@
             <ng-container *ngFor="let groupItem of field.groupItems">
               <ng-container [ngSwitch]="groupItem.groupMeta.type">
                 <ng-container *ngSwitchCase="fieldTypes.personKeyword">
-                  <!-- Display joined keywords only if item has show property set to true -->
-                  <div class="row" *ngIf="groupItem.items[0].itemMeta.show">
-                    <div class="col px-0 pb-2 font-size-smaller">
+                  <!-- 
+                    Special case for keywords. 
+                    Keywords are patched as separate keywords 
+                    but dispalyed as a joined list.
+                  -->
+                  <div
+                    class="row"
+                    *ngIf="
+                      combinedPatchItems
+                        | matchItem: groupItem.items[0].itemMeta
+                    "
+                  >
+                    <div
+                      class="col px-0 pb-2 font-size-smaller"
+                      [class.text-strike]="
+                        groupItem.items[0].itemMeta.show === false
+                      "
+                    >
                       {{ groupItem.items | joinItems: 'value' }}
                     </div>
                   </div>
                 </ng-container>
+                <!-- Default view -->
                 <ng-container *ngSwitchDefault>
                   <ng-container *ngFor="let item of groupItem.items">
                     <div
@@ -106,10 +122,14 @@
     </mat-expansion-panel>
   </ng-container>
 
-  <mat-expansion-panel id="collaboration-options-panel" [expanded]="false">
+  <mat-expansion-panel
+    id="collaboration-options-panel"
+    [expanded]="false"
+    *ngIf="collaborationOptions.length"
+  >
     <mat-expansion-panel-header class="pr-1 pr-md-3">
       <mat-panel-title class="font-weight-bold">
-        {{collaborationHeader}} ({{checkedCollaborationItemsCount}})
+        {{ collaborationHeader }} ({{ collaborationOptions.length }})
       </mat-panel-title>
     </mat-expansion-panel-header>
     <ng-container *ngFor="let option of collaborationOptions">

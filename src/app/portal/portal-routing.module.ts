@@ -32,6 +32,7 @@ import { ShortcutResolverService } from './resolvers/shortcut-resolver.service';
 import { SingleDatasetComponent } from './components/single/single-dataset/single-dataset.component';
 import { FundingCallsComponent } from './components/funding-calls/funding-calls.component';
 import { SingleFundingCallComponent } from './components/funding-calls/single-funding-call/single-funding-call.component';
+// import { TkiReportsComponent } from "@portal/components/science-politics/tki-reports/tki-reports.component";
 
 const routes: Routes = [
   {

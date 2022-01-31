@@ -34,6 +34,46 @@
           <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="tkiReportsHeader" datatype="html">
+        <source>Selvityksiä ja raportteja</source>
+        <target>Studies and reports</target>
+      </trans-unit>
+      <trans-unit id="searchTooltipTki">
+         <source>Voit hakea selvityksiä ja raportteja Suomen tutkimus- ja innovaatiojärjestelmästä</source>
+         <target>You can search reports about the Finnish research and innovation system  </target>
+      </trans-unit>
+      <trans-unit id="sortByName">
+         <source>Järjestä nimen mukaan</source>
+         <target>Sort by title</target>
+      </trans-unit>
+      <trans-unit id="sortByYear">
+         <source>Järjestä julkaisuvuoden mukaan</source>
+         <target>Sort by year of publication</target>
+      </trans-unit>
+      <trans-unit id="sortByAuthors">
+         <source>Järjestä tekijöiden mukaan</source>
+         <target>Sort by authors</target>
+      </trans-unit>
+      <trans-unit id="sortByKeywords">
+        <source>Järjestä asiasanojen mukaan</source>
+        <target>Sort by keywords</target>
+      </trans-unit>
+      <trans-unit id="tkiKeywords">
+        <source>Asiasanat</source>
+        <target>Keywords</target>
+      </trans-unit>
+      <trans-unit id="tkiName">
+        <source>Nimi</source>
+        <target>Title</target>
+      </trans-unit>
+      <trans-unit id="tkiAuthors">
+        <source>Tekijät</source>
+        <target>Authors</target>
+      </trans-unit>
+      <trans-unit id="searchTooltipPlaceholderTki">
+        <source>Hae raportti...</source>
+        <target>Search reports...</target>
+      </trans-unit>
       <trans-unit id="669c69431c87e87b4bb5b28d781c27be00456a7f" datatype="html">
         <source>Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa.</source>
         <target>You can search for publications, funding decisions, infrastructures and organization descriptions.</target>
@@ -3029,8 +3069,8 @@
         <target>Identified topics</target>
       </trans-unit>
       <trans-unit id="identifiedTopicsTooltip">
-        <source>Koneoppimisen avulla hankkeiden tiedoista tutkimustietovarannossa muodostettu aiheluokittelu. Hanke liittyy aiheeseen, jota se todennäköisimmin käsittelee.</source>
-        <target>Comprehensive topic categorisation, spanning all projects in the Hub, is formed with the help of machine learning. Then each project is assigned the topic it most likely addresses.</target>
+        <source>Koneoppimisen avulla hankkeiden tiedoista tutkimustietovarannossa muodostettu aiheluokittelu. Hanke liittyy aiheeseen, jota se todennäköisimmin käsittelee. Kaikista hankkeista ei ole riittävästi tietoa aiheen päättelyyn.</source>
+        <target>Comprehensive topic categorisation, spanning all projects in the Hub, is formed with the help of machine learning. Then each project is assigned the topic it most likely addresses. There is not enough information on all projects to identify the topic.</target>
       </trans-unit>
       <trans-unit id="fieldOfScienceTooltip">
         <source>Tilastokeskuksen tieteenalaluokitus. Yhteen hankkeeseen voi liittyä useita tieteenaloja. Kaikki rahoittajat eivät käytä tieteenalaluokitusta.</source>
@@ -3612,9 +3652,9 @@
         <source>Päättymispäivä</source>
         <target>End date</target>
       </trans-unit>
-      <trans-unit id="fundingCallBeta">
-        <source>Rahoitushaut ovat uusi tietokokonaisuus Tiedejatutkimus.fi-palvelussa. Tiedot haetaan automaattisesti Aurora-tietokannasta. Otamme mielellämme vastaan palautetta rahoitushakukokonaisuuden toimivuudesta: tiedejatutkimus@csc.fi</source>
-        <target>Funding calls is a new section in Research.fi. The information is automatically retrieved from the Aurora database. All feedback on the funding calls section is welcome: tiedejatutkimus@csc.fi</target>
+      <trans-unit id="fundingCallAuroraInfo">
+        <source>Huom! Tiedoissa voi olla epätarkkuuksia alkuvuodesta 2022 Aurora-tietokannan toiminnan lakkaamisesta ja uusien tiedonsiirtojen käyttöönotosta johtuen. Varmista tiedot rahoittajan omilta verkkosivuilta.</source>
+        <target>NB! Funding calls may contain inaccuracies at the beginning of 2022 due to the shutdown of the Aurora-database and introduction of new data transfers. Please verify information also from funders own web pages.</target>
       </trans-unit>
       <trans-unit id="applicationPeriod">
         <source>Hakuaika</source>
@@ -5181,9 +5221,9 @@
         <target>At this point, we will not yet publish your profile.</target>
       </trans-unit>
       <trans-unit id="welcomeStep3_4">
-        <source>Voit hallinnoida tietojesi näyttämistä seuraavissa
-                    vaiheissa.</source>
-        <target>You can manage the display of your information in the following steps.</target>
+        <source>Voit hallinnoida tietojesi näyttämistä seuraavassa
+                    vaiheessa.</source>
+        <target>You can manage the display of your information in the following step.</target>
       </trans-unit>
       <trans-unit id="importingDataWait">
         <source>Tietoja tuodaan, odota hetki...</source>
@@ -5380,6 +5420,18 @@
         <source>Lähde</source>
         <target>Source</target>
       </trans-unit>
+      <trans-unit id="showAllPublications">
+        <source>Näytä kaikki julkaisut</source>
+        <target>Show all publications</target>
+      </trans-unit>
+      <trans-unit id="showAllDatasets">
+        <source>Näytä kaikki tutkimusaineistot</source>
+        <target>Show all research data items</target>
+      </trans-unit>
+      <trans-unit id="showAllFundings">
+        <source>Näytä kaikki hankkeet</source>
+        <target>Show all projects</target>
+      </trans-unit>
       <trans-unit id="isMissing">
         <source>Puuttuuko jokin </source>
         <target>Is a </target>
@@ -5429,6 +5481,14 @@
           betaversiossa.</source>
         <target>Adding of most recent publications doesn't work in beta version.</target>
       </trans-unit>
+      <trans-unit id="betaAddingOfMostRecent">
+        <source>Huom! Kaikkein tuoreimpien </source>
+        <target>Adding of most recent </target>
+      </trans-unit>
+      <trans-unit id="doesNotWorkInBeta">
+        <source> lisääminen ei toimi betaversiossa.</source>
+        <target> doesn't work in beta version.</target>
+      </trans-unit>
       <trans-unit id="dataSourceIsResearchFi">
         <source>Tietolähteenä käytetään Tiedejatutkimus.fi-palvelua</source>
         <target>The data source used is the Research.fi service</target>
@@ -5449,7 +5509,7 @@
         <source>Esim. nimi, organisaatio</source>
         <target>For example, name, organization</target>
       </trans-unit>
-            <trans-unit id="enterPartOfName">
+      <trans-unit id="enterPartOfName">
         <source>Kirjoita osa nimestä</source>
         <target>Enter part of the name</target>
       </trans-unit>
@@ -5484,6 +5544,14 @@
       <trans-unit id="publicationsAddedFromResearchFITooltip">
         <source>Tiedejatutkimus.fi-palvelun julkaisut on lisätty profiiliisi automaattisesti, jos niissä on ORCID-tunnuksesi. Julkaisuja, joihin ORCID-tunnusta ei ole valmiiksi liitetty, voit etsiä ”Puuttuuko jokin julkaisu tiedoistasi?” –toiminnolla.</source>
         <target>Publications on Research.fi have been added to your profile automatically if they contain your ORCID ID. You can search publications that don't contain your ORCID ID by using the "Is a publication missing from your data?" feature.</target>
+      </trans-unit>
+      <trans-unit id="sessionExpiredLogin">
+        <source>Istunto on vanhentunut. Kirjaudu sisään jatkaaksesi.</source>
+        <target>Session has expired. Log in to continue.</target>
+      </trans-unit>
+      <trans-unit id="youHaveUnpublishedChangesContinue">
+        <source>Sinulla on julkaisemattomia muutoksia. Jos kirjaudut ulos, tiedot menetetään.</source>
+        <target>You have unpublished changes. If you log out, the changes will be lost.</target>
       </trans-unit>
     </body>
   </file>

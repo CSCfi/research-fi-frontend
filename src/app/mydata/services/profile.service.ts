@@ -80,10 +80,6 @@ export class ProfileService {
     return this.http.get(this.apiUrl + '/orcid/', this.httpOptions);
   }
 
-  getCooperationChoices() {
-    this.updateTokenInHttpAuthHeader();
-    return this.http.get(this.apiUrl + '/CooperationChoices/', this.httpOptions);
-  }
 
   getProfileData() {
     this.updateTokenInHttpAuthHeader();
@@ -98,15 +94,6 @@ export class ProfileService {
     return this.http.patch(
       this.apiUrl + '/profiledata/',
       body,
-      this.httpOptions
-    );
-  }
-
-  patchCooperationChoices(input) {
-    this.updateTokenInHttpAuthHeader();
-    return this.http.patch(
-      this.apiUrl + '/CooperationChoices/',
-      input,
       this.httpOptions
     );
   }

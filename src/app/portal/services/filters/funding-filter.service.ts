@@ -299,7 +299,7 @@ export class FundingFilterService {
     return res;
   }
 
-  mapTopic(data){
+  mapTopic(data) {
     data.forEach((item) => {
       if (item.key !== 'YSA' && item.key !== 'YSO') {
         item.subData = item.keywords.buckets.filter(
@@ -325,7 +325,7 @@ export class FundingFilterService {
           }
           case 'topic': {
             item.key = $localize`:@@identifiedTopic:Tunnistettu aihe`;
-            item.tooltip = $localize`:@@identifiedTopicsTooltip:Koneoppimisen avulla hankkeiden tiedoista tutkimustietovarannossa muodostettu aiheluokittelu. Hanke liittyy aiheeseen, jota se todennäköisimmin käsittelee.`;
+            item.tooltip = $localize`:@@identifiedTopicsTooltip:Koneoppimisen avulla hankkeiden tiedoista tutkimustietovarannossa muodostettu aiheluokittelu. Hanke liittyy aiheeseen, jota se todennäköisimmin käsittelee. Kaikista hankkeista ei ole riittävästi tietoa aiheen päättelyyn.`;
             break;
           }
           case 'Tutkimusala': {

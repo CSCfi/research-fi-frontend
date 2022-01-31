@@ -173,13 +173,17 @@ export class SingleFundingCallComponent implements OnInit {
       );
     };
     // Strip HTML tags from content
+    // DOMParser not supported in SSR
     const parseString = (item: { field: string }) => {
-      let doc = new DOMParser().parseFromString(
-        this.responseData.fundingCalls[0][item.field],
-        'text/html'
-      );
-      return doc.body.textContent || '';
+      if (this.appSettingsService.isBrowser) {
+        let doc = new DOMParser().parseFromString(
+          this.responseData.fundingCalls[0][item.field],
+          'text/html'
+        );
+        return doc.body.textContent || '';
+      }
     };
+
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter((item) => checkEmpty(item));
     this.applicationInfoFields = this.applicationInfoFields.filter((item) =>

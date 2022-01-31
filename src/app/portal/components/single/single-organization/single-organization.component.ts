@@ -179,49 +179,52 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   getData(id: string) {
     // Organization may have an iFrame. This data comes from CMS.
     // CMS data is handled in browsers storage
-    this.dataSub = forkJoin([
-      this.singleService.getSingleOrganization(id),
-      !sessionStorage.getItem('sectorData')
-        ? this.cmsContentService.getSectors()
-        : JSON.parse(sessionStorage.getItem('sectorData')),
-    ]).subscribe((response: any) => {
-      const orgCMSData = response[1]
-        ?.map((sector) => sector.organizations)
-        .flat()
-        .find((org) => org.link === id);
+    // Browser check for SSR build. Session Storage not available within Node.
+    if (this.appSettingsService.isBrowser) {
+      this.dataSub = forkJoin([
+        this.singleService.getSingleOrganization(id),
+        !sessionStorage.getItem('sectorData')
+          ? this.cmsContentService.getSectors()
+          : JSON.parse(sessionStorage.getItem('sectorData')),
+      ]).subscribe((response: any) => {
+        const orgCMSData = response[1]
+          ?.map((sector) => sector.organizations)
+          .flat()
+          .find((org) => org.link === id);
 
-      this.responseData = response[0];
-      const orgData = response[0].organizations[0];
+        this.responseData = response[0];
+        const orgData = response[0].organizations[0];
 
-      if (orgData) {
-        // Set visualization url
-        if (orgCMSData?.iframe.trim().length > 0)
-          orgData.visualIframeUrl = orgCMSData.iframe;
+        if (orgData) {
+          // Set visualization url
+          if (orgCMSData?.iframe.trim().length > 0)
+            orgData.visualIframeUrl = orgCMSData.iframe;
 
-        switch (this.localeId) {
-          case 'fi': {
-            this.setTitle(orgData.name + ' - Tiedejatutkimus.fi');
-            break;
+          switch (this.localeId) {
+            case 'fi': {
+              this.setTitle(orgData.name + ' - Tiedejatutkimus.fi');
+              break;
+            }
+            case 'en': {
+              this.setTitle(orgData.name.trim() + ' - Research.fi');
+              break;
+            }
+            case 'sv': {
+              this.setTitle(orgData.name.trim() + ' - Forskning.fi');
+              break;
+            }
           }
-          case 'en': {
-            this.setTitle(orgData.name.trim() + ' - Research.fi');
-            break;
-          }
-          case 'sv': {
-            this.setTitle(orgData.name.trim() + ' - Forskning.fi');
-            break;
-          }
+          const titleString = this.titleService.getTitle();
+          this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
+          this.utilityService.addMeta(
+            titleString,
+            this.metaTags['description' + this.currentLocale],
+            this.commonTags['imgAlt' + this.currentLocale]
+          );
+          this.shapeData(orgData);
         }
-        const titleString = this.titleService.getTitle();
-        this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
-        this.utilityService.addMeta(
-          titleString,
-          this.metaTags['description' + this.currentLocale],
-          this.commonTags['imgAlt' + this.currentLocale]
-        );
-        this.shapeData(orgData);
-      }
-    });
+      });
+    }
   }
 
   shapeData(data) {

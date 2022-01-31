@@ -8,6 +8,8 @@ import { Injectable } from '@angular/core';
 import { Adapter } from '../adapter.model';
 import { VisualData } from './visualisations.model';
 import { StaticDataService } from '../../services/static-data.service';
+import { ActivatedRoute } from '@angular/router';
+import { take } from 'rxjs/operators';
 
 export class FundingVisual {
   constructor(
@@ -29,13 +31,12 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
     year: '',
     funder: 'f.funder.buckets.shift().key',
     organization: '',
-    identifiedTopic: 
+    identifiedTopic:
       'f.identifiedTopicId.buckets[0].key.split("|")[0].trim() || f.identifiedTopicId.buckets[0].key.split("|")[1].trim() || f.key',
     // Locale, english, finnish, key
     typeOfFunding:
       'f.typeName.buckets[0].key.split("|")[0].trim() || f.typeName.buckets[0].key.split("|")[1].trim() || f.typeName.buckets[0].key.split("|")[2].trim() || f.key',
     fieldOfScience: 'f.key',
-
   };
 
   private ids = {
@@ -50,7 +51,7 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
 
   funding = this.sds.visualisationData.funding;
 
-  constructor(private sds: StaticDataService) {}
+  constructor(private sds: StaticDataService, private route: ActivatedRoute) {}
 
   groupNames(arr: VisualData[]): VisualData[] {
     // For each year
@@ -176,13 +177,24 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
         this.sortByName(fieldOfScience);
         break;
 
-        case 'identifiedTopic':
-          item.aggregations.identifiedTopic.buckets.forEach((b) => tmp.push(b));
+      case 'identifiedTopic':
+        item.aggregations.identifiedTopic.buckets.forEach((b) => tmp.push(b));
+
+        /*
+         * Display keywords from all schemes if user has a topic filter active.
+         * Default to topic scheme keywords otherwise.
+         * Eg. |topic identifier is generated via aggregation script.
+         */
+        this.route.queryParams.pipe(take(1)).subscribe((params) => {
           tmp.forEach((b) => {
             b.data = [];
             b.identifiedTopicNested.identifiedTopicId.buckets.forEach((f) => {
-              if(f.identifiedTopic.buckets.shift().key.includes("|topic")){
-                const v: any = {}
+              if (
+                params.topic
+                  ? true
+                  : f.identifiedTopic.buckets[0].key.includes('|topic')
+              ) {
+                const v: any = {};
                 v.name = f.key;
                 v.id = f.key;
                 v.doc_count = f.doc_count;
@@ -192,8 +204,9 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
             });
             identifiedTopic.push(b);
           });
-          this.sortByName(identifiedTopic);
-          break;
+        });
+        this.sortByName(identifiedTopic);
+        break;
 
       default:
         const hierarchyField = this.funding[categoryIdx].hierarchy[1].name;

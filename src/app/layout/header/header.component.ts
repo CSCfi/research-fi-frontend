@@ -123,7 +123,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private tabChangeService: TabChangeService,
     private privacyService: PrivacyService,
-    private appSettingsService: AppSettingsService,
+    public appSettingsService: AppSettingsService,
     private oidcSecurityService: OidcSecurityService,
     private draftService: DraftService
   ) {
@@ -204,6 +204,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.appSettingsService.setCurrentAppSettings('myData');
         } else {
           this.appSettingsService.setCurrentAppSettings('portal');
+        }
+
+        // MYDATA DEMO: Redirect all other than mydata routes to mydata during myData beta
+        if (
+          isPlatformBrowser(this.platformId) &&
+          this.window.location.href.includes('researchfi-mydata.rahtiapp.fi')
+        ) {
+          if (!this.currentRoute.includes('/mydata')) {
+            this.router.navigate(['/mydata']);
+          }
         }
 
         // Login / logout link

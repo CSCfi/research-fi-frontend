@@ -6,6 +6,8 @@
 //  :license: MIT
 
 import { get } from 'lodash-es';
+import { FieldTypes } from './constants/fieldTypes';
+import { PatchService } from './services/patch.service';
 
 /*
  * Common pipeable functions
@@ -48,39 +50,65 @@ export function checkGroupPatchItem(group, patchItems) {
  * Shared methods
  */
 
-export function mergePublications(data) {
+// User can add "duplicate" publications.
+// Publications from Orcid and Portal are related with DOI.
+export function mergePublications(
+  data: { groupItems: any },
+  patchService: PatchService = null
+) {
   if (!isEmptySection(data)) {
-    const publications = data.fields[0].groupItems;
+    const publicationGroups = data.groupItems;
 
-    for (let [i, publication] of publications[0].items.entries()) {
-      if (publications.length === 2) {
-        const match = publications[1].items.find(
-          (item) => item.doi === publication.doi
-        );
+    const orcidPublications = publicationGroups.find(
+      (group) => group.groupMeta.type === FieldTypes.activityOrcidPublication
+    );
 
-        if (match) {
-          publications[0].items[i] = {
-            ...publication,
-            merged: true,
-            source: {
-              organizations: [
-                publications[0].source.organization,
-                publications[1].source.organization,
-              ],
-            },
-          };
+    const addedPublications = publicationGroups.find(
+      (group) => group.groupMeta.type === FieldTypes.activityPublication
+    );
 
-          // Remove duplicate
-          publications[1].items = publications[1].items.filter(
-            (item) => item.doi !== publication.doi
+    // DOI value is generated from doiHandle field when publication is patched to profile.
+    // Therefore find if orcid publication doi string is included in added publications doi field.
+    const matchPublication = (
+      addedPublication: { doi: string },
+      orcidPublication: { doi: string }
+    ) =>
+      addedPublication.doi === orcidPublication.doi ||
+      (orcidPublication.doi.length > 0 &&
+        addedPublication.doi?.includes(orcidPublication.doi));
+
+    if (orcidPublications?.length > 0) {
+      for (let [i, orcidPublication] of orcidPublications.items.entries()) {
+        if (publicationGroups.length === 2) {
+          const match = addedPublications.items.find((addedPublication) =>
+            matchPublication(addedPublication, orcidPublication)
           );
+          if (match) {
+            orcidPublications.items[i] = {
+              ...orcidPublication,
+              ...match,
+              title: orcidPublication.title, // Keep title from ORCID
+              itemMeta: { ...orcidPublication.itemMeta, show: true }, // Keep original itemMeta, set selection
+              merged: true,
+              source: {
+                // Merged publications have multiple sources
+                organizations: [
+                  orcidPublications.source.organization,
+                  addedPublications.source.organization,
+                ],
+              },
+            };
+
+            // Patch publication from ORCID that has match
+            patchService?.addToPayload(orcidPublication.itemMeta);
+
+            // Remove duplicate from added publications
+            publicationGroups[1].items = addedPublications.items.filter(
+              (addedPublication) =>
+                !matchPublication(addedPublication, orcidPublication)
+            );
+          }
         }
-        // else {
-        //   for (const group of publications.shift()) {
-        //     if (group.items.find((item) => item.doi === publication.doi)) {
-        //     }
-        //   }
-        // }
       }
     }
   }
@@ -88,7 +116,7 @@ export function mergePublications(data) {
 
 // Publications can be empty if user has no imported data from ORCID
 export function isEmptySection(data) {
-  return !data.fields[0].groupItems.length;
+  return !data.groupItems.length;
 }
 
 // Sort items and return unbinded data

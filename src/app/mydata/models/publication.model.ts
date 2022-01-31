@@ -38,6 +38,15 @@ export class PublicationFieldsAdapter implements Adapter<PublicationFields> {
         ))
     );
 
+    // Sort publication groups by ORCID publications first
+    // Order needs to be constant for merging publications in mydata/utils.ts
+    item.publicationGroups = item.publicationGroups.sort(
+      (
+        a: { groupMeta: { type: number } },
+        b: { groupMeta: { type: number } }
+      ) => b.groupMeta.type - a.groupMeta.type
+    );
+
     return new PublicationFields(
       this.mydataUtils.mapGroup(
         item.publicationGroups,

@@ -1,0 +1,167 @@
+<!-- # This file is part of the research.fi API service
+#
+# Copyright 2019 Ministry of Education and Culture, Finland
+#
+# :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+# :license: MIT -->
+<app-banner-divider></app-banner-divider>
+<span *ngIf="modalOverlayVisible && value" class="modal-overlay" [ngStyle]="{ height: modalOverlayHeight + 'px' }"
+      (click)="modalOverlayClick()"></span>
+<main id="main-content">
+  <div class="wrapper">
+    <div class="row">
+      <div class="wrapper">
+        <div class="row pt-4 pb-4">
+          <div class="col text-center mt-3">
+            <h1 i18n="@@tkiReportsHeader">Selvityksiä ja raportteja</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="search-and-modal-wrapper mx-3 py-4 justify-content-center">
+      <div class="search-inputs-wrap">
+        <div class="tki-search-inputs-row d-flex flex-nowrap justify-content-left">
+          <div class="search-input d-flex col-xs-6 col-md-12 input search-field">
+            <input matInput type="text" [(ngModel)]="value"
+                   class="col-10 col-sm-11 pr-0"
+                   #searchInput
+                   mat-input
+                   type="text"
+                   i18n-title="@@searchTooltipTki"
+                   title="Voit hakea selvityksiä ja raportteja Suomen tutkimus- ja innovaatiojärjestelmästä"
+                   i18n-placeholder="@@searchTooltipPlaceholderTki"
+                   placeholder="Hae raportti..."
+                   id="searchInput"
+                   autocomplete="off"
+                   tabindex="0"
+                   aria-label="Hae selvityksiä ja raportteja"
+                   (focus)="onFocus()"
+                   (keyup)="onKeyup($event)"
+                   (keydown)="disableKeys($event)"
+            />
+            <span *ngIf="value.length > 0"
+              class="reset-search"
+              (click)="resetSearch()"
+              (keyup.enter)="resetSearch()"
+              tabindex="0"
+              i18n-title="@@resetSearchTooltip"
+              title="Tyhjennä haku"
+            >
+                  <i class="fa fa-times"></i>
+                </span>
+          </div>
+          <app-primary-action-button
+            class="search-button"
+            content="Hae"
+            i18n-content="Search@@search"
+            [icon]="faSearch"
+            (click)="doFiltering(false)"
+            (keyup.enter)="doFiltering(false)"
+            type="submit"
+          ></app-primary-action-button>
+        </div>
+      </div>
+
+      <!-- Search result modal -->
+      <div *ngIf="modalOverlayVisible && value" class="d-flex col-xs-6 col-md-12 justify-content-center">
+        <div class="tki-search-results-modal auto-suggest">
+          <h2 *ngIf="matchedNames.size > 0">Nimi</h2>
+          <ul *ngIf="matchedNames.size > 0">
+            <app-list-item *ngFor="let row of matchedNames; let index = index" class="list-group-item" [doc]="row[0]"
+                           [id]="row[1]">
+              <p (click)="modalSearchRowClick(row[1])" [innerHTML]="row[0] | highlight: value"></p>
+            </app-list-item>
+          </ul>
+          <hr *ngIf="matchedNames.size > 0">
+
+          <h2 *ngIf="matchedAuthors.size > 0">Tekijät</h2>
+          <ul *ngIf="matchedAuthors.size > 0">
+            <app-list-item *ngFor="let row of matchedAuthors; let index = index" class="list-group-item" [doc]="row[0]"
+                           [id]="row[1]">
+              <p (click)="modalSearchRowClick(row[1])" [innerHTML]="row[0] | highlight: value"></p>
+            </app-list-item>
+          </ul>
+          <hr *ngIf="matchedAuthors.size > 0">
+
+          <h2 *ngIf="matchedKeywords.size > 0">Asiasanat</h2>
+          <ul *ngIf="matchedKeywords.size > 0">
+            <app-list-item *ngFor="let row of matchedKeywords; let index = index" class="list-group-item" [doc]="row[0]"
+                           [id]="row[1]">
+              <p (click)="modalSearchRowClick(row[1])" [innerHTML]="row[0] | highlight: value"></p>
+            </app-list-item>
+          </ul>
+          <hr *ngIf="matchedKeywords.size > 0">
+
+          <h2 *ngIf="matchedYears.size > 0">Vuosi</h2>
+          <ul *ngIf="matchedYears.size > 0">
+            <app-list-item *ngFor="let row of matchedYears; let index = index" class="list-group-item" [doc]="row[0]"
+                           [id]="row[1]">
+              <p (click)="modalSearchRowClick(row[1])" [innerHTML]="row[0] | highlight: value"></p>
+            </app-list-item>
+          </ul>
+          <hr *ngIf="matchedYears.size > 0">
+          <div class="no-results-wrap"*ngIf="!matchedNames.size > 0 && !matchedAuthors.size > 0 && !matchedYears.size && !matchedKeywords.size > 0">
+            <p>Ei hakutuloksia</p>
+          </div>
+          <br>
+        </div>
+      </div>
+    </div>
+
+    <!-- List view for mobile only -->
+    <div class="tki-search-results-mobile" [class.d-none]="!isMobile">
+      <div *ngFor="let row of resultDataMobile">
+        <h2>Nimi</h2>
+        <a [attr.href]="row.link" target="_blank"><p>{{row.name}}<fa-icon icon="external-link-alt"></fa-icon></p></a>
+        <h2>Vuosi</h2>
+        <p [innerHTML]="row.year | highlight: value"></p>
+        <h2>Julkaisija</h2>
+        <p [innerHTML]="row.authors | highlight: value"></p>
+        <h2>Asiasanat</h2>
+        <p [innerHTML]="row.keywords | highlight: value"></p>
+        <hr>
+      </div>
+    </div>
+
+    <!-- Table view for desktop only -->
+    <div class="tki-search-results-desktop" [class.d-none]="isMobile">
+      <table class="mat-table" mat-table [dataSource]="formattedTableData" matSort>
+        <ng-container matColumnDef="name">
+          <th class="mat-header-cell" mat-header-cell *matHeaderCellDef mat-sort-header i18n-sortActionDescription="@@sortByName"
+              sortActionDescription="Järjestä nimen mukaan">{{locName}}
+          </th>
+          <td class="mat-cell" mat-cell *matCellDef="let element">
+            <p>
+              <a [attr.href]="element.link" target="_blank">{{element.name}}
+                <fa-icon icon="external-link-alt"></fa-icon>
+              </a>
+            </p>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="year">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header i18n-sortActionDescription="@@sortByYear" sortActionDescription="Järjestä julkaisuvuoden mukaan">{{locYear}}
+          </th>
+          <td class="mat-cell" mat-cell *matCellDef="let element">{{element.year}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="authors">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header i18n-sortActionDescription="@@sortByAuthors" sortActionDescription="Järjestä tekijöiden mukaan">{{locAuthors}}
+          </th>
+          <td class="mat-cell" mat-cell *matCellDef="let element">{{element.authors}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="keywords">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header i18n-sortActionDescription="@@sortByKeywords" sortActionDescription="Järjestä avainsanojen mukaan">{{locKeywords}}
+          </th>
+          <td class="mat-cell" mat-cell *matCellDef="let element">{{element.keywords}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+    <br>
+    <br>
+  </div>
+</main>

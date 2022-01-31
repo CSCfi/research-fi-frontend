@@ -82,6 +82,10 @@ export class DatasetsService {
   }
 
   addToDeletables(dataset) {
+    this.datasetPayload = this.datasetPayload.filter(
+      (item) => item.id !== dataset.id
+    );
+
     this.deletables.push(dataset);
   }
 

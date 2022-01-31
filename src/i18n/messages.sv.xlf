@@ -32,6 +32,46 @@
           <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="tkiReportsHeader" datatype="html">
+        <source>Selvityksiä ja raportteja</source>
+        <target>Utredningar och rapporter</target>
+      </trans-unit>
+      <trans-unit id="searchTooltipTki">
+         <source>Voit hakea selvityksiä ja raportteja Suomen tutkimus- ja innovaatiojärjestelmästä</source>
+         <target>Du kan söka utredningar och rapporter om det finländska forsknings- och innovationssystemet</target>
+      </trans-unit>
+      <trans-unit id="sortByName">
+         <source>Järjestä nimen mukaan</source>
+         <target>Sortera efter titel</target>
+      </trans-unit>
+      <trans-unit id="sortByYear">
+        <source>Järjestä julkaisuvuoden mukaan</source>
+        <target>Sortera efter publiceringsår</target>
+      </trans-unit>
+      <trans-unit id="sortByAuthors">
+        <source>Järjestä tekijöiden mukaan</source>
+        <target>Sortera efter upphovsmän</target>
+      </trans-unit>
+      <trans-unit id="sortByKeywords">
+        <source>Järjestä asiasanojen mukaan</source>
+        <target>Sortera efter nyckelord</target>
+      </trans-unit>
+      <trans-unit id="tkiKeywords">
+        <source>Asiasanat</source>
+        <target>Nyckelord</target>
+      </trans-unit>
+      <trans-unit id="tkiName">
+        <source>Nimi</source>
+        <target>Titel</target>
+      </trans-unit>
+      <trans-unit id="tkiAuthors">
+        <source>Tekijät</source>
+        <target>Upphovsmän</target>
+      </trans-unit>
+      <trans-unit id="searchTooltipPlaceholderTki">
+        <source>Hae raportti...</source>
+        <target>Sök rapporter...</target>
+      </trans-unit>
       <trans-unit id="669c69431c87e87b4bb5b28d781c27be00456a7f" datatype="html">
         <source>Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa.</source>
         <target state="translated">Sökningen gäller publikationer, finansieringsbeslut, infrastrukturer och organisationer.</target>
@@ -3014,8 +3054,8 @@
         <target>Identifierade teman</target>
       </trans-unit>
       <trans-unit id="identifiedTopicsTooltip">
-        <source>Koneoppimisen avulla hankkeiden tiedoista tutkimustietovarannossa muodostettu aiheluokittelu. Hanke liittyy aiheeseen, jota se todennäköisimmin käsittelee.</source>
-        <target>Med hjälp av maskininlärning bildas en ämneskategorisering från projektdata. Projektet relaterar till ämnet det i stor sannolikheten handlar.</target>
+        <source>Koneoppimisen avulla hankkeiden tiedoista tutkimustietovarannossa muodostettu aiheluokittelu. Hanke liittyy aiheeseen, jota se todennäköisimmin käsittelee. Kaikista hankkeista ei ole riittävästi tietoa aiheen päättelyyn.</source>
+        <target>Med hjälp av maskininlärning bildas en ämneskategorisering från projektdata. Projektet relaterar till ämnet det i stor sannolikheten handlar. Det finns inte tillräckligt information om alla projekt för att identifiera teman.</target>
       </trans-unit>
       <trans-unit id="fieldOfScienceTooltip">
         <source>Tilastokeskuksen tieteenalaluokitus. Yhteen hankkeeseen voi liittyä useita tieteenaloja. Kaikki rahoittajat eivät käytä tieteenalaluokitusta.</source>
@@ -3597,9 +3637,9 @@
         <source>Päättymispäivä</source>
         <target>Slutdatum</target>
       </trans-unit>
-      <trans-unit id="fundingCallBeta">
-        <source>Rahoitushaut ovat uusi tietokokonaisuus Tiedejatutkimus.fi-palvelussa. Tiedot haetaan automaattisesti Aurora-tietokannasta. Otamme mielellämme vastaan palautetta rahoitushakukokonaisuuden toimivuudesta: tiedejatutkimus@csc.fi</source>
-        <target>Forskningsfinansiering är ett nytt avsnitt i Forskning.fi. Informationen om finansieringsutlysningar hämtas automatiskt från Aurora-databasen. All feedback är välkommen: tiedejatutkimus@csc.fi</target>
+      <trans-unit id="fundingCallAuroraInfo">
+        <source>Huom! Tiedoissa voi olla epätarkkuuksia alkuvuodesta 2022 Aurora-tietokannan toiminnan lakkaamisesta ja uusien tiedonsiirtojen käyttöönotosta johtuen. Varmista tiedot rahoittajan omilta verkkosivuilta.</source>
+        <target>Obs! Utlysningsinformation kan innehålla felaktigheter i början av 2022 på grund av Aurora-databasens upphöring och införingen av nya anslutningar. Kolla gärna information från finansiärens egen hemsida.</target>
       </trans-unit>
       <trans-unit id="applicationPeriod">
         <source>Hakuaika</source>

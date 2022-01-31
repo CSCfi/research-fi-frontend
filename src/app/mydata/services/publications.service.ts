@@ -65,6 +65,7 @@ export class PublicationsService {
     const merged = this.confirmedPayload.concat(this.publicationPayload);
     this.confirmedPayload = merged;
     this.confirmedPayloadSource.next(merged);
+    this.clearPayload();
   }
 
   cancelConfirmedPayload() {
@@ -76,7 +77,7 @@ export class PublicationsService {
 
   removeFromConfirmed(publicationId: string) {
     const filtered = this.confirmedPayload.filter(
-      (item) => item.publicationId !== publicationId
+      (item) => item.id !== publicationId
     );
 
     this.confirmedPayload = filtered;
@@ -84,6 +85,9 @@ export class PublicationsService {
   }
 
   addToDeletables(publication) {
+    this.publicationPayload = this.publicationPayload.filter(
+      (item) => item.id !== publication.id
+    );
     this.deletables.push(publication);
   }
 
@@ -93,7 +97,7 @@ export class PublicationsService {
 
   addPublications() {
     this.updateTokenInHttpAuthHeader();
-    const body = this.publicationPayload.map((item) => ({
+    const body = this.confirmedPayload.map((item) => ({
       publicationId: item.id,
       show: item.itemMeta.show,
       primaryValue: item.itemMeta.primaryValue,
