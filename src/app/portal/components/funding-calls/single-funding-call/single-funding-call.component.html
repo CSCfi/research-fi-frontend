@@ -6,7 +6,7 @@
 <div class="bar background-primary"></div>
 <h1 #srHeader class="sr-only"></h1>
 
-<div class="wrapper" *ngIf="responseData" id="main-content">
+<div class="wrapper single-funding-calls-wrap" *ngIf="responseData" id="main-content">
   <!-- Breadcrumb -->
   <app-breadcrumb
     [type]="'funding-call'"
@@ -225,11 +225,25 @@
               <h2 i18n="@@fundingFunder">Rahoittaja</h2>
             </mat-card-title>
             <div class="row links" *ngFor="let row of funderFields">
-              <div class="col-12 px-0 font-weight-normal name">
+              <p class="col-12 px-0 font-weight-normal name">
                 {{ call[row.field].name }}
+              </p>
+              <br>
+              <div *ngIf="call[row.field].url" class="col-12 px-0 link d-flex">
+                <span class="link-tag">URL</span>
+                <span class="link-item"><a [href]="call[row.field].url"><span class="link-label">{{ call[row.field].url }}</span><fa-icon icon="external-link-alt"></fa-icon
+                ></a></span>
               </div>
-              <div class="col-12 px-0 link" *ngIf="call[row.field].url">
-                <a [href]="call[row.field].url">{{ call[row.field].url }}</a>
+              <div *ngIf="call[row.field].foundationUrl" class="col-12 px-0 link d-flex">
+                <span class="link-tag">URL</span>
+                <span class="link-item"><a [href]="call[row.field].foundationUrl">{{ call[row.field].foundationUrl }}<fa-icon icon="external-link-alt"></fa-icon
+                ></a></span>
+              </div>
+              <h2 *ngIf="call[row.field].applicationUrl" i18n="@@fundingFunder" class="mt-4">Rahoitushaun verkkosivu</h2>
+              <div *ngIf="call[row.field].applicationUrl" class="col-12 px-0 link d-flex">
+                <span class="link-tag">URL</span>
+                <span class="link-item"><a [href]="call[row.field].applicationUrl"><span class="link-label">{{ call[row.field].applicationUrl }}</span><fa-icon icon="external-link-alt"></fa-icon
+                ></a></span>
               </div>
               <!-- <div *ngIf="!linksFields.length && !call.selfArchivedData" class="no-links" i18n="@@noFundingCallLinks">
                                 Rahoitushakuun ei ole tarjolla linkkejä tässä portaalissa
