@@ -9,5 +9,14 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+  h2 {
+    word-wrap: break-word;
+    white-space: normal;
+  }
+  .funding-sidebar {
+    h2 {
+      //font-size: 1em;
+    }
+  }
 }
 
