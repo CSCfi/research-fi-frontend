@@ -234,16 +234,17 @@
                   </ng-template>
                 </mat-card-title>
                 <br>
+
                 <div *ngIf="call[row.field].url" class="col-12 px-0 link d-flex">
                   <span class="link-tag">URL</span>
-                  <span class="link-item"><a [href]="'//' + call[row.field].url"><span
+                  <span class="link-item"><a [href]="fixExternalUrl(call[row.field].url)" target="_blank"><span
                     class="link-label">{{ call[row.field].url }}</span><fa-icon icon="external-link-alt"></fa-icon
                   ></a></span>
                 </div>
                 <div *ngIf="call[row.field].foundationUrl" class="col-12 px-0 link d-flex">
                   <span class="link-tag">URL</span>
                   <span class="link-item"><a
-                    [href]="'//' + call[row.field].foundationUrl">{{ call[row.field].foundationUrl }}
+                    [href]="fixExternalUrl(call[row.field].foundationUrl)" target="_blank">{{ call[row.field].foundationUrl }}
                     <fa-icon icon="external-link-alt"></fa-icon
                     ></a></span>
                 </div>
@@ -251,7 +252,7 @@
                   verkkosivu</h2>
                 <div *ngIf="call[row.field].applicationUrl" class="col-12 px-0 link d-flex">
                   <span class="link-tag">URL</span>
-                  <span class="link-item"><a [href]="'//' + call[row.field].applicationUrl"><span
+                  <span class="link-item"><a [href]="fixExternalUrl(call[row.field].applicationUrl)" target="_blank"><span
                     class="link-label">{{ call[row.field].applicationUrl }}</span><fa-icon
                     icon="external-link-alt"></fa-icon
                   ></a></span>
@@ -302,7 +303,7 @@
             </mat-card-title>
             <div class="links">
               <a href="https://www.aurora-tietokanta.fi/"
-              >
+              target="_blank">
                 <ng-container i18n="@@auroraDatabase"
                 >Aurora-tietokanta
                 </ng-container
