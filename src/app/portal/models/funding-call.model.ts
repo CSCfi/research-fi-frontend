@@ -22,7 +22,7 @@ export class FundingCall {
     public dueDate: Date,
     public openDateString: string,
     public dueDateString: string,
-    public foundation: { name: string; orgId: string; url: string },
+    public foundation: { name: string; orgId: string; url: string, foundationUrl: string, applicationUrl: string },
     public categories: { id: string; name: string }[],
     public daysLeft: number
   ) {}
@@ -48,10 +48,23 @@ export class FundingCallAdapter implements Adapter<FundingCall> {
     }
 
     const foundation: any = {};
-    const f = item.foundation.pop();
-    foundation.name = this.lang.testLang('name', f);
-    foundation.orgId = f?.organization_id?.trim();
-    foundation.url = f?.url?.trim();
+    if (item?.foundation) {
+      const f = item?.foundation.pop();
+      foundation.name = this.lang.testLang('name', f);
+      foundation.orgId = f?.organization_id?.trim();
+      foundation.url = f?.url?.trim();
+      foundation.foundationUrl = f?.foundationURL?.trim();
+    }
+
+    if (this.localeId === 'fi') {
+      foundation.applicationUrl = item?.applicationURL_fi ? item.applicationURL_fi : item?.applicationURL_sv ? item.applicationURL_sv : item.applicationURL_en ? item.applicationURL_en : '';
+    }
+    else if (this.localeId === 'sv') {
+      foundation.applicationUrl = item?.applicationURL_sv ? item.applicationURL_sv : item?.applicationURL_fi ? item.applicationURL_fi : item.applicationURL_en ? item.applicationURL_en : '';
+    }
+    else if (this.localeId === 'en') {
+      foundation.applicationUrl = item?.applicationURL_en ? item.applicationURL_en : item?.applicationURL_fi ? item.applicationURL_fi : item.applicationURL_sv ? item.applicationURL_sv : '';
+    }
 
     const categories = [];
     item.categories.forEach((c) =>

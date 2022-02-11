@@ -1,0 +1,97 @@
+[
+  {"id": 222,
+    "authors": [
+      "OKM"
+    ],
+    "name": [
+      "Tohtorit yhteiskuntaa uudistamassa – monipuolistuvat tutkijanurat : Tutkijanurakysymyksiä käsittelevän työryhmän loppuraportti"
+    ],
+    "link": "https://julkaisut.valtioneuvosto.fi/handle/10024/163241",
+    "year": "2021"
+  ,
+    "keywords": [
+      "tiede, koulutus, tutkijakoulutus, kehittämistoiminta, innovaatiotoiminta, tutkimus, työelämä, tutkijanura"
+    ]
+  },
+  {"id": 153,
+    "authors": ["Kimmo Halme, Vesa Salminen, Juha Kettinen, Henri Lahtinen,Arto Smolander, Jan Ljungman, Daniel Holmberg, Anete Vingre, Dominik Beckers, Gabriel Khalaf, Business Finlandin arviointi"],
+    "name": [
+      "Business Finlandin arviointi"
+    ],
+    "link": "https://www.businessfinland.fi/499045/globalassets/julkaisut/TEM_2021_46.pdf",
+    "year": "2021",
+    "keywords": ["ministeriö, työ- ja elinkeinoministeriö, hallinto, innovaatiopolitiikka, viennin edistäminen,investoinnit, matkailun edistäminen, tulosohjaus, arviointi, Business Finland, Business Finland -uudistus"]
+  },
+  {"id": 232,
+    "authors": ["Ali-Yrkkö, Jyrki; Deschryvere, Matthias; Halme, Kimmo; Järvelin, Anne-Mari; Lehenkari, Janne; Pajarinen, Mika; Piirainen, Kalle; Suominen, Arho Yritysten t&k-toiminta ja t&k-investointien kasvattamisen edellytykset"],
+    "name": ["Yritysten t&k-toiminta ja t&k-investointien kasvattamisen edellytykset"],
+    "link": "https://julkaisut.valtioneuvosto.fi/bitstream/handle/10024/163266/VNTEAS_2021_50.pdf",
+    "year": "2021",
+    "keywords": ["tutkimus, tutkimustoiminta, tuotekehitys, t&k, innovaatiopolitiikka, yritys"]
+  },
+  {"id": 3431,
+    "authors": ["Teknologianeuvottelukunta"],
+    "name": ["Suomen teknologiapolitiikka 2020-luvulla : Teknologialla ja tiedolla maailman kärkeen"],
+    "link": "https://julkaisut.valtioneuvosto.fi/handle/10024/163185",
+    "year": "2021",
+    "keywords": ["teknologia, digitalisaatio, hyvinvointi, kilpailukyky, osaaminen, tuottavuus, yritykset, elinkeinot, vihreä siirtymä, julkisen hallinnon ICT"]
+  },
+  {"id": 442,
+    "authors": ["Koski, Heli; Fornano, Paolo"],
+    "name": ["Tarvitaanko Suomessa t&k-verokannustimia?"],
+    "link": "https://www.etla.fi/wp-content/uploads/ETLA-Muistio-Brief-97.pdf",
+    "year": "2021",
+    "keywords": ["T&k-verokannustimet, T&k-investoinnit, Innovaatiopolitiikka, Patentit"]
+  },
+  {"id": 1542,
+    "authors": ["Mattila, Juri; Pajarinen, Mika; Seppälä, Timo; Mäkäräinen, Kalle; Neuvonen, Vertti"],
+    "name": ["Digibarometri"],
+    "link": "https://www.etla.fi/wp-content/uploads/Digibarometri-2021.pdf",
+    "year": "2021",
+    "keywords": [""]
+  },
+  {"id": 653,
+    "authors": ["Sirén, Hannu"],
+    "name": ["Yhteistyöllä osaamista, aluekehitystä ja kansainvälisyyttä"],
+    "link": "https://www.theseus.fi/handle/10024/503798",
+    "year": "2021",
+    "keywords": [""]
+  },
+  {"id": 7111,
+    "authors": ["Kestävän kasvun työryhmä"],
+    "name": ["Kestävä talouskasvu ja hyvinvointimme tulevaisuus"],
+    "link": "https://julkaisut.valtioneuvosto.fi/handle/10024/162870",
+    "year": "2021",
+    "keywords": ["yritykset, elinkeinot, tuottavuus, talouspolitiikka, innovaatiotoiminta, talouskasvu"]
+  },
+  {"id": 8111,
+    "authors": ["TSV"],
+    "name": ["Taipuu vaan ei taitu – Koronapandemiasta Suomen kriisinkestävyyden vahvistamiseen"],
+    "link": "http://www.acadsci.fi/tiedostot/www_Taipuu_vaan_ei_taitu_Suomalainen_Tiedeakatemia_kannanotto_2021.pdf",
+    "year": "2021",
+    "keywords": [""]
+  },
+  {"id": 294,
+    "authors": ["Arene"],
+    "name": ["Vaikuttava ammattikorkeakoulu – Ammattikorkeakoulujen TKI-toiminta 2020"],
+    "link": "https://www.arene.fi/wp-content/uploads/Raportit/2021/Vaikuttava%20ammattikorkeakoulu%20-%20TKI-toiminta%20ammattikorkeakouluissa%202020.pdf?_t=1623303453",
+    "year": "2021",
+    "keywords": [""]
+  },
+  {"id": 72343,
+    "authors": ["Hjelt, Mari; Haila, Katri; Sepponen, Susanna; Sirppiniemi, Ringa"],
+    "name": ["Strategisen tutkimuksen\nohjelmat 2016-2019:\nyhteiskunnallisen\nvaikuttavuuden arviointi\n"],
+    "link": "https://www.aka.fi/globalassets/3-stn/1-strateginen-tutkimus/tiedon-kayttajalle/tietoaineistot/yhteiskunnallisen-vaikuttavuuden-arviointi---strategisen-tutkimuksen-ohjelmat-2016-2019.pdf",
+    "year": "2021",
+    "keywords": [""]
+  },
+  {"id": 111111,
+    "authors": ["Euroopan komissio"],
+    "name": ["European Innovation Scoreboard: Finland"],
+    "link": "https://ec.europa.eu/docsroom/documents/45913/attachments/1/translations/en/renditions/native",
+    "year": "2021",
+    "keywords": [""]
+  }
+]
+
+

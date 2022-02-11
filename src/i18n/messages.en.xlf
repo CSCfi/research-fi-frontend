@@ -34,6 +34,46 @@
           <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="tkiReportsHeader" datatype="html">
+        <source>Selvityksiä ja raportteja</source>
+        <target>Studies and reports</target>
+      </trans-unit>
+      <trans-unit id="searchTooltipTki">
+         <source>Voit hakea selvityksiä ja raportteja Suomen tutkimus- ja innovaatiojärjestelmästä</source>
+         <target>You can search reports about the Finnish research and innovation system  </target>
+      </trans-unit>
+      <trans-unit id="sortByName">
+         <source>Järjestä nimen mukaan</source>
+         <target>Sort by title</target>
+      </trans-unit>
+      <trans-unit id="sortByYear">
+         <source>Järjestä julkaisuvuoden mukaan</source>
+         <target>Sort by year of publication</target>
+      </trans-unit>
+      <trans-unit id="sortByAuthors">
+         <source>Järjestä tekijöiden mukaan</source>
+         <target>Sort by authors</target>
+      </trans-unit>
+      <trans-unit id="sortByKeywords">
+        <source>Järjestä asiasanojen mukaan</source>
+        <target>Sort by keywords</target>
+      </trans-unit>
+      <trans-unit id="tkiKeywords">
+        <source>Asiasanat</source>
+        <target>Keywords</target>
+      </trans-unit>
+      <trans-unit id="tkiName">
+        <source>Nimi</source>
+        <target>Title</target>
+      </trans-unit>
+      <trans-unit id="tkiAuthors">
+        <source>Tekijät</source>
+        <target>Authors</target>
+      </trans-unit>
+      <trans-unit id="searchTooltipPlaceholderTki">
+        <source>Hae raportti...</source>
+        <target>Search reports...</target>
+      </trans-unit>
       <trans-unit id="669c69431c87e87b4bb5b28d781c27be00456a7f" datatype="html">
         <source>Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa.</source>
         <target>You can search for publications, funding decisions, infrastructures and organization descriptions.</target>

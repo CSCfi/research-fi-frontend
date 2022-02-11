@@ -2,3 +2,16 @@
     height: 50px;
     margin-bottom: 1rem;
 }
+
+.single-funding-calls-wrap {
+  .span.link-label{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  h2 {
+    word-wrap: break-word;
+    white-space: normal;
+  }
+}
+

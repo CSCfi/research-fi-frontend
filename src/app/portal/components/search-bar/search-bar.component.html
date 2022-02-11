@@ -7,12 +7,11 @@
 
 <div class="bar row" #searchBar>
   <!-- TTTV Banner badge only on home page -->
-  <div class="col-3 badge-area align-self-center">
-  </div>
+  <div class="col-3 badge-area align-self-center"></div>
   <!-- Search -->
   <div class="col-12 col-xl-6">
     <div class="search" [class.no-heading]="router.url !== '/'">
-      <form (keydown.enter)="$event.preventDefault()" class="wrapper">
+      <form role="search" (keydown.enter)="$event.preventDefault()" class="wrapper">
         <label
           i18n="@@searchSlogan"
           [class.sr-only]="router.url !== '/'"
@@ -33,27 +32,45 @@
           </div>
           <div class="input-group" #inputGroup>
             <!-- Search target -->
-            <mat-form-field class="search-target">
-              <mat-label i18n="@@searchTarget">Kohdista haku</mat-label>
-              <mat-select
-                (selectionChange)="changeTarget($event)"
-                [(value)]="selectedTarget"
-              >
-                <mat-option
-                  *ngFor="let target of targets"
-                  [value]="target.value"
+            <button
+              mat-button
+              (blur)="showAutoSuggest = false"
+              class="btn btn-search-target mr-2 d-none d-md-block"
+              type="button"
+              [matMenuTriggerFor]="searchTargetMenu"
+              (keydown.enter)="searchTargetMenu.openMenu()"
+            >
+              <span class="pr-1">
+                <ng-container *ngIf="!selectedTarget" i18n="@@searchTarget"
+                  >Kohdista haku</ng-container
                 >
-                  {{ target['viewValue' + currentLocale] }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+                <ng-container *ngIf="selectedTarget">{{
+                  selectedTargetLabel
+                }}</ng-container>
+              </span>
+              <i class="fa fa-chevron-down"></i>
+            </button>
+
+            <mat-menu #searchTargetMenu="matMenu" [overlapTrigger]="true">
+              <button
+                mat-menu-item
+                *ngFor="let target of targets; let i = index"
+                class="search-target"
+                [disabled]="selectedTarget === target.value || (!selectedTarget && i === 0)"
+                (click)="changeTarget(target)"
+              >
+                {{ target['viewValue' + currentLocale] }}
+              </button>
+            </mat-menu>
+
+            <!-- Search input -->
             <div class="search-input form-control row d-flex">
               <input
-                class="col-10 col-sm-11 pr-0"
+                class="col-10 col-sm-12"
                 #searchInput
                 [formControl]="queryField"
                 mat-input
-                type="text"
+                type="search"
                 i18n-title="@@searchTooltip"
                 title="Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa."
                 i18n-placeholder="@@searchPlaceholder"
@@ -100,7 +117,7 @@
             <!-- Completion assist is for measuring input content width -->
             <span id="completionAssist"></span>
             <!-- Send -->
-            <div class="input-group-append">
+            <div class="input-group-append pl-2">
               <button
                 mat-button
                 (blur)="showAutoSuggest = false"
@@ -114,7 +131,7 @@
                 <span i18n="Search@@search" class="search-button">Hae</span>
               </button>
             </div>
-            <div class="search-help" (clickOutside)="onClickedOutside($event)">
+            <div class="search-help pl-2" (clickOutside)="onClickedOutside($event)">
               <button
                 [ngClass]="showHelp ? 'up' : 'down'"
                 mat-button

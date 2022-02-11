@@ -39,7 +39,7 @@ app-result-tab {
   }
 
   .bundler.active {
-    margin-top: 10px;
+    margin-top: 0;
     border-bottom: 0px;
     background: none;
     z-index: 1;
@@ -50,7 +50,7 @@ app-result-tab {
     display: block;
     cursor: pointer;
     min-width: 205.7px;
-    margin: 23px 0 0;
+    margin: .75rem 0 0;
     padding: 5px 0;
     border-radius: 0;
   }

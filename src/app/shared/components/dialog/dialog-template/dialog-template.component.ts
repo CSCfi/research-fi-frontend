@@ -26,9 +26,10 @@ export class DialogTemplateComponent implements OnInit {
     public data: {
       title: string;
       template: object;
+      footerTemplate: string;
       actions: any[];
-      extraContentTemplate: object;
       spreadActions: boolean;
+      extraContentTemplate: object;
     },
     private dialogRef: MatDialogRef<DialogTemplateComponent>,
     private appSettingsService: AppSettingsService

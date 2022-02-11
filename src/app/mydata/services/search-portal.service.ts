@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Search, SearchAdapter } from '@portal/models/search.model';
 import { SettingsService } from '@portal/services/settings.service';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 export interface Respone {
   hits: any;
@@ -18,6 +19,7 @@ export class SearchPortalService {
   currentSort: any;
   pageSettings: any;
   httpOptions: object;
+  locale: string;
 
   private termSource = new BehaviorSubject<string>('');
   currentTerm = this.termSource.asObservable();
@@ -26,23 +28,50 @@ export class SearchPortalService {
     private http: HttpClient,
     private appConfigService: AppConfigService,
     private searchAdapter: SearchAdapter,
-    private searchSettingsService: SettingsService
+    private searchSettingsService: SettingsService,
+    private appSettingsService: AppSettingsService
   ) {
+    this.locale = this.appSettingsService.capitalizedLocale;
+
     // this.apiUrl = this.appConfigService.apiUrl;
     this.apiUrl =
       'https://researchfi-api-production-researchfi.rahtiapp.fi/portalapi/'; // Hardcoded production data url for dev purposes
   }
 
-  updateSort(groupId: string, sortSettings) {
+  updateSort(
+    groupId: string,
+    sortSettings: { active: string; direction: string }
+  ) {
+    let sortField: string;
+
     switch (sortSettings.active) {
       case 'year': {
-        this.currentSort = {
-          [this.getDefaultSortField(groupId)]: {
-            order: sortSettings.direction,
-          },
-        };
+        sortField = this.getDefaultSortField(groupId);
+        break;
+      }
+      case 'name': {
+        switch (groupId) {
+          case 'publication': {
+            sortField = 'publicationName.keyword';
+            break;
+          }
+          case 'dataset': {
+            sortField = `name${this.locale}.keyword`;
+            break;
+          }
+          case 'funding': {
+            sortField = `projectName${this.locale}.keyword`;
+            break;
+          }
+        }
       }
     }
+
+    return (this.currentSort = {
+      [sortField]: {
+        order: sortSettings.direction,
+      },
+    });
   }
 
   getDefaultSortField(groupId) {
@@ -67,9 +96,6 @@ export class SearchPortalService {
   }
 
   resetSort() {
-    // this.currentSort = {
-    //   publicationYear: { order: 'desc' },
-    // };
     this.currentSort = null;
   }
 

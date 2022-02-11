@@ -38,7 +38,7 @@
     <div *ngFor="let call of resultData; let i = index" class="single">
       <div class="row no-margin">
         <div class="col col-4 title">
-          <a routerLink="/funding-call/{{ call.id }}">
+          <a routerLink="/funding-call/{{ call.id }}" class="d-block">
             <h4
               class="result-title"
               [innerHtml]="call.name | highlight: input"
@@ -50,6 +50,7 @@
           <a
             *ngIf="call.foundation.orgId"
             routerLink="/results/organization/{{ call.foundation.orgId }}"
+            class="d-block"
           >
             <span [innerHtml]="call.foundation.name | highlight: input"></span>
           </a>
