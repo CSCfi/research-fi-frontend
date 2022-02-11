@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.utilityService.setTitle(this.title);
+    this.utilityService.setMyDataTitle(this.title);
   }
 
   login() {

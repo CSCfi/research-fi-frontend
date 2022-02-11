@@ -423,7 +423,7 @@
                     style="font-size: 22px; padding: 3px 12px"
                   ></span>
                   <span class="link-item">
-                    <a href="{{ item[row.field] }}" target="_blank"
+                    <a [attr.href]="item[row.field]" target="_blank"
                       ><span class="link-label">{{
                         item[row.field] | handleLinkDisplay
                       }}</span>

@@ -21,22 +21,22 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { SearchService } from '../../services/search.service';
-import { SortService } from '../../services/sort.service';
-import { AutosuggestService } from '../../services/autosuggest.service';
-import { TabChangeService } from '../../services/tab-change.service';
+import { SearchService } from '@portal/services/search.service';
+import { SortService } from '@portal/services/sort.service';
+import { AutosuggestService } from '@portal/services/autosuggest.service';
+import { TabChangeService } from '@portal/services/tab-change.service';
 import { FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
-import { SingleItemService } from '../../services/single-item.service';
+import { SingleItemService } from '@portal/services/single-item.service';
 import { ListItemComponent } from './list-item/list-item.component';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
-import { SettingsService } from 'src/app/portal/services/settings.service';
-import { UtilityService } from 'src/app/shared/services/utility.service';
-import { FilterService } from 'src/app/portal/services/filters/filter.service';
+import { SettingsService } from '@portal/services/settings.service';
+import { UtilityService } from '@shared/services/utility.service';
+import { FilterService } from '@portal/services/filters/filter.service';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { StaticDataService } from 'src/app/portal/services/static-data.service';
+import { StaticDataService } from '@portal/services/static-data.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
@@ -106,6 +106,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   browserHeight: number;
   autoSuggestSub: Subscription;
   tabSub: Subscription;
+  selectedTargetLabel: any;
 
   constructor(
     public searchService: SearchService,
@@ -133,6 +134,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     this.routeSub = this.route.queryParams.subscribe((params) => {
       this.selectedTarget = params.target ? params.target : null;
+      if (params.target) this.getTargetLabel(params.target);
       this.queryParams = params;
       this.topMargin =
         this.searchBar.nativeElement.offsetHight +
@@ -367,10 +369,17 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   // Set target, copy queryParams and add target to params
-  changeTarget(event) {
-    const target = event.value !== 'all' ? event.value : null;
+  changeTarget(selection) {
+    const target = selection.value !== 'all' ? selection.value : null;
     this.settingService.changeTarget(target);
     this.selectedTarget = target || null;
+    this.getTargetLabel(selection.value);
+  }
+
+  getTargetLabel(target) {
+    this.selectedTargetLabel = this.targets.find(
+      (item) => item.value === target
+    )['viewValue' + this.currentLocale];
   }
 
   resetSearch() {

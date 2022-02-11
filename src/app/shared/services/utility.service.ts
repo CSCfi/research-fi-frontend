@@ -183,6 +183,12 @@ export class UtilityService {
     }
   }
 
+  setMyDataTitle(newTitle: string) {
+    if (isPlatformBrowser(this.platformId)) {
+      this.titleService.setTitle(`${newTitle} - ${$localize`:@@researchersProfile:Tutkijan tiedot`}`);
+    }
+  }
+
   addMeta(title: string, description: string, imageAlt: string) {
     this.meta.updateTag({ name: 'description', content: description });
     this.meta.updateTag({ property: 'og:title', content: title });

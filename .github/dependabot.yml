@@ -1,0 +1,20 @@
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'monthly'
+      day: 'monday'
+    labels:
+      - 'npm dependencies'
+    target-branch: 'devel'
+    open-pull-requests-limit: 10
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'monthly'
+      day: 'monday'
+    labels:
+      - 'github actions'
+    target-branch: 'devel'
+    open-pull-requests-limit: 10

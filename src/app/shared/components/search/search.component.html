@@ -3,7 +3,7 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+<form role="search" [formGroup]="searchForm" (ngSubmit)="onSubmit()">
   <div class="row d-flex">
     <div class="col-12 col-md-6 input px-0">
       <label for="searchInput" class="sr-only">{{ placeholder }}</label>
@@ -12,7 +12,7 @@
         id="searchInput"
         formControlName="term"
         mat-input
-        type="text"
+        type="search"
         id="searchInput"
         [placeholder]="placeholder"
         class="search"

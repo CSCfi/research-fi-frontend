@@ -270,11 +270,14 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
           break;
         }
       }
-      // Restore focus after clicking a filter
+      // Restore focus after clicking a filter.
+      // Id might have special characters and therefore [id=''] is used in selector.
       if (this.activeElement && isPlatformBrowser(this.platformId)) {
         setTimeout(() => {
           (
-            this.document.querySelector('#' + this.activeElement) as HTMLElement
+            this.document.querySelector(
+              `[id='${this.activeElement}']`
+            ) as HTMLElement
           )?.focus();
         }, 1);
       }

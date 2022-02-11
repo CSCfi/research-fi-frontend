@@ -57,6 +57,7 @@ import {
   MatSnackBarModule,
   MAT_SNACK_BAR_DEFAULT_OPTIONS,
 } from '@angular/material/snack-bar';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ClipboardModule } from '@angular/cdk/clipboard';
@@ -159,6 +160,10 @@ import { HandleLinkDisplayPipe } from './pipes/handle-link-display.pipe';
 import { IsUrlPipe } from './pipes/is-url.pipe';
 import { PublicationLinksComponent } from './components/single/single-publication/publication-links/publication-links.component';
 import { DatasetAuthorComponent } from './components/single/single-dataset/dataset-author/dataset-author.component';
+import { TkiReportsComponent } from '@portal/components/science-politics/tki-reports/tki-reports.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { HandleInfrastructureLinkPipe } from './pipes/handle-infrastructure-link.pipe';
 
 @NgModule({
   declarations: [
@@ -244,6 +249,8 @@ import { DatasetAuthorComponent } from './components/single/single-dataset/datas
     FilterEmptyFieldPipe,
     PublicationLinksComponent,
     DatasetAuthorComponent,
+    TkiReportsComponent,
+    HandleInfrastructureLinkPipe,
   ],
   imports: [
     PortalRoutingModule,
@@ -271,6 +278,7 @@ import { DatasetAuthorComponent } from './components/single/single-dataset/datas
     MatSlideToggleModule,
     MatDialogModule,
     MatSnackBarModule,
+    MatMenuModule,
     ScrollingModule,
     ClipboardModule,
     CountUpModule,
@@ -280,6 +288,8 @@ import { DatasetAuthorComponent } from './components/single/single-dataset/datas
     SharedModule,
     A11yModule,
     TooltipModule.forRoot(),
+    MatTableModule,
+    MatSortModule,
   ],
   exports: [DatasetAuthorComponent],
   providers: [
