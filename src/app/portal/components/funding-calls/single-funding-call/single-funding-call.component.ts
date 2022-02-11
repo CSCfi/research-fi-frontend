@@ -125,7 +125,7 @@ export class SingleFundingCallComponent implements OnInit {
 
   fixExternalUrl(url: string) {
     // Fix url address to be handled as external link if prefix missing
-    return url.startsWith('http') ? url : '//' + url;
+    return url.startsWith('http') ? url : url.startsWith('www') ? 'https://' + url : '//' + url;
   }
 
   getData(id: string) {
