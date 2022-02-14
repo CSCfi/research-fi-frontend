@@ -3584,6 +3584,10 @@
         <source>Haku päättyy</source>
         <target>Call closes</target>
       </trans-unit>
+      <trans-unit id="fundingCallWebsite">
+        <source>Rahoitushaun verkkosivu</source>
+        <target>Funding call website</target>
+      </trans-unit>
       <trans-unit id="noFundingCalls">
         <source>Ei rahoitushakuja</source>
         <target>No funding calls</target>
