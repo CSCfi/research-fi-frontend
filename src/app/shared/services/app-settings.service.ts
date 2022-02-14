@@ -57,11 +57,6 @@ export class AppSettingsService {
             link: '/science-innovation-policy/external-links/',
             exact: true,
           },
-          {
-            label: $localize`:@@tkiReportsHeader:Selvityksiä ja raportteja`,
-            link: '/science-innovation-policy/tki-reports/',
-            exact: true,
-          },
         ],
       },
       {
