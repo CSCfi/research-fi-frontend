@@ -225,11 +225,11 @@
       *ngFor="let call of responseData.fundingCalls"
       class="col-12 col-md-4 funding-sidebar"
     >
-      <aside>
-        <aside>
+      <ng-container *ngFor="let row of funderFields">
+        <aside *ngIf="call[row.field].name">
           <mat-card>
             <div class="inner">
-              <div class="row links mt-0" *ngFor="let row of funderFields">
+              <div class="row links mt-0">
                 <mat-card-title>
                   <h2 class="mb-0">
                     {{ call[row.field].name }}
@@ -264,7 +264,7 @@
                 </div>
                 <h2
                   *ngIf="call[row.field].applicationUrl"
-                  i18n="@@fundingFunder"
+                  i18n="@@fundingCallWebsite"
                   class="mt-4"
                 >
                   Rahoitushaun verkkosivu
@@ -291,8 +291,8 @@
             </div>
           </mat-card>
         </aside>
-      </aside>
-      <!-- <aside>
+
+        <!-- <aside>
          <mat-card>
            <mat-card-title>
              <h2 i18n="@@citationHeader">Viittaa</h2>
@@ -311,40 +311,41 @@
            </div>
          </mat-card>
        </aside> -->
-      <!-- Copy url -->
-      <aside>
-        <mat-card>
-          <div class="inner">
-            <mat-card-title>
-              <h2 i18n="@@shareHeader">Jaa</h2>
-            </mat-card-title>
-            <app-share [id]="call.id"></app-share>
-          </div>
-        </mat-card>
-      </aside>
-      <aside>
-        <mat-card>
-          <div class="inner">
-            <mat-card-title>
-              <h2 i18n="@@fundingCallSource">Rahoitushaun lähde</h2>
-            </mat-card-title>
-            <div class="links">
-              <a href="https://www.aurora-tietokanta.fi/" target="_blank">
-                <ng-container i18n="@@auroraDatabase"
-                  >Aurora-tietokanta
-                </ng-container>
-                <fa-icon icon="external-link-alt"></fa-icon>
-              </a>
+        <!-- Copy url -->
+        <aside>
+          <mat-card>
+            <div class="inner">
+              <mat-card-title>
+                <h2 i18n="@@shareHeader">Jaa</h2>
+              </mat-card-title>
+              <app-share [id]="call.id"></app-share>
             </div>
-            <!-- <div>
+          </mat-card>
+        </aside>
+        <aside>
+          <mat-card>
+            <div class="inner">
+              <mat-card-title>
+                <h2 i18n="@@fundingCallSource">Rahoitushaun lähde</h2>
+              </mat-card-title>
+              <div class="links">
+                <a href="https://www.aurora-tietokanta.fi/" target="_blank">
+                  <ng-container i18n="@@auroraDatabase"
+                    >Aurora-tietokanta
+                  </ng-container>
+                  <fa-icon icon="external-link-alt"></fa-icon>
+                </a>
+              </div>
+              <!-- <div>
                           <p *ngIf="!call.dataCatalog?.length">
                               Tiedon lähde ei saatavilla.
                           </p>
                       </div> -->
-            <div class="clear"></div>
-          </div>
-        </mat-card>
-      </aside>
+              <div class="clear"></div>
+            </div>
+          </mat-card>
+        </aside>
+      </ng-container>
     </div>
   </div>
 </div>

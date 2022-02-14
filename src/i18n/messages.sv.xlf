@@ -3569,6 +3569,10 @@
         <source>Haku päättyy</source>
         <target>Ansökningstiden utgår</target>
       </trans-unit>
+      <trans-unit id="fundingCallWebsite">
+        <source>Rahoitushaun verkkosivu</source>
+        <target>Utlysningsinformationens webbplats</target>
+      </trans-unit>
       <trans-unit id="noFundingCalls">
         <source>Ei rahoitushakuja</source>
         <target>Inga utlysningar</target>
