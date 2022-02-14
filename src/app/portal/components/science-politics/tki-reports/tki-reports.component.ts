@@ -1,12 +1,15 @@
 import {
   AfterViewInit,
-  Component, ElementRef,
+  Component,
+  ElementRef,
   HostListener,
   Inject,
-  LOCALE_ID, OnDestroy,
+  LOCALE_ID,
+  OnDestroy,
   OnInit,
-  PLATFORM_ID,
-  ViewChild
+  QueryList,
+  ViewChild,
+  ViewChildren,
 } from '@angular/core';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import dummyData from 'src/app/portal/components/science-politics/tki-reports/tki-dummydata.json';
@@ -16,6 +19,9 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
+import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import { ListItemComponent } from '@portal/components/search-bar/list-item/list-item.component';
+import { Title } from '@angular/platform-browser';
 
 export interface Report {
   id: number;
@@ -34,13 +40,20 @@ export interface Report {
 export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('searchInput') search: ElementRef;
+  @ViewChildren(ListItemComponent) items: QueryList<any>;
 
   public utilityService: UtilityService;
   private isMobileSubscription: Subscription;
+  private keyManager: ActiveDescendantKeyManager<ListItemComponent>;
 
-  filteredSourceData: Report[] = dummyData;
-  resultDataMobile: Report[] = dummyData;
-  formattedTableData = new MatTableDataSource(this.filteredSourceData);
+  filteredSourceData: Report[] = this.replaceEmptyKeywordsWithDash(dummyData);
+  resultDataMobile: Report[] = this.replaceEmptyKeywordsWithDash(dummyData);
+  formattedTableData = new MatTableDataSource(this.replaceEmptyKeywordsWithDash(this.filteredSourceData));
+
+  locAuthors =  $localize`:@@tkiAuthors:Tekijät`;
+  locName =  $localize`:@@tkiName:Nimi`;
+  locYear =  $localize`:@@yearOfPublication:Julkaisuvuosi`;
+  locKeywords =  $localize`:@@tkiKeywords:Asiasanat`;
 
   displayedColumns = ['name', 'year', 'authors', 'keywords'];
   value = '';
@@ -60,14 +73,28 @@ export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     @Inject(DOCUMENT) private document: Document,
     @Inject(LOCALE_ID) protected localeId,
-    @Inject(PLATFORM_ID) private platformId: object,
     private appSettingsService: AppSettingsService,
+    private titleService: Title,
   ) {}
 
   ngOnInit() {
     this.isMobileSubscription = this.appSettingsService.mobileStatus.subscribe((status) => {
       this.isMobile = status;
     });
+    switch (this.localeId) {
+      case 'fi': {
+        this.setTitle('Selvityksiä ja raportteja - Tiedejatutkimus.fi');
+        break;
+      }
+      case 'en': {
+        this.setTitle('Studies and reports - Research.fi');
+        break;
+      }
+      case 'sv': {
+        this.setTitle('Utredningar och rapporter - Forskning.fi');
+        break;
+      }
+    }
     //TODO: fetch data from back end here
   }
 
@@ -75,17 +102,22 @@ export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     this.formattedTableData.sort = this.sort;
+    this.keyManager = new ActiveDescendantKeyManager(this.items).withWrap().withTypeAhead();
+    this.keyManager.setFirstItemActive();
   }
 
   @HostListener('document:keyup', ['$event'])
   handleKeyboardEvents(event: KeyboardEvent) {
     if (event.key === 'Escape') {
-      this.modalOverlayVisible = false;
+      this.closeModal();
     }
   }
 
-  doFiltering(openSearchModal: boolean) {
-    this.modalOverlayVisible = openSearchModal;
+  public setTitle(newTitle: string) {
+    this.titleService.setTitle(newTitle);
+  }
+
+  doFiltering(keepModalOpen: boolean) {
     this.noSearchesDone = false;
     const regEx = new RegExp(this.value, 'i');
     let ind = 0;
@@ -112,7 +144,7 @@ export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
       });
 
       entry.keywords.forEach((kword) => {
-        if (kword.match(regEx)) {
+        if (kword.match(regEx) && this.value !== '-') {
           this.matchedKeywords.add([kword, dummyData[ind].id]);
           this.filteredArticleIds.add(dummyData[ind].id);
         }
@@ -130,11 +162,25 @@ export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     // This is called when search button is pressed. Table data is filtered only after modal is closed.
-    if (!openSearchModal) {
-      this.formattedTableData.data = this.filteredSourceData;
+    if (!keepModalOpen) {
+      this.closeModal();
+      this.formattedTableData.data = [...this.filteredSourceData];
       this.resultDataMobile = [...this.filteredSourceData];
       this.search.nativeElement.blur();
     }
+  }
+
+  replaceEmptyKeywordsWithDash(sourceData: Report[]) {
+    sourceData = sourceData.map(report => {
+      report.keywords = report.keywords.map(keyword => {
+        if (keyword === '') {
+          keyword = '-';
+        }
+        return keyword;
+      });
+      return report;
+    });
+    return sourceData;
   }
 
   modalSearchRowClick(atricleId: number) {
@@ -142,9 +188,10 @@ export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.filteredSourceData = this.filteredSourceData.filter((item) => {
       return item.id === atricleId;
     });
-    this.resultDataMobile = [...this.filteredSourceData];
-    this.formattedTableData.data = this.filteredSourceData;
-    this.modalOverlayVisible = false;
+    this.resultDataMobile = [...this.replaceEmptyKeywordsWithDash(this.filteredSourceData)];
+    this.formattedTableData.data = [...this.replaceEmptyKeywordsWithDash(this.filteredSourceData)];
+    this.closeModal();
+    this.search.nativeElement.blur();
   }
 
   onFocus() {
@@ -155,8 +202,13 @@ export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.modalOverlayHeight = this.document.body.scrollHeight - this.HEADER_HEIGHT;
   }
 
-  modalOverlayClick() {
+  closeModal() {
     this.modalOverlayVisible = false;
+    this.keyManager.setActiveItem(-1);
+  }
+
+  modalOverlayClick() {
+    this.closeModal();
   }
 
   resetSearch() {
@@ -164,8 +216,33 @@ export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.doFiltering(false);
   }
 
-  onKeyup() {
-    this.doFiltering(true);
+  // Keycodes
+  onKeyup(event) {
+    // Handle arrows
+    if (event.keyCode === 38) {
+    } else if (event.keyCode === 40) {
+    } else if (event.keyCode === 13 && this.keyManager.activeItem) {
+      // Do search with enter when an item is selected
+      this.modalSearchRowClick(this.keyManager.activeItem.id);
+    } else if (event.keyCode === 13 && !this.keyManager.activeItem) {
+      /// Do default search with enter when no items are selected
+      this.doFiltering(false);
+    } else {
+      this.doFiltering(true);
+    }
+    // Hide auto-suggest with esc key
+    if (event.keyCode === 27) {
+      this.modalOverlayVisible = false;
+    } else if (event.keyCode !== 78) {
+      this.keyManager.onKeydown(event);
+    }
+  }
+
+  // Disable up & down arrows on input. Normally moves caret on start or end of input
+  disableKeys(event) {
+    if (event.keyCode === 40 || event.keyCode === 38) {
+      return false;
+    }
   }
 
   ngOnDestroy(): void {
