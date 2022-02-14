@@ -1,14 +1,35 @@
 name: End-to-end tests
-on: [push]
-jobs:
-  cypress-run:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
+on: [pull_request]
 
-      - name: Cypress run
-        uses: cypress-io/github-action@v1
+jobs:
+  cypress-e2e-headless:
+    name: Cypress e2e
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ["16"]
+        browser: ["firefox", "chrome"]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build Frontend
+        run: |
+          npx --quiet pinst --disable
+          npm install --production
+          npm run build --production
+      - uses: cypress-io/github-action@v2
         with:
-          build: npm run cy:run
-          wait-on: http://localhost:4200
+          browser: ${{ matrix.browser }}
+          headless: true
+          env: port=5003
+      - uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+          retention-days: 5
+      - uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: cypress-videos
+          path: cypress/videos
+          retention-days: 5

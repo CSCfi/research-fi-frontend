@@ -1,6 +1,5 @@
 {
   "chromeWebSecurity": false,
-  "experimentalGetCookiesSameSite": true,
   "env": {
     "OIDC_DOMAIN": "mydata-identityserver-devel.rahtiapp.fi"
   }

@@ -18,7 +18,8 @@
     "build:client-and-server-bundles": "npm run build:prod && npm run build:server:prod",
     "build:ssr": "npm run build:client-and-server-bundles && npm run webpack:server",
     "serve:ssr": "node dist/server.js",
-    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points"
+    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
+    "cy:run": "npx cypress run"
   },
   "private": true,
   "dependencies": {
