@@ -16,22 +16,22 @@ jobs:
       - name: Build Frontend
         run: |
           npx --quiet pinst --disable
-          npm install --production
-          npm run build --production
-      - uses: cypress-io/github-action@v2
-        with:
-          browser: ${{ matrix.browser }}
-          headless: true
-          env: port=5003
-      - uses: actions/upload-artifact@v2
-        if: failure()
-        with:
-          name: cypress-screenshots
-          path: cypress/screenshots
-          retention-days: 5
-      - uses: actions/upload-artifact@v2
-        if: failure()
-        with:
-          name: cypress-videos
-          path: cypress/videos
-          retention-days: 5
+          npm ci
+          npm run build:ci
+      # - uses: cypress-io/github-action@v2
+      #   with:
+      #     browser: ${{ matrix.browser }}
+      #     headless: true
+      #     env: port=5003
+      # - uses: actions/upload-artifact@v2
+      #   if: failure()
+      #   with:
+      #     name: cypress-screenshots
+      #     path: cypress/screenshots
+      #     retention-days: 5
+      # - uses: actions/upload-artifact@v2
+      #   if: failure()
+      #   with:
+      #     name: cypress-videos
+      #     path: cypress/videos
+      #     retention-days: 5
