@@ -240,13 +240,13 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
    * Search for Publications, Datasets and Fundings
    */
   openSearchFromResearchFiDialog(groupId: string) {
-    const fields = this.data.fields[0];
+    const field = this.data.fields[0];
 
     this.dialogRef = this.dialog.open(SearchPortalComponent, {
       data: {
         groupId: groupId,
-        itemsInProfile: fields?.groupItems,
-        selectedPublications: fields?.selectedPublications,
+        itemsInProfile: field?.groupItems,
+        selectedPublications: field?.selectedPublications,
       },
       panelClass: this.appSettingsService.dialogPanelClass,
     });
@@ -278,9 +278,10 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
         }
       }
 
-      service.addToPayload(result.selection);
+      const selection = result.selection;
+      const groupItems = field.groupItems;
 
-      const groupItems = this.data.fields[0].groupItems;
+      service.addToPayload(selection);
 
       // Items with primary value
       let existingAddedItems = groupItems.find((group) =>
@@ -288,9 +289,7 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
       );
 
       if (existingAddedItems) {
-        existingAddedItems.items = existingAddedItems.items.concat(
-          result.selection
-        );
+        existingAddedItems.items = existingAddedItems.items.concat(selection);
       } else {
         groupItems.push({
           groupMeta: { type: fieldType },
@@ -299,19 +298,14 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
               name: CommonStrings.ttvLabel,
             },
           },
-          items: result.selection,
+          items: selection,
         });
       }
 
       // Merge publications that share DOI
-      // Select merged ORCID item
+      // Select merged ORCID publication
       if (this.data.id === this.groupTypes.publication) {
-        const field = this.data.fields[0];
-
-        mergePublications(field);
-
-        const merged = field.groupItems[0].merged;
-        this.patchService.addToPayload(merged);
+        mergePublications(field, this.patchService);
       }
     };
 

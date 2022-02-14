@@ -17,6 +17,7 @@ import { DialogTemplateComponent } from './dialog-template/dialog-template.compo
 export class DialogComponent implements OnInit {
   @Input() title: string;
   @Input() template: any;
+  @Input() footerTemplate: any;
   @Input() actions: any[];
   @Input() extraContentTemplate: any;
   @Input() small: boolean;
@@ -58,6 +59,7 @@ export class DialogComponent implements OnInit {
       data: {
         title: this.title,
         template: this.template,
+        footerTemplate: this.footerTemplate,
         actions: this.actions || [],
         extraContentTemplate: this.extraContentTemplate,
         spreadActions: spreadActions,

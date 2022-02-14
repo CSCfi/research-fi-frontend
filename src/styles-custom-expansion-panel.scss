@@ -39,6 +39,11 @@
       margin: 1rem 1rem;
     }
 
+    .mat-accordion .mat-expansion-panel:not(.mat-expanded),
+    .mat-accordion .mat-expansion-panel:not(.mat-expansion-panel-spacing) {
+      border-radius: 0.25rem;
+    }
+
     ::ng-deep .mat-expansion-panel-body {
       padding: 0 0 1rem !important;
     }
@@ -54,7 +59,7 @@
     }
 
     .mat-expansion-panel-header.cdk-keyboard-focused:not([aria-disabled='true']) {
-      outline: 5px auto -webkit-focus-ring-color !important;
+      outline: 5px auto mat-color($primary) !important;
       background: none !important;
     }
 

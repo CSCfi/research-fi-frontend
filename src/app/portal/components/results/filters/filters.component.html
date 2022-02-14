@@ -74,7 +74,7 @@
             <div class="row d-flex justify-content-between">
               <!-- Show / hide sub filters -->
               <div *ngIf="filter.hasSubFields" class="col col-1">
-                <button class="show-options">
+                <button tabindex="-1" class="show-options">
                   <span *ngIf="!filter.open">
                     <fa-icon [icon]="faPlus"></fa-icon>
                   </span>

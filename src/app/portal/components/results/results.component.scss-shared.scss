@@ -25,6 +25,11 @@
       //     overflow: auto;
       // }
 
+      // Display focus outline around links
+      a {
+        display: block;
+      }
+
       .row {
         margin: 5px auto !important;
       }

@@ -144,7 +144,8 @@ export class DatasetAdapter implements Adapter<Dataset> {
       });
     });
 
-    // Combine actors with multiple roles
+    // Combining actors logic broken. Commented out.
+    /*  // Combine actors with multiple roles
     orgs.forEach((org) => {
       const unique = [];
       org.actors.forEach((actor) => {
@@ -156,7 +157,7 @@ export class DatasetAdapter implements Adapter<Dataset> {
         }
       });
       org.actors = org.actors.slice(0, unique.length);
-    });
+    });*/
 
     // Sort by organization name
     let orgsSorted = orgs.sort((a, b) => +(a.name > b.name) - 0.5);

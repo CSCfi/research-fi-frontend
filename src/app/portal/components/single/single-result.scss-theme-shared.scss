@@ -85,13 +85,4 @@
       }
     }
   }
-  .reference-modal {
-    h3.modal-title {
-      color: mat-contrast($primary, 50);
-    }
-
-    &.modal-body h4 {
-      color: mat-contrast($primary, 300);
-    }
-  }
 }

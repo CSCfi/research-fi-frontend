@@ -29,6 +29,15 @@
       </div>
     </div>
   </div>
+
+  <div *ngIf="data.footerTemplate">
+    <hr />
+    <div class="row">
+      <div class="col">
+        <ng-container [ngTemplateOutlet]="data.footerTemplate"></ng-container>
+      </div>
+    </div>
+  </div>
 </mat-dialog-content>
 
 <mat-dialog-actions

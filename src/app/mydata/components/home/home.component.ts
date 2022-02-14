@@ -15,7 +15,7 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  title = $localize`:@@researchersProfile:Tutkijan tiedot`;
+  title = $localize`:@@home:Etusivu`;
 
   constructor(
     public oidcSecurityService: OidcSecurityService,
@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.utilityService.setTitle(this.title);
+    this.utilityService.setMyDataTitle(this.title);
   }
 
   login() {

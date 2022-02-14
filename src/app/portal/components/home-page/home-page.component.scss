@@ -55,7 +55,6 @@
 }
 
 // Columns
-
 .col-header {
   min-height: 4rem;
   display: flex;
@@ -65,6 +64,11 @@
     font-size: 1.4rem;
     padding: 0 1rem;
   }
+}
+
+// Display focus outline around links
+a.shortcut, .header-link {
+  display: block;
 }
 
 .twitter {
