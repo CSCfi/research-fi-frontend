@@ -863,6 +863,18 @@ export class FilterService {
       ...nestedFilter('dataset', this.organizationFilter, 'actor'),
       ...nestedFilter('dataset', this.langFilter, 'languages'),
       ...nestedFilter('dataset', this.fieldFilter, 'fieldsOfScience'),
+      // Datasets can have multiple different versions, display latest only
+      ...(index === 'dataset'
+        ? [
+            {
+              bool: {
+                should: {
+                  term: { isLatestVersion: 1 },
+                },
+              },
+            },
+          ]
+        : []),
 
       // Infrastructures
       ...basicFilter('infrastructure', this.typeFilter),

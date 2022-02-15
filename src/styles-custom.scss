@@ -207,7 +207,7 @@ mark,
 
 // Colors
 .primary-color {
-  color: mat-color($primary, default);
+  color: mat-color($primary, default) !important;
 }
 
 .background-primary {
@@ -329,7 +329,7 @@ body mat-card.mat-card {
   width: 180px;
 }
 
-.search-target.mat-menu-item:focus {
+.mat-menu-item:focus {
   box-shadow: none !important;
 }
 

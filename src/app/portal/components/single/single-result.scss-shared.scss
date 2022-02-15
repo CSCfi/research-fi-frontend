@@ -122,8 +122,12 @@
         text-overflow: ellipsis;
       }
 
-      main h1 {
+      .header-row {
         margin: 2rem 0;
+      }
+
+      main h1 {
+
         font-size: 1.4rem;
       }
 

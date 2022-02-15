@@ -47,7 +47,8 @@ export class Dataset {
     public relatedDatasets: string,
     public doi: string,
     public urn: string,
-    public fairdataUrl: string
+    public fairdataUrl: string,
+    public datasetVersions: any[]
   ) {}
 }
 
@@ -180,6 +181,16 @@ export class DatasetAdapter implements Adapter<Dataset> {
       }
     });
 
+    /*
+     * Dataset versions
+     */
+    const datasetVersions = item.datasetVersionSet
+      ?.map((version) => ({
+        versionNumber: version.versionNumber,
+        id: version.versionIdentifier,
+      }))
+      .sort((a, b) => b.versionNumber - a.versionNumber);
+
     return new Dataset(
       item.identifier,
       this.lang.testLang('name', item),
@@ -202,7 +213,8 @@ export class DatasetAdapter implements Adapter<Dataset> {
       item.relatedDatasets, // Missing
       doi, // Missing?
       urn,
-      item.fairdataUrl
+      item.fairdataUrl,
+      datasetVersions
     );
   }
 }

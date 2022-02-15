@@ -14,8 +14,8 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
-import { faAlignLeft } from '@fortawesome/free-solid-svg-icons';
+import { ActivatedRoute, Router } from '@angular/router';
+import { faAlignLeft, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
 import { Search } from 'src/app/portal/models/search.model';
@@ -160,13 +160,16 @@ export class SingleDatasetComponent implements OnInit {
   expand: boolean;
   latestSubUnitYear: string;
   faIcon = faAlignLeft;
+  faChevronDown = faChevronDown;
   subUnitSlice = 10;
   currentLocale: string;
   tabData: any;
   focusSub: Subscription;
+  currentVersion: string;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private singleService: SingleItemService,
     private searchService: SearchService,
     private titleService: Title,
@@ -218,24 +221,19 @@ export class SingleDatasetComponent implements OnInit {
     this.singleService.getSingleDataset(id).subscribe(
       (responseData) => {
         this.responseData = responseData;
-        if (this.responseData.datasets[0]) {
+        const dataset = this.responseData.datasets[0];
+        if (dataset) {
           switch (this.localeId) {
             case 'fi': {
-              this.setTitle(
-                this.responseData.datasets[0].name + ' - Tiedejatutkimus.fi'
-              );
+              this.setTitle(dataset.name + ' - Tiedejatutkimus.fi');
               break;
             }
             case 'en': {
-              this.setTitle(
-                this.responseData.datasets[0].name.trim() + ' - Research.fi'
-              );
+              this.setTitle(dataset.name.trim() + ' - Research.fi');
               break;
             }
             case 'sv': {
-              this.setTitle(
-                this.responseData.datasets[0].name.trim() + ' - Forskning.fi'
-              );
+              this.setTitle(dataset.name.trim() + ' - Forskning.fi');
               break;
             }
           }
@@ -246,6 +244,15 @@ export class SingleDatasetComponent implements OnInit {
             this.metaTags['description' + this.currentLocale],
             this.commonTags['imgAlt' + this.currentLocale]
           );
+
+          // Set version label by active dataset version number
+          if (dataset.datasetVersions) {
+            this.currentVersion = `${$localize`:@@version:Versio`} ${
+              dataset.datasetVersions.find(
+                (version) => version.id === dataset.id
+              ).versionNumber
+            }`;
+          }
 
           this.shapeData();
           this.filterData();
@@ -278,5 +285,13 @@ export class SingleDatasetComponent implements OnInit {
 
   expandDescription() {
     this.expand = !this.expand;
+  }
+
+  // Resetting response data renders loading indicator and therefore
+  // helps user to understand that content has changed.
+  // TODO: This could be achieved with all single item pages with usage of route resolvers
+  changeDatasetVersion(id: string) {
+    this.responseData = null;
+    this.router.navigate(['/results/dataset/' + id]);
   }
 }
