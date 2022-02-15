@@ -80,16 +80,16 @@ describe('PublicationFilterService', () => {
       data.oaPublisherComposite.buckets
     );
 
-    expect(
-      JSON.stringify(res.map((item) => item.key)) ===
-        JSON.stringify([
-          'openAccess',
-          'selfArchived',
-          'otherOpen',
-          'nonOpen',
-          'noOpenAccessData',
-        ])
-    ).toBeTruthy();
+    const openAccessKeys = [
+      'openAccess',
+      'selfArchived',
+      'delayedOpenAccess',
+      'otherOpen',
+      'nonOpenAccess',
+      'noOpenAccessData',
+    ];
+
+    expect(res.length === openAccessKeys.length).toBeTruthy();
   });
 
   it('should filter item with true key value', () => {

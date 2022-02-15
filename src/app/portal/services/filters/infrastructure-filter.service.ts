@@ -56,7 +56,7 @@ export class InfrastructureFilterService {
     // Year
     source.year.buckets = this.mapYear(source.year.years.buckets);
     // Organization & sector
-    this.organization(source.organization);
+    source.organization.buckets = this.mapOrganizations(source.organization);
     // Type
     source.type.buckets = this.typeLabel(source.type.types.buckets);
     // Field of science
@@ -73,7 +73,7 @@ export class InfrastructureFilterService {
     return clone;
   }
 
-  organization(data) {
+  mapOrganizations(data) {
     data.buckets = data.sector ? data.sector.buckets : [];
     data.buckets.forEach((item) => {
       item.id = item.sectorId.buckets[0].key;
@@ -86,6 +86,8 @@ export class InfrastructureFilterService {
     });
     // Sort by sector id
     data.buckets.sort((a, b) => parseInt(a.id, 10) - parseInt(b.id, 10));
+
+    return data.buckets
   }
 
   typeLabel(data) {

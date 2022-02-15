@@ -8,7 +8,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { InfrastructureFilterService } from './infrastructure-filter.service';
-import AggResponse from '../../../../testdata/agginfrastructureresponse.json';
+import AggResponse from 'src/testdata/agginfrastructureresponse.json';
 
 describe('InfrastructureFilterService', () => {
   let service: InfrastructureFilterService;
@@ -29,9 +29,8 @@ describe('InfrastructureFilterService', () => {
   });
 
   it('should map organizations', () => {
-    service.organization(data);
-    const subData = 'subData';
-    expect(data.organization.sector.buckets[0][subData]).toBeDefined();
+    const res = service.mapOrganizations(data.organization);
+    expect(res.some((sector: { subData: any[]; }) => sector.subData)).toBeDefined()
   });
 
   it('should map types', () => {

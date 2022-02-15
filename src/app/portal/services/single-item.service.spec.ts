@@ -5,16 +5,18 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
+import { RouterTestingModule } from "@angular/router/testing";
 import { SingleItemService } from './single-item.service';
 import { SettingsService } from './settings.service';
-import { AppConfigService } from 'src/app/shared/services/app-config-service.service';
+import { AppConfigService } from '@shared/services/app-config-service.service';
+import { MatDialogModule } from '@angular/material/dialog';
 
-import ResponseJsonPublications from '../../../testdata/searchresponse-publications.json';
+import ResponseJsonPublications from 'src/testdata/searchresponse-publications.json';
 
 const mockApiUrl = 'test.api.fi/';
 
@@ -29,7 +31,7 @@ describe('SingleItemService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule, RouterTestingModule, MatDialogModule],
       providers: [
         SingleItemService,
         SettingsService,

@@ -5,18 +5,19 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FiltersComponent } from './filters.component';
 import { Router, ActivatedRoute } from '@angular/router';
-import { WINDOW_PROVIDERS } from 'src/app/shared/services/window.service';
+import { WINDOW_PROVIDERS } from '@shared/services/window.service';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
-import AggResponse from '../../../../../testdata/aggregationresponse.json';
-import AggPublicationResponse from '../../../../../testdata/aggpublicationresponse.json';
+import AggResponse from 'src/testdata/aggregationresponse.json';
+import AggPublicationResponse from 'src/testdata/aggpublicationresponse.json';
 import { of } from 'rxjs/internal/observable/of';
-import { PublicationFilterService } from 'src/app/portal/services/filters/publication-filter.service';
+import { PublicationFilterService } from '@portal/services/filters/publication-filter.service';
+import { MatDialogModule } from '@angular/material/dialog';
 
 describe('FiltersComponent', () => {
   let component: FiltersComponent;
@@ -31,7 +32,7 @@ describe('FiltersComponent', () => {
     params: of({ input: 'test input' }),
   };
 
-  beforeEach(async(() => {
+  beforeEach((() => {
     TestBed.configureTestingModule({
       declarations: [FiltersComponent],
       providers: [
@@ -40,7 +41,7 @@ describe('FiltersComponent', () => {
         WINDOW_PROVIDERS,
         PublicationFilterService,
       ],
-      imports: [ModalModule.forRoot()],
+      imports: [ModalModule.forRoot(), MatDialogModule],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
@@ -98,7 +99,7 @@ describe('FiltersComponent', () => {
     // Note: Year params are not in order because of preselection test
     expect(routerSpy.navigate).toHaveBeenCalledWith([], {
       queryParams: {
-        year: ['2020', '2019', '2021'],
+        year: ['2021', '2020', '2019'],
         sort: undefined,
         page: 1,
       },
