@@ -4,27 +4,28 @@ import {
   fakeAsync,
   tick,
 } from '@angular/core/testing';
-import { SearchService } from 'src/app/portal/services/search.service';
+import { SearchService } from '@portal/services/search.service';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { WINDOW_PROVIDERS } from 'src/app/shared/services/window.service';
+import { WINDOW_PROVIDERS } from '@shared/services/window.service';
 import { ActivatedRouteStub } from 'src/testing/activated-route-stub';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { AppConfigService } from 'src/app/shared/services/app-config-service.service';
-import { AppConfigServiceMock } from 'src/app/portal/services/search.service.spec';
-import { ModalModule } from 'ngx-bootstrap/modal';
+import { AppConfigService } from '@shared/services/app-config-service.service';
+import { AppConfigServiceMock } from '@portal/services/search.service.spec';
+import { MatMenuModule } from '@angular/material/menu';
 import { NO_ERRORS_SCHEMA, QueryList } from '@angular/core';
 import { SearchBarComponent } from './search-bar.component';
-import { AutosuggestService } from 'src/app/portal/services/autosuggest.service';
+import { AutosuggestService } from '@portal/services/autosuggest.service';
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import {
-  aggregations,
-  hits,
-  suggest,
-} from 'src/testdata/autosuggest-response.json';
+import response from 'src/testdata/autosuggest-response.json'
+import { MatDialogModule } from '@angular/material/dialog';
 
 describe('SearchBarComponent', () => {
+  const aggregations = response.aggregations
+  const hits = response.hits
+  const suggest = response.suggest
+
   let searchBarComponent: SearchBarComponent;
   let fixture: ComponentFixture<SearchBarComponent>;
   let autoSuggestService: AutosuggestService;
@@ -44,7 +45,8 @@ describe('SearchBarComponent', () => {
       imports: [
         HttpClientTestingModule,
         RouterTestingModule,
-        ModalModule.forRoot(),
+        MatMenuModule,
+        MatDialogModule
       ],
       schemas: [NO_ERRORS_SCHEMA],
     });
