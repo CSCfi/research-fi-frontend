@@ -6,7 +6,6 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "lint": "ng lint",
     "e2e": "ng e2e",
     "extract-i18n": "ng xi18n research-fi --i18n-format xlf --output-path i18n --i18n-locale fi && ng run research-fi:xliffmerge",
     "start-fi": "ng serve --configuration=fi",
@@ -19,7 +18,8 @@
     "build:ssr": "npm run build:client-and-server-bundles && npm run webpack:server",
     "serve:ssr": "node dist/server.js",
     "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
-    "test:prod": "ng test --browsers=ChromeHeadless --watch=false --code-coverage"
+    "test:prod": "ng test --browsers=ChromeHeadless --watch=false --code-coverage",
+    "tsc": "tsc --pretty"
   },
   "private": true,
   "dependencies": {
