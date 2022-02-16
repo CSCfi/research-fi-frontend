@@ -328,7 +328,7 @@ export class PublicationAdapter implements Adapter<Publication> {
       item.jufoCode,
       item.jufoClassCode,
       item.doi,
-      item.doiHandle,
+      item.doiHandle?.trim().length > 0 ? item.doiHandle : null,
       item.selfArchivedAddress,
       item.keywords,
       archiveCodeText,
