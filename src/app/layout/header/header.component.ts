@@ -35,7 +35,10 @@ import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { PrivacyService } from 'src/app/portal/services/privacy.service';
 import { CMSContentService } from '@shared/services/cms-content.service';
 import { AppSettingsService } from 'src/app/shared/services/app-settings.service';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
+import {
+  AuthenticatedResult,
+  OidcSecurityService,
+} from 'angular-auth-oidc-client';
 import { Constants } from '@mydata/constants';
 import { DraftService } from '@mydata/services/draft.service';
 
@@ -97,7 +100,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   pageDataSub: Subscription;
 
   appSettings: any;
-  isAuthenticated: Observable<boolean>;
+  isAuthenticated: Observable<AuthenticatedResult>;
   loggedIn: boolean;
 
   // Dialog variables
@@ -219,11 +222,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
         // Login / logout link
         // Click functionality is handled in handleClick method
         this.isAuthenticated.subscribe((authenticated) => {
+          const isAuthenticated = authenticated.isAuthenticated;
+
           if (this.currentRoute.includes('/mydata')) {
-            this.loggedIn = authenticated;
+            this.loggedIn = isAuthenticated;
           }
           this.appSettingsService.myDataSettings.navItems[0].label =
-            authenticated
+            isAuthenticated
               ? $localize`:@@logout:Kirjaudu ulos`
               : $localize`:@@logIn:Kirjaudu sisään`;
         });
