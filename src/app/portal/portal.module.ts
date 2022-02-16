@@ -407,6 +407,6 @@ export class PortalModule {
         }
       });
     // Add global icons
-    library.addIcons(faExternalLinkAlt, faInfoCircle);
+    library.addIcons(faExternalLinkAlt as any, faInfoCircle as any);
   }
 }

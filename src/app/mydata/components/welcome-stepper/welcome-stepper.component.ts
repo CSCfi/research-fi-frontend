@@ -103,9 +103,10 @@ export class WelcomeStepperComponent implements OnInit, OnDestroy {
 
     this.oidcSecurityService.userData$.pipe(take(1)).subscribe((data) => {
       if (data) {
-        this.userData = data;
-        this.profileName = data?.name;
-        this.appSettingsService.setOrcid(data.orcid);
+        const userData = data.userData
+        this.userData = userData;
+        this.profileName = userData?.name;
+        this.appSettingsService.setOrcid(userData.orcid);
       }
     });
 

@@ -123,11 +123,12 @@ export class ProfileComponent implements OnInit {
     this.utilityService.setMyDataTitle($localize`:@@profile:Profiili`);
 
     this.oidcSecurityService.userData$.pipe(take(1)).subscribe((data) => {
-      this.orcidData = data;
+      const userData = data.userData
+      this.orcidData = userData;
 
-      if (data) {
-        this.orcid = data.orcid;
-        this.appSettingsService.setOrcid(data.orcid);
+      if (userData) {
+        this.orcid = userData.orcid;
+        this.appSettingsService.setOrcid(userData.orcid);
       }
     });
 

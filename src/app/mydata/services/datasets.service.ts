@@ -42,7 +42,7 @@ export class DatasetsService {
   }
 
   updateTokenInHttpAuthHeader() {
-    const token = this.oidcSecurityService.getToken();
+    const token = this.oidcSecurityService.getAccessToken();
 
     this.httpOptions = {
       headers: new HttpHeaders({
