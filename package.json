@@ -44,7 +44,7 @@
     "@gorniv/ngx-transfer-http": "^2.2.9",
     "@nguniversal/common": "^12.1.3",
     "@nguniversal/express-engine": "^12.1.3",
-    "angular-auth-oidc-client": "^11.6.4",
+    "angular-auth-oidc-client": "^13.1.0",
     "array-flat-polyfill": "^1.0.1",
     "body-parser": "^1.19.2",
     "bootstrap": "^4.6.0",
