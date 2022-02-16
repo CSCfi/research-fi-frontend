@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@import '@angular/material/theming';
 
 @mixin app-single-result-theme-shared($theme) {
   $primary: map-get($theme, primary);

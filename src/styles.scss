@@ -6,7 +6,7 @@
 //  :license: MIT
 
 // You can add global styles to this file, and also import other style files
-@import '~@angular/material/theming';
+@import '@angular/material/theming';
 @include mat-core();
 
 @import '~bootstrap/dist/css/bootstrap.css';

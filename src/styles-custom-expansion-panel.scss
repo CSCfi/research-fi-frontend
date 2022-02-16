@@ -6,7 +6,7 @@
 // :license: MIT
 
 // Styles
-@import '~@angular/material/theming';
+@import '@angular/material/theming';
 
 @mixin mat-expansion-panel-style($theme) {
   $primary: map-get($theme, primary);
