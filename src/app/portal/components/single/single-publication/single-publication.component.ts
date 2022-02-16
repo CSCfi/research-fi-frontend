@@ -762,27 +762,37 @@ export class SinglePublicationComponent
 
     if (source.doiHandle === 'http://dx.doi.org/') source.doiHandle = '';
 
-    // Handle duplicate links
+    // Handle duplicate doi handle links
     if (source.doiHandle?.includes(source.doi)) source.doiHandle = null;
 
+    // Map self archived links and remove duplicates
     source.selfArchivedData?.forEach((group, i) => {
       source.selfArchivedData[i].selfArchived = group.selfArchived.filter(
         (item, index, self) =>
           index ===
-          self.findIndex(
-            (obj: { selfArchivedAddress: any }) =>
-              obj.selfArchivedAddress === item.selfArchivedAddress
-          )
+            self.findIndex(
+              (obj: { selfArchivedAddress: string }) =>
+                obj.selfArchivedAddress === item.selfArchivedAddress
+            ) &&
+          item.selfArchivedAddress !== source.doi &&
+          item.selfArchivedAddress !== source.doiHandle
       );
     });
+
+    if (source.selfArchivedData) {
+      source.selfArchivedData = source.selfArchivedData.filter(
+        (item) => item.selfArchived.length > 0
+      );
+    }
 
     // Handle empty self archived data
     if (
       source.selfArchivedData &&
       source.selfArchivedData[0]?.selfArchived[0].selfArchivedAddress?.trim() ===
         ''
-    )
+    ) {
       source.selfArchivedData = null;
+    }
   }
 
   expandDescription() {
