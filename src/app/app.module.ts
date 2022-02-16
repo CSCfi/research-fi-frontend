@@ -24,6 +24,7 @@ import { AuthConfigModule } from './auth-config.module';
 import { ErrorHandlerService } from './shared/services/error-handler.service';
 import 'reflect-metadata'; // Required by ApmService
 import { ApmModule, ApmService } from '@elastic/apm-rum-angular';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [AppComponent],
@@ -40,6 +41,7 @@ import { ApmModule, ApmService } from '@elastic/apm-rum-angular';
     MyDataRoutingModule,
     AuthConfigModule,
     ApmModule,
+    FontAwesomeModule,
   ],
   providers: [
     ApmService,
