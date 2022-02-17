@@ -61,7 +61,7 @@
     "express-rate-limit": "^6.2.1",
     "feature-policy": "^0.6.0",
     "font-awesome": "^4.7.0",
-    "helmet": "^4.4.1",
+    "helmet": "^5.0.2",
     "jquery": "^3.6.0",
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
