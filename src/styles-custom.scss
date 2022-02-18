@@ -41,11 +41,11 @@ $primary: map-get($researchfi-theme, primary);
 }
 
 // Disable webkit search icons
-input[type="search"]::-webkit-search-decoration,
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-results-button,
-input[type="search"]::-webkit-search-results-decoration {
-  -webkit-appearance:none;
+input[type='search']::-webkit-search-decoration,
+input[type='search']::-webkit-search-cancel-button,
+input[type='search']::-webkit-search-results-button,
+input[type='search']::-webkit-search-results-decoration {
+  -webkit-appearance: none;
 }
 
 body {
@@ -57,6 +57,7 @@ body {
   button:focus-visible,
   input:focus-visible,
   select:focus-visible,
+  mat-checkbox.cdk-keyboard-focused .mat-ripple,
   textarea:not(.mat-input-element):focus-visible,
   *:not(.bundler:not(.homepage)):not(.mat-expansion-panel-header):not(.mat-input-element):focus-visible {
     // High contrast focus indicator for keyboard users
@@ -66,6 +67,11 @@ body {
     z-index: 100; // If no margin between next focusable element, high number because of target serach button
   }
 }
+
+  mat-expansion-panel-header:focus-visible,
+  mat-radio-button.cdk-keyboard-focused .mat-ripple {
+    border: 2px solid mat-color($primary, default) !important;
+  }
 
 // Dont show outlines for mouse users
 body:not(.user-tabbing) {
@@ -286,6 +292,20 @@ fa-icon[icon='external-link-alt'] {
 // Forms
 .mat-pseudo-checkbox {
   background: #fff;
+}
+
+/*
+ * Checkbox & radio button left margins because of keyboard focus indicator
+ */
+
+// Radio button
+.mat-radio-label-content {
+  margin-left: 0.25rem;
+}
+
+// Checkbox
+.mat-checkbox-label {
+  margin-left: 0.5rem;
 }
 
 // Multiline checkboxes
