@@ -6,17 +6,20 @@
 <div class="row d-flex justify-content-between py-2">
   <div class="col-12 col-lg-auto font-size-big pt-3">
     <span i18n="@@selectInformationToDisplayInProfile">
-      Valitse profiilissasi näytettävät tiedot </span
-    >&nbsp;<span
-      *ngIf="data.id === 'publication'"
-      i18n-tooltip="@@publicationsAddedFromResearchFITooltip"
-      tooltip="Tiedejatutkimus.fi-palvelun julkaisut on lisätty profiiliisi automaattisesti, jos niissä on ORCID-tunnuksesi. Julkaisuja, joihin ORCID-tunnusta ei ole valmiiksi liitetty, voit etsiä ”Puuttuuko jokin julkaisu tiedoistasi?” –toiminnolla."
-      tabindex="0"
-      placement="bottom"
-      container="body"
-    >
-      <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+      Valitse profiilissasi näytettävät tiedot
     </span>
+    <ng-container *ngIf="data.id === 'publication'"
+      >&nbsp;
+      <span
+        i18n-tooltip="@@publicationsAddedFromResearchFITooltip"
+        tooltip="Tiedejatutkimus.fi-palvelun julkaisut on lisätty profiiliisi automaattisesti, jos niissä on ORCID-tunnuksesi. Julkaisuja, joihin ORCID-tunnusta ei ole valmiiksi liitetty, voit etsiä ”Puuttuuko jokin julkaisu tiedoistasi?” –toiminnolla."
+        tabindex="0"
+        placement="bottom"
+        container="body"
+      >
+        <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+      </span>
+    </ng-container>
   </div>
   <div
     class="col-auto py-3"

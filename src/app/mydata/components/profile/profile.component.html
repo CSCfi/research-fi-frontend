@@ -153,29 +153,33 @@
       <div class="col-12 col-lg-5 px-0 px-lg-3">
         <!-- DEBUGGING -->
         <ng-container *ngIf="appSettingsService.myDataSettings.debug">
-          <button (click)="reset()" mat-raised-button>Reset</button>
-          <div class="row">
-            currentPublicationPayload:
-            {{ (publicationsService.currentPublicationPayload | async).length }}
-          </div>
-          <div class="row">
-            currentDatasetPayload:
-            {{ (datasetsService.currentDatasetPayload | async).length }}
-          </div>
-          <div class="row">
-            currentFundingPayload:
-            {{ (fundingsService.currentFundingPayload | async).length }}
-          </div>
-          <div class="row">
-            currentPatchItems:
-            {{ (patchService.currentPatchItems | async).length }}
-          </div>
-          <div class="row">
-            currentCollaborationsPayload:
-            {{
-              (collaborationsService.currentCollaborationsPayload | async)
-                .length
-            }}
+          <div>
+            <button (click)="reset()" mat-raised-button>Reset</button>
+            <div class="row">
+              currentPublicationPayload:
+              {{
+                (publicationsService.currentPublicationPayload | async).length
+              }}
+            </div>
+            <div class="row">
+              currentDatasetPayload:
+              {{ (datasetsService.currentDatasetPayload | async).length }}
+            </div>
+            <div class="row">
+              currentFundingPayload:
+              {{ (fundingsService.currentFundingPayload | async).length }}
+            </div>
+            <div class="row">
+              currentPatchItems:
+              {{ (patchService.currentPatchItems | async).length }}
+            </div>
+            <div class="row">
+              currentCollaborationsPayload:
+              {{
+                (collaborationsService.currentCollaborationsPayload | async)
+                  .length
+              }}
+            </div>
           </div>
         </ng-container>
 

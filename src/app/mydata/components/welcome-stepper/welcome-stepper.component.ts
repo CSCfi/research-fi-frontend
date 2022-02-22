@@ -40,7 +40,7 @@ import { isNumber } from 'lodash';
 })
 export class WelcomeStepperComponent implements OnInit, OnDestroy {
   develop: boolean;
-  step: number;
+  step: number = 1;
   cancel = false;
 
   termsApproved = false;
@@ -97,13 +97,13 @@ export class WelcomeStepperComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.utilityService.setMyDataTitle(this.steps[0].title);
+ 
 
     this.checkProfileExists();
 
     this.oidcSecurityService.userData$.pipe(take(1)).subscribe((data) => {
       if (data) {
-        const userData = data.userData
+        const userData = data.userData;
         this.userData = userData;
         this.profileName = userData?.name;
         this.appSettingsService.setOrcid(userData.orcid);
@@ -113,6 +113,7 @@ export class WelcomeStepperComponent implements OnInit, OnDestroy {
     // Enable route refresh / locale change
     this.routeSub = this.route.queryParams.subscribe((params) => {
       const step = params.step;
+
       if (
         step === '3' &&
         !this.termsApproved &&
@@ -126,6 +127,8 @@ export class WelcomeStepperComponent implements OnInit, OnDestroy {
       } else {
         this.step = parseInt(step, 10) || 1;
       }
+
+      this.utilityService.setMyDataTitle(this.createTitle(this.step));
     });
   }
 
@@ -151,15 +154,23 @@ export class WelcomeStepperComponent implements OnInit, OnDestroy {
     }
   }
 
+  createTitle(step: number) {
+    return `${this.step}/3 ${this.steps[step - 1].title}`;
+  }
+
   increment() {
     this.step = this.step + 1;
-    this.utilityService.setMyDataTitle(this.steps[this.step - 1].title);
+    this.utilityService.setMyDataTitle(
+      this.createTitle(this.step)
+    );
     this.navigateStep(this.step);
   }
 
   decrement() {
     this.step = this.step - 1;
-    this.utilityService.setMyDataTitle(this.steps[this.step - 1].title);
+    this.utilityService.setMyDataTitle(
+      this.createTitle(this.step)
+    );
     this.navigateStep(this.step);
   }
 

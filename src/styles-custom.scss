@@ -41,11 +41,11 @@ $primary: map-get($researchfi-theme, primary);
 }
 
 // Disable webkit search icons
-input[type="search"]::-webkit-search-decoration,
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-results-button,
-input[type="search"]::-webkit-search-results-decoration {
-  -webkit-appearance:none;
+input[type='search']::-webkit-search-decoration,
+input[type='search']::-webkit-search-cancel-button,
+input[type='search']::-webkit-search-results-button,
+input[type='search']::-webkit-search-results-decoration {
+  -webkit-appearance: none;
 }
 
 body {
@@ -64,6 +64,44 @@ body {
     box-shadow: 0 0 0 2px white, 0 0 0 4px mat-color($primary, default),
       0 0 3px 5px white !important;
     z-index: 100; // If no margin between next focusable element, high number because of target serach button
+  }
+}
+
+// Display primary colored border around Material UI elements
+mat-expansion-panel-header:focus-visible,
+mat-checkbox.cdk-keyboard-focused .mat-ripple-element {
+  outline: 2px solid mat-color($primary, default) !important;
+}
+
+mat-expansion-panel-header:focus-visible {
+  outline-offset: -2px;
+}
+
+mat-checkbox.cdk-keyboard-focused .mat-ripple-element {
+  width: 2rem;
+  height: 2rem;
+}
+
+mat-radio-button.cdk-keyboard-focused .mat-ripple-element {
+  border: 2px solid mat-color($primary, default); // Centering element with outline doesn't seem to work
+}
+
+.cdk-keyboard-focused {
+  .mat-checkbox-frame,
+  .mat-checkbox-background,
+  .mat-radio-outer-circle,
+  .mat-radio-inner-circle {
+    z-index: 2;
+  }
+
+  .mat-ripple {
+    padding: 4px !important;
+  }
+
+  .mat-ripple-element {
+    background-color: mat-color($primary, 100) !important;
+    opacity: 1 !important;
+    z-index: 0 !important;
   }
 }
 
@@ -295,6 +333,20 @@ fa-icon[icon='external-link-alt'] {
 // Forms
 .mat-pseudo-checkbox {
   background: #fff;
+}
+
+/*
+ * Checkbox & radio button left margins because of keyboard focus indicator
+ */
+
+// Radio button
+.mat-radio-label-content {
+  margin-left: 0.25rem;
+}
+
+// Checkbox
+.mat-checkbox-label {
+  margin-left: 0.5rem;
 }
 
 // Multiline checkboxes

@@ -13,6 +13,7 @@ import { Profile, ProfileAdapter } from '@mydata/models/profile.model';
 import { map } from 'rxjs/operators';
 import testData from 'src/testdata/mydataprofiledata.json';
 import { BehaviorSubject } from 'rxjs';
+import { startCase } from 'lodash-es';
 
 @Injectable({
   providedIn: 'root',
@@ -48,8 +49,9 @@ export class ProfileService {
     };
   }
 
-  setCurrentProfileName(name: string) {
-    this.currentProfileNameSource.next(name);
+  setCurrentProfileName(fullName: string) {
+    // Capitalize first letters of names with startCase function
+    this.currentProfileNameSource.next(startCase(fullName));
   }
 
   setCurrentProfileData(data) {
