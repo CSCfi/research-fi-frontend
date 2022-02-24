@@ -12,6 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SortService } from '../../portal/services/sort.service';
 import { Meta, Title } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +28,8 @@ export class UtilityService {
     private router: Router,
     private meta: Meta,
     private titleService: Title,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private liveAnnouncer: LiveAnnouncer
   ) {
     // Subscribe to modal show and hide
     this.modalHideSub = this.matDialog.afterAllClosed.subscribe(() => {
@@ -171,18 +173,21 @@ export class UtilityService {
     });
   }
 
+  getTitle(): string {
+    if (isPlatformBrowser(this.platformId)) {
+      return this.titleService.getTitle();
+    }
+  }
+
   setTitle(newTitle: string) {
     if (isPlatformBrowser(this.platformId)) {
       this.titleService.setTitle(newTitle);
+      this.liveAnnouncer.announce(newTitle);
     }
   }
 
   setMyDataTitle(newTitle: string) {
-    if (isPlatformBrowser(this.platformId)) {
-      this.titleService.setTitle(
-        `${newTitle} - ${$localize`:@@researchersProfile:Tutkijan tiedot`}`
-      );
-    }
+    this.setTitle(`${newTitle} - ${$localize`:@@researchersProfile:Tutkijan tiedot`}`)
   }
 
   addMeta(title: string, description: string, imageAlt: string) {

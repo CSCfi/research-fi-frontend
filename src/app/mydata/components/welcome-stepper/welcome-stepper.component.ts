@@ -97,8 +97,6 @@ export class WelcomeStepperComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
- 
-
     this.checkProfileExists();
 
     this.oidcSecurityService.userData$.pipe(take(1)).subscribe((data) => {
@@ -160,17 +158,13 @@ export class WelcomeStepperComponent implements OnInit, OnDestroy {
 
   increment() {
     this.step = this.step + 1;
-    this.utilityService.setMyDataTitle(
-      this.createTitle(this.step)
-    );
+    this.utilityService.setMyDataTitle(this.createTitle(this.step));
     this.navigateStep(this.step);
   }
 
   decrement() {
     this.step = this.step - 1;
-    this.utilityService.setMyDataTitle(
-      this.createTitle(this.step)
-    );
+    this.utilityService.setMyDataTitle(this.createTitle(this.step));
     this.navigateStep(this.step);
   }
 

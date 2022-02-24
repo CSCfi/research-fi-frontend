@@ -12,11 +12,9 @@ import {
   ViewChild,
   OnDestroy,
   Inject,
-  TemplateRef,
   LOCALE_ID,
   AfterViewInit,
 } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
 import { SearchService } from '../../../services/search.service';
@@ -424,7 +422,6 @@ export class SinglePublicationComponent
     private route: ActivatedRoute,
     private singleService: SingleItemService,
     public searchService: SearchService,
-    private titleService: Title,
     private tabChangeService: TabChangeService,
     @Inject(DOCUMENT) private document: any,
     private staticDataService: StaticDataService,
@@ -438,7 +435,7 @@ export class SinglePublicationComponent
   }
 
   public setTitle(newTitle: string) {
-    this.titleService.setTitle(newTitle);
+    this.utilityService.setTitle(newTitle);
   }
 
   ngOnInit() {
@@ -531,7 +528,7 @@ export class SinglePublicationComponent
               break;
             }
           }
-          const titleString = this.titleService.getTitle();
+          const titleString = this.utilityService.getTitle();
           this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
           this.utilityService.addMeta(
             titleString,

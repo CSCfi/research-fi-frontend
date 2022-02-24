@@ -9,8 +9,8 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Title } from '@angular/platform-browser';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { UtilityService } from '@shared/services/utility.service';
 
 @Component({
   selector: 'app-review',
@@ -55,13 +55,13 @@ export class ReviewComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private titleService: Title,
+    private utilityService: UtilityService,
     private httpClient: HttpClient,
   ) {}
 
   ngOnInit(): void {
     // Get title
-    this.title = this.titleService.getTitle();
+    this.title = this.utilityService.getTitle();
     // Easy robot check
     this.math1 = this.getRandomInt(10);
     this.math2 = this.getRandomInt(10);

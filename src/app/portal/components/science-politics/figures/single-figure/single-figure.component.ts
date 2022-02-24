@@ -22,7 +22,6 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { Title } from '@angular/platform-browser';
 import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
 import { ResizeService } from 'src/app/shared/services/resize.service';
 import { Subscription, combineLatest } from 'rxjs';
@@ -76,7 +75,6 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     private cdr: ChangeDetectorRef,
-    private titleService: Title,
     @Inject(LOCALE_ID) protected localeId: string,
     private resizeService: ResizeService,
     private route: ActivatedRoute,
@@ -91,7 +89,7 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   public setTitle(newTitle: string) {
-    this.titleService.setTitle(newTitle);
+    this.utilityService.setTitle(newTitle);
   }
 
   ngOnInit(): void {
@@ -167,7 +165,7 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     }
 
-    const titleString = this.titleService.getTitle();
+    const titleString = this.utilityService.getTitle();
     this.utilityService.addMeta(
       titleString,
       this.metaTags['description' + this.currentLocale],

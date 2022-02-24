@@ -20,7 +20,6 @@ import {
   OnChanges,
 } from '@angular/core';
 import { SearchService } from 'src/app/portal/services/search.service';
-import { Title } from '@angular/platform-browser';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { isPlatformBrowser } from '@angular/common';
 import { DataService } from 'src/app/portal/services/data.service';
@@ -62,7 +61,6 @@ export class NewsResultsComponent
 
   constructor(
     public searchService: SearchService,
-    private titleService: Title,
     @Inject(LOCALE_ID) protected localeId: string,
     private tabChangeService: TabChangeService,
     @Inject(PLATFORM_ID) private platformId: object,
@@ -126,7 +124,7 @@ export class NewsResultsComponent
   }
 
   public setTitle(newTitle: string) {
-    this.titleService.setTitle(newTitle);
+    this.utilityService.setTitle(newTitle);
   }
 
   getData() {

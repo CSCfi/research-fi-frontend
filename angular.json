@@ -31,8 +31,7 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/assets/favicon.ico",
-              "src/assets",
-              "src/silent-renew.html"
+              "src/assets"
             ],
             "styles": [
               "./node_modules/@fortawesome/fontawesome-svg-core/styles.css",

@@ -17,7 +17,6 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { SingleItemService } from '@portal/services/single-item.service';
 import { SearchService } from '@portal/services/search.service';
-import { Title } from '@angular/platform-browser';
 import { forkJoin, Subscription } from 'rxjs';
 import { TabChangeService } from '@portal/services/tab-change.service';
 import { UtilityService } from '@shared/services/utility.service';
@@ -119,7 +118,6 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     private router: Router,
     private singleService: SingleItemService,
     private searchService: SearchService,
-    private titleService: Title,
     @Inject(LOCALE_ID) protected localeId: string,
     @Inject(WINDOW) private window: Window,
     private tabChangeService: TabChangeService,
@@ -133,7 +131,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   }
 
   public setTitle(newTitle: string) {
-    this.titleService.setTitle(newTitle);
+    this.utilityService.setTitle(newTitle);
   }
 
   ngOnInit() {
@@ -214,7 +212,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
               break;
             }
           }
-          const titleString = this.titleService.getTitle();
+          const titleString = this.utilityService.getTitle();
           this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
           this.utilityService.addMeta(
             titleString,

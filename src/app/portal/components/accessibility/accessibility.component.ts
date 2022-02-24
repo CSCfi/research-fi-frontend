@@ -17,9 +17,7 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
-import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
-import { ReviewComponent } from '@shared/components/review/review.component';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { ActivatedRoute } from '@angular/router';
@@ -48,7 +46,6 @@ export class AccessibilityComponent
   content: any[];
 
   constructor(
-    private titleService: Title,
     @Inject(LOCALE_ID) protected localeId: string,
     private tabChangeService: TabChangeService,
     private utilityService: UtilityService,
@@ -94,11 +91,11 @@ export class AccessibilityComponent
   }
 
   setTitle(title: string) {
-    this.titleService.setTitle(title);
+    this.utilityService.setTitle(title);
   }
 
   getTitle() {
-    return this.titleService.getTitle().split('-').shift().trim();
+    return this.utilityService.getTitle().split('-').shift().trim();
   }
 
   ngAfterViewInit() {
