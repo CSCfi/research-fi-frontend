@@ -21,7 +21,6 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { ListItemComponent } from '@portal/components/search-bar/list-item/list-item.component';
-import { Title } from '@angular/platform-browser';
 
 export interface Report {
   id: number;
@@ -74,7 +73,6 @@ export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
     @Inject(DOCUMENT) private document: Document,
     @Inject(LOCALE_ID) protected localeId,
     private appSettingsService: AppSettingsService,
-    private titleService: Title,
   ) {}
 
   ngOnInit() {
@@ -114,7 +112,7 @@ export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public setTitle(newTitle: string) {
-    this.titleService.setTitle(newTitle);
+    this.utilityService.setTitle(newTitle);
   }
 
   doFiltering(keepModalOpen: boolean) {

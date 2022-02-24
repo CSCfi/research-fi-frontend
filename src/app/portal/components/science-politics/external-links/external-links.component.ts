@@ -15,10 +15,10 @@ import {
   OnDestroy,
   ElementRef,
 } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { TabChangeService } from 'src/app/portal/services/tab-change.service';
+import { TabChangeService } from '@portal/services/tab-change.service';
 import { Subscription } from 'rxjs';
+import { UtilityService } from '@shared/services/utility.service';
 
 @Component({
   selector: 'app-external-links',
@@ -34,13 +34,13 @@ export class ExternalLinksComponent
 
   constructor(
     @Inject(LOCALE_ID) protected localeId: string,
-    private titleService: Title,
+    private utilityService: UtilityService,
     private tabChangeService: TabChangeService,
     private route: ActivatedRoute
   ) {}
 
   public setTitle(newTitle: string) {
-    this.titleService.setTitle(newTitle);
+    this.utilityService.setTitle(newTitle);
   }
 
   ngOnInit(): void {

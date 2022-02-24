@@ -14,7 +14,6 @@ import {
   Inject,
   LOCALE_ID,
 } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
 import { SearchService } from '../../../services/search.service';
@@ -159,7 +158,6 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private singleService: SingleItemService,
     private searchService: SearchService,
-    private titleService: Title,
     @Inject(LOCALE_ID) protected localeId: string,
     private tabChangeService: TabChangeService,
     public utilityService: UtilityService,
@@ -170,7 +168,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   }
 
   public setTitle(newTitle: string) {
-    this.titleService.setTitle(newTitle);
+    this.utilityService.setTitle(newTitle);
   }
 
   ngOnInit() {
@@ -234,7 +232,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
                 break;
               }
             }
-            const titleString = this.titleService.getTitle();
+            const titleString = this.utilityService.getTitle();
             this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
             this.utilityService.addMeta(
               titleString,

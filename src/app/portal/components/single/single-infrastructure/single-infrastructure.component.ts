@@ -18,7 +18,6 @@ import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
 import { SearchService } from '../../../services/search.service';
-import { Title } from '@angular/platform-browser';
 import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { Subscription } from 'rxjs';
 import { Search } from 'src/app/portal/models/search.model';
@@ -170,7 +169,6 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private singleService: SingleItemService,
     private searchService: SearchService,
-    private titleService: Title,
     private tabChangeService: TabChangeService,
     @Inject(LOCALE_ID) protected localeId: string,
     public utilityService: UtilityService,
@@ -182,7 +180,7 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   }
 
   public setTitle(newTitle: string) {
-    this.titleService.setTitle(newTitle);
+    this.utilityService.setTitle(newTitle);
   }
 
   ngOnInit() {
@@ -242,7 +240,7 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
               break;
             }
           }
-          const titleString = this.titleService.getTitle();
+          const titleString = this.utilityService.getTitle();
           this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
           this.utilityService.addMeta(
             titleString,

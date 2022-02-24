@@ -19,17 +19,14 @@ import {
   TemplateRef,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { Title } from '@angular/platform-browser';
 import { SearchService } from '@portal/services/search.service';
 import { SortService } from '@portal/services/sort.service';
 import { map, multicast, debounceTime, take, skip } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TabChangeService } from '@portal/services/tab-change.service';
-import { ResizeService } from '@shared/services/resize.service';
 import { FilterService } from '@portal/services/filters/filter.service';
 import { DataService } from '@portal/services/data.service';
 import { Subscription, combineLatest, Subject, merge } from 'rxjs';
-import { WINDOW } from '@shared/services/window.service';
 import { UtilityService } from '@shared/services/utility.service';
 import { SettingsService } from '@portal/services/settings.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
@@ -164,7 +161,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private searchService: SearchService,
     private route: ActivatedRoute,
-    private titleService: Title,
     private tabChangeService: TabChangeService,
     private router: Router,
     private sortService: SortService,
@@ -190,7 +186,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   public setTitle(newTitle: string) {
-    this.titleService.setTitle(newTitle);
+    this.utilityService.setTitle(newTitle);
   }
 
   openDialog(template: TemplateRef<any>) {
@@ -506,12 +502,13 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     // Update title and <h1> with the information of the currently selected tab
     // Placeholder until real data is available
     const amount = tab.data ? this.dataService.totalResults : 999;
+
     // Set label by locale
     switch (this.localeId) {
       case 'fi': {
         this.setTitle(tab.label + ' - Tiedejatutkimus.fi');
         this.srHeader.nativeElement.innerHTML =
-          this.titleService.getTitle().split(' - ', 2).join(' - ') +
+          this.utilityService.getTitle().split(' - ', 2).join(' - ') +
           ' - ' +
           amount +
           (amount === 1 ? ' hakutulos' : ' hakutulosta');
@@ -520,7 +517,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       case 'en': {
         this.setTitle(tab.label + ' - Research.fi');
         this.srHeader.nativeElement.innerHTML =
-          this.titleService.getTitle().split(' - ', 2).join(' - ') +
+          this.utilityService.getTitle().split(' - ', 2).join(' - ') +
           ' - ' +
           amount +
           (amount === 1 ? ' result' : ' results');
@@ -529,7 +526,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       case 'sv': {
         this.setTitle(tab.label + ' - Forskning.fi');
         this.srHeader.nativeElement.innerHTML =
-          this.titleService.getTitle().split(' - ', 2).join(' - ') +
+          this.utilityService.getTitle().split(' - ', 2).join(' - ') +
           ' - ' +
           amount +
           (amount === 1 ? ' result' : ' results');
@@ -537,7 +534,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     }
     this.utilityService.addMeta(
-      this.titleService.getTitle(),
+      this.utilityService.getTitle(),
       this.metaTags['description' + this.currentLocale],
       this.commonTags['imgAlt' + this.currentLocale]
     );

@@ -19,7 +19,6 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
 import { map } from 'rxjs/operators';
@@ -77,7 +76,6 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private searchService: SearchService,
     private sortService: SortService,
-    private titleService: Title,
     @Inject(DOCUMENT) private document: any,
     private cdr: ChangeDetectorRef,
     @Inject(LOCALE_ID) public localeId: string,
@@ -91,7 +89,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public setTitle(newTitle: string) {
-    this.titleService.setTitle(newTitle);
+    this.utilityService.setTitle(newTitle);
   }
 
   ngOnInit() {

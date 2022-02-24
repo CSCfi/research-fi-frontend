@@ -29,7 +29,6 @@ import { faChartBar } from '@fortawesome/free-regular-svg-icons';
 import { isPlatformBrowser } from '@angular/common';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { Title } from '@angular/platform-browser';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { ResizeService } from 'src/app/shared/services/resize.service';
 import { Subscription } from 'rxjs';
@@ -92,7 +91,6 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private cdr: ChangeDetectorRef,
     @Inject(WINDOW) private window: Window,
-    private titleService: Title,
     @Inject(LOCALE_ID) protected localeId: string,
     private tabChangeService: TabChangeService,
     private resizeService: ResizeService,
@@ -115,7 +113,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public setTitle(newTitle: string) {
-    this.titleService.setTitle(newTitle);
+    this.utilityService.setTitle(newTitle);
   }
 
   ngOnInit(): void {
