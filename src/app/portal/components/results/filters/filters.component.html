@@ -14,31 +14,14 @@
     [icon]="faSlidersH"
     [noSmIcon]="true"
     [big]="true"
-    (click)="openModal(filterModal)"
-    (keydown.enter)="openModal(filterModal)"
+    (click)="openDialog(filterModal)"
     #openFilters
     tabindex="-1"
   ></app-secondary-button>
 </div>
 
 <ng-template #filterModal>
-  <div cdkTrapFocus>
-    <div class="modal-header">
-      <h5 class="modal-title">
-        <fa-icon class="filter-icon" [icon]="faSlidersH"></fa-icon
-        >{{ tabData === 'news' ? filterNewsHeader : filterSearchHeader }}
-      </h5>
-      <app-close-button
-        (click)="closeModal()"
-        (keydown.enter)="closeModal()"
-        autofocus
-        tabindex="-1"
-      ></app-close-button>
-    </div>
-    <div class="modal-body">
-      <ng-container *ngTemplateOutlet="filters"></ng-container>
-    </div>
-  </div>
+  <ng-container *ngTemplateOutlet="filters"></ng-container>
 </ng-template>
 
 <!-- showButton enables mobile behaviour on desktop -->
@@ -720,3 +703,14 @@
     </div>
   </div>
 </ng-template>
+
+<!-- Reusable dialog for mobile view -->
+<app-dialog
+  *ngIf="showDialog"
+  [template]="dialogTemplate"
+  [title]="dialogTitle"
+  [icon]="faSlidersH"
+  (onActionClick)="closeDialog()"
+  noPadding
+  extraClass="filters-dialog"
+></app-dialog>

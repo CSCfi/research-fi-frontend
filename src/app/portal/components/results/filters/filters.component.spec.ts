@@ -10,7 +10,6 @@ import {ComponentFixture, TestBed } from '@angular/core/testing';
 import { FiltersComponent } from './filters.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { WINDOW_PROVIDERS } from '@shared/services/window.service';
-import { ModalModule } from 'ngx-bootstrap/modal';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import AggResponse from 'src/testdata/aggregationresponse.json';
@@ -41,7 +40,7 @@ describe('FiltersComponent', () => {
         WINDOW_PROVIDERS,
         PublicationFilterService,
       ],
-      imports: [ModalModule.forRoot(), MatDialogModule],
+      imports: [MatDialogModule],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 

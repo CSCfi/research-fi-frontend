@@ -6,7 +6,6 @@
 //  :license: MIT
 
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -54,13 +53,10 @@ export class ReviewComponent implements OnInit {
   sendText = $localize`:@@r15:Tarkista ja lähetä`;
   back = $localize`:@@back:Takaisin`;
 
-  // dialogRef: MatDialogRef<ReviewComponent>;
-
   constructor(
     private router: Router,
     private titleService: Title,
     private httpClient: HttpClient,
-    private dialogRef: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -70,10 +66,6 @@ export class ReviewComponent implements OnInit {
     this.math1 = this.getRandomInt(10);
     this.math2 = this.getRandomInt(10);
     this.equals = this.math1 + this.math2;
-  }
-
-  close() {
-    this.dialogRef.closeAll();
   }
 
   getBodyJson(): Object {

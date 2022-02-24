@@ -5,8 +5,20 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  TemplateRef,
+} from '@angular/core';
+import {
+  DialogPosition,
+  MatDialog,
+  MatDialogRef,
+} from '@angular/material/dialog';
+import { Icon } from '@fortawesome/fontawesome-svg-core';
 import { take } from 'rxjs/operators';
 import { DialogTemplateComponent } from './dialog-template/dialog-template.component';
 
@@ -22,6 +34,14 @@ export class DialogComponent implements OnInit {
   @Input() extraContentTemplate: any;
   @Input() small: boolean;
   @Input() disableClose: boolean;
+  @Input() icon: Icon;
+  @Input() centerTitle: any;
+  @Input() noPadding: any;
+  @Input() wide: any;
+  @Input() position: string;
+  @Input() extraClass: string;
+  @Input() headerInfoTemplate: TemplateRef<any>;
+  @Input() extraHeaderTemplate: TemplateRef<any>;
   @Output() onDialogClose = new EventEmitter<any>();
   @Output() onActionClick = new EventEmitter<any>();
 
@@ -46,6 +66,15 @@ export class DialogComponent implements OnInit {
       ];
     }
 
+    const checkInput = (property: any) =>
+      typeof property === 'string' ? true : false;
+
+    const wideDialog = checkInput(this.wide);
+
+    const dialogSettings = {
+      maxWidth: wideDialog ? 'calc(100% - 3rem)' : '44vh',
+    };
+
     const smallDialogSettings = {
       minWidth: 'unset',
       width: 'unset',
@@ -54,7 +83,7 @@ export class DialogComponent implements OnInit {
     };
 
     this.dialogRef = this.dialog.open(DialogTemplateComponent, {
-      ...(this.small ? smallDialogSettings : null),
+      ...(this.small ? smallDialogSettings : dialogSettings),
       autoFocus: false,
       data: {
         title: this.title,
@@ -63,9 +92,16 @@ export class DialogComponent implements OnInit {
         actions: this.actions || [],
         extraContentTemplate: this.extraContentTemplate,
         spreadActions: spreadActions,
+        icon: this.icon,
+        centerTitle: checkInput(this.centerTitle),
+        noPadding: checkInput(this.noPadding),
+        wide: checkInput(this.wide),
+        headerInfoTemplate: this.headerInfoTemplate,
+        extraHeaderTemplate: this.extraHeaderTemplate
       },
-      panelClass: 'responsive-dialog',
+      panelClass: ['responsive-dialog', this.extraClass],
       disableClose: this.disableClose ? true : false,
+      position: this.position ? this.handlePosition() : null,
     });
 
     this.dialogRef
@@ -74,5 +110,17 @@ export class DialogComponent implements OnInit {
       .subscribe((result) => {
         this.onActionClick.emit(result?.method);
       });
+  }
+
+  handlePosition() {
+    let result: DialogPosition;
+
+    switch (this.position) {
+      case 'top': {
+        result = { top: '2rem' };
+      }
+    }
+
+    return result;
   }
 }

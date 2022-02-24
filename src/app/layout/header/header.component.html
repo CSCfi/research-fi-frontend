@@ -88,22 +88,25 @@
         </div>
 
         <ng-template #betaInfoTemplate>
-          <p i18n="@@researcherProfileBetaText1">
-            Tämä on Tutkijan tiedot -työkalun betaversio. Testikäyttäjien
-            palautetta hyödynnetään palvelun toiminnallisuuksien kehittämisessä.
-          </p>
-          <p>
-            <a
-              [href]="
-                appSettings[
-                  'readMoreLink' + appSettingsService.capitalizedLocale
-                ]
-              "
-              target="_blank"
-              ><ng-container i18n="@@readMore">Lue lisää</ng-container>...
-              <fa-icon icon="external-link-alt"></fa-icon
-            ></a>
-          </p>
+          <div class="col">
+            <p i18n="@@researcherProfileBetaText1">
+              Tämä on Tutkijan tiedot -työkalun betaversio. Testikäyttäjien
+              palautetta hyödynnetään palvelun toiminnallisuuksien
+              kehittämisessä.
+            </p>
+            <p>
+              <a
+                [href]="
+                  appSettings[
+                    'readMoreLink' + appSettingsService.capitalizedLocale
+                  ]
+                "
+                target="_blank"
+                ><ng-container i18n="@@readMore">Lue lisää</ng-container>...
+                <fa-icon icon="external-link-alt"></fa-icon
+              ></a>
+            </p>
+          </div>
         </ng-template>
 
         <app-dialog
@@ -150,9 +153,7 @@
           #mainNavbar
         >
           <!-- Lang selector -->
-          <div
-            class="navbar-expand mx-auto navbar-nav lang mobile"
-          >
+          <div class="navbar-expand mx-auto navbar-nav lang mobile">
             <ul class="navbar-nav mx-auto">
               <li
                 *ngFor="let domain of appSettings.localizedDomains"

@@ -18,12 +18,6 @@
   (onButtonClick)="openDialog()"
 ></app-empty-card>
 
-<app-dialog
-  *ngIf="showDialog"
-  [template]="dialogTemplate"
-  (onActionClick)="doDialogAction($event)"
-></app-dialog>
-
 <div class="d-block mt-3">
   <ng-container
     *ngFor="let field of data[0].fields.slice(1).reverse(); let i = index"
@@ -83,3 +77,10 @@
     </ng-container>
   </ng-container>
 </div>
+
+<ng-container *ngIf="showDialog">
+  <app-editor-modal
+    [data]="dialogData"
+    (onEditorClose)="handleChanges($event)"
+  ></app-editor-modal>
+</ng-container>

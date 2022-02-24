@@ -9,7 +9,6 @@
 @import '@angular/material/theming';
 @include mat-core();
 
-@import '~bootstrap/dist/css/bootstrap.css';
 @import '~font-awesome/css/font-awesome.css';
 @import '~@fortawesome/fontawesome-free/css/all.css';
 
@@ -22,7 +21,6 @@
 // Layout
 @import './app/layout/header/header.component.scss-theme.scss';
 @import './app/layout/footer/footer.component.scss-theme.scss';
-@import './app/layout/review/review.component.scss-theme.scss';
 
 // Portal
 @import './app/portal/components/home-page/home-page.component.scss-theme.scss';
@@ -69,6 +67,7 @@
 @import './app/shared/components/select/select.component-theme.scss';
 @import './app/shared/components/search/search.component-theme.scss';
 @import './app/shared/components/banner-divider/banner-divider.component-theme.scss';
+@import './app/shared/components/review/review.component.scss-theme.scss';
 
 // Mydata
 @import './app/mydata/mydata-shared.scss';

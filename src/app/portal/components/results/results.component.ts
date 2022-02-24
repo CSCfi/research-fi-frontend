@@ -20,19 +20,18 @@ import {
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Title } from '@angular/platform-browser';
-import { SearchService } from '../../services/search.service';
-import { SortService } from '../../services/sort.service';
+import { SearchService } from '@portal/services/search.service';
+import { SortService } from '@portal/services/sort.service';
 import { map, multicast, debounceTime, take, skip } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TabChangeService } from '../../services/tab-change.service';
-import { ResizeService } from 'src/app/shared/services/resize.service';
-import { FilterService } from '../../services/filters/filter.service';
-import { DataService } from '../../services/data.service';
+import { TabChangeService } from '@portal/services/tab-change.service';
+import { ResizeService } from '@shared/services/resize.service';
+import { FilterService } from '@portal/services/filters/filter.service';
+import { DataService } from '@portal/services/data.service';
 import { Subscription, combineLatest, Subject, merge } from 'rxjs';
-import { WINDOW } from 'src/app/shared/services/window.service';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { UtilityService } from 'src/app/shared/services/utility.service';
-import { SettingsService } from 'src/app/portal/services/settings.service';
+import { WINDOW } from '@shared/services/window.service';
+import { UtilityService } from '@shared/services/utility.service';
+import { SettingsService } from '@portal/services/settings.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
 import {
   Visual,
@@ -129,7 +128,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   visualData: Visual;
   percentage = false;
   visualSub: Subscription;
-  modalRef: BsModalRef;
   showInfo = false;
   fundingAmount = false;
   visualisationType = false;
@@ -157,8 +155,11 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   private metaTags: { link: string };
   private commonTags = MetaTags.common;
   inputSub: Subscription;
-  modalHideSub: Subscription;
   mobileStatusSub: Subscription;
+
+  showDialog: boolean
+  dialogTemplate: TemplateRef<any>
+  dialogTitle: string
 
   constructor(
     private searchService: SearchService,
@@ -166,15 +167,12 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     private titleService: Title,
     private tabChangeService: TabChangeService,
     private router: Router,
-    private resizeService: ResizeService,
     private sortService: SortService,
     private filterService: FilterService,
     private cdr: ChangeDetectorRef,
     @Inject(LOCALE_ID) protected localeId: string,
-    @Inject(WINDOW) private window: Window,
     @Inject(PLATFORM_ID) private platformId: object,
     private dataService: DataService,
-    private modalService: BsModalService,
     private utilityService: UtilityService,
     private settingsService: SettingsService,
     private staticDataService: StaticDataService,
@@ -195,19 +193,17 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.titleService.setTitle(newTitle);
   }
 
-  openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(
-      template,
-      Object.assign({}, { class: 'wide-modal' })
-    );
+  openDialog(template: TemplateRef<any>) {
+    this.showDialog = true
+    this.dialogTemplate = template
+    this.dialogTitle = this.visualisationCategories[this.visIdx].title
   }
 
-  closeModal() {
-    this.modalRef.hide();
-    // Logic implemented in hide sub
-    // this.visIdx = '0';
-    // this.modalRef = undefined;
-    // this.percentage = false;
+  closeDialog() {
+    this.showDialog = false
+    this.percentage = false;
+    this.fundingAmount = false;
+    this.changeVisual({ value: '0' });
   }
 
   onClickedOutside($event) {
@@ -366,13 +362,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.updateTitle(this.selectedTabData);
     });
 
-    this.modalHideSub = this.modalService.onHide.subscribe((s) => {
-      this.modalRef = undefined;
-      this.percentage = false;
-      this.fundingAmount = false;
-      this.changeVisual({ value: '0' });
-    });
-
     this.visualSub = this.dataService.newFilter.subscribe(
       (_) => (this.visual = false)
     );
@@ -381,9 +370,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.mobileStatusSub = this.appSettingsService.mobileStatus.subscribe(
       (status: boolean) => {
         this.visual = this.visual && !status;
-        if (status && this.modalRef) {
-          this.closeModal();
-        }
         this.mobile = status;
       }
     );
@@ -575,7 +561,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.totalSub?.unsubscribe();
       this.tabSub?.unsubscribe();
       this.inputSub?.unsubscribe();
-      this.modalHideSub?.unsubscribe();
       this.mobileStatusSub?.unsubscribe();
     }
   }

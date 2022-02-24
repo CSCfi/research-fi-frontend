@@ -6,8 +6,8 @@
 //  :license: MIT
 
 @mixin app-filters-shared {
-  modal-container,
-  app-filters {
+  app-filters,
+  .filters-dialog {
     .col {
       position: unset;
     }
@@ -317,10 +317,6 @@
 
     .navbar-toggler:focus {
       outline: -webkit-focus-ring-color auto 1px;
-    }
-
-    .modal-body {
-      padding: 0;
     }
 
     // Responsive

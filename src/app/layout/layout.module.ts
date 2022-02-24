@@ -25,9 +25,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
 import { ErrorModalComponent } from './error-modal/error-modal.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-// import { ClickOutsideModule } from 'ng-click-outside';
-import { ReviewComponent } from './review/review.component';
-import { BetaInfoComponent } from './beta-info/beta-info.component';
 import { WINDOW_PROVIDERS } from '../shared/services/window.service';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
@@ -37,8 +34,6 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
         HeaderComponent,
         FooterComponent,
         ErrorModalComponent,
-        ReviewComponent,
-        BetaInfoComponent,
     ],
     imports: [
         CommonModule,
@@ -56,7 +51,6 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
         MatProgressSpinnerModule,
         FormsModule,
         FontAwesomeModule,
-        // ClickOutsideModule,
         TooltipModule.forRoot(),
     ],
     exports: [LayoutComponent],

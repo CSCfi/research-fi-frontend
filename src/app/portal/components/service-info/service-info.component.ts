@@ -10,6 +10,7 @@ import {
   PLATFORM_ID,
   ViewEncapsulation,
   ChangeDetectorRef,
+  TemplateRef,
 } from '@angular/core';
 import { faInfo } from '@fortawesome/free-solid-svg-icons';
 import { Title } from '@angular/platform-browser';
@@ -18,8 +19,6 @@ import { DOCUMENT, isPlatformBrowser, Location } from '@angular/common';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { ActivatedRoute } from '@angular/router';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ReviewComponent } from 'src/app/layout/review/review.component';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
@@ -32,6 +31,7 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   faInfo = faInfo;
 
   @ViewChild('mainFocus') mainFocus: ElementRef;
+  @ViewChild('reviewDialog') reviewDialog: TemplateRef<any>;
   focusSub: any;
   title: string;
   openedIdx: any;
@@ -40,12 +40,13 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   private metaTags = MetaTags.serviceInfo;
   private commonTags = MetaTags.common;
   content: any[];
-  reviewDialogRef: MatDialogRef<ReviewComponent>;
+  showDialog: boolean;
 
   sections = [
     { header: $localize`:@@serviceInfoHeader:Tietoa palvelusta`, items: [] },
     { header: $localize`:@@faq:Usein kysytyt kysymykset`, items: [] },
   ];
+
 
   constructor(
     private titleService: Title,
@@ -56,7 +57,6 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
     private route: ActivatedRoute,
     @Inject(DOCUMENT) private document: any,
     @Inject(PLATFORM_ID) private platformId: object,
-    public dialog: MatDialog,
     private cdr: ChangeDetectorRef,
     private appSettingsService: AppSettingsService
   ) {
@@ -132,10 +132,7 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   toggleReview() {
-    this.reviewDialogRef = this.dialog.open(ReviewComponent, {
-      maxWidth: '800px',
-      minWidth: '320px',
-    });
+    this.showDialog = !this.showDialog
   }
 
   open(id: string) {
