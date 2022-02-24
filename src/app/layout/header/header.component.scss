@@ -220,6 +220,10 @@ app-header {
   }
 
   mat-form-field.lang-select {
+    .mat-select {
+      padding: 0.344rem 0.5rem;
+    }
+
     text-align: center !important;
     border: 0 !important;
 
@@ -234,6 +238,7 @@ app-header {
     }
 
     .mat-form-field-infix {
+      padding: 0 !important;
       border: 0;
     }
 
@@ -260,7 +265,7 @@ app-header {
   }
 
   .mat-form-field-appearance-legacy .mat-form-field-infix {
-    padding: 0.36em 0.5rem !important;
+    // padding: 0.36em 0.5rem !important;
     width: unset;
   }
 

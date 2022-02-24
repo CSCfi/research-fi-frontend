@@ -68,10 +68,43 @@ body {
   }
 }
 
-  mat-expansion-panel-header:focus-visible,
-  mat-radio-button.cdk-keyboard-focused .mat-ripple {
-    border: 2px solid mat-color($primary, default) !important;
+// Display primary colored border around Material UI elements
+mat-expansion-panel-header:focus-visible,
+mat-checkbox.cdk-keyboard-focused .mat-ripple-element {
+  outline: 2px solid mat-color($primary, default) !important;
+}
+
+mat-expansion-panel-header:focus-visible {
+  outline-offset: -2px;
+}
+
+mat-checkbox.cdk-keyboard-focused .mat-ripple-element {
+  width: 2rem;
+  height: 2rem;
+}
+
+mat-radio-button.cdk-keyboard-focused .mat-ripple-element {
+  border: 2px solid mat-color($primary, default); // Centering element with outline doesn't seem to work
+}
+
+.cdk-keyboard-focused {
+  .mat-checkbox-frame,
+  .mat-checkbox-background,
+  .mat-radio-outer-circle,
+  .mat-radio-inner-circle {
+    z-index: 2;
   }
+
+  .mat-ripple {
+    padding: 4px !important;
+  }
+
+  .mat-ripple-element {
+    background-color: mat-color($primary, 100) !important;
+    opacity: 1 !important;
+    z-index: 0 !important;
+  }
+}
 
 // Dont show outlines for mouse users
 body:not(.user-tabbing) {
