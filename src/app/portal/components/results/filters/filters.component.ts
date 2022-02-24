@@ -26,7 +26,6 @@ import { SortService } from '../../../services/sort.service';
 import { ResizeService } from 'src/app/shared/services/resize.service';
 import { Subscription } from 'rxjs';
 import { WINDOW } from 'src/app/shared/services/window.service';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 
 import { PublicationFilterService } from 'src/app/portal/services/filters/publication-filter.service';
@@ -65,7 +64,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   resizeSub: any;
   width = this.window.innerWidth;
   mobile: boolean;
-  modalRef: BsModalRef;
   activeFilters: any;
   queryParamSub: Subscription;
   visualFilterSub: Subscription;
@@ -89,11 +87,15 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   coPublicationTooltip =
     'Valitsemalla ”näytä vain yhteisjulkaisut” voit tarkastella suomalaisten organisaatioiden yhteisiä julkaisuja. Hakutulos näyttää tällöin vain sellaiset julkaisut, joissa kaikki alla olevasta listasta valitut organisaatiot ovat mukana. Jos yhtään organisaatiota ei ole valittu, hakutulos näyttää kaikki yhteisjulkaisut';
   mobileStatusSub: Subscription;
+
+  showDialog: boolean
+  dialogTemplate: TemplateRef<any>
+  dialogTitle: string
+
   constructor(
     private router: Router,
     @Inject(WINDOW) private window: Window,
     @Inject(DOCUMENT) private document: Document,
-    private modalService: BsModalService,
     private route: ActivatedRoute,
     public utilityService: UtilityService,
     private sortService: SortService,
@@ -112,37 +114,21 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     this.showMoreCount = [];
   }
 
-  openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template);
+  openDialog(template: TemplateRef<any>) {
+    this.showDialog = true
+    this.dialogTemplate = template
+    this.dialogTitle = this.tabData === 'news' ? this.filterNewsHeader : this.filterSearchHeader
   }
 
-  closeModal() {
-    this.modalRef.hide();
+  closeDialog() {
+    this.showDialog = false;
   }
 
   ngOnInit() {
-    // Focus on the close button when modal opens
-    this.modalService.onShown
-      .pipe(
-        tap(() =>
-          (document.querySelector('[autofocus]') as HTMLElement)?.focus()
-        )
-      )
-      .subscribe();
-
     // Visualisation click filtering
     this.visualFilterSub = this.dataService.newFilter.subscribe((f) =>
       this.selectionChange(f.filter, f.key, true)
     );
-
-    // Focus on open filters button when modal closes
-    this.modalService.onHidden
-      .pipe(
-        tap(() => {
-          this.openFiltersButton.nativeElement.focus();
-        })
-      )
-      .subscribe();
 
     // Subscribe to queryParams
     this.queryParamSub = this.route.queryParams.subscribe((params) => {
@@ -191,10 +177,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     this.mobileStatusSub = this.appSettingsService.mobileStatus.subscribe(
       (status: boolean) => {
         this.mobile = status;
-
-        if (!status) {
-          this.modalRef && this.closeModal();
-        }
       }
     );
   }

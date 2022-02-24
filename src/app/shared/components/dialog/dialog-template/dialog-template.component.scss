@@ -5,8 +5,17 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
+.dialog-title {
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
+.visual-dialog .mat-dialog-content {
+  max-height: 85vh !important;
+}
+
 @media (max-width: 991px) {
-  .no-actions {
+  .responsive-dialog .no-actions {
     max-height: 100vh !important;
   }
 }

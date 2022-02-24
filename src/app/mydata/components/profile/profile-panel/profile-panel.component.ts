@@ -9,9 +9,11 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
+  Output,
 } from '@angular/core';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
@@ -42,6 +44,7 @@ import { FundingsService } from '@mydata/services/fundings.service';
 export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() primarySource: string;
   @Input() data: any;
+  @Output() onSingleItemToggle = new EventEmitter<any>()
 
   allSelected: boolean;
 
@@ -58,6 +61,9 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
 
   locale: string;
 
+  showDialog: boolean;
+  dialogData: any;
+  currentGroupId: any;
   dialogRef: MatDialogRef<SearchPortalComponent>;
 
   faChevronDown = faChevronDown;
@@ -175,18 +181,13 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     this.patchService.addToPayload(patchObjects);
   }
 
-  toggleItem(event, groupItem, item, index) {
-    const groupMeta = groupItem.groupMeta;
+  toggleItem(
+    event: { checked: boolean },
+    item: { itemMeta: { show: boolean } }
+  ) {
+    item.itemMeta.show = event.checked;
 
-    const parentGroup = this.data.fields[index].groupItems.find(
-      (group: { groupMeta: { id: any } }) => group.groupMeta.id === groupMeta.id
-    );
-
-    const currentItem = parentGroup.items.find(
-      (i: { itemMeta: { id: any } }) => i.itemMeta.id === item.itemMeta.id
-    );
-
-    currentItem.itemMeta.show = event.checked;
+    this.onSingleItemToggle.emit()
 
     this.patchService.addToPayload({
       ...item.itemMeta,
@@ -239,24 +240,32 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
    * Dynamic search from portal modal
    * Search for Publications, Datasets and Fundings
    */
-  openSearchFromResearchFiDialog(groupId: string) {
+  openSearchFromPortalDialog(groupId: string) {
+    this.showDialog = true;
+
     const field = this.data.fields[0];
 
-    this.dialogRef = this.dialog.open(SearchPortalComponent, {
-      data: {
-        groupId: groupId,
-        itemsInProfile: field?.groupItems,
-        selectedPublications: field?.selectedPublications,
-      },
-      panelClass: this.appSettingsService.dialogPanelClass,
-    });
+    this.currentGroupId = groupId;
 
-    type Result = { selection: any[] };
+    this.dialogData = {
+      groupId: groupId,
+      itemsInProfile: field?.groupItems,
+      selectedPublications: field?.selectedPublications,
+    };
+  }
+
+  closeDialog() {
+    this.showDialog = false;
+  }
+
+  handleChanges(result) {
+    this.closeDialog();
+    const field = this.data.fields[0];
 
     /*
      * Use group related service to add selected items into draft view and patch payload
      */
-    const handlePortalItems = (groupId: string, result: Result) => {
+    const handlePortalItems = (groupId: string, result) => {
       let service: PublicationsService | DatasetsService | FundingsService;
       let fieldType: number;
 
@@ -278,10 +287,9 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
         }
       }
 
-      const selection = result.selection;
       const groupItems = field.groupItems;
 
-      service.addToPayload(selection);
+      service.addToPayload(result);
 
       // Items with primary value
       let existingAddedItems = groupItems.find((group) =>
@@ -289,7 +297,7 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
       );
 
       if (existingAddedItems) {
-        existingAddedItems.items = existingAddedItems.items.concat(selection);
+        existingAddedItems.items = existingAddedItems.items.concat(result);
       } else {
         groupItems.push({
           groupMeta: { type: fieldType },
@@ -298,7 +306,7 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
               name: CommonStrings.ttvLabel,
             },
           },
-          items: selection,
+          items: result,
         });
       }
 
@@ -309,21 +317,18 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
       }
     };
 
-    this.dialogRef
-      .afterClosed()
-      .pipe(take(1))
-      .subscribe((result: any) => {
-        // Reset sort when dialog closes
-        this.searchPortalService.resetSort();
+    // Reset sort when dialog closes
+    this.searchPortalService.resetSort();
 
-        if (result) {
-          // Add selected items into profile data and patch payload
-          handlePortalItems(groupId, result);
+    if (result) {
+      // Add selected items into profile data and patch payload
+      handlePortalItems(this.currentGroupId, result);
 
-          this.updated = new Date();
+      this.onSingleItemToggle.emit()
 
-          this.cdr.detectChanges();
-        }
-      });
+      this.updated = new Date();
+
+      this.cdr.detectChanges();
+    }
   }
 }

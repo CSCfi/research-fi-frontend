@@ -794,7 +794,7 @@
 ></app-dialog>
 
 <ng-template #citeDialog>
-  <div class="pb-5">
+  <div class="col pb-5">
     <div *ngFor="let citation of citations; let i = index" class="cite-block">
       <h4>{{ citationStyles[i].label }}:</h4>
       <span [innerHTML]="citation | cleanCitation"></span>

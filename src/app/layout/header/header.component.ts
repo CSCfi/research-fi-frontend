@@ -451,7 +451,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.dialogActions = actions;
   }
 
-  doDialogAction(action) {
+  doDialogAction(action: string) {
     if (action === 'logout') {
       this.oidcSecurityService.logoff();
       this.draftService.clearData();

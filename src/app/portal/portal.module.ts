@@ -9,8 +9,6 @@ import { Title, Meta } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
-import { ModalModule } from 'ngx-bootstrap/modal';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -255,7 +253,6 @@ import { HandleInfrastructureLinkPipe } from './pipes/handle-infrastructure-link
     imports: [
         PortalRoutingModule,
         CommonModule,
-        TypeaheadModule.forRoot(),
         FormsModule,
         ReactiveFormsModule,
         MatIconModule,
@@ -284,7 +281,7 @@ import { HandleInfrastructureLinkPipe } from './pipes/handle-infrastructure-link
         CountUpModule,
         FontAwesomeModule,
         TransferHttpCacheModule,
-        ModalModule.forRoot(),
+
         SharedModule,
         A11yModule,
         TooltipModule.forRoot(),

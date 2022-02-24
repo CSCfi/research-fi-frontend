@@ -10,8 +10,8 @@
 @mixin app-filters-theme-shared($theme) {
   $primary: map-get($theme, primary);
 
-  modal-container,
-  app-filters {
+  app-filters,
+  .filters-dialog {
     .filter-sidebar {
       background: mat-color($primary, 100);
     }

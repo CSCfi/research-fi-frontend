@@ -31,6 +31,7 @@ import { ButtonGroupComponent } from './components/button-group/button-group.com
 import { SelectComponent } from './components/select/select.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { SearchComponent } from './components/search/search.component';
+import { ReviewComponent } from './components/review/review.component';
 
 import { ThousandSeparatorPipe } from './pipes/thousand-separator.pipe';
 import { CutContentPipe } from './pipes/cut-content.pipe';
@@ -53,6 +54,7 @@ import { ClickOutsideDirective } from './directives/click-outside.directive';
     SelectComponent,
     MenuComponent,
     SearchComponent,
+    ReviewComponent,
     ThousandSeparatorPipe,
     CutContentPipe,
     SanitizeHtmlPipe,
@@ -71,6 +73,7 @@ import { ClickOutsideDirective } from './directives/click-outside.directive';
     SelectComponent,
     MenuComponent,
     SearchComponent,
+    ReviewComponent,
     ThousandSeparatorPipe,
     CutContentPipe,
     SanitizeHtmlPipe,

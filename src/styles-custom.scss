@@ -452,8 +452,7 @@ mat-basic-chip.tag {
 // }
 
 // Visualisation modal
-.wide-modal {
-  max-width: 97%;
+.visual-dialog {
   .visual-select {
     background-color: mat-color($primary, 50);
   }
@@ -488,6 +487,9 @@ mat-basic-chip.tag {
 
 .mat-dialog-content {
   // max-height: 85vh !important;
+  // padding: 0 1rem !important;
+
+  // Enable scrollbar rendering
   margin: 0 !important;
   padding: 0 !important;
 }
@@ -504,7 +506,6 @@ mat-basic-chip.tag {
 
 .responsive-dialog {
   min-width: 44vw;
-  max-width: 44vw !important;
   max-height: 100vh;
   width: unset;
   height: unset;

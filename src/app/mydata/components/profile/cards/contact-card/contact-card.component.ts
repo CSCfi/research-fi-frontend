@@ -6,14 +6,11 @@
 //  :license: MIT
 
 import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { EditorModalComponent } from '@mydata/components/profile/editor-modal/editor-modal.component';
 import { DraftService } from '@mydata/services/draft.service';
 import { SnackbarService } from '@mydata/services/snackbar.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { PatchService } from '@mydata/services/patch.service';
 import { cloneDeep } from 'lodash-es';
-import { take } from 'rxjs/operators';
 import { Constants } from '@mydata/constants/';
 import { checkGroupSelected } from '@mydata/utils';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
@@ -27,16 +24,14 @@ export class ContactCardComponent implements OnInit {
   @Input() data: any;
   @Input() label: string;
 
-  showDialog = false;
-
-  dialogRef: MatDialogRef<EditorModalComponent>;
-
   fieldTypes = FieldTypes;
   checkGroupSelected = checkGroupSelected;
   contactFields: any;
 
+  showDialog: boolean;
+  dialogData: any;
+
   constructor(
-    public dialog: MatDialog,
     private appSettingsService: AppSettingsService,
     private patchService: PatchService,
     private snackbarService: SnackbarService,
@@ -47,71 +42,61 @@ export class ContactCardComponent implements OnInit {
   ngOnInit(): void {}
 
   openDialog() {
-    this.dialogRef = this.dialog.open(EditorModalComponent, {
-      data: {
-        data: cloneDeep(this.data[0]),
-      },
-      panelClass: this.appSettingsService.dialogPanelClass,
-    });
+    this.showDialog = true;
+    this.dialogData = cloneDeep(this.data[0]);
+  }
 
-    this.dialogRef
-      .afterClosed()
-      .pipe(take(1))
-      .subscribe(
-        (result: { data: any; patchGroups: any[]; patchItems: any[] }) => {
-          const confirmedPayLoad = this.patchService.confirmedPayLoad;
+  handleChanges(result) {
+    this.showDialog = false;
 
-          if (this.appSettingsService.isBrowser) {
-            if (result) {
-              // Set primary name to profile header
-              if (
-                confirmedPayLoad.find(
-                  (item) => item.type === FieldTypes.personFirstNames
-                )
-              ) {
-                const selectedNameId = confirmedPayLoad.find(
-                  (item) =>
-                    item.show && item.type === this.fieldTypes.personFirstNames
-                ).id;
+    const confirmedPayLoad = this.patchService.confirmedPayLoad;
 
-                const names = this.data[0].fields[0].groupItems.flatMap(
-                  (groupItem) => groupItem.items
-                );
+    if (this.appSettingsService.isBrowser) {
+      if (result) {
+        // Set primary name to profile header
+        if (
+          confirmedPayLoad.find(
+            (item) => item.type === FieldTypes.personFirstNames
+          )
+        ) {
+          const selectedNameId = confirmedPayLoad.find(
+            (item) =>
+              item.show && item.type === this.fieldTypes.personFirstNames
+          ).id;
 
-                const selectedName = names.find(
-                  (item) => item.itemMeta.id === selectedNameId
-                ).value;
+          const names = this.data[0].fields[0].groupItems.flatMap(
+            (groupItem) => groupItem.items
+          );
 
-                this.profileService.setCurrentProfileName(selectedName);
-              }
+          const selectedName = names.find(
+            (item) => item.itemMeta.id === selectedNameId
+          ).value;
 
-              // Update summary data with selection
-              this.data[0] = result.data;
-
-              this.draftService.saveDraft(this.data);
-
-              // Do actions only if user has made changes
-              if (confirmedPayLoad.length) {
-                this.snackbarService.show(
-                  $localize`:@@draftUpdated:Luonnos päivitetty`,
-                  'success'
-                );
-              }
-            }
-
-            // Set draft profile data to storage
-            sessionStorage.setItem(
-              Constants.draftProfile,
-              JSON.stringify(this.data)
-            );
-
-            // Set patch payload to store
-            sessionStorage.setItem(
-              Constants.draftPatchPayload,
-              JSON.stringify(this.patchService.confirmedPayLoad)
-            );
-          }
+          this.profileService.setCurrentProfileName(selectedName);
         }
+
+        // Update summary data with selection
+        this.data[0] = result;
+
+        this.draftService.saveDraft(this.data);
+
+        // Do actions only if user has made changes
+        if (confirmedPayLoad.length) {
+          this.snackbarService.show(
+            $localize`:@@draftUpdated:Luonnos päivitetty`,
+            'success'
+          );
+        }
+      }
+
+      // Set draft profile data to storage
+      sessionStorage.setItem(Constants.draftProfile, JSON.stringify(this.data));
+
+      // Set patch payload to store
+      sessionStorage.setItem(
+        Constants.draftPatchPayload,
+        JSON.stringify(this.patchService.confirmedPayLoad)
       );
+    }
   }
 }
