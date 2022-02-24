@@ -98,11 +98,11 @@ export class CollaborationCardComponent implements OnInit {
     this.showDialog = true;
   }
 
-  doDialogAction(action) {
+  doDialogAction(action: string) {
     this.dialog.closeAll();
     this.showDialog = false;
 
-    if (action === 'save') {
+    if (action) {
       this.optionsToggled.forEach((option) => {
         const match = this.collaborationOptions.findIndex(
           (item) => item.id === option.id

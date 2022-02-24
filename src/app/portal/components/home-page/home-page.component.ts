@@ -24,15 +24,13 @@ import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
 import { map } from 'rxjs/operators';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
-import { TabChangeService } from 'src/app/portal/services/tab-change.service';
+import { TabChangeService } from '@portal/services/tab-change.service';
 import { ResizeService } from '@shared/services/resize.service';
 import { Subscription } from 'rxjs';
-import { News } from 'src/app/portal/models/news.model';
-import { Shortcut } from 'src/app/portal/models/shortcut.model';
-import { UtilityService } from 'src/app/shared/services/utility.service';
+import { News } from '@portal/models/news.model';
+import { Shortcut } from '@portal/models/shortcut.model';
+import { UtilityService } from '@shared/services/utility.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ReviewComponent } from 'src/app/layout/review/review.component';
 import { ActivatedRoute } from '@angular/router';
 import { Search } from '@portal/models/search.model';
 import { AppSettingsService } from '@shared/services/app-settings.service';
@@ -73,7 +71,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   focusSub: any;
   currentLocale: string;
-  reviewDialogRef: MatDialogRef<ReviewComponent>;
+  showDialog: boolean;
   shortcutData: Shortcut[] = [];
 
   constructor(
@@ -87,7 +85,6 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     private resizeService: ResizeService,
     public utilityService: UtilityService,
     private route: ActivatedRoute,
-    public dialog: MatDialog,
     private appSettingsService: AppSettingsService
   ) {
     this.currentLocale = this.appSettingsService.capitalizedLocale;
@@ -192,11 +189,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   toggleReview() {
-    this.reviewDialogRef = this.dialog.open(ReviewComponent, {
-      maxWidth: '800px',
-      minWidth: '320px',
-      // minHeight: '60vh'
-    });
+    this.showDialog = !this.showDialog
   }
 
   ngOnDestroy() {

@@ -37,3 +37,15 @@ Copyright 2019 Ministry of Education and Culture, Finland
     </ng-container>
   </div>
 </main>
+
+<ng-template #reviewDialog>
+  <app-review></app-review>
+</ng-template>
+
+<app-dialog
+  *ngIf="showDialog"
+  [template]="reviewDialog"
+  title="Anna palautetta tai kysy"
+  i18n-title="@@leaveReviewHeader"
+  (onActionClick)="toggleReview()"
+></app-dialog>

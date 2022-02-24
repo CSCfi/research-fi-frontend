@@ -3,27 +3,13 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<div class="row mb-2">
-  <div class="col-10">
-    <h2>
-      <ng-container i18n="@@activeFilters">Rajaukset</ng-container> ({{
-        data.active.length
-      }})
-    </h2>
-    <p i18n="@@activeFiltersListHelp">
-      Voit poistaa rajauksia tästä listasta. Rajausten muutokset päivittyvät
-      samalla hakutulosnäkymään.
-    </p>
-  </div>
-  <div class="col-2 text-right px-0">
-    <button mat-button color="primary" (click)="close()">
-      <fa-icon [icon]="faTimes"></fa-icon
-      ><ng-container i18n="@@close">Sulje</ng-container>
-    </button>
-  </div>
-</div>
+<p class="col" i18n="@@activeFiltersListHelp">
+  Voit poistaa rajauksia tästä listasta. Rajausten muutokset päivittyvät samalla
+  hakutulosnäkymään.
+</p>
+
 <div class="row active-filters">
-  <div class="col" *ngFor="let category of objectKeys(grouped)">
+  <div class="col px-0" *ngFor="let category of objectKeys(grouped)">
     <h3>{{ filterTranslation[category] }}</h3>
     <ul>
       <ng-container *ngFor="let filter of grouped[category]">
@@ -41,7 +27,7 @@
   </div>
 </div>
 <div class="row mt-4">
-  <div class="col text-center">
+  <div class="col px-0 text-center">
     <button mat-flat-button color="primary" (click)="clearFilters()">
       <fa-icon [icon]="faTrash"></fa-icon
       ><ng-container i18n="@@clearAllActive"

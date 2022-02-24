@@ -19,8 +19,7 @@ import {
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
-import { MatDialogRef, MatDialog } from '@angular/material/dialog';
-import { ReviewComponent } from 'src/app/layout/review/review.component';
+import { ReviewComponent } from '@shared/components/review/review.component';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { ActivatedRoute } from '@angular/router';
@@ -40,7 +39,7 @@ export class AccessibilityComponent
   @ViewChild('contentContainer', { static: false })
   contentContainer: ElementRef;
   title: string;
-  reviewDialogRef: MatDialogRef<ReviewComponent>;
+  showDialog: boolean;
   currentLocale: string;
   loading = true;
 
@@ -52,7 +51,6 @@ export class AccessibilityComponent
     private titleService: Title,
     @Inject(LOCALE_ID) protected localeId: string,
     private tabChangeService: TabChangeService,
-    public dialog: MatDialog,
     private utilityService: UtilityService,
     private route: ActivatedRoute,
     @Inject(DOCUMENT) private document: any,
@@ -125,11 +123,7 @@ export class AccessibilityComponent
   }
 
   toggleReview() {
-    this.reviewDialogRef = this.dialog.open(ReviewComponent, {
-      maxWidth: '800px',
-      minWidth: '320px',
-      // minHeight: '60vh'
-    });
+    this.showDialog = !this.showDialog
   }
 
   ngOnDestroy() {

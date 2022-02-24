@@ -10,36 +10,33 @@ import {
   OnInit,
   OnDestroy,
   AfterContentInit,
-  ViewChild,
   ElementRef,
   AfterViewInit,
   ViewChildren,
   QueryList,
-  Input,
   Inject,
   PLATFORM_ID,
   LOCALE_ID,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { SortService } from '../../../services/sort.service';
-import { FilterService } from '../../../services/filters/filter.service';
-import { DataService } from '../../../services/data.service';
-import { TabChangeService } from '../../../services/tab-change.service';
+import { SortService } from '@portal/services/sort.service';
+import { FilterService } from '@portal/services/filters/filter.service';
+import { DataService } from '@portal/services/data.service';
+import { TabChangeService } from '@portal/services/tab-change.service';
 import {
   faExclamationTriangle,
   faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { FilterListComponent } from './filter-list/filter-list.component';
-import { PublicationFilterService } from 'src/app/portal/services/filters/publication-filter.service';
-import { PersonFilterService } from 'src/app/portal/services/filters/person-filter.service';
-import { FundingFilterService } from 'src/app/portal/services/filters/funding-filter.service';
-import { DatasetFilterService } from 'src/app/portal/services/filters/dataset-filter.service';
-import { InfrastructureFilterService } from 'src/app/portal/services/filters/infrastructure-filter.service';
-import { OrganizationFilterService } from 'src/app/portal/services/filters/organization-filter.service';
-import { SettingsService } from 'src/app/portal/services/settings.service';
-import { NewsFilterService } from 'src/app/portal/services/filters/news-filter.service';
-import { SearchService } from 'src/app/portal/services/search.service';
+import { MatDialog } from '@angular/material/dialog';
+import { PublicationFilterService } from '@portal/services/filters/publication-filter.service';
+import { PersonFilterService } from '@portal/services/filters/person-filter.service';
+import { FundingFilterService } from '@portal/services/filters/funding-filter.service';
+import { DatasetFilterService } from '@portal/services/filters/dataset-filter.service';
+import { InfrastructureFilterService } from '@portal/services/filters/infrastructure-filter.service';
+import { OrganizationFilterService } from '@portal/services/filters/organization-filter.service';
+import { SettingsService } from '@portal/services/settings.service';
+import { NewsFilterService } from '@portal/services/filters/news-filter.service';
+import { SearchService } from '@portal/services/search.service';
 import { isPlatformBrowser } from '@angular/common';
 import { FundingCallFilterService } from '@portal/services/filters/funding-call-filter.service';
 import { StaticDataService } from '@portal/services/static-data.service';
@@ -88,7 +85,7 @@ export class ActiveFiltersComponent
   fromYear: number;
   toYear: number;
 
-  filterListDialogRef: MatDialogRef<FilterListComponent>;
+
   translationFlag: boolean;
   parsedFilters: any[];
   @ViewChildren('container') container: QueryList<ElementRef>;
@@ -96,6 +93,10 @@ export class ActiveFiltersComponent
   yearRange: string;
   isBrowser: any;
   errorMessage: any;
+
+  showDialog: boolean;
+  dialogTitle: string;
+  dialogData: any;
 
   constructor(
     private router: Router,
@@ -889,16 +890,19 @@ export class ActiveFiltersComponent
     this.hoverIndex = null;
   }
 
-  openModal() {
-    this.filterListDialogRef = this.dialog.open(FilterListComponent, {
-      maxWidth: '60vw',
-      minWidth: '400px',
-      data: {
-        active: this.activeFilters,
-        fromYear: this.fromYear,
-        toYear: this.toYear,
-        tabFilters: this.tabFilters,
-      },
-    });
+  openDialog() {
+    this.dialogData = {
+      active: this.activeFilters,
+      fromYear: this.fromYear,
+      toYear: this.toYear,
+      tabFilters: this.tabFilters,
+    };
+    this.showDialog = true;
+    this.dialogTitle =
+      $localize`:@@activeFilters:Rajaukset` + ` (${this.activeFilters.length})`;
+  }
+
+  closeDialog() {
+    this.showDialog = false;
   }
 }
