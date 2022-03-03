@@ -422,6 +422,7 @@ export class PublicationFilterService {
           label:
             item.key === 0
               ? $localize`:@@finland:Suomi`
+              : item.key === 9 ? $localize`:@@notSpecified:Ei tietoa`
               : $localize`:@@other:Muut`,
           doc_count: item.doc_count,
           value: item.key,
