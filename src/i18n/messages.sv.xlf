@@ -2914,7 +2914,7 @@
       </trans-unit>
       <trans-unit id="notSpecified">
         <source>Ei tietoa</source>
-        <target state="translated">Ej angivet</target>
+        <target state="translated">Ingen data</target>
       </trans-unit>
       <trans-unit id="language">
         <source>Kieli</source>
