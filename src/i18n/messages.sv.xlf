@@ -2912,6 +2912,10 @@
         <source>Julkaisumaa</source>
         <target state="translated">Publiceringsland</target>
       </trans-unit>
+      <trans-unit id="notSpecified">
+        <source>Ei tietoa</source>
+        <target state="translated">Ej angivet</target>
+      </trans-unit>
       <trans-unit id="language">
         <source>Kieli</source>
         <target state="translated">Språk</target>

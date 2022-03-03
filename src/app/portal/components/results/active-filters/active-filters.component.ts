@@ -626,6 +626,13 @@ export class ActiveFiltersComponent
                       $localize`:@@other:Muut`;
                     break;
                   }
+                  case 'c9': {
+                    val.translation =
+                      $localize`:@@publicationCountry:Julkaisumaa` +
+                      ': ' +
+                      $localize`:@@notSpecified:Ei tietoa`;
+                    break;
+                  }
                 }
               }
               // JuFo code

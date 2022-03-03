@@ -489,7 +489,7 @@ export class FilterService {
     const codeFilters = [];
     code.forEach((value) => {
       codeFilters.push({
-        term: { internationalPublication: value === 'c1' ? true : false },
+        term: { internationalPublication: value === 'c0' ? 0 : value === 'c1' ? 1 : value === 'c9' ? 9 : ''},
       });
     });
     return codeFilters;

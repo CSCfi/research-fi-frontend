@@ -2923,6 +2923,10 @@
         <source>Julkaisumaa</source>
         <target>Publication country</target>
       </trans-unit>
+      <trans-unit id="notSpecified">
+        <source>Ei tietoa</source>
+        <target>Not specified</target>
+      </trans-unit>
       <trans-unit id="language">
         <source>Kieli</source>
         <target>Language</target>
