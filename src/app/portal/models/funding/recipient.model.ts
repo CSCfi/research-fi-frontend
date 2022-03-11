@@ -51,9 +51,9 @@ export class RecipientAdapter implements Adapter<Recipient> {
 
     // Filter empty properties
     typeof recipientObj === 'object' &&
-    Object.keys(recipientObj).forEach(
-      (k) => recipientObj[k] == '' && delete recipientObj[k]
-    );
+      Object.keys(recipientObj).forEach(
+        (k) => recipientObj[k] == '' && delete recipientObj[k]
+      );
 
     const joinName = (firstNames: string, lastName: string) =>
       `${firstNames} ${lastName}`.trim();
@@ -87,30 +87,30 @@ export class RecipientAdapter implements Adapter<Recipient> {
           combined =
             finnish.length > 1
               ? finnish
-                .map((x) =>
-                  this.lang.testLang('consortiumOrganizationName', x).trim()
-                )
-                .join('; ')
+                  .map((x) =>
+                    this.lang.testLang('consortiumOrganizationName', x).trim()
+                  )
+                  .join('; ')
               : this.lang.testLang(
-              'consortiumOrganizationName',
-              finnish.find(
-                (org) =>
-                  org.consortiumOrganizationBusinessId
-                    ?.trim()
-                    .slice(-2)[0] === '-'
-              )
-              );
+                  'consortiumOrganizationName',
+                  finnish.find(
+                    (org) =>
+                      org.consortiumOrganizationBusinessId
+                        ?.trim()
+                        .slice(-2)[0] === '-'
+                  )
+                );
         } else {
           combined = item.organizationConsortium
             .filter(
               (x) =>
                 this.lang.testLang('consortiumOrganizationName', x).trim() !==
-                '' &&
+                  '' &&
                 // Check for finnish business ID identifier
                 (x.consortiumOrganizationBusinessId?.trim().slice(-2)[0] ===
                   '-' ||
                   x.consortiumOrganizationBusinessId?.trim().slice(0, 2) ===
-                  'FI')
+                    'FI')
             )
             .map((x) =>
               this.lang.testLang('consortiumOrganizationName', x).trim()
@@ -131,11 +131,11 @@ export class RecipientAdapter implements Adapter<Recipient> {
         const person = recipientObj.fundingGroupPersonLastName
           ? recipientObj
           : item.fundingGroupPerson.find(
-            (x) =>
-              x.consortiumProject === item.funderProjectNumber &&
-              x.consortiumOrganizationBusinessId &&
-              testFinnishBusinessId(x.consortiumOrganizationBusinessId)
-          );
+              (x) =>
+                x.consortiumProject === item.funderProjectNumber &&
+                x.consortiumOrganizationBusinessId &&
+                testFinnishBusinessId(x.consortiumOrganizationBusinessId)
+            );
 
         // Map recipients
         if (
@@ -144,10 +144,10 @@ export class RecipientAdapter implements Adapter<Recipient> {
         ) {
           combined = person.fundingGroupPersonLastName
             ? person.fundingGroupPersonFirstNames +
-            ' ' +
-            person.fundingGroupPersonLastName +
-            ', ' +
-            this.lang.testLang('consortiumOrganizationName', person)
+              ' ' +
+              person.fundingGroupPersonLastName +
+              ', ' +
+              this.lang.testLang('consortiumOrganizationName', person)
             : this.lang.testLang('consortiumOrganizationName', person);
         } else if (person) {
           combined =
@@ -160,20 +160,20 @@ export class RecipientAdapter implements Adapter<Recipient> {
             ?.map((x) =>
               x.fundingGroupPersonLastName.trim().length > 0
                 ? joinName(
-                x.fundingGroupPersonFirstNames,
-                x.fundingGroupPersonLastName
-                ) +
-                (this.lang
-                  .testLang('consortiumOrganizationName', recipientObj)
-                  ?.trim().length > 0
-                  ? ', ' +
-                  this.lang
+                    x.fundingGroupPersonFirstNames,
+                    x.fundingGroupPersonLastName
+                  ) +
+                  (this.lang
+                    .testLang('consortiumOrganizationName', recipientObj)
+                    ?.trim().length > 0
+                    ? ', ' +
+                      this.lang
+                        .testLang('consortiumOrganizationName', recipientObj)
+                        ?.trim()
+                    : null)
+                : this.lang
                     .testLang('consortiumOrganizationName', recipientObj)
                     ?.trim()
-                  : null)
-                : this.lang
-                  .testLang('consortiumOrganizationName', recipientObj)
-                  ?.trim()
             )
             ?.join('; ');
         }
@@ -199,9 +199,9 @@ export class RecipientAdapter implements Adapter<Recipient> {
             ?.map((x) =>
               x.fundingGroupPersonLastName.trim().length > 0
                 ? joinName(
-                x.fundingGroupPersonFirstNames,
-                x.fundingGroupPersonLastName
-                )
+                    x.fundingGroupPersonFirstNames,
+                    x.fundingGroupPersonLastName
+                  )
                 : null
             )
             .join('; ');
@@ -222,8 +222,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
      * Special use case for EU funding with multiple persons as recipients.
      * Rule: Funding is EU funding and has 'consortium' as recipientType (multiple objects in fundingGrupPerson).
      * Sort by Finnish organizations first.
-     */
-    /*
+     *
      * Note: the use case of euFundingRecipients variable is now extended to regular projects too.
      */
     const euFundingRecipients =
@@ -261,9 +260,9 @@ export class RecipientAdapter implements Adapter<Recipient> {
       recipientObj?.projectId,
       recipientObj?.fundingGroupPersonLastName
         ? joinName(
-        recipientObj.fundingGroupPersonFirstNames,
-        recipientObj.fundingGroupPersonLastName
-        )
+            recipientObj.fundingGroupPersonFirstNames,
+            recipientObj.fundingGroupPersonLastName
+          )
         : '',
       recipientObj?.fundingGroupPersonOrcid,
       recipientObj
@@ -274,8 +273,8 @@ export class RecipientAdapter implements Adapter<Recipient> {
       recipientObj?.shareOfFundingInEur,
       Math.round(item.amount_in_EUR),
       (item.fundingContactPersonFirstNames || '') +
-      ' ' +
-      (item.fundingContactPersonLastName || ''), // Add "existence check" because of string operation
+        ' ' +
+        (item.fundingContactPersonLastName || ''), // Add "existence check" because of string operation
       item.fundingContactPersonOrcid,
       organizations,
       euFundingRecipients,

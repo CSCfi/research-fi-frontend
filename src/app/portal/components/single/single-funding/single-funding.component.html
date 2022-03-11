@@ -155,7 +155,6 @@
                   <!-- Person & consortium funding -->
                   <div *ngSwitchDefault>
                     <!--- New implementation. Solves case CSCTTV-1969 -->
-                    <p>Standard fund</p>
                     <div *ngIf="item.recipient?.euFundingRecipients; else noEuFundingRecipients">
                       <!-- new implementation here -->
                       <div *ngFor="let person of item.recipient.euFundingRecipients">
@@ -172,7 +171,7 @@
                               [orcid]="person.orcid"
                             ></app-orcid>
                           </div>
-                          <div class="col-12 col-sm-4 col-lg-3 td"
+                          <div class="col-12 col-sm-4 col-lg-6 td"
                                i18n-aria-label="@@organization"
                                aria-label="organisaatio"
                           >
@@ -187,6 +186,9 @@
                               {{ person.organizationId }}
                             </ng-container>
                           </div>
+                        </div>
+                        <div class="col px-2 d-block d-lg-none">
+                          <hr />
                         </div>
                       </div>
                     </div>
@@ -414,12 +416,8 @@
                 <span class="pr-1">
                   <ng-container
                     i18n="@@amountGranted"
-                    *ngSwitchCase="'organization'"
                   >
                     Myönnetty summa
-                  </ng-container>
-                  <ng-container i18n="@@sumGranted" *ngSwitchDefault>
-                    Summa
                   </ng-container>
                 </span>
                 <ng-template #tooltipTemplate>
