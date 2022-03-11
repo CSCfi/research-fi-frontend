@@ -222,6 +222,8 @@ export class RecipientAdapter implements Adapter<Recipient> {
      * Special use case for EU funding with multiple persons as recipients.
      * Rule: Funding is EU funding and has 'consortium' as recipientType (multiple objects in fundingGrupPerson).
      * Sort by Finnish organizations first.
+     *
+     * Note: the use case of euFundingRecipients variable is now extended to regular projects too.
      */
     const euFundingRecipients =
       item.fundingGroupPerson?.length &&
@@ -239,6 +241,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
           organizationId: person.consortiumOrganizationId,
           projectId: person.projectId,
           shareOfFundingInEur: person.shareOfFundingInEur,
+          orcid: person.fundingGroupPersonOrcid,
           role: this.lang.translateRole(person.roleInFundingGroup, true),
         }))
         .sort((a, b) => b.finnishOrganization - a.finnishOrganization);
