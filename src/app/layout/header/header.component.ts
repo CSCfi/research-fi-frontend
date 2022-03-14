@@ -42,6 +42,8 @@ import {
 import { Constants } from '@mydata/constants';
 import { DraftService } from '@mydata/services/draft.service';
 
+type DomainObject = { label: string; locale: string; url: string };
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -63,7 +65,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   navbarOpen = false;
   hideOverflow = true;
-  dropdownOpen: any;
+  dropdownOpen = false;
   maxWidth = 992;
   mobileNavBreakPoint = 1200;
   mobile = this.window.innerWidth < this.maxWidth;
@@ -73,8 +75,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   width = this.window.innerWidth;
   private resizeSub: Subscription;
 
-  currentLang: string;
+  currentDomain: DomainObject;
   lang: string;
+  langMenuOpen: false;
   currentRoute: any;
   routeSub: Subscription;
   showSkipLinks: boolean;
@@ -131,7 +134,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private draftService: DraftService
   ) {
     this.lang = localeId;
-    this.currentLang = this.getLang(this.lang);
     this.routeEvent(router);
     this.widthFlag = false;
     this.isAuthenticated = this.oidcSecurityService.isAuthenticated$;
@@ -201,6 +203,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.appSettings = this.currentRoute.includes('/mydata')
           ? this.appSettingsService.myDataSettings
           : this.appSettingsService.portalSettings;
+
+        this.currentDomain = this.appSettings.localizedDomains.find(
+          (domain) => domain.locale === this.localeId.toUpperCase()
+        );
 
         // Set current app and app settings
         if (this.currentRoute.includes('/mydata')) {
@@ -356,24 +362,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.document.documentElement.lang = lang;
   }
 
-  getLang(lang: string) {
-    let current = '';
-    switch (lang) {
-      case 'fi': {
-        current = 'FI';
-        break;
-      }
-      case 'sv': {
-        current = 'SV';
-        break;
-      }
-      case 'en': {
-        current = 'EN';
-        break;
-      }
-    }
-    this.document.documentElement.lang = lang;
-    return current;
+  changeLang(domain: DomainObject) {
+    this.currentDomain = domain;
+    this.document.location.href =
+      domain.url +
+      this.currentRoute +
+      (this.consent ? '?consent=' + this.consent : '');
   }
 
   handleLinkClick(item) {
@@ -437,7 +431,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onClickedOutside(e: Event) {
-    this.dropdownOpen = false;
+    // this.dropdownOpen = false;
   }
 
   changeFocus(target) {

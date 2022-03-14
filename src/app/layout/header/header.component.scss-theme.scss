@@ -28,8 +28,7 @@
         box-shadow: 0 1rem 1rem 0 rgba(0, 0, 0, 0.2);
       }
 
-      .navbar-light .navbar-nav .nav-link,
-      .mat-select-value {
+      .navbar-light .navbar-nav .nav-link {
         color: mat-contrast($primary, 200);
       }
 
@@ -84,14 +83,6 @@
         &::after {
           color: mat-color($primary);
         }
-      }
-
-      ::ng-deep .mat-select-value-text {
-        color: mat-contrast($primary, 200);
-      }
-
-      ::ng-deep .mat-select-value-text:hover {
-        opacity: 1;
       }
 
       @media (min-width: 991px) {

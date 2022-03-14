@@ -150,9 +150,8 @@ app-header {
     margin-left: auto;
   }
 
-  a.nav-item.nav-link.active-link,
   a.nav-item.nav-link.active-lang,
-  a.active-link {
+  .active-link {
     font-weight: bold;
   }
 
@@ -196,76 +195,6 @@ app-header {
 
   .parent {
     cursor: pointer;
-  }
-
-  .parent-link::after {
-    font-family: 'FontAwesome';
-    content: '\f078';
-    padding-left: 5px;
-  }
-
-  .parent-link.open::after {
-    content: '\f077';
-    padding-left: 5px;
-  }
-
-  // Language selector
-  mat-form-field .mat-select-panel {
-    background: white !important;
-  }
-
-  mat-form-field .mat-select-value-text {
-    font-weight: 500;
-  }
-
-  mat-form-field.lang-select {
-    .mat-select {
-      padding: 0.344rem 0.5rem;
-    }
-
-    text-align: center !important;
-    border: 0 !important;
-
-    .mat-select-value {
-      max-width: unset;
-      width: 100%;
-      overflow: visible;
-    }
-
-    .mat-select-arrow-wrapper {
-      display: none;
-    }
-
-    .mat-form-field-infix {
-      padding: 0 !important;
-      border: 0;
-    }
-
-    .mat-select-value-text:after {
-      font-family: 'FontAwesome';
-      margin-left: 8px;
-      content: '\f078' !important;
-    }
-
-    .mat-form-field-underline {
-      display: none !important;
-    }
-
-    &.mat-form-field-appearance-legacy .mat-form-field-wrapper {
-      padding-bottom: 0 !important;
-    }
-
-    &,
-    mat-select {
-      font-size: inherit;
-      font-weight: 500;
-      font-family: inherit !important;
-    }
-  }
-
-  .mat-form-field-appearance-legacy .mat-form-field-infix {
-    // padding: 0.36em 0.5rem !important;
-    width: unset;
   }
 
   // mobile menu
@@ -347,7 +276,6 @@ app-header {
   }
 
   // Disable menu for beta
-  .navbar-expand.navbar-nav.lang.langSelect.disabled,
   ul.navbar-nav.mx-auto.disabled {
     opacity: 0.5;
     pointer-events: none;
@@ -387,8 +315,8 @@ app-header {
       top: 67px;
     }
 
-    .langSelect {
-      display: none;
+    .lang-selector {
+      display: none !important;
     }
 
     .navbar {
@@ -459,7 +387,7 @@ app-header {
     }
 
     .collapse.navbar-collapse.menu.mobile-bar li {
-      display: block !important;
+      display: block;
     }
 
     .parent-link:after {
