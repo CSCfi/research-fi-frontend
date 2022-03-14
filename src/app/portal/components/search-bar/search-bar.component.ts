@@ -100,6 +100,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   topMargin: any;
   currentTerm: string;
   inputSub: Subscription;
+  currentFocusTargetSub: Subscription;
   queryParams: any;
   selectedTarget: any;
   currentLocale: any;
@@ -156,16 +157,19 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
       .withWrap()
       .withTypeAhead();
 
-    this.tabChangeService.currentFocusTarget.subscribe((target) => {
-      if (target === 'search-input') {
-        this.searchInput.nativeElement.focus();
-      }
-    });
+    this.currentFocusTargetSub =
+      this.tabChangeService.currentFocusTarget.subscribe((target) => {
+        if (target === 'search-input') {
+          this.searchInput.nativeElement.focus();
+        }
+      });
   }
 
   ngOnDestroy() {
     if (isPlatformBrowser(this.platformId)) {
       this.routeSub?.unsubscribe();
+      this.inputSub?.unsubscribe();
+      this.currentFocusTargetSub?.unsubscribe();
       this.autoSuggestSub?.unsubscribe();
       this.tabSub?.unsubscribe();
     }
@@ -377,9 +381,10 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getTargetLabel(target) {
-    this.selectedTargetLabel = this.targets.find(
-      (item) => item.value === target
-    )['viewValue' + this.currentLocale];
+    const match = this.targets.find((item) => item.value === target);
+    this.selectedTargetLabel = match
+      ? match['viewValue' + this.currentLocale]
+      : this.targets[0]['viewValue' + this.currentLocale];
   }
 
   resetSearch() {
