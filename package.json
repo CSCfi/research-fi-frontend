@@ -97,7 +97,7 @@
     "@types/jasminewd2": "^2.0.8",
     "@types/lodash": "^4.14.178",
     "@types/lodash-es": "^4.17.6",
-    "@types/node": "^14.18.12",
+    "@types/node": "^17.0.21",
     "@typescript-eslint/eslint-plugin": "^4.29.3",
     "@typescript-eslint/parser": "^4.29.3",
     "codelyzer": "^6.0.1",
