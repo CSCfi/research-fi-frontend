@@ -53,9 +53,9 @@ global['document'] = window.document;
 
 // We have a routes configuration to define where to serve every app with the according language.
 const routes = [
-  { path: '/en/*', view: 'en/index', bundle: require('./dist/server/en/main') },
-  { path: '/sv/*', view: 'sv/index', bundle: require('./dist/server/sv/main') },
-  { path: '/*', view: 'fi/index', bundle: require('./dist/server/fi/main') },
+  { path: '/en/*', view: 'en/index' },
+  { path: '/sv/*', view: 'sv/index' },
+  { path: '/*', view: 'fi/index' },
 ];
 
 app.use(bodyParser.json());
@@ -172,19 +172,11 @@ getAppConfig.then((data: any) => {
 });
 
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
-// We have one configuration per locale and use designated server file for matching route.
+// Server configuration is shared by all locales
 const {
-  AppServerModule: AppServerModuleFi,
-  ngExpressEngine: ngExpressEngineFi,
-} = require('./dist/server/fi/main');
-const {
-  AppServerModule: AppServerModuleEn,
-  ngExpressEngine: ngExpressEngineEn,
-} = require('./dist/server/en/main');
-const {
-  AppServerModule: AppServerModuleSv,
-  ngExpressEngine: ngExpressEngineSv,
-} = require('./dist/server/sv/main');
+  AppServerModule: AppServerModule,
+  ngExpressEngine: ngExpressEngine,
+} = require('./dist/server/main');
 
 // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
 
@@ -193,66 +185,26 @@ const {
 // Serve static files from /browser
 app.get('*.*', express.static(join(DIST_FOLDER, 'browser')));
 
+// Target to localized url by route path
 routes.forEach((route) => {
-  if (route.path.startsWith('/en')) {
-    // EN routes
-    app.get(route.path, (req, res) => {
-      app.engine(
-        'html',
-        ngExpressEngineEn({
-          bootstrap: AppServerModuleEn,
-        })
-      );
-      app.set('view engine', 'html');
-      app.set('views', join(DIST_FOLDER, 'browser'));
+  app.get(route.path, (req, res) => {
+    app.engine(
+      'html',
+      ngExpressEngine({
+        bootstrap: AppServerModule,
+      })
+    );
+    app.set('view engine', 'html');
+    app.set('views', join(DIST_FOLDER, 'browser'));
 
-      res.render(route.view, {
-        req,
-        res,
-        engine: ngExpressEngineEn({
-          bootstrap: AppServerModuleEn,
-        }),
-      });
+    res.render(route.view, {
+      req,
+      res,
+      engine: ngExpressEngine({
+        bootstrap: AppServerModule,
+      }),
     });
-  } else if (route.path.startsWith('/sv')) {
-    // SV routes
-    app.get(route.path, (req, res) => {
-      app.engine(
-        'html',
-        ngExpressEngineSv({
-          bootstrap: AppServerModuleSv,
-        })
-      );
-      app.set('view engine', 'html');
-      app.set('views', join(DIST_FOLDER, 'browser'));
-
-      res.render(route.view, {
-        req,
-        res,
-        engine: ngExpressEngineSv({}),
-      });
-    });
-  } else {
-    // FI routes
-    app.get(route.path, (req, res) => {
-      app.engine(
-        'html',
-        ngExpressEngineFi({
-          bootstrap: AppServerModuleFi,
-        })
-      );
-      app.set('view engine', 'html');
-      app.set('views', join(DIST_FOLDER, 'browser'));
-
-      res.render(route.view, {
-        req,
-        res,
-        engine: ngExpressEngineFi({
-          bootstrap: AppServerModuleFi,
-        }),
-      });
-    });
-  }
+  });
 });
 
 // Rate limiting to prevent http request attacks.

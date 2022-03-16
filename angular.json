@@ -29,10 +29,7 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
-            "assets": [
-              "src/assets/favicon.ico",
-              "src/assets"
-            ],
+            "assets": ["src/assets/favicon.ico", "src/assets"],
             "styles": [
               "./node_modules/@fortawesome/fontawesome-svg-core/styles.css",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
@@ -168,7 +165,6 @@
           "options": {
             "main": "src/main.server.ts",
             "tsConfig": "src/tsconfig.server.json",
-            "localize": ["fi", "en", "sv"],
             "sourceMap": true,
             "optimization": false
           },
