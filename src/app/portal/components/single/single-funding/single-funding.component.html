@@ -164,7 +164,7 @@
                           i18n-aria-label="@@fundingRecipient"
                           aria-label="Rahoituksen saaja"
                         >
-                          <div *ngIf="person.personName?.trim().length > 0 && person.personName !== 'undefined undefined'" class="col-12 col-sm-4 col-lg-3 td">{{ person.personName }}
+                          <div *ngIf="person.personName?.trim().length > 0" class="col-12 col-sm-4 col-lg-3 td">{{ person.personName }}
                             <app-orcid
                               *ngIf="person.orcid"
                               [orcid]="person.orcid"
