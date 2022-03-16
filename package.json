@@ -74,7 +74,7 @@
     "popper.js": "^1.16.0",
     "referrer-policy": "^1.2.0",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.5.4",
+    "rxjs": "^7.5.5",
     "rxjs-compat": "^6.6.7",
     "seedrandom": "^3.0.5",
     "through2": "^4.0.2",
