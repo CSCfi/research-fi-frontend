@@ -185,6 +185,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
           ? this.cmsContentService.getSectors()
           : JSON.parse(sessionStorage.getItem('sectorData')),
       ]).subscribe((response: any) => {
+        console.log(response);
         const orgCMSData = response[1]
           ?.map((sector) => sector.organizations)
           .flat()

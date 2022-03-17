@@ -143,7 +143,7 @@
     </ng-container>
 
     <div class="row pt-5 pb-4 pt-md-4 send-button-wrapper">
-      <div class="col-12 col-md-6 px-0 pb-3 pb-md-0 text-center text-md-left">
+      <div class="col-12 col-md-6 px-0 pb-3 pb-md-0 text-center text-md-start">
         <app-secondary-button
           *ngIf="underReview"
           (click)="underReview = false"
@@ -151,7 +151,7 @@
           [disabled]="sending"
         ></app-secondary-button>
       </div>
-      <div class="col-12 col-md-6 px-0 text-center text-md-right">
+      <div class="col-12 col-md-6 px-0 text-center text-md-end">
         <app-primary-action-button
           (click)="underReview ? send() : validate()"
           [content]="sendText"

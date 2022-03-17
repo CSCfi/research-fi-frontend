@@ -94,7 +94,7 @@
 
             <!-- Source -->
             <div
-              class="col-auto px-0 pl-4 ml-1 mt-1 text-right opacity-3 font-size-small"
+              class="col-auto px-0 ps-4 ml-1 mt-1 text-end opacity-3 font-size-small"
             >
               {{ groupItem.source.organization.name }}
             </div>
@@ -158,7 +158,7 @@
                     (change)="toggleItem($event, item)"
                   >
                     <app-panel-array-item
-                      class="pl-1 d-block"
+                      class="ps-1 d-block"
                       [item]="item"
                       [fieldType]="groupItem.groupMeta.type"
                       [localized]="field.localized"
@@ -195,7 +195,7 @@
 
                 <!-- Source -->
                 <div
-                  class="col-auto px-0 pl-4 ml-1 mt-1 text-right opacity-3 font-size-small"
+                  class="col-auto px-0 ps-4 ml-1 mt-1 text-end opacity-3 font-size-small"
                 >
                   <ng-container *ngIf="item.merged; else singleSource">
                     <div
@@ -239,8 +239,8 @@
       </ng-container>
 
       <div class="row py-3 font-size-small" *ngIf="field.single">
-        <div class="col col-lg-6 pl-0">
-          <fa-icon class="pr-1 opacity-3" icon="info-circle"></fa-icon>
+        <div class="col col-lg-6 ps-0">
+          <fa-icon class="pe-1 opacity-3" icon="info-circle"></fa-icon>
           <span i18n="@@canSelectOnlyOneOption"
             >Voit valita yhden vaihtoehdon</span
           >

@@ -23,7 +23,7 @@
     <div class="row" *ngFor="let item of result; trackBy: trackByFn">
       <div class="col-12 px-lg-0 pb-2">
         <div class="row">
-          <h1>{{ item['title' + currentLocale] }}</h1>
+          <h1 class="px-0">{{ item['title' + currentLocale] }}</h1>
         </div>
       </div>
       <div class="col-12 col-lg-10 px-lg-0 pb-2">
@@ -53,7 +53,7 @@
           </div>
           <mat-basic-chip
             *ngIf="item.roadmap"
-            class="tag align-self-center"
+            class="col-auto tag align-self-center"
             [disableRipple]="true"
             i18n="@@TKIRoadmap"
             >TKI-tiekartan seurantamittari</mat-basic-chip
@@ -70,12 +70,12 @@
         ></iframe>
         <div class="row d-flex justify-content-between">
           <div
-            class="col-12 col-lg-8 pl-0"
+            class="col-12 col-lg-8 ps-0"
             [innerHtml]="item['description' + currentLocale]"
           ></div>
-          <div class="col col-lg-3 pl-0 pl-lg-4">
+          <div class="col col-lg-3 ps-0 ps-lg-4">
             <div class="row pb-3">
-              <div class="col align-self-center pl-0">
+              <div class="col align-self-center ps-0">
                 <div>
                   <app-figures-info
                     *ngIf="item['info' + currentLocale]"
@@ -85,7 +85,7 @@
                   ></app-figures-info>
                   <a
                     class="strong text-uppercase info-label"
-                    [class.pl-2]="item['info' + currentLocale]"
+                    [class.ps-2]="item['info' + currentLocale]"
                     i18n="@@additionalInfo"
                     >Lisätietoa</a
                   >
@@ -93,7 +93,7 @@
               </div>
             </div>
             <div class="row pb-3">
-              <div class="col pl-0">
+              <div class="col ps-0">
                 <span class="strong d-block" i18n="@@figureSource">Lähde:</span>
                 <span>{{ item['source' + currentLocale] }}</span>
               </div>
@@ -102,7 +102,7 @@
               *ngIf="item['visualUpdateDate' + currentLocale]"
               class="row pb-3"
             >
-              <div class="col pl-0">
+              <div class="col ps-0">
                 <span class="strong d-block" i18n="@@figureUpdateDate"
                   >Vuosittainen päivitysajankohta:</span
                 >
@@ -110,13 +110,13 @@
               </div>
             </div>
             <div class="row pb-3">
-              <div class="col pl-0">
+              <div class="col ps-0">
                 <strong i18n="@@shareThisPage">Jaa tämä sivu:</strong>
                 <app-share [id]="item.id" [big]="false"></app-share>
               </div>
             </div>
             <div *ngIf="item['visualFile' + currentLocale]" class="row">
-              <div class="col pl-0">
+              <div class="col ps-0">
                 <a href="{{ item['visualFile' + currentLocale] }}"
                   ><app-secondary-button
                     i18n-content="@@downloadCSV"
@@ -128,7 +128,7 @@
           </div>
         </div>
       </div>
-      <div class="carousel-wrapper">
+      <div class="carousel-wrapper px-0">
         <h2 class="pb-3" i18n="@@moreFiguresFrom">
           Lisää lukuja tieteestä ja tutkimuksesta
         </h2>

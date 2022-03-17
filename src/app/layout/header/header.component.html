@@ -60,7 +60,7 @@
       <div class="row logo-wrapper">
         <div class="col-auto p-0">
           <a
-            class="navbar-brand"
+            class="navbar-brand d-block"
             [routerLink]="appSettings.beta ? '/mydata' : ''"
           >
             <img
@@ -70,7 +70,7 @@
             />
           </a>
         </div>
-        <div class="col-auto align-self-center p-0 pl-1 pr-2 pr-md-3">
+        <div class="col-auto align-self-center p-0 ps-1 pe-2 pe-md-3">
           <a class="logo-text" [routerLink]="appSettings.baseRoute"
             ><span>{{ appSettings.label }}</span></a
           >
@@ -197,66 +197,25 @@
                     (click)="dropdownOpen = !dropdownOpen"
                     (clickOutside)="onClickedOutside($event)"
                   >
-                    <ng-container *ngIf="mobileMenu; else dropDownMenuTemplate">
-                      <a
-                        class="nav-item nav-link parent-link disabled-link"
-                        tabindex="0"
-                        [routerLink]="item.link"
-                        routerLinkActive="active-link"
-                        (keydown.enter)="
-                          $event.preventDefault(); dropdownOpen = !dropdownOpen
-                        "
-                        (keydown.space)="
-                          $event.preventDefault(); dropdownOpen = !dropdownOpen
-                        "
-                        [class.open]="dropdownOpen"
-                        [class.font-weight-bold]="dropdownOpen"
-                      >
-                        <span class="label pr-2">{{ item.label }}</span>
-                        <i class="fa fa-chevron-down" *ngIf="!dropdownOpen"></i>
-                        <i class="fa fa-chevron-up" *ngIf="dropdownOpen"></i>
-                      </a>
-                      <ul
-                        class="dropdown"
-                        [class.mat-elevation-z4]="!mobile"
-                        [class.rounded]="!mobile"
-                        *ngIf="dropdownOpen"
-                      >
-                        <li *ngFor="let subItem of item.dropdownItems">
-                          <a
-                            [routerLink]="subItem.link"
-                            routerLinkActive="active-link"
-                            (click)="navbarOpen && toggleNavbar()"
-                            >{{ subItem.label }}
-                          </a>
-                        </li>
-                      </ul>
-                    </ng-container>
-                    <ng-template #dropDownMenuTemplate>
-                      <a
-                        href="javascript:void(0)"
-                        class="nav-item nav-link"
-                        [matMenuTriggerFor]="dropdownMenu"
-                      >
-                        <span
-                          class="label pr-2"
-                          [class.font-weight-bold]="
-                            currentRoute.includes(item.link) || dropdownOpen
-                          "
-                        >
-                          {{ item.label }}
-                        </span>
-                        <i class="fa fa-chevron-down" *ngIf="!dropdownOpen"></i>
-                        <i class="fa fa-chevron-up" *ngIf="dropdownOpen"></i>
-                      </a>
-
-                      <mat-menu
-                        #dropdownMenu="matMenu"
-                        (closed)="dropdownOpen = false"
-                      >
-                        <button
-                          *ngFor="let subItem of item.dropdownItems"
-                          mat-menu-item
+                    <a
+                      class="nav-item nav-link parent-link disabled-link"
+                      tabindex="0"
+                      [routerLink]="item.link"
+                      routerLinkActive="active-link"
+                      (keydown.enter)="
+                        $event.preventDefault(); dropdownOpen = true
+                      "
+                      (keydown.space)="
+                        $event.preventDefault(); dropdownOpen = true
+                      "
+                      [class.open]="dropdownOpen"
+                      [class.fw-bold]="dropdownOpen"
+                    >
+                      <span class="label">{{ item.label }}</span>
+                    </a>
+                    <ul class="dropdown" *ngIf="dropdownOpen">
+                      <li *ngFor="let subItem of item.dropdownItems">
+                        <a
                           [routerLink]="subItem.link"
                           routerLinkActive="font-weight-bold"
                         >
@@ -268,19 +227,26 @@
                 </ng-template>
               </ng-container>
               <!-- Lang selector -->
-              <li #navLink class="nav-item col col-auto p-0 mr-0 lang-selector">
-                <a
-                  href="javascript:void(0)"
-                  class="nav-item nav-link"
-                  [matMenuTriggerFor]="langSelector"
-                  (click)="langMenuOpen = !langMenuOpen"
-                >
-                  <span class="label font-weight-bold pr-2">{{
-                    currentDomain.label
-                  }}</span>
-                  <i class="fa fa-chevron-down" *ngIf="!langMenuOpen"></i>
-                  <i class="fa fa-chevron-up" *ngIf="langMenuOpen"></i>
-                </a>
+              <li #navLink class="nav-item col col-auto p-0 me-0">
+                <div class="navbar-expand navbar-nav lang langSelect">
+                  <mat-form-field class="lang-select">
+                    <!-- Navigate with consent if consent is set -->
+                    <mat-select [(value)]="currentLang">
+                      <a
+                        *ngFor="let domain of appSettings.localizedDomains"
+                        [href]="
+                          domain.url +
+                          currentRoute +
+                          (consent ? '?consent=' + consent : '')
+                        "
+                      >
+                        <mat-option [value]="domain.locale.toUpperCase()">{{
+                          domain.label
+                        }}</mat-option>
+                      </a>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
               </li>
               <mat-menu #langSelector="matMenu" (closed)="langMenuOpen = false">
                 <button

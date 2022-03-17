@@ -39,13 +39,13 @@
             <button
               mat-button
               (blur)="showAutoSuggest = false"
-              class="btn btn-search-target mr-2 d-none d-md-block"
+              class="btn btn-search-target me-2 d-none d-md-block"
               type="button"
               [matMenuTriggerFor]="searchTargetMenu"
               #searchTargetMenuTrigger="matMenuTrigger"
               (keydown.enter)="openTargetMenu()"
             >
-              <span class="pr-1">
+              <span class="pe-1">
                 <ng-container *ngIf="!selectedTarget" i18n="@@searchTarget"
                   >Kohdista haku</ng-container
                 >
@@ -125,11 +125,11 @@
             <!-- Completion assist is for measuring input content width -->
             <span id="completionAssist"></span>
             <!-- Send -->
-            <div class="input-group-append pl-2">
+            <div class="input-group-append ps-2">
               <button
                 mat-button
                 (blur)="showAutoSuggest = false"
-                class="btn btn-search"
+                class="btn btn-search h-100"
                 type="button"
                 (keydown.enter)="setFocus()"
                 (click)="newInput(undefined, undefined)"
@@ -140,7 +140,7 @@
               </button>
             </div>
             <div
-              class="search-help pl-2"
+              class="search-help ps-2"
               (clickOutside)="onClickedOutside($event)"
             >
               <button
@@ -255,7 +255,7 @@
                         <div align="center">
                           <a
                             tabindex="-1"
-                            class="font-weight-bold"
+                            class="fw-bold"
                             (keydown.enter)="newInput(data.index, undefined)"
                             (click)="newInput(data.index, undefined)"
                             href="javascript:void(0);"
@@ -280,7 +280,7 @@
                       >
                         <a
                           tabindex="-1"
-                          class="font-weight-bold"
+                          class="fw-bold"
                           (click)="newInput(data.index, undefined)"
                           href="javascript:void(0);"
                         >
@@ -309,10 +309,7 @@
                 </div>
                 <ng-template #showHistory>
                   <div class="col query-history">
-                    <h3
-                      class="font-weight-bold"
-                      i18n="Search history@@searchHistory"
-                    >
+                    <h3 class="fw-bold" i18n="Search history@@searchHistory">
                       Hait viimeksi:
                     </h3>
                     <ul>

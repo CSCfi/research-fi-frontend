@@ -9,6 +9,7 @@ import {
   ViewChild,
   ElementRef,
   ChangeDetectorRef,
+  ViewEncapsulation,
 } from '@angular/core';
 import { SearchService } from 'src/app/portal/services/search.service';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
@@ -27,6 +28,7 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
   selector: 'app-funding-calls',
   templateUrl: './funding-calls.component.html',
   styleUrls: ['./funding-calls.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class FundingCallsComponent implements OnInit, AfterViewInit, OnDestroy {
   mobile: boolean;

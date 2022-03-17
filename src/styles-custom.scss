@@ -171,6 +171,7 @@ a {
   color: #3366cc;
   font-weight: 400;
   cursor: pointer;
+  text-decoration: none;
 }
 
 a:hover {
@@ -293,7 +294,13 @@ mark,
 .row {
   margin-right: 0px !important;
   margin-left: 0px !important;
+  --bs-gutter-x: 2rem;
 }
+
+// .row > * {
+//   padding-right: 0;
+//   padding-left: 0;
+// }
 
 .container-fluid {
   padding: 0px !important;

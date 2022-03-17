@@ -43,7 +43,7 @@
       </div>
     </div>
 
-    <div *ngIf="!loading" class="pb-2 font-italic h5 font-weight-normal">
+    <div *ngIf="!loading" class="pb-2 fst-italic h5 fw-normal">
       {{ data[0]?.total | thousandSeparator }}
       <span
         *ngIf="data[0]?.total === 1; else resultsLabel"
@@ -67,14 +67,7 @@
     <div
       *ngIf="!loading && data.length === 0"
       role="alert"
-      class="
-        col-12
-        justify-content-center justify-content-lg-start
-        mt-4
-        d-flex
-        flex-column
-        px-0
-      "
+      class="col-12 justify-content-center justify-content-lg-start mt-4 d-flex flex-column px-0"
     >
       <h3>
         <ng-container i18n="@@noResultsWithTerm"

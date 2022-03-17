@@ -8,13 +8,13 @@
   <a *ngIf="!noLinks" class="th" href="/results/organization/{{ org.id }}">{{
     org.name
   }}</a
-  ><span *ngIf="org.roles.length > 0" class="font-weight-normal">
+  ><span *ngIf="org.roles.length > 0" class="fw-normal">
     - {{ org.roles.join(', ') }}</span
   >
 </div>
 <p *ngIf="!org.id" class="d-block th p-0 m-0 font-weight-500">
   {{ org.name
-  }}<span *ngIf="org.roles.length > 0" class="font-weight-normal">
+  }}<span *ngIf="org.roles.length > 0" class="fw-normal">
     - {{ org.roles.join(', ') }}</span
   >
 </p>
