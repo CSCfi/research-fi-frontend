@@ -297,11 +297,6 @@ mark,
   --bs-gutter-x: 2rem;
 }
 
-// .row > * {
-//   padding-right: 0;
-//   padding-left: 0;
-// }
-
 .container-fluid {
   padding: 0px !important;
   min-height: 700px;
@@ -411,18 +406,6 @@ body mat-card.mat-card {
 .tooltip > div {
   animation-name: delayedFadeIn;
   animation-duration: 0.1s; /* Adjust this duration */
-}
-
-@keyframes delayedFadeIn {
-  0% {
-    opacity: 0;
-  }
-  99% {
-    opacity: 0;
-  } /* Set this to 99% for no fade-in. */
-  100% {
-    opacity: 1;
-  }
 }
 
 // Tags

@@ -17,6 +17,9 @@ RUN npm run build:ssr
 # Stage 2: Serve Angular application
 FROM docker-registry.default.svc:5000/researchfi/node:14.15.0-alpine as angular
 COPY --from=builder /app/dist/ /dist/
+## SSR build warns from non existent stylesheet in 'browser/'
+## Manually copy this file from localized build to suppress this warning
+COPY --from=builder /app/dist/browser/fi/*.css /dist/browser/
 WORKDIR /
 
 RUN chown -R node:node /dist
