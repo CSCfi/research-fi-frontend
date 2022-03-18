@@ -97,18 +97,31 @@ export class DialogComponent implements OnInit {
         noPadding: checkInput(this.noPadding),
         wide: checkInput(this.wide),
         headerInfoTemplate: this.headerInfoTemplate,
-        extraHeaderTemplate: this.extraHeaderTemplate
+        extraHeaderTemplate: this.extraHeaderTemplate,
       },
       panelClass: ['responsive-dialog', this.extraClass],
       disableClose: this.disableClose ? true : false,
       position: this.position ? this.handlePosition() : null,
     });
 
+    // Only display uppermost dialog
+    const handleDialogVisibility = () => {
+      const openDialogs = this.dialog.openDialogs;
+      const parentDialog = openDialogs[openDialogs.length - 2];
+
+      parentDialog
+        ? parentDialog.addPanelClass('hidden')
+        : openDialogs[openDialogs.length - 1].removePanelClass('hidden');
+    };
+
+    handleDialogVisibility();
+
     this.dialogRef
       .afterClosed()
       .pipe(take(1))
       .subscribe((result) => {
         this.onActionClick.emit(result?.method);
+        handleDialogVisibility();
       });
   }
 
