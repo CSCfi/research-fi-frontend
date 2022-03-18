@@ -41,6 +41,7 @@
       .parent:hover {
         color: mat-contrast($primary, 200);
         background: #e8e9f4;
+        text-decoration: none;
       }
 
       .collapse.navbar-collapse.menu.mobile-bar {

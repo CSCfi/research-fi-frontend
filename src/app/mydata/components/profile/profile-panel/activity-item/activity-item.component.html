@@ -4,11 +4,11 @@
  :license: MIT -->
 
 <div class="row">
-  <div class="col pl-0">
+  <div class="col ps-0">
     <span
       class="row"
       *ngFor="let value of rows; let i = index"
-      [class.font-weight-bold]="i === 0"
+      [class.fw-bold]="i === 0"
       [class.font-size-small]="
         rows.length > 1 && i === rows.length - 1 && smallLastItem
       "

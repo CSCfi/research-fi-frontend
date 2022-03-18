@@ -14,7 +14,11 @@ Copyright 2019 Ministry of Education and Culture, Finland
 
 <div class="center-content wrapper" style="margin-top: 0">
   <div class="row">
-    <app-result-tab style="width: 100%" [allData]="tabValues"></app-result-tab>
+    <app-result-tab
+      style="width: 100%"
+      class="px-0"
+      [allData]="tabValues"
+    ></app-result-tab>
     <div class="col-12 px-0">
       <div class="total" #totalHeader>
         <div class="row justify-content-between">
@@ -31,13 +35,13 @@ Copyright 2019 Ministry of Education and Culture, Finland
           </div>
           <!-- Change to col-lg-9 after removing beta-info -->
           <div
-            class="col-auto col-lg-7 justify-content-end align-items-center row pr-0"
+            class="col-auto col-lg-7 justify-content-end align-items-center row pe-0"
           >
             <div class="col-auto px-0" *ngIf="selectedTabData">
               <app-result-count></app-result-count>
             </div>
             <!-- <div class="col-12"></div> -->
-            <div class="col-auto text-right d-none d-lg-block pl-4 pr-0">
+            <div class="col-auto text-end d-none d-lg-block ps-4 pe-0">
               <a
                 routerLink="/service-info"
                 fragment="service-info-2"
@@ -191,8 +195,8 @@ Copyright 2019 Ministry of Education and Culture, Finland
       [tabData]="tabData[6].data"
     ></app-filters>
   </aside>
-  <div class="col-8 col-xl-9 row main-content pr-xl-0">
-    <main class="col-12 pr-xl-0">
+  <div class="col-8 col-xl-9 row main-content pe-xl-0">
+    <main class="col-12 pe-xl-0">
       <app-active-filters></app-active-filters>
       <h3 class="sr-only">Hakutulokset</h3>
       <app-search-results
@@ -430,7 +434,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
     (clickOutside)="onClickedOutside($event)"
   >
     <fa-icon
-      class="info-icon pr-2"
+      class="info-icon pe-2"
       icon="info-circle"
       (mouseenter)="showInfo = true"
     ></fa-icon>

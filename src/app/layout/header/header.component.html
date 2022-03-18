@@ -70,7 +70,7 @@
             />
           </a>
         </div>
-        <div class="col-auto align-self-center p-0 pl-1 pr-2 pr-md-3">
+        <div class="col-auto align-self-center p-0 ps-1 pe-2 pe-md-3">
           <a class="logo-text" [routerLink]="appSettings.baseRoute"
             ><span>{{ appSettings.label }}</span></a
           >
@@ -212,7 +212,7 @@
                         [class.open]="dropdownOpen"
                         [class.font-weight-bold]="dropdownOpen"
                       >
-                        <span class="label pr-2">{{ item.label }}</span>
+                        <span class="label pe-2">{{ item.label }}</span>
                         <i class="fa fa-chevron-down" *ngIf="!dropdownOpen"></i>
                         <i class="fa fa-chevron-up" *ngIf="dropdownOpen"></i>
                       </a>
@@ -239,13 +239,13 @@
                         [matMenuTriggerFor]="dropdownMenu"
                       >
                         <span
-                          class="label pr-2"
+                          class="label pe-2"
                           [class.font-weight-bold]="
                             currentRoute.includes(item.link) || dropdownOpen
                           "
                         >
-                          {{ item.label }}
-                        </span>
+                          {{ item.label }}</span
+                        >
                         <i class="fa fa-chevron-down" *ngIf="!dropdownOpen"></i>
                         <i class="fa fa-chevron-up" *ngIf="dropdownOpen"></i>
                       </a>
@@ -275,7 +275,7 @@
                   [matMenuTriggerFor]="langSelector"
                   (click)="langMenuOpen = !langMenuOpen"
                 >
-                  <span class="label font-weight-bold pr-2">{{
+                  <span class="label font-weight-bold pe-2">{{
                     currentDomain.label
                   }}</span>
                   <i class="fa fa-chevron-down" *ngIf="!langMenuOpen"></i>

@@ -4,68 +4,74 @@
 //
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
-
-.img {
-  width: 100%;
-  height: 200px;
-}
-
-.cover-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-// No results
-.no-results {
-  min-height: 420px;
-}
-
-// Total
-h2 {
-  font-size: 1.75rem;
-  font-weight: 500;
-}
-
-// Filters
-.filters {
-  padding: 0;
-  align-self: flex-start;
-}
-
-// Responsive
-@media (min-width: 1440px) {
-  // .container {
-  //   max-width: 100%;
-  // }
-}
-
-@media (min-width: 768px) {
-  .search {
-    padding-top: 12px;
-    padding-bottom: 12px;
-  }
-}
-
-@media (max-width: 991px) {
-  main {
-    padding: 5px 0;
+app-funding-calls {
+  .img {
+    width: 100%;
+    height: 200px;
   }
 
-  .filters {
-    align-self: center;
+  .cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
+  // No results
+  .no-results {
+    min-height: 420px;
+  }
+
+  // Total
   h2 {
-    font-size: 28px;
-    padding: 24px 10px;
+    font-size: 1.75rem;
+    font-weight: 500;
   }
-}
 
-@media (max-width: 575px) {
+  // Move search to right end
+  app-search .row {
+    justify-content: end;
+  }
+
+  // Filters
   .filters {
-    margin-bottom: 5px;
-    // Fix for overflow on 320px width
-    max-width: 49%;
+    padding: 0;
+    align-self: flex-start;
+  }
+
+  // Responsive
+  @media (min-width: 1440px) {
+    // .container {
+    //   max-width: 100%;
+    // }
+  }
+
+  @media (min-width: 768px) {
+    .search {
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+  }
+
+  @media (max-width: 991px) {
+    main {
+      padding: 5px 0;
+    }
+
+    .filters {
+      align-self: center;
+    }
+
+    h2 {
+      font-size: 28px;
+      padding: 24px 10px;
+    }
+  }
+
+  @media (max-width: 575px) {
+    .filters {
+      margin-bottom: 5px;
+      // Fix for overflow on 320px width
+      max-width: 49%;
+    }
   }
 }

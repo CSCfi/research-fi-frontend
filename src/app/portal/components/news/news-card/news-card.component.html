@@ -8,7 +8,7 @@
       <ng-container [ngSwitch]="isHomepage">
         <a [attr.href]="item.url" target="_blank" class="d-block">
           <div class="row d-flex justify-content-between">
-            <div class="col-11 pl-0">
+            <div class="col-11 ps-0">
               <h3>
                 <ng-container *ngSwitchCase="true">{{
                   item.headline
@@ -27,16 +27,16 @@
     </mat-card-title>
     <mat-card-subtitle>
       <div class="row justify-content-between">
-        <span class="col pl-0">{{ item.timestamp | date: 'dd.MM.yyyy' }}</span>
+        <span class="col ps-0">{{ item.timestamp | date: 'dd.MM.yyyy' }}</span>
         <span *ngIf="item.author" class="col-2">{{ item.author }}</span>
         <span
-          class="col pr-0 text-right"
+          class="col pe-0 text-end"
           [innerHTML]="item.organizationNameFi.trim() | highlight: term"
         ></span>
       </div>
     </mat-card-subtitle>
   </mat-card-header>
-  <mat-card-content *ngIf="!dense" [ngClass]="isHomepage ? '' : 'ml-0 mr-0'">
+  <mat-card-content *ngIf="!dense" [ngClass]="isHomepage ? '' : 'ml-0 me-0'">
     <div class="row">
       <span
         class="preview"
@@ -44,21 +44,21 @@
         [ngClass]="item.mediaUri?.length > 0 ? 'col-10 px-0' : ''"
       ></span>
       <div
-        class="pl-0"
+        class="ps-0"
         *ngIf="item.mediaUri?.length === 0"
         [ngClass]="item.mediaUri?.length > 0 ? 'col-10' : 'col-12'"
       ></div>
-      <div *ngIf="item.mediaUri?.length > 0" class="col-2 pr-0 text-right">
+      <div *ngIf="item.mediaUri?.length > 0" class="col-2 pe-0 text-end">
         <img [src]="item.mediaUri | safeUrl" />
       </div>
     </div>
   </mat-card-content>
-  <mat-card-actions *ngIf="!dense" [ngClass]="isHomepage ? '' : 'ml-0 mr-0'">
+  <mat-card-actions *ngIf="!dense" [ngClass]="isHomepage ? '' : 'ml-0 me-0'">
     <div class="row">
-      <!-- <div class="col pl-0" [ngClass]="item.mediaUri?.length > 0 ? 'link' : ''">
+      <!-- <div class="col ps-0" [ngClass]="item.mediaUri?.length > 0 ? 'link' : ''">
                 <a class="org-link" href="{{item.url}}" target="_blank" aria-label="Lue koko uutinen organisaation verkkosivuilla"><ng-container i18n="@@readOriginialNews">Lue koko uutinen organisaation verkkosivuilla </ng-container><fa-icon icon="external-link-alt"></fa-icon></a>
             </div> -->
-      <div *ngIf="item.mediaUri?.length > 0" class="col pr-0 text-right">
+      <div *ngIf="item.mediaUri?.length > 0" class="col pe-0 text-end">
         <!-- <img [src]="item.mediaUri | safeUrl"> -->
       </div>
     </div>

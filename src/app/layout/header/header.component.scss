@@ -64,6 +64,7 @@ app-header {
 
   .nav-link {
     display: inline-block;
+    transition: none;
   }
 
   .nav-item {
@@ -178,7 +179,6 @@ app-header {
     z-index: 9999;
     text-align: left;
     list-style: none;
-    min-width: 120%;
     margin-top: 2px;
     padding: 0;
   }
@@ -271,7 +271,6 @@ app-header {
 
   // Beta mobile menu position
   .beta-mobile-menu {
-    align-self: flex-start;
     top: 0.875rem;
   }
 

@@ -14,9 +14,8 @@
   app-single-funding-call {
     // Prevent style bleeding
     .shared {
-      .header {
-        font-weight: bold;
-        padding-left: 15px;
+      #info {
+        margin-bottom: 1rem;
       }
 
       .content {
@@ -109,13 +108,6 @@
         // word-break: break-word;
       }
 
-      table {
-        margin: 20px 0px;
-        width: 100%;
-        table-layout: fixed;
-        overflow: hidden;
-      }
-
       #links td {
         white-space: nowrap;
         overflow: hidden;
@@ -127,7 +119,6 @@
       }
 
       main h1 {
-
         font-size: 1.4rem;
       }
 

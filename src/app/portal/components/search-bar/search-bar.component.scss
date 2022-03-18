@@ -129,16 +129,16 @@ app-search-bar {
     font-style: normal;
   }
 
-  p.text-right.ext-search {
+  p.text-end.ext-search {
     margin-top: 16px;
     margin-bottom: -16px;
   }
 
-  p.text-right.ext-search a {
+  p.text-end.ext-search a {
     cursor: pointer;
   }
 
-  p.text-right.ext-search a:hover {
+  p.text-end.ext-search a:hover {
     -webkit-filter: opacity(0.7);
     filter: opacity(0.7);
     text-decoration: none;

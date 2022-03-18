@@ -171,6 +171,7 @@ a {
   color: #3366cc;
   font-weight: 400;
   cursor: pointer;
+  text-decoration: none;
 }
 
 a:hover {
@@ -293,6 +294,7 @@ mark,
 .row {
   margin-right: 0px !important;
   margin-left: 0px !important;
+  --bs-gutter-x: 2rem;
 }
 
 .container-fluid {
@@ -404,18 +406,6 @@ body mat-card.mat-card {
 .tooltip > div {
   animation-name: delayedFadeIn;
   animation-duration: 0.1s; /* Adjust this duration */
-}
-
-@keyframes delayedFadeIn {
-  0% {
-    opacity: 0;
-  }
-  99% {
-    opacity: 0;
-  } /* Set this to 99% for no fade-in. */
-  100% {
-    opacity: 1;
-  }
 }
 
 // Tags

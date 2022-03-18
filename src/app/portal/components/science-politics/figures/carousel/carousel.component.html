@@ -1,7 +1,7 @@
 <div
-  class="d-flex flex-direction-row justify-content-center align-items-center carousel-container"
+  class="d-flex flex-direction-row justify-content-start align-items-center carousel-container"
 >
-  <div class="button-container prev text-left">
+  <div class="button-container prev text-start">
     <app-secondary-button
       *ngIf="idx > 0"
       [big]="true"
@@ -43,7 +43,7 @@
       </div>
     </div>
   </div>
-  <div class="button-container next text-right">
+  <div class="button-container next text-end">
     <app-secondary-button
       *ngIf="idx < maxIdx"
       [big]="true"
