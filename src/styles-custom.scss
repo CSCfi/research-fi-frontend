@@ -512,6 +512,10 @@ mat-basic-chip.tag {
   position: static;
 }
 
+.responsive-dialog.hidden {
+  display: none;
+}
+
 // Custom Mat Tab
 .mat-tab-header {
   overflow: visible !important;
