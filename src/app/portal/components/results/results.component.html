@@ -101,7 +101,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
         class="col-12 row d-flex justify-content-between"
         style="padding: 0"
       >
-        <aside class="col col-6 col-sm-6 filters">
+        <aside class="col col-6 col-sm-6 pr-2 filters">
           <app-filters
             *ngIf="tab === tabData[0].link"
             [responseData]="filterValues"
@@ -133,7 +133,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
             [tabData]="tabData[6].data"
           ></app-filters>
         </aside>
-        <aside class="col col-6 col-sm-6 sort">
+        <aside class="col col-6 col-sm-6 pl-2 sort">
           <app-sort></app-sort>
         </aside>
         <main class="col-12" id="main-content">

@@ -38,6 +38,7 @@ import { FilterService } from '@portal/services/filters/filter.service';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { StaticDataService } from '@portal/services/static-data.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
   selector: 'app-search-bar',
@@ -46,6 +47,7 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('searchTargetMenuTrigger') searchTargetMenuTrigger: MatMenuTrigger;
   @ViewChild('searchInput', { static: true }) searchInput: ElementRef;
   @ViewChild('inputGroup', { static: true }) inputGroup: ElementRef;
   @ViewChild('searchBar', { static: true }) searchBar: ElementRef;
@@ -370,6 +372,11 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
       this.showAutoSuggest = false;
       this.completion = '';
     }
+  }
+
+  // Open target menu with enter key
+  openTargetMenu() {
+    this.searchTargetMenuTrigger.openMenu();
   }
 
   // Set target, copy queryParams and add target to params
