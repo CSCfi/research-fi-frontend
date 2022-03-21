@@ -18,7 +18,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SingleItemService } from '@portal/services/single-item.service';
 import { SearchService } from '@portal/services/search.service';
 import { Title } from '@angular/platform-browser';
-import { forkJoin, Subscription } from 'rxjs';
+import { forkJoin, Observable, Subscription } from 'rxjs';
 import { TabChangeService } from '@portal/services/tab-change.service';
 import { UtilityService } from '@shared/services/utility.service';
 import { Search } from '@portal/models/search.model';
@@ -180,20 +180,27 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     // Organization may have an iFrame. This data comes from CMS.
     // CMS data is handled in browsers storage
     // Browser check for SSR build. Session Storage not available within Node.
+
+    // Get CMS data from storage via observable
+    const sectorDataObservable = new Observable((subscriber) => {
+      subscriber.next(JSON.parse(sessionStorage.getItem('sectorData')));
+      subscriber.complete();
+    });
+
     if (this.appSettingsService.isBrowser) {
-      this.dataSub = forkJoin([
-        this.singleService.getSingleOrganization(id),
-        !sessionStorage.getItem('sectorData')
+      this.dataSub = forkJoin({
+        organizationData: this.singleService.getSingleOrganization(id),
+        sectorData: !sessionStorage.getItem('sectorData')
           ? this.cmsContentService.getSectors()
-          : JSON.parse(sessionStorage.getItem('sectorData')),
-      ]).subscribe((response: any) => {
-        const orgCMSData = response[1]
+          : sectorDataObservable,
+      }).subscribe((response: any) => {
+        const orgCMSData = response.sectorData
           ?.map((sector) => sector.organizations)
           .flat()
           .find((org) => org.link === id);
 
-        this.responseData = response[0];
-        const orgData = response[0].organizations[0];
+        this.responseData = response.organizationData;
+        const orgData = response.organizationData.organizations[0];
 
         if (orgData) {
           // Set visualization url
