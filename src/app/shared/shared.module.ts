@@ -22,6 +22,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+
 import { SecondaryButtonComponent } from './components/secondary-button/secondary-button.component';
 import { PrimaryActionButtonComponent } from './components/primary-action-button/primary-action-button.component';
 import { CloseButtonComponent } from './components/close-button/close-button.component';
@@ -41,6 +43,7 @@ import { DialogTemplateComponent } from './components/dialog/dialog-template/dia
 import { BannerDividerComponent } from './components/banner-divider/banner-divider.component';
 
 import { ClickOutsideDirective } from './directives/click-outside.directive';
+import { NotificationBannerComponent } from './components/notification-banner/notification-banner.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +65,7 @@ import { ClickOutsideDirective } from './directives/click-outside.directive';
     DialogTemplateComponent,
     BannerDividerComponent,
     ClickOutsideDirective,
+    NotificationBannerComponent,
   ],
   exports: [
     InfoComponent,
@@ -80,6 +84,7 @@ import { ClickOutsideDirective } from './directives/click-outside.directive';
     DialogComponent,
     BannerDividerComponent,
     ClickOutsideDirective,
+    NotificationBannerComponent,
   ],
   imports: [
     CommonModule,
@@ -96,6 +101,7 @@ import { ClickOutsideDirective } from './directives/click-outside.directive';
     MatButtonModule,
     MatInputModule,
     MatDialogModule,
+    CollapseModule.forRoot(),
   ],
 })
 export class SharedModule {}

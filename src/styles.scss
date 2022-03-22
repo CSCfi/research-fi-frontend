@@ -7,6 +7,10 @@
 
 // You can add global styles to this file, and also import other style files
 @import '@angular/material/theming';
+
+@import './bootstrap_overrides.scss';
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
+
 @include mat-core();
 
 @import '~font-awesome/css/font-awesome.css';
@@ -68,6 +72,7 @@
 @import './app/shared/components/search/search.component-theme.scss';
 @import './app/shared/components/banner-divider/banner-divider.component-theme.scss';
 @import './app/shared/components/review/review.component.scss-theme.scss';
+@import './app/shared/components/notification-banner/notification-banner.component-theme.scss';
 
 // Mydata
 @import './app/mydata/mydata-shared.scss';
@@ -126,6 +131,7 @@
   @include app-profile-theme($theme);
   @include app-primary-badge-theme($theme);
   @include app-banner-divider-theme($theme);
+  @include app-notification-banner-theme($theme);
 }
 
 // Global style definitions
