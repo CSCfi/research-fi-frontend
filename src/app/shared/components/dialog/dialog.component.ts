@@ -111,7 +111,7 @@ export class DialogComponent implements OnInit {
 
       parentDialog
         ? parentDialog.addPanelClass('hidden')
-        : openDialogs[openDialogs.length - 1].removePanelClass('hidden');
+        : openDialogs[openDialogs.length - 1]?.removePanelClass('hidden');
     };
 
     handleDialogVisibility();
