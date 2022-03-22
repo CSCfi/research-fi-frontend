@@ -268,30 +268,38 @@
                 </ng-template>
               </ng-container>
               <!-- Lang selector -->
-              <li #navLink class="nav-item col col-auto p-0 mr-0 lang-selector">
-                <a
-                  href="javascript:void(0)"
-                  class="nav-item nav-link"
-                  [matMenuTriggerFor]="langSelector"
-                  (click)="langMenuOpen = !langMenuOpen"
+              <ng-container *ngIf="currentDomain">
+                <li
+                  #navLink
+                  class="nav-item col col-auto p-0 mr-0 lang-selector"
                 >
-                  <span class="label font-weight-bold pe-2">{{
-                    currentDomain.label
-                  }}</span>
-                  <i class="fa fa-chevron-down" *ngIf="!langMenuOpen"></i>
-                  <i class="fa fa-chevron-up" *ngIf="langMenuOpen"></i>
-                </a>
-              </li>
-              <mat-menu #langSelector="matMenu" (closed)="langMenuOpen = false">
-                <button
-                  *ngFor="let domain of appSettings.localizedDomains"
-                  mat-menu-item
-                  (click)="changeLang(domain)"
-                  [disabled]="domain.locale === currentDomain.locale"
+                  <a
+                    href="javascript:void(0)"
+                    class="nav-item nav-link"
+                    [matMenuTriggerFor]="langSelector"
+                    (click)="langMenuOpen = !langMenuOpen"
+                  >
+                    <span class="label font-weight-bold pe-2">
+                      {{ currentDomain.label }}
+                    </span>
+                    <i class="fa fa-chevron-down" *ngIf="!langMenuOpen"></i>
+                    <i class="fa fa-chevron-up" *ngIf="langMenuOpen"></i>
+                  </a>
+                </li>
+                <mat-menu
+                  #langSelector="matMenu"
+                  (closed)="langMenuOpen = false"
                 >
-                  {{ domain.label }}
-                </button>
-              </mat-menu>
+                  <button
+                    *ngFor="let domain of appSettings.localizedDomains"
+                    mat-menu-item
+                    (click)="changeLang(domain)"
+                    [disabled]="domain.locale === currentDomain.locale"
+                  >
+                    {{ domain.label }}
+                  </button>
+                </mat-menu>
+              </ng-container>
               <div *ngIf="mobileMenu" class=""></div>
             </ul>
           </div>
