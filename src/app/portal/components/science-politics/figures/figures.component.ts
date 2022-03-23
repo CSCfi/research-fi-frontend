@@ -87,6 +87,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   loading = true;
   content: any[];
   contentSub: Subscription;
+  figuresSub: Subscription;
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -126,10 +127,12 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
 
       // Get data from API and set into sessionStorage to be reusable in single figure view.
       if (!sessionStorage.getItem('figureData')) {
-        this.cmsContentService.getFigures().subscribe((data) => {
-          this.figureData = data;
-          sessionStorage.setItem('figureData', JSON.stringify(data));
-        });
+        this.figuresSub = this.cmsContentService
+          .getFigures()
+          .subscribe((data) => {
+            this.figureData = data;
+            sessionStorage.setItem('figureData', JSON.stringify(data));
+          });
       } else {
         this.figureData = JSON.parse(sessionStorage.getItem('figureData'));
       }
@@ -287,11 +290,14 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.contentSub?.unsubscribe();
+    this.figuresSub?.unsubscribe();
     this.querySub?.unsubscribe();
     this.resizeSub?.unsubscribe();
     this.scrollSub?.unsubscribe();
     this.tabChangeService.targetFocus('');
     this.queryParamSub?.unsubscribe();
+    this.focusSub?.unsubscribe();
   }
 
   onSectionChange(sectionId: any) {

@@ -9,6 +9,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnDestroy,
   OnInit,
   Output,
   TemplateRef,
@@ -19,6 +20,7 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { Icon } from '@fortawesome/fontawesome-svg-core';
+import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { DialogTemplateComponent } from './dialog-template/dialog-template.component';
 
@@ -26,7 +28,7 @@ import { DialogTemplateComponent } from './dialog-template/dialog-template.compo
   selector: 'app-dialog',
   templateUrl: './dialog.component.html',
 })
-export class DialogComponent implements OnInit {
+export class DialogComponent implements OnInit, OnDestroy {
   @Input() title: string;
   @Input() template: any;
   @Input() footerTemplate: any;
@@ -46,6 +48,8 @@ export class DialogComponent implements OnInit {
   @Output() onActionClick = new EventEmitter<any>();
 
   dialogRef: MatDialogRef<DialogTemplateComponent>;
+
+  dialogResultSub: Subscription;
 
   constructor(public dialog: MatDialog) {}
 
@@ -116,7 +120,7 @@ export class DialogComponent implements OnInit {
 
     handleDialogVisibility();
 
-    this.dialogRef
+    this.dialogResultSub = this.dialogRef
       .afterClosed()
       .pipe(take(1))
       .subscribe((result) => {
@@ -135,5 +139,9 @@ export class DialogComponent implements OnInit {
     }
 
     return result;
+  }
+
+  ngOnDestroy(): void {
+    this.dialogResultSub?.unsubscribe();
   }
 }

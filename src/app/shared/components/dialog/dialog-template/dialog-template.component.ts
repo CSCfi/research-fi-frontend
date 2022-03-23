@@ -11,6 +11,7 @@ import {
   ElementRef,
   EventEmitter,
   Inject,
+  OnDestroy,
   OnInit,
   Output,
   ViewChild,
@@ -20,6 +21,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { take } from 'rxjs/operators';
 import { cloneDeep } from 'lodash-es';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dialog-template',
@@ -27,13 +29,16 @@ import { cloneDeep } from 'lodash-es';
   styleUrls: ['./dialog-template.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class DialogTemplateComponent implements OnInit, AfterViewInit {
+export class DialogTemplateComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
   mobile: boolean;
   displayExtraContent = false;
   dialogActions: any[];
   @ViewChild('closeButton') closeButton: ElementRef;
   closeButtonWidth: number;
   @Output() onActiveActionClick = new EventEmitter<any>();
+  mobileStatusSub: Subscription;
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
@@ -58,7 +63,7 @@ export class DialogTemplateComponent implements OnInit, AfterViewInit {
     // Unbind from original actions
     this.dialogActions = cloneDeep(this.data.actions);
 
-    this.appSettingsService.mobileStatus
+    this.mobileStatusSub = this.appSettingsService.mobileStatus
       .pipe(take(1))
       .subscribe((status) => (this.mobile = status));
   }
@@ -86,6 +91,10 @@ export class DialogTemplateComponent implements OnInit, AfterViewInit {
     if (this.closeButton) {
       this.closeButtonWidth = this.closeButton.nativeElement.offsetWidth;
     }
+  }
+
+  ngOnDestroy(): void {
+    this.mobileStatusSub?.unsubscribe();
   }
 
   close() {

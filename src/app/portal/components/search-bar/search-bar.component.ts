@@ -108,6 +108,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   currentLocale: any;
   browserHeight: number;
   autoSuggestSub: Subscription;
+  autoSuggestResponseSub: Subscription;
   tabSub: Subscription;
   selectedTargetLabel: any;
 
@@ -173,6 +174,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
       this.inputSub?.unsubscribe();
       this.currentFocusTargetSub?.unsubscribe();
       this.autoSuggestSub?.unsubscribe();
+      this.autoSuggestResponseSub?.unsubscribe();
       this.tabSub?.unsubscribe();
     }
   }
@@ -206,7 +208,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
         if (result.length > 2) {
           this.topData = [];
           this.otherData = [];
-          this.autosuggestService
+          this.autoSuggestResponseSub = this.autosuggestService
             .search(result)
             .pipe(map((response) => [response]))
             .subscribe((response) => {

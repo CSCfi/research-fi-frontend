@@ -5,10 +5,10 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { UtilityService } from '@shared/services/utility.service';
 
@@ -18,7 +18,7 @@ import { UtilityService } from '@shared/services/utility.service';
   styleUrls: ['./review.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ReviewComponent implements OnInit {
+export class ReviewComponent implements OnInit, OnDestroy {
   underReview = false;
   reviewTarget: string;
   reviewContent: string;
@@ -52,11 +52,12 @@ export class ReviewComponent implements OnInit {
   title: string;
   sendText = $localize`:@@r15:Tarkista ja lähetä`;
   back = $localize`:@@back:Takaisin`;
+  sendPostSub: Subscription;
 
   constructor(
     private router: Router,
     private utilityService: UtilityService,
-    private httpClient: HttpClient,
+    private httpClient: HttpClient
   ) {}
 
   ngOnInit(): void {
@@ -92,18 +93,18 @@ export class ReviewComponent implements OnInit {
     if (this.underReview && this.reviewChecked && !this.mathError) {
       // Send form data
       this.sending = true;
-      this.sendPost(this.getBodyJson()).subscribe(
-        (success) => {
+      this.sendPostSub = this.sendPost(this.getBodyJson()).subscribe({
+        next: (success) => {
           this.sending = false;
           this.result = true;
           this.error = false;
         },
-        (err) => {
+        error: (error) => {
           this.sending = false;
           this.result = true;
           this.error = true;
-        }
-      );
+        },
+      });
     }
   }
 
@@ -144,5 +145,9 @@ export class ReviewComponent implements OnInit {
 
   getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
+  }
+
+  ngOnDestroy(): void {
+    this.sendPostSub?.unsubscribe();
   }
 }

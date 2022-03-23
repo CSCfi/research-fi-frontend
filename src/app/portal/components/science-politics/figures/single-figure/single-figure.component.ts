@@ -59,6 +59,8 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
   currentItem: any;
   result: any;
   contentSub: Subscription;
+  figuresSub: Subscription;
+  focusSub: Subscription;
   title: any;
   mobile = this.window.innerWidth < 992;
   height = this.window.innerHeight;
@@ -102,11 +104,13 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
         // Call API only if no data in session storage
         if (isPlatformBrowser(this.platformId)) {
           if (!sessionStorage.getItem('figureData')) {
-            this.cmsContentService.getFigures().subscribe((data) => {
-              this.figureData = data;
-              sessionStorage.setItem('figureData', JSON.stringify(data));
-              this.setContent(res);
-            });
+            this.figuresSub = this.cmsContentService
+              .getFigures()
+              .subscribe((data) => {
+                this.figureData = data;
+                sessionStorage.setItem('figureData', JSON.stringify(data));
+                this.setContent(res);
+              });
           } else {
             this.figureData = JSON.parse(sessionStorage.getItem('figureData'));
             this.setContent(res);
@@ -186,11 +190,13 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
       });
     }
     // Focus to skip-to results link when clicked from header skip-links
-    this.tabChangeService.currentFocusTarget.subscribe((target) => {
-      if (target === 'main-link') {
-        this.keyboardHelp.nativeElement.focus();
+    this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(
+      (target) => {
+        if (target === 'main-link') {
+          this.keyboardHelp.nativeElement.focus();
+        }
       }
-    });
+    );
   }
 
   onResize(dims) {
@@ -223,8 +229,10 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy() {
     this.resizeSub?.unsubscribe();
+    this.figuresSub?.unsubscribe();
     this.routeSub?.unsubscribe();
     this.contentSub?.unsubscribe();
     this.queryParamSub?.unsubscribe();
+    this.focusSub?.unsubscribe();
   }
 }

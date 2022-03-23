@@ -153,6 +153,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   showLess = $localize`:@@showLess:Näytä vähemmän`;
   relatedData: any;
   focusSub: Subscription;
+  dataSub: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -199,17 +200,18 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.idSub?.unsubscribe();
     this.focusSub?.unsubscribe();
+    this.dataSub?.unsubscribe();
     this.settingsService.related = false;
   }
 
   getData(id) {
     // Check if id is number, convert to -1 if string to get past elasticsearch number mapping
     const idNumber = parseInt(id, 10) ? id : -1;
-    this.singleService
+    this.dataSub = this.singleService
       .getSingleFunding(idNumber)
       // .pipe(map(responseData => [responseData]))
-      .subscribe(
-        (responseData) => {
+      .subscribe({
+        next: (responseData) => {
           this.responseData = responseData;
           const funding = this.responseData.fundings[0];
           if (funding) {
@@ -238,8 +240,8 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
             this.filterData();
           }
         },
-        (error) => (this.errorMessage = error as any)
-      );
+        error: (error) => (this.errorMessage = error as any),
+      });
   }
 
   filterData() {

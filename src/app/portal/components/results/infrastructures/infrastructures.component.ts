@@ -29,7 +29,8 @@ import { UtilityService } from 'src/app/shared/services/utility.service';
   styleUrls: ['./infrastructures.component.scss'],
 })
 export class InfrastructuresComponent
-  implements OnInit, OnDestroy, AfterViewInit {
+  implements OnInit, OnDestroy, AfterViewInit
+{
   @Input() resultData: Search;
   @ViewChild('main') mainContent: ElementRef;
   expandStatus: Array<boolean> = [];
@@ -77,6 +78,7 @@ export class InfrastructuresComponent
 
   ngOnDestroy() {
     this.inputSub?.unsubscribe();
+    this.focusSub?.unsubscribe();
     this.tabChangeService.targetFocus('');
   }
 }

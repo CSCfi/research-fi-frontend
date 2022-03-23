@@ -4,12 +4,13 @@
 // #
 // # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // # :license: MIT
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Adapter } from '../adapter.model';
 import { VisualData } from './visualisations.model';
 import { StaticDataService } from '../../services/static-data.service';
 import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 export class FundingVisual {
   constructor(
@@ -26,7 +27,7 @@ export class FundingVisual {
 @Injectable({
   providedIn: 'root',
 })
-export class FundingVisualAdapter implements Adapter<FundingVisual> {
+export class FundingVisualAdapter implements Adapter<FundingVisual>, OnDestroy {
   private names = {
     year: '',
     funder: 'f.funder.buckets.shift().key',
@@ -50,6 +51,8 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
   };
 
   funding = this.sds.visualisationData.funding;
+
+  routeSub: Subscription;
 
   constructor(private sds: StaticDataService, private route: ActivatedRoute) {}
 
@@ -185,26 +188,28 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
          * Default to topic scheme keywords otherwise.
          * Eg. |topic identifier is generated via aggregation script.
          */
-        this.route.queryParams.pipe(take(1)).subscribe((params) => {
-          tmp.forEach((b) => {
-            b.data = [];
-            b.identifiedTopicNested.identifiedTopicId.buckets.forEach((f) => {
-              if (
-                params.topic
-                  ? true
-                  : f.identifiedTopic.buckets[0].key.includes('|topic')
-              ) {
-                const v: any = {};
-                v.name = f.key;
-                v.id = f.key;
-                v.doc_count = f.doc_count;
-                v.parent = b.key;
-                b.data.push(v);
-              }
+        this.routeSub = this.route.queryParams
+          .pipe(take(1))
+          .subscribe((params) => {
+            tmp.forEach((b) => {
+              b.data = [];
+              b.identifiedTopicNested.identifiedTopicId.buckets.forEach((f) => {
+                if (
+                  params.topic
+                    ? true
+                    : f.identifiedTopic.buckets[0].key.includes('|topic')
+                ) {
+                  const v: any = {};
+                  v.name = f.key;
+                  v.id = f.key;
+                  v.doc_count = f.doc_count;
+                  v.parent = b.key;
+                  b.data.push(v);
+                }
+              });
+              identifiedTopic.push(b);
             });
-            identifiedTopic.push(b);
           });
-        });
         this.sortByName(identifiedTopic);
         break;
 
@@ -245,5 +250,9 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
       fieldOfScience,
       identifiedTopic
     );
+  }
+
+  ngOnDestroy(): void {
+    this.routeSub?.unsubscribe();
   }
 }

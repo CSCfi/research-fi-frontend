@@ -7,6 +7,7 @@ import {
   AfterViewInit,
   ElementRef,
   OnChanges,
+  OnDestroy,
 } from '@angular/core';
 import { SearchService } from 'src/app/portal/services/search.service';
 import { SettingsService } from 'src/app/portal/services/settings.service';
@@ -18,7 +19,9 @@ import { UtilityService } from 'src/app/shared/services/utility.service';
   templateUrl: './tab-item.component.html',
   styleUrls: ['./tab-item.component.scss'],
 })
-export class TabItemComponent implements OnInit, AfterViewInit, OnChanges {
+export class TabItemComponent
+  implements OnInit, AfterViewInit, OnChanges, OnDestroy
+{
   @Input() tab: any;
   @Input() isHomepage = false;
   @Input() selectedTab: string;
@@ -60,9 +63,14 @@ export class TabItemComponent implements OnInit, AfterViewInit, OnChanges {
       size: this.searchService.pageSize,
     };
   }
+
   ngAfterViewInit(): void {
     if (this.tabElem) {
       this.dataService.resultTabList.push(this.tabElem);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.searchTermSub?.unsubscribe();
   }
 }

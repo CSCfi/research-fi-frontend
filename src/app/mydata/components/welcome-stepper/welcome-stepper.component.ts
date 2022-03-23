@@ -80,7 +80,11 @@ export class WelcomeStepperComponent implements OnInit, OnDestroy {
   termsForTool = CommonStrings.termsForTool;
   processingOfPersonalData = CommonStrings.processingOfPersonalData;
   cancelServiceDeployment = $localize`:@@cancelServiceDeployment:Peruutetaanko palvelun käyttöönotto?`;
+  userDataSub: Subscription;
   routeSub: Subscription;
+  profileExistsCheckSub: Subscription;
+  createProfileSub: Subscription;
+  profileDataSub: Subscription;
 
   constructor(
     private profileService: ProfileService,
@@ -99,14 +103,16 @@ export class WelcomeStepperComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.checkProfileExists();
 
-    this.oidcSecurityService.userData$.pipe(take(1)).subscribe((data) => {
-      if (data) {
-        const userData = data.userData;
-        this.userData = userData;
-        this.profileName = userData?.name;
-        this.appSettingsService.setOrcid(userData.orcid);
-      }
-    });
+    this.userDataSub = this.oidcSecurityService.userData$
+      .pipe(take(1))
+      .subscribe((data) => {
+        if (data) {
+          const userData = data.userData;
+          this.userData = userData;
+          this.profileName = userData?.name;
+          this.appSettingsService.setOrcid(userData.orcid);
+        }
+      });
 
     // Enable route refresh / locale change
     this.routeSub = this.route.queryParams.subscribe((params) => {
@@ -186,7 +192,7 @@ export class WelcomeStepperComponent implements OnInit, OnDestroy {
 
   // Redirect to profile summary if profile exists.
   checkProfileExists() {
-    this.profileService
+    this.profileExistsCheckSub = this.profileService
       .checkProfileExists()
       .pipe(take(1))
       .subscribe((data: any) => {
@@ -202,7 +208,7 @@ export class WelcomeStepperComponent implements OnInit, OnDestroy {
 
   // Create profile when proceeding from step 3. Get ORCID and profile data after profile creation
   createProfile() {
-    return this.profileService
+    return (this.createProfileSub = this.profileService
       .createProfile()
       .pipe(take(1))
       .subscribe((data: any) => {
@@ -212,7 +218,7 @@ export class WelcomeStepperComponent implements OnInit, OnDestroy {
         } else {
           // TODO: Alert problem
         }
-      });
+      }));
   }
 
   openDialog(title, template) {
@@ -250,16 +256,23 @@ export class WelcomeStepperComponent implements OnInit, OnDestroy {
 
   getProfileData() {
     this.profileData = null;
-    this.profileService.getProfileData().subscribe((data) => {
-      this.profileData = data;
-      this.dialog.closeAll();
-      this.loading = false;
-      this.resetDialog();
-      this.router.navigate(['/mydata/profile']);
-    });
+    this.profileDataSub = this.profileService
+      .getProfileData()
+      .pipe(take(1))
+      .subscribe((data) => {
+        this.profileData = data;
+        this.dialog.closeAll();
+        this.loading = false;
+        this.resetDialog();
+        this.router.navigate(['/mydata/profile']);
+      });
   }
 
   ngOnDestroy(): void {
+    this.userDataSub?.unsubscribe();
     this.routeSub?.unsubscribe();
+    this.profileExistsCheckSub?.unsubscribe();
+    this.createProfileSub?.unsubscribe();
+    this.profileDataSub?.unsubscribe();
   }
 }

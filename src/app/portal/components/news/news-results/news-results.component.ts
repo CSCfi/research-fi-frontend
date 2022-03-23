@@ -56,6 +56,8 @@ export class NewsResultsComponent
   routeSub: Subscription;
   inputSub: Subscription;
   focusSub: Subscription;
+  olderNewsSub: Subscription;
+  newsFiltersSub: Subscription;
 
   loading: boolean = false;
 
@@ -134,29 +136,29 @@ export class NewsResultsComponent
   }
 
   getFilterNews(size: number = 5) {
-    this.searchService
+    this.olderNewsSub = this.searchService
       .getOlderNews(size)
       .pipe(take(1))
-      .subscribe(
-        (data) => {
+      .subscribe({
+        next: (data) => {
           this.data = data;
           this.loading = false;
         },
-        (error) => (this.errorMessage = error as any)
-      );
+        error: (error) => (this.errorMessage = error as any),
+      });
   }
 
   getFilterData() {
     // Check for Angular Univeral SSR, get filter data if browser
     if (isPlatformBrowser(this.platformId)) {
-      this.searchService.getNewsFilters().subscribe(
-        (filterValues) => {
+      this.newsFiltersSub = this.searchService.getNewsFilters().subscribe({
+        next: (filterValues) => {
           this.filterValues = filterValues;
           // Send response to data service
           this.dataService.changeResponse(this.filterValues);
         },
-        (error) => (this.errorMessage = error as any)
-      );
+        error: (error) => (this.errorMessage = error as any),
+      });
     }
   }
 
@@ -180,6 +182,9 @@ export class NewsResultsComponent
   ngOnDestroy() {
     this.tabChangeService.targetFocus('');
     this.inputSub?.unsubscribe();
+    this.focusSub?.unsubscribe();
+    this.olderNewsSub?.unsubscribe();
+    this.newsFiltersSub?.unsubscribe();
     this.searchService.updateNewsPageNumber(1);
     this.tabChangeService.focus = undefined;
     this.searchService.updateInput('');
