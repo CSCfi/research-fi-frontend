@@ -39,7 +39,7 @@ app-search-bar {
     border-top-right-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
     width: 180px;
-    z-index: 100;
+    z-index: 100 !important;
   }
 
   // Input
@@ -197,12 +197,12 @@ app-search-bar {
     z-index: 100;
     left: 0;
     right: 0;
-    margin-left: auto;
+    margin-left: auto !important;
     margin-right: auto;
     margin-top: -20px;
     margin-top: 56px;
     max-width: 687px;
-    border-radius: 0.25rem;
+    border-radius: 0.25rem !important;
   }
 
   .row.results {

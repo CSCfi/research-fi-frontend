@@ -33,6 +33,7 @@ import { DatasetsService } from '@mydata/services/datasets.service';
 import { FundingsService } from '@mydata/services/fundings.service';
 import { CollaborationsService } from '@mydata/services/collaborations.service';
 import { Subject } from 'rxjs';
+import { NotificationService } from '@shared/services/notification.service';
 
 @Component({
   selector: 'app-profile',
@@ -118,7 +119,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     public publicationsService: PublicationsService,
     public datasetsService: DatasetsService,
     public fundingsService: FundingsService,
-    private utilityService: UtilityService
+    private utilityService: UtilityService,
+    private notificationService: NotificationService
   ) {
     this.testData = profileService.testData;
   }
@@ -507,5 +509,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.unsubscribe.next(null);
     this.unsubscribe.complete();
+  }
+
+  testNotification() {
+    this.notificationService.notificate({
+      notificationText: 'Tämä on tärkeä viesti, huomioi tämä asia.',
+      buttons: [
+        {
+          label: 'SELVÄ JUTTU',
+          action: () => this.notificationService.clearNotification(),
+        },
+      ],
+    });
   }
 }

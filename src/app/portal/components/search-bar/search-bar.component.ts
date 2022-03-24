@@ -137,9 +137,13 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     this.routeSub = this.route.queryParams.subscribe((params) => {
+      // Targeted search
       this.selectedTarget = params.target ? params.target : null;
+
       if (params.target) this.getTargetLabel(params.target);
       this.queryParams = params;
+
+      // Top margin is used to calculate overlay margin when auto suggest is open
       this.topMargin =
         this.searchBar.nativeElement.offsetHight +
         this.searchBar.nativeElement.offsetTop;
