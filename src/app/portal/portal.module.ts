@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Title, Meta } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
@@ -162,6 +162,7 @@ import { TkiReportsComponent } from '@portal/components/science-politics/tki-rep
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { HandleInfrastructureLinkPipe } from './pipes/handle-infrastructure-link.pipe';
+import { Subscription } from 'rxjs';
 
 @NgModule({
   declarations: [
@@ -307,8 +308,9 @@ import { HandleInfrastructureLinkPipe } from './pipes/handle-infrastructure-link
     },
   ],
 })
-export class PortalModule {
+export class PortalModule implements OnDestroy {
   startPage;
+  routeSub: Subscription;
 
   isResultPage(url: string) {
     // Check if the page is on results, and that the tabname ends with 's' (not single result)
@@ -349,7 +351,7 @@ export class PortalModule {
   ) {
     this.startPage = router.parseUrl(router.url).queryParams.page || 1;
     // Used to prevent scroll to top when filters are selected
-    router.events
+    this.routeSub = router.events
       .pipe(filter((e: Event): e is Scroll => e instanceof Scroll))
       .subscribe((e) => {
         const currentUrl = e.routerEvent.url;
@@ -405,5 +407,9 @@ export class PortalModule {
       });
     // Add global icons
     library.addIcons(faExternalLinkAlt as any, faInfoCircle as any);
+  }
+
+  ngOnDestroy(): void {
+    this.routeSub?.unsubscribe();
   }
 }

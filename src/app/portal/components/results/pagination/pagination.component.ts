@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, OnInit, Input, Inject, OnDestroy } from '@angular/core';
 import { SearchService } from '../../../services/search.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -25,7 +25,7 @@ import {
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss'],
 })
-export class PaginationComponent implements OnInit {
+export class PaginationComponent implements OnInit, OnDestroy {
   page: number;
   fromPage: number; // Used for HTML rendering
   pages: number[];
@@ -74,7 +74,7 @@ export class PaginationComponent implements OnInit {
   }
 
   ngOnChanges() {
-    this.resetPagination()
+    this.resetPagination();
   }
 
   resetPagination() {
@@ -167,5 +167,10 @@ export class PaginationComponent implements OnInit {
       queryParams: { page: this.page },
       queryParamsHandling: 'merge',
     });
+  }
+
+  ngOnDestroy(): void {
+    this.totalSub?.unsubscribe();
+    this.resizeSub?.unsubscribe();
   }
 }

@@ -164,6 +164,7 @@ export class SingleDatasetComponent implements OnInit {
   currentLocale: string;
   tabData: any;
   focusSub: Subscription;
+  dataSub: Subscription;
   currentVersion: string;
 
   constructor(
@@ -212,12 +213,13 @@ export class SingleDatasetComponent implements OnInit {
   ngOnDestroy() {
     this.idSub?.unsubscribe();
     this.focusSub?.unsubscribe();
+    this.dataSub?.unsubscribe();
     this.settingsService.related = false;
   }
 
   getData(id: string) {
-    this.singleService.getSingleDataset(id).subscribe(
-      (responseData) => {
+    this.dataSub = this.singleService.getSingleDataset(id).subscribe({
+      next: (responseData) => {
         this.responseData = responseData;
         const dataset = this.responseData.datasets[0];
         if (dataset) {
@@ -256,8 +258,8 @@ export class SingleDatasetComponent implements OnInit {
           this.filterData();
         }
       },
-      (error) => (this.errorMessage = error as any)
-    );
+      error: (error) => (this.errorMessage = error as any),
+    });
   }
 
   filterData() {

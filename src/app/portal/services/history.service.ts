@@ -7,18 +7,20 @@
 
 // https://stackoverflow.com/questions/35527456/angular-window-resize-event
 
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd, Event } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
-export class HistoryService {
+export class HistoryService implements OnDestroy {
   history: string[] = [];
+  routeSub: Subscription;
 
   constructor(router: Router) {
-    router.events
+    this.routeSub = router.events
       .pipe(
         filter((e: Event): e is NavigationEnd => e instanceof NavigationEnd)
       )
@@ -27,5 +29,9 @@ export class HistoryService {
 
   pushToHistory(url: string) {
     this.history.push(url);
+  }
+
+  ngOnDestroy(): void {
+    this.routeSub?.unsubscribe();
   }
 }

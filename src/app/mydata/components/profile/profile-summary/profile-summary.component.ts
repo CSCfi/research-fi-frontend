@@ -5,7 +5,13 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewEncapsulation,
+} from '@angular/core';
 
 import { cloneDeep } from 'lodash-es';
 import { checkGroupSelected } from '@mydata/utils';
@@ -21,6 +27,7 @@ import { GroupTypes } from '@mydata/constants/groupTypes';
 import { CommonStrings } from '@mydata/constants/strings';
 import { DatasetsService } from '@mydata/services/datasets.service';
 import { FundingsService } from '@mydata/services/fundings.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile-summary',
@@ -28,7 +35,7 @@ import { FundingsService } from '@mydata/services/fundings.service';
   styleUrls: ['./profile-summary.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ProfileSummaryComponent implements OnInit {
+export class ProfileSummaryComponent implements OnInit, OnDestroy {
   @Input() profileData: any;
 
   fieldTypes = FieldTypes;
@@ -48,6 +55,8 @@ export class ProfileSummaryComponent implements OnInit {
 
   editString = CommonStrings.edit;
   selectString = CommonStrings.select;
+
+  removeGroupItemsSub: Subscription;
 
   constructor(
     private appSettingsService: AppSettingsService,
@@ -75,7 +84,7 @@ export class ProfileSummaryComponent implements OnInit {
   }
 
   handleChanges(result) {
-    this.closeDialog()
+    this.closeDialog();
 
     const confirmedPayLoad = this.patchService.confirmedPayLoad;
 
@@ -131,7 +140,7 @@ export class ProfileSummaryComponent implements OnInit {
                 group.service.clearDeletables();
             }
 
-            group.service
+            this.removeGroupItemsSub = group.service
               .removeItems(group.deletables)
               .pipe(take(1))
               .subscribe(() => {});
@@ -154,5 +163,9 @@ export class ProfileSummaryComponent implements OnInit {
         }
       }
     }
+  }
+
+  ngOnDestroy(): void {
+    this.removeGroupItemsSub?.unsubscribe();
   }
 }

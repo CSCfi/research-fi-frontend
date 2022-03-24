@@ -21,7 +21,7 @@ import {
 import { isPlatformBrowser } from '@angular/common';
 import { SearchService } from '@portal/services/search.service';
 import { SortService } from '@portal/services/sort.service';
-import { map, multicast, debounceTime, take, skip } from 'rxjs/operators';
+import { map, debounceTime, take, skip, connect } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TabChangeService } from '@portal/services/tab-change.service';
 import { FilterService } from '@portal/services/filters/filter.service';
@@ -107,6 +107,10 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   totalSub: Subscription;
   combinedRouteParams: Subscription;
   tabSub: Subscription;
+  focusSub: Subscription;
+  tabValuesSub: Subscription;
+  filtersSub: Subscription;
+  getVisualDataSub: Subscription;
 
   pageFallback = false;
 
@@ -154,9 +158,9 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   inputSub: Subscription;
   mobileStatusSub: Subscription;
 
-  showDialog: boolean
-  dialogTemplate: TemplateRef<any>
-  dialogTitle: string
+  showDialog: boolean;
+  dialogTemplate: TemplateRef<any>;
+  dialogTitle: string;
 
   constructor(
     private searchService: SearchService,
@@ -190,13 +194,13 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   openDialog(template: TemplateRef<any>) {
-    this.showDialog = true
-    this.dialogTemplate = template
-    this.dialogTitle = this.visualisationCategories[this.visIdx].title
+    this.showDialog = true;
+    this.dialogTemplate = template;
+    this.dialogTitle = this.visualisationCategories[this.visIdx].title;
   }
 
   closeDialog() {
-    this.showDialog = false
+    this.showDialog = false;
     this.percentage = false;
     this.fundingAmount = false;
     this.changeVisual({ value: '0' });
@@ -214,11 +218,17 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     ])
       .pipe(
         map((results) => ({ params: results[0], query: results[1] })),
-        multicast(new Subject(), (s) =>
-          merge(
-            s.pipe(take(1)), // First call is instant, after that debounce
-            s.pipe(skip(1), debounceTime(1))
-          )
+        // Take first values from route parameters.
+        // Skipping next value is to prevent nulling tab based parameters on tab change
+        connect(
+          (source) =>
+            merge(
+              source.pipe(take(1)), // First call is instant, after that debounce
+              source.pipe(skip(1), debounceTime(1))
+            ),
+          {
+            connector: () => new Subject(),
+          }
         )
       )
       .subscribe((results) => {
@@ -380,11 +390,13 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     });
     // Focus to skip-to results link when clicked from header skip-links
-    this.tabChangeService.currentFocusTarget.subscribe((target) => {
-      if (target === 'main-link') {
-        this.skipToResults.nativeElement.focus();
+    this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(
+      (target) => {
+        if (target === 'main-link') {
+          this.skipToResults.nativeElement.focus();
+        }
       }
-    });
+    );
     this.cdr.detectChanges();
   }
 
@@ -407,30 +419,30 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   getTabValues() {
-    this.searchService
+    this.tabValuesSub = this.searchService
       .getTabValues()
       .pipe(map((data) => [data]))
-      .subscribe(
-        (tabValues) => {
+      .subscribe({
+        next: (tabValues) => {
           this.tabValues = tabValues;
         },
-        (error) => (this.errorMessage = error as any)
-      );
+        error: (error) => (this.errorMessage = error as any),
+      });
   }
 
   getFilterData() {
     // Check for Angular Univeral SSR, get filter data if browser
     if (isPlatformBrowser(this.platformId)) {
-      this.searchService.getFilters().subscribe(
-        (filterValues) => {
+      this.filtersSub = this.searchService.getFilters().subscribe({
+        next: (filterValues) => {
           this.filterValues = filterValues;
           // Send response to data service
           this.dataService.changeResponse(this.filterValues);
           // Set the title
           this.updateTitle(this.selectedTabData);
         },
-        (error) => (this.errorMessage = error as any)
-      );
+        error: (error) => (this.errorMessage = error as any),
+      });
     }
   }
 
@@ -470,7 +482,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.visualLoading = true;
     // Check for Angular Univeral SSR, get filter data if browser
     if (isPlatformBrowser(this.platformId)) {
-      this.searchService
+      this.getVisualDataSub = this.searchService
         .getVisualData(+this.visIdx, this.fundingAmount)
         .subscribe((values) => {
           this.visualData = values;
@@ -485,16 +497,16 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.searchService
         .getQueryFilters()
         .pipe(map((data) => [data]))
-        .subscribe(
-          (filterValues) => {
+        .subscribe({
+          next: (filterValues) => {
             this.filterQueryValues = filterValues;
             // Send response to data service
             // this.dataService.changeResponse(this.filterValues);
             // Set the title
             this.updateTitle(this.selectedTabData);
           },
-          (error) => (this.errorMessage = error as any)
-        );
+          error: (error) => (this.errorMessage = error as any),
+        });
     }
   }
 
@@ -557,7 +569,12 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.combinedRouteParams?.unsubscribe();
       this.totalSub?.unsubscribe();
       this.tabSub?.unsubscribe();
+      this.focusSub?.unsubscribe();
       this.inputSub?.unsubscribe();
+      this.tabValuesSub?.unsubscribe();
+      this.filtersSub?.unsubscribe();
+      this.visualSub?.unsubscribe();
+      this.getVisualDataSub?.unsubscribe();
       this.mobileStatusSub?.unsubscribe();
     }
   }

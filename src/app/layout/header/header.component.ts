@@ -21,7 +21,7 @@ import {
 } from '@angular/core';
 import { DOCUMENT, PlatformLocation } from '@angular/common';
 import { ResizeService } from 'src/app/shared/services/resize.service';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, take } from 'rxjs';
 import { WINDOW } from 'src/app/shared/services/window.service';
 import { isPlatformBrowser } from '@angular/common';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
@@ -166,7 +166,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
 
         // Set tracking cookies according to consent parameter
-        this.route.queryParams.subscribe((params) => {
+        this.route.queryParams.pipe(take(1)).subscribe((params) => {
           this.params = params;
 
           // Set Matomo opt-out cookie if user has choosen to opt-out in another locale
@@ -227,7 +227,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
         // Login / logout link
         // Click functionality is handled in handleClick method
-        this.isAuthenticated.subscribe((authenticated) => {
+        this.isAuthenticated.pipe(take(1)).subscribe((authenticated) => {
           const isAuthenticated = authenticated.isAuthenticated;
 
           if (this.currentRoute.includes('/mydata')) {
@@ -249,8 +249,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
       // Get page data from API and set to localStorage. This data is used to generate content on certain pages
       if (!this.cmsContentService.pageDataLoaded) {
-        this.pageDataSub = this.cmsContentService
+        this.cmsContentService
           .getPages()
+          .pipe(take(1))
           .subscribe((data) => {
             this.cmsContentService.setPageData(data);
           });
@@ -330,6 +331,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.routeSub?.unsubscribe();
     this.newPageSub?.unsubscribe();
     this.consentStatusSub?.unsubscribe();
+    this.skipLinkSub?.unsubscribe();
   }
 
   focusStart() {
