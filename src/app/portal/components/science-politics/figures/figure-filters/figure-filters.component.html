@@ -9,9 +9,8 @@
   <div class="col px-0">
     <div class="row pb-2" *ngFor="let item of filters">
       <div class="col px-0" [class.narrow]="narrow">
-        <mat-chip-list class="mat-chip-list-stacked test" [selectable]="true">
+        <mat-chip-list class="mat-chip-list-stacked" [selectable]="true">
           <mat-chip
-            class="col-auto"
             [selected]="
               (!filter && item.filter === 'all') || filter === item.filter
             "
@@ -19,18 +18,18 @@
           >
             {{ item.label }}
           </mat-chip>
-          <div
-            *ngIf="item['info' + currentLocale]"
-            class="col-auto align-self-center info-button"
-          >
-            <app-figures-info
-              labelText="Lisätietoa"
-              i18n-labelText="@@additionalInfo"
-              [content]="item['info' + currentLocale]"
-              [position]="'nextTo'"
-            ></app-figures-info>
-          </div>
         </mat-chip-list>
+      </div>
+      <div
+        *ngIf="item['info' + currentLocale]"
+        class="col-auto px-0 align-self-center info-button"
+      >
+        <app-figures-info
+          labelText="Lisätietoa"
+          i18n-labelText="@@additionalInfo"
+          [content]="item['info' + currentLocale]"
+          [position]="'nextTo'"
+        ></app-figures-info>
       </div>
     </div>
   </div>

@@ -21,12 +21,12 @@
     >
     <app-breadcrumb [responseData]="result" [type]="'figure'"></app-breadcrumb>
     <div class="row" *ngFor="let item of result; trackBy: trackByFn">
-      <div class="col-12 px-lg-0 pb-2">
+      <div class="col-12 px-0 pb-2">
         <div class="row">
           <h1 class="px-0">{{ item['title' + currentLocale] }}</h1>
         </div>
       </div>
-      <div class="col-12 col-lg-10 px-lg-0 pb-2">
+      <div class="col-12 col-lg-10 px-0 pb-3">
         <div class="row d-flex justify-content-between">
           <div class="col-auto px-0">
             <a
@@ -75,21 +75,19 @@
           ></div>
           <div class="col col-lg-3 ps-0 ps-lg-4">
             <div class="row pb-3">
-              <div class="col align-self-center ps-0">
-                <div>
-                  <app-figures-info
-                    *ngIf="item['info' + currentLocale]"
-                    i18n-labelText="@@additionalInfo"
-                    labelText="Lisätietoa"
-                    [content]="item['info' + currentLocale]"
-                  ></app-figures-info>
-                  <a
-                    class="strong text-uppercase info-label"
-                    [class.ps-2]="item['info' + currentLocale]"
-                    i18n="@@additionalInfo"
-                    >Lisätietoa</a
-                  >
-                </div>
+              <div class="col align-self-center ps-0 info-button">
+                <app-figures-info
+                  *ngIf="item['info' + currentLocale]"
+                  i18n-labelText="@@additionalInfo"
+                  labelText="Lisätietoa"
+                  [content]="item['info' + currentLocale]"
+                ></app-figures-info>
+                <a
+                  class="strong text-uppercase info-label"
+                  [class.ps-2]="item['info' + currentLocale]"
+                  i18n="@@additionalInfo"
+                  >Lisätietoa</a
+                >
               </div>
             </div>
             <div class="row pb-3">
@@ -128,11 +126,17 @@
           </div>
         </div>
       </div>
+      <!-- Carousel -->
       <div class="carousel-wrapper px-0">
         <h2 class="pb-3" i18n="@@moreFiguresFrom">
           Lisää lukuja tieteestä ja tutkimuksesta
         </h2>
-        <app-figure-filters [filter]="queryParams.filter"></app-figure-filters>
+        <!-- Filters -->
+        <app-figure-filters
+          [filter]="queryParams.filter"
+          [narrow]="true"
+        ></app-figure-filters>
+
         <app-carousel
           [data]="flatData"
           [id]="currentItem"
