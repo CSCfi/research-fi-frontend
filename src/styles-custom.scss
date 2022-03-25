@@ -57,7 +57,6 @@ body {
   button:focus-visible,
   input:focus-visible,
   select:focus-visible,
-  mat-checkbox.cdk-keyboard-focused .mat-ripple,
   textarea:not(.mat-input-element):focus-visible,
   *:not(.bundler:not(.homepage)):not(.mat-expansion-panel-header):not(.mat-input-element):focus-visible {
     // High contrast focus indicator for keyboard users
