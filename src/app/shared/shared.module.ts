@@ -24,9 +24,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 
-import { SecondaryButtonComponent } from './components/secondary-button/secondary-button.component';
-import { PrimaryActionButtonComponent } from './components/primary-action-button/primary-action-button.component';
-import { CloseButtonComponent } from './components/close-button/close-button.component';
+import { SecondaryButtonComponent } from './components/buttons/secondary-button/secondary-button.component';
+import { PrimaryActionButtonComponent } from './components/buttons/primary-action-button/primary-action-button.component';
+import { CloseButtonComponent } from './components/buttons/close-button/close-button.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { DividerComponent } from './components/divider/divider.component';
 import { ButtonGroupComponent } from './components/button-group/button-group.component';

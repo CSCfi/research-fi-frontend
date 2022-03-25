@@ -67,6 +67,10 @@ body {
   }
 }
 
+body.modal-open .content-container {
+  overflow: hidden;
+}
+
 // Display primary colored border around Material UI elements
 mat-expansion-panel-header:focus-visible,
 mat-checkbox.cdk-keyboard-focused .mat-ripple-element {

@@ -105,16 +105,16 @@ Copyright 2019 Ministry of Education and Culture, Finland
         class="col-12 row d-flex justify-content-between"
         style="padding: 0"
       >
-        <aside class="col col-6 col-sm-6 filters">
+        <aside class="col col-6 col-sm-6 ps-0 filters">
           <app-filters
             [responseData]="filterValues"
             [tabData]="'funding-calls'"
           ></app-filters>
         </aside>
-        <aside class="col col-6 col-sm-6 sort">
+        <aside class="col col-6 col-sm-6 pe-0 sort">
           <app-sort></app-sort>
         </aside>
-        <main class="col-12" id="main-content">
+        <main class="col-12 px-0" id="main-content">
           <app-active-filters></app-active-filters>
           <app-funding-call-results
             [resultData]="resultData"
