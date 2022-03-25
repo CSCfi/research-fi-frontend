@@ -40,7 +40,7 @@
         </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row profile">
       <div class="col-12 col-md-6 px-0 align-self-end">
         <h2 class="h4 d-inline-block" i18n="@@publicProfile">
           Julkinen profiili
@@ -130,12 +130,6 @@
       </div>
     </div>
 
-    <!-- Divider -->
-    <app-banner-divider
-      heightInRem=".25"
-      class="opacity-3"
-    ></app-banner-divider>
-
     <!-- Groups -->
     <div class="row justify-content-between">
       <div class="col-12 col-lg-7 px-0">
@@ -151,6 +145,11 @@
       </div>
 
       <div class="col-12 col-lg-5 px-0 px-lg-3">
+        <app-primary-action-button
+          class="py-3 d-block"
+          content="Test notification"
+          (click)="testNotification()"
+        ></app-primary-action-button>
         <!-- DEBUGGING -->
         <ng-container *ngIf="appSettingsService.myDataSettings.debug">
           <div>

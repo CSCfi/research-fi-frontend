@@ -141,7 +141,6 @@ import { FiguresInfoComponent } from './components/science-politics/figures/figu
 import { DatasetsComponent } from './components/results/datasets/datasets.component';
 import { SingleDatasetComponent } from './components/single/single-dataset/single-dataset.component';
 import { ExternalLinksComponent } from './components/science-politics/external-links/external-links.component';
-import { BannerComponent } from './components/home-page/banner/banner.component';
 import { LatestNewsComponent } from './components/news/latest-news/latest-news.component';
 import { NewsResultsComponent } from './components/news/news-results/news-results.component';
 import { PieComponent } from './components/visualisation/pie/pie.component';
@@ -225,7 +224,6 @@ import { Subscription } from 'rxjs';
     DatasetsComponent,
     SingleDatasetComponent,
     ExternalLinksComponent,
-    BannerComponent,
     LatestNewsComponent,
     NewsResultsComponent,
     PieComponent,

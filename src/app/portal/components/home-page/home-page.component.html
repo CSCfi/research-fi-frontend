@@ -11,10 +11,6 @@
   <app-search-bar></app-search-bar>
 </aside>
 
-<aside class="d-xl-none">
-  <app-banner [locale]="localeId"></app-banner>
-</aside>
-
 <aside>
   <app-result-tab
     [homepageStyle]="basicStyle"
@@ -23,7 +19,7 @@
   ></app-result-tab>
 </aside>
 
-<main id="main-content" style="margin-top: 0">
+<main id="main-content pt-0">
   <div class="wrapper">
     <div class="row justify-content-center">
       <!-- First column -->
@@ -226,4 +222,3 @@
   i18n-title="@@leaveReviewHeader"
   (onActionClick)="toggleReview()"
 ></app-dialog>
-
