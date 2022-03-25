@@ -32,7 +32,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
       </h2>
     </div>
     <app-search
-      class="col-12 col-md-6 search pe-0"
+      class="col-12 col-md-6 search px-0 pe-lg-0"
       i18n-placeholder="@@searchFundingCallsPlaceHolder"
       placeholder="Hae rahoitushakuja..."
       (getSearchTerm)="searchFundingCalls($event)"
@@ -128,7 +128,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
 </div>
 
 <ng-template #desktop>
-  <aside class="col-4 col-xl-3 filters" *ngIf="!modalRef">
+  <aside class="col-4 col-xl-3 filters px-0" *ngIf="!modalRef">
     <app-filters
       [responseData]="filterValues"
       [tabData]="'funding-calls'"
