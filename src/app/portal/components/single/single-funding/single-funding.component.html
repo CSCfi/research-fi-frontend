@@ -161,19 +161,17 @@
                         else noEuFundingRecipients
                       "
                     >
-                      <!-- new implementation here -->
                       <div
                         *ngFor="
                           let person of item.recipient.euFundingRecipients
                         "
                       >
-                        <!--<p>PERSON {{person | json}}</p>-->
-                        <div
+                        <div *ngIf="person.personName?.trim().length > 0 && person?.personIsFunded"
                           class="row"
                           i18n-aria-label="@@fundingRecipient"
                           aria-label="Rahoituksen saaja"
                         >
-                          <div *ngIf="person.personName?.trim().length > 0" class="col-12 col-sm-4 col-lg-3 td">{{ person.personName }}
+                          <div  class="col-12 col-sm-4 col-lg-3 td">{{ person.personName }}
                             <app-orcid
                               *ngIf="person.orcid"
                               [orcid]="person.orcid"
