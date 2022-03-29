@@ -10,11 +10,13 @@
 @mixin app-notification-banner-theme($theme) {
   $primary: map-get($theme, primary);
 
-  .notification-wrapper {
-    background: #f8f8f8;
-  }
+  app-notification-banner {
+    .notification-wrapper {
+      background: #f8f8f8;
+    }
 
-  fa-icon {
-    color: #4162a8;
+    fa-icon {
+      color: #4162a8;
+    }
   }
 }

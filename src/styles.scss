@@ -63,9 +63,6 @@
 
 // Shared
 @import './app/shared/components/info/info.component-theme.scss';
-@import './app/shared/components/secondary-button/secondary-button.component.scss-theme.scss';
-@import './app/shared/components/primary-action-button/primary-action-button.component.scss-theme.scss';
-@import './app/shared/components/close-button/close-button.component.scss-theme.scss';
 @import './app/shared/components/divider/divider.component-theme.scss';
 @import './app/shared/components/button-group/button-group.component-theme.scss';
 @import './app/shared/components/select/select.component-theme.scss';
@@ -73,6 +70,7 @@
 @import './app/shared/components/banner-divider/banner-divider.component-theme.scss';
 @import './app/shared/components/review/review.component.scss-theme.scss';
 @import './app/shared/components/notification-banner/notification-banner.component-theme.scss';
+@import './app/shared/components/buttons/buttons-shared-theme.scss';
 
 // Mydata
 @import './app/mydata/mydata-shared.scss';
@@ -110,9 +108,6 @@
   @include app-science-politics-theme-shared($theme);
   @include app-figures-info-theme($theme);
   @include app-info-component-theme($theme);
-  @include app-secondary-button-theme($theme);
-  @include app-primary-action-button-theme($theme);
-  @include app-close-button-theme($theme);
   @include app-divider-theme($theme);
   @include app-button-group-theme($theme);
   @include app-select-theme($theme);
@@ -132,6 +127,7 @@
   @include app-primary-badge-theme($theme);
   @include app-banner-divider-theme($theme);
   @include app-notification-banner-theme($theme);
+  @include buttons-shared-theme($theme);
 }
 
 // Global style definitions

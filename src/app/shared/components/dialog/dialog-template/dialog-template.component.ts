@@ -7,6 +7,7 @@
 
 import {
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -36,7 +37,7 @@ export class DialogTemplateComponent
   displayExtraContent = false;
   dialogActions: any[];
   @ViewChild('closeButton') closeButton: ElementRef;
-  closeButtonWidth: number;
+  closeButtonWidth: number = 0;
   @Output() onActiveActionClick = new EventEmitter<any>();
   mobileStatusSub: Subscription;
 
@@ -56,7 +57,8 @@ export class DialogTemplateComponent
       extraHeaderTemplate: object;
     },
     private dialogRef: MatDialogRef<DialogTemplateComponent>,
-    private appSettingsService: AppSettingsService
+    private appSettingsService: AppSettingsService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -90,6 +92,7 @@ export class DialogTemplateComponent
     // Get close button width for helper div when using centered title
     if (this.closeButton) {
       this.closeButtonWidth = this.closeButton.nativeElement.offsetWidth;
+      this.cdr.detectChanges();
     }
   }
 
