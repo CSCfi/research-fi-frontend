@@ -155,6 +155,8 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   focusSub: Subscription;
   dataSub: Subscription;
 
+  hasFundedPerson = false;
+
   constructor(
     private route: ActivatedRoute,
     private singleService: SingleItemService,
@@ -287,6 +289,16 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     }
   }
 
+  private hasFundedPersons(fundingItem: any) {
+    if (fundingItem?.recipient?.euFundingRecipients) {
+      fundingItem.recipient.euFundingRecipients.forEach((entry) => {
+        if (entry.personIsFunded) {
+          this.hasFundedPerson = true;
+        }
+      });
+    }
+  }
+
   shapeData() {
     const source = this.responseData.fundings[0];
     const locale =
@@ -316,6 +328,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     this.relatedData = {
       organizations: relatedOrgs,
     };
+    this.hasFundedPersons(source);
   }
 
   shapeAmount(val) {
