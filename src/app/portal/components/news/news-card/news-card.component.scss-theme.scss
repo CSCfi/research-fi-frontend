@@ -8,16 +8,33 @@
 @mixin app-news-card-theme($theme) {
   $primary: map-get($theme, primary);
 
+  .tint-background {
+    background: mat-color($primary, 50);
+  }
+
+  .news-divider {
+    border-bottom: mat-color($primary) solid 2px;
+  }
+
+  .news-card-divider {
+    background: mat-color($primary, 50);
+    hr {
+      background: mat-color($primary) !important;
+      height: 1px;
+      margin: 0px 15px 15px 15px;
+    }
+  }
+
   app-news-card {
     mat-card {
+      margin-top: 15px;
+      padding: 10px;
       &.mat-card {
-        background-color: unset;
-        margin-bottom: 10px;
+        background-color: #fff;
       }
 
       &.mat-card.limit-width {
         max-width: 760px;
-        margin-top: 40px;
       }
 
       .mat-card-header-text {
@@ -25,7 +42,7 @@
       }
 
       .mat-card-title {
-        border-bottom: mat-color($primary) solid 2px;
+        //border-bottom: mat-color($primary) solid 2px;
       }
 
       mat-card-content {
@@ -35,6 +52,10 @@
       mat-card-actions {
         font-size: 14px;
         margin: 0 16px !important;
+      }
+
+      mat-card-subtitle {
+        margin-bottom: 0px;
       }
 
       .icon {
