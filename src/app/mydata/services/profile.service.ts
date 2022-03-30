@@ -119,4 +119,12 @@ export class ProfileService {
       this.httpOptions
     );
   }
+
+  accountlink() {
+    //this.updateTokenInHttpAuthHeader();
+    return this.http.get(
+      this.apiUrl + '/accountlink/',
+      this.httpOptions
+    );
+  }
 }

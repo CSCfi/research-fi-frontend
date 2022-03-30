@@ -66,6 +66,17 @@
                   [px0]="true"
                 >
                 </app-secondary-button>
+
+                  <button (click)="getOrcidLink()">Set link</button><br>
+
+                  <a href="{{orcidLink}}">Yhdistä ORCID</a><br>
+
+                  <button (click)="accountlink()">Link IDP</button><br>
+
+                  <button (click)="getNewAccessToken()">Get new access token</button><br>
+
+                  <button (click)="getOrcidData()">Get ORCID data</button>
+                
               </div>
             </div>
           </ng-container>
