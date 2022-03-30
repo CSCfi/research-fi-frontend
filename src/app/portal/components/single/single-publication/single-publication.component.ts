@@ -402,6 +402,8 @@ export class SinglePublicationComponent
     this.citeButton = btn;
   }
   idSub: Subscription;
+  citationsSub: Subscription;
+  dataSub: Subscription;
   juFoCode: any;
   expand: boolean;
   faQuoteRight = faQuoteRight;
@@ -466,6 +468,8 @@ export class SinglePublicationComponent
   ngOnDestroy() {
     this.idSub?.unsubscribe();
     this.focusSub?.unsubscribe();
+    this.citationsSub?.unsubscribe();
+    this.dataSub?.unsubscribe();
     this.settingsService.related = false;
   }
 
@@ -499,15 +503,17 @@ export class SinglePublicationComponent
         }),
         responseType: 'text',
       };
-      this.searchService.getFromUrl(url, options).subscribe((res) => {
-        this.citations[idx] = res;
-      });
+      this.citationsSub = this.searchService
+        .getFromUrl(url, options)
+        .subscribe((res) => {
+          this.citations[idx] = res;
+        });
     });
   }
 
   getData(id: string) {
-    this.singleService.getSinglePublication(id).subscribe(
-      (responseData) => {
+    this.dataSub = this.singleService.getSinglePublication(id).subscribe({
+      next: (responseData) => {
         this.responseData = responseData;
 
         // Reset authors & organizations on new result
@@ -542,8 +548,8 @@ export class SinglePublicationComponent
           this.checkDoi();
         }
       },
-      (error) => (this.errorMessage = error as any)
-    );
+      error: (error) => (this.errorMessage = error as any),
+    });
   }
 
   checkDoi() {

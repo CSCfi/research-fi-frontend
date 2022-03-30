@@ -17,12 +17,11 @@ import {
   AfterViewInit,
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { SearchService } from 'src/app/portal/services/search.service';
 import { Search } from 'src/app/portal/models/search.model';
-import { DataService } from 'src/app/portal/services/data.service';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 
 @Component({
@@ -49,14 +48,12 @@ export class PublicationsComponent implements OnInit, OnDestroy, AfterViewInit {
   heightSub: any;
 
   constructor(
-    private router: Router,
     private route: ActivatedRoute,
     private sortService: SortService,
     @Inject(DOCUMENT) private document: any,
     private tabChangeService: TabChangeService,
     private searchService: SearchService,
     private cdr: ChangeDetectorRef,
-    private dataService: DataService,
     public utilityService: UtilityService
   ) {
     this.documentLang = this.document.documentElement.lang;
@@ -67,7 +64,7 @@ export class PublicationsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.sortService.initSort(this.route.snapshot.queryParams.sort || '');
     this.sortColumn = this.sortService.sortColumn;
     this.sortDirection = this.sortService.sortDirection;
-    this.searchService.currentInput.subscribe((input) => {
+    this.inputSub = this.searchService.currentInput.subscribe((input) => {
       this.input = input;
       this.cdr.detectChanges();
     });
@@ -82,12 +79,6 @@ export class PublicationsComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       }
     );
-    // this.heightSub = this.dataService.currentActiveFilterHeight?.subscribe(height => {
-    //   if (height > 0) {
-    //     this.marginTop = height;
-    //     this.cdr.detectChanges();
-    //   }
-    // });
   }
 
   isReviewed(type: string) {
@@ -99,7 +90,7 @@ export class PublicationsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy() {
     this.tabChangeService.targetFocus('');
+    this.inputSub?.unsubscribe();
     this.focusSub?.unsubscribe();
-    this.heightSub?.unsubscribe();
   }
 }

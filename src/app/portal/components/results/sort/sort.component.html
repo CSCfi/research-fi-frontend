@@ -3,15 +3,24 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<div class="sort">
-  <mat-form-field class="sort-button">
-    <mat-select [(ngModel)]="sortBy" (ngModelChange)="orderBy()">
-      <mat-option value="reset" i18n="@@sortByRelevance"
-        >Osuvin tulos ensin</mat-option
-      >
-      <mat-option *ngFor="let row of tabFields" [value]="row.value">{{
-        row.label
-      }}</mat-option>
-    </mat-select>
-  </mat-form-field>
-</div>
+<app-secondary-button
+  [content]="currentSort.label ? currentSort.label : sortByRelevance.label"
+  [big]="true"
+  [matMenuTriggerFor]="menu"
+  [icon]="faChevronDown"
+  [iconAfter]="true"
+>
+</app-secondary-button>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="orderBy(sortByRelevance)">
+    {{ sortByRelevance.label }}
+  </button>
+  <button
+    mat-menu-item
+    *ngFor="let option of tabFields"
+    (click)="orderBy(option)"
+  >
+    {{ option.label }}
+  </button>
+</mat-menu>

@@ -6,6 +6,7 @@ import {
   OnChanges,
   OnInit,
   Output,
+  ViewEncapsulation,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppSettingsService } from '@shared/services/app-settings.service';
@@ -14,6 +15,7 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
   selector: 'app-figure-filters',
   templateUrl: './figure-filters.component.html',
   styleUrls: ['./figure-filters.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class FigureFiltersComponent implements OnInit, OnChanges {
   @Output() clicked = new EventEmitter<boolean>();

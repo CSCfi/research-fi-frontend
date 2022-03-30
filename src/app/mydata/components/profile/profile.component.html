@@ -17,7 +17,7 @@
           </h1>
           <div class="col align-self-center px-0">
             <img
-              class="orcid-icon mt-n1 pr-2"
+              class="orcid-icon mt-n1 pe-2"
               src="assets/img/orcid_icon.svg"
               alt="Orcid -palvelun logo"
             />
@@ -31,7 +31,7 @@
           <div class="col-auto profile-image-container opacity-3">
             <i class="fas fa-user text-center d-block h1"></i>
           </div>
-          <a disabled class="disabled"
+          <a disabled class="col-auto px-0 disabled"
             >+
             <ng-container i18n="@@addPublicProfilePicture"
               >Lisää Julkinen profiilikuva</ng-container
@@ -40,13 +40,13 @@
         </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row profile">
       <div class="col-12 col-md-6 px-0 align-self-end">
         <h2 class="h4 d-inline-block" i18n="@@publicProfile">
           Julkinen profiili
         </h2>
         <span
-          class="d-inline-block pl-0 pl-lg-3 h6 font-italic"
+          class="d-inline-block ps-0 ps-lg-3 h6 fst-italic"
           *ngIf="
             (publicationsService.currentPublicationPayload | async).length ||
             (datasetsService.currentDatasetPayload | async).length ||
@@ -82,7 +82,7 @@
       </ng-template>
 
       <div
-        class="col px-0 py-2 text-right"
+        class="col px-0 py-2 text-end"
         *ngIf="
           (publicationsService.currentPublicationPayload | async).length ||
           (datasetsService.currentDatasetPayload | async).length ||
@@ -109,7 +109,7 @@
         <button
           mat-button
           color="primary"
-          class="col-auto pr-lg-0"
+          class="col-auto pe-lg-0"
           (click)="
             openDialog({
               title: discardChanges,
@@ -130,12 +130,6 @@
       </div>
     </div>
 
-    <!-- Divider -->
-    <app-banner-divider
-      heightInRem=".25"
-      class="opacity-3"
-    ></app-banner-divider>
-
     <!-- Groups -->
     <div class="row justify-content-between">
       <div class="col-12 col-lg-7 px-0">
@@ -151,6 +145,11 @@
       </div>
 
       <div class="col-12 col-lg-5 px-0 px-lg-3">
+        <app-primary-action-button
+          class="py-3 d-block"
+          content="Test notification"
+          (click)="testNotification()"
+        ></app-primary-action-button>
         <!-- DEBUGGING -->
         <ng-container *ngIf="appSettingsService.myDataSettings.debug">
           <div>
@@ -226,7 +225,7 @@
               </div>
               <div class="col align-self-center">
                 <span
-                  class="d-block align-self-center text-left"
+                  class="d-block align-self-center text-start"
                   i18n="@@openTermsOfUse"
                   >Avaa käyttöehdot</span
                 >
@@ -252,7 +251,7 @@
               </div>
               <div class="col align-self-center">
                 <span
-                  class="d-block align-self-center text-left"
+                  class="d-block align-self-center text-start"
                   i18n="@@openPersonalDataProcessingPrinciples"
                   >Avaa henkilötietojen käsittelyperiaatteet</span
                 >
@@ -280,7 +279,7 @@
 
         <!-- Delete profile -->
         <div class="row">
-          <div class="col px-0 text-center text-md-left">
+          <div class="col px-0 text-center text-md-start">
             <app-primary-action-button
               class="d-block pt-5 pb-4"
               (click)="

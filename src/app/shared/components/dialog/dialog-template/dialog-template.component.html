@@ -13,11 +13,11 @@
   ></div>
   <!-- Title -->
   <div class="col-8 col-sm-auto">
-    <h2 class="dialog-title h5 d-inline-block pr-2">
+    <h2 class="dialog-title h5 d-inline-block pe-2">
       <fa-icon
         *ngIf="data.icon"
         [icon]="data.icon"
-        class="primary-color pr-3"
+        class="primary-color pe-3"
       ></fa-icon
       >{{ data.title }}
     </h2>
@@ -32,7 +32,7 @@
   ></ng-container>
   <!-- Close button -->
   <div
-    class="col-auto text-right mt-1 mt-sm-0 align-self-sm-center order-2 order-sm-3"
+    class="col-auto text-end mt-1 mt-sm-0 align-self-sm-center order-2 order-sm-3"
     #closeButton
   >
     <app-close-button
@@ -65,6 +65,7 @@
 
 <!-- Actions -->
 <mat-dialog-actions
+  class="row"
   *ngIf="dialogActions?.length"
   [class.justify-content-center]="mobile && dialogActions.length === 1"
 >

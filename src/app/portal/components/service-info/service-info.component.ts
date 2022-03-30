@@ -19,6 +19,7 @@ import { UtilityService } from 'src/app/shared/services/utility.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { ActivatedRoute } from '@angular/router';
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-service-info',
@@ -31,7 +32,7 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('mainFocus') mainFocus: ElementRef;
   @ViewChild('reviewDialog') reviewDialog: TemplateRef<any>;
-  focusSub: any;
+  focusSub: Subscription;
   title: string;
   openedIdx: any;
   currentLocale: string;
@@ -45,7 +46,6 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
     { header: $localize`:@@serviceInfoHeader:Tietoa palvelusta`, items: [] },
     { header: $localize`:@@faq:Usein kysytyt kysymykset`, items: [] },
   ];
-
 
   constructor(
     @Inject(LOCALE_ID) protected localeId: string,
@@ -130,7 +130,7 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   toggleReview() {
-    this.showDialog = !this.showDialog
+    this.showDialog = !this.showDialog;
   }
 
   open(id: string) {
@@ -151,5 +151,6 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
     // Reset skip to input - skip-link
     this.tabChangeService.toggleSkipToInput(true);
     this.tabChangeService.targetFocus('');
+    this.focusSub?.unsubscribe();
   }
 }

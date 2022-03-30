@@ -522,6 +522,10 @@
           <context context-type="linenumber">354</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="citeDialogFooterText">
+        <source>Automaattisesti luotujen viitteiden tiedoissa voi esiintyä virheitä. Tarkista aina viitteen tiedot.</source>
+        <target>Errors may occur in automatically generated references. Always check the reference details.</target>
+      </trans-unit>
       <trans-unit id="publicationName" datatype="html">
         <source>Julkaisun nimi</source>
         <target>Publication name</target>

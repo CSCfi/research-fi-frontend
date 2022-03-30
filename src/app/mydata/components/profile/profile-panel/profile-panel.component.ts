@@ -44,7 +44,7 @@ import { FundingsService } from '@mydata/services/fundings.service';
 export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() primarySource: string;
   @Input() data: any;
-  @Output() onSingleItemToggle = new EventEmitter<any>()
+  @Output() onSingleItemToggle = new EventEmitter<any>();
 
   allSelected: boolean;
 
@@ -187,7 +187,7 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   ) {
     item.itemMeta.show = event.checked;
 
-    this.onSingleItemToggle.emit()
+    this.onSingleItemToggle.emit();
 
     this.patchService.addToPayload({
       ...item.itemMeta,
@@ -324,7 +324,7 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
       // Add selected items into profile data and patch payload
       handlePortalItems(this.currentGroupId, result);
 
-      this.onSingleItemToggle.emit()
+      this.onSingleItemToggle.emit();
 
       this.updated = new Date();
 

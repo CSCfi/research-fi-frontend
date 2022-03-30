@@ -11,7 +11,7 @@
     >
       <i class="fas fa-exclamation-triangle font-size-bigger"></i>
     </div>
-    <div class="col-3 col-md-2 text-right" *ngIf="showCloseButton">
+    <div class="col-3 col-md-2 text-end" *ngIf="showCloseButton">
       <button mat-button (click)="toggle()">
         <ng-container *ngIf="open">
           <i class="fas fa-times mt-n1"></i>
@@ -23,7 +23,7 @@
       </button>
     </div>
     <div class="col-12 text-center">
-      <span class="h5 font-weight-bold"
+      <span class="h5 fw-bold"
         ><ng-container i18n="@@note">Huomio</ng-container>!</span
       >
     </div>
@@ -34,7 +34,7 @@
       Tämä on Tutkijan tiedot -työkalun betaversio. Testikäyttäjien palautetta
       hyödynnetään palvelun toiminnallisuuksien kehittämisessä.
     </p>
-    <p class="font-weight-bold" i18n="@@researcherProfileBetaText2">
+    <p class="fw-bold" i18n="@@researcherProfileBetaText2">
       Testauksessa syöttämiäsi tietoja ei julkaista Tiedejatutkimus.fi:ssä.
     </p>
     <p>

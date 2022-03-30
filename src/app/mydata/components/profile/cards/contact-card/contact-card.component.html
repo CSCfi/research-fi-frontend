@@ -30,7 +30,7 @@
         >
           <div class="col px-0">
             <span
-              class="font-weight-bold d-inline-block pr-3"
+              class="fw-bold d-inline-block pe-3"
               *ngIf="data[0].fields.length > 1"
               >{{ field.label }}
             </span>
@@ -46,7 +46,7 @@
               <fa-icon
                 *ngIf="item.icon"
                 [icon]="item.icon"
-                class="pr-3"
+                class="pe-3"
               ></fa-icon>
               <ng-container [ngSwitch]="groupItem.groupMeta.type">
                 <!-- Links -->

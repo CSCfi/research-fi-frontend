@@ -13,7 +13,7 @@
   >
 </ng-template>
 
-<div class="full-width">
+<ng-template #bannerTemplate>
   <div class="row d-flex justify-content-center">
     <div class="col-auto p-4">
       <h1 class="m-0 text-white" i18n="@@researchersProfile">
@@ -28,7 +28,10 @@
       </p>
     </div>
   </div>
-</div>
+</ng-template>
+
+<app-banner-divider [template]="bannerTemplate"></app-banner-divider>
+
 <main id="main-content" class="col col-lg-3 mx-auto">
   <div class="row pt-4 pb-4 d-lg-none">
     <div class="col text-center">
@@ -38,7 +41,7 @@
 
   <div class="row d-flex justify-content-center py-0 pb-3 py-md-3">
     <div class="col-12 text-center">
-      <span class="font-weight-bold" i18n="@@homeNewUser">Uusi käyttäjä?</span>
+      <span class="fw-bold" i18n="@@homeNewUser">Uusi käyttäjä?</span>
       <span i18n="@@startHere"> Aloita tästä:</span>
     </div>
 
@@ -60,7 +63,7 @@
 
   <div class="row d-flex justify-content-center py-md-3">
     <div class="col-12 text-center">
-      <span class="pr-2" i18n="@@haveYouCreatedProfile">
+      <span class="pe-2" i18n="@@haveYouCreatedProfile">
         Oletko jo luonut profiilin tähän palveluun?
       </span>
     </div>

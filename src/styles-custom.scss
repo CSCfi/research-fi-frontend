@@ -57,7 +57,6 @@ body {
   button:focus-visible,
   input:focus-visible,
   select:focus-visible,
-  mat-checkbox.cdk-keyboard-focused .mat-ripple,
   textarea:not(.mat-input-element):focus-visible,
   *:not(.bundler:not(.homepage)):not(.mat-expansion-panel-header):not(.mat-input-element):focus-visible {
     // High contrast focus indicator for keyboard users
@@ -66,6 +65,10 @@ body {
       0 0 3px 5px white !important;
     z-index: 100; // If no margin between next focusable element, high number because of target serach button
   }
+}
+
+body.modal-open .content-container {
+  overflow: hidden;
 }
 
 // Display primary colored border around Material UI elements
@@ -171,6 +174,7 @@ a {
   color: #3366cc;
   font-weight: 400;
   cursor: pointer;
+  text-decoration: none;
 }
 
 a:hover {
@@ -283,7 +287,7 @@ mark,
 }
 
 #main-content {
-  margin-top: 1.5rem;
+  padding-top: 2.5rem;
 }
 
 .main-loader {
@@ -293,6 +297,7 @@ mark,
 .row {
   margin-right: 0px !important;
   margin-left: 0px !important;
+  --bs-gutter-x: 2rem;
 }
 
 .container-fluid {
@@ -323,12 +328,6 @@ mark,
 // Icons
 fa-icon[icon='external-link-alt'] {
   padding-left: 5px;
-}
-
-// Columns
-.col {
-  padding-left: 1rem;
-  padding-right: 1rem;
 }
 
 // Forms
@@ -404,18 +403,6 @@ body mat-card.mat-card {
 .tooltip > div {
   animation-name: delayedFadeIn;
   animation-duration: 0.1s; /* Adjust this duration */
-}
-
-@keyframes delayedFadeIn {
-  0% {
-    opacity: 0;
-  }
-  99% {
-    opacity: 0;
-  } /* Set this to 99% for no fade-in. */
-  100% {
-    opacity: 1;
-  }
 }
 
 // Tags
@@ -510,6 +497,10 @@ mat-basic-chip.tag {
   width: unset;
   height: unset;
   position: static;
+}
+
+.responsive-dialog.hidden {
+  display: none;
 }
 
 // Custom Mat Tab

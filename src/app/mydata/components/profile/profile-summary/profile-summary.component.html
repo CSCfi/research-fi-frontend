@@ -14,12 +14,12 @@
   >
     <div class="row py-2 justify-content-between">
       <h3
-        class="col-6 col-lg-4 align-self-center font-weight-bold order-1 font-size-normal"
+        class="col-6 col-lg-4 align-self-center fw-bold order-1 font-size-normal"
       >
         {{ group.label }}
       </h3>
       <div
-        class="col align-self-center font-italic order-3 order-sm-2"
+        class="col align-self-center fst-italic order-3 order-sm-2"
         i18n="@@youHaveNotSelectedAnyPublicData"
         *ngIf="
           (group.fields | countGroupItems: { filterSelected: true }).length ===
@@ -83,10 +83,7 @@
           </app-summary-portal-items>
 
           <div class="summary-panel-wrapper" *ngSwitchDefault>
-            <div
-              class="col font-weight-bold py-2"
-              *ngIf="group.fields.length > 1"
-            >
+            <div class="col fw-bold py-2" *ngIf="group.fields.length > 1">
               {{ field.label }}
             </div>
 

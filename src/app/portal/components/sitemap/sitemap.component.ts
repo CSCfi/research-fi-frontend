@@ -12,6 +12,7 @@ import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sitemap',
@@ -20,7 +21,7 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
 })
 export class SitemapComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('mainFocus') mainFocus: ElementRef;
-  focusSub: any;
+  focusSub: Subscription;
   currentLocale: string;
 
   private metaTags = MetaTags.sitemap;
@@ -78,5 +79,6 @@ export class SitemapComponent implements OnInit, AfterViewInit, OnDestroy {
     // Reset skip to input - skip-link
     this.tabChangeService.toggleSkipToInput(true);
     this.tabChangeService.targetFocus('');
+    this.focusSub?.unsubscribe();
   }
 }

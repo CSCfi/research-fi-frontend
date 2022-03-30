@@ -9,6 +9,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnDestroy,
   OnInit,
   Output,
   TemplateRef,
@@ -19,6 +20,7 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { Icon } from '@fortawesome/fontawesome-svg-core';
+import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { DialogTemplateComponent } from './dialog-template/dialog-template.component';
 
@@ -26,7 +28,7 @@ import { DialogTemplateComponent } from './dialog-template/dialog-template.compo
   selector: 'app-dialog',
   templateUrl: './dialog.component.html',
 })
-export class DialogComponent implements OnInit {
+export class DialogComponent implements OnInit, OnDestroy {
   @Input() title: string;
   @Input() template: any;
   @Input() footerTemplate: any;
@@ -46,6 +48,8 @@ export class DialogComponent implements OnInit {
   @Output() onActionClick = new EventEmitter<any>();
 
   dialogRef: MatDialogRef<DialogTemplateComponent>;
+
+  dialogResultSub: Subscription;
 
   constructor(public dialog: MatDialog) {}
 
@@ -97,18 +101,31 @@ export class DialogComponent implements OnInit {
         noPadding: checkInput(this.noPadding),
         wide: checkInput(this.wide),
         headerInfoTemplate: this.headerInfoTemplate,
-        extraHeaderTemplate: this.extraHeaderTemplate
+        extraHeaderTemplate: this.extraHeaderTemplate,
       },
       panelClass: ['responsive-dialog', this.extraClass],
       disableClose: this.disableClose ? true : false,
       position: this.position ? this.handlePosition() : null,
     });
 
-    this.dialogRef
+    // Only display uppermost dialog
+    const handleDialogVisibility = () => {
+      const openDialogs = this.dialog.openDialogs;
+      const parentDialog = openDialogs[openDialogs.length - 2];
+
+      parentDialog
+        ? parentDialog.addPanelClass('hidden')
+        : openDialogs[openDialogs.length - 1]?.removePanelClass('hidden');
+    };
+
+    handleDialogVisibility();
+
+    this.dialogResultSub = this.dialogRef
       .afterClosed()
       .pipe(take(1))
       .subscribe((result) => {
         this.onActionClick.emit(result?.method);
+        handleDialogVisibility();
       });
   }
 
@@ -122,5 +139,9 @@ export class DialogComponent implements OnInit {
     }
 
     return result;
+  }
+
+  ngOnDestroy(): void {
+    this.dialogResultSub?.unsubscribe();
   }
 }

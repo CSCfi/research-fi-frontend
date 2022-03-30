@@ -5,12 +5,22 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, EventEmitter, Inject, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { take } from 'rxjs/operators';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { SearchPortalService } from '@mydata/services/search-portal.service';
 import { GroupTypes } from '@mydata/constants/groupTypes';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-search-portal',
@@ -18,12 +28,12 @@ import { GroupTypes } from '@mydata/constants/groupTypes';
   styleUrls: ['./search-portal.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class SearchPortalComponent implements OnInit {
-  @Input() data: any
+export class SearchPortalComponent implements OnInit, OnDestroy {
+  @Input() data: any;
   @Output() onEditorClose = new EventEmitter<any>();
 
   showDialog: boolean;
-  
+
   results: any;
   total: number;
   loading: boolean;
@@ -49,6 +59,8 @@ export class SearchPortalComponent implements OnInit {
   searchHelpText: string;
   searchPlaceholder: string;
 
+  searchSub: Subscription;
+
   searchForMissingPublication = $localize`:@@searchForMissingPublication:Puuttuvan julkaisun hakeminen`;
   searchForMissingDataset = $localize`:@@searchForMissingDataset:Puuttuvan tutkimusaineiston hakeminen`;
   searchForMissingFunding = $localize`:@@searchForMissingFunding:Puuttuvan hankkeen hakeminen`;
@@ -64,8 +76,7 @@ export class SearchPortalComponent implements OnInit {
   constructor(
     // private dialogRef: MatDialogRef<SearchPortalComponent>,
     private searchPortalService: SearchPortalService,
-    private appSettingsService: AppSettingsService,
-    // @Inject(MAT_DIALOG_DATA) public data: any
+    private appSettingsService: AppSettingsService // @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
   ngOnInit(): void {
@@ -114,7 +125,7 @@ export class SearchPortalComponent implements OnInit {
     this.results = [];
     this.loading = true;
 
-    this.searchPortalService
+    this.searchSub = this.searchPortalService
       .getData(term, this.data.groupId)
       .pipe(take(1))
       .subscribe((result) => {
@@ -128,7 +139,6 @@ export class SearchPortalComponent implements OnInit {
     this.currentSelection = arr;
 
     if (this.total > 0 && arr.length > 0) {
-      
     }
   }
 
@@ -142,13 +152,9 @@ export class SearchPortalComponent implements OnInit {
     this.search(this.currentTerm);
   }
 
-  close() {
-    // this.dialogRef.close();
-  }
-
   doDialogAction(action: string) {
-    switch(action) {
-      case "save": {
+    switch (action) {
+      case 'save': {
         let fieldType: number;
 
         switch (this.data.groupId) {
@@ -176,15 +182,18 @@ export class SearchPortalComponent implements OnInit {
           },
         }));
 
-        this.onEditorClose.emit(selection)
+        this.onEditorClose.emit(selection);
         break;
       }
-      case "cancel": {
-        this.showDialog = false
-        break;
+      default: {
+        this.onEditorClose.emit();
       }
     }
 
-    this.showDialog = false
+    this.showDialog = false;
+  }
+
+  ngOnDestroy(): void {
+    this.searchSub?.unsubscribe();
   }
 }
