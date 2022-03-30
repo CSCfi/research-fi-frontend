@@ -238,7 +238,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
           finnishOrganization: testFinnishBusinessId(
             person.consortiumOrganizationBusinessId
           ),
-          personIsFunded: person?.fundedPerson === 1 || person?.roleInFundingGroup === 'leader' || person?.roleInFundingGroup?.labelEn?.toLowerCase() === 'leader',
+          personIsFunded: person?.fundedPerson === 1,
           organizationId: person.consortiumOrganizationId,
           projectId: person.projectId,
           shareOfFundingInEur: person.shareOfFundingInEur,
