@@ -6,11 +6,10 @@
 # :license: MIT -->
 
 <div class="row d-flex justify-content-between">
-  <div class="col-12 col-lg-8 col px-0" [class.p-0]="mobile">
+  <div class="col-12 col-md-12 col-lg-7 col-xl-6 col px-0 p-0" [class.p-0]="mobile">
     <main>
-      <div *ngIf="visible" class="row content pe-lg-3">
-        <app-news-card
-          class="px-0"
+      <div *ngIf="visible" class="row content">
+        <app-news-card class="latest-news-page px-0"
           #cards
           *ngFor="let item of data"
           [item]="item"
@@ -31,7 +30,7 @@
 </div>
 
 <div class="row" *ngIf="!loading">
-  <div class="col p-1">
+  <div class="col p-4">
     <app-secondary-button
       i18n-content="@@loadMoreNews"
       content="Lataa lisää uutisia"

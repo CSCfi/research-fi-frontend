@@ -6,6 +6,36 @@
 //  :license: MIT
 
 app-news-card {
+  .news-card-divider {
+    margin-bottom: 30px;
+    background: transparent;
+  }
+
+  &.organizations-page {
+    .news-card-divider {
+      margin-top: -10px;
+      margin-bottom: 15px;
+    }
+    .news-img {
+      display: none;
+    }
+  }
+  &.latest-news-page {
+    .news-card-divider {
+      margin-bottom: 0px;
+    }
+  }
+
+  margin-bottom: -15px;
+  &.static-height-version {
+    mat-card {
+      min-height: 162px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  }
+
   h2 {
     font-size: 20px;
   }
@@ -27,23 +57,85 @@ app-news-card {
     text-decoration: underline;
   }
 
-  img {
-    max-width: 100%;
-    max-height: 80px;
+  .news-img  {
+    width: 100%;
+    max-width: 100px;
+    max-height: 100px;
+    padding: 15px;
+    margin-top: 8px;
+  }
+
+  .date-line {
+    display: flex;
+    font-size: 0.95rem;
+    color: #000000c7;
+
+  &.accented-line {
+    //margin-left: -15px;
+
+    .inline-date {
+      display: inline-flex;
+      margin-left: 10px;
+      font-weight: bold;
+    }
+
+    &:before {
+      width: 8px;
+      height: 22px;
+      background: #4546b9;
+      content: "";
+      display: inline-flex;
+      position: relative;
+      margin-right: 15px;
+    }
+  }
+}
+
+  .author-line {
+    font-size: 0.9rem;
   }
 
   .mat-card-header-text {
     margin: 0 !important;
   }
 
-  mat-card-content .preview {
-    // IE
-    display: block;
-    line-height: 1.5em;
-
-    p {
-      margin-bottom: 0;
+  .mat-card-header .mat-card-title {
+    margin-bottom: 8px;
+    &.high-header {
+      min-height: 55px;
     }
+  }
+
+  .mat-card-header-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .mat-card-subtitle {
+    margin-bottom: 12px;
+  }
+
+  mat-card-content {
+    &.low-content {
+      //height: 3rem;
+    }
+    &.preview {
+      // IE
+      display: block;
+      line-height: 1.5em;
+
+      p {
+        margin-bottom: 0;
+      }
+    }
+    p:last-child {
+      margin-bottom: 0.25rem;
+    }
+  }
+
+  .mat-card-footer {
+    margin: -22px -15px;
   }
 
   // Side news
@@ -52,16 +144,19 @@ app-news-card {
       font-size: 1rem;
     }
 
-    padding: 0 !important;
-
     .icon {
       display: inline-block;
     }
   }
 
-  @media (max-width: 991px) {
+  @media screen and(max-width: 991px) {
     .mat-card-header-text {
       margin: 0 !important;
+    }
+  }
+  @media screen and(max-width: 515px) {
+    .news-img {
+      padding: 0px;
     }
   }
 }
