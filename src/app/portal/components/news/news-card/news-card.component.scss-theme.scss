@@ -20,8 +20,9 @@
     background: mat-color($primary, 50);
     hr {
       background: mat-color($primary) !important;
-      height: 1px;
+      height: 2px;
       margin: 0px 15px 15px 15px;
+      opacity: 1;
     }
   }
 
