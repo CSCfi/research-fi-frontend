@@ -84,7 +84,7 @@
           <!-- Smaller version -->
           <div class="col-12 col side-news p-0 d-xl-none">
             <app-news-card
-              *ngFor="let item of news?.slice(0, 6)"
+              *ngFor="let item of news?.slice(0, 5)"
               [item]="item"
               [dense]="true"
               [isHomepage]="true"
@@ -94,7 +94,7 @@
           <!-- XL version -->
           <div class="col-12 col side-news p-0 d-none d-xl-block">
             <app-news-card
-              *ngFor="let item of news?.slice(0, 8)"
+              *ngFor="let item of news?.slice(0, 5)"
               [item]="item"
               [dense]="true"
               [isHomepage]="true"
@@ -118,7 +118,7 @@
           <!-- XL version -->
           <div class="col-12 col side-news p-0">
             <app-news-card
-              *ngFor="let item of resultData?.fundingCalls.slice(0, 8)"
+              *ngFor="let item of resultData?.fundingCalls.slice(0, 6)"
               [fundingCall]="item"
               [itemTypeFundingCalls]="true"
               [dense]="true"

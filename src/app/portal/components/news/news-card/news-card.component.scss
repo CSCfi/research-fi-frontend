@@ -106,6 +106,14 @@ app-news-card {
     }
   }
 
+  .funding-call-news {
+    .mat-card-header .mat-card-title {
+      &.high-header {
+        min-height: 55px;
+      }
+    }
+  }
+
   .mat-card-header-text {
     display: flex;
     flex-direction: column;
