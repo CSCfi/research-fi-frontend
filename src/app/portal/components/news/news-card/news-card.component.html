@@ -64,7 +64,7 @@
       <!-- <div class="col pl-0" [ngClass]="item.mediaUri?.length > 0 ? 'link' : ''">
                 <a class="org-link" href="{{item.url}}" target="_blank" aria-label="Lue koko uutinen organisaation verkkosivuilla"><ng-container i18n="@@readOriginialNews">Lue koko uutinen organisaation verkkosivuilla </ng-container><fa-icon icon="external-link-alt"></fa-icon></a>
             </div> -->
-      <div *ngIf="item.mediaUri?.length > 0" class="col pe-0 text-right">
+      <div *ngIf="item.mediaUri?.length > 0" class="col pe-0 text-end">
         <!-- <img [src]="item.mediaUri | safeUrl"> -->
       </div>
     </div>
@@ -75,7 +75,7 @@
     <div *ngIf="!itemTypeFundingCalls" class="row">
       <div class="col-9 pb-3 no-gutters"><span class="col pt-4 pb-1 date-line">{{ item.timestamp | date: 'dd.MM.yyyy' }}</span>
         <span *ngIf="item.author" class="col-2">{{ item.author }}</span>
-        <span *ngIf="item.mediaUri?.length > 0" class="col-2 pe-0 text-right"></span>
+        <span *ngIf="item.mediaUri?.length > 0" class="col-2 pe-0 text-end"></span>
         <span class="author-line mb-3" [innerHTML]="item?.organizationNameFi?.trim() | highlight: term"
         ></span>
       </div>
