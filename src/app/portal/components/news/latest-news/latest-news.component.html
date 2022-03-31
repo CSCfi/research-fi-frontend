@@ -8,8 +8,8 @@
 <div class="row d-flex justify-content-between">
   <div class="col-12 col-md-12 col-lg-7 col-xl-6 col px-0 p-0" [class.p-0]="mobile">
     <main>
-      <div *ngIf="visible" class="row content px-lg-3">
-        <app-news-card class="latest-news-page"
+      <div *ngIf="visible" class="row content">
+        <app-news-card class="latest-news-page px-0"
           #cards
           *ngFor="let item of data"
           [item]="item"

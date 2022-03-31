@@ -5,7 +5,7 @@
 
 <div class="row pt-3" *ngIf="data">
   <!-- Filters -->
-  <div class="col-12 col-lg-3 px-0 pb-3 pb-lg-0">
+  <div class="col-12 col-lg-3 px-3 pb-3 pb-lg-0">
     <aside>
       <!-- results/filters -->
       <app-filters
@@ -17,7 +17,7 @@
   <div class="col-12 col-xl-6 col-lg-7 col" [class.p-0]="mobile">
 
     <!-- Search -->
-    <div class="col-lg-12 px-0 pt-1 pb-4">
+    <div class="col-lg-12 px-3 pt-1 pb-4">
       <app-search
         i18n-placeholder="@@searchNewsPlaceHolder"
         placeholder="Hae uutisista..."
@@ -43,7 +43,7 @@
       </div>
     </div>
 
-    <div *ngIf="!loading" class="pb-2 fst-italic h5 fw-normal">
+    <div *ngIf="!loading" class="px-3 pb-2 fst-italic h5 fw-normal">
       {{ data[0]?.total | thousandSeparator }}
       <span
         *ngIf="data[0]?.total === 1; else resultsLabel"
