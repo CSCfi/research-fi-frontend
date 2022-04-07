@@ -120,8 +120,13 @@ export class ProfileService {
     );
   }
 
+  /*
+   * Trigger ORCID attribute handling in Keycloak.
+   * Keycloak will add attribute 'orcid' into user's
+   * access and id tokens.
+   */
   accountlink() {
-    //this.updateTokenInHttpAuthHeader();
+    this.updateTokenInHttpAuthHeader();
     return this.http.get(
       this.apiUrl + '/accountlink/',
       this.httpOptions
