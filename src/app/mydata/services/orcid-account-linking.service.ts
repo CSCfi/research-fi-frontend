@@ -7,7 +7,6 @@
 
 import { Injectable, Inject } from '@angular/core';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { WINDOW } from '@shared/services/window.service';
 
 @Injectable({
   providedIn: 'root',
@@ -21,8 +20,7 @@ export class OrcidAccoungLinkingService {
   orcidLink: string;
 
   constructor(
-    public oidcSecurityService: OidcSecurityService,
-    @Inject(WINDOW) private window: Window
+    public oidcSecurityService: OidcSecurityService
   ) { }
 
   /*
@@ -47,7 +45,7 @@ export class OrcidAccoungLinkingService {
     for (var i = 0; i < len; i++) {
       binary += String.fromCharCode(bytes[i]);
     }
-    return this.window.btoa(binary);
+    return btoa(binary);
   }
 
   /*
@@ -61,6 +59,15 @@ export class OrcidAccoungLinkingService {
 
     // Remove padding equal characters and replace characters according to base64url specifications.
     return this.arrayBufferToBase64(sha256).replace(/\//g, '_').replace(/=+$/, '').replace(/\+/g, '-');
+  }
+
+  /*
+   * Get URL
+   * Construct URL in form of:
+   * {auth-server-root}/auth/realms/{realm}/broker/{provider}/link?client_id={id}&redirect_uri={uri}&nonce={nonce}&hash={hash}
+   */
+  getUrl(keycloakUrl, clientId, redirectUrl, nonce, hash) {
+    return keycloakUrl + '/broker/orcid/link?client_id=' + clientId + '&redirect_uri=' + encodeURIComponent(redirectUrl) + '&nonce=' + nonce + '&hash=' + hash;
   }
 
   /*
@@ -84,20 +91,19 @@ export class OrcidAccoungLinkingService {
    */
   async getOrcidLink() {
     // Auth configuration
-    debugger;
     const authConfig = this.oidcSecurityService.getConfiguration();
 
     // Get ID token
     const idTokenPayload = this.oidcSecurityService.getPayloadFromIdToken();
 
-    // Auth server base URL
-    const baseUrl = authConfig.authority;
+    // Keycloak base URL
+    const keycloakUrl = authConfig.authority;
 
     // Redirect URL
-    //const redirectUrl = encodeURIComponent(authConfig.redirectUrl);
+    //const redirectUrl = authConfig.redirectUrl;
 
     // TEMP remove the following line (and uncomment the previous line) when configuration issue is fixed
-    const redirectUrl = encodeURIComponent('https://localhost:5003/mydata/welcome');
+    const redirectUrl = 'https://localhost:5003/mydata/welcome';
 
     // Get property clientId from property 'azp' in ID token.
     // azp: Authorized party - the party to which the ID Token was issued
@@ -113,6 +119,6 @@ export class OrcidAccoungLinkingService {
     const hash = await this.getHash(nonce, sessionState, clientId);
 
     // Return ORCID account linking URL
-    return baseUrl + '/broker/orcid/link?client_id=' + clientId + '&redirect_uri=' + redirectUrl + '&nonce=' + nonce + '&hash=' + hash;
+    return this.getUrl(keycloakUrl, clientId, redirectUrl, nonce, hash);
   }
 }
