@@ -88,9 +88,11 @@
     <!-- News footer -->
     <div *ngIf="!itemTypeFundingCalls" class="row">
       <div class="col-9 pb-3 no-gutters">
-        <span class="col pt-4 pb-1 date-line accented-line">{{
-          item.timestamp | date: 'dd.MM.yyyy'
-        }}</span>
+        <span
+          class="col pt-4 pb-1 date-line"
+          [class.accented-line]="isHomepage"
+          >{{ item.timestamp | date: 'dd.MM.yyyy' }}</span
+        >
         <span *ngIf="item.author" class="col-2">{{ item.author }}</span>
         <span
           *ngIf="item.mediaUri?.length > 0"
@@ -102,7 +104,7 @@
         ></span>
       </div>
       <div *ngIf="!isHomepage" class="col-3 d-flex justify-content-end">
-        <img class="news-img" [src]="item.mediaUri | safeUrl" />
+        <img class="news-img pe-0" [src]="item.mediaUri | safeUrl" />
       </div>
     </div>
 
@@ -112,7 +114,7 @@
       class="row"
       [class.soon]="_fundingCall.daysLeft <= 3"
     >
-      <span class="col pb-2 date-line accented-line"
+      <span class="col pt-4 pb-1 date-line accented-line"
         >Hakuaika päättyy<span
           class="inline-date"
           [innerHtml]="

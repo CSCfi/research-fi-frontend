@@ -57,7 +57,7 @@ app-news-card {
     text-decoration: underline;
   }
 
-  .news-img  {
+  .news-img {
     width: 100%;
     max-width: 100px;
     max-height: 100px;
@@ -70,26 +70,26 @@ app-news-card {
     font-size: 0.95rem;
     color: #000000c7;
 
-  &.accented-line {
-    //margin-left: -15px;
+    &.accented-line {
+      //margin-left: -15px;
 
-    .inline-date {
-      display: inline-flex;
-      margin-left: 10px;
-      font-weight: bold;
-    }
+      .inline-date {
+        display: inline-flex;
+        margin-left: 10px;
+        font-weight: bold;
+      }
 
-    &:before {
-      width: 8px;
-      height: 22px;
-      background: #4546b9;
-      content: "";
-      display: inline-flex;
-      position: relative;
-      margin-right: 15px;
+      &:before {
+        width: 8px;
+        height: 22px;
+        background: #4546b9;
+        content: '';
+        display: inline-flex;
+        position: relative;
+        margin-right: 15px;
+      }
     }
   }
-}
 
   .author-line {
     font-size: 0.9rem;
@@ -97,21 +97,6 @@ app-news-card {
 
   .mat-card-header-text {
     margin: 0 !important;
-  }
-
-  .mat-card-header .mat-card-title {
-    margin-bottom: 8px;
-    &.high-header {
-      min-height: 55px;
-    }
-  }
-
-  .funding-call-news {
-    .mat-card-header .mat-card-title {
-      &.high-header {
-        min-height: 55px;
-      }
-    }
   }
 
   .mat-card-header-text {
@@ -125,9 +110,9 @@ app-news-card {
   }
 
   mat-card-content {
-    &.low-content {
-      //height: 3rem;
-    }
+    // &.low-content {
+    //   //height: 3rem;
+    // }
     &.preview {
       // IE
       display: block;
