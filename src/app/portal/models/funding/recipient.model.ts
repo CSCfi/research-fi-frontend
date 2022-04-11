@@ -264,8 +264,8 @@ export class RecipientAdapter implements Adapter<Recipient> {
     // Additional sort for organizations that can be linked insides portal
     const sortedOrganizations = orderBy(
       organizations,
-      ['finnishOrganization', 'pic'],
-      ['desc']
+      ['finnishOrganization', 'portalEquivalent'],
+      ['desc', 'desc']
     );
 
     return new Recipient(

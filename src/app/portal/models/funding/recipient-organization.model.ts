@@ -19,7 +19,8 @@ export class RecipientOrganization {
     public pic: string,
     public countryCode: string,
     public sectorId: string,
-    public finnishOrganization: boolean
+    public finnishOrganization: boolean,
+    public portalEquivalent: boolean
   ) {}
 }
 
@@ -38,6 +39,13 @@ export class RecipientOrganizationAdapter
           (item[k] = typeof item[k] === 'string' ? item[k].trim() : item[k])
       );
     }
+
+    const portalEquivalentOrganizationFields = [
+      item.consortiumOrganizationId,
+      item.consortiumOrganizationPic,
+      item.consortiumSectorId,
+    ];
+
     return new RecipientOrganization(
       item.consortiumOrganizationId,
       item.consortiumOrganizationBusinessId,
@@ -47,7 +55,8 @@ export class RecipientOrganizationAdapter
       item.consortiumOrganizationPic,
       item.consortiumOrganizationCountryCode,
       item.consortiumSectorId,
-      item.isFinnishOrganization === 1
+      item.isFinnishOrganization === 1,
+      portalEquivalentOrganizationFields.every((field) => field?.length)
     );
   }
 }
