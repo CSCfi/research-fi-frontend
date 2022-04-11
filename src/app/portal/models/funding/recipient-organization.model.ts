@@ -18,7 +18,8 @@ export class RecipientOrganization {
     public shareOfFundingEur: number,
     public pic: string,
     public countryCode: string,
-    public sectorId: string
+    public sectorId: string,
+    public finnishOrganization: boolean
   ) {}
 }
 
@@ -26,7 +27,8 @@ export class RecipientOrganization {
   providedIn: 'root',
 })
 export class RecipientOrganizationAdapter
-  implements Adapter<RecipientOrganization> {
+  implements Adapter<RecipientOrganization>
+{
   constructor(private lang: LanguageCheck) {}
   adapt(item: any): RecipientOrganization {
     // Trim all string elements
@@ -44,7 +46,8 @@ export class RecipientOrganizationAdapter
       item.shareOfFundingInEur,
       item.consortiumOrganizationPic,
       item.consortiumOrganizationCountryCode,
-      item.consortiumSectorId
+      item.consortiumSectorId,
+      item.isFinnishOrganization === 1
     );
   }
 }

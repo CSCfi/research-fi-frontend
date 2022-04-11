@@ -230,7 +230,9 @@ export class RecipientAdapter implements Adapter<Recipient> {
       item.fundingGroupPerson
         .flat()
         .map((person) => ({
-          personName: person.fundingGroupPersonLastName ? `${person.fundingGroupPersonFirstNames} ${person.fundingGroupPersonLastName}` : '',
+          personName: person.fundingGroupPersonLastName
+            ? `${person.fundingGroupPersonFirstNames} ${person.fundingGroupPersonLastName}`
+            : '',
           organizationName: this.lang.testLang(
             'consortiumOrganizationName',
             person
@@ -277,7 +279,9 @@ export class RecipientAdapter implements Adapter<Recipient> {
         ' ' +
         (item.fundingContactPersonLastName || ''), // Add "existence check" because of string operation
       item.fundingContactPersonOrcid,
-      organizations,
+      organizations.sort(
+        (a, b) => Number(b.finnishOrganization) - Number(a.finnishOrganization)
+      ), // Sort organizations as finnish organizations first
       euFundingRecipients,
       combined.trim().length > 0 ? combined : '-'
     );
