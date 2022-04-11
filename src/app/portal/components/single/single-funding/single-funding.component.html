@@ -202,9 +202,7 @@
                             class="col-12 col-sm-3 td"
                             *ngIf="person.shareOfFundingInEur"
                           >
-                            {{
-                              person.shareOfFundingInEur | thousandSeparator
-                            }}
+                            {{ person.shareOfFundingInEur | thousandSeparator }}
                             €
                           </div>
                         </div>
@@ -298,7 +296,7 @@
                           [ngClass]="item.euFunding ? 'col-sm-5' : 'col-auto'"
                         >
                           <a
-                            *ngIf="org.id && org.pic && org.sectorId"
+                            *ngIf="org.portalEquivalent"
                             routerLink="/results/organization/{{ org.id }}"
                           >
                             {{ org.name }}
