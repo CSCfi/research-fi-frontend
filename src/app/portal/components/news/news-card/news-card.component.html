@@ -1,20 +1,27 @@
 <mat-card
-  class="col-12 news-card mat-elevation-z px-0"
+  class="col-12 news-card mat-elevation-z"
   [class.dense]="dense"
   [class.limit-width]="isHomepage"
+  [class.funding-call-news]="itemTypeFundingCalls"
 >
   <mat-card-header>
-    <mat-card-title>
-      <ng-container [ngSwitch]="isHomepage">
+    <mat-card-title [class.high-header]="isHomepage">
+      <ng-container *ngIf="!itemTypeFundingCalls" [ngSwitch]="isHomepage">
         <a [attr.href]="item.url" target="_blank" class="d-block">
           <div class="row d-flex justify-content-between">
-            <div class="col-11 ps-0">
+            <div class="col-11 px-0">
               <h3>
                 <ng-container *ngSwitchCase="true">{{
                   item.headline
                 }}</ng-container>
                 <ng-container *ngSwitchDefault>
-                  <span [innerHTML]="item.headline | highlight: term"></span>
+                  <span
+                    [innerHTML]="
+                      itemTypeFundingCalls
+                        ? _fundingCall.name
+                        : (item.headline | highlight: term)
+                    "
+                  ></span>
                 </ng-container>
               </h3>
             </div>
@@ -24,38 +31,51 @@
           </div>
         </a>
       </ng-container>
+
+      <ng-container *ngIf="itemTypeFundingCalls" [ngSwitch]="isHomepage">
+        <a
+          routerLink="/funding-call/{{ _fundingCall.id }}"
+          target="_blank"
+          class="d-block"
+        >
+          <div class="row d-flex justify-content-between">
+            <div class="col-11 ps-0">
+              <h3>
+                <ng-container *ngSwitchCase="true">{{
+                  _fundingCall.name
+                }}</ng-container>
+                <ng-container *ngSwitchDefault>
+                  <span [innerHTML]="_fundingCall.name"></span>
+                </ng-container>
+              </h3>
+            </div>
+          </div>
+        </a>
+      </ng-container>
     </mat-card-title>
-    <mat-card-subtitle>
-      <div class="row justify-content-between">
-        <span class="col ps-0">{{ item.timestamp | date: 'dd.MM.yyyy' }}</span>
-        <span *ngIf="item.author" class="col-2">{{ item.author }}</span>
-        <span
-          class="col pe-0 text-end"
-          [innerHTML]="item.organizationNameFi.trim() | highlight: term"
-        ></span>
-      </div>
-    </mat-card-subtitle>
   </mat-card-header>
-  <mat-card-content *ngIf="!dense" [ngClass]="isHomepage ? '' : 'ml-0 me-0'">
+
+  <mat-card-subtitle class="mb-0"> </mat-card-subtitle>
+
+  <mat-card-content
+    *ngIf="!dense && !itemTypeFundingCalls"
+    [class.low-content]="!isHomepage"
+  >
     <div class="row">
       <span
         class="preview"
         [innerHTML]="item.content | cutContent: 250 | highlight: term"
         [ngClass]="item.mediaUri?.length > 0 ? 'col-10 px-0' : ''"
       ></span>
-      <div
-        class="ps-0"
-        *ngIf="item.mediaUri?.length === 0"
-        [ngClass]="item.mediaUri?.length > 0 ? 'col-10' : 'col-12'"
-      ></div>
-      <div *ngIf="item.mediaUri?.length > 0" class="col-2 pe-0 text-end">
-        <img [src]="item.mediaUri | safeUrl" />
-      </div>
     </div>
   </mat-card-content>
-  <mat-card-actions *ngIf="!dense" [ngClass]="isHomepage ? '' : 'ml-0 me-0'">
+
+  <mat-card-actions
+    *ngIf="!dense && !itemTypeFundingCalls"
+    [ngClass]="isHomepage ? '' : 'ms-0 me-0'"
+  >
     <div class="row">
-      <!-- <div class="col ps-0" [ngClass]="item.mediaUri?.length > 0 ? 'link' : ''">
+      <!-- <div class="col pl-0" [ngClass]="item.mediaUri?.length > 0 ? 'link' : ''">
                 <a class="org-link" href="{{item.url}}" target="_blank" aria-label="Lue koko uutinen organisaation verkkosivuilla"><ng-container i18n="@@readOriginialNews">Lue koko uutinen organisaation verkkosivuilla </ng-container><fa-icon icon="external-link-alt"></fa-icon></a>
             </div> -->
       <div *ngIf="item.mediaUri?.length > 0" class="col pe-0 text-end">
@@ -63,4 +83,60 @@
       </div>
     </div>
   </mat-card-actions>
+
+  <mat-card-footer>
+    <!-- News footer -->
+    <div *ngIf="!itemTypeFundingCalls" class="row">
+      <div class="col-9 pb-3 no-gutters">
+        <span class="col pt-4 pb-1 date-line accented-line">{{
+          item.timestamp | date: 'dd.MM.yyyy'
+        }}</span>
+        <span *ngIf="item.author" class="col-2">{{ item.author }}</span>
+        <span
+          *ngIf="item.mediaUri?.length > 0"
+          class="col-2 pe-0 text-end"
+        ></span>
+        <span
+          class="author-line mb-3"
+          [innerHTML]="item?.organizationNameFi?.trim() | highlight: term"
+        ></span>
+      </div>
+      <div *ngIf="!isHomepage" class="col-3 d-flex justify-content-end">
+        <img class="news-img" [src]="item.mediaUri | safeUrl" />
+      </div>
+    </div>
+
+    <!-- Funding calls footer -->
+    <div
+      *ngIf="itemTypeFundingCalls"
+      class="row"
+      [class.soon]="_fundingCall.daysLeft <= 3"
+    >
+      <span class="col pb-2 date-line accented-line"
+        >Hakuaika päättyy<span
+          class="inline-date"
+          [innerHtml]="
+            _fundingCall.dueDate.getFullYear() !== 2100
+              ? (_fundingCall.dueDateString | highlight: input)
+              : '-'
+          "
+        ></span
+      ></span>
+    </div>
+    <div *ngIf="itemTypeFundingCalls" class="row">
+      <span
+        *ngIf="_fundingCall.foundation.orgId"
+        class="col author-line mb-3"
+        [innerHtml]="_fundingCall.foundation.name | highlight: input"
+      ></span>
+      <span
+        class="col author-line mb-3"
+        *ngIf="!_fundingCall.foundation.orgId"
+        [innerHtml]="_fundingCall.foundation.name | highlight: input"
+      ></span>
+    </div>
+  </mat-card-footer>
 </mat-card>
+<div class="news-card-divider">
+  <hr />
+</div>

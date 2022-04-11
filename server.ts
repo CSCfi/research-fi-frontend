@@ -53,9 +53,9 @@ global['document'] = window.document;
 
 // We have a routes configuration to define where to serve every app with the according language.
 const routes = [
-  { path: '/en/*', view: 'en/index' },
-  { path: '/sv/*', view: 'sv/index' },
-  { path: '/*', view: 'fi/index' },
+  { path: '/en/*', view: 'en/index', bundle: require('./dist/server/en/main') },
+  { path: '/sv/*', view: 'sv/index', bundle: require('./dist/server/sv/main') },
+  { path: '/*', view: 'fi/index', bundle: require('./dist/server/fi/main') },
 ];
 
 app.use(bodyParser.json());
@@ -172,11 +172,19 @@ getAppConfig.then((data: any) => {
 });
 
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
-// Server configuration is shared by all locales
+// We have one configuration per locale and use designated server file for matching route.
 const {
-  AppServerModule: AppServerModule,
-  ngExpressEngine: ngExpressEngine,
-} = require('./dist/server/main');
+  AppServerModule: AppServerModuleFi,
+  ngExpressEngine: ngExpressEngineFi,
+} = require('./dist/server/fi/main');
+const {
+  AppServerModule: AppServerModuleEn,
+  ngExpressEngine: ngExpressEngineEn,
+} = require('./dist/server/en/main');
+const {
+  AppServerModule: AppServerModuleSv,
+  ngExpressEngine: ngExpressEngineSv,
+} = require('./dist/server/sv/main');
 
 // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
 
@@ -185,32 +193,71 @@ const {
 // Serve static files from /browser
 app.get('*.*', express.static(join(DIST_FOLDER, 'browser')));
 
-// Target to localized url by route path
 routes.forEach((route) => {
-  app.get(route.path, (req, res) => {
-    app.engine(
-      'html',
-      ngExpressEngine({
-        bootstrap: AppServerModule,
-      })
-    );
-    app.set('view engine', 'html');
-    app.set('views', join(DIST_FOLDER, 'browser'));
+  if (route.path.startsWith('/en')) {
+    // EN routes
+    app.get(route.path, (req, res) => {
+      app.engine(
+        'html',
+        ngExpressEngineEn({
+          bootstrap: AppServerModuleEn,
+        })
+      );
+      app.set('view engine', 'html');
+      app.set('views', join(DIST_FOLDER, 'browser'));
 
-    res.render(route.view, {
-      req,
-      res,
-      engine: ngExpressEngine({
-        bootstrap: AppServerModule,
-      }),
+      res.render(route.view, {
+        req,
+        res,
+        engine: ngExpressEngineEn({
+          bootstrap: AppServerModuleEn,
+        }),
+      });
     });
-  });
+  } else if (route.path.startsWith('/sv')) {
+    // SV routes
+    app.get(route.path, (req, res) => {
+      app.engine(
+        'html',
+        ngExpressEngineSv({
+          bootstrap: AppServerModuleSv,
+        })
+      );
+      app.set('view engine', 'html');
+      app.set('views', join(DIST_FOLDER, 'browser'));
+
+      res.render(route.view, {
+        req,
+        res,
+        engine: ngExpressEngineSv({}),
+      });
+    });
+  } else {
+    // FI routes
+    app.get(route.path, (req, res) => {
+      app.engine(
+        'html',
+        ngExpressEngineFi({
+          bootstrap: AppServerModuleFi,
+        })
+      );
+      app.set('view engine', 'html');
+      app.set('views', join(DIST_FOLDER, 'browser'));
+
+      res.render(route.view, {
+        req,
+        res,
+        engine: ngExpressEngineFi({
+          bootstrap: AppServerModuleFi,
+        }),
+      });
+    });
+  }
 });
 
 // Rate limiting to prevent http request attacks.
 // Maximum of five requests to '/feedback' endpoint per minute.
 import rateLimit from 'express-rate-limit';
-
 const limiter = rateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute
   max: 5,

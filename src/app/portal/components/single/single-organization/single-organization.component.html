@@ -101,12 +101,12 @@
     >
       <aside *ngIf="news?.length">
         <mat-card>
-          <div class="inner">
+          <div class="inner px-0">
             <mat-card-title
-              ><h2 i18n="@@news" class="pb-3">Uutiset</h2>
+              ><h2 i18n="@@news" class="ps-3">Uutiset</h2>
             </mat-card-title>
 
-            <app-news-card
+            <app-news-card class="organizations-page"
               *ngFor="let newsItem of news?.slice(0, showMoreNews ? 5 : 3)"
               [item]="newsItem"
               [dense]="true"

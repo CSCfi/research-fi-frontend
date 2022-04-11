@@ -164,6 +164,7 @@
           "options": {
             "main": "src/main.server.ts",
             "tsConfig": "src/tsconfig.server.json",
+            "localize": ["fi", "en", "sv"],
             "sourceMap": true,
             "optimization": false
           },
