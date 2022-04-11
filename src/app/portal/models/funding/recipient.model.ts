@@ -12,6 +12,7 @@ import {
   RecipientOrganizationAdapter,
 } from './recipient-organization.model';
 import { LanguageCheck, testFinnishBusinessId } from '../utils';
+import { orderBy } from 'lodash-es';
 
 export class Recipient {
   [x: string]: any;
@@ -259,6 +260,14 @@ export class RecipientAdapter implements Adapter<Recipient> {
         .join('; ');
     }
 
+    // Sort organizations by finnish organizations first
+    // Additional sort for organizations that can be linked insides portal
+    const sortedOrganizations = orderBy(
+      organizations,
+      ['finnishOrganization', 'pic'],
+      ['desc']
+    );
+
     return new Recipient(
       recipientObj?.projectId,
       recipientObj?.fundingGroupPersonLastName
@@ -279,9 +288,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
         ' ' +
         (item.fundingContactPersonLastName || ''), // Add "existence check" because of string operation
       item.fundingContactPersonOrcid,
-      organizations.sort(
-        (a, b) => Number(b.finnishOrganization) - Number(a.finnishOrganization)
-      ), // Sort organizations as finnish organizations first
+      sortedOrganizations,
       euFundingRecipients,
       combined.trim().length > 0 ? combined : '-'
     );
