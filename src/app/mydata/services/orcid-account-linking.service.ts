@@ -100,10 +100,7 @@ export class OrcidAccoungLinkingService {
     const keycloakUrl = authConfig.authority;
 
     // Redirect URL
-    //const redirectUrl = authConfig.redirectUrl;
-
-    // TEMP remove the following line (and uncomment the previous line) when configuration issue is fixed
-    const redirectUrl = 'https://localhost:5003/mydata/welcome';
+    const redirectUrl = authConfig.redirectUrl;
 
     // Get property clientId from property 'azp' in ID token.
     // azp: Authorized party - the party to which the ID Token was issued
