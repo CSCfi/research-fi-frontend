@@ -108,6 +108,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   currentLocale: any;
   browserHeight: number;
   autoSuggestSub: Subscription;
+  autoSuggestResponseSub: Subscription;
   tabSub: Subscription;
   selectedTargetLabel: any;
 
@@ -136,9 +137,13 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     this.routeSub = this.route.queryParams.subscribe((params) => {
+      // Targeted search
       this.selectedTarget = params.target ? params.target : null;
+
       if (params.target) this.getTargetLabel(params.target);
       this.queryParams = params;
+
+      // Top margin is used to calculate overlay margin when auto suggest is open
       this.topMargin =
         this.searchBar.nativeElement.offsetHight +
         this.searchBar.nativeElement.offsetTop;
@@ -173,6 +178,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
       this.inputSub?.unsubscribe();
       this.currentFocusTargetSub?.unsubscribe();
       this.autoSuggestSub?.unsubscribe();
+      this.autoSuggestResponseSub?.unsubscribe();
       this.tabSub?.unsubscribe();
     }
   }
@@ -206,7 +212,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
         if (result.length > 2) {
           this.topData = [];
           this.otherData = [];
-          this.autosuggestService
+          this.autoSuggestResponseSub = this.autosuggestService
             .search(result)
             .pipe(map((response) => [response]))
             .subscribe((response) => {

@@ -12,6 +12,7 @@ import {
   RecipientOrganizationAdapter,
 } from './recipient-organization.model';
 import { LanguageCheck, testFinnishBusinessId } from '../utils';
+import { orderBy } from 'lodash-es';
 
 export class Recipient {
   [x: string]: any;
@@ -230,7 +231,9 @@ export class RecipientAdapter implements Adapter<Recipient> {
       item.fundingGroupPerson
         .flat()
         .map((person) => ({
-          personName: person.fundingGroupPersonLastName ? `${person.fundingGroupPersonFirstNames} ${person.fundingGroupPersonLastName}` : '',
+          personName: person.fundingGroupPersonLastName
+            ? `${person.fundingGroupPersonFirstNames} ${person.fundingGroupPersonLastName}`
+            : '',
           organizationName: this.lang.testLang(
             'consortiumOrganizationName',
             person
@@ -238,6 +241,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
           finnishOrganization: testFinnishBusinessId(
             person.consortiumOrganizationBusinessId
           ),
+          personIsFunded: person?.fundedPerson === 1,
           organizationId: person.consortiumOrganizationId,
           projectId: person.projectId,
           shareOfFundingInEur: person.shareOfFundingInEur,
@@ -255,6 +259,14 @@ export class RecipientAdapter implements Adapter<Recipient> {
         )
         .join('; ');
     }
+
+    // Sort organizations by finnish organizations first
+    // Additional sort for organizations that can be linked insides portal
+    const sortedOrganizations = orderBy(
+      organizations,
+      ['finnishOrganization', 'portalEquivalent'],
+      ['desc', 'desc']
+    );
 
     return new Recipient(
       recipientObj?.projectId,
@@ -276,7 +288,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
         ' ' +
         (item.fundingContactPersonLastName || ''), // Add "existence check" because of string operation
       item.fundingContactPersonOrcid,
-      organizations,
+      sortedOrganizations,
       euFundingRecipients,
       combined.trim().length > 0 ? combined : '-'
     );

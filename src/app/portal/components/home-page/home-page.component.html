@@ -11,10 +11,6 @@
   <app-search-bar></app-search-bar>
 </aside>
 
-<aside class="d-xl-none">
-  <app-banner [locale]="localeId"></app-banner>
-</aside>
-
 <aside>
   <app-result-tab
     [homepageStyle]="basicStyle"
@@ -23,11 +19,11 @@
   ></app-result-tab>
 </aside>
 
-<main id="main-content" style="margin-top: 0">
+<main id="main-content pt-0">
   <div class="wrapper">
     <div class="row justify-content-center">
       <!-- First column -->
-      <div class="col-12 col-md-9 col-lg-5 col-xl-4 p-2 mb-1">
+      <div class="col-12 col-sm-10 col-9 col-lg-5 col-xl-4 p-2 mb-1">
         <div class="mx-1">
           <div class="col-header">
             <h2 i18n="@@researchFinland" class="text-center m-0">
@@ -71,7 +67,7 @@
       </div>
 
       <!-- Second column -->
-      <div class="col-12 col-md-9 col-lg-5 col-xl-4 p-2 mb-1">
+      <div class="col-12 col-sm-10 col-9 col-lg-5 col-xl-4 p-2 mb-1">
         <div class="mx-1 drop-shadow tint-background">
           <a class="header-link" routerLink="/news">
             <div class="col-header mb-xl-4">
@@ -88,47 +84,47 @@
           <!-- Smaller version -->
           <div class="col-12 col side-news p-0 d-xl-none">
             <app-news-card
-              *ngFor="let item of news?.slice(0, 6)"
+              *ngFor="let item of news?.slice(0, 5)"
               [item]="item"
               [dense]="true"
-              class="d-block px-3"
+              [isHomepage]="true"
+              class="d-block"
             ></app-news-card>
           </div>
           <!-- XL version -->
           <div class="col-12 col side-news p-0 d-none d-xl-block">
             <app-news-card
-              *ngFor="let item of news?.slice(0, 8)"
+              *ngFor="let item of news?.slice(0, 5)"
               [item]="item"
               [dense]="true"
-              class="d-block px-3"
+              [isHomepage]="true"
+              class="d-block"
             ></app-news-card>
           </div>
         </div>
       </div>
 
       <!-- Third column -->
-      <div class="col-12 col-md-9 col-lg-5 col-xl-4 p-2 mb-1">
+      <div class="col-12 col-sm-10 col-9 col-lg-5 col-xl-4 p-2 mb-1">
         <div class="mx-1 drop-shadow tint-background">
-          <a
-            class="header-link"
-            routerLink="/funding-calls"
-            [queryParams]="{ status: 'open' }"
-          >
+          <a class="header-link" routerLink="/funding-calls">
             <div class="col-header mb-xl-4">
               <h2 i18n="@@openFundingCalls" class="text-center m-0">
                 Avoimet rahoitushaut
               </h2>
             </div>
           </a>
-          <div class="col-12 link-img mb-xl-4 d-xl-none">
-            <div class="cover-img" [title]="newsImage.alt">
-              <img [src]="newsImage.imgPath" [alt]="newsImage.alt" />
-            </div>
-          </div>
-          <div class="col-12 col p-0">
-            <app-funding-call-preview
-              [resultData]="resultData?.fundingCalls.slice(0, 8)"
-            ></app-funding-call-preview>
+
+          <!-- XL version -->
+          <div class="col-12 col side-news p-0">
+            <app-news-card
+              *ngFor="let item of resultData?.fundingCalls.slice(0, 6)"
+              [fundingCall]="item"
+              [itemTypeFundingCalls]="true"
+              [dense]="true"
+              [isHomepage]="true"
+              class="d-block"
+            ></app-news-card>
           </div>
         </div>
       </div>
@@ -226,4 +222,3 @@
   i18n-title="@@leaveReviewHeader"
   (onActionClick)="toggleReview()"
 ></app-dialog>
-

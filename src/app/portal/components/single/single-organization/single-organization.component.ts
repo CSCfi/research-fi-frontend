@@ -111,6 +111,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   mobile: boolean;
   showMoreNews = false;
   dataSub: Subscription;
+  newsSub: Subscription;
   showVisual = true;
 
   constructor(
@@ -171,6 +172,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     this.focusSub?.unsubscribe();
     this.resizeSub?.unsubscribe();
     this.dataSub?.unsubscribe();
+    this.newsSub?.unsubscribe();
     this.settingsService.related = false;
   }
 
@@ -247,7 +249,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   }
 
   getNews() {
-    this.searchService
+    this.newsSub = this.searchService
       .getNews(5)
       .pipe(take(1))
       .subscribe((res) => (this.news = res));

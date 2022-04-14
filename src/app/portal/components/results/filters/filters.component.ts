@@ -88,9 +88,9 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     'Valitsemalla ”näytä vain yhteisjulkaisut” voit tarkastella suomalaisten organisaatioiden yhteisiä julkaisuja. Hakutulos näyttää tällöin vain sellaiset julkaisut, joissa kaikki alla olevasta listasta valitut organisaatiot ovat mukana. Jos yhtään organisaatiota ei ole valittu, hakutulos näyttää kaikki yhteisjulkaisut';
   mobileStatusSub: Subscription;
 
-  showDialog: boolean
-  dialogTemplate: TemplateRef<any>
-  dialogTitle: string
+  showDialog: boolean;
+  dialogTemplate: TemplateRef<any>;
+  dialogTitle: string;
 
   constructor(
     private router: Router,
@@ -115,9 +115,10 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   openDialog(template: TemplateRef<any>) {
-    this.showDialog = true
-    this.dialogTemplate = template
-    this.dialogTitle = this.tabData === 'news' ? this.filterNewsHeader : this.filterSearchHeader
+    this.showDialog = true;
+    this.dialogTemplate = template;
+    this.dialogTitle =
+      this.tabData === 'news' ? this.filterNewsHeader : this.filterSearchHeader;
   }
 
   closeDialog() {
@@ -183,10 +184,12 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnDestroy() {
     if (isPlatformBrowser(this.platformId)) {
+      this.visualFilterSub?.unsubscribe();
       this.filterSub?.unsubscribe();
       this.resizeSub?.unsubscribe();
       this.queryParamSub?.unsubscribe();
       this.paramSub?.unsubscribe();
+      this.mobileStatusSub?.unsubscribe();
     }
   }
 

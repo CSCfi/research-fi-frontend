@@ -120,12 +120,14 @@ export class AccessibilityComponent
   }
 
   toggleReview() {
-    this.showDialog = !this.showDialog
+    this.showDialog = !this.showDialog;
   }
 
   ngOnDestroy() {
     // Reset skip to input - skip-link
     this.tabChangeService.toggleSkipToInput(true);
     this.tabChangeService.targetFocus('');
+
+    this.focusSub?.unsubscribe();
   }
 }

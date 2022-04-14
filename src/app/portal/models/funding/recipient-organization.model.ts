@@ -18,7 +18,9 @@ export class RecipientOrganization {
     public shareOfFundingEur: number,
     public pic: string,
     public countryCode: string,
-    public sectorId: string
+    public sectorId: string,
+    public finnishOrganization: boolean,
+    public portalEquivalent: boolean
   ) {}
 }
 
@@ -26,7 +28,8 @@ export class RecipientOrganization {
   providedIn: 'root',
 })
 export class RecipientOrganizationAdapter
-  implements Adapter<RecipientOrganization> {
+  implements Adapter<RecipientOrganization>
+{
   constructor(private lang: LanguageCheck) {}
   adapt(item: any): RecipientOrganization {
     // Trim all string elements
@@ -36,6 +39,13 @@ export class RecipientOrganizationAdapter
           (item[k] = typeof item[k] === 'string' ? item[k].trim() : item[k])
       );
     }
+
+    const portalEquivalentOrganizationFields = [
+      item.consortiumOrganizationId,
+      item.consortiumOrganizationPic,
+      item.consortiumSectorId,
+    ];
+
     return new RecipientOrganization(
       item.consortiumOrganizationId,
       item.consortiumOrganizationBusinessId,
@@ -44,7 +54,9 @@ export class RecipientOrganizationAdapter
       item.shareOfFundingInEur,
       item.consortiumOrganizationPic,
       item.consortiumOrganizationCountryCode,
-      item.consortiumSectorId
+      item.consortiumSectorId,
+      item.isFinnishOrganization === 1,
+      portalEquivalentOrganizationFields.every((field) => field?.length)
     );
   }
 }

@@ -10,6 +10,10 @@
 @mixin app-profile-theme($theme) {
   app-profile,
   app-draft-summary {
+    .row.profile {
+      border-bottom: 0.25rem solid mat-color($primary, 500);
+    }
+
     .profile-card {
       border-color: mat-color($primary, 100);
     }

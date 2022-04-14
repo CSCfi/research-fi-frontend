@@ -58,6 +58,9 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   maxHeight: number;
 
   resizeSub: Subscription;
+  newsSub: Subscription;
+  fundingCallsSub: Subscription;
+  allResultCountSub: Subscription;
 
   private metaTags = MetaTags.homepage;
   private commonTags = MetaTags.common;
@@ -105,14 +108,16 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.getAllData();
 
     // Get news data
-    this.searchService.getNews(10).subscribe((data) => {
+    this.newsSub = this.searchService.getNews(10).subscribe((data) => {
       this.news = data;
     });
 
     // Get funding calls data
-    this.searchService.getHomepageFundingCalls(10).subscribe((data) => {
-      this.resultData = data;
-    });
+    this.fundingCallsSub = this.searchService
+      .getHomepageFundingCalls(10)
+      .subscribe((data) => {
+        this.resultData = data;
+      });
 
     // Reset sort
     this.sortService.updateSort('');
@@ -177,20 +182,23 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getAllData() {
-    this.searchService
+    this.allResultCountSub = this.searchService
       .getAllResultCount()
       .pipe(map((allData) => [allData]))
-      .subscribe(
-        (allData) => (this.allData = allData),
-        (error) => (this.errorMessage = error as any)
-      );
+      .subscribe({
+        next: (allData) => (this.allData = allData),
+        error: (error) => (this.errorMessage = error as any),
+      });
   }
 
   toggleReview() {
-    this.showDialog = !this.showDialog
+    this.showDialog = !this.showDialog;
   }
 
   ngOnDestroy() {
     this.resizeSub?.unsubscribe();
+    this.newsSub?.unsubscribe();
+    this.fundingCallsSub?.unsubscribe();
+    this.allResultCountSub?.unsubscribe();
   }
 }

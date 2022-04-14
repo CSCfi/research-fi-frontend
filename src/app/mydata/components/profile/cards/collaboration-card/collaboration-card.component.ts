@@ -5,13 +5,20 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewEncapsulation,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { CollaborationsService } from '@mydata/services/collaborations.service';
 import { take } from 'rxjs/operators';
 import { cloneDeep } from 'lodash-es';
 import { Constants } from '@mydata/constants';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-collaboration-card',
@@ -19,7 +26,7 @@ import { Constants } from '@mydata/constants';
   styleUrls: ['./collaboration-card.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class CollaborationCardComponent implements OnInit {
+export class CollaborationCardComponent implements OnInit, OnDestroy {
   @Input() label: string;
 
   originalCollaborationOptions;
@@ -34,6 +41,8 @@ export class CollaborationCardComponent implements OnInit {
   optionsToggled = [];
   nameLocale = '';
 
+  collaborationOptionsSub: Subscription;
+
   constructor(
     private dialog: MatDialog,
     private collaborationsService: CollaborationsService,
@@ -47,7 +56,7 @@ export class CollaborationCardComponent implements OnInit {
   }
 
   private fetchCollaborationChoices() {
-    this.collaborationsService
+    this.collaborationOptionsSub = this.collaborationsService
       .getCooperationChoices()
       .pipe(take(1))
       .subscribe((response: any) => {
@@ -139,5 +148,9 @@ export class CollaborationCardComponent implements OnInit {
     this.hasCheckedOption = !!this.collaborationOptions.find(
       (option) => option.selected
     );
+  }
+
+  ngOnDestroy(): void {
+    this.collaborationOptionsSub?.unsubscribe();
   }
 }

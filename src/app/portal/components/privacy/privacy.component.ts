@@ -210,5 +210,6 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
     this.tabChangeService.targetFocus('');
     this.consentStatusSub?.unsubscribe();
     this.routeSub?.unsubscribe();
+    this.focusSub?.unsubscribe();
   }
 }

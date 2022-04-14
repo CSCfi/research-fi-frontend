@@ -7,7 +7,7 @@
 
 // Component
 #overlay {
-  position: fixed;
+  position: absolute;
   z-index: 999;
   left: 0;
   top: 88px;
@@ -27,6 +27,7 @@ app-header {
   }
 
   .navbar-brand {
+    display: block;
     margin-right: 0;
   }
 
@@ -208,7 +209,7 @@ app-header {
   .collapse.navbar-collapse.menu.mobile-bar {
     position: absolute;
     right: -110vw;
-    top: 44px;
+    top: 66px;
     z-index: 1000;
     padding: 10px 8px 40px 8px;
     transition: right 0.25s ease-out;

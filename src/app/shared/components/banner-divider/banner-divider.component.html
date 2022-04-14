@@ -5,5 +5,11 @@
 
 <div
   class="bar"
-  [ngStyle]="{ height: (heightInRem ? heightInRem : defaultHeight) + 'rem' }"
-></div>
+  [ngStyle]="{ minHeight: (heightInRem ? heightInRem : defaultHeight) + 'rem' }"
+>
+  <ng-container *ngIf="template">
+    <ng-container [ngTemplateOutlet]="template"></ng-container>
+  </ng-container>
+</div>
+
+<app-notification-banner></app-notification-banner>

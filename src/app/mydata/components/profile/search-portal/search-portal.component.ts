@@ -10,6 +10,7 @@ import {
   EventEmitter,
   Inject,
   Input,
+  OnDestroy,
   OnInit,
   Output,
   ViewEncapsulation,
@@ -19,6 +20,7 @@ import { take } from 'rxjs/operators';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { SearchPortalService } from '@mydata/services/search-portal.service';
 import { GroupTypes } from '@mydata/constants/groupTypes';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-search-portal',
@@ -26,7 +28,7 @@ import { GroupTypes } from '@mydata/constants/groupTypes';
   styleUrls: ['./search-portal.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class SearchPortalComponent implements OnInit {
+export class SearchPortalComponent implements OnInit, OnDestroy {
   @Input() data: any;
   @Output() onEditorClose = new EventEmitter<any>();
 
@@ -56,6 +58,8 @@ export class SearchPortalComponent implements OnInit {
 
   searchHelpText: string;
   searchPlaceholder: string;
+
+  searchSub: Subscription;
 
   searchForMissingPublication = $localize`:@@searchForMissingPublication:Puuttuvan julkaisun hakeminen`;
   searchForMissingDataset = $localize`:@@searchForMissingDataset:Puuttuvan tutkimusaineiston hakeminen`;
@@ -121,7 +125,7 @@ export class SearchPortalComponent implements OnInit {
     this.results = [];
     this.loading = true;
 
-    this.searchPortalService
+    this.searchSub = this.searchPortalService
       .getData(term, this.data.groupId)
       .pipe(take(1))
       .subscribe((result) => {
@@ -187,5 +191,9 @@ export class SearchPortalComponent implements OnInit {
     }
 
     this.showDialog = false;
+  }
+
+  ngOnDestroy(): void {
+    this.searchSub?.unsubscribe();
   }
 }

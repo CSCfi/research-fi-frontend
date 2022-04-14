@@ -48,6 +48,9 @@ export class FundingCallsComponent implements OnInit, AfterViewInit, OnDestroy {
   queryParamSub: Subscription;
   inputSub: Subscription;
   totalSub: Subscription;
+  focusTargetSub: Subscription;
+  dataSub: Subscription;
+  fundingCallFiltersSub: Subscription;
 
   total: number;
   parsedTotal: string;
@@ -181,11 +184,6 @@ export class FundingCallsComponent implements OnInit, AfterViewInit, OnDestroy {
         this.mobile = status;
       }
     );
-
-    // Search input handler
-    this.inputSub = this.searchService.currentInput.subscribe((input) => {
-      this.currentTerm = input;
-    });
   }
 
   ngAfterViewInit() {
@@ -197,11 +195,13 @@ export class FundingCallsComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
     // Focus to skip-to results link when clicked from header skip-links
-    this.tabChangeService.currentFocusTarget.subscribe((target) => {
-      if (target === 'main-link') {
-        this.skipToResults.nativeElement.focus();
+    this.focusTargetSub = this.tabChangeService.currentFocusTarget.subscribe(
+      (target) => {
+        if (target === 'main-link') {
+          this.skipToResults.nativeElement.focus();
+        }
       }
-    });
+    );
     this.cdr.detectChanges();
   }
 
@@ -215,14 +215,14 @@ export class FundingCallsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getData() {
-    this.searchService.getData().subscribe(
-      (data) => {
+    this.dataSub = this.searchService.getData().subscribe({
+      next: (data) => {
         this.resultData = data;
         this.searchService.updateTotal(data.total);
         this.loading = false;
       },
-      (error) => (this.errorMessage = error as any)
-    );
+      error: (error) => (this.errorMessage = error as any),
+    });
   }
 
   searchFundingCalls(term) {
@@ -237,14 +237,16 @@ export class FundingCallsComponent implements OnInit, AfterViewInit, OnDestroy {
   getFilterData() {
     // Check for Angular Univeral SSR, get filter data if browser
     if (isPlatformBrowser(this.platformId)) {
-      this.searchService.getFundingCallFilters().subscribe(
-        (filterValues) => {
-          this.filterValues = filterValues;
-          // Send response to data service
-          this.dataService.changeResponse(this.filterValues);
-        },
-        (error) => (this.errorMessage = error as any)
-      );
+      this.fundingCallFiltersSub = this.searchService
+        .getFundingCallFilters()
+        .subscribe({
+          next: (filterValues) => {
+            this.filterValues = filterValues;
+            // Send response to data service
+            this.dataService.changeResponse(this.filterValues);
+          },
+          error: (error) => (this.errorMessage = error as any),
+        });
     }
   }
 
@@ -268,6 +270,12 @@ export class FundingCallsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.tabChangeService.focus = undefined;
     this.routeSub?.unsubscribe;
     this.queryParamSub?.unsubscribe;
+    this.totalSub?.unsubscribe;
+    this.inputSub?.unsubscribe;
     this.mobileStatusSub?.unsubscribe;
+    this.tabSub?.unsubscribe;
+    this.focusTargetSub?.unsubscribe;
+    this.dataSub?.unsubscribe;
+    this.fundingCallFiltersSub?.unsubscribe;
   }
 }
