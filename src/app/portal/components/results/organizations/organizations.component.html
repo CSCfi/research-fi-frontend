@@ -12,6 +12,8 @@
 </div>
 <!-- Data -->
 <div *ngIf="resultData?.total > 0; else noResults">
+  <app-table></app-table>
+
   <!-- Results -->
   <div class="row no-margin">
     <div class="col col-1 icon" style="margin-right: 10px"></div>

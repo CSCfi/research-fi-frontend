@@ -44,6 +44,7 @@ import { BannerDividerComponent } from './components/banner-divider/banner-divid
 
 import { ClickOutsideDirective } from './directives/click-outside.directive';
 import { NotificationBannerComponent } from './components/notification-banner/notification-banner.component';
+import { TableComponent } from './components/table/table.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { NotificationBannerComponent } from './components/notification-banner/no
     BannerDividerComponent,
     ClickOutsideDirective,
     NotificationBannerComponent,
+    TableComponent,
   ],
   exports: [
     InfoComponent,
@@ -85,6 +87,7 @@ import { NotificationBannerComponent } from './components/notification-banner/no
     BannerDividerComponent,
     ClickOutsideDirective,
     NotificationBannerComponent,
+    TableComponent,
   ],
   imports: [
     CommonModule,

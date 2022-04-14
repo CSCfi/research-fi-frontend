@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss']
+  styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnInit {
+  tableHeaders = [{ label: 'Nimi' }, { label: 'Organisaatio' }];
 
-  constructor() { }
+  @Input() columns: { label: string }[];
+  @Input() rows: any[];
+  @Input() icon: any;
 
-  ngOnInit(): void {
-  }
+  constructor() {}
 
+  ngOnInit(): void {}
 }
