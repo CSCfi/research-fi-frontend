@@ -9,13 +9,15 @@
 ></ng-container>
 
 <ng-template #termsTemplate>
-  <div class="col"
+  <div
+    class="px-3"
     [innerHTML]="useOfTermsContent['content' + currentLocale] | sanitizeHtml"
   ></div>
 </ng-template>
 
 <ng-template #personalDataHandlingTermsTemplate>
-  <div class="col"
+  <div
+    class="px-3"
     [innerHTML]="
       personalDataHandlingTermsContent['content' + currentLocale] | sanitizeHtml
     "

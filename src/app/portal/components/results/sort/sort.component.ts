@@ -78,7 +78,6 @@ export class SortComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // Subscribe to current tab parameter
     this.tabSub = this.tabChangeService.currentTab.subscribe((tab) => {
-      console.log(tab);
       switch (tab.link) {
         case 'publications': {
           this.tabFields = this.publicationFields;

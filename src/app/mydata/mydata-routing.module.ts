@@ -9,6 +9,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
+import { ServiceDeploymentComponent } from './components/service-deployment/service-deployment.component';
+import { CancelDeploymentComponent } from './components/service-deployment/cancel-deployment/cancel-deployment.component';
 import { RedirectComponent } from './components/redirect/redirect.component';
 import { WelcomeStepperComponent } from './components/welcome-stepper/welcome-stepper.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -25,12 +27,29 @@ const routes: Routes = [
     path: 'login',
     pathMatch: 'full',
     component: LoginComponent,
+    resolve: {
+      pages: PageResolverService,
+    },
+  },
+  {
+    path: 'service-deployment',
+    pathMatch: 'full',
+    component: ServiceDeploymentComponent,
+    canActivate: [AuthGuard],
+    resolve: {
+      pages: PageResolverService,
+    },
+  },
+  {
+    path: 'cancel-introduction',
+    pathMatch: 'full',
+    component: CancelDeploymentComponent,
   },
   {
     path: 'welcome',
     pathMatch: 'full',
     component: WelcomeStepperComponent,
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     resolve: {
       pages: PageResolverService,
     },

@@ -33,12 +33,21 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean> {
     // if (this.appSettingsService.myDataSettings.develop) return of(true);
+    const handleUnauthorized = () => {
+      this.router.navigate(['/mydata']);
+      return false;
+    };
 
     return this.oidcSecurityService.isAuthenticated$.pipe(
       map(({ isAuthenticated }) => {
-        if (!isAuthenticated) {
-          this.router.navigate(['/mydata']);
-          return false;
+        // Handling for service deployment
+        if (route.routeConfig.path === 'service-deployment') {
+          const step = Number(route.queryParams.step);
+          if (step > 2 && !isAuthenticated) {
+            handleUnauthorized();
+          }
+        } else if (!isAuthenticated) {
+          handleUnauthorized();
         }
 
         return true;
