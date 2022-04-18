@@ -4,6 +4,7 @@
  :license: MIT -->
 
 <app-banner-divider></app-banner-divider>
+<app-welcome-dialog *ngIf="showWelcomeDialog"></app-welcome-dialog>
 <main id="main-content">
   <div class="wrapper">
     <div class="row d-flex justify-content-between pt-3 pb-5">
@@ -21,7 +22,7 @@
               src="assets/img/orcid_icon.svg"
               alt="Orcid -palvelun logo"
             />
-            <span>{{ orcidData.orcid }}</span>
+            <span>{{ orcid }}</span>
           </div>
         </div>
       </div>
@@ -140,7 +141,7 @@
         ></app-profile-summary>
 
         <ng-template #loadingTemplate>
-          <mat-spinner class="mx-auto" [diameter]="80"> </mat-spinner>
+          <mat-spinner class="mx-auto mt-3" [diameter]="80"> </mat-spinner>
         </ng-template>
       </div>
 
@@ -295,7 +296,7 @@
             ></app-primary-action-button>
 
             <ng-template #deleteProfileTemplate>
-              <p class="col" i18n="@@thisActionDeletesTestProfile">
+              <p class="px-3" i18n="@@thisActionDeletesTestProfile">
                 Tämä toiminto poistaa Tutkijan tiedot -testisovelluksen
                 profiilin.
               </p>

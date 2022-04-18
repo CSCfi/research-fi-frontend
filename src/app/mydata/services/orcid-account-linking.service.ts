@@ -19,18 +19,19 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
 export class OrcidAccoungLinkingService {
   orcidLink: string;
 
-  constructor(
-    public oidcSecurityService: OidcSecurityService
-  ) { }
+  constructor(public oidcSecurityService: OidcSecurityService) {}
 
   /*
    * Get nonce, a random string.
    */
   getNonce() {
-    var randomString = "";
-    var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    var randomString = '';
+    var characters =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     for (var i = 0; i < 64; i++) {
-      randomString += characters.charAt(Math.floor(Math.random() * characters.length));
+      randomString += characters.charAt(
+        Math.floor(Math.random() * characters.length)
+      );
     }
     return randomString;
   }
@@ -58,7 +59,10 @@ export class OrcidAccoungLinkingService {
     const sha256 = await crypto.subtle.digest('SHA-256', data);
 
     // Remove padding equal characters and replace characters according to base64url specifications.
-    return this.arrayBufferToBase64(sha256).replace(/\//g, '_').replace(/=+$/, '').replace(/\+/g, '-');
+    return this.arrayBufferToBase64(sha256)
+      .replace(/\//g, '_')
+      .replace(/=+$/, '')
+      .replace(/\+/g, '-');
   }
 
   /*
@@ -67,13 +71,23 @@ export class OrcidAccoungLinkingService {
    * {auth-server-root}/auth/realms/{realm}/broker/{provider}/link?client_id={id}&redirect_uri={uri}&nonce={nonce}&hash={hash}
    */
   getUrl(keycloakUrl, clientId, redirectUrl, nonce, hash) {
-    return keycloakUrl + '/broker/orcid/link?client_id=' + clientId + '&redirect_uri=' + encodeURIComponent(redirectUrl) + '&nonce=' + nonce + '&hash=' + hash;
+    return (
+      keycloakUrl +
+      '/broker/orcid/link?client_id=' +
+      clientId +
+      '&redirect_uri=' +
+      encodeURIComponent(redirectUrl) +
+      '&nonce=' +
+      nonce +
+      '&hash=' +
+      hash
+    );
   }
 
   /*
    * Get link, which triggers ORCID account linking in Keycloak.
    * https://wjw465150.gitbooks.io/keycloak-documentation/content/server_development/topics/identity-brokering/account-linking.html
-   * 
+   *
    * "To initiate the login, the application must fabricate a URL and redirect the user’s browser to this URL. The URL looks like this:
    * {auth-server-root}/auth/realms/{realm}/broker/{provider}/link?client_id={id}&redirect_uri={uri}&nonce={nonce}&hash={hash}
    *   provider:
@@ -100,7 +114,8 @@ export class OrcidAccoungLinkingService {
     const keycloakUrl = authConfig.authority;
 
     // Redirect URL
-    const redirectUrl = authConfig.redirectUrl;
+    const redirectUrl =
+      'https://localhost:5003/mydata/service-deployment?step=4';
 
     // Get property clientId from property 'azp' in ID token.
     // azp: Authorized party - the party to which the ID Token was issued

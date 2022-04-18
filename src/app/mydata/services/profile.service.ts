@@ -12,8 +12,9 @@ import { AppConfigService } from 'src/app/shared/services/app-config-service.ser
 import { Profile, ProfileAdapter } from '@mydata/models/profile.model';
 import { map } from 'rxjs/operators';
 import testData from 'src/testdata/mydataprofiledata.json';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { startCase } from 'lodash-es';
+import { ErrorHandlerService } from '@shared/services/error-handler.service';
 
 @Injectable({
   providedIn: 'root',
@@ -28,17 +29,30 @@ export class ProfileService {
   private currentProfileNameSource = new BehaviorSubject<string>('');
   currentProfileName = this.currentProfileNameSource.asObservable();
 
+  private userDataSource = new Subject<string>();
+  userData = this.userDataSource.asObservable();
+
   constructor(
     private http: HttpClient,
     private appConfigService: AppConfigService,
     public oidcSecurityService: OidcSecurityService,
-    private profileAdapter: ProfileAdapter
+    private profileAdapter: ProfileAdapter,
+    private errorHandlerService: ErrorHandlerService
   ) {
     this.apiUrl = this.appConfigService.profileApiUrl;
   }
 
-  updateTokenInHttpAuthHeader() {
+  updateTokenInHttpAuthHeader(bypassOrcidCheck = false) {
     const token = this.oidcSecurityService.getAccessToken();
+
+    const idTokenPayload = this.oidcSecurityService.getPayloadFromIdToken();
+
+    if (!bypassOrcidCheck && !idTokenPayload.orcid) {
+      this.errorHandlerService.updateError({
+        message: 'ORCID-tiliä ei ole linkitetty. Toiminto ei ole sallittu.',
+      });
+      return;
+    }
 
     this.httpOptions = {
       headers: new HttpHeaders({
@@ -56,6 +70,10 @@ export class ProfileService {
 
   setCurrentProfileData(data) {
     this.currentProfileData = data;
+  }
+
+  setUserData(data: any) {
+    this.userDataSource.next(data);
   }
 
   checkProfileExists() {
@@ -81,7 +99,6 @@ export class ProfileService {
     this.updateTokenInHttpAuthHeader();
     return this.http.get(this.apiUrl + '/orcid/', this.httpOptions);
   }
-
 
   getProfileData() {
     this.updateTokenInHttpAuthHeader();
@@ -126,10 +143,7 @@ export class ProfileService {
    * access and id tokens.
    */
   accountlink() {
-    this.updateTokenInHttpAuthHeader();
-    return this.http.get(
-      this.apiUrl + '/accountlink/',
-      this.httpOptions
-    );
+    this.updateTokenInHttpAuthHeader(true);
+    return this.http.get(this.apiUrl + '/accountlink/', this.httpOptions);
   }
 }

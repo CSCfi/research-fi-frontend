@@ -27,14 +27,14 @@ export class InterceptService implements HttpInterceptor {
   ) {}
 
   handleError(error: HttpErrorResponse) {
-    this.errorService.updateError(error);
+    this.errorService.updateError({ status: error.status });
 
     // Allow user to continue the use of application if CMS service is down.
     if (error.url.includes(this.appConfigService.cmsUrl)) {
       return of(false);
     }
 
-    return throwError(error);
+    return throwError(() => error);
   }
 
   intercept(
