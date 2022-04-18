@@ -6,12 +6,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { apm } from '@elastic/apm-rum';
 import { AppSettingsService } from './app-settings.service';
 import * as Bowser from 'bowser';
-
+import { CustomErrorType } from '@shared/types';
 @Injectable({
   providedIn: 'root',
 })
 export class ErrorHandlerService implements ErrorHandler {
-  private errorSource = new Subject<HttpErrorResponse>();
+  private errorSource = new Subject<CustomErrorType>();
   currentError = this.errorSource.asObservable();
 
   constructor(
@@ -20,7 +20,7 @@ export class ErrorHandlerService implements ErrorHandler {
     private appSettingsService: AppSettingsService
   ) {}
 
-  updateError(error: HttpErrorResponse) {
+  updateError(error: CustomErrorType) {
     this.errorSource.next(error);
   }
 

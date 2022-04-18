@@ -103,6 +103,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   draftPayload: any[];
 
   checkGroupSelected = checkGroupSelected;
+  previousRoute: string | undefined;
+  showWelcomeDialog = false;
 
   private unsubscribe = new Subject();
 
@@ -123,6 +125,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private notificationService: NotificationService
   ) {
     this.testData = profileService.testData;
+
+    // Find if user has navigated to profile route from service deployment stepper
+    // Display welcome dialog if so
+    this.previousRoute = this.router
+      .getCurrentNavigation()
+      .previousNavigation?.finalUrl.toString();
   }
 
   ngOnInit(): void {
@@ -134,10 +142,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
         const userData = data.userData;
         this.orcidData = userData;
 
-        if (userData) {
-          this.orcid = userData.orcid;
-          this.appSettingsService.setOrcid(userData.orcid);
-        }
+        // Get ORCID id from ID token
+        const idTokenPayload = this.oidcSecurityService.getPayloadFromIdToken();
+        this.orcid = idTokenPayload.orcid;
+        this.appSettingsService.setOrcid(idTokenPayload.orcid);
       });
 
     this.profileService
@@ -218,6 +226,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.profileService.setCurrentProfileData(
           cloneDeep(response.profileData)
         );
+
+        // Handle welcome message
+        if (this.previousRoute?.includes('service-deployment')) {
+          this.showWelcomeDialog = true;
+        }
       });
   }
 

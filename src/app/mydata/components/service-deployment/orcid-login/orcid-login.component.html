@@ -1,0 +1,31 @@
+<div class="row pb-4 d-flex justify-content-center">
+  <div class="g-0">
+    <p>
+      <ng-container i18n="@@welcome">Tervetuloa</ng-container>
+      {{ profileName }}!
+    </p>
+    <p>
+      Kirjaudu seuraavaksi Orcidiin, jotta voimme tuoda tutkimukseen liittyvät
+      tietosi palveluun.
+    </p>
+    <p>
+      Tutkijan tiedot -työkaluun kirjaudutaan ORCID-tunnuksilla. Jos sinulla ei
+      ole vielä ORCID-tunnuksia, voit luoda ne
+      <a href="https://orcid.org/" target="_blank"
+        >ORCID-palvelussa <fa-icon icon="external-link-alt"></fa-icon
+      ></a>
+    </p>
+  </div>
+</div>
+
+<div class="row d-flex justify-content-center">
+  <div class="g-0">
+    <app-primary-action-button
+      content="Kirjaudu Orcidiin"
+      (click)="loginOrcid()"
+      [big]="true"
+      [px0]="true"
+    >
+    </app-primary-action-button>
+  </div>
+</div>

@@ -88,6 +88,12 @@ import { GetValuePipe } from './pipes/get-value.pipe';
 import { PortalModule } from '@portal/portal.module';
 import { HasFetchedItemPipe } from './pipes/has-fetched-item.pipe';
 import { SummaryPortalItemsComponent } from './components/profile/profile-summary/summary-portal-items/summary-portal-items.component';
+import { ServiceDeploymentComponent } from './components/service-deployment/service-deployment.component';
+import { ServiceTermsComponent } from './components/service-deployment/service-terms/service-terms.component';
+import { CancelDeploymentComponent } from './components/service-deployment/cancel-deployment/cancel-deployment.component';
+import { OrcidLoginComponent } from './components/service-deployment/orcid-login/orcid-login.component';
+import { OrcidDataFetchComponent } from './components/service-deployment/orcid-data-fetch/orcid-data-fetch.component';
+import { WelcomeDialogComponent } from './components/profile/welcome-dialog/welcome-dialog.component';
 
 const matSnackbarDefaultConfig: MatSnackBarConfig = {
   verticalPosition: 'top',
@@ -140,6 +146,12 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
     GetValuePipe,
     HasFetchedItemPipe,
     SummaryPortalItemsComponent,
+    ServiceDeploymentComponent,
+    ServiceTermsComponent,
+    CancelDeploymentComponent,
+    OrcidLoginComponent,
+    OrcidDataFetchComponent,
+    WelcomeDialogComponent,
   ],
   imports: [
     CommonModule,

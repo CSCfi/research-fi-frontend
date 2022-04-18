@@ -1,0 +1,57 @@
+<div class="row pb-3 d-flex justify-content-center">
+  <div class="g-0">
+    <p>
+      Tutkijan profiilipalvelun käyttöönotto edellyttää, että ORCID -palveluun
+      tallentamasi julkiset tiedot tallennetaan profiilipalveluun.
+    </p>
+    <p>
+      Valitsemalla “Tuo ORCID-tietoni” annat luvan ORCID:iin tallentamiesi
+      julkisten tietojesi tallentamiseen Tutkijan profiilipalveluun.
+    </p>
+    <p class="fw-bold">Tässä vaiheessa emme vielä julkaise profiiliasi.</p>
+    <p>
+      Voit hallinnoida tietojesi julkisuutta seuraavaksi aukeavassa
+      profiilieditorissa.
+    </p>
+  </div>
+</div>
+
+<div class="row d-flex justify-content-center">
+  <div class="g-0">
+    <app-primary-action-button
+      i18n-content="@@importMyOrcidData"
+      content="Tuo Orcid-tietoni"
+      (click)="fetchOrcidData()"
+      [big]="true"
+      [px0]="true"
+    >
+    </app-primary-action-button>
+  </div>
+</div>
+
+<!-- Data fetching indicator -->
+<ng-template #fetchingTemplate>
+  <div class="row d-flex justify-content-center">
+    <div class="col-auto align-self-center">
+      <mat-spinner
+        class="mx-auto"
+        [diameter]="80"
+        i18n-aria-label="@@loading"
+        aria-label="Ladataan"
+      ></mat-spinner>
+      <span
+        class="d-block col pt-3 text-center"
+        i18n="@@importingDataWait"
+        aria-live="polite"
+        >Tietoja tuodaan, odota hetki...</span
+      >
+    </div>
+  </div>
+</ng-template>
+
+<app-dialog
+  *ngIf="loading"
+  [template]="fetchingTemplate"
+  [small]="true"
+  [disableClose]="true"
+></app-dialog>
