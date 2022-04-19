@@ -16,6 +16,7 @@ export class OrcidDataFetchComponent implements OnInit, OnDestroy {
   IDPLinkSub: Subscription;
   orcid: string;
   createProfileSub: Subscription;
+  accountLinkSub: Subscription;
 
   constructor(
     private profileService: ProfileService,
@@ -25,8 +26,6 @@ export class OrcidDataFetchComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    // this.profileService.checkProfileExists().subscribe(() => {});
-
     this.IDPLinkSub = this.profileService
       .accountlink()
       .pipe(switchMap(() => this.oidcSecurityService.forceRefreshSession()))
@@ -38,16 +37,20 @@ export class OrcidDataFetchComponent implements OnInit, OnDestroy {
   }
 
   fetchOrcidData() {
-    this.profileService
-      .accountlink()
-      .subscribe((response: { body: { success: string } }) => {
-        if (response.body.success) {
-          this.loading = true;
-          this.createProfile();
-        } else {
-          this.profileService.handleOrcidNotLinked();
-        }
-      });
+    if (!this.orcid) {
+      this.profileService.handleOrcidNotLinked();
+    } else {
+      this.accountLinkSub = this.profileService
+        .accountlink()
+        .subscribe((response: { body: { success: string } }) => {
+          if (response.body.success) {
+            this.loading = true;
+            this.createProfile();
+          } else {
+            console.error('Unable to link ORCID');
+          }
+        });
+    }
   }
 
   // Create profile when proceeding from step 4. Get ORCID data after profile creation
@@ -76,5 +79,6 @@ export class OrcidDataFetchComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.IDPLinkSub?.unsubscribe();
     this.createProfileSub?.unsubscribe();
+    this.accountLinkSub?.unsubscribe();
   }
 }
