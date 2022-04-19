@@ -12,7 +12,11 @@
 </div>
 <!-- Data -->
 <div *ngIf="resultData?.total > 0; else noResults">
-  <app-table></app-table>
+  <app-table
+    [columns]="tableColumns"
+    [rows]="tableRows"
+    [icon]="faIcon"
+  ></app-table>
 
   <!-- Results -->
   <div class="row no-margin">

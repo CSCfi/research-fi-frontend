@@ -6,13 +6,23 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnInit {
-  tableHeaders = [{ label: 'Nimi' }, { label: 'Organisaatio' }];
-
-  @Input() columns: { label: string }[];
+  @Input() columns: { label: string; key: string }[];
   @Input() rows: any[];
   @Input() icon: any;
 
+  displayedColumns: string[];
+  dataSource: any;
+
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // if (this.icon) {
+    //   this.columns.unshift({ label: 'Icon', key: 'icon' });
+    // }
+
+    // console.log(this.columns);
+    // console.log(this.icon);
+
+    this.displayedColumns = this.columns.map((row) => row.label);
+  }
 }

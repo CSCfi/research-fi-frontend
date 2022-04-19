@@ -15,7 +15,7 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { SearchService } from 'src/app/portal/services/search.service';
 import { SortService } from 'src/app/portal/services/sort.service';
@@ -42,9 +42,10 @@ export class OrganizationsComponent
   inputSub: any;
   input: string;
   focusSub: any;
+  tableColumns: { label: string; key: string }[];
+  tableRows: { name: string; sector: string }[];
 
   constructor(
-    private router: Router,
     private route: ActivatedRoute,
     private tabChangeService: TabChangeService,
     private searchService: SearchService,
@@ -54,6 +55,15 @@ export class OrganizationsComponent
   ) {}
 
   ngOnInit() {
+    this.tableColumns = [
+      { label: 'Nimi', key: 'name' },
+      { label: 'Organisaatio', key: 'sector' },
+    ];
+    this.tableRows = this.resultData.organizations.map((organization) => ({
+      name: organization.name,
+      sector: organization.sectorName,
+    }));
+
     this.sortService.initSort(this.route.snapshot.queryParams.sort || '');
     this.sortColumn = this.sortService.sortColumn;
     this.sortDirection = this.sortService.sortDirection;

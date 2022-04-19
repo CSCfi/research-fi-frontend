@@ -21,6 +21,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 
@@ -104,6 +105,7 @@ import { TableComponent } from './components/table/table.component';
     MatButtonModule,
     MatInputModule,
     MatDialogModule,
+    MatTableModule,
     CollapseModule.forRoot(),
   ],
 })
