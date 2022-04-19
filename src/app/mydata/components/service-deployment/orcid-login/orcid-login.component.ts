@@ -24,14 +24,7 @@ export class OrcidLoginComponent implements OnInit, OnDestroy {
     this.userDataSub = this.oidcSecurityService.userData$.subscribe((data) => {
       if (data.userData) {
         const userData = data.userData;
-        // this.userData = userData;
         this.profileName = userData?.name;
-
-        // this.profileChecked = true;
-
-        // if (userData.orcid) {
-        //   this.appSettingsService.setOrcid(userData.orcid);
-        // }
       }
     });
   }
