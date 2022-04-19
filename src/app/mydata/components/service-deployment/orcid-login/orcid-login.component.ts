@@ -1,5 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { OrcidAccoungLinkingService } from '@mydata/services/orcid-account-linking.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { Subscription } from 'rxjs';
@@ -17,7 +18,8 @@ export class OrcidLoginComponent implements OnInit, OnDestroy {
   constructor(
     private oidcSecurityService: OidcSecurityService,
     private orcidAccountLinkingService: OrcidAccoungLinkingService,
-    @Inject(DOCUMENT) private document: any
+    @Inject(DOCUMENT) private document: any,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -25,6 +27,11 @@ export class OrcidLoginComponent implements OnInit, OnDestroy {
       if (data.userData) {
         const userData = data.userData;
         this.profileName = userData?.name;
+
+        // Redirect to profile view if ORCID is already linked
+        if (userData.orcid) {
+          this.router.navigate(['/mydata/profile']);
+        }
       }
     });
   }
