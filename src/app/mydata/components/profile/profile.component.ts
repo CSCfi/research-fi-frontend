@@ -228,7 +228,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         );
 
         // Handle welcome message
-        if (this.previousRoute?.includes('service-deployment')) {
+        if (this.previousRoute?.includes('service-deployment?step=4')) {
           this.showWelcomeDialog = true;
         }
       });
