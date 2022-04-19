@@ -13,23 +13,23 @@ import {
   PLATFORM_ID,
   Inject,
 } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { combineLatest, forkJoin, Subscription } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { StaticDataService } from 'src/app/portal/services/static-data.service';
 import { isPlatformBrowser } from '@angular/common';
 import { ErrorHandlerService } from '@shared/services/error-handler.service';
 import { HttpErrors } from '@shared/constants';
+import { CustomErrorType } from '@shared/types';
 
 @Component({
   selector: 'app-error-modal',
   templateUrl: './error-modal.component.html',
-  styleUrls: ['./error-modal.component.scss'],
 })
 export class ErrorModalComponent implements OnInit {
   @ViewChild('errorModal', { static: true }) private modal: TemplateRef<any>;
   errorSub: Subscription;
-  error: HttpErrorResponse;
+  error: CustomErrorType;
   isBrowser: boolean;
   cmsError: boolean;
 
@@ -55,7 +55,7 @@ export class ErrorModalComponent implements OnInit {
     this.errorSub = this.errorHandlerService.currentError.subscribe((error) => {
       // Portal can be used if CMS server is down. This needs to be
       // indicated to user and therefore we render dedicated error message
-      if (error.message.includes('cms')) this.cmsError = true;
+      if (error.message?.includes('cms')) this.cmsError = true;
       this.error = error;
       // Only allow a single modal to be active at a time
       if (isPlatformBrowser(this.platformId)) {
@@ -67,11 +67,15 @@ export class ErrorModalComponent implements OnInit {
   }
 
   openModal(template) {
-    if (this.cmsError) {
-      this.dialogTitle = $localize`:@@dataFetchError:Virhe tiedon hakemisessa`;
+    if (this.error.status) {
+      if (this.cmsError) {
+        this.dialogTitle = $localize`:@@dataFetchError:Virhe tiedon hakemisessa`;
+      } else {
+        const errorLabel = $localize`:@@error:Virhe`;
+        this.dialogTitle = `${this.error.status} ${errorLabel}`.trim();
+      }
     } else {
-      const errorLabel = $localize`:@@error:Virhe`;
-      this.dialogTitle = `${this.error.status} ${errorLabel}`.trim();
+      this.dialogTitle = $localize`:@@error:Virhe`;
     }
 
     this.showDialog = true;

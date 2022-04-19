@@ -15,6 +15,7 @@ import {
   ComponentRef,
   OnChanges,
   SimpleChanges,
+  OnDestroy,
 } from '@angular/core';
 import { ComponentPortal, DomPortalOutlet } from '@angular/cdk/portal';
 import { createDomPortalOutlet } from './utils';
@@ -36,7 +37,7 @@ import { DatasetsComponent } from '../datasets/datasets.component';
   selector: 'app-search-results',
   template: '<div #portalHost></div>',
 })
-export class SearchResultsComponent implements OnInit, OnChanges {
+export class SearchResultsComponent implements OnInit, OnChanges, OnDestroy {
   portalHost: DomPortalOutlet;
   @ViewChild('portalHost', { static: true }) elRef: ElementRef;
   componentRef: ComponentRef<any>;
@@ -51,8 +52,7 @@ export class SearchResultsComponent implements OnInit, OnChanges {
   filter: object;
   errorMessage: any;
 
-  tabSub: Subscription;
-  filterSub: Subscription;
+  dataSub: Subscription;
 
   constructor(
     private injector: Injector,
@@ -82,17 +82,21 @@ export class SearchResultsComponent implements OnInit, OnChanges {
 
   getResultData() {
     // Get data, then change component
-    this.searchService
+    this.dataSub = this.searchService
       .getData()
       // .pipe(map(responseData => [responseData]))
-      .subscribe(
-        (responseData) => {
+      .subscribe({
+        next: (responseData) => {
           this.responseData = responseData;
           this.searchService.updateTotal(this.responseData.total);
         },
-        (error) => (this.errorMessage = error as any),
-        () => this.changeComponent(this.currentTab)
-      );
+        error: (error) => (this.errorMessage = error as any),
+        complete: () => this.changeComponent(this.currentTab),
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.dataSub.unsubscribe();
   }
 
   changeComponent(tab) {

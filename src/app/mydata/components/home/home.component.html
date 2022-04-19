@@ -13,7 +13,7 @@
   >
 </ng-template>
 
-<div class="full-width">
+<ng-template #bannerTemplate>
   <div class="row d-flex justify-content-center">
     <div class="col-auto p-4">
       <h1 class="m-0 text-white" i18n="@@researchersProfile">
@@ -28,7 +28,10 @@
       </p>
     </div>
   </div>
-</div>
+</ng-template>
+
+<app-banner-divider [template]="bannerTemplate"></app-banner-divider>
+
 <main id="main-content" class="col col-lg-3 mx-auto">
   <div class="row pt-4 pb-4 d-lg-none">
     <div class="col text-center">
@@ -46,7 +49,7 @@
       <app-primary-action-button
         i18n-content="@@createProfile"
         content="Luo profiili"
-        routerLink="login"
+        routerLink="service-deployment"
         tabindex="-1"
         [big]="true"
       >

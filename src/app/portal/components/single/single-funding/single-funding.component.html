@@ -17,9 +17,9 @@
         [queryParams]="tabQueryParams"
         >&lt;
         <ng-container i18n="@@backToResults"
-          >Takaisin hakutuloksiin</ng-container
-        ></a
-      >
+          >Takaisin hakutuloksiin
+        </ng-container>
+      </a>
     </p>
   </div>
   <!-- Breadcrumb -->
@@ -49,9 +49,9 @@
                 <h2 class="col-12 col-sm-4 col-lg-3 th">
                   <span class="pe-1">{{ row.label }}</span>
                   <ng-container *ngIf="row.tooltip">
-                    <ng-template #tooltipTemplate
-                      ><div [innerHtml]="row.tooltip"></div
-                    ></ng-template>
+                    <ng-template #tooltipTemplate>
+                      <div [innerHtml]="row.tooltip"></div>
+                    </ng-template>
                     <span
                       [tooltip]="tooltipTemplate"
                       tabindex="0"
@@ -161,29 +161,35 @@
                         else noEuFundingRecipients
                       "
                     >
-                      <!-- new implementation here -->
                       <div
                         *ngFor="
                           let person of item.recipient.euFundingRecipients
                         "
                       >
-                        <!--<p>PERSON {{person | json}}</p>-->
                         <div
+                          *ngIf="person?.personIsFunded"
                           class="row"
                           i18n-aria-label="@@fundingRecipient"
                           aria-label="Rahoituksen saaja"
                         >
-                          <div *ngIf="person.personName?.trim().length > 0" class="col-12 col-sm-4 col-lg-3 td">{{ person.personName }}
+                          <div
+                            *ngIf="person.personName"
+                            class="col-12 col-sm-3 td"
+                          >
+                            {{ person.personName }}
                             <app-orcid
                               *ngIf="person.orcid"
                               [orcid]="person.orcid"
                             ></app-orcid>
                           </div>
                           <div
-                            class="col-12 col-sm-4 col-lg-6 td"
+                            class="col-12 col-sm-4 td"
                             i18n-aria-label="@@organization"
                             aria-label="organisaatio"
                           >
+                            <ng-container *ngIf="!person.organizationId">
+                              {{ person.organizationName }}
+                            </ng-container>
                             <a
                               *ngIf="person.organizationId"
                               routerLink="/results/organization/{{
@@ -191,11 +197,16 @@
                               }}"
                               >{{ person.organizationName }}</a
                             >
-                            <ng-container *ngIf="!person.organizationId">
-                              {{ person.organizationId }}
-                            </ng-container>
+                          </div>
+                          <div
+                            class="col-12 col-sm-3 td"
+                            *ngIf="person.shareOfFundingInEur"
+                          >
+                            {{ person.shareOfFundingInEur | thousandSeparator }}
+                            €
                           </div>
                         </div>
+
                         <div class="col px-2 d-block d-lg-none">
                           <hr />
                         </div>
@@ -285,7 +296,7 @@
                           [ngClass]="item.euFunding ? 'col-sm-5' : 'col-auto'"
                         >
                           <a
-                            *ngIf="org.id && org.pic && org.sectorId"
+                            *ngIf="org.portalEquivalent"
                             routerLink="/results/organization/{{ org.id }}"
                           >
                             {{ org.name }}
@@ -306,8 +317,8 @@
                               org.countryCode !== 'FI'
                             "
                           >
-                            ({{ org.countryCode }})</ng-container
-                          >
+                            ({{ org.countryCode }})
+                          </ng-container>
                         </div>
                         <div class="col-12 td col-sm-3 mobile-list">
                           <span
@@ -420,7 +431,8 @@
             <div
               class="row"
               *ngIf="
-                item.totalFundingAmount !== item.recipient.shareOfFundingEur
+                item.totalFundingAmount !== item.recipient.shareOfFundingEur &&
+                !this.hasFundedPerson
               "
             >
               <h2 class="col-12 col-sm-4 col-lg-3 th">
@@ -533,8 +545,8 @@
                         >
                         <ng-container
                           *ngIf="!consortium.consortiumOrganizationId"
-                          >({{ consortium.consortiumProject }})</ng-container
-                        >
+                          >({{ consortium.consortiumProject }})
+                        </ng-container>
                         <ng-container
                           *ngIf="i !== item.otherConsortium.length - 1"
                         ></ng-container>
@@ -547,37 +559,6 @@
                   </div>
                 </div>
               </ng-container>
-
-              <!-- A total sum for regular funded projects -->
-              <div *ngIf="!item.euFunding && item?.recipient?.shareOfFundingEur > 0" class="row">
-                <h2 class="col-12 col-sm-4 col-lg-3 th">
-                  <span class="pe-1">
-                    <ng-container i18n="@@amountGranted"
-                      >Myönnetty summa</ng-container
-                    >
-                  </span>
-                  <ng-template #tooltipTemplate>
-                    <div [innerHtml]="fundingAmountTooltip.tooltip"></div>
-                  </ng-template>
-                  <span
-                    [tooltip]="tooltipTemplate"
-                    tabindex="0"
-                    placement="top"
-                    #elem
-                  >
-                    <fa-icon class="info-icon" icon="info-circle"></fa-icon>
-                  </span>
-                </h2>
-                <div class="col px-0">
-                  <div class="col-12 col-sm-4 col-lg-3 offset-0 td offset-lg-7">
-                    <p class="bold">
-                      {{
-                        item.recipient.shareOfFundingEur | thousandSeparator
-                      }}€
-                    </p>
-                  </div>
-                </div>
-              </div>
             </ng-container>
           </div>
           <!-- Funder -->
@@ -611,9 +592,9 @@
               <h2 class="col-12 col-sm-4 col-lg-3 th">
                 <span class="pe-1">{{ row.label }}</span>
                 <ng-container *ngIf="row.tooltip">
-                  <ng-template #tooltipTemplate
-                    ><div [innerHtml]="row.tooltip"></div
-                  ></ng-template>
+                  <ng-template #tooltipTemplate>
+                    <div [innerHtml]="row.tooltip"></div>
+                  </ng-template>
                   <span
                     [tooltip]="tooltipTemplate"
                     tabindex="0"
@@ -639,9 +620,9 @@
             >
               <h2 class="col-12 col-sm-4 col-lg-3 th">
                 <span class="pe-1" i18n="@@callProgramme">Haku</span>
-                <ng-template #tooltipTemplate
-                  ><div [innerHtml]="callProgrammeTooltip.tooltip"></div
-                ></ng-template>
+                <ng-template #tooltipTemplate>
+                  <div [innerHtml]="callProgrammeTooltip.tooltip"></div>
+                </ng-template>
                 <span
                   [tooltip]="tooltipTemplate"
                   tabindex="0"
@@ -679,8 +660,8 @@
                 >
                   {{ programme.name }}
                   (<a [href]="cordisLink + programme.id" target="_blank"
-                    >{{ programme.id
-                    }}<fa-icon icon="external-link-alt"></fa-icon></a
+                    >{{ programme.id }}
+                    <fa-icon icon="external-link-alt"></fa-icon> </a
                   >)
                 </div>
                 <div
@@ -692,7 +673,7 @@
                     target="_blank"
                   >
                     {{ item.funder.topicId }}
-                    <fa-icon icon="external-link-alt"></fa-icon></a
+                    <fa-icon icon="external-link-alt"></fa-icon> </a
                   >)
                 </div>
                 <div
@@ -715,9 +696,9 @@
               <h2 class="col-12 col-sm-4 col-lg-3 th">
                 <span class="pe-1">{{ row.label }}</span>
                 <ng-container *ngIf="row.tooltip">
-                  <ng-template #tooltipTemplate
-                    ><div [innerHtml]="row.tooltip"></div
-                  ></ng-template>
+                  <ng-template #tooltipTemplate>
+                    <div [innerHtml]="row.tooltip"></div>
+                  </ng-template>
                   <span
                     [tooltip]="tooltipTemplate"
                     tabindex="0"
@@ -743,8 +724,8 @@
       <aside>
         <mat-card>
           <div class="inner">
-            <mat-card-title
-              ><h2>
+            <mat-card-title>
+              <h2>
                 <span class="pe-1" i18n="@@fundingHomePage"
                   >Hankkeen verkkosivu</span
                 >
@@ -758,8 +739,9 @@
                   #elem
                 >
                   <fa-icon class="info-icon" icon="info-circle"></fa-icon>
-                </span></h2
-            ></mat-card-title>
+                </span>
+              </h2>
+            </mat-card-title>
             <div class="row links">
               <div *ngFor="let row of linkFields" class="link-wrapper">
                 <div class="col link">
@@ -787,8 +769,8 @@
                       class="link-item"
                       href="{{ item[row.field] }}"
                       target="_blank"
-                      >{{ item[row.field] | handleLinkDisplay
-                      }}<fa-icon icon="external-link-alt"></fa-icon
+                      >{{ item[row.field] | handleLinkDisplay }}
+                      <fa-icon icon="external-link-alt"></fa-icon
                     ></a>
                   </span>
                 </div>
@@ -807,14 +789,16 @@
       <aside>
         <mat-card>
           <div class="inner">
-            <mat-card-title
-              ><h2>
+            <mat-card-title>
+              <h2>
                 <ng-container i18n="@@relatedFundings"
-                  >Hae hankkeeseen liittyvät</ng-container
-                >
-                (<ng-container i18n="@@comingSoon">tulossa</ng-container>)
-              </h2></mat-card-title
-            >
+                  >Hae hankkeeseen liittyvät
+                </ng-container>
+                (
+                <ng-container i18n="@@comingSoon">tulossa</ng-container>
+                )
+              </h2>
+            </mat-card-title>
             <app-related-links
               [id]=""
               [relatedData]="relatedData"

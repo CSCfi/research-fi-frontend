@@ -1,0 +1,90 @@
+<div class="row pb-4 d-flex justify-content-center">
+  <div class="g-0">
+    <h2 class="col-12 h6 pb-2" i18n="@@termsForTool">
+      Tutkijan tiedot -työkalun käyttöehdot
+    </h2>
+    <div class="col-12 pb-3">
+      <button
+        class="row border border-primary rounded btn d-flex w-100"
+        (click)="openDialog(termsForTool, termsTemplate)"
+      >
+        <div class="col-auto">
+          <i class="pt-3 pb-2 h1 primary-color fas fa-file-alt"></i>
+        </div>
+        <div class="col align-self-center">
+          <span
+            class="d-block align-self-center text-start"
+            i18n="@@openTermsOfUse"
+            >Avaa käyttöehdot</span
+          >
+        </div>
+      </button>
+    </div>
+    <div class="col">
+      <mat-checkbox [(ngModel)]="termsApproved" i18n="@@iHaveReadTermsAndAccept"
+        >Olen lukenut palvelun käyttöehdot, ja hyväksyn ne</mat-checkbox
+      >
+    </div>
+  </div>
+</div>
+
+<ng-template #termsTemplate>
+  <app-eula template="termsTemplate"></app-eula>
+</ng-template>
+
+<div class="row pt-4 pb-5 d-flex justify-content-center">
+  <div class="g-0">
+    <h2 class="col-12 h6 pb-2" i18n="@@processingOfPersonalData">
+      Henkilötietojen käsittely
+    </h2>
+    <div class="col-12 pb-3">
+      <button
+        class="row border border-primary rounded btn d-flex w-100"
+        (click)="
+          openDialog(
+            processingOfPersonalData,
+            personalDataHandlingTermsTemplate
+          )
+        "
+      >
+        <div class="col-auto">
+          <i class="pt-3 pb-2 h1 primary-color fas fa-file-alt"></i>
+        </div>
+        <div class="col align-self-center">
+          <span
+            class="d-block align-self-center text-start"
+            i18n="@@openPersonalDataProcessingPrinciples"
+            >Avaa henkilötietojen käsittelyperiaatteet</span
+          >
+        </div>
+      </button>
+    </div>
+    <div class="col">
+      <mat-checkbox
+        [(ngModel)]="personalDataHandlingApproved"
+        i18n="@@iAcceptProcessingPersonalData"
+        >Hyväksyn henkilötietojeni käsittelyn</mat-checkbox
+      >
+    </div>
+  </div>
+</div>
+
+<ng-template #personalDataHandlingTermsTemplate>
+  <app-eula template="personalDataHandlingTermsTemplate"></app-eula>
+</ng-template>
+
+<app-primary-action-button
+  content="Jatka tunnistautumalla (Suomi.fi)"
+  [big]="true"
+  [disabled]="!termsApproved || !personalDataHandlingApproved"
+  (click)="authenticate()"
+></app-primary-action-button>
+
+<!-- Reusable dialog -->
+<app-dialog
+  *ngIf="showDialog"
+  [template]="dialogTemplate"
+  [title]="dialogTitle"
+  (onActionClick)="showDialog = false"
+  [actions]="dialogActions"
+></app-dialog>

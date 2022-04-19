@@ -5,6 +5,7 @@ import {
   Inject,
   OnChanges,
   ChangeDetectorRef,
+  OnDestroy,
 } from '@angular/core';
 import { Search } from 'src/app/portal/models/search.model';
 import { Subscription } from 'rxjs';
@@ -19,7 +20,7 @@ import { TabChangeService } from 'src/app/portal/services/tab-change.service';
   templateUrl: './news-pagination.component.html',
   styleUrls: ['./news-pagination.component.scss'],
 })
-export class NewsPaginationComponent implements OnInit, OnChanges {
+export class NewsPaginationComponent implements OnInit, OnChanges, OnDestroy {
   page: number;
   fromPage: number; // Used for HTML rendering
   pages: number[];
@@ -60,6 +61,10 @@ export class NewsPaginationComponent implements OnInit, OnChanges {
     // Reset pagination
     this.page = this.searchService.newsPageNumber;
     this.pages = this.generatePages(this.page, this.pageSize);
+  }
+
+  ngOnDestroy(): void {
+    this.resizeSub?.unsubscribe();
   }
 
   generatePages(currentPage: number, length: number = this.pageSize) {

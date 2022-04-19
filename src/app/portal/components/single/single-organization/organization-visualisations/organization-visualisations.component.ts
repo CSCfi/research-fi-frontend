@@ -79,5 +79,6 @@ export class OrganizationVisualisationsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.resizeSub?.unsubscribe();
+    this.contentSub?.unsubscribe();
   }
 }

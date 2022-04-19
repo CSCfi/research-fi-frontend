@@ -57,7 +57,6 @@ body {
   button:focus-visible,
   input:focus-visible,
   select:focus-visible,
-  mat-checkbox.cdk-keyboard-focused .mat-ripple,
   textarea:not(.mat-input-element):focus-visible,
   *:not(.bundler:not(.homepage)):not(.mat-expansion-panel-header):not(.mat-input-element):focus-visible {
     // High contrast focus indicator for keyboard users
@@ -66,6 +65,10 @@ body {
       0 0 3px 5px white !important;
     z-index: 100; // If no margin between next focusable element, high number because of target serach button
   }
+}
+
+body.modal-open .content-container {
+  overflow: hidden;
 }
 
 // Display primary colored border around Material UI elements
@@ -202,6 +205,10 @@ ul {
   padding-inline-start: 1rem;
 }
 
+ol {
+  padding-left: 1rem;
+}
+
 .list-style-circle {
   list-style: circle;
 }
@@ -284,7 +291,7 @@ mark,
 }
 
 #main-content {
-  margin-top: 1.5rem;
+  padding-top: 2.5rem;
 }
 
 .main-loader {
@@ -325,12 +332,6 @@ mark,
 // Icons
 fa-icon[icon='external-link-alt'] {
   padding-left: 5px;
-}
-
-// Columns
-.col {
-  padding-left: 1rem;
-  padding-right: 1rem;
 }
 
 // Forms

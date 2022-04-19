@@ -11,11 +11,12 @@ import {
   ViewEncapsulation,
   ViewChild,
   ElementRef,
+  OnDestroy,
 } from '@angular/core';
 import { ProfileService } from '@mydata/services/profile.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { take } from 'rxjs/operators';
+import { take, takeUntil } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { mergePublications } from '@mydata/utils';
 import { Router } from '@angular/router';
@@ -31,6 +32,8 @@ import { UtilityService } from '@shared/services/utility.service';
 import { DatasetsService } from '@mydata/services/datasets.service';
 import { FundingsService } from '@mydata/services/fundings.service';
 import { CollaborationsService } from '@mydata/services/collaborations.service';
+import { Subject } from 'rxjs';
+import { NotificationService } from '@shared/services/notification.service';
 
 @Component({
   selector: 'app-profile',
@@ -38,7 +41,7 @@ import { CollaborationsService } from '@mydata/services/collaborations.service';
   styleUrls: ['./profile.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   @ViewChild('deletingProfileTemplate') deletingProfileTemplate: ElementRef;
   @ViewChild('collaborationComponentRef') collaborationComponentRef;
 
@@ -100,6 +103,10 @@ export class ProfileComponent implements OnInit {
   draftPayload: any[];
 
   checkGroupSelected = checkGroupSelected;
+  previousRoute: string | undefined;
+  showWelcomeDialog = false;
+
+  private unsubscribe = new Subject();
 
   constructor(
     public profileService: ProfileService,
@@ -114,23 +121,32 @@ export class ProfileComponent implements OnInit {
     public publicationsService: PublicationsService,
     public datasetsService: DatasetsService,
     public fundingsService: FundingsService,
-    private utilityService: UtilityService
+    private utilityService: UtilityService,
+    private notificationService: NotificationService
   ) {
     this.testData = profileService.testData;
+
+    // Find if user has navigated to profile route from service deployment stepper
+    // Display welcome dialog if so
+    this.previousRoute = this.router
+      .getCurrentNavigation()
+      .previousNavigation?.finalUrl.toString();
   }
 
   ngOnInit(): void {
     this.utilityService.setMyDataTitle($localize`:@@profile:Profiili`);
 
-    this.oidcSecurityService.userData$.pipe(take(1)).subscribe((data) => {
-      const userData = data.userData
-      this.orcidData = userData;
+    this.oidcSecurityService.userData$
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe((data) => {
+        const userData = data.userData;
+        this.orcidData = userData;
 
-      if (userData) {
-        this.orcid = userData.orcid;
-        this.appSettingsService.setOrcid(userData.orcid);
-      }
-    });
+        // Get ORCID id from ID token
+        const idTokenPayload = this.oidcSecurityService.getPayloadFromIdToken();
+        this.orcid = idTokenPayload.orcid;
+        this.appSettingsService.setOrcid(idTokenPayload.orcid);
+      });
 
     this.profileService
       .getProfileData()
@@ -210,6 +226,11 @@ export class ProfileComponent implements OnInit {
         this.profileService.setCurrentProfileData(
           cloneDeep(response.profileData)
         );
+
+        // Handle welcome message
+        if (this.previousRoute?.includes('service-deployment?step=4')) {
+          this.showWelcomeDialog = true;
+        }
       });
   }
 
@@ -273,8 +294,8 @@ export class ProfileComponent implements OnInit {
     this.profileService
       .deleteProfile()
       .pipe(take(1))
-      .subscribe(
-        (res: any) => {
+      .subscribe({
+        next: (res: any) => {
           this.loading = false;
           if (res.ok && res.body.success) {
             this.dialog.closeAll();
@@ -284,13 +305,13 @@ export class ProfileComponent implements OnInit {
             setTimeout(() => this.router.navigate(['/mydata']), 500);
           }
         },
-        (error) => {
+        error: (error) => {
           this.loading = false;
           if (!error.ok) {
             this.connProblem = true;
           }
-        }
-      );
+        },
+      });
   }
 
   closeDialog() {
@@ -309,15 +330,15 @@ export class ProfileComponent implements OnInit {
     return new Promise((resolve, reject) => {
       this.publicationsService
         .addPublications()
-        .pipe(take(1))
-        .subscribe(
-          (result) => {
+        .pipe(takeUntil(this.unsubscribe))
+        .subscribe({
+          next: (result) => {
             resolve(true);
           },
-          (error) => {
+          error: (error) => {
             reject(error);
-          }
-        );
+          },
+        });
     });
   }
 
@@ -329,15 +350,15 @@ export class ProfileComponent implements OnInit {
       const patchItems = this.patchService.confirmedPayLoad;
       this.profileService
         .patchObjects(patchItems)
-        .pipe(take(1))
-        .subscribe(
-          (result) => {
+        .pipe(takeUntil(this.unsubscribe))
+        .subscribe({
+          next: (result) => {
             resolve(true);
           },
-          (error) => {
+          error: (error) => {
             reject(error);
-          }
-        );
+          },
+        });
     });
   }
 
@@ -348,15 +369,15 @@ export class ProfileComponent implements OnInit {
     return new Promise((resolve, reject) => {
       this.datasetsService
         .addDatasets()
-        .pipe(take(1))
-        .subscribe(
-          (result) => {
+        .pipe(takeUntil(this.unsubscribe))
+        .subscribe({
+          next: (result) => {
             resolve(true);
           },
-          (error) => {
+          error: (error) => {
             reject(error);
-          }
-        );
+          },
+        });
     });
   }
 
@@ -367,15 +388,15 @@ export class ProfileComponent implements OnInit {
     return new Promise((resolve, reject) => {
       this.fundingsService
         .addFundings()
-        .pipe(take(1))
-        .subscribe(
-          (result) => {
+        .pipe(takeUntil(this.unsubscribe))
+        .subscribe({
+          next: (result) => {
             resolve(true);
           },
-          (error) => {
+          error: (error) => {
             reject(error);
-          }
-        );
+          },
+        });
     });
   }
 
@@ -386,15 +407,15 @@ export class ProfileComponent implements OnInit {
     return new Promise((resolve, reject) => {
       this.collaborationsService
         .patchCollaborationChoices()
-        .pipe(take(1))
-        .subscribe(
-          (result) => {
+        .pipe(takeUntil(this.unsubscribe))
+        .subscribe({
+          next: (result) => {
             resolve(true);
           },
-          (error) => {
+          error: (error) => {
             reject(error);
-          }
-        );
+          },
+        });
     });
   }
 
@@ -496,5 +517,22 @@ export class ProfileComponent implements OnInit {
         'error'
       );
     }
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe.next(null);
+    this.unsubscribe.complete();
+  }
+
+  testNotification() {
+    this.notificationService.notificate({
+      notificationText: 'Tämä on tärkeä viesti, huomioi tämä asia.',
+      buttons: [
+        {
+          label: 'SELVÄ JUTTU',
+          action: () => this.notificationService.clearNotification(),
+        },
+      ],
+    });
   }
 }

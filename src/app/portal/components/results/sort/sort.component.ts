@@ -95,6 +95,9 @@ export class SortComponent implements OnInit, OnDestroy {
           this.tabFields = this.organizationFields;
           break;
         }
+        default: {
+          this.tabFields = [];
+        }
       }
       // Get sort from url and reset sort on tab change
       if (!this.currentSort ? this.currentSort : this.sortByRelevance) {

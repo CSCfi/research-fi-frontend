@@ -6,21 +6,31 @@
  :license: MIT -->
 
 <ng-template #errorModal>
-  <p *ngIf="!cmsError; else cmsErrorContent">
-    {{ httpErrors[error.status] || httpErrors.default }}.
-  </p>
+  <div class="px-3">
+    <ng-container *ngIf="error.status; else customMessageError">
+      <p *ngIf="!cmsError; else cmsErrorContent">
+        {{ httpErrors[error.status] || httpErrors.default }}.
+      </p>
 
-  <ng-template #cmsErrorContent>
-    <div i18n="@@cmsErrorContent1">
-      Emme valitettavasti saa yhteyttä kaikkiin järjestelmämme osiin.
-    </div>
-    <div i18n="@@cmsErrorContent2">
-      Osa tiedejatutkimus.fi:stä on tilapäisesti poissa käytöstä.
-    </div>
-    <div i18n="@@cmsErrorContent3">
-      Voit jatkaa portaalin käyttöä rajoitetulla tietosisällöllä.
-    </div>
-  </ng-template>
+      <ng-template #cmsErrorContent>
+        <div>
+          <div i18n="@@cmsErrorContent1">
+            Emme valitettavasti saa yhteyttä kaikkiin järjestelmämme osiin.
+          </div>
+          <div i18n="@@cmsErrorContent2">
+            Osa tiedejatutkimus.fi:stä on tilapäisesti poissa käytöstä.
+          </div>
+          <div i18n="@@cmsErrorContent3">
+            Voit jatkaa portaalin käyttöä rajoitetulla tietosisällöllä.
+          </div>
+        </div>
+      </ng-template>
+    </ng-container>
+
+    <ng-template #customMessageError>
+      <p>{{ error.message }}</p>
+    </ng-template>
+  </div>
 </ng-template>
 
 <app-dialog

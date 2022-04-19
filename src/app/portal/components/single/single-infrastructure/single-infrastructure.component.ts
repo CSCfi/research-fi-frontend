@@ -164,6 +164,7 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   showLess = $localize`:@@showLess:Näytä vähemmän`;
   relatedData: {};
   focusSub: Subscription;
+  dataSub: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -211,12 +212,13 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.idSub?.unsubscribe();
     this.focusSub?.unsubscribe();
+    this.dataSub?.unsubscribe();
     this.settingsService.related = false;
   }
 
   getData(id: string) {
-    this.singleService.getSingleInfrastructure(id).subscribe(
-      (responseData) => {
+    this.dataSub = this.singleService.getSingleInfrastructure(id).subscribe({
+      next: (responseData) => {
         this.responseData = responseData;
         if (this.responseData.infrastructures[0]) {
           switch (this.localeId) {
@@ -252,8 +254,8 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
           this.filterData();
         }
       },
-      (error) => (this.errorMessage = error as any)
-    );
+      error: (error) => (this.errorMessage = error as any),
+    });
   }
 
   filterData() {

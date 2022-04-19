@@ -53,7 +53,6 @@ export class ResearchInnovationSystemComponent
   focusSub: Subscription;
   resizeSub: Subscription;
   currentLocale: string;
-  sectorDataSub: Subscription;
   sectorData: Sector[] = [];
 
   constructor(
@@ -142,7 +141,7 @@ export class ResearchInnovationSystemComponent
     // Reset skip to input - skip-link
     this.tabChangeService.toggleSkipToInput(true);
     this.tabChangeService.targetFocus('');
+    this.resizeSub?.unsubscribe();
     this.focusSub?.unsubscribe();
-    this.sectorDataSub?.unsubscribe();
   }
 }

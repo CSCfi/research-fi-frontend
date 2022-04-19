@@ -5,7 +5,7 @@
 # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 # :license: MIT -->
 
-<div class="position-relative" (clickOutside)="onClickedOutside($event)">
+<ng-container (clickOutside)="onClickedOutside($event)">
   <fa-icon
     tabindex="0"
     class="info-icon d-inline-block"
@@ -24,4 +24,4 @@
     <!-- Add times icon and close on click -->
     <p [innerHtml]="content"></p>
   </div>
-</div>
+</ng-container>
