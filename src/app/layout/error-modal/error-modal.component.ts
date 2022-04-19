@@ -85,4 +85,8 @@ export class ErrorModalComponent implements OnInit {
   preventTab(event) {
     UtilityService.preventTab(event);
   }
+
+  closeModal() {
+    this.showDialog = false;
+  }
 }
