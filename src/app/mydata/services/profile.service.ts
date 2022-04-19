@@ -48,10 +48,7 @@ export class ProfileService {
     const idTokenPayload = this.oidcSecurityService.getPayloadFromIdToken();
 
     if (!bypassOrcidCheck && !idTokenPayload.orcid) {
-      this.errorHandlerService.updateError({
-        message: 'ORCID-tiliä ei ole linkitetty. Toiminto ei ole sallittu.',
-      });
-      return;
+      return this.handleOrcidNotLinked();
     }
 
     this.httpOptions = {
@@ -61,6 +58,12 @@ export class ProfileService {
       }),
       observe: 'response',
     };
+  }
+
+  handleOrcidNotLinked() {
+    this.errorHandlerService.updateError({
+      message: 'ORCID-tiliä ei ole linkitetty. Toiminto ei ole sallittu.',
+    });
   }
 
   setCurrentProfileName(fullName: string) {

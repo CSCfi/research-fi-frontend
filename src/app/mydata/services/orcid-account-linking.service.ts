@@ -5,7 +5,8 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Injectable, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Inject, Injectable } from '@angular/core';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 
 @Injectable({
@@ -19,7 +20,10 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
 export class OrcidAccoungLinkingService {
   orcidLink: string;
 
-  constructor(public oidcSecurityService: OidcSecurityService) {}
+  constructor(
+    public oidcSecurityService: OidcSecurityService,
+    @Inject(DOCUMENT) private document: any
+  ) {}
 
   /*
    * Get nonce, a random string.
@@ -115,7 +119,7 @@ export class OrcidAccoungLinkingService {
 
     // Redirect URL
     const redirectUrl =
-      'https://localhost:5003/mydata/service-deployment?step=4';
+      this.document.location.origin + '/mydata/service-deployment?step=4';
 
     // Get property clientId from property 'azp' in ID token.
     // azp: Authorized party - the party to which the ID Token was issued
