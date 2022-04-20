@@ -514,13 +514,14 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     // Update title and <h1> with the information of the currently selected tab
     // Placeholder until real data is available
     const amount = tab.data ? this.dataService.totalResults : 999;
+    const title = this.utilityService.getTitle() ? this.utilityService.getTitle() : '';
 
     // Set label by locale
     switch (this.localeId) {
       case 'fi': {
         this.setTitle(tab.label + ' - Tiedejatutkimus.fi');
         this.srHeader.nativeElement.innerHTML =
-          this.utilityService.getTitle().split(' - ', 2).join(' - ') +
+          title.split(' - ', 2).join(' - ') +
           ' - ' +
           amount +
           (amount === 1 ? ' hakutulos' : ' hakutulosta');
@@ -529,7 +530,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       case 'en': {
         this.setTitle(tab.label + ' - Research.fi');
         this.srHeader.nativeElement.innerHTML =
-          this.utilityService.getTitle().split(' - ', 2).join(' - ') +
+          title.split(' - ', 2).join(' - ') +
           ' - ' +
           amount +
           (amount === 1 ? ' result' : ' results');
@@ -538,7 +539,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       case 'sv': {
         this.setTitle(tab.label + ' - Forskning.fi');
         this.srHeader.nativeElement.innerHTML =
-          this.utilityService.getTitle().split(' - ', 2).join(' - ') +
+          title.split(' - ', 2).join(' - ') +
           ' - ' +
           amount +
           (amount === 1 ? ' result' : ' results');
@@ -546,7 +547,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     }
     this.utilityService.addMeta(
-      this.utilityService.getTitle(),
+      title,
       this.metaTags['description' + this.currentLocale],
       this.commonTags['imgAlt' + this.currentLocale]
     );
@@ -566,6 +567,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         icon: '',
         singular: '',
       });
+      this.queryParams?.unsubscribe();
+      this.input?.unsubscribe();
       this.combinedRouteParams?.unsubscribe();
       this.totalSub?.unsubscribe();
       this.tabSub?.unsubscribe();
