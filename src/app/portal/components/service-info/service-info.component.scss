@@ -6,9 +6,6 @@
 // :license: MIT
 
 app-service-info {
-  h3 {
-    font-size: 18px;
-  }
 
   small {
     display: block;
@@ -24,6 +21,9 @@ app-service-info {
 
   .mat-expansion-panel-body {
     padding: 0 3.6rem 1rem;
+    h3 {
+      font-size: 1rem;
+    }
   }
 
   .info-panel {

@@ -8,11 +8,11 @@
   class="row active-filters"
   *ngIf="activeFilters.length > 0 && translationFlag"
 >
-    <h4 class="h6 w-100">
-      <ng-container i18n="@@activeFilters">Rajaukset</ng-container> ({{
-        parsedFilters.length
-      }}):
-    </h4>
+  <h4 class="h6 w-100">
+    <ng-container i18n="@@activeFilters">Rajaukset</ng-container> ({{
+      parsedFilters.length
+    }}):
+  </h4>
   <ul aria-live="polite" class="mb-0">
     <ng-container
       *ngFor="let activeFilter of parsedFilters.slice(0, 7); let i = index"
@@ -51,7 +51,7 @@
     <div
       class="ellipsis"
       *ngIf="parsedFilters.length > 6"
-      (click)="openModal()"
+      (click)="openDialog()"
     >
       ...
     </div>
@@ -61,7 +61,7 @@
         class="show filter"
         mat-button
         color="primary"
-        (click)="openModal()"
+        (click)="openDialog()"
         i18n="@@showAll"
       >
         Näytä kaikki
@@ -80,3 +80,14 @@
     </div>
   </ul>
 </div>
+
+<ng-template #filterListDialog>
+  <app-filter-list [data]="dialogData"></app-filter-list>
+</ng-template>
+
+<app-dialog
+  *ngIf="showDialog"
+  [title]="dialogTitle"
+  [template]="filterListDialog"
+  (onActionClick)="closeDialog()"
+></app-dialog>

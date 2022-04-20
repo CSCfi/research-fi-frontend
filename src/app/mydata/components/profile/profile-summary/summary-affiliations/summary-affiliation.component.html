@@ -6,9 +6,7 @@
 <!--  Primary affiliations -->
 <ng-container *ngIf="(data.groupItems | getItemsBy: 'primaryValue').length">
   <div class="row">
-    <div class="col font-weight-bold pb-3" i18n="@@primaryPlural">
-      Ensisijaiset
-    </div>
+    <div class="col fw-bold pb-3" i18n="@@primaryPlural">Ensisijaiset</div>
   </div>
 
   <div
@@ -29,8 +27,8 @@
 <div class="summary-panel-wrapper">
   <ng-container *ngFor="let item of sortedItems">
     <div class="summary-panel" *ngIf="item.itemMeta.show">
-      <div class="col pb-3">
-        <span class="font-weight-bold">{{ item.organizationName }}</span>
+      <div class="col px-3 pb-3">
+        <span class="fw-bold">{{ item.organizationName }}</span>
 
         <div class="font-size-smaller">
           {{ item.year }}
@@ -40,7 +38,7 @@
       <div class="row d-flex justify-content-between py-1 font-size-smaller">
         <ng-container *ngFor="let column of columns">
           <div class="col-6 pb-3" *ngIf="item[column.field]">
-            <div class="row font-weight-bold">{{ column.label }}</div>
+            <div class="row fw-bold">{{ column.label }}</div>
 
             <div class="row" [ngSwitch]="column.field">
               <ng-container *ngSwitchCase="'positionName'">

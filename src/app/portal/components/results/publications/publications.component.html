@@ -164,7 +164,7 @@
           >
           </span>
         </div>
-        <div class="col col-lg-1 text-right">
+        <div class="col col-lg-1 text-end">
           <span
             [innerHtml]="publication.publicationYear | highlight: input"
           ></span>
@@ -188,7 +188,10 @@
         verkkopalvelussa.
       </p>
       <p>
-        <a routerLink="/service-info" fragment="service-info-2" i18n="@@resultsAboutService"
+        <a
+          routerLink="/service-info"
+          fragment="service-info-2"
+          i18n="@@resultsAboutService"
           >Mitä tietoja Tiedejatutkimus.fi sisältää?</a
         >
       </p>

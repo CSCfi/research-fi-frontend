@@ -42,12 +42,12 @@
     <main class="col-12 col-md-8">
       <div *ngFor="let item of [responseData.infrastructures[0]]">
         <h1 class="result-header">{{ item.name }}</h1>
-        <div id="info" class="table">
+        <div id="info">
           <div class="content">
             <ng-container *ngFor="let row of infoFields; let i = index">
               <div class="row" *ngIf="item[row.field]">
                 <h2 class="col-12 col-sm-6 col-lg-3 th">
-                  <span class="pr-1">{{ row.label }}</span>
+                  <span class="pe-1">{{ row.label }}</span>
                   <ng-container *ngIf="row.tooltip">
                     <ng-template #tooltipTemplate
                       ><div [innerHtml]="row.tooltip"></div
@@ -83,7 +83,7 @@
           </div>
           <div *ngIf="item.services.length > 0" class="content">
             <h2 class="subheader trHeader">
-              <span class="pr-1" i18n="@@infraServices"
+              <span class="pe-1" i18n="@@infraServices"
                 >Tutkimusinfrastruktuurin palvelut</span
               >
               <span
@@ -115,14 +115,14 @@
                   }}
                   {{ service.acronym ? '(' + service.acronym + ')' : '' }}
                 </h3>
-                <div *ngIf="showService[i]" class="pl-4">
+                <div *ngIf="showService[i]" class="ps-4">
                   <div
                     *ngFor="let row of serviceFields; let j = index"
                     class="row"
                   >
                     <ng-container *ngIf="stringHasContent(service[row.field])">
                       <h4 class="col-12 col-sm-6 col-lg-3 th">
-                        <span class="pr-1">{{ row.label }}</span>
+                        <span class="pe-1">{{ row.label }}</span>
                         <ng-container *ngIf="row.tooltip">
                           <ng-template #tooltipTemplate
                             ><div [innerHtml]="row.tooltip"></div
@@ -178,7 +178,7 @@
                   >
                     <div class="row">
                       <h4 class="col-12 col-sm-6 col-lg-3 th">
-                        <span class="pr-1" i18n="@@infraServicePoint"
+                        <span class="pe-1" i18n="@@infraServicePoint"
                           >Palvelupiste</span
                         >
                         <span
@@ -207,13 +207,7 @@
                         <ng-container *ngIf="servicePoint[row.field]?.trim()">
                           <h5 class="sr-only">{{ row.label }}</h5>
                           <div
-                            class="
-                              offset-0 offset-sm-6 offset-lg-3
-                              col-12 col-sm-6 col-lg-9
-                              pt-0
-                              pb-0
-                              td
-                            "
+                            class="offset-0 offset-sm-6 offset-lg-3 col-12 col-sm-6 col-lg-9 pt-0 pb-0 td"
                           >
                             <ng-container
                               *ngIf="
@@ -286,24 +280,19 @@
               </div>
             </ng-container>
             <div *ngIf="classificationFields?.length > 0" class="row">
-              <h3
+              <h2
                 class="col-12 col-sm-6 col-lg-3 th"
                 i18n="@@infraClassifications"
               >
                 Luokituksia
-              </h3>
+              </h2>
               <div
-                class="
-                  col-12 col-sm-6 col-lg-3
-                  offset-0 offset-sm-6 offset-lg-0
-                  first-no-offset-mobile
-                  td
-                "
+                class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 first-no-offset-mobile td"
                 *ngFor="let row of classificationFields; let i = index"
               >
                 <ng-container *ngIf="item[row.field]">
                   <h4 class="th classification">
-                    <span class="pr-1">{{ row.label }}</span>
+                    <span class="pe-1">{{ row.label }}</span>
                     <ng-container *ngIf="row.tooltip">
                       <ng-template #tooltipTemplate
                         ><div [innerHtml]="row.tooltip"></div
@@ -328,12 +317,12 @@
             <!-- Contact -->
 
             <div *ngIf="contactFields?.length > 0" class="row">
-              <h3
+              <h2
                 class="col-12 col-sm-6 col-lg-3 pt-0 pb-0 contact th"
                 i18n="@@contactInfo"
               >
                 Yhteystiedot
-              </h3>
+              </h2>
               <div
                 class="col-12 col-sm-6 offset-0 pt-0 pb-0 td"
                 *ngFor="let row of contactFields.slice(0, 1); let i = index"
@@ -355,13 +344,7 @@
                 </ng-container>
               </div>
               <div
-                class="
-                  col-12 col-sm-6
-                  offset-0 offset-sm-6 offset-lg-3
-                  pt-0
-                  pb-0
-                  td
-                "
+                class="col-12 col-sm-6 offset-0 offset-sm-6 offset-lg-3 pt-0 pb-0 td"
                 *ngFor="let row of contactFields.slice(1); let i = index"
               >
                 <ng-container *ngIf="item[row.field]">
@@ -492,7 +475,7 @@
                 {{ source.responsibleOrganization }}
               </a>
               <ng-template #noSource>
-                <p class="font-italic m-0" i18n="@@missingInfraSource">
+                <p class="fst-italic m-0" i18n="@@missingInfraSource">
                   Infrastruktuuritiedon lähde puuttuu.
                 </p>
               </ng-template>

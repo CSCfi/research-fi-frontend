@@ -9,37 +9,47 @@
   <div class="row">
     <div class="col px-0">
       <ng-container *ngIf="!cancel; else cancelTemplate">
-        <div class="row">
+        <!-- <div class="row">
           <div class="col text-center">
             <h1 class="step-header">{{ step }} / 3</h1>
           </div>
-        </div>
+        </div> -->
+
+        <h1 class="h4 text-center fw-normal pb-3">Palvelun käyttöönotto</h1>
 
         <ng-container [ngSwitch]="step">
           <!-- First step -->
           <ng-container *ngSwitchCase="1">
             <div class="row pb-4">
               <div class="col text-center">
-                <h1 class="step-header">
+                <h2 class="h4 fw-bold">
                   {{ steps[step - 1].title }}
-                  {{ profileName }}!
-                </h1>
+                  <!-- {{ profileName }}! -->
+                </h2>
               </div>
               <!-- Icon -->
               <i
-                class="col-12 pt-3 h1 primary-color text-center fas fa-smile"
+                class="col-12 pt-3 h1 primary-color text-center fas fa-hands-helping"
               ></i>
             </div>
 
             <div class="row pb-4 d-flex justify-content-center">
               <div class="col">
-                <p i18n="@@beforeUsingTheService">
-                  Ennen palvelun käyttöönottoa pyydämme sinua tutustumaan
-                  palvelun käyttöehtoihin ja henkilötietojen
-                  käsittelyperiaatteisiin.
+                <p>
+                  <ng-container i18n="@@welcome">Tervetuloa</ng-container>
+                  {{ profileName }}!
                 </p>
-                <p i18n="@@noteBetaTerms">
-                  Huom: Käyttöehdot koskevat palvelun beta-versiota.
+                <p>
+                  Kirjaudu seuraavaksi Orcidiin, jotta voimme tuoda tutkimukseen
+                  liittyvät tietosi palveluun.
+                </p>
+                <p>
+                  Tutkijan tiedot -työkaluun kirjaudutaan ORCID-tunnuksilla. Jos
+                  sinulla ei ole vielä ORCID-tunnuksia, voit luoda ne
+                  <a href="https://orcid.org/" target="_blank"
+                    >ORCID-palvelussa
+                    <fa-icon icon="external-link-alt"></fa-icon
+                  ></a>
                 </p>
               </div>
             </div>
@@ -47,9 +57,8 @@
             <div class="row pb-3 d-flex justify-content-center">
               <div class="col">
                 <app-primary-action-button
-                  i18n-content="@@openTermsAndProcessingPrinciples"
-                  content="Avaa käyttöehdot ja käsittelyperiaatteet"
-                  (click)="increment()"
+                  content="Kirjaudu Orcidiin"
+                  (click)="loginOrcid()"
                   [big]="true"
                   [px0]="true"
                 >
@@ -71,104 +80,11 @@
           </ng-container>
 
           <!-- Second step -->
+
           <ng-container *ngSwitchCase="2">
             <div class="row pb-4">
               <div class="col text-center">
-                <h1 class="step-header">
-                  {{ steps[step - 1].title }}
-                </h1>
-              </div>
-              <!-- Icon -->
-              <i
-                class="col-12 pt-3 h1 primary-color text-center fas fa-file-alt"
-              ></i>
-            </div>
-
-            <div class="row pb-4 d-flex justify-content-center">
-              <h2 class="col-12 h6 pb-2" i18n="@@termsForTool">
-                Tutkijan tiedot -työkalun käyttöehdot
-              </h2>
-              <div class="col-12 pb-3">
-                <button
-                  class="row border border-primary rounded btn d-flex w-100"
-                  (click)="openDialog(termsForTool, termsTemplate)"
-                >
-                  <div class="col-auto">
-                    <i class="pt-3 pb-2 h1 primary-color fas fa-file-alt"></i>
-                  </div>
-                  <div class="col align-self-center">
-                    <span
-                      class="d-block align-self-center text-left"
-                      i18n="@@openTermsOfUse"
-                      >Avaa käyttöehdot</span
-                    >
-                  </div>
-                </button>
-              </div>
-              <div class="col">
-                <mat-checkbox
-                  [(ngModel)]="termsApproved"
-                  i18n="@@iHaveReadTermsAndAccept"
-                  >Olen lukenut palvelun käyttöehdot, ja hyväksyn
-                  ne</mat-checkbox
-                >
-              </div>
-            </div>
-
-            <ng-template #termsTemplate>
-              <app-eula template="termsTemplate"></app-eula>
-            </ng-template>
-
-            <div class="row pt-4 pb-5 d-flex justify-content-center">
-              <h2 class="col-12 h6 pb-2" i18n="@@processingOfPersonalData">
-                Henkilötietojen käsittely
-              </h2>
-              <div class="col-12 pb-3">
-                <button
-                  class="row border border-primary rounded btn d-flex w-100"
-                  (click)="
-                    openDialog(
-                      processingOfPersonalData,
-                      personalDataHandlingTermsTemplate
-                    )
-                  "
-                >
-                  <div class="col-auto">
-                    <i class="pt-3 pb-2 h1 primary-color fas fa-file-alt"></i>
-                  </div>
-                  <div class="col align-self-center">
-                    <span
-                      class="d-block align-self-center text-left"
-                      i18n="@@openPersonalDataProcessingPrinciples"
-                      >Avaa henkilötietojen käsittelyperiaatteet</span
-                    >
-                  </div>
-                </button>
-              </div>
-              <div class="col">
-                <mat-checkbox
-                  [(ngModel)]="personalDataHandlingApproved"
-                  i18n="@@iAcceptProcessingPersonalData"
-                  >Hyväksyn henkilötietojeni käsittelyn</mat-checkbox
-                >
-              </div>
-            </div>
-
-            <ng-template #personalDataHandlingTermsTemplate>
-              <app-eula template="personalDataHandlingTermsTemplate"></app-eula>
-            </ng-template>
-
-            <app-stepper-navigation
-              (changeStep)="changeStep($event)"
-              [disableNext]="!termsApproved || !personalDataHandlingApproved"
-            ></app-stepper-navigation>
-          </ng-container>
-
-          <!-- Third step -->
-          <ng-container *ngSwitchCase="3">
-            <div class="row pb-4">
-              <div class="col text-center">
-                <h1 class="step-header">
+                <h1 class="h4 fw-bold">
                   {{ steps[step - 1].title }}
                 </h1>
               </div>
@@ -190,18 +106,12 @@
                   tallentamiesi julkisten tietojesi tallentamisen Tutkijan
                   tiedot -palveluun.
                 </p>
-                <p class="font-weight-bold" i18n="@@welcomeStep3_3">
+                <p class="fw-bold" i18n="@@welcomeStep3_3">
                   Tässä vaiheessa emme vielä julkaise profiiliasi.
                 </p>
                 <p i18n="@@welcomeStep3_4">
                   Voit hallinnoida tietojesi näyttämistä seuraavassa vaiheessa.
                 </p>
-              </div>
-            </div>
-
-            <div class="row pb-3 d-flex justify-content-center">
-              <div class="col">
-                <app-mydata-beta-info></app-mydata-beta-info>
               </div>
             </div>
 
@@ -303,7 +213,7 @@
       ></app-dialog>
 
       <!-- ORCID info -->
-      <div class="row py-5" *ngIf="userData">
+      <div class="row py-5" *ngIf="step === 2 && userData?.orcid">
         <app-orcid-id-info
           class="col text-center"
           [userData]="userData"

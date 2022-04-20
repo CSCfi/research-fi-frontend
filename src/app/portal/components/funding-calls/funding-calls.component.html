@@ -17,7 +17,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
         <span class="total">{{ parsedTotal }}</span>
         <!-- BETA TOOLTIP -->
         <span
-          class="ml-3"
+          class="ms-3"
           [tooltip]="auroraInfo"
           placement="top"
           tabindex="-1"
@@ -32,7 +32,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
       </h2>
     </div>
     <app-search
-      class="col-12 col-md-6 search"
+      class="col-12 col-md-6 search px-0 pe-lg-0"
       i18n-placeholder="@@searchFundingCallsPlaceHolder"
       placeholder="Hae rahoitushakuja..."
       (getSearchTerm)="searchFundingCalls($event)"
@@ -50,15 +50,15 @@ Copyright 2019 Ministry of Education and Culture, Finland
   <div class="row">
     <div class="col-12 px-0">
       <div class="total" #totalHeader>
-        <div class="row justify-content-between">
+        <div class="row justify-content-between pb-2">
           <div class="col-auto p-0"></div>
           <div
-            class="col-auto col-lg-7 justify-content-end align-items-center row"
+            class="col-auto col-lg-7 pe-lg-0 justify-content-end align-items-center row"
           >
-            <div class="col-auto px-0 pr-lg-3" *ngIf="selectedTabData">
+            <div class="col-auto px-0 pe-lg-3" *ngIf="selectedTabData">
               <app-result-count></app-result-count>
             </div>
-            <div class="col-auto text-right d-none d-lg-block">
+            <div class="col-auto text-end d-none d-lg-block pe-lg-0">
               <a
                 routerLink="/service-info"
                 fragment="service-info-2"
@@ -105,16 +105,16 @@ Copyright 2019 Ministry of Education and Culture, Finland
         class="col-12 row d-flex justify-content-between"
         style="padding: 0"
       >
-        <aside class="col col-6 col-sm-6 filters">
+        <aside class="col col-6 col-sm-6 ps-0 filters">
           <app-filters
             [responseData]="filterValues"
             [tabData]="'funding-calls'"
           ></app-filters>
         </aside>
-        <aside class="col col-6 col-sm-6 sort">
+        <aside class="col col-6 col-sm-6 pe-0 sort">
           <app-sort></app-sort>
         </aside>
-        <main class="col-12" id="main-content">
+        <main class="col-12 px-0" id="main-content">
           <app-active-filters></app-active-filters>
           <app-funding-call-results
             [resultData]="resultData"
@@ -128,14 +128,14 @@ Copyright 2019 Ministry of Education and Culture, Finland
 </div>
 
 <ng-template #desktop>
-  <aside class="col-4 col-xl-3 filters" *ngIf="!modalRef">
+  <aside class="col-4 col-xl-3 filters px-0" *ngIf="!modalRef">
     <app-filters
       [responseData]="filterValues"
       [tabData]="'funding-calls'"
     ></app-filters>
   </aside>
-  <div class="col-8 col-xl-9 row main-content pr-xl-0">
-    <main class="col-12 pr-xl-0">
+  <div class="col-8 col-xl-9 row main-content pe-xl-0">
+    <main class="col-12 pe-xl-0">
       <app-active-filters></app-active-filters>
       <h3 class="sr-only">Hakutulokset</h3>
       <app-funding-call-results

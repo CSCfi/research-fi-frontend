@@ -10,17 +10,16 @@ import {
   PLATFORM_ID,
   ViewEncapsulation,
   ChangeDetectorRef,
+  TemplateRef,
 } from '@angular/core';
 import { faInfo } from '@fortawesome/free-solid-svg-icons';
-import { Title } from '@angular/platform-browser';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { DOCUMENT, isPlatformBrowser, Location } from '@angular/common';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { ActivatedRoute } from '@angular/router';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ReviewComponent } from 'src/app/layout/review/review.component';
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-service-info',
@@ -32,7 +31,8 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   faInfo = faInfo;
 
   @ViewChild('mainFocus') mainFocus: ElementRef;
-  focusSub: any;
+  @ViewChild('reviewDialog') reviewDialog: TemplateRef<any>;
+  focusSub: Subscription;
   title: string;
   openedIdx: any;
   currentLocale: string;
@@ -40,7 +40,7 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   private metaTags = MetaTags.serviceInfo;
   private commonTags = MetaTags.common;
   content: any[];
-  reviewDialogRef: MatDialogRef<ReviewComponent>;
+  showDialog: boolean;
 
   sections = [
     { header: $localize`:@@serviceInfoHeader:Tietoa palvelusta`, items: [] },
@@ -48,7 +48,6 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   ];
 
   constructor(
-    private titleService: Title,
     @Inject(LOCALE_ID) protected localeId: string,
     private tabChangeService: TabChangeService,
     private location: Location,
@@ -56,7 +55,6 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
     private route: ActivatedRoute,
     @Inject(DOCUMENT) private document: any,
     @Inject(PLATFORM_ID) private platformId: object,
-    public dialog: MatDialog,
     private cdr: ChangeDetectorRef,
     private appSettingsService: AppSettingsService
   ) {
@@ -103,11 +101,11 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setTitle(title: string) {
-    this.titleService.setTitle(title);
+    this.utilityService.setTitle(title);
   }
 
   getTitle() {
-    return this.titleService.getTitle().split('-').shift().trim();
+    return this.utilityService.getTitle().split('-').shift().trim();
   }
 
   ngAfterViewInit() {
@@ -132,10 +130,7 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   toggleReview() {
-    this.reviewDialogRef = this.dialog.open(ReviewComponent, {
-      maxWidth: '800px',
-      minWidth: '320px',
-    });
+    this.showDialog = !this.showDialog;
   }
 
   open(id: string) {
@@ -156,5 +151,6 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
     // Reset skip to input - skip-link
     this.tabChangeService.toggleSkipToInput(true);
     this.tabChangeService.targetFocus('');
+    this.focusSub?.unsubscribe();
   }
 }

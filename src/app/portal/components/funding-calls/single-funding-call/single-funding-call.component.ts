@@ -6,7 +6,6 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { faAlignLeft } from '@fortawesome/free-solid-svg-icons';
 import { AppSettingsService } from '@shared/services/app-settings.service';
@@ -75,12 +74,12 @@ export class SingleFundingCallComponent implements OnInit {
   currentLocale: string;
   tabData: any;
   focusSub: Subscription;
+  dataSub: Subscription;
 
   constructor(
     private route: ActivatedRoute,
     private singleService: SingleItemService,
     private searchService: SearchService,
-    private titleService: Title,
     @Inject(LOCALE_ID) protected localeId: string,
     private tabChangeService: TabChangeService,
     public utilityService: UtilityService,
@@ -91,7 +90,7 @@ export class SingleFundingCallComponent implements OnInit {
   }
 
   public setTitle(newTitle: string) {
-    this.titleService.setTitle(newTitle);
+    this.utilityService.setTitle(newTitle);
   }
 
   ngOnInit() {
@@ -120,17 +119,22 @@ export class SingleFundingCallComponent implements OnInit {
   ngOnDestroy() {
     this.idSub?.unsubscribe();
     this.focusSub?.unsubscribe();
+    this.dataSub?.unsubscribe();
     this.settingsService.related = false;
   }
 
   fixExternalUrl(url: string) {
     // Fix url address to be handled as external link if prefix missing
-    return url.startsWith('http') ? url : url.startsWith('www') ? 'https://' + url : '//' + url;
+    return url.startsWith('http')
+      ? url
+      : url.startsWith('www')
+      ? 'https://' + url
+      : '//' + url;
   }
 
   getData(id: string) {
-    this.singleService.getSingleFundingCall(id).subscribe(
-      (responseData) => {
+    this.dataSub = this.singleService.getSingleFundingCall(id).subscribe({
+      next: (responseData) => {
         this.responseData = responseData;
         if (this.responseData.fundingCalls[0]) {
           switch (this.localeId) {
@@ -154,7 +158,7 @@ export class SingleFundingCallComponent implements OnInit {
               break;
             }
           }
-          const titleString = this.titleService.getTitle();
+          const titleString = this.utilityService.getTitle();
           this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
           this.utilityService.addMeta(
             titleString,
@@ -166,8 +170,8 @@ export class SingleFundingCallComponent implements OnInit {
           this.filterData();
         }
       },
-      (error) => (this.errorMessage = error as any)
-    );
+      error: (error) => (this.errorMessage = error as any),
+    });
   }
 
   filterData() {

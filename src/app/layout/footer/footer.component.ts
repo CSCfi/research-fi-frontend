@@ -22,8 +22,6 @@ import {
   faLinkedin,
 } from '@fortawesome/free-brands-svg-icons';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { MatDialogRef } from '@angular/material/dialog';
-import { ReviewComponent } from '../review/review.component';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { WINDOW } from '@shared/services/window.service';
 import { isPlatformBrowser } from '@angular/common';
@@ -44,7 +42,6 @@ export class FooterComponent implements OnInit {
 
   faTimes = faTimes;
   showReviewButton: boolean;
-  reviewDialogRef: MatDialogRef<ReviewComponent>;
 
   myDataBeta: boolean;
 

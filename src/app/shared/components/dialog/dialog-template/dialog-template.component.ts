@@ -5,21 +5,41 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, Inject, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Inject,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { take } from 'rxjs/operators';
 import { cloneDeep } from 'lodash-es';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dialog-template',
   templateUrl: './dialog-template.component.html',
   styleUrls: ['./dialog-template.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
-export class DialogTemplateComponent implements OnInit {
+export class DialogTemplateComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
   mobile: boolean;
   displayExtraContent = false;
   dialogActions: any[];
+  @ViewChild('closeButton') closeButton: ElementRef;
+  closeButtonWidth: number = 0;
+  @Output() onActiveActionClick = new EventEmitter<any>();
+  mobileStatusSub: Subscription;
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
@@ -30,16 +50,22 @@ export class DialogTemplateComponent implements OnInit {
       actions: any[];
       spreadActions: boolean;
       extraContentTemplate: object;
+      centerTitle: boolean;
+      noPadding: boolean;
+      wide: boolean;
+      headerInfoTemplate: object;
+      extraHeaderTemplate: object;
     },
     private dialogRef: MatDialogRef<DialogTemplateComponent>,
-    private appSettingsService: AppSettingsService
+    private appSettingsService: AppSettingsService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     // Unbind from original actions
     this.dialogActions = cloneDeep(this.data.actions);
 
-    this.appSettingsService.mobileStatus
+    this.mobileStatusSub = this.appSettingsService.mobileStatus
       .pipe(take(1))
       .subscribe((status) => (this.mobile = status));
   }
@@ -60,6 +86,18 @@ export class DialogTemplateComponent implements OnInit {
         });
       }
     }
+  }
+
+  ngAfterViewInit() {
+    // Get close button width for helper div when using centered title
+    if (this.closeButton) {
+      this.closeButtonWidth = this.closeButton.nativeElement.offsetWidth;
+      this.cdr.detectChanges();
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.mobileStatusSub?.unsubscribe();
   }
 
   close() {

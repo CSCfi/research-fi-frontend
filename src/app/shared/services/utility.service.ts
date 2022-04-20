@@ -5,19 +5,14 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import {
-  Injectable,
-  ElementRef,
-  Inject,
-  LOCALE_ID,
-  PLATFORM_ID,
-} from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { BsModalService } from 'ngx-bootstrap/modal';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SortService } from '../../portal/services/sort.service';
 import { Meta, Title } from '@angular/platform-browser';
+import { MatDialog } from '@angular/material/dialog';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 @Injectable({
   providedIn: 'root',
@@ -28,18 +23,19 @@ export class UtilityService {
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
-    private modalService: BsModalService,
     private route: ActivatedRoute,
     private sortService: SortService,
     private router: Router,
     private meta: Meta,
-    private titleService: Title
+    private titleService: Title,
+    private matDialog: MatDialog,
+    private liveAnnouncer: LiveAnnouncer
   ) {
     // Subscribe to modal show and hide
-    this.modalHideSub = this.modalService.onHide.subscribe((_) => {
+    this.modalHideSub = this.matDialog.afterAllClosed.subscribe(() => {
       this.modalOpen = false;
     });
-    this.modalShowSub = this.modalService.onShow.subscribe((_) => {
+    this.modalShowSub = this.matDialog.afterOpened.subscribe(() => {
       this.modalOpen = true;
     });
   }
@@ -177,16 +173,21 @@ export class UtilityService {
     });
   }
 
+  getTitle(): string {
+    if (isPlatformBrowser(this.platformId)) {
+      return this.titleService.getTitle();
+    }
+  }
+
   setTitle(newTitle: string) {
     if (isPlatformBrowser(this.platformId)) {
       this.titleService.setTitle(newTitle);
+      this.liveAnnouncer.announce(newTitle);
     }
   }
 
   setMyDataTitle(newTitle: string) {
-    if (isPlatformBrowser(this.platformId)) {
-      this.titleService.setTitle(`${newTitle} - ${$localize`:@@researchersProfile:Tutkijan tiedot`}`);
-    }
+    this.setTitle(`${newTitle} - ${$localize`:@@researchersProfile:Tutkijan tiedot`}`)
   }
 
   addMeta(title: string, description: string, imageAlt: string) {

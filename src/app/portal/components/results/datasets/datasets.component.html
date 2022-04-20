@@ -61,8 +61,7 @@
         class="bold uppercase cursor-default"
         (keydown.enter)="utilityService.sortBy('medium')"
         i18n=""
-        ></span
-      >
+      ></span>
     </div>
   </div>
   <div *ngIf="resultData" class="result-container">
@@ -109,6 +108,7 @@
               <span class="open-access-image"></span>
               <span i18n="@@openAccess">Avoin saatavuus</span>
             </span>
+            <!-- DOI -->
             <div *ngIf="dataset.doi?.trim()" class="doi">
               <span class="doi-tag">DOI</span>
               <span class="doi-link"
@@ -117,6 +117,9 @@
                   }}<fa-icon icon="external-link-alt"></fa-icon></a
               ></span>
             </div>
+            <!-- Dataset versions tag -->
+            <ng-container *ngTemplateOutlet="versionTag"></ng-container>
+            <!-- URN -->
             <div *ngIf="dataset.urn?.trim()" class="doi">
               <span class="doi-tag">URN</span>
               <span class="doi-link"
@@ -129,12 +132,10 @@
         </div>
         <div class="col col-lg-5 col-xl-3 d-none d-lg-block">
           <span
-            [innerHtml]="
-              dataset.creators | cutContent: 100 | highlight: input
-            "
+            [innerHtml]="dataset.creators | cutContent: 100 | highlight: input"
           ></span>
         </div>
-        <div class="col col-xl-1 text-right">
+        <div class="col col-xl-1 text-end">
           <span [innerHtml]="dataset.year | highlight: input"></span>
         </div>
         <div class="col col-lg-3 d-none d-xl-block">
@@ -154,6 +155,7 @@
               <span class="open-access-image"></span>
               <span i18n="@@openAccess">Avoin saatavuus</span>
             </span>
+            <!-- DOI -->
             <div *ngIf="dataset.doi?.trim()" class="doi">
               <span class="doi-tag">DOI</span>
               <span class="doi-link"
@@ -162,6 +164,9 @@
                   }}<fa-icon icon="external-link-alt"></fa-icon></a
               ></span>
             </div>
+            <!-- Dataset versions tag -->
+            <ng-container *ngTemplateOutlet="versionTag"></ng-container>
+            <!-- URN -->
             <div *ngIf="dataset.urn?.trim()" class="doi">
               <span class="doi-tag">URN</span>
               <span class="doi-link"
@@ -173,6 +178,17 @@
           </div>
         </div>
       </div>
+
+      <!-- Template for version tag -->
+      <ng-template #versionTag>
+        <div *ngIf="dataset.datasetVersions?.length > 1" class="version">
+          <span class="primary-color"
+            >{{ dataset.datasetVersions.length }}
+            <ng-container i18n="@@versions">versiota</ng-container></span
+          >
+        </div>
+      </ng-template>
+
       <!-- <app-related-results class="row related-fields" [class.expand]="expandStatus[i]"></app-related-results> -->
     </div>
   </div>
@@ -191,7 +207,10 @@
         verkkopalvelussa.
       </p>
       <p>
-        <a routerLink="/service-info" fragment="service-info-2" i18n="@@resultsAboutService"
+        <a
+          routerLink="/service-info"
+          fragment="service-info-2"
+          i18n="@@resultsAboutService"
           >Mitä tietoja Tiedejatutkimus.fi sisältää?</a
         >
       </p>

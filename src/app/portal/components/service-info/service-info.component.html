@@ -38,13 +38,13 @@
                   </mat-panel-title>
                   <span
                     *ngIf="openedIdx !== item.id"
-                    class="align-self-center mr-2"
+                    class="align-self-center me-2"
                     i18n="@@open"
                     >Avaa</span
                   >
                   <span
                     *ngIf="openedIdx === item.id"
-                    class="align-self-center mr-2"
+                    class="align-self-center me-2"
                     i18n="@@close"
                     >Sulje</span
                   >
@@ -63,3 +63,15 @@
     </div>
   </div>
 </main>
+
+<ng-template #reviewDialog>
+  <app-review></app-review>
+</ng-template>
+
+<app-dialog
+  *ngIf="showDialog"
+  [template]="reviewDialog"
+  title="Anna palautetta tai kysy"
+  i18n-title="@@leaveReviewHeader"
+  (onActionClick)="toggleReview()"
+></app-dialog>

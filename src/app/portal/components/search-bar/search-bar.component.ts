@@ -38,6 +38,7 @@ import { FilterService } from '@portal/services/filters/filter.service';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { StaticDataService } from '@portal/services/static-data.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
   selector: 'app-search-bar',
@@ -46,6 +47,7 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('searchTargetMenuTrigger') searchTargetMenuTrigger: MatMenuTrigger;
   @ViewChild('searchInput', { static: true }) searchInput: ElementRef;
   @ViewChild('inputGroup', { static: true }) inputGroup: ElementRef;
   @ViewChild('searchBar', { static: true }) searchBar: ElementRef;
@@ -100,11 +102,13 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   topMargin: any;
   currentTerm: string;
   inputSub: Subscription;
+  currentFocusTargetSub: Subscription;
   queryParams: any;
   selectedTarget: any;
   currentLocale: any;
   browserHeight: number;
   autoSuggestSub: Subscription;
+  autoSuggestResponseSub: Subscription;
   tabSub: Subscription;
   selectedTargetLabel: any;
 
@@ -133,9 +137,13 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     this.routeSub = this.route.queryParams.subscribe((params) => {
+      // Targeted search
       this.selectedTarget = params.target ? params.target : null;
+
       if (params.target) this.getTargetLabel(params.target);
       this.queryParams = params;
+
+      // Top margin is used to calculate overlay margin when auto suggest is open
       this.topMargin =
         this.searchBar.nativeElement.offsetHight +
         this.searchBar.nativeElement.offsetTop;
@@ -156,17 +164,21 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
       .withWrap()
       .withTypeAhead();
 
-    this.tabChangeService.currentFocusTarget.subscribe((target) => {
-      if (target === 'search-input') {
-        this.searchInput.nativeElement.focus();
-      }
-    });
+    this.currentFocusTargetSub =
+      this.tabChangeService.currentFocusTarget.subscribe((target) => {
+        if (target === 'search-input') {
+          this.searchInput.nativeElement.focus();
+        }
+      });
   }
 
   ngOnDestroy() {
     if (isPlatformBrowser(this.platformId)) {
       this.routeSub?.unsubscribe();
+      this.inputSub?.unsubscribe();
+      this.currentFocusTargetSub?.unsubscribe();
       this.autoSuggestSub?.unsubscribe();
+      this.autoSuggestResponseSub?.unsubscribe();
       this.tabSub?.unsubscribe();
     }
   }
@@ -200,7 +212,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
         if (result.length > 2) {
           this.topData = [];
           this.otherData = [];
-          this.autosuggestService
+          this.autoSuggestResponseSub = this.autosuggestService
             .search(result)
             .pipe(map((response) => [response]))
             .subscribe((response) => {
@@ -368,6 +380,11 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  // Open target menu with enter key
+  openTargetMenu() {
+    this.searchTargetMenuTrigger.openMenu();
+  }
+
   // Set target, copy queryParams and add target to params
   changeTarget(selection) {
     const target = selection.value !== 'all' ? selection.value : null;
@@ -377,9 +394,10 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getTargetLabel(target) {
-    this.selectedTargetLabel = this.targets.find(
-      (item) => item.value === target
-    )['viewValue' + this.currentLocale];
+    const match = this.targets.find((item) => item.value === target);
+    this.selectedTargetLabel = match
+      ? match['viewValue' + this.currentLocale]
+      : this.targets[0]['viewValue' + this.currentLocale];
   }
 
   resetSearch() {

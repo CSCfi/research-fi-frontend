@@ -6,11 +6,9 @@
 //  :license: MIT
 
 import { Title, Meta } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
-import { ModalModule } from 'ngx-bootstrap/modal';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -143,7 +141,6 @@ import { FiguresInfoComponent } from './components/science-politics/figures/figu
 import { DatasetsComponent } from './components/results/datasets/datasets.component';
 import { SingleDatasetComponent } from './components/single/single-dataset/single-dataset.component';
 import { ExternalLinksComponent } from './components/science-politics/external-links/external-links.component';
-import { BannerComponent } from './components/home-page/banner/banner.component';
 import { LatestNewsComponent } from './components/news/latest-news/latest-news.component';
 import { NewsResultsComponent } from './components/news/news-results/news-results.component';
 import { PieComponent } from './components/visualisation/pie/pie.component';
@@ -164,6 +161,7 @@ import { TkiReportsComponent } from '@portal/components/science-politics/tki-rep
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { HandleInfrastructureLinkPipe } from './pipes/handle-infrastructure-link.pipe';
+import { Subscription } from 'rxjs';
 
 @NgModule({
   declarations: [
@@ -226,7 +224,6 @@ import { HandleInfrastructureLinkPipe } from './pipes/handle-infrastructure-link
     DatasetsComponent,
     SingleDatasetComponent,
     ExternalLinksComponent,
-    BannerComponent,
     LatestNewsComponent,
     NewsResultsComponent,
     PieComponent,
@@ -255,7 +252,6 @@ import { HandleInfrastructureLinkPipe } from './pipes/handle-infrastructure-link
   imports: [
     PortalRoutingModule,
     CommonModule,
-    TypeaheadModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
     MatIconModule,
@@ -284,7 +280,7 @@ import { HandleInfrastructureLinkPipe } from './pipes/handle-infrastructure-link
     CountUpModule,
     FontAwesomeModule,
     TransferHttpCacheModule,
-    ModalModule.forRoot(),
+
     SharedModule,
     A11yModule,
     TooltipModule.forRoot(),
@@ -309,17 +305,10 @@ import { HandleInfrastructureLinkPipe } from './pipes/handle-infrastructure-link
       useValue: { duration: 3000 },
     },
   ],
-  entryComponents: [
-    PublicationsComponent,
-    PersonsComponent,
-    FundingsComponent,
-    InfrastructuresComponent,
-    OrganizationsComponent,
-    EmptyResultComponent,
-  ],
 })
-export class PortalModule {
+export class PortalModule implements OnDestroy {
   startPage;
+  routeSub: Subscription;
 
   isResultPage(url: string) {
     // Check if the page is on results, and that the tabname ends with 's' (not single result)
@@ -360,7 +349,7 @@ export class PortalModule {
   ) {
     this.startPage = router.parseUrl(router.url).queryParams.page || 1;
     // Used to prevent scroll to top when filters are selected
-    router.events
+    this.routeSub = router.events
       .pipe(filter((e: Event): e is Scroll => e instanceof Scroll))
       .subscribe((e) => {
         const currentUrl = e.routerEvent.url;
@@ -415,6 +404,10 @@ export class PortalModule {
         }
       });
     // Add global icons
-    library.addIcons(faExternalLinkAlt, faInfoCircle);
+    library.addIcons(faExternalLinkAlt as any, faInfoCircle as any);
+  }
+
+  ngOnDestroy(): void {
+    this.routeSub?.unsubscribe();
   }
 }

@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 import { Adapter } from '../adapter.model';
 import { Recipient, RecipientAdapter } from './recipient.model';
 import { Funder, FunderAdapter } from './funder.model';
-import { LanguageCheck, parseYear } from '../utils';
+import { LanguageCheck, parseYear, testFinnishBusinessId } from '../utils';
 import { RelatedFunding, RelatedFundingAdapter } from './related-funding.model';
 import { UtilityService } from '@shared/services/utility.service';
 
@@ -53,11 +53,23 @@ export class FundingAdapter implements Adapter<Funding> {
     private util: UtilityService
   ) {}
   adapt(item: any): Funding {
+    /*
+     * Find a person with matching project number and finnish organization
+     */
     const recipientObj = item.fundingGroupPerson
       ? item.fundingGroupPerson
-          .filter((x) => x.consortiumProject === item.funderProjectNumber)
+          .filter(
+            (x) =>
+              x.consortiumProject === item.funderProjectNumber &&
+              x.consortiumOrganizationBusinessId &&
+              testFinnishBusinessId(x.consortiumOrganizationBusinessId)
+          )
           .shift()
       : {};
+
+    // Set EU funding status
+    item.euFunding =
+      item.funderNameFi.toLowerCase() === 'euroopan unioni' ? true : false;
 
     // Determine recipient type based on existence and contents of fundingGroupPerson
     switch (item.fundingGroupPerson?.length) {
@@ -78,8 +90,8 @@ export class FundingAdapter implements Adapter<Funding> {
       }
     }
 
-    // Translate academy consortium role
-    if (recipientObj && recipientObj.roleInFundingGroup) {
+    // Translate academy consortium role for NON EU funding
+    if (!item.euFunding && recipientObj && recipientObj.roleInFundingGroup) {
       switch (recipientObj?.roleInFundingGroup) {
         case 'leader': {
           recipientObj.roleInFundingGroup = {
@@ -123,17 +135,24 @@ export class FundingAdapter implements Adapter<Funding> {
       );
     }
 
-    // Set EU funding status
-    item.euFunding =
-      item.funderNameFi.toLowerCase() === 'euroopan unioni' ? true : false;
-
     item.structuralFund =
       item.typeOfFundingId === 'EAKR' || item.typeOfFundingId === 'ESR';
 
     const funder = this.f.adapt(item);
 
-    const recipient = this.r.adapt({ ...item, recipientObj: recipientObj });
+    /*
+     * Recipients
+     * Map recipients by recipient type, which is set by value of fundingGroupPerson field.
+     * Recipient can be single or multiple persons or organization(s).
+     */
+    const recipient = this.r.adapt({
+      ...item,
+      recipientObj: recipientObj || {},
+    });
 
+    /*
+     * Related fundings
+     */
     const relatedFundings =
       item?.relatedFunding?.map((x) => this.rf.adapt(x)) || [];
 
@@ -209,9 +228,7 @@ export class FundingAdapter implements Adapter<Funding> {
       item.structuralFund,
       relatedFundings,
       additionalOrgs,
-      // undefined, // Temporary related fundings
       totalFundingAmount
-      // recipient.amountEur // Temporary fundingAmount
     );
   }
 }

@@ -14,7 +14,11 @@ Copyright 2019 Ministry of Education and Culture, Finland
 
 <div class="center-content wrapper" style="margin-top: 0">
   <div class="row">
-    <app-result-tab style="width: 100%" [allData]="tabValues"></app-result-tab>
+    <app-result-tab
+      style="width: 100%"
+      class="px-0"
+      [allData]="tabValues"
+    ></app-result-tab>
     <div class="col-12 px-0">
       <div class="total" #totalHeader>
         <div class="row justify-content-between">
@@ -26,37 +30,18 @@ Copyright 2019 Ministry of Education and Culture, Finland
             >
               {{ selectedTabData.label }} -
               <span class="total">{{ parsedTotal }}</span>
-              <span
-                *ngIf="selectedTabData.link === 'datasets'"
-                class="ml-3"
-                [tooltip]="betaTooltip"
-                placement="top"
-                tabindex="-1"
-                #beta
-              >
-                <app-secondary-button
-                  [icon]="'info-circle'"
-                  content="Beta"
-                ></app-secondary-button>
-              </span>
               <span class="sr-only" i18n="@@resultCount">hakutulosta</span>
             </h2>
           </div>
           <!-- Change to col-lg-9 after removing beta-info -->
           <div
-            class="
-              col-auto col-lg-7
-              justify-content-end
-              align-items-center
-              row
-              pr-0
-            "
+            class="col-auto col-lg-7 justify-content-end align-items-center row pe-0"
           >
             <div class="col-auto px-0" *ngIf="selectedTabData">
               <app-result-count></app-result-count>
             </div>
             <!-- <div class="col-12"></div> -->
-            <div class="col-auto text-right d-none d-lg-block pl-4 pr-0">
+            <div class="col-auto text-end d-none d-lg-block ps-4 pe-0">
               <a
                 routerLink="/service-info"
                 fragment="service-info-2"
@@ -120,7 +105,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
         class="col-12 row d-flex justify-content-between"
         style="padding: 0"
       >
-        <aside class="col col-6 col-sm-6 filters">
+        <aside class="col col-6 col-sm-6 pe-2 filters">
           <app-filters
             *ngIf="tab === tabData[0].link"
             [responseData]="filterValues"
@@ -152,7 +137,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
             [tabData]="tabData[6].data"
           ></app-filters>
         </aside>
-        <aside class="col col-6 col-sm-6 sort">
+        <aside class="col col-6 col-sm-6 ps-2 sort">
           <app-sort></app-sort>
         </aside>
         <main class="col-12" id="main-content">
@@ -170,18 +155,13 @@ Copyright 2019 Ministry of Education and Culture, Finland
 <ng-template #desktop>
   <aside class="col-4 col-xl-3 filters" *ngIf="!modalRef">
     <div
-      class="
-        justify-content-center
-        align-items-center
-        d-none d-lg-flex
-        visual-button-container
-      "
+      class="justify-content-center align-items-center d-none d-lg-flex visual-button-container"
       *ngIf="tab === 'publications' || tab === 'fundings'"
     >
       <app-primary-action-button
         [content]="showAsVisual"
         [icon]="faChartBar"
-        (click)="openModal(visualModal)"
+        (click)="openDialog(visualModal)"
       ></app-primary-action-button>
     </div>
     <app-filters
@@ -215,8 +195,8 @@ Copyright 2019 Ministry of Education and Culture, Finland
       [tabData]="tabData[6].data"
     ></app-filters>
   </aside>
-  <div class="col-8 col-xl-9 row main-content pr-xl-0">
-    <main class="col-12 pr-xl-0">
+  <div class="col-8 col-xl-9 row main-content pe-xl-0">
+    <main class="col-12 pe-xl-0">
       <app-active-filters></app-active-filters>
       <h3 class="sr-only">Hakutulokset</h3>
       <app-search-results
@@ -249,101 +229,69 @@ Copyright 2019 Ministry of Education and Culture, Finland
 </ng-template>
 
 <ng-template #visualModal>
-  <div cdkTrapFocus>
-    <div class="modal-header">
-      <span></span>
-      <!-- invisible flex item for auto margin -->
-      <span class="d-flex align-items-center">
-        <h5 class="modal-title pr-2">
-          {{ visualisationCategories[visIdx].title }}
-        </h5>
-        <!-- <span [tooltip]="betaTooltip" triggers="focus keydown" placement="top" tabindex="-1" (mouseenter)="utilityService.tooltipMouseenter(beta)" (keydown)="utilityService.tooltipKeydown(beta, $event)" #beta>
-                        <app-secondary-button [icon]="'info-circle'" [content]="additionalInfo"></app-secondary-button>
-                    </span> -->
+  <div class="visual-dialog-body">
+    <div class="row">
+      <div class="col-3">
         <div
-          (click)="showInfo = !showInfo"
-          (keydown.enter)="showInfo = !showInfo"
-          tabindex="0"
-          (clickOutside)="onClickedOutside($event)"
+          #info
+          *ngIf="showInfo"
+          class="info p-3"
+          [ngClass]="mobile ? 'right' : 'left'"
         >
-          <fa-icon
-            class="info-icon pr-2"
-            icon="info-circle"
-            (mouseenter)="showInfo = true"
-          ></fa-icon>
-          <a>{{ additionalInfo }} </a>
-        </div>
-      </span>
-      <app-close-button
-        (click)="closeModal()"
-        (keydown.enter)="closeModal()"
-        autofocus
-        tabindex="-1"
-      ></app-close-button>
-    </div>
-    <div class="modal-body">
-      <div class="row">
-        <div class="col-3">
-          <div
-            #info
-            *ngIf="showInfo"
-            class="info p-3"
-            [ngClass]="mobile ? 'right' : 'left'"
+          <strong class="d-block pb-2" i18n="@@additionalInfo"
+            >Lisätietoa</strong
           >
-            <strong class="d-block pb-2" i18n="@@additionalInfo"
-              >Lisätietoa</strong
-            >
-            <div [innerHtml]="visualisationInfo"></div>
-          </div>
-          <!-- <mat-slide-toggle [(ngModel)]="fundingAmount" *ngIf="tab === 'fundings'" (change)="changeVisual($event)">Myönnetyn summan mukaan</mat-slide-toggle> -->
-          <mat-form-field class="visual-select">
-            <mat-label class="strong" i18n="@@chooseTheme"
-              >Valitse teema</mat-label
-            >
-            <mat-select (selectionChange)="changeVisual($event)">
-              <mat-option
-                *ngFor="let category of visualisationCategories; let i = index"
-                value="{{ i }}"
-                >{{ category.select }}</mat-option
-              >
-            </mat-select>
-          </mat-form-field>
-          <div class="overflow-wrapper mb-2">
-            <app-filters
-              *ngIf="tab === tabData[0].link"
-              [responseData]="filterValues"
-              [tabData]="tabData[0].data"
-            ></app-filters>
-            <app-filters
-              *ngIf="tab === tabData[1].link"
-              [responseData]="filterValues"
-              [tabData]="tabData[1].data"
-            ></app-filters>
-            <app-filters
-              *ngIf="tab === tabData[2].link"
-              [responseData]="filterValues"
-              [tabData]="tabData[2].data"
-            ></app-filters>
-            <app-filters
-              *ngIf="tab === tabData[4].link"
-              [responseData]="filterValues"
-              [tabData]="tabData[4].data"
-            ></app-filters>
-            <app-filters
-              *ngIf="tab === tabData[6].link"
-              [responseData]="filterValues"
-              [tabData]="tabData[6].data"
-            ></app-filters>
-          </div>
-          <app-secondary-button
-            (click)="clearFilters()"
-            [big]="true"
-            [content]="clearActiveFilters"
-            [icon]="faTrash"
-          ></app-secondary-button>
+          <div [innerHtml]="visualisationInfo"></div>
         </div>
-        <div class="col-9 row">
-          <!-- <div *ngIf="tab === 'fundings'" class="ml-auto pb-2 col-6">
+        <!-- <mat-slide-toggle [(ngModel)]="fundingAmount" *ngIf="tab === 'fundings'" (change)="changeVisual($event)">Myönnetyn summan mukaan</mat-slide-toggle> -->
+        <mat-form-field class="visual-select">
+          <mat-label class="strong" i18n="@@chooseTheme"
+            >Valitse teema</mat-label
+          >
+          <mat-select (selectionChange)="changeVisual($event)">
+            <mat-option
+              *ngFor="let category of visualisationCategories; let i = index"
+              value="{{ i }}"
+              >{{ category.select }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+        <div class="overflow-wrapper mb-2">
+          <app-filters
+            *ngIf="tab === tabData[0].link"
+            [responseData]="filterValues"
+            [tabData]="tabData[0].data"
+          ></app-filters>
+          <app-filters
+            *ngIf="tab === tabData[1].link"
+            [responseData]="filterValues"
+            [tabData]="tabData[1].data"
+          ></app-filters>
+          <app-filters
+            *ngIf="tab === tabData[2].link"
+            [responseData]="filterValues"
+            [tabData]="tabData[2].data"
+          ></app-filters>
+          <app-filters
+            *ngIf="tab === tabData[4].link"
+            [responseData]="filterValues"
+            [tabData]="tabData[4].data"
+          ></app-filters>
+          <app-filters
+            *ngIf="tab === tabData[6].link"
+            [responseData]="filterValues"
+            [tabData]="tabData[6].data"
+          ></app-filters>
+        </div>
+        <app-secondary-button
+          (click)="clearFilters()"
+          [big]="true"
+          [content]="clearActiveFilters"
+          [icon]="faTrash"
+        ></app-secondary-button>
+      </div>
+      <div class="col-9 row">
+        <!-- <div *ngIf="tab === 'fundings'" class="ml-auto pb-2 col-6">
             <button
               class="col-6 vis-style-toggle ttv-button"
               [class.active]="!visualisationType"
@@ -364,104 +312,132 @@ Copyright 2019 Ministry of Education and Culture, Finland
               Piiraskuvaaja
             </button> 
           </div>   -->
-          <app-active-filters></app-active-filters>
-          <app-visualisation
-            [data]="visualData"
-            [tab]="tab"
-            [visIdx]="visIdx"
-            [percentage]="percentage"
-            [loading]="visualLoading"
-            [searchTerm]="searchTerm"
-            [searchTarget]="searchTargetName"
-            [visualisationType]="visualisationType"
-          ></app-visualisation>
-          <div class="row vis-info">
-            <div *ngIf="tab === 'publications'" class="vis-style-toggles row">
-              <button
-                class="col vis-style-toggle ttv-button"
-                [class.active]="!percentage && !fundingAmount"
-                (click)="
-                  percentage = false;
-                  fundingAmount = false;
-                  changeVisual($event)
-                "
-                i18n="@@asCountPublication"
-              >
-                Julkaisujen määrä
-              </button>
-              <button
-                class="col vis-style-toggle ttv-button"
-                [class.active]="percentage && !fundingAmount"
-                (click)="percentage = true; fundingAmount = false"
-                i18n="@@asPercentPublication"
-              >
-                % julkaisujen määrästä
-              </button>
-            </div>
-            <div *ngIf="tab === 'fundings'" class="vis-style-toggles row">
-              <button
-                class="col-6 vis-style-toggle ttv-button"
-                [class.active]="!percentage && !fundingAmount"
-                (click)="
-                  changeVisual({ fundingAmount: false });
-                  percentage = false;
-                  fundingAmount = false
-                "
-                i18n="@@asCountFunding"
-              >
-                Hankkeiden määrä
-              </button>
-              <button
-                class="col-6 vis-style-toggle ttv-button"
-                [class.active]="percentage && !fundingAmount"
-                (click)="
-                  changeVisual({ fundingAmount: false });
-                  percentage = true;
-                  fundingAmount = false
-                "
-                i18n="@@asPercentFunding"
-              >
-                % hankkeiden määrästä
-              </button>
-              <button
-                class="col-6 vis-style-toggle ttv-button"
-                [class.active]="!percentage && fundingAmount"
-                (click)="
-                  changeVisual({ fundingAmount: true });
-                  percentage = false;
-                  fundingAmount = true
-                "
-                i18n="@@asCountAmount"
-              >
-                Myöntösumma
-              </button>
-              <button
-                class="col-6 vis-style-toggle ttv-button"
-                [class.active]="percentage && fundingAmount"
-                (click)="
-                  changeVisual({ fundingAmount: true });
-                  percentage = true;
-                  fundingAmount = true
-                "
-                i18n="@@asPercentAmount"
-              >
-                % myöntösummasta
-              </button>
-              <div class="col-12"></div>
-            </div>
-            <!-- <ng-template #tooltipTemplate><div [innerHtml]=visualisationInfo></div></ng-template>
+        <app-active-filters></app-active-filters>
+        <app-visualisation
+          [data]="visualData"
+          [tab]="tab"
+          [visIdx]="visIdx"
+          [percentage]="percentage"
+          [loading]="visualLoading"
+          [searchTerm]="searchTerm"
+          [searchTarget]="searchTargetName"
+          [visualisationType]="visualisationType"
+        ></app-visualisation>
+        <div class="row vis-info">
+          <div *ngIf="tab === 'publications'" class="vis-style-toggles row">
+            <button
+              class="col vis-style-toggle ttv-button"
+              [class.active]="!percentage && !fundingAmount"
+              (click)="
+                percentage = false; fundingAmount = false; changeVisual($event)
+              "
+              i18n="@@asCountPublication"
+            >
+              Julkaisujen määrä
+            </button>
+            <button
+              class="col vis-style-toggle ttv-button"
+              [class.active]="percentage && !fundingAmount"
+              (click)="percentage = true; fundingAmount = false"
+              i18n="@@asPercentPublication"
+            >
+              % julkaisujen määrästä
+            </button>
+          </div>
+          <div *ngIf="tab === 'fundings'" class="vis-style-toggles row">
+            <button
+              class="col-6 vis-style-toggle ttv-button"
+              [class.active]="!percentage && !fundingAmount"
+              (click)="
+                changeVisual({ fundingAmount: false });
+                percentage = false;
+                fundingAmount = false
+              "
+              i18n="@@asCountFunding"
+            >
+              Hankkeiden määrä
+            </button>
+            <button
+              class="col-6 vis-style-toggle ttv-button"
+              [class.active]="percentage && !fundingAmount"
+              (click)="
+                changeVisual({ fundingAmount: false });
+                percentage = true;
+                fundingAmount = false
+              "
+              i18n="@@asPercentFunding"
+            >
+              % hankkeiden määrästä
+            </button>
+            <button
+              class="col-6 vis-style-toggle ttv-button"
+              [class.active]="!percentage && fundingAmount"
+              (click)="
+                changeVisual({ fundingAmount: true });
+                percentage = false;
+                fundingAmount = true
+              "
+              i18n="@@asCountAmount"
+            >
+              Myöntösumma
+            </button>
+            <button
+              class="col-6 vis-style-toggle ttv-button"
+              [class.active]="percentage && fundingAmount"
+              (click)="
+                changeVisual({ fundingAmount: true });
+                percentage = true;
+                fundingAmount = true
+              "
+              i18n="@@asPercentAmount"
+            >
+              % myöntösummasta
+            </button>
+            <div class="col-12"></div>
+          </div>
+          <!-- <ng-template #tooltipTemplate><div [innerHtml]=visualisationInfo></div></ng-template>
                         <span [tooltip]="tooltipTemplate" triggers="focus keydown" placement="top" tabindex="-1" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                             <app-secondary-button [icon]="'info-circle'" [content]="'Info'" ></app-secondary-button>
                         </span> -->
-            <app-secondary-button
-              id="download-image"
-              [icon]="faDownload"
-              [content]="downloadImage"
-              [disabled]="true"
-            ></app-secondary-button>
-          </div>
+          <app-secondary-button
+            id="download-image"
+            [icon]="faDownload"
+            [content]="downloadImage"
+            [disabled]="true"
+          ></app-secondary-button>
         </div>
       </div>
     </div>
+  </div>
+</ng-template>
+
+<!-- Reusable dialog -->
+<app-dialog
+  *ngIf="showDialog"
+  [template]="dialogTemplate"
+  [title]="dialogTitle"
+  (onActionClick)="closeDialog()"
+  centerTitle
+  wide
+  noPadding
+  position="top"
+  extraClass="visual-dialog"
+  [headerInfoTemplate]="dialogHeaderInfo"
+></app-dialog>
+
+<ng-template #dialogHeaderInfo>
+  <div
+    class="d-inline-block"
+    (click)="showInfo = !showInfo"
+    (keydown.enter)="showInfo = !showInfo"
+    tabindex="0"
+    (clickOutside)="onClickedOutside($event)"
+  >
+    <fa-icon
+      class="info-icon pe-2"
+      icon="info-circle"
+      (mouseenter)="showInfo = true"
+    ></fa-icon>
+    <a>{{ additionalInfo }} </a>
   </div>
 </ng-template>

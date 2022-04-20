@@ -7,7 +7,7 @@
 
 // Component
 #overlay {
-  position: fixed;
+  position: absolute;
   z-index: 999;
   left: 0;
   top: 88px;
@@ -27,6 +27,7 @@ app-header {
   }
 
   .navbar-brand {
+    display: block;
     margin-right: 0;
   }
 
@@ -64,6 +65,7 @@ app-header {
 
   .nav-link {
     display: inline-block;
+    transition: none;
   }
 
   .nav-item {
@@ -150,9 +152,8 @@ app-header {
     margin-left: auto;
   }
 
-  a.nav-item.nav-link.active-link,
   a.nav-item.nav-link.active-lang,
-  a.active-link {
+  .active-link {
     font-weight: bold;
   }
 
@@ -179,8 +180,6 @@ app-header {
     z-index: 9999;
     text-align: left;
     list-style: none;
-    min-width: 120%;
-    margin-left: 20%;
     margin-top: 2px;
     padding: 0;
   }
@@ -199,71 +198,6 @@ app-header {
     cursor: pointer;
   }
 
-  .parent-link::after {
-    font-family: 'FontAwesome';
-    content: '\f078';
-    padding-left: 5px;
-  }
-
-  .parent-link.open::after {
-    content: '\f077';
-    padding-left: 5px;
-  }
-
-  // Language selector
-  mat-form-field .mat-select-panel {
-    background: white !important;
-  }
-
-  mat-form-field .mat-select-value-text {
-    font-weight: 500;
-  }
-
-  mat-form-field.lang-select {
-    text-align: center !important;
-    border: 0 !important;
-
-    .mat-select-value {
-      max-width: unset;
-      width: 100%;
-      overflow: visible;
-    }
-
-    .mat-select-arrow-wrapper {
-      display: none;
-    }
-
-    .mat-form-field-infix {
-      border: 0;
-    }
-
-    .mat-select-value-text:after {
-      font-family: 'FontAwesome';
-      margin-left: 8px;
-      content: '\f078' !important;
-    }
-
-    .mat-form-field-underline {
-      display: none !important;
-    }
-
-    &.mat-form-field-appearance-legacy .mat-form-field-wrapper {
-      padding-bottom: 0 !important;
-    }
-
-    &,
-    mat-select {
-      font-size: inherit;
-      font-weight: 500;
-      font-family: inherit !important;
-    }
-  }
-
-  .mat-form-field-appearance-legacy .mat-form-field-infix {
-    padding: 0.36em 0.5rem !important;
-    width: unset;
-  }
-
   // mobile menu
   .collapse.navbar-collapse.menu.mobile-bar.open {
     // -8px because of .wrapper padding (styles.scss)
@@ -275,7 +209,7 @@ app-header {
   .collapse.navbar-collapse.menu.mobile-bar {
     position: absolute;
     right: -110vw;
-    top: 44px;
+    top: 66px;
     z-index: 1000;
     padding: 10px 8px 40px 8px;
     transition: right 0.25s ease-out;
@@ -338,12 +272,10 @@ app-header {
 
   // Beta mobile menu position
   .beta-mobile-menu {
-    align-self: flex-start;
     top: 0.875rem;
   }
 
   // Disable menu for beta
-  .navbar-expand.navbar-nav.lang.langSelect.disabled,
   ul.navbar-nav.mx-auto.disabled {
     opacity: 0.5;
     pointer-events: none;
@@ -383,8 +315,8 @@ app-header {
       top: 67px;
     }
 
-    .langSelect {
-      display: none;
+    .lang-selector {
+      display: none !important;
     }
 
     .navbar {
@@ -455,7 +387,7 @@ app-header {
     }
 
     .collapse.navbar-collapse.menu.mobile-bar li {
-      display: block !important;
+      display: block;
     }
 
     .parent-link:after {

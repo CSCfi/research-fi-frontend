@@ -21,16 +21,18 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { ProfileService } from 'src/app/mydata/services/profile.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { take } from 'rxjs/operators';
+import { switchMap, take } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { WINDOW } from '@shared/services/window.service';
-import { isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonStrings } from '@mydata/constants/strings';
 import { UtilityService } from '@shared/services/utility.service';
 import { Subscription } from 'rxjs';
+import { OrcidAccoungLinkingService } from '@mydata/services/orcid-account-linking.service';
 import { isNumber } from 'lodash';
+import { randomUUID } from 'crypto';
 
 @Component({
   selector: 'app-welcome-stepper',
@@ -40,7 +42,7 @@ import { isNumber } from 'lodash';
 })
 export class WelcomeStepperComponent implements OnInit, OnDestroy {
   develop: boolean;
-  step: number;
+  step: number = 1;
   cancel = false;
 
   termsApproved = false;
@@ -59,7 +61,7 @@ export class WelcomeStepperComponent implements OnInit, OnDestroy {
   profileData: Object;
 
   steps = [
-    { title: $localize`:@@welcome:Tervetuloa` },
+    { title: 'Tunnistautuminen onnistui' },
     {
       title: $localize`:@@termsPersonalDataProcessing:Käyttöehdot ja henkilötietojen käsittely`,
     },
@@ -80,51 +82,100 @@ export class WelcomeStepperComponent implements OnInit, OnDestroy {
   termsForTool = CommonStrings.termsForTool;
   processingOfPersonalData = CommonStrings.processingOfPersonalData;
   cancelServiceDeployment = $localize`:@@cancelServiceDeployment:Peruutetaanko palvelun käyttöönotto?`;
+  userDataSub: Subscription;
   routeSub: Subscription;
+  orcidLink: string;
+  profileExistsCheckSub: Subscription;
+  createProfileSub: Subscription;
+  profileDataSub: Subscription;
+  IDPLinkSub: Subscription;
 
   constructor(
     private profileService: ProfileService,
     public oidcSecurityService: OidcSecurityService,
+    private orcidAccountLinkingService: OrcidAccoungLinkingService,
     private route: ActivatedRoute,
     private router: Router,
     private appSettingsService: AppSettingsService,
     @Inject(PLATFORM_ID) private platformId: object,
     @Inject(WINDOW) private window: Window,
     public dialog: MatDialog,
-    private utilityService: UtilityService
+    private utilityService: UtilityService,
+    @Inject(DOCUMENT) private document: any
   ) {
     this.profileData = null;
   }
 
   ngOnInit() {
-    this.utilityService.setMyDataTitle(this.steps[0].title);
+    this.oidcSecurityService.userData$.subscribe((data) => {
+      if (data.userData) {
+        const userData = data.userData;
+        this.userData = userData;
+        this.profileName = userData?.name;
 
-    this.checkProfileExists();
+        this.profileChecked = true;
 
-    this.oidcSecurityService.userData$.pipe(take(1)).subscribe((data) => {
-      if (data) {
-        this.userData = data;
-        this.profileName = data?.name;
-        this.appSettingsService.setOrcid(data.orcid);
+        if (userData.orcid) {
+          this.appSettingsService.setOrcid(userData.orcid);
+        }
       }
     });
+
+    // this.profileService.accountlink().subscribe(() => {
+    //   // this.checkProfileExists();
+    // });
+
+    // this.profileService.accountlink().subscribe(() => {
+    //   this.checkProfileExists();
+    //   this.userDataSub = this.oidcSecurityService.userData$
+    //     .pipe(take(1))
+    //     .subscribe((data) => {
+    //       if (data) {
+    //         const userData = data.userData;
+    //         this.userData = userData;
+    //         this.profileName = userData?.name;
+    //         this.appSettingsService.setOrcid(userData.orcid);
+    //       }
+    //     });
+    // });
+
+    // this.userDataSub = this.oidcSecurityService.userData$
+    //   .pipe(take(1))
+    //   .subscribe((data) => {
+    //     if (data) {
+    //       this.profileChecked = true;
+    //       const userData = data.userData;
+    //       this.userData = userData;
+    //       this.profileName = userData?.name;
+    //       this.appSettingsService.setOrcid(userData.orcid);
+    //     }
+    //   });
 
     // Enable route refresh / locale change
     this.routeSub = this.route.queryParams.subscribe((params) => {
       const step = params.step;
-      if (
-        step === '3' &&
-        !this.termsApproved &&
-        !this.personalDataHandlingApproved
-      ) {
-        this.navigateStep(2);
-        this.step = 2;
-      } else if (params.step === 'cancel') {
+
+      if (step === '2') {
+        this.IDPLinkSub = this.profileService
+          .accountlink()
+          .pipe(switchMap(() => this.oidcSecurityService.forceRefreshSession()))
+          .subscribe(() => {
+            const idTokenPayload =
+              this.oidcSecurityService.getPayloadFromIdToken();
+
+            this.userData.orcid = idTokenPayload.orcid;
+            this.appSettingsService.setOrcid(idTokenPayload.orcid);
+          });
+      }
+
+      if (params.step === 'cancel') {
         this.cancel = true;
         this.step = this.step ? this.step : 1;
       } else {
-        this.step = parseInt(step, 10) || 1;
+        this.step = Number(step) || 1;
       }
+
+      this.utilityService.setMyDataTitle(this.createTitle(this.step));
     });
   }
 
@@ -143,22 +194,26 @@ export class WelcomeStepperComponent implements OnInit, OnDestroy {
     }
 
     // Fetch data if on step 3 and user has initialized Orcid data fetch
-    if (this.step === 3 && direction === 'increment') {
+    if (this.step === 2 && direction === 'increment') {
       this.fetchData();
     } else {
       direction === 'increment' ? this.increment() : this.decrement();
     }
   }
 
+  createTitle(step: number) {
+    return `${this.steps[step - 1].title}`;
+  }
+
   increment() {
     this.step = this.step + 1;
-    this.utilityService.setMyDataTitle(this.steps[this.step - 1].title);
+    this.utilityService.setMyDataTitle(this.createTitle(this.step));
     this.navigateStep(this.step);
   }
 
   decrement() {
     this.step = this.step - 1;
-    this.utilityService.setMyDataTitle(this.steps[this.step - 1].title);
+    this.utilityService.setMyDataTitle(this.createTitle(this.step));
     this.navigateStep(this.step);
   }
 
@@ -174,13 +229,16 @@ export class WelcomeStepperComponent implements OnInit, OnDestroy {
   }
 
   fetchData() {
-    this.openDataFetchingDialog();
-    this.createProfile();
+    this.profileData = null;
+    this.profileService.accountlink().subscribe(() => {
+      this.openDataFetchingDialog();
+      this.createProfile();
+    });
   }
 
   // Redirect to profile summary if profile exists.
   checkProfileExists() {
-    this.profileService
+    this.profileExistsCheckSub = this.profileService
       .checkProfileExists()
       .pipe(take(1))
       .subscribe((data: any) => {
@@ -196,7 +254,7 @@ export class WelcomeStepperComponent implements OnInit, OnDestroy {
 
   // Create profile when proceeding from step 3. Get ORCID and profile data after profile creation
   createProfile() {
-    return this.profileService
+    return (this.createProfileSub = this.profileService
       .createProfile()
       .pipe(take(1))
       .subscribe((data: any) => {
@@ -206,7 +264,7 @@ export class WelcomeStepperComponent implements OnInit, OnDestroy {
         } else {
           // TODO: Alert problem
         }
-      });
+      }));
   }
 
   openDialog(title, template) {
@@ -244,16 +302,43 @@ export class WelcomeStepperComponent implements OnInit, OnDestroy {
 
   getProfileData() {
     this.profileData = null;
-    this.profileService.getProfileData().subscribe((data) => {
-      this.profileData = data;
-      this.dialog.closeAll();
-      this.loading = false;
-      this.resetDialog();
-      this.router.navigate(['/mydata/profile']);
-    });
+    this.profileDataSub = this.profileService
+      .getProfileData()
+      .pipe(take(1))
+      .subscribe((data) => {
+        this.profileData = data;
+        this.dialog.closeAll();
+        this.loading = false;
+        this.resetDialog();
+        this.router.navigate(['/mydata/profile']);
+      });
   }
 
   ngOnDestroy(): void {
+    this.userDataSub?.unsubscribe();
     this.routeSub?.unsubscribe();
+    this.profileExistsCheckSub?.unsubscribe();
+    this.createProfileSub?.unsubscribe();
+    this.profileDataSub?.unsubscribe();
+    this.IDPLinkSub?.unsubscribe();
+  }
+
+  accountlink() {
+    this.profileData = null;
+    this.profileService.accountlink().subscribe((data) => {});
+  }
+
+  async getOrcidLink() {
+    this.orcidLink = await this.orcidAccountLinkingService.getOrcidLink();
+  }
+
+  loginOrcid() {
+    this.getOrcidLink().then(() => {
+      if (this.orcidLink) {
+        this.document.location.href = this.orcidLink;
+      } else {
+        console.error('Unable to get ORCID link');
+      }
+    });
   }
 }

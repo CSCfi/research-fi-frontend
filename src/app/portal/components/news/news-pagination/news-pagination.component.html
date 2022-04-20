@@ -9,7 +9,7 @@
   <div class="pagination">
     <div class="buttons row" *ngIf="response && response[0]?.total">
       <app-secondary-button
-        class="col-5 col-md-3 col-lg-auto p-0 pagination-button text-left text-lg-right"
+        class="col-5 col-md-3 col-lg-auto p-0 pagination-button text-start text-lg-end"
         [class.pagination-link-active]="fromPage > 1"
         (click)="goToPage(page - 1)"
         [disabled]="fromPage <= 1"
@@ -31,7 +31,7 @@
       </div>
 
       <app-secondary-button
-        class="col-5 col-md-3 col-lg-auto p-0 pagination-button text-right text-lg-left"
+        class="col-5 col-md-3 col-lg-auto p-0 pagination-button text-end text-lg-start"
         [class.pagination-link-active]="fromPage + 5 < response[0].total"
         (click)="goToPage(page + 1)"
         [disabled]="fromPage + 5 >= response[0].total"

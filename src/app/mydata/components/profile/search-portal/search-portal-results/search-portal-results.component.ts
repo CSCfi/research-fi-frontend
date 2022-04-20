@@ -195,6 +195,18 @@ export class SearchPortalResultsComponent
     this.termSub?.unsubscribe();
   }
 
+  toggleShowMore(index) {
+    const arr = this.showMoreArray;
+    const item = arr.indexOf(index);
+
+    if (item > -1) {
+      arr.splice(item, 1);
+    } else {
+      this.showMoreArray.push(index)
+    }
+
+  }
+
   showMore(index) {
     this.showMoreArray.push(index);
   }

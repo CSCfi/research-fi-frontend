@@ -8,9 +8,11 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppSettingsService } from '@shared/services/app-settings.service';
-import { SortService } from '../../../services/sort.service';
-import { TabChangeService } from '../../../services/tab-change.service';
+import { SortService } from '@portal/services/sort.service';
+import { TabChangeService } from '@portal/services/tab-change.service';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
+type SortOption = { label: string; value: string };
 @Component({
   selector: 'app-sort',
   templateUrl: './sort.component.html',
@@ -20,11 +22,16 @@ import { TabChangeService } from '../../../services/tab-change.service';
 export class SortComponent implements OnInit, OnDestroy {
   tabLink: string;
   tabFields: any;
-  sortBy: string;
+  currentSort: SortOption;
   tabSub: any;
+  sortByRelevance = {
+    label: $localize`:@@sortByRelevance:Osuvin tulos ensin`,
+    value: 'reset',
+  };
+  faChevronDown = faChevronDown;
 
   // Assign values to dropdown list by current tab
-  publicationFields = [
+  publicationFields: SortOption[] = [
     { label: $localize`:@@sortNewest:Uusin ensin`, value: 'yearDesc' },
     { label: $localize`:@@sortOldest:Vanhin ensin`, value: 'year' },
     { label: $localize`:@@sortPublicationAsc:Nimike (A-Ö)`, value: 'name' },
@@ -88,11 +95,19 @@ export class SortComponent implements OnInit, OnDestroy {
           this.tabFields = this.organizationFields;
           break;
         }
+        default: {
+          this.tabFields = [];
+        }
       }
       // Get sort from url and reset sort on tab change
-      if (!this.sortBy ? this.sortBy : 'reset') {
+      if (!this.currentSort ? this.currentSort : this.sortByRelevance) {
       }
-      this.sortBy = this.route.snapshot.queryParams.sort || 'reset';
+
+      // Set value from query parameters on initialization
+      this.currentSort =
+        this.tabFields.find(
+          (item) => item.value === this.route.snapshot.queryParams.sort
+        ) || this.sortByRelevance;
     });
 
     // Handle mobile status
@@ -104,20 +119,22 @@ export class SortComponent implements OnInit, OnDestroy {
   }
 
   // Send value to service and rewrite url
-  orderBy(): void {
-    this.sortService.updateSort(this.sortBy);
+  orderBy(option: SortOption): void {
+    this.currentSort = option;
+    this.sortService.updateSort(option.value);
     this.navigate();
   }
 
   navigate() {
     this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: { sort: this.sortBy },
+      queryParams: { sort: this.currentSort.value },
       queryParamsHandling: 'merge',
     });
   }
 
   ngOnDestroy() {
     this.tabSub?.unsubscribe();
+    this.mobileStatusSub?.unsubscribe();
   }
 }

@@ -1,0 +1,76 @@
+// This file is part of the research.fi API service
+//
+// Copyright 2019 Ministry of Education and Culture, Finland
+//
+// :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+// :license: MIT
+
+.primary-action,
+.secondary-button {
+  &:active {
+    box-shadow: 0 0 0 4px;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+  }
+
+  &.icon:not(.icon-after) {
+    padding-left: 0;
+  }
+
+  &.icon.icon-after {
+    padding-right: 0;
+  }
+
+  &.big {
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  &.small {
+    padding: 0 10px;
+  }
+
+  fa-icon.before {
+    padding: 0 16px 0 24px;
+  }
+
+  fa-icon.after {
+    padding: 0 24px 0 16px;
+  }
+}
+
+.close-button {
+  font-weight: bold;
+  border: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  fa-icon {
+    padding-right: 10px;
+  }
+}
+
+.beta-button {
+  min-height: unset;
+  padding: 0.25rem 1rem;
+  z-index: 999;
+}
+
+@media (max-width: 575px) {
+  .primary-action,
+  .secondary-button {
+    &.no-sm-icon {
+      padding-left: unset;
+      padding-right: unset;
+    }
+
+    fa-icon.d-none {
+      padding: 0;
+    }
+  }
+}

@@ -209,9 +209,23 @@ export class SearchService {
                   _index: 'funding',
                 },
               },
+              // Datasets can have multiple different versions.
+              // Aggregate only latest datasets.
+              // Filter query for datasets is declared in filter.service
               datasets: {
-                match: {
-                  _index: 'dataset',
+                bool: {
+                  must: [
+                    {
+                      match: {
+                        _index: 'dataset',
+                      },
+                    },
+                    {
+                      term: {
+                        isLatestVersion: 1,
+                      },
+                    },
+                  ],
                 },
               },
               infrastructures: {

@@ -11,7 +11,8 @@ import {
   RecipientOrganization,
   RecipientOrganizationAdapter,
 } from './recipient-organization.model';
-import { LanguageCheck } from '../utils';
+import { LanguageCheck, testFinnishBusinessId } from '../utils';
+import { orderBy } from 'lodash-es';
 
 export class Recipient {
   [x: string]: any;
@@ -27,6 +28,7 @@ export class Recipient {
     public contactPersonName: string,
     public contactPersonOrcid: string,
     public organizations: RecipientOrganization[],
+    public euFundingRecipients: Record<string, unknown>[],
     public combined: string
   ) {}
 }
@@ -40,6 +42,12 @@ export class RecipientAdapter implements Adapter<Recipient> {
     private lang: LanguageCheck
   ) {}
   adapt(item: any): Recipient {
+    /*
+     * Listing of recipients depends on multiple factors:
+     * Recipient type, country of recipient organization and if funding type is EU funding.
+     * Recipient object is used in search results (recipient column) and single-recipient components.
+     */
+
     const recipientObj = item.recipientObj;
 
     // Filter empty properties
@@ -116,14 +124,20 @@ export class RecipientAdapter implements Adapter<Recipient> {
         item.fundingGroupPerson.find(
           // Check for finnish business ID identifier
           (x) =>
-            x.consortiumOrganizationBusinessId?.trim().slice(-2)[0] === '-' ||
-            x.consortiumOrganizationBusinessId?.trim().slice(0, 2) === 'FI'
+            x.consortiumOrganizationBusinessId &&
+            testFinnishBusinessId(x.consortiumOrganizationBusinessId)
         )
       ) {
         // Get target recipient
-        const person = item.fundingGroupPerson.find(
-          (x) => x.consortiumProject === item.funderProjectNumber
-        );
+        const person = recipientObj.fundingGroupPersonLastName
+          ? recipientObj
+          : item.fundingGroupPerson.find(
+              (x) =>
+                x.consortiumProject === item.funderProjectNumber &&
+                x.consortiumOrganizationBusinessId &&
+                testFinnishBusinessId(x.consortiumOrganizationBusinessId)
+            );
+
         // Map recipients
         if (
           person &&
@@ -205,6 +219,55 @@ export class RecipientAdapter implements Adapter<Recipient> {
       }
     }
 
+    /*
+     * Special use case for EU funding with multiple persons as recipients.
+     * Rule: Funding is EU funding and has 'consortium' as recipientType (multiple objects in fundingGroupPerson).
+     * Sort by Finnish organizations first.
+     *
+     * Note: the use case of euFundingRecipients variable is now extended to regular projects too in the funding details page.
+     */
+    const euFundingRecipients =
+      item.fundingGroupPerson?.length &&
+      item.fundingGroupPerson
+        .flat()
+        .map((person) => ({
+          personName: person.fundingGroupPersonLastName
+            ? `${person.fundingGroupPersonFirstNames} ${person.fundingGroupPersonLastName}`
+            : '',
+          organizationName: this.lang.testLang(
+            'consortiumOrganizationName',
+            person
+          ),
+          finnishOrganization: testFinnishBusinessId(
+            person.consortiumOrganizationBusinessId
+          ),
+          personIsFunded: person?.fundedPerson === 1,
+          organizationId: person.consortiumOrganizationId,
+          projectId: person.projectId,
+          shareOfFundingInEur: person.shareOfFundingInEur,
+          orcid: person.fundingGroupPersonOrcid,
+          role: this.lang.translateRole(person.roleInFundingGroup, true),
+        }))
+        .sort((a, b) => b.finnishOrganization - a.finnishOrganization);
+
+    // Display combined EU funding recipients in search results view
+    if (item.euFunding && euFundingRecipients) {
+      combined = euFundingRecipients
+        .map(
+          (recipient) =>
+            `${recipient.personName}, ${recipient.organizationName}`
+        )
+        .join('; ');
+    }
+
+    // Sort organizations by finnish organizations first
+    // Additional sort for organizations that can be linked insides portal
+    const sortedOrganizations = orderBy(
+      organizations,
+      ['finnishOrganization', 'portalEquivalent'],
+      ['desc', 'desc']
+    );
+
     return new Recipient(
       recipientObj?.projectId,
       recipientObj?.fundingGroupPersonLastName
@@ -221,12 +284,12 @@ export class RecipientAdapter implements Adapter<Recipient> {
       recipientObj?.consortiumOrganizationId,
       recipientObj?.shareOfFundingInEur,
       Math.round(item.amount_in_EUR),
-      // tslint:disable-next-line: max-line-length
       (item.fundingContactPersonFirstNames || '') +
         ' ' +
         (item.fundingContactPersonLastName || ''), // Add "existence check" because of string operation
       item.fundingContactPersonOrcid,
-      organizations,
+      sortedOrganizations,
+      euFundingRecipients,
       combined.trim().length > 0 ? combined : '-'
     );
   }

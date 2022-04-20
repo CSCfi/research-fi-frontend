@@ -17,7 +17,7 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { Title, DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { ResizeService } from 'src/app/shared/services/resize.service';
 import { Subscription } from 'rxjs';
@@ -53,11 +53,9 @@ export class ResearchInnovationSystemComponent
   focusSub: Subscription;
   resizeSub: Subscription;
   currentLocale: string;
-  sectorDataSub: Subscription;
   sectorData: Sector[] = [];
 
   constructor(
-    private titleService: Title,
     @Inject(LOCALE_ID) protected localeId: string,
     public sanitizer: DomSanitizer,
     private tabChangeService: TabChangeService,
@@ -73,7 +71,7 @@ export class ResearchInnovationSystemComponent
   }
 
   public setTitle(newTitle: string) {
-    this.titleService.setTitle(newTitle);
+    this.utilityService.setTitle(newTitle);
   }
 
   ngOnInit(): void {
@@ -143,7 +141,7 @@ export class ResearchInnovationSystemComponent
     // Reset skip to input - skip-link
     this.tabChangeService.toggleSkipToInput(true);
     this.tabChangeService.targetFocus('');
+    this.resizeSub?.unsubscribe();
     this.focusSub?.unsubscribe();
-    this.sectorDataSub?.unsubscribe();
   }
 }

@@ -15,7 +15,7 @@ import {
 } from '@angular/core';
 import { SearchService } from '../../services/search.service';
 import { TabChangeService } from '../../services/tab-change.service';
-import { Subscription } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 import { ResizeService } from 'src/app/shared/services/resize.service';
 import { Router } from '@angular/router';
 import {
@@ -63,6 +63,8 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   private tabSub: Subscription;
   private queryParamSub: Subscription;
   private resizeSub: Subscription;
+  private scrollRefSub: Subscription;
+  private currentTabSub: Subscription;
 
   locale: string;
 
@@ -147,40 +149,42 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
       !this.isHomepage &&
       isPlatformBrowser(this.platformId)
     ) {
-      this.ref.changes.subscribe((result) => {
+      this.scrollRefSub = this.ref.changes.subscribe((result) => {
         this.scroll = result.first;
         // Subscribe to current tab and get count
-        this.tabChangeService.currentTab.subscribe((tab) => {
-          // Recalculate tabs and rows for navigations from homePage
-          this.currentTab = tab;
-          // Get current tabs index number and scroll to position if auto scroll isn't disabled
-          if (this.scrollTo) {
-            // Get current index
-            this.currentIndex = this.tabChangeService.tabData.findIndex(
-              (i) => i.link === tab.link
-            );
-            // Scroll children can have edge divs. In this case get children that are tabs
-            const difference =
-              this.scroll.nativeElement.children[2].children.length -
-              this.tabChangeService.tabData.length;
-            // Scroll with current index and left + width offsets
-            if (
-              this.scroll.nativeElement.children[2].children[
-                this.currentIndex + difference
-              ]
-            ) {
-              this.scrollToPosition(
-                this.currentIndex,
-                this.scroll.nativeElement.children[2].children[
-                  this.currentIndex + difference
-                ].offsetLeft,
-                this.scroll.nativeElement.children[2].children[
-                  this.currentIndex + difference
-                ].offsetWidth
+        this.currentTabSub = this.tabChangeService.currentTab
+          .pipe(take(1))
+          .subscribe((tab) => {
+            // Recalculate tabs and rows for navigations from homePage
+            this.currentTab = tab;
+            // Get current tabs index number and scroll to position if auto scroll isn't disabled
+            if (this.scrollTo) {
+              // Get current index
+              this.currentIndex = this.tabChangeService.tabData.findIndex(
+                (i) => i.link === tab.link
               );
+              // Scroll children can have edge divs. In this case get children that are tabs
+              const difference =
+                this.scroll.nativeElement.children[2].children.length -
+                this.tabChangeService.tabData.length;
+              // Scroll with current index and left + width offsets
+              if (
+                this.scroll.nativeElement.children[2].children[
+                  this.currentIndex + difference
+                ]
+              ) {
+                this.scrollToPosition(
+                  this.currentIndex,
+                  this.scroll.nativeElement.children[2].children[
+                    this.currentIndex + difference
+                  ].offsetLeft,
+                  this.scroll.nativeElement.children[2].children[
+                    this.currentIndex + difference
+                  ].offsetWidth
+                );
+              }
             }
-          }
-        });
+          });
         // Timeout to prevent value changed exception
         setTimeout(() => {
           this.scrollWidth = this.scroll.nativeElement.scrollWidth;
@@ -388,6 +392,8 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
       this.tabSub?.unsubscribe();
       this.queryParamSub?.unsubscribe();
       this.resizeSub?.unsubscribe();
+      this.scrollRefSub?.unsubscribe();
+      this.currentTabSub?.unsubscribe();
     }
     this.dataService.resultTabList = [];
   }

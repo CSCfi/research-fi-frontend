@@ -14,11 +14,13 @@ import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
-import { AppConfigService } from '../../shared/services/app-config-service.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { AppConfigService } from '@shared/services/app-config-service.service';
 
-import ResponseJsonPublications from '../../../testdata/searchresponse-publications.json';
-import ResponseJsonFundings from '../../../testdata/searchresponse-fundings.json';
-import ResponseJsonInfrastructures from '../../../testdata/searchresponse-infrastructures.json';
+import ResponseJsonPublications from 'src/testdata/searchresponse-publications.json';
+import ResponseJsonFundings from 'src/testdata/searchresponse-fundings.json';
+import ResponseJsonInfrastructures from 'src/testdata/searchresponse-infrastructures.json';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const mockApiUrl = 'test.api.fi/';
 
@@ -30,10 +32,11 @@ export class AppConfigServiceMock {
 
 describe('SearchService', () => {
   let searchService: SearchService;
+  let httpController: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule, RouterTestingModule, MatDialogModule],
       providers: [
         SearchService,
         FilterService,
@@ -43,30 +46,33 @@ describe('SearchService', () => {
       ],
     });
 
-    searchService = TestBed.get(SearchService);
+    searchService = TestBed.inject(SearchService);
+    httpController = TestBed.inject(HttpTestingController);
   });
 
   it('should be created', () => {
     expect(searchService).toBeTruthy();
   });
 
+  const testTotal = () => {
+    searchService.getData().subscribe((response) => {
+      expect(response.total).toBeGreaterThan(0)
+    });
+  }
+
   it('should send API request to publication/_search from publications tab', () => {
     const searchResponseMock = ResponseJsonPublications;
-    const http = TestBed.get(HttpTestingController);
-    const tabChangeService = TestBed.get(TabChangeService);
-    const sortService = TestBed.get(SortService);
-    let searchResponse;
+    const tabChangeService = TestBed.inject(TabChangeService);
+    const sortService = TestBed.inject(SortService);
 
     searchService.searchTerm = 'searchtext';
     searchService.fromPage = 1;
     tabChangeService.tab = 'publications';
     sortService.sort = '';
 
-    searchService.getData().subscribe((response) => {
-      searchResponse = response;
-    });
+    testTotal()
 
-    http
+    httpController
       .expectOne({
         url: mockApiUrl + 'publication/_search?',
         method: 'POST',
@@ -76,21 +82,17 @@ describe('SearchService', () => {
 
   it('should send API request to funding/_search from fundings tab', () => {
     const searchResponseMock = ResponseJsonFundings;
-    const http = TestBed.get(HttpTestingController);
-    const tabChangeService = TestBed.get(TabChangeService);
-    const sortService = TestBed.get(SortService);
-    let searchResponse;
+    const tabChangeService = TestBed.inject(TabChangeService);
+    const sortService = TestBed.inject(SortService);
 
     searchService.searchTerm = 'searchtext';
     searchService.fromPage = 1;
     tabChangeService.tab = 'fundings';
     sortService.sort = '';
 
-    searchService.getData().subscribe((response) => {
-      searchResponse = response;
-    });
+    testTotal()
 
-    http
+    httpController
       .expectOne({
         url: mockApiUrl + 'funding/_search?',
         method: 'POST',
@@ -100,21 +102,17 @@ describe('SearchService', () => {
 
   it('should send API request to infrastructure/_search from infrastructures tab', () => {
     const searchResponseMock = ResponseJsonInfrastructures;
-    const http = TestBed.get(HttpTestingController);
-    const tabChangeService = TestBed.get(TabChangeService);
-    const sortService = TestBed.get(SortService);
-    let searchResponse;
+    const tabChangeService = TestBed.inject(TabChangeService);
+    const sortService = TestBed.inject(SortService);
 
     searchService.searchTerm = 'searchtext';
     searchService.fromPage = 1;
     tabChangeService.tab = 'infrastructures';
     sortService.sort = '';
 
-    searchService.getData().subscribe((response) => {
-      searchResponse = response;
-    });
+    testTotal()
 
-    http
+    httpController
       .expectOne({
         url: mockApiUrl + 'infrastructure/_search?',
         method: 'POST',

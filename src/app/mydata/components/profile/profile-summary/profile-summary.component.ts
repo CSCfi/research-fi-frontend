@@ -5,12 +5,16 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewEncapsulation,
+} from '@angular/core';
 
 import { cloneDeep } from 'lodash-es';
 import { checkGroupSelected } from '@mydata/utils';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { EditorModalComponent } from '@mydata/components/profile/editor-modal/editor-modal.component';
 import { take } from 'rxjs/operators';
 import { PatchService } from '@mydata/services/patch.service';
 import { PublicationsService } from '@mydata/services/publications.service';
@@ -23,6 +27,7 @@ import { GroupTypes } from '@mydata/constants/groupTypes';
 import { CommonStrings } from '@mydata/constants/strings';
 import { DatasetsService } from '@mydata/services/datasets.service';
 import { FundingsService } from '@mydata/services/fundings.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile-summary',
@@ -30,7 +35,7 @@ import { FundingsService } from '@mydata/services/fundings.service';
   styleUrls: ['./profile-summary.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ProfileSummaryComponent implements OnInit {
+export class ProfileSummaryComponent implements OnInit, OnDestroy {
   @Input() profileData: any;
 
   fieldTypes = FieldTypes;
@@ -44,14 +49,17 @@ export class ProfileSummaryComponent implements OnInit {
 
   locale: string;
 
-  dialogRef: MatDialogRef<EditorModalComponent>;
+  showDialog: boolean;
+  dialogData: any;
+  currentIndex: number;
 
   editString = CommonStrings.edit;
   selectString = CommonStrings.select;
 
+  removeGroupItemsSub: Subscription;
+
   constructor(
     private appSettingsService: AppSettingsService,
-    public dialog: MatDialog,
     private patchService: PatchService,
     private publicationsService: PublicationsService,
     private datasetsService: DatasetsService,
@@ -64,101 +72,100 @@ export class ProfileSummaryComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  openDialog(event, index) {
+  openDialog(event: { stopPropagation: () => void }, index: number) {
     event.stopPropagation();
+    this.showDialog = true;
+    this.dialogData = cloneDeep(this.profileData[index]);
+    this.currentIndex = index;
+  }
 
-    if (!this.openPanels.includes(index)) this.openPanels.push(index);
+  closeDialog() {
+    this.showDialog = false;
+  }
 
-    const selectedField = cloneDeep(this.profileData[index]);
+  handleChanges(result) {
+    this.closeDialog();
 
-    this.dialogRef = this.dialog.open(EditorModalComponent, {
-      data: {
-        data: selectedField,
+    const confirmedPayLoad = this.patchService.confirmedPayLoad;
+
+    this.draftService.saveDraft(this.profileData);
+
+    // Groups are used in different loops to set storage items and handle removal of items
+    const patchGroups = [
+      { key: Constants.draftProfile, data: this.profileData },
+      {
+        key: Constants.draftPatchPayload,
+        data: this.patchService.confirmedPayLoad,
       },
-      panelClass: this.appSettingsService.dialogPanelClass,
-    });
+      {
+        id: GroupTypes.publication,
+        key: Constants.draftPublicationPatchPayload,
+        service: this.publicationsService,
+        data: this.publicationsService.confirmedPayload,
+        deletables: this.publicationsService.deletables,
+      },
+      {
+        id: GroupTypes.dataset,
+        key: Constants.draftDatasetPatchPayload,
+        service: this.datasetsService,
+        data: this.datasetsService.confirmedPayload,
+        deletables: this.datasetsService.deletables,
+      },
+      {
+        id: GroupTypes.funding,
+        key: Constants.draftFundingPatchPayload,
+        service: this.fundingsService,
+        data: this.fundingsService.confirmedPayload,
+        deletables: this.fundingsService.deletables,
+      },
+    ];
 
-    this.dialogRef
-      .afterClosed()
-      .pipe(take(1))
-      .subscribe((result: { data: any }) => {
-        const confirmedPayLoad = this.patchService.confirmedPayLoad;
+    const portalPatchGroups = patchGroups.filter((group) => group.id);
 
-        this.draftService.saveDraft(this.profileData);
+    if (result) {
+      // Update binded profile data. Renders changes into summary view
+      this.profileData[this.currentIndex] = result;
 
-        // Groups are used in different loops to set storage items and handle removal of items
-        const patchGroups = [
-          { key: Constants.draftProfile, data: this.profileData },
-          {
-            key: Constants.draftPatchPayload,
-            data: this.patchService.confirmedPayLoad,
-          },
-          {
-            id: GroupTypes.publication,
-            key: Constants.draftPublicationPatchPayload,
-            service: this.publicationsService,
-            data: this.publicationsService.confirmedPayload,
-            deletables: this.publicationsService.deletables,
-          },
-          {
-            id: GroupTypes.dataset,
-            key: Constants.draftDatasetPatchPayload,
-            service: this.datasetsService,
-            data: this.datasetsService.confirmedPayload,
-            deletables: this.datasetsService.deletables,
-          },
-          {
-            id: GroupTypes.funding,
-            key: Constants.draftFundingPatchPayload,
-            service: this.fundingsService,
-            data: this.fundingsService.confirmedPayload,
-            deletables: this.fundingsService.deletables,
-          },
-        ];
+      // Handle removal of items added from portal search
+      portalPatchGroups.forEach((group) => {
+        if (result.id === group.id) {
+          if (group.deletables.length) {
+            const removeItem = (publication: { id: string }) => {
+              group.service.removeFromConfirmed(publication.id);
+            };
 
-        const portalPatchGroups = patchGroups.filter((group) => group.id);
-
-        if (result) {
-          // Update binded profile data. Renders changes into summary view
-          this.profileData[index] = result.data;
-
-          // Handle removal of items added from portal search
-          portalPatchGroups.forEach((group) => {
-            if (result.data.id === group.id) {
-              if (group.deletables.length) {
-                const removeItem = (publication: { id: string }) => {
-                  group.service.removeFromConfirmed(publication.id);
-                };
-
-                for (const [i, item] of group.deletables.entries()) {
-                  removeItem(item);
-                  if (i === group.deletables.length - 1)
-                    group.service.clearDeletables();
-                }
-
-                group.service
-                  .removeItems(group.deletables)
-                  .pipe(take(1))
-                  .subscribe(() => {});
-              }
+            for (const [i, item] of group.deletables.entries()) {
+              removeItem(item);
+              if (i === group.deletables.length - 1)
+                group.service.clearDeletables();
             }
-          });
 
-          // Set draft data into storage with SSR check
-          if (this.appSettingsService.isBrowser) {
-            patchGroups.forEach((group) => {
-              sessionStorage.setItem(group.key, JSON.stringify(group.data));
-            });
-
-            // Display snackbar only if user has made changes
-            if (result && confirmedPayLoad.length) {
-              this.snackbarService.show(
-                $localize`:@@draftUpdated:Luonnos päivitetty`,
-                'success'
-              );
-            }
+            this.removeGroupItemsSub = group.service
+              .removeItems(group.deletables)
+              .pipe(take(1))
+              .subscribe(() => {});
           }
         }
       });
+
+      // Set draft data into storage with SSR check
+      if (this.appSettingsService.isBrowser) {
+        patchGroups.forEach((group) => {
+          sessionStorage.setItem(group.key, JSON.stringify(group.data));
+        });
+
+        // Display snackbar only if user has made changes
+        if (result && confirmedPayLoad.length) {
+          this.snackbarService.show(
+            $localize`:@@draftUpdated:Luonnos päivitetty`,
+            'success'
+          );
+        }
+      }
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.removeGroupItemsSub?.unsubscribe();
   }
 }

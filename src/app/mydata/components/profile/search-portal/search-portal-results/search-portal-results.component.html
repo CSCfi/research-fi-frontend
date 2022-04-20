@@ -108,20 +108,14 @@
   <ng-container matColumnDef="show-more">
     <mat-header-cell *matHeaderCellDef> </mat-header-cell>
     <mat-cell *matCellDef="let item; let i = index">
-      <a
-        *ngIf="showMoreArray.indexOf(i) === -1"
-        href="javascript:void(0)"
-        (click)="showMore(i)"
-        i18n="@@showMore"
-        >Näytä lisää</a
-      >
-      <a
-        *ngIf="showMoreArray.indexOf(i) > -1"
-        href="javascript:void(0)"
-        (click)="showLess(i)"
-        i18n="@@showLess"
-        >Näytä vähemmän</a
-      >
+      <a href="javascript:void(0)" (click)="toggleShowMore(i)">
+        <ng-container *ngIf="showMoreArray.indexOf(i) === -1" i18n="@@showMore">
+          Näytä lisää
+        </ng-container>
+        <ng-container *ngIf="showMoreArray.indexOf(i) > -1" i18n="@@showLess">
+          Näytä vähemmän
+        </ng-container>
+      </a>
     </mat-cell>
   </ng-container>
 

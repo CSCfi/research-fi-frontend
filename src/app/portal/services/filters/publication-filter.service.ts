@@ -415,18 +415,52 @@ export class PublicationFilterService {
   }
 
   publicationCountry(data) {
-    const result = data.map(
-      (item) =>
-        (item = {
-          key: 'c' + item.key,
-          label:
-            item.key === 0
-              ? $localize`:@@finland:Suomi`
-              : $localize`:@@other:Muut`,
-          doc_count: item.doc_count,
-          value: item.key,
-        })
+    let countryCodes: {
+      key: number | string;
+      doc_count: number;
+      label?: string;
+      value?: number | string;
+    }[] = [...data];
+
+    // There should only be 3 different publication country options, Finnish, Other and Unknown
+    // 0 is for Finnish publications
+    // 9 is for unknown data
+    // Other codes are labeled as othher countires and these should be combined as single item with summed doc counts
+
+    const otherPublications = data.filter(
+      (item) => item.key > 0 && item.key < 9
     );
+
+    if (otherPublications.length > 1) {
+      countryCodes = countryCodes.filter(
+        (code) => code.key === 0 || code.key === 9
+      );
+      countryCodes.push({
+        key: 1,
+        doc_count: otherPublications.reduce(
+          (acc, value) => value.doc_count + acc.doc_count
+        ),
+      });
+    }
+
+    // Add labels for country codes
+    const result = countryCodes
+      .sort((a, b) => Number(a.key) - Number(b.key))
+      .map(
+        (item) =>
+          (item = {
+            key: 'c' + item.key,
+            label:
+              item.key === 0
+                ? $localize`:@@finland:Suomi`
+                : item.key === 9
+                ? $localize`:@@notSpecified:Ei tietoa`
+                : $localize`:@@other:Muut`,
+            doc_count: item.doc_count,
+            value: item.key,
+          })
+      );
+
     return result;
   }
 

@@ -81,6 +81,16 @@ export class AppComponent {
       })();
       `;
       this.document.getElementsByTagName('head')[0].appendChild(node);
+
+      this.document.addEventListener('mousemove', () =>
+        document.body.classList.remove('focus-visible')
+      );
+
+      this.document.addEventListener(
+        'keydown',
+        ({ key }) =>
+          key === 'Tab' && document.body.classList.add('focus-visible')
+      );
     }
   }
 }

@@ -17,7 +17,6 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
-import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { PrivacyService } from 'src/app/portal/services/privacy.service';
@@ -53,7 +52,6 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
   userStatisticsContent: any[];
 
   constructor(
-    private titleService: Title,
     @Inject(LOCALE_ID) protected localeId: string,
     private tabChangeService: TabChangeService,
     @Inject(DOCUMENT) private document: any,
@@ -189,11 +187,11 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setTitle(title: string) {
-    this.titleService.setTitle(title);
+    this.utilityService.setTitle(title);
   }
 
   getTitle() {
-    return this.titleService.getTitle().split('-').shift().trim();
+    return this.utilityService.getTitle().split('-').shift().trim();
   }
 
   ngAfterViewInit() {
@@ -212,5 +210,6 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
     this.tabChangeService.targetFocus('');
     this.consentStatusSub?.unsubscribe();
     this.routeSub?.unsubscribe();
+    this.focusSub?.unsubscribe();
   }
 }

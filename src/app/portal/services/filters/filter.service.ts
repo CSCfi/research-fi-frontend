@@ -17,41 +17,75 @@ import { StaticDataService } from '../static-data.service';
 import { AggregationService } from './aggregation.service';
 import { TabChangeService } from '../tab-change.service';
 
+export type Filters = {
+  toYear: string[];
+  fromYear: string[];
+  year: string[];
+  field: string[];
+  publicationType: string[];
+  publicationFormat: string[];
+  publicationAudience: string[];
+  parentPublicationType: string[];
+  articleType: string[];
+  peerReviewed: string[];
+  countryCode: string[];
+  lang: string[];
+  openAccess: string[];
+  juFo: string[];
+  internationalCollaboration: string[];
+  okmDataCollection: string[];
+  funder: string[];
+  typeOfFunding: string[];
+  scheme: string[];
+  fundingStatus: string[];
+  fundingAmount: string[];
+  topic: string[];
+  sector: string[];
+  organization: string[];
+  dataSource: string[];
+  accessType: string[];
+  type: string[];
+  coPublication: string[];
+  date: string[];
+  status: string[];
+};
+
 @Injectable({
   providedIn: 'root',
 })
 export class FilterService {
-  yearFilter: any;
-  yearRangeFilter: any;
-  juFoCodeFilter: any;
-  fieldFilter: any;
-  publicationTypeFilter: any;
-  publicationFormatFilter: any;
-  publicationAudienceFilter: any;
-  parentPublicationTypeFilter: any;
-  articleTypeFilter: any;
-  peerReviewedFilter: any;
-  countryCodeFilter: any;
-  langFilter: any;
-  funderFilter: any;
-  typeOfFundingFilter: any;
-  fundingSchemeFilter: any;
-  fundingAmountFilter: any;
-  openAccessFilter: any;
-  internationalCollaborationFilter: any;
-  okmDataCollectionFilter: any;
-  coPublicationFilter: any;
-  sectorFilter: any;
-  topicFilter: any;
-  organizationFilter: any;
-  dataSourceFilter: any;
-  accessTypeFilter: any;
-  typeFilter: any;
-  infraFieldFilter: any;
+  yearFilter: string[];
+  juFoCodeFilter: string[];
+  fieldFilter: string[];
+  publicationTypeFilter: string[];
+  publicationFormatFilter: string[];
+  publicationAudienceFilter: string[];
+  parentPublicationTypeFilter: string[];
+  articleTypeFilter: string[];
+  peerReviewedFilter: string[];
+  countryCodeFilter: string[];
+  langFilter: string[];
+  funderFilter: string[];
+  typeOfFundingFilter: string[];
+  fundingSchemeFilter: string[];
+  fundingAmountFilter: string[];
+  openAccessFilter: string[];
+  internationalCollaborationFilter: {
+    term: { internationalCollaboration: boolean | undefined };
+  };
+  okmDataCollectionFilter: string[];
+  coPublicationFilter: string[];
+  sectorFilter: string[];
+  topicFilter: string[];
+  organizationFilter: string[];
+  dataSourceFilter: string[];
+  accessTypeFilter: string[];
+  typeFilter: string[];
+  infraFieldFilter: string[];
   currentFilters: any;
-  dateFilter: any;
-  fundingCallCategoryFilter: any;
-  statusFilter: any;
+  dateFilter: string[];
+  fundingCallCategoryFilter: string[];
+  statusFilter: string[];
 
   private filterSource = new BehaviorSubject({
     toYear: [],
@@ -75,7 +109,7 @@ export class FilterService {
     scheme: [],
     fundingStatus: [],
     fundingAmount: [],
-    topicFilter: [],
+    topic: [],
     sector: [],
     organization: [],
     dataSource: [],
@@ -91,38 +125,7 @@ export class FilterService {
   publication = this.staticDataService.visualisationData.publication;
   funding = this.staticDataService.visualisationData.funding;
 
-  updateFilters(filters: {
-    toYear: any[];
-    fromYear: any[];
-    year: any[];
-    field: any[];
-    publicationType: any[];
-    publicationFormat: any[];
-    publicationAudience: any[];
-    parentPublicationType: any[];
-    articleType: any[];
-    peerReviewed: any[];
-    countryCode: any[];
-    lang: any[];
-    openAccess: any[];
-    juFo: any[];
-    internationalCollaboration: any[];
-    okmDataCollection: any[];
-    funder: any[];
-    typeOfFunding: any[];
-    scheme: any[];
-    fundingStatus: any[];
-    fundingAmount: any[];
-    topicFilter: any[];
-    sector: any[];
-    organization: any[];
-    dataSource: any[];
-    accessType: any[];
-    type: any[];
-    coPublication: any[];
-    date: any[];
-    status: any[];
-  }) {
+  updateFilters(filters: Filters) {
     // Create new filters first before sending updated values to components
     this.currentFilters = filters;
     this.createFilters(filters);
@@ -143,142 +146,57 @@ export class FilterService {
 
   // Elements that are looked from query params.
   filterList(source) {
+    const mapFilter = (filter) =>
+      [filter]
+        .flat()
+        .filter((x) => x)
+        .sort();
+
     return {
       // Global
-      year: [source.year]
-        .flat()
-        .filter((x) => x)
-        .sort(),
-      fromYear: [source.fromYear]
-        .flat()
-        .filter((x) => x)
-        .sort(),
-      toYear: [source.toYear]
-        .flat()
-        .filter((x) => x)
-        .sort(),
-      field: [source.field]
-        .flat()
-        .filter((x) => x)
-        .sort(),
-      organization: [source.organization]
-        .flat()
-        .filter((x) => x)
-        .sort(),
+      year: mapFilter(source.year),
+      fromYear: mapFilter(source.fromYear),
+      toYear: mapFilter(source.toYear),
+      field: mapFilter(source.field),
+      organization: mapFilter(source.organization),
       // Publications
-      sector: [source.sector]
-        .flat()
-        .filter((x) => x)
-        .sort(),
-      publicationType: [source.publicationType]
-        .flat()
-        .filter((x) => x)
-        .sort(),
-      publicationFormat: [source.publicationFormat]
-        .flat()
-        .filter((x) => x)
-        .sort(),
-      publicationAudience: [source.publicationAudience]
-        .flat()
-        .filter((x) => x)
-        .sort(),
-      parentPublicationType: [source.parentPublicationType]
-        .flat()
-        .filter((x) => x)
-        .sort(),
-      articleType: [source.articleType]
-        .flat()
-        .filter((x) => x)
-        .sort(),
-      peerReviewed: [source.peerReviewed]
-        .flat()
-        .filter((x) => x)
-        .sort(),
-      countryCode: [source.countryCode]
-        .flat()
-        .filter((x) => x)
-        .sort(),
-      lang: [source.lang]
-        .flat()
-        .filter((x) => x)
-        .sort(),
-      juFo: [source.juFo]
-        .flat()
-        .filter((x) => x)
-        .sort(),
-      openAccess: [source.openAccess]
-        .flat()
-        .filter((x) => x)
-        .sort(),
-      internationalCollaboration: [source.internationalCollaboration]
-        .flat()
-        .filter((x) => x)
-        .sort(),
-      okmDataCollection: [source.okmDataCollection]
-        .flat()
-        .filter((x) => x)
-        .sort(),
-      coPublication: [source.coPublication]
-        .flat()
-        .filter((x) => x)
-        .sort(),
+      sector: mapFilter(source.sector),
+      publicationType: mapFilter(source.publicationType),
+      publicationFormat: mapFilter(source.publicationFormat),
+      publicationAudience: mapFilter(source.publicationAudience),
+      parentPublicationType: mapFilter(source.parentPublicationType),
+      articleType: mapFilter(source.articleType),
+      peerReviewed: mapFilter(source.peerReviewed),
+      countryCode: mapFilter(source.countryCode),
+      lang: mapFilter(source.lang),
+      juFo: mapFilter(source.juFo),
+      openAccess: mapFilter(source.openAccess),
+      internationalCollaboration: mapFilter(source.internationalCollaboration),
+      okmDataCollection: mapFilter(source.okmDataCollection),
+      coPublication: mapFilter(source.coPublication),
       // Fundings
-      funder: [source.funder]
-        .flat()
-        .filter((x) => x)
-        .sort(),
-      typeOfFunding: [source.typeOfFunding]
-        .flat()
-        .filter((x) => x)
-        .sort(),
-      scheme: [source.scheme]
-        .flat()
-        .filter((x) => x)
-        .sort(),
-      fundingStatus: [source.fundingStatus]
-        .flat()
-        .filter((x) => x)
-        .sort(),
-      fundingAmount: [source.fundingAmount]
-        .flat()
-        .filter((x) => x)
-        .sort(),
-      topic: [source.topic]
-        .flat()
-        .filter((x) => x)
-        .sort(),
+      funder: mapFilter(source.funder),
+      typeOfFunding: mapFilter(source.typeOfFunding),
+      scheme: mapFilter(source.scheme),
+      fundingStatus: mapFilter(source.fundingStatus),
+      fundingAmount: mapFilter(source.fundingAmount),
+      topic: mapFilter(source.topic),
       // Datasets
-      dataSource: [source.dataSource]
-        .flat()
-        .filter((x) => x)
-        .sort(),
-      accessType: [source.accessType]
-        .flat()
-        .filter((x) => x)
-        .sort(),
+      dataSource: mapFilter(source.dataSource),
+      accessType: mapFilter(source.accessType),
       // Infrastructures
-      type: [source.type]
-        .flat()
-        .filter((x) => x)
-        .sort(),
+      type: mapFilter(source.type),
       // Funding calls
-      date: [source.date]
-        .flat()
-        .filter((x) => x)
-        .sort(),
-      status: [source.status]
-        .flat()
-        .filter((x) => x)
-        .sort(),
+      date: mapFilter(source.date),
+      status: mapFilter(source.status),
     };
   }
 
   // Filters
-  createFilters(filter: any) {
+  createFilters(filter: Filters) {
     // Global
     this.yearFilter = this.filterByYear(filter.year);
     this.organizationFilter = this.filterByOrganization(filter.organization);
-    this.yearRangeFilter = this.rangeFilter(filter.fromYear, filter.toYear);
     this.fieldFilter = this.basicFilter(
       filter.field,
       'fieldsOfScience.fieldIdScience'
@@ -571,13 +489,13 @@ export class FilterService {
     const codeFilters = [];
     code.forEach((value) => {
       codeFilters.push({
-        term: { internationalPublication: value === 'c1' ? true : false },
+        term: { internationalPublication: value === 'c0' ? 0 : value === 'c1' ? 1 : value === 'c9' ? 9 : ''},
       });
     });
     return codeFilters;
   }
 
-  filterByJuFoCode(code: string) {
+  filterByJuFoCode(code: string[]) {
     const res = [];
     if (code.includes('j3')) {
       res.push({ term: { 'jufoClassCode.keyword': 3 } });
@@ -863,6 +781,18 @@ export class FilterService {
       ...nestedFilter('dataset', this.organizationFilter, 'actor'),
       ...nestedFilter('dataset', this.langFilter, 'languages'),
       ...nestedFilter('dataset', this.fieldFilter, 'fieldsOfScience'),
+      // Datasets can have multiple different versions, display latest only
+      ...(index === 'dataset'
+        ? [
+            {
+              bool: {
+                should: {
+                  term: { isLatestVersion: 1 },
+                },
+              },
+            },
+          ]
+        : []),
 
       // Infrastructures
       ...basicFilter('infrastructure', this.typeFilter),

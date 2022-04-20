@@ -22,15 +22,18 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 
-import { SecondaryButtonComponent } from './components/secondary-button/secondary-button.component';
-import { PrimaryActionButtonComponent } from './components/primary-action-button/primary-action-button.component';
-import { CloseButtonComponent } from './components/close-button/close-button.component';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+
+import { SecondaryButtonComponent } from './components/buttons/secondary-button/secondary-button.component';
+import { PrimaryActionButtonComponent } from './components/buttons/primary-action-button/primary-action-button.component';
+import { CloseButtonComponent } from './components/buttons/close-button/close-button.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { DividerComponent } from './components/divider/divider.component';
 import { ButtonGroupComponent } from './components/button-group/button-group.component';
 import { SelectComponent } from './components/select/select.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { SearchComponent } from './components/search/search.component';
+import { ReviewComponent } from './components/review/review.component';
 
 import { ThousandSeparatorPipe } from './pipes/thousand-separator.pipe';
 import { CutContentPipe } from './pipes/cut-content.pipe';
@@ -40,6 +43,7 @@ import { DialogTemplateComponent } from './components/dialog/dialog-template/dia
 import { BannerDividerComponent } from './components/banner-divider/banner-divider.component';
 
 import { ClickOutsideDirective } from './directives/click-outside.directive';
+import { NotificationBannerComponent } from './components/notification-banner/notification-banner.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +57,7 @@ import { ClickOutsideDirective } from './directives/click-outside.directive';
     SelectComponent,
     MenuComponent,
     SearchComponent,
+    ReviewComponent,
     ThousandSeparatorPipe,
     CutContentPipe,
     SanitizeHtmlPipe,
@@ -60,6 +65,7 @@ import { ClickOutsideDirective } from './directives/click-outside.directive';
     DialogTemplateComponent,
     BannerDividerComponent,
     ClickOutsideDirective,
+    NotificationBannerComponent,
   ],
   exports: [
     InfoComponent,
@@ -71,12 +77,14 @@ import { ClickOutsideDirective } from './directives/click-outside.directive';
     SelectComponent,
     MenuComponent,
     SearchComponent,
+    ReviewComponent,
     ThousandSeparatorPipe,
     CutContentPipe,
     SanitizeHtmlPipe,
     DialogComponent,
     BannerDividerComponent,
     ClickOutsideDirective,
+    NotificationBannerComponent,
   ],
   imports: [
     CommonModule,
@@ -93,6 +101,7 @@ import { ClickOutsideDirective } from './directives/click-outside.directive';
     MatButtonModule,
     MatInputModule,
     MatDialogModule,
+    CollapseModule.forRoot(),
   ],
 })
 export class SharedModule {}

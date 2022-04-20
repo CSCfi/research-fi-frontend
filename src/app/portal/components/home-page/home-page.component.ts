@@ -19,20 +19,17 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
 import { map } from 'rxjs/operators';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
-import { TabChangeService } from 'src/app/portal/services/tab-change.service';
+import { TabChangeService } from '@portal/services/tab-change.service';
 import { ResizeService } from '@shared/services/resize.service';
 import { Subscription } from 'rxjs';
-import { News } from 'src/app/portal/models/news.model';
-import { Shortcut } from 'src/app/portal/models/shortcut.model';
-import { UtilityService } from 'src/app/shared/services/utility.service';
+import { News } from '@portal/models/news.model';
+import { Shortcut } from '@portal/models/shortcut.model';
+import { UtilityService } from '@shared/services/utility.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ReviewComponent } from 'src/app/layout/review/review.component';
 import { ActivatedRoute } from '@angular/router';
 import { Search } from '@portal/models/search.model';
 import { AppSettingsService } from '@shared/services/app-settings.service';
@@ -61,6 +58,9 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   maxHeight: number;
 
   resizeSub: Subscription;
+  newsSub: Subscription;
+  fundingCallsSub: Subscription;
+  allResultCountSub: Subscription;
 
   private metaTags = MetaTags.homepage;
   private commonTags = MetaTags.common;
@@ -73,13 +73,12 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   focusSub: any;
   currentLocale: string;
-  reviewDialogRef: MatDialogRef<ReviewComponent>;
+  showDialog: boolean;
   shortcutData: Shortcut[] = [];
 
   constructor(
     private searchService: SearchService,
     private sortService: SortService,
-    private titleService: Title,
     @Inject(DOCUMENT) private document: any,
     private cdr: ChangeDetectorRef,
     @Inject(LOCALE_ID) public localeId: string,
@@ -87,14 +86,13 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     private resizeService: ResizeService,
     public utilityService: UtilityService,
     private route: ActivatedRoute,
-    public dialog: MatDialog,
     private appSettingsService: AppSettingsService
   ) {
     this.currentLocale = this.appSettingsService.capitalizedLocale;
   }
 
   public setTitle(newTitle: string) {
-    this.titleService.setTitle(newTitle);
+    this.utilityService.setTitle(newTitle);
   }
 
   ngOnInit() {
@@ -110,14 +108,16 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.getAllData();
 
     // Get news data
-    this.searchService.getNews(10).subscribe((data) => {
+    this.newsSub = this.searchService.getNews(10).subscribe((data) => {
       this.news = data;
     });
 
     // Get funding calls data
-    this.searchService.getHomepageFundingCalls(10).subscribe((data) => {
-      this.resultData = data;
-    });
+    this.fundingCallsSub = this.searchService
+      .getHomepageFundingCalls(10)
+      .subscribe((data) => {
+        this.resultData = data;
+      });
 
     // Reset sort
     this.sortService.updateSort('');
@@ -182,24 +182,23 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getAllData() {
-    this.searchService
+    this.allResultCountSub = this.searchService
       .getAllResultCount()
       .pipe(map((allData) => [allData]))
-      .subscribe(
-        (allData) => (this.allData = allData),
-        (error) => (this.errorMessage = error as any)
-      );
+      .subscribe({
+        next: (allData) => (this.allData = allData),
+        error: (error) => (this.errorMessage = error as any),
+      });
   }
 
   toggleReview() {
-    this.reviewDialogRef = this.dialog.open(ReviewComponent, {
-      maxWidth: '800px',
-      minWidth: '320px',
-      // minHeight: '60vh'
-    });
+    this.showDialog = !this.showDialog;
   }
 
   ngOnDestroy() {
     this.resizeSub?.unsubscribe();
+    this.newsSub?.unsubscribe();
+    this.fundingCallsSub?.unsubscribe();
+    this.allResultCountSub?.unsubscribe();
   }
 }

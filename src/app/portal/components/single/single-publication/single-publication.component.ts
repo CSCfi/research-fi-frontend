@@ -12,11 +12,9 @@ import {
   ViewChild,
   OnDestroy,
   Inject,
-  TemplateRef,
   LOCALE_ID,
   AfterViewInit,
 } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
 import { SearchService } from '../../../services/search.service';
@@ -404,6 +402,8 @@ export class SinglePublicationComponent
     this.citeButton = btn;
   }
   idSub: Subscription;
+  citationsSub: Subscription;
+  dataSub: Subscription;
   juFoCode: any;
   expand: boolean;
   faQuoteRight = faQuoteRight;
@@ -424,7 +424,6 @@ export class SinglePublicationComponent
     private route: ActivatedRoute,
     private singleService: SingleItemService,
     public searchService: SearchService,
-    private titleService: Title,
     private tabChangeService: TabChangeService,
     @Inject(DOCUMENT) private document: any,
     private staticDataService: StaticDataService,
@@ -438,7 +437,7 @@ export class SinglePublicationComponent
   }
 
   public setTitle(newTitle: string) {
-    this.titleService.setTitle(newTitle);
+    this.utilityService.setTitle(newTitle);
   }
 
   ngOnInit() {
@@ -469,6 +468,8 @@ export class SinglePublicationComponent
   ngOnDestroy() {
     this.idSub?.unsubscribe();
     this.focusSub?.unsubscribe();
+    this.citationsSub?.unsubscribe();
+    this.dataSub?.unsubscribe();
     this.settingsService.related = false;
   }
 
@@ -502,15 +503,17 @@ export class SinglePublicationComponent
         }),
         responseType: 'text',
       };
-      this.searchService.getFromUrl(url, options).subscribe((res) => {
-        this.citations[idx] = res;
-      });
+      this.citationsSub = this.searchService
+        .getFromUrl(url, options)
+        .subscribe((res) => {
+          this.citations[idx] = res;
+        });
     });
   }
 
   getData(id: string) {
-    this.singleService.getSinglePublication(id).subscribe(
-      (responseData) => {
+    this.dataSub = this.singleService.getSinglePublication(id).subscribe({
+      next: (responseData) => {
         this.responseData = responseData;
 
         // Reset authors & organizations on new result
@@ -531,7 +534,7 @@ export class SinglePublicationComponent
               break;
             }
           }
-          const titleString = this.titleService.getTitle();
+          const titleString = this.utilityService.getTitle();
           this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
           this.utilityService.addMeta(
             titleString,
@@ -545,8 +548,8 @@ export class SinglePublicationComponent
           this.checkDoi();
         }
       },
-      (error) => (this.errorMessage = error as any)
-    );
+      error: (error) => (this.errorMessage = error as any),
+    });
   }
 
   checkDoi() {
@@ -762,27 +765,37 @@ export class SinglePublicationComponent
 
     if (source.doiHandle === 'http://dx.doi.org/') source.doiHandle = '';
 
-    // Handle duplicate links
+    // Handle duplicate doi handle links
     if (source.doiHandle?.includes(source.doi)) source.doiHandle = null;
 
+    // Map self archived links and remove duplicates
     source.selfArchivedData?.forEach((group, i) => {
       source.selfArchivedData[i].selfArchived = group.selfArchived.filter(
         (item, index, self) =>
           index ===
-          self.findIndex(
-            (obj: { selfArchivedAddress: any }) =>
-              obj.selfArchivedAddress === item.selfArchivedAddress
-          )
+            self.findIndex(
+              (obj: { selfArchivedAddress: string }) =>
+                obj.selfArchivedAddress === item.selfArchivedAddress
+            ) &&
+          item.selfArchivedAddress !== source.doi &&
+          item.selfArchivedAddress !== source.doiHandle
       );
     });
+
+    if (source.selfArchivedData) {
+      source.selfArchivedData = source.selfArchivedData.filter(
+        (item) => item.selfArchived.length > 0
+      );
+    }
 
     // Handle empty self archived data
     if (
       source.selfArchivedData &&
       source.selfArchivedData[0]?.selfArchived[0].selfArchivedAddress?.trim() ===
         ''
-    )
+    ) {
       source.selfArchivedData = null;
+    }
   }
 
   expandDescription() {

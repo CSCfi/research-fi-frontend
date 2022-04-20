@@ -16,6 +16,7 @@ import {
   UrlSegment,
 } from '@angular/router';
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-related-links',
@@ -59,7 +60,8 @@ export class RelatedLinksComponent implements OnInit, OnDestroy {
 
   docCountData: any;
   currentParent: string;
-  routeSub: any;
+  routeSub: Subscription;
+  dataSub: Subscription;
   currentLocale: string;
   queryParams: any;
 
@@ -118,7 +120,7 @@ export class RelatedLinksComponent implements OnInit, OnDestroy {
   // Get doc counts with single service getCount method, assign to to docCountData and show in appropriate counts in template
   getDocCounts(id: string) {
     this.queryParams = { [this.filter]: this.id };
-    this.singleService
+    this.dataSub = this.singleService
       .getCount(this.currentParent, id, this.relatedData)
       .subscribe((data) => {
         // TODO: Remove check for currentParent
@@ -137,5 +139,6 @@ export class RelatedLinksComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.routeSub?.unsubscribe();
+    this.dataSub?.unsubscribe();
   }
 }

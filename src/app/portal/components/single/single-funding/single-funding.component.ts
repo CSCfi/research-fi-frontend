@@ -14,7 +14,6 @@ import {
   Inject,
   LOCALE_ID,
 } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
 import { SearchService } from '../../../services/search.service';
@@ -154,12 +153,14 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   showLess = $localize`:@@showLess:Näytä vähemmän`;
   relatedData: any;
   focusSub: Subscription;
+  dataSub: Subscription;
+
+  hasFundedPerson = false;
 
   constructor(
     private route: ActivatedRoute,
     private singleService: SingleItemService,
     private searchService: SearchService,
-    private titleService: Title,
     @Inject(LOCALE_ID) protected localeId: string,
     private tabChangeService: TabChangeService,
     public utilityService: UtilityService,
@@ -170,7 +171,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   }
 
   public setTitle(newTitle: string) {
-    this.titleService.setTitle(newTitle);
+    this.utilityService.setTitle(newTitle);
   }
 
   ngOnInit() {
@@ -201,40 +202,36 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.idSub?.unsubscribe();
     this.focusSub?.unsubscribe();
+    this.dataSub?.unsubscribe();
     this.settingsService.related = false;
   }
 
   getData(id) {
     // Check if id is number, convert to -1 if string to get past elasticsearch number mapping
     const idNumber = parseInt(id, 10) ? id : -1;
-    this.singleService
+    this.dataSub = this.singleService
       .getSingleFunding(idNumber)
       // .pipe(map(responseData => [responseData]))
-      .subscribe(
-        (responseData) => {
+      .subscribe({
+        next: (responseData) => {
           this.responseData = responseData;
-          if (this.responseData.fundings[0]) {
+          const funding = this.responseData.fundings[0];
+          if (funding) {
             switch (this.localeId) {
               case 'fi': {
-                this.setTitle(
-                  this.responseData.fundings[0].name + ' - Tiedejatutkimus.fi'
-                );
+                this.setTitle(funding.name + ' - Tiedejatutkimus.fi');
                 break;
               }
               case 'en': {
-                this.setTitle(
-                  this.responseData.fundings[0].name + ' - Research.fi'
-                );
+                this.setTitle(funding.name + ' - Research.fi');
                 break;
               }
               case 'sv': {
-                this.setTitle(
-                  this.responseData.fundings[0].name + ' - Forskning.fi'
-                );
+                this.setTitle(funding.name + ' - Forskning.fi');
                 break;
               }
             }
-            const titleString = this.titleService.getTitle();
+            const titleString = this.utilityService.getTitle();
             this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
             this.utilityService.addMeta(
               titleString,
@@ -245,8 +242,8 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
             this.filterData();
           }
         },
-        (error) => (this.errorMessage = error as any)
-      );
+        error: (error) => (this.errorMessage = error as any),
+      });
   }
 
   filterData() {
@@ -292,6 +289,16 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     }
   }
 
+  private hasFundedPersons(fundingItem: any) {
+    if (fundingItem?.recipient?.euFundingRecipients) {
+      fundingItem.recipient.euFundingRecipients.forEach((entry) => {
+        if (entry.personIsFunded) {
+          this.hasFundedPerson = true;
+        }
+      });
+    }
+  }
+
   shapeData() {
     const source = this.responseData.fundings[0];
     const locale =
@@ -321,6 +328,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     this.relatedData = {
       organizations: relatedOrgs,
     };
+    this.hasFundedPersons(source);
   }
 
   shapeAmount(val) {

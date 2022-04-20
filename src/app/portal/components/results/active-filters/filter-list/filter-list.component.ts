@@ -1,26 +1,16 @@
-import {
-  Component,
-  OnInit,
-  Inject,
-  OnDestroy,
-  ViewEncapsulation,
-} from '@angular/core';
-import {
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogRef,
-} from '@angular/material/dialog';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { faTimes, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { SortService } from 'src/app/portal/services/sort.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-filter-list',
   templateUrl: './filter-list.component.html',
   styleUrls: ['./filter-list.component.scss'],
-  // encapsulation: ViewEncapsulation.None
 })
 export class FilterListComponent implements OnInit, OnDestroy {
+  @Input() data: any;
   activeFilters: any;
   fromYear: any;
   toYear: any;
@@ -33,14 +23,19 @@ export class FilterListComponent implements OnInit, OnDestroy {
   filterTranslation: any;
   objectKeys = Object.keys;
 
+  showDialog: boolean;
+  dialogTitle: string;
+
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
     private router: Router,
     private sortService: SortService,
-    private dialogRef: MatDialogRef<FilterListComponent>
+    private dialogRef: MatDialog
   ) {}
 
   ngOnInit(): void {
+    this.dialogTitle =
+      $localize`:@@activeFilters:Rajaukset` + ` (${this.data.active.length})`;
+
     this.activeFilters = this.data.active;
     this.fromYear = this.data.fromYear;
     this.toYear = this.data.toYear;
@@ -51,8 +46,9 @@ export class FilterListComponent implements OnInit, OnDestroy {
 
     // Get the translations for the filter field values
     this.filterTranslation = this.groupBy(this.tabFilters, 'field');
+
     Object.keys(this.filterTranslation).forEach(
-      (x) => (this.filterTranslation[x] = this.filterTranslation[x][0].labelFi)
+      (x) => (this.filterTranslation[x] = this.filterTranslation[x][0].label)
     );
   }
 
@@ -123,8 +119,8 @@ export class FilterListComponent implements OnInit, OnDestroy {
 
   clearFilters() {
     this.activeFilters = [];
-    this.dialogRef.close();
     this.router.navigate([]);
+    this.dialogRef.closeAll();
   }
 
   // Unsused for now, works if we want to filter with button click
@@ -132,11 +128,6 @@ export class FilterListComponent implements OnInit, OnDestroy {
     if (this.removeFlag) {
       this.router.navigate([], { queryParams: this.params });
     }
-    this.dialogRef.close();
-  }
-
-  close() {
-    this.dialogRef.close();
   }
 
   ngOnDestroy() {}

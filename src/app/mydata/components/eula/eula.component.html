@@ -10,12 +10,14 @@
 
 <ng-template #termsTemplate>
   <div
+    class="px-3"
     [innerHTML]="useOfTermsContent['content' + currentLocale] | sanitizeHtml"
   ></div>
 </ng-template>
 
 <ng-template #personalDataHandlingTermsTemplate>
   <div
+    class="px-3"
     [innerHTML]="
       personalDataHandlingTermsContent['content' + currentLocale] | sanitizeHtml
     "

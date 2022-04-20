@@ -25,42 +25,35 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
 import { ErrorModalComponent } from './error-modal/error-modal.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-// import { ClickOutsideModule } from 'ng-click-outside';
-import { ReviewComponent } from './review/review.component';
-import { BetaInfoComponent } from './beta-info/beta-info.component';
 import { WINDOW_PROVIDERS } from '../shared/services/window.service';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 @NgModule({
-  declarations: [
-    LayoutComponent,
-    HeaderComponent,
-    FooterComponent,
-    ErrorModalComponent,
-    ReviewComponent,
-    BetaInfoComponent,
-  ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    AppRoutingModule,
-    MatSelectModule,
-    MatMenuModule,
-    MatIconModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatRadioModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCheckboxModule,
-    MatProgressSpinnerModule,
-    FormsModule,
-    FontAwesomeModule,
-    // ClickOutsideModule,
-    TooltipModule.forRoot(),
-  ],
-  exports: [LayoutComponent],
-  entryComponents: [ReviewComponent],
-  providers: [WINDOW_PROVIDERS],
+    declarations: [
+        LayoutComponent,
+        HeaderComponent,
+        FooterComponent,
+        ErrorModalComponent,
+    ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        AppRoutingModule,
+        MatSelectModule,
+        MatMenuModule,
+        MatIconModule,
+        MatButtonModule,
+        MatDialogModule,
+        MatRadioModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatCheckboxModule,
+        MatProgressSpinnerModule,
+        FormsModule,
+        FontAwesomeModule,
+        TooltipModule.forRoot(),
+    ],
+    exports: [LayoutComponent],
+    providers: [WINDOW_PROVIDERS]
 })
 export class LayoutModule {}

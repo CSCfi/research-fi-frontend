@@ -41,11 +41,11 @@ $primary: map-get($researchfi-theme, primary);
 }
 
 // Disable webkit search icons
-input[type="search"]::-webkit-search-decoration,
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-results-button,
-input[type="search"]::-webkit-search-results-decoration {
-  -webkit-appearance:none;
+input[type='search']::-webkit-search-decoration,
+input[type='search']::-webkit-search-cancel-button,
+input[type='search']::-webkit-search-results-button,
+input[type='search']::-webkit-search-results-decoration {
+  -webkit-appearance: none;
 }
 
 body {
@@ -64,6 +64,48 @@ body {
     box-shadow: 0 0 0 2px white, 0 0 0 4px mat-color($primary, default),
       0 0 3px 5px white !important;
     z-index: 100; // If no margin between next focusable element, high number because of target serach button
+  }
+}
+
+body.modal-open .content-container {
+  overflow: hidden;
+}
+
+// Display primary colored border around Material UI elements
+mat-expansion-panel-header:focus-visible,
+mat-checkbox.cdk-keyboard-focused .mat-ripple-element {
+  outline: 2px solid mat-color($primary, default) !important;
+}
+
+mat-expansion-panel-header:focus-visible {
+  outline-offset: -2px;
+}
+
+mat-checkbox.cdk-keyboard-focused .mat-ripple-element {
+  width: 2rem;
+  height: 2rem;
+}
+
+mat-radio-button.cdk-keyboard-focused .mat-ripple-element {
+  border: 2px solid mat-color($primary, default); // Centering element with outline doesn't seem to work
+}
+
+.cdk-keyboard-focused {
+  .mat-checkbox-frame,
+  .mat-checkbox-background,
+  .mat-radio-outer-circle,
+  .mat-radio-inner-circle {
+    z-index: 2;
+  }
+
+  .mat-ripple {
+    padding: 4px !important;
+  }
+
+  .mat-ripple-element {
+    background-color: mat-color($primary, 100) !important;
+    opacity: 1 !important;
+    z-index: 0 !important;
   }
 }
 
@@ -104,10 +146,19 @@ h2 {
   font-weight: 700;
 }
 h3 {
-  font-size: 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1.4rem;
+  color: #000000;
+  opacity: 87%;
+
+  &.data-label {
+    font-size: 1.4rem;
+  }
 }
 h4 {
   font-size: 1.2rem;
+  opacity: 87%;
 }
 
 .page-content {
@@ -123,6 +174,7 @@ a {
   color: #3366cc;
   font-weight: 400;
   cursor: pointer;
+  text-decoration: none;
 }
 
 a:hover {
@@ -151,6 +203,10 @@ a.disabled {
 ul {
   list-style: disc;
   padding-inline-start: 1rem;
+}
+
+ol {
+  padding-left: 1rem;
 }
 
 .list-style-circle {
@@ -207,7 +263,7 @@ mark,
 
 // Colors
 .primary-color {
-  color: mat-color($primary, default);
+  color: mat-color($primary, default) !important;
 }
 
 .background-primary {
@@ -235,7 +291,7 @@ mark,
 }
 
 #main-content {
-  margin-top: 1.5rem;
+  padding-top: 2.5rem;
 }
 
 .main-loader {
@@ -245,6 +301,7 @@ mark,
 .row {
   margin-right: 0px !important;
   margin-left: 0px !important;
+  --bs-gutter-x: 2rem;
 }
 
 .container-fluid {
@@ -277,15 +334,23 @@ fa-icon[icon='external-link-alt'] {
   padding-left: 5px;
 }
 
-// Columns
-.col {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
 // Forms
 .mat-pseudo-checkbox {
   background: #fff;
+}
+
+/*
+ * Checkbox & radio button left margins because of keyboard focus indicator
+ */
+
+// Radio button
+.mat-radio-label-content {
+  margin-left: 0.25rem;
+}
+
+// Checkbox
+.mat-checkbox-label {
+  margin-left: 0.5rem;
 }
 
 // Multiline checkboxes
@@ -329,7 +394,7 @@ body mat-card.mat-card {
   width: 180px;
 }
 
-.search-target.mat-menu-item:focus {
+.mat-menu-item:focus {
   box-shadow: none !important;
 }
 
@@ -342,18 +407,6 @@ body mat-card.mat-card {
 .tooltip > div {
   animation-name: delayedFadeIn;
   animation-duration: 0.1s; /* Adjust this duration */
-}
-
-@keyframes delayedFadeIn {
-  0% {
-    opacity: 0;
-  }
-  99% {
-    opacity: 0;
-  } /* Set this to 99% for no fade-in. */
-  100% {
-    opacity: 1;
-  }
 }
 
 // Tags
@@ -390,8 +443,7 @@ mat-basic-chip.tag {
 // }
 
 // Visualisation modal
-.wide-modal {
-  max-width: 97%;
+.visual-dialog {
   .visual-select {
     background-color: mat-color($primary, 50);
   }
@@ -426,6 +478,9 @@ mat-basic-chip.tag {
 
 .mat-dialog-content {
   // max-height: 85vh !important;
+  // padding: 0 1rem !important;
+
+  // Enable scrollbar rendering
   margin: 0 !important;
   padding: 0 !important;
 }
@@ -442,11 +497,14 @@ mat-basic-chip.tag {
 
 .responsive-dialog {
   min-width: 44vw;
-  max-width: 44vw !important;
   max-height: 100vh;
   width: unset;
   height: unset;
   position: static;
+}
+
+.responsive-dialog.hidden {
+  display: none;
 }
 
 // Custom Mat Tab

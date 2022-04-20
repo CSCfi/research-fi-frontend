@@ -6,7 +6,11 @@
 //  :license: MIT
 
 @mixin app-science-politics-shared {
-  // app-figures, app-research-innovation-system {
-
-  // }
+  app-figure-filters,
+  app-single-figure,
+  app-figures-info {
+    .info-button {
+      position: relative;
+    }
+  }
 }

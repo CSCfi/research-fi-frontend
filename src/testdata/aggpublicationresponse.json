@@ -72,7 +72,248 @@
       }
     },
     "oaPublisherComposite": {
-      "buckets": []
+      "buckets": [
+        {
+          "key": {
+            "openAccess": 0,
+            "publisherOpenAccess": 0,
+            "selfArchived": 0
+          },
+          "doc_count": 280702,
+          "filtered": {
+            "meta": {},
+            "doc_count": 280702
+          }
+        },
+        {
+          "key": {
+            "openAccess": 0,
+            "publisherOpenAccess": 0,
+            "selfArchived": 1
+          },
+          "doc_count": 40904,
+          "filtered": {
+            "meta": {},
+            "doc_count": 40904
+          }
+        },
+        {
+          "key": {
+            "openAccess": 0,
+            "publisherOpenAccess": 1,
+            "selfArchived": 0
+          },
+          "doc_count": 10,
+          "filtered": {
+            "meta": {},
+            "doc_count": 10
+          }
+        },
+        {
+          "key": {
+            "openAccess": 0,
+            "publisherOpenAccess": 1,
+            "selfArchived": 1
+          },
+          "doc_count": 1,
+          "filtered": {
+            "meta": {},
+            "doc_count": 1
+          }
+        },
+        {
+          "key": {
+            "openAccess": 0,
+            "publisherOpenAccess": 2,
+            "selfArchived": 0
+          },
+          "doc_count": 54,
+          "filtered": {
+            "meta": {},
+            "doc_count": 54
+          }
+        },
+        {
+          "key": {
+            "openAccess": 0,
+            "publisherOpenAccess": 2,
+            "selfArchived": 1
+          },
+          "doc_count": 13,
+          "filtered": {
+            "meta": {},
+            "doc_count": 13
+          }
+        },
+        {
+          "key": {
+            "openAccess": 0,
+            "publisherOpenAccess": 3,
+            "selfArchived": 0
+          },
+          "doc_count": 60,
+          "filtered": {
+            "meta": {},
+            "doc_count": 60
+          }
+        },
+        {
+          "key": {
+            "openAccess": 0,
+            "publisherOpenAccess": 3,
+            "selfArchived": 1
+          },
+          "doc_count": 21,
+          "filtered": {
+            "meta": {},
+            "doc_count": 21
+          }
+        },
+        {
+          "key": {
+            "openAccess": 0,
+            "publisherOpenAccess": 9,
+            "selfArchived": 0
+          },
+          "doc_count": 7131,
+          "filtered": {
+            "meta": {},
+            "doc_count": 7131
+          }
+        },
+        {
+          "key": {
+            "openAccess": 0,
+            "publisherOpenAccess": 9,
+            "selfArchived": 1
+          },
+          "doc_count": 241,
+          "filtered": {
+            "meta": {},
+            "doc_count": 241
+          }
+        },
+        {
+          "key": {
+            "openAccess": 1,
+            "publisherOpenAccess": 0,
+            "selfArchived": 0
+          },
+          "doc_count": 3422,
+          "filtered": {
+            "meta": {},
+            "doc_count": 3422
+          }
+        },
+        {
+          "key": {
+            "openAccess": 1,
+            "publisherOpenAccess": 0,
+            "selfArchived": 1
+          },
+          "doc_count": 7,
+          "filtered": {
+            "meta": {},
+            "doc_count": 7
+          }
+        },
+        {
+          "key": {
+            "openAccess": 1,
+            "publisherOpenAccess": 1,
+            "selfArchived": 0
+          },
+          "doc_count": 106029,
+          "filtered": {
+            "meta": {},
+            "doc_count": 106029
+          }
+        },
+        {
+          "key": {
+            "openAccess": 1,
+            "publisherOpenAccess": 1,
+            "selfArchived": 1
+          },
+          "doc_count": 48383,
+          "filtered": {
+            "meta": {},
+            "doc_count": 48383
+          }
+        },
+        {
+          "key": {
+            "openAccess": 1,
+            "publisherOpenAccess": 2,
+            "selfArchived": 0
+          },
+          "doc_count": 16368,
+          "filtered": {
+            "meta": {},
+            "doc_count": 16368
+          }
+        },
+        {
+          "key": {
+            "openAccess": 1,
+            "publisherOpenAccess": 2,
+            "selfArchived": 1
+          },
+          "doc_count": 20258,
+          "filtered": {
+            "meta": {},
+            "doc_count": 20258
+          }
+        },
+        {
+          "key": {
+            "openAccess": 1,
+            "publisherOpenAccess": 3,
+            "selfArchived": 0
+          },
+          "doc_count": 105,
+          "filtered": {
+            "meta": {},
+            "doc_count": 105
+          }
+        },
+        {
+          "key": {
+            "openAccess": 1,
+            "publisherOpenAccess": 3,
+            "selfArchived": 1
+          },
+          "doc_count": 28,
+          "filtered": {
+            "meta": {},
+            "doc_count": 28
+          }
+        },
+        {
+          "key": {
+            "openAccess": 9,
+            "publisherOpenAccess": 9,
+            "selfArchived": 0
+          },
+          "doc_count": 75817,
+          "filtered": {
+            "meta": {},
+            "doc_count": 75817
+          }
+        },
+        {
+          "key": {
+            "openAccess": 9,
+            "publisherOpenAccess": 9,
+            "selfArchived": 1
+          },
+          "doc_count": 1695,
+          "filtered": {
+            "meta": {},
+            "doc_count": 1695
+          }
+        }
+      ]
     },
     "oaComposite": {
       "meta": {},

@@ -21,7 +21,7 @@ import {
 } from '@angular/core';
 import { DOCUMENT, PlatformLocation } from '@angular/common';
 import { ResizeService } from 'src/app/shared/services/resize.service';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, take } from 'rxjs';
 import { WINDOW } from 'src/app/shared/services/window.service';
 import { isPlatformBrowser } from '@angular/common';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
@@ -35,9 +35,14 @@ import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { PrivacyService } from 'src/app/portal/services/privacy.service';
 import { CMSContentService } from '@shared/services/cms-content.service';
 import { AppSettingsService } from 'src/app/shared/services/app-settings.service';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
+import {
+  AuthenticatedResult,
+  OidcSecurityService,
+} from 'angular-auth-oidc-client';
 import { Constants } from '@mydata/constants';
 import { DraftService } from '@mydata/services/draft.service';
+
+type DomainObject = { label: string; locale: string; url: string };
 
 @Component({
   selector: 'app-header',
@@ -60,7 +65,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   navbarOpen = false;
   hideOverflow = true;
-  dropdownOpen: any;
+  dropdownOpen = false;
   maxWidth = 992;
   mobileNavBreakPoint = 1200;
   mobile = this.window.innerWidth < this.maxWidth;
@@ -70,8 +75,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   width = this.window.innerWidth;
   private resizeSub: Subscription;
 
-  currentLang: string;
+  currentDomain: DomainObject;
   lang: string;
+  langMenuOpen: false;
   currentRoute: any;
   routeSub: Subscription;
   showSkipLinks: boolean;
@@ -97,7 +103,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   pageDataSub: Subscription;
 
   appSettings: any;
-  isAuthenticated: Observable<boolean>;
+  isAuthenticated: Observable<AuthenticatedResult>;
   loggedIn: boolean;
 
   // Dialog variables
@@ -128,7 +134,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private draftService: DraftService
   ) {
     this.lang = localeId;
-    this.currentLang = this.getLang(this.lang);
     this.routeEvent(router);
     this.widthFlag = false;
     this.isAuthenticated = this.oidcSecurityService.isAuthenticated$;
@@ -161,7 +166,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
 
         // Set tracking cookies according to consent parameter
-        this.route.queryParams.subscribe((params) => {
+        this.route.queryParams.pipe(take(1)).subscribe((params) => {
           this.params = params;
 
           // Set Matomo opt-out cookie if user has choosen to opt-out in another locale
@@ -199,6 +204,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
           ? this.appSettingsService.myDataSettings
           : this.appSettingsService.portalSettings;
 
+        this.currentDomain = this.appSettings.localizedDomains.find(
+          (domain) => domain.locale === this.localeId.toUpperCase()
+        );
+
         // Set current app and app settings
         if (this.currentRoute.includes('/mydata')) {
           this.appSettingsService.setCurrentAppSettings('myData');
@@ -218,12 +227,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
         // Login / logout link
         // Click functionality is handled in handleClick method
-        this.isAuthenticated.subscribe((authenticated) => {
+        this.isAuthenticated.pipe(take(1)).subscribe((authenticated) => {
+          const isAuthenticated = authenticated.isAuthenticated;
+
           if (this.currentRoute.includes('/mydata')) {
-            this.loggedIn = authenticated;
+            this.loggedIn = isAuthenticated;
           }
           this.appSettingsService.myDataSettings.navItems[0].label =
-            authenticated
+            isAuthenticated
               ? $localize`:@@logout:Kirjaudu ulos`
               : $localize`:@@logIn:Kirjaudu sisään`;
         });
@@ -238,8 +249,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
       // Get page data from API and set to localStorage. This data is used to generate content on certain pages
       if (!this.cmsContentService.pageDataLoaded) {
-        this.pageDataSub = this.cmsContentService
+        this.cmsContentService
           .getPages()
+          .pipe(take(1))
           .subscribe((data) => {
             this.cmsContentService.setPageData(data);
           });
@@ -319,6 +331,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.routeSub?.unsubscribe();
     this.newPageSub?.unsubscribe();
     this.consentStatusSub?.unsubscribe();
+    this.skipLinkSub?.unsubscribe();
   }
 
   focusStart() {
@@ -351,24 +364,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.document.documentElement.lang = lang;
   }
 
-  getLang(lang: string) {
-    let current = '';
-    switch (lang) {
-      case 'fi': {
-        current = 'FI';
-        break;
-      }
-      case 'sv': {
-        current = 'SV';
-        break;
-      }
-      case 'en': {
-        current = 'EN';
-        break;
-      }
-    }
-    this.document.documentElement.lang = lang;
-    return current;
+  changeLang(domain: DomainObject) {
+    this.currentDomain = domain;
+    this.document.location.href =
+      domain.url +
+      this.currentRoute +
+      (this.consent ? '?consent=' + this.consent : '');
   }
 
   handleLinkClick(item) {
@@ -432,7 +433,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onClickedOutside(e: Event) {
-    this.dropdownOpen = false;
+    // this.dropdownOpen = false;
   }
 
   changeFocus(target) {
@@ -446,7 +447,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.dialogActions = actions;
   }
 
-  doDialogAction(action) {
+  doDialogAction(action: string) {
     if (action === 'logout') {
       this.oidcSecurityService.logoff();
       this.draftService.clearData();

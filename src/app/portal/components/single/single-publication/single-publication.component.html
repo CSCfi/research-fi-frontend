@@ -48,10 +48,10 @@
         >
           {{ item.title }}
         </h1>
-        <div id="info" class="table">
+        <div id="info">
           <div class="row content" *ngFor="let row of infoFields">
             <h2 class="col-12 col-sm-6 col-lg-3 th">
-              <span class="pr-1">{{ row.label }}</span>
+              <span class="pe-1">{{ row.label }}</span>
               <ng-container *ngIf="row.tooltip">
                 <ng-template #tooltipTemplate>
                   <div [innerHtml]="row?.tooltip"></div>
@@ -94,7 +94,7 @@
               class="col-12 col-sm-6 col-lg-3 th"
               [class.auth-header-min-height]="hasSubUnits"
             >
-              <span class="pr-1" i18n="@@authorOrganization"
+              <span class="pe-1" i18n="@@authorOrganization"
                 >Organisaatiot ja tekijät</span
               >
               <ng-container>
@@ -184,11 +184,7 @@
             <div></div>
             <div class="row content">
               <div
-                class="
-                  col-12 col-sm-6 col-lg-9
-                  offset-0 offset-sm-6 offset-lg-3
-                  td
-                "
+                class="col-12 col-sm-6 col-lg-9 offset-0 offset-sm-6 offset-lg-3 td"
                 *ngFor="let row of authorAndOrganization.slice(1)"
               >
                 <a class="th" href="/results/organization/{{ row.orgId }}">{{
@@ -251,11 +247,7 @@
             <div></div>
             <div class="row content">
               <div
-                class="
-                  col-12 col-sm-6 col-lg-9
-                  offset-0 offset-sm-6 offset-lg-3
-                  td
-                "
+                class="col-12 col-sm-6 col-lg-9 offset-0 offset-sm-6 offset-lg-3 td"
               >
                 <h3 class="th">{{ row.label }}</h3>
                 <p class="td">{{ item[row.field] }}</p>
@@ -268,16 +260,11 @@
               Julkaisutyyppi
             </h2>
             <div
-              class="
-                col-12 col-sm-6 col-lg-3
-                offset-0 offset-sm-6 offset-lg-0
-                first-no-offset-mobile
-                td
-              "
+              class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 first-no-offset-mobile td"
               *ngFor="let row of typeFields?.slice(0, 3)"
             >
               <h3 class="th">
-                <span class="pr-1">{{ row.label }}</span>
+                <span class="pe-1">{{ row.label }}</span>
                 <ng-container *ngIf="row.tooltip">
                   <ng-template #tooltipTemplate>
                     <div [innerHtml]="row.tooltip"></div>
@@ -300,14 +287,10 @@
             <div class="row content" *ngIf="i % 3 == 0">
               <!-- First col -->
               <div
-                class="
-                  col-12 col-sm-6 col-lg-3
-                  offset-0 offset-sm-6 offset-lg-3
-                  td
-                "
+                class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-3 td"
               >
                 <h3 class="th">
-                  <span class="pr-1">{{ row.label }}</span>
+                  <span class="pe-1">{{ row.label }}</span>
                   <ng-container *ngIf="row.tooltip">
                     <ng-template #tooltipTemplate>
                       <div [innerHtml]="row.tooltip"></div>
@@ -326,15 +309,11 @@
               </div>
               <!-- Second col -->
               <div
-                class="
-                  col-12 col-sm-6 col-lg-3
-                  offset-0 offset-sm-6 offset-lg-0
-                  td
-                "
+                class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td"
                 *ngIf="typeFields.slice(3).length > i + 1"
               >
                 <h3 class="th">
-                  <span class="pr-1">{{
+                  <span class="pe-1">{{
                     typeFields.slice(3)[i + 1].label
                   }}</span>
                   <ng-container *ngIf="typeFields.slice(3)[i + 1].tooltip">
@@ -357,15 +336,11 @@
               </div>
               <!-- Third col -->
               <div
-                class="
-                  col-12 col-sm-6 col-lg-3
-                  offset-0 offset-sm-6 offset-lg-0
-                  td
-                "
+                class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td"
                 *ngIf="typeFields.slice(3).length > i + 2"
               >
                 <h3 class="th">
-                  <span class="pr-1">{{
+                  <span class="pe-1">{{
                     typeFields.slice(3)[i + 2].label
                   }}</span>
                   <ng-container *ngIf="typeFields.slice(3)[i + 2].tooltip">
@@ -404,7 +379,7 @@
                   *ngFor="let row of mediumFields"
                 >
                   <h3 class="th">
-                    <span class="pr-1">{{ row.label }}</span>
+                    <span class="pe-1">{{ row.label }}</span>
                     <ng-container *ngIf="row.tooltip">
                       <ng-template #tooltipTemplate>
                         <div [innerHtml]="row.tooltip"></div>
@@ -505,7 +480,7 @@
                   *ngFor="let row of open_accessFields"
                 >
                   <h3 class="th">
-                    <span class="pr-1">{{ row.label }}</span>
+                    <span class="pe-1">{{ row.label }}</span>
                     <ng-container *ngIf="row.tooltip">
                       <ng-template #tooltipTemplate>
                         <div [innerHtml]="row.tooltip"></div>
@@ -532,16 +507,11 @@
               Muut tiedot
             </h2>
             <div
-              class="
-                col-12 col-sm-6 col-lg-4
-                offset-0 offset-sm-6 offset-lg-0
-                first-no-offset-mobile
-                td
-              "
+              class="col-12 col-sm-6 col-lg-4 offset-0 offset-sm-6 offset-lg-0 first-no-offset-mobile td"
               *ngFor="let row of otherFields.slice(0, 2)"
             >
               <h3 class="th">
-                <span class="pr-1">{{ row.label }}</span>
+                <span class="pe-1">{{ row.label }}</span>
                 <ng-container *ngIf="row.tooltip">
                   <ng-template #tooltipTemplate>
                     <div [innerHtml]="row.tooltip"></div>
@@ -572,14 +542,10 @@
             <div *ngIf="i % 2 == 0"></div>
             <div class="row content" *ngIf="i % 2 == 0">
               <div
-                class="
-                  col-12 col-sm-6 col-lg-4
-                  offset-0 offset-sm-6 offset-lg-3
-                  td
-                "
+                class="col-12 col-sm-6 col-lg-4 offset-0 offset-sm-6 offset-lg-3 td"
               >
                 <h3 class="th">
-                  <span class="pr-1">{{ row.label }}</span>
+                  <span class="pe-1">{{ row.label }}</span>
                   <ng-container *ngIf="row.tooltip">
                     <ng-template #tooltipTemplate>
                       <div [innerHtml]="row.tooltip"></div>
@@ -597,15 +563,11 @@
                 <p class="td" innerHtml="{{ item[row.field] }}"></p>
               </div>
               <div
-                class="
-                  col-12 col-sm-6 col-lg-5
-                  offset-0 offset-sm-6 offset-lg-0
-                  td
-                "
+                class="col-12 col-sm-6 col-lg-5 offset-0 offset-sm-6 offset-lg-0 td"
                 *ngIf="otherFields.slice(2).length > i + 1"
               >
                 <h3 class="th">
-                  <span class="pr-1">
+                  <span class="pe-1">
                     {{ otherFields.slice(2)[i + 1].label }}</span
                   >
                   <ng-container *ngIf="otherFields.slice(2)[i + 1].tooltip">
@@ -632,22 +594,12 @@
             </div>
           </ng-container>
           <div class="row">
-            <h2
-              class="col-12 col-sm-6 col-lg-3 th"
-              i18n="@@publicationstatus"
-            ></h2>
             <div
-              class="
-                col-12 col-sm-6 col-lg-9
-                offset-0 offset-sm-6 offset-lg-0
-                first-no-offset-mobile
-                td
-                w-100
-              "
+              class="col-12 col-sm-6 col-lg-9 offset-0 offset-sm-6 offset-lg-3 first-no-offset-mobile td w-100"
               *ngFor="let row of publicationStatus"
             >
               <h3 class="th w-100">
-                <span class="pr-1">{{ row.label }}</span>
+                <span class="pe-1">{{ row.label }}</span>
                 <ng-container *ngIf="row.tooltip">
                   <ng-template #tooltipTemplate>
                     <div [innerHtml]="row.tooltip"></div>
@@ -794,7 +746,7 @@
 ></app-dialog>
 
 <ng-template #citeDialog>
-  <div class="pb-5">
+  <div class="px-3 pb-5">
     <div *ngFor="let citation of citations; let i = index" class="cite-block">
       <h4>{{ citationStyles[i].label }}:</h4>
       <span [innerHTML]="citation | cleanCitation"></span>
@@ -826,7 +778,7 @@
 
 <ng-template #citeDialogFooter>
   <div class="row">
-    <p class="col text-center">
+    <p class="col text-center" i18n="@@citeDialogFooterText">
       Automaattisesti luotujen viitteiden tiedoissa voi esiintyä virheitä.
       Tarkista aina viitteen tiedot.
     </p>

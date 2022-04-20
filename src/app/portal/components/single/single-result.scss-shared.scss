@@ -14,9 +14,8 @@
   app-single-funding-call {
     // Prevent style bleeding
     .shared {
-      .header {
-        font-weight: bold;
-        padding-left: 15px;
+      #info {
+        margin-bottom: 1rem;
       }
 
       .content {
@@ -73,7 +72,7 @@
 
       .th,
       .td {
-        padding: 11px 0px;
+        padding: 0.75rem 0.5rem;
       }
 
       tr {
@@ -109,21 +108,17 @@
         // word-break: break-word;
       }
 
-      table {
-        margin: 20px 0px;
-        width: 100%;
-        table-layout: fixed;
-        overflow: hidden;
-      }
-
       #links td {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
       }
 
-      main h1 {
+      .header-row {
         margin: 2rem 0;
+      }
+
+      main h1 {
         font-size: 1.4rem;
       }
 
@@ -168,6 +163,11 @@
       }
 
       // Sidebar
+      .mat-card-title,
+      .mat-card h2 {
+        padding: 0;
+      }
+
       mat-card.mat-card {
         margin-bottom: 10px;
         padding: 16px;

@@ -5,21 +5,35 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { take } from 'rxjs/operators';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { SearchPortalService } from '@mydata/services/search-portal.service';
 import { GroupTypes } from '@mydata/constants/groupTypes';
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-search-researchFi',
+  selector: 'app-search-portal',
   templateUrl: './search-portal.component.html',
   styleUrls: ['./search-portal.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class SearchPortalComponent implements OnInit {
+export class SearchPortalComponent implements OnInit, OnDestroy {
+  @Input() data: any;
+  @Output() onEditorClose = new EventEmitter<any>();
+
+  showDialog: boolean;
+
   results: any;
   total: number;
   loading: boolean;
@@ -37,8 +51,15 @@ export class SearchPortalComponent implements OnInit {
   addDataPluralText: string;
 
   dialogTitle: string;
+  dialogActions = [
+    { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'cancel' },
+    { label: $localize`:@@continue:Jatka`, primary: true, method: 'save' }, // TODO: Render button only if selection has been made
+  ];
+
   searchHelpText: string;
   searchPlaceholder: string;
+
+  searchSub: Subscription;
 
   searchForMissingPublication = $localize`:@@searchForMissingPublication:Puuttuvan julkaisun hakeminen`;
   searchForMissingDataset = $localize`:@@searchForMissingDataset:Puuttuvan tutkimusaineiston hakeminen`;
@@ -53,13 +74,14 @@ export class SearchPortalComponent implements OnInit {
   fundingSearchPlaceholder = $localize`:@@enterPartOfName:Kirjoita osa nimestä`;
 
   constructor(
-    private dialogRef: MatDialogRef<SearchPortalComponent>,
+    // private dialogRef: MatDialogRef<SearchPortalComponent>,
     private searchPortalService: SearchPortalService,
-    private appSettingsService: AppSettingsService,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    private appSettingsService: AppSettingsService // @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
   ngOnInit(): void {
+    this.showDialog = true;
+
     this.setLocalizedContent();
 
     this.appSettingsService.mobileStatus
@@ -103,7 +125,7 @@ export class SearchPortalComponent implements OnInit {
     this.results = [];
     this.loading = true;
 
-    this.searchPortalService
+    this.searchSub = this.searchPortalService
       .getData(term, this.data.groupId)
       .pipe(take(1))
       .subscribe((result) => {
@@ -115,6 +137,9 @@ export class SearchPortalComponent implements OnInit {
 
   handleSelection(arr) {
     this.currentSelection = arr;
+
+    if (this.total > 0 && arr.length > 0) {
+    }
   }
 
   changePage(pageSettings: object) {
@@ -127,38 +152,48 @@ export class SearchPortalComponent implements OnInit {
     this.search(this.currentTerm);
   }
 
-  close() {
-    this.dialogRef.close();
-  }
+  doDialogAction(action: string) {
+    switch (action) {
+      case 'save': {
+        let fieldType: number;
 
-  saveChanges() {
-    let fieldType: number;
+        switch (this.data.groupId) {
+          case 'publication': {
+            fieldType = this.fieldTypes.activityPublication;
+            break;
+          }
+          case 'dataset': {
+            fieldType = this.fieldTypes.activityDataset;
+            break;
+          }
+          case 'funding': {
+            fieldType = this.fieldTypes.activityFunding;
+            break;
+          }
+        }
 
-    switch (this.data.groupId) {
-      case 'publication': {
-        fieldType = this.fieldTypes.activityPublication;
+        const selection = this.currentSelection.map((item) => ({
+          ...item,
+          itemMeta: {
+            id: item.id,
+            type: fieldType,
+            show: true,
+            primaryValue: true,
+          },
+        }));
+
+        this.onEditorClose.emit(selection);
         break;
       }
-      case 'dataset': {
-        fieldType = this.fieldTypes.activityDataset;
-        break;
-      }
-      case 'funding': {
-        fieldType = this.fieldTypes.activityFunding;
-        break;
+      default: {
+        this.onEditorClose.emit();
       }
     }
 
-    const selection = this.currentSelection.map((item) => ({
-      ...item,
-      itemMeta: {
-        id: item.id,
-        type: fieldType,
-        show: true,
-        primaryValue: true,
-      },
-    }));
+    this.showDialog = false;
+  }
 
-    this.dialogRef.close({ selection: selection });
+  ngOnDestroy(): void {
+    this.searchSub?.unsubscribe();
   }
 }

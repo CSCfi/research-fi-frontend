@@ -8,18 +8,15 @@
 import {
   Component,
   EventEmitter,
-  Inject,
+  Input,
   OnInit,
   Output,
   ViewEncapsulation,
 } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { checkSelected } from '@mydata/utils';
 import { cloneDeep } from 'lodash-es';
 import { PatchService } from '@mydata/services/patch.service';
-import { Constants } from '@mydata/constants';
 import { PublicationsService } from '@mydata/services/publications.service';
-import { take } from 'rxjs/operators';
 import { DatasetsService } from '@mydata/services/datasets.service';
 import { FundingsService } from '@mydata/services/fundings.service';
 
@@ -30,15 +27,18 @@ import { FundingsService } from '@mydata/services/fundings.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class EditorModalComponent implements OnInit {
+  @Input() data: any;
+  showDialog: boolean;
   editorData: any;
   originalEditorData: any;
 
   allSelected: boolean;
+  toggleAllDisabled: boolean = false;
 
   primarySource: string;
 
   @Output() emitClose = new EventEmitter<boolean>();
-  @Output() dataChange = new EventEmitter<object>();
+  @Output() onEditorClose = new EventEmitter<any>();
 
   publicationPayload: any[];
 
@@ -46,9 +46,12 @@ export class EditorModalComponent implements OnInit {
 
   patchPayload = [];
 
+  dialogActions = [
+    { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'cancel' },
+    { label: $localize`:@@continue:Jatka`, primary: true, method: 'save' },
+  ];
+
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogRef: MatDialogRef<EditorModalComponent>,
     private patchService: PatchService,
     private publicationsService: PublicationsService,
     private datasetsService: DatasetsService,
@@ -56,6 +59,7 @@ export class EditorModalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.showDialog = true;
     this.editorData = this.data;
     this.originalEditorData = cloneDeep(this.data);
     this.primarySource = this.editorData.primarySource;
@@ -66,6 +70,7 @@ export class EditorModalComponent implements OnInit {
     // this.addInitialOptions(this.editorData.data);
   }
 
+  // Not in use
   addInitialOptions(data) {
     const radioGroups = data.fields.filter((field) => field.single);
 
@@ -85,18 +90,20 @@ export class EditorModalComponent implements OnInit {
   }
 
   checkAllSelected() {
-    const fields = this.editorData.data.fields;
+    const fields = this.editorData.fields;
 
     const items = fields
       .filter((field) => !field.single)
       .flatMap((field) => field.groupItems)
       .flatMap((groupItem) => groupItem.items);
 
+    this.toggleAllDisabled = items.length === 0
+
     this.allSelected = !!!items.some((item) => item.itemMeta.show === false);
   }
 
   checkSomeSelected() {
-    const fields = this.editorData.data.fields;
+    const fields = this.editorData.fields;
 
     const items = fields
       .filter((field) => !field.single)
@@ -116,7 +123,7 @@ export class EditorModalComponent implements OnInit {
     this.editorData = {};
     const patchItems = [];
 
-    copy.data.fields.forEach((field) => {
+    copy.fields.forEach((field) => {
       if (field.selectedPublications)
         field.selectedPublications.map((item) => (item.show = event.checked));
 
@@ -134,28 +141,26 @@ export class EditorModalComponent implements OnInit {
     this.editorData = { ...copy };
 
     this.patchService.addToPayload(patchItems);
-
-    // event.checked
-    //   ? this.patchService.addToPayload(patchItems)
-    //   : this.patchService.clearPayload();
   }
 
-  saveChanges() {
-    this.patchService.confirmPayload();
-    this.publicationsService.confirmPayload();
-    this.datasetsService.confirmPayload();
-    this.fundingsService.confirmPayload();
+  doDialogAction(action: string) {
+    switch(action) {
+      case "save": {
+        this.patchService.confirmPayload();
+        this.publicationsService.confirmPayload();
+        this.datasetsService.confirmPayload();
+        this.fundingsService.confirmPayload();
 
-    // Pass data to parent on dialog close
-    this.dialogRef.close({
-      data: this.editorData.data,
-    });
-  }
+        return this.onEditorClose.emit(this.editorData)
+      }
+      case "cancel": {
+        this.patchService.clearPayload();
+        this.publicationsService.clearPayload();
+        this.publicationsService.clearDeletables();
+      }
+    }
 
-  close() {
-    this.patchService.clearPayload();
-    this.publicationsService.clearPayload();
-    this.publicationsService.clearDeletables();
-    this.dialogRef.close();
+    this.onEditorClose.emit(null) // close component wrapper from parent
+    this.showDialog = false
   }
 }

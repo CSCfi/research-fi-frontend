@@ -14,11 +14,11 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../../services/search.service';
 import { TabChangeService } from '../../../services/tab-change.service';
 import { map } from 'rxjs/operators';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+import { UtilityService } from '@shared/services/utility.service';
 
 @Component({
   selector: 'app-suggest',
@@ -41,11 +41,11 @@ export class SuggestComponent implements OnInit, OnDestroy {
     public router: Router,
     private tabChangeService: TabChangeService,
     @Inject(LOCALE_ID) protected localeId: string,
-    private titleService: Title,
+    private utilityService: UtilityService,
     @Inject(PLATFORM_ID) private platformId: object
   ) {}
   public setTitle(newTitle: string) {
-    this.titleService.setTitle(newTitle);
+    this.utilityService.setTitle(newTitle);
   }
 
   ngOnInit() {
@@ -112,6 +112,8 @@ export class SuggestComponent implements OnInit, OnDestroy {
     if (isPlatformBrowser(this.platformId)) {
       this.tabSub?.unsubscribe();
       this.inputSub?.unsubscribe();
+      this.dataSub?.unsubscribe();
+      this.tabValueSub?.unsubscribe();
     }
   }
 }

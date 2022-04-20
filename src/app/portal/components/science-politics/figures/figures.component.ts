@@ -29,7 +29,6 @@ import { faChartBar } from '@fortawesome/free-regular-svg-icons';
 import { isPlatformBrowser } from '@angular/common';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { Title } from '@angular/platform-browser';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { ResizeService } from 'src/app/shared/services/resize.service';
 import { Subscription } from 'rxjs';
@@ -88,11 +87,11 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   loading = true;
   content: any[];
   contentSub: Subscription;
+  figuresSub: Subscription;
 
   constructor(
     private cdr: ChangeDetectorRef,
     @Inject(WINDOW) private window: Window,
-    private titleService: Title,
     @Inject(LOCALE_ID) protected localeId: string,
     private tabChangeService: TabChangeService,
     private resizeService: ResizeService,
@@ -115,7 +114,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public setTitle(newTitle: string) {
-    this.titleService.setTitle(newTitle);
+    this.utilityService.setTitle(newTitle);
   }
 
   ngOnInit(): void {
@@ -128,10 +127,12 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
 
       // Get data from API and set into sessionStorage to be reusable in single figure view.
       if (!sessionStorage.getItem('figureData')) {
-        this.cmsContentService.getFigures().subscribe((data) => {
-          this.figureData = data;
-          sessionStorage.setItem('figureData', JSON.stringify(data));
-        });
+        this.figuresSub = this.cmsContentService
+          .getFigures()
+          .subscribe((data) => {
+            this.figureData = data;
+            sessionStorage.setItem('figureData', JSON.stringify(data));
+          });
       } else {
         this.figureData = JSON.parse(sessionStorage.getItem('figureData'));
       }
@@ -289,11 +290,14 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.contentSub?.unsubscribe();
+    this.figuresSub?.unsubscribe();
     this.querySub?.unsubscribe();
     this.resizeSub?.unsubscribe();
     this.scrollSub?.unsubscribe();
     this.tabChangeService.targetFocus('');
     this.queryParamSub?.unsubscribe();
+    this.focusSub?.unsubscribe();
   }
 
   onSectionChange(sectionId: any) {

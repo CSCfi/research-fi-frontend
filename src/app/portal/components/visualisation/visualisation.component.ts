@@ -17,7 +17,6 @@ import {
 import { Visual } from 'src/app/portal/models/visualisation/visualisations.model';
 import { DOCUMENT } from '@angular/common';
 import { WINDOW } from 'src/app/shared/services/window.service';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-visualisation',
@@ -44,24 +43,11 @@ export class VisualisationComponent implements OnInit {
   @Input() visualisationType: boolean;
   title = '';
 
-  modalRef: BsModalRef;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
     @Inject(WINDOW) private window: Window,
-    private modalService: BsModalService
   ) {}
-
-  openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(
-      template,
-      Object.assign({}, { class: 'wide-modal' })
-    );
-  }
-
-  closeModal() {
-    this.modalRef.hide();
-  }
 
   ngOnInit() {
     // Timeout waits for viewchild init

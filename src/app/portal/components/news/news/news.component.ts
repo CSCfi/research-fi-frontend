@@ -18,7 +18,6 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { SearchService } from 'src/app/portal/services/search.service';
-import { Title } from '@angular/platform-browser';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -59,7 +58,6 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     public searchService: SearchService,
-    private titleService: Title,
     @Inject(LOCALE_ID) protected localeId: string,
     private tabChangeService: TabChangeService,
     @Inject(PLATFORM_ID) private platformId: object,
@@ -144,7 +142,7 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public setTitle(newTitle: string) {
-    this.titleService.setTitle(newTitle);
+    this.utilityService.setTitle(newTitle);
   }
 
   ngOnDestroy() {

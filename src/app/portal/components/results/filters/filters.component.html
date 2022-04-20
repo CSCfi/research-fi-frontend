@@ -14,31 +14,14 @@
     [icon]="faSlidersH"
     [noSmIcon]="true"
     [big]="true"
-    (click)="openModal(filterModal)"
-    (keydown.enter)="openModal(filterModal)"
+    (click)="openDialog(filterModal)"
     #openFilters
     tabindex="-1"
   ></app-secondary-button>
 </div>
 
 <ng-template #filterModal>
-  <div cdkTrapFocus>
-    <div class="modal-header">
-      <h5 class="modal-title">
-        <fa-icon class="filter-icon" [icon]="faSlidersH"></fa-icon
-        >{{ tabData === 'news' ? filterNewsHeader : filterSearchHeader }}
-      </h5>
-      <app-close-button
-        (click)="closeModal()"
-        (keydown.enter)="closeModal()"
-        autofocus
-        tabindex="-1"
-      ></app-close-button>
-    </div>
-    <div class="modal-body">
-      <ng-container *ngTemplateOutlet="filters"></ng-container>
-    </div>
-  </div>
+  <ng-container *ngTemplateOutlet="filters"></ng-container>
 </ng-template>
 
 <!-- showButton enables mobile behaviour on desktop -->
@@ -85,7 +68,7 @@
               </div>
               <!-- Filter label -->
               <div [ngClass]="filter.hasSubFields ? 'px-1 ' : ''" class="col">
-                <span class="pr-2">{{ filter?.label }}</span>
+                <span class="pe-2">{{ filter?.label }}</span>
                 <ng-container *ngIf="filter.tooltip">
                   <ng-template #tooltipTemplate>
                     <div [innerHtml]="filter?.tooltip"></div>
@@ -117,7 +100,7 @@
                   </span>
                 </ng-container>
               </div>
-              <!-- <div class="col" [ngClass]="filter.hasSubFields ? 'col-1 px-2 text-left' : 'col-1 pr-0 text-right'" *ngIf="filter?.tooltip">
+              <!-- <div class="col" [ngClass]="filter.hasSubFields ? 'col-1 px-2 text-start' : 'col-1 pe-0 text-end'" *ngIf="filter?.tooltip">
                                 <ng-template #tooltipTemplate><div [innerHtml]="filter?.tooltip"></div></ng-template>
                                 <fa-icon tabindex="0" [tooltip]="tooltipTemplate" placement="right" class="info-icon" icon="info-circle"></fa-icon>
                             </div>
@@ -143,7 +126,7 @@
                 >
               </strong>
             </mat-slide-toggle>
-            <div class="pl-2 d-inline-block">
+            <div class="ps-2 d-inline-block">
               <ng-template #tooltipTemplate>
                 <div i18n="@@filterCoPublicationsTooltip">
                   Valitsemalla ”näytä ainoastaan yhteisjulkaisut” voit
@@ -192,7 +175,7 @@
           />
           <!-- Time frame for year filter -->
           <ng-container *ngIf="filter.hideSearch && filter.field === 'year'">
-            <div class="row">
+            <div class="row mt-2">
               <div class="col">
                 <p i18n="Year range filter@@yearRange">Valitse aikaväli</p>
               </div>
@@ -367,12 +350,12 @@
               "
             >
               <div class="row d-flex justify-content-around">
-                <div class="col-8 pr-0">
-                  <span class="label pr-2">{{
+                <div class="col-8 pe-0">
+                  <span class="label pe-2">{{
                     item.label ? item.label : item.key
                   }}</span>
                 </div>
-                <div class="col-2 pr-0 text-right" *ngIf="item.tooltip">
+                <div class="col-2 pe-0 text-end" *ngIf="item.tooltip">
                   <ng-template #tooltipTemplate>
                     <div [innerHtml]="item?.tooltip"></div>
                   </ng-template>
@@ -524,7 +507,7 @@
                 >
                   <div class="row d-flex justify-content-start">
                     <div class="col-9">
-                      <span class="font-weight-bold label" i18n="@@selectAll"
+                      <span class="fw-bold label" i18n="@@selectAll"
                         >Valitse kaikki</span
                       >
                     </div>
@@ -650,7 +633,7 @@
               "
             >
               <div class="col row">
-                <span class="label pr-2">{{ item?.label }}</span>
+                <span class="label pe-2">{{ item?.label }}</span>
                 <ng-container *ngIf="item.tooltip">
                   <ng-template #tooltipTemplate>
                     <div [innerHtml]="item.tooltip"></div>
@@ -665,7 +648,7 @@
                   </span>
                 </ng-container>
               </div>
-              <!-- <div class="col-1 px-0 text-right" *ngIf="!filter?.hideInfo">
+              <!-- <div class="col-1 px-0 text-end" *ngIf="!filter?.hideInfo">
                                 <ng-template #tooltipTemplate><div [innerHtml]="item?.tooltip"></div></ng-template>
                                 <fa-icon tabindex="0" [tooltip]="tooltipTemplate" placement="right" class="info-icon" icon="info-circle"></fa-icon>
                             </div> -->
@@ -720,3 +703,14 @@
     </div>
   </div>
 </ng-template>
+
+<!-- Reusable dialog for mobile view -->
+<app-dialog
+  *ngIf="showDialog"
+  [template]="dialogTemplate"
+  [title]="dialogTitle"
+  [icon]="faSlidersH"
+  (onActionClick)="closeDialog()"
+  noPadding
+  extraClass="filters-dialog"
+></app-dialog>

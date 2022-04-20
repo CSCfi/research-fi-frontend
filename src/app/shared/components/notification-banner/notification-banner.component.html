@@ -1,0 +1,24 @@
+<div
+  class="notification-wrapper row"
+  [collapse]="isCollapsed"
+  [isAnimated]="true"
+>
+  <div class="col-8 m-auto py-3 px-0" *ngIf="notificationObject">
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <fa-icon
+          [icon]="faExclamationCircle"
+          class="font-size-bigger pe-3"
+        ></fa-icon>
+        <span>{{ notificationObject.notificationText }}</span>
+      </div>
+      <div class="col-auto">
+        <ng-container *ngFor="let button of notificationObject.buttons">
+          <button mat-button (click)="button.action()" class="primary-color">
+            {{ button.label }}
+          </button>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

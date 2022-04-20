@@ -11,13 +11,12 @@ import {
   HttpHandler,
   HttpRequest,
   HttpResponse,
-  HttpHeaders,
   HttpEvent,
 } from '@angular/common/http';
 import { Request } from 'express';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
 import { EXPRESS_HTTP_PORT } from './app.global';
-import 'rxjs/add/operator/map';
+import { map } from 'rxjs/operators';
 
 /*
 HttpInterceptor to enable proper handling of config files 'config.json' and 'auth_config.json'.
@@ -61,12 +60,14 @@ export class UniversalInterceptor implements HttpInterceptor {
       of Angular's Transfer State functionality https://angular.io/api/platform-browser/TransferState
       It is safe to remove 'email', because config.json will be read independently in server.ts.
       */
-      return next.handle(serverReq).map((event: HttpEvent<any>) => {
-        if (event instanceof HttpResponse) {
-          event.body['email'] = {};
-        }
-        return event;
-      });
+      return next.handle(serverReq).pipe(
+        map((event: HttpEvent<any>) => {
+          if (event instanceof HttpResponse) {
+            event.body['email'] = {};
+          }
+          return event;
+        })
+      );
     } else {
       return next.handle(serverReq);
     }

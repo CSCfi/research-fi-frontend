@@ -7,11 +7,15 @@
 
 <div class="bar row" #searchBar>
   <!-- TTTV Banner badge only on home page -->
-  <div class="col-3 badge-area align-self-center"></div>
+  <!-- <div class="col-3 badge-area align-self-center"></div> -->
   <!-- Search -->
-  <div class="col-12 col-xl-6">
+  <div class="col-12">
     <div class="search" [class.no-heading]="router.url !== '/'">
-      <form role="search" (keydown.enter)="$event.preventDefault()" class="wrapper">
+      <form
+        role="search"
+        (keydown.enter)="$event.preventDefault()"
+        class="wrapper"
+      >
         <label
           i18n="@@searchSlogan"
           [class.sr-only]="router.url !== '/'"
@@ -35,12 +39,13 @@
             <button
               mat-button
               (blur)="showAutoSuggest = false"
-              class="btn btn-search-target mr-2 d-none d-md-block"
+              class="btn btn-search-target me-2 d-none d-md-block"
               type="button"
               [matMenuTriggerFor]="searchTargetMenu"
-              (keydown.enter)="searchTargetMenu.openMenu()"
+              #searchTargetMenuTrigger="matMenuTrigger"
+              (keydown.enter)="openTargetMenu()"
             >
-              <span class="pr-1">
+              <span class="pe-1">
                 <ng-container *ngIf="!selectedTarget" i18n="@@searchTarget"
                   >Kohdista haku</ng-container
                 >
@@ -56,7 +61,10 @@
                 mat-menu-item
                 *ngFor="let target of targets; let i = index"
                 class="search-target"
-                [disabled]="selectedTarget === target.value || (!selectedTarget && i === 0)"
+                [disabled]="
+                  selectedTarget === target.value ||
+                  (!selectedTarget && i === 0)
+                "
                 (click)="changeTarget(target)"
               >
                 {{ target['viewValue' + currentLocale] }}
@@ -117,11 +125,11 @@
             <!-- Completion assist is for measuring input content width -->
             <span id="completionAssist"></span>
             <!-- Send -->
-            <div class="input-group-append pl-2">
+            <div class="input-group-append ps-2">
               <button
                 mat-button
                 (blur)="showAutoSuggest = false"
-                class="btn btn-search"
+                class="btn btn-search h-100"
                 type="button"
                 (keydown.enter)="setFocus()"
                 (click)="newInput(undefined, undefined)"
@@ -131,7 +139,10 @@
                 <span i18n="Search@@search" class="search-button">Hae</span>
               </button>
             </div>
-            <div class="search-help pl-2" (clickOutside)="onClickedOutside($event)">
+            <div
+              class="search-help ps-2"
+              (clickOutside)="onClickedOutside($event)"
+            >
               <button
                 [ngClass]="showHelp ? 'up' : 'down'"
                 mat-button
@@ -244,7 +255,7 @@
                         <div align="center">
                           <a
                             tabindex="-1"
-                            class="font-weight-bold"
+                            class="fw-bold"
                             (keydown.enter)="newInput(data.index, undefined)"
                             (click)="newInput(data.index, undefined)"
                             href="javascript:void(0);"
@@ -269,7 +280,7 @@
                       >
                         <a
                           tabindex="-1"
-                          class="font-weight-bold"
+                          class="fw-bold"
                           (click)="newInput(data.index, undefined)"
                           href="javascript:void(0);"
                         >
@@ -298,10 +309,7 @@
                 </div>
                 <ng-template #showHistory>
                   <div class="col query-history">
-                    <h3
-                      class="font-weight-bold"
-                      i18n="Search history@@searchHistory"
-                    >
+                    <h3 class="fw-bold" i18n="Search history@@searchHistory">
                       Hait viimeksi:
                     </h3>
                     <ul>
@@ -347,6 +355,8 @@
     </div>
   </div>
 </div>
+
+<app-notification-banner></app-notification-banner>
 
 <!-- Overlay when auto suggest is active -->
 <div

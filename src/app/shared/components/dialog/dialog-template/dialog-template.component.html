@@ -3,44 +3,70 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<mat-dialog-content [class.no-actions]="data.actions.length === 0">
+<!-- Dialog header -->
+<div class="row justify-content-between dialog-header" *ngIf="data.title">
+  <!-- Helper when centering title -->
   <div
-    class="row d-flex justify-content-between dialog-header"
-    *ngIf="data.title"
+    class="col-auto"
+    *ngIf="data.centerTitle"
+    [ngStyle]="{ width: closeButtonWidth + 'px' }"
+  ></div>
+  <!-- Title -->
+  <div class="col-8 col-sm-auto">
+    <h2 class="dialog-title h5 d-inline-block pe-2">
+      <fa-icon
+        *ngIf="data.icon"
+        [icon]="data.icon"
+        class="primary-color pe-3"
+      ></fa-icon
+      >{{ data.title }}
+    </h2>
+    <ng-container *ngIf="data.headerInfoTemplate"
+      ><ng-container [ngTemplateOutlet]="data.headerInfoTemplate"></ng-container
+    ></ng-container>
+  </div>
+  <!-- Extra header template // MyData editor toggle all -->
+  <ng-container
+    *ngIf="data.extraHeaderTemplate"
+    [ngTemplateOutlet]="data.extraHeaderTemplate"
+  ></ng-container>
+  <!-- Close button -->
+  <div
+    class="col-auto text-end mt-1 mt-sm-0 align-self-sm-center order-2 order-sm-3"
+    #closeButton
   >
-    <div class="col-8 col-sm">
-      <h2 class="modal-title h5">{{ data.title }}</h2>
-    </div>
+    <app-close-button
+      (click)="close()"
+      (keydown.enter)="close()"
+      autofocus
+      tabindex="-1"
+    ></app-close-button>
+  </div>
+</div>
 
-    <div class="col-auto mt-1 mt-sm-0 align-self-sm-center">
-      <app-close-button
-        (click)="close()"
-        (keydown.enter)="close()"
-        autofocus
-        tabindex="-1"
-      ></app-close-button>
+<!-- Content -->
+<!-- Default desktop horizontal padding is 1rem, target 2rem with content (row class does this automatically) -->
+<mat-dialog-content [class.no-actions]="data.actions.length === 0">
+  <div class="row">
+    <div class="col px-0 px-lg-3" [ngClass]="data.noPadding ? 'px-0' : 'py-3'">
+      <ng-container [ngTemplateOutlet]="data.template"></ng-container>
     </div>
   </div>
 
-  <div class="col px-0 p-lg-3 pt-3">
-    <div class="row">
-      <div class="col">
-        <ng-container [ngTemplateOutlet]="data.template"></ng-container>
-      </div>
-    </div>
-  </div>
-
+  <!-- Footer -->
   <div *ngIf="data.footerTemplate">
     <hr />
     <div class="row">
-      <div class="col">
+      <div class="col" [class.px-0]="data.noPadding">
         <ng-container [ngTemplateOutlet]="data.footerTemplate"></ng-container>
       </div>
     </div>
   </div>
 </mat-dialog-content>
 
+<!-- Actions -->
 <mat-dialog-actions
+  class="row"
   *ngIf="dialogActions?.length"
   [class.justify-content-center]="mobile && dialogActions.length === 1"
 >

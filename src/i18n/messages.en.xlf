@@ -522,6 +522,10 @@
           <context context-type="linenumber">354</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="citeDialogFooterText">
+        <source>Automaattisesti luotujen viitteiden tiedoissa voi esiintyä virheitä. Tarkista aina viitteen tiedot.</source>
+        <target>Errors may occur in automatically generated references. Always check the reference details.</target>
+      </trans-unit>
       <trans-unit id="publicationName" datatype="html">
         <source>Julkaisun nimi</source>
         <target>Publication name</target>
@@ -2923,6 +2927,10 @@
         <source>Julkaisumaa</source>
         <target>Publication country</target>
       </trans-unit>
+      <trans-unit id="notSpecified">
+        <source>Ei tietoa</source>
+        <target>Not specified</target>
+      </trans-unit>
       <trans-unit id="language">
         <source>Kieli</source>
         <target>Language</target>
@@ -3124,6 +3132,14 @@
       <trans-unit id="datasetBetaInfo">
         <source>Tutkimusaineistojen kuvailutiedot ovat uusi tietokokonaisuus Tiedejatutkimus.fi -portaalissa. Tietojen lähteenä ovat Fairdata-palveluista löytyvät kuvailutiedot. Koska kyseessä on uusi kokonaisuus, toivomme palautetta tiedejatutkimus@csc.fi osoitteeseen.</source>
         <target>Research data is a new section in Research.fi -portal. The source for the section's metadata are the Fairdata.fi -services. For this new section in Research.fi, all feedback is welcome and should be sent to tiedejatutkimus@csc.fi</target>
+      </trans-unit>
+      <trans-unit id="version">
+        <source>Versio</source>
+        <target>Version</target>
+      </trans-unit>
+      <trans-unit id="versions">
+        <source>versiota</source>
+        <target>versions</target>
       </trans-unit>
       <trans-unit id="datasetSourceMetadata">
         <source>Metatietopalvelu</source>

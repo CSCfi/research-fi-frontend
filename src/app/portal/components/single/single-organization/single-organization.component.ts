@@ -17,14 +17,13 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { SingleItemService } from '@portal/services/single-item.service';
 import { SearchService } from '@portal/services/search.service';
-import { Title } from '@angular/platform-browser';
-import { forkJoin, Subscription } from 'rxjs';
+import { forkJoin, Observable, Subscription } from 'rxjs';
 import { TabChangeService } from '@portal/services/tab-change.service';
 import { UtilityService } from '@shared/services/utility.service';
 import { Search } from '@portal/models/search.model';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { SettingsService } from 'src/app/portal/services/settings.service';
-import { take, tap } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { ResizeService } from '@shared/services/resize.service';
 import { WINDOW } from '@shared/services/window.service';
 import { CMSContentService } from '@shared/services/cms-content.service';
@@ -112,6 +111,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   mobile: boolean;
   showMoreNews = false;
   dataSub: Subscription;
+  newsSub: Subscription;
   showVisual = true;
 
   constructor(
@@ -119,7 +119,6 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     private router: Router,
     private singleService: SingleItemService,
     private searchService: SearchService,
-    private titleService: Title,
     @Inject(LOCALE_ID) protected localeId: string,
     @Inject(WINDOW) private window: Window,
     private tabChangeService: TabChangeService,
@@ -133,7 +132,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   }
 
   public setTitle(newTitle: string) {
-    this.titleService.setTitle(newTitle);
+    this.utilityService.setTitle(newTitle);
   }
 
   ngOnInit() {
@@ -173,6 +172,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     this.focusSub?.unsubscribe();
     this.resizeSub?.unsubscribe();
     this.dataSub?.unsubscribe();
+    this.newsSub?.unsubscribe();
     this.settingsService.related = false;
   }
 
@@ -180,20 +180,27 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     // Organization may have an iFrame. This data comes from CMS.
     // CMS data is handled in browsers storage
     // Browser check for SSR build. Session Storage not available within Node.
+
+    // Get CMS data from storage via observable
+    const sectorDataObservable = new Observable((subscriber) => {
+      subscriber.next(JSON.parse(sessionStorage.getItem('sectorData')));
+      subscriber.complete();
+    });
+
     if (this.appSettingsService.isBrowser) {
-      this.dataSub = forkJoin([
-        this.singleService.getSingleOrganization(id),
-        !sessionStorage.getItem('sectorData')
+      this.dataSub = forkJoin({
+        organizationData: this.singleService.getSingleOrganization(id),
+        sectorData: !sessionStorage.getItem('sectorData')
           ? this.cmsContentService.getSectors()
-          : JSON.parse(sessionStorage.getItem('sectorData')),
-      ]).subscribe((response: any) => {
-        const orgCMSData = response[1]
+          : sectorDataObservable,
+      }).subscribe((response: any) => {
+        const orgCMSData = response.sectorData
           ?.map((sector) => sector.organizations)
           .flat()
           .find((org) => org.link === id);
 
-        this.responseData = response[0];
-        const orgData = response[0].organizations[0];
+        this.responseData = response.organizationData;
+        const orgData = response.organizationData.organizations[0];
 
         if (orgData) {
           // Set visualization url
@@ -214,7 +221,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
               break;
             }
           }
-          const titleString = this.titleService.getTitle();
+          const titleString = this.utilityService.getTitle();
           this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
           this.utilityService.addMeta(
             titleString,
@@ -242,7 +249,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   }
 
   getNews() {
-    this.searchService
+    this.newsSub = this.searchService
       .getNews(5)
       .pipe(take(1))
       .subscribe((res) => (this.news = res));

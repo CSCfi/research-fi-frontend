@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { TestBed } from '@angular/core/testing';
-import { FilterService } from './filter.service';
+import { FilterService, Filters } from './filter.service';
 import { SortService } from '../sort.service';
 import { SettingsService } from '../settings.service';
 import { StaticDataService } from '../static-data.service';
@@ -16,7 +16,38 @@ import { TabChangeService } from '../tab-change.service';
 
 describe('FilterService', () => {
   let filterService: FilterService;
-  let filters: {};
+  let filters: Filters = {
+    coPublication: ['true'],
+    countryCode: ['c1'],
+    topic: ['Biolääketieteet'],
+    field: ['115'],
+    fromYear: ['2016'],
+    funder: ['2066823-5'],
+    fundingAmount: [],
+    fundingStatus: [],
+    internationalCollaboration: ['true'],
+    juFo: ['j2'],
+    lang: ['en'],
+    openAccess: ['selfArchived'],
+    organization: ['01901'],
+    publicationType: ['A1'],
+    publicationFormat: [],
+    publicationAudience: [],
+    parentPublicationType: [],
+    peerReviewed: [],
+    scheme: [],
+    sector: ['1'],
+    toYear: [],
+    type: ['palvelu'],
+    typeOfFunding: ['11'],
+    year: ['2020'],
+    articleType: [],
+    okmDataCollection: [],
+    dataSource: [],
+    accessType: [],
+    date: [],
+    status: [],
+  };
   let tabChangeService: TabChangeService;
 
   beforeEach(() => {
@@ -33,32 +64,7 @@ describe('FilterService', () => {
 
     filterService = TestBed.inject(FilterService);
     tabChangeService = TestBed.inject(TabChangeService);
-    filters = {
-      coPublication: ['true'],
-      countryCode: ['c1'],
-      topic: ['Biolääketieteet'],
-      field: ['115'],
-      fromYear: ['2016'],
-      funder: ['2066823-5'],
-      fundingAmount: [],
-      fundingStatus: [],
-      internationalCollaboration: ['true'],
-      juFo: ['j2'],
-      lang: ['en'],
-      openAccess: ['selfArchived'],
-      organization: ['01901'],
-      publicationType: ['A1'],
-      publicationFormat: [],
-      publicationAudience: [],
-      parentPublicationType: [],
-      peerReviewed: [],
-      scheme: [],
-      sector: ['1'],
-      toYear: [],
-      type: ['palvelu'],
-      typeOfFunding: ['11'],
-      year: ['2020'],
-    };
+    
   });
 
   it('should be created', () => {

@@ -17,13 +17,7 @@
           </h1>
 
           <div
-            class="
-              col col-lg-3
-              px-0
-              py-3 py-lg-0
-              align-self-center
-              text-lg-right
-            "
+            class="col col-lg-3 px-0 py-3 py-lg-0 align-self-center text-lg-end"
           >
             <a
               #serviceInfoLink
@@ -49,7 +43,7 @@
       class="pt-lg-3"
     >
       <mat-tab i18n-label="@@latest" label="Uusimmat">
-        <h2 class="font-weight-bold mt-2" i18n="@@latest">Uusimmat</h2>
+        <h2 class="fw-bold px-3 mt-2" i18n="@@latest">Uusimmat</h2>
         <app-latest-news
           [mobile]="appSettingsService.mobileStatus | async"
           [visible]="selectedIndex === 0"
@@ -57,7 +51,7 @@
       </mat-tab>
 
       <mat-tab i18n-label="@@searchNews" label="Hae uutisia">
-        <h2 class="font-weight-bold mt-2" i18n="@@searchNews">Hae uutisia</h2>
+        <h2 class="fw-bold px-3 mt-2" i18n="@@searchNews">Hae uutisia</h2>
         <app-news-results
           [mobile]="appSettingsService.mobileStatus | async"
           [tab]="selectedIndex"

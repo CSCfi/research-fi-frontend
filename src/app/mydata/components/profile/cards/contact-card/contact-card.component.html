@@ -18,12 +18,6 @@
   (onButtonClick)="openDialog()"
 ></app-empty-card>
 
-<app-dialog
-  *ngIf="showDialog"
-  [template]="dialogTemplate"
-  (onActionClick)="doDialogAction($event)"
-></app-dialog>
-
 <div class="d-block mt-3">
   <ng-container
     *ngFor="let field of data[0].fields.slice(1).reverse(); let i = index"
@@ -36,7 +30,7 @@
         >
           <div class="col px-0">
             <span
-              class="font-weight-bold d-inline-block pr-3"
+              class="fw-bold d-inline-block pe-3"
               *ngIf="data[0].fields.length > 1"
               >{{ field.label }}
             </span>
@@ -52,7 +46,7 @@
               <fa-icon
                 *ngIf="item.icon"
                 [icon]="item.icon"
-                class="pr-3"
+                class="pe-3"
               ></fa-icon>
               <ng-container [ngSwitch]="groupItem.groupMeta.type">
                 <!-- Links -->
@@ -83,3 +77,10 @@
     </ng-container>
   </ng-container>
 </div>
+
+<ng-container *ngIf="showDialog">
+  <app-editor-modal
+    [data]="dialogData"
+    (onEditorClose)="handleChanges($event)"
+  ></app-editor-modal>
+</ng-container>

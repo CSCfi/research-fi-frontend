@@ -1,0 +1,23 @@
+name: Static type check
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ["14"]
+    name: TypeScript check
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup node ${{ matrix.node }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Install dependencies
+        run: |
+          npm ci
+      - name: Run type checks with TSC
+        run: |
+          npm run tsc

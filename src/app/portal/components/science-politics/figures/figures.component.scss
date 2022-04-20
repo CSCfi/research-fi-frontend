@@ -43,6 +43,7 @@
 }
 
 .search {
+  position: relative;
   display: inline-block;
   width: 100%;
 }
@@ -57,13 +58,10 @@
 }
 .search .search-icon {
   position: absolute;
-  top: 4px;
-  left: 10px;
-}
-
-.search .search-icon {
+  top: 0.25rem;
   left: auto;
-  right: 1.7rem;
+  right: 1rem;
+  z-index: 1;
 }
 
 // Content
@@ -73,10 +71,6 @@
 
 h2 {
   font-size: 1.5rem;
-}
-
-.segment h3 {
-  font-size: 1.2rem;
 }
 
 .segment h2,
