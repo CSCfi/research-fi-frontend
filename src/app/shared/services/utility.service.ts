@@ -175,7 +175,7 @@ export class UtilityService {
 
   getTitle(): string {
     if (isPlatformBrowser(this.platformId)) {
-      return this.titleService.getTitle();
+      return this.titleService.getTitle() ? this.titleService.getTitle() : '';
     }
   }
 
