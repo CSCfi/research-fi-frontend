@@ -535,7 +535,7 @@ export class SinglePublicationComponent
             }
           }
           const titleString = this.utilityService.getTitle();
-          this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
+          this.srHeader.nativeElement.innerHTML = titleString?.split(' - ', 1);
           this.utilityService.addMeta(
             titleString,
             this.metaTags['description' + this.currentLocale],

@@ -37,4 +37,5 @@
   *ngIf="showDialog"
   [template]="dialogTemplate"
   [title]="dialogTitle"
+  (onActionClick)="closeModal()"
 ></app-dialog>
