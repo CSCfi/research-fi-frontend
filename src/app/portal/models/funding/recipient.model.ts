@@ -171,7 +171,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
                       this.lang
                         .testLang('consortiumOrganizationName', recipientObj)
                         ?.trim()
-                    : null)
+                    : '')
                 : this.lang
                     .testLang('consortiumOrganizationName', recipientObj)
                     ?.trim()
