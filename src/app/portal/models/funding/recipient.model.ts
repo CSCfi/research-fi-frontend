@@ -29,7 +29,7 @@ export class Recipient {
     public contactPersonOrcid: string,
     public organizations: RecipientOrganization[],
     public euFundingRecipients: Record<string, unknown>[],
-    public combined: string
+    public personNameAndOrg: string
   ) {}
 }
 @Injectable({
@@ -60,7 +60,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
       `${firstNames} ${lastName}`.trim();
 
     const organizations: RecipientOrganization[] = [];
-    let combined = '';
+    let personNameAndOrg = '';
 
     if (recipientObj) {
       // Combine recipient names and organizations, this is used in funding results component
@@ -85,7 +85,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
               org.consortiumOrganizationBusinessId?.trim().slice(-2)[0] === '-'
           );
 
-          combined =
+          personNameAndOrg =
             finnish.length > 1
               ? finnish
                   .map((x) =>
@@ -102,7 +102,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
                   )
                 );
         } else {
-          combined = item.organizationConsortium
+          personNameAndOrg = item.organizationConsortium
             .filter(
               (x) =>
                 this.lang.testLang('consortiumOrganizationName', x).trim() !==
@@ -143,7 +143,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
           person &&
           this.lang.testLang('consortiumOrganizationName', person) !== ''
         ) {
-          combined = person.fundingGroupPersonLastName
+          personNameAndOrg = person.fundingGroupPersonLastName
             ? person.fundingGroupPersonFirstNames +
               ' ' +
               person.fundingGroupPersonLastName +
@@ -151,13 +151,13 @@ export class RecipientAdapter implements Adapter<Recipient> {
               this.lang.testLang('consortiumOrganizationName', person)
             : this.lang.testLang('consortiumOrganizationName', person);
         } else if (person) {
-          combined =
+          personNameAndOrg =
             person.fundingGroupPersonFirstNames +
             ' ' +
             person.fundingGroupPersonLastName;
         } else {
           // If no match with funderProjectNumber
-          combined = item.fundingGroupPerson
+          personNameAndOrg = item.fundingGroupPerson
             ?.map((x) =>
               x.fundingGroupPersonLastName.trim().length > 0
                 ? joinName(
@@ -171,7 +171,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
                       this.lang
                         .testLang('consortiumOrganizationName', recipientObj)
                         ?.trim()
-                    : null)
+                    : '')
                 : this.lang
                     .testLang('consortiumOrganizationName', recipientObj)
                     ?.trim()
@@ -185,7 +185,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
           !this.lang.testLang('consortiumOrganizationName', recipientObj) &&
           recipientObj.fundingGroupPersonLastName
         ) {
-          combined = joinName(
+          personNameAndOrg = joinName(
             recipientObj.fundingGroupPersonFirstNames,
             recipientObj.fundingGroupPersonLastName
           );
@@ -196,7 +196,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
             (x) => x.fundingGroupPersonLastName?.trim().length > 0
           )
         ) {
-          combined = item.fundingGroupPerson
+          personNameAndOrg = item.fundingGroupPerson
             ?.map((x) =>
               x.fundingGroupPersonLastName.trim().length > 0
                 ? joinName(
@@ -207,7 +207,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
             )
             .join('; ');
         } else if (item.organizationConsortium) {
-          combined = item.organizationConsortium
+          personNameAndOrg = item.organizationConsortium
             .filter((x) => !x.countryCode || x.countryCode === 'FI')
             .map((x) =>
               this.lang.testLang('consortiumOrganizationName', x).trim()
@@ -215,7 +215,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
             .join('; ');
         }
       } else {
-        combined = '-';
+        personNameAndOrg = '-';
       }
     }
 
@@ -252,7 +252,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
 
     // Display combined EU funding recipients in search results view
     if (item.euFunding && euFundingRecipients) {
-      combined = euFundingRecipients
+      personNameAndOrg = euFundingRecipients
         .map(
           (recipient) =>
             `${recipient.personName}, ${recipient.organizationName}`
@@ -290,7 +290,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
       item.fundingContactPersonOrcid,
       sortedOrganizations,
       euFundingRecipients,
-      combined.trim().length > 0 ? combined : '-'
+      personNameAndOrg.trim().length > 0 ? personNameAndOrg : '-'
     );
   }
 }
