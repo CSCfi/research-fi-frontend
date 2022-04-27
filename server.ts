@@ -210,6 +210,7 @@ routes.forEach((route) => {
         req,
         res,
         engine: ngExpressEngineEn({
+          inlineCriticalCss: false,
           bootstrap: AppServerModuleEn,
         }),
       });
@@ -229,7 +230,10 @@ routes.forEach((route) => {
       res.render(route.view, {
         req,
         res,
-        engine: ngExpressEngineSv({}),
+        engine: ngExpressEngineSv({
+          inlineCriticalCss: false,
+          bootstrap: AppServerModuleSv,
+        }),
       });
     });
   } else {
@@ -248,6 +252,7 @@ routes.forEach((route) => {
         req,
         res,
         engine: ngExpressEngineFi({
+          inlineCriticalCss: false,
           bootstrap: AppServerModuleFi,
         }),
       });
