@@ -127,7 +127,7 @@
       <div class="col col-xl-3 d-none d-xl-block">
         <span
           [innerHtml]="
-            (funding.recipient.combined ? funding.recipient.combined : '')
+            (funding.recipient.personNameAndOrg ? funding.recipient.personNameAndOrg : '')
               | cutContent: 100
               | highlight: input
           "
