@@ -42,7 +42,7 @@ export class PublicationsService {
   }
 
   updateTokenInHttpAuthHeader() {
-    const token = this.oidcSecurityService.getAccessToken();
+    const token = this.oidcSecurityService.getToken();
 
     this.httpOptions = {
       headers: new HttpHeaders({

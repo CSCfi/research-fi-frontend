@@ -43,7 +43,7 @@ export class ProfileService {
   }
 
   updateTokenInHttpAuthHeader(bypassOrcidCheck = false) {
-    const token = this.oidcSecurityService.getAccessToken();
+    const token = this.oidcSecurityService.getToken();
 
     const idTokenPayload = this.oidcSecurityService.getPayloadFromIdToken();
 
