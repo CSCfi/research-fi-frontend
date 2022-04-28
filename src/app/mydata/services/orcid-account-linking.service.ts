@@ -109,7 +109,7 @@ export class OrcidAccoungLinkingService {
    */
   async getOrcidLink() {
     // Auth configuration
-    const authConfig = this.oidcSecurityService.getConfiguration();
+    const authConfig = this.oidcSecurityService.configuration as any;
 
     // Get ID token
     const idTokenPayload = this.oidcSecurityService.getPayloadFromIdToken();

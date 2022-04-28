@@ -24,12 +24,11 @@ export class OrcidLoginComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userDataSub = this.oidcSecurityService.userData$.subscribe((data) => {
-      if (data.userData) {
-        const userData = data.userData;
-        this.profileName = userData?.name;
+      if (data) {
+        this.profileName = data?.name;
 
         // Redirect to profile view if ORCID is already linked
-        if (userData.orcid) {
+        if (data.orcid) {
           this.router.navigate(['/mydata/profile']);
         }
       }

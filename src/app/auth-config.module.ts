@@ -6,36 +6,41 @@
 //  :license: MIT
 
 import { HttpClient } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import {
   AuthModule,
-  StsConfigHttpLoader,
-  StsConfigLoader,
+  OidcConfigService,
+  OidcSecurityService,
 } from 'angular-auth-oidc-client';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
-export function httpLoaderFactory(httpClient: HttpClient) {
-  const config$ = httpClient.get<any>(`assets/config/auth_config.json`).pipe(
-    map((customConfig) => {
-      return {
-        authority: customConfig.stsServer,
-        ...customConfig,
-      };
-    })
-  );
+export function configureAuth(
+  oidcConfigService: OidcConfigService,
+  httpClient: HttpClient
+) {
+  const setupAction$ = httpClient
+    .get<any>(`assets/config/auth_config.json`)
+    .pipe(
+      map((authConfig) => {
+        return authConfig;
+      }),
+      switchMap((config) => oidcConfigService.withConfig(config))
+    );
 
-  return new StsConfigHttpLoader(config$);
+  return () => setupAction$.toPromise();
 }
 
 @NgModule({
-  imports: [
-    AuthModule.forRoot({
-      loader: {
-        provide: StsConfigLoader,
-        useFactory: httpLoaderFactory,
-        deps: [HttpClient],
-      },
-    }),
+  imports: [AuthModule.forRoot()],
+  providers: [
+    OidcSecurityService,
+    OidcConfigService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: configureAuth,
+      deps: [OidcConfigService, HttpClient],
+      multi: true,
+    },
   ],
   exports: [AuthModule],
 })
