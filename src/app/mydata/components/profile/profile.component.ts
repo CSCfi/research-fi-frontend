@@ -139,7 +139,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.oidcSecurityService.userData$
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((data) => {
-        const userData = data;
+        const userData = data.userData;
         this.orcidData = userData;
 
         // Get ORCID id from ID token

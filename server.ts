@@ -38,18 +38,18 @@ enableProdMode();
 const app = express();
 const DIST_FOLDER = join(process.cwd(), 'dist');
 
-// // Emulate browser APIs
-// const domino = require('domino');
-// const fs = require('fs');
-// const path = require('path');
+// Emulate browser APIs
+const domino = require('domino');
+const fs = require('fs');
+const path = require('path');
 
-// const template = fs
-//   .readFileSync(path.join(join(process.cwd(), 'dist/browser/fi'), 'index.html'))
-//   .toString();
+const template = fs
+  .readFileSync(path.join(join(process.cwd(), 'dist/browser/fi'), 'index.html'))
+  .toString();
 
-// const window = domino.createWindow(template);
-// global['window'] = window;
-// global['document'] = window.document;
+const window = domino.createWindow(template);
+global['window'] = window;
+global['document'] = window.document;
 
 // We have a routes configuration to define where to serve every app with the according language.
 const routes = [

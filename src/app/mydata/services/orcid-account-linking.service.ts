@@ -109,14 +109,13 @@ export class OrcidAccoungLinkingService {
    */
   async getOrcidLink() {
     // Auth configuration
-    const authConfig = this.oidcSecurityService.configuration
-      .configuration as any;
+    const authConfig = this.oidcSecurityService.getConfiguration();
 
     // Get ID token
     const idTokenPayload = this.oidcSecurityService.getPayloadFromIdToken();
 
     // Keycloak base URL
-    const keycloakUrl = authConfig.stsServer;
+    const keycloakUrl = authConfig.authority;
 
     // Redirect URL
     const redirectUrl =

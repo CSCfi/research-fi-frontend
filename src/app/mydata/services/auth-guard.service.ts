@@ -39,7 +39,7 @@ export class AuthGuard implements CanActivate {
     };
 
     return this.oidcSecurityService.isAuthenticated$.pipe(
-      map((isAuthenticated) => {
+      map(({ isAuthenticated }) => {
         // Handling for service deployment
         if (route.routeConfig.path === 'service-deployment') {
           const step = Number(route.queryParams.step);
