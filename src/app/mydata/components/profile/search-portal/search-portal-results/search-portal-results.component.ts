@@ -129,7 +129,7 @@ export class SearchPortalResultsComponent
             cutContent: true,
           },
           {
-            field: 'recipient.combined',
+            field: 'recipient.personNameAndOrg',
             hidden: true,
           },
           {
