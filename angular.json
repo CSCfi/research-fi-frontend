@@ -63,11 +63,7 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "optimization": {
-                "styles": {
-                  "inlineCritical": false
-                }
-              },
+              "optimization": true,
               "outputHashing": "all",
               "sourceMap": true,
               "namedChunks": false,
