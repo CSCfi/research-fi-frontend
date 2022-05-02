@@ -33,21 +33,21 @@ export class AppComponent {
     // SSR platform check
     if (isPlatformBrowser(this.platformId)) {
       // APM config
-      // const apm = apmService.init({
-      //   serviceName: 'Angular',
-      //   serverUrl: this.appConfigService.apmUrl,
-      //   environment: this.appConfigService.environmentName,
-      //   eventsLimit: 10,
-      //   transactionSampleRate: 0.1,
-      //   disableInstrumentations: [
-      //     // 'page-load',
-      //     'history',
-      //     'eventtarget',
-      //     'xmlhttprequest',
-      //     'fetch',
-      //     // 'error'
-      //   ],
-      // });
+      const apm = apmService.init({
+        serviceName: 'Angular',
+        serverUrl: this.appConfigService.apmUrl,
+        environment: this.appConfigService.environmentName,
+        eventsLimit: 10,
+        transactionSampleRate: 0.1,
+        disableInstrumentations: [
+          // 'page-load',
+          'history',
+          'eventtarget',
+          'xmlhttprequest',
+          'fetch',
+          // 'error'
+        ],
+      });
 
       // Start auth process
       this.router.events.pipe(take(1)).subscribe((e) => {
