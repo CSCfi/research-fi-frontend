@@ -33,9 +33,7 @@ export class SearchPortalService {
   ) {
     this.locale = this.appSettingsService.capitalizedLocale;
 
-    // this.apiUrl = this.appConfigService.apiUrl;
-    this.apiUrl =
-      'https://researchfi-api-production-researchfi.rahtiapp.fi/portalapi/'; // Hardcoded production data url for dev purposes
+    this.apiUrl = this.appConfigService.apiUrl;
   }
 
   updateSort(
