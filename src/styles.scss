@@ -71,6 +71,7 @@
 @import './app/shared/components/review/review.component.scss-theme.scss';
 @import './app/shared/components/notification-banner/notification-banner.component-theme.scss';
 @import './app/shared/components/buttons/buttons-shared-theme.scss';
+@import './app/shared/components/table/table-theme.scss';
 
 // Mydata
 @import './app/mydata/mydata-shared.scss';
@@ -128,6 +129,7 @@
   @include app-banner-divider-theme($theme);
   @include app-notification-banner-theme($theme);
   @include buttons-shared-theme($theme);
+  @include table-theme($theme);
 }
 
 // Global style definitions

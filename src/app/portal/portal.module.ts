@@ -304,6 +304,7 @@ import { Subscription } from 'rxjs';
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
       useValue: { duration: 3000 },
     },
+    HighlightSearch,
   ],
 })
 export class PortalModule implements OnDestroy {

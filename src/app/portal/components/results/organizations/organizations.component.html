@@ -14,8 +14,12 @@
 <div *ngIf="resultData?.total > 0; else noResults">
   <app-table
     [columns]="tableColumns"
-    [rows]="tableRows"
+    [data]="tableRows"
     [icon]="faIcon"
+    iconLinkField="name"
+    [sortColumn]="sortService.sortColumn"
+    [sortDirection]="sortService.sortDirection ? 'desc' : 'asc'"
+    (onSortChange)="utilityService.sortBy($event)"
   ></app-table>
 
   <!-- Results -->

@@ -1,0 +1,16 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<a *ngIf="data.link; else plainText" [routerLink]="data.link">
+  <ng-container *ngTemplateOutlet="label"></ng-container>
+</a>
+
+<ng-template #plainText>
+  <ng-container *ngTemplateOutlet="label"></ng-container>
+</ng-template>
+
+<ng-template #label>
+  <span [innerHtml]="data.label"></span>
+</ng-template>

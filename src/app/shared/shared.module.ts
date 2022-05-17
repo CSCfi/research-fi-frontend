@@ -6,6 +6,7 @@
 // :license: MIT
 
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { InfoComponent } from './components/info/info.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -22,6 +23,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 
@@ -46,6 +48,7 @@ import { BannerDividerComponent } from './components/banner-divider/banner-divid
 import { ClickOutsideDirective } from './directives/click-outside.directive';
 import { NotificationBannerComponent } from './components/notification-banner/notification-banner.component';
 import { TableComponent } from './components/table/table.component';
+import { TableCellComponent } from './components/table/table-cell/table-cell.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +72,7 @@ import { TableComponent } from './components/table/table.component';
     ClickOutsideDirective,
     NotificationBannerComponent,
     TableComponent,
+    TableCellComponent,
   ],
   exports: [
     InfoComponent,
@@ -92,6 +96,7 @@ import { TableComponent } from './components/table/table.component';
   ],
   imports: [
     CommonModule,
+    RouterModule,
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
@@ -106,6 +111,7 @@ import { TableComponent } from './components/table/table.component';
     MatInputModule,
     MatDialogModule,
     MatTableModule,
+    MatSortModule,
     CollapseModule.forRoot(),
   ],
 })

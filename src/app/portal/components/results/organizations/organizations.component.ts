@@ -21,7 +21,9 @@ import { SearchService } from 'src/app/portal/services/search.service';
 import { SortService } from 'src/app/portal/services/sort.service';
 import { Search } from 'src/app/portal/models/search.model';
 import { UtilityService } from 'src/app/shared/services/utility.service';
+import { HighlightSearch } from '@portal/pipes/highlight.pipe';
 
+type TableRowItem = { label: any; link?: string };
 @Component({
   selector: 'app-organizations',
   templateUrl: './organizations.component.html',
@@ -42,8 +44,8 @@ export class OrganizationsComponent
   inputSub: any;
   input: string;
   focusSub: any;
-  tableColumns: { label: string; key: string }[];
-  tableRows: { name: string; sector: string }[];
+  tableColumns: { label: string; key: string; columnSize?: number }[];
+  tableRows: { name: TableRowItem; sector: TableRowItem }[];
 
   constructor(
     private route: ActivatedRoute,
@@ -51,24 +53,36 @@ export class OrganizationsComponent
     private searchService: SearchService,
     private sortService: SortService,
     private cdr: ChangeDetectorRef,
-    public utilityService: UtilityService
+    public utilityService: UtilityService,
+    private highlightPipe: HighlightSearch
   ) {}
 
   ngOnInit() {
-    this.tableColumns = [
-      { label: 'Nimi', key: 'name' },
-      { label: 'Organisaatio', key: 'sector' },
-    ];
-    this.tableRows = this.resultData.organizations.map((organization) => ({
-      name: organization.name,
-      sector: organization.sectorName,
-    }));
-
     this.sortService.initSort(this.route.snapshot.queryParams.sort || '');
     this.sortColumn = this.sortService.sortColumn;
     this.sortDirection = this.sortService.sortDirection;
     this.inputSub = this.searchService.currentInput.subscribe((input) => {
       this.input = input;
+
+      // Map data to table
+      // Use highlight pipe for higlighting search term
+      this.tableColumns = [
+        { label: 'Nimi', key: 'name', columnSize: 7 },
+        { label: 'Organisaatio', key: 'sector' },
+      ];
+      this.tableRows = this.resultData.organizations.map((organization) => ({
+        name: {
+          label: this.highlightPipe.transform(organization.name, this.input),
+          link: `/results/organization/${organization.id}`,
+        },
+        sector: {
+          label: this.highlightPipe.transform(
+            organization.sectorName,
+            this.input
+          ),
+        },
+      }));
+
       this.cdr.detectChanges();
     });
   }

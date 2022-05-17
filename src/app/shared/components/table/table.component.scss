@@ -1,0 +1,118 @@
+app-table,
+app-table-cell {
+  fa-icon {
+    font-size: 2.625rem;
+  }
+
+  .mat-sort-header {
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .mat-sort-header,
+  .mat-cell,
+  .mat-footer-cell {
+    font-size: 1rem;
+  }
+
+  $row-x-padding: 0.25rem;
+
+  th.mat-header-cell:first-of-type,
+  td.mat-cell:first-of-type,
+  td.mat-footer-cell:first-of-type {
+    padding-left: $row-x-padding;
+  }
+
+  th.mat-header-cell:last-of-type,
+  td.mat-cell:last-of-type,
+  td.mat-footer-cell:last-of-type {
+    padding-right: $row-x-padding;
+  }
+
+  .mat-sort-header-container {
+    width: fit-content;
+  }
+
+  th,
+  tr {
+    padding-right: calc(var(--bs-gutter-x) * 0.5);
+    padding-left: calc(var(--bs-gutter-x) * 0.5);
+  }
+
+  h4 {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    margin-bottom: 0;
+    word-break: break-word;
+  }
+
+  a {
+    text-decoration: underline;
+    font-weight: 500;
+  }
+
+  // Sort indicators
+  .mat-sort-header-arrow {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  // Hide default arrow stem
+  .mat-sort-header-stem {
+    display: none;
+  }
+  .mat-sort-header-indicator {
+    opacity: 1;
+    color: black;
+    font-weight: bold;
+
+    // Hide default arrow as its composed of left, right and middle
+    .mat-sort-header-pointer-left,
+    .mat-sort-header-pointer-right,
+    .mat-sort-header-pointer-middle {
+      display: none;
+    }
+  }
+
+  // My custom ascending arrow
+  [aria-sort='ascending'] {
+    .mat-sort-header-arrow {
+      .mat-sort-header-indicator {
+        &::before {
+          font-family: 'FontAwesome';
+          content: '\f0de';
+          top: -5px;
+          position: absolute;
+        }
+      }
+    }
+  }
+
+  // My custom descending arrow
+  [aria-sort='descending'] {
+    .mat-sort-header-arrow {
+      .mat-sort-header-indicator {
+        &::before {
+          font-family: 'FontAwesome';
+          content: '\f0dd';
+          top: -1.25rem;
+          position: absolute;
+        }
+      }
+    }
+  }
+
+  .no-active-sort {
+    .mat-sort-header-arrow {
+      .mat-sort-header-indicator {
+        &::before {
+          font-family: 'FontAwesome';
+          content: '\f0dc';
+          top: -0.5rem;
+          position: absolute;
+        }
+      }
+    }
+  }
+}
