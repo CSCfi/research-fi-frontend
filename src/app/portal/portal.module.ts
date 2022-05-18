@@ -162,6 +162,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { HandleInfrastructureLinkPipe } from './pipes/handle-infrastructure-link.pipe';
 import { Subscription } from 'rxjs';
+import { NoResultsComponent } from './components/results/no-results/no-results.component';
 
 @NgModule({
   declarations: [
@@ -248,6 +249,7 @@ import { Subscription } from 'rxjs';
     DatasetAuthorComponent,
     TkiReportsComponent,
     HandleInfrastructureLinkPipe,
+    NoResultsComponent,
   ],
   imports: [
     PortalRoutingModule,

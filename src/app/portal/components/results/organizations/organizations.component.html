@@ -28,23 +28,8 @@
   <app-pagination [responseData]="resultData"></app-pagination>
 </div>
 <ng-template #noResults>
-  <div class="row main-content" *ngIf="resultData && resultData.total === 0">
-    <div class="col text-center no-results" role="alert">
-      <h2 i18n="@@noOrganizations">Ei organisaatioita</h2>
-      <br />
-      <p i18n="@@resultSearchTermWarning">
-        Tarkista, onko hakutermissä kirjoitusvirheitä.<br />
-        Voi myös olla, että hakemaasi tietoa ei ole tarjolla tässä
-        verkkopalvelussa.
-      </p>
-      <p>
-        <a
-          routerLink="/service-info"
-          fragment="service-info-2"
-          i18n="@@resultsAboutService"
-          >Mitä tietoja Tiedejatutkimus.fi sisältää?</a
-        >
-      </p>
-    </div>
-  </div>
+  <app-no-results
+    heading="Ei organisaatioita"
+    i18n-heading="@@noOrganizations"
+  ></app-no-results>
 </ng-template>
