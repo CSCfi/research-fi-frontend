@@ -2,7 +2,6 @@
  Copyright 2019 Ministry of Education and Culture, Finland
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
-
 <div class="spinner-center" *ngIf="!resultData">
   <mat-spinner [diameter]="80"></mat-spinner>
 </div>
@@ -159,16 +158,16 @@
         </div>
         <!-- Categories -->
         <!-- <div class="col col-1 icon"></div>
-          <div class="categories col-11 col-lg-9 pb-2">
-            <span
-              *ngFor="let category of call.categories.slice(0, 10); let last = last;"
-              class="category"
-            >
-              {{ category.name }}<ng-container *ngIf="!last">,</ng-container>
-            </span>
-            <span *ngIf="call.categories.length > 10" class="category-overflow">...</span>
-          </div>
-          <div class="col-12"></div> -->
+        <div class="categories col-11 col-lg-9 pb-2">
+          <span
+            *ngFor="let category of call.categories.slice(0, 10); let last = last;"
+            class="category"
+          >
+            {{ category.name }}<ng-container *ngIf="!last">,</ng-container>
+          </span>
+          <span *ngIf="call.categories.length > 10" class="category-overflow">...</span>
+        </div>
+        <div class="col-12"></div> -->
         <!-- Description -->
         <div class="col col-1 icon d-none d-lg-block"></div>
         <div
@@ -178,6 +177,7 @@
           "
         ></div>
       </div>
+      <!-- <app-related-results class="row related-fields" [class.expand]="expandStatus[i]"></app-related-results> -->
     </div>
   </div>
   <!-- Pagination -->

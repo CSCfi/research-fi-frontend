@@ -226,10 +226,10 @@
       class="col-12 col-md-4 funding-sidebar"
     >
       <ng-container *ngFor="let row of funderFields">
-        <aside *ngIf="call[row.field].name">
+        <aside>
           <mat-card>
             <div class="inner">
-              <div class="row links mt-0">
+              <div *ngIf="call[row.field].name" class="row links mt-0 mb-4">
                 <mat-card-title>
                   <h2 class="mb-0">
                     {{ call[row.field].name }}
@@ -284,9 +284,28 @@
                       ><fa-icon icon="external-link-alt"></fa-icon></a
                   ></span>
                 </div>
+                <br>
                 <!-- <div *ngIf="!linksFields.length && !call.selfArchivedData" class="no-links" i18n="@@noFundingCallLinks">
                                   Rahoitushakuun ei ole tarjolla linkkejä tässä portaalissa
                               </div> -->
+              </div>
+              <div *ngIf="contactInfoRows?.length > 0">
+                <h2>
+                  {{contactInfoHeading}}
+                </h2>
+                <div *ngFor="let row of contactInfoRows">
+                  <ng-container *ngIf="row?.field === 'emailAddress'; else nonEmail">
+                    <a
+                      href="javascript:void(0)"
+                      (click)="showEmail($event, row?.email)"
+                      i18n="@@showEmailAddress"
+                    >Näytä sähköpostiosoite</a
+                      >
+                  </ng-container>
+                    <ng-template #nonEmail>
+                      <div>{{row}}</div>
+                    </ng-template>
+                </div>
               </div>
             </div>
           </mat-card>
@@ -322,7 +341,7 @@
             </div>
           </mat-card>
         </aside>
-        <aside>
+        <!--<aside>
           <mat-card>
             <div class="inner">
               <mat-card-title>
@@ -336,15 +355,15 @@
                   <fa-icon icon="external-link-alt"></fa-icon>
                 </a>
               </div>
-              <!-- <div>
+              <div>
                           <p *ngIf="!call.dataCatalog?.length">
                               Tiedon lähde ei saatavilla.
                           </p>
-                      </div> -->
+                      </div>
               <div class="clear"></div>
             </div>
           </mat-card>
-        </aside>
+        </aside>-->
       </ng-container>
     </div>
   </div>

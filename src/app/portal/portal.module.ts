@@ -163,6 +163,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { HandleInfrastructureLinkPipe } from './pipes/handle-infrastructure-link.pipe';
 import { Subscription } from 'rxjs';
 import { NoResultsComponent } from './components/results/no-results/no-results.component';
+import { FundingCallCategoryFiltersComponent } from './components/funding-calls/funding-call-category-filters/funding-call-category-filters.component';
 
 @NgModule({
   declarations: [
@@ -250,6 +251,7 @@ import { NoResultsComponent } from './components/results/no-results/no-results.c
     TkiReportsComponent,
     HandleInfrastructureLinkPipe,
     NoResultsComponent,
+    FundingCallCategoryFiltersComponent,
   ],
   imports: [
     PortalRoutingModule,

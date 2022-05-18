@@ -21,7 +21,7 @@ export class SettingsService {
 
   constructor(private staticDataService: StaticDataService) {
     this.indexList =
-      'publication,funding,dataset,infrastructure,organization' + '/_search?';
+      'publication,funding,dataset,infrastructure,organization,funding-call' + '/_search?';
     this.aggsOnly = 'filter_path=aggregations';
   }
 
@@ -231,6 +231,14 @@ export class SettingsService {
             {
               bool: {
                 must: [
+                  { term: { _index: 'funding-call' } },
+                  this.querySettings('funding-call', term),
+                ],
+              },
+            },
+            {
+              bool: {
+                must: [
                   { term: { _index: 'person' } },
                   {
                     bool: {
@@ -294,6 +302,11 @@ export class SettingsService {
               organization: {
                 match: {
                   _index: 'organization',
+                },
+              },
+              fundingCalls: {
+                match: {
+                  _index: 'funding-call',
                 },
               },
             },

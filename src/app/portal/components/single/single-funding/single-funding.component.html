@@ -275,7 +275,7 @@
                     <div
                       class="col px-0"
                       *ngIf="
-                        item.recipient.organizations.length > 0;
+                        item.recipient.organizations?.length > 0;
                         else noOrganizations
                       "
                     >
@@ -341,7 +341,7 @@
                     <ng-template #noOrganizations>
                       <ng-container
                         *ngIf="
-                          item.recipient.contactPersonName.trim().length > 0
+                          item.recipient.contactPersonName?.trim().length > 0
                         "
                       >
                         <h2 class="col-12 col-sm-4 col-lg-3 th">
@@ -512,7 +512,7 @@
                     {{ item.academyConsortium }}
                   </div>
                 </div>
-                <div class="row" *ngIf="item.otherConsortium.length > 0">
+                <div class="row" *ngIf="item.otherConsortium?.length > 0">
                   <h2
                     class="col-12 col-sm-4 col-lg-3 th"
                     i18n="@@otherConsortium"
@@ -548,7 +548,7 @@
                           >({{ consortium.consortiumProject }})
                         </ng-container>
                         <ng-container
-                          *ngIf="i !== item.otherConsortium.length - 1"
+                          *ngIf="i !== item.otherConsortium?.length - 1"
                         ></ng-container>
                       </div>
                       <div class="col-12 col-sm-3 td pb-3">
@@ -566,7 +566,7 @@
             class="content"
             *ngIf="
               item.funder &&
-              (funderFields.length > 0 || item.funder.callProgrammeName)
+              (funderFields?.length > 0 || item.funder.callProgrammeName)
             "
           >
             <div class="row">
@@ -613,7 +613,7 @@
             <div
               class="row"
               *ngIf="
-                (item.euFunding && item.funder.euCallProgrammes.length > 0) ||
+                (item.euFunding && item.funder.euCallProgrammes?.length > 0) ||
                 (!item.euFunding &&
                   item.funder.callProgrammeName?.trim()?.length > 0)
               "
@@ -688,7 +688,7 @@
             </div>
           </div>
           <!-- Other -->
-          <div class="content" *ngIf="otherFields.length > 0">
+          <div class="content" *ngIf="otherFields?.length > 0">
             <h2 class="th col-12 col-sm-3" i18n="@@fundingOtherInfo">
               Muut tiedot
             </h2>

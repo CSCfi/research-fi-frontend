@@ -17,6 +17,7 @@ import { SingleItemService } from 'src/app/portal/services/single-item.service';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
+import { DOCUMENT } from '@angular/common';
 @Component({
   selector: 'app-single-funding-call',
   templateUrl: './single-funding-call.component.html',
@@ -32,6 +33,7 @@ export class SingleFundingCallComponent implements OnInit {
   private commonTags = MetaTags.common;
   showMore = $localize`:@@showMore:Näytä enemmän`;
   showLess = $localize`:@@showLess:Näytä vähemmän`;
+  contactInfoHeading = $localize`:@@contactInfo:Yhteystiedot`;
 
   tab = 'funding-calls';
 
@@ -75,12 +77,16 @@ export class SingleFundingCallComponent implements OnInit {
   tabData: any;
   focusSub: Subscription;
   dataSub: Subscription;
+  contactInfoName = null;
+  contactInfoEmail = null;
+  contactInfoRows = [];
 
   constructor(
     private route: ActivatedRoute,
     private singleService: SingleItemService,
     private searchService: SearchService,
     @Inject(LOCALE_ID) protected localeId: string,
+    @Inject(DOCUMENT) private document: any,
     private tabChangeService: TabChangeService,
     public utilityService: UtilityService,
     private settingsService: SettingsService,
@@ -132,6 +138,38 @@ export class SingleFundingCallComponent implements OnInit {
       : '//' + url;
   }
 
+  processContactInfo(input: string) {
+    if (input?.length > 0) {
+      const splitArr = input.split(",");
+      this.contactInfoName = splitArr[0];
+      if (splitArr.length > 0 ){
+        this.contactInfoName = splitArr[0];
+      }
+      if (splitArr.length > 1 ){
+        this.contactInfoEmail = splitArr[2];
+      }
+    }
+  }
+
+  removeHtmlTags(input: string) {
+    input = input?.length > 0 ? input.replace(/(<([^>]+)>)/gi, '') : '';
+    return input;
+  }
+
+  processPossibleEmailRow(input: string) {
+    if (input.toLowerCase().includes("(at)") || input.toLowerCase().includes("(a)") || input.includes('@')) {
+      return { label: $localize`Sähköpostiosoite`, field: 'emailAddress', email: input };
+    }
+    return input;
+  }
+
+  showEmail(event, address) {
+    const span = this.document.createElement('span');
+    span.innerHTML = address;
+    event.target.replaceWith(span);
+  }
+
+
   getData(id: string) {
     this.dataSub = this.singleService.getSingleFundingCall(id).subscribe({
       next: (responseData) => {
@@ -166,7 +204,6 @@ export class SingleFundingCallComponent implements OnInit {
             this.commonTags['imgAlt' + this.currentLocale]
           );
 
-          this.shapeData();
           this.filterData();
         }
       },
@@ -199,6 +236,13 @@ export class SingleFundingCallComponent implements OnInit {
       checkEmpty(item)
     );
 
+    const contactInfo = this.responseData.fundingCalls[0]?.contactInfo.split(/[\n,;]/);
+    contactInfo.forEach(info => {
+      if (info.length > 0) {
+        this.contactInfoRows.push(this.processPossibleEmailRow(this.removeHtmlTags(info)));
+      }
+    });
+
     // Short version is not HTML formatted
     this.applicationInfoFields.forEach((item) => {
       this.responseData.fundingCalls[0][item.field + 'short'] =
@@ -206,9 +250,6 @@ export class SingleFundingCallComponent implements OnInit {
     });
   }
 
-  shapeData() {
-    const source = this.responseData.fundingCalls[0];
-  }
 
   expand(field: string) {
     switch (field) {

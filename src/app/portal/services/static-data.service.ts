@@ -73,6 +73,66 @@ export class StaticDataService {
     },
   ];
 
+  // Filters, Funding calls
+  majorFieldsOfScienceAurora = [
+    {
+      id: 1,
+      key: $localize`:@@auroraNaturalSciences:Luonnontieteet`,
+      checked: false,
+      subData: [],
+      doc_count: 0,
+    },
+    {
+      id: 2,
+      key: $localize`:@@auroraTecnology:Tekniikka`,
+      checked: false,
+      subData: [],
+      doc_count: 0,
+    },
+    {
+      id: 3,
+      key: $localize`:@@auroraMedicalHealthSciences:Lääke- ja terveystieteet`,
+      checked: false,
+      subData: [],
+      doc_count: 0,
+    },
+    {
+      id: 4,
+      key: $localize`:@@auroraAgriculturalSciences:Maa- ja metsätaloustieteet`,
+      checked: false,
+      subData: [],
+      doc_count: 0,
+    },
+    {
+      id: 5,
+      key: $localize`:@@auroraSocialSciences:Yhteiskunta-, talous- ja käyttäytymistieteet`,
+      checked: false,
+      subData: [],
+      doc_count: 0,
+    },
+    {
+      id: 6,
+      key: $localize`:@@auroraHumanities:Humanistiset tieteet ja teologia`,
+      checked: false,
+      subData: [],
+      doc_count: 0,
+    },
+    {
+      id: 7,
+      key: $localize`:@@auroraArts:Taide`,
+      checked: false,
+      subData: [],
+      doc_count: 0,
+    },
+    {
+      id: 9,
+      key: $localize`:@@auroraOtherSciences:Muut tieteet`,
+      checked: false,
+      subData: [],
+      doc_count: 0,
+    },
+  ];
+
   // Filters, Publication article type
   articleType = [
     {
@@ -618,6 +678,10 @@ export class StaticDataService {
         break;
       }
       case 'news': {
+        res = [''];
+        break;
+      }
+      case 'funding-calls': {
         res = [''];
         break;
       }

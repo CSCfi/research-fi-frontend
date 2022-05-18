@@ -126,10 +126,17 @@ Copyright 2019 Ministry of Education and Culture, Finland
             [responseData]="filterValues"
             [tabData]="tabData[3].data"
           ></app-filters>
+          <!-- Funding calls -->
           <app-filters
             *ngIf="tab === tabData[4].link"
             [responseData]="filterValues"
             [tabData]="tabData[4].data"
+            [externalFilterQuery]="externalFilterQuery"
+          ></app-filters>
+          <app-filters
+            *ngIf="tab === tabData[5].link"
+            [responseData]="filterValues"
+            [tabData]="tabData[5].data"
           ></app-filters>
           <app-filters
             *ngIf="tab === tabData[6].link"
@@ -141,7 +148,14 @@ Copyright 2019 Ministry of Education and Culture, Finland
           <app-sort></app-sort>
         </aside>
         <main class="col-12" id="main-content">
-          <app-active-filters></app-active-filters>
+          <app-active-filters
+            (clearAllFilters)="this.clearAllFiltersFromActiveFitlers()"
+          ></app-active-filters>
+          <app-funding-call-category-filters
+            [resetFundingCallCategoryFilters]="clearAllFilters"
+            [responseData]="filterValues"
+            (filterChangeOutput)="setExternalFilters($event)"
+          ></app-funding-call-category-filters>
           <app-search-results
             [currentTab]="selectedTabData"
             [updateFilters]="updateFilters"
@@ -184,20 +198,35 @@ Copyright 2019 Ministry of Education and Culture, Finland
       [responseData]="filterValues"
       [tabData]="tabData[3].data"
     ></app-filters>
+    <!-- Funding calls -->
     <app-filters
       *ngIf="tab === tabData[4].link"
       [responseData]="filterValues"
       [tabData]="tabData[4].data"
     ></app-filters>
     <app-filters
-      *ngIf="tab === tabData[6].link"
+      *ngIf="tab === tabData[4].link"
       [responseData]="filterValues"
-      [tabData]="tabData[6].data"
+      [tabData]="tabData[4].data"
+      [externalFilterQuery]="externalFilterQuery"
+    ></app-filters>
+    <app-filters
+      *ngIf="tab === tabData[5].link"
+      [responseData]="filterValues"
+      [tabData]="tabData[5].data"
     ></app-filters>
   </aside>
   <div class="col-8 col-xl-9 row main-content pe-xl-0">
     <main class="col-12 ps-lg-2 pe-xl-0">
-      <app-active-filters></app-active-filters>
+      <app-funding-call-category-filters
+        [resetFundingCallCategoryFilters]="clearAllFilters"
+        *ngIf="tab === tabData[4].link"
+        [responseData]="filterValues"
+        (filterChangeOutput)="setExternalFilters($event)"
+      ></app-funding-call-category-filters>
+      <app-active-filters
+        (clearAllFilters)="this.clearAllFiltersFromActiveFitlers()"
+      ></app-active-filters>
       <h3 class="sr-only">Hakutulokset</h3>
       <div class="pt-2">
         <app-search-results
@@ -274,10 +303,17 @@ Copyright 2019 Ministry of Education and Culture, Finland
             [responseData]="filterValues"
             [tabData]="tabData[2].data"
           ></app-filters>
+          <!-- Funding calls -->
           <app-filters
             *ngIf="tab === tabData[4].link"
             [responseData]="filterValues"
             [tabData]="tabData[4].data"
+            [externalFilterQuery]="externalFilterQuery"
+          ></app-filters>
+          <app-filters
+            *ngIf="tab === tabData[5].link"
+            [responseData]="filterValues"
+            [tabData]="tabData[5].data"
           ></app-filters>
           <app-filters
             *ngIf="tab === tabData[6].link"
@@ -314,7 +350,9 @@ Copyright 2019 Ministry of Education and Culture, Finland
               Piiraskuvaaja
             </button> 
           </div>   -->
-        <app-active-filters></app-active-filters>
+        <app-active-filters
+          (clearAllFilters)="this.clearAllFiltersFromActiveFitlers()"
+        ></app-active-filters>
         <app-visualisation
           [data]="visualData"
           [tab]="tab"

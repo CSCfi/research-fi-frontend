@@ -6,3 +6,7 @@
 //  :license: MIT
 
 @import './filters-shared.scss';
+
+app-funding-call-category-filters .mat-standard-chip {
+  border-radius: 10px;
+}

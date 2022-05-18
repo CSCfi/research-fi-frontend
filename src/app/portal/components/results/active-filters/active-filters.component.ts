@@ -16,7 +16,7 @@ import {
   QueryList,
   Inject,
   PLATFORM_ID,
-  LOCALE_ID,
+  LOCALE_ID, Output, EventEmitter
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { SortService } from '@portal/services/sort.service';
@@ -73,6 +73,8 @@ export class ActiveFiltersComponent
     future: $localize`:@@futureCalls:Tulevat haut`,
     continuous: $localize`:@@continuousCalls:Jatkuvat haut`,
   };
+
+  @Output() clearAllFilters = new EventEmitter<any>();
 
   filterResponse: any;
   tabFilters: any;
@@ -874,6 +876,7 @@ export class ActiveFiltersComponent
   }
 
   clearFilters() {
+    this.clearAllFilters.emit(null);
     this.activeFilters = [];
     // Preserve target if available
     this.router.navigate([], {

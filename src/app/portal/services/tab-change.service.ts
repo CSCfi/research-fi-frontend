@@ -49,20 +49,20 @@ export class TabChangeService {
       tooltip: $localize`:@@datasetsTooltip:Suomessa tuotettujen tutkimusaineistojen kuvailutietoja.`,
     },
     {
+      data: 'fundingCalls',
+      label: $localize`:@@fundingCalls:Rahoitushaut`,
+      link: 'funding-calls',
+      icon: faBullhorn,
+      singular: 'rahoitushaku',
+      tooltip: 'funding call placeholder tooltip',
+    },
+    {
       data: 'infrastructures',
       label: $localize`:@@infrastructures:Infrastruktuurit`,
       link: 'infrastructures',
       icon: faCalculator,
       singular: $localize`:@@infrastructure:infrastruktuuri`,
       tooltip: $localize`:@@infrastructuresTooltip:Suomessa ylläpidettäviä tutkimusinfrastruktuureja. Infrastruktuurit ovat keskitetysti, hajautetusti tai virtuaalisesti saatavilla olevia välineitä, laitteistoja, tietoverkkoja, tietokantoja, aineistoja ja palveluita, jotka mahdollistavat tutkimuksen tekemistä.`,
-    },
-    {
-      data: '',
-      label: $localize`:@@otherResearchActivities:Muut tutkimusaktiviteetit`,
-      link: undefined,
-      icon: faSpinner,
-      singular: $localize`:@@otherResearchActivity:muu tutkimustoiminta`,
-      tooltip: $localize`:@@otherResearcActivitiesTooltip:Tutkijoiden tutkimustyöhön liittyvät asiantuntijatehtävät, pätevyydet, tunnustukset ja muu toiminta.`,
     },
     {
       data: 'organizations',

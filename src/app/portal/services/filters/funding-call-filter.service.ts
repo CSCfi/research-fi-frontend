@@ -71,22 +71,22 @@ export class FundingCallFilterService {
   }
   
   field(data) {
-    data.buckets.map((item) => {
-      item.label = item.key;
-      item.key = item.fieldId.buckets[0]?.key;
-      item.id = item.key;
-      item.doc_count = item.filtered.filterCount.doc_count;
-    });
-    // Don't show empty fields
-    data.buckets = data.buckets.filter(x => x.doc_count);
-    // Sort by category name
-    data.buckets.sort((a, b) => +(a.label > b.label) - 0.5);
+      data.buckets.map((item) => {
+        item.label = item.key;
+        item.key = item.fieldId.buckets[0]?.key;
+        item.id = item.key;
+        item.doc_count = item.filtered.filterCount.doc_count;
+      });
 
-    // Add extra field for active-filters
-    const cp = cloneDeep(data.buckets);
-    cp.forEach(f => f.key = f.label);
-    data.fields = {buckets: cp};
+      // Don't show empty fields
+      data.buckets = data.buckets.filter(x => x.doc_count);
+      // Sort by category name
+      data.buckets.sort((a, b) => +(a.label > b.label) - 0.5);
 
+      // Add extra field for active-filters
+      const cp = cloneDeep(data.buckets);
+      cp.forEach(f => f.key = f.label);
+      data.fields = { buckets: cp };
     return data;
   }
 

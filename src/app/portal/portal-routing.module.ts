@@ -119,12 +119,13 @@ const routes: Routes = [
   },
   {
     path: 'funding-calls',
-    pathMatch: 'full',
-    component: FundingCallsComponent,
+    redirectTo: 'results/funding-calls',
+    pathMatch: 'full'
   },
   {
     path: 'funding-calls/:input',
-    component: FundingCallsComponent,
+    redirectTo: 'results/funding-calls',
+    pathMatch: 'full'
   },
   {
     path: 'funding-call/:id',
