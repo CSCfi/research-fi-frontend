@@ -12,5 +12,15 @@
 </ng-template>
 
 <ng-template #label>
-  <span [innerHtml]="data.label"></span>
+  <span [innerHtml]="data.label ? data.label : '-'"></span>
 </ng-template>
+
+<!-- <ng-template #label>
+  <ng-container *ngIf="data.label.elementRef"
+    ><span [ngTemplateOutlet]="data.label"></span
+  ></ng-container>
+  <span
+    *ngIf="!data.label.elementRef"
+    [innerHtml]="data.label ? data.label : '-'"
+  ></span>
+</ng-template> -->

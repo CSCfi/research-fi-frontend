@@ -22,8 +22,8 @@ import { SortService } from 'src/app/portal/services/sort.service';
 import { Search } from 'src/app/portal/models/search.model';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { HighlightSearch } from '@portal/pipes/highlight.pipe';
+import { TableColumn, TableRowItem } from 'src/types';
 
-type TableRowItem = { label: any; link?: string };
 @Component({
   selector: 'app-organizations',
   templateUrl: './organizations.component.html',
@@ -44,8 +44,8 @@ export class OrganizationsComponent
   inputSub: any;
   input: string;
   focusSub: any;
-  tableColumns: { label: string; key: string; columnSize?: number }[];
-  tableRows: { name: TableRowItem; sector: TableRowItem }[];
+  tableColumns: TableColumn[];
+  tableRows: Record<string, TableRowItem>[];
 
   constructor(
     private route: ActivatedRoute,
@@ -63,28 +63,30 @@ export class OrganizationsComponent
     this.sortDirection = this.sortService.sortDirection;
     this.inputSub = this.searchService.currentInput.subscribe((input) => {
       this.input = input;
-
-      // Map data to table
-      // Use highlight pipe for higlighting search term
-      this.tableColumns = [
-        { label: $localize`:@@name:Nimi`, key: 'name', columnSize: 7 },
-        { label: $localize`:@@orgOrganization:Organisaatio`, key: 'sector' },
-      ];
-      this.tableRows = this.resultData.organizations.map((organization) => ({
-        name: {
-          label: this.highlightPipe.transform(organization.name, this.input),
-          link: `/results/organization/${organization.id}`,
-        },
-        sector: {
-          label: this.highlightPipe.transform(
-            organization.sectorName,
-            this.input
-          ),
-        },
-      }));
-
+      this.mapData();
       this.cdr.detectChanges();
     });
+  }
+
+  mapData() {
+    // Map data to table
+    // Use highlight pipe for higlighting search term
+    this.tableColumns = [
+      { key: 'name', label: $localize`:@@name:Nimi`, columnSize: 7 },
+      { key: 'sector', label: $localize`:@@orgOrganization:Organisaatio` },
+    ];
+    this.tableRows = this.resultData.organizations.map((organization) => ({
+      name: {
+        label: this.highlightPipe.transform(organization.name, this.input),
+        link: `/results/organization/${organization.id}`,
+      },
+      sector: {
+        label: this.highlightPipe.transform(
+          organization.sectorName,
+          this.input
+        ),
+      },
+    }));
   }
 
   ngAfterViewInit() {

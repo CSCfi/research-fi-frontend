@@ -3,39 +3,33 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<table
-  mat-table
+<mat-table
+  [dataSource]="data"
   matSort
   (matSortChange)="sortData($event)"
   [dataSource]="data"
   [matSortActive]="sortColumn"
   [matSortDirection]="sortColumn ? sortDirection : ''"
-  class="w-100 d-none d-lg-table"
   [@.disabled]="true"
+  class="d-none d-lg-block"
 >
-  <ng-container *ngFor="let column of columns" [matColumnDef]="column.label">
-    <th
-      mat-header-cell
+  <ng-container *ngFor="let column of columns" [matColumnDef]="column.key">
+    <mat-header-cell
       *matHeaderCellDef
-      [disabled]="column.key === 'icon'"
-      class="border-0"
+      [mat-sort-header]="column.key"
+      [class.invisible]="column.key === 'icon'"
       [class.no-active-sort]="
         sortColumn.length === 0 || sortColumn !== column.key
       "
+      [ngClass]="column.columnSize ? 'col-' + column.columnSize : 'col-auto'"
     >
-      <span
-        [mat-sort-header]="column.key"
-        [class.invisible]="column.key === 'icon'"
-      >
-        {{ column.label }}
-      </span>
-    </th>
-
-    <td
-      mat-cell
+      <span [tooltip]="column.tooltip" container="body">{{
+        column.label
+      }}</span>
+    </mat-header-cell>
+    <mat-cell
       *matCellDef="let data"
       [ngSwitch]="column.key"
-      class="border-0"
       [ngClass]="column.columnSize ? 'col-' + column.columnSize : 'col-auto'"
     >
       <!-- Optional icon -->
@@ -60,12 +54,14 @@
       <h4 *ngSwitchDefault>
         <app-table-cell [data]="data[column.key]"></app-table-cell>
       </h4>
-    </td>
+    </mat-cell>
   </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-</table>
+  <mat-header-row
+    *matHeaderRowDef="displayedColumns; sticky: true"
+  ></mat-header-row>
+  <mat-row *matRowDef="let data; columns: displayedColumns"></mat-row>
+</mat-table>
 
 <!-- Mobile list view -->
 <div class="d-block d-lg-none">

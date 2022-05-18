@@ -26,6 +26,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 import { SecondaryButtonComponent } from './components/buttons/secondary-button/secondary-button.component';
 import { PrimaryActionButtonComponent } from './components/buttons/primary-action-button/primary-action-button.component';
@@ -113,6 +114,7 @@ import { TableCellComponent } from './components/table/table-cell/table-cell.com
     MatTableModule,
     MatSortModule,
     CollapseModule.forRoot(),
+    TooltipModule.forRoot(),
   ],
 })
 export class SharedModule {}

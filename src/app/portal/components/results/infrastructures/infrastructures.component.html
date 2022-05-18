@@ -11,7 +11,18 @@
   ></mat-spinner>
 </div>
 <!-- Data -->
-<div *ngIf="resultData?.total > 0; else noResults">
+<div *ngIf="resultData?.total > 0 && dataMapped; else noResults">
+  <app-table
+    [columns]="tableColumns"
+    [data]="tableRows"
+    [icon]="faIcon"
+    iconTitle="Organisaatioiden tiedon ikoni"
+    iconLinkField="name"
+    [sortColumn]="sortService.sortColumn"
+    [sortDirection]="sortService.sortDirection ? 'desc' : 'asc'"
+    (onSortChange)="utilityService.sortBy($event)"
+  ></app-table>
+
   <!-- Results -->
   <div class="row no-margin">
     <div class="col col-1 icon"></div>
@@ -84,6 +95,50 @@
     <ng-container
       *ngFor="let infra of resultData?.infrastructures; let i = index"
     >
+      <!-- Templates -->
+      <ng-template #infrastructureNameColumns>
+        <a [routerLink]="infra.id | handleInfrastructureLink">
+          <h4
+            class="result-title"
+            [innerHtml]="infra.name?.trim() | highlight: input"
+          ></h4>
+        </a>
+        <div class="row">
+          <div class="col ps-0">
+            <span
+              tabindex="0"
+              i18n-tooltip="@@infraServicesAmountTooltip"
+              tooltip="Tutkimusinfrastruktuurin palveluiden lukumäärä."
+              triggers="focus kedown.escape"
+              placement="top"
+              #elem
+            >
+              <ng-container i18n="@@infraServicesLabel">Palveluita</ng-container
+              >:
+              {{ infra.services.length }}
+            </span>
+          </div>
+          <div class="col" *ngIf="infra.finlandRoadmap">
+            <span
+              tabindex="0"
+              i18n-tooltip="@@finlandRoadmapTooltip"
+              tooltip="Tutkimusinfrastruktuuri on voimassaolevalla Suomen Akatemian tiekartalla."
+              triggers="focus kedown.escape"
+              placement="top"
+              #elem
+            >
+              <ng-container i18n="@@finlandRoadmap">Tiekartalla</ng-container
+              ><fa-icon
+                class="check-icon ps-1"
+                [icon]="faCheckCircle"
+              ></fa-icon>
+            </span>
+          </div>
+        </div>
+      </ng-template>
+
+      <!-- End of template -->
+
       <div class="row no-margin single">
         <div class="col col-1 icon">
           <a
@@ -162,6 +217,7 @@
   <!-- Pagination -->
   <app-pagination [responseData]="resultData"></app-pagination>
 </div>
+
 <ng-template #noResults>
   <div class="row main-content" *ngIf="resultData && resultData.total === 0">
     <div class="col text-center no-results" role="alert">
