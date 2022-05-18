@@ -45,6 +45,7 @@
         *ngFor="let filter of currentFilter; let i = index"
         class="parent"
         [expanded]="filter.open"
+        [hidden]="filter.field === 'field'"
         (opened)="setOpenStatus(filter.field)"
         (closed)="closePanel(filter.field)"
       >
