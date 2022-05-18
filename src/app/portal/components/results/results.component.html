@@ -1,3 +1,11 @@
+Skip to content Search or jump to… Pull requests Issues Marketplace Explore
+@saulipurhonen CSCfi / research-fi-frontend Public Code Issues Pull requests 14
+Actions Projects Wiki Security Insights
+research-fi-frontend/src/app/portal/components/results/results.component.html
+@konolak konolak fix bug in indexes and hiding the side panel funding call
+filters Latest commit c27b7c3 7 days ago History 4 contributors
+@saulipurhonen@konolak@vavainio@JuanFuentes20 466 lines (458 sloc) 16 KB
+
 <!--  This file is part of the research.fi API service
 Copyright 2019 Ministry of Education and Culture, Finland
 :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
@@ -149,7 +157,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
         </aside>
         <main class="col-12" id="main-content">
           <app-active-filters
-            (clearAllFilters)="this.clearAllFiltersFromActiveFitlers()"
+            (clearAllFilters)="this.clearAllFiltersFromActiveFilters()"
           ></app-active-filters>
           <app-funding-call-category-filters
             [resetFundingCallCategoryFilters]="clearAllFilters"
@@ -203,17 +211,17 @@ Copyright 2019 Ministry of Education and Culture, Finland
       *ngIf="tab === tabData[4].link"
       [responseData]="filterValues"
       [tabData]="tabData[4].data"
-    ></app-filters>
-    <app-filters
-      *ngIf="tab === tabData[4].link"
-      [responseData]="filterValues"
-      [tabData]="tabData[4].data"
       [externalFilterQuery]="externalFilterQuery"
     ></app-filters>
     <app-filters
       *ngIf="tab === tabData[5].link"
       [responseData]="filterValues"
       [tabData]="tabData[5].data"
+    ></app-filters>
+    <app-filters
+      *ngIf="tab === tabData[6].link"
+      [responseData]="filterValues"
+      [tabData]="tabData[6].data"
     ></app-filters>
   </aside>
   <div class="col-8 col-xl-9 row main-content pe-xl-0">
@@ -225,17 +233,15 @@ Copyright 2019 Ministry of Education and Culture, Finland
         (filterChangeOutput)="setExternalFilters($event)"
       ></app-funding-call-category-filters>
       <app-active-filters
-        (clearAllFilters)="this.clearAllFiltersFromActiveFitlers()"
+        (clearAllFilters)="this.clearAllFiltersFromActiveFilters()"
       ></app-active-filters>
       <h3 class="sr-only">Hakutulokset</h3>
-      <div class="pt-2">
-        <app-search-results
-          *ngIf="!visual"
-          id="main-content"
-          [currentTab]="selectedTabData"
-          [updateFilters]="updateFilters"
-        ></app-search-results>
-      </div>
+      <app-search-results
+        *ngIf="!visual"
+        id="main-content"
+        [currentTab]="selectedTabData"
+        [updateFilters]="updateFilters"
+      ></app-search-results>
       <app-visualisation
         *ngIf="visual"
         [data]="visualData"
@@ -328,7 +334,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
           [icon]="faTrash"
         ></app-secondary-button>
       </div>
-      <div class="col-9">
+      <div class="col-9 row">
         <!-- <div *ngIf="tab === 'fundings'" class="ml-auto pb-2 col-6">
             <button
               class="col-6 vis-style-toggle ttv-button"
@@ -364,95 +370,87 @@ Copyright 2019 Ministry of Education and Culture, Finland
           [visualisationType]="visualisationType"
         ></app-visualisation>
         <div class="row vis-info">
-          <div class="col">
-            <div class="row">
-              <div *ngIf="tab === 'publications'" class="vis-style-toggles row">
-                <button
-                  class="col-auto vis-style-toggle ttv-button"
-                  [class.active]="!percentage && !fundingAmount"
-                  (click)="
-                    percentage = false;
-                    fundingAmount = false;
-                    changeVisual($event)
-                  "
-                  i18n="@@asCountPublication"
-                >
-                  Julkaisujen määrä
-                </button>
-                <button
-                  class="col-auto vis-style-toggle ttv-button"
-                  [class.active]="percentage && !fundingAmount"
-                  (click)="percentage = true; fundingAmount = false"
-                  i18n="@@asPercentPublication"
-                >
-                  % julkaisujen määrästä
-                </button>
-              </div>
-              <div *ngIf="tab === 'fundings'" class="vis-style-toggles row">
-                <button
-                  class="col-6 vis-style-toggle ttv-button"
-                  [class.active]="!percentage && !fundingAmount"
-                  (click)="
-                    changeVisual({ fundingAmount: false });
-                    percentage = false;
-                    fundingAmount = false
-                  "
-                  i18n="@@asCountFunding"
-                >
-                  Hankkeiden määrä
-                </button>
-                <button
-                  class="col-6 vis-style-toggle ttv-button"
-                  [class.active]="percentage && !fundingAmount"
-                  (click)="
-                    changeVisual({ fundingAmount: false });
-                    percentage = true;
-                    fundingAmount = false
-                  "
-                  i18n="@@asPercentFunding"
-                >
-                  % hankkeiden määrästä
-                </button>
-                <button
-                  class="col-6 vis-style-toggle ttv-button"
-                  [class.active]="!percentage && fundingAmount"
-                  (click)="
-                    changeVisual({ fundingAmount: true });
-                    percentage = false;
-                    fundingAmount = true
-                  "
-                  i18n="@@asCountAmount"
-                >
-                  Myöntösumma
-                </button>
-                <button
-                  class="col-6 vis-style-toggle ttv-button"
-                  [class.active]="percentage && fundingAmount"
-                  (click)="
-                    changeVisual({ fundingAmount: true });
-                    percentage = true;
-                    fundingAmount = true
-                  "
-                  i18n="@@asPercentAmount"
-                >
-                  % myöntösummasta
-                </button>
-                <div class="col-12"></div>
-              </div>
-              <!-- <ng-template #tooltipTemplate><div [innerHtml]=visualisationInfo></div></ng-template>
-                            <span [tooltip]="tooltipTemplate" triggers="focus keydown" placement="top" tabindex="-1" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
-                                <app-secondary-button [icon]="'info-circle'" [content]="'Info'" ></app-secondary-button>
-                            </span> -->
-            </div>
+          <div *ngIf="tab === 'publications'" class="vis-style-toggles row">
+            <button
+              class="col vis-style-toggle ttv-button"
+              [class.active]="!percentage && !fundingAmount"
+              (click)="
+                percentage = false; fundingAmount = false; changeVisual($event)
+              "
+              i18n="@@asCountPublication"
+            >
+              Julkaisujen määrä
+            </button>
+            <button
+              class="col vis-style-toggle ttv-button"
+              [class.active]="percentage && !fundingAmount"
+              (click)="percentage = true; fundingAmount = false"
+              i18n="@@asPercentPublication"
+            >
+              % julkaisujen määrästä
+            </button>
           </div>
-          <div class="col pe-0 text-end">
-            <app-secondary-button
-              id="download-image"
-              [icon]="faDownload"
-              [content]="downloadImage"
-              [disabled]="true"
-            ></app-secondary-button>
+          <div *ngIf="tab === 'fundings'" class="vis-style-toggles row">
+            <button
+              class="col-6 vis-style-toggle ttv-button"
+              [class.active]="!percentage && !fundingAmount"
+              (click)="
+                changeVisual({ fundingAmount: false });
+                percentage = false;
+                fundingAmount = false
+              "
+              i18n="@@asCountFunding"
+            >
+              Hankkeiden määrä
+            </button>
+            <button
+              class="col-6 vis-style-toggle ttv-button"
+              [class.active]="percentage && !fundingAmount"
+              (click)="
+                changeVisual({ fundingAmount: false });
+                percentage = true;
+                fundingAmount = false
+              "
+              i18n="@@asPercentFunding"
+            >
+              % hankkeiden määrästä
+            </button>
+            <button
+              class="col-6 vis-style-toggle ttv-button"
+              [class.active]="!percentage && fundingAmount"
+              (click)="
+                changeVisual({ fundingAmount: true });
+                percentage = false;
+                fundingAmount = true
+              "
+              i18n="@@asCountAmount"
+            >
+              Myöntösumma
+            </button>
+            <button
+              class="col-6 vis-style-toggle ttv-button"
+              [class.active]="percentage && fundingAmount"
+              (click)="
+                changeVisual({ fundingAmount: true });
+                percentage = true;
+                fundingAmount = true
+              "
+              i18n="@@asPercentAmount"
+            >
+              % myöntösummasta
+            </button>
+            <div class="col-12"></div>
           </div>
+          <!-- <ng-template #tooltipTemplate><div [innerHtml]=visualisationInfo></div></ng-template>
+                        <span [tooltip]="tooltipTemplate" triggers="focus keydown" placement="top" tabindex="-1" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                            <app-secondary-button [icon]="'info-circle'" [content]="'Info'" ></app-secondary-button>
+                        </span> -->
+          <app-secondary-button
+            id="download-image"
+            [icon]="faDownload"
+            [content]="downloadImage"
+            [disabled]="true"
+          ></app-secondary-button>
         </div>
       </div>
     </div>
@@ -489,3 +487,5 @@ Copyright 2019 Ministry of Education and Culture, Finland
     <a>{{ additionalInfo }} </a>
   </div>
 </ng-template>
+© 2022 GitHub, Inc. Terms Privacy Security Status Docs Contact GitHub Pricing
+API Training Blog About Loading complete

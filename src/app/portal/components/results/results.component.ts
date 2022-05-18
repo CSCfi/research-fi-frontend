@@ -48,7 +48,6 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
   styleUrls: ['./results.component.scss'],
 })
 export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
-  @Output() clearAllFiltersButtonPress = new EventEmitter();
   clearAllFilters = false;
 
   public searchTerm: any;
@@ -455,14 +454,11 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  clearAllFiltersFromActiveFitlers() {
-   this.clearAllFiltersButtonPress.emit(null);
-    this.clearAllFilters = true;
+  clearAllFiltersFromActiveFilters() {
+    this.clearAllFilters = !this.clearAllFilters;
   }
 
   clearFilters() {
-    this.clearAllFilters = true;
-    this.clearAllFiltersButtonPress.emit(null);
     this.router.navigate([], {
       queryParams: { target: this.settingsService.target },
     });

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
 import { FundingCallFilterService } from '@portal/services/filters/funding-call-filter.service';
 import { StaticDataService} from '@portal/services/static-data.service';
 import { Search } from '@portal/models/search.model';
@@ -22,13 +22,17 @@ export class FundingCallCategoryFiltersComponent implements OnInit {
 
   @Input() responseData: any;
 
-  @Input() resetFundingCallCategoryFilters() {
-    this.resetAllFilters();
-  }
+  @Input() resetFundingCallCategoryFilters;
 
   @Output() filterChangeOutput = new EventEmitter<any>();
 
   ngOnInit(): void {
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.resetFundingCallCategoryFilters) {
+      this.resetAllFilters();
+    }
   }
 
   clickChip(ind: string, key: string) {
