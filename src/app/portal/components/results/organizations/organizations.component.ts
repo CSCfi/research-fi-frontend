@@ -67,8 +67,8 @@ export class OrganizationsComponent
       // Map data to table
       // Use highlight pipe for higlighting search term
       this.tableColumns = [
-        { label: 'Nimi', key: 'name', columnSize: 7 },
-        { label: 'Organisaatio', key: 'sector' },
+        { label: $localize`:@@name:Nimi`, key: 'name', columnSize: 7 },
+        { label: $localize`:@@orgOrganization:Organisaatio`, key: 'sector' },
       ];
       this.tableRows = this.resultData.organizations.map((organization) => ({
         name: {

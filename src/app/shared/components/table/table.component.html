@@ -17,12 +17,16 @@
     <th
       mat-header-cell
       *matHeaderCellDef
-      [mat-sort-header]="column.key"
       [disabled]="column.key === 'icon'"
       class="border-0"
-      [class.no-active-sort]="sortColumn.length === 0"
+      [class.no-active-sort]="
+        sortColumn.length === 0 || sortColumn !== column.key
+      "
     >
-      <span [class.invisible]="column.key === 'icon'">
+      <span
+        [mat-sort-header]="column.key"
+        [class.invisible]="column.key === 'icon'"
+      >
         {{ column.label }}
       </span>
     </th>
@@ -32,7 +36,6 @@
       *matCellDef="let data"
       [ngSwitch]="column.key"
       class="border-0"
-      [class.col-1]="column.key === 'icon'"
       [ngClass]="column.columnSize ? 'col-' + column.columnSize : 'col-auto'"
     >
       <!-- Optional icon -->
@@ -46,8 +49,11 @@
         </a>
       </ng-container>
       <ng-template #iconTemplate>
-        <fa-icon [icon]="data.icon" *ngSwitchCase="'icon'" class="pe-3">
-        </fa-icon>
+        <fa-icon
+          [icon]="data.icon"
+          *ngSwitchCase="'icon'"
+          [title]="iconTitle"
+        ></fa-icon>
       </ng-template>
 
       <!-- Cell data  -->

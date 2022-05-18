@@ -21,6 +21,7 @@ export class TableComponent implements OnInit {
   @Input() columns: Column[];
   @Input() data: any[];
   @Input() icon: Icon;
+  @Input() iconTitle: string;
   @Input() iconLinkField: string;
   @Input() sortColumn: string;
   @Input() sortDirection: string;
