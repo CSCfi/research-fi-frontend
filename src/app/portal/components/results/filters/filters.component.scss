@@ -19,3 +19,7 @@ app-funding-call-category-filters .mat-chip-list-wrapper {
   flex-direction: row !important;
   margin-bottom: 10px;
 }
+
+app-funding-call-category-filters .mat-chip {
+  cursor: pointer;
+}
