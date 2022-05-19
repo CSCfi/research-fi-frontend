@@ -2,7 +2,6 @@ import { ElementRef } from '@angular/core';
 
 export type TableColumn = {
   key: string;
-
   mobile: boolean;
   label?: string;
   tooltip?: string;
@@ -15,4 +14,5 @@ export type TableRowItem = {
   label?: string;
   link?: string;
   template?: ElementRef<any>;
+  title?: string;
 };

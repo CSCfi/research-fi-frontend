@@ -35,6 +35,7 @@
       [ngClass]="column.columnSize ? 'col-' + column.columnSize : 'col-auto'"
       [class.overflow-visible]="column.overflowEnabled"
       class="d-block"
+      [title]="data[column.key].title | cutContent: 200"
     >
       <!-- Optional icon -->
       <ng-container *ngIf="column.key === 'icon' && iconLinkField">
@@ -69,7 +70,7 @@
 
 <!-- Mobile list view -->
 <div class="d-block d-lg-none">
-  <div class="row py-3" *ngFor="let row of data">
+  <div class="row py-3 justify-content-between" *ngFor="let row of data">
     <ng-container *ngFor="let column of columns">
       <div class="col" *ngIf="column.mobile">
         <ng-container>
