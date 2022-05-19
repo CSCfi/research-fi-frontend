@@ -12,6 +12,7 @@
   [matSortDirection]="sortColumn ? sortDirection : ''"
   [@.disabled]="true"
   class="d-none d-lg-block"
+  [class.align-center]="alignCenter"
 >
   <ng-container *ngFor="let column of columns" [matColumnDef]="column.key">
     <mat-header-cell

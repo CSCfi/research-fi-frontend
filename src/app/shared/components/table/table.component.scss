@@ -6,6 +6,7 @@ app-table-cell {
 
   .mat-column-icon {
     flex: 0 0 6% !important; // Icon column width
+    margin-top: -0.5rem;
   }
 
   .mat-sort-header {
@@ -22,7 +23,11 @@ app-table-cell {
   $row-x-padding: 0.25rem;
 
   mat-row {
-    align-items: flex-start;
+    align-items: start;
+  }
+
+  .align-center mat-row {
+    align-items: center;
   }
 
   mat-header-row {
