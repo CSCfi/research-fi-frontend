@@ -37,10 +37,6 @@ export class TableComponent implements OnInit {
       this.data = this.data.map((row) => ({ icon: this.icon, ...row }));
     }
 
-    console.log(this.columns);
-
-    console.log(this.data);
-
     this.displayedColumns = this.columns.map((row) => row.key);
   }
 
