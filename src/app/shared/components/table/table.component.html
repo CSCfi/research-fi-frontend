@@ -18,6 +18,7 @@
     <mat-header-cell
       *matHeaderCellDef
       [mat-sort-header]="column.key"
+      [disabled]="column.sortDisabled"
       [class.invisible]="column.key === 'icon'"
       [class.no-active-sort]="
         sortColumn.length === 0 || sortColumn !== column.key
@@ -32,6 +33,7 @@
       *matCellDef="let data"
       [ngSwitch]="column.key"
       [ngClass]="column.columnSize ? 'col-' + column.columnSize : 'col-auto'"
+      [class.overflow-visible]="column.overflowEnabled"
       class="d-block"
     >
       <!-- Optional icon -->

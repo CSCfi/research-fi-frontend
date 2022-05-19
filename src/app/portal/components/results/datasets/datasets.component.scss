@@ -9,7 +9,6 @@
   display: flex;
   flex-wrap: wrap;
   font-size: 0.7rem;
-  margin-top: 0.5rem;
   > div,
   .div {
     border-radius: 3px;
@@ -77,5 +76,6 @@
   }
   fa-icon {
     padding-left: 0.25rem;
+    font-size: 0.7rem !important;
   }
 }

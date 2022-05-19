@@ -116,5 +116,6 @@ import { TableCellComponent } from './components/table/table-cell/table-cell.com
     CollapseModule.forRoot(),
     TooltipModule.forRoot(),
   ],
+  providers: [CutContentPipe],
 })
 export class SharedModule {}

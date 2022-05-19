@@ -17,7 +17,7 @@
     [columns]="tableColumns"
     [data]="tableRows"
     [icon]="faIcon"
-    iconTitle="Organisaatioiden tiedon ikoni"
+    iconTitle="Infrastruktuurien tiedon ikoni"
     iconLinkField="name"
     [sortColumn]="sortService.sortColumn"
     [sortDirection]="sortService.sortDirection ? 'desc' : 'asc'"
@@ -29,7 +29,6 @@
     <ng-container
       *ngFor="let infra of resultData?.infrastructures; let i = index"
     >
-      <!-- Templates -->
       <ng-template #infrastructureNameColumns>
         <a [routerLink]="infra.id | handleInfrastructureLink">
           <h4
@@ -79,23 +78,9 @@
 </div>
 
 <ng-template #noResults>
-  <div class="row main-content" *ngIf="resultData && resultData.total === 0">
-    <div class="col text-center no-results" role="alert">
-      <h2 i18n="@@noInfrastructures">Ei infrastruktuureja</h2>
-      <br />
-      <p i18n="@@resultSearchTermWarning">
-        Tarkista, onko hakutermissä kirjoitusvirheitä.<br />
-        Voi myös olla, että hakemaasi tietoa ei ole tarjolla tässä
-        verkkopalvelussa.
-      </p>
-      <p>
-        <a
-          routerLink="/service-info"
-          fragment="service-info-2"
-          i18n="@@resultsAboutService"
-          >Mitä tietoja Tiedejatutkimus.fi sisältää?</a
-        >
-      </p>
-    </div>
-  </div>
+  <app-no-results
+    *ngIf="resultData && resultData.total === 0"
+    heading="Ei infrastruktuureja"
+    i18n-heading="@@noInfrastructures"
+  ></app-no-results>
 </ng-template>

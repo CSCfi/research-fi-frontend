@@ -22,12 +22,11 @@ app-table-cell {
 
   $row-x-padding: 0.25rem;
 
+  mat-cell,
+  mat-header-cell,
+  mat-footer-cell,
   mat-row {
     align-items: start;
-  }
-
-  .align-center mat-row {
-    align-items: center;
   }
 
   mat-header-row {
@@ -42,6 +41,10 @@ app-table-cell {
 
   .row .row {
     border-bottom: 0;
+  }
+
+  .align-center mat-row {
+    align-items: center;
   }
 
   mat-header-cell:first-of-type,
@@ -74,7 +77,14 @@ app-table-cell {
     font-weight: 500;
   }
 
-  // Sort indicators
+  .mat-sort-header-content {
+    text-align: left;
+  }
+
+  /*
+   * Sort indicators
+   */
+
   .mat-sort-header-arrow {
     opacity: 1 !important;
     transform: none !important;
@@ -97,40 +107,50 @@ app-table-cell {
     }
   }
 
+  [aria-sort='ascending'],
+  [aria-sort='descending'],
+  .no-active-sort {
+    .mat-sort-header-content {
+      span {
+        &::after {
+          position: absolute;
+          margin-left: 0.5rem;
+          margin-top: -0.125rem;
+        }
+      }
+    }
+  }
+
   [aria-sort='ascending'] {
-    .mat-sort-header-arrow {
-      .mat-sort-header-indicator {
-        &::before {
+    .mat-sort-header-content {
+      span {
+        &::after {
           font-family: 'FontAwesome';
           content: '\f0de';
-          top: -5px;
-          position: absolute;
         }
       }
     }
   }
 
   [aria-sort='descending'] {
-    .mat-sort-header-arrow {
-      .mat-sort-header-indicator {
-        &::before {
+    .mat-sort-header-content {
+      span {
+        &::after {
           font-family: 'FontAwesome';
           content: '\f0dd';
-          top: -1.25rem;
-          position: absolute;
         }
       }
     }
   }
 
-  .no-active-sort {
-    .mat-sort-header-arrow {
-      .mat-sort-header-indicator {
-        &::before {
+  // Display icon when no active sort
+  // Hide icon from columns with disabled sort attribute
+  .no-active-sort:not(.mat-sort-header-disabled) {
+    .mat-sort-header-content {
+      span {
+        &::after {
           font-family: 'FontAwesome';
           content: '\f0dc';
-          top: -0.5rem;
-          position: absolute;
         }
       }
     }

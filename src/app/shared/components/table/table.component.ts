@@ -39,7 +39,7 @@ export class TableComponent implements OnInit {
 
     console.log(this.columns);
 
-    // console.log(this.data);
+    console.log(this.data);
 
     this.displayedColumns = this.columns.map((row) => row.key);
   }

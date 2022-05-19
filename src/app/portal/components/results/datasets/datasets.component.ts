@@ -6,14 +6,19 @@ import {
   Inject,
   Input,
   OnInit,
+  QueryList,
+  TemplateRef,
   ViewChild,
+  ViewChildren,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HighlightSearch } from '@portal/pipes/highlight.pipe';
 import { Search } from 'src/app/portal/models/search.model';
 import { SearchService } from 'src/app/portal/services/search.service';
 import { SortService } from 'src/app/portal/services/sort.service';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { UtilityService } from 'src/app/shared/services/utility.service';
+import { TableColumn, TableRowItem } from 'src/types';
 
 @Component({
   selector: 'app-datasets',
@@ -38,6 +43,17 @@ export class DatasetsComponent implements OnInit {
   marginTop = 0;
   heightSub: any;
 
+  tableColumns: TableColumn[];
+  tableRows: Record<string, TableRowItem>[];
+
+  @ViewChildren('datasetNameColumn', { read: TemplateRef })
+  datasetNameColumns: QueryList<ElementRef>;
+
+  @ViewChildren('datasetTagsColumn', { read: TemplateRef })
+  datasetTagsColumns: QueryList<ElementRef>;
+
+  dataMapped: boolean;
+
   constructor(
     private route: ActivatedRoute,
     private sortService: SortService,
@@ -45,7 +61,8 @@ export class DatasetsComponent implements OnInit {
     private tabChangeService: TabChangeService,
     private searchService: SearchService,
     private cdr: ChangeDetectorRef,
-    public utilityService: UtilityService
+    public utilityService: UtilityService,
+    private highlightPipe: HighlightSearch
   ) {
     this.documentLang = this.document.documentElement.lang;
   }
@@ -55,10 +72,6 @@ export class DatasetsComponent implements OnInit {
     this.sortService.initSort(this.route.snapshot.queryParams.sort || '');
     this.sortColumn = this.sortService.sortColumn;
     this.sortDirection = this.sortService.sortDirection;
-    this.inputSub = this.searchService.currentInput.subscribe((input) => {
-      this.input = input;
-      this.cdr.detectChanges();
-    });
   }
 
   ngAfterViewInit() {
@@ -70,6 +83,65 @@ export class DatasetsComponent implements OnInit {
         }
       }
     );
+
+    this.inputSub = this.searchService.currentInput.subscribe((input) => {
+      this.input = input;
+      this.mapData();
+      this.cdr.detectChanges();
+    });
+  }
+
+  mapData() {
+    const nameColumnArray = this.datasetNameColumns.toArray();
+    const tagColumnArray = this.datasetTagsColumns.toArray();
+
+    // Map data to table
+    // Use highlight pipe for higlighting search term
+    this.tableColumns = [
+      {
+        key: 'name',
+        label: $localize`:@@datasetName:Tutkimusaineiston nimi`,
+        columnSize: 4,
+        mobile: true,
+      },
+      {
+        key: 'creators',
+        label: $localize`:@@datasetCreators:Tutkimusaineiston tekijät / organisaatio`,
+        columnSize: 3,
+        mobile: true,
+      },
+      {
+        key: 'year',
+        label: $localize`:@@year:Vuosi`,
+        columnSize: 1,
+        mobile: true,
+      },
+      {
+        key: 'tags',
+        columnSize: 3,
+        mobile: true,
+        sortDisabled: true,
+        overflowEnabled: true,
+      },
+    ];
+
+    this.tableRows = this.resultData.datasets.map((dataset, index) => ({
+      name: {
+        template: nameColumnArray[index],
+        link: `/results/dataset/${dataset.id}`,
+      },
+      creators: {
+        label: this.highlightPipe.transform(dataset.creators, this.input),
+      },
+      year: {
+        label: this.highlightPipe.transform(dataset.year, this.input),
+      },
+      tags: {
+        template: tagColumnArray[index],
+      },
+    }));
+
+    this.dataMapped = true;
   }
 
   ngOnDestroy() {
