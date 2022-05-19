@@ -65,7 +65,10 @@
   <mat-header-row
     *matHeaderRowDef="displayedColumns; sticky: true"
   ></mat-header-row>
-  <mat-row *matRowDef="let data; columns: displayedColumns"></mat-row>
+  <mat-row
+    *matRowDef="let data; columns: displayedColumns"
+    class="py-2"
+  ></mat-row>
 </mat-table>
 
 <!-- Mobile list view -->
