@@ -29,6 +29,7 @@
 </div>
 <ng-template #noResults>
   <app-no-results
+    *ngIf="resultData && resultData.total === 0"
     heading="Ei organisaatioita"
     i18n-heading="@@noOrganizations"
   ></app-no-results>

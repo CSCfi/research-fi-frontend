@@ -3,7 +3,7 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<a *ngIf="data.link; else plainText" [routerLink]="data.link">
+<a *ngIf="data.link && !data.template; else plainText" [routerLink]="data.link">
   <ng-container *ngTemplateOutlet="label"></ng-container>
 </a>
 
@@ -12,15 +12,11 @@
 </ng-template>
 
 <ng-template #label>
-  <span [innerHtml]="data.label ? data.label : '-'"></span>
-</ng-template>
-
-<!-- <ng-template #label>
-  <ng-container *ngIf="data.label.elementRef"
-    ><span [ngTemplateOutlet]="data.label"></span
+  <ng-container *ngIf="data.template"
+    ><div [ngTemplateOutlet]="data.template"></div
   ></ng-container>
   <span
-    *ngIf="!data.label.elementRef"
+    *ngIf="!data.template"
     [innerHtml]="data.label ? data.label : '-'"
   ></span>
-</ng-template> -->
+</ng-template>

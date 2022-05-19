@@ -23,14 +23,15 @@
       "
       [ngClass]="column.columnSize ? 'col-' + column.columnSize : 'col-auto'"
     >
-      <span [tooltip]="column.tooltip" container="body">{{
-        column.label
-      }}</span>
+      <span [tooltip]="column.tooltip" container="body">
+        {{ column.label }}
+      </span>
     </mat-header-cell>
     <mat-cell
       *matCellDef="let data"
       [ngSwitch]="column.key"
       [ngClass]="column.columnSize ? 'col-' + column.columnSize : 'col-auto'"
+      class="d-block"
     >
       <!-- Optional icon -->
       <ng-container *ngIf="column.key === 'icon' && iconLinkField">
@@ -51,9 +52,9 @@
       </ng-template>
 
       <!-- Cell data  -->
-      <h4 *ngSwitchDefault>
+      <ng-container *ngSwitchDefault>
         <app-table-cell [data]="data[column.key]"></app-table-cell>
-      </h4>
+      </ng-container>
     </mat-cell>
   </ng-container>
 
@@ -67,17 +68,10 @@
 <div class="d-block d-lg-none">
   <div class="row py-3" *ngFor="let row of data">
     <ng-container *ngFor="let column of columns">
-      <div
-        [ngClass]="
-          row[column.key].columnSize
-            ? 'col-' + row[column.key].columnSize
-            : 'col-auto'
-        "
-        *ngIf="column.key !== 'icon'"
-      >
-        <h4>
+      <div class="col" *ngIf="column.mobile">
+        <ng-container>
           <app-table-cell [data]="row[column.key]"></app-table-cell>
-        </h4>
+        </ng-container>
       </div>
     </ng-container>
   </div>

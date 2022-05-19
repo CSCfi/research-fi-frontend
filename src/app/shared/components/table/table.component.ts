@@ -8,8 +8,7 @@ import {
 } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { Icon } from '@fortawesome/fontawesome-svg-core';
-
-type Column = { label: string; key: string };
+import { TableColumn } from 'src/types';
 
 @Component({
   selector: 'app-table',
@@ -18,7 +17,7 @@ type Column = { label: string; key: string };
   encapsulation: ViewEncapsulation.None,
 })
 export class TableComponent implements OnInit {
-  @Input() columns: Column[];
+  @Input() columns: TableColumn[];
   @Input() data: any[];
   @Input() icon: Icon;
   @Input() iconTitle: string;
@@ -33,13 +32,13 @@ export class TableComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.icon) {
-      this.columns.unshift({ label: 'Icon', key: 'icon' });
+      this.columns.unshift({ key: 'icon', label: 'Icon', mobile: false });
       this.data = this.data.map((row) => ({ icon: this.icon, ...row }));
     }
 
     console.log(this.columns);
 
-    console.log(this.data);
+    // console.log(this.data);
 
     this.displayedColumns = this.columns.map((row) => row.key);
   }

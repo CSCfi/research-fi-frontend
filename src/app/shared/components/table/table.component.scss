@@ -21,10 +21,22 @@ app-table-cell {
 
   $row-x-padding: 0.25rem;
 
+  mat-row {
+    align-items: flex-start;
+  }
+
+  mat-header-row {
+    z-index: 90 !important;
+  }
+
   mat-row,
   mat-header-row,
   mat-footer-row {
     border-bottom-width: 0;
+  }
+
+  .row .row {
+    border-bottom: 0;
   }
 
   mat-header-cell:first-of-type,

@@ -1,6 +1,7 @@
 export type TableColumn = {
   key: string;
   label: string;
+  mobile: boolean;
   tooltip?: string;
   columnSize?: number;
 };

@@ -15,7 +15,6 @@ import {
   ElementRef,
   AfterViewInit,
   TemplateRef,
-  ViewContainerRef,
   ViewChildren,
   QueryList,
 } from '@angular/core';
@@ -54,13 +53,8 @@ export class InfrastructuresComponent
   tableColumns: TableColumn[];
   tableRows: Record<string, TableRowItem>[];
 
-  @ViewChild('infrastructureNameColumn', { read: TemplateRef })
-  infrastructureNameColumn: TemplateRef<any>;
-
   @ViewChildren('infrastructureNameColumns', { read: TemplateRef })
   infrastructureNameColumns: QueryList<ElementRef>;
-
-  @ViewChild('container', { read: ViewContainerRef }) container: any;
 
   dataMapped: boolean;
 
@@ -71,61 +65,13 @@ export class InfrastructuresComponent
     private sortService: SortService,
     private cdr: ChangeDetectorRef,
     public utilityService: UtilityService,
-    private highlightPipe: HighlightSearch,
-    private vref: ViewContainerRef
+    private highlightPipe: HighlightSearch
   ) {}
 
   ngOnInit() {
     this.sortService.initSort(this.route.snapshot.queryParams.sort || '');
     this.sortColumn = this.sortService.sortColumn;
     this.sortDirection = this.sortService.sortDirection;
-  }
-
-  mapData() {
-    // Get cell data from template
-    console.log(this.infrastructureNameColumns);
-
-    // Map data to table
-    // Use highlight pipe for higlighting search term
-    this.tableColumns = [
-      {
-        key: 'acronym',
-        label: $localize`:@@infraAcronym:Lyhenne`,
-        tooltip: $localize`:@@acronymTooltip:Tutkimusinfrastruktuurin lyhenne. Infrastruktuureille on tyypillistä, että ne tunnetaan lyhenteellään.`,
-        columnSize: 2,
-      },
-      { key: 'name', label: $localize`:@@infraName:Nimi`, columnSize: 4 },
-      {
-        key: 'organization',
-        label: $localize`:@@infraOrganization:Organisaatio`,
-
-        tooltip: $localize`:@@infraOrganizationTooltip:Tutkimusinfrastruktuurin vastuuorganisaatio. Etenkin suurilla infrastruktuureilla voi olla useita palveluita, joista vastaa joku muu organisaatio. Muut organisaatiot näkee infrastruktuurin tietosivulta.`,
-        columnSize: 4,
-      },
-    ];
-    this.tableRows = this.resultData.infrastructures.map(
-      (infrastructure, index) => ({
-        acronym: {
-          label: this.highlightPipe.transform(
-            infrastructure.acronym,
-            this.input
-          ),
-        },
-        name: {
-          label: this.highlightPipe.transform(infrastructure.name, this.input),
-          template: this.infrastructureNameColumns[index],
-          link: `/results/infrastructure/${infrastructure.id}`,
-        },
-        organization: {
-          label: this.highlightPipe.transform(
-            infrastructure.responsibleOrganization,
-            this.input
-          ),
-        },
-      })
-    );
-
-    this.dataMapped = true;
   }
 
   ngAfterViewInit() {
@@ -141,9 +87,61 @@ export class InfrastructuresComponent
     this.inputSub = this.searchService.currentInput.subscribe((input) => {
       this.input = input;
       this.mapData();
-      console.log(this.tableRows);
       this.cdr.detectChanges();
     });
+  }
+
+  mapData() {
+    // Get cell data from template
+    const nameColumnArray = this.infrastructureNameColumns.toArray();
+
+    // Map data to table
+    // Use highlight pipe for higlighting search term
+    this.tableColumns = [
+      {
+        key: 'acronym',
+        label: $localize`:@@infraAcronym:Lyhenne`,
+        tooltip: $localize`:@@acronymTooltip:Tutkimusinfrastruktuurin lyhenne. Infrastruktuureille on tyypillistä, että ne tunnetaan lyhenteellään.`,
+        columnSize: 2,
+        mobile: false,
+      },
+      {
+        key: 'name',
+        label: $localize`:@@infraName:Nimi`,
+        columnSize: 4,
+        mobile: true,
+      },
+      {
+        key: 'organization',
+        label: $localize`:@@infraOrganization:Organisaatio`,
+        tooltip: $localize`:@@infraOrganizationTooltip:Tutkimusinfrastruktuurin vastuuorganisaatio. Etenkin suurilla infrastruktuureilla voi olla useita palveluita, joista vastaa joku muu organisaatio. Muut organisaatiot näkee infrastruktuurin tietosivulta.`,
+        columnSize: 4,
+        mobile: true,
+      },
+    ];
+    this.tableRows = this.resultData.infrastructures.map(
+      (infrastructure, index) => ({
+        acronym: {
+          label: this.highlightPipe.transform(
+            infrastructure.acronym,
+            this.input
+          ),
+        },
+        name: {
+          label: this.highlightPipe.transform(infrastructure.name, this.input),
+          template: nameColumnArray[index],
+          link: `/results/infrastructure/${infrastructure.id}`,
+        },
+        organization: {
+          label: this.highlightPipe.transform(
+            infrastructure.responsibleOrganization,
+            this.input
+          ),
+        },
+      })
+    );
+
+    this.dataMapped = true;
   }
 
   ngOnDestroy() {
