@@ -86,7 +86,7 @@ export class FundingsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.tableColumns = [
       {
         key: 'name',
-        label: $localize`:@@fundingName:Nimi`,
+        label: $localize`:@@fundingName:Hankkeen nimi`,
         columnSize: 3,
         mobile: true,
       },
@@ -104,7 +104,7 @@ export class FundingsComponent implements OnInit, OnDestroy, AfterViewInit {
       },
       {
         key: 'year',
-        label: $localize`:@@fundingYear:Vuosi`,
+        label: $localize`:@@fundingYear:Aloitusvuosi`,
         columnSize: 3,
         mobile: true,
       },
