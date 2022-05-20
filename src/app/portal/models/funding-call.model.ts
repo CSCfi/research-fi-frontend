@@ -67,7 +67,7 @@ export class FundingCallAdapter implements Adapter<FundingCall> {
     }
 
     const categories = [];
-    item.categories.forEach((c) =>
+    item.categories?.forEach((c) =>
       categories.push({ id: c.codeValue, name: this.lang.testLang('name', c) })
     );
 
