@@ -12,7 +12,7 @@ export class TableCellComponent implements OnInit {
 
   ngOnInit(): void {
     // Cut long labels to max 100 characters with CutContentPipe
-    if (!this.data.link) {
+    if (!this.data.link && this.data.label) {
       this.data.label = this.cutContentPipe.transform(this.data.label, 100);
     }
   }

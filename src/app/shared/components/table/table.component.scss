@@ -32,6 +32,7 @@ app-table-cell {
   mat-header-row {
     z-index: 90 !important;
     min-height: auto;
+    align-items: flex-start
   }
 
   mat-row,
@@ -116,7 +117,7 @@ app-table-cell {
         &::after {
           position: absolute;
           margin-left: 0.5rem;
-          margin-top: -0.125rem;
+          margin-top: -1px;
         }
       }
     }
