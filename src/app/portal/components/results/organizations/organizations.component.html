@@ -10,93 +10,28 @@
     aria-label="Ladataan"
   ></mat-spinner>
 </div>
-<!-- Data -->
+
+<!-- Results -->
 <div *ngIf="resultData?.total > 0; else noResults">
-  <!-- Results -->
-  <div class="row no-margin">
-    <div class="col col-1 icon" style="margin-right: 10px"></div>
-    <div class="col col-7 d-none d-lg-block">
-      <span
-        #main
-        tabindex="0"
-        class="bold uppercase"
-        [ngClass]="
-          sortColumn === 'name' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'
-        "
-        (click)="utilityService.sortBy('name')"
-        (keydown.enter)="utilityService.sortBy('name')"
-        i18n="@@name"
-        >Nimi</span
-      >
-    </div>
-    <div class="col col-4 d-none d-lg-block">
-      <span
-        tabindex="0"
-        class="bold uppercase"
-        [ngClass]="
-          sortColumn === 'sector'
-            ? !sortDirection
-              ? 'asc'
-              : 'desc'
-            : 'unsorted'
-        "
-        (click)="utilityService.sortBy('sector')"
-        (keydown.enter)="utilityService.sortBy('sector')"
-        i18n="@@orgOrganization"
-        >Organisaatio</span
-      >
-    </div>
-  </div>
-  <div *ngIf="resultData" class="result-container">
-    <div
-      class="row no-margin single"
-      style="margin: 20px auto !important"
-      *ngFor="let organization of resultData?.organizations; let i = index"
-    >
-      <div class="col col-1 icon" style="margin-right: 10px; margin-top: -18px">
-        <a
-          class="icon"
-          routerLink="/results/organization/{{ organization.id }}"
-          tabindex="-1"
-          title="Organisaatioiden tiedon ikoni"
-        >
-          <fa-icon [icon]="faIcon"></fa-icon>
-        </a>
-      </div>
-      <div class="col col-7 title">
-        <a routerLink="/results/organization/{{ organization.id }}">
-          <h4
-            class="result-title"
-            [innerHtml]="organization.name | highlight: input"
-          ></h4>
-        </a>
-      </div>
-      <div class="col col-4">
-        <span [innerHtml]="organization.sectorName | highlight: input"></span>
-      </div>
-    </div>
-  </div>
+  <app-table
+    [columns]="tableColumns"
+    [data]="tableRows"
+    [alignCenter]="true"
+    [icon]="faIcon"
+    iconTitle="Organisaatioiden tiedon ikoni"
+    iconLinkField="name"
+    [sortColumn]="sortService.sortColumn"
+    [sortDirection]="sortService.sortDirection ? 'desc' : 'asc'"
+    (onSortChange)="utilityService.sortBy($event)"
+  ></app-table>
+
   <!-- Pagination -->
   <app-pagination [responseData]="resultData"></app-pagination>
 </div>
 <ng-template #noResults>
-  <div class="row main-content" *ngIf="resultData && resultData.total === 0">
-    <div class="col text-center no-results" role="alert">
-      <h2 i18n="@@noOrganizations">Ei organisaatioita</h2>
-      <br />
-      <p i18n="@@resultSearchTermWarning">
-        Tarkista, onko hakutermissä kirjoitusvirheitä.<br />
-        Voi myös olla, että hakemaasi tietoa ei ole tarjolla tässä
-        verkkopalvelussa.
-      </p>
-      <p>
-        <a
-          routerLink="/service-info"
-          fragment="service-info-2"
-          i18n="@@resultsAboutService"
-          >Mitä tietoja Tiedejatutkimus.fi sisältää?</a
-        >
-      </p>
-    </div>
-  </div>
+  <app-no-results
+    *ngIf="resultData && resultData.total === 0"
+    heading="Ei organisaatioita"
+    i18n-heading="@@noOrganizations"
+  ></app-no-results>
 </ng-template>

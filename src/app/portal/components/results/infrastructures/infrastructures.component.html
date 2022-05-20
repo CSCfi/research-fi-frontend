@@ -12,174 +12,75 @@
 </div>
 <!-- Data -->
 <div *ngIf="resultData?.total > 0; else noResults">
-  <!-- Results -->
-  <div class="row no-margin">
-    <div class="col col-1 icon"></div>
-    <div class="col col-3 col-xl-2 d-none d-lg-block">
-      <span
-        #main
-        tabindex="0"
-        i18n-tooltip="@@acronymTooltip"
-        tooltip="Tutkimusinfrastruktuurin lyhenne. Infrastruktuureille on tyypillistä, että ne tunnetaan lyhenteellään."
-        placement="top"
-        class="bold uppercase"
-        [ngClass]="
-          sortColumn === 'acronym'
-            ? !sortDirection
-              ? 'asc'
-              : 'desc'
-            : 'unsorted'
-        "
-        (click)="utilityService.sortBy('acronym')"
-        (keydown.enter)="utilityService.sortBy('acronym')"
-        i18n="@@infraAcronym"
-        >Lyhenne</span
-      >
-    </div>
-    <div class="col col-3 col-lg-4 col-xl-4 d-none d-lg-block">
-      <span
-        tabindex="0"
-        class="bold uppercase"
-        [ngClass]="
-          sortColumn === 'name' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'
-        "
-        (click)="utilityService.sortBy('name')"
-        (keydown.enter)="utilityService.sortBy('name')"
-        i18n="@@infraName"
-        >Nimi</span
-      >
-    </div>
-    <div class="col col-3 col-lg-4 col-xl-4 d-none d-lg-block">
-      <span
-        tabindex="0"
-        i18n-tooltip="@@infraOrganizationTooltip"
-        tooltip="Tutkimusinfrastruktuurin vastuuorganisaatio. Etenkin suurilla infrastruktuureilla voi olla useita palveluita, joista vastaa joku muu organisaatio. Muut organisaatiot näkee infrastruktuurin tietosivulta."
-        placement="top"
-        #elem
-        class="bold uppercase"
-        [ngClass]="
-          sortColumn === 'organization'
-            ? !sortDirection
-              ? 'asc'
-              : 'desc'
-            : 'unsorted'
-        "
-        (click)="utilityService.sortBy('organization')"
-        (keydown.enter)="utilityService.sortBy('organization')"
-        i18n="@@infraOrganization"
-        >Organisaatio</span
-      >
-    </div>
-    <!-- <div class="col col-2 d-none d-xl-block">
-            <span tabindex="0" tooltip="Tutkimusinfrastruktuurin palveluiden lukumäärä." placement="bottom"
-            class="bold uppercase" [ngClass]="sortColumn === 'service' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
-            (click)="utilityService.sortBy('service')" (keydown.enter)="utilityService.sortBy('service')">Palveluita</span>
-        </div>
-        <div class="col col-2 d-none">
-            <span tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'sector' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
-            (click)="utilityService.sortBy('roadmap')" (keydown.enter)="utilityService.sortBy('roadmap')">Tiekartalla</span>
-        </div> -->
-  </div>
+  <app-table
+    *ngIf="dataMapped"
+    [columns]="tableColumns"
+    [data]="tableRows"
+    [icon]="faIcon"
+    iconTitle="Infrastruktuurien tiedon ikoni"
+    iconLinkField="name"
+    [sortColumn]="sortService.sortColumn"
+    [sortDirection]="sortService.sortDirection ? 'desc' : 'asc'"
+    (onSortChange)="utilityService.sortBy($event)"
+  ></app-table>
+
+  <!-- Templates -->
   <div *ngIf="resultData" class="result-container">
     <ng-container
       *ngFor="let infra of resultData?.infrastructures; let i = index"
     >
-      <div class="row no-margin single">
-        <div class="col col-1 icon">
-          <a
-            class="icon"
-            [routerLink]="infra.id | handleInfrastructureLink"
-            tabindex="-1"
-          >
-            <fa-icon [icon]="faIcon"></fa-icon>
-          </a>
-        </div>
-        <div class="col col-3 col-xl-2 d-none d-lg-block">
-          <span
-            [innerHtml]="
-              infra.acronym?.length > 0 && infra.acronym !== '0'
-                ? infra.acronym
-                : ('-' | highlight: input)
-            "
-          ></span>
-        </div>
-        <div class="col col-lg-4 col-xl-4 title">
-          <a [routerLink]="infra.id | handleInfrastructureLink">
-            <h4
-              class="result-title"
-              [innerHtml]="infra.name?.trim() | highlight: input"
-            ></h4>
-          </a>
-          <div class="row">
-            <div class="col ps-0">
-              <span
-                tabindex="0"
-                i18n-tooltip="@@infraServicesAmountTooltip"
-                tooltip="Tutkimusinfrastruktuurin palveluiden lukumäärä."
-                triggers="focus kedown.escape"
-                placement="top"
-                #elem
-              >
-                <ng-container i18n="@@infraServicesLabel"
-                  >Palveluita</ng-container
-                >: {{ infra.services.length }}
-              </span>
-            </div>
-            <div class="col" *ngIf="infra.finlandRoadmap">
-              <span
-                tabindex="0"
-                i18n-tooltip="@@finlandRoadmapTooltip"
-                tooltip="Tutkimusinfrastruktuuri on voimassaolevalla Suomen Akatemian tiekartalla."
-                triggers="focus kedown.escape"
-                placement="top"
-                #elem
-              >
-                <ng-container i18n="@@finlandRoadmap">Tiekartalla</ng-container
-                ><fa-icon
-                  class="check-icon ps-1"
-                  [icon]="faCheckCircle"
-                ></fa-icon>
-              </span>
-            </div>
+      <ng-template #infrastructureNameColumns>
+        <a [routerLink]="infra.id | handleInfrastructureLink">
+          <h4
+            class="result-title"
+            [innerHtml]="infra.name?.trim() | highlight: input"
+          ></h4>
+        </a>
+        <div class="row">
+          <div class="col ps-0 py-3">
+            <span
+              tabindex="0"
+              i18n-tooltip="@@infraServicesAmountTooltip"
+              tooltip="Tutkimusinfrastruktuurin palveluiden lukumäärä."
+              triggers="focus kedown.escape"
+              container="body"
+              placement="top"
+              #elem
+            >
+              <ng-container i18n="@@infraServicesLabel">Palveluita</ng-container
+              >:
+              {{ infra.services.length }}
+            </span>
+          </div>
+          <div class="col py-3" *ngIf="infra.finlandRoadmap">
+            <span
+              tabindex="0"
+              i18n-tooltip="@@finlandRoadmapTooltip"
+              tooltip="Tutkimusinfrastruktuuri on voimassaolevalla Suomen Akatemian tiekartalla."
+              triggers="focus kedown.escape"
+              container="body"
+              placement="top"
+              #elem
+            >
+              <ng-container i18n="@@finlandRoadmap">Tiekartalla</ng-container
+              ><fa-icon
+                class="check-icon ps-1"
+                [icon]="faCheckCircle"
+              ></fa-icon>
+            </span>
           </div>
         </div>
-        <div class="col col-lg-4 col-xl-4">
-          <span
-            [innerHtml]="
-              infra.responsibleOrganization?.trim() | highlight: input
-            "
-          ></span>
-        </div>
-        <!-- <div class="col col-2 d-none col-sm-block d-xl-block">
-                    <span [innerHtml]="infra.services.length"></span>
-                </div> -->
-        <!-- <div class="col col-2 d-none">
-                    <span [innerHtml]="infra.sectorNameFi | highlight: input"></span>
-                </div> -->
-      </div>
+      </ng-template>
     </ng-container>
   </div>
   <!-- Pagination -->
   <app-pagination [responseData]="resultData"></app-pagination>
 </div>
+
 <ng-template #noResults>
-  <div class="row main-content" *ngIf="resultData && resultData.total === 0">
-    <div class="col text-center no-results" role="alert">
-      <h2 i18n="@@noInfrastructures">Ei infrastruktuureja</h2>
-      <br />
-      <p i18n="@@resultSearchTermWarning">
-        Tarkista, onko hakutermissä kirjoitusvirheitä.<br />
-        Voi myös olla, että hakemaasi tietoa ei ole tarjolla tässä
-        verkkopalvelussa.
-      </p>
-      <p>
-        <a
-          routerLink="/service-info"
-          fragment="service-info-2"
-          i18n="@@resultsAboutService"
-          >Mitä tietoja Tiedejatutkimus.fi sisältää?</a
-        >
-      </p>
-    </div>
-  </div>
+  <app-no-results
+    *ngIf="resultData && resultData.total === 0"
+    heading="Ei infrastruktuureja"
+    i18n-heading="@@noInfrastructures"
+  ></app-no-results>
 </ng-template>
