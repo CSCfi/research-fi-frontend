@@ -23,7 +23,7 @@
       [class.no-active-sort]="
         sortColumn.length === 0 || sortColumn !== column.key
       "
-      [ngClass]="column.columnSize ? 'col-' + column.columnSize : 'col-auto'"
+      [ngClass]="column.class ? column.class : 'col-auto'"
     >
       <span [tooltip]="column.tooltip" container="body">
         {{ column.label }}
@@ -32,7 +32,7 @@
     <mat-cell
       *matCellDef="let data"
       [ngSwitch]="column.key"
-      [ngClass]="column.columnSize ? 'col-' + column.columnSize : 'col-auto'"
+      [ngClass]="column.class ? column.class : 'col-auto'"
       [class.overflow-visible]="column.overflowEnabled"
       class="d-block"
       [title]="data[column.key].title | cutContent: 200"
@@ -52,6 +52,7 @@
           [icon]="data.icon"
           *ngSwitchCase="'icon'"
           [title]="iconTitle"
+          class="row-icon"
         ></fa-icon>
       </ng-template>
 
@@ -75,7 +76,16 @@
 <div class="d-block d-lg-none">
   <div class="row py-3 justify-content-between" *ngFor="let row of data">
     <ng-container *ngFor="let column of columns">
-      <div class="col" *ngIf="column.mobile">
+      <div
+        *ngIf="column.mobile"
+        [ngClass]="
+          column.mobileColumnSize
+            ? 'col-' + column.mobileColumnSize
+            : column.key === 'year'
+            ? 'col-auto'
+            : 'col'
+        "
+      >
         <ng-container>
           <app-table-cell [data]="row[column.key]"></app-table-cell>
         </ng-container>

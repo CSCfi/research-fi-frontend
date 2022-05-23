@@ -102,20 +102,20 @@ export class InfrastructuresComponent
         key: 'acronym',
         label: $localize`:@@infraAcronym:Lyhenne`,
         tooltip: $localize`:@@acronymTooltip:Tutkimusinfrastruktuurin lyhenne. Infrastruktuureille on tyypillistä, että ne tunnetaan lyhenteellään.`,
-        columnSize: 2,
+        class: 'col-3 col-xl-2 d-none d-lg-block',
         mobile: false,
       },
       {
         key: 'name',
         label: $localize`:@@infraName:Nimi`,
-        columnSize: 4,
+        class: 'col-lg-4 col-xl-4',
         mobile: true,
       },
       {
         key: 'organization',
         label: $localize`:@@infraOrganization:Organisaatio`,
         tooltip: $localize`:@@infraOrganizationTooltip:Tutkimusinfrastruktuurin vastuuorganisaatio. Etenkin suurilla infrastruktuureilla voi olla useita palveluita, joista vastaa joku muu organisaatio. Muut organisaatiot näkee infrastruktuurin tietosivulta.`,
-        columnSize: 4,
+        class: 'col-lg-4 col-xl-4',
         mobile: true,
       },
     ];

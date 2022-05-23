@@ -75,12 +75,13 @@ export class OrganizationsComponent
       {
         key: 'name',
         label: $localize`:@@name:Nimi`,
-        columnSize: 7,
+        class: 'col-7',
         mobile: true,
       },
       {
         key: 'sector',
         label: $localize`:@@orgOrganization:Organisaatio`,
+        class: 'col-4',
         mobile: true,
       },
     ];

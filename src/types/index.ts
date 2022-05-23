@@ -5,7 +5,7 @@ export type TableColumn = {
   mobile: boolean;
   label?: string;
   tooltip?: string;
-  columnSize?: number;
+  class?: string;
   sortDisabled?: boolean;
   overflowEnabled?: boolean;
 };

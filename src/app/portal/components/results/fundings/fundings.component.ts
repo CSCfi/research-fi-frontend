@@ -87,25 +87,25 @@ export class FundingsComponent implements OnInit, OnDestroy, AfterViewInit {
       {
         key: 'name',
         label: $localize`:@@fundingName:Hankkeen nimi`,
-        columnSize: 3,
+        class: 'col-8 col-lg-5 col-xl-3',
         mobile: true,
       },
       {
         key: 'funder',
         label: $localize`:@@fundingFunder:Rahoittaja`,
-        columnSize: 3,
+        class: 'col-lg-4 col-xl-3 d-none d-lg-block',
         mobile: false,
       },
       {
         key: 'funded',
         label: $localize`:@@fundingFunded:Saaja`,
-        columnSize: 3,
+        class: 'col-xl-3 d-none d-xl-block',
         mobile: false,
       },
       {
         key: 'year',
         label: $localize`:@@fundingYear:Aloitusvuosi`,
-        columnSize: 3,
+        class: 'col-lg-auto',
         mobile: true,
       },
     ];

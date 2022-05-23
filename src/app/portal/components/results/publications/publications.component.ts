@@ -111,26 +111,26 @@ export class PublicationsComponent implements OnInit, OnDestroy, AfterViewInit {
       {
         key: 'name',
         label: $localize`:@@publicationName:Julkaisun nimi`,
-        columnSize: 4,
+        class: 'col-8 col-lg-5 col-xl-4',
         mobile: true,
       },
       {
         key: 'author',
         label: $localize`:@@publicationAuthors:Tekijät`,
-        columnSize: 3,
+        class: 'col-lg-5 col-xl-3 d-none d-lg-block',
         mobile: false,
       },
       {
         key: 'medium',
         label: $localize`:@@publicationMedium:Julkaisukanava`,
         tooltip: $localize`:@@publicationMediumTooltip:Lehti, kustantaja tai sarja, jossa julkaisu on ilmestynyt.`,
-        columnSize: 3,
+        class: 'col-xl-3 d-none d-xl-block',
         mobile: false,
       },
       {
         key: 'year',
         label: $localize`:@@year:Vuosi`,
-        columnSize: 1,
+        class: 'col-auto',
         mobile: true,
       },
     ];
