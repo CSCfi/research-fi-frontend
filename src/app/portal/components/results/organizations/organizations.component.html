@@ -15,7 +15,7 @@
 <div *ngIf="resultData?.total > 0; else noResults">
   <app-table
     [columns]="tableColumns"
-    [data]="tableRows"
+    [rows]="tableRows"
     [alignCenter]="true"
     [icon]="faIcon"
     iconTitle="Organisaatioiden tiedon ikoni"

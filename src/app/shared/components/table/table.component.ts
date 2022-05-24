@@ -18,7 +18,7 @@ import { TableColumn } from 'src/types';
 })
 export class TableComponent implements OnInit {
   @Input() columns: TableColumn[];
-  @Input() data: any[];
+  @Input() rows: any[];
   @Input() alignCenter: boolean;
   @Input() icon: Icon;
   @Input() iconTitle: string;
@@ -34,7 +34,7 @@ export class TableComponent implements OnInit {
   ngOnInit(): void {
     if (this.icon) {
       this.columns.unshift({ key: 'icon', label: 'Icon', mobile: false });
-      this.data = this.data.map((row) => ({ icon: this.icon, ...row }));
+      this.rows = this.rows.map((row) => ({ icon: this.icon, ...row }));
     }
 
     this.displayedColumns = this.columns.map((row) => row.key);

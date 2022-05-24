@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CutContentPipe } from '@shared/pipes/cut-content.pipe';
 
 @Component({
   selector: 'app-table-cell',
@@ -8,12 +7,16 @@ import { CutContentPipe } from '@shared/pipes/cut-content.pipe';
 export class TableCellComponent implements OnInit {
   @Input() data: any;
 
-  constructor(private cutContentPipe: CutContentPipe) {}
+  constructor() {}
 
   ngOnInit(): void {
-    // Cut long labels to max 100 characters with CutContentPipe
-    if (!this.data.link && this.data.label) {
-      this.data.label = this.cutContentPipe.transform(this.data.label, 100);
+    const maxLabelLength = 100;
+
+    const label = this.data.label;
+
+    // Cut long labels to max 100 characters
+    if (!this.data.link && label?.length > maxLabelLength) {
+      this.data.label = label.slice(0, maxLabelLength) + '...';
     }
   }
 }
