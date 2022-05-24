@@ -514,7 +514,9 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     // Update title and <h1> with the information of the currently selected tab
     // Placeholder until real data is available
     const amount = tab.data ? this.dataService.totalResults : 999;
-    const title = this.utilityService.getTitle() ? this.utilityService.getTitle() : '';
+    const title = this.utilityService.getTitle()
+      ? this.utilityService.getTitle()
+      : '';
 
     // Set label by locale
     switch (this.localeId) {

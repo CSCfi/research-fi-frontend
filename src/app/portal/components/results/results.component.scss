@@ -53,11 +53,10 @@ h2 {
 
 .info {
   overflow-wrap: break-word;
-  min-width: 528px;
+  max-width: 50%;
   position: absolute;
   z-index: 1;
-  padding: 0.5rem;
-  left: 100%;
+  left: 25%;
   border: solid 1px;
 }
 
@@ -114,7 +113,6 @@ span.total {
   }
   .vis-info {
     justify-content: space-between;
-    align-items: flex-end;
   }
   .vis-style-toggles {
     width: 465px; // Adjust width according to longest translation when done
