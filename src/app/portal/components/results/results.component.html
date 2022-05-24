@@ -199,12 +199,14 @@ Copyright 2019 Ministry of Education and Culture, Finland
     <main class="col-12 pe-xl-0">
       <app-active-filters></app-active-filters>
       <h3 class="sr-only">Hakutulokset</h3>
-      <app-search-results
-        *ngIf="!visual"
-        id="main-content"
-        [currentTab]="selectedTabData"
-        [updateFilters]="updateFilters"
-      ></app-search-results>
+      <div class="pt-2">
+        <app-search-results
+          *ngIf="!visual"
+          id="main-content"
+          [currentTab]="selectedTabData"
+          [updateFilters]="updateFilters"
+        ></app-search-results>
+      </div>
       <app-visualisation
         *ngIf="visual"
         [data]="visualData"

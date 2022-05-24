@@ -12,153 +12,26 @@
 </div>
 <!-- Data -->
 <div *ngIf="resultData && resultData.total > 0; else noResults">
-  <!-- Results -->
-  <div class="row no-margin d-flex justify-content-xl-around sticky-header">
-    <div class="col col-1 icon"></div>
-    <div class="col col-lg-5 col-xl-3 d-none d-lg-block">
-      <span
-        #main
-        tabindex="0"
-        class="bold uppercase"
-        [ngClass]="
-          sortColumn === 'name' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'
-        "
-        (click)="utilityService.sortBy('name')"
-        (keydown.enter)="utilityService.sortBy('name')"
-        i18n="@@fundingName"
-        >Hankkeen nimi</span
-      >
-    </div>
-    <div class="col col-lg-4 col-xl-3 d-none d-lg-block">
-      <span
-        tabindex="0"
-        class="bold uppercase"
-        [ngClass]="
-          sortColumn === 'funder'
-            ? !sortDirection
-              ? 'asc'
-              : 'desc'
-            : 'unsorted'
-        "
-        (click)="utilityService.sortBy('funder')"
-        (keydown.enter)="utilityService.sortBy('funder')"
-        i18n="@@fundingFunder"
-        >Rahoittaja</span
-      >
-    </div>
-    <div class="col col-xl-3 d-none d-xl-block">
-      <span
-        tabindex="0"
-        class="bold uppercase"
-        [ngClass]="
-          sortColumn === 'funded'
-            ? !sortDirection
-              ? 'asc'
-              : 'desc'
-            : 'unsorted'
-        "
-        (click)="utilityService.sortBy('funded')"
-        (keydown.enter)="utilityService.sortBy('funded')"
-        i18n="@@fundingFunded"
-        >Saaja</span
-      >
-    </div>
-    <div class="col col-lg-2 col-xl-2 d-none d-lg-block">
-      <span
-        tabindex="0"
-        class="bold uppercase"
-        [ngClass]="
-          sortColumn === 'year' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'
-        "
-        (click)="utilityService.sortBy('year')"
-        (keydown.enter)="utilityService.sortBy('year')"
-        i18n="@@fundingYear"
-        >Aloitusvuosi</span
-      >
-    </div>
-  </div>
-  <div *ngIf="resultData" class="result-container">
-    <div
-      class="row no-margin single d-flex justify-content-xl-around"
-      *ngFor="let funding of resultData.fundings; let i = index"
-    >
-      <div class="col col-1 icon">
-        <a
-          class="icon"
-          routerLink="/results/funding/{{ funding.id }}"
-          tabindex="-1"
-          title="Hankkeiden tiedon ikoni"
-        >
-          <fa-icon [icon]="faIcon"></fa-icon>
-        </a>
-      </div>
-      <!-- Use tooltip component for title -->
-      <div class="col col-8 col-lg-5 col-xl-3 title" style="position: unset">
-        <!-- <app-tooltip [title]="funding.nameFi" [description]="funding.descriptionFi" [id]="funding.id"
-                [index]="i">
-                </app-tooltip>-->
-        <a
-          routerLink="/results/funding/{{ funding.id }}"
-          [title]="
-            (funding.description ? funding.description : '') | cutContent: 200
-          "
-          #elem
-          placement="top"
-          [isDisabled]="funding.description?.trim().length > 0 ? false : true"
-        >
-          <h4
-            class="result-title"
-            [innerHtml]="funding.name | highlight: input"
-          ></h4>
-        </a>
-      </div>
-      <div class="col col-lg-4 col-xl-3 d-none d-lg-block">
-        <span
-          [innerHtml]="
-            (funding.funder['nameFi'] !== 'UNDEFINED'
-              ? funding.funder.name
-              : ''
-            )
-              | cutContent: 100
-              | highlight: input
-          "
-        ></span>
-      </div>
-      <div class="col col-xl-3 d-none d-xl-block">
-        <span
-          [innerHtml]="
-            (funding.recipient.personNameAndOrg ? funding.recipient.personNameAndOrg : '')
-              | cutContent: 100
-              | highlight: input
-          "
-        ></span>
-      </div>
-      <div class="col col-lg-2 text-end">
-        <span [innerHtml]="funding.startYear | highlight: input"></span>
-      </div>
-    </div>
-  </div>
+  <app-table
+    *ngIf="dataMapped"
+    [columns]="tableColumns"
+    [rows]="tableRows"
+    [icon]="faIcon"
+    iconTitle="Infrastruktuurien tiedon ikoni"
+    iconLinkField="name"
+    [sortColumn]="sortService.sortColumn"
+    [sortDirection]="sortService.sortDirection ? 'desc' : 'asc'"
+    (onSortChange)="utilityService.sortBy($event)"
+  ></app-table>
+
   <!-- Pagination -->
   <app-pagination [responseData]="resultData"></app-pagination>
 </div>
+
 <ng-template #noResults>
-  <div class="row main-content" *ngIf="resultData && resultData.total === 0">
-    <div class="col text-center no-results" role="alert">
-      <h2 i18n="@@noFundings">Ei hankkeita</h2>
-      <br />
-      <p i18n="@@resultSearchTermWarning">
-        Tarkista, onko hakutermissä kirjoitusvirheitä.<br />
-        Voi myös olla, että hakemaasi tietoa ei ole tarjolla tässä
-        verkkopalvelussa.
-      </p>
-      <p>
-        <a
-          routerLink="/service-info"
-          fragment="service-info-2"
-          i18n="@@resultsAboutService"
-          >Mitä tietoja Tiedejatutkimus.fi sisältää?</a
-        >
-      </p>
-    </div>
-  </div>
+  <app-no-results
+    *ngIf="resultData && resultData.total === 0"
+    heading="Ei hankkeita"
+    i18n-heading="@@noFundings"
+  ></app-no-results>
 </ng-template>
