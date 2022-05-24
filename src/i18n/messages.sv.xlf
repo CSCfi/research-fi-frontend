@@ -3120,7 +3120,7 @@
       </trans-unit>
       <trans-unit id="version">
         <source>versio</source>
-        <target>versione</target>
+        <target>version</target>
       </trans-unit>
       <trans-unit id="versions">
         <source>versiota</source>
