@@ -114,7 +114,7 @@ export class FundingCallResultsComponent
       {
         key: 'funder',
         label: $localize`:@@fundingFunder:Rahoittaja`,
-        class: 'col-12 col-sm-4 col-xl-2 d-none d-sm-block',
+        class: 'col-12 col-sm-4 col-xl-2 d-none d-sm-block overflow-ellipsis',
         mobile: true,
       },
       {
