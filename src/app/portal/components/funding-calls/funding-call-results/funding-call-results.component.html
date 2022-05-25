@@ -7,6 +7,18 @@
 </div>
 <!-- Data -->
 <div *ngIf="resultData && resultData.total > 0; else noResults">
+  <app-table
+    *ngIf="dataMapped"
+    [columns]="tableColumns"
+    [rows]="tableRows"
+    [icon]="faIcon"
+    iconTitle="Infrastruktuurien tiedon ikoni"
+    iconLinkField="name"
+    [sortColumn]="sortService.sortColumn"
+    [sortDirection]="sortService.sortDirection ? 'desc' : 'asc'"
+    (onSortChange)="utilityService.sortBy($event)"
+  ></app-table>
+
   <!-- Results -->
   <!-- <div class="row no-margin sticky-header" [ngStyle]="{'top': marginTop + 'px'}"> -->
   <div class="row no-margin sticky-header">
@@ -123,6 +135,23 @@
             [innerHtml]="call.foundation.name | highlight: input"
           ></span>
         </div>
+        <ng-template #categoriesColumn>
+          <div class="categories">
+            <span
+              *ngFor="
+                let category of call.categories.slice(0, 5);
+                let last = last
+              "
+              class="category"
+            >
+              {{ category.name }}<ng-container *ngIf="!last">,</ng-container>
+            </span>
+            <span *ngIf="call.categories.length > 5" class="category-overflow"
+              >...</span
+            >
+          </div>
+        </ng-template>
+
         <div class="col col-xl-2 d-none d-xl-block categories">
           <span
             *ngFor="
@@ -137,6 +166,7 @@
             >...</span
           >
         </div>
+
         <div class="col col-xl-2 d-none d-xl-block">
           <span
             [innerHtml]="
@@ -168,16 +198,18 @@
           <span *ngIf="call.categories.length > 10" class="category-overflow">...</span>
         </div>
         <div class="col-12"></div> -->
-        <!-- Description -->
-        <div class="col col-1 icon d-none d-lg-block"></div>
-        <div
-          class="col-lg-9 d-none d-lg-block description"
-          [innerHTML]="
-            call.descriptionParsed | cutContent: 100 | highlight: input
-          "
-        ></div>
+
+        <ng-template #additionalRowTemplate>
+          <!-- Description -->
+          <div class="col col-1 icon d-none d-lg-block"></div>
+          <div
+            class="col-lg-9 d-none d-lg-block description"
+            [innerHTML]="
+              call.descriptionParsed | cutContent: 100 | highlight: input
+            "
+          ></div>
+        </ng-template>
       </div>
-      <!-- <app-related-results class="row related-fields" [class.expand]="expandStatus[i]"></app-related-results> -->
     </div>
   </div>
   <!-- Pagination -->

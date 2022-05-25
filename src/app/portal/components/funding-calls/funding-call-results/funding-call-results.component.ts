@@ -8,15 +8,20 @@ import {
   LOCALE_ID,
   OnDestroy,
   OnInit,
+  QueryList,
+  TemplateRef,
   ViewChild,
+  ViewChildren,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Search } from '@portal/models/search.model';
+import { HighlightSearch } from '@portal/pipes/highlight.pipe';
 import { SearchService } from '@portal/services/search.service';
 import { SortService } from '@portal/services/sort.service';
 import { TabChangeService } from '@portal/services/tab-change.service';
 import { UtilityService } from '@shared/services/utility.service';
 import { Subscription } from 'rxjs';
+import { TableColumn, TableRowItem } from 'src/types';
 
 @Component({
   selector: 'app-funding-call-results',
@@ -29,8 +34,7 @@ export class FundingCallResultsComponent
   @Input() resultData: Search;
   @Input() sortDirection: boolean;
   @Input() sortColumn: string;
-  @Input() set externalFilterQuery(externalFilterQuery: any) {
-  }
+  @Input() set externalFilterQuery(externalFilterQuery: any) {}
   expandStatus: Array<boolean> = [];
   @ViewChild('main') mainContent: ElementRef;
 
@@ -43,6 +47,18 @@ export class FundingCallResultsComponent
 
   currentLocale: string;
 
+  tableColumns: TableColumn[];
+  tableRows: Record<string, TableRowItem>[];
+  additionalRows: ElementRef<any>[];
+
+  @ViewChildren('categoriesColumn', { read: TemplateRef })
+  categoriesColumns: QueryList<ElementRef>;
+
+  @ViewChildren('additionalRowTemplate', { read: TemplateRef })
+  additionalRowTemplates: QueryList<ElementRef>;
+
+  dataMapped: boolean;
+
   constructor(
     private route: ActivatedRoute,
     private sortService: SortService,
@@ -50,7 +66,8 @@ export class FundingCallResultsComponent
     private tabChangeService: TabChangeService,
     private searchService: SearchService,
     private cdr: ChangeDetectorRef,
-    public utilityService: UtilityService
+    public utilityService: UtilityService,
+    private highlightPipe: HighlightSearch
   ) {
     this.currentLocale =
       this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
@@ -59,11 +76,6 @@ export class FundingCallResultsComponent
   ngOnInit() {
     // Check url for sorting, default to empty
     this.sortService.initSort(this.route.snapshot.queryParams.sort || '');
-
-    this.inputSub = this.searchService.currentInput.subscribe((input) => {
-      this.input = input;
-      this.cdr.detectChanges();
-    });
   }
 
   ngAfterViewInit() {
@@ -75,6 +87,92 @@ export class FundingCallResultsComponent
         }
       }
     );
+
+    this.inputSub = this.searchService.currentInput.subscribe((input) => {
+      this.input = input;
+      this.mapData();
+      this.cdr.detectChanges();
+    });
+  }
+
+  mapData() {
+    // Get data from templates
+    const categoriesColumnArray = this.categoriesColumns.toArray();
+
+    // Description rows
+    this.additionalRows = this.additionalRowTemplates.toArray();
+
+    // Map data to table
+    // Use highlight pipe for higlighting search term
+    this.tableColumns = [
+      {
+        key: 'name',
+        label: $localize`:@@callName:Haun nimi`,
+        class: 'col-12 col-sm-5 col-xl-3 d-none d-sm-block',
+        mobile: true,
+      },
+      {
+        key: 'funder',
+        label: $localize`:@@fundingFunder:Rahoittaja`,
+        class: 'col-12 col-sm-4 col-xl-2 d-none d-sm-block',
+        mobile: true,
+      },
+      {
+        key: 'category',
+        label: $localize`:@@fundingCallCategory:Hakuala`,
+        class: 'col-xl-2 d-none d-xl-block',
+        mobile: false,
+      },
+      {
+        key: 'callOpen',
+        label: $localize`:@@callOpenDate:Haku alkaa`,
+        class: 'col-xl-2 d-none d-xl-block',
+        mobile: false,
+      },
+      {
+        key: 'callDue',
+        label: $localize`:@@callDueDate:Haku päättyy`,
+        class: 'col-2 d-none d-sm-block',
+        mobile: false,
+      },
+      {
+        key: 'description',
+        sortDisabled: true,
+        class: 'additional-row col-12 d-none d-lg-block fst-italic',
+        mobile: false,
+      },
+    ];
+    this.tableRows = this.resultData.fundingCalls.map((call, index) => ({
+      name: {
+        label: this.highlightPipe.transform(call.name, this.input),
+        link: `/results/funding-call/${call.id}`,
+      },
+      funder: {
+        label: this.highlightPipe.transform(call.foundation.name, this.input),
+        ...(call.foundation.orgId && {
+          link: '/results/organization/' + call.foundation.orgId,
+        }),
+      },
+      category: {
+        template: categoriesColumnArray[index],
+      },
+      callOpen: {
+        label: call.openDate.getFullYear()
+          ? this.highlightPipe.transform(call.openDateString, this.input)
+          : '-',
+      },
+      callDue: {
+        label:
+          call.dueDate.getFullYear() !== 2100
+            ? this.highlightPipe.transform(call.dueDateString, this.input)
+            : $localize`:@@continuous:Jatkuva`,
+      },
+      description: {
+        label: this.highlightPipe.transform(call.descriptionParsed, this.input),
+      },
+    }));
+
+    this.dataMapped = true;
   }
 
   isReviewed(type: string) {
