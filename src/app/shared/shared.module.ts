@@ -6,6 +6,7 @@
 // :license: MIT
 
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { InfoComponent } from './components/info/info.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -21,8 +22,11 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 import { SecondaryButtonComponent } from './components/buttons/secondary-button/secondary-button.component';
 import { PrimaryActionButtonComponent } from './components/buttons/primary-action-button/primary-action-button.component';
@@ -44,6 +48,8 @@ import { BannerDividerComponent } from './components/banner-divider/banner-divid
 
 import { ClickOutsideDirective } from './directives/click-outside.directive';
 import { NotificationBannerComponent } from './components/notification-banner/notification-banner.component';
+import { TableComponent } from './components/table/table.component';
+import { TableCellComponent } from './components/table/table-cell/table-cell.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +72,8 @@ import { NotificationBannerComponent } from './components/notification-banner/no
     BannerDividerComponent,
     ClickOutsideDirective,
     NotificationBannerComponent,
+    TableComponent,
+    TableCellComponent,
   ],
   exports: [
     InfoComponent,
@@ -85,9 +93,11 @@ import { NotificationBannerComponent } from './components/notification-banner/no
     BannerDividerComponent,
     ClickOutsideDirective,
     NotificationBannerComponent,
+    TableComponent,
   ],
   imports: [
     CommonModule,
+    RouterModule,
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
@@ -101,7 +111,11 @@ import { NotificationBannerComponent } from './components/notification-banner/no
     MatButtonModule,
     MatInputModule,
     MatDialogModule,
+    MatTableModule,
+    MatSortModule,
     CollapseModule.forRoot(),
+    TooltipModule.forRoot(),
   ],
+  providers: [CutContentPipe],
 })
 export class SharedModule {}

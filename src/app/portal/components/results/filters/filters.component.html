@@ -632,8 +632,8 @@
                 )
               "
             >
-              <div class="col row">
-                <span class="label pe-2">{{ item?.label }}</span>
+              <div class="col">
+                <span class="panel-title pe-2">{{ item?.label }}</span>
                 <ng-container *ngIf="item.tooltip">
                   <ng-template #tooltipTemplate>
                     <div [innerHtml]="item.tooltip"></div>
