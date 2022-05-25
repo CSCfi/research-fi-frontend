@@ -7,6 +7,7 @@ app-table-cell {
   .mat-column-icon {
     flex: 0 0 6% !important; // Icon column width
     margin-top: -0.5rem;
+    max-width: 6%;
   }
 
   .mat-sort-header {
@@ -29,6 +30,13 @@ app-table-cell {
     align-items: start;
   }
 
+  mat-cell,
+  mat-header-cell,
+  mat-footer-cell{
+    word-wrap: normal;
+    overflow: visible;
+  }
+
   mat-header-row {
     z-index: 90 !important;
     min-height: auto;
@@ -39,6 +47,7 @@ app-table-cell {
   mat-header-row,
   mat-footer-row {
     border-bottom-width: 0;
+    flex-wrap: wrap;
   }
 
   .row .row {
@@ -157,4 +166,10 @@ app-table-cell {
       }
     }
   }
+}
+
+
+// Padding for additional row (funding-calls)
+.additional-row {
+  padding-left: 7.4%
 }

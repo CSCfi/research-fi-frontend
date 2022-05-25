@@ -105,7 +105,7 @@ export class FundingsComponent implements OnInit, OnDestroy, AfterViewInit {
       {
         key: 'year',
         label: $localize`:@@fundingYear:Aloitusvuosi`,
-        class: 'col-lg-auto',
+        class: 'col-lg-2',
         mobile: true,
       },
     ];

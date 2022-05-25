@@ -113,6 +113,7 @@ export class DatasetsComponent implements OnInit {
       {
         key: 'year',
         label: $localize`:@@year:Vuosi`,
+        class: 'col-lg-1',
         mobile: true,
       },
       {

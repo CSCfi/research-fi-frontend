@@ -130,7 +130,7 @@ export class PublicationsComponent implements OnInit, OnDestroy, AfterViewInit {
       {
         key: 'year',
         label: $localize`:@@year:Vuosi`,
-        class: 'col-auto',
+        class: 'col-lg-1',
         mobile: true,
       },
     ];
