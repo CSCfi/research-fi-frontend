@@ -175,6 +175,7 @@ export class SingleFundingCallComponent implements OnInit {
       next: (responseData) => {
         this.responseData = responseData;
         if (this.responseData.fundingCalls[0]) {
+          this.addTopLevelScienceAreas(this.responseData.fundingCalls[0]);
           switch (this.localeId) {
             case 'fi': {
               this.setTitle(
@@ -209,6 +210,24 @@ export class SingleFundingCallComponent implements OnInit {
       },
       error: (error) => (this.errorMessage = error as any),
     });
+  }
+
+  addTopLevelScienceAreas(responseData: any) {
+    const topLevelCatsAr = [];
+    const retCategories = [];
+    responseData?.categories.forEach((cat => {
+      topLevelCatsAr.includes(cat) ? null : topLevelCatsAr.push(cat);
+    }));
+    topLevelCatsAr.sort((a,b) => (a > b) ? 1 : ((b > a) ? -1 : 0));
+    topLevelCatsAr.forEach((topCat) => {
+      retCategories.push({name: topCat, isParent: true});
+      responseData?.categories.forEach((cat => {
+        if (cat?.parentName === topCat){
+          retCategories.push({name: cat.name, isParent: false});
+        }
+      }));
+    });
+    responseData.categories = [...retCategories];
   }
 
   filterData() {

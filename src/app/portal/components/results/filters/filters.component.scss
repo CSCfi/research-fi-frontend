@@ -15,11 +15,14 @@ app-funding-call-category-filters .mat-chip-list-stacked .mat-chip-list-wrapper 
   width: auto !important;
 }
 
-app-funding-call-category-filters .mat-chip-list-wrapper {
-  flex-direction: row !important;
-  margin-bottom: 10px;
-}
-
-app-funding-call-category-filters .mat-chip {
-  cursor: pointer;
+app-funding-call-category-filters {
+  .mat-chip-list-wrapper {
+    flex-direction: row !important;
+    margin-top: 10px;
+    margin-bottom: 15px;
+  }
+  .mat-chip {
+    cursor: pointer;
+    border-radius: 4px;
+  }
 }

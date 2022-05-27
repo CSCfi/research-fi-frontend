@@ -10,6 +10,28 @@
 @mixin app-filters-theme-shared($theme) {
   $primary: map-get($theme, primary);
 
+
+  app-funding-call-category-filters {
+    .mat-chip {
+      border: 2px solid mat-color($primary, 500);
+      color:  mat-color($primary, 500);
+
+      &.mat-standard-chip {
+        background-color: mat-contrast($primary, 500);
+        background: mat-contrast($primary, 500);
+        &:hover::after, &:focus::after {
+          opacity: 0;
+        }
+        &:hover {
+          background: mat-color($primary, 100) !important;
+        }
+        &.mat-chip-selected {
+          background-color: mat-color($primary, 500) !important;
+        }
+      }
+    }
+  }
+
   app-filters,
   .filters-dialog {
     .filter-sidebar {

@@ -27,6 +27,7 @@ export class FundingCallCategoryFiltersComponent implements OnInit {
   @Output() filterChangeOutput = new EventEmitter<any>();
 
   ngOnInit(): void {
+    this.majorFieldsOfScienceAurora.sort((a,b) => (a.key > b.key) ? 1 : ((b.key > a.key) ? -1 : 0));
   }
 
   ngOnChanges(changes: SimpleChanges) {

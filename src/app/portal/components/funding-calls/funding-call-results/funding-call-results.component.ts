@@ -34,7 +34,8 @@ export class FundingCallResultsComponent
   @Input() resultData: Search;
   @Input() sortDirection: boolean;
   @Input() sortColumn: string;
-  @Input() set externalFilterQuery(externalFilterQuery: any) {}
+  @Input() set externalFilterQuery(externalFilterQuery: any) {
+  }
   expandStatus: Array<boolean> = [];
   @ViewChild('main') mainContent: ElementRef;
 

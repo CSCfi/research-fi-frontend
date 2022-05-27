@@ -166,12 +166,10 @@
               </ng-container>
             </h2>
             <div class="col-12 col-sm-8 col-lg-9 td">
-              <div>
-                <span *ngFor="let category of call.categories; let last = last">
-                  {{ category.name }}
-                  <ng-container *ngIf="!last">, </ng-container>
+                <span *ngFor="let category of call.categories; let last = last; let i = index" class="categories-title-wrap">
+                  <span *ngIf="category.isParent" class="fw-bold d-block categories-title">{{ category.name }}</span>
+                  <span *ngIf="!category.isParent">{{ category.name }}<ng-container *ngIf="!last && !call?.categories[i+1].isParent">, </ng-container></span>
                 </span>
-              </div>
             </div>
           </div>
           <!-- ApplicationInfoFields -->

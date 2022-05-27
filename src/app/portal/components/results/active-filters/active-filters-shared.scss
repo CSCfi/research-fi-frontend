@@ -38,7 +38,7 @@
     button.show {
       padding: 2px 10px;
       margin: 0 4px 4px 0;
-      border-radius: 10px;
+      border-radius: 4px;
       line-height: 28px;
       cursor: pointer;
     }
@@ -58,19 +58,22 @@
       &:nth-last-child(2):not(.modal-filter) {
         margin-right: 20px;
       }
+      color: #000000de;
+      font-size : 14px;
+      font-weight: 500;
     }
 
     .active-filters li:after {
       position: absolute;
       font-family: 'FontAwesome';
       content: '\f00d ';
-      font-size: 1.2rem;
-      padding-left: 5px;
+      font-size: 1rem;
+      padding-left: 7px;
     }
 
     .active-filters li:hover::after {
-      font-size: 1.5rem;
-      top: 0px;
+      font-size: 1.075rem;
+      top: 1px;
     }
 
     // Warning icon
