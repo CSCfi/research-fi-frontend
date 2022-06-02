@@ -386,7 +386,8 @@ export class SortService {
         }
         break;
       }
-      case 'funding-calls': {
+
+      case 'fundingCalls': {
         switch (this.sortColumn) {
           case 'name': {
             const sortString = 'name' + this.localeC + '.keyword';
@@ -400,7 +401,7 @@ export class SortService {
             ];
             break;
           }
-          case 'foundation': {
+          case 'funder': {
             const sortString = 'foundation.name' + this.localeC + '.keyword';
             this.sort = [
               {
@@ -412,7 +413,7 @@ export class SortService {
             ];
             break;
           }
-          case 'callOpenDate': {
+          case 'callOpen': {
             const sortString = 'callProgrammeOpenDate';
             const sortStringSecondary = 'callProgrammeDueDate';
             this.sort = [
@@ -429,7 +430,7 @@ export class SortService {
             ];
             break;
           }
-          case 'callDueDate': {
+          case 'callDue': {
             const sortString = 'callProgrammeDueDate';
             const sortStringSecondary = 'callProgrammeOpenDate';
             this.sort = [

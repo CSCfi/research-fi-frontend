@@ -6,16 +6,18 @@
   app-active-filters,
   app-filter-list {
     .active-filters li {
-      border: 1px solid mat-color($primary, 300);
-      background: mat-color($primary, 100);
+      border: 2px solid mat-color($primary, 500);
+      background: #fff;
     }
 
     .active-filters li:after {
-      color: mat-color($primary, 800);
+      color: #000000de;
     }
 
     button.clear, button.show {
-      border-color: mat-color($primary)
+      border-color: mat-color($primary);
+      color: #000000de;
+      background: #fff;
     }
 
     .icon {

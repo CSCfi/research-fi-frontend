@@ -10,13 +10,14 @@ import { ActivatedRoute } from '@angular/router';
 import { faAlignLeft } from '@fortawesome/free-solid-svg-icons';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
-import { Search } from 'src/app/portal/models/search.model';
-import { SearchService } from 'src/app/portal/services/search.service';
-import { SettingsService } from 'src/app/portal/services/settings.service';
-import { SingleItemService } from 'src/app/portal/services/single-item.service';
-import { TabChangeService } from 'src/app/portal/services/tab-change.service';
-import { UtilityService } from 'src/app/shared/services/utility.service';
+import { Search } from '@portal/models/search.model';
+import { SearchService } from '@portal/services/search.service';
+import { SettingsService } from '@portal/services/settings.service';
+import { SingleItemService } from '@portal/services/single-item.service';
+import { TabChangeService } from '@portal/services/tab-change.service';
+import { UtilityService } from '@shared/services/utility.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
+import { DOCUMENT } from '@angular/common';
 @Component({
   selector: 'app-single-funding-call',
   templateUrl: './single-funding-call.component.html',
@@ -32,6 +33,7 @@ export class SingleFundingCallComponent implements OnInit {
   private commonTags = MetaTags.common;
   showMore = $localize`:@@showMore:Näytä enemmän`;
   showLess = $localize`:@@showLess:Näytä vähemmän`;
+  contactInfoHeading = $localize`:@@contactInfo:Yhteystiedot`;
 
   tab = 'funding-calls';
 
@@ -75,12 +77,16 @@ export class SingleFundingCallComponent implements OnInit {
   tabData: any;
   focusSub: Subscription;
   dataSub: Subscription;
+  contactInfoName = null;
+  contactInfoEmail = null;
+  contactInfoRows = [];
 
   constructor(
     private route: ActivatedRoute,
     private singleService: SingleItemService,
     private searchService: SearchService,
     @Inject(LOCALE_ID) protected localeId: string,
+    @Inject(DOCUMENT) private document: any,
     private tabChangeService: TabChangeService,
     public utilityService: UtilityService,
     private settingsService: SettingsService,
@@ -98,10 +104,12 @@ export class SingleFundingCallComponent implements OnInit {
       this.getData(params.id);
     });
     this.singleId = this.route.snapshot.params.id;
-    this.singleService.updateId(this.singleId);
+    //this.singleService.updateId(this.singleId);
     this.pageNumber = this.searchService.pageNumber || 1;
-    this.tabQueryParams = this.tabChangeService.tabQueryParams.fundingCall;
-    this.tabData = this.tabChangeService.fundingCall;
+    this.tabQueryParams = this.tabChangeService.tabQueryParams.fundingCalls;
+    this.tabData =  this.tabChangeService.tabData.find(
+      (item) => item.data === 'fundingCalls'
+    );
     this.searchTerm = this.searchService.searchTerm;
   }
 
@@ -132,11 +140,44 @@ export class SingleFundingCallComponent implements OnInit {
       : '//' + url;
   }
 
+  processContactInfo(input: string) {
+    if (input?.length > 0) {
+      const splitArr = input.split(",");
+      this.contactInfoName = splitArr[0];
+      if (splitArr.length > 0 ){
+        this.contactInfoName = splitArr[0];
+      }
+      if (splitArr.length > 1 ){
+        this.contactInfoEmail = splitArr[2];
+      }
+    }
+  }
+
+  removeHtmlTags(input: string) {
+    input = input?.length > 0 ? input.replace(/(<([^>]+)>)/gi, '') : '';
+    return input;
+  }
+
+  processPossibleEmailRow(input: string) {
+    if (input.toLowerCase().includes("(at)") || input.toLowerCase().includes("(a)") || input.includes('@')) {
+      return { label: $localize`Sähköpostiosoite`, field: 'emailAddress', email: input };
+    }
+    return input;
+  }
+
+  showEmail(event, address) {
+    const span = this.document.createElement('span');
+    span.innerHTML = address;
+    event.target.replaceWith(span);
+  }
+
+
   getData(id: string) {
     this.dataSub = this.singleService.getSingleFundingCall(id).subscribe({
       next: (responseData) => {
         this.responseData = responseData;
         if (this.responseData.fundingCalls[0]) {
+          this.addTopLevelScienceAreas(this.responseData.fundingCalls[0]);
           switch (this.localeId) {
             case 'fi': {
               this.setTitle(
@@ -166,12 +207,29 @@ export class SingleFundingCallComponent implements OnInit {
             this.commonTags['imgAlt' + this.currentLocale]
           );
 
-          this.shapeData();
           this.filterData();
         }
       },
       error: (error) => (this.errorMessage = error as any),
     });
+  }
+
+  addTopLevelScienceAreas(responseData: any) {
+    const topLevelCatsAr = [];
+    const retCategories = [];
+    responseData?.categories.forEach((cat => {
+      topLevelCatsAr.includes(cat.parentName) ? null : topLevelCatsAr.push(cat.parentName);
+    }));
+    topLevelCatsAr.sort((a,b) => (a > b) ? 1 : ((b > a) ? -1 : 0));
+    topLevelCatsAr.forEach((topCat) => {
+      retCategories.push({name: topCat, isParent: true});
+      responseData?.categories.forEach((cat => {
+        if (cat?.parentName === topCat){
+          retCategories.push({name: cat.name, isParent: false});
+        }
+      }));
+    });
+    responseData.categories = [...retCategories];
   }
 
   filterData() {
@@ -199,6 +257,13 @@ export class SingleFundingCallComponent implements OnInit {
       checkEmpty(item)
     );
 
+    const contactInfo = this.responseData.fundingCalls[0]?.contactInfo.split(/[\n,;]/);
+    contactInfo.forEach(info => {
+      if (info.length > 0) {
+        this.contactInfoRows.push(this.processPossibleEmailRow(this.removeHtmlTags(info)));
+      }
+    });
+
     // Short version is not HTML formatted
     this.applicationInfoFields.forEach((item) => {
       this.responseData.fundingCalls[0][item.field + 'short'] =
@@ -206,9 +271,6 @@ export class SingleFundingCallComponent implements OnInit {
     });
   }
 
-  shapeData() {
-    const source = this.responseData.fundingCalls[0];
-  }
 
   expand(field: string) {
     switch (field) {

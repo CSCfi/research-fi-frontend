@@ -23,7 +23,7 @@ export class FundingCall {
     public openDateString: string,
     public dueDateString: string,
     public foundation: { name: string; orgId: string; url: string, foundationUrl: string, applicationUrl: string },
-    public categories: { id: string; name: string }[],
+    public categories: { id: string; name: string; parentId; parentName: string; }[],
     public daysLeft: number
   ) {}
 }
@@ -67,8 +67,9 @@ export class FundingCallAdapter implements Adapter<FundingCall> {
     }
 
     const categories = [];
-    item.categories.forEach((c) =>
-      categories.push({ id: c.codeValue, name: this.lang.testLang('name', c) })
+    item.categories?.forEach((c) => {
+        categories.push({ id: c.codeValue, name: this.lang.testLang('name', c), parentName: this.lang.testLang('broaderName', c), parentId: c.broaderCodeValue });
+    }
     );
 
     const openDate = new Date(item.callProgrammeOpenDate);

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { faTimes, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { SortService } from 'src/app/portal/services/sort.service';
 import { Router } from '@angular/router';
@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class FilterListComponent implements OnInit, OnDestroy {
   @Input() data: any;
+  @Output() clearAllFilters = new EventEmitter<any>();
   activeFilters: any;
   fromYear: any;
   toYear: any;
@@ -118,6 +119,7 @@ export class FilterListComponent implements OnInit, OnDestroy {
   }
 
   clearFilters() {
+    this.clearAllFilters.emit(null);
     this.activeFilters = [];
     this.router.navigate([]);
     this.dialogRef.closeAll();

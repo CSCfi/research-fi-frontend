@@ -146,8 +146,8 @@ import { NewsResultsComponent } from './components/news/news-results/news-result
 import { PieComponent } from './components/visualisation/pie/pie.component';
 import { ConvertToArrayPipe } from './pipes/convert-to-array.pipe';
 import { FundingCallsComponent } from './components/funding-calls/funding-calls.component';
-import { SingleFundingCallComponent } from './components/funding-calls/single-funding-call/single-funding-call.component';
-import { FundingCallResultsComponent } from './components/funding-calls/funding-call-results/funding-call-results.component';
+import { SingleFundingCallComponent } from './components/single/single-funding-call/single-funding-call.component';
+import { FundingCallResultsComponent } from './components/results/funding-call-results/funding-call-results.component';
 import { FundingCallPreviewComponent } from './components/funding-calls/funding-call-preview/funding-call-preview.component';
 import { OrganizationVisualisationsComponent } from './components/single/single-organization/organization-visualisations/organization-visualisations.component';
 import { OrganizationInformationComponent } from './components/single/single-organization/organization-information/organization-information.component';
@@ -163,6 +163,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { HandleInfrastructureLinkPipe } from './pipes/handle-infrastructure-link.pipe';
 import { Subscription } from 'rxjs';
 import { NoResultsComponent } from './components/results/no-results/no-results.component';
+import { FundingCallCategoryFiltersComponent } from './components/results/funding-call-category-filters/funding-call-category-filters.component';
 
 @NgModule({
   declarations: [
@@ -250,6 +251,7 @@ import { NoResultsComponent } from './components/results/no-results/no-results.c
     TkiReportsComponent,
     HandleInfrastructureLinkPipe,
     NoResultsComponent,
+    FundingCallCategoryFiltersComponent,
   ],
   imports: [
     PortalRoutingModule,
@@ -357,7 +359,7 @@ export class PortalModule implements OnDestroy {
       .subscribe((e) => {
         const currentUrl = e.routerEvent.url;
         const history = this.historyService.history;
-        const resultPages = tabChangeService.resultPageList;
+        const resultPages = tabChangeService.tabData.map((tab) => tab.data).filter((item) => item.length);
 
         // Trigger new page so first tab focuses skip links
         const prevPageLocation = history[history.length - 2];

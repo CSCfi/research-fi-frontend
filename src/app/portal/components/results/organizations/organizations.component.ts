@@ -32,7 +32,14 @@ import { TableColumn, TableRowItem } from 'src/types';
 export class OrganizationsComponent
   implements OnInit, OnDestroy, AfterViewInit
 {
-  @Input() resultData: Search;
+  _resd: Search;
+  get resultData(): Search {
+    return this._resd;
+  }
+
+  @Input() set resultData(resD: Search) {
+    this._resd = resD;
+  }
   @ViewChild('main') mainContent: ElementRef;
   expandStatus: Array<boolean> = [];
   sortColumn: string;

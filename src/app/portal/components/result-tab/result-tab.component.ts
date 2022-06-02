@@ -367,7 +367,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     return this.tabData.slice(startIdx, endIdx);
   }
 
-  // Logic to determie when to add the 'show-more/less' button
+  // Logic to determine when to add the 'show-more/less' button
   checkLast(row, col) {
     // Show on the last position if tabs open
     if (this.tabsOpen) {
@@ -392,8 +392,6 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
       this.tabSub?.unsubscribe();
       this.queryParamSub?.unsubscribe();
       this.resizeSub?.unsubscribe();
-      this.scrollRefSub?.unsubscribe();
-      this.currentTabSub?.unsubscribe();
     }
     this.dataService.resultTabList = [];
   }

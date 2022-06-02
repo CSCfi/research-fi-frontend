@@ -154,6 +154,12 @@ app-table-cell {
     }
   }
 
+  .overflow-ellipsis {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: block;
+  }
+
   // Display icon when no active sort
   // Hide icon from columns with disabled sort attribute
   .no-active-sort:not(.mat-sort-header-disabled) {
@@ -172,4 +178,10 @@ app-table-cell {
 // Padding for additional row (funding-calls)
 .additional-row {
   padding-left: 7.4%
+}
+
+@media (max-width: 991px) {
+  .additional-row {
+    padding-left: 7.4%
+  }
 }

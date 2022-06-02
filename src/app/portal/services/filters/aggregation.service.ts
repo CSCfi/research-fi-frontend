@@ -1467,6 +1467,11 @@ export class AggregationService {
                     field: 'categories.codeValue.keyword',
                   },
                 },
+                parentFieldId: {
+                  terms: {
+                    field: 'categories.broaderCodeValue.keyword',
+                  },
+                },
               },
             },
           },
