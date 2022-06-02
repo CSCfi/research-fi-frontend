@@ -144,14 +144,14 @@ Copyright 2019 Ministry of Education and Culture, Finland
           <app-sort></app-sort>
         </aside>
         <main class="col-12" id="main-content">
-          <app-active-filters
-            (clearAllFilters)="this.clearAllFiltersFromActiveFilters()"
-          ></app-active-filters>
           <app-funding-call-category-filters
             [resetFundingCallCategoryFilters]="clearAllFilters"
             [responseData]="filterValues"
             (filterChangeOutput)="setExternalFilters($event)"
           ></app-funding-call-category-filters>
+          <app-active-filters
+            (clearAllFilters)="this.clearAllFiltersFromActiveFilters()"
+          ></app-active-filters>
           <app-search-results
             [currentTab]="selectedTabData"
             [updateFilters]="updateFilters"

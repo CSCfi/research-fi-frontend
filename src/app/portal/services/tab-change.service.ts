@@ -54,7 +54,7 @@ export class TabChangeService {
       link: 'funding-calls',
       icon: faBullhorn,
       singular: 'rahoitushaku',
-      tooltip: 'funding call placeholder tooltip',
+      tooltip: '',
     },
     {
       data: 'infrastructures',

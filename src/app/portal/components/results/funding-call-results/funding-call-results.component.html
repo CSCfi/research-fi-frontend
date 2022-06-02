@@ -19,24 +19,6 @@
     (onSortChange)="utilityService.sortBy($event)"
   ></app-table>
 
-  <!-- Templates -->
-  <div
-    *ngFor="let call of resultData.fundingCalls; let i = index"
-    class="single"
-  >
-    <ng-template #categoriesColumn>
-      <span
-        *ngFor="let category of call.categories.slice(0, 5); let last = last"
-        class="overflow-ellipsis"
-      >
-        {{ category.name }}<ng-container *ngIf="!last">,</ng-container>
-      </span>
-      <span *ngIf="call.categories.length > 5" class="category-overflow">
-        ...
-      </span>
-    </ng-template>
-  </div>
-
   <!-- Pagination -->
   <app-pagination [responseData]="resultData"></app-pagination>
 </div>

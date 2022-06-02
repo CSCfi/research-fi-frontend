@@ -39,7 +39,10 @@ export class FundingCallResultsComponent
   expandStatus: Array<boolean> = [];
   @ViewChild('main') mainContent: ElementRef;
 
-  faIcon = this.tabChangeService.fundingCall.icon;
+  faIcon = this.tabChangeService.tabData
+    .filter((t) => t.data === 'fundingCalls')
+    .map((t) => t.icon)
+    .pop();
   input: string;
   inputSub: Subscription;
   focusSub: any;
@@ -109,37 +112,25 @@ export class FundingCallResultsComponent
       {
         key: 'name',
         label: $localize`:@@callName:Haun nimi`,
-        class: 'col-12 col-sm-5 col-xl-3 d-none d-sm-block',
+        class: 'col-4',
         mobile: true,
       },
       {
         key: 'funder',
         label: $localize`:@@fundingFunder:Rahoittaja`,
-        class: 'col-12 col-sm-4 col-xl-2 d-none d-sm-block overflow-ellipsis',
+        class: 'col-3 overflow-ellipsis',
         mobile: true,
-      },
-      {
-        key: 'category',
-        label: $localize`:@@fundingCallCategory:Hakuala`,
-        class: 'col-xl-2 d-none d-xl-block',
-        mobile: false,
       },
       {
         key: 'callOpen',
         label: $localize`:@@callOpenDate:Haku alkaa`,
-        class: 'col-xl-2 d-none d-xl-block',
+        class: 'col-2',
         mobile: false,
       },
       {
         key: 'callDue',
         label: $localize`:@@callDueDate:Haku päättyy`,
-        class: 'col-2 d-none d-sm-block',
-        mobile: false,
-      },
-      {
-        key: 'description',
-        sortDisabled: true,
-        class: 'additional-row col-12 d-none d-lg-block fst-italic',
+        class: 'col-2',
         mobile: false,
       },
     ];
@@ -154,9 +145,6 @@ export class FundingCallResultsComponent
           link: '/results/organization/' + call.foundation.orgId,
         }),
       },
-      category: {
-        template: categoriesColumnArray[index],
-      },
       callOpen: {
         label: call.openDate.getFullYear()
           ? this.highlightPipe.transform(call.openDateString, this.input)
@@ -167,9 +155,6 @@ export class FundingCallResultsComponent
           call.dueDate.getFullYear() !== 2100
             ? this.highlightPipe.transform(call.dueDateString, this.input)
             : $localize`:@@continuous:Jatkuva`,
-      },
-      description: {
-        label: this.highlightPipe.transform(call.descriptionParsed, this.input),
       },
     }));
 

@@ -102,7 +102,7 @@ export class FundingCallsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.routeSub = this.route.queryParams.subscribe((queryParams) => {
       this.queryParams = queryParams;
 
-      this.tabChangeService.tabQueryParams.fundingCall = this.queryParams;
+      this.tabChangeService.tabQueryParams.fundingCalls = this.queryParams;
 
       if (queryParams.search) {
         this.searchService.updateInput(queryParams.search);

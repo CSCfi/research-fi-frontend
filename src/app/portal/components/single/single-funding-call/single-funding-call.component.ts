@@ -10,12 +10,12 @@ import { ActivatedRoute } from '@angular/router';
 import { faAlignLeft } from '@fortawesome/free-solid-svg-icons';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
-import { Search } from 'src/app/portal/models/search.model';
-import { SearchService } from 'src/app/portal/services/search.service';
-import { SettingsService } from 'src/app/portal/services/settings.service';
-import { SingleItemService } from 'src/app/portal/services/single-item.service';
-import { TabChangeService } from 'src/app/portal/services/tab-change.service';
-import { UtilityService } from 'src/app/shared/services/utility.service';
+import { Search } from '@portal/models/search.model';
+import { SearchService } from '@portal/services/search.service';
+import { SettingsService } from '@portal/services/settings.service';
+import { SingleItemService } from '@portal/services/single-item.service';
+import { TabChangeService } from '@portal/services/tab-change.service';
+import { UtilityService } from '@shared/services/utility.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { DOCUMENT } from '@angular/common';
 @Component({
@@ -104,10 +104,12 @@ export class SingleFundingCallComponent implements OnInit {
       this.getData(params.id);
     });
     this.singleId = this.route.snapshot.params.id;
-    this.singleService.updateId(this.singleId);
+    //this.singleService.updateId(this.singleId);
     this.pageNumber = this.searchService.pageNumber || 1;
-    this.tabQueryParams = this.tabChangeService.tabQueryParams.fundingCall;
-    this.tabData = this.tabChangeService.fundingCall;
+    this.tabQueryParams = this.tabChangeService.tabQueryParams.fundingCalls;
+    this.tabData =  this.tabChangeService.tabData.find(
+      (item) => item.data === 'fundingCalls'
+    );
     this.searchTerm = this.searchService.searchTerm;
   }
 
@@ -216,7 +218,7 @@ export class SingleFundingCallComponent implements OnInit {
     const topLevelCatsAr = [];
     const retCategories = [];
     responseData?.categories.forEach((cat => {
-      topLevelCatsAr.includes(cat) ? null : topLevelCatsAr.push(cat);
+      topLevelCatsAr.includes(cat.parentName) ? null : topLevelCatsAr.push(cat.parentName);
     }));
     topLevelCatsAr.sort((a,b) => (a > b) ? 1 : ((b > a) ? -1 : 0));
     topLevelCatsAr.forEach((topCat) => {

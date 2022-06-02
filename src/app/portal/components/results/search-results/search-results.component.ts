@@ -28,8 +28,7 @@ import { PersonsComponent } from '../persons/persons.component';
 import { InfrastructuresComponent } from '../infrastructures/infrastructures.component';
 import { Search } from 'src/app/portal/models/search.model';
 import { DatasetsComponent } from '../datasets/datasets.component';
-import { FundingCallsComponent } from '@portal/components/funding-calls/funding-calls.component';
-import { FundingCallResultsComponent} from '@portal/components/funding-calls/funding-call-results/funding-call-results.component';
+import { FundingCallResultsComponent} from '@portal/components/results/funding-call-results/funding-call-results.component';
 
 /*
  * Dynamically render component for selected tab.

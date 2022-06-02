@@ -464,7 +464,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
       })
       .catch((error) => {
         this.showSaveSuccessfulMessage(false);
-        console.log(`Error in data patching`, error);
       });
     this.profileService.setCurrentProfileData(this.profileData);
   }

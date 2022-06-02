@@ -24,7 +24,7 @@
     <p class="back col-12 mb-3">
       <a
         #backToResultsLink
-        routerLink="/funding-calls/{{ searchTerm }}"
+        routerLink="/results/{{ tab }}/{{ searchTerm }}"
         [queryParams]="tabQueryParams"
         >&lt;
         <ng-container i18n="@@backToResults"
