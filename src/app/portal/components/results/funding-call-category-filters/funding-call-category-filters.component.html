@@ -1,8 +1,8 @@
 <div class="row">
   <mat-chip-list selectable multiple class="mat-chip-list-stacked" [selectable]="true">
-    <ng-container *ngFor="let chip of majorFieldsOfScienceAurora; let i = index">
+    <ng-container *ngFor="let chip of majorFieldsOfScienceAurora">
       <mat-chip
-        [selected]="selectedChips[i]" (click)="clickChip(i, chip.id)"
+        [selected]="chip.checked" (click)="clickChip(chip.id)"
       >{{chip.key}}
       </mat-chip>
     </ng-container>

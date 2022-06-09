@@ -106,7 +106,7 @@ export class SingleFundingCallComponent implements OnInit {
     this.singleId = this.route.snapshot.params.id;
     //this.singleService.updateId(this.singleId);
     this.pageNumber = this.searchService.pageNumber || 1;
-    this.tabQueryParams = this.tabChangeService.tabQueryParams.fundingCalls;
+    this.tabQueryParams = this.tabChangeService.tabQueryParams['funding-calls'];
     this.tabData =  this.tabChangeService.tabData.find(
       (item) => item.data === 'fundingCalls'
     );

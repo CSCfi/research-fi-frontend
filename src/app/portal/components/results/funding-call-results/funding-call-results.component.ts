@@ -80,6 +80,8 @@ export class FundingCallResultsComponent
   ngOnInit() {
     // Check url for sorting, default to empty
     this.sortService.initSort(this.route.snapshot.queryParams.sort || '');
+    this.sortColumn = this.sortService.sortColumn;
+    this.sortDirection = this.sortService.sortDirection;
   }
 
   ngAfterViewInit() {

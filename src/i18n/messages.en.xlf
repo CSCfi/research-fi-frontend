@@ -3637,7 +3637,7 @@
         <target>Upcoming calls</target>
       </trans-unit>
       <trans-unit id="closedCalls">
-        <source>Menneet haut</source>
+        <source>Päättyneet haut</source>
         <target>Closed calls</target>
       </trans-unit>
       <trans-unit id="continuousCalls">

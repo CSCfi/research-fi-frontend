@@ -3622,7 +3622,7 @@
         <target>Kommande utlysningar</target>
       </trans-unit>
       <trans-unit id="closedCalls">
-        <source>Menneet haut</source>
+        <source>Päättyneet haut</source>
         <target>Avslutade utlysningar</target>
       </trans-unit>
       <trans-unit id="continuousCalls">

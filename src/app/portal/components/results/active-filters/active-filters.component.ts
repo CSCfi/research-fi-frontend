@@ -69,7 +69,7 @@ export class ActiveFiltersComponent
     restricted: $localize`:@@datasetAccessRestricted:Saatavuutta rajoitettu`,
     embargo: $localize`:@@datasetAccessEmbargo:Embargo`,
     // Funding-call status
-    closed: $localize`:@@closedCalls:Menneet haut`,
+    closed: $localize`:@@closedCalls:Päättyneet haut`,
     future: $localize`:@@futureCalls:Tulevat haut`,
     continuous: $localize`:@@continuousCalls:Jatkuvat haut`,
   };
@@ -179,6 +179,7 @@ export class ActiveFiltersComponent
   translate() {
     this.translationFlag = false;
     const errorMsg = 'error translating filter';
+
     this.queryParams = this.filterService.filters.subscribe((filter) => {
       // Get from & to year values from filter list
       this.fromYear = parseInt(filter.fromYear[0]?.slice(1), 10);
@@ -809,6 +810,7 @@ export class ActiveFiltersComponent
   }
 
   removeFilter(event): void {
+
     // Remove range filters. Check that target active filter matches fromYear filter
     if (
       event.target.id.length === 5 &&

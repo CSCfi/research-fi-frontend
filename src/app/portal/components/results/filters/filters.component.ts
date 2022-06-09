@@ -42,6 +42,7 @@ import { DataService } from 'src/app/portal/services/data.service';
 import { FundingCallFilterService } from '@portal/services/filters/funding-call-filter.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Search } from '@portal/models/search.model';
+import { SettingsService } from '@portal/services/settings.service';
 
 @Component({
   selector: 'app-filters',
@@ -51,13 +52,16 @@ import { Search } from '@portal/models/search.model';
 })
 export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
 
-  private _externalFilterQuery: any;
   @Input() responseData: any;
   @Input() tabData: string;
   @Input() showButton: boolean;
+
   @Input() set externalFilterQuery(externalFilterQuery: any) {
-    this._externalFilterQuery = externalFilterQuery;
-    externalFilterQuery === '' ? this.clearFundingCallFilters() : this.selectionChange('field', externalFilterQuery, false);
+    if (externalFilterQuery && externalFilterQuery?.keys?.length > 0) {
+      this.selectionChange('field', externalFilterQuery.keys, false)
+    } else {
+      this.clearFundingCallFilters();
+    }
   }
 
   @ViewChildren('filterSearch') filterSearch: QueryList<ElementRef>;
@@ -117,7 +121,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     private newsFilters: NewsFilterService,
     @Inject(PLATFORM_ID) private platformId: object,
     private dataService: DataService,
-    private appSettingsService: AppSettingsService
+    private appSettingsService: AppSettingsService,
   ) {
     this.showMoreCount = [];
   }

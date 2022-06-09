@@ -2,6 +2,8 @@ import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@
 import { FundingCallFilterService } from '@portal/services/filters/funding-call-filter.service';
 import { StaticDataService} from '@portal/services/static-data.service';
 import { Search } from '@portal/models/search.model';
+import { TabChangeService } from '@portal/services/tab-change.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-funding-call-category-filters',
@@ -10,17 +12,25 @@ import { Search } from '@portal/models/search.model';
 })
 export class FundingCallCategoryFiltersComponent implements OnInit {
 
-  constructor(private fundingCallFilters: FundingCallFilterService, private staticDataSevice: StaticDataService) { }
+  constructor(private fundingCallFilters: FundingCallFilterService, private staticDataSevice: StaticDataService, private tabChangeService: TabChangeService, private route: ActivatedRoute,) { }
 
-  majorFieldsOfScienceAurora = this.staticDataSevice.majorFieldsOfScienceAurora;
-  filterdata: any;
-  topLevelFilterKeys = new Set();
-  categoryFilterItems = [];
+  majorFieldsOfScienceAurora = [...this.staticDataSevice.majorFieldsOfScienceAurora];
+  topLevelFilterSelections = new Set();
+  bottomLevelFilterSelections = [];
   filterValuesToEmit = [];
-  SELECTEDCHIPSINIT = [false,false,false,false,false,false,false,false];
-  selectedChips = [...this.SELECTEDCHIPSINIT];
+  queryParamSub: any;
+  _responseData: any;
+  queryParams: any;
 
-  @Input() responseData: any;
+  @Input() set responseData(respData: any) {
+    // Got all bottom level categories from response
+    this._responseData = respData;
+    this.bottomLevelFilterSelections = this._responseData?.aggregations?.field?.buckets;
+    // For some reason called with empty params when init
+    if (this._responseData) {
+      this.updateViewChipSelections(this.queryParams);
+    }
+  }
 
   @Input() resetFundingCallCategoryFilters;
 
@@ -28,6 +38,9 @@ export class FundingCallCategoryFiltersComponent implements OnInit {
 
   ngOnInit(): void {
     this.majorFieldsOfScienceAurora.sort((a,b) => (a.key > b.key) ? 1 : ((b.key > a.key) ? -1 : 0));
+    this.queryParamSub = this.route.queryParams.subscribe((params) => {
+      this.queryParams = params;
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -36,27 +49,54 @@ export class FundingCallCategoryFiltersComponent implements OnInit {
     }
   }
 
-  clickChip(ind: string, key: string) {
-    this.selectedChips[ind] = !this.selectedChips[ind];
-    key = key.toString();
-    this.topLevelFilterKeys.has(key) ? this.topLevelFilterKeys.delete(key) : this.topLevelFilterKeys.add(key);
-    this.constructFilterAreas();
+  clickChip(id: number) {
+    this.majorFieldsOfScienceAurora = this.majorFieldsOfScienceAurora.map(u => u.id === id ? { id: u.id, key: u.key, checked: !u.checked } : u);
+
+    this.topLevelFilterSelections.clear();
+
+    this.majorFieldsOfScienceAurora.forEach((item) => {
+      item.checked ? this.topLevelFilterSelections.add(item.id.toString()) : null;
+    });
+
+    // Add all possible categories to selections
+    this.bottomLevelFilterSelections = this._responseData?.aggregations?.field?.buckets;
+    this.bottomLevelFilterSelections = this.bottomLevelFilterSelections.filter((item) => {
+      return this.topLevelFilterSelections.has(item.parentFieldId.buckets[0].key);
+    });
+    this.emitBottomLevelFilters();
   }
 
-  private constructFilterAreas() {
-    this.categoryFilterItems = this.responseData.aggregations?.field?.buckets;
-      this.categoryFilterItems = this.categoryFilterItems.filter((item) => {
-        return this.topLevelFilterKeys.has(item.parentFieldId.buckets[0].key.toString());
+  private updateViewChipSelections(params) {
+    Array.isArray(params?.field) ? this.bottomLevelFilterSelections = this.bottomLevelFilterSelections.filter((item) => {
+      return params.field.some((itm) => {
+        return itm === item.key;
       });
-    this.filterValuesToEmit = [];
-    this.categoryFilterItems.forEach((item) => {
-     this.filterValuesToEmit.push(item.key);
+    }) : this.bottomLevelFilterSelections = this.bottomLevelFilterSelections.filter((item) => {
+      return params?.field === item.key});
+
+    this.resetAllFilters();
+    this.bottomLevelFilterSelections.forEach((bottomItem) => {
+      const key = bottomItem?.parentFieldId.buckets[0].key.toString();
+      if (key) {
+        this.topLevelFilterSelections.add(key);
+      }
+      // This updates visible chips
+      this.majorFieldsOfScienceAurora = this.majorFieldsOfScienceAurora.map(u => u.id.toString() === key.toString() ? { id: u.id, key: u.key, checked: true } : u);
     });
-    this.filterValuesToEmit.length > 0 ? this.filterChangeOutput.emit(this.filterValuesToEmit) : this.filterChangeOutput.emit('');
+  }
+
+  private emitBottomLevelFilters() {
+    // Only emit when clicked a button
+    this.filterValuesToEmit = [];
+
+    this.bottomLevelFilterSelections.forEach((item) => {
+      this.filterValuesToEmit.push(item.key);
+    });
+    this.filterValuesToEmit.length > 0 ? this.filterChangeOutput.emit({keys: this.filterValuesToEmit}) : this.filterChangeOutput.emit({keys: ''});
   }
 
   private resetAllFilters() {
-    this.topLevelFilterKeys.clear();
-    this.selectedChips = [...this.SELECTEDCHIPSINIT];
+    this.topLevelFilterSelections.clear();
+    this.majorFieldsOfScienceAurora = this.majorFieldsOfScienceAurora.map(({ id, key }) => ({ id, key, checked: false }));
   }
 }
