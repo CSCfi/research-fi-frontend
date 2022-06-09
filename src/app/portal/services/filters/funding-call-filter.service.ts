@@ -7,6 +7,14 @@ import { cloneDeep } from 'lodash';
 export class FundingCallFilterService {
   filterData = [
     {
+      field: 'status',
+      label: $localize`:@@fundingCallStatus:Rahoitushaun tila`,
+      hasSubFields: false,
+      open: true,
+      limitHeight: true,
+      // tooltip: $localize`:@@fundingCallStatusTooltip:Tutkimustietovarannossa hakuja seurataan päivän tarkkuudella. Haun päättymisen kellonaika kerrotaan hakuilmoituksessa tai rahoittajan palvelussa.`
+    },
+    {
       field: 'date',
       label: $localize`:@@applicationPeriod:Hakuaika`,
       hasSubFields: false,
@@ -15,14 +23,6 @@ export class FundingCallFilterService {
       hideSearch: true,
       hideNoResults: true,
       tooltip: $localize`:@@fundingCallPeriodTooltip:Aika, jolloin rahoitushaku on käynnissä. Voit rajata hakuaikaa rahoitushaun alkamis- ja päättymispäivämäärän tai vuoden mukaan.`,
-    },
-    {
-      field: 'status',
-      label: $localize`:@@fundingCallStatus:Rahoitushaun tila`,
-      hasSubFields: false,
-      open: true,
-      limitHeight: true,
-      // tooltip: $localize`:@@fundingCallStatusTooltip:Tutkimustietovarannossa hakuja seurataan päivän tarkkuudella. Haun päättymisen kellonaika kerrotaan hakuilmoituksessa tai rahoittajan palvelussa.`
     },
     {
       field: 'field',
@@ -107,7 +107,7 @@ export class FundingCallFilterService {
 
     const buckets = [
       {label: $localize`:@@openCalls:Avoimet haut`, key: 'open', doc_count: openDocs},
-      {label: $localize`:@@closedCalls:Menneet haut`, key: 'closed', doc_count: closedDocs},
+      {label: $localize`:@@closedCalls:Päättyneet haut`, key: 'closed', doc_count: closedDocs},
       {label: $localize`:@@futureCalls:Tulevat haut`, key: 'future', doc_count: futureDocs},
     ]
     return buckets;
