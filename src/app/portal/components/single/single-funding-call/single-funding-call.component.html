@@ -146,32 +146,6 @@
               </a>
             </div>
           </div>
-          <!-- Categories -->
-          <div class="row content" *ngFor="let row of categories">
-            <!-- Labels -->
-            <h2 class="col-12 col-sm-6 col-lg-3 th">
-              <span class="pe-1">{{ row.label }}</span>
-              <ng-container *ngIf="row.tooltip">
-                <ng-template #tooltipTemplate>
-                  <div [innerHtml]="row.tooltip"></div>
-                </ng-template>
-                <span
-                  [tooltip]="tooltipTemplate"
-                  tabindex="0"
-                  placement="top"
-                  #elem
-                >
-                  <fa-icon class="info-icon" icon="info-circle"></fa-icon>
-                </span>
-              </ng-container>
-            </h2>
-            <div class="col-12 col-sm-8 col-lg-9 td">
-                <span *ngFor="let category of call.categories; let last = last; let i = index" class="categories-title-wrap">
-                  <span *ngIf="category.isParent" class="fw-bold d-block categories-title">{{ category.name }}</span>
-                  <span *ngIf="!category.isParent">{{ category.name }}<ng-container *ngIf="!last && !call?.categories[i+1].isParent">, </ng-container></span>
-                </span>
-            </div>
-          </div>
           <!-- ApplicationInfoFields -->
           <div class="row content" *ngFor="let row of applicationInfoFields">
             <!-- Labels -->
@@ -214,6 +188,32 @@
                 [innerHTML]="expandTerms ? showLess : showMore"
               >
               </a>
+            </div>
+          </div>
+          <!-- Categories -->
+          <div class="row content" *ngFor="let row of categories">
+            <!-- Labels -->
+            <h2 class="col-12 col-sm-6 col-lg-3 th">
+              <span class="pe-1">{{ row.label }}</span>
+              <ng-container *ngIf="row.tooltip">
+                <ng-template #tooltipTemplate>
+                  <div [innerHtml]="row.tooltip"></div>
+                </ng-template>
+                <span
+                  [tooltip]="tooltipTemplate"
+                  tabindex="0"
+                  placement="top"
+                  #elem
+                >
+                  <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                </span>
+              </ng-container>
+            </h2>
+            <div class="col-12 col-sm-8 col-lg-9 td">
+                <span *ngFor="let category of call.categories; let last = last; let i = index" class="categories-title-wrap">
+                  <span *ngIf="category.isParent" class="fw-bold d-block categories-title">{{ category.name }}</span>
+                  <span *ngIf="!category.isParent">{{ category.name }}<ng-container *ngIf="!last && !call?.categories[i+1].isParent">, </ng-container></span>
+                </span>
             </div>
           </div>
         </div>
