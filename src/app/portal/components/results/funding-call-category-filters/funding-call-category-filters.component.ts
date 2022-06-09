@@ -100,15 +100,3 @@ export class FundingCallCategoryFiltersComponent implements OnInit {
     this.majorFieldsOfScienceAurora = this.majorFieldsOfScienceAurora.map(({ id, key }) => ({ id, key, checked: false }));
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
