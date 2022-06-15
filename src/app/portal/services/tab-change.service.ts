@@ -4,7 +4,6 @@ import {
   faFileAlt,
   faUsers,
   faBriefcase,
-  faSpinner,
   faAlignLeft,
   faCalculator,
   faUniversity,
@@ -55,6 +54,7 @@ export class TabChangeService {
       icon: faBullhorn,
       singular: 'rahoitushaku',
       tooltip: '',
+      initialQueryParams: { status: 'open' },
     },
     {
       data: 'infrastructures',
@@ -141,9 +141,17 @@ export class TabChangeService {
     this.skipToInput.next(state);
   }
 
+  // This method is also used for initializing tab based query parameters.
+  // Create tab based query params with initial values if params have not been initialized.
   resetQueryParams() {
-    Object.values(this.tabData).forEach(
-      (tab) => (this.tabQueryParams[tab.link] = {})
-    );
+    Object.values(this.tabData).forEach((tab) => {
+      if (!this.tabQueryParams[tab.link]) {
+        return (this.tabQueryParams[tab.link] = this.tabData.find(
+          (tabItem) => tabItem.link === tab.link
+        ).initialQueryParams);
+      } else {
+        return (this.tabQueryParams[tab.link] = {});
+      }
+    });
   }
 }
