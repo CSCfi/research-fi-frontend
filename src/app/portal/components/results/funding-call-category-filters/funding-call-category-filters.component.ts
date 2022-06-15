@@ -14,13 +14,14 @@ export class FundingCallCategoryFiltersComponent implements OnInit {
 
   constructor(private fundingCallFilters: FundingCallFilterService, private staticDataSevice: StaticDataService, private tabChangeService: TabChangeService, private route: ActivatedRoute,) { }
 
-  majorFieldsOfScienceAurora = [...this.staticDataSevice.majorFieldsOfScienceAurora];
+  majorFieldsOfScienceAurora = [];
   topLevelFilterSelections = new Set();
   bottomLevelFilterSelections = [];
   filterValuesToEmit = [];
   queryParamSub: any;
   _responseData: any;
   queryParams: any;
+  topLevelCategoriesInitialized = false;
 
   @Input() set responseData(respData: any) {
     // Got all bottom level categories from response
@@ -28,6 +29,9 @@ export class FundingCallCategoryFiltersComponent implements OnInit {
     this.bottomLevelFilterSelections = this._responseData?.aggregations?.field?.buckets;
     // For some reason called with empty params when init
     if (this._responseData) {
+      if (!this.topLevelCategoriesInitialized){
+        this.initTopLevelCategories();
+      }
       this.updateViewChipSelections(this.queryParams);
     }
   }
@@ -37,7 +41,6 @@ export class FundingCallCategoryFiltersComponent implements OnInit {
   @Output() filterChangeOutput = new EventEmitter<any>();
 
   ngOnInit(): void {
-    this.majorFieldsOfScienceAurora.sort((a,b) => (a.key > b.key) ? 1 : ((b.key > a.key) ? -1 : 0));
     this.queryParamSub = this.route.queryParams.subscribe((params) => {
       this.queryParams = params;
     });
@@ -64,6 +67,14 @@ export class FundingCallCategoryFiltersComponent implements OnInit {
       return this.topLevelFilterSelections.has(item.parentFieldId.buckets[0].key);
     });
     this.emitBottomLevelFilters();
+  }
+
+  private initTopLevelCategories() {
+    this._responseData?.aggregations?.mainCategory?.mainCategoryId?.buckets.forEach((itm) => {
+      this.majorFieldsOfScienceAurora.push({id: itm.key, key: itm.mainCategoryName.buckets[0].key, checked: false});
+    });
+    this.majorFieldsOfScienceAurora.sort((a,b) => (a.key > b.key) ? 1 : ((b.key > a.key) ? -1 : 0));
+    this.topLevelCategoriesInitialized = true;
   }
 
   private updateViewChipSelections(params) {
