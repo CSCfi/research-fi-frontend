@@ -7,6 +7,6 @@
 
 # Use non-root version of nginx
 #FROM docker-registry.default.svc:5000/researchfi/nginx-unprivileged
-FROM nginx-unprivileged
+FROM nginxinc/nginx-unprivileged
 COPY service_break_page/html /usr/share/nginx/html
 EXPOSE 8080
