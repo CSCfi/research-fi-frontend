@@ -1,0 +1,99 @@
+# This file is part of the research.fi service
+#
+# Copyright 2022 Ministry of Education and Culture, Finland
+#
+# :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+# :license: MIT
+apiVersion: v1
+kind: Template
+metadata:
+  labels:
+    app: nginx-service-break-page
+    template: nginx-service-break-page
+  name: nginx-service-break-page
+objects:
+  # Service
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: nginx-service-break-page-service
+      labels:
+        app: nginx-service-break-page
+      annotations:
+        description: Nginx service break page
+    spec:
+      ports:
+        - name: nginx-service-break-page
+          port: 8080
+          targetPort: 8080
+      selector:
+        depcfg: nginx-service-break-page-deploymentconfig
+
+  # ImageStream
+  - apiVersion: v1
+    kind: ImageStream
+    metadata:
+      name: nginx-service-break-page
+      labels:
+        app: nginx-service-break-page
+
+  # BuildConfig using Docker build strategy
+  - apiVersion: v1
+    kind: BuildConfig
+    metadata:
+      name: nginx-service-break-page-build
+      labels:
+        app: nginx-service-break-page
+    spec:
+      source:
+        git:
+          uri: https://github.com/CSCfi/research-fi-frontend.git
+          ref: CSCTTV-2685
+        contextDir: .
+      strategy:
+        dockerStrategy:
+          dockerfilePath: service_break_page/Dockerfile
+      output:
+        to:
+          kind: ImageStreamTag
+          name: nginx-service-break-page:latest
+      successfulBuildsHistoryLimit: 2
+      failedBuildsHistoryLimit: 2
+
+  # Deployment config
+  - apiVersion: v1
+    kind: DeploymentConfig
+    metadata:
+      name: nginx-service-break-page-deployment
+      labels:
+        app: nginx-service-break-page
+    spec:
+      selector:
+        app: nginx-service-break-page
+        depcfg: nginx-service-break-page-deploymentconfig
+      template:
+        metadata:
+          labels:
+            app: nginx-service-break-page
+            depcfg: nginx-service-break-page-deploymentconfig
+        spec:
+          containers:
+            - name: nginx-service-break-page-container
+              image: ts/nginx-service-break-page
+              imagePullPolicy: Always
+              ports:
+                - containerPort: 8080
+                  protocol: TCP
+      replicas: 1
+      triggers:
+        - type: ConfigChange
+        - type: ImageChange
+          imageChangeParams:
+            automatic: true
+            containerNames:
+              - nginx-service-break-page-container
+            from:
+              kind: ImageStreamTag
+              name: nginx-service-break-page:latest
+      strategy:
+        type: Rolling
