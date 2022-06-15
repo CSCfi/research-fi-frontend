@@ -145,10 +145,8 @@ import { LatestNewsComponent } from './components/news/latest-news/latest-news.c
 import { NewsResultsComponent } from './components/news/news-results/news-results.component';
 import { PieComponent } from './components/visualisation/pie/pie.component';
 import { ConvertToArrayPipe } from './pipes/convert-to-array.pipe';
-import { FundingCallsComponent } from './components/funding-calls/funding-calls.component';
 import { SingleFundingCallComponent } from './components/single/single-funding-call/single-funding-call.component';
 import { FundingCallResultsComponent } from './components/results/funding-call-results/funding-call-results.component';
-import { FundingCallPreviewComponent } from './components/funding-calls/funding-call-preview/funding-call-preview.component';
 import { OrganizationVisualisationsComponent } from './components/single/single-organization/organization-visualisations/organization-visualisations.component';
 import { OrganizationInformationComponent } from './components/single/single-organization/organization-information/organization-information.component';
 import { OrganizationSubUnitsComponent } from './components/single/single-organization/organization-sub-units/organization-sub-units.component';
@@ -230,10 +228,8 @@ import { FundingCallCategoryFiltersComponent } from './components/results/fundin
     NewsResultsComponent,
     PieComponent,
     ConvertToArrayPipe,
-    FundingCallsComponent,
     SingleFundingCallComponent,
     FundingCallResultsComponent,
-    FundingCallPreviewComponent,
     HandleLinkDisplayPipe,
     IsUrlPipe,
     OrganizationVisualisationsComponent,
