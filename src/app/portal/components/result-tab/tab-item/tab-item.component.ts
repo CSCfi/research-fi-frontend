@@ -58,7 +58,7 @@ export class TabItemComponent
   ngOnChanges(): void {
     // Set target to params
     this.targetQueryParams = {
-      ...this.queryParams[this.tab.data],
+      ...this.queryParams[this.tab.link],
       target: this.settingsService.target,
       size: this.searchService.pageSize,
     };
