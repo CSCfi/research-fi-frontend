@@ -72,46 +72,7 @@ export class StaticDataService {
       doc_count: 0,
     },
   ];
-
-  // Filters, Funding calls
-  majorFieldsOfScienceAurora = [
-    {
-      id: 1,
-      key: $localize`:@@auroraNaturalSciences:Luonnontieteet`,
-      checked: false,
-    },
-    {
-      id: 2,
-      key: $localize`:@@auroraTecnology:Tekniikka`,
-      checked: false,
-    },
-    {
-      id: 3,
-      key: $localize`:@@auroraMedicalHealthSciences:Lääke- ja terveystieteet`,
-      checked: false,
-    },
-    {
-      id: 4,
-      key: $localize`:@@auroraAgriculturalSciences:Maa- ja metsätaloustieteet`,
-      checked: false,
-    },
-    {
-      id: 5,
-      key: $localize`:@@auroraSocialSciences:Yhteiskunta-, talous- ja käyttäytymistieteet`,
-      checked: false,
-    },
-    {
-      id: 6,
-      key: $localize`:@@auroraHumanities:Humanistiset tieteet ja teologia`,
-      checked: false,
-    },
-    {
-      id: 7,
-      key: $localize`:@@auroraArts:Taide`,
-      checked: false,
-    },
-  ];
-
+  
   // Filters, Publication article type
   articleType = [
     {
