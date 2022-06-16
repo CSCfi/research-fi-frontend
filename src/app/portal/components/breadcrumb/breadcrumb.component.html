@@ -47,9 +47,12 @@
       <li class="breadcrumb-item arrow_box last" aria-current="page"></li>
     </ol>
     <ol class="breadcrumb px-0 m-0" *ngIf="type === 'funding-call'">
-      <li class="breadcrumb-item arrow_box first" style="z-index: 3">
-        <a i18n="@@fundingCalls"
-          >Rahoitushaut</a
+      <li class="breadcrumb-item arrow_box middle" style="z-index: 2">
+        <a
+          class="capitalize"
+          routerLink="/results/{{ tab }}/{{ searchTerm }}"
+          [queryParams]="queryParams"
+        >{{ tabName }}</a
         >
       </li>
       <li class="breadcrumb-item arrow_box active" aria-current="page">

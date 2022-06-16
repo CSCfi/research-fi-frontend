@@ -11,15 +11,6 @@
   *ngIf="responseData"
   id="main-content"
 >
-  <!-- Breadcrumb -->
-  <app-breadcrumb
-    [type]="'funding-call'"
-    [responseData]="responseData"
-    [tab]="tab"
-    [tabName]="tabData.label"
-    [resultNameField]="'name'"
-    [queryParams]="tabQueryParams"
-  ></app-breadcrumb>
   <div class="row shared">
     <p class="back col-12 mb-3">
       <a
@@ -32,6 +23,17 @@
         </ng-container>
       </a>
     </p>
+  </div>
+  <!-- Breadcrumb -->
+  <app-breadcrumb
+    [type]="'funding-call'"
+    [responseData]="responseData"
+    [tab]="tab"
+    [tabName]="tabData.label"
+    [resultNameField]="'name'"
+    [queryParams]="tabQueryParams"
+  ></app-breadcrumb>
+  <div class="row shared">
     <div
       class="col-12"
       style="margin: 10px 0 10px 0"
