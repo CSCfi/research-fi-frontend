@@ -53,7 +53,7 @@ export class TabChangeService {
       link: 'funding-calls',
       icon: faBullhorn,
       singular: 'rahoitushaku',
-      tooltip: '',
+      tooltip: $localize`:@@fundingCallsTooltip:Suomalaisten tiedettä, taidetta ja kulttuuria rahoittavien säätiöiden ja rahastojen käynnissä olevia ja avautuvia rahoitushakuja.`,
       initialQueryParams: { status: 'open' },
     },
     {
