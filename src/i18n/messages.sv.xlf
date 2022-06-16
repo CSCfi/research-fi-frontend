@@ -3867,6 +3867,10 @@
         <source>Suomalaisten julkisten ja yksityisten tutkimusrahoittajien rahoituspäätöksiä siitä alkaen, kun rahoittaja on liittynyt palveluun. EU:n suomalaisille organisaatioille myöntämät rahoituspäätökset Horizon 2020 puiteohjelmasta alkaen.</source>
         <target state="translated">Finländska offentliga och privata forskningsfinansiärers finansieringsbeslut från och med att finansiären anslöt sig till tjänsten. EU:s finansieringsbeslut till finländska organisationer från och med ramprogrammet Horizon 2020.</target>
       </trans-unit>
+      <trans-unit id="fundingCallsTooltip">
+         <source>Suomalaisten tiedettä, taidetta ja kulttuuria rahoittavien säätiöiden ja rahastojen käynnissä olevia ja avautuvia rahoitushakuja.</source>
+         <target>Öppna och förekommande utlysningar för vetenskap, konst och kultur av de finska finansiärerna.</target>
+      </trans-unit>
       <trans-unit id="datasetsTooltip">
         <source>Suomessa tuotettujen tutkimusaineistojen kuvailutietoja.</source>
         <target state="translated">Metadata av forskningsdata som producerats i Finland.</target>
