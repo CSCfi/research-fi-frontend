@@ -87,7 +87,7 @@
                 </ng-container>
                 <!-- Show due date if not continuous -->
                 <ng-container *ngIf="call.dueDate.getFullYear() !== 2100">
-                  {{ call.dueDateString }}
+                  {{ call.dueDateString }} {{call.dueTimeString}}
                 </ng-container>
                 <!-- Continuous -->
                 <ng-container

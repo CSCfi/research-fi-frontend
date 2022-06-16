@@ -1,8 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
 import { FundingCallFilterService } from '@portal/services/filters/funding-call-filter.service';
-import { StaticDataService} from '@portal/services/static-data.service';
-import { Search } from '@portal/models/search.model';
-import { TabChangeService } from '@portal/services/tab-change.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -12,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class FundingCallCategoryFiltersComponent implements OnInit {
 
-  constructor(private fundingCallFilters: FundingCallFilterService, private staticDataSevice: StaticDataService, private tabChangeService: TabChangeService, private route: ActivatedRoute,) { }
+  constructor(private fundingCallFilters: FundingCallFilterService, private route: ActivatedRoute,) { }
 
   majorFieldsOfScienceAurora = [];
   topLevelFilterSelections = new Set();

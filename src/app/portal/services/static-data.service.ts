@@ -72,7 +72,7 @@ export class StaticDataService {
       doc_count: 0,
     },
   ];
-  
+
   // Filters, Publication article type
   articleType = [
     {

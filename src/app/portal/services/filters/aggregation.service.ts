@@ -1495,21 +1495,6 @@ export class AggregationService {
                     field: 'categories.broaderCodeValue.keyword',
                   },
                 },
-                parentFieldNameFi: {
-                  terms: {
-                    field: 'categories.broaderNameFi.keyword',
-                  },
-                },
-                parentFieldNameSv: {
-                  terms: {
-                    field: 'categories.broaderNameSv.keyword',
-                  },
-                },
-                parentFieldNameEn: {
-                  terms: {
-                    field: 'categories.broaderNameEn.keyword',
-                  },
-                },
               },
             },
           },
