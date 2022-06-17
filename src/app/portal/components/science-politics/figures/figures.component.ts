@@ -68,6 +68,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('mainFocus') mainFocus: ElementRef;
   @ViewChild('searchInput') searchInput: ElementRef;
   @ViewChildren('segments') segments: QueryList<ElementRef>;
+  @ViewChildren('sections') sections: QueryList<ElementRef>;
   querySub: Subscription;
   resizeSub: Subscription;
   scrollSub: Subscription;
@@ -242,22 +243,6 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
     this.segments.first?.nativeElement.scrollIntoView();
   }
 
-  // Navigate with params
-  navigate(params) {
-    this.filterHasBeenClicked = true;
-    let target;
-    switch (params) {
-      case 'roadmap': {
-        target = 'roadmap';
-        break;
-      }
-      default: {
-        target = null;
-      }
-    }
-    this.router.navigate([], { queryParams: { filter: target } });
-  }
-
   ngAfterViewInit() {
     // Counte content width and set mobile true / false
     this.mobile = this.window.innerWidth > 991 ? false : true;
@@ -300,7 +285,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
     this.focusSub?.unsubscribe();
   }
 
-  onSectionChange(sectionId: any) {
+  onSectionChange(sectionId: string) {
     this.currentSection = sectionId ? sectionId : 's0';
   }
 
@@ -311,5 +296,19 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onScroll(y: number) {
     this.dataService.updateResearchScroll(y);
+  }
+
+  // Navigate to section from sidebar.
+  // Reset fragment before navigation.
+  // This enables side navigation linking to previously navigated item
+  navigateToSection(sectionId: string) {
+    this.router
+      .navigate([], { fragment: null, queryParams: this.queryParams })
+      .then(() =>
+        this.router.navigate([], {
+          fragment: sectionId,
+          queryParams: this.queryParams,
+        })
+      );
   }
 }
