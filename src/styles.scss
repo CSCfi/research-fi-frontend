@@ -51,8 +51,6 @@
 @import './app/portal/components/science-politics/science-politics.scss-theme-shared.scss';
 @import './app/portal/components/service-info/service-info.component.scss-theme.scss';
 @import 'app/portal/components/results/funding-call-results/funding-call-results.component.scss-theme.scss';
-@import './app/portal/components/funding-calls/funding-call-preview/funding-call-preview.component.scss-theme.scss';
-@import './app/portal/components/funding-calls/funding-calls.component.scss-theme.scss';
 @import './app/portal/components/news/news/news.component.scss-theme.scss';
 @import './app/portal/components/news/news-card/news-card.component.scss-theme.scss';
 @import './app/portal/components/results/pagination/pagination.component.scss';
@@ -114,9 +112,7 @@
   @include app-select-theme($theme);
   @include app-search-theme($theme);
   @include app-service-info-theme($theme);
-  @include app-funding-calls-theme($theme);
   @include app-funding-call-results-theme($theme);
-  @include app-funding-call-preview-theme($theme);
   @include app-news-theme($theme);
   @include app-news-card-theme($theme);
   @include app-review-theme($theme);

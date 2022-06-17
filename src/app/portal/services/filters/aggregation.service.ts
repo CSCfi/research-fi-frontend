@@ -1436,8 +1436,31 @@ export class AggregationService {
           },
         };
         break;
-      // Funding-calls
+
+
+        // Funding-calls
+
       case 'funding-calls':
+        payLoad.aggs.mainCategory = {
+          nested: {
+            path: 'categories',
+          },
+          aggs: {
+            mainCategoryId: {
+              terms: {
+                field: 'categories.broaderCodeValue.keyword',
+              },
+              aggs: {
+                mainCategoryName: {
+                  terms: {
+                    size: 50,
+                    field: 'categories.broaderName' + this.localeC + '.keyword',
+                  },
+                },
+              },
+            },
+          },
+        };
         // payLoad.aggs.year = yearAgg;
         payLoad.aggs.field = {
           nested: {

@@ -22,6 +22,7 @@ export class FundingCall {
     public dueDate: Date,
     public openDateString: string,
     public dueDateString: string,
+    public dueTimeString: string,
     public foundation: { name: string; orgId: string; url: string, foundationUrl: string, applicationUrl: string },
     public categories: { id: string; name: string; parentId; parentName: string; }[],
     public daysLeft: number
@@ -74,6 +75,7 @@ export class FundingCallAdapter implements Adapter<FundingCall> {
 
     const openDate = new Date(item.callProgrammeOpenDate);
     const dueDate = new Date(item.callProgrammeDueDate);
+    const dueTimeString = item?.callProgrammeDueTime ? item.callProgrammeDueTime.slice(0, item.callProgrammeDueTime.length -3) : '';
 
     function pad(n) {
       return n < 10 ? '0' + n : n;
@@ -106,6 +108,7 @@ export class FundingCallAdapter implements Adapter<FundingCall> {
       dueDate,
       openDateString,
       dueDateString,
+      dueTimeString,
       foundation,
       categories.sort((a, b) => +(a.name > b.name) - 0.5),
       Math.floor(daysLeft)
