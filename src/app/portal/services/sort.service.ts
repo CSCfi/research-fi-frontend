@@ -6,6 +6,7 @@
 //  :license: MIT
 
 import { Injectable, Inject, LOCALE_ID } from '@angular/core';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,9 +21,11 @@ export class SortService {
   searchTerm = '';
   localeC: string;
 
-  constructor(@Inject(LOCALE_ID) protected localeId: string) {
-    this.localeC =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+  constructor(
+    @Inject(LOCALE_ID) protected localeId: string,
+    private appSettingsService: AppSettingsService
+  ) {
+    this.localeC = this.appSettingsService.capitalizedLocale;
   }
 
   // If term is available, default sort changes
@@ -388,6 +391,13 @@ export class SortService {
       }
 
       case 'fundingCalls': {
+        const sortByFunderName = {
+          [`foundation.name${this.localeC}.keyword`]: {
+            order: 'asc',
+            unmapped_type: 'long',
+          },
+        }; // Sorts calls when shared due date
+
         switch (this.sortColumn) {
           case 'name': {
             const sortString = 'name' + this.localeC + '.keyword';
@@ -426,6 +436,7 @@ export class SortService {
                   order: 'asc',
                   unmapped_type: 'long',
                 },
+                ...sortByFunderName,
               },
             ];
             break;
@@ -443,6 +454,7 @@ export class SortService {
                   order: 'asc',
                   unmapped_type: 'long',
                 },
+                ...sortByFunderName,
               },
             ];
             break;
@@ -450,16 +462,12 @@ export class SortService {
           default: {
             const sortString = 'callProgrammeDueDate';
             const sortStringSecondary = 'callProgrammeOpenDate';
+
             this.sort = [
               {
-                [sortString]: {
-                  order: 'asc',
-                  unmapped_type: 'long',
-                },
-                [sortStringSecondary]: {
-                  order: 'asc',
-                  unmapped_type: 'long',
-                },
+                [sortString]: { order: 'asc', unmapped_type: 'long' },
+                [sortStringSecondary]: { order: 'asc', unmapped_type: 'long' },
+                ...sortByFunderName,
               },
             ];
             break;

@@ -87,7 +87,11 @@
                 </ng-container>
                 <!-- Show due date if not continuous -->
                 <ng-container *ngIf="call.dueDate.getFullYear() !== 2100">
-                  {{ call.dueDateString }} {{call.dueTimeString}}
+                  {{ call.dueDateString }}
+                  <ng-container *ngIf="call.dueTimeString"
+                    ><span i18n="@@timeAt">klo</span>
+                    {{ call.dueTimeString }}</ng-container
+                  >
                 </ng-container>
                 <!-- Continuous -->
                 <ng-container
@@ -193,31 +197,50 @@
             </div>
           </div>
           <!-- Categories -->
-          <div class="row content" *ngFor="let row of categories">
-            <!-- Labels -->
-            <h2 class="col-12 col-sm-6 col-lg-3 th">
-              <span class="pe-1">{{ row.label }}</span>
-              <ng-container *ngIf="row.tooltip">
-                <ng-template #tooltipTemplate>
-                  <div [innerHtml]="row.tooltip"></div>
-                </ng-template>
+          <ng-container *ngIf="call.categories.length">
+            <div class="row content" *ngFor="let row of categories">
+              <!-- Labels -->
+              <h2 class="col-12 col-sm-6 col-lg-3 th">
+                <span class="pe-1">{{ row.label }}</span>
+                <ng-container *ngIf="row.tooltip">
+                  <ng-template #tooltipTemplate>
+                    <div [innerHtml]="row.tooltip"></div>
+                  </ng-template>
+                  <span
+                    [tooltip]="tooltipTemplate"
+                    tabindex="0"
+                    placement="top"
+                    #elem
+                  >
+                    <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                  </span>
+                </ng-container>
+              </h2>
+              <div class="col-12 col-sm-8 col-lg-9 td">
                 <span
-                  [tooltip]="tooltipTemplate"
-                  tabindex="0"
-                  placement="top"
-                  #elem
+                  *ngFor="
+                    let category of call.categories;
+                    let last = last;
+                    let i = index
+                  "
+                  class="categories-title-wrap"
                 >
-                  <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                  <span
+                    *ngIf="category.isParent"
+                    class="fw-bold d-block categories-title"
+                    >{{ category.name }}</span
+                  >
+                  <span *ngIf="!category.isParent"
+                    >{{ category.name
+                    }}<ng-container
+                      *ngIf="!last && !call?.categories[i + 1].isParent"
+                      >,
+                    </ng-container></span
+                  >
                 </span>
-              </ng-container>
-            </h2>
-            <div class="col-12 col-sm-8 col-lg-9 td">
-                <span *ngFor="let category of call.categories; let last = last; let i = index" class="categories-title-wrap">
-                  <span *ngIf="category.isParent" class="fw-bold d-block categories-title">{{ category.name }}</span>
-                  <span *ngIf="!category.isParent">{{ category.name }}<ng-container *ngIf="!last && !call?.categories[i+1].isParent">, </ng-container></span>
-                </span>
+              </div>
             </div>
-          </div>
+          </ng-container>
         </div>
       </div>
     </main>
@@ -284,27 +307,29 @@
                       ><fa-icon icon="external-link-alt"></fa-icon></a
                   ></span>
                 </div>
-                <br>
+                <br />
                 <!-- <div *ngIf="!linksFields.length && !call.selfArchivedData" class="no-links" i18n="@@noFundingCallLinks">
                                   Rahoitushakuun ei ole tarjolla linkkejä tässä portaalissa
                               </div> -->
               </div>
               <div *ngIf="contactInfoRows?.length > 0">
                 <h2>
-                  {{contactInfoHeading}}
+                  {{ contactInfoHeading }}
                 </h2>
                 <div *ngFor="let row of contactInfoRows">
-                  <ng-container *ngIf="row?.field === 'emailAddress'; else nonEmail">
+                  <ng-container
+                    *ngIf="row?.field === 'emailAddress'; else nonEmail"
+                  >
                     <a
                       href="javascript:void(0)"
                       (click)="showEmail($event, row?.email)"
                       i18n="@@showEmailAddress"
-                    >Näytä sähköpostiosoite</a
-                      >
+                      >Näytä sähköpostiosoite</a
+                    >
                   </ng-container>
-                    <ng-template #nonEmail>
-                      <div>{{row}}</div>
-                    </ng-template>
+                  <ng-template #nonEmail>
+                    <div>{{ row }}</div>
+                  </ng-template>
                 </div>
               </div>
             </div>

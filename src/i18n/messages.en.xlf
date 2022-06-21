@@ -3644,6 +3644,10 @@
         <source>Jatkuvat haut</source>
         <target>Continuous application</target>
       </trans-unit>
+      <trans-unit id="timeAt">
+        <source>klo</source>
+        <target>at</target>
+      </trans-unit>
       <trans-unit id="continuous">
         <source>Jatkuva</source>
         <target>Continuous</target>
