@@ -25,6 +25,7 @@ import {
   FundingCall,
   FundingCallAdapter,
 } from '@portal/models/funding-call.model';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Injectable()
 export class SearchService {
@@ -35,6 +36,7 @@ export class SearchService {
   fromNewsPage: number;
   apiUrl: any;
   pageSize: number;
+  localeC: string;
 
   // Variables to help with search term redirections
   tabValues: any;
@@ -59,12 +61,14 @@ export class SearchService {
     private filterService: FilterService,
     private appConfigService: AppConfigService,
     private settingsService: SettingsService,
+    private appSettingsService: AppSettingsService,
     private searchAdapter: SearchAdapter,
     private newsAdapter: NewsAdapter,
     private visualAdapter: VisualAdapter,
     private aggService: AggregationService
   ) {
     this.apiUrl = this.appConfigService.apiUrl;
+    this.localeC = this.appSettingsService.capitalizedLocale;
   }
 
   updateInput(searchTerm: string) {
@@ -387,7 +391,13 @@ export class SearchService {
 
   // News page content
   getHomepageFundingCalls(size = 5): Observable<Search> {
-    const sort = { callProgrammeDueDate: { order: 'asc' } };
+    const sort = {
+      callProgrammeDueDate: { order: 'asc' },
+      [`foundation.name${this.localeC}.keyword`]: {
+        order: 'asc',
+        unmapped_type: 'long',
+      },
+    };
     const payload = {
       query: this.filterService.constructFundingCallPayload(),
       size,

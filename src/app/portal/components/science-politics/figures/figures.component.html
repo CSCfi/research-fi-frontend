@@ -52,9 +52,8 @@
               <a
                 class="d-block"
                 [class.disabled]="item['disabled']"
-                [routerLink]="['.']"
-                fragment="{{ item['disabled'] ? null : item.id }}"
-                [queryParams]="queryParams"
+                (click)="navigateToSection(item['disabled'] ? null : item.id)"
+                href="javascript:void(0)"
               >
                 <div class="row">
                   <div class="col-auto pe-0">
@@ -207,10 +206,7 @@
               <div class="col p-1">
                 <div class="base content">
                   <div class="card list" *ngFor="let item of data.figures">
-                    <a
-                      [routerLink]="item.id"
-                      [queryParams]="queryParams"
-                    >
+                    <a [routerLink]="item.id" [queryParams]="queryParams">
                       <div class="row d-flex justify-content-around">
                         <div class="col-12 col-md-8">
                           <h3 class="title">

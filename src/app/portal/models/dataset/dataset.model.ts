@@ -1,9 +1,9 @@
-// # This file is part of the research.fi API service
-// #
-// # Copyright 2019 Ministry of Education and Culture, Finland
-// #
-// # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
-// # :license: MIT
+// This file is part of the research.fi API service
+//
+// Copyright 2019 Ministry of Education and Culture, Finland
+//
+// :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+// :license: MIT
 
 import { Injectable } from '@angular/core';
 import { Adapter } from '../adapter.model';
@@ -12,6 +12,8 @@ import {
   FieldOfScience,
   FieldOfScienceAdapter,
 } from '../publication/field-of-science.model';
+import { AppSettingsService } from '@shared/services/app-settings.service';
+import { DatasetRelations } from '@portal/constants/dataset-constants';
 
 export interface OrganizationActor {
   name: string;
@@ -48,7 +50,8 @@ export class Dataset {
     public doi: string,
     public urn: string,
     public fairdataUrl: string,
-    public datasetVersions: any[]
+    public datasetVersions: any[],
+    public datasetRelations: any[]
   ) {}
 }
 
@@ -56,8 +59,15 @@ export class Dataset {
   providedIn: 'root',
 })
 export class DatasetAdapter implements Adapter<Dataset> {
-  constructor(private lang: LanguageCheck, private fs: FieldOfScienceAdapter) {}
+  constructor(
+    private lang: LanguageCheck,
+    private fs: FieldOfScienceAdapter,
+    private appSettingsService: AppSettingsService
+  ) {}
   adapt(item: any): Dataset {
+    const locale = this.appSettingsService.currentLocale;
+    const capitalizedLocale = this.appSettingsService.capitalizedLocale;
+
     const keywords = item.keywords ? item.keywords.map((x) => x.keyword) : [];
 
     let fieldsOfScience: FieldOfScience[] = [];
@@ -182,6 +192,47 @@ export class DatasetAdapter implements Adapter<Dataset> {
     });
 
     /*
+     * Dataset relations
+     */
+    const datasetRelations = item.datasetRelation?.map((relation) => {
+      // Display english labels on swedish version.
+      // No official swedish translations available.
+      const displayLocation = locale === 'fi' ? locale : 'en';
+
+      const matchingRelation = DatasetRelations.find(
+        (item) => item.uri === relation.relationType
+      );
+
+      return {
+        type: matchingRelation
+          ? matchingRelation.label[displayLocation]
+          : $localize`:@@notKnown:Ei tiedossa`,
+        name: relation['name' + capitalizedLocale],
+        id: relation.relationIdentifier,
+        pid: relation.pidContent,
+        canBeLinked: relation.canBeLinked === 1,
+      };
+    });
+
+    // Sort relations by relations type.
+    // Least relations by type first.
+    const datasetRelationsByTypes = datasetRelations
+      ?.reduce((acc, curr) => {
+        const type = curr.type;
+        const found = acc.find((i) => i.type === type);
+        if (!found) {
+          acc.push({
+            type: curr.type,
+            items: datasetRelations.filter(
+              (relation) => relation.type === type
+            ),
+          });
+        }
+        return acc.sort((a, b) => a.items.length - b.items.length);
+      }, [])
+      .flatMap((relationType) => relationType.items);
+
+    /*
      * Dataset versions
      */
     const datasetVersions = item.datasetVersionSet
@@ -214,7 +265,8 @@ export class DatasetAdapter implements Adapter<Dataset> {
       doi, // Missing?
       urn,
       item.fairdataUrl,
-      datasetVersions
+      datasetVersions,
+      datasetRelationsByTypes
     );
   }
 }

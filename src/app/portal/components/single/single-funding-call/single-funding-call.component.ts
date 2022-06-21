@@ -107,7 +107,7 @@ export class SingleFundingCallComponent implements OnInit {
     //this.singleService.updateId(this.singleId);
     this.pageNumber = this.searchService.pageNumber || 1;
     this.tabQueryParams = this.tabChangeService.tabQueryParams['funding-calls'];
-    this.tabData =  this.tabChangeService.tabData.find(
+    this.tabData = this.tabChangeService.tabData.find(
       (item) => item.data === 'fundingCalls'
     );
     this.searchTerm = this.searchService.searchTerm;
@@ -142,12 +142,12 @@ export class SingleFundingCallComponent implements OnInit {
 
   processContactInfo(input: string) {
     if (input?.length > 0) {
-      const splitArr = input.split(",");
+      const splitArr = input.split(',');
       this.contactInfoName = splitArr[0];
-      if (splitArr.length > 0 ){
+      if (splitArr.length > 0) {
         this.contactInfoName = splitArr[0];
       }
-      if (splitArr.length > 1 ){
+      if (splitArr.length > 1) {
         this.contactInfoEmail = splitArr[2];
       }
     }
@@ -159,8 +159,16 @@ export class SingleFundingCallComponent implements OnInit {
   }
 
   processPossibleEmailRow(input: string) {
-    if (input.toLowerCase().includes("(at)") || input.toLowerCase().includes("(a)") || input.includes('@')) {
-      return { label: $localize`Sähköpostiosoite`, field: 'emailAddress', email: input };
+    if (
+      input.toLowerCase().includes('(at)') ||
+      input.toLowerCase().includes('(a)') ||
+      input.includes('@')
+    ) {
+      return {
+        label: $localize`Sähköpostiosoite`,
+        field: 'emailAddress',
+        email: input,
+      };
     }
     return input;
   }
@@ -171,31 +179,24 @@ export class SingleFundingCallComponent implements OnInit {
     event.target.replaceWith(span);
   }
 
-
   getData(id: string) {
     this.dataSub = this.singleService.getSingleFundingCall(id).subscribe({
       next: (responseData) => {
         this.responseData = responseData;
-        if (this.responseData.fundingCalls[0]) {
-          this.addTopLevelScienceAreas(this.responseData.fundingCalls[0]);
+        const fundingCall = this.responseData.fundingCalls[0];
+        if (fundingCall) {
+          this.addTopLevelScienceAreas(fundingCall);
           switch (this.localeId) {
             case 'fi': {
-              this.setTitle(
-                this.responseData.fundingCalls[0].name + ' - Tiedejatutkimus.fi'
-              );
+              this.setTitle(fundingCall.name + ' - Tiedejatutkimus.fi');
               break;
             }
             case 'en': {
-              this.setTitle(
-                this.responseData.fundingCalls[0].name.trim() + ' - Research.fi'
-              );
+              this.setTitle(fundingCall.name.trim() + ' - Research.fi');
               break;
             }
             case 'sv': {
-              this.setTitle(
-                this.responseData.fundingCalls[0].name.trim() +
-                  ' - Forskning.fi'
-              );
+              this.setTitle(fundingCall.name.trim() + ' - Forskning.fi');
               break;
             }
           }
@@ -206,7 +207,7 @@ export class SingleFundingCallComponent implements OnInit {
             this.metaTags['description' + this.currentLocale],
             this.commonTags['imgAlt' + this.currentLocale]
           );
-
+          console.log(fundingCall);
           this.filterData();
         }
       },
@@ -217,17 +218,19 @@ export class SingleFundingCallComponent implements OnInit {
   addTopLevelScienceAreas(responseData: any) {
     const topLevelCatsAr = [];
     const retCategories = [];
-    responseData?.categories.forEach((cat => {
-      topLevelCatsAr.includes(cat.parentName) ? null : topLevelCatsAr.push(cat.parentName);
-    }));
-    topLevelCatsAr.sort((a,b) => (a > b) ? 1 : ((b > a) ? -1 : 0));
+    responseData?.categories.forEach((cat) => {
+      topLevelCatsAr.includes(cat.parentName)
+        ? null
+        : topLevelCatsAr.push(cat.parentName);
+    });
+    topLevelCatsAr.sort((a, b) => (a > b ? 1 : b > a ? -1 : 0));
     topLevelCatsAr.forEach((topCat) => {
-      retCategories.push({name: topCat, isParent: true});
-      responseData?.categories.forEach((cat => {
-        if (cat?.parentName === topCat){
-          retCategories.push({name: cat.name, isParent: false});
+      retCategories.push({ name: topCat, isParent: true });
+      responseData?.categories.forEach((cat) => {
+        if (cat?.parentName === topCat) {
+          retCategories.push({ name: cat.name, isParent: false });
         }
-      }));
+      });
     });
     responseData.categories = [...retCategories];
   }
@@ -257,10 +260,13 @@ export class SingleFundingCallComponent implements OnInit {
       checkEmpty(item)
     );
 
-    const contactInfo = this.responseData.fundingCalls[0]?.contactInfo.split(/[\n,;]/);
-    contactInfo.forEach(info => {
+    const contactInfo =
+      this.responseData.fundingCalls[0]?.contactInfo.split(/[\n,;]/);
+    contactInfo.forEach((info) => {
       if (info.length > 0) {
-        this.contactInfoRows.push(this.processPossibleEmailRow(this.removeHtmlTags(info)));
+        this.contactInfoRows.push(
+          this.processPossibleEmailRow(this.removeHtmlTags(info))
+        );
       }
     });
 
@@ -270,7 +276,6 @@ export class SingleFundingCallComponent implements OnInit {
         parseString(item);
     });
   }
-
 
   expand(field: string) {
     switch (field) {

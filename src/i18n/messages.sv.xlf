@@ -3629,6 +3629,10 @@
         <source>Jatkuvat haut</source>
         <target>Fortlöpande ansökan</target>
       </trans-unit>
+      <trans-unit id="timeAt">
+        <source>klo</source>
+        <target>kl.</target>
+      </trans-unit>
       <trans-unit id="continuous">
         <source>Jatkuva</source>
         <target>Fortlöpande</target>
