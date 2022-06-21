@@ -200,7 +200,7 @@ export class DatasetAdapter implements Adapter<Dataset> {
       const displayLocation = locale === 'fi' ? locale : 'en';
 
       const matchingRelation = DatasetRelations.find(
-        (item) => item.id === relation.relationType
+        (item) => item.uri === relation.relationType
       );
 
       return {
@@ -213,6 +213,24 @@ export class DatasetAdapter implements Adapter<Dataset> {
         canBeLinked: relation.canBeLinked === 1,
       };
     });
+
+    // Sort relations by relations type.
+    // Least relations by type first.
+    const datasetRelationsByTypes = datasetRelations
+      ?.reduce((acc, curr) => {
+        const type = curr.type;
+        const found = acc.find((i) => i.type === type);
+        if (!found) {
+          acc.push({
+            type: curr.type,
+            items: datasetRelations.filter(
+              (relation) => relation.type === type
+            ),
+          });
+        }
+        return acc.sort((a, b) => a.items.length - b.items.length);
+      }, [])
+      .flatMap((relationType) => relationType.items);
 
     /*
      * Dataset versions
@@ -248,7 +266,7 @@ export class DatasetAdapter implements Adapter<Dataset> {
       urn,
       item.fairdataUrl,
       datasetVersions,
-      datasetRelations
+      datasetRelationsByTypes
     );
   }
 }

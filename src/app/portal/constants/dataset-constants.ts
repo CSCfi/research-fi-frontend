@@ -47,7 +47,7 @@ export const DatasetRelations = [
     },
   },
   {
-    id: 'hasPreviousVersion',
+    id: 'adms#previous',
     uri: 'http://www.w3.org/ns/adms#previous',
     label: {
       fi: 'Edellinen versio',
