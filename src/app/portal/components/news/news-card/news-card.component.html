@@ -34,8 +34,7 @@
 
       <ng-container *ngIf="itemTypeFundingCalls" [ngSwitch]="isHomepage">
         <a
-          routerLink="/funding-call/{{ _fundingCall.id }}"
-          target="_blank"
+          routerLink="/results/funding-call/{{ _fundingCall.id }}"
           class="d-block"
         >
           <div class="row d-flex justify-content-between">
