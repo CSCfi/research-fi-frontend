@@ -145,6 +145,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
         </aside>
         <main class="col-12" id="main-content">
           <app-funding-call-category-filters
+            *ngIf="tab === 'funding-calls'"
             [resetFundingCallCategoryFilters]="clearAllFilters"
             [responseData]="filterValues"
             (filterChangeOutput)="setExternalFilters($event)"
