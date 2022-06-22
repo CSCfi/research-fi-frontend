@@ -8,92 +8,35 @@
 </div>
 <!-- Data -->
 <div *ngIf="resultData && resultData.total > 0; else noResults">
-  <!-- Results -->
-  <!-- <div class="row no-margin sticky-header" [ngStyle]="{'top': marginTop + 'px'}"> -->
-  <div class="row no-margin sticky-header">
-    <div class="col col-1 icon"></div>
-    <div class="col col-lg-5 col-xl-4 d-none d-lg-block">
-      <span
-        #main
-        tabindex="0"
-        class="bold uppercase"
-        [ngClass]="
-          sortColumn === 'name' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'
-        "
-        (click)="utilityService.sortBy('name')"
-        (keydown.enter)="utilityService.sortBy('name')"
-        i18n="@@datasetName"
-        >Tutkimusaineiston nimi</span
-      >
-    </div>
-    <div class="col col-lg-5 col-xl-3 d-none d-lg-block">
-      <span
-        tabindex="0"
-        class="bold uppercase"
-        [ngClass]="
-          sortColumn === 'author'
-            ? !sortDirection
-              ? 'asc'
-              : 'desc'
-            : 'unsorted'
-        "
-        (click)="utilityService.sortBy('author')"
-        (keydown.enter)="utilityService.sortBy('author')"
-        i18n="@@datasetCreators"
-        >Tutkimusaineiston tekijät / organisaatio</span
-      >
-    </div>
-    <div class="col col-lg-1 d-none d-lg-block">
-      <span
-        tabindex="0"
-        class="bold uppercase"
-        [ngClass]="
-          sortColumn === 'year' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'
-        "
-        (click)="utilityService.sortBy('year')"
-        (keydown.enter)="utilityService.sortBy('year')"
-        i18n="@@year"
-        >Vuosi</span
-      >
-    </div>
-    <div class="col col-xl-3 d-none d-xl-block">
-      <span
-        class="bold uppercase cursor-default"
-        (keydown.enter)="utilityService.sortBy('medium')"
-        i18n=""
-      ></span>
-    </div>
-  </div>
-  <div *ngIf="resultData" class="result-container">
-    <div
-      *ngFor="let dataset of resultData.datasets; let i = index"
-      class="single"
-    >
-      <div class="row no-margin">
-        <div class="col col-1 icon">
-          <a
-            routerLink="/results/dataset/{{ dataset.id }}"
-            class="icon"
-            tabindex="-1"
-            title="Tutkimusaineistojen tiedon ikoni"
-          >
-            <fa-icon [icon]="faIcon"></fa-icon>
-          </a>
-        </div>
-        <div class="col col-8 col-lg-5 col-xl-4 title">
-          <a routerLink="/results/dataset/{{ dataset.id }}">
-            <h4
-              class="result-title"
-              [attr.lang]="
-                dataset.languageCode !== documentLang
-                  ? dataset.languageCode
-                  : null
-              "
-              [innerHtml]="dataset.name | highlight: input"
-            ></h4>
-          </a>
-          <div class="tags d-xl-none">
-            <!-- <a
+  <app-table
+    *ngIf="dataMapped"
+    [columns]="tableColumns"
+    [rows]="tableRows"
+    [icon]="faIcon"
+    iconTitle="Tutkimusaineistojen tiedon ikoni"
+    iconLinkField="name"
+    [sortColumn]="sortService.sortColumn"
+    [sortDirection]="sortService.sortDirection ? 'desc' : 'asc'"
+    (onSortChange)="utilityService.sortBy($event)"
+  ></app-table>
+
+  <!-- Templates -->
+  <div *ngIf="resultData">
+    <div *ngFor="let dataset of resultData.datasets; let i = index">
+      <ng-template #datasetNameColumn>
+        <a routerLink="/results/dataset/{{ dataset.id }}">
+          <h4
+            class="result-title"
+            [attr.lang]="
+              dataset.languageCode !== documentLang
+                ? dataset.languageCode
+                : null
+            "
+            [innerHtml]="dataset.name | highlight: input"
+          ></h4>
+        </a>
+        <div class="tags d-xl-none mt-2">
+          <!-- <a
               *ngIf="dataset.openAccess"
               href=""
               target="_blank"
@@ -103,44 +46,37 @@
               <span i18n="@@openAccess">Avoin saatavuus</span
               ><fa-icon icon="external-link-alt"></fa-icon>
             </a> -->
-            <!-- Span is for datasets that doesn't have OA link. Angular doesn't allow void(0) to be passed without unsafe warnings -->
-            <span *ngIf="dataset.openAccess" class="open-access div">
-              <span class="open-access-image"></span>
-              <span i18n="@@openAccess">Avoin saatavuus</span>
-            </span>
-            <!-- DOI -->
-            <div *ngIf="dataset.doi?.trim()" class="doi">
-              <span class="doi-tag">DOI</span>
-              <span class="doi-link"
-                ><a href="https://doi.org/{{ dataset.doi }}" target="_blank"
-                  >{{ dataset.doi
-                  }}<fa-icon icon="external-link-alt"></fa-icon></a
-              ></span>
-            </div>
-            <!-- Dataset versions tag -->
-            <ng-container *ngTemplateOutlet="versionTag"></ng-container>
-            <!-- URN -->
-            <div *ngIf="dataset.urn?.trim()" class="doi">
-              <span class="doi-tag">URN</span>
-              <span class="doi-link"
-                ><a href="http://urn.fi/{{ dataset.urn }}" target="_blank"
-                  >{{ dataset.urn
-                  }}<fa-icon icon="external-link-alt"></fa-icon></a
-              ></span>
-            </div>
+          <!-- Span is for datasets that doesn't have OA link. Angular doesn't allow void(0) to be passed without unsafe warnings -->
+          <span *ngIf="dataset.openAccess" class="open-access div">
+            <span class="open-access-image"></span>
+            <span i18n="@@openAccess">Avoin saatavuus</span>
+          </span>
+          <!-- DOI -->
+          <div *ngIf="dataset.doi?.trim()" class="doi">
+            <span class="doi-tag">DOI</span>
+            <span class="doi-link"
+              ><a href="https://doi.org/{{ dataset.doi }}" target="_blank"
+                >{{ dataset.doi
+                }}<fa-icon icon="external-link-alt"></fa-icon></a
+            ></span>
+          </div>
+          <!-- Dataset versions tag -->
+          <ng-container *ngTemplateOutlet="versionTag"></ng-container>
+          <!-- URN -->
+          <div *ngIf="dataset.urn?.trim()" class="doi">
+            <span class="doi-tag">URN</span>
+            <span class="doi-link"
+              ><a href="http://urn.fi/{{ dataset.urn }}" target="_blank"
+                >{{ dataset.urn
+                }}<fa-icon icon="external-link-alt"></fa-icon></a
+            ></span>
           </div>
         </div>
-        <div class="col col-lg-5 col-xl-3 d-none d-lg-block">
-          <span
-            [innerHtml]="dataset.creators | cutContent: 100 | highlight: input"
-          ></span>
-        </div>
-        <div class="col col-xl-1 text-end">
-          <span [innerHtml]="dataset.year | highlight: input"></span>
-        </div>
-        <div class="col col-lg-3 d-none d-xl-block">
-          <div class="tags">
-            <!-- <a
+      </ng-template>
+
+      <ng-template #datasetTagsColumn>
+        <div class="tags d-none d-xl-block">
+          <!-- <a
               *ngIf="dataset.openAccess"
               href=""
               target="_blank"
@@ -150,34 +86,33 @@
               <span i18n="@@openAccess">Avoin saatavuus</span
               ><fa-icon icon="external-link-alt"></fa-icon>
             </a> -->
-            <!-- Span is for datasets that doesn't have OA link. Angular doesn't allow void(0) to be passed without unsafe warnings -->
-            <span *ngIf="dataset.openAccess" class="open-access div">
-              <span class="open-access-image"></span>
-              <span i18n="@@openAccess">Avoin saatavuus</span>
-            </span>
-            <!-- DOI -->
-            <div *ngIf="dataset.doi?.trim()" class="doi">
-              <span class="doi-tag">DOI</span>
-              <span class="doi-link"
-                ><a href="https://doi.org/{{ dataset.doi }}" target="_blank"
-                  >{{ dataset.doi
-                  }}<fa-icon icon="external-link-alt"></fa-icon></a
-              ></span>
-            </div>
-            <!-- Dataset versions tag -->
-            <ng-container *ngTemplateOutlet="versionTag"></ng-container>
-            <!-- URN -->
-            <div *ngIf="dataset.urn?.trim()" class="doi">
-              <span class="doi-tag">URN</span>
-              <span class="doi-link"
-                ><a href="http://urn.fi/{{ dataset.urn }}" target="_blank"
-                  >{{ dataset.urn
-                  }}<fa-icon icon="external-link-alt"></fa-icon></a
-              ></span>
-            </div>
+          <!-- Span is for datasets that doesn't have OA link. Angular doesn't allow void(0) to be passed without unsafe warnings -->
+          <span *ngIf="dataset.openAccess" class="open-access div">
+            <span class="open-access-image"></span>
+            <span i18n="@@openAccess">Avoin saatavuus</span>
+          </span>
+          <!-- DOI -->
+          <div *ngIf="dataset.doi?.trim()" class="doi">
+            <span class="doi-tag">DOI</span>
+            <span class="doi-link"
+              ><a href="https://doi.org/{{ dataset.doi }}" target="_blank"
+                >{{ dataset.doi
+                }}<fa-icon icon="external-link-alt"></fa-icon></a
+            ></span>
+          </div>
+          <!-- Dataset versions tag -->
+          <ng-container *ngTemplateOutlet="versionTag"></ng-container>
+          <!-- URN -->
+          <div *ngIf="dataset.urn?.trim()" class="doi">
+            <span class="doi-tag">URN</span>
+            <span class="doi-link"
+              ><a href="http://urn.fi/{{ dataset.urn }}" target="_blank"
+                >{{ dataset.urn
+                }}<fa-icon icon="external-link-alt"></fa-icon></a
+            ></span>
           </div>
         </div>
-      </div>
+      </ng-template>
 
       <!-- Template for version tag -->
       <ng-template #versionTag>
@@ -188,8 +123,6 @@
           >
         </div>
       </ng-template>
-
-      <!-- <app-related-results class="row related-fields" [class.expand]="expandStatus[i]"></app-related-results> -->
     </div>
   </div>
   <!-- Pagination -->
@@ -197,23 +130,9 @@
 </div>
 
 <ng-template #noResults>
-  <div class="row main-content" *ngIf="resultData && resultData.total === 0">
-    <div class="col text-center no-results" role="alert">
-      <h2 i18n="@@noDatasets">Ei tutkimusaineistoja</h2>
-      <br />
-      <p i18n="@@resultSearchTermWarning">
-        Tarkista, onko hakutermissä kirjoitusvirheitä.<br />
-        Voi myös olla, että hakemaasi tietoa ei ole tarjolla tässä
-        verkkopalvelussa.
-      </p>
-      <p>
-        <a
-          routerLink="/service-info"
-          fragment="service-info-2"
-          i18n="@@resultsAboutService"
-          >Mitä tietoja Tiedejatutkimus.fi sisältää?</a
-        >
-      </p>
-    </div>
-  </div>
+  <app-no-results
+    *ngIf="resultData && resultData.total === 0"
+    heading="Ei tutkimusaineistoja"
+    i18n-heading="@@noDatasets"
+  ></app-no-results>
 </ng-template>

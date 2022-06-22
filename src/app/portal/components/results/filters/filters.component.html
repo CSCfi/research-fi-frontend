@@ -45,6 +45,7 @@
         *ngFor="let filter of currentFilter; let i = index"
         class="parent"
         [expanded]="filter.open"
+        [hidden]="filter.field === 'field' && (filter.label === 'Hakuala' || filter.label === 'Category' || filter.label === 'Ämnesområde')"
         (opened)="setOpenStatus(filter.field)"
         (closed)="closePanel(filter.field)"
       >
@@ -391,7 +392,7 @@
               >
             </div>
           </mat-selection-list>
-          <!-- Shor more / Less -->
+          <!-- Show more / Less -->
           <div
             *ngIf="
               responseData.aggregations[filter.field]?.buckets?.length >
@@ -632,8 +633,8 @@
                 )
               "
             >
-              <div class="col row">
-                <span class="label pe-2">{{ item?.label }}</span>
+              <div class="col">
+                <span class="panel-title pe-2">{{ item?.label }}</span>
                 <ng-container *ngIf="item.tooltip">
                   <ng-template #tooltipTemplate>
                     <div [innerHtml]="item.tooltip"></div>

@@ -14,14 +14,19 @@ import {
   ViewChild,
   ElementRef,
   AfterViewInit,
+  TemplateRef,
+  ViewChildren,
+  QueryList,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { SearchService } from 'src/app/portal/services/search.service';
 import { SortService } from 'src/app/portal/services/sort.service';
 import { Search } from 'src/app/portal/models/search.model';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { UtilityService } from 'src/app/shared/services/utility.service';
+import { TableColumn, TableRowItem } from 'src/types';
+import { HighlightSearch } from '@portal/pipes/highlight.pipe';
 
 @Component({
   selector: 'app-infrastructures',
@@ -45,24 +50,28 @@ export class InfrastructuresComponent
   focusSub: any;
   faCheckCircle = faCheckCircle;
 
+  tableColumns: TableColumn[];
+  tableRows: Record<string, TableRowItem>[];
+
+  @ViewChildren('infrastructureNameColumns', { read: TemplateRef })
+  infrastructureNameColumns: QueryList<ElementRef>;
+
+  dataMapped: boolean;
+
   constructor(
-    private router: Router,
     private route: ActivatedRoute,
     private tabChangeService: TabChangeService,
     private searchService: SearchService,
     private sortService: SortService,
     private cdr: ChangeDetectorRef,
-    public utilityService: UtilityService
+    public utilityService: UtilityService,
+    private highlightPipe: HighlightSearch
   ) {}
 
   ngOnInit() {
     this.sortService.initSort(this.route.snapshot.queryParams.sort || '');
     this.sortColumn = this.sortService.sortColumn;
     this.sortDirection = this.sortService.sortDirection;
-    this.inputSub = this.searchService.currentInput.subscribe((input) => {
-      this.input = input;
-      this.cdr.detectChanges();
-    });
   }
 
   ngAfterViewInit() {
@@ -74,6 +83,65 @@ export class InfrastructuresComponent
         }
       }
     );
+
+    this.inputSub = this.searchService.currentInput.subscribe((input) => {
+      this.input = input;
+      this.mapData();
+      this.cdr.detectChanges();
+    });
+  }
+
+  mapData() {
+    // Get cell data from template
+    const nameColumnArray = this.infrastructureNameColumns.toArray();
+
+    // Map data to table
+    // Use highlight pipe for higlighting search term
+    this.tableColumns = [
+      {
+        key: 'acronym',
+        label: $localize`:@@infraAcronym:Lyhenne`,
+        tooltip: $localize`:@@acronymTooltip:Tutkimusinfrastruktuurin lyhenne. Infrastruktuureille on tyypillistä, että ne tunnetaan lyhenteellään.`,
+        class: 'col-3 col-xl-2 d-none d-lg-block',
+        mobile: false,
+      },
+      {
+        key: 'name',
+        label: $localize`:@@infraName:Nimi`,
+        class: 'col-lg-4 col-xl-4',
+        mobile: true,
+      },
+      {
+        key: 'organization',
+        label: $localize`:@@infraOrganization:Organisaatio`,
+        tooltip: $localize`:@@infraOrganizationTooltip:Tutkimusinfrastruktuurin vastuuorganisaatio. Etenkin suurilla infrastruktuureilla voi olla useita palveluita, joista vastaa joku muu organisaatio. Muut organisaatiot näkee infrastruktuurin tietosivulta.`,
+        class: 'col-lg-4 col-xl-4',
+        mobile: true,
+      },
+    ];
+    this.tableRows = this.resultData.infrastructures.map(
+      (infrastructure, index) => ({
+        acronym: {
+          label: this.highlightPipe.transform(
+            infrastructure.acronym,
+            this.input
+          ),
+        },
+        name: {
+          label: this.highlightPipe.transform(infrastructure.name, this.input),
+          template: nameColumnArray[index],
+          link: `/results/infrastructure/${infrastructure.id}`,
+        },
+        organization: {
+          label: this.highlightPipe.transform(
+            infrastructure.responsibleOrganization,
+            this.input
+          ),
+        },
+      })
+    );
+
+    this.dataMapped = true;
   }
 
   ngOnDestroy() {

@@ -60,7 +60,6 @@
         *ngIf="parsedFilters.length > 6"
         class="show filter"
         mat-button
-        color="primary"
         (click)="openDialog()"
         i18n="@@showAll"
       >
@@ -69,7 +68,6 @@
       <button
         class="clear filter"
         mat-button
-        color="primary"
         (click)="clearFilters()"
       >
         <fa-icon class="clear" [icon]="faTrashAlt"></fa-icon>
@@ -82,7 +80,7 @@
 </div>
 
 <ng-template #filterListDialog>
-  <app-filter-list [data]="dialogData"></app-filter-list>
+  <app-filter-list [data]="dialogData" (clearAllFilters)="this.clearFilters()"></app-filter-list>
 </ng-template>
 
 <app-dialog

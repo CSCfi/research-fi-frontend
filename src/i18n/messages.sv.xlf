@@ -3120,7 +3120,7 @@
       </trans-unit>
       <trans-unit id="version">
         <source>versio</source>
-        <target>versione</target>
+        <target>version</target>
       </trans-unit>
       <trans-unit id="versions">
         <source>versiota</source>
@@ -3622,12 +3622,16 @@
         <target>Kommande utlysningar</target>
       </trans-unit>
       <trans-unit id="closedCalls">
-        <source>Menneet haut</source>
+        <source>Päättyneet haut</source>
         <target>Avslutade utlysningar</target>
       </trans-unit>
       <trans-unit id="continuousCalls">
         <source>Jatkuvat haut</source>
         <target>Fortlöpande ansökan</target>
+      </trans-unit>
+      <trans-unit id="timeAt">
+        <source>klo</source>
+        <target>kl.</target>
       </trans-unit>
       <trans-unit id="continuous">
         <source>Jatkuva</source>
@@ -3866,6 +3870,10 @@
       <trans-unit id="fundingsTooltip">
         <source>Suomalaisten julkisten ja yksityisten tutkimusrahoittajien rahoituspäätöksiä siitä alkaen, kun rahoittaja on liittynyt palveluun. EU:n suomalaisille organisaatioille myöntämät rahoituspäätökset Horizon 2020 puiteohjelmasta alkaen.</source>
         <target state="translated">Finländska offentliga och privata forskningsfinansiärers finansieringsbeslut från och med att finansiären anslöt sig till tjänsten. EU:s finansieringsbeslut till finländska organisationer från och med ramprogrammet Horizon 2020.</target>
+      </trans-unit>
+      <trans-unit id="fundingCallsTooltip">
+         <source>Suomalaisten tiedettä, taidetta ja kulttuuria rahoittavien säätiöiden ja rahastojen käynnissä olevia ja avautuvia rahoitushakuja.</source>
+         <target>Öppna och förekommande utlysningar för vetenskap, konst och kultur av de finska finansiärerna.</target>
       </trans-unit>
       <trans-unit id="datasetsTooltip">
         <source>Suomessa tuotettujen tutkimusaineistojen kuvailutietoja.</source>

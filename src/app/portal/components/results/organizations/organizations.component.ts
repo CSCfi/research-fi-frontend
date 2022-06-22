@@ -15,12 +15,14 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { SearchService } from 'src/app/portal/services/search.service';
 import { SortService } from 'src/app/portal/services/sort.service';
 import { Search } from 'src/app/portal/models/search.model';
 import { UtilityService } from 'src/app/shared/services/utility.service';
+import { HighlightSearch } from '@portal/pipes/highlight.pipe';
+import { TableColumn, TableRowItem } from 'src/types';
 
 @Component({
   selector: 'app-organizations',
@@ -30,7 +32,14 @@ import { UtilityService } from 'src/app/shared/services/utility.service';
 export class OrganizationsComponent
   implements OnInit, OnDestroy, AfterViewInit
 {
-  @Input() resultData: Search;
+  _resd: Search;
+  get resultData(): Search {
+    return this._resd;
+  }
+
+  @Input() set resultData(resD: Search) {
+    this._resd = resD;
+  }
   @ViewChild('main') mainContent: ElementRef;
   expandStatus: Array<boolean> = [];
   sortColumn: string;
@@ -42,15 +51,17 @@ export class OrganizationsComponent
   inputSub: any;
   input: string;
   focusSub: any;
+  tableColumns: TableColumn[];
+  tableRows: Record<string, TableRowItem>[];
 
   constructor(
-    private router: Router,
     private route: ActivatedRoute,
     private tabChangeService: TabChangeService,
     private searchService: SearchService,
     private sortService: SortService,
     private cdr: ChangeDetectorRef,
-    public utilityService: UtilityService
+    public utilityService: UtilityService,
+    private highlightPipe: HighlightSearch
   ) {}
 
   ngOnInit() {
@@ -59,8 +70,40 @@ export class OrganizationsComponent
     this.sortDirection = this.sortService.sortDirection;
     this.inputSub = this.searchService.currentInput.subscribe((input) => {
       this.input = input;
+      this.mapData();
       this.cdr.detectChanges();
     });
+  }
+
+  mapData() {
+    // Map data to table
+    // Use highlight pipe for higlighting search term
+    this.tableColumns = [
+      {
+        key: 'name',
+        label: $localize`:@@name:Nimi`,
+        class: 'col-7',
+        mobile: true,
+      },
+      {
+        key: 'sector',
+        label: $localize`:@@orgOrganization:Organisaatio`,
+        class: 'col-4',
+        mobile: true,
+      },
+    ];
+    this.tableRows = this.resultData.organizations.map((organization) => ({
+      name: {
+        label: this.highlightPipe.transform(organization.name, this.input),
+        link: `/results/organization/${organization.id}`,
+      },
+      sector: {
+        label: this.highlightPipe.transform(
+          organization.sectorName,
+          this.input
+        ),
+      },
+    }));
   }
 
   ngAfterViewInit() {

@@ -94,7 +94,7 @@ Active filters list is rendered by query parameters in url. We check filter key 
 
 Search result visualisations are made with `D3` library.
 
-Visualisations consist of two main parts: first constructing the required aggregation queries to ElasticSearch and handling the response in a Model-Adapter pattern similarly to search results. Second, 
+Visualisations consist of two main parts: first constructing the required aggregation queries to ElasticSearch and handling the response in a Model-Adapter pattern similarly to search results. Second,
 constructing the actual visualisations from the data using the `D3` library.
 
 The queries consist mainly of stacked `terms` aggregations. For publications, there is a single aggregation for each category. For fundings, however two top-level aggregations are needed, since funding amount information
@@ -110,6 +110,10 @@ The construction of the visualisations is handled in components under `portal/co
 ### Science and research elsewhere
 
 This area consists of data gathered from Researh.fi CMS system.
+
+### Dynamic tables
+
+We use <app-table> component for rendering dynamic tables.
 
 ## MyData Module
 

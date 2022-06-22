@@ -6,3 +6,23 @@
 //  :license: MIT
 
 @import './filters-shared.scss';
+
+app-funding-call-category-filters .mat-standard-chip {
+  border-radius: 10px;
+}
+
+app-funding-call-category-filters .mat-chip-list-stacked .mat-chip-list-wrapper .mat-standard-chip {
+  width: auto !important;
+}
+
+app-funding-call-category-filters {
+  .mat-chip-list-wrapper {
+    flex-direction: row !important;
+    margin-top: 10px;
+    margin-bottom: 15px;
+  }
+  .mat-chip {
+    cursor: pointer;
+    border-radius: 4px;
+  }
+}

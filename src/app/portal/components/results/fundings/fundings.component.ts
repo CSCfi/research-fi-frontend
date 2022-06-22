@@ -15,12 +15,14 @@ import {
   ElementRef,
   ChangeDetectorRef,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
 import { SearchService } from 'src/app/portal/services/search.service';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { Search } from 'src/app/portal/models/search.model';
 import { UtilityService } from 'src/app/shared/services/utility.service';
+import { TableColumn, TableRowItem } from 'src/types';
+import { HighlightSearch } from '@portal/pipes/highlight.pipe';
 
 @Component({
   selector: 'app-fundings',
@@ -41,14 +43,19 @@ export class FundingsComponent implements OnInit, OnDestroy, AfterViewInit {
   input: string;
   focusSub: any;
 
+  tableColumns: TableColumn[];
+  tableRows: Record<string, TableRowItem>[];
+
+  dataMapped: boolean;
+
   constructor(
-    private router: Router,
     private route: ActivatedRoute,
     private sortService: SortService,
     private tabChangeService: TabChangeService,
     private searchService: SearchService,
     private cdr: ChangeDetectorRef,
-    public utilityService: UtilityService
+    public utilityService: UtilityService,
+    private highlightPipe: HighlightSearch
   ) {}
 
   ngOnInit() {
@@ -57,6 +64,7 @@ export class FundingsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.sortDirection = this.sortService.sortDirection;
     this.inputSub = this.searchService.currentInput.subscribe((input) => {
       this.input = input;
+      this.mapData();
       this.cdr.detectChanges();
     });
   }
@@ -70,6 +78,61 @@ export class FundingsComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       }
     );
+  }
+
+  mapData() {
+    // Map data to table
+    // Use highlight pipe for higlighting search term
+    this.tableColumns = [
+      {
+        key: 'name',
+        label: $localize`:@@fundingName:Hankkeen nimi`,
+        class: 'col-8 col-lg-5 col-xl-3',
+        mobile: true,
+      },
+      {
+        key: 'funder',
+        label: $localize`:@@fundingFunder:Rahoittaja`,
+        class: 'col-lg-4 col-xl-3 d-none d-lg-block',
+        mobile: false,
+      },
+      {
+        key: 'funded',
+        label: $localize`:@@fundingFunded:Saaja`,
+        class: 'col-xl-3 d-none d-xl-block',
+        mobile: false,
+      },
+      {
+        key: 'year',
+        label: $localize`:@@fundingYear:Aloitusvuosi`,
+        class: 'col-lg-2',
+        mobile: true,
+      },
+    ];
+    this.tableRows = this.resultData.fundings.map((funding) => ({
+      name: {
+        label: this.highlightPipe.transform(funding.name, this.input),
+        title: funding.description,
+        link: `/results/funding/${funding.id}`,
+      },
+      funder: {
+        label: this.highlightPipe.transform(
+          funding.funder['nameFi'] !== 'UNDEFINED' ? funding.funder.name : '',
+          this.input
+        ),
+      },
+      funded: {
+        label: this.highlightPipe.transform(
+          funding.recipient.personNameAndOrg || '',
+          this.input
+        ),
+      },
+      year: {
+        label: this.highlightPipe.transform(funding.startYear, this.input),
+      },
+    }));
+
+    this.dataMapped = true;
   }
 
   ngOnDestroy() {

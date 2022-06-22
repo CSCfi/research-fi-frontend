@@ -1,0 +1,18 @@
+<div class="row">
+  <mat-chip-list selectable multiple class="mat-chip-list-stacked" [selectable]="true">
+    <ng-container *ngFor="let chip of majorFieldsOfScienceAurora">
+      <mat-chip
+        [selected]="chip.checked" (click)="clickChip(chip.id)"
+      >{{chip.key}}
+      </mat-chip>
+    </ng-container>
+  </mat-chip-list>
+  <br>
+  <!--
+  <div
+    *ngFor=" let entry of categoryFilterItems"
+    [value]="entry?.label"
+  >{{ entry?.label }}</div
+  >
+  -->
+  </div>

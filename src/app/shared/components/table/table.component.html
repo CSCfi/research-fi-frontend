@@ -1,0 +1,95 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<mat-table
+  [dataSource]="rows"
+  matSort
+  (matSortChange)="sortData($event)"
+  [dataSource]="rows"
+  [matSortActive]="sortColumn"
+  [matSortDirection]="sortColumn ? sortDirection : ''"
+  [@.disabled]="true"
+  class="d-none d-lg-block"
+  [class.align-center]="alignCenter"
+>
+  <ng-container *ngFor="let column of columns" [matColumnDef]="column.key">
+    <mat-header-cell
+      *matHeaderCellDef
+      [mat-sort-header]="column.key"
+      [disabled]="column.sortDisabled"
+      [class.invisible]="column.key === 'icon'"
+      [class.no-active-sort]="
+        sortColumn?.length === 0 || sortColumn !== column.key
+      "
+      [ngClass]="column.class ? column.class : 'col-auto'"
+    >
+      <span [tooltip]="column.tooltip" container="body">
+        {{ column.label }}
+      </span>
+    </mat-header-cell>
+    <mat-cell
+      *matCellDef="let rows"
+      [ngSwitch]="column.key"
+      [ngClass]="column.class ? column.class : 'col-auto'"
+      [class.overflow-visible]="column.overflowEnabled"
+      class="d-block"
+      [title]="rows[column.key].title | cutContent: 200"
+    >
+      <!-- Optional icon -->
+      <ng-container *ngIf="column.key === 'icon' && iconLinkField">
+        <a
+          *ngIf="rows[iconLinkField].link"
+          tabindex="-1"
+          [routerLink]="rows[iconLinkField].link"
+        >
+          <ng-container *ngTemplateOutlet="iconTemplate"></ng-container>
+        </a>
+      </ng-container>
+      <ng-template #iconTemplate>
+        <fa-icon
+          [icon]="rows.icon"
+          *ngSwitchCase="'icon'"
+          [title]="iconTitle"
+          class="row-icon"
+        ></fa-icon>
+      </ng-template>
+
+      <!-- Cell data  -->
+      <ng-container *ngSwitchDefault>
+        <app-table-cell [data]="rows[column.key]"></app-table-cell>
+      </ng-container>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row
+    *matHeaderRowDef="displayedColumns; sticky: true"
+  ></mat-header-row>
+  <mat-row
+    *matRowDef="let rows; columns: displayedColumns"
+    class="py-2"
+  ></mat-row>
+</mat-table>
+
+<!-- Mobile list view -->
+<div class="d-block d-lg-none">
+  <div class="row py-3 justify-content-between" *ngFor="let row of rows">
+    <ng-container *ngFor="let column of columns">
+      <div
+        *ngIf="column.mobile"
+        [ngClass]="
+          column.mobileColumnSize
+            ? 'col-' + column.mobileColumnSize
+            : column.key === 'year'
+            ? 'col-auto'
+            : 'col'
+        "
+      >
+        <ng-container>
+          <app-table-cell [data]="row[column.key]"></app-table-cell>
+        </ng-container>
+      </div>
+    </ng-container>
+  </div>
+</div>

@@ -41,6 +41,8 @@ import { tap } from 'rxjs/operators';
 import { DataService } from 'src/app/portal/services/data.service';
 import { FundingCallFilterService } from '@portal/services/filters/funding-call-filter.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { Search } from '@portal/models/search.model';
+import { SettingsService } from '@portal/services/settings.service';
 
 @Component({
   selector: 'app-filters',
@@ -49,9 +51,19 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
+
   @Input() responseData: any;
   @Input() tabData: string;
   @Input() showButton: boolean;
+
+  @Input() set externalFilterQuery(externalFilterQuery: any) {
+    if (externalFilterQuery && externalFilterQuery?.keys?.length > 0) {
+      this.selectionChange('field', externalFilterQuery.keys, false)
+    } else {
+      this.clearFundingCallFilters();
+    }
+  }
+
   @ViewChildren('filterSearch') filterSearch: QueryList<ElementRef>;
   @ViewChild('openFilters', { read: ElementRef }) openFiltersButton: ElementRef;
 
@@ -109,7 +121,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     private newsFilters: NewsFilterService,
     @Inject(PLATFORM_ID) private platformId: object,
     private dataService: DataService,
-    private appSettingsService: AppSettingsService
+    private appSettingsService: AppSettingsService,
   ) {
     this.showMoreCount = [];
   }
@@ -141,38 +153,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         this.currentInput = params.input;
       }
     });
-
-    // Switch default open panel by index
-    switch (this.tabData) {
-      case 'publications': {
-        this.parentPanel = 'year';
-        break;
-      }
-      case 'persons': {
-        this.parentPanel = '';
-        break;
-      }
-      case 'fundings': {
-        this.parentPanel = 'year';
-        break;
-      }
-      case 'datasets': {
-        this.parentPanel = 'year';
-        break;
-      }
-      case 'infrastructures': {
-        this.parentPanel = '';
-        break;
-      }
-      case 'organizations': {
-        this.parentPanel = 'sector';
-        break;
-      }
-      case 'news': {
-        this.parentPanel = '';
-        break;
-      }
-    }
 
     // Handle mobile status
     this.mobileStatusSub = this.appSettingsService.mobileStatus.subscribe(
@@ -248,6 +228,12 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
           this.fundingCallFilters.shapeData(this.responseData);
           break;
         }
+        case 'fundingCalls': {
+          this.currentFilter = this.fundingCallFilters.filterData;
+          this.currentSingleFilter = this.fundingCallFilters.singleFilterData;
+          this.fundingCallFilters.shapeData(this.responseData);
+          break;
+        }
         case 'news': {
           this.currentFilter = this.newsFilters.filterData;
           // this.currentSingleFilter = this.newsFilters.singleFilterData;
@@ -269,53 +255,68 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
-  // Navigate with selected filters. Results.component catches query parameters for filters
-  selectionChange(filter, key, forceOn = false) {
+  clearFundingCallFilters() {
+    // Merge selection with active filters and navigate
+    let selectedFilters: any = {};
+    const merged = Object.assign({}, this.activeFilters, selectedFilters);
+    if (merged.field){
+      merged.field = [];
+    }
+    this.router.navigate([], {
+      queryParams: merged,
+      queryParamsHandling: 'merge',
+    });
+  }
+
+  // Navigate with selected filters. Results.component catches query parameters for filters.
+  // Supports key inputs as string or as an array
+
+  selectionChange(filterName, key, forceOn = false) {
     let selectedFilters: any = {};
     // Reset selected filters
-    if (!this.activeFilters[filter]) {
-      selectedFilters[filter] = [];
+    if (!this.activeFilters[filterName]) {
+      selectedFilters[filterName] = [];
     }
     // Key comes as an array from selectAll method, single selects are strings
     if (Array.isArray(key)) {
-      selectedFilters[filter] = key;
+      selectedFilters[filterName] = key;
       // selectedFilters[filter].length > 0 ? selectedFilters[filter].concat(key)
     } else {
       // Filters cause problems if different data types
       key = key.toString();
       // Transform single active filter into array
       if (
-        this.activeFilters[filter] &&
-        !Array.isArray(this.activeFilters[filter])
+        this.activeFilters[filterName] &&
+        !Array.isArray(this.activeFilters[filterName])
       ) {
         const transformed = [];
-        transformed[filter] = [this.activeFilters[filter]];
+        transformed[filterName] = [this.activeFilters[filterName]];
         this.activeFilters = transformed;
         selectedFilters = this.activeFilters;
       }
       // Merge selection with active filter of dynamic key
-      if (this.activeFilters[filter]) {
-        const combined = this.activeFilters[filter].concat(
-          selectedFilters[filter] ? selectedFilters[filter] : []
+      if (this.activeFilters[filterName]) {
+        const combined = this.activeFilters[filterName].concat(
+          selectedFilters[filterName] ? selectedFilters[filterName] : []
         );
-        selectedFilters[filter] = [...new Set(combined)];
+        selectedFilters[filterName] = [...new Set(combined)];
       }
 
       // Remove filter if selection exists
-      if (selectedFilters[filter] && selectedFilters[filter].includes(key)) {
+      if (selectedFilters[filterName] && selectedFilters[filterName].includes(key)) {
         // If new filter is not forced on (visualisations)
         if (!forceOn) {
-          selectedFilters[filter].splice(
-            selectedFilters[filter].indexOf(key),
+          selectedFilters[filterName].splice(
+            selectedFilters[filterName].indexOf(key),
             1
           );
         }
       } else {
         // Add new filter
-        if (selectedFilters[filter] && selectedFilters[filter].length > 0) {
-          selectedFilters[filter].push(key);
+        if (selectedFilters[filterName] && selectedFilters[filterName].length > 0) {
+          selectedFilters[filterName].push(key);
         } else {
-          selectedFilters[filter] = [key];
+          selectedFilters[filterName] = [key];
         }
       }
     }

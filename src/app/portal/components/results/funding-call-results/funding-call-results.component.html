@@ -1,0 +1,32 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+<div class="spinner-center" *ngIf="!resultData">
+  <mat-spinner [diameter]="80"></mat-spinner>
+</div>
+<!-- Data -->
+<div *ngIf="resultData && resultData.total > 0; else noResults">
+  <app-table
+    *ngIf="dataMapped"
+    [columns]="tableColumns"
+    [rows]="tableRows"
+    [icon]="faIcon"
+    iconTitle="Infrastruktuurien tiedon ikoni"
+    iconLinkField="name"
+    [sortColumn]="sortService.sortColumn"
+    [sortDirection]="sortService.sortDirection ? 'desc' : 'asc'"
+    (onSortChange)="utilityService.sortBy($event)"
+  ></app-table>
+
+  <!-- Pagination -->
+  <app-pagination [responseData]="resultData"></app-pagination>
+</div>
+
+<ng-template #noResults>
+  <app-no-results
+    *ngIf="resultData && resultData.total === 0"
+    heading="Ei rahoitushakuja"
+    i18n-heading="@@noFundingCalls"
+  ></app-no-results>
+</ng-template>

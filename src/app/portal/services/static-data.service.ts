@@ -621,6 +621,10 @@ export class StaticDataService {
         res = [''];
         break;
       }
+      case 'funding-calls': {
+        res = [''];
+        break;
+      }
     }
     return res;
   }

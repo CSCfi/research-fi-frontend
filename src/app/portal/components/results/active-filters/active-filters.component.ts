@@ -16,7 +16,7 @@ import {
   QueryList,
   Inject,
   PLATFORM_ID,
-  LOCALE_ID,
+  LOCALE_ID, Output, EventEmitter
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { SortService } from '@portal/services/sort.service';
@@ -69,10 +69,12 @@ export class ActiveFiltersComponent
     restricted: $localize`:@@datasetAccessRestricted:Saatavuutta rajoitettu`,
     embargo: $localize`:@@datasetAccessEmbargo:Embargo`,
     // Funding-call status
-    closed: $localize`:@@closedCalls:Menneet haut`,
+    closed: $localize`:@@closedCalls:Päättyneet haut`,
     future: $localize`:@@futureCalls:Tulevat haut`,
     continuous: $localize`:@@continuousCalls:Jatkuvat haut`,
   };
+
+  @Output() clearAllFilters = new EventEmitter<any>();
 
   filterResponse: any;
   tabFilters: any;
@@ -177,6 +179,7 @@ export class ActiveFiltersComponent
   translate() {
     this.translationFlag = false;
     const errorMsg = 'error translating filter';
+
     this.queryParams = this.filterService.filters.subscribe((filter) => {
       // Get from & to year values from filter list
       this.fromYear = parseInt(filter.fromYear[0]?.slice(1), 10);
@@ -807,6 +810,7 @@ export class ActiveFiltersComponent
   }
 
   removeFilter(event): void {
+
     // Remove range filters. Check that target active filter matches fromYear filter
     if (
       event.target.id.length === 5 &&
@@ -874,6 +878,7 @@ export class ActiveFiltersComponent
   }
 
   clearFilters() {
+    this.clearAllFilters.emit(null);
     this.activeFilters = [];
     // Preserve target if available
     this.router.navigate([], {

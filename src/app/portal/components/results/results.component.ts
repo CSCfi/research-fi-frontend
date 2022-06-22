@@ -16,7 +16,7 @@ import {
   LOCALE_ID,
   PLATFORM_ID,
   AfterViewInit,
-  TemplateRef,
+  TemplateRef, Output, EventEmitter
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { SearchService } from '@portal/services/search.service';
@@ -48,6 +48,8 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
   styleUrls: ['./results.component.scss'],
 })
 export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
+  clearAllFilters = false;
+
   public searchTerm: any;
   input: Subscription;
   tabData = this.tabChangeService.tabData;
@@ -116,6 +118,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   showSkipLinks: boolean;
   currentLocale: string;
+  externalFilterQuery = '';
 
   visualPublication = this.staticDataService.visualisationData.publication;
   visualFunding = this.staticDataService.visualisationData.funding;
@@ -152,6 +155,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     MetaTags.datasets,
     MetaTags.infrastructures,
     MetaTags.organizations,
+    MetaTags.fundingCalls,
   ];
   private metaTags: { link: string };
   private commonTags = MetaTags.common;
@@ -187,6 +191,10 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.total = 1;
 
     this.currentLocale = this.appSettingsService.capitalizedLocale;
+  }
+
+  public setExternalFilters(filter: any){
+    this.externalFilterQuery = filter;
   }
 
   public setTitle(newTitle: string) {
@@ -446,6 +454,10 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  clearAllFiltersFromActiveFilters() {
+    this.clearAllFilters = !this.clearAllFilters;
+  }
+
   clearFilters() {
     this.router.navigate([], {
       queryParams: { target: this.settingsService.target },
@@ -514,7 +526,9 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     // Update title and <h1> with the information of the currently selected tab
     // Placeholder until real data is available
     const amount = tab.data ? this.dataService.totalResults : 999;
-    const title = this.utilityService.getTitle() ? this.utilityService.getTitle() : '';
+    const title = this.utilityService.getTitle()
+      ? this.utilityService.getTitle()
+      : '';
 
     // Set label by locale
     switch (this.localeId) {

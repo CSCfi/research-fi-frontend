@@ -30,8 +30,7 @@ import { ResearchInnovationSystemSectorResolver } from './resolvers/research-inn
 import { ExternalLinkResolver } from './resolvers/external-link-resolver.service';
 import { ShortcutResolverService } from './resolvers/shortcut-resolver.service';
 import { SingleDatasetComponent } from './components/single/single-dataset/single-dataset.component';
-import { FundingCallsComponent } from './components/funding-calls/funding-calls.component';
-import { SingleFundingCallComponent } from './components/funding-calls/single-funding-call/single-funding-call.component';
+import { SingleFundingCallComponent } from './components/single/single-funding-call/single-funding-call.component';
 // import { TkiReportsComponent } from "@portal/components/science-politics/tki-reports/tki-reports.component";
 
 const routes: Routes = [
@@ -79,6 +78,10 @@ const routes: Routes = [
     component: SingleInfrastructureComponent,
   },
   {
+    path: 'results/funding-call/:id',
+    component: SingleFundingCallComponent,
+  },
+  {
     path: 'results',
     redirectTo: 'results/publications',
     pathMatch: 'full',
@@ -119,21 +122,13 @@ const routes: Routes = [
   },
   {
     path: 'funding-calls',
-    pathMatch: 'full',
-    component: FundingCallsComponent,
+    redirectTo: 'results/funding-calls',
+    pathMatch: 'full'
   },
   {
     path: 'funding-calls/:input',
-    component: FundingCallsComponent,
-  },
-  {
-    path: 'funding-call/:id',
-    component: SingleFundingCallComponent,
-  },
-  {
-    path: 'funding-call',
-    redirectTo: 'funding-calls',
-    pathMatch: 'full',
+    redirectTo: 'results/funding-calls/:input',
+    pathMatch: 'full'
   },
   {
     path: 'science-innovation-policy',

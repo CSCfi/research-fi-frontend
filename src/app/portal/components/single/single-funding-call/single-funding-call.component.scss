@@ -13,5 +13,9 @@
     word-wrap: break-word;
     white-space: normal;
   }
+
+  .categories-title-wrap:not(:first-of-type) .categories-title {
+    margin-top: 15px;
+  }
 }
 

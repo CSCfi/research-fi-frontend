@@ -7,6 +7,14 @@ import { cloneDeep } from 'lodash';
 export class FundingCallFilterService {
   filterData = [
     {
+      field: 'status',
+      label: $localize`:@@fundingCallStatus:Rahoitushaun tila`,
+      hasSubFields: false,
+      open: true,
+      limitHeight: true,
+      // tooltip: $localize`:@@fundingCallStatusTooltip:Tutkimustietovarannossa hakuja seurataan päivän tarkkuudella. Haun päättymisen kellonaika kerrotaan hakuilmoituksessa tai rahoittajan palvelussa.`
+    },
+    {
       field: 'date',
       label: $localize`:@@applicationPeriod:Hakuaika`,
       hasSubFields: false,
@@ -15,14 +23,6 @@ export class FundingCallFilterService {
       hideSearch: true,
       hideNoResults: true,
       tooltip: $localize`:@@fundingCallPeriodTooltip:Aika, jolloin rahoitushaku on käynnissä. Voit rajata hakuaikaa rahoitushaun alkamis- ja päättymispäivämäärän tai vuoden mukaan.`,
-    },
-    {
-      field: 'status',
-      label: $localize`:@@fundingCallStatus:Rahoitushaun tila`,
-      hasSubFields: false,
-      open: true,
-      limitHeight: true,
-      // tooltip: $localize`:@@fundingCallStatusTooltip:Tutkimustietovarannossa hakuja seurataan päivän tarkkuudella. Haun päättymisen kellonaika kerrotaan hakuilmoituksessa tai rahoittajan palvelussa.`
     },
     {
       field: 'field',
@@ -71,22 +71,22 @@ export class FundingCallFilterService {
   }
   
   field(data) {
-    data.buckets.map((item) => {
-      item.label = item.key;
-      item.key = item.fieldId.buckets[0]?.key;
-      item.id = item.key;
-      item.doc_count = item.filtered.filterCount.doc_count;
-    });
-    // Don't show empty fields
-    data.buckets = data.buckets.filter(x => x.doc_count);
-    // Sort by category name
-    data.buckets.sort((a, b) => +(a.label > b.label) - 0.5);
+      data.buckets.map((item) => {
+        item.label = item.key;
+        item.key = item.fieldId.buckets[0]?.key;
+        item.id = item.key;
+        item.doc_count = item.filtered.filterCount.doc_count;
+      });
 
-    // Add extra field for active-filters
-    const cp = cloneDeep(data.buckets);
-    cp.forEach(f => f.key = f.label);
-    data.fields = {buckets: cp};
+      // Don't show empty fields
+      data.buckets = data.buckets.filter(x => x.doc_count);
+      // Sort by category name
+      data.buckets.sort((a, b) => +(a.label > b.label) - 0.5);
 
+      // Add extra field for active-filters
+      const cp = cloneDeep(data.buckets);
+      cp.forEach(f => f.key = f.label);
+      data.fields = { buckets: cp };
     return data;
   }
 
@@ -107,7 +107,7 @@ export class FundingCallFilterService {
 
     const buckets = [
       {label: $localize`:@@openCalls:Avoimet haut`, key: 'open', doc_count: openDocs},
-      {label: $localize`:@@closedCalls:Menneet haut`, key: 'closed', doc_count: closedDocs},
+      {label: $localize`:@@closedCalls:Päättyneet haut`, key: 'closed', doc_count: closedDocs},
       {label: $localize`:@@futureCalls:Tulevat haut`, key: 'future', doc_count: futureDocs},
     ]
     return buckets;

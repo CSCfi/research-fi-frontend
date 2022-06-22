@@ -4,7 +4,6 @@ import {
   faFileAlt,
   faUsers,
   faBriefcase,
-  faSpinner,
   faAlignLeft,
   faCalculator,
   faUniversity,
@@ -49,20 +48,21 @@ export class TabChangeService {
       tooltip: $localize`:@@datasetsTooltip:Suomessa tuotettujen tutkimusaineistojen kuvailutietoja.`,
     },
     {
+      data: 'fundingCalls',
+      label: $localize`:@@fundingCalls:Rahoitushaut`,
+      link: 'funding-calls',
+      icon: faBullhorn,
+      singular: 'rahoitushaku',
+      tooltip: $localize`:@@fundingCallsTooltip:Suomalaisten tiedettä, taidetta ja kulttuuria rahoittavien säätiöiden ja rahastojen käynnissä olevia ja avautuvia rahoitushakuja.`,
+      initialQueryParams: { status: 'open' },
+    },
+    {
       data: 'infrastructures',
       label: $localize`:@@infrastructures:Infrastruktuurit`,
       link: 'infrastructures',
       icon: faCalculator,
       singular: $localize`:@@infrastructure:infrastruktuuri`,
       tooltip: $localize`:@@infrastructuresTooltip:Suomessa ylläpidettäviä tutkimusinfrastruktuureja. Infrastruktuurit ovat keskitetysti, hajautetusti tai virtuaalisesti saatavilla olevia välineitä, laitteistoja, tietoverkkoja, tietokantoja, aineistoja ja palveluita, jotka mahdollistavat tutkimuksen tekemistä.`,
-    },
-    {
-      data: '',
-      label: $localize`:@@otherResearchActivities:Muut tutkimusaktiviteetit`,
-      link: undefined,
-      icon: faSpinner,
-      singular: $localize`:@@otherResearchActivity:muu tutkimustoiminta`,
-      tooltip: $localize`:@@otherResearcActivitiesTooltip:Tutkijoiden tutkimustyöhön liittyvät asiantuntijatehtävät, pätevyydet, tunnustukset ja muu toiminta.`,
     },
     {
       data: 'organizations',
@@ -110,6 +110,8 @@ export class TabChangeService {
   locale: string;
   focus: string;
 
+  initialTabQueryParams = { 'funding-calls': { status: 'open' } };
+
   constructor(@Inject(LOCALE_ID) protected localeId: string) {}
 
   // If focus is true, focus result header.
@@ -141,9 +143,17 @@ export class TabChangeService {
     this.skipToInput.next(state);
   }
 
+  // This method is also used for initializing tab based query parameters.
+  // Create tab based query params with initial values if params have not been initialized.
   resetQueryParams() {
-    Object.values(this.tabData).forEach(
-      (tab) => (this.tabQueryParams[tab.link] = {})
-    );
+    Object.values(this.tabData).forEach((tab) => {
+      if (!this.tabQueryParams[tab.link]) {
+        return (this.tabQueryParams[tab.link] = this.tabData.find(
+          (tabItem) => tabItem.link === tab.link
+        ).initialQueryParams);
+      } else {
+        return (this.tabQueryParams[tab.link] = {});
+      }
+    });
   }
 }

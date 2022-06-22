@@ -1,0 +1,187 @@
+app-table,
+app-table-cell {
+  fa-icon.row-icon{
+    font-size: 2.625rem;
+  }
+
+  .mat-column-icon {
+    flex: 0 0 6% !important; // Icon column width
+    margin-top: -0.5rem;
+    max-width: 6%;
+  }
+
+  .mat-sort-header {
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .mat-sort-header,
+  .mat-cell,
+  .mat-footer-cell {
+    font-size: 1rem;
+  }
+
+  $row-x-padding: 0.25rem;
+
+  mat-cell,
+  mat-header-cell,
+  mat-footer-cell,
+  mat-row {
+    align-items: start;
+  }
+
+  mat-cell,
+  mat-header-cell,
+  mat-footer-cell{
+    word-wrap: normal;
+    overflow: visible;
+  }
+
+  mat-header-row {
+    z-index: 90 !important;
+    min-height: auto;
+    align-items: flex-start
+  }
+
+  mat-row,
+  mat-header-row,
+  mat-footer-row {
+    border-bottom-width: 0;
+    flex-wrap: wrap;
+  }
+
+  .row .row {
+    border-bottom: 0;
+  }
+
+  .align-center mat-row {
+    align-items: center;
+  }
+
+  mat-header-cell:first-of-type,
+  mat-cell:first-of-type,
+  mat-footer-cell:first-of-type {
+    padding-left: $row-x-padding;
+  }
+
+  mat-header-cell:last-of-type,
+  mat-cell:last-of-type,
+  mat-footer-cell:last-of-type {
+    padding-right: $row-x-padding;
+  }
+
+  mat-header-cell:not(:first-of-type),
+  mat-cell:not(first-of-type) {
+    padding: 0 1rem 0.75rem;
+  }
+
+  h4 {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    margin-bottom: 0;
+    word-break: break-word;
+  }
+
+  a {
+    text-decoration: underline;
+    font-weight: 500;
+  }
+
+  .mat-sort-header-content {
+    text-align: left;
+  }
+
+  /*
+   * Sort indicators
+   */
+
+  .mat-sort-header-arrow {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  // Hide default arrow stem
+  .mat-sort-header-stem {
+    display: none;
+  }
+  .mat-sort-header-indicator {
+    opacity: 1;
+    color: black;
+    font-weight: bold;
+
+    // Hide default arrow as its composed of left, right and middle
+    .mat-sort-header-pointer-left,
+    .mat-sort-header-pointer-right,
+    .mat-sort-header-pointer-middle {
+      display: none;
+    }
+  }
+
+  [aria-sort='ascending'],
+  [aria-sort='descending'],
+  .no-active-sort {
+    .mat-sort-header-content {
+      span {
+        &::after {
+          position: absolute;
+          margin-left: 0.5rem;
+          margin-top: -1px;
+        }
+      }
+    }
+  }
+
+  [aria-sort='ascending'] {
+    .mat-sort-header-content {
+      span {
+        &::after {
+          font-family: 'FontAwesome';
+          content: '\f0de';
+        }
+      }
+    }
+  }
+
+  [aria-sort='descending'] {
+    .mat-sort-header-content {
+      span {
+        &::after {
+          font-family: 'FontAwesome';
+          content: '\f0dd';
+        }
+      }
+    }
+  }
+
+  .overflow-ellipsis {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: block;
+  }
+
+  // Display icon when no active sort
+  // Hide icon from columns with disabled sort attribute
+  .no-active-sort:not(.mat-sort-header-disabled) {
+    .mat-sort-header-content {
+      span {
+        &::after {
+          font-family: 'FontAwesome';
+          content: '\f0dc';
+        }
+      }
+    }
+  }
+}
+
+
+// Padding for additional row (funding-calls)
+.additional-row {
+  padding-left: 7.4%
+}
+
+@media (max-width: 991px) {
+  .additional-row {
+    padding-left: 7.4%
+  }
+}
