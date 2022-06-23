@@ -92,7 +92,12 @@ export class FundingCallFilterService {
   }
 
   status(data) {
-    const dates = data.buckets;
+    // Preserve original values to help on doc count calculation when switching
+    // between mobile and desktop resolutions
+    if (!data.originalData) {
+      data.originalData = data.buckets;
+    }
+    const dates = [...data.originalData];
     let openDocs = 0;
     let closedDocs = 0;
     let futureDocs = 0;
