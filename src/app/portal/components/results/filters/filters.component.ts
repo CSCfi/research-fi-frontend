@@ -51,14 +51,13 @@ import { SettingsService } from '@portal/services/settings.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
-
   @Input() responseData: any;
   @Input() tabData: string;
   @Input() showButton: boolean;
 
   @Input() set externalFilterQuery(externalFilterQuery: any) {
     if (externalFilterQuery && externalFilterQuery?.keys?.length > 0) {
-      this.selectionChange('field', externalFilterQuery.keys, false)
+      this.selectionChange('field', externalFilterQuery.keys, false);
     } else {
       this.clearFundingCallFilters();
     }
@@ -121,7 +120,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     private newsFilters: NewsFilterService,
     @Inject(PLATFORM_ID) private platformId: object,
     private dataService: DataService,
-    private appSettingsService: AppSettingsService,
+    private appSettingsService: AppSettingsService
   ) {
     this.showMoreCount = [];
   }
@@ -222,12 +221,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
           this.organizationFilters.shapeData(this.responseData);
           break;
         }
-        case 'funding-calls': {
-          this.currentFilter = this.fundingCallFilters.filterData;
-          this.currentSingleFilter = this.fundingCallFilters.singleFilterData;
-          this.fundingCallFilters.shapeData(this.responseData);
-          break;
-        }
         case 'fundingCalls': {
           this.currentFilter = this.fundingCallFilters.filterData;
           this.currentSingleFilter = this.fundingCallFilters.singleFilterData;
@@ -259,7 +252,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     // Merge selection with active filters and navigate
     let selectedFilters: any = {};
     const merged = Object.assign({}, this.activeFilters, selectedFilters);
-    if (merged.field){
+    if (merged.field) {
       merged.field = [];
     }
     this.router.navigate([], {
@@ -303,7 +296,10 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
       }
 
       // Remove filter if selection exists
-      if (selectedFilters[filterName] && selectedFilters[filterName].includes(key)) {
+      if (
+        selectedFilters[filterName] &&
+        selectedFilters[filterName].includes(key)
+      ) {
         // If new filter is not forced on (visualisations)
         if (!forceOn) {
           selectedFilters[filterName].splice(
@@ -313,7 +309,10 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         }
       } else {
         // Add new filter
-        if (selectedFilters[filterName] && selectedFilters[filterName].length > 0) {
+        if (
+          selectedFilters[filterName] &&
+          selectedFilters[filterName].length > 0
+        ) {
           selectedFilters[filterName].push(key);
         } else {
           selectedFilters[filterName] = [key];
