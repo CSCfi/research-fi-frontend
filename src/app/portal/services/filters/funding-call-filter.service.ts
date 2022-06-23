@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { cloneDeep } from 'lodash';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FundingCallFilterService {
   filterData = [
@@ -30,7 +30,7 @@ export class FundingCallFilterService {
       hasSubFields: false,
       open: true,
       limitHeight: true,
-      tooltip: $localize`:@@fundingCallCategoryTooltip:Tieteen ja taiteen rahoitustietokanta Auroran hakualakoodiston mukaiset hakualat vastaavat suurelta osin tieteenaloja.`
+      tooltip: $localize`:@@fundingCallCategoryTooltip:Tieteen ja taiteen rahoitustietokanta Auroran hakualakoodiston mukaiset hakualat vastaavat suurelta osin tieteenaloja.`,
     },
     {
       field: 'organization',
@@ -38,12 +38,11 @@ export class FundingCallFilterService {
       hasSubFields: false,
       open: true,
       limitHeight: true,
-      tooltip: $localize`:@@fundingCallFunderTooltip:Rahoitushausta vastaava tutkimusrahoittaja.`
+      tooltip: $localize`:@@fundingCallFunderTooltip:Rahoitushausta vastaava tutkimusrahoittaja.`,
     },
   ];
 
   singleFilterData = [];
-
 
   constructor() {}
 
@@ -52,7 +51,7 @@ export class FundingCallFilterService {
     // Organization
     this.organization(source.organization);
     // Field of science
-    source.field = this.field(source.field.field);
+    source.field = this.field(source.field?.field);
     // Status
     source.status.buckets = this.status(source.status);
     source.shaped = true;
@@ -69,8 +68,9 @@ export class FundingCallFilterService {
     // Sort by number of docs
     data.buckets.sort((a, b) => b.doc_count - a.doc_count);
   }
-  
+
   field(data) {
+    if (data) {
       data.buckets.map((item) => {
         item.label = item.key;
         item.key = item.fieldId.buckets[0]?.key;
@@ -79,19 +79,25 @@ export class FundingCallFilterService {
       });
 
       // Don't show empty fields
-      data.buckets = data.buckets.filter(x => x.doc_count);
+      data.buckets = data.buckets.filter((x) => x.doc_count);
       // Sort by category name
       data.buckets.sort((a, b) => +(a.label > b.label) - 0.5);
 
       // Add extra field for active-filters
       const cp = cloneDeep(data.buckets);
-      cp.forEach(f => f.key = f.label);
+      cp.forEach((f) => (f.key = f.label));
       data.fields = { buckets: cp };
+    }
     return data;
   }
 
   status(data) {
-    const dates = data.buckets;
+    // Preserve original values to help on doc count calculation when switching
+    // between mobile and desktop resolutions
+    if (!data.originalData) {
+      data.originalData = data.buckets;
+    }
+    const dates = [...data.originalData];
     let openDocs = 0;
     let closedDocs = 0;
     let futureDocs = 0;
@@ -99,17 +105,35 @@ export class FundingCallFilterService {
     const now = new Date().toLocaleDateString('sv');
 
     // Open
-    dates.filter(date => date.key.openDate < now && date.key.dueDate > now).forEach(date => openDocs += date.filtered.doc_count);
+    dates
+      .filter((date) => date.key.openDate < now && date.key.dueDate > now)
+      .forEach((date) => (openDocs += date.filtered.doc_count));
     // Closed
-    dates.filter(date => date.key.dueDate < now).forEach(date => closedDocs += date.filtered.doc_count);
+    dates
+      .filter((date) => date.key.dueDate < now)
+      .forEach((date) => (closedDocs += date.filtered.doc_count));
     // Future
-    dates.filter(date => date.key.openDate > now).forEach(date => futureDocs += date.filtered.doc_count);
+    dates
+      .filter((date) => date.key.openDate > now)
+      .forEach((date) => (futureDocs += date.filtered.doc_count));
 
     const buckets = [
-      {label: $localize`:@@openCalls:Avoimet haut`, key: 'open', doc_count: openDocs},
-      {label: $localize`:@@closedCalls:Päättyneet haut`, key: 'closed', doc_count: closedDocs},
-      {label: $localize`:@@futureCalls:Tulevat haut`, key: 'future', doc_count: futureDocs},
-    ]
+      {
+        label: $localize`:@@openCalls:Avoimet haut`,
+        key: 'open',
+        doc_count: openDocs,
+      },
+      {
+        label: $localize`:@@closedCalls:Päättyneet haut`,
+        key: 'closed',
+        doc_count: closedDocs,
+      },
+      {
+        label: $localize`:@@futureCalls:Tulevat haut`,
+        key: 'future',
+        doc_count: futureDocs,
+      },
+    ];
     return buckets;
   }
-} 
+}

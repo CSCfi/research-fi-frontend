@@ -3,7 +3,11 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
+<!-- If clause is for JS error in tables with icon column.
+  Mat-table doesn't keep up with change detection in component destroy lifecycle hook
+  and tries to find a icon column which is only populated in init -->
 <mat-table
+  *ngIf="(icon && columns[0].key === 'icon') || !icon"
   [dataSource]="rows"
   matSort
   (matSortChange)="sortData($event)"

@@ -145,6 +145,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
         </aside>
         <main class="col-12" id="main-content">
           <app-funding-call-category-filters
+            *ngIf="tab === 'funding-calls' && filterValues"
             [resetFundingCallCategoryFilters]="clearAllFilters"
             [responseData]="filterValues"
             (filterChangeOutput)="setExternalFilters($event)"
@@ -215,8 +216,8 @@ Copyright 2019 Ministry of Education and Culture, Finland
   <div class="col-8 col-xl-9 row main-content pe-xl-0">
     <main class="col-12 ps-lg-2 pe-xl-0">
       <app-funding-call-category-filters
+        *ngIf="tab === tabData[4].link && filterValues"
         [resetFundingCallCategoryFilters]="clearAllFilters"
-        *ngIf="tab === tabData[4].link"
         [responseData]="filterValues"
         (filterChangeOutput)="setExternalFilters($event)"
       ></app-funding-call-category-filters>
