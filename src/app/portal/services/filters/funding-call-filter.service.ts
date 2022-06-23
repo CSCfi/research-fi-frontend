@@ -51,7 +51,7 @@ export class FundingCallFilterService {
     // Organization
     this.organization(source.organization);
     // Field of science
-    source.field = this.field(source.field.field);
+    source.field = this.field(source.field?.field);
     // Status
     source.status.buckets = this.status(source.status);
     source.shaped = true;
