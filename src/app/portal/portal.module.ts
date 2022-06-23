@@ -355,7 +355,9 @@ export class PortalModule implements OnDestroy {
       .subscribe((e) => {
         const currentUrl = e.routerEvent.url;
         const history = this.historyService.history;
-        const resultPages = tabChangeService.tabData.map((tab) => tab.data).filter((item) => item.length);
+        const resultPages = tabChangeService.tabData
+          .map((tab) => tab.link)
+          .filter((item) => item);
 
         // Trigger new page so first tab focuses skip links
         const prevPageLocation = history[history.length - 2];

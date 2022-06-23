@@ -143,17 +143,12 @@ export class TabChangeService {
     this.skipToInput.next(state);
   }
 
-  // This method is also used for initializing tab based query parameters.
-  // Create tab based query params with initial values if params have not been initialized.
+  // Initialize tab based query params with initial values if available
   resetQueryParams() {
     Object.values(this.tabData).forEach((tab) => {
-      if (!this.tabQueryParams[tab.link]) {
-        return (this.tabQueryParams[tab.link] = this.tabData.find(
-          (tabItem) => tabItem.link === tab.link
-        ).initialQueryParams);
-      } else {
-        return (this.tabQueryParams[tab.link] = {});
-      }
+      return (this.tabQueryParams[tab.link] = this.tabData.find(
+        (tabItem) => tabItem.link === tab.link
+      ).initialQueryParams);
     });
   }
 }
