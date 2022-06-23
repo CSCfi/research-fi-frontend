@@ -54,7 +54,9 @@ export class AggregationService {
     // Active bool filters come from aggregations that contain multiple terms, eg composite aggregation
     const activeBool = filters.filter((item) => item.bool?.should[0]?.bool);
     // Active bool filtered filters come from date ranges (status)
-    const activeFiltered = filters.filter((item) => item.bool?.should?.bool?.filter.length);
+    const activeFiltered = filters.filter(
+      (item) => item.bool?.should?.bool?.filter.length
+    );
     const activeNested = filters.filter(
       (item) =>
         item.nested?.query.bool.should?.length > 0 ||
@@ -1437,8 +1439,7 @@ export class AggregationService {
         };
         break;
 
-
-        // Funding-calls
+      // Funding-calls
 
       case 'funding-calls':
         payLoad.aggs.mainCategory = {
@@ -1470,7 +1471,7 @@ export class AggregationService {
             field: {
               terms: {
                 field: 'categories.name' + this.localeC + '.keyword',
-                size: 100
+                size: 100,
               },
               aggs: {
                 filtered: {
@@ -1509,11 +1510,11 @@ export class AggregationService {
             orgId: {
               terms: {
                 field: 'foundation.businessId.keyword',
-                size: 250,
+                size: 500,
                 order: {
                   _key: 'asc',
                 },
-                exclude: ' '
+                exclude: ' ',
               },
               aggs: {
                 orgName: {
@@ -1533,8 +1534,8 @@ export class AggregationService {
                 openDate: {
                   date_histogram: {
                     field: 'callProgrammeOpenDate',
-                    calendar_interval: "1d",
-                    format: "yyyy-MM-dd",
+                    calendar_interval: '1d',
+                    format: 'yyyy-MM-dd',
                   },
                 },
               },
@@ -1542,8 +1543,8 @@ export class AggregationService {
                 dueDate: {
                   date_histogram: {
                     field: 'callProgrammeDueDate',
-                    calendar_interval: "1d",
-                    format: "yyyy-MM-dd",
+                    calendar_interval: '1d',
+                    format: 'yyyy-MM-dd',
                   },
                 },
               },
