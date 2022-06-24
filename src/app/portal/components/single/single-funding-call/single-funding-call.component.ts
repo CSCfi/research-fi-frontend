@@ -207,7 +207,6 @@ export class SingleFundingCallComponent implements OnInit {
             this.metaTags['description' + this.currentLocale],
             this.commonTags['imgAlt' + this.currentLocale]
           );
-          console.log(fundingCall);
           this.filterData();
         }
       },
