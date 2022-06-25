@@ -62,6 +62,8 @@ export class SingleFundingCallComponent implements OnInit {
     { label: $localize`:@@fundingFunder:Rahoittaja`, field: 'foundation' },
   ];
 
+  linkFields = ['url', 'foundationUrl', 'applicationUrl'];
+
   copyToClipboard = $localize`:@@copyToClipboard:Kopioi leikepöydälle`;
 
   errorMessage = [];
