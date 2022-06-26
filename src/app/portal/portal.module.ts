@@ -162,6 +162,7 @@ import { HandleInfrastructureLinkPipe } from './pipes/handle-infrastructure-link
 import { Subscription } from 'rxjs';
 import { NoResultsComponent } from './components/results/no-results/no-results.component';
 import { FundingCallCategoryFiltersComponent } from './components/results/funding-call-category-filters/funding-call-category-filters.component';
+import { SingleResultLinkComponent } from './components/single/single-result-link/single-result-link.component';
 
 @NgModule({
   declarations: [
@@ -248,6 +249,7 @@ import { FundingCallCategoryFiltersComponent } from './components/results/fundin
     HandleInfrastructureLinkPipe,
     NoResultsComponent,
     FundingCallCategoryFiltersComponent,
+    SingleResultLinkComponent,
   ],
   imports: [
     PortalRoutingModule,
