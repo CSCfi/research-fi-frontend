@@ -162,6 +162,7 @@ import { HandleInfrastructureLinkPipe } from './pipes/handle-infrastructure-link
 import { Subscription } from 'rxjs';
 import { NoResultsComponent } from './components/results/no-results/no-results.component';
 import { FundingCallCategoryFiltersComponent } from './components/results/funding-call-category-filters/funding-call-category-filters.component';
+import { SingleResultLinkComponent } from './components/single/single-result-link/single-result-link.component';
 
 @NgModule({
   declarations: [
@@ -248,6 +249,7 @@ import { FundingCallCategoryFiltersComponent } from './components/results/fundin
     HandleInfrastructureLinkPipe,
     NoResultsComponent,
     FundingCallCategoryFiltersComponent,
+    SingleResultLinkComponent,
   ],
   imports: [
     PortalRoutingModule,
@@ -349,6 +351,13 @@ export class PortalModule implements OnDestroy {
     private tabChangeService: TabChangeService
   ) {
     this.startPage = router.parseUrl(router.url).queryParams.page || 1;
+
+    // Scroll to top of page
+    // Timeout value of 0 helps Firefox to scroll
+    const scrollToTop = () => {
+      setTimeout(() => viewportScroller.scrollToPosition([0, 0]), 0);
+    };
+
     // Used to prevent scroll to top when filters are selected
     this.routeSub = router.events
       .pipe(filter((e: Event): e is Scroll => e instanceof Scroll))
@@ -379,7 +388,7 @@ export class PortalModule implements OnDestroy {
             this.startPage !== targetPage ||
             !history[history.length - 2]?.includes('/results')
           ) {
-            viewportScroller.scrollToPosition([0, 0]);
+            scrollToTop();
           }
           this.startPage = targetPage;
 
@@ -391,19 +400,19 @@ export class PortalModule implements OnDestroy {
             this.startPage !== targetPage ||
             !history[history.length - 2]?.includes('/funding-calls')
           ) {
-            viewportScroller.scrollToPosition([0, 0]);
+            scrollToTop();
           }
           this.startPage = targetPage;
         } else if (currentUrl.includes('/science-research-figures')) {
           // scroll to top only in single figure view
           if (!history[history.length - 2]?.includes('figures/s')) {
-            viewportScroller.scrollToPosition([0, 0]);
+            scrollToTop();
           }
           if (!currentUrl.includes('filter')) {
-            viewportScroller.scrollToPosition([0, 0]);
+            scrollToTop();
           }
         } else {
-          viewportScroller.scrollToPosition([0, 0]);
+          scrollToTop();
         }
       });
     // Add global icons

@@ -252,61 +252,30 @@
         <aside>
           <mat-card>
             <div class="inner">
-              <div *ngIf="call[row.field].name" class="row links mt-0 mb-4">
+              <div *ngIf="call[row.field].name" class="mt-0 mb-4">
                 <mat-card-title>
                   <h2 class="mb-0">
                     {{ call[row.field].name }}
                   </h2>
                 </mat-card-title>
 
-                <div
-                  *ngIf="call[row.field].url"
-                  class="col-12 px-0 link d-flex"
-                >
-                  <span class="link-tag">URL</span>
-                  <span class="link-item"
-                    ><a
-                      [href]="fixExternalUrl(call[row.field].url)"
-                      target="_blank"
-                      ><span class="link-label">{{ call[row.field].url }}</span
-                      ><fa-icon icon="external-link-alt"></fa-icon></a
-                  ></span>
-                </div>
-                <div
-                  *ngIf="call[row.field].foundationUrl"
-                  class="col-12 px-0 link d-flex"
-                >
-                  <span class="link-tag">URL</span>
-                  <span class="link-item"
-                    ><a
-                      [href]="fixExternalUrl(call[row.field].foundationUrl)"
-                      target="_blank"
-                      >{{ call[row.field].foundationUrl }}
-                      <fa-icon icon="external-link-alt"></fa-icon></a
-                  ></span>
-                </div>
-                <h2
-                  *ngIf="call[row.field].applicationUrl"
-                  i18n="@@fundingCallWebsite"
-                  class="mt-4"
-                >
-                  Rahoitushaun verkkosivu
-                </h2>
-                <div
-                  *ngIf="call[row.field].applicationUrl"
-                  class="col-12 px-0 link d-flex"
-                >
-                  <span class="link-tag">URL</span>
-                  <span class="link-item"
-                    ><a
-                      [href]="fixExternalUrl(call[row.field].applicationUrl)"
-                      target="_blank"
-                      ><span class="link-label">{{
-                        call[row.field].applicationUrl
-                      }}</span
-                      ><fa-icon icon="external-link-alt"></fa-icon></a
-                  ></span>
-                </div>
+                <ng-container *ngFor="let linkField of linkFields">
+                  <h2
+                    *ngIf="
+                      linkField === 'applicationUrl' &&
+                      call[row.field].applicationUrl
+                    "
+                    i18n="@@fundingCallWebsite"
+                    class="mt-4"
+                  >
+                    Rahoitushaun verkkosivu
+                  </h2>
+                  <app-single-result-link
+                    *ngIf="call[row.field][linkField]"
+                    tag="URL"
+                    [url]="call[row.field][linkField]"
+                  ></app-single-result-link>
+                </ng-container>
                 <br />
                 <!-- <div *ngIf="!linksFields.length && !call.selfArchivedData" class="no-links" i18n="@@noFundingCallLinks">
                                   Rahoitushakuun ei ole tarjolla linkkejä tässä portaalissa

@@ -373,68 +373,36 @@
             <mat-card-title>
               <h2 i18n="@@datasetLinks">Linkit tutkimusaineistoon</h2>
             </mat-card-title>
-            <div class="row links" *ngFor="let row of linksFields">
-              <div *ngIf="row.field === 'doi'" class="link-wrapper">
-                <div class="col link doi">
-                  <span class="link-tag">DOI</span>
-                  <span class="link-item">
-                    <a
-                      [attr.href]="'https://doi.org/' + item.doi"
-                      target="_blank"
-                      >{{ item.doi }}
-                      <fa-icon icon="external-link-alt"></fa-icon>
-                    </a>
-                  </span>
-                </div>
-              </div>
-              <div *ngIf="row.field === 'urn'" class="link-wrapper">
-                <div class="col link doi">
-                  <span class="link-tag">URN</span>
-                  <span class="link-item">
-                    <a [attr.href]="'http://urn.fi/' + item.urn" target="_blank"
-                      ><span class="link-label">{{ item.urn }}</span>
-                      <fa-icon icon="external-link-alt"></fa-icon>
-                    </a>
-                  </span>
-                </div>
-              </div>
-              <div *ngIf="row.field === 'fairdataUrl'" class="link-wrapper">
-                <div class="col link doi">
-                  <span class="link-tag">URL</span>
-                  <span class="link-item">
-                    <a [attr.href]="item.fairdataUrl" target="_blank"
-                      ><span class="link-label">{{
-                        item.fairdataUrl | handleLinkDisplay
-                      }}</span>
-                      <fa-icon icon="external-link-alt"></fa-icon>
-                    </a>
-                  </span>
-                </div>
-              </div>
-            </div>
+            <ng-container *ngFor="let row of linksFields">
+              <app-single-result-link
+                *ngIf="row.field === 'doi'"
+                tag="DOI"
+                [url]="'https://doi.org/' + item.doi"
+                [label]="item.doi"
+              ></app-single-result-link>
+
+              <app-single-result-link
+                *ngIf="row.field === 'urn'"
+                tag="URN"
+                [url]="'http://urn.fi/' + item.urn"
+                [label]="item.urn"
+              ></app-single-result-link>
+
+              <app-single-result-link
+                *ngIf="row.field === 'fairdataUrl'"
+                tag="URL"
+                [url]="item.fairdataUrl"
+              ></app-single-result-link>
+            </ng-container>
             <!-- Self archived addresses -->
             <ng-container *ngFor="let selfArchived of item.selfArchivedData">
-              <div
-                class="row links"
-                *ngFor="let row of selfArchived.selfArchived"
-              >
-                <div class="link-wrapper">
-                  <div class="col link">
-                    <span
-                      class="link-tag fa fa-link center"
-                      style="font-size: 22px; padding: 3px 12px"
-                    ></span>
-                    <span class="link-item">
-                      <a [attr.href]="row.selfArchivedAddress" target="_blank"
-                        ><span class="link-label">{{
-                          row.selfArchivedAddress | handleLinkDisplay
-                        }}</span
-                        ><fa-icon icon="external-link-alt"></fa-icon
-                      ></a>
-                    </span>
-                  </div>
-                </div>
-              </div>
+              <ng-container *ngFor="let row of selfArchived.selfArchived">
+                <app-single-result-link
+                  *ngIf="row.field === 'funderProjectNumber'"
+                  [icon]="true"
+                  [url]="row.selfArchivedAddress"
+                ></app-single-result-link>
+              </ng-container>
             </ng-container>
 
             <div
