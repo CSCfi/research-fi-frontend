@@ -272,20 +272,22 @@
                   </h2>
                   <div
                     *ngIf="call[row.field][linkField]"
-                    class="col-12 px-0 link d-flex"
+                    class="col-12 px-0 d-flex link-wrapper"
                   >
-                    <span class="link-tag">URL</span>
-                    <span class="link-item">
-                      <a
-                        [href]="fixExternalUrl(call[row.field][linkField])"
-                        target="_blank"
-                      >
-                        <span class="link-label">
-                          {{ call[row.field][linkField] }}
-                        </span>
-                        <fa-icon icon="external-link-alt"></fa-icon>
-                      </a>
-                    </span>
+                    <div class="link">
+                      <span class="link-tag">URL</span>
+                      <span class="link-item">
+                        <a
+                          [href]="fixExternalUrl(call[row.field][linkField])"
+                          target="_blank"
+                        >
+                          <span class="link-label">
+                            {{ call[row.field][linkField] }}
+                          </span>
+                          <fa-icon icon="external-link-alt"></fa-icon>
+                        </a>
+                      </span>
+                    </div>
                   </div>
                 </ng-container>
                 <br />
