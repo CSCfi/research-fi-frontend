@@ -8,54 +8,27 @@
     <mat-card-title>
       <h2 i18n="@@publicationLinks">Linkit julkaisuun</h2>
     </mat-card-title>
-    <div class="row links" *ngFor="let row of linksFields">
-      <div class="col link d-flex" *ngIf="item[row.field]">
-        <ng-container *ngIf="row.field === 'doi'; else doiHandleLink">
-          <span class="link-tag">DOI</span>
-          <span class="link-item">
-            <a [attr.href]="'https://doi.org/' + item.doi" target="_blank"
-              ><span class="link-label">{{ item.doi }}</span>
-              <fa-icon icon="external-link-alt"></fa-icon
-            ></a>
-          </span>
-        </ng-container>
-        <ng-template #doiHandleLink>
-          <span
-            class="link-tag fa fa-link center"
-            style="font-size: 22px; padding: 3px 12px"
-          ></span>
-          <span class="link-item">
-            <a [attr.href]="item[row.field]" target="_blank"
-              ><span class="link-label">{{
-                item[row.field] | handleLinkDisplay
-              }}</span>
-              <fa-icon icon="external-link-alt"></fa-icon
-            ></a>
-          </span>
-        </ng-template>
-      </div>
-    </div>
+
+    <ng-container *ngFor="let row of linksFields">
+      <app-single-result-link
+        [tag]="row.field === 'doi' ? 'DOI' : null"
+        [icon]="row.field !== 'doi'"
+        [label]="row.field !== 'doi' ? item.doi : item[row.field]"
+        [url]="
+          row.field === 'doi' ? 'https://doi.org/' + item.doi : item[row.field]
+        "
+      ></app-single-result-link>
+    </ng-container>
+
     <!-- Self archived addresses -->
     <ng-container *ngFor="let selfArchived of item.selfArchivedData">
       <ng-container *ngFor="let row of selfArchived.selfArchived">
-        <div class="row links" *ngIf="row.selfArchivedAddress | isUrl">
-          <div class="link-wrapper">
-            <div class="col link">
-              <span
-                class="link-tag fa fa-link center"
-                style="font-size: 22px; padding: 3px 12px"
-              ></span>
-              <span class="link-item">
-                <a [attr.href]="row.selfArchivedAddress" target="_blank"
-                  ><span class="link-label">{{
-                    row.selfArchivedAddress | handleLinkDisplay
-                  }}</span
-                  ><fa-icon icon="external-link-alt"></fa-icon
-                ></a>
-              </span>
-            </div>
-          </div>
-        </div>
+        <app-single-result-link
+          *ngIf="row.selfArchivedAddress | isUrl"
+          [icon]="true"
+          [url]="row.selfArchivedAddress"
+        >
+        </app-single-result-link>
       </ng-container>
     </ng-container>
     <div

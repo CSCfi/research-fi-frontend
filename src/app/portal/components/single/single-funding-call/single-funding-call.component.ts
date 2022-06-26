@@ -133,15 +133,6 @@ export class SingleFundingCallComponent implements OnInit {
     this.settingsService.related = false;
   }
 
-  fixExternalUrl(url: string) {
-    // Fix url address to be handled as external link if prefix missing
-    return url.startsWith('http')
-      ? url
-      : url.startsWith('www')
-      ? 'https://' + url
-      : '//' + url;
-  }
-
   processContactInfo(input: string) {
     if (input?.length > 0) {
       const splitArr = input.split(',');

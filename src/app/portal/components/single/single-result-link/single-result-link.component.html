@@ -1,0 +1,25 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<div class="row links">
+  <div class="col-12 px-0 link-wrapper">
+    <div class="link">
+      <span class="link-tag" *ngIf="tag"> {{ tag }}</span>
+      <span
+        *ngIf="icon"
+        class="link-tag fa fa-link center"
+        style="font-size: 22px; padding: 3px 12px"
+      ></span>
+      <span class="link-item">
+        <a [href]="fixExternalUrl(url)" target="_blank">
+          <span class="link-label">
+            {{ label ? label : (url | handleLinkDisplay) }}
+          </span>
+          <fa-icon icon="external-link-alt"></fa-icon>
+        </a>
+      </span>
+    </div>
+  </div>
+</div>
