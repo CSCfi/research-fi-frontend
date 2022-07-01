@@ -80,7 +80,7 @@
     "through2": "^4.0.2",
     "timers": "^0.1.1",
     "tslib": "^2.1.0",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.6"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^13.2.3",
