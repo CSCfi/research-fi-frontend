@@ -56,27 +56,27 @@ export class OrganizationInformationComponent implements OnInit {
     {
       label: $localize`:@@orgType:Organisaatiomuoto`,
       field: 'organizationType',
-      tooltip: 'ytj',
+      tooltip: '',
     },
     {
       label: $localize`:@@orgSector:Organisaation tyyppi`,
       field: 'sectorNameFi',
-      tooltip: 'ytj',
+      tooltip: '',
     },
     {
       label: $localize`:@@orgVAddress:Käyntiosoite`,
       field: 'visitingAddress',
-      tooltip: 'ytj',
+      tooltip: '',
     },
     {
       label: $localize`:@@orgAddress:Postiosoite`,
       field: 'postalAddress',
-      tooltip: 'ytj',
+      tooltip: '',
     },
     {
       label: $localize`:@@orgBID:Y-tunnus`,
       field: 'businessId',
-      tooltip: 'ytj',
+      tooltip: '',
     },
     {
       label: $localize`:@@orgSTID:Tilastokeskuksen oppilaitostunnus`,
