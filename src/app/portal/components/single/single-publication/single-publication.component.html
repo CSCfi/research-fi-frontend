@@ -73,7 +73,7 @@
               <a
                 href="javascript:void(0)"
                 class="read-more"
-                *ngIf="row.field === 'abstract' && item.abstract?.length > 256"
+                *ngIf="(row.field === 'abstract' && item.abstract?.length > 256) || (row.field === 'authors' && item.authors?.length > 256)"
                 (click)="expandDescription()"
                 [innerHTML]="expand ? showLess : showMore"
               ></a>
