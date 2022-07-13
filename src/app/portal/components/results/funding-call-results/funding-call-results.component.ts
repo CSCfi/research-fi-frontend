@@ -149,7 +149,7 @@ export class FundingCallResultsComponent
       },
       callOpen: {
         label: call.openDate.getFullYear()
-          ? this.highlightPipe.transform(call.openDateString, this.input)
+          ? this.highlightPipe.transform(call.openDateString === '01.01.1900' ? '-' : call.openDateString, this.input)
           : '-',
       },
       callDue: {
