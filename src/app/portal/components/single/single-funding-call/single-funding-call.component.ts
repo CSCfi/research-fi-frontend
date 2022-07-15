@@ -280,7 +280,7 @@ export class SingleFundingCallComponent implements OnInit {
     // Short version is not HTML formatted
     this.applicationInfoFields.forEach((item) => {
       this.responseData.fundingCalls[0][item.field + 'short'] =
-        parseString(item);
+        this.convertHttpLinks(parseString(item));
     });
     this.responseData.fundingCalls[0].terms = this.convertHttpLinks(this.responseData.fundingCalls[0]?.terms);
     this.responseData.fundingCalls[0].description = this.convertHttpLinks(this.responseData.fundingCalls[0]?.description);
