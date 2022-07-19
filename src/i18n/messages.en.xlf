@@ -3754,8 +3754,8 @@
         <target>Language in which the publication is written.</target>
       </trans-unit>
       <trans-unit id="pJufoFTooltip">
-        <source>Julkaisufoorumin (www.julkaisufoorumi.fi) mukainen julkaisukanavan (kirjakustantaja, konferenssi tai julkaisusarja) tasoluokitus: 1 = perustaso, 2 = johtava taso, 3 = korkein taso. Tasolla 0 ovat kanavat, jotka eivät joltain osin täytä tason 1 vaatimuksia tai ovat uusia.</source>
-        <target>Publication Forum (www.julkaisufoorumi.fi) classification of publication channels (book publisher, conference or book series): 1 = basic level, 2 = leading level, 3 = highest level. Category 0 is for publication channels that have been evaluated but do not meet all of the level 1 criteria.</target>
+        <source>Julkaisufoorumin (www.julkaisufoorumi.fi) mukainen julkaisukanavan (kirjakustantaja, konferenssi tai julkaisusarja) tasoluokitus: 1 = perustaso, 2 = johtava taso, 3 = korkein taso. Tasolla 0 ovat kanavat, jotka eivät joltain osin täytä tason 1 vaatimuksia tai ovat uusia. Julkaisufoorumitaso määräytyy julkaisun julkaisuvuoden mukaan.</source>
+        <target>Publication Forum (www.julkaisufoorumi.fi) classification of publication channels (book publisher, conference or book series): 1 = basic level, 2 = leading level, 3 = highest level. Category 0 is for publication channels that have been evaluated but do not meet all of the level 1 criteria. The publication forum classification level is determined by the publication year of the publication.</target>
       </trans-unit>
       <trans-unit id="intCoPublicationTooltip">
         <source>Julkaisussa on tekijöitä myös muualta kuin suomalaisista tutkimusorganisaatioista.</source>
