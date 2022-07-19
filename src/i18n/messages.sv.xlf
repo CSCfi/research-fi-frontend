@@ -3739,8 +3739,8 @@
         <target state="translated">Språk på vilket publikationen har skrivits.</target>
       </trans-unit>
       <trans-unit id="pJufoFTooltip">
-        <source>Julkaisufoorumin (www.julkaisufoorumi.fi) mukainen julkaisukanavan (kirjakustantaja, konferenssi tai julkaisusarja) tasoluokitus: 1 = perustaso, 2 = johtava taso, 3 = korkein taso. Tasolla 0 ovat kanavat, jotka eivät joltain osin täytä tason 1 vaatimuksia tai ovat uusia.</source>
-        <target state="translated">Nivåklassificering av publikationskanalen (tidskrifter, bokserier, konferenser och bokförläggare) enligt Publikationsforumet (www.julkaisufoorumi.fi): 1 = basnivå, 2 = ledande nivå, 3 = högsta nivå. På nivå 0 finns kanaler som inte till någon del uppfyller kraven på nivå 1 eller som är nya.</target>
+        <source>Julkaisufoorumin (www.julkaisufoorumi.fi) mukainen julkaisukanavan (kirjakustantaja, konferenssi tai julkaisusarja) tasoluokitus: 1 = perustaso, 2 = johtava taso, 3 = korkein taso. Tasolla 0 ovat kanavat, jotka eivät joltain osin täytä tason 1 vaatimuksia tai ovat uusia. Julkaisufoorumitaso määräytyy julkaisun julkaisuvuoden mukaan.</source>
+        <target state="translated">Nivåklassificering av publikationskanalen (tidskrifter, bokserier, konferenser och bokförläggare) enligt Publikationsforumet (www.julkaisufoorumi.fi): 1 = basnivå, 2 = ledande nivå, 3 = högsta nivå. På nivå 0 finns kanaler som inte till någon del uppfyller kraven på nivå 1 eller som är nya. Publikationsforumnivån bestäms av utgivningsåret för publikation.</target>
       </trans-unit>
       <trans-unit id="intCoPublicationTooltip">
         <source>Julkaisussa on tekijöitä myös muualta kuin suomalaisista tutkimusorganisaatioista.</source>

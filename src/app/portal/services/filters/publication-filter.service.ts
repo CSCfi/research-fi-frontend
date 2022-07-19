@@ -169,7 +169,7 @@ export class PublicationFilterService {
       label: $localize`:@@jufoLevel:Julkaisufoorumitaso`,
       hasSubFields: false,
       open: true,
-      tooltip: $localize`:@@pJufoFTooltip:Julkaisufoorumin (www.julkaisufoorumi.fi) mukainen julkaisukanavan (kirjakustantaja, konferenssi tai julkaisusarja) tasoluokitus: 1 = perustaso, 2 = johtava taso, 3 = korkein taso. Tasolla 0 ovat kanavat, jotka eivät joltain osin täytä tason 1 vaatimuksia tai ovat uusia.`,
+      tooltip: $localize`:@@pJufoFTooltip:Julkaisufoorumin (www.julkaisufoorumi.fi) mukainen julkaisukanavan (kirjakustantaja, konferenssi tai julkaisusarja) tasoluokitus: 1 = perustaso, 2 = johtava taso, 3 = korkein taso. Tasolla 0 ovat kanavat, jotka eivät joltain osin täytä tason 1 vaatimuksia tai ovat uusia. Julkaisufoorumitaso määräytyy julkaisun julkaisuvuoden mukaan.`,
     },
     {
       field: 'openAccess',
