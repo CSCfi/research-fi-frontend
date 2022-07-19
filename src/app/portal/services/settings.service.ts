@@ -290,8 +290,19 @@ export class SettingsService {
                 },
               },
               dataset: {
-                match: {
-                  _index: 'dataset',
+                bool: {
+                  must: [
+                    {
+                      match: {
+                        _index: 'dataset',
+                      },
+                    },
+                    {
+                      term: {
+                        isLatestVersion: 1,
+                      },
+                    },
+                  ],
                 },
               },
               infrastructure: {
