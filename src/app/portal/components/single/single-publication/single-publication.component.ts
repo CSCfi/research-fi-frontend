@@ -752,8 +752,6 @@ export class SinglePublicationComponent
       : $localize`:@@no:Ei`;
 
     // Get & set publication type label
-    console.log('JIITEE', this.staticDataService.publicationClass);
-    console.log('src', source.publicationTypeCode);
     if (source.publicationTypeCode === 'KT' || 'KP') {
       if (source.publicationTypeCode === 'KT' || 'KP'){
         source.publicationTypeCode = '-';
