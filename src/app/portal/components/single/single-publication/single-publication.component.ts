@@ -752,12 +752,18 @@ export class SinglePublicationComponent
       : $localize`:@@no:Ei`;
 
     // Get & set publication type label
-    this.publicationTypeLabel =
+    if (source.publicationTypeCode === 'KT' || 'KP') {
+      if (source.publicationTypeCode === 'KT' || 'KP'){
+        source.publicationTypeCode = '-';
+      }
+    }
+    else {
+      this.publicationTypeLabel =
       this.staticDataService.publicationClass
         .find((val) => val.class === source.publicationTypeCode.slice(0, 1))
         ?.types.find((type) => type.type === source.publicationTypeCode)
         ?.label || source.publicationTypeCode;
-
+    }
     if (this.publicationTypeLabel) {
       source.publicationTypeCode =
         source.publicationTypeCode.trim() + ' ' + this.publicationTypeLabel;
