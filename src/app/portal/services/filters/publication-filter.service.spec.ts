@@ -58,7 +58,7 @@ describe('PublicationFilterService', () => {
     );
 
     expect(
-      res.find((item) => item.key === 'c0').label === 'Suomi'
+      res.find((item) => item.key === 'c0').label === 'Kotimainen'
     ).toBeTruthy();
   });
 
