@@ -31,7 +31,6 @@ import { Search } from 'src/app/portal/models/search.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { AppSettingsService } from '@shared/services/app-settings.service';
-import { type } from 'os';
 
 @Component({
   selector: 'app-single-publication',
@@ -758,9 +757,10 @@ export class SinglePublicationComponent
       : $localize`:@@no:Ei`;
 
     // Get & set publication type label
-
     if (source.publicationTypeCode === 'KT' || 'KP') {
-      source.publicationTypeCode = '-';
+      if (source.publicationTypeCode === 'KT' || 'KP'){
+        source.publicationTypeCode = '-';
+      }
     }
     else {
       this.publicationTypeLabel =
