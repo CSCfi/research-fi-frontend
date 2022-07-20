@@ -357,6 +357,7 @@ export class SinglePublicationComponent
     },
     */
     { label: $localize`:@@publicationCountry:Julkaisumaa`, field: 'countries' },
+    { label: $localize`:@@publisherInternationality:Kustantajan kansainvälisyys`, field: 'internationalPublication', tooltip: $localize`:@@pCountryFTooltip:Kotimaisen julkaisun kustantaja on suomalainen tai se on ensisijaisesti julkaistu Suomessa. Kansainvälisen julkaisun kustantaja ei ole suomalainen tai se on ensisijaisesti julkaistu muualla kuin Suomessa.`, },
     { label: $localize`:@@language:Kieli`, field: 'languages' },
     {
       label: $localize`:@@intCoPublication:Kansainvälinen yhteisjulkaisu`,
@@ -746,6 +747,10 @@ export class SinglePublicationComponent
     source.internationalCollaboration = source.internationalCollaboration
       ? $localize`:@@yes:Kyllä`
       : $localize`:@@no:Ei`;
+
+    source.internationalPublication = source.internationalPublication === 1
+      ? $localize`:@@other:Kansainvälinen`
+      : source.internationalPublication === 0 ? $localize`:@@finland:Kotimainen` : '';
 
     source.businessCollaboration = source.businessCollaboration
       ? $localize`:@@yes:Kyllä`
