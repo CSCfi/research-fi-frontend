@@ -2923,6 +2923,10 @@
         <source>Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.</source>
         <target>The publication is openly available, but appears in a hybrid publication channel whose publications are not all openly available.</target>
       </trans-unit>
+      <trans-unit id="publisherInternationality">
+        <source>Kustantajan kansainvälisyys</source>
+        <target>Internationality of the publisher</target>
+      </trans-unit>
       <trans-unit id="publicationCountry">
         <source>Julkaisumaa</source>
         <target>Publication country</target>
@@ -3411,12 +3415,12 @@
         <target>Further information</target>
       </trans-unit>
       <trans-unit id="finland">
-        <source>Suomi</source>
-        <target>Finland</target>
+        <source>Kotimainen</source>
+        <target>Domestic</target>
       </trans-unit>
       <trans-unit id="other">
-        <source>Muut</source>
-        <target>Other</target>
+        <source>Kansainvälinen</source>
+        <target>International</target>
       </trans-unit>
       <trans-unit id="notKnown">
         <source>Ei tiedossa</source>
@@ -3746,8 +3750,8 @@
         <target>Publication type A-G categories according to Ministry of Education and Culture Publication data collection.</target>
       </trans-unit>
       <trans-unit id="pCountryFTooltip">
-        <source>Julkaisijan maa.</source>
-        <target>Publisher’s country.</target>
+        <source>Kotimaisen julkaisun kustantaja on suomalainen tai se on ensisijaisesti julkaistu Suomessa. Kansainvälisen julkaisun kustantaja ei ole suomalainen tai se on ensisijaisesti julkaistu muualla kuin Suomessa.</source>
+        <target>The publisher of the domestic publication is Finnish or it is primarily published in Finland. The publisher of the international publication is not Finnish or it is primarily published elsewhere than in Finland.</target>
       </trans-unit>
       <trans-unit id="pLangFTooltip">
         <source>Kieli, jolla julkaisu on kirjoitettu.</source>

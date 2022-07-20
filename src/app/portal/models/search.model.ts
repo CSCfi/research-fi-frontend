@@ -45,6 +45,7 @@ export class SearchAdapter implements Adapter<Search> {
     private fundingCallAdapter: FundingCallAdapter
   ) {}
   adapt(item: any, tab?: string): Search {
+    console.log('ADAPTING', item);
     const publications: Publication[] = [];
     const fundings: Funding[] = [];
     const datasets: Dataset[] = [];

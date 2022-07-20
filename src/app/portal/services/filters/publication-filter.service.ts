@@ -152,10 +152,10 @@ export class PublicationFilterService {
     },
     {
       field: 'countryCode',
-      label: $localize`:@@publicationCountry:Julkaisumaa`,
+      label: $localize`:@@publisherInternationality:Kustantajan kansainvälisyys`,
       hasSubFields: false,
       open: true,
-      tooltip: $localize`:@@pCountryFTooltip:Julkaisijan maa.`,
+      tooltip: $localize`:@@pCountryFTooltip:Kotimaisen julkaisun kustantaja on suomalainen tai se on ensisijaisesti julkaistu Suomessa. Kansainvälisen julkaisun kustantaja ei ole suomalainen tai se on ensisijaisesti julkaistu muualla kuin Suomessa.`,
     },
     {
       field: 'lang',
@@ -452,10 +452,10 @@ export class PublicationFilterService {
             key: 'c' + item.key,
             label:
               item.key === 0
-                ? $localize`:@@finland:Suomi`
+                ? $localize`:@@finland:Kotimainen`
                 : item.key === 9
                 ? $localize`:@@notSpecified:Ei tietoa`
-                : $localize`:@@other:Muut`,
+                : $localize`:@@other:Kansainvälinen`,
             doc_count: item.doc_count,
             value: item.key,
           })

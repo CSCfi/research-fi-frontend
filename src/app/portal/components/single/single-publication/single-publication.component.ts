@@ -31,6 +31,7 @@ import { Search } from 'src/app/portal/models/search.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { type } from 'os';
 
 @Component({
   selector: 'app-single-publication',
@@ -357,6 +358,7 @@ export class SinglePublicationComponent
     },
     */
     { label: $localize`:@@publicationCountry:Julkaisumaa`, field: 'countries' },
+    { label: $localize`:@@publisherInternationality:Kustantajan kansainvälisyys`, field: 'internationalPublication', tooltip: $localize`:@@pCountryFTooltip:Kotimaisen julkaisun kustantaja on suomalainen tai se on ensisijaisesti julkaistu Suomessa. Kansainvälisen julkaisun kustantaja ei ole suomalainen tai se on ensisijaisesti julkaistu muualla kuin Suomessa.`, },
     { label: $localize`:@@language:Kieli`, field: 'languages' },
     {
       label: $localize`:@@intCoPublication:Kansainvälinen yhteisjulkaisu`,
@@ -747,17 +749,26 @@ export class SinglePublicationComponent
       ? $localize`:@@yes:Kyllä`
       : $localize`:@@no:Ei`;
 
+    source.internationalPublication = source.internationalPublication === 1
+      ? $localize`:@@other:Kansainvälinen`
+      : source.internationalPublication === 0 ? $localize`:@@finland:Kotimainen` : '';
+
     source.businessCollaboration = source.businessCollaboration
       ? $localize`:@@yes:Kyllä`
       : $localize`:@@no:Ei`;
 
     // Get & set publication type label
-    this.publicationTypeLabel =
+
+    if (source.publicationTypeCode === 'KT' || 'KP') {
+      source.publicationTypeCode = '-';
+    }
+    else {
+      this.publicationTypeLabel =
       this.staticDataService.publicationClass
         .find((val) => val.class === source.publicationTypeCode.slice(0, 1))
         ?.types.find((type) => type.type === source.publicationTypeCode)
         ?.label || source.publicationTypeCode;
-
+    }
     if (this.publicationTypeLabel) {
       source.publicationTypeCode =
         source.publicationTypeCode.trim() + ' ' + this.publicationTypeLabel;

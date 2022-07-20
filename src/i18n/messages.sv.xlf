@@ -2912,6 +2912,10 @@
         <source>Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.</source>
         <target state="translated">Publikationen är öppet tillgänglig, men den har publicerats i en s.k. hybridkanal där alla andra publikationer inte är öppet tillgängliga.</target>
       </trans-unit>
+      <trans-unit id="publisherInternationality">
+        <source>Kustantajan kansainvälisyys</source>
+        <target state="translated">Förlagets internationalitet</target>
+      </trans-unit>
       <trans-unit id="publicationCountry">
         <source>Julkaisumaa</source>
         <target state="translated">Publiceringsland</target>
@@ -3400,15 +3404,15 @@
         <target state="translated">Mer information </target>
       </trans-unit>
       <trans-unit id="finland">
-        <source>Suomi</source>
-        <target>Finland</target>
+        <source>Kotimainen</source>
+        <target>Inhemsk</target>
       </trans-unit>
       <trans-unit id="other">
-        <source>Muut</source>
-        <target state="translated">Övriga</target>
+        <source>Kansainvälinen</source>
+        <target state="translated">Internationell</target>
       </trans-unit>
       <trans-unit id="notKnown">
-        <source>Ei tiedossa</source>
+        <source>Ei tietoa</source>
         <target state="translated">Ingen information</target>
       </trans-unit>
       <trans-unit id="infraServiceHeader">
@@ -3731,8 +3735,8 @@
         <target state="translated">Publikationstyp A–G enligt UKM:s publikationsdatainsamling.</target>
       </trans-unit>
       <trans-unit id="pCountryFTooltip">
-        <source>Julkaisijan maa.</source>
-        <target state="translated">Utgivarens land.</target>
+        <source>Kotimaisen julkaisun kustantaja on suomalainen tai se on ensisijaisesti julkaistu Suomessa. Kansainvälisen julkaisun kustantaja ei ole suomalainen tai se on ensisijaisesti julkaistu muualla kuin Suomessa.</source>
+        <target state="translated">Förläggare av den inhemska publikationen är finsk eller publiceras i huvudsak i Finland. Förläggare av den internationella publikationen är inte finsk eller publiceras i första hand någon annanstans än i Finland.</target>
       </trans-unit>
       <trans-unit id="pLangFTooltip">
         <source>Kieli, jolla julkaisu on kirjoitettu.</source>

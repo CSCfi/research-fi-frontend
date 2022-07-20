@@ -617,21 +617,21 @@ export class ActiveFiltersComponent
                 switch (val.value) {
                   case 'c0': {
                     val.translation =
-                      $localize`:@@publicationCountry:Julkaisumaa` +
+                      $localize`:@@publisherInternationality:Kustantajan kansainvälisyys` +
                       ': ' +
-                      $localize`:@@finland:Suomi`;
+                      $localize`:@@finland:Kotimainen`;
                     break;
                   }
                   case 'c1': {
                     val.translation =
-                      $localize`:@@publicationCountry:Julkaisumaa` +
+                      $localize`:@@publisherInternationality:Kustantajan kansainvälisyys` +
                       ': ' +
-                      $localize`:@@other:Muut`;
+                      $localize`:@@other:Kansainvälinen`;
                     break;
                   }
                   case 'c9': {
                     val.translation =
-                      $localize`:@@publicationCountry:Julkaisumaa` +
+                      $localize`:@@publisherInternationality:Kustantajan kansainvälisyys` +
                       ': ' +
                       $localize`:@@notSpecified:Ei tietoa`;
                     break;
