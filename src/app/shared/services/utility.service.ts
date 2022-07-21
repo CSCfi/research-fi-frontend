@@ -80,6 +80,7 @@ export class UtilityService {
       contentString !== 'UNDEFINED' &&
       contentString !== 'undefined' &&
       contentString !== ' ' &&
+      contentString !== '  ' &&
       contentString !== '#N/A' &&
       contentString !== '[]' &&
       contentString !== null &&
