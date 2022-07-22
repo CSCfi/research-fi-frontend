@@ -10,14 +10,14 @@ import {
   PLATFORM_ID,
   ViewEncapsulation,
   ChangeDetectorRef,
-  TemplateRef,
+  TemplateRef
 } from '@angular/core';
 import { faInfo } from '@fortawesome/free-solid-svg-icons';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
-import { DOCUMENT, isPlatformBrowser, Location } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser, Location, ViewportScroller } from '@angular/common';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
 
@@ -48,6 +48,7 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   ];
 
   constructor(
+    private scroller: ViewportScroller,
     @Inject(LOCALE_ID) protected localeId: string,
     private tabChangeService: TabChangeService,
     private location: Location,
@@ -62,6 +63,11 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.route.fragment.subscribe((fragment: string) => {
+      this.openedIdx = fragment;
+      this.scrollToId(fragment);
+    });
+
     // Get page data. Data is passed with resolver in router
     const pageData = this.route.snapshot.data.pages;
 
@@ -97,7 +103,7 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
     this.tabChangeService.toggleSkipToInput(false);
 
     this.title = this.getTitle();
-    this.openedIdx = this.location.path(true).split('#')[1];
+    //this.openedIdx = this.location.path(true).split('#')[1];
   }
 
   setTitle(title: string) {
@@ -127,6 +133,12 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
         );
       }
     }
+  }
+
+  scrollToId(id: string) {
+    setTimeout(() => {
+      this.scroller.scrollToAnchor(id);
+      }, 20);
   }
 
   toggleReview() {
