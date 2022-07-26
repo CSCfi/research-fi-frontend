@@ -70,7 +70,7 @@ export class TabChangeService {
       link: 'organizations',
       icon: faUniversity,
       singular: $localize`:@@organizationSingular:organisaatio`,
-      tooltip: $localize`:@@organizationsTooltip:Tiedejatutkimus.fi -palveluun tietoja toimittavat tutkimusorganisaatiot ja &#8209;rahoittajat.`,
+      tooltip: $localize`:@@organizationsTooltip:Tiedejatutkimus.fi -palveluun tietoja toimittavat tutkimusorganisaatiot ja \u2011rahoittajat.`,
     },
   ];
 
