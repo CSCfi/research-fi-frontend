@@ -87,7 +87,7 @@
     "@angular/cli": "^13.2.6",
     "@angular/compiler-cli": "^13.2.2",
     "@angular/language-service": "^13.2.6",
-    "@babel/cli": "^7.17.3",
+    "@babel/cli": "^7.18.9",
     "@babel/core": "^7.17.4",
     "@babel/preset-env": "^7.16.11",
     "@fortawesome/fontawesome-free": "^6.0.0",
