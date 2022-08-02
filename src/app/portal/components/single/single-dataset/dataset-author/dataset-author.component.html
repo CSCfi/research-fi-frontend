@@ -3,7 +3,7 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<div class="py-1" *ngIf="org.id">
+<div class="py-2" *ngIf="org.id">
   <span class="th" *ngIf="noLinks">{{ org.name }}</span>
   <a *ngIf="!noLinks" class="th" href="/results/organization/{{ org.id }}">{{
     org.name
@@ -12,16 +12,39 @@
     - {{ org.roles.join(', ') }}</span
   >
 </div>
-<p *ngIf="!org.id" class="d-block th p-0 m-0 font-weight-500">
+<p *ngIf="!org.id" class="d-block th py-2 m-0 font-weight-500">
   {{ org.name
   }}<span *ngIf="org.roles.length > 0" class="fw-normal">
     - {{ org.roles.join(', ') }}</span
   >
 </p>
-<div *ngFor="let actor of org.actors">
-  <p class="td p-0 m-0">
-    {{ actor.name }}
-    <app-orcid *ngIf="actor.orcid" [orcid]="actor.orcid"></app-orcid>
-    <span *ngIf="actor.roles.length > 0"> - {{ actor.roles.join(', ') }}</span>
-  </p>
+<div *ngFor="let actor of org.children">
+  <div class="row" >
+    <div class="col-1 guide">
+          <span class="guide-line">
+            <span class="guide-line-top"></span>
+          </span>
+    </div>
+    <div class="col sub-unit">
+      <p>
+        {{ actor.name }}
+        <app-orcid *ngIf="actor.orcid" [orcid]="actor.orcid"></app-orcid>
+        <span *ngIf="actor.roles.length > 0"> - {{ actor.roles.join(', ') }}</span>
+      </p>
+      <div *ngFor="let actor of actor.children" class="row child">
+        <div class="col-2 col-sm-2 col-md-2 col-lg-1 col-xl-1 guide d-flex justify-content-center">
+          <span class="guide-line sub">
+            <span class="guide-line-top"></span>
+          </span>
+        </div>
+        <div class="col sub-unit ps-2 pe-4">
+          <p>
+            {{ actor.name }}
+            <app-orcid *ngIf="actor.orcid" [orcid]="actor.orcid"></app-orcid>
+            <span *ngIf="actor.roles.length > 0"> - {{ actor.roles.join(', ') }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
