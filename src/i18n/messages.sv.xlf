@@ -1167,14 +1167,6 @@
           <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="infraOrganizationTooltip" datatype="html">
-        <source>Tutkimusinfrastruktuurin lyhenne. Infrastruktuureille on tyypillistä, että ne tunnetaan lyhenteellään.</source>
-        <target state="translated">Forskningsinfrastrukturens förkortning. Det är typiskt för infrastrukturerna att de känns igen utifrån sina förkortningar.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/portal/components/results/infrastructures/infrastructures.component.html</context>
-          <context context-type="linenumber">15</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="infraName" datatype="html">
         <source>Nimi</source>
         <target state="translated">Namn</target>
@@ -1191,7 +1183,7 @@
           <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="0bcfa48f6aa297a4df50bfada2b0688f8aed8361" datatype="html">
+      <trans-unit id="infraOrganizationTooltip" datatype="html">
         <source>Tutkimusinfrastruktuurin vastuuorganisaatio. Etenkin suurilla infrastruktuureilla voi olla useita palveluita, joista vastaa joku muu organisaatio. Muut organisaatiot näkee infrastruktuurin tietosivulta.</source>
         <target state="translated">Forskningsinfrastrukturens ansvarsorganisation. I synnerhet stora infrastrukturer kan ha flera tjänster som någon annan organisation ansvarar för. De övriga organisationerna ser infrastrukturen på informationssidan.</target>
         <context-group purpose="location">
