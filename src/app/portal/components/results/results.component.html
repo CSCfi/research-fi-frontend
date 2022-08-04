@@ -222,6 +222,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
         (filterChangeOutput)="setExternalFilters($event)"
       ></app-funding-call-category-filters>
       <app-active-filters
+        [hasBottomMargin]="false"
         (clearAllFilters)="this.clearAllFiltersFromActiveFilters()"
       ></app-active-filters>
       <h3 class="sr-only">Hakutulokset</h3>
@@ -346,7 +347,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
             </button> 
           </div>   -->
         <app-active-filters
-          (clearAllFilters)="this.clearAllFiltersFromActiveFitlers()"
+          (clearAllFilters)="this.clearAllFiltersFromActiveFilters()"
         ></app-active-filters>
         <app-visualisation
           [data]="visualData"

@@ -22,6 +22,9 @@ import { WINDOW } from 'src/app/shared/services/window.service';
   selector: 'app-visualisation',
   templateUrl: './visualisation.component.html',
   styleUrls: ['./visualisation.component.scss'],
+  host: {
+    '(window:resize)': 'onResize($event)'
+  }
 })
 export class VisualisationComponent implements OnInit {
   @ViewChild('main') main: ElementRef;
@@ -62,6 +65,11 @@ export class VisualisationComponent implements OnInit {
       // this.width = this.main.nativeElement.offsetWidth + 400;
       // this.openModal(this.modal);
     });
+  }
+
+  onResize(event) {
+    this.height = event.target.innerHeight  - 300;
+    this.width = (event.target.innerWidth  - 100) * 0.75;
   }
 
   updateTitle(newTitle: string) {
