@@ -108,6 +108,18 @@ export class UtilityService {
     return s.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
   }
 
+  serializeSvgFromHtml(nativeElementInput: any){
+    let serializer = new XMLSerializer();
+    let source = serializer.serializeToString(nativeElementInput);
+
+    // Xml namespace and declarations
+    if(!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)){
+      source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+    }
+    source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
+    return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(source);
+  }
+
   // Fisher–Yates Shuffle
   // https://bost.ocks.org/mike/shuffle/
   static shuffle(arr: any[], start = 0): any[] {
