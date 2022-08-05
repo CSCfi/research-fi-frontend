@@ -1010,8 +1010,8 @@
         <target>Percentage of the amount granted</target>
       </trans-unit>
       <trans-unit id="downloadAsImage">
-        <source>Lataa kuvana (tulossa)</source>
-        <target>Download as image (coming soon)</target>
+        <source>Lataa kuvana</source>
+        <target>Download as image</target>
       </trans-unit>
       <trans-unit id="name" datatype="html">
         <source>Nimi</source>

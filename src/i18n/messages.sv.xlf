@@ -1000,8 +1000,8 @@
         <target>Procent av det beviljade beloppet</target>
       </trans-unit>
       <trans-unit id="downloadAsImage">
-        <source>Lataa kuvana (tulossa)</source>
-        <target>Ladda ner bild (på kommande)</target>
+        <source>Lataa kuvana</source>
+        <target>Ladda ner bild</target>
       </trans-unit>
       <trans-unit id="name" datatype="html">
         <source>Nimi</source>

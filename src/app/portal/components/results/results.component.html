@@ -346,9 +346,9 @@ Copyright 2019 Ministry of Education and Culture, Finland
             </button> 
           </div>   -->
         <app-active-filters
-          (clearAllFilters)="this.clearAllFiltersFromActiveFitlers()"
+          (clearAllFilters)="this.clearAllFiltersFromActiveFilters()"
         ></app-active-filters>
-        <app-visualisation
+        <app-visualisation #visualisationsRef
           [data]="visualData"
           [tab]="tab"
           [visIdx]="visIdx"
@@ -445,7 +445,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
               id="download-image"
               [icon]="faDownload"
               [content]="downloadImage"
-              [disabled]="true"
+              (click)="visualisationsRef.saveAsImageClick()"
             ></app-secondary-button>
           </div>
         </div>

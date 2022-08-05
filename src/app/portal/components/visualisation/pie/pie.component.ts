@@ -4,7 +4,7 @@ import {
   Input,
   OnChanges,
   SimpleChanges,
-  Inject,
+  Inject, ViewChild, ElementRef
 } from '@angular/core';
 import * as d3 from 'd3v4';
 import * as c from 'd3-scale-chromatic';
@@ -35,6 +35,19 @@ export class PieComponent implements OnInit, OnChanges {
   @Input() percentage: boolean;
   @Input() searchTerm: string;
   @Input() searchTarget: string;
+  @Input() set saveAsImageClick(input: boolean) {
+    this.firstSaveClick ? this.saveAsImage() : this.firstSaveClick = true;
+  }
+
+  firstSaveClick = false;
+
+  @ViewChild('chart') chart: ElementRef;
+  @ViewChild('legend') legend: ElementRef;
+  @ViewChild('chartDownloadLinkRef') chartDownloadLinkRef: ElementRef;
+  @ViewChild('legendDownloadLinkRef') legendDownloadLinkRef: ElementRef;
+  chartImageUrl = '';
+  legendImageUrl = '';
+  svgReady = false;
 
   margin = 50;
   legendWidth = 350;
@@ -79,6 +92,22 @@ export class PieComponent implements OnInit, OnChanges {
     ) {
       this.update(+this.visIdx, this.percentage);
     }
+  }
+
+  saveAsImage() {
+    this.chartImageUrl = this.utils.serializeSvgFromHtml(this.chart.nativeElement);
+
+    // Legend content may be empty
+    if (this.legendWidth > 0) {
+      this.legendImageUrl = this.utils.serializeSvgFromHtml(this.legend.nativeElement);
+    }
+    this.svgReady = true;
+
+    // Artificial timeout to wait for dom render before click
+    setTimeout(() => {
+      this.chartDownloadLinkRef.nativeElement.click();
+      this.legendWidth > 0 ? this.legendDownloadLinkRef.nativeElement.click() : null;
+    }, 100);
   }
 
   update(fieldIdx: number, percentage = false) {
