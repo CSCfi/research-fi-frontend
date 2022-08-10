@@ -25,8 +25,8 @@
               <a
                 #mainFocus
                 class="d-block"
-                [routerLink]="['.']"
-                [queryParams]="queryParams"
+                (click)="navigateToSection('s0')"
+                href="javascript:void(0)"
               >
                 <div class="row">
                   <div class="col-auto pe-0">
@@ -52,7 +52,7 @@
               <a
                 class="d-block"
                 [class.disabled]="item['disabled']"
-                (click)="scrollToId(item['disabled'] ? null : item.id)"
+                (click)="navigateToSection(item['disabled'] ? null : item.id)"
                 href="javascript:void(0)"
               >
                 <div class="row">

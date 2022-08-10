@@ -81,6 +81,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   roadmapFilter: string;
   filtered: any[];
   filteredQuery: any[];
+  routeSub: Subscription;
   queryParamSub: Subscription;
   filterHasBeenClicked: boolean;
   queryParams: any;
@@ -139,6 +140,10 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
         this.figureData = JSON.parse(sessionStorage.getItem('figureData'));
       }
     }
+
+    this.routeSub = this.route.fragment.subscribe((fragment: string) => {
+      this.scrollToId(fragment);
+    });
 
     this.queryParamSub = this.route.queryParams.subscribe((params) => {
       this.currentFilter = params.filter || null;
@@ -245,7 +250,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    // Counte content width and set mobile true / false
+    // Count content width and set mobile true / false
     this.mobile = this.window.innerWidth > 991 ? false : true;
     // Show side menu on desktop
     this.showIntro = this.mobile ? false : true;
@@ -262,17 +267,6 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       }
     );
-    // Timeout to allow page to render so scroll goes to its correct position
-    if (
-      this.historyService.history
-        .slice(-2, -1)
-        .shift()
-        ?.includes('/science-research-figures/s')
-    ) {
-      setTimeout(() => {
-        this.window.scrollTo(0, this.dataService.researchFigureScrollLocation);
-      }, 10);
-    }
   }
 
   ngOnDestroy() {
@@ -284,6 +278,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
     this.tabChangeService.targetFocus('');
     this.queryParamSub?.unsubscribe();
     this.focusSub?.unsubscribe();
+    this.routeSub?.unsubscribe();
   }
 
   onSectionChange(sectionId: string) {
@@ -299,9 +294,18 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dataService.updateResearchScroll(y);
   }
 
+  // Navigate to section from sidebar.
+  // Reset fragment before navigation.
+  // This enables side navigation linking to previously navigated item
+  navigateToSection(sectionId: string) {
+    this.router.navigate([], {
+      fragment: sectionId, queryParams: this.queryParams,
+    });
+  }
+
   scrollToId(id: string) {
     setTimeout(() => {
       this.scroller.scrollToAnchor(id);
-    }, 20);
+    }, 10);
   }
 }
