@@ -36,6 +36,7 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   title: string;
   openedIdx: any;
   currentLocale: string;
+  routeSub: Subscription;
 
   private metaTags = MetaTags.serviceInfo;
   private commonTags = MetaTags.common;
@@ -63,7 +64,7 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.route.fragment.subscribe((fragment: string) => {
+    this.routeSub = this.route.fragment.subscribe((fragment: string) => {
       this.openedIdx = fragment;
       this.scrollToId(fragment);
     });
@@ -138,7 +139,7 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   scrollToId(id: string) {
     setTimeout(() => {
       this.scroller.scrollToAnchor(id);
-      }, 20);
+      }, 10);
   }
 
   toggleReview() {
@@ -164,5 +165,6 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
     this.tabChangeService.toggleSkipToInput(true);
     this.tabChangeService.targetFocus('');
     this.focusSub?.unsubscribe();
+    this.routeSub?.unsubscribe();
   }
 }
