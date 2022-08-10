@@ -52,7 +52,7 @@
               <a
                 class="d-block"
                 [class.disabled]="item['disabled']"
-                (click)="navigateToSection(item['disabled'] ? null : item.id)"
+                (click)="scrollToId(item['disabled'] ? null : item.id)"
                 href="javascript:void(0)"
               >
                 <div class="row">

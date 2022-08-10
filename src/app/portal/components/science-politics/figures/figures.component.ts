@@ -26,7 +26,7 @@ import {
   faChevronUp,
 } from '@fortawesome/free-solid-svg-icons';
 import { faChartBar } from '@fortawesome/free-regular-svg-icons';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, ViewportScroller } from '@angular/common';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
@@ -104,7 +104,8 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
     private router: Router,
     private cmsContentService: CMSContentService,
     @Inject(PLATFORM_ID) private platformId: object,
-    private appSettingsService: AppSettingsService
+    private appSettingsService: AppSettingsService,
+    private scroller: ViewportScroller,
   ) {
     // Default to first segment
     this.currentSection = 's0';
@@ -298,17 +299,9 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dataService.updateResearchScroll(y);
   }
 
-  // Navigate to section from sidebar.
-  // Reset fragment before navigation.
-  // This enables side navigation linking to previously navigated item
-  navigateToSection(sectionId: string) {
-    this.router
-      .navigate([], { fragment: null, queryParams: this.queryParams })
-      .then(() =>
-        this.router.navigate([], {
-          fragment: sectionId,
-          queryParams: this.queryParams,
-        })
-      );
+  scrollToId(id: string) {
+    setTimeout(() => {
+      this.scroller.scrollToAnchor(id);
+    }, 20);
   }
 }
