@@ -4944,6 +4944,32 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Sulje lomake</source>
         <target state="translated">Stäng formuläret</target>
       </trans-unit>
+
+      <trans-unit id="iconPublications">
+        <source>Julkaisujen tiedon ikoni/source>
+        <target>Publicationer information ikon</target>
+      </trans-unit>
+      <trans-unit id="iconProjects
+        <source>Hankkeiden tiedon ikoni</source>
+        <target>Projekt information ikon</target>
+      </trans-unit>
+      <trans-unit id="iconDatasets">
+        <source>Tutkimusaineistojen tiedon ikoni</source>
+        <target>Forskning data information ikon</target>
+      </trans-unit>
+      <trans-unit id="iconFundingCalls">
+        <source>Rahoitushakujen tiedon ikoni</source>
+        <target>Utlysningar information ikon</target>
+      </trans-unit>
+      <trans-unit id="iconInfrastructures">
+        <source>Infrastruktuurien tiedon ikoni</source>
+        <target>Infrastrukturer information ikon</target>
+      </trans-unit>
+      <trans-unit id="iconOrganizations">
+        <source>Organisaatioiden tiedon ikoni</source>
+         <target>Organisationer information ikon</target>
+      </trans-unit>
+
       <!-- Cookie consent bar -->
       <trans-unit id="cookieConsent1" datatype="html">
         <source>

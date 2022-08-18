@@ -4964,6 +4964,30 @@
         <source>Sulje lomake</source>
         <target>Close form</target>
       </trans-unit>
+      <trans-unit id="iconPublications">
+        <source>Julkaisujen tiedon ikoni/source>
+        <target>Publications information icon</target>
+      </trans-unit>
+      <trans-unit id="iconProjects
+        <source>Hankkeiden tiedon ikoni</source>
+        <target>Projects information icon</target>
+      </trans-unit>
+      <trans-unit id="iconDatasets">
+        <source>Tutkimusaineistojen tiedon ikoni</source>
+        <target>Research data information icon</target>
+      </trans-unit>
+      <trans-unit id="iconFundingCalls">
+        <source>Rahoitushakujen tiedon ikoni</source>
+        <target>Funding calls information icon</target>
+      </trans-unit>
+      <trans-unit id="iconInfrastructures">
+        <source>Infrastruktuurien tiedon ikoni</source>
+        <target>Infrastructures information icon</target>
+      </trans-unit>
+      <trans-unit id="iconOrganizations">
+        <source>Organisaatioiden tiedon ikoni</source>
+         <target>Organizations information icon</target>
+      </trans-unit>
       <!-- Cookie consent bar -->
       <trans-unit id="cookieConsent1" datatype="html">
         <source>
@@ -5079,6 +5103,13 @@
         <source>Ladataan</source>
         <target>Loading</target>
       </trans-unit>
+      <trans-unit id="iconInfrastructures">
+          <source>Infrastruktuurien tiedon ikoni</source>
+          <target>Infrastructures information icon</target>
+      </trans-unit>
+
+
+
 
       <!-- MyData translations -->
       <trans-unit id="createProfileForYourself">
