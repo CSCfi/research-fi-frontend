@@ -62,6 +62,7 @@ export class FundingCallResultsComponent
   additionalRowTemplates: QueryList<ElementRef>;
 
   dataMapped: boolean;
+  iconTitleFundingCalls= $localize`:@@iconFundingCalls: Rahoitushakujen tiedon ikoni`;
 
   constructor(
     private route: ActivatedRoute,

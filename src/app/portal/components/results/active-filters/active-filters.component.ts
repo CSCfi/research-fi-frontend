@@ -16,7 +16,7 @@ import {
   QueryList,
   Inject,
   PLATFORM_ID,
-  LOCALE_ID, Output, EventEmitter, Input
+  LOCALE_ID, Output, EventEmitter
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { SortService } from '@portal/services/sort.service';
@@ -75,7 +75,6 @@ export class ActiveFiltersComponent
   };
 
   @Output() clearAllFilters = new EventEmitter<any>();
-  @Input() hasBottomMargin: boolean = true;
 
   filterResponse: any;
   tabFilters: any;

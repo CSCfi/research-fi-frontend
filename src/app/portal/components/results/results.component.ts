@@ -142,7 +142,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   showAsVisual = $localize`:@@showAsVisual:Näytä kuvana`;
   additionalInfo = $localize`:@@additionalInfo:Lisätietoa`;
   clearActiveFilters = $localize`:@@clearActiveFilters: Tyhjennä rajaukset`;
-  downloadImage = $localize`:@@downloadAsImage:Lataa kuvana (tulossa)`;
+  downloadImage = $localize`:@@downloadAsImage:Lataa kuvana`;
 
   // tslint:disable-next-line: max-line-length
   betaTooltip =

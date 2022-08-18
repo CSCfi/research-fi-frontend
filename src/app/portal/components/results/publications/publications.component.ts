@@ -62,6 +62,7 @@ export class PublicationsComponent implements OnInit, OnDestroy, AfterViewInit {
   publicationChannelColumns: QueryList<ElementRef>;
 
   dataMapped: boolean;
+  iconTitlePublications = $localize`:@@iconPublications: Julkaisujen tiedon ikoni`;
 
   constructor(
     private route: ActivatedRoute,

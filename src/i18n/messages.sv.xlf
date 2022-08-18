@@ -1000,8 +1000,8 @@
         <target>Procent av det beviljade beloppet</target>
       </trans-unit>
       <trans-unit id="downloadAsImage">
-        <source>Lataa kuvana (tulossa)</source>
-        <target>Ladda ner bild (på kommande)</target>
+        <source>Lataa kuvana</source>
+        <target>Ladda ner bild</target>
       </trans-unit>
       <trans-unit id="name" datatype="html">
         <source>Nimi</source>
@@ -1167,14 +1167,6 @@
           <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="infraOrganizationTooltip" datatype="html">
-        <source>Tutkimusinfrastruktuurin lyhenne. Infrastruktuureille on tyypillistä, että ne tunnetaan lyhenteellään.</source>
-        <target state="translated">Forskningsinfrastrukturens förkortning. Det är typiskt för infrastrukturerna att de känns igen utifrån sina förkortningar.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/portal/components/results/infrastructures/infrastructures.component.html</context>
-          <context context-type="linenumber">15</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="infraName" datatype="html">
         <source>Nimi</source>
         <target state="translated">Namn</target>
@@ -1191,7 +1183,7 @@
           <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="0bcfa48f6aa297a4df50bfada2b0688f8aed8361" datatype="html">
+      <trans-unit id="infraOrganizationTooltip" datatype="html">
         <source>Tutkimusinfrastruktuurin vastuuorganisaatio. Etenkin suurilla infrastruktuureilla voi olla useita palveluita, joista vastaa joku muu organisaatio. Muut organisaatiot näkee infrastruktuurin tietosivulta.</source>
         <target state="translated">Forskningsinfrastrukturens ansvarsorganisation. I synnerhet stora infrastrukturer kan ha flera tjänster som någon annan organisation ansvarar för. De övriga organisationerna ser infrastrukturen på informationssidan.</target>
         <context-group purpose="location">
@@ -4952,6 +4944,32 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Sulje lomake</source>
         <target state="translated">Stäng formuläret</target>
       </trans-unit>
+
+      <trans-unit id="iconPublications">
+        <source>Julkaisujen tiedon ikoni/source>
+        <target>Publicationer information ikon</target>
+      </trans-unit>
+      <trans-unit id="iconProjects
+        <source>Hankkeiden tiedon ikoni</source>
+        <target>Projekt information ikon</target>
+      </trans-unit>
+      <trans-unit id="iconDatasets">
+        <source>Tutkimusaineistojen tiedon ikoni</source>
+        <target>Forskning data information ikon</target>
+      </trans-unit>
+      <trans-unit id="iconFundingCalls">
+        <source>Rahoitushakujen tiedon ikoni</source>
+        <target>Utlysningar information ikon</target>
+      </trans-unit>
+      <trans-unit id="iconInfrastructures">
+        <source>Infrastruktuurien tiedon ikoni</source>
+        <target>Infrastrukturer information ikon</target>
+      </trans-unit>
+      <trans-unit id="iconOrganizations">
+        <source>Organisaatioiden tiedon ikoni</source>
+         <target>Organisationer information ikon</target>
+      </trans-unit>
+
       <!-- Cookie consent bar -->
       <trans-unit id="cookieConsent1" datatype="html">
         <source>
