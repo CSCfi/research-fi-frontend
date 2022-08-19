@@ -35,6 +35,12 @@ export class Publication {
     public articleNumber: string, // articleNumberText
     public parentPublicationName: string,
     public parentPublicationPublisher: string,
+    public artPublicationTypeCategories: string[],
+    public artPublicationFieldsOfArt: string[],
+    public artPublicationTypeCategoriesString,
+    public artPublicationFieldsOfArtString,
+    public artPublicationEvent: string,
+    public artPublicationVenue: string,
     public isbn: string,
     public isbn2: string,
     public publisherName: string,
@@ -280,6 +286,32 @@ export class PublicationAdapter implements Adapter<Publication> {
       });
     }
 
+    // Optional art publication fields
+    let artPublicationTypeCategoriesString: string;
+    const artPublicationTypeCategories: string[] = [];
+    if (item?.artPublicationTypeCategory) {
+      item.artPublicationTypeCategory.forEach((item) => {
+        artPublicationTypeCategories.push(this.lang.testLang(
+          'typeCategoryName',
+          item
+        ));
+      });
+    }
+    artPublicationTypeCategoriesString = artPublicationTypeCategories.join('; ');
+
+    let fieldsOfArt: string[] = [];
+    let artPublicationFieldsOfArtString: string;
+    item.fieldsOfArt
+      ? item.fieldsOfArt.forEach((field) => {
+        fieldsOfArt.push(this.lang.testLang('nameArt', field));
+      })
+      : (fieldsOfArt = []);
+    artPublicationFieldsOfArtString = fieldsOfArt.join('; ');
+
+
+    console.log('FOA', fieldsOfArt);
+    console.log('typecat', artPublicationTypeCategories);
+
     // Check if publication type fields exist
     const publicationFormat = item.publicationFormat
       ? item.publicationFormat[0][
@@ -321,6 +353,12 @@ export class PublicationAdapter implements Adapter<Publication> {
       item.articleNumberText,
       item.parentPublicationName,
       item.parentPublicationPublisher,
+      artPublicationTypeCategories,
+      fieldsOfArt,
+      artPublicationTypeCategoriesString,
+      artPublicationFieldsOfArtString,
+      item?.artPublication?.event ? item.artPublication.event : 'test',
+      item?.artPublication?.venue ? item.artPublication.venue : 'test',
       item.isbn,
       item.isbn2,
       item.publisherName,

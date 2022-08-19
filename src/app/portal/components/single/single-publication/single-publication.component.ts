@@ -337,6 +337,10 @@ export class SinglePublicationComponent
       tooltip: $localize`:@@TKFOS:Tilastokeskuksen luokituksen mukaiset tieteenalat.`,
     },
     { label: $localize`:@@keywords:Avainsanat`, field: 'keywords' },
+    { label: $localize`:@@fieldsOfArt:Taiteenalat`, field: 'artPublicationFieldsOfArtString' },
+    { label: $localize`:@@artPublicationType:Taidejulkaisun tyyppi`, field: 'artPublicationTypeCategoriesString' },
+    { label: $localize`:@@artPublicationEvent:Taidejulkaisun tapahtuma`, field: 'artPublicationEvent' },
+    { label: $localize`:@@artPublicationVenue:Taidejulkaisun paikka`, field: 'artPublicationVenue' },
     /*{
       label: $localize`:@@openAccess:Avoin saatavuus`,
       field: 'openAccessText',
@@ -589,6 +593,7 @@ export class SinglePublicationComponent
     const languages = source.languages;
     const keywords = source.keywords;
     const author = source.author;
+    console.log('source', source);
 
     if (countries?.length > 0) {
       const key = 'country' + locale;

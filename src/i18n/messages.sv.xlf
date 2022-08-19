@@ -2343,6 +2343,26 @@
         <source>Muut tieteet</source>
         <target state="translated">Annan</target>
       </trans-unit>
+      <trans-unit id="arts">
+        <source>Taidealat</source>
+        <target>Konst</target>
+      </trans-unit>
+      <trans-unit id="fieldsOfArt">
+        <source>Taiteenalat</source>
+        <target>Konstområden</target>
+      </trans-unit>
+      <trans-unit id="artPublicationType">
+        <source>Taidejulkaisun tyyppi</source>
+        <target>Konstpublikationens typ</target>
+      </trans-unit>
+      <trans-unit id="artPublicationEvent">
+        <source>Taidejulkaisun tapahtuma</source>
+        <target>Konstpublikationens evenemang</target>
+      </trans-unit>
+      <trans-unit id="artPublicationVenue">
+        <source>Taidejulkaisun paikka</source>
+        <target>Konstpublikationens plats</target>
+      </trans-unit>
       <!-- Publication class -->
       <trans-unit id="2864646710185946746">
         <source>Vertaisarvioidut tieteelliset artikkelit</source>
