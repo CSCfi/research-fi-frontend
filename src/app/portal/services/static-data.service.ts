@@ -66,7 +66,7 @@ export class StaticDataService {
     },
     {
       id: 8,
-      key: $localize`:@@arts:Taidealat`,
+      key: $localize`:@@fieldsOfArt:Taiteenalat`,
       checked: false,
       subData: [],
       doc_count: 0,
