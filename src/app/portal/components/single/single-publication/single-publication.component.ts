@@ -334,7 +334,7 @@ export class SinglePublicationComponent
     {
       label: $localize`:@@fieldsOfScience:Tieteenalat`,
       field: 'fieldsOfScienceString',
-      tooltip: $localize`:@@TKFOS:Tilastokeskuksen luokituksen mukaiset tieteenalat.`,
+      tooltip: $localize`:@@pFOSFTooltip:Tilastokeskuksen tieteenalaluokitus. Taiteenalat OKM:n luokituksen mukaisesti. Julkaisulla voi olla 1-6 tieteen- tai taiteenalaa.`,
     },
     { label: $localize`:@@keywords:Avainsanat`, field: 'keywords' },
     { label: $localize`:@@fieldsOfArt:Taiteenalat`, field: 'artPublicationFieldsOfArtString' },
