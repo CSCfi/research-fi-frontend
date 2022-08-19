@@ -25,6 +25,6 @@ describe('FilterMethodService', () => {
 
   it('should map minor fields to majors', () => {
     const res = service.separateMinor(data);
-    expect(res.length === 6).toBeTruthy();
+    expect(res.length === 7).toBeTruthy();
   });
 });

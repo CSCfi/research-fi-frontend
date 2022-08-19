@@ -3739,8 +3739,8 @@
         <target state="translated">Den finländska organisationen för publikationens upphovsperson. Tjänsten innehåller tills vidare inga uppgifter om utländska organisationer för publikationerna.</target>
       </trans-unit>
       <trans-unit id="pFOSFTooltip">
-        <source>Tilastokeskuksen tieteenalaluokitus. Julkaisulla voi olla 1-6 tieteenalaa.</source>
-        <target state="translated">Statistikcentralens klassificering av vetenskapsområden. Publikationen kan omfatta 1–6 vetenskapsområden.</target>
+        <source>Tilastokeskuksen tieteenalaluokitus. Taiteenalat OKM:n luokituksen mukaisesti. Julkaisulla voi olla 1-6 tieteen- tai taiteenalaa.</source>
+        <target state="translated">Statistikcentralens klassificering av vetenskapsområden. Konstområden enligt UKM:s publikationsdatainsamling. Publikationen kan omfatta 1–6 vetenskaps - eller konstområden.</target>
       </trans-unit>
       <trans-unit id="pTypeFTooltip">
         <source>OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.</source>

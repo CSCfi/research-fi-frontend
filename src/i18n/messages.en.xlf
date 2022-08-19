@@ -3762,8 +3762,8 @@
         <target>Finnish organization of the publication’s author. The service currently does not contain any information on publications’ foreign organizations.</target>
       </trans-unit>
       <trans-unit id="pFOSFTooltip">
-        <source>Tilastokeskuksen tieteenalaluokitus. Julkaisulla voi olla 1-6 tieteenalaa.</source>
-        <target>The Statistics Finland Fields of science classification. A publication may include 1-6 fields of science.</target>
+        <source>Tilastokeskuksen tieteenalaluokitus. Taiteenalat OKM:n luokituksen mukaisesti. Julkaisulla voi olla 1-6 tieteen- tai taiteenalaa.</source>
+        <target>The Statistics Finland Fields of science classification. Fields of Art according to Ministry of Education and Culture Publication data collection. A publication may include 1-6 fields of science or art.</target>
       </trans-unit>
       <trans-unit id="pTypeFTooltip">
         <source>OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.</source>

@@ -71,13 +71,6 @@ export class StaticDataService {
       subData: [],
       doc_count: 0,
     },
-    {
-      id: 9,
-      key: $localize`:@@otherSciences:Muut tieteet`,
-      checked: false,
-      subData: [],
-      doc_count: 0,
-    },
   ];
 
   // Filters, Publication article type
