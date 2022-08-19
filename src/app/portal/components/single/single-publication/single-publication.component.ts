@@ -593,7 +593,6 @@ export class SinglePublicationComponent
     const languages = source.languages;
     const keywords = source.keywords;
     const author = source.author;
-    console.log('source', source);
 
     if (countries?.length > 0) {
       const key = 'country' + locale;

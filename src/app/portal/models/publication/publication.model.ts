@@ -308,10 +308,6 @@ export class PublicationAdapter implements Adapter<Publication> {
       : (fieldsOfArt = []);
     artPublicationFieldsOfArtString = fieldsOfArt.join('; ');
 
-
-    console.log('FOA', fieldsOfArt);
-    console.log('typecat', artPublicationTypeCategories);
-
     // Check if publication type fields exist
     const publicationFormat = item.publicationFormat
       ? item.publicationFormat[0][
