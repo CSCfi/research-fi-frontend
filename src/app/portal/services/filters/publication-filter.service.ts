@@ -35,7 +35,7 @@ export class PublicationFilterService {
       label: $localize`:@@fieldOfScience:Tieteenala`,
       hasSubFields: true,
       open: false,
-      tooltip: $localize`:@@pFOSFTooltip:Tilastokeskuksen tieteenalaluokitus. Julkaisulla voi olla 1-6 tieteenalaa.`,
+      tooltip: $localize`:@@pFOSFTooltip:Tilastokeskuksen tieteenalaluokitus. Taiteenalat OKM:n luokituksen mukaisesti. Julkaisulla voi olla 1-6 tieteen- tai taiteenalaa.`,
     },
     {
       field: 'publicationType',
