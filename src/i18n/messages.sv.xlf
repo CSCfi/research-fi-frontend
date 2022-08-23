@@ -4966,7 +4966,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
 
       <trans-unit id="iconPublications">
-        <source>Julkaisujen tiedon ikoni/source>
+        <source>Julkaisujen tiedon ikoni</source>
         <target>Publicationer information ikon</target>
       </trans-unit>
       <trans-unit id="iconProjects">

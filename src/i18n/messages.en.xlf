@@ -4985,7 +4985,7 @@
         <target>Close form</target>
       </trans-unit>
       <trans-unit id="iconPublications">
-        <source>Julkaisujen tiedon ikoni/source>
+        <source>Julkaisujen tiedon ikoni</source>
         <target>Publications information icon</target>
       </trans-unit>
       <trans-unit id="iconProjects">
