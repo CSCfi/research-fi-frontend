@@ -2662,7 +2662,7 @@
       </trans-unit>
       <trans-unit id="blogTooltipContent">
         <source>Sisältää blogimuotoiset julkaisut, joiden julkaisemisesta on päättänyt riippumaton toimituskunta tai joiden julkaisualustalla on ISSN-tunnus</source>
-        <target>Onnehåller publikationer i bloggformat som har publicerats av en oberoende redaktion eller vars publikationsplattform har ett ISSN-nummer.</target>
+        <target>Innehåller publikationer i bloggformat som har publicerats av en oberoende redaktion eller vars publikationsplattform har ett ISSN-nummer.</target>
       </trans-unit>
       <trans-unit id="journal">
         <source>Lehti</source>
