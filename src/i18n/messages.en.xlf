@@ -4988,7 +4988,7 @@
         <source>Julkaisujen tiedon ikoni/source>
         <target>Publications information icon</target>
       </trans-unit>
-      <trans-unit id="iconProjects
+      <trans-unit id="iconProjects">
         <source>Hankkeiden tiedon ikoni</source>
         <target>Projects information icon</target>
       </trans-unit>
