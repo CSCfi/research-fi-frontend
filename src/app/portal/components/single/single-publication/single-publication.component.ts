@@ -31,6 +31,7 @@ import { Search } from 'src/app/portal/models/search.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { LanguageCheck } from '@portal/models/utils';
 
 @Component({
   selector: 'app-single-publication',
@@ -436,7 +437,8 @@ export class SinglePublicationComponent
     @Inject(LOCALE_ID) private localeId,
     private snackBar: MatSnackBar,
     private settingsService: SettingsService,
-    private appSettingsService: AppSettingsService
+    private appSettingsService: AppSettingsService,
+    private lang: LanguageCheck,
   ) {
     this.currentLocale = this.appSettingsService.capitalizedLocale;
   }
@@ -644,10 +646,16 @@ export class SinglePublicationComponent
                     subUnit.OrgUnitId !== '-1'
                       ? [subUnit.organizationUnitNameFi]
                       : null,
+                  artPublicationRoleName: this.lang.testLang(
+                    'artPublicationRoleName',
+                    person
+                  ),
                 });
               }
             });
             // Add sub units under organization if no person sub units
+
+            // TODO: looks like localizations are not implemented for sub units for some reason
             if (
               !subUnit.person &&
               subUnit.organizationUnitNameFi !== '-1' &&
@@ -694,8 +702,8 @@ export class SinglePublicationComponent
 
           // Check for duplicate authors and merge sub units
           const duplicateAuthors = Object.values(
-            authorArr.reduce((c, { author, orcid, subUnit }) => {
-              c[author] = c[author] || { author, orcid, subUnits: [] };
+            authorArr.reduce((c, { author, orcid, subUnit, artPublicationRoleName }) => {
+              c[author] = c[author] || { author, orcid, subUnits: [], artPublicationRoleName };
               c[author].subUnits = c[author].subUnits.concat(
                 Array.isArray(subUnit) ? subUnit : [subUnit]
               );
