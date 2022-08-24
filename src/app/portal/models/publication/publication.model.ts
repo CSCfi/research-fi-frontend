@@ -106,6 +106,10 @@ export class PublicationAdapter implements Adapter<Publication> {
 
     // Only include fields with id
     fieldsOfScience = fieldsOfScience.filter((x) => x.id);
+
+    // Remove (artificial) art publication fields from field of science (same info presented in fieldsOfArt field)
+    fieldsOfScience = fieldsOfScience.filter((x) => !x.id.toString().startsWith('8'));
+
     // Create string from array
     const fieldsOfScienceString = fieldsOfScience.map((x) => x.name).join('; ');
 

@@ -151,7 +151,7 @@
               <div *ngFor="let author of row.authors">
                 <div *ngIf="author.author.trim().length > 2">
                   <p class="td" [ngClass]="author.orcid ? 'has-orcid' : ''">
-                    {{ author.author }}{{author.artPublicationRoleName ? ', ' + author.artPublicationRoleName : ''}}
+                    {{ author.author }} {{author.artPublicationRoleName ? '- ' + author.artPublicationRoleName : ''}}
                     <app-orcid
                       *ngIf="author.orcid"
                       [orcid]="author.orcid"
