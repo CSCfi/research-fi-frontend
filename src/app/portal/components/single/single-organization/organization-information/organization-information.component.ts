@@ -61,7 +61,7 @@ export class OrganizationInformationComponent implements OnInit {
     {
       label: $localize`:@@orgSector:Organisaation tyyppi`,
       field: 'sectorNameFi',
-      tooltip: 'ytj',
+      tooltip: '',
     },
     {
       label: $localize`:@@orgVAddress:Käyntiosoite`,

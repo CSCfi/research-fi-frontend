@@ -28,23 +28,23 @@ export class OrganizationFilterService {
   infoData = [
     {
       id: '1',
-      tooltip: $localize`:@@org1Tooltip:Yliopistolaissa mainitut 13 yliopistoa sekä Maanpuolustuskorkeakoulu toimittavat tietoja tiedejatutkimus.fi &#8209;palveluun.`,
+      tooltip: $localize`:@@org1Tooltip:Yliopistolaissa mainitut 13 yliopistoa sekä Maanpuolustuskorkeakoulu toimittavat tietoja tiedejatutkimus.fi \u2011palveluun.`,
     },
     {
       id: '2',
-      tooltip: $localize`:@@org2Tooltip:OKM:n hallinnonalalle kuuluvat 22 ammattikorkeakoulua sekä Poliisiammattikorkeakoulu toimittavat tietoja tiedejatutkimus.fi &#8209;palveluun.`,
+      tooltip: $localize`:@@org2Tooltip:OKM:n hallinnonalalle kuuluvat 22 ammattikorkeakoulua sekä Poliisiammattikorkeakoulu toimittavat tietoja tiedejatutkimus.fi \u2011palveluun.`,
     },
     {
       id: '3',
-      tooltip: $localize`:@@org3Tooltip:Eri hallinnonalojen alaiset tutkimuslaitokset, jotka ovat toimittaneet tietoja tiedejatutkimus.fi &#8209;palveluun.`,
+      tooltip: $localize`:@@org3Tooltip:Eri hallinnonalojen alaiset tutkimuslaitokset, jotka ovat toimittaneet tietoja tiedejatutkimus.fi \u2011palveluun.`,
     },
     {
       id: '4',
-      tooltip: $localize`:@@org4Tooltip:Suomessa on viisi asetuksella säädettyä yliopistollisen sairaalan erityisvastuualuetta. Kaikki toimittavat julkaisutietojaan tiedejatutkimus.fi &#8209;palveluun.`,
+      tooltip: $localize`:@@org4Tooltip:Suomessa on viisi asetuksella säädettyä yliopistollisen sairaalan erityisvastuualuetta. Kaikki toimittavat julkaisutietojaan tiedejatutkimus.fi \u2011palveluun.`,
     },
     {
       id: '5',
-      tooltip: $localize`:@@org5Tooltip:Tutkimusrahoittajat, jotka ovat toimittaneet rahoituspäätösten tietoja tiedejatutkimus.fi &#8209;palveluun.`,
+      tooltip: $localize`:@@org5Tooltip:Tutkimusrahoittajat, jotka ovat toimittaneet rahoituspäätösten tietoja tiedejatutkimus.fi \u2011palveluun.`,
     },
     {
       id: '6',

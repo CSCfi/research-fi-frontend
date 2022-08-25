@@ -90,7 +90,7 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
   openAccessFilters: any[];
 
   // Names for country data
-  countryNames = [$localize`:@@finland:Suomi`, $localize`:@@other:Muut`];
+  countryNames = [$localize`:@@finland:Kotimainen`, $localize`:@@other:Kansainvälinen`];
   countryFilterIds = ['c0', 'c1'];
 
   publication = this.sds.visualisationData.publication;

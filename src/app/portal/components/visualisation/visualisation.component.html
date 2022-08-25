@@ -29,8 +29,9 @@ Copyright 2019 Ministry of Education and Culture, Finland
       [percentage]="percentage"
       [searchTerm]="searchTerm"
       [searchTarget]="searchTarget"
+      [saveAsImageClick]="saveClickBar"
     ></app-bar>
-    <app-pie 
+    <app-pie
       *ngIf="visualisationType"
       [data]="data"
       [tab]="tab"
@@ -39,8 +40,8 @@ Copyright 2019 Ministry of Education and Culture, Finland
       [visIdx]="visIdx"
       [percentage]="percentage"
       [searchTerm]="searchTerm"
-      [searchTarget]="searchTarget">
-      
-    </app-pie>
+      [searchTarget]="searchTarget"
+      [saveAsImageClick]="saveClickPie"
+    ></app-pie>
   </div>
 </div>

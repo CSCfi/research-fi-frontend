@@ -30,11 +30,11 @@ export class FigureFiltersComponent implements OnInit, OnChanges {
       label: $localize`:@@showOnlyTKIfilter:Näytä vain TKI-tiekartan seurantamittarit`,
       filter: 'roadmap',
       infoFi:
-        'Keväällä 2020 julkaistussa Valtioneuvoston <a href="https://minedu.fi/tki-tiekartta/tavoitteet-ja-paamaarat" target="_blank" class="external">TKI-tiekartassa <i class="fas fa-external-link-alt"></i></a> määritellyt tki-toiminnan seurantaindikaattorit.',
+        'Keväällä 2020 julkaistussa Valtioneuvoston <a href="https://okm.fi/tki-tiekartta" target="_blank" class="external">TKI-tiekartassa <i class="fas fa-external-link-alt"></i></a> määritellyt tki-toiminnan seurantaindikaattorit.',
       infoEn:
-        'RDI activities’ follow up indicators defined in <a href="https://minedu.fi/en/rdi-roadmap/objectives-and-targets" target="_blank" class="external">the Government’s RDI roadmap <i class="fas fa-external-link-alt"></i></a>, published in spring 2020.',
+        'RDI activities’ follow up indicators defined in <a href="https://okm.fi/en/rdi-roadmap" target="_blank" class="external">the Government’s RDI roadmap <i class="fas fa-external-link-alt"></i></a>, published in spring 2020.',
       infoSv:
-        'Uppföljningsmätare för FUI-verksamhet definierat i <a href="https://minedu.fi/sv/fui-fardplan/mal-och-ambitioner" target="_blank" class="external">Statsrådets FUI-färdplan <i class="fas fa-external-link-alt"></i></a>, publicerad våren 2020.',
+        'Uppföljningsmätare för FUI-verksamhet definierat i <a href="https://okm.fi/sv/fui-fardplan" target="_blank" class="external">Statsrådets FUI-färdplan <i class="fas fa-external-link-alt"></i></a>, publicerad våren 2020.',
     },
   ];
   currentLocale: string;

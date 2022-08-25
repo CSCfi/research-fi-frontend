@@ -62,6 +62,7 @@ export class FundingCallResultsComponent
   additionalRowTemplates: QueryList<ElementRef>;
 
   dataMapped: boolean;
+  iconTitleFundingCalls= $localize`:@@iconFundingCalls: Rahoitushakujen tiedon ikoni`;
 
   constructor(
     private route: ActivatedRoute,
@@ -149,7 +150,7 @@ export class FundingCallResultsComponent
       },
       callOpen: {
         label: call.openDate.getFullYear()
-          ? this.highlightPipe.transform(call.openDateString, this.input)
+          ? this.highlightPipe.transform(call.openDateString === '01.01.1900' ? '-' : call.openDateString, this.input)
           : '-',
       },
       callDue: {

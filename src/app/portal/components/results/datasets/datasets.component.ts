@@ -53,6 +53,7 @@ export class DatasetsComponent implements OnInit {
   datasetTagsColumns: QueryList<ElementRef>;
 
   dataMapped: boolean;
+  iconTitleDatasets= $localize`:@@iconDatasets: Tutkimusaineistojen tiedon ikoni`;
 
   constructor(
     private route: ActivatedRoute,

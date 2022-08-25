@@ -35,7 +35,7 @@ export class PublicationFilterService {
       label: $localize`:@@fieldOfScience:Tieteenala`,
       hasSubFields: true,
       open: false,
-      tooltip: $localize`:@@pFOSFTooltip:Tilastokeskuksen tieteenalaluokitus. Julkaisulla voi olla 1-6 tieteenalaa.`,
+      tooltip: $localize`:@@pFOSFTooltip:Tilastokeskuksen tieteenalaluokitus. Taiteenalat OKM:n luokituksen mukaisesti. Julkaisulla voi olla 1-6 tieteen- tai taiteenalaa.`,
     },
     {
       field: 'publicationType',
@@ -152,10 +152,10 @@ export class PublicationFilterService {
     },
     {
       field: 'countryCode',
-      label: $localize`:@@publicationCountry:Julkaisumaa`,
+      label: $localize`:@@publisherInternationality:Kustantajan kansainvälisyys`,
       hasSubFields: false,
       open: true,
-      tooltip: $localize`:@@pCountryFTooltip:Julkaisijan maa.`,
+      tooltip: $localize`:@@pCountryFTooltip:Kotimaisen julkaisun kustantaja on suomalainen tai se on ensisijaisesti julkaistu Suomessa. Kansainvälisen julkaisun kustantaja ei ole suomalainen tai se on ensisijaisesti julkaistu muualla kuin Suomessa.`,
     },
     {
       field: 'lang',
@@ -169,7 +169,7 @@ export class PublicationFilterService {
       label: $localize`:@@jufoLevel:Julkaisufoorumitaso`,
       hasSubFields: false,
       open: true,
-      tooltip: $localize`:@@pJufoFTooltip:Julkaisufoorumin (www.julkaisufoorumi.fi) mukainen julkaisukanavan (kirjakustantaja, konferenssi tai julkaisusarja) tasoluokitus: 1 = perustaso, 2 = johtava taso, 3 = korkein taso. Tasolla 0 ovat kanavat, jotka eivät joltain osin täytä tason 1 vaatimuksia tai ovat uusia.`,
+      tooltip: $localize`:@@pJufoFTooltip:Julkaisufoorumin (www.julkaisufoorumi.fi) mukainen julkaisukanavan (kirjakustantaja, konferenssi tai julkaisusarja) tasoluokitus: 1 = perustaso, 2 = johtava taso, 3 = korkein taso. Tasolla 0 ovat kanavat, jotka eivät joltain osin täytä tason 1 vaatimuksia tai ovat uusia. Julkaisufoorumitaso määräytyy julkaisun julkaisuvuoden mukaan.`,
     },
     {
       field: 'openAccess',
@@ -452,10 +452,10 @@ export class PublicationFilterService {
             key: 'c' + item.key,
             label:
               item.key === 0
-                ? $localize`:@@finland:Suomi`
+                ? $localize`:@@finland:Kotimainen`
                 : item.key === 9
                 ? $localize`:@@notSpecified:Ei tietoa`
-                : $localize`:@@other:Muut`,
+                : $localize`:@@other:Kansainvälinen`,
             doc_count: item.doc_count,
             value: item.key,
           })

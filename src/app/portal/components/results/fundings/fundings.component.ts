@@ -47,6 +47,7 @@ export class FundingsComponent implements OnInit, OnDestroy, AfterViewInit {
   tableRows: Record<string, TableRowItem>[];
 
   dataMapped: boolean;
+  projectLinkTitle =  $localize`:@@iconProjects: Hankkeiden tiedon ikoni`;
 
   constructor(
     private route: ActivatedRoute,

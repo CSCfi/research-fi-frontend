@@ -65,8 +65,8 @@ export class StaticDataService {
       doc_count: 0,
     },
     {
-      id: 9,
-      key: $localize`:@@otherSciences:Muut tieteet`,
+      id: 8,
+      key: $localize`:@@fieldsOfArt:Taiteenalat`,
       checked: false,
       subData: [],
       doc_count: 0,

@@ -4,7 +4,7 @@ import {
   Input,
   OnChanges,
   SimpleChanges,
-  Inject,
+  Inject, ViewChild, ElementRef
 } from '@angular/core';
 import * as d3 from 'd3v4';
 import * as c from 'd3-scale-chromatic';
@@ -26,7 +26,7 @@ import { DataService } from 'src/app/portal/services/data.service';
   templateUrl: './bar.component.html',
   styleUrls: ['./bar.component.scss'],
 })
-export class BarComponent implements OnInit, OnChanges {
+export class BarComponent implements OnChanges {
   @Input() data: Visual;
   @Input() height: number;
   @Input() width: number;
@@ -34,6 +34,19 @@ export class BarComponent implements OnInit, OnChanges {
   @Input() percentage: boolean;
   @Input() searchTerm: string;
   @Input() searchTarget: string;
+  @Input() set saveAsImageClick(input: boolean) {
+    this.firstSaveClick ? this.saveAsImage() : this.firstSaveClick = true;
+  }
+
+  firstSaveClick = false;
+
+  @ViewChild('chart') chart: ElementRef;
+  @ViewChild('legend') legend: ElementRef;
+  @ViewChild('chartDownloadLinkRef') chartDownloadLinkRef: ElementRef;
+  @ViewChild('legendDownloadLinkRef') legendDownloadLinkRef: ElementRef;
+  chartImageUrl = '';
+  legendImageUrl = '';
+  svgReady = false;
 
   margin = 50;
   legendWidth = 350;
@@ -79,6 +92,22 @@ export class BarComponent implements OnInit, OnChanges {
     ) {
       this.update(+this.visIdx, this.percentage);
     }
+  }
+
+  saveAsImage() {
+    this.chartImageUrl = this.utils.serializeSvgFromHtml(this.chart.nativeElement);
+
+    // Legend content may be empty
+    if (this.legendWidth > 0) {
+      this.legendImageUrl = this.utils.serializeSvgFromHtml(this.legend.nativeElement);
+    }
+    this.svgReady = true;
+
+    // Artificial timeout to wait for dom render before click
+    setTimeout(() => {
+      this.chartDownloadLinkRef.nativeElement.click();
+      this.legendWidth > 0 ? this.legendDownloadLinkRef.nativeElement.click() : null;
+      }, 100);
   }
 
   update(fieldIdx: number, percentage = false) {
@@ -146,7 +175,7 @@ export class BarComponent implements OnInit, OnChanges {
 
     const legendSvg = d3.select('svg#legend');
     legendSvg.selectAll('*').remove();
-    
+
     // If there is no data, display info text
     const hasData = sample.map(x => x.data.length).reduce((a, b) => a + b, 0) > 0;
     if (!hasData) {
@@ -228,7 +257,7 @@ export class BarComponent implements OnInit, OnChanges {
         unknown.name = this.missingInfoLabel;
         x.data.unshift(unknown);
       }
-      
+
     });
     // Insert bars
     for (let i = 0; i < sample.length; i++) {
@@ -249,7 +278,7 @@ export class BarComponent implements OnInit, OnChanges {
             this.innerHeight - this.y(d.doc_count / (percentage ? totalSum : 1))
         ) // Divide by total sum to get percentage, otherwise keep original
         .attr('width', (_) => this.x.bandwidth())
-        .on('mouseenter', (d, i, n: any) => 
+        .on('mouseenter', (d, i, n: any) =>
           this.showInfo(
             d,
             i,
@@ -537,7 +566,7 @@ export class BarComponent implements OnInit, OnChanges {
     if (this.categoryObject.filter) {
 
       const elem: any = d3.select(n[i]);
-      
+
       elem
       .transition()
       .duration(300)
