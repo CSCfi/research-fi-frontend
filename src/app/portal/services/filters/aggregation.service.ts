@@ -1528,7 +1528,7 @@ export class AggregationService {
         };
         payLoad.aggs.status = {
           composite: {
-            size: 500,
+            size: 2000,
             sources: [
               {
                 openDate: {
