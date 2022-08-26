@@ -108,7 +108,7 @@
                 href="javascript:void(0)"
                 class="read-more"
                 *ngIf="
-                  row.field === 'description' && item.description?.length > 256
+                  row.field === 'description' && item.description?.length > 128
                 "
                 (click)="expandDescription()"
                 [innerHTML]="expand ? showLess : showMore"
