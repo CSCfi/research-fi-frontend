@@ -71,7 +71,7 @@
                     class="read-more"
                     *ngIf="
                       row.field === 'description' &&
-                      item.description?.length > 256
+                      item.description?.length > 128
                     "
                     (click)="expandDescription()"
                     [innerHTML]="expand ? showLess : showMore"
