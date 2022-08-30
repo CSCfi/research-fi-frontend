@@ -122,7 +122,7 @@ span.total {
   }
   .vis-style-toggle {
     border-radius: 0;
-    height: 55px;
+    min-height: 55px;
   }
   #download-image {
     margin-bottom: 10px;
@@ -132,6 +132,10 @@ span.total {
 // No results
 .no-results {
   min-height: 420px;
+}
+
+.info {
+  z-index: 3;
 }
 
 // Responsive
