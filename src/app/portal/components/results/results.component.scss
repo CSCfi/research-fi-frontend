@@ -134,6 +134,10 @@ span.total {
   min-height: 420px;
 }
 
+.info {
+  z-index: 3;
+}
+
 // Responsive
 @media (min-width: 1440px) {
   // .container {
