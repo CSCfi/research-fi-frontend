@@ -13,3 +13,12 @@
 .legend {
   margin-top: 100px;
 }
+
+#chart {
+  overflow: visible;
+  z-index: 1;
+}
+
+#legend {
+  z-index: 0;
+}
