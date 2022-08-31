@@ -177,18 +177,42 @@ export class AggregationService {
       },
     };
 
+    const yearAggDatasets = {
+      filter: {
+        bool: {
+          filter: filterActive(this.sortService.yearField),
+          should: {
+            term: { isLatestVersion: 1 },
+          },
+        },
+      },
+      aggs: {
+        years: {
+          terms: {
+            field: this.sortService.yearField,
+            order: { _key: 'desc' },
+            size: 100,
+          },
+        },
+      },
+    };
+
     // Testing purposes
     const basicAgg = (
       filterMethod: any,
       path: string,
       fieldName: string,
       orderBy: string,
-      sizeOf: number
+      sizeOf: number,
+      isDatasetsSection: boolean
     ) => {
-      return {
+      return  {
         filter: {
           bool: {
             filter: filterMethod,
+            ...(isDatasetsSection ? { should: {
+                term: { isLatestVersion: 1 },
+              }} : []),
           },
         },
         aggs: {
@@ -1118,20 +1142,22 @@ export class AggregationService {
         break;
       // Datasets
       case 'datasets':
-        payLoad.aggs.year = yearAgg;
+        payLoad.aggs.year = yearAggDatasets;
         payLoad.aggs.dataSource = basicAgg(
           filterActive('dataCatalog.name' + this.localeC + '.keyword'),
           'dataSources',
           'dataCatalog.name' + this.localeC + '.keyword',
           null,
-          null
+          null,
+          true
         );
         payLoad.aggs.accessType = basicAgg(
           filterActive('accessType.keyword'),
           'accessTypes',
           'accessType.keyword',
           null,
-          null
+          null,
+          true
         );
         payLoad.aggs.organization = {
           nested: {
@@ -1172,6 +1198,9 @@ export class AggregationService {
                               filter: {
                                 bool: {
                                   filter: filterActiveNested('actor'),
+                                  should: {
+                                    term: { isLatestVersion: 1 },
+                                  },
                                 },
                               },
                             },
@@ -1214,6 +1243,9 @@ export class AggregationService {
                       filter: {
                         bool: {
                           filter: filterActiveNested('languages'),
+                          should: {
+                            term: { isLatestVersion: 1 },
+                          },
                         },
                       },
                     },
@@ -1251,6 +1283,9 @@ export class AggregationService {
                       filter: {
                         bool: {
                           filter: filterActiveNested('fieldsOfScience'),
+                          should: {
+                            term: { isLatestVersion: 1 },
+                          },
                         },
                       },
                     },
@@ -1302,7 +1337,8 @@ export class AggregationService {
           'types',
           'services.serviceType.keyword',
           null,
-          null
+          null,
+          false
         );
         payLoad.aggs.organization = {
           filter: {
