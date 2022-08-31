@@ -769,8 +769,8 @@ export class SinglePublicationComponent
       : $localize`:@@no:Ei`;
 
     // Get & set publication type label
-    if (source.publicationTypeCode === 'KT' || source.publicationTypeCode === 'KP') {
-      source.publicationTypeCode = '-';
+    if (source.publicationTypeCode === 'KA' || source.publicationTypeCode === 'KP') {
+      source.publicationTypeCode = ' ';
     }
     else {
       this.publicationTypeLabel =
