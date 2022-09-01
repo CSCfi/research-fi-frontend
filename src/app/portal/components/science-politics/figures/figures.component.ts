@@ -298,9 +298,14 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   // Reset fragment before navigation.
   // This enables side navigation linking to previously navigated item
   navigateToSection(sectionId: string) {
-    this.router.navigate([], {
-      fragment: sectionId, queryParams: this.queryParams,
-    });
+    this.router
+      .navigate([], { fragment: null, queryParams: this.queryParams })
+      .then(() =>
+        this.router.navigate([], {
+          fragment: sectionId,
+          queryParams: this.queryParams,
+        })
+      );
   }
 
   scrollToId(id: string) {
