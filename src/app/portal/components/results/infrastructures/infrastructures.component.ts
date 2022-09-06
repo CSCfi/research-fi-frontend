@@ -57,6 +57,7 @@ export class InfrastructuresComponent
   infrastructureNameColumns: QueryList<ElementRef>;
 
   dataMapped: boolean;
+  iconTitleInfrastructures = $localize`:@@iconInfrastructures: Infrastruktuurien tiedon ikoni`;
 
   constructor(
     private route: ActivatedRoute,

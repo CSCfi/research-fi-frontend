@@ -398,23 +398,13 @@
                 Infrastruktuurin verkkosivu
               </h2></mat-card-title
             >
-            <div class="row links" *ngIf="linkFields?.length > 0">
-              <div *ngFor="let row of linkFields" class="link-wrapper">
-                <div class="col link">
-                  <span
-                    class="link-tag fa fa-link center"
-                    style="font-size: 22px; padding: 3px 12px"
-                  ></span>
-                  <span class="link-item">
-                    <a [attr.href]="item[row.field]" target="_blank"
-                      ><span class="link-label">{{
-                        item[row.field] | handleLinkDisplay
-                      }}</span>
-                      <fa-icon icon="external-link-alt"></fa-icon
-                    ></a>
-                  </span>
-                </div>
-              </div>
+
+            <div *ngIf="linkFields?.length > 0">
+              <app-single-result-link
+                *ngFor="let row of linkFields"
+                [icon]="true"
+                [url]="item[row.field]"
+              ></app-single-result-link>
             </div>
             <div
               *ngIf="!linkFields.length"

@@ -53,6 +53,7 @@ export class OrganizationsComponent
   focusSub: any;
   tableColumns: TableColumn[];
   tableRows: Record<string, TableRowItem>[];
+  iconTitleOrganizations = $localize`:@@iconOrganizations: Organisaatioiden tiedon ikoni`;
 
   constructor(
     private route: ActivatedRoute,

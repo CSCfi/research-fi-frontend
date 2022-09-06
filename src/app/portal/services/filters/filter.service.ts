@@ -383,6 +383,17 @@ export class FilterService {
         case 'open': {
           // Open
           let arr = [];
+          arr.push({ range: { callProgrammeDueDate: { gte: now } } });
+          res.push(arr);
+          arr = [];
+          // Continuous
+          arr.push({ range: { callProgrammeDueDate: { lte: noDate } } });
+          res.push(arr);
+          break;
+        }
+        case 'currentlyOpen': {
+          // Open, no future applications
+          let arr = [];
           arr.push({ range: { callProgrammeOpenDate: { lte: now } } });
           arr.push({ range: { callProgrammeDueDate: { gte: now } } });
           res.push(arr);

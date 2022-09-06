@@ -71,7 +71,7 @@
                     class="read-more"
                     *ngIf="
                       row.field === 'description' &&
-                      item.description?.length > 256
+                      item.description?.length > 128
                     "
                     (click)="expandDescription()"
                     [innerHTML]="expand ? showLess : showMore"
@@ -742,40 +742,19 @@
                 </span>
               </h2>
             </mat-card-title>
-            <div class="row links">
-              <div *ngFor="let row of linkFields" class="link-wrapper">
-                <div class="col link">
-                  <span
-                    class="link-tag fa fa-link center"
-                    style="font-size: 22px; padding: 3px 12px"
-                  ></span>
-                  <!-- Cordis link is displayed only with eu funding. Filtering is done in ts file -->
-                  <span class="link-item">
-                    <a
-                      *ngIf="row.field === 'funderProjectNumber'"
-                      [href]="
-                        (item.structuralFund ? euraLink : cordisProjectLink) +
-                        item[row.field]
-                      "
-                      target="_blank"
-                      ><span class="link-label">{{
-                        (item.structuralFund ? euraLink : cordisProjectLink) +
-                          item[row.field] | handleLinkDisplay
-                      }}</span>
-                      <fa-icon icon="external-link-alt"></fa-icon>
-                    </a>
-                    <a
-                      *ngIf="row.field !== 'funderProjectNumber'"
-                      class="link-item"
-                      href="{{ item[row.field] }}"
-                      target="_blank"
-                      >{{ item[row.field] | handleLinkDisplay }}
-                      <fa-icon icon="external-link-alt"></fa-icon
-                    ></a>
-                  </span>
-                </div>
-              </div>
-            </div>
+            <ng-container *ngFor="let row of linkFields">
+              <!-- Cordis link is displayed only with eu funding. Filtering is done in ts file -->
+              <app-single-result-link
+                *ngIf="row.field === 'funderProjectNumber'"
+                [icon]="true"
+                [url]="
+                  row.field === 'funderProjectNumber'
+                    ? (item.structuralFund ? euraLink : cordisProjectLink) +
+                      item[row.field]
+                    : item[row.field]
+                "
+              ></app-single-result-link>
+            </ng-container>
             <div
               *ngIf="!linkFields.length"
               class="no-links"

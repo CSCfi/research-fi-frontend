@@ -10,6 +10,7 @@ import { Component, Input, OnInit } from '@angular/core';
 @Component({
   selector: 'app-dataset-author',
   templateUrl: './dataset-author.component.html',
+  styleUrls: ['./dataset-author.component.scss'],
 })
 export class DatasetAuthorComponent implements OnInit {
   @Input() org: any;

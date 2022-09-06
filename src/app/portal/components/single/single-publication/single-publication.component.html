@@ -73,7 +73,7 @@
               <a
                 href="javascript:void(0)"
                 class="read-more"
-                *ngIf="row.field === 'abstract' && item.abstract?.length > 256"
+                *ngIf="(row.field === 'abstract' && item.abstract?.length > 256) || (row.field === 'authors' && item.authors?.length > 256)"
                 (click)="expandDescription()"
                 [innerHTML]="expand ? showLess : showMore"
               ></a>
@@ -151,7 +151,7 @@
               <div *ngFor="let author of row.authors">
                 <div *ngIf="author.author.trim().length > 2">
                   <p class="td" [ngClass]="author.orcid ? 'has-orcid' : ''">
-                    {{ author.author }}
+                    {{ author.author }} {{author.artPublicationRoleName ? '- ' + author.artPublicationRoleName : ''}}
                     <app-orcid
                       *ngIf="author.orcid"
                       [orcid]="author.orcid"

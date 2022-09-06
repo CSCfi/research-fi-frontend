@@ -1,6 +1,10 @@
 <div class="d-flex">
-  <svg id="chart"></svg>
+  <svg #chart id="chart"></svg>
   <div class="overflow-wrapper legend">
-    <svg id="legend" class="align-self-center"></svg>
+    <svg #legend id="legend" class="align-self-center"></svg>
+  </div>
+  <div *ngIf="this.svgReady" disabled="true">
+    <a #chartDownloadLinkRef [href]="chartImageUrl | safeUrl" [download]="'research_fi_svg_export_chart.svg'"></a>
+    <a #legendDownloadLinkRef [href]="legendImageUrl | safeUrl" [download]="'research_fi_svg_export_chart_legend.svg'"></a>
   </div>
 </div>

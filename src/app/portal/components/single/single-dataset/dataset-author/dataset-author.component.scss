@@ -1,0 +1,43 @@
+.guide {
+  padding: 0 3px;
+  max-width: 25px;
+}
+
+.guide-line,
+.guide-line-top {
+  display: block;
+  transition: all 0.3s ease;
+}
+
+.guide-line-top {
+  height: 12px;
+  width: 3px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.guide-line {
+  top: 10px;
+  height: 3px;
+  width: 20px;
+  position: relative;
+  &.sub {
+    width: 20px;
+  }
+}
+
+.child-margin {
+  margin-left: 55px;
+}
+
+.child {
+  .sub-unit p {
+    //margin-left: 20px;
+  }
+}
+
+p {
+  margin-bottom: 0.5rem;
+}
+

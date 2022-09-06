@@ -106,7 +106,8 @@
               ><h2 i18n="@@news" class="ps-3">Uutiset</h2>
             </mat-card-title>
 
-            <app-news-card class="organizations-page"
+            <app-news-card
+              class="organizations-page"
               *ngFor="let newsItem of news?.slice(0, showMoreNews ? 5 : 3)"
               [item]="newsItem"
               [dense]="true"
@@ -133,38 +134,21 @@
         <mat-card>
           <div class="inner">
             <!-- Links -->
-            <h2 i18n="@@organizationHomepage" class="m-0 pb-2">
+            <h2 i18n="@@organizationHomepage" class="m-0 pb-0">
               Organisaation verkkosivu
             </h2>
-            <div
-              class="row links mt-0 pt-1"
+            <ng-container
               *ngIf="
                 (linkFields | filterEmptyField: item).length;
                 else noHomePage
               "
             >
-              <div *ngFor="let row of linkFields" class="link-wrapper">
-                <ng-container *ngIf="item[row.field]; else noHomePage">
-                  <div class="col link">
-                    <span
-                      class="link-tag fa fa-link center"
-                      style="font-size: 22px; padding: 3px 12px"
-                    ></span>
-                    <span class="link-item">
-                      <a
-                        class="link-item"
-                        href="{{ item[row.field] }}"
-                        target="_blank"
-                        ><span class="link-label">{{
-                          item[row.field] | handleLinkDisplay
-                        }}</span>
-                        <fa-icon icon="external-link-alt"></fa-icon
-                      ></a>
-                    </span>
-                  </div>
-                </ng-container>
-              </div>
-            </div>
+              <app-single-result-link
+                *ngFor="let row of linkFields"
+                [icon]="true"
+                [url]="item[row.field]"
+              ></app-single-result-link>
+            </ng-container>
 
             <!-- Contact -->
             <div
@@ -205,7 +189,7 @@
             </ng-container>
 
             <ng-template #noHomePage>
-              <div class="no-links" i18n="@@noOrganizationLinks">
+              <div class="no-links py-2" i18n="@@noOrganizationLinks">
                 Organisaatioon ei ole tarjolla linkkejä tässä portaalissa
               </div>
             </ng-template>

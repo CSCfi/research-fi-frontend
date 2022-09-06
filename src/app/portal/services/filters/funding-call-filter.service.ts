@@ -100,22 +100,17 @@ export class FundingCallFilterService {
     const dates = [...data.originalData];
     let openDocs = 0;
     let closedDocs = 0;
-    let futureDocs = 0;
 
     const now = new Date().toLocaleDateString('sv');
 
     // Open
     dates
-      .filter((date) => date.key.openDate < now && date.key.dueDate > now)
+      .filter((date) => date.key.dueDate >= now)
       .forEach((date) => (openDocs += date.filtered.doc_count));
     // Closed
     dates
       .filter((date) => date.key.dueDate < now)
       .forEach((date) => (closedDocs += date.filtered.doc_count));
-    // Future
-    dates
-      .filter((date) => date.key.openDate > now)
-      .forEach((date) => (futureDocs += date.filtered.doc_count));
 
     const buckets = [
       {
@@ -127,11 +122,6 @@ export class FundingCallFilterService {
         label: $localize`:@@closedCalls:Päättyneet haut`,
         key: 'closed',
         doc_count: closedDocs,
-      },
-      {
-        label: $localize`:@@futureCalls:Tulevat haut`,
-        key: 'future',
-        doc_count: futureDocs,
       },
     ];
     return buckets;

@@ -34,22 +34,19 @@ export class FilterMethodService {
       }));
     }
     // Loop through major fields & push all instances as separate arrays
-    for (
-      let i = 1;
-      i < this.staticDataService.majorFieldsOfScience.length;
-      i++
-    ) {
-      if (i === 7) {
-        i = 9;
+    this.staticDataService.majorFieldsOfScience.forEach((item) => {
+        let i = item.id;
+        if (mapped) {
+          this.combined.push(
+            mapped
+              .filter((obj) => {
+                return obj.id.toString().charAt(0).includes(String(i))
+              })
+              .filter((x) => x.doc_count > 0)
+          );
+        }
       }
-      if (mapped) {
-        this.combined.push(
-          mapped
-            .filter((obj) => obj.id.toString().charAt(0).includes(i))
-            .filter((x) => x.doc_count > 0)
-        );
-      }
-    }
+    );
     return this.combined;
   }
 }

@@ -1010,8 +1010,8 @@
         <target>Percentage of the amount granted</target>
       </trans-unit>
       <trans-unit id="downloadAsImage">
-        <source>Lataa kuvana (tulossa)</source>
-        <target>Download as image (coming soon)</target>
+        <source>Lataa kuvana</source>
+        <target>Download as image</target>
       </trans-unit>
       <trans-unit id="name" datatype="html">
         <source>Nimi</source>
@@ -2362,6 +2362,26 @@
         <source>Muut tieteet</source>
         <target>Other sciences</target>
       </trans-unit>
+      <trans-unit id="arts">
+        <source>Taidealat</source>
+        <target>Arts</target>
+      </trans-unit>
+      <trans-unit id="fieldsOfArt">
+        <source>Taiteenalat</source>
+        <target>Fields of Art</target>
+      </trans-unit>
+      <trans-unit id="artPublicationType">
+        <source>Taidejulkaisun tyyppi</source>
+        <target>Art publication type</target>
+      </trans-unit>
+      <trans-unit id="artPublicationEvent">
+        <source>Taidejulkaisun tapahtuma</source>
+        <target>Art publication event</target>
+      </trans-unit>
+      <trans-unit id="artPublicationVenue">
+        <source>Taidejulkaisun paikka</source>
+        <target>Art publication venue</target>
+      </trans-unit>
       <!-- Publication class -->
       <trans-unit id="2864646710185946746">
         <source>Vertaisarvioidut tieteelliset artikkelit</source>
@@ -2923,6 +2943,10 @@
         <source>Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.</source>
         <target>The publication is openly available, but appears in a hybrid publication channel whose publications are not all openly available.</target>
       </trans-unit>
+      <trans-unit id="publisherInternationality">
+        <source>Kustantajan kansainvälisyys</source>
+        <target>Internationality of the publisher</target>
+      </trans-unit>
       <trans-unit id="publicationCountry">
         <source>Julkaisumaa</source>
         <target>Publication country</target>
@@ -3411,12 +3435,12 @@
         <target>Further information</target>
       </trans-unit>
       <trans-unit id="finland">
-        <source>Suomi</source>
-        <target>Finland</target>
+        <source>Kotimainen</source>
+        <target>Domestic</target>
       </trans-unit>
       <trans-unit id="other">
-        <source>Muut</source>
-        <target>Other</target>
+        <source>Kansainvälinen</source>
+        <target>International</target>
       </trans-unit>
       <trans-unit id="notKnown">
         <source>Ei tiedossa</source>
@@ -3738,24 +3762,24 @@
         <target>Finnish organization of the publication’s author. The service currently does not contain any information on publications’ foreign organizations.</target>
       </trans-unit>
       <trans-unit id="pFOSFTooltip">
-        <source>Tilastokeskuksen tieteenalaluokitus. Julkaisulla voi olla 1-6 tieteenalaa.</source>
-        <target>The Statistics Finland Fields of science classification. A publication may include 1-6 fields of science.</target>
+        <source>Tilastokeskuksen tieteenalaluokitus. Taiteenalat OKM:n luokituksen mukaisesti. Julkaisulla voi olla 1-6 tieteen- tai taiteenalaa.</source>
+        <target>The Statistics Finland Fields of science classification. Fields of Art according to Ministry of Education and Culture Publication data collection. A publication may include 1-6 fields of science or art.</target>
       </trans-unit>
       <trans-unit id="pTypeFTooltip">
         <source>OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.</source>
         <target>Publication type A-G categories according to Ministry of Education and Culture Publication data collection.</target>
       </trans-unit>
       <trans-unit id="pCountryFTooltip">
-        <source>Julkaisijan maa.</source>
-        <target>Publisher’s country.</target>
+        <source>Kotimaisen julkaisun kustantaja on suomalainen tai se on ensisijaisesti julkaistu Suomessa. Kansainvälisen julkaisun kustantaja ei ole suomalainen tai se on ensisijaisesti julkaistu muualla kuin Suomessa.</source>
+        <target>The publisher of the domestic publication is Finnish or it is primarily published in Finland. The publisher of the international publication is not Finnish or it is primarily published elsewhere than in Finland.</target>
       </trans-unit>
       <trans-unit id="pLangFTooltip">
         <source>Kieli, jolla julkaisu on kirjoitettu.</source>
         <target>Language in which the publication is written.</target>
       </trans-unit>
       <trans-unit id="pJufoFTooltip">
-        <source>Julkaisufoorumin (www.julkaisufoorumi.fi) mukainen julkaisukanavan (kirjakustantaja, konferenssi tai julkaisusarja) tasoluokitus: 1 = perustaso, 2 = johtava taso, 3 = korkein taso. Tasolla 0 ovat kanavat, jotka eivät joltain osin täytä tason 1 vaatimuksia tai ovat uusia.</source>
-        <target>Publication Forum (www.julkaisufoorumi.fi) classification of publication channels (book publisher, conference or book series): 1 = basic level, 2 = leading level, 3 = highest level. Category 0 is for publication channels that have been evaluated but do not meet all of the level 1 criteria.</target>
+        <source>Julkaisufoorumin (www.julkaisufoorumi.fi) mukainen julkaisukanavan (kirjakustantaja, konferenssi tai julkaisusarja) tasoluokitus: 1 = perustaso, 2 = johtava taso, 3 = korkein taso. Tasolla 0 ovat kanavat, jotka eivät joltain osin täytä tason 1 vaatimuksia tai ovat uusia. Julkaisufoorumitaso määräytyy julkaisun julkaisuvuoden mukaan.</source>
+        <target>Publication Forum (www.julkaisufoorumi.fi) classification of publication channels (book publisher, conference or book series): 1 = basic level, 2 = leading level, 3 = highest level. Category 0 is for publication channels that have been evaluated but do not meet all of the level 1 criteria. The publication forum classification level is determined by the publication year of the publication.</target>
       </trans-unit>
       <trans-unit id="intCoPublicationTooltip">
         <source>Julkaisussa on tekijöitä myös muualta kuin suomalaisista tutkimusorganisaatioista.</source>
@@ -4960,6 +4984,30 @@
         <source>Sulje lomake</source>
         <target>Close form</target>
       </trans-unit>
+      <trans-unit id="iconPublications">
+        <source>Julkaisujen tiedon ikoni</source>
+        <target>Publications information icon</target>
+      </trans-unit>
+      <trans-unit id="iconProjects">
+        <source>Hankkeiden tiedon ikoni</source>
+        <target>Projects information icon</target>
+      </trans-unit>
+      <trans-unit id="iconDatasets">
+        <source>Tutkimusaineistojen tiedon ikoni</source>
+        <target>Research data information icon</target>
+      </trans-unit>
+      <trans-unit id="iconFundingCalls">
+        <source>Rahoitushakujen tiedon ikoni</source>
+        <target>Funding calls information icon</target>
+      </trans-unit>
+      <trans-unit id="iconInfrastructures">
+        <source>Infrastruktuurien tiedon ikoni</source>
+        <target>Infrastructures information icon</target>
+      </trans-unit>
+      <trans-unit id="iconOrganizations">
+        <source>Organisaatioiden tiedon ikoni</source>
+         <target>Organizations information icon</target>
+      </trans-unit>
       <!-- Cookie consent bar -->
       <trans-unit id="cookieConsent1" datatype="html">
         <source>
@@ -5075,6 +5123,13 @@
         <source>Ladataan</source>
         <target>Loading</target>
       </trans-unit>
+      <trans-unit id="iconInfrastructures">
+          <source>Infrastruktuurien tiedon ikoni</source>
+          <target>Infrastructures information icon</target>
+      </trans-unit>
+
+
+
 
       <!-- MyData translations -->
       <trans-unit id="createProfileForYourself">

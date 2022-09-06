@@ -62,6 +62,8 @@ export class SingleFundingCallComponent implements OnInit {
     { label: $localize`:@@fundingFunder:Rahoittaja`, field: 'foundation' },
   ];
 
+  linkFields = ['url', 'foundationUrl', 'applicationUrl'];
+
   copyToClipboard = $localize`:@@copyToClipboard:Kopioi leikepöydälle`;
 
   errorMessage = [];
@@ -131,13 +133,19 @@ export class SingleFundingCallComponent implements OnInit {
     this.settingsService.related = false;
   }
 
-  fixExternalUrl(url: string) {
-    // Fix url address to be handled as external link if prefix missing
-    return url.startsWith('http')
-      ? url
-      : url.startsWith('www')
-      ? 'https://' + url
-      : '//' + url;
+  convertHttpLinks(input: string) {
+    // Converts href links to external, considered safe by Angular, or tries to generate links
+    if (input.includes('href="')){
+      input = input.replace('target="_blank" ', '');
+      input = input.replace('rel="noopener" ', '');
+      input = input.replace('class="external-link" ', '');
+      input = input.replace('href=','class="external-link" target="_blank" rel="noopener" href=');
+    } else {
+      // No href found from text, try to generate links. Match URLs starting with http://, https://
+      const regexPattern = /(\b(https?):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
+      input = input.replace(regexPattern, '<a href="$1" class="external-link" target="_blank" rel="noopener">$1</a>');
+    }
+    return input;
   }
 
   processContactInfo(input: string) {
@@ -207,7 +215,6 @@ export class SingleFundingCallComponent implements OnInit {
             this.metaTags['description' + this.currentLocale],
             this.commonTags['imgAlt' + this.currentLocale]
           );
-          console.log(fundingCall);
           this.filterData();
         }
       },
@@ -273,8 +280,10 @@ export class SingleFundingCallComponent implements OnInit {
     // Short version is not HTML formatted
     this.applicationInfoFields.forEach((item) => {
       this.responseData.fundingCalls[0][item.field + 'short'] =
-        parseString(item);
+        this.convertHttpLinks(parseString(item));
     });
+    this.responseData.fundingCalls[0].terms = this.convertHttpLinks(this.responseData.fundingCalls[0]?.terms);
+    this.responseData.fundingCalls[0].description = this.convertHttpLinks(this.responseData.fundingCalls[0]?.description);
   }
 
   expand(field: string) {
