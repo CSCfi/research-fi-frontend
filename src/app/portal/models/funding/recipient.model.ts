@@ -180,6 +180,14 @@ export class RecipientAdapter implements Adapter<Recipient> {
         }
         // If no match with Finnish organization
       } else if (item.recipientType === 'consortium') {
+        // Possible matching person if no Finnnish organization
+        const consortiumPersonNoMatchingRecipient =
+          item.fundingGroupPerson.find(
+            (person) =>
+              person.fundedPerson === 1 &&
+              person.fundingGroupPersonLastName.trim().length > 0
+          );
+
         // Return consortium recipient name if no organization
         if (
           !this.lang.testLang('consortiumOrganizationName', recipientObj) &&
@@ -188,6 +196,11 @@ export class RecipientAdapter implements Adapter<Recipient> {
           personNameAndOrg = joinName(
             recipientObj.fundingGroupPersonFirstNames,
             recipientObj.fundingGroupPersonLastName
+          );
+        } else if (consortiumPersonNoMatchingRecipient) {
+          personNameAndOrg = joinName(
+            consortiumPersonNoMatchingRecipient.fundingGroupPersonFirstNames,
+            consortiumPersonNoMatchingRecipient.fundingGroupPersonLastName
           );
         }
       } else if (item.recipientType === 'person') {
