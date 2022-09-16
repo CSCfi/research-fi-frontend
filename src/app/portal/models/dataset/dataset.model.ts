@@ -178,15 +178,39 @@ export class DatasetAdapter implements Adapter<Dataset> {
 
     // Process first level child organizations
     orgs.forEach((org) => {
-      org.children = org.actors.filter(((a) => a.parentOrgName === org.name));
-      let childNames = [];
+      org.children = org.actors.filter(((a) => a.parentOrgName === org.name || a.parentOrgName === ' '));
+      let childObjects = [];
       let childrenProcessed = [];
+
+      // Filter out real duplicates by comparing string representation
       org.children.forEach((child) => {
-        if (!childNames.includes(child.name)) {
-          childNames.push(child.name);
+        if (!childObjects.includes(JSON.stringify(child))) {
+          childObjects.push(JSON.stringify(child));
           childrenProcessed.push(child);
         };
       });
+
+      // Combine first level roles
+      let authors = [];
+      let index = 0;
+      childrenProcessed.forEach((c) => {
+          if (!authors.includes(c.name)){
+            authors.push(c.name);
+          }
+          else {
+            // Is duplicate, join roles
+            const firstOccurenceIndex = childrenProcessed.findIndex((item) => {
+              return item.name === c.name;
+            });
+            childrenProcessed[firstOccurenceIndex].roles.push(...childrenProcessed[index].roles);
+            childrenProcessed[index] = '';
+          }
+          index += 1;
+        });
+        // Clear array items made empty
+      childrenProcessed = childrenProcessed.filter((c) => {
+          return c !== '';
+        });
       org.children = childrenProcessed;
     });
 

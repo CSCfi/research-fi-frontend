@@ -61,11 +61,25 @@ export class SortService {
     this.sortColumn = this.sortDirection ? sort.slice(0, -4) : sort;
   }
 
-  generateNested(parent: string) {
+  generateNested(parent: string, filterQuery?: { [key: string]: unknown }) {
     return {
       path: parent,
-      filter: {
-        match_all: {},
+      filter: filterQuery
+        ? filterQuery
+        : {
+            match_all: {},
+          },
+    };
+  }
+
+  generateTermFilter(path, value) {
+    return {
+      bool: {
+        must: {
+          term: {
+            [path]: value,
+          },
+        },
       },
     };
   }
@@ -185,17 +199,29 @@ export class SortService {
                 },
               },
               {
-                'fundingGroupPerson.fundingGroupPersonFirstNames.keyword': {
-                  order: this.sortDirection ? 'desc' : 'asc',
-                  unmapped_type: 'long',
-                  nested: this.generateNested('fundingGroupPerson'),
-                },
-              },
-              {
                 'fundingGroupPerson.fundingGroupPersonLastName.keyword': {
                   order: this.sortDirection ? 'desc' : 'asc',
                   unmapped_type: 'long',
-                  nested: this.generateNested('fundingGroupPerson'),
+                  nested: this.generateNested(
+                    'fundingGroupPerson',
+                    this.generateTermFilter(
+                      'fundingGroupPerson.fundedPerson',
+                      1
+                    )
+                  ),
+                },
+              },
+              {
+                'fundingGroupPerson.fundingGroupPersonFirstNames.keyword': {
+                  order: this.sortDirection ? 'desc' : 'asc',
+                  unmapped_type: 'long',
+                  nested: this.generateNested(
+                    'fundingGroupPerson',
+                    this.generateTermFilter(
+                      'fundingGroupPerson.fundedPerson',
+                      1
+                    )
+                  ),
                 },
               },
               {
