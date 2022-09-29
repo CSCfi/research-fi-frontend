@@ -82,7 +82,6 @@
       <ng-container *ngFor="let groupItem of field.groupItems">
 
         <ng-container *ngFor="let item of groupItem.items; let j = index">
-          <hr>
         <!-- Keywords have values that need to be joined -->
         <ng-container [ngSwitch]="item.itemMeta.type">
 
