@@ -178,13 +178,18 @@ export class SearchPortalResultsComponent
       if (this.paginator) this.paginator.pageIndex = 0;
     });
 
-    // Create list of ids that we can match for existing selections in template
+    // Create list of ids that we can match for existing selections in template'
+    if (this.itemsInProfile[0].items !== undefined) {
     const profileItems = this.itemsInProfile
       .flatMap((item) => item.items)
       .map((item) => item.id)
       .filter((item) => item?.toString().trim().length);
 
     this.selectedItemsIdArray = profileItems;
+    }
+    else {
+      this.selectedItemsIdArray = [];
+    }
   }
 
   ngOnChanges() {

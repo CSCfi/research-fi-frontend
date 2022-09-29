@@ -21,7 +21,9 @@ import { ProfileService } from '@mydata/services/profile.service';
   templateUrl: './contact-card.component.html',
 })
 export class ContactCardComponent implements OnInit {
-  @Input() data: any;
+  @Input() set data(input: any) {
+    this._data = input;
+  }
   @Input() label: string;
 
   fieldTypes = FieldTypes;
@@ -30,6 +32,7 @@ export class ContactCardComponent implements OnInit {
 
   showDialog: boolean;
   dialogData: any;
+  _data: any;
 
   constructor(
     private appSettingsService: AppSettingsService,
@@ -43,7 +46,7 @@ export class ContactCardComponent implements OnInit {
 
   openDialog() {
     this.showDialog = true;
-    this.dialogData = cloneDeep(this.data[0]);
+    this.dialogData = cloneDeep(this._data[0]);
   }
 
   handleChanges(result) {
@@ -64,7 +67,7 @@ export class ContactCardComponent implements OnInit {
               item.show && item.type === this.fieldTypes.personFirstNames
           ).id;
 
-          const names = this.data[0].fields[0].groupItems.flatMap(
+          const names = this._data[0].fields[0].groupItems.flatMap(
             (groupItem) => groupItem.items
           );
 
@@ -76,9 +79,9 @@ export class ContactCardComponent implements OnInit {
         }
 
         // Update summary data with selection
-        this.data[0] = result;
+        this._data[0] = result;
 
-        this.draftService.saveDraft(this.data);
+        this.draftService.saveDraft(this._data);
 
         // Do actions only if user has made changes
         if (confirmedPayLoad.length) {
@@ -90,7 +93,7 @@ export class ContactCardComponent implements OnInit {
       }
 
       // Set draft profile data to storage
-      sessionStorage.setItem(Constants.draftProfile, JSON.stringify(this.data));
+      sessionStorage.setItem(Constants.draftProfile, JSON.stringify(this._data));
 
       // Set patch payload to store
       sessionStorage.setItem(

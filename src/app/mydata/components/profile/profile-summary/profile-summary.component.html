@@ -7,9 +7,11 @@
   <div
     class="group-wrapper"
     *ngIf="
-      (group.fields | countGroupItems).length ||
       group.id === groupTypes.publication ||
-      group.id === groupTypes.dataset
+      group.id === groupTypes.dataset ||
+      group.id === groupTypes.education ||
+      group.id === groupTypes.affiliation ||
+      group.id === groupTypes.description
     "
   >
     <div class="row py-2 justify-content-between">
@@ -22,19 +24,14 @@
         class="col align-self-center fst-italic order-3 order-sm-2"
         i18n="@@youHaveNotSelectedAnyPublicData"
         *ngIf="
-          (group.fields | countGroupItems: { filterSelected: true }).length ===
-          0
+          !(group.fields | hasSelectedItems)
         "
       >
         Et ole vielä valinnut julkisesti näytettäviä tietoja
       </div>
       <div class="col-auto order-2 order-sm-3">
         <app-secondary-button
-          [content]="
-            (group.fields | countGroupItems: { filterSelected: true }).length
-              ? editString
-              : selectString
-          "
+          [content]="selectString"
           (click)="openDialog($event, i + 1)"
         ></app-secondary-button>
       </div>
@@ -43,7 +40,7 @@
     <ng-container *ngFor="let field of group.fields">
       <div
         class="row py-2"
-        *ngIf="(field.groupItems | filter: checkGroupSelected).length"
+        *ngIf="field"
       >
         <div class="col px-0 pb-3" [ngSwitch]="group.id">
           <app-summary-affiliations
@@ -51,6 +48,16 @@
             [data]="field"
             [fieldTypes]="fieldTypes"
           ></app-summary-affiliations>
+
+          <app-summary-portal-items
+            *ngSwitchCase="groupTypes.education"
+            [data]="field"
+            [fieldType]="fieldTypes.activityEducation"
+            sortField="publicationYear"
+            showMoreLabel="koulutus"
+            i18n-showMoreLabel="@@education"
+          >
+          </app-summary-portal-items>
 
           <app-summary-portal-items
             *ngSwitchCase="groupTypes.publication"
@@ -89,10 +96,9 @@
 
             <ng-container
               *ngFor="
-                let groupItem of field.groupItems | filter: checkGroupSelected
-              "
+                let groupItem of field.groupItems"
             >
-              <ng-container [ngSwitch]="groupItem.groupMeta.type">
+              <ng-container [ngSwitch]="groupItem.items[0].itemMeta.type">
                 <div
                   class="summary-panel"
                   *ngSwitchCase="fieldTypes.personKeyword"
@@ -118,7 +124,7 @@
                       <div class="col font-size-smaller">
                         <app-panel-array-item
                           [item]="item"
-                          [fieldType]="groupItem.groupMeta.type"
+                          [fieldType]="groupItem.items[0].itemMeta.show"
                           [localized]="field.localized"
                         ></app-panel-array-item>
                       </div>

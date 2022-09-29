@@ -78,7 +78,7 @@ export class EditorModalComponent implements OnInit {
 
     radioGroups.forEach((group) =>
       group.groupItems.map((groupItem) => {
-        if (groupItem.groupMeta.show) {
+        if (true) {
           patchItems.push(
             groupItem.items.find((item) => item.itemMeta.show).itemMeta
           );
@@ -90,28 +90,29 @@ export class EditorModalComponent implements OnInit {
   }
 
   checkAllSelected() {
-    const fields = this.editorData.fields;
+    let someSelected = false;
+    let allSelected = true;
+    if (this.editorData.fields[0].groupItems[0]?.items !== undefined) {
+      this.editorData.fields[0].groupItems[0]?.items.forEach((item) => {
+       if (item?.itemMeta?.show === true){
+          someSelected = true;
+        }
+       else if (item?.itemMeta?.show === false) {
+          allSelected = false;
+      }
+    });
+    }
 
-    const items = fields
-      .filter((field) => !field.single)
-      .flatMap((field) => field.groupItems)
-      .flatMap((groupItem) => groupItem.items);
+    this.toggleAllDisabled = this.editorData.fields[0].groupItems === undefined;
 
-    this.toggleAllDisabled = items.length === 0
-
-    this.allSelected = !!!items.some((item) => item.itemMeta.show === false);
+    this.allSelected = allSelected;
   }
 
   checkSomeSelected() {
-    const fields = this.editorData.fields;
-
-    const items = fields
-      .filter((field) => !field.single)
-      .flatMap((field) => field.groupItems)
-      .flatMap((groupItem) => groupItem.items);
-
-    if (!this.allSelected)
-      return !!items.some((item) => item.itemMeta.show === true);
+    if (this.editorData.fields[0].groupItems[0]?.items !== undefined) {
+      return this.editorData.fields[0].groupItems[0]?.items?.some(item => item?.itemMeta?.show);
+    }
+    return false;
   }
 
   toggleAll(event) {
@@ -129,7 +130,7 @@ export class EditorModalComponent implements OnInit {
 
       field.groupItems.map((groupItem) => {
         // Single selections should always have show as true. Therefore these items shouldn't be altered
-        if (!field.single) {
+        if (!field.single && groupItem.items !== undefined) {
           groupItem.items.map((item) => {
             item.itemMeta.show = event.checked;
             patchItems.push(item.itemMeta);

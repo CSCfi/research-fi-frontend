@@ -80,9 +80,14 @@
 
       <!-- Options -->
       <ng-container *ngFor="let groupItem of field.groupItems">
+
+        <ng-container *ngFor="let item of groupItem.items; let j = index">
+          <hr>
         <!-- Keywords have values that need to be joined -->
-        <ng-container [ngSwitch]="groupItem.groupMeta.type">
-          <div class="row py-1" *ngSwitchCase="fieldTypes.personKeyword">
+        <ng-container [ngSwitch]="item.itemMeta.type">
+
+          <div class="row py-1" *ngSwitchCase="item.itemMeta.type === fieldTypes.personKeyword">
+            <h1>keywords</h1>
             <div class="col px-0 font-size-smaller">
               <mat-checkbox
                 [checked]="groupItem.items | findSelectedItem"
@@ -101,18 +106,20 @@
           </div>
 
           <ng-container *ngSwitchDefault>
+
             <!-- Header for items that are added from research.fi portal -->
             <span
               *ngIf="
-                (groupItem.groupMeta.type === fieldTypes.activityPublication ||
-                  groupItem.groupMeta.type === fieldTypes.activityDataset ||
-                  groupItem.groupMeta.type === fieldTypes.activityFunding) &&
+                (item.itemMeta.type === fieldTypes.activityPublication ||
+                  item.itemMeta.type === fieldTypes.activityDataset ||
+                  item.itemMeta.type === fieldTypes.activityFunding) &&
                 groupItem.items.length &&
-                (groupItem | hasFetchedItem)
+                (groupItem | hasFetchedItem) &&
+                j == 0;
               "
               class="font-size-big d-block pb-3"
             >
-              <ng-container [ngSwitch]="groupItem.groupMeta.type">
+              <ng-container [ngSwitch]="item.itemMeta.type">
                 <span
                   *ngSwitchCase="fieldTypes.activityPublication"
                   i18n="@@addedPublications"
@@ -131,7 +138,7 @@
               </ng-container>
             </span>
 
-            <ng-container *ngFor="let item of groupItem.items">
+
               <div
                 class="row d-flex justify-content-between py-1"
                 *ngIf="item.itemMeta.id !== null"
@@ -148,7 +155,7 @@
                   >
                     <app-panel-array-item
                       [item]="item"
-                      [fieldType]="groupItem.groupMeta.type"
+                      [fieldType]="item.itemMeta.id"
                     ></app-panel-array-item>
                   </mat-radio-button>
 
@@ -160,28 +167,29 @@
                     <app-panel-array-item
                       class="ps-1 d-block"
                       [item]="item"
-                      [fieldType]="groupItem.groupMeta.type"
+                      [fieldType]="item.itemMeta.type"
                       [localized]="field.localized"
+                      [summary]="true"
                     ></app-panel-array-item>
                   </mat-checkbox>
                 </div>
 
                 <!-- Debugging -->
-                <ng-container *ngIf="appSettingsService.myDataSettings.debug">
+                <!--<ng-container *ngIf="appSettingsService.myDataSettings.debug">
                   <div class="col-2 font-size-small mt-1" style="color: red">
                     itemId: {{ item.itemMeta.id }} | groupId:
-                    {{ groupItem.groupMeta.id }}
+                    {{ item.itemMeta.id }}
                   </div></ng-container
-                >
+                >-->
 
                 <!-- Enable deletion of publications that are added from research.fi portal -->
                 <div
                   class="col-auto mt-1"
                   *ngIf="
-                    (groupItem.groupMeta.type ===
+                    (item.itemMeta.type ===
                       fieldTypes.activityPublication ||
-                      groupItem.groupMeta.type === fieldTypes.activityDataset ||
-                      groupItem.groupMeta.type ===
+                      item.itemMeta.type === fieldTypes.activityDataset ||
+                      item.itemMeta.type ===
                         fieldTypes.activityFunding) &&
                     item.itemMeta.primaryValue
                   "
@@ -189,7 +197,7 @@
                   <app-secondary-button
                     i18n-content="@@remove"
                     content="Poista"
-                    (click)="removeItem(groupItem.groupMeta.type, item)"
+                    (click)="removeItem(item.itemMeta.type, item)"
                   ></app-secondary-button>
                 </div>
 
@@ -198,18 +206,18 @@
                   class="col-auto px-0 ps-4 ml-1 mt-1 text-end opacity-3 font-size-small"
                 >
                   <ng-container *ngIf="item.merged; else singleSource">
-                    <div
+                    <!--<div
                       class="row"
                       *ngFor="let organization of item.source.organizations"
                     >
                       <div class="col px-0">
                         {{ organization.name }}
                       </div>
-                    </div>
+                    </div>-->
                   </ng-container>
-                  <ng-template #singleSource>{{
-                    groupItem.source.organization.name
-                  }}</ng-template>
+                  <ng-template #singleSource>
+                    <ng-container *ngFor="let ds of item.dataSources; let k = index">
+                      {{ds.organization['name' + locale]}}</ng-container></ng-template>
                 </div>
               </div>
 
@@ -218,7 +226,7 @@
                 <div
                   class="col-auto px-4 mx-1 cursor-pointer"
                   *ngIf="
-                    groupItem.groupMeta.type === fieldTypes.activityAffiliation
+                    item.itemMeta.type === fieldTypes.activityAffiliation
                   "
                 >
                   <app-primary-badge
@@ -232,8 +240,10 @@
                     [selected]="item.itemMeta.primaryValue"
                   ></app-primary-badge>
                 </div>
+
               </div>
             </ng-container>
+
           </ng-container>
         </ng-container>
       </ng-container>

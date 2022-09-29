@@ -97,22 +97,25 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   ngOnInit(): void {
     const field = this.data.fields[0];
 
+
     // Combine items from groups
     const groupItems = cloneDeep(field.groupItems);
+    if (groupItems[0].items !== undefined) {
+      groupItems.map(
+        (groupItem) =>
+          (groupItem.items = groupItem.items.map((item) => ({
+            ...item,
+            source: groupItem.source,
+          })))
+      );
 
-    groupItems.map(
-      (groupItem) =>
-        (groupItem.items = groupItem.items.map((item) => ({
-          ...item,
-          groupType: groupItem.groupMeta.type,
-          source: groupItem.source,
-        })))
-    );
+      const items = [...groupItems].flatMap((groupItem) => groupItem.items);
 
-    const items = [...groupItems].flatMap((groupItem) => groupItem.items);
-
-    this.combinedItems = items;
-
+      this.combinedItems = items;
+    }
+    else {
+      this.combinedItems = [];
+    }
     // Merge publications that share DOI
     if (this.data.id === this.groupTypes.publication) {
       mergePublications(field);
@@ -292,15 +295,18 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
       service.addToPayload(result);
 
       // Items with primary value
-      let existingAddedItems = groupItems.find((group) =>
-        group.items.find((item) => item.itemMeta.primaryValue)
+      let existingAddedItems = null;
+      if (groupItems[0].items !== undefined) {
+        existingAddedItems = groupItems.find((group) =>
+          group.items.find((item) => item.itemMeta.primaryValue)
       );
+      }
 
       if (existingAddedItems) {
         existingAddedItems.items = existingAddedItems.items.concat(result);
       } else {
         groupItems.push({
-          groupMeta: { type: fieldType },
+          //groupMeta: { type: fieldType },
           source: {
             organization: {
               name: CommonStrings.ttvLabel,

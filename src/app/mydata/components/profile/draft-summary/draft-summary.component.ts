@@ -29,7 +29,6 @@ export class DraftSummaryComponent implements OnInit, OnDestroy {
   collaborationHeader = $localize`:@@collaborationHeader:Yhteistyö`;
   selectedData: any;
 
-  checkGroupSelected = checkGroupSelected;
   checkGroupPatchItem = checkGroupPatchItem;
 
   primarySource: string;

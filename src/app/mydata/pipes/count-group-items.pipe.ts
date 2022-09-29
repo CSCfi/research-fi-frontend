@@ -55,14 +55,14 @@ export class CountGroupItemsPipe implements PipeTransform {
 
     return extras?.filterSelected
       ? combinedItems.filter((item) =>
-          extras.patchItems
-            ? // ? extras.patchItemIds.includes(item.id)
-              extras.patchItems.find(
-                (patchItem) =>
-                  patchItem.id === item.id && patchItem.type === item.type
-              )
-            : item.show
-        )
+        extras.patchItems
+          ? // ? extras.patchItemIds.includes(item.id)
+          extras.patchItems.find(
+            (patchItem) =>
+              patchItem.id === item.id && patchItem.type === item.type
+          )
+          : item.show
+      )
       : combinedItems;
   }
 }

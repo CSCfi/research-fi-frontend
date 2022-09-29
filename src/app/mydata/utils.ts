@@ -36,14 +36,18 @@ export function checkGroupSelected(group) {
 
 // Check if group has item in patch items
 export function checkGroupPatchItem(group, patchItems) {
+  if (Object.keys(group[0]).length > 0 && Object.keys(patchItems[0]).length > 0 && group[0].items !== undefined) {
   const items = group.flatMap((groupItem) => groupItem.items);
   return items.find((item) =>
     patchItems.find(
-      (patchItem) =>
-        patchItem.id === item.itemMeta.id &&
-        patchItem.type === item.itemMeta.type
+      (patchItem) => {
+        return (patchItem.id === item.itemMeta.id &&
+        patchItem.type === item.itemMeta.type)
+      }
     )
   );
+  }
+  return undefined;
 }
 
 /*
@@ -117,6 +121,12 @@ export function mergePublications(
 // Publications can be empty if user has no imported data from ORCID
 export function isEmptySection(data) {
   return !data.groupItems.length;
+}
+
+// Sort items and return unbinded data
+export function sortItemsByNew(data, path) {
+  const dataCopied = [...data.items];
+  return dataCopied.sort((a, b) => get(b, path) - get(a, path));
 }
 
 // Sort items and return unbinded data

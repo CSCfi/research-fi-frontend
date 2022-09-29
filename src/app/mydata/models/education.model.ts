@@ -28,4 +28,14 @@ export class EducationFieldsAdapter implements Adapter<EducationFields> {
       )
     );
   }
+  adaptNew(item: any): EducationFields {
+    return new EducationFields(
+      this.mydataUtils.mapGroupGeneralNew(
+        item,
+        'education',
+        'educations',
+        $localize`:@@education:Koulutus`
+      )
+    );
+  }
 }

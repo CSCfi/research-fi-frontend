@@ -106,15 +106,15 @@ export class ProfileService {
   getProfileData() {
     this.updateTokenInHttpAuthHeader();
     return this.http
-      .get<Profile[]>(this.apiUrl + '/profiledata/', this.httpOptions)
-      .pipe(map((data) => this.profileAdapter.adapt(data)));
+      .get<Profile[]>(this.apiUrl + '/profiledata2/', this.httpOptions)
+      .pipe(map((data) => this.profileAdapter.adaptNew(data)));
   }
 
   patchObjects(items) {
     this.updateTokenInHttpAuthHeader();
     let body = { groups: [], items: items };
     return this.http.patch(
-      this.apiUrl + '/profiledata/',
+      this.apiUrl + '/profiledata2/',
       body,
       this.httpOptions
     );

@@ -42,4 +42,22 @@ export class AffiliationFieldsAdapter implements Adapter<AffiliationFields> {
       )
     );
   }
+
+  adaptNew(item: any): AffiliationFields {
+    //item.affiliation = { groupItems: [] };
+    //item.affiliation.groupItems[0] = { items: [...item.affiliations] };
+
+    let ret =  new AffiliationFields(
+      this.mydataUtils.mapGroupGeneralNew(
+        item,
+        'affiliation',
+        'affiliations',
+        $localize`:@@affiliations:Affiliaatiot`,
+        {
+          primaryValue: true,
+        }
+      )
+    );
+    return ret;
+  }
 }

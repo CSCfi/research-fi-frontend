@@ -46,4 +46,16 @@ export class DatasetFieldsAdapter implements Adapter<DatasetFields> {
       )
     );
   }
+
+  adaptNew(item: any): DatasetFields {
+    return new DatasetFields(
+      this.mydataUtils.mapGroupGeneralNew(
+        item,
+        'dataset',
+        'researchDatasets',
+        $localize`:@@datasets:Tutkimusaineistot`
+      )
+    );
+  }
+
 }

@@ -40,4 +40,26 @@ export class DescriptionFieldsAdapter implements Adapter<DescriptionFields> {
       )
     );
   }
+  adaptNew(item: any): DescriptionFields {
+
+    return new DescriptionFields(
+      this.mydataUtils.mapGroupNew(
+        item.keywords,
+        'keywords',
+        $localize`:@@keywords:Avainsanat`,
+        {
+          joined: true,
+        }
+      ),
+      this.mydataUtils.mapGroupFieldNameNew(
+        item.researcherDescriptions,
+        'researchDescription',
+        $localize`:@@description:Kuvaus`,
+        'researchDescription',
+        {
+          localized: true,
+        }
+      )
+    );
+  }
 }

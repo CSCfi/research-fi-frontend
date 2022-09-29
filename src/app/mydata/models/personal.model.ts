@@ -71,7 +71,7 @@ export class PersonalFieldsAdapter implements Adapter<PersonalFields> {
     mapIcons(email, () => faEnvelope);
     mapIcons(webLinks, handleLinkIcon, 'url');
 
-    return new PersonalFields(
+    let pf: PersonalFields =  new PersonalFields(
       this.mydataUtils.mapNameGroup(
         item.nameGroups,
         'name',
@@ -95,5 +95,64 @@ export class PersonalFieldsAdapter implements Adapter<PersonalFields> {
       ),
       webLinks
     );
+    return pf;
+  }
+
+  adaptNew(item: any): PersonalFields {
+    const handleLinkIcon = (url: string | string[]) => {
+      if (url.includes('linkedin')) {
+        return faLinkedin;
+      } else if (url.includes('twitter')) {
+        return faTwitterSquare;
+      } else if (url.includes('facebook')) {
+        return faFacebookSquare;
+      } else return faLink;
+    };
+
+    const email = this.mydataUtils.mapGroupNew(
+      item.emails,
+      'email',
+      $localize`:@@email:Sähköposti`
+    );
+    const webLinks = this.mydataUtils.mapGroupNew(
+      item.webLinks,
+      'webLinks',
+      $localize`:@@links:Linkit`
+    );
+
+    const mapIcons = (group, iconMethod: Function, field?: string) => {
+      group.groupItems.map(groupItem =>
+        groupItem.icon = iconMethod(groupItem.item[field]),
+      );
+    };
+
+    //mapIcons(email, () => faEnvelope);
+    //mapIcons(webLinks, handleLinkIcon, 'url');
+
+    let pf: PersonalFields = new PersonalFields(
+      this.mydataUtils.mapNameGroupNew(
+        item.names,
+        'name',
+        $localize`:@@name:Nimi`,
+        {
+          disabled: true,
+          expanded: true,
+          setDefault: true,
+          single: true,
+        }
+      ),
+      this.mydataUtils.mapNameGroupNew(
+        item.otherNames,
+        'otherNames',
+        $localize`:@@otherNames:Muut nimet`
+      ),
+      this.mydataUtils.mapGroupNew(
+        item.emails,
+        'email',
+        $localize`:@@email:Sähköposti`
+      ),
+      webLinks
+    );
+    return pf;
   }
 }

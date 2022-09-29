@@ -102,7 +102,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   draftPayload: any[];
 
-  checkGroupSelected = checkGroupSelected;
   previousRoute: string | undefined;
   showWelcomeDialog = false;
 

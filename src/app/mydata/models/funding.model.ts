@@ -46,4 +46,15 @@ export class FundingFieldsAdapter implements Adapter<FundingFields> {
       )
     );
   }
+
+  adaptNew(item: any): FundingFields {
+    return new FundingFields(
+      this.mydataUtils.mapGroupGeneralNew(
+        item,
+        'funding',
+        'fundings',
+        $localize`:@@publications:Hankkeet`
+      )
+    );
+  }
 }

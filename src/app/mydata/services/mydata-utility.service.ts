@@ -29,23 +29,6 @@ export class MydataUtilityService {
    * model-adapter pattern.
    */
 
-  // Get localized source
-  mapGroupItems(groupItems) {
-    return groupItems
-      .filter((item) => item.items.length > 0)
-      .map((groupItem) => ({
-        ...groupItem,
-        source: {
-          ...groupItem.source,
-          organization: {
-            name: groupItem.source.organization[
-              'name' + this.appSettingsService.capitalizedLocale
-            ],
-          },
-        },
-      }));
-  }
-
   mapGroup(group, id, label, settings?: SettingsType) {
     return {
       id: id,
@@ -56,6 +39,25 @@ export class MydataUtilityService {
       hasPrimaryValue: settings?.primaryValue,
       joined: settings?.joined,
     };
+  }
+
+  mapGroupNew(group, id, label, settings?: SettingsType) {
+    return {
+      id: id,
+      label: label,
+      groupItems: this.mapGroupItemsNew(group),
+      disabled: settings?.disabled,
+      single: settings?.single,
+      hasPrimaryValue: settings?.primaryValue,
+      joined: settings?.joined,
+    };
+  }
+
+  mapGroupItemsNew(group) {
+    let ret = [];
+    let nest = { items: [...group] };
+    ret.push(nest);
+    return ret;
   }
 
   mapNameGroup(group, id, label, settings?: SettingsType) {
@@ -69,13 +71,89 @@ export class MydataUtilityService {
       )
     );
 
-    return {
+    let ret = {
       id: id,
       label: label,
       groupItems: this.mapGroupItems(group),
       disabled: settings?.disabled,
       single: settings?.single,
       expanded: settings?.expanded,
+    };
+    return ret;
+  }
+
+  mapNameGroupNew(group, id, label, settings?: SettingsType) {
+    group.map((item) =>
+          (item.value =
+            item.fullName.trim().length > 0
+              ? item.fullName
+              : item.firstNames + ' ' + item.lastName)
+
+    );
+    let ret = {
+      id: id,
+      label: label,
+      groupItems: this.mapGroupItemsNew(group),
+      disabled: settings?.disabled,
+      single: settings?.single,
+      expanded: settings?.expanded,
+    };
+    return ret;
+  }
+
+  mapGroupItems(groupItems) {
+    let gi = groupItems
+      .filter((item) => item.items.length > 0)
+      .map((groupItem) => ({
+        ...groupItem,
+        source: {
+          ...groupItem.source,
+          organization: {
+            name: groupItem.source.organization[
+            'name' + this.appSettingsService.capitalizedLocale
+              ],
+          },
+        },
+      }));
+    return gi;
+  }
+
+  mapGroupItemsNewOld(groupItems) {
+    let gi = groupItems
+      .map((groupItem) => ({
+        items: {
+          ...groupItem
+        },
+      }));
+    return gi;
+  }
+
+  mapGroupAffiliations(group, id, label, settings?: SettingsType) {
+    return {
+      id: id,
+      label: label,
+      groupItems: group,
+      disabled: settings?.disabled,
+      single: settings?.single,
+      hasPrimaryValue: settings?.primaryValue,
+      joined: settings?.joined,
+    };
+  }
+
+  mapGroupGeneralNew(group, id, inputFieldNameOld, label, settings?: SettingsType) {
+    let newGroupItems = [];
+    newGroupItems.push({items: group[inputFieldNameOld]});
+    if (newGroupItems[0].items === undefined) {
+      newGroupItems[0] = [];
+    }
+    return {
+      id: id,
+      label: label,
+      groupItems: newGroupItems,
+      disabled: settings?.disabled,
+      single: settings?.single,
+      hasPrimaryValue: settings?.primaryValue,
+      joined: settings?.joined,
     };
   }
 
@@ -86,6 +164,17 @@ export class MydataUtilityService {
       id: id,
       label: label,
       groupItems: this.mapGroupItems(group),
+      localized: settings?.localized,
+      fieldName: fieldName,
+    };
+  }
+
+  mapGroupFieldNameNew(group, id, label, fieldName, settings?: SettingsType) {
+    group.map((item) => item.value);
+    return {
+      id: id,
+      label: label,
+      groupItems: this.mapGroupItemsNew(group),
       localized: settings?.localized,
       fieldName: fieldName,
     };

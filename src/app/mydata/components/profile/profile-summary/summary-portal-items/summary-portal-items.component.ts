@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, Input, OnInit } from '@angular/core';
-import { mergePublications, sortItemsBy } from '@mydata/utils';
+import { mergePublications, sortItemsByNew } from '@mydata/utils';
 import { cloneDeep } from 'lodash-es';
 
 @Component({
@@ -19,8 +19,8 @@ export class SummaryPortalItemsComponent implements OnInit {
   @Input() sortField: string;
   @Input() showMoreLabel: string;
 
-  sortItemsBy = sortItemsBy;
-  sortedItems: any[];
+  sortItemsByNew = sortItemsByNew;
+  sortedItems: any[] = [];
 
   itemDisplayCount = 3;
 
@@ -33,15 +33,17 @@ export class SummaryPortalItemsComponent implements OnInit {
     // Merge these and display only one
     const dataCopy = cloneDeep(this.data);
 
-    if (dataCopy.id === 'publications') {
-      mergePublications(dataCopy);
+    if (dataCopy.id === 'publication') {
+      //mergePublications(dataCopy);
     }
 
     // Display only selected items
-    this.sortedItems = this.sortItemsBy(dataCopy, this.sortField).filter(
-      (item) => item.itemMeta.show
-    );
-  }
+    if (dataCopy?.groupItems[0]?.items) {
+      this.sortedItems = this.sortItemsByNew(dataCopy.groupItems[0], this.sortField).filter(
+        (item) => item.itemMeta.show
+      );
+      }
+    }
 
   showAllItems() {
     this.itemDisplayCount = this.sortedItems.length;

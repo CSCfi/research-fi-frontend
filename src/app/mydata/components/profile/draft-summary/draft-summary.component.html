@@ -9,7 +9,7 @@
       *ngIf="
         (
           group.fields
-          | countGroupItems
+          | countGroupItemsNew
             : { filterSelected: true, patchItems: combinedPatchItems }
         ).length > 0
       "
@@ -20,36 +20,29 @@
           {{ group.label }} ({{
             (
               group.fields
-              | countGroupItems
+              | countGroupItemsNew
                 : { filterSelected: true, patchItems: combinedPatchItems }
             ).length
           }})
         </mat-panel-title>
       </mat-expansion-panel-header>
 
-      <ng-container *ngFor="let field of group.fields">
-        <div
-          class="row py-2"
-          *ngIf="
-            (
-              field.groupItems
-              | filter: checkGroupPatchItem:{ patchItems: combinedPatchItems }
-            ).length
-          "
-        >
+      <ng-container *ngFor="let item of group.fields | countGroupItemsNew
+                : { filterSelected: true, patchItems: combinedPatchItems }">
+        <div class="row py-2">
           <div class="col px-0">
             <span class="fw-bold d-block py-2" *ngIf="group.fields.length > 1"
-              >{{ field.label }}
+              >{{ item.label }}
             </span>
-
-            <ng-container *ngFor="let groupItem of field.groupItems">
-              <ng-container [ngSwitch]="groupItem.groupMeta.type">
+              <ng-container [ngSwitch]="item">
+                <!-- person keyword fields -->
                 <ng-container *ngSwitchCase="fieldTypes.personKeyword">
                   <!-- 
                     Special case for keywords. 
                     Keywords are patched as separate keywords 
                     but dispalyed as a joined list.
                   -->
+                  <!--
                   <div
                     class="row"
                     *ngIf="
@@ -66,40 +59,40 @@
                       {{ groupItem.items | joinItems: 'value' }}
                     </div>
                   </div>
+                  -->
                 </ng-container>
                 <!-- Default view -->
                 <ng-container *ngSwitchDefault>
-                  <ng-container *ngFor="let item of groupItem.items">
+                    <!-- affiliations *ngIf="combinedPatchItems -->
                     <div
                       class="row d-flex justify-content-between py-1"
                       [class.justify-content-between]="
-                        groupItem.groupMeta.type !==
-                        fieldTypes.activityAffiliation
+                        true
                       "
-                      *ngIf="combinedPatchItems | matchItem: item.itemMeta"
+                      *ngIf="true"
                     >
                       <div
                         class="col px-0 font-size-smaller"
                         [class.col-auto]="
-                          groupItem.groupMeta.type ===
-                          fieldTypes.activityAffiliation
+                          true
                         "
                       >
                         <app-panel-array-item
                           [class.text-strike]="item.itemMeta.show === false"
                           [item]="item"
-                          [fieldType]="groupItem.groupMeta.type"
-                          [localized]="field.localized"
+                          [fieldType]="item.itemMeta.type"
+                          [localized]="item.localized"
                           [strike]="item"
                         ></app-panel-array-item>
                       </div>
 
-                      <div
-                        *ngIf="
+                      <!-- check *ngIf="
                           item.itemMeta.primaryValue &&
                           groupItem.groupMeta.type ===
-                            fieldTypes.activityAffiliation
-                        "
+                            fieldTypes.activityAffiliation -->
+                      <div
+                        *ngIf="item.itemMeta.primaryValue && item.itemMeta.type ===
+                            fieldTypes.activityAffiliation"
                         class="col-auto px-4 mx-1 cursor-pointer"
                       >
                         <app-primary-badge
@@ -110,10 +103,9 @@
                         ></app-primary-badge>
                       </div>
                     </div>
-                  </ng-container>
                 </ng-container>
               </ng-container>
-            </ng-container>
+
           </div>
         </div>
       </ng-container>

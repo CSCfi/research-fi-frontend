@@ -6,7 +6,8 @@
 //  :license: MIT
 
 import { Component, Input, OnInit } from '@angular/core';
-import { sortItemsBy } from '@mydata/utils';
+import { sortItemsByNew } from '@mydata/utils';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   selector: 'app-summary-affiliations',
@@ -16,7 +17,7 @@ export class SummaryAffiliationsComponent implements OnInit {
   @Input() data: any;
   @Input() fieldTypes: any;
 
-  sortItemsBy = sortItemsBy;
+  sortItemsByNew = sortItemsByNew;
   sortedItems: any[];
 
   locale = 'Fi';
@@ -37,9 +38,10 @@ export class SummaryAffiliationsComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  constructor(private appSettingsService: AppSettingsService) {}
 
   ngOnInit(): void {
-    this.sortedItems = this.sortItemsBy(this.data, 'itemMeta.primaryValue');
+    this.locale = this.appSettingsService.capitalizedLocale;
+    this.sortedItems = this.sortItemsByNew(this.data.groupItems[0], 'itemMeta.primaryValue');
   }
 }

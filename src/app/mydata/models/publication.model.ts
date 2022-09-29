@@ -55,4 +55,14 @@ export class PublicationFieldsAdapter implements Adapter<PublicationFields> {
       )
     );
   }
+  adaptNew(item: any): PublicationFields {
+    return new PublicationFields(
+      this.mydataUtils.mapGroupGeneralNew(
+        item,
+        'publication',
+        'publications',
+        $localize`:@@publications:Julkaisut`
+      )
+    );
+  }
 }
