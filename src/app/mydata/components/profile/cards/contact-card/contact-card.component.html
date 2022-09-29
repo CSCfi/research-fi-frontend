@@ -53,7 +53,7 @@
                 <a
                   *ngSwitchCase="fieldTypes.personWebLink"
                   target="_blank"
-                  href="item.url"
+                  [attr.href]="item.url"
                 >{{ item.url }}<fa-icon icon="external-link-alt"></fa-icon
                 ></a>
                 <!-- Email -->

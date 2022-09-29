@@ -87,7 +87,6 @@
         <ng-container [ngSwitch]="item.itemMeta.type">
 
           <div class="row py-1" *ngSwitchCase="item.itemMeta.type === fieldTypes.personKeyword">
-            <h1>keywords</h1>
             <div class="col px-0 font-size-smaller">
               <mat-checkbox
                 [checked]="groupItem.items | findSelectedItem"

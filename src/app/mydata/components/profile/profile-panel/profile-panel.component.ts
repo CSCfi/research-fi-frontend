@@ -118,7 +118,7 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     }
     // Merge publications that share DOI
     if (this.data.id === this.groupTypes.publication) {
-      mergePublications(field);
+      //mergePublications(field);
     }
   }
 
