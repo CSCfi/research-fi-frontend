@@ -2154,7 +2154,7 @@
           <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="appSlogan" datatype="html">
+      <trans-unit id="appName" datatype="html">
         <source>Tiedejatutkimus.fi</source>
         <target state="translated">Forskning.fi</target>
         <context-group purpose="location">
