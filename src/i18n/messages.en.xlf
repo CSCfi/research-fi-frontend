@@ -40,7 +40,7 @@
       </trans-unit>
       <trans-unit id="searchTooltipTki">
          <source>Voit hakea selvityksiä ja raportteja Suomen tutkimus- ja innovaatiojärjestelmästä</source>
-         <target>You can search reports about the Finnish research and innovation system  </target>
+         <target>You can search reports about the Finnish research and innovation system</target>
       </trans-unit>
       <trans-unit id="sortByName">
          <source>Järjestä nimen mukaan</source>
@@ -2172,7 +2172,7 @@
           <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="appSlogan" datatype="html">
+      <trans-unit id="appName" datatype="html">
         <source>Tiedejatutkimus.fi</source>
         <target>Research.fi</target>
         <context-group purpose="location">
