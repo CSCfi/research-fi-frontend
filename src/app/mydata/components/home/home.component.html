@@ -3,85 +3,91 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<ng-template #createProfileText>
-  <ng-container i18n="@@createProfileForYourself"
-    >Luo itsellesi profiili</ng-container
-  >
-  <br />
-  <ng-container i18n="@@inResearchFiService"
-    >Tiedejatutkimus.fi -palveluun.</ng-container
-  >
-</ng-template>
+<app-banner-divider></app-banner-divider>
 
-<ng-template #bannerTemplate>
-  <div class="row d-flex justify-content-center">
-    <div class="col-auto p-4">
-      <h1 class="m-0 text-white" i18n="@@researchersProfile">
-        Tutkijan tiedot
-      </h1>
-    </div>
-  </div>
-  <div class="row pb-4 d-none d-lg-block">
-    <div class="col text-center">
-      <p class="text-white">
-        <ng-container [ngTemplateOutlet]="createProfileText"></ng-container>
-      </p>
-    </div>
-  </div>
-</ng-template>
+<main id="main-content">
+  <div class="d-block d-lg-flex wrapper mx-auto justify-content-between">
+    <div class="col-12 col-lg-6">
+      <div class="row">
+        <div class="col">
+          <h2 class="pb-4">
+            Yhdistele tutkijatiedoistasi julkinen profiili Tiedejatutkimus.fi
+            -palveluun
+          </h2>
+          <p>
+            Tutkijan tiedot -profiilityökalun avulla yhdistelet Orcid- ja
+            organisaatiotiedoistasi haluamasi julkisen tutkijaprofiilin
+            tiedejatutkimus.fi -palveluun. Voit myös jakaa Tutkijan tiedot
+            -profiiliasi esimerkiksi organisaatioille.
+          </p>
+        </div>
+      </div>
 
-<app-banner-divider [template]="bannerTemplate"></app-banner-divider>
-
-<main id="main-content" class="col col-lg-3 mx-auto">
-  <div class="row pt-4 pb-4 d-lg-none">
-    <div class="col text-center">
-      <ng-container [ngTemplateOutlet]="createProfileText"></ng-container>
-    </div>
-  </div>
-
-  <div class="row d-flex justify-content-center py-0 pb-3 py-md-3">
-    <div class="col-12 text-center">
-      <span class="fw-bold" i18n="@@homeNewUser">Uusi käyttäjä?</span>
-      <span i18n="@@startHere"> Aloita tästä:</span>
-    </div>
-
-    <div class="col-12 py-3">
-      <app-primary-action-button
-        i18n-content="@@createProfile"
-        content="Luo profiili"
-        routerLink="service-deployment"
-        tabindex="-1"
-        [big]="true"
+      <div
+        class="row d-flex py-3 justify-content-center justify-content-sm-start"
       >
-      </app-primary-action-button>
-    </div>
-  </div>
+        <div class="col-12">
+          <span class="fw-bold" i18n="@@homeNewUser">Uusi käyttäjä?</span>
+          <span i18n="@@startHere"> Aloita tästä:</span>
+        </div>
 
-  <div class="row">
-    <div class="col"><hr /></div>
-  </div>
+        <div class="col-12 col-sm-6 pt-3 px-4 px-sm-3">
+          <app-primary-action-button
+            i18n-content="@@createProfile"
+            content="Luo profiili"
+            routerLink="service-deployment"
+            tabindex="-1"
+            [big]="true"
+          >
+          </app-primary-action-button>
+        </div>
+      </div>
 
-  <div class="row d-flex justify-content-center py-md-3">
-    <div class="col-12 text-center">
-      <span class="pe-2" i18n="@@haveYouCreatedProfile">
-        Oletko jo luonut profiilin tähän palveluun?
-      </span>
-    </div>
-
-    <div class="col-12 py-3">
-      <app-secondary-button
-        i18n-content="@@logIn"
-        content="Kirjaudu sisään"
-        (click)="login()"
-        [big]="true"
+      <div
+        class="row py-3 mb-0 mb-lg-5 justify-content-center justify-content-sm-start"
       >
-      </app-secondary-button>
-    </div>
-  </div>
+        <span class="col-12">Lisätietoa:</span>
 
-  <div class="row d-flex justify-content-center">
-    <div class="col px-0 pb-3">
-      <app-mydata-beta-info></app-mydata-beta-info>
+        <div class="col-12 col-sm-6 py-3 px-4 px-sm-3">
+          <app-secondary-button
+            content="Palvelun yleisohjeet"
+            (click)="login()"
+            [big]="true"
+            [disabled]="true"
+          >
+          </app-secondary-button>
+        </div>
+      </div>
+
+      <div class="row py-md-3 justify-content-center justify-content-sm-start">
+        <span class="col-12" i18n="@@haveYouCreatedProfile">
+          Oletko jo luonut profiilin tähän palveluun?
+        </span>
+
+        <div class="col-auto py-3">
+          <app-secondary-button
+            i18n-content="@@logIn"
+            content="Kirjaudu sisään"
+            (click)="login()"
+          >
+          </app-secondary-button>
+        </div>
+      </div>
+
+      <!-- <div class="row d-flex justify-content-center">
+        <div class="col px-0 pb-3">
+          <app-mydata-beta-info></app-mydata-beta-info>
+        </div>
+      </div> -->
+    </div>
+
+    <!-- MyData service visual -->
+    <div class="col-5 d-none d-lg-block mt-5 mt-lg-0 pt-3">
+      <!-- <app-landing-page-visual></app-landing-page-visual> -->
+      <img
+        class="img-fluid"
+        [src]="'assets/img/mydata-visual-' + locale + '.png'"
+      />
     </div>
   </div>
 </main>
