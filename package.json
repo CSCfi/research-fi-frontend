@@ -58,7 +58,7 @@
     "domino": "^2.1.6",
     "express": "^4.17.3",
     "express-csp-header": "^5.0.0",
-    "express-rate-limit": "^6.2.1",
+    "express-rate-limit": "^6.6.0",
     "feature-policy": "^0.6.0",
     "font-awesome": "^4.7.0",
     "helmet": "^5.0.2",
