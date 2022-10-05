@@ -1,8 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ProfileService } from '@mydata/services/profile.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { ErrorHandlerService } from '@shared/services/error-handler.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { Subscription, switchMap, take } from 'rxjs';
 
@@ -11,7 +19,10 @@ import { Subscription, switchMap, take } from 'rxjs';
   templateUrl: './orcid-data-fetch.component.html',
   styleUrls: ['./orcid-data-fetch.component.scss'],
 })
-export class OrcidDataFetchComponent implements OnInit, OnDestroy {
+export class OrcidDataFetchComponent implements OnInit, OnChanges, OnDestroy {
+  @Input() userData: any;
+
+  configLoading = true;
   loading = false;
   IDPLinkSub: Subscription;
   orcid: string;
@@ -22,7 +33,8 @@ export class OrcidDataFetchComponent implements OnInit, OnDestroy {
     private profileService: ProfileService,
     private oidcSecurityService: OidcSecurityService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private errorHandlerService: ErrorHandlerService
   ) {}
 
   ngOnInit(): void {
@@ -34,6 +46,24 @@ export class OrcidDataFetchComponent implements OnInit, OnDestroy {
         this.orcid = idTokenPayload.orcid;
         this.profileService.setUserData(idTokenPayload);
       });
+  }
+
+  ngOnChanges(): void {
+    /*
+     * There is a short lag in ORCID - OIDC communication when coming back from ORCID login.
+     * Prevent user from fetching ORCID data before configuration is initialized.
+     */
+    if (this.userData) this.configLoading = false;
+
+    // Display error if no configuration after 10 seconds
+    setTimeout(() => {
+      if (!this.userData) {
+        this.errorHandlerService.updateError({
+          message:
+            'Virhe ORCID-tietojen konfiguroimisessa. Yritä myöhemmin uudelleen.',
+        });
+      }
+    }, 10000);
   }
 
   fetchOrcidData() {
