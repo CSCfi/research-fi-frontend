@@ -24,7 +24,7 @@
         class="col align-self-center fst-italic order-3 order-sm-2"
         i18n="@@youHaveNotSelectedAnyPublicData"
         *ngIf="
-          !(group.fields | hasSelectedItems)
+          !(group.fields | hasSelectedItems  : { groupId: ''})
         "
       >
         Et ole vielä valinnut julkisesti näytettäviä tietoja
@@ -90,7 +90,7 @@
           </app-summary-portal-items>
 
           <div class="summary-panel-wrapper" *ngSwitchDefault>
-            <div class="col px-3 fw-bold py-2" *ngIf="group.fields.length > 1">
+            <div class="col px-3 fw-bold py-2" *ngIf="group.fields | hasSelectedItems : { groupId: field.id}">
               {{ field.label }}
             </div>
 
@@ -98,6 +98,7 @@
               *ngFor="
                 let groupItem of field.groupItems"
             >
+              <div *ngIf="groupItem?.items[0]?.itemMeta?.type">
               <ng-container [ngSwitch]="groupItem.items[0].itemMeta.type">
                 <div
                   class="summary-panel"
@@ -133,6 +134,7 @@
                   </div>
                 </ng-container>
               </ng-container>
+              </div>
             </ng-container>
           </div>
         </div>

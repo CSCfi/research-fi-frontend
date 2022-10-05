@@ -18,20 +18,24 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class CountGroupItemsNewPipe implements PipeTransform {
   transform(
     group: any,
-    extras: { filterSelected: boolean; patchItems: any[] }
+    extras: { filterSelected: boolean; patchItems: any[]; onlyCount: boolean }
   ) {
     let combinedItems = [];
 
     if (group.length) {
       group.forEach(subgroup => {
-        extras?.filterSelected ? combinedItems.push(subgroup.groupItems[0]?.items) :
-        combinedItems.push(subgroup.groupItems[0]?.items?.filter(item => item.itemMeta.show).map(visibleItem => {
-          return visibleItem.itemMeta;
-        }));
+        if (subgroup.joined) {
+          subgroup.groupItems[0].items.map((item) => item.joined = true);
+        }
+          extras?.filterSelected ? combinedItems.push(subgroup.groupItems[0]?.items) :
+            combinedItems.push(subgroup.groupItems[0]?.items?.filter(item => item.itemMeta.show).map(visibleItem => {
+              return visibleItem.itemMeta;
+            }));
+
       });
     }
 
-    let ret2 = [];
+    let ret = [];
     combinedItems[0] && extras?.filterSelected
       ? combinedItems.filter((item) =>
         extras.patchItems
@@ -40,8 +44,8 @@ export class CountGroupItemsNewPipe implements PipeTransform {
             (patchItem) => {
               item.forEach((subItem) => {
                 patchItem.id === subItem.itemMeta.id && patchItem.type === subItem.itemMeta.type
-                if(patchItem.id === subItem.itemMeta.id && patchItem.type === subItem.itemMeta.type){
-                  ret2.push(subItem);
+                if (patchItem.id === subItem.itemMeta.id && patchItem.type === subItem.itemMeta.type){
+                  ret.push(subItem);
                 }
               });
             }
@@ -49,6 +53,17 @@ export class CountGroupItemsNewPipe implements PipeTransform {
           : item.show
       )
       : combinedItems;
-    return ret2;
+
+    // Called 'only count' since crops out information. Used only for counting number of changed items.
+    if (extras.onlyCount) {
+      let prevItem = ret[0];
+      ret.forEach((item) => {
+        if (item.joined && prevItem?.itemMeta?.type === item.itemMeta.type) {
+          prevItem = item;
+          ret.shift();
+        }
+      });
+    }
+    return ret;
   }
 }

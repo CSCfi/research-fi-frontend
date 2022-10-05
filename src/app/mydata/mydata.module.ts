@@ -69,6 +69,7 @@ import { CountGroupItemsNewPipe } from './pipes/count-group-items-new.pipe';
 import { MydataBetaInfoComponent } from './components/mydata-beta-info/mydata-beta-info.component';
 import { ProfileSummaryComponent } from './components/profile/profile-summary/profile-summary.component';
 import { JoinItemsPipe } from './pipes/join-items.pipe';
+import { JoinDataSourcesPipe } from './pipes/join-data-sources.pipe';
 import { FindSelectedItemPipe } from './pipes/find-selected-item.pipe';
 import { HandleFetchedPublicationsPipe } from './pipes/handle-fetched-publications.pipe';
 import { SortPublicationsPipe } from './pipes/sort-publications.pipe';
@@ -129,6 +130,7 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
     MydataBetaInfoComponent,
     ProfileSummaryComponent,
     JoinItemsPipe,
+    JoinDataSourcesPipe,
     FindSelectedItemPipe,
     HandleFetchedPublicationsPipe,
     SortPublicationsPipe,

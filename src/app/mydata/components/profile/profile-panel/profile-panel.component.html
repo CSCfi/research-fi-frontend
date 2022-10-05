@@ -82,10 +82,11 @@
       <ng-container *ngFor="let groupItem of field.groupItems">
 
         <ng-container *ngFor="let item of groupItem.items; let j = index">
+
         <!-- Keywords have values that need to be joined -->
         <ng-container [ngSwitch]="item.itemMeta.type">
-
-          <div class="row py-1" *ngSwitchCase="item.itemMeta.type === fieldTypes.personKeyword">
+          <div class="row py-1" *ngSwitchCase="fieldTypes.personKeyword">
+            <ng-container *ngIf="j==0">
             <div class="col px-0 font-size-smaller">
               <mat-checkbox
                 [checked]="groupItem.items | findSelectedItem"
@@ -99,8 +100,9 @@
             <div
               class="col-auto px-0 ps-4 ml-1 mt-1 text-end opacity-3 font-size-small"
             >
-              {{ groupItem.source.organization.name }}
+              {{ field.groupItems | joinDataSources:locale }}
             </div>
+            </ng-container>
           </div>
 
           <ng-container *ngSwitchDefault>

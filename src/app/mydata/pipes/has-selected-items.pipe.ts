@@ -1,18 +1,28 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'hasSelectedItems',
+  name: 'hasSelectedItems'
 })
 export class HasSelectedItemsPipe implements PipeTransform {
-  transform(group: any): boolean {
+  transform(group: any,
+            extras: { groupId: string }): boolean {
+
     let someSelected = false;
     if (group.length) {
       group.forEach(subgroup => {
-        subgroup.groupItems.forEach((item) => {
-          if (item?.items?.some(item => item.itemMeta.show)){
-            someSelected = true;
-          }
-        });
+        if (extras?.groupId) {
+          subgroup.groupItems.forEach((item) => {
+            if (subgroup.id === extras.groupId && item?.items?.some(item => item.itemMeta.show)) {
+              someSelected = true;
+            }
+          });
+        } else {
+          subgroup.groupItems.forEach((item) => {
+            if (item?.items?.some(item => item.itemMeta.show)) {
+              someSelected = true;
+            }
+          });
+        }
       });
     }
     return someSelected;

@@ -10,104 +10,110 @@
         (
           group.fields
           | countGroupItemsNew
-            : { filterSelected: true, patchItems: combinedPatchItems }
+            : { filterSelected: true, patchItems: combinedPatchItems, onlyCount: true }
         ).length > 0
       "
       [expanded]="openPanels.indexOf(i) > -1"
     >
       <mat-expansion-panel-header class="pe-1 pe-md-3">
-        <mat-panel-title class="fw-bold">
+        <mat-panel-title *ngIf="true" class="fw-bold">
           {{ group.label }} ({{
-            (
-              group.fields
+          (
+            group.fields
               | countGroupItemsNew
-                : { filterSelected: true, patchItems: combinedPatchItems }
-            ).length
+              : { filterSelected: true, patchItems: combinedPatchItems, onlyCount: true }
+          ).length
           }})
         </mat-panel-title>
       </mat-expansion-panel-header>
 
+
       <ng-container *ngFor="let item of group.fields | countGroupItemsNew
-                : { filterSelected: true, patchItems: combinedPatchItems }">
-        <div class="row py-2">
-          <div class="col px-0">
-            <span class="fw-bold d-block py-2" *ngIf="group.fields.length > 1"
-              >{{ item.label }}
-            </span>
-              <ng-container [ngSwitch]="item">
-                <!-- person keyword fields -->
-                <ng-container *ngSwitchCase="fieldTypes.personKeyword">
-                  <!-- 
-                    Special case for keywords. 
-                    Keywords are patched as separate keywords 
-                    but dispalyed as a joined list.
-                  -->
-                  <!--
+                : { filterSelected: true, patchItems: combinedPatchItems, onlyCount: false }; let i = index">
+
+        <ng-container [ngSwitch]="item.itemMeta.type">
+          <!-- person keyword fields -->
+          <ng-container *ngSwitchCase="fieldTypes.personKeyword">
+
+            <span *ngIf="fieldTypes.personKeyword && i == 0" class="fw-bold d-block py-2">Avainsanat</span>
+            <!--
+              Special case for keywords.
+              Keywords are patched as separate keywords
+              but dispalyed as a joined list. Show only the first row, since
+              all rows are equal when combined.
+            -->
+            <ng-container *ngIf="i == 0">
+              <div class="row py-2">
+                <div class="col px-0">
                   <div
                     class="row"
                     *ngIf="
                       combinedPatchItems
-                        | matchItem: groupItem.items[0].itemMeta
+                        | matchItem: item.itemMeta
                     "
                   >
                     <div
                       class="col px-0 pb-2 font-size-smaller"
                       [class.text-strike]="
-                        groupItem.items[0].itemMeta.show === false
+                        item.itemMeta.show === false
                       "
                     >
-                      {{ groupItem.items | joinItems: 'value' }}
+                      {{ group.fields[0].groupItems[0].items | joinItems: 'value' }}
                     </div>
                   </div>
-                  -->
-                </ng-container>
-                <!-- Default view -->
-                <ng-container *ngSwitchDefault>
-                    <!-- affiliations *ngIf="combinedPatchItems -->
-                    <div
-                      class="row d-flex justify-content-between py-1"
-                      [class.justify-content-between]="
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+          <!-- Default view -->
+          <ng-container *ngSwitchDefault>
+            <div class="row py-2">
+              <div class="col px-0">
+                <div
+                  class="row d-flex justify-content-between py-1"
+                  [class.justify-content-between]="
                         true
                       "
-                      *ngIf="true"
-                    >
-                      <div
-                        class="col px-0 font-size-smaller"
-                        [class.col-auto]="
+                  *ngIf="true"
+                >
+                  <div
+                    class="col px-0 font-size-smaller"
+                    [class.col-auto]="
                           true
                         "
-                      >
-                        <app-panel-array-item
-                          [class.text-strike]="item.itemMeta.show === false"
-                          [item]="item"
-                          [fieldType]="item.itemMeta.type"
-                          [localized]="item.localized"
-                          [strike]="item"
-                        ></app-panel-array-item>
-                      </div>
+                  >
+                    <app-panel-array-item
+                      [class.text-strike]="item.itemMeta.show === false"
+                      [item]="item"
+                      [fieldType]="item.itemMeta.type"
+                      [localized]="item.localized"
+                      [strike]="item"
+                    ></app-panel-array-item>
+                  </div>
 
-                      <!-- check *ngIf="
-                          item.itemMeta.primaryValue &&
-                          groupItem.groupMeta.type ===
-                            fieldTypes.activityAffiliation -->
-                      <div
-                        *ngIf="item.itemMeta.primaryValue && item.itemMeta.type ===
+                  <!-- check *ngIf="
+                      item.itemMeta.primaryValue &&
+                      groupItem.groupMeta.type ===
+                        fieldTypes.activityAffiliation -->
+                  <div
+                    *ngIf="item.itemMeta.primaryValue && item.itemMeta.type ===
                             fieldTypes.activityAffiliation"
-                        class="col-auto px-4 mx-1 cursor-pointer"
-                      >
-                        <app-primary-badge
-                          i18n-label="@@primary"
-                          label="Ensisijainen"
-                          [selected]="true"
-                          [disabled]="true"
-                        ></app-primary-badge>
-                      </div>
-                    </div>
-                </ng-container>
-              </ng-container>
+                    class="col-auto px-4 mx-1 cursor-pointer"
+                  >
+                    <app-primary-badge
+                      i18n-label="@@primary"
+                      label="Ensisijainen"
+                      [selected]="true"
+                      [disabled]="true"
+                    ></app-primary-badge>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
 
-          </div>
-        </div>
+
       </ng-container>
     </mat-expansion-panel>
   </ng-container>
