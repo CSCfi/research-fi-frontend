@@ -38,7 +38,10 @@
         <!-- ORCID login -->
         <app-orcid-login *ngSwitchCase="3"></app-orcid-login>
         <!-- ORCID data fetch -->
-        <app-orcid-data-fetch *ngSwitchCase="4"></app-orcid-data-fetch>
+        <app-orcid-data-fetch
+          *ngSwitchCase="4"
+          [userData]="userData"
+        ></app-orcid-data-fetch>
       </div>
     </div>
   </ng-container>
