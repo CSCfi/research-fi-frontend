@@ -120,7 +120,7 @@ export class SearchService {
               persons: { match: { _index: 'person' } },
               publications: { match: { _index: 'publication' } },
               fundings: { match: { _index: 'funding' } },
-              datasets: { match: { _index: 'dataset' } },
+              datasets: { bool: { must :[{ match: { _index:'dataset' } }, { term: { isLatestVersion: 1 }}]}},
               infrastructures: { match: { _index: 'infrastructure' } },
               organizations: { match: { _index: 'organization' } },
               fundingCalls: { match: { _index: 'funding-call' } },
