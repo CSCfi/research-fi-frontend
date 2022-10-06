@@ -1,70 +1,31 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ProfileService } from '@mydata/services/profile.service';
-import { AppSettingsService } from '@shared/services/app-settings.service';
-import { ErrorHandlerService } from '@shared/services/error-handler.service';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { Subscription, switchMap, take } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 
 @Component({
   selector: 'app-orcid-data-fetch',
   templateUrl: './orcid-data-fetch.component.html',
   styleUrls: ['./orcid-data-fetch.component.scss'],
 })
-export class OrcidDataFetchComponent implements OnInit, OnChanges, OnDestroy {
+export class OrcidDataFetchComponent implements OnInit, OnDestroy {
   @Input() userData: any;
+  @Input() orcid: string;
 
   configLoading = true;
   loading = false;
-  IDPLinkSub: Subscription;
-  orcid: string;
+
   createProfileSub: Subscription;
   accountLinkSub: Subscription;
 
   constructor(
     private profileService: ProfileService,
-    private oidcSecurityService: OidcSecurityService,
     private router: Router,
-    public dialog: MatDialog,
-    private errorHandlerService: ErrorHandlerService
+    public dialog: MatDialog
   ) {}
 
-  ngOnInit(): void {
-    this.IDPLinkSub = this.profileService
-      .accountlink()
-      .pipe(switchMap(() => this.oidcSecurityService.forceRefreshSession()))
-      .subscribe(() => {
-        const idTokenPayload = this.oidcSecurityService.getPayloadFromIdToken();
-        this.orcid = idTokenPayload.orcid;
-        this.profileService.setUserData(idTokenPayload);
-      });
-  }
-
-  ngOnChanges(): void {
-    /*
-     * There is a short lag in ORCID - OIDC communication when coming back from ORCID login.
-     * Prevent user from fetching ORCID data before configuration is initialized.
-     */
-    if (this.userData) this.configLoading = false;
-
-    // Display error if no configuration after 10 seconds
-    setTimeout(() => {
-      if (!this.userData) {
-        this.errorHandlerService.updateError({
-          message:
-            'Virhe ORCID-tietojen konfiguroimisessa. Yritä myöhemmin uudelleen.',
-        });
-      }
-    }, 10000);
-  }
+  ngOnInit(): void {}
 
   fetchOrcidData() {
     if (!this.orcid) {
@@ -107,7 +68,6 @@ export class OrcidDataFetchComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.IDPLinkSub?.unsubscribe();
     this.createProfileSub?.unsubscribe();
     this.accountLinkSub?.unsubscribe();
   }
