@@ -53,7 +53,7 @@ export class ProfileService {
       );
     }
 
-    if (!options.bypassOrcidCheck && !idTokenPayload.orcid) {
+    if (!options?.bypassOrcidCheck && !idTokenPayload.orcid) {
       return this.handleOrcidNotLinked();
     }
 

@@ -12,6 +12,8 @@ import { take } from 'rxjs';
 })
 export class CancelDeploymentComponent implements OnInit {
   previousStep: number;
+  loading = false;
+
   constructor(
     private router: Router,
     private utilityService: UtilityService,
@@ -30,9 +32,11 @@ export class CancelDeploymentComponent implements OnInit {
   }
 
   cancelDeployment() {
+    this.loading = true;
+
     const token = this.oidcSecurityService.getAccessToken();
 
-    const navigate = () => this.router.navigate(['/mydata']);
+    const logout = () => this.oidcSecurityService.logoff();
 
     if (token) {
       this.profileService
@@ -40,11 +44,11 @@ export class CancelDeploymentComponent implements OnInit {
         .pipe(take(1))
         .subscribe((res: HttpResponse<any>) => {
           if (res.ok) {
-            navigate();
+            logout();
           }
         });
     } else {
-      navigate();
+      logout();
     }
   }
 
