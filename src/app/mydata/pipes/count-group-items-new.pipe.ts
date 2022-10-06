@@ -23,46 +23,54 @@ export class CountGroupItemsNewPipe implements PipeTransform {
     let combinedItems = [];
 
     if (group.length) {
-      group.forEach(subgroup => {
+      group.forEach((subgroup) => {
         if (subgroup.joined) {
-          subgroup.groupItems[0].items.map((item) => item.joined = true);
+          subgroup.groupItems[0].items.map((item) => (item.joined = true));
         }
-          extras?.filterSelected ? combinedItems.push(subgroup.groupItems[0]?.items) :
-            combinedItems.push(subgroup.groupItems[0]?.items?.filter(item => item.itemMeta.show).map(visibleItem => {
-              return visibleItem.itemMeta;
-            }));
-
+        extras?.filterSelected
+          ? combinedItems.push(subgroup.groupItems[0]?.items)
+          : combinedItems.push(
+              subgroup.groupItems[0]?.items
+                ?.filter((item) => item.itemMeta.show)
+                .map((visibleItem) => {
+                  return visibleItem.itemMeta;
+                })
+            );
       });
     }
 
     let ret = [];
     combinedItems[0] && extras?.filterSelected
       ? combinedItems.filter((item) =>
-        extras.patchItems
-          ?
-          extras.patchItems.find(
-            (patchItem) => {
-              item.forEach((subItem) => {
-                patchItem.id === subItem.itemMeta.id && patchItem.type === subItem.itemMeta.type
-                if (patchItem.id === subItem.itemMeta.id && patchItem.type === subItem.itemMeta.type){
-                  ret.push(subItem);
-                }
-              });
-            }
-          )
-          : item.show
-      )
+          extras.patchItems
+            ? extras.patchItems.find((patchItem) => {
+                item.forEach((subItem) => {
+                  patchItem.id === subItem.itemMeta.id &&
+                    patchItem.type === subItem.itemMeta.type;
+                  if (
+                    patchItem.id === subItem.itemMeta.id &&
+                    patchItem.type === subItem.itemMeta.type
+                  ) {
+                    ret.push(subItem);
+                  }
+                });
+              })
+            : item.show
+        )
       : combinedItems;
 
     // Called 'only count' since crops out information. Used only for counting number of changed items.
+    // E.g. count keywords from one source as one item
     if (extras.onlyCount) {
-      let prevItem = ret[0];
-      ret.forEach((item) => {
-        if (item.joined && prevItem?.itemMeta?.type === item.itemMeta.type) {
-          prevItem = item;
-          ret.shift();
-        }
-      });
+      if (ret.length > 1) {
+        let prevItem = ret[0];
+        ret.forEach((item) => {
+          if (item.joined && prevItem?.itemMeta?.type === item.itemMeta.type) {
+            prevItem = item;
+            ret.shift();
+          }
+        });
+      }
     }
     return ret;
   }
