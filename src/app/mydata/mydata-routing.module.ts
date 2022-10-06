@@ -41,7 +41,7 @@ const routes: Routes = [
     },
   },
   {
-    path: 'cancel-introduction',
+    path: 'cancel-deployment',
     pathMatch: 'full',
     component: CancelDeploymentComponent,
   },

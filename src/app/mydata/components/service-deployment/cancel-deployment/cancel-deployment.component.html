@@ -24,9 +24,9 @@
       <app-secondary-button
         i18n-content="@@yesCancelDeployment"
         content="Kyllä, peruutan käyttöönoton"
-        routerLink="/mydata"
         tabindex="-1"
         [big]="true"
+        (click)="cancelDeployment()"
       >
       </app-secondary-button>
     </div>
