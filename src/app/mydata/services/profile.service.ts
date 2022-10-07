@@ -42,12 +42,18 @@ export class ProfileService {
     this.apiUrl = this.appConfigService.profileApiUrl;
   }
 
-  updateTokenInHttpAuthHeader(bypassOrcidCheck = false) {
+  updateTokenInHttpAuthHeader(options?: { bypassOrcidCheck: boolean }) {
     const token = this.oidcSecurityService.getAccessToken();
 
     const idTokenPayload = this.oidcSecurityService.getPayloadFromIdToken();
 
-    if (!bypassOrcidCheck && !idTokenPayload.orcid) {
+    if (!token) {
+      return this.setErrorMessage(
+        'Autentikointi-avain ei saatavilla. Pyyntö estetty.'
+      );
+    }
+
+    if (!options?.bypassOrcidCheck && !idTokenPayload.orcid) {
       return this.handleOrcidNotLinked();
     }
 
@@ -60,10 +66,16 @@ export class ProfileService {
     };
   }
 
-  handleOrcidNotLinked() {
+  setErrorMessage(errorMessage: string) {
     this.errorHandlerService.updateError({
-      message: 'ORCID-tiliä ei ole linkitetty. Toiminto ei ole sallittu.',
+      message: errorMessage,
     });
+  }
+
+  handleOrcidNotLinked() {
+    return this.setErrorMessage(
+      'ORCID-tiliä ei ole linkitetty. Toiminto ei ole sallittu.'
+    );
   }
 
   setCurrentProfileName(fullName: string) {
@@ -96,6 +108,15 @@ export class ProfileService {
   deleteProfile() {
     this.updateTokenInHttpAuthHeader();
     return this.http.delete(this.apiUrl + '/userprofile/', this.httpOptions);
+  }
+
+  /*
+   * Keycloak account is created after succesful Suomi.fi authentication.
+   * Delete this account if user cancels service deployment.
+   */
+  deleteAccount() {
+    this.updateTokenInHttpAuthHeader({ bypassOrcidCheck: true });
+    return this.http.delete(this.apiUrl + '/accountdelete/', this.httpOptions);
   }
 
   getOrcidData() {
@@ -146,7 +167,7 @@ export class ProfileService {
    * access and id tokens.
    */
   accountlink() {
-    this.updateTokenInHttpAuthHeader(true);
+    this.updateTokenInHttpAuthHeader({ bypassOrcidCheck: true });
     return this.http.get(this.apiUrl + '/accountlink/', this.httpOptions);
   }
 }

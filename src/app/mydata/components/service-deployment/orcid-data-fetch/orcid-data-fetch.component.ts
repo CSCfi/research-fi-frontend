@@ -1,10 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ProfileService } from '@mydata/services/profile.service';
-import { AppSettingsService } from '@shared/services/app-settings.service';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { Subscription, switchMap, take } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 
 @Component({
   selector: 'app-orcid-data-fetch',
@@ -12,29 +10,22 @@ import { Subscription, switchMap, take } from 'rxjs';
   styleUrls: ['./orcid-data-fetch.component.scss'],
 })
 export class OrcidDataFetchComponent implements OnInit, OnDestroy {
+  @Input() userData: any;
+  @Input() orcid: string;
+
+  configLoading = true;
   loading = false;
-  IDPLinkSub: Subscription;
-  orcid: string;
+
   createProfileSub: Subscription;
   accountLinkSub: Subscription;
 
   constructor(
     private profileService: ProfileService,
-    private oidcSecurityService: OidcSecurityService,
     private router: Router,
     public dialog: MatDialog
   ) {}
 
-  ngOnInit(): void {
-    this.IDPLinkSub = this.profileService
-      .accountlink()
-      .pipe(switchMap(() => this.oidcSecurityService.forceRefreshSession()))
-      .subscribe(() => {
-        const idTokenPayload = this.oidcSecurityService.getPayloadFromIdToken();
-        this.orcid = idTokenPayload.orcid;
-        this.profileService.setUserData(idTokenPayload);
-      });
-  }
+  ngOnInit(): void {}
 
   fetchOrcidData() {
     if (!this.orcid) {
@@ -77,7 +68,6 @@ export class OrcidDataFetchComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.IDPLinkSub?.unsubscribe();
     this.createProfileSub?.unsubscribe();
     this.accountLinkSub?.unsubscribe();
   }

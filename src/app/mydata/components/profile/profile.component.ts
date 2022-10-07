@@ -302,7 +302,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
             this.reset();
 
             // Wait for dialog to close
-            setTimeout(() => this.router.navigate(['/mydata']), 500);
+            setTimeout(() => {
+              this.oidcSecurityService.logoff();
+            }, 500);
           }
         },
         error: (error) => {
