@@ -94,13 +94,12 @@ export class EditorModalComponent implements OnInit {
     let allSelected = true;
     if (this.editorData.fields[0].groupItems[0]?.items !== undefined) {
       this.editorData.fields[0].groupItems[0]?.items.forEach((item) => {
-       if (item?.itemMeta?.show === true){
+        if (item?.itemMeta?.show === true) {
           someSelected = true;
-        }
-       else if (item?.itemMeta?.show === false) {
+        } else if (item?.itemMeta?.show === false) {
           allSelected = false;
-      }
-    });
+        }
+      });
     }
 
     this.toggleAllDisabled = this.editorData.fields[0].groupItems === undefined;
@@ -109,8 +108,10 @@ export class EditorModalComponent implements OnInit {
   }
 
   checkSomeSelected() {
-    if (this.editorData.fields[0].groupItems[0]?.items !== undefined) {
-      return this.editorData.fields[0].groupItems[0]?.items?.some(item => item?.itemMeta?.show);
+    const items = this.editorData.fields[0].groupItems[0]?.items;
+
+    if (items && items.length > 1) {
+      return items.some((item) => item?.itemMeta?.show);
     }
     return false;
   }
@@ -145,23 +146,23 @@ export class EditorModalComponent implements OnInit {
   }
 
   doDialogAction(action: string) {
-    switch(action) {
-      case "save": {
+    switch (action) {
+      case 'save': {
         this.patchService.confirmPayload();
         this.publicationsService.confirmPayload();
         this.datasetsService.confirmPayload();
         this.fundingsService.confirmPayload();
 
-        return this.onEditorClose.emit(this.editorData)
+        return this.onEditorClose.emit(this.editorData);
       }
-      case "cancel": {
+      case 'cancel': {
         this.patchService.clearPayload();
         this.publicationsService.clearPayload();
         this.publicationsService.clearDeletables();
       }
     }
 
-    this.onEditorClose.emit(null) // close component wrapper from parent
-    this.showDialog = false
+    this.onEditorClose.emit(null); // close component wrapper from parent
+    this.showDialog = false;
   }
 }
