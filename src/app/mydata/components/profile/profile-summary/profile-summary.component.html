@@ -23,25 +23,24 @@
       <div
         class="col align-self-center fst-italic order-3 order-sm-2"
         i18n="@@youHaveNotSelectedAnyPublicData"
-        *ngIf="
-          !(group.fields | hasSelectedItems  : { groupId: ''})
-        "
+        *ngIf="!(group.fields | hasSelectedItems: { groupId: '' })"
       >
         Et ole vielä valinnut julkisesti näytettäviä tietoja
       </div>
       <div class="col-auto order-2 order-sm-3">
         <app-secondary-button
-          [content]="selectString"
+          [content]="
+            (group.fields | hasSelectedItems: { groupId: '' })
+              ? editString
+              : selectString
+          "
           (click)="openDialog($event, i + 1)"
         ></app-secondary-button>
       </div>
     </div>
 
     <ng-container *ngFor="let field of group.fields">
-      <div
-        class="row py-2"
-        *ngIf="field"
-      >
+      <div class="row py-2" *ngIf="field">
         <div class="col px-0 pb-3" [ngSwitch]="group.id">
           <app-summary-affiliations
             *ngSwitchCase="groupTypes.affiliation"
@@ -90,50 +89,50 @@
           </app-summary-portal-items>
 
           <div class="summary-panel-wrapper" *ngSwitchDefault>
-            <div class="col px-3 fw-bold py-2" *ngIf="group.fields | hasSelectedItems : { groupId: field.id}">
+            <div
+              class="col px-3 fw-bold py-2"
+              *ngIf="group.fields | hasSelectedItems: { groupId: field.id }"
+            >
               {{ field.label }}
             </div>
 
-            <ng-container
-              *ngFor="
-                let groupItem of field.groupItems"
-            >
+            <ng-container *ngFor="let groupItem of field.groupItems">
               <div *ngIf="groupItem?.items[0]?.itemMeta?.type">
-              <ng-container [ngSwitch]="groupItem.items[0].itemMeta.type">
-                <div
-                  class="summary-panel"
-                  *ngSwitchCase="fieldTypes.personKeyword"
-                >
-                  <!-- Display joined keywords only if item has show property set to true -->
-                  <div class="row" *ngIf="groupItem.items[0].itemMeta.show">
-                    <div class="col pb-2 font-size-smaller">
-                      {{ groupItem.items | joinItems: 'value' }}
-                    </div>
-                  </div>
-                  <app-summary-divider></app-summary-divider>
-                </div>
-
-                <ng-container *ngSwitchDefault>
+                <ng-container [ngSwitch]="groupItem.items[0].itemMeta.type">
                   <div
                     class="summary-panel"
-                    *ngFor="let item of groupItem.items"
+                    *ngSwitchCase="fieldTypes.personKeyword"
                   >
-                    <div
-                      class="row d-flex justify-content-between py-1"
-                      *ngIf="item.itemMeta.show"
-                    >
-                      <div class="col font-size-smaller">
-                        <app-panel-array-item
-                          [item]="item"
-                          [fieldType]="groupItem.items[0].itemMeta.show"
-                          [localized]="field.localized"
-                        ></app-panel-array-item>
+                    <!-- Display joined keywords only if item has show property set to true -->
+                    <div class="row" *ngIf="groupItem.items[0].itemMeta.show">
+                      <div class="col pb-2 font-size-smaller">
+                        {{ groupItem.items | joinItems: 'value' }}
                       </div>
                     </div>
                     <app-summary-divider></app-summary-divider>
                   </div>
+
+                  <ng-container *ngSwitchDefault>
+                    <div
+                      class="summary-panel"
+                      *ngFor="let item of groupItem.items"
+                    >
+                      <div
+                        class="row d-flex justify-content-between py-1"
+                        *ngIf="item.itemMeta.show"
+                      >
+                        <div class="col font-size-smaller">
+                          <app-panel-array-item
+                            [item]="item"
+                            [fieldType]="groupItem.items[0].itemMeta.show"
+                            [localized]="field.localized"
+                          ></app-panel-array-item>
+                        </div>
+                      </div>
+                      <app-summary-divider></app-summary-divider>
+                    </div>
+                  </ng-container>
                 </ng-container>
-              </ng-container>
               </div>
             </ng-container>
           </div>
