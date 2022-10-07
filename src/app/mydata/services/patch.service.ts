@@ -47,8 +47,15 @@ export class PatchService {
 
     // If user decides to deselect already confirmed item
     patchItems.forEach((item) => {
-      if (merged.filter((mergedItem) => mergedItem.id === item.id).length > 1) {
-        merged = merged.filter((mergedItem) => mergedItem.id !== item.id);
+      if (item?.type === 300) {
+        if (merged.filter((mergedItem) => mergedItem.id === item.id &&
+          mergedItem.primaryValue === item.primaryValue).length > 1) {
+          merged = merged.filter((mergedItem) => mergedItem.id !== item.id);
+        }
+      } else {
+        if (merged.filter((mergedItem) => mergedItem.id === item.id).length > 1) {
+          merged = merged.filter((mergedItem) => mergedItem.id !== item.id);
+        }
       }
     });
 
