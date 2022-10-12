@@ -42,6 +42,7 @@ export class DialogComponent implements OnInit, OnDestroy {
   @Input() wide: any;
   @Input() position: string;
   @Input() extraClass: string;
+  @Input() hideClose: boolean;
   @Input() headerInfoTemplate: TemplateRef<any>;
   @Input() extraHeaderTemplate: TemplateRef<any>;
   @Output() onDialogClose = new EventEmitter<any>();
@@ -102,6 +103,7 @@ export class DialogComponent implements OnInit, OnDestroy {
         wide: checkInput(this.wide),
         headerInfoTemplate: this.headerInfoTemplate,
         extraHeaderTemplate: this.extraHeaderTemplate,
+        hideClose: this.hideClose,
       },
       panelClass: ['responsive-dialog', this.extraClass],
       disableClose: this.disableClose ? true : false,

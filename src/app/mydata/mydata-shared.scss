@@ -5,6 +5,17 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
+// Orcid icon
+app-orcid,
+app-orcid-id-info,
+app-profile,
+app-data-sources {
+  .orcid-icon {
+    height: 1.2rem;
+    width: auto;
+  }
+}
+
 app-profile-summary,
 app-profile-panel {
   .mat-expansion-panel {

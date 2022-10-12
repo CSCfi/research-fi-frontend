@@ -35,9 +35,9 @@ import { MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { HomeComponent } from './components/home/home.component';
-import { WelcomeStepperComponent } from './components/welcome-stepper/welcome-stepper.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { RedirectComponent } from './components/redirect/redirect.component';
 
@@ -47,8 +47,6 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './services/auth-guard.service';
 
 import { SharedModule } from '../shared/shared.module';
-import { OrcidIdInfoComponent } from './components/welcome-stepper/orcid-id-info/orcid-id-info.component';
-import { StepperNavigationComponent } from './components/welcome-stepper/stepper-navigation/stepper-navigation.component';
 
 import { ProfilePanelComponent } from './components/profile/profile-panel/profile-panel.component';
 import { FilterPipe } from './pipes/filter.pipe';
@@ -97,6 +95,11 @@ import { CancelDeploymentComponent } from './components/service-deployment/cance
 import { OrcidLoginComponent } from './components/service-deployment/orcid-login/orcid-login.component';
 import { OrcidDataFetchComponent } from './components/service-deployment/orcid-data-fetch/orcid-data-fetch.component';
 import { WelcomeDialogComponent } from './components/profile/welcome-dialog/welcome-dialog.component';
+import { DataSourcesComponent } from './components/profile/data-sources/data-sources.component';
+import { DataSourcesTableComponent } from './components/profile/data-sources/data-sources-table/data-sources-table.component';
+import { DataSourcesFiltersComponent } from './components/profile/data-sources/data-sources-filters/data-sources-filters.component';
+import { DataSourcesSelectionActionsComponent } from './components/profile/data-sources/data-sources-selection-actions/data-sources-selection-actions.component';
+import { FindByKeyValuePipe } from './pipes/find-by-key-value.pipe';
 
 const matSnackbarDefaultConfig: MatSnackBarConfig = {
   verticalPosition: 'top',
@@ -107,12 +110,9 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
 @NgModule({
   declarations: [
     HomeComponent,
-    WelcomeStepperComponent,
     NotFoundComponent,
     RedirectComponent,
     LoginComponent,
-    OrcidIdInfoComponent,
-    StepperNavigationComponent,
     ProfilePanelComponent,
     FilterPipe,
     GetLocalizedValuesPipe,
@@ -157,7 +157,12 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
     OrcidDataFetchComponent,
     WelcomeDialogComponent,
     HasSelectedItemsPipe,
-    CountGroupItemsNewPipe
+    CountGroupItemsNewPipe,
+    DataSourcesComponent,
+    DataSourcesTableComponent,
+    DataSourcesFiltersComponent,
+    DataSourcesSelectionActionsComponent,
+    FindByKeyValuePipe,
   ],
   imports: [
     CommonModule,
@@ -183,6 +188,7 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
     MatSortModule,
     MatButtonModule,
     MatRippleModule,
+    MatMenuModule,
     PortalModule,
   ],
   providers: [

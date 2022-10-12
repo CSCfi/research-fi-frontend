@@ -50,6 +50,12 @@ import { ClickOutsideDirective } from './directives/click-outside.directive';
 import { NotificationBannerComponent } from './components/notification-banner/notification-banner.component';
 import { TableComponent } from './components/table/table.component';
 import { TableCellComponent } from './components/table/table-cell/table-cell.component';
+import { ActiveFiltersListComponent } from './components/active-filters-list/active-filters-list.component';
+import { ActiveFiltersDialogComponent } from './components/active-filters-list/active-filters-dialog/active-filters-dialog.component';
+import { TableCardComponent } from './components/table/table-card/table-card.component';
+import { SortByButtonComponent } from './components/buttons/sort-by-button/sort-by-button.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
+import { ResultCountComponent } from './components/result-count/result-count.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +80,12 @@ import { TableCellComponent } from './components/table/table-cell/table-cell.com
     NotificationBannerComponent,
     TableComponent,
     TableCellComponent,
+    ActiveFiltersListComponent,
+    ActiveFiltersDialogComponent,
+    TableCardComponent,
+    SortByButtonComponent,
+    PaginationComponent,
+    ResultCountComponent,
   ],
   exports: [
     InfoComponent,
@@ -94,6 +106,10 @@ import { TableCellComponent } from './components/table/table-cell/table-cell.com
     ClickOutsideDirective,
     NotificationBannerComponent,
     TableComponent,
+    ActiveFiltersListComponent,
+    SortByButtonComponent,
+    PaginationComponent,
+    ResultCountComponent,
   ],
   imports: [
     CommonModule,

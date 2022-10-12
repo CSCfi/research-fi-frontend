@@ -113,7 +113,17 @@ This area consists of data gathered from Researh.fi CMS system.
 
 ### Dynamic tables
 
-We use <app-table> component for rendering dynamic tables.
+We use <app-table> component for rendering dynamic tables. Table is created on top of Material UI Table component.
+Pass data for table as column headers and rows. Row data consists of two objects: row cells and optional options. Row cells match property names to column headers.
+
+Table cells are best suited for plain text. In some occasions we want to render row cells with more complex logic (see eg. `results/publications` route).
+This is achieved by handling cell data as a template from parent: Create template inside of loop of rows in parent HTML, give template a template variable and access these variables in table data declaration.
+
+Table can have leading column which consist of either icon or checkbox cells.
+
+Sorting logic is handled with Material UI Sort header -component. Data sorting is handled either in parent component or in dedicated service. Sort parameters are emitted from table component on sort change.
+
+Row can have an active status indicated with accent background color. Activate this status by adding `activeRowIdentifierField={fieldName}` property to component call.
 
 ## MyData Module
 

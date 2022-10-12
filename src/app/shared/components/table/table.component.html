@@ -11,58 +11,110 @@
   [dataSource]="rows"
   matSort
   (matSortChange)="sortData($event)"
-  [dataSource]="rows"
   [matSortActive]="sortColumn"
   [matSortDirection]="sortColumn ? sortDirection : ''"
   [@.disabled]="true"
   class="d-none d-lg-block"
   [class.align-center]="alignCenter"
+  [class.select-row]="displayedColumns.indexOf('selection') > -1"
 >
   <ng-container *ngFor="let column of columns" [matColumnDef]="column.key">
     <mat-header-cell
       *matHeaderCellDef
       [mat-sort-header]="column.key"
       [disabled]="column.sortDisabled"
-      [class.invisible]="column.key === 'icon'"
+      [class.invisible]="column.labelHidden"
       [class.no-active-sort]="
         sortColumn?.length === 0 || sortColumn !== column.key
       "
       [ngClass]="column.class ? column.class : 'col-auto'"
+      [class.icon-cell]="column.key === 'icon'"
+      [class.dense]="dense"
     >
-      <span [tooltip]="column.tooltip" container="body">
-        {{ column.label }}
-      </span>
+      <ng-container [ngSwitch]="column.key">
+        <!-- Select all -->
+        <ng-container *ngSwitchCase="'selection'">
+          <mat-checkbox
+            (change)="handleSelectAll($event)"
+            [(ngModel)]="allSelected"
+          >
+          </mat-checkbox>
+        </ng-container>
+
+        <!-- Column label -->
+        <div
+          *ngSwitchDefault
+          [tooltip]="column.tooltip"
+          container="body"
+          class="column-label"
+        >
+          {{ column.label }}
+          <fa-icon
+            *ngIf="column.tooltip && column.showTooltipIcon"
+            class="info-icon font-size-big ps-2"
+            icon="info-circle"
+          ></fa-icon>
+        </div>
+      </ng-container>
+
+      <!-- Sort indicator -->
+      <div class="sort-indicator" *ngIf="!column.sortDisabled">
+        <fa-icon
+          [icon]="faSort"
+          *ngIf="sortColumn !== column.key; else activeSortIndicatorTemplate"
+        ></fa-icon>
+        <ng-template #activeSortIndicatorTemplate>
+          <fa-icon [icon]="faSortUp" *ngIf="sortDirection === 'asc'"></fa-icon>
+          <fa-icon
+            [icon]="faSortDown"
+            *ngIf="sortDirection === 'desc'"
+          ></fa-icon>
+        </ng-template>
+      </div>
     </mat-header-cell>
     <mat-cell
-      *matCellDef="let rows"
+      *matCellDef="let row; let i = index"
       [ngSwitch]="column.key"
       [ngClass]="column.class ? column.class : 'col-auto'"
       [class.overflow-visible]="column.overflowEnabled"
       class="d-block"
-      [title]="rows[column.key].title | cutContent: 200"
+      [title]="row[column.key].title | cutContent: 200"
+      [class.icon-cell]="column.key === 'icon'"
+      [class.active-cell]="row[activeRowIdentifierField]?.value"
+      [class.borders]="borders"
+      [class.dense]="dense"
     >
       <!-- Optional icon -->
       <ng-container *ngIf="column.key === 'icon' && iconLinkField">
         <a
-          *ngIf="rows[iconLinkField].link"
+          *ngIf="row[iconLinkField].link"
           tabindex="-1"
-          [routerLink]="rows[iconLinkField].link"
+          [routerLink]="row[iconLinkField].link"
         >
           <ng-container *ngTemplateOutlet="iconTemplate"></ng-container>
         </a>
       </ng-container>
       <ng-template #iconTemplate>
         <fa-icon
-          [icon]="rows.icon"
+          [icon]="row.icon"
           *ngSwitchCase="'icon'"
           [title]="iconTitle"
-          class="row-icon"
         ></fa-icon>
       </ng-template>
 
+      <!-- Selectable row -->
+      <ng-container *ngSwitchCase="'selection'">
+        <mat-checkbox
+          #rowSelect
+          [checked]="selectedRows.indexOf(i) > -1"
+          (change)="handleSelection($event, i)"
+        >
+        </mat-checkbox>
+      </ng-container>
+
       <!-- Cell data  -->
       <ng-container *ngSwitchDefault>
-        <app-table-cell [data]="rows[column.key]"></app-table-cell>
+        <app-table-cell [data]="row[column.key]"></app-table-cell>
       </ng-container>
     </mat-cell>
   </ng-container>
@@ -70,14 +122,11 @@
   <mat-header-row
     *matHeaderRowDef="displayedColumns; sticky: true"
   ></mat-header-row>
-  <mat-row
-    *matRowDef="let rows; columns: displayedColumns"
-    class="py-2"
-  ></mat-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 </mat-table>
 
 <!-- Mobile list view -->
-<div class="d-block d-lg-none">
+<div class="mobile-list d-block d-lg-none" [class.d-none]="mobileCards">
   <div class="row py-3 justify-content-between" *ngFor="let row of rows">
     <ng-container *ngFor="let column of columns">
       <div
@@ -96,4 +145,27 @@
       </div>
     </ng-container>
   </div>
+</div>
+
+<!-- Mobile card view -->
+<div class="d-lg-none py-3 mx-n2" *ngIf="mobileCards">
+  <div class="row" *ngIf="selectable">
+    <mat-checkbox
+      (change)="handleSelectAll($event)"
+      [(ngModel)]="allSelected"
+      i18n="@@selectAll"
+    >
+      Valitse kaikki
+    </mat-checkbox>
+  </div>
+
+  <app-table-card
+    *ngFor="let row of rows; let i = index"
+    [index]="i"
+    [columns]="columns"
+    [row]="row"
+    [active]="row[activeRowIdentifierField]?.value"
+    [selectedRows]="selectedRows"
+    (onSelectionChange)="handleSelection($event, i)"
+  ></app-table-card>
 </div>

@@ -80,6 +80,11 @@ export class AppSettingsService {
     baseRoute: 'mydata',
     navItems: [
       {
+        label: $localize`:@@publicProfile:Julkinen profiili`,
+        link: '/mydata/profile',
+      },
+      { label: 'Tiedot ja tietolähteet', link: '/mydata/data-sources' },
+      {
         label: $localize`:@@logIn:Kirjaudu sisään`,
         link: '',
         loginProcess: true,

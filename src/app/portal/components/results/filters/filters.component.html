@@ -10,7 +10,7 @@
   [class.d-none]="!mobile"
 >
   <app-secondary-button
-    [content]="tabData === 'news' ? filterNewsHeader : filterSearchHeader"
+    [content]="filterHeading"
     [icon]="faSlidersH"
     [noSmIcon]="true"
     [big]="true"
@@ -38,14 +38,19 @@
   <div class="filter-sidebar" *ngIf="responseData">
     <h3 class="header" *ngIf="!mobile && !showButton">
       <fa-icon class="filter-icon" [icon]="faSlidersH"></fa-icon
-      >{{ tabData === 'news' ? filterNewsHeader : filterSearchHeader }}
+      >{{ filterHeading }}
     </h3>
     <div class="filter-wrapper">
       <mat-expansion-panel
         *ngFor="let filter of currentFilter; let i = index"
         class="parent"
         [expanded]="filter.open"
-        [hidden]="filter.field === 'field' && (filter.label === 'Hakuala' || filter.label === 'Category' || filter.label === 'Ämnesområde')"
+        [hidden]="
+          filter.field === 'field' &&
+          (filter.label === 'Hakuala' ||
+            filter.label === 'Category' ||
+            filter.label === 'Ämnesområde')
+        "
         (opened)="setOpenStatus(filter.field)"
         (closed)="closePanel(filter.field)"
       >
@@ -599,11 +604,6 @@
             </mat-expansion-panel>
           </div>
         </div>
-        <!-- Add empty pading if there are no results -->
-        <div
-          *ngIf="responseData.aggregations[filter.field]?.buckets?.length == 0"
-          class="empty-pad"
-        ></div>
       </mat-expansion-panel>
       <!-- Items with single checkbox -->
       <div class="single-checkbox" *ngFor="let item of currentSingleFilter">

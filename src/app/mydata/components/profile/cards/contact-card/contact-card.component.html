@@ -6,22 +6,20 @@
 <app-profile-editor-card-header
   [label]="label"
   [displayButton]="
-    (_data[0].fields | countGroupItems: { filterSelected: true }).length > 1
+    (contactFields | countGroupItems: { filterSelected: true }).length > 1
   "
   (handleOpenDialog)="openDialog()"
 ></app-profile-editor-card-header>
 
 <app-empty-card
   *ngIf="
-    (_data[0].fields | countGroupItems: { filterSelected: true }).length === 1
+    (contactFields | countGroupItems: { filterSelected: true }).length === 0
   "
   (onButtonClick)="openDialog()"
 ></app-empty-card>
 
 <div class="d-block mt-3">
-  <ng-container
-    *ngFor="let field of _data[0].fields.slice(1).reverse(); let i = index"
-  >
+  <ng-container *ngFor="let field of contactFields; let i = index">
     <ng-container [ngSwitch]="field.id">
       <ng-container *ngSwitchCase="'otherNames'">
         <div
@@ -32,7 +30,7 @@
             <span
               class="fw-bold d-inline-block pe-3"
               *ngIf="_data[0].fields.length > 1"
-            >{{ field.label }}
+              >{{ field.label }}
             </span>
             <span>{{ field.groupItems | joinAllGroupItems }}</span>
           </div>
@@ -54,13 +52,13 @@
                   *ngSwitchCase="fieldTypes.personWebLink"
                   target="_blank"
                   [attr.href]="item.url"
-                >{{ item.url }}<fa-icon icon="external-link-alt"></fa-icon
+                  >{{ item.url }}<fa-icon icon="external-link-alt"></fa-icon
                 ></a>
                 <!-- Email -->
                 <a
                   *ngSwitchCase="fieldTypes.personEmailAddress"
                   [href]="'mailto:' + item.value"
-                >{{ item.value }}
+                  >{{ item.value }}
                 </a>
                 <!-- Default -->
                 <ng-container *ngSwitchDefault>
@@ -68,7 +66,7 @@
                     [item]="item"
                     [fieldType]="groupItem"
                   ></app-panel-array-item
-                  ></ng-container>
+                ></ng-container>
               </ng-container>
             </div>
           </ng-container>

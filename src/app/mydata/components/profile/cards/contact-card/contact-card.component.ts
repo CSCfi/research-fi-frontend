@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { DraftService } from '@mydata/services/draft.service';
 import { SnackbarService } from '@mydata/services/snackbar.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
@@ -20,7 +20,7 @@ import { ProfileService } from '@mydata/services/profile.service';
   selector: 'app-contact-card',
   templateUrl: './contact-card.component.html',
 })
-export class ContactCardComponent implements OnInit {
+export class ContactCardComponent implements OnInit, OnChanges {
   @Input() set data(input: any) {
     this._data = input;
   }
@@ -43,6 +43,13 @@ export class ContactCardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
+
+  ngOnChanges(): void {
+    // Filter out name field which is rendered in profile heading
+    this.contactFields = this._data[0].fields.filter(
+      (field) => field.id !== 'name'
+    );
+  }
 
   openDialog() {
     this.showDialog = true;
@@ -75,7 +82,7 @@ export class ContactCardComponent implements OnInit {
             (item) => item.itemMeta.id === selectedNameId
           ).value;
 
-          this.profileService.setCurrentProfileName(selectedName);
+          this.profileService.setEditorProfileName(selectedName);
         }
 
         // Update summary data with selection
@@ -93,7 +100,10 @@ export class ContactCardComponent implements OnInit {
       }
 
       // Set draft profile data to storage
-      sessionStorage.setItem(Constants.draftProfile, JSON.stringify(this._data));
+      sessionStorage.setItem(
+        Constants.draftProfile,
+        JSON.stringify(this._data)
+      );
 
       // Set patch payload to store
       sessionStorage.setItem(

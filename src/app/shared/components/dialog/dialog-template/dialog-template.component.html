@@ -33,6 +33,7 @@
   <!-- Close button -->
   <div
     class="col-auto text-end mt-1 mt-sm-0 align-self-sm-center order-2 order-sm-3"
+    [class.d-lg-none]="data.hideClose"
     #closeButton
   >
     <app-close-button
@@ -51,6 +52,19 @@
     <div class="col px-0 px-lg-3" [ngClass]="data.noPadding ? 'px-0' : 'py-3'">
       <ng-container [ngTemplateOutlet]="data.template"></ng-container>
     </div>
+
+    <!-- Mobile extra content. E.g. MyData patch summary -->
+    <ng-container
+      *ngIf="mobile && displayExtraContent && data.extraContentTemplate"
+    >
+      <div class="row px-0 pb-3 mb-5">
+        <div class="col">
+          <ng-container
+            [ngTemplateOutlet]="data.extraContentTemplate"
+          ></ng-container>
+        </div>
+      </div>
+    </ng-container>
   </div>
 
   <!-- Footer -->
@@ -119,8 +133,10 @@
   </ng-template>
 </mat-dialog-actions>
 
+<!-- Desktop extra content -->
 <!-- Eg. mydata profile / publish / display data to publish toggle -->
-<mat-dialog-content *ngIf="displayExtraContent && data.extraContentTemplate"
+<mat-dialog-content
+  *ngIf="!mobile && displayExtraContent && data.extraContentTemplate"
   ><div class="row px-3 pb-4">
     <div class="col">
       <ng-container

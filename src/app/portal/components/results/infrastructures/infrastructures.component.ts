@@ -25,7 +25,7 @@ import { SortService } from 'src/app/portal/services/sort.service';
 import { Search } from 'src/app/portal/models/search.model';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { UtilityService } from 'src/app/shared/services/utility.service';
-import { TableColumn, TableRowItem } from 'src/types';
+import { TableColumn, TableRow } from 'src/types';
 import { HighlightSearch } from '@portal/pipes/highlight.pipe';
 
 @Component({
@@ -51,7 +51,7 @@ export class InfrastructuresComponent
   faCheckCircle = faCheckCircle;
 
   tableColumns: TableColumn[];
-  tableRows: Record<string, TableRowItem>[];
+  tableRows: Record<string, TableRow>[];
 
   @ViewChildren('infrastructureNameColumns', { read: TemplateRef })
   infrastructureNameColumns: QueryList<ElementRef>;

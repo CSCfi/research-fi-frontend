@@ -3,89 +3,11 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<div
-  #container
-  class="row active-filters"
-  *ngIf="activeFilters.length > 0 && translationFlag"
->
-  <h4 class="h6 w-100">
-    <ng-container i18n="@@activeFilters">Rajaukset</ng-container> ({{
-      parsedFilters.length
-    }}):
-  </h4>
-  <ul aria-live="polite" class="mb-0">
-    <ng-container
-      *ngFor="let activeFilter of parsedFilters.slice(0, 7); let i = index"
-    >
-      <li
-        tabindex="0"
-        class="filter"
-        *ngIf="!activeFilter.hide"
-        (click)="removeFilter($event)"
-        id="{{ activeFilter.value }}"
-      >
-        <span id="{{ activeFilter.value }}">{{
-          activeFilter.translation
-        }}</span>
-        <fa-icon
-          tabindex="0"
-          (focus)="enter(i)"
-          (blur)="leave()"
-          (mouseenter)="enter(i)"
-          (mouseleave)="leave()"
-          *ngIf="activeFilter.warning"
-          class="icon warning"
-          [icon]="faExclamationTriangle"
-        ></fa-icon>
-        <div
-          class="warning-info"
-          *ngIf="activeFilter.warning && hoverIndex === i"
-        >
-          <span i18n="@@yearRangeWarning"
-            >Aikavälissä ei ole mukana kaikkia vuosia. Voit tarkistaa vuodet
-            "Rajaa hakua" -valikosta vasemmalla.</span
-          >
-        </div>
-      </li>
-    </ng-container>
-    <div
-      class="ellipsis"
-      *ngIf="parsedFilters.length > 6"
-      (click)="openDialog()"
-    >
-      ...
-    </div>
-    <div class="d-inline-flex">
-      <button
-        *ngIf="parsedFilters.length > 6"
-        class="show filter"
-        mat-button
-        (click)="openDialog()"
-        i18n="@@showAll"
-      >
-        Näytä kaikki
-      </button>
-      <button
-        class="clear filter"
-        mat-button
-        (click)="clearFilters()"
-      >
-        <fa-icon class="clear" [icon]="faTrashAlt"></fa-icon>
-        <ng-container i18n="@@clearActiveFilters"
-          >Tyhjennä rajaukset</ng-container
-        >
-      </button>
-    </div>
-  </ul>
-</div>
-
-<ng-template #filterListDialog>
-  <app-filter-list [data]="dialogData" (clearAllFilters)="this.clearFilters()"></app-filter-list>
-</ng-template>
-
-<app-dialog
-  *ngIf="showDialog"
-  [title]="dialogTitle"
-  [template]="filterListDialog"
-  (onActionClick)="closeDialog()"
-></app-dialog>
+<!-- Shared component -->
+<app-active-filters-list
+  *ngIf="parsedFilters?.length > 0 && translationFlag"
+  [filters]="parsedFilters"
+  [dialogConfig]="activeFiltersDialogConfig"
+  (onRemoveFilter)="removeFilter($event)"
+  (onClearFilters)="clearFilters()"
+></app-active-filters-list>

@@ -7,12 +7,13 @@
 
 import { Injectable } from '@angular/core';
 import { cloneDeep } from 'lodash-es';
+import { FilterConfigType } from 'src/types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class InfrastructureFilterService {
-  filterData = [
+  filterData: FilterConfigType[] = [
     {
       field: 'year',
       label: $localize`:@@fundingYear:Aloitusvuosi`,
@@ -87,7 +88,7 @@ export class InfrastructureFilterService {
     // Sort by sector id
     data.buckets.sort((a, b) => parseInt(a.id, 10) - parseInt(b.id, 10));
 
-    return data.buckets
+    return data.buckets;
   }
 
   typeLabel(data) {

@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { get } from 'lodash-es';
+import { cloneDeep, get } from 'lodash-es';
 import { FieldTypes } from './constants/fieldTypes';
 import { PatchService } from './services/patch.service';
 
@@ -53,6 +53,14 @@ export function checkGroupPatchItem(group, patchItems) {
 /*
  * Shared methods
  */
+
+// Get user name from MyData profile data
+export function getName(data) {
+  return data
+    .find((item) => item.id === 'contact')
+    .fields[0].groupItems.flatMap((groupItem) => groupItem.items)
+    .find((item) => item.itemMeta.show)?.value;
+}
 
 // User can add "duplicate" publications.
 // Publications from Orcid and Portal are related with DOI.
@@ -144,4 +152,104 @@ export function sortItemsBy(data, path) {
   const items = [...groupItems].flatMap((groupItem) => groupItem.items);
 
   return items.sort((a, b) => get(b, path) - get(a, path));
+}
+
+// Map uniques sources from all groups
+export function getUniqueSources(profileData) {
+  const sources = [];
+
+  const sourcesMap = profileData
+    .flatMap((group) => group.fields)
+    .flatMap((field) => field.groupItems)
+    .map((groupItem) => groupItem.source);
+
+  const uniqueOrganizations = [
+    ...new Set(sourcesMap.map((source) => source.organization.name)),
+  ];
+
+  for (const organization of uniqueOrganizations) {
+    sources.push({
+      label: organization,
+      id: sourcesMap.find((source) => source.organization.name === organization)
+        .id,
+      count: sourcesMap.filter(
+        (source) => source.organization.name === organization
+      ).length,
+    });
+  }
+
+  return sources;
+}
+
+/*
+ * Data sources filters
+ *
+ * Each filter category handles filtered items differently and therefore
+ * it's not sufficient to filter data just once in the parent component.
+ *
+ * Filters component handles data per category, e.g. checking filter in "status"
+ * category filters results in other categories but not in "status".
+ * This results in accurate item counts and enables more performative filtering.
+ *
+ * Table component filtering is more simple and filters only rows to display.
+ */
+export const filterData = (profileData, activeFilters, filterType?: string) => {
+  const statusFilter = activeFilters.status;
+  const datasetFilter = activeFilters.dataset;
+  const sourceFilter = activeFilters.source;
+
+  const groups = cloneDeep(profileData);
+
+  /*
+   * Rule for checking if filtering is done to a certain category.
+   * This happens in filters component where each filter category counts
+   * filtered items bit differently regarding of filter category.
+   * Filtering doesn't happen for given filterType in given category.
+   */
+  const checkCategoryFilter = (category: string, filter) =>
+    (category && category !== filterType && filter) || (!filterType && filter);
+
+  for (const group of groups) {
+    // Datasets
+    if (checkCategoryFilter('dataset', datasetFilter)) {
+      filterByDatasets(group, datasetFilter);
+    }
+    for (const field of group.fields) {
+      for (const groupItem of field.groupItems) {
+        // Publicity
+        if (checkCategoryFilter('status', statusFilter)) {
+          filterByStatus(groupItem, statusFilter);
+        }
+      }
+      // Source
+      if (checkCategoryFilter('source', sourceFilter)) {
+        filterBySource(field, sourceFilter);
+      }
+    }
+  }
+
+  return groups;
+};
+
+export function filterByStatus(groupItem, filter) {
+  const statusFilterOptions = { public: true, private: false };
+  groupItem.items = groupItem.items.filter((item) =>
+    filter.some(
+      (filter: string) => item.itemMeta.show === statusFilterOptions[filter]
+    )
+  );
+}
+
+export function filterByDatasets(group, filter) {
+  return (group.fields = group.fields.filter((field) =>
+    filter.find((filter) => filter === field.id)
+  ));
+}
+
+export function filterBySource(field, filter) {
+  field.groupItems = field.groupItems.filter((groupItem) =>
+    filter.some(
+      (filter: string) => groupItem.source.organization.name === filter
+    )
+  );
 }

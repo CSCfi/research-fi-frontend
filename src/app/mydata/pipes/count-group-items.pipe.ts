@@ -24,23 +24,25 @@ export class CountGroupItemsPipe implements PipeTransform {
 
     group.forEach((el) => {
       el.groupItems.map((groupItem) => {
-        switch (true) {
-          case el.single: {
-            combinedItems = combinedItems.concat(
-              groupItem.items
-                .map((item) => item.itemMeta)
-                .filter((item) => item.show)
-            );
-            break;
-          }
-          case el.joined: {
-            combinedItems.push(groupItem.items[0].itemMeta);
-            break;
-          }
-          default: {
-            combinedItems = combinedItems.concat(
-              groupItem.items.map((item) => item.itemMeta)
-            );
+        if (groupItem.items.length > 0) {
+          switch (true) {
+            case el.single: {
+              combinedItems = combinedItems.concat(
+                groupItem.items
+                  .map((item) => item.itemMeta)
+                  .filter((item) => item.show)
+              );
+              break;
+            }
+            case el.joined: {
+              combinedItems.push(groupItem.items[0].itemMeta);
+              break;
+            }
+            default: {
+              combinedItems = combinedItems.concat(
+                groupItem.items.map((item) => item.itemMeta)
+              );
+            }
           }
         }
       });

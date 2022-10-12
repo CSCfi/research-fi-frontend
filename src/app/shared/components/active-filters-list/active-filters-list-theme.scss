@@ -1,0 +1,70 @@
+//  This file is part of the research.fi API service
+//
+//  Copyright 2019 Ministry of Education and Culture, Finland
+//
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
+@import '@angular/material/theming';
+
+@mixin app-active-filters-list-theme($theme) {
+  $primary: map-get($theme, primary);
+
+  app-active-filters-list,
+  app-active-filters-dialog {
+    .active-filters li {
+      border: 2px solid mat-color($primary, 500);
+      background: #fff;
+    }
+
+    .active-filters li:after {
+      color: #000000de;
+    }
+
+    button.clear,
+    button.show {
+      border-color: mat-color($primary);
+      color: #000000de;
+      background: #fff;
+    }
+
+    .icon {
+      color: mat-color($primary);
+    }
+
+    .warning-info {
+      background: mat-color($primary, default-contrast);
+    }
+
+    .warning-info:after,
+    .warning-info:before {
+      border: solid transparent;
+    }
+
+    .warning-info:after {
+      border-bottom-color: mat-color($primary, default-contrast);
+    }
+
+    .warning-info:before {
+      border-bottom-color: black;
+      border-width: 13px;
+      margin-left: -13px;
+    }
+  }
+
+  app-active-filters-list {
+    .ellipsis {
+      display: inline-block;
+      padding: 0 0.5rem;
+      font-size: 2rem;
+      line-height: 1rem;
+      font-weight: bold;
+      color: mat-color($primary);
+    }
+
+    .row.active-filters {
+      border-color: mat-color($primary);
+      background: mat-color($primary, 50);
+    }
+  }
+}

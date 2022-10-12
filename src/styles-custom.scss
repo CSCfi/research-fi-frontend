@@ -67,8 +67,15 @@ body {
   }
 }
 
-body.modal-open .content-container {
-  overflow: hidden;
+body.menu-open {
+  & .content-container {
+    overflow: hidden;
+  }
+
+  // Temporary fix for hiding long page content when menu opens
+  & main {
+    display: none;
+  }
 }
 
 // Display primary colored border around Material UI elements
@@ -435,12 +442,6 @@ mat-basic-chip.tag {
 .circle-small {
   background: mat-color($primary, 200);
 }
-
-// Modal
-// Modal doesnt scroll page
-// .modal-open modal-container.modal {
-//   // overflow-y: hidden;
-// }
 
 // Visualisation modal
 .visual-dialog {

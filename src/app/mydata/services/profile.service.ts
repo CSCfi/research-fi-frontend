@@ -15,6 +15,8 @@ import testData from 'src/testdata/mydataprofiledata.json';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { startCase } from 'lodash-es';
 import { ErrorHandlerService } from '@shared/services/error-handler.service';
+import { AppSettingsService } from '@shared/services/app-settings.service';
+import { Constants } from '@mydata/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -26,18 +28,27 @@ export class ProfileService {
 
   testData = testData;
 
-  private currentProfileNameSource = new BehaviorSubject<string>('');
-  currentProfileName = this.currentProfileNameSource.asObservable();
+  /*
+   * Flag for preventing profile view from populating patch payload
+   * when draft has been initialized. Profile view initialization
+   * would overwrite patch payload without the flag.
+   */
+  profileInitialized = false;
 
-  private userDataSource = new Subject<string>();
+  private editorProfileNameSource = new BehaviorSubject<string>('');
+  currentEditorProfileName = this.editorProfileNameSource.asObservable();
+
+  private userDataSource = new Subject<Record<string, unknown>>();
   userData = this.userDataSource.asObservable();
+  orcidUserProfile: Record<string, unknown>; // Set via orcid-profile-resolver
 
   constructor(
     private http: HttpClient,
     private appConfigService: AppConfigService,
     public oidcSecurityService: OidcSecurityService,
     private profileAdapter: ProfileAdapter,
-    private errorHandlerService: ErrorHandlerService
+    private errorHandlerService: ErrorHandlerService,
+    private appSettingsService: AppSettingsService
   ) {
     this.apiUrl = this.appConfigService.profileApiUrl;
   }
@@ -78,9 +89,13 @@ export class ProfileService {
     );
   }
 
-  setCurrentProfileName(fullName: string) {
+  setOrcidUserProfile(profileData) {
+    this.orcidUserProfile = profileData;
+  }
+
+  setEditorProfileName(fullName: string) {
     // Capitalize first letters of names with startCase function
-    this.currentProfileNameSource.next(startCase(fullName));
+    this.editorProfileNameSource.next(startCase(fullName));
   }
 
   setCurrentProfileData(data) {
@@ -129,6 +144,13 @@ export class ProfileService {
     return this.http
       .get<Profile[]>(this.apiUrl + '/profiledata2/', this.httpOptions)
       .pipe(map((data) => this.profileAdapter.adaptNew(data)));
+  }
+
+  // Draft profile is stored in session storage
+  getDraftProfile() {
+    if (this.appSettingsService.isBrowser) {
+      return sessionStorage.getItem(Constants.draftProfile);
+    }
   }
 
   patchObjects(items) {
