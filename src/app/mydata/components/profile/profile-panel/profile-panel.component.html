@@ -217,7 +217,11 @@
                   </ng-container>
                   <ng-template #singleSource>
                     <ng-container *ngFor="let ds of item.dataSources; let k = index">
-                      {{ds.organization['name' + locale]}}</ng-container></ng-template>
+                      {{ds.organization['name' + locale]}}</ng-container>
+                    <!-- placeholder until publication merging done -->
+                    <ng-container *ngIf="!item.dataSources">
+                      {{ ttvLabel }}</ng-container>
+                  </ng-template>
                 </div>
               </div>
 

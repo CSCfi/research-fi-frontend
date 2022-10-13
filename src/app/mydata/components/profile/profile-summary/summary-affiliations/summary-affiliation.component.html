@@ -4,23 +4,24 @@
  :license: MIT -->
 
 <!--  Primary affiliations -->
-<ng-container *ngIf="(data.groupItems | getItemsBy: 'primaryValue').length">
-  <div class="row">
-    <div class="col fw-bold pb-3" i18n="@@primaryPlural">Ensisijaiset</div>
-  </div>
+<div *ngIf="data.groupItems | getItemsBy: 'primaryValue' | hasSelectedItems: { groupId: 'affiliation'}" class="row">
+  <div class="col fw-bold pb-3" i18n="@@primaryPlural">Ensisijaiset</div>
+</div>
 
+<ng-container *ngIf="(data.groupItems | getItemsBy: 'primaryValue').length">
   <div
     class="row"
-    *ngFor="let primaryItem of data.groupItems[0].items; let i = index"
+    *ngFor="let primaryItem of data.groupItems | getItemsBy: 'primaryValue'"
   >
-    <div *ngIf="primaryItem.itemMeta.primaryValue" class="col-auto font-size-smaller">
-      {{  primaryItem['positionName' + locale]
-      }}<span *ngIf="primaryItem['organizationName' + locale]">, </span
-      >{{ primaryItem['organizationName' + locale]}}
+
+    <div *ngIf="primaryItem.itemMeta.show" class="col-auto font-size-smaller">
+      {{ primaryItem['positionName' + locale]}}
+      <span *ngIf="primaryItem['positionName' + locale]">, </span>
+      {{ primaryItem['organizationName' + locale] }}
     </div>
   </div>
 
-  <app-summary-divider [thick]="true"></app-summary-divider>
+  <hr *ngIf="data.groupItems | getItemsBy: 'primaryValue' | hasSelectedItems: { groupId: 'affiliation'}">
 </ng-container>
 <!-- List affiliations -->
 <div class="summary-panel-wrapper">

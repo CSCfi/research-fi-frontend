@@ -319,7 +319,7 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
       // Merge publications that share DOI
       // Select merged ORCID publication
       if (this.data.id === this.groupTypes.publication) {
-        mergePublications(field, this.patchService);
+        //mergePublications(field, this.patchService);
       }
     };
 
