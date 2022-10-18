@@ -23,16 +23,14 @@
       <div
         class="col align-self-center fst-italic order-3 order-sm-2"
         i18n="@@youHaveNotSelectedAnyPublicData"
-        *ngIf="!(group.fields | hasSelectedItems: { groupId: '' })"
+        *ngIf="!(group.fields | hasSelectedItems)"
       >
         Et ole vielä valinnut julkisesti näytettäviä tietoja
       </div>
       <div class="col-auto order-2 order-sm-3">
         <app-secondary-button
           [content]="
-            (group.fields | hasSelectedItems: { groupId: '' })
-              ? editString
-              : selectString
+            (group.fields | hasSelectedItems) ? editString : selectString
           "
           (click)="openDialog($event, i + 1)"
         ></app-secondary-button>
@@ -89,52 +87,44 @@
           </app-summary-portal-items>
 
           <div class="summary-panel-wrapper" *ngSwitchDefault>
-            <div
-              class="col px-3 fw-bold py-2"
-              *ngIf="group.fields | hasSelectedItems: { groupId: field.id }"
-            >
+            <div class="col px-3 fw-bold py-2" *ngIf="field | hasSelectedItems">
               {{ field.label }}
             </div>
 
-            <ng-container *ngFor="let groupItem of field.groupItems">
-              <div *ngIf="groupItem?.items[0]?.itemMeta?.type">
-                <ng-container [ngSwitch]="groupItem.items[0].itemMeta.type">
-                  <div
-                    class="summary-panel"
-                    *ngSwitchCase="fieldTypes.personKeyword"
-                  >
-                    <!-- Display joined keywords only if item has show property set to true -->
-                    <div class="row" *ngIf="groupItem.items[0].itemMeta.show">
-                      <div class="col pb-2 font-size-smaller">
-                        {{ groupItem.items | joinItems: 'value' }}
+            <div *ngIf="field.items[0]?.itemMeta?.type">
+              <ng-container [ngSwitch]="field.items[0].itemMeta.type">
+                <div
+                  class="summary-panel"
+                  *ngSwitchCase="fieldTypes.personKeyword"
+                >
+                  <!-- Display joined keywords only if item has show property set to true -->
+                  <div class="row" *ngIf="field.items[0].itemMeta.show">
+                    <div class="col pb-2 font-size-smaller">
+                      {{ field.items | joinItems: 'value' }}
+                    </div>
+                  </div>
+                  <app-summary-divider></app-summary-divider>
+                </div>
+
+                <ng-container *ngSwitchDefault>
+                  <div class="summary-panel" *ngFor="let item of field.items">
+                    <div
+                      class="row d-flex justify-content-between py-1"
+                      *ngIf="item.itemMeta.show"
+                    >
+                      <div class="col font-size-smaller">
+                        <app-panel-array-item
+                          [item]="item"
+                          [fieldType]="field.items[0].itemMeta.show"
+                          [localized]="field.localized"
+                        ></app-panel-array-item>
                       </div>
                     </div>
                     <app-summary-divider></app-summary-divider>
                   </div>
-
-                  <ng-container *ngSwitchDefault>
-                    <div
-                      class="summary-panel"
-                      *ngFor="let item of groupItem.items"
-                    >
-                      <div
-                        class="row d-flex justify-content-between py-1"
-                        *ngIf="item.itemMeta.show"
-                      >
-                        <div class="col font-size-smaller">
-                          <app-panel-array-item
-                            [item]="item"
-                            [fieldType]="groupItem.items[0].itemMeta.show"
-                            [localized]="field.localized"
-                          ></app-panel-array-item>
-                        </div>
-                      </div>
-                      <app-summary-divider></app-summary-divider>
-                    </div>
-                  </ng-container>
                 </ng-container>
-              </div>
-            </ng-container>
+              </ng-container>
+            </div>
           </div>
         </div>
       </div>

@@ -9,7 +9,7 @@
       *ngIf="
         (
           group.fields
-          | countGroupItemsNew
+          | countFieldItems
             : {
                 filterSelected: true,
                 patchItems: combinedPatchItems,
@@ -24,7 +24,7 @@
           {{ group.label }} ({{
             (
               group.fields
-              | countGroupItemsNew
+              | countFieldItems
                 : {
                     filterSelected: true,
                     patchItems: combinedPatchItems,
@@ -38,7 +38,7 @@
       <ng-container
         *ngFor="
           let item of group.fields
-            | countGroupItemsNew
+            | countFieldItems
               : {
                   filterSelected: true,
                   patchItems: combinedPatchItems,
@@ -64,22 +64,19 @@
             <ng-container *ngIf="i == 0">
               <div class="row py-2">
                 <div class="col px-0">
-                  <div
-                    class="row"
-                    *ngIf="combinedPatchItems | matchItem: item.itemMeta"
-                  >
+                  <div class="row">
                     <div
                       class="col px-0 pb-2 font-size-smaller"
                       [class.text-strike]="
                         !(
                           combinedPatchItems
-                          | findByKeyValue: 'id':groupItem.items[0].itemMeta.id
+                          | findByKeyValue
+                            : 'id'
+                            : group.fields[0].items[0].itemMeta.id
                         ).show
                       "
                     >
-                      {{
-                        group.fields[0].groupItems[0].items | joinItems: 'value'
-                      }}
+                      {{ group.fields[0].items | joinItems: 'value' }}
                     </div>
                   </div>
                 </div>

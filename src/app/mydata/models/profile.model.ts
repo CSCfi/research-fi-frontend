@@ -39,7 +39,7 @@ export class ProfileAdapter implements Adapter<Profile> {
 
     const mapModel = (adapter, data) => Object.values(adapter.adapt(data));
 
-    let ret = new Profile([
+    return new Profile([
       {
         id: GroupTypes.contact,
         label: $localize`:@@contactInfo:Yhteystiedot`,
@@ -77,62 +77,10 @@ export class ProfileAdapter implements Adapter<Profile> {
       },
       {
         id: GroupTypes.activity,
-        label: $localize`:@@activitiesAndAwards:Aktiviteetit ja palkinnotHankkeet`,
-        fields: [],
-      },
-    ]);
-    return ret;
-  }
-
-
-  adaptNew(item: any): Profile {
-    const data = item.body.data;
-
-    const mapModel = (adapter, data) => Object.values(adapter.adapt(data));
-
-    let ret = new Profile([
-      {
-        id: GroupTypes.contact,
-        label: $localize`:@@contactInfo:Yhteystiedot`,
-        fields: Object.values(this.personalFieldsAdapter.adaptNew(data.personal)),
-      },
-      {
-        id: GroupTypes.description,
-        label: $localize`:@@descriptionOfResearchActivities:Tutkimustoiminnan kuvaus`,
-        fields: Object.values(this.descriptionFieldsAdapter.adaptNew(data.personal)),
-      },
-      {
-        id: GroupTypes.affiliation,
-        label: $localize`:@@affiliations:Affiliaatiot`,
-        fields: Object.values(this.affiliationFieldsAdapter.adaptNew(data.activity)),
-      },
-      {
-        id: GroupTypes.education,
-        label: $localize`:@@education:Koulutus`,
-        fields: Object.values(this.educationFieldsAdapter.adaptNew(data.activity)),
-      },
-      {
-        id: GroupTypes.publication,
-        label: $localize`:@@publications:Julkaisut`,
-        fields: Object.values(this.publicationFieldsAdapter.adaptNew(data.activity)),
-      },
-      {
-        id: GroupTypes.dataset,
-        label: $localize`:@@researchData:Tutkimusaineistot`,
-        fields: Object.values(this.datasetFieldsAdapter.adaptNew(data.activity)),
-      },
-      {
-        id: GroupTypes.funding,
-        label: $localize`:@@fundings:Hankkeet`,
-        fields: Object.values(this.fundingFieldsAdapter.adaptNew(data.activity)),
-      },
-      {
-        id: GroupTypes.activity,
         label: $localize`:@@activitiesAndAwards:Aktiviteetit ja palkinnot`,
         fields: [],
       },
     ]);
-    return ret;
   }
 
   adaptMany(item: any): Profile[] {

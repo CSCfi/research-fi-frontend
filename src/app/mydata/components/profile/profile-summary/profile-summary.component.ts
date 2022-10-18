@@ -14,7 +14,6 @@ import {
 } from '@angular/core';
 
 import { cloneDeep } from 'lodash-es';
-import { checkGroupSelected } from '@mydata/utils';
 import { take } from 'rxjs/operators';
 import { PatchService } from '@mydata/services/patch.service';
 import { PublicationsService } from '@mydata/services/publications.service';
@@ -42,8 +41,6 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy {
   groupTypes = GroupTypes;
 
   filteredProfileData: any;
-
-  checkGroupSelected = checkGroupSelected;
 
   openPanels = [];
 
@@ -79,7 +76,7 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy {
     const selectedGroup = cloneDeep(this.profileData[index]);
 
     const filteredFields = selectedGroup.fields.filter(
-      (field) => field.groupItems[0].items.length
+      (field) => field.items.length
     );
 
     // Filter out fields with 0 items from groups that don't use search from portal functionality
@@ -161,7 +158,7 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy {
       });
 
       // Set draft data into storage with SSR check
-      if (this.appSettingsService.isBrowser) {
+      if (this.appSettingsService.isBrowser && confirmedPayLoad.length) {
         patchGroups.forEach((group) => {
           sessionStorage.setItem(group.key, JSON.stringify(group.data));
         });

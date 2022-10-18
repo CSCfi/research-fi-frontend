@@ -27,6 +27,7 @@ import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { first, Subscription } from 'rxjs';
 import { TableRow } from 'src/types';
 import { TableComponent } from '@shared/components/table/table.component';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   selector: 'app-data-sources-table',
@@ -86,7 +87,13 @@ export class DataSourcesTableComponent
   pageSize: number = 10;
   total: number;
 
-  constructor(private cdr: ChangeDetectorRef, private route: ActivatedRoute) {}
+  locale: string;
+
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private route: ActivatedRoute,
+    private appSettingsService: AppSettingsService
+  ) {}
 
   ngOnInit(): void {
     this.handleProfileData(this.data);
@@ -107,8 +114,10 @@ export class DataSourcesTableComponent
         this.sort({ active: params.sort, direction: params.sortDirection });
       }
 
-      this.pageNumber = parseInt(params.page, 10) | 1;
+      this.pageNumber = Number(params.page) || 1;
     });
+
+    this.locale = this.appSettingsService.capitalizedLocale;
   }
 
   // Handle data again when data is filtered
@@ -140,17 +149,15 @@ export class DataSourcesTableComponent
     // Filter out empty groups and flatten structure
     const filteredGroups = profileData
       .flatMap((group) => group.fields)
-      .filter((group) => group.groupItems.length);
+      .filter((group) => group.items.length);
 
     for (const group of filteredGroups) {
-      for (const groupItem of group.groupItems) {
-        for (const item of groupItem.items) {
-          this.rawProfileRows.push({
-            ...item,
-            groupLabel: group.label,
-            source: groupItem.source.organization.name,
-          });
-        }
+      for (const groupItem of group.items) {
+        this.rawProfileRows.push({
+          ...groupItem,
+          groupLabel: group.label,
+          source: groupItem.dataSources,
+        });
       }
     }
   }
@@ -178,7 +185,11 @@ export class DataSourcesTableComponent
           label: item.itemMeta.show, // Used for sorting
           value: item.itemMeta.show, // Used for row color highlight
         },
-        source: { label: item.source },
+        source: {
+          label: item.source
+            .map((source) => source.organization.nameFi)
+            .join(', '),
+        },
         // sharing: {
         //   template: sharingCellItems[index],
         //   label: sharingCellItems[index],

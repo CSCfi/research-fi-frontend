@@ -86,7 +86,7 @@
 
         <!-- List active filters -->
         <app-active-filters-list
-          *ngIf="parsedActiveFilters.length"
+          *ngIf="parsedActiveFilters?.length"
           [filters]="parsedActiveFilters"
           [dialogConfig]="activeFiltersDialogConfig"
           (onRemoveFilter)="removeFilter($event)"
@@ -94,7 +94,7 @@
         ></app-active-filters-list>
 
         <app-data-sources-table
-          *ngIf="data.length"
+          *ngIf="data?.length"
           [data]="data"
           (onSelectionChange)="handleSelection($event)"
         ></app-data-sources-table>

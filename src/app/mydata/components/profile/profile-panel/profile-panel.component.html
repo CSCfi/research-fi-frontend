@@ -50,94 +50,91 @@
 
 <div [@.disabled]="disableAnimation">
   <mat-accordion *ngIf="data" multi>
-    <mat-expansion-panel
-      *ngFor="let field of data.fields; let i = index"
-      [expanded]="
-        field.expanded ||
-        !!(field.groupItems | filter: checkGroupSelected).length ||
-        openPanels.indexOf(i) > -1 ||
-        data.fields.length <= maxItems
-      "
-      [class.pt-2]="data.fields.length === 1"
-      [hideToggle]="field.disabled || data.fields.length === 1"
-      (opened)="toggleGroup(i)"
-      (closed)="closePanel(i)"
-    >
-      <mat-expansion-panel-header
-        *ngIf="data.fields.length > 1"
-        [class.pointer-events-none]="field.disabled || data.fields.length === 1"
+    <ng-container *ngFor="let field of data.fields; let i = index">
+      <mat-expansion-panel
+        *ngIf="field.items.length"
+        [expanded]="
+          field.expanded ||
+          !!(field.items | filter: checkGroupSelected).length ||
+          openPanels.indexOf(i) > -1 ||
+          data.fields.length <= maxItems
+        "
+        [class.pt-2]="data.fields.length === 1"
+        [hideToggle]="field.disabled || data.fields.length === 1"
+        (opened)="toggleGroup(i)"
+        (closed)="closePanel(i)"
       >
-        <mat-panel-title>
-          {{ field.label }}
-        </mat-panel-title>
-      </mat-expansion-panel-header>
+        <mat-expansion-panel-header
+          *ngIf="data.fields.length > 1"
+          [class.pointer-events-none]="
+            field.disabled || data.fields.length === 1
+          "
+        >
+          <mat-panel-title>
+            {{ field.label }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
 
-      <ng-container *ngIf="field.label === 'Affiliaatiot'">
-        <p class="row" i18n="@@primaryInfoWillAppearFirst">
-          Ensisijaiset näytetään profiilissasi listan ensimmäisinä.
-        </p>
-      </ng-container>
+        <ng-container *ngIf="field.label === 'Affiliaatiot'">
+          <p class="row" i18n="@@primaryInfoWillAppearFirst">
+            Ensisijaiset näytetään profiilissasi listan ensimmäisinä.
+          </p>
+        </ng-container>
 
-      <!-- Options -->
-      <ng-container *ngFor="let groupItem of field.groupItems">
+        <!-- Options -->
+        <ng-container *ngFor="let item of field.items; let j = index">
+          <!-- Keywords have values that need to be joined -->
+          <ng-container [ngSwitch]="item.itemMeta.type">
+            <div class="row py-1" *ngSwitchCase="fieldTypes.personKeyword">
+              <ng-container *ngIf="j == 0">
+                <div class="col px-0 font-size-smaller">
+                  <mat-checkbox
+                    [checked]="field.items | findSelectedItem"
+                    (change)="toggleJoined($event, field.items)"
+                  >
+                    {{ field.items | joinItems: 'value' }}
+                  </mat-checkbox>
+                </div>
 
-        <ng-container *ngFor="let item of groupItem.items; let j = index">
-
-        <!-- Keywords have values that need to be joined -->
-        <ng-container [ngSwitch]="item.itemMeta.type">
-          <div class="row py-1" *ngSwitchCase="fieldTypes.personKeyword">
-            <ng-container *ngIf="j==0">
-            <div class="col px-0 font-size-smaller">
-              <mat-checkbox
-                [checked]="groupItem.items | findSelectedItem"
-                (change)="toggleJoined($event, groupItem)"
-              >
-                {{ groupItem.items | joinItems: 'value' }}
-              </mat-checkbox>
-            </div>
-
-            <!-- Source -->
-            <div
-              class="col-auto px-0 ps-4 ml-1 mt-1 text-end opacity-3 font-size-small"
-            >
-              {{ field.groupItems | joinDataSources:locale }}
-            </div>
-            </ng-container>
-          </div>
-
-          <ng-container *ngSwitchDefault>
-
-            <!-- Header for items that are added from research.fi portal -->
-            <span
-              *ngIf="
-                (item.itemMeta.type === fieldTypes.activityPublication ||
-                  item.itemMeta.type === fieldTypes.activityDataset ||
-                  item.itemMeta.type === fieldTypes.activityFunding) &&
-                groupItem.items.length &&
-                (groupItem | hasFetchedItem) &&
-                j == 0;
-              "
-              class="font-size-big d-block pb-3"
-            >
-              <ng-container [ngSwitch]="item.itemMeta.type">
-                <span
-                  *ngSwitchCase="fieldTypes.activityPublication"
-                  i18n="@@addedPublications"
-                  >Tuodut julkaisut</span
+                <!-- Source -->
+                <div
+                  class="col-auto px-0 ps-4 ml-1 mt-1 text-end opacity-3 font-size-small"
                 >
-                <span
-                  *ngSwitchCase="fieldTypes.activityDataset"
-                  i18n="@@addedDatasets"
-                  >Tuodut tutkimusaineistot</span
-                >
-                <span
-                  *ngSwitchCase="fieldTypes.activityFunding"
-                  i18n="@@addedProjects"
-                  >Tuodut hankkeet</span
-                >
+                  {{ field.items | joinDataSources: locale }}
+                </div>
               </ng-container>
-            </span>
+            </div>
 
+            <ng-container *ngSwitchDefault>
+              <!-- Header for items that are added from research.fi portal -->
+              <span
+                *ngIf="
+                  (item.itemMeta.type === fieldTypes.activityPublication ||
+                    item.itemMeta.type === fieldTypes.activityDataset ||
+                    item.itemMeta.type === fieldTypes.activityFunding) &&
+                  field.items.length &&
+                  (field.items | hasFetchedItem)
+                "
+                class="font-size-big d-block pb-3"
+              >
+                <ng-container [ngSwitch]="item.itemMeta.type">
+                  <span
+                    *ngSwitchCase="fieldTypes.activityPublication"
+                    i18n="@@addedPublications"
+                    >Tuodut julkaisut</span
+                  >
+                  <span
+                    *ngSwitchCase="fieldTypes.activityDataset"
+                    i18n="@@addedDatasets"
+                    >Tuodut tutkimusaineistot</span
+                  >
+                  <span
+                    *ngSwitchCase="fieldTypes.activityFunding"
+                    i18n="@@addedProjects"
+                    >Tuodut hankkeet</span
+                  >
+                </ng-container>
+              </span>
 
               <div
                 class="row d-flex justify-content-between py-1"
@@ -186,11 +183,9 @@
                 <div
                   class="col-auto mt-1"
                   *ngIf="
-                    (item.itemMeta.type ===
-                      fieldTypes.activityPublication ||
+                    (item.itemMeta.type === fieldTypes.activityPublication ||
                       item.itemMeta.type === fieldTypes.activityDataset ||
-                      item.itemMeta.type ===
-                        fieldTypes.activityFunding) &&
+                      item.itemMeta.type === fieldTypes.activityFunding) &&
                     item.itemMeta.primaryValue
                   "
                 >
@@ -216,8 +211,12 @@
                     </div>-->
                   </ng-container>
                   <ng-template #singleSource>
-                    <ng-container *ngFor="let ds of item.dataSources; let k = index">
-                      {{ds.organization['name' + locale]}}</ng-container></ng-template>
+                    <ng-container
+                      *ngFor="let ds of item.dataSources; let k = index"
+                    >
+                      {{ ds.organization['name' + locale] }}</ng-container
+                    ></ng-template
+                  >
                 </div>
               </div>
 
@@ -225,9 +224,7 @@
               <div class="row pb-3">
                 <div
                   class="col-auto px-4 mx-1 cursor-pointer"
-                  *ngIf="
-                    item.itemMeta.type === fieldTypes.activityAffiliation
-                  "
+                  *ngIf="item.itemMeta.type === fieldTypes.activityAffiliation"
                 >
                   <app-primary-badge
                     [label]="
@@ -240,23 +237,21 @@
                     [selected]="item.itemMeta.primaryValue"
                   ></app-primary-badge>
                 </div>
-
               </div>
             </ng-container>
-
           </ng-container>
         </ng-container>
-      </ng-container>
 
-      <div class="row py-3 font-size-small" *ngIf="field.single">
-        <div class="col col-lg-6 ps-0">
-          <fa-icon class="pe-1 opacity-3" icon="info-circle"></fa-icon>
-          <span i18n="@@canSelectOnlyOneOption"
-            >Voit valita yhden vaihtoehdon</span
-          >
+        <div class="row py-3 font-size-small" *ngIf="field.single">
+          <div class="col col-lg-6 ps-0">
+            <fa-icon class="pe-1 opacity-3" icon="info-circle"></fa-icon>
+            <span i18n="@@canSelectOnlyOneOption"
+              >Voit valita yhden vaihtoehdon</span
+            >
+          </div>
         </div>
-      </div>
-    </mat-expansion-panel>
+      </mat-expansion-panel>
+    </ng-container>
   </mat-accordion>
 </div>
 

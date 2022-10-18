@@ -26,7 +26,7 @@ import { SnackbarService } from '@mydata/services/snackbar.service';
 import { Constants } from '@mydata/constants/';
 import { PublicationsService } from '@mydata/services/publications.service';
 import { CommonStrings } from '@mydata/constants/strings';
-import { checkGroupSelected, getName } from '@mydata/utils';
+import { getName } from '@mydata/utils';
 import { UtilityService } from '@shared/services/utility.service';
 import { DatasetsService } from '@mydata/services/datasets.service';
 import { FundingsService } from '@mydata/services/fundings.service';
@@ -65,12 +65,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
   dialogExtraContentTemplate: any;
   currentDialogActions: any[];
   disableDialogClose: boolean;
+  showDataToPublish = $localize`:@@showDataToPublish:Näytä julkaistavat tiedot`;
   basicDialogActions = [
     { label: $localize`:@@close:Sulje`, primary: true, method: 'close' },
   ];
   publishUpdatedProfileDialogActions = [
     {
-      label: $localize`:@@showDataToPublish:Näytä julkaistavat tiedot`,
+      label: this.showDataToPublish,
+      labelToggle: {
+        on: this.showDataToPublish,
+        off: $localize`:@@hideDataToPublish:Piilota julkaistavat tiedot`,
+      },
       primary: false,
       method: 'preview',
       flexStart: true,

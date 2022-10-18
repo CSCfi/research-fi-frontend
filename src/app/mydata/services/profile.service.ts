@@ -143,7 +143,7 @@ export class ProfileService {
     this.updateTokenInHttpAuthHeader();
     return this.http
       .get<Profile[]>(this.apiUrl + '/profiledata2/', this.httpOptions)
-      .pipe(map((data) => this.profileAdapter.adaptNew(data)));
+      .pipe(map((data) => this.profileAdapter.adapt(data)));
   }
 
   // Draft profile is stored in session storage

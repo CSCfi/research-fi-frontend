@@ -33,6 +33,7 @@ export class EditorModalComponent implements OnInit {
   originalEditorData: any;
 
   allSelected: boolean;
+  someSelected: boolean;
   toggleAllDisabled: boolean = false;
 
   primarySource: string;
@@ -77,10 +78,10 @@ export class EditorModalComponent implements OnInit {
     const patchItems = [];
 
     radioGroups.forEach((group) =>
-      group.groupItems.map((groupItem) => {
+      group.items.map((groupItem) => {
         if (true) {
           patchItems.push(
-            groupItem.items.find((item) => item.itemMeta.show).itemMeta
+            groupItem.find((item) => item.itemMeta.show).itemMeta
           );
         }
       })
@@ -90,30 +91,19 @@ export class EditorModalComponent implements OnInit {
   }
 
   checkAllSelected() {
-    let someSelected = false;
-    let allSelected = true;
-    if (this.editorData.fields[0].groupItems[0]?.items !== undefined) {
-      this.editorData.fields[0].groupItems[0]?.items.forEach((item) => {
-        if (item?.itemMeta?.show === true) {
-          someSelected = true;
-        } else if (item?.itemMeta?.show === false) {
-          allSelected = false;
-        }
-      });
-    }
+    const fields = this.editorData.fields;
 
-    this.toggleAllDisabled = this.editorData.fields[0].groupItems === undefined;
+    const items = fields
+      .filter((field) => !field.single)
+      .flatMap((field) => field.items);
 
-    this.allSelected = allSelected;
-  }
+    this.toggleAllDisabled = items.length === 0;
 
-  checkSomeSelected() {
-    const items = this.editorData.fields[0].groupItems[0]?.items;
+    this.allSelected = !!!items.some((item) => !item.itemMeta.show);
 
-    if (items && items.length > 1) {
-      return items.some((item) => item?.itemMeta?.show);
-    }
-    return false;
+    this.someSelected = this.allSelected
+      ? false
+      : !!items.some((item) => item.itemMeta.show);
   }
 
   toggleAll(event) {
@@ -129,13 +119,11 @@ export class EditorModalComponent implements OnInit {
       if (field.selectedPublications)
         field.selectedPublications.map((item) => (item.show = event.checked));
 
-      field.groupItems.map((groupItem) => {
+      field.items.map((item) => {
         // Single selections should always have show as true. Therefore these items shouldn't be altered
-        if (!field.single && groupItem.items !== undefined) {
-          groupItem.items.map((item) => {
-            item.itemMeta.show = event.checked;
-            patchItems.push(item.itemMeta);
-          });
+        if (!field.single && item) {
+          item.itemMeta.show = event.checked;
+          patchItems.push(item.itemMeta);
         }
       });
     });

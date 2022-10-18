@@ -19,18 +19,19 @@ export class EducationFields {
 export class EducationFieldsAdapter implements Adapter<EducationFields> {
   constructor(private mydataUtils: MydataUtilityService) {}
 
+  // adaptOld(item: any): EducationFields {
+  //   return new EducationFields(
+  //     this.mydataUtils.mapGroup(
+  //       item.educationGroups,
+  //       'education',
+  //       $localize`:@@education:Koulutus`
+  //     )
+  //   );
+  // }
+
   adapt(item: any): EducationFields {
     return new EducationFields(
-      this.mydataUtils.mapGroup(
-        item.educationGroups,
-        'education',
-        $localize`:@@education:Koulutus`
-      )
-    );
-  }
-  adaptNew(item: any): EducationFields {
-    return new EducationFields(
-      this.mydataUtils.mapGroupGeneralNew(
+      this.mydataUtils.mapGroupGeneral(
         item,
         'education',
         'educations',

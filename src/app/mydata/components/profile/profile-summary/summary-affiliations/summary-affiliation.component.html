@@ -4,19 +4,19 @@
  :license: MIT -->
 
 <!--  Primary affiliations -->
-<ng-container *ngIf="(data.groupItems | getItemsBy: 'primaryValue').length">
+<ng-container *ngIf="(data.items | getItemsBy: 'primaryValue').length">
   <div class="row">
     <div class="col fw-bold pb-3" i18n="@@primaryPlural">Ensisijaiset</div>
   </div>
 
-  <div
-    class="row"
-    *ngFor="let primaryItem of data.groupItems[0].items; let i = index"
-  >
-    <div *ngIf="primaryItem.itemMeta.primaryValue" class="col-auto font-size-smaller">
-      {{  primaryItem['positionName' + locale]
+  <div class="row" *ngFor="let primaryItem of data.items; let i = index">
+    <div
+      *ngIf="primaryItem.itemMeta.primaryValue"
+      class="col-auto font-size-smaller"
+    >
+      {{ primaryItem['positionName' + locale]
       }}<span *ngIf="primaryItem['organizationName' + locale]">, </span
-      >{{ primaryItem['organizationName' + locale]}}
+      >{{ primaryItem['organizationName' + locale] }}
     </div>
   </div>
 
@@ -55,12 +55,12 @@
 
       <div class="row">
         <ng-container *ngFor="let ds of item.dataSources; let j = index">
-        <div class="col-auto font-size-smaller">
-          <ng-container *ngIf="j == 0" i18n="@@source">Lähde</ng-container>:
-          {{ ds.organization['name' + locale] }}
-        </div>
-      <app-summary-divider></app-summary-divider>
-      </ng-container>
+          <div class="col-auto font-size-smaller">
+            <ng-container *ngIf="j == 0" i18n="@@source">Lähde</ng-container>:
+            {{ ds.organization['name' + locale] }}
+          </div>
+          <app-summary-divider></app-summary-divider>
+        </ng-container>
       </div>
     </div>
   </ng-container>

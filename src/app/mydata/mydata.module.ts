@@ -62,8 +62,7 @@ import { PrimaryBadgeComponent } from './components/profile/profile-panel/primar
 import { SearchPortalComponent } from './components/profile/search-portal/search-portal.component';
 import { SearchPortalResultsComponent } from './components/profile/search-portal/search-portal-results/search-portal-results.component';
 import { CustomPaginatorIntlComponent } from './components/profile/search-portal/custom-paginator-intl/custom-paginator-intl.component';
-import { CountGroupItemsPipe } from './pipes/count-group-items.pipe';
-import { CountGroupItemsNewPipe } from './pipes/count-group-items-new.pipe';
+import { countFieldItemsPipe } from './pipes/count-field-items.pipe';
 import { MydataBetaInfoComponent } from './components/mydata-beta-info/mydata-beta-info.component';
 import { ProfileSummaryComponent } from './components/profile/profile-summary/profile-summary.component';
 import { JoinItemsPipe } from './pipes/join-items.pipe';
@@ -126,7 +125,6 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
     PrimaryBadgeComponent,
     SearchPortalComponent,
     SearchPortalResultsComponent,
-    CountGroupItemsPipe,
     MydataBetaInfoComponent,
     ProfileSummaryComponent,
     JoinItemsPipe,
@@ -157,7 +155,7 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
     OrcidDataFetchComponent,
     WelcomeDialogComponent,
     HasSelectedItemsPipe,
-    CountGroupItemsNewPipe,
+    countFieldItemsPipe,
     DataSourcesComponent,
     DataSourcesTableComponent,
     DataSourcesFiltersComponent,

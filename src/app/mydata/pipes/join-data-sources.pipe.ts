@@ -13,10 +13,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class JoinDataSourcesPipe implements PipeTransform {
   transform(items: any, locale: string) {
     let combined = [];
-    items[0].items.forEach((item) => {
+    items.forEach((item) => {
       item.dataSources.forEach((ds) => {
-        if (!combined.includes(ds.organization['name'+locale])) {
-          combined.push(ds.organization['name'+locale]);
+        if (!combined.includes(ds.organization['name' + locale])) {
+          combined.push(ds.organization['name' + locale]);
         }
       });
     });

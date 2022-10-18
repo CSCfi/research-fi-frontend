@@ -48,16 +48,14 @@ export class DataSourcesFiltersComponent
     const filterEmptyGroups = (data: any[]) =>
       data
         .flatMap((group) => group.fields)
-        .filter((group) => group.groupItems.length);
+        .filter((field) => field.items.length);
 
     /*
      * Method for listing all profile items as non grouped version,
      * which gives easier access to e.g. publicity value
      */
     const flattenItems = (groups) =>
-      groups
-        .flatMap((group) => group.groupItems)
-        .flatMap((groupItems) => groupItems.items);
+      groups.flatMap((group) => group.fields).flatMap((field) => field.items);
 
     const handleDataFilter = (category: string) =>
       filterData(profileData, this.activeFilters, category);
@@ -70,16 +68,16 @@ export class DataSourcesFiltersComponent
             {
               key: 'public',
               label: 'Julkinen',
-              doc_count: flattenItems(
-                filterEmptyGroups(handleDataFilter('status'))
-              ).filter((item) => item.itemMeta.show).length,
+              doc_count: flattenItems(handleDataFilter('status')).filter(
+                (item) => item.itemMeta.show
+              ).length,
             },
             {
               key: 'private',
               label: 'Ei julkinen',
-              doc_count: flattenItems(
-                filterEmptyGroups(handleDataFilter('status'))
-              ).filter((item) => !item.itemMeta.show).length,
+              doc_count: flattenItems(handleDataFilter('status')).filter(
+                (item) => !item.itemMeta.show
+              ).length,
             },
           ],
         },
@@ -89,8 +87,7 @@ export class DataSourcesFiltersComponent
               return {
                 key: group.id,
                 label: group.label,
-                doc_count: group.groupItems.flatMap((group) => group.items)
-                  .length,
+                doc_count: group.items.length,
               };
             }
           ),

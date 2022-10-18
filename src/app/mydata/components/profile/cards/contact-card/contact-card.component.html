@@ -3,18 +3,16 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
+<!-- {{ contactFields | json }} -->
+
 <app-profile-editor-card-header
   [label]="label"
-  [displayButton]="
-    (contactFields | countGroupItems: { filterSelected: true }).length > 1
-  "
+  [displayButton]="contactFields | hasSelectedItems"
   (handleOpenDialog)="openDialog()"
 ></app-profile-editor-card-header>
 
 <app-empty-card
-  *ngIf="
-    (contactFields | countGroupItems: { filterSelected: true }).length === 0
-  "
+  *ngIf="!(contactFields | hasSelectedItems)"
   (onButtonClick)="openDialog()"
 ></app-empty-card>
 
@@ -24,23 +22,23 @@
       <ng-container *ngSwitchCase="'otherNames'">
         <div
           class="row py-2"
-          *ngIf="(field.groupItems | filter: checkGroupSelected).length"
+          *ngIf="(field.items | filter: checkGroupSelected).length"
         >
           <div class="col px-0">
             <span
               class="fw-bold d-inline-block pe-3"
-              *ngIf="_data[0].fields.length > 1"
+              *ngIf="data[0].fields.length > 1"
               >{{ field.label }}
             </span>
-            <span>{{ field.groupItems | joinAllGroupItems }}</span>
+            <span>{{ field.items | joinAllGroupItems }}</span>
           </div>
         </div>
       </ng-container>
 
       <ng-container *ngSwitchDefault>
-        <ng-container *ngFor="let groupItem of field.groupItems">
-          <ng-container *ngFor="let item of groupItem.items">
-            <div class="row py-1" *ngIf="item.itemMeta.show">
+        <ng-container *ngFor="let item of field.items">
+          <div class="row py-1" *ngIf="item.itemMeta.show">
+            <div class="col px-0">
               <fa-icon
                 *ngIf="item.icon"
                 [icon]="item.icon"
@@ -69,7 +67,7 @@
                 ></ng-container>
               </ng-container>
             </div>
-          </ng-container>
+          </div>
         </ng-container>
       </ng-container>
     </ng-container>

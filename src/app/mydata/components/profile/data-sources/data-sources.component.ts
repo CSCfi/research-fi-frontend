@@ -11,10 +11,12 @@ import { Constants, FiltersConfig, TableColumns } from '@mydata/constants';
 import { ProfileService } from '@mydata/services/profile.service';
 import { Subscription } from 'rxjs';
 import { getUniqueSources, filterData } from '@mydata/utils';
-import { ActiveFilter, SortByOption } from 'src/types';
+import { ActiveFilter, DataSource, ItemMeta, SortByOption } from 'src/types';
 import { PatchService } from '@mydata/services/patch.service';
 import { DataSourcesTableComponent } from './data-sources-table/data-sources-table.component';
 import { NotificationService } from '@shared/services/notification.service';
+import { AppSettingsService } from '@shared/services/app-settings.service';
+import { FieldTypes } from '@mydata/constants/fieldTypes';
 
 @Component({
   selector: 'app-data-sources',
@@ -39,17 +41,31 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
   @ViewChild(DataSourcesTableComponent)
   dataSourcesTable: DataSourcesTableComponent;
 
+  locale: string;
+
+  originalKeywords: {
+    value: string;
+    dataSources: DataSource[];
+    itemMeta: ItemMeta;
+  }[];
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     public profileService: ProfileService,
     private patchService: PatchService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private appSettingsService: AppSettingsService
   ) {}
 
   ngOnInit(): void {
+    this.locale = this.appSettingsService.capitalizedLocale;
+
     const draftProfile = this.profileService.getDraftProfile();
 
+    /*
+     * Inform user if unsaved changes in profile view
+     */
     if (draftProfile) {
       this.notificationService.notify({
         notificationText:
@@ -81,6 +97,9 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
     // Set original, non-altered profile data.
     // Used in filters.
     this.initialProfileData = myDataProfile.profileData;
+
+    // Initial approach on keywords aims to display all keywords as joined list
+    this.handleKeywords(this.initialProfileData);
 
     // Get active filters from query parameters
     // Match params with filters config that filter keys match
@@ -126,6 +145,31 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
 
     this.setSortOptions();
   }
+
+  // Method for displaying keywords as single item.
+  // Original values are stored for patch operation.
+  handleKeywords = (data) => {
+    const descriptionGroup = data.find((group) => group.id === 'description');
+    if (descriptionGroup) {
+      const keywordsField = descriptionGroup.fields.find(
+        (field) => field.id === 'keywords'
+      );
+
+      if (keywordsField) {
+        this.originalKeywords = [...keywordsField.items];
+
+        keywordsField.items = [
+          {
+            value: keywordsField.items
+              .map((keyword) => keyword.value)
+              .join(', '),
+            dataSources: keywordsField.items[0].dataSources,
+            itemMeta: keywordsField.items[0].itemMeta,
+          },
+        ];
+      }
+    }
+  };
 
   ngOnDestroy(): void {
     this.queryParamsSub?.unsubscribe();
@@ -226,17 +270,17 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
 
     const filteredGroups = this.data
       .flatMap((group) => group.fields)
-      .filter((group) => group.groupItems.length);
+      .filter((field) => field.items.length);
 
     for (const group of filteredGroups) {
-      for (const groupItem of group.groupItems) {
-        for (const item of groupItem.items) {
-          items.push({
-            ...item,
-            groupLabel: group.label,
-            source: groupItem.source.organization.name,
-          });
-        }
+      for (const item of group.items) {
+        items.push({
+          ...item,
+          groupLabel: group.label,
+          source: item.dataSources
+            .map((source) => source.organization['name' + this.locale])
+            .join(', '),
+        });
       }
     }
 
@@ -245,10 +289,22 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
     );
 
     selection.forEach((item) => {
-      this.patchService.addToPayload({
-        ...item.itemMeta,
-        show: !item.itemMeta.show,
-      });
+      let payload;
+
+      // Special use case for keywords when keywords are joined and displayed as single item
+      if (item.itemMeta.type === FieldTypes.personKeyword) {
+        payload = this.originalKeywords.map((item) => ({
+          ...item.itemMeta,
+          show: !item.itemMeta.show,
+        }));
+      } else {
+        payload = {
+          ...item.itemMeta,
+          show: !item.itemMeta.show,
+        };
+      }
+
+      this.patchService.addToPayload(payload);
     });
 
     this.selectedItems = selection;
@@ -256,12 +312,10 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
 
   // Update data after succesfull patch operation
   updateData(patchItemsArr) {
-    const groups = this.data
-      .flatMap((group) => group.fields)
-      .flatMap((group) => group.groupItems);
+    const fields = this.data.flatMap((group) => group.fields);
 
-    groups.forEach((group) => {
-      group.items.forEach((item) => {
+    fields.forEach((field) => {
+      field.items.forEach((item) => {
         const payloadMatch = patchItemsArr.find(
           (patchItem) => patchItem.id === item.itemMeta.id
         );

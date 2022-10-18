@@ -1,30 +1,21 @@
+//  This file is part of the research.fi API service
+//
+//  Copyright 2019 Ministry of Education and Culture, Finland
+//
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'hasSelectedItems'
+  name: 'hasSelectedItems',
 })
 export class HasSelectedItemsPipe implements PipeTransform {
-  transform(group: any,
-            extras: { groupId: string }): boolean {
-
-    let someSelected = false;
-    if (group.length) {
-      group.forEach(subgroup => {
-        if (extras?.groupId) {
-          subgroup.groupItems.forEach((item) => {
-            if (subgroup.id === extras.groupId && item?.items?.some(item => item.itemMeta.show)) {
-              someSelected = true;
-            }
-          });
-        } else {
-          subgroup.groupItems.forEach((item) => {
-            if (item?.items?.some(item => item.itemMeta.show)) {
-              someSelected = true;
-            }
-          });
-        }
-      });
+  transform(data: any): boolean {
+    if (data.length) {
+      return data.some((group) => group.items.find((el) => el.itemMeta.show));
+    } else {
+      return data.items.some((item) => item.itemMeta.show);
     }
-    return someSelected;
   }
 }

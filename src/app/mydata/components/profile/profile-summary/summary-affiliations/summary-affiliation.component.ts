@@ -42,6 +42,9 @@ export class SummaryAffiliationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.locale = this.appSettingsService.capitalizedLocale;
-    this.sortedItems = this.sortItemsByNew(this.data.groupItems[0], 'itemMeta.primaryValue');
+    this.sortedItems = this.sortItemsByNew(
+      this.data.items,
+      'itemMeta.primaryValue'
+    );
   }
 }

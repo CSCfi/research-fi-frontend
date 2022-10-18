@@ -21,9 +21,7 @@ import { ProfileService } from '@mydata/services/profile.service';
   templateUrl: './contact-card.component.html',
 })
 export class ContactCardComponent implements OnInit, OnChanges {
-  @Input() set data(input: any) {
-    this._data = input;
-  }
+  @Input() data: any;
   @Input() label: string;
 
   fieldTypes = FieldTypes;
@@ -32,7 +30,6 @@ export class ContactCardComponent implements OnInit, OnChanges {
 
   showDialog: boolean;
   dialogData: any;
-  _data: any;
 
   constructor(
     private appSettingsService: AppSettingsService,
@@ -45,15 +42,12 @@ export class ContactCardComponent implements OnInit, OnChanges {
   ngOnInit(): void {}
 
   ngOnChanges(): void {
-    // Filter out name field which is rendered in profile heading
-    this.contactFields = this._data[0].fields.filter(
-      (field) => field.id !== 'name'
-    );
+    this.contactFields = this.filterNameField(this.data[0].fields);
   }
 
   openDialog() {
     this.showDialog = true;
-    this.dialogData = cloneDeep(this._data[0]);
+    this.dialogData = cloneDeep(this.data[0]);
   }
 
   handleChanges(result) {
@@ -74,9 +68,7 @@ export class ContactCardComponent implements OnInit, OnChanges {
               item.show && item.type === this.fieldTypes.personFirstNames
           ).id;
 
-          const names = this._data[0].fields[0].groupItems.flatMap(
-            (groupItem) => groupItem.items
-          );
+          const names = this.data[0].fields[0].items;
 
           const selectedName = names.find(
             (item) => item.itemMeta.id === selectedNameId
@@ -85,10 +77,11 @@ export class ContactCardComponent implements OnInit, OnChanges {
           this.profileService.setEditorProfileName(selectedName);
         }
 
-        // Update summary data with selection
-        this._data[0] = result;
+        // Update card & summary data with selection
+        this.contactFields = this.filterNameField(result.fields);
+        this.data[0] = result;
 
-        this.draftService.saveDraft(this._data);
+        this.draftService.saveDraft(this.data);
 
         // Do actions only if user has made changes
         if (confirmedPayLoad.length) {
@@ -100,10 +93,7 @@ export class ContactCardComponent implements OnInit, OnChanges {
       }
 
       // Set draft profile data to storage
-      sessionStorage.setItem(
-        Constants.draftProfile,
-        JSON.stringify(this._data)
-      );
+      sessionStorage.setItem(Constants.draftProfile, JSON.stringify(this.data));
 
       // Set patch payload to store
       sessionStorage.setItem(
@@ -111,5 +101,10 @@ export class ContactCardComponent implements OnInit, OnChanges {
         JSON.stringify(this.patchService.confirmedPayLoad)
       );
     }
+  }
+
+  filterNameField(fields) {
+    // Filter out name field which is rendered in profile heading
+    return fields.filter((field) => field.id !== 'name');
   }
 }

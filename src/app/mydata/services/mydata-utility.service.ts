@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Injectable } from '@angular/core';
-import { AppSettingsService } from '@shared/services/app-settings.service';
+import { Field } from 'src/types';
 
 type SettingsType = {
   disabled?: boolean;
@@ -22,18 +22,17 @@ type SettingsType = {
   providedIn: 'root',
 })
 export class MydataUtilityService {
-  constructor(private appSettingsService: AppSettingsService) {}
+  constructor() {}
 
   /*
    * Reusable utility functions to be used when mapping data in
    * model-adapter pattern.
    */
-
-  mapGroup(group, id, label, settings?: SettingsType) {
+  mapField(items, id, label, settings?: SettingsType): Field {
     return {
       id: id,
       label: label,
-      groupItems: this.mapGroupItems(group),
+      items: items || [],
       disabled: settings?.disabled,
       single: settings?.single,
       hasPrimaryValue: settings?.primaryValue,
@@ -41,142 +40,33 @@ export class MydataUtilityService {
     };
   }
 
-  mapGroupNew(group, id, label, settings?: SettingsType) {
-    return {
-      id: id,
-      label: label,
-      groupItems: this.mapGroupItemsNew(group),
-      disabled: settings?.disabled,
-      single: settings?.single,
-      hasPrimaryValue: settings?.primaryValue,
-      joined: settings?.joined,
-    };
-  }
-
-  mapGroupItemsNew(group) {
-    let ret = [];
-    let nest = { items: [...group] };
-    ret.push(nest);
-    return ret;
-  }
-
-  mapNameGroup(group, id, label, settings?: SettingsType) {
-    group.map((item) =>
-      item.items.forEach(
-        (el) =>
-          (el.value =
-            el.fullName.trim().length > 0
-              ? el.fullName
-              : el.firstNames + ' ' + el.lastName)
-      )
+  mapNameField(group, id, label, settings?: SettingsType): Field {
+    group.map(
+      (item) =>
+        (item.value =
+          item.fullName.trim().length > 0
+            ? item.fullName
+            : item.firstNames + ' ' + item.lastName)
     );
 
-    let ret = {
-      id: id,
-      label: label,
-      groupItems: this.mapGroupItems(group),
-      disabled: settings?.disabled,
-      single: settings?.single,
-      expanded: settings?.expanded,
-    };
-    return ret;
+    return this.mapField(group, id, label, settings);
   }
 
-  mapNameGroupNew(group, id, label, settings?: SettingsType) {
-    group.map((item) =>
-          (item.value =
-            item.fullName.trim().length > 0
-              ? item.fullName
-              : item.firstNames + ' ' + item.lastName)
-
-    );
-    let ret = {
-      id: id,
-      label: label,
-      groupItems: this.mapGroupItemsNew(group),
-      disabled: settings?.disabled,
-      single: settings?.single,
-      expanded: settings?.expanded,
-    };
-    return ret;
-  }
-
-  mapGroupItems(groupItems) {
-    let gi = groupItems
-      .filter((item) => item.items.length > 0)
-      .map((groupItem) => ({
-        ...groupItem,
-        source: {
-          ...groupItem.source,
-          organization: {
-            name: groupItem.source.organization[
-            'name' + this.appSettingsService.capitalizedLocale
-              ],
-          },
-        },
-      }));
-    return gi;
-  }
-
-  mapGroupItemsNewOld(groupItems) {
-    let gi = groupItems
-      .map((groupItem) => ({
-        items: {
-          ...groupItem
-        },
-      }));
-    return gi;
-  }
-
-  mapGroupAffiliations(group, id, label, settings?: SettingsType) {
+  mapGroupGeneral(
+    group,
+    id,
+    inputFieldNameOld,
+    label,
+    settings?: SettingsType
+  ) {
     return {
       id: id,
       label: label,
-      groupItems: group,
+      items: group[inputFieldNameOld] || [],
       disabled: settings?.disabled,
       single: settings?.single,
       hasPrimaryValue: settings?.primaryValue,
       joined: settings?.joined,
-    };
-  }
-
-  mapGroupGeneralNew(group, id, inputFieldNameOld, label, settings?: SettingsType) {
-    let newGroupItems = [];
-    newGroupItems.push({items: group[inputFieldNameOld]});
-    if (newGroupItems[0].items === undefined) {
-      newGroupItems[0] = [];
-    }
-    return {
-      id: id,
-      label: label,
-      groupItems: newGroupItems,
-      disabled: settings?.disabled,
-      single: settings?.single,
-      hasPrimaryValue: settings?.primaryValue,
-      joined: settings?.joined,
-    };
-  }
-
-  mapGroupFieldName(group, id, label, fieldName, settings?: SettingsType) {
-    group.map((groupItem) => groupItem.items.forEach((item) => item.value));
-
-    return {
-      id: id,
-      label: label,
-      groupItems: this.mapGroupItems(group),
-      localized: settings?.localized,
-      fieldName: fieldName,
-    };
-  }
-
-  mapGroupFieldNameNew(group, id, label, fieldName, settings?: SettingsType) {
-    group.map((item) => item.value);
-    return {
-      id: id,
-      label: label,
-      groupItems: this.mapGroupItemsNew(group),
-      localized: settings?.localized,
-      fieldName: fieldName,
     };
   }
 }

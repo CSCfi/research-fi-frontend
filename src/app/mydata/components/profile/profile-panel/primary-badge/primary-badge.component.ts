@@ -26,12 +26,8 @@ export class PrimaryBadgeComponent {
   togglePrimary() {
     const currentItemMeta = this.item.itemMeta;
 
-    const selectedItems = this.data.groupItems
-      .map((groupItem) =>
-        groupItem.items
-          .map((item) => item)
-          .filter((item) => item.itemMeta.primaryValue)
-      )
+    const selectedItems = this.data.items
+      .filter((item) => item.itemMeta.primaryValue)
       .flat();
 
     // Primary selections is limited to 3. Remove older selection.

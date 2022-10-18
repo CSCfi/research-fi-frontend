@@ -21,29 +21,7 @@ export class DescriptionFieldsAdapter implements Adapter<DescriptionFields> {
 
   adapt(item: any): DescriptionFields {
     return new DescriptionFields(
-      this.mydataUtils.mapGroup(
-        item.keywordGroups,
-        'keywords',
-        $localize`:@@keywords:Avainsanat`,
-        {
-          joined: true,
-        }
-      ),
-      this.mydataUtils.mapGroupFieldName(
-        item.researcherDescriptionGroups,
-        'researchDescription',
-        $localize`:@@description:Kuvaus`,
-        'researchDescription',
-        {
-          localized: true,
-        }
-      )
-    );
-  }
-  adaptNew(item: any): DescriptionFields {
-
-    return new DescriptionFields(
-      this.mydataUtils.mapGroupNew(
+      this.mydataUtils.mapField(
         item.keywords,
         'keywords',
         $localize`:@@keywords:Avainsanat`,
@@ -51,11 +29,10 @@ export class DescriptionFieldsAdapter implements Adapter<DescriptionFields> {
           joined: true,
         }
       ),
-      this.mydataUtils.mapGroupFieldNameNew(
+      this.mydataUtils.mapField(
         item.researcherDescriptions,
         'researchDescription',
         $localize`:@@description:Kuvaus`,
-        'researchDescription',
         {
           localized: true,
         }

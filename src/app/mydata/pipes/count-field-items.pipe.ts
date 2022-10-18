@@ -8,14 +8,14 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'countGroupItemsNew',
+  name: 'countFieldItems',
   pure: false,
 })
 
 /*
  * Count items in groups. Some items, Eg. single selections and joined items need to be handled differently.
  */
-export class CountGroupItemsNewPipe implements PipeTransform {
+export class countFieldItemsPipe implements PipeTransform {
   transform(
     group: any,
     extras: { filterSelected: boolean; patchItems: any[]; onlyCount: boolean }
@@ -25,12 +25,12 @@ export class CountGroupItemsNewPipe implements PipeTransform {
     if (group.length) {
       group.forEach((subgroup) => {
         if (subgroup.joined) {
-          subgroup.groupItems[0].items.map((item) => (item.joined = true));
+          subgroup.items.map((item) => (item.joined = true));
         }
         extras?.filterSelected
-          ? combinedItems.push(subgroup.groupItems[0]?.items)
+          ? combinedItems.push(subgroup.items)
           : combinedItems.push(
-              subgroup.groupItems[0]?.items
+              subgroup.items
                 ?.filter((item) => item.itemMeta.show)
                 .map((visibleItem) => {
                   return visibleItem.itemMeta;

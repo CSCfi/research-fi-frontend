@@ -38,12 +38,13 @@ export class SummaryPortalItemsComponent implements OnInit {
     }
 
     // Display only selected items
-    if (dataCopy?.groupItems[0]?.items) {
-      this.sortedItems = this.sortItemsByNew(dataCopy.groupItems[0], this.sortField).filter(
-        (item) => item.itemMeta.show
-      );
-      }
+    if (dataCopy?.items) {
+      this.sortedItems = this.sortItemsByNew(
+        dataCopy.items,
+        this.sortField
+      ).filter((item) => item.itemMeta.show);
     }
+  }
 
   showAllItems() {
     this.itemDisplayCount = this.sortedItems.length;

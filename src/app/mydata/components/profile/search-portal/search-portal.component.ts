@@ -172,7 +172,7 @@ export class SearchPortalComponent implements OnInit, OnDestroy {
           }
         }
 
-        const selection = this.currentSelection.map((item) => ({
+        const selection = this.currentSelection?.map((item) => ({
           ...item,
           itemMeta: {
             id: item.id,

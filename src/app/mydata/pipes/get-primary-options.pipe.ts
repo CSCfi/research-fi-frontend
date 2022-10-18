@@ -22,9 +22,7 @@ export class GetPrimaryOptionsPipe implements PipeTransform {
     const mappedItems = [];
     const options = [];
 
-    items[index].groupItems.map((groupItem) =>
-      groupItem.items.forEach((item) => mappedItems.push(item))
-    );
+    items[index].items.forEach((item) => mappedItems.push(item));
 
     mappedItems.map((item) =>
       options.push({

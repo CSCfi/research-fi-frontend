@@ -5,9 +5,9 @@
 
 <ng-container *ngIf="!localized; else localizedTemplate">
   <ng-container [ngSwitch]="fieldType">
-    <ng-container *ngSwitchCase="fieldTypes.personWebLink">{{
-      _item.url
-    }}</ng-container>
+    <ng-container *ngSwitchCase="fieldTypes.personWebLink">
+      {{ _item.url }}
+    </ng-container>
     <ng-container *ngSwitchCase="fieldTypes.personResearcherDescription">
       <ng-container *ngFor="let value of _item | getLocalizedValues">
         <div class="row fw-bold">
@@ -23,10 +23,13 @@
       </ng-container>
     </ng-container>
 
-
     <ng-container *ngSwitchCase="fieldTypes.activityAffiliation">
       <app-activity-item
-        [rows]="[_item['positionName' + locale], _item['organizationName' + locale], _item.startDate.year + ' - ' + _item.endDate.year]"
+        [rows]="[
+          _item['positionName' + locale],
+          _item['organizationName' + locale],
+          _item.year
+        ]"
         [smallLastItem]="true"
       ></app-activity-item>
     </ng-container>
@@ -55,7 +58,7 @@
 
     <ng-container *ngSwitchCase="fieldTypes.activityDataset">
       <app-activity-item
-        [rows]="[_item['name' + locale], _item.datasetCreated]"
+        [rows]="[_item.name, _item.year]"
         [smallLastItem]="true"
       ></app-activity-item>
     </ng-container>

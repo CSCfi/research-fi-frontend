@@ -15,9 +15,7 @@ import { PatchService } from './services/patch.service';
 export function checkSelected(group) {
   const itemMetaGroup = [];
 
-  group.groupItems.map((groupItem) =>
-    groupItem.items.forEach((item) => itemMetaGroup.push(item.itemMeta))
-  );
+  group.items.forEach((item) => itemMetaGroup.push(item.itemMeta));
 
   // Map fetched publications
   if (group.selectedPublications) {
@@ -30,22 +28,26 @@ export function checkSelected(group) {
 }
 
 // Check if group has a selected item
-export function checkGroupSelected(group) {
-  return group.items.find((item) => item.itemMeta.show);
+export function checkGroupSelected(item) {
+  return item?.itemMeta.show;
 }
 
 // Check if group has item in patch items
 export function checkGroupPatchItem(group, patchItems) {
-  if (Object.keys(group[0]).length > 0 && Object.keys(patchItems[0]).length > 0 && group[0].items !== undefined) {
-  const items = group.flatMap((groupItem) => groupItem.items);
-  return items.find((item) =>
-    patchItems.find(
-      (patchItem) => {
-        return (patchItem.id === item.itemMeta.id &&
-        patchItem.type === item.itemMeta.type)
-      }
-    )
-  );
+  if (
+    Object.keys(group[0]).length > 0 &&
+    Object.keys(patchItems[0]).length > 0 &&
+    group[0].items !== undefined
+  ) {
+    const items = group;
+    return items.find((item) =>
+      patchItems.find((patchItem) => {
+        return (
+          patchItem.id === item.itemMeta.id &&
+          patchItem.type === item.itemMeta.type
+        );
+      })
+    );
   }
   return undefined;
 }
@@ -58,26 +60,29 @@ export function checkGroupPatchItem(group, patchItems) {
 export function getName(data) {
   return data
     .find((item) => item.id === 'contact')
-    .fields[0].groupItems.flatMap((groupItem) => groupItem.items)
-    .find((item) => item.itemMeta.show)?.value;
+    .fields[0].items.find((item) => item.itemMeta.show)?.value;
 }
+
+/*
+ * NEEDS TO BE IMPLEMENTED
+ */
 
 // User can add "duplicate" publications.
 // Publications from Orcid and Portal are related with DOI.
 export function mergePublications(
-  data: { groupItems: any },
+  data: { items: any },
   patchService: PatchService = null
 ) {
   if (!isEmptySection(data)) {
-    const publicationGroups = data.groupItems;
+    const publications = data.items;
 
-    const orcidPublications = publicationGroups.find(
-      (group) => group.groupMeta.type === FieldTypes.activityOrcidPublication
-    );
+    // const orcidPublications = publications.filter(
+    //   (item) => item.itemMeta.type === FieldTypes.activityOrcidPublication
+    // );
 
-    const addedPublications = publicationGroups.find(
-      (group) => group.groupMeta.type === FieldTypes.activityPublication
-    );
+    // const addedPublications = publications.filter(
+    //   (item) => item.itemMeta.type === FieldTypes.activityPublication
+    // );
 
     // DOI value is generated from doiHandle field when publication is patched to profile.
     // Therefore find if orcid publication doi string is included in added publications doi field.
@@ -89,69 +94,69 @@ export function mergePublications(
       (orcidPublication.doi.length > 0 &&
         addedPublication.doi?.includes(orcidPublication.doi));
 
-    if (orcidPublications?.length > 0) {
-      for (let [i, orcidPublication] of orcidPublications.items.entries()) {
-        if (publicationGroups.length === 2) {
-          const match = addedPublications.items.find((addedPublication) =>
-            matchPublication(addedPublication, orcidPublication)
-          );
-          if (match) {
-            orcidPublications.items[i] = {
-              ...orcidPublication,
-              ...match,
-              title: orcidPublication.title, // Keep title from ORCID
-              itemMeta: { ...orcidPublication.itemMeta, show: true }, // Keep original itemMeta, set selection
-              merged: true,
-              source: {
-                // Merged publications have multiple sources
-                organizations: [
-                  orcidPublications.source.organization,
-                  addedPublications.source.organization,
-                ],
-              },
-            };
+    // if (orcidPublications?.length > 0) {
+    //   for (let [i, orcidPublication] of orcidPublications.items.entries()) {
+    //     if (publications.length === 2) {
+    //       const match = addedPublications.items.find((addedPublication) =>
+    //         matchPublication(addedPublication, orcidPublication)
+    //       );
+    //       if (match) {
+    //         orcidPublications.items[i] = {
+    //           ...orcidPublication,
+    //           ...match,
+    //           title: orcidPublication.title, // Keep title from ORCID
+    //           itemMeta: { ...orcidPublication.itemMeta, show: true }, // Keep original itemMeta, set selection
+    //           merged: true,
+    //           source: {
+    //             // Merged publications have multiple sources
+    //             organizations: [
+    //               orcidPublications.source.organization,
+    //               addedPublications.source.organization,
+    //             ],
+    //           },
+    //         };
 
-            // Patch publication from ORCID that has match
-            patchService?.addToPayload(orcidPublication.itemMeta);
+    //         // Patch publication from ORCID that has match
+    //         patchService?.addToPayload(orcidPublication.itemMeta);
 
-            // Remove duplicate from added publications
-            publicationGroups[1].items = addedPublications.items.filter(
-              (addedPublication) =>
-                !matchPublication(addedPublication, orcidPublication)
-            );
-          }
-        }
-      }
-    }
+    //         // Remove duplicate from added publications
+    //         publications[1].items = addedPublications.items.filter(
+    //           (addedPublication) =>
+    //             !matchPublication(addedPublication, orcidPublication)
+    //         );
+    //       }
+    //     }
+    //   }
+    // }
   }
 }
 
 // Publications can be empty if user has no imported data from ORCID
 export function isEmptySection(data) {
-  return !data.groupItems.length;
+  return !data.items.length;
 }
 
 // Sort items and return unbinded data
 export function sortItemsByNew(data, path) {
-  const dataCopied = [...data.items];
+  const dataCopied = [...data];
   return dataCopied.sort((a, b) => get(b, path) - get(a, path));
 }
 
 // Sort items and return unbinded data
 export function sortItemsBy(data, path) {
-  const groupItems = data.groupItems;
+  const items = data.items;
 
-  groupItems.map(
+  items.map(
     (groupItem) =>
-      (groupItem.items = groupItem.items.map((item) => ({
+      (groupItem = groupItem.map((item) => ({
         ...item,
         source: groupItem.source,
       })))
   );
 
-  const items = [...groupItems].flatMap((groupItem) => groupItem.items);
+  const result = [...items];
 
-  return items.sort((a, b) => get(b, path) - get(a, path));
+  return result.sort((a, b) => get(b, path) - get(a, path));
 }
 
 // Map uniques sources from all groups
@@ -160,20 +165,21 @@ export function getUniqueSources(profileData) {
 
   const sourcesMap = profileData
     .flatMap((group) => group.fields)
-    .flatMap((field) => field.groupItems)
-    .map((groupItem) => groupItem.source);
+    .flatMap((field) => field.items)
+    .flatMap((item) => item.dataSources);
 
   const uniqueOrganizations = [
-    ...new Set(sourcesMap.map((source) => source.organization.name)),
+    ...new Set(sourcesMap.map((source) => source.registeredDataSource)),
   ];
 
   for (const organization of uniqueOrganizations) {
     sources.push({
       label: organization,
-      id: sourcesMap.find((source) => source.organization.name === organization)
-        .id,
+      id: sourcesMap.find(
+        (source) => source.registeredDataSource === organization
+      ).id,
       count: sourcesMap.filter(
-        (source) => source.organization.name === organization
+        (source) => source.registeredDataSource === organization
       ).length,
     });
   }
@@ -215,12 +221,11 @@ export const filterData = (profileData, activeFilters, filterType?: string) => {
       filterByDatasets(group, datasetFilter);
     }
     for (const field of group.fields) {
-      for (const groupItem of field.groupItems) {
-        // Publicity
-        if (checkCategoryFilter('status', statusFilter)) {
-          filterByStatus(groupItem, statusFilter);
-        }
+      // Publicity
+      if (checkCategoryFilter('status', statusFilter)) {
+        filterByStatus(field, statusFilter);
       }
+
       // Source
       if (checkCategoryFilter('source', sourceFilter)) {
         filterBySource(field, sourceFilter);
@@ -231,25 +236,27 @@ export const filterData = (profileData, activeFilters, filterType?: string) => {
   return groups;
 };
 
-export function filterByStatus(groupItem, filter) {
+export function filterByStatus(field, filters) {
   const statusFilterOptions = { public: true, private: false };
-  groupItem.items = groupItem.items.filter((item) =>
-    filter.some(
+  field.items = field.items.filter((item) =>
+    filters.some(
       (filter: string) => item.itemMeta.show === statusFilterOptions[filter]
     )
   );
 }
 
-export function filterByDatasets(group, filter) {
+export function filterByDatasets(group, filters) {
   return (group.fields = group.fields.filter((field) =>
-    filter.find((filter) => filter === field.id)
+    filters.find((filter) => filter === field.id)
   ));
 }
 
-export function filterBySource(field, filter) {
-  field.groupItems = field.groupItems.filter((groupItem) =>
-    filter.some(
-      (filter: string) => groupItem.source.organization.name === filter
+export function filterBySource(field, filters) {
+  field.items = field.items.filter((item) =>
+    filters.some((filter: string) =>
+      item.dataSources.find(
+        (dataSource) => dataSource.registeredDataSource === filter
+      )
     )
   );
 }

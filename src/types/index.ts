@@ -79,3 +79,42 @@ export type DialogAction = {
   primary?: boolean;
   flexStart?: boolean;
 };
+
+// MyData
+export type DataSource = {
+  id: number;
+  organization: {
+    nameFi: string;
+    nameEn: string;
+    nameSv: string;
+  };
+  registeredDataSource: string;
+};
+
+export type ItemMeta = {
+  id: number;
+  type: number;
+  show: boolean;
+  primaryValue: boolean;
+};
+
+export type Item = {
+  itemMeta: ItemMeta;
+};
+
+export type Field = {
+  id: string;
+  label: string;
+  disabled: boolean;
+  single: boolean;
+  items: Partial<Item>[];
+  hasPrimaryValue: boolean;
+  joined: boolean;
+  expanded?: boolean;
+};
+
+export type Group = {
+  id: string;
+  label: string;
+  fields: Field[];
+};

@@ -191,13 +191,11 @@ export class DataSourcesSelectionActionsComponent implements OnInit, OnDestroy {
   filterProfileData(action: Action) {
     const dataCopy = cloneDeep(this.profileData);
 
-    const groups = dataCopy
-      .flatMap((group) => group.fields)
-      .flatMap((group) => group.groupItems);
+    const fields = dataCopy.flatMap((group) => group.fields);
 
-    groups.forEach(
-      (group) =>
-        (group.items = group.items.filter((item) =>
+    fields.forEach(
+      (field) =>
+        (field.items = field.items.filter((item) =>
           this.filterBy(action, item.itemMeta)
         ))
     );

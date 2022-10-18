@@ -23,33 +23,33 @@ export class FundingFieldsAdapter implements Adapter<FundingFields> {
     private mydataUtils: MydataUtilityService
   ) {}
 
+  // adaptOld(item: any): FundingFields {
+  //   /*
+  //    * Leverage model from Portal.
+  //    */
+  //   item.fundingDecisionGroups.forEach(
+  //     (group) =>
+  //       (group.items = group.items.map(
+  //         (item) =>
+  //           (item = {
+  //             ...this.fundingAdapter.adapt(item),
+  //             itemMeta: item.itemMeta,
+  //           })
+  //       ))
+  //   );
+
+  //   return new FundingFields(
+  //     this.mydataUtils.mapGroup(
+  //       item.fundingDecisionGroups,
+  //       'fundings',
+  //       $localize`:@@fundings:Hankkeet`
+  //     )
+  //   );
+  // }
+
   adapt(item: any): FundingFields {
-    /*
-     * Leverage model from Portal.
-     */
-    item.fundingDecisionGroups.forEach(
-      (group) =>
-        (group.items = group.items.map(
-          (item) =>
-            (item = {
-              ...this.fundingAdapter.adapt(item),
-              itemMeta: item.itemMeta,
-            })
-        ))
-    );
-
     return new FundingFields(
-      this.mydataUtils.mapGroup(
-        item.fundingDecisionGroups,
-        'fundings',
-        $localize`:@@fundings:Hankkeet`
-      )
-    );
-  }
-
-  adaptNew(item: any): FundingFields {
-    return new FundingFields(
-      this.mydataUtils.mapGroupGeneralNew(
+      this.mydataUtils.mapGroupGeneral(
         item,
         'funding',
         'fundings',

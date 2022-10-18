@@ -20,11 +20,11 @@ import { cloneDeep } from 'lodash-es';
 export class HandleFetchedPublicationsPipe implements PipeTransform {
   fieldTypes = FieldTypes;
 
-  transform(groupItems: any, update) {
+  transform(items: any, update) {
     const publicationType = this.fieldTypes.activityPublication;
 
-    if (groupItems.length && groupItems[0].groupMeta.type === publicationType) {
-      const groupItemsClone = cloneDeep(groupItems);
+    if (items.length && items[0].groupMeta.type === publicationType) {
+      const groupItemsClone = cloneDeep(items);
       for (const group of groupItemsClone) {
         group.items = group.items.filter(
           (item) => item.itemMeta.primaryValue === true
@@ -33,6 +33,6 @@ export class HandleFetchedPublicationsPipe implements PipeTransform {
       return groupItemsClone;
     }
 
-    return groupItems;
+    return items;
   }
 }

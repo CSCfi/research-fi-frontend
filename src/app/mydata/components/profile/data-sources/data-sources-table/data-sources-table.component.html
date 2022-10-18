@@ -27,6 +27,9 @@
 <ng-container *ngFor="let row of rawProfileRows">
   <ng-template #contentCell>
     <div class="table-cell" #textContent [ngSwitch]="row.itemMeta.type">
+      <ng-container *ngSwitchCase="fieldTypes.personResearcherDescription">
+        {{ row['researchDescription' + locale] }}
+      </ng-container>
       <ng-container *ngSwitchCase="fieldTypes.personWebLink">
         {{ row.url }}
       </ng-container>
