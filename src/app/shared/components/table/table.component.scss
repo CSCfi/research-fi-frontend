@@ -1,17 +1,27 @@
+// This file is part of the research.fi API service
+//
+// Copyright 2019 Ministry of Education and Culture, Finland
+//
+// :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+// :license: MIT
+
 app-table,
 app-table-cell {
-  fa-icon.row-icon{
+  fa-icon {
     font-size: 2.625rem;
   }
 
   .mat-column-icon {
     flex: 0 0 6% !important; // Icon column width
-    margin-top: -0.5rem;
+    margin-top: -0.5rem; // Position with text content
     max-width: 6%;
   }
 
+  .mat-column-selection mat-checkbox {
+    margin-top: -0.25rem;
+  }
+
   .mat-sort-header {
-    text-transform: uppercase;
     font-weight: 600;
   }
 
@@ -23,24 +33,14 @@ app-table-cell {
 
   $row-x-padding: 0.25rem;
 
-  mat-cell,
-  mat-header-cell,
-  mat-footer-cell,
-  mat-row {
-    align-items: start;
-  }
-
-  mat-cell,
-  mat-header-cell,
-  mat-footer-cell{
-    word-wrap: normal;
-    overflow: visible;
-  }
-
   mat-header-row {
     z-index: 90 !important;
     min-height: auto;
-    align-items: flex-start
+    align-items: flex-start;
+  }
+
+  mat-row {
+    min-height: auto;
   }
 
   mat-row,
@@ -54,25 +54,54 @@ app-table-cell {
     border-bottom: 0;
   }
 
-  .align-center mat-row {
-    align-items: center;
+  // If row content is aligned to vertical center
+  .align-center {
+    mat-cell:not(.icon-cell) {
+      align-self: center;
+    }
+    // Icon position is altered in default style
+    // This centers icon with content
+    .mat-column-icon {
+      margin-top: 0 !important;
+    }
+  }
+
+  mat-cell,
+  mat-header-cell,
+  mat-footer-cell,
+  mat-row {
+    align-items: stretch;
+  }
+
+  mat-cell,
+  mat-header-cell,
+  mat-footer-cell {
+    word-wrap: normal;
+    overflow: visible;
   }
 
   mat-header-cell:first-of-type,
   mat-cell:first-of-type,
   mat-footer-cell:first-of-type {
-    padding-left: $row-x-padding;
+    padding-left: $row-x-padding !important;
   }
 
   mat-header-cell:last-of-type,
   mat-cell:last-of-type,
   mat-footer-cell:last-of-type {
-    padding-right: $row-x-padding;
+    padding-right: $row-x-padding !important;
   }
 
-  mat-header-cell:not(:first-of-type),
-  mat-cell:not(first-of-type) {
-    padding: 0 1rem 0.75rem;
+  .mat-table-sticky mat-header-cell {
+    padding: 0.5rem 1rem;
+  }
+
+  mat-header-cell {
+    padding: 0 1rem 0.5rem;
+  }
+
+  mat-cell {
+    padding: 1rem;
   }
 
   h4 {
@@ -88,8 +117,18 @@ app-table-cell {
     font-weight: 500;
   }
 
+  // move sort indicator to end
+  // .mat-sort-header-container {
+  //   display: block;
+  //   flex: 1;
+  // }
+
   .mat-sort-header-content {
     text-align: left;
+
+    & .column-label {
+      flex: 1;
+    }
   }
 
   /*
@@ -118,70 +157,26 @@ app-table-cell {
     }
   }
 
-  [aria-sort='ascending'],
-  [aria-sort='descending'],
-  .no-active-sort {
-    .mat-sort-header-content {
-      span {
-        &::after {
-          position: absolute;
-          margin-left: 0.5rem;
-          margin-top: -1px;
-        }
-      }
-    }
+  .sort-indicator fa-icon {
+    font-size: 1rem;
+    padding-left: 0.75rem;
   }
 
-  [aria-sort='ascending'] {
-    .mat-sort-header-content {
-      span {
-        &::after {
-          font-family: 'FontAwesome';
-          content: '\f0de';
-        }
-      }
-    }
-  }
-
-  [aria-sort='descending'] {
-    .mat-sort-header-content {
-      span {
-        &::after {
-          font-family: 'FontAwesome';
-          content: '\f0dd';
-        }
-      }
-    }
-  }
-
+  // E.g. in funding-call-results funder name
   .overflow-ellipsis {
     text-overflow: ellipsis;
     overflow: hidden;
     display: block;
   }
-
-  // Display icon when no active sort
-  // Hide icon from columns with disabled sort attribute
-  .no-active-sort:not(.mat-sort-header-disabled) {
-    .mat-sort-header-content {
-      span {
-        &::after {
-          font-family: 'FontAwesome';
-          content: '\f0dc';
-        }
-      }
-    }
-  }
 }
-
 
 // Padding for additional row (funding-calls)
 .additional-row {
-  padding-left: 7.4%
+  padding-left: 7.4%;
 }
 
 @media (max-width: 991px) {
   .additional-row {
-    padding-left: 7.4%
+    padding-left: 7.4%;
   }
 }

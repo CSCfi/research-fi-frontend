@@ -22,6 +22,7 @@
   </div>
 
   <ng-template #content>
+    <app-banner-divider *ngIf="showDivider"></app-banner-divider>
     <div class="container-fluid main">
       <ng-content></ng-content>
     </div>

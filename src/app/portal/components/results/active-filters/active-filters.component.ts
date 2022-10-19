@@ -10,24 +10,20 @@ import {
   OnInit,
   OnDestroy,
   AfterContentInit,
-  ElementRef,
-  AfterViewInit,
-  ViewChildren,
-  QueryList,
   Inject,
   PLATFORM_ID,
-  LOCALE_ID, Output, EventEmitter
+  LOCALE_ID,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { SortService } from '@portal/services/sort.service';
 import { FilterService } from '@portal/services/filters/filter.service';
-import { DataService } from '@portal/services/data.service';
 import { TabChangeService } from '@portal/services/tab-change.service';
 import {
   faExclamationTriangle,
   faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons';
-import { MatDialog } from '@angular/material/dialog';
 import { PublicationFilterService } from '@portal/services/filters/publication-filter.service';
 import { PersonFilterService } from '@portal/services/filters/person-filter.service';
 import { FundingFilterService } from '@portal/services/filters/funding-filter.service';
@@ -40,14 +36,14 @@ import { SearchService } from '@portal/services/search.service';
 import { isPlatformBrowser } from '@angular/common';
 import { FundingCallFilterService } from '@portal/services/filters/funding-call-filter.service';
 import { StaticDataService } from '@portal/services/static-data.service';
+import { FilterConfigType } from 'src/types';
 
 @Component({
   selector: 'app-active-filters',
   templateUrl: './active-filters.component.html',
-  styleUrls: ['./active-filters.component.scss'],
 })
 export class ActiveFiltersComponent
-  implements OnInit, OnDestroy, AfterContentInit, AfterViewInit
+  implements OnInit, OnDestroy, AfterContentInit
 {
   queryParams: any;
   activeFilters = [];
@@ -78,7 +74,7 @@ export class ActiveFiltersComponent
   @Output() clearAllFilters = new EventEmitter<any>();
 
   filterResponse: any;
-  tabFilters: any;
+  filtersConfig: FilterConfigType[];
   response: any;
   tabSub: any;
   currentTab: any;
@@ -88,27 +84,24 @@ export class ActiveFiltersComponent
   fromYear: number;
   toYear: number;
 
-
   translationFlag: boolean;
   parsedFilters: any[];
-  @ViewChildren('container') container: QueryList<ElementRef>;
-  containerSub: any;
   yearRange: string;
   isBrowser: any;
   errorMessage: any;
 
-  showDialog: boolean;
-  dialogTitle: string;
-  dialogData: any;
+  activeFiltersDialogConfig: {
+    filtersConfig: any;
+    fromYear: number;
+    toYear: number;
+  };
 
   constructor(
     private router: Router,
     private sortService: SortService,
     private filterService: FilterService,
-    private dataService: DataService,
     private staticDataService: StaticDataService,
     private tabChangeService: TabChangeService,
-    public dialog: MatDialog,
     private publicationFilters: PublicationFilterService,
     private personFilters: PersonFilterService,
     private fundingFilters: FundingFilterService,
@@ -129,33 +122,33 @@ export class ActiveFiltersComponent
     this.currentTab = this.tabChangeService.tab;
     switch (this.currentTab) {
       case 'publications':
-        this.tabFilters = this.publicationFilters.filterData;
+        this.filtersConfig = this.publicationFilters.filterData;
         this.yearRange = $localize`:@@yearOfPublication:Julkaisuvuosi` + ': ';
         break;
       case 'fundings':
-        this.tabFilters = this.fundingFilters.filterData;
+        this.filtersConfig = this.fundingFilters.filterData;
         this.yearRange = $localize`:@@startYear:Aloitusvuosi` + ': ';
         break;
       case 'datasets':
-        this.tabFilters = this.datasetFilters.filterData;
+        this.filtersConfig = this.datasetFilters.filterData;
         this.yearRange = $localize`:@@yearOfPublication:Julkaisuvuosi` + ': ';
         break;
       case 'infrastructures':
-        this.tabFilters = this.infrastructureFilters.filterData;
+        this.filtersConfig = this.infrastructureFilters.filterData;
         this.yearRange = $localize`:@@startYear:Aloitusvuosi` + ': ';
         break;
       // case 'persons':
-      //   this.tabFilters = this.personFilters.filterData;
+      //   this.filtersConfig = this.personFilters.filterData;
       //   break;
       case 'organizations':
-        this.tabFilters = this.organizationFilters.filterData;
+        this.filtersConfig = this.organizationFilters.filterData;
         break;
       case 'funding-calls':
-        this.tabFilters = this.fundingCallFilters.filterData;
+        this.filtersConfig = this.fundingCallFilters.filterData;
         this.yearRange = $localize`:@@applicationPeriod:Hakuaika` + ': ';
         break;
       case 'news':
-        this.tabFilters = this.newsFilters.filterData;
+        this.filtersConfig = this.newsFilters.filterData;
         break;
 
       default:
@@ -165,16 +158,6 @@ export class ActiveFiltersComponent
 
   ngAfterContentInit() {
     this.translate();
-  }
-
-  ngAfterViewInit() {
-    // Get height of component and send to service, this is used with result header top margin
-    this.containerSub = this.container.changes.subscribe((item) => {
-      const arr = item.toArray();
-      this.dataService.changeActiveFilterHeight(
-        arr[0]?.nativeElement.offsetHeight
-      );
-    });
   }
 
   translate() {
@@ -807,16 +790,21 @@ export class ActiveFiltersComponent
       this.activeFilters = this.activeFilters.sort(
         (a, b) => b.translation - a.translation
       );
+
+      // Generate active filters list dialog config
+      this.activeFiltersDialogConfig = {
+        filtersConfig: this.filtersConfig,
+        fromYear: this.fromYear,
+        toYear: this.toYear,
+      };
     });
   }
 
   removeFilter(event): void {
-
     // Remove range filters. Check that target active filter matches fromYear filter
     if (
-      event.target.id.length === 5 &&
-      (event.target.id.slice(0, 1) === 'f' ||
-        event.target.id.slice(0, 1) === 't')
+      event.value.length === 5 &&
+      (event.value.slice(0, 1) === 'f' || event.value.slice(0, 1) === 't')
     ) {
       if (this.fromYear && this.toYear) {
         this.activeFilters = this.activeFilters.filter(
@@ -850,7 +838,7 @@ export class ActiveFiltersComponent
     }
 
     this.activeFilters = this.activeFilters.filter(
-      (elem) => elem.value !== event.target.id
+      (elem) => elem.value !== event.value
     );
 
     const params = this.activeFilters.reduce((storage, item) => {
@@ -890,8 +878,6 @@ export class ActiveFiltersComponent
   ngOnDestroy() {
     this.queryParams?.unsubscribe();
     this.filterResponse?.unsubscribe();
-    // this.tabSub?.unsubscribe();
-    this.containerSub?.unsubscribe();
   }
 
   // Set index for warning hover
@@ -901,21 +887,5 @@ export class ActiveFiltersComponent
 
   leave() {
     this.hoverIndex = null;
-  }
-
-  openDialog() {
-    this.dialogData = {
-      active: this.activeFilters,
-      fromYear: this.fromYear,
-      toYear: this.toYear,
-      tabFilters: this.tabFilters,
-    };
-    this.showDialog = true;
-    this.dialogTitle =
-      $localize`:@@activeFilters:Rajaukset` + ` (${this.activeFilters.length})`;
-  }
-
-  closeDialog() {
-    this.showDialog = false;
   }
 }

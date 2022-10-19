@@ -4,11 +4,13 @@
  :license: MIT -->
 
 <ng-template #toggleAllTemplate>
-  <div class="col-12 col-sm-auto pt-3 pt-sm-0 align-self-center order-3 order-sm-2">
+  <div
+    class="col-12 col-sm-auto pt-3 pt-sm-0 align-self-center order-3 order-sm-2"
+  >
     <mat-checkbox
       [checked]="!toggleAllDisabled && allSelected"
       (change)="toggleAll($event)"
-      [indeterminate]="checkSomeSelected()"
+      [indeterminate]="someSelected"
       [disabled]="toggleAllDisabled"
       i18n="@@selectAll"
       >Valitse kaikki</mat-checkbox

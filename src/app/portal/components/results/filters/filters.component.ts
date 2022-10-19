@@ -23,7 +23,6 @@ import {
 import { MatSelectionList } from '@angular/material/list';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
-import { ResizeService } from 'src/app/shared/services/resize.service';
 import { Subscription } from 'rxjs';
 import { WINDOW } from 'src/app/shared/services/window.service';
 import { UtilityService } from 'src/app/shared/services/utility.service';
@@ -37,12 +36,10 @@ import { OrganizationFilterService } from 'src/app/portal/services/filters/organ
 import { NewsFilterService } from 'src/app/portal/services/filters/news-filter.service';
 import { faSlidersH, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { isPlatformBrowser, DOCUMENT } from '@angular/common';
-import { tap } from 'rxjs/operators';
 import { DataService } from 'src/app/portal/services/data.service';
 import { FundingCallFilterService } from '@portal/services/filters/funding-call-filter.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
-import { Search } from '@portal/models/search.model';
-import { SettingsService } from '@portal/services/settings.service';
+import { FilterConfigType } from 'src/types';
 
 @Component({
   selector: 'app-filters',
@@ -52,8 +49,10 @@ import { SettingsService } from '@portal/services/settings.service';
 })
 export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   @Input() responseData: any;
-  @Input() tabData: string;
+  @Input() filterOrigin: string;
+  @Input() filtersConfig: FilterConfigType[];
   @Input() showButton: boolean;
+  @Input() headingText: string;
 
   @Input() set externalFilterQuery(externalFilterQuery: any) {
     if (externalFilterQuery && externalFilterQuery?.keys?.length > 0) {
@@ -102,6 +101,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   showDialog: boolean;
   dialogTemplate: TemplateRef<any>;
   dialogTitle: string;
+  filterHeading: string;
 
   constructor(
     private router: Router,
@@ -128,8 +128,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   openDialog(template: TemplateRef<any>) {
     this.showDialog = true;
     this.dialogTemplate = template;
-    this.dialogTitle =
-      this.tabData === 'news' ? this.filterNewsHeader : this.filterSearchHeader;
+    this.dialogTitle = this.filterHeading;
   }
 
   closeDialog() {
@@ -137,6 +136,12 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnInit() {
+    this.filterHeading = this.headingText
+      ? this.headingText
+      : this.filterOrigin === 'news'
+      ? this.filterNewsHeader
+      : this.filterSearchHeader;
+
     // Visualisation click filtering
     this.visualFilterSub = this.dataService.newFilter.subscribe((f) =>
       this.selectionChange(f.filter, f.key, true)
@@ -180,7 +185,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     // Initialize data and set filter data by index
     if (this.responseData) {
       // Set filters and shape data
-      switch (this.tabData) {
+      switch (this.filterOrigin) {
         case 'publications': {
           this.currentFilter = this.publicationFilters.filterData;
           this.currentSingleFilter = this.publicationFilters.singleFilterData;
@@ -231,6 +236,11 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
           this.currentFilter = this.newsFilters.filterData;
           // this.currentSingleFilter = this.newsFilters.singleFilterData;
           this.newsFilters.shapeData(this.responseData);
+          break;
+        }
+        // MyData filters
+        case 'dataSources': {
+          this.currentFilter = this.filtersConfig;
           break;
         }
       }

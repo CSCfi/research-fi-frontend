@@ -127,10 +127,10 @@
     .mat-expansion-panel-header-title {
       padding: 1rem 11px;
       font-weight: bolder;
-      
     }
 
-    .panel-title, .mat-expansion-panel-header-title {
+    .panel-title,
+    .mat-expansion-panel-header-title {
       font-size: 1.1rem;
     }
 
@@ -153,17 +153,12 @@
     }
 
     // Search
-    input.filter-search,
-    .empty-filter-search {
-      margin: 0 15px;
+    input.filter-search {
+      margin: 0 1rem;
     }
 
     .empty-filter-search {
-      margin-top: 10px;
-    }
-
-    .empty-pad {
-      padding: 10px 0;
+      margin: 0.5rem 1rem 1rem;
     }
 
     // Typography & icons

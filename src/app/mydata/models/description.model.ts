@@ -21,19 +21,18 @@ export class DescriptionFieldsAdapter implements Adapter<DescriptionFields> {
 
   adapt(item: any): DescriptionFields {
     return new DescriptionFields(
-      this.mydataUtils.mapGroup(
-        item.keywordGroups,
+      this.mydataUtils.mapField(
+        item.keywords,
         'keywords',
         $localize`:@@keywords:Avainsanat`,
         {
           joined: true,
         }
       ),
-      this.mydataUtils.mapGroupFieldName(
-        item.researcherDescriptionGroups,
+      this.mydataUtils.mapField(
+        item.researcherDescriptions,
         'researchDescription',
         $localize`:@@description:Kuvaus`,
-        'researchDescription',
         {
           localized: true,
         }

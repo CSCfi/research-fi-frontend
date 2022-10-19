@@ -7,7 +7,8 @@
   "files": ["./main.server.ts"],
   "angularCompilerOptions": {
     "entryModule": "./app/app.server.module#AppServerModule",
-    "enableIvy": true
+    "enableIvy": true,
+    "strictTemplate": true,
   },
   "include": ["src/**/*.d.ts"]
 }

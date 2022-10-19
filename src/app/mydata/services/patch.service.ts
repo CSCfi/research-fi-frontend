@@ -25,8 +25,13 @@ export class PatchService {
   addToPayload(payload) {
     const items = this.patchItems;
 
+    // Prevent duplicate items in both array and single object patch
     if (Array.isArray(payload)) {
-      this.patchItems = items.concat(payload);
+      const patchItemArr = items.concat(payload);
+
+      this.patchItems = [
+        ...new Map(patchItemArr.map((item) => [item.id, item])).values(),
+      ];
     } else {
       const duplicate = items.find((patchItem) => patchItem.id === payload.id);
 

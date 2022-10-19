@@ -1,0 +1,86 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<app-table
+  *ngIf="tableRows?.length > 0; else noResults"
+  [columns]="tableColumns"
+  [rows]="tableRows.slice((pageNumber - 1) * pageSize, pageNumber * pageSize)"
+  activeRowIdentifierField="public"
+  [borders]="true"
+  [sortColumn]="activeSort"
+  [sortDirection]="sortDirection"
+  (onSelectionChange)="handleSelection($event)"
+  [sortQueryParams]="true"
+  [mobileCards]="true"
+></app-table>
+
+<app-pagination
+  *ngIf="tableRows?.length > 0"
+  [page]="pageNumber"
+  [pageSize]="pageSize"
+  [total]="total"
+></app-pagination>
+
+<!-- Table templates -->
+<ng-container *ngFor="let row of rawProfileRows">
+  <ng-template #contentCell>
+    <div class="table-cell" #textContent [ngSwitch]="row.itemMeta.type">
+      <ng-container *ngSwitchCase="fieldTypes.personResearcherDescription">
+        {{ row['researchDescription' + locale] }}
+      </ng-container>
+      <ng-container *ngSwitchCase="fieldTypes.personWebLink">
+        {{ row.url }}
+      </ng-container>
+      <ng-container *ngSwitchCase="fieldTypes.activityAffiliation">
+        {{ row.positionName }}
+      </ng-container>
+      <ng-container *ngSwitchCase="fieldTypes.activityEducation">
+        {{ row.degreeGrantingInstitutionName }}
+      </ng-container>
+      <ng-container *ngSwitchCase="fieldTypes.activityPublication">
+        {{ row.title }}
+      </ng-container>
+      <ng-container *ngSwitchCase="fieldTypes.activityOrcidPublication">
+        {{ row.title }}
+      </ng-container>
+      <ng-container *ngSwitchCase="fieldTypes.activityDataset">
+        {{ row.name }}
+      </ng-container>
+      <ng-container *ngSwitchCase="fieldTypes.activityFunding">
+        {{ row.name }}
+      </ng-container>
+      <ng-container *ngSwitchDefault>{{ row.value }}</ng-container>
+    </div>
+  </ng-template>
+
+  <ng-template #publicityCell>
+    <!-- TODO: Add i18n ids -->
+    <span class="fw-bold" *ngIf="row.itemMeta.show">Julkinen</span>
+    <span *ngIf="!row.itemMeta.show">Ei julkinen</span>
+  </ng-template>
+
+  <ng-template #sharingCell>
+    <a
+      class="row justify-content-between"
+      href="javascript:void(0)"
+      [matMenuTriggerFor]="menu"
+    >
+      <span class="d-block col-auto px-0">1 valittu</span>
+
+      <i
+        class="col-auto align-self-center primary-color fa fa-chevron-down"
+      ></i>
+    </a>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item *ngFor="let target of shareTargets">
+        {{ target.label }}
+      </button>
+    </mat-menu>
+  </ng-template>
+</ng-container>
+
+<ng-template #noResults>
+  <h1>Ei tuloksia</h1>
+</ng-template>

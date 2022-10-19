@@ -35,9 +35,9 @@ import { MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { HomeComponent } from './components/home/home.component';
-import { WelcomeStepperComponent } from './components/welcome-stepper/welcome-stepper.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { RedirectComponent } from './components/redirect/redirect.component';
 
@@ -47,8 +47,6 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './services/auth-guard.service';
 
 import { SharedModule } from '../shared/shared.module';
-import { OrcidIdInfoComponent } from './components/welcome-stepper/orcid-id-info/orcid-id-info.component';
-import { StepperNavigationComponent } from './components/welcome-stepper/stepper-navigation/stepper-navigation.component';
 
 import { ProfilePanelComponent } from './components/profile/profile-panel/profile-panel.component';
 import { FilterPipe } from './pipes/filter.pipe';
@@ -64,10 +62,11 @@ import { PrimaryBadgeComponent } from './components/profile/profile-panel/primar
 import { SearchPortalComponent } from './components/profile/search-portal/search-portal.component';
 import { SearchPortalResultsComponent } from './components/profile/search-portal/search-portal-results/search-portal-results.component';
 import { CustomPaginatorIntlComponent } from './components/profile/search-portal/custom-paginator-intl/custom-paginator-intl.component';
-import { CountGroupItemsPipe } from './pipes/count-group-items.pipe';
+import { countFieldItemsPipe } from './pipes/count-field-items.pipe';
 import { MydataBetaInfoComponent } from './components/mydata-beta-info/mydata-beta-info.component';
 import { ProfileSummaryComponent } from './components/profile/profile-summary/profile-summary.component';
 import { JoinItemsPipe } from './pipes/join-items.pipe';
+import { JoinDataSourcesPipe } from './pipes/join-data-sources.pipe';
 import { FindSelectedItemPipe } from './pipes/find-selected-item.pipe';
 import { HandleFetchedPublicationsPipe } from './pipes/handle-fetched-publications.pipe';
 import { SortPublicationsPipe } from './pipes/sort-publications.pipe';
@@ -87,6 +86,7 @@ import { JoinValuesPipe } from './pipes/join-values.pipe';
 import { GetValuePipe } from './pipes/get-value.pipe';
 import { PortalModule } from '@portal/portal.module';
 import { HasFetchedItemPipe } from './pipes/has-fetched-item.pipe';
+import { HasSelectedItemsPipe } from './pipes/has-selected-items.pipe';
 import { SummaryPortalItemsComponent } from './components/profile/profile-summary/summary-portal-items/summary-portal-items.component';
 import { ServiceDeploymentComponent } from './components/service-deployment/service-deployment.component';
 import { ServiceTermsComponent } from './components/service-deployment/service-terms/service-terms.component';
@@ -94,6 +94,11 @@ import { CancelDeploymentComponent } from './components/service-deployment/cance
 import { OrcidLoginComponent } from './components/service-deployment/orcid-login/orcid-login.component';
 import { OrcidDataFetchComponent } from './components/service-deployment/orcid-data-fetch/orcid-data-fetch.component';
 import { WelcomeDialogComponent } from './components/profile/welcome-dialog/welcome-dialog.component';
+import { DataSourcesComponent } from './components/profile/data-sources/data-sources.component';
+import { DataSourcesTableComponent } from './components/profile/data-sources/data-sources-table/data-sources-table.component';
+import { DataSourcesFiltersComponent } from './components/profile/data-sources/data-sources-filters/data-sources-filters.component';
+import { DataSourcesSelectionActionsComponent } from './components/profile/data-sources/data-sources-selection-actions/data-sources-selection-actions.component';
+import { FindByKeyValuePipe } from './pipes/find-by-key-value.pipe';
 
 const matSnackbarDefaultConfig: MatSnackBarConfig = {
   verticalPosition: 'top',
@@ -104,12 +109,9 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
 @NgModule({
   declarations: [
     HomeComponent,
-    WelcomeStepperComponent,
     NotFoundComponent,
     RedirectComponent,
     LoginComponent,
-    OrcidIdInfoComponent,
-    StepperNavigationComponent,
     ProfilePanelComponent,
     FilterPipe,
     GetLocalizedValuesPipe,
@@ -123,10 +125,10 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
     PrimaryBadgeComponent,
     SearchPortalComponent,
     SearchPortalResultsComponent,
-    CountGroupItemsPipe,
     MydataBetaInfoComponent,
     ProfileSummaryComponent,
     JoinItemsPipe,
+    JoinDataSourcesPipe,
     FindSelectedItemPipe,
     HandleFetchedPublicationsPipe,
     SortPublicationsPipe,
@@ -152,6 +154,13 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
     OrcidLoginComponent,
     OrcidDataFetchComponent,
     WelcomeDialogComponent,
+    HasSelectedItemsPipe,
+    countFieldItemsPipe,
+    DataSourcesComponent,
+    DataSourcesTableComponent,
+    DataSourcesFiltersComponent,
+    DataSourcesSelectionActionsComponent,
+    FindByKeyValuePipe,
   ],
   imports: [
     CommonModule,
@@ -177,6 +186,7 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
     MatSortModule,
     MatButtonModule,
     MatRippleModule,
+    MatMenuModule,
     PortalModule,
   ],
   providers: [

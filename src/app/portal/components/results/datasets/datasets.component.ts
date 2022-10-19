@@ -18,7 +18,7 @@ import { SearchService } from 'src/app/portal/services/search.service';
 import { SortService } from 'src/app/portal/services/sort.service';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { UtilityService } from 'src/app/shared/services/utility.service';
-import { TableColumn, TableRowItem } from 'src/types';
+import { TableColumn, TableRow } from 'src/types';
 
 @Component({
   selector: 'app-datasets',
@@ -44,7 +44,7 @@ export class DatasetsComponent implements OnInit {
   heightSub: any;
 
   tableColumns: TableColumn[];
-  tableRows: Record<string, TableRowItem>[];
+  tableRows: Record<string, TableRow>[];
 
   @ViewChildren('datasetNameColumn', { read: TemplateRef })
   datasetNameColumns: QueryList<ElementRef>;
@@ -53,7 +53,7 @@ export class DatasetsComponent implements OnInit {
   datasetTagsColumns: QueryList<ElementRef>;
 
   dataMapped: boolean;
-  iconTitleDatasets= $localize`:@@iconDatasets: Tutkimusaineistojen tiedon ikoni`;
+  iconTitleDatasets = $localize`:@@iconDatasets: Tutkimusaineistojen tiedon ikoni`;
 
   constructor(
     private route: ActivatedRoute,

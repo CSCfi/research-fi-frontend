@@ -1,0 +1,44 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<div
+  class="table-card p-3 my-3"
+  [class.active]="active"
+  [class.selected]="selected"
+>
+  <div
+    class="row py-2"
+    *ngFor="let column of columns"
+    [class.selection]="column.key === 'selection'"
+  >
+    <div
+      class="px-0 py-1"
+      [ngClass]="column.cardClass ? column.cardClass : 'col'"
+      [ngSwitch]="column.key"
+      [class.text-end]="column.key === 'selection'"
+      [class.text-end]="column.key === 'selection'"
+    >
+      <!-- Display column header -->
+      <div class="fw-bold pb-2" *ngIf="!column.labelHiddenMobile">
+        {{ column.label }}
+      </div>
+
+      <!-- Selectable row -->
+      <ng-container *ngSwitchCase="'selection'">
+        <mat-checkbox
+          #rowSelect
+          [checked]="selected"
+          (change)="handleSelection($event)"
+        >
+        </mat-checkbox>
+      </ng-container>
+
+      <app-table-cell
+        *ngSwitchDefault
+        [data]="row[column.key]"
+      ></app-table-cell>
+    </div>
+  </div>
+</div>

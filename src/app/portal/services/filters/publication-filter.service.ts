@@ -9,12 +9,13 @@ import { Injectable } from '@angular/core';
 import { FilterMethodService } from './filter-method.service';
 import { StaticDataService } from '../static-data.service';
 import { cloneDeep } from 'lodash-es';
+import { FilterConfigType } from 'src/types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PublicationFilterService {
-  filterData = [
+  filterData: FilterConfigType[] = [
     {
       field: 'year',
       label: $localize`:@@yearOfPublication:Julkaisuvuosi`,

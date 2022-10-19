@@ -14,13 +14,17 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
   templateUrl: './panel-array-item.component.html',
 })
 export class PanelArrayItemComponent implements OnInit {
-  @Input() item: any;
+  @Input() set item(item: any) {
+    this._item = item;
+  }
   @Input() fieldType: string;
   @Input() localized: boolean;
   @Input() summary: boolean;
 
   fieldTypes = FieldTypes;
+  _item: any;
 
+  isContentLocalized = false;
   locale: string;
 
   constructor(private appSettingsService: AppSettingsService) {

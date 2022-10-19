@@ -23,25 +23,36 @@ export class DatasetFieldsAdapter implements Adapter<DatasetFields> {
     private mydataUtils: MydataUtilityService
   ) {}
 
-  adapt(item: any): DatasetFields {
-    /*
-     * Leverage model from Portal.
-     */
-    item.researchDatasetGroups.forEach(
-      (group) =>
-        (group.items = group.items.map(
-          (item) =>
-            (item = {
-              ...this.datasetAdapter.adapt(item),
-              itemMeta: item.itemMeta,
-            })
-        ))
-    );
+  // adaptOld(item: any): DatasetFields {
+  //   /*
+  //    * Leverage model from Portal.
+  //    */
+  //   item.researchDatasetGroups.forEach(
+  //     (group) =>
+  //       (group.items = group.items.map(
+  //         (item) =>
+  //           (item = {
+  //             ...this.datasetAdapter.adapt(item),
+  //             itemMeta: item.itemMeta,
+  //           })
+  //       ))
+  //   );
 
+  //   return new DatasetFields(
+  //     this.mydataUtils.mapGroup(
+  //       item.researchDatasetGroups,
+  //       'datasets',
+  //       $localize`:@@datasets:Tutkimusaineistot`
+  //     )
+  //   );
+  // }
+
+  adapt(item: any): DatasetFields {
     return new DatasetFields(
-      this.mydataUtils.mapGroup(
-        item.researchDatasetGroups,
-        'datasets',
+      this.mydataUtils.mapGroupGeneral(
+        item,
+        'dataset',
+        'researchDatasets',
         $localize`:@@datasets:Tutkimusaineistot`
       )
     );

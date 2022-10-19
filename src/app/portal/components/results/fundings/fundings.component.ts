@@ -21,7 +21,7 @@ import { SearchService } from 'src/app/portal/services/search.service';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { Search } from 'src/app/portal/models/search.model';
 import { UtilityService } from 'src/app/shared/services/utility.service';
-import { TableColumn, TableRowItem } from 'src/types';
+import { TableColumn, TableRow } from 'src/types';
 import { HighlightSearch } from '@portal/pipes/highlight.pipe';
 
 @Component({
@@ -44,10 +44,10 @@ export class FundingsComponent implements OnInit, OnDestroy, AfterViewInit {
   focusSub: any;
 
   tableColumns: TableColumn[];
-  tableRows: Record<string, TableRowItem>[];
+  tableRows: Record<string, TableRow>[];
 
   dataMapped: boolean;
-  projectLinkTitle =  $localize`:@@iconProjects: Hankkeiden tiedon ikoni`;
+  projectLinkTitle = $localize`:@@iconProjects: Hankkeiden tiedon ikoni`;
 
   constructor(
     private route: ActivatedRoute,

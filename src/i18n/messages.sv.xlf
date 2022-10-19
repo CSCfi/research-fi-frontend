@@ -651,7 +651,7 @@
         <source>Edellinen sivu</source>
         <target state="translated">Föregående sida</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/portal/components/results/pagination/pagination.component.html</context>
+          <context context-type="sourcefile">app/shared/components/pagination/pagination.component.html</context>
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
@@ -659,7 +659,7 @@
         <source>Seuraava sivu</source>
         <target state="translated">Nästa sida</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/portal/components/results/pagination/pagination.component.html</context>
+          <context context-type="sourcefile">app/shared/components/pagination/pagination.component.html</context>
           <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
@@ -671,11 +671,11 @@
         <source>Näytetään tulokset</source>
         <target state="translated">Resultaten visas</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/portal/components/results/pagination/pagination.component.html</context>
+          <context context-type="sourcefile">app/shared/components/pagination/pagination.component.html</context>
           <context context-type="linenumber">24</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/portal/components/results/pagination/pagination.component.html</context>
+          <context context-type="sourcefile">app/shared/components/pagination/pagination.component.html</context>
           <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
@@ -683,7 +683,7 @@
         <source>Sivu</source>
         <target state="translated">Sida</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/portal/components/results/pagination/pagination.component.html</context>
+          <context context-type="sourcefile">app/shared/components/pagination/pagination.component.html</context>
           <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>

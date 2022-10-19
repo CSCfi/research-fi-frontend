@@ -19,15 +19,14 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { take, takeUntil } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { mergePublications } from '@mydata/utils';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DraftService } from '@mydata/services/draft.service';
 import { PatchService } from '@mydata/services/patch.service';
 import { SnackbarService } from '@mydata/services/snackbar.service';
-import { cloneDeep } from 'lodash-es';
 import { Constants } from '@mydata/constants/';
 import { PublicationsService } from '@mydata/services/publications.service';
 import { CommonStrings } from '@mydata/constants/strings';
-import { checkGroupSelected } from '@mydata/utils';
+import { getName } from '@mydata/utils';
 import { UtilityService } from '@shared/services/utility.service';
 import { DatasetsService } from '@mydata/services/datasets.service';
 import { FundingsService } from '@mydata/services/fundings.service';
@@ -66,12 +65,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
   dialogExtraContentTemplate: any;
   currentDialogActions: any[];
   disableDialogClose: boolean;
+  showDataToPublish = $localize`:@@showDataToPublish:Näytä julkaistavat tiedot`;
   basicDialogActions = [
     { label: $localize`:@@close:Sulje`, primary: true, method: 'close' },
   ];
   publishUpdatedProfileDialogActions = [
     {
-      label: $localize`:@@showDataToPublish:Näytä julkaistavat tiedot`,
+      label: this.showDataToPublish,
+      labelToggle: {
+        on: this.showDataToPublish,
+        off: $localize`:@@hideDataToPublish:Piilota julkaistavat tiedot`,
+      },
       primary: false,
       method: 'preview',
       flexStart: true,
@@ -102,7 +106,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   draftPayload: any[];
 
-  checkGroupSelected = checkGroupSelected;
   previousRoute: string | undefined;
   showWelcomeDialog = false;
 
@@ -114,6 +117,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     public appSettingsService: AppSettingsService,
     public dialog: MatDialog,
     private router: Router,
+    private route: ActivatedRoute,
     private snackbarService: SnackbarService,
     public draftService: DraftService,
     public patchService: PatchService,
@@ -136,109 +140,80 @@ export class ProfileComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.utilityService.setMyDataTitle($localize`:@@profile:Profiili`);
 
-    this.oidcSecurityService.userData$
-      .pipe(takeUntil(this.unsubscribe))
-      .subscribe((data) => {
-        const userData = data.userData;
-        this.orcidData = userData;
+    // Get data from resolver
+    const orcidProfile = this.route.snapshot.data.orcidProfile;
+    const myDataProfile = this.route.snapshot.data.myDataProfile;
 
-        // Get ORCID id from ID token
-        const idTokenPayload = this.oidcSecurityService.getPayloadFromIdToken();
-        this.orcid = idTokenPayload.orcid;
-        this.appSettingsService.setOrcid(idTokenPayload.orcid);
-      });
+    this.orcidData = orcidProfile;
+    this.orcid = orcidProfile.orcid;
 
-    this.profileService
-      .getProfileData()
-      .pipe(take(1))
-      .subscribe((response) => {
-        /*
-         * Draft data is stored in session storage.
-         * Set draft data to profile view if draft available.
-         * Drafts are deleted with reset and publish methods
-         */
-        if (this.appSettingsService.isBrowser) {
-          const draft = sessionStorage.getItem(Constants.draftProfile);
-          const draftPatchPayload = JSON.parse(
-            sessionStorage.getItem(Constants.draftPatchPayload)
-          );
-          const draftPublicationPatchPayload = JSON.parse(
-            sessionStorage.getItem(Constants.draftPublicationPatchPayload)
-          );
-          const draftDatasetPatchPayload = JSON.parse(
-            sessionStorage.getItem(Constants.draftDatasetPatchPayload)
-          );
-          const draftCollaborationPatchPayload = JSON.parse(
-            sessionStorage.getItem(Constants.draftCollaborationPatchPayload)
-          );
-          const draftFundingPatchPayload = JSON.parse(
-            sessionStorage.getItem(Constants.draftFundingPatchPayload)
-          );
+    /*
+     * Draft data is stored in session storage.
+     * Set draft data to profile view if draft available.
+     * Drafts are deleted with reset and publish methods
+     */
+    if (this.appSettingsService.isBrowser) {
+      const draft = sessionStorage.getItem(Constants.draftProfile);
+      const draftPatchPayload = JSON.parse(
+        sessionStorage.getItem(Constants.draftPatchPayload)
+      );
+      const draftPublicationPatchPayload = JSON.parse(
+        sessionStorage.getItem(Constants.draftPublicationPatchPayload)
+      );
+      const draftDatasetPatchPayload = JSON.parse(
+        sessionStorage.getItem(Constants.draftDatasetPatchPayload)
+      );
+      const draftCollaborationPatchPayload = JSON.parse(
+        sessionStorage.getItem(Constants.draftCollaborationPatchPayload)
+      );
+      const draftFundingPatchPayload = JSON.parse(
+        sessionStorage.getItem(Constants.draftFundingPatchPayload)
+      );
 
-          this.draftPayload = draftPatchPayload;
+      this.draftPayload = draftPatchPayload;
 
-          // Display either draft profile from storage or profile from database
-          if (draft) {
-            const parsedDraft = JSON.parse(draft);
-            this.draftService.saveDraft(parsedDraft);
-            this.profileData = parsedDraft;
-            this.profileService.setCurrentProfileName(
-              this.getName(parsedDraft)
-            );
-          } else {
-            this.profileData = response.profileData;
-            this.profileService.setCurrentProfileName(
-              this.getName(response.profileData)
-            );
-          }
+      // Display either draft profile from storage or profile from database
+      if (draft) {
+        const parsedDraft = JSON.parse(draft);
+        this.draftService.saveDraft(parsedDraft);
+        this.profileData = parsedDraft;
+        this.profileService.setEditorProfileName(getName(parsedDraft));
+      } else {
+        this.profileData = myDataProfile.profileData;
+        this.profileService.setEditorProfileName(myDataProfile.name);
+      }
 
-          // Profile, publications, datasets, collaborations and fundings have separate draft data
-          const draftItems = [
-            { payload: draftPatchPayload, service: this.patchService },
-            {
-              payload: draftPublicationPatchPayload,
-              service: this.publicationsService,
-            },
-            {
-              payload: draftDatasetPatchPayload,
-              service: this.datasetsService,
-            },
-            {
-              payload: draftFundingPatchPayload,
-              service: this.fundingsService,
-            },
-            {
-              payload: draftCollaborationPatchPayload,
-              service: this.collaborationsService,
-            },
-          ];
+      // Profile, publications, datasets, collaborations and fundings have separate draft data
+      const draftItems = [
+        { payload: draftPatchPayload, service: this.patchService },
+        {
+          payload: draftPublicationPatchPayload,
+          service: this.publicationsService,
+        },
+        {
+          payload: draftDatasetPatchPayload,
+          service: this.datasetsService,
+        },
+        {
+          payload: draftFundingPatchPayload,
+          service: this.fundingsService,
+        },
+        {
+          payload: draftCollaborationPatchPayload,
+          service: this.collaborationsService,
+        },
+      ];
 
-          // Set draft item into view if draft available in storage
-          draftItems.forEach((item) => {
-            if (item.payload) {
-              item.service.addToPayload(item.payload);
-              item.service.confirmPayload();
-            }
-          });
-        }
-
-        // Set original data
-        this.profileService.setCurrentProfileData(
-          cloneDeep(response.profileData)
-        );
-
-        // Handle welcome message
-        if (this.previousRoute?.includes('service-deployment?step=4')) {
-          this.showWelcomeDialog = true;
+      // Set draft item into view if draft available in storage
+      draftItems.forEach((item) => {
+        if (item.payload && !this.profileService.profileInitialized) {
+          item.service.addToPayload(item.payload);
+          item.service.confirmPayload();
         }
       });
-  }
+    }
 
-  getName(data) {
-    return data
-      .find((item) => item.id === 'contact')
-      .fields[0].groupItems.flatMap((groupItem) => groupItem.items)
-      .find((item) => item.itemMeta.show).value;
+    this.profileService.profileInitialized = true;
   }
 
   openDialog(props: {
@@ -466,6 +441,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       })
       .catch((error) => {
         this.showSaveSuccessfulMessage(false);
+        console.error(`Error in data patching`, error);
       });
     this.profileService.setCurrentProfileData(this.profileData);
   }
@@ -484,7 +460,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     sessionStorage.removeItem(Constants.draftCollaborationPatchPayload);
 
     this.profileData = [...currentProfileData];
-    this.profileService.setCurrentProfileName(this.getName(currentProfileData));
+    this.profileService.setEditorProfileName(getName(currentProfileData));
     this.clearDraftData();
     this.collaborationComponentRef.resetInitialValue();
   }
@@ -526,7 +502,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   testNotification() {
-    this.notificationService.notificate({
+    this.notificationService.notify({
       notificationText: 'Tämä on tärkeä viesti, huomioi tämä asia.',
       buttons: [
         {

@@ -8,7 +8,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { PatchService } from '@mydata/services/patch.service';
 import { PublicationsService } from '@mydata/services/publications.service';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
-import { checkGroupSelected, checkGroupPatchItem } from '@mydata/utils';
+import { checkGroupPatchItem } from '@mydata/utils';
 import { combineLatest } from 'rxjs';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { DatasetsService } from '@mydata/services/datasets.service';
@@ -29,7 +29,6 @@ export class DraftSummaryComponent implements OnInit, OnDestroy {
   collaborationHeader = $localize`:@@collaborationHeader:Yhteistyö`;
   selectedData: any;
 
-  checkGroupSelected = checkGroupSelected;
   checkGroupPatchItem = checkGroupPatchItem;
 
   primarySource: string;

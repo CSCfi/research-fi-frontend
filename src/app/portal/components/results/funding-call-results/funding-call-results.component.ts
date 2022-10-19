@@ -21,7 +21,7 @@ import { SortService } from '@portal/services/sort.service';
 import { TabChangeService } from '@portal/services/tab-change.service';
 import { UtilityService } from '@shared/services/utility.service';
 import { Subscription } from 'rxjs';
-import { TableColumn, TableRowItem } from 'src/types';
+import { TableColumn, TableRow } from 'src/types';
 
 @Component({
   selector: 'app-funding-call-results',
@@ -34,8 +34,7 @@ export class FundingCallResultsComponent
   @Input() resultData: Search;
   @Input() sortDirection: boolean;
   @Input() sortColumn: string;
-  @Input() set externalFilterQuery(externalFilterQuery: any) {
-  }
+  @Input() set externalFilterQuery(externalFilterQuery: any) {}
   expandStatus: Array<boolean> = [];
   @ViewChild('main') mainContent: ElementRef;
 
@@ -52,7 +51,7 @@ export class FundingCallResultsComponent
   currentLocale: string;
 
   tableColumns: TableColumn[];
-  tableRows: Record<string, TableRowItem>[];
+  tableRows: Record<string, TableRow>[];
   additionalRows: ElementRef<any>[];
 
   @ViewChildren('categoriesColumn', { read: TemplateRef })

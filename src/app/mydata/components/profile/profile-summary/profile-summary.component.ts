@@ -14,7 +14,6 @@ import {
 } from '@angular/core';
 
 import { cloneDeep } from 'lodash-es';
-import { checkGroupSelected } from '@mydata/utils';
 import { take } from 'rxjs/operators';
 import { PatchService } from '@mydata/services/patch.service';
 import { PublicationsService } from '@mydata/services/publications.service';
@@ -23,7 +22,7 @@ import { SnackbarService } from '@mydata/services/snackbar.service';
 import { DraftService } from '@mydata/services/draft.service';
 import { Constants } from '@mydata/constants/';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
-import { GroupTypes } from '@mydata/constants/groupTypes';
+import { GroupTypes, PortalGroups } from '@mydata/constants/groupTypes';
 import { CommonStrings } from '@mydata/constants/strings';
 import { DatasetsService } from '@mydata/services/datasets.service';
 import { FundingsService } from '@mydata/services/fundings.service';
@@ -42,8 +41,6 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy {
   groupTypes = GroupTypes;
 
   filteredProfileData: any;
-
-  checkGroupSelected = checkGroupSelected;
 
   openPanels = [];
 
@@ -75,7 +72,19 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy {
   openDialog(event: { stopPropagation: () => void }, index: number) {
     event.stopPropagation();
     this.showDialog = true;
-    this.dialogData = cloneDeep(this.profileData[index]);
+
+    const selectedGroup = cloneDeep(this.profileData[index]);
+
+    const filteredFields = selectedGroup.fields.filter(
+      (field) => field.items.length
+    );
+
+    // Filter out fields with 0 items from groups that don't use search from portal functionality
+    if (PortalGroups.indexOf(selectedGroup.id) === -1) {
+      selectedGroup.fields = filteredFields;
+    }
+
+    this.dialogData = selectedGroup;
     this.currentIndex = index;
   }
 
@@ -149,7 +158,7 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy {
       });
 
       // Set draft data into storage with SSR check
-      if (this.appSettingsService.isBrowser) {
+      if (this.appSettingsService.isBrowser && confirmedPayLoad.length) {
         patchGroups.forEach((group) => {
           sessionStorage.setItem(group.key, JSON.stringify(group.data));
         });

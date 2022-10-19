@@ -4,31 +4,30 @@
  :license: MIT -->
 
 <!--  Primary affiliations -->
-<ng-container *ngIf="(data.groupItems | getItemsBy: 'primaryValue').length">
+<ng-container *ngIf="(data.items | getItemsBy: 'primaryValue').length">
   <div class="row">
     <div class="col fw-bold pb-3" i18n="@@primaryPlural">Ensisijaiset</div>
   </div>
 
-  <div
-    class="row"
-    *ngFor="let primaryItem of data.groupItems | getItemsBy: 'primaryValue'"
-  >
-    <div class="col-auto font-size-smaller">
-      {{ primaryItem.positionName
-      }}<span *ngIf="primaryItem.positionName">, </span
-      >{{ primaryItem.organizationName }}
+  <div class="row" *ngFor="let primaryItem of data.items; let i = index">
+    <div
+      *ngIf="primaryItem.itemMeta.primaryValue"
+      class="col-auto font-size-smaller"
+    >
+      {{ primaryItem['positionName' + locale]
+      }}<span *ngIf="primaryItem['organizationName' + locale]">, </span
+      >{{ primaryItem['organizationName' + locale] }}
     </div>
   </div>
 
   <app-summary-divider [thick]="true"></app-summary-divider>
 </ng-container>
-
 <!-- List affiliations -->
 <div class="summary-panel-wrapper">
   <ng-container *ngFor="let item of sortedItems">
     <div class="summary-panel" *ngIf="item.itemMeta.show">
       <div class="col px-3 pb-3">
-        <span class="fw-bold">{{ item.organizationName }}</span>
+        <span class="fw-bold">{{ item['organizationName' + locale] }}</span>
 
         <div class="font-size-smaller">
           {{ item.year }}
@@ -37,17 +36,17 @@
 
       <div class="row d-flex justify-content-between py-1 font-size-smaller">
         <ng-container *ngFor="let column of columns">
-          <div class="col-6 pb-3" *ngIf="item[column.field]">
+          <div class="col-6 pb-3" *ngIf="item[column.field + locale]">
             <div class="row fw-bold">{{ column.label }}</div>
 
             <div class="row" [ngSwitch]="column.field">
               <ng-container *ngSwitchCase="'positionName'">
-                {{ item[column.field] }}
+                {{ item[column.field + locale] }}
                 <ng-container>{{ item.year }}</ng-container>
               </ng-container>
 
               <ng-container *ngSwitchDefault>{{
-                item[column.field]
+                item[column.field + locale]
               }}</ng-container>
             </div>
           </div>
@@ -55,13 +54,14 @@
       </div>
 
       <div class="row">
-        <div class="col-auto font-size-smaller">
-          <ng-container i18n="@@source">Lähde</ng-container>:
-          {{ item.source.organization.name }}
-        </div>
+        <ng-container *ngFor="let ds of item.dataSources; let j = index">
+          <div class="col-auto font-size-smaller">
+            <ng-container *ngIf="j == 0" i18n="@@source">Lähde</ng-container>:
+            {{ ds.organization['name' + locale] }}
+          </div>
+          <app-summary-divider></app-summary-divider>
+        </ng-container>
       </div>
-
-      <app-summary-divider></app-summary-divider>
     </div>
   </ng-container>
 </div>
