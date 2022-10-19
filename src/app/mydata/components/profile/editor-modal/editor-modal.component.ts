@@ -66,28 +66,6 @@ export class EditorModalComponent implements OnInit {
     this.primarySource = this.editorData.primarySource;
 
     this.checkAllSelected();
-
-    // Radio options have default values. Add these values on init
-    // this.addInitialOptions(this.editorData.data);
-  }
-
-  // Not in use
-  addInitialOptions(data) {
-    const radioGroups = data.fields.filter((field) => field.single);
-
-    const patchItems = [];
-
-    radioGroups.forEach((group) =>
-      group.items.map((groupItem) => {
-        if (true) {
-          patchItems.push(
-            groupItem.find((item) => item.itemMeta.show).itemMeta
-          );
-        }
-      })
-    );
-
-    this.patchService.addToPayload(patchItems);
   }
 
   checkAllSelected() {

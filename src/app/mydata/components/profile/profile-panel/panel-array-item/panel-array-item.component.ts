@@ -31,7 +31,5 @@ export class PanelArrayItemComponent implements OnInit {
     this.locale = this.appSettingsService.capitalizedLocale;
   }
 
-  ngOnInit(): void {
-    console.log(this._item);
-  }
+  ngOnInit(): void {}
 }
