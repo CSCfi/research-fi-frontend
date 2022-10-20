@@ -7,6 +7,7 @@
 
 import { Injectable } from '@angular/core';
 import { MydataUtilityService } from '@mydata/services/mydata-utility.service';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Adapter } from './adapter.model';
 
 export class DescriptionFields {
@@ -17,9 +18,19 @@ export class DescriptionFields {
   providedIn: 'root',
 })
 export class DescriptionFieldsAdapter implements Adapter<DescriptionFields> {
-  constructor(private mydataUtils: MydataUtilityService) {}
+  constructor(
+    private mydataUtils: MydataUtilityService,
+    private appSettingsService: AppSettingsService
+  ) {}
 
   adapt(item: any): DescriptionFields {
+    const locale = this.appSettingsService.capitalizedLocale;
+
+    const descriptions = item.researcherDescriptions.map((el) => ({
+      ...el,
+      value: el['researchDescription' + locale],
+    }));
+
     return new DescriptionFields(
       this.mydataUtils.mapField(
         item.keywords,
@@ -30,7 +41,7 @@ export class DescriptionFieldsAdapter implements Adapter<DescriptionFields> {
         }
       ),
       this.mydataUtils.mapField(
-        item.researcherDescriptions,
+        descriptions,
         'researchDescription',
         $localize`:@@description:Kuvaus`,
         {

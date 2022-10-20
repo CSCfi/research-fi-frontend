@@ -72,7 +72,7 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
           'Sinulla on julkaisemattomia muutoksia profiilinäkymässä.',
         buttons: [
           {
-            label: 'Tarkastele muutokset',
+            label: 'Tarkasta muutokset',
             action: () => this.router.navigate(['mydata/profile']),
           },
         ],

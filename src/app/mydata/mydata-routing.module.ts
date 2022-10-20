@@ -62,6 +62,7 @@ const routes: Routes = [
     path: 'data-sources',
     pathMatch: 'full',
     component: DataSourcesComponent,
+    canActivate: [AuthGuard],
     resolve: {
       orcidProfile: OrcidProfileResolverService,
       myDataProfile: MyDataProfileResolverService,

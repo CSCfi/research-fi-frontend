@@ -5,9 +5,6 @@
 
 <ng-container *ngIf="!localized; else localizedTemplate">
   <ng-container [ngSwitch]="fieldType">
-    <ng-container *ngSwitchCase="fieldTypes.personWebLink">
-      {{ _item.url }}
-    </ng-container>
     <ng-container *ngSwitchCase="fieldTypes.personResearcherDescription">
       <ng-container *ngFor="let value of _item | getLocalizedValues">
         <div class="row fw-bold">

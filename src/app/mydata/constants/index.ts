@@ -67,7 +67,7 @@ export const TableColumns: TableColumn[] = [
     label: 'Sisältö',
     key: 'content',
     mobile: true,
-    class: 'col-3',
+    class: 'col-4',
     mobileSortLabel: 'Sisältö (A-Ö)',
   },
   {
@@ -84,7 +84,7 @@ export const TableColumns: TableColumn[] = [
     label: 'Lähde',
     key: 'source',
     mobile: true,
-    class: 'col',
+    class: 'col-2',
     mobileSortLabel: 'Lähde (Ä-Ö',
   },
   // {

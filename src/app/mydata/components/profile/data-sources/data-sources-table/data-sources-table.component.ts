@@ -57,6 +57,7 @@ export class DataSourcesTableComponent
   tableColumns = TableColumns;
 
   tableRows: Record<string, TableRow>[];
+  expandedRows = [];
 
   originalDataSources: any;
 
@@ -89,11 +90,15 @@ export class DataSourcesTableComponent
 
   locale: string;
 
+  maxContentLength = 35;
+
   constructor(
     private cdr: ChangeDetectorRef,
     private route: ActivatedRoute,
-    private appSettingsService: AppSettingsService
-  ) {}
+    public appSettingsService: AppSettingsService
+  ) {
+    this.locale = this.appSettingsService.capitalizedLocale;
+  }
 
   ngOnInit(): void {
     this.handleProfileData(this.data);
@@ -116,8 +121,6 @@ export class DataSourcesTableComponent
 
       this.pageNumber = Number(params.page) || 1;
     });
-
-    this.locale = this.appSettingsService.capitalizedLocale;
   }
 
   // Handle data again when data is filtered
@@ -152,11 +155,38 @@ export class DataSourcesTableComponent
       .filter((group) => group.items.length);
 
     for (const group of filteredGroups) {
-      for (const groupItem of group.items) {
+      for (const item of group.items) {
+        let displayValue: string;
+
+        switch (item.itemMeta.type) {
+          case FieldTypes.activityAffiliation: {
+            displayValue = item.positionName;
+            break;
+          }
+          case FieldTypes.activityEducation: {
+            displayValue = item.degreeGrantingInstitutionName;
+            break;
+          }
+          case FieldTypes.activityPublication:
+          case FieldTypes.activityOrcidPublication: {
+            displayValue = item.title;
+            break;
+          }
+          case FieldTypes.activityDataset:
+          case FieldTypes.activityFunding: {
+            displayValue = item.name;
+            break;
+          }
+          default: {
+            displayValue = item.value;
+          }
+        }
+
         this.rawProfileRows.push({
-          ...groupItem,
+          ...item,
           groupLabel: group.label,
-          source: groupItem.dataSources,
+          source: item.dataSources,
+          displayValue: displayValue,
         });
       }
     }
@@ -283,5 +313,11 @@ export class DataSourcesTableComponent
 
   updatePagination() {
     this.total = this.tableRows.length;
+  }
+
+  toggleRowExpand(index) {
+    this.expandedRows.indexOf(index) > -1
+      ? (this.expandedRows = this.expandedRows.filter((i) => i !== index))
+      : this.expandedRows.push(index);
   }
 }
