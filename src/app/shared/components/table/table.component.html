@@ -42,17 +42,14 @@
         </ng-container>
 
         <!-- Column label -->
-        <div
-          *ngSwitchDefault
-          [tooltip]="column.tooltip"
-          container="body"
-          class="column-label"
-        >
-          {{ column.label }}
+        <div *ngSwitchDefault class="column-label">
+          <span [class.pe-2]="column.tooltip">{{ column.label }}</span>
           <fa-icon
             *ngIf="column.tooltip && column.showTooltipIcon"
-            class="info-icon font-size-big ps-2"
+            class="info-icon font-size-big"
+            [tooltip]="column.tooltip"
             icon="info-circle"
+            tabindex="0"
           ></fa-icon>
         </div>
       </ng-container>

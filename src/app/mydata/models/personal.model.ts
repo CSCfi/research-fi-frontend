@@ -36,65 +36,6 @@ export class PersonalFields {
 export class PersonalFieldsAdapter implements Adapter<PersonalFields> {
   constructor(private mydataUtils: MydataUtilityService) {}
 
-  // adaptOld(item: any): PersonalFields {
-  //   const handleLinkIcon = (url: string | string[]) => {
-  //     if (url.includes('linkedin')) {
-  //       return faLinkedin;
-  //     } else if (url.includes('twitter')) {
-  //       return faTwitterSquare;
-  //     } else if (url.includes('facebook')) {
-  //       return faFacebookSquare;
-  //     } else return faLink;
-  //   };
-
-  //   const email = this.mydataUtils.mapGroup(
-  //     item.emailGroups,
-  //     'email',
-  //     $localize`:@@email:Sähköposti`
-  //   );
-  //   const webLinks = this.mydataUtils.mapGroup(
-  //     item.webLinkGroups,
-  //     'webLinks',
-  //     $localize`:@@links:Linkit`
-  //   );
-
-  //   const mapIcons = (group, iconMethod: Function, field?: string) => {
-  //     group.items = group.items.map((item) => ({
-  //       ...item,
-  //       icon: iconMethod(item[field]),
-  //     }));
-  //   };
-
-  //   mapIcons(email, () => faEnvelope);
-  //   mapIcons(webLinks, handleLinkIcon, 'url');
-
-  //   let pf: PersonalFields = new PersonalFields(
-  //     this.mydataUtils.mapNameGroup(
-  //       item.nameGroups,
-  //       'name',
-  //       $localize`:@@name:Nimi`,
-  //       {
-  //         disabled: true,
-  //         expanded: true,
-  //         setDefault: true,
-  //         single: true,
-  //       }
-  //     ),
-  //     this.mydataUtils.mapNameGroup(
-  //       item.otherNameGroups,
-  //       'otherNames',
-  //       $localize`:@@otherNames:Muut nimet`
-  //     ),
-  //     this.mydataUtils.mapGroup(
-  //       item.emailGroups,
-  //       'email',
-  //       $localize`:@@email:Sähköposti`
-  //     ),
-  //     webLinks
-  //   );
-  //   return pf;
-  // }
-
   adapt(item: any): PersonalFields {
     const handleLinkIcon = (url: string | string[] = '') => {
       if (url.includes('linkedin')) {
@@ -117,6 +58,11 @@ export class PersonalFieldsAdapter implements Adapter<PersonalFields> {
       'webLinks',
       $localize`:@@links:Linkit`
     );
+
+    webLinks.items = webLinks.items.map((link) => ({
+      ...link,
+      value: link['url'],
+    }));
 
     const mapIcons = (group, iconMethod: Function, field?: string) => {
       group.items.map(
