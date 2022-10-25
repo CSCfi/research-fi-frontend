@@ -91,6 +91,8 @@ export class DataSourcesTableComponent
   locale: string;
 
   maxContentLength = 35;
+  mobileStatusSub: Subscription;
+  mobile: boolean;
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -121,6 +123,12 @@ export class DataSourcesTableComponent
 
       this.pageNumber = Number(params.page) || 1;
     });
+
+    this.mobileStatusSub = this.appSettingsService.mobileStatus.subscribe(
+      (status) => {
+        this.mobile = status;
+      }
+    );
   }
 
   // Handle data again when data is filtered
@@ -145,6 +153,7 @@ export class DataSourcesTableComponent
 
   ngOnDestroy(): void {
     this.queryParamsSub?.unsubscribe();
+    this.mobileStatusSub?.unsubscribe();
   }
 
   // Create raw data for table rows

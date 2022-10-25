@@ -33,7 +33,9 @@ export class TableCardComponent implements OnInit, OnChanges {
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.columns);
+  }
 
   ngOnChanges(): void {
     this.selected = this.selectedRows.indexOf(this.index) > -1;

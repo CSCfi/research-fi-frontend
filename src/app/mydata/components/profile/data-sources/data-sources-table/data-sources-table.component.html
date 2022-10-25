@@ -56,7 +56,9 @@
 
   <ng-template #publicityCell>
     <!-- TODO: Add i18n ids -->
-    <span class="public-cell" *ngIf="row.itemMeta.show">Julkinen</span>
+    <span [class.public-cell]="!mobile" *ngIf="row.itemMeta.show">
+      Julkinen
+    </span>
     <span *ngIf="!row.itemMeta.show">Ei julkinen</span>
   </ng-template>
 

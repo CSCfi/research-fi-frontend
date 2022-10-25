@@ -22,7 +22,15 @@
     >
       <!-- Display column header -->
       <div class="fw-bold pb-2" *ngIf="!column.labelHiddenMobile">
-        {{ column.label }}
+        <span [class.pe-2]="column.tooltip">{{ column.label }}</span>
+
+        <fa-icon
+          *ngIf="column.tooltip"
+          class="info-icon d-inline-block font-size-big"
+          [tooltip]="column.tooltip"
+          icon="info-circle"
+          tabindex="0"
+        ></fa-icon>
       </div>
 
       <!-- Selectable row -->
