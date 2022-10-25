@@ -433,14 +433,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
     Promise.all(promises)
       .then((response) => {
         if (response.includes(false)) {
-          this.showSaveSuccessfulMessage(false);
+          this.snackbarService.showPatchMessage('error');
         } else {
           this.clearDraftData();
-          this.showSaveSuccessfulMessage(true);
+          this.snackbarService.showPatchMessage('success');
         }
       })
       .catch((error) => {
-        this.showSaveSuccessfulMessage(false);
+        this.snackbarService.showPatchMessage('error');
         console.error(`Error in data patching`, error);
       });
     this.profileService.setCurrentProfileData(this.profileData);
@@ -480,20 +480,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
 
     this.draftService.clearData();
-  }
-
-  showSaveSuccessfulMessage(wasSuccessful: boolean) {
-    if (wasSuccessful) {
-      this.snackbarService.show(
-        $localize`:@@profilePublishedToast:Profiili julkaistu. Tiedot näkyvät muutaman minuutin kuluttua tiedejatutkimus.fi -palvelussa.`,
-        'success'
-      );
-    } else {
-      this.snackbarService.show(
-        $localize`:@@dataSavingError:Virhe tiedon tallennuksessa`,
-        'error'
-      );
-    }
   }
 
   ngOnDestroy(): void {
