@@ -486,16 +486,4 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.unsubscribe.next(null);
     this.unsubscribe.complete();
   }
-
-  testNotification() {
-    this.notificationService.notify({
-      notificationText: 'Tämä on tärkeä viesti, huomioi tämä asia.',
-      buttons: [
-        {
-          label: 'SELVÄ JUTTU',
-          action: () => this.notificationService.clearNotification(),
-        },
-      ],
-    });
-  }
 }
