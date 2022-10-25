@@ -12,3 +12,12 @@ a {
 .table-cell {
   word-break: break-word;
 }
+
+.public-cell {
+  background: #0eac1a;
+  color: white;
+  display: block;
+  padding: 0.25rem 0.75rem;
+  margin-top: -0.25rem;
+  margin-bottom: -0.5rem;
+}
