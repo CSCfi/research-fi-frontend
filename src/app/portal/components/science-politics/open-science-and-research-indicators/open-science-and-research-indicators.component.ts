@@ -12,7 +12,6 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
 })
 export class OpenScienceAndResearchIndicatorsComponent implements OnInit {
   currentLocale = '';
-  currentPageCaption = 'Just a test';
   routeSub: Subscription;
 
   currentPageUrl = '/science-innovation-policy/open-science-and-research-indicators/';
@@ -38,7 +37,5 @@ export class OpenScienceAndResearchIndicatorsComponent implements OnInit {
     this.subPageLinks.map(link => (
       link.image = 'assets/img/indicators/indicators_thumbnail_' + link.id.substring(19, link.id.length) + '.png'
     ));
-    console.log('locale', this.currentLocale);
-    console.log('portalItems', this.route.snapshot.data.pages, this.indicatorContent);
   }
 }
