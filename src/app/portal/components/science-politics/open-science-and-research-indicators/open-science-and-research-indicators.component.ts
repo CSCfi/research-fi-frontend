@@ -15,7 +15,7 @@ export class OpenScienceAndResearchIndicatorsComponent implements OnInit {
   currentPageCaption = 'Just a test';
   routeSub: Subscription;
 
-  portalAddress = 'https://localhost:5003/science-innovation-policy/open-science-and-research-indicators/';
+  currentPageUrl = '/science-innovation-policy/open-science-and-research-indicators/';
 
   indicatorContent = [];
   subPageLinks: any;
