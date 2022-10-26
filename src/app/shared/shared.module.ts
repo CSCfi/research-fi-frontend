@@ -56,6 +56,7 @@ import { TableCardComponent } from './components/table/table-card/table-card.com
 import { SortByButtonComponent } from './components/buttons/sort-by-button/sort-by-button.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { ResultCountComponent } from './components/result-count/result-count.component';
+import { AutofocusDirective } from './directives/autofocus.directive';
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import { ResultCountComponent } from './components/result-count/result-count.com
     SortByButtonComponent,
     PaginationComponent,
     ResultCountComponent,
+    AutofocusDirective,
   ],
   exports: [
     InfoComponent,
@@ -110,6 +112,7 @@ import { ResultCountComponent } from './components/result-count/result-count.com
     SortByButtonComponent,
     PaginationComponent,
     ResultCountComponent,
+    AutofocusDirective,
   ],
   imports: [
     CommonModule,

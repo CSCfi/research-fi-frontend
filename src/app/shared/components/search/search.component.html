@@ -16,12 +16,14 @@
         id="searchInput"
         [placeholder]="placeholder"
         class="search"
+        cdkFocusInitial
       />
       <span
         *ngIf="searchForm.get('term').value?.length > 0"
         tabindex="0"
         class="reset"
         (click)="reset()"
+        (keydown.enter)="reset()"
         i18n-tooltip="@@resetSearchTooltip"
         tooltip="Tyhjennä haku"
       >

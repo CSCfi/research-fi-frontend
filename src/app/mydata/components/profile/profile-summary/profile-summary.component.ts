@@ -69,7 +69,7 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {}
 
-  openDialog(event: { stopPropagation: () => void }, index: number) {
+  openDialog(event: MouseEvent, index: number) {
     event.stopPropagation();
     this.showDialog = true;
 
@@ -84,7 +84,10 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy {
       selectedGroup.fields = filteredFields;
     }
 
-    this.dialogData = selectedGroup;
+    this.dialogData = {
+      data: selectedGroup,
+      trigger: event.detail,
+    };
     this.currentIndex = index;
   }
 
