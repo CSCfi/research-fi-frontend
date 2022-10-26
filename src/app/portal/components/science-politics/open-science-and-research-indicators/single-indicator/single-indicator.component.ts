@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   ElementRef,
   Inject,
@@ -6,7 +7,7 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription, combineLatest } from 'rxjs';
 import { ResizeService } from 'src/app/shared/services/resize.service';
@@ -25,8 +26,9 @@ export class SingleIndicatorComponent implements OnInit {
   currentLocale = '';
   currentPageCaption = '';
   routeSub: Subscription;
-  pageTextContent: any;
+  pageTextContent: any = '';
   visualizationUrl: any;
+  dataSource: any;
   siblingPageLinks = [];
   currentPageId = '';
   colWidth = 0;
@@ -34,11 +36,11 @@ export class SingleIndicatorComponent implements OnInit {
   mobile = this.window.innerWidth < 992;
   height = this.window.innerHeight;
   width = this.window.innerWidth;
-  item = {sourceFi: 'Avoin tiede ja tutkimus', sourceSv: 'Open science and research', sourceEn: 'Öppen vetenskap och forskning'};
+  item = {};
 
-  portalAddress = '/science-innovation-policy/open-science-and-research-indicators/';
+  currentPageUrl = '/science-innovation-policy/open-science-and-research-indicators/';
 
-  constructor(private route: ActivatedRoute, private appSettingsService: AppSettingsService, private resizeService: ResizeService, @Inject(WINDOW) private window: Window) {
+  constructor(private route: ActivatedRoute, private router: Router, private appSettingsService: AppSettingsService, private resizeService: ResizeService, @Inject(WINDOW) private window: Window, private cdRef : ChangeDetectorRef) {
     this.currentLocale = this.appSettingsService.capitalizedLocale;
   }
 
@@ -51,47 +53,55 @@ export class SingleIndicatorComponent implements OnInit {
 
   ngAfterViewInit() {
     this.colWidth = this.iframe.nativeElement.offsetWidth;
+    this.cdRef.detectChanges();
   }
 
   processPageData() {
-    if (this.route.snapshot.params){
+    if (this.route.snapshot.params) {
       this.pageTextContent = this.route.snapshot.data.pages.find(
         (el) => el.id === this.route.snapshot.params.id
       );
-      this.currentPageCaption = this.pageTextContent['title' + this.currentLocale];
-      this.currentPageId = this.pageTextContent.id.substring(19, this.pageTextContent.id.length);
-      this.siblingPageLinks = this.route.snapshot.data.pages.filter(
-        (el) => el.id.startsWith('indicators_content')
-      );
-      this.visualizationUrl = this.route.snapshot.data.pages.find(
-        (el) => el.id === ('indicators_link_' + this.currentPageId)
-      );
-      // Crop out html paragraph tags from start and end of the link from cms.
-      this.visualizationUrl ? this.visualizationUrl =
-        this.visualizationUrl['content' + this.currentLocale].substring(3, this.visualizationUrl['content' + this.currentLocale].length - 4) : '';
+      if (this.pageTextContent) {
+        this.currentPageCaption = this.pageTextContent['title' + this.currentLocale];
+        this.currentPageId = this.pageTextContent.id.substring(19, this.pageTextContent.id.length);
+        this.siblingPageLinks = this.route.snapshot.data.pages.filter(
+          (el) => el.id.startsWith('indicators_content')
+        );
 
-      this.siblingPageLinks.map(link => (
-        link.image = 'assets/img/indicators/indicators_thumbnail_' + link.id.substring(19, link.id.length) + '.png'
-      ));
+        this.visualizationUrl = this.route.snapshot.data.pages.find(
+          (el) => el.id === ('indicators_link_' + this.currentPageId)
+        );
+        // Crop out html paragraph tags from start and end of the link from cms.
+        this.visualizationUrl ? this.visualizationUrl =
+          this.visualizationUrl['content' + this.currentLocale].substring(3, this.visualizationUrl['content' + this.currentLocale].length - 4) : '';
 
-      this.siblingPageLinks.map(link => (
-        link.selected = link.id.substring(19, link.id.length) === this.currentPageId
-      ));
+        this.siblingPageLinks.map(link => (
+          link.image = 'assets/img/indicators/indicators_thumbnail_' + link.id.substring(19, link.id.length) + '.png'
+        ));
+
+        this.dataSource = this.route.snapshot.data.pages.find(
+          (el) => el.id === ('indicators_datasource_' + this.currentPageId)
+        );
+        // Crop out html paragraph tags from start and end of the link from cms.
+        this.dataSource ? this.dataSource =
+          this.dataSource['content' + this.currentLocale].substring(3, this.dataSource['content' + this.currentLocale].length - 4) : '';
+
+        this.siblingPageLinks.map(link => (
+          link.selected = link.id.substring(19, link.id.length) === this.currentPageId
+        ));
+      }
+      else {
+        this.router.navigate([this.currentPageUrl]);
+      }
     }
     else {
-      // REDIRECT HERE
+      this.router.navigate([this.currentPageUrl]);
     }
   }
 
   onResize(dims) {
-    this.height = dims.height;
-    this.width = dims.width;
-    if (this.width >= 992) {
-      this.mobile = false;
-    } else {
-      this.mobile = true;
-    }
     this.colWidth = this.iframe.nativeElement.offsetWidth - 15;
+    this.cdRef.detectChanges();
   }
 
   onClickedOutsideHelp(event) {
