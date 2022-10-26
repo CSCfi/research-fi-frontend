@@ -167,12 +167,9 @@ export class DataSourcesSelectionActionsComponent implements OnInit, OnDestroy {
       .subscribe((res: HttpResponse<any>) => {
         if (res.body.success) {
           this.onPatchSuccess.emit(filteredItems);
-          this.snackbarService.show('Muutokset tallennettu', 'success');
+          this.snackbarService.showPatchMessage('success');
         } else {
-          this.snackbarService.show(
-            $localize`:@@dataSavingError:Virhe tiedon tallennuksessa`,
-            'error'
-          );
+          this.snackbarService.showPatchMessage('error');
         }
       });
   }

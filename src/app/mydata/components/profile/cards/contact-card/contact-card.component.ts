@@ -45,9 +45,9 @@ export class ContactCardComponent implements OnInit, OnChanges {
     this.contactFields = this.filterNameField(this.data[0].fields);
   }
 
-  openDialog() {
+  openDialog(event: MouseEvent) {
     this.showDialog = true;
-    this.dialogData = cloneDeep(this.data[0]);
+    this.dialogData = { data: cloneDeep(this.data[0]), trigger: event.detail };
   }
 
   handleChanges(result) {

@@ -32,7 +32,6 @@ import { DatasetsService } from '@mydata/services/datasets.service';
 import { FundingsService } from '@mydata/services/fundings.service';
 import { CollaborationsService } from '@mydata/services/collaborations.service';
 import { Subject } from 'rxjs';
-import { NotificationService } from '@shared/services/notification.service';
 
 @Component({
   selector: 'app-profile',
@@ -125,8 +124,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     public publicationsService: PublicationsService,
     public datasetsService: DatasetsService,
     public fundingsService: FundingsService,
-    private utilityService: UtilityService,
-    private notificationService: NotificationService
+    private utilityService: UtilityService
   ) {
     this.testData = profileService.testData;
 
@@ -433,14 +431,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
     Promise.all(promises)
       .then((response) => {
         if (response.includes(false)) {
-          this.showSaveSuccessfulMessage(false);
+          this.snackbarService.showPatchMessage('error');
         } else {
           this.clearDraftData();
-          this.showSaveSuccessfulMessage(true);
+          this.snackbarService.showPatchMessage('success');
         }
       })
       .catch((error) => {
-        this.showSaveSuccessfulMessage(false);
+        this.snackbarService.showPatchMessage('error');
         console.error(`Error in data patching`, error);
       });
     this.profileService.setCurrentProfileData(this.profileData);
@@ -482,34 +480,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.draftService.clearData();
   }
 
-  showSaveSuccessfulMessage(wasSuccessful: boolean) {
-    if (wasSuccessful) {
-      this.snackbarService.show(
-        $localize`:@@profilePublishedToast:Profiili julkaistu. Tiedot näkyvät muutaman minuutin kuluttua tiedejatutkimus.fi -palvelussa.`,
-        'success'
-      );
-    } else {
-      this.snackbarService.show(
-        $localize`:@@dataSavingError:Virhe tiedon tallennuksessa`,
-        'error'
-      );
-    }
-  }
-
   ngOnDestroy(): void {
     this.unsubscribe.next(null);
     this.unsubscribe.complete();
-  }
-
-  testNotification() {
-    this.notificationService.notify({
-      notificationText: 'Tämä on tärkeä viesti, huomioi tämä asia.',
-      buttons: [
-        {
-          label: 'SELVÄ JUTTU',
-          action: () => this.notificationService.clearNotification(),
-        },
-      ],
-    });
   }
 }

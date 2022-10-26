@@ -89,7 +89,7 @@ export class DialogComponent implements OnInit, OnDestroy {
 
     this.dialogRef = this.dialog.open(DialogTemplateComponent, {
       ...(this.small ? smallDialogSettings : dialogSettings),
-      autoFocus: false,
+      autoFocus: true,
       data: {
         title: this.title,
         template: this.template,
@@ -108,6 +108,7 @@ export class DialogComponent implements OnInit, OnDestroy {
       panelClass: ['responsive-dialog', this.extraClass],
       disableClose: this.disableClose ? true : false,
       position: this.position ? this.handlePosition() : null,
+      ariaLabel: this.title + ' dialog',
     });
 
     // Only display uppermost dialog
@@ -115,9 +116,11 @@ export class DialogComponent implements OnInit, OnDestroy {
       const openDialogs = this.dialog.openDialogs;
       const parentDialog = openDialogs[openDialogs.length - 2];
 
+      const classes = ['hidden', 'cdk-visually-hidden'];
+
       parentDialog
-        ? parentDialog.addPanelClass('hidden')
-        : openDialogs[openDialogs.length - 1]?.removePanelClass('hidden');
+        ? parentDialog.addPanelClass(classes)
+        : openDialogs[openDialogs.length - 1]?.removePanelClass(classes);
     };
 
     handleDialogVisibility();

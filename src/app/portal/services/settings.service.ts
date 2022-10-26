@@ -21,7 +21,8 @@ export class SettingsService {
 
   constructor(private staticDataService: StaticDataService) {
     this.indexList =
-      'publication,funding,dataset,infrastructure,organization,funding-call' + '/_search?';
+      'publication,funding,dataset,infrastructure,organization,funding-call' +
+      '/_search?';
     this.aggsOnly = 'filter_path=aggregations';
   }
 
@@ -30,7 +31,7 @@ export class SettingsService {
   }
 
   // Global settings for query, auto-suggest settings are located in autosuggest.service
-  querySettings(index: string, term: any) {
+  querySettings(index: string, term: string = '') {
     let targetFields: any;
     let onlyDigits: any;
     let hasDigits: any;
@@ -191,7 +192,7 @@ export class SettingsService {
     return res;
   }
 
-  autoSuggestSettings(term: string) {
+  autoSuggestSettings(term: string = '') {
     const res = {
       query: {
         bool: {

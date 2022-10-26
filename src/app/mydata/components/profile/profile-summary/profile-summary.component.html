@@ -134,7 +134,7 @@
 
 <ng-container *ngIf="showDialog">
   <app-editor-modal
-    [data]="dialogData"
+    [dialogData]="dialogData"
     (onEditorClose)="handleChanges($event)"
   ></app-editor-modal>
 </ng-container>

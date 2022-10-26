@@ -23,6 +23,7 @@
         (getSearchTerm)="searchNews($event)"
         (resetSearch)="resetSearch()"
         [initialTerm]="searchService.currentInput | async"
+        [autofocus]="true"
       ></app-search>
     </div>
 

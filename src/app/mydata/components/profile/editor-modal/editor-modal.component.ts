@@ -11,6 +11,7 @@ import {
   Input,
   OnInit,
   Output,
+  ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
 import { checkSelected } from '@mydata/utils';
@@ -19,6 +20,7 @@ import { PatchService } from '@mydata/services/patch.service';
 import { PublicationsService } from '@mydata/services/publications.service';
 import { DatasetsService } from '@mydata/services/datasets.service';
 import { FundingsService } from '@mydata/services/fundings.service';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-editor-modal',
@@ -27,7 +29,7 @@ import { FundingsService } from '@mydata/services/fundings.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class EditorModalComponent implements OnInit {
-  @Input() data: any;
+  @Input() dialogData: { data: any; trigger: number };
   showDialog: boolean;
   editorData: any;
   originalEditorData: any;
@@ -52,6 +54,8 @@ export class EditorModalComponent implements OnInit {
     { label: $localize`:@@continue:Jatka`, primary: true, method: 'save' },
   ];
 
+  @ViewChild('selectAllCheckbox') selectAllCheckbox: MatCheckbox;
+
   constructor(
     private patchService: PatchService,
     private publicationsService: PublicationsService,
@@ -61,8 +65,8 @@ export class EditorModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.showDialog = true;
-    this.editorData = this.data;
-    this.originalEditorData = cloneDeep(this.data);
+    this.editorData = this.dialogData.data;
+    this.originalEditorData = cloneDeep(this.dialogData.data);
     this.primarySource = this.editorData.primarySource;
 
     this.checkAllSelected();

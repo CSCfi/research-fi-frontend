@@ -13,6 +13,7 @@ import {
   ElementRef,
   Output,
   EventEmitter,
+  AfterViewInit,
 } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -22,9 +23,10 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, AfterViewInit {
   @Input() placeholder: string;
   @Input() initialTerm: string;
+  @Input() autofocus: boolean;
 
   @Output() getSearchTerm = new EventEmitter<boolean>();
   @Output() resetSearch = new EventEmitter<boolean>();
@@ -44,9 +46,18 @@ export class SearchComponent implements OnInit {
       this.searchForm.controls['term'].setValue(this.initialTerm);
   }
 
+  ngAfterViewInit(): void {
+    if (this.autofocus) {
+      this.searchInput.nativeElement.focus();
+    }
+  }
+
   reset() {
     this.searchForm.reset();
     this.resetSearch.emit(true);
+    setTimeout(() => {
+      this.searchInput.nativeElement.focus();
+    }, 0);
   }
 
   onSubmit(): void {

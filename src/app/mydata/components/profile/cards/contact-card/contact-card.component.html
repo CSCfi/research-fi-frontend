@@ -8,12 +8,12 @@
 <app-profile-editor-card-header
   [label]="label"
   [displayButton]="contactFields | hasSelectedItems"
-  (handleOpenDialog)="openDialog()"
+  (handleOpenDialog)="openDialog($event)"
 ></app-profile-editor-card-header>
 
 <app-empty-card
   *ngIf="!(contactFields | hasSelectedItems)"
-  (onButtonClick)="openDialog()"
+  (onButtonClick)="openDialog($event)"
 ></app-empty-card>
 
 <div class="d-block mt-3">
@@ -76,7 +76,7 @@
 
 <ng-container *ngIf="showDialog">
   <app-editor-modal
-    [data]="dialogData"
+    [dialogData]="dialogData"
     (onEditorClose)="handleChanges($event)"
   ></app-editor-modal>
 </ng-container>
