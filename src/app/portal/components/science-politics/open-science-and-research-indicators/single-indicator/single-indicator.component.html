@@ -1,0 +1,122 @@
+<script src="single-indicator.component.ts"></script>
+<app-banner-divider></app-banner-divider>
+<main id="main-content" class="wrapper main-content-wrap">
+  <div class="wrapper">
+    <a
+      routerLink="/science-innovation-policy/open-science-and-research-indicators/"
+      class="back"
+    ><<
+      <ng-container i18n="@@back">Takaisin</ng-container>
+    </a
+    >
+    <app-breadcrumb [responseData]="currentPageCaption" [type]="'indicators'"></app-breadcrumb>
+    <div class="row mt-4">
+      <div class="col-12 gx-0">
+        <h1>{{ pageTextContent['title' + currentLocale] }}</h1>
+        <br>
+        <hr class="mt-2">
+      </div>
+    </div>
+    <div class="col-12 col-lg-10 px-0">
+      <div class="row d-flex justify-content-between">
+        <div class="col-auto px-0">
+          <a
+            href="javascript:void(0)"
+            (click)="showHelp = !showHelp"
+            (clickOutside)="onClickedOutsideHelp($event)"
+            #keyboardHelp
+            i18n="@@kbHelpHint"
+          >Ohje näppäimistökäyttäjälle</a
+          >
+          <div *ngIf="showHelp" class="help p-3">
+            <div class="m-0">
+              <p i18n="@@figureKeyboardHelp1">
+                Saat näppäimistöohjeet esiin näppäinyhdistelmällä
+                “vaihtonäppäin + ?" silloin, kun selaimesi fokus on
+                allaolevassa visualisoinnissa.
+              </p>
+              <p i18n="@@figureKeyboardHelp2">
+                Näppäimistöohje esitetään selaimesi kieliasetuksen mukaisella
+                kielellä.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div #iframe class="iframe-wrapper mb-4">
+      <iframe
+        width="{{ colWidth }}"
+        height="{{ colWidth * 0.75 }}"
+        [src]="visualizationUrl | safeUrl"
+        frameborder="0"
+        allowfullscreen="true"
+      ></iframe>
+    </div>
+    <div class="row d-flex justify-content-between text-content-wrapper">
+      <div class="col-12 col-lg-8 ps-0 main-texts">
+        <div [innerHTML]="pageTextContent['content' + currentLocale]"></div>
+      </div>
+      <div class="col col-lg-3 ps-0 ps-lg-4">
+        <div class="row pb-3">
+          <div class="col align-self-center ps-0 info-button">
+            <app-figures-info
+              *ngIf="item['info' + currentLocale]"
+              i18n-labelText="@@additionalInfo"
+              labelText="Lisätietoa"
+              [content]="item['info' + currentLocale]"
+            ></app-figures-info>
+            <a
+              class="strong text-uppercase info-label"
+              [class.ps-2]="item['info' + currentLocale]"
+              i18n="@@additionalInfo"
+            >Lisätietoa</a
+            >
+          </div>
+        </div>
+        <div class="row pb-3">
+          <div class="col ps-0">
+            <span class="strong d-block" i18n="@@figureSource">Lähde:</span>
+            <span>{{ item['source' + currentLocale] }}</span>
+          </div>
+        </div>
+        <div class="row pb-3">
+          <div class="col ps-0">
+            <strong i18n="@@shareThisPage">Jaa tämä sivu:</strong>
+            <app-share [big]="false"></app-share>
+          </div>
+        </div>
+        <div *ngIf="item['visualFile' + currentLocale]" class="row">
+          <div class="col ps-0">
+            <a href="{{ item['visualFile' + currentLocale] }}"
+            >
+              <app-secondary-button
+                i18n-content="@@downloadCSV"
+                content="Lataa tiedostona (csv)"
+              ></app-secondary-button
+              >
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sibling-page-container">
+      <div class="row d-flex justify-content-start indicator-link-container">
+        <div *ngFor="let link of siblingPageLinks" class="col-3 d-flex">
+          <div [class.selected]="link.selected === true" class="indicator-link-box">
+            <a [href]="portalAddress + link.id | safeUrl">
+              <h3>{{ link['title' + currentLocale] }}</h3>
+              <div class="img-wrap">
+                <img
+                  src="{{link.image}}"
+                  alt="{{link['title' + currentLocale]}}"
+                />
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

@@ -161,6 +161,8 @@ import { NoResultsComponent } from './components/results/no-results/no-results.c
 import { FundingCallCategoryFiltersComponent } from './components/results/funding-call-category-filters/funding-call-category-filters.component';
 import { SingleResultLinkComponent } from './components/single/single-result-link/single-result-link.component';
 import { ResultsPaginationComponent } from './components/results/results-pagination/results-pagination.component';
+import { OpenScienceAndResearchIndicatorsComponent } from './components/science-politics/open-science-and-research-indicators/open-science-and-research-indicators.component';
+import { SingleIndicatorComponent } from './components/science-politics/open-science-and-research-indicators/single-indicator/single-indicator.component';
 
 @NgModule({
   declarations: [
@@ -246,6 +248,8 @@ import { ResultsPaginationComponent } from './components/results/results-paginat
     FundingCallCategoryFiltersComponent,
     SingleResultLinkComponent,
     ResultsPaginationComponent,
+    OpenScienceAndResearchIndicatorsComponent,
+    SingleIndicatorComponent,
   ],
   imports: [
     PortalRoutingModule,
