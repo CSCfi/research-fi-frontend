@@ -55,6 +55,8 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy {
 
   removeGroupItemsSub: Subscription;
 
+  noPublicDataText = $localize`:@@youHaveNotSelectedAnyPublicData:Et ole vielä valinnut julkisesti näytettäviä tietoja`;
+
   constructor(
     private appSettingsService: AppSettingsService,
     private patchService: PatchService,
