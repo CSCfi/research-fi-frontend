@@ -2717,7 +2717,7 @@
       </trans-unit>
       <trans-unit id="Conference">
         <source>Konferenssi</source>
-        <target>Conference platform</target>
+        <target>Conference</target>
       </trans-unit>
       <trans-unit id="ConferenceTooltipContent">
         <source>Sisältää konferenssin painetut tai julkisesti saatavilla olevat julkaisut, ns. proceedings-julkaisut.</source>
