@@ -43,6 +43,11 @@ export class AppSettingsService {
         link: '/science-innovation-policy/',
         dropdownItems: [
           {
+            label: $localize`:@@openScienceAndResearchIndicatorsHeader:Avoimen tieteen ja tutkimuksen seuranta`,
+            link: '/science-innovation-policy/open-science-and-research-indicators/',
+            exact: true,
+          },
+          {
             label: $localize`:@@headerLink4:Tutkimus- ja innovaatiojärjestelmä`,
             link: '/science-innovation-policy/research-innovation-system/',
             exact: true,

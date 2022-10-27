@@ -41,6 +41,7 @@
 @import './app/portal/components/single/single-funding/single-funding.component.scss-theme.scss';
 @import './app/portal/components/science-politics/figures/figures.component.scss-theme.scss';
 @import './app/portal/components/science-politics/research-innovation-system/research-innovation-system.component.scss-theme.scss';
+@import './app/portal/components/science-politics/open-science-and-research-indicators/open-science-and-research-indicators.component.scss-theme';
 @import './app/portal/components/science-politics/figures/single-figure/single-figure.component.scss-theme.scss';
 @import './app/portal/components/science-politics/figures/figures-info/figures-info.component.scss-theme.scss';
 @import './app/portal/components/science-politics/science-politics.scss-shared.scss';
@@ -98,6 +99,7 @@
   @include app-single-funding-theme($theme);
   @include app-figures-theme($theme);
   @include app-research-innovation-system-theme($theme);
+  @include app-open-science-and-research-indicators-theme($theme);
   @include app-single-figure-theme($theme);
   @include app-science-politics-shared;
   @include app-science-politics-theme-shared($theme);

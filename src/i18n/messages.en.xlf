@@ -725,6 +725,10 @@
         <source>Tieteestä ja tutkimuksesta muualla</source>
         <target>Science and research elsewhere</target>
       </trans-unit>
+      <trans-unit id="openScienceAndResearchIndicatorsHeader" datatype="html">
+        <source>Avoimen tieteen ja tutkimuksen seuranta</source>
+        <target>Monitoring of open science and research</target>
+      </trans-unit>
       <trans-unit id="figuresHeader" datatype="html">
         <source>Lukuja tieteestä ja tutkimuksesta</source>
         <target>Figures on science and research</target>
