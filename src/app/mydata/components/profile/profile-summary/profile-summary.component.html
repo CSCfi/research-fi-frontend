@@ -25,13 +25,15 @@
         i18n="@@youHaveNotSelectedAnyPublicData"
         *ngIf="!(group.fields | hasSelectedItems)"
       >
-        Et ole vielä valinnut julkisesti näytettäviä tietoja
+        {{ noPublicDataText }}
       </div>
       <div class="col-auto order-2 order-sm-3">
         <app-secondary-button
           [content]="
             (group.fields | hasSelectedItems) ? editString : selectString
           "
+          [announce]="!(group.fields | hasSelectedItems)"
+          [announceText]="group.label + ' ' + noPublicDataText"
           (click)="openDialog($event, i + 1)"
         ></app-secondary-button>
       </div>

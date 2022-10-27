@@ -1,3 +1,4 @@
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, OnInit, Input } from '@angular/core';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
@@ -17,8 +18,16 @@ export class PrimaryActionButtonComponent implements OnInit {
   @Input() disabledRounded: boolean;
   @Input() betaButton: boolean;
   @Input() px0: boolean;
+  @Input() announce: boolean;
+  @Input() announceText: string;
 
-  constructor() {}
+  constructor(private liveAnnouncer: LiveAnnouncer) {}
 
   ngOnInit(): void {}
+
+  handleFocus() {
+    if (this.announce && this.announceText) {
+      this.liveAnnouncer.announce(this.announceText);
+    }
+  }
 }
