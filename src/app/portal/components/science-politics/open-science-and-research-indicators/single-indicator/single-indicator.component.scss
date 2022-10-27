@@ -9,6 +9,17 @@
     margin-bottom: 70px;
   }
 
+  .help {
+    max-width: 320px;
+    position: absolute;
+    z-index: 1;
+    padding: 0.5rem;
+    overflow-wrap: break-word;
+    background: #fff;
+    border: 1px solid;
+    box-shadow: 0 1rem 1rem 0 rgba(0, 0, 0, 0.2);
+  }
+
   h2 {
   font-size: 1.2rem;
   margin-bottom: 1rem;
