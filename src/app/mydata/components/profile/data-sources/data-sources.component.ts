@@ -155,7 +155,7 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
         (field) => field.id === 'keywords'
       );
 
-      if (keywordsField) {
+      if (keywordsField && keywordsField.items.length) {
         this.originalKeywords = [...keywordsField.items];
 
         keywordsField.items = [
