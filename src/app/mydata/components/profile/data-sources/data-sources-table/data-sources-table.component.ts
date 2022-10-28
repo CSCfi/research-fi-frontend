@@ -158,8 +158,6 @@ export class DataSourcesTableComponent
 
   // Create raw data for table rows
   handleProfileData(profileData) {
-    console.log(profileData);
-
     // Filter out empty groups and flatten structure
     const filteredGroups = profileData
       .flatMap((group) => group.fields)

@@ -34,7 +34,7 @@ export class SummaryPortalItemsComponent implements OnInit {
     const dataCopy = cloneDeep(this.data);
 
     if (dataCopy.id === 'publication') {
-      //mergePublications(dataCopy);
+      // mergePublications(dataCopy);
     }
 
     // Display only selected items

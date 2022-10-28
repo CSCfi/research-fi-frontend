@@ -13,7 +13,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 
-import { cloneDeep } from 'lodash-es';
+import { cloneDeep, merge } from 'lodash-es';
 import { take } from 'rxjs/operators';
 import { PatchService } from '@mydata/services/patch.service';
 import { PublicationsService } from '@mydata/services/publications.service';
@@ -139,6 +139,24 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy {
     if (result) {
       // Update binded profile data. Renders changes into summary view
       this.profileData[this.currentIndex] = result;
+
+      // // Merge imported publication for simpler display
+      // const publications = this.profileData.find(
+      //   (item) => item.id === 'publication'
+      // );
+
+      // if (publications?.fields?.length > 1) {
+      //   const imported = publications.fields.find(
+      //     (item) => item.id === 'imported'
+      //   );
+      //   const existing = publications.fields.find(
+      //     (item) => item.id === 'publication'
+      //   );
+
+      //   const merged = existing.items.concat(imported.items);
+
+      //   publications.fields = [{ ...existing, items: merged }];
+      // }
 
       // Handle removal of items added from portal search
       portalPatchGroups.forEach((group) => {

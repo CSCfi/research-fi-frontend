@@ -83,6 +83,7 @@
 
         <!-- Options -->
         <ng-container *ngFor="let item of field.items; let j = index">
+          <!-- {{ item | json }} -->
           <!-- Keywords have values that need to be joined -->
           <ng-container [ngSwitch]="item.itemMeta.type">
             <div class="row py-1" *ngSwitchCase="fieldTypes.personKeyword">
@@ -107,7 +108,7 @@
 
             <ng-container *ngSwitchDefault>
               <!-- Header for items that are added from research.fi portal -->
-              <span
+              <!-- <span
                 *ngIf="
                   (item.itemMeta.type === fieldTypes.activityPublication ||
                     item.itemMeta.type === fieldTypes.activityDataset ||
@@ -134,7 +135,7 @@
                     >Tuodut hankkeet</span
                   >
                 </ng-container>
-              </span>
+              </span> -->
 
               <div
                 class="row d-flex justify-content-between py-1"
