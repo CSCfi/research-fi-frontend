@@ -99,13 +99,13 @@ export class AppSettingsService {
       {
         label: 'Suomeksi',
         locale: 'FI',
-        url: 'https://researchfi-mydata.rahtiapp.fi/fi',
+        url: 'https://researchfi-test.rahtiapp.fi/fi',
       },
       // { label: 'På svenska', locale: 'SV', url: 'https://localhost:5003/sv' },
       {
         label: 'In English',
         locale: 'EN',
-        url: 'https://researchfi-mydata-en.rahtiapp.fi/en',
+        url: 'https://researchfi-test-en.rahtiapp.fi/en',
       },
     ],
     readMoreLinkFi: 'https://wiki.eduuni.fi/x/YwMJDQ',
