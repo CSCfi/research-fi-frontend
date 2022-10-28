@@ -11,9 +11,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'getItemsBy',
 })
 export class GetItemsByPipe implements PipeTransform {
-  transform(group: any, property: string) {
-    const items = group.flatMap((groupItem) => groupItem.items);
-
+  transform(items: any, property: string) {
     return items.filter((item) => item.itemMeta[property]);
   }
 }

@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { DraftService } from '@mydata/services/draft.service';
 import { SnackbarService } from '@mydata/services/snackbar.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
@@ -20,7 +20,7 @@ import { ProfileService } from '@mydata/services/profile.service';
   selector: 'app-contact-card',
   templateUrl: './contact-card.component.html',
 })
-export class ContactCardComponent implements OnInit {
+export class ContactCardComponent implements OnInit, OnChanges {
   @Input() data: any;
   @Input() label: string;
 
@@ -41,9 +41,13 @@ export class ContactCardComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  openDialog() {
+  ngOnChanges(): void {
+    this.contactFields = this.filterNameField(this.data[0].fields);
+  }
+
+  openDialog(event: MouseEvent) {
     this.showDialog = true;
-    this.dialogData = cloneDeep(this.data[0]);
+    this.dialogData = { data: cloneDeep(this.data[0]), trigger: event.detail };
   }
 
   handleChanges(result) {
@@ -64,18 +68,17 @@ export class ContactCardComponent implements OnInit {
               item.show && item.type === this.fieldTypes.personFirstNames
           ).id;
 
-          const names = this.data[0].fields[0].groupItems.flatMap(
-            (groupItem) => groupItem.items
-          );
+          const names = this.data[0].fields[0].items;
 
           const selectedName = names.find(
             (item) => item.itemMeta.id === selectedNameId
           ).value;
 
-          this.profileService.setCurrentProfileName(selectedName);
+          this.profileService.setEditorProfileName(selectedName);
         }
 
-        // Update summary data with selection
+        // Update card & summary data with selection
+        this.contactFields = this.filterNameField(result.fields);
         this.data[0] = result;
 
         this.draftService.saveDraft(this.data);
@@ -98,5 +101,10 @@ export class ContactCardComponent implements OnInit {
         JSON.stringify(this.patchService.confirmedPayLoad)
       );
     }
+  }
+
+  filterNameField(fields) {
+    // Filter out name field which is rendered in profile heading
+    return fields.filter((field) => field.id !== 'name');
   }
 }

@@ -46,6 +46,7 @@ input[type='search']::-webkit-search-cancel-button,
 input[type='search']::-webkit-search-results-button,
 input[type='search']::-webkit-search-results-decoration {
   -webkit-appearance: none;
+  appearance: none;
 }
 
 body {
@@ -67,8 +68,15 @@ body {
   }
 }
 
-body.modal-open .content-container {
-  overflow: hidden;
+body.menu-open {
+  & .content-container {
+    overflow: hidden;
+  }
+
+  // Temporary fix for hiding long page content when menu opens
+  & main {
+    display: none;
+  }
 }
 
 // Display primary colored border around Material UI elements
@@ -291,7 +299,7 @@ mark,
 }
 
 #main-content {
-  padding-top: 2.5rem;
+  padding: 2.5rem 0;
 }
 
 .main-loader {
@@ -301,7 +309,6 @@ mark,
 .row {
   margin-right: 0px !important;
   margin-left: 0px !important;
-  --bs-gutter-x: 2rem;
 }
 
 .container-fluid {
@@ -436,12 +443,6 @@ mat-basic-chip.tag {
   background: mat-color($primary, 200);
 }
 
-// Modal
-// Modal doesnt scroll page
-// .modal-open modal-container.modal {
-//   // overflow-y: hidden;
-// }
-
 // Visualisation modal
 .visual-dialog {
   .visual-select {
@@ -504,7 +505,7 @@ mat-basic-chip.tag {
 }
 
 .responsive-dialog.hidden {
-  display: none;
+  opacity: 0;
 }
 
 // Custom Mat Tab

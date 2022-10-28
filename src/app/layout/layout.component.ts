@@ -12,6 +12,7 @@ import {
   NavigationStart,
   NavigationEnd,
 } from '@angular/router';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-layout',
@@ -25,11 +26,21 @@ import {
 */
 export class LayoutComponent implements OnInit {
   loading: boolean;
+  showDivider: boolean;
 
   constructor(private router: Router) {}
 
   ngOnInit() {
     this.routerEvents();
+
+    // Flag for rendering banner divider in MyData routes
+    this.router.events.pipe(take(1)).subscribe((e) => {
+      if (e instanceof NavigationStart) {
+        if (e.url.includes('/mydata')) {
+          this.showDivider = true;
+        }
+      }
+    });
   }
 
   routerEvents() {

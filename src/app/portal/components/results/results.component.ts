@@ -16,7 +16,7 @@ import {
   LOCALE_ID,
   PLATFORM_ID,
   AfterViewInit,
-  TemplateRef, Output, EventEmitter
+  TemplateRef,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { SearchService } from '@portal/services/search.service';
@@ -167,7 +167,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   dialogTitle: string;
 
   constructor(
-    private searchService: SearchService,
+    public searchService: SearchService,
     private route: ActivatedRoute,
     private tabChangeService: TabChangeService,
     private router: Router,
@@ -176,7 +176,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     private cdr: ChangeDetectorRef,
     @Inject(LOCALE_ID) protected localeId: string,
     @Inject(PLATFORM_ID) private platformId: object,
-    private dataService: DataService,
+    public dataService: DataService,
     private utilityService: UtilityService,
     private settingsService: SettingsService,
     private staticDataService: StaticDataService,
@@ -193,7 +193,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.currentLocale = this.appSettingsService.capitalizedLocale;
   }
 
-  public setExternalFilters(filter: any){
+  public setExternalFilters(filter: any) {
     this.externalFilterQuery = filter;
   }
 

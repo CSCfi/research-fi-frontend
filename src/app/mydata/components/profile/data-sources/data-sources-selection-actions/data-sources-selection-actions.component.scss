@@ -1,0 +1,22 @@
+//  This file is part of the research.fi API service
+//
+//  Copyright 2019 Ministry of Education and Culture, Finland
+//
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
+$buttonPadding: 0.5rem;
+
+app-primary-action-button,
+app-secondary-button {
+  padding: 0 0.5rem;
+
+  &:last-of-type {
+    padding-right: 0;
+  }
+}
+
+mat-checkbox:not(:first-of-type),
+mat-checkbox:not(:last-of-type) {
+  padding: 0.5rem 0;
+}

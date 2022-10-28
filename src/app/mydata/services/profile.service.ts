@@ -15,6 +15,8 @@ import testData from 'src/testdata/mydataprofiledata.json';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { startCase } from 'lodash-es';
 import { ErrorHandlerService } from '@shared/services/error-handler.service';
+import { AppSettingsService } from '@shared/services/app-settings.service';
+import { Constants } from '@mydata/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -26,28 +28,43 @@ export class ProfileService {
 
   testData = testData;
 
-  private currentProfileNameSource = new BehaviorSubject<string>('');
-  currentProfileName = this.currentProfileNameSource.asObservable();
+  /*
+   * Flag for preventing profile view from populating patch payload
+   * when draft has been initialized. Profile view initialization
+   * would overwrite patch payload without the flag.
+   */
+  profileInitialized = false;
 
-  private userDataSource = new Subject<string>();
+  private editorProfileNameSource = new BehaviorSubject<string>('');
+  currentEditorProfileName = this.editorProfileNameSource.asObservable();
+
+  private userDataSource = new Subject<Record<string, unknown>>();
   userData = this.userDataSource.asObservable();
+  orcidUserProfile: Record<string, unknown>; // Set via orcid-profile-resolver
 
   constructor(
     private http: HttpClient,
     private appConfigService: AppConfigService,
     public oidcSecurityService: OidcSecurityService,
     private profileAdapter: ProfileAdapter,
-    private errorHandlerService: ErrorHandlerService
+    private errorHandlerService: ErrorHandlerService,
+    private appSettingsService: AppSettingsService
   ) {
     this.apiUrl = this.appConfigService.profileApiUrl;
   }
 
-  updateTokenInHttpAuthHeader(bypassOrcidCheck = false) {
+  updateTokenInHttpAuthHeader(options?: { bypassOrcidCheck: boolean }) {
     const token = this.oidcSecurityService.getAccessToken();
 
     const idTokenPayload = this.oidcSecurityService.getPayloadFromIdToken();
 
-    if (!bypassOrcidCheck && !idTokenPayload.orcid) {
+    if (!token) {
+      return this.setErrorMessage(
+        'Autentikointi-avain ei saatavilla. Pyyntö estetty.'
+      );
+    }
+
+    if (!options?.bypassOrcidCheck && !idTokenPayload.orcid) {
       return this.handleOrcidNotLinked();
     }
 
@@ -60,15 +77,25 @@ export class ProfileService {
     };
   }
 
-  handleOrcidNotLinked() {
+  setErrorMessage(errorMessage: string) {
     this.errorHandlerService.updateError({
-      message: 'ORCID-tiliä ei ole linkitetty. Toiminto ei ole sallittu.',
+      message: errorMessage,
     });
   }
 
-  setCurrentProfileName(fullName: string) {
+  handleOrcidNotLinked() {
+    return this.setErrorMessage(
+      'ORCID-tiliä ei ole linkitetty. Toiminto ei ole sallittu.'
+    );
+  }
+
+  setOrcidUserProfile(profileData) {
+    this.orcidUserProfile = profileData;
+  }
+
+  setEditorProfileName(fullName: string) {
     // Capitalize first letters of names with startCase function
-    this.currentProfileNameSource.next(startCase(fullName));
+    this.editorProfileNameSource.next(startCase(fullName));
   }
 
   setCurrentProfileData(data) {
@@ -98,6 +125,15 @@ export class ProfileService {
     return this.http.delete(this.apiUrl + '/userprofile/', this.httpOptions);
   }
 
+  /*
+   * Keycloak account is created after succesful Suomi.fi authentication.
+   * Delete this account if user cancels service deployment.
+   */
+  deleteAccount() {
+    this.updateTokenInHttpAuthHeader({ bypassOrcidCheck: true });
+    return this.http.delete(this.apiUrl + '/accountdelete/', this.httpOptions);
+  }
+
   getOrcidData() {
     this.updateTokenInHttpAuthHeader();
     return this.http.get(this.apiUrl + '/orcid/', this.httpOptions);
@@ -106,15 +142,22 @@ export class ProfileService {
   getProfileData() {
     this.updateTokenInHttpAuthHeader();
     return this.http
-      .get<Profile[]>(this.apiUrl + '/profiledata/', this.httpOptions)
+      .get<Profile[]>(this.apiUrl + '/profiledata2/', this.httpOptions)
       .pipe(map((data) => this.profileAdapter.adapt(data)));
+  }
+
+  // Draft profile is stored in session storage
+  getDraftProfile() {
+    if (this.appSettingsService.isBrowser) {
+      return sessionStorage.getItem(Constants.draftProfile);
+    }
   }
 
   patchObjects(items) {
     this.updateTokenInHttpAuthHeader();
     let body = { groups: [], items: items };
     return this.http.patch(
-      this.apiUrl + '/profiledata/',
+      this.apiUrl + '/profiledata2/',
       body,
       this.httpOptions
     );
@@ -146,7 +189,7 @@ export class ProfileService {
    * access and id tokens.
    */
   accountlink() {
-    this.updateTokenInHttpAuthHeader(true);
+    this.updateTokenInHttpAuthHeader({ bypassOrcidCheck: true });
     return this.http.get(this.apiUrl + '/accountlink/', this.httpOptions);
   }
 }

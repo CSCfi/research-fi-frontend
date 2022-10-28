@@ -10,12 +10,13 @@ import { FilterMethodService } from './filter-method.service';
 import { StaticDataService } from '../static-data.service';
 import { cloneDeep } from 'lodash-es';
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { FilterConfigType } from 'src/types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FundingFilterService {
-  filterData = [
+  filterData: FilterConfigType[] = [
     {
       field: 'year',
       label: $localize`:@@fundingYear:Aloitusvuosi`,

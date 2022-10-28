@@ -46,6 +46,20 @@
       </li>
       <li class="breadcrumb-item arrow_box last" aria-current="page"></li>
     </ol>
+
+    <ol class="breadcrumb px-0 m-0" *ngIf="type === 'indicators'">
+      <li class="breadcrumb-item arrow_box middle" style="z-index: 2">
+        <a
+          routerLink="/science-innovation-policy/open-science-and-research-indicators"
+          i18n="@@openScienceAndResearchIndicatorsHeader"
+        >Avoimen tieteen ja tutkimuksen seuranta</a
+        >
+      </li>
+      <li class="breadcrumb-item arrow_box active" aria-current="page">
+        {{ responseData }}
+      </li>
+      <li class="breadcrumb-item arrow_box last" aria-current="page"></li>
+    </ol>
     <ol class="breadcrumb px-0 m-0" *ngIf="type === 'funding-call'">
       <li class="breadcrumb-item arrow_box middle" style="z-index: 2">
         <a

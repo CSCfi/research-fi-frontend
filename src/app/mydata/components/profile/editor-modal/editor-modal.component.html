@@ -4,13 +4,18 @@
  :license: MIT -->
 
 <ng-template #toggleAllTemplate>
-  <div class="col-12 col-sm-auto pt-3 pt-sm-0 align-self-center order-3 order-sm-2">
+  <div
+    class="col-12 col-sm-auto pt-3 pt-sm-0 align-self-center order-3 order-sm-2"
+  >
     <mat-checkbox
       [checked]="!toggleAllDisabled && allSelected"
       (change)="toggleAll($event)"
-      [indeterminate]="checkSomeSelected()"
+      [indeterminate]="someSelected"
       [disabled]="toggleAllDisabled"
       i18n="@@selectAll"
+      cdk
+      autoFocus
+      [trigger]="dialogData.trigger"
       >Valitse kaikki</mat-checkbox
     >
   </div>
@@ -26,7 +31,7 @@
 <app-dialog
   *ngIf="showDialog"
   [template]="editorTemplate"
-  [title]="data.label"
+  [title]="dialogData.data.label"
   [extraHeaderTemplate]="toggleAllTemplate"
   [actions]="dialogActions"
   (onActionClick)="doDialogAction($event)"

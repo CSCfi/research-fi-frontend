@@ -11,6 +11,7 @@ import {
   Input,
   OnInit,
   Output,
+  ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
 import { checkSelected } from '@mydata/utils';
@@ -19,6 +20,7 @@ import { PatchService } from '@mydata/services/patch.service';
 import { PublicationsService } from '@mydata/services/publications.service';
 import { DatasetsService } from '@mydata/services/datasets.service';
 import { FundingsService } from '@mydata/services/fundings.service';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-editor-modal',
@@ -27,12 +29,13 @@ import { FundingsService } from '@mydata/services/fundings.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class EditorModalComponent implements OnInit {
-  @Input() data: any;
+  @Input() dialogData: { data: any; trigger: number };
   showDialog: boolean;
   editorData: any;
   originalEditorData: any;
 
   allSelected: boolean;
+  someSelected: boolean;
   toggleAllDisabled: boolean = false;
 
   primarySource: string;
@@ -51,6 +54,8 @@ export class EditorModalComponent implements OnInit {
     { label: $localize`:@@continue:Jatka`, primary: true, method: 'save' },
   ];
 
+  @ViewChild('selectAllCheckbox') selectAllCheckbox: MatCheckbox;
+
   constructor(
     private patchService: PatchService,
     private publicationsService: PublicationsService,
@@ -60,33 +65,11 @@ export class EditorModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.showDialog = true;
-    this.editorData = this.data;
-    this.originalEditorData = cloneDeep(this.data);
+    this.editorData = this.dialogData.data;
+    this.originalEditorData = cloneDeep(this.dialogData.data);
     this.primarySource = this.editorData.primarySource;
 
     this.checkAllSelected();
-
-    // Radio options have default values. Add these values on init
-    // this.addInitialOptions(this.editorData.data);
-  }
-
-  // Not in use
-  addInitialOptions(data) {
-    const radioGroups = data.fields.filter((field) => field.single);
-
-    const patchItems = [];
-
-    radioGroups.forEach((group) =>
-      group.groupItems.map((groupItem) => {
-        if (groupItem.groupMeta.show) {
-          patchItems.push(
-            groupItem.items.find((item) => item.itemMeta.show).itemMeta
-          );
-        }
-      })
-    );
-
-    this.patchService.addToPayload(patchItems);
   }
 
   checkAllSelected() {
@@ -94,24 +77,15 @@ export class EditorModalComponent implements OnInit {
 
     const items = fields
       .filter((field) => !field.single)
-      .flatMap((field) => field.groupItems)
-      .flatMap((groupItem) => groupItem.items);
+      .flatMap((field) => field.items);
 
-    this.toggleAllDisabled = items.length === 0
+    this.toggleAllDisabled = items.length === 0;
 
-    this.allSelected = !!!items.some((item) => item.itemMeta.show === false);
-  }
+    this.allSelected = !!!items.some((item) => !item.itemMeta.show);
 
-  checkSomeSelected() {
-    const fields = this.editorData.fields;
-
-    const items = fields
-      .filter((field) => !field.single)
-      .flatMap((field) => field.groupItems)
-      .flatMap((groupItem) => groupItem.items);
-
-    if (!this.allSelected)
-      return !!items.some((item) => item.itemMeta.show === true);
+    this.someSelected = this.allSelected
+      ? false
+      : !!items.some((item) => item.itemMeta.show);
   }
 
   toggleAll(event) {
@@ -127,13 +101,11 @@ export class EditorModalComponent implements OnInit {
       if (field.selectedPublications)
         field.selectedPublications.map((item) => (item.show = event.checked));
 
-      field.groupItems.map((groupItem) => {
+      field.items.map((item) => {
         // Single selections should always have show as true. Therefore these items shouldn't be altered
-        if (!field.single) {
-          groupItem.items.map((item) => {
-            item.itemMeta.show = event.checked;
-            patchItems.push(item.itemMeta);
-          });
+        if (!field.single && item) {
+          item.itemMeta.show = event.checked;
+          patchItems.push(item.itemMeta);
         }
       });
     });
@@ -144,23 +116,23 @@ export class EditorModalComponent implements OnInit {
   }
 
   doDialogAction(action: string) {
-    switch(action) {
-      case "save": {
+    switch (action) {
+      case 'save': {
         this.patchService.confirmPayload();
         this.publicationsService.confirmPayload();
         this.datasetsService.confirmPayload();
         this.fundingsService.confirmPayload();
 
-        return this.onEditorClose.emit(this.editorData)
+        return this.onEditorClose.emit(this.editorData);
       }
-      case "cancel": {
+      case 'cancel': {
         this.patchService.clearPayload();
         this.publicationsService.clearPayload();
         this.publicationsService.clearDeletables();
       }
     }
 
-    this.onEditorClose.emit(null) // close component wrapper from parent
-    this.showDialog = false
+    this.onEditorClose.emit(null); // close component wrapper from parent
+    this.showDialog = false;
   }
 }

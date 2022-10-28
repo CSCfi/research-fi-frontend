@@ -12,10 +12,12 @@ import { LoginComponent } from './components/login/login.component';
 import { ServiceDeploymentComponent } from './components/service-deployment/service-deployment.component';
 import { CancelDeploymentComponent } from './components/service-deployment/cancel-deployment/cancel-deployment.component';
 import { RedirectComponent } from './components/redirect/redirect.component';
-import { WelcomeStepperComponent } from './components/welcome-stepper/welcome-stepper.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { DataSourcesComponent } from './components/profile/data-sources/data-sources.component';
 import { AuthGuard } from './services/auth-guard.service';
 import { PageResolverService } from '@shared/resolvers/page-resolver.service';
+import { OrcidProfileResolverService } from './resolvers/orcid-profile-resolver.service';
+import { MyDataProfileResolverService } from './resolvers/mydata-profile-resolver.service';
 
 const routes: Routes = [
   {
@@ -41,18 +43,9 @@ const routes: Routes = [
     },
   },
   {
-    path: 'cancel-introduction',
+    path: 'cancel-deployment',
     pathMatch: 'full',
     component: CancelDeploymentComponent,
-  },
-  {
-    path: 'welcome',
-    pathMatch: 'full',
-    component: WelcomeStepperComponent,
-    // canActivate: [AuthGuard],
-    resolve: {
-      pages: PageResolverService,
-    },
   },
   {
     path: 'profile',
@@ -61,6 +54,18 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     resolve: {
       pages: PageResolverService,
+      orcidProfile: OrcidProfileResolverService,
+      myDataProfile: MyDataProfileResolverService,
+    },
+  },
+  {
+    path: 'data-sources',
+    pathMatch: 'full',
+    component: DataSourcesComponent,
+    canActivate: [AuthGuard],
+    resolve: {
+      orcidProfile: OrcidProfileResolverService,
+      myDataProfile: MyDataProfileResolverService,
     },
   },
   {

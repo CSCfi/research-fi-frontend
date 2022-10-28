@@ -5,7 +5,7 @@
       "fields": [
         {
           "label": "Nimi",
-          "groupItems": [
+          "items": [
             {
               "source": {
                 "id": 70,
@@ -91,7 +91,7 @@
         },
         {
           "label": "Muut nimet",
-          "groupItems": [
+          "items": [
             {
               "source": {
                 "id": 70,
@@ -186,7 +186,7 @@
         },
         {
           "label": "Sähköposti",
-          "groupItems": [
+          "items": [
             {
               "source": {
                 "id": 68,
@@ -237,7 +237,7 @@
         },
         {
           "label": "Linkit",
-          "groupItems": [
+          "items": [
             {
               "source": {
                 "id": 70,
@@ -305,7 +305,7 @@
       "fields": [
         {
           "label": "Kuvaus",
-          "groupItems": [
+          "items": [
             {
               "source": {
                 "id": 68,
@@ -362,7 +362,7 @@
         },
         {
           "label": "Avainsanat",
-          "groupItems": [
+          "items": [
             {
               "source": {
                 "id": 70,
@@ -505,7 +505,7 @@
       "fields": [
         {
           "label": "Affiliaatiot",
-          "groupItems": [
+          "items": [
             {
               "source": {
                 "id": 70,
@@ -609,7 +609,7 @@
       "fields": [
         {
           "label": "Koulutus",
-          "groupItems": [
+          "items": [
             {
               "source": {
                 "id": 67,
@@ -647,7 +647,7 @@
       "fields": [
         {
           "label": "Julkaisut",
-          "groupItems": [
+          "items": [
             {
               "source": {
                 "id": 70,

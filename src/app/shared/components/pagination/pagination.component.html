@@ -1,0 +1,82 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<div class="pagination-container">
+  <div class="pagination">
+    <div class="buttons row" *ngIf="total">
+      <div class="col-auto col-md-3 col-xl-auto p-0">
+        <div class="row">
+          <!-- Results start -->
+          <app-secondary-button
+            class="col-auto ps-0 d-block d-md-none"
+            [icon]="faAngleDoubleLeft"
+            [iconOnly]="true"
+            (click)="goToFirstPage(pageSize)"
+            [disabled]="fromPage <= 1"
+          >
+          </app-secondary-button>
+
+          <app-secondary-button
+            class="col-auto p-0 pagination-button text-start text-lg-end"
+            [class.pagination-link-active]="fromPage > 1"
+            (click)="goToPage(page - 1, pageSize)"
+            [disabled]="fromPage <= 1"
+            [content]="previous"
+            [icon]="faAngleLeft"
+            [noSmIcon]="true"
+          >
+          </app-secondary-button>
+        </div>
+      </div>
+
+      <div class="pages col-12 col-md-6" [class.order-last]="!order">
+        <button
+          *ngFor="let number of pages"
+          class="page-button"
+          [disabled]="page === number"
+          (click)="goToPage(number, pageSize)"
+          [class.current-page]="page === number"
+        >
+          {{ number }}
+        </button>
+      </div>
+
+      <div class="col-auto col-md-3 col-xl-auto p-0">
+        <div class="row d-flex justify-content-end">
+          <app-secondary-button
+            class="col-auto p-0 pe-3 pe-md-0 pagination-button text-end text-lg-start"
+            [class.pagination-link-active]="fromPage + pageSize < total"
+            (click)="goToPage(page + 1, pageSize)"
+            [disabled]="fromPage + pageSize >= total"
+            [content]="next"
+            [icon]="faAngleRight"
+            [iconAfter]="true"
+            [noSmIcon]="true"
+          >
+          </app-secondary-button>
+
+          <!-- Results end -->
+          <app-secondary-button
+            class="col-auto p-0 d-block d-md-none"
+            [icon]="total >= 10000 ? faInfoCircle : faAngleDoubleRight"
+            [iconOnly]="true"
+            (click)="total >= 10000 ? null : goToLastPage(pageSize)"
+            [disabled]="fromPage + pageSize >= total"
+            [tooltip]="total >= 10000 ? tooManyResultstext : null"
+            triggers="focus"
+            container="body"
+          >
+          </app-secondary-button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-result-count
+    [pagination]="true"
+    [page]="page"
+    [pageSize]="pageSize"
+    [total]="total"
+  ></app-result-count>
+</div>

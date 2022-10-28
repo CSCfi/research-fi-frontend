@@ -10,12 +10,11 @@
       <!-- results/filters -->
       <app-filters
         [responseData]="filterValues"
-        [tabData]="'news'"
+        [filterOrigin]="'news'"
       ></app-filters>
     </aside>
   </div>
   <div class="col-12 col-xl-6 col-lg-7 col" [class.p-0]="mobile">
-
     <!-- Search -->
     <div class="col-lg-12 px-3 pt-1 pb-4">
       <app-search
@@ -24,6 +23,7 @@
         (getSearchTerm)="searchNews($event)"
         (resetSearch)="resetSearch()"
         [initialTerm]="searchService.currentInput | async"
+        [autofocus]="true"
       ></app-search>
     </div>
 

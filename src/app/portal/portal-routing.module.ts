@@ -17,6 +17,7 @@ import { NewsComponent } from './components/news/news/news.component';
 // tslint:disable-next-line: max-line-length
 import { ResearchInnovationSystemComponent } from './components/science-politics/research-innovation-system/research-innovation-system.component';
 import { FiguresComponent } from './components/science-politics/figures/figures.component';
+import { OpenScienceAndResearchIndicatorsComponent } from './components/science-politics/open-science-and-research-indicators/open-science-and-research-indicators.component'
 import { ExternalLinksComponent } from './components/science-politics/external-links/external-links.component';
 import { SingleFigureComponent } from './components/science-politics/figures/single-figure/single-figure.component';
 import { ServiceInfoComponent } from './components/service-info/service-info.component';
@@ -31,6 +32,7 @@ import { ExternalLinkResolver } from './resolvers/external-link-resolver.service
 import { ShortcutResolverService } from './resolvers/shortcut-resolver.service';
 import { SingleDatasetComponent } from './components/single/single-dataset/single-dataset.component';
 import { SingleFundingCallComponent } from './components/single/single-funding-call/single-funding-call.component';
+import { SingleIndicatorComponent } from './components/science-politics/open-science-and-research-indicators/single-indicator/single-indicator.component';
 // import { TkiReportsComponent } from "@portal/components/science-politics/tki-reports/tki-reports.component";
 
 const routes: Routes = [
@@ -160,6 +162,21 @@ const routes: Routes = [
   {
     path: 'science-innovation-policy/science-research-figures/:id',
     component: SingleFigureComponent,
+  },
+  {
+    path: 'science-innovation-policy/open-science-and-research-indicators',
+    pathMatch: 'full',
+    component: OpenScienceAndResearchIndicatorsComponent,
+    resolve: {
+      pages: PageResolverService,
+    },
+  },
+  {
+    path: 'science-innovation-policy/open-science-and-research-indicators/:id',
+    component: SingleIndicatorComponent,
+    resolve: {
+      pages: PageResolverService,
+    },
   },
   {
     path: 'service-info',

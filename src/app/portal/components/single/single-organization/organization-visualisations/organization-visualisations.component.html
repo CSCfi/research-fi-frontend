@@ -3,23 +3,6 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<div class="row justify-content-end">
-  <div
-    class="col-auto px-0 ms-3"
-    [tooltip]="betaTooltip"
-    container="body"
-    placement="top"
-    tabindex="-1"
-    #beta
-  >
-    <app-secondary-button
-      class="pe-2"
-      [icon]="'info-circle'"
-      content="Beta"
-    ></app-secondary-button>
-  </div>
-</div>
-
 <mat-spinner *ngIf="isLoading" class="mx-auto pt-3" [diameter]="60">
 </mat-spinner>
 

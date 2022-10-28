@@ -6,12 +6,13 @@
 //  :license: MIT
 
 import { Injectable } from '@angular/core';
+import { FilterConfigType } from 'src/types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OrganizationFilterService {
-  filterData = [
+  filterData: FilterConfigType[] = [
     {
       field: 'sector',
       label: $localize`:@@sector:Sektori`,

@@ -1,0 +1,118 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<main id="main-content">
+  <div class="wrapper">
+    <div class="row justify-content-between py-3">
+      <div class="col-12 px-0">
+        <div class="row">
+          <h1 class="col-12 px-0 pb-2">Tiedot ja tietolähteet</h1>
+        </div>
+        <div class="row pb-1">
+          <span class="col px-0 fw-bold">
+            {{ profileData.name }}
+          </span>
+        </div>
+        <div class="row">
+          <div class="col px-0">
+            <img
+              class="orcid-icon mt-n1 pe-2"
+              src="assets/img/orcid_icon.svg"
+              alt="Orcid -palvelun logo"
+            />
+            <span>{{ orcidData.orcid }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row d-none d-lg-block">
+      <div class="col pb-3 px-0 px-lg-3">
+        <div class="row justify-content-between">
+          <!-- Desktop selection indicator -->
+          <div class="col-auto offset-lg-3 ps-0 align-self-center">
+            <div class="ps-2 ms-1">
+              <ng-container
+                [ngTemplateOutlet]="selectedItemsTemplate"
+              ></ng-container>
+            </div>
+          </div>
+
+          <!-- Desktop selection actions -->
+          <ng-container
+            [ngTemplateOutlet]="selectionActionsTemplate"
+          ></ng-container>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-lg-3 px-0 pe-lg-3">
+        <div class="row py-3 py-lg-0">
+          <app-data-sources-filters
+            class="col-6 col-lg-12 ps-0 px-lg-0"
+            [profileData]="initialProfileData"
+            [activeFilters]="activeFilters"
+          ></app-data-sources-filters>
+
+          <app-sort-by-button
+            class="col-6 d-block d-lg-none pe-0"
+            [options]="sortOptions"
+            [activeSort]="activeSort"
+          ></app-sort-by-button>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-9 px-0 px-lg-3 py-0">
+        <!-- Mobile selection actions -->
+        <div class="row d-lg-none">
+          <div class="col px-0 mx-n2">
+            <ng-container
+              [ngTemplateOutlet]="selectionActionsTemplate"
+            ></ng-container>
+          </div>
+        </div>
+
+        <!-- Mobile selection indicator -->
+        <div class="row d-lg-none pt-3">
+          <div class="col px-2">
+            <ng-container
+              [ngTemplateOutlet]="selectedItemsTemplate"
+            ></ng-container>
+          </div>
+        </div>
+
+        <!-- List active filters -->
+        <app-active-filters-list
+          *ngIf="parsedActiveFilters?.length"
+          [filters]="parsedActiveFilters"
+          [dialogConfig]="activeFiltersDialogConfig"
+          (onRemoveFilter)="removeFilter($event)"
+          (onClearFilters)="clearFilters()"
+        ></app-active-filters-list>
+
+        <app-data-sources-table
+          *ngIf="data?.length"
+          [data]="data"
+          (onSelectionChange)="handleSelection($event)"
+        ></app-data-sources-table>
+      </div>
+    </div>
+  </div>
+</main>
+
+<ng-template #selectionActionsTemplate>
+  <app-data-sources-selection-actions
+    *ngIf="selectedItems?.length > 0"
+    [selectedItems]="selectedItems"
+    [profileData]="data"
+    (onPatchSuccess)="updateData($event)"
+    class="col-auto pe-0"
+  ></app-data-sources-selection-actions>
+</ng-template>
+
+<ng-template #selectedItemsTemplate>
+  {{ selectedItems.length }} valittu
+</ng-template>

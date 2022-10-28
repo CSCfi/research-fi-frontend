@@ -178,13 +178,17 @@ export class SearchPortalResultsComponent
       if (this.paginator) this.paginator.pageIndex = 0;
     });
 
-    // Create list of ids that we can match for existing selections in template
-    const profileItems = this.itemsInProfile
-      .flatMap((item) => item.items)
-      .map((item) => item.id)
-      .filter((item) => item?.toString().trim().length);
+    // Create list of ids that we can match for existing selections in template'
+    if (this.itemsInProfile[0]?.items !== undefined) {
+      const profileItems = this.itemsInProfile
+        .flatMap((item) => item.items)
+        .map((item) => item.id)
+        .filter((item) => item?.toString().trim().length);
 
-    this.selectedItemsIdArray = profileItems;
+      this.selectedItemsIdArray = profileItems;
+    } else {
+      this.selectedItemsIdArray = [];
+    }
   }
 
   ngOnChanges() {
@@ -202,9 +206,8 @@ export class SearchPortalResultsComponent
     if (item > -1) {
       arr.splice(item, 1);
     } else {
-      this.showMoreArray.push(index)
+      this.showMoreArray.push(index);
     }
-
   }
 
   showMore(index) {

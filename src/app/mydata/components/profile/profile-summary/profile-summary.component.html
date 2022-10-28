@@ -7,9 +7,11 @@
   <div
     class="group-wrapper"
     *ngIf="
-      (group.fields | countGroupItems).length ||
       group.id === groupTypes.publication ||
-      group.id === groupTypes.dataset
+      group.id === groupTypes.dataset ||
+      group.id === groupTypes.education ||
+      group.id === groupTypes.affiliation ||
+      group.id === groupTypes.description
     "
   >
     <div class="row py-2 justify-content-between">
@@ -21,36 +23,40 @@
       <div
         class="col align-self-center fst-italic order-3 order-sm-2"
         i18n="@@youHaveNotSelectedAnyPublicData"
-        *ngIf="
-          (group.fields | countGroupItems: { filterSelected: true }).length ===
-          0
-        "
+        *ngIf="!(group.fields | hasSelectedItems)"
       >
-        Et ole vielä valinnut julkisesti näytettäviä tietoja
+        {{ noPublicDataText }}
       </div>
       <div class="col-auto order-2 order-sm-3">
         <app-secondary-button
           [content]="
-            (group.fields | countGroupItems: { filterSelected: true }).length
-              ? editString
-              : selectString
+            (group.fields | hasSelectedItems) ? editString : selectString
           "
+          [announce]="!(group.fields | hasSelectedItems)"
+          [announceText]="group.label + ' ' + noPublicDataText"
           (click)="openDialog($event, i + 1)"
         ></app-secondary-button>
       </div>
     </div>
 
     <ng-container *ngFor="let field of group.fields">
-      <div
-        class="row py-2"
-        *ngIf="(field.groupItems | filter: checkGroupSelected).length"
-      >
+      <div class="row py-2" *ngIf="field">
         <div class="col px-0 pb-3" [ngSwitch]="group.id">
           <app-summary-affiliations
             *ngSwitchCase="groupTypes.affiliation"
             [data]="field"
             [fieldTypes]="fieldTypes"
           ></app-summary-affiliations>
+
+          <app-summary-portal-items
+            *ngSwitchCase="groupTypes.education"
+            [data]="field"
+            [fieldType]="fieldTypes.activityEducation"
+            sortField="publicationYear"
+            showMoreLabel="koulutus"
+            i18n-showMoreLabel="@@education"
+          >
+          </app-summary-portal-items>
 
           <app-summary-portal-items
             *ngSwitchCase="groupTypes.publication"
@@ -83,34 +89,27 @@
           </app-summary-portal-items>
 
           <div class="summary-panel-wrapper" *ngSwitchDefault>
-            <div class="col px-3 fw-bold py-2" *ngIf="group.fields.length > 1">
+            <div class="col px-3 fw-bold py-2" *ngIf="field | hasSelectedItems">
               {{ field.label }}
             </div>
 
-            <ng-container
-              *ngFor="
-                let groupItem of field.groupItems | filter: checkGroupSelected
-              "
-            >
-              <ng-container [ngSwitch]="groupItem.groupMeta.type">
+            <div *ngIf="field.items[0]?.itemMeta?.type">
+              <ng-container [ngSwitch]="field.items[0].itemMeta.type">
                 <div
                   class="summary-panel"
                   *ngSwitchCase="fieldTypes.personKeyword"
                 >
                   <!-- Display joined keywords only if item has show property set to true -->
-                  <div class="row" *ngIf="groupItem.items[0].itemMeta.show">
+                  <div class="row" *ngIf="field.items[0].itemMeta.show">
                     <div class="col pb-2 font-size-smaller">
-                      {{ groupItem.items | joinItems: 'value' }}
+                      {{ field.items | joinItems: 'value' }}
                     </div>
                   </div>
                   <app-summary-divider></app-summary-divider>
                 </div>
 
                 <ng-container *ngSwitchDefault>
-                  <div
-                    class="summary-panel"
-                    *ngFor="let item of groupItem.items"
-                  >
+                  <div class="summary-panel" *ngFor="let item of field.items">
                     <div
                       class="row d-flex justify-content-between py-1"
                       *ngIf="item.itemMeta.show"
@@ -118,7 +117,7 @@
                       <div class="col font-size-smaller">
                         <app-panel-array-item
                           [item]="item"
-                          [fieldType]="groupItem.groupMeta.type"
+                          [fieldType]="field.items[0].itemMeta.show"
                           [localized]="field.localized"
                         ></app-panel-array-item>
                       </div>
@@ -127,7 +126,7 @@
                   </div>
                 </ng-container>
               </ng-container>
-            </ng-container>
+            </div>
           </div>
         </div>
       </div>
@@ -137,7 +136,7 @@
 
 <ng-container *ngIf="showDialog">
   <app-editor-modal
-    [data]="dialogData"
+    [dialogData]="dialogData"
     (onEditorClose)="handleChanges($event)"
   ></app-editor-modal>
 </ng-container>
