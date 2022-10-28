@@ -7,14 +7,14 @@
 
 app-table,
 app-table-cell {
-  fa-icon {
-    font-size: 2.625rem;
-  }
-
   .mat-column-icon {
     flex: 0 0 6% !important; // Icon column width
     margin-top: -0.5rem; // Position with text content
     max-width: 6%;
+
+    fa-icon {
+      font-size: 2.625rem;
+    }
   }
 
   .mat-column-selection mat-checkbox {
