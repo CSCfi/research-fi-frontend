@@ -2,7 +2,7 @@
 <main id="main-content" class="main-content-wrap">
   <div class="wrapper">
     <div class="row">
-      <div class="header-wrap">
+      <div [ngClass]="indicatorsActive === true ? 'header-wrap' : 'placeholder-header-wrap'">
         <div *ngFor="let content of indicatorContent">
           <h1>{{content['title' + currentLocale]}}</h1>
         </div>
