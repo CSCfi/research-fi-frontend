@@ -158,6 +158,8 @@ export class DataSourcesTableComponent
 
   // Create raw data for table rows
   handleProfileData(profileData) {
+    console.log(profileData);
+
     // Filter out empty groups and flatten structure
     const filteredGroups = profileData
       .flatMap((group) => group.fields)
@@ -169,7 +171,9 @@ export class DataSourcesTableComponent
 
         switch (item.itemMeta.type) {
           case FieldTypes.activityAffiliation: {
-            displayValue = item.positionName;
+            displayValue = [item.positionName, item.organizationName]
+              .filter((item) => item.length > 0)
+              .join(', ');
             break;
           }
           case FieldTypes.activityEducation: {
