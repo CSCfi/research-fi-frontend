@@ -59,22 +59,6 @@
       </div>
       <div class="col col-lg-3 ps-0 ps-lg-4">
         <div class="row pb-3">
-          <div class="col align-self-center ps-0 info-button">
-            <app-figures-info
-              *ngIf="item['info' + currentLocale]"
-              i18n-labelText="@@additionalInfo"
-              labelText="Lisätietoa"
-              [content]="item['info' + currentLocale]"
-            ></app-figures-info>
-            <a
-              class="strong text-uppercase info-label"
-              [class.ps-2]="item['info' + currentLocale]"
-              i18n="@@additionalInfo"
-            >Lisätietoa</a
-            >
-          </div>
-        </div>
-        <div class="row pb-3">
           <div class="col ps-0">
             <span class="strong d-block" i18n="@@figureSource">Lähde:</span>
             <span>{{ dataSource }}</span>
