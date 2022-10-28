@@ -62,7 +62,7 @@ export class SingleIndicatorComponent implements OnInit {
 
   areIndicatorsActive() {
     let isActive = this.route.snapshot.data.pages.some(
-      (el) => el.id.startsWith('indicators_not_active')
+      (el) => el.id.startsWith('indicators_active')
     );
     return isActive;
   }
