@@ -77,7 +77,7 @@ export class ProfileAdapter implements Adapter<Profile> {
       },
       {
         id: GroupTypes.activity,
-        label: $localize`:@@activitiesAndAwards:Aktiviteetit ja palkinnotHankkeet`,
+        label: $localize`:@@activitiesAndAwards:Aktiviteetit ja palkinnot`,
         fields: [],
       },
     ]);

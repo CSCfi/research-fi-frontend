@@ -11,7 +11,7 @@ export const CommonStrings = {
   deleteProfile: $localize`:@@deleteProfile:Poista profiili`,
   select: $localize`:@@select:Valitse`,
   edit: $localize`:@@edit:Muokkaa`,
-  ttvLabel: $localize`:@@appSlogan:Tiedejatutkimus.fi`,
+  ttvLabel: $localize`:@@appName:Tiedejatutkimus.fi`,
   primary: $localize`:@@primary:Ensisijainen`,
   setAsPrimary: $localize`:@@setAsPrimary:Aseta ensisijaiseksi`,
 };

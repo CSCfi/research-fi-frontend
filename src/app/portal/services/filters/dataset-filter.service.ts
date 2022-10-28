@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { cloneDeep } from 'lodash-es';
+import { FilterConfigType } from 'src/types';
 import { StaticDataService } from '../static-data.service';
 import { FilterMethodService } from './filter-method.service';
 
@@ -7,7 +8,7 @@ import { FilterMethodService } from './filter-method.service';
   providedIn: 'root',
 })
 export class DatasetFilterService {
-  filterData = [
+  filterData: FilterConfigType[] = [
     {
       field: 'year',
       label: $localize`:@@yearOfPublication:Julkaisuvuosi`,

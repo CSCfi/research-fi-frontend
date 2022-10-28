@@ -172,13 +172,14 @@
           <!-- Nav items -->
           <div class="col p-0">
             <ul class="nav-right navbar-nav main" [class.row]="!mobileMenu">
-              <ng-container *ngFor="let item of appSettings.navItems">
+              <ng-container *ngFor="let item of navigationLinks">
                 <li
                   *ngIf="!item.dropdownItems; else dropdownLink"
                   class="nav-item col col-auto p-0"
                 >
                   <a
                     class="nav-item nav-link"
+                    [class.primary-color]="item.loginProcess"
                     [routerLink]="
                       item.link.trim().length > 0 ? item.link : currentRoute
                     "

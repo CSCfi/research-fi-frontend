@@ -22,7 +22,7 @@ import { SortService } from 'src/app/portal/services/sort.service';
 import { Search } from 'src/app/portal/models/search.model';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { HighlightSearch } from '@portal/pipes/highlight.pipe';
-import { TableColumn, TableRowItem } from 'src/types';
+import { TableColumn, TableRow } from 'src/types';
 
 @Component({
   selector: 'app-organizations',
@@ -52,7 +52,7 @@ export class OrganizationsComponent
   input: string;
   focusSub: any;
   tableColumns: TableColumn[];
-  tableRows: Record<string, TableRowItem>[];
+  tableRows: Record<string, TableRow>[];
   iconTitleOrganizations = $localize`:@@iconOrganizations: Organisaatioiden tiedon ikoni`;
 
   constructor(

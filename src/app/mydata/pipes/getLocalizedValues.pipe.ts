@@ -15,7 +15,7 @@ export class GetLocalizedValuesPipe implements PipeTransform {
     const res = [];
 
     const localizedValues = Object.keys(value).filter(
-      (item) => item !== 'itemMeta'
+      (item) => item !== 'itemMeta' && item !== 'dataSources'
     );
 
     localizedValues.forEach((item) => {

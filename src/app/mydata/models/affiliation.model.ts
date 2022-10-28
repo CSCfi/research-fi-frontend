@@ -24,17 +24,16 @@ export class AffiliationFieldsAdapter implements Adapter<AffiliationFields> {
   ) {}
 
   adapt(item: any): AffiliationFields {
-    item.affiliationGroups.forEach(
-      (group) =>
-        (group.items = group.items.map(
-          (item) => (item = this.affiliationItemAdapter.adapt(item))
-        ))
-    );
+    item.affiliations = item.affiliations.map((affiliation) => ({
+      ...this.affiliationItemAdapter.adapt(affiliation),
+      ...affiliation,
+    }));
 
     return new AffiliationFields(
-      this.mydataUtils.mapGroup(
-        item.affiliationGroups,
+      this.mydataUtils.mapGroupGeneral(
+        item,
         'affiliation',
+        'affiliations',
         $localize`:@@affiliations:Affiliaatiot`,
         {
           primaryValue: true,

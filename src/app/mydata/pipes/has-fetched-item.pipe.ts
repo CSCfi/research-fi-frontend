@@ -4,8 +4,8 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'hasFetchedItem',
 })
 export class HasFetchedItemPipe implements PipeTransform {
-  transform(group: { items: any[] }): boolean {
-    return !!group.items.find(
+  transform(items: any[]): boolean {
+    return !!items.find(
       (item: { itemMeta: { primaryValue: any } }) => item.itemMeta.primaryValue
     );
   }

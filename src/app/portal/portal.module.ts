@@ -74,7 +74,6 @@ import { OrganizationsComponent } from './components/results/organizations/organ
 
 import { ResultTabComponent } from './components/result-tab/result-tab.component';
 import { SortComponent } from './components/results/sort/sort.component';
-import { PaginationComponent } from './components/results/pagination/pagination.component';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { ActiveFiltersComponent } from './components/results/active-filters/active-filters.component';
 import { VisualisationComponent } from './components/visualisation/visualisation.component';
@@ -120,7 +119,6 @@ import { ScrollSpyDirective } from './directives/scroll-spy.directive';
 import { SingleFigureComponent } from './components/science-politics/figures/single-figure/single-figure.component';
 import { RelatedLinksComponent } from './components/single/related-links/related-links.component';
 import { Event, Scroll, Router } from '@angular/router'; // Router required by scroll logic
-import { FilterListComponent } from './components/results/active-filters/filter-list/filter-list.component';
 import { ServiceInfoComponent } from './components/service-info/service-info.component';
 import { PrivacyComponent } from './components/privacy/privacy.component';
 import { AccessibilityComponent } from './components/accessibility/accessibility.component';
@@ -134,7 +132,6 @@ import { HistoryService } from './services/history.service';
 import { TabChangeService } from './services/tab-change.service';
 import { NewsPaginationComponent } from './components/news/news-pagination/news-pagination.component';
 import { CarouselComponent } from './components/science-politics/figures/carousel/carousel.component';
-import { ResultCountComponent } from './components/results/result-count/result-count.component';
 import { BarComponent } from './components/visualisation/bar/bar.component';
 import { FigureFiltersComponent } from './components/science-politics/figures/figure-filters/figure-filters.component';
 import { FiguresInfoComponent } from './components/science-politics/figures/figures-info/figures-info.component';
@@ -163,6 +160,9 @@ import { Subscription } from 'rxjs';
 import { NoResultsComponent } from './components/results/no-results/no-results.component';
 import { FundingCallCategoryFiltersComponent } from './components/results/funding-call-category-filters/funding-call-category-filters.component';
 import { SingleResultLinkComponent } from './components/single/single-result-link/single-result-link.component';
+import { ResultsPaginationComponent } from './components/results/results-pagination/results-pagination.component';
+import { OpenScienceAndResearchIndicatorsComponent } from './components/science-politics/open-science-and-research-indicators/open-science-and-research-indicators.component';
+import { SingleIndicatorComponent } from './components/science-politics/open-science-and-research-indicators/single-indicator/single-indicator.component';
 
 @NgModule({
   declarations: [
@@ -174,7 +174,6 @@ import { SingleResultLinkComponent } from './components/single/single-result-lin
     PersonsComponent,
     ResultTabComponent,
     SortComponent,
-    PaginationComponent,
     BreadcrumbComponent,
     FundingsComponent,
     SingleFundingComponent,
@@ -209,7 +208,6 @@ import { SingleResultLinkComponent } from './components/single/single-result-lin
     ReplaceSpacePipe,
     SingleFigureComponent,
     RelatedLinksComponent,
-    FilterListComponent,
     ServiceInfoComponent,
     PrivacyComponent,
     AccessibilityComponent,
@@ -218,7 +216,6 @@ import { SingleResultLinkComponent } from './components/single/single-result-lin
     TabItemComponent,
     NewsPaginationComponent,
     CarouselComponent,
-    ResultCountComponent,
     BarComponent,
     FigureFiltersComponent,
     FiguresInfoComponent,
@@ -250,6 +247,9 @@ import { SingleResultLinkComponent } from './components/single/single-result-lin
     NoResultsComponent,
     FundingCallCategoryFiltersComponent,
     SingleResultLinkComponent,
+    ResultsPaginationComponent,
+    OpenScienceAndResearchIndicatorsComponent,
+    SingleIndicatorComponent,
   ],
   imports: [
     PortalRoutingModule,
@@ -289,7 +289,7 @@ import { SingleResultLinkComponent } from './components/single/single-result-lin
     MatTableModule,
     MatSortModule,
   ],
-  exports: [DatasetAuthorComponent],
+  exports: [DatasetAuthorComponent, FiltersComponent],
   providers: [
     SearchService,
     Title,

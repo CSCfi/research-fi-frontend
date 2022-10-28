@@ -16,6 +16,7 @@
         [placeholder]="searchPlaceholder"
         (getSearchTerm)="handleSearch($event)"
         (resetSearch)="handleSearch('')"
+        [autofocus]="true"
       ></app-search>
     </div>
   </div>
@@ -43,16 +44,21 @@
   </div>
 
   <div class="row py-3">
-    <div class="col opacity-3">
+    <div class="col opacity-3" role="region" aria-live="polite">
       <ng-container [ngSwitch]="true">
         <ng-container *ngSwitchCase="total > 0"
           >{{ total | thousandSeparator }}
-          <span *ngIf="total === 1; else resultsLabel" i18n="@@singleResult"
-            >hakutulos</span
+          <ng-container
+            *ngIf="total === 1; else resultsLabel"
+            i18n="@@singleResult"
           >
+            hakutulos
+          </ng-container>
 
-          <ng-template #resultsLabel
-            ><span i18n="@@resultCount">hakutulosta</span></ng-template
+          <ng-template #resultsLabel>
+            <ng-container i18n="@@resultCount">
+              hakutulosta
+            </ng-container></ng-template
           >
         </ng-container>
         <span *ngSwitchCase="total === 0">Ei hakutuloksia</span>

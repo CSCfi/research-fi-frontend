@@ -83,7 +83,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   showSkipLinks: boolean;
 
   countTab = 0;
-  navLinkArr: any;
+
+  navigationLinks: any[];
 
   faChevronDown = faChevronDown;
   faChevronUp = faChevronUp;
@@ -225,6 +226,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
           }
         }
 
+        const navItems = this.appSettings.navItems;
+
+        this.navigationLinks = navItems;
+
         // Login / logout link
         // Click functionality is handled in handleClick method
         this.isAuthenticated.pipe(take(1)).subscribe((authenticated) => {
@@ -232,11 +237,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
           if (this.currentRoute.includes('/mydata')) {
             this.loggedIn = isAuthenticated;
-          }
-          this.appSettingsService.myDataSettings.navItems[0].label =
-            isAuthenticated
+
+            // Hide navigation links other than login if user hasn't authenticated
+            this.navigationLinks = isAuthenticated
+              ? navItems
+              : navItems.filter((item) => item.loginProcess);
+
+            navItems.find((item) => item.loginProcess).label = isAuthenticated
               ? $localize`:@@logout:Kirjaudu ulos`
               : $localize`:@@logIn:Kirjaudu sisään`;
+          }
         });
       }
     });
@@ -344,13 +354,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     // Set the overlay lower so skip links dont mess up overlay
     if (this.navbarOpen) {
-      this.document.body.classList.add('modal-open');
+      this.document.body.classList.add('menu-open');
       setTimeout(() => {
         this.overlay &&
           this.renderer.setStyle(this.overlay?.nativeElement, 'top', '350px');
       }, 500);
     } else {
-      this.document.body.classList.remove('modal-open');
+      this.document.body.classList.remove('menu-open');
     }
 
     // Allow menu to slide out before hiding

@@ -107,7 +107,11 @@
       <!-- Third column -->
       <div class="col-12 col-sm-10 col-9 col-lg-5 col-xl-4 p-2 mb-1">
         <div class="mx-1 drop-shadow tint-background">
-          <a class="header-link" routerLink="/funding-calls" [queryParams]="{status: 'open'}">
+          <a
+            class="header-link"
+            routerLink="/funding-calls"
+            [queryParams]="{ status: 'open' }"
+          >
             <div class="col-header mb-xl-4">
               <h2 i18n="@@openFundingCalls" class="text-center m-0">
                 Avoimet rahoitushaut
@@ -132,7 +136,7 @@
 
     <!-- Divider -->
     <app-divider
-      i18n-headingText="@@appSlogan"
+      i18n-headingText="@@appName"
       headingText="Tiedejatutkimus.fi"
     ></app-divider>
 

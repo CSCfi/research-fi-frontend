@@ -1,0 +1,38 @@
+<app-banner-divider></app-banner-divider>
+<main id="main-content" class="main-content-wrap">
+  <div class="wrapper">
+    <div class="row">
+      <div [ngClass]="indicatorsActive === true ? 'header-wrap' : 'placeholder-header-wrap'">
+        <div *ngFor="let content of indicatorContent">
+          <h1>{{content['title' + currentLocale]}}</h1>
+        </div>
+      </div>
+      <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+        <div *ngFor="let content of indicatorContent">
+          <div [innerHTML]="content['content' + currentLocale]"></div>
+        </div>
+      </div>
+      <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+        <div class="base content">
+          <div *ngFor="let content of subPageLinks" class="card list mx-4">
+              <a [href]="currentPageUrl + content.id | safeUrl">
+                <h2 class="mx-3">{{content['title' + currentLocale]}}</h2>
+                <div class="row">
+                  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-9 thumbnail-bread-text thumbnail-bread-text">
+                    <div [innerHTML]="content['content' + currentLocale] | cutContent: 351" class="inner-html-wrap"></div>
+                  </div>
+                  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-3 ps-4 flex-grow-1 mt-2 indicator-thumbnail-wrapper">
+                    <img
+                      class=""
+                      src="{{content.image}}"
+                      alt="{{content['title' + currentLocale]}}"
+                    />
+                  </div>
+                </div>
+              </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

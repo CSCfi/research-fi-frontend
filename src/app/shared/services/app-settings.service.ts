@@ -43,6 +43,11 @@ export class AppSettingsService {
         link: '/science-innovation-policy/',
         dropdownItems: [
           {
+            label: $localize`:@@openScienceAndResearchIndicatorsHeader:Avoimen tieteen ja tutkimuksen seuranta`,
+            link: '/science-innovation-policy/open-science-and-research-indicators/',
+            exact: true,
+          },
+          {
             label: $localize`:@@headerLink4:Tutkimus- ja innovaatiojärjestelmä`,
             link: '/science-innovation-policy/research-innovation-system/',
             exact: true,
@@ -79,6 +84,11 @@ export class AppSettingsService {
     label: $localize`:@@researchersProfile:Tutkijan tiedot`,
     baseRoute: 'mydata',
     navItems: [
+      {
+        label: $localize`:@@publicProfile:Julkinen profiili`,
+        link: '/mydata/profile',
+      },
+      { label: 'Tiedot ja tietolähteet', link: '/mydata/data-sources' },
       {
         label: $localize`:@@logIn:Kirjaudu sisään`,
         link: '',

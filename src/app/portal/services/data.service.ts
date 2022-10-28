@@ -9,9 +9,6 @@ export class DataService {
   private responseSource = new BehaviorSubject('');
   currentResponse = this.responseSource.asObservable();
 
-  private activeFilterHeightSource = new BehaviorSubject(0);
-  currentActiveFilterHeight = this.activeFilterHeightSource.asObservable();
-
   private totalResultsSource = new BehaviorSubject<number | string>(0);
   currentTotal = this.totalResultsSource.asObservable();
 
@@ -28,10 +25,6 @@ export class DataService {
 
   changeResponse(response: any) {
     this.responseSource.next(response);
-  }
-
-  changeActiveFilterHeight(height: any) {
-    this.activeFilterHeightSource.next(height);
   }
 
   updateTotalResultsValue(amount: number | string) {

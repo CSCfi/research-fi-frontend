@@ -27,29 +27,24 @@ export class PublicationFieldsAdapter implements Adapter<PublicationFields> {
     /*
      * Leverage model from Portal.
      */
-    item.publicationGroups.forEach(
-      (group) =>
-        (group.items = group.items.map(
-          (item) =>
-            (item = {
-              ...this.publicationAdapter.adapt(item),
-              itemMeta: item.itemMeta,
-            })
-        ))
-    );
+    item.publications = item.publications.map((publication) => ({
+      ...this.publicationAdapter.adapt(publication),
+      ...publication,
+    }));
 
-    // Sort publication groups by ORCID publications first
-    // Order needs to be constant for merging publications in mydata/utils.ts
-    item.publicationGroups = item.publicationGroups.sort(
-      (
-        a: { groupMeta: { type: number } },
-        b: { groupMeta: { type: number } }
-      ) => b.groupMeta.type - a.groupMeta.type
-    );
+    //   // Sort publication groups by ORCID publications first
+    //   // Order needs to be constant for merging publications in mydata/utils.ts
+    //   item.publicationGroups = item.publicationGroups.sort(
+    //     (
+    //       a: { groupMeta: { type: number } },
+    //       b: { groupMeta: { type: number } }
+    //     ) => b.groupMeta.type - a.groupMeta.type
+    //   );
 
     return new PublicationFields(
-      this.mydataUtils.mapGroup(
-        item.publicationGroups,
+      this.mydataUtils.mapGroupGeneral(
+        item,
+        'publication',
         'publications',
         $localize`:@@publications:Julkaisut`
       )

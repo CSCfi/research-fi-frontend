@@ -13,7 +13,7 @@ export class ProfileEditorCardHeaderComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  openDialog() {
-    this.handleOpenDialog.emit();
+  openDialog(event: MouseEvent) {
+    this.handleOpenDialog.emit(event);
   }
 }

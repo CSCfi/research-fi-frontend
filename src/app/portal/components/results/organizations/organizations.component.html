@@ -22,11 +22,11 @@
     iconLinkField="name"
     [sortColumn]="sortService.sortColumn"
     [sortDirection]="sortService.sortDirection ? 'desc' : 'asc'"
-    (onSortChange)="utilityService.sortBy($event)"
+    (onSortChange)="utilityService.sortBy($event.active)"
   ></app-table>
 
   <!-- Pagination -->
-  <app-pagination [responseData]="resultData"></app-pagination>
+  <app-results-pagination [data]="resultData"></app-results-pagination>
 </div>
 <ng-template #noResults>
   <app-no-results

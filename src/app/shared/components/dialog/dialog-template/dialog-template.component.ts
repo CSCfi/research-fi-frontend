@@ -23,6 +23,7 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
 import { take } from 'rxjs/operators';
 import { cloneDeep } from 'lodash-es';
 import { Subscription } from 'rxjs';
+import { DialogAction } from 'src/types';
 
 @Component({
   selector: 'app-dialog-template',
@@ -47,7 +48,7 @@ export class DialogTemplateComponent
       title: string;
       template: object;
       footerTemplate: string;
-      actions: any[];
+      actions: DialogAction[];
       spreadActions: boolean;
       extraContentTemplate: object;
       centerTitle: boolean;
@@ -70,13 +71,17 @@ export class DialogTemplateComponent
       .subscribe((status) => (this.mobile = status));
   }
 
-  doAction(action: { method: string; label: string }) {
+  doAction(action: DialogAction) {
+    // Use case when button text content changes on button click, e.g. MyData patch preview
+    if (action.labelToggle) {
+      action.label = !this.displayExtraContent
+        ? action.labelToggle.off
+        : action.labelToggle.on;
+    }
+
     switch (action.method) {
-      // Special use case for MyData patch preview button
+      // Use case for MyData patch preview button
       case 'preview': {
-        action.label = !this.displayExtraContent
-          ? $localize`:@@hideDataToPublish:Piilota julkaistavat tiedot`
-          : $localize`:@@showDataToPublish:Näytä julkaistavat tiedot`;
         this.displayExtraContent = !this.displayExtraContent;
         break;
       }

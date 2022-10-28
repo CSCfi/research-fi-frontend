@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { cloneDeep } from 'lodash';
+import { FilterConfigType } from 'src/types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FundingCallFilterService {
-  filterData = [
+  filterData: FilterConfigType[] = [
     {
       field: 'status',
       label: $localize`:@@fundingCallStatus:Rahoitushaun tila`,

@@ -38,8 +38,6 @@ export class OrganizationVisualisationsComponent implements OnInit, OnDestroy {
   colWidth = 0;
   resizeSub: any;
 
-  betaTooltip = $localize`:@@organizationVisualBetaText:Organisaatioiden tunnusluvut ovat uusi kokonaisuus Tiedejatutkimus.fi –portaalissa. Koska kyseessä on uusi kokonaisuus, toivomme palautetta tiedejatutkimus@csc.fi osoitteeseen.`;
-
   constructor(
     private cdr: ChangeDetectorRef,
     private resizeService: ResizeService

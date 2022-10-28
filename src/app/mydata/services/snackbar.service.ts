@@ -17,4 +17,18 @@ export class SnackbarService {
       });
     });
   }
+
+  showPatchMessage(type: 'success' | 'error') {
+    if (type === 'success') {
+      this.show(
+        $localize`:@@profilePublishedToast:Profiili julkaistu. Tiedot näkyvät muutaman minuutin kuluttua tiedejatutkimus.fi -palvelussa.`,
+        'success'
+      );
+    } else {
+      this.show(
+        $localize`:@@dataSavingError:Virhe tiedon tallennuksessa`,
+        'error'
+      );
+    }
+  }
 }

@@ -10,16 +10,30 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CutContentPipe } from '../../pipes/cut-content.pipe';
 
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('TableComponent', () => {
   let component: TableComponent;
   let fixture: ComponentFixture<TableComponent>;
 
+  const routeMock = {
+    snapshot: { data: {} },
+  } as ActivatedRoute;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [TableComponent, TableCellComponent, CutContentPipe],
-      imports: [MatTableModule, MatSortModule, BrowserAnimationsModule],
-      providers: [CutContentPipe],
+      imports: [
+        MatTableModule,
+        MatSortModule,
+        BrowserAnimationsModule,
+        RouterTestingModule,
+      ],
+      providers: [
+        CutContentPipe,
+        { provide: ActivatedRoute, useValue: routeMock },
+      ],
     }).compileComponents();
   });
 

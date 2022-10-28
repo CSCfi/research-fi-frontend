@@ -34,7 +34,11 @@ Copyright 2019 Ministry of Education and Culture, Finland
             class="col-auto col-lg-7 justify-content-end align-items-center row pe-0"
           >
             <div class="col-auto px-0" *ngIf="selectedTabData">
-              <app-result-count></app-result-count>
+              <app-result-count
+                [page]="searchService.pageNumber"
+                [pageSize]="searchService.pageSize"
+                [total]="dataService.currentTotal | async"
+              ></app-result-count>
             </div>
             <!-- <div class="col-12"></div> -->
             <div class="col-auto text-end d-none d-lg-block ps-4 pe-0">
@@ -105,39 +109,39 @@ Copyright 2019 Ministry of Education and Culture, Finland
           <app-filters
             *ngIf="tab === tabData[0].link"
             [responseData]="filterValues"
-            [tabData]="tabData[0].data"
+            [filterOrigin]="tabData[0].data"
           ></app-filters>
           <app-filters
             *ngIf="tab === tabData[1].link"
             [responseData]="filterValues"
-            [tabData]="tabData[1].data"
+            [filterOrigin]="tabData[1].data"
           ></app-filters>
           <app-filters
             *ngIf="tab === tabData[2].link"
             [responseData]="filterValues"
-            [tabData]="tabData[2].data"
+            [filterOrigin]="tabData[2].data"
           ></app-filters>
           <app-filters
             *ngIf="tab === tabData[3].link"
             [responseData]="filterValues"
-            [tabData]="tabData[3].data"
+            [filterOrigin]="tabData[3].data"
           ></app-filters>
           <!-- Funding calls -->
           <app-filters
             *ngIf="tab === tabData[4].link"
             [responseData]="filterValues"
-            [tabData]="tabData[4].data"
+            [filterOrigin]="tabData[4].data"
             [externalFilterQuery]="externalFilterQuery"
           ></app-filters>
           <app-filters
             *ngIf="tab === tabData[5].link"
             [responseData]="filterValues"
-            [tabData]="tabData[5].data"
+            [filterOrigin]="tabData[5].data"
           ></app-filters>
           <app-filters
             *ngIf="tab === tabData[6].link"
             [responseData]="filterValues"
-            [tabData]="tabData[6].data"
+            [filterOrigin]="tabData[6].data"
           ></app-filters>
         </aside>
         <aside class="col col-6 col-sm-6 ps-2 sort">
@@ -178,39 +182,39 @@ Copyright 2019 Ministry of Education and Culture, Finland
     <app-filters
       *ngIf="tab === tabData[0].link"
       [responseData]="filterValues"
-      [tabData]="tabData[0].data"
+      [filterOrigin]="tabData[0].data"
     ></app-filters>
     <app-filters
       *ngIf="tab === tabData[1].link"
       [responseData]="filterValues"
-      [tabData]="tabData[1].data"
+      [filterOrigin]="tabData[1].data"
     ></app-filters>
     <app-filters
       *ngIf="tab === tabData[2].link"
       [responseData]="filterValues"
-      [tabData]="tabData[2].data"
+      [filterOrigin]="tabData[2].data"
     ></app-filters>
     <app-filters
       *ngIf="tab === tabData[3].link"
       [responseData]="filterValues"
-      [tabData]="tabData[3].data"
+      [filterOrigin]="tabData[3].data"
     ></app-filters>
     <!-- Funding calls -->
     <app-filters
       *ngIf="tab === tabData[4].link"
       [responseData]="filterValues"
-      [tabData]="tabData[4].data"
+      [filterOrigin]="tabData[4].data"
       [externalFilterQuery]="externalFilterQuery"
     ></app-filters>
     <app-filters
       *ngIf="tab === tabData[5].link"
       [responseData]="filterValues"
-      [tabData]="tabData[5].data"
+      [filterOrigin]="tabData[5].data"
     ></app-filters>
     <app-filters
       *ngIf="tab === tabData[6].link"
       [responseData]="filterValues"
-      [tabData]="tabData[6].data"
+      [filterOrigin]="tabData[6].data"
     ></app-filters>
   </aside>
   <div class="col-8 col-xl-9 row main-content pe-xl-0">
@@ -286,34 +290,34 @@ Copyright 2019 Ministry of Education and Culture, Finland
           <app-filters
             *ngIf="tab === tabData[0].link"
             [responseData]="filterValues"
-            [tabData]="tabData[0].data"
+            [filterOrigin]="tabData[0].data"
           ></app-filters>
           <app-filters
             *ngIf="tab === tabData[1].link"
             [responseData]="filterValues"
-            [tabData]="tabData[1].data"
+            [filterOrigin]="tabData[1].data"
           ></app-filters>
           <app-filters
             *ngIf="tab === tabData[2].link"
             [responseData]="filterValues"
-            [tabData]="tabData[2].data"
+            [filterOrigin]="tabData[2].data"
           ></app-filters>
           <!-- Funding calls -->
           <app-filters
             *ngIf="tab === tabData[4].link"
             [responseData]="filterValues"
-            [tabData]="tabData[4].data"
+            [filterOrigin]="tabData[4].data"
             [externalFilterQuery]="externalFilterQuery"
           ></app-filters>
           <app-filters
             *ngIf="tab === tabData[5].link"
             [responseData]="filterValues"
-            [tabData]="tabData[5].data"
+            [filterOrigin]="tabData[5].data"
           ></app-filters>
           <app-filters
             *ngIf="tab === tabData[6].link"
             [responseData]="filterValues"
-            [tabData]="tabData[6].data"
+            [filterOrigin]="tabData[6].data"
           ></app-filters>
         </div>
         <app-secondary-button
@@ -348,7 +352,8 @@ Copyright 2019 Ministry of Education and Culture, Finland
         <app-active-filters
           (clearAllFilters)="this.clearAllFiltersFromActiveFilters()"
         ></app-active-filters>
-        <app-visualisation #visualisationsRef
+        <app-visualisation
+          #visualisationsRef
           [data]="visualData"
           [tab]="tab"
           [visIdx]="visIdx"

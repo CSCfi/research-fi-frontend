@@ -11,16 +11,10 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'joinAllGroupItems',
 })
 export class JoinAllGroupItemsPipe implements PipeTransform {
-  transform(group: any) {
-    const getNames = () =>
-      group
-        .flatMap((groupItem) =>
-          groupItem.items
-            .filter((item) => item.itemMeta.show)
-            .flatMap((item) => item.fullName)
-        )
-        .join(', ');
-
-    return getNames();
+  transform(items: any) {
+    return items
+      .filter((item) => item.itemMeta.show)
+      .flatMap((item) => item.fullName)
+      .join(', ');
   }
 }

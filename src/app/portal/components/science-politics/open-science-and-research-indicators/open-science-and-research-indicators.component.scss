@@ -1,0 +1,192 @@
+// This file is part of the research.fi API service
+//
+// Copyright 2019 Ministry of Education and Culture, Finland
+//
+// :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+// :license: MIT
+.main-content-wrap {
+  .inner-html-wrap {
+    h1 {
+      display: none;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .header-wrap {
+    margin-bottom: 75px;
+  }
+
+  .placeholder-header-wrap {
+    margin-bottom: 25px;
+  }
+
+  .indicator-thumbnail-wrapper {
+    display: flex;
+    justify-content: center;
+    img {
+      align-self: flex-start;
+    }
+  }
+
+  .thumbnail-bread-text {
+    h1, h2, h3 {
+      display: none;
+    }
+  }
+
+  .bg-bubble {
+    position: absolute;
+    border-radius: 50%;
+    width: 500px;
+    height: 500px;
+    right: 1%;
+    margin-top: -42px;
+    z-index: -1;
+  }
+
+  // Sidenav
+  .nav {
+    font-weight: 500;
+    display: initial;
+  }
+
+  .icon {
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+
+  .nav nav {
+    list-style: none;
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
+  .nav ul li {
+    padding: 1rem 0;
+  }
+
+  .active {
+    border-radius: 4px;
+  }
+
+  .search {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+
+  .search input {
+    height: 2rem;
+    border-radius: 5px;
+  }
+
+  .search input {
+    text-indent: 0.8rem;
+  }
+
+  .search .search-icon {
+    position: absolute;
+    top: 0.25rem;
+    left: auto;
+    right: 1rem;
+    z-index: 1;
+  }
+
+  // Content
+  .segment {
+    padding-bottom: 3rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .segment h2,
+  .segment h3 {
+    padding-bottom: 0.5rem;
+  }
+
+  ul.disc {
+    list-style: disc;
+    padding-inline-start: 1rem;
+  }
+
+  .segment .content {
+    padding: 0.5rem 1rem;
+  }
+
+  .circle-small {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin: 1rem auto;
+  }
+
+  .card.list {
+    padding: 1rem 0.5rem;
+  }
+
+  .card.list:not(:last-child) {
+    margin-bottom: 2rem;
+  }
+
+  .card span.title {
+    font-weight: 500;
+  }
+
+  .card.list span.title {
+    font-weight: bold;
+  }
+
+  .description {
+    padding: 0.5rem 0;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  .disabled {
+    pointer-events: none;
+  }
+
+  //Responsive
+  .row.mobile-header {
+    padding: 0 0 1rem;
+  }
+
+  .mobile-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .dropdown-icon {
+    padding: 0 0.5rem;
+  }
+
+  @media (max-width: 991px) {
+    .nav ul {
+      width: 100%;
+    }
+
+    .mat-button {
+      // padding: 0;
+      margin-left: -1rem;
+      padding-top: 0.5rem;
+    }
+
+    ::ng-deep .dropdown .mat-button-wrapper {
+      display: flex;
+    }
+  }
+
+  @media (max-width: 614px) {
+    .segment .figure {
+      padding-top: 1.5rem;
+      padding-bottom: 1.5rem;
+    }
+  }
+}
