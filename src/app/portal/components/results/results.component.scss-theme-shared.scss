@@ -52,6 +52,8 @@
       a.icon,
       .check-icon {
         color: mat-color($primary) !important;
+        height: 1rem;
+        width: auto;
       }
 
       .inline li {
