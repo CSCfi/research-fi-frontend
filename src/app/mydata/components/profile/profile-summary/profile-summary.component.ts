@@ -8,6 +8,7 @@
 import {
   Component,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   ViewEncapsulation,
@@ -34,7 +35,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./profile-summary.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ProfileSummaryComponent implements OnInit, OnDestroy {
+export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
   @Input() profileData: any;
   displayData: any;
 
@@ -70,8 +71,17 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy {
     this.locale = this.appSettingsService.capitalizedLocale;
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngOnChanges(): void {
     this.displayData = cloneDeep(this.profileData);
+
+    // Clear imported items
+    this.profileData.forEach((group) => {
+      if (group.fields.find((field) => field.id === 'imported')) {
+        group.fields = group.fields.filter((item) => item.id !== 'imported');
+      }
+    });
   }
 
   openDialog(event: MouseEvent, index: number) {
