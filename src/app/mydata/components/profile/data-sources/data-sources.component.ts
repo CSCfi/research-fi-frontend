@@ -198,8 +198,11 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
       .flatMap((group) => group.fields)
       .map((field) => ({ id: field.id, label: field.label }));
 
-    const sources = getUniqueSources(this.initialProfileData).map((source) => ({
-      id: source.label,
+    const sources = getUniqueSources(
+      this.initialProfileData,
+      this.appSettingsService.capitalizedLocale
+    ).map((source) => ({
+      id: source.key,
       label: source.label,
     }));
 
