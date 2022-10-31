@@ -7,6 +7,7 @@
 
 import { Injectable } from '@angular/core';
 import { MydataUtilityService } from '@mydata/services/mydata-utility.service';
+import { CapitalizedLocales } from '@shared/constants';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Adapter } from './adapter.model';
 
@@ -26,10 +27,20 @@ export class DescriptionFieldsAdapter implements Adapter<DescriptionFields> {
   adapt(item: any): DescriptionFields {
     const locale = this.appSettingsService.capitalizedLocale;
 
-    const descriptions = item.researcherDescriptions.map((el) => ({
-      ...el,
-      value: el['researchDescription' + locale],
-    }));
+    const locales = CapitalizedLocales;
+
+    // Map value key for use of data sources table.
+    // Filter out descriptions with no contents.
+    const descriptions = item.researcherDescriptions
+      .map((el) => ({
+        ...el,
+        value: el['researchDescription' + locale],
+      }))
+      .filter((el) =>
+        locales.some(
+          (localeId) => el['researchDescription' + localeId].trim().length > 1
+        )
+      );
 
     return new DescriptionFields(
       this.mydataUtils.mapField(

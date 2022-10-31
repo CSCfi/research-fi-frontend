@@ -8,6 +8,7 @@
 import {
   Component,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   ViewEncapsulation,
@@ -34,8 +35,9 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./profile-summary.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ProfileSummaryComponent implements OnInit, OnDestroy {
+export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
   @Input() profileData: any;
+  displayData: any;
 
   fieldTypes = FieldTypes;
   groupTypes = GroupTypes;
@@ -71,6 +73,17 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {}
 
+  ngOnChanges(): void {
+    this.displayData = cloneDeep(this.profileData);
+
+    // Clear imported items
+    this.profileData.forEach((group) => {
+      if (group.fields.find((field) => field.id === 'imported')) {
+        group.fields = group.fields.filter((item) => item.id !== 'imported');
+      }
+    });
+  }
+
   openDialog(event: MouseEvent, index: number) {
     event.stopPropagation();
     this.showDialog = true;
@@ -102,11 +115,11 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy {
 
     const confirmedPayLoad = this.patchService.confirmedPayLoad;
 
-    this.draftService.saveDraft(this.profileData);
+    this.draftService.saveDraft(this.displayData);
 
     // Groups are used in different loops to set storage items and handle removal of items
     const patchGroups = [
-      { key: Constants.draftProfile, data: this.profileData },
+      { key: Constants.draftProfile, data: this.displayData },
       {
         key: Constants.draftPatchPayload,
         data: this.patchService.confirmedPayLoad,
@@ -137,8 +150,13 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy {
     const portalPatchGroups = patchGroups.filter((group) => group.id);
 
     if (result) {
+      // Adding imported data to profileData enables correct listing of imported items if
+      // editor modal is opened again before imported items have been published
+      this.profileData[this.currentIndex].fields = result.fields;
       // Update binded profile data. Renders changes into summary view
-      this.profileData[this.currentIndex] = result;
+      this.displayData[this.currentIndex] = result;
+
+      this.mergeImportedPublications();
 
       // Handle removal of items added from portal search
       portalPatchGroups.forEach((group) => {
@@ -176,6 +194,26 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy {
           );
         }
       }
+    }
+  }
+
+  // Merge imported publications for display purposes.
+  mergeImportedPublications() {
+    const publications = this.displayData.find(
+      (item) => item.id === 'publication'
+    );
+
+    if (publications?.fields?.length > 1) {
+      const imported = publications.fields.find(
+        (item) => item.id === 'imported'
+      );
+      const existing = publications.fields.find(
+        (item) => item.id === 'publication'
+      );
+
+      const merged = existing.items.concat(imported.items);
+
+      publications.fields = [{ ...existing, items: merged }];
     }
   }
 

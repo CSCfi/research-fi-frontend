@@ -169,7 +169,9 @@ export class DataSourcesTableComponent
 
         switch (item.itemMeta.type) {
           case FieldTypes.activityAffiliation: {
-            displayValue = item.positionName;
+            displayValue = [item.positionName, item.organizationName]
+              .filter((item) => item.length > 0)
+              .join(', ');
             break;
           }
           case FieldTypes.activityEducation: {

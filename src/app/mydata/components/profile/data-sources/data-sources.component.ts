@@ -155,7 +155,7 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
         (field) => field.id === 'keywords'
       );
 
-      if (keywordsField) {
+      if (keywordsField && keywordsField.items.length) {
         this.originalKeywords = [...keywordsField.items];
 
         keywordsField.items = [
@@ -191,15 +191,18 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
   parseActiveFilters(activeFilters) {
     const statuses = [
       { id: 'public', label: 'Julkinen' },
-      { id: 'private', label: 'Private' },
+      { id: 'private', label: 'Ei julkinen' },
     ];
 
     const datasets = this.initialProfileData
       .flatMap((group) => group.fields)
       .map((field) => ({ id: field.id, label: field.label }));
 
-    const sources = getUniqueSources(this.initialProfileData).map((source) => ({
-      id: source.label,
+    const sources = getUniqueSources(
+      this.initialProfileData,
+      this.appSettingsService.capitalizedLocale
+    ).map((source) => ({
+      id: source.key,
       label: source.label,
     }));
 

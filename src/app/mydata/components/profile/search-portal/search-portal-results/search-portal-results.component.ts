@@ -179,9 +179,8 @@ export class SearchPortalResultsComponent
     });
 
     // Create list of ids that we can match for existing selections in template'
-    if (this.itemsInProfile[0]?.items !== undefined) {
+    if (this.itemsInProfile.length) {
       const profileItems = this.itemsInProfile
-        .flatMap((item) => item.items)
         .map((item) => item.id)
         .filter((item) => item?.toString().trim().length);
 

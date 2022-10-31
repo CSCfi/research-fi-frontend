@@ -256,25 +256,27 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
      */
     const handlePortalItems = (groupId: string, result) => {
       let service: PublicationsService | DatasetsService | FundingsService;
+      let label = '';
 
       switch (groupId) {
         case 'publication': {
           service = this.publicationsService;
+          label = $localize`:@@addedPublications:Tuodut julkaisut`;
           break;
         }
         case 'dataset': {
           service = this.datasetsService;
+          label = $localize`:@@addedDatasets:Tuodut aineistot`;
           break;
         }
         case 'funding': {
           service = this.fundingsService;
+          label = $localize`:@@addedProjects:Tuodut hankkeet`;
           break;
         }
       }
 
       service.addToPayload(result);
-
-      let items = field.items || [];
 
       result = result.map((item) => ({
         ...item,
@@ -292,7 +294,23 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
         ],
       }));
 
-      field.items = items.concat(result);
+      /*
+       * Create new field for recently imported items.
+       * Add selected items into imported field if user decides to add more items.
+       */
+      const imported = this.data.fields.find(
+        (field) => field.id === 'imported'
+      );
+
+      if (imported) {
+        imported.items = imported.items.concat(result);
+      } else {
+        this.data.fields.unshift({
+          id: 'imported',
+          label: label,
+          items: result,
+        });
+      }
 
       // Merge publications that share DOI
       // Select merged ORCID publication
