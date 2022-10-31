@@ -191,7 +191,7 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
   parseActiveFilters(activeFilters) {
     const statuses = [
       { id: 'public', label: 'Julkinen' },
-      { id: 'private', label: 'Private' },
+      { id: 'private', label: 'Ei julkinen' },
     ];
 
     const datasets = this.initialProfileData
