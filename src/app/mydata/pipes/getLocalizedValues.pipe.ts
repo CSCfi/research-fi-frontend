@@ -6,16 +6,22 @@
 //  :license: MIT
 
 import { Pipe, PipeTransform } from '@angular/core';
+import { CapitalizedLocales } from '@shared/constants';
 
 @Pipe({
   name: 'getLocalizedValues',
 })
+
+/*
+ * Return values mapped with locale.
+ * E.g. in editor modal for description data
+ */
 export class GetLocalizedValuesPipe implements PipeTransform {
   transform(value: any) {
     const res = [];
 
     const localizedValues = Object.keys(value).filter(
-      (item) => item !== 'itemMeta' && item !== 'dataSources'
+      (item) => CapitalizedLocales.indexOf(item.slice(item.length - 2)) > -1
     );
 
     localizedValues.forEach((item) => {

@@ -14,3 +14,5 @@ export const HttpErrors = {
   500: $localize`Palvelinvirhe. Palvelimella tapahtui virhe pyyntöä käsitellessä`,
   default: $localize`HTTP pyyntöä ei voitu käsitellä`,
 };
+
+export const CapitalizedLocales = ['Fi', 'Sv', 'En'];
