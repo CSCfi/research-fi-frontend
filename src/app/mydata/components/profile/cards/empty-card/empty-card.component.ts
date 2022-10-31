@@ -17,7 +17,7 @@ export class EmptyCardComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  openDialog() {
-    this.onButtonClick.emit();
+  openDialog(event: MouseEvent) {
+    this.onButtonClick.emit(event);
   }
 }
