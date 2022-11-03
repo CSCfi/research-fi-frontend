@@ -85,7 +85,7 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   openDialog(event: MouseEvent, index: number) {
-    // event.stopPropagation();
+    event.stopPropagation();
     this.showDialog = true;
 
     const selectedGroup = cloneDeep(this.profileData[index]);
