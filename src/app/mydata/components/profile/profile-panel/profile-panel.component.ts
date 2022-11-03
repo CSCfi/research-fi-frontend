@@ -188,6 +188,8 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
 
     const patchItems = items.map((item) => item.itemMeta);
 
+    this.onSingleItemToggle.emit();
+
     this.patchService.addToPayload(patchItems);
   }
 
