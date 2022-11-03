@@ -9,6 +9,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   Output,
@@ -28,7 +29,7 @@ import { DialogTemplateComponent } from './dialog-template/dialog-template.compo
   selector: 'app-dialog',
   templateUrl: './dialog.component.html',
 })
-export class DialogComponent implements OnInit, OnDestroy {
+export class DialogComponent implements OnInit, OnDestroy, OnChanges {
   @Input() title: string;
   @Input() template: any;
   @Input() footerTemplate: any;
@@ -44,7 +45,7 @@ export class DialogComponent implements OnInit, OnDestroy {
   @Input() extraClass: string;
   @Input() hideClose: boolean;
   @Input() headerInfoTemplate: TemplateRef<any>;
-  @Input() extraHeaderTemplate: TemplateRef<any>;
+  @Input() selectedItemsCount: number;
   @Output() onDialogClose = new EventEmitter<any>();
   @Output() onActionClick = new EventEmitter<any>();
 
@@ -56,6 +57,17 @@ export class DialogComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.openDialog();
+  }
+
+  ngOnChanges() {
+    /*
+     * Enables change detection on defined values
+     */
+    if (this.dialogRef) {
+      this.dialogRef.componentInstance.updateActions(this.actions);
+      this.dialogRef.componentInstance.data.selectedItemsCount =
+        this.selectedItemsCount;
+    }
   }
 
   openDialog() {
@@ -102,8 +114,8 @@ export class DialogComponent implements OnInit, OnDestroy {
         noPadding: checkInput(this.noPadding),
         wide: checkInput(this.wide),
         headerInfoTemplate: this.headerInfoTemplate,
-        extraHeaderTemplate: this.extraHeaderTemplate,
         hideClose: this.hideClose,
+        selectedItemsCount: this.selectedItemsCount,
       },
       panelClass: ['responsive-dialog', this.extraClass],
       disableClose: this.disableClose ? true : false,

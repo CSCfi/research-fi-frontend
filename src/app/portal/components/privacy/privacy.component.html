@@ -24,6 +24,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
             <mat-tab-group
               [(selectedIndex)]="selectedIndex"
               (selectedTabChange)="navigate($event)"
+              class="custom-tab-group"
             >
               <mat-tab [label]="privacyPolicyContent['title' + currentLocale]">
                 <div class="pt-4">

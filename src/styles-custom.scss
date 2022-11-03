@@ -509,48 +509,53 @@ mat-basic-chip.tag {
 }
 
 // Custom Mat Tab
-.mat-tab-header {
-  overflow: visible !important;
-  position: relative !important;
-  border-bottom: 1px solid mat-color($primary, default) !important;
-}
-
-.mat-tab-label-container {
-  overflow: visible !important;
-  position: relative;
-}
-
-.mat-tab-label-container,
-.mat-tab-label-active {
-  height: 54px !important;
-  margin-top: 0 !important;
-}
-
-.mat-tab-label-active {
-  position: relative;
-  z-index: 4;
-  margin-top: 1px !important;
-  background: mat-contrast($primary, 500);
-  border: 1px solid mat-color($primary, default);
-  border-bottom: 0;
-}
-
 .mat-tab-label {
   opacity: 1 !important;
-  margin-top: 6px;
 }
 
-.mat-tab-label:not(.mat-tab-label-active) {
-  background: #e8e8f5;
-}
+.custom-tab-group {
+  .mat-tab-header {
+    overflow: visible !important;
+    position: relative !important;
+    border-bottom: 1px solid mat-color($primary, default) !important;
+  }
 
-// .mat-tab-body-wrapper {
-//   padding-top: 1rem;
-// }
+  .mat-tab-label-container {
+    overflow: visible !important;
+    position: relative;
+  }
 
-.mat-tab-body-content {
-  overflow: hidden;
-  padding-top: 1rem;
+  .mat-tab-label-container,
+  .mat-tab-label-active {
+    height: 54px !important;
+    margin-top: 0 !important;
+  }
+
+  .mat-tab-label-active {
+    position: relative;
+    z-index: 4;
+    margin-top: 1px !important;
+    background: mat-contrast($primary, 500);
+    border: 1px solid mat-color($primary, default);
+    border-bottom: 0;
+  }
+
+  .mat-tab-label {
+    margin-top: 6px;
+  }
+
+  .mat-tab-label:not(.mat-tab-label-active) {
+    background: #e8e8f5;
+  }
+
+  // .mat-tab-body-wrapper {
+  //   padding-top: 1rem;
+  // }
+
+  .mat-tab-body-content {
+    overflow: hidden;
+    padding-top: 1rem;
+  }
 }
 
 // Opacity
