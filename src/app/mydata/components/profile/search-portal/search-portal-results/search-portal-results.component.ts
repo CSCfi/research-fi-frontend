@@ -50,6 +50,7 @@ export class SearchPortalResultsComponent
 
   sortSettings: any;
   selectedItemsIdArray: any[];
+  currentSelection = [];
 
   idField = 'id';
 
@@ -178,13 +179,13 @@ export class SearchPortalResultsComponent
       if (this.paginator) this.paginator.pageIndex = 0;
     });
 
-    // Create list of ids that we can match for existing selections in template'
+    // Create list of ids that we can match for existing selections in template
     if (this.itemsInProfile.length) {
-      const profileItems = this.itemsInProfile
+      const profileItemIDs = this.itemsInProfile
         .map((item) => item.id)
         .filter((item) => item?.toString().trim().length);
 
-      this.selectedItemsIdArray = profileItems;
+      this.selectedItemsIdArray = profileItemIDs;
     } else {
       this.selectedItemsIdArray = [];
     }
@@ -222,21 +223,16 @@ export class SearchPortalResultsComponent
 
   toggleItem(event, index) {
     const selectedItem = this.data[index];
-    let selectedItems = this.selectedItems;
 
-    let arr = this.publicationArray;
+    let arr = this.currentSelection;
 
-    if (selectedItems.find((item) => item.id === selectedItem.id)) {
-      arr.push({
-        ...selectedItems.find((item) => item.id === selectedItem.id),
-        show: event.checked,
-      });
+    if (event.checked) {
+      // Prevent adding of duplicate items
+      !arr.find((item) => item.id === selectedItem.id) &&
+        arr.push({ ...selectedItem, show: true });
     } else {
-      event.checked
-        ? arr.find((item) => item.id === selectedItem.id)
-          ? null // Prevent adding of duplicate items
-          : arr.push({ ...selectedItem, show: true })
-        : (arr = arr.filter((item) => item.id !== selectedItem.id));
+      arr = arr.filter((item) => item.id !== selectedItem.id);
+      this.currentSelection = arr;
     }
 
     this.onItemToggle.emit(arr);

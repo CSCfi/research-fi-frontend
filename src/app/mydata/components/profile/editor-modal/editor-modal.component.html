@@ -3,37 +3,81 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<ng-template #toggleAllTemplate>
-  <div
-    class="col-12 col-sm-auto pt-3 pt-sm-0 align-self-center order-3 order-sm-2"
-  >
-    <mat-checkbox
-      [checked]="!toggleAllDisabled && allSelected"
-      (change)="toggleAll($event)"
-      [indeterminate]="someSelected"
-      [disabled]="toggleAllDisabled"
-      i18n="@@selectAll"
-      cdk
-      autoFocus
-      [trigger]="dialogData.trigger"
-      >Valitse kaikki</mat-checkbox
-    >
-  </div>
-</ng-template>
-
 <ng-template #editorTemplate>
-  <app-profile-panel
-    [data]="editorData"
-    (onSingleItemToggle)="checkAllSelected()"
-  ></app-profile-panel>
+  <ng-container
+    *ngIf="
+      portalModalIndicatorIds.indexOf(editorData.id) === -1;
+      else tabTemplate
+    "
+  >
+    <div class="row d-flex justify-content-between py-2">
+      <div class="col-12 col-lg-auto font-size-big">
+        <span i18n="@@selectInformationToDisplayInProfile">
+          Valitse profiilissasi näytettävät tiedot
+        </span>
+      </div>
+
+      <div class="col-auto pb-3">
+        <mat-checkbox
+          [checked]="!toggleAllDisabled && allSelected"
+          (change)="toggleAll($event)"
+          [indeterminate]="someSelected"
+          [disabled]="toggleAllDisabled"
+          i18n="@@selectAll"
+          cdk
+          cdkFocusInitial
+          autoFocus
+          [trigger]="dialogData.trigger"
+          >Valitse kaikki</mat-checkbox
+        >
+      </div>
+    </div>
+
+    <app-profile-panel
+      [data]="editorData"
+      (onSingleItemToggle)="checkAllSelected()"
+    ></app-profile-panel>
+  </ng-container>
+
+  <ng-template #tabTemplate>
+    <mat-tab-group
+      mat-align-tabs="start"
+      class="px-3"
+      [(selectedIndex)]="currentTabIndex"
+      (selectedTabChange)="onTabChange($event)"
+    >
+      <mat-tab label="Valitse julkaisut">
+        <div class="pt-4">
+          <app-profile-panel
+            [data]="editorData"
+            (onSingleItemToggle)="checkAllSelected()"
+          ></app-profile-panel>
+        </div>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <fa-icon [icon]="faSearch" class="pe-3"></fa-icon>
+          Hae muita {{ addFromPortalTabString }}
+        </ng-template>
+        <div class="pt-4" *ngIf="currentTabIndex === 1">
+          <app-search-portal
+            [data]="editorData"
+            (onAddItems)="handleSelection($event)"
+          >
+          </app-search-portal>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </ng-template>
 </ng-template>
 
 <app-dialog
   *ngIf="showDialog"
   [template]="editorTemplate"
   [title]="dialogData.data.label"
-  [extraHeaderTemplate]="toggleAllTemplate"
   [actions]="dialogActions"
   (onActionClick)="doDialogAction($event)"
+  [selectedItemsCount]="selectedItems.length || 0"
 >
 </app-dialog>

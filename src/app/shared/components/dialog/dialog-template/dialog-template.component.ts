@@ -55,7 +55,7 @@ export class DialogTemplateComponent
       noPadding: boolean;
       wide: boolean;
       headerInfoTemplate: object;
-      extraHeaderTemplate: object;
+      selectedItemsCount: number;
     },
     private dialogRef: MatDialogRef<DialogTemplateComponent>,
     private appSettingsService: AppSettingsService,
@@ -85,12 +85,20 @@ export class DialogTemplateComponent
         this.displayExtraContent = !this.displayExtraContent;
         break;
       }
+      case 'add': {
+        action.action();
+        return;
+      }
       default: {
         this.dialogRef.close({
           method: action.method,
         });
       }
     }
+  }
+
+  updateActions(actions) {
+    this.dialogActions = cloneDeep(actions);
   }
 
   ngAfterViewInit() {

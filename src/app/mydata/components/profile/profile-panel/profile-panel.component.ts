@@ -18,14 +18,9 @@ import {
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
-import {
-  checkGroupSelected,
-  isEmptySection,
-  mergePublications,
-} from '@mydata/utils';
+import { checkGroupSelected, isEmptySection } from '@mydata/utils';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SearchPortalComponent } from '../search-portal/search-portal.component';
-import { take } from 'rxjs/operators';
 import { PublicationsService } from '@mydata/services/publications.service';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { PatchService } from '@mydata/services/patch.service';
@@ -193,6 +188,8 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
 
     const patchItems = items.map((item) => item.itemMeta);
 
+    this.onSingleItemToggle.emit();
+
     this.patchService.addToPayload(patchItems);
   }
 
@@ -223,114 +220,5 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     }
 
     this.updated = new Date();
-  }
-
-  /*
-   * Dynamic search from portal modal
-   * Search for Publications, Datasets and Fundings
-   */
-  openSearchFromPortalDialog(groupId: string) {
-    this.showDialog = true;
-
-    const field = this.data.fields[0];
-
-    this.currentGroupId = groupId;
-
-    this.dialogData = {
-      groupId: groupId,
-      itemsInProfile: field?.items,
-      selectedPublications: field?.selectedPublications,
-    };
-  }
-
-  closeDialog() {
-    this.showDialog = false;
-  }
-
-  handleChanges(result) {
-    this.closeDialog();
-    const field = this.data.fields[0];
-
-    /*
-     * Use group related service to add selected items into draft view and patch payload
-     */
-    const handlePortalItems = (groupId: string, result) => {
-      let service: PublicationsService | DatasetsService | FundingsService;
-      let label = '';
-
-      switch (groupId) {
-        case 'publication': {
-          service = this.publicationsService;
-          label = $localize`:@@addedPublications:Tuodut julkaisut`;
-          break;
-        }
-        case 'dataset': {
-          service = this.datasetsService;
-          label = $localize`:@@addedDatasets:Tuodut aineistot`;
-          break;
-        }
-        case 'funding': {
-          service = this.fundingsService;
-          label = $localize`:@@addedProjects:Tuodut hankkeet`;
-          break;
-        }
-      }
-
-      service.addToPayload(result);
-
-      result = result.map((item) => ({
-        ...item,
-        ...(groupId === 'publication' && { publicationName: item.title }),
-        dataSources: [
-          {
-            id: null,
-            organization: {
-              nameFi: this.ttvLabel,
-              nameSv: this.ttvLabel,
-              nameEn: this.ttvLabel,
-            },
-            registeredDataSource: 'TTV',
-          },
-        ],
-      }));
-
-      /*
-       * Create new field for recently imported items.
-       * Add selected items into imported field if user decides to add more items.
-       */
-      const imported = this.data.fields.find(
-        (field) => field.id === 'imported'
-      );
-
-      if (imported) {
-        imported.items = imported.items.concat(result);
-      } else {
-        this.data.fields.unshift({
-          id: 'imported',
-          label: label,
-          items: result,
-        });
-      }
-
-      // Merge publications that share DOI
-      // Select merged ORCID publication
-      if (this.data.id === this.groupTypes.publication) {
-        mergePublications(field, this.patchService);
-      }
-    };
-
-    // Reset sort when dialog closes
-    this.searchPortalService.resetSort();
-
-    if (result) {
-      // Add selected items into profile data and patch payload
-      handlePortalItems(this.currentGroupId, result);
-
-      this.onSingleItemToggle.emit();
-
-      this.updated = new Date();
-
-      this.cdr.detectChanges();
-    }
   }
 }
