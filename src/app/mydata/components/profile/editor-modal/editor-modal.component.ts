@@ -73,6 +73,8 @@ export class EditorModalComponent implements OnInit {
 
   currentTabIndex: number;
   importedItems: any[];
+  addFromPortalTabString: string;
+  portalItemGroupStringPlural: string;
 
   constructor(
     private patchService: PatchService,
@@ -89,6 +91,27 @@ export class EditorModalComponent implements OnInit {
     this.dialogActions = this.basicDialogActions;
 
     this.checkAllSelected();
+
+    switch (this.dialogData.data.id) {
+      case 'publication': {
+        this.addFromPortalTabString = 'julkaisuja';
+        this.portalItemGroupStringPlural = $localize`:@@publications:julkaisut`;
+        break;
+      }
+      case 'dataset': {
+        this.addFromPortalTabString = 'aineistoja';
+        this.portalItemGroupStringPlural = $localize`:@@datasets:aineistot`;
+        break;
+      }
+      case 'funding': {
+        this.addFromPortalTabString = 'hankkeita';
+        this.portalItemGroupStringPlural = $localize`:@@fundings:hankkeet`;
+        break;
+      }
+    }
+
+    this.portalItemGroupStringPlural =
+      this.portalItemGroupStringPlural.toLowerCase();
   }
 
   checkAllSelected() {
@@ -177,7 +200,7 @@ export class EditorModalComponent implements OnInit {
       this.dialogActions = [
         ...this.searchFromPortalDialogActions,
         {
-          label: 'Lisää valitut',
+          label: `Lisää valitut ${this.portalItemGroupStringPlural} tietoihini`,
           primary: true,
           method: 'add',
           action: () => this.addItems(),
