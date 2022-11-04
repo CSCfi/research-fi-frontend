@@ -85,7 +85,7 @@ export class CollaborationsService {
     );
   }
 
-  pathCooperationChoices() {
+  patchCooperationChoices() {
     this.initialValue = this.confirmedPayload;
     this.updateTokenInHttpAuthHeader();
     return this.http.patch(

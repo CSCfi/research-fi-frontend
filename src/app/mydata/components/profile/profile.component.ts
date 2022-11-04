@@ -381,7 +381,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   private async patchCooperationChoicesPromise() {
     return new Promise((resolve, reject) => {
       this.collaborationsService
-        .pathCooperationChoices()
+        .patchCooperationChoices()
         .pipe(takeUntil(this.unsubscribe))
         .subscribe({
           next: (result) => {
