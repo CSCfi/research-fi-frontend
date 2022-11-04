@@ -8,6 +8,9 @@
 import { Injectable } from '@angular/core';
 import { StaticDataService } from './static-data.service';
 import { isNumber } from 'util';
+import { AppSettingsService } from '@shared/services/app-settings.service';
+import { TabChangeService } from './tab-change.service';
+import { AppConfigService } from '@shared/services/app-config-service.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,10 +22,36 @@ export class SettingsService {
   // Related is used to indicate that query is done with different settings
   related = false;
 
-  constructor(private staticDataService: StaticDataService) {
-    this.indexList =
-      'publication,funding,dataset,infrastructure,organization,funding-call' +
-      '/_search?';
+  constructor(
+    private staticDataService: StaticDataService,
+    private appSettingsService: AppSettingsService,
+    private tabChangeService: TabChangeService,
+    private appConfigService: AppConfigService
+  ) {
+    let indices = [
+      'publication',
+      'funding',
+      'dataset',
+      'funding-call',
+      'infrastructure',
+      'organization',
+    ];
+
+    // Development of persons feature needs to be restricted from production.
+    // Current version of production API doesn't include a person index.
+    // Add index id and set flag for persons tab if not in production.
+
+    if (
+      this.appSettingsService.develop &&
+      !this.appConfigService.apiUrl.includes('production')
+    ) {
+      indices.push('person');
+      this.tabChangeService.tabData.find(
+        (item) => item.link === 'persons'
+      ).data = 'persons';
+    }
+
+    this.indexList = indices.join(',') + '/_search?';
     this.aggsOnly = 'filter_path=aggregations';
   }
 

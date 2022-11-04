@@ -182,6 +182,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     if (isPlatformBrowser(this.platformId)) {
       this.activeElement = this.document.activeElement.id;
     }
+
     // Initialize data and set filter data by index
     if (this.responseData) {
       // Set filters and shape data
@@ -196,9 +197,9 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
           break;
         }
         case 'persons': {
-          // this.currentFilter = this.personFilters.filterData;
+          this.currentFilter = this.personFilters.filterData;
+          this.personFilters.shapeData(this.responseData);
           // this.currentSingleFilter = this.personFilters.singleFilterData;
-          // TODO: Shape data
           break;
         }
         case 'fundings': {

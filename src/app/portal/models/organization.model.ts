@@ -7,7 +7,7 @@
 
 import { Injectable, Inject, LOCALE_ID } from '@angular/core';
 import { Adapter } from './adapter.model';
-import { LanguageCheck } from './utils';
+import { ModelUtils } from './utils';
 
 export class Organization {
   constructor(
@@ -50,7 +50,7 @@ export class Organization {
 })
 export class OrganizationAdapter implements Adapter<Organization> {
   constructor(
-    private lang: LanguageCheck,
+    private utils: ModelUtils,
     @Inject(LOCALE_ID) protected localeId: string
   ) {}
   adapt(item: any): Organization {
@@ -75,7 +75,7 @@ export class OrganizationAdapter implements Adapter<Organization> {
 
     return new Organization(
       item.organizationId,
-      this.lang.testLang('name', item).trim(),
+      this.utils.checkTranslation('name', item).trim(),
       nameTranslations,
       item.variantNames,
       item.established,
@@ -88,7 +88,7 @@ export class OrganizationAdapter implements Adapter<Organization> {
       item.postalAddress,
       item.businessId,
       item.TKOppilaitosTunnus,
-      this.lang.testLang('sectorName', item),
+      this.utils.checkTranslation('sectorName', item),
       item.staffCountAsFte,
       item.staffCountAsPercentage,
       item.staffYear,

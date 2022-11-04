@@ -57,6 +57,11 @@ import { SortByButtonComponent } from './components/buttons/sort-by-button/sort-
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { ResultCountComponent } from './components/result-count/result-count.component';
 import { AutofocusDirective } from './directives/autofocus.directive';
+import { TagComponent } from './components/tag/tag.component';
+import { TagDoiComponent } from './components/tags/tag-doi/tag-doi.component';
+import { TagOpenAccessComponent } from './components/tags/tag-open-access/tag-open-access.component';
+import { TagPeerReviewedComponent } from './components/tags/tag-peer-reviewed/tag-peer-reviewed.component';
+import { TrimLinkPrefixPipe } from './pipes/trim-link-prefix.pipe';
 
 @NgModule({
   declarations: [
@@ -88,6 +93,11 @@ import { AutofocusDirective } from './directives/autofocus.directive';
     PaginationComponent,
     ResultCountComponent,
     AutofocusDirective,
+    TagComponent,
+    TagDoiComponent,
+    TagOpenAccessComponent,
+    TagPeerReviewedComponent,
+    TrimLinkPrefixPipe,
   ],
   exports: [
     InfoComponent,
@@ -113,6 +123,11 @@ import { AutofocusDirective } from './directives/autofocus.directive';
     PaginationComponent,
     ResultCountComponent,
     AutofocusDirective,
+    TagComponent,
+    TagDoiComponent,
+    TagOpenAccessComponent,
+    TagPeerReviewedComponent,
+    TrimLinkPrefixPipe,
   ],
   imports: [
     CommonModule,

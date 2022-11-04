@@ -206,13 +206,17 @@ export class AggregationService {
       sizeOf: number,
       isDatasetsSection: boolean
     ) => {
-      return  {
+      return {
         filter: {
           bool: {
             filter: filterMethod,
-            ...(isDatasetsSection ? { should: {
-                term: { isLatestVersion: 1 },
-              }} : []),
+            ...(isDatasetsSection
+              ? {
+                  should: {
+                    term: { isLatestVersion: 1 },
+                  },
+                }
+              : []),
           },
         },
         aggs: {
@@ -682,6 +686,18 @@ export class AggregationService {
                 },
               },
             },
+          },
+        };
+        break;
+      case 'persons':
+        payLoad.aggs.organization = {
+          terms: {
+            size: 50,
+            field:
+              'activity.affiliations.organizationName' +
+              this.localeC +
+              '.keyword',
+            exclude: ' ',
           },
         };
         break;

@@ -1,8 +1,0 @@
-@import '@angular/material/theming';
-
-@mixin app-publications-theme($theme) {
-  $primary: map-get($theme, primary);
-
-  app-publications {
-  }
-}

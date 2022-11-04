@@ -11,7 +11,7 @@ import {
 import { Inject, Injectable, LOCALE_ID } from '@angular/core';
 import { Adapter } from '../adapter.model';
 import { PublicationCitationAdapter } from './publication-citation.model';
-import { LanguageCheck } from '../utils';
+import { ModelUtils } from '../utils';
 
 export class Publication {
   constructor(
@@ -87,7 +87,7 @@ export class Publication {
 export class PublicationAdapter implements Adapter<Publication> {
   capitalizedLocale: string;
   constructor(
-    private lang: LanguageCheck,
+    private utils: ModelUtils,
     private fs: FieldOfScienceAdapter,
     private citationAdapter: PublicationCitationAdapter,
     @Inject(LOCALE_ID) protected localeId: string
@@ -108,7 +108,9 @@ export class PublicationAdapter implements Adapter<Publication> {
     fieldsOfScience = fieldsOfScience.filter((x) => x.id);
 
     // Remove (artificial) art publication fields from field of science (same info presented in fieldsOfArt field)
-    fieldsOfScience = fieldsOfScience.filter((x) => !x.id.toString().startsWith('8'));
+    fieldsOfScience = fieldsOfScience.filter(
+      (x) => !x.id.toString().startsWith('8')
+    );
 
     // Create string from array
     const fieldsOfScienceString = fieldsOfScience.map((x) => x.name).join('; ');
@@ -182,7 +184,7 @@ export class PublicationAdapter implements Adapter<Publication> {
         break;
     }
 
-    let licenseText = this.lang.testLang(
+    let licenseText = this.utils.checkTranslation(
       'licenseName',
       item?.license?.slice()?.shift()
     );
@@ -295,20 +297,20 @@ export class PublicationAdapter implements Adapter<Publication> {
     const artPublicationTypeCategories: string[] = [];
     if (item?.artPublicationTypeCategory) {
       item.artPublicationTypeCategory.forEach((item) => {
-        artPublicationTypeCategories.push(this.lang.testLang(
-          'typeCategoryName',
-          item
-        ));
+        artPublicationTypeCategories.push(
+          this.utils.checkTranslation('typeCategoryName', item)
+        );
       });
     }
-    artPublicationTypeCategoriesString = artPublicationTypeCategories.join('; ');
+    artPublicationTypeCategoriesString =
+      artPublicationTypeCategories.join('; ');
 
     let fieldsOfArt: string[] = [];
     let artPublicationFieldsOfArtString: string;
     item.fieldsOfArt
       ? item.fieldsOfArt.forEach((field) => {
-        fieldsOfArt.push(this.lang.testLang('nameArt', field));
-      })
+          fieldsOfArt.push(this.utils.checkTranslation('nameArt', field));
+        })
       : (fieldsOfArt = []);
     artPublicationFieldsOfArtString = fieldsOfArt.join('; ');
 

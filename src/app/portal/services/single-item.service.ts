@@ -19,6 +19,7 @@ import { SettingsService } from './settings.service';
 export class SingleItemService {
   apiUrl: any;
   publicationApiUrl = '';
+  personApiUrl = '';
   fundingApiUrl = '';
   datasetApiUrl = '';
   organizationApiUrl = '';
@@ -36,6 +37,7 @@ export class SingleItemService {
   ) {
     this.apiUrl = this.appConfigService.apiUrl;
     this.publicationApiUrl = this.apiUrl + 'publication/_search';
+    this.personApiUrl = this.apiUrl + 'person/_search';
     this.fundingApiUrl = this.apiUrl + 'funding/_search';
     this.datasetApiUrl = this.apiUrl + 'dataset/_search';
     this.organizationApiUrl = this.apiUrl + 'organization/_search';
@@ -67,6 +69,12 @@ export class SingleItemService {
         this.constructPayload('publicationId', id)
       )
       .pipe(map((data: any) => this.searchAdapter.adapt(data, 'publications')));
+  }
+
+  getSinglePerson(id): Observable<Search> {
+    return this.http
+      .post<Search>(this.personApiUrl, this.constructPayload('id', id))
+      .pipe(map((data: any) => this.searchAdapter.adapt(data, 'persons')));
   }
 
   getSingleFunding(id): Observable<Search> {
@@ -133,7 +141,7 @@ export class SingleItemService {
                   this.settingsService.querySettings('dataset', id),
                   this.settingsService.querySettings('infrastructure', id),
                   this.settingsService.querySettings('organization', id),
-                  this.settingsService.querySettings('funding-call', id)
+                  this.settingsService.querySettings('funding-call', id),
                 ],
               },
             },

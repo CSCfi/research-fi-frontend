@@ -39,6 +39,7 @@ import {
   faDownload,
   faTrash,
   faChartBar,
+  faInfoCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 
@@ -70,7 +71,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   expandStatus: Array<boolean> = [];
   @ViewChild('singleId') singleId: ElementRef;
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
-  @ViewChild('totalHeader') totalHeader: ElementRef;
   @ViewChild('skipToResults') skipToResults: ElementRef;
   queryParams: Subscription;
   publicationFilters: {
@@ -139,6 +139,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   faDownload = faDownload;
   faTrash = faTrash;
   faChartBar = faChartBar;
+  faInfoCircle = faInfoCircle;
   showAsVisual = $localize`:@@showAsVisual:Näytä kuvana`;
   additionalInfo = $localize`:@@additionalInfo:Lisätietoa`;
   clearActiveFilters = $localize`:@@clearActiveFilters: Tyhjennä rajaukset`;
@@ -151,6 +152,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private metaTagsList = [
     MetaTags.publications,
+    MetaTags.persons,
     MetaTags.fundings,
     MetaTags.datasets,
     MetaTags.infrastructures,
@@ -169,7 +171,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     public searchService: SearchService,
     private route: ActivatedRoute,
-    private tabChangeService: TabChangeService,
+    public tabChangeService: TabChangeService,
     private router: Router,
     private sortService: SortService,
     private filterService: FilterService,
@@ -277,12 +279,15 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
         // Hotfix for *ngIf depending on total and not rendering search-results so new data is not fetched on empty results
         this.total = 1;
+
         this.selectedTabData = this.tabData.filter(
           (tab) => tab.link === params.tab
         )[0];
+
         this.metaTags = this.metaTagsList.filter(
           (tab) => tab.link === params.tab
         )[0];
+
         // Default to publications if invalid tab
         if (!this.selectedTabData) {
           this.router.navigate(['results/publications']);
