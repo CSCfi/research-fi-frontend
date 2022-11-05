@@ -93,23 +93,25 @@
           <span class="section-heading">Affiliaatiot</span>
 
           <!-- Primary -->
-          <div class="pb-3">
-            <div class="fw-bold pb-3">Ensisijaiset (placeholder)</div>
-            <div
-              class="row"
-              *ngFor="let affiliation of person.affiliations.primary"
-            >
-              <ng-container
-                *ngTemplateOutlet="
-                  affiliationPositionOrganization;
-                  context: { affiliation }
-                "
+          <ng-container *ngIf="person.affiliations.primary.length">
+            <div class="pb-3">
+              <div class="fw-bold pb-3">Ensisijaiset</div>
+              <div
+                class="row"
+                *ngFor="let affiliation of person.affiliations.primary"
               >
-              </ng-container>
+                <ng-container
+                  *ngTemplateOutlet="
+                    affiliationPositionOrganization;
+                    context: { affiliation }
+                  "
+                >
+                </ng-container>
+              </div>
             </div>
-          </div>
 
-          <hr />
+            <hr />
+          </ng-container>
 
           <!-- By organizations -->
           <ng-container

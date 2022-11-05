@@ -41,14 +41,17 @@ export class PersonAffiliationAdapter implements Adapter<PersonAffiliations> {
           yearStart: getYear('startDate'),
           yearEnd: getYear('endDate'),
           source: this.utils.mapSources(affiliation.dataSources),
+          primary: affiliation.itemMeta?.primaryValue,
         };
       });
 
     // Primary affiliations as placeholder until data for primary indentifier exists
-    const primaryAffiliations = mappedAffiliations.map((affiliation) => ({
-      organizationName: affiliation.organizationName,
-      positionName: affiliation.positionName,
-    }));
+    const primaryAffiliations = mappedAffiliations
+      .filter((affiliation) => affiliation.primary)
+      .map((affiliation) => ({
+        organizationName: affiliation.organizationName,
+        positionName: affiliation.positionName,
+      }));
 
     // Unique organizations are used in rendering lists of affiliations by organizations
     const uniqueOrganizations = [
