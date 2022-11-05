@@ -172,7 +172,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     public searchService: SearchService,
     private route: ActivatedRoute,
     public tabChangeService: TabChangeService,
-    private router: Router,
+    public router: Router,
     private sortService: SortService,
     private filterService: FilterService,
     private cdr: ChangeDetectorRef,

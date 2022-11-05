@@ -108,12 +108,14 @@ Copyright 2019 Ministry of Education and Culture, Finland
           tietoja.
         </div>
 
-        <a class="col-auto pe-lg-0" routerLink="/mydata">
+        <div class="col-auto pe-lg-0">
           <app-primary-action-button
+            role="link"
+            (click)="router.navigate(['/mydata'])"
             content="Kirjaudu sisään"
             i18n-content="@@logIn"
-          ></app-primary-action-button
-        ></a>
+          ></app-primary-action-button>
+        </div>
       </div>
 
       <!-- Divider -->
