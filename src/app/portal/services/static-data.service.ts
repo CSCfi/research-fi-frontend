@@ -398,7 +398,13 @@ export class StaticDataService {
         break;
       }
       case 'person': {
-        res = ['firstName', 'lastName'];
+        res = [
+          'personal.names.firstNames',
+          'personal.names.lastName',
+          'activity.affiliations.organizationNameFi',
+          'activity.affiliations.organizationNameSv',
+          'activity.affiliations.organizationNameEn',
+        ];
         break;
       }
       case 'funding': {

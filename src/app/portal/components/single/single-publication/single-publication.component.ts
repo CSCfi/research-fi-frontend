@@ -31,7 +31,7 @@ import { Search } from 'src/app/portal/models/search.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { AppSettingsService } from '@shared/services/app-settings.service';
-import { LanguageCheck } from '@portal/models/utils';
+import { ModelUtils } from '@portal/models/utils';
 
 @Component({
   selector: 'app-single-publication',
@@ -338,10 +338,22 @@ export class SinglePublicationComponent
       tooltip: $localize`:@@pFOSFTooltip:Tilastokeskuksen tieteenalaluokitus. Taiteenalat OKM:n luokituksen mukaisesti. Julkaisulla voi olla 1-6 tieteen- tai taiteenalaa.`,
     },
     { label: $localize`:@@keywords:Avainsanat`, field: 'keywords' },
-    { label: $localize`:@@fieldsOfArt:Taiteenalat`, field: 'artPublicationFieldsOfArtString' },
-    { label: $localize`:@@artPublicationType:Taidejulkaisun tyyppi`, field: 'artPublicationTypeCategoriesString' },
-    { label: $localize`:@@artPublicationEvent:Taidejulkaisun tapahtuma`, field: 'artPublicationEvent' },
-    { label: $localize`:@@artPublicationVenue:Taidejulkaisun paikka`, field: 'artPublicationVenue' },
+    {
+      label: $localize`:@@fieldsOfArt:Taiteenalat`,
+      field: 'artPublicationFieldsOfArtString',
+    },
+    {
+      label: $localize`:@@artPublicationType:Taidejulkaisun tyyppi`,
+      field: 'artPublicationTypeCategoriesString',
+    },
+    {
+      label: $localize`:@@artPublicationEvent:Taidejulkaisun tapahtuma`,
+      field: 'artPublicationEvent',
+    },
+    {
+      label: $localize`:@@artPublicationVenue:Taidejulkaisun paikka`,
+      field: 'artPublicationVenue',
+    },
     /*{
       label: $localize`:@@openAccess:Avoin saatavuus`,
       field: 'openAccessText',
@@ -362,7 +374,11 @@ export class SinglePublicationComponent
     },
     */
     { label: $localize`:@@publicationCountry:Julkaisumaa`, field: 'countries' },
-    { label: $localize`:@@publisherInternationality:Kustantajan kansainvälisyys`, field: 'internationalPublication', tooltip: $localize`:@@pCountryFTooltip:Kotimaisen julkaisun kustantaja on suomalainen tai se on ensisijaisesti julkaistu Suomessa. Kansainvälisen julkaisun kustantaja ei ole suomalainen tai se on ensisijaisesti julkaistu muualla kuin Suomessa.`, },
+    {
+      label: $localize`:@@publisherInternationality:Kustantajan kansainvälisyys`,
+      field: 'internationalPublication',
+      tooltip: $localize`:@@pCountryFTooltip:Kotimaisen julkaisun kustantaja on suomalainen tai se on ensisijaisesti julkaistu Suomessa. Kansainvälisen julkaisun kustantaja ei ole suomalainen tai se on ensisijaisesti julkaistu muualla kuin Suomessa.`,
+    },
     { label: $localize`:@@language:Kieli`, field: 'languages' },
     {
       label: $localize`:@@intCoPublication:Kansainvälinen yhteisjulkaisu`,
@@ -438,7 +454,7 @@ export class SinglePublicationComponent
     private snackBar: MatSnackBar,
     private settingsService: SettingsService,
     private appSettingsService: AppSettingsService,
-    private lang: LanguageCheck,
+    private utils: ModelUtils
   ) {
     this.currentLocale = this.appSettingsService.capitalizedLocale;
   }
@@ -646,7 +662,7 @@ export class SinglePublicationComponent
                     subUnit.OrgUnitId !== '-1'
                       ? [subUnit.organizationUnitNameFi]
                       : null,
-                  artPublicationRoleName: this.lang.testLang(
+                  artPublicationRoleName: this.utils.checkTranslation(
                     'artPublicationRoleName',
                     person
                   ),
@@ -702,13 +718,21 @@ export class SinglePublicationComponent
 
           // Check for duplicate authors and merge sub units
           const duplicateAuthors = Object.values(
-            authorArr.reduce((c, { author, orcid, subUnit, artPublicationRoleName }) => {
-              c[author] = c[author] || { author, orcid, subUnits: [], artPublicationRoleName };
-              c[author].subUnits = c[author].subUnits.concat(
-                Array.isArray(subUnit) ? subUnit : [subUnit]
-              );
-              return c;
-            }, {})
+            authorArr.reduce(
+              (c, { author, orcid, subUnit, artPublicationRoleName }) => {
+                c[author] = c[author] || {
+                  author,
+                  orcid,
+                  subUnits: [],
+                  artPublicationRoleName,
+                };
+                c[author].subUnits = c[author].subUnits.concat(
+                  Array.isArray(subUnit) ? subUnit : [subUnit]
+                );
+                return c;
+              },
+              {}
+            )
           );
 
           const checkedAuthors = [...new Set(duplicateAuthors)];
@@ -760,24 +784,29 @@ export class SinglePublicationComponent
       ? $localize`:@@yes:Kyllä`
       : $localize`:@@no:Ei`;
 
-    source.internationalPublication = source.internationalPublication === 1
-      ? $localize`:@@other:Kansainvälinen`
-      : source.internationalPublication === 0 ? $localize`:@@finland:Kotimainen` : '';
+    source.internationalPublication =
+      source.internationalPublication === 1
+        ? $localize`:@@other:Kansainvälinen`
+        : source.internationalPublication === 0
+        ? $localize`:@@finland:Kotimainen`
+        : '';
 
     source.businessCollaboration = source.businessCollaboration
       ? $localize`:@@yes:Kyllä`
       : $localize`:@@no:Ei`;
 
     // Get & set publication type label
-    if (source.publicationTypeCode === 'KA' || source.publicationTypeCode === 'KP') {
+    if (
+      source.publicationTypeCode === 'KA' ||
+      source.publicationTypeCode === 'KP'
+    ) {
       source.publicationTypeCode = ' ';
-    }
-    else {
+    } else {
       this.publicationTypeLabel =
-      this.staticDataService.publicationClass
-        .find((val) => val.class === source.publicationTypeCode.slice(0, 1))
-        ?.types.find((type) => type.type === source.publicationTypeCode)
-        ?.label || source.publicationTypeCode;
+        this.staticDataService.publicationClass
+          .find((val) => val.class === source.publicationTypeCode.slice(0, 1))
+          ?.types.find((type) => type.type === source.publicationTypeCode)
+          ?.label || source.publicationTypeCode;
     }
     if (this.publicationTypeLabel) {
       source.publicationTypeCode =

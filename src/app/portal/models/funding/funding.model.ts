@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 import { Adapter } from '../adapter.model';
 import { Recipient, RecipientAdapter } from './recipient.model';
 import { Funder, FunderAdapter } from './funder.model';
-import { LanguageCheck, parseYear, testFinnishBusinessId } from '../utils';
+import { ModelUtils, parseYear, testFinnishBusinessId } from '../utils';
 import { RelatedFunding, RelatedFundingAdapter } from './related-funding.model';
 import { UtilityService } from '@shared/services/utility.service';
 
@@ -49,7 +49,7 @@ export class FundingAdapter implements Adapter<Funding> {
     private r: RecipientAdapter,
     private f: FunderAdapter,
     private rf: RelatedFundingAdapter,
-    private lang: LanguageCheck,
+    private utils: ModelUtils,
     private util: UtilityService
   ) {}
   adapt(item: any): Funding {
@@ -128,7 +128,7 @@ export class FundingAdapter implements Adapter<Funding> {
     if (otherConsortiumObjs && otherConsortiumObjs[0]?.roleInFundingGroup) {
       otherConsortiumObjs.forEach(
         (consortium) =>
-          (consortium.roleInFundingGroup = this.lang.translateRole(
+          (consortium.roleInFundingGroup = this.utils.translateRole(
             consortium.roleInFundingGroup,
             false
           ))
@@ -185,7 +185,7 @@ export class FundingAdapter implements Adapter<Funding> {
 
     // TODO: Translate
     const science = item.fieldsOfScience
-      ?.map((x) => this.lang.translateFieldOfScience(x))
+      ?.map((x) => this.utils.translateFieldOfScience(x))
       .join('; ');
     const research = item.keywords
       ?.filter((x) => x.scheme === 'Tutkimusala')
@@ -206,9 +206,9 @@ export class FundingAdapter implements Adapter<Funding> {
 
     return new Funding(
       item.mainProjectId || item.projectId,
-      this.lang.testLang('projectName', item),
+      this.utils.checkTranslation('projectName', item),
       item.projectAcronym,
-      this.lang.testLang('projectDescription', item),
+      this.utils.checkTranslation('projectDescription', item),
       item.fundingStartYear,
       endYear > item.fundingStartYear ? endYear : undefined,
       parseYear(item.fundingStartYear, item.fundingEndYear),

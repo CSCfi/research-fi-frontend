@@ -11,11 +11,11 @@ import { UtilityService } from '../../shared/services/utility.service';
 @Injectable({
   providedIn: 'root',
 })
-export class LanguageCheck {
+export class ModelUtils {
   constructor(@Inject(LOCALE_ID) protected localeId: string) {}
 
-  // Point of language test is to populate data if no content available.
-  testLang(field, item) {
+  // Point of language test is to populate data if no content available in current locale.
+  checkTranslation(field, item) {
     // tslint:disable-next-line: curly
     if (!item) return undefined;
     // Change locale to field name format
@@ -176,7 +176,7 @@ export class LanguageCheck {
         : [];
       keywordsObj['keyword' + (lang ? lang : 'Fi')] = keywords.join(', ');
     });
-    return this.testLang('keyword', keywordsObj);
+    return this.checkTranslation('keyword', keywordsObj);
   }
 
   translateInfraServiceType(type) {
@@ -215,6 +215,13 @@ export class LanguageCheck {
     }
     // Return finnish if not english or swedish
     return type;
+  }
+
+  // Map data sources in persons
+  mapSources(dataSources) {
+    return dataSources
+      .map((source) => this.checkTranslation('name', source.organization))
+      .join(', ');
   }
 }
 

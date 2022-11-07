@@ -26,7 +26,7 @@ export class TabChangeService {
     {
       data: '',
       label: $localize`:@@authors:Tutkijat`,
-      link: undefined,
+      link: 'persons',
       icon: faUsers,
       singular: $localize`:@@author:tutkija`,
       tooltip: $localize`:@@authorsTooltip:Suomessa toimivia tutkijoita.`,

@@ -1,0 +1,282 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<h1 #srHeader class="sr-only"></h1>
+<aside>
+  <app-search-bar></app-search-bar>
+</aside>
+
+<div class="wrapper" *ngIf="responseData" id="main-content">
+  <div class="row shared">
+    <p class="back col-12" style="padding-bottom: 0.25rem">
+      <a
+        #backToResultsLink
+        routerLink="/results/{{ tab }}/{{ searchTerm }}"
+        [queryParams]="tabQueryParams"
+        >&lt;
+        <ng-container i18n="@@backToResults"
+          >Takaisin hakutuloksiin</ng-container
+        >
+      </a>
+    </p>
+  </div>
+  <!-- Breadcrumb -->
+  <app-breadcrumb
+    [type]="'single'"
+    [responseData]="responseData"
+    tab="persons"
+    [tabName]="tabData.label"
+    [resultNameField]="'name'"
+    [queryParams]="tabQueryParams"
+  ></app-breadcrumb>
+
+  <div class="row shared">
+    <div
+      class="col-12"
+      style="margin: 10px 0 10px 0"
+      *ngIf="responseData.total === 0"
+    >
+      <h2 i18n="@@404">404 - Virheellinen osoite</h2>
+    </div>
+
+    <main class="col-12 col-md-8 px-0" *ngIf="person">
+      <div class="row mb-3 pb-2">
+        <div class="col">
+          <h1 class="mb-3">{{ person.name }}</h1>
+          <span *ngIf="person.orcid">
+            <img
+              class="orcid-icon"
+              src="assets/img/orcid_icon.svg"
+              alt="Orcid -palvelun logo"
+            />
+            http://orcid.org/{{ person.orcid }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Affiliations preview-->
+      <div class="row">
+        <div
+          class="py-1"
+          *ngFor="let affiliation of person.affiliations.primary"
+        >
+          <ng-container
+            *ngTemplateOutlet="
+              affiliationPositionOrganization;
+              context: { affiliation }
+            "
+          >
+          </ng-container>
+        </div>
+      </div>
+
+      <!-- Description, field of science & keywords -->
+      <div class="row content">
+        <div
+          *ngFor="
+            let row of descriptionFields | checkEmptyFields: person;
+            let i = index
+          "
+          class="py-2"
+          [ngClass]="row.key === 'description' ? 'col-12' : 'col'"
+        >
+          <span class="row fw-bold pb-2">{{ row.label }}</span>
+          <span class="row">{{ person[row.key] }}</span>
+        </div>
+      </div>
+
+      <!-- Affiliations -->
+      <div class="row content" *ngIf="person.affiliations.organizations.length">
+        <div class="col">
+          <span class="section-heading">Affiliaatiot</span>
+
+          <!-- Primary -->
+          <ng-container *ngIf="person.affiliations.primary.length">
+            <div class="pb-3">
+              <div class="fw-bold pb-3">Ensisijaiset</div>
+              <div
+                class="row"
+                *ngFor="let affiliation of person.affiliations.primary"
+              >
+                <ng-container
+                  *ngTemplateOutlet="
+                    affiliationPositionOrganization;
+                    context: { affiliation }
+                  "
+                >
+                </ng-container>
+              </div>
+            </div>
+
+            <hr />
+          </ng-container>
+
+          <!-- By organizations -->
+          <ng-container
+            *ngFor="
+              let organization of person.affiliations.organizations;
+              let i = index
+            "
+          >
+            <span class="section-heading">{{ organization.name }}</span>
+
+            <div class="row g-0">
+              <div
+                class="col-6 pb-3"
+                *ngFor="
+                  let row of affiliationFields
+                    | checkEmptyFields: organization.items
+                "
+              >
+                <div class="fw-bold">{{ row.label }}</div>
+
+                <div *ngFor="let affiliation of organization.items">
+                  {{ affiliation[row.key] || '&nbsp;' }}
+                </div>
+              </div>
+            </div>
+
+            <hr *ngIf="i + 1 < person.affiliations.organizations.length" />
+          </ng-container>
+        </div>
+      </div>
+
+      <!-- Education -->
+      <div class="row content" *ngIf="person.educations.length">
+        <div class="col">
+          <span class="section-heading">Koulutus</span>
+
+          <div class="row g-0">
+            <!-- Degrees -->
+            <div class="col" *ngIf="person.educations.length">
+              <span class="fw-bold">Tutkinnot</span>
+              <div class="row g-0" *ngFor="let row of person.educations">
+                {{ row.degree }}
+
+                <ng-container *ngIf="row.degree && row.organization">
+                  /
+                </ng-container>
+
+                {{ row.organization }}
+              </div>
+            </div>
+            <!-- Qualifications -->
+            <div class="col"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Publications -->
+      <div class="row content" *ngIf="person.publications.length">
+        <div class="col">
+          <span class="section-heading" i18n="@@publications">
+            Julkaisut ({{ person.publications.length }})
+          </span>
+
+          <div
+            class="row g-0"
+            *ngFor="
+              let publication of person.publications.slice(0, maxItemCount)
+            "
+          >
+            <span
+              [class.fw-bold]="row.key === 'name'"
+              *ngFor="
+                let row of publicationFields
+                  | checkEmptyFields: person.publications
+              "
+            >
+              <app-tag-doi
+                *ngIf="row.key === 'doi' && publication.doi; else plainText"
+                [link]="publication.doi"
+              ></app-tag-doi>
+
+              <ng-template #plainText>
+                <span [class.font-size-small]="row.key === 'year'">
+                  {{ publication[row.key] }}
+                </span>
+              </ng-template>
+            </span>
+          </div>
+        </div>
+        <a *ngIf="maxItemCount === 3 && person.publications.length > 3"
+          >Näytä kaikki</a
+        >
+      </div>
+    </main>
+
+    <!-- Sidebar -->
+    <div *ngIf="person" class="col-12 col-md-4">
+      <!-- Contact -->
+      <aside *ngIf="(contactFields | checkEmptyFields: person.contact).length">
+        <mat-card>
+          <div class="inner">
+            <mat-card-title>
+              <h2 i18n="@@contactInfo" class="mb-4">Yhteystiedot</h2>
+            </mat-card-title>
+
+            <ng-container *ngFor="let row of contactFields">
+              <ng-container *ngIf="person.contact[row.key]?.length">
+                <ul class="list-unstyled">
+                  <li
+                    *ngFor="let item of person.contact[row.key]"
+                    class="truncate"
+                  >
+                    <fa-icon
+                      *ngIf="item.icon"
+                      [icon]="item.icon"
+                      class="pe-3"
+                    ></fa-icon>
+
+                    <span class="fw-bold pe-3" *ngIf="row.label">{{
+                      row.label
+                    }}</span>
+
+                    <span class="">{{ item.value }}</span>
+                  </li>
+                </ul>
+              </ng-container>
+            </ng-container>
+          </div>
+        </mat-card>
+      </aside>
+
+      <!-- Share -->
+      <aside>
+        <mat-card>
+          <div class="inner">
+            <mat-card-title>
+              <h2 i18n="@@shareHeader">Jaa</h2>
+            </mat-card-title>
+            <app-share [id]="person.id"></app-share>
+          </div>
+        </mat-card>
+      </aside>
+
+      <!-- Sources -->
+      <aside *ngIf="person.uniqueDataSources">
+        <mat-card>
+          <div class="inner">
+            <mat-card-title>
+              <h2>Lähteet</h2>
+            </mat-card-title>
+            {{ person.uniqueDataSources }}
+          </div>
+        </mat-card>
+      </aside>
+    </div>
+  </div>
+</div>
+
+<!-- E.g. 'Job title, Organization name' -->
+<ng-template #affiliationPositionOrganization let-affiliation="affiliation">
+  {{ affiliation.positionName }}
+  <ng-container
+    *ngIf="affiliation.positionName && affiliation.organizationName"
+  >
+    ,
+  </ng-container>
+  {{ affiliation.organizationName }}
+</ng-template>

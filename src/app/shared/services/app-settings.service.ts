@@ -122,6 +122,10 @@ export class AppSettingsService {
 
   isBrowser: boolean;
 
+  // Set in header by current route.
+  // E.g. for use where we don't want to display new features in production.
+  develop = false;
+
   constructor(
     @Inject(LOCALE_ID) protected localeId: string,
     @Inject(PLATFORM_ID) private platformId: object

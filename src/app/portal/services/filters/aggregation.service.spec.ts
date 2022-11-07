@@ -9,11 +9,15 @@ import { TestBed } from '@angular/core/testing';
 
 import { AggregationService } from './aggregation.service';
 
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+
 describe('AggregationService', () => {
   let service: AggregationService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+    });
     service = TestBed.inject(AggregationService);
     service.localeC = 'Fi';
   });

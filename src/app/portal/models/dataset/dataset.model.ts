@@ -7,7 +7,7 @@
 
 import { Injectable } from '@angular/core';
 import { Adapter } from '../adapter.model';
-import { LanguageCheck } from '../utils';
+import { ModelUtils } from '../utils';
 import {
   FieldOfScience,
   FieldOfScienceAdapter,
@@ -31,7 +31,7 @@ export interface Actor {
   parentOrgId?: string;
   roles: string[];
   orcid?: string;
-  isPerson?: boolean,
+  isPerson?: boolean;
   children?: any[];
 }
 
@@ -67,7 +67,7 @@ export class Dataset {
 })
 export class DatasetAdapter implements Adapter<Dataset> {
   constructor(
-    private lang: LanguageCheck,
+    private utils: ModelUtils,
     private fs: FieldOfScienceAdapter,
     private appSettingsService: AppSettingsService
   ) {}
@@ -102,22 +102,27 @@ export class DatasetAdapter implements Adapter<Dataset> {
 
     item.actor?.forEach((actorRole) => {
       this.organizationActors.push(actorRole);
-      const role: string = this.lang.testLang('actorRoleName', actorRole);
+      const role: string = this.utils.checkTranslation(
+        'actorRoleName',
+        actorRole
+      );
       actorRole.sector.forEach((sector) => {
         sector.organization.forEach((org) => {
-          const parentOrgName = this.lang.testLang('OrganizationName', org).trim();
+          const parentOrgName = this.utils
+            .checkTranslation('OrganizationName', org)
+            .trim();
           // Create or find the organization object to be added and referenced later
           const orgExists = orgs.find((x) => x.name === parentOrgName);
           const orgObj: OrganizationActor = orgExists
             ? orgExists
             : {
-              name: parentOrgName,
-              id: org.organizationId.trim(),
-              parentOrgName: item,
-              actors: [],
-              roles: [],
-              children: [],
-            };
+                name: parentOrgName,
+                id: org.organizationId.trim(),
+                parentOrgName: item,
+                actors: [],
+                roles: [],
+                children: [],
+              };
 
           // Add role if org has no children (or has an unnecessary subUnit)
           const subUnitHasName = !!(
@@ -143,7 +148,10 @@ export class DatasetAdapter implements Adapter<Dataset> {
 
           // Parse organization sub units and possible actors
           org?.organizationUnit?.forEach((orgUnit) => {
-            const nameParsed: string = this.lang.testLang('organizationUnitName', orgUnit);
+            const nameParsed: string = this.utils.checkTranslation(
+              'organizationUnitName',
+              orgUnit
+            );
             // Check if subunit is "valid"
             if (orgUnit.OrgUnitId !== '-1' && orgUnit.OrgUnitId !== ' ') {
               // Only add role to subUnit if no person
@@ -178,7 +186,9 @@ export class DatasetAdapter implements Adapter<Dataset> {
 
     // Process first level child organizations
     orgs.forEach((org) => {
-      org.children = org.actors.filter(((a) => a.parentOrgName === org.name || a.parentOrgName === ' '));
+      org.children = org.actors.filter(
+        (a) => a.parentOrgName === org.name || a.parentOrgName === ' '
+      );
       let childObjects = [];
       let childrenProcessed = [];
 
@@ -187,37 +197,40 @@ export class DatasetAdapter implements Adapter<Dataset> {
         if (!childObjects.includes(JSON.stringify(child))) {
           childObjects.push(JSON.stringify(child));
           childrenProcessed.push(child);
-        };
+        }
       });
 
       // Combine first level roles
       let authors = [];
       let index = 0;
       childrenProcessed.forEach((c) => {
-          if (!authors.includes(c.name)){
-            authors.push(c.name);
-          }
-          else {
-            // Is duplicate, join roles
-            const firstOccurenceIndex = childrenProcessed.findIndex((item) => {
-              return item.name === c.name;
-            });
-            childrenProcessed[firstOccurenceIndex].roles.push(...childrenProcessed[index].roles);
-            childrenProcessed[index] = '';
-          }
-          index += 1;
-        });
-        // Clear array items made empty
+        if (!authors.includes(c.name)) {
+          authors.push(c.name);
+        } else {
+          // Is duplicate, join roles
+          const firstOccurenceIndex = childrenProcessed.findIndex((item) => {
+            return item.name === c.name;
+          });
+          childrenProcessed[firstOccurenceIndex].roles.push(
+            ...childrenProcessed[index].roles
+          );
+          childrenProcessed[index] = '';
+        }
+        index += 1;
+      });
+      // Clear array items made empty
       childrenProcessed = childrenProcessed.filter((c) => {
-          return c !== '';
-        });
+        return c !== '';
+      });
       org.children = childrenProcessed;
     });
 
     // Process second level child organizations
     orgs.forEach((org) => {
       org.children.forEach((child) => {
-        child.children = org.actors.filter(((a) => a.parentOrgName === child.name));
+        child.children = org.actors.filter(
+          (a) => a.parentOrgName === child.name
+        );
       });
     });
 
@@ -227,15 +240,16 @@ export class DatasetAdapter implements Adapter<Dataset> {
         let authors = [];
         let index = 0;
         child.children.forEach((c) => {
-          if (!authors.includes(c.name)){
+          if (!authors.includes(c.name)) {
             authors.push(c.name);
-          }
-          else {
+          } else {
             // Is duplicate, join roles
             const firstOccurenceIndex = child.children.findIndex((item) => {
               return item.name === c.name;
             });
-            child.children[firstOccurenceIndex].roles.push(...child.children[index].roles);
+            child.children[firstOccurenceIndex].roles.push(
+              ...child.children[index].roles
+            );
             child.children[index] = '';
           }
           index += 1;
@@ -321,8 +335,8 @@ export class DatasetAdapter implements Adapter<Dataset> {
 
     return new Dataset(
       item.identifier,
-      this.lang.testLang('name', item),
-      this.lang.testLang('description', item),
+      this.utils.checkTranslation('name', item),
+      this.utils.checkTranslation('description', item),
       item.datasetCreated,
       item.type, // Missing
       orgsSorted,
@@ -330,13 +344,15 @@ export class DatasetAdapter implements Adapter<Dataset> {
       item.project, // Missing
       fieldsOfScienceString,
       item.languages
-        ?.map((x) => this.lang.testLang('languageName', x))
+        ?.map((x) => this.utils.checkTranslation('languageName', x))
         ?.join(', '),
-      this.lang.translateAccessType(item.accessType),
-      this.lang.testLang('licenseName', item),
+      this.utils.translateAccessType(item.accessType),
+      this.utils.checkTranslation('licenseName', item),
       keywords.join(', '),
       temporalCoverage,
-      item.dataCatalog?.map((x) => this.lang.testLang('name', x))?.join(', '),
+      item.dataCatalog
+        ?.map((x) => this.utils.checkTranslation('name', x))
+        ?.join(', '),
       item.accessType === 'open',
       item.relatedDatasets, // Missing
       doi, // Missing?

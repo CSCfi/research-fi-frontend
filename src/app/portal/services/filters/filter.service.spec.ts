@@ -13,6 +13,7 @@ import { StaticDataService } from '../static-data.service';
 import { AggregationService } from './aggregation.service';
 import { LOCALE_ID } from '@angular/core';
 import { TabChangeService } from '../tab-change.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('FilterService', () => {
   let filterService: FilterService;
@@ -52,6 +53,7 @@ describe('FilterService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       providers: [
         SortService,
         SettingsService,
@@ -64,7 +66,6 @@ describe('FilterService', () => {
 
     filterService = TestBed.inject(FilterService);
     tabChangeService = TestBed.inject(TabChangeService);
-    
   });
 
   it('should be created', () => {

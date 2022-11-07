@@ -11,7 +11,7 @@ import {
   RecipientOrganization,
   RecipientOrganizationAdapter,
 } from './recipient-organization.model';
-import { LanguageCheck, testFinnishBusinessId } from '../utils';
+import { ModelUtils, testFinnishBusinessId } from '../utils';
 import { orderBy } from 'lodash-es';
 
 export class Recipient {
@@ -39,7 +39,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
   constructor(
     private roa: RecipientOrganizationAdapter,
     @Inject(LOCALE_ID) protected localeId: string,
-    private lang: LanguageCheck
+    private utils: ModelUtils
   ) {}
   adapt(item: any): Recipient {
     /*
@@ -89,10 +89,12 @@ export class RecipientAdapter implements Adapter<Recipient> {
             finnish.length > 1
               ? finnish
                   .map((x) =>
-                    this.lang.testLang('consortiumOrganizationName', x).trim()
+                    this.utils
+                      .checkTranslation('consortiumOrganizationName', x)
+                      .trim()
                   )
                   .join('; ')
-              : this.lang.testLang(
+              : this.utils.checkTranslation(
                   'consortiumOrganizationName',
                   finnish.find(
                     (org) =>
@@ -105,8 +107,9 @@ export class RecipientAdapter implements Adapter<Recipient> {
           personNameAndOrg = item.organizationConsortium
             .filter(
               (x) =>
-                this.lang.testLang('consortiumOrganizationName', x).trim() !==
-                  '' &&
+                this.utils
+                  .checkTranslation('consortiumOrganizationName', x)
+                  .trim() !== '' &&
                 // Check for finnish business ID identifier
                 (x.consortiumOrganizationBusinessId?.trim().slice(-2)[0] ===
                   '-' ||
@@ -114,7 +117,9 @@ export class RecipientAdapter implements Adapter<Recipient> {
                     'FI')
             )
             .map((x) =>
-              this.lang.testLang('consortiumOrganizationName', x).trim()
+              this.utils
+                .checkTranslation('consortiumOrganizationName', x)
+                .trim()
             )
             .join('; ');
         }
@@ -141,15 +146,16 @@ export class RecipientAdapter implements Adapter<Recipient> {
         // Map recipients
         if (
           person &&
-          this.lang.testLang('consortiumOrganizationName', person) !== ''
+          this.utils.checkTranslation('consortiumOrganizationName', person) !==
+            ''
         ) {
           personNameAndOrg = person.fundingGroupPersonLastName
             ? person.fundingGroupPersonFirstNames +
               ' ' +
               person.fundingGroupPersonLastName +
               ', ' +
-              this.lang.testLang('consortiumOrganizationName', person)
-            : this.lang.testLang('consortiumOrganizationName', person);
+              this.utils.checkTranslation('consortiumOrganizationName', person)
+            : this.utils.checkTranslation('consortiumOrganizationName', person);
         } else if (person) {
           personNameAndOrg =
             person.fundingGroupPersonFirstNames +
@@ -164,16 +170,25 @@ export class RecipientAdapter implements Adapter<Recipient> {
                     x.fundingGroupPersonFirstNames,
                     x.fundingGroupPersonLastName
                   ) +
-                  (this.lang
-                    .testLang('consortiumOrganizationName', recipientObj)
+                  (this.utils
+                    .checkTranslation(
+                      'consortiumOrganizationName',
+                      recipientObj
+                    )
                     ?.trim().length > 0
                     ? ', ' +
-                      this.lang
-                        .testLang('consortiumOrganizationName', recipientObj)
+                      this.utils
+                        .checkTranslation(
+                          'consortiumOrganizationName',
+                          recipientObj
+                        )
                         ?.trim()
                     : '')
-                : this.lang
-                    .testLang('consortiumOrganizationName', recipientObj)
+                : this.utils
+                    .checkTranslation(
+                      'consortiumOrganizationName',
+                      recipientObj
+                    )
                     ?.trim()
             )
             ?.join('; ');
@@ -190,7 +205,10 @@ export class RecipientAdapter implements Adapter<Recipient> {
 
         // Return consortium recipient name if no organization
         if (
-          !this.lang.testLang('consortiumOrganizationName', recipientObj) &&
+          !this.utils.checkTranslation(
+            'consortiumOrganizationName',
+            recipientObj
+          ) &&
           recipientObj.fundingGroupPersonLastName
         ) {
           personNameAndOrg = joinName(
@@ -223,7 +241,9 @@ export class RecipientAdapter implements Adapter<Recipient> {
           personNameAndOrg = item.organizationConsortium
             .filter((x) => !x.countryCode || x.countryCode === 'FI')
             .map((x) =>
-              this.lang.testLang('consortiumOrganizationName', x).trim()
+              this.utils
+                .checkTranslation('consortiumOrganizationName', x)
+                .trim()
             )
             .join('; ');
         }
@@ -247,7 +267,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
           personName: person.fundingGroupPersonLastName
             ? `${person.fundingGroupPersonFirstNames} ${person.fundingGroupPersonLastName}`
             : '',
-          organizationName: this.lang.testLang(
+          organizationName: this.utils.checkTranslation(
             'consortiumOrganizationName',
             person
           ),
@@ -259,7 +279,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
           projectId: person.projectId,
           shareOfFundingInEur: person.shareOfFundingInEur,
           orcid: person.fundingGroupPersonOrcid,
-          role: this.lang.translateRole(person.roleInFundingGroup, true),
+          role: this.utils.translateRole(person.roleInFundingGroup, true),
         }))
         .sort((a, b) => b.finnishOrganization - a.finnishOrganization);
 
@@ -291,7 +311,10 @@ export class RecipientAdapter implements Adapter<Recipient> {
         : '',
       recipientObj?.fundingGroupPersonOrcid,
       recipientObj
-        ? this.lang.testLang('consortiumOrganizationName', recipientObj)
+        ? this.utils.checkTranslation(
+            'consortiumOrganizationName',
+            recipientObj
+          )
         : undefined, // affiliation
       recipientObj?.consortiumOrganizationNameFi, // organizationName
       recipientObj?.consortiumOrganizationId,
