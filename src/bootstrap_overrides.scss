@@ -1,9 +1,5 @@
-@import '../node_modules/bootstrap/scss/_functions';
+@import '../node_modules/bootstrap/scss/functions';
+@import '../node_modules/bootstrap/scss/variables';
 
 $enable-negative-margins: true;
 $grid-gutter-width: 2rem;
-
-@import '../node_modules/bootstrap/scss/_variables';
-@import '../node_modules/bootstrap/scss/_mixins';
-@import '../node_modules/bootstrap/scss/_root';
-@import "../node_modules/bootstrap/scss/_maps";

@@ -106,11 +106,11 @@ mat-radio-button.cdk-keyboard-focused .mat-ripple-element {
     z-index: 2;
   }
 
-  .mat-ripple {
+  .mat-ripple:not(.mat-slide-toggle-ripple) {
     padding: 4px !important;
   }
 
-  .mat-ripple-element {
+  .mat-ripple-element:not(.mat-slide-toggle-persistent-ripple) {
     background-color: mat-color($primary, 100) !important;
     opacity: 1 !important;
     z-index: 0 !important;

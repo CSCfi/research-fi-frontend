@@ -6,11 +6,26 @@
 // :license: MIT
 
 .content {
-  padding: 1rem 0 2rem !important;
+  padding: 1.5rem 0 !important;
+}
+
+// Layout prototype has overlow for background in every other content area
+.content:nth-child(even) {
+  margin-left: -1rem !important;
+  padding-left: 1rem !important;
+}
+
+h3 {
+  padding-bottom: 1rem;
 }
 
 .section-heading {
-  padding: 1rem 0 2rem;
+  padding-bottom: 1.5rem;
   font-weight: bold;
   display: block;
+}
+
+.sub-heading {
+  padding: 0.5rem 0;
+  font-weight: bold;
 }
