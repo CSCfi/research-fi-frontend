@@ -4,3 +4,19 @@
 //
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
+
+app-persons {
+  // Center text content with icon row
+  mat-cell:not(.mat-column-icon) {
+    margin-top: 0.75rem !important;
+  }
+
+  app-table-cell {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* number of lines to show */
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+}

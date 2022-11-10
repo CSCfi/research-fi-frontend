@@ -42,7 +42,7 @@
     </div>
 
     <main class="col-12 col-md-8 px-0" *ngIf="person">
-      <div class="row mb-3 pb-2">
+      <div class="row pb-3">
         <div class="col">
           <h1 class="mb-3">{{ person.name }}</h1>
           <span *ngIf="person.orcid">
@@ -57,9 +57,9 @@
       </div>
 
       <!-- Affiliations preview-->
-      <div class="row">
+      <div class="row" [class.pt-3]="person.affiliations.primary.length">
         <div
-          class="py-1"
+          class="col-12 py-1"
           *ngFor="let affiliation of person.affiliations.primary"
         >
           <ng-container
@@ -82,7 +82,7 @@
           class="py-2"
           [ngClass]="row.key === 'description' ? 'col-12' : 'col'"
         >
-          <span class="row fw-bold pb-2">{{ row.label }}</span>
+          <h3 class="py-2 m-0">{{ row.label }}</h3>
           <span class="row">{{ person[row.key] }}</span>
         </div>
       </div>
@@ -90,24 +90,22 @@
       <!-- Affiliations -->
       <div class="row content" *ngIf="person.affiliations.organizations.length">
         <div class="col">
-          <span class="section-heading">Affiliaatiot</span>
+          <h3>Affiliaatiot</h3>
 
           <!-- Primary -->
           <ng-container *ngIf="person.affiliations.primary.length">
-            <div class="pb-3">
-              <div class="fw-bold pb-3">Ensisijaiset</div>
-              <div
-                class="row"
-                *ngFor="let affiliation of person.affiliations.primary"
+            <div class="sub-heading">Ensisijaiset</div>
+            <div
+              class="row"
+              *ngFor="let affiliation of person.affiliations.primary"
+            >
+              <ng-container
+                *ngTemplateOutlet="
+                  affiliationPositionOrganization;
+                  context: { affiliation }
+                "
               >
-                <ng-container
-                  *ngTemplateOutlet="
-                    affiliationPositionOrganization;
-                    context: { affiliation }
-                  "
-                >
-                </ng-container>
-              </div>
+              </ng-container>
             </div>
 
             <hr />
@@ -120,22 +118,30 @@
               let i = index
             "
           >
-            <span class="section-heading">{{ organization.name }}</span>
+            <div class="sub-heading">{{ organization.name }}</div>
 
-            <div class="row g-0">
-              <div
-                class="col-6 pb-3"
+            <!-- Affiliation details -->
+            <div class="row">
+              <ng-container
                 *ngFor="
                   let row of affiliationFields
-                    | checkEmptyFields: organization.items
+                    | checkEmptyFields: organization.items;
+                  let j = index
                 "
               >
-                <div class="fw-bold">{{ row.label }}</div>
+                <div class="col-6" [class.ps-0]="j % 2 === 0">
+                  <div class="sub-heading">{{ row.label }}</div>
 
-                <div *ngFor="let affiliation of organization.items">
-                  {{ affiliation[row.key] || '&nbsp;' }}
+                  <div *ngFor="let affiliation of organization.items">
+                    {{ affiliation[row.key] || '&nbsp;' }}
+                  </div>
                 </div>
-              </div>
+              </ng-container>
+            </div>
+
+            <!-- Affiliation data source -->
+            <div class="row g-0 pt-3">
+              <div class="col">Lähde: {{ organization.items[0].source }}</div>
             </div>
 
             <hr *ngIf="i + 1 < person.affiliations.organizations.length" />
@@ -146,13 +152,13 @@
       <!-- Education -->
       <div class="row content" *ngIf="person.educations.length">
         <div class="col">
-          <span class="section-heading">Koulutus</span>
+          <h3>Koulutus</h3>
 
           <div class="row g-0">
             <!-- Degrees -->
             <div class="col" *ngIf="person.educations.length">
-              <span class="fw-bold">Tutkinnot</span>
-              <div class="row g-0" *ngFor="let row of person.educations">
+              <div class="sub-heading">Tutkinnot</div>
+              <div class="row g-0 py-1" *ngFor="let row of person.educations">
                 {{ row.degree }}
 
                 <ng-container *ngIf="row.degree && row.organization">
@@ -171,44 +177,150 @@
       <!-- Publications -->
       <div class="row content" *ngIf="person.publications.length">
         <div class="col">
-          <span class="section-heading" i18n="@@publications">
-            Julkaisut ({{ person.publications.length }})
-          </span>
+          <h3>
+            <ng-container i18n="@@publications">Julkaisut</ng-container> ({{
+              person.publications.length
+            }})
+          </h3>
 
           <div
             class="row g-0"
             *ngFor="
-              let publication of person.publications.slice(0, maxItemCount)
+              let publication of person.publications.slice(
+                0,
+                maxPublicationCount
+              );
+              let i = index
             "
           >
-            <span
-              [class.fw-bold]="row.key === 'name'"
-              *ngFor="
-                let row of publicationFields
-                  | checkEmptyFields: person.publications
-              "
-            >
-              <app-tag-doi
-                *ngIf="row.key === 'doi' && publication.doi; else plainText"
-                [link]="publication.doi"
-              ></app-tag-doi>
+            <div class="">
+              <div
+                [class.fw-bold]="row.key === 'name'"
+                *ngFor="
+                  let row of publicationFields
+                    | checkEmptyFields: person.publications
+                "
+              >
+                <app-tag-doi
+                  *ngIf="row.key === 'doi' && publication.doi; else textContent"
+                  [link]="publication.doi"
+                ></app-tag-doi>
 
-              <ng-template #plainText>
-                <span [class.font-size-small]="row.key === 'year'">
-                  {{ publication[row.key] }}
-                </span>
-              </ng-template>
-            </span>
+                <ng-template #textContent>
+                  <a
+                    *ngIf="
+                      row.key === 'name' && publication.id.trim().length;
+                      else plainText
+                    "
+                    routerLink="/results/publication/{{ publication.id }}"
+                  >
+                    {{ publication.name }}
+                  </a>
+
+                  <ng-template #plainText>
+                    <div [class.font-size-small]="row.key === 'year'">
+                      {{ publication[row.key] }}
+                    </div>
+                  </ng-template>
+                </ng-template>
+              </div>
+            </div>
+
+            <hr
+              class="mt-3"
+              *ngIf="
+                i + 1 < maxPublicationCount &&
+                i + 1 !== person.publications.length
+              "
+            />
           </div>
         </div>
-        <a *ngIf="maxItemCount === 3 && person.publications.length > 3"
-          >Näytä kaikki</a
+        <a
+          *ngIf="person.publications.length > maxPublicationCount"
+          (click)="maxPublicationCount = person.publications.length"
+          class="mt-4"
+          i18n="@@showAllPublications"
         >
+          Näytä kaikki julkaisut
+        </a>
+      </div>
+
+      <!-- Datasets -->
+      <div class="row content" *ngIf="person.datasets.length">
+        <div class="col">
+          <h3>
+            <ng-container i18n="@@datasets">Aineistot</ng-container> ({{
+              person.datasets.length
+            }})
+          </h3>
+
+          <div
+            class="row g-0"
+            *ngFor="
+              let dataset of person.datasets.slice(0, maxDatasetCount);
+              let i = index
+            "
+          >
+            <div class="">
+              <ng-container
+                *ngFor="
+                  let row of datasetFields | checkEmptyFields: person.datasets
+                "
+              >
+                <a
+                  routerLink="/results/dataset/{{ dataset.id }}"
+                  *ngIf="row.key === 'name' && dataset.id; else plainText"
+                >
+                  {{ dataset.name }}
+                </a>
+
+                <ng-template #plainText>
+                  <span class="d-block">{{ dataset[row.key] }}</span>
+                </ng-template>
+              </ng-container>
+            </div>
+
+            <hr
+              *ngIf="
+                i + 1 < maxDatasetCount && i + 1 !== person.datasets.length
+              "
+            />
+          </div>
+        </div>
+
+        <a
+          *ngIf="person.datasets.length > maxDatasetCount"
+          (click)="maxDatasetCount = person.datasets.length"
+          i18n="@@showAll"
+        >
+          Näytä kaikki
+        </a>
       </div>
     </main>
 
     <!-- Sidebar -->
     <div *ngIf="person" class="col-12 col-md-4">
+      <!-- MyData login -->
+      <aside>
+        <mat-card>
+          <div class="row inner g-0">
+            <div class="col">
+              Oletko tutkija? Kirjaudu sisään muokataksesi profiilissasi näkyviä
+              tietoja.
+            </div>
+
+            <div class="col-auto">
+              <app-primary-action-button
+                role="link"
+                (click)="router.navigate(['/mydata'])"
+                content="Kirjaudu sisään"
+                i18n-content="@@logIn"
+              ></app-primary-action-button>
+            </div>
+          </div>
+        </mat-card>
+      </aside>
+
       <!-- Contact -->
       <aside *ngIf="(contactFields | checkEmptyFields: person.contact).length">
         <mat-card>
@@ -219,26 +331,41 @@
 
             <ng-container *ngFor="let row of contactFields">
               <ng-container *ngIf="person.contact[row.key]?.length">
-                <ul class="list-unstyled">
-                  <li
-                    *ngFor="let item of person.contact[row.key]"
-                    class="truncate"
-                  >
-                    <fa-icon
-                      *ngIf="item.icon"
-                      [icon]="item.icon"
-                      class="pe-3"
-                    ></fa-icon>
+                <li *ngFor="let item of person.contact[row.key]" class="row">
+                  <fa-icon
+                    *ngIf="item.icon"
+                    [icon]="item.icon"
+                    class="col-1 ps-0 pb-3"
+                  ></fa-icon>
 
-                    <span class="fw-bold pe-3" *ngIf="row.label">{{
-                      row.label
-                    }}</span>
+                  <span class="fw-bold col-auto px-0" *ngIf="row.label">
+                    {{ row.label }}
+                  </span>
 
-                    <span class="">{{ item.value }}</span>
-                  </li>
-                </ul>
+                  <span class="col truncate">{{ item.value }}</span>
+                </li>
               </ng-container>
             </ng-container>
+          </div>
+        </mat-card>
+      </aside>
+
+      <!-- Cooperation -->
+      <aside>
+        <mat-card>
+          <div class="inner">
+            <h2 i18n="@@collaborationHeader">Yhteistyö</h2>
+            <span>Placeholder</span>
+          </div>
+        </mat-card>
+      </aside>
+
+      <!-- Related -->
+      <aside>
+        <mat-card>
+          <div class="inner">
+            <h2>Tutkijan (tulossa)</h2>
+            <app-related-links></app-related-links>
           </div>
         </mat-card>
       </aside>
@@ -272,11 +399,5 @@
 
 <!-- E.g. 'Job title, Organization name' -->
 <ng-template #affiliationPositionOrganization let-affiliation="affiliation">
-  {{ affiliation.positionName }}
-  <ng-container
-    *ngIf="affiliation.positionName && affiliation.organizationName"
-  >
-    ,
-  </ng-container>
-  {{ affiliation.organizationName }}
+  {{ [affiliation.positionName, affiliation.organizationName] | joinItems }}
 </ng-template>

@@ -65,7 +65,6 @@ import { CustomPaginatorIntlComponent } from './components/profile/search-portal
 import { countFieldItemsPipe } from './pipes/count-field-items.pipe';
 import { MydataBetaInfoComponent } from './components/mydata-beta-info/mydata-beta-info.component';
 import { ProfileSummaryComponent } from './components/profile/profile-summary/profile-summary.component';
-import { JoinItemsPipe } from './pipes/join-items.pipe';
 import { JoinDataSourcesPipe } from './pipes/join-data-sources.pipe';
 import { FindSelectedItemPipe } from './pipes/find-selected-item.pipe';
 import { HandleFetchedPublicationsPipe } from './pipes/handle-fetched-publications.pipe';
@@ -127,7 +126,6 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
     SearchPortalResultsComponent,
     MydataBetaInfoComponent,
     ProfileSummaryComponent,
-    JoinItemsPipe,
     JoinDataSourcesPipe,
     FindSelectedItemPipe,
     HandleFetchedPublicationsPipe,

@@ -8,20 +8,18 @@
 import { Injectable, Inject, LOCALE_ID } from '@angular/core';
 import { Adapter } from '../adapter.model';
 import { ModelUtils } from '../utils';
-import { PersonAffiliationAdapter } from './person-affiliation.model';
+import {
+  PersonAffiliations,
+  PersonAffiliationAdapter,
+} from './person-affiliation.model';
 import { PersonContact, PersonContactAdapter } from './person-contact.model';
-
-type Affiliations = { primary: any[]; organizations: any[] };
+import { PersonDataset, PersonDatasetAdapter } from './person-dataset.model';
+import {
+  PersonPublication,
+  PersonPublicationAdapter,
+} from './person-publication.model';
 
 type Education = { degree: string; organization: string };
-
-type Publication = {
-  id: string;
-  name: string;
-  year: number;
-  doi: string;
-  type: string;
-};
 
 export class Person {
   constructor(
@@ -29,11 +27,10 @@ export class Person {
     public orcid: string,
     public name: string,
     public contact: PersonContact,
-    public organization: string,
-    public affiliations: Affiliations,
+    public affiliations: PersonAffiliations,
     public educations: Education[],
-    public publications: Publication[],
-    public positionName: string,
+    public publications: PersonPublication[],
+    public datasets: PersonDataset[],
     public description: string,
     public fieldsOfScience: string,
     public keywords: string,
@@ -49,6 +46,8 @@ export class PersonAdapter implements Adapter<Person> {
     private utils: ModelUtils,
     private affiliationAdapter: PersonAffiliationAdapter,
     private contactAdapter: PersonContactAdapter,
+    private publicationAdapter: PersonPublicationAdapter,
+    private datasetAdapter: PersonDatasetAdapter,
     @Inject(LOCALE_ID) protected localeId: string
   ) {}
   adapt(data: any): Person {
@@ -76,18 +75,13 @@ export class PersonAdapter implements Adapter<Person> {
       sources: this.utils.mapSources(item.dataSources),
     }));
 
-    const publications = data.activity.publications.map((item) => ({
-      id: item.publicationId,
-      name: item.publicationName,
-      year: item.publicationYear,
-      doi: item.doi,
-      type: item.typeCode,
-      sources: this.utils.mapSources(item.dataSources),
-    }));
+    const publications = data.activity.publications.map((publication) =>
+      this.publicationAdapter.adapt(publication)
+    );
 
-    const firstAffiliation = affiliations?.primary[0];
-    const organization = firstAffiliation?.organizationName;
-    const positionName = firstAffiliation?.positionName;
+    const datasets = data.activity.researchDatasets.map((dataset) =>
+      this.datasetAdapter.adapt(dataset)
+    );
 
     const description = this.utils.checkTranslation(
       'researchDescription',
@@ -109,11 +103,10 @@ export class PersonAdapter implements Adapter<Person> {
       data.id, // ORCID indicator for dev puposes
       fullName,
       contact,
-      organization,
       affiliations,
       educations,
       publications,
-      positionName,
+      datasets,
       description,
       fieldsOfScience,
       keywords,

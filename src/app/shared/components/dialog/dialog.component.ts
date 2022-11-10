@@ -31,7 +31,7 @@ import { DialogTemplateComponent } from './dialog-template/dialog-template.compo
 })
 export class DialogComponent implements OnInit, OnDestroy, OnChanges {
   @Input() title: string;
-  @Input() template: any;
+  @Input() template: TemplateRef<any>;
   @Input() footerTemplate: any;
   @Input() actions: any[];
   @Input() extraContentTemplate: any;

@@ -37,7 +37,7 @@ export class PersonFilterService {
   }
 
   mapOrganizations(organizations) {
-    return organizations.map(
+    return organizations?.map(
       (item) =>
         (item = {
           key: item.key,

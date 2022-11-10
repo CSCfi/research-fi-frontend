@@ -6,7 +6,7 @@
 // :license: MIT
 
 import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faEnvelope, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Person } from '@portal/models/person/person.model';
 import { Search } from '@portal/models/search.model';
@@ -53,6 +53,8 @@ export class SinglePersonComponent implements OnInit {
 
   publicationFields = [{ key: 'name' }, { key: 'year' }, { key: 'doi' }];
 
+  datasetFields = [{ key: 'name' }, { key: 'year' }];
+
   contactFields: Field[] = [
     { key: 'emails' },
     { key: 'links' },
@@ -61,10 +63,17 @@ export class SinglePersonComponent implements OnInit {
 
   person: Person;
 
-  maxItemCount = 3;
+  initialItemCount = 3;
+
+  maxPublicationCount = this.initialItemCount;
+  showAllPublications = false;
+
+  maxDatasetCount = this.initialItemCount;
+  showAllDatasets = false;
 
   constructor(
     private route: ActivatedRoute,
+    public router: Router,
     private searchService: SearchService,
     private singleItemService: SingleItemService,
     private utilityService: UtilityService,

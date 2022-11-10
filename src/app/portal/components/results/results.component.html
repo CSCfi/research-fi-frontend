@@ -36,9 +36,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
           class="col-auto pe-0"
           content="Beta"
           [icon]="faInfoCircle"
-          tooltip="Tutkijoiden beta"
-          triggers="click hover"
-          container="body"
+          (click)="showBetaDialog = true"
         ></app-secondary-button>
 
         <!-- Mobile page settings -->
@@ -62,7 +60,6 @@ Copyright 2019 Ministry of Education and Culture, Finland
           #skipToResults
           tabindex="0"
           (click)="changeFocusTarget('main')"
-          (keydown.enter)="changeFocusTarget('main')"
           (blur)="resetFocus(); showSkipLinks = false"
           href="javascript:void(0)"
         >
@@ -130,6 +127,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
             [page]="searchService.pageNumber"
             [pageSize]="searchService.pageSize"
             [total]="dataService.currentTotal | async"
+            [focusSelect]="focusMainContent"
           ></app-result-count>
         </div>
 
@@ -409,3 +407,18 @@ Copyright 2019 Ministry of Education and Culture, Finland
     </div>
   </ng-template>
 </div>
+
+<app-dialog
+  *ngIf="showBetaDialog"
+  [title]="betaDialogTitle"
+  [template]="myDataBetaTemplate"
+  (onActionClick)="showBetaDialog = false"
+></app-dialog>
+
+<ng-template #myDataBetaTemplate>
+  <div class="row">
+    <div class="col">
+      <p>Template works!</p>
+    </div>
+  </div>
+</ng-template>

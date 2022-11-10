@@ -111,7 +111,7 @@ export class EditorModalComponent implements OnInit {
     }
 
     this.portalItemGroupStringPlural =
-      this.portalItemGroupStringPlural.toLowerCase();
+      this.portalItemGroupStringPlural?.toLowerCase();
   }
 
   checkAllSelected() {
