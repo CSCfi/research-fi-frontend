@@ -8,8 +8,8 @@
 // You can add global styles to this file, and also import other style files
 @import '@angular/material/theming';
 
-@import '../node_modules/bootstrap/scss/bootstrap.scss';
 @import './bootstrap_overrides.scss';
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
 
 @include mat-core();
 
