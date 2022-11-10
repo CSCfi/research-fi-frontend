@@ -16,6 +16,7 @@ import {
   TemplateRef,
   ViewChild,
   ViewChildren,
+  ViewEncapsulation,
 } from '@angular/core';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { Search } from '@portal/models/search.model';
@@ -31,6 +32,7 @@ import { UtilityService } from '@shared/services/utility.service';
   selector: 'app-persons',
   templateUrl: '../persons/persons.component.html',
   styleUrls: ['./persons.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class PersonsComponent implements OnInit, AfterViewInit {
   @Input() resultData: Search;
@@ -131,6 +133,7 @@ export class PersonsComponent implements OnInit, AfterViewInit {
           getUnique(
             person.affiliations.organizations
               .flatMap((organanization) => organanization.items)
+              .filter((item) => item.positionName.trim().length > 0)
               .map((item) => item.positionName)
           ).join(', '),
           this.input

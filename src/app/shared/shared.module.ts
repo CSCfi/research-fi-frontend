@@ -62,6 +62,7 @@ import { TagDoiComponent } from './components/tags/tag-doi/tag-doi.component';
 import { TagOpenAccessComponent } from './components/tags/tag-open-access/tag-open-access.component';
 import { TagPeerReviewedComponent } from './components/tags/tag-peer-reviewed/tag-peer-reviewed.component';
 import { TrimLinkPrefixPipe } from './pipes/trim-link-prefix.pipe';
+import { JoinItemsPipe } from './pipes/join-items.pipe';
 
 @NgModule({
   declarations: [
@@ -98,6 +99,7 @@ import { TrimLinkPrefixPipe } from './pipes/trim-link-prefix.pipe';
     TagOpenAccessComponent,
     TagPeerReviewedComponent,
     TrimLinkPrefixPipe,
+    JoinItemsPipe,
   ],
   exports: [
     InfoComponent,
@@ -128,6 +130,7 @@ import { TrimLinkPrefixPipe } from './pipes/trim-link-prefix.pipe';
     TagOpenAccessComponent,
     TagPeerReviewedComponent,
     TrimLinkPrefixPipe,
+    JoinItemsPipe,
   ],
   imports: [
     CommonModule,

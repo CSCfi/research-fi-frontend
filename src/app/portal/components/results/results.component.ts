@@ -150,6 +150,9 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     // 'Hakutulosten visualisaatiot ovat Tiedejatutkimus.fi –palvelun käyttäjien testikäytössä. Toiminnallisuutta parannetaan saadun palautteen perusteella syksyn 2020 aikana. Lisäksi visuaaleista on tulossa ruotsin- ja englanninkieliset versiot. Hankkeiden visuaalisiin tarkasteluihin lisätään myös myöntösummien jakaumat.';
     $localize`:@@datasetBetaInfo:Tutkimusaineistojen kuvailutiedot ovat uusi tietokokonaisuus Tiedejatutkimus.fi -portaalissa. Tietojen lähteenä ovat Fairdata-palveluista löytyvät kuvailutiedot. Koska kyseessä on uusi kokonaisuus, toivomme palautetta tiedejatutkimus@csc.fi osoitteeseen.`;
 
+  showBetaDialog = false;
+  betaDialogTitle = 'Tutkijan tiedot beta';
+
   private metaTagsList = [
     MetaTags.publications,
     MetaTags.persons,
@@ -167,6 +170,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   showDialog: boolean;
   dialogTemplate: TemplateRef<any>;
   dialogTitle: string;
+  focusMainContent: number;
 
   constructor(
     public searchService: SearchService,
@@ -574,6 +578,12 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   changeFocusTarget(target) {
     this.tabChangeService.targetFocus(target);
+
+    if (target === 'main') {
+      this.focusMainContent = Date.now();
+    }
+
+    this.cdr.detectChanges();
   }
 
   // Unsubscribe to prevent memory leaks
