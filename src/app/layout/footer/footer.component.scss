@@ -83,10 +83,6 @@ app-footer {
     direction: rtl;
   }
 
-  img {
-    // padding-top: 10px;
-  }
-
   img.logo {
     max-width: 200px;
     height: auto;
@@ -124,6 +120,9 @@ app-footer {
   }
 
   @media (max-width: 767px) {
+  }
+
+  @media (max-width: 991px) {
     footer .col {
       min-width: 100%;
       text-align: center;
@@ -156,9 +155,7 @@ app-footer {
     .fa {
       padding: 1rem;
     }
-  }
 
-  @media (max-width: 991px) {
     .pull-right {
       float: none;
     }
