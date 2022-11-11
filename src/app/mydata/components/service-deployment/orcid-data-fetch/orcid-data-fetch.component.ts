@@ -25,9 +25,7 @@ export class OrcidDataFetchComponent implements OnInit, OnDestroy {
     public dialog: MatDialog
   ) {}
 
-  ngOnInit(): void {
-    console.log('orcid:', this.orcid);
-  }
+  ngOnInit(): void {}
 
   fetchOrcidData() {
     if (!this.orcid) {
