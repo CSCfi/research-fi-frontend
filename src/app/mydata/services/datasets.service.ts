@@ -65,6 +65,7 @@ export class DatasetsService {
     const merged = this.confirmedPayload.concat(this.datasetPayload);
     this.confirmedPayload = merged;
     this.confirmedPayloadSource.next(merged);
+    this.clearPayload();
   }
 
   cancelConfirmedPayload() {

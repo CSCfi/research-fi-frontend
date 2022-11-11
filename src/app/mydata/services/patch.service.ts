@@ -25,7 +25,6 @@ export class PatchService {
   addToPayload(payload) {
     const items = this.patchItems;
 
-    // Prevent duplicate items in both array and single object patch
     if (Array.isArray(payload)) {
       const patchItemArr = items.concat(payload);
 
@@ -46,20 +45,19 @@ export class PatchService {
   }
 
   confirmPayload() {
-    const patchItems = this.patchItems;
-
-    let merged = this.confirmedPayLoad.concat(patchItems);
-
-    // If user decides to deselect already confirmed item
-    patchItems.forEach((item) => {
-      if (merged.filter((mergedItem) => mergedItem.id === item.id).length > 1) {
-        merged = merged.filter((mergedItem) => mergedItem.id !== item.id);
+    if (this.confirmedPayLoad.length > 0) {
+      for (let i = 0; i < this.confirmedPayLoad.length; i += 1) {
+        for (let j = 0;  j < this.patchItems.length; j += 1) {
+          if (this.confirmedPayLoad[i].id === this.patchItems[j].id){
+            this.confirmedPayLoad[i] = this.patchItems[j];
+            this.patchItems.splice(j, 1);
+          }
+        };
       }
-    });
-
+    }
+    this.confirmedPayLoad = this.confirmedPayLoad.concat(this.patchItems);
     this.patchItems = [];
-    this.confirmedPayLoad = merged;
-    this.confirmedPayloadSource.next(merged);
+    this.confirmedPayloadSource.next(this.confirmedPayLoad);
   }
 
   cancelConfirmedPayload() {

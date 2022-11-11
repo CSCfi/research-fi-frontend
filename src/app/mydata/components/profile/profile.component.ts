@@ -32,6 +32,7 @@ import { DatasetsService } from '@mydata/services/datasets.service';
 import { FundingsService } from '@mydata/services/fundings.service';
 import { CollaborationsService } from '@mydata/services/collaborations.service';
 import { Subject } from 'rxjs';
+import { cloneDeep } from 'lodash-es';
 
 @Component({
   selector: 'app-profile',
@@ -448,7 +449,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
    * Clear draft data from storage and service
    */
   reset() {
-    const currentProfileData = this.profileService.currentProfileData;
+    const currentProfileData = cloneDeep(
+      this.profileService.currentProfileData
+    );
 
     sessionStorage.removeItem(Constants.draftProfile);
     sessionStorage.removeItem(Constants.draftPatchPayload);
@@ -457,7 +460,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     sessionStorage.removeItem(Constants.draftFundingPatchPayload);
     sessionStorage.removeItem(Constants.draftCollaborationPatchPayload);
 
-    this.profileData = [...currentProfileData];
+    this.profileData = currentProfileData;
     this.profileService.setEditorProfileName(getName(currentProfileData));
     this.clearDraftData();
     this.collaborationComponentRef.resetInitialValue();
