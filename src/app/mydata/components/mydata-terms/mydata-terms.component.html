@@ -1,0 +1,14 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<main id="main-content">
+  <div class="wrapper">
+    <div
+      *ngIf="content"
+      class="px-3"
+      [innerHTML]="content | sanitizeHtml"
+    ></div>
+  </div>
+</main>

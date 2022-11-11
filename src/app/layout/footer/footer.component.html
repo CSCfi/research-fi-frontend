@@ -1,4 +1,4 @@
-<!-- # This file is part of the research.fi API service
+<!-- This file is part of the research.fi API service
 
  Copyright 2019 Ministry of Education and Culture, Finland
 
@@ -8,7 +8,7 @@
 <footer>
   <nav class="footer wrapper">
     <div class="row d-flex justify-content-around">
-      <div class="col-12 col-md-auto">
+      <div class="col-12 col-lg-auto">
         <div class="row d-flex justify-content-center text-center">
           <h2 class="header pt-3" i18n="Footer-header@@footerHeader1">
             Palvelun tarjoaa
@@ -42,27 +42,51 @@
       </div>
 
       <div
-        class="col-12 col-md-auto text-center text-md-start"
-        *ngIf="!myDataBeta"
+        class="col-12 col-lg-auto text-center text-lg-start"
+        [class.col-lg-2]="myDataBeta"
       >
         <h2 class="header" i18n="Footer-header@@footerHeader3">
           Palvelun käyttö
         </h2>
         <ul>
           <li>
-            <a i18n="Footer-link@@footerLink1" routerLink="/service-info"
-              >Tietoa palvelusta</a
-            >
+            <a i18n="Footer-link@@footerLink1" routerLink="/service-info">
+              Tietoa palvelusta
+            </a>
           </li>
-          <li>
-            <a i18n="Footer-link@@footerLink4" routerLink="/sitemap"
-              >Sivukartta</a
-            >
-          </li>
+
+          <ng-container *ngIf="!myDataBeta">
+            <li>
+              <a i18n="Footer-link@@footerLink4" routerLink="/sitemap">
+                Sivukartta
+              </a>
+            </li>
+          </ng-container>
+
+          <ng-container *ngIf="myDataBeta">
+            <li>
+              <a routerLink="/WIZARDURL" class="disabled">
+                Tutkijan tiedot -työkalun pikaohjeet
+              </a>
+            </li>
+
+            <li>
+              <a href="https://wiki.eduuni.fi/x/WQgGEw" target="_blank">
+                Tutkijan tiedot -työkalun kuvalliset käyttöohjeet
+                <fa-icon icon="external-link-alt" *ngIf="myDataBeta"></fa-icon>
+              </a>
+            </li>
+
+            <li>
+              <a routerLink="/service-info" fragment="faq_3">
+                Usein kysytyt kysymykset Tutkijan tiedot -työkalusta
+              </a>
+            </li>
+          </ng-container>
         </ul>
       </div>
 
-      <div class="col-12 col-md-auto text-center text-md-start">
+      <div class="col-12 col-lg-auto text-center text-lg-start">
         <h2 class="header" i18n="Footer-header@@footerHeader4">
           Info ja yhteystiedot
         </h2>
@@ -72,9 +96,9 @@
               <ng-container i18n="Footer-link@@footerLink6">
                 Anna palautetta
               </ng-container>
-              <fa-icon icon="external-link-alt" *ngIf="myDataBeta"></fa-icon
-            ></a>
+            </a>
           </li>
+
           <li>
             <a
               tabindex="0"
@@ -88,35 +112,46 @@
         </ul>
       </div>
 
-      <div
-        class="col-12 col-md-auto text-center text-md-start"
-        *ngIf="!myDataBeta"
-      >
+      <div class="col-12 col-lg-auto text-center text-lg-start">
         <h2 class="header" i18n="Footer-header@@footerHeader5">
           Selosteet ja käytännöt
         </h2>
         <ul>
-          <li>
-            <a i18n="Footer-link@@footerLink8" routerLink="/accessibility"
-              >Saavutettavuusseloste</a
-            >
-          </li>
-          <li>
-            <a i18n="Footer-link@@footerLink9" routerLink="/privacy"
-              >Tietosuoja</a
-            >
-          </li>
+          <ng-container *ngIf="!myDataBeta">
+            <li>
+              <a i18n="Footer-link@@footerLink8" routerLink="/accessibility"
+                >Saavutettavuusseloste</a
+              >
+            </li>
+            <li>
+              <a i18n="Footer-link@@footerLink9" routerLink="/privacy"
+                >Tietosuoja</a
+              >
+            </li>
+          </ng-container>
+
+          <ng-container *ngIf="myDataBeta">
+            <li>
+              <a routerLink="/mydata/privacy">
+                Tietosuojailmoitus rekisteröidylle
+              </a>
+            </li>
+
+            <li>
+              <a routerLink="/mydata/terms">Käyttöehdot</a>
+            </li>
+          </ng-container>
         </ul>
       </div>
 
-      <div class="col-12 col-md-auto">
+      <div class="col-12 col-lg-auto">
         <div class="social">
           <h2 i18n="@@followUs" class="header">Seuraa meitä!</h2>
           <ul>
             <li>
               <a
                 href="https://twitter.com/tiedejatutkimus"
-                class="d-flex justify-content-center justify-content-md-start align-items-center"
+                class="d-flex justify-content-center justify-content-lg-start align-items-center"
                 target="_blank"
                 i18n-title="@@twitterTitleText"
                 title="Twitter -palvelun logo"
@@ -144,7 +179,6 @@
       i18n="Review-button@@reviewButton"
     >
       Anna palautetta!
-      <fa-icon icon="external-link-alt" *ngIf="myDataBeta"></fa-icon>
     </button>
     <button class="close" mat-raised-button (click)="close()">
       <fa-icon

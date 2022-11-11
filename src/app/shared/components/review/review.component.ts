@@ -48,6 +48,13 @@ export class ReviewComponent implements OnInit, OnDestroy {
     $localize`:@@fromIncorrectInformation:Virheellisestä tiedosta`,
     $localize`:@@otherFeedback:Muu palaute`,
   ];
+
+  locations = [
+    { key: 'personResults', label: 'Tutkijat -hakunäkymät portaalissa' },
+    { key: 'personDetails', label: 'Tutkijan profiilisivut portaalissa' },
+    { key: 'myDataTool', label: 'Tutkijan tiedot -työkalu' },
+  ];
+
   location: string;
   title: string;
   sendText = $localize`:@@r15:Tarkista ja lähetä`;
@@ -120,8 +127,8 @@ export class ReviewComponent implements OnInit, OnDestroy {
   }
 
   validate() {
-    this.location =
-      this.locationTarget === 'other' ? this.locationValue : this.getRoute();
+    // this.location =
+    //   this.locationTarget === 'other' ? this.locationValue : this.getRoute();
     this.reviewTargetError = !this.reviewTarget ? true : false;
     this.reviewContentError = !this.reviewContent ? true : false;
     this.emailError =

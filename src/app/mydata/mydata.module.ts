@@ -69,7 +69,7 @@ import { JoinDataSourcesPipe } from './pipes/join-data-sources.pipe';
 import { FindSelectedItemPipe } from './pipes/find-selected-item.pipe';
 import { HandleFetchedPublicationsPipe } from './pipes/handle-fetched-publications.pipe';
 import { SortPublicationsPipe } from './pipes/sort-publications.pipe';
-import { EulaComponent } from './components/eula/eula.component';
+import { MyDataTerms } from './components/mydata-terms/mydata-terms.component';
 import { DraftSummaryComponent } from './components/profile/draft-summary/draft-summary.component';
 import { ContactCardComponent } from './components/profile/cards/contact-card/contact-card.component';
 import { CollaborationCardComponent } from './components/profile/cards/collaboration-card/collaboration-card.component';
@@ -130,7 +130,7 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
     FindSelectedItemPipe,
     HandleFetchedPublicationsPipe,
     SortPublicationsPipe,
-    EulaComponent,
+    MyDataTerms,
     DraftSummaryComponent,
     ContactCardComponent,
     CollaborationCardComponent,

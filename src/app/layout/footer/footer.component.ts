@@ -99,17 +99,8 @@ export class FooterComponent implements OnInit {
   }
 
   openDialog(template) {
-    if (!this.myDataBeta) {
-      this.showDialog = true;
-      this.dialogTemplate = template;
-    } else {
-      if (isPlatformBrowser(this.platformId)) {
-        this.window.open(
-          'https://link.webropolsurveys.com/S/147262C4AB44ADC3',
-          '_blank'
-        );
-      }
-    }
+    this.showDialog = true;
+    this.dialogTemplate = template;
   }
 
   closeDialog() {
