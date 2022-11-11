@@ -64,6 +64,8 @@ import { TagPeerReviewedComponent } from './components/tags/tag-peer-reviewed/ta
 import { TrimLinkPrefixPipe } from './pipes/trim-link-prefix.pipe';
 import { JoinItemsPipe } from './pipes/join-items.pipe';
 
+import { OrcidComponent } from '../shared/components/orcid/orcid.component';
+
 @NgModule({
   declarations: [
     InfoComponent,
@@ -100,6 +102,7 @@ import { JoinItemsPipe } from './pipes/join-items.pipe';
     TagPeerReviewedComponent,
     TrimLinkPrefixPipe,
     JoinItemsPipe,
+    OrcidComponent,
   ],
   exports: [
     InfoComponent,
@@ -131,6 +134,7 @@ import { JoinItemsPipe } from './pipes/join-items.pipe';
     TagPeerReviewedComponent,
     TrimLinkPrefixPipe,
     JoinItemsPipe,
+    OrcidComponent,
   ],
   imports: [
     CommonModule,
