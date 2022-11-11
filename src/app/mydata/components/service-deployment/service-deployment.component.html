@@ -65,11 +65,22 @@
     </div>
 
     <!-- ORCID info -->
-    <div class="row py-5" *ngIf="step === 4 && userData">
-      <app-orcid-id-info
-        class="col text-center"
-        [userData]="userData"
-      ></app-orcid-id-info>
+    <div class="py-5" *ngIf="step === 4 && userData">
+      <div class="row justify-content-center">
+        <div class="col-auto">
+          <a [href]="userData.orcid" target="_blank">
+            <app-orcid></app-orcid>
+            <span class="ps-1 text-underline">{{ userData.orcid }}</span>
+            <fa-icon icon="external-link-alt"></fa-icon>
+          </a>
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-auto">
+          {{ userData.name }}
+        </div>
+      </div>
     </div>
   </ng-container>
 </main>

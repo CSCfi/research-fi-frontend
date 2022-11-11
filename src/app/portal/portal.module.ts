@@ -104,7 +104,6 @@ import { NewsComponent } from './components/news/news/news.component';
 import { InfrastructuresComponent } from './components/results/infrastructures/infrastructures.component';
 import { ShareComponent } from './components/single/share/share.component';
 import { SingleInfrastructureComponent } from './components/single/single-infrastructure/single-infrastructure.component';
-import { OrcidComponent } from './components/single/orcid/orcid.component';
 import { FiltersComponent } from './components/results/filters/filters.component';
 import { CounterPipe } from './pipes/counter.pipe';
 import { FilterItemPipe } from './pipes/filter-item.pipe';
@@ -196,7 +195,6 @@ import { CheckEmptyFieldsPipe } from './pipes/check-empty-fields.pipe';
     InfrastructuresComponent,
     ShareComponent,
     SingleInfrastructureComponent,
-    OrcidComponent,
     FiltersComponent,
     CounterPipe,
     FilterItemPipe,
