@@ -75,6 +75,19 @@
               <fa-icon icon="external-link-alt" *ngIf="myDataBeta"></fa-icon
             ></a>
           </li>
+
+          <ng-container *ngIf="myDataBeta">
+            <li>
+              <a routerLink="/mydata/terms">Käyttöehdot</a>
+            </li>
+
+            <li>
+              <a routerLink="/mydata/privacy">
+                Tietosuojailmoitus rekisteröidylle
+              </a>
+            </li>
+          </ng-container>
+
           <li>
             <a
               tabindex="0"

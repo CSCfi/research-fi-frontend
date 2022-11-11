@@ -202,67 +202,7 @@
           </div>
         </div>
 
-        <!-- EULA -->
-        <div class="row pb-3 d-flex justify-content-center">
-          <div class="col-12 px-0">
-            <button
-              class="row border border-primary rounded btn d-flex w-100"
-              (click)="
-                openDialog({
-                  title: termsForTool,
-                  template: termsTemplate,
-                  actions: basicDialogActions
-                })
-              "
-            >
-              <div class="col-auto">
-                <i class="pt-3 pb-2 h1 primary-color fas fa-file-alt"></i>
-              </div>
-              <div class="col align-self-center">
-                <span
-                  class="d-block align-self-center text-start"
-                  i18n="@@openTermsOfUse"
-                  >Avaa käyttöehdot</span
-                >
-              </div>
-            </button>
-          </div>
-        </div>
-
-        <div class="row d-flex justify-content-center">
-          <div class="col-12 px-0">
-            <button
-              class="row border border-primary rounded btn d-flex w-100"
-              (click)="
-                openDialog({
-                  title: processingOfPersonalData,
-                  template: personalDataHandlingTermsTemplate,
-                  actions: basicDialogActions
-                })
-              "
-            >
-              <div class="col-auto">
-                <i class="pt-3 pb-2 h1 primary-color fas fa-file-alt"></i>
-              </div>
-              <div class="col align-self-center">
-                <span
-                  class="d-block align-self-center text-start"
-                  i18n="@@openPersonalDataProcessingPrinciples"
-                  >Avaa henkilötietojen käsittelyperiaatteet</span
-                >
-              </div>
-            </button>
-          </div>
-        </div>
-
-        <ng-template #personalDataHandlingTermsTemplate>
-          <app-eula template="personalDataHandlingTermsTemplate"></app-eula>
-        </ng-template>
-
-        <ng-template #termsTemplate>
-          <app-eula template="termsTemplate"></app-eula>
-        </ng-template>
-
+        <!-- Reusable dialog -->
         <app-dialog
           *ngIf="showDialog"
           [template]="dialogTemplate"
