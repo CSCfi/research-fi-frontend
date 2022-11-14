@@ -77,7 +77,8 @@ export const TableColumns: TableColumn[] = [
     class: 'col-3',
     mobileSortLabel: 'Tiedejatutkimus.fi:ssä julkaistut ensin',
     mobileSortDirection: 'desc',
-    tooltip: 'Tooltip placeholder',
+    tooltip:
+      'Tieto voi olla asetettu julkiseksi Tiedejatutkimus.fi:ssä julkaistuun profiiliin tai piilotettu julkisesta profiilista.',
     showTooltipIcon: true,
   },
   {
