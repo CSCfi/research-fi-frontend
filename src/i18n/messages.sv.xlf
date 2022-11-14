@@ -4889,8 +4889,8 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         </context-group>
       </trans-unit>
       <trans-unit id="ur2" datatype="html">
-        <source>Palautteen aihe: <x id="INTERPOLATION" equiv-text="{{reviewTarget}}"/></source>
-        <target state="translated">Feedbackens ämne: <x id="INTERPOLATION" equiv-text="{{reviewTarget}}"/></target>
+        <source>Palautteen aihe:</source>
+        <target state="translated">Feedbackens ämne:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/layout/review/review.component.html</context>
           <context context-type="linenumber">105</context>
