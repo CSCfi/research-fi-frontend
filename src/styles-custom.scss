@@ -420,6 +420,25 @@ body mat-card.mat-card {
   animation-duration: 0.1s; /* Adjust this duration */
 }
 
+// Fix for toolip display current Bootstrap version
+.popover {
+  position: absolute;
+  top: 0;
+  left: 0 #{'/* rtl:ignore */'};
+}
+
+.popover-arrow {
+  position: absolute;
+}
+
+.tooltip {
+  position: absolute;
+}
+
+.tooltip-arrow {
+  position: absolute;
+}
+
 // Tags
 mat-basic-chip.tag {
   padding: 7px 12px;
