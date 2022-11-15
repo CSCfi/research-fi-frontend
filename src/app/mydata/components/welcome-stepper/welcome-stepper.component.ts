@@ -20,8 +20,8 @@ export class WelcomeStepperComponent implements OnInit {
   showModal = true;
   localizedTitle = 'Miten Tutkijan tiedot -palvelu toimii?';
   localizedDialogActions = [
-    { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'close' },
-    { label: $localize`:@@continue:Jatka`, primary: true, method: 'createProfile' },
+    { label: $localize`:@@closeInstructions:Sulje ohjeet`, primary: false, method: 'close' },
+    { label: $localize`:@@createProfile:Luo profiili`, primary: true, method: 'createProfile' },
   ];
   localizedStepCaptions = [$localize`:@@welcomeStepperStep1Caption:Aloita työkalun käyttö vahvalla Suomi.fi-tunnistautumisella sekä kirjautumalla ORCID-tunnuksillasi.`,
     $localize`:@@welcomeStepperStep2Caption:Kokoa julkisessa profiilissasi näytettävät tiedot.`,

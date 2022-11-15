@@ -5697,6 +5697,10 @@
         <source>Profiilisi on nyt löydettävissä Tiedejatutkimus.fi-sivustolla, josta mm. tiedotusvälineet, rahoittajat, tutkimusyhteistyöstä kiinnostuneet sekä muut tutkimustiedon etsijät voivat löytää profiilisi.</source>
         <target>Profiilisi on nyt löydettävissä Tiedejatutkimus.fi-sivustolla, josta mm. tiedotusvälineet, rahoittajat, tutkimusyhteistyöstä kiinnostuneet sekä muut tutkimustiedon etsijät voivat löytää profiilisi.</target>
       </trans-unit>
+      <trans-unit id="closeInstructions">
+        <source>Sulje ohjeet</source>
+        <target>Close instructions</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
