@@ -1,0 +1,51 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+
+<ng-template #welcomeTemplate>
+  <div class="welcome-stepper-wrap">
+  <mat-stepper orientation="vertical">
+    <mat-step [stepControl]="firstFormGroup">
+      <ng-template matStepLabel>{{this.localizedStepCaptions[0]}}</ng-template>
+      <ng-template matStepContent>
+        <p>{{this.localizedStepContent[0]}}</p>
+      </ng-template>
+    </mat-step>
+    <mat-step [stepControl]="firstFormGroup">
+      <ng-template matStepLabel>{{this.localizedStepCaptions[1]}}</ng-template>
+      <ng-template matStepContent>
+        <p>{{this.localizedStepContent[1]}}</p>
+        <p>{{this.localizedStepContent[2]}}</p>
+      </ng-template>
+    </mat-step>
+    <mat-step [stepControl]="firstFormGroup">
+      <ng-template matStepLabel>{{this.localizedStepCaptions[2]}}</ng-template>
+        <p>{{this.localizedStepContent[3]}}</p>
+        <p>{{this.localizedStepContent[4]}}</p>
+    </mat-step>
+    <mat-step [stepControl]="firstFormGroup">
+      <ng-template matStepLabel>{{this.localizedStepCaptions[3]}}</ng-template>
+      <p>{{this.localizedStepContent[5]}}</p>
+    </mat-step>
+    <mat-step [stepControl]="firstFormGroup">
+      <ng-template matStepLabel>{{this.localizedStepCaptions[4]}}</ng-template>
+      <p>{{this.localizedStepContent[6]}}</p>
+    </mat-step>
+    <mat-step completed="false">
+      <ng-template matStepLabel>{{this.localizedStepCaptions[5]}}</ng-template>
+      <p>{{this.localizedStepContent[7]}}</p>
+    </mat-step>
+  </mat-stepper>
+  </div>
+</ng-template>
+
+<app-dialog
+  *ngIf="showModal"
+  [template]="welcomeTemplate"
+  [title]="localizedTitle"
+  [actions]="localizedDialogActions"
+  (onActionClick)="doDialogAction($event)"
+>
+</app-dialog>

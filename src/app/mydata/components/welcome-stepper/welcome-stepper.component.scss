@@ -1,0 +1,20 @@
+.welcome-stepper-wrap {
+  min-height: 660px;
+  p {
+    margin-top: 1rem;
+  }
+  .dialog-title {
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+  }
+  .mat-step-text-label {
+    white-space: pre-line;
+    font-weight: bold;
+    font-size: 1rem;
+  }
+  .mat-vertical-content {
+    padding: 0 24px 0px 24px;
+  }
+}
+
+

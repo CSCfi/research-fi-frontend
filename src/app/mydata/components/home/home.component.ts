@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { UtilityService } from '@shared/services/utility.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -18,11 +19,13 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
 export class HomeComponent implements OnInit {
   title = $localize`:@@home:Etusivu`;
   locale: string;
+  showStepperModal = false;
 
   constructor(
     public oidcSecurityService: OidcSecurityService,
     private utilityService: UtilityService,
-    private appSettingsService: AppSettingsService
+    private appSettingsService: AppSettingsService,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -36,5 +39,16 @@ export class HomeComponent implements OnInit {
 
   login() {
     this.oidcSecurityService.authorize();
+  }
+
+  showWelcomeModal() {
+    this.showStepperModal = true;
+  }
+
+  handleWelcomeModalAction(event: string) {
+    this.showStepperModal = false;
+    if (event === 'createProfile') {
+      this.router.navigate(['mydata/service-deployment']);
+    }
   }
 }
