@@ -1,5 +1,5 @@
 .welcome-stepper-wrap {
-  min-height: 660px;
+  min-height: 690px;
   p {
     margin-top: 1rem;
   }
@@ -19,15 +19,17 @@
     margin: 25px 0px 20px 0px;
   }
   .stepper-icon-wrap {
-    height: 35px;
+    height: 44px;
     display: flex;
     flex-grow: 1;
     justify-content: center;
+    .font-wrap {
+      margin-right: 50px;
+      font-size: 34px;
+      color: #4546B2;
+    }
     img {
       margin-right: 50px;
-      &.eye {
-        max-height: 38px;
-      }
       &.orcid {
         min-width: 40px;
       }
