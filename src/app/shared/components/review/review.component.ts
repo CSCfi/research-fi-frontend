@@ -49,12 +49,6 @@ export class ReviewComponent implements OnInit, OnDestroy {
     $localize`:@@otherFeedback:Muu palaute`,
   ];
 
-  locations = [
-    { key: 'personResults', label: 'Tutkijat -hakunäkymät portaalissa' },
-    { key: 'personDetails', label: 'Tutkijan profiilisivut portaalissa' },
-    { key: 'myDataTool', label: 'Tutkijan tiedot -työkalu' },
-  ];
-
   location: string;
   title: string;
   sendText = $localize`:@@r15:Tarkista ja lähetä`;
