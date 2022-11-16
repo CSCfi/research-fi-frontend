@@ -98,6 +98,8 @@ import { DataSourcesTableComponent } from './components/profile/data-sources/dat
 import { DataSourcesFiltersComponent } from './components/profile/data-sources/data-sources-filters/data-sources-filters.component';
 import { DataSourcesSelectionActionsComponent } from './components/profile/data-sources/data-sources-selection-actions/data-sources-selection-actions.component';
 import { FindByKeyValuePipe } from './pipes/find-by-key-value.pipe';
+import { WelcomeStepperComponent } from './components/welcome-stepper/welcome-stepper.component';
+import { MatStepperModule } from '@angular/material/stepper';
 
 const matSnackbarDefaultConfig: MatSnackBarConfig = {
   verticalPosition: 'top',
@@ -159,6 +161,7 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
     DataSourcesFiltersComponent,
     DataSourcesSelectionActionsComponent,
     FindByKeyValuePipe,
+    WelcomeStepperComponent,
   ],
   imports: [
     CommonModule,
@@ -186,6 +189,7 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
     MatRippleModule,
     MatMenuModule,
     PortalModule,
+    MatStepperModule
   ],
   providers: [
     AuthGuard,
