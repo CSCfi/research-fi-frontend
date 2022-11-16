@@ -15,6 +15,29 @@
   .mat-vertical-content {
     padding: 0 24px 0px 24px;
   }
+  .stepper-icon-row {
+    margin: 25px 0px 20px 0px;
+  }
+  .stepper-icon-wrap {
+    height: 35px;
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    img {
+      margin-right: 50px;
+      &.eye {
+        max-height: 38px;
+      }
+      &.orcid {
+        min-width: 40px;
+      }
+    }
+  }
+
+  @media (max-width: 449px) {
+    font-size: 0.85rem;
+    .mat-step-text-label {
+      font-size: 0.85rem;
+    }
+  }
 }
-
-
