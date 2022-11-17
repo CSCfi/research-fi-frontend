@@ -79,7 +79,7 @@ export class ProfileAdapter implements Adapter<Profile> {
         fields: mapModel(this.fundingFieldsAdapter, data.activity),
       },
       {
-        id: GroupTypes.activititiesAndRewards,
+        id: GroupTypes.activitiesAndRewards,
         label: $localize`:@@activitiesAndAwards:Aktiviteetit ja palkinnot`,
         fields: mapModel(this.activitiesAndRewardsAdapter, data.activity),
       },

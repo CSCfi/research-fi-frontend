@@ -11,7 +11,8 @@
       group.id === groupTypes.dataset ||
       group.id === groupTypes.education ||
       group.id === groupTypes.affiliation ||
-      group.id === groupTypes.description
+      group.id === groupTypes.description ||
+      group.id === groupTypes.activitiesAndRewards
     "
   >
     <div class="row py-2 justify-content-between">
@@ -88,15 +89,15 @@
           >
           </app-summary-portal-items>
 
-          <!-- <app-summary-portal-items
+          <app-summary-portal-items
             *ngSwitchCase="groupTypes.activitiesAndRewards"
             [data]="field"
             [fieldType]="fieldTypes.activityActivitesAndRewards"
-            sortField="startYear"
-            showMoreLabel="hankkeet"
-            i18n-showMoreLabel="@@fundings"
+            sortField="name"
+            showMoreLabel="aktiviteetit ja palkinnot"
+            i18n-showMoreLabel="@@activitesAndRewards"
           >
-          </app-summary-portal-items> -->
+          </app-summary-portal-items>
 
           <div class="summary-panel-wrapper" *ngSwitchDefault>
             <div class="col px-3 fw-bold py-2" *ngIf="field | hasSelectedItems">

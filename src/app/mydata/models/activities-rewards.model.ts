@@ -7,7 +7,7 @@
 
 import { Injectable } from '@angular/core';
 import { MydataUtilityService } from '@mydata/services/mydata-utility.service';
-import { AppSettingsService } from '@shared/services/app-settings.service';
+import { ModelUtilsService } from '@shared/services/model-util.service';
 import { Adapter } from './adapter.model';
 
 export class ActivitiesAndRewards {
@@ -22,16 +22,14 @@ export class ActivitiesAndRewardsAdapter
 {
   constructor(
     private mydataUtils: MydataUtilityService,
-    private appSettingsService: AppSettingsService
+    private utils: ModelUtilsService
   ) {}
 
   adapt(item: any): ActivitiesAndRewards {
-    console.log('item: ', item.activitiesAndRewards);
-
-    const locale = this.appSettingsService.capitalizedLocale;
-
     item.activitiesAndRewards = item.activitiesAndRewards.map((el) => ({
-      name: el['name' + locale],
+      ...el,
+      name: this.utils.checkTranslation('name', el),
+      description: this.utils.checkTranslation('description', el),
     }));
 
     return new ActivitiesAndRewards(
