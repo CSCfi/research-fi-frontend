@@ -7,7 +7,7 @@
 
 import { Injectable, Inject, LOCALE_ID } from '@angular/core';
 import { Adapter } from '../adapter.model';
-import { ModelUtils } from '../utils';
+import { ModelUtilsService } from '@shared/services/model-util.service';
 import {
   PersonAffiliations,
   PersonAffiliationAdapter,
@@ -43,7 +43,7 @@ export class Person {
 })
 export class PersonAdapter implements Adapter<Person> {
   constructor(
-    private utils: ModelUtils,
+    private utils: ModelUtilsService,
     private affiliationAdapter: PersonAffiliationAdapter,
     private contactAdapter: PersonContactAdapter,
     private publicationAdapter: PersonPublicationAdapter,

@@ -7,7 +7,7 @@
 
 import { Adapter } from '../adapter.model';
 import { Injectable } from '@angular/core';
-import { ModelUtils } from '../utils';
+import { ModelUtilsService } from '@shared/services/model-util.service';
 
 export class PersonPublication {
   constructor(
@@ -24,7 +24,7 @@ export class PersonPublication {
   providedIn: 'root',
 })
 export class PersonPublicationAdapter implements Adapter<PersonPublication> {
-  constructor(private utils: ModelUtils) {}
+  constructor(private utils: ModelUtilsService) {}
 
   adapt(publication: any): PersonPublication {
     return new PersonPublication(

@@ -1,17 +1,17 @@
-// # This file is part of the research.fi API service
-// #
-// # Copyright 2019 Ministry of Education and Culture, Finland
-// #
-// # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
-// # :license: MIT
+// This file is part of the research.fi API service
+//
+// Copyright 2019 Ministry of Education and Culture, Finland
+//
+// :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+// :license: MIT
 
-import { Injectable, Inject, LOCALE_ID } from '@angular/core';
-import { UtilityService } from '../../shared/services/utility.service';
+import { Inject, Injectable, LOCALE_ID } from '@angular/core';
+import { UtilityService } from './utility.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ModelUtils {
+export class ModelUtilsService {
   constructor(@Inject(LOCALE_ID) protected localeId: string) {}
 
   // Point of language test is to populate data if no content available in current locale.

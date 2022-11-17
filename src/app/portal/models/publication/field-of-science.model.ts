@@ -7,7 +7,7 @@
 
 import { Injectable } from '@angular/core';
 import { Adapter } from '../adapter.model';
-import { ModelUtils } from '../utils';
+import { ModelUtilsService } from '@shared/services/model-util.service';
 
 export class FieldOfScience {
   constructor(public id: number, public name) {}
@@ -17,7 +17,7 @@ export class FieldOfScience {
   providedIn: 'root',
 })
 export class FieldOfScienceAdapter implements Adapter<FieldOfScience> {
-  constructor(private utils: ModelUtils) {}
+  constructor(private utils: ModelUtilsService) {}
   adapt(item: any): FieldOfScience {
     return new FieldOfScience(
       item.fieldIdScience,

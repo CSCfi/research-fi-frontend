@@ -7,7 +7,7 @@
 
 import { Adapter } from '../adapter.model';
 import { Injectable } from '@angular/core';
-import { ModelUtils } from '../utils';
+import { ModelUtilsService } from '@shared/services/model-util.service';
 
 export class RelatedFunding {
   constructor(
@@ -26,7 +26,7 @@ export class RelatedFunding {
   providedIn: 'root',
 })
 export class RelatedFundingAdapter implements Adapter<RelatedFunding> {
-  constructor(private utils: ModelUtils) {}
+  constructor(private utils: ModelUtilsService) {}
   adapt(item: any): RelatedFunding {
     return new RelatedFunding(
       this.utils.checkTranslation('typeOfFundingName', item),

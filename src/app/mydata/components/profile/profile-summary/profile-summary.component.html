@@ -88,6 +88,16 @@
           >
           </app-summary-portal-items>
 
+          <!-- <app-summary-portal-items
+            *ngSwitchCase="groupTypes.activitiesAndRewards"
+            [data]="field"
+            [fieldType]="fieldTypes.activityActivitesAndRewards"
+            sortField="startYear"
+            showMoreLabel="hankkeet"
+            i18n-showMoreLabel="@@fundings"
+          >
+          </app-summary-portal-items> -->
+
           <div class="summary-panel-wrapper" *ngSwitchDefault>
             <div class="col px-3 fw-bold py-2" *ngIf="field | hasSelectedItems">
               {{ field.label }}

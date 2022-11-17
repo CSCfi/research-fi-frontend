@@ -13,12 +13,12 @@ export const GroupTypes = {
   publication: 'publication',
   dataset: 'dataset',
   funding: 'funding',
-  activity: 'activity',
+  activititiesAndRewards: 'activititiesAndRewards',
 };
 
 export const PortalGroups = [
   GroupTypes.publication,
   GroupTypes.dataset,
   GroupTypes.funding,
-  GroupTypes.activity,
+  GroupTypes.activititiesAndRewards,
 ];
