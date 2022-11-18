@@ -167,6 +167,8 @@ export class DataSourcesSelectionActionsComponent implements OnInit, OnDestroy {
       .subscribe((res: HttpResponse<any>) => {
         if (res.body.success) {
           this.onPatchSuccess.emit(filteredItems);
+          // Enable hide profile button in account settings section, if it has been disabled
+          sessionStorage.removeItem('profileHidden');
           this.snackbarService.showPatchMessage('success');
         } else {
           this.snackbarService.showPatchMessage('error');

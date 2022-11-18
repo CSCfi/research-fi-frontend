@@ -88,7 +88,13 @@ export class AppSettingsService {
         label: $localize`:@@publicProfile:Julkinen profiili`,
         link: '/mydata/profile',
       },
-      { label: 'Tiedot ja tietolähteet', link: '/mydata/data-sources' },
+      { label: 'Tiedot ja tietolähteet',
+        link: '/mydata/data-sources'
+      },
+      {
+        label: $localize`:@@accountSettings:Tiliasetukset`,
+        link: '/mydata/account-settings',
+      },
       {
         label: $localize`:@@logIn:Kirjaudu sisään`,
         link: '',

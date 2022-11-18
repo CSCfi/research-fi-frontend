@@ -125,6 +125,11 @@ export class ProfileService {
     return this.http.delete(this.apiUrl + '/userprofile/', this.httpOptions);
   }
 
+  hideProfile() {
+    this.updateTokenInHttpAuthHeader();
+    return this.http.get(this.apiUrl + '/settings/hideprofile', this.httpOptions);
+  }
+
   /*
    * Keycloak account is created after succesful Suomi.fi authentication.
    * Delete this account if user cancels service deployment.

@@ -100,6 +100,7 @@ import { DataSourcesSelectionActionsComponent } from './components/profile/data-
 import { FindByKeyValuePipe } from './pipes/find-by-key-value.pipe';
 import { WelcomeStepperComponent } from './components/welcome-stepper/welcome-stepper.component';
 import { MatStepperModule } from '@angular/material/stepper';
+import { AccountSettingsComponent } from './components/account-settings/account-settings.component';
 
 const matSnackbarDefaultConfig: MatSnackBarConfig = {
   verticalPosition: 'top',
@@ -162,6 +163,7 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
     DataSourcesSelectionActionsComponent,
     FindByKeyValuePipe,
     WelcomeStepperComponent,
+    AccountSettingsComponent,
   ],
   imports: [
     CommonModule,
