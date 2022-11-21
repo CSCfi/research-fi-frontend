@@ -5379,6 +5379,34 @@
                       uudestaan.</source>
         <target>We encounterer a problem when deleting profile. Try again in few minutes.</target>
       </trans-unit>
+      <trans-unit id="hideProfile">
+        <source>Piilota profiili</source>
+        <target>Hide profile</target>
+      </trans-unit>
+      <trans-unit id="showProfile">
+        <source>Näytä profiili</source>
+        <target>Show profile</target>
+      </trans-unit>
+      <trans-unit id="enableOrcidDataFetch">
+        <source>Ota käyttöön</source>
+        <target>Enable</target>
+      </trans-unit>
+      <trans-unit id="disableOrcidDataFetch">
+        <source>Poista käytöstä</source>
+        <target>Disable</target>
+      </trans-unit>
+      <trans-unit id="hideProfileCaption">
+        <source>Julkisen profiilin piilottaminen</source>
+        <target>Hide public profile</target>
+      </trans-unit>
+      <trans-unit id="orcidAutoUpdateCaption">
+        <source>ORCID-tietojen automaattinen päivittyminen</source>
+        <target>Automatic update of ORCID data</target>
+      </trans-unit>
+      <trans-unit id="removeProfileCaption">
+        <source>Profiilin poistaminen</source>
+        <target>Profile removal</target>
+      </trans-unit>
       <trans-unit id="youHaveNotSelectedAnyPublicData">
         <source>Et ole vielä valinnut julkisesti näytettäviä tietoja</source>
         <target>You have not yet selected the information to be displayed publicly</target>
@@ -5466,6 +5494,10 @@
       <trans-unit id="profilePublishedToast">
         <source>Profiili julkaistu. Tiedot näkyvät muutaman minuutin kuluttua tiedejatutkimus.fi -palvelussa.</source>
         <target>Profile published. The information will be displayed in the Research.fi service in a few minutes.</target>
+      </trans-unit>
+      <trans-unit id="profileHiddenToast">
+        <source>Profiilin piilottaminen onnistui. Profiilisi piilotetaan Tiedejatutkimus.fi -palvelusta muutaman minuutin kuluttua.</source>
+        <target>Profile has been hidden. Your profile will be hidden from Research.fi service in a few minutes.</target>
       </trans-unit>
       <trans-unit id="dataSavingError">
         <source>Virhe tiedon tallennuksessa</source>
@@ -5640,7 +5672,6 @@
         <source>Sinulla on julkaisemattomia muutoksia. Jos kirjaudut ulos, tiedot menetetään.</source>
         <target>You have unpublished changes. If you log out, the changes will be lost.</target>
       </trans-unit>
-
       <trans-unit id="welcomeStepperStep1Caption">
         <source>Aloita työkalun käyttö vahvalla Suomi.fi-tunnistautumisella sekä kirjautumalla ORCID-tunnuksillasi.</source>
         <target>Aloita työkalun käyttö vahvalla Suomi.fi-tunnistautumisella sekä kirjautumalla ORCID-tunnuksillasi.</target>
@@ -5700,6 +5731,38 @@
       <trans-unit id="closeInstructions">
         <source>Sulje ohjeet</source>
         <target>Close instructions</target>
+      </trans-unit>
+      <trans-unit id="accountSettings">
+        <source>Tiliasetukset</source>
+        <target>Account settings</target>
+      </trans-unit>
+      <trans-unit id="accountSettingsOrcidInfo">
+        <source>Tämä asetus lisää jatkossa ORCID-palveluun lisäämäsi tai kotiorganisaatiossasi ORCID-tunnisteeseesi liitetyt uudet tiedot automaattisesti julkiseen profiiliisi Tiedejatutkimus.fi-palvelussa.</source>
+        <target>Tämä asetus lisää jatkossa ORCID-palveluun lisäämäsi tai kotiorganisaatiossasi ORCID-tunnisteeseesi liitetyt uudet tiedot automaattisesti julkiseen profiiliisi Tiedejatutkimus.fi-palvelussa.</target>
+      </trans-unit>
+      <trans-unit id="accountSettingsOrcidModalTextEnable">
+        <source>ORCID-palveluun lisäämäsi tai kotiorganisaatiossasi ORCID-tunnisteeseesi liitetyt uudet tiedot päivittyvät jatkossa automaattisesti julkiseen profiiliisi Tiedejatutkimus.fi-palvelussa.</source>
+        <target>ORCID-palveluun lisäämäsi tai kotiorganisaatiossasi ORCID-tunnisteeseesi liitetyt uudet tiedot päivittyvät jatkossa automaattisesti julkiseen profiiliisi Tiedejatutkimus.fi-palvelussa.</target>
+      </trans-unit>
+      <trans-unit id="accountSettingsOrcidModalTextDisable">
+        <source>ORCID-palveluun lisäämäsi tai kotiorganisaatiossasi ORCID-tunnisteeseesi liitetyt uudet tiedot eivät enää päivity automaattisesti julkiseen profiiliisi Tiedejatutkimus.fi-palvelussa.</source>
+        <target>ORCID-palveluun lisäämäsi tai kotiorganisaatiossasi ORCID-tunnisteeseesi liitetyt uudet tiedot eivät enää päivity automaattisesti julkiseen profiiliisi Tiedejatutkimus.fi-palvelussa.</target>
+      </trans-unit>
+      <trans-unit id="accountSettingsProfileRemovalInfo">
+        <source>Profiilin poistaminen tarkoittaa sitä, että julkinen profiilisi poistetaan ja ORCIDista tuomasi tiedot poistetaan. Myös kirjautumisen yhteydessä profiilityökaluun tallennetut tiedot poistetaan.</source>
+        <target>Profiilin poistaminen tarkoittaa sitä, että julkinen profiilisi poistetaan ja ORCIDista tuomasi tiedot poistetaan. Myös kirjautumisen yhteydessä profiilityökaluun tallennetut tiedot poistetaan.</target>
+      </trans-unit>
+      <trans-unit id="accountSettingsProfileRemovalModalText">
+        <source>Profiilin poistaminen tarkoittaa sitä, että julkinen profiilisi poistetaan ja ORCIDista tuomasi tiedot poistetaan. Myös kirjautumisen yhteydessä profiilityökaluun tallennetut tiedot poistetaan.</source>
+        <target>Profiilin poistaminen tarkoittaa sitä, että julkinen profiilisi poistetaan ja ORCIDista tuomasi tiedot poistetaan. Myös kirjautumisen yhteydessä profiilityökaluun tallennetut tiedot poistetaan.</target>
+      </trans-unit>
+      <trans-unit id="accountSettingsHideAccountInfo">
+        <source>Julkisen profiilin piilottaminen tarkoittaa sitä, että profiilisi piilotetaan Tiedejatutkimus.fi-portaalista. Voit edelleen kirjautua työkaluun ja julkaista profiilisi uudestaan.</source>
+        <target>Julkisen profiilin piilottaminen tarkoittaa sitä, että profiilisi piilotetaan Tiedejatutkimus.fi-portaalista. Voit edelleen kirjautua työkaluun ja julkaista profiilisi uudestaan.</target>
+      </trans-unit>
+      <trans-unit id="accountSettingsHideAccountModalText">
+        <source>Julkisen profiilin piilottaminen tarkoittaa sitä, että profiilisi piilotetaan Tiedejatutkimus.fi-portaalista. Voit edelleen kirjautua työkaluun ja julkaista profiilisi uudestaan.</source>
+        <target>Julkisen profiilin piilottaminen tarkoittaa sitä, että profiilisi piilotetaan Tiedejatutkimus.fi-portaalista. Voit edelleen kirjautua työkaluun ja julkaista profiilisi uudestaan.</target>
       </trans-unit>
     </body>
   </file>
