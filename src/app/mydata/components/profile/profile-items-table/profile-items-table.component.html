@@ -2,33 +2,35 @@
  Copyright 2019 Ministry of Education and Culture, Finland
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
+
 <mat-table
-  *ngIf="currentTable"
   class="custom-table"
   matSort
-  (matSortChange)="sortData($event)"
-  [dataSource]="data"
-  [matSortActive]="activeSort?.active"
-  [matSortDirection]="
-    sortSettings ? sortSettings.publicationYear.order : 'desc'
-  "
+  (matSortChange)="sort($event)"
+  [dataSource]="tableRows.slice(currentPage - 1, currentPageSize * currentPage)"
+  [matSortActive]="'year'"
+  [matSortDirection]="'desc'"
 >
+  <!-- Selection column -->
   <ng-container matColumnDef="selection">
-    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+    <!-- Select all -->
+    <mat-header-cell *matHeaderCellDef>
+      <mat-checkbox
+        (change)="toggleAll($event)"
+        [checked]="allSelected"
+      ></mat-checkbox>
+    </mat-header-cell>
+
+    <!-- Row select -->
     <mat-cell *matCellDef="let item; let i = index">
       <mat-checkbox
-        [checked]="
-          selectedItemsIdArray.indexOf(item[currentTable.idField]) > -1
-        "
-        [disabled]="
-          selectedItemsIdArray.indexOf(item[currentTable.idField]) > -1
-        "
-        (change)="toggleItem($event, i)"
+        (change)="toggleItem($event, item)"
+        [checked]="item.itemMeta?.show"
       ></mat-checkbox>
     </mat-cell>
   </ng-container>
 
-  <ng-container *ngFor="let column of currentTable.columns">
+  <ng-container *ngFor="let column of columns">
     <ng-container [matColumnDef]="column.id">
       <mat-header-cell
         *matHeaderCellDef
@@ -38,27 +40,18 @@
         {{ column.label }}
 
         <!-- Sort indicators -->
-        <div class="sort-indicator">
+        <div class="sort-indicator" *ngIf="!column.sortDisabled">
           <fa-icon
             [icon]="faSort"
-            *ngIf="
-              activeSort?.active !== column.id;
-              else activeSortIndicatorTemplate
-            "
+            *ngIf="activeSort !== column.id; else activeSortIndicatorTemplate"
           >
           </fa-icon>
 
           <ng-template #activeSortIndicatorTemplate>
-            <!-- <fa-icon [icon]="faSort" *ngIf="activeSort.direction === ''">
-            </fa-icon> -->
-
-            <fa-icon [icon]="faSortUp" *ngIf="activeSort.direction === 'asc'">
+            <fa-icon [icon]="faSortUp" *ngIf="sortDirection === 'asc'">
             </fa-icon>
 
-            <fa-icon
-              [icon]="faSortDown"
-              *ngIf="activeSort.direction === 'desc'"
-            >
+            <fa-icon [icon]="faSortDown" *ngIf="sortDirection === 'desc'">
             </fa-icon>
           </ng-template>
         </div>
@@ -67,6 +60,7 @@
       <mat-cell
         *matCellDef="let item; let i = index"
         [style]="'flex: 0 0 ' + column.width"
+        [class.expandable-cell]="column.additionalFields"
       >
         <div class="row w-100">
           <div
@@ -74,9 +68,25 @@
               column.ellipsis && showMoreArray.indexOf(i) === -1
             "
             class="col px-0"
+            *ngIf="column.field !== 'source'; else sourceCellTemplate"
           >
             {{ item[column.field] }}
           </div>
+
+          <ng-template #sourceCellTemplate>
+            <div class="col px-0" *ngFor="let source of item.dataSources">
+              {{ source.organization.nameFi }}
+            </div>
+          </ng-template>
+
+          <!-- Delete row button -->
+          <app-secondary-button
+            *ngIf="(item.itemMeta | isPortalItem) && column.additionalFields"
+            class="col-auto pe-0"
+            i18n-content="@@remove"
+            content="Poista"
+            (click)="removeItem(item)"
+          ></app-secondary-button>
         </div>
 
         <ng-container *ngIf="column.additionalFields">
@@ -88,6 +98,14 @@
               "
               *ngIf="item | getValue: additionalField.field"
             >
+              <!-- Optional label for additional field -->
+              <div
+                class="col-12 px-0 fw-bold"
+                *ngIf="item[additionalField.field].length"
+              >
+                {{ additionalField.label }}
+              </div>
+
               <!-- Special case for dataset author. Use component from portal / single-dataset -->
               <div
                 class="col px-0"
@@ -107,6 +125,7 @@
                 </div>
               </div>
 
+              <!-- Expandable content -->
               <ng-template #additionalFieldTemplate>
                 <div
                   [class.text-overflow-ellipsis]="
@@ -149,8 +168,8 @@
     </mat-cell>
   </ng-container>
 
-  <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: columns"></mat-row>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 </mat-table>
 
 <div class="row">
@@ -160,10 +179,10 @@
   </div>
   <div class="col px-0">
     <mat-paginator
-      [length]="total"
-      [pageSize]="10"
+      [length]="tableRows.length"
+      [pageSize]="currentPageSize"
       [pageSizeOptions]="[5, 10, 25, 100]"
-      (page)="navigate($event)"
+      (page)="paginate($event)"
     >
     </mat-paginator>
   </div>

@@ -80,7 +80,8 @@
 >
   <!-- Selected items indicator -->
   <div class="col" *ngIf="data.selectedItemsCount >= 0" aria-live="polite">
-    {{ data.selectedItemsCount }} valittu
+    {{ data.selectedItemsCount }}
+    <ng-container i18n="@@selected">valittu</ng-container>
   </div>
   <!-- Some actions are spread into two columns -->
   <ng-container *ngIf="data.spreadActions; else singleColumnActions">

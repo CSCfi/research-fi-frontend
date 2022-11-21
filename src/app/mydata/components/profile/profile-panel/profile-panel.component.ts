@@ -28,7 +28,6 @@ import { ProfileService } from '@mydata/services/profile.service';
 import { cloneDeep } from 'lodash-es';
 import { GroupTypes } from '@mydata/constants/groupTypes';
 import { CommonStrings } from '@mydata/constants/strings';
-import { SearchPortalService } from '@mydata/services/search-portal.service';
 import { DatasetsService } from '@mydata/services/datasets.service';
 import { FundingsService } from '@mydata/services/fundings.service';
 
@@ -81,7 +80,6 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     private publicationsService: PublicationsService,
     private datasetsService: DatasetsService,
     private fundingsService: FundingsService,
-    private searchPortalService: SearchPortalService,
     private profileService: ProfileService,
     private patchService: PatchService,
     private cdr: ChangeDetectorRef

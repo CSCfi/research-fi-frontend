@@ -62,6 +62,22 @@ export class DatasetsService {
   }
 
   confirmPayload() {
+    // Remove entry if user adds an item from portal search and unchecks it in editor table afterwards
+    this.datasetPayload.forEach((item) => {
+      if (
+        this.confirmedPayload.find(
+          (confirmedItem) => confirmedItem.id === item.id
+        )
+      ) {
+        this.confirmedPayload = this.confirmedPayload.filter(
+          (confirmedItem) => confirmedItem.id !== item.id
+        );
+        this.datasetPayload = this.datasetPayload.filter(
+          (payloadItem) => payloadItem.id !== item.id
+        );
+      }
+    });
+
     const merged = this.confirmedPayload.concat(this.datasetPayload);
     this.confirmedPayload = merged;
     this.confirmedPayloadSource.next(merged);

@@ -21,6 +21,7 @@ import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { SearchPortalService } from '@mydata/services/search-portal.service';
 import { GroupTypes } from '@mydata/constants/groupTypes';
 import { Subscription } from 'rxjs';
+import { Sort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-search-portal',
@@ -30,6 +31,8 @@ import { Subscription } from 'rxjs';
 })
 export class SearchPortalComponent implements OnInit, OnDestroy {
   @Input() data: any;
+  @Input() columns: any;
+
   @Output() onAddItems = new EventEmitter<any>();
 
   results: any;
@@ -67,6 +70,8 @@ export class SearchPortalComponent implements OnInit, OnDestroy {
 
   itemsInProfile: any[];
 
+  infoText: string;
+
   constructor(
     private searchPortalService: SearchPortalService,
     private appSettingsService: AppSettingsService
@@ -89,16 +94,19 @@ export class SearchPortalComponent implements OnInit, OnDestroy {
       case GroupTypes.publication: {
         this.searchHelpText = this.searchForPublicationWithName;
         this.searchPlaceholder = this.publicationSearchPlaceholder;
+        this.infoText = $localize`:@@searchForOtherPublicationsFromPortal:Hae muita julkaisuja Tiedejatutkimus.fi:stä julkaisun tai tekijän nimellä ja liitä ne profiiliisi.`;
         break;
       }
       case GroupTypes.dataset: {
         this.searchHelpText = this.searchForDatasetsWithName;
         this.searchPlaceholder = this.datasetSearchPlaceholder;
+        this.infoText = $localize`:@@searchForOtherDatasetsFromPortal:Hae muita tutkimusaineistoja Tiedejatutkimus.fi:stä aineiston tai tekijän nimellä ja liitä ne profiiliisi.`;
         break;
       }
       case GroupTypes.funding: {
         this.searchHelpText = this.searchForFundingsWithName;
         this.searchPlaceholder = this.fundingSearchPlaceholder;
+        this.infoText = $localize`:@@searchForOtherFundingssFromPortal:Hae muita hankkeita Tiedejatutkimus.fi:stä hankkeen sisältämien tietojen perusteella ja liitä ne profiiliisi.`;
         break;
       }
     }
@@ -129,9 +137,6 @@ export class SearchPortalComponent implements OnInit, OnDestroy {
     this.currentSelection = arr;
 
     this.onAddItems.emit(arr);
-
-    if (this.total > 0 && arr.length > 0) {
-    }
   }
 
   changePage(pageSettings: object) {
@@ -139,8 +144,11 @@ export class SearchPortalComponent implements OnInit, OnDestroy {
     this.search(this.currentTerm);
   }
 
-  sort(sortSettings) {
-    this.searchPortalService.updateSort(this.data.groupId, sortSettings);
+  sort(sortSettings: Sort) {
+    sortSettings.direction === ''
+      ? this.searchPortalService.resetSort()
+      : this.searchPortalService.updateSort(this.data.id, sortSettings);
+
     this.search(this.currentTerm);
   }
 

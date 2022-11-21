@@ -26,4 +26,18 @@
       color: #fff;
     }
   }
+
+  .custom-table {
+    mat-header-row {
+      background: mat-color($primary) !important;
+
+      .mat-checkbox-inner-container {
+        background: white;
+      }
+    }
+
+    .mat-header-cell {
+      color: white;
+    }
+  }
 }
