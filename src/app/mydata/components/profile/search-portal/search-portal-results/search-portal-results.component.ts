@@ -17,6 +17,13 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { Sort } from '@angular/material/sort';
+import {
+  faSort,
+  faSortDown,
+  faSortUp,
+} from '@fortawesome/free-solid-svg-icons';
+import { DatasetColumns, PublicationColumns } from '@mydata/constants';
 import { SearchPortalService } from '@mydata/services/search-portal.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
@@ -35,6 +42,7 @@ export class SearchPortalResultsComponent
   @Input() total: number;
   @Input() itemsInProfile: any;
   @Input() selectedItems: any;
+
   @Output() onItemToggle = new EventEmitter<any>();
   @Output() onPageChange = new EventEmitter<any>();
   @Output() onSortToggle = new EventEmitter<any>();
@@ -45,6 +53,10 @@ export class SearchPortalResultsComponent
   currentPage = 1;
   currentPageSize = 10;
   pageCount: number;
+
+  faSort = faSort;
+  faSortDown = faSortDown;
+  faSortUp = faSortUp;
 
   columns: string[] = ['selection', 'year', 'name', 'show-more'];
 
@@ -60,57 +72,16 @@ export class SearchPortalResultsComponent
 
   publicationsTable = {
     idField: 'id',
-    defaultSort: 'year',
-    columns: [
-      {
-        id: 'year',
-        label: $localize`:@@year:Vuosi`,
-        field: 'publicationYear',
-      },
-      {
-        id: 'name',
-        ellipsis: true,
-        label: $localize`:@@name:Nimi`,
-        field: 'title',
-        additionalFields: [
-          { field: 'authors', ellipsis: true },
-          { field: 'parentPublicationName', hidden: true },
-          { field: 'doi', hidden: true },
-        ],
-      },
-    ],
+    columns: PublicationColumns.filter((column) => column.id !== 'source'),
   };
 
   datasetsTable = {
     idField: 'id',
-    defaultSort: 'year',
-    columns: [
-      {
-        id: 'year',
-        label: $localize`:@@year:Vuosi`,
-        field: 'year',
-      },
-      {
-        id: 'name',
-        ellipsis: true,
-        label: $localize`:@@name:Nimi`,
-        field: 'name',
-        additionalFields: [
-          {
-            field: 'description',
-            ellipsis: true,
-            cutContent: true,
-          },
-          { field: 'authors', useComponent: true, hidden: true },
-          { field: 'urn', hidden: true },
-        ],
-      },
-    ],
+    columns: DatasetColumns.filter((column) => column.id !== 'source'),
   };
 
   fundingsTable = {
     idField: 'id',
-    defaultSort: 'year',
     columns: [
       {
         id: 'year',
@@ -148,6 +119,7 @@ export class SearchPortalResultsComponent
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   termSub: Subscription;
+  activeSort: Sort;
 
   constructor(
     private searchPortalService: SearchPortalService,
@@ -157,6 +129,9 @@ export class SearchPortalResultsComponent
   }
 
   ngOnInit() {
+    // Set default sort (all groups default to year field at this point)
+    this.activeSort = { active: 'year', direction: 'desc' };
+
     // Set table by groupId
     switch (this.groupId) {
       case 'publication': {
@@ -238,8 +213,14 @@ export class SearchPortalResultsComponent
     this.onItemToggle.emit(arr);
   }
 
-  sortData(sortSettings) {
-    this.onSortToggle.emit(sortSettings);
+  sortData(sort: Sort) {
+    if (!sort.active || sort.direction === '') {
+      this.activeSort = null;
+      return;
+    }
+
+    this.activeSort = sort;
+    this.onSortToggle.emit(sort);
   }
 
   navigate(event) {

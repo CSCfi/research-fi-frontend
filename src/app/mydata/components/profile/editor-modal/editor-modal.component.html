@@ -39,6 +39,7 @@
     ></app-profile-panel>
   </ng-container>
 
+  <!-- Tabbed layout for groups that leverage search from portal -functionality -->
   <ng-template #tabTemplate>
     <mat-tab-group
       mat-align-tabs="start"
@@ -46,27 +47,60 @@
       [(selectedIndex)]="currentTabIndex"
       (selectedTabChange)="onTabChange($event)"
     >
-      <mat-tab label="Valitse julkaisut">
-        <div class="pt-4">
-          <app-profile-panel
-            [data]="editorData"
-            (onSingleItemToggle)="checkAllSelected()"
-          ></app-profile-panel>
+      <mat-tab [label]="selectItemsTabLabel">
+        <div class="row tab-info background-light pt-3 my-4">
+          <div class="col-auto">
+            <fa-icon class="info-icon big-icon" icon="info-circle"></fa-icon>
+          </div>
+          <div class="col ps-0">
+            <p class="fw-bold" i18n="@@selectInformationToDisplayInProfile">
+              Valitse profiilissasi näytettävät tiedot
+            </p>
+
+            <p>
+              {{ tabInfoText }}
+            </p>
+
+            <p *ngIf="editorData.fields[0].items.length">
+              {{ chooseItemsText }}
+            </p>
+          </div>
         </div>
+
+        <app-profile-items-table
+          [columns]="tableColumns"
+          [data]="editorData"
+          (onSingleItemToggle)="checkAllSelected()"
+          *ngIf="
+            editorData.fields[0].items.length && currentTabIndex === 0;
+            else noOrcidItemsTemplate
+          "
+        >
+        </app-profile-items-table>
+
+        <ng-template #noOrcidItemsTemplate>
+          <p class="fw-bold">
+            <ng-container i18n="@@no">Ei</ng-container> ORCID
+            {{ addFromPortalTabString.toLowerCase() }}
+          </p></ng-template
+        >
       </mat-tab>
 
       <mat-tab>
         <ng-template mat-tab-label>
           <fa-icon [icon]="faSearch" class="pe-3"></fa-icon>
-          Hae muita {{ addFromPortalTabString }}
+          <ng-container i18n="@@searchForOther">Hae muita</ng-container>
+          {{ addFromPortalTabString.toLowerCase() }}
         </ng-template>
-        <div class="pt-4" *ngIf="currentTabIndex === 1">
+
+        <ng-container *ngIf="currentTabIndex === 1">
           <app-search-portal
             [data]="editorData"
             (onAddItems)="handleSelection($event)"
+            [columns]="tableColumns"
           >
           </app-search-portal>
-        </div>
+        </ng-container>
       </mat-tab>
     </mat-tab-group>
   </ng-template>

@@ -25,6 +25,9 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { CommonStrings } from '@mydata/constants/strings';
+import { PublicationColumns, DatasetColumns } from '@mydata/constants';
+import { EditorModalColumn } from 'src/types';
+import { SearchPortalService } from '@mydata/services/search-portal.service';
 
 @Component({
   selector: 'app-editor-modal',
@@ -71,16 +74,23 @@ export class EditorModalComponent implements OnInit {
 
   faSearch = faSearch;
 
-  currentTabIndex: number;
+  currentTabIndex: number = 0;
   importedItems: any[];
+  tableColumns: EditorModalColumn[];
+
+  // Dynamic strings used in tabs
   addFromPortalTabString: string;
   portalItemGroupStringPlural: string;
+  selectItemsTabLabel: string;
+  tabInfoText: string;
+  chooseItemsText: string;
 
   constructor(
     private patchService: PatchService,
     private publicationsService: PublicationsService,
     private datasetsService: DatasetsService,
-    private fundingsService: FundingsService
+    private fundingsService: FundingsService,
+    private searchPortalService: SearchPortalService
   ) {}
 
   ngOnInit(): void {
@@ -94,18 +104,28 @@ export class EditorModalComponent implements OnInit {
 
     switch (this.dialogData.data.id) {
       case 'publication': {
-        this.addFromPortalTabString = 'julkaisuja';
+        this.addFromPortalTabString = $localize`:@@publications:julkaisuja`;
         this.portalItemGroupStringPlural = $localize`:@@publications:julkaisut`;
+        this.tableColumns = PublicationColumns;
+        this.selectItemsTabLabel = $localize`:@@selectPublications:Valitse julkaisut`;
+        this.tabInfoText = $localize`:@@myDataEditorModalPublicationTabInfo:Tiedejatutkimus.fi-palvelusta löytyvät julkaisut, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. Julkaisuja, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä "Hae muita julkaisuja" -toiminnolla.`;
+        this.chooseItemsText = $localize`:@@myDataEditorModalPublicationChooseItems:Voit valita profiiliisi julkaisuja alla olevasta listasta.`;
         break;
       }
       case 'dataset': {
-        this.addFromPortalTabString = 'aineistoja';
+        this.addFromPortalTabString = $localize`:@@datasets:aineistoja`;
         this.portalItemGroupStringPlural = $localize`:@@datasets:aineistot`;
+        this.tableColumns = DatasetColumns;
+        this.selectItemsTabLabel = $localize`:@@selectDatasets:Valitse aineistot`;
+        this.tabInfoText = $localize`:@@myDataEditorModalDatasetTabInfo:Tiedejatutkimus.fi-palvelusta löytyvät tutkimusaineistot, joissa on ORCID-tunnuksesi, lisätään profiiliisi automaattisesti. Aineistoja, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä "Hae muita tutkimusaineistoja" -toiminnolla.`;
+        this.chooseItemsText = $localize`:@@myDataEditorModalDatasetChooseItems:Voit valita profiiliisi tutkimusaineistoja alla olevasta listasta.`;
         break;
       }
       case 'funding': {
-        this.addFromPortalTabString = 'hankkeita';
+        this.addFromPortalTabString = $localize`:@@fundings:hankkeita`;
+        this.selectItemsTabLabel = $localize`:@@selectProjects:Valitse hankkeet`;
         this.portalItemGroupStringPlural = $localize`:@@fundings:hankkeet`;
+        this.tabInfoText = $localize`:@@myDataEditorModalFundingTabInfo:Tiedejatutkimus.fi-palvelusta löytyvät hankkeet, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. hankkeita, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä "Hae muita hankkeita" -toiminnolla.`;
         break;
       }
     }
@@ -183,6 +203,7 @@ export class EditorModalComponent implements OnInit {
 
   onTabChange(event: MatTabChangeEvent) {
     this.currentTabIndex = event.index;
+    this.searchPortalService.resetSort();
 
     if (event.index === 0) {
       this.dialogActions = [...this.basicDialogActions];
@@ -200,7 +221,11 @@ export class EditorModalComponent implements OnInit {
       this.dialogActions = [
         ...this.searchFromPortalDialogActions,
         {
-          label: `Lisää valitut ${this.portalItemGroupStringPlural} tietoihini`,
+          label2: `Lisää valitut ${this.portalItemGroupStringPlural} tietoihini`,
+          label:
+            $localize`:@@addSelected:Lisää valitut` +
+            ` ${this.portalItemGroupStringPlural} ` +
+            $localize`:@@toMyInformation:tietoihini`,
           primary: true,
           method: 'add',
           action: () => this.addItems(),
@@ -270,22 +295,26 @@ export class EditorModalComponent implements OnInit {
 
     service.addToPayload(selection);
 
+    // Merge imported items to previous data
+    const itemsGroup = group.fields.find((el) => el.id === group.id);
+    itemsGroup.items = itemsGroup.items.concat(selection);
+
     this.currentTabIndex = 0;
 
-    /*
-     * Create new field for recently imported items.
-     * Add selected items into imported field if user decides to add more items.
-     */
-    const imported = group.fields.find((field) => field.id === 'imported');
+    // /*
+    //  * Create new field for recently imported items.
+    //  * Add selected items into imported field if user decides to add more items.
+    //  */
+    // const imported = group.fields.find((field) => field.id === 'imported');
 
-    if (imported) {
-      imported.items = imported.items.concat(selection);
-    } else {
-      group.fields.unshift({
-        id: 'imported',
-        label: label,
-        items: selection,
-      });
-    }
+    // if (imported) {
+    //   imported.items = imported.items.concat(selection);
+    // } else {
+    //   group.fields.unshift({
+    //     id: 'imported',
+    //     label: label,
+    //     items: selection,
+    //   });
+    // }
   }
 }

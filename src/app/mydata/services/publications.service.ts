@@ -62,6 +62,22 @@ export class PublicationsService {
   }
 
   confirmPayload() {
+    // Remove entry if user adds an item from portal search and unchecks it in editor table afterwards
+    this.publicationPayload.forEach((item) => {
+      if (
+        this.confirmedPayload.find(
+          (confirmedItem) => confirmedItem.id === item.id
+        )
+      ) {
+        this.confirmedPayload = this.confirmedPayload.filter(
+          (confirmedItem) => confirmedItem.id !== item.id
+        );
+        this.publicationPayload = this.publicationPayload.filter(
+          (payloadItem) => payloadItem.id !== item.id
+        );
+      }
+    });
+
     const merged = this.confirmedPayload.concat(this.publicationPayload);
     this.confirmedPayload = merged;
     this.confirmedPayloadSource.next(merged);

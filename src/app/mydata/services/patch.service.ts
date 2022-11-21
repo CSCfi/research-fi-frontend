@@ -45,16 +45,21 @@ export class PatchService {
   }
 
   confirmPayload() {
+    // Find duplicates and remove from confirmed payload if found
     if (this.confirmedPayLoad.length > 0) {
       for (let i = 0; i < this.confirmedPayLoad.length; i += 1) {
-        for (let j = 0;  j < this.patchItems.length; j += 1) {
-          if (this.confirmedPayLoad[i].id === this.patchItems[j].id){
-            this.confirmedPayLoad[i] = this.patchItems[j];
+        for (let j = 0; j < this.patchItems.length; j += 1) {
+          if (this.confirmedPayLoad[i].id === this.patchItems[j].id) {
+            this.confirmedPayLoad = this.confirmedPayLoad.filter(
+              (item) => item.id !== this.patchItems[j].id
+            );
+            // Remove matching item from current patch items
             this.patchItems.splice(j, 1);
           }
-        };
+        }
       }
     }
+
     this.confirmedPayLoad = this.confirmedPayLoad.concat(this.patchItems);
     this.patchItems = [];
     this.confirmedPayloadSource.next(this.confirmedPayLoad);

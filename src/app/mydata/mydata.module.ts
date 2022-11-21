@@ -101,6 +101,8 @@ import { FindByKeyValuePipe } from './pipes/find-by-key-value.pipe';
 import { WelcomeStepperComponent } from './components/welcome-stepper/welcome-stepper.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { AccountSettingsComponent } from './components/account-settings/account-settings.component';
+import { ProfileItemsTableComponent } from './components/profile/profile-items-table/profile-items-table.component';
+import { IsPortalItemPipe } from './pipes/is-portal-item.pipe';
 
 const matSnackbarDefaultConfig: MatSnackBarConfig = {
   verticalPosition: 'top',
@@ -164,6 +166,8 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
     FindByKeyValuePipe,
     WelcomeStepperComponent,
     AccountSettingsComponent,
+    ProfileItemsTableComponent,
+    IsPortalItemPipe,
   ],
   imports: [
     CommonModule,
@@ -191,7 +195,7 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
     MatRippleModule,
     MatMenuModule,
     PortalModule,
-    MatStepperModule
+    MatStepperModule,
   ],
   providers: [
     AuthGuard,

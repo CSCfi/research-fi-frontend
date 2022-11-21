@@ -5109,6 +5109,71 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Ladataan</source>
         <target>Laddas</target>
       </trans-unit>
+      <!-- MyData tabbed modals -->
+      <trans-unit id="selectPublications">
+        <source>Valitse julkaisut</source>
+        <target>Välj publikationer</target>
+      </trans-unit>
+      <trans-unit id="selectDatasets">
+        <source>Valitse aineistot</source>
+        <target>Välj datasets</target>
+      </trans-unit>
+      <trans-unit id="selectProjects">
+        <source>Valitse hankkeet</source>
+        <target>Välj project</target>
+      </trans-unit>
+      <trans-unit id="myDataEditorModalPublicationTabInfo">
+        <source>Tiedejatutkimus.fi-palvelusta löytyvät julkaisut, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. Julkaisuja, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä "Hae muita julkaisuja" -toiminnolla.</source>
+        <target>Publikationer som finns i tjänsten Forskning.fi och som har din ORCID-kod läggs automatiskt till din uppgifter. Publikationer som inte är kopplade till din ORCID-kod kan du lägga till med funktionen "Hämta annat forskningsmaterial".</target>
+      </trans-unit>
+      <trans-unit id="myDataEditorModalPublicationChooseItems">
+        <source>Voit valita profiiliisi julkaisuja alla olevasta listasta.</source>
+        <target>Du kan välja publikationer till din profil från listan nedan.</target>
+      </trans-unit>
+      <trans-unit id="myDataEditorModalDatasetTabInfo">
+        <source>Tiedejatutkimus.fi-palvelusta löytyvät tutkimusaineistot, joissa on ORCID-tunnuksesi, lisätään profiiliisi automaattisesti. Aineistoja, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä "Hae muita tutkimusaineistoja" -toiminnolla.</source>
+        <target>Forskningsdatal som finns i tjänsten Forskning.fi och som har din ORCID-kod läggs automatiskt till din profil. Dataset som inte är kopplat till din ORCID-kod kan du lägga till med funktionen "Hämta annat forskningsdata".</target>
+      </trans-unit>
+      <trans-unit id="myDataEditorModalDatasetChooseItems">
+        <source>Voit valita profiiliisi tutkimusaineistoja alla olevasta listasta.</source>
+        <target>Du kan välja forskningsdata till din profil från listan nedan.</target>
+      </trans-unit>
+      <trans-unit id="myDataEditorModalFundingTabInfo">
+        <source>Tiedejatutkimus.fi-palvelusta löytyvät hankkeet, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. hankkeita, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä "Hae muita hankkeita" -toiminnolla.</source>
+        <target>I tjänsten Forskning.fi hittar du projekt med din ORCID-kod som läggs till din uppgifter automatiskt. Projekt som inte är kopplade till din ORCID-kod kan du lägga till med funktionen "Hämta andra projekt".</target>
+      </trans-unit>
+      <trans-unit id="searchForOtherPublicationsFromPortal">
+        <source>Hae muita julkaisuja Tiedejatutkimus.fi:stä julkaisun tai tekijän nimellä ja liitä ne profiiliisi.</source>
+        <target>Sök andra publikationer på  med publications eller upphovsmannens namn och lägg till dem till din profil.</target>
+      </trans-unit>
+      <trans-unit id="searchForOtherDatasetsFromPortal">
+        <source>Hae muita tutkimusaineistoja Tiedejatutkimus.fi:stä aineiston tai tekijän nimellä ja liitä ne profiiliisi.</source>
+        <target>Sök andra forskningsdata på Forskning.fi med datasets eller upphovsmannens namn och lägg till dem till din profil.</target>
+      </trans-unit>
+      <trans-unit id="searchForOtherFundingsFromPortal">
+        <source>Hae muita hankkeita Tiedejatutkimus.fi:stä hankkeen sisältämien tietojen perusteella ja liitä ne profiiliisi.</source>
+        <target>Sök andra projekt på Forskning.fi utifrån uppgifterna om projektet och bifoga dem till din profil.</target>
+      </trans-unit>
+      <trans-unit id="searchForOther">
+        <source>Hae muita</source>
+        <target>Hämta andra</target>
+      </trans-unit>
+      <trans-unit id="selected">
+        <source>valittu</source>
+        <target>vald</target>
+      </trans-unit>
+      <trans-unit id="addSelected">
+        <source>Lisää valitut</source>
+        <target>Lägg till de valda</target>
+      </trans-unit>
+      <trans-unit id="toMyInformation">
+        <source>tietoihini</source>
+        <target>i mina uppgifter</target>
+      </trans-unit>
+      <trans-unit id="identifier">
+        <source>Tunniste</source>
+        <target>ID</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

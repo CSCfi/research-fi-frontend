@@ -85,7 +85,7 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   openDialog(event: MouseEvent, index: number) {
-    event.stopPropagation();
+    // event.stopPropagation();
     this.showDialog = true;
 
     const selectedGroup = cloneDeep(this.profileData[index]);
@@ -152,11 +152,13 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
     if (result) {
       // Adding imported data to profileData enables correct listing of imported items if
       // editor modal is opened again before imported items have been published
+      const currentGroup = this.displayData[this.currentIndex];
+
       this.profileData[this.currentIndex].fields = result.fields;
       // Update binded profile data. Renders changes into summary view
       this.displayData[this.currentIndex] = result;
 
-      this.mergeImportedPublications();
+      this.mergeImportedItems(currentGroup.id);
 
       // Handle removal of items added from portal search
       portalPatchGroups.forEach((group) => {
@@ -197,23 +199,17 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
-  // Merge imported publications for display purposes.
-  mergeImportedPublications() {
-    const publications = this.displayData.find(
-      (item) => item.id === 'publication'
-    );
+  // Merge imported items for display purposes.
+  mergeImportedItems(id) {
+    const group = this.displayData.find((item) => item.id === id);
 
-    if (publications?.fields?.length > 1) {
-      const imported = publications.fields.find(
-        (item) => item.id === 'imported'
-      );
-      const existing = publications.fields.find(
-        (item) => item.id === 'publication'
-      );
+    if (group?.fields?.length > 1) {
+      const imported = group.fields.find((item) => item.id === 'imported');
+      const existing = group.fields.find((item) => item.id === id);
 
       const merged = existing.items.concat(imported.items);
 
-      publications.fields = [{ ...existing, items: merged }];
+      group.fields = [{ ...existing, items: merged }];
     }
   }
 
