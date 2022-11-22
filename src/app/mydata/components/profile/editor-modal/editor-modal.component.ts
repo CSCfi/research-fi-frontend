@@ -25,9 +25,14 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { CommonStrings } from '@mydata/constants/strings';
-import { PublicationColumns, DatasetColumns } from '@mydata/constants';
+import {
+  PublicationColumns,
+  DatasetColumns,
+  ActivityColumns,
+} from '@mydata/constants';
 import { EditorModalColumn } from 'src/types';
 import { SearchPortalService } from '@mydata/services/search-portal.service';
+import { GroupTypes } from '@mydata/constants/groupTypes';
 
 @Component({
   selector: 'app-editor-modal',
@@ -70,7 +75,14 @@ export class EditorModalComponent implements OnInit {
 
   @ViewChild('selectAllCheckbox') selectAllCheckbox: MatCheckbox;
 
-  portalModalIndicatorIds = ['publication', 'dataset', 'funding'];
+  portalModalIndicatorIds = [
+    GroupTypes.publication,
+    GroupTypes.dataset,
+    GroupTypes.funding,
+    GroupTypes.activitiesAndRewards,
+  ];
+
+  disabledSearchPortalModalIds = [GroupTypes.activitiesAndRewards];
 
   faSearch = faSearch;
 
@@ -126,6 +138,14 @@ export class EditorModalComponent implements OnInit {
         this.selectItemsTabLabel = $localize`:@@selectProjects:Valitse hankkeet`;
         this.portalItemGroupStringPlural = $localize`:@@fundings:hankkeet`;
         this.tabInfoText = $localize`:@@myDataEditorModalFundingTabInfo:Tiedejatutkimus.fi-palvelusta löytyvät hankkeet, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. hankkeita, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä "Hae muita hankkeita" -toiminnolla.`;
+        break;
+      }
+      case 'activitiesAndRewards': {
+        this.addFromPortalTabString = $localize`:@@activities:aktiviteetteja`;
+        this.selectItemsTabLabel = $localize`:@@selectActivities:Valitse aktiviteetit`;
+        this.portalItemGroupStringPlural = $localize`:@@activities:aktiviteetit`;
+        this.tableColumns = ActivityColumns;
+        this.tabInfoText = $localize`:@@myDataEditorModalActivityTabInfo:Voit muokata ORCIDista tuotuja tietoja ORCID-profiilissasi. Tietojen päivittyminen voi viedä noin vuorokauden. Kotiorganisaatiosta tuotuja tietoja voi muokata vain oman organisaation järjestelmässä.`;
         break;
       }
     }

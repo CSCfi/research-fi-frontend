@@ -71,7 +71,9 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
     this.locale = this.appSettingsService.capitalizedLocale;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // this.openDialog({} as MouseEvent, 7);
+  }
 
   ngOnChanges(): void {
     this.displayData = cloneDeep(this.profileData);
@@ -85,7 +87,7 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   openDialog(event: MouseEvent, index: number) {
-    // event.stopPropagation();
+    event.stopPropagation();
     this.showDialog = true;
 
     const selectedGroup = cloneDeep(this.profileData[index]);

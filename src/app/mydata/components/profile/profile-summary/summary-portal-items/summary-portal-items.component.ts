@@ -33,9 +33,6 @@ export class SummaryPortalItemsComponent implements OnInit {
     // Merge these and display only one
     const dataCopy = cloneDeep(this.data);
 
-    console.log(this.fieldType);
-    console.log(dataCopy);
-
     if (dataCopy.id === 'publication') {
       // mergePublications(dataCopy);
     }

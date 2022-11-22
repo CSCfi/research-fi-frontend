@@ -202,7 +202,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
 
     this.profileService.profileInitialized = true;
-    console.log(this.profileData);
   }
 
   openDialog(props: {

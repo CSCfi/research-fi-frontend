@@ -165,3 +165,36 @@ export const DatasetColumns = [
     width: '8rem',
   },
 ];
+
+export const ActivityColumns = [
+  {
+    id: 'timing',
+    label: $localize`:@@timing:Ajoitus`,
+    field: 'timing',
+    width: '6rem;',
+  },
+  {
+    id: 'roleNameType',
+    ellipsis: true,
+    label: $localize`:@@activity:Aktiviteetti`,
+    field: 'roleNameType',
+    additionalFields: [
+      {
+        field: 'type',
+        hidden: true,
+        label: $localize`:@@activityType:Aktiviteetin tyyppi`,
+      },
+      {
+        field: 'role',
+        hidden: true,
+        label: $localize`:@@actorRoleInActivity:Tekijä ja rooli aktiviteetissa`,
+      },
+    ],
+  },
+  {
+    id: 'source',
+    label: $localize`:@@source:Lähde`,
+    field: 'source',
+    width: '8rem',
+  },
+];
