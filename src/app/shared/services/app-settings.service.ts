@@ -29,7 +29,7 @@ export class AppSettingsService {
   // Module related settings
   portalSettings = {
     appName: 'portal',
-    label: $localize`:@@appSlogan:Tiedejatutkimus.fi`,
+    label: $localize`:@@appName:Tiedejatutkimus.fi`,
     baseRoute: '',
     navItems: [
       { label: $localize`:@@headerLink1:Etusivu`, link: '/', exact: true },
@@ -88,8 +88,9 @@ export class AppSettingsService {
         label: $localize`:@@publicProfile:Julkinen profiili`,
         link: '/mydata/profile',
       },
-      { label: 'Tiedot ja tietolähteet',
-        link: '/mydata/data-sources'
+      {
+        label: $localize`:@@dataAndSources:Tiedot ja tietolähteet`,
+        link: '/mydata/data-sources',
       },
       {
         label: $localize`:@@accountSettings:Tiliasetukset`,
