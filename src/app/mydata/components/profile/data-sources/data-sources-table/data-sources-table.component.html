@@ -12,8 +12,13 @@
   [sortColumn]="activeSort"
   [sortDirection]="sortDirection"
   (onSelectionChange)="handleSelection($event)"
+  (onToggleSelectAll)="handleSelectAll($event)"
   [sortQueryParams]="true"
   [mobileCards]="true"
+  [allSelected]="allSelected"
+  [currentSelection]="currentSelection"
+  [pageNumber]="pageNumber"
+  [pageSize]="pageSize"
 ></app-table>
 
 <app-pagination

@@ -47,14 +47,18 @@ export class TableComponent implements OnInit {
   @Input() sortDirection: string;
   @Input() sortQueryParams: boolean;
   @Input() mobileCards: boolean; // Development purposes
+  @Input() allSelected: boolean;
+  @Input() currentSelection: any[];
+  @Input() pageNumber: number;
+  @Input() pageSize: number;
 
   @Output() onSortChange = new EventEmitter<Sort>();
-  @Output() onSelectionChange = new EventEmitter<number[]>();
+  @Output() onSelectionChange = new EventEmitter<number>();
   @Output() onToggleSelectAll = new EventEmitter();
 
   displayedColumns: string[];
 
-  allSelected = false;
+  // allSelected = false;
   selectedRows: number[] = [];
 
   selectable: boolean;
@@ -103,33 +107,18 @@ export class TableComponent implements OnInit {
     }
   }
 
-  handleSelection(event: MatCheckboxChange, index: number) {
-    this.allSelected = !!!this.rowSelectList
-      .toArray()
-      .find((item) => !item.checked);
-
-    // Create new array so table cards detect changes
-    const newSelection = [...this.selectedRows];
-    newSelection.push(index);
-
-    this.selectedRows.indexOf(index) > -1
-      ? (this.selectedRows = this.selectedRows.filter((i) => i !== index))
-      : event.checked && (this.selectedRows = newSelection);
-
-    this.onSelectionChange.emit(this.selectedRows);
+  handleSelection(_event: MatCheckboxChange, index: number) {
+    this.onSelectionChange.emit(index);
   }
 
+  // User is able to select all entries
   handleSelectAll(event: MatCheckboxChange) {
-    this.allSelected = event.checked;
-
     const rowsArr = this.rowSelectList.toArray();
 
     this.selectedRows = event.checked
       ? rowsArr.map((_row, index) => index)
       : [];
 
-    rowsArr.forEach((item) => (item.checked = event.checked));
-
-    this.onSelectionChange.emit(this.selectedRows);
+    this.onToggleSelectAll.emit(event);
   }
 }
