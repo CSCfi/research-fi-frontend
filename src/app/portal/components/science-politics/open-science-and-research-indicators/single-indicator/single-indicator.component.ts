@@ -45,11 +45,7 @@ export class SingleIndicatorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.areIndicatorsActive()){
-      this.processPageData();
-    } else {
-      this.router.navigate([this.currentPageUrl]);
-    }
+    this.processPageData();
     this.resizeSub = this.resizeService.onResize$.subscribe((dims) =>
       this.onResize(dims)
     );
@@ -58,13 +54,6 @@ export class SingleIndicatorComponent implements OnInit {
   ngAfterViewInit() {
     this.colWidth = this.iframe.nativeElement.offsetWidth;
     this.cdRef.detectChanges();
-  }
-
-  areIndicatorsActive() {
-    let isActive = this.route.snapshot.data.pages.some(
-      (el) => el.id.startsWith('indicators_active')
-    );
-    return isActive;
   }
 
   processPageData() {
