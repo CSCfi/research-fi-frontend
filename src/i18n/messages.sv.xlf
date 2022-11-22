@@ -5174,6 +5174,58 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Tunniste</source>
         <target>ID</target>
       </trans-unit>
+      <trans-unit id="dataAndSources">
+        <source>Tiedot ja tietolähteet</source>
+        <target>Uppgifter och informationskällor</target>
+      </trans-unit>
+      <trans-unit id="filter">
+        <source>Rajaa</source>
+        <target>Begränsa</target>
+      </trans-unit>
+      <trans-unit id="statusInProfile">
+        <source>Tila profiilissa</source>
+        <target>Status I profilen</target>
+      </trans-unit>
+      <trans-unit id="dataSourcesDataset">
+        <source>Tietokokonaisuus</source>
+        <target>Informationshelhet</target>
+      </trans-unit>
+      <trans-unit id="appName">
+        <source>Tiedejatutkimus.fi</source>
+        <target>Forskning.fi</target>
+      </trans-unit>
+      <trans-unit id="information">
+        <source>Tieto</source>
+        <target>Uppgift</target>
+      </trans-unit>
+      <trans-unit id="dataSourcesInformationSort">
+        <source>Tieto (A-Ö)</source>
+        <target>Uppgift (A-Ö)</target>
+      </trans-unit>
+      <trans-unit id="content">
+        <source>Sisältö</source>
+        <target>Innehåll</target>
+      </trans-unit>
+      <trans-unit id="dataSourcesContentSort">
+        <source>Sisältö (A-Ö)</source>
+        <target>Innehåll (A-Ö)</target>
+      </trans-unit>
+      <trans-unit id="dataSourcesSourceSort">
+        <source>Lähde (Ä-Ö)</source>
+        <target>Källa (Ä-Ö</target>
+      </trans-unit>
+      <trans-unit id="show">
+        <source>Näytä</source>
+        <target>Visa</target>
+      </trans-unit>
+      <trans-unit id="public">
+        <source>Julkinen</source>
+        <target>Offentlig</target>
+      </trans-unit>
+      <trans-unit id="notPublic">
+        <source>Ei julkinen</source>
+        <target>Inte offentlig</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -104,7 +104,9 @@
       <ng-container *ngSwitchCase="'selection'">
         <mat-checkbox
           #rowSelect
-          [checked]="selectedRows.indexOf(i) > -1"
+          [checked]="
+            currentSelection.indexOf((pageNumber - 1) * pageSize + i) > -1
+          "
           (change)="handleSelection($event, i)"
         >
         </mat-checkbox>

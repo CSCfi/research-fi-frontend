@@ -68,14 +68,14 @@ export class DataSourcesFiltersComponent
           buckets: [
             {
               key: 'public',
-              label: 'Julkinen',
+              label: $localize`:@@public:Julkinen`,
               doc_count: flattenItems(handleDataFilter('status')).filter(
                 (item) => item.itemMeta.show
               ).length,
             },
             {
               key: 'private',
-              label: 'Ei julkinen',
+              label: $localize`:@@notPublic:Ei julkinen`,
               doc_count: flattenItems(handleDataFilter('status')).filter(
                 (item) => !item.itemMeta.show
               ).length,

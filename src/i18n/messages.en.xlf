@@ -5829,6 +5829,58 @@
         <source>Tunniste</source>
         <target>ID</target>
       </trans-unit>
+      <trans-unit id="dataAndSources">
+        <source>Tiedot ja tietolähteet</source>
+        <target>Data and sources</target>
+      </trans-unit>
+      <trans-unit id="filter">
+        <source>Rajaa</source>
+        <target>Filter</target>
+      </trans-unit>
+      <trans-unit id="statusInProfile">
+        <source>Tila profiilissa</source>
+        <target>Status in profile</target>
+      </trans-unit>
+      <trans-unit id="dataSourcesDataset">
+        <source>Tietokokonaisuus</source>
+        <target>Dataset</target>
+      </trans-unit>
+      <trans-unit id="appName">
+        <source>Tiedejatutkimus.fi</source>
+        <target>Research.fi</target>
+      </trans-unit>
+      <trans-unit id="information">
+        <source>Tieto</source>
+        <target>Information</target>
+      </trans-unit>
+      <trans-unit id="dataSourcesInformationSort">
+        <source>Tieto (A-Ö)</source>
+        <target>Information (A-Ö)</target>
+      </trans-unit>
+      <trans-unit id="content">
+        <source>Sisältö</source>
+        <target>Content</target>
+      </trans-unit>
+      <trans-unit id="dataSourcesContentSort">
+        <source>Sisältö (A-Ö)</source>
+        <target>Content (A-Ö)</target>
+      </trans-unit>
+      <trans-unit id="dataSourcesSourceSort">
+        <source>Lähde (Ä-Ö)</source>
+        <target>Source (Ä-Ö)</target>
+      </trans-unit>
+      <trans-unit id="show">
+        <source>Näytä</source>
+        <target>Show</target>
+      </trans-unit>
+      <trans-unit id="public">
+        <source>Julkinen</source>
+        <target>Public</target>
+      </trans-unit>
+      <trans-unit id="notPublic">
+        <source>Ei julkinen</source>
+        <target>Not public</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
