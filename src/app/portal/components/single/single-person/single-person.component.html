@@ -341,8 +341,18 @@
                   <span class="fw-bold col-auto px-0" *ngIf="row.label">
                     {{ row.label }}
                   </span>
-
-                  <span class="col truncate">{{ item.value }}</span>
+                  <ng-container *ngIf="row.key === 'emails'; else nonEmail">
+                    <span class="col truncate">
+                    <a
+                      href="javascript:void(0)"
+                      (click)="showEmail($event, item.value)"
+                      i18n="@@showEmailAddress"
+                    >Näytä sähköpostiosoite</a
+                    ></span></ng-container
+                  >
+                  <ng-template #nonEmail>
+                    <span class="col truncate">{{ item.value }}</span>
+                  </ng-template>
                 </li>
               </ng-container>
             </ng-container>

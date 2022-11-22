@@ -15,6 +15,7 @@ import { SingleItemService } from '@portal/services/single-item.service';
 import { TabChangeService } from '@portal/services/tab-change.service';
 import { UtilityService } from '@shared/services/utility.service';
 import { take } from 'rxjs';
+import { DOCUMENT } from '@angular/common';
 
 type Field = { key: string; label?: string };
 
@@ -78,7 +79,8 @@ export class SinglePersonComponent implements OnInit {
     private singleItemService: SingleItemService,
     private utilityService: UtilityService,
     private tabChangeService: TabChangeService,
-    @Inject(LOCALE_ID) protected localeId: string
+    @Inject(LOCALE_ID) protected localeId: string,
+    @Inject(DOCUMENT) private document: any
   ) {}
 
   ngOnInit(): void {
@@ -113,5 +115,11 @@ export class SinglePersonComponent implements OnInit {
           );
         }
       });
+  }
+
+  showEmail(event, address) {
+    const span = this.document.createElement('span');
+    span.innerHTML = address;
+    event.target.replaceWith(span);
   }
 }
