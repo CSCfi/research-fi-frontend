@@ -198,3 +198,44 @@ export const ActivityColumns = [
     width: '8rem',
   },
 ];
+
+export const FundingColumns = [
+  {
+    id: 'year',
+    label: $localize`:@@year:Vuosi`,
+    field: 'startYear',
+    width: '4rem;',
+  },
+  {
+    id: 'name',
+    ellipsis: true,
+    label: $localize`:@@name:Nimi`,
+    field: 'name',
+    additionalFields: [
+      // { field: 'funderProjectNumber' },
+      // {
+      //   field: 'description',
+      //   ellipsis: true,
+      //   cutContent: true,
+      // },
+      // {
+      //   field: 'recipient.personNameAndOrg',
+      //   hidden: true,
+      // },
+      // {
+      //   field: 'funder.typeOfFundingName',
+      //   hidden: true,
+      // },
+      {
+        field: 'funder.name',
+        hidden: true,
+      },
+    ],
+  },
+  {
+    id: 'source',
+    label: $localize`:@@source:Lähde`,
+    field: 'source',
+    width: '8rem',
+  },
+];

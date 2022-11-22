@@ -59,6 +59,16 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
 
   noPublicDataText = $localize`:@@youHaveNotSelectedAnyPublicData:Et ole vielä valinnut julkisesti näytettäviä tietoja`;
 
+  summaryGroupIds = [
+    GroupTypes.publication,
+    GroupTypes.dataset,
+    GroupTypes.education,
+    GroupTypes.affiliation,
+    GroupTypes.description,
+    GroupTypes.activitiesAndRewards,
+    GroupTypes.funding,
+  ];
+
   constructor(
     private appSettingsService: AppSettingsService,
     private patchService: PatchService,

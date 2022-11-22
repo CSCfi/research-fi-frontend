@@ -83,7 +83,6 @@ export class ProfileItemsTableComponent implements OnInit, OnChanges {
   ngOnChanges() {
     if (this.data) {
       this.tableRows = this.data.fields[0].items;
-      console.log(this.tableRows);
       this.checkAllSelected();
       this.pageCount = Math.ceil(this.tableRows.length / this.currentPageSize);
     }

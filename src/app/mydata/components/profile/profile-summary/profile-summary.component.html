@@ -4,17 +4,7 @@
  :license: MIT -->
 
 <ng-container *ngFor="let group of displayData.slice(1); let i = index">
-  <div
-    class="group-wrapper"
-    *ngIf="
-      group.id === groupTypes.publication ||
-      group.id === groupTypes.dataset ||
-      group.id === groupTypes.education ||
-      group.id === groupTypes.affiliation ||
-      group.id === groupTypes.description ||
-      group.id === groupTypes.activitiesAndRewards
-    "
-  >
+  <div class="group-wrapper" *ngIf="summaryGroupIds.indexOf(group.id) > -1">
     <div class="row py-2 justify-content-between">
       <h3
         class="col-6 col-lg-4 align-self-center fw-bold order-1 font-size-normal"
