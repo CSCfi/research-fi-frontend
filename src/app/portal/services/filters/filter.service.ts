@@ -440,6 +440,17 @@ export class FilterService {
         });
         break;
       }
+      case 'persons': {
+        filter.forEach((value) => {
+          res.push({
+            term: {
+              'activity.affiliations.sector.organization.organizationId.keyword':
+                value,
+            },
+          });
+        });
+        break;
+      }
       case 'fundings': {
         filter.forEach((value) => {
           res.push({
@@ -740,6 +751,12 @@ export class FilterService {
       ...basicFilter('publication', this.internationalCollaborationFilter),
       ...basicFilter('publication', this.okmDataCollectionFilter),
       ...basicFilter('publication', this.coPublicationFilter),
+      // Persons
+      ...nestedFilter(
+        'person',
+        this.organizationFilter,
+        'activity.affiliations.sector.organization'
+      ),
       // Fundings
       // Funding organization filter differs from nested filter since we need to get filter values from two different parents
       ...(index === 'funding'
