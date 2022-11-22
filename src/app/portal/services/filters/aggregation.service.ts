@@ -691,13 +691,65 @@ export class AggregationService {
         break;
       case 'persons':
         payLoad.aggs.organization = {
-          terms: {
-            size: 50,
-            field:
-              'activity.affiliations.organizationName' +
-              this.localeC +
-              '.keyword',
-            exclude: ' ',
+          nested: {
+            path: 'activity.affiliations.sector',
+          },
+          aggs: {
+            sectorName: {
+              terms: {
+                size: 50,
+                field:
+                  'activity.affiliations.sector.name' +
+                  this.localeC +
+                  'Sector.keyword',
+                exclude: ' ',
+              },
+              aggs: {
+                sectorId: {
+                  terms: {
+                    size: 50,
+                    field: 'activity.affiliations.sector.sectorId.keyword',
+                  },
+                },
+                org: {
+                  nested: {
+                    path: 'activity.affiliations.sector.organization',
+                  },
+                  aggs: {
+                    organization: {
+                      terms: {
+                        size: 50,
+                        field:
+                          'activity.affiliations.sector.organization.organizationName' +
+                          this.localeC +
+                          '.keyword',
+                      },
+                      aggs: {
+                        filtered: {
+                          reverse_nested: {},
+                          aggs: {
+                            filterCount: {
+                              filter: {
+                                bool: {
+                                  filter: filterActiveNested('activity'),
+                                },
+                              },
+                            },
+                          },
+                        },
+                        orgId: {
+                          terms: {
+                            size: 10,
+                            field:
+                              'activity.affiliations.sector.organization.organizationId.keyword',
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
           },
         };
         break;

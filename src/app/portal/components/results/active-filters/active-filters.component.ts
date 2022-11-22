@@ -223,6 +223,10 @@ export class ActiveFiltersComponent
               this.response = this.publicationFilters.shapeData(response);
               break;
             }
+            case 'persons': {
+              this.response = this.personFilters.shapeData(response);
+              break;
+            }
             case 'fundings': {
               this.response = this.fundingFilters.shapeData(response);
               break;
@@ -487,29 +491,10 @@ export class ActiveFiltersComponent
                 ).translation = $localize`:@@okmDataCollectionShort:Kuuluu OKM:n tiedonkeruuseen`;
               }
 
-              // Global organization filter
+              // Organization filter
               if (val.category === 'organization' && source.organization) {
-                // Publication organization name
-                if (tab === 'publications') {
-                  setTimeout((t) => {
-                    if (source.organization.sectorName.buckets) {
-                      source.organization.sectorName.buckets.forEach(
-                        (sector) => {
-                          if (sector.subData.find((x) => x.key === val.value)) {
-                            const foundIndex = this.activeFilters.findIndex(
-                              (x) => x.value === val.value
-                            );
-                            this.activeFilters[foundIndex].translation =
-                              sector.subData
-                                .find((x) => x.key === val.value)
-                                .label.trim();
-                          }
-                        }
-                      );
-                    }
-                  }, 1);
-                  // Funding organization name
-                } else if (tab === 'fundings') {
+                // Funding organization name
+                if (tab === 'fundings') {
                   setTimeout((t) => {
                     if (source.organization.funded.sectorName.buckets) {
                       source.organization.funded.sectorName.buckets.forEach(
@@ -527,8 +512,8 @@ export class ActiveFiltersComponent
                       );
                     }
                   }, 1);
-                  // Dataset organization name
-                } else if (tab === 'datasets') {
+                  // Dataset & persons organization name
+                } else if (tab === 'datasets' || tab === 'persons') {
                   setTimeout((t) => {
                     if (source.organization.sectorName.buckets) {
                       source.organization.sectorName.buckets.forEach(
@@ -593,6 +578,25 @@ export class ActiveFiltersComponent
                       }
                     });
                   }
+                } else {
+                  // Common usage e.g. in publications, persons, datasets
+                  setTimeout((t) => {
+                    if (source.organization.sectorName.buckets) {
+                      source.organization.sectorName.buckets.forEach(
+                        (sector) => {
+                          if (sector.subData.find((x) => x.key === val.value)) {
+                            const foundIndex = this.activeFilters.findIndex(
+                              (x) => x.value === val.value
+                            );
+                            this.activeFilters[foundIndex].translation =
+                              sector.subData
+                                .find((x) => x.key === val.value)
+                                .label.trim();
+                          }
+                        }
+                      );
+                    }
+                  }, 1);
                 }
               }
 
