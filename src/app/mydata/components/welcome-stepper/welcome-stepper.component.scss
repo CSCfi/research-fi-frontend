@@ -1,0 +1,45 @@
+.welcome-stepper-wrap {
+  min-height: 690px;
+  p {
+    margin-top: 1rem;
+  }
+  .dialog-title {
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+  }
+  .mat-step-text-label {
+    white-space: pre-line;
+    font-weight: bold;
+    font-size: 1rem;
+  }
+  .mat-vertical-content {
+    padding: 0 24px 0px 24px;
+  }
+  .stepper-icon-row {
+    margin: 25px 0px 20px 0px;
+  }
+  .stepper-icon-wrap {
+    height: 44px;
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    .font-wrap {
+      margin-right: 50px;
+      font-size: 34px;
+      color: #4546B2;
+    }
+    img {
+      margin-right: 50px;
+      &.orcid {
+        min-width: 40px;
+      }
+    }
+  }
+
+  @media (max-width: 449px) {
+    font-size: 0.85rem;
+    .mat-step-text-label {
+      font-size: 0.85rem;
+    }
+  }
+}

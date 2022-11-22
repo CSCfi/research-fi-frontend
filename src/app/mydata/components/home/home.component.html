@@ -49,9 +49,9 @@
         <div class="col-12 col-sm-6 py-3 px-4 px-sm-3">
           <app-secondary-button
             content="Palvelun yleisohjeet"
-            (click)="login()"
+            (click)="showWelcomeModal()"
             [big]="true"
-            [disabled]="true"
+            [disabled]="false"
           >
           </app-secondary-button>
         </div>
@@ -88,4 +88,8 @@
       />
     </div>
   </div>
+  <ng-container *ngIf="showStepperModal">
+    <app-welcome-stepper (onModalAction)="this.handleWelcomeModalAction($event)"
+    ></app-welcome-stepper>
+  </ng-container>
 </main>

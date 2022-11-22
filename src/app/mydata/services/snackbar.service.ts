@@ -31,4 +31,18 @@ export class SnackbarService {
       );
     }
   }
+
+  showHideProfileMessage(type: 'success' | 'error') {
+    if (type === 'success') {
+      this.show(
+        $localize`:@@profileHiddenToast:Profiilin piilotus onnistui. Profiilisi piilotetaan Tiedejatutkimus.fi -palvelusta muutaman minuutin kuluttua.`,
+        'success'
+      );
+    } else {
+      this.show(
+        $localize`:@@dataSavingError:Virhe tiedon tallennuksessa`,
+        'error'
+      );
+    }
+  }
 }

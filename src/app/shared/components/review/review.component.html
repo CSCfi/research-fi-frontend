@@ -93,16 +93,6 @@
 
           <span class="location">{{ title }}</span>
 
-          <!-- MyData & persons locations -->
-          <mat-radio-button
-            *ngFor="let location of locations"
-            class="radio-button"
-            [value]="location.key"
-            (click)="locationValue = location.label"
-          >
-            {{ location.label }}
-          </mat-radio-button>
-
           <!-- User input location -->
           <mat-radio-button class="radio-button" value="other" i18n="@@r8">
             Muu

@@ -3,9 +3,39 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<div class="row pb-3">
+<!-- <div class="row pb-3">
   <div class="col h6 m-0">
     {{ searchHelpText }}
+  </div>
+</div> -->
+
+<div class="row tab-info background-light pt-3 my-4">
+  <div class="col-auto">
+    <fa-icon class="info-icon big-icon" icon="info-circle"></fa-icon>
+  </div>
+
+  <div class="col">
+    <div class="col ps-0">
+      <p class="fw-bold">
+        <ng-container i18n="@@isMissing">Puuttuiko jokin </ng-container>
+        <ng-container [ngSwitch]="data.id">
+          <ng-container *ngSwitchCase="'publication'" i18n="@@publicationItem"
+            >julkaisu</ng-container
+          >
+          <ng-container *ngSwitchCase="'dataset'" i18n="@@datasetItem"
+            >tutkimusaineisto</ng-container
+          >
+          <ng-container *ngSwitchCase="'funding'" i18n="@@fundingItem"
+            >hanke</ng-container
+          >
+        </ng-container>
+        <ng-container i18n="@@fromYourData"> tiedoistasi?</ng-container>
+      </p>
+
+      <p>
+        {{ infoText }}
+      </p>
+    </div>
   </div>
 </div>
 
@@ -20,7 +50,7 @@
   </div>
 </div>
 
-<div class="row pt-3">
+<!-- <div class="row pt-3">
   <div class="col">
     <span i18n="@@betaAddingOfMostRecent">Huom! Kaikkein tuoreimpien </span>
     <span class="text-lowercase" [ngSwitch]="data.id">
@@ -36,7 +66,7 @@
     </span>
     <span i18n="@@doesNotWorkInBeta"> lisääminen ei toimi betaversiossa.</span>
   </div>
-</div>
+</div> -->
 
 <div class="row py-3">
   <div class="col opacity-3" role="region" aria-live="polite">
@@ -78,6 +108,11 @@
 
 <div class="row pb-3" *ngIf="total > 0">
   <div class="col">
+    <!-- <app-profile-items-table
+      [columns]="columns"
+      [rows]="results"
+    ></app-profile-items-table> -->
+
     <app-search-portal-results
       [groupId]="data.id"
       (onItemToggle)="handleSelection($event)"

@@ -235,17 +235,17 @@
         <target>Latest science and research news</target>
       </trans-unit>
       <trans-unit id="homeNewsHeader" datatype="html">
-        <source>Uusimmat tiede- ja tutkimusuutiset 
+        <source>Uusimmat tiede- ja tutkimusuutiset
             <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span>"/>
               <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/>
             <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/>
-            
+
           </source>
-        <target>Latest science and research news 
+        <target>Latest science and research news
             <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span>"/>
               <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/>
             <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/>
-            
+
           </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/portal/components/home-page/home-page.component.html</context>
@@ -317,7 +317,7 @@
       <trans-unit id="newsServiceIncludes" datatype="html">
         <source> uutisia palvelu sisältää?</source>
         <target> news are included in the service?</target>
-      </trans-unit>      
+      </trans-unit>
       <trans-unit id="maxResults1" datatype="html">
         <source>Tuloksia näytetään enintään 10 000</source>
         <target>Up to 10,000 results displayed</target>
@@ -1761,8 +1761,8 @@
         <source>Portaalin "Lukuja tieteestä ja tutkimuksesta" -osion tilastosisällöt voivat olla ongelmallisia ruudunlukijakäyttäjille, koska tilastojen kieliattribuuttina on tietyssä tapauksissa englanti, vaikka käyttäjällä olisi muuten kieliasetuksena suomi.
                             Englannin kieliattribuutti luo ristiriitaisen tilanteen, jossa ruudunlukija lukee tilaston suomenkielisen sisällön englanniksi ääntäen.
                             Kieliattribuuttivirhe koskee ainakin selaimia Safari ja Mozilla Firefox. Kieliattribuutti on kuitenkin pääsäntöisesti toiminut selaimilla Google Chrome ja Microsoft Edge.</source>
-        <target>The statistical content in the "Science and Research in figures” section may be problematic for screen readers, because in certain cases the 
-                            language attribute of the statistics is in English, even if the user has otherwise set the language to Finnish. The English language attribute creates a conflict, in which the screen reader reads the statistics in English. 
+        <target>The statistical content in the "Science and Research in figures” section may be problematic for screen readers, because in certain cases the
+                            language attribute of the statistics is in English, even if the user has otherwise set the language to Finnish. The English language attribute creates a conflict, in which the screen reader reads the statistics in English.
                             The language attribute error occurs at least in Safari and Mozilla Firefox browsers. However, the language attribute has mainly worked in Google Chrome and Microsoft Edge browsers.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/portal/components/accessibility/accessibility.component.html</context>
@@ -1818,9 +1818,9 @@
         </context-group>
       </trans-unit>
       <trans-unit id="accessibilityParagraph8" datatype="html">
-        <source>Portaalin "Lukuja tieteestä ja tutkimuksesta" -osion tilastosisältöjen ohjeet, jotka ilmestyvät silloin kun hiiren osoitin on niiden päällä, eivät ole täysin saavutettavuusvaatimusten mukaisia. Hiiren osoitinta ei saa 
+        <source>Portaalin "Lukuja tieteestä ja tutkimuksesta" -osion tilastosisältöjen ohjeet, jotka ilmestyvät silloin kun hiiren osoitin on niiden päällä, eivät ole täysin saavutettavuusvaatimusten mukaisia. Hiiren osoitinta ei saa
                             vietyä dynaamisen ohjeen päälle, vaan teksti katoaa, kun osoitin liikkuu kohde-elementin ulkopuolelle.</source>
-        <target>The instructions for statistical content in the "Figures on Science and Research" section of the portal that appear when the cursor hovers over them do not fully comply with the accessibility requirements. The cursor 
+        <target>The instructions for statistical content in the "Figures on Science and Research" section of the portal that appear when the cursor hovers over them do not fully comply with the accessibility requirements. The cursor
                             cannot be hovered over the dynamic help - the text will instead disappear when the cursor moves outside the target element.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/portal/components/accessibility/accessibility.component.html</context>
@@ -3828,11 +3828,11 @@
       <trans-unit id="infraServiceTypeService">
         <source>Palvelu</source>
         <target>Service</target>
-      </trans-unit>  
+      </trans-unit>
       <trans-unit id="infraServiceTypeMaterial">
         <source>Aineisto</source>
         <target>Research data</target>
-      </trans-unit>  
+      </trans-unit>
       <trans-unit id="infraServiceTypeEquipment">
         <source>Laitteisto</source>
         <target>Equipment</target>
@@ -4022,7 +4022,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="PP4" datatype="html">
-        <source>Tämä tietosuojailmoitus sisältää EU:n tietosuoja-asetuksen (EU) 679/2016 13 ja 14 artiklan mukaiset tiedot rekisteröidylle (luonnolliselle henkilölle). 
+        <source>Tämä tietosuojailmoitus sisältää EU:n tietosuoja-asetuksen (EU) 679/2016 13 ja 14 artiklan mukaiset tiedot rekisteröidylle (luonnolliselle henkilölle).
                                                 Tämä ilmoitus annetaan rekisteröidylle henkilötietoja kerättäessä.</source>
         <target>This privacy notice includes information for the data subject (natural person) in accordance with Articles 13 and 14 of the EU General Data Protection Regulation (2016/679). This notice is provided to the data subject during the collection of personal data.</target>
         <context-group purpose="location">
@@ -4039,7 +4039,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="PP6" datatype="html">
-        <source>Opetus- ja kulttuuriministeriö on sopinut yhteisrekisterinpitäjyydestä suomalaisten tutkimusrahoittajien ja tutkimusorganisaatioiden kanssa, jotka luovuttavat 
+        <source>Opetus- ja kulttuuriministeriö on sopinut yhteisrekisterinpitäjyydestä suomalaisten tutkimusrahoittajien ja tutkimusorganisaatioiden kanssa, jotka luovuttavat
                                                     tietoja tutkimustietovarantoon. Yhteisrekisterinpitäjät vastaavat kukin omista tiedoistaan tutkimustietovarannossa.</source>
         <target>The Ministry of Education and Culture has agreed with Finnish research funders and research organizations on joint controllers, who are responsible for disclosing information to the Research Information Hub. Joint controllers are each responsible for their own data in the Finnish Research Information Hub.</target>
         <context-group purpose="location">
@@ -4051,12 +4051,12 @@
         <source>Opetus- ja kulttuuriministeriö
                                                 <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Kirjaamon käyntiosoite: Ritarikatu 2 b, Helsinki
                                                 <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Postiosoite: PL 29, 00023 VALTIONEUVOSTO
-                                                <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Sähköpostiosoite: <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>kirjaamo@minedu.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/> 
+                                                <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Sähköpostiosoite: <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>kirjaamo@minedu.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>
                                                 <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Puh. 0295 16001 (keskus)</source>
         <target>Ministry of Education and Culture
                                                 <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Registry visiting address: Ritarikatu 2 b, Helsinki
                                                 <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Mailing address: P.O. Box 29, 00023 GOVERNMENT, FINLAND
-                                                <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Email: <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>kirjaamo@minedu.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/> 
+                                                <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Email: <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>kirjaamo@minedu.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>
                                                 <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Tel. +358 (0)295 16001 (Switchboard)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/portal/components/privacy/privacy.component.html</context>
@@ -4086,7 +4086,7 @@
         <target>Data Protection Officer of the Ministry of Education and Culture
                                                 <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Email: <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>okmtietosuojavastaava@minedu.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>
                                                 <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Postal address: Ministry of Education and Culture, P.O. Box 29, FI - 00023 GOVERNMENT, FINLAND</target>
-        
+
         <context-group purpose="location">
           <context context-type="sourcefile">app/portal/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">52</context>
@@ -4125,11 +4125,11 @@
         </context-group>
       </trans-unit>
       <trans-unit id="PP21" datatype="html">
-        <source>Palvelun verkkosivustojen <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>www.tiedejatutkimus.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>, <x id="START_LINK_1" ctype="x-a" equiv-text="&lt;a>"/>www.research.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/> 
+        <source>Palvelun verkkosivustojen <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>www.tiedejatutkimus.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>, <x id="START_LINK_1" ctype="x-a" equiv-text="&lt;a>"/>www.research.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>
                                                             ja <x id="START_LINK_2" ctype="x-a" equiv-text="&lt;a>"/>www.forskning.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/> käyttäjien käyttölokitietojen hallinta, käyttäjätilastointi sekä palvelun käytössä tarvittavien evästeiden hallinta.</source>
-        <target>Management of login details of users of the service's websites <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>www.tiedejatutkimus.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>, <x id="START_LINK_1" ctype="x-a" equiv-text="&lt;a>"/>www.research.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/> 
+        <target>Management of login details of users of the service's websites <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>www.tiedejatutkimus.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>, <x id="START_LINK_1" ctype="x-a" equiv-text="&lt;a>"/>www.research.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>
                                                             and <x id="START_LINK_2" ctype="x-a" equiv-text="&lt;a>"/>www.forskning.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>, user statistics, and management of cookies needed to use the service.</target>
-        
+
         <context-group purpose="location">
           <context context-type="sourcefile">app/portal/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">63</context>
@@ -4152,7 +4152,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="PP24" datatype="html">
-        <source>Tutkimustietovarantoon toimitettujen julkaisujen, tutkimusaineistojen, rahoituspäätösten, tutkimusinfrastruktuurien ja tiedeuutisten tiedot sekä niissä mainitut tutkijan etu- 
+        <source>Tutkimustietovarantoon toimitettujen julkaisujen, tutkimusaineistojen, rahoituspäätösten, tutkimusinfrastruktuurien ja tiedeuutisten tiedot sekä niissä mainitut tutkijan etu-
                                                             ja sukunimi, ORCID-tunniste sekä organisaatio.</source>
         <target>Information on publications, research data, funding decisions, research infrastructures and scientific news submitted to the Finnish Research Information Hub as well as the researcher's first and last name, ORCID identifier and organization mentioned therein.</target>
         <context-group purpose="location">
@@ -4161,7 +4161,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="PP25" datatype="html">
-        <source>IT-hallintatiedot kuten laitteistojen tiedot liittyen tarjottuihin palveluihin, mukaan lukien tekniset tunnisteet, sijainti, yhteystiedot, viestintätiedot ja metatieto 
+        <source>IT-hallintatiedot kuten laitteistojen tiedot liittyen tarjottuihin palveluihin, mukaan lukien tekniset tunnisteet, sijainti, yhteystiedot, viestintätiedot ja metatieto
                                                             ja tekniset tapahtumat, jotka liittyvät tarjottuihin palveluihin mukaan lukien järjestelmä- ja sovelluslokitiedot.</source>
         <target>IT management details, such as equipment details related to services provided, including technical identifiers, usernames, location, contact details, communication details and metadata, and technical events related to services provided, including system and application log data.</target>
         <context-group purpose="location">
@@ -4246,7 +4246,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="PP35" datatype="html">
-        <source>Lisäksi tutkimustietovarannon sisältämiä julkaisujen, aineistojen, rahoituspäätösten ja infrastruktuurien  metatietoja (ml. tekijöiden tiedot) voidaan luovuttaa yksittäistapauksissa voimassaolevan 
+        <source>Lisäksi tutkimustietovarannon sisältämiä julkaisujen, aineistojen, rahoituspäätösten ja infrastruktuurien  metatietoja (ml. tekijöiden tiedot) voidaan luovuttaa yksittäistapauksissa voimassaolevan
                                                     lainsäädännön mukaisesti niitä hyödyntäville tahoille, kuten tutkimusorganisaatioille tai -rahoittajille.</source>
         <target>In addition, metadata on publications, materials, funding decisions and infrastructures (incl. information on authors) contained in the Finnish Research Information Hub may be disclosed in individual cases, in accordance with the legislation in force to parties utilizing them, such as research organizations or funders.</target>
         <context-group purpose="location">
@@ -4263,7 +4263,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="PP37" datatype="html">
-        <source>Tutkimustietovarannon sisältämiä julkaisujen, aineistojen, rahoituspäätösten ja infrastruktuurien  metatietoja (ml. tekijätiedot) voidaan luovuttaa voimassaolevan lainsäädännön mukaisesti kansainvälisille järjestöille tai 
+        <source>Tutkimustietovarannon sisältämiä julkaisujen, aineistojen, rahoituspäätösten ja infrastruktuurien  metatietoja (ml. tekijätiedot) voidaan luovuttaa voimassaolevan lainsäädännön mukaisesti kansainvälisille järjestöille tai
                                                     alan toimijoille niin EU/ETA-alueella kuin niiden ulkopuolella. Muita henkilötietoja ei luovuteta EU/ETA-alueen ulkopuolelle.</source>
         <target>The metadata of publications, research data, funding decisions and infrastructures (incl, information on authors) contained in the Finnish Research Information Hub may be disclosed to international organizations or actors in the field, both within and outside the EU/EEA, in accordance with current legislation. Other personal data is not disclosed outside the EU or the EEA.</target>
         <context-group purpose="location">
@@ -4320,11 +4320,11 @@
         </context-group>
       </trans-unit>
       <trans-unit id="PP44" datatype="html">
-        <source>Rekisteröidyllä on oikeus tarkastaa tutkimustietovarannossa itseään koskevat henkilötiedot. Tietosuojapyynnön lisäksi ne voi tarkastaa tutkimustietovarannon verkkosivustolta 
+        <source>Rekisteröidyllä on oikeus tarkastaa tutkimustietovarannossa itseään koskevat henkilötiedot. Tietosuojapyynnön lisäksi ne voi tarkastaa tutkimustietovarannon verkkosivustolta
                                                     <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>www.tiedejatutkimus.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>, <x id="START_LINK_1" ctype="x-a" equiv-text="&lt;a>"/>www.research.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/> ja <x id="START_LINK_2" ctype="x-a" equiv-text="&lt;a>"/>www.forskning.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>.</source>
         <target>Data subjects have the right to inspect personal data concerning themselves in the Finnish Research Information Hub. In addition to requesting data protection, they may inspect the Finnish Research Information Hub's website
                                                     <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>www.tiedejatutkimus.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>, <x id="START_LINK_1" ctype="x-a" equiv-text="&lt;a>"/>www.research.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/> and <x id="START_LINK_2" ctype="x-a" equiv-text="&lt;a>"/>www.forskning.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>.</target>
-        
+
         <context-group purpose="location">
           <context context-type="sourcefile">app/portal/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">107</context>
@@ -4355,11 +4355,11 @@
         </context-group>
       </trans-unit>
       <trans-unit id="PP48" datatype="html">
-        <source>Rekisteröidyllä on oikeus jättää valitus tietosuojavaltuutetulle, jos hän katsoo, ettei henkilötietojen käsittely ole lainmukaista. Tietosuojavaltuutettuun saa yhteyden täältä: 
+        <source>Rekisteröidyllä on oikeus jättää valitus tietosuojavaltuutetulle, jos hän katsoo, ettei henkilötietojen käsittely ole lainmukaista. Tietosuojavaltuutettuun saa yhteyden täältä:
                                                     <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>https://tietosuoja.fi/yhteystiedot <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>.</source>
-        <target>Data subjects have the right to file a complaint with the Data Protection Ombudsman if they believe that the processing of their personal data is not lawful. You can contact the Data Protection Ombudsman at: 
+        <target>Data subjects have the right to file a complaint with the Data Protection Ombudsman if they believe that the processing of their personal data is not lawful. You can contact the Data Protection Ombudsman at:
                                                     <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>https://tietosuoja.fi/en/contact-information <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>.</target>
-        
+
         <context-group purpose="location">
           <context context-type="sourcefile">app/portal/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">114</context>
@@ -4430,7 +4430,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="PP57" datatype="html">
-        <source>Tutkimustietovarannossa säilyttävät tietoja suomalaiset tutkimusorganisaatiot (yliopistot, ammattikorkeakoulut, tutkimuslaitokset, yliopistolliset sairaalat) sekä tutkimuksen rahoittajat. Lisäksi opetus- ja 
+        <source>Tutkimustietovarannossa säilyttävät tietoja suomalaiset tutkimusorganisaatiot (yliopistot, ammattikorkeakoulut, tutkimuslaitokset, yliopistolliset sairaalat) sekä tutkimuksen rahoittajat. Lisäksi opetus- ja
                                                     kulttuuriministeriö siirtää tutkimustietovarantoon tietoja ulkoisista lähteistä (esimerkiksi EU:n ylläpitämä CORDIS-tietokanta). Henkilötiedon lähde on mainittu tutkimustietovarannon verkkosivustoilla kunkin tiedon kohdalla.</source>
         <target>Finnish research organizations (universities, universities of applied sciences, research institutes, university hospitals) and research funders store data in the Finnish Research Information Hub. In addition, the Ministry of Education and Culture transfers data from external sources to the Finnish Research Information Hub (for example: The CORDIS database maintained by the EU). The source of personal data is specified on the websites of the Finnish Research Information Hub for each data item.</target>
         <context-group purpose="location">
@@ -4526,12 +4526,12 @@
         <source>
           <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Nimi: d151c77b9ae41ba12db2ca3d241f7930<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
           <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Koko: 64kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Rooli: Tämä eväste ohjaa käyttäjän verkkoliikenteen johdonmukaisesti palvelinympäristössä. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>The cookie facilitates the smooth operation of the service.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Rooli: Tämä eväste ohjaa käyttäjän verkkoliikenteen johdonmukaisesti palvelinympäristössä. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>The cookie facilitates the smooth operation of the service.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
         </source>
         <target>
           <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Name: d151c77b9ae41ba12db2ca3d241f7930<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
           <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Size: 64kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Role: This cookie consistently directs the user's network traffic in a server environment. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>The cookie facilitates the smooth operation of the service.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Role: This cookie consistently directs the user's network traffic in a server environment. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>The cookie facilitates the smooth operation of the service.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/portal/components/privacy/privacy.component.html</context>
@@ -4566,14 +4566,14 @@
         <source>
           <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Nimi: _pk_ses.1.d050<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
           <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Koko: 15kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Elinkaari: 30 minuuttia. Lyhytkestoinen eväste, jonka avulla tallennetaan tietoa väliaikaisesti vierailun ajaksi<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
-          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Rooli: Kertoo analytiikkatyökalulle, että aktiivinen vierailu on käynnissä.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Elinkaari: 30 minuuttia. Lyhytkestoinen eväste, jonka avulla tallennetaan tietoa väliaikaisesti vierailun ajaksi<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Rooli: Kertoo analytiikkatyökalulle, että aktiivinen vierailu on käynnissä.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
         </source>
         <target>
           <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Name: _pk_ses.1.d050<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
           <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Size: 15kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Lifecycle: 30 minutes. Short-term cookie to temporarily store data during a visit<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
-          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Role: Tells the analytics tool that an active visit is in progress.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Lifecycle: 30 minutes. Short-term cookie to temporarily store data during a visit<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Role: Tells the analytics tool that an active visit is in progress.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/portal/components/privacy/privacy.component.html</context>
@@ -4600,7 +4600,7 @@
         <source>
           <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Nimi: _pk_id.1.d050-<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
           <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Koko: 66kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Elinkaari: 13 kuukautta<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Elinkaari: 13 kuukautta<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
           <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Rooli: Tämän avulla kerätään anonymisoitua tietoa vierailusta verkkopalvelussa, kuten:
               <x id="START_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;ul>"/>
                   <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Käyttäjän IP-osoite vahvasti anonymisoidussa muodossa (käyttäjä ei ole tunnistettavissa)<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
@@ -4621,13 +4621,13 @@
                   <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Selaimen "User-Agent header"<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
               <x id="CLOSE_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;/ul>"/>
           <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Em. Tietojen perusteella kerätään kokonaistilastoa, jonka perusteella voidaan tehdä palvelun kehittämistoimenpiteitä perustuen esimerkiksi siihen tietoon, 
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Em. Tietojen perusteella kerätään kokonaistilastoa, jonka perusteella voidaan tehdä palvelun kehittämistoimenpiteitä perustuen esimerkiksi siihen tietoon,
               minkälaisilla laitteilla palvelua käytetään eniten, tai mistä palveluun pääsääntöisesti saavutaan.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
         </source>
         <target>
           <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Name: _pk_id.1.d050-<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
           <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Size: 66kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Lifecycle: 13 months<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Lifecycle: 13 months<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
           <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Role: This is used to collect anonymized information about the visit to the online service, such as:
               <x id="START_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;ul>"/>
                   <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>The user’s IP address in a strongly anonymized format (user not identifiable)<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
@@ -4648,7 +4648,7 @@
                   <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Browser "User-Agent header"<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
               <x id="CLOSE_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;/ul>"/>
           <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>The above-mentioned information is used to collect the overall statistics, based on which service development measures can be taken, 
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>The above-mentioned information is used to collect the overall statistics, based on which service development measures can be taken,
               for example, according to the type of devices that the service is used on the most, or from what type of devices the service is mainly accessed.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
         </target>
         <context-group purpose="location">
@@ -4660,14 +4660,14 @@
         <source>
           <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Nimi: MATOMO_SESSID<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
           <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Koko: <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Elinkaari: Lyhytkestoinen<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
-          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Rooli: Väliaikainen eväste luodaan, jos käyttäjä asettaa seurantaevästeet pois päältä.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Elinkaari: Lyhytkestoinen<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Rooli: Väliaikainen eväste luodaan, jos käyttäjä asettaa seurantaevästeet pois päältä.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
         </source>
         <target>
           <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Name: MATOMO_SESSID<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
           <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Size: <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Lifecycle: Short term<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
-          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Role: A temporary cookie will be created if the user turns off the tracking cookies.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Lifecycle: Short term<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Role: A temporary cookie will be created if the user turns off the tracking cookies.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/portal/components/privacy/privacy.component.html</context>
@@ -4678,14 +4678,14 @@
         <source>
           <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Nimi: Mtm_consent<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
           <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Koko: 24kb<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Elinkaari: Pitkäkestoinen<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
-          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Rooli: Evästeiden hyväksyminen<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Elinkaari: Pitkäkestoinen<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Rooli: Evästeiden hyväksyminen<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
         </source>
         <target>
           <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Name: Mtm_consent<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
           <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Size: 24kb<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Lifecycle: Long term<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
-          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Role: Accepting cookies<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Lifecycle: Long term<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Role: Accepting cookies<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/portal/components/privacy/privacy.component.html</context>
@@ -4693,7 +4693,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="CP15" datatype="html">
-        <source>Selaimen välimuistiin (local- sekä sessionstorageen) tallennetaan navigoinnin ja haun helpottavia asioita, kuten oma hakuhistoria. 
+        <source>Selaimen välimuistiin (local- sekä sessionstorageen) tallennetaan navigoinnin ja haun helpottavia asioita, kuten oma hakuhistoria.
                 Käyttäjä voi poistaa hakuhistoriansa myös hakuelementistä suoraan.
         </source>
         <target>The browser cache (local and sessionstorage) stores items that make navigation and search easier such as the user's own search history.
@@ -5016,11 +5016,11 @@
       <trans-unit id="cookieConsent1" datatype="html">
         <source>
             Tämä palvelu käyttää evästeitä. Välttämättömien evästeiden lisäksi keräämme seurantaevästeiden avulla anonymisoitua tietoa palvelun käytöstä, käyttökokemuksen kehittämistä varten.<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>
-            Tietoja ei luovuteta kolmansille osapuolille. 
+            Tietoja ei luovuteta kolmansille osapuolille.
         </source>
         <target>
             This service uses cookies. In addition to necessary cookies, we use tracking cookies to collect anonymized information about the use of the service in order to improve the user experience.<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>
-            The information will not be disclosed to third parties. 
+            The information will not be disclosed to third parties.
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/layout/cookie-consent/cookie-consent.component.html</context>
@@ -5379,6 +5379,34 @@
                       uudestaan.</source>
         <target>We encounterer a problem when deleting profile. Try again in few minutes.</target>
       </trans-unit>
+      <trans-unit id="hideProfile">
+        <source>Piilota profiili</source>
+        <target>Hide profile</target>
+      </trans-unit>
+      <trans-unit id="showProfile">
+        <source>Näytä profiili</source>
+        <target>Show profile</target>
+      </trans-unit>
+      <trans-unit id="enableOrcidDataFetch">
+        <source>Ota käyttöön</source>
+        <target>Enable</target>
+      </trans-unit>
+      <trans-unit id="disableOrcidDataFetch">
+        <source>Poista käytöstä</source>
+        <target>Disable</target>
+      </trans-unit>
+      <trans-unit id="hideProfileCaption">
+        <source>Julkisen profiilin piilottaminen</source>
+        <target>Hide public profile</target>
+      </trans-unit>
+      <trans-unit id="orcidAutoUpdateCaption">
+        <source>ORCID-tietojen automaattinen päivittyminen</source>
+        <target>Automatic update of ORCID data</target>
+      </trans-unit>
+      <trans-unit id="removeProfileCaption">
+        <source>Profiilin poistaminen</source>
+        <target>Profile removal</target>
+      </trans-unit>
       <trans-unit id="youHaveNotSelectedAnyPublicData">
         <source>Et ole vielä valinnut julkisesti näytettäviä tietoja</source>
         <target>You have not yet selected the information to be displayed publicly</target>
@@ -5467,6 +5495,10 @@
         <source>Profiili julkaistu. Tiedot näkyvät muutaman minuutin kuluttua tiedejatutkimus.fi -palvelussa.</source>
         <target>Profile published. The information will be displayed in the Research.fi service in a few minutes.</target>
       </trans-unit>
+      <trans-unit id="profileHiddenToast">
+        <source>Profiilin piilottaminen onnistui. Profiilisi piilotetaan Tiedejatutkimus.fi -palvelusta muutaman minuutin kuluttua.</source>
+        <target>Profile has been hidden. Your profile will be hidden from Research.fi service in a few minutes.</target>
+      </trans-unit>
       <trans-unit id="dataSavingError">
         <source>Virhe tiedon tallennuksessa</source>
         <target>Error saving data</target>
@@ -5520,12 +5552,12 @@
         <target>Show all projects</target>
       </trans-unit>
       <trans-unit id="isMissing">
-        <source>Puuttuuko jokin </source>
+        <source>Puuttuiko jokin </source>
         <target>Is a </target>
       </trans-unit>
       <trans-unit id="fromYourData">
         <source> tiedoistasi?</source>
-        <target> missing from your data?</target>
+        <target> missing from your information?</target>
       </trans-unit>
       <trans-unit id="publicationItem">
         <source>julkaisu</source>
@@ -5639,6 +5671,163 @@
       <trans-unit id="youHaveUnpublishedChangesContinue">
         <source>Sinulla on julkaisemattomia muutoksia. Jos kirjaudut ulos, tiedot menetetään.</source>
         <target>You have unpublished changes. If you log out, the changes will be lost.</target>
+      </trans-unit>
+      <trans-unit id="welcomeStepperStep1Caption">
+        <source>Aloita työkalun käyttö vahvalla Suomi.fi-tunnistautumisella sekä kirjautumalla ORCID-tunnuksillasi.</source>
+        <target>Aloita työkalun käyttö vahvalla Suomi.fi-tunnistautumisella sekä kirjautumalla ORCID-tunnuksillasi.</target>
+      </trans-unit>
+      <trans-unit id="welcomeStepperStep2Caption">
+        <source>Kokoa julkisessa profiilissasi näytettävät tiedot.</source>
+        <target>Kokoa julkisessa profiilissasi näytettävät tiedot.</target>
+      </trans-unit>
+      <trans-unit id="welcomeStepperStep3Caption">
+        <source>Kun päivität tietojasi ORCID-palvelussa tai kotiorganisaatiossasi, myös profiiliisi valitsemasi tiedot päivittyvät automaattisesti.</source>
+        <target>Kun päivität tietojasi ORCID-palvelussa tai kotiorganisaatiossasi, myös profiiliisi valitsemasi tiedot päivittyvät automaattisesti.</target>
+      </trans-unit>
+      <trans-unit id="welcomeStepperStep4Caption">
+        <source>Esikatsele julkiseen profiiliisi lisäämiäsi tietoja ennen niiden julkaisemista.</source>
+        <target>Esikatsele julkiseen profiiliisi lisäämiäsi tietoja ennen niiden julkaisemista.</target>
+      </trans-unit>
+      <trans-unit id="welcomeStepperStep5Caption">
+        <source>Jaa halutessasi profiilisi tietoja myös muille tutkimustoimijoille.</source>
+        <target>Jaa halutessasi profiilisi tietoja myös muille tutkimustoimijoille.</target>
+      </trans-unit>
+      <trans-unit id="welcomeStepperStep6Caption">
+        <source>Valmista!</source>
+        <target>Valmista!</target>
+      </trans-unit>
+      <trans-unit id="welcomeStepperStep1Content">
+        <source>Suomi.fi-tunnistautumisen avulla vahvistamme henkilöllisyytesi. ORCID-tunnisteen avulla voit koota profiiliisi tiedot eri lähteistä.</source>
+        <target>Suomi.fi-tunnistautumisen avulla vahvistamme henkilöllisyytesi. ORCID-tunnisteen avulla voit koota profiiliisi tiedot eri lähteistä.</target>
+      </trans-unit>
+      <trans-unit id="welcomeStepperStep2Content1">
+        <source>Kun olet kirjautunut, voit valita, mitkä ORCID-tunnisteeseesi yhdistetyt tiedot haluat asettaa julkiseksi profiilissasi. Voit liittää profiiliin tietoja ORCID-palvelusta löytyvien tietojen lisäksi myös oman kotiorganisaatiosi tiedoista. Sinun tarvitsee vain valita julkiseksi asetettavat tiedot. Työkaluun ei ole mahdollista syöttää tietoja itse.</source>
+        <target>Kun olet kirjautunut, voit valita, mitkä ORCID-tunnisteeseesi yhdistetyt tiedot haluat asettaa julkiseksi profiilissasi. Voit liittää profiiliin tietoja ORCID-palvelusta löytyvien tietojen lisäksi myös oman kotiorganisaatiosi tiedoista. Sinun tarvitsee vain valita julkiseksi asetettavat tiedot. Työkaluun ei ole mahdollista syöttää tietoja itse.</target>
+      </trans-unit>
+      <trans-unit id="welcomeStepperStep2Content2">
+        <source>Tutkijan tiedot -työkalun beta-versiossa on saatavilla vain rajoitetusti organisaatioista siirrettyjä tietoja. Jos et löydä tämänhetkisestä kotiorganisaatiostasi peräisin olevia tietoja, johtuu se siitä, että organisaatiosi ei ole vielä tehnyt tarvittavia tiedonsiirtoja.</source>
+        <target>Tutkijan tiedot -työkalun beta-versiossa on saatavilla vain rajoitetusti organisaatioista siirrettyjä tietoja. Jos et löydä tämänhetkisestä kotiorganisaatiostasi peräisin olevia tietoja, johtuu se siitä, että organisaatiosi ei ole vielä tehnyt tarvittavia tiedonsiirtoja.</target>
+      </trans-unit>
+      <trans-unit id="welcomeStepperStep3Content1">
+        <source>Jos haluat muokata alkuperäisiä tietojasi, tee se tiedon alkuperäisessä lähteessä (kotiorganisaation järjestelmä, ORCID-palvelu). Tiedot päivittyvät profiiliisi automaattisesti.</source>
+        <target>Jos haluat muokata alkuperäisiä tietojasi, tee se tiedon alkuperäisessä lähteessä (kotiorganisaation järjestelmä, ORCID-palvelu). Tiedot päivittyvät profiiliisi automaattisesti.</target>
+      </trans-unit>
+      <trans-unit id="welcomeStepperStep3Content2">
+        <source>Huom. Jos lisäät ORCID-palvelussa uusia tietoja (esim. julkaisuja) profiilin luomisen jälkeen, ne eivät vielä nykyisessä beta-versiossa päivity profiiliisi automaattisesti. Tämä ominaisuus otetaan käyttöön keväällä 2023 julkaistavassa versiossa.</source>
+        <target>Huom. Jos lisäät ORCID-palvelussa uusia tietoja (esim. julkaisuja) profiilin luomisen jälkeen, ne eivät vielä nykyisessä beta-versiossa päivity profiiliisi automaattisesti. Tämä ominaisuus otetaan käyttöön keväällä 2023 julkaistavassa versiossa.</target>
+      </trans-unit>
+      <trans-unit id="welcomeStepperStep4Content">
+        <source>Kun olet valinnut haluamasi tiedot, voit esikatsella profiiliasi muokkausnäkymässä. Vasta profiilin julkaisemisen jälkeen profiiliin tiedot näkyvät Tiedejatutkimus.fi-portaalissa.</source>
+        <target>Kun olet valinnut haluamasi tiedot, voit esikatsella profiiliasi muokkausnäkymässä. Vasta profiilin julkaisemisen jälkeen profiiliin tiedot näkyvät Tiedejatutkimus.fi-portaalissa.</target>
+      </trans-unit>
+      <trans-unit id="welcomeStepperStep5Content">
+        <source>Vuoden 2023 aikana kehitämme toiminnallisuutta profiilitietojesi jakamiseen halutessasi sellaisille  tutkimusrahoittajille, kotiorganisaatiollesi ja muille yhteistyökumppaneille, joilla on valmius tietojen hyödyntämiseen omassa järjestelmässään. Tämä ei ole vielä mahdollista nykyisessä beta-versiossa.</source>
+        <target>Vuoden 2023 aikana kehitämme toiminnallisuutta profiilitietojesi jakamiseen halutessasi sellaisille  tutkimusrahoittajille, kotiorganisaatiollesi ja muille yhteistyökumppaneille, joilla on valmius tietojen hyödyntämiseen omassa järjestelmässään. Tämä ei ole vielä mahdollista nykyisessä beta-versiossa.</target>
+      </trans-unit>
+      <trans-unit id="welcomeStepperStep6Content">
+        <source>Profiilisi on nyt löydettävissä Tiedejatutkimus.fi-sivustolla, josta mm. tiedotusvälineet, rahoittajat, tutkimusyhteistyöstä kiinnostuneet sekä muut tutkimustiedon etsijät voivat löytää profiilisi.</source>
+        <target>Profiilisi on nyt löydettävissä Tiedejatutkimus.fi-sivustolla, josta mm. tiedotusvälineet, rahoittajat, tutkimusyhteistyöstä kiinnostuneet sekä muut tutkimustiedon etsijät voivat löytää profiilisi.</target>
+      </trans-unit>
+      <trans-unit id="closeInstructions">
+        <source>Sulje ohjeet</source>
+        <target>Close instructions</target>
+      </trans-unit>
+      <trans-unit id="accountSettings">
+        <source>Tiliasetukset</source>
+        <target>Account settings</target>
+      </trans-unit>
+      <trans-unit id="accountSettingsOrcidInfo">
+        <source>Tämä asetus lisää jatkossa ORCID-palveluun lisäämäsi tai kotiorganisaatiossasi ORCID-tunnisteeseesi liitetyt uudet tiedot automaattisesti julkiseen profiiliisi Tiedejatutkimus.fi-palvelussa.</source>
+        <target>Tämä asetus lisää jatkossa ORCID-palveluun lisäämäsi tai kotiorganisaatiossasi ORCID-tunnisteeseesi liitetyt uudet tiedot automaattisesti julkiseen profiiliisi Tiedejatutkimus.fi-palvelussa.</target>
+      </trans-unit>
+      <trans-unit id="accountSettingsOrcidModalTextEnable">
+        <source>ORCID-palveluun lisäämäsi tai kotiorganisaatiossasi ORCID-tunnisteeseesi liitetyt uudet tiedot päivittyvät jatkossa automaattisesti julkiseen profiiliisi Tiedejatutkimus.fi-palvelussa.</source>
+        <target>ORCID-palveluun lisäämäsi tai kotiorganisaatiossasi ORCID-tunnisteeseesi liitetyt uudet tiedot päivittyvät jatkossa automaattisesti julkiseen profiiliisi Tiedejatutkimus.fi-palvelussa.</target>
+      </trans-unit>
+      <trans-unit id="accountSettingsOrcidModalTextDisable">
+        <source>ORCID-palveluun lisäämäsi tai kotiorganisaatiossasi ORCID-tunnisteeseesi liitetyt uudet tiedot eivät enää päivity automaattisesti julkiseen profiiliisi Tiedejatutkimus.fi-palvelussa.</source>
+        <target>ORCID-palveluun lisäämäsi tai kotiorganisaatiossasi ORCID-tunnisteeseesi liitetyt uudet tiedot eivät enää päivity automaattisesti julkiseen profiiliisi Tiedejatutkimus.fi-palvelussa.</target>
+      </trans-unit>
+      <trans-unit id="accountSettingsProfileRemovalInfo">
+        <source>Profiilin poistaminen tarkoittaa sitä, että julkinen profiilisi poistetaan ja ORCIDista tuomasi tiedot poistetaan. Myös kirjautumisen yhteydessä profiilityökaluun tallennetut tiedot poistetaan.</source>
+        <target>Profiilin poistaminen tarkoittaa sitä, että julkinen profiilisi poistetaan ja ORCIDista tuomasi tiedot poistetaan. Myös kirjautumisen yhteydessä profiilityökaluun tallennetut tiedot poistetaan.</target>
+      </trans-unit>
+      <trans-unit id="accountSettingsProfileRemovalModalText">
+        <source>Profiilin poistaminen tarkoittaa sitä, että julkinen profiilisi poistetaan ja ORCIDista tuomasi tiedot poistetaan. Myös kirjautumisen yhteydessä profiilityökaluun tallennetut tiedot poistetaan.</source>
+        <target>Profiilin poistaminen tarkoittaa sitä, että julkinen profiilisi poistetaan ja ORCIDista tuomasi tiedot poistetaan. Myös kirjautumisen yhteydessä profiilityökaluun tallennetut tiedot poistetaan.</target>
+      </trans-unit>
+      <trans-unit id="accountSettingsHideAccountInfo">
+        <source>Julkisen profiilin piilottaminen tarkoittaa sitä, että profiilisi piilotetaan Tiedejatutkimus.fi-portaalista. Voit edelleen kirjautua työkaluun ja julkaista profiilisi uudestaan.</source>
+        <target>Julkisen profiilin piilottaminen tarkoittaa sitä, että profiilisi piilotetaan Tiedejatutkimus.fi-portaalista. Voit edelleen kirjautua työkaluun ja julkaista profiilisi uudestaan.</target>
+      </trans-unit>
+      <trans-unit id="accountSettingsHideAccountModalText">
+        <source>Julkisen profiilin piilottaminen tarkoittaa sitä, että profiilisi piilotetaan Tiedejatutkimus.fi-portaalista. Voit edelleen kirjautua työkaluun ja julkaista profiilisi uudestaan.</source>
+        <target>Julkisen profiilin piilottaminen tarkoittaa sitä, että profiilisi piilotetaan Tiedejatutkimus.fi-portaalista. Voit edelleen kirjautua työkaluun ja julkaista profiilisi uudestaan.</target>
+       </trans-unit>
+      <!-- MyData tabbed modals -->
+      <trans-unit id="selectPublications">
+        <source>Valitse julkaisut</source>
+        <target>Select publications</target>
+      </trans-unit>
+      <trans-unit id="selectDatasets">
+        <source>Valitse aineistot</source>
+        <target>Select datasets</target>
+      </trans-unit>
+      <trans-unit id="selectProjects">
+        <source>Valitse hankkeet</source>
+        <target>Select projects</target>
+      </trans-unit>
+      <trans-unit id="myDataEditorModalPublicationTabInfo">
+        <source>Tiedejatutkimus.fi-palvelusta löytyvät julkaisut, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. Julkaisuja, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä "Hae muita julkaisuja" -toiminnolla.</source>
+        <target>Publications with your ORCID iD in Research.fi are automatically added to your information. Publications that are not associated with your ORCID iD can be added using the "Search for other publications” function.</target>
+      </trans-unit>
+      <trans-unit id="myDataEditorModalPublicationChooseItems">
+        <source></source>
+        <target>You can select publications for your profile from the list below.</target>
+      </trans-unit>
+      <trans-unit id="myDataEditorModalDatasetTabInfo">
+        <source>Tiedejatutkimus.fi-palvelusta löytyvät tutkimusaineistot, joissa on ORCID-tunnuksesi, lisätään profiiliisi automaattisesti. Aineistoja, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä "Hae muita tutkimusaineistoja" -toiminnolla.</source>
+        <target>Research data with your ORCID iD in Research.fi are automatically added to your information. Datasets that are not associated with your ORCID iD can be added using the "Search for other research data" function.</target>
+      </trans-unit>
+      <trans-unit id="myDataEditorModalDatasetChooseItems">
+        <source>Voit valita profiiliisi tutkimusaineistoja alla olevasta listasta.</source>
+        <target>You can select research data for your profile from the list below.</target>
+      </trans-unit>
+      <trans-unit id="myDataEditorModalFundingTabInfo">
+        <source>Tiedejatutkimus.fi-palvelusta löytyvät hankkeet, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. hankkeita, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä "Hae muita hankkeita" -toiminnolla.</source>
+        <target>Projects with your ORCID iD in Research.fi are automatically added to your information. Projects not associated with your ORCID iD can be added using the "Search for other projects" function.</target>
+      </trans-unit>
+      <trans-unit id="searchForOtherPublicationsFromPortal">
+        <source>Hae muita julkaisuja Tiedejatutkimus.fi:stä julkaisun tai tekijän nimellä ja liitä ne profiiliisi.</source>
+        <target>Search for other publications in Research.fi with the name of the publication or author and attach them to your profile.</target>
+      </trans-unit>
+      <trans-unit id="searchForOtherDatasetsFromPortal">
+        <source>Hae muita tutkimusaineistoja Tiedejatutkimus.fi:stä aineiston tai tekijän nimellä ja liitä ne profiiliisi.</source>
+        <target>Search for other research data in Research.fi with the name of the material or author and attach them to your profile.</target>
+      </trans-unit>
+      <trans-unit id="searchForOtherFundingsFromPortal">
+        <source>Hae muita hankkeita Tiedejatutkimus.fi:stä hankkeen sisältämien tietojen perusteella ja liitä ne profiiliisi.</source>
+        <target>Search for other projects at Research.fi based on the information in the project and attach them to your profile.</target>
+      </trans-unit>
+      <trans-unit id="searchForOther">
+        <source>Hae muita</source>
+        <target>Search for other</target>
+      </trans-unit>
+      <trans-unit id="selected">
+        <source>valittu</source>
+        <target>selected</target>
+      </trans-unit>
+      <trans-unit id="addSelected">
+        <source>Lisää valitut</source>
+        <target>Add selected</target>
+      </trans-unit>
+      <trans-unit id="toMyInformation">
+        <source>tietoihini</source>
+        <target>to my information</target>
+      </trans-unit>
+      <trans-unit id="identifier">
+        <source>Tunniste</source>
+        <target>ID</target>
       </trans-unit>
     </body>
   </file>

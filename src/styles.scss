@@ -78,6 +78,8 @@
 @import './app/mydata/components/profile/profile-panel/primary-badge/primary-badge.component-theme.scss';
 @import './app/mydata/components/profile/draft-summary/draft-summary.component.scss';
 @import './app/mydata/components/profile/data-sources/data-sources-theme.scss';
+@import './app/mydata/components/welcome-stepper/welcome-stepper.component.scss';
+@import './app/mydata/components/account-settings/account-settings.component.scss';
 
 // Global element color definitions
 @mixin researchfi-components-theme($theme) {

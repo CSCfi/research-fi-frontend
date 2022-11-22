@@ -4,9 +4,9 @@
 //
 //  :author: CSC - I
 
-app-search-portal-results {
+app-profile-items-table {
   .mat-checkbox-inner-container {
-    margin-top: 0.175rem !important;
+    margin-top: -0.125rem !important;
   }
 
   table {
@@ -17,15 +17,15 @@ app-search-portal-results {
     min-height: unset;
   }
 
+  mat-header-row,
+  mat-row {
+    padding: 0 1rem;
+  }
+
   mat-row,
   mat-footer-row {
     min-height: unset;
     align-items: unset;
-  }
-
-  mat-header-row,
-  mat-row {
-    padding: 0 1rem;
   }
 
   mat-cell,
@@ -44,21 +44,25 @@ app-search-portal-results {
     overflow: visible;
   }
 
-  .mat-column-year {
-    flex: 0 0 3.75rem;
-  }
-
-  .mat-column-name {
-    flex-direction: column;
-  }
-
   .mat-column-show-more {
     flex: 0 0 6.5rem;
+  }
+
+  // Cell with multiple rows which can be expanded with 'show more'
+  .expandable-cell {
+    flex-direction: column;
   }
 
   mat-cell:first-of-type,
   mat-header-cell:first-of-type,
   mat-footer-cell:first-of-type {
     padding-left: 0;
+  }
+
+  // Delete row button
+  app-secondary-button button {
+    min-height: unset !important;
+    padding: 0.125rem 1.5rem !important;
+    margin-top: -0.5rem;
   }
 }

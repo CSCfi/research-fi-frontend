@@ -345,6 +345,11 @@ fa-icon[icon='external-link-alt'] {
   padding-left: 5px;
 }
 
+.big-icon svg {
+  height: 1.5rem;
+  width: auto;
+}
+
 // Forms
 .mat-pseudo-checkbox {
   background: #fff;
@@ -578,6 +583,46 @@ mat-basic-chip.tag {
   .mat-tab-body-content {
     overflow: hidden;
     padding-top: 1rem;
+  }
+}
+
+// Material table
+.custom-table {
+  /*
+   * Sort indicators
+   */
+  .mat-sort-header-arrow {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  // Hide default arrow stem
+  .mat-sort-header-stem {
+    display: none;
+  }
+  .mat-sort-header-indicator {
+    opacity: 1;
+    color: white;
+    font-weight: bold;
+
+    // Hide default arrow as its composed of left, right and middle
+    .mat-sort-header-pointer-left,
+    .mat-sort-header-pointer-right,
+    .mat-sort-header-pointer-middle {
+      display: none;
+    }
+  }
+
+  .sort-indicator fa-icon {
+    font-size: 1rem;
+    padding-left: 0.75rem;
+  }
+
+  // E.g. in funding-call-results funder name
+  .overflow-ellipsis {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: block;
   }
 }
 

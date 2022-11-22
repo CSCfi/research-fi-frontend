@@ -41,7 +41,6 @@ import { cloneDeep } from 'lodash-es';
   encapsulation: ViewEncapsulation.None,
 })
 export class ProfileComponent implements OnInit, OnDestroy {
-  @ViewChild('deletingProfileTemplate') deletingProfileTemplate: ElementRef;
   @ViewChild('collaborationComponentRef') collaborationComponentRef;
 
   orcidData: any;
@@ -56,7 +55,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   discardChanges = $localize`:@@discardChanges:Hylkää muutokset`;
   termsForTool = CommonStrings.termsForTool;
   processingOfPersonalData = CommonStrings.processingOfPersonalData;
-  deleteProfileTitle = CommonStrings.deleteProfile;
 
   // Dialog variables
   showDialog: boolean;
@@ -83,14 +81,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'cancel' },
     { label: $localize`:@@publish:Julkaise`, primary: true, method: 'publish' },
   ];
-  deleteProfileDialogActions = [
-    { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'close' },
-    {
-      label: $localize`:@@deleteProfile:Poista profiili`,
-      primary: true,
-      method: 'delete',
-    },
-  ];
   discardChangesActions = [
     { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'close' },
     {
@@ -102,7 +92,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   connProblem: boolean;
   loading: boolean;
-  deletingProfile: boolean;
 
   draftPayload: any[];
 
@@ -249,10 +238,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.publish();
         break;
       }
-      case 'delete': {
-        this.deleteProfile();
-        break;
-      }
       case 'discard': {
         this.reset();
         break;
@@ -260,42 +245,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
   }
 
-  deleteProfile() {
-    this.deletingProfile = true;
-    this.loading = true;
-    this.connProblem = false;
-
-    this.profileService
-      .deleteProfile()
-      .pipe(take(1))
-      .subscribe({
-        next: (res: any) => {
-          this.loading = false;
-          if (res.ok && res.body.success) {
-            this.dialog.closeAll();
-            this.reset();
-
-            // Wait for dialog to close
-            setTimeout(() => {
-              this.oidcSecurityService.logoff();
-            }, 500);
-          }
-        },
-        error: (error) => {
-          this.loading = false;
-          if (!error.ok) {
-            this.connProblem = true;
-          }
-        },
-      });
-  }
-
   closeDialog() {
     this.dialog.closeAll();
     this.dialogTitle = '';
     this.showDialog = false;
     this.dialogTemplate = null;
-    this.deletingProfile = false;
     this.disableDialogClose = false;
   }
 
@@ -428,6 +382,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
         promises.push(item.handler());
       }
     }
+
+    // Enable hide profile button in account settings section, if it has been disabled
+    sessionStorage.removeItem('profileHidden');
 
     Promise.all(promises)
       .then((response) => {

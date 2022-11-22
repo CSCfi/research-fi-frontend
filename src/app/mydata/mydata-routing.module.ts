@@ -19,6 +19,7 @@ import { PageResolverService } from '@shared/resolvers/page-resolver.service';
 import { OrcidProfileResolverService } from './resolvers/orcid-profile-resolver.service';
 import { MyDataProfileResolverService } from './resolvers/mydata-profile-resolver.service';
 import { MyDataTerms } from './components/mydata-terms/mydata-terms.component';
+import { AccountSettingsComponent } from '@mydata/components/account-settings/account-settings.component';
 
 const routes: Routes = [
   {
@@ -63,6 +64,16 @@ const routes: Routes = [
     path: 'data-sources',
     pathMatch: 'full',
     component: DataSourcesComponent,
+    canActivate: [AuthGuard],
+    resolve: {
+      orcidProfile: OrcidProfileResolverService,
+      myDataProfile: MyDataProfileResolverService,
+    },
+  },
+  {
+    path: 'account-settings',
+    pathMatch: 'full',
+    component: AccountSettingsComponent,
     canActivate: [AuthGuard],
     resolve: {
       orcidProfile: OrcidProfileResolverService,

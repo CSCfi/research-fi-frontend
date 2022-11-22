@@ -47,6 +47,7 @@ export const FiltersConfig: FilterConfigType[] = [
   // },
 ];
 
+// Used in data sources table
 export const TableColumns: TableColumn[] = [
   {
     label: 'selection',
@@ -77,7 +78,8 @@ export const TableColumns: TableColumn[] = [
     class: 'col-3',
     mobileSortLabel: 'Tiedejatutkimus.fi:ssä julkaistut ensin',
     mobileSortDirection: 'desc',
-    tooltip: 'Tooltip placeholder',
+    tooltip:
+      'Tieto voi olla asetettu julkiseksi Tiedejatutkimus.fi:ssä julkaistuun profiiliin tai piilotettu julkisesta profiilista.',
     showTooltipIcon: true,
   },
   {
@@ -97,4 +99,70 @@ export const TableColumns: TableColumn[] = [
   //   showTooltipIcon: true,
   //   sortDisabled: true,
   // },
+];
+
+// Table column configurations for groups that use search-from-portal functionality
+export const PublicationColumns = [
+  {
+    id: 'year',
+    label: $localize`:@@year:Vuosi`,
+    field: 'publicationYear',
+    width: '4rem;',
+  },
+  {
+    id: 'name',
+    ellipsis: true,
+    label: $localize`:@@name:Nimi`,
+    field: 'title',
+    additionalFields: [
+      { field: 'authors', ellipsis: true },
+      { field: 'parentPublicationName', hidden: true },
+      { field: 'doi', hidden: true },
+    ],
+  },
+  {
+    id: 'source',
+    label: $localize`:@@source:Lähde`,
+    field: 'source',
+    width: '8rem',
+  },
+];
+
+export const DatasetColumns = [
+  {
+    id: 'year',
+    label: $localize`:@@year:Vuosi`,
+    field: 'year',
+    width: '4rem;',
+  },
+  {
+    id: 'name',
+    ellipsis: true,
+    label: $localize`:@@name:Nimi`,
+    field: 'name',
+    additionalFields: [
+      {
+        field: 'authors',
+        useComponent: true,
+        hidden: true,
+        label:
+          $localize`:@@tkiAuthors:Tekijät` +
+          ' / ' +
+          $localize`:@@orgOrganization:Organisaatio`,
+      },
+      { field: 'urn', hidden: true, label: $localize`:@@identifier:Tunniste` },
+      {
+        field: 'description',
+        ellipsis: true,
+        cutContent: true,
+        label: $localize`:@@description:Kuvaus`,
+      },
+    ],
+  },
+  {
+    id: 'source',
+    label: $localize`:@@source:Lähde`,
+    field: 'source',
+    width: '8rem',
+  },
 ];

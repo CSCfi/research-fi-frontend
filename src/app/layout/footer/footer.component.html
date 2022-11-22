@@ -65,21 +65,19 @@
 
           <ng-container *ngIf="myDataBeta">
             <li>
-              <a routerLink="/WIZARDURL" class="disabled">
-                Tutkijan tiedot -työkalun pikaohjeet
-              </a>
+              <a routerLink="/WIZARDURL" class="disabled"> Pikaohjeet </a>
             </li>
 
             <li>
               <a href="https://wiki.eduuni.fi/x/WQgGEw" target="_blank">
-                Tutkijan tiedot -työkalun kuvalliset käyttöohjeet
+                Kuvalliset käyttöohjeet
                 <fa-icon icon="external-link-alt" *ngIf="myDataBeta"></fa-icon>
               </a>
             </li>
 
             <li>
               <a routerLink="/service-info" fragment="faq_3">
-                Usein kysytyt kysymykset Tutkijan tiedot -työkalusta
+                Usein kysytyt kysymykset
               </a>
             </li>
           </ng-container>
@@ -117,19 +115,6 @@
           Selosteet ja käytännöt
         </h2>
         <ul>
-          <ng-container *ngIf="!myDataBeta">
-            <li>
-              <a i18n="Footer-link@@footerLink8" routerLink="/accessibility"
-                >Saavutettavuusseloste</a
-              >
-            </li>
-            <li>
-              <a i18n="Footer-link@@footerLink9" routerLink="/privacy"
-                >Tietosuoja</a
-              >
-            </li>
-          </ng-container>
-
           <ng-container *ngIf="myDataBeta">
             <li>
               <a routerLink="/mydata/privacy">
@@ -141,6 +126,17 @@
               <a routerLink="/mydata/terms">Käyttöehdot</a>
             </li>
           </ng-container>
+
+          <li>
+            <a i18n="Footer-link@@footerLink8" routerLink="/accessibility"
+              >Saavutettavuusseloste</a
+            >
+          </li>
+          <li *ngIf="!myDataBeta">
+            <a i18n="Footer-link@@footerLink9" routerLink="/privacy"
+              >Tietosuoja</a
+            >
+          </li>
         </ul>
       </div>
 
