@@ -27,6 +27,7 @@ type Field = { key: string; label?: string };
 export class SinglePersonComponent implements OnInit {
   responseData: Search;
   tabQueryParams: any;
+  searchTerm: string;
   tabData: any;
   tab = 'person';
 
@@ -87,6 +88,7 @@ export class SinglePersonComponent implements OnInit {
     this.route.params.pipe(take(1)).subscribe((params) => {
       this.searchService.searchTerm = params.id;
       this.getData(params.id);
+      this.searchService.searchTerm = ''; // Empty search term so breadcrumb link is correct
     });
 
     this.tabQueryParams = this.tabChangeService.tabQueryParams.persons;
