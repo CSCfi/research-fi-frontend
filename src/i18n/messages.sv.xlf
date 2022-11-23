@@ -5252,6 +5252,10 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Tekijä ja rooli aktiviteetissa</source>
         <target>Upphovsman och roll i aktiviteten</target>
       </trans-unit>
+      <trans-unit id="internationalCollaboration">
+        <source>Kansainvälinen yhteistyö</source>
+        <target>International collaboration</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

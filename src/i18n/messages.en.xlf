@@ -5909,6 +5909,10 @@
         <source>Tekijä ja rooli aktiviteetissa</source>
         <target>Actor and role in the activity</target>
       </trans-unit>
+      <trans-unit id="internationalCollaboration">
+        <source>Kansainvälinen yhteistyö</source>
+        <target>International collaboration</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
