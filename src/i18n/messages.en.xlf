@@ -5913,6 +5913,22 @@
         <source>Kansainvälinen yhteistyö</source>
         <target>International collaboration</target>
       </trans-unit>
+      <trans-unit id="dataSourcesInformationTooltip">
+        <source>Tieto voi olla asetettu julkiseksi Tiedejatutkimus.fi:ssä julkaistuun profiiliin tai piilotettu julkisesta profiilista.</source>
+        <target>The information may be set to public in a Research.fi profile or hidden in a public profile.</target>
+      </trans-unit>
+      <trans-unit id="makePublic">
+        <source>Aseta julkiseksi</source>
+        <target>Make public</target>
+      </trans-unit>
+      <trans-unit id="hideInProfile">
+        <source>Piilota profiilista</source>
+        <target>Hide in profile</target>
+      </trans-unit>
+      <trans-unit id="hideInProfile">
+        <source>Piilota profiilista</source>
+        <target>Hide in profile</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
