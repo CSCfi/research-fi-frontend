@@ -46,7 +46,7 @@ export class FunderAdapter implements Adapter<Funder> {
       this.utils.checkTranslation('funderName', item),
       item.funderNameUnd,
       item.typeOfFundingId,
-      this.utils.checkTranslation('typeOfFundingName', item).trim().length > 0
+      this.utils.checkTranslation('typeOfFundingName', item)?.trim().length > 0
         ? this.utils.checkTranslation('typeOfFundingName', item)
         : item.typeOfFundingId,
       this.utils.checkTranslation('callProgrammeName', item),

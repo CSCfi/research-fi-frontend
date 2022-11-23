@@ -29,6 +29,7 @@ import {
   PublicationColumns,
   DatasetColumns,
   ActivityColumns,
+  FundingColumns,
 } from '@mydata/constants';
 import { EditorModalColumn } from 'src/types';
 import { SearchPortalService } from '@mydata/services/search-portal.service';
@@ -137,6 +138,7 @@ export class EditorModalComponent implements OnInit {
         this.addFromPortalTabString = $localize`:@@fundings:hankkeita`;
         this.selectItemsTabLabel = $localize`:@@selectProjects:Valitse hankkeet`;
         this.portalItemGroupStringPlural = $localize`:@@fundings:hankkeet`;
+        this.tableColumns = FundingColumns;
         this.tabInfoText = $localize`:@@myDataEditorModalFundingTabInfo:Tiedejatutkimus.fi-palvelusta löytyvät hankkeet, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. hankkeita, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä "Hae muita hankkeita" -toiminnolla.`;
         break;
       }

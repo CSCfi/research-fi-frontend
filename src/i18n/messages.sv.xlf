@@ -5231,6 +5231,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       <trans-unit id="notPublic">
         <source>Ei julkinen</source>
         <target>Inte offentlig</target>
+      </trans-unit>
       <trans-unit id="activities">
         <source>aktiviteetit</source>
         <target>aktiviteter</target>

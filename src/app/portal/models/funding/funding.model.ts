@@ -73,7 +73,7 @@ export class FundingAdapter implements Adapter<Funding> {
 
     // Set EU funding status
     item.euFunding =
-      item.funderNameFi.toLowerCase() === 'euroopan unioni' ? true : false;
+      item.funderNameFi?.toLowerCase() === 'euroopan unioni' ? true : false;
 
     // Determine recipient type based on existence and contents of fundingGroupPerson
     switch (item.fundingGroupPerson?.length) {
