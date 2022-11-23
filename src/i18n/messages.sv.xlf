@@ -5256,6 +5256,18 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Kansainvälinen yhteistyö</source>
         <target>International collaboration</target>
       </trans-unit>
+      <trans-unit id="dataSourcesInformationTooltip">
+        <source>Tieto voi olla asetettu julkiseksi Tiedejatutkimus.fi:ssä julkaistuun profiiliin tai piilotettu julkisesta profiilista.</source>
+        <target>Informationen kan vara offentlig i en profil som publicerats på Forskning.fi eller dold i en offentlig profil</target>
+      </trans-unit>
+      <trans-unit id="makePublic">
+        <source>Aseta julkiseksi</source>
+        <target>Ställ in som offentlig</target>
+      </trans-unit>
+      <trans-unit id="hideInProfile">
+        <source>Piilota profiilista</source>
+        <target>Dölj i profilen</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

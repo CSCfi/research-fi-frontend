@@ -37,7 +37,7 @@ export class DataSourcesSelectionActionsComponent implements OnInit, OnDestroy {
   }[] = [
     {
       id: 'publish',
-      label: 'Aseta julkiseksi Tiedejatutkimus.fi:ssä',
+      label: $localize`:@@makePublic:Aseta julkiseksi`,
       dialogTitle:
         'Aseta valitut tiedot julkiseksi Tiedejatutkimus.fi -palvelussa',
       dialogPreviewLabel: $localize`:@@showDataToPublish:Näytä julkaistavat tiedot`,
@@ -46,7 +46,7 @@ export class DataSourcesSelectionActionsComponent implements OnInit, OnDestroy {
     },
     {
       id: 'hide',
-      label: 'Piilota Tiedejatutkimus.fi:ssä',
+      label: $localize`:@@hideInProfile:Piilota profiilista`,
       dialogTitle: 'Piilota valitut tiedot tiedejatutkimus.fi -palvelusta',
       dialogPreviewLabel: 'Näytä piilotettavat tiedot',
       dialogPreviewLabelToggled: 'Piilota piilotettavat tiedot',
