@@ -48,7 +48,7 @@ export class CancelDeploymentComponent implements OnInit {
           }
         });
     } else {
-      logout();
+      this.router.navigate(['/mydata']);
     }
   }
 
