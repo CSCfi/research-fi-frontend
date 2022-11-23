@@ -47,10 +47,10 @@ export class DataSourcesSelectionActionsComponent implements OnInit, OnDestroy {
     {
       id: 'hide',
       label: $localize`:@@hideInProfile:Piilota profiilista`,
-      dialogTitle: 'Piilota valitut tiedot tiedejatutkimus.fi -palvelusta',
-      dialogPreviewLabel: 'Näytä piilotettavat tiedot',
-      dialogPreviewLabelToggled: 'Piilota piilotettavat tiedot',
-      patchButtonLabel: 'Piilota',
+      dialogTitle: $localize`:@@showDataToHide:Piilota valitut tiedot tiedejatutkimus.fi -palvelusta`,
+      dialogPreviewLabel: $localize`:@@showDataToHide:Näytä piilotettavat tiedot`,
+      dialogPreviewLabelToggled: $localize`:@@hideDataToHide:Piilota piilotettavat tiedot`,
+      patchButtonLabel: $localize`:@@hide:Piilota`,
     },
     // {
     //   id: 'share',
