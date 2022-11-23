@@ -11,6 +11,7 @@ export class ServiceTermsComponent implements OnInit {
   dialogTitle: string;
   termsApproved = false;
   personalDataHandlingApproved = false;
+  continueWithSuomiFiLogin = $localize`:@@continueWithSuomiFiLogin:Jatka tunnistautumalla (Suomi.fi)`;
 
   showDialog: boolean;
   dialogTemplate: TemplateRef<any>;

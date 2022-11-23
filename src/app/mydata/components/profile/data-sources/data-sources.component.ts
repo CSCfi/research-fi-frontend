@@ -69,10 +69,10 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
     if (draftProfile) {
       this.notificationService.notify({
         notificationText:
-          'Sinulla on julkaisemattomia muutoksia profiilinäkymässä.',
+          $localize`:@@youHaveUnpublishedChangesSnackbar:Sinulla on julkaisemattomia muutoksia profiilinäkymässä.`,
         buttons: [
           {
-            label: 'Tarkasta muutokset',
+            label: $localize`:@@youHaveUnpublishedChangesSnackbarButton:Tarkasta muutokset.`,
             action: () => this.router.navigate(['mydata/profile']),
           },
         ],

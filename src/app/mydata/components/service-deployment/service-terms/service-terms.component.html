@@ -76,7 +76,7 @@
 </ng-template>
 
 <app-primary-action-button
-  content="Jatka tunnistautumalla (Suomi.fi)"
+  content="{{continueWithSuomiFiLogin}}"
   [big]="true"
   [disabled]="!termsApproved || !personalDataHandlingApproved"
   (click)="authenticate()"
