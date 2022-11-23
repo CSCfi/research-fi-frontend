@@ -232,7 +232,7 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
      * Convert param to array so it matches the case when there's
      * multiple params per category
      */
-    if (typeof queryParams[filter.category]) {
+    if (typeof queryParams[filter.category] === 'string') {
       queryParams[filter.category] = [queryParams[filter.category]];
     }
 
