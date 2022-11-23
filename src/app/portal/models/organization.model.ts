@@ -7,7 +7,7 @@
 
 import { Injectable, Inject, LOCALE_ID } from '@angular/core';
 import { Adapter } from './adapter.model';
-import { ModelUtils } from './utils';
+import { ModelUtilsService } from '@shared/services/model-util.service';
 
 export class Organization {
   constructor(
@@ -50,7 +50,7 @@ export class Organization {
 })
 export class OrganizationAdapter implements Adapter<Organization> {
   constructor(
-    private utils: ModelUtils,
+    private utils: ModelUtilsService,
     @Inject(LOCALE_ID) protected localeId: string
   ) {}
   adapt(item: any): Organization {

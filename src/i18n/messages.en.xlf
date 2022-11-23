@@ -5455,6 +5455,10 @@
         <source>Aktiviteetit ja palkinnot</source>
         <target>Activities and awards</target>
       </trans-unit>
+      <trans-unit id="activities">
+        <source>aktiviteetit</source>
+        <target>activities</target>
+      </trans-unit>
       <trans-unit id="researchData">
         <source>Tutkimusaineistot</source>
         <target>Research data</target>
@@ -5777,6 +5781,10 @@
         <source>Valitse hankkeet</source>
         <target>Select projects</target>
       </trans-unit>
+      <trans-unit id="selectActivities">
+        <source>Valitse aktiviteetit</source>
+        <target>Select activities</target>
+      </trans-unit>
       <trans-unit id="myDataEditorModalPublicationTabInfo">
         <source>Tiedejatutkimus.fi-palvelusta löytyvät julkaisut, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. Julkaisuja, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä "Hae muita julkaisuja" -toiminnolla.</source>
         <target>Publications with your ORCID iD in Research.fi are automatically added to your information. Publications that are not associated with your ORCID iD can be added using the "Search for other publications” function.</target>
@@ -5808,6 +5816,10 @@
       <trans-unit id="searchForOtherFundingsFromPortal">
         <source>Hae muita hankkeita Tiedejatutkimus.fi:stä hankkeen sisältämien tietojen perusteella ja liitä ne profiiliisi.</source>
         <target>Search for other projects at Research.fi based on the information in the project and attach them to your profile.</target>
+      </trans-unit>
+      <trans-unit id="myDataEditorModalActivityTabInfo">
+        <source>Voit muokata ORCIDista tuotuja tietoja ORCID-profiilissasi. Tietojen päivittyminen voi viedä noin vuorokauden. Kotiorganisaatiosta tuotuja tietoja voi muokata vain oman organisaation järjestelmässä.</source>
+        <target>You can edit the data imported from ORCID in your ORCID profile. It may take up to 24 hours for the information to be updated. Data imported from your home organisation can only be edited in your home organisation's systems.</target>
       </trans-unit>
       <trans-unit id="searchForOther">
         <source>Hae muita</source>
@@ -5880,6 +5892,22 @@
       <trans-unit id="notPublic">
         <source>Ei julkinen</source>
         <target>Not public</target>
+      </trans-unit>
+      <trans-unit id="timing">
+        <source>Ajoitus</source>
+        <target>Timing</target>
+      </trans-unit>
+      <trans-unit id="activity">
+        <source>Aktiviteetti</source>
+        <target>Activity</target>
+      </trans-unit>
+      <trans-unit id="activityType">
+        <source>Aktiviteetin tyyppi</source>
+        <target>Activity type</target>
+      </trans-unit>
+      <trans-unit id="actorRoleInActivity">
+        <source>Tekijä ja rooli aktiviteetissa</source>
+        <target>Actor and role in the activity</target>
       </trans-unit>
     </body>
   </file>

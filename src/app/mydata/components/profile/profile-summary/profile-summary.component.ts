@@ -59,6 +59,16 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
 
   noPublicDataText = $localize`:@@youHaveNotSelectedAnyPublicData:Et ole vielä valinnut julkisesti näytettäviä tietoja`;
 
+  summaryGroupIds = [
+    GroupTypes.publication,
+    GroupTypes.dataset,
+    GroupTypes.education,
+    GroupTypes.affiliation,
+    GroupTypes.description,
+    GroupTypes.activitiesAndRewards,
+    GroupTypes.funding,
+  ];
+
   constructor(
     private appSettingsService: AppSettingsService,
     private patchService: PatchService,
@@ -71,7 +81,9 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
     this.locale = this.appSettingsService.capitalizedLocale;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // this.openDialog({} as MouseEvent, 7);
+  }
 
   ngOnChanges(): void {
     this.displayData = cloneDeep(this.profileData);
@@ -85,7 +97,7 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   openDialog(event: MouseEvent, index: number) {
-    // event.stopPropagation();
+    event.stopPropagation();
     this.showDialog = true;
 
     const selectedGroup = cloneDeep(this.profileData[index]);

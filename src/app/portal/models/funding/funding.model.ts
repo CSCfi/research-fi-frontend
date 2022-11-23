@@ -8,9 +8,13 @@ import { Injectable } from '@angular/core';
 import { Adapter } from '../adapter.model';
 import { Recipient, RecipientAdapter } from './recipient.model';
 import { Funder, FunderAdapter } from './funder.model';
-import { ModelUtils, parseYear, testFinnishBusinessId } from '../utils';
 import { RelatedFunding, RelatedFundingAdapter } from './related-funding.model';
 import { UtilityService } from '@shared/services/utility.service';
+import {
+  ModelUtilsService,
+  parseYear,
+  testFinnishBusinessId,
+} from '@shared/services/model-util.service';
 
 export class Funding {
   constructor(
@@ -49,7 +53,7 @@ export class FundingAdapter implements Adapter<Funding> {
     private r: RecipientAdapter,
     private f: FunderAdapter,
     private rf: RelatedFundingAdapter,
-    private utils: ModelUtils,
+    private utils: ModelUtilsService,
     private util: UtilityService
   ) {}
   adapt(item: any): Funding {
@@ -69,7 +73,7 @@ export class FundingAdapter implements Adapter<Funding> {
 
     // Set EU funding status
     item.euFunding =
-      item.funderNameFi.toLowerCase() === 'euroopan unioni' ? true : false;
+      item.funderNameFi?.toLowerCase() === 'euroopan unioni' ? true : false;
 
     // Determine recipient type based on existence and contents of fundingGroupPerson
     switch (item.fundingGroupPerson?.length) {

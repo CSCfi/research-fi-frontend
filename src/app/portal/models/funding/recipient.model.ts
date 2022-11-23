@@ -11,8 +11,11 @@ import {
   RecipientOrganization,
   RecipientOrganizationAdapter,
 } from './recipient-organization.model';
-import { ModelUtils, testFinnishBusinessId } from '../utils';
 import { orderBy } from 'lodash-es';
+import {
+  ModelUtilsService,
+  testFinnishBusinessId,
+} from '@shared/services/model-util.service';
 
 export class Recipient {
   [x: string]: any;
@@ -39,7 +42,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
   constructor(
     private roa: RecipientOrganizationAdapter,
     @Inject(LOCALE_ID) protected localeId: string,
-    private utils: ModelUtils
+    private utils: ModelUtilsService
   ) {}
   adapt(item: any): Recipient {
     /*

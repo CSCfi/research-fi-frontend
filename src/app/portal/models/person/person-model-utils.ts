@@ -5,10 +5,10 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
-import { ModelUtils } from '../utils';
+import { ModelUtilsService } from '@shared/services/model-util.service';
 
 export class PersonModelUtils {
-  constructor(private utils: ModelUtils) {}
+  constructor(private utils: ModelUtilsService) {}
 
   mapDataSources(data) {
     return data.dataSources

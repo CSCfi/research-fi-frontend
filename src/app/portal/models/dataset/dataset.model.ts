@@ -7,7 +7,7 @@
 
 import { Injectable } from '@angular/core';
 import { Adapter } from '../adapter.model';
-import { ModelUtils } from '../utils';
+import { ModelUtilsService } from '@shared/services/model-util.service';
 import {
   FieldOfScience,
   FieldOfScienceAdapter,
@@ -67,7 +67,7 @@ export class Dataset {
 })
 export class DatasetAdapter implements Adapter<Dataset> {
   constructor(
-    private utils: ModelUtils,
+    private utils: ModelUtilsService,
     private fs: FieldOfScienceAdapter,
     private appSettingsService: AppSettingsService
   ) {}

@@ -8,7 +8,7 @@
 import { Injectable } from '@angular/core';
 import { Adapter } from '../adapter.model';
 import { ServicePoint, ServicePointAdapter } from './service-point.model';
-import { ModelUtils } from '../utils';
+import { ModelUtilsService } from '@shared/services/model-util.service';
 
 export class InfraService {
   constructor(
@@ -25,7 +25,10 @@ export class InfraService {
   providedIn: 'root',
 })
 export class InfraServiceAdapter implements Adapter<InfraService> {
-  constructor(private spa: ServicePointAdapter, private utils: ModelUtils) {}
+  constructor(
+    private spa: ServicePointAdapter,
+    private utils: ModelUtilsService
+  ) {}
   adapt(item: any): InfraService {
     const servicePoints: ServicePoint[] = [];
 

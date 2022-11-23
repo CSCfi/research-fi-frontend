@@ -47,7 +47,7 @@
         class="col-auto primary-color ps-3"
         (click)="toggleRowExpand(i)"
         *ngIf="
-          row.displayValue.length > maxContentLength &&
+          row.displayValue?.length > maxContentLength &&
           !(appSettingsService.mobileStatus | async)
         "
       >

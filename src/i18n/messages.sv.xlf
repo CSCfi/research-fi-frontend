@@ -5122,6 +5122,8 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Valitse hankkeet</source>
         <target>Välj project</target>
       </trans-unit>
+        <source>Valitse aktiviteetit</source>
+        <target>Välj aktiviteter</target>
       <trans-unit id="myDataEditorModalPublicationTabInfo">
         <source>Tiedejatutkimus.fi-palvelusta löytyvät julkaisut, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. Julkaisuja, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä "Hae muita julkaisuja" -toiminnolla.</source>
         <target>Publikationer som finns i tjänsten Forskning.fi och som har din ORCID-kod läggs automatiskt till din uppgifter. Publikationer som inte är kopplade till din ORCID-kod kan du lägga till med funktionen "Hämta annat forskningsmaterial".</target>
@@ -5153,6 +5155,10 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       <trans-unit id="searchForOtherFundingsFromPortal">
         <source>Hae muita hankkeita Tiedejatutkimus.fi:stä hankkeen sisältämien tietojen perusteella ja liitä ne profiiliisi.</source>
         <target>Sök andra projekt på Forskning.fi utifrån uppgifterna om projektet och bifoga dem till din profil.</target>
+      </trans-unit>
+        <trans-unit id="myDataEditorModalActivityTabInfo">
+        <source>Voit muokata ORCIDista tuotuja tietoja ORCID-profiilissasi. Tietojen päivittyminen voi viedä noin vuorokauden. Kotiorganisaatiosta tuotuja tietoja voi muokata vain oman organisaation järjestelmässä.</source>
+        <target>Du kan redigera uppgifter som importerats från ORCID i din ORCID-profil. Det kan ta cirka ett dygn för uppdateringen av uppgifterna. Uppgifter som hämtats från hemorganisationen kan redigeras endast i den egna organisationens system.</target>
       </trans-unit>
       <trans-unit id="searchForOther">
         <source>Hae muita</source>
@@ -5225,6 +5231,26 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       <trans-unit id="notPublic">
         <source>Ei julkinen</source>
         <target>Inte offentlig</target>
+      </trans-unit>
+      <trans-unit id="activities">
+        <source>aktiviteetit</source>
+        <target>aktiviteter</target>
+      </trans-unit>
+      <trans-unit id="timing">
+        <source>Ajoitus</source>
+        <target>Tidpunkt</target>
+      </trans-unit>
+      <trans-unit id="activity">
+        <source>Aktiviteetti</source>
+        <target>Aktivitet</target>
+      </trans-unit>
+      <trans-unit id="activityType">
+        <source>Aktiviteetin tyyppi</source>
+        <target>Typ av aktivitet</target>
+      </trans-unit>
+      <trans-unit id="actorRoleInActivity">
+        <source>Tekijä ja rooli aktiviteetissa</source>
+        <target>Upphovsman och roll i aktiviteten</target>
       </trans-unit>
     </body>
   </file>

@@ -16,13 +16,19 @@ import { ItemMeta } from 'src/types';
 // Usage (item.itemMeta | isPortalItem)
 // E.g. in profile items table to determine when delete row button is displayed
 export class IsPortalItemPipe implements PipeTransform {
-  transform(itemMeta: ItemMeta) {
+  transform(item: { itemMeta: ItemMeta; dataSources: any[] }) {
     const portalTypes = [
       FieldTypes.activityPublication,
       FieldTypes.activityDataset,
       FieldTypes.activityFunding,
+      FieldTypes.activityActivitesAndRewards,
     ];
 
-    return !!(portalTypes.indexOf(itemMeta.type) > -1);
+    return (
+      !!(portalTypes.indexOf(item.itemMeta.type) > -1) &&
+      item.dataSources.find(
+        (dataSource) => dataSource.registeredDataSource === 'TTV'
+      )
+    );
   }
 }

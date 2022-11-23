@@ -7,7 +7,7 @@
 
 import { Adapter } from '../adapter.model';
 import { Injectable } from '@angular/core';
-import { ModelUtils } from '../utils';
+import { ModelUtilsService } from '@shared/services/model-util.service';
 
 export class PersonDataset {
   constructor(
@@ -23,7 +23,7 @@ export class PersonDataset {
   providedIn: 'root',
 })
 export class PersonDatasetAdapter implements Adapter<PersonDataset> {
-  constructor(private utils: ModelUtils) {}
+  constructor(private utils: ModelUtilsService) {}
 
   adapt(dataset: any): PersonDataset {
     return new PersonDataset(

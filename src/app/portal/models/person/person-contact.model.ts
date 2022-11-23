@@ -7,7 +7,7 @@
 
 import { Adapter } from '../adapter.model';
 import { Injectable } from '@angular/core';
-import { ModelUtils } from '../utils';
+import { ModelUtilsService } from '@shared/services/model-util.service';
 import {
   faFacebookSquare,
   faLinkedin,
@@ -38,7 +38,7 @@ export class PersonContact {
   providedIn: 'root',
 })
 export class PersonContactAdapter implements Adapter<PersonContact> {
-  constructor(private utils: ModelUtils) {}
+  constructor(private utils: ModelUtilsService) {}
 
   adapt(data: any): PersonContact {
     const mapValues = (

@@ -148,30 +148,40 @@ export class ProfileItemsTableComponent implements OnInit, OnChanges {
     }
   }
 
-  toggleItem(event: { checked: boolean }, item: { itemMeta: ItemMeta }) {
+  toggleItem(
+    event: { checked: boolean },
+    item: { itemMeta: ItemMeta; dataSources: any[] }
+  ) {
     item.itemMeta.show = event.checked;
 
     this.onSingleItemToggle.emit();
 
-    switch (item.itemMeta.type) {
-      case FieldTypes.activityPublication: {
-        this.publicationsService.addToPayload(item);
-        break;
+    if (
+      item.dataSources.find(
+        (dataSource) => dataSource.registeredDataSource === 'ttv'
+      )
+    ) {
+      // Handle portal item patch
+      switch (item.itemMeta.type) {
+        case FieldTypes.activityPublication: {
+          this.publicationsService.addToPayload(item);
+          break;
+        }
+        case FieldTypes.activityDataset: {
+          this.datasetsService.addToPayload(item);
+          break;
+        }
+        case FieldTypes.activityFunding: {
+          this.fundingsService.addToPayload(item);
+          break;
+        }
       }
-      case FieldTypes.activityDataset: {
-        this.datasetsService.addToPayload(item);
-        break;
-      }
-      case FieldTypes.activityFunding: {
-        this.fundingsService.addToPayload(item);
-        break;
-      }
-      default: {
-        this.patchService.addToPayload({
-          ...item.itemMeta,
-          show: event.checked,
-        });
-      }
+    } else {
+      // Regular patch
+      this.patchService.addToPayload({
+        ...item.itemMeta,
+        show: event.checked,
+      });
     }
 
     this.checkAllSelected();

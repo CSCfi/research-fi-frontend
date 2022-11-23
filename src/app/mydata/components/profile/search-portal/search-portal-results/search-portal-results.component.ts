@@ -23,7 +23,11 @@ import {
   faSortDown,
   faSortUp,
 } from '@fortawesome/free-solid-svg-icons';
-import { DatasetColumns, PublicationColumns } from '@mydata/constants';
+import {
+  DatasetColumns,
+  FundingColumns,
+  PublicationColumns,
+} from '@mydata/constants';
 import { SearchPortalService } from '@mydata/services/search-portal.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
@@ -82,39 +86,7 @@ export class SearchPortalResultsComponent
 
   fundingsTable = {
     idField: 'id',
-    columns: [
-      {
-        id: 'year',
-        label: $localize`:@@year:Vuosi`,
-        field: 'startYear',
-      },
-      {
-        id: 'name',
-        ellipsis: true,
-        label: $localize`:@@name:Nimi`,
-        field: 'name',
-        additionalFields: [
-          { field: 'funderProjectNumber' },
-          {
-            field: 'description',
-            ellipsis: true,
-            cutContent: true,
-          },
-          {
-            field: 'recipient.personNameAndOrg',
-            hidden: true,
-          },
-          {
-            field: 'funder.typeOfFundingName',
-            hidden: true,
-          },
-          {
-            field: 'funder.name',
-            hidden: true,
-          },
-        ],
-      },
-    ],
+    columns: FundingColumns.filter((column) => column.id !== 'source'),
   };
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
