@@ -163,6 +163,8 @@ import { OpenScienceAndResearchIndicatorsComponent } from './components/science-
 import { SingleIndicatorComponent } from './components/science-politics/open-science-and-research-indicators/single-indicator/single-indicator.component';
 import { SinglePersonComponent } from './components/single/single-person/single-person.component';
 import { CheckEmptyFieldsPipe } from './pipes/check-empty-fields.pipe';
+import { PersonGroupComponent } from './components/single/single-person/person-group/person-group.component';
+import { PersonGroupAdditionalComponent } from './components/single/single-person/person-group-additional/person-group-additional.component';
 
 @NgModule({
   declarations: [
@@ -244,6 +246,8 @@ import { CheckEmptyFieldsPipe } from './pipes/check-empty-fields.pipe';
     SingleIndicatorComponent,
     SinglePersonComponent,
     CheckEmptyFieldsPipe,
+    PersonGroupComponent,
+    PersonGroupAdditionalComponent,
   ],
   imports: [
     PortalRoutingModule,

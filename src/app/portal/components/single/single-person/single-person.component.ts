@@ -57,6 +57,23 @@ export class SinglePersonComponent implements OnInit {
 
   datasetFields = [{ key: 'name' }, { key: 'year' }];
 
+  fundingFields = [{ key: 'name' }, { key: 'funderName' }, { key: 'year' }];
+
+  activityAndAwardsFields = [
+    { key: 'role', bold: true },
+    { key: 'name', bold: true },
+    { key: 'type', bold: true },
+    { key: 'year' },
+  ];
+
+  activityAndAwardsAdditionalFields = [
+    { key: 'description' },
+    {
+      key: 'internationalCollaboration',
+      label: $localize`:@@internationalCollaboration:Kansainvälinen yhteistyö`,
+    },
+  ];
+
   contactFields: Field[] = [
     { key: 'emails' },
     { key: 'links' },
@@ -72,6 +89,12 @@ export class SinglePersonComponent implements OnInit {
 
   maxDatasetCount = this.initialItemCount;
   showAllDatasets = false;
+
+  maxFundingCount = this.initialItemCount;
+  showAllFundings = false;
+
+  maxActivityAndAwardsCount = this.initialItemCount;
+  showAllActivityAndAwards = false;
 
   constructor(
     private route: ActivatedRoute,
