@@ -39,6 +39,7 @@ export class LayoutComponent implements OnInit {
       switch (true) {
         case event instanceof NavigationStart: {
           this.loading = true;
+          this.showDivider = false;
           break;
         }
         case event instanceof NavigationEnd: {
