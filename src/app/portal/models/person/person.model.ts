@@ -100,10 +100,12 @@ export class PersonAdapter implements Adapter<Person> {
       (activity) => this.activitiesAndRewardsAdapter.adapt(activity)
     );
 
-    const description = this.utils.checkTranslation(
-      'researchDescription',
-      data.personal.researcherDescriptions[0]
-    );
+    const description = this.utils
+      .checkTranslation(
+        'researchDescription',
+        data.personal.researcherDescriptions[0]
+      )
+      .replace(/<[^>]*>/g, '');
 
     const fieldsOfScience = 'Placeholder';
 
