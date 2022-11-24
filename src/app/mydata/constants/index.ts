@@ -6,6 +6,7 @@
 //  :license: MIT
 
 import { FilterConfigType, TableColumn } from 'src/types';
+import { GroupTypes } from './groupTypes';
 
 export const Constants = {
   draftPatchPayload: 'mydata_draft_patch_payload',
@@ -238,4 +239,11 @@ export const FundingColumns = [
     field: 'source',
     width: '8rem',
   },
+];
+
+export const PortalGroupIds = [
+  GroupTypes.publication,
+  GroupTypes.dataset,
+  GroupTypes.funding,
+  GroupTypes.activitiesAndRewards,
 ];

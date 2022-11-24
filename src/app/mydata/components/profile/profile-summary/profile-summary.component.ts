@@ -21,7 +21,7 @@ import { PublicationsService } from '@mydata/services/publications.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { SnackbarService } from '@mydata/services/snackbar.service';
 import { DraftService } from '@mydata/services/draft.service';
-import { Constants } from '@mydata/constants/';
+import { Constants, PortalGroupIds } from '@mydata/constants/';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { GroupTypes, PortalGroups } from '@mydata/constants/groupTypes';
 import { CommonStrings } from '@mydata/constants/strings';
@@ -170,7 +170,9 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
       // Update binded profile data. Renders changes into summary view
       this.displayData[this.currentIndex] = result;
 
-      this.mergeImportedItems(currentGroup.id);
+      if (PortalGroupIds.indexOf(currentGroup.id) > -1) {
+        this.mergeImportedItems(currentGroup.id);
+      }
 
       // Handle removal of items added from portal search
       portalPatchGroups.forEach((group) => {
