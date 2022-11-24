@@ -170,7 +170,7 @@
                 <!-- Source -->
                 <div
                   class="col-auto px-0 ps-4 ml-1 mt-1 text-end opacity-3 font-size-small"
-                >
+                >{{item | json}}
                   <ng-container *ngIf="item.merged; else singleSource">
                     <!--<div
                       class="row"
