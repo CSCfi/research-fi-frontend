@@ -18,14 +18,9 @@ import {
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
-import {
-  checkGroupSelected,
-  isEmptySection,
-  mergePublications,
-} from '@mydata/utils';
+import { checkGroupSelected, isEmptySection } from '@mydata/utils';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SearchPortalComponent } from '../search-portal/search-portal.component';
-import { take } from 'rxjs/operators';
 import { PublicationsService } from '@mydata/services/publications.service';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { PatchService } from '@mydata/services/patch.service';
@@ -33,7 +28,6 @@ import { ProfileService } from '@mydata/services/profile.service';
 import { cloneDeep } from 'lodash-es';
 import { GroupTypes } from '@mydata/constants/groupTypes';
 import { CommonStrings } from '@mydata/constants/strings';
-import { SearchPortalService } from '@mydata/services/search-portal.service';
 import { DatasetsService } from '@mydata/services/datasets.service';
 import { FundingsService } from '@mydata/services/fundings.service';
 
@@ -86,7 +80,6 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     private publicationsService: PublicationsService,
     private datasetsService: DatasetsService,
     private fundingsService: FundingsService,
-    private searchPortalService: SearchPortalService,
     private profileService: ProfileService,
     private patchService: PatchService,
     private cdr: ChangeDetectorRef
@@ -97,23 +90,18 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   ngOnInit(): void {
     const field = this.data.fields[0];
 
-
     // Combine items from groups
-    const groupItems = cloneDeep(field.groupItems);
-    if (groupItems[0].items !== undefined) {
-      groupItems.map(
-        (groupItem) =>
-          (groupItem.items = groupItem.items.map((item) => ({
-            ...item,
-            source: groupItem.source,
-          })))
-      );
+    const items = cloneDeep(field.items);
+    if (items) {
+      items.map((groupItem) => ({
+        ...groupItem,
+        source: groupItem.source,
+      }));
 
-      const items = [...groupItems].flatMap((groupItem) => groupItem.items);
+      const result = [...items];
 
-      this.combinedItems = items;
-    }
-    else {
+      this.combinedItems = result;
+    } else {
       this.combinedItems = [];
     }
     // Merge publications that share DOI
@@ -153,26 +141,21 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
 
     const group = this.data.fields[index];
 
-    group.groupItems.map((groupItem) => {
-      const currentSelection = groupItem.items.find(
-        (item) => item.itemMeta.id === event.value
-      );
+    const currentSelection = group.items.find(
+      (item) => item.itemMeta.id === event.value
+    );
 
+    group.items.map((groupItem) => {
       if (currentSelection) {
         selectedItem = currentSelection;
         patchObjects.push({ ...currentSelection.itemMeta, show: true });
       }
 
-      groupItem.items.map(
-        (item) =>
-          (item.itemMeta.show = item.itemMeta.id === event.value ? true : false)
-      );
+      groupItem.itemMeta.show =
+        groupItem.itemMeta.id === event.value ? true : false;
     });
 
-    const previousSelection = original.groupItems
-      .map((groupItem) => groupItem.items)
-      .flat()
-      .find((item) => item.itemMeta.show);
+    const previousSelection = original.items.find((item) => item.itemMeta.show);
 
     if (previousSelection.itemMeta.id !== selectedItem.itemMeta.id)
       patchObjects.push({ ...previousSelection.itemMeta, show: false });
@@ -198,10 +181,12 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     });
   }
 
-  toggleJoined(event, groupItem) {
-    groupItem.items.map((item) => (item.itemMeta.show = event.checked));
+  toggleJoined(event, items) {
+    items.map((item) => (item.itemMeta.show = event.checked));
 
-    const patchItems = groupItem.items.map((item) => item.itemMeta);
+    const patchItems = items.map((item) => item.itemMeta);
+
+    this.onSingleItemToggle.emit();
 
     this.patchService.addToPayload(patchItems);
   }
@@ -211,15 +196,11 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     itemToRemove: { id: string; itemMeta: { id: string | null } }
   ) {
     const field = this.data.fields[0];
-    const groupItems = field.groupItems;
+    const items = field.items;
 
-    for (const group of groupItems) {
-      group.items = group.items.filter(
-        (item) => item.itemMeta.id !== itemToRemove.itemMeta.id
-      );
-    }
-
-    field.groupItems = groupItems;
+    this.data.fields[0].items = items.filter(
+      (item) => item.itemMeta.id !== itemToRemove.itemMeta.id
+    );
 
     switch (groupType) {
       case this.fieldTypes.activityPublication: {
@@ -237,104 +218,5 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     }
 
     this.updated = new Date();
-  }
-
-  /*
-   * Dynamic search from portal modal
-   * Search for Publications, Datasets and Fundings
-   */
-  openSearchFromPortalDialog(groupId: string) {
-    this.showDialog = true;
-
-    const field = this.data.fields[0];
-
-    this.currentGroupId = groupId;
-
-    this.dialogData = {
-      groupId: groupId,
-      itemsInProfile: field?.groupItems,
-      selectedPublications: field?.selectedPublications,
-    };
-  }
-
-  closeDialog() {
-    this.showDialog = false;
-  }
-
-  handleChanges(result) {
-    this.closeDialog();
-    const field = this.data.fields[0];
-
-    /*
-     * Use group related service to add selected items into draft view and patch payload
-     */
-    const handlePortalItems = (groupId: string, result) => {
-      let service: PublicationsService | DatasetsService | FundingsService;
-      let fieldType: number;
-
-      switch (groupId) {
-        case 'publication': {
-          service = this.publicationsService;
-          fieldType = this.fieldTypes.activityPublication;
-          break;
-        }
-        case 'dataset': {
-          service = this.datasetsService;
-          fieldType = this.fieldTypes.activityDataset;
-          break;
-        }
-        case 'funding': {
-          service = this.fundingsService;
-          fieldType = this.fieldTypes.activityFunding;
-          break;
-        }
-      }
-
-      const groupItems = field.groupItems;
-
-      service.addToPayload(result);
-
-      // Items with primary value
-      let existingAddedItems = null;
-      if (groupItems[0].items !== undefined) {
-        existingAddedItems = groupItems.find((group) =>
-          group.items.find((item) => item.itemMeta.primaryValue)
-      );
-      }
-
-      if (existingAddedItems) {
-        existingAddedItems.items = existingAddedItems.items.concat(result);
-      } else {
-        groupItems.push({
-          //groupMeta: { type: fieldType },
-          source: {
-            organization: {
-              name: CommonStrings.ttvLabel,
-            },
-          },
-          items: result,
-        });
-      }
-
-      // Merge publications that share DOI
-      // Select merged ORCID publication
-      if (this.data.id === this.groupTypes.publication) {
-        //mergePublications(field, this.patchService);
-      }
-    };
-
-    // Reset sort when dialog closes
-    this.searchPortalService.resetSort();
-
-    if (result) {
-      // Add selected items into profile data and patch payload
-      handlePortalItems(this.currentGroupId, result);
-
-      this.onSingleItemToggle.emit();
-
-      this.updated = new Date();
-
-      this.cdr.detectChanges();
-    }
   }
 }
