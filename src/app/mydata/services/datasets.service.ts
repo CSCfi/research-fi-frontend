@@ -77,7 +77,6 @@ export class DatasetsService {
         );
       }
     });
-
     const merged = this.confirmedPayload.concat(this.datasetPayload);
     this.confirmedPayload = merged;
     this.confirmedPayloadSource.next(merged);
@@ -112,7 +111,7 @@ export class DatasetsService {
 
   addDatasets() {
     this.updateTokenInHttpAuthHeader();
-    const body = this.datasetPayload.map((item) => ({
+    const body = this.confirmedPayload.map((item) => ({
       localIdentifier: item.id,
       show: item.itemMeta.show,
       primaryValue: item.itemMeta.primaryValue,
