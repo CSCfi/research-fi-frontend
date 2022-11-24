@@ -5133,12 +5133,10 @@
       </trans-unit>
 
 
-
-
       <!-- MyData translations -->
       <trans-unit id="createProfileForYourself">
-        <source>Luo itsellesi profiili</source>
-        <target>Create a profile for yourself</target>
+        <source>Kokoa tiedoistasi julkinen profiili </source>
+        <target>Compile a public profile of your data in </target>
       </trans-unit>
       <trans-unit id="inResearchFiService">
         <source>Tiedejatutkimus.fi -palveluun.</source>
@@ -5161,8 +5159,8 @@
         <target>Create Profile</target>
       </trans-unit>
       <trans-unit id="haveYouCreatedProfile">
-        <source>Oletko jo luonut profiilin?</source>
-        <target>Have you already created a profile?</target>
+        <source>Onko sinulla jo profiili?</source>
+        <target>Already have a profile?</target>
       </trans-unit>
       <trans-unit id="logIn">
         <source>Kirjaudu sisään</source>
@@ -5189,6 +5187,14 @@
         <source>Palvelun käyttöönotto</source>
         <target>Service deployment</target>
       </trans-unit>
+      <trans-unit id="serviceDeploymentSuccesful">
+        <source>Palvelun käyttöönotto onnistui</source>
+        <target>Service deployment was succesful</target>
+      </trans-unit>
+      <trans-unit id="startManagingYourProfile">
+        <source>Voit aloittaa Tutkijan tiedot -profiilin hallinnoinnin.</source>
+        <target>You can start managing your profile on Researcher's Profile Tool.</target>
+      </trans-unit>
       <trans-unit id="mydataLoginText1">
         <source>Tutkijan tiedot -palveluun kirjaudutaan ORCID-tunnuksilla. Jos sinulla
           ei vielä ole ORCID-tunnuksia, voit</source>
@@ -5205,10 +5211,6 @@
       <trans-unit id="cancel">
         <source>Peruuta</source>
         <target>Cancel</target>
-      </trans-unit>
-      <trans-unit id="cancelDeployment">
-        <source>Peruuta käyttöönotto</source>
-        <target>Cancel deployment</target>
       </trans-unit>
       <trans-unit id="redirecting">
         <source>Uudelleenohjataan</source>
@@ -5291,6 +5293,22 @@
         <source>Tietojen tuominen Orcidista</source>
         <target>Importing data from ORCID</target>
       </trans-unit>
+      <trans-unit id="continueWithSuomiFiLogin">
+        <source>Jatka tunnistautumalla (Suomi.fi)</source>
+        <target>Continue to Suomi.fi identification</target>
+      </trans-unit>
+      <trans-unit id="homeWelcomeCaption">
+        <source>Yhdistele tutkijatiedoistasi julkinen profiili Tiedejatutkimus.fi -palveluun?</source>
+        <target>Yhdistele tutkijatiedoistasi julkinen profiili Tiedejatutkimus.fi -palveluun?</target>
+      </trans-unit>
+      <trans-unit id="homeWelcomeText">
+        <source>Tutkijan tiedot -profiilityökalun avulla yhdistelet Orcid- ja organisaatiotiedoistasi haluamasi julkisen tutkijaprofiilin tiedejatutkimus.fi -palveluun. Voit myös jakaa Tutkijan tiedot -profiiliasi esimerkiksi organisaatioille.</source>
+        <target>Tutkijan tiedot -profiilityökalun avulla yhdistelet Orcid- ja organisaatiotiedoistasi haluamasi julkisen tutkijaprofiilin tiedejatutkimus.fi -palveluun. Voit myös jakaa Tutkijan tiedot -profiiliasi esimerkiksi organisaatioille.</target>
+      </trans-unit>
+      <trans-unit id="alreadyCreatedProfile">
+        <source>Oletko jo luonut profiilin tähän palveluun?</source>
+        <target>Oletko jo luonut profiilin tähän palveluun?</target>
+      </trans-unit>
       <trans-unit id="welcomeStep3_1">
         <source>Tutkijan tiedot -palvelun käyttöönotto edellyttää, että
                     ORCID-palveluun tallentamansi julkiset tiedot tallennetaan
@@ -5333,13 +5351,12 @@
         <target>Public profile</target>
       </trans-unit>
       <trans-unit id="updatedProfilePublishedAt">
-        <source>Päivitetty tutkijaprofiilisi julkaistaan kohteessa</source>
-        <target>Your updated researcher profile will be published at Research.fi</target>
+        <source>Valitsemalla "Julkaise", valitsemasi tiedot julkaistaan Tiedejatutkimus.fi-palvelussa.</source>
+        <target>By clicking "Publish", the information you have chosen will be published in the Research.fi service.</target>
       </trans-unit>
       <trans-unit id="updatingPublicDataTakesFewMinutes">
-        <source>Julkisten tietojen päivittäminen kestää muutaman
-            minuutin.</source>
-        <target>It takes a few minutes to update public information.</target>
+        <source>Tietojen päivittyminen voi kestää muutaman minuutin.</source>
+        <target>It may take a few minutes for the information to update.</target>
       </trans-unit>
       <trans-unit id="draft">
         <source>Luonnos</source>
@@ -5496,12 +5513,12 @@
         <target>I am interested in being a peer reviewer for scientific publications</target>
       </trans-unit>
       <trans-unit id="profilePublishedToast">
-        <source>Profiili julkaistu. Tiedot näkyvät muutaman minuutin kuluttua tiedejatutkimus.fi -palvelussa.</source>
-        <target>Profile published. The information will be displayed in the Research.fi service in a few minutes.</target>
+        <source>Profiilin julkaisu onnistui. Tiedot näkyvät muutaman minuutin kuluttua Tiedejatutkimus.fi -palvelussa.</source>
+        <target>Profile published successfully. The information will be available on the Research.fi service in a few minutes.</target>
       </trans-unit>
       <trans-unit id="profileHiddenToast">
-        <source>Profiilin piilottaminen onnistui. Profiilisi piilotetaan Tiedejatutkimus.fi -palvelusta muutaman minuutin kuluttua.</source>
-        <target>Profile has been hidden. Your profile will be hidden from Research.fi service in a few minutes.</target>
+        <source>Profiilin piilottaminen onnistui. Profiilisi piilotetaan Tiedejatutkimus.fi -palvelusta muutaman minuutin kuluttua.</source>
+        <target>Hiding the profile was successful. Your profile will be hidden from the Research.fi service in a few minutes.</target>
       </trans-unit>
       <trans-unit id="dataSavingError">
         <source>Virhe tiedon tallennuksessa</source>
@@ -5676,62 +5693,77 @@
         <source>Sinulla on julkaisemattomia muutoksia. Jos kirjaudut ulos, tiedot menetetään.</source>
         <target>You have unpublished changes. If you log out, the changes will be lost.</target>
       </trans-unit>
+      <trans-unit id="youHaveUnpublishedChangesSnackbar">
+        <source>Sinulla on julkaisemattomia muutoksia profiilinäkymässä.</source>
+        <target>You have unpublished changes in the profile view.</target>
+      </trans-unit>
+      <trans-unit id="youHaveUnpublishedChangesSnackbarButton">
+        <source>Sinulla on julkaisemattomia muutoksia profiilinäkymässä.</source>
+        <target>Tarkasta muutokset.</target>
+      </trans-unit>
+      <!-- Welcome stepper -->
+      <trans-unit id="welcomeStepperHowItWorksCaption">
+        <source>Miten Tutkijan tiedot -palvelu toimii?</source>
+        <target>Miten Tutkijan tiedot -palvelu toimii?</target>
+      </trans-unit>
       <trans-unit id="welcomeStepperStep1Caption">
         <source>Aloita työkalun käyttö vahvalla Suomi.fi-tunnistautumisella sekä kirjautumalla ORCID-tunnuksillasi.</source>
-        <target>Aloita työkalun käyttö vahvalla Suomi.fi-tunnistautumisella sekä kirjautumalla ORCID-tunnuksillasi.</target>
+        <target>Begin using the tool with strong Suomi.fi identification and log in with your ORCID account.</target>
       </trans-unit>
       <trans-unit id="welcomeStepperStep2Caption">
         <source>Kokoa julkisessa profiilissasi näytettävät tiedot.</source>
-        <target>Kokoa julkisessa profiilissasi näytettävät tiedot.</target>
+        <target>Compile the information displayed on your public profile.</target>
       </trans-unit>
       <trans-unit id="welcomeStepperStep3Caption">
         <source>Kun päivität tietojasi ORCID-palvelussa tai kotiorganisaatiossasi, myös profiiliisi valitsemasi tiedot päivittyvät automaattisesti.</source>
-        <target>Kun päivität tietojasi ORCID-palvelussa tai kotiorganisaatiossasi, myös profiiliisi valitsemasi tiedot päivittyvät automaattisesti.</target>
+        <target>When you update your information in ORCID or your home organisation, the information you select in your profile will also be updated automatically.</target>
       </trans-unit>
       <trans-unit id="welcomeStepperStep4Caption">
         <source>Esikatsele julkiseen profiiliisi lisäämiäsi tietoja ennen niiden julkaisemista.</source>
-        <target>Esikatsele julkiseen profiiliisi lisäämiäsi tietoja ennen niiden julkaisemista.</target>
+        <target>Preview the information you've added to your public profile before publishing it.</target>
       </trans-unit>
       <trans-unit id="welcomeStepperStep5Caption">
         <source>Jaa halutessasi profiilisi tietoja myös muille tutkimustoimijoille.</source>
-        <target>Jaa halutessasi profiilisi tietoja myös muille tutkimustoimijoille.</target>
+        <target>Share your profile information with other research actors.</target>
       </trans-unit>
       <trans-unit id="welcomeStepperStep6Caption">
         <source>Valmista!</source>
-        <target>Valmista!</target>
+        <target>You’re done!</target>
       </trans-unit>
       <trans-unit id="welcomeStepperStep1Content">
         <source>Suomi.fi-tunnistautumisen avulla vahvistamme henkilöllisyytesi. ORCID-tunnisteen avulla voit koota profiiliisi tiedot eri lähteistä.</source>
-        <target>Suomi.fi-tunnistautumisen avulla vahvistamme henkilöllisyytesi. ORCID-tunnisteen avulla voit koota profiiliisi tiedot eri lähteistä.</target>
+        <target>We use Suomi.fi identification to verify your identity. The ORCID iD is used to compile information from different sources to your profile.</target>
       </trans-unit>
       <trans-unit id="welcomeStepperStep2Content1">
         <source>Kun olet kirjautunut, voit valita, mitkä ORCID-tunnisteeseesi yhdistetyt tiedot haluat asettaa julkiseksi profiilissasi. Voit liittää profiiliin tietoja ORCID-palvelusta löytyvien tietojen lisäksi myös oman kotiorganisaatiosi tiedoista. Sinun tarvitsee vain valita julkiseksi asetettavat tiedot. Työkaluun ei ole mahdollista syöttää tietoja itse.</source>
-        <target>Kun olet kirjautunut, voit valita, mitkä ORCID-tunnisteeseesi yhdistetyt tiedot haluat asettaa julkiseksi profiilissasi. Voit liittää profiiliin tietoja ORCID-palvelusta löytyvien tietojen lisäksi myös oman kotiorganisaatiosi tiedoista. Sinun tarvitsee vain valita julkiseksi asetettavat tiedot. Työkaluun ei ole mahdollista syöttää tietoja itse.</target>
+        <target>Once you have logged in, you can choose which information associated with your ORCID iD you want to make public on your profile. In addition to the information found in ORCID, you can attach information from your home organisation to your profile. All you have to do is select the information you want to make public. It is not possible to enter information to the tool on your own.</target>
       </trans-unit>
       <trans-unit id="welcomeStepperStep2Content2">
         <source>Tutkijan tiedot -työkalun beta-versiossa on saatavilla vain rajoitetusti organisaatioista siirrettyjä tietoja. Jos et löydä tämänhetkisestä kotiorganisaatiostasi peräisin olevia tietoja, johtuu se siitä, että organisaatiosi ei ole vielä tehnyt tarvittavia tiedonsiirtoja.</source>
-        <target>Tutkijan tiedot -työkalun beta-versiossa on saatavilla vain rajoitetusti organisaatioista siirrettyjä tietoja. Jos et löydä tämänhetkisestä kotiorganisaatiostasi peräisin olevia tietoja, johtuu se siitä, että organisaatiosi ei ole vielä tehnyt tarvittavia tiedonsiirtoja.</target>
+        <target>The beta version of the Researcher’s Profile Tool only includes a limited amount of data from the organisations. If you cannot find information from your current home organisation, it is because your organisation has not yet made the necessary data transfers.</target>
       </trans-unit>
       <trans-unit id="welcomeStepperStep3Content1">
         <source>Jos haluat muokata alkuperäisiä tietojasi, tee se tiedon alkuperäisessä lähteessä (kotiorganisaation järjestelmä, ORCID-palvelu). Tiedot päivittyvät profiiliisi automaattisesti.</source>
-        <target>Jos haluat muokata alkuperäisiä tietojasi, tee se tiedon alkuperäisessä lähteessä (kotiorganisaation järjestelmä, ORCID-palvelu). Tiedot päivittyvät profiiliisi automaattisesti.</target>
+        <target>If you want to edit your original data, you must do so in the original source (home organisation system, ORCID service). Information is automatically updated in your profile.</target>
       </trans-unit>
       <trans-unit id="welcomeStepperStep3Content2">
         <source>Huom. Jos lisäät ORCID-palvelussa uusia tietoja (esim. julkaisuja) profiilin luomisen jälkeen, ne eivät vielä nykyisessä beta-versiossa päivity profiiliisi automaattisesti. Tämä ominaisuus otetaan käyttöön keväällä 2023 julkaistavassa versiossa.</source>
-        <target>Huom. Jos lisäät ORCID-palvelussa uusia tietoja (esim. julkaisuja) profiilin luomisen jälkeen, ne eivät vielä nykyisessä beta-versiossa päivity profiiliisi automaattisesti. Tämä ominaisuus otetaan käyttöön keväällä 2023 julkaistavassa versiossa.</target>
+        <target>Note: If you add new information (e.g. publications) in ORCID after you create a profile, it will not automatically update your profile in the current beta version. This feature will be enabled in the spring 2023 release.</target>
       </trans-unit>
       <trans-unit id="welcomeStepperStep4Content">
         <source>Kun olet valinnut haluamasi tiedot, voit esikatsella profiiliasi muokkausnäkymässä. Vasta profiilin julkaisemisen jälkeen profiiliin tiedot näkyvät Tiedejatutkimus.fi-portaalissa.</source>
-        <target>Kun olet valinnut haluamasi tiedot, voit esikatsella profiiliasi muokkausnäkymässä. Vasta profiilin julkaisemisen jälkeen profiiliin tiedot näkyvät Tiedejatutkimus.fi-portaalissa.</target>
+        <target>Once you have selected the information you want, you can preview your profile in the Edit view. The information on the profile be visible in the Research.fi portal after you have published it.</target>
       </trans-unit>
       <trans-unit id="welcomeStepperStep5Content">
         <source>Vuoden 2023 aikana kehitämme toiminnallisuutta profiilitietojesi jakamiseen halutessasi sellaisille  tutkimusrahoittajille, kotiorganisaatiollesi ja muille yhteistyökumppaneille, joilla on valmius tietojen hyödyntämiseen omassa järjestelmässään. Tämä ei ole vielä mahdollista nykyisessä beta-versiossa.</source>
-        <target>Vuoden 2023 aikana kehitämme toiminnallisuutta profiilitietojesi jakamiseen halutessasi sellaisille  tutkimusrahoittajille, kotiorganisaatiollesi ja muille yhteistyökumppaneille, joilla on valmius tietojen hyödyntämiseen omassa järjestelmässään. Tämä ei ole vielä mahdollista nykyisessä beta-versiossa.</target>
+        <target>During 2023, we will develop functionality for sharing your profile information with research funders, your home organisation and other partners who are prepared to utilise the information in their own systems. This is not yet possible in the current beta version.</target>
       </trans-unit>
       <trans-unit id="welcomeStepperStep6Content">
         <source>Profiilisi on nyt löydettävissä Tiedejatutkimus.fi-sivustolla, josta mm. tiedotusvälineet, rahoittajat, tutkimusyhteistyöstä kiinnostuneet sekä muut tutkimustiedon etsijät voivat löytää profiilisi.</source>
-        <target>Profiilisi on nyt löydettävissä Tiedejatutkimus.fi-sivustolla, josta mm. tiedotusvälineet, rahoittajat, tutkimusyhteistyöstä kiinnostuneet sekä muut tutkimustiedon etsijät voivat löytää profiilisi.</target>
+        <target>Your profile is now available on the Research.fi website, where, for example, the media, funders, those interested in research cooperation and other research information seekers can find it.</target>
       </trans-unit>
+
+
       <trans-unit id="closeInstructions">
         <source>Sulje ohjeet</source>
         <target>Close instructions</target>
@@ -5742,32 +5774,33 @@
       </trans-unit>
       <trans-unit id="accountSettingsOrcidInfo">
         <source>Tämä asetus lisää jatkossa ORCID-palveluun lisäämäsi tai kotiorganisaatiossasi ORCID-tunnisteeseesi liitetyt uudet tiedot automaattisesti julkiseen profiiliisi Tiedejatutkimus.fi-palvelussa.</source>
-        <target>Tämä asetus lisää jatkossa ORCID-palveluun lisäämäsi tai kotiorganisaatiossasi ORCID-tunnisteeseesi liitetyt uudet tiedot automaattisesti julkiseen profiiliisi Tiedejatutkimus.fi-palvelussa.</target>
+        <target>This setting will automatically add new information that you have added to the ORCID service or that has been associated with your ORCID ID in your Research.fi public profile.</target>
       </trans-unit>
       <trans-unit id="accountSettingsOrcidModalTextEnable">
         <source>ORCID-palveluun lisäämäsi tai kotiorganisaatiossasi ORCID-tunnisteeseesi liitetyt uudet tiedot päivittyvät jatkossa automaattisesti julkiseen profiiliisi Tiedejatutkimus.fi-palvelussa.</source>
-        <target>ORCID-palveluun lisäämäsi tai kotiorganisaatiossasi ORCID-tunnisteeseesi liitetyt uudet tiedot päivittyvät jatkossa automaattisesti julkiseen profiiliisi Tiedejatutkimus.fi-palvelussa.</target>
+        <target>This setting will automatically add new information that you have added to the ORCID service or that has been associated with your ORCID iD in your home organization to your Research.fi public profile.</target>
       </trans-unit>
       <trans-unit id="accountSettingsOrcidModalTextDisable">
         <source>ORCID-palveluun lisäämäsi tai kotiorganisaatiossasi ORCID-tunnisteeseesi liitetyt uudet tiedot eivät enää päivity automaattisesti julkiseen profiiliisi Tiedejatutkimus.fi-palvelussa.</source>
-        <target>ORCID-palveluun lisäämäsi tai kotiorganisaatiossasi ORCID-tunnisteeseesi liitetyt uudet tiedot eivät enää päivity automaattisesti julkiseen profiiliisi Tiedejatutkimus.fi-palvelussa.</target>
+        <target>New information that you have added to the ORCID service or is associated to your Orcid ID in your home organisation will no longer automatically update to your public profile on Research.fi.</target>
       </trans-unit>
       <trans-unit id="accountSettingsProfileRemovalInfo">
         <source>Profiilin poistaminen tarkoittaa sitä, että julkinen profiilisi poistetaan ja ORCIDista tuomasi tiedot poistetaan. Myös kirjautumisen yhteydessä profiilityökaluun tallennetut tiedot poistetaan.</source>
-        <target>Profiilin poistaminen tarkoittaa sitä, että julkinen profiilisi poistetaan ja ORCIDista tuomasi tiedot poistetaan. Myös kirjautumisen yhteydessä profiilityökaluun tallennetut tiedot poistetaan.</target>
+        <target>Deleting profile means deleting your public profile along with the data you imported from ORCID. Information stored in the profile tool during login will also be deleted.</target>
       </trans-unit>
       <trans-unit id="accountSettingsProfileRemovalModalText">
         <source>Profiilin poistaminen tarkoittaa sitä, että julkinen profiilisi poistetaan ja ORCIDista tuomasi tiedot poistetaan. Myös kirjautumisen yhteydessä profiilityökaluun tallennetut tiedot poistetaan.</source>
-        <target>Profiilin poistaminen tarkoittaa sitä, että julkinen profiilisi poistetaan ja ORCIDista tuomasi tiedot poistetaan. Myös kirjautumisen yhteydessä profiilityökaluun tallennetut tiedot poistetaan.</target>
+        <target>Deleting profile means deleting your public profile along with the data you imported from ORCID. Information stored in the profile tool during login will also be deleted.</target>
       </trans-unit>
       <trans-unit id="accountSettingsHideAccountInfo">
         <source>Julkisen profiilin piilottaminen tarkoittaa sitä, että profiilisi piilotetaan Tiedejatutkimus.fi-portaalista. Voit edelleen kirjautua työkaluun ja julkaista profiilisi uudestaan.</source>
-        <target>Julkisen profiilin piilottaminen tarkoittaa sitä, että profiilisi piilotetaan Tiedejatutkimus.fi-portaalista. Voit edelleen kirjautua työkaluun ja julkaista profiilisi uudestaan.</target>
+        <target>Hiding your public profile means that it is hidden in the Research.fi service. You can still log in and re-publish your profile.</target>
       </trans-unit>
       <trans-unit id="accountSettingsHideAccountModalText">
         <source>Julkisen profiilin piilottaminen tarkoittaa sitä, että profiilisi piilotetaan Tiedejatutkimus.fi-portaalista. Voit edelleen kirjautua työkaluun ja julkaista profiilisi uudestaan.</source>
-        <target>Julkisen profiilin piilottaminen tarkoittaa sitä, että profiilisi piilotetaan Tiedejatutkimus.fi-portaalista. Voit edelleen kirjautua työkaluun ja julkaista profiilisi uudestaan.</target>
+        <target>Hiding your public profile means that it is hidden in the Research.fi service. You can still log in and re-publish your profile.</target>
        </trans-unit>
+
       <!-- MyData tabbed modals -->
       <trans-unit id="selectPublications">
         <source>Valitse julkaisut</source>
