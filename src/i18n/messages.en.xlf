@@ -2133,8 +2133,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="footerLink9" datatype="html">
-        <source>Tietosuoja</source>
-        <target>Privacy</target>
+        <source>Henkilötietojen käsittely</source>
+        <target>Processing of personal data</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/portal/components/sitemap/sitemap.component.html</context>
           <context context-type="linenumber">45</context>
@@ -2143,6 +2143,24 @@
           <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">57</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="footerLink10" datatype="html">
+        <source>Pikaohjeet</source>
+        <target>Quickstart</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+        <note priority="1" from="description">Footer-link</note>
+      </trans-unit>
+      <trans-unit id="footerLink12" datatype="html">
+        <source>Kuvalliset käyttöohjeet</source>
+        <target>Instructions for use</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+        <note priority="1" from="description">Footer-link</note>
       </trans-unit>
       <trans-unit id="skipToInput" datatype="html">
         <source>Hyppää hakukenttään</source>
@@ -5077,7 +5095,7 @@
       </trans-unit>
       <trans-unit id="sortNewest">
         <source>Uusin ensin</source>
-        <target>​Newest first</target>
+        <target>Newest first</target>
       </trans-unit>
       <trans-unit id="sortOldest">
         <source>Vanhin ensin</source>
@@ -5133,6 +5151,10 @@
       </trans-unit>
 
       <!-- MyData translations -->
+      <trans-unit id="researchersSectionIncoming">
+          <source>Tutkijan (tulossa)</source>
+          <target>Researcher's (upcoming)</target>
+      </trans-unit>
       <trans-unit id="createProfileForYourself">
         <source>Kokoa tiedoistasi julkinen profiili </source>
         <target>Compile a public profile of your data in </target>
@@ -5266,6 +5288,14 @@
       <trans-unit id="termsPersonalDataProcessing">
         <source>Käyttöehdot ja henkilötietojen käsittely</source>
         <target>Terms of use and processing of personal data</target>
+      </trans-unit>
+      <trans-unit id="serviceDeploymentCreateProfile">
+        <source>Kokoa profiili</source>
+        <target>Build your profile</target>
+      </trans-unit>
+      <trans-unit id="serviceDeploymentAuthenticationSucceful">
+        <source>Tunnistautuminen onnistui</source>
+        <target>Authentication Successful</target>
       </trans-unit>
       <trans-unit id="termsForTool">
         <source>Tutkijan tiedot -työkalun käyttöehdot</source>
@@ -5702,8 +5732,9 @@
       </trans-unit>
       <trans-unit id="youHaveUnpublishedChangesSnackbarButton">
         <source>Sinulla on julkaisemattomia muutoksia profiilinäkymässä.</source>
-        <target>Tarkasta muutokset.</target>
+        <target>Check the changes</target>
       </trans-unit>
+
       <!-- Welcome stepper -->
       <trans-unit id="welcomeStepperHowItWorksCaption">
         <source>Miten Tutkijan tiedot -palvelu toimii?</source>
@@ -5766,7 +5797,7 @@
         <target>Your profile is now available on the Research.fi website, where, for example, the media, funders, those interested in research cooperation and other research information seekers can find it.</target>
       </trans-unit>
 
-
+      <!-- Account settings -->
       <trans-unit id="closeInstructions">
         <source>Sulje ohjeet</source>
         <target>Close instructions</target>
@@ -5803,6 +5834,28 @@
         <source>Julkisen profiilin piilottaminen tarkoittaa sitä, että profiilisi piilotetaan Tiedejatutkimus.fi-portaalista. Voit edelleen kirjautua työkaluun ja julkaista profiilisi uudestaan.</source>
         <target>Hiding your public profile means that it is hidden in the Research.fi service. You can still log in and re-publish your profile.</target>
        </trans-unit>
+
+      <!-- Orcid linking -->
+      <trans-unit id="orcidDataFetchWaitingText">
+        <source>Tietoja tuodaan, odota hetki...</source>
+        <target>Importing data, please wait...</target>
+      </trans-unit>
+      <trans-unit id="orcidDataFetchInfo1">
+        <source>Tutkijan profiilipalvelun käyttöönotto edellyttää, että ORCID -palveluun tallentamasi julkiset tiedot tallennetaan profiilipalveluun.</source>
+        <target>To enable the Researcher’s Profile Tool, you must save the public information you have stored in ORCID to the Researcher’s Profile Tool.</target>
+      </trans-unit>
+      <trans-unit id="orcidDataFetchInfo2">
+        <source>Valitsemalla “Tuo ORCID-tietoni” annat luvan ORCID:iin tallentamiesi julkisten tietojesi tallentamiseen Tutkijan profiilipalveluun.</source>
+        <target>Select "Import my ORCID data” to authorise saving your public information stored in ORCID in the Researcher’s Profile Tool.</target>
+      </trans-unit>
+      <trans-unit id="orcidDataFetchInfo3">
+        <source>Tässä vaiheessa emme vielä julkaise profiiliasi.</source>
+        <target>At this point, we will not yet publish your profile.</target>
+      </trans-unit>
+      <trans-unit id="orcidDataFetchInfo4">
+        <source>Voit hallinnoida tietojesi julkisuutta seuraavaksi aukeavassa profiilieditorissa.</source>
+        <target>You can manage the display of your information in the profile tool.</target>
+      </trans-unit>
 
       <!-- MyData tabbed modals -->
       <trans-unit id="selectPublications">
@@ -5880,6 +5933,10 @@
       <trans-unit id="dataAndSources">
         <source>Tiedot ja tietolähteet</source>
         <target>Data and sources</target>
+      </trans-unit>
+      <trans-unit id="dataSources">
+        <source>Lähteet</source>
+        <target>Sources</target>
       </trans-unit>
       <trans-unit id="filter">
         <source>Rajaa</source>

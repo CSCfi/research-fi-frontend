@@ -90,7 +90,7 @@
       <!-- Affiliations -->
       <div class="row content" *ngIf="person.affiliations.organizations.length">
         <div class="col">
-          <h3>Affiliaatiot</h3>
+          <h3>{{affiliationsCaption}}</h3>
 
           <!-- Primary -->
           <ng-container *ngIf="person.affiliations.primary.length">
@@ -152,7 +152,7 @@
       <!-- Education -->
       <div class="row content" *ngIf="person.educations.length">
         <div class="col">
-          <h3>Koulutus</h3>
+          <h3>{{educationCaption}}</h3>
 
           <div class="row g-0">
             <!-- Degrees -->
@@ -375,7 +375,7 @@
       <aside>
         <mat-card>
           <div class="inner">
-            <h2>Tutkijan (tulossa)</h2>
+            <h2 i18n="@@researchersSectionIncoming">Tutkijan (tulossa)</h2>
             <app-related-links></app-related-links>
           </div>
         </mat-card>
@@ -398,7 +398,7 @@
         <mat-card>
           <div class="inner">
             <mat-card-title>
-              <h2>Lähteet</h2>
+              <h2>{{dataSourcesCaption}}</h2>
             </mat-card-title>
             {{ person.uniqueDataSources }}
           </div>

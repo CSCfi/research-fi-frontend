@@ -31,6 +31,10 @@ export class SinglePersonComponent implements OnInit {
   tabData: any;
   tab = 'person';
 
+  affiliationsCaption = $localize`:@@affiliations:Affiliaatiot`;
+  educationCaption = $localize`:@@education:Koulutus`;
+  dataSourcesCaption = $localize`:@@dataSources:Lähteet`;
+
   descriptionFields: Field[] = [
     {
       key: 'description',
