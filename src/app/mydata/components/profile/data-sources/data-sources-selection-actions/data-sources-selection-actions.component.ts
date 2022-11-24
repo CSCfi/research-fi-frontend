@@ -38,8 +38,7 @@ export class DataSourcesSelectionActionsComponent implements OnInit, OnDestroy {
     {
       id: 'publish',
       label: $localize`:@@makePublic:Aseta julkiseksi`,
-      dialogTitle:
-        'Aseta valitut tiedot julkiseksi Tiedejatutkimus.fi -palvelussa',
+      dialogTitle: $localize`:@@showDataToPublishInService:Aseta valitut tiedot julkiseksi Tiedejatutkimus.fi -palvelussa`,
       dialogPreviewLabel: $localize`:@@showDataToPublish:Näytä julkaistavat tiedot`,
       dialogPreviewLabelToggled: $localize`:@@hideDataToPublish:Piilota julkaistavat tiedot`,
       patchButtonLabel: $localize`:@@publish:Julkaise`,
@@ -47,9 +46,9 @@ export class DataSourcesSelectionActionsComponent implements OnInit, OnDestroy {
     {
       id: 'hide',
       label: $localize`:@@hideInProfile:Piilota profiilista`,
-      dialogTitle: $localize`:@@showDataToHide:Piilota valitut tiedot tiedejatutkimus.fi -palvelusta`,
+      dialogTitle: $localize`:@@showDataToHideInService:Piilota valitut tiedot tiedejatutkimus.fi -palvelusta`,
       dialogPreviewLabel: $localize`:@@showDataToHide:Näytä piilotettavat tiedot`,
-      dialogPreviewLabelToggled: $localize`:@@hideDataToHide:Piilota piilotettavat tiedot`,
+      dialogPreviewLabelToggled: $localize`:@@closeDataToHide:Sulje piilotettavat tiedot`,
       patchButtonLabel: $localize`:@@hide:Piilota`,
     },
     // {
