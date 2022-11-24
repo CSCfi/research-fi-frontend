@@ -5203,6 +5203,10 @@
         <source>luoda sellaiset ORCID-palvelussa</source>
         <target>you can create one in ORCID</target>
       </trans-unit>
+      <trans-unit id="quickStart">
+        <source>Pikaohjeet</source>
+        <target>Quickstart guide</target>
+      </trans-unit>
       <trans-unit id="begin">
         <source>Aloita</source>
         <target>Begin</target>

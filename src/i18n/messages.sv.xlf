@@ -5154,7 +5154,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="note">
         <source>Huomio</source>
-        <target>Note</target>
+        <target>Obs</target>
       </trans-unit>
       <trans-unit id="researcherProfileBetaText1">
         <source>Tämä on Tutkijan tiedot -työkalun betaversio. Testikäyttäjien
@@ -5185,6 +5185,10 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       <trans-unit id="mydataLoginText2">
         <source>luoda sellaiset ORCID-palvelussa</source>
         <target>you can create one in ORCID</target>
+      </trans-unit>
+      <trans-unit id="quickStart">
+        <source>Pikaohjeet</source>
+        <target>Snabbstartsguide</target>
       </trans-unit>
       <trans-unit id="begin">
         <source>Aloita</source>
@@ -5242,7 +5246,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Ei, jatkan käyttöönottoa</source>
         <target>Nej, fortsätt ibruktagandet</target>
       </trans-unit>
-      <trans-unit id="serviceDeploymentTermsPersonalDataProcessing">
+      <trans-unit id="termsPersonalDataProcessing">
         <source>Käyttöehdot ja henkilötietojen käsittely</source>
         <target>Användarvillkor och behandling av personuppgifter</target>
       </trans-unit>
