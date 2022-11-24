@@ -100,12 +100,13 @@ export class PersonAdapter implements Adapter<Person> {
       (activity) => this.activitiesAndRewardsAdapter.adapt(activity)
     );
 
+    // Some descriptions might hold HTML tags. These should be stripped
     const description = this.utils
       .checkTranslation(
         'researchDescription',
         data.personal.researcherDescriptions[0]
       )
-      .replace(/<[^>]*>/g, '');
+      ?.replace(/<(.|\n)*?>/g, '');
 
     const fieldsOfScience = 'Placeholder';
 
