@@ -2131,6 +2131,42 @@
           <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="footerLink14" datatype="html">
+        <source>Henkilötietojen käsittely</source>
+        <target state="translated">Behandling av personuppgifter</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/portal/components/sitemap/sitemap.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="footerLink11" datatype="html">
+        <source>Käyttöehdot</source>
+        <target state="translated">Användarvillkor</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/portal/components/sitemap/sitemap.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="footerLink13" datatype="html">
+        <source>Usein kysytyt kysymykset</source>
+        <target state="translated">Frågor och svar</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/portal/components/sitemap/sitemap.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="skipToInput" datatype="html">
         <source>Hyppää hakukenttään</source>
         <target state="translated">Gå till sökfältet</target>
@@ -2253,6 +2289,24 @@
       <trans-unit id="footerLink7" datatype="html">
         <source>Ota yhteyttä</source>
         <target>Kontakt</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+        <note priority="1" from="description">Footer-link</note>
+      </trans-unit>
+      <trans-unit id="footerLink10" datatype="html">
+        <source>Pikaohjeet</source>
+        <target>Snabbstartsguide</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+        <note priority="1" from="description">Footer-link</note>
+      </trans-unit>
+      <trans-unit id="footerLink12" datatype="html">
+        <source>Kuvalliset käyttöohjeet</source>
+        <target>Bruksanvisning</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">46</context>
@@ -5116,6 +5170,10 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
 
       <!-- MyData translations -->
+      <trans-unit id="researchersSectionIncoming">
+          <source>Tutkijan (tulossa)</source>
+          <target>Forskares (kommande)</target>
+      </trans-unit>
       <trans-unit id="createProfileForYourself">
         <source>Luo itsellesi profiili</source>
         <target>Sammanställ dina uppgifter i en offentlig</target>
@@ -5251,8 +5309,8 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <target>Användarvillkor och behandling av personuppgifter</target>
       </trans-unit>
       <trans-unit id="serviceDeploymentCreateProfile">
-        <source>Luo Tutkijan tiedot -profiili</source>
-        <target>Luo Tutkijan tiedot -profiili</target>
+        <source>Kokoa profiili</source>
+        <target>Sammanställ din profil</target>
       </trans-unit>
       <trans-unit id="serviceDeploymentAuthenticationSucceful">
         <source>Tunnistautuminen onnistui</source>
@@ -5523,7 +5581,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="draftUpdated">
         <source>Luonnos päivitetty</source>
-        <target>Draft updated</target>
+        <target>Utkast uppdaterat</target>
       </trans-unit>
       <trans-unit id="primary">
         <source>Ensisijainen</source>
@@ -5571,11 +5629,11 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="isMissing">
         <source>Puuttuiko jokin </source>
-        <target>Is a </target>
+        <target>Saknas någon </target>
       </trans-unit>
       <trans-unit id="fromYourData">
         <source> tiedoistasi?</source>
-        <target> missing from your information?</target>
+        <target> i dina uppgifter?</target>
       </trans-unit>
       <trans-unit id="publicationItem">
         <source>julkaisu</source>
@@ -5644,7 +5702,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="datasetSearchPlaceholder">
         <source>Esim. nimi, organisaatio</source>
-        <target>For example, name, organization</target>
+        <target>Till exempel namn, organisation</target>
       </trans-unit>
       <trans-unit id="enterPartOfName">
         <source>Kirjoita osa nimestä</source>
@@ -5698,6 +5756,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Sinulla on julkaisemattomia muutoksia profiilinäkymässä.</source>
         <target>Kontrollera ändringarna.</target>
       </trans-unit>
+
       <!-- Welcome stepper -->
       <trans-unit id="welcomeStepperHowItWorksCaption">
         <source>Miten Tutkijan tiedot -palvelu toimii?</source>
@@ -5798,6 +5857,28 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <target>Att dölja den offentliga profilen innebär att din profil döljs i tjänsten Forskning.fi. Du kan fortfarande logga in i tjänsten och göra din profil offentlig på nytt.</target>
        </trans-unit>
 
+      <!-- Orcid linking -->
+      <trans-unit id="orcidDataFetchWaitingText">
+        <source>Tietoja tuodaan, odota hetki...</source>
+        <target>Uppgifterna hämtas, vänta en stund......</target>
+      </trans-unit>
+      <trans-unit id="orcidDataFetchInfo1">
+        <source>Tutkijan profiilipalvelun käyttöönotto edellyttää, että ORCID -palveluun tallentamasi julkiset tiedot tallennetaan profiilipalveluun.</source>
+        <target>Ibruktagandet av Forskarens profilverktyg att du ger tillstånd till att de offentliga uppgifter som du sparat i ORCID-tjänsten överförs till profilverktyget.</target>
+      </trans-unit>
+      <trans-unit id="orcidDataFetchInfo2">
+        <source>Valitsemalla “Tuo ORCID-tietoni” annat luvan ORCID:iin tallentamiesi julkisten tietojesi tallentamiseen Tutkijan profiilipalveluun.</source>
+        <target>Genom att välja "Hämta mina ORCID-uppgifter" godkänner du att dina offentliga uppgifter som du sparat i ORCID-tjänsten sparas i profilverktyget. Dessa uppgifter kan du utnyttja när du sammanställer din profil.</target>
+      </trans-unit>
+      <trans-unit id="orcidDataFetchInfo3">
+        <source>Tässä vaiheessa emme vielä julkaise profiiliasi.</source>
+        <target>I det här skedet publicerar vi ännu inte din profil.</target>
+      </trans-unit>
+      <trans-unit id="orcidDataFetchInfo4">
+        <source>Voit hallinnoida tietojesi julkisuutta seuraavaksi aukeavassa profiilieditorissa.</source>
+        <target>Du kan administrera vilka uppgifter som är offentliga i profilverktyget.</target>
+      </trans-unit>
+
       <!-- MyData tabbed modals -->
       <trans-unit id="selectPublications">
         <source>Valitse julkaisut</source>
@@ -5872,6 +5953,10 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       <trans-unit id="dataAndSources">
         <source>Tiedot ja tietolähteet</source>
         <target>Uppgifter och informationskällor</target>
+      </trans-unit>
+      <trans-unit id="dataSources">
+        <source>Lähteet</source>
+        <target>Informationskällor</target>
       </trans-unit>
       <trans-unit id="filter">
         <source>Rajaa</source>
