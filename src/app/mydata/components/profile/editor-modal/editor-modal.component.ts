@@ -30,6 +30,7 @@ import {
   DatasetColumns,
   ActivityColumns,
   FundingColumns,
+  PortalGroupIds,
 } from '@mydata/constants';
 import { EditorModalColumn } from 'src/types';
 import { SearchPortalService } from '@mydata/services/search-portal.service';
@@ -76,12 +77,7 @@ export class EditorModalComponent implements OnInit {
 
   @ViewChild('selectAllCheckbox') selectAllCheckbox: MatCheckbox;
 
-  portalModalIndicatorIds = [
-    GroupTypes.publication,
-    GroupTypes.dataset,
-    GroupTypes.funding,
-    GroupTypes.activitiesAndRewards,
-  ];
+  portalModalIndicatorIds = PortalGroupIds;
 
   disabledSearchPortalModalIds = [GroupTypes.activitiesAndRewards];
 

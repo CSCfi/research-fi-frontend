@@ -420,7 +420,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.profileData = currentProfileData;
     this.profileService.setEditorProfileName(getName(currentProfileData));
     this.clearDraftData();
-    this.collaborationComponentRef.resetInitialValue();
+    this.collaborationComponentRef?.resetInitialValue();
   }
 
   clearDraftData() {
