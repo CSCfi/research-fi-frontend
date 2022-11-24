@@ -15,7 +15,11 @@
 
 <mat-menu #menu="matMenu">
   <button mat-menu-item (click)="sortBy(sortByRelevance)">
-    {{ sortByRelevance.label }}
+    {{
+      customSortByRelevanceLabel
+        ? customSortByRelevanceLabel
+        : sortByRelevance.label
+    }}
   </button>
   <button mat-menu-item *ngFor="let option of options" (click)="sortBy(option)">
     {{ option.label }}
