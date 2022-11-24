@@ -17,6 +17,7 @@ import { DataSourcesTableComponent } from './data-sources-table/data-sources-tab
 import { NotificationService } from '@shared/services/notification.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
+import { clone, cloneDeep } from 'lodash-es';
 
 @Component({
   selector: 'app-data-sources',
@@ -48,6 +49,7 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
     dataSources: DataSource[];
     itemMeta: ItemMeta;
   }[];
+  nameField: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -88,6 +90,11 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
     const contactGroup = myDataProfile.profileData.find(
       (group) => group.id === 'contact'
     );
+
+    // Name field needs to be replaced when storing data into service
+    this.nameField = contactGroup.fields.filter(
+      (field) => field.id === 'name'
+    )[0];
 
     contactGroup.fields = contactGroup.fields.filter(
       (field) => field.id !== 'name'
@@ -331,7 +338,14 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
 
     this.dataSourcesTable.clearSelections();
 
-    this.profileService.setCurrentProfileData(this.data);
+    // Add name field back to data which is stored in state
+    const dataToStore = cloneDeep(this.data);
+
+    let contactGroup = dataToStore.find((group) => group.id === 'contact');
+
+    contactGroup.fields.unshift(this.nameField);
+
+    this.profileService.setCurrentProfileData(dataToStore);
     this.initialProfileData = [...this.data];
   }
 }
