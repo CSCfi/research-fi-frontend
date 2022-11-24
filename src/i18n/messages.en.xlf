@@ -5964,7 +5964,31 @@
       </trans-unit>
       <trans-unit id="personsResultsBetaText">
         <source>Tutkijat-näkymä on beta-vaiheessa. Sekä profiilien sisältöä että hakumahdollisuuksia kehitetään jatkuvasti. Suomessa toimiva tutkija tai asiantuntija voi luoda oman profiilin Tiedejatutkimus.fi-palveluun ORCID-tunnuksen avulla, minkä jälkeen profiili näkyy ja on haettavissa Tiedejatutkimus.fi-palvelun Tutkijat-osiossa. Beta-vaiheessa kotiorganisaatioista siirrettyjen tietojen lisääminen omaan profiiliin on mahdollista vain muutaman organisaation tapauksessa. Työkalun ja Tutkijat-näkymän ominaisuudet ja käytettävissä oleva tietosisältö täydentyvät vuoden 2023 aikana.</source>
-        <target>The Researchers view is in the beta stage.  Both the content of profiles and search opportunities are under constant development. A researcher or expert operating in Finland can create their own profile in the Research.fi service using their ORCID iD, after which it is visible and searchable in the Researchers section of the Research.fi service. In the beta version, adding information from home organisations to your profile is limited to only a few organisations that have completed the necesseary data transfers. The features of the tool and the Researcher view, as well as the available information content will be complemented in 2023.</target>
+        <target>The Researchers view is in the beta stage. Both the content of profiles and search opportunities are under constant development. A researcher or expert operating in Finland can create their own profile in the Research.fi service using their ORCID iD, after which it is visible and searchable in the Researchers section of the Research.fi service. In the beta version, adding information from home organisations to your profile is limited to only a few organisations that have completed the necesseary data transfers. The features of the tool and the Researcher view, as well as the available information content will be complemented in 2023.</target>
+      </trans-unit>
+      <trans-unit id="showDataToPublishInService">
+        <source>Aseta valitut tiedot julkiseksi Tiedejatutkimus.fi-palvelussa</source>
+        <target>Set selected information to public in Research.fi service</target>
+      </trans-unit>
+      <trans-unit id="showDataToHideInService">
+        <source>Piilota valitut tiedot Tiedejatutkimus.fi-palvelusta</source>
+        <target>Hide selected information from Research.fi service</target>
+      </trans-unit>
+      <trans-unit id="showDataToHide">
+        <source>Näytä piilotettavat tiedot</source>
+        <target>Show information about to be hidden</target>
+      </trans-unit>
+      <trans-unit id="closeDataToHide">
+        <source>Sulje piilotettavat tiedot</source>
+        <target>Close information about to be hidden</target>
+      </trans-unit>
+      <trans-unit id="hide">
+        <source>Piilota</source>
+        <target>Hide</target>
+      </trans-unit>
+      <trans-unit id="itMayTakeFewMinutesForDataToPublish">
+        <source>Tietojen päivittyminen voi kestää muutaman minuutin.</source>
+        <target>It may take a few minutes for the information to update.</target>
       </trans-unit>
     </body>
   </file>
