@@ -30,12 +30,14 @@ export class ServiceDeploymentComponent implements OnInit, OnDestroy {
   loading = true;
   currentStep: Step;
 
+  openTermsAndProcessingPrinciples = $localize`:@@openTermsAndProcessingPrinciples:Avaa käyttöehdot ja käsittelyperiaatteet`;
+
   steps: Step[] = [
-    { label: 'Luo Tutkijan tiedot -profiili', icon: faHandshakeAlt },
-    { label: 'Käyttöehdot ja henkilötietojen käsittely', icon: faFileAlt },
-    { label: 'Tunnistautuminen onnistui', icon: faHandshakeAlt },
+    { label: $localize`:@@serviceDeploymentCreateProfile:Luo Tutkijan tiedot -profiili`, icon: faHandshakeAlt },
+    { label: $localize`:@@serviceDeploymentTermsPersonalDataProcessing:Käyttöehdot ja henkilötietojen käsittely`, icon: faFileAlt },
+    { label: $localize`:@@serviceDeploymentAuthenticationSucceful:Tunnistautuminen onnistui`, icon: faHandshakeAlt },
     {
-      label: 'Orcid-kirjautuminen onnistui',
+      label: $localize`:@@serviceDeploymentOrcidLoginSuccesful:ORCID-kirjautuminen onnistui`,
       icon: faDownload,
       loading: true,
     },

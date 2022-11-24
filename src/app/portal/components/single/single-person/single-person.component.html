@@ -175,127 +175,52 @@
       </div>
 
       <!-- Publications -->
-      <div class="row content" *ngIf="person.publications.length">
-        <div class="col">
-          <h3>
-            <ng-container i18n="@@publications">Julkaisut</ng-container> ({{
-              person.publications.length
-            }})
-          </h3>
-
-          <div
-            class="row g-0"
-            *ngFor="
-              let publication of person.publications.slice(
-                0,
-                maxPublicationCount
-              );
-              let i = index
-            "
-          >
-            <div class="">
-              <div
-                [class.fw-bold]="row.key === 'name'"
-                *ngFor="
-                  let row of publicationFields
-                    | checkEmptyFields: person.publications
-                "
-              >
-                <app-tag-doi
-                  *ngIf="row.key === 'doi' && publication.doi; else textContent"
-                  [link]="publication.doi"
-                ></app-tag-doi>
-
-                <ng-template #textContent>
-                  <a
-                    *ngIf="
-                      row.key === 'name' && publication.id.trim().length;
-                      else plainText
-                    "
-                    routerLink="/results/publication/{{ publication.id }}"
-                  >
-                    {{ publication.name }}
-                  </a>
-
-                  <ng-template #plainText>
-                    <div [class.font-size-small]="row.key === 'year'">
-                      {{ publication[row.key] }}
-                    </div>
-                  </ng-template>
-                </ng-template>
-              </div>
-            </div>
-
-            <hr
-              class="mt-3"
-              *ngIf="
-                i + 1 < maxPublicationCount &&
-                i + 1 !== person.publications.length
-              "
-            />
-          </div>
-        </div>
-        <a
-          *ngIf="person.publications.length > maxPublicationCount"
-          (click)="maxPublicationCount = person.publications.length"
-          class="mt-4"
-          i18n="@@showAllPublications"
-        >
-          Näytä kaikki julkaisut
-        </a>
-      </div>
+      <app-person-group
+        *ngIf="person.publications?.length"
+        class="content"
+        label="Julkaisut"
+        i18n-label="@@publications"
+        [data]="person.publications"
+        [fields]="publicationFields"
+        [maxItemCount]="maxPublicationCount"
+        tab="publication"
+      ></app-person-group>
 
       <!-- Datasets -->
-      <div class="row content" *ngIf="person.datasets.length">
-        <div class="col">
-          <h3>
-            <ng-container i18n="@@datasets">Aineistot</ng-container> ({{
-              person.datasets.length
-            }})
-          </h3>
+      <app-person-group
+        *ngIf="person.datasets?.length"
+        class="content"
+        label="Tutkimusaineistot"
+        i18n-label="@@datasets"
+        [data]="person.datasets"
+        [fields]="datasetFields"
+        [maxItemCount]="maxDatasetCount"
+        tab="dataset"
+      ></app-person-group>
 
-          <div
-            class="row g-0"
-            *ngFor="
-              let dataset of person.datasets.slice(0, maxDatasetCount);
-              let i = index
-            "
-          >
-            <div class="">
-              <ng-container
-                *ngFor="
-                  let row of datasetFields | checkEmptyFields: person.datasets
-                "
-              >
-                <a
-                  routerLink="/results/dataset/{{ dataset.id }}"
-                  *ngIf="row.key === 'name' && dataset.id; else plainText"
-                >
-                  {{ dataset.name }}
-                </a>
+      <!-- Fundings -->
+      <app-person-group
+        *ngIf="person.fundings?.length"
+        class="content"
+        label="Hankkeet"
+        i18n-label="@@fundings"
+        [data]="person.fundings"
+        [fields]="fundingFields"
+        [maxItemCount]="maxFundingCount"
+        tab="funding"
+      ></app-person-group>
 
-                <ng-template #plainText>
-                  <span class="d-block">{{ dataset[row.key] }}</span>
-                </ng-template>
-              </ng-container>
-            </div>
-
-            <hr
-              *ngIf="
-                i + 1 < maxDatasetCount && i + 1 !== person.datasets.length
-              "
-            />
-          </div>
-        </div>
-
-        <a
-          *ngIf="person.datasets.length > maxDatasetCount"
-          (click)="maxDatasetCount = person.datasets.length"
-          i18n="@@showAll"
-        >
-          Näytä kaikki
-        </a>
-      </div>
+      <!-- Activites and rewards -->
+      <app-person-group
+        *ngIf="person.activityAndAwards?.length"
+        class="content"
+        label="Aktiviteetit ja palkinnot"
+        i18n-label="@@activitiesAndAwards"
+        [data]="person.activityAndAwards"
+        [fields]="activityAndAwardsFields"
+        [maxItemCount]="maxActivityAndAwardsCount"
+        [additionalFields]="activityAndAwardsAdditionalFields"
+      ></app-person-group>
     </main>
 
     <!-- Sidebar -->
@@ -341,8 +266,19 @@
                   <span class="fw-bold col-auto px-0" *ngIf="row.label">
                     {{ row.label }}
                   </span>
-
-                  <span class="col truncate">{{ item.value }}</span>
+                  <ng-container *ngIf="row.key === 'emails'; else nonEmail">
+                    <span class="col truncate">
+                      <a
+                        href="javascript:void(0)"
+                        (click)="showEmail($event, item.value)"
+                        i18n="@@showEmailAddress"
+                        >Näytä sähköpostiosoite</a
+                      ></span
+                    ></ng-container
+                  >
+                  <ng-template #nonEmail>
+                    <span class="col truncate">{{ item.value }}</span>
+                  </ng-template>
                 </li>
               </ng-container>
             </ng-container>
@@ -351,6 +287,7 @@
       </aside>
 
       <!-- Cooperation -->
+      <!--
       <aside>
         <mat-card>
           <div class="inner">
@@ -359,7 +296,7 @@
           </div>
         </mat-card>
       </aside>
-
+      -->
       <!-- Related -->
       <aside>
         <mat-card>

@@ -9,29 +9,31 @@ import { Adapter } from '../adapter.model';
 import { Injectable } from '@angular/core';
 import { ModelUtilsService } from '@shared/services/model-util.service';
 
-export class PersonDataset {
+export class PersonFunding {
   constructor(
     public id: string,
     public name: string,
-    public year: number,
-    public description: string,
-    public sources: string
+    public funderName: string,
+    public year: string
   ) {}
 }
 
 @Injectable({
   providedIn: 'root',
 })
-export class PersonDatasetAdapter implements Adapter<PersonDataset> {
+export class PersonFundingAdapter implements Adapter<PersonFunding> {
   constructor(private utils: ModelUtilsService) {}
 
-  adapt(dataset: any): PersonDataset {
-    return new PersonDataset(
-      dataset.identifier,
-      this.utils.checkTranslation('name', dataset),
-      dataset.datasetCreated,
-      this.utils.checkTranslation('description', dataset),
-      this.utils.mapSources(dataset.dataSources)
+  adapt(funding: any): PersonFunding {
+    const getYearRange = () => {
+      return [funding.fundingStartYear, funding.fundingEndYear].join(' - ');
+    };
+
+    return new PersonFunding(
+      funding.projectId,
+      this.utils.checkTranslation('projectName', funding),
+      this.utils.checkTranslation('funderName', funding),
+      getYearRange()
     );
   }
 }

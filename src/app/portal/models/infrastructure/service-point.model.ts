@@ -7,7 +7,7 @@
 
 import { Injectable } from '@angular/core';
 import { Adapter } from '../adapter.model';
-import { ModelUtils } from '../utils';
+import { ModelUtilsService } from '@shared/services/model-util.service';
 
 export class ServicePoint {
   constructor(
@@ -26,7 +26,7 @@ export class ServicePoint {
   providedIn: 'root',
 })
 export class ServicePointAdapter implements Adapter<ServicePoint> {
-  constructor(private utils: ModelUtils) {}
+  constructor(private utils: ModelUtilsService) {}
   adapt(item: any): ServicePoint {
     return new ServicePoint(
       this.utils.checkTranslation('servicePointName', item),

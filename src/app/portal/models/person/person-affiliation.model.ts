@@ -7,7 +7,7 @@
 
 import { Adapter } from '../adapter.model';
 import { Injectable } from '@angular/core';
-import { ModelUtils } from '../utils';
+import { ModelUtilsService } from '@shared/services/model-util.service';
 import { omit } from 'lodash-es';
 
 export class PersonAffiliations {
@@ -18,7 +18,7 @@ export class PersonAffiliations {
   providedIn: 'root',
 })
 export class PersonAffiliationAdapter implements Adapter<PersonAffiliations> {
-  constructor(private utils: ModelUtils) {}
+  constructor(private utils: ModelUtilsService) {}
 
   adapt(affiliations: any): PersonAffiliations {
     const mappedAffiliations = affiliations

@@ -31,7 +31,7 @@ import { Search } from 'src/app/portal/models/search.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { AppSettingsService } from '@shared/services/app-settings.service';
-import { ModelUtils } from '@portal/models/utils';
+import { ModelUtilsService } from '@shared/services/model-util.service';
 
 @Component({
   selector: 'app-single-publication',
@@ -454,7 +454,7 @@ export class SinglePublicationComponent
     private snackBar: MatSnackBar,
     private settingsService: SettingsService,
     private appSettingsService: AppSettingsService,
-    private utils: ModelUtils
+    private utils: ModelUtilsService
   ) {
     this.currentLocale = this.appSettingsService.capitalizedLocale;
   }

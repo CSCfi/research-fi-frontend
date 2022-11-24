@@ -69,10 +69,10 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
     if (draftProfile) {
       this.notificationService.notify({
         notificationText:
-          'Sinulla on julkaisemattomia muutoksia profiilinäkymässä.',
+          $localize`:@@youHaveUnpublishedChangesSnackbar:Sinulla on julkaisemattomia muutoksia profiilinäkymässä.`,
         buttons: [
           {
-            label: 'Tarkasta muutokset',
+            label: $localize`:@@youHaveUnpublishedChangesSnackbarButton:Tarkasta muutokset.`,
             action: () => this.router.navigate(['mydata/profile']),
           },
         ],
@@ -190,8 +190,8 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
   // Handle active filters for use of active filters list component
   parseActiveFilters(activeFilters) {
     const statuses = [
-      { id: 'public', label: 'Julkinen' },
-      { id: 'private', label: 'Ei julkinen' },
+      { id: 'public', label: $localize`:@@public:Julkinen` },
+      { id: 'private', label: $localize`:@@notPublic:Ei julkinen` },
     ];
 
     const datasets = this.initialProfileData
@@ -232,7 +232,7 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
      * Convert param to array so it matches the case when there's
      * multiple params per category
      */
-    if (typeof queryParams[filter.category]) {
+    if (typeof queryParams[filter.category] === 'string') {
       queryParams[filter.category] = [queryParams[filter.category]];
     }
 

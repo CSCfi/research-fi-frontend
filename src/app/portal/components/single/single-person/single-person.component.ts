@@ -15,6 +15,7 @@ import { SingleItemService } from '@portal/services/single-item.service';
 import { TabChangeService } from '@portal/services/tab-change.service';
 import { UtilityService } from '@shared/services/utility.service';
 import { take } from 'rxjs';
+import { DOCUMENT } from '@angular/common';
 
 type Field = { key: string; label?: string };
 
@@ -26,6 +27,7 @@ type Field = { key: string; label?: string };
 export class SinglePersonComponent implements OnInit {
   responseData: Search;
   tabQueryParams: any;
+  searchTerm: string;
   tabData: any;
   tab = 'person';
 
@@ -55,6 +57,23 @@ export class SinglePersonComponent implements OnInit {
 
   datasetFields = [{ key: 'name' }, { key: 'year' }];
 
+  fundingFields = [{ key: 'name' }, { key: 'funderName' }, { key: 'year' }];
+
+  activityAndAwardsFields = [
+    { key: 'role', bold: true },
+    { key: 'name', bold: true },
+    { key: 'type', bold: true },
+    { key: 'year' },
+  ];
+
+  activityAndAwardsAdditionalFields = [
+    { key: 'description' },
+    {
+      key: 'internationalCollaboration',
+      label: $localize`:@@internationalCollaboration:Kansainvälinen yhteistyö`,
+    },
+  ];
+
   contactFields: Field[] = [
     { key: 'emails' },
     { key: 'links' },
@@ -71,6 +90,12 @@ export class SinglePersonComponent implements OnInit {
   maxDatasetCount = this.initialItemCount;
   showAllDatasets = false;
 
+  maxFundingCount = this.initialItemCount;
+  showAllFundings = false;
+
+  maxActivityAndAwardsCount = this.initialItemCount;
+  showAllActivityAndAwards = false;
+
   constructor(
     private route: ActivatedRoute,
     public router: Router,
@@ -78,13 +103,15 @@ export class SinglePersonComponent implements OnInit {
     private singleItemService: SingleItemService,
     private utilityService: UtilityService,
     private tabChangeService: TabChangeService,
-    @Inject(LOCALE_ID) protected localeId: string
+    @Inject(LOCALE_ID) protected localeId: string,
+    @Inject(DOCUMENT) private document: any
   ) {}
 
   ngOnInit(): void {
     this.route.params.pipe(take(1)).subscribe((params) => {
       this.searchService.searchTerm = params.id;
       this.getData(params.id);
+      this.searchService.searchTerm = ''; // Empty search term so breadcrumb link is correct
     });
 
     this.tabQueryParams = this.tabChangeService.tabQueryParams.persons;
@@ -113,5 +140,11 @@ export class SinglePersonComponent implements OnInit {
           );
         }
       });
+  }
+
+  showEmail(event, address) {
+    const span = this.document.createElement('span');
+    span.innerHTML = address;
+    event.target.replaceWith(span);
   }
 }

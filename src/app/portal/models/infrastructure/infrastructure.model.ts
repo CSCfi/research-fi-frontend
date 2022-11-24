@@ -8,7 +8,7 @@
 import { Injectable } from '@angular/core';
 import { Adapter } from '../adapter.model';
 import { InfraService, InfraServiceAdapter } from './infra-service.model';
-import { ModelUtils } from '../utils';
+import { ModelUtilsService } from '@shared/services/model-util.service';
 
 export class Infrastructure {
   constructor(
@@ -46,7 +46,10 @@ export class Infrastructure {
   providedIn: 'root',
 })
 export class InfrastructureAdapter implements Adapter<Infrastructure> {
-  constructor(private isa: InfraServiceAdapter, private utils: ModelUtils) {}
+  constructor(
+    private isa: InfraServiceAdapter,
+    private utils: ModelUtilsService
+  ) {}
   adapt(item: any): Infrastructure {
     const services: InfraService[] = [];
     const fieldsOfScience: string[] = [];

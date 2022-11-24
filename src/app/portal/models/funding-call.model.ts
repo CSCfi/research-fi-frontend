@@ -8,7 +8,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, LOCALE_ID, PLATFORM_ID } from '@angular/core';
 import { Adapter } from './adapter.model';
-import { ModelUtils } from './utils';
+import { ModelUtilsService } from '@shared/services/model-util.service';
 
 export class FundingCall {
   constructor(
@@ -45,7 +45,7 @@ export class FundingCall {
 })
 export class FundingCallAdapter implements Adapter<FundingCall> {
   constructor(
-    private utils: ModelUtils,
+    private utils: ModelUtilsService,
     @Inject(LOCALE_ID) protected localeId: string,
     @Inject(PLATFORM_ID) private platformId: object
   ) {}

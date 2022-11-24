@@ -7,7 +7,7 @@
 
 import { Adapter } from '../adapter.model';
 import { Injectable } from '@angular/core';
-import { ModelUtils } from '../utils';
+import { ModelUtilsService } from '@shared/services/model-util.service';
 
 export class Funder {
   constructor(
@@ -31,7 +31,7 @@ export class Funder {
   providedIn: 'root',
 })
 export class FunderAdapter implements Adapter<Funder> {
-  constructor(private utils: ModelUtils) {}
+  constructor(private utils: ModelUtilsService) {}
   adapt(item: any): Funder {
     const callProgrammes: { name: string; id: string }[] = [];
 
@@ -46,7 +46,7 @@ export class FunderAdapter implements Adapter<Funder> {
       this.utils.checkTranslation('funderName', item),
       item.funderNameUnd,
       item.typeOfFundingId,
-      this.utils.checkTranslation('typeOfFundingName', item).trim().length > 0
+      this.utils.checkTranslation('typeOfFundingName', item)?.trim().length > 0
         ? this.utils.checkTranslation('typeOfFundingName', item)
         : item.typeOfFundingId,
       this.utils.checkTranslation('callProgrammeName', item),

@@ -25,38 +25,7 @@ export class OpenScienceAndResearchIndicatorsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.areIndicatorsActive()) {
-      this.indicatorsActive = true;
-      this.mapFetchedDataToContent();
-    }
-    else {
-      this.generatePlaceholderContent();
-    }
-  }
-
-  areIndicatorsActive() {
-    let isActive = this.route.snapshot.data.pages.some(
-      (el) => el.id.startsWith('indicators_active')
-    );
-    return isActive;
-  }
-
-  generatePlaceholderContent() {
-    this.indicatorContent = this.route.snapshot.data.pages.filter(
-      (el) => el.id.startsWith('indicators_general')
-    );
-    this.indicatorContent.map(item => {
-      item.contentFi = $localize`:@@comingSoon:Tulossa pian`;
-      item.contentFi += '.';
-    });
-    this.indicatorContent.map(item => {
-      item.contentSv = $localize`:@@comingSoon:Tulossa pian`;
-      item.contentSv += '.';
-    });
-    this.indicatorContent.map(item => {
-      item.contentEn = $localize`:@@comingSoon:Tulossa pian`;
-      item.contentEn += '.';
-    });
+    this.mapFetchedDataToContent();
   }
 
   mapFetchedDataToContent() {

@@ -33,7 +33,7 @@
           <ng-container *ngSwitchCase="1">
             <div class="pb-5" [innerHTML]="textContent"></div>
             <app-primary-action-button
-              content="Avaa käyttöehdot ja henkilötietojen käsittelyperiaatteet"
+              content="{{openTermsAndProcessingPrinciples}}"
               [big]="true"
               (click)="changeStep(2)"
             >

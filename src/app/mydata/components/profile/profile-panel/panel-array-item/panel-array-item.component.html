@@ -5,9 +5,10 @@
 
 <ng-container *ngIf="!localized; else localizedTemplate">
   <ng-container [ngSwitch]="fieldType">
-    <ng-container *ngSwitchCase="fieldTypes.personWebLink">{{
-      _item.url
-    }}</ng-container>
+    <ng-container *ngSwitchCase="fieldTypes.personWebLink">
+      {{ _item.url }}
+    </ng-container>
+
     <ng-container *ngSwitchCase="fieldTypes.personResearcherDescription">
       <ng-container *ngFor="let value of _item | getLocalizedValues">
         <div class="row fw-bold">
@@ -64,11 +65,18 @@
         ></app-activity-item>
       </ng-container>
       <ng-template #localized>
+        <app-activity-item
+          [rows]="[_item['name' + locale], _item.datasetCreated]"
+          [smallLastItem]="true"
+        ></app-activity-item>
+      </ng-template>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="fieldTypes.activityActivitesAndRewards">
       <app-activity-item
-        [rows]="[_item['name' + locale], _item.datasetCreated]"
+        [rows]="[_item.name, _item.timing]"
         [smallLastItem]="true"
       ></app-activity-item>
-      </ng-template>
     </ng-container>
 
     <ng-container *ngSwitchCase="fieldTypes.activityFunding">
@@ -83,22 +91,22 @@
       <ng-container *ngIf="_item.title">
         <app-activity-item
           [rows]="
-          summary
-            ? [_item.title, _item.publicationYear]
-            : [_item.title, _item.authors, _item.publicationYear]
-        "
+            summary
+              ? [_item.title, _item.publicationYear]
+              : [_item.title, _item.authors, _item.publicationYear]
+          "
           [smallLastItem]="true"
         ></app-activity-item>
       </ng-container>
       <ng-container *ngIf="!_item.title">
-      <app-activity-item
-        [rows]="
-          summary
-            ? [_item.publicationName, _item.publicationYear]
-            : [_item.publicationName, _item.authors, _item.publicationYear]
-        "
-        [smallLastItem]="true"
-      ></app-activity-item>
+        <app-activity-item
+          [rows]="
+            summary
+              ? [_item.publicationName, _item.publicationYear]
+              : [_item.publicationName, _item.authors, _item.publicationYear]
+          "
+          [smallLastItem]="true"
+        ></app-activity-item>
       </ng-container>
     </ng-template>
 

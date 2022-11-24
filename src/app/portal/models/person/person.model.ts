@@ -7,13 +7,18 @@
 
 import { Injectable, Inject, LOCALE_ID } from '@angular/core';
 import { Adapter } from '../adapter.model';
-import { ModelUtils } from '../utils';
+import { ModelUtilsService } from '@shared/services/model-util.service';
+import {
+  PersonActivitiesAndRewards,
+  PersonActivitiesAndRewardsAdapter,
+} from './person-activities-awards.model';
 import {
   PersonAffiliations,
   PersonAffiliationAdapter,
 } from './person-affiliation.model';
 import { PersonContact, PersonContactAdapter } from './person-contact.model';
 import { PersonDataset, PersonDatasetAdapter } from './person-dataset.model';
+import { PersonFunding, PersonFundingAdapter } from './person-funding.model';
 import {
   PersonPublication,
   PersonPublicationAdapter,
@@ -31,6 +36,8 @@ export class Person {
     public educations: Education[],
     public publications: PersonPublication[],
     public datasets: PersonDataset[],
+    public fundings: PersonFunding[],
+    public activityAndAwards: PersonActivitiesAndRewards[],
     public description: string,
     public fieldsOfScience: string,
     public keywords: string,
@@ -43,11 +50,13 @@ export class Person {
 })
 export class PersonAdapter implements Adapter<Person> {
   constructor(
-    private utils: ModelUtils,
+    private utils: ModelUtilsService,
     private affiliationAdapter: PersonAffiliationAdapter,
     private contactAdapter: PersonContactAdapter,
     private publicationAdapter: PersonPublicationAdapter,
     private datasetAdapter: PersonDatasetAdapter,
+    private fundingAdapter: PersonFundingAdapter,
+    private activitiesAndRewardsAdapter: PersonActivitiesAndRewardsAdapter,
     @Inject(LOCALE_ID) protected localeId: string
   ) {}
   adapt(data: any): Person {
@@ -83,6 +92,14 @@ export class PersonAdapter implements Adapter<Person> {
       this.datasetAdapter.adapt(dataset)
     );
 
+    const fundings = data.activity.fundingDecisions.map((funding) =>
+      this.fundingAdapter.adapt(funding)
+    );
+
+    const activityAndAwards = data.activity.activitiesAndRewards.map(
+      (activity) => this.activitiesAndRewardsAdapter.adapt(activity)
+    );
+
     const description = this.utils.checkTranslation(
       'researchDescription',
       data.personal.researcherDescriptions[0]
@@ -107,6 +124,8 @@ export class PersonAdapter implements Adapter<Person> {
       educations,
       publications,
       datasets,
+      fundings,
+      activityAndAwards,
       description,
       fieldsOfScience,
       keywords,

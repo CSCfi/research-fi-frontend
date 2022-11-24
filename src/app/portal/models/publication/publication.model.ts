@@ -11,7 +11,7 @@ import {
 import { Inject, Injectable, LOCALE_ID } from '@angular/core';
 import { Adapter } from '../adapter.model';
 import { PublicationCitationAdapter } from './publication-citation.model';
-import { ModelUtils } from '../utils';
+import { ModelUtilsService } from '@shared/services/model-util.service';
 
 export class Publication {
   constructor(
@@ -87,7 +87,7 @@ export class Publication {
 export class PublicationAdapter implements Adapter<Publication> {
   capitalizedLocale: string;
   constructor(
-    private utils: ModelUtils,
+    private utils: ModelUtilsService,
     private fs: FieldOfScienceAdapter,
     private citationAdapter: PublicationCitationAdapter,
     @Inject(LOCALE_ID) protected localeId: string

@@ -18,21 +18,21 @@ export const Constants = {
 
 export const FiltersConfig: FilterConfigType[] = [
   {
-    label: 'Tila profiilissa',
+    label: $localize`:@@statusInProfile:Tila profiilissa`,
     field: 'status',
     hasSubFields: false,
     limitHeight: true,
     open: true,
   },
   {
-    label: 'Tietokokonaisuus',
+    label: $localize`:@@dataSourcesDataset:Tietokokonaisuus`,
     field: 'dataset',
     hasSubFields: false,
     limitHeight: true,
     open: true,
   },
   {
-    label: 'Lähde',
+    label: $localize`:@@source:Lähde`,
     field: 'source',
     hasSubFields: false,
     limitHeight: true,
@@ -58,36 +58,35 @@ export const TableColumns: TableColumn[] = [
     labelHiddenMobile: true,
   },
   {
-    label: 'Tieto',
+    label: $localize`:@@information:Tieto`,
     key: 'name',
     mobile: true,
     class: 'col-2',
-    mobileSortLabel: 'Tieto (A-Ö)',
+    mobileSortLabel: $localize`:@@dataSourcesInformationSort:Tieto (A-Ö)`,
   },
   {
-    label: 'Sisältö',
+    label: $localize`:@@content:sisältö`,
     key: 'content',
     mobile: true,
     class: 'col-4',
-    mobileSortLabel: 'Sisältö (A-Ö)',
+    mobileSortLabel: $localize`:@@dataSourcesContentSort:Tieto (A-Ö)`,
   },
   {
-    label: 'Tiedejatutkimus.fi',
+    label: $localize`:@@appName:Tiedejatutkimus.fi`,
     key: 'public',
     mobile: true,
     class: 'col-3',
     mobileSortLabel: 'Tiedejatutkimus.fi:ssä julkaistut ensin',
     mobileSortDirection: 'desc',
-    tooltip:
-      'Tieto voi olla asetettu julkiseksi Tiedejatutkimus.fi:ssä julkaistuun profiiliin tai piilotettu julkisesta profiilista.',
+    tooltip: $localize`:@@dataSourcesInformationTooltip:Tieto voi olla asetettu julkiseksi Tiedejatutkimus.fi:ssä julkaistuun profiiliin tai piilotettu julkisesta profiilista.`,
     showTooltipIcon: true,
   },
   {
-    label: 'Lähde',
+    label: $localize`:@@source:Lähde`,
     key: 'source',
     mobile: true,
     class: 'col-2',
-    mobileSortLabel: 'Lähde (Ä-Ö',
+    mobileSortLabel: $localize`:@@dataSourcesSourceSort:Lähde (A-Ö)`,
   },
   // {
   //   label: 'Jakaminen',
@@ -156,6 +155,80 @@ export const DatasetColumns = [
         ellipsis: true,
         cutContent: true,
         label: $localize`:@@description:Kuvaus`,
+      },
+    ],
+  },
+  {
+    id: 'source',
+    label: $localize`:@@source:Lähde`,
+    field: 'source',
+    width: '8rem',
+  },
+];
+
+export const ActivityColumns = [
+  {
+    id: 'timing',
+    label: $localize`:@@timing:Ajoitus`,
+    field: 'timing',
+    width: '6rem;',
+  },
+  {
+    id: 'roleNameType',
+    ellipsis: true,
+    label: $localize`:@@activity:Aktiviteetti`,
+    field: 'roleNameType',
+    additionalFields: [
+      {
+        field: 'type',
+        hidden: true,
+        label: $localize`:@@activityType:Aktiviteetin tyyppi`,
+      },
+      {
+        field: 'role',
+        hidden: true,
+        label: $localize`:@@actorRoleInActivity:Tekijä ja rooli aktiviteetissa`,
+      },
+    ],
+  },
+  {
+    id: 'source',
+    label: $localize`:@@source:Lähde`,
+    field: 'source',
+    width: '8rem',
+  },
+];
+
+export const FundingColumns = [
+  {
+    id: 'year',
+    label: $localize`:@@year:Vuosi`,
+    field: 'startYear',
+    width: '4rem;',
+  },
+  {
+    id: 'name',
+    ellipsis: true,
+    label: $localize`:@@name:Nimi`,
+    field: 'name',
+    additionalFields: [
+      // { field: 'funderProjectNumber' },
+      // {
+      //   field: 'description',
+      //   ellipsis: true,
+      //   cutContent: true,
+      // },
+      // {
+      //   field: 'recipient.personNameAndOrg',
+      //   hidden: true,
+      // },
+      // {
+      //   field: 'funder.typeOfFundingName',
+      //   hidden: true,
+      // },
+      {
+        field: 'funder.name',
+        hidden: true,
       },
     ],
   },

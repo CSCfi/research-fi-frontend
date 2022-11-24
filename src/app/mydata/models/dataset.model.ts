@@ -8,7 +8,6 @@
 import { Injectable } from '@angular/core';
 import { MydataUtilityService } from '@mydata/services/mydata-utility.service';
 import { Adapter } from './adapter.model';
-import { ModelUtils } from '@portal/models/utils';
 import { DatasetAdapter } from '@portal/models/dataset/dataset.model';
 
 export class DatasetFields {
@@ -21,8 +20,7 @@ export class DatasetFields {
 export class DatasetFieldsAdapter implements Adapter<DatasetFields> {
   constructor(
     private mydataUtils: MydataUtilityService,
-    private datasetAdapter: DatasetAdapter,
-    private modelUtils: ModelUtils
+    private datasetAdapter: DatasetAdapter
   ) {}
 
   adapt(item: any): DatasetFields {

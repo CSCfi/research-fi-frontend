@@ -108,7 +108,7 @@ export class FundingsService {
   addFundings() {
     this.updateTokenInHttpAuthHeader();
 
-    const body = this.fundingPayload.map((item) => ({
+    const body = this.confirmedPayload.map((item) => ({
       projectId: item.id,
       show: item.itemMeta.show,
       primaryValue: item.itemMeta.primaryValue,

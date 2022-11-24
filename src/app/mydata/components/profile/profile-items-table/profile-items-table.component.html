@@ -81,7 +81,7 @@
 
           <!-- Delete row button -->
           <app-secondary-button
-            *ngIf="(item.itemMeta | isPortalItem) && column.additionalFields"
+            *ngIf="(item | isPortalItem) && column.additionalFields"
             class="col-auto pe-0"
             i18n-content="@@remove"
             content="Poista"
@@ -101,7 +101,7 @@
               <!-- Optional label for additional field -->
               <div
                 class="col-12 px-0 fw-bold"
-                *ngIf="item[additionalField.field].length"
+                *ngIf="item[additionalField.field]?.length"
               >
                 {{ additionalField.label }}
               </div>

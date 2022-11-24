@@ -151,7 +151,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     $localize`:@@datasetBetaInfo:Tutkimusaineistojen kuvailutiedot ovat uusi tietokokonaisuus Tiedejatutkimus.fi -portaalissa. Tietojen lähteenä ovat Fairdata-palveluista löytyvät kuvailutiedot. Koska kyseessä on uusi kokonaisuus, toivomme palautetta tiedejatutkimus@csc.fi osoitteeseen.`;
 
   showBetaDialog = false;
-  betaDialogTitle = 'Tutkijan tiedot beta';
+  betaDialogTitle = $localize`:@@researchersProfile:Tutkijan tiedot` + ' beta';
 
   private metaTagsList = [
     MetaTags.publications,
