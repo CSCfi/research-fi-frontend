@@ -5132,7 +5132,6 @@
           <target>Infrastructures information icon</target>
       </trans-unit>
 
-
       <!-- MyData translations -->
       <trans-unit id="createProfileForYourself">
         <source>Kokoa tiedoistasi julkinen profiili </source>
@@ -5188,7 +5187,7 @@
         <target>Service deployment</target>
       </trans-unit>
       <trans-unit id="serviceDeploymentSuccesful">
-        <source>Palvelun käyttöönotto onnistui</source>
+        <source>Profiilityökalun käyttöönotto onnistui</source>
         <target>Service deployment was succesful</target>
       </trans-unit>
       <trans-unit id="startManagingYourProfile">
@@ -5298,16 +5297,16 @@
         <target>Continue to Suomi.fi identification</target>
       </trans-unit>
       <trans-unit id="homeWelcomeCaption">
-        <source>Yhdistele tutkijatiedoistasi julkinen profiili Tiedejatutkimus.fi -palveluun?</source>
-        <target>Yhdistele tutkijatiedoistasi julkinen profiili Tiedejatutkimus.fi -palveluun?</target>
+        <source>Kokoa tiedoistasi julkinen profiili Tiedejatutkimus.fi-palveluun</source>
+        <target>Compile a public profile of your data in the Research.fi service</target>
       </trans-unit>
       <trans-unit id="homeWelcomeText">
-        <source>Tutkijan tiedot -profiilityökalun avulla yhdistelet Orcid- ja organisaatiotiedoistasi haluamasi julkisen tutkijaprofiilin tiedejatutkimus.fi -palveluun. Voit myös jakaa Tutkijan tiedot -profiiliasi esimerkiksi organisaatioille.</source>
-        <target>Tutkijan tiedot -profiilityökalun avulla yhdistelet Orcid- ja organisaatiotiedoistasi haluamasi julkisen tutkijaprofiilin tiedejatutkimus.fi -palveluun. Voit myös jakaa Tutkijan tiedot -profiiliasi esimerkiksi organisaatioille.</target>
+        <source>Tutkijan tiedot -työkalun avulla yhdistelet julkisen profiilin Tiedejatutkimus.fi -palveluun ORCID-palvelun sisältämistä sekä kotiorganisaatiostasi peräisin olevista tiedoistasi. Työkalussa voit esikatsella tietoja ennen niiden julkaisua ja valita profiiliisi vain ne tiedot, jotka haluat osaksi profiiliasi.</source>
+        <target>Using the Researcher's Profile Tool, you can compile a public profile in the Research.fi service from information in your ORCID profile and your home organisation. In the tool, you can preview the information before it is published and select only the information that you want to be part of your profile.</target>
       </trans-unit>
       <trans-unit id="alreadyCreatedProfile">
         <source>Oletko jo luonut profiilin tähän palveluun?</source>
-        <target>Oletko jo luonut profiilin tähän palveluun?</target>
+        <target>Already have a profile?</target>
       </trans-unit>
       <trans-unit id="welcomeStep3_1">
         <source>Tutkijan tiedot -palvelun käyttöönotto edellyttää, että
@@ -5631,7 +5630,7 @@
       </trans-unit>
       <trans-unit id="dataSourceIsResearchFi">
         <source>Tietolähteenä käytetään Tiedejatutkimus.fi-palvelua</source>
-        <target>The data source used is the Research.fi service</target>
+        <target>The Research.fi service is used as a source of information</target>
       </trans-unit>
       <trans-unit id="nameOfPublicationOrAuthor">
         <source>Julkaisun tai tekijän nimi</source>
@@ -5819,8 +5818,8 @@
         <target>Select activities</target>
       </trans-unit>
       <trans-unit id="myDataEditorModalPublicationTabInfo">
-        <source>Tiedejatutkimus.fi-palvelusta löytyvät julkaisut, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. Julkaisuja, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä "Hae muita julkaisuja" -toiminnolla.</source>
-        <target>Publications with your ORCID iD in Research.fi are automatically added to your information. Publications that are not associated with your ORCID iD can be added using the "Search for other publications” function.</target>
+        <source>Tiedejatutkimus.fi-palvelusta löytyvät tutkimusaineistot, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. Aineistoja, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä "Hae muita tutkimusaineistoja" -toiminnolla.</source>
+        <target>Research data with your ORCID iD in Research.fi are automatically added to your information. Datasets that are not associated with your ORCID iD can be added using the "Search for other research data" function.</target>
       </trans-unit>
       <trans-unit id="myDataEditorModalPublicationChooseItems">
         <source></source>
