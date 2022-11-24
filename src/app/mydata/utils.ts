@@ -166,7 +166,8 @@ export function getUniqueSources(profileData, locale: string) {
   const sourcesMap = profileData
     .flatMap((group) => group.fields)
     .flatMap((field) => field.items)
-    .flatMap((item) => item.dataSources);
+    .flatMap((item) => item.dataSources)
+    .filter((item) => item);
 
   const uniqueOrganizations = [
     ...new Map(

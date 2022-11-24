@@ -231,7 +231,7 @@ export class DataSourcesTableComponent
         },
         source: {
           label: item.source
-            .map((source) => source.organization.nameFi)
+            ?.map((source) => source.organization.nameFi)
             .join(', '),
         },
         // sharing: {

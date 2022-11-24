@@ -68,8 +68,7 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
      */
     if (draftProfile) {
       this.notificationService.notify({
-        notificationText:
-          $localize`:@@youHaveUnpublishedChangesSnackbar:Sinulla on julkaisemattomia muutoksia profiilinäkymässä.`,
+        notificationText: $localize`:@@youHaveUnpublishedChangesSnackbar:Sinulla on julkaisemattomia muutoksia profiilinäkymässä.`,
         buttons: [
           {
             label: $localize`:@@youHaveUnpublishedChangesSnackbarButton:Tarkasta muutokset.`,
@@ -267,6 +266,8 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
    * selection change.
    */
   handleSelection(selectedRows) {
+    // Reset previous selection
+    this.patchService.patchItems = [];
     this.patchService.cancelConfirmedPayload();
 
     const items = [];
@@ -281,7 +282,7 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
           ...item,
           groupLabel: group.label,
           source: item.dataSources
-            .map((source) => source.organization['name' + this.locale])
+            ?.map((source) => source.organization['name' + this.locale])
             .join(', '),
         });
       }
