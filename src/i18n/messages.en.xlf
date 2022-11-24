@@ -2133,8 +2133,20 @@
         </context-group>
       </trans-unit>
       <trans-unit id="footerLink9" datatype="html">
+        <source>Tietosuoja</source>
+        <target>Privacy</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/portal/components/sitemap/sitemap.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="footerLink14" datatype="html">
         <source>Henkilötietojen käsittely</source>
-        <target>Processing of personal data</target>
+        <target state="translated">Processing of personal data</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/portal/components/sitemap/sitemap.component.html</context>
           <context context-type="linenumber">45</context>
