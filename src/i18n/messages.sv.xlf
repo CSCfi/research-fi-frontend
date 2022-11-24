@@ -5957,9 +5957,21 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Piilota profiilista</source>
         <target>Dölj i profilen</target>
       </trans-unit>
-      <trans-unit id="personsResultsBetaText">
-        <source>Tutkijat-näkymä on beta-vaiheessa. Sekä profiilien sisältöä että hakumahdollisuuksia kehitetään jatkuvasti. Suomessa toimiva tutkija tai asiantuntija voi luoda oman profiilin Tiedejatutkimus.fi-palveluun ORCID-tunnuksen avulla, minkä jälkeen profiili näkyy ja on haettavissa Tiedejatutkimus.fi-palvelun Tutkijat-osiossa. Beta-vaiheessa kotiorganisaatioista siirrettyjen tietojen lisääminen omaan profiiliin on mahdollista vain muutaman organisaation tapauksessa. Työkalun ja Tutkijat-näkymän ominaisuudet ja käytettävissä oleva tietosisältö täydentyvät vuoden 2023 aikana.</source>
-        <target>Vyn Forskare är i beta-skedet. Både profilernas innehåll och sökmöjligheterna utvecklas kontinuerligt. En forskare eller expert som är verksam i Finland kan skapa en egen profil i tjänsten Forskning.fi med hjälp av ORCID-koden, varefter den syns och kan sökas i avsnittet Forskare i tjänsten Forskning.fi. I betaversionen, att lägga till information från hemorganisationer i din profil är begränsad till endast ett fåtal organisationer som har slutfört nödvändiga dataöverföringar. Verktygets och vyn Forskares egenskaper och tillgängliga informationsinnehåll kompletteras under 2023.</target>
+      <trans-unit id="personsResultsBetaText_1">
+        <source>Tutkijat-näkymä on beta-vaiheessa.  Sekä profiilien sisältöä että hakumahdollisuuksia kehitetään jatkuvasti.</source>
+        <target>Vyn Forskare är i beta-skedet. Både profilernas innehåll och sökmöjligheterna utvecklas kontinuerligt.</target>
+      </trans-unit>
+      <trans-unit id="personsResultsBetaText_2">
+        <source>Suomessa toimiva tutkija tai asiantuntija voi luoda oman profiilin Tiedejatutkimus.fi-palveluun ORCID-tunnuksen avulla, minkä jälkeen profiili näkyy ja on haettavissa Tiedejatutkimus.fi-palvelun Tutkijat-osiossa.</source>
+        <target>En forskare eller expert som är verksam i Finland kan skapa en egen profil i tjänsten Forskning.fi med hjälp av ORCID-koden, varefter den syns och kan sökas i avsnittet Forskare i tjänsten Forskning.fi.</target>
+      </trans-unit>
+      <trans-unit id="personsResultsBetaText_3">
+        <source>Beta-vaiheessa kotiorganisaatioista siirrettyjen tietojen lisääminen omaan profiiliin on mahdollista vain muutaman organisaation tapauksessa.</source>
+        <target>I betaversionen, att lägga till information från hemorganisationer i din profil är begränsad till endast ett fåtal organisationer som har slutfört nödvändiga dataöverföringar.</target>
+      </trans-unit>
+      <trans-unit id="personsResultsBetaText_4">
+        <source>Työkalun ja Tutkijat-näkymän ominaisuudet ja käytettävissä oleva tietosisältö täydentyvät vuoden 2023 aikana.</source>
+        <target>Verktygets och vyn Forskares egenskaper och tillgängliga informationsinnehåll kompletteras under 2023.</target>
       </trans-unit>
       <trans-unit id="showDataToPublishInService">
         <source>Aseta valitut tiedot julkiseksi Tiedejatutkimus.fi-palvelussa</source>

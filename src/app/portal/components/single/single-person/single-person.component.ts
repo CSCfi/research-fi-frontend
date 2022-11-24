@@ -36,10 +36,10 @@ export class SinglePersonComponent implements OnInit {
       key: 'description',
       label: 'Tutkimustoiminnan kuvaus',
     },
-    {
-      key: 'fieldsOfScience',
-      label: 'Tieteenalat',
-    },
+    // {
+    //   key: 'fieldsOfScience',
+    //   label: 'Tieteenalat',
+    // },
     {
       key: 'keywords',
       label: 'Avainsanat',
