@@ -5571,11 +5571,11 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="isMissing">
         <source>Puuttuiko jokin </source>
-        <target>Is a </target>
+        <target>Saknas någon </target>
       </trans-unit>
       <trans-unit id="fromYourData">
         <source> tiedoistasi?</source>
-        <target> missing from your information?</target>
+        <target> i dina uppgifter?</target>
       </trans-unit>
       <trans-unit id="publicationItem">
         <source>julkaisu</source>
@@ -5587,7 +5587,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="fundingItem">
         <source>hanke</source>
-        <target>project</target>
+        <target>projekt</target>
       </trans-unit>
       <trans-unit id="searchForMissingPublication">
         <source>Puuttuvan julkaisun hakeminen</source>
