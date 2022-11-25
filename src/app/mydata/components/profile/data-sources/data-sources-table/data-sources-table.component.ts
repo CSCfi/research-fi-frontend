@@ -187,7 +187,8 @@ export class DataSourcesTableComponent
             break;
           }
           case FieldTypes.activityDataset:
-          case FieldTypes.activityFunding: {
+          case FieldTypes.activityFunding:
+          case FieldTypes.activityActivitesAndRewards: {
             displayValue = item.name;
             break;
           }
