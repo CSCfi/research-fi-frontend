@@ -90,7 +90,7 @@
       <!-- Affiliations -->
       <div class="row content" *ngIf="person.affiliations.organizations.length">
         <div class="col">
-          <h3>{{affiliationsCaption}}</h3>
+          <h3>{{ affiliationsCaption }}</h3>
 
           <!-- Primary -->
           <ng-container *ngIf="person.affiliations.primary.length">
@@ -152,7 +152,7 @@
       <!-- Education -->
       <div class="row content" *ngIf="person.educations.length">
         <div class="col">
-          <h3>{{educationCaption}}</h3>
+          <h3>{{ educationCaption }}</h3>
 
           <div class="row g-0">
             <!-- Degrees -->
@@ -226,7 +226,7 @@
     <!-- Sidebar -->
     <div *ngIf="person" class="col-12 col-md-4">
       <!-- MyData login -->
-      <aside>
+      <!-- <aside>
         <mat-card>
           <div class="row inner g-0">
             <div class="col">
@@ -244,7 +244,7 @@
             </div>
           </div>
         </mat-card>
-      </aside>
+      </aside> -->
 
       <!-- Contact -->
       <aside *ngIf="(contactFields | checkEmptyFields: person.contact).length">
@@ -263,7 +263,7 @@
                     class="col-1 ps-0 pb-3"
                   ></fa-icon>
 
-                  <span class="fw-bold col-auto px-0" *ngIf="row.label">
+                  <span class="fw-bold col-auto ps-0" *ngIf="row.label">
                     {{ row.label }}
                   </span>
 
@@ -325,7 +325,7 @@
         <mat-card>
           <div class="inner">
             <mat-card-title>
-              <h2>{{dataSourcesCaption}}</h2>
+              <h2>{{ dataSourcesCaption }}</h2>
             </mat-card-title>
             {{ person.uniqueDataSources }}
           </div>

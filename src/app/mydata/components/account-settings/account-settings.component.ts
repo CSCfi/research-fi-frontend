@@ -25,6 +25,7 @@ export class AccountSettingsComponent implements OnInit {
   orcidFetchStateChangeInProgress: boolean;
   loadingHideProfile: boolean;
 
+  accountSettingsTitle = $localize`:@@accountSettings:Tiliasetukset`;
 
   // Dialog variables
   showDialog: boolean;
@@ -42,6 +43,8 @@ export class AccountSettingsComponent implements OnInit {
   // Delete profile variables
   deleteProfileInProgress: boolean;
   connProblemDeleteProfile: boolean;
+  connectionProblemDeleteProfile = $localize`:@@connectionProblemDeleteProfile:Yhteysongelma. Profiilin poisto ei onnistu. Kokeile hetken kuluttua uudestaan....`;
+  deleteProfileWait = $localize`:@@deleteProfileWait:Profiilia poistetaan, odota hetki...`;
   deleteProfileTitle = $localize`:@@removeProfileCaption:Profiilin poistaminen`;
   generalInfoDeleteProfile = $localize`:@@accountSettingsProfileRemovalInfo:Profiilin poistaminen tarkoittaa sitä, että julkinen profiilisi poistetaan ja ORCIDista tuomasi tiedot poistetaan. Myös kirjautumisen yhteydessä profiilityökaluun tallennetut tiedot poistetaan.`;
   deleteProfileModalText = $localize`:@@accountSettingsProfileRemovalModalText:Profiilin poistaminen tarkoittaa sitä, että julkinen profiilisi poistetaan ja ORCIDista tuomasi tiedot poistetaan. Myös kirjautumisen yhteydessä profiilityökaluun tallennetut tiedot poistetaan.`;
@@ -58,6 +61,8 @@ export class AccountSettingsComponent implements OnInit {
   hideProfileInProgress: boolean;
   connProblemHideProfile: boolean;
   isProfileHidden = false;
+  connectionProblemHideProfile = $localize`:@@connectionProblemHideProfile:Yhteysongelma. Profiilin piilottaminen ei onnistu. Kokeile hetken kuluttua uudestaan....`;
+  hideProfileWait = $localize`:@@hideProfileWait:Profiilia piilotetaan, odota hetki...`;
   hideProfileTitle = $localize`:@@hideProfileCaption:Julkisen profiilin piilottaminen`;
   generalInfoHideProfile = $localize`:@@accountSettingsHideAccountInfo:Julkisen profiilin piilottaminen tarkoittaa sitä, että profiilisi piilotetaan Tiedejatutkimus.fi-portaalista. Voit edelleen kirjautua työkaluun ja julkaista profiilisi uudestaan.`;
   hideProfileModalText = $localize`:@@accountSettingsHideAccountModalText:Julkisen profiilin piilottaminen tarkoittaa sitä, että profiilisi piilotetaan Tiedejatutkimus.fi-portaalista. Voit edelleen kirjautua työkaluun ja julkaista profiilisi uudestaan.`;
