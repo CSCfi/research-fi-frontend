@@ -5189,7 +5189,7 @@
       </trans-unit>
       <trans-unit id="researchersProfile">
         <source>Tutkijan tiedot</source>
-        <target>Researcher’s Profile</target>
+        <target>Researcher’s Profile Tool</target>
       </trans-unit>
       <trans-unit id="homeNewUser">
         <source>Uusi käyttäjä?</source>
@@ -5403,9 +5403,13 @@
         <source>Lisää Julkinen profiilikuva</source>
         <target>Add public profile picture</target>
       </trans-unit>
-      <trans-unit id="publicProfile">
+      <trans-unit id="navigationHeaderProfile">
         <source>Julkinen profiili</source>
         <target>Public profile</target>
+      </trans-unit>
+      <trans-unit id="navigationHeaderProfile">
+        <source>Profiili</source>
+        <target>Profile</target>
       </trans-unit>
       <trans-unit id="updatedProfilePublishedAt">
         <source>Valitsemalla "Julkaise", valitsemasi tiedot julkaistaan Tiedejatutkimus.fi-palvelussa.</source>
@@ -5473,13 +5477,29 @@
         <source>Julkisen profiilin piilottaminen</source>
         <target>Hide public profile</target>
       </trans-unit>
+      <trans-unit id="hideProfileWait">
+        <source>Profiilia piilotetaan, odota hetki...</source>
+        <target>Hiding profile, wait a moment...</target>
+      </trans-unit>
+      <trans-unit id="deleteProfileWait">
+        <source>Profiilia poistetaan, odota hetki...</source>
+        <target>Deleting profile, wait a moment...</target>
+      </trans-unit>
+      <trans-unit id="connectionProblemDeleteProfile">
+        <source>Yhteysongelma. Profiilin poisto ei onnistu. Kokeile hetken kuluttua uudestaan.</source>
+        <target>Connection issue. Deleting the profile failed. Try it again in a while.</target>
+      </trans-unit>
+      <trans-unit id="connectionProblemHideProfile">
+        <source>Yhteysongelma. Profiilin piilottaminen ei onnistu. Kokeile hetken kuluttua uudestaan..</source>
+        <target>Connection issue. Hiding the profile failed. Try it again in a while.</target>
+      </trans-unit>
       <trans-unit id="orcidAutoUpdateCaption">
         <source>ORCID-tietojen automaattinen päivittyminen</source>
         <target>Automatic update of ORCID data</target>
       </trans-unit>
       <trans-unit id="removeProfileCaption">
         <source>Profiilin poistaminen</source>
-        <target>Profile removal</target>
+        <target>Deleting profile</target>
       </trans-unit>
       <trans-unit id="youHaveNotSelectedAnyPublicData">
         <source>Et ole vielä valinnut julkisesti näytettäviä tietoja</source>

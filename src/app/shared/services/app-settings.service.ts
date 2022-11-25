@@ -87,7 +87,7 @@ export class AppSettingsService {
     baseRoute: 'mydata',
     navItems: [
       {
-        label: $localize`:@@publicProfile:Julkinen profiili`,
+        label: $localize`:@@navigationHeaderProfile:Profiili`,
         link: '/mydata/profile',
       },
       {
