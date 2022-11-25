@@ -5367,11 +5367,15 @@
         <target>Already have a profile?</target>
       </trans-unit>
       <trans-unit id="welcomeStep3_1">
-        <source>Tutkijan profiilin käyttöönotto edellyttää, että annat luvan ORCID-palveluun tallentamiesi julkisten tietojen siirtämiseen profiilityökaluun.</source>
+        <source>Tutkijan tiedot -palvelun käyttöönotto edellyttää, että
+                    ORCID-palveluun tallentamansi julkiset tiedot tallennetaan
+                    Tutkijan tiedot -palveluun.</source>
         <target>To enable the Researcher’s Profile Tool, you must save the public information you have stored in ORCID to the Researcher’s Profile Tool.</target>
       </trans-unit>
       <trans-unit id="welcomeStep3_2">
-        <source>Valitsemalla “Tuo ORCID-tietoni” annat luvan ORCID-palveluun tallentamiesi julkisten tietojesi tallentamiseen profiilityökaluun. Näitä tietoja voit hyödyntää profiilisi koonnissa.</source>
+        <source>Valitsemalla "Tuo ORCID-tietoni" annat luvan ORCID:iin
+                    tallentamiesi julkisten tietojesi tallentamisen Tutkijan
+                    tiedot -palveluun.</source>
         <target>Select "Import my ORCID information” to authorise saving your public information stored in ORCID in the Researcher’s Profile Tool.</target>
       </trans-unit>
       <trans-unit id="welcomeStep3_3">
@@ -5379,7 +5383,8 @@
         <target>At this point, we will not yet publish your profile.</target>
       </trans-unit>
       <trans-unit id="welcomeStep3_4">
-        <source>Voit hallinnoida tietojesi julkisuutta profiilityökalussa.</source>
+        <source>Voit hallinnoida tietojesi näyttämistä seuraavassa
+                    vaiheessa.</source>
         <target>You can manage the display of your information in the following step.</target>
       </trans-unit>
       <trans-unit id="importingDataWait">
@@ -5757,7 +5762,7 @@
       <!-- Welcome stepper -->
       <trans-unit id="welcomeStepperHowItWorksCaption">
         <source>Miten Tutkijan tiedot -palvelu toimii?</source>
-        <target>Miten Tutkijan tiedot -palvelu toimii?</target>
+        <target>How does the Researcher's Profile Tool work?</target>
       </trans-unit>
       <trans-unit id="welcomeStepperStep1Caption">
         <source>Aloita työkalun käyttö vahvalla Suomi.fi-tunnistautumisella sekä kirjautumalla ORCID-tunnuksillasi.</source>
