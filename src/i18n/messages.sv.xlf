@@ -6082,6 +6082,42 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Tietojen päivittyminen voi kestää muutaman minuutin.</source>
         <target>Det kan ta några minuter att uppdatera uppgifterna.</target>
       </trans-unit>
+      <trans-unit id="authSuccessText1">
+        <source>Kirjaudu seuraavaksi ORCID-tunnuksillasi, jotta voimme tuoda tutkimukseen liittyvät tietosi palveluun ja yhdistää tietojasi Tutkijan tiedot -työkalussa.</source>
+        <target>Logga nu in med din ORCID-kod så att vi kan importera dina uppgifter om studien till tjänsten och kombinera dina uppgifter i Forskarens profilverktyg.</target>
+      </trans-unit>
+      <trans-unit id="authSuccessText2">
+        <source>Huomaathan jos sinulta puuttuvat profiilin luontiin vaadittavat ORCID-tunnukset, voit luoda ne</source>
+        <target>Obs! Om du saknar den ORCID-kod som krävs för att skapa profilen kan du skapa den i</target>
+      </trans-unit>
+      <trans-unit id="inOrcidService">
+        <source>ORCID-palvelussa</source>
+        <target>ORCID-tjänsten</target>
+      </trans-unit>
+      <trans-unit id="logInToOrcid">
+        <source>Kirjaudu ORCID-palveluun</source>
+        <target>Logga in i ORCID-tjänsten</target>
+      </trans-unit>
+      <trans-unit id="cancelDeployment">
+        <source>Peruuta käyttöönotto</source>
+        <target>Avbryt ibruktagandet</target>
+      </trans-unit>
+      <trans-unit id="welcomeStep3_1">
+        <source>Tutkijan profiilin käyttöönotto edellyttää, että annat luvan ORCID-palveluun tallentamiesi julkisten tietojen siirtämiseen profiilityökaluun.</source>
+        <target>Ibruktagandet av Forskarens profilverktyg att du ger tillstånd till att de offentliga uppgifter som du sparat i ORCID-tjänsten överförs till profilverktyget.</target>
+      </trans-unit>
+      <trans-unit id="welcomeStep3_2">
+        <source>Valitsemalla “Tuo ORCID-tietoni” annat luvan ORCID-palveluun tallentamiesi julkisten tietojesi tallentamiseen profiilityökaluun. Näitä tietoja voit hyödyntää profiilisi koonnissa.</source>
+        <target>Genom att välja "Hämta mina ORCID-uppgifter" godkänner du att dina offentliga uppgifter som du sparat i ORCID-tjänsten sparas i profilverktyget. Dessa uppgifter kan du utnyttja när du sammanställer din profil.</target>
+      </trans-unit>
+      <trans-unit id="welcomeStep3_3">
+        <source>Tässä vaiheessa emme vielä julkaise profiiliasi.</source>
+        <target>I det här skedet publicerar vi ännu inte din profil.</target>
+      </trans-unit>
+      <trans-unit id="welcomeStep3_4">
+        <source>Voit hallinnoida tietojesi julkisuutta profiilityökalussa.</source>
+        <target>Du kan administrera vilka uppgifter som är offentliga i profilverktyget.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
