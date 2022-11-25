@@ -20,7 +20,7 @@ type Step = { label: string; icon: IconDefinition; loading?: boolean };
 })
 export class ServiceDeploymentComponent implements OnInit, OnDestroy {
   step: number;
-  title = $localize`:@@serviceDeployment:Palvelun käyttöönotto`;
+  title = $localize`:@@serviceDeployment:Profiilityökalun käyttöönotto - Tutkijan tiedot`;
   textContent: string;
   locale: string;
   cancel = false;
@@ -33,9 +33,18 @@ export class ServiceDeploymentComponent implements OnInit, OnDestroy {
   openTermsAndProcessingPrinciples = $localize`:@@openTermsAndProcessingPrinciples:Avaa käyttöehdot ja käsittelyperiaatteet`;
 
   steps: Step[] = [
-    { label: $localize`:@@serviceDeploymentCreateProfile:Kokoa profiili -profiili`, icon: faHandshakeAlt },
-    { label: $localize`:@@termsPersonalDataProcessing:Käyttöehdot ja henkilötietojen käsittely`, icon: faFileAlt },
-    { label: $localize`:@@serviceDeploymentAuthenticationSucceful:Tunnistautuminen onnistui`, icon: faHandshakeAlt },
+    {
+      label: $localize`:@@serviceDeploymentCreateProfile:Kokoa profiili`,
+      icon: faHandshakeAlt,
+    },
+    {
+      label: $localize`:@@termsPersonalDataProcessing:Käyttöehdot ja henkilötietojen käsittely`,
+      icon: faFileAlt,
+    },
+    {
+      label: $localize`:@@serviceDeploymentAuthenticationSucceful:Tunnistautuminen onnistui`,
+      icon: faHandshakeAlt,
+    },
     {
       label: $localize`:@@serviceDeploymentOrcidLoginSuccesful:ORCID-kirjautuminen onnistui`,
       icon: faDownload,
