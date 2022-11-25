@@ -45,7 +45,7 @@
         class="col-12 col-lg-auto text-center text-lg-start"
         [class.col-lg-2]="myDataBeta"
       >
-        <h2 class="header" i18n="Footer-header@@footerHeader3">
+        <h2 class="header" style="white-space: pre" i18n="Footer-header@@footerHeader3">
           Palvelun käyttö
         </h2>
         <ul>
@@ -65,18 +65,17 @@
 
           <ng-container *ngIf="myDataBeta">
             <li>
-              <a routerLink="/WIZARDURL" class="disabled"> Pikaohjeet </a>
+              <a i18n="Footer-link@@footerLink10" routerLink="/mydata">Pikaohjeet</a>
             </li>
 
             <li>
-              <a href="https://wiki.eduuni.fi/x/WQgGEw" target="_blank">
+              <a i18n="Footer-link@@footerLink12" href="https://wiki.eduuni.fi/x/WQgGEw" target="_blank">
                 Kuvalliset käyttöohjeet
-                <fa-icon icon="external-link-alt" *ngIf="myDataBeta"></fa-icon>
               </a>
             </li>
 
             <li>
-              <a routerLink="/service-info" fragment="faq_3">
+              <a i18n="Footer-link@@footerLink13" routerLink="/service-info" fragment="faq_3">
                 Usein kysytyt kysymykset
               </a>
             </li>
@@ -117,13 +116,13 @@
         <ul>
           <ng-container *ngIf="myDataBeta">
             <li>
-              <a routerLink="/mydata/privacy">
-                Tietosuojailmoitus rekisteröidylle
+              <a i18n="Footer-link@@footerLink14" routerLink="/mydata/privacy">
+                Henkilötietojen käsittely
               </a>
             </li>
 
             <li>
-              <a routerLink="/mydata/terms">Käyttöehdot</a>
+              <a i18n="Footer-link@@footerLink11" routerLink="/mydata/terms">Käyttöehdot</a>
             </li>
           </ng-container>
 

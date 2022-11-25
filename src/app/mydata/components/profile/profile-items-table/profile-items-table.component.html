@@ -15,10 +15,11 @@
   <ng-container matColumnDef="selection">
     <!-- Select all -->
     <mat-header-cell *matHeaderCellDef>
-      <mat-checkbox
+      <!-- Hidden from beta -->
+      <!-- <mat-checkbox
         (change)="toggleAll($event)"
         [checked]="allSelected"
-      ></mat-checkbox>
+      ></mat-checkbox> -->
     </mat-header-cell>
 
     <!-- Row select -->
@@ -78,6 +79,9 @@
               {{ source.organization.nameFi }}
             </div>
           </ng-template>
+
+          <!-- Display hyphen if no matching value -->
+          <ng-container *ngIf="!item[column.field]">-</ng-container>
 
           <!-- Delete row button -->
           <app-secondary-button

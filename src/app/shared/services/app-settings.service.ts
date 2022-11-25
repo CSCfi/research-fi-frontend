@@ -26,6 +26,12 @@ export class AppSettingsService {
   private appSettingsSource = new Subject<any>();
   appSettings = this.appSettingsSource.asObservable();
 
+  defaultDomains = [
+    { label: 'Suomeksi', locale: 'FI', url: 'https://tiedejatutkimus.fi/fi' },
+    { label: 'På svenska', locale: 'SV', url: 'https://forskning.fi/sv' },
+    { label: 'In English', locale: 'EN', url: 'https://research.fi/en' },
+  ];
+
   // Module related settings
   portalSettings = {
     appName: 'portal',
@@ -70,11 +76,7 @@ export class AppSettingsService {
         exact: true,
       },
     ],
-    localizedDomains: [
-      { label: 'Suomeksi', locale: 'FI', url: 'https://tiedejatutkimus.fi/fi' },
-      { label: 'På svenska', locale: 'SV', url: 'https://forskning.fi/sv' },
-      { label: 'In English', locale: 'EN', url: 'https://research.fi/en' },
-    ],
+    localizedDomains: this.defaultDomains,
   };
 
   myDataSettings = {
@@ -102,24 +104,10 @@ export class AppSettingsService {
         loginProcess: true,
       },
     ],
-    localizedDomains: [
-      {
-        label: 'Suomeksi',
-        locale: 'FI',
-        url: 'https://researchfi-test.rahtiapp.fi/fi',
-      },
-      // { label: 'På svenska', locale: 'SV', url: 'https://localhost:5003/sv' },
-      {
-        label: 'In English',
-        locale: 'EN',
-        url: 'https://researchfi-test-en.rahtiapp.fi/en',
-      },
-    ],
+    localizedDomains: this.defaultDomains,
     readMoreLinkFi: 'https://wiki.eduuni.fi/x/YwMJDQ',
     readMoreLinkEn: 'https://wiki.eduuni.fi/x/OavfDg',
   };
-
-  dialogPanelClass = 'responsive-dialog';
 
   currentAppSettings: object;
   userOrcid: string; // Used in error monitoring

@@ -157,7 +157,7 @@ export class ProfileItemsTableComponent implements OnInit, OnChanges {
     this.onSingleItemToggle.emit();
 
     if (
-      item.dataSources.find(
+      item.dataSources?.find(
         (dataSource) => dataSource.registeredDataSource === 'ttv'
       )
     ) {

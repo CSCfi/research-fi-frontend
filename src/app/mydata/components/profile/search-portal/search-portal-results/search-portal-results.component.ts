@@ -45,7 +45,7 @@ export class SearchPortalResultsComponent
   @Input() data: any[];
   @Input() total: number;
   @Input() itemsInProfile: any;
-  @Input() selectedItems: any;
+  @Input() selectedInSession: any[];
 
   @Output() onItemToggle = new EventEmitter<any>();
   @Output() onPageChange = new EventEmitter<any>();
@@ -65,7 +65,7 @@ export class SearchPortalResultsComponent
   columns: string[] = ['selection', 'year', 'name', 'show-more'];
 
   sortSettings: any;
-  selectedItemsIdArray: any[];
+  selectedItemsIdArray: any[] = [];
   currentSelection = [];
 
   idField = 'id';
@@ -92,6 +92,7 @@ export class SearchPortalResultsComponent
   @ViewChild(MatPaginator) paginator: MatPaginator;
   termSub: Subscription;
   activeSort: Sort;
+  selectedInSessionIds: any[] = [];
 
   constructor(
     private searchPortalService: SearchPortalService,
@@ -133,13 +134,15 @@ export class SearchPortalResultsComponent
         .filter((item) => item?.toString().trim().length);
 
       this.selectedItemsIdArray = profileItemIDs;
-    } else {
-      this.selectedItemsIdArray = [];
     }
   }
 
   ngOnChanges() {
     this.pageCount = Math.ceil(this.total / this.currentPageSize);
+
+    // Items selected in active session are stored in parent component.
+    // This prevents selections to lose checked status if page settings is changed
+    this.selectedInSessionIds = this.selectedInSession.map((item) => item.id);
   }
 
   ngOnDestroy() {

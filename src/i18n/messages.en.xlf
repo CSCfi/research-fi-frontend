@@ -2144,6 +2144,48 @@
           <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="footerLink14" datatype="html">
+        <source>Henkilötietojen käsittely</source>
+        <target state="translated">Processing of personal data</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/portal/components/sitemap/sitemap.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="footerLink10" datatype="html">
+        <source>Pikaohjeet</source>
+        <target>Quickstart</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+        <note priority="1" from="description">Footer-link</note>
+      </trans-unit>
+      <trans-unit id="footerLink12" datatype="html">
+        <source>Kuvalliset käyttöohjeet</source>
+        <target>Instructions for use</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+        <note priority="1" from="description">Footer-link</note>
+      </trans-unit>
+      <trans-unit id="footerLink13" datatype="html">
+        <source>Usein kysytyt kysymykset</source>
+        <target state="translated">FAQ</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/portal/components/sitemap/sitemap.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="skipToInput" datatype="html">
         <source>Hyppää hakukenttään</source>
         <target>Skip to the search field</target>
@@ -5077,7 +5119,7 @@
       </trans-unit>
       <trans-unit id="sortNewest">
         <source>Uusin ensin</source>
-        <target>​Newest first</target>
+        <target>Newest first</target>
       </trans-unit>
       <trans-unit id="sortOldest">
         <source>Vanhin ensin</source>
@@ -5132,8 +5174,11 @@
           <target>Infrastructures information icon</target>
       </trans-unit>
 
-
       <!-- MyData translations -->
+      <trans-unit id="researchersSectionIncoming">
+          <source>Tutkijan (tulossa)</source>
+          <target>Researcher's (upcoming)</target>
+      </trans-unit>
       <trans-unit id="createProfileForYourself">
         <source>Kokoa tiedoistasi julkinen profiili </source>
         <target>Compile a public profile of your data in </target>
@@ -5184,11 +5229,11 @@
         <target>The information you entered in the test will not be published on Research.fi.</target>
       </trans-unit>
       <trans-unit id="serviceDeployment">
-        <source>Palvelun käyttöönotto</source>
-        <target>Service deployment</target>
+        <source>Profiilityökalun käyttöönotto - Tutkijan tiedot</source>
+        <target>Enabling the Researcher's Profile Tool</target>
       </trans-unit>
       <trans-unit id="serviceDeploymentSuccesful">
-        <source>Palvelun käyttöönotto onnistui</source>
+        <source>Profiilityökalun käyttöönotto onnistui</source>
         <target>Service deployment was succesful</target>
       </trans-unit>
       <trans-unit id="startManagingYourProfile">
@@ -5203,6 +5248,10 @@
       <trans-unit id="mydataLoginText2">
         <source>luoda sellaiset ORCID-palvelussa</source>
         <target>you can create one in ORCID</target>
+      </trans-unit>
+      <trans-unit id="quickStart">
+        <source>Pikaohjeet</source>
+        <target>Quickstart guide</target>
       </trans-unit>
       <trans-unit id="begin">
         <source>Aloita</source>
@@ -5264,6 +5313,14 @@
         <source>Käyttöehdot ja henkilötietojen käsittely</source>
         <target>Terms of use and processing of personal data</target>
       </trans-unit>
+      <trans-unit id="serviceDeploymentCreateProfile">
+        <source>Kokoa profiili</source>
+        <target>Build your profile</target>
+      </trans-unit>
+      <trans-unit id="serviceDeploymentAuthenticationSucceful">
+        <source>Tunnistautuminen onnistui</source>
+        <target>Authentication Successful</target>
+      </trans-unit>
       <trans-unit id="termsForTool">
         <source>Tutkijan tiedot -työkalun käyttöehdot</source>
         <target>Terms of use for the Researcher’s Profile Tool</target>
@@ -5298,16 +5355,16 @@
         <target>Continue to Suomi.fi identification</target>
       </trans-unit>
       <trans-unit id="homeWelcomeCaption">
-        <source>Yhdistele tutkijatiedoistasi julkinen profiili Tiedejatutkimus.fi -palveluun?</source>
-        <target>Yhdistele tutkijatiedoistasi julkinen profiili Tiedejatutkimus.fi -palveluun?</target>
+        <source>Kokoa tiedoistasi julkinen profiili Tiedejatutkimus.fi-palveluun</source>
+        <target>Compile a public profile of your data in the Research.fi service</target>
       </trans-unit>
       <trans-unit id="homeWelcomeText">
-        <source>Tutkijan tiedot -profiilityökalun avulla yhdistelet Orcid- ja organisaatiotiedoistasi haluamasi julkisen tutkijaprofiilin tiedejatutkimus.fi -palveluun. Voit myös jakaa Tutkijan tiedot -profiiliasi esimerkiksi organisaatioille.</source>
-        <target>Tutkijan tiedot -profiilityökalun avulla yhdistelet Orcid- ja organisaatiotiedoistasi haluamasi julkisen tutkijaprofiilin tiedejatutkimus.fi -palveluun. Voit myös jakaa Tutkijan tiedot -profiiliasi esimerkiksi organisaatioille.</target>
+        <source>Tutkijan tiedot -työkalun avulla yhdistelet julkisen profiilin Tiedejatutkimus.fi -palveluun ORCID-palvelun sisältämistä sekä kotiorganisaatiostasi peräisin olevista tiedoistasi. Työkalussa voit esikatsella tietoja ennen niiden julkaisua ja valita profiiliisi vain ne tiedot, jotka haluat osaksi profiiliasi.</source>
+        <target>Using the Researcher's Profile Tool, you can compile a public profile in the Research.fi service from information in your ORCID profile and your home organisation. In the tool, you can preview the information before it is published and select only the information that you want to be part of your profile.</target>
       </trans-unit>
       <trans-unit id="alreadyCreatedProfile">
         <source>Oletko jo luonut profiilin tähän palveluun?</source>
-        <target>Oletko jo luonut profiilin tähän palveluun?</target>
+        <target>Already have a profile?</target>
       </trans-unit>
       <trans-unit id="welcomeStep3_1">
         <source>Tutkijan tiedot -palvelun käyttöönotto edellyttää, että
@@ -5631,7 +5688,7 @@
       </trans-unit>
       <trans-unit id="dataSourceIsResearchFi">
         <source>Tietolähteenä käytetään Tiedejatutkimus.fi-palvelua</source>
-        <target>The data source used is the Research.fi service</target>
+        <target>The Research.fi service is used as a source of information</target>
       </trans-unit>
       <trans-unit id="nameOfPublicationOrAuthor">
         <source>Julkaisun tai tekijän nimi</source>
@@ -5699,12 +5756,13 @@
       </trans-unit>
       <trans-unit id="youHaveUnpublishedChangesSnackbarButton">
         <source>Sinulla on julkaisemattomia muutoksia profiilinäkymässä.</source>
-        <target>Tarkasta muutokset.</target>
+        <target>Check the changes</target>
       </trans-unit>
+
       <!-- Welcome stepper -->
       <trans-unit id="welcomeStepperHowItWorksCaption">
         <source>Miten Tutkijan tiedot -palvelu toimii?</source>
-        <target>Miten Tutkijan tiedot -palvelu toimii?</target>
+        <target>How does the Researcher's Profile Tool work?</target>
       </trans-unit>
       <trans-unit id="welcomeStepperStep1Caption">
         <source>Aloita työkalun käyttö vahvalla Suomi.fi-tunnistautumisella sekä kirjautumalla ORCID-tunnuksillasi.</source>
@@ -5763,7 +5821,7 @@
         <target>Your profile is now available on the Research.fi website, where, for example, the media, funders, those interested in research cooperation and other research information seekers can find it.</target>
       </trans-unit>
 
-
+      <!-- Account settings -->
       <trans-unit id="closeInstructions">
         <source>Sulje ohjeet</source>
         <target>Close instructions</target>
@@ -5801,6 +5859,28 @@
         <target>Hiding your public profile means that it is hidden in the Research.fi service. You can still log in and re-publish your profile.</target>
        </trans-unit>
 
+      <!-- Orcid linking -->
+      <trans-unit id="orcidDataFetchWaitingText">
+        <source>Tietoja tuodaan, odota hetki...</source>
+        <target>Importing data, please wait...</target>
+      </trans-unit>
+      <trans-unit id="orcidDataFetchInfo1">
+        <source>Tutkijan profiilipalvelun käyttöönotto edellyttää, että ORCID -palveluun tallentamasi julkiset tiedot tallennetaan profiilipalveluun.</source>
+        <target>To enable the Researcher’s Profile Tool, you must save the public information you have stored in ORCID to the Researcher’s Profile Tool.</target>
+      </trans-unit>
+      <trans-unit id="orcidDataFetchInfo2">
+        <source>Valitsemalla “Tuo ORCID-tietoni” annat luvan ORCID:iin tallentamiesi julkisten tietojesi tallentamiseen Tutkijan profiilipalveluun.</source>
+        <target>Select "Import my ORCID data” to authorise saving your public information stored in ORCID in the Researcher’s Profile Tool.</target>
+      </trans-unit>
+      <trans-unit id="orcidDataFetchInfo3">
+        <source>Tässä vaiheessa emme vielä julkaise profiiliasi.</source>
+        <target>At this point, we will not yet publish your profile.</target>
+      </trans-unit>
+      <trans-unit id="orcidDataFetchInfo4">
+        <source>Voit hallinnoida tietojesi julkisuutta seuraavaksi aukeavassa profiilieditorissa.</source>
+        <target>You can manage the display of your information in the profile tool.</target>
+      </trans-unit>
+
       <!-- MyData tabbed modals -->
       <trans-unit id="selectPublications">
         <source>Valitse julkaisut</source>
@@ -5819,8 +5899,8 @@
         <target>Select activities</target>
       </trans-unit>
       <trans-unit id="myDataEditorModalPublicationTabInfo">
-        <source>Tiedejatutkimus.fi-palvelusta löytyvät julkaisut, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. Julkaisuja, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä "Hae muita julkaisuja" -toiminnolla.</source>
-        <target>Publications with your ORCID iD in Research.fi are automatically added to your information. Publications that are not associated with your ORCID iD can be added using the "Search for other publications” function.</target>
+        <source>Tiedejatutkimus.fi-palvelusta löytyvät tutkimusaineistot, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. Aineistoja, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä "Hae muita tutkimusaineistoja" -toiminnolla.</source>
+        <target>Research data with your ORCID iD in Research.fi are automatically added to your information. Datasets that are not associated with your ORCID iD can be added using the "Search for other research data" function.</target>
       </trans-unit>
       <trans-unit id="myDataEditorModalPublicationChooseItems">
         <source></source>
@@ -5877,6 +5957,10 @@
       <trans-unit id="dataAndSources">
         <source>Tiedot ja tietolähteet</source>
         <target>Data and sources</target>
+      </trans-unit>
+      <trans-unit id="dataSources">
+        <source>Lähteet</source>
+        <target>Sources</target>
       </trans-unit>
       <trans-unit id="filter">
         <source>Rajaa</source>
@@ -5962,9 +6046,73 @@
         <source>Piilota profiilista</source>
         <target>Hide in profile</target>
       </trans-unit>
-      <trans-unit id="personsResultsBetaText">
-        <source>Tutkijat-näkymä on beta-vaiheessa. Sekä profiilien sisältöä että hakumahdollisuuksia kehitetään jatkuvasti. Suomessa toimiva tutkija tai asiantuntija voi luoda oman profiilin Tiedejatutkimus.fi-palveluun ORCID-tunnuksen avulla, minkä jälkeen profiili näkyy ja on haettavissa Tiedejatutkimus.fi-palvelun Tutkijat-osiossa. Beta-vaiheessa kotiorganisaatioista siirrettyjen tietojen lisääminen omaan profiiliin on mahdollista vain muutaman organisaation tapauksessa. Työkalun ja Tutkijat-näkymän ominaisuudet ja käytettävissä oleva tietosisältö täydentyvät vuoden 2023 aikana.</source>
-        <target>The Researchers view is in the beta stage.  Both the content of profiles and search opportunities are under constant development. A researcher or expert operating in Finland can create their own profile in the Research.fi service using their ORCID iD, after which it is visible and searchable in the Researchers section of the Research.fi service. In the beta version, adding information from home organisations to your profile is limited to only a few organisations that have completed the necesseary data transfers. The features of the tool and the Researcher view, as well as the available information content will be complemented in 2023.</target>
+      <trans-unit id="personsResultsBetaText_1">
+        <source>Tutkijat-näkymä on beta-vaiheessa. Sekä profiilien sisältöä että hakumahdollisuuksia kehitetään jatkuvasti.</source>
+        <target>The Researchers view is in the beta stage. Both the content of profiles and search opportunities are under constant development.</target>
+      </trans-unit>
+      <trans-unit id="personsResultsBetaText_2">
+        <source>Suomessa toimiva tutkija tai asiantuntija voi luoda oman profiilin Tiedejatutkimus.fi-palveluun ORCID-tunnuksen avulla, minkä jälkeen profiili näkyy ja on haettavissa Tiedejatutkimus.fi-palvelun Tutkijat-osiossa.</source>
+        <target>A researcher or expert operating in Finland can create their own profile in the Research.fi service using their ORCID iD, after which it is visible and searchable in the Researchers section of the Research.fi service.</target>
+      </trans-unit>
+      <trans-unit id="personsResultsBetaText_3">
+        <source>Profiiliin liitetään kotiorganisaatioista ja ORCID-palvelusta siirrettyä tietoa sekä Tiedejatutkimus.fi:hin jo aiemmin siirrettyä tietoa.</source>
+        <target>Profile is compiled with information transferred from home organisations and ORCID service and information already transferred to Research.fi.</target>
+      </trans-unit>
+      <trans-unit id="personsResultsBetaText_4">
+        <source>Beta-vaiheessa kotiorganisaatioista siirrettyjen tietojen lisääminen omaan profiiliin on mahdollista vain muutaman organisaation tapauksessa.</source>
+        <target>In the beta version, adding information from home organisations to your profile is limited to only a few organisations that have completed the necesseary data transfers.</target>
+      </trans-unit>
+      <trans-unit id="personsResultsBetaText_5">
+        <source>Työkalun ja Tutkijat-näkymän ominaisuudet ja käytettävissä oleva tietosisältö täydentyvät vuoden 2023 aikana.</source>
+        <target>The features of the tool and the Researcher view, as well as the available information content will be complemented in 2023.</target>
+      </trans-unit>
+      <trans-unit id="showDataToPublishInService">
+        <source>Aseta valitut tiedot julkiseksi Tiedejatutkimus.fi-palvelussa</source>
+        <target>Set selected information to public in Research.fi service</target>
+      </trans-unit>
+      <trans-unit id="showDataToHideInService">
+        <source>Piilota valitut tiedot Tiedejatutkimus.fi-palvelusta</source>
+        <target>Hide selected information from Research.fi service</target>
+      </trans-unit>
+      <trans-unit id="showDataToHide">
+        <source>Näytä piilotettavat tiedot</source>
+        <target>Show information about to be hidden</target>
+      </trans-unit>
+      <trans-unit id="closeDataToHide">
+        <source>Sulje piilotettavat tiedot</source>
+        <target>Close information about to be hidden</target>
+      </trans-unit>
+      <trans-unit id="hide">
+        <source>Piilota</source>
+        <target>Hide</target>
+      </trans-unit>
+      <trans-unit id="itMayTakeFewMinutesForDataToPublish">
+        <source>Tietojen päivittyminen voi kestää muutaman minuutin.</source>
+        <target>It may take a few minutes for the information to update.</target>
+      </trans-unit>
+      <trans-unit id="authSuccessText1">
+        <source>Kirjaudu seuraavaksi ORCID-tunnuksillasi, jotta voimme tuoda tutkimukseen liittyvät tietosi palveluun ja yhdistää tietojasi Tutkijan tiedot -työkalussa.</source>
+        <target>Next, log in with your ORCID iD to import your research information into the service and connect it in the Researcher Profile Tool.</target>
+      </trans-unit>
+      <trans-unit id="authSuccessText2">
+        <source>Huomaathan jos sinulta puuttuvat profiilin luontiin vaadittavat ORCID-tunnukset, voit luoda ne</source>
+        <target>Please note that if you do not have an ORCID account, which is required to create a profile, you can create one in</target>
+      </trans-unit>
+      <trans-unit id="inOrcidService">
+        <source>ORCID-palvelussa</source>
+        <target>ORCID service</target>
+      </trans-unit>
+      <trans-unit id="logInToOrcid">
+        <source>Kirjaudu ORCID-palveluun</source>
+        <target>Log in to ORCID service</target>
+      </trans-unit>
+      <trans-unit id="cancelDeployment">
+        <source>Peruuta käyttöönotto</source>
+        <target>Cancel deployment</target>
+      </trans-unit>
+      <trans-unit id="serviceDeploymentOrcidLoginSuccesful">
+        <source>ORCID-kirjautuminen onnistui</source>
+        <target>ORCID login successful</target>
       </trans-unit>
     </body>
   </file>

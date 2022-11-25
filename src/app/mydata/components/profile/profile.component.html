@@ -61,16 +61,19 @@
 
       <!-- Handle draft publish -->
       <ng-template #publishUpdatedProfileTemplate>
-        <p class="col">
-          <ng-container i18n="@@updatedProfilePublishedAt"
-            >Päivitetty tutkijaprofiilisi julkaistaan kohteessa
-            tiedejatutkimus.fi</ng-container
-          >
-          <br />
-          <ng-container i18n="@@updatingPublicDataTakesFewMinutes"
-            >Tietojen päivittyminen voi kestää muutaman minuutin.</ng-container
-          >
-        </p>
+        <div class="row">
+          <p class="col">
+            <ng-container i18n="@@updatedProfilePublishedAt"
+              >Päivitetty tutkijaprofiilisi julkaistaan kohteessa
+              tiedejatutkimus.fi</ng-container
+            >
+            <br />
+            <ng-container i18n="@@updatingPublicDataTakesFewMinutes"
+              >Tietojen päivittyminen voi kestää muutaman
+              minuutin.</ng-container
+            >
+          </p>
+        </div>
       </ng-template>
 
       <ng-template #dataToPublishTemplate>

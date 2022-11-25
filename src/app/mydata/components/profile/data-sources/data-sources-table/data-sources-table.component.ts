@@ -187,7 +187,8 @@ export class DataSourcesTableComponent
             break;
           }
           case FieldTypes.activityDataset:
-          case FieldTypes.activityFunding: {
+          case FieldTypes.activityFunding:
+          case FieldTypes.activityActivitesAndRewards: {
             displayValue = item.name;
             break;
           }
@@ -231,7 +232,7 @@ export class DataSourcesTableComponent
         },
         source: {
           label: item.source
-            .map((source) => source.organization.nameFi)
+            ?.map((source) => source.organization.nameFi)
             .join(', '),
         },
         // sharing: {

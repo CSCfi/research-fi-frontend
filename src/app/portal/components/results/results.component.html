@@ -418,16 +418,8 @@ Copyright 2019 Ministry of Education and Culture, Finland
 <ng-template #myDataBetaTemplate>
   <div class="row">
     <div class="col">
-      <p i18n="@@personsResultsBetaText">
-        Tutkijat-näkymä on beta-vaiheessa. Sekä profiilien sisältöä että
-        hakumahdollisuuksia kehitetään jatkuvasti. Suomessa toimiva tutkija tai
-        asiantuntija voi luoda oman profiilin Tiedejatutkimus.fi-palveluun
-        ORCID-tunnuksen avulla, minkä jälkeen profiili näkyy ja on haettavissa
-        Tiedejatutkimus.fi-palvelun Tutkijat-osiossa. Beta-vaiheessa
-        kotiorganisaatioista siirrettyjen tietojen lisääminen omaan profiiliin
-        on mahdollista vain muutaman organisaation tapauksessa. Työkalun ja
-        Tutkijat-näkymän ominaisuudet ja käytettävissä oleva tietosisältö
-        täydentyvät vuoden 2023 aikana.
+      <p *ngFor="let item of myDataBetaTexts">
+        {{ item }}
       </p>
     </div>
   </div>

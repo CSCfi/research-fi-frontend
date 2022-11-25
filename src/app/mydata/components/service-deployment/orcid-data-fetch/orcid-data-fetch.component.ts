@@ -27,6 +27,12 @@ export class OrcidDataFetchComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {}
 
+  orcidDataFetchWaitingText = $localize`:@@orcidDataFetchWaitingText:Tietoja tuodaan, odota hetki...`;
+  orcidDataFetchInfo1 = $localize`:@@orcidDataFetchInfo1:Tutkijan profiilipalvelun käyttöönotto edellyttää, että ORCID -palveluun tallentamasi julkiset tiedot tallennetaan profiilipalveluun.`;
+  orcidDataFetchInfo2 = $localize`:@@orcidDataFetchInfo2:Valitsemalla “Tuo ORCID-tietoni” annat luvan ORCID:iin tallentamiesi julkisten tietojesi tallentamiseen Tutkijan profiilipalveluun.`;
+  orcidDataFetchInfo3 = $localize`:@@orcidDataFetchInfo3:Tässä vaiheessa emme vielä julkaise profiiliasi.`;
+  orcidDataFetchInfo4 = $localize`:@@orcidDataFetchInfo4:Voit hallinnoida tietojesi julkisuutta seuraavaksi aukeavassa profiilieditorissa.`;
+
   fetchOrcidData() {
     if (!this.orcid) {
       this.profileService.handleOrcidNotLinked();

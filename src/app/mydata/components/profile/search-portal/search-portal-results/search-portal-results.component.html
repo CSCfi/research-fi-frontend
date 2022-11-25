@@ -18,7 +18,8 @@
     <mat-cell *matCellDef="let item; let i = index">
       <mat-checkbox
         [checked]="
-          selectedItemsIdArray.indexOf(item[currentTable.idField]) > -1
+          selectedItemsIdArray.indexOf(item[currentTable.idField]) > -1 ||
+          selectedInSessionIds.indexOf(item[currentTable.idField]) > -1
         "
         [disabled]="
           selectedItemsIdArray.indexOf(item[currentTable.idField]) > -1

@@ -166,7 +166,8 @@ export function getUniqueSources(profileData, locale: string) {
   const sourcesMap = profileData
     .flatMap((group) => group.fields)
     .flatMap((field) => field.items)
-    .flatMap((item) => item.dataSources);
+    .flatMap((item) => item.dataSources)
+    .filter((item) => item);
 
   const uniqueOrganizations = [
     ...new Map(
@@ -253,7 +254,7 @@ export function filterByDatasets(group, filters) {
 export function filterBySource(field, filters) {
   field.items = field.items.filter((item) =>
     filters.some((filter: string) =>
-      item.dataSources.find(
+      item.dataSources?.find(
         (dataSource) => dataSource.registeredDataSource === filter
       )
     )

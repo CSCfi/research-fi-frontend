@@ -4,15 +4,18 @@
       <ng-container i18n="@@welcome">Tervetuloa</ng-container>
       {{ profileName }}!
     </p>
-    <p>
-      Kirjaudu seuraavaksi Orcidiin, jotta voimme tuoda tutkimukseen liittyvät
-      tietosi palveluun.
+    <p i18n="@@authSuccessText1">
+      Kirjaudu seuraavaksi ORCID-tunnuksillasi, jotta voimme tuoda tutkimukseen
+      liittyvät tietosi palveluun ja yhdistää tietojasi Tutkijan tiedot
+      -työkalussa.
     </p>
     <p>
-      Tutkijan tiedot -työkaluun kirjaudutaan ORCID-tunnuksilla. Jos sinulla ei
-      ole vielä ORCID-tunnuksia, voit luoda ne
-      <a href="https://orcid.org/" target="_blank"
-        >ORCID-palvelussa <fa-icon icon="external-link-alt"></fa-icon
+      <ng-container i18n="@@authSuccessText2"
+        >Huomaathan jos sinulta puuttuvat profiilin luontiin vaadittavat
+        ORCID-tunnukset, voit luoda ne</ng-container
+      >&nbsp;<a href="https://orcid.org/" target="_blank"
+        ><ng-container i18n="@@inOrcidService">ORCID-palvelussa</ng-container>.
+        <fa-icon icon="external-link-alt"></fa-icon
       ></a>
     </p>
   </div>
@@ -21,7 +24,8 @@
 <div class="row d-flex justify-content-center">
   <div class="g-0">
     <app-primary-action-button
-      content="Kirjaudu Orcidiin"
+      i18n-content="@@logInToOrcid"
+      content="Kirjaudu ORCID-palveluun"
       (click)="loginOrcid()"
       [big]="true"
       [px0]="true"

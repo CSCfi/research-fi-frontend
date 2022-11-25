@@ -76,6 +76,7 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.5.5",
     "rxjs-compat": "^6.6.7",
+    "sanitize-html": "^2.7.3",
     "seedrandom": "^3.0.5",
     "through2": "^4.0.2",
     "timers": "^0.1.1",
