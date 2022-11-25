@@ -24,6 +24,7 @@ export class MyDataTerms implements OnInit {
 
   currentLocale: string;
   content: string;
+  path: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,6 +35,12 @@ export class MyDataTerms implements OnInit {
   }
 
   ngOnInit() {
+    this.path = this.route.snapshot.routeConfig.path;
+
+    if (this.path !== 'service-deployment') {
+      this.id = this.path;
+    }
+
     // Get text content from CMS
     const pageData = this.route.snapshot.data.pages;
 
