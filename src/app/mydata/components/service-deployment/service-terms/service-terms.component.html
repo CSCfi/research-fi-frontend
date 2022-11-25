@@ -29,7 +29,7 @@
 </div>
 
 <ng-template #termsTemplate>
-  <app-mydata-terms template="termsTemplate"></app-mydata-terms>
+  <app-mydata-terms id="terms" template="termsTemplate"></app-mydata-terms>
 </ng-template>
 
 <div class="row pt-4 pb-5 d-flex justify-content-center">
@@ -71,12 +71,13 @@
 
 <ng-template #personalDataHandlingTermsTemplate>
   <app-mydata-terms
+    id="privacy"
     template="personalDataHandlingTermsTemplate"
   ></app-mydata-terms>
 </ng-template>
 
 <app-primary-action-button
-  content="{{continueWithSuomiFiLogin}}"
+  content="{{ continueWithSuomiFiLogin }}"
   [big]="true"
   [disabled]="!termsApproved || !personalDataHandlingApproved"
   (click)="authenticate()"
