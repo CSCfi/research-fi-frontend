@@ -5183,7 +5183,7 @@
         <target>The information you entered in the test will not be published on Research.fi.</target>
       </trans-unit>
       <trans-unit id="serviceDeployment">
-        <source>Palvelun käyttöönotto</source>
+        <source>Profiilityökalun käyttöönotto</source>
         <target>Service deployment</target>
       </trans-unit>
       <trans-unit id="serviceDeploymentSuccesful">
@@ -5266,6 +5266,10 @@
       <trans-unit id="termsPersonalDataProcessing">
         <source>Käyttöehdot ja henkilötietojen käsittely</source>
         <target>Terms of use and processing of personal data</target>
+      </trans-unit>
+      <trans-unit id="serviceDeploymentCreateProfile">
+        <source>Kokoa profiili</source>
+        <target>Build your profile</target>
       </trans-unit>
       <trans-unit id="termsForTool">
         <source>Tutkijan tiedot -työkalun käyttöehdot</source>
@@ -5707,7 +5711,7 @@
       <!-- Welcome stepper -->
       <trans-unit id="welcomeStepperHowItWorksCaption">
         <source>Miten Tutkijan tiedot -palvelu toimii?</source>
-        <target>Miten Tutkijan tiedot -palvelu toimii?</target>
+        <target>How does the Researcher's Profile Tool work?</target>
       </trans-unit>
       <trans-unit id="welcomeStepperStep1Caption">
         <source>Aloita työkalun käyttö vahvalla Suomi.fi-tunnistautumisella sekä kirjautumalla ORCID-tunnuksillasi.</source>

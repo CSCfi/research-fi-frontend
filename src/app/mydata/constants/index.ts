@@ -66,7 +66,7 @@ export const TableColumns: TableColumn[] = [
     mobileSortLabel: $localize`:@@dataSourcesInformationSort:Tieto (A-Ö)`,
   },
   {
-    label: $localize`:@@content:sisältö`,
+    label: $localize`:@@content:Sisältö`,
     key: 'content',
     mobile: true,
     class: 'col-4',

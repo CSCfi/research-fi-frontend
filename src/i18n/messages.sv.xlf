@@ -5166,7 +5166,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <target>The information you entered in the test will not be published on Research.fi.</target>
       </trans-unit>
       <trans-unit id="serviceDeployment">
-        <source>Palvelun käyttöönotto</source>
+        <source>Profiilityökalun käyttöönotto</source>
         <target>Ibruktagande av profilverktyget</target>
       </trans-unit>
       <trans-unit id="serviceDeploymentSuccesful">
@@ -5251,8 +5251,8 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <target>Användarvillkor och behandling av personuppgifter</target>
       </trans-unit>
       <trans-unit id="serviceDeploymentCreateProfile">
-        <source>Luo Tutkijan tiedot -profiili</source>
-        <target>Luo Tutkijan tiedot -profiili</target>
+        <source>Kokoa profiili</source>
+        <target>Sammanställ din profil</target>
       </trans-unit>
       <trans-unit id="serviceDeploymentAuthenticationSucceful">
         <source>Tunnistautuminen onnistui</source>
@@ -5632,15 +5632,15 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="nameOfPublicationOrAuthor">
         <source>Julkaisun tai tekijän nimi</source>
-        <target>Name of publication or author</target>
+        <target>Publikationens eller upphovsmans namn</target>
       </trans-unit>
       <trans-unit id="nameOfDatasetOrAuthor">
         <source>Tutkimusaineiston tai tekijän nimi</source>
-        <target>Name of research data or author</target>
+        <target>Forskningsdatas eller upphovsmans namn</target>
       </trans-unit>
       <trans-unit id="nameOfFundingOrAuthor">
         <source>Hankkeen tai tekijän nimi</source>
-        <target>Name of funding or author</target>
+        <target>Projektets eller upphovsmans namn</target>
       </trans-unit>
       <trans-unit id="datasetSearchPlaceholder">
         <source>Esim. nimi, organisaatio</source>
@@ -5660,15 +5660,15 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="addedPublications">
         <source>Tuodut julkaisut</source>
-        <target>Added publications</target>
+        <target>Importerade publikationer</target>
       </trans-unit>
       <trans-unit id="addedDatasets">
         <source>Tuodut tutkimusaineistot</source>
-        <target>Added research data</target>
+        <target>Importerade forskningsdata</target>
       </trans-unit>
       <trans-unit id="addedProjects">
         <source>Tuodut hankkeet</source>
-        <target>Added projects</target>
+        <target>Importerade projekt</target>
       </trans-unit>
       <trans-unit id="remove">
         <source>Poista</source>
@@ -5700,7 +5700,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <!-- Welcome stepper -->
       <trans-unit id="welcomeStepperHowItWorksCaption">
-        <source>Miten Tutkijan tiedot -palvelu toimii?</source>
+        <source>Miten Tutkijan tiedot -työkalu toimii?</source>
         <target>Hur fungerar Forskarens profilverktyg?</target>
       </trans-unit>
       <trans-unit id="welcomeStepperStep1Caption">
