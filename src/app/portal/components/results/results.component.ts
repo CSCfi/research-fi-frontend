@@ -161,6 +161,10 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   showBetaDialog = false;
   betaDialogTitle = $localize`:@@researchersProfile:Tutkijan tiedot` + ' beta';
 
+  basicDialogActions = [
+    { label: $localize`:@@close:Sulje`, primary: true, method: 'close' },
+  ];
+
   private metaTagsList = [
     MetaTags.publications,
     MetaTags.persons,

@@ -413,14 +413,13 @@ Copyright 2019 Ministry of Education and Culture, Finland
   [title]="betaDialogTitle"
   [template]="myDataBetaTemplate"
   (onActionClick)="showBetaDialog = false"
+  [actions]="basicDialogActions"
 ></app-dialog>
 
 <ng-template #myDataBetaTemplate>
   <div class="row">
     <div class="col">
-      <p *ngFor="let item of myDataBetaTexts">
-        {{ item }}
-      </p>
+      <app-mydata-beta-modal-content></app-mydata-beta-modal-content>
     </div>
   </div>
 </ng-template>

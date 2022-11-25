@@ -65,6 +65,7 @@ import { TrimLinkPrefixPipe } from './pipes/trim-link-prefix.pipe';
 import { JoinItemsPipe } from './pipes/join-items.pipe';
 
 import { OrcidComponent } from '../shared/components/orcid/orcid.component';
+import { MydataBetaModalContentComponent } from './components/mydata-beta-modal-content/mydata-beta-modal-content.component';
 
 @NgModule({
   declarations: [
@@ -103,6 +104,7 @@ import { OrcidComponent } from '../shared/components/orcid/orcid.component';
     TrimLinkPrefixPipe,
     JoinItemsPipe,
     OrcidComponent,
+    MydataBetaModalContentComponent,
   ],
   exports: [
     InfoComponent,
@@ -135,6 +137,7 @@ import { OrcidComponent } from '../shared/components/orcid/orcid.component';
     TrimLinkPrefixPipe,
     JoinItemsPipe,
     OrcidComponent,
+    MydataBetaModalContentComponent,
   ],
   imports: [
     CommonModule,
