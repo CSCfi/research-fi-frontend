@@ -56,7 +56,7 @@
     class="navbar navbar-expand-xl navbar-light row"
     #mainHeader
   >
-    <div class="logo col-7 col-xs-9 col-xl-auto">
+    <div class="logo col">
       <div class="row">
         <div class="col-auto p-0">
           <a
@@ -118,10 +118,7 @@
         ></app-dialog>
       </div>
     </div>
-    <nav
-      class="nav-top col-auto col-5 col-xs-3 p-0"
-      [ngClass]="appSettings.beta ? 'col-xl-9 beta-mobile-menu' : 'col-xl-10'"
-    >
+    <nav class="nav-top col-auto" [class.beta-mobile-menu]="appSettings.beta">
       <div class="mobile ml-auto toggle-button-wrapper">
         <button
           *ngIf="!navbarOpen"

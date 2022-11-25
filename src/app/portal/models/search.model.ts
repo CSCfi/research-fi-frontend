@@ -11,6 +11,7 @@ import {
 } from './publication/publication.model';
 import { Injectable } from '@angular/core';
 import { Adapter } from './adapter.model';
+import { PersonAdapter, Person } from './person/person.model';
 import { FundingAdapter, Funding } from './funding/funding.model';
 import { DatasetAdapter, Dataset } from './dataset/dataset.model';
 import { OrganizationAdapter, Organization } from './organization.model';
@@ -24,6 +25,7 @@ export class Search {
   constructor(
     public total: number,
     public publications: Publication[],
+    public persons: Person[],
     public fundings: Funding[],
     public datasets: Dataset[],
     public infrastructures: Infrastructure[],
@@ -38,6 +40,7 @@ export class Search {
 export class SearchAdapter implements Adapter<Search> {
   constructor(
     private publicationAdapter: PublicationAdapter,
+    private personAdapter: PersonAdapter,
     private fundingAdapter: FundingAdapter,
     private datasetAdapter: DatasetAdapter,
     private organizationAdapter: OrganizationAdapter,
@@ -46,6 +49,7 @@ export class SearchAdapter implements Adapter<Search> {
   ) {}
   adapt(item: any, tab?: string): Search {
     const publications: Publication[] = [];
+    const persons: Person[] = [];
     const fundings: Funding[] = [];
     const datasets: Dataset[] = [];
     const infrastructures: Infrastructure[] = [];
@@ -67,6 +71,9 @@ export class SearchAdapter implements Adapter<Search> {
       case 'publications':
         adaptResults(publications, this.publicationAdapter);
         break;
+      case 'persons':
+        adaptResults(persons, this.personAdapter);
+        break;
       case 'fundings':
         adaptResults(fundings, this.fundingAdapter);
         break;
@@ -87,6 +94,7 @@ export class SearchAdapter implements Adapter<Search> {
     return new Search(
       item.hits.total.value,
       publications,
+      persons,
       fundings,
       datasets,
       infrastructures,

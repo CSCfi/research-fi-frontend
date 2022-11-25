@@ -104,7 +104,6 @@ import { NewsComponent } from './components/news/news/news.component';
 import { InfrastructuresComponent } from './components/results/infrastructures/infrastructures.component';
 import { ShareComponent } from './components/single/share/share.component';
 import { SingleInfrastructureComponent } from './components/single/single-infrastructure/single-infrastructure.component';
-import { OrcidComponent } from './components/single/orcid/orcid.component';
 import { FiltersComponent } from './components/results/filters/filters.component';
 import { CounterPipe } from './pipes/counter.pipe';
 import { FilterItemPipe } from './pipes/filter-item.pipe';
@@ -148,7 +147,6 @@ import { OrganizationVisualisationsComponent } from './components/single/single-
 import { OrganizationInformationComponent } from './components/single/single-organization/organization-information/organization-information.component';
 import { OrganizationSubUnitsComponent } from './components/single/single-organization/organization-sub-units/organization-sub-units.component';
 import { FilterEmptyFieldPipe } from './pipes/filter-empty-field.pipe';
-import { HandleLinkDisplayPipe } from './pipes/handle-link-display.pipe';
 import { IsUrlPipe } from './pipes/is-url.pipe';
 import { PublicationLinksComponent } from './components/single/single-publication/publication-links/publication-links.component';
 import { DatasetAuthorComponent } from './components/single/single-dataset/dataset-author/dataset-author.component';
@@ -163,6 +161,10 @@ import { SingleResultLinkComponent } from './components/single/single-result-lin
 import { ResultsPaginationComponent } from './components/results/results-pagination/results-pagination.component';
 import { OpenScienceAndResearchIndicatorsComponent } from './components/science-politics/open-science-and-research-indicators/open-science-and-research-indicators.component';
 import { SingleIndicatorComponent } from './components/science-politics/open-science-and-research-indicators/single-indicator/single-indicator.component';
+import { SinglePersonComponent } from './components/single/single-person/single-person.component';
+import { CheckEmptyFieldsPipe } from './pipes/check-empty-fields.pipe';
+import { PersonGroupComponent } from './components/single/single-person/person-group/person-group.component';
+import { PersonGroupAdditionalComponent } from './components/single/single-person/person-group-additional/person-group-additional.component';
 
 @NgModule({
   declarations: [
@@ -195,7 +197,6 @@ import { SingleIndicatorComponent } from './components/science-politics/open-sci
     InfrastructuresComponent,
     ShareComponent,
     SingleInfrastructureComponent,
-    OrcidComponent,
     FiltersComponent,
     CounterPipe,
     FilterItemPipe,
@@ -228,13 +229,6 @@ import { SingleIndicatorComponent } from './components/science-politics/open-sci
     ConvertToArrayPipe,
     SingleFundingCallComponent,
     FundingCallResultsComponent,
-    HandleLinkDisplayPipe,
-    IsUrlPipe,
-    OrganizationVisualisationsComponent,
-    OrganizationInformationComponent,
-    OrganizationSubUnitsComponent,
-    FilterEmptyFieldPipe,
-    HandleLinkDisplayPipe,
     IsUrlPipe,
     OrganizationVisualisationsComponent,
     OrganizationInformationComponent,
@@ -250,6 +244,10 @@ import { SingleIndicatorComponent } from './components/science-politics/open-sci
     ResultsPaginationComponent,
     OpenScienceAndResearchIndicatorsComponent,
     SingleIndicatorComponent,
+    SinglePersonComponent,
+    CheckEmptyFieldsPipe,
+    PersonGroupComponent,
+    PersonGroupAdditionalComponent,
   ],
   imports: [
     PortalRoutingModule,

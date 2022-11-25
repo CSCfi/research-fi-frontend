@@ -1,9 +1,9 @@
-<!-- # This file is part of the research.fi API service
-#
-# Copyright 2019 Ministry of Education and Culture, Finland
-#
-# :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
-# :license: MIT -->
+<!-- This file is part of the research.fi API service
+
+ Copyright 2019 Ministry of Education and Culture, Finland
+
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
 
 <div class="row" *ngIf="!result; else resultTemplate">
   <div class="col">
@@ -90,10 +90,13 @@
             i18n="@@r7"
             >Nykyinen sijainti:
           </mat-radio-button>
+
           <span class="location">{{ title }}</span>
-          <mat-radio-button class="radio-button" [value]="'other'" i18n="@@r8"
-            >Muu</mat-radio-button
-          >
+
+          <!-- User input location -->
+          <mat-radio-button class="radio-button" value="other" i18n="@@r8">
+            Muu
+          </mat-radio-button>
           <!-- Show input only if other location is selected -->
           <div
             class="form-group left-spacer"
@@ -163,13 +166,17 @@
     <!-- Show review when user clicks send -->
     <ng-template #underReviewTemplate>
       <h3 i18n="@@ur1">Tarkista antamasi palaute</h3>
-      <h4 i18n="@@ur2">Palautteen aihe: {{ reviewTarget }}</h4>
+      <h4 i18n="@@ur2" class="d-inline-block">Palautteen aihe:</h4>
+      <span> {{ reviewTarget }}</span>
+
       <h4 i18n="@@ur3">Palaute:</h4>
       <p>{{ reviewContent }}</p>
+
       <ng-container *ngIf="locationTarget">
-        <h4 i18n="@@ur4">Palautetta koskeva sijainti verkkopalvelussa</h4>
+        <h4 i18n="@@ur4">Palautetta koskeva sijainti verkkopalvelussa:</h4>
         <p>{{ locationValue ? locationValue : title }}</p>
       </ng-container>
+
       <ng-container *ngIf="emailValue">
         <h4 i18n="@@feedbackContact">Toivon yhteydenottoa palautteestani</h4>
         <p>{{ emailValue }}</p>

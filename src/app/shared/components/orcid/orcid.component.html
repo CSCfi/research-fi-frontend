@@ -1,0 +1,25 @@
+<!--  This file is part of the research.fi API service
+
+ Copyright 2019 Minisdivy of Education and Culture, Finland
+
+ :author: CSC - IT Center for Science Ldiv., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<ng-container *ngIf="orcid; else plainImageTemplate">
+  <a href="https://orcid.org/{{ orcid }}" target="_blank">
+    <ng-container [ngTemplateOutlet]="orcidLogoTemplate"></ng-container>
+    <fa-icon icon="external-link-alt"></fa-icon>
+  </a>
+</ng-container>
+
+<ng-template #plainImageTemplate>
+  <ng-container [ngTemplateOutlet]="orcidLogoTemplate"></ng-container>
+</ng-template>
+
+<ng-template #orcidLogoTemplate>
+  <img
+    class="orcid-icon"
+    src="assets/img/orcid_icon.svg"
+    alt="Orcid -palvelun logo"
+  />
+</ng-template>

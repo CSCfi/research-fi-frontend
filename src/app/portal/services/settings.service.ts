@@ -7,7 +7,6 @@
 
 import { Injectable } from '@angular/core';
 import { StaticDataService } from './static-data.service';
-import { isNumber } from 'util';
 
 @Injectable({
   providedIn: 'root',
@@ -20,9 +19,17 @@ export class SettingsService {
   related = false;
 
   constructor(private staticDataService: StaticDataService) {
-    this.indexList =
-      'publication,funding,dataset,infrastructure,organization,funding-call' +
-      '/_search?';
+    let indices = [
+      'publication',
+      'person',
+      'funding',
+      'dataset',
+      'funding-call',
+      'infrastructure',
+      'organization',
+    ];
+
+    this.indexList = indices.join(',') + '/_search?';
     this.aggsOnly = 'filter_path=aggregations';
   }
 

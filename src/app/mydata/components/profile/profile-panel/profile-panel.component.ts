@@ -18,14 +18,9 @@ import {
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
-import {
-  checkGroupSelected,
-  isEmptySection,
-  mergePublications,
-} from '@mydata/utils';
+import { checkGroupSelected, isEmptySection } from '@mydata/utils';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SearchPortalComponent } from '../search-portal/search-portal.component';
-import { take } from 'rxjs/operators';
 import { PublicationsService } from '@mydata/services/publications.service';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { PatchService } from '@mydata/services/patch.service';
@@ -33,7 +28,6 @@ import { ProfileService } from '@mydata/services/profile.service';
 import { cloneDeep } from 'lodash-es';
 import { GroupTypes } from '@mydata/constants/groupTypes';
 import { CommonStrings } from '@mydata/constants/strings';
-import { SearchPortalService } from '@mydata/services/search-portal.service';
 import { DatasetsService } from '@mydata/services/datasets.service';
 import { FundingsService } from '@mydata/services/fundings.service';
 
@@ -86,7 +80,6 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     private publicationsService: PublicationsService,
     private datasetsService: DatasetsService,
     private fundingsService: FundingsService,
-    private searchPortalService: SearchPortalService,
     private profileService: ProfileService,
     private patchService: PatchService,
     private cdr: ChangeDetectorRef
@@ -193,6 +186,8 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
 
     const patchItems = items.map((item) => item.itemMeta);
 
+    this.onSingleItemToggle.emit();
+
     this.patchService.addToPayload(patchItems);
   }
 
@@ -223,96 +218,5 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     }
 
     this.updated = new Date();
-  }
-
-  /*
-   * Dynamic search from portal modal
-   * Search for Publications, Datasets and Fundings
-   */
-  openSearchFromPortalDialog(groupId: string) {
-    this.showDialog = true;
-
-    const field = this.data.fields[0];
-
-    this.currentGroupId = groupId;
-
-    this.dialogData = {
-      groupId: groupId,
-      itemsInProfile: field?.items,
-      selectedPublications: field?.selectedPublications,
-    };
-  }
-
-  closeDialog() {
-    this.showDialog = false;
-  }
-
-  handleChanges(result) {
-    this.closeDialog();
-    const field = this.data.fields[0];
-
-    /*
-     * Use group related service to add selected items into draft view and patch payload
-     */
-    const handlePortalItems = (groupId: string, result) => {
-      let service: PublicationsService | DatasetsService | FundingsService;
-
-      switch (groupId) {
-        case 'publication': {
-          service = this.publicationsService;
-          break;
-        }
-        case 'dataset': {
-          service = this.datasetsService;
-          break;
-        }
-        case 'funding': {
-          service = this.fundingsService;
-          break;
-        }
-      }
-
-      service.addToPayload(result);
-
-      let items = field.items || [];
-
-      result = result.map((item) => ({
-        ...item,
-        ...(groupId === 'publication' && { publicationName: item.title }),
-        dataSources: [
-          {
-            id: null,
-            organization: {
-              nameFi: this.ttvLabel,
-              nameSv: this.ttvLabel,
-              nameEn: this.ttvLabel,
-            },
-            registeredDataSource: 'TTV',
-          },
-        ],
-      }));
-
-      field.items = items.concat(result);
-
-      // Merge publications that share DOI
-      // Select merged ORCID publication
-      if (this.data.id === this.groupTypes.publication) {
-        mergePublications(field, this.patchService);
-      }
-    };
-
-    // Reset sort when dialog closes
-    this.searchPortalService.resetSort();
-
-    if (result) {
-      // Add selected items into profile data and patch payload
-      handlePortalItems(this.currentGroupId, result);
-
-      this.onSingleItemToggle.emit();
-
-      this.updated = new Date();
-
-      this.cdr.detectChanges();
-    }
   }
 }

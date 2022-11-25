@@ -3,11 +3,49 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<div class="row" *ngFor="let persons of resultData">
-  <div
-    class="col-12 no-margin single"
-    *ngFor="let person of persons.hits.hits; let i = index"
-  >
-    <li>{{ person._source.lastName }}</li>
-  </div>
+<div class="spinner-center" *ngIf="!resultData">
+  <mat-spinner
+    [diameter]="80"
+    i18n-aria-label="@@loading"
+    aria-label="Ladataan"
+  ></mat-spinner>
 </div>
+
+<!-- Results -->
+<div *ngIf="resultData?.total > 0; else noResults">
+  <app-table
+    *ngIf="dataMapped"
+    [columns]="tableColumns"
+    [rows]="tableRows"
+    [icon]="rowIcon"
+    [iconTitle]="iconTitle"
+    iconLinkField="name"
+    [sortColumn]="sortService.sortColumn"
+    [sortDirection]="sortService.sortDirection ? 'desc' : 'asc'"
+    (onSortChange)="utilityService.sortBy($event.active)"
+  ></app-table>
+
+  <!-- Templates -->
+  <div *ngIf="resultData" class="result-container">
+    <div *ngFor="let person of resultData.persons; let i = index">
+      <ng-template #personNameColumn>
+        <a
+          routerLink="/results/person/{{ person.id }}"
+          [innerHtml]="person.name | highlight: input"
+        >
+        </a>
+        <app-orcid></app-orcid>
+      </ng-template>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <app-results-pagination [data]="resultData"></app-results-pagination>
+</div>
+
+<ng-template #noResults>
+  <app-no-results
+    *ngIf="resultData && resultData.total === 0"
+    heading="Ei tutkijoita"
+  ></app-no-results>
+</ng-template>

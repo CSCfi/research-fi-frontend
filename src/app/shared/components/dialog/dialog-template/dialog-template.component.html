@@ -25,11 +25,6 @@
       ><ng-container [ngTemplateOutlet]="data.headerInfoTemplate"></ng-container
     ></ng-container>
   </div>
-  <!-- Extra header template // MyData editor toggle all -->
-  <ng-container
-    *ngIf="data.extraHeaderTemplate"
-    [ngTemplateOutlet]="data.extraHeaderTemplate"
-  ></ng-container>
   <!-- Close button -->
   <div
     class="col-auto text-end mt-1 mt-sm-0 align-self-sm-center order-2 order-sm-3"
@@ -83,6 +78,11 @@
   *ngIf="dialogActions?.length"
   [class.justify-content-center]="mobile && dialogActions.length === 1"
 >
+  <!-- Selected items indicator -->
+  <div class="col" *ngIf="data.selectedItemsCount >= 0" aria-live="polite">
+    {{ data.selectedItemsCount }}
+    <ng-container i18n="@@selected">valittu</ng-container>
+  </div>
   <!-- Some actions are spread into two columns -->
   <ng-container *ngIf="data.spreadActions; else singleColumnActions">
     <ng-container *ngFor="let group of dialogActions; let i = index">

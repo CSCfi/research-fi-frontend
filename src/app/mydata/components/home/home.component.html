@@ -9,14 +9,10 @@
       <div class="row">
         <div class="col">
           <h2 class="pb-4">
-            Yhdistele tutkijatiedoistasi julkinen profiili Tiedejatutkimus.fi
-            -palveluun
+            {{homeWelcomeCaption}}
           </h2>
           <p>
-            Tutkijan tiedot -profiilityökalun avulla yhdistelet Orcid- ja
-            organisaatiotiedoistasi haluamasi julkisen tutkijaprofiilin
-            tiedejatutkimus.fi -palveluun. Voit myös jakaa Tutkijan tiedot
-            -profiiliasi esimerkiksi organisaatioille.
+            {{homeWelcomeText}}
           </p>
         </div>
       </div>
@@ -44,22 +40,23 @@
       <div
         class="row py-3 mb-0 mb-lg-5 justify-content-center justify-content-sm-start"
       >
-        <span class="col-12">Lisätietoa:</span>
+        <span class="col-12">{{additionalInfoText}}</span>
 
         <div class="col-12 col-sm-6 py-3 px-4 px-sm-3">
           <app-secondary-button
-            content="Palvelun yleisohjeet"
-            (click)="login()"
+            i18n-content="@@quickStart"
+            content="Pikaohjeet"
+            (click)="showWelcomeModal()"
             [big]="true"
-            [disabled]="true"
+            [disabled]="false"
           >
           </app-secondary-button>
         </div>
       </div>
 
       <div class="row py-md-3 justify-content-center justify-content-sm-start">
-        <span class="col-12" i18n="@@haveYouCreatedProfile">
-          Oletko jo luonut profiilin tähän palveluun?
+        <span class="col-12">
+          {{alreadyCreatedProfile}}
         </span>
 
         <div class="col-auto py-3">
@@ -88,4 +85,8 @@
       />
     </div>
   </div>
+  <ng-container *ngIf="showStepperModal">
+    <app-welcome-stepper (onModalAction)="this.handleWelcomeModalAction($event)"
+    ></app-welcome-stepper>
+  </ng-container>
 </main>

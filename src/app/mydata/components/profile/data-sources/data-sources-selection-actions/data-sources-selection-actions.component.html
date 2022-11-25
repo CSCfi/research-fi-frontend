@@ -45,7 +45,10 @@
           *ngSwitchCase="'share'"
           [ngTemplateOutlet]="shareTemplate"
         ></ng-container>
-        <ng-container *ngSwitchDefault>
+        <ng-container
+          *ngSwitchDefault
+          i18n="@@itMayTakeFewMinutesForDataToPublish"
+        >
           Julkisten tietojen päivittyminen kestää muutaman minuutin.
         </ng-container>
       </ng-container>
@@ -68,12 +71,12 @@
 <ng-template #itemsSelectedText>
   <span class="fw-bold">
     {{ filteredSelectedItems.length }}
-    <ng-container
+    <!-- <ng-container
       *ngIf="filteredSelectedItems.length === 1; else pluralTemplate"
       >tieto</ng-container
     >
-    <ng-template #pluralTemplate>tietoa</ng-template>
-    valittu
+    <ng-template #pluralTemplate>tietoa</ng-template> -->
+    <ng-container i18n="@@selected">valittu</ng-container>
   </span>
 </ng-template>
 

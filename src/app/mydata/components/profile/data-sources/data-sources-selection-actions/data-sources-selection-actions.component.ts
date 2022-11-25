@@ -37,20 +37,19 @@ export class DataSourcesSelectionActionsComponent implements OnInit, OnDestroy {
   }[] = [
     {
       id: 'publish',
-      label: 'Aseta julkiseksi Tiedejatutkimus.fi:ssä',
-      dialogTitle:
-        'Aseta valitut tiedot julkiseksi Tiedejatutkimus.fi -palvelussa',
+      label: $localize`:@@makePublic:Aseta julkiseksi`,
+      dialogTitle: $localize`:@@showDataToPublishInService:Aseta valitut tiedot julkiseksi Tiedejatutkimus.fi -palvelussa`,
       dialogPreviewLabel: $localize`:@@showDataToPublish:Näytä julkaistavat tiedot`,
       dialogPreviewLabelToggled: $localize`:@@hideDataToPublish:Piilota julkaistavat tiedot`,
       patchButtonLabel: $localize`:@@publish:Julkaise`,
     },
     {
       id: 'hide',
-      label: 'Piilota Tiedejatutkimus.fi:ssä',
-      dialogTitle: 'Piilota valitut tiedot tiedejatutkimus.fi -palvelusta',
-      dialogPreviewLabel: 'Näytä piilotettavat tiedot',
-      dialogPreviewLabelToggled: 'Piilota piilotettavat tiedot',
-      patchButtonLabel: 'Piilota',
+      label: $localize`:@@hideInProfile:Piilota profiilista`,
+      dialogTitle: $localize`:@@showDataToHideInService:Piilota valitut tiedot tiedejatutkimus.fi -palvelusta`,
+      dialogPreviewLabel: $localize`:@@showDataToHide:Näytä piilotettavat tiedot`,
+      dialogPreviewLabelToggled: $localize`:@@closeDataToHide:Sulje piilotettavat tiedot`,
+      patchButtonLabel: $localize`:@@hide:Piilota`,
     },
     // {
     //   id: 'share',
@@ -167,6 +166,8 @@ export class DataSourcesSelectionActionsComponent implements OnInit, OnDestroy {
       .subscribe((res: HttpResponse<any>) => {
         if (res.body.success) {
           this.onPatchSuccess.emit(filteredItems);
+          // Enable hide profile button in account settings section, if it has been disabled
+          sessionStorage.removeItem('profileHidden');
           this.snackbarService.showPatchMessage('success');
         } else {
           this.snackbarService.showPatchMessage('error');

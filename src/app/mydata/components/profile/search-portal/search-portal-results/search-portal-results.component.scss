@@ -23,6 +23,11 @@ app-search-portal-results {
     align-items: unset;
   }
 
+  mat-header-row,
+  mat-row {
+    padding: 0 1rem;
+  }
+
   mat-cell,
   mat-header-cell,
   mat-footer-cell {

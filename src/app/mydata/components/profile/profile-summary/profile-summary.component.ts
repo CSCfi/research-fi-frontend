@@ -8,6 +8,7 @@
 import {
   Component,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   ViewEncapsulation,
@@ -20,7 +21,7 @@ import { PublicationsService } from '@mydata/services/publications.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { SnackbarService } from '@mydata/services/snackbar.service';
 import { DraftService } from '@mydata/services/draft.service';
-import { Constants } from '@mydata/constants/';
+import { Constants, PortalGroupIds } from '@mydata/constants/';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { GroupTypes, PortalGroups } from '@mydata/constants/groupTypes';
 import { CommonStrings } from '@mydata/constants/strings';
@@ -34,8 +35,9 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./profile-summary.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ProfileSummaryComponent implements OnInit, OnDestroy {
+export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
   @Input() profileData: any;
+  displayData: any;
 
   fieldTypes = FieldTypes;
   groupTypes = GroupTypes;
@@ -57,6 +59,16 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy {
 
   noPublicDataText = $localize`:@@youHaveNotSelectedAnyPublicData:Et ole vielä valinnut julkisesti näytettäviä tietoja`;
 
+  summaryGroupIds = [
+    GroupTypes.publication,
+    GroupTypes.dataset,
+    GroupTypes.education,
+    GroupTypes.affiliation,
+    GroupTypes.description,
+    GroupTypes.activitiesAndRewards,
+    GroupTypes.funding,
+  ];
+
   constructor(
     private appSettingsService: AppSettingsService,
     private patchService: PatchService,
@@ -69,7 +81,20 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy {
     this.locale = this.appSettingsService.capitalizedLocale;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // this.openDialog({} as MouseEvent, 7);
+  }
+
+  ngOnChanges(): void {
+    this.displayData = cloneDeep(this.profileData);
+
+    // Clear imported items
+    this.profileData.forEach((group) => {
+      if (group.fields.find((field) => field.id === 'imported')) {
+        group.fields = group.fields.filter((item) => item.id !== 'imported');
+      }
+    });
+  }
 
   openDialog(event: MouseEvent, index: number) {
     event.stopPropagation();
@@ -102,11 +127,11 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy {
 
     const confirmedPayLoad = this.patchService.confirmedPayLoad;
 
-    this.draftService.saveDraft(this.profileData);
+    this.draftService.saveDraft(this.displayData);
 
     // Groups are used in different loops to set storage items and handle removal of items
     const patchGroups = [
-      { key: Constants.draftProfile, data: this.profileData },
+      { key: Constants.draftProfile, data: this.displayData },
       {
         key: Constants.draftPatchPayload,
         data: this.patchService.confirmedPayLoad,
@@ -137,8 +162,17 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy {
     const portalPatchGroups = patchGroups.filter((group) => group.id);
 
     if (result) {
+      // Adding imported data to profileData enables correct listing of imported items if
+      // editor modal is opened again before imported items have been published
+      const currentGroup = this.displayData[this.currentIndex];
+
+      this.profileData[this.currentIndex].fields = result.fields;
       // Update binded profile data. Renders changes into summary view
-      this.profileData[this.currentIndex] = result;
+      this.displayData[this.currentIndex] = result;
+
+      if (PortalGroupIds.indexOf(currentGroup.id) > -1) {
+        this.mergeImportedItems(currentGroup.id);
+      }
 
       // Handle removal of items added from portal search
       portalPatchGroups.forEach((group) => {
@@ -176,6 +210,20 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy {
           );
         }
       }
+    }
+  }
+
+  // Merge imported items for display purposes.
+  mergeImportedItems(id) {
+    const group = this.displayData.find((item) => item.id === id);
+
+    if (group?.fields?.length > 1) {
+      const imported = group.fields.find((item) => item.id === 'imported');
+      const existing = group.fields.find((item) => item.id === id);
+
+      const merged = existing.items.concat(imported.items);
+
+      group.fields = [{ ...existing, items: merged }];
     }
   }
 

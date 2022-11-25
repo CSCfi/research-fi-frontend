@@ -5,9 +5,16 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-img.orcid-icon {
-  height: 16px;
+.open-access {
+  border: 2px solid #ea883e;
+}
+
+a {
+  color: #bc520a;
+}
+
+img {
+  height: 1rem;
   width: auto;
-  margin: 4px;
-  vertical-align: top;
+  margin-right: 0.5rem;
 }

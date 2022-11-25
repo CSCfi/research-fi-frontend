@@ -15,7 +15,7 @@
       <span class="link-item">
         <a [href]="fixExternalUrl(url)" target="_blank">
           <span class="link-label">
-            {{ label ? label : (url | handleLinkDisplay) }}
+            {{ label ? label : (url | trimLinkPrefix) }}
           </span>
           <fa-icon icon="external-link-alt"></fa-icon>
         </a>

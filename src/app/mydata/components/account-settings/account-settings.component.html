@@ -1,0 +1,275 @@
+<main id="main-content" class="account-settings-wrap">
+  <div class="wrapper">
+    <div class="row d-flex justify-content-between pt-3 pb-5">
+      <div class="col-12 col-md-8 col-xl-6 px-0">
+        <div
+          class="row d-flex"
+        >
+          <h1 class="col-12 px-0 pb-2">{{accountSettingsTitle}}</h1>
+        </div>
+        <div class="row pb-1">
+          <span class="col px-0 fw-bold">{{ profileData?.name }}</span>
+        </div>
+        <div class="row pb-1">
+          <div class="col align-self-center px-0">
+            <img
+              class="orcid-icon mt-n1 pe-2"
+              src="assets/img/orcid_icon.svg"
+              alt="Orcid -palvelun logo"
+            />
+            <span>{{ orcid }}</span>
+          </div>
+        </div>
+
+        <!-- Orcid section -->
+        <div class="row pb-1 mt-4 bordered-section d-none">
+          <div class="col-12 px-0">
+            <h3>ORCID-tietojen automaattinen päivittyminen</h3>
+          <p class="px-0">{{generalInfoOrcid}}</p>
+          <br>
+          </div>
+
+          <div class="col-12 px-0 button-row">
+          <app-secondary-button *ngIf="!isOrcidFetchInUse"
+            (click)="
+                openDialog({
+                  title: automaticOrcidFetchCaption,
+                  template: enableOrcidTemplate,
+                  actions: enableOrcidFetchDialogActions,
+                  disableDialogClose: true
+                })
+              "
+            i18n-content="@@enableOrcidDataFetch"
+            content="Ota käyttöön" [disabled]="hideProfileInProgress || deleteProfileInProgress"
+          ></app-secondary-button>
+
+
+          <app-secondary-button *ngIf="isOrcidFetchInUse"
+              (click)="
+                openDialog({
+                  title: automaticOrcidFetchCaption,
+                  template: disableOrcidTemplate,
+                  actions: disableOrcidFetchDialogActions,
+                  disableDialogClose: true
+                })
+              "
+              i18n-content="@@disableOrcidDataFetch"
+              content="Poista käytöstä" [disabled]="hideProfileInProgress || deleteProfileInProgress"
+          ></app-secondary-button>
+          </div>
+        </div>
+
+        <!-- Delete profile section -->
+        <div class="row pb-1 mt-4 bordered-section">
+          <div class="col-12 px-0">
+            <h3>{{deleteProfileTitle}}</h3>
+          <p class="px-0">{{generalInfoDeleteProfile}}</p>
+          </div>
+          <div class="col-12 px-0 button-row">
+            <app-secondary-button
+              (click)="
+                openDialog({
+                  title: deleteProfileTitle,
+                  template: deleteProfileTemplate,
+                  actions: deleteProfileDialogActions,
+                  disableDialogClose: true
+                })
+              "
+              i18n-content="@@deleteProfile"
+              content="Poista profiili"
+              [disabled]="hideProfileInProgress"
+            ></app-secondary-button>
+
+            <!-- Delete profile modal template -->
+            <ng-template #deleteProfileTemplate>
+              <p class="px-3 pt-3" >
+                {{deleteProfileModalText}}
+              </p>
+            </ng-template>
+
+            <!-- Show profile modal template -->
+            <ng-template #showProfileTemplate>
+              <p class=" pt-3">
+                {{hideProfileModalText}}
+              </p>
+            </ng-template>
+
+            <!-- Hide profile modal template -->
+            <ng-template #hideProfileTemplate>
+              <p class="px-3 pt-3">
+                {{hideProfileModalText}}
+              </p>
+            </ng-template>
+
+            <!-- Enable orcid fetch modal template -->
+            <ng-template #enableOrcidTemplate>
+              <p class="px-3 pt-3">
+                {{orcidFetchModalTextEnable}}
+              </p>
+            </ng-template>
+
+            <!-- Disable orcid fetch modal template -->
+            <ng-template #disableOrcidTemplate>
+              <p class="px-3 pt-3">
+                {{orcidFetchModalTextDisable}}
+              </p>
+            </ng-template>
+
+            <ng-template #deletingProfileTemplate>
+              <div
+                class="row d-flex justify-content-center"
+                *ngIf="deleteProfileInProgress && !connProblemDeleteProfile"
+              >
+                <div class="col-auto align-self-center">
+                  <mat-spinner
+                    class="mx-auto"
+                    [diameter]="80"
+                    i18n-aria-label="@@loading"
+                    aria-label="Ladataan"
+                  ></mat-spinner>
+                  <span
+                    class="d-block col pt-3 text-center"
+                    i18n="@@deletingProfileWait"
+                    aria-live="polite"
+                  >{{deleteProfileWait}}</span
+                  >
+                </div>
+              </div>
+
+              <div *ngIf="connProblemDeleteProfile">
+                <div class="row">
+                  <div class="col mx-3">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <ng-container i18n="@@deleteProfileConnProblem"
+                    >{{connectionProblemDeleteProfile}}
+                    </ng-container
+                    >
+                  </div>
+                </div>
+                <div class="row py-3">
+                  <div class="col text-center">
+                    <app-primary-action-button
+                      i18n-content="@@close"
+                      content="Sulje"
+                      (click)="closeDialog()"
+                    ></app-primary-action-button>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+
+            <ng-template #hidingProfileTemplate>
+              <div
+                class="row d-flex justify-content-center"
+                *ngIf="hideProfileInProgress && !connProblemHideProfile"
+              >
+                <div class="col-auto align-self-center">
+                  <mat-spinner
+                    class="mx-auto"
+                    [diameter]="80"
+                    i18n-aria-label="@@loading"
+                    aria-label="Ladataan"
+                  ></mat-spinner>
+                  <span
+                    class="d-block col pt-3 text-center"
+                    i18n="@@deletingProfileWait"
+                    aria-live="polite"
+                  >{{hideProfileWait}}</span
+                  >
+                </div>
+              </div>
+
+              <div *ngIf="connProblemHideProfile">
+                <div class="row">
+                  <div class="col mx-3">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <ng-container i18n="@@deleteProfileConnProblem"
+                    >Yhteysongelma. Profiilin piilottaminen ei onnistu. Kokeile
+                      hetken kuluttua uudestaan.
+                    </ng-container
+                    >
+                  </div>
+                </div>
+                <div class="row py-3">
+                  <div class="col text-center">
+                    <app-primary-action-button
+                      i18n-content="@@close"
+                      content="Sulje"
+                      (click)="closeDialog()"
+                    ></app-primary-action-button>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+
+            <!-- Dialog for delete profile loading indicator-->
+            <app-dialog
+              *ngIf="deleteProfileInProgress"
+              [template]="deletingProfileTemplate"
+              [small]="true"
+              [disableClose]="disableDialogClose"
+            ></app-dialog>
+
+            <!-- Dialog for hide profile loading indicator-->
+            <app-dialog
+              *ngIf="hideProfileInProgress"
+              [template]="hidingProfileTemplate"
+              [small]="true"
+              [disableClose]="disableDialogClose"
+            ></app-dialog>
+
+            <!-- Reusable dialog -->
+            <app-dialog
+              *ngIf="showDialog"
+              [template]="dialogTemplate"
+              [title]="dialogTitle"
+              [extraContentTemplate]="dialogExtraContentTemplate"
+              (onActionClick)="doDialogAction($event)"
+              [actions]="currentDialogActions"
+            ></app-dialog>
+          </div>
+        </div>
+
+        <!-- Show/hide profile section -->
+        <div class="row pb-1 mt-4 bordered-section">
+          <div class="col-12 px-0">
+            <h3>{{hideProfileTitle}}</h3>
+          <p class="px-0">{{generalInfoHideProfile}}</p>
+          </div>
+          <br>
+          <div class="col-12 px-0 button-row">
+          <app-secondary-button
+                                (click)="
+                openDialog({
+                  title: hideProfileTitle,
+                  template: hideProfileTemplate,
+                  actions: hideProfileDialogActions,
+                  disableDialogClose: true
+                })
+              "
+                                i18n-content="@@hideProfile"
+                                content="Piilota profiili"
+                                [disabled]="hideProfileInProgress || deleteProfileInProgress || isProfileHidden"
+          ></app-secondary-button>
+
+          <!--
+          <app-secondary-button *ngIf="isProfileHidden"
+                                (click)="
+                openDialog({
+                  title: hideProfileTitle,
+                  template: showProfileTemplate,
+                  actions: showProfileDialogActions,
+                  disableDialogClose: true
+                })
+              "
+                                i18n-content="@@showProfile"
+                                content="Näytä profiili"
+                                [disabled]="hideProfileInProgress || deleteProfileInProgress"
+          ></app-secondary-button>
+          -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

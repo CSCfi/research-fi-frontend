@@ -4,14 +4,14 @@
  :license: MIT -->
 
 <!--  Primary affiliations -->
-<ng-container *ngIf="(data.items | getItemsBy: 'primaryValue').length">
+<ng-container *ngIf="(data.items | getItemsBy: 'primaryValue' | getItemsBy: 'show').length">
   <div class="row">
     <div class="col fw-bold pb-3" i18n="@@primaryPlural">Ensisijaiset</div>
   </div>
 
   <div class="row" *ngFor="let primaryItem of data.items; let i = index">
     <div
-      *ngIf="primaryItem.itemMeta.primaryValue"
+      *ngIf="primaryItem.itemMeta.primaryValue && primaryItem.itemMeta.show"
       class="col-auto font-size-smaller"
     >
       {{ primaryItem['positionName' + locale]

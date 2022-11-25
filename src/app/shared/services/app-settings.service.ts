@@ -26,10 +26,16 @@ export class AppSettingsService {
   private appSettingsSource = new Subject<any>();
   appSettings = this.appSettingsSource.asObservable();
 
+  defaultDomains = [
+    { label: 'Suomeksi', locale: 'FI', url: 'https://tiedejatutkimus.fi/fi' },
+    { label: 'På svenska', locale: 'SV', url: 'https://forskning.fi/sv' },
+    { label: 'In English', locale: 'EN', url: 'https://research.fi/en' },
+  ];
+
   // Module related settings
   portalSettings = {
     appName: 'portal',
-    label: $localize`:@@appSlogan:Tiedejatutkimus.fi`,
+    label: $localize`:@@appName:Tiedejatutkimus.fi`,
     baseRoute: '',
     navItems: [
       { label: $localize`:@@headerLink1:Etusivu`, link: '/', exact: true },
@@ -70,11 +76,7 @@ export class AppSettingsService {
         exact: true,
       },
     ],
-    localizedDomains: [
-      { label: 'Suomeksi', locale: 'FI', url: 'https://tiedejatutkimus.fi/fi' },
-      { label: 'På svenska', locale: 'SV', url: 'https://forskning.fi/sv' },
-      { label: 'In English', locale: 'EN', url: 'https://research.fi/en' },
-    ],
+    localizedDomains: this.defaultDomains,
   };
 
   myDataSettings = {
@@ -85,34 +87,27 @@ export class AppSettingsService {
     baseRoute: 'mydata',
     navItems: [
       {
-        label: $localize`:@@publicProfile:Julkinen profiili`,
+        label: $localize`:@@navigationHeaderProfile:Profiili`,
         link: '/mydata/profile',
       },
-      { label: 'Tiedot ja tietolähteet', link: '/mydata/data-sources' },
+      {
+        label: $localize`:@@dataAndSources:Tiedot ja tietolähteet`,
+        link: '/mydata/data-sources',
+      },
+      {
+        label: $localize`:@@accountSettings:Tiliasetukset`,
+        link: '/mydata/account-settings',
+      },
       {
         label: $localize`:@@logIn:Kirjaudu sisään`,
         link: '',
         loginProcess: true,
       },
     ],
-    localizedDomains: [
-      {
-        label: 'Suomeksi',
-        locale: 'FI',
-        url: 'https://researchfi-mydata.rahtiapp.fi/fi',
-      },
-      // { label: 'På svenska', locale: 'SV', url: 'https://localhost:5003/sv' },
-      {
-        label: 'In English',
-        locale: 'EN',
-        url: 'https://researchfi-mydata-en.rahtiapp.fi/en',
-      },
-    ],
+    localizedDomains: this.defaultDomains,
     readMoreLinkFi: 'https://wiki.eduuni.fi/x/YwMJDQ',
     readMoreLinkEn: 'https://wiki.eduuni.fi/x/OavfDg',
   };
-
-  dialogPanelClass = 'responsive-dialog';
 
   currentAppSettings: object;
   userOrcid: string; // Used in error monitoring
@@ -121,6 +116,10 @@ export class AppSettingsService {
   capitalizedLocale: string;
 
   isBrowser: boolean;
+
+  // Set in header by current route.
+  // E.g. for use where we don't want to display new features in production.
+  develop = false;
 
   constructor(
     @Inject(LOCALE_ID) protected localeId: string,

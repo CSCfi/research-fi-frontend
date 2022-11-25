@@ -2,13 +2,13 @@
  Copyright 2019 Ministry of Education and Culture, Finland
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
-
 <mat-table
   *ngIf="currentTable"
+  class="custom-table"
   matSort
   (matSortChange)="sortData($event)"
   [dataSource]="data"
-  [matSortActive]="currentTable.defaultSort"
+  [matSortActive]="activeSort?.active"
   [matSortDirection]="
     sortSettings ? sortSettings.publicationYear.order : 'desc'
   "
@@ -18,7 +18,8 @@
     <mat-cell *matCellDef="let item; let i = index">
       <mat-checkbox
         [checked]="
-          selectedItemsIdArray.indexOf(item[currentTable.idField]) > -1
+          selectedItemsIdArray.indexOf(item[currentTable.idField]) > -1 ||
+          selectedInSessionIds.indexOf(item[currentTable.idField]) > -1
         "
         [disabled]="
           selectedItemsIdArray.indexOf(item[currentTable.idField]) > -1
@@ -33,11 +34,41 @@
       <mat-header-cell
         *matHeaderCellDef
         [mat-sort-header]="column.id"
-        disableClear
+        [style]="'flex: 0 0 ' + column.width"
       >
-        {{ column.label }}</mat-header-cell
+        {{ column.label }}
+
+        <!-- Sort indicators -->
+        <div class="sort-indicator">
+          <fa-icon
+            [icon]="faSort"
+            *ngIf="
+              activeSort?.active !== column.id;
+              else activeSortIndicatorTemplate
+            "
+          >
+          </fa-icon>
+
+          <ng-template #activeSortIndicatorTemplate>
+            <!-- <fa-icon [icon]="faSort" *ngIf="activeSort.direction === ''">
+            </fa-icon> -->
+
+            <fa-icon [icon]="faSortUp" *ngIf="activeSort.direction === 'asc'">
+            </fa-icon>
+
+            <fa-icon
+              [icon]="faSortDown"
+              *ngIf="activeSort.direction === 'desc'"
+            >
+            </fa-icon>
+          </ng-template>
+        </div>
+      </mat-header-cell>
+
+      <mat-cell
+        *matCellDef="let item; let i = index"
+        [style]="'flex: 0 0 ' + column.width"
       >
-      <mat-cell *matCellDef="let item; let i = index">
         <div class="row w-100">
           <div
             [class.text-overflow-ellipsis]="
@@ -125,7 +156,8 @@
 
 <div class="row">
   <div class="col-auto px-0 font-size-smaller mt-3">
-    Sivu {{ currentPage }} / {{ pageCount }}
+    <ng-container i18n="@@page">Sivu</ng-container> {{ currentPage }} /
+    {{ pageCount }}
   </div>
   <div class="col px-0">
     <mat-paginator

@@ -160,29 +160,29 @@ export function sortItemsBy(data, path) {
 }
 
 // Map uniques sources from all groups
-export function getUniqueSources(profileData) {
+export function getUniqueSources(profileData, locale: string) {
   const sources = [];
 
   const sourcesMap = profileData
     .flatMap((group) => group.fields)
     .flatMap((field) => field.items)
-    .flatMap((item) => item.dataSources);
+    .flatMap((item) => item.dataSources)
+    .filter((item) => item);
 
   const uniqueOrganizations = [
-    ...new Set(sourcesMap.map((source) => source.registeredDataSource)),
+    ...new Map(
+      sourcesMap.map((item) => [item.registeredDataSource, item])
+    ).values(),
   ];
 
-  for (const organization of uniqueOrganizations) {
+  uniqueOrganizations.forEach((item: any) => {
     sources.push({
-      label: organization,
-      id: sourcesMap.find(
-        (source) => source.registeredDataSource === organization
-      ).id,
-      count: sourcesMap.filter(
-        (source) => source.registeredDataSource === organization
-      ).length,
+      label: item.organization['name' + locale],
+      key: item.registeredDataSource,
+      id: item.id,
+      count: sourcesMap.filter((source) => source.id === item.id).length,
     });
-  }
+  });
 
   return sources;
 }
@@ -254,7 +254,7 @@ export function filterByDatasets(group, filters) {
 export function filterBySource(field, filters) {
   field.items = field.items.filter((item) =>
     filters.some((filter: string) =>
-      item.dataSources.find(
+      item.dataSources?.find(
         (dataSource) => dataSource.registeredDataSource === filter
       )
     )

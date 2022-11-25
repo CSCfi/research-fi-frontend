@@ -3,7 +3,8 @@
 @mixin app-results-theme-shared($theme) {
   $primary: map-get($theme, primary);
 
-  app-results, app-funding-calls {
+  app-results,
+  app-funding-calls {
     h3 {
       color: mat-contrast($primary, 200);
     }
@@ -25,13 +26,17 @@
       background-color: mat-color($primary, 100);
     }
 
+    .login-divider {
+      color: mat-color($primary);
+    }
+
     // "Bleed" the styles into sub-pages
     app-publications,
     app-fundings,
     app-datasets,
     app-infrastructures,
     app-organizations,
-    app-related-results, 
+    app-related-results,
     app-funding-call-results {
       .row.expand {
         background: mat-color($primary, 50);

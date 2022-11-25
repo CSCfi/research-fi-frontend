@@ -26,7 +26,7 @@
         </div>
       </div>
 
-      <div class="col-5 d-none d-md-block px-lg-0">
+      <!-- <div class="col-5 d-none d-md-block px-lg-0">
         <div class="row justify-content-end align-items-center">
           <div class="col-auto profile-image-container opacity-3">
             <i class="fas fa-user text-center d-block h1"></i>
@@ -38,7 +38,7 @@
             ></a
           >
         </div>
-      </div>
+      </div> -->
     </div>
     <div class="row profile">
       <div class="col-12 col-md-6 px-0 align-self-end">
@@ -61,17 +61,18 @@
 
       <!-- Handle draft publish -->
       <ng-template #publishUpdatedProfileTemplate>
-        <p class="col">
-          <ng-container i18n="@@updatedProfilePublishedAt"
-            >Päivitetty tutkijaprofiilisi julkaistaan kohteessa
-            tiedejatutkimus.fi</ng-container
-          >
-          <br />
-          <ng-container i18n="@@updatingPublicDataTakesFewMinutes"
-            >Julkisten tietojen päivittäminen kestää muutaman
-            minuutin.</ng-container
-          >
-        </p>
+        <div class="row">
+          <p class="col">
+            <ng-container i18n="@@updatedProfilePublishedAt"
+              >Valitsemalla "Julkaise", valitsemasi tiedot julkaistaan Tiedejatutkimus.fi-palvelussa.</ng-container
+            >
+            <br />
+            <ng-container i18n="@@updatingPublicDataTakesFewMinutes"
+              >Tietojen päivittyminen voi kestää muutaman
+              minuutin.</ng-container
+            >
+          </p>
+        </div>
       </ng-template>
 
       <ng-template #dataToPublishTemplate>
@@ -133,6 +134,15 @@
     <!-- Groups -->
     <div class="row justify-content-between">
       <div class="col-12 col-lg-7 px-0">
+        <!-- Contact card in mobile view -->
+        <aside *ngIf="profileData" class="profile-card d-block d-lg-none">
+          <app-contact-card
+            i18n-label="@@contactInfo"
+            label="Yhteystiedot"
+            [data]="profileData"
+          ></app-contact-card>
+        </aside>
+
         <app-profile-summary
           *ngIf="profileData; else loadingTemplate"
           class="d-block pt-3"
@@ -177,8 +187,8 @@
           </div>
         </ng-container>
 
-        <!-- Contact card -->
-        <aside *ngIf="profileData" class="profile-card">
+        <!-- Contact card in desktop view -->
+        <aside *ngIf="profileData" class="profile-card d-none d-lg-block">
           <app-contact-card
             i18n-label="@@contactInfo"
             label="Yhteystiedot"
@@ -187,6 +197,7 @@
         </aside>
 
         <!-- Collaboration -->
+        <!--
         <aside class="profile-card">
           <app-collaboration-card
             #collaborationComponentRef
@@ -194,6 +205,7 @@
             label="Yhteistyö"
           ></app-collaboration-card>
         </aside>
+        -->
 
         <!-- Beta info -->
         <div class="row py-3 d-flex justify-content-center">
@@ -202,67 +214,7 @@
           </div>
         </div>
 
-        <!-- EULA -->
-        <div class="row pb-3 d-flex justify-content-center">
-          <div class="col-12 px-0">
-            <button
-              class="row border border-primary rounded btn d-flex w-100"
-              (click)="
-                openDialog({
-                  title: termsForTool,
-                  template: termsTemplate,
-                  actions: basicDialogActions
-                })
-              "
-            >
-              <div class="col-auto">
-                <i class="pt-3 pb-2 h1 primary-color fas fa-file-alt"></i>
-              </div>
-              <div class="col align-self-center">
-                <span
-                  class="d-block align-self-center text-start"
-                  i18n="@@openTermsOfUse"
-                  >Avaa käyttöehdot</span
-                >
-              </div>
-            </button>
-          </div>
-        </div>
-
-        <div class="row d-flex justify-content-center">
-          <div class="col-12 px-0">
-            <button
-              class="row border border-primary rounded btn d-flex w-100"
-              (click)="
-                openDialog({
-                  title: processingOfPersonalData,
-                  template: personalDataHandlingTermsTemplate,
-                  actions: basicDialogActions
-                })
-              "
-            >
-              <div class="col-auto">
-                <i class="pt-3 pb-2 h1 primary-color fas fa-file-alt"></i>
-              </div>
-              <div class="col align-self-center">
-                <span
-                  class="d-block align-self-center text-start"
-                  i18n="@@openPersonalDataProcessingPrinciples"
-                  >Avaa henkilötietojen käsittelyperiaatteet</span
-                >
-              </div>
-            </button>
-          </div>
-        </div>
-
-        <ng-template #personalDataHandlingTermsTemplate>
-          <app-eula template="personalDataHandlingTermsTemplate"></app-eula>
-        </ng-template>
-
-        <ng-template #termsTemplate>
-          <app-eula template="termsTemplate"></app-eula>
-        </ng-template>
-
+        <!-- Reusable dialog -->
         <app-dialog
           *ngIf="showDialog"
           [template]="dialogTemplate"
@@ -271,83 +223,6 @@
           (onActionClick)="doDialogAction($event)"
           [actions]="currentDialogActions"
         ></app-dialog>
-
-        <!-- Delete profile -->
-        <div class="row">
-          <div class="col px-0 text-center text-md-start">
-            <app-primary-action-button
-              class="d-block pt-5 pb-4"
-              (click)="
-                openDialog({
-                  title: deleteProfileTitle,
-                  template: deleteProfileTemplate,
-                  actions: deleteProfileDialogActions,
-                  disableDialogClose: true
-                })
-              "
-              i18n-content="@@deleteProfile"
-              content="Poista profiili"
-            ></app-primary-action-button>
-
-            <ng-template #deleteProfileTemplate>
-              <p class="px-3" i18n="@@thisActionDeletesTestProfile">
-                Tämä toiminto poistaa Tutkijan tiedot -testisovelluksen
-                profiilin.
-              </p>
-            </ng-template>
-
-            <ng-template #deletingProfileTemplate>
-              <div
-                class="row d-flex justify-content-center"
-                *ngIf="loading && !connProblem"
-              >
-                <div class="col-auto align-self-center">
-                  <mat-spinner
-                    class="mx-auto"
-                    [diameter]="80"
-                    i18n-aria-label="@@loading"
-                    aria-label="Ladataan"
-                  ></mat-spinner>
-                  <span
-                    class="d-block col pt-3 text-center"
-                    i18n="@@deletingProfileWait"
-                    aria-live="polite"
-                    >Profiilia poistetaan, odota hetki...</span
-                  >
-                </div>
-              </div>
-
-              <div *ngIf="connProblem">
-                <div class="row">
-                  <div class="col mx-3">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <ng-container i18n="@@deleteProfileConnProblem"
-                      >Yhteysongelma. Profiilin poisto ei onnistu. Kokeile
-                      hetken kuluttua uudestaan.</ng-container
-                    >
-                  </div>
-                </div>
-                <div class="row py-3">
-                  <div class="col text-center">
-                    <app-primary-action-button
-                      i18n-content="@@close"
-                      content="Sulje"
-                      (click)="closeDialog()"
-                    ></app-primary-action-button>
-                  </div>
-                </div>
-              </div>
-            </ng-template>
-
-            <!-- Dialog for delete profile loading indicator-->
-            <app-dialog
-              *ngIf="deletingProfile"
-              [template]="deletingProfileTemplate"
-              [small]="true"
-              [disableClose]="disableDialogClose"
-            ></app-dialog>
-          </div>
-        </div>
       </div>
     </div>
   </div>

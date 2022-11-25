@@ -77,6 +77,23 @@
     "descriptionEn": "Read more about the publication in Research.fi.",
     "descriptionSv": "Bekanta dig med närmare uppgifter om publikationen i forksning.fi."
   },
+  "persons": {
+    "titleFi": "",
+    "titleEn": "",
+    "titleSv": "",
+    "descriptionFi": "PLACEHOLDER",
+    "descriptionEn": "PLACEHOLDER",
+    "descriptionSv": "PLACEHOLDER",
+    "link": "persons"
+  },
+  "singlePerson": {
+    "titleFi": "",
+    "titleEn": "",
+    "titleSv": "",
+    "descriptionFi": "",
+    "descriptionEn": "",
+    "descriptionSv": ""
+  },
   "fundings": {
     "titleFi": "",
     "titleEn": "",

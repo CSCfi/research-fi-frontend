@@ -46,7 +46,7 @@ export class CollaborationsService {
   getCooperationChoices() {
     this.updateTokenInHttpAuthHeader();
     return this.http.get(
-      this.apiUrl + '/CooperationChoices/',
+      this.apiUrl + '/cooperationchoices/',
       this.httpOptions
     );
   }
@@ -85,11 +85,11 @@ export class CollaborationsService {
     );
   }
 
-  patchCollaborationChoices() {
+  patchCooperationChoices() {
     this.initialValue = this.confirmedPayload;
     this.updateTokenInHttpAuthHeader();
     return this.http.patch(
-      this.apiUrl + '/CooperationChoices/',
+      this.apiUrl + '/cooperationchoices/',
       this.confirmedPayload,
       this.httpOptions
     );

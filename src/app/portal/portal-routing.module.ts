@@ -17,7 +17,7 @@ import { NewsComponent } from './components/news/news/news.component';
 // tslint:disable-next-line: max-line-length
 import { ResearchInnovationSystemComponent } from './components/science-politics/research-innovation-system/research-innovation-system.component';
 import { FiguresComponent } from './components/science-politics/figures/figures.component';
-import { OpenScienceAndResearchIndicatorsComponent } from './components/science-politics/open-science-and-research-indicators/open-science-and-research-indicators.component'
+import { OpenScienceAndResearchIndicatorsComponent } from './components/science-politics/open-science-and-research-indicators/open-science-and-research-indicators.component';
 import { ExternalLinksComponent } from './components/science-politics/external-links/external-links.component';
 import { SingleFigureComponent } from './components/science-politics/figures/single-figure/single-figure.component';
 import { ServiceInfoComponent } from './components/service-info/service-info.component';
@@ -33,6 +33,7 @@ import { ShortcutResolverService } from './resolvers/shortcut-resolver.service';
 import { SingleDatasetComponent } from './components/single/single-dataset/single-dataset.component';
 import { SingleFundingCallComponent } from './components/single/single-funding-call/single-funding-call.component';
 import { SingleIndicatorComponent } from './components/science-politics/open-science-and-research-indicators/single-indicator/single-indicator.component';
+import { SinglePersonComponent } from './components/single/single-person/single-person.component';
 // import { TkiReportsComponent } from "@portal/components/science-politics/tki-reports/tki-reports.component";
 
 const routes: Routes = [
@@ -50,6 +51,11 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
+    path: 'results/person',
+    redirectTo: 'results/persons',
+    pathMatch: 'full',
+  },
+  {
     path: 'results/funding',
     redirectTo: 'results/fundings',
     pathMatch: 'full',
@@ -62,6 +68,10 @@ const routes: Routes = [
   {
     path: 'results/publication/:id',
     component: SinglePublicationComponent,
+  },
+  {
+    path: 'results/person/:id',
+    component: SinglePersonComponent,
   },
   {
     path: 'results/funding/:id',
@@ -125,12 +135,12 @@ const routes: Routes = [
   {
     path: 'funding-calls',
     redirectTo: 'results/funding-calls',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'funding-calls/:input',
     redirectTo: 'results/funding-calls/:input',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'science-innovation-policy',

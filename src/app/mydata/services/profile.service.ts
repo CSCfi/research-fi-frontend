@@ -125,6 +125,11 @@ export class ProfileService {
     return this.http.delete(this.apiUrl + '/userprofile/', this.httpOptions);
   }
 
+  hideProfile() {
+    this.updateTokenInHttpAuthHeader();
+    return this.http.get(this.apiUrl + '/settings/hideprofile', this.httpOptions);
+  }
+
   /*
    * Keycloak account is created after succesful Suomi.fi authentication.
    * Delete this account if user cancels service deployment.
@@ -142,7 +147,7 @@ export class ProfileService {
   getProfileData() {
     this.updateTokenInHttpAuthHeader();
     return this.http
-      .get<Profile[]>(this.apiUrl + '/profiledata2/', this.httpOptions)
+      .get<Profile[]>(this.apiUrl + '/profiledata/', this.httpOptions)
       .pipe(map((data) => this.profileAdapter.adapt(data)));
   }
 
@@ -157,7 +162,7 @@ export class ProfileService {
     this.updateTokenInHttpAuthHeader();
     let body = { groups: [], items: items };
     return this.http.patch(
-      this.apiUrl + '/profiledata2/',
+      this.apiUrl + '/profiledata/',
       body,
       this.httpOptions
     );

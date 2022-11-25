@@ -39,6 +39,7 @@ import {
   faDownload,
   faTrash,
   faChartBar,
+  faInfoCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 
@@ -70,7 +71,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   expandStatus: Array<boolean> = [];
   @ViewChild('singleId') singleId: ElementRef;
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
-  @ViewChild('totalHeader') totalHeader: ElementRef;
   @ViewChild('skipToResults') skipToResults: ElementRef;
   queryParams: Subscription;
   publicationFilters: {
@@ -139,6 +139,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   faDownload = faDownload;
   faTrash = faTrash;
   faChartBar = faChartBar;
+  faInfoCircle = faInfoCircle;
   showAsVisual = $localize`:@@showAsVisual:Näytä kuvana`;
   additionalInfo = $localize`:@@additionalInfo:Lisätietoa`;
   clearActiveFilters = $localize`:@@clearActiveFilters: Tyhjennä rajaukset`;
@@ -149,8 +150,20 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     // 'Hakutulosten visualisaatiot ovat Tiedejatutkimus.fi –palvelun käyttäjien testikäytössä. Toiminnallisuutta parannetaan saadun palautteen perusteella syksyn 2020 aikana. Lisäksi visuaaleista on tulossa ruotsin- ja englanninkieliset versiot. Hankkeiden visuaalisiin tarkasteluihin lisätään myös myöntösummien jakaumat.';
     $localize`:@@datasetBetaInfo:Tutkimusaineistojen kuvailutiedot ovat uusi tietokokonaisuus Tiedejatutkimus.fi -portaalissa. Tietojen lähteenä ovat Fairdata-palveluista löytyvät kuvailutiedot. Koska kyseessä on uusi kokonaisuus, toivomme palautetta tiedejatutkimus@csc.fi osoitteeseen.`;
 
+  myDataBetaTexts = [
+    $localize`:@@personsResultsBetaText_1:Tutkijat-näkymä on beta-vaiheessa. Sekä profiilien sisältöä että hakumahdollisuuksia kehitetään jatkuvasti.`,
+    $localize`:@@personsResultsBetaText_2:Suomessa toimiva tutkija tai asiantuntija voi luoda oman profiilin Tiedejatutkimus.fi-palveluun ORCID-tunnuksen avulla, minkä jälkeen profiili näkyy ja on haettavissa Tiedejatutkimus.fi-palvelun Tutkijat-osiossa.`,
+    $localize`:@@personsResultsBetaText_3:Profiiliin liitetään kotiorganisaatioista ja ORCID-palvelusta siirrettyä tietoa sekä Tiedejatutkimus.fi:hin jo aiemmin siirrettyä tietoa.`,
+    $localize`:@@personsResultsBetaText_4:Beta-vaiheessa kotiorganisaatioista siirrettyjen tietojen lisääminen omaan profiiliin on mahdollista vain muutaman organisaation tapauksessa.`,
+    $localize`:@@personsResultsBetaText_5:Työkalun ja Tutkijat-näkymän ominaisuudet ja käytettävissä oleva tietosisältö täydentyvät vuoden 2023 aikana.`,
+  ];
+
+  showBetaDialog = false;
+  betaDialogTitle = $localize`:@@researchersProfile:Tutkijan tiedot` + ' beta';
+
   private metaTagsList = [
     MetaTags.publications,
+    MetaTags.persons,
     MetaTags.fundings,
     MetaTags.datasets,
     MetaTags.infrastructures,
@@ -165,12 +178,13 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   showDialog: boolean;
   dialogTemplate: TemplateRef<any>;
   dialogTitle: string;
+  focusMainContent: number;
 
   constructor(
     public searchService: SearchService,
     private route: ActivatedRoute,
-    private tabChangeService: TabChangeService,
-    private router: Router,
+    public tabChangeService: TabChangeService,
+    public router: Router,
     private sortService: SortService,
     private filterService: FilterService,
     private cdr: ChangeDetectorRef,
@@ -277,12 +291,15 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
         // Hotfix for *ngIf depending on total and not rendering search-results so new data is not fetched on empty results
         this.total = 1;
+
         this.selectedTabData = this.tabData.filter(
           (tab) => tab.link === params.tab
         )[0];
+
         this.metaTags = this.metaTagsList.filter(
           (tab) => tab.link === params.tab
         )[0];
+
         // Default to publications if invalid tab
         if (!this.selectedTabData) {
           this.router.navigate(['results/publications']);
@@ -569,6 +586,12 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   changeFocusTarget(target) {
     this.tabChangeService.targetFocus(target);
+
+    if (target === 'main') {
+      this.focusMainContent = Date.now();
+    }
+
+    this.cdr.detectChanges();
   }
 
   // Unsubscribe to prevent memory leaks

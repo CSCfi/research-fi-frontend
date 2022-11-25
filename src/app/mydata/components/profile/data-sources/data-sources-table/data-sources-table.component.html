@@ -12,8 +12,13 @@
   [sortColumn]="activeSort"
   [sortDirection]="sortDirection"
   (onSelectionChange)="handleSelection($event)"
+  (onToggleSelectAll)="handleSelectAll($event)"
   [sortQueryParams]="true"
   [mobileCards]="true"
+  [allSelected]="allSelected"
+  [currentSelection]="currentSelection"
+  [pageNumber]="pageNumber"
+  [pageSize]="pageSize"
 ></app-table>
 
 <app-pagination
@@ -42,24 +47,31 @@
         class="col-auto primary-color ps-3"
         (click)="toggleRowExpand(i)"
         *ngIf="
-          row.displayValue.length > maxContentLength &&
+          row.displayValue?.length > maxContentLength &&
           !(appSettingsService.mobileStatus | async)
         "
       >
-        <ng-container *ngIf="expandedRows.indexOf(i) === -1; else closeRow">
-          Avaa
+        <ng-container
+          *ngIf="expandedRows.indexOf(i) === -1; else closeRow"
+          i18n="@@show"
+        >
+          Näytä
         </ng-container>
-        <ng-template #closeRow>Sulje</ng-template></a
+        <ng-template #closeRow i18n="@@close">Sulje</ng-template></a
       >
     </div>
   </ng-template>
 
   <ng-template #publicityCell>
     <!-- TODO: Add i18n ids -->
-    <span [class.public-cell]="!mobile" *ngIf="row.itemMeta.show">
+    <span
+      [class.public-cell]="!mobile"
+      *ngIf="row.itemMeta.show"
+      i18n="@@public"
+    >
       Julkinen
     </span>
-    <span *ngIf="!row.itemMeta.show">Ei julkinen</span>
+    <span *ngIf="!row.itemMeta.show" i18n="@@notPublic">Ei julkinen</span>
   </ng-template>
 
   <ng-template #sharingCell>

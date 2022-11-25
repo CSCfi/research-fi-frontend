@@ -7,7 +7,7 @@
 
 import { Adapter } from '../adapter.model';
 import { Injectable } from '@angular/core';
-import { LanguageCheck } from '../utils';
+import { ModelUtilsService } from '@shared/services/model-util.service';
 
 export class RelatedFunding {
   constructor(
@@ -26,13 +26,13 @@ export class RelatedFunding {
   providedIn: 'root',
 })
 export class RelatedFundingAdapter implements Adapter<RelatedFunding> {
-  constructor(private lang: LanguageCheck) {}
+  constructor(private utils: ModelUtilsService) {}
   adapt(item: any): RelatedFunding {
     return new RelatedFunding(
-      this.lang.testLang('typeOfFundingName', item),
+      this.utils.checkTranslation('typeOfFundingName', item),
       item.typeOfFundingId,
       item.shareOfFundingInEur,
-      this.lang.testLang('consortiumOrganizationName', item),
+      this.utils.checkTranslation('consortiumOrganizationName', item),
       item.consortiumOrganizationId,
       item.fundingStartYear,
       item.fundingEndYear,

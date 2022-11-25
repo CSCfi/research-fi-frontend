@@ -1,0 +1,22 @@
+.account-settings-wrap {
+  h2 {
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+  .bordered-section {
+    display: flex;
+    align-content: space-between;
+    border: 1px solid #4546B2;;
+    padding: 25px 20px;
+    min-height: 250px;
+    margin-bottom: 50px;
+  }
+  .button-row {
+    height: 57px;
+  }
+
+  img.orcid-icon {
+    height: 1.2rem;
+    width: auto;
+  }
+}

@@ -24,9 +24,9 @@ export class TabChangeService {
       tooltip: $localize`:@@publicationsTooltip:Suomalaisten yliopistojen, ammattikorkeakoulujen, tutkimuslaitosten ja yliopistosairaaloiden julkaisut.`,
     },
     {
-      data: '',
+      data: 'persons',
       label: $localize`:@@authors:Tutkijat`,
-      link: undefined,
+      link: 'persons',
       icon: faUsers,
       singular: $localize`:@@author:tutkija`,
       tooltip: $localize`:@@authorsTooltip:Suomessa toimivia tutkijoita.`,

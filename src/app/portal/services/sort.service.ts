@@ -151,7 +151,14 @@ export class SortService {
         break;
       }
       case 'persons': {
-        this.yearField = 'publicationYear'; // Change this according to index
+        this.sort = [
+          {
+            'personal.names.lastName.keyword': {
+              order: this.sortDirection ? 'desc' : 'asc',
+              unmapped_type: 'long',
+            },
+          },
+        ];
         break;
       }
       case 'fundings': {

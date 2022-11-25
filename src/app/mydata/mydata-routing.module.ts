@@ -18,6 +18,8 @@ import { AuthGuard } from './services/auth-guard.service';
 import { PageResolverService } from '@shared/resolvers/page-resolver.service';
 import { OrcidProfileResolverService } from './resolvers/orcid-profile-resolver.service';
 import { MyDataProfileResolverService } from './resolvers/mydata-profile-resolver.service';
+import { MyDataTerms } from './components/mydata-terms/mydata-terms.component';
+import { AccountSettingsComponent } from '@mydata/components/account-settings/account-settings.component';
 
 const routes: Routes = [
   {
@@ -66,6 +68,32 @@ const routes: Routes = [
     resolve: {
       orcidProfile: OrcidProfileResolverService,
       myDataProfile: MyDataProfileResolverService,
+    },
+  },
+  {
+    path: 'account-settings',
+    pathMatch: 'full',
+    component: AccountSettingsComponent,
+    canActivate: [AuthGuard],
+    resolve: {
+      orcidProfile: OrcidProfileResolverService,
+      myDataProfile: MyDataProfileResolverService,
+    },
+  },
+  {
+    path: 'privacy',
+    pathMatch: 'full',
+    component: MyDataTerms,
+    resolve: {
+      pages: PageResolverService,
+    },
+  },
+  {
+    path: 'terms',
+    pathMatch: 'full',
+    component: MyDataTerms,
+    resolve: {
+      pages: PageResolverService,
     },
   },
   {
