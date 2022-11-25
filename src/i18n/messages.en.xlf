@@ -5367,15 +5367,11 @@
         <target>Already have a profile?</target>
       </trans-unit>
       <trans-unit id="welcomeStep3_1">
-        <source>Tutkijan tiedot -palvelun käyttöönotto edellyttää, että
-                    ORCID-palveluun tallentamansi julkiset tiedot tallennetaan
-                    Tutkijan tiedot -palveluun.</source>
+        <source>Tutkijan profiilin käyttöönotto edellyttää, että annat luvan ORCID-palveluun tallentamiesi julkisten tietojen siirtämiseen profiilityökaluun.</source>
         <target>To enable the Researcher’s Profile Tool, you must save the public information you have stored in ORCID to the Researcher’s Profile Tool.</target>
       </trans-unit>
       <trans-unit id="welcomeStep3_2">
-        <source>Valitsemalla "Tuo ORCID-tietoni" annat luvan ORCID:iin
-                    tallentamiesi julkisten tietojesi tallentamisen Tutkijan
-                    tiedot -palveluun.</source>
+        <source>Valitsemalla “Tuo ORCID-tietoni” annat luvan ORCID-palveluun tallentamiesi julkisten tietojesi tallentamiseen profiilityökaluun. Näitä tietoja voit hyödyntää profiilisi koonnissa.</source>
         <target>Select "Import my ORCID information” to authorise saving your public information stored in ORCID in the Researcher’s Profile Tool.</target>
       </trans-unit>
       <trans-unit id="welcomeStep3_3">
@@ -5383,8 +5379,7 @@
         <target>At this point, we will not yet publish your profile.</target>
       </trans-unit>
       <trans-unit id="welcomeStep3_4">
-        <source>Voit hallinnoida tietojesi näyttämistä seuraavassa
-                    vaiheessa.</source>
+        <source>Voit hallinnoida tietojesi julkisuutta profiilityökalussa.</source>
         <target>You can manage the display of your information in the following step.</target>
       </trans-unit>
       <trans-unit id="importingDataWait">
@@ -6089,6 +6084,30 @@
       <trans-unit id="itMayTakeFewMinutesForDataToPublish">
         <source>Tietojen päivittyminen voi kestää muutaman minuutin.</source>
         <target>It may take a few minutes for the information to update.</target>
+      </trans-unit>
+      <trans-unit id="authSuccessText1">
+        <source>Kirjaudu seuraavaksi ORCID-tunnuksillasi, jotta voimme tuoda tutkimukseen liittyvät tietosi palveluun ja yhdistää tietojasi Tutkijan tiedot -työkalussa.</source>
+        <target>Next, log in with your ORCID iD to import your research information into the service and connect it in the Researcher Profile Tool.</target>
+      </trans-unit>
+      <trans-unit id="authSuccessText2">
+        <source>Huomaathan jos sinulta puuttuvat profiilin luontiin vaadittavat ORCID-tunnukset, voit luoda ne</source>
+        <target>Please note that if you do not have an ORCID account, which is required to create a profile, you can create one in</target>
+      </trans-unit>
+      <trans-unit id="inOrcidService">
+        <source>ORCID-palvelussa</source>
+        <target>ORCID service</target>
+      </trans-unit>
+      <trans-unit id="logInToOrcid">
+        <source>Kirjaudu ORCID-palveluun</source>
+        <target>Log in to ORCID service</target>
+      </trans-unit>
+      <trans-unit id="cancelDeployment">
+        <source>Peruuta käyttöönotto</source>
+        <target>Cancel deployment</target>
+      </trans-unit>
+      <trans-unit id="serviceDeploymentOrcidLoginSuccesful">
+        <source>ORCID-kirjautuminen onnistui</source>
+        <target>ORCID login successful</target>
       </trans-unit>
     </body>
   </file>
