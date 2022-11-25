@@ -5224,8 +5224,8 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <target>The information you entered in the test will not be published on Research.fi.</target>
       </trans-unit>
       <trans-unit id="serviceDeployment">
-        <source>Palvelun käyttöönotto</source>
-        <target>Ibruktagande av profilverktyget</target>
+        <source>Profiilityökalun käyttöönotto - Tutkijan tiedot</source>
+        <target>Ibruktagande av Forskarens profilverktyg</target>
       </trans-unit>
       <trans-unit id="serviceDeploymentSuccesful">
         <source>Profiilityökalun käyttöönotto onnistui</source>

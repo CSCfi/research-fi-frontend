@@ -5229,8 +5229,8 @@
         <target>The information you entered in the test will not be published on Research.fi.</target>
       </trans-unit>
       <trans-unit id="serviceDeployment">
-        <source>Palvelun käyttöönotto</source>
-        <target>Service deployment</target>
+        <source>Profiilityökalun käyttöönotto - Tutkijan tiedot</source>
+        <target>Enabling the Researcher's Profile Tool</target>
       </trans-unit>
       <trans-unit id="serviceDeploymentSuccesful">
         <source>Profiilityökalun käyttöönotto onnistui</source>
