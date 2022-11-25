@@ -135,6 +135,15 @@
     <!-- Groups -->
     <div class="row justify-content-between">
       <div class="col-12 col-lg-7 px-0">
+        <!-- Contact card in mobile view -->
+        <aside *ngIf="profileData" class="profile-card d-block d-lg-none">
+          <app-contact-card
+            i18n-label="@@contactInfo"
+            label="Yhteystiedot"
+            [data]="profileData"
+          ></app-contact-card>
+        </aside>
+
         <app-profile-summary
           *ngIf="profileData; else loadingTemplate"
           class="d-block pt-3"
@@ -179,8 +188,8 @@
           </div>
         </ng-container>
 
-        <!-- Contact card -->
-        <aside *ngIf="profileData" class="profile-card">
+        <!-- Contact card in desktop view -->
+        <aside *ngIf="profileData" class="profile-card d-none d-lg-block">
           <app-contact-card
             i18n-label="@@contactInfo"
             label="Yhteystiedot"

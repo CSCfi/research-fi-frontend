@@ -41,6 +41,14 @@
       <h2 i18n="@@404">404 - Virheellinen osoite</h2>
     </div>
 
+    <!-- Contact card in desktop view -->
+    <app-single-person-contact-card
+      class="d-block d-lg-none"
+      [person]="person"
+      [contactFields]="contactFields"
+    >
+    </app-single-person-contact-card>
+
     <main class="col-12 col-md-8 px-0" *ngIf="person">
       <div class="row pb-3">
         <div class="col">
@@ -246,46 +254,13 @@
         </mat-card>
       </aside> -->
 
-      <!-- Contact -->
-      <aside *ngIf="(contactFields | checkEmptyFields: person.contact).length">
-        <mat-card>
-          <div class="inner">
-            <mat-card-title>
-              <h2 i18n="@@contactInfo" class="mb-4">Yhteystiedot</h2>
-            </mat-card-title>
-
-            <ng-container *ngFor="let row of contactFields">
-              <ng-container *ngIf="person.contact[row.key]?.length">
-                <li *ngFor="let item of person.contact[row.key]" class="row">
-                  <fa-icon
-                    *ngIf="item.icon"
-                    [icon]="item.icon"
-                    class="col-1 ps-0 pb-3"
-                  ></fa-icon>
-
-                  <span class="fw-bold col-auto ps-0" *ngIf="row.label">
-                    {{ row.label }}
-                  </span>
-
-                  <span class="col truncate ps-0">
-                    <ng-container *ngIf="row.key === 'emails'; else nonEmail">
-                      <a
-                        href="javascript:void(0)"
-                        (click)="showEmail($event, item.value)"
-                        i18n="@@showEmailAddress"
-                        >Näytä sähköpostiosoite</a
-                      >
-                    </ng-container>
-                    <ng-template #nonEmail>
-                      {{ item.value }}
-                    </ng-template>
-                  </span>
-                </li>
-              </ng-container>
-            </ng-container>
-          </div>
-        </mat-card>
-      </aside>
+      <!-- Contact card in desktop view -->
+      <app-single-person-contact-card
+        class="d-none d-lg-block"
+        [person]="person"
+        [contactFields]="contactFields"
+      >
+      </app-single-person-contact-card>
 
       <!-- Cooperation -->
       <!--
