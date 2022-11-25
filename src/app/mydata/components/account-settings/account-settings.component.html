@@ -5,7 +5,7 @@
         <div
           class="row d-flex"
         >
-          <h1 class="col-12 px-0 pb-2">Tiliasetukset</h1>
+          <h1 class="col-12 px-0 pb-2">{{accountSettingsTitle}}</h1>
         </div>
         <div class="row pb-1">
           <span class="col px-0 fw-bold">{{ profileData?.name }}</span>
@@ -131,7 +131,7 @@
                     class="d-block col pt-3 text-center"
                     i18n="@@deletingProfileWait"
                     aria-live="polite"
-                  >Profiilia poistetaan, odota hetki...</span
+                  >{{deleteProfileWait}}</span
                   >
                 </div>
               </div>
@@ -141,8 +141,7 @@
                   <div class="col mx-3">
                     <i class="fas fa-exclamation-triangle"></i>
                     <ng-container i18n="@@deleteProfileConnProblem"
-                    >Yhteysongelma. Profiilin poisto ei onnistu. Kokeile
-                      hetken kuluttua uudestaan.
+                    >{{connectionProblemDeleteProfile}}
                     </ng-container
                     >
                   </div>
@@ -175,7 +174,7 @@
                     class="d-block col pt-3 text-center"
                     i18n="@@deletingProfileWait"
                     aria-live="polite"
-                  >Profiilia piilotetaan, odota hetki...</span
+                  >{{hideProfileWait}}</span
                   >
                 </div>
               </div>

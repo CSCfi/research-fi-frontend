@@ -5217,7 +5217,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       <trans-unit id="researcherProfileBetaText1">
         <source>Tämä on Tutkijan tiedot -työkalun betaversio. Testikäyttäjien
           palautetta hyödynnetään palvelun toiminnallisuuksien kehittämisessä.</source>
-        <target>This is the beta version of the Researcher’s Profile Tool. Feedback from test users will be used to develop service functionalities.</target>
+        <target>Detta är betaversionen av Forskarens profilverktyg. Med verktyget kan du skapa en profil och publicera den i tjänsten Forskning.fi</target>
       </trans-unit>
       <trans-unit id="researcherProfileBetaText2">
         <source>Testauksessa syöttämiäsi tietoja ei julkaista Tiedejatutkimus.fi:ssä.</source>
@@ -5262,7 +5262,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="welcome">
         <source>Tervetuloa</source>
-        <target>Welcome</target>
+        <target>Välkommen</target>
       </trans-unit>
       <trans-unit id="beforeUsingTheService">
         <source>Ennen palvelun käyttöönottoa pyydämme sinua tutustumaan
@@ -5405,6 +5405,10 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Julkinen profiili</source>
         <target>Offentlig profil</target>
       </trans-unit>
+      <trans-unit id="navigationHeaderProfile">
+        <source>Profiili</source>
+        <target>Profil</target>
+      </trans-unit>
       <trans-unit id="updatedProfilePublishedAt">
         <source>Valitsemalla "Julkaise", valitsemasi tiedot julkaistaan Tiedejatutkimus.fi-palvelussa.</source>
         <target>Genom att välja "Publicera" publiceras de vald uppgifterna i tjänsten Forskning.fi.</target>
@@ -5444,12 +5448,15 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="deletingProfileWait">
         <source>Profiilia poistetaan, odota hetki...</source>
-        <target>Deleting profile, please wait...</target>
+        <target>Radera profil, vänta ett ögonblick...</target>
       </trans-unit>
-      <trans-unit id="deleteProfileConnProblem">
-        <source>Profiilin poisto ei onnistu. Kokeile hetken kuluttua
-                      uudestaan.</source>
-        <target>We encounterer a problem when deleting profile. Try again in few minutes.</target>
+      <trans-unit id="connectionProblemDeleteProfile">
+        <source>Yhteysongelma. Profiilin poisto ei onnistu. Kokeile hetken kuluttua uudestaan.</source>
+        <target>Anslutningsproblem. Publiceringen av profilen lyckades inte. Prova igen om ett tag.</target>
+      </trans-unit>
+      <trans-unit id="connectionProblemHideProfile">
+        <source>Yhteysongelma. Profiilin piilottaminen ei onnistu. Kokeile hetken kuluttua uudestaan.</source>
+        <target>Anslutningsproblem. Dölja profilen lyckades inte. Prova igen om ett tag.</target>
       </trans-unit>
       <trans-unit id="hideProfile">
         <source>Piilota profiili</source>
@@ -5470,6 +5477,14 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       <trans-unit id="hideProfileCaption">
         <source>Julkisen profiilin piilottaminen</source>
         <target>Att dölja en offentlig profil</target>
+      </trans-unit>
+      <trans-unit id="hideProfileWait">
+        <source>Profiilia piilotetaan, odota hetki...</source>
+        <target>Dölja profil, vänta ett ögonblick...</target>
+      </trans-unit>
+      <trans-unit id="deleteProfileWait">
+        <source>Profiilia piilotetaan, odota hetki...</source>
+        <target>Radera profil, vänta ett ögonblick...</target>
       </trans-unit>
       <trans-unit id="orcidAutoUpdateCaption">
         <source>ORCID-tietojen automaattinen päivittyminen</source>
