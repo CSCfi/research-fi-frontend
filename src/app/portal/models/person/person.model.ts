@@ -23,6 +23,7 @@ import {
   PersonPublication,
   PersonPublicationAdapter,
 } from './person-publication.model';
+import sanitizeHtml from 'sanitize-html';
 
 type Education = { degree: string; organization: string };
 
@@ -101,12 +102,10 @@ export class PersonAdapter implements Adapter<Person> {
     );
 
     // Some descriptions might hold HTML tags. These should be stripped
-    const description = this.utils
-      .checkTranslation(
-        'researchDescription',
-        data.personal.researcherDescriptions[0]
-      )
-      ?.replace(/<(.|\n)*?>/g, '');
+    const description = this.utils.checkTranslation(
+      'researchDescription',
+      data.personal.researcherDescriptions[0]
+    );
 
     const fieldsOfScience = 'Placeholder';
 
@@ -129,7 +128,10 @@ export class PersonAdapter implements Adapter<Person> {
       datasets,
       fundings,
       activityAndAwards,
-      description,
+      sanitizeHtml(description, {
+        allowedTags: [],
+        allowedAttributes: {},
+      }),
       fieldsOfScience,
       keywords,
       uniqueDataSources
