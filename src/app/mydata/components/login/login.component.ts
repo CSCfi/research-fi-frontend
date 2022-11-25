@@ -17,7 +17,7 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  title = $localize`:@@serviceDeployment:Profiilityökalun käyttöönotto`;
+  title = $localize`:@@serviceDeployment:Profiilityökalun käyttöönotto - Tutkijan tiedot`;
   textContent: string;
   locale: string;
   loginStep = 1;

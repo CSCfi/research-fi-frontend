@@ -254,7 +254,7 @@ export function filterByDatasets(group, filters) {
 export function filterBySource(field, filters) {
   field.items = field.items.filter((item) =>
     filters.some((filter: string) =>
-      item.dataSources.find(
+      item.dataSources?.find(
         (dataSource) => dataSource.registeredDataSource === filter
       )
     )

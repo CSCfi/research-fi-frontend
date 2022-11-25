@@ -19,8 +19,9 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   title = $localize`:@@home:Etusivu`;
   homeWelcomeCaption = $localize`:@@homeWelcomeCaption:Kokoa tiedoistasi julkinen profiili Tiedejatutkimus.fi-palveluun`;
-  homeWelcomeText = $localize`:@@homeWelcomeText:utkijan tiedot -työkalun avulla yhdistelet julkisen profiilin Tiedejatutkimus.fi -palveluun ORCID-palvelun sisältämistä sekä kotiorganisaatiostasi peräisin olevista tiedoistasi. Työkalussa voit esikatsella tietoja ennen niiden julkaisua ja valita profiiliisi vain ne tiedot, jotka haluat osaksi profiiliasi.<`;
+  homeWelcomeText = $localize`:@@homeWelcomeText:Tutkijan tiedot -työkalun avulla yhdistelet julkisen profiilin Tiedejatutkimus.fi -palveluun ORCID-palvelun sisältämistä sekä kotiorganisaatiostasi peräisin olevista tiedoistasi. Työkalussa voit esikatsella tietoja ennen niiden julkaisua ja valita profiiliisi vain ne tiedot, jotka haluat osaksi profiiliasi.<`;
   alreadyCreatedProfile = $localize`:@@alreadyCreatedProfile:Oletko jo luonut profiilin tähän palveluun?`;
+  additionalInfoText = $localize`:@@additionalInfo:Lisätietoa` + ':';
 
 
   locale: string;

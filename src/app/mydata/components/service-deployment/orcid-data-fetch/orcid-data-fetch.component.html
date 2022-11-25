@@ -1,17 +1,9 @@
 <div class="row pb-3 d-flex justify-content-center">
   <div class="g-0">
-    <p>
-      Tutkijan profiilipalvelun käyttöönotto edellyttää, että ORCID -palveluun
-      tallentamasi julkiset tiedot tallennetaan profiilipalveluun.
-    </p>
-    <p>
-      Valitsemalla “Tuo ORCID-tietoni” annat luvan ORCID:iin tallentamiesi
-      julkisten tietojesi tallentamiseen Tutkijan profiilipalveluun.
-    </p>
-    <p class="fw-bold">Tässä vaiheessa emme vielä julkaise profiiliasi.</p>
-    <p>
-      Voit hallinnoida tietojesi julkisuutta seuraavaksi aukeavassa
-      profiilieditorissa.
+    <p>{{orcidDataFetchInfo1}}</p>
+    <p>{{orcidDataFetchInfo2}}</p>
+    <p class="fw-bold">{{orcidDataFetchInfo3}}</p>
+    <p>{{orcidDataFetchInfo4}}
     </p>
   </div>
 </div>
@@ -43,7 +35,7 @@
         class="d-block col pt-3 text-center"
         i18n="@@importingDataWait"
         aria-live="polite"
-        >Tietoja tuodaan, odota hetki...</span
+        >{{orcidDataFetchWaitingText}}</span
       >
     </div>
   </div>
