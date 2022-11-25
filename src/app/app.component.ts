@@ -68,7 +68,7 @@ export class AppComponent {
 
             if (!allowedHostIdentifiers.some(checkHostMatch)) {
               // Prevent development implementation of MyData routes in production
-              e.url.includes('/mydata') && this.router.navigate(['/']);
+              // e.url.includes('/mydata') && this.router.navigate(['/']);
             } else {
               // Global flag for preventing predefined content in production
               this.appSettingsService.develop = true;
