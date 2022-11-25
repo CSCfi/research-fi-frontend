@@ -5,7 +5,7 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { UtilityService } from '@shared/services/utility.service';
@@ -20,8 +20,9 @@ import { UtilityService } from '@shared/services/utility.service';
  * Text content is handled in CMS.
  */
 export class MyDataTerms implements OnInit {
-  currentLocale: string;
+  @Input() id: string;
 
+  currentLocale: string;
   content: string;
 
   constructor(
@@ -33,8 +34,6 @@ export class MyDataTerms implements OnInit {
   }
 
   ngOnInit() {
-    const currentPath = this.route.snapshot.routeConfig.path;
-
     // Get text content from CMS
     const pageData = this.route.snapshot.data.pages;
 
@@ -45,7 +44,7 @@ export class MyDataTerms implements OnInit {
       this.content = data['content' + this.currentLocale];
     };
 
-    switch (currentPath) {
+    switch (this.id) {
       case 'terms': {
         getPageData('mydata_terms_of_use');
         break;
