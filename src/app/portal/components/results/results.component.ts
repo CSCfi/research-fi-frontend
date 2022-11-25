@@ -153,8 +153,9 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   myDataBetaTexts = [
     $localize`:@@personsResultsBetaText_1:Tutkijat-näkymä on beta-vaiheessa. Sekä profiilien sisältöä että hakumahdollisuuksia kehitetään jatkuvasti.`,
     $localize`:@@personsResultsBetaText_2:Suomessa toimiva tutkija tai asiantuntija voi luoda oman profiilin Tiedejatutkimus.fi-palveluun ORCID-tunnuksen avulla, minkä jälkeen profiili näkyy ja on haettavissa Tiedejatutkimus.fi-palvelun Tutkijat-osiossa.`,
-    $localize`:@@personsResultsBetaText_3:Beta-vaiheessa kotiorganisaatioista siirrettyjen tietojen lisääminen omaan profiiliin on mahdollista vain muutaman organisaation tapauksessa.`,
-    $localize`:@@personsResultsBetaText_4:Työkalun ja Tutkijat-näkymän ominaisuudet ja käytettävissä oleva tietosisältö täydentyvät vuoden 2023 aikana.`,
+    $localize`:@@personsResultsBetaText_3:Profiiliin liitetään kotiorganisaatioista ja ORCID-palvelusta siirrettyä tietoa sekä Tiedejatutkimus.fi:hin jo aiemmin siirrettyä tietoa.`,
+    $localize`:@@personsResultsBetaText_4:Beta-vaiheessa kotiorganisaatioista siirrettyjen tietojen lisääminen omaan profiiliin on mahdollista vain muutaman organisaation tapauksessa.`,
+    $localize`:@@personsResultsBetaText_5:Työkalun ja Tutkijat-näkymän ominaisuudet ja käytettävissä oleva tietosisältö täydentyvät vuoden 2023 aikana.`,
   ];
 
   showBetaDialog = false;
