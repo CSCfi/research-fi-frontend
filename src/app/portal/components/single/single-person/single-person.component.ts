@@ -138,6 +138,8 @@ export class SinglePersonComponent implements OnInit {
         const personRes = result.persons[0];
         this.person = personRes;
 
+        console.log(personRes);
+
         if (personRes) {
           this.setTitle(
             `${personRes.name} - ${$localize`:@@appName:Tiedejatutkimus.fi`}`

@@ -134,6 +134,12 @@
 
                   <div *ngFor="let affiliation of organization.items">
                     {{ affiliation[row.key] || '&nbsp;' }}
+                    <ng-container
+                      *ngIf="
+                        row.key === 'positionName' && affiliation.yearDisplay
+                      "
+                      >{{ affiliation.yearDisplay }}</ng-container
+                    >
                   </div>
                 </div>
               </ng-container>
