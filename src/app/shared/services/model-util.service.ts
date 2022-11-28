@@ -223,6 +223,26 @@ export class ModelUtilsService {
       .map((source) => this.checkTranslation('name', source.organization))
       .join(', ');
   }
+
+  getYearRange(startYear, endYear) {
+    return [startYear, endYear].filter((year) => year > 0).join(' - ');
+  }
+
+  getDateRange(startDate, endDate) {
+    // Return only year range if a date value of 0 is found
+    const getDateArr = (dateObj) => Object.values(dateObj).reverse();
+
+    const startDateArr = getDateArr(startDate);
+    const endDateArr = getDateArr(endDate);
+
+    if (startDateArr.includes(0) || endDateArr.includes(0)) {
+      return this.getYearRange(startDate.year, endDate.year);
+    } else {
+      return [startDateArr.join('.'), endDateArr.join('.')]
+        .filter((date) => date)
+        .join(' - ');
+    }
+  }
 }
 
 export function parseYear(startYear, endYear) {

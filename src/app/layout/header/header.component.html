@@ -88,25 +88,7 @@
         </div>
 
         <ng-template #betaInfoTemplate>
-          <div class="px-3">
-            <p i18n="@@researcherProfileBetaText1">
-              Tämä on Tutkijan tiedot -työkalun betaversio. Testikäyttäjien
-              palautetta hyödynnetään palvelun toiminnallisuuksien
-              kehittämisessä.
-            </p>
-            <p>
-              <a
-                [href]="
-                  appSettings[
-                    'readMoreLink' + appSettingsService.capitalizedLocale
-                  ]
-                "
-                target="_blank"
-                ><ng-container i18n="@@readMore">Lue lisää</ng-container>...
-                <fa-icon icon="external-link-alt"></fa-icon
-              ></a>
-            </p>
-          </div>
+          <div class="px-3" [innerHTML]="myDataBetaTextContent"></div>
         </ng-template>
 
         <app-dialog

@@ -134,6 +134,12 @@
 
                   <div *ngFor="let affiliation of organization.items">
                     {{ affiliation[row.key] || '&nbsp;' }}
+                    <ng-container
+                      *ngIf="
+                        row.key === 'positionName' && affiliation.yearDisplay
+                      "
+                      >{{ affiliation.yearDisplay }}</ng-container
+                    >
                   </div>
                 </div>
               </ng-container>
@@ -159,7 +165,7 @@
             <div class="col" *ngIf="person.educations.length">
               <div class="sub-heading">Tutkinnot</div>
               <div class="row g-0 py-1" *ngFor="let row of person.educations">
-                {{ row.degree }}
+                {{ row.degree }} {{ row.dateRange }}
 
                 <ng-container *ngIf="row.degree && row.organization">
                   /

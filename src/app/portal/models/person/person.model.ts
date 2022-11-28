@@ -83,6 +83,7 @@ export class PersonAdapter implements Adapter<Person> {
       organization: item.degreeGrantingInstitutionName,
       degree: this.utils.checkTranslation('name', item),
       sources: this.utils.mapSources(item.dataSources),
+      dateRange: this.utils.getDateRange(item.startDate, item.endDate),
     }));
 
     const publications = data.activity.publications.map((publication) =>

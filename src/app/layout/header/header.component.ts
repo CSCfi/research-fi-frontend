@@ -116,6 +116,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     { label: $localize`:@@close:Sulje`, primary: true, method: 'close' },
   ];
 
+  myDataBetaTextContent: string;
+
   constructor(
     private resizeService: ResizeService,
     @Inject(LOCALE_ID) protected localeId: string,
@@ -435,6 +437,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   openDialog(title, template, actions) {
+    // Set text content for MyData beta
+    // Note: Data isn't available through resolver in layout module
+    this.cmsContentService.pageData.pipe(take(1)).subscribe((data) => {
+      this.myDataBetaTextContent = data.find(
+        (item) => item.id === 'mydata_beta_text'
+      )['content' + this.appSettingsService.capitalizedLocale];
+    });
+
     this.dialogTitle = title;
     this.showDialog = true;
     this.dialogTemplate = template;
