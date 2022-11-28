@@ -276,7 +276,10 @@
                     {{ row.label }}
                   </span>
 
-                  <span class="col truncate ps-0">
+                  <span
+                    class="col truncate ps-0"
+                    [class.px-0]="row.key === 'links'"
+                  >
                     <ng-container *ngIf="row.key === 'emails'; else nonEmail">
                       <a
                         href="javascript:void(0)"
@@ -285,10 +288,25 @@
                         >Näytä sähköpostiosoite</a
                       >
                     </ng-container>
+
                     <ng-template #nonEmail>
-                      {{ item.value }}
+                      <a
+                        *ngIf="row.key === 'links'; else plainText"
+                        [href]="item.value"
+                        target="_blank"
+                      >
+                        {{ item.value }}
+                      </a>
+
+                      <ng-template #plainText>
+                        {{ item.value }}
+                      </ng-template>
                     </ng-template>
                   </span>
+                  <fa-icon
+                    class="col-auto px-0 primary-color"
+                    icon="external-link-alt"
+                  ></fa-icon>
                 </li>
               </ng-container>
             </ng-container>
