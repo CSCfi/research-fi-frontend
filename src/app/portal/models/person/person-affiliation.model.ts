@@ -43,9 +43,7 @@ export class PersonAffiliationAdapter implements Adapter<PersonAffiliations> {
           departmentName: getValue('departmentName'),
           yearStart: yearStart,
           yearEnd: yearEnd,
-          yearDisplay: [yearStart, yearEnd]
-            .filter((year) => year > 0)
-            .join(' - '),
+          yearDisplay: this.utils.getYearRange(yearStart, yearEnd),
           source: this.utils.mapSources(affiliation.dataSources),
           primary: affiliation.itemMeta?.primaryValue,
         };
