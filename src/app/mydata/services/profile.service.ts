@@ -13,7 +13,6 @@ import { Profile, ProfileAdapter } from '@mydata/models/profile.model';
 import { map } from 'rxjs/operators';
 import testData from 'src/testdata/mydataprofiledata.json';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { startCase } from 'lodash-es';
 import { ErrorHandlerService } from '@shared/services/error-handler.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Constants } from '@mydata/constants';
@@ -94,8 +93,7 @@ export class ProfileService {
   }
 
   setEditorProfileName(fullName: string) {
-    // Capitalize first letters of names with startCase function
-    this.editorProfileNameSource.next(startCase(fullName));
+    this.editorProfileNameSource.next(fullName);
   }
 
   setCurrentProfileData(data) {
@@ -127,7 +125,10 @@ export class ProfileService {
 
   hideProfile() {
     this.updateTokenInHttpAuthHeader();
-    return this.http.get(this.apiUrl + '/settings/hideprofile', this.httpOptions);
+    return this.http.get(
+      this.apiUrl + '/settings/hideprofile',
+      this.httpOptions
+    );
   }
 
   /*

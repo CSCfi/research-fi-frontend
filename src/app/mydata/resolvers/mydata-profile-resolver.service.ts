@@ -14,7 +14,7 @@ import {
 import { ProfileService } from '@mydata/services/profile.service';
 import { Subject, takeUntil } from 'rxjs';
 import { getName } from '@mydata/utils';
-import { cloneDeep, startCase } from 'lodash-es';
+import { cloneDeep } from 'lodash-es';
 
 @Injectable({
   providedIn: 'root',
@@ -43,14 +43,14 @@ export class MyDataProfileResolverService implements Resolve<any>, OnDestroy {
             );
 
             resolve({
-              name: startCase(getName(response.profileData)),
+              name: getName(response.profileData),
               profileData: response.profileData,
             });
           });
       });
     } else {
       return {
-        name: startCase(getName(storedProfileData)),
+        name: getName(storedProfileData),
         profileData: cloneDeep(storedProfileData),
       };
     }
