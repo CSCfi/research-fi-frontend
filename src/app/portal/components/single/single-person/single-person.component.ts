@@ -38,7 +38,7 @@ export class SinglePersonComponent implements OnInit {
   descriptionFields: Field[] = [
     {
       key: 'description',
-      label: 'Tutkimustoiminnan kuvaus',
+      label: $localize`:@@descriptionOfResearchActivities:Tutkimustoiminnan kuvaus`,
     },
     // {
     //   key: 'fieldsOfScience',
@@ -46,13 +46,13 @@ export class SinglePersonComponent implements OnInit {
     // },
     {
       key: 'keywords',
-      label: 'Avainsanat',
+      label: $localize`:@@keywords:Avainsanat`,
     },
   ];
 
   affiliationFields: Field[] = [
-    { key: 'departmentName', label: 'Yksikkö' },
-    { key: 'positionName', label: 'Nimike' },
+    { key: 'departmentName', label: $localize`:@@unit:Yksikkö` },
+    { key: 'positionName', label: $localize`:@@title:Nimike` },
     { key: 'communityName', label: 'Tutkimusyhteisö' }, // Not implemented yet
     { key: 'role', label: 'Rooli tutkimusyhteisössä' }, // Not implemented yet
   ];
