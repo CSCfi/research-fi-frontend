@@ -53,7 +53,7 @@ export class SingleItemService {
   constructPayload(field, term) {
     const res = {
       query: {
-        match: {
+        match_phrase: {
           [field]: term,
         },
       },
