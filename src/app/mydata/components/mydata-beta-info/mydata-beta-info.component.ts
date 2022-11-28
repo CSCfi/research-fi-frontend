@@ -6,6 +6,7 @@
 //  :license: MIT
 
 import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
@@ -19,11 +20,20 @@ export class MydataBetaInfoComponent implements OnInit {
 
   open = true;
   appSettings: any;
+  textContent: string;
 
-  constructor(public appSettingsService: AppSettingsService) {}
+  constructor(
+    public appSettingsService: AppSettingsService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.appSettings = this.appSettingsService.myDataSettings;
+
+    // Get localized text content from CMS
+    this.textContent = this.route.snapshot.data.pages.find(
+      (item) => item.id === 'mydata_beta_text'
+    )['content' + this.appSettingsService.capitalizedLocale];
   }
 
   toggle() {
