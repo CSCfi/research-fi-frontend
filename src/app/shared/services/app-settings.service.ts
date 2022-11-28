@@ -105,8 +105,9 @@ export class AppSettingsService {
       },
     ],
     localizedDomains: this.defaultDomains,
-    readMoreLinkFi: 'https://wiki.eduuni.fi/x/YwMJDQ',
-    readMoreLinkEn: 'https://wiki.eduuni.fi/x/OavfDg',
+    readMoreLinkFi: 'https://wiki.eduuni.fi/x/WQgGEw',
+    readMoreLinkEn: 'https://wiki.eduuni.fi/x/jAGcEw',
+    readMoreLinkSv: 'https://wiki.eduuni.fi/x/dAKcEw',
   };
 
   currentAppSettings: object;
