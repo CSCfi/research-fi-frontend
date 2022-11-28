@@ -5221,7 +5221,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="researcherProfileBetaText2">
         <source>Testauksessa syöttämiäsi tietoja ei julkaista Tiedejatutkimus.fi:ssä.</source>
-        <target>The information you entered in the test will not be published on Research.fi.</target>
+        <target>Profilen har publicerats. Uppgifterna visas om några minuter i tjänsten Forskning.fi.</target>
       </trans-unit>
       <trans-unit id="serviceDeployment">
         <source>Profiilityökalun käyttöönotto - Tutkijan tiedot</source>
