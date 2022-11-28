@@ -34,12 +34,16 @@ export class PersonAffiliationAdapter implements Adapter<PersonAffiliations> {
           (affiliation[dateField].year > 0 && affiliation[dateField].year) ||
           null;
 
+        const yearStart = getYear('startDate');
+        const yearEnd = getYear('endDate');
+
         return {
           organizationName: getValue('organizationName'),
           positionName: getValue('positionName'),
           departmentName: getValue('departmentName'),
-          yearStart: getYear('startDate'),
-          yearEnd: getYear('endDate'),
+          yearStart: yearStart,
+          yearEnd: yearEnd,
+          yearDisplay: this.utils.getYearRange(yearStart, yearEnd),
           source: this.utils.mapSources(affiliation.dataSources),
           primary: affiliation.itemMeta?.primaryValue,
         };

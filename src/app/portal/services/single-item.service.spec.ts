@@ -10,7 +10,7 @@ import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
-import { RouterTestingModule } from "@angular/router/testing";
+import { RouterTestingModule } from '@angular/router/testing';
 import { SingleItemService } from './single-item.service';
 import { SettingsService } from './settings.service';
 import { AppConfigService } from '@shared/services/app-config-service.service';
@@ -65,10 +65,10 @@ describe('SingleItemService', () => {
     expect(response.publications.length).toBe(1);
   });
 
-  it('should return match query with provided id', () => {
+  it('should return match_phrase query with provided id', () => {
     const field = 'field';
     const res = service.constructPayload(field, 'id');
-    expect(res.query.match[field]).toBe('id');
+    expect(res.query['match_phrase'][field]).toBe('id');
   });
 
   it('should return id as observable', () => {

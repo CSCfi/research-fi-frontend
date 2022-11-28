@@ -9,7 +9,7 @@
     <div class="row d-flex justify-content-between pt-3 pb-5">
       <div class="col-12 col-md-6 px-0">
         <div
-          class="row d-flex"
+          class="row d-flex text-capitalize"
           *ngIf="profileService.currentEditorProfileName | async"
         >
           <h1 class="col-12 px-0">
@@ -64,7 +64,8 @@
         <div class="row">
           <p class="col">
             <ng-container i18n="@@updatedProfilePublishedAt"
-              >Valitsemalla "Julkaise", valitsemasi tiedot julkaistaan Tiedejatutkimus.fi-palvelussa.</ng-container
+              >Valitsemalla "Julkaise", valitsemasi tiedot julkaistaan
+              Tiedejatutkimus.fi-palvelussa.</ng-container
             >
             <br />
             <ng-container i18n="@@updatingPublicDataTakesFewMinutes"

@@ -5226,7 +5226,7 @@
       </trans-unit>
       <trans-unit id="researcherProfileBetaText2">
         <source>Testauksessa syöttämiäsi tietoja ei julkaista Tiedejatutkimus.fi:ssä.</source>
-        <target>The information you entered in the test will not be published on Research.fi.</target>
+        <target>Profile published successfully. The information will be available on the Research.fi service in a few minutes.</target>
       </trans-unit>
       <trans-unit id="serviceDeployment">
         <source>Profiilityökalun käyttöönotto - Tutkijan tiedot</source>
