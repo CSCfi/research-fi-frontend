@@ -711,6 +711,7 @@ mat-basic-chip.tag {
     bottom: 0;
     width: 100%;
     justify-content: center !important;
+    z-index: 1;
 
     app-primary-action-button,
     app-secondary-button {

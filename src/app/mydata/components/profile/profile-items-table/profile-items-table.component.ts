@@ -78,6 +78,9 @@ export class ProfileItemsTableComponent implements OnInit, OnChanges {
 
     // Original data is used in sort reset
     this.originalRows = this.tableRows;
+
+    console.log(this.tableRows);
+    console.log(this.columns);
   }
 
   ngOnChanges() {
