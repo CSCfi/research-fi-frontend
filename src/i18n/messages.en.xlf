@@ -3627,7 +3627,7 @@
       </trans-unit>
       <trans-unit id="thesisCount">
         <source>Tutkintojen määrä</source>
-        <target>Number of degress attained</target>
+        <target>Number of degrees attained</target>
       </trans-unit>
       <trans-unit id="below">
         <source>Alle</source>
@@ -6133,6 +6133,14 @@
       <trans-unit id="serviceDeploymentOrcidLoginSuccesful">
         <source>ORCID-kirjautuminen onnistui</source>
         <target>ORCID login successful</target>
+      </trans-unit>
+      <trans-unit id="unit">
+        <source>Yksikkö</source>
+        <target>Unit</target>
+      </trans-unit>
+      <trans-unit id="degrees">
+        <source>Tutkinnot</source>
+        <target>Degrees</target>
       </trans-unit>
     </body>
   </file>
