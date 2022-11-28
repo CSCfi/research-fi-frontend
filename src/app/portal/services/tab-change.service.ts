@@ -30,6 +30,7 @@ export class TabChangeService {
       icon: faUsers,
       singular: $localize`:@@author:tutkija`,
       tooltip: $localize`:@@authorsTooltip:Suomessa toimivia tutkijoita.`,
+      beta: true,
     },
     {
       data: 'fundings',

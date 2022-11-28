@@ -29,6 +29,9 @@
     </div>
     <div class="label text-center" [class.homepage-label]="isHomepage">
       {{ tab.label }}
+      <ng-container *ngIf="tab.beta && isHomepage"
+        >-&nbsp;<span class="fw-bold">BETA</span></ng-container
+      >
     </div>
     <div class="numeric-box d-sm-block">
       <div
