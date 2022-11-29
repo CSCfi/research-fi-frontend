@@ -520,7 +520,7 @@ mat-basic-chip.tag {
   justify-content: flex-end !important;
   // display: block !important;
   margin-bottom: 0 !important;
-  padding: 1rem !important;
+  padding: 0.5rem 1rem !important;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
@@ -700,7 +700,7 @@ mat-basic-chip.tag {
   }
 
   .mat-dialog-content {
-    max-height: calc(100% - 5rem) !important;
+    max-height: calc(100% - 10rem) !important;
     padding-bottom: 4rem !important;
   }
 
