@@ -5482,6 +5482,9 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Haluatko piilottaa julkisen profiilisi?</source>
         <target>Vill du dölja din profil?</target>
       </trans-unit>
+      <trans-unit id="deleteProfileModalTitle">
+        <source>Haluatko poistaa profiilisi?</source>
+        <target>Vill du radera din profil?</target>
       <trans-unit id="hideProfileWait">
         <source>Profiilia piilotetaan, odota hetki...</source>
         <target>Dölja profil, vänta ett ögonblick...</target>
@@ -5552,7 +5555,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="researchData">
         <source>Tutkimusaineistot</source>
-        <target>Forskningsmaterial</target>
+        <target>Forskningsdata</target>
       </trans-unit>
       <trans-unit id="selectInformationToDisplayInProfile">
         <source>Valitse profiilissasi näytettävät tiedot</source>
@@ -5705,7 +5708,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="dataSourceIsResearchFi">
         <source>Tietolähteenä käytetään Tiedejatutkimus.fi-palvelua</source>
-        <target>Tjänsten Froskning.fi används som informationskälla</target>
+        <target>Tjänsten Forskning.fi används som informationskälla</target>
       </trans-unit>
       <trans-unit id="nameOfPublicationOrAuthor">
         <source>Julkaisun tai tekijän nimi</source>

@@ -46,6 +46,7 @@ export class AccountSettingsComponent implements OnInit {
   connectionProblemDeleteProfile = $localize`:@@connectionProblemDeleteProfile:Yhteysongelma. Profiilin poisto ei onnistu. Kokeile hetken kuluttua uudestaan....`;
   deleteProfileWait = $localize`:@@deleteProfileWait:Profiilia poistetaan, odota hetki...`;
   deleteProfileTitle = $localize`:@@removeProfileCaption:Profiilin poistaminen`;
+  deleteProfileModalTitle = $localize`:@@deleteProfileModalTitle:Haluatko poistaa julkisen profiilisi?`;
   generalInfoDeleteProfile = $localize`:@@accountSettingsProfileRemovalInfo:Profiilin poistaminen tarkoittaa sitä, että julkinen profiilisi poistetaan ja ORCIDista tuomasi tiedot poistetaan. Myös kirjautumisen yhteydessä profiilityökaluun tallennetut tiedot poistetaan.`;
   deleteProfileModalText = $localize`:@@accountSettingsProfileRemovalModalText:Profiilin poistaminen tarkoittaa sitä, että julkinen profiilisi poistetaan ja ORCIDista tuomasi tiedot poistetaan. Myös kirjautumisen yhteydessä profiilityökaluun tallennetut tiedot poistetaan.`;
   deleteProfileDialogActions = [
