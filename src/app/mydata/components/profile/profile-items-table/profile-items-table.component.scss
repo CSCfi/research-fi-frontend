@@ -65,4 +65,23 @@ app-profile-items-table {
     padding: 0.125rem 1.5rem !important;
     margin-top: -0.5rem;
   }
+
+  @media (max-width: 991px) {
+    .mat-header-row {
+      display: none;
+    }
+
+    .mat-row {
+      display: block;
+      padding: 0.5rem 0;
+    }
+
+    .mat-column-selection {
+      float: right;
+    }
+
+    mat-cell {
+      padding-left: 0;
+    }
+  }
 }

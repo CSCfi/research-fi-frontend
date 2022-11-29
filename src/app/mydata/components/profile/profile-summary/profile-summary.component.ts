@@ -81,9 +81,7 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
     this.locale = this.appSettingsService.capitalizedLocale;
   }
 
-  ngOnInit(): void {
-    // this.openDialog({} as MouseEvent, 7);
-  }
+  ngOnInit(): void {}
 
   ngOnChanges(): void {
     this.displayData = cloneDeep(this.profileData);

@@ -39,7 +39,7 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row g-0">
   <div class="col">
     <app-search
       [placeholder]="searchPlaceholder"
@@ -68,7 +68,7 @@
   </div>
 </div> -->
 
-<div class="row py-3">
+<div class="row py-3 g-0">
   <div class="col opacity-3" role="region" aria-live="polite">
     <ng-container [ngSwitch]="true">
       <ng-container *ngSwitchCase="total > 0"
@@ -106,7 +106,7 @@
   ></mat-spinner>
 </div>
 
-<div class="row pb-3" *ngIf="total > 0">
+<div class="row pb-3 g-0" *ngIf="total > 0">
   <div class="col">
     <!-- <app-profile-items-table
       [columns]="columns"
