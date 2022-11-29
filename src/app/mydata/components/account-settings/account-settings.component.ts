@@ -46,6 +46,7 @@ export class AccountSettingsComponent implements OnInit {
   connectionProblemDeleteProfile = $localize`:@@connectionProblemDeleteProfile:Yhteysongelma. Profiilin poisto ei onnistu. Kokeile hetken kuluttua uudestaan....`;
   deleteProfileWait = $localize`:@@deleteProfileWait:Profiilia poistetaan, odota hetki...`;
   deleteProfileTitle = $localize`:@@removeProfileCaption:Profiilin poistaminen`;
+  deleteProfileModalTitle = $localize`:@@deleteProfileModalTitle:Haluatko poistaa julkisen profiilisi?`;
   generalInfoDeleteProfile = $localize`:@@accountSettingsProfileRemovalInfo:Profiilin poistaminen tarkoittaa sitä, että julkinen profiilisi poistetaan ja ORCIDista tuomasi tiedot poistetaan. Myös kirjautumisen yhteydessä profiilityökaluun tallennetut tiedot poistetaan.`;
   deleteProfileModalText = $localize`:@@accountSettingsProfileRemovalModalText:Profiilin poistaminen tarkoittaa sitä, että julkinen profiilisi poistetaan ja ORCIDista tuomasi tiedot poistetaan. Myös kirjautumisen yhteydessä profiilityökaluun tallennetut tiedot poistetaan.`;
   deleteProfileDialogActions = [
@@ -64,6 +65,7 @@ export class AccountSettingsComponent implements OnInit {
   connectionProblemHideProfile = $localize`:@@connectionProblemHideProfile:Yhteysongelma. Profiilin piilottaminen ei onnistu. Kokeile hetken kuluttua uudestaan....`;
   hideProfileWait = $localize`:@@hideProfileWait:Profiilia piilotetaan, odota hetki...`;
   hideProfileTitle = $localize`:@@hideProfileCaption:Julkisen profiilin piilottaminen`;
+  hideProfileModalTitle = $localize`:@@hideProfileModalTitle:Haluatko piilottaa julkisen profiilisi?`;
   generalInfoHideProfile = $localize`:@@accountSettingsHideAccountInfo:Julkisen profiilin piilottaminen tarkoittaa sitä, että profiilisi piilotetaan Tiedejatutkimus.fi-portaalista. Voit edelleen kirjautua työkaluun ja julkaista profiilisi uudestaan.`;
   hideProfileModalText = $localize`:@@accountSettingsHideAccountModalText:Julkisen profiilin piilottaminen tarkoittaa sitä, että profiilisi piilotetaan Tiedejatutkimus.fi-portaalista. Voit edelleen kirjautua työkaluun ja julkaista profiilisi uudestaan.`;
   hideProfileDialogActions = [

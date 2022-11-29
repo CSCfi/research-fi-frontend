@@ -5455,7 +5455,7 @@
       <trans-unit id="deleteProfileConnProblem">
         <source>Profiilin poisto ei onnistu. Kokeile hetken kuluttua
                       uudestaan.</source>
-        <target>We encounterer a problem when deleting profile. Try again in few minutes.</target>
+        <target>Connection issue. Deleting the profile failed. Try it again in a while.</target>
       </trans-unit>
       <trans-unit id="hideProfile">
         <source>Piilota profiili</source>
@@ -5476,6 +5476,14 @@
       <trans-unit id="hideProfileCaption">
         <source>Julkisen profiilin piilottaminen</source>
         <target>Hide public profile</target>
+      </trans-unit>
+      <trans-unit id="hideProfileModalTitle">
+        <source>Haluatko piilottaa julkisen profiilisi?</source>
+        <target>Do you want to hide your profile?</target>
+      </trans-unit>
+      <trans-unit id="deleteProfileModalTitle">
+        <source>Haluatko poistaa profiilisi?</source>
+        <target>Do you want to delete your profile?</target>
       </trans-unit>
       <trans-unit id="hideProfileWait">
         <source>Profiilia piilotetaan, odota hetki...</source>
@@ -6109,6 +6117,14 @@
       <trans-unit id="itMayTakeFewMinutesForDataToPublish">
         <source>Tietojen päivittyminen voi kestää muutaman minuutin.</source>
         <target>It may take a few minutes for the information to update.</target>
+      </trans-unit>
+      <trans-unit id="orcidTemplateStatusSubstring1">
+        <source>Ei ORCID-tunnukseen yhdistettyjä</source>
+        <target>No</target>
+      </trans-unit>
+      <trans-unit id="orcidTemplateStatusSubstring2">
+        <source></source>
+        <target>connected to your ORCID iD</target>
       </trans-unit>
       <trans-unit id="authSuccessText1">
         <source>Kirjaudu seuraavaksi ORCID-tunnuksillasi, jotta voimme tuoda tutkimukseen liittyvät tietosi palveluun ja yhdistää tietojasi Tutkijan tiedot -työkalussa.</source>
