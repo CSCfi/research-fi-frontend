@@ -64,6 +64,7 @@ export class AccountSettingsComponent implements OnInit {
   connectionProblemHideProfile = $localize`:@@connectionProblemHideProfile:Yhteysongelma. Profiilin piilottaminen ei onnistu. Kokeile hetken kuluttua uudestaan....`;
   hideProfileWait = $localize`:@@hideProfileWait:Profiilia piilotetaan, odota hetki...`;
   hideProfileTitle = $localize`:@@hideProfileCaption:Julkisen profiilin piilottaminen`;
+  hideProfileModalTitle = $localize`:@@hideProfileModalTitle:Haluatko piilottaa julkisen profiilisi?`;
   generalInfoHideProfile = $localize`:@@accountSettingsHideAccountInfo:Julkisen profiilin piilottaminen tarkoittaa sitä, että profiilisi piilotetaan Tiedejatutkimus.fi-portaalista. Voit edelleen kirjautua työkaluun ja julkaista profiilisi uudestaan.`;
   hideProfileModalText = $localize`:@@accountSettingsHideAccountModalText:Julkisen profiilin piilottaminen tarkoittaa sitä, että profiilisi piilotetaan Tiedejatutkimus.fi-portaalista. Voit edelleen kirjautua työkaluun ja julkaista profiilisi uudestaan.`;
   hideProfileDialogActions = [

@@ -5477,6 +5477,10 @@
         <source>Julkisen profiilin piilottaminen</source>
         <target>Hide public profile</target>
       </trans-unit>
+      <trans-unit id="hideProfileModalTitle">
+        <source>Haluatko piilottaa julkisen profiilisi?</source>
+        <target>Do you want to hide your profile?</target>
+      </trans-unit>
       <trans-unit id="hideProfileWait">
         <source>Profiilia piilotetaan, odota hetki...</source>
         <target>Hiding profile, wait a moment...</target>

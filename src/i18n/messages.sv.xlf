@@ -5478,6 +5478,10 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Julkisen profiilin piilottaminen</source>
         <target>Att dölja en offentlig profil</target>
       </trans-unit>
+      <trans-unit id="hideProfileModalTitle">
+        <source>Haluatko piilottaa julkisen profiilisi?</source>
+        <target>Vill du dölja din profil?</target>
+      </trans-unit>
       <trans-unit id="hideProfileWait">
         <source>Profiilia piilotetaan, odota hetki...</source>
         <target>Dölja profil, vänta ett ögonblick...</target>
