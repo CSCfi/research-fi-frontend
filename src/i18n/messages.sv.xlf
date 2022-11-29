@@ -5526,7 +5526,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Piilota julkaistavat tiedot</source>
         <target>Stäng uppgifter som ska publiceras</target>
       </trans-unit>
-      <trans-unit id="descriptionOfResearchActivities">
+      <trans-unit id="descriptionOfResearch">
         <source>Tutkimustoiminnan kuvaus</source>
         <target>Beskrivning av forsknings</target>
       </trans-unit>
@@ -6144,6 +6144,10 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       <trans-unit id="degrees">
         <source>Tutkinnot</source>
         <target>Grader</target>
+      </trans-unit>
+      <trans-unit id="logInToCreateProfile">
+        <source>Kirjaudu sisään luodaksesi profiilin tai valitaksesi profiilissasi näkyviä tietoja.</source>
+        <target>Logga in för att skapa en profil eller välja de uppgifter som visas i din profil.</target>
       </trans-unit>
     </body>
   </file>
