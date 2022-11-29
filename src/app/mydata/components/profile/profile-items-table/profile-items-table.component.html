@@ -81,7 +81,9 @@
           </ng-template>
 
           <!-- Display hyphen if no matching value -->
-          <ng-container *ngIf="!item[column.field]">-</ng-container>
+          <ng-container *ngIf="column.field !== 'source' && !item[column.field]"
+            >-</ng-container
+          >
 
           <!-- Delete row button -->
           <app-secondary-button
