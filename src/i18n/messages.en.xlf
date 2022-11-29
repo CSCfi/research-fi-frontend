@@ -5533,9 +5533,9 @@
         <source>Piilota julkaistavat tiedot</source>
         <target>Close preview</target>
       </trans-unit>
-      <trans-unit id="descriptionOfResearchActivities">
+      <trans-unit id="descriptionOfResearch">
         <source>Tutkimustoiminnan kuvaus</source>
-        <target>Description of research activities</target>
+        <target>Description of research</target>
       </trans-unit>
       <trans-unit id="affiliations">
         <source>Affiliaatiot</source>
@@ -6141,6 +6141,10 @@
       <trans-unit id="degrees">
         <source>Tutkinnot</source>
         <target>Degrees</target>
+      </trans-unit>
+      <trans-unit id="logInToCreateProfile">
+        <source>Kirjaudu sisään luodaksesi profiilin tai valitaksesi profiilissasi näkyviä tietoja.</source>
+        <target>Log in to create a profile or select the information that appears on your profile.</target>
       </trans-unit>
     </body>
   </file>
