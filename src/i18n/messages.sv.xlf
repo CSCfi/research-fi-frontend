@@ -6101,6 +6101,14 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Tietojen päivittyminen voi kestää muutaman minuutin.</source>
         <target>Det kan ta några minuter att uppdatera uppgifterna.</target>
       </trans-unit>
+      <trans-unit id="orcidTemplateStatusSubstring1">
+        <source>Ei ORCID-tunnukseen yhdistettyjä</source>
+        <target>Inga</target>
+      </trans-unit>
+      <trans-unit id="orcidTemplateStatusSubstring2">
+        <source></source>
+        <target>kopplade till din ORCID-kod</target>
+      </trans-unit>
       <trans-unit id="authSuccessText1">
         <source>Kirjaudu seuraavaksi ORCID-tunnuksillasi, jotta voimme tuoda tutkimukseen liittyvät tietosi palveluun ja yhdistää tietojasi Tutkijan tiedot -työkalussa.</source>
         <target>Logga nu in med din ORCID-kod så att vi kan importera dina uppgifter om studien till tjänsten och kombinera dina uppgifter i Forskarens profilverktyg.</target>

@@ -6110,6 +6110,14 @@
         <source>Tietojen päivittyminen voi kestää muutaman minuutin.</source>
         <target>It may take a few minutes for the information to update.</target>
       </trans-unit>
+      <trans-unit id="orcidTemplateStatusSubstring1">
+        <source>Ei ORCID-tunnukseen yhdistettyjä</source>
+        <target>No</target>
+      </trans-unit>
+      <trans-unit id="orcidTemplateStatusSubstring2">
+        <source></source>
+        <target>connected to your ORCID iD</target>
+      </trans-unit>
       <trans-unit id="authSuccessText1">
         <source>Kirjaudu seuraavaksi ORCID-tunnuksillasi, jotta voimme tuoda tutkimukseen liittyvät tietosi palveluun ja yhdistää tietojasi Tutkijan tiedot -työkalussa.</source>
         <target>Next, log in with your ORCID iD to import your research information into the service and connect it in the Researcher Profile Tool.</target>

@@ -80,8 +80,8 @@
 
         <ng-template #noOrcidItemsTemplate>
           <p class="fw-bold">
-            <ng-container i18n="@@no">Ei</ng-container> ORCID
-            {{ addFromPortalTabString.toLowerCase() }}
+            <ng-container i18n="@@orcidTemplateStatusSubstring1">Ei ORCID-tunnukseen yhdistettyjä </ng-container>
+            {{addFromPortalTabString.toLowerCase()}}<ng-container i18n="@@orcidTemplateStatusSubstring2"></ng-container>
           </p></ng-template
         >
       </mat-tab>
