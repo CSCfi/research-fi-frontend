@@ -93,7 +93,7 @@
           <h3>{{ affiliationsCaption }}</h3>
 
           <!-- Primary -->
-          <ng-container *ngIf="person.affiliations.primary.length">
+          <!-- <ng-container *ngIf="person.affiliations.primary.length">
             <div class="sub-heading">Ensisijaiset</div>
             <div
               class="row"
@@ -109,7 +109,7 @@
             </div>
 
             <hr />
-          </ng-container>
+          </ng-container> -->
 
           <!-- By organizations -->
           <ng-container
@@ -147,7 +147,10 @@
 
             <!-- Affiliation data source -->
             <div class="row g-0 pt-3">
-              <div class="col">Lähde: {{ organization.items[0].source }}</div>
+              <div class="col">
+                <ng-container i18n="@@source">Lähde</ng-container>:
+                {{ organization.items[0].source }}
+              </div>
             </div>
 
             <hr *ngIf="i + 1 < person.affiliations.organizations.length" />
@@ -163,7 +166,7 @@
           <div class="row g-0">
             <!-- Degrees -->
             <div class="col" *ngIf="person.educations.length">
-              <div class="sub-heading">Tutkinnot</div>
+              <div class="sub-heading" i18n="@@degrees">Tutkinnot</div>
               <div class="row g-0 py-1" *ngFor="let row of person.educations">
                 {{ row.degree }} {{ row.dateRange }}
 
@@ -273,7 +276,10 @@
                     {{ row.label }}
                   </span>
 
-                  <span class="col truncate ps-0">
+                  <span
+                    class="col truncate ps-0"
+                    [class.px-0]="row.key === 'links'"
+                  >
                     <ng-container *ngIf="row.key === 'emails'; else nonEmail">
                       <a
                         href="javascript:void(0)"
@@ -282,10 +288,25 @@
                         >Näytä sähköpostiosoite</a
                       >
                     </ng-container>
+
                     <ng-template #nonEmail>
-                      {{ item.value }}
+                      <a
+                        *ngIf="row.key === 'links'; else plainText"
+                        [href]="item.value"
+                        target="_blank"
+                      >
+                        {{ item.value }}
+                      </a>
+
+                      <ng-template #plainText>
+                        {{ item.value }}
+                      </ng-template>
                     </ng-template>
                   </span>
+                  <fa-icon
+                    class="col-auto px-0 primary-color"
+                    icon="external-link-alt"
+                  ></fa-icon>
                 </li>
               </ng-container>
             </ng-container>

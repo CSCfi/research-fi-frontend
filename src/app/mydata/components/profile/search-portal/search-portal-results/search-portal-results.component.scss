@@ -61,4 +61,23 @@ app-search-portal-results {
   mat-footer-cell:first-of-type {
     padding-left: 0;
   }
+
+  @media (max-width: 991px) {
+    .mat-header-row {
+      display: none;
+    }
+
+    .mat-row {
+      display: block;
+      padding: 0.5rem 0;
+    }
+
+    .mat-column-selection {
+      float: right;
+    }
+
+    mat-cell {
+      padding-left: 0;
+    }
+  }
 }

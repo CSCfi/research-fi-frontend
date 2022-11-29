@@ -6137,6 +6137,14 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Voit hallinnoida tietojesi julkisuutta profiilityökalussa.</source>
         <target>Du kan administrera vilka uppgifter som är offentliga i profilverktyget.</target>
       </trans-unit>
+      <trans-unit id="unit">
+        <source>Yksikkö</source>
+        <target>Enheten</target>
+      </trans-unit>
+      <trans-unit id="degrees">
+        <source>Tutkinnot</source>
+        <target>Grader</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
