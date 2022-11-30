@@ -290,23 +290,18 @@
                     </ng-container>
 
                     <ng-template #nonEmail>
-                      <a
+                      <app-single-result-link
                         *ngIf="row.key === 'links'; else plainText"
-                        [href]="item.value"
-                        target="_blank"
-                      >
-                        {{ item.value }}
-                      </a>
+                        [label]="item.value"
+                        [url]="item.value"
+                        [simple]="true"
+                      ></app-single-result-link>
 
                       <ng-template #plainText>
                         {{ item.value }}
                       </ng-template>
                     </ng-template>
                   </span>
-                  <fa-icon
-                    class="col-auto px-0 primary-color"
-                    icon="external-link-alt"
-                  ></fa-icon>
                 </li>
               </ng-container>
             </ng-container>
