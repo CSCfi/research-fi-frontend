@@ -44,6 +44,12 @@
       // border: 1px solid mat-contrast($primary, 600);
     }
 
+    button.btn:hover,
+    button.btn:focus-visible,
+    button.btn:active {
+      background-color: white !important;
+    }
+
     .search-help button span {
       color: mat-contrast($primary, 500);
     }
