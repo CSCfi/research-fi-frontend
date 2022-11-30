@@ -49,7 +49,7 @@ export class ProfileAdapter implements Adapter<Profile> {
       },
       {
         id: GroupTypes.description,
-        label: $localize`:@@descriptionOfResearchActivities:Tutkimustoiminnan kuvaus`,
+        label: $localize`:@@descriptionOfResearch:Tutkimustoiminnan kuvaus`,
         fields: mapModel(this.descriptionFieldsAdapter, data.personal),
       },
       {
