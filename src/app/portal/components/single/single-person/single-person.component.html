@@ -297,25 +297,11 @@
                         [simple]="true"
                       ></app-single-result-link>
 
-                      <!-- <a
-                        *ngIf="row.key === 'links'; else plainText"
-                        [href]="item.value"
-                        target="_blank"
-                      >
-                        {{ item.value }}
-                      </a> -->
-
                       <ng-template #plainText>
                         {{ item.value }}
                       </ng-template>
                     </ng-template>
                   </span>
-
-                  <!-- <fa-icon
-                    *ngIf="row.key === 'links'"
-                    class="col-auto px-0 primary-color"
-                    icon="external-link-alt"
-                  ></fa-icon> -->
                 </li>
               </ng-container>
             </ng-container>
