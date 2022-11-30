@@ -3184,7 +3184,7 @@
         <source>Rahoittajan hankkeelle myöntämä yhteissumma. Summa ei sisällä hankkeen kaikkia kustannuksia. Organisaatio, jossa hanke toteutetaan, voi rahoittaa siitä tietyn osan (ns. omarahoitusosuus) ja hankkeella voi olla muitakin rahoittajia.</source>
         <target state="translated">Det totala belopp som finansiären har beviljat för projektet. I beloppet ingår inte alla kostnader för projektet. Den organisation där projektet genomförs kan finansiera en viss del av projekt (s.k. självfinansieringsandel) och projektet kan även ha andra finansiärer.</target>
       </trans-unit>
-      <trans-unit id="6174779948491913415">
+      <trans-unit id="singleFundingFunderTooltip">
         <source>Tutkimusrahoittaja, joka on myöntänyt rahoituksen. Kaikki tiedejatutkimus.fi ‑palveluun tietoja toimittavat tutkimusrahoittajat ovat organisaatiot-osiossa.</source>
         <target state="translated">Forskningsfinansiär som har beviljat finansiering. Alla forskningsfinansiärer som lämnar in uppgifter till tjänsten forskning.fi finns i avsnittet Organisationer.</target>
       </trans-unit>
@@ -5485,6 +5485,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       <trans-unit id="deleteProfileModalTitle">
         <source>Haluatko poistaa profiilisi?</source>
         <target>Vill du radera din profil?</target>
+      </trans-unit>
       <trans-unit id="hideProfileWait">
         <source>Profiilia piilotetaan, odota hetki...</source>
         <target>Dölja profil, vänta ett ögonblick...</target>
@@ -6163,6 +6164,23 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       <trans-unit id="logInToCreateProfile">
         <source>Kirjaudu sisään luodaksesi profiilin tai valitaksesi profiilissasi näkyviä tietoja.</source>
         <target>Logga in för att skapa en profil eller välja de uppgifter som visas i din profil.</target>
+      </trans-unit>
+      <trans-unit id="activitesAndRewards">
+        <source>Aktiviteetit ja palkinnot</source>
+        <target>Aktiviteter och priser</target>
+      </trans-unit>
+      <trans-unit id="deleteProfileConnProblem">
+        <source>Profiilin poisto ei onnistu. Kokeile hetken kuluttua
+                      uudestaan.</source>
+        <target>Connection issue. Deleting the profile failed. Try it again in a while.</target>
+      </trans-unit>
+      <trans-unit id="collaborationHeader">
+        <source>Yhteistyö</source>
+        <target>Samarbete</target>
+      </trans-unit>
+      <trans-unit id="selectActivities">
+        <source>Valitse aktiviteetit</source>
+        <target>Välj aktiviteter</target>
       </trans-unit>
     </body>
   </file>
