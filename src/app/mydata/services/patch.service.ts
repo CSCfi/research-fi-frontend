@@ -45,6 +45,7 @@ export class PatchService {
   }
 
   confirmPayload() {
+    console.log('confirm called', this.confirmedPayLoad, this.patchItems);
     if (this.confirmedPayLoad.length > 0) {
       for (let i = 0; i < this.confirmedPayLoad.length; i += 1) {
         for (let j = 0;  j < this.patchItems.length; j += 1) {
