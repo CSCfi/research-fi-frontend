@@ -19,6 +19,7 @@ export function httpLoaderFactory(httpClient: HttpClient) {
     map((customConfig) => {
       return {
         authority: customConfig.stsServer,
+        historyCleanupOff: false,
         ...customConfig,
       };
     })

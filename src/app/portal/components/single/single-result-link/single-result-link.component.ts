@@ -17,6 +17,7 @@ export class SingleResultLinkComponent implements OnInit {
   @Input() icon: boolean;
   @Input() url: string;
   @Input() label: string;
+  @Input() simple: boolean;
 
   constructor() {}
 

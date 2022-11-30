@@ -38,7 +38,7 @@ export class SinglePersonComponent implements OnInit {
   descriptionFields: Field[] = [
     {
       key: 'description',
-      label: $localize`:@@descriptionOfResearchActivities:Tutkimustoiminnan kuvaus`,
+      label: $localize`:@@descriptionOfResearch:Tutkimustoiminnan kuvaus`,
     },
     // {
     //   key: 'fieldsOfScience',

@@ -3190,7 +3190,7 @@
         <source>Rahoittajan hankkeelle myöntämä yhteissumma. Summa ei sisällä hankkeen kaikkia kustannuksia. Organisaatio, jossa hanke toteutetaan, voi rahoittaa siitä tietyn osan (ns. omarahoitusosuus) ja hankkeella voi olla muitakin rahoittajia.</source>
         <target state="translated">The total amount granted by the funder for the project. The amount does not include all project costs. The organisation in which the project is carried out may fund a certain part of it (i-e. self-financing contribution) and the project may also have other funders.</target>
       </trans-unit>
-      <trans-unit id="6174779948491913415">
+      <trans-unit id="singleFundingFunderTooltip">
         <source>Tutkimusrahoittaja, joka on myöntänyt rahoituksen. Kaikki tiedejatutkimus.fi ‑palveluun tietoja toimittavat tutkimusrahoittajat ovat organisaatiot-osiossa.</source>
         <target>Researcher funders which have granted funding. All research funders submitting information to the research.fi-service are listed in the Organizations section.</target>
       </trans-unit>
@@ -5403,6 +5403,10 @@
         <source>Lisää Julkinen profiilikuva</source>
         <target>Add public profile picture</target>
       </trans-unit>
+      <trans-unit id="publicProfile">
+        <source>Julkinen profiili</source>
+        <target>Public profile</target>
+      </trans-unit>
       <trans-unit id="navigationHeaderProfile">
         <source>Julkinen profiili</source>
         <target>Public profile</target>
@@ -5455,7 +5459,7 @@
       <trans-unit id="deleteProfileConnProblem">
         <source>Profiilin poisto ei onnistu. Kokeile hetken kuluttua
                       uudestaan.</source>
-        <target>We encounterer a problem when deleting profile. Try again in few minutes.</target>
+        <target>Connection issue. Deleting the profile failed. Try it again in a while.</target>
       </trans-unit>
       <trans-unit id="hideProfile">
         <source>Piilota profiili</source>
@@ -5476,6 +5480,14 @@
       <trans-unit id="hideProfileCaption">
         <source>Julkisen profiilin piilottaminen</source>
         <target>Hide public profile</target>
+      </trans-unit>
+      <trans-unit id="hideProfileModalTitle">
+        <source>Haluatko piilottaa julkisen profiilisi?</source>
+        <target>Do you want to hide your profile?</target>
+      </trans-unit>
+      <trans-unit id="deleteProfileModalTitle">
+        <source>Haluatko poistaa profiilisi?</source>
+        <target>Do you want to delete your profile?</target>
       </trans-unit>
       <trans-unit id="hideProfileWait">
         <source>Profiilia piilotetaan, odota hetki...</source>
@@ -5533,9 +5545,9 @@
         <source>Piilota julkaistavat tiedot</source>
         <target>Close preview</target>
       </trans-unit>
-      <trans-unit id="descriptionOfResearchActivities">
+      <trans-unit id="descriptionOfResearch">
         <source>Tutkimustoiminnan kuvaus</source>
-        <target>Description of research activities</target>
+        <target>Description of research</target>
       </trans-unit>
       <trans-unit id="affiliations">
         <source>Affiliaatiot</source>
@@ -6110,6 +6122,14 @@
         <source>Tietojen päivittyminen voi kestää muutaman minuutin.</source>
         <target>It may take a few minutes for the information to update.</target>
       </trans-unit>
+      <trans-unit id="orcidTemplateStatusSubstring1">
+        <source>Ei ORCID-tunnukseen yhdistettyjä</source>
+        <target>No</target>
+      </trans-unit>
+      <trans-unit id="orcidTemplateStatusSubstring2">
+        <source></source>
+        <target>connected to your ORCID iD</target>
+      </trans-unit>
       <trans-unit id="authSuccessText1">
         <source>Kirjaudu seuraavaksi ORCID-tunnuksillasi, jotta voimme tuoda tutkimukseen liittyvät tietosi palveluun ja yhdistää tietojasi Tutkijan tiedot -työkalussa.</source>
         <target>Next, log in with your ORCID iD to import your research information into the service and connect it in the Researcher Profile Tool.</target>
@@ -6141,6 +6161,14 @@
       <trans-unit id="degrees">
         <source>Tutkinnot</source>
         <target>Degrees</target>
+      </trans-unit>
+      <trans-unit id="logInToCreateProfile">
+        <source>Kirjaudu sisään luodaksesi profiilin tai valitaksesi profiilissasi näkyviä tietoja.</source>
+        <target>Log in to create a profile or select the information that appears on your profile.</target>
+      </trans-unit>
+      <trans-unit id="activitesAndRewards">
+        <source>Aktiviteetit ja palkinnot</source>
+        <target>Activities and awards</target>
       </trans-unit>
     </body>
   </file>

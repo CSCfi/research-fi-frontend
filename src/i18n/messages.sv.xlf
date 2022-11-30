@@ -3184,7 +3184,7 @@
         <source>Rahoittajan hankkeelle myöntämä yhteissumma. Summa ei sisällä hankkeen kaikkia kustannuksia. Organisaatio, jossa hanke toteutetaan, voi rahoittaa siitä tietyn osan (ns. omarahoitusosuus) ja hankkeella voi olla muitakin rahoittajia.</source>
         <target state="translated">Det totala belopp som finansiären har beviljat för projektet. I beloppet ingår inte alla kostnader för projektet. Den organisation där projektet genomförs kan finansiera en viss del av projekt (s.k. självfinansieringsandel) och projektet kan även ha andra finansiärer.</target>
       </trans-unit>
-      <trans-unit id="6174779948491913415">
+      <trans-unit id="singleFundingFunderTooltip">
         <source>Tutkimusrahoittaja, joka on myöntänyt rahoituksen. Kaikki tiedejatutkimus.fi ‑palveluun tietoja toimittavat tutkimusrahoittajat ovat organisaatiot-osiossa.</source>
         <target state="translated">Forskningsfinansiär som har beviljat finansiering. Alla forskningsfinansiärer som lämnar in uppgifter till tjänsten forskning.fi finns i avsnittet Organisationer.</target>
       </trans-unit>
@@ -5478,6 +5478,14 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Julkisen profiilin piilottaminen</source>
         <target>Att dölja en offentlig profil</target>
       </trans-unit>
+      <trans-unit id="hideProfileModalTitle">
+        <source>Haluatko piilottaa julkisen profiilisi?</source>
+        <target>Vill du dölja din profil?</target>
+      </trans-unit>
+      <trans-unit id="deleteProfileModalTitle">
+        <source>Haluatko poistaa profiilisi?</source>
+        <target>Vill du radera din profil?</target>
+      </trans-unit>
       <trans-unit id="hideProfileWait">
         <source>Profiilia piilotetaan, odota hetki...</source>
         <target>Dölja profil, vänta ett ögonblick...</target>
@@ -5526,7 +5534,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Piilota julkaistavat tiedot</source>
         <target>Stäng uppgifter som ska publiceras</target>
       </trans-unit>
-      <trans-unit id="descriptionOfResearchActivities">
+      <trans-unit id="descriptionOfResearch">
         <source>Tutkimustoiminnan kuvaus</source>
         <target>Beskrivning av forsknings</target>
       </trans-unit>
@@ -5548,7 +5556,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="researchData">
         <source>Tutkimusaineistot</source>
-        <target>Forskningsmaterial</target>
+        <target>Forskningsdata</target>
       </trans-unit>
       <trans-unit id="selectInformationToDisplayInProfile">
         <source>Valitse profiilissasi näytettävät tiedot</source>
@@ -5701,7 +5709,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="dataSourceIsResearchFi">
         <source>Tietolähteenä käytetään Tiedejatutkimus.fi-palvelua</source>
-        <target>Tjänsten Froskning.fi används som informationskälla</target>
+        <target>Tjänsten Forskning.fi används som informationskälla</target>
       </trans-unit>
       <trans-unit id="nameOfPublicationOrAuthor">
         <source>Julkaisun tai tekijän nimi</source>
@@ -6101,6 +6109,14 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Tietojen päivittyminen voi kestää muutaman minuutin.</source>
         <target>Det kan ta några minuter att uppdatera uppgifterna.</target>
       </trans-unit>
+      <trans-unit id="orcidTemplateStatusSubstring1">
+        <source>Ei ORCID-tunnukseen yhdistettyjä</source>
+        <target>Inga</target>
+      </trans-unit>
+      <trans-unit id="orcidTemplateStatusSubstring2">
+        <source></source>
+        <target>kopplade till din ORCID-kod</target>
+      </trans-unit>
       <trans-unit id="authSuccessText1">
         <source>Kirjaudu seuraavaksi ORCID-tunnuksillasi, jotta voimme tuoda tutkimukseen liittyvät tietosi palveluun ja yhdistää tietojasi Tutkijan tiedot -työkalussa.</source>
         <target>Logga nu in med din ORCID-kod så att vi kan importera dina uppgifter om studien till tjänsten och kombinera dina uppgifter i Forskarens profilverktyg.</target>
@@ -6144,6 +6160,27 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       <trans-unit id="degrees">
         <source>Tutkinnot</source>
         <target>Grader</target>
+      </trans-unit>
+      <trans-unit id="logInToCreateProfile">
+        <source>Kirjaudu sisään luodaksesi profiilin tai valitaksesi profiilissasi näkyviä tietoja.</source>
+        <target>Logga in för att skapa en profil eller välja de uppgifter som visas i din profil.</target>
+      </trans-unit>
+      <trans-unit id="activitesAndRewards">
+        <source>Aktiviteetit ja palkinnot</source>
+        <target>Aktiviteter och priser</target>
+      </trans-unit>
+      <trans-unit id="deleteProfileConnProblem">
+        <source>Profiilin poisto ei onnistu. Kokeile hetken kuluttua
+                      uudestaan.</source>
+        <target>Connection issue. Deleting the profile failed. Try it again in a while.</target>
+      </trans-unit>
+      <trans-unit id="collaborationHeader">
+        <source>Yhteistyö</source>
+        <target>Samarbete</target>
+      </trans-unit>
+      <trans-unit id="selectActivities">
+        <source>Valitse aktiviteetit</source>
+        <target>Välj aktiviteter</target>
       </trans-unit>
     </body>
   </file>
