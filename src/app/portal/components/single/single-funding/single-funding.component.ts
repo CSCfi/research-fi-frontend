@@ -118,7 +118,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   };
 
   funderTooltip = {
-    tooltip: $localize`Tutkimusrahoittaja, joka on myöntänyt rahoituksen. Kaikki tiedejatutkimus.fi \u2011palveluun tietoja toimittavat tutkimusrahoittajat ovat organisaatiot-osiossa.`,
+    tooltip: $localize`:@@singleFundingFunderTooltip:Tutkimusrahoittaja, joka on myöntänyt rahoituksen. Kaikki tiedejatutkimus.fi \u2011palveluun tietoja toimittavat tutkimusrahoittajat ovat organisaatiot-osiossa.`,
   };
 
   callProgrammeTooltip = {
