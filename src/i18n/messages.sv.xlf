@@ -5485,6 +5485,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       <trans-unit id="deleteProfileModalTitle">
         <source>Haluatko poistaa profiilisi?</source>
         <target>Vill du radera din profil?</target>
+      </trans-unit>
       <trans-unit id="hideProfileWait">
         <source>Profiilia piilotetaan, odota hetki...</source>
         <target>Dölja profil, vänta ett ögonblick...</target>
