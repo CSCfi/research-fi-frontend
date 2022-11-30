@@ -3190,7 +3190,7 @@
         <source>Rahoittajan hankkeelle myöntämä yhteissumma. Summa ei sisällä hankkeen kaikkia kustannuksia. Organisaatio, jossa hanke toteutetaan, voi rahoittaa siitä tietyn osan (ns. omarahoitusosuus) ja hankkeella voi olla muitakin rahoittajia.</source>
         <target state="translated">The total amount granted by the funder for the project. The amount does not include all project costs. The organisation in which the project is carried out may fund a certain part of it (i-e. self-financing contribution) and the project may also have other funders.</target>
       </trans-unit>
-      <trans-unit id="6174779948491913415">
+      <trans-unit id="singleFundingFunderTooltip">
         <source>Tutkimusrahoittaja, joka on myöntänyt rahoituksen. Kaikki tiedejatutkimus.fi ‑palveluun tietoja toimittavat tutkimusrahoittajat ovat organisaatiot-osiossa.</source>
         <target>Researcher funders which have granted funding. All research funders submitting information to the research.fi-service are listed in the Organizations section.</target>
       </trans-unit>
@@ -5403,6 +5403,10 @@
         <source>Lisää Julkinen profiilikuva</source>
         <target>Add public profile picture</target>
       </trans-unit>
+      <trans-unit id="publicProfile">
+        <source>Julkinen profiili</source>
+        <target>Public profile</target>
+      </trans-unit>
       <trans-unit id="navigationHeaderProfile">
         <source>Julkinen profiili</source>
         <target>Public profile</target>
@@ -6161,6 +6165,10 @@
       <trans-unit id="logInToCreateProfile">
         <source>Kirjaudu sisään luodaksesi profiilin tai valitaksesi profiilissasi näkyviä tietoja.</source>
         <target>Log in to create a profile or select the information that appears on your profile.</target>
+      </trans-unit>
+      <trans-unit id="activitesAndRewards">
+        <source>Aktiviteetit ja palkinnot</source>
+        <target>Activities and awards</target>
       </trans-unit>
     </body>
   </file>
