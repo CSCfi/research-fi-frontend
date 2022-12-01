@@ -47,9 +47,18 @@
         ></ng-container>
         <ng-container
           *ngSwitchDefault
-          i18n="@@itMayTakeFewMinutesForDataToPublish"
         >
-          Julkisten tietojen päivittyminen kestää muutaman minuutin.
+          <p class="col">
+            <ng-container i18n="@@updatedProfilePublishedAt"
+            >Valitsemalla "Julkaise", valitsemasi tiedot julkaistaan
+              Tiedejatutkimus.fi-palvelussa.</ng-container
+            >
+            <br />
+            <ng-container i18n="@@updatingPublicDataTakesFewMinutes"
+            >Tietojen päivittyminen voi kestää muutaman
+              minuutin.</ng-container
+            >
+          </p>
         </ng-container>
       </ng-container>
     </div>
