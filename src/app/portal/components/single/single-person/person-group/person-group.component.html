@@ -25,14 +25,20 @@
           >
             {{ item.name }}
           </a>
-
           <ng-template #plainText>
+            <span>{{ item.authorsText }}</span>
+            <span>{{ item.journalName }}</span>
+            <span>{{ item.conferenceName }}</span>
             <span
               class="d-block"
               [class.fw-bold]="row.bold"
               [class.font-size-small]="row.key === 'year'"
               >{{ item[row.key] }}</span
             >
+            <ng-container *ngIf="item.parentPublicationName">
+              <span class="mt-2 bold" i18n="@@3537901381707941652">Emojulkaisun nimi</span>
+              <span class="mb-1">{{ item.parentPublicationName }}</span>
+            </ng-container>
           </ng-template>
         </ng-template>
       </ng-container>
