@@ -83,7 +83,7 @@ export class AppSettingsService {
     debug: !environment.production,
     beta: true,
     appName: 'myData',
-    label: $localize`:@@researchersProfile:Tutkijan tiedot`,
+    label: $localize`:@@researchersProfile:Tutkijan tiedot -työkalu`,
     baseRoute: 'mydata',
     navItems: [
       {

@@ -5183,7 +5183,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <target>i tjänsten Forskning.fi</target>
       </trans-unit>
       <trans-unit id="researchersProfile">
-        <source>Tutkijan tiedot</source>
+        <source>Tutkijan tiedot -työkalu</source>
         <target>Forskarens profilverktyg</target>
       </trans-unit>
       <trans-unit id="homeNewUser">
@@ -5402,8 +5402,8 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <target>Add public profile picture</target>
       </trans-unit>
       <trans-unit id="publicProfile">
-        <source>Julkinen profiili</source>
-        <target>Offentlig profil</target>
+        <source>Profiili</source>
+        <target>Profil</target>
       </trans-unit>
       <trans-unit id="navigationHeaderProfile">
         <source>Profiili</source>
@@ -5919,7 +5919,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <target>Välj aktiviteter</target>
       <trans-unit id="myDataEditorModalPublicationTabInfo">
         <source>Tiedejatutkimus.fi-palvelusta löytyvät tutkimusaineistot, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. Aineistoja, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä "Hae muita tutkimusaineistoja" -toiminnolla.</source>
-        <target>Forskningsdatal som finns i tjänsten Forskning.fi och som har din ORCID-kod läggs automatiskt till din uppgifter. Dataset som inte är kopplat till din ORCID-kod kan du lägga till med funktionen "Hämta annat forskningsdata".</target>
+        <target>Forskningsdata som finns i tjänsten Forskning.fi och som har din ORCID-kod läggs automatiskt till din uppgifter. Dataset som inte är kopplat till din ORCID-kod kan du lägga till med funktionen "Hämta annat forskningsdata".</target>
       </trans-unit>
       <trans-unit id="myDataEditorModalPublicationChooseItems">
         <source>Voit valita profiiliisi julkaisuja alla olevasta listasta.</source>
@@ -5927,7 +5927,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="myDataEditorModalDatasetTabInfo">
         <source>Tiedejatutkimus.fi-palvelusta löytyvät tutkimusaineistot, joissa on ORCID-tunnuksesi, lisätään profiiliisi automaattisesti. Aineistoja, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä "Hae muita tutkimusaineistoja" -toiminnolla.</source>
-        <target>Forskningsdatal som finns i tjänsten Forskning.fi och som har din ORCID-kod läggs automatiskt till din profil. Dataset som inte är kopplat till din ORCID-kod kan du lägga till med funktionen "Hämta annat forskningsdata".</target>
+        <target>Forskningsdata som finns i tjänsten Forskning.fi och som har din ORCID-kod läggs automatiskt till din profil. Dataset som inte är kopplat till din ORCID-kod kan du lägga till med funktionen "Hämta annat forskningsdata".</target>
       </trans-unit>
       <trans-unit id="myDataEditorModalDatasetChooseItems">
         <source>Voit valita profiiliisi tutkimusaineistoja alla olevasta listasta.</source>
@@ -6104,10 +6104,6 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       <trans-unit id="hide">
         <source>Hide</source>
         <target>Dölja</target>
-      </trans-unit>
-      <trans-unit id="itMayTakeFewMinutesForDataToPublish">
-        <source>Tietojen päivittyminen voi kestää muutaman minuutin.</source>
-        <target>Det kan ta några minuter att uppdatera uppgifterna.</target>
       </trans-unit>
       <trans-unit id="orcidTemplateStatusSubstring1">
         <source>Ei ORCID-tunnukseen yhdistettyjä</source>

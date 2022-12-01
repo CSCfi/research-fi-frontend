@@ -18,7 +18,7 @@ export class WelcomeStepperComponent implements OnInit {
   @Output() onModalAction = new EventEmitter<any>();
 
   showModal = true;
-  localizedTitle = $localize`:@@welcomeStepperHowItWorksCaption:Miten Tutkijan tiedot -palvelu toimii?`;
+  localizedTitle = $localize`:@@welcomeStepperHowItWorksCaption:Miten Tutkijan tiedot -työkalu toimii?`;
   localizedDialogActions = [
     { label: $localize`:@@closeInstructions:Sulje ohjeet`, primary: false, method: 'close' },
     { label: $localize`:@@createProfile:Luo profiili`, primary: true, method: 'createProfile' },

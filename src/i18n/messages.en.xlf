@@ -5188,7 +5188,7 @@
         <target>in the Research.fi service.</target>
       </trans-unit>
       <trans-unit id="researchersProfile">
-        <source>Tutkijan tiedot</source>
+        <source>Tutkijan tiedot -työkalu</source>
         <target>Researcher’s Profile Tool</target>
       </trans-unit>
       <trans-unit id="homeNewUser">
@@ -5404,12 +5404,8 @@
         <target>Add public profile picture</target>
       </trans-unit>
       <trans-unit id="publicProfile">
-        <source>Julkinen profiili</source>
-        <target>Public profile</target>
-      </trans-unit>
-      <trans-unit id="navigationHeaderProfile">
-        <source>Julkinen profiili</source>
-        <target>Public profile</target>
+        <source>Profiili</source>
+        <target>Profile</target>
       </trans-unit>
       <trans-unit id="navigationHeaderProfile">
         <source>Profiili</source>
@@ -5793,7 +5789,7 @@
 
       <!-- Welcome stepper -->
       <trans-unit id="welcomeStepperHowItWorksCaption">
-        <source>Miten Tutkijan tiedot -palvelu toimii?</source>
+        <source>Miten Tutkijan tiedot -työkalu toimii?</source>
         <target>How does the Researcher's Profile Tool work?</target>
       </trans-unit>
       <trans-unit id="welcomeStepperStep1Caption">
@@ -6117,10 +6113,6 @@
       <trans-unit id="hide">
         <source>Piilota</source>
         <target>Hide</target>
-      </trans-unit>
-      <trans-unit id="itMayTakeFewMinutesForDataToPublish">
-        <source>Tietojen päivittyminen voi kestää muutaman minuutin.</source>
-        <target>It may take a few minutes for the information to update.</target>
       </trans-unit>
       <trans-unit id="orcidTemplateStatusSubstring1">
         <source>Ei ORCID-tunnukseen yhdistettyjä</source>
