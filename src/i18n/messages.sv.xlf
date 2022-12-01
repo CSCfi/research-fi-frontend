@@ -5183,7 +5183,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <target>i tjänsten Forskning.fi</target>
       </trans-unit>
       <trans-unit id="researchersProfile">
-        <source>Tutkijan tiedot</source>
+        <source>Tutkijan tiedot -työkalu</source>
         <target>Forskarens profilverktyg</target>
       </trans-unit>
       <trans-unit id="homeNewUser">
@@ -5402,8 +5402,8 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <target>Add public profile picture</target>
       </trans-unit>
       <trans-unit id="publicProfile">
-        <source>Julkinen profiili</source>
-        <target>Offentlig profil</target>
+        <source>Profiili</source>
+        <target>Profil</target>
       </trans-unit>
       <trans-unit id="navigationHeaderProfile">
         <source>Profiili</source>
