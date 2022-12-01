@@ -6114,10 +6114,6 @@
         <source>Piilota</source>
         <target>Hide</target>
       </trans-unit>
-      <trans-unit id="itMayTakeFewMinutesForDataToPublish">
-        <source>Tietojen päivittyminen voi kestää muutaman minuutin.</source>
-        <target>It may take a few minutes for the information to update.</target>
-      </trans-unit>
       <trans-unit id="orcidTemplateStatusSubstring1">
         <source>Ei ORCID-tunnukseen yhdistettyjä</source>
         <target>No</target>
