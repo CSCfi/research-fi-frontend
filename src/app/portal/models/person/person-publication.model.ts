@@ -16,6 +16,10 @@ export class PersonPublication {
     public year: number,
     public doi: string,
     public type: string,
+    public parentPublicationName: string,
+    public journalName: string,
+    public conferenceName: string,
+    public authorsText: string,
     public sources: string
   ) {}
 }
@@ -33,6 +37,10 @@ export class PersonPublicationAdapter implements Adapter<PersonPublication> {
       publication.publicationYear,
       publication.doi,
       publication.typeCode,
+      publication?.parentPublicationName,
+      publication?.journalName,
+      publication?.conferenceName,
+      publication?.authorsText,
       this.utils.mapSources(publication.dataSources)
     );
   }

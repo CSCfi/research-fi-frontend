@@ -36,11 +36,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.utilityService.setMyDataTitle(this.title);
-    // Fallback until we get swedish visualization
-    this.locale =
-      this.appSettingsService.currentLocale === 'sv'
-        ? 'en'
-        : this.appSettingsService.currentLocale;
+    this.locale = this.appSettingsService.currentLocale;
   }
 
   login() {
