@@ -10,7 +10,6 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
 import { UtilityService } from '@shared/services/utility.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotificationService } from '@shared/services/notification.service';
 
 
