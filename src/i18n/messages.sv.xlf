@@ -5779,6 +5779,10 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Sinulla on julkaisemattomia muutoksia profiilinäkymässä.</source>
         <target>Kontrollera ändringarna.</target>
       </trans-unit>
+      <trans-unit id="suomiFiAutheticationProblemSnackbarText">
+        <source>Osalla käyttäjistä on ilmennyt virhetilanne Suomi.fi-tunnistautumisen jälkeen, joka estää pääsyn profiilin luontiin. Selvitämme ongelmaa ja korjaamme sen mahdollisimman pian. Voit jättää palautelomakkeen avulla tarkempia tietoja vikatilanteesta.</source>
+        <target>Vissa användare har upplevt ett fel efter Suomi.fi-autentiseringen. Felet förhindrar åtkomst till profilverktyget. Vi har identifierat problemet och ska fixa det så snart som möjligt. Vänligen använd feedbackformuläret för att lämna oss mer detaljerad information om felet inträffas.</target>
+      </trans-unit>
 
       <!-- Welcome stepper -->
       <trans-unit id="welcomeStepperHowItWorksCaption">
