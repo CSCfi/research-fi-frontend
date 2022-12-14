@@ -10,6 +10,8 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
 import { UtilityService } from '@shared/services/utility.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { Router } from '@angular/router';
+import { NotificationService } from '@shared/services/notification.service';
+
 
 @Component({
   selector: 'app-home',
@@ -23,6 +25,7 @@ export class HomeComponent implements OnInit {
   alreadyCreatedProfile = $localize`:@@alreadyCreatedProfile:Oletko jo luonut profiilin tähän palveluun?`;
   additionalInfoText = $localize`:@@additionalInfo:Lisätietoa` + ':';
 
+  suomiFiAutheticationProblemSnackbarText = $localize`:@@suomiFiAutheticationProblemSnackbarText:Osalla käyttäjistä on ilmennyt virhetilanne Suomi.fi-tunnistautumisen jälkeen, joka estää pääsyn profiilin luontiin. Selvitämme ongelmaa ja korjaamme sen mahdollisimman pian. Voit jättää palautelomakkeen avulla tarkempia tietoja vikatilanteesta.`;
 
   locale: string;
   showStepperModal = false;
@@ -32,11 +35,21 @@ export class HomeComponent implements OnInit {
     private utilityService: UtilityService,
     private appSettingsService: AppSettingsService,
     private router: Router,
+    private notificationService: NotificationService,
   ) {}
 
   ngOnInit() {
     this.utilityService.setMyDataTitle(this.title);
     this.locale = this.appSettingsService.currentLocale;
+    this.notificationService.notify({
+      notificationText: this.suomiFiAutheticationProblemSnackbarText,
+      buttons: [
+        {
+          label: $localize`:@@close:Sulje`,
+          action: () => this.notificationService.clearNotification(),
+        },
+      ],
+    });
   }
 
   login() {
