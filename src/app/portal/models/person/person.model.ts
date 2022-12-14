@@ -71,7 +71,7 @@ export class PersonAdapter implements Adapter<Person> {
       names.lastName
     )}, ${names.firstNames
       .split(' ')
-      .map((name) => capitalizeFirstLetter(name))}`;
+      .map((name) => capitalizeFirstLetter(name)).join(' ')}`;
 
     const contact = this.contactAdapter.adapt(data.personal);
 
