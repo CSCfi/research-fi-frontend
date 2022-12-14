@@ -137,9 +137,7 @@ export class SinglePersonComponent implements OnInit {
 
         const personRes = result.persons[0];
         this.person = personRes;
-        console.log('res', this.person.orcidLink);
         this.person.orcidLink = 'https://orcid.org/' + this.person.orcid;
-        console.log('res2', this.person.orcidLink);
         if (personRes) {
           this.setTitle(
             `${personRes.name} - ${$localize`:@@appName:Tiedejatutkimus.fi`}`
