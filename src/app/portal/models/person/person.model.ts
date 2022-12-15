@@ -42,7 +42,8 @@ export class Person {
     public description: string,
     public fieldsOfScience: string,
     public keywords: string,
-    public uniqueDataSources: any
+    public uniqueDataSources: any,
+    public orcidLink?: string
   ) {}
 }
 
