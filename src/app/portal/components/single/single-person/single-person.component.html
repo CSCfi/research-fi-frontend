@@ -45,14 +45,17 @@
       <div class="row pb-3">
         <div class="col">
           <h1 class="mb-3">{{ person.name }}</h1>
+          <a [href]="person.orcidLink" target="_blank">
           <span *ngIf="person.orcid">
             <img
               class="orcid-icon"
               src="assets/img/orcid_icon.svg"
               alt="Orcid -palvelun logo"
             />
-            http://orcid.org/{{ person.orcid }}
+            https://orcid.org/{{ person.orcid }}
           </span>
+            <fa-icon icon="external-link-alt"></fa-icon>
+          </a>
         </div>
       </div>
 
