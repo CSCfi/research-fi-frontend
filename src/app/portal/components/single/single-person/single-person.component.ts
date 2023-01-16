@@ -14,7 +14,10 @@ import { SearchService } from '@portal/services/search.service';
 import { SingleItemService } from '@portal/services/single-item.service';
 import { TabChangeService } from '@portal/services/tab-change.service';
 import { UtilityService } from '@shared/services/utility.service';
-import { take } from 'rxjs';
+
+import { Observable, combineLatest } from 'rxjs';
+import { take, map, switchMap } from "rxjs/operators";
+
 import { DOCUMENT } from '@angular/common';
 
 type Field = { key: string; label?: string };
@@ -30,6 +33,8 @@ export class SinglePersonComponent implements OnInit {
   searchTerm: string;
   tabData: any;
   tab = 'person';
+
+  isEmailVisible = false;
 
   affiliationsCaption = $localize`:@@affiliations:Affiliaatiot`;
   educationCaption = $localize`:@@education:Koulutus`;
@@ -84,7 +89,7 @@ export class SinglePersonComponent implements OnInit {
     { key: 'otherNames', label: 'Muut nimet' },
   ];
 
-  person: Person;
+  person$: Observable<Person>;
 
   initialItemCount = 3;
 
@@ -108,10 +113,22 @@ export class SinglePersonComponent implements OnInit {
     private utilityService: UtilityService,
     private tabChangeService: TabChangeService,
     @Inject(LOCALE_ID) protected localeId: string,
-    @Inject(DOCUMENT) private document: any
+    @Inject(DOCUMENT) private document: any,
   ) {}
 
   ngOnInit(): void {
+    this.person$ = this.route.params.pipe(switchMap((params) => {
+      const id = params["id"];
+
+      const person$ = this.singleItemService.getSinglePerson(id).pipe(map((search) => {
+        return search.persons[0] as Person;
+      }));
+
+      return person$;
+    }))
+
+
+
     this.route.params.pipe(take(1)).subscribe((params) => {
       this.searchService.searchTerm = params.id;
       this.getData(params.id);
@@ -136,8 +153,7 @@ export class SinglePersonComponent implements OnInit {
         this.responseData = result;
 
         const personRes = result.persons[0];
-        this.person = personRes;
-        this.person.orcidLink = 'https://orcid.org/' + this.person.orcid;
+
         if (personRes) {
           this.setTitle(
             `${personRes.name} - ${$localize`:@@appName:Tiedejatutkimus.fi`}`
@@ -146,9 +162,7 @@ export class SinglePersonComponent implements OnInit {
       });
   }
 
-  showEmail(event, address) {
-    const span = this.document.createElement('span');
-    span.innerHTML = address;
-    event.target.replaceWith(span);
+  showEmail() {
+    this.isEmailVisible = true;
   }
 }

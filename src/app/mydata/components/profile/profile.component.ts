@@ -118,7 +118,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   ) {
     this.testData = profileService.testData;
 
-    // Find if user has navigated to profile route from service deployment stepper
+    // Find if user has navigated to profile route from service deployment stepper                                      // TODO Kysy: Welcome dialog?
     // Display welcome dialog if so
     this.previousRoute = this.router
       .getCurrentNavigation()
@@ -204,27 +204,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.profileService.profileInitialized = true;
   }
 
-  openDialog(props: {
-    title: string;
-    template: any;
-    extraContentTemplate: any;
-    actions: any;
-    disableDialogClose: boolean;
-  }) {
-    const {
-      title,
-      template,
-      extraContentTemplate,
-      actions,
-      disableDialogClose,
-    } = props;
-
+  openDialog(title: string, template: any, extraContentTemplate: any, actions: any, disableDialogClose: boolean) {
     this.dialogTitle = title;
     this.showDialog = true;
     this.dialogTemplate = template;
     this.dialogExtraContentTemplate = extraContentTemplate;
     this.currentDialogActions = actions;
     this.disableDialogClose = disableDialogClose;
+
+    console.log("Why and what is currentDialogActions", this.currentDialogActions);
   }
 
   doDialogAction(action: string) {
@@ -257,7 +245,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
    * Add selected publications to profile
    */
   private async handlePublicationsPromise() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {                                                                           // TODO: "new Promise" pattern..? Observable's toPromise isn't any different?
       this.publicationsService
         .addPublications()
         .pipe(takeUntil(this.unsubscribe))

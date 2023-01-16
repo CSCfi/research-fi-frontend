@@ -7,23 +7,42 @@
 <main id="main-content">
   <div class="wrapper">
     <div class="row d-flex justify-content-between pt-3 pb-5">
-      <div class="col-12 col-md-6 px-0">
-        <div
-          class="row d-flex text-capitalize"
-          *ngIf="profileService.currentEditorProfileName | async"
-        >
+      <div class="col-6 col-md-6 px-0">
+        <div class="row d-flex text-capitalize" *ngIf="profileService.currentEditorProfileName | async">
           <h1 class="col-12 px-0">
             {{ profileService.currentEditorProfileName | async }}
           </h1>
           <div class="col align-self-center px-0">
-            <img
-              class="orcid-icon mt-n1 pe-2"
-              src="assets/img/orcid_icon.svg"
-              alt="Orcid -palvelun logo"
-            />
-            <span>{{ orcid }}</span>
+            <img class="orcid-icon mt-n1 pe-2" src="assets/img/orcid_icon.svg" alt="Orcid -palvelun logo" />
+            <span>{{orcid}}</span>
           </div>
         </div>
+      </div>
+
+      <div class="col-6 col-md-6 d-flex justify-content-end align-items-center">
+        <ng-container *ngIf="
+            (publicationsService.currentPublicationPayload | async).length ||
+            (datasetsService.currentDatasetPayload | async).length ||
+            (fundingsService.currentFundingPayload | async).length ||
+            (patchService.currentPatchItems | async).length ||
+            (collaborationsService.currentCollaborationsPayload | async).length">
+
+
+            <app-primary-action-button class="col-auto"i18n-content="@@publishEllipsis" content="Julkaise..." (click)="openDialog(publishUpdatedProfile,publishUpdatedProfileTemplate,dataToPublishTemplate,publishUpdatedProfileDialogActions,false)"></app-primary-action-button>
+
+            <!-- Discard draft -->
+            <button class="col-auto pe-lg-0" mat-button color="primary" i18n="@@discardChanges" (click)="openDialog(discardChanges, discardChangesTemplate, discardChangesActions, undefined, false)">
+              Hylkää muutokset...
+            </button>
+
+            <ng-template #discardChangesTemplate>
+              <p i18n="@@discardSessionChanges">
+                Hylätäänkö julkaisemattomat muutokset?
+              </p>
+            </ng-template>
+
+
+        </ng-container>
       </div>
 
       <!-- <div class="col-5 d-none d-md-block px-lg-0">
@@ -40,96 +59,86 @@
         </div>
       </div> -->
     </div>
+
+
     <div class="row profile">
       <div class="col-12 col-md-6 px-0 align-self-end">
         <h2 class="h4 d-inline-block" i18n="@@publicProfile">
           Profiili
         </h2>
-        <span
-          class="d-inline-block ps-0 ps-lg-3 h6 fst-italic"
-          *ngIf="
+
+        <ng-container *ngIf="
             (publicationsService.currentPublicationPayload | async).length ||
             (datasetsService.currentDatasetPayload | async).length ||
             (fundingsService.currentFundingPayload | async).length ||
             (patchService.currentPatchItems | async).length ||
             (collaborationsService.currentCollaborationsPayload | async).length
-          "
-        >
-          - <ng-container i18n="@@draft">Luonnos</ng-container></span
-        >
+          ">
+
+          <span class="d-inline-block ps-0 ps-lg-3 h6 fst-italic">
+            - <ng-container i18n="@@draft">Luonnos</ng-container>
+          </span>
+        </ng-container>
+
+
       </div>
 
       <!-- Handle draft publish -->
       <ng-template #publishUpdatedProfileTemplate>
         <div class="row">
           <p class="col">
-            <ng-container i18n="@@updatedProfilePublishedAt"
-              >Valitsemalla "Julkaise", valitsemasi tiedot julkaistaan
-              Tiedejatutkimus.fi-palvelussa.</ng-container
-            >
+            <ng-container i18n="@@updatedProfilePublishedAt">
+              Valitsemalla "Julkaise", valitsemasi tiedot julkaistaan
+              Tiedejatutkimus.fi-palvelussa.
+            </ng-container>
+
             <br />
-            <ng-container i18n="@@updatingPublicDataTakesFewMinutes"
-              >Tietojen päivittyminen voi kestää muutaman
-              minuutin.</ng-container
-            >
+
+            <ng-container i18n="@@updatingPublicDataTakesFewMinutes">
+              Tietojen päivittyminen voi kestää muutaman
+              minuutin.
+            </ng-container>
           </p>
         </div>
       </ng-template>
 
       <ng-template #dataToPublishTemplate>
-        <app-draft-summary
-          *ngIf="profileData"
-          [profileData]="profileData"
-        ></app-draft-summary>
+        <app-draft-summary *ngIf="profileData" [profileData]="profileData"></app-draft-summary>
       </ng-template>
 
-      <div
-        class="col px-0 py-2 text-end"
-        *ngIf="
+        <div class="col px-0 py-2 text-end">
+          <app-primary-action-button class="col-auto" i18n-content="@@publishEllipsis" content="Profiiliin" [routerLink]="['/', 'results', 'person', orcid]"></app-primary-action-button> <!-- TODO Translation -->
+        </div>
+
+
+      <!-- TODO Konseptissa eri paikassa --> <!-- TODO remove boolean bypass -->
+      <ng-container *ngIf="
           (publicationsService.currentPublicationPayload | async).length ||
           (datasetsService.currentDatasetPayload | async).length ||
           (fundingsService.currentFundingPayload | async).length ||
           (patchService.currentPatchItems | async).length ||
-          (collaborationsService.currentCollaborationsPayload | async).length
-        "
-      >
-        <app-primary-action-button
-          class="col-auto"
-          i18n-content="@@publishEllipsis"
-          content="Julkaise..."
-          (click)="
-            openDialog({
-              title: publishUpdatedProfile,
-              template: publishUpdatedProfileTemplate,
-              extraContentTemplate: dataToPublishTemplate,
-              actions: publishUpdatedProfileDialogActions
-            })
-          "
-        ></app-primary-action-button>
+          (collaborationsService.currentCollaborationsPayload | async).length">
 
-        <!-- Discard draft -->
-        <button
-          mat-button
-          color="primary"
-          class="col-auto pe-lg-0"
-          (click)="
-            openDialog({
-              title: discardChanges,
-              template: discardChangesTemplate,
-              actions: discardChangesActions
-            })
-          "
-          i18n="@@discardChanges"
-        >
-          Hylkää muutokset...
-        </button>
+          <!--
 
-        <ng-template #discardChangesTemplate>
-          <p i18n="@@discardSessionChanges">
-            Hylätäänkö julkaisemattomat muutokset?
-          </p>
-        </ng-template>
-      </div>
+          <app-primary-action-button class="col-auto"i18n-content="@@publishEllipsis" content="Julkaise..." (click)="openDialog(publishUpdatedProfile,publishUpdatedProfileTemplate,dataToPublishTemplate,publishUpdatedProfileDialogActions,false)"></app-primary-action-button>
+
+          &lt;!&ndash; Discard draft &ndash;&gt;
+          <button class="col-auto pe-lg-0" mat-button color="primary" i18n="@@discardChanges" (click)="openDialog(discardChanges, discardChangesTemplate, discardChangesActions, undefined, false)">
+            Hylkää muutokset...
+          </button>
+
+          <ng-template #discardChangesTemplate>
+            <p i18n="@@discardSessionChanges">
+              Hylätäänkö julkaisemattomat muutokset?
+            </p>
+          </ng-template>
+
+          -->
+
+      </ng-container>
+
+
     </div>
 
     <!-- Groups -->
@@ -144,11 +153,10 @@
           ></app-contact-card>
         </aside>
 
-        <app-profile-summary
-          *ngIf="profileData; else loadingTemplate"
-          class="d-block pt-3"
-          [profileData]="profileData"
-        ></app-profile-summary>
+        <ng-container *ngIf="profileData; else loadingTemplate" >
+          <app-profile-summary class="d-block pt-3" [profileData]="profileData"></app-profile-summary>
+        </ng-container>
+
 
         <ng-template #loadingTemplate>
           <mat-spinner class="mx-auto mt-3" [diameter]="80"> </mat-spinner>
@@ -160,42 +168,36 @@
         <ng-container *ngIf="appSettingsService.myDataSettings.debug">
           <div>
             <button (click)="reset()" mat-raised-button>Reset</button>
+
             <div class="row">
-              currentPublicationPayload:
-              {{
-                (publicationsService.currentPublicationPayload | async).length
-              }}
+              currentPublicationPayload: {{ (publicationsService.currentPublicationPayload | async).length }}
             </div>
+
             <div class="row">
-              currentDatasetPayload:
-              {{ (datasetsService.currentDatasetPayload | async).length }}
+              currentDatasetPayload: {{ (datasetsService.currentDatasetPayload | async).length }}
             </div>
+
             <div class="row">
-              currentFundingPayload:
-              {{ (fundingsService.currentFundingPayload | async).length }}
+              currentFundingPayload: {{ (fundingsService.currentFundingPayload | async).length }}
             </div>
+
             <div class="row">
-              currentPatchItems:
-              {{ (patchService.currentPatchItems | async).length }}
+              currentPatchItems: {{ (patchService.currentPatchItems | async).length }}
             </div>
+
             <div class="row">
-              currentCollaborationsPayload:
-              {{
-                (collaborationsService.currentCollaborationsPayload | async)
-                  .length
-              }}
+              currentCollaborationsPayload: {{ (collaborationsService.currentCollaborationsPayload | async).length }}
             </div>
           </div>
         </ng-container>
 
         <!-- Contact card in desktop view -->
-        <aside *ngIf="profileData" class="profile-card d-none d-lg-block">
-          <app-contact-card
-            i18n-label="@@contactInfo"
-            label="Yhteystiedot"
-            [data]="profileData"
-          ></app-contact-card>
-        </aside>
+        <ng-container *ngIf="profileData">
+          <aside class="profile-card d-none d-lg-block">
+            <app-contact-card i18n-label="@@contactInfo" label="Yhteystiedot" [data]="profileData"></app-contact-card>
+          </aside>
+        </ng-container>
+
 
         <!-- Collaboration -->
         <!--
@@ -218,6 +220,7 @@
         <!-- Reusable dialog -->
         <app-dialog
           *ngIf="showDialog"
+
           [template]="dialogTemplate"
           [title]="dialogTitle"
           [extraContentTemplate]="dialogExtraContentTemplate"
