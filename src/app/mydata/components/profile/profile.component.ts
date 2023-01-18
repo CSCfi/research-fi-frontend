@@ -118,7 +118,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   ) {
     this.testData = profileService.testData;
 
-    // Find if user has navigated to profile route from service deployment stepper                                      // TODO Kysy: Welcome dialog?
+    // Find if user has navigated to profile route from service deployment stepper
     // Display welcome dialog if so
     this.previousRoute = this.router
       .getCurrentNavigation()
@@ -245,7 +245,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
    * Add selected publications to profile
    */
   private async handlePublicationsPromise() {
-    return new Promise((resolve, reject) => {                                                                           // TODO: "new Promise" pattern..? Observable's toPromise isn't any different?
+    return new Promise((resolve, reject) => {
       this.publicationsService
         .addPublications()
         .pipe(takeUntil(this.unsubscribe))
