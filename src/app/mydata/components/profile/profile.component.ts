@@ -204,27 +204,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.profileService.profileInitialized = true;
   }
 
-  openDialog(props: {
-    title: string;
-    template: any;
-    extraContentTemplate: any;
-    actions: any;
-    disableDialogClose: boolean;
-  }) {
-    const {
-      title,
-      template,
-      extraContentTemplate,
-      actions,
-      disableDialogClose,
-    } = props;
-
+  openDialog(title: string, template: any, extraContentTemplate: any, actions: any, disableDialogClose: boolean) {
     this.dialogTitle = title;
     this.showDialog = true;
     this.dialogTemplate = template;
     this.dialogExtraContentTemplate = extraContentTemplate;
     this.currentDialogActions = actions;
     this.disableDialogClose = disableDialogClose;
+
+    console.log("Why and what is currentDialogActions", this.currentDialogActions);
   }
 
   doDialogAction(action: string) {

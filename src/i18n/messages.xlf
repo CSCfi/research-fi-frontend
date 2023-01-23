@@ -152,11 +152,11 @@
         <note priority="1" from="description">Empty search history</note>
       </trans-unit>
       <trans-unit id="homeNewsHeader" datatype="html">
-        <source>Uusimmat tiede- ja tutkimusuutiset 
+        <source>Uusimmat tiede- ja tutkimusuutiset
             <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/>
               <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon&gt;"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon&gt;"/>
             <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>
-            
+
           </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/portal/components/home-page/home-page.component.html</context>
@@ -1171,18 +1171,18 @@
                                     <x id="START_ORDERED_LIST" ctype="x-ol" equiv-text="&lt;ol&gt;"/>
                                         <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>
                                             <x id="START_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;h3&gt;"/>Yleistä<x id="CLOSE_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;/h3&gt;"/>
-                                            <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Tämä tietosuojailmoitus sisältää EU:n tietosuoja-asetuksen (EU) 679/2016 13 ja 14 artiklan mukaiset tiedot rekisteröidylle (luonnolliselle henkilölle). 
+                                            <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Tämä tietosuojailmoitus sisältää EU:n tietosuoja-asetuksen (EU) 679/2016 13 ja 14 artiklan mukaiset tiedot rekisteröidylle (luonnolliselle henkilölle).
                                                 Tämä ilmoitus annetaan rekisteröidylle henkilötietoja kerättäessä.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
                                             <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
                                             <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>
                                                 <x id="START_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;h3&gt;"/>Rekisterinpitäjät<x id="CLOSE_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;/h3&gt;"/>
-                                                <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Opetus- ja kulttuuriministeriö on sopinut yhteisrekisterinpitäjyydestä suomalaisten tutkimusrahoittajien ja tutkimusorganisaatioiden kanssa, jotka luovuttavat 
+                                                <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Opetus- ja kulttuuriministeriö on sopinut yhteisrekisterinpitäjyydestä suomalaisten tutkimusrahoittajien ja tutkimusorganisaatioiden kanssa, jotka luovuttavat
                                                     tietoja tutkimustietovarantoon. Yhteisrekisterinpitäjät vastaavat kukin omista tiedoistaan tutkimustietovarannossa.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
-                                                
+
                                                 <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Opetus- ja kulttuuriministeriö
                                                 <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Kirjaamon käyntiosoite: Ritarikatu 2 b, Helsinki
                                                 <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Postiosoite: PL 29, 00023 VALTIONEUVOSTO
-                                                <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Sähköpostiosoite: <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>kirjaamo@minedu.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> 
+                                                <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Sähköpostiosoite: <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>kirjaamo@minedu.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>
                                                 <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Puh. 0295 16001 (keskus)<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
 
                                                 <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/><x id="START_LINK_1" ctype="x-a" equiv-text="&lt;a&gt;"/>Lista yhteisrekisterinpitäjinä toimivista muista rekisterinpitäjistä ja näiden yhteystiedoista <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon&gt;"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon&gt;"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/><x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
@@ -1200,15 +1200,15 @@
                                                     <x id="START_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;ul&gt;"/>
                                                         <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Tutkimustietovarannon sisältämien tietojen julkaiseminen ja selailu.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
                                                         <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Tutkimustietovarannon sisältämien tietojen välittäminen tahoille, joilla on niihin lakisääteinen käsittelyperuste.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
-                                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Palvelun verkkosivustojen <x id="START_LINK_3" ctype="x-a" equiv-text="&lt;a&gt;"/>www.tiedejatutkimus.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>, <x id="START_LINK_4" ctype="x-a" equiv-text="&lt;a&gt;"/>www.research.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> 
+                                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Palvelun verkkosivustojen <x id="START_LINK_3" ctype="x-a" equiv-text="&lt;a&gt;"/>www.tiedejatutkimus.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>, <x id="START_LINK_4" ctype="x-a" equiv-text="&lt;a&gt;"/>www.research.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>
                                                             ja <x id="START_LINK_5" ctype="x-a" equiv-text="&lt;a&gt;"/>www.forskning.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> käyttäjien käyttölokitietojen hallinta, käyttäjätilastointi sekä palvelun käytössä tarvittavien evästeiden hallinta.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
                                                         <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Palvelun käyttöön ja kehittämiseen liittyvä tilastointi, analytiikka ja hallinta.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
                                                     <x id="CLOSE_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;/ul&gt;"/>
                                                     <x id="START_HEADING_LEVEL4" ctype="x-h4" equiv-text="&lt;h4&gt;"/>Käsiteltävät henkilötietoryhmät:<x id="CLOSE_HEADING_LEVEL4" ctype="x-h4" equiv-text="&lt;/h4&gt;"/>
                                                     <x id="START_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;ul&gt;"/>
-                                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Tutkimustietovarantoon toimitettujen julkaisujen, tutkimusaineistojen, rahoituspäätösten, tutkimusinfrastruktuurien ja tiedeuutisten tiedot sekä niissä mainitut tutkijan etu- 
+                                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Tutkimustietovarantoon toimitettujen julkaisujen, tutkimusaineistojen, rahoituspäätösten, tutkimusinfrastruktuurien ja tiedeuutisten tiedot sekä niissä mainitut tutkijan etu-
                                                             ja sukunimi, ORCID-tunniste sekä organisaatio.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
-                                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>IT-hallintatiedot kuten laitteistojen tiedot liittyen tarjottuihin palveluihin, mukaan lukien tekniset tunnisteet, sijainti, yhteystiedot, viestintätiedot ja metatieto 
+                                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>IT-hallintatiedot kuten laitteistojen tiedot liittyen tarjottuihin palveluihin, mukaan lukien tekniset tunnisteet, sijainti, yhteystiedot, viestintätiedot ja metatieto
                                                             ja tekniset tapahtumat, jotka liittyvät tarjottuihin palveluihin mukaan lukien järjestelmä- ja sovelluslokitiedot.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
                                                     <x id="CLOSE_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;/ul&gt;"/>
                                                     <x id="START_HEADING_LEVEL4" ctype="x-h4" equiv-text="&lt;h4&gt;"/>Henkilötietojen käsittelyn oikeusperusteet:<x id="CLOSE_HEADING_LEVEL4" ctype="x-h4" equiv-text="&lt;/h4&gt;"/>
@@ -1226,12 +1226,12 @@
                                             <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>
                                                 <x id="START_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;h3&gt;"/>Henkilötietojen käsittelijät<x id="CLOSE_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;/h3&gt;"/>
                                                 <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Henkilötietojen käsittelijöitä ovat CSC - Tieteen tietotekniikan keskus Oy ja sen alihankkijat, jotka toteuttavat opetus- ja kulttuuriministeriön kanssa tehtyyn sopimukseen perustuen palvelun kehitystä, ylläpitoa ja säilytystä.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
-                                                <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Lisäksi tutkimustietovarannon sisältämiä julkaisujen, aineistojen, rahoituspäätösten ja infrastruktuurien  metatietoja (ml. tekijöiden tiedot) voidaan luovuttaa yksittäistapauksissa voimassaolevan 
+                                                <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Lisäksi tutkimustietovarannon sisältämiä julkaisujen, aineistojen, rahoituspäätösten ja infrastruktuurien  metatietoja (ml. tekijöiden tiedot) voidaan luovuttaa yksittäistapauksissa voimassaolevan
                                                     lainsäädännön mukaisesti niitä hyödyntäville tahoille, kuten tutkimusorganisaatioille tai -rahoittajille.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
                                             <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
                                             <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>
                                                 <x id="START_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;h3&gt;"/>Henkilötietojen siirtäminen kolmansiin maihin tai kansainvälisille järjestöille<x id="CLOSE_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;/h3&gt;"/>
-                                                <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Tutkimustietovarannon sisältämiä julkaisujen, aineistojen, rahoituspäätösten ja infrastruktuurien  metatietoja (ml. tekijätiedot) voidaan luovuttaa voimassaolevan lainsäädännön mukaisesti kansainvälisille järjestöille tai 
+                                                <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Tutkimustietovarannon sisältämiä julkaisujen, aineistojen, rahoituspäätösten ja infrastruktuurien  metatietoja (ml. tekijätiedot) voidaan luovuttaa voimassaolevan lainsäädännön mukaisesti kansainvälisille järjestöille tai
                                                     alan toimijoille niin EU/ETA-alueella kuin niiden ulkopuolella. Muita henkilötietoja ei luovuteta EU/ETA-alueen ulkopuolelle.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
                                             <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
                                             <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>
@@ -1244,17 +1244,17 @@
                                                 <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Seuraavat rekisteröidyn oikeudet ovat ehdottomia ja seuraavat tietosuoja-asetuksesta:<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
                                                 <x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;div&gt;"/>
                                                     <x id="START_HEADING_LEVEL4" ctype="x-h4" equiv-text="&lt;h4&gt;"/>Tarkastusoikeus<x id="CLOSE_HEADING_LEVEL4" ctype="x-h4" equiv-text="&lt;/h4&gt;"/>
-                                                    <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Rekisteröidyllä on oikeus tarkastaa tutkimustietovarannossa itseään koskevat henkilötiedot. Tietosuojapyynnön lisäksi ne voi tarkastaa tutkimustietovarannon verkkosivustolta 
+                                                    <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Rekisteröidyllä on oikeus tarkastaa tutkimustietovarannossa itseään koskevat henkilötiedot. Tietosuojapyynnön lisäksi ne voi tarkastaa tutkimustietovarannon verkkosivustolta
                                                     <x id="START_LINK_3" ctype="x-a" equiv-text="&lt;a&gt;"/>www.tiedejatutkimus.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>, <x id="START_LINK_4" ctype="x-a" equiv-text="&lt;a&gt;"/>www.research.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> ja <x id="START_LINK_5" ctype="x-a" equiv-text="&lt;a&gt;"/>www.forskning.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
-                                                    
+
                                                     <x id="START_HEADING_LEVEL4" ctype="x-h4" equiv-text="&lt;h4&gt;"/>Oikeus oikaisuun<x id="CLOSE_HEADING_LEVEL4" ctype="x-h4" equiv-text="&lt;/h4&gt;"/>
                                                     <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Rekisteröidyllä on oikeus pyytää oikaisemaan tutkimustietovarantoon tallennetut virheelliset tai epätarkat henkilötiedot.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
-                                                    
+
                                                     <x id="START_HEADING_LEVEL4" ctype="x-h4" equiv-text="&lt;h4&gt;"/>Valitusoikeus<x id="CLOSE_HEADING_LEVEL4" ctype="x-h4" equiv-text="&lt;/h4&gt;"/>
-                                                    <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Rekisteröidyllä on oikeus jättää valitus tietosuojavaltuutetulle, jos hän katsoo, ettei henkilötietojen käsittely ole lainmukaista. Tietosuojavaltuutettuun saa yhteyden täältä: 
+                                                    <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Rekisteröidyllä on oikeus jättää valitus tietosuojavaltuutetulle, jos hän katsoo, ettei henkilötietojen käsittely ole lainmukaista. Tietosuojavaltuutettuun saa yhteyden täältä:
                                                     <x id="START_LINK_6" ctype="x-a" equiv-text="&lt;a&gt;"/>https://tietosuoja.fi/yhteystiedot <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon&gt;"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon&gt;"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
                                                 <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
-                                                
+
                                                 <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Seuraavat tietosuoja-asetuksen mukaiset rekisteröidyn oikeudet ovat ehdollisia ja edellyttävät tiettyjen ehtojen täyttymistä: <x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
                                                 <x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;div&gt;"/>
                                                     <x id="START_HEADING_LEVEL4" ctype="x-h4" equiv-text="&lt;h4&gt;"/>Henkilötietojen poistaminen<x id="CLOSE_HEADING_LEVEL4" ctype="x-h4" equiv-text="&lt;/h4&gt;"/>
@@ -1269,7 +1269,7 @@
                                             <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
                                             <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>
                                                 <x id="START_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;h3&gt;"/>Henkilötietojen lähde/lähteet<x id="CLOSE_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;/h3&gt;"/>
-                                                <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Tutkimustietovarannossa säilyttävät tietoja suomalaiset tutkimusorganisaatiot (yliopistot, ammattikorkeakoulut, tutkimuslaitokset, yliopistolliset sairaalat) sekä tutkimuksen rahoittajat. Lisäksi opetus- ja 
+                                                <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Tutkimustietovarannossa säilyttävät tietoja suomalaiset tutkimusorganisaatiot (yliopistot, ammattikorkeakoulut, tutkimuslaitokset, yliopistolliset sairaalat) sekä tutkimuksen rahoittajat. Lisäksi opetus- ja
                                                     kulttuuriministeriö siirtää tutkimustietovarantoon tietoja ulkoisista lähteistä (esimerkiksi EU:n ylläpitämä CORDIS-tietokanta). Henkilötiedon lähde on mainittu tutkimustietovarannon verkkosivustoilla kunkin tiedon kohdalla.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
                                                 <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Kukin tutkimustietovarannossa tietoja säilyttävä organisaatio vastaa tutkimustietovarantoon toimittamiensa tietojen oikeellisuudesta.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
                                             <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
@@ -1279,7 +1279,7 @@
                                             <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
                                         <x id="CLOSE_ORDERED_LIST" ctype="x-ol" equiv-text="&lt;/ol&gt;"/>
                                     <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
-                                        
+
                             <x id="CLOSE_TAG_MAT-TAB" ctype="x-mat-tab" equiv-text="&lt;/mat-tab&gt;"/>
                             <x id="START_TAG_MAT-TAB_1" ctype="x-mat-tab" equiv-text="&lt;mat-tab&gt;"/>
                                 <x id="START_TAG_DIV_1" ctype="x-div" equiv-text="&lt;div&gt;"/>
@@ -1301,24 +1301,24 @@
                                     <x id="START_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;ul&gt;"/>
                                         <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Nimi: d151c77b9ae41ba12db2ca3d241f7930<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
                                         <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Koko: 64kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
-                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Rooli: Tämä eväste ohjaa käyttäjän verkkoliikenteen johdonmukaisesti palvelinympäristössä. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Eväste edesauttaa palvelun sujuvaa toimintaa.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>    
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Rooli: Tämä eväste ohjaa käyttäjän verkkoliikenteen johdonmukaisesti palvelinympäristössä. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Eväste edesauttaa palvelun sujuvaa toimintaa.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
                                     <x id="CLOSE_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;/ul&gt;"/>
-                                    
+
                                     <x id="START_HEADING_LEVEL3_1" ctype="x-h3" equiv-text="&lt;h3&gt;"/>Seurantaevästeet<x id="CLOSE_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;/h3&gt;"/>
                                     <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Seurantaevästeiden keräämää tietoa ei luovuteta kolmansille osapuolille.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
                                     <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Matomo-eväste (sessio)<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>
                                     <x id="START_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;ul&gt;"/>
                                         <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Nimi: _pk_ses.1.d050<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
                                         <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Koko: 15kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
-                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Elinkaari: 30 minuuttia. Lyhytkestoinen eväste, jonka avulla tallennetaan tietoa väliaikaisesti vierailun ajaksi<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>    
-                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Rooli: Kertoo analytiikkatyökalulle, että aktiivinen vierailu on käynnissä.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>    
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Elinkaari: 30 minuuttia. Lyhytkestoinen eväste, jonka avulla tallennetaan tietoa väliaikaisesti vierailun ajaksi<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Rooli: Kertoo analytiikkatyökalulle, että aktiivinen vierailu on käynnissä.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
                                     <x id="CLOSE_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;/ul&gt;"/>
-                                            
+
                                     <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Matomo-eväste<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>
                                     <x id="START_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;ul&gt;"/>
                                         <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Nimi: _pk_id.1.d050-<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
                                         <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Koko: 66kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
-                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Elinkaari: 13 kuukautta<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>    
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Elinkaari: 13 kuukautta<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
                                         <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Rooli: Tämän avulla kerätään anonymisoitua tietoa vierailusta verkkopalevlussa, kuten:
                                             <x id="START_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;ul&gt;"/>
                                                 <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Käyttäjän IP-osoite vahvasti anonymisoidussa muodossa (käyttäjä ei ole tunnistettavissa)<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
@@ -1339,26 +1339,26 @@
                                                 <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Selaimen &quot;User-Agent header&quot;<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
                                             <x id="CLOSE_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;/ul&gt;"/>
                                         <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
-                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Em. Tietojen perusteella kerätään kokonaistilastoa, jonka perusteella voidaan tehdä palvelun kehittämistoimenpiteitä perustuen esimerkiksi siihen tietoon, 
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Em. Tietojen perusteella kerätään kokonaistilastoa, jonka perusteella voidaan tehdä palvelun kehittämistoimenpiteitä perustuen esimerkiksi siihen tietoon,
                                             minkälaisilla laitteilla palvelua käytetään eniten, tai mistä palveluun pääsääntöisesti saavutaan.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
                                     <x id="CLOSE_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;/ul&gt;"/>
-                                                
+
                                     <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Matomo-eväste<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>
                                     <x id="START_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;ul&gt;"/>
                                         <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Nimi: MATOMO_SESSID<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
                                         <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Koko: <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
-                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Elinkaari: Lyhytkestoinen<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>    
-                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Rooli: Väliaikainen eväste luodaan, jos käyttäjä asettaa seurantevästeet pois päältä.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>    
-                                        
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Elinkaari: Lyhytkestoinen<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Rooli: Väliaikainen eväste luodaan, jos käyttäjä asettaa seurantevästeet pois päältä.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+
                                     <x id="CLOSE_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;/ul&gt;"/>
 
                                     <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Matomo-eväste<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>
                                     <x id="START_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;ul&gt;"/>
                                         <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Nimi: Mtm_consent<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
                                         <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Koko: 24kb<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
-                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Elinkaari: Pitkäkestoinen<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>    
-                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Rooli: Evästeiden hyväksyminen<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>    
-                                        
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Elinkaari: Pitkäkestoinen<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Rooli: Evästeiden hyväksyminen<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+
                                     <x id="CLOSE_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;/ul&gt;"/>
 
                                     <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Selaimen välimuistiin tallennetaan<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>
@@ -1377,7 +1377,7 @@
                                             <x id="START_TAG_BUTTON_1" ctype="x-button" equiv-text="&lt;button&gt;"/>
                                                 <x id="START_TAG_NG-CONTAINER" ctype="x-ng-container" equiv-text="&lt;ng-container&gt;"/>Ota seuranta käyttöön<x id="CLOSE_TAG_NG-CONTAINER" ctype="x-ng-container" equiv-text="&lt;/ng-container&gt;"/>
                                             <x id="CLOSE_TAG_BUTTON" ctype="x-button" equiv-text="&lt;/button&gt;"/>
-                                            
+
                                         <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
                                     <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
                                 <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
@@ -2235,6 +2235,23 @@
           <context context-type="linenumber">103</context>
         </context-group>
       </trans-unit>
+
+      <trans-unit id="toMyProfile" datatype="html">
+        <source>Julkiseen profiiliin</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/mydata/components/profile/profile.component.html</context>
+          <context context-type="linenumber">112</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="visitMyProfile" datatype="html">
+        <source>Tarkastele julkista profiiliasi Tiedejatutkimus.fi:ssä</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/mydata/components/profile/profile.component.html</context>
+          <context context-type="linenumber">111</context>
+        </context-group>
+      </trans-unit>
+
     </body>
   </file>
 </xliff>
