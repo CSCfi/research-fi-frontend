@@ -2755,11 +2755,11 @@
         <source>Sisältää tieteelliset kokoomateokset, tieteelliset vuosikirjat ja vastaavat, ammatilliset käsi- tai opaskirjat, ammatilliset tietojärjestelmät tai kokoomateokset, oppikirja-aineistot sekä lyhyet ensyklopediatekstit.</source>
         <target>Omfattar vetenskapliga samlingsverk, vetenskapliga årsböcker och motsvarande, yrkesinriktade handböcker eller guider, yrkesinriktade informationssystem eller samlingsverk, läroboksmaterial och korta encyklopeditexter.</target>
       </trans-unit>
-      <trans-unit id="conferencePlatform">
-        <source>Konferenssialusta</source>
-        <target>Konferensplattform</target>
+      <trans-unit id="Conference">
+        <source>Konferenssi</source>
+        <target>Konferens</target>
       </trans-unit>
-      <trans-unit id="conferencePlatformTooltipContent">
+      <trans-unit id="ConferenceTooltipContent">
         <source>Sisältää konferenssin painetut tai julkisesti saatavilla olevat julkaisut, ns. proceedings-julkaisut.</source>
         <target>Omfattar tryckta eller offentligt tillgängliga publikationer, s.k. proceedings-publikationer för en konferens.</target>
       </trans-unit>
