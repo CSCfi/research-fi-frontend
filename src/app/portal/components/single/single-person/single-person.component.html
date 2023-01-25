@@ -162,16 +162,41 @@
         </div>
 
         <!-- Publications -->
-        <app-person-group
-          *ngIf='person.publications?.length'
-          class='content'
-          label='Julkaisut'
-          i18n-label='@@publications'
-          [data]='person.publications'
-          [fields]='publicationFields'
-          [maxItemCount]='maxPublicationCount'
-          tab='publication'
-        ></app-person-group>
+        <div class='row content'>
+          <div class='col'>
+            <h3 class='p-0'>{{ "Julkaisut" }} ({{ person.publications.length }})</h3>
+
+            <div class='row g-0'>
+              <ng-container *ngFor='let publication of person.publications.slice(0, maxPublicationCount); let last = last'>
+                <ng-container *ngIf="publication.id != null && publication.id != ''">
+                  <a [routerLink]="['/', 'results', 'publication', publication.id]">{{publication.name}}</a>
+                </ng-container>
+
+                <ng-container *ngIf="publication.id == null || publication.id == ''">
+                  <div>{{publication.name}}</div>
+                </ng-container>
+
+                <div>{{publication.authorsText}}</div>
+                <div>{{publication.journalName}}</div>
+                <div class='font-size-small'>{{publication.year}}</div>
+
+                <ng-container *ngIf="publication.doi != null && publication.doi != ''">
+                  <app-tag-doi [link]='publication.doi'></app-tag-doi>
+                </ng-container>
+
+                <ng-container *ngIf='last !== true'>
+                  <hr class='mt-3'>
+                </ng-container>
+              </ng-container>
+            </div>
+
+            <ng-container *ngIf='person.publications.length > maxPublicationCount'>
+              <div class='mt-3'>
+                <a class="no-reboot" (click)='showMorePublications()'>Näytä kaikki</a>
+              </div>
+            </ng-container>
+          </div>
+        </div>
 
         <!-- Datasets -->
         <app-person-group

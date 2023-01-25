@@ -94,7 +94,6 @@ export class SinglePersonComponent implements OnInit {
   initialItemCount = 3;
 
   maxPublicationCount = this.initialItemCount;
-  showAllPublications = false;
 
   maxDatasetCount = this.initialItemCount;
   showAllDatasets = false;
@@ -164,5 +163,12 @@ export class SinglePersonComponent implements OnInit {
 
   showEmail() {
     this.isEmailVisible = true;
+  }
+
+  showMorePublications() {
+    // Take one value from person and assign its publication length to maxPublicationCount
+    this.person$.pipe(take(1)).subscribe((person) => {
+      this.maxPublicationCount = person.publications.length;
+    });
   }
 }
