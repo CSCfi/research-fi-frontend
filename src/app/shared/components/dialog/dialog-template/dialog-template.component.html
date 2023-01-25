@@ -25,11 +25,6 @@
       ><ng-container [ngTemplateOutlet]="data.headerInfoTemplate"></ng-container
     ></ng-container>
   </div>
-  <!-- Extra header template // MyData editor toggle all -->
-  <ng-container
-    *ngIf="data.extraHeaderTemplate"
-    [ngTemplateOutlet]="data.extraHeaderTemplate"
-  ></ng-container>
   <!-- Close button -->
   <div
     class="col-auto text-end mt-1 mt-sm-0 align-self-sm-center order-2 order-sm-3"
@@ -79,21 +74,30 @@
 
 <!-- Actions -->
 <mat-dialog-actions
-  class="row"
+  class="row align-items-start"
   *ngIf="dialogActions?.length"
   [class.justify-content-center]="mobile && dialogActions.length === 1"
 >
+  <!-- Selected items indicator -->
+  <div
+    class="col align-self-center"
+    *ngIf="data.selectedItemsCount >= 0"
+    aria-live="polite"
+  >
+    {{ data.selectedItemsCount }}
+    <ng-container i18n="@@selected">valittu</ng-container>
+  </div>
   <!-- Some actions are spread into two columns -->
   <ng-container *ngIf="data.spreadActions; else singleColumnActions">
     <ng-container *ngFor="let group of dialogActions; let i = index">
-      <div class="col px-0">
+      <div class="col px-0" [class.col-auto]="i === 0">
         <!-- First array items should be on the left side -->
         <div
           class="row"
           [ngClass]="i === 0 ? 'justify-content-start' : 'justify-content-end'"
         >
           <ng-container *ngFor="let action of group">
-            <div class="col-auto">
+            <div class="col-auto py-2">
               <app-primary-action-button
                 *ngIf="action.primary"
                 (click)="doAction(action)"
@@ -115,7 +119,7 @@
   <!-- Regular single column render -->
   <ng-template #singleColumnActions>
     <ng-container *ngFor="let action of dialogActions">
-      <div class="col-auto">
+      <div class="col-auto py-2">
         <app-primary-action-button
           *ngIf="action.primary"
           (click)="doAction(action)"

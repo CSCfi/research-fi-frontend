@@ -5,6 +5,7 @@
   $warn: map-get($theme, warn);
 
   app-single-publication,
+  app-single-person,
   app-single-funding,
   app-single-dataset,
   app-single-infrastructure,
@@ -72,7 +73,7 @@
           vertical-align: middle;
         }
 
-        .link {
+        &:not(.simple) .link {
           color: black;
           border: 2px solid rgba(0, 0, 0, 0.87);
           background: white;

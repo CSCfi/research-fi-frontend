@@ -206,13 +206,17 @@ export class AggregationService {
       sizeOf: number,
       isDatasetsSection: boolean
     ) => {
-      return  {
+      return {
         filter: {
           bool: {
             filter: filterMethod,
-            ...(isDatasetsSection ? { should: {
-                term: { isLatestVersion: 1 },
-              }} : []),
+            ...(isDatasetsSection
+              ? {
+                  should: {
+                    term: { isLatestVersion: 1 },
+                  },
+                }
+              : []),
           },
         },
         aggs: {
@@ -679,6 +683,70 @@ export class AggregationService {
               filter: {
                 bool: {
                   filter: filterActive('openAccess'),
+                },
+              },
+            },
+          },
+        };
+        break;
+      case 'persons':
+        payLoad.aggs.organization = {
+          nested: {
+            path: 'activity.affiliations.sector',
+          },
+          aggs: {
+            sectorName: {
+              terms: {
+                size: 50,
+                field:
+                  'activity.affiliations.sector.name' +
+                  this.localeC +
+                  'Sector.keyword',
+                exclude: ' ',
+              },
+              aggs: {
+                sectorId: {
+                  terms: {
+                    size: 50,
+                    field: 'activity.affiliations.sector.sectorId.keyword',
+                  },
+                },
+                org: {
+                  nested: {
+                    path: 'activity.affiliations.sector.organization',
+                  },
+                  aggs: {
+                    organization: {
+                      terms: {
+                        size: 50,
+                        field:
+                          'activity.affiliations.sector.organization.organizationName' +
+                          this.localeC +
+                          '.keyword',
+                      },
+                      aggs: {
+                        filtered: {
+                          reverse_nested: {},
+                          aggs: {
+                            filterCount: {
+                              filter: {
+                                bool: {
+                                  filter: filterActiveNested('activity'),
+                                },
+                              },
+                            },
+                          },
+                        },
+                        orgId: {
+                          terms: {
+                            size: 10,
+                            field:
+                              'activity.affiliations.sector.organization.organizationId.keyword',
+                          },
+                        },
+                      },
+                    },
+                  },
                 },
               },
             },

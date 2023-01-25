@@ -1,0 +1,30 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<div class="row g-0 justify-content-end">
+  <ng-container *ngIf="showAdditionalFields">
+    <ng-container *ngFor="let field of fields | checkEmptyFields: data">
+      <div class="col-12">
+        <ng-container *ngIf="field.label">{{ field.label }}: </ng-container
+        >{{ data[field.key] }}
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <div class="col-auto">
+    <a
+      *ngIf="(fields | checkEmptyFields: data).length"
+      (click)="showAdditionalFields = !showAdditionalFields"
+    >
+      <ng-container *ngIf="!showAdditionalFields" i18n="@@furtherInformation">
+        Lisätiedot
+      </ng-container>
+
+      <ng-container *ngIf="showAdditionalFields" i18n="@@close">
+        Sulje
+      </ng-container>
+    </a>
+  </div>
+</div>

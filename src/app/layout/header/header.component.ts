@@ -116,6 +116,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     { label: $localize`:@@close:Sulje`, primary: true, method: 'close' },
   ];
 
+  myDataBetaTextContent: string;
+
   constructor(
     private resizeService: ResizeService,
     @Inject(LOCALE_ID) protected localeId: string,
@@ -140,26 +142,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.isAuthenticated = this.oidcSecurityService.isAuthenticated$;
   }
 
-  /*
-   * Current route based features
-   * MyData -module uses authentication and this process needs to start only in '/mydata' routes
-   */
   routeEvent(router: Router) {
     this.routeSub = router.events.subscribe((e) => {
       if (e instanceof NavigationEnd) {
         if (isPlatformBrowser(this.platformId)) {
-          // Prevent MyData routes in production
-          const allowedHostIdentifiers = ['localhost', 'test', 'qa', 'mydata'];
-          const checkHostMatch = (host: string) =>
-            this.platform.hostname.includes(host);
-
-          if (
-            !allowedHostIdentifiers.some(checkHostMatch) &&
-            e.url.includes('/mydata')
-          ) {
-            this.router.navigate(['/']);
-          }
-
           // Check if consent has been chosen & set variable. This is used in preserving consent status between language versions
           if (localStorage.getItem('cookieConsent')) {
             this.consent = localStorage.getItem('cookieConsent');
@@ -451,6 +437,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   openDialog(title, template, actions) {
+    // Set text content for MyData beta
+    // Note: Data isn't available through resolver in layout module
+    this.cmsContentService.pageData.pipe(take(1)).subscribe((data) => {
+      this.myDataBetaTextContent = data.find(
+        (item) => item.id === 'mydata_beta_text'
+      )['content' + this.appSettingsService.capitalizedLocale];
+    });
+
     this.dialogTitle = title;
     this.showDialog = true;
     this.dialogTemplate = template;

@@ -1,0 +1,32 @@
+// This file is part of the research.fi API service
+//
+// Copyright 2019 Ministry of Education and Culture, Finland
+//
+// :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+// :license: MIT
+
+.content {
+  padding: 1.5rem 0 !important;
+  display: block;
+}
+
+// Layout prototype has overlow for background in every other content area
+.content:nth-child(even) {
+  margin-left: -1rem !important;
+  padding-left: 1rem !important;
+}
+
+h3 {
+  padding-bottom: 1rem;
+}
+
+.section-heading {
+  padding-bottom: 1.5rem;
+  font-weight: bold;
+  display: block;
+}
+
+.sub-heading {
+  padding: 0.5rem 0;
+  font-weight: bold;
+}

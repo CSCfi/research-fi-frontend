@@ -21,6 +21,7 @@ import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { SearchPortalService } from '@mydata/services/search-portal.service';
 import { GroupTypes } from '@mydata/constants/groupTypes';
 import { Subscription } from 'rxjs';
+import { Sort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-search-portal',
@@ -30,9 +31,9 @@ import { Subscription } from 'rxjs';
 })
 export class SearchPortalComponent implements OnInit, OnDestroy {
   @Input() data: any;
-  @Output() onEditorClose = new EventEmitter<any>();
+  @Input() columns: any;
 
-  showDialog: boolean;
+  @Output() onAddItems = new EventEmitter<any>();
 
   results: any;
   total: number;
@@ -49,12 +50,6 @@ export class SearchPortalComponent implements OnInit, OnDestroy {
 
   addDataText: string;
   addDataPluralText: string;
-
-  dialogTitle: string;
-  dialogActions = [
-    { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'cancel' },
-    { label: $localize`:@@continue:Jatka`, primary: true, method: 'save' }, // TODO: Render button only if selection has been made
-  ];
 
   searchHelpText: string;
   searchPlaceholder: string;
@@ -73,15 +68,16 @@ export class SearchPortalComponent implements OnInit, OnDestroy {
   datasetSearchPlaceholder = $localize`:@@datasetSearchPlaceholder:Esim. nimi, organisaatio`;
   fundingSearchPlaceholder = $localize`:@@enterPartOfName:Kirjoita osa nimestä`;
 
+  itemsInProfile: any[];
+
+  infoText: string;
+
   constructor(
-    // private dialogRef: MatDialogRef<SearchPortalComponent>,
     private searchPortalService: SearchPortalService,
-    private appSettingsService: AppSettingsService // @Inject(MAT_DIALOG_DATA) public data: any
+    private appSettingsService: AppSettingsService
   ) {}
 
   ngOnInit(): void {
-    this.showDialog = true;
-
     this.setLocalizedContent();
 
     this.appSettingsService.mobileStatus
@@ -89,26 +85,28 @@ export class SearchPortalComponent implements OnInit, OnDestroy {
         this.mobile = status;
       })
       .unsubscribe();
+
+    this.itemsInProfile = this.data.fields.flatMap((field) => field.items);
   }
 
   setLocalizedContent() {
-    switch (this.data.groupId) {
+    switch (this.data.id) {
       case GroupTypes.publication: {
-        this.dialogTitle = this.searchForMissingPublication;
         this.searchHelpText = this.searchForPublicationWithName;
         this.searchPlaceholder = this.publicationSearchPlaceholder;
+        this.infoText = $localize`:@@searchForOtherPublicationsFromPortal:Hae muita julkaisuja Tiedejatutkimus.fi:stä julkaisun tai tekijän nimellä ja liitä ne profiiliisi.`;
         break;
       }
       case GroupTypes.dataset: {
-        this.dialogTitle = this.searchForMissingDataset;
         this.searchHelpText = this.searchForDatasetsWithName;
         this.searchPlaceholder = this.datasetSearchPlaceholder;
+        this.infoText = $localize`:@@searchForOtherDatasetsFromPortal:Hae muita tutkimusaineistoja Tiedejatutkimus.fi:stä aineiston tai tekijän nimellä ja liitä ne profiiliisi.`;
         break;
       }
       case GroupTypes.funding: {
-        this.dialogTitle = this.searchForMissingFunding;
         this.searchHelpText = this.searchForFundingsWithName;
         this.searchPlaceholder = this.fundingSearchPlaceholder;
+        this.infoText = $localize`:@@searchForOtherFundingsFromPortal:Hae muita hankkeita Tiedejatutkimus.fi:stä hankkeen sisältämien tietojen perusteella ja liitä ne profiiliisi.`;
         break;
       }
     }
@@ -126,10 +124,10 @@ export class SearchPortalComponent implements OnInit, OnDestroy {
     this.loading = true;
 
     this.searchSub = this.searchPortalService
-      .getData(term, this.data.groupId)
+      .getData(term, this.data.id)
       .pipe(take(1))
       .subscribe((result) => {
-        this.results = result[this.data.groupId + 's'];
+        this.results = result[this.data.id + 's'];
         this.total = result.total;
         this.loading = false;
       });
@@ -138,8 +136,7 @@ export class SearchPortalComponent implements OnInit, OnDestroy {
   handleSelection(arr) {
     this.currentSelection = arr;
 
-    if (this.total > 0 && arr.length > 0) {
-    }
+    this.onAddItems.emit(arr);
   }
 
   changePage(pageSettings: object) {
@@ -147,50 +144,12 @@ export class SearchPortalComponent implements OnInit, OnDestroy {
     this.search(this.currentTerm);
   }
 
-  sort(sortSettings) {
-    this.searchPortalService.updateSort(this.data.groupId, sortSettings);
+  sort(sortSettings: Sort) {
+    sortSettings.direction === ''
+      ? this.searchPortalService.resetSort()
+      : this.searchPortalService.updateSort(this.data.id, sortSettings);
+
     this.search(this.currentTerm);
-  }
-
-  doDialogAction(action: string) {
-    switch (action) {
-      case 'save': {
-        let fieldType: number;
-
-        switch (this.data.groupId) {
-          case 'publication': {
-            fieldType = this.fieldTypes.activityPublication;
-            break;
-          }
-          case 'dataset': {
-            fieldType = this.fieldTypes.activityDataset;
-            break;
-          }
-          case 'funding': {
-            fieldType = this.fieldTypes.activityFunding;
-            break;
-          }
-        }
-
-        const selection = this.currentSelection?.map((item) => ({
-          ...item,
-          itemMeta: {
-            id: item.id,
-            type: fieldType,
-            show: true,
-            primaryValue: true,
-          },
-        }));
-
-        this.onEditorClose.emit(selection);
-        break;
-      }
-      default: {
-        this.onEditorClose.emit();
-      }
-    }
-
-    this.showDialog = false;
   }
 
   ngOnDestroy(): void {

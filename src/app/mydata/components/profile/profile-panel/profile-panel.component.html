@@ -3,7 +3,7 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<div class="row d-flex justify-content-between py-2">
+<!-- <div class="row d-flex justify-content-between py-2">
   <div class="col-12 col-lg-auto font-size-big">
     <span i18n="@@selectInformationToDisplayInProfile">
       Valitse profiilissasi näytettävät tiedot
@@ -29,7 +29,7 @@
       data.id === 'funding'
     "
   >
-    <!-- Search from portal-->
+
     <a
       href="javascript:void(0)"
       class="primary-color font-weight-500"
@@ -46,7 +46,7 @@
       </u>
     </a>
   </div>
-</div>
+</div> -->
 
 <div [@.disabled]="disableAnimation">
   <mat-accordion *ngIf="data" multi>
@@ -83,6 +83,7 @@
 
         <!-- Options -->
         <ng-container *ngFor="let item of field.items; let j = index">
+          <!-- {{ item | json }} -->
           <!-- Keywords have values that need to be joined -->
           <ng-container [ngSwitch]="item.itemMeta.type">
             <div class="row py-1" *ngSwitchCase="fieldTypes.personKeyword">
@@ -106,36 +107,6 @@
             </div>
 
             <ng-container *ngSwitchDefault>
-              <!-- Header for items that are added from research.fi portal -->
-              <span
-                *ngIf="
-                  (item.itemMeta.type === fieldTypes.activityPublication ||
-                    item.itemMeta.type === fieldTypes.activityDataset ||
-                    item.itemMeta.type === fieldTypes.activityFunding) &&
-                  field.items.length &&
-                  (field.items | hasFetchedItem)
-                "
-                class="font-size-big d-block pb-3"
-              >
-                <ng-container [ngSwitch]="item.itemMeta.type">
-                  <span
-                    *ngSwitchCase="fieldTypes.activityPublication"
-                    i18n="@@addedPublications"
-                    >Tuodut julkaisut</span
-                  >
-                  <span
-                    *ngSwitchCase="fieldTypes.activityDataset"
-                    i18n="@@addedDatasets"
-                    >Tuodut tutkimusaineistot</span
-                  >
-                  <span
-                    *ngSwitchCase="fieldTypes.activityFunding"
-                    i18n="@@addedProjects"
-                    >Tuodut hankkeet</span
-                  >
-                </ng-container>
-              </span>
-
               <div
                 class="row d-flex justify-content-between py-1"
                 *ngIf="item.itemMeta.id !== null"

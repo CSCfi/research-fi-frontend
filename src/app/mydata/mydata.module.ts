@@ -65,12 +65,11 @@ import { CustomPaginatorIntlComponent } from './components/profile/search-portal
 import { countFieldItemsPipe } from './pipes/count-field-items.pipe';
 import { MydataBetaInfoComponent } from './components/mydata-beta-info/mydata-beta-info.component';
 import { ProfileSummaryComponent } from './components/profile/profile-summary/profile-summary.component';
-import { JoinItemsPipe } from './pipes/join-items.pipe';
 import { JoinDataSourcesPipe } from './pipes/join-data-sources.pipe';
 import { FindSelectedItemPipe } from './pipes/find-selected-item.pipe';
 import { HandleFetchedPublicationsPipe } from './pipes/handle-fetched-publications.pipe';
 import { SortPublicationsPipe } from './pipes/sort-publications.pipe';
-import { EulaComponent } from './components/eula/eula.component';
+import { MyDataTerms } from './components/mydata-terms/mydata-terms.component';
 import { DraftSummaryComponent } from './components/profile/draft-summary/draft-summary.component';
 import { ContactCardComponent } from './components/profile/cards/contact-card/contact-card.component';
 import { CollaborationCardComponent } from './components/profile/cards/collaboration-card/collaboration-card.component';
@@ -99,6 +98,11 @@ import { DataSourcesTableComponent } from './components/profile/data-sources/dat
 import { DataSourcesFiltersComponent } from './components/profile/data-sources/data-sources-filters/data-sources-filters.component';
 import { DataSourcesSelectionActionsComponent } from './components/profile/data-sources/data-sources-selection-actions/data-sources-selection-actions.component';
 import { FindByKeyValuePipe } from './pipes/find-by-key-value.pipe';
+import { WelcomeStepperComponent } from './components/welcome-stepper/welcome-stepper.component';
+import { MatStepperModule } from '@angular/material/stepper';
+import { AccountSettingsComponent } from './components/account-settings/account-settings.component';
+import { ProfileItemsTableComponent } from './components/profile/profile-items-table/profile-items-table.component';
+import { IsPortalItemPipe } from './pipes/is-portal-item.pipe';
 
 const matSnackbarDefaultConfig: MatSnackBarConfig = {
   verticalPosition: 'top',
@@ -127,12 +131,11 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
     SearchPortalResultsComponent,
     MydataBetaInfoComponent,
     ProfileSummaryComponent,
-    JoinItemsPipe,
     JoinDataSourcesPipe,
     FindSelectedItemPipe,
     HandleFetchedPublicationsPipe,
     SortPublicationsPipe,
-    EulaComponent,
+    MyDataTerms,
     DraftSummaryComponent,
     ContactCardComponent,
     CollaborationCardComponent,
@@ -161,6 +164,10 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
     DataSourcesFiltersComponent,
     DataSourcesSelectionActionsComponent,
     FindByKeyValuePipe,
+    WelcomeStepperComponent,
+    AccountSettingsComponent,
+    ProfileItemsTableComponent,
+    IsPortalItemPipe,
   ],
   imports: [
     CommonModule,
@@ -188,6 +195,7 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
     MatRippleModule,
     MatMenuModule,
     PortalModule,
+    MatStepperModule,
   ],
   providers: [
     AuthGuard,

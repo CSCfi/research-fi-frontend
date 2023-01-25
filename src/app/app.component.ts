@@ -6,13 +6,14 @@
 //  :license: MIT
 
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser, PlatformLocation } from '@angular/common';
 import { AppConfigService } from '@shared/services/app-config-service.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { NavigationStart, Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 import 'reflect-metadata'; // Required by ApmService
 import { ApmService } from '@elastic/apm-rum-angular';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
   selector: 'app-root',
@@ -25,7 +26,9 @@ export class AppComponent {
   constructor(
     private appConfigService: AppConfigService,
     private oidcSecurityService: OidcSecurityService,
+    private appSettingsService: AppSettingsService,
     private router: Router,
+    private platform: PlatformLocation,
     @Inject(PLATFORM_ID) private platformId: object,
     @Inject(DOCUMENT) private document: any,
     @Inject(ApmService) apmService: ApmService
@@ -49,9 +52,30 @@ export class AppComponent {
       //   ],
       // });
 
-      // Start auth process
       this.router.events.pipe(take(1)).subscribe((e) => {
         if (e instanceof NavigationStart) {
+          if (isPlatformBrowser(this.platformId)) {
+            // List of host identifiers for enablding or disabling content in matching host
+            const allowedHostIdentifiers = [
+              'localhost',
+              'test',
+              'qa',
+              'mydata',
+            ];
+
+            const checkHostMatch = (host: string) =>
+              this.platform.hostname.includes(host);
+
+            if (!allowedHostIdentifiers.some(checkHostMatch)) {
+              // Prevent development implementation of MyData routes in production
+              // e.url.includes('/mydata') && this.router.navigate(['/']);
+            } else {
+              // Global flag for preventing predefined content in production
+              this.appSettingsService.develop = true;
+            }
+          }
+
+          // Start MyData auth process
           if (e.url.includes('/mydata')) {
             this.oidcSecurityService.checkAuth().subscribe(() => {});
           }

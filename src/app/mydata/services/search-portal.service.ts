@@ -65,11 +65,11 @@ export class SearchPortalService {
       }
     }
 
-    return (this.currentSort = {
+    this.currentSort = {
       [sortField]: {
         order: sortSettings.direction,
       },
-    });
+    };
   }
 
   getDefaultSortField(groupId) {

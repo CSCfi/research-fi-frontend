@@ -1,0 +1,66 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<div class="row content">
+  <div class="col">
+    <h3>{{ label }} ({{ data.length }})</h3>
+
+    <div
+      class="row g-0"
+      *ngFor="let item of data.slice(0, maxItemCount); let i = index"
+    >
+      <ng-container *ngFor="let row of fields | checkEmptyFields: data">
+        <!-- Use case in publications -->
+        <app-tag-doi
+          *ngIf="row.key === 'doi' && item.doi; else textContent"
+          [link]="item.doi"
+        ></app-tag-doi>
+
+        <ng-template #textContent>
+          <a
+            *ngIf="tab && row.key === 'name' && item.id; else plainText"
+            routerLink="/results/{{ tab }}/{{ item.id }}"
+          >
+            {{ item.name }}
+          </a>
+          <ng-template #plainText>
+            <span>{{ item.authorsText }}</span>
+            <span>{{ item.journalName }}</span>
+            <span>{{ item.conferenceName }}</span>
+            <span
+              class="d-block"
+              [class.fw-bold]="row.bold"
+              [class.font-size-small]="row.key === 'year'"
+              >{{ item[row.key] }}</span
+            >
+            <ng-container *ngIf="item.parentPublicationName">
+              <span class="mt-2 bold" i18n="@@3537901381707941652">Emojulkaisun nimi</span>
+              <span class="mb-1">{{ item.parentPublicationName }}</span>
+            </ng-container>
+          </ng-template>
+        </ng-template>
+      </ng-container>
+
+      <!-- Additional fields -->
+      <app-person-group-additional
+        *ngIf="additionalFields"
+        [fields]="additionalFields"
+        [data]="data[i]"
+      >
+      </app-person-group-additional>
+
+      <hr *ngIf="i + 1 < maxItemCount && i + 1 !== data.length" class="mt-3" />
+    </div>
+  </div>
+
+  <a
+    *ngIf="data.length > maxItemCount"
+    class="mt-3"
+    (click)="maxItemCount = data.length"
+    i18n="@@showAll"
+  >
+    Näytä kaikki
+  </a>
+</div>

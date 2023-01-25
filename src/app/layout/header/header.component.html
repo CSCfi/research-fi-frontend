@@ -56,7 +56,7 @@
     class="navbar navbar-expand-xl navbar-light row"
     #mainHeader
   >
-    <div class="logo col-7 col-xs-9 col-xl-auto">
+    <div class="logo col">
       <div class="row">
         <div class="col-auto p-0">
           <a
@@ -88,25 +88,7 @@
         </div>
 
         <ng-template #betaInfoTemplate>
-          <div class="px-3">
-            <p i18n="@@researcherProfileBetaText1">
-              Tämä on Tutkijan tiedot -työkalun betaversio. Testikäyttäjien
-              palautetta hyödynnetään palvelun toiminnallisuuksien
-              kehittämisessä.
-            </p>
-            <p>
-              <a
-                [href]="
-                  appSettings[
-                    'readMoreLink' + appSettingsService.capitalizedLocale
-                  ]
-                "
-                target="_blank"
-                ><ng-container i18n="@@readMore">Lue lisää</ng-container>...
-                <fa-icon icon="external-link-alt"></fa-icon
-              ></a>
-            </p>
-          </div>
+          <div class="px-3" [innerHTML]="myDataBetaTextContent"></div>
         </ng-template>
 
         <app-dialog
@@ -118,10 +100,7 @@
         ></app-dialog>
       </div>
     </div>
-    <nav
-      class="nav-top col-auto col-5 col-xs-3 p-0"
-      [ngClass]="appSettings.beta ? 'col-xl-9 beta-mobile-menu' : 'col-xl-10'"
-    >
+    <nav class="nav-top col-auto" [class.beta-mobile-menu]="appSettings.beta">
       <div class="mobile ml-auto toggle-button-wrapper">
         <button
           *ngIf="!navbarOpen"

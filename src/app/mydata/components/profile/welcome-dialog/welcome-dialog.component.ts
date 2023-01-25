@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 export class WelcomeDialogComponent implements OnInit {
   showDialog = true;
 
+  startManagingYourProfileText = $localize`:@@startManagingYourProfile:Voit aloittaa Tutkijan tiedot -profiilin hallinnoinnin.`;
+  serviceDeploymentSuccessful = $localize`:@@serviceDeploymentSuccesful:Profiilityökalun käyttöönotto onnistui`;
+
   dialogActions = [
     {
       label: $localize`:@@continue:Jatka`,

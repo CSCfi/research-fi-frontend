@@ -8,7 +8,7 @@
 import { Injectable } from '@angular/core';
 import { Adapter } from '../adapter.model';
 import { InfraService, InfraServiceAdapter } from './infra-service.model';
-import { LanguageCheck } from '../utils';
+import { ModelUtilsService } from '@shared/services/model-util.service';
 
 export class Infrastructure {
   constructor(
@@ -46,7 +46,10 @@ export class Infrastructure {
   providedIn: 'root',
 })
 export class InfrastructureAdapter implements Adapter<Infrastructure> {
-  constructor(private isa: InfraServiceAdapter, private lang: LanguageCheck) {}
+  constructor(
+    private isa: InfraServiceAdapter,
+    private utils: ModelUtilsService
+  ) {}
   adapt(item: any): Infrastructure {
     const services: InfraService[] = [];
     const fieldsOfScience: string[] = [];
@@ -57,7 +60,7 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
     let responsibleOrganization = '';
     let responsibleOrganizationId = '';
     if (item.responsibleOrganization) {
-      responsibleOrganization = this.lang.testLang(
+      responsibleOrganization = this.utils.checkTranslation(
         'responsibleOrganizationName',
         item.responsibleOrganization[0]
       );
@@ -70,7 +73,7 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
     if (item.participantOrganizations) {
       item.participantOrganizations.forEach((org) => {
         orgList.push(
-          this.lang.testLang('participantOrganizationName', org).trim()
+          this.utils.checkTranslation('participantOrganizationName', org).trim()
         );
       });
     }
@@ -84,7 +87,7 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
 
     item.services?.forEach((service) => services.push(this.isa.adapt(service)));
     item.fieldsOfScience?.forEach((obj) =>
-      fieldsOfScience.push(this.lang.testLang('name', obj))
+      fieldsOfScience.push(this.utils.checkTranslation('name', obj))
     );
 
     const keywords = []
@@ -97,22 +100,22 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
 
     return new Infrastructure(
       item.nameFi,
-      this.lang.testLang('name', item),
-      this.lang.testLang('description', item),
-      this.lang.testLang('scientificDescription', item),
+      this.utils.checkTranslation('name', item),
+      this.utils.checkTranslation('description', item),
+      this.utils.checkTranslation('scientificDescription', item),
       item.startYear,
       item.endYear,
       item.acronym,
       item.finlandRoadmap,
       esfriCode,
       item.merilCode,
-      this.lang.testLang('infraConName', item?.infraConPoint),
-      this.lang.testLang('infraConDescr', item?.infraConPoint),
+      this.utils.checkTranslation('infraConName', item?.infraConPoint),
+      this.utils.checkTranslation('infraConDescr', item?.infraConPoint),
       item?.infraConPoint?.infraConEmail,
       item?.infraConPoint?.infraConPhone,
       item?.infraConPoint?.infraConPost,
-      this.lang.testLang('infraConInfo', item?.infraConPoint),
-      this.lang.testLang('infraConTerms', item?.infraConPoint),
+      this.utils.checkTranslation('infraConInfo', item?.infraConPoint),
+      this.utils.checkTranslation('infraConTerms', item?.infraConPoint),
       item.urn,
       responsibleOrganization,
       responsibleOrganizationId,

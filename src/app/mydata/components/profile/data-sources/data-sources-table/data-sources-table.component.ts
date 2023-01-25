@@ -28,6 +28,7 @@ import { first, Subscription } from 'rxjs';
 import { TableRow } from 'src/types';
 import { TableComponent } from '@shared/components/table/table.component';
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-data-sources-table',
@@ -38,7 +39,7 @@ export class DataSourcesTableComponent
   implements OnInit, AfterViewInit, OnChanges, OnDestroy
 {
   @Input() data: any;
-  @Output() onSelectionChange = new EventEmitter<number>();
+  @Output() onSelectionChange = new EventEmitter<number[]>();
 
   public fieldTypes = FieldTypes;
 
@@ -93,6 +94,8 @@ export class DataSourcesTableComponent
   maxContentLength = 35;
   mobileStatusSub: Subscription;
   mobile: boolean;
+  currentSelection: number[] = [];
+  allSelected: boolean;
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -169,7 +172,9 @@ export class DataSourcesTableComponent
 
         switch (item.itemMeta.type) {
           case FieldTypes.activityAffiliation: {
-            displayValue = item.positionName;
+            displayValue = [item.positionName, item.organizationName]
+              .filter((item) => item.length > 0)
+              .join(', ');
             break;
           }
           case FieldTypes.activityEducation: {
@@ -182,7 +187,8 @@ export class DataSourcesTableComponent
             break;
           }
           case FieldTypes.activityDataset:
-          case FieldTypes.activityFunding: {
+          case FieldTypes.activityFunding:
+          case FieldTypes.activityActivitesAndRewards: {
             displayValue = item.name;
             break;
           }
@@ -226,7 +232,7 @@ export class DataSourcesTableComponent
         },
         source: {
           label: item.source
-            .map((source) => source.organization.nameFi)
+            ?.map((source) => source.organization.nameFi)
             .join(', '),
         },
         // sharing: {
@@ -311,8 +317,28 @@ export class DataSourcesTableComponent
     this.sortDirection = sort.direction;
   }
 
-  handleSelection(selectedRows) {
-    this.onSelectionChange.emit(selectedRows);
+  handleSelection(selectedRowIndex) {
+    const rowIndex = (this.pageNumber - 1) * this.pageSize + selectedRowIndex;
+
+    this.currentSelection.find((index) => index === rowIndex) !== undefined
+      ? (this.currentSelection = this.currentSelection.filter(
+          (index) => index !== rowIndex
+        ))
+      : this.currentSelection.push(rowIndex);
+
+    this.onSelectionChange.emit(this.currentSelection);
+    this.allSelected = this.currentSelection.length === this.tableRows.length;
+  }
+
+  handleSelectAll(event: MatCheckboxChange) {
+    const rowIds = event.checked
+      ? this.tableRows.map((_row, index) => index)
+      : [];
+
+    this.currentSelection = rowIds;
+
+    this.onSelectionChange.emit(rowIds);
+    this.allSelected = event.checked;
   }
 
   clearSelections() {

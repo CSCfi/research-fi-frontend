@@ -18,6 +18,7 @@ export class OpenScienceAndResearchIndicatorsComponent implements OnInit {
 
   indicatorContent = [];
   subPageLinks: any;
+  indicatorsActive = false;
 
   constructor(private route: ActivatedRoute, private utilityService: UtilityService, private appSettingsService: AppSettingsService) {
     this.currentLocale = this.appSettingsService.capitalizedLocale;

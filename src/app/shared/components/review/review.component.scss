@@ -10,6 +10,15 @@ app-review {
     padding-bottom: 0.5rem;
   }
 
+  h4 {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  .content {
+    padding: 0.5rem 0;
+  }
+
   .icon {
     padding: 0 0.7rem 0 0;
   }
@@ -21,6 +30,7 @@ app-review {
 
   .section-label {
     font-weight: 600;
+    padding-bottom: 0.5rem;
   }
 
   .form-group {

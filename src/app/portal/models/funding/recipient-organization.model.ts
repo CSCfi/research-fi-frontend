@@ -7,7 +7,7 @@
 
 import { Adapter } from '../adapter.model';
 import { Injectable } from '@angular/core';
-import { LanguageCheck } from '../utils';
+import { ModelUtilsService } from '@shared/services/model-util.service';
 
 export class RecipientOrganization {
   constructor(
@@ -30,7 +30,7 @@ export class RecipientOrganization {
 export class RecipientOrganizationAdapter
   implements Adapter<RecipientOrganization>
 {
-  constructor(private lang: LanguageCheck) {}
+  constructor(private utils: ModelUtilsService) {}
   adapt(item: any): RecipientOrganization {
     // Trim all string elements
     if (item) {
@@ -49,8 +49,8 @@ export class RecipientOrganizationAdapter
     return new RecipientOrganization(
       item.consortiumOrganizationId,
       item.consortiumOrganizationBusinessId,
-      this.lang.testLang('consortiumOrganizationName', item),
-      this.lang.translateRole(item.roleInConsortium, item.euFunding),
+      this.utils.checkTranslation('consortiumOrganizationName', item),
+      this.utils.translateRole(item.roleInConsortium, item.euFunding),
       item.shareOfFundingInEur,
       item.consortiumOrganizationPic,
       item.consortiumOrganizationCountryCode,

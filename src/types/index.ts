@@ -78,6 +78,7 @@ export type DialogAction = {
   };
   primary?: boolean;
   flexStart?: boolean;
+  action?: any;
 };
 
 // MyData
@@ -118,3 +119,15 @@ export type Group = {
   label: string;
   fields: Field[];
 };
+
+// E.g. in publications editor modal table
+export type EditorModalColumn = {
+  id: string;
+  label: string;
+  field: string;
+  width?: string;
+  ellipsis?: boolean;
+  additionalFields?: AdditionalField[];
+};
+
+type AdditionalField = { field: string; ellipsis?: boolean; hidden?: boolean };

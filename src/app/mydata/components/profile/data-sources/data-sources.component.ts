@@ -17,6 +17,7 @@ import { DataSourcesTableComponent } from './data-sources-table/data-sources-tab
 import { NotificationService } from '@shared/services/notification.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
+import { clone, cloneDeep } from 'lodash-es';
 
 @Component({
   selector: 'app-data-sources',
@@ -48,6 +49,7 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
     dataSources: DataSource[];
     itemMeta: ItemMeta;
   }[];
+  nameField: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -68,11 +70,10 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
      */
     if (draftProfile) {
       this.notificationService.notify({
-        notificationText:
-          'Sinulla on julkaisemattomia muutoksia profiilinäkymässä.',
+        notificationText: $localize`:@@youHaveUnpublishedChangesSnackbar:Sinulla on julkaisemattomia muutoksia profiilinäkymässä.`,
         buttons: [
           {
-            label: 'Tarkasta muutokset',
+            label: $localize`:@@youHaveUnpublishedChangesSnackbarButton:Tarkasta muutokset.`,
             action: () => this.router.navigate(['mydata/profile']),
           },
         ],
@@ -89,6 +90,11 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
     const contactGroup = myDataProfile.profileData.find(
       (group) => group.id === 'contact'
     );
+
+    // Name field needs to be replaced when storing data into service
+    this.nameField = contactGroup.fields.filter(
+      (field) => field.id === 'name'
+    )[0];
 
     contactGroup.fields = contactGroup.fields.filter(
       (field) => field.id !== 'name'
@@ -155,7 +161,7 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
         (field) => field.id === 'keywords'
       );
 
-      if (keywordsField) {
+      if (keywordsField && keywordsField.items.length) {
         this.originalKeywords = [...keywordsField.items];
 
         keywordsField.items = [
@@ -190,16 +196,19 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
   // Handle active filters for use of active filters list component
   parseActiveFilters(activeFilters) {
     const statuses = [
-      { id: 'public', label: 'Julkinen' },
-      { id: 'private', label: 'Private' },
+      { id: 'public', label: $localize`:@@public:Julkinen` },
+      { id: 'private', label: $localize`:@@notPublic:Ei julkinen` },
     ];
 
     const datasets = this.initialProfileData
       .flatMap((group) => group.fields)
       .map((field) => ({ id: field.id, label: field.label }));
 
-    const sources = getUniqueSources(this.initialProfileData).map((source) => ({
-      id: source.label,
+    const sources = getUniqueSources(
+      this.initialProfileData,
+      this.appSettingsService.capitalizedLocale
+    ).map((source) => ({
+      id: source.key,
       label: source.label,
     }));
 
@@ -229,7 +238,7 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
      * Convert param to array so it matches the case when there's
      * multiple params per category
      */
-    if (typeof queryParams[filter.category]) {
+    if (typeof queryParams[filter.category] === 'string') {
       queryParams[filter.category] = [queryParams[filter.category]];
     }
 
@@ -264,6 +273,8 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
    * selection change.
    */
   handleSelection(selectedRows) {
+    // Reset previous selection
+    this.patchService.patchItems = [];
     this.patchService.cancelConfirmedPayload();
 
     const items = [];
@@ -278,7 +289,7 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
           ...item,
           groupLabel: group.label,
           source: item.dataSources
-            .map((source) => source.organization['name' + this.locale])
+            ?.map((source) => source.organization['name' + this.locale])
             .join(', '),
         });
       }
@@ -327,7 +338,14 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
 
     this.dataSourcesTable.clearSelections();
 
-    this.profileService.setCurrentProfileData(this.data);
+    // Add name field back to data which is stored in state
+    const dataToStore = cloneDeep(this.data);
+
+    let contactGroup = dataToStore.find((group) => group.id === 'contact');
+
+    contactGroup.fields.unshift(this.nameField);
+
+    this.profileService.setCurrentProfileData(dataToStore);
     this.initialProfileData = [...this.data];
   }
 }

@@ -30,6 +30,8 @@ Copyright 2019 Ministry of Education and Culture, Finland
       [value]="pageSize"
       i18n-aria-label="@@resultCountAriaLabel"
       aria-label="Hakutulosten lukumäärä sivulla"
+      #selectInput
+      (blur)="focusSelect = null"
     >
       <option value="10">10</option>
       <option value="50">50</option>

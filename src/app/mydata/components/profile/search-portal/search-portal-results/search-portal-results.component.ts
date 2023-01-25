@@ -17,6 +17,17 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { Sort } from '@angular/material/sort';
+import {
+  faSort,
+  faSortDown,
+  faSortUp,
+} from '@fortawesome/free-solid-svg-icons';
+import {
+  DatasetColumns,
+  FundingColumns,
+  PublicationColumns,
+} from '@mydata/constants';
 import { SearchPortalService } from '@mydata/services/search-portal.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
@@ -34,7 +45,8 @@ export class SearchPortalResultsComponent
   @Input() data: any[];
   @Input() total: number;
   @Input() itemsInProfile: any;
-  @Input() selectedItems: any;
+  @Input() selectedInSession: any[];
+
   @Output() onItemToggle = new EventEmitter<any>();
   @Output() onPageChange = new EventEmitter<any>();
   @Output() onSortToggle = new EventEmitter<any>();
@@ -46,10 +58,15 @@ export class SearchPortalResultsComponent
   currentPageSize = 10;
   pageCount: number;
 
+  faSort = faSort;
+  faSortDown = faSortDown;
+  faSortUp = faSortUp;
+
   columns: string[] = ['selection', 'year', 'name', 'show-more'];
 
   sortSettings: any;
-  selectedItemsIdArray: any[];
+  selectedItemsIdArray: any[] = [];
+  currentSelection = [];
 
   idField = 'id';
 
@@ -59,94 +76,23 @@ export class SearchPortalResultsComponent
 
   publicationsTable = {
     idField: 'id',
-    defaultSort: 'year',
-    columns: [
-      {
-        id: 'year',
-        label: $localize`:@@year:Vuosi`,
-        field: 'publicationYear',
-      },
-      {
-        id: 'name',
-        ellipsis: true,
-        label: $localize`:@@name:Nimi`,
-        field: 'title',
-        additionalFields: [
-          { field: 'authors', ellipsis: true },
-          { field: 'parentPublicationName', hidden: true },
-          { field: 'doi', hidden: true },
-        ],
-      },
-    ],
+    columns: PublicationColumns.filter((column) => column.id !== 'source'),
   };
 
   datasetsTable = {
     idField: 'id',
-    defaultSort: 'year',
-    columns: [
-      {
-        id: 'year',
-        label: $localize`:@@year:Vuosi`,
-        field: 'year',
-      },
-      {
-        id: 'name',
-        ellipsis: true,
-        label: $localize`:@@name:Nimi`,
-        field: 'name',
-        additionalFields: [
-          {
-            field: 'description',
-            ellipsis: true,
-            cutContent: true,
-          },
-          { field: 'authors', useComponent: true, hidden: true },
-          { field: 'urn', hidden: true },
-        ],
-      },
-    ],
+    columns: DatasetColumns.filter((column) => column.id !== 'source'),
   };
 
   fundingsTable = {
     idField: 'id',
-    defaultSort: 'year',
-    columns: [
-      {
-        id: 'year',
-        label: $localize`:@@year:Vuosi`,
-        field: 'startYear',
-      },
-      {
-        id: 'name',
-        ellipsis: true,
-        label: $localize`:@@name:Nimi`,
-        field: 'name',
-        additionalFields: [
-          { field: 'funderProjectNumber' },
-          {
-            field: 'description',
-            ellipsis: true,
-            cutContent: true,
-          },
-          {
-            field: 'recipient.personNameAndOrg',
-            hidden: true,
-          },
-          {
-            field: 'funder.typeOfFundingName',
-            hidden: true,
-          },
-          {
-            field: 'funder.name',
-            hidden: true,
-          },
-        ],
-      },
-    ],
+    columns: FundingColumns.filter((column) => column.id !== 'source'),
   };
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   termSub: Subscription;
+  activeSort: Sort;
+  selectedInSessionIds: any[] = [];
 
   constructor(
     private searchPortalService: SearchPortalService,
@@ -156,6 +102,9 @@ export class SearchPortalResultsComponent
   }
 
   ngOnInit() {
+    // Set default sort (all groups default to year field at this point)
+    this.activeSort = { active: 'year', direction: 'desc' };
+
     // Set table by groupId
     switch (this.groupId) {
       case 'publication': {
@@ -178,21 +127,22 @@ export class SearchPortalResultsComponent
       if (this.paginator) this.paginator.pageIndex = 0;
     });
 
-    // Create list of ids that we can match for existing selections in template'
-    if (this.itemsInProfile[0]?.items !== undefined) {
-      const profileItems = this.itemsInProfile
-        .flatMap((item) => item.items)
+    // Create list of ids that we can match for existing selections in template
+    if (this.itemsInProfile.length) {
+      const profileItemIDs = this.itemsInProfile
         .map((item) => item.id)
         .filter((item) => item?.toString().trim().length);
 
-      this.selectedItemsIdArray = profileItems;
-    } else {
-      this.selectedItemsIdArray = [];
+      this.selectedItemsIdArray = profileItemIDs;
     }
   }
 
   ngOnChanges() {
     this.pageCount = Math.ceil(this.total / this.currentPageSize);
+
+    // Items selected in active session are stored in parent component.
+    // This prevents selections to lose checked status if page settings is changed
+    this.selectedInSessionIds = this.selectedInSession.map((item) => item.id);
   }
 
   ngOnDestroy() {
@@ -223,28 +173,29 @@ export class SearchPortalResultsComponent
 
   toggleItem(event, index) {
     const selectedItem = this.data[index];
-    let selectedItems = this.selectedItems;
 
-    let arr = this.publicationArray;
+    let arr = this.currentSelection;
 
-    if (selectedItems.find((item) => item.id === selectedItem.id)) {
-      arr.push({
-        ...selectedItems.find((item) => item.id === selectedItem.id),
-        show: event.checked,
-      });
+    if (event.checked) {
+      // Prevent adding of duplicate items
+      !arr.find((item) => item.id === selectedItem.id) &&
+        arr.push({ ...selectedItem, show: true });
     } else {
-      event.checked
-        ? arr.find((item) => item.id === selectedItem.id)
-          ? null // Prevent adding of duplicate items
-          : arr.push({ ...selectedItem, show: true })
-        : (arr = arr.filter((item) => item.id !== selectedItem.id));
+      arr = arr.filter((item) => item.id !== selectedItem.id);
+      this.currentSelection = arr;
     }
 
     this.onItemToggle.emit(arr);
   }
 
-  sortData(sortSettings) {
-    this.onSortToggle.emit(sortSettings);
+  sortData(sort: Sort) {
+    if (!sort.active || sort.direction === '') {
+      this.activeSort = null;
+      return;
+    }
+
+    this.activeSort = sort;
+    this.onSortToggle.emit(sort);
   }
 
   navigate(event) {

@@ -21,6 +21,7 @@ import { SortByOption } from 'src/types';
 export class SortByButtonComponent implements OnInit {
   @Input() options: SortByOption[];
   @Input() activeSort: string;
+  @Input() customSortByRelevanceLabel: string;
 
   @Output() onOptionClick = new EventEmitter<{
     key: string;
@@ -54,8 +55,9 @@ export class SortByButtonComponent implements OnInit {
   }
 
   setActiveSortLabel(active) {
-    this.activeSortLabel =
-      this.options.find((options) => options.key === active)?.label ||
-      this.sortByRelevance.label;
+    this.activeSortLabel = this.customSortByRelevanceLabel
+      ? this.customSortByRelevanceLabel
+      : this.options.find((options) => options.key === active)?.label ||
+        this.sortByRelevance.label;
   }
 }

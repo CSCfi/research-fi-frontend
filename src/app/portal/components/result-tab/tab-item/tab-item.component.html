@@ -8,8 +8,8 @@
 ></ng-template>
 <a
   class="bundler item-wrapper"
-  [class.disabled]="tab.data.length === 0"
-  [class.disabled-home]="isHomepage && tab.data.length === 0"
+  [class.disabled]="tab.data.length === 0 || tab.disabled"
+  [class.disabled-home]="isHomepage && (tab.data.length === 0 || tab.disabled)"
   [class.homepage]="isHomepage"
   [class.active]="selectedTab === tab.link"
   [queryParams]="targetQueryParams"
@@ -29,21 +29,27 @@
     </div>
     <div class="label text-center" [class.homepage-label]="isHomepage">
       {{ tab.label }}
+      <ng-container *ngIf="tab.beta && isHomepage"
+        >-&nbsp;<span class="fw-bold">BETA</span></ng-container
+      >
     </div>
-    <div
-      class="numeric-box d-sm-block"
-      [countUp]="
-        tab.data
-          ? counted.aggregations._index.buckets[tab.data]?.doc_count
-          : 999
-      "
-      [options]="countOps"
-      [reanimateOnClick]="false"
-    >
-      0
+    <div class="numeric-box d-sm-block">
+      <div
+        *ngIf="!tab.disabled"
+        [countUp]="
+          tab.data
+            ? counted.aggregations._index.buckets[tab.data]?.doc_count
+            : 999
+        "
+        [options]="countOps"
+        [reanimateOnClick]="false"
+      >
+        0
+      </div>
+      <div *ngIf="tab.disabled" i18n="@@comingSoon">Tulossa</div>
     </div>
-    <!-- TODO: Remove the ternary operator when all data becomes available -->
   </div>
+
   <ng-template #disabledTab>
     <div
       class="tab-icon"

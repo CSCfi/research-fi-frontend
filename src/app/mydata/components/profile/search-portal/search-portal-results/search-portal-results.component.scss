@@ -23,6 +23,11 @@ app-search-portal-results {
     align-items: unset;
   }
 
+  mat-header-row,
+  mat-row {
+    padding: 0 1rem;
+  }
+
   mat-cell,
   mat-header-cell,
   mat-footer-cell {
@@ -55,5 +60,24 @@ app-search-portal-results {
   mat-header-cell:first-of-type,
   mat-footer-cell:first-of-type {
     padding-left: 0;
+  }
+
+  @media (max-width: 991px) {
+    .mat-header-row {
+      display: none;
+    }
+
+    .mat-row {
+      display: block;
+      padding: 0.5rem 0;
+    }
+
+    .mat-column-selection {
+      float: right;
+    }
+
+    mat-cell {
+      padding-left: 0;
+    }
   }
 }

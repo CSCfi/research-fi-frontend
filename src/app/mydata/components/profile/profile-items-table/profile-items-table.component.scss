@@ -1,0 +1,87 @@
+//  This file is part of the research.fi API service
+//
+//  Copyright 2019 Ministry of Education and Culture, Finland
+//
+//  :author: CSC - I
+
+app-profile-items-table {
+  .mat-checkbox-inner-container {
+    margin-top: -0.125rem !important;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  mat-header-row {
+    min-height: unset;
+  }
+
+  mat-header-row,
+  mat-row {
+    padding: 0 1rem;
+  }
+
+  mat-row,
+  mat-footer-row {
+    min-height: unset;
+    align-items: unset;
+  }
+
+  mat-cell,
+  mat-header-cell,
+  mat-footer-cell {
+    padding: 0.5rem;
+    align-items: flex-start;
+  }
+
+  mat-cell {
+    margin-top: 0.25rem;
+  }
+
+  .mat-column-selection {
+    flex: 0 0 2rem;
+    overflow: visible;
+  }
+
+  .mat-column-show-more {
+    flex: 0 0 6.5rem;
+  }
+
+  // Cell with multiple rows which can be expanded with 'show more'
+  .expandable-cell {
+    flex-direction: column;
+  }
+
+  mat-cell:first-of-type,
+  mat-header-cell:first-of-type,
+  mat-footer-cell:first-of-type {
+    padding-left: 0;
+  }
+
+  // Delete row button
+  app-secondary-button button {
+    min-height: unset !important;
+    padding: 0.125rem 1.5rem !important;
+    margin-top: -0.5rem;
+  }
+
+  @media (max-width: 991px) {
+    .mat-header-row {
+      display: none;
+    }
+
+    .mat-row {
+      display: block;
+      padding: 0.5rem 0;
+    }
+
+    .mat-column-selection {
+      float: right;
+    }
+
+    mat-cell {
+      padding-left: 0;
+    }
+  }
+}

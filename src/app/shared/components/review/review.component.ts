@@ -48,6 +48,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
     $localize`:@@fromIncorrectInformation:Virheellisestä tiedosta`,
     $localize`:@@otherFeedback:Muu palaute`,
   ];
+
   location: string;
   title: string;
   sendText = $localize`:@@r15:Tarkista ja lähetä`;
@@ -120,8 +121,8 @@ export class ReviewComponent implements OnInit, OnDestroy {
   }
 
   validate() {
-    this.location =
-      this.locationTarget === 'other' ? this.locationValue : this.getRoute();
+    // this.location =
+    //   this.locationTarget === 'other' ? this.locationValue : this.getRoute();
     this.reviewTargetError = !this.reviewTarget ? true : false;
     this.reviewContentError = !this.reviewContent ? true : false;
     this.emailError =

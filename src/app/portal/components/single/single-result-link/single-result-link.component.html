@@ -3,7 +3,7 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<div class="row links">
+<div class="row links" [class.m-0]="simple" [class.simple]="simple">
   <div class="col-12 px-0 link-wrapper">
     <div class="link">
       <span class="link-tag" *ngIf="tag"> {{ tag }}</span>
@@ -12,10 +12,10 @@
         class="link-tag fa fa-link center"
         style="font-size: 22px; padding: 3px 12px"
       ></span>
-      <span class="link-item">
+      <span class="link-item" [class.p-0]="simple">
         <a [href]="fixExternalUrl(url)" target="_blank">
           <span class="link-label">
-            {{ label ? label : (url | handleLinkDisplay) }}
+            {{ label ? label : (url | trimLinkPrefix) }}
           </span>
           <fa-icon icon="external-link-alt"></fa-icon>
         </a>

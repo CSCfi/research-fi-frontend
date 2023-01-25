@@ -8,7 +8,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, LOCALE_ID, PLATFORM_ID } from '@angular/core';
 import { Adapter } from './adapter.model';
-import { LanguageCheck } from './utils';
+import { ModelUtilsService } from '@shared/services/model-util.service';
 
 export class FundingCall {
   constructor(
@@ -23,8 +23,19 @@ export class FundingCall {
     public openDateString: string,
     public dueDateString: string,
     public dueTimeString: string,
-    public foundation: { name: string; orgId: string; url: string, foundationUrl: string, applicationUrl: string },
-    public categories: { id: string; name: string; parentId; parentName: string; }[],
+    public foundation: {
+      name: string;
+      orgId: string;
+      url: string;
+      foundationUrl: string;
+      applicationUrl: string;
+    },
+    public categories: {
+      id: string;
+      name: string;
+      parentId;
+      parentName: string;
+    }[],
     public daysLeft: number
   ) {}
 }
@@ -34,12 +45,12 @@ export class FundingCall {
 })
 export class FundingCallAdapter implements Adapter<FundingCall> {
   constructor(
-    private lang: LanguageCheck,
+    private utils: ModelUtilsService,
     @Inject(LOCALE_ID) protected localeId: string,
     @Inject(PLATFORM_ID) private platformId: object
   ) {}
   adapt(item: any): FundingCall {
-    const description = this.lang.testLang('description', item);
+    const description = this.utils.checkTranslation('description', item);
     let descriptionParsed = '';
 
     // Description without HTML
@@ -51,31 +62,53 @@ export class FundingCallAdapter implements Adapter<FundingCall> {
     const foundation: any = {};
     if (item?.foundation) {
       const f = item?.foundation.pop();
-      foundation.name = this.lang.testLang('name', f);
+      foundation.name = this.utils.checkTranslation('name', f);
       foundation.orgId = f?.organization_id?.trim();
       foundation.url = f?.url?.trim();
       foundation.foundationUrl = f?.foundationURL?.trim();
     }
 
     if (this.localeId === 'fi') {
-      foundation.applicationUrl = item?.applicationURL_fi ? item.applicationURL_fi : item?.applicationURL_sv ? item.applicationURL_sv : item.applicationURL_en ? item.applicationURL_en : '';
-    }
-    else if (this.localeId === 'sv') {
-      foundation.applicationUrl = item?.applicationURL_sv ? item.applicationURL_sv : item?.applicationURL_fi ? item.applicationURL_fi : item.applicationURL_en ? item.applicationURL_en : '';
-    }
-    else if (this.localeId === 'en') {
-      foundation.applicationUrl = item?.applicationURL_en ? item.applicationURL_en : item?.applicationURL_fi ? item.applicationURL_fi : item.applicationURL_sv ? item.applicationURL_sv : '';
+      foundation.applicationUrl = item?.applicationURL_fi
+        ? item.applicationURL_fi
+        : item?.applicationURL_sv
+        ? item.applicationURL_sv
+        : item.applicationURL_en
+        ? item.applicationURL_en
+        : '';
+    } else if (this.localeId === 'sv') {
+      foundation.applicationUrl = item?.applicationURL_sv
+        ? item.applicationURL_sv
+        : item?.applicationURL_fi
+        ? item.applicationURL_fi
+        : item.applicationURL_en
+        ? item.applicationURL_en
+        : '';
+    } else if (this.localeId === 'en') {
+      foundation.applicationUrl = item?.applicationURL_en
+        ? item.applicationURL_en
+        : item?.applicationURL_fi
+        ? item.applicationURL_fi
+        : item.applicationURL_sv
+        ? item.applicationURL_sv
+        : '';
     }
 
     const categories = [];
     item.categories?.forEach((c) => {
-        categories.push({ id: c.codeValue, name: this.lang.testLang('name', c), parentName: this.lang.testLang('broaderName', c), parentId: c.broaderCodeValue });
-    }
-    );
+      categories.push({
+        id: c.codeValue,
+        name: this.utils.checkTranslation('name', c),
+        parentName: this.utils.checkTranslation('broaderName', c),
+        parentId: c.broaderCodeValue,
+      });
+    });
 
     const openDate = new Date(item.callProgrammeOpenDate);
     const dueDate = new Date(item.callProgrammeDueDate);
-    const dueTimeString = item?.callProgrammeDueTime ? item.callProgrammeDueTime.slice(0, item.callProgrammeDueTime.length -3) : '';
+    const dueTimeString = item?.callProgrammeDueTime
+      ? item.callProgrammeDueTime.slice(0, item.callProgrammeDueTime.length - 3)
+      : '';
 
     function pad(n) {
       return n < 10 ? '0' + n : n;
@@ -99,10 +132,10 @@ export class FundingCallAdapter implements Adapter<FundingCall> {
 
     return new FundingCall(
       item.id,
-      this.lang.testLang('name', item),
+      this.utils.checkTranslation('name', item),
       description,
       descriptionParsed,
-      this.lang.testLang('applicationTerms', item),
+      this.utils.checkTranslation('applicationTerms', item),
       item.contactInformation,
       openDate,
       dueDate,

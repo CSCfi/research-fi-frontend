@@ -10,7 +10,8 @@ import {
   OnInit,
   Input,
   OnChanges,
-  SimpleChanges,
+  ViewChild,
+  ElementRef,
 } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -24,8 +25,11 @@ export class ResultCountComponent implements OnInit, OnChanges {
   @Input() page: number;
   @Input() pageSize: number;
   @Input() total: any;
+  @Input() focusSelect: number; // Pass as Data.now() for new value
 
   fromPage: number;
+
+  @ViewChild('selectInput') selectInput: ElementRef;
 
   constructor(private router: Router, private route: ActivatedRoute) {}
 
@@ -33,6 +37,11 @@ export class ResultCountComponent implements OnInit, OnChanges {
 
   ngOnChanges(): void {
     this.fromPage = (this.page - 1) * this.pageSize;
+
+    // E.g. in skip to results link in results component
+    if (this.focusSelect) {
+      this.selectInput.nativeElement.focus();
+    }
   }
 
   changePageSize(event: { target: HTMLInputElement }) {

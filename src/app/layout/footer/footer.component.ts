@@ -39,6 +39,7 @@ export class FooterComponent implements OnInit {
   faLinkedin = faLinkedin;
   okmUrl: string;
   locale: string;
+  instructionsUrl: string;
 
   faTimes = faTimes;
   showReviewButton: boolean;
@@ -80,14 +81,17 @@ export class FooterComponent implements OnInit {
     switch (this.localeId) {
       case 'fi': {
         this.okmUrl = 'https://www.minedu.fi';
+        this.instructionsUrl = 'https://wiki.eduuni.fi/x/WQgGEw';
         break;
       }
       case 'en': {
         this.okmUrl = 'https://minedu.fi/en/';
+        this.instructionsUrl = 'https://wiki.eduuni.fi/x/jAGcEw';
         break;
       }
       case 'sv': {
         this.okmUrl = 'https://minedu.fi/sv/';
+        this.instructionsUrl = 'https://wiki.eduuni.fi/x/dAKcEw';
         break;
       }
     }
@@ -99,17 +103,8 @@ export class FooterComponent implements OnInit {
   }
 
   openDialog(template) {
-    if (!this.myDataBeta) {
-      this.showDialog = true;
-      this.dialogTemplate = template;
-    } else {
-      if (isPlatformBrowser(this.platformId)) {
-        this.window.open(
-          'https://link.webropolsurveys.com/S/147262C4AB44ADC3',
-          '_blank'
-        );
-      }
-    }
+    this.showDialog = true;
+    this.dialogTemplate = template;
   }
 
   closeDialog() {

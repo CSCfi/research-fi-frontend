@@ -54,18 +54,18 @@ Portal consists from few main content types: Informative pages, search results, 
 
 ### Informative pages
 
-Informative pages, eg. `service-info` query data from exclusive Research.fi CMS system. We get this data via Angular Http Client module and render the route with resolver (in this case, page-resolver.service). All CMS data is stored in browsers session storage to avoid unnecessary API calls.
+Informative pages, eg. `service-info` query data from exclusive [Research.fi CMS](https://github.com/CSCfi/research-fi-cms/tree/devel) system. We get this data via Angular Http Client module and render the route with resolver (in this case, page-resolver.service). All CMS data is stored in browsers session storage to avoid unnecessary API calls.
 
 ### Search results
 
 Search results are split into different sections which we call as tabs:
 
 - Publications
-- Persons (TODO)
+- People (beta)
 - Projects
-- Datasets
+- Research data
+- Funding calls
 - Ingrastructures
-- Research activities (TODO)
 - Organizations
 
 Every section differs from each other by filters and layout and therefore have their own components. Components are mounted in main `results` component, which wraps filters, active-filters list and search results.
@@ -103,17 +103,39 @@ the construction of the queries is implemented in `portal/services/filters/filte
 
 The construction of the visualisations is handled in components under `portal/components/visualisation`, one component for each type of visualisation.
 
+### Science and Innovation Policy
+
+This section has multiple collections of informative data for visualizing and explaining how research in Finland works.
+
+All of the sub sections rely on data coming from CMS.
+
 ### News
 
 `Search for news` tab works similar to main search results with shared filtering logic.
 
-### Science and research elsewhere
+## MyData Module
 
-This area consists of data gathered from Researh.fi CMS system.
+Mydata -module is now in public BETA.
+
+Authentication process of OIDC-library is started at the application root level when route matches `/mydata`.
+
+Module consists of home, service deployment and profile areas.
+
+In normal initial flow user starts deployment by agreeing to terms, authenticating with Suomi.fi and ORCID and importing data.
+
+In profile editor user is able to make changes to publicity of user data. User is also able to import data that can be found in Research.fi portal (E.g. publications, datasets, projects...).
+
+All changes in profile editor are stored in session storage allowing use of draft state for profile. Draft is deleted when changes are published.
+
+Data and sources -route allows user to view data in larger, filtered sets. This view also allows user to do big patch operations.
+
+## Shared Module
+
+Shared -modules consists of components and services that should be reusable throughout application.
 
 ### Dynamic tables
 
-We use <app-table> component for rendering dynamic tables. Table is created on top of Material UI Table component.
+We use `<app-table>` component for rendering dynamic tables. Table is created on top of Material UI Table component.
 Pass data for table as column headers and rows. Row data consists of two objects: row cells and optional options. Row cells match property names to column headers.
 
 Table cells are best suited for plain text. In some occasions we want to render row cells with more complex logic (see eg. `results/publications` route).
@@ -125,12 +147,4 @@ Sorting logic is handled with Material UI Sort header -component. Data sorting i
 
 Row can have an active status indicated with accent background color. Activate this status by adding `activeRowIdentifierField={fieldName}` property to component call.
 
-## MyData Module
-
-Mydata -module is still in WIP-state.
-
-Authentication process is started at the application root level.
-
-## Shared Module
-
-Shared -modules consists of components and services that should be reusable throughout application.
+In mobile version table rows can be rendered as cards by adding `[mobileCards]="true"` property. This feature is still in WIP state.

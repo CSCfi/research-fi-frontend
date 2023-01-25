@@ -9,76 +9,47 @@ Copyright 2019 Ministry of Education and Culture, Finland
 </aside>
 
 <div class="center-content wrapper" style="margin-top: 0">
-  <div class="row">
+  <div class="row g-0">
     <app-result-tab
       style="width: 100%"
       class="px-0"
       [allData]="tabValues"
     ></app-result-tab>
-    <div class="col-12 px-0">
-      <div class="total" #totalHeader>
-        <div class="row justify-content-between">
-          <div class="col-auto p-0">
-            <h2
-              role="status"
-              class="total"
-              *ngIf="selectedTabData ? selectedTabData.label : ''"
-            >
-              {{ selectedTabData.label }} -
-              <span class="total">{{ parsedTotal }}</span>
-              <span class="sr-only" i18n="@@resultCount">hakutulosta</span>
-            </h2>
-          </div>
-          <!-- Change to col-lg-9 after removing beta-info -->
-          <div
-            class="col-auto col-lg-7 justify-content-end align-items-center row pe-0"
-          >
-            <div class="col-auto px-0" *ngIf="selectedTabData">
-              <app-result-count
-                [page]="searchService.pageNumber"
-                [pageSize]="searchService.pageSize"
-                [total]="dataService.currentTotal | async"
-              ></app-result-count>
-            </div>
-            <!-- <div class="col-12"></div> -->
-            <div class="col-auto text-end d-none d-lg-block ps-4 pe-0">
-              <a
-                routerLink="/service-info"
-                fragment="service-info-2"
-                class="theme-link"
-              >
-                <strong>
-                  <ng-container i18n="@@resultInfo1">Mitä</ng-container
-                  ><span> {{ selectedTabData?.singular.toLowerCase() }}</span>
-                  <ng-container i18n="@@resultInfo2"
-                    >tietoja palvelu sisältää?</ng-container
-                  >
-                </strong>
-              </a>
-            </div>
-          </div>
+
+    <!-- Left sidebar -->
+    <div class="col-lg-4 col-xl-3">
+      <!-- Tab label and total count -->
+      <div class="row align-items-center justify-content-between">
+        <h2
+          role="status"
+          class="col-auto total"
+          *ngIf="selectedTabData ? selectedTabData.label : ''"
+        >
+          {{ selectedTabData.label }} -
+          <span class="total">{{ parsedTotal }}</span>
+          <span class="sr-only" i18n="@@resultCount">hakutulosta</span>
+        </h2>
+
+        <!-- Persons beta -->
+        <app-secondary-button
+          *ngIf="tab === 'persons'"
+          class="col-auto pe-0"
+          content="Beta"
+          [icon]="faInfoCircle"
+          (click)="showBetaDialog = true"
+        ></app-secondary-button>
+
+        <!-- Mobile page settings -->
+        <div class="col-auto px-0" *ngIf="selectedTabData && mobile">
+          <app-result-count
+            [page]="searchService.pageNumber"
+            [pageSize]="searchService.pageSize"
+            [total]="dataService.currentTotal | async"
+          ></app-result-count>
         </div>
       </div>
-      <!-- Uncomment for visualization toggle -->
-      <div>
-        <!-- <mat-slide-toggle [(ngModel)]="visual" class="d-none d-xl-inline-block" *ngIf="visualisationCategories?.length">Tarkastele visualisaationa</mat-slide-toggle> -->
-        <!-- <button mat-raised-button (click)="openModal(visualModal)" class="mb-2">Avaa visualisaatio</button> -->
-        <div>
-          <mat-form-field *ngIf="visual && !mobile">
-            <mat-label>Teema</mat-label>
-            <mat-select (selectionChange)="changeVisual($event)">
-              <mat-option
-                *ngFor="let category of visualisationCategories; let i = index"
-                value="{{ i }}"
-                >{{ category.select }}</mat-option
-              >
-            </mat-select>
-          </mat-form-field>
-          <mat-slide-toggle [(ngModel)]="percentage" *ngIf="visual && !mobile"
-            >Näytä prosentteina</mat-slide-toggle
-          >
-        </div>
-      </div>
+
+      <!-- Skip link -->
       <div
         id="sr-helper"
         class="row skip-links pb-2"
@@ -89,246 +60,189 @@ Copyright 2019 Ministry of Education and Culture, Finland
           #skipToResults
           tabindex="0"
           (click)="changeFocusTarget('main')"
-          (keydown.enter)="changeFocusTarget('main')"
           (blur)="resetFocus(); showSkipLinks = false"
           href="javascript:void(0)"
         >
           <span i18n="@@skipToResults">Hyppää hakutuloksiin</span>
         </a>
       </div>
-    </div>
-  </div>
-  <div *ngIf="page <= 1000; else pageOverflow">
-    <div class="row">
+
+      <!-- Open visual button -->
       <div
-        *ngIf="mobile; else desktop"
-        class="col-12 row d-flex justify-content-between"
-        style="padding: 0"
+        class="justify-content-center align-items-center d-none d-lg-flex visual-button-container"
+        *ngIf="(tab === 'publications' || tab === 'fundings') && !mobile"
       >
-        <aside class="col col-6 col-sm-6 pe-2 filters">
-          <app-filters
-            *ngIf="tab === tabData[0].link"
-            [responseData]="filterValues"
-            [filterOrigin]="tabData[0].data"
-          ></app-filters>
-          <app-filters
-            *ngIf="tab === tabData[1].link"
-            [responseData]="filterValues"
-            [filterOrigin]="tabData[1].data"
-          ></app-filters>
-          <app-filters
-            *ngIf="tab === tabData[2].link"
-            [responseData]="filterValues"
-            [filterOrigin]="tabData[2].data"
-          ></app-filters>
-          <app-filters
-            *ngIf="tab === tabData[3].link"
-            [responseData]="filterValues"
-            [filterOrigin]="tabData[3].data"
-          ></app-filters>
-          <!-- Funding calls -->
-          <app-filters
-            *ngIf="tab === tabData[4].link"
-            [responseData]="filterValues"
-            [filterOrigin]="tabData[4].data"
-            [externalFilterQuery]="externalFilterQuery"
-          ></app-filters>
-          <app-filters
-            *ngIf="tab === tabData[5].link"
-            [responseData]="filterValues"
-            [filterOrigin]="tabData[5].data"
-          ></app-filters>
-          <app-filters
-            *ngIf="tab === tabData[6].link"
-            [responseData]="filterValues"
-            [filterOrigin]="tabData[6].data"
-          ></app-filters>
-        </aside>
-        <aside class="col col-6 col-sm-6 ps-2 sort">
+        <app-primary-action-button
+          [content]="showAsVisual"
+          [icon]="faChartBar"
+          (click)="openDialog(visualModal)"
+        ></app-primary-action-button>
+      </div>
+
+      <!-- Filters & sort -->
+      <div class="row g-0">
+        <!-- Filters -->
+        <div class="col">
+          <ng-container [ngTemplateOutlet]="filtersTemplate"></ng-container>
+        </div>
+
+        <!-- Mobile sort -->
+        <aside class="col col-6 ps-2 sort" *ngIf="mobile">
           <app-sort></app-sort>
         </aside>
-        <main class="col-12" id="main-content">
-          <app-funding-call-category-filters
-            *ngIf="tab === 'funding-calls' && filterValues"
-            [resetFundingCallCategoryFilters]="clearAllFilters"
-            [responseData]="filterValues"
-            (filterChangeOutput)="setExternalFilters($event)"
-          ></app-funding-call-category-filters>
-          <app-active-filters
-            (clearAllFilters)="this.clearAllFiltersFromActiveFilters()"
-          ></app-active-filters>
+      </div>
+    </div>
+
+    <!-- Main content area -->
+    <div class="col-12 col-lg-8 col-xl-9 row main-content px-0 pe-xl-0">
+      <!-- MyData login in persons tab -->
+      <div
+        class="row justify-content-end py-3 px-0 ps-lg-3"
+        *ngIf="tab === 'persons'"
+      >
+        <div class="col col-lg-4" i18n="@@logInToCreateProfile">
+          Kirjaudu sisään luodaksesi profiilin tai valitaksesi profiilissasi
+          näkyviä tietoja.
+        </div>
+
+        <div class="col-auto pe-lg-0">
+          <app-primary-action-button
+            role="link"
+            (click)="router.navigate(['/mydata'])"
+            content="Kirjaudu sisään"
+            i18n-content="@@logIn"
+          ></app-primary-action-button>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="row px-0 ps-lg-3">
+        <hr *ngIf="tab === 'persons'" class="col m-0 login-divider" />
+      </div>
+
+      <!-- Desktop page settings -->
+      <div class="row justify-content-end py-3 pe-0" *ngIf="!mobile">
+        <div class="col-auto px-0" *ngIf="selectedTabData">
+          <app-result-count
+            [page]="searchService.pageNumber"
+            [pageSize]="searchService.pageSize"
+            [total]="dataService.currentTotal | async"
+            [focusSelect]="focusMainContent"
+          ></app-result-count>
+        </div>
+
+        <div class="col-auto text-end d-none d-lg-block ps-4 pe-0">
+          <a
+            routerLink="/service-info"
+            fragment="service-info-2"
+            class="theme-link"
+          >
+            <strong>
+              <ng-container i18n="@@resultInfo1">Mitä</ng-container
+              ><span> {{ selectedTabData?.singular.toLowerCase() }}</span>
+              <ng-container i18n="@@resultInfo2"
+                >tietoja palvelu sisältää?</ng-container
+              >
+            </strong>
+          </a>
+        </div>
+      </div>
+
+      <main id="main-content" class="ps-lg-3 pt-lg-0">
+        <!-- Active filters list -->
+        <div class="row">
+          <ng-container *ngIf="page <= 1000; else pageOverflow">
+            <div class="col px-0 ps-lg-2">
+              <app-funding-call-category-filters
+                *ngIf="tab === 'funding-calls' && filterValues"
+                [resetFundingCallCategoryFilters]="clearAllFilters"
+                [responseData]="filterValues"
+                (filterChangeOutput)="setExternalFilters($event)"
+              >
+              </app-funding-call-category-filters>
+
+              <app-active-filters
+                (clearAllFilters)="this.clearAllFiltersFromActiveFilters()"
+              ></app-active-filters>
+            </div>
+          </ng-container>
+        </div>
+
+        <!-- Results -->
+        <div class="row">
           <app-search-results
+            class="col px-0 ps-lg-2"
             [currentTab]="selectedTabData"
             [updateFilters]="updateFilters"
           ></app-search-results>
-        </main>
-      </div>
+        </div>
+      </main>
     </div>
   </div>
-</div>
 
-<ng-template #desktop>
-  <aside class="col-4 col-xl-3 filters" *ngIf="!modalRef">
-    <div
-      class="justify-content-center align-items-center d-none d-lg-flex visual-button-container"
-      *ngIf="tab === 'publications' || tab === 'fundings'"
-    >
-      <app-primary-action-button
-        [content]="showAsVisual"
-        [icon]="faChartBar"
-        (click)="openDialog(visualModal)"
-      ></app-primary-action-button>
-    </div>
-    <app-filters
-      *ngIf="tab === tabData[0].link"
-      [responseData]="filterValues"
-      [filterOrigin]="tabData[0].data"
-    ></app-filters>
-    <app-filters
-      *ngIf="tab === tabData[1].link"
-      [responseData]="filterValues"
-      [filterOrigin]="tabData[1].data"
-    ></app-filters>
-    <app-filters
-      *ngIf="tab === tabData[2].link"
-      [responseData]="filterValues"
-      [filterOrigin]="tabData[2].data"
-    ></app-filters>
-    <app-filters
-      *ngIf="tab === tabData[3].link"
-      [responseData]="filterValues"
-      [filterOrigin]="tabData[3].data"
-    ></app-filters>
-    <!-- Funding calls -->
-    <app-filters
-      *ngIf="tab === tabData[4].link"
-      [responseData]="filterValues"
-      [filterOrigin]="tabData[4].data"
-      [externalFilterQuery]="externalFilterQuery"
-    ></app-filters>
-    <app-filters
-      *ngIf="tab === tabData[5].link"
-      [responseData]="filterValues"
-      [filterOrigin]="tabData[5].data"
-    ></app-filters>
-    <app-filters
-      *ngIf="tab === tabData[6].link"
-      [responseData]="filterValues"
-      [filterOrigin]="tabData[6].data"
-    ></app-filters>
-  </aside>
-  <div class="col-8 col-xl-9 row main-content pe-xl-0">
-    <main class="col-12 ps-lg-2 pe-xl-0">
-      <app-funding-call-category-filters
-        *ngIf="tab === tabData[4].link && filterValues"
-        [resetFundingCallCategoryFilters]="clearAllFilters"
+  <!-- Filters template -->
+  <ng-template #filtersTemplate>
+    <ng-container *ngFor="let item of tabChangeService.tabData">
+      <app-filters
+        *ngIf="tab === item.link"
         [responseData]="filterValues"
-        (filterChangeOutput)="setExternalFilters($event)"
-      ></app-funding-call-category-filters>
-      <app-active-filters
-        (clearAllFilters)="this.clearAllFiltersFromActiveFilters()"
-      ></app-active-filters>
-      <h3 class="sr-only">Hakutulokset</h3>
-      <app-search-results
-        *ngIf="!visual"
-        id="main-content"
-        [currentTab]="selectedTabData"
-        [updateFilters]="updateFilters"
-      ></app-search-results>
-      <app-visualisation
-        *ngIf="visual"
-        [data]="visualData"
-        [tab]="tab"
-        [visIdx]="visIdx"
-        [percentage]="percentage"
-        [loading]="visualLoading"
-      ></app-visualisation>
-    </main>
-  </div>
-</ng-template>
+        [filterOrigin]="item.data"
+        [externalFilterQuery]="tab === 'funding-calls' && externalFilterQuery"
+      ></app-filters>
+    </ng-container>
+  </ng-template>
 
-<ng-template #pageOverflow>
-  <div class="row main-content">
-    <div class="col text-center no-results">
-      <h2 i18n="@@maxResults1">Tuloksia näytetään enintään 10 000</h2>
-      <p i18n="@@maxResults2">
-        Jos hakemaasi tulosta ei löytynyt, yritä tarkentaa hakua.
-      </p>
-    </div>
-  </div>
-</ng-template>
-
-<ng-template #visualModal>
-  <div class="visual-dialog-body">
-    <div class="row">
-      <div class="col-3">
-        <div
-          #info
-          *ngIf="showInfo"
-          class="info p-3"
-          [ngClass]="mobile ? 'right' : 'left'"
-        >
-          <strong class="d-block pb-2" i18n="@@additionalInfo"
-            >Lisätietoa</strong
-          >
-          <div [innerHtml]="visualisationInfo"></div>
-        </div>
-        <!-- <mat-slide-toggle [(ngModel)]="fundingAmount" *ngIf="tab === 'fundings'" (change)="changeVisual($event)">Myönnetyn summan mukaan</mat-slide-toggle> -->
-        <mat-form-field class="visual-select">
-          <mat-label class="strong" i18n="@@chooseTheme"
-            >Valitse teema</mat-label
-          >
-          <mat-select (selectionChange)="changeVisual($event)">
-            <mat-option
-              *ngFor="let category of visualisationCategories; let i = index"
-              value="{{ i }}"
-              >{{ category.select }}</mat-option
-            >
-          </mat-select>
-        </mat-form-field>
-        <div class="overflow-wrapper mb-2">
-          <app-filters
-            *ngIf="tab === tabData[0].link"
-            [responseData]="filterValues"
-            [filterOrigin]="tabData[0].data"
-          ></app-filters>
-          <app-filters
-            *ngIf="tab === tabData[1].link"
-            [responseData]="filterValues"
-            [filterOrigin]="tabData[1].data"
-          ></app-filters>
-          <app-filters
-            *ngIf="tab === tabData[2].link"
-            [responseData]="filterValues"
-            [filterOrigin]="tabData[2].data"
-          ></app-filters>
-          <!-- Funding calls -->
-          <app-filters
-            *ngIf="tab === tabData[4].link"
-            [responseData]="filterValues"
-            [filterOrigin]="tabData[4].data"
-            [externalFilterQuery]="externalFilterQuery"
-          ></app-filters>
-          <app-filters
-            *ngIf="tab === tabData[5].link"
-            [responseData]="filterValues"
-            [filterOrigin]="tabData[5].data"
-          ></app-filters>
-          <app-filters
-            *ngIf="tab === tabData[6].link"
-            [responseData]="filterValues"
-            [filterOrigin]="tabData[6].data"
-          ></app-filters>
-        </div>
-        <app-secondary-button
-          (click)="clearFilters()"
-          [big]="true"
-          [content]="clearActiveFilters"
-          [icon]="faTrash"
-        ></app-secondary-button>
+  <ng-template #pageOverflow>
+    <div class="row main-content">
+      <div class="col text-center no-results">
+        <h2 i18n="@@maxResults1">Tuloksia näytetään enintään 10 000</h2>
+        <p i18n="@@maxResults2">
+          Jos hakemaasi tulosta ei löytynyt, yritä tarkentaa hakua.
+        </p>
       </div>
-      <div class="col-9 row">
-        <!-- <div *ngIf="tab === 'fundings'" class="ml-auto pb-2 col-6">
+    </div>
+  </ng-template>
+
+  <ng-template #visualModal>
+    <div class="visual-dialog-body">
+      <div class="row">
+        <div class="col-3">
+          <div
+            #info
+            *ngIf="showInfo"
+            class="info p-3"
+            [ngClass]="mobile ? 'right' : 'left'"
+          >
+            <strong class="d-block pb-2" i18n="@@additionalInfo"
+              >Lisätietoa</strong
+            >
+            <div [innerHtml]="visualisationInfo"></div>
+          </div>
+          <!-- <mat-slide-toggle [(ngModel)]="fundingAmount" *ngIf="tab === 'fundings'" (change)="changeVisual($event)">Myönnetyn summan mukaan</mat-slide-toggle> -->
+          <mat-form-field class="visual-select">
+            <mat-label class="strong" i18n="@@chooseTheme"
+              >Valitse teema</mat-label
+            >
+            <mat-select (selectionChange)="changeVisual($event)">
+              <mat-option
+                *ngFor="let category of visualisationCategories; let i = index"
+                value="{{ i }}"
+                >{{ category.select }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+          <div class="overflow-wrapper mb-2">
+            <ng-container [ngTemplateOutlet]="filtersTemplate"></ng-container>
+          </div>
+          <app-secondary-button
+            (click)="clearFilters()"
+            [big]="true"
+            [content]="clearActiveFilters"
+            [icon]="faTrash"
+          ></app-secondary-button>
+        </div>
+        <div class="col-9 row">
+          <!-- <div *ngIf="tab === 'fundings'" class="ml-auto pb-2 col-6">
             <button
               class="col-6 vis-style-toggle ttv-button"
               [class.active]="!visualisationType"
@@ -349,143 +263,164 @@ Copyright 2019 Ministry of Education and Culture, Finland
               Piiraskuvaaja
             </button> 
           </div>   -->
-        <app-active-filters
-          (clearAllFilters)="this.clearAllFiltersFromActiveFilters()"
-        ></app-active-filters>
-        <app-visualisation
-          #visualisationsRef
-          [data]="visualData"
-          [tab]="tab"
-          [visIdx]="visIdx"
-          [percentage]="percentage"
-          [loading]="visualLoading"
-          [searchTerm]="searchTerm"
-          [searchTarget]="searchTargetName"
-          [visualisationType]="visualisationType"
-        ></app-visualisation>
-        <div class="row vis-info">
-          <div class="col">
-            <div class="row">
-              <div *ngIf="tab === 'publications'" class="vis-style-toggles row">
-                <button
-                  class="col vis-style-toggle ttv-button"
-                  [class.active]="!percentage && !fundingAmount"
-                  (click)="
-                    percentage = false;
-                    fundingAmount = false;
-                    changeVisual($event)
-                  "
-                  i18n="@@asCountPublication"
+          <app-active-filters
+            (clearAllFilters)="this.clearAllFiltersFromActiveFilters()"
+          ></app-active-filters>
+          <app-visualisation
+            #visualisationsRef
+            [data]="visualData"
+            [tab]="tab"
+            [visIdx]="visIdx"
+            [percentage]="percentage"
+            [loading]="visualLoading"
+            [searchTerm]="searchTerm"
+            [searchTarget]="searchTargetName"
+            [visualisationType]="visualisationType"
+          ></app-visualisation>
+          <div class="row vis-info">
+            <div class="col">
+              <div class="row">
+                <div
+                  *ngIf="tab === 'publications'"
+                  class="vis-style-toggles row"
                 >
-                  Julkaisujen määrä
-                </button>
-                <button
-                  class="col vis-style-toggle ttv-button"
-                  [class.active]="percentage && !fundingAmount"
-                  (click)="percentage = true; fundingAmount = false"
-                  i18n="@@asPercentPublication"
-                >
-                  % julkaisujen määrästä
-                </button>
+                  <button
+                    class="col vis-style-toggle ttv-button"
+                    [class.active]="!percentage && !fundingAmount"
+                    (click)="
+                      percentage = false;
+                      fundingAmount = false;
+                      changeVisual($event)
+                    "
+                    i18n="@@asCountPublication"
+                  >
+                    Julkaisujen määrä
+                  </button>
+                  <button
+                    class="col vis-style-toggle ttv-button"
+                    [class.active]="percentage && !fundingAmount"
+                    (click)="percentage = true; fundingAmount = false"
+                    i18n="@@asPercentPublication"
+                  >
+                    % julkaisujen määrästä
+                  </button>
+                </div>
+                <div *ngIf="tab === 'fundings'" class="vis-style-toggles row">
+                  <button
+                    class="col-6 vis-style-toggle ttv-button"
+                    [class.active]="!percentage && !fundingAmount"
+                    (click)="
+                      changeVisual({ fundingAmount: false });
+                      percentage = false;
+                      fundingAmount = false
+                    "
+                    i18n="@@asCountFunding"
+                  >
+                    Hankkeiden määrä
+                  </button>
+                  <button
+                    class="col-6 vis-style-toggle ttv-button"
+                    [class.active]="percentage && !fundingAmount"
+                    (click)="
+                      changeVisual({ fundingAmount: false });
+                      percentage = true;
+                      fundingAmount = false
+                    "
+                    i18n="@@asPercentFunding"
+                  >
+                    % hankkeiden määrästä
+                  </button>
+                  <button
+                    class="col-6 vis-style-toggle ttv-button"
+                    [class.active]="!percentage && fundingAmount"
+                    (click)="
+                      changeVisual({ fundingAmount: true });
+                      percentage = false;
+                      fundingAmount = true
+                    "
+                    i18n="@@asCountAmount"
+                  >
+                    Myöntösumma
+                  </button>
+                  <button
+                    class="col-6 vis-style-toggle ttv-button"
+                    [class.active]="percentage && fundingAmount"
+                    (click)="
+                      changeVisual({ fundingAmount: true });
+                      percentage = true;
+                      fundingAmount = true
+                    "
+                    i18n="@@asPercentAmount"
+                  >
+                    % myöntösummasta
+                  </button>
+                  <div class="col-12"></div>
+                </div>
               </div>
-              <div *ngIf="tab === 'fundings'" class="vis-style-toggles row">
-                <button
-                  class="col-6 vis-style-toggle ttv-button"
-                  [class.active]="!percentage && !fundingAmount"
-                  (click)="
-                    changeVisual({ fundingAmount: false });
-                    percentage = false;
-                    fundingAmount = false
-                  "
-                  i18n="@@asCountFunding"
-                >
-                  Hankkeiden määrä
-                </button>
-                <button
-                  class="col-6 vis-style-toggle ttv-button"
-                  [class.active]="percentage && !fundingAmount"
-                  (click)="
-                    changeVisual({ fundingAmount: false });
-                    percentage = true;
-                    fundingAmount = false
-                  "
-                  i18n="@@asPercentFunding"
-                >
-                  % hankkeiden määrästä
-                </button>
-                <button
-                  class="col-6 vis-style-toggle ttv-button"
-                  [class.active]="!percentage && fundingAmount"
-                  (click)="
-                    changeVisual({ fundingAmount: true });
-                    percentage = false;
-                    fundingAmount = true
-                  "
-                  i18n="@@asCountAmount"
-                >
-                  Myöntösumma
-                </button>
-                <button
-                  class="col-6 vis-style-toggle ttv-button"
-                  [class.active]="percentage && fundingAmount"
-                  (click)="
-                    changeVisual({ fundingAmount: true });
-                    percentage = true;
-                    fundingAmount = true
-                  "
-                  i18n="@@asPercentAmount"
-                >
-                  % myöntösummasta
-                </button>
-                <div class="col-12"></div>
-              </div>
-            </div>
-            <!-- <ng-template #tooltipTemplate><div [innerHtml]=visualisationInfo></div></ng-template>
+              <!-- <ng-template #tooltipTemplate><div [innerHtml]=visualisationInfo></div></ng-template>
                         <span [tooltip]="tooltipTemplate" triggers="focus keydown" placement="top" tabindex="-1" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                             <app-secondary-button [icon]="'info-circle'" [content]="'Info'" ></app-secondary-button>
                         </span> -->
-          </div>
-          <div class="col pe-0 text-end">
-            <app-secondary-button
-              id="download-image"
-              [icon]="faDownload"
-              [content]="downloadImage"
-              (click)="visualisationsRef.saveAsImageClick()"
-            ></app-secondary-button>
+            </div>
+            <div class="col pe-0 text-end">
+              <app-secondary-button
+                id="download-image"
+                [icon]="faDownload"
+                [content]="downloadImage"
+                (click)="visualisationsRef.saveAsImageClick()"
+              ></app-secondary-button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</ng-template>
+  </ng-template>
 
-<!-- Reusable dialog -->
+  <!-- Reusable dialog -->
+  <app-dialog
+    *ngIf="showDialog"
+    [template]="dialogTemplate"
+    [title]="dialogTitle"
+    (onActionClick)="closeDialog()"
+    centerTitle
+    wide
+    noPadding
+    position="top"
+    extraClass="visual-dialog"
+    [headerInfoTemplate]="dialogHeaderInfo"
+  ></app-dialog>
+
+  <ng-template #dialogHeaderInfo>
+    <div
+      class="d-inline-block"
+      (click)="showInfo = !showInfo"
+      (keydown.enter)="showInfo = !showInfo"
+      tabindex="0"
+      (clickOutside)="onClickedOutside($event)"
+    >
+      <fa-icon
+        class="info-icon pe-2"
+        icon="info-circle"
+        (mouseenter)="showInfo = true"
+      ></fa-icon>
+      <a>{{ additionalInfo }} </a>
+    </div>
+  </ng-template>
+</div>
+
 <app-dialog
-  *ngIf="showDialog"
-  [template]="dialogTemplate"
-  [title]="dialogTitle"
-  (onActionClick)="closeDialog()"
-  centerTitle
-  wide
-  noPadding
-  position="top"
-  extraClass="visual-dialog"
-  [headerInfoTemplate]="dialogHeaderInfo"
+  *ngIf="showBetaDialog"
+  [title]="betaDialogTitle"
+  [template]="myDataBetaTemplate"
+  (onActionClick)="showBetaDialog = false"
 ></app-dialog>
 
-<ng-template #dialogHeaderInfo>
-  <div
-    class="d-inline-block"
-    (click)="showInfo = !showInfo"
-    (keydown.enter)="showInfo = !showInfo"
-    tabindex="0"
-    (clickOutside)="onClickedOutside($event)"
-  >
-    <fa-icon
-      class="info-icon pe-2"
-      icon="info-circle"
-      (mouseenter)="showInfo = true"
-    ></fa-icon>
-    <a>{{ additionalInfo }} </a>
+<ng-template #myDataBetaTemplate>
+  <div class="row">
+    <div class="col">
+      <p *ngFor="let item of myDataBetaTexts">
+        {{ item }}
+      </p>
+    </div>
   </div>
 </ng-template>

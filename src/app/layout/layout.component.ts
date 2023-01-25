@@ -32,15 +32,6 @@ export class LayoutComponent implements OnInit {
 
   ngOnInit() {
     this.routerEvents();
-
-    // Flag for rendering banner divider in MyData routes
-    this.router.events.pipe(take(1)).subscribe((e) => {
-      if (e instanceof NavigationStart) {
-        if (e.url.includes('/mydata')) {
-          this.showDivider = true;
-        }
-      }
-    });
   }
 
   routerEvents() {
@@ -48,10 +39,16 @@ export class LayoutComponent implements OnInit {
       switch (true) {
         case event instanceof NavigationStart: {
           this.loading = true;
+          this.showDivider = false;
           break;
         }
         case event instanceof NavigationEnd: {
           this.loading = false;
+
+          // Flag for rendering banner divider in MyData routes
+          if (event.url.includes('/mydata')) {
+            this.showDivider = true;
+          }
           break;
         }
       }

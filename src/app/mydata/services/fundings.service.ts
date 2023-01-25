@@ -58,6 +58,22 @@ export class FundingsService {
   }
 
   confirmPayload() {
+    // Remove entry if user adds an item from portal search and unchecks it in editor table afterwards
+    this.fundingPayload.forEach((item) => {
+      if (
+        this.confirmedPayload.find(
+          (confirmedItem) => confirmedItem.id === item.id
+        )
+      ) {
+        this.confirmedPayload = this.confirmedPayload.filter(
+          (confirmedItem) => confirmedItem.id !== item.id
+        );
+        this.fundingPayload = this.fundingPayload.filter(
+          (payloadItem) => payloadItem.id !== item.id
+        );
+      }
+    });
+
     const merged = this.confirmedPayload.concat(this.fundingPayload);
     this.confirmedPayload = merged;
     this.confirmedPayloadSource.next(merged);
@@ -92,7 +108,7 @@ export class FundingsService {
   addFundings() {
     this.updateTokenInHttpAuthHeader();
 
-    const body = this.fundingPayload.map((item) => ({
+    const body = this.confirmedPayload.map((item) => ({
       projectId: item.id,
       show: item.itemMeta.show,
       primaryValue: item.itemMeta.primaryValue,

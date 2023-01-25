@@ -45,8 +45,20 @@
           *ngSwitchCase="'share'"
           [ngTemplateOutlet]="shareTemplate"
         ></ng-container>
-        <ng-container *ngSwitchDefault>
-          Julkisten tietojen päivittyminen kestää muutaman minuutin.
+        <ng-container
+          *ngSwitchDefault
+        >
+          <p class="col">
+            <ng-container i18n="@@updatedProfilePublishedAt"
+            >Valitsemalla "Julkaise", valitsemasi tiedot julkaistaan
+              Tiedejatutkimus.fi-palvelussa.</ng-container
+            >
+            <br />
+            <ng-container i18n="@@updatingPublicDataTakesFewMinutes"
+            >Tietojen päivittyminen voi kestää muutaman
+              minuutin.</ng-container
+            >
+          </p>
         </ng-container>
       </ng-container>
     </div>
@@ -68,12 +80,12 @@
 <ng-template #itemsSelectedText>
   <span class="fw-bold">
     {{ filteredSelectedItems.length }}
-    <ng-container
+    <!-- <ng-container
       *ngIf="filteredSelectedItems.length === 1; else pluralTemplate"
       >tieto</ng-container
     >
-    <ng-template #pluralTemplate>tietoa</ng-template>
-    valittu
+    <ng-template #pluralTemplate>tietoa</ng-template> -->
+    <ng-container i18n="@@selected">valittu</ng-container>
   </span>
 </ng-template>
 

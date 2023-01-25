@@ -48,6 +48,7 @@
             *ngIf="column.tooltip && column.showTooltipIcon"
             class="info-icon font-size-big"
             [tooltip]="column.tooltip"
+            container="body"
             icon="info-circle"
             tabindex="0"
           ></fa-icon>
@@ -103,7 +104,9 @@
       <ng-container *ngSwitchCase="'selection'">
         <mat-checkbox
           #rowSelect
-          [checked]="selectedRows.indexOf(i) > -1"
+          [checked]="
+            currentSelection.indexOf((pageNumber - 1) * pageSize + i) > -1
+          "
           (change)="handleSelection($event, i)"
         >
         </mat-checkbox>

@@ -37,39 +37,22 @@
             ></h4>
           </a>
           <div class="tags">
-            <div
+            <!-- Peer-reviewed -->
+            <app-tag-peer-reviewed
               *ngIf="isReviewed(publication.publicationTypeCode)"
-              class="peer-reviewed"
-              i18n="@@peerReviewed"
-            >
-              Vertaisarvioitu
-            </div>
-            <a
-              *ngIf="publication.openAccess && (publication | links)"
-              href="{{ publication | links }}"
-              target="_blank"
-              class="open-access div"
-            >
-              <span class="open-access-image"></span>
-              <span i18n="@@openAccess">Avoin saatavuus</span
-              ><fa-icon icon="external-link-alt"></fa-icon>
-            </a>
-            <!-- Span is for publications that doesn't have OA link. Angular doesn't allow void(0) to be passed without unsafe warnings -->
-            <span
-              *ngIf="publication.openAccess && !(publication | links)"
-              class="open-access div"
-            >
-              <span class="open-access-image"></span>
-              <span i18n="@@openAccess">Avoin saatavuus</span>
-            </span>
-            <div *ngIf="publication.doi?.trim()" class="doi">
-              <span class="doi-tag">DOI</span>
-              <span class="doi-link"
-                ><a href="https://doi.org/{{ publication.doi }}" target="_blank"
-                  >{{ publication.doi
-                  }}<fa-icon icon="external-link-alt"></fa-icon></a
-              ></span>
-            </div>
+            ></app-tag-peer-reviewed>
+
+            <!-- Open Access -->
+            <app-tag-open-access
+              *ngIf="publication.openAccess"
+              [link]="publication | links"
+            ></app-tag-open-access>
+
+            <!-- DOI -->
+            <app-tag-doi
+              *ngIf="publication.doi?.trim()"
+              [link]="publication.doi"
+            ></app-tag-doi>
           </div>
         </div>
       </ng-template>

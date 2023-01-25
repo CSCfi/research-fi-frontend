@@ -7,7 +7,7 @@
 
 import { Adapter } from '../adapter.model';
 import { Injectable } from '@angular/core';
-import { LanguageCheck } from '../utils';
+import { ModelUtilsService } from '@shared/services/model-util.service';
 
 export class Funder {
   constructor(
@@ -31,33 +31,33 @@ export class Funder {
   providedIn: 'root',
 })
 export class FunderAdapter implements Adapter<Funder> {
-  constructor(private lang: LanguageCheck) {}
+  constructor(private utils: ModelUtilsService) {}
   adapt(item: any): Funder {
     const callProgrammes: { name: string; id: string }[] = [];
 
     item?.callProgrammes?.forEach((p) => {
       callProgrammes.push({
-        name: this.lang.testLang('callProgrammeName', p),
+        name: this.utils.checkTranslation('callProgrammeName', p),
         id: p?.callProgrammeId,
       });
     });
 
     return new Funder(
-      this.lang.testLang('funderName', item),
+      this.utils.checkTranslation('funderName', item),
       item.funderNameUnd,
       item.typeOfFundingId,
-      this.lang.testLang('typeOfFundingName', item).trim().length > 0
-        ? this.lang.testLang('typeOfFundingName', item)
+      this.utils.checkTranslation('typeOfFundingName', item)?.trim().length > 0
+        ? this.utils.checkTranslation('typeOfFundingName', item)
         : item.typeOfFundingId,
-      this.lang.testLang('callProgrammeName', item),
+      this.utils.checkTranslation('callProgrammeName', item),
       item.callProgrammeNameUnd,
       item.callProgrammeHomePage,
-      this.lang.testLang(
+      this.utils.checkTranslation(
         'frameworkProgrammeName',
         item?.frameworkProgramme?.slice(0).pop()
       ),
       callProgrammes,
-      this.lang.testLang('topicName', item),
+      this.utils.checkTranslation('topicName', item),
       item?.topicId,
       item?.euCallId,
       item.funderBusinessId ? item.funderBusinessId[0].pid_content : null

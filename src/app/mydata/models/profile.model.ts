@@ -14,6 +14,7 @@ import { EducationFieldsAdapter } from './education.model';
 import { PublicationFieldsAdapter } from './publication.model';
 import { DatasetFieldsAdapter } from './dataset.model';
 import { FundingFieldsAdapter } from './funding.model';
+import { ActivitiesAndRewardsAdapter } from './activities-rewards.model';
 import { GroupTypes } from '@mydata/constants/groupTypes';
 
 export class Profile {
@@ -31,7 +32,8 @@ export class ProfileAdapter implements Adapter<Profile> {
     private educationFieldsAdapter: EducationFieldsAdapter,
     private publicationFieldsAdapter: PublicationFieldsAdapter,
     private datasetFieldsAdapter: DatasetFieldsAdapter,
-    private fundingFieldsAdapter: FundingFieldsAdapter
+    private fundingFieldsAdapter: FundingFieldsAdapter,
+    private activitiesAndRewardsAdapter: ActivitiesAndRewardsAdapter
   ) {}
 
   adapt(item: any): Profile {
@@ -47,7 +49,7 @@ export class ProfileAdapter implements Adapter<Profile> {
       },
       {
         id: GroupTypes.description,
-        label: $localize`:@@descriptionOfResearchActivities:Tutkimustoiminnan kuvaus`,
+        label: $localize`:@@descriptionOfResearch:Tutkimustoiminnan kuvaus`,
         fields: mapModel(this.descriptionFieldsAdapter, data.personal),
       },
       {
@@ -76,9 +78,9 @@ export class ProfileAdapter implements Adapter<Profile> {
         fields: mapModel(this.fundingFieldsAdapter, data.activity),
       },
       {
-        id: GroupTypes.activity,
+        id: GroupTypes.activitiesAndRewards,
         label: $localize`:@@activitiesAndAwards:Aktiviteetit ja palkinnot`,
-        fields: [],
+        fields: mapModel(this.activitiesAndRewardsAdapter, data.activity),
       },
     ]);
   }

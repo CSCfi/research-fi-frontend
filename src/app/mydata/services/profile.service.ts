@@ -13,7 +13,6 @@ import { Profile, ProfileAdapter } from '@mydata/models/profile.model';
 import { map } from 'rxjs/operators';
 import testData from 'src/testdata/mydataprofiledata.json';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { startCase } from 'lodash-es';
 import { ErrorHandlerService } from '@shared/services/error-handler.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Constants } from '@mydata/constants';
@@ -94,8 +93,7 @@ export class ProfileService {
   }
 
   setEditorProfileName(fullName: string) {
-    // Capitalize first letters of names with startCase function
-    this.editorProfileNameSource.next(startCase(fullName));
+    this.editorProfileNameSource.next(fullName);
   }
 
   setCurrentProfileData(data) {
@@ -125,6 +123,14 @@ export class ProfileService {
     return this.http.delete(this.apiUrl + '/userprofile/', this.httpOptions);
   }
 
+  hideProfile() {
+    this.updateTokenInHttpAuthHeader();
+    return this.http.get(
+      this.apiUrl + '/settings/hideprofile',
+      this.httpOptions
+    );
+  }
+
   /*
    * Keycloak account is created after succesful Suomi.fi authentication.
    * Delete this account if user cancels service deployment.
@@ -142,7 +148,7 @@ export class ProfileService {
   getProfileData() {
     this.updateTokenInHttpAuthHeader();
     return this.http
-      .get<Profile[]>(this.apiUrl + '/profiledata2/', this.httpOptions)
+      .get<Profile[]>(this.apiUrl + '/profiledata/', this.httpOptions)
       .pipe(map((data) => this.profileAdapter.adapt(data)));
   }
 
@@ -157,7 +163,7 @@ export class ProfileService {
     this.updateTokenInHttpAuthHeader();
     let body = { groups: [], items: items };
     return this.http.patch(
-      this.apiUrl + '/profiledata2/',
+      this.apiUrl + '/profiledata/',
       body,
       this.httpOptions
     );

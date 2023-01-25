@@ -7,6 +7,7 @@
 
 @mixin app-single-result-shared {
   app-single-publication,
+  app-single-person,
   app-single-funding,
   app-single-dataset,
   app-single-infrastructure,
@@ -143,6 +144,12 @@
         list-style: none;
       }
 
+      .orcid-icon {
+        width: 1.25rem;
+        height: auto;
+        padding-right: 0.25rem;
+      }
+
       .mat-checkbox {
         cursor: default;
       }
@@ -167,6 +174,13 @@
       .mat-card-title,
       .mat-card h2 {
         padding: 0;
+      }
+
+      .truncate {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 100%;
       }
 
       mat-card.mat-card {

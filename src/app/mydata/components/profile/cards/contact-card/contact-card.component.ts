@@ -90,10 +90,15 @@ export class ContactCardComponent implements OnInit, OnChanges {
             'success'
           );
         }
-      }
 
-      // Set draft profile data to storage
-      sessionStorage.setItem(Constants.draftProfile, JSON.stringify(this.data));
+        if (confirmedPayLoad.length) {
+          // Set draft profile data to storage
+          sessionStorage.setItem(
+            Constants.draftProfile,
+            JSON.stringify(this.data)
+          );
+        }
+      }
 
       // Set patch payload to store
       sessionStorage.setItem(

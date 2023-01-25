@@ -8,6 +8,7 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { FiltersConfig } from '@mydata/constants';
 import { getUniqueSources, filterData } from '@mydata/utils';
+import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -35,7 +36,7 @@ export class DataSourcesFiltersComponent
   filtersConfig = FiltersConfig;
   queryParamSub: Subscription;
 
-  constructor() {}
+  constructor(private appSettingsService: AppSettingsService) {}
 
   ngOnInit(): void {}
 
@@ -67,14 +68,14 @@ export class DataSourcesFiltersComponent
           buckets: [
             {
               key: 'public',
-              label: 'Julkinen',
+              label: $localize`:@@public:Julkinen`,
               doc_count: flattenItems(handleDataFilter('status')).filter(
                 (item) => item.itemMeta.show
               ).length,
             },
             {
               key: 'private',
-              label: 'Ei julkinen',
+              label: $localize`:@@notPublic:Ei julkinen`,
               doc_count: flattenItems(handleDataFilter('status')).filter(
                 (item) => !item.itemMeta.show
               ).length,
@@ -93,15 +94,16 @@ export class DataSourcesFiltersComponent
           ),
         },
         source: {
-          buckets: getUniqueSources(handleDataFilter('source')).map(
-            (organization) => {
-              return {
-                key: organization.label,
-                label: organization.label,
-                doc_count: organization.count,
-              };
-            }
-          ),
+          buckets: getUniqueSources(
+            handleDataFilter('source'),
+            this.appSettingsService.capitalizedLocale
+          ).map((organization) => {
+            return {
+              key: organization.key,
+              label: organization.label,
+              doc_count: organization.count,
+            };
+          }),
         },
       },
     };

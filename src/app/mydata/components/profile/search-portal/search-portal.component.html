@@ -3,106 +3,125 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<ng-template #editorTemplate>
-  <div class="row pb-3">
-    <div class="col h6 m-0">
-      {{ searchHelpText }}
-    </div>
+<!-- <div class="row pb-3">
+  <div class="col h6 m-0">
+    {{ searchHelpText }}
+  </div>
+</div> -->
+
+<div class="row tab-info background-light pt-3 my-4">
+  <div class="col-auto">
+    <fa-icon class="info-icon big-icon" icon="info-circle"></fa-icon>
   </div>
 
-  <div class="row">
-    <div class="col">
-      <app-search
-        [placeholder]="searchPlaceholder"
-        (getSearchTerm)="handleSearch($event)"
-        (resetSearch)="handleSearch('')"
-        [autofocus]="true"
-      ></app-search>
-    </div>
-  </div>
-
-  <div class="row pt-3">
-    <div class="col">
-      <span i18n="@@betaAddingOfMostRecent">Huom! Kaikkein tuoreimpien </span>
-      <span class="text-lowercase" [ngSwitch]="data.groupId">
-        <ng-container
-          *ngSwitchCase="groupTypes.publication"
-          i18n="@@publications"
-          >julkaisujen</ng-container
-        >
-        <ng-container *ngSwitchCase="groupTypes.dataset" i18n="@@datasets"
-          >tutkimusaineistojen</ng-container
-        >
-        <ng-container *ngSwitchCase="groupTypes.funding" i18n="@@fundings"
-          >hankkeiden</ng-container
-        >
-      </span>
-      <span i18n="@@doesNotWorkInBeta">
-        lisääminen ei toimi betaversiossa.</span
-      >
-    </div>
-  </div>
-
-  <div class="row py-3">
-    <div class="col opacity-3" role="region" aria-live="polite">
-      <ng-container [ngSwitch]="true">
-        <ng-container *ngSwitchCase="total > 0"
-          >{{ total | thousandSeparator }}
-          <ng-container
-            *ngIf="total === 1; else resultsLabel"
-            i18n="@@singleResult"
+  <div class="col">
+    <div class="col ps-0">
+      <p class="fw-bold">
+        <ng-container i18n="@@isMissing">Puuttuiko jokin </ng-container>
+        <ng-container [ngSwitch]="data.id">
+          <ng-container *ngSwitchCase="'publication'" i18n="@@publicationItem"
+            >julkaisu</ng-container
           >
-            hakutulos
-          </ng-container>
-
-          <ng-template #resultsLabel>
-            <ng-container i18n="@@resultCount">
-              hakutulosta
-            </ng-container></ng-template
+          <ng-container *ngSwitchCase="'dataset'" i18n="@@datasetItem"
+            >tutkimusaineisto</ng-container
+          >
+          <ng-container *ngSwitchCase="'funding'" i18n="@@fundingItem"
+            >hanke</ng-container
           >
         </ng-container>
-        <span *ngSwitchCase="total === 0">Ei hakutuloksia</span>
-        <span
-          class="d-block pb-5"
-          [ngClass]="loading ? '' : 'mb-5'"
-          *ngSwitchDefault
-          i18n="@@dataSourceIsResearchFi"
-          >Tietolähteenä käytetään Tiedejatutkimus.fi-palvelua</span
+        <ng-container i18n="@@fromYourData"> tiedoistasi?</ng-container>
+      </p>
+
+      <p>
+        {{ infoText }}
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="row g-0">
+  <div class="col">
+    <app-search
+      [placeholder]="searchPlaceholder"
+      (getSearchTerm)="handleSearch($event)"
+      (resetSearch)="handleSearch('')"
+      [autofocus]="true"
+    ></app-search>
+  </div>
+</div>
+
+<!-- <div class="row pt-3">
+  <div class="col">
+    <span i18n="@@betaAddingOfMostRecent">Huom! Kaikkein tuoreimpien </span>
+    <span class="text-lowercase" [ngSwitch]="data.id">
+      <ng-container *ngSwitchCase="groupTypes.publication" i18n="@@publications"
+        >julkaisujen</ng-container
+      >
+      <ng-container *ngSwitchCase="groupTypes.dataset" i18n="@@datasets"
+        >tutkimusaineistojen</ng-container
+      >
+      <ng-container *ngSwitchCase="groupTypes.funding" i18n="@@fundings"
+        >hankkeiden</ng-container
+      >
+    </span>
+    <span i18n="@@doesNotWorkInBeta"> lisääminen ei toimi betaversiossa.</span>
+  </div>
+</div> -->
+
+<div class="row py-3 g-0">
+  <div class="col opacity-3" role="region" aria-live="polite">
+    <ng-container [ngSwitch]="true">
+      <ng-container *ngSwitchCase="total > 0"
+        >{{ total | thousandSeparator }}
+        <ng-container
+          *ngIf="total === 1; else resultsLabel"
+          i18n="@@singleResult"
+        >
+          hakutulos
+        </ng-container>
+
+        <ng-template #resultsLabel>
+          <ng-container i18n="@@resultCount">
+            hakutulosta
+          </ng-container></ng-template
         >
       </ng-container>
-    </div>
+      <span *ngSwitchCase="total === 0">Ei hakutuloksia</span>
+      <span
+        class="d-block pb-5"
+        [ngClass]="loading ? '' : 'mb-5'"
+        *ngSwitchDefault
+        i18n="@@dataSourceIsResearchFi"
+        >Tietolähteenä käytetään Tiedejatutkimus.fi-palvelua</span
+      >
+    </ng-container>
   </div>
+</div>
 
-  <div class="row d-flex justify-content-center py-3" *ngIf="loading">
-    <mat-spinner
-      [diameter]="80"
-      i18n-aria-label="@@loading"
-      aria-label="Ladataan"
-    ></mat-spinner>
+<div class="row d-flex justify-content-center py-3" *ngIf="loading">
+  <mat-spinner
+    [diameter]="80"
+    i18n-aria-label="@@loading"
+    aria-label="Ladataan"
+  ></mat-spinner>
+</div>
+
+<div class="row pb-3 g-0" *ngIf="total > 0">
+  <div class="col">
+    <!-- <app-profile-items-table
+      [columns]="columns"
+      [rows]="results"
+    ></app-profile-items-table> -->
+
+    <app-search-portal-results
+      [groupId]="data.id"
+      (onItemToggle)="handleSelection($event)"
+      (onPageChange)="changePage($event)"
+      (onSortToggle)="sort($event)"
+      [data]="results"
+      [total]="total"
+      [itemsInProfile]="itemsInProfile || []"
+      [selectedInSession]="currentSelection || []"
+    ></app-search-portal-results>
   </div>
-
-  <div class="row pb-3" *ngIf="total > 0">
-    <div class="col">
-      <app-search-portal-results
-        [groupId]="data.groupId"
-        (onItemToggle)="handleSelection($event)"
-        (onPageChange)="changePage($event)"
-        (onSortToggle)="sort($event)"
-        [data]="results"
-        [total]="total"
-        [itemsInProfile]="data.itemsInProfile || []"
-        [selectedItems]="data.selectedPublications || []"
-      ></app-search-portal-results>
-    </div>
-  </div>
-</ng-template>
-
-<app-dialog
-  *ngIf="showDialog"
-  [template]="editorTemplate"
-  [title]="dialogTitle"
-  [extraHeaderTemplate]="toggleAllTemplate"
-  [actions]="dialogActions"
-  (onActionClick)="doDialogAction($event)"
->
-</app-dialog>
+</div>

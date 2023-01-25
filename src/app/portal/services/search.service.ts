@@ -117,10 +117,10 @@ export class SearchService {
         _index: {
           filters: {
             filters: {
-              persons: { match: { _index: 'person' } },
               publications: { match: { _index: 'publication' } },
+              persons: { match: { _index: 'person' } },
               fundings: { match: { _index: 'funding' } },
-              datasets: { match: { _index: 'dataset' } },
+              datasets: { bool: { must :[{ match: { _index:'dataset' } }, { term: { isLatestVersion: 1 }}]}},
               infrastructures: { match: { _index: 'infrastructure' } },
               organizations: { match: { _index: 'organization' } },
               fundingCalls: { match: { _index: 'funding-call' } },
@@ -203,14 +203,14 @@ export class SearchService {
         _index: {
           filters: {
             filters: {
-              persons: {
-                match: {
-                  _index: 'person',
-                },
-              },
               publications: {
                 match: {
                   _index: 'publication',
+                },
+              },
+              persons: {
+                match: {
+                  _index: 'person',
                 },
               },
               fundings: {
