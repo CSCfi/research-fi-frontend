@@ -25,7 +25,7 @@ import { SearchService } from '@portal/services/search.service';
 import { SortService } from '@portal/services/sort.service';
 import { AutosuggestService } from '@portal/services/autosuggest.service';
 import { TabChangeService } from '@portal/services/tab-change.service';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
@@ -56,7 +56,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   autoSuggestResponse: any;
   topData: any;
   otherData: any[];
-  queryField: FormControl = new FormControl();
+  queryField: UntypedFormControl = new UntypedFormControl();
   currentInput: any;
   showAutoSuggest = false;
   queryHistory: any;
@@ -152,7 +152,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
     this.inputSub = this.searchService.currentInput.subscribe(
       (input) => (this.currentTerm = input)
     );
-    this.queryField = new FormControl(this.currentTerm);
+    this.queryField = new UntypedFormControl(this.currentTerm);
 
     // Hotfix to set docList infrastructure field with locale
     this.docList[2].field = this.docList[2].field + this.currentLocale;
