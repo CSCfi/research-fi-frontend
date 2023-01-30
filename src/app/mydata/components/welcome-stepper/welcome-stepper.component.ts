@@ -2,6 +2,13 @@ import { Component, EventEmitter, OnInit, Output, ViewEncapsulation } from '@ang
 import { MatStepperModule } from '@angular/material/stepper'
 import { FormBuilder, Validators } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { ActivatedRoute, NavigationEnd, Router, RouterEvent } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Location } from "@angular/common";
+import { DialogEventsService } from '@shared/services/dialog-events.service';
+import { DialogAction } from '../../../../types';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
 
 @Component({
   selector: 'app-welcome-stepper',
@@ -15,14 +22,23 @@ export class WelcomeStepperComponent implements OnInit {
     firstCtrl: ['', Validators.required],
   });
 
-  @Output() onModalAction = new EventEmitter<any>();
-
-  showModal = true;
   localizedTitle = $localize`:@@welcomeStepperHowItWorksCaption:Miten Tutkijan tiedot -työkalu toimii?`;
-  localizedDialogActions = [
-    { label: $localize`:@@closeInstructions:Sulje ohjeet`, primary: false, method: 'close' },
-    { label: $localize`:@@createProfile:Luo profiili`, primary: true, method: 'createProfile' },
-  ];
+
+  isAuthenticated$ = this.oidcSecurityService.isAuthenticated$.pipe(map((authResult) => authResult.isAuthenticated));
+
+  localizedDialogActions$ = this.isAuthenticated$.pipe(map(isAuthenticated => {
+    if (isAuthenticated) {
+      return [
+        { label: $localize`:@@closeInstructions:Sulje ohjeet`, primary: false, method: 'close' }
+      ];
+    } else {
+      return [
+        { label: $localize`:@@closeInstructions:Sulje ohjeet`, primary: false, method: 'close' },
+        { label: $localize`:@@createProfile:Luo profiili`, primary: true, method: 'createProfile' }
+      ];
+    }
+  }));
+
   localizedStepCaptions = [$localize`:@@welcomeStepperStep1Caption:Aloita työkalun käyttö vahvalla Suomi.fi-tunnistautumisella sekä kirjautumalla ORCID-tunnuksillasi.`,
     $localize`:@@welcomeStepperStep2Caption:Kokoa julkisessa profiilissasi näytettävät tiedot.`,
     $localize`:@@welcomeStepperStep3Caption:Kun päivität tietojasi ORCID-palvelussa tai kotiorganisaatiossasi, myös profiiliisi valitsemasi tiedot päivittyvät automaattisesti.`,
@@ -41,19 +57,21 @@ export class WelcomeStepperComponent implements OnInit {
     $localize`:@@welcomeStepperStep6Content:Profiilisi on nyt löydettävissä Tiedejatutkimus.fi-sivustolla, josta mm. tiedotusvälineet, rahoittajat, tutkimusyhteistyöstä kiinnostuneet sekä muut tutkimustiedon etsijät voivat löytää profiilisi!`,
   ];
 
-  constructor(private _formBuilder: FormBuilder) { }
+  constructor(
+    private _formBuilder: FormBuilder,
+    private dialogEvents: DialogEventsService,
+    private oidcSecurityService: OidcSecurityService,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
   }
 
   doDialogAction(action: string) {
-    switch (action) {
-      case 'createProfile': {
-        this.onModalAction.emit('createProfile');
-      }
-      default: {
-        this.onModalAction.emit('close');
-      }
+    if (action === 'createProfile') {
+      this.router.navigate(['mydata', 'service-deployment']);
     }
+
+    this.dialogEvents.setQuickstartState(false);
   }
 }

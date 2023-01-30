@@ -79,10 +79,9 @@
 </ng-template>
 
 <app-dialog
-  *ngIf="showModal"
   [template]="welcomeTemplate"
   [title]="localizedTitle"
-  [actions]="localizedDialogActions"
+  [actions]="localizedDialogActions$ | async"
   (onActionClick)="doDialogAction($event)"
 >
 </app-dialog>
