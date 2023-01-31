@@ -65,7 +65,7 @@
 
           <ng-container *ngIf="myDataBeta">
             <li>
-              <a i18n="Footer-link@@footerLink10" routerLink="/mydata">Pikaohjeet</a>
+              <a class='no-href' i18n="Footer-link@@footerLink10" (click)='openQuickstartDialog()'>Pikaohjeet</a>
             </li>
 
             <li>
@@ -195,4 +195,8 @@
     [actions]="basicDialogActions"
     (onActionClick)="closeDialog()"
   ></app-dialog>
+
+  <ng-container *ngIf="quickstartState$ | async">
+    <app-welcome-stepper></app-welcome-stepper>
+  </ng-container>
 </footer>
