@@ -3654,10 +3654,6 @@
         <target>Source: Vipunen - Education Statistics Finland www.vipunen.fi</target>
       </trans-unit>
       <!-- Funding calls -->
-      <trans-unit id="fundingCall" datatype="html">
-        <source>Rahoitushaku</source>
-        <target>Funding call</target>
-      </trans-unit>
       <trans-unit id="fundingCalls">
         <source>Rahoitushaut</source>
         <target>Funding calls</target>

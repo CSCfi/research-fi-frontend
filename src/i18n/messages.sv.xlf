@@ -2079,10 +2079,6 @@
           <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="fundingCall" datatype="html">
-        <source>Rahoitushaku</source>
-        <target>utlysningar </target>
-      </trans-unit>
       <trans-unit id="headerLink7" datatype="html">
         <source>Rahoitushaut</source>
         <target>Forskningsfinansiering</target>
