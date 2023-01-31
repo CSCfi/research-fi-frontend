@@ -305,7 +305,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="fundingCallsIncluded" datatype="html">
-        <source>Mitä rahoitushakuja palvelu sisältää?</source>
+        <source>Mitä rahoitushakutietoja palvelu sisältää?</source>
         <target>Vilka utlysningar innehåller tjänsten?</target>
       </trans-unit>
       <trans-unit id="newsServiceIncludes" datatype="html">
@@ -2079,6 +2079,10 @@
           <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="fundingCall" datatype="html">
+        <source>Rahoitushaku</source>
+        <target>utlysningar </target>
+      </trans-unit>
       <trans-unit id="headerLink7" datatype="html">
         <source>Rahoitushaut</source>
         <target>Forskningsfinansiering</target>
@@ -3679,6 +3683,10 @@
       <trans-unit id="applicationInstructions">
         <source>Hakuohjeet</source>
         <target>Sökanvisning</target>
+      </trans-unit>
+      <trans-unit id="howToDeliverFcInstructions">
+        <source>Näin toimitat avautuvan rahoitushaun tiedot</source>
+        <target>Hur man skickar öppna utlysningar till Forskning.fi</target>
       </trans-unit>
       <trans-unit id="auroraDatabase">
         <source>Aurora-tietokanta</source>

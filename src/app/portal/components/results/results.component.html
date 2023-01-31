@@ -136,11 +136,14 @@ Copyright 2019 Ministry of Education and Culture, Finland
             routerLink="/service-info"
             fragment="service-info-2"
             class="theme-link"
-          >
-            <strong>
-              <ng-container i18n="@@resultInfo1">Mitä</ng-container
-              ><span> {{ selectedTabData?.singular.toLowerCase() }}</span>
-              <ng-container i18n="@@resultInfo2"
+          ><strong>
+            <ng-container *ngIf="selectedTabData.singular === 'Rahoitushaku'" i18n="@@fundingCallsIncluded">
+              Mitä rahoitushakutietoja palvelu sisältää?
+            </ng-container>
+
+              <ng-container *ngIf="selectedTabData.singular !== 'Rahoitushaku'" i18n="@@resultInfo1">Mitä</ng-container
+              ><span *ngIf="selectedTabData.singular !== 'Rahoitushaku'"> {{ selectedTabData?.singular.toLowerCase() }}</span>
+              <ng-container *ngIf="selectedTabData.singular !== 'Rahoitushaku'" i18n="@@resultInfo2"
                 >tietoja palvelu sisältää?</ng-container
               >
             </strong>
@@ -261,7 +264,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
               "
               i18n="@@asPieChart">
               Piiraskuvaaja
-            </button> 
+            </button>
           </div>   -->
           <app-active-filters
             (clearAllFilters)="this.clearAllFiltersFromActiveFilters()"
