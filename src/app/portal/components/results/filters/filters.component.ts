@@ -461,7 +461,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
 
   filterInput(event, parent) {
     const term =
-      event.value.length > 0 ? event.value.toLowerCase() : '';
+      event.target.value.length > 0 ? event.target.value.toLowerCase() : '';
     const source = this.responseData.aggregations[parent];
     source.original = source.original ? source.original : source.buckets;
     const matchArr = source.original.filter((item) =>
@@ -485,7 +485,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
 
   subFilterInput(event, parent, child) {
     const term =
-      event.value.length > 0 ? event.value.toLowerCase() : '';
+      event.target.value.length > 0 ? event.target.value.toLowerCase() : '';
     // this.filterTerm = term;
     const source = this.responseData.aggregations[parent].buckets.find(
       (sub) => sub.key === child
