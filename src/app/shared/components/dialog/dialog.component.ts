@@ -160,5 +160,6 @@ export class DialogComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnDestroy(): void {
     this.dialogResultSub?.unsubscribe();
+    this.dialogRef.close();
   }
 }
