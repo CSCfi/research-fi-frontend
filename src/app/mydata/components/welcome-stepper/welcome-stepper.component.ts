@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { MatStepperModule } from '@angular/material/stepper'
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { ActivatedRoute, NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -45,7 +45,7 @@ export class WelcomeStepperComponent implements OnInit {
     $localize`:@@welcomeStepperStep4Caption:Esikatsele julkiseen profiiliisi lisäämiäsi tietoja ennen niiden julkaisemista.`,
     $localize`:@@welcomeStepperStep5Caption:Jaa halutessasi profiilisi tietoja myös muille tutkimustoimijoille.`,
     $localize`:@@welcomeStepperStep6Caption:Valmista!`,
-    ];
+  ];
 
   localizedStepContent = [$localize`:@@welcomeStepperStep1Caption:Suomi.fi-tunnistautumisen avulla vahvistamme henkilöllisyytesi. ORCID-tunnisteen avulla voit koota profiiliisi tiedot eri lähteistä.`,
     $localize`:@@welcomeStepperStep2Content1:Kun olet kirjautunut, voit valita, mitkä ORCID-tunnisteeseesi yhdistetyt tiedot haluat asettaa julkiseksi profiilissasi. Voit liittää profiiliin tietoja ORCID-palvelusta löytyvien tietojen lisäksi myös oman kotiorganisaatiosi tiedoista. Sinun tarvitsee vain valita julkiseksi asetettavat tiedot. Työkaluun ei ole mahdollista syöttää tietoja itse.`,
@@ -58,7 +58,7 @@ export class WelcomeStepperComponent implements OnInit {
   ];
 
   constructor(
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
     private dialogEvents: DialogEventsService,
     private oidcSecurityService: OidcSecurityService,
     private router: Router,

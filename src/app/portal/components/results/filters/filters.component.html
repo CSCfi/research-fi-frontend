@@ -331,7 +331,7 @@
           <mat-selection-list
             [attr.aria-label]="filter.field"
             (selectionChange)="
-              selectionChange(filter.field, $event.option.value)
+              selectionChange(filter.field, $event.options[0].value)
             "
           >
             <!-- Options -->
