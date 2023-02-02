@@ -462,26 +462,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   private async pollProfile() {
-    await lastValueFrom(timer(2000));
-    let response = await lastValueFrom(this.updatePerson());
+    let response;
+    const retries = [2000, 2000, 2000, 22000];
 
-    if (response != null) { return; }
+    for (const retry of retries) {
+      await lastValueFrom(timer(retry));
+      this.updatePerson();
+      response = await lastValueFrom(this.updatePerson());
 
-    await lastValueFrom(timer(2000));
-    this.updatePerson();
-    response = await lastValueFrom(this.updatePerson());
-
-    if (response != null) { return; }
-
-    await lastValueFrom(timer(2000));
-    this.updatePerson();
-    response = await lastValueFrom(this.updatePerson());
-
-    if (response != null) { return; }
-
-    await lastValueFrom(timer(22000));
-    this.updatePerson();
-    await lastValueFrom(this.updatePerson());
+      if (response != null) { return; }
+    }
   }
 
 }
