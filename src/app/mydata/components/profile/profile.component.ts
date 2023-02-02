@@ -16,7 +16,7 @@ import {
 import { ProfileService } from '@mydata/services/profile.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { take, takeUntil } from 'rxjs/operators';
+import { map, takeUntil } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { mergePublications } from '@mydata/utils';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -31,8 +31,10 @@ import { UtilityService } from '@shared/services/utility.service';
 import { DatasetsService } from '@mydata/services/datasets.service';
 import { FundingsService } from '@mydata/services/fundings.service';
 import { CollaborationsService } from '@mydata/services/collaborations.service';
-import { Subject } from 'rxjs';
+import { lastValueFrom, Observable, Subject, timer, BehaviorSubject } from 'rxjs';
 import { cloneDeep } from 'lodash-es';
+import { Person } from '@portal/models/person/person.model';
+import { SingleItemService } from '@portal/services/single-item.service';
 
 @Component({
   selector: 'app-profile',
@@ -100,6 +102,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   private unsubscribe = new Subject();
 
+  // person$: Observable<Person>;
+  person$ = new BehaviorSubject<Person>(null);
+
+  hasProfile$: Observable<boolean>;
+
   constructor(
     public profileService: ProfileService,
     public oidcSecurityService: OidcSecurityService,
@@ -114,7 +121,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     public publicationsService: PublicationsService,
     public datasetsService: DatasetsService,
     public fundingsService: FundingsService,
-    private utilityService: UtilityService
+    private utilityService: UtilityService,
+    private singleItemService: SingleItemService,
   ) {
     this.testData = profileService.testData;
 
@@ -202,6 +210,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
 
     this.profileService.profileInitialized = true;
+
+    this.updatePerson();
+
+    this.hasProfile$ = this.person$.pipe(map((person) => person != null ));
   }
 
   openDialog(title: string, template: any, extraContentTemplate: any, actions: any, disableDialogClose: boolean) {
@@ -211,8 +223,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.dialogExtraContentTemplate = extraContentTemplate;
     this.currentDialogActions = actions;
     this.disableDialogClose = disableDialogClose;
-
-    console.log("Why and what is currentDialogActions", this.currentDialogActions);
   }
 
   doDialogAction(action: string) {
@@ -337,7 +347,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
   }
 
-  publish() {
+  async publish() {
     const promises = [];
 
     // Use of handler property as function prevents handler method firing when iterating
@@ -374,20 +384,22 @@ export class ProfileComponent implements OnInit, OnDestroy {
     // Enable hide profile button in account settings section, if it has been disabled
     sessionStorage.removeItem('profileHidden');
 
-    Promise.all(promises)
-      .then((response) => {
-        if (response.includes(false)) {
-          this.snackbarService.showPatchMessage('error');
-        } else {
-          this.clearDraftData();
-          this.snackbarService.showPatchMessage('success');
-        }
-      })
-      .catch((error) => {
+    try {
+      const response = await Promise.all(promises);
+      if (response.includes(false)) {
         this.snackbarService.showPatchMessage('error');
-        console.error(`Error in data patching`, error);
-      });
+      } else {
+        this.clearDraftData();
+        this.snackbarService.showPatchMessage('success');
+      }
+    } catch (error) {
+      this.snackbarService.showPatchMessage('error');
+      console.error(`Error in data patching`, error);
+    }
+
     this.profileService.setCurrentProfileData(this.profileData);
+
+    await this.pollProfile();
   }
 
   /*
@@ -432,4 +444,34 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.unsubscribe.next(null);
     this.unsubscribe.complete();
   }
+
+  private updatePerson() {
+    const id = this.orcid;
+
+    const source = this.singleItemService.getSinglePerson(id);
+
+    source.subscribe((search) => {
+      const person = search.persons[0] as Person;
+
+      if (person != null) {
+        this.person$.next(person);
+      }
+    });
+
+    return source;
+  }
+
+  private async pollProfile() {
+    let response;
+    const retries = [2000, 2000, 2000, 22000];
+
+    for (const retry of retries) {
+      await lastValueFrom(timer(retry));
+      this.updatePerson();
+      response = await lastValueFrom(this.updatePerson());
+
+      if (response != null) { return; }
+    }
+  }
+
 }
