@@ -109,9 +109,9 @@
       <ng-container *ngIf='(hasProfile$ | async) === true'>
         <div class="col px-0 py-2 text-end">
           <div style='display: flex; justify-content: end; align-items: center'>
-            <div style="margin-right: 1rem">Tarkastele julkista profiiliasi Tiedejatutkimus.fi:ssä</div>
+            <div style="margin-right: 1rem" i18n="@@visitMyProfile">Tarkastele julkista profiiliasi Tiedejatutkimus.fi:ssä</div>
             <a [routerLink]="['/', 'results', 'person', orcid]" target="_blank">
-              <app-primary-action-button class="" i18n-content="@@publish" content="Profiiliin"></app-primary-action-button>
+              <app-primary-action-button class="" i18n-content="@@toMyProfile" content="Julkiseen profiiliin"></app-primary-action-button>
             </a>
           </div>
         </div>
