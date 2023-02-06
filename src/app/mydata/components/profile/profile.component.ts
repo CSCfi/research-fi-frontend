@@ -463,11 +463,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   private async pollProfile() {
     let response;
-    const retries = [2000, 2000, 2000, 22000];
+    const delays = [2000, 2000, 2000, 22000];
 
-    for (const retry of retries) {
-      await lastValueFrom(timer(retry));
-      this.updatePerson();
+    for (const delay of delays) {
+      await lastValueFrom(timer(delay));
       response = await lastValueFrom(this.updatePerson());
 
       if (response != null) { return; }
