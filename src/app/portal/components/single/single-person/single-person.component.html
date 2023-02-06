@@ -8,7 +8,7 @@
   <app-search-bar></app-search-bar>
 </aside>
 
-<ng-container *ngIf='(person$ | async) == null'>
+<ng-container *ngIf='(person$ | async) == null && (isLoaded$ | async) === true'>
   <div class='col-12' style='margin: 10px 0 10px 0'>
     <h2 i18n='@@404'>404 - Virheellinen osoite</h2>
   </div>
