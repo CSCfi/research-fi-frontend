@@ -2259,6 +2259,14 @@
         </context-group>
       </trans-unit>
 
+      <trans-unit id="suomiFiAutheticationProblemSnackbarText" datatype="html">
+        <source>Osalla käyttäjistä on ilmennyt virhetilanne Suomi.fi-tunnistautumisen jälkeen, joka estää pääsyn profiilin luontiin. Mikäli virhetilanne ilmenee, kirjautumista pääsee jatkamaan klikkaamalla "Kirjaudu sisään" -painiketta sivun ylälaidassa.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/mydata/components/home/home.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>   
+
     </body>
   </file>
 </xliff>

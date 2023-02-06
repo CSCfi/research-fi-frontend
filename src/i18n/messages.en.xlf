@@ -5799,8 +5799,8 @@
         <target>Check the changes</target>
       </trans-unit>
       <trans-unit id="suomiFiAutheticationProblemSnackbarText">
-        <source>Osalla käyttäjistä on ilmennyt virhetilanne Suomi.fi-tunnistautumisen jälkeen, joka estää pääsyn profiilin luontiin. Selvitämme ongelmaa ja korjaamme sen mahdollisimman pian. Voit jättää palautelomakkeen avulla tarkempia tietoja vikatilanteesta.</source>
-        <target>Some users have experienced an error following Suomi.fi authentication. The error prevents access to the profile tool. We have identified the issue and will fix it as soon as possible. Please use the feedback form to leave more detailed information about the error when it occurs.</target>
+        <source>Osalla käyttäjistä on ilmennyt virhetilanne Suomi.fi-tunnistautumisen jälkeen, joka estää pääsyn profiilin luontiin. Mikäli virhetilanne ilmenee, kirjautumista pääsee jatkamaan klikkaamalla "Kirjaudu sisään" -painiketta sivun ylälaidassa.</source>
+        <target>Some users have experienced an error following Suomi.fi authentication. The error prevents access to the profile tool. In case the error occurs, the user can continue the login process by clicking "Log in" on top of the page.</target>
       </trans-unit>
 
       <!-- Welcome stepper -->
