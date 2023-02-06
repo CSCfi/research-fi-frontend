@@ -14,8 +14,8 @@ import { SingleItemService } from '@portal/services/single-item.service';
 import { TabChangeService } from '@portal/services/tab-change.service';
 import { UtilityService } from '@shared/services/utility.service';
 
-import { Observable } from 'rxjs';
-import { map, switchMap, take } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { delay, map, switchMap, take } from 'rxjs/operators';
 
 import { DOCUMENT } from '@angular/common';
 
@@ -89,6 +89,7 @@ export class SinglePersonComponent implements OnInit {
   ];
 
   person$: Observable<Person>;
+  isLoaded$: Observable<boolean>;
 
   initialItemCount = 3;
 
@@ -123,7 +124,12 @@ export class SinglePersonComponent implements OnInit {
       }));
     }))
 
-
+    this.person$.pipe(take(1)).subscribe({
+      complete: () => {
+        // delay masks very fast loading where "404" flashes on screen
+        this.isLoaded$ = of(true).pipe(delay(100));
+      }
+    });
 
     this.route.params.pipe(take(1)).subscribe((params) => {
       this.searchService.searchTerm = params.id;
