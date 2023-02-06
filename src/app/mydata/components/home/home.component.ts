@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
   alreadyCreatedProfile = $localize`:@@alreadyCreatedProfile:Oletko jo luonut profiilin tähän palveluun?`;
   additionalInfoText = $localize`:@@additionalInfo:Lisätietoa` + ':';
 
-  suomiFiAutheticationProblemSnackbarText = $localize`:@@suomiFiAutheticationProblemSnackbarText:Osalla käyttäjistä on ilmennyt virhetilanne Suomi.fi-tunnistautumisen jälkeen, joka estää pääsyn profiilin luontiin. Selvitämme ongelmaa ja korjaamme sen mahdollisimman pian. Voit jättää palautelomakkeen avulla tarkempia tietoja vikatilanteesta.`;
+  suomiFiAutheticationProblemSnackbarText = $localize`:@@suomiFiAutheticationProblemSnackbarText:Osalla käyttäjistä on ilmennyt virhetilanne Suomi.fi-tunnistautumisen jälkeen, joka estää pääsyn profiilin luontiin. Mikäli virhetilanne ilmenee, kirjautumista pääsee jatkamaan klikkaamalla "Kirjaudu sisään" -painiketta sivun ylälaidassa.`;
 
   locale: string;
 
