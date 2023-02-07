@@ -5430,8 +5430,8 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <target>Publicera den uppdaterade profilen</target>
       </trans-unit>
       <trans-unit id="discardChanges">
-        <source>Hylkää muutokset...</source>
-        <target>Avvisa ändringar...</target>
+        <source>Hylkää muutokset</source>
+        <target>Avvisa ändringar</target>
       </trans-unit>
       <trans-unit id="publish">
         <source>Julkaise</source>
