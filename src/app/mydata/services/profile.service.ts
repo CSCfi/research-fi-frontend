@@ -104,36 +104,22 @@ export class ProfileService {
 
   async checkProfileExists() {
     await this.updateToken();
-    let checkResult = await firstValueFrom(this.http.get(this.apiUrl + '/userprofile/', this.httpOptions));
-    return checkResult;
+    return firstValueFrom(this.http.get(this.apiUrl + '/userprofile/', this.httpOptions));
   }
 
   async createProfile() {
     await this.updateToken();
-    let createResponse = await firstValueFrom(
-     this.http.post(
-      this.apiUrl + '/userprofile/',
-      null,
-      this.httpOptions
-    ));
-    return createResponse;
+    return firstValueFrom(this.http.post(this.apiUrl + '/userprofile/', null, this.httpOptions));
   }
 
   async deleteProfile() {
     await this.updateToken();
-    let deleteResponse = await firstValueFrom(
-      this.http.delete(this.apiUrl + '/userprofile/', this.httpOptions)
-    );
-    return deleteResponse;
+    return firstValueFrom(this.http.delete(this.apiUrl + '/userprofile/', this.httpOptions));
   }
 
    async hideProfile() {
      await this.updateToken();
-     let hideResponse = await firstValueFrom(this.http.get(
-       this.apiUrl + '/settings/hideprofile',
-       this.httpOptions
-     ));
-     return hideResponse;
+     return firstValueFrom(this.http.get(this.apiUrl + '/settings/hideprofile', this.httpOptions));
   }
 
   /*
@@ -142,14 +128,12 @@ export class ProfileService {
    */
   async deleteAccount() {
     await this.updateToken({ bypassOrcidCheck: true });
-    let deleteResponse = await firstValueFrom(this.http.delete(this.apiUrl + '/accountdelete/', this.httpOptions));
-    return deleteResponse;
+    return firstValueFrom(this.http.delete(this.apiUrl + '/accountdelete/', this.httpOptions));
   }
 
   async getOrcidData() {
     await this.updateToken();
-    let orcidData = await firstValueFrom(this.http.get(this.apiUrl + '/orcid/', this.httpOptions));
-    return orcidData;
+    return firstValueFrom(this.http.get(this.apiUrl + '/orcid/', this.httpOptions));
   }
 
   async getProfileData(): Promise<any> {
@@ -171,37 +155,19 @@ export class ProfileService {
   async patchObjects(items) {
     await this.updateToken();
     let body = { groups: [], items: items };
-
-    let patchResponse = await firstValueFrom(this.http.patch(
-      this.apiUrl + '/profiledata/',
-      body,
-      this.httpOptions
-    ));
-    return patchResponse;
+    return firstValueFrom(this.http.patch(this.apiUrl + '/profiledata/', body, this.httpOptions));
   }
 
   async patchProfileDataSingleGroup(group) {
     await this.updateToken();
     let body = { groups: group, items: [] };
-
-    let patchResponse = await firstValueFrom(this.http.patch(
-      this.apiUrl + '/profiledata/',
-      body,
-      this.httpOptions
-    ));
-    return patchResponse;
+    return firstValueFrom(this.http.patch(this.apiUrl + '/profiledata/', body, this.httpOptions));
   }
 
   async patchProfileDataSingleItem(item) {
     await this.updateToken();
     let body = { groups: [], items: item };
-
-    let patchResponse = await firstValueFrom(this.http.patch(
-      this.apiUrl + '/profiledata/',
-      body,
-      this.httpOptions
-    ));
-    return patchResponse;
+    return firstValueFrom(this.http.patch(this.apiUrl + '/profiledata/', body, this.httpOptions));
   }
 
   /*
@@ -211,7 +177,6 @@ export class ProfileService {
    */
   async accountlink() {
     await this.updateToken({ bypassOrcidCheck: true });
-    let linkingResp = await firstValueFrom(this.http.get(this.apiUrl + '/accountlink/', this.httpOptions));
-    return linkingResp;
+    return firstValueFrom(this.http.get(this.apiUrl + '/accountlink/', this.httpOptions));
   }
 }
