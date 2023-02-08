@@ -40,13 +40,13 @@ export class CancelDeploymentComponent implements OnInit {
 
     if (token) {
       this.profileService
-        .deleteAccount()
-        .pipe(take(1))
-        .subscribe((res: HttpResponse<any>) => {
-          if (res.ok) {
-            logout();
-          }
-        });
+        .deleteAccount().then(
+        (value) => {
+          this.oidcSecurityService.logoff()
+        },
+        (reason) => {
+          console.error(reason);
+        },);
     } else {
       this.router.navigate(['/mydata']);
     }
