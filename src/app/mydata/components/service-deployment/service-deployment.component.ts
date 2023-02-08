@@ -79,15 +79,20 @@ export class ServiceDeploymentComponent implements OnInit, OnDestroy {
 
       // Initialize Identity Provider configuration and enable ORCID data fetch in step 4
       if (this.step === 4) {
-        this.IDPLinkSub = this.profileService
-          .accountlink()
-          .pipe(switchMap(() => this.oidcSecurityService.forceRefreshSession()))
-          .subscribe(() => {
-            const idTokenPayload =
-              this.oidcSecurityService.getPayloadFromIdToken();
-            this.orcid = idTokenPayload.orcid;
-            this.profileService.setUserData(idTokenPayload);
-          });
+        this.profileService
+          .accountlink().then(
+          (value) => {
+            this.IDPLinkSub = this.oidcSecurityService.forceRefreshSession()
+              .subscribe(() => {
+                this.oidcSecurityService.getPayloadFromIdToken().subscribe(data => {
+                  this.orcid = data.orcid;
+                  this.profileService.setUserData(data);
+                });
+              });
+          },
+          (reason) => {
+            console.error(reason);
+          },);
       }
     });
 

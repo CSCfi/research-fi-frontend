@@ -274,39 +274,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
    * Patch items to backend
    */
   private async patchItemsPromise() {
-    return new Promise((resolve, reject) => {
-      const patchItems = this.patchService.confirmedPayLoad;
-      this.profileService
-        .patchObjects(patchItems)
-        .pipe(takeUntil(this.unsubscribe))
-        .subscribe({
-          next: (result) => {
-            resolve(true);
-          },
-          error: (error) => {
-            reject(error);
-          },
-        });
-    });
+    const patchItems = this.patchService.confirmedPayLoad;
+    return this.profileService
+      .patchObjects(patchItems);
   }
 
   /*
    * Patch datasets to backend
    */
   private async handleDatasetsPromise() {
-    return new Promise((resolve, reject) => {
-      this.datasetsService
-        .addDatasets()
-        .pipe(takeUntil(this.unsubscribe))
-        .subscribe({
-          next: (result) => {
-            resolve(true);
-          },
-          error: (error) => {
-            reject(error);
-          },
-        });
-    });
+    return this.datasetsService.addDatasets();
   }
 
   /*

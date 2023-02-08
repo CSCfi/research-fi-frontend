@@ -33,39 +33,39 @@ export class OrcidDataFetchComponent implements OnInit, OnDestroy {
   orcidDataFetchInfo3 = $localize`:@@orcidDataFetchInfo3:Tässä vaiheessa emme vielä julkaise profiiliasi.`;
   orcidDataFetchInfo4 = $localize`:@@orcidDataFetchInfo4:Voit hallinnoida tietojesi julkisuutta seuraavaksi aukeavassa profiilieditorissa.`;
 
-  fetchOrcidData() {
+
+  // Create profile when proceeding from step 4. Get ORCID data after profile creation
+  async createProfile() {
+    this.profileService
+      .createProfile().then(
+      (value) => {
+        this.loading = true;
+        this.getOrcidData();
+      },
+      (reason) => {
+        console.error(reason);
+      },);
+  }
+
+  async fetchOrcidData() {
     if (!this.orcid) {
       this.profileService.handleOrcidNotLinked();
     } else {
-      this.accountLinkSub = this.profileService
-        .accountlink()
-        .subscribe((response: { body: { success: string } }) => {
-          if (response.body.success) {
-            this.loading = true;
-            this.createProfile();
-          } else {
-            console.error('Unable to link ORCID');
-          }
-        });
+      this.profileService
+        .accountlink().then(
+        (value) => {
+          this.loading = true;
+          this.createProfile();
+        },
+        (reason) => {
+          console.error(reason);
+          console.error('Unable to link ORCID');
+        },);
     }
   }
 
-  // Create profile when proceeding from step 4. Get ORCID data after profile creation
-  createProfile() {
-    this.createProfileSub = this.profileService
-      .createProfile()
-      .pipe(take(1))
-      .subscribe((data: any) => {
-        if (data.ok) {
-          this.getOrcidData();
-        } else {
-          // TODO: Alert problem
-        }
-      });
-  }
-
   async getOrcidData() {
-    const response: any = await this.profileService.getOrcidData().toPromise();
+    const response: any = await this.profileService.getOrcidData();
     if (response.ok) {
       this.dialog.closeAll();
       this.loading = false;

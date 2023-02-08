@@ -14,7 +14,7 @@ import {
 import { ProfileService } from '@mydata/services/profile.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { Subject, takeUntil } from 'rxjs';
+import {firstValueFrom, Subject, takeUntil} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -41,20 +41,17 @@ export class OrcidProfileResolverService implements Resolve<any>, OnDestroy {
       return new Promise((resolve) => {
         this.oidcSecurityService.userData$
           .pipe(takeUntil(this.unsubscribeOnDestroy))
-          .subscribe((data) => {
+          .subscribe(async (data) => {
             if (data.userData) {
               const idTokenPayload =
-                this.oidcSecurityService.getPayloadFromIdToken();
-
+                await firstValueFrom(this.oidcSecurityService.getPayloadFromIdToken());
               // Create object that holds necessary ORCID profile items
               const userData = {
                 ...data.userData,
                 orcid: idTokenPayload.orcid,
               };
-
               this.profileService.setOrcidUserProfile(userData);
               this.appSettingsService.setOrcid(userData.orcid);
-
               resolve(userData);
             } else {
               return false;

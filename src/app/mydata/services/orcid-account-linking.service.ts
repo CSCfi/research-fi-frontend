@@ -8,6 +8,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
+import {firstValueFrom} from "rxjs";
 
 @Injectable({
   providedIn: 'root',
@@ -109,10 +110,10 @@ export class OrcidAccoungLinkingService {
    */
   async getOrcidLink() {
     // Auth configuration
-    const authConfig = this.oidcSecurityService.getConfiguration();
+    const authConfig = await firstValueFrom(this.oidcSecurityService.getConfiguration());
 
     // Get ID token
-    const idTokenPayload = this.oidcSecurityService.getPayloadFromIdToken();
+    const idTokenPayload = await firstValueFrom(this.oidcSecurityService.getPayloadFromIdToken());
 
     // Keycloak base URL
     const keycloakUrl = authConfig.authority;
