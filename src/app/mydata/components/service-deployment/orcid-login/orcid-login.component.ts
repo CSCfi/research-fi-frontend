@@ -40,14 +40,13 @@ export class OrcidLoginComponent implements OnInit, OnDestroy {
     this.orcidLink = await this.orcidAccountLinkingService.getOrcidLink();
   }
 
-  loginOrcid() {
-    this.getOrcidLink().then(() => {
-      if (this.orcidLink) {
+  async loginOrcid() {
+    await this.getOrcidLink()
+    if (this.orcidLink) {
         this.document.location.href = this.orcidLink;
       } else {
         console.error('Unable to get ORCID link');
-      }
-    });
+    }
   }
 
   ngOnDestroy(): void {
