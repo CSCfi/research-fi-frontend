@@ -144,7 +144,6 @@ export class ProfileService {
   }
 
   async getOrcidData() {
-    console.log('get orcid data');
       this.updateToken().then(() => {
         return this.http.get(this.apiUrl + '/orcid/', this.httpOptions);
       })
@@ -168,7 +167,6 @@ export class ProfileService {
 
   async patchObjects(items) {
     await this.updateToken();
-    console.log('patch called', this.httpOptions)
     let body = { groups: [], items: items };
 
     let patch = await firstValueFrom(this.http.patch(
@@ -176,7 +174,6 @@ export class ProfileService {
       body,
       this.httpOptions
     ));
-    console.log('patching', patch);
     return patch;
   }
 
