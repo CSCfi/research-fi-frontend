@@ -19,7 +19,8 @@
     "serve:ssr": "node dist/server.js",
     "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
     "test:prod": "ng test --browsers=ChromeHeadless --watch=false --code-coverage",
-    "tsc": "tsc --pretty"
+    "tsc": "tsc --pretty",
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {
@@ -85,6 +86,11 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.2.10",
+    "@angular-eslint/builder": "14.4.0",
+    "@angular-eslint/eslint-plugin": "14.4.0",
+    "@angular-eslint/eslint-plugin-template": "14.4.0",
+    "@angular-eslint/schematics": "14.4.0",
+    "@angular-eslint/template-parser": "14.4.0",
     "@angular/cli": "^14.2.10",
     "@angular/compiler-cli": "^14.2.12",
     "@angular/language-service": "^14.2.12",
@@ -100,10 +106,10 @@
     "@types/lodash": "^4.14.178",
     "@types/lodash-es": "^4.17.6",
     "@types/node": "^17.0.21",
-    "@typescript-eslint/eslint-plugin": "^4.29.3",
-    "@typescript-eslint/parser": "^4.29.3",
+    "@typescript-eslint/eslint-plugin": "5.43.0",
+    "@typescript-eslint/parser": "5.43.0",
     "codelyzer": "^6.0.1",
-    "eslint": "^7.26.0",
+    "eslint": "^8.28.0",
     "https-proxy-agent": "^5.0.0",
     "jasmine-core": "^4.0.0",
     "jasmine-spec-reporter": "~7.0.0",
