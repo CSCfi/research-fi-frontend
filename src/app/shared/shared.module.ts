@@ -65,6 +65,8 @@ import { TrimLinkPrefixPipe } from './pipes/trim-link-prefix.pipe';
 import { JoinItemsPipe } from './pipes/join-items.pipe';
 
 import { OrcidComponent } from '../shared/components/orcid/orcid.component';
+import { WelcomeStepperComponent } from '@mydata/components/welcome-stepper/welcome-stepper.component';
+import { MatStepperModule } from '@angular/material/stepper';
 
 @NgModule({
   declarations: [
@@ -103,6 +105,7 @@ import { OrcidComponent } from '../shared/components/orcid/orcid.component';
     TrimLinkPrefixPipe,
     JoinItemsPipe,
     OrcidComponent,
+    WelcomeStepperComponent,
   ],
   exports: [
     InfoComponent,
@@ -135,6 +138,7 @@ import { OrcidComponent } from '../shared/components/orcid/orcid.component';
     TrimLinkPrefixPipe,
     JoinItemsPipe,
     OrcidComponent,
+    WelcomeStepperComponent,
   ],
   imports: [
     CommonModule,
@@ -156,6 +160,7 @@ import { OrcidComponent } from '../shared/components/orcid/orcid.component';
     MatSortModule,
     CollapseModule.forRoot(),
     TooltipModule.forRoot(),
+    MatStepperModule,
   ],
   providers: [CutContentPipe],
 })

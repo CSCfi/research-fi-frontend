@@ -331,7 +331,7 @@
           <mat-selection-list
             [attr.aria-label]="filter.field"
             (selectionChange)="
-              selectionChange(filter.field, $event.option.value)
+              selectionChange(filter.field, $event.options[0].value)
             "
           >
             <!-- Options -->
@@ -704,6 +704,29 @@
     </div>
   </div>
 </ng-template>
+<ng-container *ngIf="filterOrigin === 'fundingCalls'">
+  <div class="filter-sidebar">
+    <div class="mat-expansion-panel">
+      <mat-panel-title>
+      <div class="col ms-2" i18n="@@serviceInfoHeader">Tietoa palvelusta</div>
+      </mat-panel-title>
+      <div class="mb-2 about-link">
+      <a routerLink="/service-info" fragment="service-info-2" class="theme-link">
+        <strong>
+          <ng-container i18n="@@fundingCallsIncluded">Mitä rahoitushakutietoja palvelu sisältää?</ng-container>
+        </strong>
+      </a>
+      </div>
+      <div class="mb-4 about-link">
+      <a routerLink="/service-info" fragment="service-info-2" class="theme-link">
+        <strong>
+          <ng-container i18n="@@howToDeliverFcInstructions">Näin toimitat avautuvan rahoitushaun tiedot</ng-container>
+        </strong>
+      </a>
+      </div>
+    </div>
+  </div>
+</ng-container>
 
 <!-- Reusable dialog for mobile view -->
 <app-dialog

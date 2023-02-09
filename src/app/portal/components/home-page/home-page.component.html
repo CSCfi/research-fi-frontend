@@ -216,7 +216,7 @@
 </main>
 
 <ng-template #reviewDialog>
-  <app-review></app-review>
+  <app-review (onClose)='toggleReview()'></app-review>
 </ng-template>
 
 <app-dialog

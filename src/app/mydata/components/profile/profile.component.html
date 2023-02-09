@@ -31,8 +31,8 @@
             <app-primary-action-button class="col-auto"i18n-content="@@publishEllipsis" content="Julkaise..." (click)="openDialog(publishUpdatedProfile,publishUpdatedProfileTemplate,dataToPublishTemplate,publishUpdatedProfileDialogActions,false)"></app-primary-action-button>
 
             <!-- Discard draft -->
-            <button class="col-auto pe-lg-0" mat-button color="primary" i18n="@@discardChanges" (click)="openDialog(discardChanges, discardChangesTemplate, discardChangesActions, undefined, false)">
-              Hylkää muutokset...
+            <button class="col-auto pe-lg-0" mat-button color="primary" i18n="@@discardChanges" (click)="openDialog(discardChanges, discardChangesTemplate, undefined, discardChangesActions, false)">
+              Hylkää muutokset
             </button>
 
             <ng-template #discardChangesTemplate>
@@ -106,14 +106,16 @@
         <app-draft-summary *ngIf="profileData" [profileData]="profileData"></app-draft-summary>
       </ng-template>
 
-      <div class="col px-0 py-2 text-end">
-        <div style='display: flex; justify-content: end; align-items: center'>
-          <div style="margin-right: 1rem">Tarkastele julkista profiiliasi Tiedejatutkimus.fi:ssä</div>
-          <a [routerLink]="['/', 'results', 'person', orcid]" target="_blank">
-            <app-primary-action-button class="" i18n-content="@@publish" content="Profiiliin"></app-primary-action-button>
-          </a>
+      <ng-container *ngIf='(hasProfile$ | async) === true'>
+        <div class="col px-0 py-2 text-end">
+          <div style='display: flex; justify-content: end; align-items: center'>
+            <div style="margin-right: 1rem" i18n="@@visitMyProfile">Tarkastele julkista profiiliasi Tiedejatutkimus.fi:ssä</div>
+            <a [routerLink]="['/', 'results', 'person', orcid]" target="_blank">
+              <app-primary-action-button class="" i18n-content="@@toMyProfile" content="Julkiseen profiiliin"></app-primary-action-button>
+            </a>
+          </div>
         </div>
-      </div>
+      </ng-container>
 
       <ng-container *ngIf="
           (publicationsService.currentPublicationPayload | async).length ||

@@ -7,7 +7,6 @@
 
 import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faEnvelope, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Person } from '@portal/models/person/person.model';
 import { Search } from '@portal/models/search.model';
 import { SearchService } from '@portal/services/search.service';
@@ -15,8 +14,8 @@ import { SingleItemService } from '@portal/services/single-item.service';
 import { TabChangeService } from '@portal/services/tab-change.service';
 import { UtilityService } from '@shared/services/utility.service';
 
-import { Observable, combineLatest } from 'rxjs';
-import { take, map, switchMap } from "rxjs/operators";
+import { Observable, of } from 'rxjs';
+import { delay, map, switchMap, take } from 'rxjs/operators';
 
 import { DOCUMENT } from '@angular/common';
 
@@ -90,6 +89,7 @@ export class SinglePersonComponent implements OnInit {
   ];
 
   person$: Observable<Person>;
+  isLoaded$: Observable<boolean>;
 
   initialItemCount = 3;
 
@@ -119,14 +119,17 @@ export class SinglePersonComponent implements OnInit {
     this.person$ = this.route.params.pipe(switchMap((params) => {
       const id = params["id"];
 
-      const person$ = this.singleItemService.getSinglePerson(id).pipe(map((search) => {
+      return this.singleItemService.getSinglePerson(id).pipe(map((search) => {
         return search.persons[0] as Person;
       }));
-
-      return person$;
     }))
 
-
+    this.person$.pipe(take(1)).subscribe({
+      complete: () => {
+        // delay masks very fast loading where "404" flashes on screen
+        this.isLoaded$ = of(true).pipe(delay(100));
+      }
+    });
 
     this.route.params.pipe(take(1)).subscribe((params) => {
       this.searchService.searchTerm = params.id;
