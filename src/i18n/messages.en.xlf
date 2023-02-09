@@ -5440,8 +5440,8 @@
         <target>Publish updated profile</target>
       </trans-unit>
       <trans-unit id="discardChanges">
-        <source>Hylkää muutokset...</source>
-        <target>Discard changes...</target>
+        <source>Hylkää muutokset</source>
+        <target>Discard changes</target>
       </trans-unit>
       <trans-unit id="publish">
         <source>Julkaise</source>

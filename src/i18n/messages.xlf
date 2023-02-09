@@ -2265,7 +2265,11 @@
           <context context-type="sourcefile">src/app/mydata/components/home/home.component.ts</context>
           <context context-type="linenumber">30</context>
         </context-group>
-      </trans-unit>   
+      </trans-unit>
+
+      <trans-unit id="discardChanges" datatype="html">
+        <source> Hylkää muutokset</source>
+      </trans-unit>
 
     </body>
   </file>
