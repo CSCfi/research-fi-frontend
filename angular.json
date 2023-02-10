@@ -29,7 +29,10 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
-            "assets": ["src/assets/favicon.ico", "src/assets"],
+            "assets": [
+              "src/assets/favicon.ico",
+              "src/assets"
+            ],
             "styles": [
               "./node_modules/@fortawesome/fontawesome-svg-core/styles.css",
               "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
@@ -83,13 +86,19 @@
               ]
             },
             "fi": {
-              "localize": ["fi"]
+              "localize": [
+                "fi"
+              ]
             },
             "en": {
-              "localize": ["en"]
+              "localize": [
+                "en"
+              ]
             },
             "sv": {
-              "localize": ["sv"]
+              "localize": [
+                "sv"
+              ]
             },
             "es5": {
               "budgets": [
@@ -147,6 +156,15 @@
             "scripts": []
           }
         },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
+        },
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
@@ -164,7 +182,11 @@
           "options": {
             "main": "src/main.server.ts",
             "tsConfig": "src/tsconfig.server.json",
-            "localize": ["fi", "en", "sv"],
+            "localize": [
+              "fi",
+              "en",
+              "sv"
+            ],
             "sourceMap": true,
             "optimization": true
           },
@@ -190,7 +212,11 @@
               "srcDir": "src/i18n",
               "genDir": "src/i18n",
               "defaultLanguage": "fi",
-              "languages": ["fi", "sv", "en"]
+              "languages": [
+                "fi",
+                "sv",
+                "en"
+              ]
             }
           }
         }
