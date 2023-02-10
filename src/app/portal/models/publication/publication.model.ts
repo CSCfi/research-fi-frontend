@@ -134,7 +134,7 @@ export class PublicationAdapter implements Adapter<Publication> {
     }
 
     let articleTypeText = '';
-    if (item.articleTypeCode) {
+    if (item.articleTypeCode != null) {
       switch (item.articleTypeCode) {
         case 0:
           articleTypeText = $localize`:@@otherArticle:Muu artikkeli`;

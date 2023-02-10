@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subscription } from 'rxjs';
@@ -41,6 +41,8 @@ export class ReviewComponent implements OnInit, OnDestroy {
   error = false;
   success = false;
   faTimes = faTimes;
+
+  @Output() onClose = new EventEmitter<void>();
 
   targets: string[] = [
     $localize`:@@fromAccessibility:Saavutettavuudesta`,
@@ -150,5 +152,9 @@ export class ReviewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.sendPostSub?.unsubscribe();
+  }
+
+  close() {
+    this.onClose.emit();
   }
 }

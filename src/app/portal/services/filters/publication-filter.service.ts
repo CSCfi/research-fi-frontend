@@ -113,9 +113,9 @@ export class PublicationFilterService {
         ': </strong>' +
         $localize`:@@researchBookTooltipContent:Sisältää tieteelliset kokoomateokset, tieteelliset vuosikirjat ja vastaavat, ammatilliset käsi- tai opaskirjat, ammatilliset tietojärjestelmät tai kokoomateokset, oppikirja-aineistot sekä lyhyet ensyklopediatekstit. ` +
         '</p><p><strong>' +
-        $localize`:@@conferencePlatform:Konferenssialusta` +
+        $localize`:@@Conference:Konferenssi` +
         ': </strong>' +
-        $localize`:@@conferencePlatformTooltipContent:Sisältää konferenssin painetut tai julkisesti saatavilla olevat julkaisut, ns. proceedings-julkaisut.` +
+        $localize`:@@ConferenceTooltipContent:Sisältää konferenssin painetut tai julkisesti saatavilla olevat julkaisut, ns. proceedings-julkaisut.` +
         '<p><strong>' +
         $localize`:@@onlinePlatform:Verkkoalusta` +
         ': </strong>' +

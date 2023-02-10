@@ -39,7 +39,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
 </main>
 
 <ng-template #reviewDialog>
-  <app-review></app-review>
+  <app-review (onClose)='toggleReview()'></app-review>
 </ng-template>
 
 <app-dialog

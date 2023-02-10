@@ -11,6 +11,7 @@ import { UtilityService } from '@shared/services/utility.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { Router } from '@angular/router';
 import { NotificationService } from '@shared/services/notification.service';
+import { DialogEventsService } from '@shared/services/dialog-events.service';
 
 
 @Component({
@@ -25,10 +26,9 @@ export class HomeComponent implements OnInit {
   alreadyCreatedProfile = $localize`:@@alreadyCreatedProfile:Oletko jo luonut profiilin tähän palveluun?`;
   additionalInfoText = $localize`:@@additionalInfo:Lisätietoa` + ':';
 
-  suomiFiAutheticationProblemSnackbarText = $localize`:@@suomiFiAutheticationProblemSnackbarText:Osalla käyttäjistä on ilmennyt virhetilanne Suomi.fi-tunnistautumisen jälkeen, joka estää pääsyn profiilin luontiin. Selvitämme ongelmaa ja korjaamme sen mahdollisimman pian. Voit jättää palautelomakkeen avulla tarkempia tietoja vikatilanteesta.`;
+  suomiFiAutheticationProblemSnackbarText = $localize`:@@suomiFiAutheticationProblemSnackbarText:Osalla käyttäjistä on ilmennyt virhetilanne Suomi.fi-tunnistautumisen jälkeen, joka estää pääsyn profiilin luontiin. Mikäli virhetilanne ilmenee, kirjautumista pääsee jatkamaan klikkaamalla "Kirjaudu sisään" -painiketta sivun ylälaidassa.`;
 
   locale: string;
-  showStepperModal = false;
 
   constructor(
     public oidcSecurityService: OidcSecurityService,
@@ -36,6 +36,7 @@ export class HomeComponent implements OnInit {
     private appSettingsService: AppSettingsService,
     private router: Router,
     private notificationService: NotificationService,
+    private dialogEventsService: DialogEventsService
   ) {}
 
   ngOnInit() {
@@ -57,13 +58,6 @@ export class HomeComponent implements OnInit {
   }
 
   showWelcomeModal() {
-    this.showStepperModal = true;
-  }
-
-  handleWelcomeModalAction(event: string) {
-    this.showStepperModal = false;
-    if (event === 'createProfile') {
-      this.router.navigate(['mydata/service-deployment']);
-    }
+    this.dialogEventsService.setQuickstartState(true);
   }
 }

@@ -27,7 +27,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { faChartBar } from '@fortawesome/free-regular-svg-icons';
 import { isPlatformBrowser, ViewportScroller } from '@angular/common';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { ResizeService } from 'src/app/shared/services/resize.service';
@@ -57,7 +57,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   faChevronUp = faChevronUp;
 
   currentSection: any;
-  queryField: FormControl = new FormControl();
+  queryField: UntypedFormControl = new UntypedFormControl();
   figureData: Figure[] = [];
   filteredData: any[];
   queryResults: any[];

@@ -142,12 +142,12 @@ app-news-card {
     }
   }
 
-  @media screen and(max-width: 991px) {
+  @media screen and (max-width: 991px) {
     .mat-card-header-text {
       margin: 0 !important;
     }
   }
-  @media screen and(max-width: 515px) {
+  @media screen and (max-width: 515px) {
     .news-img {
       padding: 0px;
     }

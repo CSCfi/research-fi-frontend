@@ -305,7 +305,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="fundingCallsIncluded" datatype="html">
-        <source>Mitä rahoitushakuja palvelu sisältää?</source>
+        <source>Mitä rahoitushakutietoja palvelu sisältää?</source>
         <target>Vilka utlysningar innehåller tjänsten?</target>
       </trans-unit>
       <trans-unit id="newsServiceIncludes" datatype="html">
@@ -2300,7 +2300,7 @@
         <target>Snabbstartsguide</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">68</context>
         </context-group>
         <note priority="1" from="description">Footer-link</note>
       </trans-unit>
@@ -2755,11 +2755,11 @@
         <source>Sisältää tieteelliset kokoomateokset, tieteelliset vuosikirjat ja vastaavat, ammatilliset käsi- tai opaskirjat, ammatilliset tietojärjestelmät tai kokoomateokset, oppikirja-aineistot sekä lyhyet ensyklopediatekstit.</source>
         <target>Omfattar vetenskapliga samlingsverk, vetenskapliga årsböcker och motsvarande, yrkesinriktade handböcker eller guider, yrkesinriktade informationssystem eller samlingsverk, läroboksmaterial och korta encyklopeditexter.</target>
       </trans-unit>
-      <trans-unit id="conferencePlatform">
-        <source>Konferenssialusta</source>
-        <target>Konferensplattform</target>
+      <trans-unit id="Conference">
+        <source>Konferenssi</source>
+        <target>Konferens</target>
       </trans-unit>
-      <trans-unit id="conferencePlatformTooltipContent">
+      <trans-unit id="ConferenceTooltipContent">
         <source>Sisältää konferenssin painetut tai julkisesti saatavilla olevat julkaisut, ns. proceedings-julkaisut.</source>
         <target>Omfattar tryckta eller offentligt tillgängliga publikationer, s.k. proceedings-publikationer för en konferens.</target>
       </trans-unit>
@@ -3679,6 +3679,10 @@
       <trans-unit id="applicationInstructions">
         <source>Hakuohjeet</source>
         <target>Sökanvisning</target>
+      </trans-unit>
+      <trans-unit id="howToDeliverFcInstructions">
+        <source>Näin toimitat avautuvan rahoitushaun tiedot</source>
+        <target>Hur man skickar öppna utlysningar till Forskning.fi</target>
       </trans-unit>
       <trans-unit id="auroraDatabase">
         <source>Aurora-tietokanta</source>
@@ -5426,8 +5430,8 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <target>Publicera den uppdaterade profilen</target>
       </trans-unit>
       <trans-unit id="discardChanges">
-        <source>Hylkää muutokset...</source>
-        <target>Avvisa ändringar...</target>
+        <source>Hylkää muutokset</source>
+        <target>Avvisa ändringar</target>
       </trans-unit>
       <trans-unit id="publish">
         <source>Julkaise</source>
@@ -5780,8 +5784,8 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <target>Kontrollera ändringarna.</target>
       </trans-unit>
       <trans-unit id="suomiFiAutheticationProblemSnackbarText">
-        <source>Osalla käyttäjistä on ilmennyt virhetilanne Suomi.fi-tunnistautumisen jälkeen, joka estää pääsyn profiilin luontiin. Selvitämme ongelmaa ja korjaamme sen mahdollisimman pian. Voit jättää palautelomakkeen avulla tarkempia tietoja vikatilanteesta.</source>
-        <target>Vissa användare har upplevt ett fel efter Suomi.fi-autentiseringen. Felet förhindrar åtkomst till profilverktyget. Vi har identifierat problemet och ska fixa det så snart som möjligt. Vänligen använd feedbackformuläret för att lämna oss mer detaljerad information om felet inträffas.</target>
+        <source>Osalla käyttäjistä on ilmennyt virhetilanne Suomi.fi-tunnistautumisen jälkeen, joka estää pääsyn profiilin luontiin. Mikäli virhetilanne ilmenee, kirjautumista pääsee jatkamaan klikkaamalla "Kirjaudu sisään" -painiketta sivun ylälaidassa.</source>
+        <target>Vissa användare har upplevt ett fel efter Suomi.fi-autentiseringen. Felet förhindrar åtkomst till profilverktyget. Om felet uppstår kan användaren fortsätta inloggningsprocessen genom att klicka på "Logga in" högst upp på sidan.</target>
       </trans-unit>
 
       <!-- Welcome stepper -->
@@ -6182,6 +6186,25 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Valitse aktiviteetit</source>
         <target>Välj aktiviteter</target>
       </trans-unit>
+
+      <trans-unit id="toMyProfile" datatype="html">
+        <source>Julkiseen profiiliin</source>
+        <target>Till offentliga profil</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/mydata/components/profile/profile.component.html</context>
+          <context context-type="linenumber">112</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="visitMyProfile" datatype="html">
+        <source>Tarkastele julkista profiiliasi Tiedejatutkimus.fi:ssä</source>
+        <target>Se din offentliga profil på Forsking.fi</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/mydata/components/profile/profile.component.html</context>
+          <context context-type="linenumber">111</context>
+        </context-group>
+      </trans-unit>
+
     </body>
   </file>
 </xliff>

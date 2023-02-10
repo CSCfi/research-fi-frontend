@@ -25,6 +25,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { WINDOW } from '@shared/services/window.service';
 import { isPlatformBrowser } from '@angular/common';
+import { DialogEventsService } from '@shared/services/dialog-events.service';
 
 @Component({
   selector: 'app-footer',
@@ -55,12 +56,15 @@ export class FooterComponent implements OnInit {
   dialogActions: any[];
   basicDialogActions = [];
 
+  quickstartState$ = this.dialogEventsService.getQuickstartState();
+
   constructor(
     private appConfigService: AppConfigService,
     @Inject(LOCALE_ID) protected localeId: string,
     private appSettingsService: AppSettingsService,
     @Inject(WINDOW) private window: Window,
-    @Inject(PLATFORM_ID) private platformId: object
+    @Inject(PLATFORM_ID) private platformId: object,
+    private dialogEventsService: DialogEventsService,
   ) {
     this.buildInfo = this.appConfigService.buildInfo;
     this.showReviewButton = true;
@@ -136,5 +140,9 @@ export class FooterComponent implements OnInit {
     const link = this.obfuscate();
     this.contact.nativeElement.innerHTML = link;
     this.contact.nativeElement.href = 'mailto:' + link;
+  }
+
+  openQuickstartDialog() {
+    this.dialogEventsService.setQuickstartState(true);
   }
 }
