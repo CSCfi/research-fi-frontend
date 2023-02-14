@@ -66,7 +66,7 @@ export class OrcidDataFetchComponent implements OnInit, OnDestroy {
 
   async getOrcidData() {
     const response: any = await this.profileService.getOrcidData();
-    if (response.ok) {
+    if (response.success) {
       this.dialog.closeAll();
       this.loading = false;
       this.router.navigate(['/mydata/profile']);
