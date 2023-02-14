@@ -28,8 +28,10 @@ export class AuthGuard implements CanActivate {
     private appSettingsService: AppSettingsService
   ) {}
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<boolean> {
     // if (this.appSettingsService.myDataSettings.develop) return of(true);
     const handleUnauthorized = () => {
       this.router.navigate(['/mydata']);
