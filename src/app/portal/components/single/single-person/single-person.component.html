@@ -167,7 +167,7 @@
             <h3 class='p-0'>{{ "Julkaisut" }} ({{ person.publications.length }})</h3>
 
             <div class='row g-0'>
-              <ng-container *ngFor='let publication of person.publications.slice(0, maxPublicationCount); let last = last'>
+              <ng-container *ngFor='let publication of ((sortedPublications$ | async) ?? []).slice(0, maxPublicationCount); let last = last'>
                 <ng-container *ngIf="publication.id != null && publication.id != ''">
                   <a [routerLink]="['/', 'results', 'publication', publication.id]">{{publication.name}}</a>
                 </ng-container>
