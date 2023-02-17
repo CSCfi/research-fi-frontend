@@ -122,8 +122,7 @@ export class PersonsComponent implements OnInit, AfterViewInit {
       },
       organization: {
         label: this.highlightPipe.transform(
-          getUnique(
-            person.affiliations.organizations.map((item) => item.name)
+          getUnique(this.mapAffiliations(person)
           ).join(', '),
           this.input
         ),
@@ -145,6 +144,15 @@ export class PersonsComponent implements OnInit, AfterViewInit {
     }));
 
     this.dataMapped = true;
+  }
+
+  mapAffiliations(person): string[] {
+    // If no primary affiliations set, show all affiliations
+    if (person.affiliations.primary.length > 0) {
+      return person.affiliations.primary.map((item) => item.organizationName);
+    } else {
+      return person.affiliations.organizations.map((item) => item.name);
+    }
   }
 
   ngOnDestroy() {
