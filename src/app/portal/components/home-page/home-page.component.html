@@ -37,7 +37,8 @@
             <a
               class="shortcut"
               #main
-              routerLink="{{ item.link }}"
+              [href]="item.link | safeUrl"
+              [target]="item.isExternalLink ? '_blank' : '_parent'"
               (click)="item[toggleReview] ? toggleReview() : null"
             >
               <div
