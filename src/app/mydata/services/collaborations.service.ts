@@ -32,15 +32,15 @@ export class CollaborationsService {
   }
 
   updateTokenInHttpAuthHeader() {
-    const token = this.oidcSecurityService.getAccessToken();
-
-    this.httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      }),
-      observe: 'response',
-    };
+    this.oidcSecurityService.getAccessToken().subscribe((token) => {
+      this.httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        }),
+        observe: 'response',
+      };
+    });
   }
 
   getCooperationChoices() {
