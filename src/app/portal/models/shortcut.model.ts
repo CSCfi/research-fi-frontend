@@ -21,8 +21,7 @@ export class Shortcut {
     public imageAltFi: string,
     public imageAltSv: string,
     public imageAltEn: string,
-    public link: string,
-    public isExternalLink: string
+    public link: string
   ) {}
 }
 
@@ -44,8 +43,7 @@ export class ShortcutAdapter implements Adapter<Shortcut> {
       item.image_alt_fi,
       item.image_alt_sv,
       item.image_alt_en,
-      item.link,
-      item.isExternalLink
+      item.link
     );
   }
 

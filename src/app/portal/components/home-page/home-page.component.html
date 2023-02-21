@@ -37,9 +37,7 @@
             <a
               class="shortcut"
               #main
-              [href]="item.link | safeUrl"
-              [target]="item.isExternalLink ? '_blank' : '_parent'"
-              (click)="item[toggleReview] ? toggleReview() : null"
+              (click)="item[toggleReview] ? toggleReview() : openLink(item.link)"
             >
               <div
                 class="cover-img"
