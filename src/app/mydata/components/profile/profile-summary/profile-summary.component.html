@@ -4,28 +4,19 @@
  :license: MIT -->
 
 <ng-container *ngFor="let group of displayData.slice(1); let i = index">
-  <div
-    *ngIf="summaryGroupIds.indexOf(group.id) > -1"
-    class="group-wrapper py-3"
-  >
+  <div *ngIf="summaryGroupIds.indexOf(group.id) > -1" class="group-wrapper py-3">
     <div class="row py-2 justify-content-between">
-      <h3
-        class="col-8 col-md-6 col-lg-4 align-self-center fw-bold order-1 font-size-normal"
-      >
+      <h3 class="col-8 col-md-6 col-lg-4 align-self-center fw-bold order-1 font-size-normal">
         {{ group.label }}
       </h3>
-      <div
-        class="col align-self-center fst-italic order-3 order-md-2 mt-3 mt-md-0"
-        i18n="@@youHaveNotSelectedAnyPublicData"
-        *ngIf="!(group.fields | hasSelectedItems)"
-      >
+
+      <div class="col align-self-center fst-italic order-3 order-md-2 mt-3 mt-md-0" i18n="@@youHaveNotSelectedAnyPublicData" *ngIf="!(group.fields | hasSelectedItems)">
         {{ noPublicDataText }}
       </div>
+
       <div class="col-auto order-2 order-md-3">
         <app-secondary-button
-          [content]="
-            (group.fields | hasSelectedItems) ? editString : selectString
-          "
+          [content]="(group.fields | hasSelectedItems) ? editString : selectString"
           [announce]="!(group.fields | hasSelectedItems)"
           [announceText]="group.label + ' ' + noPublicDataText"
           (click)="openDialog($event, i + 1)"
@@ -40,7 +31,7 @@
             *ngSwitchCase="groupTypes.affiliation"
             [data]="field"
             [fieldTypes]="fieldTypes"
-          ></app-summary-affiliations>
+          ></app-summary-affiliations> <!-- fieldTypes is unused -->
 
           <app-summary-portal-items
             *ngSwitchCase="groupTypes.education"
@@ -49,8 +40,7 @@
             sortField="publicationYear"
             showMoreLabel="koulutus"
             i18n-showMoreLabel="@@education"
-          >
-          </app-summary-portal-items>
+          ></app-summary-portal-items>
 
           <app-summary-portal-items
             *ngSwitchCase="groupTypes.publication"
@@ -59,8 +49,7 @@
             sortField="publicationYear"
             showMoreLabel="julkaisut"
             i18n-showMoreLabel="@@publications"
-          >
-          </app-summary-portal-items>
+          ></app-summary-portal-items>
 
           <app-summary-portal-items
             *ngSwitchCase="groupTypes.dataset"
@@ -69,8 +58,7 @@
             sortField="year"
             showMoreLabel="tutkimusaineistot"
             i18n-showMoreLabel="@@datasets"
-          >
-          </app-summary-portal-items>
+          ></app-summary-portal-items>
 
           <app-summary-portal-items
             *ngSwitchCase="groupTypes.funding"
@@ -79,8 +67,7 @@
             sortField="startYear"
             showMoreLabel="hankkeet"
             i18n-showMoreLabel="@@fundings"
-          >
-          </app-summary-portal-items>
+          ></app-summary-portal-items>
 
           <app-summary-portal-items
             *ngSwitchCase="groupTypes.activitiesAndRewards"
@@ -89,8 +76,7 @@
             sortField="name"
             showMoreLabel="aktiviteetit ja palkinnot"
             i18n-showMoreLabel="@@activitesAndRewards"
-          >
-          </app-summary-portal-items>
+          ></app-summary-portal-items>
 
           <div class="summary-panel-wrapper" *ngSwitchDefault>
             <div class="col px-3 fw-bold py-2" *ngIf="field | hasSelectedItems">
@@ -99,10 +85,7 @@
 
             <div *ngIf="field.items[0]?.itemMeta?.type">
               <ng-container [ngSwitch]="field.items[0].itemMeta.type">
-                <div
-                  class="summary-panel"
-                  *ngSwitchCase="fieldTypes.personKeyword"
-                >
+                <div class="summary-panel" *ngSwitchCase="fieldTypes.personKeyword">
                   <!-- Display joined keywords only if item has show property set to true -->
                   <div class="row" *ngIf="field.items[0].itemMeta.show">
                     <div class="col pb-2 font-size-smaller">
@@ -114,10 +97,7 @@
 
                 <ng-container *ngSwitchDefault>
                   <div class="summary-panel" *ngFor="let item of field.items">
-                    <div
-                      class="row d-flex justify-content-between py-1"
-                      *ngIf="item.itemMeta.show"
-                    >
+                    <div class="row d-flex justify-content-between py-1" *ngIf="item.itemMeta.show">
                       <div class="col font-size-smaller">
                         <app-panel-array-item
                           [item]="item"
@@ -135,11 +115,11 @@
         </div>
       </div>
     </ng-container>
+
   </div>
 </ng-container>
 
-<app-editor-modal
-  *ngIf="showDialog"
+<app-editor-modal *ngIf="showDialog"
   [dialogData]="dialogData"
   (onEditorClose)="handleChanges($event)"
 ></app-editor-modal>
