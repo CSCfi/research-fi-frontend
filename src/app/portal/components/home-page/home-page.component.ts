@@ -146,10 +146,9 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // Get shortcuts from Resolver
     this.shortcutData = this.route.snapshot.data.shortcuts;
-  }
-
-  openLink(link: string) {
-    link.startsWith('http') ? window.open(link, "_blank") : this.router.navigate([link]).then();
+    this.shortcutData.map(item => {
+      item.isExternalLink = item.link.startsWith('http');
+    });
   }
 
   onResize() {
