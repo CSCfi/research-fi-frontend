@@ -10,6 +10,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppConfigService } from '@shared/services/app-config-service.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { BehaviorSubject } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 export interface Publication {
   hits: any;
@@ -21,7 +22,6 @@ export interface Publication {
 export class PublicationsService {
   apiUrl: string;
   profileApiUrl: string;
-  httpOptions: object;
 
   publicationPayload = [];
   confirmedPayload = [];
@@ -41,16 +41,13 @@ export class PublicationsService {
     this.profileApiUrl = this.appConfigService.profileApiUrl;
   }
 
-  updateTokenInHttpAuthHeader() {
-    this.oidcSecurityService.getAccessToken().subscribe((token) => {
-      this.httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        }),
-        observe: 'response',
-      };
-    });
+  createHttpAuthHeaders(token: string) {
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      })
+    };
   }
 
   addToPayload(publications: any) {
@@ -112,26 +109,21 @@ export class PublicationsService {
   }
 
   addPublications() {
-    this.updateTokenInHttpAuthHeader();
-    const body = this.confirmedPayload.map((item) => ({
-      publicationId: item.id,
-      show: item.itemMeta.show,
-      primaryValue: item.itemMeta.primaryValue,
+    return this.oidcSecurityService.getAccessToken().pipe(map(this.createHttpAuthHeaders), switchMap((options) => {
+      const body = this.confirmedPayload.map((item) => ({
+        publicationId: item.id,
+        show: item.itemMeta.show,
+        primaryValue: item.itemMeta.primaryValue
+      }));
+
+      return this.http.post(this.profileApiUrl + '/publication/', body, options);
     }));
-    return this.http.post(
-      this.profileApiUrl + '/publication/',
-      body,
-      this.httpOptions
-    );
   }
 
   removeItems(publications) {
-    this.updateTokenInHttpAuthHeader();
-    const body = publications.map((publication) => publication.id);
-    return this.http.post(
-      this.profileApiUrl + '/publication/remove/',
-      body,
-      this.httpOptions
-    );
+    return this.oidcSecurityService.getAccessToken().pipe(map(this.createHttpAuthHeaders), switchMap((options) => {
+      const body = publications.map((publication) => publication.id);
+      return this.http.post(this.profileApiUrl + '/publication/remove/', body, options);
+    }));
   }
 }

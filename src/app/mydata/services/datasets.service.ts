@@ -10,6 +10,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppConfigService } from '@shared/services/app-config-service.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { BehaviorSubject } from 'rxjs';
+import { map, switchMap } from "rxjs/operators"
 
 export interface Dataset {
   hits: any;
@@ -21,7 +22,6 @@ export interface Dataset {
 export class DatasetsService {
   apiUrl: string;
   profileApiUrl: string;
-  httpOptions: object;
 
   datasetPayload = [];
   confirmedPayload = [];
@@ -41,7 +41,16 @@ export class DatasetsService {
     this.profileApiUrl = this.appConfigService.profileApiUrl;
   }
 
-  updateTokenInHttpAuthHeader() {
+  createHttpAuthHeaders(token: string) {
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      }),
+    };
+  }
+
+  /*updateTokenInHttpAuthHeader() {
     this.oidcSecurityService.getAccessToken().subscribe((token) => {
       this.httpOptions = {
         headers: new HttpHeaders({
@@ -51,7 +60,7 @@ export class DatasetsService {
         observe: 'response',
       };
     });
-  }
+  }*/
 
   addToPayload(datasets: any) {
     this.datasetPayload = this.datasetPayload.concat(datasets);
@@ -110,26 +119,21 @@ export class DatasetsService {
   }
 
   addDatasets() {
-    this.updateTokenInHttpAuthHeader();
-    const body = this.confirmedPayload.map((item) => ({
-      localIdentifier: item.id,
-      show: item.itemMeta.show,
-      primaryValue: item.itemMeta.primaryValue,
+    return this.oidcSecurityService.getAccessToken().pipe(map(this.createHttpAuthHeaders), switchMap((options) => {
+      const body = this.confirmedPayload.map((item) => ({
+        localIdentifier: item.id,
+        show: item.itemMeta.show,
+        primaryValue: item.itemMeta.primaryValue,
+      }));
+
+      return this.http.post(this.profileApiUrl + '/researchdataset/', body, options);
     }));
-    return this.http.post(
-      this.profileApiUrl + '/researchdataset/',
-      body,
-      this.httpOptions
-    );
   }
 
   removeItems(datasets) {
-    this.updateTokenInHttpAuthHeader();
-    const body = datasets.map((dataset) => dataset.id);
-    return this.http.post(
-      this.profileApiUrl + '/researchdataset/remove/',
-      body,
-      this.httpOptions
-    );
+    return this.oidcSecurityService.getAccessToken().pipe(map(this.createHttpAuthHeaders), switchMap((options) => {
+      const body = datasets.map((dataset) => dataset.id);
+      return this.http.post(this.profileApiUrl + '/researchdataset/remove/', body, options);
+    }));
   }
 }

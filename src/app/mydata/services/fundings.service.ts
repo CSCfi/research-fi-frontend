@@ -10,6 +10,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppConfigService } from '@shared/services/app-config-service.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { BehaviorSubject } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,6 @@ import { BehaviorSubject } from 'rxjs';
 export class FundingsService {
   apiUrl: string;
   profileApiUrl: string;
-  httpOptions: object;
 
   fundingPayload = [];
   confirmedPayload = [];
@@ -37,16 +37,13 @@ export class FundingsService {
     this.profileApiUrl = this.appConfigService.profileApiUrl;
   }
 
-  updateTokenInHttpAuthHeader() {
-    this.oidcSecurityService.getAccessToken().subscribe((token) => {
-      this.httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        }),
-        observe: 'response',
-      };
-    });
+  createHttpAuthHeaders(token: string) {
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      }),
+    };
   }
 
   addToPayload(fundings: any) {
@@ -106,28 +103,21 @@ export class FundingsService {
   }
 
   addFundings() {
-    this.updateTokenInHttpAuthHeader();
+    return this.oidcSecurityService.getAccessToken().pipe(map(this.createHttpAuthHeaders), switchMap((options) => {
+      const body = this.confirmedPayload.map((item) => ({
+        projectId: item.id,
+        show: item.itemMeta.show,
+        primaryValue: item.itemMeta.primaryValue
+      }));
 
-    const body = this.confirmedPayload.map((item) => ({
-      projectId: item.id,
-      show: item.itemMeta.show,
-      primaryValue: item.itemMeta.primaryValue,
+      return this.http.post(this.profileApiUrl + '/fundingdecision/', body, options);
     }));
-
-    return this.http.post(
-      this.profileApiUrl + '/fundingdecision/',
-      body,
-      this.httpOptions
-    );
   }
 
   removeItems(fundings) {
-    this.updateTokenInHttpAuthHeader();
-    const body = fundings.map((funding) => funding.id);
-    return this.http.post(
-      this.profileApiUrl + '/fundingdecision/remove/',
-      body,
-      this.httpOptions
-    );
+    return this.oidcSecurityService.getAccessToken().pipe(map(this.createHttpAuthHeaders), switchMap((options) => {
+      const body = fundings.map((funding) => funding.id);
+      return this.http.post(this.profileApiUrl + '/fundingdecision/remove/', body, options);
+    }));
   }
 }
