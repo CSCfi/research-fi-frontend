@@ -4,13 +4,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppConfigService } from '@shared/services/app-config-service.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { Constants } from '@mydata/constants';
+import { map, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CollaborationsService {
   apiUrl: string;
-  httpOptions: object;
 
   initialValue = [];
   tempPayload = [];
@@ -31,24 +31,19 @@ export class CollaborationsService {
     return this.confirmedPayload.length > 0;
   }
 
-  updateTokenInHttpAuthHeader() {
-    this.oidcSecurityService.getAccessToken().subscribe((token) => {
-      this.httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        }),
-        observe: 'response',
-      };
-    });
+  tokenToHttpOptions(token: string) {
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      }),
+    };
   }
 
   getCooperationChoices() {
-    this.updateTokenInHttpAuthHeader();
-    return this.http.get(
-      this.apiUrl + '/cooperationchoices/',
-      this.httpOptions
-    );
+    return this.oidcSecurityService.getAccessToken().pipe(map(this.tokenToHttpOptions), switchMap((options) => {
+      return this.http.get(this.apiUrl + '/cooperationchoices/', options);
+    }))
   }
 
   addToPayload(payload: any) {
@@ -87,12 +82,10 @@ export class CollaborationsService {
 
   patchCooperationChoices() {
     this.initialValue = this.confirmedPayload;
-    this.updateTokenInHttpAuthHeader();
-    return this.http.patch(
-      this.apiUrl + '/cooperationchoices/',
-      this.confirmedPayload,
-      this.httpOptions
-    );
+
+    return this.oidcSecurityService.getAccessToken().pipe(map(this.tokenToHttpOptions), switchMap((options) => {
+      return this.http.patch(this.apiUrl + '/cooperationchoices/', this.confirmedPayload, options);
+    }))
   }
 
   clearPayload() {

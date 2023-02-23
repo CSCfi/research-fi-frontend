@@ -37,7 +37,7 @@ export class FundingsService {
     this.profileApiUrl = this.appConfigService.profileApiUrl;
   }
 
-  createHttpAuthHeaders(token: string) {
+  tokenToHttpOptions(token: string) {
     return {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -103,7 +103,7 @@ export class FundingsService {
   }
 
   addFundings() {
-    return this.oidcSecurityService.getAccessToken().pipe(map(this.createHttpAuthHeaders), switchMap((options) => {
+    return this.oidcSecurityService.getAccessToken().pipe(map(this.tokenToHttpOptions), switchMap((options) => {
       const body = this.confirmedPayload.map((item) => ({
         projectId: item.id,
         show: item.itemMeta.show,
@@ -115,7 +115,7 @@ export class FundingsService {
   }
 
   removeItems(fundings) {
-    return this.oidcSecurityService.getAccessToken().pipe(map(this.createHttpAuthHeaders), switchMap((options) => {
+    return this.oidcSecurityService.getAccessToken().pipe(map(this.tokenToHttpOptions), switchMap((options) => {
       const body = fundings.map((funding) => funding.id);
       return this.http.post(this.profileApiUrl + '/fundingdecision/remove/', body, options);
     }));

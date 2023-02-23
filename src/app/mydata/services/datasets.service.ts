@@ -41,7 +41,7 @@ export class DatasetsService {
     this.profileApiUrl = this.appConfigService.profileApiUrl;
   }
 
-  createHttpAuthHeaders(token: string) {
+  tokenToHttpOptions(token: string) {
     return {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -119,7 +119,7 @@ export class DatasetsService {
   }
 
   addDatasets() {
-    return this.oidcSecurityService.getAccessToken().pipe(map(this.createHttpAuthHeaders), switchMap((options) => {
+    return this.oidcSecurityService.getAccessToken().pipe(map(this.tokenToHttpOptions), switchMap((options) => {
       const body = this.confirmedPayload.map((item) => ({
         localIdentifier: item.id,
         show: item.itemMeta.show,
@@ -131,7 +131,7 @@ export class DatasetsService {
   }
 
   removeItems(datasets) {
-    return this.oidcSecurityService.getAccessToken().pipe(map(this.createHttpAuthHeaders), switchMap((options) => {
+    return this.oidcSecurityService.getAccessToken().pipe(map(this.tokenToHttpOptions), switchMap((options) => {
       const body = datasets.map((dataset) => dataset.id);
       return this.http.post(this.profileApiUrl + '/researchdataset/remove/', body, options);
     }));

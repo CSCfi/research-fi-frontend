@@ -41,7 +41,7 @@ export class PublicationsService {
     this.profileApiUrl = this.appConfigService.profileApiUrl;
   }
 
-  createHttpAuthHeaders(token: string) {
+  tokenToHttpOptions(token: string) {
     return {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -109,7 +109,7 @@ export class PublicationsService {
   }
 
   addPublications() {
-    return this.oidcSecurityService.getAccessToken().pipe(map(this.createHttpAuthHeaders), switchMap((options) => {
+    return this.oidcSecurityService.getAccessToken().pipe(map(this.tokenToHttpOptions), switchMap((options) => {
       const body = this.confirmedPayload.map((item) => ({
         publicationId: item.id,
         show: item.itemMeta.show,
@@ -121,7 +121,7 @@ export class PublicationsService {
   }
 
   removeItems(publications) {
-    return this.oidcSecurityService.getAccessToken().pipe(map(this.createHttpAuthHeaders), switchMap((options) => {
+    return this.oidcSecurityService.getAccessToken().pipe(map(this.tokenToHttpOptions), switchMap((options) => {
       const body = publications.map((publication) => publication.id);
       return this.http.post(this.profileApiUrl + '/publication/remove/', body, options);
     }));
