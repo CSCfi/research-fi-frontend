@@ -33,12 +33,12 @@
           <div
             *ngFor="let item of shortcutData?.slice(0, 3)"
             class="col-12 link-img drop-shadow"
-          >
+          ><ng-container *ngIf="item.isExternalLink">
             <a
               class="shortcut"
               #main
-              routerLink="{{ item.link }}"
-              (click)="item[toggleReview] ? toggleReview() : null"
+              [href]="item.link"
+              target="_blank"
             >
               <div
                 class="cover-img"
@@ -62,6 +62,37 @@
                 </div>
               </div>
             </a>
+          </ng-container>
+            <ng-container *ngIf="!item.isExternalLink">
+              <a
+                class="shortcut"
+                #main
+                routerLink="{{ item.link }}"
+                (click)="item[toggleReview] ? toggleReview() : null"
+              >
+                <div
+                  class="cover-img"
+                  title="{{ item['imageAlt' + currentLocale] }}"
+                >
+                  <img
+                    [src]="item.image"
+                    [alt]="item['imageAlt' + currentLocale]"
+                  />
+                </div>
+                <!-- <div class="caption text-center" #shortcutItem [ngStyle]="{'height': maxHeight + 'px'}"> -->
+                <!--  Use line above for calculated height. Note: remove shortcutItem pb-3 class if calculated height is in use. -->
+                <div class="caption text-center pb-3" #shortcutItem>
+                  <div>
+                    <h3 class="header">
+                      {{ item['title' + currentLocale] }}
+                    </h3>
+                    <span class="hint">
+                    {{ item['caption' + currentLocale] }}
+                  </span>
+                  </div>
+                </div>
+              </a>
+            </ng-container>
           </div>
         </div>
       </div>
