@@ -30,7 +30,7 @@ import { News } from '@portal/models/news.model';
 import { Shortcut } from '@portal/models/shortcut.model';
 import { UtilityService } from '@shared/services/utility.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Search } from '@portal/models/search.model';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 
@@ -86,7 +86,8 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     private resizeService: ResizeService,
     public utilityService: UtilityService,
     private route: ActivatedRoute,
-    private appSettingsService: AppSettingsService
+    private appSettingsService: AppSettingsService,
+    private router: Router,
   ) {
     this.currentLocale = this.appSettingsService.capitalizedLocale;
   }
@@ -145,6 +146,9 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // Get shortcuts from Resolver
     this.shortcutData = this.route.snapshot.data.shortcuts;
+    this.shortcutData.map(item => {
+      item.isExternalLink = item.link.startsWith('http');
+    });
   }
 
   onResize() {
