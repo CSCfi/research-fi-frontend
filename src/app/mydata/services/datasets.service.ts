@@ -50,18 +50,6 @@ export class DatasetsService {
     };
   }
 
-  /*updateTokenInHttpAuthHeader() {
-    this.oidcSecurityService.getAccessToken().subscribe((token) => {
-      this.httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        }),
-        observe: 'response',
-      };
-    });
-  }*/
-
   addToPayload(datasets: any) {
     this.datasetPayload = this.datasetPayload.concat(datasets);
   }
