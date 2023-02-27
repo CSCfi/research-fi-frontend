@@ -26,9 +26,7 @@ export class MyDataProfileResolverService implements Resolve<any>, OnDestroy {
 
   async resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
-    await this.profileService
-      .getProfileData().then((value) => {
-    });
+    // await this.profileService.getProfileData().then((value) => {});
 
     /*
      * Get MyData profile data before rendering route.
