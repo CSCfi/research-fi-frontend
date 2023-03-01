@@ -9,9 +9,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { AppConfigService } from 'src/app/shared/services/app-config-service.service';
-import { Profile, ProfileAdapter } from '@mydata/models/profile.model';
+import { ProfileAdapter } from '@mydata/models/profile.model';
 import testData from 'src/testdata/mydataprofiledata.json';
-import { BehaviorSubject, firstValueFrom, Subject} from 'rxjs';
+import { BehaviorSubject, firstValueFrom, Subject } from 'rxjs';
 import { ErrorHandlerService } from '@shared/services/error-handler.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Constants } from '@mydata/constants';
@@ -50,7 +50,6 @@ export class ProfileService {
   ) {
     this.apiUrl = this.appConfigService.profileApiUrl;
   }
-
   async updateToken(options?: { bypassOrcidCheck: boolean }): Promise<any> {
     await firstValueFrom(this.oidcSecurityService.getAccessToken()).then((token) => {
       if (!token) {
@@ -138,11 +137,8 @@ export class ProfileService {
 
   async getProfileData(): Promise<any> {
     await this.updateToken();
-    let profile = await firstValueFrom(this.http
-      .get<Profile[]>(this.apiUrl + '/profiledata/', this.httpOptions));
-    return new Promise<any>(resolve => {
-      resolve(this.profileAdapter.adapt(profile));
-    });
+    const profile = await firstValueFrom(this.http.get(this.apiUrl + '/profiledata/', this.httpOptions));
+    return this.profileAdapter.adapt(profile);
   }
 
   // Draft profile is stored in session storage

@@ -254,7 +254,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   /*
    * Add selected publications to profile
    */
-  private async handlePublicationsPromise() {
+  private handlePublicationsPromise() {
     return new Promise((resolve, reject) => {
       this.publicationsService
         .addPublications()
@@ -273,23 +273,23 @@ export class ProfileComponent implements OnInit, OnDestroy {
   /*
    * Patch items to backend
    */
-  private async patchItemsPromise() {
+  private patchItemsPromise() {
     const patchItems = this.patchService.confirmedPayLoad;
-    return this.profileService
-      .patchObjects(patchItems);
+    return this.profileService.patchObjects(patchItems);
   }
 
   /*
    * Patch datasets to backend
    */
-  private async handleDatasetsPromise() {
-    return this.datasetsService.addDatasets();
+  private handleDatasetsPromise() {
+    // return this.datasetsService.addDatasets();
+    return lastValueFrom(this.datasetsService.addDatasets());
   }
 
   /*
    * Patch fundings to backend
    */
-  private async handleFundingsPromise() {
+  private handleFundingsPromise() {
     return new Promise((resolve, reject) => {
       this.fundingsService
         .addFundings()
@@ -308,7 +308,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   /*
    * Patch cooperation choices to backend
    */
-  private async patchCooperationChoicesPromise() {
+  private patchCooperationChoicesPromise() {
     return new Promise((resolve, reject) => {
       this.collaborationsService
         .patchCooperationChoices()
@@ -328,7 +328,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     const promises = [];
 
     // Use of handler property as function prevents handler method firing when iterating
-    const promiseHandlers = [
+    const promiseHandlers: {handler: () => Promise<any>, payload: any}[] = [
       {
         handler: () => this.handlePublicationsPromise(),
         payload: this.publicationsService.confirmedPayload,
