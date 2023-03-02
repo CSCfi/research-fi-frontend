@@ -37,7 +37,7 @@ export class ProfileAdapter implements Adapter<Profile> {
   ) {}
 
   adapt(item: any): Profile {
-    const data = item.body.data;
+    const data = item.data;
 
     const mapModel = (adapter, data) => Object.values(adapter.adapt(data));
 

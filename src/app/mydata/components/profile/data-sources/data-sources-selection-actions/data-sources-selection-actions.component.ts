@@ -153,26 +153,24 @@ export class DataSourcesSelectionActionsComponent implements OnInit, OnDestroy {
     this.closeDialog();
   }
 
-  patchItems(action: Action) {
+  async patchItems(action: Action) {
     const patchItemsArr = this.patchService.confirmedPayLoad;
 
     const filteredItems = patchItemsArr.filter((item) =>
       action === 'publish' ? item.show : !item.show
     );
 
-    this.patchItemsSub = this.profileService
-      .patchObjects(filteredItems)
-      .pipe(take(1))
-      .subscribe((res: HttpResponse<any>) => {
-        if (res.body.success) {
+    this.profileService
+      .patchObjects(filteredItems).then(
+        (value) => {
           this.onPatchSuccess.emit(filteredItems);
           // Enable hide profile button in account settings section, if it has been disabled
           sessionStorage.removeItem('profileHidden');
           this.snackbarService.showPatchMessage('success');
-        } else {
+        },
+        (reason) => {
           this.snackbarService.showPatchMessage('error');
-        }
-      });
+        },);
   }
 
   // Used as callback function in filter pipe
