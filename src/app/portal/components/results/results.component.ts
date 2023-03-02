@@ -258,7 +258,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       });
 
     // Get tab values only on search term change
-    this.inputSub = this.searchService.currentInput.subscribe((val) => {
+    this.inputSub = this.searchService.currentInput.subscribe(() => {
       this.filterValues = undefined;
       this.clearAllFiltersFromActiveFilters();
       this.getTabValues();
