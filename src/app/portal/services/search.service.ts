@@ -42,6 +42,8 @@ export class SearchService {
   tabValues: any;
   redirecting = false;
 
+  previousSearchTerm = '';
+
   private inputSource = new BehaviorSubject<string>('');
   currentInput = this.inputSource.asObservable();
 
@@ -72,9 +74,12 @@ export class SearchService {
   }
 
   updateInput(searchTerm: string) {
-    this.tabChangeService.resetQueryParams();
-    this.searchTerm = searchTerm;
-    this.inputSource.next(searchTerm);
+    if (searchTerm === '' || this.previousSearchTerm !== searchTerm) {
+      this.previousSearchTerm = searchTerm;
+      this.tabChangeService.resetQueryParams();
+      this.searchTerm = searchTerm;
+      this.inputSource.next(searchTerm);
+    }
   }
 
   updateTotal(total: number) {
