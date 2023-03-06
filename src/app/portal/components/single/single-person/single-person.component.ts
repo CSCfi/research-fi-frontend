@@ -18,6 +18,7 @@ import { Observable, of } from 'rxjs';
 import { delay, map, switchMap, take } from 'rxjs/operators';
 
 import { DOCUMENT } from '@angular/common';
+import { PersonPublication } from '@portal/models/person/person-publication.model';
 
 type Field = { key: string; label?: string };
 
@@ -89,6 +90,8 @@ export class SinglePersonComponent implements OnInit {
   ];
 
   person$: Observable<Person>;
+  sortedPublications$: Observable<PersonPublication[]>
+
   isLoaded$: Observable<boolean>;
 
   initialItemCount = 3;
@@ -123,6 +126,18 @@ export class SinglePersonComponent implements OnInit {
         return search.persons[0] as Person;
       }));
     }))
+
+    this.sortedPublications$ = this.person$.pipe(map((person) => {
+      return person.publications.sort((a, b) => {
+        const yearDiff = b.year - a.year;
+        const nameDiff = a.name.localeCompare(b.name);
+
+        if (yearDiff !== 0) {
+          return yearDiff;
+        } else
+          return nameDiff;
+      });
+    }));
 
     this.person$.pipe(take(1)).subscribe({
       complete: () => {

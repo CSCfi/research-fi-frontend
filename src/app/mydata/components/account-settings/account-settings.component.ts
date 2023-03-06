@@ -187,29 +187,22 @@ export class AccountSettingsComponent implements OnInit {
     this.connProblemHideProfile = false;
     this.profileService
       .hideProfile()
-      .pipe(take(1))
-      .subscribe({
-        next: (res: any) => {
+      .then(
+        (value) => {
           this.hideProfileInProgress = false;
-          if (res.ok && res.body.success) {
             this.dialog.closeAll();
             sessionStorage.setItem('profileHidden', 'true');
             this.isProfileHidden = true;
             this.snackbarService.show(
-                $localize`:@@profileHiddenToast:Profiilin piilottaminen onnistui. Profiilisi piilotetaan Tiedejatutkimus.fi -palvelusta muutaman minuutin kuluttua.`,
-                'success'
-              );
-
+              $localize`:@@profileHiddenToast:Profiilin piilottaminen onnistui. Profiilisi piilotetaan Tiedejatutkimus.fi -palvelusta muutaman minuutin kuluttua.`,
+              'success'
+            );
             //this.reset();
-          }
         },
-        error: (error) => {
+        (reason) => {
           this.hideProfileInProgress = false;
-          if (!error.ok) {
-            this.connProblemHideProfile = true;
-          }
-        },
-      });
+          this.connProblemHideProfile = true;
+        },);
   }
 
   deleteProfile() {
@@ -217,27 +210,22 @@ export class AccountSettingsComponent implements OnInit {
     this.connProblemDeleteProfile = false;
     this.profileService
       .deleteProfile()
-      .pipe(take(1))
-      .subscribe({
-        next: (res: any) => {
+      .then(
+        (value) => {
           this.deleteProfileInProgress = false;
-          if (res.ok && res.body.success) {
-            this.dialog.closeAll();
-            this.reset();
+          this.dialog.closeAll();
+          this.reset();
 
-            // Wait for dialog to close
-            setTimeout(() => {
-              this.oidcSecurityService.logoff();
+          // Wait for dialog to close
+          setTimeout(() => {
+            this.oidcSecurityService.logoff();
             }, 500);
-          }
+
         },
-        error: (error) => {
+        (reason) => {
           this.deleteProfileInProgress = false;
-          if (!error.ok) {
-            this.connProblemDeleteProfile = true;
-          }
-        },
-      });
+          this.connProblemDeleteProfile = true;
+        },);
   }
 
   /*

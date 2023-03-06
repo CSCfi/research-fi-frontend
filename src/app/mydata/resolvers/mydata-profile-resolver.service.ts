@@ -24,7 +24,10 @@ export class MyDataProfileResolverService implements Resolve<any>, OnDestroy {
 
   constructor(private profileService: ProfileService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  async resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+
+    // await this.profileService.getProfileData().then((value) => {});
+
     /*
      * Get MyData profile data before rendering route.
      * Data is stored in profile service.
@@ -35,18 +38,21 @@ export class MyDataProfileResolverService implements Resolve<any>, OnDestroy {
       return new Promise((resolve) => {
         this.profileService
           .getProfileData()
-          .pipe(takeUntil(this.unsubscribeOnDestroy))
-          .subscribe((response) => {
-            // Store original data in service
-            this.profileService.setCurrentProfileData(
-              cloneDeep(response.profileData)
-            );
-
-            resolve({
-              name: getName(response.profileData),
-              profileData: response.profileData,
-            });
-          });
+          .then(
+            (value) => {
+              if (value) {
+                this.profileService.setCurrentProfileData(
+                  cloneDeep(value.profileData)
+                );
+                resolve({
+                  name: getName(value.profileData),
+                  profileData: value.profileData,
+                });
+              }
+            },
+            (reason) => {
+              console.error('error', reason);
+            },);
       });
     } else {
       return {
