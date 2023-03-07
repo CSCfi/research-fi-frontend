@@ -578,7 +578,7 @@ export class PublicationFilterService {
             if (val.key.selfArchived != 1) {
               openAccessCodes.push({
                 key: 'nonOpenAccess',
-                doc_count: 1,
+                doc_count: val.filtered.doc_count,
               });
               break;
             }
