@@ -588,15 +588,15 @@ export class FilterService {
             ],
           },
         });
-        res.push({
-          bool: {
-            must: [
-              { term: { selfArchivedCode: 0 } },
-              { term: { openAccess: 1 } },
-              { term: { publisherOpenAccessCode: 0 } },
-            ],
-          },
-        });
+      });
+      res.push({
+        bool: {
+          must: [
+            { term: { selfArchivedCode: 0 } },
+            { term: { openAccess: 1 } },
+            { term: { publisherOpenAccessCode: 0 } },
+          ],
+        },
       });
     }
     if (code.includes('noOpenAccessData')) {
