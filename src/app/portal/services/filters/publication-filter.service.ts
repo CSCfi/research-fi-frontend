@@ -183,6 +183,10 @@ export class PublicationFilterService {
         ': </strong>' +
         $localize`Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.` +
         '</p><p><strong>' +
+        $localize`:@@delayedOpenAccess:Viivästetty avoin saatavuus` +
+        ': </strong>' +
+        $localize`:@@delayedOpenAccessInfo:Julkaisukanavan tieteelliset artikkelit avataan kustantajan määrittelemän viiveajan jälkeen. Sisältää sekä jo avoimesti saatavilla että yhä maksumuurin takana olevia julkaisuja.` +
+        '</p><p><strong>' +
         $localize`:@@selfArchived:Rinnakkaistallennettu` +
         ': </strong>' +
         $localize`Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.` +
@@ -190,6 +194,14 @@ export class PublicationFilterService {
         $localize`:@@otherOpenAccess:Muu avoin saatavuus` +
         ': </strong>' +
         $localize`Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.` +
+        '</p><p><strong>' +
+        $localize`:@@nonOpenAccess:Ei avoin` +
+        ': </strong>' +
+        $localize`:@@nonOpenAccessInfo:Julkaisu ei ole ilmestynyt avoimessa julkaisukanavassa, eikä julkaisua ole saatavilla avoimena rinnakkaistallenteena. Huom. myös julkaisut jotka ovat tilapäisesti avoimesti saatavilla, esimerkiksi ajankohtaisen yhteiskunnallisesti merkittävän aiheen tai kustantajan markkinointikampanjan takia, tulevat näkyville tämän kategorian kautta.` +
+        '</p><p><strong>' +
+        $localize`:@@noOpenAccessData:Ei tietoa` +
+        ': </strong>' +
+        $localize`:@@noOpenAccessDataInfo:Julkaisun avoimen saatavuuden tilaa ei ole raportoitu.` +
         '</p>',
     },
   ];

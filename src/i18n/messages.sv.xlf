@@ -2979,6 +2979,14 @@
         <source>Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.</source>
         <target state="translated">Publikationen har publicerats i ett organisations- eller vetenskapsområdesspecifikt publikationsarkiv antingen omedelbart eller efter en av förläggaren fastställd skälig embargotid.</target>
       </trans-unit>
+      <trans-unit id="delayedOpenAccess">
+        <source>Viivästetty avoin saatavuus</source>
+        <target>Fördröjd öppen tillgång</target>
+      </trans-unit>
+      <trans-unit id="delayedOpenAccessInfo">
+        <source>Julkaisukanavan tieteelliset artikkelit avataan kustantajan määrittelemän viiveajan jälkeen. Sisältää sekä jo avoimesti saatavilla että yhä maksumuurin takana olevia julkaisuja.</source>
+        <target>Vetenskapliga artiklar öppnas först efter en embargotid som fastställts av förlaget. Den här kategorin innehåller både publikationer som redan är öppet tillgängliga och de som fortfarande ligger bakom en betalvägg.</target>
+      </trans-unit>
       <trans-unit id="otherOpenAccess">
         <source>Muu avoin saatavuus</source>
         <target state="translated">Övrig öppen tillgång</target>
@@ -2986,6 +2994,22 @@
       <trans-unit id="1467910369543476416">
         <source>Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.</source>
         <target state="translated">Publikationen är öppet tillgänglig, men den har publicerats i en s.k. hybridkanal där alla andra publikationer inte är öppet tillgängliga.</target>
+      </trans-unit>
+      <trans-unit id="nonOpenAccess">
+        <source>Ei avoin</source>
+        <target>Ej öppen</target>
+      </trans-unit>
+      <trans-unit id="nonOpenAccessInfo">
+        <source>Julkaisu ei ole ilmestynyt avoimessa julkaisukanavassa, eikä julkaisua ole saatavilla avoimena rinnakkaistallenteena. Huom. myös julkaisut jotka ovat tilapäisesti avoimesti saatavilla, esimerkiksi ajankohtaisen yhteiskunnallisesti merkittävän aiheen tai kustantajan markkinointikampanjan takia, tulevat näkyville tämän kategorian kautta.</source>
+        <target>Publikationen har inte förekommit i en öppen publikationskanal, inte heller finns publikationen tillgänglig som en öppen parallellsparad version. OBS! även publikationer som är tillfälligt öppet tillgängliga, till exempel på grund av ett aktuellt socialt betydelsefullt ämne eller ett förlags marknadsföringskampanj, kommer att synas genom denna kategori.</target>
+      </trans-unit>
+      <trans-unit id="noOpenAccessData">
+        <source>Ei tietoa</source>
+        <target>Okänd</target>
+      </trans-unit>
+      <trans-unit id="noOpenAccessDataInfo">
+        <source>Julkaisun avoimen saatavuuden tilaa ei ole raportoitu.</source>
+        <target>Publikationens status för öppen tillgänglighet har inte rapporterats.</target>
       </trans-unit>
       <trans-unit id="publisherInternationality">
         <source>Kustantajan kansainvälisyys</source>
