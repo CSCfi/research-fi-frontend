@@ -553,22 +553,35 @@ export class PublicationFilterService {
             break;
           }
           case '12': {
-            openAccessCodes.push({
-              key: 'otherOpen',
-              doc_count: val.filtered.doc_count,
-            });
-            break;
+            if (val.key.selfArchived != 1) {
+              openAccessCodes.push({
+                key: 'otherOpen',
+                doc_count: val.filtered.doc_count,
+              });
+              break;
+            }
           }
           // Separate implementation above for non open, add with 0 doc count so no doubles
           case '00':
           case '01':
           case '02':
           case '09': {
-            openAccessCodes.push({
-              key: 'nonOpenAccess',
-              doc_count: 0,
-            });
-            break;
+            if (val.key.selfArchived != 1) {
+              openAccessCodes.push({
+                key: 'nonOpenAccess',
+                doc_count: 0,
+              });
+              break;
+            }
+          }
+          case '10': {
+            if (val.key.selfArchived != 1) {
+              openAccessCodes.push({
+                key: 'nonOpenAccess',
+                doc_count: val.filtered.doc_count,
+              });
+              break;
+            }
           }
           default: {
             // Self archived is not unknown
