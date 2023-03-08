@@ -7,7 +7,7 @@
   class="custom-table"
   matSort
   (matSortChange)="sort($event)"
-  [dataSource]="tableRows.slice(currentPage - 1, currentPageSize * currentPage)"
+  [dataSource]="tableRows.slice(currentPage * currentPageSize, currentPageSize * (currentPage + 1))"
   [matSortActive]="'year'"
   [matSortDirection]="'desc'"
 >
@@ -16,10 +16,10 @@
     <!-- Select all -->
     <mat-header-cell *matHeaderCellDef>
       <!-- Hidden from beta -->
-      <!-- <mat-checkbox
+       <mat-checkbox
         (change)="toggleAll($event)"
         [checked]="allSelected"
-      ></mat-checkbox> -->
+      ></mat-checkbox>
     </mat-header-cell>
 
     <!-- Row select -->
@@ -33,46 +33,31 @@
 
   <ng-container *ngFor="let column of columns">
     <ng-container [matColumnDef]="column.id">
-      <mat-header-cell
-        *matHeaderCellDef
-        [mat-sort-header]="column.id"
-        [style]="'flex: 0 0 ' + column.width"
-      >
+      <mat-header-cell *matHeaderCellDef [mat-sort-header]="column.id" [style]="'flex: 0 0 ' + column.width">
         {{ column.label }}
 
         <!-- Sort indicators -->
         <div class="sort-indicator" *ngIf="!column.sortDisabled">
-          <fa-icon
-            [icon]="faSort"
-            *ngIf="activeSort !== column.id; else activeSortIndicatorTemplate"
-          >
-          </fa-icon>
+          <ng-container *ngIf="activeSort !== column.id; else activeSortIndicatorTemplate">
+            <fa-icon [icon]="faSort"></fa-icon>
+          </ng-container>
 
           <ng-template #activeSortIndicatorTemplate>
-            <fa-icon [icon]="faSortUp" *ngIf="sortDirection === 'asc'">
-            </fa-icon>
+            <fa-icon [icon]="faSortUp" *ngIf="sortDirection === 'asc'"></fa-icon>
 
-            <fa-icon [icon]="faSortDown" *ngIf="sortDirection === 'desc'">
-            </fa-icon>
+            <fa-icon [icon]="faSortDown" *ngIf="sortDirection === 'desc'"></fa-icon>
           </ng-template>
         </div>
       </mat-header-cell>
 
-      <mat-cell
-        *matCellDef="let item; let i = index"
-        [style]="'flex: 0 0 ' + column.width"
-        [class.expandable-cell]="column.additionalFields"
-      >
+      <mat-cell *matCellDef="let item; let i = index" [style]="'flex: 0 0 ' + column.width" [class.expandable-cell]="column.additionalFields">
         <div class="row w-100">
-          <div
-            [class.text-overflow-ellipsis]="
-              column.ellipsis && showMoreArray.indexOf(i) === -1
-            "
-            class="col px-0"
-            *ngIf="column.field !== 'source'; else sourceCellTemplate"
-          >
-            {{ item[column.field] }}
-          </div>
+
+          <ng-container *ngIf="column.field !== 'source'; else sourceCellTemplate">
+            <div [class.text-overflow-ellipsis]="column.ellipsis && showMoreArray.indexOf(i) === -1" class="col px-0">
+              {{ item[column.field] }}
+            </div>
+          </ng-container>
 
           <ng-template #sourceCellTemplate>
             <div class="col px-0" *ngFor="let source of item.dataSources">
@@ -81,81 +66,45 @@
           </ng-template>
 
           <!-- Display hyphen if no matching value -->
-          <ng-container *ngIf="column.field !== 'source' && !item[column.field]"
-            >-</ng-container
-          >
+          <ng-container *ngIf="column.field !== 'source' && !item[column.field]">
+            -
+          </ng-container>
 
           <!-- Delete row button -->
-          <app-secondary-button
-            *ngIf="(item | isPortalItem) && column.additionalFields"
-            class="col-auto pe-0"
-            i18n-content="@@remove"
-            content="Poista"
-            (click)="removeItem(item)"
-          ></app-secondary-button>
+          <ng-container *ngIf="(item | isPortalItem) && column.additionalFields">
+            <app-secondary-button class="col-auto pe-0" i18n-content="@@remove" content="Poista"(click)="removeItem(item)"></app-secondary-button>
+          </ng-container>
         </div>
 
         <ng-container *ngIf="column.additionalFields">
           <ng-container *ngFor="let additionalField of column.additionalFields">
-            <div
-              class="row mt-2 font-size-small w-100"
-              [class.d-none]="
-                additionalField.hidden && showMoreArray.indexOf(i) === -1
-              "
-              *ngIf="item | getValue: additionalField.field"
-            >
+
+            <div class="row mt-2 font-size-small w-100" [class.d-none]="additionalField.hidden && showMoreArray.indexOf(i) === -1" *ngIf="item | getValue: additionalField.field">
               <!-- Optional label for additional field -->
-              <div
-                class="col-12 px-0 fw-bold"
-                *ngIf="item[additionalField.field]?.length"
-              >
+              <div class="col-12 px-0 fw-bold" *ngIf="item[additionalField.field]?.length">
                 {{ additionalField.label }}
               </div>
 
               <!-- Special case for dataset author. Use component from portal / single-dataset -->
-              <div
-                class="col px-0"
-                *ngIf="
-                  additionalField.useComponent;
-                  else additionalFieldTemplate
-                "
-              >
-                <div
-                  class="py-2"
-                  *ngFor="let org of item[additionalField.field]"
-                >
-                  <app-dataset-author
-                    [org]="org"
-                    [noLinks]="true"
-                  ></app-dataset-author>
+              <div class="col px-0" *ngIf=" additionalField.useComponent; else additionalFieldTemplate">
+                <div class="py-2" *ngFor="let org of item[additionalField.field]">
+                  <app-dataset-author [org]="org" [noLinks]="true"></app-dataset-author>
                 </div>
               </div>
 
               <!-- Expandable content -->
               <ng-template #additionalFieldTemplate>
-                <div
-                  [class.text-overflow-ellipsis]="
-                    additionalField.ellipsis && showMoreArray.indexOf(i) === -1
-                  "
-                  class="col px-0"
-                >
-                  <ng-container
-                    *ngIf="
-                      additionalField.cutContent;
-                      else additionalFieldTemplate
-                    "
-                    >{{
-                      item | getValue: additionalField.field | cutContent: 200
-                    }}</ng-container
-                  >
-                  <ng-template #additionalFieldTemplate>{{
-                    item | getValue: additionalField.field
-                  }}</ng-template>
+                <div [class.text-overflow-ellipsis]="additionalField.ellipsis && showMoreArray.indexOf(i) === -1" class="col px-0">
+                  <ng-container *ngIf="additionalField.cutContent; else additionalFieldTemplate">{{item | getValue: additionalField.field | cutContent: 200}}</ng-container>
+
+                  <ng-template #additionalFieldTemplate>{{item | getValue: additionalField.field}}</ng-template>
                 </div>
               </ng-template>
             </div>
+
           </ng-container>
         </ng-container>
+
       </mat-cell>
     </ng-container>
   </ng-container>
@@ -167,6 +116,7 @@
         <ng-container *ngIf="showMoreArray.indexOf(i) === -1" i18n="@@showMore">
           Näytä lisää
         </ng-container>
+
         <ng-container *ngIf="showMoreArray.indexOf(i) > -1" i18n="@@showLess">
           Näytä vähemmän
         </ng-container>
@@ -180,16 +130,10 @@
 
 <div class="row">
   <div class="col-auto px-0 font-size-smaller mt-3">
-    <ng-container i18n="@@page">Sivu</ng-container> {{ currentPage }} /
-    {{ pageCount }}
+    <ng-container i18n="@@page">Sivu</ng-container> {{ currentPage + 1 }} / {{ pageCount }}
   </div>
+
   <div class="col px-0">
-    <mat-paginator
-      [length]="tableRows.length"
-      [pageSize]="currentPageSize"
-      [pageSizeOptions]="[5, 10, 25, 100]"
-      (page)="paginate($event)"
-    >
-    </mat-paginator>
+    <mat-paginator [length]="tableRows.length" [pageSize]="currentPageSize" [pageSizeOptions]="[5, 10, 25, 100]" (page)="paginate($event)"></mat-paginator>
   </div>
 </div>

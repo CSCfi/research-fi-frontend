@@ -42,7 +42,7 @@ export class ProfileItemsTableComponent implements OnInit, OnChanges {
 
   sortSettings: any;
 
-  currentPage = 1;
+  currentPage = 0;
   currentPageSize = 10;
   pageCount: number;
 
@@ -131,7 +131,7 @@ export class ProfileItemsTableComponent implements OnInit, OnChanges {
   }
 
   paginate(event) {
-    this.currentPage = event.pageIndex + 1;
+    this.currentPage = event.pageIndex;
     this.currentPageSize = event.pageSize;
 
     this.pageCount = Math.ceil(this.tableRows.length / event.pageSize);
@@ -188,14 +188,24 @@ export class ProfileItemsTableComponent implements OnInit, OnChanges {
   }
 
   toggleAll(event: { checked: boolean }) {
-    this.tableRows.forEach((row) => (row.itemMeta.show = event.checked));
+    for (const row of this.tableRows) {
+      row.itemMeta.show = event.checked;
+
+      this.patchService.addToPayload({
+        ...row.itemMeta,
+        show: event.checked
+      });
+    }
+
+    this.tableRows = [...this.tableRows];
+
     this.checkAllSelected();
   }
 
   checkAllSelected() {
     const pageItems = this.tableRows.slice(
-      this.currentPage - 1,
-      this.currentPageSize * this.currentPage
+      this.currentPage,
+      this.currentPageSize * (this.currentPage + 1)
     );
 
     this.allSelected =
