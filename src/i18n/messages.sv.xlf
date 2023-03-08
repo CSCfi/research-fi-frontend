@@ -2979,7 +2979,7 @@
         <source>Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.</source>
         <target state="translated">Publikationen har publicerats i ett organisations- eller vetenskapsområdesspecifikt publikationsarkiv antingen omedelbart eller efter en av förläggaren fastställd skälig embargotid.</target>
       </trans-unit>
-      <trans-unit id="delayedOpenAccess">
+      <trans-unit id="delayedOpenAccessInfoCaption">
         <source>Viivästetty avoin saatavuus</source>
         <target>Fördröjd öppen tillgång</target>
       </trans-unit>

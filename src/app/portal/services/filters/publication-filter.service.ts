@@ -183,7 +183,7 @@ export class PublicationFilterService {
         ': </strong>' +
         $localize`Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.` +
         '</p><p><strong>' +
-        $localize`:@@delayedOpenAccess:Viivästetty avoin saatavuus` +
+        $localize`:@@delayedOpenAccessInfoCaption:Viivästetty avoin saatavuus` +
         ': </strong>' +
         $localize`:@@delayedOpenAccessInfo:Julkaisukanavan tieteelliset artikkelit avataan kustantajan määrittelemän viiveajan jälkeen. Sisältää sekä jo avoimesti saatavilla että yhä maksumuurin takana olevia julkaisuja.` +
         '</p><p><strong>' +

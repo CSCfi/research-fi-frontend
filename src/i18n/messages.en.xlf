@@ -2989,6 +2989,10 @@
         <source>Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.</source>
         <target>The publication has been published in a publication archive specific to an organization or field of science either immediately or after a reasonable embargo period set by the publisher.</target>
       </trans-unit>
+      <trans-unit id="delayedOpenAccessInfoCaption">
+        <source>Viivästetty avoin saatavuus</source>
+        <target>Delayed open access</target>
+      </trans-unit>
       <trans-unit id="delayedOpenAccessInfo">
         <source>Julkaisukanavan tieteelliset artikkelit avataan kustantajan määrittelemän viiveajan jälkeen. Sisältää sekä jo avoimesti saatavilla että yhä maksumuurin takana olevia julkaisuja.</source>
         <target>Scientific articles are opened only after an embargo time defined by the publisher. This category contains both publications that are already openly available and those that are still behind a paywall.</target>
