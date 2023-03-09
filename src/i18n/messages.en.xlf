@@ -2989,6 +2989,14 @@
         <source>Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.</source>
         <target>The publication has been published in a publication archive specific to an organization or field of science either immediately or after a reasonable embargo period set by the publisher.</target>
       </trans-unit>
+      <trans-unit id="delayedOpenAccessInfoCaption">
+        <source>Viivästetty avoin saatavuus</source>
+        <target>Delayed open access</target>
+      </trans-unit>
+      <trans-unit id="delayedOpenAccessInfo">
+        <source>Julkaisukanavan tieteelliset artikkelit avataan kustantajan määrittelemän viiveajan jälkeen. Sisältää sekä jo avoimesti saatavilla että yhä maksumuurin takana olevia julkaisuja.</source>
+        <target>Scientific articles are opened only after an embargo time defined by the publisher. This category contains both publications that are already openly available and those that are still behind a paywall.</target>
+      </trans-unit>
       <trans-unit id="otherOpenAccess">
         <source>Muu avoin saatavuus</source>
         <target>Other open access</target>
@@ -2996,6 +3004,22 @@
       <trans-unit id="1467910369543476416">
         <source>Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.</source>
         <target>The publication is openly available, but appears in a hybrid publication channel whose publications are not all openly available.</target>
+      </trans-unit>
+      <trans-unit id="nonOpenAccess">
+        <source>Ei avoin</source>
+        <target>Not open</target>
+      </trans-unit>
+      <trans-unit id="nonOpenAccessInfo">
+        <source>Julkaisu ei ole ilmestynyt avoimessa julkaisukanavassa, eikä julkaisua ole saatavilla avoimena rinnakkaistallenteena. Huom. myös julkaisut jotka ovat tilapäisesti avoimesti saatavilla, esimerkiksi ajankohtaisen yhteiskunnallisesti merkittävän aiheen tai kustantajan markkinointikampanjan takia, tulevat näkyville tämän kategorian kautta.</source>
+        <target>The publication has not appeared in an open publication channel, nor is the publication available as an open self-archived version. NB. also publications that are temporarily openly available, for example, due to a current socially significant topic or a publisher's marketing campaign, will be visible through this category.</target>
+      </trans-unit>
+      <trans-unit id="noOpenAccessData">
+        <source>Ei tietoa</source>
+        <target>Unknown</target>
+      </trans-unit>
+      <trans-unit id="noOpenAccessDataInfo">
+        <source>Julkaisun avoimen saatavuuden tilaa ei ole raportoitu.</source>
+        <target>The open availability status of the publication has not been reported.</target>
       </trans-unit>
       <trans-unit id="publisherInternationality">
         <source>Kustantajan kansainvälisyys</source>
