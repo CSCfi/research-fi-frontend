@@ -39,6 +39,7 @@ export class ProfileItemsTableComponent implements OnInit, OnChanges {
   @Input() tableConfig: { defaultSort: string };
 
   @Output() onSingleItemToggle = new EventEmitter<any>();
+  @Output() onAllItemToggle = new EventEmitter<any>();
 
   sortSettings: any;
 
@@ -200,6 +201,7 @@ export class ProfileItemsTableComponent implements OnInit, OnChanges {
     this.tableRows = [...this.tableRows];
 
     this.checkAllSelected();
+    this.onAllItemToggle.emit();
   }
 
   checkAllSelected() {

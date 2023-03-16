@@ -71,6 +71,7 @@
           [columns]="tableColumns"
           [data]="editorData"
           (onSingleItemToggle)="checkAllSelected()"
+          (onAllItemToggle)="checkAllSelected()"
           *ngIf="
             editorData.fields[0].items.length && currentTabIndex === 0;
             else noOrcidItemsTemplate
