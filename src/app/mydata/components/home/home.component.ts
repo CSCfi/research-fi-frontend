@@ -42,7 +42,9 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.utilityService.setMyDataTitle(this.title);
     this.locale = this.appSettingsService.currentLocale;
-    this.notificationService.notify({
+
+    // BANNER THAT WAS USED TO INFORM USERS REGARDING THE PROBLEM WITH SUOMI.FI AUTHENTICATION
+    /*this.notificationService.notify({
       notificationText: this.suomiFiAutheticationProblemSnackbarText,
       buttons: [
         {
@@ -50,7 +52,8 @@ export class HomeComponent implements OnInit {
           action: () => this.notificationService.clearNotification(),
         },
       ],
-    });
+    });*/
+
   }
 
   login() {
