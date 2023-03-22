@@ -103,7 +103,6 @@ export class ModelUtilsService {
   }
 
   translateRole(role, euFunding) {
-    console.log('translate role called!', role, euFunding);
     switch (this.localeId) {
       case 'fi': {
         switch (role) {
