@@ -103,6 +103,7 @@ export class ModelUtilsService {
   }
 
   translateRole(role, euFunding) {
+    console.log('translate role called!', role, euFunding);
     switch (this.localeId) {
       case 'fi': {
         switch (role) {
@@ -120,6 +121,9 @@ export class ModelUtilsService {
           }
           case 'Co-organiser': {
             return 'Osatoteuttaja';
+          }
+          case 'third party': {
+            return 'Third party';
           }
         }
         break;
@@ -141,6 +145,9 @@ export class ModelUtilsService {
           case 'Co-organiser': {
             return 'Co-organiser';
           }
+          case 'third party': {
+            return 'Third party';
+          }
         }
         break;
       }
@@ -160,6 +167,9 @@ export class ModelUtilsService {
           }
           case 'Co-organiser': {
             return 'Delgenomförare';
+          }
+          case 'third party': {
+            return 'Third party';
           }
         }
       }
