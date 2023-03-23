@@ -121,6 +121,9 @@ export class ModelUtilsService {
           case 'Co-organiser': {
             return 'Osatoteuttaja';
           }
+          case 'third party': {
+            return 'Third party';
+          }
         }
         break;
       }
@@ -141,6 +144,9 @@ export class ModelUtilsService {
           case 'Co-organiser': {
             return 'Co-organiser';
           }
+          case 'third party': {
+            return 'Third party';
+          }
         }
         break;
       }
@@ -160,6 +166,9 @@ export class ModelUtilsService {
           }
           case 'Co-organiser': {
             return 'Delgenomförare';
+          }
+          case 'third party': {
+            return 'Third party';
           }
         }
       }
