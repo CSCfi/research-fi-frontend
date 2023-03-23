@@ -269,7 +269,6 @@
               <ng-container *ngFor='let row of contactFields'>
                 <ng-container *ngIf='person.contact[row.key]?.length'>
                   <li *ngFor='let item of person.contact[row.key]' class='row'>
-
                     <ng-container *ngIf='item.icon'>
                       <fa-icon [icon]='item.icon' class='col-1 ps-0 pb-3'></fa-icon>
                     </ng-container>
@@ -278,7 +277,7 @@
                       {{ row.label }}
                     </span>
 
-                    <span class='col truncate ps-0' [class.px-0]="row.key === 'links'">
+                    <span class='col ps-0' [class.px-0]="row.key === 'links'" [class.truncate]="row.key === 'links'">
                       <ng-container *ngIf="row.key === 'emails'; else nonEmail">
                         <ng-container *ngIf='isEmailVisible === false'>
                           <a (click)='showEmail()' i18n='@@showEmailAddress'>Näytä sähköpostiosoite</a>
