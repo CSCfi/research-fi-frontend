@@ -52,7 +52,7 @@ export class PatchService {
             this.confirmedPayLoad[i] = this.patchItems[j];
             this.patchItems.splice(j, 1);
           }
-        };
+        }
       }
     }
     this.confirmedPayLoad = this.confirmedPayLoad.concat(this.patchItems);
