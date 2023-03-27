@@ -20,7 +20,7 @@ export class FundingCallCategoryFiltersComponent implements OnInit, OnDestroy {
 
   majorFieldsOfScienceAurora = [];
   topLevelFilterSelections = new Set();
-  bottomLevelFilterSelections = [];
+  bottomLevelFilterOptions = [];
   filterValuesToEmit = [];
   queryParamSub: Subscription;
   _responseData: any;
@@ -37,7 +37,7 @@ export class FundingCallCategoryFiltersComponent implements OnInit, OnDestroy {
     this.queryParamSub = this.route.queryParams.subscribe((params) => {
       this.queryParams = params;
 
-      this.bottomLevelFilterSelections =
+      this.bottomLevelFilterOptions =
         this.responseData?.aggregations?.field?.buckets;
 
       if (!this.topLevelCategoriesInitialized) {
@@ -67,9 +67,9 @@ export class FundingCallCategoryFiltersComponent implements OnInit, OnDestroy {
     });
 
     // Add all possible categories to selections
-    this.bottomLevelFilterSelections =
+    this.bottomLevelFilterOptions =
       this.responseData?.aggregations?.field?.buckets;
-    this.bottomLevelFilterSelections = this.bottomLevelFilterSelections.filter(
+    this.bottomLevelFilterOptions = this.bottomLevelFilterOptions.filter(
       (item) => {
         return this.topLevelFilterSelections.has(
           item.parentFieldId.buckets[0].key
@@ -96,21 +96,21 @@ export class FundingCallCategoryFiltersComponent implements OnInit, OnDestroy {
   }
 
   private updateViewChipSelections(params) {
-    if (this.bottomLevelFilterSelections) {
+    if (this.bottomLevelFilterOptions) {
       Array.isArray(params?.field)
-        ? (this.bottomLevelFilterSelections =
-            this.bottomLevelFilterSelections.filter((item) => {
-              return params.field.some((itm) => {
-                return itm === item.key;
-              });
-            }))
-        : (this.bottomLevelFilterSelections =
-            this.bottomLevelFilterSelections.filter((item) => {
-              return params?.field === item.key;
-            }));
+        ? (this.bottomLevelFilterOptions =
+          this.bottomLevelFilterOptions.filter((item) => {
+            return params.field.some((itm) => {
+              return itm === item.key;
+            });
+          }))
+        : (this.bottomLevelFilterOptions =
+          this.bottomLevelFilterOptions.filter((item) => {
+            return params?.field === item.key;
+          }));
 
       this.resetAllFilters();
-      this.bottomLevelFilterSelections.forEach((bottomItem) => {
+      this.bottomLevelFilterOptions.forEach((bottomItem) => {
         const key = bottomItem?.parentFieldId.buckets[0].key.toString();
         if (key) {
           this.topLevelFilterSelections.add(key);
@@ -130,7 +130,7 @@ export class FundingCallCategoryFiltersComponent implements OnInit, OnDestroy {
     // Only emit when clicked a button
     this.filterValuesToEmit = [];
 
-    this.bottomLevelFilterSelections.forEach((item) => {
+    this.bottomLevelFilterOptions.forEach((item) => {
       this.filterValuesToEmit.push(item.key);
     });
     this.filterValuesToEmit.length > 0

@@ -254,131 +254,13 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         )
       )
       .subscribe((results) => {
-        const query = results.query;
-        const params = results.params;
-
-        // Change query target
-        this.settingsService.changeTarget(query.target ? query.target : null);
-        // Get search target name for visuals
-        this.searchTargetName = this.staticDataService.targets?.find(
-          (t) => t.value === query.target
-        )?.['viewValue' + this.currentLocale];
-
-        this.searchService.pageSize = parseInt(query.size, 10) || 10;
-
-        this.page = +query.page || 1;
-        if (this.page > 1000) {
-          this.pageFallback = true;
-          this.getTabValues();
-          return;
-        }
-
-        // Check for Angular Univeral SSR, get filters if browser
-        if (isPlatformBrowser(this.platformId)) {
-          this.filters = this.filterService.filterList(query);
-        }
-
-        const tabChanged = this.tab !== params.tab;
-
-        this.searchTerm = params.input || '';
-        // Send search term to sort service
-        this.sortService.getTerm(this.searchTerm);
-
-        // If there's a new search term, send it to search service
-        if (this.searchTerm !== this.searchService.searchTerm) {
-          this.searchService.updateInput(this.searchTerm);
-        }
-
-        // Hotfix for *ngIf depending on total and not rendering search-results so new data is not fetched on empty results
-        this.total = 1;
-
-        this.selectedTabData = this.tabData.filter(
-          (tab) => tab.link === params.tab
-        )[0];
-
-        this.metaTags = this.metaTagsList.filter(
-          (tab) => tab.link === params.tab
-        )[0];
-
-        // Default to publications if invalid tab
-        if (!this.selectedTabData) {
-          this.router.navigate(['results/publications']);
-          return;
-        }
-
-        this.tab = this.selectedTabData.link;
-
-        if (tabChanged) {
-          this.tabChangeService.changeTab(this.selectedTabData);
-          this.sortService.updateTab(this.selectedTabData.data);
-          this.updateTitle(this.selectedTabData);
-          switch (this.tab) {
-            case 'publications':
-              this.visualisationCategories = this.visualPublication;
-              this.visualisationInfo =
-                this.staticDataService.visualisationData[
-                  'publicationTooltip' + this.currentLocale
-                ];
-              break;
-            case 'fundings':
-              this.visualisationCategories = this.visualFunding;
-              this.visualisationInfo =
-                this.staticDataService.visualisationData[
-                  'fundingTooltip' + this.currentLocale
-                ];
-              break;
-            default:
-              this.visualisationCategories = [];
-              break;
-          }
-          this.visIdx = '0';
-          this.visual = this.visual && !!this.visualisationCategories.length;
-        }
-
-        this.sortService.updateSort(query.sort);
-        this.searchService.updatePageNumber(
-          this.page,
-          this.searchService.pageSize
-        );
-        this.searchService.updateQueryParams(query);
-
-        // Check for Angular Univeral SSR, update filters if browser
-        if (isPlatformBrowser(this.platformId)) {
-          this.filterService.updateFilters(this.filters);
-        }
-
-        // Flag telling search-results to fetch new filtered data
-        this.updateFilters = !this.updateFilters;
-
-        // // If init without search bar redirecting, get data
-        // if (this.init && !this.searchService.redirecting) {
-        //   this.getTabValues();
-        // // If search bar is redirecting, get data from search service. Get data "async" so result tab runs onChanges twice at startup
-        // } else if (this.searchService.redirecting) {
-        //   setTimeout(() => {
-        //     this.tabValues = [this.searchService.tabValues];
-        //   }, 1);
-        // }
-
-        // If new filter data is neeed
-        if (tabChanged || this.init) {
-          // Reset filter values so new tab doesn't try to use previous tab's filters.
-          this.filterValues = undefined;
-        }
-
-        // Get data filter
-        this.getFilterData();
-
-        // Get visualisation data
-        this.getVisualData();
-
-        // Reset flags
-        this.searchService.redirecting = false;
-        this.init = false;
+        this.doSearch(results.query, results.params);
       });
 
     // Get tab values only on search term change
     this.inputSub = this.searchService.currentInput.subscribe(() => {
+      this.filterValues = undefined;
+      this.clearAllFiltersFromActiveFilters();
       this.getTabValues();
     });
 
@@ -404,6 +286,128 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.mobile = status;
       }
     );
+  }
+
+  doSearch(query: any, params: any){
+    // Change query target
+    this.settingsService.changeTarget(query.target ? query.target : null);
+    // Get search target name for visuals
+    this.searchTargetName = this.staticDataService.targets?.find(
+      (t) => t.value === query.target
+    )?.['viewValue' + this.currentLocale];
+
+    this.searchService.pageSize = parseInt(query.size, 10) || 10;
+
+    this.page = +query.page || 1;
+    if (this.page > 1000) {
+      this.pageFallback = true;
+      this.getTabValues();
+      return;
+    }
+
+    // Check for Angular Univeral SSR, get filters if browser
+    if (isPlatformBrowser(this.platformId)) {
+      this.filters = this.filterService.filterList(query);
+    }
+
+    const tabChanged = this.tab !== params.tab;
+
+    this.searchTerm = params.input || '';
+    // Send search term to sort service
+    this.sortService.getTerm(this.searchTerm);
+
+
+    // If there's a new search term, send it to search service. This does the actual search
+    if (this.searchTerm !== this.searchService.searchTerm) {
+      this.searchService.updateInput(this.searchTerm);
+    }
+
+    // Hotfix for *ngIf depending on total and not rendering search-results so new data is not fetched on empty results
+    this.total = 1;
+
+    this.selectedTabData = this.tabData.filter(
+      (tab) => tab.link === params.tab
+    )[0];
+
+    this.metaTags = this.metaTagsList.filter(
+      (tab) => tab.link === params.tab
+    )[0];
+
+    // Default to publications if invalid tab
+    if (!this.selectedTabData) {
+      this.router.navigate(['results/publications']);
+      return;
+    }
+
+    this.tab = this.selectedTabData.link;
+
+    if (tabChanged) {
+      this.tabChangeService.changeTab(this.selectedTabData);
+      this.sortService.updateTab(this.selectedTabData.data);
+      this.updateTitle(this.selectedTabData);
+      switch (this.tab) {
+        case 'publications':
+          this.visualisationCategories = this.visualPublication;
+          this.visualisationInfo =
+            this.staticDataService.visualisationData[
+            'publicationTooltip' + this.currentLocale
+              ];
+          break;
+        case 'fundings':
+          this.visualisationCategories = this.visualFunding;
+          this.visualisationInfo =
+            this.staticDataService.visualisationData[
+            'fundingTooltip' + this.currentLocale
+              ];
+          break;
+        default:
+          this.visualisationCategories = [];
+          break;
+      }
+      this.visIdx = '0';
+      this.visual = this.visual && !!this.visualisationCategories.length;
+    }
+
+    this.sortService.updateSort(query.sort);
+    this.searchService.updatePageNumber(
+      this.page,
+      this.searchService.pageSize
+    );
+    this.searchService.updateQueryParams(query);
+
+    // Check for Angular Univeral SSR, update filters if browser
+    if (isPlatformBrowser(this.platformId)) {
+      this.filterService.updateFilters(this.filters);
+    }
+
+    // Flag telling search-results to fetch new filtered data
+    this.updateFilters = !this.updateFilters;
+
+    // // If init without search bar redirecting, get data
+    // if (this.init && !this.searchService.redirecting) {
+    //   this.getTabValues();
+    // // If search bar is redirecting, get data from search service. Get data "async" so result tab runs onChanges twice at startup
+    // } else if (this.searchService.redirecting) {
+    //   setTimeout(() => {
+    //     this.tabValues = [this.searchService.tabValues];
+    //   }, 1);
+    // }
+
+    // If new filter data is needed
+    if (tabChanged || this.init) {
+      // Reset filter values so new tab doesn't try to use previous tab's filters.
+      this.filterValues = undefined;
+    }
+
+    // Get data filter
+    this.getFilterData();
+
+    // Get visualisation data
+    this.getVisualData();
+
+    // Reset flags
+    this.searchService.redirecting = false;
+    this.init = false;
   }
 
   ngAfterViewInit() {

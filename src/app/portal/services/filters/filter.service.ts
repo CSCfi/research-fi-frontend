@@ -556,7 +556,7 @@ export class FilterService {
       res.push({
         bool: {
           must: [
-            { term: { openAccess: 1 } },
+            { term: { openAccess: 0 } },
             { term: { publisherOpenAccessCode: 2 } },
           ],
         },
@@ -588,6 +588,15 @@ export class FilterService {
             ],
           },
         });
+      });
+      res.push({
+        bool: {
+          must: [
+            { term: { selfArchivedCode: 0 } },
+            { term: { openAccess: 1 } },
+            { term: { publisherOpenAccessCode: 0 } },
+          ],
+        },
       });
     }
     if (code.includes('noOpenAccessData')) {

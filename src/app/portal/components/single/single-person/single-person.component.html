@@ -267,9 +267,8 @@
               </mat-card-title>
 
               <ng-container *ngFor='let row of contactFields'>
-                <ng-container *ngIf='person.contact[row.key]?.length'>
+                <ng-container *ngIf="person.contact[row.key]?.length && row.key !== 'otherNames'">
                   <li *ngFor='let item of person.contact[row.key]' class='row'>
-
                     <ng-container *ngIf='item.icon'>
                       <fa-icon [icon]='item.icon' class='col-1 ps-0 pb-3'></fa-icon>
                     </ng-container>
@@ -278,7 +277,7 @@
                       {{ row.label }}
                     </span>
 
-                    <span class='col truncate ps-0' [class.px-0]="row.key === 'links'">
+                    <span class='col ps-0' [class.px-0]="row.key === 'links'" [class.truncate]="row.key === 'links'">
                       <ng-container *ngIf="row.key === 'emails'; else nonEmail">
                         <ng-container *ngIf='isEmailVisible === false'>
                           <a (click)='showEmail()' i18n='@@showEmailAddress'>Näytä sähköpostiosoite</a>
@@ -299,6 +298,27 @@
                         </ng-template>
                       </ng-template>
                     </span>
+                  </li>
+                </ng-container>
+
+                <ng-container *ngIf="person.contact[row.key]?.length && row.key === 'otherNames'">
+                  <!-- Double iteration just to align items into columns -->
+                  <li>
+                    <div class="row g-0">
+                      <div class="col-3">
+                        <ng-container *ngFor='let item of person.contact[row.key]; let i = index'>
+                          <ng-container *ngIf="row.label && i === 0">
+                            <span class="fw-bold">{{row.label}}</span>
+                          </ng-container>
+                        </ng-container>
+                      </div>
+                      <div class="col-9 ps-3">
+                        <ng-container *ngFor='let item of person.contact[row.key]; let i = index'>
+                          <span *ngIf="i === 0">{{item.value}}</span>
+                          <span *ngIf="i !== 0">, {{item.value}}</span>
+                        </ng-container>
+                      </div>
+                    </div>
                   </li>
                 </ng-container>
               </ng-container>
