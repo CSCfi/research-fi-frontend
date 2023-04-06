@@ -373,7 +373,7 @@ export class StaticDataService {
         res = [
           'publicationName^2',
           'publicationYear',
-          'authorsText',
+          'authorsTextSplitted',
           'journalName',
           'conferenceName',
           'parentPublicationName',
@@ -663,7 +663,7 @@ export class StaticDataService {
       case 'name': {
         switch (index) {
           case 'publication': {
-            res = ['authorsText'];
+            res = ['authorsTextSplitted'];
             break;
           }
           case 'funding': {
