@@ -101,15 +101,7 @@ export class SettingsService {
                     lenient: 'true',
                   },
                 },
-                ...(index === 'publication'
-                  ? [
-                      {
-                        bool: {
-                          should: this.generateNested('publication', term),
-                        },
-                      },
-                    ]
-                  : []),
+                // index === 'publication' was moved below the declaration
                 ...(index === 'funding'
                   ? [{ bool: { should: this.generateNested('funding', term) } }]
                   : []),
@@ -151,6 +143,39 @@ export class SettingsService {
         ],
       },
     };
+
+    if (index === 'publication') {
+      const matchPublicationName = {
+        match: {
+          publicationName: {
+            query: term,
+            // fuzziness: 'auto',
+            boost: 1
+          }
+        }
+      };
+
+      const matchAuthorsTextSplitted = {
+        match: {
+          authorsTextSplitted: {
+            query: term,
+            operator: 'and',
+            // fuzziness: 2,
+            boost: 1
+          }
+        }
+      };
+
+      const matchAuthor = {
+        bool: {
+          should: this.generateNested('publication', term)
+        }
+      };
+
+      // New match statements
+      res.bool.must[1].bool.should = [matchPublicationName, matchAuthorsTextSplitted, matchAuthor] as any;
+    }
+
     return res;
   }
 
