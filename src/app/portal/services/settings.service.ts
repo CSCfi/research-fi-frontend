@@ -149,8 +149,9 @@ export class SettingsService {
         match: {
           publicationName: {
             query: term,
-            // fuzziness: 'auto',
-            boost: 1
+
+            fuzziness: 2,
+            boost: 2
           }
         }
       };
@@ -160,15 +161,16 @@ export class SettingsService {
           authorsTextSplitted: {
             query: term,
             operator: 'and',
-            // fuzziness: 2,
-            boost: 1
+            fuzziness: 2,
+            boost: 1.5
           }
         }
       };
 
       const matchAuthor = {
         bool: {
-          should: this.generateNested('publication', term)
+          should: this.generateNested('publication', term),
+          boost: 0.4
         }
       };
 
