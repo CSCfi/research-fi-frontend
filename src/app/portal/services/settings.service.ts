@@ -145,13 +145,29 @@ export class SettingsService {
     };
 
     if (index === 'publication') {
+      const boosts = {
+        publicationName: 2,
+        publicationNameFuzzy: 0.4,
+        authorsTextSplitted: 1.25,
+        authorsTextSplittedFuzzy: 0.4,
+        author: 0.4,
+      };
+
       const matchPublicationName = {
+        match: {
+          publicationName: {
+            query: term,
+            boost: boosts.publicationName,
+          }
+        }
+      };
+      const matchPublicationNameFuzzy = {
         match: {
           publicationName: {
             query: term,
 
             fuzziness: 2,
-            boost: 2
+            boost: boosts.publicationNameFuzzy,
           }
         }
       };
@@ -161,8 +177,18 @@ export class SettingsService {
           authorsTextSplitted: {
             query: term,
             operator: 'and',
+            boost: boosts.authorsTextSplitted,
+          }
+        }
+      };
+
+      const matchAuthorsTextSplittedFuzzy = {
+        match: {
+          authorsTextSplitted: {
+            query: term,
+            operator: 'and',
             fuzziness: 2,
-            boost: 1.5
+            boost: boosts.authorsTextSplittedFuzzy,
           }
         }
       };
@@ -170,12 +196,26 @@ export class SettingsService {
       const matchAuthor = {
         bool: {
           should: this.generateNested('publication', term),
-          boost: 0.4
+          boost: boosts.author
         }
       };
 
       // New match statements
-      res.bool.must[1].bool.should = [matchPublicationName, matchAuthorsTextSplitted, matchAuthor] as any;
+      if (this.target === "name") {
+        res.bool.must[1].bool.should = [
+          matchAuthorsTextSplitted,
+          matchAuthorsTextSplittedFuzzy,
+          matchAuthor
+        ] as any;
+      } else {
+        res.bool.must[1].bool.should = [
+          matchPublicationName,
+          matchPublicationNameFuzzy,
+          matchAuthorsTextSplitted,
+          matchAuthorsTextSplittedFuzzy,
+          matchAuthor
+        ] as any;
+      }
     }
 
     return res;
