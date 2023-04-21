@@ -102,6 +102,7 @@ export class SettingsService {
                   },
                 },
                 // index === 'publication' was moved below the declaration
+                // index === 'person' was moved below the declaration
                 ...(index === 'funding'
                   ? [{ bool: { should: this.generateNested('funding', term) } }]
                   : []),
@@ -216,6 +217,64 @@ export class SettingsService {
           matchAuthor
         ] as any;
       }
+    }
+
+    if (index === 'person') {
+      // New match statements
+      res.bool.must[1].bool.should = [
+        {
+          multi_match: {
+            query: term,
+            analyzer: targetAnalyzer,
+            type: targetType,
+            fields: targetFields.length > 0 ? targetFields : '',
+            operator: 'AND',
+            lenient: 'true',
+            max_expansions: 1024
+          }
+        },
+        {
+          multi_match: {
+            query: term,
+            type: 'cross_fields',
+            fields: targetFields.length > 0 ? targetFields : '',
+            operator: 'AND',
+            lenient: 'true'
+          }
+        },
+        {
+          nested: {
+            path: 'activity.affiliations',
+            query: {
+              bool: {
+                should: [
+                  {
+                    multi_match: {
+                      query: term,
+                      type: 'best_fields',
+                      operator: 'OR',
+                      fields: [
+                        'activity.affiliations.organizationNameFi',
+                        'activity.affiliations.organizationNameSv',
+                        'activity.affiliations.organizationNameEn',
+
+                        'activity.educations.nameFi',
+                        'activity.educations.nameSv',
+                        'activity.educations.nameEn',
+
+                        'activity.affiliations.positionNameFi',
+                        'activity.affiliations.positionNameSv',
+                        'activity.affiliations.positionNameEn',
+                      ],
+                      lenient: 'true'
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ] as any;
     }
 
     return res;
