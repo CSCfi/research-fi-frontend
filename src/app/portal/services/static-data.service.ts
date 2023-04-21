@@ -399,11 +399,30 @@ export class StaticDataService {
       }
       case 'person': {
         res = [
+          'id',
           'personal.names.firstNames',
           'personal.names.lastName',
-          'activity.affiliations.organizationNameFi',
-          'activity.affiliations.organizationNameSv',
-          'activity.affiliations.organizationNameEn',
+          'personal.otherNames.firstNames',
+          'personal.otherNames.lastName',
+          'personal.otherNames.fullName',
+          'personal.keywords.value',
+          'personal.researcherDescriptions.researchDescriptionFi',
+          'personal.researcherDescriptions.researchDescriptionSv',
+          'personal.researcherDescriptions.researchDescriptionEn',
+          'personal.fieldOfSciences',
+
+          // 'activity.affiliations' fields require 'nested' search query
+          // The lines are written as literals in settings.service.ts
+
+          // 'activity.affiliations.organizationNameFi',
+          // 'activity.affiliations.organizationNameSv',
+          // 'activity.affiliations.organizationNameEn',
+          // 'activity.educations.nameFi',
+          // 'activity.educations.nameSv',
+          // 'activity.educations.nameEn',
+          // 'activity.affiliations.positionNameFi',
+          // 'activity.affiliations.positionNameSv',
+          // 'activity.affiliations.positionNameEn',
         ];
         break;
       }
