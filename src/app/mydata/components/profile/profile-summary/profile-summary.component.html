@@ -15,6 +15,7 @@
       </div>
 
       <div class="col-auto order-2 order-md-3">
+        <!-- Button for launching modals -->
         <app-secondary-button
           [content]="(group.fields | hasSelectedItems) ? editString : selectString"
           [announce]="!(group.fields | hasSelectedItems)"

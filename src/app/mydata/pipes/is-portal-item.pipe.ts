@@ -27,7 +27,7 @@ export class IsPortalItemPipe implements PipeTransform {
     return (
       !!(portalTypes.indexOf(item.itemMeta.type) > -1) &&
       item.dataSources?.find(
-        (dataSource) => dataSource.registeredDataSource === 'TTV'
+        (dataSource) => dataSource.registeredDataSource === 'TTV' || dataSource.registeredDataSource === 'Tiedejatutkimus.fi'
       )
     );
   }
