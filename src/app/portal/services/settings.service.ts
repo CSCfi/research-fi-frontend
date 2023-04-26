@@ -162,6 +162,7 @@ export class SettingsService {
           }
         }
       };
+
       const matchPublicationNameFuzzy = {
         match: {
           publicationName: {
@@ -201,12 +202,21 @@ export class SettingsService {
         }
       };
 
+      const matchKeywords = {
+        match: {
+          "keywords.keyword": {
+            query: term,
+          }
+        }
+      }
+
       // New match statements
       if (this.target === "name") {
         res.bool.must[1].bool.should = [
           matchAuthorsTextSplitted,
           // matchAuthorsTextSplittedFuzzy,
-          matchAuthor
+          matchAuthor,
+          matchKeywords
         ] as any;
       } else {
         res.bool.must[1].bool.should = [
@@ -214,7 +224,8 @@ export class SettingsService {
           // matchPublicationNameFuzzy,
           matchAuthorsTextSplitted,
           // matchAuthorsTextSplittedFuzzy,
-          matchAuthor
+          matchAuthor,
+          matchKeywords
         ] as any;
       }
     }
