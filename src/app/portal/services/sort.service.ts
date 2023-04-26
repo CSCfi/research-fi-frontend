@@ -137,14 +137,7 @@ export class SortService {
             break;
           }
           default: {
-            this.sort = [
-              {
-                publicationYear: {
-                  order: this.sortDirection ? 'desc' : 'desc',
-                  unmapped_type: 'long',
-                },
-              },
-            ];
+            this.sort = [];
             break;
           }
         }
