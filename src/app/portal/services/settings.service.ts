@@ -205,15 +205,15 @@ export class SettingsService {
       if (this.target === "name") {
         res.bool.must[1].bool.should = [
           matchAuthorsTextSplitted,
-          matchAuthorsTextSplittedFuzzy,
+          // matchAuthorsTextSplittedFuzzy,
           matchAuthor
         ] as any;
       } else {
         res.bool.must[1].bool.should = [
           matchPublicationName,
-          matchPublicationNameFuzzy,
+          // matchPublicationNameFuzzy,
           matchAuthorsTextSplitted,
-          matchAuthorsTextSplittedFuzzy,
+          // matchAuthorsTextSplittedFuzzy,
           matchAuthor
         ] as any;
       }
