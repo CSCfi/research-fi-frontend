@@ -215,8 +215,7 @@ export class SettingsService {
         res.bool.must[1].bool.should = [
           matchAuthorsTextSplitted,
           // matchAuthorsTextSplittedFuzzy,
-          matchAuthor,
-          matchKeywords
+          matchAuthor
         ] as any;
       } else {
         res.bool.must[1].bool.should = [
@@ -232,7 +231,12 @@ export class SettingsService {
 
     if (index === 'person') {
       // New match statements
-      res.bool.must[1].bool.should = [
+      if (this.target === "name") {
+        (res.bool.must[1].bool as any).must_not = [
+          {"match_all": {}}
+        ];
+      } else {
+        res.bool.must[1].bool.should = [
         {
           multi_match: {
             query: term,
@@ -286,6 +290,7 @@ export class SettingsService {
           }
         }
       ] as any;
+      }
     }
 
     return res;
