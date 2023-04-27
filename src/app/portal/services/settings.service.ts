@@ -215,8 +215,7 @@ export class SettingsService {
         res.bool.must[1].bool.should = [
           matchAuthorsTextSplitted,
           // matchAuthorsTextSplittedFuzzy,
-          matchAuthor,
-          matchKeywords
+          matchAuthor
         ] as any;
       } else {
         res.bool.must[1].bool.should = [
