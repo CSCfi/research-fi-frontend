@@ -67,6 +67,7 @@ export class HighlightSearch implements PipeTransform {
               keywordsArr.splice(i, 1);
               i--;
             }
+            break;
           } else if (found_accent) {
             e = temp_e.replace(
               src_accent,
@@ -76,6 +77,7 @@ export class HighlightSearch implements PipeTransform {
               keywordsArr.splice(i, 1);
               i--;
             }
+            break;
           } else {
             return e;
           }
