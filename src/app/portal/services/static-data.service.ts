@@ -373,7 +373,7 @@ export class StaticDataService {
         res = [
           'publicationName^2',
           'publicationYear',
-          'authorsText',
+          'authorsTextSplitted',
           'journalName',
           'conferenceName',
           'parentPublicationName',
@@ -399,11 +399,30 @@ export class StaticDataService {
       }
       case 'person': {
         res = [
+          'id',
           'personal.names.firstNames',
           'personal.names.lastName',
-          'activity.affiliations.organizationNameFi',
-          'activity.affiliations.organizationNameSv',
-          'activity.affiliations.organizationNameEn',
+          'personal.otherNames.firstNames',
+          'personal.otherNames.lastName',
+          'personal.otherNames.fullName',
+          'personal.keywords.value',
+          'personal.researcherDescriptions.researchDescriptionFi',
+          'personal.researcherDescriptions.researchDescriptionSv',
+          'personal.researcherDescriptions.researchDescriptionEn',
+          'personal.fieldOfSciences',
+
+          // 'activity.affiliations' fields require 'nested' search query
+          // The lines are written as literals in settings.service.ts
+
+          // 'activity.affiliations.organizationNameFi',
+          // 'activity.affiliations.organizationNameSv',
+          // 'activity.affiliations.organizationNameEn',
+          // 'activity.educations.nameFi',
+          // 'activity.educations.nameSv',
+          // 'activity.educations.nameEn',
+          // 'activity.affiliations.positionNameFi',
+          // 'activity.affiliations.positionNameSv',
+          // 'activity.affiliations.positionNameEn',
         ];
         break;
       }
@@ -658,188 +677,71 @@ export class StaticDataService {
   }
 
   targetFields(target, index) {
-    let res = [];
-    switch (target) {
-      case 'name': {
-        switch (index) {
-          case 'publication': {
-            res = ['authorsText'];
-            break;
-          }
-          case 'funding': {
-            res = [
-              'fundingContactPersonLastName',
-              'fundingContactPersonFirstNames',
-            ];
-            break;
-          }
-          case 'dataset': {
-            res = ['creatorsText'];
-            break;
-          }
-          case 'infrastructure': {
-            res = [''];
-            break;
-          }
-          case 'organization': {
-            res = [''];
-            break;
-          }
-        }
-        break;
-      }
-      case 'title': {
-        switch (index) {
-          case 'publication': {
-            res = ['publicationName'];
-            break;
-          }
-          case 'funding': {
-            res = [
-              'projectNameFi',
-              'projectNameSv',
-              'projectNameEn',
-              'projectAcronym',
-            ];
-            break;
-          }
-          case 'dataset': {
-            res = ['nameFi', 'nameSv', 'nameEn'];
-            break;
-          }
-          case 'infrastructure': {
-            res = [
-              'nameFi',
-              'nameSv',
-              'nameEn',
-              'acronym',
-              'services.serviceName',
-              'services.serviceAcronym',
-            ];
-            break;
-          }
-          case 'organization': {
-            res = [''];
-            break;
-          }
-        }
-        break;
-      }
-      case 'keywords': {
-        switch (index) {
-          case 'publication': {
-            res = ['keywords.keyword'];
-            break;
-          }
-          case 'funding': {
-            res = ['keywords.keyword'];
-            break;
-          }
-          case 'dataset': {
-            res = ['keywords.keyword'];
-            break;
-          }
-          case 'infrastructure': {
-            res = ['keywords.keyword'];
-            break;
-          }
-          case 'organization': {
-            res = [''];
-            break;
-          }
-        }
-        break;
-      }
-      case 'organization': {
-        switch (index) {
-          case 'publication': {
-            res = [''];
-            break;
-          }
-          case 'funding': {
-            res = [''];
-            break;
-          }
-          case 'dataset': {
-            res = [
-              'actor.sector.organization.OrganizationNameFi',
-              'actor.sector.organization.OrganizationNameEn',
-              'actor.sector.organization.OrganizationNameSv',
-            ];
-            break;
-          }
-          case 'infrastructure': {
-            res = [
-              'responsibleOrganizationNameFi',
-              'responsibleOrganizationNameEn',
-              'responsibleOrganizationNameSv',
-            ];
-            break;
-          }
-          case 'organization': {
-            res = ['nameFi', 'nameEn', 'nameSv', 'variantNames'];
-            break;
-          }
-        }
-        break;
-      }
-      case 'funder': {
-        switch (index) {
-          case 'publication': {
-            res = [''];
-            break;
-          }
-          case 'funding': {
-            res = [
-              'funderNameFi',
-              'funderNameEn',
-              'funderNameSv',
-              'funderNameUnd',
-            ];
-            break;
-          }
-          case 'dataset': {
-            res = [''];
-            break;
-          }
-          case 'infrastructure': {
-            res = [''];
-            break;
-          }
-          case 'organization': {
-            res = [''];
-            break;
-          }
-        }
-        break;
-      }
+    const fields = {
+      name: {
+        publication: ['authorsTextSplitted'],
+        funding: ['fundingContactPersonLastName', 'fundingContactPersonFirstNames'],
+        dataset: ['creatorsText'],
+        infrastructure: [''],
+        organization: ['']
+      },
+      title: {
+        publication: ['publicationName'],
+        funding: ['projectNameFi', 'projectNameSv', 'projectNameEn', 'projectAcronym'],
+        dataset: ['nameFi', 'nameSv', 'nameEn'],
+        infrastructure: [
+          'nameFi',
+          'nameSv',
+          'nameEn',
+          'acronym',
+          'services.serviceName',
+          'services.serviceAcronym'
+        ],
+        organization: ['']
+      },
+      keywords: {
+        publication: ['keywords.keyword'],
+        funding: ['keywords.keyword'],
+        dataset: ['keywords.keyword'],
+        infrastructure: ['keywords.keyword'],
+        organization: ['']
+      },
+      organization: {
+        publication: [''],
+        funding: [''],
+        dataset: [
+          'actor.sector.organization.OrganizationNameFi',
+          'actor.sector.organization.OrganizationNameEn',
+          'actor.sector.organization.OrganizationNameSv'
+        ],
+        infrastructure: [
+          'responsibleOrganizationNameFi',
+          'responsibleOrganizationNameEn',
+          'responsibleOrganizationNameSv'
+        ],
+        organization: ['nameFi', 'nameEn', 'nameSv', 'variantNames']
+      },
+      funder: {
+        publication: [''],
+        funding: ['funderNameFi', 'funderNameEn', 'funderNameSv', 'funderNameUnd'],
+        dataset: [''],
+        infrastructure: [''],
+        organization: ['']
+      },
       default: {
-        switch (index) {
-          case 'publication': {
-            res = [target];
-            break;
-          }
-          case 'funding': {
-            res = [''];
-            break;
-          }
-          case 'dataset': {
-            res = [''];
-            break;
-          }
-          case 'infrastructure': {
-            res = [''];
-            break;
-          }
-          case 'organization': {
-            res = [''];
-            break;
-          }
-        }
+        publication: [target],
+        funding: [''],
+        dataset: [''],
+        infrastructure: [''],
+        organization: ['']
       }
-    }
+    };
 
-    return res;
+    if (fields[target] && fields[target][index]) {
+      return fields[target][index];
+    } else {
+      return fields.default;
+    }
   }
 
   targetNestedQueryFields(target, index) {

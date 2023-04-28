@@ -101,15 +101,8 @@ export class SettingsService {
                     lenient: 'true',
                   },
                 },
-                ...(index === 'publication'
-                  ? [
-                      {
-                        bool: {
-                          should: this.generateNested('publication', term),
-                        },
-                      },
-                    ]
-                  : []),
+                // index === 'publication' was moved below the declaration
+                // index === 'person' was moved below the declaration
                 ...(index === 'funding'
                   ? [{ bool: { should: this.generateNested('funding', term) } }]
                   : []),
@@ -151,6 +144,155 @@ export class SettingsService {
         ],
       },
     };
+
+    if (index === 'publication') {
+      const boosts = {
+        publicationName: 2,
+        publicationNameFuzzy: 0.4,
+        authorsTextSplitted: 1.25,
+        authorsTextSplittedFuzzy: 0.4,
+        author: 0.4,
+      };
+
+      const matchPublicationName = {
+        match: {
+          publicationName: {
+            query: term,
+            boost: boosts.publicationName,
+          }
+        }
+      };
+
+      const matchPublicationNameFuzzy = {
+        match: {
+          publicationName: {
+            query: term,
+
+            fuzziness: 2,
+            boost: boosts.publicationNameFuzzy,
+          }
+        }
+      };
+
+      const matchAuthorsTextSplitted = {
+        match: {
+          authorsTextSplitted: {
+            query: term,
+            operator: 'and',
+            boost: boosts.authorsTextSplitted,
+          }
+        }
+      };
+
+      const matchAuthorsTextSplittedFuzzy = {
+        match: {
+          authorsTextSplitted: {
+            query: term,
+            operator: 'and',
+            fuzziness: 2,
+            boost: boosts.authorsTextSplittedFuzzy,
+          }
+        }
+      };
+
+      const matchAuthor = {
+        bool: {
+          should: this.generateNested('publication', term),
+          boost: boosts.author
+        }
+      };
+
+      const matchKeywords = {
+        match: {
+          "keywords.keyword": {
+            query: term,
+          }
+        }
+      }
+
+      // New match statements
+      if (this.target === "name") {
+        res.bool.must[1].bool.should = [
+          matchAuthorsTextSplitted,
+          // matchAuthorsTextSplittedFuzzy,
+          matchAuthor
+        ] as any;
+      } else {
+        res.bool.must[1].bool.should = [
+          matchPublicationName,
+          // matchPublicationNameFuzzy,
+          matchAuthorsTextSplitted,
+          // matchAuthorsTextSplittedFuzzy,
+          matchAuthor,
+          matchKeywords
+        ] as any;
+      }
+    }
+
+    if (index === 'person') {
+      // New match statements
+      if (this.target === "name") {
+        (res.bool.must[1].bool as any).must_not = [
+          {"match_all": {}}
+        ];
+      } else {
+        res.bool.must[1].bool.should = [
+        {
+          multi_match: {
+            query: term,
+            analyzer: targetAnalyzer,
+            type: targetType,
+            fields: targetFields.length > 0 ? targetFields : '',
+            operator: 'AND',
+            lenient: 'true',
+            max_expansions: 1024
+          }
+        },
+        {
+          multi_match: {
+            query: term,
+            type: 'cross_fields',
+            fields: targetFields.length > 0 ? targetFields : '',
+            operator: 'AND',
+            lenient: 'true'
+          }
+        },
+        {
+          nested: {
+            path: 'activity.affiliations',
+            query: {
+              bool: {
+                should: [
+                  {
+                    multi_match: {
+                      query: term,
+                      type: 'best_fields',
+                      operator: 'OR',
+                      fields: [
+                        'activity.affiliations.organizationNameFi',
+                        'activity.affiliations.organizationNameSv',
+                        'activity.affiliations.organizationNameEn',
+
+                        'activity.educations.nameFi',
+                        'activity.educations.nameSv',
+                        'activity.educations.nameEn',
+
+                        'activity.affiliations.positionNameFi',
+                        'activity.affiliations.positionNameSv',
+                        'activity.affiliations.positionNameEn',
+                      ],
+                      lenient: 'true'
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ] as any;
+      }
+    }
+
     return res;
   }
 
