@@ -210,14 +210,13 @@ export class SettingsService {
         }
       }
 
-      /*const matchJournalName = {
+      const matchJournalName = {
         match_phrase_prefix: {
           journalName: {
             query: term,
-            boost: 10
           }
         }
-      };*/
+      };
 
       const matchJufo = {
         match: {
@@ -242,7 +241,8 @@ export class SettingsService {
           // matchAuthorsTextSplittedFuzzy,
           matchAuthor,
           matchKeywords,
-          matchJufo
+          matchJufo,
+          matchJournalName
         ] as any;
       }
     }
