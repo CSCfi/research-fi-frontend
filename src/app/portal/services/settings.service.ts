@@ -210,6 +210,23 @@ export class SettingsService {
         }
       }
 
+      /*const matchJournalName = {
+        match_phrase_prefix: {
+          journalName: {
+            query: term,
+            boost: 10
+          }
+        }
+      };*/
+
+      const matchJufo = {
+        match: {
+          jufoCode: {
+            query: term,
+          }
+        }
+      };
+
       // New match statements
       if (this.target === "name") {
         res.bool.must[1].bool.should = [
@@ -224,7 +241,8 @@ export class SettingsService {
           matchAuthorsTextSplitted,
           // matchAuthorsTextSplittedFuzzy,
           matchAuthor,
-          matchKeywords
+          matchKeywords,
+          matchJufo
         ] as any;
       }
     }
