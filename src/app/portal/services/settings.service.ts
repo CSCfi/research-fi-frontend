@@ -230,6 +230,7 @@ export class SettingsService {
         match_phrase: {
           isbn: {
             query: term,
+            boost: 2
           }
         }
       }
@@ -238,14 +239,16 @@ export class SettingsService {
         match_phrase: {
           issn: {
             query: term,
+            boost: 2
           }
         }
       }
-//
+
       const matchParentPublicationName = {
-        match: {
+        match_phrase: {
           parentPublicationName: {
             query: term,
+            boost: 2
           }
         }
       }
