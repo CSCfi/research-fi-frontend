@@ -226,6 +226,30 @@ export class SettingsService {
         }
       };
 
+      const matchISBN = {
+        match_phrase: {
+          isbn: {
+            query: term,
+          }
+        }
+      }
+
+      const matchISSN = {
+        match_phrase: {
+          issn: {
+            query: term,
+          }
+        }
+      }
+//
+      const matchParentPublicationName = {
+        match: {
+          parentPublicationName: {
+            query: term,
+          }
+        }
+      }
+
       // New match statements
       if (this.target === "name") {
         res.bool.must[1].bool.should = [
@@ -242,7 +266,10 @@ export class SettingsService {
           matchAuthor,
           matchKeywords,
           matchJufo,
-          matchJournalName
+          matchJournalName,
+          matchISBN,
+          matchISSN,
+          matchParentPublicationName
         ] as any;
       }
     }
