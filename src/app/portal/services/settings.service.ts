@@ -210,6 +210,49 @@ export class SettingsService {
         }
       }
 
+      const matchJournalName = {
+        match_phrase_prefix: {
+          journalName: {
+            query: term,
+          }
+        }
+      };
+
+      const matchJufo = {
+        match: {
+          jufoCode: {
+            query: term,
+          }
+        }
+      };
+
+      const matchISBN = {
+        match_phrase: {
+          isbn: {
+            query: term,
+            boost: 2
+          }
+        }
+      }
+
+      const matchISSN = {
+        match_phrase: {
+          issn: {
+            query: term,
+            boost: 2
+          }
+        }
+      }
+
+      const matchParentPublicationName = {
+        match_phrase: {
+          parentPublicationName: {
+            query: term,
+            boost: 2
+          }
+        }
+      }
+
       // New match statements
       if (this.target === "name") {
         res.bool.must[1].bool.should = [
@@ -224,7 +267,12 @@ export class SettingsService {
           matchAuthorsTextSplitted,
           // matchAuthorsTextSplittedFuzzy,
           matchAuthor,
-          matchKeywords
+          matchKeywords,
+          matchJufo,
+          matchJournalName,
+          matchISBN,
+          matchISSN,
+          matchParentPublicationName
         ] as any;
       }
     }
