@@ -81,7 +81,9 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
     this.locale = this.appSettingsService.capitalizedLocale;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.addNameToPayload();
+  }
 
   ngOnChanges(): void {
     this.displayData = cloneDeep(this.profileData);
@@ -94,7 +96,13 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
     });
   }
 
+  addNameToPayload() {
+    // Add name to payload as a mandatory field for showing and instant publishing
+
+  }
+
   openDialog(event: MouseEvent, index: number) {
+    // Index represents visible index of the corresponding section in profile summary page Affiliations, Education, etc..
     event.stopPropagation();
     this.showDialog = true;
 

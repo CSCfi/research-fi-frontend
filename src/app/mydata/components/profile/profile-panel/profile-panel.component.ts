@@ -108,6 +108,7 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     if (this.data.id === this.groupTypes.publication) {
       //mergePublications(field);
     }
+    this.enableSaveForAddingName();
   }
 
   ngOnChanges() {
@@ -117,6 +118,15 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   // Fix for Mat Expansion Panel render FOUC
   ngAfterViewInit(): void {
     setTimeout(() => (this.disableAnimation = false));
+  }
+
+  enableSaveForAddingName() {
+    if (this.combinedItems[0]?.firstNames && this.combinedItems[0]?.lastName) {
+      this.patchService.addToPayload({
+        ...this.combinedItems[0].itemMeta,
+        show: true,
+      });
+    }
   }
 
   toggleGroup(index: number) {

@@ -39,7 +39,8 @@ export class ContactCardComponent implements OnInit, OnChanges {
     private profileService: ProfileService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   ngOnChanges(): void {
     this.contactFields = this.filterNameField(this.data[0].fields);
@@ -78,7 +79,7 @@ export class ContactCardComponent implements OnInit, OnChanges {
         }
 
         // Update card & summary data with selection
-        this.contactFields = this.filterNameField(result.fields);
+        this.contactFields = result.fields;
         this.data[0] = result;
 
         this.draftService.saveDraft(this.data);

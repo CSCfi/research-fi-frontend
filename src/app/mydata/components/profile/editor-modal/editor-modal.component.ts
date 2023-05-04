@@ -109,7 +109,7 @@ export class EditorModalComponent implements OnInit {
     this.primarySource = this.editorData.primarySource;
     this.dialogActions = this.basicDialogActions;
 
-    this.checkAllSelected();
+    this.itemClicked();
 
     switch (this.dialogData.data.id) {
       case 'publication': {
@@ -152,11 +152,10 @@ export class EditorModalComponent implements OnInit {
       this.portalItemGroupStringPlural?.toLowerCase();
   }
 
-  checkAllSelected() {
+  itemClicked() {
     const fields = this.editorData.fields;
 
     const items = fields
-      .filter((field) => !field.single)
       .flatMap((field) => field.items);
 
     this.toggleAllDisabled = items.length === 0;
@@ -193,7 +192,7 @@ export class EditorModalComponent implements OnInit {
     });
 
     this.editorData = { ...copy };
-
+    this.itemClicked();
     this.patchService.addToPayload(patchItems);
   }
 
@@ -225,7 +224,7 @@ export class EditorModalComponent implements OnInit {
 
     if (event.index === 0) {
       this.dialogActions = [...this.basicDialogActions];
-      this.checkAllSelected();
+      this.itemClicked();
     } else if (event.index === 1) {
       this.dialogActions = [...this.searchFromPortalDialogActions];
       this.selectedItems = [];

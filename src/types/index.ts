@@ -25,11 +25,13 @@ export type TableColumn = {
 };
 
 export type TableRow = {
+  entryId?: string | number;
   label?: string | number;
   link?: string;
   template?: ElementRef<any>;
   title?: string;
   value?: any;
+  checkboxDisabled?: boolean;
 };
 
 // Filters

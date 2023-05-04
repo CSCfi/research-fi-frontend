@@ -17,6 +17,21 @@
 <div class="d-block mt-3">
   <ng-container *ngFor="let field of contactFields; let i = index">
     <ng-container [ngSwitch]="field.id">
+      <ng-container *ngSwitchCase="'name'">
+        <div
+          class="row py-2"
+          *ngIf="field.items[0].value"
+        >
+          <div class="col px-0">
+            <span
+              class="fw-bold d-inline-block pe-3"
+              *ngIf="data[0].fields.length > 1"
+            >{{ field.label }}
+            </span>
+            <span>{{field.items[0].value}}</span>
+          </div>
+        </div>
+      </ng-container>
       <ng-container *ngSwitchCase="'otherNames'">
         <div
           class="row py-2"
