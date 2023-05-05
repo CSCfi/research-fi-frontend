@@ -279,9 +279,13 @@ export class SettingsService {
 
     if (index === 'person') {
       // New match statements
-      if (this.target === "name") {
-        (res.bool.must[1].bool as any).must_not = [
-          {"match_all": {}}
+      if (this.target === 'name') {
+        (res as any).bool.must[1].bool.should = [
+          {
+            match: {
+              'personal.names.fullName': term
+            }
+          }
         ];
       } else {
         res.bool.must[1].bool.should = [
