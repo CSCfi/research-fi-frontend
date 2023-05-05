@@ -90,19 +90,8 @@
       <!-- item from search (portal) -->
 
       <ng-container *ngIf="_item.title">
-        <!--<app-activity-item [rows]="summary ? [_item.title, _item.publicationYear] : [_item.title, _item.authors, _item.publicationYear]" [smallLastItem]="true"></app-activity-item>-->
-
-        <ng-container *ngIf='summary === true'>
-          <app-activity-item [rows]="[_item.title, _item.publicationYear]" [smallLastItem]="true"></app-activity-item>
-        </ng-container>
-
-        <ng-container *ngIf='summary === false'>
-          <app-activity-item [rows]="[_item.title, _item.authors, _item.publicationYear]" [smallLastItem]="true"></app-activity-item>
-        </ng-container>
-
+        <app-activity-item [rows]="summary ? [_item.title, _item.publicationYear] : [_item.title, _item.authors, _item.publicationYear]" [smallLastItem]="true"></app-activity-item>
       </ng-container>
-
-
 
       <ng-container *ngIf="!_item.title">
         <app-activity-item [rows]="summary ? [_item.publicationName, _item.publicationYear] : [_item.publicationName, _item.authors, _item.publicationYear]" [smallLastItem]="true"></app-activity-item>
