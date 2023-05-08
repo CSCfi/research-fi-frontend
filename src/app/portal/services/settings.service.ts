@@ -287,6 +287,14 @@ export class SettingsService {
             }
           }
         ];
+      } else if (this.target === "keywords") {
+        (res as any).bool.must[1].bool.should = [
+          {
+            match: {
+              'personal.keywords.value': term
+            }
+          }
+        ];
       } else {
         res.bool.must[1].bool.should = [
         {
