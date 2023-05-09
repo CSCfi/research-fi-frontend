@@ -29,7 +29,7 @@
       "
       [ngClass]="column.class ? column.class : 'col-auto'"
       [class.icon-cell]="column.key === 'icon'"
-      [class.dense]="dense"
+      [class.dense]="'dense'"
     >
       <ng-container [ngSwitch]="column.key">
         <!-- Select all -->
@@ -80,7 +80,7 @@
       [class.icon-cell]="column.key === 'icon'"
       [class.active-cell]="row[activeRowIdentifierField]?.value"
       [class.borders]="borders"
-      [class.dense]="dense"
+      [class.dense]="'dense'"
     >
       <!-- Optional icon -->
       <ng-container *ngIf="column.key === 'icon' && iconLinkField">
@@ -104,10 +104,11 @@
       <ng-container *ngSwitchCase="'selection'">
         <mat-checkbox
           #rowSelect
+          [disabled]="row[column.key].checkboxDisabled"
           [checked]="
-            currentSelection.indexOf((pageNumber - 1) * pageSize + i) > -1
+            currentSelection.indexOf((pageNumber - 1) * pageSize + i) > -1 || currentSelection.includes(row[column.key].entryId)
           "
-          (change)="handleSelection($event, i)"
+          (change)="handleSelection($event, i, row[column.key].entryId)"
         >
         </mat-checkbox>
       </ng-container>

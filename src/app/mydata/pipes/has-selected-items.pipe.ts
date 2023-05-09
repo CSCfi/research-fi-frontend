@@ -12,10 +12,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class HasSelectedItemsPipe implements PipeTransform {
   transform(data: any): boolean {
-    if (data.length) {
+    if (data?.length) {
       return data.some((group) => group.items.find((el) => el.itemMeta.show));
-    } else {
+    } else if (data?.items) {
       return data.items.some((item) => item.itemMeta.show);
-    }
+    } else return false;
   }
 }
