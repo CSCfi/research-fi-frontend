@@ -3981,8 +3981,8 @@
         <target state="translated">Publications from Finnish universities, universities of applied sciences, research institutes and university hospitals.</target>
       </trans-unit>
       <trans-unit id="authorsTooltip">
-        <source>Suomessa toimivia tutkijoita.</source>
-        <target>Researchers working in Finland.</target>
+        <source>Suomalaiseen tutkimukseen liittyviä tutkijoita ja tutkimuksen asiantuntijoita.</source>
+        <target>Researchers and research experts related to Finnish research.</target>
       </trans-unit>
       <trans-unit id="fundingsTooltip">
         <source>Suomalaisten julkisten ja yksityisten tutkimusrahoittajien rahoituspäätöksiä siitä alkaen, kun rahoittaja on liittynyt palveluun. EU:n suomalaisille organisaatioille myöntämät rahoituspäätökset Horizon 2020 puiteohjelmasta alkaen.</source>
