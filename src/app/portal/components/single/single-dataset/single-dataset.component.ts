@@ -127,6 +127,7 @@ export class SingleDatasetComponent implements OnInit {
     { label: 'DOI', field: 'doi', tooltip: '' },
     { label: 'URN', field: 'urn', tooltip: '' },
     { label: 'URL', field: 'fairdataUrl', tooltip: '' },
+    { label: 'URL', field: 'url', tooltip: '' },
   ];
 
   relatedList = [
