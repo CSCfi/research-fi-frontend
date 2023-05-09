@@ -162,7 +162,7 @@
         </div>
 
         <!-- Publications -->
-        <div class='row content'>
+        <div *ngIf="person.publications.length > 0" class='row content'>
           <div class='col'>
             <h3 class='p-0'>{{ "Julkaisut" }} ({{ person.publications.length }})</h3>
 
