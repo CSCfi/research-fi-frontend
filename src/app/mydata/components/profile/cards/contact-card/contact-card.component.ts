@@ -42,7 +42,7 @@ export class ContactCardComponent implements OnInit, OnChanges {
   ngOnInit(): void {}
 
   ngOnChanges(): void {
-    this.contactFields = this.filterNameField(this.data[0].fields);
+    //this.contactFields = this.filterNameField(this.data[0].fields);
   }
 
   openDialog(event: MouseEvent) {

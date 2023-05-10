@@ -53,7 +53,7 @@ export class TableComponent implements OnInit {
   @Input() pageSize: number;
 
   @Output() onSortChange = new EventEmitter<Sort>();
-  @Output() onSelectionChange = new EventEmitter<number>();
+  @Output() onSelectionChange = new EventEmitter<number | string>();
   @Output() onToggleSelectAll = new EventEmitter();
 
   displayedColumns: string[];
@@ -107,8 +107,12 @@ export class TableComponent implements OnInit {
     }
   }
 
-  handleSelection(_event: MatCheckboxChange, index: number) {
-    this.onSelectionChange.emit(index);
+  handleSelection(_event: MatCheckboxChange, index: number, elementId?: string) {
+    if (elementId?.length > 0) {
+      this.onSelectionChange.emit(elementId);
+    } else {
+      this.onSelectionChange.emit(index);
+    }
   }
 
   // User is able to select all entries

@@ -148,6 +148,12 @@ export class ProfileService {
     }
   }
 
+  clearDraftProfile() {
+    if (this.appSettingsService.isBrowser) {
+      sessionStorage.removeItem(Constants.draftProfile);
+    }
+  }
+
   async patchObjects(items) {
     await this.updateToken();
     let body = { groups: [], items: items };

@@ -39,7 +39,7 @@ export class DataSourcesTableComponent
   implements OnInit, AfterViewInit, OnChanges, OnDestroy
 {
   @Input() data: any;
-  @Output() onSelectionChange = new EventEmitter<number[]>();
+  @Output() onSelectionChange = new EventEmitter<string[]>();
 
   public fieldTypes = FieldTypes;
 
@@ -94,7 +94,7 @@ export class DataSourcesTableComponent
   maxContentLength = 35;
   mobileStatusSub: Subscription;
   mobile: boolean;
-  currentSelection: number[] = [];
+  rowCheckboxTicks: string[] = [];
   allSelected: boolean;
 
   constructor(
@@ -222,7 +222,7 @@ export class DataSourcesTableComponent
 
     for (const [index, item] of this.rawProfileRows.entries()) {
       rows.push({
-        selection: {},
+        selection: { checkboxDisabled: item.itemMeta.type === 110, entryId: item.itemMeta.temporaryUniqueId.toString() },
         name: { label: item.groupLabel },
         content: { template: contentCellItems[index] },
         public: {
@@ -317,27 +317,26 @@ export class DataSourcesTableComponent
     this.sortDirection = sort.direction;
   }
 
-  handleSelection(selectedRowIndex) {
-    const rowIndex = (this.pageNumber - 1) * this.pageSize + selectedRowIndex;
-
-    this.currentSelection.find((index) => index === rowIndex) !== undefined
-      ? (this.currentSelection = this.currentSelection.filter(
-          (index) => index !== rowIndex
+  handleSelection(selectedRowUniqueId) {
+    this.rowCheckboxTicks.find((index) => index === selectedRowUniqueId) !== undefined
+      ? (this.rowCheckboxTicks = this.rowCheckboxTicks.filter(
+          (index) => index !== selectedRowUniqueId
         ))
-      : this.currentSelection.push(rowIndex);
-
-    this.onSelectionChange.emit(this.currentSelection);
-    this.allSelected = this.currentSelection.length === this.tableRows.length;
+      : this.rowCheckboxTicks.push(selectedRowUniqueId);
+    this.onSelectionChange.emit(this.rowCheckboxTicks);
+    this.allSelected = this.rowCheckboxTicks.length + 1 === this.tableRows.length;
   }
 
   handleSelectAll(event: MatCheckboxChange) {
-    const rowIds = event.checked
-      ? this.tableRows.map((_row, index) => index)
+    let rowIds = event.checked
+      ? this.tableRows.map((_row, index) => {
+        if (_row.selection.checkboxDisabled === false) return _row.selection.entryId.toString()})
       : [];
 
-    this.currentSelection = rowIds;
+    rowIds = rowIds.filter(item => !!item);
+    this.rowCheckboxTicks = rowIds.map(String);
 
-    this.onSelectionChange.emit(rowIds);
+    this.onSelectionChange.emit(this.rowCheckboxTicks);
     this.allSelected = event.checked;
   }
 

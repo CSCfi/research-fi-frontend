@@ -108,6 +108,7 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
     if (this.data.id === this.groupTypes.publication) {
       //mergePublications(field);
     }
+    this.enableSaveForAddingName();
   }
 
   ngOnChanges() {
@@ -117,6 +118,35 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   // Fix for Mat Expansion Panel render FOUC
   ngAfterViewInit(): void {
     setTimeout(() => (this.disableAnimation = false));
+  }
+
+  enableSaveForAddingName() {
+    let noNameSelected = true;
+    this.combinedItems.forEach(item => {
+      if (item?.firstNames && item?.lastName && item.itemMeta.show) {
+        noNameSelected = false;
+        // Add item to payload to enable publishing profile only with name
+        this.patchService.addToPayload({
+          ...item.itemMeta,
+          show: true,
+        });
+      }
+    });
+
+    // Add first name occurence to payload, in case no name was visible
+    if (noNameSelected) {
+      this.combinedItems.every(item => {
+        if (item?.firstNames && item?.lastName) {
+          this.patchService.addToPayload({
+            ...item.itemMeta,
+            show: true,
+          });
+          return false;
+        } else {
+          return true;
+        }
+      });
+    }
   }
 
   toggleGroup(index: number) {
