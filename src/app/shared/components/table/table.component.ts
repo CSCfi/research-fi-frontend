@@ -108,7 +108,11 @@ export class TableComponent implements OnInit {
   }
 
   handleSelection(_event: MatCheckboxChange, index: number, elementId?: string) {
-    elementId?.length > 0 ? this.onSelectionChange.emit(elementId) : this.onSelectionChange.emit(index);
+    if (elementId?.length > 0) {
+      this.onSelectionChange.emit(elementId);
+    } else {
+      this.onSelectionChange.emit(index);
+    }
   }
 
   // User is able to select all entries

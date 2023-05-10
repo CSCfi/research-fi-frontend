@@ -39,7 +39,7 @@ export class DataSourcesTableComponent
   implements OnInit, AfterViewInit, OnChanges, OnDestroy
 {
   @Input() data: any;
-  @Output() onSelectionChange = new EventEmitter<number[]>();
+  @Output() onSelectionChange = new EventEmitter<string[]>();
 
   public fieldTypes = FieldTypes;
 
@@ -94,7 +94,7 @@ export class DataSourcesTableComponent
   maxContentLength = 35;
   mobileStatusSub: Subscription;
   mobile: boolean;
-  rowCheckboxTicks = [];
+  rowCheckboxTicks: string[] = [];
   allSelected: boolean;
 
   constructor(
@@ -337,30 +337,6 @@ export class DataSourcesTableComponent
     this.rowCheckboxTicks = rowIds.map(String);
 
     this.onSelectionChange.emit(this.rowCheckboxTicks);
-    this.allSelected = event.checked;
-  }
-
-  handleSelectionOld(selectedRowIndex) {
-    const rowIndex = (this.pageNumber - 1) * this.pageSize + selectedRowIndex;
-
-    this.rowCheckboxTicks.find((index) => index === rowIndex) !== undefined
-      ? (this.rowCheckboxTicks = this.rowCheckboxTicks.filter(
-          (index) => index !== rowIndex
-        ))
-      : this.rowCheckboxTicks.push(rowIndex);
-
-    this.onSelectionChange.emit(this.rowCheckboxTicks);
-    this.allSelected = this.rowCheckboxTicks.length === this.tableRows.length;
-  }
-
-  handleSelectAllOld(event: MatCheckboxChange) {
-    const rowIds = event.checked
-      ? this.tableRows.map((_row, index) => index)
-      : [];
-
-    this.rowCheckboxTicks = rowIds;
-
-    this.onSelectionChange.emit(rowIds);
     this.allSelected = event.checked;
   }
 
