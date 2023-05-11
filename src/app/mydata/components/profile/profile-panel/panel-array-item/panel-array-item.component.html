@@ -72,7 +72,29 @@
       </ng-template>
     </ng-container>
 
-    <ng-container *ngSwitchCase="fieldTypes.activityActivitesAndRewards">
+    <ng-container *ngSwitchCase="fieldTypes.activityDatasetOrcid">
+      <ng-container *ngIf="_item?.name; else localized">
+        <app-activity-item
+          [rows]="[_item['name'], _item.year]"
+          [smallLastItem]="true"
+        ></app-activity-item>
+      </ng-container>
+      <ng-template #localized>
+        <app-activity-item
+          [rows]="[_item['name' + locale], _item.datasetCreated]"
+          [smallLastItem]="true"
+        ></app-activity-item>
+      </ng-template>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="fieldTypes.activityActivitiesAndRewards">
+      <app-activity-item
+        [rows]="[_item.name, _item.timing]"
+        [smallLastItem]="true"
+      ></app-activity-item>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="fieldTypes.activityActivitiesAndRewardsOrcid">
       <app-activity-item
         [rows]="[_item.name, _item.timing]"
         [smallLastItem]="true"
@@ -80,6 +102,13 @@
     </ng-container>
 
     <ng-container *ngSwitchCase="fieldTypes.activityFunding">
+      <app-activity-item
+        [rows]="[_item.name, _item.funder.name, _item.year]"
+        [smallLastItem]="true"
+      ></app-activity-item>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="fieldTypes.activityFundingOrcid">
       <app-activity-item
         [rows]="[_item.name, _item.funder.name, _item.year]"
         [smallLastItem]="true"

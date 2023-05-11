@@ -102,11 +102,18 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
     this.initialProfileData = myDataProfile.profileData;
 
     // Initial approach on keywords aims to display all keywords as joined list
-    this.handleKeywords(this.initialProfileData);
+    this.storeOriginalKeywords(this.initialProfileData);
 
     // Get active filters from query parameters
     // Match params with filters config that filter keys match
     this.queryParamsSub = this.route.queryParams.subscribe((queryParams) => {
+      this.doFiltering(queryParams)
+    });
+    this.setSortOptions();
+  }
+
+  doFiltering(queryParams: any){
+    {
       const filterConfigFields = FiltersConfig.map((item) => item.field);
       const activeFilters = {};
 
@@ -144,9 +151,7 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
           ? filterData(this.initialProfileData, activeFilters)
           : this.initialProfileData;
       this.activeSort = queryParams.sort;
-    });
-
-    this.setSortOptions();
+    }
   }
 
   async reloadProfileData(activeFilters: any) {
@@ -159,14 +164,16 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
               cloneDeep(value.profileData)
             );
             this.initialProfileData = clone(value.profileData);
-            this.visibleData = cloneDeep(value.profileData);
+            //this.visibleData = cloneDeep(value.profileData);
+            this.storeOriginalKeywords(this.initialProfileData);
+            this.clearFilters();
           }
         });
   }
 
   // Method for displaying keywords as single item.
   // Original values are stored for patch operation.
-  handleKeywords = (data) => {
+  storeOriginalKeywords = (data) => {
     const descriptionGroup = data.find((group) => group.id === 'description');
     if (descriptionGroup) {
       const keywordsField = descriptionGroup.fields.find(
@@ -339,7 +346,7 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
     this.selectedItems = selection;
   }
 
-  // Update data after succesfull patch operation
+  // Update data after successful patch operation
   updateData(patchItemsArr) {
     const fields = this.visibleData.flatMap((group) => group.fields);
 

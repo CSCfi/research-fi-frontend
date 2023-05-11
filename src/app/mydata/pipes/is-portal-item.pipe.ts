@@ -21,7 +21,7 @@ export class IsPortalItemPipe implements PipeTransform {
       FieldTypes.activityPublication,
       FieldTypes.activityDataset,
       FieldTypes.activityFunding,
-      FieldTypes.activityActivitesAndRewards,
+      FieldTypes.activityActivitiesAndRewards,
     ];
 
     return (
