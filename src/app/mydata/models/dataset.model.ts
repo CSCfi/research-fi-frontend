@@ -27,6 +27,7 @@ export class DatasetFieldsAdapter implements Adapter<DatasetFields> {
     item.researchDatasets = item.researchDatasets.map((dataset) => ({
       ...this.datasetAdapter.adapt(dataset),
       itemMeta: dataset.itemMeta,
+      dataSources: dataset.dataSources,
     }));
 
     return new DatasetFields(

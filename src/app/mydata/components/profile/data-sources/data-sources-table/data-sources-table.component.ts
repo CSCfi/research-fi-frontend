@@ -187,7 +187,9 @@ export class DataSourcesTableComponent
             break;
           }
           case FieldTypes.activityDataset:
+          case FieldTypes.activityDatasetOrcid:
           case FieldTypes.activityFunding:
+          case FieldTypes.activityFundingOrcid:
           case FieldTypes.activityActivitiesAndRewards: {
             displayValue = item.name;
             break;
