@@ -9,6 +9,7 @@ import { cloneDeep } from 'lodash-es';
 import { Constants } from '@mydata/constants';
 import { getName } from '@mydata/utils';
 import { SnackbarService } from '@mydata/services/snackbar.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-account-settings',
@@ -68,6 +69,12 @@ export class AccountSettingsComponent implements OnInit {
   hideProfileModalTitle = $localize`:@@hideProfileModalTitle:Haluatko piilottaa julkisen profiilisi?`;
   generalInfoHideProfile = $localize`:@@accountSettingsHideAccountInfo:Julkisen profiilin piilottaminen tarkoittaa sitä, että profiilisi piilotetaan Tiedejatutkimus.fi-portaalista. Voit edelleen kirjautua työkaluun ja julkaista profiilisi uudestaan.`;
   hideProfileModalText = $localize`:@@accountSettingsHideAccountModalText:Julkisen profiilin piilottaminen tarkoittaa sitä, että profiilisi piilotetaan Tiedejatutkimus.fi-portaalista. Voit edelleen kirjautua työkaluun ja julkaista profiilisi uudestaan.`;
+
+  showProfileTitle = $localize`:@@showProfileCaption:Julkisen profiilin palauttaminen`;
+  showProfileModalTitle = $localize`:@@showProfileModalTitle:Haluatko palauttaa julkisen profiilisi?`;
+  generalInfoShowProfile = $localize`:@@accountSettingsShowAccountInfo:Julkisen profiilin palauttaminen tarkoittaa sitä, että profiilisi löytyy Tiedejatutkimus.fi-portaalista.`;
+  showProfileModalText = $localize`:@@accountSettingsShowAccountModalText:Julkisen profiilin palauttaminen tarkoittaa sitä, että profiilisi löytyy Tiedejatutkimus.fi-portaalista.`;
+
   hideProfileDialogActions = [
     { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'close' },
     {
@@ -80,7 +87,7 @@ export class AccountSettingsComponent implements OnInit {
   showProfileDialogActions = [
     { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'close' },
     {
-      label: $localize`:@@showProfile:Näytä profiili`,
+      label: $localize`:@@showProfile:Palauta profiili`,
       primary: true,
       method: 'showPublicProfile',
     },
@@ -110,6 +117,7 @@ export class AccountSettingsComponent implements OnInit {
     },
   ];
 
+  profileVisibility$ = this.profileService.getProfileVisibility();
 
   constructor(public profileService: ProfileService, private router: Router, private route: ActivatedRoute, public dialog: MatDialog, public oidcSecurityService: OidcSecurityService,  private snackbarService: SnackbarService) { }
 
@@ -151,6 +159,9 @@ export class AccountSettingsComponent implements OnInit {
         this.hidePublicProfile();
         break;
       }
+      case 'showPublicProfile': {
+        this.showPublicProfile();
+      }
       case 'changeOrcidFetchState': {
         this.enableOrDisableOrcidFetching();
         break;
@@ -178,8 +189,21 @@ export class AccountSettingsComponent implements OnInit {
     }
   }
 
-  showPublicProfile() {
-    // TODO: replace stub when back end implementation ready
+  async showPublicProfile() {
+    await this.profileService.showProfile();
+
+    try {
+      this.hideProfileInProgress = true;
+      await this.profileService.showProfile();
+
+      this.hideProfileInProgress = false;
+      this.snackbarService.show(
+      $localize`:@@profileVisibleToast:Profiilin palauttaminen onnistui. Profiilisi palautetaan Tiedejatutkimus.fi -palveluun muutaman minuutin kuluttua.`,
+      'success'
+    );
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   hidePublicProfile() {
@@ -191,7 +215,7 @@ export class AccountSettingsComponent implements OnInit {
         (value) => {
           this.hideProfileInProgress = false;
             this.dialog.closeAll();
-            sessionStorage.setItem('profileHidden', 'true');
+            sessionStorage.setItem('profileHidden', 'true'); // TODO needed?
             this.isProfileHidden = true;
             this.snackbarService.show(
               $localize`:@@profileHiddenToast:Profiilin piilottaminen onnistui. Profiilisi piilotetaan Tiedejatutkimus.fi -palvelusta muutaman minuutin kuluttua.`,
@@ -204,6 +228,7 @@ export class AccountSettingsComponent implements OnInit {
           this.connProblemHideProfile = true;
         },);
   }
+
 
   deleteProfile() {
     this.deleteProfileInProgress = true;

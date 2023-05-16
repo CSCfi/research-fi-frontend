@@ -31,7 +31,7 @@ import { UtilityService } from '@shared/services/utility.service';
 import { DatasetsService } from '@mydata/services/datasets.service';
 import { FundingsService } from '@mydata/services/fundings.service';
 import { CollaborationsService } from '@mydata/services/collaborations.service';
-import { lastValueFrom, Observable, Subject, timer, BehaviorSubject } from 'rxjs';
+import { lastValueFrom, Observable, Subject, timer, BehaviorSubject, combineLatest } from 'rxjs';
 import { cloneDeep } from 'lodash-es';
 import { Person } from '@portal/models/person/person.model';
 import { SingleItemService } from '@portal/services/single-item.service';
@@ -57,6 +57,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
   discardChanges = $localize`:@@discardChanges:Hylkää muutokset`;
   termsForTool = CommonStrings.termsForTool;
   processingOfPersonalData = CommonStrings.processingOfPersonalData;
+
+  republishUpdatedProfile = $localize`:@@republishProfile:Palauta profiili`;
+  republishText = $localize`:@@republish:Palauta profiili`;
+
 
   // Dialog variables
   showDialog: boolean;
@@ -92,6 +96,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
     },
   ];
 
+  republishActions = [
+    { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'close' },
+    {
+      label: this.republishText,
+      primary: true,
+      method: 'republish',
+    },
+  ];
+
   connProblem: boolean;
   loading: boolean;
 
@@ -106,6 +119,27 @@ export class ProfileComponent implements OnInit, OnDestroy {
   person$ = new BehaviorSubject<Person>(null);
 
   hasProfile$: Observable<boolean>;
+  profileVisible$ = this.profileService.getProfileVisibility();
+
+  /*<ng-container *ngIf="
+  (publicationsService.currentPublicationPayload | async).length ||
+  (datasetsService.currentDatasetPayload | async).length ||
+  (fundingsService.currentFundingPayload | async).length ||
+  (patchService.currentPatchItems | async).length ||
+  (collaborationsService.currentCollaborationsPayload | async).length">*/
+
+  // Equivalent Observable to the above ng-container AND turned into proper boolean type
+  edited$ = combineLatest([
+    this.publicationsService.currentPublicationPayload,
+    this.datasetsService.currentDatasetPayload,
+    this.fundingsService.currentFundingPayload,
+    this.patchService.currentPatchItems,
+    this.collaborationsService.currentCollaborationsPayload,
+  ]).pipe(
+    map(([pubs, datasets, fundings, patches, collabs]) => !!(pubs.length || datasets.length || fundings.length || patches.length || collabs.length))
+  );
+
+
 
   constructor(
     public profileService: ProfileService,
@@ -238,6 +272,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
       case 'discard': {
         this.reset();
+        break;
+      }
+      case 'republish': {
+        console.log("REPUBLISH");
+        this.republish();
         break;
       }
     }
@@ -376,6 +415,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
     this.profileService.setCurrentProfileData(this.profileData);
 
+    await this.setProfileVisible();
     await this.pollProfile();
   }
 
@@ -423,27 +463,54 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   private updatePerson() {
+    console.log("updating person");
     const id = this.orcid;
 
     const source = this.singleItemService.getSinglePerson(id);
 
-    source.subscribe((search) => {
-      const person = search.persons[0] as Person;
+    source.subscribe({
+        next: (search) => {
+          const person = search.persons[0] as Person;
 
-      if (person != null) {
-        this.person$.next(person);
+          console.log("search", search);
+
+          if (person != null) {
+            this.person$.next(person);
+          }
+        },
+        error: (error) => {
+          console.error("Error in updating person", error);
+        }
       }
-    });
+    );
 
     return source;
   }
 
+  private async setProfileVisible() {
+    await this.profileService.showProfile();
+  }
+
+  async republish() {
+
+
+    try {
+      const response = await this.setProfileVisible();
+      await this.pollProfile();
+      this.snackbarService.showPatchMessage('success');
+    } catch (error) {
+      console.error(`Error in data patching`, error);
+    }
+  }
+
   private async pollProfile() {
     let response;
-    const delays = [2000, 2000, 2000, 22000];
+    const delays = [2000, 2000, 2000, 2000, 20000];
 
     for (const delay of delays) {
       await lastValueFrom(timer(delay));
+      console.log("polling profile");
+
       response = await lastValueFrom(this.updatePerson());
 
       if (response != null) { return; }
