@@ -21,29 +21,35 @@
       </div>
 
       <div class="col-6 col-md-6 d-flex justify-content-end align-items-center">
-        <ng-container *ngIf="
-            (publicationsService.currentPublicationPayload | async).length ||
-            (datasetsService.currentDatasetPayload | async).length ||
-            (fundingsService.currentFundingPayload | async).length ||
-            (patchService.currentPatchItems | async).length ||
-            (collaborationsService.currentCollaborationsPayload | async).length">
+        <ng-container *ngIf="(profileVisible$ | async) === false && (edited$ | async) === false">
 
+          <div class="col-auto me-3" i18n="@@mydata.profile.profile-is-hidden">
+            Olet piilottanut profiilisi Tiedejatutkimus.fi-palvelusta
+          </div>
 
-            <app-primary-action-button class="col-auto"i18n-content="@@publishEllipsis" content="Julkaise..." (click)="openDialog(publishUpdatedProfile,publishUpdatedProfileTemplate,dataToPublishTemplate,publishUpdatedProfileDialogActions,false)"></app-primary-action-button>
-
-            <!-- Discard draft -->
-            <button class="col-auto pe-lg-0" mat-button color="primary" i18n="@@discardChanges" (click)="openDialog(discardChanges, discardChangesTemplate, undefined, discardChangesActions, false)">
-              Hylkää muutokset
-            </button>
-
-            <ng-template #discardChangesTemplate>
-              <p i18n="@@discardSessionChanges">
-                Hylätäänkö julkaisemattomat muutokset?
-              </p>
-            </ng-template>
+          <app-primary-action-button class="col-auto" i18n-content="@@publishEllipsis" content="Julkaise..."
+                                     (click)="openDialog(republishUpdatedProfile,republishUpdatedProfileTemplate,dataToPublishTemplate,republishActions,false)"></app-primary-action-button>
 
 
         </ng-container>
+
+        <ng-container *ngIf="(edited$ | async) === true">
+
+          <app-primary-action-button class="col-auto" i18n-content="@@publishEllipsis" content="Julkaise..." (click)="openDialog(publishUpdatedProfile,publishUpdatedProfileTemplate,dataToPublishTemplate,publishUpdatedProfileDialogActions,false)"></app-primary-action-button>
+
+          <!-- Discard draft -->
+          <button class="col-auto pe-lg-0" mat-button color="primary" i18n="@@discardChanges" (click)="openDialog(discardChanges, discardChangesTemplate, undefined, discardChangesActions, false)">
+            Hylkää muutokset
+          </button>
+        </ng-container>
+
+        <ng-template #discardChangesTemplate>
+            <p i18n="@@discardSessionChanges">
+              Hylätäänkö julkaisemattomat muutokset?
+            </p>
+          </ng-template>
+
+
       </div>
 
       <!-- <div class="col-5 d-none d-md-block px-lg-0">
@@ -90,6 +96,24 @@
           <p class="col">
             <ng-container i18n="@@updatedProfilePublishedAt">
               Valitsemalla "Julkaise", valitsemasi tiedot julkaistaan
+              Tiedejatutkimus.fi-palvelussa.
+            </ng-container>
+
+            <br />
+
+            <ng-container i18n="@@updatingPublicDataTakesFewMinutes">
+              Tietojen päivittyminen voi kestää muutaman
+              minuutin.
+            </ng-container>
+          </p>
+        </div>
+      </ng-template>
+
+      <ng-template #republishUpdatedProfileTemplate>
+        <div class="row">
+          <p class="col">
+            <ng-container i18n="@@updatedProfilePublishedAt">
+              Valitsemalla "Palauta", valitsemasi tiedot julkaistaan
               Tiedejatutkimus.fi-palvelussa.
             </ng-container>
 

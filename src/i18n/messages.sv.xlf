@@ -6229,6 +6229,36 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         </context-group>
       </trans-unit>
 
+      <trans-unit id="mydata.profile.profile-is-hidden" datatype="html">
+        <source>Olet piilottanut profiilisi Tiedejatutkimus.fi-palvelusta</source>
+        <target>Du har dold din profil från Forskning.fi-tjänsten</target>
+      </trans-unit>
+
+      <trans-unit id="mydata.profile.republish-modal.title" datatype="html">
+        <source>Julkaise piilotettu profiili</source>
+        <target>Publicera dold profil</target>
+      </trans-unit>
+
+      <trans-unit id="mydata.account.title-for-hide" datatype="html">
+        <source>Julkaise piilotettu profiili</source>
+        <target>Publicera dold profil</target>
+      </trans-unit>
+
+      <trans-unit id="mydata.account.text-for-hide" datatype="html">
+        <source>Piilottamasi profiili julkaistaan uudestaan niillä tiedoilla, jotka olet aiemmin valinnut julkisiksi Tiedejatutkimus.fi-palveluun.</source>
+        <target>Profilen du döljer publiceras igen med information som du tidigare har valt för allmänhetens tillgång till Forskning.fi.</target>
+      </trans-unit>
+
+      <trans-unit id="mydata.account.hide-modal.title" datatype="html">
+        <source>Haluatko julkaista piilottamasi profiilin?</source>
+        <target>Vill du publicera profilen du har dold?</target>
+      </trans-unit>
+
+      <trans-unit id="mydata.account.hide-modal.text" datatype="html">
+        <source>Piilottamasi profiili julkaistaan uudestaan niillä tiedoilla, jotka olet aiemmin valinnut julkisiksi Tiedejatutkimus.fi-palveluun.</source>
+        <target>Profilen du döljer publiceras igen med information som du tidigare har valt för allmänhetens tillgång till Forskning.fi.</target>
+      </trans-unit>
+
     </body>
   </file>
 </xliff>

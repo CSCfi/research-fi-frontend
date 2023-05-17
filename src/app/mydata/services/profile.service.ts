@@ -40,6 +40,8 @@ export class ProfileService {
   userData = this.userDataSource.asObservable();
   orcidUserProfile: Record<string, unknown>; // Set via orcid-profile-resolver
 
+  private profileVisibility$ = new BehaviorSubject(false);
+
   constructor(
     private http: HttpClient,
     private appConfigService: AppConfigService,
@@ -49,6 +51,8 @@ export class ProfileService {
     private appSettingsService: AppSettingsService
   ) {
     this.apiUrl = this.appConfigService.profileApiUrl;
+
+    this.initializeProfileVisibility();
   }
   async updateToken(options?: { bypassOrcidCheck: boolean }): Promise<any> {
     await firstValueFrom(this.oidcSecurityService.getAccessToken()).then((token) => {
@@ -116,9 +120,70 @@ export class ProfileService {
     return await firstValueFrom(this.http.delete(this.apiUrl + '/userprofile/', this.httpOptions));
   }
 
-   async hideProfile() {
+  private async isProfileVisible() {
+     return await firstValueFrom(this.http.get(this.apiUrl + '/settings/', this.httpOptions));
+
+     // TODO katso responsen muoto, päivitä BehaviourSubject:iin
+
+
+      // {
+      //   "success": true,
+      //   "reason": "string",
+      //   "fromCache": true,
+      //   "data": {
+      //     "hidden": true
+      //   }
+      // }
+  }
+
+  async initializeProfileVisibility() {
      await this.updateToken();
-     return await firstValueFrom(this.http.get(this.apiUrl + '/settings/hideprofile', this.httpOptions));
+     let value;
+
+     try {
+      value = await firstValueFrom(this.http.get(this.apiUrl + '/settings/', this.httpOptions));
+     } catch (error) {
+       console.error(error);
+     }
+
+     this.profileVisibility$.next(!value.data.hidden);
+
+     return value;
+  }
+
+  public getProfileVisibility() {
+    return this.profileVisibility$.asObservable();
+  }
+
+  async hideProfile() {
+    const body = { hidden: true };
+    let value;
+
+    try {
+      await this.updateToken();
+      value = await firstValueFrom(this.http.post(this.apiUrl + '/settings/', body, this.httpOptions));
+
+      this.profileVisibility$.next(false);
+    } catch (error) {
+      console.error(error);
+    }
+
+     return value;
+  }
+
+  async showProfile() {
+    const body = { hidden: false };
+    let value;
+
+    try {
+      await this.updateToken();
+      value = await firstValueFrom(this.http.post(this.apiUrl + '/settings/', body, this.httpOptions));
+      this.profileVisibility$.next(true);
+    } catch (error) {
+      console.error(error);
+    }
+
+    return value
   }
 
   /*
