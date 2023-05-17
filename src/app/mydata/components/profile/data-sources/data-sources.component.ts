@@ -302,7 +302,7 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
 
     const items = [];
 
-    const filteredGroups = this.visibleData
+    const filteredGroups = this.initialProfileData
       .flatMap((group) => group.fields)
       .filter((field) => field.items.length);
 
