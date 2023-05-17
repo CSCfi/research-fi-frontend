@@ -90,7 +90,7 @@
             <!-- Show profile modal template -->
             <ng-template #showProfileTemplate>
               <p class=" pt-3">
-                {{hideProfileModalText}}
+                {{showProfileModalText}}
               </p>
             </ng-template>
 
@@ -249,7 +249,7 @@
                                 (click)="
                 openDialog({
                   title: hideProfileModalTitle,
-                  template: showProfileTemplate,
+                  template: hideProfileTemplate,
                   actions: hideProfileDialogActions,
                   disableDialogClose: true
                 })
@@ -257,9 +257,6 @@
                                 i18n-content="@@hideProfile"
                                 content="Piilota profiili"
           ></app-secondary-button>
-
-                                                                                                                        <!-- [disabled]="hideProfileInProgress || deleteProfileInProgress || isProfileHidden" -->
-
 
           <!--
           <app-secondary-button *ngIf="isProfileHidden"
@@ -284,7 +281,7 @@
           <div class="row pb-1 mt-4 bordered-section">
           <div class="col-12 px-0">
             <h3>{{showProfileTitle}}</h3>
-          <p class="px-0">{{generalInfoShowProfile}}</p>
+          <p class="px-0">{{showProfileText}}</p>
           </div>
           <br>
           <div class="col-12 px-0 button-row">

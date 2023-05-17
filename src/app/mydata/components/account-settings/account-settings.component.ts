@@ -9,7 +9,6 @@ import { cloneDeep } from 'lodash-es';
 import { Constants } from '@mydata/constants';
 import { getName } from '@mydata/utils';
 import { SnackbarService } from '@mydata/services/snackbar.service';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-account-settings',
@@ -62,18 +61,22 @@ export class AccountSettingsComponent implements OnInit {
   // Hide profile variables
   hideProfileInProgress: boolean;
   connProblemHideProfile: boolean;
-  isProfileHidden = false;
   connectionProblemHideProfile = $localize`:@@connectionProblemHideProfile:Yhteysongelma. Profiilin piilottaminen ei onnistu. Kokeile hetken kuluttua uudestaan....`;
   hideProfileWait = $localize`:@@hideProfileWait:Profiilia piilotetaan, odota hetki...`;
-  hideProfileTitle = $localize`:@@hideProfileCaption:Julkisen profiilin piilottaminen`;
-  hideProfileModalTitle = $localize`:@@hideProfileModalTitle:Haluatko piilottaa julkisen profiilisi?`;
-  generalInfoHideProfile = $localize`:@@accountSettingsHideAccountInfo:Julkisen profiilin piilottaminen tarkoittaa sitä, että profiilisi piilotetaan Tiedejatutkimus.fi-portaalista. Voit edelleen kirjautua työkaluun ja julkaista profiilisi uudestaan.`;
-  hideProfileModalText = $localize`:@@accountSettingsHideAccountModalText:Julkisen profiilin piilottaminen tarkoittaa sitä, että profiilisi piilotetaan Tiedejatutkimus.fi-portaalista. Voit edelleen kirjautua työkaluun ja julkaista profiilisi uudestaan.`;
 
-  showProfileTitle = $localize`:@@showProfileCaption:Julkisen profiilin palauttaminen`;
-  showProfileModalTitle = $localize`:@@showProfileModalTitle:Haluatko palauttaa julkisen profiilisi?`;
-  generalInfoShowProfile = $localize`:@@accountSettingsShowAccountInfo:Julkisen profiilin palauttaminen tarkoittaa sitä, että profiilisi löytyy Tiedejatutkimus.fi-portaalista.`;
-  showProfileModalText = $localize`:@@accountSettingsShowAccountModalText:Julkisen profiilin palauttaminen tarkoittaa sitä, että profiilisi löytyy Tiedejatutkimus.fi-portaalista.`;
+  // HIDE PROFILE
+  hideProfileTitle = $localize`:@@hideProfileCaption:Julkisen profiilin piilottaminen`;
+  generalInfoHideProfile = $localize`:@@accountSettingsHideAccountInfo:Julkisen profiilin piilottaminen tarkoittaa sitä, että profiilisi piilotetaan Tiedejatutkimus.fi-palvelusta. Voit edelleen kirjautua työkaluun ja julkaista profiilisi uudestaan.`;
+
+  hideProfileModalTitle = $localize`:@@hideProfileModalTitle:Haluatko piilottaa julkisen profiilisi?`;
+  hideProfileModalText = $localize`:@@accountSettingsHideAccountModalText:Julkisen profiilin piilottaminen tarkoittaa sitä, että profiilisi piilotetaan Tiedejatutkimus.fi-palvelusta. Voit edelleen kirjautua työkaluun ja julkaista profiilisi uudestaan.`;
+
+  // REPUBLISH PROFILE
+  showProfileTitle = $localize`:@@mydata.account.title-for-hide:Julkaise piilotettu profiili`;
+  showProfileText = $localize`:@@mydata.account.text-for-hide:Piilottamasi profiili julkaistaan uudestaan niillä tiedoilla, jotka olet aiemmin valinnut julkisiksi Tiedejatutkimus.fi-palveluun.`;
+
+  showProfileModalTitle = $localize`:@@mydata.account.hide-modal.title:Haluatko julkaista piilottamasi profiilin?`;
+  showProfileModalText = $localize`:@@mydata.account.hide-modal.text:Piilottamasi profiili julkaistaan uudestaan niillä tiedoilla, jotka olet aiemmin valinnut julkisiksi Tiedejatutkimus.fi-palveluun.`;
 
   hideProfileDialogActions = [
     { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'close' },
@@ -87,7 +90,7 @@ export class AccountSettingsComponent implements OnInit {
   showProfileDialogActions = [
     { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'close' },
     {
-      label: $localize`:@@showProfile:Palauta profiili`,
+      label: $localize`:@@showProfile:Näytä profiili`,
       primary: true,
       method: 'showPublicProfile',
     },
@@ -128,7 +131,6 @@ export class AccountSettingsComponent implements OnInit {
 
     this.orcidData = orcidProfile;
     this.orcid = orcidProfile.orcid;
-    sessionStorage.getItem('profileHidden') === 'true' ? this.isProfileHidden = true : this.isProfileHidden = false;
   }
 
   openDialog(props: { template: TemplateRef<any>; disableDialogClose: boolean; title: string; actions: ({ method: string; label: string; primary: boolean } | { method: string; label: string; primary: boolean })[] }){
@@ -198,7 +200,7 @@ export class AccountSettingsComponent implements OnInit {
 
       this.hideProfileInProgress = false;
       this.snackbarService.show(
-      $localize`:@@profileVisibleToast:Profiilin palauttaminen onnistui. Profiilisi palautetaan Tiedejatutkimus.fi -palveluun muutaman minuutin kuluttua.`,
+      $localize`:@@profilePublishedToast:Profiili julkaistu. Tiedot näkyvät muutaman minuutin kuluttua tiedejatutkimus.fi -palvelussa.`,
       'success'
     );
     } catch (error) {
@@ -215,8 +217,6 @@ export class AccountSettingsComponent implements OnInit {
         (value) => {
           this.hideProfileInProgress = false;
             this.dialog.closeAll();
-            sessionStorage.setItem('profileHidden', 'true'); // TODO needed?
-            this.isProfileHidden = true;
             this.snackbarService.show(
               $localize`:@@profileHiddenToast:Profiilin piilottaminen onnistui. Profiilisi piilotetaan Tiedejatutkimus.fi -palvelusta muutaman minuutin kuluttua.`,
               'success'

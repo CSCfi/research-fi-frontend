@@ -51,16 +51,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
   orcid: string;
   currentProfileName: string;
 
-  mergePublications = mergePublications;
-
   publishUpdatedProfile = $localize`:@@publishUpdatedProfile:Julkaise päivitetty profiili`;
   discardChanges = $localize`:@@discardChanges:Hylkää muutokset`;
   termsForTool = CommonStrings.termsForTool;
   processingOfPersonalData = CommonStrings.processingOfPersonalData;
 
-  republishUpdatedProfile = $localize`:@@republishProfile:Palauta profiili`;
-  republishText = $localize`:@@republish:Palauta profiili`;
-
+  republishUpdatedProfile = $localize`:@@mydata.profile.republish-modal.title:Julkaise piilotettu profiili`;
+  republishText = $localize`:@@publish:Julkaise`;
 
   // Dialog variables
   showDialog: boolean;
@@ -121,14 +118,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   hasProfile$: Observable<boolean>;
   profileVisible$ = this.profileService.getProfileVisibility();
 
-  /*<ng-container *ngIf="
-  (publicationsService.currentPublicationPayload | async).length ||
-  (datasetsService.currentDatasetPayload | async).length ||
-  (fundingsService.currentFundingPayload | async).length ||
-  (patchService.currentPatchItems | async).length ||
-  (collaborationsService.currentCollaborationsPayload | async).length">*/
-
-  // Equivalent Observable to the above ng-container AND turned into proper boolean type
   edited$ = combineLatest([
     this.publicationsService.currentPublicationPayload,
     this.datasetsService.currentDatasetPayload,
@@ -275,7 +264,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
         break;
       }
       case 'republish': {
-        console.log("REPUBLISH");
         this.republish();
         break;
       }
@@ -463,7 +451,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   private updatePerson() {
-    console.log("updating person");
     const id = this.orcid;
 
     const source = this.singleItemService.getSinglePerson(id);
@@ -471,8 +458,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     source.subscribe({
         next: (search) => {
           const person = search.persons[0] as Person;
-
-          console.log("search", search);
 
           if (person != null) {
             this.person$.next(person);

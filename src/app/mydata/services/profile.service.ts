@@ -52,7 +52,7 @@ export class ProfileService {
   ) {
     this.apiUrl = this.appConfigService.profileApiUrl;
 
-    this.foo();
+    this.initializeProfileVisibility();
   }
   async updateToken(options?: { bypassOrcidCheck: boolean }): Promise<any> {
     await firstValueFrom(this.oidcSecurityService.getAccessToken()).then((token) => {
@@ -136,7 +136,7 @@ export class ProfileService {
       // }
   }
 
-  async foo() {
+  async initializeProfileVisibility() {
      await this.updateToken();
      let value;
 
@@ -146,30 +146,9 @@ export class ProfileService {
        console.error(error);
      }
 
-     console.log("hidden:", value.data.hidden);
      this.profileVisibility$.next(!value.data.hidden);
 
-  // {
-  //  "total": 0,
-  //  "publications": [],
-  //  "persons": [],
-  //  "fundings": [],
-  //  "datasets": [],
-  //  "infrastructures": [],
-  //  "organizations": [],
-  //  "fundingCalls": []
-  // }
-
-    // {
-    // "data": {
-    //     "hidden": false
-    // },
-    // "success": true,
-    // "reason": "",
-    // "fromCache": false
-    // }
-
-     return
+     return value;
   }
 
   public getProfileVisibility() {
