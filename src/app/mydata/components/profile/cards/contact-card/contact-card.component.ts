@@ -15,6 +15,7 @@ import { Constants } from '@mydata/constants/';
 import { checkGroupSelected } from '@mydata/utils';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { ProfileService } from '@mydata/services/profile.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-contact-card',
@@ -30,19 +31,29 @@ export class ContactCardComponent implements OnInit, OnChanges {
 
   showDialog: boolean;
   dialogData: any;
+  myDataProfile: any;
+  publishedFullname: string;
+  publishedFullnameLabel: string;
 
   constructor(
     private appSettingsService: AppSettingsService,
     private patchService: PatchService,
     private snackbarService: SnackbarService,
     private draftService: DraftService,
-    private profileService: ProfileService
+    public profileService: ProfileService,
+    private route: ActivatedRoute,
   ) {}
 
-  ngOnInit(): void {}
+
+  ngOnInit(): void {
+    this.myDataProfile = this.route.snapshot.data.myDataProfile;
+  }
 
   ngOnChanges(): void {
-    this.contactFields = this.filterNameField(this.data[0].fields);
+    this.contactFields = this.data[0].fields;
+    this.myDataProfile = this.route.snapshot.data.myDataProfile;
+    this.publishedFullname = null;
+    //this.setVisibleNameById(null);
   }
 
   openDialog(event: MouseEvent) {
@@ -50,35 +61,52 @@ export class ContactCardComponent implements OnInit, OnChanges {
     this.dialogData = { data: cloneDeep(this.data[0]), trigger: event.detail };
   }
 
+  setVisibleNameById(metaId: number) {
+    // Without id, sets current name from profile
+    if (this.myDataProfile) {
+    this.publishedFullname = this.myDataProfile.profileData.filter(
+      item => item.id === 'contact')[0].fields.filter(
+      item => {
+        if (item.id === 'name') {
+          this.publishedFullnameLabel = item.label;
+          return true;
+        }
+      }
+    )[0].items.filter(
+      item => {
+        if (metaId) {
+          return item.itemMeta.id === metaId;
+        } else {
+          return item.itemMeta.show === true;
+        }
+      })[0].fullName;
+    if (metaId) {
+      this.profileService.setEditorProfileName(this.publishedFullname);
+    }
+  }
+  }
+
   handleChanges(result) {
     this.showDialog = false;
 
     const confirmedPayLoad = this.patchService.confirmedPayLoad;
-
     if (this.appSettingsService.isBrowser) {
       if (result) {
         // Set primary name to profile header
         if (
           confirmedPayLoad.find(
-            (item) => item.type === FieldTypes.personFirstNames
+            (item) => item.type === FieldTypes.personName
           )
         ) {
           const selectedNameId = confirmedPayLoad.find(
             (item) =>
-              item.show && item.type === this.fieldTypes.personFirstNames
+              item.show && item.type === this.fieldTypes.personName
           ).id;
-
-          const names = this.data[0].fields[0].items;
-
-          const selectedName = names.find(
-            (item) => item.itemMeta.id === selectedNameId
-          ).value;
-
-          this.profileService.setEditorProfileName(selectedName);
+          this.setVisibleNameById(selectedNameId);
         }
 
         // Update card & summary data with selection
-        this.contactFields = this.filterNameField(result.fields);
+        this.contactFields = result.fields;
         this.data[0] = result;
 
         this.draftService.saveDraft(this.data);

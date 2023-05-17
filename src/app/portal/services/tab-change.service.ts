@@ -29,7 +29,7 @@ export class TabChangeService {
       link: 'persons',
       icon: faUsers,
       singular: $localize`:@@author:tutkija`,
-      tooltip: $localize`:@@authorsTooltip:Suomessa toimivia tutkijoita.`,
+      tooltip: $localize`:@@authorsTooltip:Suomalaiseen tutkimukseen liittyviä tutkijoita ja tutkimuksen asiantuntijoita.`,
       beta: true,
     },
     {

@@ -393,6 +393,13 @@
                 tag="URL"
                 [url]="item.fairdataUrl"
               ></app-single-result-link>
+
+              <ng-container *ngIf="row.field === 'url'">
+                <app-single-result-link
+                  tag="URL"
+                  [url]="item.url"
+                ></app-single-result-link>
+              </ng-container>
             </ng-container>
             <!-- Self archived addresses -->
             <ng-container *ngFor="let selfArchived of item.selfArchivedData">

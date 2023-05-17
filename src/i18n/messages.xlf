@@ -2271,6 +2271,30 @@
         <source> Hylkää muutokset</source>
       </trans-unit>
 
+      <trans-unit id="mydata.profile.profile-is-hidden" datatype="html">
+        <source>Olet piilottanut profiilisi Tiedejatutkimus.fi-palvelusta</source>
+      </trans-unit>
+
+      <trans-unit id="mydata.profile.republish-modal.title" datatype="html">
+        <source>Julkaise piilotettu profiili</source>
+      </trans-unit>
+
+      <trans-unit id="mydata.account.title-for-hide" datatype="html">
+        <source>Julkaise piilotettu profiili</source>
+      </trans-unit>
+
+      <trans-unit id="mydata.account.text-for-hide" datatype="html">
+        <source>Piilottamasi profiili julkaistaan uudestaan niillä tiedoilla, jotka olet aiemmin valinnut julkisiksi Tiedejatutkimus.fi-palveluun.</source>
+      </trans-unit>
+
+      <trans-unit id="mydata.account.hide-modal.title" datatype="html">
+        <source>Haluatko julkaista piilottamasi profiilin?</source>
+      </trans-unit>
+
+      <trans-unit id="mydata.account.hide-modal.text" datatype="html">
+        <source>Piilottamasi profiili julkaistaan uudestaan niillä tiedoilla, jotka olet aiemmin valinnut julkisiksi Tiedejatutkimus.fi-palveluun.</source>
+      </trans-unit>
+
     </body>
   </file>
 </xliff>
