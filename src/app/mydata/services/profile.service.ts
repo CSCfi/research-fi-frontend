@@ -51,8 +51,6 @@ export class ProfileService {
     private appSettingsService: AppSettingsService
   ) {
     this.apiUrl = this.appConfigService.profileApiUrl;
-
-    this.initializeProfileVisibility();
   }
   async updateToken(options?: { bypassOrcidCheck: boolean }): Promise<any> {
     await firstValueFrom(this.oidcSecurityService.getAccessToken()).then((token) => {
@@ -120,23 +118,7 @@ export class ProfileService {
     return await firstValueFrom(this.http.delete(this.apiUrl + '/userprofile/', this.httpOptions));
   }
 
-  private async isProfileVisible() {
-     return await firstValueFrom(this.http.get(this.apiUrl + '/settings/', this.httpOptions));
-
-     // TODO katso responsen muoto, päivitä BehaviourSubject:iin
-
-
-      // {
-      //   "success": true,
-      //   "reason": "string",
-      //   "fromCache": true,
-      //   "data": {
-      //     "hidden": true
-      //   }
-      // }
-  }
-
-  async initializeProfileVisibility() {
+  public async initializeProfileVisibility() {
      await this.updateToken();
      let value;
 
