@@ -90,7 +90,7 @@ export class AccountSettingsComponent implements OnInit {
   showProfileDialogActions = [
     { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'close' },
     {
-      label: $localize`:@@showProfile:Näytä profiili`,
+      label: $localize`:@@mydata.account.republish-button.text:Julkaise profiili`,
       primary: true,
       method: 'showPublicProfile',
     },
@@ -122,7 +122,9 @@ export class AccountSettingsComponent implements OnInit {
 
   profileVisibility$ = this.profileService.getProfileVisibility();
 
-  constructor(public profileService: ProfileService, private router: Router, private route: ActivatedRoute, public dialog: MatDialog, public oidcSecurityService: OidcSecurityService,  private snackbarService: SnackbarService) { }
+  constructor(public profileService: ProfileService, private router: Router, private route: ActivatedRoute, public dialog: MatDialog, public oidcSecurityService: OidcSecurityService,  private snackbarService: SnackbarService) {
+    this.profileService.initializeProfileVisibility();
+  }
 
   ngOnInit(): void {
     // Get data from resolver

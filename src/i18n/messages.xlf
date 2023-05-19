@@ -2295,6 +2295,10 @@
         <source>Piilottamasi profiili julkaistaan uudestaan niillä tiedoilla, jotka olet aiemmin valinnut julkisiksi Tiedejatutkimus.fi-palveluun.</source>
       </trans-unit>
 
+      <trans-unit id="mydata.account.republish-button.text" datatype="html">
+        <source>Julkaise profiili</source>
+      </trans-unit>
+
     </body>
   </file>
 </xliff>

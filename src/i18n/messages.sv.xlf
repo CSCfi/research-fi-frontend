@@ -6259,6 +6259,11 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <target>Profilen du döljer publiceras igen med information som du tidigare har valt för allmänhetens tillgång till Forskning.fi.</target>
       </trans-unit>
 
+      <trans-unit id="mydata.account.republish-button.text" datatype="html">
+        <source>Julkaise profiili</source>
+        <target>Publicera profil</target>
+      </trans-unit>
+
     </body>
   </file>
 </xliff>
