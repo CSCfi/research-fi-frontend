@@ -128,8 +128,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     map(([pubs, datasets, fundings, patches, collabs]) => !!(pubs.length || datasets.length || fundings.length || patches.length || collabs.length))
   );
 
-
-
   constructor(
     public profileService: ProfileService,
     public oidcSecurityService: OidcSecurityService,
@@ -147,6 +145,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private utilityService: UtilityService,
     private singleItemService: SingleItemService,
   ) {
+    this.profileService.initializeProfileVisibility();
+
     this.testData = profileService.testData;
 
     // Find if user has navigated to profile route from service deployment stepper

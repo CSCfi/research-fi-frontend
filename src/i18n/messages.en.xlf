@@ -6251,6 +6251,11 @@
         <target>The profile you hide will be published again with information that you have previously selected to be public to Research.fi.</target>
       </trans-unit>
 
+      <trans-unit id="mydata.account.republish-button.text" datatype="html">
+        <source>Julkaise profiili</source>
+        <target>Publish profile</target>
+      </trans-unit>
+
     </body>
   </file>
 </xliff>
