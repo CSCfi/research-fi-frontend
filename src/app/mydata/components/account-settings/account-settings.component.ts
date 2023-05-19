@@ -90,7 +90,7 @@ export class AccountSettingsComponent implements OnInit {
   showProfileDialogActions = [
     { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'close' },
     {
-      label: $localize`:@@showProfile:Näytä profiili`,
+      label: $localize`:@@mydata.account.republish-button.text:Julkaise profiili`,
       primary: true,
       method: 'showPublicProfile',
     },
