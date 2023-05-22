@@ -5865,24 +5865,20 @@
         <target>Once you have logged in, you can choose which information associated with your ORCID iD you want to make public on your profile. In addition to the information found in ORCID, you can attach information from your home organisation to your profile. All you have to do is select the information you want to make public. It is not possible to enter information to the tool on your own.</target>
       </trans-unit>
       <trans-unit id="welcomeStepperStep2Content2">
-        <source>Tutkijan tiedot -työkalun beta-versiossa on saatavilla vain rajoitetusti organisaatioista siirrettyjä tietoja. Jos et löydä tämänhetkisestä kotiorganisaatiostasi peräisin olevia tietoja, johtuu se siitä, että organisaatiosi ei ole vielä tehnyt tarvittavia tiedonsiirtoja.</source>
-        <target>The beta version of the Researcher’s Profile Tool only includes a limited amount of data from the organisations. If you cannot find information from your current home organisation, it is because your organisation has not yet made the necessary data transfers.</target>
+        <source>Jos et löydä tämänhetkisestä kotiorganisaatiostasi peräisin olevia tietoja, johtuu se siitä, että organisaatiosi ei ole vielä tehnyt tarvittavia tiedonsiirtoja.</source>
+        <target>If you cannot find information from your current home organisation, it is because your organisation has not yet made the necessary data transfers.</target>
       </trans-unit>
       <trans-unit id="welcomeStepperStep3Content1">
         <source>Jos haluat muokata alkuperäisiä tietojasi, tee se tiedon alkuperäisessä lähteessä (kotiorganisaation järjestelmä, ORCID-palvelu). Tiedot päivittyvät profiiliisi automaattisesti.</source>
         <target>If you want to edit your original data, you must do so in the original source (home organisation system, ORCID service). Information is automatically updated in your profile.</target>
-      </trans-unit>
-      <trans-unit id="welcomeStepperStep3Content2">
-        <source>Huom. Jos lisäät ORCID-palvelussa uusia tietoja (esim. julkaisuja) profiilin luomisen jälkeen, ne eivät vielä nykyisessä beta-versiossa päivity profiiliisi automaattisesti. Tämä ominaisuus otetaan käyttöön keväällä 2023 julkaistavassa versiossa.</source>
-        <target>Note: If you add new information (e.g. publications) in ORCID after you create a profile, it will not automatically update your profile in the current beta version. This feature will be enabled in the spring 2023 release.</target>
       </trans-unit>
       <trans-unit id="welcomeStepperStep4Content">
         <source>Kun olet valinnut haluamasi tiedot, voit esikatsella profiiliasi muokkausnäkymässä. Vasta profiilin julkaisemisen jälkeen profiiliin tiedot näkyvät Tiedejatutkimus.fi-portaalissa.</source>
         <target>Once you have selected the information you want, you can preview your profile in the Edit view. The information on the profile be visible in the Research.fi portal after you have published it.</target>
       </trans-unit>
       <trans-unit id="welcomeStepperStep5Content">
-        <source>Vuoden 2023 aikana kehitämme toiminnallisuutta profiilitietojesi jakamiseen halutessasi sellaisille  tutkimusrahoittajille, kotiorganisaatiollesi ja muille yhteistyökumppaneille, joilla on valmius tietojen hyödyntämiseen omassa järjestelmässään. Tämä ei ole vielä mahdollista nykyisessä beta-versiossa.</source>
-        <target>During 2023, we will develop functionality for sharing your profile information with research funders, your home organisation and other partners who are prepared to utilise the information in their own systems. This is not yet possible in the current beta version.</target>
+        <source>Vuoden 2023 aikana kehitämme toiminnallisuutta profiilitietojesi jakamiseen halutessasi sellaisille tutkimusrahoittajille, kotiorganisaatiollesi ja muille yhteistyökumppaneille, joilla on valmius tietojen hyödyntämiseen omassa järjestelmässään. Tämä ei ole vielä mahdollista nykyisessä versiossa.</source>
+        <target>During 2023, we will develop functionality for sharing your profile information with research funders, your home organisation and other partners who are prepared to utilise the information in their own systems. This is not yet possible in the current version.</target>
       </trans-unit>
       <trans-unit id="welcomeStepperStep6Content">
         <source>Profiilisi on nyt löydettävissä Tiedejatutkimus.fi-sivustolla, josta mm. tiedotusvälineet, rahoittajat, tutkimusyhteistyöstä kiinnostuneet sekä muut tutkimustiedon etsijät voivat löytää profiilisi.</source>
