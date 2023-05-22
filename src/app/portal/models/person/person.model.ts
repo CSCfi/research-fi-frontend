@@ -24,6 +24,7 @@ import {
   PersonPublicationAdapter,
 } from './person-publication.model';
 import sanitizeHtml from 'sanitize-html';
+import { map } from 'rxjs/operators';
 
 type Education = { degree: string; organization: string };
 
@@ -91,12 +92,27 @@ export class PersonAdapter implements Adapter<Person> {
       this.publicationAdapter.adapt(publication)
     );
 
-    const datasets = data.activity.researchDatasets.map((dataset) =>
+    // Sort datasets by year
+    let datasetsSorted = data.activity.researchDatasets.sort((a, b) => {
+      return b.datasetCreated - a.datasetCreated;
+    });
+    const datasets = datasetsSorted.map((dataset) =>
       this.datasetAdapter.adapt(dataset)
     );
 
-    const fundings = data.activity.fundingDecisions.map((funding) =>
-      this.fundingAdapter.adapt(funding)
+    // Sort funding decisions by year
+    let fundingsSorted = data.activity.fundingDecisions.sort((a, b) => {
+      const endYearDiff = b.fundingEndYear - a.fundingEndYear;
+      const startYearDiff = b.fundingStartYear - a.fundingStartYear;
+      if (endYearDiff !== 0) {
+        return endYearDiff;
+      } else
+        return startYearDiff;
+    });
+
+    let fundings = fundingsSorted.map((funding) => {
+        return this.fundingAdapter.adapt(funding);
+      }
     );
 
     const activityAndAwards = data.activity.activitiesAndRewards.map(
