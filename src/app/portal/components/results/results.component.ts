@@ -150,16 +150,13 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     // 'Hakutulosten visualisaatiot ovat Tiedejatutkimus.fi –palvelun käyttäjien testikäytössä. Toiminnallisuutta parannetaan saadun palautteen perusteella syksyn 2020 aikana. Lisäksi visuaaleista on tulossa ruotsin- ja englanninkieliset versiot. Hankkeiden visuaalisiin tarkasteluihin lisätään myös myöntösummien jakaumat.';
     $localize`:@@datasetBetaInfo:Tutkimusaineistojen kuvailutiedot ovat uusi tietokokonaisuus Tiedejatutkimus.fi -portaalissa. Tietojen lähteenä ovat Fairdata-palveluista löytyvät kuvailutiedot. Koska kyseessä on uusi kokonaisuus, toivomme palautetta tiedejatutkimus@csc.fi osoitteeseen.`;
 
-  myDataBetaTexts = [
-    $localize`:@@personsResultsBetaText_1:Tutkijat-näkymä on beta-vaiheessa. Sekä profiilien sisältöä että hakumahdollisuuksia kehitetään jatkuvasti.`,
-    $localize`:@@personsResultsBetaText_2:Suomessa toimiva tutkija tai asiantuntija voi luoda oman profiilin Tiedejatutkimus.fi-palveluun ORCID-tunnuksen avulla, minkä jälkeen profiili näkyy ja on haettavissa Tiedejatutkimus.fi-palvelun Tutkijat-osiossa.`,
-    $localize`:@@personsResultsBetaText_3:Profiiliin liitetään kotiorganisaatioista ja ORCID-palvelusta siirrettyä tietoa sekä Tiedejatutkimus.fi:hin jo aiemmin siirrettyä tietoa.`,
-    $localize`:@@personsResultsBetaText_4:Beta-vaiheessa kotiorganisaatioista siirrettyjen tietojen lisääminen omaan profiiliin on mahdollista vain muutaman organisaation tapauksessa.`,
-    $localize`:@@personsResultsBetaText_5:Työkalun ja Tutkijat-näkymän ominaisuudet ja käytettävissä oleva tietosisältö täydentyvät vuoden 2023 aikana.`,
+  myDataInfoTexts = [
+    $localize`:@@personsResultsInfoText_1:Suomalaiseen tutkimukseen liittyvät tutkijat ja muut tutkimuksen asiantuntijat voivat luoda oman profiilin Tiedejatutkimus.fi-palveluun ORCID-tunnuksen ja Suomi.fi-tunnistautumisen avulla, minkä jälkeen profiili näkyy ja on haettavissa Tiedejatutkimus.fi-palvelun Tutkijat-osiossa.`,
+    $localize`:@@personsResultsInfoText_2:Profiiliin liitetään kotiorganisaatioista ja ORCID-palvelusta siirrettyä tietoa sekä Tiedejatutkimus.fi:hin jo aiemmin siirrettyä tietoa. `,
   ];
 
   showBetaDialog = false;
-  betaDialogTitle = $localize`:@@researchersProfile:Tutkijan tiedot` + ' beta';
+  betaDialogTitle = $localize`:@@researchersProfile:Tutkijan tiedot`;
 
   private metaTagsList = [
     MetaTags.publications,
