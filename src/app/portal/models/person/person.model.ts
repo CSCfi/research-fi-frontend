@@ -24,7 +24,6 @@ import {
   PersonPublicationAdapter,
 } from './person-publication.model';
 import sanitizeHtml from 'sanitize-html';
-import { map } from 'rxjs/operators';
 
 type Education = { degree: string; organization: string };
 
