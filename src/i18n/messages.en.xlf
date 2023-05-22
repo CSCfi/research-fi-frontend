@@ -6110,25 +6110,13 @@
         <source>Piilota profiilista</source>
         <target>Hide in profile</target>
       </trans-unit>
-      <trans-unit id="personsResultsBetaText_1">
-        <source>Tutkijat-näkymä on beta-vaiheessa. Sekä profiilien sisältöä että hakumahdollisuuksia kehitetään jatkuvasti.</source>
-        <target>The Researchers view is in the beta stage. Both the content of profiles and search opportunities are under constant development.</target>
+      <trans-unit id="personsResultsInfoText_1">
+        <source>Suomalaiseen tutkimukseen liittyvät tutkijat ja muut tutkimuksen asiantuntijat voivat luoda oman profiilin Tiedejatutkimus.fi-palveluun ORCID-tunnuksen ja Suomi.fi-tunnistautumisen avulla, minkä jälkeen profiili näkyy ja on haettavissa Tiedejatutkimus.fi-palvelun Tutkijat-osiossa.</source>
+        <target>Researchers and other research experts associated with Finnish research can create their own profile in the Research.fi service using their ORCID iD, after which it is visible and searchable in the Researchers section of the Research.fi service.</target>
       </trans-unit>
-      <trans-unit id="personsResultsBetaText_2">
-        <source>Suomessa toimiva tutkija tai asiantuntija voi luoda oman profiilin Tiedejatutkimus.fi-palveluun ORCID-tunnuksen avulla, minkä jälkeen profiili näkyy ja on haettavissa Tiedejatutkimus.fi-palvelun Tutkijat-osiossa.</source>
-        <target>A researcher or expert operating in Finland can create their own profile in the Research.fi service using their ORCID iD, after which it is visible and searchable in the Researchers section of the Research.fi service.</target>
-      </trans-unit>
-      <trans-unit id="personsResultsBetaText_3">
+      <trans-unit id="personsResultsInfoText_2">
         <source>Profiiliin liitetään kotiorganisaatioista ja ORCID-palvelusta siirrettyä tietoa sekä Tiedejatutkimus.fi:hin jo aiemmin siirrettyä tietoa.</source>
         <target>Profile is compiled with information transferred from home organisations and ORCID service and information already transferred to Research.fi.</target>
-      </trans-unit>
-      <trans-unit id="personsResultsBetaText_4">
-        <source>Beta-vaiheessa kotiorganisaatioista siirrettyjen tietojen lisääminen omaan profiiliin on mahdollista vain muutaman organisaation tapauksessa.</source>
-        <target>In the beta version, adding information from home organisations to your profile is limited to only a few organisations that have completed the necesseary data transfers.</target>
-      </trans-unit>
-      <trans-unit id="personsResultsBetaText_5">
-        <source>Työkalun ja Tutkijat-näkymän ominaisuudet ja käytettävissä oleva tietosisältö täydentyvät vuoden 2023 aikana.</source>
-        <target>The features of the tool and the Researcher view, as well as the available information content will be complemented in 2023.</target>
       </trans-unit>
       <trans-unit id="showDataToPublishInService">
         <source>Aseta valitut tiedot julkiseksi Tiedejatutkimus.fi-palvelussa</source>
