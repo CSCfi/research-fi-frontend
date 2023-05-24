@@ -16,48 +16,6 @@ Copyright 2019 Ministry of Education and Culture, Finland
       [allData]="tabValues"
     ></app-result-tab>
 
-    <!-- MyData login in persons tab -->
-    <div
-      class="row py-3 px-0 ps-lg-3 mt-3 justify-content-between login-snackbar"
-      *ngIf="tab === 'persons' && mydataLoginSnackbarVisible">
-      <div class="row col-7 justify-content-start align-content-center">
-        <div class="col-auto mx-0 gx-0">
-          <fa-icon class="info-icon" icon="info-circle"></fa-icon>
-        </div>
-        <div class="col-11 align-self-center" i18n="@@logInToCreateProfile">
-          Kirjaudu sisään luodaksesi profiilin tai valitaksesi profiilissasi
-          näkyviä tietoja.
-        </div>
-      </div>
-      <div class="row col-5 pe-lg-0 justify-content-end">
-        <div class="col-auto pe-lg-0 py-1">
-          <app-primary-action-button
-            role="link"
-            (click)="router.navigate(['/mydata'])"
-            content="Kirjaudu sisään"
-            i18n-content="@@logIn">
-          </app-primary-action-button>
-        </div>
-        <div class="col-auto pe-lg-0 py-1">
-          <app-secondary-button
-            content="Ohjeet"
-            i18n-content="@@instructions"
-            (click)="showLoginInfoDialog = true">
-          </app-secondary-button>
-        </div>
-        <div class="col-auto align-self-center">
-          <div>
-          <a
-            tabindex="0"
-            (click)="hideMydataLoginSnackbar()"
-            href="javascript:void(0)">
-            <strong i18n="@@close">Sulje</strong>
-          </a>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- Left sidebar -->
     <div class="col-lg-4 col-xl-3">
       <!-- Tab label and total count -->
@@ -71,6 +29,15 @@ Copyright 2019 Ministry of Education and Culture, Finland
           <span class="total">{{ parsedTotal }}</span>
           <span class="sr-only" i18n="@@resultCount">hakutulosta</span>
         </h2>
+
+        <!-- Persons beta -->
+        <!--<app-secondary-button
+          *ngIf="tab === 'persons'"
+          class="col-auto pe-0"
+          content="Beta"
+          [icon]="faInfoCircle"
+          (click)="showBetaDialog = true"
+        ></app-secondary-button>-->
 
         <!-- Mobile page settings -->
         <div class="col-auto px-0" *ngIf="selectedTabData && mobile">
@@ -128,6 +95,30 @@ Copyright 2019 Ministry of Education and Culture, Finland
 
     <!-- Main content area -->
     <div class="col-12 col-lg-8 col-xl-9 row main-content px-0 pe-xl-0">
+      <!-- MyData login in persons tab -->
+      <div
+        class="row justify-content-end py-3 px-0 ps-lg-3"
+        *ngIf="tab === 'persons'"
+      >
+        <div class="col col-lg-4" i18n="@@logInToCreateProfile">
+          Kirjaudu sisään luodaksesi profiilin tai valitaksesi profiilissasi
+          näkyviä tietoja.
+        </div>
+
+        <div class="col-auto pe-lg-0">
+          <app-primary-action-button
+            role="link"
+            (click)="router.navigate(['/mydata'])"
+            content="Kirjaudu sisään"
+            i18n-content="@@logIn"
+          ></app-primary-action-button>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="row px-0 ps-lg-3">
+        <hr *ngIf="tab === 'persons'" class="col m-0 login-divider" />
+      </div>
 
       <!-- Desktop page settings -->
       <div class="row justify-content-end py-3 pe-0" *ngIf="!mobile">
@@ -421,10 +412,10 @@ Copyright 2019 Ministry of Education and Culture, Finland
 </div>
 
 <app-dialog
-  *ngIf="showLoginInfoDialog"
+  *ngIf="showBetaDialog"
   [title]="betaDialogTitle"
   [template]="myDataBetaTemplate"
-  (onActionClick)="showLoginInfoDialog = false"
+  (onActionClick)="showBetaDialog = false"
 ></app-dialog>
 
 <ng-template #myDataBetaTemplate>
