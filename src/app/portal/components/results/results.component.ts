@@ -231,8 +231,10 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
-    if (sessionStorage.getItem('researchersLoginSnackbarVisible')) {
-      this.mydataLoginSnackbarVisible = true;
+    if (isPlatformBrowser(this.platformId)){
+      if (sessionStorage.getItem('researchersLoginSnackbarVisible')) {
+        this.mydataLoginSnackbarVisible = true;
+      }
     }
 
     // Subscribe to route params and query params in one subscription
@@ -592,7 +594,9 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   hideMydataLoginSnackbar() {
     this.mydataLoginSnackbarVisible = false;
-    sessionStorage.removeItem('researchersLoginSnackbarVisible');
+    if (isPlatformBrowser(this.platformId)) {
+      sessionStorage.removeItem('researchersLoginSnackbarVisible');
+    }
   }
 
   changeFocusTarget(target) {
