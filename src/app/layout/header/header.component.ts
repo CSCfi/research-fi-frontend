@@ -259,6 +259,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.firstTab = true;
         this.document.activeElement.blur();
       });
+
+      // Set researchers tab login snackbar visible when page loaded/refreshed
+      sessionStorage.setItem('researchersLoginSnackbarVisible','true');
     }
 
     // Subscribe to consent status and set consent. This is also used in linking between language versions
