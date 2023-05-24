@@ -78,13 +78,14 @@
         <div
           class="col-auto px-0 mt-0 mt-md-1 align-self-center"
           *ngIf="appSettings.beta"
-        >
+        ><!--
           <app-primary-action-button
             content="Beta"
             (click)="openDialog('Beta', betaInfoTemplate, basicDialogActions)"
             [disabledRounded]="true"
             [betaButton]="true"
           ></app-primary-action-button>
+          -->
         </div>
 
         <ng-template #betaInfoTemplate>

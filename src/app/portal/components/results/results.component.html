@@ -31,13 +31,13 @@ Copyright 2019 Ministry of Education and Culture, Finland
         </h2>
 
         <!-- Persons beta -->
-        <app-secondary-button
+        <!--<app-secondary-button
           *ngIf="tab === 'persons'"
           class="col-auto pe-0"
           content="Beta"
           [icon]="faInfoCircle"
           (click)="showBetaDialog = true"
-        ></app-secondary-button>
+        ></app-secondary-button>-->
 
         <!-- Mobile page settings -->
         <div class="col-auto px-0" *ngIf="selectedTabData && mobile">
@@ -421,7 +421,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
 <ng-template #myDataBetaTemplate>
   <div class="row">
     <div class="col">
-      <p *ngFor="let item of myDataBetaTexts">
+      <p *ngFor="let item of myDataInfoTexts">
         {{ item }}
       </p>
     </div>
