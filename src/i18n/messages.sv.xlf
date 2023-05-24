@@ -6248,6 +6248,10 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <target>Publicera profil</target>
       </trans-unit>
 
+      <trans-unit id="instructions">
+        <source>Ohjeet</source>
+        <target>Anvisningar</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

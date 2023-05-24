@@ -115,6 +115,9 @@ export class AppComponent {
         ({ key }) =>
           key === 'Tab' && document.body.classList.add('focus-visible')
       );
+
+      // Set researchers tab login snackbar visible when page loaded/refreshed
+      sessionStorage.setItem('researchersLoginSnackbarVisible','true');
     }
   }
 }

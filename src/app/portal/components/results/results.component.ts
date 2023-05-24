@@ -155,8 +155,9 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     $localize`:@@personsResultsInfoText_2:Profiiliin liitetään kotiorganisaatioista ja ORCID-palvelusta siirrettyä tietoa sekä Tiedejatutkimus.fi:hin jo aiemmin siirrettyä tietoa. `,
   ];
 
-  showBetaDialog = false;
+  showLoginInfoDialog = false;
   betaDialogTitle = $localize`:@@researchersProfile:Tutkijan tiedot`;
+  mydataLoginSnackbarVisible = false;
 
   private metaTagsList = [
     MetaTags.publications,
@@ -230,6 +231,10 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
+    if (sessionStorage.getItem('researchersLoginSnackbarVisible')) {
+      this.mydataLoginSnackbarVisible = true;
+    }
+
     // Subscribe to route params and query params in one subscription
     this.combinedRouteParams = combineLatest([
       this.route.params,
@@ -583,6 +588,11 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.metaTags['description' + this.currentLocale],
       this.commonTags['imgAlt' + this.currentLocale]
     );
+  }
+
+  hideMydataLoginSnackbar() {
+    this.mydataLoginSnackbarVisible = false;
+    sessionStorage.removeItem('researchersLoginSnackbarVisible');
   }
 
   changeFocusTarget(target) {
