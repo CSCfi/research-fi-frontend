@@ -63,6 +63,14 @@
             </li>
           </ng-container>
 
+          <ng-container *ngIf="!myDataBeta">
+            <li>
+              <a i18n="@@researchersProfile" routerLink="/mydata">
+                Tutkijan tiedot -työkalu
+              </a>
+            </li>
+          </ng-container>
+
           <ng-container *ngIf="myDataBeta">
             <li>
               <a class='no-href' i18n="Footer-link@@footerLink10" (click)='openQuickstartDialog()'>Pikaohjeet</a>

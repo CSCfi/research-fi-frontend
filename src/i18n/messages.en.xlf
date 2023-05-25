@@ -6240,6 +6240,10 @@
         <target>Publish profile</target>
       </trans-unit>
 
+      <trans-unit id="instructions">
+        <source>Ohjeet</source>
+        <target>Instructions</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
