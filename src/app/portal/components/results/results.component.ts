@@ -155,9 +155,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     $localize`:@@personsResultsInfoText_2:Profiiliin liitetään kotiorganisaatioista ja ORCID-palvelusta siirrettyä tietoa sekä Tiedejatutkimus.fi:hin jo aiemmin siirrettyä tietoa. `,
   ];
 
-  showLoginInfoDialog = false;
+  showBetaDialog = false;
   betaDialogTitle = $localize`:@@researchersProfile:Tutkijan tiedot`;
-  mydataLoginSnackbarVisible = false;
 
   private metaTagsList = [
     MetaTags.publications,
