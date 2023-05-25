@@ -35,7 +35,7 @@
 
     <app-profile-panel
       [data]="editorData"
-      (onSingleItemToggle)="checkAllSelected()"
+      (onSingleItemToggle)="itemClicked()"
     ></app-profile-panel>
   </ng-container>
 
@@ -70,8 +70,8 @@
         <app-profile-items-table
           [columns]="tableColumns"
           [data]="editorData"
-          (onSingleItemToggle)="checkAllSelected()"
-          (onAllItemToggle)="checkAllSelected()"
+          (onSingleItemToggle)="itemClicked()"
+          (onAllItemToggle)="itemClicked()"
           *ngIf="
             editorData.fields[0].items.length && currentTabIndex === 0;
             else noOrcidItemsTemplate

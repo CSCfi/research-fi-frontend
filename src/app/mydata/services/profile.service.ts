@@ -40,6 +40,8 @@ export class ProfileService {
   userData = this.userDataSource.asObservable();
   orcidUserProfile: Record<string, unknown>; // Set via orcid-profile-resolver
 
+  private profileVisibility$ = new BehaviorSubject(false);
+
   constructor(
     private http: HttpClient,
     private appConfigService: AppConfigService,
@@ -116,9 +118,54 @@ export class ProfileService {
     return await firstValueFrom(this.http.delete(this.apiUrl + '/userprofile/', this.httpOptions));
   }
 
-   async hideProfile() {
+  public async initializeProfileVisibility() {
      await this.updateToken();
-     return await firstValueFrom(this.http.get(this.apiUrl + '/settings/hideprofile', this.httpOptions));
+     let value;
+
+     try {
+      value = await firstValueFrom(this.http.get(this.apiUrl + '/settings/', this.httpOptions));
+     } catch (error) {
+       console.error(error);
+     }
+
+     this.profileVisibility$.next(!value.data.hidden);
+
+     return value;
+  }
+
+  public getProfileVisibility() {
+    return this.profileVisibility$.asObservable();
+  }
+
+  async hideProfile() {
+    const body = { hidden: true };
+    let value;
+
+    try {
+      await this.updateToken();
+      value = await firstValueFrom(this.http.post(this.apiUrl + '/settings/', body, this.httpOptions));
+
+      this.profileVisibility$.next(false);
+    } catch (error) {
+      console.error(error);
+    }
+
+     return value;
+  }
+
+  async showProfile() {
+    const body = { hidden: false };
+    let value;
+
+    try {
+      await this.updateToken();
+      value = await firstValueFrom(this.http.post(this.apiUrl + '/settings/', body, this.httpOptions));
+      this.profileVisibility$.next(true);
+    } catch (error) {
+      console.error(error);
+    }
+
+    return value
   }
 
   /*
@@ -145,6 +192,12 @@ export class ProfileService {
   getDraftProfile() {
     if (this.appSettingsService.isBrowser) {
       return sessionStorage.getItem(Constants.draftProfile);
+    }
+  }
+
+  clearDraftProfile() {
+    if (this.appSettingsService.isBrowser) {
+      sessionStorage.removeItem(Constants.draftProfile);
     }
   }
 

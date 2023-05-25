@@ -57,6 +57,7 @@ export class Dataset {
     public doi: string,
     public urn: string,
     public fairdataUrl: string,
+    public url: string,
     public datasetVersions: any[],
     public datasetRelations: any[]
   ) {}
@@ -271,16 +272,17 @@ export class DatasetAdapter implements Adapter<Dataset> {
       ].name = $localize`:@@missingOrg:Organisaatio puuttuu`;
     }
 
-    let urn = '';
-    let doi = '';
+    const urn = (item.preferredIdentifiers || [])
+      .filter((id) => id.pidType === 'urn')
+      .map((id) => id.pidContent)[0] ?? '';
 
-    item.preferredIdentifiers?.forEach((id) => {
-      if (id.pidType === 'doi') {
-        doi = id.pidContent.slice(4);
-      } else if (id.pidType === 'urn') {
-        urn = id.pidContent;
-      }
-    });
+    const doi = (item.preferredIdentifiers || [])
+      .filter((id) => id.pidType === 'doi')
+      .map((id) => id.pidContent.slice(4))[0] ?? '';
+
+    const url = (item.preferredIdentifiers || [])
+      .filter((id) => id.pidType === 'url')
+      .map((id) => id.pidContent.slice(4))[0] ?? '';
 
     /*
      * Dataset relations
@@ -358,6 +360,7 @@ export class DatasetAdapter implements Adapter<Dataset> {
       doi, // Missing?
       urn,
       item.fairdataUrl,
+      url,
       datasetVersions,
       datasetRelationsByTypes
     );

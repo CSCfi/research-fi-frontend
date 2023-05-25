@@ -3971,8 +3971,8 @@
         <target state="translated">Publikationer från finländska universitet, yrkeshögskolor, forskningsinstitut och universitetssjukhus.</target>
       </trans-unit>
       <trans-unit id="authorsTooltip">
-        <source>Suomessa toimivia tutkijoita.</source>
-        <target state="translated">Forskare verksamma i Finland. </target>
+        <source>Suomalaiseen tutkimukseen liittyviä tutkijoita ja tutkimuksen asiantuntijoita.</source>
+        <target state="translated">Forskare och forskningsexperter relaterade till finländsk forskning.</target>
       </trans-unit>
       <trans-unit id="fundingsTooltip">
         <source>Suomalaisten julkisten ja yksityisten tutkimusrahoittajien rahoituspäätöksiä siitä alkaen, kun rahoittaja on liittynyt palveluun. EU:n suomalaisille organisaatioille myöntämät rahoituspäätökset Horizon 2020 puiteohjelmasta alkaen.</source>
@@ -5850,24 +5850,20 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <target>När du har loggat in kan du välja vilka uppgifter som är kopplade till din ORCID-kod du vill publicera i din profil. Utöver uppgifterna i ORCID-tjänsten kan du också bifoga uppgifter från din egen hemorganisation till profilen. Du behöver bara välja vilka uppgifter som du vill publicera. Det är inte möjligt att själv mata in uppgifter i verktyget.</target>
       </trans-unit>
       <trans-unit id="welcomeStepperStep2Content2">
-        <source>Tutkijan tiedot -työkalun beta-versiossa on saatavilla vain rajoitetusti organisaatioista siirrettyjä tietoja. Jos et löydä tämänhetkisestä kotiorganisaatiostasi peräisin olevia tietoja, johtuu se siitä, että organisaatiosi ei ole vielä tehnyt tarvittavia tiedonsiirtoja.</source>
-        <target>I beta-versionen av verktyget Forskarens profilverktyg finns endast begränsat med uppgifter som överförts från organisationerna. Om du inte hittar uppgifter från din nuvarande hemorganisation beror det på att din organisation ännu inte har gjort de nödvändiga dataöverföringarna.</target>
+        <source>Jos et löydä tämänhetkisestä kotiorganisaatiostasi peräisin olevia tietoja, johtuu se siitä, että organisaatiosi ei ole vielä tehnyt tarvittavia tiedonsiirtoja.</source>
+        <target>Om du inte hittar uppgifter från din nuvarande hemorganisation beror det på att din organisation ännu inte har gjort de nödvändiga dataöverföringarna.</target>
       </trans-unit>
       <trans-unit id="welcomeStepperStep3Content1">
         <source>Jos haluat muokata alkuperäisiä tietojasi, tee se tiedon alkuperäisessä lähteessä (kotiorganisaation järjestelmä, ORCID-palvelu). Tiedot päivittyvät profiiliisi automaattisesti.</source>
         <target>Om du vill redigera dina ursprungliga uppgifter, gör det i den ursprungliga informationskällan (hemorganisationens system, ORCID-tjänsten). Uppgifterna uppdateras automatiskt i din profil.</target>
-      </trans-unit>
-      <trans-unit id="welcomeStepperStep3Content2">
-        <source>Huom. Jos lisäät ORCID-palvelussa uusia tietoja (esim. julkaisuja) profiilin luomisen jälkeen, ne eivät vielä nykyisessä beta-versiossa päivity profiiliisi automaattisesti. Tämä ominaisuus otetaan käyttöön keväällä 2023 julkaistavassa versiossa.</source>
-        <target>Obs! Om du lägger till nya uppgifter (t.ex. publikationer) i ORCID-tjänsten efter att profilen skapats, uppdateras de ännu inte automatiskt i din profil i den nuvarande beta-versionen. Denna egenskap tas i bruk i den version som publiceras våren 2023.</target>
       </trans-unit>
       <trans-unit id="welcomeStepperStep4Content">
         <source>Kun olet valinnut haluamasi tiedot, voit esikatsella profiiliasi muokkausnäkymässä. Vasta profiilin julkaisemisen jälkeen profiiliin tiedot näkyvät Tiedejatutkimus.fi-portaalissa.</source>
         <target>När du har valt önskad information kan du förhandsgranska din profil i redigeringsvyn. Först efter att profilen publicerats syns uppgifterna i profilen i portalen Forskning.fi.</target>
       </trans-unit>
       <trans-unit id="welcomeStepperStep5Content">
-        <source>Vuoden 2023 aikana kehitämme toiminnallisuutta profiilitietojesi jakamiseen halutessasi sellaisille  tutkimusrahoittajille, kotiorganisaatiollesi ja muille yhteistyökumppaneille, joilla on valmius tietojen hyödyntämiseen omassa järjestelmässään. Tämä ei ole vielä mahdollista nykyisessä beta-versiossa.</source>
-        <target>Under 2023 utvecklar vi funktionen för att dela dina profiluppgifter om du vill med sådana forskningsfinansiärer, din hemorganisation och andra samarbetspartner som har beredskap att utnyttja uppgifterna i sitt eget system. Detta är ännu inte möjligt i den nuvarande beta-versionen.</target>
+        <source>Vuoden 2023 aikana kehitämme toiminnallisuutta profiilitietojesi jakamiseen halutessasi sellaisille tutkimusrahoittajille, kotiorganisaatiollesi ja muille yhteistyökumppaneille, joilla on valmius tietojen hyödyntämiseen omassa järjestelmässään. Tämä ei ole vielä mahdollista nykyisessä versiossa.</source>
+        <target>Under 2023 utvecklar vi funktionen för att dela dina profiluppgifter om du vill med sådana forskningsfinansiärer, din hemorganisation och andra samarbetspartner som har beredskap att utnyttja uppgifterna i sitt eget system. Detta är ännu inte möjligt i den nuvarande versionen.</target>
       </trans-unit>
       <trans-unit id="welcomeStepperStep6Content">
         <source>Profiilisi on nyt löydettävissä Tiedejatutkimus.fi-sivustolla, josta mm. tiedotusvälineet, rahoittajat, tutkimusyhteistyöstä kiinnostuneet sekä muut tutkimustiedon etsijät voivat löytää profiilisi.</source>
@@ -6097,25 +6093,13 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Piilota profiilista</source>
         <target>Dölj i profilen</target>
       </trans-unit>
-      <trans-unit id="personsResultsBetaText_1">
-        <source>Tutkijat-näkymä on beta-vaiheessa. Sekä profiilien sisältöä että hakumahdollisuuksia kehitetään jatkuvasti.</source>
-        <target>Vyn Forskare är i beta-skedet. Både profilernas innehåll och sökmöjligheterna utvecklas kontinuerligt.</target>
+      <trans-unit id="personsResultsInfoText_1">
+        <source>Suomalaiseen tutkimukseen liittyvät tutkijat ja muut tutkimuksen asiantuntijat voivat luoda oman profiilin Tiedejatutkimus.fi-palveluun ORCID-tunnuksen ja Suomi.fi-tunnistautumisen avulla, minkä jälkeen profiili näkyy ja on haettavissa Tiedejatutkimus.fi-palvelun Tutkijat-osiossa.</source>
+        <target>Forskare och andra forskningsexperter med anknytning till finländsk forskning kan skapa en egen profil i tjänsten Forskning.fi med hjälp av ORCID-koden, varefter den syns och kan sökas i avsnittet Forskare i tjänsten Forskning.fi.</target>
       </trans-unit>
-      <trans-unit id="personsResultsBetaText_2">
-        <source>Suomessa toimiva tutkija tai asiantuntija voi luoda oman profiilin Tiedejatutkimus.fi-palveluun ORCID-tunnuksen avulla, minkä jälkeen profiili näkyy ja on haettavissa Tiedejatutkimus.fi-palvelun Tutkijat-osiossa.</source>
-        <target>En forskare eller expert som är verksam i Finland kan skapa en egen profil i tjänsten Forskning.fi med hjälp av ORCID-koden, varefter den syns och kan sökas i avsnittet Forskare i tjänsten Forskning.fi.</target>
-      </trans-unit>
-      <trans-unit id="personsResultsBetaText_3">
+      <trans-unit id="personsResultsInfoText_2">
         <source>Profiiliin liitetään kotiorganisaatioista ja ORCID-palvelusta siirrettyä tietoa sekä Tiedejatutkimus.fi:hin jo aiemmin siirrettyä tietoa.</source>
         <target>Profilen sammanställs med information som överförs från hemorganisationerna och ORCID-tjänsten och information som redan har överförts till Forskning.fi.</target>
-      </trans-unit>
-      <trans-unit id="personsResultsBetaText_4">
-        <source>Beta-vaiheessa kotiorganisaatioista siirrettyjen tietojen lisääminen omaan profiiliin on mahdollista vain muutaman organisaation tapauksessa.</source>
-        <target>I betaversionen, att lägga till information från hemorganisationer i din profil är begränsad till endast ett fåtal organisationer som har slutfört nödvändiga dataöverföringar.</target>
-      </trans-unit>
-      <trans-unit id="personsResultsBetaText_5">
-        <source>Työkalun ja Tutkijat-näkymän ominaisuudet ja käytettävissä oleva tietosisältö täydentyvät vuoden 2023 aikana.</source>
-        <target>Verktygets och vyn Forskares egenskaper och tillgängliga informationsinnehåll kompletteras under 2023.</target>
       </trans-unit>
       <trans-unit id="showDataToPublishInService">
         <source>Aseta valitut tiedot julkiseksi Tiedejatutkimus.fi-palvelussa</source>
@@ -6229,6 +6213,45 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         </context-group>
       </trans-unit>
 
+      <trans-unit id="mydata.profile.profile-is-hidden" datatype="html">
+        <source>Olet piilottanut profiilisi Tiedejatutkimus.fi-palvelusta</source>
+        <target>Du har dold din profil från Forskning.fi-tjänsten</target>
+      </trans-unit>
+
+      <trans-unit id="mydata.profile.republish-modal.title" datatype="html">
+        <source>Julkaise piilotettu profiili</source>
+        <target>Publicera dold profil</target>
+      </trans-unit>
+
+      <trans-unit id="mydata.account.title-for-hide" datatype="html">
+        <source>Julkaise piilotettu profiili</source>
+        <target>Publicera dold profil</target>
+      </trans-unit>
+
+      <trans-unit id="mydata.account.text-for-hide" datatype="html">
+        <source>Piilottamasi profiili julkaistaan uudestaan niillä tiedoilla, jotka olet aiemmin valinnut julkisiksi Tiedejatutkimus.fi-palveluun.</source>
+        <target>Profilen du döljer publiceras igen med information som du tidigare har valt för allmänhetens tillgång till Forskning.fi.</target>
+      </trans-unit>
+
+      <trans-unit id="mydata.account.hide-modal.title" datatype="html">
+        <source>Haluatko julkaista piilottamasi profiilin?</source>
+        <target>Vill du publicera profilen du har dold?</target>
+      </trans-unit>
+
+      <trans-unit id="mydata.account.hide-modal.text" datatype="html">
+        <source>Piilottamasi profiili julkaistaan uudestaan niillä tiedoilla, jotka olet aiemmin valinnut julkisiksi Tiedejatutkimus.fi-palveluun.</source>
+        <target>Profilen du döljer publiceras igen med information som du tidigare har valt för allmänhetens tillgång till Forskning.fi.</target>
+      </trans-unit>
+
+      <trans-unit id="mydata.account.republish-button.text" datatype="html">
+        <source>Julkaise profiili</source>
+        <target>Publicera profil</target>
+      </trans-unit>
+
+      <trans-unit id="instructions">
+        <source>Ohjeet</source>
+        <target>Anvisningar</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

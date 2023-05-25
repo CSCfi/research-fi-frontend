@@ -90,7 +90,7 @@
             <!-- Show profile modal template -->
             <ng-template #showProfileTemplate>
               <p class=" pt-3">
-                {{hideProfileModalText}}
+                {{showProfileModalText}}
               </p>
             </ng-template>
 
@@ -98,6 +98,12 @@
             <ng-template #hideProfileTemplate>
               <p class="px-3 pt-3">
                 {{hideProfileModalText}}
+              </p>
+            </ng-template>
+
+            <ng-template #showProfileTemplate>
+              <p class="px-3 pt-3">
+                {{showProfileModalText}}
               </p>
             </ng-template>
 
@@ -231,7 +237,8 @@
         </div>
 
         <!-- Show/hide profile section -->
-        <div class="row pb-1 mt-4 bordered-section">
+        <ng-container *ngIf='(profileVisibility$ | async) === true'>
+          <div class="row pb-1 mt-4 bordered-section">
           <div class="col-12 px-0">
             <h3>{{hideProfileTitle}}</h3>
           <p class="px-0">{{generalInfoHideProfile}}</p>
@@ -249,7 +256,6 @@
               "
                                 i18n-content="@@hideProfile"
                                 content="Piilota profiili"
-                                [disabled]="hideProfileInProgress || deleteProfileInProgress || isProfileHidden"
           ></app-secondary-button>
 
           <!--
@@ -269,6 +275,32 @@
           -->
           </div>
         </div>
+        </ng-container>
+
+        <ng-container *ngIf='(profileVisibility$ | async) === false'>
+          <div class="row pb-1 mt-4 bordered-section">
+          <div class="col-12 px-0">
+            <h3>{{showProfileTitle}}</h3>
+          <p class="px-0">{{showProfileText}}</p>
+          </div>
+          <br>
+          <div class="col-12 px-0 button-row">
+          <app-secondary-button
+                                (click)="
+                openDialog({
+                  title: showProfileModalTitle,
+                  template: showProfileTemplate,
+                  actions: showProfileDialogActions,
+                  disableDialogClose: true
+                })
+              "
+                                i18n-content="@@mydata.account.republish-button.text"
+                                content="Julkaise profiili"
+          ></app-secondary-button>
+          </div>
+          </div>
+        </ng-container>
+
       </div>
     </div>
   </div>

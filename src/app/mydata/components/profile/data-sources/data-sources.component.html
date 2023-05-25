@@ -98,8 +98,8 @@
         ></app-active-filters-list>
 
         <app-data-sources-table
-          *ngIf="data?.length"
-          [data]="data"
+          *ngIf="visibleData?.length"
+          [data]="visibleData"
           (onSelectionChange)="handleSelection($event)"
         ></app-data-sources-table>
       </div>
@@ -111,7 +111,7 @@
   <app-data-sources-selection-actions
     *ngIf="selectedItems?.length > 0"
     [selectedItems]="selectedItems"
-    [profileData]="data"
+    [profileData]="initialProfileData"
     (onPatchSuccess)="updateData($event)"
     class="col-auto pe-0"
   ></app-data-sources-selection-actions>

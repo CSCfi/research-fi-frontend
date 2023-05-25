@@ -72,7 +72,7 @@
           <app-summary-portal-items
             *ngSwitchCase="groupTypes.activitiesAndRewards"
             [data]="field"
-            [fieldType]="fieldTypes.activityActivitesAndRewards"
+            [fieldType]="fieldTypes.activityActivitiesAndRewards || fieldTypes.activityActivitiesAndRewardsOrcid"
             sortField="name"
             showMoreLabel="aktiviteetit ja palkinnot"
             i18n-showMoreLabel="@@activitesAndRewards"

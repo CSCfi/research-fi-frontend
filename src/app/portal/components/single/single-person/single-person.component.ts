@@ -32,7 +32,7 @@ export class SinglePersonComponent implements OnInit {
   tabQueryParams: any;
   searchTerm: string;
   tabData: any;
-  tab = 'person';
+  tab = 'persons';
 
   isEmailVisible = false;
 
@@ -147,10 +147,14 @@ export class SinglePersonComponent implements OnInit {
     });
 
     this.route.params.pipe(take(1)).subscribe((params) => {
-      this.searchService.searchTerm = params.id;
-      this.getData(params.id);
-      this.searchService.searchTerm = ''; // Empty search term so breadcrumb link is correct
+      if (this.searchService.searchTerm == null) {
+        this.searchService.searchTerm = params.id;
+        this.getData(params.id);
+        this.searchService.searchTerm = ''; // Empty search term so breadcrumb link is correct
+      }
     });
+
+    this.searchTerm = this.searchService.searchTerm;
 
     this.tabQueryParams = this.tabChangeService.tabQueryParams.persons;
     this.tabData = this.tabChangeService.tabData.find(

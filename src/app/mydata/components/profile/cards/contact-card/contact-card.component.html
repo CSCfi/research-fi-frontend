@@ -5,18 +5,48 @@
 
 <app-profile-editor-card-header
   [label]="label"
-  [displayButton]="contactFields | hasSelectedItems"
+  [displayButton]="(this.publishedFullname?.length > 0) || (contactFields | hasSelectedItems)"
   (handleOpenDialog)="openDialog($event)"
 ></app-profile-editor-card-header>
 
 <app-empty-card
-  *ngIf="!(contactFields | hasSelectedItems)"
+  *ngIf="!(this.publishedFullname?.length > 0) && !(contactFields | hasSelectedItems)"
   (onButtonClick)="openDialog($event)"
 ></app-empty-card>
 
 <div class="d-block mt-3">
+  <div *ngIf="this.publishedFullname && !(contactFields | hasSelectedItems)">
+    <div class="row py-2">
+      <div class="col px-0">
+            <span
+              class="fw-bold d-inline-block pe-3"
+              *ngIf="data[0].fields.length > 1"
+            >{{ this.publishedFullnameLabel }}
+            </span>
+        <span>{{this.publishedFullname}}</span>
+      </div>
+    </div>
+  </div>
+
   <ng-container *ngFor="let field of contactFields; let i = index">
     <ng-container [ngSwitch]="field.id">
+      <ng-container *ngSwitchCase="'name'">
+        <ng-container *ngFor="let item of field.items">
+        <div
+          class="row py-2"
+          *ngIf="item.itemMeta.show === true"
+        >
+          <div class="col px-0">
+            <span
+              class="fw-bold d-inline-block pe-3"
+              *ngIf="data[0].fields.length > 1"
+            >{{ field.label }}
+            </span>
+            <span>{{item.value}}</span>
+          </div>
+        </div>
+        </ng-container>
+      </ng-container>
       <ng-container *ngSwitchCase="'otherNames'">
         <div
           class="row py-2"

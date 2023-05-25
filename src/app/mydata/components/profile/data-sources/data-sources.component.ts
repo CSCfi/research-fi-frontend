@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Constants, FiltersConfig, TableColumns } from '@mydata/constants';
 import { ProfileService } from '@mydata/services/profile.service';
 import { Subscription } from 'rxjs';
-import { getUniqueSources, filterData } from '@mydata/utils';
+import { getUniqueSources, filterData, getName } from '@mydata/utils';
 import { ActiveFilter, DataSource, ItemMeta, SortByOption } from 'src/types';
 import { PatchService } from '@mydata/services/patch.service';
 import { DataSourcesTableComponent } from './data-sources-table/data-sources-table.component';
@@ -30,7 +30,7 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
 
   devFilters = [];
   initialProfileData: any;
-  data: any[];
+  visibleData: any[];
   activeFilters: {};
   parsedActiveFilters: any[];
   activeFiltersDialogConfig: any;
@@ -96,20 +96,24 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
       (field) => field.id === 'name'
     )[0];
 
-    contactGroup.fields = contactGroup.fields.filter(
-      (field) => field.id !== 'name'
-    );
 
     // Set original, non-altered profile data.
     // Used in filters.
     this.initialProfileData = myDataProfile.profileData;
 
     // Initial approach on keywords aims to display all keywords as joined list
-    this.handleKeywords(this.initialProfileData);
+    this.storeOriginalKeywords(this.initialProfileData);
 
     // Get active filters from query parameters
     // Match params with filters config that filter keys match
     this.queryParamsSub = this.route.queryParams.subscribe((queryParams) => {
+      this.doFiltering(queryParams)
+    });
+    this.setSortOptions();
+  }
+
+  doFiltering(queryParams: any){
+    {
       const filterConfigFields = FiltersConfig.map((item) => item.field);
       const activeFilters = {};
 
@@ -122,6 +126,7 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
         }
       }
 
+      // This is used in model
       this.activeFilters = activeFilters;
 
       // Single active filter value is presented as string on init.
@@ -141,20 +146,34 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
         filtersConfig: FiltersConfig,
       };
 
-      this.data =
+      this.visibleData =
         Object.keys(activeFilters).length > 0
-          ? filterData(myDataProfile.profileData, activeFilters)
+          ? filterData(this.initialProfileData, activeFilters)
           : this.initialProfileData;
-
       this.activeSort = queryParams.sort;
-    });
+    }
+  }
 
-    this.setSortOptions();
+  async reloadProfileData(activeFilters: any) {
+    this.profileService
+      .getProfileData()
+      .then(
+        (value) => {
+          if (value) {
+            this.profileService.setCurrentProfileData(
+              cloneDeep(value.profileData)
+            );
+            this.initialProfileData = clone(value.profileData);
+            //this.visibleData = cloneDeep(value.profileData);
+            this.storeOriginalKeywords(this.initialProfileData);
+            this.clearFilters();
+          }
+        });
   }
 
   // Method for displaying keywords as single item.
   // Original values are stored for patch operation.
-  handleKeywords = (data) => {
+  storeOriginalKeywords = (data) => {
     const descriptionGroup = data.find((group) => group.id === 'description');
     if (descriptionGroup) {
       const keywordsField = descriptionGroup.fields.find(
@@ -273,13 +292,17 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
    * selection change.
    */
   handleSelection(selectedRows) {
+    selectedRows = selectedRows.map((row) => {
+      return row.toString();
+    });
+
     // Reset previous selection
     this.patchService.patchItems = [];
     this.patchService.cancelConfirmedPayload();
 
     const items = [];
 
-    const filteredGroups = this.data
+    const filteredGroups = this.initialProfileData
       .flatMap((group) => group.fields)
       .filter((field) => field.items.length);
 
@@ -296,7 +319,9 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
     }
 
     const selection = items.filter(
-      (_item, index) => selectedRows.indexOf(index) > -1
+      (item) => {
+        return selectedRows.includes(item.itemMeta.temporaryUniqueId.toString());
+      }
     );
 
     selection.forEach((item) => {
@@ -321,9 +346,9 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
     this.selectedItems = selection;
   }
 
-  // Update data after succesfull patch operation
+  // Update data after successful patch operation
   updateData(patchItemsArr) {
-    const fields = this.data.flatMap((group) => group.fields);
+    const fields = this.visibleData.flatMap((group) => group.fields);
 
     fields.forEach((field) => {
       field.items.forEach((item) => {
@@ -339,13 +364,14 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
     this.dataSourcesTable.clearSelections();
 
     // Add name field back to data which is stored in state
-    const dataToStore = cloneDeep(this.data);
+    const dataToStore = cloneDeep(this.visibleData);
 
     let contactGroup = dataToStore.find((group) => group.id === 'contact');
 
     contactGroup.fields.unshift(this.nameField);
 
     this.profileService.setCurrentProfileData(dataToStore);
-    this.initialProfileData = [...this.data];
+    this.initialProfileData = dataToStore;
+    this.reloadProfileData(null);
   }
 }
