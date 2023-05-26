@@ -31,7 +31,7 @@
             <span>{{ item.conferenceName }}</span>
             <span
               class="d-block"
-              [class.fw-bold]="row.bold || row.key === 'name'"
+              [class.fw-bold]="row.key === 'name'"
               [class.font-size-small]="row.key === 'year'"
               [class.capitalize-first]="row.key === 'role' || row.key === 'name'"
               >{{ item[row.key] }}</span
