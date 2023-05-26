@@ -221,8 +221,8 @@ ol {
   list-style: circle;
 }
 
-.capitalize-first {
-  text-transform: capitalize;
+.capitalize-first::first-letter {
+  text-transform: uppercase;
 }
 
 .uppercase {
