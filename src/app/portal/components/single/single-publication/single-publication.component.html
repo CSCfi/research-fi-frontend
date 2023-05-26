@@ -406,7 +406,7 @@
                   >
                     <!-- Check if fields are issn or isbn and target search with exact field  -->
                     <a
-                      class="td"
+                      class="td publication-link"
                       *ngSwitchCase="
                         row.field === 'issn' || row.field === 'isbn'
                       "
@@ -419,7 +419,7 @@
                     </a>
                     <!-- JuFo code links to external path -->
                     <a
-                      class="td"
+                      class="td publication-link"
                       *ngSwitchCase="row.field === 'jufoCode'"
                       href="{{ row.linkPath }}{{ item[row.field] }}"
                       target="_blank"
@@ -432,7 +432,7 @@
                     </a>
                     <!-- Parent publication name -->
                     <a
-                      class="td"
+                      class="td publication-link"
                       *ngSwitchCase="row.field === 'parentPublicationName'"
                       routerLink="{{ row.linkPath }}&quot;{{
                         item[row.field]
@@ -447,7 +447,7 @@
                       >
                         <!-- Every other link field uses jufoCode as search term -->
                         <a
-                          class="td"
+                          class="td publication-link"
                           routerLink="{{ row.linkPath }}&quot;{{
                             item.jufoCode
                           }}&quot;"
