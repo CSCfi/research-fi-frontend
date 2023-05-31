@@ -752,6 +752,12 @@ export class AggregationService {
             },
           },
         };
+
+        payLoad.aggs.keywords = {
+          terms: {
+            field: "personal.keywords.value.keyword"
+          }
+        }
         break;
       case 'fundings':
         payLoad.aggs.year = yearAgg;
