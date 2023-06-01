@@ -21,7 +21,7 @@ export class PersonFilterService {
       limitHeight: false,
     },
     {
-      field: 'keywords',
+      field: 'keyword',
       label: $localize`:@@keywords:Avainsanat`,
       hasSubFields: false,
       open: true,
@@ -37,7 +37,7 @@ export class PersonFilterService {
     const source = data.aggregations;
 
     source.organization = this.mapOrganizations(source.organization);
-    source.keywords.buckets = this.mapKeywords(source.keywords);
+    source.keyword.buckets = this.mapKeywords(source.keyword);
     source.shaped = true;
 
     return source;

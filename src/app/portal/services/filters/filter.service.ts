@@ -42,7 +42,7 @@ export type Filters = {
   topic: string[];
   sector: string[];
   organization: string[];
-  keywords: string[];
+  keyword: string[];
   dataSource: string[];
   accessType: string[];
   type: string[];
@@ -161,7 +161,7 @@ export class FilterService {
       toYear: mapFilter(source.toYear),
       field: mapFilter(source.field),
       organization: mapFilter(source.organization),
-      keywords: mapFilter(source.keywords),
+      keyword: mapFilter(source.keyword),
       // Publications
       sector: mapFilter(source.sector),
       publicationType: mapFilter(source.publicationType),
@@ -200,7 +200,7 @@ export class FilterService {
     // Global
     this.yearFilter = this.filterByYear(filter.year);
     this.organizationFilter = this.filterByOrganization(filter.organization);
-    this.keywordFilter = this.filterByKeyword(filter.keywords);
+    this.keywordFilter = this.filterByKeyword(filter.keyword);
     this.fieldFilter = this.basicFilter(
       filter.field,
       'fieldsOfScience.fieldIdScience'
@@ -515,12 +515,7 @@ export class FilterService {
     const currentTab = this.tabChangeService.tab;
     switch (currentTab) {
       case 'persons': {
-        console.log("undefined?", filter);
-
         for (const value of filter) {
-
-          console.log("OH NO", value);
-
           res.push(
             {
               term: {

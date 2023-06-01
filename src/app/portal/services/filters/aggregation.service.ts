@@ -753,7 +753,7 @@ export class AggregationService {
           },
         };
 
-        payLoad.aggs.keywords = {
+        payLoad.aggs.keyword = {
           terms: {
             field: "personal.keywords.value.keyword"
           }
