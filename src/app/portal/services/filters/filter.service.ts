@@ -43,6 +43,7 @@ export type Filters = {
   sector: string[];
   organization: string[];
   keyword: string[];
+  position: string[];
   dataSource: string[];
   accessType: string[];
   type: string[];
@@ -80,6 +81,7 @@ export class FilterService {
   topicFilter: string[];
   organizationFilter: string[];
   keywordFilter: string[];
+  positionFilter: string[];
   dataSourceFilter: string[];
   accessTypeFilter: string[];
   typeFilter: string[];
@@ -162,6 +164,8 @@ export class FilterService {
       field: mapFilter(source.field),
       organization: mapFilter(source.organization),
       keyword: mapFilter(source.keyword),
+      position: mapFilter(source.position),
+
       // Publications
       sector: mapFilter(source.sector),
       publicationType: mapFilter(source.publicationType),
@@ -201,6 +205,9 @@ export class FilterService {
     this.yearFilter = this.filterByYear(filter.year);
     this.organizationFilter = this.filterByOrganization(filter.organization);
     this.keywordFilter = this.filterByKeyword(filter.keyword);
+
+    this.positionFilter = this.filterByPosition(filter.position);
+
     this.fieldFilter = this.basicFilter(
       filter.field,
       'fieldsOfScience.fieldIdScience'
@@ -510,7 +517,7 @@ export class FilterService {
     return res;
   }
 
-  filterByKeyword(filter: string[]) {
+  private filterByKeyword(filter: string[]) {
     const res = [];
     const currentTab = this.tabChangeService.tab;
     switch (currentTab) {
@@ -523,6 +530,24 @@ export class FilterService {
               }
             }
           )
+        }
+      }
+    }
+
+    return res;
+  }
+
+  private filterByPosition(filter: string[]) {
+    const res = [];
+    const currentTab = this.tabChangeService.tab;
+    switch (currentTab) {
+      case 'persons': {
+        for (const value of filter) {
+          res.push({
+            match: {
+              'activity.affiliations.positionNameFi.keyword': value
+            }
+          });
         }
       }
     }
@@ -787,6 +812,7 @@ export class FilterService {
       // Persons
       ...basicFilter('person', this.keywordFilter),
       ...nestedFilter('person', this.organizationFilter, 'activity.affiliations.sector.organization'),
+      ...nestedFilter('person', this.positionFilter, 'activity.affiliations'),
       // Fundings
       // Funding organization filter differs from nested filter since we need to get filter values from two different parents
       ...(index === 'funding'
