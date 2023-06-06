@@ -20,6 +20,20 @@ export class PersonFilterService {
       open: true,
       limitHeight: false,
     },
+    {
+      field: 'keyword',
+      label: $localize`:@@keywords:Avainsanat`,
+      hasSubFields: false,
+      open: true,
+      limitHeight: false,
+    },
+    {
+      field: 'position',
+      label: $localize`:@@position:Nimike`,
+      hasSubFields: false,
+      open: true,
+      limitHeight: false,
+    },
   ];
 
   singleFilterData = [];
@@ -30,6 +44,8 @@ export class PersonFilterService {
     const source = data.aggregations;
 
     source.organization = this.mapOrganizations(source.organization);
+    source.keyword.buckets = this.mapKeywords(source.keyword);
+    source.position.buckets = this.mapPosition(source.position);
     source.shaped = true;
 
     return source;
@@ -59,5 +75,37 @@ export class PersonFilterService {
     );
 
     return source;
+  }
+
+  private mapKeywords(keywords) {
+    const source = cloneDeep(keywords) || [];
+    const output = [...source.buckets];
+
+    // Sort based on doc_count and then alphabetically based on label
+    output.sort((a, b) => {
+      if (a.doc_count === b.doc_count) {
+        return a.key.localeCompare(b.key);
+      } else {
+        return b.doc_count - a.doc_count;
+      }
+    });
+
+    return output;
+  }
+
+  private mapPosition(position) {
+    const source = cloneDeep(position) || [];
+
+    const output = [...source.positions.buckets];
+
+    output.sort((a, b) => {
+      if (a.doc_count === b.doc_count) {
+        return a.key.localeCompare(b.key);
+      } else {
+        return b.doc_count - a.doc_count;
+      }
+    });
+
+    return output;
   }
 }
