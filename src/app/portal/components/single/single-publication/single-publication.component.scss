@@ -59,6 +59,10 @@
   min-height: 100px;
 }
 
+.publication-link {
+  word-break: break-word;
+}
+
 @media (max-width: 575px) {
   .auth-header-min-height {
     min-height: 80px;

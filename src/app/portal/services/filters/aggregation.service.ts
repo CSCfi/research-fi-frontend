@@ -752,6 +752,27 @@ export class AggregationService {
             },
           },
         };
+
+        payLoad.aggs.keyword = {
+          terms: {
+            field: "personal.keywords.value.keyword"
+          }
+        }
+
+        payLoad.aggs.position = {
+          nested: {
+            path: "activity.affiliations"
+          },
+          aggs: {
+            positions: {
+              terms: {
+                field: "activity.affiliations.positionNameFi.keyword",
+                exclude: " ",
+              }
+            }
+          }
+        };
+
         break;
       case 'fundings':
         payLoad.aggs.year = yearAgg;
