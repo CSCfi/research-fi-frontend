@@ -755,19 +755,35 @@ export class AggregationService {
 
         payLoad.aggs.keyword = {
           terms: {
+            size: 500,
             field: "personal.keywords.value.keyword"
           }
         }
 
+
         payLoad.aggs.position = {
           nested: {
-            path: "activity.affiliations"
+            path: 'activity.affiliations'
           },
           aggs: {
             positions: {
               terms: {
-                field: "activity.affiliations.positionNameFi.keyword",
-                exclude: " ",
+                size: 500,
+                field: 'activity.affiliations.positionNameFi.keyword',
+                // field: 'activity.affiliations.'  + this.localeC +  '.keyword',
+                exclude: ['', ' ']
+              },
+              aggs: {
+                parent_docs: {
+                  reverse_nested: {},
+                  aggs: {
+                    distinct_people: {
+                      cardinality: {
+                        field: 'id.keyword'
+                      }
+                    }
+                  }
+                }
               }
             }
           }

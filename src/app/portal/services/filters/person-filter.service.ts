@@ -22,14 +22,14 @@ export class PersonFilterService {
     },
     {
       field: 'keyword',
-      label: $localize`:@@keywords:Avainsanat`,
+      label: $localize`:@@keywordsFilter:Avainsanat`,
       hasSubFields: false,
       open: true,
       limitHeight: false,
     },
     {
       field: 'position',
-      label: $localize`:@@position:Nimike`,
+      label: $localize`:@@positionFilter:Nimike`,
       hasSubFields: false,
       open: true,
       limitHeight: false,
@@ -96,7 +96,25 @@ export class PersonFilterService {
   private mapPosition(position) {
     const source = cloneDeep(position) || [];
 
+    /* Example bucket
+    {
+      "key": "Researcher",
+      "doc_count": 12,
+      "parent_docs": {
+        "doc_count": 11,
+        "distinct_people": {
+          "value": 11
+        }
+      }
+    }
+    */
+
     const output = [...source.positions.buckets];
+
+    // Update the doc_count to be the parent_docs.doc_count using map
+    output.map((item) => {
+      item.doc_count = item.parent_docs.doc_count;
+    });
 
     output.sort((a, b) => {
       if (a.doc_count === b.doc_count) {
