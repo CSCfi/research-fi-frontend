@@ -2299,6 +2299,13 @@
         <source>Julkaise profiili</source>
       </trans-unit>
 
+      <trans-unit id="keywordsFilter" datatype="html">
+        <source>Avainsanat</source>
+      </trans-unit>
+
+      <trans-unit id="positionFilter" datatype="html">
+        <source>Nimike</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>
