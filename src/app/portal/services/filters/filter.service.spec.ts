@@ -31,6 +31,8 @@ describe('FilterService', () => {
     lang: ['en'],
     openAccess: ['selfArchived'],
     organization: ['01901'],
+    keyword: [],
+    position: [],
     publicationType: ['A1'],
     publicationFormat: [],
     publicationAudience: [],

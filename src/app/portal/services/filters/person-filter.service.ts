@@ -20,6 +20,20 @@ export class PersonFilterService {
       open: true,
       limitHeight: false,
     },
+    {
+      field: 'keyword',
+      label: $localize`:@@keywordsFilter:Avainsanat`,
+      hasSubFields: false,
+      open: true,
+      limitHeight: false,
+    },
+    {
+      field: 'position',
+      label: $localize`:@@positionFilter:Nimike`,
+      hasSubFields: false,
+      open: true,
+      limitHeight: false,
+    },
   ];
 
   singleFilterData = [];
@@ -30,6 +44,8 @@ export class PersonFilterService {
     const source = data.aggregations;
 
     source.organization = this.mapOrganizations(source.organization);
+    source.keyword.buckets = this.mapKeywords(source.keyword);
+    source.position.buckets = this.mapPosition(source.position);
     source.shaped = true;
 
     return source;
@@ -59,5 +75,55 @@ export class PersonFilterService {
     );
 
     return source;
+  }
+
+  private mapKeywords(keywords) {
+    const source = cloneDeep(keywords) || [];
+    const output = [...source.buckets];
+
+    // Sort based on doc_count and then alphabetically based on label
+    output.sort((a, b) => {
+      if (a.doc_count === b.doc_count) {
+        return a.key.localeCompare(b.key);
+      } else {
+        return b.doc_count - a.doc_count;
+      }
+    });
+
+    return output;
+  }
+
+  private mapPosition(position) {
+    const source = cloneDeep(position) || [];
+
+    /* Example bucket
+    {
+      "key": "Researcher",
+      "doc_count": 12,
+      "parent_docs": {
+        "doc_count": 11,
+        "distinct_people": {
+          "value": 11
+        }
+      }
+    }
+    */
+
+    const output = [...source.positions.buckets];
+
+    // Update the doc_count to be the parent_docs.doc_count using map
+    output.map((item) => {
+      item.doc_count = item.parent_docs.doc_count;
+    });
+
+    output.sort((a, b) => {
+      if (a.doc_count === b.doc_count) {
+        return a.key.localeCompare(b.key);
+      } else {
+        return b.doc_count - a.doc_count;
+      }
+    });
+
+    return output;
   }
 }

@@ -6252,6 +6252,16 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Ohjeet</source>
         <target>Anvisningar</target>
       </trans-unit>
+
+      <trans-unit id="keywordsFilter">
+        <source>Avainsanat</source>
+        <target>Nyckelord</target>
+      </trans-unit>
+
+      <trans-unit id="positionFilter" datatype="html">
+        <source>Nimike</source>
+        <target>Title</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

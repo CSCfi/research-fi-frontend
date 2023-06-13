@@ -221,6 +221,10 @@ ol {
   list-style: circle;
 }
 
+.capitalize-first::first-letter {
+  text-transform: uppercase;
+}
+
 .uppercase {
   text-transform: uppercase;
 }

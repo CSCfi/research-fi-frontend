@@ -20,7 +20,7 @@
 
         <ng-template #textContent>
           <a
-            *ngIf="tab && row.key === 'name' && item.id; else plainText"
+            *ngIf="tab && row.key === 'name' && item.id && item.id !== -1; else plainText"
             routerLink="/results/{{ tab }}/{{ item.id }}"
           >
             {{ item.name }}
@@ -31,8 +31,9 @@
             <span>{{ item.conferenceName }}</span>
             <span
               class="d-block"
-              [class.fw-bold]="row.bold"
+              [class.fw-bold]="row.key === 'name'"
               [class.font-size-small]="row.key === 'year'"
+              [class.capitalize-first]="row.key === 'role' || row.key === 'name'"
               >{{ item[row.key] }}</span
             >
             <ng-container *ngIf="item.parentPublicationName">
