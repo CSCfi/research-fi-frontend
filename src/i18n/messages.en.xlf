@@ -74,13 +74,9 @@
         <source>Hae raportti...</source>
         <target>Search reports...</target>
       </trans-unit>
-      <trans-unit id="669c69431c87e87b4bb5b28d781c27be00456a7f" datatype="html">
-        <source>Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa.</source>
-        <target>You can search for publications, funding decisions, infrastructures and organization descriptions.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/portal/components/search-bar/search-bar.component.html</context>
-          <context context-type="linenumber">28</context>
-        </context-group>
+      <trans-unit id="searchTooltip" datatype="html">
+        <source>Voit hakea julkaisuja, tutkijoita, rahoituspäätöksiä, aineistoja, rahoitushakuja, infrastruktuureja ja organisaatioita kuvailevaa tietoa.</source>
+        <target>You can search for publications, researchers, funding decisions, research data, funding calls, infrastructures and organizations.</target>
       </trans-unit>
       <trans-unit id="searchTarget" datatype="html">
         <source>Kohdista haku</source>
@@ -130,7 +126,7 @@
         <note priority="1" from="description">Search help</note>
       </trans-unit>
       <trans-unit id="searchHelp2" datatype="html">
-        <source>Hakutulosten rajaaminen onnistuu haun jälkeen haku -näkymässä.</source>
+        <source>Hakutulosten rajaaminen onnistuu haun jälkeen hakunäkymässä.</source>
         <target>You can filter search results after searching in the search view.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/portal/components/search-bar/search-bar.component.html</context>
@@ -139,8 +135,8 @@
         <note priority="1" from="description">Search help</note>
       </trans-unit>
       <trans-unit id="searchHelp3" datatype="html">
-        <source>Haku kohdistuu julkaisuihin, hankkeisiin, infrastruktuureihin ja organisaatioihin.</source>
-        <target state="translated">The search targets publications, projects, infrastructures, and organizations.</target>
+        <source>Haku kohdistuu julkaisuihin, tutkijoihin, hankkeisiin, aineistoihin, rahoitushakuihin, infrastruktuureihin ja organisaatioihin.</source>
+        <target state="translated">The search targets publications, researchers, projects, research data, funding calls, infrastructures, and organizations.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/portal/components/search-bar/search-bar.component.html</context>
           <context context-type="linenumber">49</context>
