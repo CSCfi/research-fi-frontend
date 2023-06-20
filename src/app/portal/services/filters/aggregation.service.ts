@@ -533,7 +533,7 @@ export class AggregationService {
           aggs: {
             internationalCollaborationCodes: {
               terms: {
-                field: 'internationalCollaboration',
+                field: 'internationalCollaboration.keyword',
                 size: 2,
               },
             },
@@ -602,7 +602,7 @@ export class AggregationService {
           aggs: {
             selfArchivedCodes: {
               terms: {
-                field: 'selfArchivedCode',
+                field: 'selfArchivedCode.keyword', // TODO will .keyword work even if nulls exists
               },
             },
           },
@@ -628,7 +628,7 @@ export class AggregationService {
               {
                 selfArchived: {
                   terms: {
-                    field: 'selfArchivedCode',
+                    field: 'selfArchivedCode.keyword',
                   },
                 },
               },
@@ -672,7 +672,7 @@ export class AggregationService {
               {
                 selfArchived: {
                   terms: {
-                    field: 'selfArchivedCode',
+                    field: 'selfArchivedCode.keyword',
                   },
                 },
               },
