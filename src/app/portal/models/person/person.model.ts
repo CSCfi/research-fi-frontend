@@ -42,6 +42,7 @@ export class Person {
     public description: string,
     public fieldsOfScience: string,
     public keywords: string,
+    public collaboration: string[],
     public uniqueDataSources: any,
     public orcidLink?: string
   ) {}
@@ -79,6 +80,17 @@ export class PersonAdapter implements Adapter<Person> {
     const affiliations = this.affiliationAdapter.adapt(
       data.activity.affiliations
     );
+
+    let collaboration: string[] = [];
+
+    if (data?.cooperation) {
+      data.cooperation.forEach(item => {
+        collaboration.push(this.utils.checkTranslation(
+          'name',
+          item
+        ));
+      })
+    }
 
     const educations = data.activity.educations.map((item) => ({
       organization: item.degreeGrantingInstitutionName,
@@ -151,6 +163,7 @@ export class PersonAdapter implements Adapter<Person> {
       }),
       fieldsOfScience,
       keywords,
+      collaboration,
       uniqueDataSources
     );
   }
