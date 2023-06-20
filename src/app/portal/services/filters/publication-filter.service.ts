@@ -603,7 +603,7 @@ export class PublicationFilterService {
     ].filter((x) => x.doc_count > 0);
   }
 
-  getSingleAmount(data: [{ key: string; doc_count: number }]) {
+  getSingleAmount(data) {
     if (data.length > 0) {
       return data.filter((x) => x.key === "1");
     }
