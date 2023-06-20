@@ -327,16 +327,17 @@
         </aside>
 
         <!-- Cooperation -->
-        <!--
-        <aside>
+        <aside *ngIf="person?.collaboration.length > 0">
           <mat-card>
             <div class="inner">
               <h2 i18n="@@collaborationHeader">Yhteistyö</h2>
-              <span>Placeholder</span>
+              <ng-container *ngFor='let item of person.collaboration'>
+                <li class="mb-3">{{item}}</li>
+              </ng-container>
             </div>
           </mat-card>
         </aside>
-        -->
+
         <!-- Related -->
         <aside>
           <mat-card>
