@@ -3869,6 +3869,10 @@
         <source>Tilastokeskuksen tieteenalaluokitus. Yhteen hankkeeseen voi liittyä useita tieteenaloja. Kaikki rahoittajat eivät käytä tieteenaloja. Siksi suodatinta käyttämällä ei voi selvittää jonkin tieteenalan osuutta kokonaisrahoituksesta.</source>
         <target state="translated">Statistikcentralens klassificering av vetenskapsområden. Ett projekt kan omfatta flera vetenskapsområden. Alla finansiärer använder inte vetenskapsområden. Därför kan man inte genom att använda filtret reda ut vilken andel av den sammanlagda finansieringen ett visst vetenskapsområde står för.</target>
       </trans-unit>
+      <trans-unit id="personsOrgTooltip">
+        <source>Tutkijan ensisijaiseksi valitsema affiliaatio. Ei sisällä toistaiseksi tietoja ulkomaisista organisaatioista ja osassa tapauksista tutkijan organisaatiotieto ei ole yhdistynyt kotimaiseen organisaatioon.</source>
+        <target>Primär affiliering vald av forskaren. För närvarande innehåller inte information om utländska organisationer och i vissa fall har forskarens organisationsinformation inte kopplats till den inhemska organisationen.</target>
+      </trans-unit>
       <trans-unit id="funderTopicTooltip">
         <source>Hankkeen aihetta luokittelevia valintoja. Pääosin luokittelut eivät ole kattavia ja voivat olla rahoittajakohtaisia.</source>
         <target>Val som klassificerar projektets tema. Klassificeringarna är inte heltäckande och kan vara finansiärspecifika.</target>

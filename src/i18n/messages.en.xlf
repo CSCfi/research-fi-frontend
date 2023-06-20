@@ -3883,6 +3883,10 @@
         <source>Tilastokeskuksen tieteenalaluokitus. Yhteen hankkeeseen voi liittyä useita tieteenaloja. Kaikki rahoittajat eivät käytä tieteenaloja. Siksi suodatinta käyttämällä ei voi selvittää jonkin tieteenalan osuutta kokonaisrahoituksesta.</source>
         <target>The Statistics Finland’s Fields of science classification. One project may involve multiple fields of science. Not all funders use fields of science. As a result, filters cannot be used to determine the share of total funding for a given field of science.</target>
       </trans-unit>
+      <trans-unit id="personsOrgTooltip">
+        <source>Tutkijan ensisijaiseksi valitsema affiliaatio. Ei sisällä toistaiseksi tietoja ulkomaisista organisaatioista ja osassa tapauksista tutkijan organisaatiotieto ei ole yhdistynyt kotimaiseen organisaatioon.</source>
+        <target>Primary affiliation chosen by the researcher. At the moment does not contain information about foreign organizations and in some cases the organizational information of the researcher has not been connected to the domestic organization.</target>
+      </trans-unit>
       <trans-unit id="funderTopicTooltip">
         <source>Hankkeen aihetta luokittelevia valintoja. Pääosin luokittelut eivät ole kattavia ja voivat olla rahoittajakohtaisia.</source>
         <target>Filters that categorize project topics. In general, categories are not comprehensive and may be specific for individual funder.</target>
