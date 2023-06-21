@@ -87,7 +87,7 @@ export class SinglePersonComponent implements OnInit {
   contactFields: Field[] = [
     { key: 'emails' },
     { key: 'links' },
-    { key: 'otherNames', label: 'Muut nimet' },
+    { key: 'otherNames', label: $localize`:@@otherNames:Muut nimet` },
   ];
 
   person$: Observable<Person>;
