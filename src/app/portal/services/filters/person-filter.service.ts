@@ -19,6 +19,7 @@ export class PersonFilterService {
       hasSubFields: true,
       open: true,
       limitHeight: false,
+      tooltip: $localize`:@@personsOrgTooltip:Tutkijan ensisijaiseksi valitsema affiliaatio. Ei sisällä toistaiseksi tietoja ulkomaisista organisaatioista ja osassa tapauksista tutkijan organisaatiotieto ei ole yhdistynyt kotimaiseen organisaatioon.`,
     },
     {
       field: 'keyword',

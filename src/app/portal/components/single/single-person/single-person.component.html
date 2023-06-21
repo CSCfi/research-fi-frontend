@@ -164,7 +164,7 @@
         <!-- Publications -->
         <div *ngIf="person.publications.length > 0" class='row content'>
           <div class='col'>
-            <h3 class='p-0'>{{ "Julkaisut" }} ({{ person.publications.length }})</h3>
+            <h3 class='p-0'>{{ publicationsCaption }} ({{ person.publications.length }})</h3>
 
             <div class='row g-0'>
               <ng-container *ngFor='let publication of ((sortedPublications$ | async) ?? []).slice(0, maxPublicationCount); let last = last'>
@@ -326,17 +326,20 @@
           </mat-card>
         </aside>
 
-        <!-- Cooperation -->
-        <!--
-        <aside>
+        <!-- Collaboration -->
+        <aside *ngIf="person?.collaboration.length > 0">
           <mat-card>
-            <div class="inner">
-              <h2 i18n="@@collaborationHeader">Yhteistyö</h2>
-              <span>Placeholder</span>
+            <div class="inner collaboration">
+              <h2 class="mb-4" i18n="@@collaborationHeader">Yhteistyö</h2>
+              <ul>
+              <ng-container *ngFor='let item of person.collaboration'>
+                <li class="mb-2">{{item}}</li>
+              </ng-container>
+              </ul>
             </div>
           </mat-card>
         </aside>
-        -->
+
         <!-- Related -->
         <aside>
           <mat-card>

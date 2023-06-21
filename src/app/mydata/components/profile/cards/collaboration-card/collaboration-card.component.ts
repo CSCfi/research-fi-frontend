@@ -60,7 +60,7 @@ export class CollaborationCardComponent implements OnInit, OnDestroy {
       .getCooperationChoices()
       .pipe(take(1))
       .subscribe((response: any) => {
-        const options = response?.body?.data;
+        const options = response?.data;
 
         this.originalCollaborationOptions = options;
 
