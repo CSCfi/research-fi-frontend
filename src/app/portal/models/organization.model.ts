@@ -21,7 +21,7 @@ export class Organization {
     public related: string,
     public organizationType: string,
     public homepage: string,
-    public address: string,
+    public visitingAddress: string,
     public postalAddress: string,
     public businessId: string,
     public statCenterId: string,

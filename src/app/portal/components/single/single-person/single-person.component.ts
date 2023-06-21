@@ -63,6 +63,7 @@ export class SinglePersonComponent implements OnInit {
   ];
 
   publicationFields = [{ key: 'name' }, { key: 'year' }, { key: 'doi' }];
+  publicationsCaption = $localize`:@@publications:Julkaisut`;
 
   datasetFields = [{ key: 'name' }, { key: 'year' }];
 
