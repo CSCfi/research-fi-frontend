@@ -104,16 +104,20 @@
             </a>
           </li>
 
-          <li>
-            <a
-              tabindex="0"
-              #contact
-              class="href"
-              (focus)="getMail()"
-              (mouseover)="getMail()"
-              ><span class="reverse">if.csc@sumiktutajedeit</span></a
-            >
-          </li>
+          <ng-container *ngIf='interacted === false'>
+            <li>
+              <a tabindex='0' #contact class='href' (focus)='setInteracted(true)' (mouseover)='setInteracted(true)'>
+                <span class='reverse'>if.csc@sumiktutajedeit</span>
+              </a>
+            </li>
+          </ng-container>
+
+          <ng-container *ngIf='interacted === true'>
+            <li>
+              <a tabindex='0' [href]="'mailto:' + email" class='href'>{{email}}</a>
+            </li>
+          </ng-container>
+
         </ul>
       </div>
 

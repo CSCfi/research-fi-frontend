@@ -5,27 +5,16 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
-import {
-  Component,
-  OnInit,
-  Inject,
-  LOCALE_ID,
-  ViewEncapsulation,
-  ViewChild,
-  ElementRef,
-  PLATFORM_ID,
-} from '@angular/core';
+import { Component, ElementRef, inject, LOCALE_ID, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { AppConfigService } from '../../shared/services/app-config-service.service';
-import {
-  faTwitter,
-  faFacebook,
-  faLinkedin,
-} from '@fortawesome/free-brands-svg-icons';
+import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { AppSettingsService } from '@shared/services/app-settings.service';
-import { WINDOW } from '@shared/services/window.service';
-import { isPlatformBrowser } from '@angular/common';
 import { DialogEventsService } from '@shared/services/dialog-events.service';
+
+function email(strings) {
+    return `${strings[0]}@csc.fi`;
+}
 
 @Component({
   selector: 'app-footer',
@@ -34,20 +23,20 @@ import { DialogEventsService } from '@shared/services/dialog-events.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class FooterComponent implements OnInit {
+  locale = inject(LOCALE_ID);
+  okmUrl = this.translateOkmUrl(this.locale);
+  instructionsUrl = this.translateInstructionUrl(this.locale);
+
+  interacted = false;
+  email = email`tiedejatutkimus`;
+
   buildInfo = '';
   faTwitter = faTwitter;
-  faFacebook = faFacebook;
-  faLinkedin = faLinkedin;
-  okmUrl: string;
-  locale: string;
-  instructionsUrl: string;
 
   faTimes = faTimes;
   showReviewButton: boolean;
 
   myDataBeta: boolean;
-
-  @ViewChild('contact') contact: ElementRef;
 
   // Dialog variables
   showDialog: boolean;
@@ -60,45 +49,46 @@ export class FooterComponent implements OnInit {
 
   constructor(
     private appConfigService: AppConfigService,
-    @Inject(LOCALE_ID) protected localeId: string,
     private appSettingsService: AppSettingsService,
-    @Inject(WINDOW) private window: Window,
-    @Inject(PLATFORM_ID) private platformId: object,
     private dialogEventsService: DialogEventsService,
   ) {
     this.buildInfo = this.appConfigService.buildInfo;
     this.showReviewButton = true;
-    this.locale = this.localeId;
   }
 
   ngOnInit() {
-    this.translateContent();
-    this.obfuscate();
-
     // Get current app settings
     this.appSettingsService.appSettings.subscribe((res) => {
       if (res.appName === 'myData') this.myDataBeta = true;
     });
   }
 
-  translateContent() {
-    switch (this.localeId) {
-      case 'fi': {
-        this.okmUrl = 'https://www.minedu.fi';
-        this.instructionsUrl = 'https://wiki.eduuni.fi/x/WQgGEw';
-        break;
-      }
-      case 'en': {
-        this.okmUrl = 'https://minedu.fi/en/';
-        this.instructionsUrl = 'https://wiki.eduuni.fi/x/jAGcEw';
-        break;
-      }
-      case 'sv': {
-        this.okmUrl = 'https://minedu.fi/sv/';
-        this.instructionsUrl = 'https://wiki.eduuni.fi/x/dAKcEw';
-        break;
-      }
+  translateOkmUrl(locale: string) {
+    let output = 'https://www.minedu.fi';
+
+    if (locale === 'en') {
+      output = 'https://minedu.fi/en/';
     }
+
+    if (locale === 'sv') {
+      output = 'https://minedu.fi/sv/';
+    }
+
+    return output;
+  }
+
+  translateInstructionUrl(locale: string) {
+    let output = 'https://wiki.eduuni.fi/x/WQgGEw';
+
+    if (locale === 'en') {
+      output = 'https://wiki.eduuni.fi/x/jAGcEw';
+    }
+
+    if (locale === 'sv') {
+      output = 'https://wiki.eduuni.fi/x/dAKcEw';
+    }
+
+    return output;
   }
 
   // Review button
@@ -115,31 +105,8 @@ export class FooterComponent implements OnInit {
     this.showDialog = false;
   }
 
-  // Email obfuscator
-  obfuscate() {
-    const coded = 'vr7I7CyvMv0rJM9@191.ir';
-    const key =
-      'm1z6dWNO04fnVsKES5aoLxJeqTIbhugFiQp9GXjtycBUZ7YwkR2M38rAlDHPCv';
-    const shift = coded.length;
-    let link = '';
-
-    for (let i = 0; i < coded.length; i++) {
-      if (key.indexOf(coded.charAt(i)) == -1) {
-        const ltr = coded.charAt(i);
-        link += ltr;
-      } else {
-        const ltr =
-          (key.indexOf(coded.charAt(i)) - shift + key.length) % key.length;
-        link += key.charAt(ltr);
-      }
-    }
-    return link;
-  }
-
-  getMail() {
-    const link = this.obfuscate();
-    this.contact.nativeElement.innerHTML = link;
-    this.contact.nativeElement.href = 'mailto:' + link;
+  setInteracted(bool: boolean) {
+    this.interacted = bool;
   }
 
   openQuickstartDialog() {
