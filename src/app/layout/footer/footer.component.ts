@@ -11,6 +11,10 @@ import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { DialogEventsService } from '@shared/services/dialog-events.service';
+import { SharedModule } from '@shared/shared.module';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { RouterLinkWithHref } from '@angular/router';
 
 function email(strings) {
     return `${strings[0]}@csc.fi`;
@@ -18,14 +22,24 @@ function email(strings) {
 
 @Component({
   selector: 'app-footer',
+  standalone: true,
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss'],
   encapsulation: ViewEncapsulation.None,
+  imports: [
+    SharedModule,
+    AsyncPipe,
+    FontAwesomeModule,
+    NgIf,
+    RouterLinkWithHref
+  ]
 })
 export class FooterComponent implements OnInit {
   locale = inject(LOCALE_ID);
   okmUrl = this.translateOkmUrl(this.locale);
   instructionsUrl = this.translateInstructionUrl(this.locale);
+  instructionsResearcherUrl = this.translateInstructionResearcherUrl(this.locale);
+
 
   interacted = false;
   email = email`tiedejatutkimus`;
@@ -36,7 +50,7 @@ export class FooterComponent implements OnInit {
   faTimes = faTimes;
   showReviewButton: boolean;
 
-  myDataBeta: boolean;
+  // myDataBeta: boolean;
 
   // Dialog variables
   showDialog: boolean;
@@ -58,9 +72,14 @@ export class FooterComponent implements OnInit {
 
   ngOnInit() {
     // Get current app settings
-    this.appSettingsService.appSettings.subscribe((res) => {
-      if (res.appName === 'myData') this.myDataBeta = true;
-    });
+    /*this.appSettingsService.appSettings.subscribe((res) => {
+      if (res.appName === 'myData')
+      {
+        this.myDataBeta = true;
+
+        console.log("myDataBeta is set to true");
+      }
+    });*/
   }
 
   translateOkmUrl(locale: string) {
@@ -78,6 +97,20 @@ export class FooterComponent implements OnInit {
   }
 
   translateInstructionUrl(locale: string) {
+    let output = 'https://wiki.eduuni.fi/x/WQgGEw';
+
+    if (locale === 'en') {
+      output = 'https://wiki.eduuni.fi/x/jAGcEw';
+    }
+
+    if (locale === 'sv') {
+      output = 'https://wiki.eduuni.fi/x/dAKcEw';
+    }
+
+    return output;
+  }
+
+  translateInstructionResearcherUrl(locale: string) {
     let output = 'https://wiki.eduuni.fi/x/WQgGEw';
 
     if (locale === 'en') {
@@ -109,7 +142,7 @@ export class FooterComponent implements OnInit {
     this.interacted = bool;
   }
 
-  openQuickstartDialog() {
+  /*openQuickstartDialog() {
     this.dialogEventsService.setQuickstartState(true);
-  }
+  }*/
 }

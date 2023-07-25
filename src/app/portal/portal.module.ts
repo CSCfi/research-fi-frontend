@@ -165,6 +165,7 @@ import { SinglePersonComponent } from './components/single/single-person/single-
 import { CheckEmptyFieldsPipe } from './pipes/check-empty-fields.pipe';
 import { PersonGroupComponent } from './components/single/single-person/person-group/person-group.component';
 import { PersonGroupAdditionalComponent } from './components/single/single-person/person-group-additional/person-group-additional.component';
+import { FooterComponent } from '../layout/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -286,6 +287,7 @@ import { PersonGroupAdditionalComponent } from './components/single/single-perso
     TooltipModule.forRoot(),
     MatTableModule,
     MatSortModule,
+    FooterComponent
   ],
   exports: [DatasetAuthorComponent, FiltersComponent],
   providers: [

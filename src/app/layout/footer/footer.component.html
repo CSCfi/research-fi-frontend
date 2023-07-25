@@ -14,6 +14,7 @@
             Palvelun tarjoaa
           </h2>
         </div>
+
         <div class="row d-flex justify-content-center">
           <a [attr.href]="okmUrl" target="_blank">
             <img
@@ -24,11 +25,13 @@
             />
           </a>
         </div>
+
         <div class="row d-flex justify-content-center text-center">
           <h2 class="header" i18n="Footer-header@@footerHeader2">
             Yhteistyössä
           </h2>
         </div>
+
         <div class="row d-flex justify-content-center">
           <a href="https://www.csc.fi/" target="_blank">
             <img
@@ -41,68 +44,69 @@
         </div>
       </div>
 
-      <div
-        class="col-12 col-lg-auto text-center text-lg-start"
-        [class.col-lg-2]="myDataBeta"
-      >
+      <div class="col-12 col-lg-auto text-center text-lg-start"> <!-- [class.col-lg-2]="myDataBeta" -->
         <h2 class="header" style="white-space: pre" i18n="Footer-header@@footerHeader3">
-          Palvelun käyttö
+          Tiedejatutkimus.fi
         </h2>
+
         <ul>
-          <li>
-            <a i18n="Footer-link@@footerLink1" routerLink="/service-info">
-              Tietoa palvelusta
-            </a>
-          </li>
+          <li><a i18n="Footer-link@@footerLink1" routerLink="/">Tiedejatutkimus.fi</a></li>
+          <li><a i18n="Footer-link@@footerLink1" routerLink="/service-info">Tietoa palvelusta</a></li>
+          <li><a i18n="Footer-link@@footerLink4" routerLink="/sitemap">Sivukartta</a></li>
+          <li><a i18n="Footer-link@@footerLink13" routerLink="/service-info" fragment="faq_1">Usein kysytyt kysymykset</a></li>
+          <li><a i18n="Footer-link@@footerLink8" routerLink="/accessibility">Saavutettavuusseloste</a></li>
+          <li><a i18n="Footer-link@@footerLink9" routerLink="/privacy">Tietosuoja</a></li>
 
-          <ng-container *ngIf="!myDataBeta">
-            <li>
-              <a i18n="Footer-link@@footerLink4" routerLink="/sitemap">
-                Sivukartta
-              </a>
-            </li>
-          </ng-container>
-
-          <ng-container *ngIf="!myDataBeta">
-            <li>
-              <a i18n="@@researchersProfile" routerLink="/mydata">
-                Tutkijan tiedot -työkalu
-              </a>
-            </li>
-          </ng-container>
-
-          <ng-container *ngIf="myDataBeta">
+          <!--<ng-container *ngIf="myDataBeta">
             <li>
               <a class='no-href' i18n="Footer-link@@footerLink10" (click)='openQuickstartDialog()'>Pikaohjeet</a>
             </li>
 
             <li>
-              <a i18n="Footer-link@@footerLink12" [attr.href]="instructionsUrl" target="_blank" target="_blank">
-                Kuvalliset käyttöohjeet
-              </a>
+              <a i18n="Footer-link@@footerLink12" [attr.href]="instructionsUrl" target="_blank" target="_blank">Kuvalliset käyttöohjeet</a>
             </li>
 
             <li>
-              <a i18n="Footer-link@@footerLink13" routerLink="/service-info" fragment="faq_3">
-                Usein kysytyt kysymykset
-              </a>
+              <a i18n="Footer-link@@footerLink13" routerLink="/service-info" fragment="faq_3">Usein kysytyt kysymykset</a>
             </li>
-          </ng-container>
+          </ng-container>-->
         </ul>
       </div>
 
       <div class="col-12 col-lg-auto text-center text-lg-start">
-        <h2 class="header" i18n="Footer-header@@footerHeader4">
+        <h2 class="header" i18n="Footer-header@@footerHeader4">TUTKIJAN TIEDOT -TYÖKALU</h2>
+
+        <ul>
+          <li><a routerLink='/mydata'>Tutkijan tiedot -työkalu</a></li>
+          <li style='background-color: magenta'><a>Pikaohjeet</a></li>                                                  <!-- TODO -->
+
+          <li><a [href]='instructionsResearcherUrl'>Kuvalliset käyttöohjeet</a></li>
+          <li><a routerLink='/service-info' fragment='faq_3'>Usein kysytyt kysymykset</a></li>
+          <li><a routerLink='/mydata/privacy'>Henkilötietojen käsittely</a></li>
+          <li><a routerLink='/mydata/terms'>Käyttöehdot</a></li>
+          <li><a routerLink='/accessibility'>Saavutettavuusseloste</a></li>
+        </ul>
+      </div>
+
+      <div class="col-12 col-lg-auto text-center text-lg-start">
+        <h2 class="header" i18n="Footer-header@@footerHeader5">
           Info ja yhteystiedot
         </h2>
+
+        <li>
+          <a href="javascript:void(0)" (click)="openDialog(reviewDialog)">
+            <ng-container i18n="Footer-link@@footerLink6">Anna palautetta</ng-container>
+          </a>
+        </li>
+
         <ul>
-          <li>
-            <a href="javascript:void(0)" (click)="openDialog(reviewDialog)">
-              <ng-container i18n="Footer-link@@footerLink6">
-                Anna palautetta
-              </ng-container>
-            </a>
-          </li>
+          <!--<ng-container *ngIf="myDataBeta">
+            <li>
+              <a i18n="Footer-link@@footerLink14" routerLink="/mydata/privacy">Henkilötietojen käsittely</a>
+            </li>
+
+            <li><a i18n="Footer-link@@footerLink11" routerLink="/mydata/terms">Käyttöehdot</a></li>
+          </ng-container>-->
 
           <ng-container *ngIf='interacted === false'>
             <li>
@@ -118,42 +122,16 @@
             </li>
           </ng-container>
 
-        </ul>
-      </div>
-
-      <div class="col-12 col-lg-auto text-center text-lg-start">
-        <h2 class="header" i18n="Footer-header@@footerHeader5">
-          Selosteet ja käytännöt
-        </h2>
-        <ul>
-          <ng-container *ngIf="myDataBeta">
-            <li>
-              <a i18n="Footer-link@@footerLink14" routerLink="/mydata/privacy">
-                Henkilötietojen käsittely
-              </a>
-            </li>
-
-            <li>
-              <a i18n="Footer-link@@footerLink11" routerLink="/mydata/terms">Käyttöehdot</a>
-            </li>
-          </ng-container>
-
-          <li>
-            <a i18n="Footer-link@@footerLink8" routerLink="/accessibility"
-              >Saavutettavuusseloste</a
-            >
-          </li>
-          <li *ngIf="!myDataBeta">
-            <a i18n="Footer-link@@footerLink9" routerLink="/privacy"
-              >Tietosuoja</a
-            >
-          </li>
+          <!--<li *ngIf="!myDataBeta">
+            <a i18n="Footer-link@@footerLink9" routerLink="/privacy">Tietosuoja</a>
+          </li>-->
         </ul>
       </div>
 
       <div class="col-12 col-lg-auto">
         <div class="social">
           <h2 i18n="@@followUs" class="header">Seuraa meitä!</h2>
+
           <ul>
             <li>
               <a
@@ -164,15 +142,15 @@
                 title="Twitter -palvelun logo"
                 i18n="Twitter-footer@@twitterFooter"
               >
-                <fa-icon class="social-icon" [icon]="faTwitter"></fa-icon
-                >Tiedejatutkimus.fi Twitterissä</a
-              >
+                <fa-icon class="social-icon" [icon]="faTwitter"></fa-icon>Tiedejatutkimus.fi Twitterissä</a>
             </li>
           </ul>
         </div>
+
         <div class="build-info pull-right">
           <span>{{ buildInfo }}</span>
         </div>
+
       </div>
     </div>
   </nav>
