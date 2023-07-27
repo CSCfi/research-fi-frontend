@@ -28,6 +28,7 @@ import { Search } from 'src/app/portal/models/search.model';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { TableColumn, TableRow } from 'src/types';
 import { HighlightSearch } from '@portal/pipes/highlight.pipe';
+import { CutContentPipe } from '../../../../shared/pipes/cut-content.pipe';
 
 @Component({
   selector: 'app-publications',
@@ -72,7 +73,8 @@ export class PublicationsComponent implements OnInit, OnDestroy, AfterViewInit {
     private searchService: SearchService,
     private cdr: ChangeDetectorRef,
     public utilityService: UtilityService,
-    private highlightPipe: HighlightSearch
+    private highlightPipe: HighlightSearch,
+    private cutContentPipe: CutContentPipe
   ) {
     this.documentLang = this.document.documentElement.lang;
   }
@@ -141,7 +143,7 @@ export class PublicationsComponent implements OnInit, OnDestroy, AfterViewInit {
         link: `/results/publication/${publication.id}`, // For icon link
       },
       author: {
-        label: this.highlightPipe.transform(publication.authors, this.input),
+        label: this.highlightPipe.transform(this.cutContentPipe.transform(publication.authors, 100)  , this.input),
       },
       medium: {
         template: channelColumnArray[index],

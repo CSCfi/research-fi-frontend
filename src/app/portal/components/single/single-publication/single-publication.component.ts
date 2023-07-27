@@ -213,6 +213,7 @@ export class SinglePublicationComponent
     },
     { label: $localize`Volyymi`, field: 'volume', link: false },
     { label: $localize`Numero`, field: 'issueNumber', link: false },
+    { label: $localize`:@@articleNumber:Artikkelinumero`, field: 'articleNumber', link: false },
     { label: $localize`Sivut`, field: 'pageNumbers', link: false },
     {
       label: 'ISSN',

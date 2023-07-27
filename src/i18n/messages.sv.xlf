@@ -2799,6 +2799,10 @@
         <source>Emojulkaisun nimi</source>
         <target state="translated">Moderpublikationens namn</target>
       </trans-unit>
+      <trans-unit id="articleNumber">
+        <source>Artikkelinumero</source>
+        <target>Artikelnummer</target>
+      </trans-unit>
       <trans-unit id="parentPublicationPublisher">
         <source>Emojulkaisun toimittajat</source>
         <target>Moderpublikationens redaktörer</target>
