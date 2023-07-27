@@ -6262,6 +6262,88 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Nimike</source>
         <target>Title</target>
       </trans-unit>
+
+<trans-unit id="footer.title.portal" datatype="html">
+  <source>Tiedejatutkimus.fi</source>
+  <target>Forskning.fi</target>
+</trans-unit>
+
+<trans-unit id="footer.link.portal" datatype="html">
+  <source>Tiedejatutkimus.fi</source>
+  <target>Forskning.fi</target>
+</trans-unit>
+
+<trans-unit id="footer.link.about" datatype="html">
+  <source>Tietoa palvelusta</source>
+  <target>Information om tjänsten</target>
+</trans-unit>
+
+<trans-unit id="footer.link.sitemap" datatype="html">
+  <source>Sivukartta</source>
+  <target>Sidkarta</target>
+</trans-unit>
+
+<trans-unit id="footer.link.faq-portal" datatype="html">
+  <source>Usein kysytyt kysymykset</source>
+  <target>Frågor och svar</target>
+</trans-unit>
+
+<trans-unit id="footer.link.accessability" datatype="html">
+  <source>Saavutettavuusseloste</source>
+  <target>Tillgänglighetsredogörelse</target>
+</trans-unit>
+
+<trans-unit id="footer.link.data-protection" datatype="html">
+  <source>Tietosuoja</source>
+  <target>Dataskydd</target>
+</trans-unit>
+
+
+
+<trans-unit id="footer.title.mydata" datatype="html">
+  <source>TUTKIJAN TIEDOT -TYÖKALU</source>
+  <target>FORSKARENS PROFILVERKTYG</target>
+</trans-unit>
+
+<trans-unit id="footer.link.mydata" datatype="html">
+  <source>Tutkijan tiedot -työkalu</source>
+  <target>Forskarens profilverktyg</target>
+</trans-unit>
+
+<trans-unit id="footer.link.quickstart" datatype="html">
+  <source>Pikaohjeet</source>
+  <target>Snabbstartsguide</target>
+</trans-unit>
+
+<trans-unit id="footer.link.instructions" datatype="html">
+  <source>Kuvalliset käyttöohjeet</source>
+  <target>Bruksanvisning</target>
+</trans-unit>
+
+<trans-unit id="footer.link.faq-mydata" datatype="html">
+  <source>Usein kysytyt kysymykset</source>
+  <target>Frågor och svar</target>
+</trans-unit>
+
+<trans-unit id="footer.link.privacy" datatype="html">
+  <source>Henkilötietojen käsittely</source>
+  <target>Behandling av personuppgifter</target>
+</trans-unit>
+
+<trans-unit id="footer.link.terms-and-conditions" datatype="html">
+  <source>Käyttöehdot</source>
+  <target>Användarvillkor</target>
+</trans-unit>
+
+<trans-unit id="footer.link.accessability" datatype="html">
+  <source>Saavutettavuusseloste</source>
+  <target>Tillgänglighetsredogörelse</target>
+</trans-unit>
+
+
+
+
+
     </body>
   </file>
 </xliff>

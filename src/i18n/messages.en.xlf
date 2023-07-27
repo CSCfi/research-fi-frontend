@@ -6254,6 +6254,84 @@
         <source>Nimike</source>
         <target>Title</target>
       </trans-unit>
+
+<trans-unit id="footer.title.portal" datatype="html">
+  <source>Tiedejatutkimus.fi</source>
+  <target>Research.fi</target>
+</trans-unit>
+
+<trans-unit id="footer.link.portal" datatype="html">
+  <source>Tiedejatutkimus.fi</source>
+  <target>Research.fi</target>
+</trans-unit>
+
+<trans-unit id="footer.link.about" datatype="html">
+  <source>Tietoa palvelusta</source>
+  <target>About the service</target>
+</trans-unit>
+
+<trans-unit id="footer.link.sitemap" datatype="html">
+  <source>Sivukartta</source>
+  <target>Sitemap</target>
+</trans-unit>
+
+<trans-unit id="footer.link.faq-portal" datatype="html">
+  <source>Usein kysytyt kysymykset</source>
+  <target>FAQ</target>
+</trans-unit>
+
+<trans-unit id="footer.link.accessability" datatype="html">
+  <source>Saavutettavuusseloste</source>
+  <target>Accessibility statement</target>
+</trans-unit>
+
+<trans-unit id="footer.link.data-protection" datatype="html">
+  <source>Tietosuoja</source>
+  <target>Privacy</target>
+</trans-unit>
+
+
+<trans-unit id="footer.title.mydata" datatype="html">
+  <source>TUTKIJAN TIEDOT -TYÖKALU</source>
+  <target>RESEARCHER'S PROFILE TOOL</target>
+</trans-unit>
+
+<trans-unit id="footer.link.mydata" datatype="html">
+  <source>Tutkijan tiedot -työkalu</source>
+  <target>Researcher's Profile Tool</target>
+</trans-unit>
+
+<trans-unit id="footer.link.quickstart" datatype="html">
+  <source>Pikaohjeet</source>
+  <target>Quickstart guide</target>
+</trans-unit>
+
+<trans-unit id="footer.link.instructions" datatype="html">
+  <source>Kuvalliset käyttöohjeet</source>
+  <target>Instructions for use</target>
+</trans-unit>
+
+<trans-unit id="footer.link.faq-mydata" datatype="html">
+  <source>Usein kysytyt kysymykset</source>
+  <target>FAQ</target>
+</trans-unit>
+
+<trans-unit id="footer.link.privacy" datatype="html">
+  <source>Henkilötietojen käsittely</source>
+  <target>Processing of personal data</target>
+</trans-unit>
+
+<trans-unit id="footer.link.terms-and-conditions" datatype="html">
+  <source>Käyttöehdot</source>
+  <target>Terms of use</target>
+</trans-unit>
+
+<trans-unit id="footer.link.accessability" datatype="html">
+  <source>Saavutettavuusseloste</source>
+  <target>Accessibility statement</target>
+</trans-unit>
+
+
     </body>
   </file>
 </xliff>

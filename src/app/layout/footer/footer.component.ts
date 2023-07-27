@@ -14,7 +14,9 @@ import { DialogEventsService } from '@shared/services/dialog-events.service';
 import { SharedModule } from '@shared/shared.module';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { RouterLinkWithHref } from '@angular/router';
+import { Router, RouterLinkWithHref } from '@angular/router';
+import { interval, lastValueFrom, take } from 'rxjs';
+import { MatButtonModule } from '@angular/material/button';
 
 function email(strings) {
     return `${strings[0]}@csc.fi`;
@@ -31,15 +33,14 @@ function email(strings) {
     AsyncPipe,
     FontAwesomeModule,
     NgIf,
-    RouterLinkWithHref
+    RouterLinkWithHref,
+    MatButtonModule
   ]
 })
 export class FooterComponent implements OnInit {
   locale = inject(LOCALE_ID);
   okmUrl = this.translateOkmUrl(this.locale);
   instructionsUrl = this.translateInstructionUrl(this.locale);
-  instructionsResearcherUrl = this.translateInstructionResearcherUrl(this.locale);
-
 
   interacted = false;
   email = email`tiedejatutkimus`;
@@ -65,6 +66,7 @@ export class FooterComponent implements OnInit {
     private appConfigService: AppConfigService,
     private appSettingsService: AppSettingsService,
     private dialogEventsService: DialogEventsService,
+    private router: Router
   ) {
     this.buildInfo = this.appConfigService.buildInfo;
     this.showReviewButton = true;
@@ -110,20 +112,6 @@ export class FooterComponent implements OnInit {
     return output;
   }
 
-  translateInstructionResearcherUrl(locale: string) {
-    let output = 'https://wiki.eduuni.fi/x/WQgGEw';
-
-    if (locale === 'en') {
-      output = 'https://wiki.eduuni.fi/x/jAGcEw';
-    }
-
-    if (locale === 'sv') {
-      output = 'https://wiki.eduuni.fi/x/dAKcEw';
-    }
-
-    return output;
-  }
-
   // Review button
   close() {
     this.showReviewButton = false;
@@ -142,7 +130,12 @@ export class FooterComponent implements OnInit {
     this.interacted = bool;
   }
 
-  /*openQuickstartDialog() {
+  async openQuickstartDialog() {
+    await this.router.navigate(['/mydata']);
+
+    // Page rendering issue without additional waiting
+    await lastValueFrom(interval(50).pipe(take(1)));
+
     this.dialogEventsService.setQuickstartState(true);
-  }*/
+  }
 }

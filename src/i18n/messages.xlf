@@ -2306,6 +2306,73 @@
       <trans-unit id="positionFilter" datatype="html">
         <source>Nimike</source>
       </trans-unit>
+
+
+<trans-unit id="footer.title.portal" datatype="html">
+  <source>Tiedejatutkimus.fi</source>
+</trans-unit>
+
+<trans-unit id="footer.link.portal" datatype="html">
+  <source>Tiedejatutkimus.fi</source>
+</trans-unit>
+
+<trans-unit id="footer.link.about" datatype="html">
+  <source>Tietoa palvelusta</source>
+</trans-unit>
+
+<trans-unit id="footer.link.sitemap" datatype="html">
+  <source>Sivukartta</source>
+</trans-unit>
+
+<trans-unit id="footer.link.faq-portal" datatype="html">
+  <source>Usein kysytyt kysymykset</source>
+</trans-unit>
+
+<trans-unit id="footer.link.accessability" datatype="html">
+  <source>Saavutettavuusseloste</source>
+</trans-unit>
+
+<trans-unit id="footer.link.data-protection" datatype="html">
+  <source>Tietosuoja</source>
+</trans-unit>
+
+
+
+
+
+<trans-unit id="footer.title.mydata" datatype="html">
+  <source>TUTKIJAN TIEDOT -TYÖKALU</source>
+</trans-unit>
+
+<trans-unit id="footer.link.mydata" datatype="html">
+  <source>Tutkijan tiedot -työkalu</source>
+</trans-unit>
+
+<trans-unit id="footer.link.quickstart" datatype="html">
+  <source>Pikaohjeet</source>
+</trans-unit>
+
+<trans-unit id="footer.link.instructions" datatype="html">
+  <source>Kuvalliset käyttöohjeet</source>
+</trans-unit>
+
+<trans-unit id="footer.link.faq-mydata" datatype="html">
+  <source>Usein kysytyt kysymykset</source>
+</trans-unit>
+
+<trans-unit id="footer.link.privacy" datatype="html">
+  <source>Henkilötietojen käsittely</source>
+</trans-unit>
+
+<trans-unit id="footer.link.terms-and-conditions" datatype="html">
+  <source>Käyttöehdot</source>
+</trans-unit>
+
+<trans-unit id="footer.link.accessability" datatype="html">
+  <source>Saavutettavuusseloste</source>
+</trans-unit>
+
+
     </body>
   </file>
 </xliff>

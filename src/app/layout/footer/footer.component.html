@@ -45,17 +45,17 @@
       </div>
 
       <div class="col-12 col-lg-auto text-center text-lg-start"> <!-- [class.col-lg-2]="myDataBeta" -->
-        <h2 class="header" style="white-space: pre" i18n="Footer-header@@footerHeader3">
+        <h2 class="header" style="white-space: pre" i18n="@@footer.title.portal">
           Tiedejatutkimus.fi
         </h2>
 
         <ul>
-          <li><a i18n="Footer-link@@footerLink1" routerLink="/">Tiedejatutkimus.fi</a></li>
-          <li><a i18n="Footer-link@@footerLink1" routerLink="/service-info">Tietoa palvelusta</a></li>
-          <li><a i18n="Footer-link@@footerLink4" routerLink="/sitemap">Sivukartta</a></li>
-          <li><a i18n="Footer-link@@footerLink13" routerLink="/service-info" fragment="faq_1">Usein kysytyt kysymykset</a></li>
-          <li><a i18n="Footer-link@@footerLink8" routerLink="/accessibility">Saavutettavuusseloste</a></li>
-          <li><a i18n="Footer-link@@footerLink9" routerLink="/privacy">Tietosuoja</a></li>
+          <li><a i18n="@@footer.link.portal" routerLink="/">Tiedejatutkimus.fi</a></li>
+          <li><a i18n="@@footer.link.about" routerLink="/service-info">Tietoa palvelusta</a></li>
+          <li><a i18n="@@footer.link.sitemap" routerLink="/sitemap">Sivukartta</a></li>
+          <li><a i18n="@@footer.link.faq-portal" routerLink="/service-info" fragment="faq_1">Usein kysytyt kysymykset</a></li>
+          <li><a i18n="@@footer.link.accessibility" routerLink="/accessibility">Saavutettavuusseloste</a></li>
+          <li><a i18n="@@footer.link.data-protection" routerLink="/privacy">Tietosuoja</a></li>
 
           <!--<ng-container *ngIf="myDataBeta">
             <li>
@@ -74,17 +74,16 @@
       </div>
 
       <div class="col-12 col-lg-auto text-center text-lg-start">
-        <h2 class="header" i18n="Footer-header@@footerHeader4">TUTKIJAN TIEDOT -TYÖKALU</h2>
+        <h2 class="header" i18n="@@footer.title.mydata">TUTKIJAN TIEDOT -TYÖKALU</h2>
 
         <ul>
-          <li><a routerLink='/mydata'>Tutkijan tiedot -työkalu</a></li>
-          <li style='background-color: magenta'><a>Pikaohjeet</a></li>                                                  <!-- TODO -->
-
-          <li><a [href]='instructionsResearcherUrl'>Kuvalliset käyttöohjeet</a></li>
-          <li><a routerLink='/service-info' fragment='faq_3'>Usein kysytyt kysymykset</a></li>
-          <li><a routerLink='/mydata/privacy'>Henkilötietojen käsittely</a></li>
-          <li><a routerLink='/mydata/terms'>Käyttöehdot</a></li>
-          <li><a routerLink='/accessibility'>Saavutettavuusseloste</a></li>
+          <li><a i18n='@@footer.link.mydata' routerLink='/mydata'>Tutkijan tiedot -työkalu</a></li>
+          <li><a i18n="@@footer.link.quickstart" class='no-href'(click)='openQuickstartDialog()'>Pikaohjeet</a></li>
+          <li><a i18n='@@footer.link.instructions' [href]='instructionsUrl'>Kuvalliset käyttöohjeet</a></li>
+          <li><a i18n='@@footer.link.faq-mydata' routerLink='/service-info' fragment='faq_3'>Usein kysytyt kysymykset</a></li>
+          <li><a i18n='@@footer.link.privacy' routerLink='/mydata/privacy'>Henkilötietojen käsittely</a></li>
+          <li><a i18n='@@footer.link.terms-and-conditions' routerLink='/mydata/terms'>Käyttöehdot</a></li>
+          <li><a i18n='@@footer.link.accessability' routerLink='/accessibility'>Saavutettavuusseloste</a></li>
         </ul>
       </div>
 
@@ -94,7 +93,7 @@
         </h2>
 
         <li>
-          <a href="javascript:void(0)" (click)="openDialog(reviewDialog)">
+          <a class='no-href' (click)="openDialog(reviewDialog)">
             <ng-container i18n="Footer-link@@footerLink6">Anna palautetta</ng-container>
           </a>
         </li>
