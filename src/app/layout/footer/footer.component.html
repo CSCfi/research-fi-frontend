@@ -56,25 +56,13 @@
           <li><a i18n="@@footer.link.faq-portal" routerLink="/service-info" fragment="faq_1">Usein kysytyt kysymykset</a></li>
           <li><a i18n="@@footer.link.accessibility" routerLink="/accessibility">Saavutettavuusseloste</a></li>
           <li><a i18n="@@footer.link.data-protection" routerLink="/privacy">Tietosuoja</a></li>
-
-          <!--<ng-container *ngIf="myDataBeta">
-            <li>
-              <a class='no-href' i18n="Footer-link@@footerLink10" (click)='openQuickstartDialog()'>Pikaohjeet</a>
-            </li>
-
-            <li>
-              <a i18n="Footer-link@@footerLink12" [attr.href]="instructionsUrl" target="_blank" target="_blank">Kuvalliset käyttöohjeet</a>
-            </li>
-
-            <li>
-              <a i18n="Footer-link@@footerLink13" routerLink="/service-info" fragment="faq_3">Usein kysytyt kysymykset</a>
-            </li>
-          </ng-container>-->
         </ul>
       </div>
 
       <div class="col-12 col-lg-auto text-center text-lg-start">
-        <h2 class="header" i18n="@@footer.title.mydata">TUTKIJAN TIEDOT -TYÖKALU</h2>
+        <h2 class="header" i18n="@@footer.title.mydata">
+          Tutkijan Tiedot -työkalu
+        </h2>
 
         <ul>
           <li><a i18n='@@footer.link.mydata' routerLink='/mydata'>Tutkijan tiedot -työkalu</a></li>
@@ -99,14 +87,6 @@
         </li>
 
         <ul>
-          <!--<ng-container *ngIf="myDataBeta">
-            <li>
-              <a i18n="Footer-link@@footerLink14" routerLink="/mydata/privacy">Henkilötietojen käsittely</a>
-            </li>
-
-            <li><a i18n="Footer-link@@footerLink11" routerLink="/mydata/terms">Käyttöehdot</a></li>
-          </ng-container>-->
-
           <ng-container *ngIf='interacted === false'>
             <li>
               <a tabindex='0' #contact class='href' (focus)='setInteracted(true)' (mouseover)='setInteracted(true)'>
@@ -120,10 +100,6 @@
               <a tabindex='0' [href]="'mailto:' + email" class='href'>{{email}}</a>
             </li>
           </ng-container>
-
-          <!--<li *ngIf="!myDataBeta">
-            <a i18n="Footer-link@@footerLink9" routerLink="/privacy">Tietosuoja</a>
-          </li>-->
         </ul>
       </div>
 

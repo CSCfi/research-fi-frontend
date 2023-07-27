@@ -2127,42 +2127,6 @@
           <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="footerLink14" datatype="html">
-        <source>Henkilötietojen käsittely</source>
-        <target state="translated">Behandling av personuppgifter</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/portal/components/sitemap/sitemap.component.html</context>
-          <context context-type="linenumber">45</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
-          <context context-type="linenumber">57</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="footerLink11" datatype="html">
-        <source>Käyttöehdot</source>
-        <target state="translated">Användarvillkor</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/portal/components/sitemap/sitemap.component.html</context>
-          <context context-type="linenumber">45</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
-          <context context-type="linenumber">57</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="footerLink13" datatype="html">
-        <source>Usein kysytyt kysymykset</source>
-        <target state="translated">Frågor och svar</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/portal/components/sitemap/sitemap.component.html</context>
-          <context context-type="linenumber">45</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
-          <context context-type="linenumber">57</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="skipToInput" datatype="html">
         <source>Hyppää hakukenttään</source>
         <target state="translated">Gå till sökfältet</target>
@@ -2255,24 +2219,6 @@
           <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="footerHeader3" datatype="html">
-        <source>Palvelun käyttö</source>
-        <target state="translated">Användning av tjänsten</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
-          <context context-type="linenumber">34</context>
-        </context-group>
-        <note priority="1" from="description">Footer-header</note>
-      </trans-unit>
-      <trans-unit id="footerHeader4" datatype="html">
-        <source>Info ja yhteystiedot</source>
-        <target>Info och kontaktinformation</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
-          <context context-type="linenumber">43</context>
-        </context-group>
-        <note priority="1" from="description">Footer-header</note>
-      </trans-unit>
       <trans-unit id="footerLink6" datatype="html">
         <source>Anna palautetta</source>
         <target state="translated">Ge respons</target>
@@ -2285,24 +2231,6 @@
       <trans-unit id="footerLink7" datatype="html">
         <source>Ota yhteyttä</source>
         <target>Kontakt</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
-          <context context-type="linenumber">46</context>
-        </context-group>
-        <note priority="1" from="description">Footer-link</note>
-      </trans-unit>
-      <trans-unit id="footerLink10" datatype="html">
-        <source>Pikaohjeet</source>
-        <target>Snabbstartsguide</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
-          <context context-type="linenumber">68</context>
-        </context-group>
-        <note priority="1" from="description">Footer-link</note>
-      </trans-unit>
-      <trans-unit id="footerLink12" datatype="html">
-        <source>Kuvalliset käyttöohjeet</source>
-        <target>Bruksanvisning</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">46</context>
@@ -6263,87 +6191,80 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <target>Title</target>
       </trans-unit>
 
-<trans-unit id="footer.title.portal" datatype="html">
-  <source>Tiedejatutkimus.fi</source>
-  <target>Forskning.fi</target>
-</trans-unit>
+      <trans-unit id="footer.title.portal" datatype="html">
+        <source>Tiedejatutkimus.fi</source>
+        <target>Forskning.fi</target>
+      </trans-unit>
 
-<trans-unit id="footer.link.portal" datatype="html">
-  <source>Tiedejatutkimus.fi</source>
-  <target>Forskning.fi</target>
-</trans-unit>
+      <trans-unit id="footer.link.portal" datatype="html">
+        <source>Tiedejatutkimus.fi</source>
+        <target>Forskning.fi</target>
+      </trans-unit>
 
-<trans-unit id="footer.link.about" datatype="html">
-  <source>Tietoa palvelusta</source>
-  <target>Information om tjänsten</target>
-</trans-unit>
+      <trans-unit id="footer.link.about" datatype="html">
+        <source>Tietoa palvelusta</source>
+        <target>Information om tjänsten</target>
+      </trans-unit>
 
-<trans-unit id="footer.link.sitemap" datatype="html">
-  <source>Sivukartta</source>
-  <target>Sidkarta</target>
-</trans-unit>
+      <trans-unit id="footer.link.sitemap" datatype="html">
+        <source>Sivukartta</source>
+        <target>Sidkarta</target>
+      </trans-unit>
 
-<trans-unit id="footer.link.faq-portal" datatype="html">
-  <source>Usein kysytyt kysymykset</source>
-  <target>Frågor och svar</target>
-</trans-unit>
+      <trans-unit id="footer.link.faq-portal" datatype="html">
+        <source>Usein kysytyt kysymykset</source>
+        <target>Frågor och svar</target>
+      </trans-unit>
 
-<trans-unit id="footer.link.accessability" datatype="html">
-  <source>Saavutettavuusseloste</source>
-  <target>Tillgänglighetsredogörelse</target>
-</trans-unit>
+      <trans-unit id="footer.link.accessability" datatype="html">
+        <source>Saavutettavuusseloste</source>
+        <target>Tillgänglighetsredogörelse</target>
+      </trans-unit>
 
-<trans-unit id="footer.link.data-protection" datatype="html">
-  <source>Tietosuoja</source>
-  <target>Dataskydd</target>
-</trans-unit>
+      <trans-unit id="footer.link.data-protection" datatype="html">
+        <source>Tietosuoja</source>
+        <target>Dataskydd</target>
+      </trans-unit>
 
+      <trans-unit id="footer.title.mydata" datatype="html">
+        <source>Tutkijan tiedot -työkalu</source>
+        <target>Forskarens profilverktyg</target>
+      </trans-unit>
 
+      <trans-unit id="footer.link.mydata" datatype="html">
+        <source>Tutkijan tiedot -työkalu</source>
+        <target>Forskarens profilverktyg</target>
+      </trans-unit>
 
-<trans-unit id="footer.title.mydata" datatype="html">
-  <source>TUTKIJAN TIEDOT -TYÖKALU</source>
-  <target>FORSKARENS PROFILVERKTYG</target>
-</trans-unit>
+      <trans-unit id="footer.link.quickstart" datatype="html">
+        <source>Pikaohjeet</source>
+        <target>Snabbstartsguide</target>
+      </trans-unit>
 
-<trans-unit id="footer.link.mydata" datatype="html">
-  <source>Tutkijan tiedot -työkalu</source>
-  <target>Forskarens profilverktyg</target>
-</trans-unit>
+      <trans-unit id="footer.link.instructions" datatype="html">
+        <source>Kuvalliset käyttöohjeet</source>
+        <target>Bruksanvisning</target>
+      </trans-unit>
 
-<trans-unit id="footer.link.quickstart" datatype="html">
-  <source>Pikaohjeet</source>
-  <target>Snabbstartsguide</target>
-</trans-unit>
+      <trans-unit id="footer.link.faq-mydata" datatype="html">
+        <source>Usein kysytyt kysymykset</source>
+        <target>Frågor och svar</target>
+      </trans-unit>
 
-<trans-unit id="footer.link.instructions" datatype="html">
-  <source>Kuvalliset käyttöohjeet</source>
-  <target>Bruksanvisning</target>
-</trans-unit>
+      <trans-unit id="footer.link.privacy" datatype="html">
+        <source>Henkilötietojen käsittely</source>
+        <target>Behandling av personuppgifter</target>
+      </trans-unit>
 
-<trans-unit id="footer.link.faq-mydata" datatype="html">
-  <source>Usein kysytyt kysymykset</source>
-  <target>Frågor och svar</target>
-</trans-unit>
+      <trans-unit id="footer.link.terms-and-conditions" datatype="html">
+        <source>Käyttöehdot</source>
+        <target>Användarvillkor</target>
+      </trans-unit>
 
-<trans-unit id="footer.link.privacy" datatype="html">
-  <source>Henkilötietojen käsittely</source>
-  <target>Behandling av personuppgifter</target>
-</trans-unit>
-
-<trans-unit id="footer.link.terms-and-conditions" datatype="html">
-  <source>Käyttöehdot</source>
-  <target>Användarvillkor</target>
-</trans-unit>
-
-<trans-unit id="footer.link.accessability" datatype="html">
-  <source>Saavutettavuusseloste</source>
-  <target>Tillgänglighetsredogörelse</target>
-</trans-unit>
-
-
-
-
-
+      <trans-unit id="footer.link.accessability" datatype="html">
+        <source>Saavutettavuusseloste</source>
+        <target>Tillgänglighetsredogörelse</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

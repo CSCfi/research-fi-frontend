@@ -37,7 +37,7 @@ function email(strings) {
     MatButtonModule
   ]
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent {
   locale = inject(LOCALE_ID);
   okmUrl = this.translateOkmUrl(this.locale);
   instructionsUrl = this.translateInstructionUrl(this.locale);
@@ -50,8 +50,6 @@ export class FooterComponent implements OnInit {
 
   faTimes = faTimes;
   showReviewButton: boolean;
-
-  // myDataBeta: boolean;
 
   // Dialog variables
   showDialog: boolean;
@@ -70,18 +68,6 @@ export class FooterComponent implements OnInit {
   ) {
     this.buildInfo = this.appConfigService.buildInfo;
     this.showReviewButton = true;
-  }
-
-  ngOnInit() {
-    // Get current app settings
-    /*this.appSettingsService.appSettings.subscribe((res) => {
-      if (res.appName === 'myData')
-      {
-        this.myDataBeta = true;
-
-        console.log("myDataBeta is set to true");
-      }
-    });*/
   }
 
   translateOkmUrl(locale: string) {
