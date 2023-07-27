@@ -2809,6 +2809,10 @@
         <source>Emojulkaisun nimi</source>
         <target>Parent publication name</target>
       </trans-unit>
+      <trans-unit id="articleNumber">
+        <source>Artikkelinumero</source>
+        <target>Article number</target>
+      </trans-unit>
       <trans-unit id="parentPublicationPublisher">
         <source>Emojulkaisun toimittajat</source>
         <target>Parent publication editors</target>
