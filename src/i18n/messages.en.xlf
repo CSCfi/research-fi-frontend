@@ -2140,55 +2140,6 @@
           <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="footerLink10" datatype="html">
-        <source>Pikaohjeet</source>
-        <target>Quickstart guide</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
-          <context context-type="linenumber">68</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="footerLink14" datatype="html">
-        <source>Henkilötietojen käsittely</source>
-        <target state="translated">Processing of personal data</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/portal/components/sitemap/sitemap.component.html</context>
-          <context context-type="linenumber">45</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
-          <context context-type="linenumber">57</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="footerLink10" datatype="html">
-        <source>Pikaohjeet</source>
-        <target>Quickstart</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
-          <context context-type="linenumber">46</context>
-        </context-group>
-        <note priority="1" from="description">Footer-link</note>
-      </trans-unit>
-      <trans-unit id="footerLink12" datatype="html">
-        <source>Kuvalliset käyttöohjeet</source>
-        <target>Instructions for use</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
-          <context context-type="linenumber">49</context>
-        </context-group>
-        <note priority="1" from="description">Footer-link</note>
-      </trans-unit>
-      <trans-unit id="footerLink13" datatype="html">
-        <source>Usein kysytyt kysymykset</source>
-        <target state="translated">FAQ</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/portal/components/sitemap/sitemap.component.html</context>
-          <context context-type="linenumber">45</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
-          <context context-type="linenumber">57</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="skipToInput" datatype="html">
         <source>Hyppää hakukenttään</source>
@@ -2281,24 +2232,6 @@
           <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">26</context>
         </context-group>
-      </trans-unit>
-      <trans-unit id="footerHeader3" datatype="html">
-        <source>Palvelun käyttö</source>
-        <target>Use of the service</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
-          <context context-type="linenumber">34</context>
-        </context-group>
-        <note priority="1" from="description">Footer-header</note>
-      </trans-unit>
-      <trans-unit id="footerHeader4" datatype="html">
-        <source>Info ja yhteystiedot</source>
-        <target>Info and contact information</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
-          <context context-type="linenumber">43</context>
-        </context-group>
-        <note priority="1" from="description">Footer-header</note>
       </trans-unit>
       <trans-unit id="footerLink6" datatype="html">
         <source>Anna palautetta</source>
@@ -6257,6 +6190,81 @@
       <trans-unit id="positionFilter" datatype="html">
         <source>Nimike</source>
         <target>Title</target>
+      </trans-unit>
+
+      <trans-unit id="footer.title.portal" datatype="html">
+        <source>Tiedejatutkimus.fi</source>
+        <target>Research.fi</target>
+      </trans-unit>
+
+      <trans-unit id="footer.link.portal" datatype="html">
+        <source>Tiedejatutkimus.fi</source>
+        <target>Research.fi</target>
+      </trans-unit>
+
+      <trans-unit id="footer.link.about" datatype="html">
+        <source>Tietoa palvelusta</source>
+        <target>About the service</target>
+      </trans-unit>
+
+      <trans-unit id="footer.link.sitemap" datatype="html">
+        <source>Sivukartta</source>
+        <target>Sitemap</target>
+      </trans-unit>
+
+      <trans-unit id="footer.link.faq-portal" datatype="html">
+        <source>Usein kysytyt kysymykset</source>
+        <target>FAQ</target>
+      </trans-unit>
+
+      <trans-unit id="footer.link.accessability" datatype="html">
+        <source>Saavutettavuusseloste</source>
+        <target>Accessibility statement</target>
+      </trans-unit>
+
+      <trans-unit id="footer.link.data-protection" datatype="html">
+        <source>Tietosuoja</source>
+        <target>Privacy</target>
+      </trans-unit>
+
+      <trans-unit id="footer.title.mydata" datatype="html">
+        <source>Tutkijan tiedot -työkalu</source>
+        <target>Researcher's Profile Tool</target>
+      </trans-unit>
+
+      <trans-unit id="footer.link.mydata" datatype="html">
+        <source>Tutkijan tiedot -työkalu</source>
+        <target>Researcher's Profile Tool</target>
+      </trans-unit>
+
+      <trans-unit id="footer.link.quickstart" datatype="html">
+        <source>Pikaohjeet</source>
+        <target>Quickstart guide</target>
+      </trans-unit>
+
+      <trans-unit id="footer.link.instructions" datatype="html">
+        <source>Kuvalliset käyttöohjeet</source>
+        <target>Instructions for use</target>
+      </trans-unit>
+
+      <trans-unit id="footer.link.faq-mydata" datatype="html">
+        <source>Usein kysytyt kysymykset</source>
+        <target>FAQ</target>
+      </trans-unit>
+
+      <trans-unit id="footer.link.privacy" datatype="html">
+        <source>Henkilötietojen käsittely</source>
+        <target>Processing of personal data</target>
+      </trans-unit>
+
+      <trans-unit id="footer.link.terms-and-conditions" datatype="html">
+        <source>Käyttöehdot</source>
+        <target>Terms of use</target>
+      </trans-unit>
+
+      <trans-unit id="footer.link.accessability" datatype="html">
+        <source>Saavutettavuusseloste</source>
+        <target>Accessibility statement</target>
       </trans-unit>
     </body>
   </file>
