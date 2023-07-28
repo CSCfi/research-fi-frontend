@@ -2140,7 +2140,6 @@
           <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
-      </trans-unit>
       <trans-unit id="skipToInput" datatype="html">
         <source>Hyppää hakukenttään</source>
         <target>Skip to the search field</target>
