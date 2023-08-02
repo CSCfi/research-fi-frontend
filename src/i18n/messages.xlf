@@ -2346,6 +2346,10 @@
       <trans-unit id="footer.link.accessability" datatype="html">
         <source>Saavutettavuusseloste</source>
       </trans-unit>
+
+      <trans-unit id="reselect" datatype="html">
+        <source>Vaihda valintoja</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>
