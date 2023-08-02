@@ -81,19 +81,12 @@ export class AggregationService {
       if (!disableFiltering) {
         // Open access aggregations come from 3 different aggs and need special case for filters
         if (field === 'openAccess') {
-          const filteredActive = active.filter(
-            (item) =>
-              Object.keys(item.bool.should[0].term)?.toString() !==
-                'openAccessCode' &&
-              Object.keys(item.bool.should[0].term)?.toString() !==
-                'selfArchivedCode'
+          const filteredActive = active.filter((item) =>
+            Object.keys(item.bool.should[0].term)?.toString() !== 'openAccessCode' &&
+            Object.keys(item.bool.should[0].term)?.toString() !== 'selfArchivedCode'
           );
-          return filteredActive.concat(
-            activeFiltered,
-            activeNested,
-            activeMultipleNested,
-            coPublication ? coPublicationFilter : []
-          );
+
+          return filteredActive.concat(activeFiltered, activeNested, activeMultipleNested, coPublication ? coPublicationFilter : []);
         } else {
           return active
             .filter(
@@ -653,29 +646,11 @@ export class AggregationService {
         };
         payLoad.aggs.oaPublisherComposite = {
           composite: {
-            size: 20,
+            size: 1000,
             sources: [
-              {
-                openAccess: {
-                  terms: {
-                    field: 'openAccess',
-                  },
-                },
-              },
-              {
-                publisherOpenAccess: {
-                  terms: {
-                    field: 'publisherOpenAccessCode',
-                  },
-                },
-              },
-              {
-                selfArchived: {
-                  terms: {
-                    field: 'selfArchivedCode.keyword',
-                  },
-                },
-              },
+              { openAccess: { terms: { field: 'openAccess', }, }, },
+              { publisherOpenAccess: { terms: { field: 'publisherOpenAccessCode', }, }, },
+              { selfArchived: { terms: { field: 'selfArchivedCode.keyword' } } }
             ],
           },
           aggs: {
