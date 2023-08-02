@@ -22,21 +22,26 @@ export class LatestNewsComponent implements OnInit, OnDestroy {
   @Input() visible: boolean;
   loading: boolean = false;
   latestNewsSub: Subscription;
+  startIndex = 0;
 
   constructor(public searchService: SearchService) {}
 
   ngOnInit(): void {
-    this.getLatestNews(this.currentPageSize);
+    this.getLatestNews(this.currentPageSize, this.startIndex, false);
   }
 
-  getLatestNews(size: number, from: number = 0) {
+  getLatestNews(size: number, from: number, loadMore = false) {
     this.loading = true;
     this.latestNewsSub = this.searchService
       .getNews(size, from)
       .pipe(take(1))
       .subscribe({
         next: (data) => {
-          this.data = this.data.concat(data);
+          if (loadMore) {
+            this.data = this.data.concat(data);
+          } else {
+            this.data = data;
+          }
           this.loading = false;
         },
         error: (error) => (this.errorMessage = error as any),
@@ -44,7 +49,8 @@ export class LatestNewsComponent implements OnInit, OnDestroy {
   }
 
   loadMoreNews() {
-    this.getLatestNews(20, this.currentPageSize);
+    this.startIndex += this.currentPageSize;
+    this.getLatestNews(this.currentPageSize, this.startIndex, true);
   }
 
   ngOnDestroy() {

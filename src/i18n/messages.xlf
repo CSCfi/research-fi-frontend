@@ -1683,13 +1683,6 @@
           <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="footerLink10" datatype="html">
-        <source>Pikaohjeet</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">/app/layout/footer/footer.component.html</context>
-          <context context-type="linenumber">68</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="skipToInput" datatype="html">
         <source>Hyppää hakukenttään</source>
         <context-group purpose="location">
@@ -1770,22 +1763,6 @@
           <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">26</context>
         </context-group>
-      </trans-unit>
-      <trans-unit id="footerHeader3" datatype="html">
-        <source>Palvelun käyttö</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
-          <context context-type="linenumber">34</context>
-        </context-group>
-        <note priority="1" from="description">Footer-header</note>
-      </trans-unit>
-      <trans-unit id="footerHeader4" datatype="html">
-        <source>Info ja yhteystiedot</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
-          <context context-type="linenumber">43</context>
-        </context-group>
-        <note priority="1" from="description">Footer-header</note>
       </trans-unit>
       <trans-unit id="footerLink6" datatype="html">
         <source>Anna palautetta</source>
@@ -2015,6 +1992,9 @@
       <trans-unit id="3537901381707941652">
         <source>Emojulkaisun nimi</source>
       </trans-unit>
+       <trans-unit id="articleNumber">
+         <source>Artikkelinumero</source>
+       </trans-unit>
       <trans-unit id="5762426248501746892">
         <source>Konferenssi</source>
       </trans-unit>
@@ -2305,6 +2285,66 @@
 
       <trans-unit id="positionFilter" datatype="html">
         <source>Nimike</source>
+      </trans-unit>
+
+      <trans-unit id="footer.title.portal" datatype="html">
+        <source>Tiedejatutkimus.fi</source>
+      </trans-unit>
+
+      <trans-unit id="footer.link.portal" datatype="html">
+        <source>Tiedejatutkimus.fi</source>
+      </trans-unit>
+
+      <trans-unit id="footer.link.about" datatype="html">
+        <source>Tietoa palvelusta</source>
+      </trans-unit>
+
+      <trans-unit id="footer.link.sitemap" datatype="html">
+        <source>Sivukartta</source>
+      </trans-unit>
+
+      <trans-unit id="footer.link.faq-portal" datatype="html">
+        <source>Usein kysytyt kysymykset</source>
+      </trans-unit>
+
+      <trans-unit id="footer.link.accessability" datatype="html">
+        <source>Saavutettavuusseloste</source>
+      </trans-unit>
+
+      <trans-unit id="footer.link.data-protection" datatype="html">
+        <source>Tietosuoja</source>
+      </trans-unit>
+
+      <trans-unit id="footer.title.mydata" datatype="html">
+        <source>Tutkijan tiedot -työkalu</source>
+      </trans-unit>
+
+      <trans-unit id="footer.link.mydata" datatype="html">
+        <source>Tutkijan tiedot -työkalu</source>
+      </trans-unit>
+
+      <trans-unit id="footer.link.quickstart" datatype="html">
+        <source>Pikaohjeet</source>
+      </trans-unit>
+
+      <trans-unit id="footer.link.instructions" datatype="html">
+        <source>Kuvalliset käyttöohjeet</source>
+      </trans-unit>
+
+      <trans-unit id="footer.link.faq-mydata" datatype="html">
+        <source>Usein kysytyt kysymykset</source>
+      </trans-unit>
+
+      <trans-unit id="footer.link.privacy" datatype="html">
+        <source>Henkilötietojen käsittely</source>
+      </trans-unit>
+
+      <trans-unit id="footer.link.terms-and-conditions" datatype="html">
+        <source>Käyttöehdot</source>
+      </trans-unit>
+
+      <trans-unit id="footer.link.accessability" datatype="html">
+        <source>Saavutettavuusseloste</source>
       </trans-unit>
     </body>
   </file>

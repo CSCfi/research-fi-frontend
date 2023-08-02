@@ -398,7 +398,7 @@ export class BarComponent implements OnChanges {
       .html(
         (this.searchTerm
           ? `"<mark>${this.searchTerm}</mark>"`
-          : $localize`:@@noSearchTerm:Ei hakusanaa`) +
+          : ``) +
           (this.searchTarget ? ', ' + this.searchTarget : '')
       );
 
