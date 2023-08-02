@@ -73,7 +73,7 @@ export class FilterService {
   fundingAmountFilter: string[];
   openAccessFilter: string[];
   internationalCollaborationFilter: {
-    term: { internationalCollaboration: boolean | undefined };
+    term: { internationalCollaboration: string | undefined };
   };
   okmDataCollectionFilter: string[];
   coPublicationFilter: string[];
@@ -591,7 +591,7 @@ export class FilterService {
 
   filterByOpenAccess(code: string[]) {
     const res = [];
-    if (code.includes('openAccess')) {
+    if (code.includes('openAccess')) {                                          // TODO 52012 vs 52012
       res.push({
         bool: {
           must: [
@@ -601,20 +601,12 @@ export class FilterService {
         },
       });
     }
-    if (code.includes('otherOpen')) {
-      res.push({
-        bool: {
-          must: [
-            { term: { openAccess: 0 } },
-            { term: { publisherOpenAccessCode: 2 } },
-          ],
-        },
-      });
-    }
+
     if (code.includes('selfArchived')) {
-      res.push({ term: { selfArchivedCode: 1 } });
+      res.push({ term: { selfArchivedCode: "1" } });                            // TODO 64399 vs 64400
     }
-    if (code.includes('delayedOpenAccess')) {
+
+    if (code.includes('delayedOpenAccess')) {                                   // TODO 188 vs 188
       [0, 1].forEach((val) => {
         res.push({
           bool: {
@@ -626,12 +618,38 @@ export class FilterService {
         });
       });
     }
-    if (code.includes('nonOpenAccess')) {
+
+    /*if (code.includes('otherOpen')) {                                         // TODO 5890 vs 479
+      res.push({
+        bool: {
+          must: [
+            { term: { openAccess: 0 } },
+            { term: { publisherOpenAccessCode: 2 } },
+          ],
+        },
+      });
+    }*/
+
+    if (code.includes('otherOpen')) {                                           // TODO 5890 vs 5890
+      res.push({
+        bool: {
+          must_not: [
+            { term: { selfArchivedCode: '1' } }
+          ],
+          filter: [
+            { term: { openAccess: 1 } },
+            { term: { publisherOpenAccessCode: 2 } }
+          ]
+        }
+      });
+    }
+
+    /*if (code.includes('nonOpenAccess')) {                                       // TODO 147 361 vs 143 004
       [0, 1, 2, 9].forEach((val) => {
         res.push({
           bool: {
             must: [
-              { term: { selfArchivedCode: 0 } },
+              { term: { selfArchivedCode: "0" } },
               { term: { openAccess: 0 } },
               { term: { publisherOpenAccessCode: val } },
             ],
@@ -641,14 +659,51 @@ export class FilterService {
       res.push({
         bool: {
           must: [
-            { term: { selfArchivedCode: 0 } },
+            { term: { selfArchivedCode: "0" } },
             { term: { openAccess: 1 } },
             { term: { publisherOpenAccessCode: 0 } },
           ],
         },
       });
+    }*/
+
+    if (code.includes('nonOpenAccess')) {                                       // TODO 147361 vs 147361
+      res.push({
+        bool: {
+          must_not: [
+            { term: { selfArchivedCode: '1' } }
+          ],
+          should: [
+            {
+              bool: {
+                filter: [
+                  { term: { openAccess: 0 } },
+                  {
+                    bool: {
+                      must_not: [
+                        { term: { publisherOpenAccessCode: 3 } }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              bool: {
+                filter: [
+                  { term: { openAccess: 1 } },
+                  { term: { publisherOpenAccessCode: 0 } }
+                ]
+              }
+            }
+          ],
+          minimum_should_match: 1
+        }
+      });
     }
-    if (code.includes('noOpenAccessData')) {
+
+
+    if (code.includes('noOpenAccessData')) {                                    // TODO None appears
       const q = { bool: { must_not: [] } };
       const known = [
         [0, 0],
@@ -660,6 +715,7 @@ export class FilterService {
         [1, 2],
         [1, 3],
       ];
+
       known.forEach((pair) =>
         q.bool.must_not.push({
           bool: {
@@ -672,12 +728,13 @@ export class FilterService {
       );
       res.push(q);
     }
+
     return res;
   }
 
   filterByInternationalCollaboration(status: any) {
     if (status.length > 0 && JSON.parse(status)) {
-      return { term: { internationalCollaboration: true } };
+      return { term: { internationalCollaboration: "1" } };
     } else {
       return undefined;
     }
