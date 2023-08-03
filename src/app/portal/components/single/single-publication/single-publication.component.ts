@@ -42,13 +42,16 @@ export class SinglePublicationComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
   public singleId: any;
+
   responseData: Search;
   searchTerm: string;
   pageNumber: any;
   tab = 'publications';
   tabQueryParams: any;
+
   private metaTags = MetaTags.singlePublication;
   private commonTags = MetaTags.common;
+
   showMore = $localize`:@@showMore:Näytä enemmän`;
   showLess = $localize`:@@showLess:Näytä vähemmän`;
 
@@ -542,7 +545,9 @@ export class SinglePublicationComponent
 
         // Reset authors & organizations on new result
         this.authorAndOrganization = [];
+
         const publication = this.responseData.publications[0];
+
         if (publication) {
           switch (this.localeId) {
             case 'fi': {
@@ -558,13 +563,17 @@ export class SinglePublicationComponent
               break;
             }
           }
+
           const titleString = this.utilityService.getTitle();
+
           this.srHeader.nativeElement.innerHTML = titleString?.split(' - ', 1);
+
           this.utilityService.addMeta(
             titleString,
             this.metaTags['description' + this.currentLocale],
             this.commonTags['imgAlt' + this.currentLocale]
           );
+
           // juFoCode is used for exact search
           this.juFoCode = publication.jufoCode;
           this.shapeData();
@@ -781,9 +790,12 @@ export class SinglePublicationComponent
       organizations: this.authorAndOrganization.map((item) => item.orgId),
     };
 
-    source.internationalCollaboration = source.internationalCollaboration
-      ? $localize`:@@yes:Kyllä`
-      : $localize`:@@no:Ei`;
+    source.internationalCollaboration =
+      source.internationalCollaboration === "1"
+        ? $localize`:@@yes:Kyllä`
+        : source.internationalCollaboration === "0"
+        ? $localize`:@@no:Ei`
+        : $localize`:@@unknown:Ei tietoa`;
 
     source.internationalPublication =
       source.internationalPublication === 1
@@ -792,9 +804,12 @@ export class SinglePublicationComponent
         ? $localize`:@@finland:Kotimainen`
         : '';
 
-    source.businessCollaboration = source.businessCollaboration
-      ? $localize`:@@yes:Kyllä`
-      : $localize`:@@no:Ei`;
+    source.businessCollaboration =
+      source.businessCollaboration === "1"
+        ? $localize`:@@yes:Kyllä`
+        : source.businessCollaboration === "0"
+        ? $localize`:@@no:Ei`
+        : $localize`:@@unknown:Ei tietoa`;
 
     // Get & set publication type label
     if (

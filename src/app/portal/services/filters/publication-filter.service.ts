@@ -526,171 +526,86 @@ export class PublicationFilterService {
   }
 
   openAccess(selfArchived, publisherComposite) {
-    let openAccessCodes = [];
-    const result = [];
-
-    // Filter also based on selfArchived === 0 for non open
-    publisherComposite
-      .filter(
-        (x) =>
-          x.key.selfArchived === 0 &&
-          x.key.openAccess === 0 &&
-          x.key.publisherOpenAccess !== 3
-      )
-      .forEach((x) => {
-        openAccessCodes.push({
-          key: 'nonOpenAccess',
-          doc_count: x.filtered.doc_count,
-        });
-      });
-
-    if (publisherComposite && publisherComposite.length > 0) {
-      publisherComposite.forEach((val) => {
-        val.stringKey = '' + val.key.openAccess + val.key.publisherOpenAccess;
-
-        switch (val.stringKey) {
-          case '11': {
-            openAccessCodes.push({
-              key: 'openAccess',
-              doc_count: val.filtered.doc_count,
-            });
-            break;
-          }
-          case '03':
-          case '13': {
-            openAccessCodes.push({
-              key: 'delayedOpenAccess',
-              doc_count: val.filtered.doc_count,
-            });
-            break;
-          }
-          case '12': {
-            if (val.key.selfArchived != 1) {
-              openAccessCodes.push({
-                key: 'otherOpen',
-                doc_count: val.filtered.doc_count,
-              });
-              break;
-            }
-          }
-          // Separate implementation above for non open, add with 0 doc count so no doubles
-          case '00':
-          case '01':
-          case '02':
-          case '09': {
-            if (val.key.selfArchived != 1) {
-              openAccessCodes.push({
-                key: 'nonOpenAccess',
-                doc_count: 0,
-              });
-              break;
-            }
-          }
-          case '10': {
-            if (val.key.selfArchived != 1) {
-              openAccessCodes.push({
-                key: 'nonOpenAccess',
-                doc_count: val.filtered.doc_count,
-              });
-              break;
-            }
-          }
-          default: {
-            // Self archived is not unknown
-            if (!val.key.selfArchived) {
-              openAccessCodes.push({
-                key: 'noOpenAccessData',
-                doc_count: val.filtered.doc_count,
-              });
-            }
-            break;
-          }
-        }
-      });
+    type PublisherComposite = {
+      key: {
+        openAccess: number;
+        publisherOpenAccess: number;
+        selfArchived: string;
+      };
+      doc_count: number;
+      filtered: {
+        doc_count: number;
+      };
+      stringKey: string;
     }
 
-    if (selfArchived && selfArchived.length > 0) {
-      selfArchived.forEach((val) => {
-        switch (val.key) {
-          case 1: {
-            openAccessCodes.push({
-              key: 'selfArchived',
-              doc_count: val.doc_count,
-            });
-            break;
-          }
-        }
-      });
-    }
-    // Get duplicate values and sum doc counts
-    const reduce = openAccessCodes.reduce((item, val) => {
-      const sum = item
-        .filter((obj) => {
-          return obj.key === val.key;
-        })
-        .pop() || { key: val.key, doc_count: 0 };
+    publisherComposite = publisherComposite as PublisherComposite[];
 
-      sum.doc_count += val.doc_count;
-      item.push(sum);
-      return item;
-    }, []);
-
-    // Remove duplicates
-    openAccessCodes = [...new Set(reduce)];
-    function docCount(key) {
-      return openAccessCodes.find((item) => item.key === key).doc_count;
-    }
-    // Push items by key
-    if (openAccessCodes.some((e) => e.key === 'openAccess')) {
-      result.push({
-        key: 'openAccess',
-        doc_count: docCount('openAccess'),
-        label: $localize`:@@openAccessPublicationChannel:Open Access -julkaisukanava`,
-      });
-    }
-    if (openAccessCodes.some((e) => e.key === 'selfArchived')) {
-      result.push({
-        key: 'selfArchived',
-        doc_count: docCount('selfArchived'),
-        label: $localize`:@@selfArchived:Rinnakkaistallennettu`,
-      });
-    }
-    if (openAccessCodes.some((e) => e.key === 'delayedOpenAccess')) {
-      result.push({
-        key: 'delayedOpenAccess',
-        doc_count: docCount('delayedOpenAccess'),
-        label: $localize`:@@delayedOpenAccess:Viivästetty avoin saatavuus`,
-      });
-    }
-    if (openAccessCodes.some((e) => e.key === 'otherOpen')) {
-      result.push({
-        key: 'otherOpen',
-        doc_count: docCount('otherOpen'),
-        label: $localize`:@@otherOpenAccess:Muu avoin saatavuus`,
-      });
+    const counts = {
+      openAccess: 0,
+      selfArchived: 0,
+      delayedOpenAccess: 0,
+      otherOpen: 0,
+      nonOpenAccess: 0,
+      noOpenAccessData: 0,
     }
 
-    if (openAccessCodes.some((e) => e.key === 'nonOpenAccess')) {
-      result.push({
-        key: 'nonOpenAccess',
-        doc_count: docCount('nonOpenAccess'),
-        label: $localize`:@@nonOpen:Ei avoin`,
-      });
+    for (const value of publisherComposite) {
+      const B = value.key.selfArchived;
+      const D = value.key.openAccess;
+      const E = value.key.publisherOpenAccess;
+
+      let matched = false;
+
+      //  (D=1 and E=1) add it to openAccess
+      if (D === 1 && E === 1) {
+        counts.openAccess += value.filtered.doc_count;
+        matched = true;
+      }
+
+      // (B="1") add it to selfArchived, other values do not matter
+      if (B === "1") {
+        counts.selfArchived += value.filtered.doc_count;
+        matched = true;
+      }
+
+      // (D=1 and E=3) or (D=0 and E=3) add it to delayedOpenAccess
+      if ((D === 1 && E === 3) || (D === 0 && E === 3)) {
+        counts.delayedOpenAccess += value.filtered.doc_count;
+        matched = true;
+      }
+
+      // B !=1 and (D=1 and E=2)
+      if (B !== "1" && D === 1 && E === 2) {
+        counts.otherOpen += value.filtered.doc_count;
+        matched = true;
+      }
+
+      // B !=1 and ((D=0 and E !=3) or (D=1 and E=0))
+      if (B !== "1" && ((D === 0 && E !== 3) || (D === 1 && E === 0))) {
+        counts.nonOpenAccess += value.filtered.doc_count;
+        matched = true;
+      }
+
+      // If none of the above, add to noOpenAccessData
+      if (!matched) {
+        counts.noOpenAccessData += value.filtered.doc_count;
+      }
     }
 
-    if (openAccessCodes.some((e) => e.key === 'noOpenAccessData')) {
-      result.push({
-        key: 'noOpenAccessData',
-        doc_count: docCount('noOpenAccessData'),
-        label: $localize`:@@noInfo:Ei tietoa`,
-      });
-    }
-    return result;
+    return [
+      { key: 'openAccess',        doc_count: counts.openAccess,        label: $localize`:@@openAccessPublicationChannel:Open Access -julkaisukanava` },
+      { key: 'selfArchived',      doc_count: counts.selfArchived,      label: $localize`:@@selfArchived:Rinnakkaistallennettu` },
+      { key: 'delayedOpenAccess', doc_count: counts.delayedOpenAccess, label: $localize`:@@delayedOpenAccess:Viivästetty avoin saatavuus` },
+      { key: 'otherOpen',         doc_count: counts.otherOpen,         label: $localize`:@@otherOpenAccess:Muu avoin saatavuus` },
+      { key: 'nonOpenAccess',     doc_count: counts.nonOpenAccess,     label: $localize`:@@nonOpen:Ei avoin` },
+      { key: 'noOpenAccessData',  doc_count: counts.noOpenAccessData,  label: $localize`:@@noInfo:Ei tietoa` }
+    ].filter((x) => x.doc_count > 0);
   }
 
   getSingleAmount(data) {
     if (data.length > 0) {
-      return data.filter((x) => x.key === 1);
+      return data.filter((x) => x.key === "1");
     }
   }
 

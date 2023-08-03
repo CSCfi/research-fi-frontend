@@ -10,7 +10,7 @@ export const CommonStrings = {
   processingOfPersonalData: $localize`:@@processingOfPersonalData:Henkilötietojen käsittely`,
   deleteProfile: $localize`:@@deleteProfile:Poista profiili`,
   select: $localize`:@@select:Valitse`,
-  edit: $localize`:@@edit:Muokkaa`,
+  reselect: $localize`:@@reselect:Vaihda valintoja`,
   ttvLabel: $localize`:@@appName:Tiedejatutkimus.fi`,
   primary: $localize`:@@primary:Ensisijainen`,
   setAsPrimary: $localize`:@@setAsPrimary:Aseta ensisijaiseksi`,
