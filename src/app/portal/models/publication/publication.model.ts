@@ -132,7 +132,7 @@ export class PublicationAdapter implements Adapter<Publication> {
     } else if (item.selfArchivedCode === 0) {
       archiveCodeText = $localize`:@@no:Ei`;
     } else {
-      archiveCodeText = $localize`:@@unknown:Ei tiedossa`;
+      archiveCodeText = $localize`:@@unknown:Ei tietoa`;
     }
 
     let articleTypeText = '';
