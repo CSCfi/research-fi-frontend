@@ -795,7 +795,7 @@ export class SinglePublicationComponent
         ? $localize`:@@yes:Kyllä`
         : source.internationalCollaboration === "0"
         ? $localize`:@@no:Ei`
-        : $localize`@@unknown:Ei tiedossa`;
+        : $localize`:@@unknown:Ei tietoa`;
 
     source.internationalPublication =
       source.internationalPublication === 1
@@ -809,7 +809,7 @@ export class SinglePublicationComponent
         ? $localize`:@@yes:Kyllä`
         : source.businessCollaboration === "0"
         ? $localize`:@@no:Ei`
-        : $localize`@@unknown:Ei tiedossa`;
+        : $localize`:@@unknown:Ei tietoa`;
 
     // Get & set publication type label
     if (

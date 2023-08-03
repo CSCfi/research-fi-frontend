@@ -6257,7 +6257,7 @@
         <target>Terms of use</target>
       </trans-unit>
 
-      <trans-unit id="footer.link.accessability" datatype="html">
+      <trans-unit id="footer.link.accessibility" datatype="html">
         <source>Saavutettavuusseloste</source>
         <target>Accessibility statement</target>
       </trans-unit>
@@ -6265,6 +6265,11 @@
       <trans-unit id="reselect" datatype="html">
         <source>Vaihda valintoja</source>
         <target>Switch choices</target>
+      </trans-unit>
+
+      <trans-unit id="unknown" datatype="html">
+        <source>Ei tietoa</source>
+        <target>Unknown</target>
       </trans-unit>
     </body>
   </file>

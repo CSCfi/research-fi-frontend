@@ -6261,7 +6261,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <target>Användarvillkor</target>
       </trans-unit>
 
-      <trans-unit id="footer.link.accessability" datatype="html">
+      <trans-unit id="footer.link.accessibility" datatype="html">
         <source>Saavutettavuusseloste</source>
         <target>Tillgänglighetsredogörelse</target>
       </trans-unit>
@@ -6269,6 +6269,11 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       <trans-unit id="reselect" datatype="html">
         <source>Vaihda valintoja</source>
         <target>Växla val</target>
+      </trans-unit>
+
+      <trans-unit id="unknown" datatype="html">
+        <source>Ei tietoa</source>
+        <target>Okänd</target>
       </trans-unit>
     </body>
   </file>
