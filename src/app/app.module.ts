@@ -23,7 +23,6 @@ import { MyDataRoutingModule } from './mydata/mydata-routing.module';
 import { AuthConfigModule } from './auth-config.module';
 import { ErrorHandlerService } from './shared/services/error-handler.service';
 import 'reflect-metadata'; // Required by ApmService
-import { ApmModule, ApmService } from '@elastic/apm-rum-angular';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
@@ -40,11 +39,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MyDataModule,
     MyDataRoutingModule,
     AuthConfigModule,
-    ApmModule,
     FontAwesomeModule,
   ],
   providers: [
-    ApmService,
     AppConfigService,
     {
       provide: APP_INITIALIZER,
