@@ -190,6 +190,21 @@ export const ActivityColumns = [
         hidden: true,
         label: $localize`:@@actorRoleInActivity:Tekijä ja rooli aktiviteetissa`,
       },
+      {
+        field: 'organizationName',
+        hidden: true,
+        label: $localize`:@@organization:Organisaatio`,
+      },
+      {
+        field: 'departmentName',
+        hidden: true,
+        label: $localize`:@@department:Yksikkö`,
+      },
+      {
+        field: 'url',
+        hidden: true,
+        label: 'URL',
+      },
     ],
   },
   {

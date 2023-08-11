@@ -3,13 +3,20 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<div class="row g-0 justify-content-end">
+<div class="row g-0 justify-content-end mt-2">
   <ng-container *ngIf="showAdditionalFields">
     <ng-container *ngFor="let field of fields | checkEmptyFields: data">
-      <div class="col-12">
-        <ng-container *ngIf="field.label">{{ field.label }}: </ng-container
+      <div *ngIf="field.key !== 'url'" class="col-12 mt-2">
+        <ng-container *ngIf="field.label"><span class="fw-bold">{{ field.label }}: </span> </ng-container
         >{{ data[field.key] }}
       </div>
+      <ng-container *ngIf="field.key === 'url' && data[field.key].length > 0">
+        <app-single-result-link
+                *ngIf="true"
+                [icon]="false"
+                [url]="data[field.key]"
+        ></app-single-result-link>
+      </ng-container>
     </ng-container>
   </ng-container>
 

@@ -74,14 +74,20 @@ export class SinglePersonComponent implements OnInit {
     { key: 'name', bold: true },
     { key: 'type', bold: true },
     { key: 'year' },
+    { key: 'otherNames', label: $localize`:@@otherNames:Muut nimet` },
   ];
 
   activityAndAwardsAdditionalFields = [
     { key: 'description' },
+    { key: 'organizationName',
+      label: $localize`:@@organization:Organisaatio`, },
+    { key: 'departmentName',
+      label: $localize`:@@department:Yksikkö`, },
     {
       key: 'internationalCollaboration',
       label: $localize`:@@internationalCollaboration:Kansainvälinen yhteistyö`,
     },
+    { key: 'url' },
   ];
 
   contactFields: Field[] = [

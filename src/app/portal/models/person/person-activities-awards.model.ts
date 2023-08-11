@@ -16,7 +16,10 @@ export class PersonActivitiesAndRewards {
     public type: string,
     public description: string,
     public internationalCollaboration: string,
-    public year: string
+    public year: string,
+    public organizationName: string,
+    public departmentName: string,
+    public url: string,
   ) {}
 }
 
@@ -29,6 +32,7 @@ export class PersonActivitiesAndRewardsAdapter
   constructor(private utils: ModelUtilsService) {}
 
   adapt(activity: any): PersonActivitiesAndRewards {
+    console.log('activity', activity);
     const getYearRange = () => {
       return [activity.startDate.year, activity.endDate.year]
         .filter((item) => item > 0)
@@ -44,7 +48,10 @@ export class PersonActivitiesAndRewardsAdapter
       this.utils.checkTranslation('activityTypeName', activity),
       this.utils.checkTranslation('description', activity),
       translateBoolean(activity.internationalCollaboration),
-      getYearRange()
+      getYearRange(),
+      this.utils.checkTranslation('organizationName', activity),
+      this.utils.checkTranslation('departmentName', activity),
+      activity.url
     );
   }
 }
