@@ -47,6 +47,8 @@ export class ActivitiesAndRewardsAdapter
       const name = this.utils.checkTranslation('name', activity);
       const role = this.utils.checkTranslation('roleName', activity);
       const type = this.utils.checkTranslation('activityTypeName', activity);
+      const organization = this.utils.checkTranslation('organizationName', activity);
+      const department = this.utils.checkTranslation('departmentName', activity);
 
       return {
         ...activity,
@@ -58,6 +60,8 @@ export class ActivitiesAndRewardsAdapter
         roleNameType: [role, name, type]
           .filter((el) => el && el.trim().length > 0)
           .join('; '),
+        organization,
+        department,
       };
     });
 
