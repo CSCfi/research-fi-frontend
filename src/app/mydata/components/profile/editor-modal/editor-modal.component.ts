@@ -7,12 +7,12 @@
 
 import {
   Component,
-  EventEmitter,
-  Input,
+  EventEmitter, Inject,
+  Input, LOCALE_ID,
   OnInit,
   Output,
   ViewChild,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import { checkSelected } from '@mydata/utils';
 import { cloneDeep } from 'lodash-es';
@@ -99,7 +99,8 @@ export class EditorModalComponent implements OnInit {
     private publicationsService: PublicationsService,
     private datasetsService: DatasetsService,
     private fundingsService: FundingsService,
-    private searchPortalService: SearchPortalService
+    private searchPortalService: SearchPortalService,
+    @Inject(LOCALE_ID) protected localeId: string,
   ) {}
 
   ngOnInit(): void {
@@ -143,6 +144,7 @@ export class EditorModalComponent implements OnInit {
         this.selectItemsTabLabel = $localize`:@@selectActivities:Valitse aktiviteetit`;
         this.portalItemGroupStringPlural = $localize`:@@activities:aktiviteetit`;
         this.tableColumns = ActivityColumns;
+        this.localizeActivitiesAndRewardsColumns();
         this.tabInfoText = $localize`:@@myDataEditorModalActivityTabInfo:Voit muokata ORCIDista tuotuja tietoja ORCID-profiilissasi. Tietojen päivittyminen voi viedä noin vuorokauden. Kotiorganisaatiosta tuotuja tietoja voi muokata vain oman organisaation järjestelmässä.`;
         break;
       }
@@ -150,6 +152,22 @@ export class EditorModalComponent implements OnInit {
 
     this.portalItemGroupStringPlural =
       this.portalItemGroupStringPlural?.toLowerCase();
+  }
+
+  localizeActivitiesAndRewardsColumns() {
+    this.tableColumns.forEach(item => {
+        if (item.additionalFields) {
+          item.additionalFields.map(it => {
+            if (it.field === 'organizationName') {
+              it.field = 'organizationName' + this.localeId.charAt(0).toUpperCase() + this.localeId.charAt(1);
+            }
+            if (it.field === 'departmentName'){
+              it.field = 'departmentName' + this.localeId.charAt(0).toUpperCase() + this.localeId.charAt(1);
+            }
+          });
+        }
+      }
+    );
   }
 
   itemClicked() {

@@ -3912,6 +3912,10 @@
         <source>Organisaatio</source>
         <target>Organization</target>
       </trans-unit>
+      <trans-unit id="department">
+        <source>Yksikkö</source>
+        <target>Department</target>
+      </trans-unit>
       <trans-unit id="publicationsTooltip">
         <source>Suomalaisten yliopistojen, ammattikorkeakoulujen, tutkimuslaitosten ja yliopistosairaaloiden julkaisut.</source>
         <target state="translated">Publications from Finnish universities, universities of applied sciences, research institutes and university hospitals.</target>

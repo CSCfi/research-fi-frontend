@@ -5,7 +5,7 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
-import { Injectable } from '@angular/core';
+import { inject, Injectable, LOCALE_ID } from '@angular/core';
 import { Adapter } from '../adapter.model';
 import { ModelUtilsService } from '@shared/services/model-util.service';
 import {
@@ -79,7 +79,21 @@ export class DatasetAdapter implements Adapter<Dataset> {
     const locale = this.appSettingsService.currentLocale;
     const capitalizedLocale = this.appSettingsService.capitalizedLocale;
 
-    const keywords = item.keywords ? item.keywords.map((x) => x.keyword) : [];
+    let keywords: string[] = [];
+
+    const keywordsByLanguage = {
+      fi: item.keywords  ? item.keywords.filter((x) => x.language ===  'FI').map((x) => x.keyword) : [],
+      en: item.keywords  ? item.keywords.filter((x) => x.language ===  'EN').map((x) => x.keyword) : [],
+      sv: item.keywords  ? item.keywords.filter((x) => x.language ===  'SV').map((x) => x.keyword) : [],
+      und: item.keywords ? item.keywords.filter((x) => x.language === 'UND').map((x) => x.keyword) : []
+    }
+
+    // Choose non-empty list of keywords by following the order of current locale, fi, en, sv, und
+    if (keywordsByLanguage[locale].length > 0) { keywords = keywordsByLanguage[locale]; }
+    else if (keywordsByLanguage.fi.length > 0) { keywords = keywordsByLanguage.fi; }
+    else if (keywordsByLanguage.en.length > 0) { keywords = keywordsByLanguage.en; }
+    else if (keywordsByLanguage.sv.length > 0) { keywords = keywordsByLanguage.sv; }
+    else if (keywordsByLanguage.und.length > 0) { keywords = keywordsByLanguage.und; }
 
     let fieldsOfScience: FieldOfScience[] = [];
     // All items don't have field_of_science field

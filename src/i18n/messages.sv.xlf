@@ -3898,6 +3898,10 @@
         <source>Organisaatio</source>
         <target state="translated">Organisations</target>
       </trans-unit>
+      <trans-unit id="department">
+        <source>Yksikkö</source>
+        <target>Enheten</target>
+      </trans-unit>
       <trans-unit id="publicationsTooltip">
         <source>Suomalaisten yliopistojen, ammattikorkeakoulujen, tutkimuslaitosten ja yliopistosairaaloiden julkaisut.</source>
         <target state="translated">Publikationer från finländska universitet, yrkeshögskolor, forskningsinstitut och universitetssjukhus.</target>
