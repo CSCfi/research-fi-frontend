@@ -129,8 +129,10 @@ export class PublicationAdapter implements Adapter<Publication> {
     let archiveCodeText = '';
     if (item.selfArchivedCode === 1) {
       archiveCodeText = $localize`:@@yes:Kyllä`;
-    } else {
+    } else if (item.selfArchivedCode === 0) {
       archiveCodeText = $localize`:@@no:Ei`;
+    } else {
+      archiveCodeText = $localize`:@@unknown:Ei tietoa`;
     }
 
     let articleTypeText = '';

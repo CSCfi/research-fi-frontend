@@ -77,7 +77,7 @@
           "key": {
             "openAccess": 0,
             "publisherOpenAccess": 0,
-            "selfArchived": 0
+            "selfArchived": "0"
           },
           "doc_count": 280702,
           "filtered": {
@@ -89,7 +89,7 @@
           "key": {
             "openAccess": 0,
             "publisherOpenAccess": 0,
-            "selfArchived": 1
+            "selfArchived": "1"
           },
           "doc_count": 40904,
           "filtered": {
@@ -101,7 +101,7 @@
           "key": {
             "openAccess": 0,
             "publisherOpenAccess": 1,
-            "selfArchived": 0
+            "selfArchived": "0"
           },
           "doc_count": 10,
           "filtered": {
@@ -113,7 +113,7 @@
           "key": {
             "openAccess": 0,
             "publisherOpenAccess": 1,
-            "selfArchived": 1
+            "selfArchived": "1"
           },
           "doc_count": 1,
           "filtered": {
@@ -125,7 +125,7 @@
           "key": {
             "openAccess": 0,
             "publisherOpenAccess": 2,
-            "selfArchived": 0
+            "selfArchived": "0"
           },
           "doc_count": 54,
           "filtered": {
@@ -137,7 +137,7 @@
           "key": {
             "openAccess": 0,
             "publisherOpenAccess": 2,
-            "selfArchived": 1
+            "selfArchived": "1"
           },
           "doc_count": 13,
           "filtered": {
@@ -149,7 +149,7 @@
           "key": {
             "openAccess": 0,
             "publisherOpenAccess": 3,
-            "selfArchived": 0
+            "selfArchived": "0"
           },
           "doc_count": 60,
           "filtered": {
@@ -161,7 +161,7 @@
           "key": {
             "openAccess": 0,
             "publisherOpenAccess": 3,
-            "selfArchived": 1
+            "selfArchived": "1"
           },
           "doc_count": 21,
           "filtered": {
@@ -173,7 +173,7 @@
           "key": {
             "openAccess": 0,
             "publisherOpenAccess": 9,
-            "selfArchived": 0
+            "selfArchived": "0"
           },
           "doc_count": 7131,
           "filtered": {
@@ -185,7 +185,7 @@
           "key": {
             "openAccess": 0,
             "publisherOpenAccess": 9,
-            "selfArchived": 1
+            "selfArchived": "1"
           },
           "doc_count": 241,
           "filtered": {
@@ -197,7 +197,7 @@
           "key": {
             "openAccess": 1,
             "publisherOpenAccess": 0,
-            "selfArchived": 0
+            "selfArchived": "0"
           },
           "doc_count": 3422,
           "filtered": {
@@ -209,7 +209,7 @@
           "key": {
             "openAccess": 1,
             "publisherOpenAccess": 0,
-            "selfArchived": 1
+            "selfArchived": "1"
           },
           "doc_count": 7,
           "filtered": {
@@ -221,7 +221,7 @@
           "key": {
             "openAccess": 1,
             "publisherOpenAccess": 1,
-            "selfArchived": 0
+            "selfArchived": "0"
           },
           "doc_count": 106029,
           "filtered": {
@@ -233,7 +233,7 @@
           "key": {
             "openAccess": 1,
             "publisherOpenAccess": 1,
-            "selfArchived": 1
+            "selfArchived": "1"
           },
           "doc_count": 48383,
           "filtered": {
@@ -245,7 +245,7 @@
           "key": {
             "openAccess": 1,
             "publisherOpenAccess": 2,
-            "selfArchived": 0
+            "selfArchived": "0"
           },
           "doc_count": 16368,
           "filtered": {
@@ -257,7 +257,7 @@
           "key": {
             "openAccess": 1,
             "publisherOpenAccess": 2,
-            "selfArchived": 1
+            "selfArchived": "1"
           },
           "doc_count": 20258,
           "filtered": {
@@ -269,7 +269,7 @@
           "key": {
             "openAccess": 1,
             "publisherOpenAccess": 3,
-            "selfArchived": 0
+            "selfArchived": "0"
           },
           "doc_count": 105,
           "filtered": {
@@ -281,7 +281,7 @@
           "key": {
             "openAccess": 1,
             "publisherOpenAccess": 3,
-            "selfArchived": 1
+            "selfArchived": "1"
           },
           "doc_count": 28,
           "filtered": {
@@ -293,7 +293,7 @@
           "key": {
             "openAccess": 9,
             "publisherOpenAccess": 9,
-            "selfArchived": 0
+            "selfArchived": "0"
           },
           "doc_count": 75817,
           "filtered": {
@@ -305,7 +305,7 @@
           "key": {
             "openAccess": 9,
             "publisherOpenAccess": 9,
-            "selfArchived": 1
+            "selfArchived": "1"
           },
           "doc_count": 1695,
           "filtered": {
@@ -318,13 +318,13 @@
     "oaComposite": {
       "meta": {},
       "after_key": {
-        "selfArchived": 1,
+        "selfArchived": "1",
         "openAccess": 2
       },
       "buckets": [
         {
           "key": {
-            "selfArchived": 0,
+            "selfArchived": "0",
             "openAccess": 0
           },
           "doc_count": 277705,
@@ -335,7 +335,7 @@
         },
         {
           "key": {
-            "selfArchived": 0,
+            "selfArchived": "0",
             "openAccess": 1
           },
           "doc_count": 85917,
@@ -346,7 +346,7 @@
         },
         {
           "key": {
-            "selfArchived": 0,
+            "selfArchived": "0",
             "openAccess": 2
           },
           "doc_count": 16196,
@@ -357,7 +357,7 @@
         },
         {
           "key": {
-            "selfArchived": 0,
+            "selfArchived": "0",
             "openAccess": 9
           },
           "doc_count": 56663,
@@ -368,7 +368,7 @@
         },
         {
           "key": {
-            "selfArchived": 1,
+            "selfArchived": "1",
             "openAccess": 0
           },
           "doc_count": 28047,
@@ -379,7 +379,7 @@
         },
         {
           "key": {
-            "selfArchived": 1,
+            "selfArchived": "1",
             "openAccess": 1
           },
           "doc_count": 30022,
@@ -390,7 +390,7 @@
         },
         {
           "key": {
-            "selfArchived": 1,
+            "selfArchived": "1",
             "openAccess": 2
           },
           "doc_count": 12476,
@@ -601,11 +601,11 @@
         "sum_other_doc_count": 0,
         "buckets": [
           {
-            "key": 0,
+            "key": "0",
             "doc_count": 436481
           },
           {
-            "key": 1,
+            "key": "1",
             "doc_count": 70545
           }
         ]
@@ -657,12 +657,12 @@
         "sum_other_doc_count": 0,
         "buckets": [
           {
-            "key": 0,
+            "key": "0",
             "key_as_string": "false",
             "doc_count": 380008
           },
           {
-            "key": 1,
+            "key": "1",
             "key_as_string": "true",
             "doc_count": 127018
           }

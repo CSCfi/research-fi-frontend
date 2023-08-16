@@ -3898,6 +3898,10 @@
         <source>Organisaatio</source>
         <target state="translated">Organisations</target>
       </trans-unit>
+      <trans-unit id="department">
+        <source>Yksikkö</source>
+        <target>Enheten</target>
+      </trans-unit>
       <trans-unit id="publicationsTooltip">
         <source>Suomalaisten yliopistojen, ammattikorkeakoulujen, tutkimuslaitosten ja yliopistosairaaloiden julkaisut.</source>
         <target state="translated">Publikationer från finländska universitet, yrkeshögskolor, forskningsinstitut och universitetssjukhus.</target>
@@ -5474,10 +5478,6 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Yhteistyö</source>
         <target>Samarbete</target>
       </trans-unit>
-      <trans-unit id="edit">
-        <source>Muokkaa</source>
-        <target>Redigera</target>
-      </trans-unit>
       <trans-unit id="save">
         <source>Tallenna</source>
         <target>Spara</target>
@@ -6265,9 +6265,19 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <target>Användarvillkor</target>
       </trans-unit>
 
-      <trans-unit id="footer.link.accessability" datatype="html">
+      <trans-unit id="footer.link.accessibility" datatype="html">
         <source>Saavutettavuusseloste</source>
         <target>Tillgänglighetsredogörelse</target>
+      </trans-unit>
+
+      <trans-unit id="reselect" datatype="html">
+        <source>Vaihda valintoja</source>
+        <target>Växla val</target>
+      </trans-unit>
+
+      <trans-unit id="unknown" datatype="html">
+        <source>Ei tietoa</source>
+        <target>Okänd</target>
       </trans-unit>
     </body>
   </file>

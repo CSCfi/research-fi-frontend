@@ -52,7 +52,7 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
   dialogData: any;
   currentIndex: number;
 
-  editString = CommonStrings.edit;
+  editString = CommonStrings.reselect;
   selectString = CommonStrings.select;
 
   removeGroupItemsSub: Subscription;
