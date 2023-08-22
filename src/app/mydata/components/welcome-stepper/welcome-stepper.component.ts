@@ -1,13 +1,8 @@
-import { Component, EventEmitter, OnInit, Output, ViewEncapsulation } from '@angular/core';
-import { MatStepperModule } from '@angular/material/stepper'
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
-import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { ActivatedRoute, NavigationEnd, Router, RouterEvent } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { Location } from "@angular/common";
 import { DialogEventsService } from '@shared/services/dialog-events.service';
-import { DialogAction } from '../../../../types';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 
 @Component({

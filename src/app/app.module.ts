@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER, ErrorHandler } from '@angular/core';
+import { NgModule, APP_INITIALIZER, ErrorHandler, APP_ID } from '@angular/core';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -30,7 +30,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     HttpClientModule,
     BrowserAnimationsModule,
     LayoutModule,
@@ -66,6 +65,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
       provide: ErrorHandler,
       useClass: ErrorHandlerService,
     },
+    { provide: APP_ID, useValue: 'serverApp' },
   ],
   bootstrap: [AppComponent],
 })
