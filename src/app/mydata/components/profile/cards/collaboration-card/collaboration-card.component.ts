@@ -12,7 +12,7 @@ import {
   OnInit,
   ViewEncapsulation,
 } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { CollaborationsService } from '@mydata/services/collaborations.service';
 import { take } from 'rxjs/operators';

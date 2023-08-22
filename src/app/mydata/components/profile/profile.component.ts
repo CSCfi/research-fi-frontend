@@ -17,7 +17,7 @@ import { ProfileService } from '@mydata/services/profile.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { map, takeUntil } from 'rxjs/operators';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { mergePublications } from '@mydata/utils';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DraftService } from '@mydata/services/draft.service';

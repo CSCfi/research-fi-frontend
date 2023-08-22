@@ -16,7 +16,7 @@ import dummyData from 'src/app/portal/components/science-politics/tki-reports/tk
 import { DOCUMENT } from '@angular/common';
 import { UtilityService } from '@shared/services/utility.service';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';

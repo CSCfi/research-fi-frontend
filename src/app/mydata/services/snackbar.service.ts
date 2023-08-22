@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 
 // Just add the new required types here and TypeScript will require the public consumer to pass a valid type
 export type SnackBarType = 'error' | 'success' | 'warning';

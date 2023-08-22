@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SortService } from '../../portal/services/sort.service';
 import { Meta, Title } from '@angular/platform-browser';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 @Injectable({
