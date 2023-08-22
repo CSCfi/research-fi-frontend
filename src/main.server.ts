@@ -9,7 +9,7 @@ import { environment } from './environments/environment';
 export { AppServerModule } from './app/app.server.module';
 export { ngExpressEngine } from '@nguniversal/express-engine';
 
-export { renderModule, renderModuleFactory } from '@angular/platform-server';
+export { renderModuleFactory } from '@angular/platform-server';
 
 if (environment.production) {
   enableProdMode();
