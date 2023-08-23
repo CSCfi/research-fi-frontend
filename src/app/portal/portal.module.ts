@@ -166,6 +166,7 @@ import { CheckEmptyFieldsPipe } from './pipes/check-empty-fields.pipe';
 import { PersonGroupComponent } from './components/single/single-person/person-group/person-group.component';
 import { PersonGroupAdditionalComponent } from './components/single/single-person/person-group-additional/person-group-additional.component';
 import { FooterComponent } from '../layout/footer/footer.component';
+import { DynamicChildLoaderDirective } from '../directives/dynamic-child-loader.directive';
 
 @NgModule({
   declarations: [
@@ -249,6 +250,7 @@ import { FooterComponent } from '../layout/footer/footer.component';
     CheckEmptyFieldsPipe,
     PersonGroupComponent,
     PersonGroupAdditionalComponent,
+    DynamicChildLoaderDirective,
   ],
   imports: [
     PortalRoutingModule,

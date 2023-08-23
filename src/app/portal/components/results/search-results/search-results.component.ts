@@ -15,8 +15,9 @@ import {
   ComponentRef,
   OnChanges,
   SimpleChanges,
-  OnDestroy,
+  OnDestroy, AfterViewInit
 } from '@angular/core';
+import {ViewContainerRef} from '@angular/core';
 import { ComponentPortal, DomPortalOutlet } from '@angular/cdk/portal';
 import { createDomPortalOutlet } from './utils';
 import { SearchService } from '@portal/services/search.service';
@@ -29,6 +30,8 @@ import { InfrastructuresComponent } from '../infrastructures/infrastructures.com
 import { Search } from 'src/app/portal/models/search.model';
 import { DatasetsComponent } from '../datasets/datasets.component';
 import { FundingCallResultsComponent} from '@portal/components/results/funding-call-results/funding-call-results.component';
+import { DynamicChildLoaderDirective } from '../../../../directives/dynamic-child-loader.directive';
+
 
 /*
  * Dynamically render component for selected tab.
@@ -36,9 +39,13 @@ import { FundingCallResultsComponent} from '@portal/components/results/funding-c
  */
 @Component({
   selector: 'app-search-results',
-  template: '<div #portalHost></div>',
+  template: '<ng-template dynamicChildLoader=""></ng-template><div #portalHost></div>',
 })
 export class SearchResultsComponent implements OnInit, OnChanges, OnDestroy {
+  @ViewChild(DynamicChildLoaderDirective, { static: true }) dynamicChild!: DynamicChildLoaderDirective;
+
+  @ViewChild('testf') testref: ComponentRef<any>;
+
   portalHost: DomPortalOutlet;
   @ViewChild('portalHost', { static: true }) elRef: ElementRef;
   componentRef: ComponentRef<any>;
@@ -73,9 +80,9 @@ export class SearchResultsComponent implements OnInit, OnChanges, OnDestroy {
       (changes.currentTab && !changes.currentTab.firstChange) ||
       (changes.updateFilters && !changes.updateFilters.firstChange)
     ) {
-      if (this.componentRef) {
+      if (this.dynamicChild.viewContainerRef) {
         // Reset data so previous data is not displayed until new data is loaded
-        this.componentRef.instance.resultData = undefined;
+        this.dynamicChild.viewContainerRef.clear();
       }
       this.getResultData();
     }
@@ -140,10 +147,10 @@ export class SearchResultsComponent implements OnInit, OnChanges, OnDestroy {
         break;
     }
 
-    const myPortal = new ComponentPortal(child);
-    this.portalHost.detach();
-    this.componentRef = this.portalHost.attach(myPortal);
-    this.componentRef.instance.resultData = this.responseData;
+    this.dynamicChild.viewContainerRef.clear();
+    let cmp = this.dynamicChild.viewContainerRef.createComponent(child, this.componentRef);
+    // @ts-ignore
+    cmp.instance.resultData = this.responseData;
   }
 }
 
