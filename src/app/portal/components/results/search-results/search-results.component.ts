@@ -39,15 +39,11 @@ import { DynamicChildLoaderDirective } from '../../../../directives/dynamic-chil
  */
 @Component({
   selector: 'app-search-results',
-  template: '<ng-template dynamicChildLoader=""></ng-template><div #portalHost></div>',
+  template: '<ng-template dynamicChildLoader=""></ng-template>',
 })
 export class SearchResultsComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild(DynamicChildLoaderDirective, { static: true }) dynamicChild!: DynamicChildLoaderDirective;
 
-  @ViewChild('testf') testref: ComponentRef<any>;
-
-  portalHost: DomPortalOutlet;
-  @ViewChild('portalHost', { static: true }) elRef: ElementRef;
   componentRef: ComponentRef<any>;
 
   @Input() currentTab;
@@ -68,7 +64,6 @@ export class SearchResultsComponent implements OnInit, OnChanges, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.portalHost = createDomPortalOutlet(this.elRef, this.injector);
     // Dont get results with invalid tab
     if (this.currentTab) {
       this.getResultData();
