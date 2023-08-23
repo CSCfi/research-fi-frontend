@@ -28,7 +28,7 @@ import { first, Subscription } from 'rxjs';
 import { TableRow } from 'src/types';
 import { TableComponent } from '@shared/components/table/table.component';
 import { AppSettingsService } from '@shared/services/app-settings.service';
-import { MatLegacyCheckboxChange as MatCheckboxChange } from '@angular/material/legacy-checkbox';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-data-sources-table',

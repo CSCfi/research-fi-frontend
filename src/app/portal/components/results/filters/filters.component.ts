@@ -20,7 +20,7 @@ import {
   ViewEncapsulation,
   ViewChild,
 } from '@angular/core';
-import { MatLegacySelectionList as MatSelectionList } from '@angular/material/legacy-list';
+import { MatSelectionList } from '@angular/material/list';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
 import { Subscription } from 'rxjs';

@@ -12,18 +12,20 @@
     .sort-button:hover {
       background-color: mat-color($primary, 100);
     }
-
+    /* TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version. */
     mat-form-field .mat-select-value-text {
       color: mat-color($primary);
     }
 
-    mat-form-field.mat-form-field {
+    mat-form-field.mat-mdc-form-field {
       border: 2px solid mat-color($primary);
     }
+    /* TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version. */
     .mat-select-value {
       color: mat-contrast($primary, 200);
       font-weight: 500;
     }
+    /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
     .mat-form-field-flex::after {
       color: mat-color($primary, 900);
     }

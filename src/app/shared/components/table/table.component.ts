@@ -15,7 +15,7 @@ import {
   ViewChildren,
   ViewEncapsulation,
 } from '@angular/core';
-import { MatLegacyCheckbox as MatCheckbox, MatLegacyCheckboxChange as MatCheckboxChange } from '@angular/material/legacy-checkbox';
+import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox';
 import { Sort } from '@angular/material/sort';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Icon } from '@fortawesome/fontawesome-svg-core';

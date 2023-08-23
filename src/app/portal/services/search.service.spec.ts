@@ -20,7 +20,7 @@ import { AppConfigService } from '@shared/services/app-config-service.service';
 import ResponseJsonPublications from 'src/testdata/searchresponse-publications.json';
 import ResponseJsonFundings from 'src/testdata/searchresponse-fundings.json';
 import ResponseJsonInfrastructures from 'src/testdata/searchresponse-infrastructures.json';
-import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const mockApiUrl = 'test.api.fi/';
 

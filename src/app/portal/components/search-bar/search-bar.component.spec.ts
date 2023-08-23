@@ -12,14 +12,14 @@ import { ActivatedRouteStub } from 'src/testing/activated-route-stub';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AppConfigService } from '@shared/services/app-config-service.service';
 import { AppConfigServiceMock } from '@portal/services/search.service.spec';
-import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
+import { MatMenuModule } from '@angular/material/menu';
 import { NO_ERRORS_SCHEMA, QueryList } from '@angular/core';
 import { SearchBarComponent } from './search-bar.component';
 import { AutosuggestService } from '@portal/services/autosuggest.service';
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import response from 'src/testdata/autosuggest-response.json'
-import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 
 describe('SearchBarComponent', () => {
   const aggregations = response.aggregations

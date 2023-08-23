@@ -20,15 +20,15 @@ app-sort {
     font-weight: bold;
   }
 
-  mat-form-field.sort-button .mat-select {
+  mat-form-field.sort-button .mat-mdc-select {
     font-family: inherit !important;
   }
-
+  /* TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version.*/
   mat-form-field .mat-select-value-text {
     font-size: 1rem;
     font-weight: normal;
   }
-
+  /* TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version.*/
   .mat-select-trigger {
     padding: 12px 0;
     padding-left: 5px;
@@ -52,17 +52,18 @@ app-sort {
   // }
 
   // Chevron
+  /* TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version.*/
   mat-form-field.sort-button .mat-select-value-text:after {
     content: '';
   }
-
+  /* TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version.*/
   mat-form-field.sort-button .mat-select-value-text::after {
     font-family: 'FontAwesome';
     content: '\f078';
     font-size: 1rem;
     padding-left: 0.5rem;
   }
-
+  /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
   mat-form-field.sort-button .mat-form-field-label-wrapper {
     top: 0;
     padding-top: 0;
@@ -72,23 +73,23 @@ app-sort {
     outline: -webkit-focus-ring-color auto 1px;
   }
 
-  mat-form-field.mat-form-field {
+  mat-form-field.mat-mdc-form-field {
     width: 100%;
     border-radius: 6px;
     display: flex;
     justify-content: center;
     align-items: center;
   }
-
+  /* TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version.*/
   mat-form-field.sort-button .mat-select-arrow {
     border: 0 !important;
   }
-
+  /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
   mat-form-field.sort-button .mat-form-field-wrapper {
     padding-bottom: 0 !important;
     width: 100%;
   }
-
+  /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
   mat-form-field.sort-button .mat-form-field-infix {
     border: 0 !important;
     padding: 0 !important;
@@ -99,22 +100,25 @@ app-sort {
     // font-size: 24px;
     text-align: center;
   }
+  /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
   mat-form-field.sort-button .mat-form-field-underline {
     display: none !important;
   }
 
-  mat-form-field.sort-button .mat-select-panel {
+  mat-form-field.sort-button .mat-mdc-select-panel {
     max-height: 100% !important;
     font-size: 20px !important;
   }
 
   @media (max-width: 576px) {
+    /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
     mat-form-field.sort-button .mat-form-field-infix {
       width: 150px !important;
     }
   }
 
   @media (max-width: 350px) {
+    /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
     mat-form-field.sort-button .mat-form-field-infix {
       width: 135px !important;
     }

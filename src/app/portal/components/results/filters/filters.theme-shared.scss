@@ -12,11 +12,11 @@
 
 
   app-funding-call-category-filters {
-    .mat-chip {
+    .mat-mdc-chip {
       border: 2px solid mat-color($primary, 500);
       color:  mat-color($primary, 500);
 
-      &.mat-standard-chip {
+      &.mat-mdc-standard-chip {
         background-color: mat-contrast($primary, 500);
         background: mat-contrast($primary, 500);
         &:hover::after, &:focus::after {
@@ -25,6 +25,7 @@
         &:hover {
           background: mat-color($primary, 100) !important;
         }
+        /*  TODO(mdc-migration): The following rule targets internal classes of chips that may no longer apply for the MDC version.*/
         &.mat-chip-selected {
           background-color: mat-color($primary, 500) !important;
         }
@@ -53,13 +54,13 @@
     .filter-sidebar h3 {
       background: mat-color($primary, 100);
     }
-
+    /*  TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.*/
     span.mat-checkbox-label,
     span.label {
       color: mat-contrast($primary, 200);
     }
-
-    .mat-checkbox .mat-checkbox-frame {
+    /*  TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.*/
+    .mat-mdc-checkbox .mat-checkbox-frame {
       background: mat-contrast($primary, 500);
     }
 
@@ -103,7 +104,7 @@
     }
 
     // Single checkbox items
-    .mat-checkbox:hover {
+    .mat-mdc-checkbox:hover {
       background: none !important;
     }
 

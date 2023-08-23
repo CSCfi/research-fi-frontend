@@ -6,16 +6,17 @@
 // :license: MIT
 
 app-figure-filters {
+  /* TODO(mdc-migration): The following rule targets internal classes of chips that may no longer apply for the MDC version.*/
   .mat-chip-list-wrapper {
     flex-direction: row !important;
   }
-
+  /* TODO(mdc-migration): The following rule targets internal classes of chips that may no longer apply for the MDC version.*/
   mat-chip {
     cursor: pointer;
     max-width: fit-content;
   }
 
-  .mat-standard-chip {
+  .mat-mdc-standard-chip {
     display: inline-table;
   }
 
