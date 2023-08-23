@@ -11,8 +11,6 @@ import { AppConfigService } from '@shared/services/app-config-service.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { NavigationStart, Router } from '@angular/router';
 import { take } from 'rxjs/operators';
-import 'reflect-metadata'; // Required by ApmService
-import { ApmService } from '@elastic/apm-rum-angular';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
@@ -31,7 +29,6 @@ export class AppComponent {
     private platform: PlatformLocation,
     @Inject(PLATFORM_ID) private platformId: object,
     @Inject(DOCUMENT) private document: any,
-    @Inject(ApmService) apmService: ApmService
   ) {
     // SSR platform check
     if (isPlatformBrowser(this.platformId)) {

@@ -6,11 +6,7 @@
 //  :license: MIT
 
 import { Injectable, OnDestroy } from '@angular/core';
-import {
-  Resolve,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { ProfileService } from '@mydata/services/profile.service';
 import { Subject, takeUntil } from 'rxjs';
 import { getName } from '@mydata/utils';
@@ -19,7 +15,7 @@ import { cloneDeep } from 'lodash-es';
 @Injectable({
   providedIn: 'root',
 })
-export class MyDataProfileResolverService implements Resolve<any>, OnDestroy {
+export class MyDataProfileResolverService  implements OnDestroy {
   unsubscribeOnDestroy = new Subject();
 
   constructor(private profileService: ProfileService) {}

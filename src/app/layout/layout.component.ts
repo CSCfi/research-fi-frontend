@@ -35,7 +35,7 @@ export class LayoutComponent implements OnInit {
   }
 
   routerEvents() {
-    this.router.events.subscribe((event: RouterEvent) => {
+    this.router.events.subscribe((event: any) => {
       switch (true) {
         case event instanceof NavigationStart: {
           this.loading = true;

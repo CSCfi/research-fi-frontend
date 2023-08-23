@@ -24,6 +24,6 @@ export class ScrollService {
   };
 
   constructor(eventManager: EventManager) {
-    eventManager.addGlobalEventListener('window', 'scroll', this.getScroll);
+
   }
 }

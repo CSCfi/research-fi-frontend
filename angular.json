@@ -187,7 +187,8 @@
               "sv"
             ],
             "sourceMap": true,
-            "optimization": true
+            "optimization": true,
+            "buildOptimizer": true
           },
           "configurations": {
             "production": {
@@ -198,7 +199,8 @@
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
                 }
-              ]
+              ],
+              "buildOptimizer": true
             }
           },
           "defaultConfiguration": ""
