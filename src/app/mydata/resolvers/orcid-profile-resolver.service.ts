@@ -15,7 +15,7 @@ import {firstValueFrom, Subject, takeUntil} from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class OrcidProfileResolverService  implements OnDestroy {
+export class OrcidProfileResolverService implements OnDestroy {
   unsubscribeOnDestroy = new Subject();
 
   constructor(
