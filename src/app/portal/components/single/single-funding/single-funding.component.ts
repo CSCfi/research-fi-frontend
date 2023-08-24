@@ -41,6 +41,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   tab = 'fundings';
   private metaTags = MetaTags.singleFunding;
   private commonTags = MetaTags.common;
+  public academyOfFinland = this.translateAcademyOfFinland(this.localeId);
 
   info = [
     { label: $localize`Akronyymi`, field: 'acronym' },
@@ -337,5 +338,19 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
 
   expandDescription() {
     this.expand = !this.expand;
+  }
+
+  translateAcademyOfFinland(locale: string) {
+    let output = "Suomen Akatemia";
+
+    if (locale === 'en') {
+      output = "Academy of Finland";
+    }
+
+    if (locale === 'sv') {
+      output = "Finlands Akademi";
+    }
+
+    return output;
   }
 }
