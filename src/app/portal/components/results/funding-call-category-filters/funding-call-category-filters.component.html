@@ -1,12 +1,13 @@
 <div class="row">
-  <mat-chip-listbox selectable multiple class="mat-chip-list-stacked" [selectable]="true">
+  <!-- TODO: This needs to be rewritten to be supported by new material
+  <mat-chip-list selectable multiple class="mat-chip-list-stacked" [selectable]="true">
     <ng-container *ngFor="let chip of majorFieldsOfScienceAurora">
-      <mat-chip-option
+      <mat-chip
         [selected]="chip.checked" (click)="clickChip(chip.id)"
       >{{chip.key}}
-      </mat-chip-option>
+      </mat-chip>
     </ng-container>
-  </mat-chip-listbox>
+  </mat-chip-list>-->
   <br>
   <!--
   <div

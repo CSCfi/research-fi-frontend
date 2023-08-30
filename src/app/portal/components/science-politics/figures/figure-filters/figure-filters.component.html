@@ -9,16 +9,17 @@
   <div class="col px-0">
     <div class="row pb-2" *ngFor="let item of filters">
       <div class="col px-0" [class.narrow]="narrow">
-        <mat-chip-listbox class="mat-chip-list-stacked" [selectable]="true">
-          <mat-chip-option
+        <!-- TODO: This needs to be rewritten to be supported by new material
+        <mat-chip-list class="mat-chip-list-stacked" [selectable]="true">
+          <mat-chip
             [selected]="
               (!filter && item.filter === 'all') || filter === item.filter
             "
             (click)="navigate(item.filter)"
           >
             {{ item.label }}
-          </mat-chip-option>
-        </mat-chip-listbox>
+          </mat-chip>
+        </mat-chip-list>-->
       </div>
       <div
         *ngIf="item['info' + currentLocale]"
