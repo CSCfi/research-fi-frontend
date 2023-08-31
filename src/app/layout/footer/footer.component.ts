@@ -14,7 +14,7 @@ import { DialogEventsService } from '@shared/services/dialog-events.service';
 import { SharedModule } from '@shared/shared.module';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { Router, RouterLinkWithHref } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { interval, lastValueFrom, take } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
 
@@ -33,7 +33,7 @@ function email(strings) {
     AsyncPipe,
     FontAwesomeModule,
     NgIf,
-    RouterLinkWithHref,
+    RouterLink,
     MatButtonModule
   ]
 })
