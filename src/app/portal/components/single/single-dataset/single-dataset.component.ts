@@ -108,6 +108,7 @@ export class SingleDatasetComponent implements OnInit {
       tooltip: $localize`:@@datasetLicenseTooltip:Lisenssi, joka määrittelee aineiston käyttöehdot.`,
     },
     { label: $localize`:@@keywords:Avainsanat`, field: 'keywords' },
+    { label: $localize`:@@subjectHeadings:Asiasanat`, field: 'subjectHeadings' },
     {
       label: $localize`:@@temporalCoverage:Ajallinen kattavuus`,
       field: 'coverage',
