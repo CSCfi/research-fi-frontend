@@ -6279,6 +6279,11 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Ei tietoa</source>
         <target>Okänd</target>
       </trans-unit>
+
+      <trans-unit id="subjectHeadings" datatype="html">
+        <source>Asiasanat</source>
+        <target>Ämnesord</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

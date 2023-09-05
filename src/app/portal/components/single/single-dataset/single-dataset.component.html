@@ -200,22 +200,16 @@
             <h2 class="col-12 col-sm-6 col-lg-3 th" i18n="@@otherInfo">
               Muut tiedot
             </h2>
-            <div
-              class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 first-no-offset-mobile td"
-              *ngFor="let row of otherInfoFields?.slice(0, 3)"
-            >
+
+            <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 first-no-offset-mobile td" *ngFor="let row of otherInfoFields?.slice(0, 3)">
               <h3 class="th">
                 <span class="pe-1">{{ row.label }}</span>
                 <ng-container *ngIf="row.tooltip">
                   <ng-template #tooltipTemplate>
                     <div [innerHtml]="row.tooltip"></div>
                   </ng-template>
-                  <span
-                    [tooltip]="tooltipTemplate"
-                    tabindex="0"
-                    placement="top"
-                    #elem
-                  >
+
+                  <span [tooltip]="tooltipTemplate" tabindex="0" placement="top" #elem>
                     <fa-icon class="info-icon" icon="info-circle"></fa-icon>
                   </span>
                 </ng-container>
@@ -223,83 +217,58 @@
               <p class="td" innerHtml="{{ item[row.field] }}"></p>
             </div>
           </div>
-          <ng-container
-            *ngFor="let row of otherInfoFields.slice(3); let i = index"
-          >
+
+          <ng-container *ngFor="let row of otherInfoFields.slice(3); let i = index">
             <div *ngIf="i % 3 == 0"></div>
+
             <div class="row content" *ngIf="i % 3 == 0">
               <!-- First col -->
-              <div
-                class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-3 td"
-              >
+              <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-3 td">
                 <h3 class="th">
                   <span class="pe-1">{{ row.label }}</span>
+
                   <ng-container *ngIf="row.tooltip">
                     <ng-template #tooltipTemplate>
                       <div [innerHtml]="row.tooltip"></div>
                     </ng-template>
-                    <span
-                      [tooltip]="tooltipTemplate"
-                      tabindex="0"
-                      placement="top"
-                      #elem
-                    >
+
+                    <span [tooltip]="tooltipTemplate" tabindex="0" placement="top" #elem>
                       <fa-icon class="info-icon" icon="info-circle"></fa-icon>
                     </span>
                   </ng-container>
                 </h3>
                 <span *ngIf="!row['link']">{{ item[row.field] }}</span>
               </div>
+
               <!-- Second col -->
-              <div
-                class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td"
-                *ngIf="otherInfoFields.slice(3).length > i + 1"
-              >
+              <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td" *ngIf="otherInfoFields.slice(3).length > i + 1">
                 <h3 class="th">
-                  <span class="pe-1">{{
-                    otherInfoFields.slice(3)[i + 1].label
-                  }}</span>
+                  <span class="pe-1">{{otherInfoFields.slice(3)[i + 1].label}}</span>
 
                   <ng-container *ngIf="otherInfoFields.slice(3)[i + 1].tooltip">
                     <ng-template #tooltipTemplate>
-                      <div
-                        [innerHtml]="otherInfoFields.slice(3)[i + 1].tooltip"
-                      ></div>
+                      <div [innerHtml]="otherInfoFields.slice(3)[i + 1].tooltip"></div>
                     </ng-template>
-                    <span
-                      [tooltip]="tooltipTemplate"
-                      tabindex="0"
-                      placement="top"
-                      #elem
-                    >
+
+                    <span [tooltip]="tooltipTemplate" tabindex="0" placement="top" #elem>
                       <fa-icon class="info-icon" icon="info-circle"></fa-icon>
                     </span>
                   </ng-container>
                 </h3>
+
                 <span>{{ item[otherInfoFields.slice(3)[i + 1].field] }}</span>
               </div>
+
               <!-- Third col -->
-              <div
-                class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td"
-                *ngIf="otherInfoFields.slice(3).length > i + 2"
-              >
+              <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td" *ngIf="otherInfoFields.slice(3).length > i + 2">
                 <h3 class="th">
-                  <span class="pe-1">{{
-                    otherInfoFields.slice(3)[i + 2].label
-                  }}</span>
+                  <span class="pe-1">{{otherInfoFields.slice(3)[i + 2].label}}</span>
 
                   <ng-container *ngIf="otherInfoFields.slice(3)[i + 2].tooltip">
                     <ng-template #tooltipTemplate>
-                      <div
-                        [innerHtml]="otherInfoFields.slice(3)[i + 2].tooltip"
-                      ></div>
+                      <div [innerHtml]="otherInfoFields.slice(3)[i + 2].tooltip"></div>
                     </ng-template>
-                    <span
-                      [tooltip]="tooltipTemplate"
-                      tabindex="0"
-                      placement="top"
-                      #elem
-                    >
+                    <span [tooltip]="tooltipTemplate" tabindex="0" placement="top" #elem>
                       <fa-icon class="info-icon" icon="info-circle"></fa-icon>
                     </span>
                   </ng-container>
