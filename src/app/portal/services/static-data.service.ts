@@ -1092,8 +1092,7 @@ export class StaticDataService {
             order: 1,
           },
           {
-            script:
-              'doc["selfArchivedCode"].value * 100 + doc["openAccess"].value * 10 + doc["publisherOpenAccessCode"].value',
+            script: 'doc["selfArchivedCode.keyword"].value + doc["openAccessCode"].value.toString() + doc["publisherOpenAccessCode"].value.toString()',
             name: 'openAccess',
             size: 50,
             order: 2,
