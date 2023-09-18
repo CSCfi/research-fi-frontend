@@ -1,0 +1,39 @@
+/* Ensure the table takes the full width */
+cdk-table {
+  width: 100%;
+}
+
+/* Add some spacing and border to the cells */
+cdk-header-cell, cdk-cell {
+  padding: 16px;
+  border-bottom: 1px solid #e0e0e0;
+  display: table-cell; /* This ensures they behave like traditional table cells */
+}
+
+/* Define the header row and data row to behave like traditional table rows */
+cdk-header-row, cdk-row {
+  display: table-row;
+}
+
+/* Define columns to ensure they take equal widths - adjust as required */
+[cdkColumnDef="title"] {
+  width: 25%;
+}
+
+[cdkColumnDef="authors"] {
+  width: 25%;
+}
+
+[cdkColumnDef="journalName"] {
+  width: 25%;
+}
+
+[cdkColumnDef="publicationYear"] {
+  width: 25%;
+}
+
+em {
+    background-color: #FFFF00;
+    font-style: normal;
+    padding: 0.1em 0;
+}

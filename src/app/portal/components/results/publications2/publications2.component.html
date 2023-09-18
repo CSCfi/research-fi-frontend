@@ -1,0 +1,67 @@
+<div style='margin-bottom: 2rem'>
+  <input type='text' placeholder='Hakusana' [(ngModel)]='keywords' (keydown.enter)='searchKeywords(keywords)'>
+
+  <button (click)='searchKeywords(keywords)'>HAE</button>
+</div>
+
+<div>
+  <button (click)='previousPage()'>Edeltävä sivu</button>
+  <button (click)='nextPage()'>Seuraava sivu</button>
+</div>
+
+<div>
+  <div>Keywords: {{keywords}}</div>
+  <div>Page: {{page}}</div>
+  <div>Size: {{pageSize}}</div>
+</div>
+
+<div>
+  <button (click)='setPageSize(10)'>Näytä 10</button>
+  <button (click)='setPageSize(100)'>Näytä 100</button>
+</div>
+
+<!--<div>{{publications.length}}</div>-->
+<!--<div style='white-space: pre;'>{{publications | json}}</div>-->
+
+<cdk-table [dataSource]="dataSource">
+  <ng-container cdkColumnDef="publicationName">
+    <cdk-header-cell cdk-header-cell *cdkHeaderCellDef> publicationName </cdk-header-cell>
+
+    <cdk-cell *cdkCellDef="let element">
+      <div [innerHTML]='element.publicationName'></div>
+    </cdk-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="authorsText">
+    <cdk-header-cell *cdkHeaderCellDef> authorsText </cdk-header-cell>
+
+    <cdk-cell *cdkCellDef="let element">
+      <div [innerHTML]='element.authorsText'>
+        <!--{{element.authorsText}}-->
+      </div>
+    </cdk-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="publisherName">
+    <cdk-header-cell *cdkHeaderCellDef> publisherName </cdk-header-cell>
+
+    <cdk-cell *cdkCellDef="let element">
+      <div [innerHTML]='element.publisherName'>
+        <!--{{element.publisherName}}-->
+      </div>
+    </cdk-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="publicationYear">
+    <cdk-header-cell *cdkHeaderCellDef> publicationYear </cdk-header-cell>
+
+    <cdk-cell *cdkCellDef="let element">
+      <div [innerHTML]='element.publicationYear'>
+        <!--{{element.publicationYear}}-->
+      </div>
+    </cdk-cell>
+  </ng-container>
+
+  <cdk-header-row *cdkHeaderRowDef="displayedColumns"></cdk-header-row>
+  <cdk-row *cdkRowDef="let row; columns: displayedColumns;"></cdk-row>
+</cdk-table>

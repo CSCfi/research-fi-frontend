@@ -34,6 +34,8 @@ import { SingleDatasetComponent } from './components/single/single-dataset/singl
 import { SingleFundingCallComponent } from './components/single/single-funding-call/single-funding-call.component';
 import { SingleIndicatorComponent } from './components/science-politics/open-science-and-research-indicators/single-indicator/single-indicator.component';
 import { SinglePersonComponent } from './components/single/single-person/single-person.component';
+import { Publications2Component } from '@portal/components/results/publications2/publications2.component';
+import { PublicationsResolver } from '@portal/resolvers/publications-resolver.service';
 // import { TkiReportsComponent } from "@portal/components/science-politics/tki-reports/tki-reports.component";
 
 const routes: Routes = [
@@ -97,6 +99,14 @@ const routes: Routes = [
     path: 'results',
     redirectTo: 'results/publications',
     pathMatch: 'full',
+  },
+  {
+    path: 'results/publications2',
+    component: Publications2Component,
+    resolve: {
+      publications: PublicationsResolver
+    },
+    runGuardsAndResolvers: 'always'
   },
   {
     path: 'results/:tab',
