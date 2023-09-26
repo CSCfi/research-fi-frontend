@@ -50,6 +50,7 @@ export class Dataset {
     public availability: string,
     public license: string,
     public keywords: string,
+    public subjectHeadings: string,
     public coverage: string,
     public dataCatalog: string,
     public openAccess: boolean,
@@ -81,19 +82,26 @@ export class DatasetAdapter implements Adapter<Dataset> {
 
     let keywords: string[] = [];
 
-    const keywordsByLanguage = {
-      fi: item.keywords  ? item.keywords.filter((x) => x.language ===  'FI').map((x) => x.keyword) : [],
-      en: item.keywords  ? item.keywords.filter((x) => x.language ===  'EN').map((x) => x.keyword) : [],
-      sv: item.keywords  ? item.keywords.filter((x) => x.language ===  'SV').map((x) => x.keyword) : [],
-      und: item.keywords ? item.keywords.filter((x) => x.language === 'UND').map((x) => x.keyword) : []
+    if (item.keywords != null) {
+      keywords = item.keywords.map((x) => x.keyword);
+    }
+
+    let subjectHeadings: string[] = [];
+    const subjectHeadingByLanguages: { fi: string[], en: string[], sv: string[], und: string[] } = { fi: [], en: [], sv: [], und: [] };
+
+    if (item.subjectHeading != null) {
+      subjectHeadingByLanguages.fi  = item.subjectHeading.filter((x) => x.language ===  'FI').map((x) => x.keyword);
+      subjectHeadingByLanguages.en  = item.subjectHeading.filter((x) => x.language ===  'EN').map((x) => x.keyword);
+      subjectHeadingByLanguages.sv  = item.subjectHeading.filter((x) => x.language ===  'SV').map((x) => x.keyword);
+      subjectHeadingByLanguages.und = item.subjectHeading.filter((x) => x.language === 'UND').map((x) => x.keyword);
     }
 
     // Choose non-empty list of keywords by following the order of current locale, fi, en, sv, und
-    if (keywordsByLanguage[locale].length > 0) { keywords = keywordsByLanguage[locale]; }
-    else if (keywordsByLanguage.fi.length > 0) { keywords = keywordsByLanguage.fi; }
-    else if (keywordsByLanguage.en.length > 0) { keywords = keywordsByLanguage.en; }
-    else if (keywordsByLanguage.sv.length > 0) { keywords = keywordsByLanguage.sv; }
-    else if (keywordsByLanguage.und.length > 0) { keywords = keywordsByLanguage.und; }
+    if (subjectHeadingByLanguages[locale].length > 0) { subjectHeadings = subjectHeadingByLanguages[locale]; }
+    else if (subjectHeadingByLanguages.fi.length > 0) { subjectHeadings = subjectHeadingByLanguages.fi; }
+    else if (subjectHeadingByLanguages.en.length > 0) { subjectHeadings = subjectHeadingByLanguages.en; }
+    else if (subjectHeadingByLanguages.sv.length > 0) { subjectHeadings = subjectHeadingByLanguages.sv; }
+    else if (subjectHeadingByLanguages.und.length > 0) { subjectHeadings = subjectHeadingByLanguages.und; }
 
     let fieldsOfScience: FieldOfScience[] = [];
     // All items don't have field_of_science field
@@ -365,6 +373,7 @@ export class DatasetAdapter implements Adapter<Dataset> {
       this.utils.translateAccessType(item.accessType),
       this.utils.checkTranslation('licenseName', item),
       keywords.join(', '),
+      subjectHeadings.join(', '),
       temporalCoverage,
       item.dataCatalog
         ?.map((x) => this.utils.checkTranslation('name', x))
