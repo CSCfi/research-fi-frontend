@@ -11,8 +11,7 @@
 
 <div>
   <div>Keywords: {{keywords}}</div>
-  <div>Page: {{page}}</div>
-  <div>Size: {{pageSize}}</div>
+  <div>Search Parameters: {{searchParams$ | async | json}}</div>
 </div>
 
 <div>
@@ -20,48 +19,79 @@
   <button (click)='setPageSize(100)'>Näytä 100</button>
 </div>
 
-<!--<div>{{publications.length}}</div>-->
-<!--<div style='white-space: pre;'>{{publications | json}}</div>-->
+<div style='display: flex'>
+  <div style='background-color: lightgreen'>
+    <div style='background-color: orange; width: 300px; white-space: pre'>
+      <!-- {{ yearCounts$ | async | json }} -->
 
-<cdk-table [dataSource]="dataSource">
-  <ng-container cdkColumnDef="publicationName">
-    <cdk-header-cell cdk-header-cell *cdkHeaderCellDef> publicationName </cdk-header-cell>
+      <!-- checkbox placeholder for now for later -->
+      <!-- yearCount.year for year string -->
+      <!-- yearCount.count for count of that year -->
 
-    <cdk-cell *cdkCellDef="let element">
-      <div [innerHTML]='element.publicationName'></div>
-    </cdk-cell>
-  </ng-container>
+      <!-- click the checkbox sets the filter to the url -->
 
-  <ng-container cdkColumnDef="authorsText">
-    <cdk-header-cell *cdkHeaderCellDef> authorsText </cdk-header-cell>
+      <ng-container *ngFor='let yearFilter of yearFilters$ | async'>
+        <div style='user-select: none; cursor: pointer' (click)='toggleParam("year", yearFilter.year)'>
+          <input type='checkbox' [ngModel]='yearFilter.enabled'>
+          {{yearFilter.year}}
+          ({{yearFilter.count}})
+        </div>
+      </ng-container>
+    </div>
+  </div>
 
-    <cdk-cell *cdkCellDef="let element">
-      <div [innerHTML]='element.authorsText'>
-        <!--{{element.authorsText}}-->
-      </div>
-    </cdk-cell>
-  </ng-container>
+  <div style='background-color: lightblue'>
+    <div style='background-color: lightgrey; height: 75px; display: flex'>
 
-  <ng-container cdkColumnDef="publisherName">
-    <cdk-header-cell *cdkHeaderCellDef> publisherName </cdk-header-cell>
+      <!-- TODO chips for filters and remove button -->
+      <!-- year filters -->
 
-    <cdk-cell *cdkCellDef="let element">
-      <div [innerHTML]='element.publisherName'>
-        <!--{{element.publisherName}}-->
-      </div>
-    </cdk-cell>
-  </ng-container>
+      <ng-container *ngFor='let yearFilter of yearFilters$ | async'>
+        <ng-container *ngIf='yearFilter.enabled'>
+          <div style='display: flex; justify-content: center; align-items: center; margin: 5px; padding: 5px; border: 1px solid black; border-radius: 5px'>
+            <div style='margin-right: 5px'>{{yearFilter.year}}</div>
+            <button (click)='toggleParam("year", yearFilter.year)'>X</button>
+          </div>
+        </ng-container>
+      </ng-container>
 
-  <ng-container cdkColumnDef="publicationYear">
-    <cdk-header-cell *cdkHeaderCellDef> publicationYear </cdk-header-cell>
+    </div>
 
-    <cdk-cell *cdkCellDef="let element">
-      <div [innerHTML]='element.publicationYear'>
-        <!--{{element.publicationYear}}-->
-      </div>
-    </cdk-cell>
-  </ng-container>
+    <table cdk-table [dataSource]="dataSource">
+      <ng-container cdkColumnDef="publicationName">
+        <cdk-header-cell cdk-header-cell *cdkHeaderCellDef>publicationName</cdk-header-cell>
 
-  <cdk-header-row *cdkHeaderRowDef="displayedColumns"></cdk-header-row>
-  <cdk-row *cdkRowDef="let row; columns: displayedColumns;"></cdk-row>
-</cdk-table>
+        <cdk-cell *cdkCellDef="let element">
+          <div [innerHTML]='element.publicationName'></div>
+        </cdk-cell>
+      </ng-container>
+
+      <ng-container cdkColumnDef="authorsText">
+        <cdk-header-cell *cdkHeaderCellDef>authorsText</cdk-header-cell>
+
+        <cdk-cell *cdkCellDef="let element">
+          <div [innerHTML]='element.authorsText'></div>
+        </cdk-cell>
+      </ng-container>
+
+      <ng-container cdkColumnDef="publisherName">
+        <cdk-header-cell *cdkHeaderCellDef>publisherName</cdk-header-cell>
+
+        <cdk-cell *cdkCellDef="let element">
+          <div [innerHTML]='element.publisherName'></div>
+        </cdk-cell>
+      </ng-container>
+
+      <ng-container cdkColumnDef="publicationYear">
+        <cdk-header-cell *cdkHeaderCellDef>publicationYear</cdk-header-cell>
+
+        <cdk-cell *cdkCellDef="let element">
+          <div [innerHTML]='element.publicationYear'></div>
+        </cdk-cell>
+      </ng-container>
+
+      <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+      <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</div>

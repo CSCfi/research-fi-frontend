@@ -1,112 +1,186 @@
-import { Component, inject, OnInit, SecurityContext } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { CdkTableModule, DataSource } from '@angular/cdk/table';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { JsonPipe } from '@angular/common';
-
-// highlighted (HTML based) data that contains the columns: ['publicationName', 'authorsText', 'publisherName', 'publicationYear'];
-interface HighlightedPublication {
-  publicationName: SafeHtml;
-  authorsText: SafeHtml;
-  authorsTextSplitted: SafeHtml;
-  publisherName: SafeHtml;
-  publicationYear: SafeHtml;
-}
-
-// function that creates a new HighlightedPublication from a search data that has
-// the highlighted data in the Publications2Component exists in: this.route.snapshot.data.publications.hits.hits.highlight.{... names of the columns ...}
-// fallback values are in: this.route.snapshot.data.publications.hits.hits._source.{... names of the columns ...}
-// final fallback would be empty strings
-// data is passed from the this.route.snapshot.data.publications.hits.hits
-
-// sanitize values with: this.sanitizedHtml = this.sanitizer.sanitize(SecurityContext.HTML, this.someHtmlContent);
-
-function createHighlightedPublication(searchData: any): HighlightedPublication {
-  const sanitizer = inject(DomSanitizer);
-
-  const values = {
-    publicationName:      searchData.highlight?.publicationName?.[0] ?? searchData._source.publicationName ?? "",
-    authorsText:          searchData.highlight?.authorsText?.[0]     ?? searchData._source.authorsText     ?? "",
-    authorsTextSplitted:  searchData.highlight?.authorsText?.[0]     ?? searchData._source.authorsText     ?? "",
-    publisherName:        searchData.highlight?.publisherName?.[0]   ?? searchData._source.publisherName   ?? "",
-    publicationYear:      searchData.highlight?.publicationYear?.[0] ?? searchData._source.publicationYear ?? ""
-  }
-
-  return {
-    publicationName: sanitizer.sanitize(SecurityContext.HTML, values.publicationName),
-    authorsText: sanitizer.sanitize(SecurityContext.HTML, values.authorsText),
-    authorsTextSplitted: sanitizer.sanitize(SecurityContext.HTML, values.authorsTextSplitted),
-    publisherName: sanitizer.sanitize(SecurityContext.HTML, values.publisherName),
-    publicationYear: sanitizer.sanitize(SecurityContext.HTML, values.publicationYear)
-  }
-}
+import { AsyncPipe, JsonPipe, NgForOf, NgIf } from '@angular/common';
+import { HighlightedPublication, Publication2Service } from '@portal/services/publication2.service';
+import { map, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-publications2',
   templateUrl: './publications2.component.html',
   styleUrls: ['./publications2.component.scss'],
-  imports: [CdkTableModule, JsonPipe, FormsModule],
+  imports: [CdkTableModule, FormsModule, AsyncPipe, JsonPipe, NgForOf, NgIf],
   standalone: true
 })
-export class Publications2Component {
+export class Publications2Component implements OnDestroy {
   route = inject(ActivatedRoute);
   router = inject(Router);
-  sanitizer = inject(DomSanitizer);
+  publications2Service = inject(Publication2Service);
 
   displayedColumns: string[] = ['publicationName', 'authorsText', 'publisherName', 'publicationYear'];
 
-  search = this.route.snapshot.data.publications;
+  highlights$ = this.publications2Service.getSearch(); // TODO: /*: Observable<HighlightedPublication[]>*/
+  dataSource = new PublicationDataSource(this.highlights$);
 
-  // publications: Publication[] = this.route.snapshot.data.publications.hits.hits.map(e => e._source);
-  highlights: HighlightedPublication[] = this.route.snapshot.data.publications.hits.hits.map(e => createHighlightedPublication(e));
+  aggregations$ = this.publications2Service.getAggregations();
 
-  dataSource = new PublicationDataSource(this.highlights);
+  // TODO DELETE LEGACY
+  /*enabledFilters$ = this.route.queryParams.pipe(
+    map(params => params.filters ?? []),
+  );*/
 
-  // queryParam 'page' parsed to number
-  page: number = parseInt(this.route.snapshot.queryParams.page ?? 1);
+  yearCounts$ = this.aggregations$.pipe(
+    map(aggs => aggs.by_publicationYear.buckets.map((bucket: any) => ({ year: bucket.key.toString(), count: bucket.doc_count }))),  /*as { year: string, count: number }*/
+    map(aggs => aggs.sort((a, b) => b.year - a.year)),
+  );
 
-  // queryParam 'pageSize' parsed to number
-  pageSize: number = parseInt(this.route.snapshot.queryParams.pageSize?? 10);
+  // Take query parameters and deserialize each "variable" using the splitFields function
+  searchParams$ = this.route.queryParams.pipe(
+    map(splitFields),
+  );
 
-  // queryParam 'q' assigned to keywords
-  public keywords = this.route.snapshot.queryParams.q ?? "";
+  // TODO DELETE LEGACY
+  // Combine yearCounts$ and enabledFilters$ to get the yearFilters$ observable
+  yearFilters$ = combineLatest([this.yearCounts$, this.searchParams$.pipe(map(params => params.year ?? []))]).pipe(
+    map(([yearCounts, enabledFilters]) => yearCounts.map(yearCount => ({
+      year: yearCount.year,
+      count: yearCount.count,
+      enabled: enabledFilters.includes(yearCount.year.toString())
+    })))
+  );
 
-  constructor() {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  searchParamsSubscription = this.searchParams$.subscribe(searchParams => {
+    this.publications2Service.updateSearchTerms(searchParams);
+  });
+
+
+  toggleParam(key: string, value: string) {
+    this.searchParams$.pipe(take(1)).subscribe(filterParams => {
+      const queryParams = { ...filterParams };
+
+      if (queryParams[key] == null) {
+        queryParams[key] = [];
+      }
+
+      const index = queryParams[key].indexOf(value);
+      if (index === -1) {
+        queryParams[key].push(value);
+      } else {
+        queryParams[key].splice(index, 1);
+      }
+
+      if (queryParams[key].length === 0) {
+        delete queryParams[key];
+      }
+
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: concatFields(queryParams)
+      });
+    });
   }
+
+  ngOnDestroy() {
+    this.searchParamsSubscription.unsubscribe();
+  }
+
+  // Model for the search box
+  keywords = "";
 
   searchKeywords(keywords: string) {
-    this.router.navigate([], { queryParams: { q: keywords }, queryParamsHandling: 'merge' });
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { q: keywords }, queryParamsHandling: 'merge'
+    });
   }
 
-  nextPage() {
-    this.router.navigate([], { queryParams: { page: this.page + 1 }, queryParamsHandling: 'merge' });
+  nextPage() { // TODO CLEAN UP
+
+    // TODO DELETE OLD
+    /*this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { page: this.page + 1 }, queryParamsHandling: 'merge'
+    });*/
+
+
+
+
+    // Access the existing page query parameter or use 1 if it doesn't exist
+    // Update the page query parameter by adding 1 and router.navigate
+    // take(1) from searchParams$
+
+    this.searchParams$.pipe(take(1)).subscribe(searchParams => {
+      const queryParams = { ...searchParams };
+      const page = parseInt(queryParams.page?.[0] ?? "1");
+      queryParams.page = [`${page + 1}`];
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: queryParams
+      });
+    });
   }
 
-  previousPage() {
-    this.router.navigate([], { queryParams: { page: Math.max(this.page - 1, 0) }, queryParamsHandling: 'merge' });
+  previousPage() { // TODO
+    /*this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { page: Math.max(this.page - 1, 0) }, queryParamsHandling: 'merge'
+    });*/
   }
 
   setPageSize(size: number) {
-    this.router.navigate([], { queryParams: { pageSize: size }, queryParamsHandling: 'merge' });
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { pageSize: size }, queryParamsHandling: 'merge'
+    });
   }
 }
 
 export class PublicationDataSource extends DataSource<HighlightedPublication> {
-  data: BehaviorSubject<HighlightedPublication[]>;
-
-  constructor(initialData: HighlightedPublication[]) {
+  constructor(private data$: Observable<HighlightedPublication[]>) {
     super();
-    this.data = new BehaviorSubject(initialData);
   }
 
   connect(): Observable<HighlightedPublication[]> {
-    return this.data;
+    return this.data$;
   }
 
-  disconnect() {
-    this.data.complete();
+  disconnect() { /**/ }
+}
+
+// TODO Utility module
+
+function concatParams(strings: string[]): string {
+  return strings.sort().join(",");
+}
+
+function splitParams(input: string | string[]): string[] {
+  if (Array.isArray(input)) {
+    return input.flatMap(item => item.split(","));
   }
+
+  return input.split(",");
+}
+
+function splitFields(obj: Record<string, string | string[]>): Record<string, string[]> {
+  const result: Record<string, string[]> = {};
+
+  for (const key in obj) {
+    const value = obj[key];
+    result[key] = splitParams(value);
+  }
+
+  return result;
+}
+
+function concatFields(obj: Record<string, string[]>): Record<string, string> {
+  const result: Record<string, string> = {};
+
+  for (const key in obj) {
+    const value = obj[key];
+    result[key] = concatParams(value);
+  }
+
+  return result;
 }

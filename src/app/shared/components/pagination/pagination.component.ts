@@ -35,9 +35,6 @@ export class PaginationComponent implements OnInit, OnDestroy {
   resizeSub: Subscription;
   desktop = this.window.innerWidth >= 1200;
   order = this.window.innerWidth >= 768;
-  previousPage = $localize`:@@previousPage:Edellinen sivu`;
-  nextPage = $localize`:@@nextPage:Seuraava sivu`;
-  tooManyResultstext = $localize`:@@tooManyResultsNavigationDisabled:Liikaa tuloksia. Haun loppuun navigoiminen estetty.`;
 
   faAngleRight = faAngleRight;
   faAngleLeft = faAngleLeft;
@@ -47,6 +44,10 @@ export class PaginationComponent implements OnInit, OnDestroy {
 
   previous = $localize`:@@previous:Edellinen`;
   next = $localize`:@@next:Seuraava`;
+
+  previousPage = $localize`:@@previousPage:Edellinen sivu`;
+  nextPage = $localize`:@@nextPage:Seuraava sivu`;
+  tooManyResultstext = $localize`:@@tooManyResultsNavigationDisabled:Liikaa tuloksia. Haun loppuun navigoiminen estetty.`;
 
   constructor(
     private route: ActivatedRoute,

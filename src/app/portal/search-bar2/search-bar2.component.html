@@ -1,0 +1,22 @@
+<div style='display: flex; justify-content: center;'>
+  <div style='display:flex; justify-content: center; align-items: center; background-color: white; height: 55px; width: 180px; margin-right: 8px'>
+    Kohdista haku
+  </div>
+
+  <input
+    [(ngModel)]='keywords'
+    class='search-input'
+    style='margin-right: 8px'
+    type='search'
+    i18n-title='@@searchTooltip'
+    title='Voit hakea julkaisuja, tutkijoita, rahoituspäätöksiä, aineistoja, rahoitushakuja, infrastruktuureja ja organisaatioita kuvailevaa tietoa.'
+    i18n-placeholder='@@searchPlaceholder'
+    placeholder='Esim. julkaisu, tieteenala, asiasana'
+    autocomplete='off'
+    tabindex='0'
+  />
+
+  <button matRipple style='display:flex; justify-content: center; align-items: center; background-color: white; height: 55px; width: 115px; margin-right: 8px' (click)='searchKeywords(keywords)' (keydown.enter)='searchKeywords(keywords)'>
+    Hae
+  </button>
+</div>
