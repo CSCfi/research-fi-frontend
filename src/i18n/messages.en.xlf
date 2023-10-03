@@ -6275,6 +6275,11 @@
         <source>Ei tietoa</source>
         <target>Unknown</target>
       </trans-unit>
+
+      <trans-unit id="subjectHeadings" datatype="html">
+        <source>Asiasanat</source>
+        <target>Subject headings</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

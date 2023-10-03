@@ -114,21 +114,18 @@ export class FundingCallAdapter implements Adapter<FundingCall> {
       return n < 10 ? '0' + n : n;
     }
 
-    const openDateString =
-      pad(openDate.getDate()) +
-      '.' +
-      pad(openDate.getMonth() + 1) +
-      '.' +
-      openDate.getFullYear();
-    const dueDateString =
-      pad(dueDate.getDate()) +
-      '.' +
-      pad(dueDate.getMonth() + 1) +
-      '.' +
-      dueDate.getFullYear();
-
     const daysLeft =
       (dueDate.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24);
+
+    const openDateStringFi = Intl.DateTimeFormat("fi-FI", {   timeZone: "GMT",
+      day: "numeric",
+      month: "numeric",
+      year: "numeric" }).format(openDate.getTime());
+
+    const dueDateStringFi = Intl.DateTimeFormat("fi-FI", {   timeZone: "GMT",
+      day: "numeric",
+      month: "numeric",
+      year: "numeric" }).format(dueDate.getTime());
 
     return new FundingCall(
       item.id,
@@ -139,8 +136,8 @@ export class FundingCallAdapter implements Adapter<FundingCall> {
       item.contactInformation,
       openDate,
       dueDate,
-      openDateString,
-      dueDateString,
+      openDateStringFi,
+      dueDateStringFi,
       dueTimeString,
       foundation,
       categories.sort((a, b) => +(a.name > b.name) - 0.5),

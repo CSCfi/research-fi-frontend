@@ -2354,6 +2354,10 @@
       <trans-unit id="unknown" datatype="html">
         <source>Ei tietoa</source>
       </trans-unit>
+
+      <trans-unit id="subjectHeadings" datatype="html">
+        <source>Asiasanat</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>
