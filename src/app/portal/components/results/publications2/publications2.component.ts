@@ -4,7 +4,12 @@ import { combineLatest, Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AsyncPipe, JsonPipe, NgForOf, NgIf } from '@angular/common';
-import { HighlightedPublication, Publication2Service } from '@portal/services/publication2.service';
+import {
+  getOrganizationAdditions,
+  getYearAdditions,
+  HighlightedPublication,
+  Publication2Service
+} from '@portal/services/publication2.service';
 import { map, take } from 'rxjs/operators';
 
 @Component({
@@ -19,42 +24,45 @@ export class Publications2Component implements OnDestroy {
   router = inject(Router);
   publications2Service = inject(Publication2Service);
 
+  keywords = "";
+
   displayedColumns: string[] = ['publicationName', 'authorsText', 'publisherName', 'publicationYear'];
 
   highlights$ = this.publications2Service.getSearch(); // TODO: /*: Observable<HighlightedPublication[]>*/
   dataSource = new PublicationDataSource(this.highlights$);
 
+  searchParams$ = this.route.queryParams.pipe( map(splitFields) );
   aggregations$ = this.publications2Service.getAggregations();
 
-  // TODO DELETE LEGACY
-  /*enabledFilters$ = this.route.queryParams.pipe(
-    map(params => params.filters ?? []),
-  );*/
 
-  yearCounts$ = this.aggregations$.pipe(
-    map(aggs => aggs.by_publicationYear.buckets.map((bucket: any) => ({ year: bucket.key.toString(), count: bucket.doc_count }))),  /*as { year: string, count: number }*/
-    map(aggs => aggs.sort((a, b) => b.year - a.year)),
+
+  yearAdditions$ = this.aggregations$.pipe(
+    map(aggs => getYearAdditions(aggs).map((bucket: any) => ({ year: bucket.key.toString(), count: bucket.doc_count })) ?? []),
+    map(aggs => aggs.sort((a, b) => b.year - a.year))
   );
 
-  // Take query parameters and deserialize each "variable" using the splitFields function
-  searchParams$ = this.route.queryParams.pipe(
-    map(splitFields),
-  );
-
-  // TODO DELETE LEGACY
-  // Combine yearCounts$ and enabledFilters$ to get the yearFilters$ observable
-  yearFilters$ = combineLatest([this.yearCounts$, this.searchParams$.pipe(map(params => params.year ?? []))]).pipe(
-    map(([yearCounts, enabledFilters]) => yearCounts.map(yearCount => ({
-      year: yearCount.year,
-      count: yearCount.count,
-      enabled: enabledFilters.includes(yearCount.year.toString())
+  yearFilters$ = combineLatest([this.yearAdditions$, this.searchParams$.pipe(map(params => params.year ?? []))]).pipe(
+    map(([yearAdditions, enabledFilters]) => yearAdditions.map(yearAddition => ({
+      year: yearAddition.year,
+      count: yearAddition.count,
+      enabled: enabledFilters.includes(yearAddition.year.toString())
     })))
   );
+
+
+  organizationAdditions$ = this.aggregations$.pipe(
+    map(aggs => getOrganizationAdditions(aggs).map((bucket: any) => ({ organization: bucket.key, count: bucket.doc_count })) ?? []),
+    map(aggs => aggs.sort((a, b) => b.count - a.count))
+  );
+
 
   searchParamsSubscription = this.searchParams$.subscribe(searchParams => {
     this.publications2Service.updateSearchTerms(searchParams);
   });
 
+  ngOnDestroy() {
+    this.searchParamsSubscription.unsubscribe();
+  }
 
   toggleParam(key: string, value: string) {
     this.searchParams$.pipe(take(1)).subscribe(filterParams => {
@@ -65,6 +73,7 @@ export class Publications2Component implements OnDestroy {
       }
 
       const index = queryParams[key].indexOf(value);
+
       if (index === -1) {
         queryParams[key].push(value);
       } else {
@@ -82,13 +91,6 @@ export class Publications2Component implements OnDestroy {
     });
   }
 
-  ngOnDestroy() {
-    this.searchParamsSubscription.unsubscribe();
-  }
-
-  // Model for the search box
-  keywords = "";
-
   searchKeywords(keywords: string) {
     this.router.navigate([], {
       relativeTo: this.route,
@@ -97,19 +99,6 @@ export class Publications2Component implements OnDestroy {
   }
 
   nextPage() { // TODO CLEAN UP
-
-    // TODO DELETE OLD
-    /*this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: { page: this.page + 1 }, queryParamsHandling: 'merge'
-    });*/
-
-
-
-
-    // Access the existing page query parameter or use 1 if it doesn't exist
-    // Update the page query parameter by adding 1 and router.navigate
-    // take(1) from searchParams$
 
     this.searchParams$.pipe(take(1)).subscribe(searchParams => {
       const queryParams = { ...searchParams };
@@ -123,10 +112,7 @@ export class Publications2Component implements OnDestroy {
   }
 
   previousPage() { // TODO
-    /*this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: { page: Math.max(this.page - 1, 0) }, queryParamsHandling: 'merge'
-    });*/
+
   }
 
   setPageSize(size: number) {
@@ -148,8 +134,6 @@ export class PublicationDataSource extends DataSource<HighlightedPublication> {
 
   disconnect() { /**/ }
 }
-
-// TODO Utility module
 
 function concatParams(strings: string[]): string {
   return strings.sort().join(",");

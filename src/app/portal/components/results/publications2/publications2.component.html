@@ -37,6 +37,18 @@
           ({{yearFilter.count}})
         </div>
       </ng-container>
+
+      <hr>
+
+      <ng-container>
+        <!-- Organization filter -->
+
+        <!-- Inspect data first -->
+        <div style='white-space: pre; background-color: lightcoral'>
+          {{organizationAdditions$ | async | json}}
+        </div>
+
+      </ng-container>
     </div>
   </div>
 
