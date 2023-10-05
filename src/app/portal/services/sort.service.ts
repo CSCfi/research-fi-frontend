@@ -14,7 +14,7 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
 export class SortService {
   sortMethod: string;
   currentTab: string;
-  sort: any;
+  sort: any[];
   yearField: string;
   sortColumn: string;
   sortDirection: boolean;
