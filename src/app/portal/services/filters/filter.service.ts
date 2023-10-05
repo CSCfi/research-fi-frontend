@@ -1019,15 +1019,13 @@ export class FilterService {
       } else {
         sortOrder.push('_score');
       }
-    }
-
-    // If tab is publications and sortOrder is empty
-    if (
-      tab === 'publications' &&
-      (!this.sortService.sortMethod ||
-        this.sortService.sortMethod?.length === 0)
-    ) {
-      sortOrder.push({publicationYear: {order:'desc'}});
+    } else {
+      if (tab === 'publications') {
+        sortOrder.push('_score');
+        sortOrder.push({publicationYear: {order:'desc'}});
+      } else {
+        sortOrder.push('_score');
+      }
     }
 
     const queryPayload = searchTerm.length > 0 ? query : randomQuery;
@@ -1037,7 +1035,9 @@ export class FilterService {
       size: pageSize || 10,
       track_total_hits: true,
       // TODO: Get completions from all indices
-      ...(tab === 'publications' && searchTerm ? this.settingsService.completionsSettings(searchTerm) : []),
+      ...(tab === 'publications' && searchTerm
+        ? this.settingsService.completionsSettings(searchTerm)
+        : []),
       from: fromPage,
       sort: searchTerm.length > 0 ? [...sortOrder, '_score'] : sortOrder,
     };
