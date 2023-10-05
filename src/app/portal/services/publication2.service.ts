@@ -1,4 +1,4 @@
-import { inject, Injectable, OnInit, SecurityContext } from '@angular/core';
+import { inject, Injectable, LOCALE_ID, OnInit, SecurityContext } from '@angular/core';
 // import { object, Output, parse, string } from 'valibot';
 import { BehaviorSubject, Observable, shareReplay } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -32,12 +32,16 @@ type CachedPublicationSearch = {
   publicationSearch: PublicationSearch,
 }
 
-type SearchParams = Record<string, string[]> & {
+type SearchParams = {
   q?: string[],
   page?: string[],
   size?: string[],
   year?: string[],
   organization?: string[],
+
+  // placeholders
+  publicationTypeCode?: string[],
+  publicationStatusCode?: string[],
 }
 
 @Injectable({
@@ -46,6 +50,9 @@ type SearchParams = Record<string, string[]> & {
 export class Publication2Service {
   http = inject(HttpClient);
   sanitizer = inject(DomSanitizer);
+  locale = inject(LOCALE_ID);
+
+  i18n = suffixer(this.locale);
 
   searchParams = new BehaviorSubject<Record<string, string[]>>({});
 
@@ -118,7 +125,7 @@ export class Publication2Service {
         ...additionsFromYear(searchParams),
         ...additionsFromTypeCode(searchParams),
         ...additionsFromStatusCode(searchParams),
-        ...additionsFromOrganizationId(searchParams)
+        ...additionsFromOrganization(searchParams)
       }
     });
   }
@@ -163,10 +170,10 @@ function matchingTerms(q: string) {
 }
 
 function termsForYear(searchParams: SearchParams) {
-  if (searchParams.publicationYear) {
+  if (searchParams.year) {
     return [{
       terms: {
-        "publicationYear": searchParams.publicationYear
+        "publicationYear": searchParams.year
       }
     }];
   }
@@ -195,16 +202,6 @@ function termsForStatusCode(searchParams: SearchParams) {
   return [];
 }
 
-function termsForOrganization(searchParams: SearchParams) {
-  if (!searchParams.organization) { return []; }
-
-  return [{
-    term: {
-      'author.organization.organizationId.keyword': searchParams.organization
-    }
-  }];
-}
-
 // NOTE: additionsFrom functions must use all other "termsFor" functions but not its own
 
 function additionsFromYear(searchParams: SearchParams) {
@@ -217,8 +214,8 @@ function additionsFromYear(searchParams: SearchParams) {
             "bool": {
               "must": [
                 ...termsForTypeCode(searchParams),
-                ...termsForStatusCode(searchParams),
-                ...termsForOrganization(searchParams)
+                ...termsForOrganization(searchParams),
+                ...termsForStatusCode(searchParams)
               ]
             }
           },
@@ -249,8 +246,6 @@ type YearAggregation = {
 };
 
 export function getYearAdditions(aggregations: YearAggregation) {
-  console.log("getYearAdditions", aggregations);
-
   return aggregations.all_data_except_publicationYear?.filtered_except_publicationYear.all_publicationYears.buckets ?? [];
 }
 
@@ -310,7 +305,72 @@ function additionsFromStatusCode(searchParams: SearchParams) {
   };
 }
 
-function additionsFromOrganizationId(searchParams: SearchParams) {
+type OrganizationAggregation = {
+  all_data_except_organizationId: {
+    filtered_except_organizationId: {
+      organization_nested: {
+        all_organizationIds: {
+          buckets: Array<{
+            key: string;
+            doc_count: number;
+          }>;
+        };
+      };
+    };
+  };
+};
+
+export function getOrganizationAdditions(aggregations: OrganizationAggregation) {
+  console.log("getOrganizationAdditions", aggregations);
+
+  return aggregations.all_data_except_organizationId?.filtered_except_organizationId.organization_nested.all_organizationIds.buckets ?? [];
+}
+
+function suffixer(locale) {
+  function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
+  return function(strings, ...values) {
+    let result = '';
+
+    for(let i = 0; i < values.length; i++) {
+      result += strings[i] + values[i] + capitalize(locale);
+    }
+
+    result += strings[strings.length - 1];
+    return result;
+  };
+}
+
+const i18n = suffixer("fi");
+
+function termsForOrganization(searchParams: SearchParams) {                     // TODO: Add locale argument for adjusting the field name
+  if (searchParams.organization && searchParams.organization.length > 0) {
+    return [{
+      "nested": {
+        "path": "author",
+        "query": {
+          "bool": {
+            "must": [
+              {
+                "terms": {
+                  // "author.organization.organizationId.keyword": searchParams.organization
+                  // "author.organization.organizationNameFi.keyword"
+                  // [i18n`author.organization.${"Organization"}.keyword`]: searchParams.organization
+                  [i18n`author.organization.${"OrganizationName"}.keyword`]: searchParams.organization
+                }
+              }
+            ]
+          }
+        }
+      }
+    }];
+  }
+  return [];
+}
+
+function additionsFromOrganization(searchParams: SearchParams) {
   return {
     "all_data_except_organizationId": {
       "global": {},
@@ -326,9 +386,18 @@ function additionsFromOrganizationId(searchParams: SearchParams) {
             }
           },
           "aggregations": {
-            "all_organizationIds": {
-              "terms": {
-                "field": "author.organization.organizationId.keyword"
+            "organization_nested": {
+              "nested": {
+                "path": "author"
+              },
+              "aggregations": {
+                "all_organizationIds": {
+                  "terms": {
+                    // "field": "author.organization.organizationId.keyword"
+                    // author.organization.OrganizationNameFi.keyword
+                    "field": i18n`author.organization.${"OrganizationName"}.keyword`
+                  }
+                }
               }
             }
           }
@@ -338,21 +407,17 @@ function additionsFromOrganizationId(searchParams: SearchParams) {
   };
 }
 
-type OrganizationAggregation = {
-  all_data_except_organizationId: {
-    filtered_except_organizationId: {
-      all_organizationIds: {
-        buckets: Array<{
-          key: string;
-          doc_count: number;
-        }>;
-      };
-    };
+/*function suffixer(locale) {
+  function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
+  return function(strings) {
+    return strings[0] + capitalize(locale);
   };
-};
+}*/
 
-export function getOrganizationAdditions(aggregations: OrganizationAggregation) {
-  console.log("getOrganizationAdditions", aggregations);
+// TODO suffixer to the organization termFor and additionsFrom functions
+//      Use the plain text values over the id (?)
 
-  return aggregations.all_data_except_organizationId?.filtered_except_organizationId.all_organizationIds.buckets ?? [];
-}
+// aa öö
