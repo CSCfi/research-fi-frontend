@@ -30,25 +30,37 @@
 
       <!-- click the checkbox sets the filter to the url -->
 
-      <ng-container *ngFor='let yearFilter of yearFilters$ | async'>
-        <div style='user-select: none; cursor: pointer' (click)='toggleParam("year", yearFilter.year)'>
-          <input type='checkbox' [ngModel]='yearFilter.enabled'>
-          {{yearFilter.year}}
-          ({{yearFilter.count}})
-        </div>
-      </ng-container>
+      <!-- TODO -->
 
-      <hr>
+      <div>
+        <!--{{ yearFilters$ | async | json }}-->
 
-      <ng-container>
-        <!-- Organization filter -->
+        <ng-container *ngFor='let yearFilter of yearFilters$ | async'>
+          <div style='user-select: none; cursor: pointer' (click)='toggleParam("year", yearFilter.year)'>
+            <input type='checkbox' [ngModel]='yearFilter.enabled'>
+            {{yearFilter.year}}
+            ({{yearFilter.count}})
+          </div>
+        </ng-container>
+      </div>
 
-        <!-- Inspect data first -->
-        <div style='white-space: pre; background-color: lightcoral'>
-          {{organizationAdditions$ | async | json}}
-        </div>
+      <!-- TODO DELETE -->
+      <div style='margin-bottom: 1rem'></div>
 
-      </ng-container>
+      <div>
+        <!--{{ organizationFilters$ | async | json }}-->
+
+        <!-- TODO ATTEMPT 1 at making checkbox enabled organization filters -->
+        <ng-container *ngFor='let organizationFilter of organizationFilters$ | async'>
+          <div style='user-select: none; cursor: pointer' (click)='toggleParam("organization", organizationFilter.id)'>
+            <input type='checkbox' [ngModel]='organizationFilter.enabled'>
+            {{organizationFilter.name}}
+            ({{organizationFilter.count}})
+          </div>
+        </ng-container>
+      </div>
+
+
     </div>
   </div>
 
@@ -105,5 +117,9 @@
       <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
       <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+
+    <div style='background-color: grey'> <!-- input muuttujat? -->
+      <app-pagination [page]='1' [pageSize]='10' [total]='50'></app-pagination>
+    </div>
   </div>
 </div>

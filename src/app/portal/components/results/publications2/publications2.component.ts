@@ -11,12 +11,15 @@ import {
   Publication2Service
 } from '@portal/services/publication2.service';
 import { map, take } from 'rxjs/operators';
+import { SharedModule } from '@shared/shared.module';
 
 @Component({
   selector: 'app-publications2',
   templateUrl: './publications2.component.html',
   styleUrls: ['./publications2.component.scss'],
-  imports: [CdkTableModule, FormsModule, AsyncPipe, JsonPipe, NgForOf, NgIf],
+  imports: [CdkTableModule, FormsModule, AsyncPipe, JsonPipe, NgForOf, NgIf,
+    SharedModule  // TODO not good?
+  ],
   standalone: true
 })
 export class Publications2Component implements OnDestroy {
@@ -34,6 +37,8 @@ export class Publications2Component implements OnDestroy {
   searchParams$ = this.route.queryParams.pipe( map(splitFields) );
   aggregations$ = this.publications2Service.getAggregations();
 
+  // TODO joka kerta uusi HTTP?
+  organizationNames$ = this.publications2Service.getOrganizationNames();
 
 
   yearAdditions$ = this.aggregations$.pipe(
@@ -49,15 +54,25 @@ export class Publications2Component implements OnDestroy {
     })))
   );
 
-
   organizationAdditions$ = this.aggregations$.pipe(
-    map(aggs => getOrganizationAdditions(aggs).map((bucket: any) => ({ organization: bucket.key, count: bucket.doc_count })) ?? []),
+    map(aggs => getOrganizationAdditions(aggs).map((bucket: any) => ({ id: bucket.key, count: bucket.doc_count })) ?? []),
     map(aggs => aggs.sort((a, b) => b.count - a.count))
   );
 
+  organizationFilters$ = combineLatest([this.organizationAdditions$, this.organizationNames$, this.searchParams$.pipe(map(params => params.organization ?? []))]).pipe(
+    map(([organizationAdditions, organizationNames, enabledFilters]) => organizationAdditions.map(organizationAddition => ({
+      id: organizationAddition.id,
+      count: organizationAddition.count,
+      name: organizationNames[organizationAddition.id] ?? organizationAddition.id,
+      enabled: enabledFilters.includes(organizationAddition.id)
+    })))
+  );
 
   searchParamsSubscription = this.searchParams$.subscribe(searchParams => {
     this.publications2Service.updateSearchTerms(searchParams);
+
+    // Read first q parameter safely
+    this.keywords = searchParams.q?.[0] ?? "";
   });
 
   ngOnDestroy() {
@@ -99,7 +114,6 @@ export class Publications2Component implements OnDestroy {
   }
 
   nextPage() { // TODO CLEAN UP
-
     this.searchParams$.pipe(take(1)).subscribe(searchParams => {
       const queryParams = { ...searchParams };
       const page = parseInt(queryParams.page?.[0] ?? "1");
@@ -111,14 +125,22 @@ export class Publications2Component implements OnDestroy {
     });
   }
 
-  previousPage() { // TODO
-
+  previousPage() { // TODO CLEAN UP
+    this.searchParams$.pipe(take(1)).subscribe(searchParams => {
+      const queryParams = { ...searchParams };
+      const page = parseInt(queryParams.page?.[0] ?? "1");
+      queryParams.page = [`${page - 1}`];
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: queryParams
+      });
+    });
   }
 
   setPageSize(size: number) {
     this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: { pageSize: size }, queryParamsHandling: 'merge'
+      queryParams: { size }, queryParamsHandling: 'merge'
     });
   }
 }
