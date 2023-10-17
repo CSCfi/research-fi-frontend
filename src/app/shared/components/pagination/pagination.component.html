@@ -13,7 +13,7 @@
             class="col-auto ps-0 d-block d-md-none"
             [icon]="faAngleDoubleLeft"
             [iconOnly]="true"
-            (click)="goToFirstPage(pageSize)"
+            (click)="goToFirstPage()"
             [disabled]="fromPage <= 1"
           >
           </app-secondary-button>
@@ -31,16 +31,12 @@
         </div>
       </div>
 
-      <div class="pages col-12 col-md-6" [class.order-last]="!order">
-        <button
-          *ngFor="let number of pages"
-          class="page-button"
-          [disabled]="page === number"
-          (click)="goToPage(number, pageSize)"
-          [class.current-page]="page === number"
-        >
-          {{ number }}
-        </button>
+      <div class="pages col-12 col-md-6" [class.order-last]="!(order$ | async)">
+        <ng-container *ngFor='let number of pages$ | async'>
+          <button class="page-button" [class.current-page]="page === number" [disabled]="page === number" (click)="goToPage(number)" >
+            {{ number }}
+          </button>
+        </ng-container>
       </div>
 
       <div class="col-auto col-md-3 col-xl-auto p-0">
@@ -48,7 +44,7 @@
           <app-secondary-button
             class="col-auto p-0 pe-3 pe-md-0 pagination-button text-end text-lg-start"
             [class.pagination-link-active]="fromPage + pageSize < total"
-            (click)="goToPage(page + 1, pageSize)"
+            (click)="goToPage(page + 1)"
             [disabled]="fromPage + pageSize >= total"
             [content]="next"
             [icon]="faAngleRight"
@@ -62,7 +58,7 @@
             class="col-auto p-0 d-block d-md-none"
             [icon]="total >= 10000 ? faInfoCircle : faAngleDoubleRight"
             [iconOnly]="true"
-            (click)="total >= 10000 ? null : goToLastPage(pageSize)"
+            (click)="total >= 10000 ? null : goToLastPage()"
             [disabled]="fromPage + pageSize >= total"
             [tooltip]="total >= 10000 ? tooManyResultstext : null"
             triggers="focus"
