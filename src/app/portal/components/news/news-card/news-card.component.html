@@ -102,7 +102,7 @@
           [innerHTML]="item?.organizationNameFi?.trim() | highlight: term"
         ></span>
       </div>
-      <div *ngIf="!isHomepage" class="col-3 d-flex justify-content-end">
+      <div *ngIf="!isHomepage" class="col-3 d-flex justify-content-end align-self-center">
         <img class="news-img pe-0" [src]="item.mediaUri | safeUrl" />
       </div>
     </div>
