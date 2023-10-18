@@ -27,7 +27,10 @@ export class Publications2Component implements OnDestroy {
   router = inject(Router);
   publications2Service = inject(Publication2Service);
 
+  // input and pagination inputs
   keywords = "";
+  page = 1;
+  size = 10;
 
   displayedColumns: string[] = ['publicationName', 'authorsText', 'publisherName', 'publicationYear'];
 
@@ -71,8 +74,9 @@ export class Publications2Component implements OnDestroy {
   searchParamsSubscription = this.searchParams$.subscribe(searchParams => {
     this.publications2Service.updateSearchTerms(searchParams);
 
-    // Read first q parameter safely
     this.keywords = searchParams.q?.[0] ?? "";
+    this.page = parseInt(searchParams.page?.[0] ?? "1");
+    this.size = parseInt(searchParams.size?.[0] ?? "10");
   });
 
   ngOnDestroy() {
