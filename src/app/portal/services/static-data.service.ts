@@ -102,29 +102,29 @@ export class StaticDataService {
     {
       id: 1,
       class: 'A',
-      label: $localize`Vertaisarvioidut tieteelliset artikkelit`,
+      label: $localize`:@@publicationClassA:Vertaisarvioidut tieteelliset artikkelit`,
       types: [
         {
           type: 'A1',
-          label: $localize`Alkuperäisartikkeli tieteellisessä aikakauslehdessä`,
+          label: $localize`:@@publicationClassA1:Alkuperäisartikkeli tieteellisessä aikakauslehdessä`,
           key: '',
           doc_count: 0,
         },
         {
           type: 'A2',
-          label: $localize`Katsausartikkeli tieteellisessä aikakauslehdessä`,
+          label: $localize`:@@publicationClassA2:Katsausartikkeli tieteellisessä aikakauslehdessä`,
           key: '',
           doc_count: 0,
         },
         {
           type: 'A3',
-          label: $localize`Kirjan tai muun kokoomateoksen osa`,
+          label: $localize`:@@publicationClassA3:Kirjan tai muun kokoomateoksen osa`,
           key: '',
           doc_count: 0,
-        },
+        }, 
         {
           type: 'A4',
-          label: $localize`Artikkeli konferenssijulkaisussa`,
+          label: $localize`:@@publicationClassA4:Artikkeli konferenssijulkaisussa`,
           key: '',
           doc_count: 0,
         },
@@ -134,23 +134,23 @@ export class StaticDataService {
     {
       id: 2,
       class: 'B',
-      label: $localize`Vertaisarvioimattomat tieteelliset kirjoitukset`,
+      label: $localize`:@@publicationClassB:Vertaisarvioimattomat tieteelliset kirjoitukset`,
       types: [
         {
           type: 'B1',
-          label: $localize`Kirjoitus tieteellisessä aikakauslehdessä`,
+          label: $localize`:@@publicationClassB1:Kirjoitus tieteellisessä aikakauslehdessä`,
           key: '',
           doc_count: 0,
         },
         {
           type: 'B2',
-          label: $localize`Kirjan tai muun kokoomateoksen osa`,
+          label: $localize`:@@publicationClassB2:Kirjan tai muun kokoomateoksen osa`,
           key: '',
           doc_count: 0,
         },
         {
           type: 'B3',
-          label: $localize`Vertaisarvioimaton artikkeli konferenssijulkaisussa`,
+          label: $localize`:@@publicationClassB3:Vertaisarvioimaton artikkeli konferenssijulkaisussa`,
           key: '',
           doc_count: 0,
         },
@@ -160,17 +160,17 @@ export class StaticDataService {
     {
       id: 3,
       class: 'C',
-      label: $localize`Tieteelliset kirjat (monografiat)`,
+      label: $localize`:@@publicationClassC:Tieteelliset kirjat`,
       types: [
         {
           type: 'C1',
-          label: $localize`Kustannettu tieteellinen erillisteos`,
+          label: $localize`:@@publicationClassC1:Kustannettu tieteellinen erillisteos`,
           key: '',
           doc_count: 0,
         },
         {
           type: 'C2',
-          label: $localize`Toimitettu kirja, kokoomateos, konferenssijulkaisu tai lehden erikoisnumero`,
+          label: $localize`:@@publicationClassC2:Toimitettu kirja, kokoomateos, konferenssijulkaisu tai lehden erikoisnumero`,
           key: '',
           doc_count: 0,
         },
@@ -180,42 +180,41 @@ export class StaticDataService {
     {
       id: 4,
       class: 'D',
-      label: $localize`Ammattiyhteisölle suunnatut julkaisut`,
+      label: $localize`:@@publicationClassD:Ammattiyhteisölle suunnatut julkaisut`,
       types: [
         {
           type: 'D1',
-          label: $localize`Artikkeli ammattilehdessä`,
+          label: $localize`:@@publicationClassD1:Artikkeli ammattilehdessä`,
           key: '',
           doc_count: 0,
         },
-        // tslint:disable-next-line: max-line-length
         {
           type: 'D2',
-          label: $localize`Artikkeli ammatillisessa käsi- tai opaskirjassa, ammatillisessa tietojärjestelmässä tai oppikirja-aineisto`,
+          label: $localize`:@@publicationClassD2:Artikkeli ammatillisessa kokoomateoksessa`,
           key: '',
           doc_count: 0,
         },
         {
           type: 'D3',
-          label: $localize`Artikkeli ammatillisessa konferenssijulkaisussa`,
+          label: $localize`:@@publicationClassD3:Artikkeli ammatillisessa konferenssijulkaisussa`,
           key: '',
           doc_count: 0,
         },
         {
           type: 'D4',
-          label: $localize`Julkaistu kehittämis- tai tutkimusraportti taikka -selvitys`,
+          label: $localize`:@@publicationClassD4:Julkaistu kehittämis- tai tutkimusraportti taikka -selvitys`,
           key: '',
           doc_count: 0,
         },
         {
           type: 'D5',
-          label: $localize`Oppikirja, ammatillinen käsi- tai opaskirja taikka sanakirja`,
+          label: $localize`:@@publicationClassD5:Ammatillinen kirja`,
           key: '',
           doc_count: 0,
         },
         {
           type: 'D6',
-          label: $localize`Toimitettu ammatillinen teos`,
+          label: $localize`:@@publicationClassD6:Toimitettu ammatillinen teos`,
           key: '',
           doc_count: 0,
         },
@@ -225,23 +224,23 @@ export class StaticDataService {
     {
       id: 5,
       class: 'E',
-      label: $localize`Suurelle yleisölle suunnatut julkaisut`,
+      label: $localize`:@@publicationClassE:Suurelle yleisölle suunnatut julkaisut`,
       types: [
         {
           type: 'E1',
-          label: $localize`Yleistajuinen artikkeli, sanomalehtiartikkeli`,
+          label: $localize`:@@publicationClassE1:Yleistajuinen artikkeli, sanomalehtiartikkeli`,
           key: '',
           doc_count: 0,
         },
         {
           type: 'E2',
-          label: $localize`Yleistajuinen monografia`,
+          label: $localize`:@@publicationClassE2:Yleistajuinen monografia`,
           key: '',
           doc_count: 0,
         },
         {
           type: 'E3',
-          label: $localize`Toimitettu yleistajuinen teos`,
+          label: $localize`:@@publicationClassE3:Toimitettu yleistajuinen teos`,
           key: '',
           doc_count: 0,
         },
@@ -251,23 +250,23 @@ export class StaticDataService {
     {
       id: 6,
       class: 'F',
-      label: $localize`Julkinen taiteellinen ja taideteollinen toiminta`,
+      label: $localize`:@@publicationClassF:Julkinen taiteellinen ja taideteollinen toiminta`,
       types: [
         {
           type: 'F1',
-          label: $localize`Erillisjulkaisu`,
+          label: $localize`:@@publicationClassF1:Itsenäinen teos tai esitys`,
           key: '',
           doc_count: 0,
         },
         {
           type: 'F2',
-          label: $localize`Julkinen taiteellinen teoksen osatoteutus`,
+          label: $localize`:@@publicationClassF2:Taiteellisen teoksen tai esityksen osatoteutus`,
           key: '',
           doc_count: 0,
         },
         {
           type: 'F3',
-          label: $localize`Ei-taiteellisen julkaisun taiteellinen osa`,
+          label: $localize`:@@publicationClassF3:Ei-taiteellisen julkaisun taiteellinen osa`,
           key: '',
           doc_count: 0,
         },
@@ -311,6 +310,44 @@ export class StaticDataService {
         },
       ],
     },
+    {
+      id: 8,
+      class: 'H',
+      label: $localize`:@@publicationClassH:Patentit ja keksintöilmoitukset`,
+      types: [
+        {
+          type: 'H1',
+          label: $localize`:@@publicationClassH1:Myönnetty patentti`,
+          key: '',
+          doc_count: 0,
+        },
+        {
+          type: 'H2',
+          label: $localize`:@@publicationClassH2:Keksintöilmoitus`,
+          key: '',
+          doc_count: 0,
+        }
+      ],
+    },
+    {
+      id: 9,
+      class: 'I',
+      label: $localize`:@@publicationClassI:Audiovisuaaliset julkaisut ja tieto- ja viestintätekniset sovellukset`,
+      types: [
+        {
+          type: 'I1',
+          label: $localize`:@@publicationClassI1:Audiovisuaaliset julkaisut`,
+          key: '',
+          doc_count: 0,
+        },
+        {
+          type: 'I2',
+          label: $localize`:@@publicationClassI2:Tieto- ja viestintätekniset sovellukset`,
+          key: '',
+          doc_count: 0,
+        }
+      ],
+    }
   ];
 
   targets: Target[] = [
