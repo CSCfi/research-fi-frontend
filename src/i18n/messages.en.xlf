@@ -6280,6 +6280,201 @@
         <source>Asiasanat</source>
         <target>Subject headings</target>
       </trans-unit>
+
+      <trans-unit id="publicationClassA" datatype="html">
+        <source>Vertaisarvioidut tieteelliset artikkelit</source>
+        <target>Peer-reviewed scientific articles</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassA1" datatype="html">
+        <source>Alkuperäisartikkeli tieteellisessä aikakauslehdessä</source>
+        <target>Journal article (refereed), original research</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassA2" datatype="html">
+        <source>Katsausartikkeli tieteellisessä aikakauslehdessä</source>
+        <target>Review article, Literature review, Systematic review</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassA3" datatype="html">
+        <source>Kirjan tai muun kokoomateoksen osa</source>
+        <target>Book section, Chapters in research books</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassA4" datatype="html">
+        <source>Artikkeli konferenssijulkaisussa</source>
+        <target>Article in conference proceedings</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassB" datatype="html">
+        <source>Vertaisarvioimattomat tieteelliset kirjoitukset</source>
+        <target>Non-refereed scientific articles</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassB1" datatype="html">
+        <source>Kirjoitus tieteellisessä aikakausilehdessä</source>
+        <target>Non-refereed journal articles</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassB2" datatype="html">
+        <source>Kirjan tai muun kokoomateoksen osa</source>
+        <target>Book section</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassB3" datatype="html">
+        <source>Vertaisarvioimaton artikkeli konferenssijulkaisussa</source>
+        <target>Article in conference proceedings (non-peer-reviewed)</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassC" datatype="html">
+        <source>Tieteelliset kirjat</source>
+        <target>Scientific books (monographs)</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassC1" datatype="html">
+        <source>Kustannettu tieteellinen erillisteos</source>
+        <target>Scientific book</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassC2" datatype="html">
+        <source>Toimitettu kirja, kokoomateos, konferenssijulkaisu tai lehden erikoisnumero</source>
+        <target>Edited book, conference proceedings or special issue of a journal</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassD" datatype="html">
+        <source>Ammattiyhteisölle suunnatut julkaisut</source>
+        <target>Publications intended for professional communities</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassD1" datatype="html">
+        <source>Artikkeli ammattilehdessä</source>
+        <target>Article in a trade journal</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassD2" datatype="html">
+        <source>Artikkeli ammatillisessa kokoomateoksessa</source>
+        <target>Article in a professional research book (incl. an introduction by the editor)</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassD3" datatype="html">
+        <source>Artikkeli ammatillisessa konferenssijulkaisussa</source>
+        <target>Article in professional conference proceedings</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassD4" datatype="html">
+        <source>Julkaistu kehittämis- tai tutkimusraportti taikka -selvitys</source>
+        <target>Published development or research report or study</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassD5">
+        <source>Ammatillinen kirja</source>
+        <target>Textbook, professional manual or guide</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassD6" datatype="html">
+        <source>Toimitettu ammatillinen teos</source>
+        <target>Edited professional book</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassE" datatype="html">
+        <source>Suurelle yleisölle suunnatut julkaisut</source>
+        <target>Publications intended for the general public</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassE1" datatype="html">
+        <source>Yleistajuinen artikkeli, sanomalehtiartikkeli</source>
+        <target>Popularised article, newspaper article</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassE2" datatype="html">
+        <source>Yleistajuinen monografia</source>
+        <target>Popularised monograph</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassE3" datatype="html">
+        <source>Toimitettu yleistajuinen teos</source>
+        <target>Edited popular book</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassF" datatype="html">
+        <source>Julkinen taiteellinen ja taideteollinen toiminta</source>
+        <target>Public artistic and design activities</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassF1" datatype="html">
+        <source>Itsenäinen teos tai esitys</source>
+        <target>Published independent work of art or performance</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassF2" datatype="html">
+        <source>Taiteellisen teoksen tai esityksen osatoteutus</source>
+        <target>Partial implementation of a work of art or performance</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassF3" datatype="html">
+        <source>Ei-taiteellisen julkaisun taiteellinen osa</source>
+        <target>Artistic part of a non-artistic publication</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassG" datatype="html">
+        <source>Opinnäytteet</source>
+        <target>Theses</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassG1" datatype="html">
+        <source>Ammattikorkeakoulututkinnon opinnäytetyö, kandidaatintyö</source>
+        <target>Polytechnic thesis, Bachelor’s thesis</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassG2" datatype="html">
+        <source>Pro gradu, diplomityö, ylempi amk-opinnäytetyö</source>
+        <target>Master’s thesis, polytechnic Master’s thesis</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassG3" datatype="html">
+        <source>Lisensiaatintyö</source>
+        <target>Licentiate thesis</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassG4" datatype="html">
+        <source>Monografiaväitöskirja</source>
+        <target>Doctoral dissertation (monograph)</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassG5" datatype="html">
+        <source>Artikkeliväitöskirja</source>
+        <target>Doctoral dissertation (articles)</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassH" datatype="html">
+        <source>Patentit ja keksintöilmoitukset</source>
+        <target>Patents and innovation announcements</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassH1" datatype="html">
+        <source>Myönnetty patentti</source>
+        <target>Granted patent</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassH2" datatype="html">
+        <source>Keksintöilmoitus</source>
+        <target>Invention announcement</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassI" datatype="html">
+        <source>Audiovisuaaliset julkaisut ja tieto- ja viestintätekniset sovellukset</source>
+        <target>Audiovisual publications and ICT applications</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassI1" datatype="html">
+        <source>Audiovisuaaliset julkaisut</source>
+        <target>Audiovisual publications</target>
+      </trans-unit>
+
+      <trans-unit id="publicationClassI2" datatype="html">
+        <source>Tieto- ja viestintätekniset sovellukset</source>
+        <target>ICT applications</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
