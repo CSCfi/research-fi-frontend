@@ -3,8 +3,13 @@
     Kohdista haku
   </div>
 
-  <input
+  <!--
     [(ngModel)]='keywords'
+  -->
+
+  <input
+    [ngModel]='value'
+    (ngModelChange)='valueChange.emit($event)'
     class='search-input'
     style='margin-right: 8px'
     type='search'
@@ -16,7 +21,7 @@
     tabindex='0'
   />
 
-  <button matRipple style='display:flex; justify-content: center; align-items: center; background-color: white; height: 55px; width: 115px; margin-right: 8px' (click)='searchKeywords(keywords)' (keydown.enter)='searchKeywords(keywords)'>
+  <button matRipple style='display:flex; justify-content: center; align-items: center; background-color: white; height: 55px; width: 115px; margin-right: 8px' (click)='search.emit(keywords)'>
     Hae
   </button>
 </div>

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatRippleModule } from '@angular/material/core';
 import { FormsModule } from '@angular/forms';
@@ -15,8 +15,12 @@ export class SearchBar2Component {
   route = inject(ActivatedRoute);
   router = inject(Router)
 
-  /* Input/Output for keywords; Keep the keyword management in the parent? */
-  /* Can be changed later easily */
+  // two-way "value" binding that's a string; basically text input
+  @Input() value = "";
+  @Output() valueChange = new EventEmitter<string>();
+
+  // search is pressed output
+  @Output() search = new EventEmitter<string>();
 
   public keywords = this.route.snapshot.queryParams.q ?? "";
 

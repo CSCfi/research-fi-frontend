@@ -12,13 +12,15 @@ import {
 } from '@portal/services/publication2.service';
 import { map, take } from 'rxjs/operators';
 import { SharedModule } from '@shared/shared.module';
+import { SearchBar2Component } from '@portal/search-bar2/search-bar2.component';
 
 @Component({
   selector: 'app-publications2',
   templateUrl: './publications2.component.html',
   styleUrls: ['./publications2.component.scss'],
   imports: [CdkTableModule, FormsModule, AsyncPipe, JsonPipe, NgForOf, NgIf,
-    SharedModule  // TODO not good?
+    SharedModule, FormsModule, //TODO not good?
+    SearchBar2Component,
   ],
   standalone: true
 })
@@ -27,7 +29,6 @@ export class Publications2Component implements OnDestroy {
   router = inject(Router);
   publications2Service = inject(Publication2Service);
 
-  // input and pagination inputs
   keywords = "";
   page = 1;
   size = 10;
@@ -42,7 +43,6 @@ export class Publications2Component implements OnDestroy {
 
   // TODO joka kerta uusi HTTP?
   organizationNames$ = this.publications2Service.getOrganizationNames();
-
 
   yearAdditions$ = this.aggregations$.pipe(
     map(aggs => getYearAdditions(aggs).map((bucket: any) => ({ year: bucket.key.toString(), count: bucket.doc_count })) ?? []),
@@ -78,6 +78,8 @@ export class Publications2Component implements OnDestroy {
     this.page = parseInt(searchParams.page?.[0] ?? "1");
     this.size = parseInt(searchParams.size?.[0] ?? "10");
   });
+
+  total$ = this.publications2Service.getTotal();
 
   ngOnDestroy() {
     this.searchParamsSubscription.unsubscribe();
@@ -141,7 +143,11 @@ export class Publications2Component implements OnDestroy {
     });
   }
 
+  public num = 0;
+
   setPageSize(size: number) {
+    console.log(size);
+
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { size }, queryParamsHandling: 'merge'

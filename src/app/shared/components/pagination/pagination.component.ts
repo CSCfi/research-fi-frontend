@@ -26,7 +26,7 @@ import { map } from 'rxjs/operators';
 export class PaginationComponent implements OnInit {
   @Input() page: number = 1;
   @Input() pageSize: number = 10;
-  @Input() total: any;
+  @Input() total: number = 0;
 
   fromPage: number; // Used for HTML rendering
 
@@ -88,6 +88,8 @@ function countTotalPages(totalDocuments, pageSize): number {
 }
 
 function generatePages(currentPage: number, range: 5 | 9, results: number, pageSize: number): number[] {
+  console.log(currentPage, range, results, pageSize);
+
   let output: number[] = [];
   const maxPage = countTotalPages(results, pageSize);
   const i = currentPage;
@@ -100,8 +102,8 @@ function generatePages(currentPage: number, range: 5 | 9, results: number, pageS
     output = [i-4, i-3, i-2, i-1, i, i+1, i+2, i+3, i+4];
   }
 
-  let min = Math.min(...output);
-  let max = Math.max(...output);
+  const min = Math.min(...output);
+  const max = Math.max(...output);
 
   if (min < 1) {
     const increment = 1 - output[0];

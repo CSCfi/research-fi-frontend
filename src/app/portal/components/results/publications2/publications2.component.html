@@ -1,125 +1,177 @@
-<div style='margin-bottom: 2rem'>
-  <input type='text' placeholder='Hakusana' [(ngModel)]='keywords' (keydown.enter)='searchKeywords(keywords)'>
-
-  <button (click)='searchKeywords(keywords)'>HAE</button>
+<div style="background-color: orange; height: 100px; display: flex; justify-content: center; align-items: center">
+  <app-search-bar2 [(value)]='keywords' (search)='searchKeywords(keywords)'></app-search-bar2>
 </div>
 
-<div>
-  <button (click)='previousPage()'>Edeltävä sivu</button>
-  <button (click)='nextPage()'>Seuraava sivu</button>
-</div>
-
-<div>
-  <div>Keywords: {{keywords}}</div>
-  <div>Search Parameters: {{searchParams$ | async | json}}</div>
-</div>
-
-<div>
-  <button (click)='setPageSize(10)'>Näytä 10</button>
-  <button (click)='setPageSize(100)'>Näytä 100</button>
-</div>
-
-<div style='display: flex'>
-  <div style='background-color: lightgreen'>
-    <div style='background-color: orange; width: 300px; white-space: pre'>
-      <!-- {{ yearCounts$ | async | json }} -->
-
-      <!-- checkbox placeholder for now for later -->
-      <!-- yearCount.year for year string -->
-      <!-- yearCount.count for count of that year -->
-
-      <!-- click the checkbox sets the filter to the url -->
-
-      <!-- TODO -->
-
-      <div>
-        <!--{{ yearFilters$ | async | json }}-->
-
-        <ng-container *ngFor='let yearFilter of yearFilters$ | async'>
-          <div style='user-select: none; cursor: pointer' (click)='toggleParam("year", yearFilter.year)'>
-            <input type='checkbox' [ngModel]='yearFilter.enabled'>
-            {{yearFilter.year}}
-            ({{yearFilter.count}})
-          </div>
-        </ng-container>
-      </div>
-
-      <!-- TODO DELETE -->
-      <div style='margin-bottom: 1rem'></div>
-
-      <div>
-        <!--{{ organizationFilters$ | async | json }}-->
-
-        <!-- TODO ATTEMPT 1 at making checkbox enabled organization filters -->
-        <ng-container *ngFor='let organizationFilter of organizationFilters$ | async'>
-          <div style='user-select: none; cursor: pointer' (click)='toggleParam("organization", organizationFilter.id)'>
-            <input type='checkbox' [ngModel]='organizationFilter.enabled'>
-            {{organizationFilter.name}}
-            ({{organizationFilter.count}})
-          </div>
-        </ng-container>
-      </div>
+<div style='max-width: 1440px; margin: 0 auto'>
+  <!--<div>
+    <div>Keywords: {{keywords}}</div>
+    <div>Search Parameters: {{searchParams$ | async | json}}</div>
+  </div>-->
 
 
+  <!-- Tab-like buttons -->
+  <div style='height: 80px; margin-top: 20px; display: flex'>
+    <!-- 7x same width areas -->
+    <!-- unselected ones have margin-top: 10px of their own and border-bottom -->
+    <!-- selected tab has no margin and has all other borders than bottom -->
+
+    <ng-container *ngFor='let tab of ["Julkaisut", "Tutkijat", "Hankkeet", "Aineistot", "Rahoitushaut", "Infrastruktuurit", "Organisaatio"]'>
+      <!-- Mock the selected to be equal to "A" -->
+
+      <ng-container *ngIf='tab === "Julkaisut"'>
+        <div style='display: flex; justify-content: center; flex-grow: 1; align-items: center; height: 80px; border: 1px solid black; border-bottom: none; background-color: white'>
+          {{tab}}
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf='tab !== "Julkaisut"'>
+        <div style='display: flex; justify-content: center; flex-grow: 1; align-items: center; height: 70px; margin-top: 10px; border-bottom: 1px solid black; background-color: lightblue'>
+          {{tab}}
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+
+  <div style='display: flex; align-items: center; justify-content: space-between; width: 100%'>
+    <div>
+      <h2>Julkaisut - {{total$ | async}}</h2>
+    </div>
+
+    <div style='height: 58px; padding: 16px'>
+      Näytetään tulokset 1 - 10 / 777912
+
+      <select [ngModel]='size' (ngModelChange)='setPageSize($event)'>
+        <option [ngValue]='10'>10</option>
+        <option [ngValue]='100'>100</option>
+      </select>
+
+      tulosta / sivu
+
+      <a href='#'>Mitä julkaisutietoja palvelu sisältää?</a>
     </div>
   </div>
 
-  <div style='background-color: lightblue'>
-    <div style='background-color: lightgrey; height: 75px; display: flex'>
+  <!-- TODO DELETE -->
+  <!--<div>
+    <button (click)='setPageSize(10)'>Näytä 10</button>
+    <button (click)='setPageSize(100)'>Näytä 100</button>
+  </div>-->
 
-      <!-- TODO chips for filters and remove button -->
-      <!-- year filters -->
+  <div style='display: flex'>
+    <div style='background-color: lightblue; padding: 16px'>
+      <div style='width: 300px'>
+        <div style='background-color: #e6f9ff; border-radius: 4px'>
+          <ng-container *ngFor='let yearFilter of yearFilters$ | async'>
+            <div style='display: flex; padding: 16px 12px; user-select: none; cursor: pointer' (click)='toggleParam("year", yearFilter.year)'>
+              <div style='margin-right: 0.5rem'>
+                <input type='checkbox' [ngModel]='yearFilter.enabled'>
+              </div>
 
-      <ng-container *ngFor='let yearFilter of yearFilters$ | async'>
-        <ng-container *ngIf='yearFilter.enabled'>
-          <div style='display: flex; justify-content: center; align-items: center; margin: 5px; padding: 5px; border: 1px solid black; border-radius: 5px'>
-            <div style='margin-right: 5px'>{{yearFilter.year}}</div>
-            <button (click)='toggleParam("year", yearFilter.year)'>X</button>
-          </div>
-        </ng-container>
-      </ng-container>
+              <div style='display: flex; flex-grow: 1; justify-content: space-between'>
+                <div>
+                  {{yearFilter.year}}
+                </div>
 
+                <div>
+                  ({{yearFilter.count}})
+                </div>
+              </div>
+
+
+            </div>
+          </ng-container>
+        </div>
+
+        <div style='margin-bottom: 1rem'></div> <!-- TODO DELETE -->
+
+        <div style='background-color: #e6f9ff; border-radius: 4px'>
+          <ng-container *ngFor='let organizationFilter of organizationFilters$ | async'>
+            <div style='display: flex; align-items: center; padding: 16px 12px; cursor: pointer' (click)='toggleParam("organization", organizationFilter.id)'>
+              <div style='margin-right: 0.5rem'>
+                <input type='checkbox' [ngModel]='organizationFilter.enabled'>
+              </div>
+
+              <div style='display: flex; flex-grow: 1; justify-content: space-between'>
+                <div>
+                  {{organizationFilter.name}}
+                </div>
+
+                <div>
+                  ({{organizationFilter.count}})
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+
+      </div>
     </div>
 
-    <table cdk-table [dataSource]="dataSource">
-      <ng-container cdkColumnDef="publicationName">
-        <cdk-header-cell cdk-header-cell *cdkHeaderCellDef>publicationName</cdk-header-cell>
+    <div style='background-color: lightsteelblue; max-width: 1550px'>
+      <div style='background-color: lightgrey; height: 75px; display: flex'>
 
-        <cdk-cell *cdkCellDef="let element">
-          <div [innerHTML]='element.publicationName'></div>
-        </cdk-cell>
-      </ng-container>
+        <!-- TODO chips for filters and remove button -->
+        <!-- year filters -->
 
-      <ng-container cdkColumnDef="authorsText">
-        <cdk-header-cell *cdkHeaderCellDef>authorsText</cdk-header-cell>
+        <ng-container *ngFor='let yearFilter of yearFilters$ | async'>
+          <ng-container *ngIf='yearFilter.enabled'>
+            <div style='display: flex; justify-content: center; align-items: center; margin: 5px; padding: 5px; border: 1px solid black; border-radius: 5px'>
+              <div style='margin-right: 5px'>{{yearFilter.year}}</div>
+              <button (click)='toggleParam("year", yearFilter.year)'>X</button>
+            </div>
+          </ng-container>
+        </ng-container>
 
-        <cdk-cell *cdkCellDef="let element">
-          <div [innerHTML]='element.authorsText'></div>
-        </cdk-cell>
-      </ng-container>
+      </div>
 
-      <ng-container cdkColumnDef="publisherName">
-        <cdk-header-cell *cdkHeaderCellDef>publisherName</cdk-header-cell>
+      <table cdk-table [dataSource]="dataSource">
+        <ng-container cdkColumnDef="publicationName">
+          <cdk-header-cell cdk-header-cell *cdkHeaderCellDef>
+            Julkaisun nimi
+          </cdk-header-cell>
 
-        <cdk-cell *cdkCellDef="let element">
-          <div [innerHTML]='element.publisherName'></div>
-        </cdk-cell>
-      </ng-container>
+          <cdk-cell *cdkCellDef="let element">
+            <div [innerHTML]='element.publicationName'></div>
+          </cdk-cell>
+        </ng-container>
 
-      <ng-container cdkColumnDef="publicationYear">
-        <cdk-header-cell *cdkHeaderCellDef>publicationYear</cdk-header-cell>
+        <ng-container cdkColumnDef="authorsText">
+          <cdk-header-cell *cdkHeaderCellDef>
+            Tekijät
+          </cdk-header-cell>
 
-        <cdk-cell *cdkCellDef="let element">
-          <div [innerHTML]='element.publicationYear'></div>
-        </cdk-cell>
-      </ng-container>
+          <cdk-cell *cdkCellDef="let element">
+            <div [innerHTML]='element.authorsText'></div>
+          </cdk-cell>
+        </ng-container>
 
-      <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
-      <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+        <ng-container cdkColumnDef="publisherName">
+          <cdk-header-cell *cdkHeaderCellDef>
+            Julkaisukanava
+          </cdk-header-cell>
 
-    <div style='background-color: grey'> <!-- input muuttujat? -->
-      <app-pagination [page]='page' [pageSize]='size' [total]='50'></app-pagination>
+          <cdk-cell *cdkCellDef="let element">
+            <div [innerHTML]='element.publisherName'></div>
+          </cdk-cell>
+        </ng-container>
+
+        <ng-container cdkColumnDef="publicationYear">
+          <cdk-header-cell *cdkHeaderCellDef>
+            Julkaisuvuosi
+          </cdk-header-cell>
+
+          <cdk-cell *cdkCellDef="let element">
+            <div [innerHTML]='element.publicationYear'></div>
+          </cdk-cell>
+        </ng-container>
+
+        <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+        <tr cdk-row *cdkRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+
+      <div>
+        <app-pagination [page]='page' [pageSize]='size' [total]='total$ | async'></app-pagination>
+      </div>
     </div>
   </div>
 </div>

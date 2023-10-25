@@ -64,6 +64,10 @@ export class Publication2Service {
     shareReplay({ bufferSize: 1, refCount: true })
   );
 
+  resultsTotal$ = this.searchResults$.pipe(
+    map((data) => data.hits.total.value)
+  );
+
   publicationSearch$: Observable<PublicationSearch> = this.searchResults$.pipe(
     map((data) => parsePublicationSearch(data)),
     map((publicationSearch: PublicationSearch) => this.createHighlightedPublications(publicationSearch))
@@ -75,6 +79,10 @@ export class Publication2Service {
 
   getSearch() {
     return this.publicationSearch$;
+  }
+
+  getTotal() {
+    return this.resultsTotal$;
   }
 
   getAggregations() {
@@ -96,6 +104,7 @@ export class Publication2Service {
     return this.http.post('https://researchfi-api-qa.rahtiapp.fi/portalapi/publication/_search?', {
       from: from,
       size: size,
+      track_total_hits: true,
       query: {
         bool: {
           must: {
