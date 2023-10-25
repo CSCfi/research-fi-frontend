@@ -68,7 +68,7 @@ describe('SearchService', () => {
     searchService.searchTerm = 'searchtext';
     searchService.fromPage = 1;
     tabChangeService.tab = 'publications';
-    sortService.sort = '';
+    sortService.sort = [];
 
     testTotal()
 
@@ -88,7 +88,7 @@ describe('SearchService', () => {
     searchService.searchTerm = 'searchtext';
     searchService.fromPage = 1;
     tabChangeService.tab = 'fundings';
-    sortService.sort = '';
+    sortService.sort = [];
 
     testTotal()
 
@@ -108,7 +108,7 @@ describe('SearchService', () => {
     searchService.searchTerm = 'searchtext';
     searchService.fromPage = 1;
     tabChangeService.tab = 'infrastructures';
-    sortService.sort = '';
+    sortService.sort = [];
 
     testTotal()
 

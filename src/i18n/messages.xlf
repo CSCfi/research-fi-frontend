@@ -2358,6 +2358,162 @@
       <trans-unit id="subjectHeadings" datatype="html">
         <source>Asiasanat</source>
       </trans-unit>
+
+      <trans-unit id="publicationClassA" datatype="html">
+        <source>Vertaisarvioidut tieteelliset artikkelit</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassB" datatype="html">
+        <source>Vertaisarvioimattomat tieteelliset kirjoitukset</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassC" datatype="html">
+        <source>Tieteelliset kirjat</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassD" datatype="html">
+        <source>Ammattiyhteisölle suunnatut julkaisut</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassE" datatype="html">
+        <source>Suurelle yleisölle suunnatut julkaisut</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassF" datatype="html">
+        <source>Julkinen taiteellinen ja taideteollinen toiminta</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassG" datatype="html">
+        <source>Opinnäytteet</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassH" datatype="html">
+        <source>Patentit ja keksintöilmoitukset</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassI" datatype="html">
+        <source>Audiovisuaaliset julkaisut ja tieto- ja viestintätekniset sovellukset</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassA1" datatype="html">
+        <source>Alkuperäisartikkeli tieteellisessä aikakauslehdessä</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassA2" datatype="html">
+        <source>Katsausartikkeli tieteellisessä aikakauslehdessä</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassA3" datatype="html">
+        <source>Kirjan tai muun kokoomateoksen osa</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassA4" datatype="html">
+        <source>Artikkeli konferenssijulkaisussa</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassB1" datatype="html">
+        <source>Kirjoitus tieteellisessä aikakausilehdessä</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassB2" datatype="html">
+        <source>Kirjan tai muun kokoomateoksen osa</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassB3" datatype="html">
+        <source>Vertaisarvioimaton artikkeli konferenssijulkaisussa</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassC1" datatype="html">
+        <source>Kustannettu tieteellinen erillisteos</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassC2" datatype="html">
+        <source>Toimitettu kirja, kokoomateos, konferenssijulkaisu tai lehden erikoisnumero</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassD1" datatype="html">
+        <source>Artikkeli ammattilehdessä</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassD2" datatype="html">
+        <source>Artikkeli ammatillisessa kokoomateoksessa</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassD3" datatype="html">
+        <source>Artikkeli ammatillisessa konferenssijulkaisussa</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassD4" datatype="html">
+        <source>Julkaistu kehittämis- tai tutkimusraportti taikka -selvitys</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassD5">
+        <source>Ammatillinen kirja</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassD6" datatype="html">
+        <source>Toimitettu ammatillinen teos</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassE1" datatype="html">
+        <source>Yleistajuinen artikkeli, sanomalehtiartikkeli</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassE2" datatype="html">
+        <source>Yleistajuinen monografia</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassE3" datatype="html">
+        <source>Toimitettu yleistajuinen teos</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassF1" datatype="html">
+        <source>Itsenäinen teos tai esitys</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassF2" datatype="html">
+        <source>Taiteellisen teoksen tai esityksen osatoteutus</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassF3" datatype="html">
+        <source>Ei-taiteellisen julkaisun taiteellinen osa</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassG1" datatype="html">
+        <source>Ammattikorkeakoulututkinnon opinnäytetyö, kandidaatintyö</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassG2" datatype="html">
+        <source>Pro gradu, diplomityö, ylempi amk-opinnäytetyö</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassG3" datatype="html">
+        <source>Lisensiaatintyö</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassG4" datatype="html">
+        <source>Monografiaväitöskirja</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassG5" datatype="html">
+        <source>Artikkeliväitöskirja</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassH1" datatype="html">
+        <source>Myönnetty patentti</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassH2" datatype="html">
+        <source>Keksintöilmoitus</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassI1" datatype="html">
+        <source>Audiovisuaaliset julkaisut</source>
+      </trans-unit>
+
+      <trans-unit id="publicationClassI2" datatype="html">
+        <source>Tieto- ja viestintätekniset sovellukset</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

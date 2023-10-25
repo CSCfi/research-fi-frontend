@@ -993,8 +993,10 @@ export class FilterService {
     if (searchTerm.length === 0 && !this.timestamp) {
       this.generateTimeStamp();
     }
+
     // Generate query based on tab and term
     const query = this.constructQuery(tab.slice(0, -1), searchTerm);
+
     // Use random score when no search term
     const randomQuery = {
       function_score: {
@@ -1004,6 +1006,7 @@ export class FilterService {
         },
       },
     };
+
     // Randomize results if no search term and no sorting activated. Random score doesn't work if sort isn't based with score
     if (
       searchTerm.length === 0 &&
@@ -1016,8 +1019,17 @@ export class FilterService {
       } else {
         sortOrder.push('_score');
       }
+    } else {
+      if (tab === 'publications') {
+        sortOrder.push('_score');
+        sortOrder.push({publicationYear: {order:'desc'}});
+      } else {
+        sortOrder.push('_score');
+      }
     }
+
     const queryPayload = searchTerm.length > 0 ? query : randomQuery;
+
     return {
       query: queryPayload,
       size: pageSize || 10,

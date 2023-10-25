@@ -126,10 +126,10 @@ export class PublicationAdapter implements Adapter<Publication> {
       ];
     }
 
-    let archiveCodeText = '';
-    if (item.selfArchivedCode === 1) {
+    let archiveCodeText: string;
+    if (item.selfArchivedCode === "1") {
       archiveCodeText = $localize`:@@yes:Kyllä`;
-    } else if (item.selfArchivedCode === 0) {
+    } else if (item.selfArchivedCode === "0") {
       archiveCodeText = $localize`:@@no:Ei`;
     } else {
       archiveCodeText = $localize`:@@unknown:Ei tietoa`;
@@ -160,7 +160,7 @@ export class PublicationAdapter implements Adapter<Publication> {
 
     // Open Access
     const openAccess: boolean =
-      item.openAccess === 1 || item.selfArchivedCode === 1;
+      item.openAccess === 1 || item.selfArchivedCode === "1";
 
     let openAccessText = '';
 
