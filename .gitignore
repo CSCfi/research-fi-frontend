@@ -53,3 +53,6 @@ src/environments/environment.researchfi.ts
 src/environments/environment.researchfi.prod.ts
 src/assets/config/config.json
 src/assets/config/auth_config.json
+/test-results/
+/playwright-report/
+/playwright/.cache/

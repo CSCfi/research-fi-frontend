@@ -1,6 +1,6 @@
 import { inject, Injectable, LOCALE_ID, OnInit, SecurityContext } from '@angular/core';
 // import { object, Output, parse, string } from 'valibot';
-import { BehaviorSubject, Observable, shareReplay } from 'rxjs';
+import { BehaviorSubject, forkJoin, Observable, shareReplay } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
@@ -163,23 +163,38 @@ export class Publication2Service {
     };
   }
 
-  getOrganizationNames() {
-    // API call to search by doing aggregation on organization names
-    const res$ = this.http.post<OrgsAggsResponse>('https://researchfi-api-qa.rahtiapp.fi/portalapi/publication/_search?', {
-      "size": 0,
-      "aggs": {
-        "organizations": {
-          "nested": {
-            "path": "author.organization"
+  getOrganizationNames(): Observable<Record<string, { name: string, sectorId: number }>> {
+    const organizationNamesBySector = (sectorId: number) => ({
+      'size': 0,
+      'aggs': {
+        'filtered_authors': {
+          'nested': {
+            'path': 'author'
           },
-          "aggs": {
-            "composite_orgs": {
-              "composite": {
-                "size": 10000,
-                "sources": [
-                  { "id": { "terms": { "field": "author.organization.organizationId.keyword" } } },
-                  { "name": { "terms": { "field": path`author.organization.OrganizationNameEn.keyword` } } }
-                ]
+          'aggs': {
+            'single_sector': {
+              'filter': {
+                'term': {
+                  'author.sectorId': `${sectorId}`
+                }
+              },
+              'aggs': {
+                'organizations': {
+                  'nested': {
+                    'path': 'author.organization'
+                  },
+                  'aggs': {
+                    'composite_orgs': {
+                      'composite': {
+                        'size': 65536,
+                        'sources': [
+                          { 'id': { 'terms': { 'field': 'author.organization.organizationId.keyword' } } },
+                          { 'name': { 'terms': { 'field': 'author.organization.OrganizationNameFi.keyword' } } }        // TODO path template needed
+                        ]
+                      }
+                    }
+                  }
+                }
               }
             }
           }
@@ -187,10 +202,18 @@ export class Publication2Service {
       }
     });
 
-    return res$.pipe(
-      map((data) => toIdNameLookup(data)),
-      shareReplay({ bufferSize: 1, refCount: true })
-    );
+    const sectorIds = [1, 2, 3, 4, /*5,*/ 6];
+
+    const responses$ = sectorIds.map((sectorId) => {
+      return this.http.post<OrgsAggsResponse>('https://researchfi-api-qa.rahtiapp.fi/portalapi/publication/_search?', organizationNamesBySector(sectorId)).pipe(
+        map((res) => getOrganizationNameBuckets(res).map((bucket) => [bucket.key.id, {name: bucket.key.name, sectorId}])),
+      );
+    });
+
+    return forkJoin(responses$)
+      .pipe(map(responses => responses.flat()))
+      .pipe(map(pairs => Object.fromEntries(pairs)))
+      .pipe(shareReplay({ bufferSize: 1, refCount: true }));
   }
 }
 
@@ -266,7 +289,8 @@ function additionsFromYear(searchParams: SearchParams) {
           "aggregations": {
             "all_publicationYears": {
               "terms": {
-                "field": "publicationYear"
+                "field": "publicationYear",
+                "size": 250,
               }
             }
           }
@@ -424,7 +448,8 @@ function additionsFromOrganization(searchParams: SearchParams) {
               "aggregations": {
                 "all_organizationIds": {
                   "terms": {
-                    "field": "author.organization.organizationId.keyword"
+                    "field": "author.organization.organizationId.keyword",
+                    "size": 250,
                     // author.organization.OrganizationNameFi.keyword
                     // "field": i18n`author.organization.${"OrganizationName"}.keyword`
                   }
@@ -440,23 +465,30 @@ function additionsFromOrganization(searchParams: SearchParams) {
 
 type OrgsAggsResponse = {
   aggregations: {
-    organizations: {
-      composite_orgs: {
-        buckets: Array<{
-          key: {
-            id: string;
-            name: string;
+    filtered_authors: {
+      single_sector: {
+        organizations: {
+          composite_orgs: {
+            buckets: Array<{
+              key: {
+                id: string;
+                name: string;
+              };
+              doc_count: number;
+            }>;
           };
-          doc_count: number;
-        }>;
+        };
       };
     };
   };
 };
 
+function getOrganizationNameBuckets(response: OrgsAggsResponse) {
+  return response.aggregations.filtered_authors.single_sector.organizations.composite_orgs.buckets;
+}
+
 function toIdNameLookup(data: OrgsAggsResponse): Map<string, string> {
-  const pairs = data.aggregations.organizations.composite_orgs.buckets
-    .map((bucket) => [bucket.key.id, bucket.key.name])
+  const pairs = getOrganizationNameBuckets(data).map((bucket) => [bucket.key.id, bucket.key.name]);
 
   return Object.fromEntries(pairs);
 }

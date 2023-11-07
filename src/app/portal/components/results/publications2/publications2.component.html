@@ -38,7 +38,7 @@
     </div>
 
     <div style='height: 58px; padding: 16px'>
-      Näytetään tulokset 1 - 10 / 777912
+      Näytetään tulokset {{(page - 1) * size + 1}} - {{page * size}} / {{total$ | async}}
 
       <select [ngModel]='size' (ngModelChange)='setPageSize($event)'>
         <option [ngValue]='10'>10</option>
@@ -61,7 +61,7 @@
     <div style='background-color: lightblue; padding: 16px'>
       <div style='width: 300px'>
         <div style='background-color: #e6f9ff; border-radius: 4px'>
-          <ng-container *ngFor='let yearFilter of yearFilters$ | async'>
+          <ng-container *ngFor='let yearFilter of yearFilters$ | async | limit: 10'>
             <div style='display: flex; padding: 16px 12px; user-select: none; cursor: pointer' (click)='toggleParam("year", yearFilter.year)'>
               <div style='margin-right: 0.5rem'>
                 <input type='checkbox' [ngModel]='yearFilter.enabled'>
@@ -77,31 +77,45 @@
                 </div>
               </div>
 
-
             </div>
           </ng-container>
         </div>
 
         <div style='margin-bottom: 1rem'></div> <!-- TODO DELETE -->
+        <input type='text' [(ngModel)]='organizationName'>
+        <div style='margin-bottom: 1rem'></div> <!-- TODO DELETE -->
+
+        <!--<div style='white-space: pre'>{{organizationFilters$ | async | json}}</div>--> <!-- TODO DELETE -->
 
         <div style='background-color: #e6f9ff; border-radius: 4px'>
-          <ng-container *ngFor='let organizationFilter of organizationFilters$ | async'>
-            <div style='display: flex; align-items: center; padding: 16px 12px; cursor: pointer' (click)='toggleParam("organization", organizationFilter.id)'>
-              <div style='margin-right: 0.5rem'>
-                <input type='checkbox' [ngModel]='organizationFilter.enabled'>
-              </div>
+          <ng-container *ngFor='let sectorId of [1,2,3,4,6]'>
+            <h2>{{sectorName[sectorId]}}</h2>
 
-              <div style='display: flex; flex-grow: 1; justify-content: space-between'>
-                <div>
-                  {{organizationFilter.name}}
+            <ng-container *ngFor='let organizationFilter of organizationFilters$
+                | async
+                | filterBy: ["sectorId"]: sectorId
+                | filterBy: ["name"]: organizationName
+                | limit: 10'>
+
+              <div style='display: flex; align-items: center; padding: 16px 12px; cursor: pointer' (click)='toggleParam("organization", organizationFilter.id)'>
+                <div style='margin-right: 0.5rem'>
+                  <input type='checkbox' [ngModel]='organizationFilter.enabled'>
                 </div>
 
-                <div>
-                  ({{organizationFilter.count}})
+                <div style='display: flex; flex-grow: 1; justify-content: space-between'>
+                  <div>
+                    {{organizationFilter.name}}
+                  </div>
+
+                  <div>
+                    ({{organizationFilter.count}})
+                  </div>
                 </div>
               </div>
-            </div>
+            </ng-container>
           </ng-container>
+
+
         </div>
 
       </div>

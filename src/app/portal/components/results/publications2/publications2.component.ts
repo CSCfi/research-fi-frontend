@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy } from '@angular/core';
+import { Component, inject, OnDestroy, Pipe, PipeTransform } from '@angular/core';
 import { CdkTableModule, DataSource } from '@angular/cdk/table';
 import { combineLatest, Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,12 +13,27 @@ import {
 import { map, take } from 'rxjs/operators';
 import { SharedModule } from '@shared/shared.module';
 import { SearchBar2Component } from '@portal/search-bar2/search-bar2.component';
+import { NgArrayPipesModule } from 'ngx-pipes';
+
+@Pipe({
+  name: 'limit',
+  standalone: true
+})
+export class LimitPipe implements PipeTransform {
+  transform(value: any[], limit: number, enabled = true): any[] {
+    if (enabled) {
+      return value.slice(0, limit);
+    } else {
+      return value;
+    }
+  }
+}
 
 @Component({
   selector: 'app-publications2',
   templateUrl: './publications2.component.html',
   styleUrls: ['./publications2.component.scss'],
-  imports: [CdkTableModule, FormsModule, AsyncPipe, JsonPipe, NgForOf, NgIf,
+  imports: [CdkTableModule, FormsModule, AsyncPipe, JsonPipe, NgForOf, NgIf, LimitPipe, NgArrayPipesModule,
     SharedModule, FormsModule, //TODO not good?
     SearchBar2Component,
   ],
@@ -33,6 +48,8 @@ export class Publications2Component implements OnDestroy {
   page = 1;
   size = 10;
 
+  organizationName = "";
+
   displayedColumns: string[] = ['publicationName', 'authorsText', 'publisherName', 'publicationYear'];
 
   highlights$ = this.publications2Service.getSearch(); // TODO: /*: Observable<HighlightedPublication[]>*/
@@ -40,9 +57,6 @@ export class Publications2Component implements OnDestroy {
 
   searchParams$ = this.route.queryParams.pipe( map(splitFields) );
   aggregations$ = this.publications2Service.getAggregations();
-
-  // TODO joka kerta uusi HTTP?
-  organizationNames$ = this.publications2Service.getOrganizationNames();
 
   yearAdditions$ = this.aggregations$.pipe(
     map(aggs => getYearAdditions(aggs).map((bucket: any) => ({ year: bucket.key.toString(), count: bucket.doc_count })) ?? []),
@@ -57,8 +71,11 @@ export class Publications2Component implements OnDestroy {
     })))
   );
 
+  // TODO joka kerta uusi HTTP?
+  organizationNames$ = this.publications2Service.getOrganizationNames();
+
   organizationAdditions$ = this.aggregations$.pipe(
-    map(aggs => getOrganizationAdditions(aggs).map((bucket: any) => ({ id: bucket.key, count: bucket.doc_count })) ?? []),
+    map(aggs => getOrganizationAdditions(aggs).map((bucket: any) => ({ id: bucket.key, count: bucket.doc_count})) ?? []),
     map(aggs => aggs.sort((a, b) => b.count - a.count))
   );
 
@@ -66,10 +83,20 @@ export class Publications2Component implements OnDestroy {
     map(([organizationAdditions, organizationNames, enabledFilters]) => organizationAdditions.map(organizationAddition => ({
       id: organizationAddition.id,
       count: organizationAddition.count,
-      name: organizationNames[organizationAddition.id] ?? organizationAddition.id,
+      name: organizationNames[organizationAddition.id].name,
+      sectorId: organizationNames[organizationAddition.id].sectorId,
       enabled: enabledFilters.includes(organizationAddition.id)
     })))
   );
+
+  /* TODO localization solution */
+  public sectorName = {
+    1: "Yliopisto",
+    2: "Ammattikorkeakoulu",
+    3: "Tutkimuslaitos",
+    4: "Yliopistollisen sairaalan erityisvastuualue",
+    6: "Muu"
+  }
 
   searchParamsSubscription = this.searchParams$.subscribe(searchParams => {
     this.publications2Service.updateSearchTerms(searchParams);
