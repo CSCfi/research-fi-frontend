@@ -1,0 +1,15 @@
+<div class='filter-option-layout' (click)='toggleValue()' matRipple>
+  <div style='margin-right: 0.5rem'>
+    <input type='checkbox' [ngModel]='value'>
+  </div>
+
+  <div style='display: flex; flex-grow: 1; justify-content: space-between'>
+    <div>
+      {{label}}
+    </div>
+
+    <div>
+      ({{count}})
+    </div>
+  </div>
+</div>

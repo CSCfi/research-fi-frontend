@@ -5,7 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AsyncPipe, JsonPipe, NgForOf, NgIf } from '@angular/common';
 import {
-  getOrganizationAdditions,
+  getLanguageCodeAdditions,
+  getOrganizationAdditions, getPublicationAudienceAdditions, getPublicationFormatAdditions,
   getYearAdditions,
   HighlightedPublication,
   Publication2Service
@@ -14,28 +15,18 @@ import { map, take } from 'rxjs/operators';
 import { SharedModule } from '@shared/shared.module';
 import { SearchBar2Component } from '@portal/search-bar2/search-bar2.component';
 import { NgArrayPipesModule } from 'ngx-pipes';
-
-@Pipe({
-  name: 'limit',
-  standalone: true
-})
-export class LimitPipe implements PipeTransform {
-  transform(value: any[], limit: number, enabled = true): any[] {
-    if (enabled) {
-      return value.slice(0, limit);
-    } else {
-      return value;
-    }
-  }
-}
+import { OrganizationFilterComponent } from '@portal/components/organization-filter/organization-filter.component';
+import { FilterOptionComponent } from '@portal/components/filter-option/filter-option.component';
+import { LimitPipe } from '@portal/pipes/limit.pipe';
 
 @Component({
   selector: 'app-publications2',
   templateUrl: './publications2.component.html',
   styleUrls: ['./publications2.component.scss'],
   imports: [CdkTableModule, FormsModule, AsyncPipe, JsonPipe, NgForOf, NgIf, LimitPipe, NgArrayPipesModule,
-    SharedModule, FormsModule, //TODO not good?
-    SearchBar2Component,
+    SharedModule, //TODO not good?
+    FormsModule,
+    SearchBar2Component, OrganizationFilterComponent, FilterOptionComponent
   ],
   standalone: true
 })
@@ -47,8 +38,6 @@ export class Publications2Component implements OnDestroy {
   keywords = "";
   page = 1;
   size = 10;
-
-  organizationName = "";
 
   displayedColumns: string[] = ['publicationName', 'authorsText', 'publisherName', 'publicationYear'];
 
@@ -71,7 +60,6 @@ export class Publications2Component implements OnDestroy {
     })))
   );
 
-  // TODO joka kerta uusi HTTP?
   organizationNames$ = this.publications2Service.getOrganizationNames();
 
   organizationAdditions$ = this.aggregations$.pipe(
@@ -86,6 +74,51 @@ export class Publications2Component implements OnDestroy {
       name: organizationNames[organizationAddition.id].name,
       sectorId: organizationNames[organizationAddition.id].sectorId,
       enabled: enabledFilters.includes(organizationAddition.id)
+    })))
+  );
+
+  languageCodeAdditions$ = this.aggregations$.pipe(
+    map(aggs => getLanguageCodeAdditions(aggs).map((bucket: any) => ({ languageCode: bucket.key, count: bucket.doc_count })) ?? []),
+    map(aggs => aggs.sort((a, b) => b.count - a.count))
+  );
+
+  languageCodeFilters$ = combineLatest([this.languageCodeAdditions$, this.searchParams$.pipe(map(params => params.language ?? []))]).pipe(
+    map(([languageCodeAdditions, enabledFilters]) => languageCodeAdditions.map(languageCodeAddition => ({
+      name: languageCodeAddition.languageCode,
+      count: languageCodeAddition.count,
+      enabled: enabledFilters.includes(languageCodeAddition.languageCode)
+    })))
+  );
+
+  publicationFormatNames$ = this.publications2Service.getPublicationFormatNames();
+
+  publicationFormatAdditions$ = this.aggregations$.pipe(
+    map(aggs => getPublicationFormatAdditions(aggs).map((bucket: any) => ({ id: bucket.key, count: bucket.doc_count })) ?? []),
+    map(aggs => aggs.sort((a, b) => b.count - a.count))
+  );
+
+  publicationFormatFilters$ = combineLatest([this.publicationFormatAdditions$, this.publicationFormatNames$, this.searchParams$.pipe(map(params => params.format ?? []))]).pipe(
+    map(([publicationFormatAdditions, publicationFormatNames, enabledFilters]) => publicationFormatAdditions.map(publicationFormatAddition => ({
+      id: publicationFormatAddition.id,
+      count: publicationFormatAddition.count,
+      name: publicationFormatNames[publicationFormatAddition.id],
+      enabled: enabledFilters.includes(publicationFormatAddition.id)
+    })))
+  );
+
+  publicationAudienceNames$ = this.publications2Service.getPublicationAudienceNames();
+
+  publicationAudienceAdditions$ = this.aggregations$.pipe(
+    map(aggs => getPublicationAudienceAdditions(aggs).map((bucket: any) => ({ id: bucket.key, count: bucket.doc_count })) ?? []),
+    map(aggs => aggs.sort((a, b) => b.count - a.count))
+  );
+
+  publicationAudienceFilters$ = combineLatest([this.publicationAudienceAdditions$, this.publicationAudienceNames$, this.searchParams$.pipe(map(params => params.audience ?? []))]).pipe(
+    map(([publicationAudienceAdditions, publicationAudienceNames, enabledFilters]) => publicationAudienceAdditions.map(publicationAudienceAddition => ({
+      id: publicationAudienceAddition.id,
+      count: publicationAudienceAddition.count,
+      name: publicationAudienceNames[publicationAudienceAddition.id],
+      enabled: enabledFilters.includes(publicationAudienceAddition.id)
     })))
   );
 

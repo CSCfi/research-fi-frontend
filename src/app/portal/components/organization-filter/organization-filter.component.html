@@ -1,0 +1,54 @@
+<div style="background-color: lightcoral">
+  <ng-container *ngIf='expanded === true'>
+  <div class='filter-heading' (click)='toggleExpanded()'>
+    - Organisaatio
+  </div>
+
+    <cdk-accordion class="example-accordion">
+      <cdk-accordion-item *ngFor="let sectorId of [1,2,3,4,6]; let index = index;" #accordionItem="cdkAccordionItem"
+                          class="example-accordion-item" role="button" tabindex="0"
+                          [attr.id]="'accordion-header-' + index" [attr.aria-expanded]="accordionItem.expanded" [attr.aria-controls]="'accordion-body-' + index">
+
+        <div class="example-accordion-item-header" (click)="accordionItem.toggle()">
+          <div class='filter-heading'>{{sectorNames[sectorId]}}</div>
+
+          <span class="example-accordion-item-description">{{ accordionItem.expanded ? 'close' : 'open' }}</span>
+        </div>
+
+        <div class="example-accordion-item-body" role="region" [style.display]="accordionItem.expanded ? '' : 'none'" [attr.id]="'accordion-body-' + index" [attr.aria-labelledby]="'accordion-header-' + index">
+          <div><input type='checkbox'>Valitse kaikki</div>
+
+          <input type='text' [(ngModel)]='sectorFilter[sectorId]'>
+
+          <ng-container *ngFor='let organizationFilter of filterData
+            | filterBy: ["sectorId"]: sectorId
+            | filterBy: ["name"]: sectorFilter[sectorId]
+            | limit: sectorLimits[sectorId]'>
+
+            <app-filter-option
+              [label]='organizationFilter.name'
+              [count]='organizationFilter.count'
+              [value]='organizationFilter.enabled'
+              (valueChange)='selected.emit(organizationFilter.id)'>
+            </app-filter-option>
+
+          </ng-container>
+
+          <!-- TODO Over 10? grow limit -->
+          <!-- TODO Also shrink limit  -->
+        </div>
+
+      </cdk-accordion-item>
+    </cdk-accordion>
+  </ng-container>
+
+  <ng-container *ngIf='expanded === false'>
+    <div class='filter-heading' (click)='toggleExpanded()'>
+      + Organisaatio
+    </div>
+  </ng-container>
+</div>
+
+
+
+

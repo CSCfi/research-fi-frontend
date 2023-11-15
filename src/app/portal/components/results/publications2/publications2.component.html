@@ -81,41 +81,50 @@
           </ng-container>
         </div>
 
-        <div style='margin-bottom: 1rem'></div> <!-- TODO DELETE -->
-        <input type='text' [(ngModel)]='organizationName'>
-        <div style='margin-bottom: 1rem'></div> <!-- TODO DELETE -->
+        <!-- TODO DELETE -->
+        <div style='margin: 1rem'></div>
 
-        <!--<div style='white-space: pre'>{{organizationFilters$ | async | json}}</div>--> <!-- TODO DELETE -->
+        <app-organization-filter [filterData]='organizationFilters$ | async' (selected)='toggleParam("organization", $event)'></app-organization-filter>
 
-        <div style='background-color: #e6f9ff; border-radius: 4px'>
-          <ng-container *ngFor='let sectorId of [1,2,3,4,6]'>
-            <h2>{{sectorName[sectorId]}}</h2>
+        <!-- TODO DELETE -->
+        <div style='margin: 1rem'></div>
 
-            <ng-container *ngFor='let organizationFilter of organizationFilters$
-                | async
-                | filterBy: ["sectorId"]: sectorId
-                | filterBy: ["name"]: organizationName
-                | limit: 10'>
-
-              <div style='display: flex; align-items: center; padding: 16px 12px; cursor: pointer' (click)='toggleParam("organization", organizationFilter.id)'>
-                <div style='margin-right: 0.5rem'>
-                  <input type='checkbox' [ngModel]='organizationFilter.enabled'>
-                </div>
-
-                <div style='display: flex; flex-grow: 1; justify-content: space-between'>
-                  <div>
-                    {{organizationFilter.name}}
-                  </div>
-
-                  <div>
-                    ({{organizationFilter.count}})
-                  </div>
-                </div>
-              </div>
-            </ng-container>
+        <div style='background-color: lightgoldenrodyellow'>
+          <ng-container *ngFor='let languageCodeFilter of languageCodeFilters$ | async'>
+            <app-filter-option [label]='languageCodeFilter.name'
+                               [count]='languageCodeFilter.count'
+                               [value]='languageCodeFilter.enabled'
+                               (valueChange)='toggleParam("language", languageCodeFilter.name)'>
+            </app-filter-option>
           </ng-container>
+        </div>
 
+        <!-- TODO DELETE -->
+        <div style='margin: 1rem'></div>
 
+        <div style='background-color: blanchedalmond'>
+          <div style='white-space: pre'>
+            <ng-container *ngFor='let publicationFormatFilter of publicationFormatFilters$ | async'>
+              <app-filter-option [label]='publicationFormatFilter.name'
+                                 [count]='publicationFormatFilter.count'
+                                 [value]='publicationFormatFilter.enabled'
+                                 (valueChange)='toggleParam("format", publicationFormatFilter.id)'>
+              </app-filter-option>
+            </ng-container>
+          </div>
+        </div>
+
+        <!-- TODO DELETE -->
+        <div style='margin: 1rem'></div>
+
+        <div style='background-color: lightpink'>
+          <ng-container *ngFor='let publicationAudienceFilter of publicationAudienceFilters$ | async'>
+            <app-filter-option [label]='publicationAudienceFilter.name'
+                               [count]='publicationAudienceFilter.count'
+                               [value]='publicationAudienceFilter.enabled'
+                               (valueChange)='toggleParam("audience", publicationAudienceFilter.id)'>
+            </app-filter-option>
+          </ng-container>
         </div>
 
       </div>
