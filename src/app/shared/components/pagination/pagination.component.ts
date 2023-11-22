@@ -88,8 +88,6 @@ function countTotalPages(totalDocuments, pageSize): number {
 }
 
 function generatePages(currentPage: number, range: 5 | 9, results: number, pageSize: number): number[] {
-  console.log(currentPage, range, results, pageSize);
-
   let output: number[] = [];
   const maxPage = countTotalPages(results, pageSize);
   const i = currentPage;

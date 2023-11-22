@@ -5,13 +5,19 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AsyncPipe, JsonPipe, NgForOf, NgIf } from '@angular/common';
 import {
+  getArticleTypeCodeAdditions,
+  getInternationalPublicationAdditions, getJufoClassCodeAdditions,
   getLanguageCodeAdditions,
-  getOrganizationAdditions, getPublicationAudienceAdditions, getPublicationFormatAdditions,
+  getOrganizationAdditions,
+  getParentPublicationTypeAdditions,
+  getPeerReviewedAdditions,
+  getPublicationAudienceAdditions,
+  getPublicationFormatAdditions,
   getYearAdditions,
   HighlightedPublication,
   Publication2Service
 } from '@portal/services/publication2.service';
-import { map, take } from 'rxjs/operators';
+import { map, take, tap } from 'rxjs/operators';
 import { SharedModule } from '@shared/shared.module';
 import { SearchBar2Component } from '@portal/search-bar2/search-bar2.component';
 import { NgArrayPipesModule } from 'ngx-pipes';
@@ -119,6 +125,86 @@ export class Publications2Component implements OnDestroy {
       count: publicationAudienceAddition.count,
       name: publicationAudienceNames[publicationAudienceAddition.id],
       enabled: enabledFilters.includes(publicationAudienceAddition.id)
+    })))
+  );
+
+  peerReviewedAdditions$ = this.aggregations$.pipe(
+    map(aggs => getPeerReviewedAdditions(aggs).map((bucket: any) => ({ id: bucket.key, count: bucket.doc_count })) ?? []),
+    map(aggs => aggs.sort((a, b) => b.count - a.count))
+  );
+
+  // getParentPublicationTypeAdditions
+  // getInternationalPublicationAdditions
+  // getArticleTypeCodeAdditions
+  // getJufoClassCodeAdditions
+
+  parentPublicationTypeAdditions$ = this.aggregations$.pipe(
+    map(aggs => getParentPublicationTypeAdditions(aggs).map((bucket: any) => ({ id: bucket.key, count: bucket.doc_count })) ?? []),
+    map(aggs => aggs.sort((a, b) => b.count - a.count))
+  );
+
+  internationalPublicationAdditions$ = this.aggregations$.pipe(
+    map(aggs => getInternationalPublicationAdditions(aggs).map((bucket: any) => ({ id: bucket.key.toString(), count: bucket.doc_count })) ?? []),
+    map(aggs => aggs.sort((a, b) => b.count - a.count))
+  );
+
+  internationalPublicationNames$ = this.publications2Service.getInternationalPublicationNames();
+
+  internationalPublicationFilters$ = combineLatest([this.internationalPublicationAdditions$, this.internationalPublicationNames$, this.searchParams$.pipe(map(params => params.international ?? []))]).pipe(
+    map(([internationalPublicationAdditions, internationalPublicationNames, enabledFilters]) => internationalPublicationAdditions.map(internationalPublicationAddition => ({
+      id: internationalPublicationAddition.id,
+      count: internationalPublicationAddition.count,
+      name: internationalPublicationNames[internationalPublicationAddition.id],
+      enabled: enabledFilters.includes(internationalPublicationAddition.id)
+    })))
+  );
+
+  articleTypeCodeAdditions$ = this.aggregations$.pipe(
+    map(aggs => getArticleTypeCodeAdditions(aggs).map((bucket: any) => ({ id: bucket.key.toString(), count: bucket.doc_count })) ?? []),
+    map(aggs => aggs.sort((a, b) => b.count - a.count))
+  );
+
+  articleTypeCodeNames$ = this.publications2Service.getArticleTypeCodeNames();
+
+  articleTypeCodeFilters$ = combineLatest([this.articleTypeCodeAdditions$, this.articleTypeCodeNames$, this.searchParams$.pipe(map(params => params.articleType ?? []))]).pipe(
+    map(([articleTypeCodeAdditions, articleTypeCodeNames, enabledFilters]) => articleTypeCodeAdditions.map(articleTypeCodeAddition => ({
+      id: articleTypeCodeAddition.id,
+      count: articleTypeCodeAddition.count,
+      name: articleTypeCodeNames[articleTypeCodeAddition.id],
+      enabled: enabledFilters.includes(articleTypeCodeAddition.id)
+    })))
+  );
+
+  jufoClassCodeAdditions$ = this.aggregations$.pipe(
+    map(aggs => getJufoClassCodeAdditions(aggs).map((bucket: any) => ({ id: bucket.key.toString(), count: bucket.doc_count })) ?? []),
+    map(aggs => aggs.sort((a, b) => b.count - a.count))
+  );
+
+  jufoClassCodeFilters$ = combineLatest([this.jufoClassCodeAdditions$, this.searchParams$.pipe(map(params => params.jufo ?? []))]).pipe(
+    map(([jufoClassCodeAdditions, enabledFilters]) => jufoClassCodeAdditions.map(jufoClassCodeAddition => ({
+      id: jufoClassCodeAddition.id,
+      count: jufoClassCodeAddition.count,
+      name: jufoClassCodeAddition.id,
+      enabled: enabledFilters.includes(jufoClassCodeAddition.id)
+    })))
+  );
+
+  // getParentPublicationTypeNames
+  // getInternationalPublicationNames
+  // getArticleTypeCodeNames
+
+  parentPublicationTypeNames$ = this.publications2Service.getParentPublicationTypeNames();
+
+  // TODO these give just ids and not names
+  // internationalPublicationNames$ = this.publications2Service.getInternationalPublicationNames();
+  // articleTypeCodeNames$ = this.publications2Service.getArticleTypeCodeNames();
+
+  parentPublicationTypeFilters$ = combineLatest([this.parentPublicationTypeAdditions$, this.parentPublicationTypeNames$, this.searchParams$.pipe(map(params => params.parentPublicationType ?? []))]).pipe(
+    map(([parentPublicationTypeAdditions, parentPublicationTypeNames, enabledFilters]) => parentPublicationTypeAdditions.map(parentPublicationTypeAddition => ({
+      id: parentPublicationTypeAddition.id,
+      count: parentPublicationTypeAddition.count,
+      name: parentPublicationTypeNames[parentPublicationTypeAddition.id],
+      enabled: enabledFilters.includes(parentPublicationTypeAddition.id)
     })))
   );
 

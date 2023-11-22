@@ -127,6 +127,94 @@
           </ng-container>
         </div>
 
+        <!-- TODO DELETE -->
+        <div style='margin: 1rem'></div>
+
+        <div style='background-color: blueviolet'>
+          <h1>Peer Reviewed</h1>
+
+          <div style='white-space: pre'>
+            {{peerReviewedAdditions$ | async | json}}
+          </div>
+        </div>
+
+        <!-- TODO DELETE -->
+        <div style='margin: 1rem'></div>
+
+        <div style='background-color: palevioletred'>
+          <div style='white-space: pre'>
+            <!--{{parentPublicationTypeNames$ | async | json}}-->
+            <!--{{parentPublicationTypeAdditions$ | async | json}}-->
+            <!--{{parentPublicationTypeFilters$ | async | json}}-->
+
+            <ng-container *ngFor='let parentPublicationTypeFilter of parentPublicationTypeFilters$ | async'>
+              <app-filter-option [label]='parentPublicationTypeFilter.name'
+                                 [count]='parentPublicationTypeFilter.count'
+                                 [value]='parentPublicationTypeFilter.enabled'
+                                 (valueChange)='toggleParam("parentPublicationType", parentPublicationTypeFilter.id)'>
+              </app-filter-option>
+            </ng-container>
+          </div>
+        </div>
+
+        <!-- TODO DELETE -->
+        <div style='margin: 1rem'></div>
+
+        <div style='background-color: lightgreen'>
+          <div style='white-space: pre'>
+            <h1>International Publication</h1>
+            <!--{{internationalPublicationNames$ | async | json}}-->
+            <!--{{internationalPublicationAdditions$ | async | json}}-->
+            <!--{{internationalPublicationFilters$ | async | json}}-->
+
+            <ng-container *ngFor='let internationalPublicationFilter of internationalPublicationFilters$ | async'>
+              <app-filter-option [label]='internationalPublicationFilter.name'
+                                 [count]='internationalPublicationFilter.count'
+                                 [value]='internationalPublicationFilter.enabled'
+                                 (valueChange)='toggleParam("international", internationalPublicationFilter.id)'>
+              </app-filter-option>
+            </ng-container>
+          </div>
+        </div>
+
+        <!-- TODO DELETE -->
+        <div style='margin: 1rem'></div>
+
+        <div style='background-color: aliceblue'>
+          <div style='white-space: pre'>
+            <h1>Article Type</h1>
+
+            <!--{{articleTypeCodeNames$ | async | json}}-->
+            <!--{{articleTypeCodeAdditions$ | async | json}}-->
+
+            <ng-container *ngFor='let articleTypeCodeFilter of articleTypeCodeFilters$ | async'>
+              <app-filter-option [label]='articleTypeCodeFilter.name'
+                                 [count]='articleTypeCodeFilter.count'
+                                 [value]='articleTypeCodeFilter.enabled'
+                                 (valueChange)='toggleParam("articleType", articleTypeCodeFilter.id)'>
+              </app-filter-option>
+            </ng-container>
+          </div>
+        </div>
+
+        <!-- TODO DELETE -->
+        <div style='margin: 1rem'></div>
+
+        <div style='background-color: orangered'>
+          <h1>Jufo</h1>
+
+          <!--<div style='white-space: pre'>
+            {{jufoClassCodeAdditions$ | async | json}}
+          </div>-->
+
+          <ng-container *ngFor='let jufoClassCodeFilter of jufoClassCodeFilters$ | async'>
+            <app-filter-option [label]='jufoClassCodeFilter.id'
+                               [count]='jufoClassCodeFilter.count'
+                               [value]='jufoClassCodeFilter.enabled'
+                               (valueChange)='toggleParam("jufo", jufoClassCodeFilter.id)'>
+            </app-filter-option>
+          </ng-container>
+        </div>
       </div>
     </div>
 
