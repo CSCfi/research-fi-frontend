@@ -25,7 +25,7 @@
       </ng-container>
 
       <ng-container *ngIf='tab !== "Julkaisut"'>
-        <div style='display: flex; justify-content: center; flex-grow: 1; align-items: center; height: 70px; margin-top: 10px; border-bottom: 1px solid black; background-color: lightblue'>
+        <div style='display: flex; justify-content: center; flex-grow: 1; align-items: center; height: 70px; margin-top: 10px; border-bottom: 1px solid black; background-color: rgb(232, 232, 245)'>
           {{tab}}
         </div>
       </ng-container>
@@ -58,9 +58,11 @@
   </div>-->
 
   <div style='display: flex'>
-    <div style='background-color: lightblue; padding: 16px'>
+    <div style='background-color: rgb(232, 232, 245); padding: 16px'>
       <div style='width: 300px'>
-        <div style='background-color: #e6f9ff; border-radius: 4px'>
+
+        <!-- TODO DELETE OLD year filters -->
+        <!--<div style='background-color: #e6f9ff; border-radius: 4px'>
           <ng-container *ngFor='let yearFilter of yearFilters$ | async | limit: 10'>
             <div style='display: flex; padding: 16px 12px; user-select: none; cursor: pointer' (click)='toggleParam("year", yearFilter.year)'>
               <div style='margin-right: 0.5rem'>
@@ -79,6 +81,22 @@
 
             </div>
           </ng-container>
+        </div>-->
+
+        <!-- TODO DELETE -->
+        <div style='margin: 1rem'></div>
+
+        <!-- year filter with filter-options -->
+        <div>
+          <app-collapsible label='Julkaisuvuosi'>
+            <ng-container *ngFor='let yearFilter of yearFilters$ | async | limit: 10'>
+              <app-filter-option [label]='yearFilter.year'
+                                 [count]='yearFilter.count'
+                                 [value]='yearFilter.enabled'
+                                 (valueChange)='toggleParam("year", yearFilter.year)'>
+              </app-filter-option>
+            </ng-container>
+          </app-collapsible>
         </div>
 
         <!-- TODO DELETE -->
@@ -89,64 +107,78 @@
         <!-- TODO DELETE -->
         <div style='margin: 1rem'></div>
 
-        <div style='background-color: lightgoldenrodyellow'>
-          <ng-container *ngFor='let languageCodeFilter of languageCodeFilters$ | async'>
-            <app-filter-option [label]='languageCodeFilter.name'
-                               [count]='languageCodeFilter.count'
-                               [value]='languageCodeFilter.enabled'
-                               (valueChange)='toggleParam("language", languageCodeFilter.name)'>
-            </app-filter-option>
-          </ng-container>
-        </div>
+        <div>
+          <!-- languageCodeNames debug -->
+          <!--<div style='white-space: pre'>
+            {{languageCodeNames$ | async | json}}
+          </div>-->
 
-        <!-- TODO DELETE -->
-        <div style='margin: 1rem'></div>
-
-        <div style='background-color: blanchedalmond'>
-          <div style='white-space: pre'>
-            <ng-container *ngFor='let publicationFormatFilter of publicationFormatFilters$ | async'>
-              <app-filter-option [label]='publicationFormatFilter.name'
-                                 [count]='publicationFormatFilter.count'
-                                 [value]='publicationFormatFilter.enabled'
-                                 (valueChange)='toggleParam("format", publicationFormatFilter.id)'>
+          <app-collapsible label='Kieli'>
+            <ng-container *ngFor='let languageCodeFilter of languageCodeFilters$ | async'>
+              <app-filter-option [label]='languageCodeFilter.name'
+                                 [count]='languageCodeFilter.count'
+                                 [value]='languageCodeFilter.enabled'
+                                 (valueChange)='toggleParam("language", languageCodeFilter.id)'>
               </app-filter-option>
             </ng-container>
+          </app-collapsible>
+
+        </div>
+
+        <!-- TODO DELETE -->
+        <div style='margin: 1rem'></div>
+
+        <div>
+          <div style='white-space: pre'>
+
+            <app-collapsible label='Publication Format'>
+              <ng-container *ngFor='let publicationFormatFilter of publicationFormatFilters$ | async'>
+                <app-filter-option [label]='publicationFormatFilter.name'
+                                   [count]='publicationFormatFilter.count'
+                                   [value]='publicationFormatFilter.enabled'
+                                   (valueChange)='toggleParam("format", publicationFormatFilter.id)'>
+                </app-filter-option>
+              </ng-container>
+            </app-collapsible>
+
           </div>
         </div>
 
         <!-- TODO DELETE -->
         <div style='margin: 1rem'></div>
 
-        <div style='background-color: lightpink'>
-          <ng-container *ngFor='let publicationAudienceFilter of publicationAudienceFilters$ | async'>
-            <app-filter-option [label]='publicationAudienceFilter.name'
-                               [count]='publicationAudienceFilter.count'
-                               [value]='publicationAudienceFilter.enabled'
-                               (valueChange)='toggleParam("audience", publicationAudienceFilter.id)'>
-            </app-filter-option>
-          </ng-container>
+        <div>
+          <app-collapsible label='Publication Audience'>
+            <ng-container *ngFor='let publicationAudienceFilter of publicationAudienceFilters$ | async'>
+              <app-filter-option [label]='publicationAudienceFilter.name'
+                                 [count]='publicationAudienceFilter.count'
+                                 [value]='publicationAudienceFilter.enabled'
+                                 (valueChange)='toggleParam("audience", publicationAudienceFilter.id)'>
+              </app-filter-option>
+            </ng-container>
+          </app-collapsible>
         </div>
 
         <!-- TODO DELETE -->
         <div style='margin: 1rem'></div>
 
-        <div style='background-color: blueviolet'>
-          <h1>Peer Reviewed</h1>
-
-          <div style='white-space: pre'>
-            {{peerReviewedAdditions$ | async | json}}
-          </div>
+        <div>
+          <app-collapsible label='Peer Reviewed'>
+            <ng-container *ngFor='let peerReviewedFilter of peerReviewedFilters$ | async'>
+              <app-filter-option [label]='peerReviewedFilter.name'
+                                 [count]='peerReviewedFilter.count'
+                                 [value]='peerReviewedFilter.enabled'
+                                 (valueChange)='toggleParam("peerReviewed", peerReviewedFilter.id)'>
+              </app-filter-option>
+            </ng-container>
+          </app-collapsible>
         </div>
 
         <!-- TODO DELETE -->
         <div style='margin: 1rem'></div>
 
-        <div style='background-color: palevioletred'>
-          <div style='white-space: pre'>
-            <!--{{parentPublicationTypeNames$ | async | json}}-->
-            <!--{{parentPublicationTypeAdditions$ | async | json}}-->
-            <!--{{parentPublicationTypeFilters$ | async | json}}-->
-
+        <div>
+          <app-collapsible label='Parent Publication Type'>
             <ng-container *ngFor='let parentPublicationTypeFilter of parentPublicationTypeFilters$ | async'>
               <app-filter-option [label]='parentPublicationTypeFilter.name'
                                  [count]='parentPublicationTypeFilter.count'
@@ -154,19 +186,14 @@
                                  (valueChange)='toggleParam("parentPublicationType", parentPublicationTypeFilter.id)'>
               </app-filter-option>
             </ng-container>
-          </div>
+          </app-collapsible>
         </div>
 
         <!-- TODO DELETE -->
         <div style='margin: 1rem'></div>
 
-        <div style='background-color: lightgreen'>
-          <div style='white-space: pre'>
-            <h1>International Publication</h1>
-            <!--{{internationalPublicationNames$ | async | json}}-->
-            <!--{{internationalPublicationAdditions$ | async | json}}-->
-            <!--{{internationalPublicationFilters$ | async | json}}-->
-
+        <div>
+          <app-collapsible label='International Publication'>
             <ng-container *ngFor='let internationalPublicationFilter of internationalPublicationFilters$ | async'>
               <app-filter-option [label]='internationalPublicationFilter.name'
                                  [count]='internationalPublicationFilter.count'
@@ -174,19 +201,14 @@
                                  (valueChange)='toggleParam("international", internationalPublicationFilter.id)'>
               </app-filter-option>
             </ng-container>
-          </div>
+          </app-collapsible>
         </div>
 
         <!-- TODO DELETE -->
         <div style='margin: 1rem'></div>
 
-        <div style='background-color: aliceblue'>
-          <div style='white-space: pre'>
-            <h1>Article Type</h1>
-
-            <!--{{articleTypeCodeNames$ | async | json}}-->
-            <!--{{articleTypeCodeAdditions$ | async | json}}-->
-
+        <div>
+          <app-collapsible label='Article Type'>
             <ng-container *ngFor='let articleTypeCodeFilter of articleTypeCodeFilters$ | async'>
               <app-filter-option [label]='articleTypeCodeFilter.name'
                                  [count]='articleTypeCodeFilter.count'
@@ -194,32 +216,28 @@
                                  (valueChange)='toggleParam("articleType", articleTypeCodeFilter.id)'>
               </app-filter-option>
             </ng-container>
-          </div>
+          </app-collapsible>
         </div>
 
         <!-- TODO DELETE -->
         <div style='margin: 1rem'></div>
 
-        <div style='background-color: orangered'>
-          <h1>Jufo</h1>
-
-          <!--<div style='white-space: pre'>
-            {{jufoClassCodeAdditions$ | async | json}}
-          </div>-->
-
-          <ng-container *ngFor='let jufoClassCodeFilter of jufoClassCodeFilters$ | async'>
-            <app-filter-option [label]='jufoClassCodeFilter.id'
-                               [count]='jufoClassCodeFilter.count'
-                               [value]='jufoClassCodeFilter.enabled'
-                               (valueChange)='toggleParam("jufo", jufoClassCodeFilter.id)'>
-            </app-filter-option>
-          </ng-container>
+        <div>
+          <app-collapsible label='Jufo'>
+            <ng-container *ngFor='let jufoClassCodeFilter of jufoClassCodeFilters$ | async'>
+              <app-filter-option [label]='jufoClassCodeFilter.id'
+                                 [count]='jufoClassCodeFilter.count'
+                                 [value]='jufoClassCodeFilter.enabled'
+                                 (valueChange)='toggleParam("jufo", jufoClassCodeFilter.id)'>
+              </app-filter-option>
+            </ng-container>
+          </app-collapsible>
         </div>
       </div>
     </div>
 
-    <div style='background-color: lightsteelblue; max-width: 1550px'>
-      <div style='background-color: lightgrey; height: 75px; display: flex'>
+    <div style='max-width: 1550px; padding-left: 16px'>
+      <div style='background-color: rgb(232, 232, 245); padding: 16px; border: 1px solid #4546b9; border-radius: 4px; margin-bottom: 2rem;'>
 
         <!-- TODO chips for filters and remove button -->
         <!-- year filters -->

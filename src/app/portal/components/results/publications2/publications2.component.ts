@@ -24,6 +24,7 @@ import { NgArrayPipesModule } from 'ngx-pipes';
 import { OrganizationFilterComponent } from '@portal/components/organization-filter/organization-filter.component';
 import { FilterOptionComponent } from '@portal/components/filter-option/filter-option.component';
 import { LimitPipe } from '@portal/pipes/limit.pipe';
+import { CollapsibleComponent } from '@portal/components/collapsible/collapsible.component';
 
 @Component({
   selector: 'app-publications2',
@@ -32,7 +33,7 @@ import { LimitPipe } from '@portal/pipes/limit.pipe';
   imports: [CdkTableModule, FormsModule, AsyncPipe, JsonPipe, NgForOf, NgIf, LimitPipe, NgArrayPipesModule,
     SharedModule, //TODO not good?
     FormsModule,
-    SearchBar2Component, OrganizationFilterComponent, FilterOptionComponent
+    SearchBar2Component, OrganizationFilterComponent, FilterOptionComponent, CollapsibleComponent
   ],
   standalone: true
 })
@@ -88,10 +89,13 @@ export class Publications2Component implements OnDestroy {
     map(aggs => aggs.sort((a, b) => b.count - a.count))
   );
 
-  languageCodeFilters$ = combineLatest([this.languageCodeAdditions$, this.searchParams$.pipe(map(params => params.language ?? []))]).pipe(
-    map(([languageCodeAdditions, enabledFilters]) => languageCodeAdditions.map(languageCodeAddition => ({
-      name: languageCodeAddition.languageCode,
+  languageCodeNames$ = this.publications2Service.getLanguageCodeNames();
+
+  languageCodeFilters$ = combineLatest([this.languageCodeAdditions$, this.languageCodeNames$, this.searchParams$.pipe(map(params => params.language ?? []))]).pipe(
+    map(([languageCodeAdditions, languageCodeNames, enabledFilters]) => languageCodeAdditions.map(languageCodeAddition => ({
+      id: languageCodeAddition.languageCode,
       count: languageCodeAddition.count,
+      name: languageCodeNames[languageCodeAddition.languageCode],
       enabled: enabledFilters.includes(languageCodeAddition.languageCode)
     })))
   );
@@ -131,6 +135,17 @@ export class Publications2Component implements OnDestroy {
   peerReviewedAdditions$ = this.aggregations$.pipe(
     map(aggs => getPeerReviewedAdditions(aggs).map((bucket: any) => ({ id: bucket.key, count: bucket.doc_count })) ?? []),
     map(aggs => aggs.sort((a, b) => b.count - a.count))
+  );
+
+  peerReviewedNames$ = this.publications2Service.getPeerReviewedNames();
+
+  peerReviewedFilters$ = combineLatest([this.peerReviewedAdditions$, this.peerReviewedNames$, this.searchParams$.pipe(map(params => params.peerReviewed ?? []))]).pipe(
+    map(([peerReviewedAdditions, peerReviewedNames, enabledFilters]) => peerReviewedAdditions.map(peerReviewedAddition => ({
+      id: peerReviewedAddition.id,
+      count: peerReviewedAddition.count,
+      name: peerReviewedNames[peerReviewedAddition.id],
+      enabled: enabledFilters.includes(peerReviewedAddition.id)
+    })))
   );
 
   // getParentPublicationTypeAdditions
@@ -216,6 +231,10 @@ export class Publications2Component implements OnDestroy {
     4: "Yliopistollisen sairaalan erityisvastuualue",
     6: "Muu"
   }
+
+  /*public collapseStates = {
+    "language": false,
+  }*/
 
   searchParamsSubscription = this.searchParams$.subscribe(searchParams => {
     this.publications2Service.updateSearchTerms(searchParams);

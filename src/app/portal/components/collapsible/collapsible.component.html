@@ -1,0 +1,19 @@
+<div class="collapsible-container">
+  <div class='collapsible-label' (click)="toggle()">
+    {{label}}
+
+    <span>
+      <i class="fa fa-chevron-down" [ngClass]='{"icon-collapsed": !isOpen, "icon-expanded": isOpen}'></i>
+    </span>
+  </div>
+
+
+
+  <div class="collapsible-content" [class.collapsed]="!isOpen">
+    <!-- TODO collapse is instant if DOM is cleaned before animation -->
+
+    <!--<ng-container *ngIf='isOpen'>-->
+      <ng-content></ng-content>
+    <!--</ng-container>-->
+  </div>
+</div>

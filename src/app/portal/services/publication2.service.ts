@@ -132,7 +132,6 @@ export class Publication2Service {
                 ...termsForPublicationFormat(searchParams),
                 ...termsForPublicationAudience(searchParams),
                 ...termsForPeerReviewed(searchParams),
-                // Add new terms
                 ...termsForParentPublicationType(searchParams),
                 ...termsForInternationalPublication(searchParams),
                 ...termsForArticleTypeCode(searchParams),
@@ -161,7 +160,6 @@ export class Publication2Service {
         ...additionsFromPublicationFormat(searchParams),
         ...additionsFromPublicationAudience(searchParams),
         ...additionsFromPeerReviewed(searchParams),
-        // Add new terms
         ...additionsFromParentPublicationType(searchParams),
         ...additionsFromInternationalPublication(searchParams),
         ...additionsFromArticleTypeCode(searchParams),
@@ -245,19 +243,53 @@ export class Publication2Service {
       .pipe(shareReplay({ bufferSize: 1, refCount: true }));
   }
 
-  getPublicationFormatNames()/*: Observable<Record<string, string>>*/ {
-    /*const body = {
-      "size": 0,
-      "aggs": {
-        "nameFiFormat": {
-          "terms": {
-            "field": "publicationFormat.id.keyword",
-            "size": 1000
+/*
+"terms": {
+  "field": "languages.languageFi.keyword",
+  "size": 1000
+}
+*/
+
+  getLanguageCodeNames(): Observable<Record<string, string>> {
+    const body = {
+      'size': 0,
+      'aggs': {
+        'composite_pairs': {
+          'composite': {
+            'size': 1000,
+            'sources': [
+              { 'id': { 'terms': { 'field': 'languages.languageCode.keyword' } } },
+              { 'nameFiLanguage': { 'terms': { 'field': 'languages.languageFi.keyword' } } }
+            ]
           }
         }
       }
-    }*/
+    };
 
+    type LanguageAggregation = {
+      aggregations: {
+        composite_pairs: {
+          buckets: Array<{
+            key: {
+              id: string;
+              nameFiLanguage: string;
+            };
+            doc_count: number;
+          }>;
+        };
+      };
+    };
+
+    const response$ = this.http.post<LanguageAggregation>('https://researchfi-api-qa.rahtiapp.fi/portalapi/publication/_search?', body);
+
+    return response$.pipe(
+      map((res) => res.aggregations.composite_pairs.buckets.map((bucket) => [bucket.key.id, bucket.key.nameFiLanguage])),  // TODO localized path needed
+      map(pairs => Object.fromEntries(pairs)),
+      shareReplay({ bufferSize: 1, refCount: true })
+    );
+  }
+
+  getPublicationFormatNames(): Observable<Record<string, string>> {
     const body = {
       'size': 0,
       'aggs': {
@@ -296,7 +328,7 @@ export class Publication2Service {
     );
   }
 
-  getPublicationAudienceNames()/*: Observable<Record<string, string>>*/ {
+  getPublicationAudienceNames(): Observable<Record<string, string>> {
     const body = {
       'size': 0,
       'aggs': {
@@ -340,7 +372,7 @@ export class Publication2Service {
 // getArticleTypeCodeNames
 
 
-  getParentPublicationTypeNames()/*: Observable<Record<string, string>>*/ {
+  getParentPublicationTypeNames(): Observable<Record<string, string>> {
     const body = {
       "size": 0,
       "aggs": {
@@ -377,6 +409,13 @@ export class Publication2Service {
       map(pairs => Object.fromEntries(pairs)),
       shareReplay({ bufferSize: 1, refCount: true })
     );
+  }
+
+  getPeerReviewedNames(): Observable<Record<string, string>> {
+    return of({
+      "0": "Ei-vertaisarvioitu", // TODO use localize``
+      "1": "Vertaisarvioitu"     // TODO use localize``
+    });
   }
 
   getInternationalPublicationNames(): Observable<Record<string, string>> {
@@ -591,7 +630,6 @@ function additionsFromYear(searchParams: SearchParams) {
                 ...termsForPublicationFormat(searchParams),
                 ...termsForPublicationAudience(searchParams),
                 ...termsForPeerReviewed(searchParams),
-                // Add new terms
                 ...termsForParentPublicationType(searchParams),
                 ...termsForInternationalPublication(searchParams),
                 ...termsForArticleTypeCode(searchParams),
@@ -643,7 +681,6 @@ function additionsFromTypeCode(searchParams: SearchParams) {
                 ...termsForPublicationFormat(searchParams),
                 ...termsForPublicationAudience(searchParams),
                 ...termsForPeerReviewed(searchParams),
-                // Add new terms
                 ...termsForParentPublicationType(searchParams),
                 ...termsForInternationalPublication(searchParams),
                 ...termsForArticleTypeCode(searchParams),
@@ -681,7 +718,6 @@ function additionsFromStatusCode(searchParams: SearchParams) {
                 ...termsForPublicationFormat(searchParams),
                 ...termsForPublicationAudience(searchParams),
                 ...termsForPeerReviewed(searchParams),
-                // Add new terms
                 ...termsForParentPublicationType(searchParams),
                 ...termsForInternationalPublication(searchParams),
                 ...termsForArticleTypeCode(searchParams),
@@ -719,7 +755,6 @@ function additionsFromLanguageCode(searchParams: SearchParams) {
                 ...termsForPublicationFormat(searchParams),
                 ...termsForPublicationAudience(searchParams),
                 ...termsForPeerReviewed(searchParams),
-                // Add new terms
                 ...termsForParentPublicationType(searchParams),
                 ...termsForInternationalPublication(searchParams),
                 ...termsForArticleTypeCode(searchParams),
@@ -757,7 +792,6 @@ function additionsFromPublicationFormat(searchParams: SearchParams) {
                 ...termsForLanguageCode(searchParams),
                 ...termsForPublicationAudience(searchParams),
                 ...termsForPeerReviewed(searchParams),
-                // Add new terms
                 ...termsForParentPublicationType(searchParams),
                 ...termsForInternationalPublication(searchParams),
                 ...termsForArticleTypeCode(searchParams),
@@ -796,7 +830,6 @@ function additionsFromPublicationAudience(searchParams: SearchParams) {
                 ...termsForLanguageCode(searchParams),
                 ...termsForPublicationFormat(searchParams),
                 ...termsForPeerReviewed(searchParams),
-                // Add new terms
                 ...termsForParentPublicationType(searchParams),
                 ...termsForInternationalPublication(searchParams),
                 ...termsForArticleTypeCode(searchParams),
@@ -834,7 +867,6 @@ function additionsFromPeerReviewed(searchParams: SearchParams) {
                 ...termsForLanguageCode(searchParams),
                 ...termsForPublicationFormat(searchParams),
                 ...termsForPublicationAudience(searchParams),
-                // Add new terms
                 ...termsForParentPublicationType(searchParams),
                 ...termsForInternationalPublication(searchParams),
                 ...termsForArticleTypeCode(searchParams),
@@ -874,7 +906,6 @@ function additionsFromParentPublicationType(searchParams: SearchParams) {
                 ...termsForPublicationFormat(searchParams),
                 ...termsForPublicationAudience(searchParams),
                 ...termsForPeerReviewed(searchParams),
-                // Add new terms
                 ...termsForInternationalPublication(searchParams),
                 ...termsForArticleTypeCode(searchParams),
                 ...termsForJufoClassCode(searchParams)
@@ -913,7 +944,6 @@ function additionsFromInternationalPublication(searchParams: SearchParams) {
                 ...termsForPublicationFormat(searchParams),
                 ...termsForPublicationAudience(searchParams),
                 ...termsForPeerReviewed(searchParams),
-                // Add new terms
                 ...termsForParentPublicationType(searchParams),
                 ...termsForArticleTypeCode(searchParams),
                 ...termsForJufoClassCode(searchParams)
@@ -952,7 +982,6 @@ return {
                 ...termsForPublicationFormat(searchParams),
                 ...termsForPublicationAudience(searchParams),
                 ...termsForPeerReviewed(searchParams),
-                // Add new terms
                 ...termsForParentPublicationType(searchParams),
                 ...termsForInternationalPublication(searchParams),
                 ...termsForJufoClassCode(searchParams)
@@ -991,7 +1020,6 @@ function additionsFromJufoClassCode(searchParams: SearchParams) {
                 ...termsForPublicationFormat(searchParams),
                 ...termsForPublicationAudience(searchParams),
                 ...termsForPeerReviewed(searchParams),
-                // Add new terms
                 ...termsForParentPublicationType(searchParams),
                 ...termsForInternationalPublication(searchParams),
                 ...termsForArticleTypeCode(searchParams)
@@ -1071,11 +1099,9 @@ function additionsFromOrganization(searchParams: SearchParams) {
                 ...termsForTypeCode(searchParams),
                 ...termsForStatusCode(searchParams),
                 ...termsForLanguageCode(searchParams),
-                // ?
                 ...termsForPublicationFormat(searchParams),
                 ...termsForPublicationAudience(searchParams),
                 ...termsForPeerReviewed(searchParams),
-                // Add new terms
                 ...termsForParentPublicationType(searchParams),
                 ...termsForInternationalPublication(searchParams),
                 ...termsForArticleTypeCode(searchParams),
