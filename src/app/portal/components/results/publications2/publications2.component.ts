@@ -3,7 +3,7 @@ import { CdkTableModule, DataSource } from '@angular/cdk/table';
 import { combineLatest, Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { AsyncPipe, JsonPipe, NgForOf, NgIf } from '@angular/common';
+import { AsyncPipe, JsonPipe, NgForOf, NgIf, NgStyle } from '@angular/common';
 import {
   getArticleTypeCodeAdditions,
   getInternationalPublicationAdditions, getJufoClassCodeAdditions,
@@ -25,6 +25,8 @@ import { OrganizationFilterComponent } from '@portal/components/organization-fil
 import { FilterOptionComponent } from '@portal/components/filter-option/filter-option.component';
 import { LimitPipe } from '@portal/pipes/limit.pipe';
 import { CollapsibleComponent } from '@portal/components/collapsible/collapsible.component';
+import { MatButtonModule } from '@angular/material/button';
+import { FilterLimitButtonComponent } from '@portal/components/filter-limit-button/filter-limit-button.component';
 
 @Component({
   selector: 'app-publications2',
@@ -33,7 +35,7 @@ import { CollapsibleComponent } from '@portal/components/collapsible/collapsible
   imports: [CdkTableModule, FormsModule, AsyncPipe, JsonPipe, NgForOf, NgIf, LimitPipe, NgArrayPipesModule,
     SharedModule, //TODO not good?
     FormsModule,
-    SearchBar2Component, OrganizationFilterComponent, FilterOptionComponent, CollapsibleComponent
+    SearchBar2Component, OrganizationFilterComponent, FilterOptionComponent, CollapsibleComponent, MatButtonModule, NgStyle, FilterLimitButtonComponent
   ],
   standalone: true
 })
@@ -230,11 +232,17 @@ export class Publications2Component implements OnDestroy {
     3: "Tutkimuslaitos",
     4: "Yliopistollisen sairaalan erityisvastuualue",
     6: "Muu"
-  }
+  };
 
   /*public collapseStates = {
     "language": false,
-  }*/
+  };*/
+
+  public filterLimits = {
+    year: 10,
+    language: 10,
+  };
+
 
   searchParamsSubscription = this.searchParams$.subscribe(searchParams => {
     this.publications2Service.updateSearchTerms(searchParams);
@@ -317,6 +325,14 @@ export class Publications2Component implements OnDestroy {
       relativeTo: this.route,
       queryParams: { size }, queryParamsHandling: 'merge'
     });
+  }
+
+  clamp(value: number, min: number, max: number) {
+    return Math.min(Math.max(value, min), max);
+  }
+
+  makeYearLimit20() {
+    this.filterLimits.year = 20;
   }
 }
 

@@ -765,7 +765,8 @@ function additionsFromLanguageCode(searchParams: SearchParams) {
           "aggregations": {
             "all_languageCodes": {
               "terms": {
-                "field": "languages.languageCode.keyword"
+                "field": "languages.languageCode.keyword",
+                "size": 1000,
               }
             }
           }
