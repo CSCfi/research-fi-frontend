@@ -1,6 +1,6 @@
 import { Component, inject, OnDestroy, Pipe, PipeTransform } from '@angular/core';
 import { CdkTableModule, DataSource } from '@angular/cdk/table';
-import { combineLatest, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, merge, Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AsyncPipe, JsonPipe, NgForOf, NgIf, NgStyle } from '@angular/common';
@@ -48,6 +48,16 @@ export class Publications2Component implements OnDestroy {
   page = 1;
   size = 10;
 
+  filterCount$ = new BehaviorSubject(0);
+  filterCountLookup: Record<string, number> = {};
+
+  updateFilterCount(key: string, value: number) {
+    this.filterCountLookup[key] = value;
+    const count = Object.values(this.filterCountLookup).reduce((a, b) => a + b, 0);
+
+    this.filterCount$.next(count);
+  }
+
   displayedColumns: string[] = ['publicationName', 'authorsText', 'publisherName', 'publicationYear'];
 
   highlights$ = this.publications2Service.getSearch(); // TODO: /*: Observable<HighlightedPublication[]>*/
@@ -66,7 +76,8 @@ export class Publications2Component implements OnDestroy {
       year: yearAddition.year,
       count: yearAddition.count,
       enabled: enabledFilters.includes(yearAddition.year.toString())
-    })))
+    }))),
+    tap(filters => this.updateFilterCount("year", filters.filter(filter => filter.enabled).length))
   );
 
   organizationNames$ = this.publications2Service.getOrganizationNames();
@@ -83,7 +94,8 @@ export class Publications2Component implements OnDestroy {
       name: organizationNames[organizationAddition.id].name,
       sectorId: organizationNames[organizationAddition.id].sectorId,
       enabled: enabledFilters.includes(organizationAddition.id)
-    })))
+    }))),
+    tap(filters => this.updateFilterCount("organization", filters.filter(filter => filter.enabled).length))
   );
 
   languageCodeAdditions$ = this.aggregations$.pipe(
@@ -99,7 +111,8 @@ export class Publications2Component implements OnDestroy {
       count: languageCodeAddition.count,
       name: languageCodeNames[languageCodeAddition.languageCode],
       enabled: enabledFilters.includes(languageCodeAddition.languageCode)
-    })))
+    }))),
+    tap(filters => this.updateFilterCount("language", filters.filter(filter => filter.enabled).length))
   );
 
   publicationFormatNames$ = this.publications2Service.getPublicationFormatNames();
@@ -115,7 +128,8 @@ export class Publications2Component implements OnDestroy {
       count: publicationFormatAddition.count,
       name: publicationFormatNames[publicationFormatAddition.id],
       enabled: enabledFilters.includes(publicationFormatAddition.id)
-    })))
+    }))),
+    tap(filters => this.updateFilterCount("format", filters.filter(filter => filter.enabled).length))
   );
 
   publicationAudienceNames$ = this.publications2Service.getPublicationAudienceNames();
@@ -131,7 +145,8 @@ export class Publications2Component implements OnDestroy {
       count: publicationAudienceAddition.count,
       name: publicationAudienceNames[publicationAudienceAddition.id],
       enabled: enabledFilters.includes(publicationAudienceAddition.id)
-    })))
+    }))),
+    tap(filters => this.updateFilterCount("audience", filters.filter(filter => filter.enabled).length))
   );
 
   peerReviewedAdditions$ = this.aggregations$.pipe(
@@ -147,7 +162,8 @@ export class Publications2Component implements OnDestroy {
       count: peerReviewedAddition.count,
       name: peerReviewedNames[peerReviewedAddition.id],
       enabled: enabledFilters.includes(peerReviewedAddition.id)
-    })))
+    }))),
+    tap(filters => this.updateFilterCount("peerReviewed", filters.filter(filter => filter.enabled).length))
   );
 
   // getParentPublicationTypeAdditions
@@ -173,7 +189,8 @@ export class Publications2Component implements OnDestroy {
       count: internationalPublicationAddition.count,
       name: internationalPublicationNames[internationalPublicationAddition.id],
       enabled: enabledFilters.includes(internationalPublicationAddition.id)
-    })))
+    }))),
+    tap(filters => this.updateFilterCount("international", filters.filter(filter => filter.enabled).length))
   );
 
   articleTypeCodeAdditions$ = this.aggregations$.pipe(
@@ -189,7 +206,8 @@ export class Publications2Component implements OnDestroy {
       count: articleTypeCodeAddition.count,
       name: articleTypeCodeNames[articleTypeCodeAddition.id],
       enabled: enabledFilters.includes(articleTypeCodeAddition.id)
-    })))
+    }))),
+    tap(filters => this.updateFilterCount("articleType", filters.filter(filter => filter.enabled).length))
   );
 
   jufoClassCodeAdditions$ = this.aggregations$.pipe(
@@ -203,7 +221,8 @@ export class Publications2Component implements OnDestroy {
       count: jufoClassCodeAddition.count,
       name: jufoClassCodeAddition.id,
       enabled: enabledFilters.includes(jufoClassCodeAddition.id)
-    })))
+    }))),
+    tap(filters => this.updateFilterCount("jufo", filters.filter(filter => filter.enabled).length))
   );
 
   // getParentPublicationTypeNames
@@ -222,8 +241,11 @@ export class Publications2Component implements OnDestroy {
       count: parentPublicationTypeAddition.count,
       name: parentPublicationTypeNames[parentPublicationTypeAddition.id],
       enabled: enabledFilters.includes(parentPublicationTypeAddition.id)
-    })))
+    }))),
+    tap(filters => this.updateFilterCount("parentPublicationType", filters.filter(filter => filter.enabled).length))
   );
+
+
 
   /* TODO localization solution */
   public sectorName = {
