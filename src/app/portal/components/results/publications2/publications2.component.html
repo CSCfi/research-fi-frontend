@@ -87,28 +87,49 @@
         <div style='margin: 1rem'></div>
 
         <div>
-          <app-collapsible label='Kieli'>
-            <ng-container *ngIf='languageCodeFilters$ | async as languageCodeFilters'>
-              <ng-container *ngFor='let languageCodeFilter of languageCodeFilters | limit: filterLimits.language'>   <!-- LIMIT ? -->
-                <app-filter-option [label]='languageCodeFilter.name'
-                                   [count]='languageCodeFilter.count'
-                                   [value]='languageCodeFilter.enabled'
-                                   (valueChange)='toggleParam("language", languageCodeFilter.id)'>
-                </app-filter-option>
-              </ng-container>
+          <app-collapsible label='Tieteenala' decoration='plus'>
+            <ng-container *ngFor='let section of [1, 2, 3, 4, 5, 6, 8]'> <!-- 6 is last real, 9 is error codes -->
 
-              <div style='display: flex'>
-                <app-filter-limit-button [(value)]='filterLimits.language' [step]='10' [min]='10' [max]='languageCodeFilters.length'>
-                  Näytä enemmän
-                </app-filter-limit-button>
+              <app-collapsible [label]='mainFieldOfScienceName[section]'>
+                <ng-container *ngFor='let fieldsOfScienceFilter of fieldsOfScienceFilters$ | async'>
 
-                <app-filter-limit-button [(value)]='filterLimits.language' [step]='-10' [min]='10' [max]='languageCodeFilters.length'>
-                  Näytä vähemmän
-                </app-filter-limit-button>
-              </div>
+                  <ng-container *ngIf='(fieldsOfScienceFilter.id | firstDigit) === section'>
+                    <app-filter-option [label]='fieldsOfScienceFilter.name'
+                                       [count]='fieldsOfScienceFilter.count'
+                                       [value]='fieldsOfScienceFilter.enabled'
+                                       (valueChange)='toggleParam("fieldsOfScience", fieldsOfScienceFilter.id)'>
+                    </app-filter-option>
+                  </ng-container>
+
+                </ng-container>
+              </app-collapsible>
+
             </ng-container>
+          </app-collapsible>
+        </div>
 
+        <!-- TODO DELETE -->
+        <div style='margin: 1rem'></div>
 
+        <div>
+          <app-collapsible label='Julkaisutyyppi' decoration='plus'>
+            <ng-container *ngFor='let label of ["A", "B", "C", "D", "E", "F", "G", "I"]'>
+
+              <app-collapsible [label]='label'>
+                <ng-container *ngFor='let publicationTypeCodeFilter of publicationTypeCodeFilters$ | async'>
+
+                  <ng-container *ngIf='(publicationTypeCodeFilter.id | firstLetter) === label'>
+                    <app-filter-option [label]='publicationTypeCodeFilter.name'
+                                       [count]='publicationTypeCodeFilter.count'
+                                       [value]='publicationTypeCodeFilter.enabled'
+                                       (valueChange)='toggleParam("publicationTypeCode", publicationTypeCodeFilter.id)'>
+                    </app-filter-option>
+                  </ng-container>
+
+                </ng-container>
+              </app-collapsible>
+
+            </ng-container>
           </app-collapsible>
         </div>
 
@@ -144,20 +165,6 @@
           </app-collapsible>
         </div>
 
-        <!-- TODO DELETE -->
-        <div style='margin: 1rem'></div>
-
-        <div>
-          <app-collapsible label='Peer Reviewed'>
-            <ng-container *ngFor='let peerReviewedFilter of peerReviewedFilters$ | async'>
-              <app-filter-option [label]='peerReviewedFilter.name'
-                                 [count]='peerReviewedFilter.count'
-                                 [value]='peerReviewedFilter.enabled'
-                                 (valueChange)='toggleParam("peerReviewed", peerReviewedFilter.id)'>
-              </app-filter-option>
-            </ng-container>
-          </app-collapsible>
-        </div>
 
         <!-- TODO DELETE -->
         <div style='margin: 1rem'></div>
@@ -169,6 +176,36 @@
                                  [count]='parentPublicationTypeFilter.count'
                                  [value]='parentPublicationTypeFilter.enabled'
                                  (valueChange)='toggleParam("parentPublicationType", parentPublicationTypeFilter.id)'>
+              </app-filter-option>
+            </ng-container>
+          </app-collapsible>
+        </div>
+
+        <!-- TODO DELETE -->
+        <div style='margin: 1rem'></div>
+
+        <div>
+          <app-collapsible label='Article Type'>
+            <ng-container *ngFor='let articleTypeCodeFilter of articleTypeCodeFilters$ | async'>
+              <app-filter-option [label]='articleTypeCodeFilter.name'
+                                 [count]='articleTypeCodeFilter.count'
+                                 [value]='articleTypeCodeFilter.enabled'
+                                 (valueChange)='toggleParam("articleType", articleTypeCodeFilter.id)'>
+              </app-filter-option>
+            </ng-container>
+          </app-collapsible>
+        </div>
+
+        <!-- TODO DELETE -->
+        <div style='margin: 1rem'></div>
+
+        <div>
+          <app-collapsible label='Peer Reviewed'>
+            <ng-container *ngFor='let peerReviewedFilter of peerReviewedFilters$ | async'>
+              <app-filter-option [label]='peerReviewedFilter.name'
+                                 [count]='peerReviewedFilter.count'
+                                 [value]='peerReviewedFilter.enabled'
+                                 (valueChange)='toggleParam("peerReviewed", peerReviewedFilter.id)'>
               </app-filter-option>
             </ng-container>
           </app-collapsible>
@@ -193,14 +230,28 @@
         <div style='margin: 1rem'></div>
 
         <div>
-          <app-collapsible label='Article Type'>
-            <ng-container *ngFor='let articleTypeCodeFilter of articleTypeCodeFilters$ | async'>
-              <app-filter-option [label]='articleTypeCodeFilter.name'
-                                 [count]='articleTypeCodeFilter.count'
-                                 [value]='articleTypeCodeFilter.enabled'
-                                 (valueChange)='toggleParam("articleType", articleTypeCodeFilter.id)'>
-              </app-filter-option>
+          <app-collapsible label='Kieli'>
+            <ng-container *ngIf='languageCodeFilters$ | async as languageCodeFilters'>
+              <ng-container *ngFor='let languageCodeFilter of languageCodeFilters | limit: filterLimits.language'>   <!-- LIMIT ? -->
+                <app-filter-option [label]='languageCodeFilter.name'
+                                   [count]='languageCodeFilter.count'
+                                   [value]='languageCodeFilter.enabled'
+                                   (valueChange)='toggleParam("language", languageCodeFilter.id)'>
+                </app-filter-option>
+              </ng-container>
+
+              <div style='display: flex'>
+                <app-filter-limit-button [(value)]='filterLimits.language' [step]='10' [min]='10' [max]='languageCodeFilters.length'>
+                  Näytä enemmän
+                </app-filter-limit-button>
+
+                <app-filter-limit-button [(value)]='filterLimits.language' [step]='-10' [min]='10' [max]='languageCodeFilters.length'>
+                  Näytä vähemmän
+                </app-filter-limit-button>
+              </div>
             </ng-container>
+
+
           </app-collapsible>
         </div>
 

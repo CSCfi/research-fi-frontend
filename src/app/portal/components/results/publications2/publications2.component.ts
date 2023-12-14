@@ -5,14 +5,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AsyncPipe, JsonPipe, NgForOf, NgIf, NgStyle } from '@angular/common';
 import {
-  getArticleTypeCodeAdditions,
+  getArticleTypeCodeAdditions, getFieldsOfScienceAdditions,
   getInternationalPublicationAdditions, getJufoClassCodeAdditions,
   getLanguageCodeAdditions,
   getOrganizationAdditions,
   getParentPublicationTypeAdditions,
   getPeerReviewedAdditions,
   getPublicationAudienceAdditions,
-  getPublicationFormatAdditions,
+  getPublicationFormatAdditions, getPublicationTypeCodeAdditions,
   getYearAdditions,
   HighlightedPublication,
   Publication2Service
@@ -27,6 +27,8 @@ import { LimitPipe } from '@portal/pipes/limit.pipe';
 import { CollapsibleComponent } from '@portal/components/collapsible/collapsible.component';
 import { MatButtonModule } from '@angular/material/button';
 import { FilterLimitButtonComponent } from '@portal/components/filter-limit-button/filter-limit-button.component';
+import { FirstDigitPipe } from '@shared/pipes/first-digit.pipe';
+import { FirstLetterPipe } from '@shared/pipes/first-letter.pipe';
 
 @Component({
   selector: 'app-publications2',
@@ -35,7 +37,7 @@ import { FilterLimitButtonComponent } from '@portal/components/filter-limit-butt
   imports: [CdkTableModule, FormsModule, AsyncPipe, JsonPipe, NgForOf, NgIf, LimitPipe, NgArrayPipesModule,
     SharedModule, //TODO not good?
     FormsModule,
-    SearchBar2Component, OrganizationFilterComponent, FilterOptionComponent, CollapsibleComponent, MatButtonModule, NgStyle, FilterLimitButtonComponent
+    SearchBar2Component, OrganizationFilterComponent, FilterOptionComponent, CollapsibleComponent, MatButtonModule, NgStyle, FilterLimitButtonComponent, FirstDigitPipe, FirstLetterPipe
   ],
   standalone: true
 })
@@ -225,6 +227,38 @@ export class Publications2Component implements OnDestroy {
     tap(filters => this.updateFilterCount("jufo", filters.filter(filter => filter.enabled).length))
   );
 
+  fieldsOfScienceNames$ = this.publications2Service.getFieldsOfScienceNames();
+
+  fieldsOfScienceAdditions$ = this.aggregations$.pipe(
+    map(aggs => getFieldsOfScienceAdditions(aggs).map((bucket: any) => ({ id: bucket.key.toString(), count: bucket.doc_count })) ?? []),
+    map(aggs => aggs.sort((a, b) => b.count - a.count))
+  );
+
+  fieldsOfScienceFilters$ = combineLatest([this.fieldsOfScienceAdditions$, this.fieldsOfScienceNames$, this.searchParams$.pipe(map(params => params.fieldsOfScience ?? []))]).pipe(
+    map(([fieldsOfScienceAdditions, fieldsOfScienceNames, enabledFilters]) => fieldsOfScienceAdditions.map(fieldsOfScienceAddition => ({
+      id: fieldsOfScienceAddition.id,
+      count: fieldsOfScienceAddition.count,
+      name: fieldsOfScienceNames[fieldsOfScienceAddition.id],
+      enabled: enabledFilters.includes(fieldsOfScienceAddition.id)
+    }))),
+    tap(filters => this.updateFilterCount("fieldsOfScience", filters.filter(filter => filter.enabled).length))
+  );
+
+  publicationTypeCodeAdditions$ = this.aggregations$.pipe(
+    map(aggs => getPublicationTypeCodeAdditions(aggs).map((bucket: any) => ({ id: bucket.key.toString(), count: bucket.doc_count })) ?? []),
+    map(aggs => aggs.sort((a, b) => b.count - a.count))
+  );
+
+  publicationTypeCodeFilters$ = combineLatest([this.publicationTypeCodeAdditions$, this.searchParams$.pipe(map(params => params.publicationTypeCode ?? []))]).pipe(
+    map(([publicationTypeCodeAdditions, enabledFilters]) => publicationTypeCodeAdditions.map(publicationTypeCodeAddition => ({
+      id: publicationTypeCodeAddition.id,
+      count: publicationTypeCodeAddition.count,
+      name: publicationTypeCodeAddition.id,
+      enabled: enabledFilters.includes(publicationTypeCodeAddition.id)
+    }))),
+    tap(filters => this.updateFilterCount("publicationTypeCode", filters.filter(filter => filter.enabled).length))
+  );
+
   // getParentPublicationTypeNames
   // getInternationalPublicationNames
   // getArticleTypeCodeNames
@@ -255,6 +289,18 @@ export class Publications2Component implements OnDestroy {
     4: "Yliopistollisen sairaalan erityisvastuualue",
     6: "Muu"
   };
+
+  /* TODO localization solution */
+  public mainFieldOfScienceName = {
+    "1": "Luonnontieteet",
+    "2": "Tekniikka",
+    "3": "Lääke- ja terveystieteet",
+    "4": "Maatalous- ja metsätieteet",
+    "5": "Yhteiskuntatieteet",
+    "6": "Humanistiset tieteet",
+    // 7 not used
+    "8": "Taiteenala",
+  }
 
   /*public collapseStates = {
     "language": false,
@@ -351,10 +397,6 @@ export class Publications2Component implements OnDestroy {
 
   clamp(value: number, min: number, max: number) {
     return Math.min(Math.max(value, min), max);
-  }
-
-  makeYearLimit20() {
-    this.filterLimits.year = 20;
   }
 }
 

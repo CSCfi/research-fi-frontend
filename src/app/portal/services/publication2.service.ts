@@ -53,6 +53,8 @@ type SearchParams = {
   // placeholders
   publicationTypeCode?: string[],
   publicationStatusCode?: string[],
+
+  fieldsOfScience?: string[],
 }
 
 @Injectable({
@@ -135,7 +137,9 @@ export class Publication2Service {
                 ...termsForParentPublicationType(searchParams),
                 ...termsForInternationalPublication(searchParams),
                 ...termsForArticleTypeCode(searchParams),
-                ...termsForJufoClassCode(searchParams)
+                ...termsForJufoClassCode(searchParams),
+                ...termsForFieldsOfScience(searchParams),
+                ...termsForPublicationTypeCode(searchParams),
               ]
             }
           }
@@ -163,7 +167,9 @@ export class Publication2Service {
         ...additionsFromParentPublicationType(searchParams),
         ...additionsFromInternationalPublication(searchParams),
         ...additionsFromArticleTypeCode(searchParams),
-        ...additionsFromJufoClassCode(searchParams)
+        ...additionsFromJufoClassCode(searchParams),
+        ...additionsFromFieldsOfScience(searchParams),
+        ...additionsFromPublicationTypeCode(searchParams),
       }
     });
   }
@@ -433,6 +439,66 @@ export class Publication2Service {
       "3": "Verkkoalusta" // TODO use localize``
     });
   }
+
+  getFieldsOfScienceNames(): Observable<Record<string, string>> {
+    const body = {
+      "size": 0,
+      "aggs": {
+        "fieldsOfScience_nested": {
+          "nested": {
+            "path": "fieldsOfScience"
+          },
+          "aggs": {
+            "composite_field_of_science": {
+              "composite": {
+                "size": 65536,
+                "sources": [
+                  {
+                    "id": {
+                      "terms": {
+                        "field": "fieldsOfScience.fieldIdScience"
+                      }
+                    }
+                  },
+                  {
+                    "name": {
+                      "terms": {
+                        "field": "fieldsOfScience.nameFiScience.keyword"                                                // TODO localized path needed
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    };
+
+    type FieldsOfScienceAggregation = {
+      aggregations: {
+        fieldsOfScience_nested: {
+          composite_field_of_science: {
+            buckets: Array<{
+              key: {
+                id: string;
+                name: string;
+              };
+              doc_count: number;
+            }>;
+          };
+        };
+      };
+    };
+
+    const response$ = this.http.post<FieldsOfScienceAggregation>('https://researchfi-api-qa.rahtiapp.fi/portalapi/publication/_search?', body);
+
+    return response$.pipe(
+      map((res) => res.aggregations.fieldsOfScience_nested.composite_field_of_science.buckets.map((bucket) => [bucket.key.id, bucket.key.name])),
+      map(pairs => Object.fromEntries(pairs)),
+      shareReplay({ bufferSize: 1, refCount: true })
+    );
+  }
 }
 
 function matchingTerms(searchParams: SearchParams) {
@@ -633,7 +699,9 @@ function additionsFromYear(searchParams: SearchParams) {
                 ...termsForParentPublicationType(searchParams),
                 ...termsForInternationalPublication(searchParams),
                 ...termsForArticleTypeCode(searchParams),
-                ...termsForJufoClassCode(searchParams)
+                ...termsForJufoClassCode(searchParams),
+                ...termsForFieldsOfScience(searchParams),
+                ...termsForPublicationTypeCode(searchParams),
               ]
             }
           },
@@ -684,7 +752,9 @@ function additionsFromTypeCode(searchParams: SearchParams) {
                 ...termsForParentPublicationType(searchParams),
                 ...termsForInternationalPublication(searchParams),
                 ...termsForArticleTypeCode(searchParams),
-                ...termsForJufoClassCode(searchParams)
+                ...termsForJufoClassCode(searchParams),
+                ...termsForFieldsOfScience(searchParams),
+                ...termsForPublicationTypeCode(searchParams),
               ]
             }
           },
@@ -721,7 +791,9 @@ function additionsFromStatusCode(searchParams: SearchParams) {
                 ...termsForParentPublicationType(searchParams),
                 ...termsForInternationalPublication(searchParams),
                 ...termsForArticleTypeCode(searchParams),
-                ...termsForJufoClassCode(searchParams)
+                ...termsForJufoClassCode(searchParams),
+                ...termsForFieldsOfScience(searchParams),
+                ...termsForPublicationTypeCode(searchParams),
               ]
             }
           },
@@ -758,7 +830,9 @@ function additionsFromLanguageCode(searchParams: SearchParams) {
                 ...termsForParentPublicationType(searchParams),
                 ...termsForInternationalPublication(searchParams),
                 ...termsForArticleTypeCode(searchParams),
-                ...termsForJufoClassCode(searchParams)
+                ...termsForJufoClassCode(searchParams),
+                ...termsForFieldsOfScience(searchParams),
+                ...termsForPublicationTypeCode(searchParams),
               ]
             }
           },
@@ -796,7 +870,9 @@ function additionsFromPublicationFormat(searchParams: SearchParams) {
                 ...termsForParentPublicationType(searchParams),
                 ...termsForInternationalPublication(searchParams),
                 ...termsForArticleTypeCode(searchParams),
-                ...termsForJufoClassCode(searchParams)
+                ...termsForJufoClassCode(searchParams),
+                ...termsForFieldsOfScience(searchParams),
+                ...termsForPublicationTypeCode(searchParams),
               ]
             }
           },
@@ -834,7 +910,9 @@ function additionsFromPublicationAudience(searchParams: SearchParams) {
                 ...termsForParentPublicationType(searchParams),
                 ...termsForInternationalPublication(searchParams),
                 ...termsForArticleTypeCode(searchParams),
-                ...termsForJufoClassCode(searchParams)
+                ...termsForJufoClassCode(searchParams),
+                ...termsForFieldsOfScience(searchParams),
+                ...termsForPublicationTypeCode(searchParams),
               ]
             }
           },
@@ -871,7 +949,9 @@ function additionsFromPeerReviewed(searchParams: SearchParams) {
                 ...termsForParentPublicationType(searchParams),
                 ...termsForInternationalPublication(searchParams),
                 ...termsForArticleTypeCode(searchParams),
-                ...termsForJufoClassCode(searchParams)
+                ...termsForJufoClassCode(searchParams),
+                ...termsForFieldsOfScience(searchParams),
+                ...termsForPublicationTypeCode(searchParams),
               ]
             }
           },
@@ -909,7 +989,9 @@ function additionsFromParentPublicationType(searchParams: SearchParams) {
                 ...termsForPeerReviewed(searchParams),
                 ...termsForInternationalPublication(searchParams),
                 ...termsForArticleTypeCode(searchParams),
-                ...termsForJufoClassCode(searchParams)
+                ...termsForJufoClassCode(searchParams),
+                ...termsForFieldsOfScience(searchParams),
+                ...termsForPublicationTypeCode(searchParams),
               ]
             }
           },
@@ -947,7 +1029,9 @@ function additionsFromInternationalPublication(searchParams: SearchParams) {
                 ...termsForPeerReviewed(searchParams),
                 ...termsForParentPublicationType(searchParams),
                 ...termsForArticleTypeCode(searchParams),
-                ...termsForJufoClassCode(searchParams)
+                ...termsForJufoClassCode(searchParams),
+                ...termsForFieldsOfScience(searchParams),
+                ...termsForPublicationTypeCode(searchParams),
               ]
             }
           },
@@ -985,7 +1069,9 @@ return {
                 ...termsForPeerReviewed(searchParams),
                 ...termsForParentPublicationType(searchParams),
                 ...termsForInternationalPublication(searchParams),
-                ...termsForJufoClassCode(searchParams)
+                ...termsForJufoClassCode(searchParams),
+                ...termsForFieldsOfScience(searchParams),
+                ...termsForPublicationTypeCode(searchParams),
               ]
             }
           },
@@ -1023,7 +1109,9 @@ function additionsFromJufoClassCode(searchParams: SearchParams) {
                 ...termsForPeerReviewed(searchParams),
                 ...termsForParentPublicationType(searchParams),
                 ...termsForInternationalPublication(searchParams),
-                ...termsForArticleTypeCode(searchParams)
+                ...termsForArticleTypeCode(searchParams),
+                ...termsForFieldsOfScience(searchParams),
+                ...termsForPublicationTypeCode(searchParams),
               ]
             }
           },
@@ -1039,6 +1127,53 @@ function additionsFromJufoClassCode(searchParams: SearchParams) {
       }
     }
   }
+}
+
+function additionsFromFieldsOfScience(searchParams: SearchParams) {
+  return {
+    "all_data_except_fieldsOfScience": {
+      "global": {},
+      "aggregations": {
+        "filtered_except_fieldsOfScience": {
+          "filter": {
+            "bool": {
+              "must": [
+                matchingTerms(searchParams),
+                ...termsForYear(searchParams),
+                ...termsForTypeCode(searchParams),
+                ...termsForStatusCode(searchParams),
+                ...termsForOrganization(searchParams),
+                ...termsForLanguageCode(searchParams),
+                ...termsForPublicationFormat(searchParams),
+                ...termsForPublicationAudience(searchParams),
+                ...termsForPeerReviewed(searchParams),
+                ...termsForParentPublicationType(searchParams),
+                ...termsForInternationalPublication(searchParams),
+                ...termsForArticleTypeCode(searchParams),
+                ...termsForJufoClassCode(searchParams),
+                ...termsForPublicationTypeCode(searchParams),
+              ]
+            }
+          },
+          "aggregations": {
+            "fieldsOfScience_nested": {
+              "nested": {
+                "path": "fieldsOfScience"
+              },
+              "aggregations": {
+                "all_fieldsOfScience": {
+                  "terms": {
+                    "field": "fieldsOfScience.fieldIdScience",
+                    "size": 1000,
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  };
 }
 
 type OrganizationAggregation = {
@@ -1064,6 +1199,7 @@ function suffixer(locale) {
 
 const path = suffixer("fi");
 
+// NOTE: nested is needed for array type mapping
 function termsForOrganization(searchParams: SearchParams) {
   if (searchParams.organization && searchParams.organization.length > 0) {
     return [{
@@ -1086,6 +1222,103 @@ function termsForOrganization(searchParams: SearchParams) {
   return [];
 }
 
+// NOTE: nested is needed for array type mapping
+function termsForFieldsOfScience(searchParams: SearchParams) {
+  if (searchParams.fieldsOfScience && searchParams.fieldsOfScience.length > 0) {
+    return [{
+      "nested": {
+        "path": "fieldsOfScience",
+        "query": {
+          "bool": {
+            "must": [
+              {
+                "terms": {
+                  "fieldsOfScience.fieldIdScience": searchParams.fieldsOfScience
+                }
+              }
+            ]
+          }
+        }
+      }
+    }];
+  }
+  return [];
+}
+
+/*
+GET publication/_search
+{
+ "query": {
+   "match": {
+     "publicationTypeCode": "A1"
+   }
+ }
+}
+
+GET publication/_search
+{
+  "size": 0,
+  "aggs": {
+    "publicationTypeCode": {
+      "terms": {
+        "field": "publicationTypeCode.keyword",
+        "size": 100
+      }
+    }
+  }
+}
+*/
+
+function termsForPublicationTypeCode(searchParams: SearchParams) {
+  if (searchParams.publicationTypeCode) {
+    return [{
+      terms: {
+        "publicationTypeCode.keyword": searchParams.publicationTypeCode
+      }
+    }];
+  }
+  return [];
+}
+
+function additionsFromPublicationTypeCode(searchParams: SearchParams) {
+  return {
+    "all_data_except_publicationTypeCode": {
+      "global": {},
+      "aggregations": {
+        "filtered_except_publicationTypeCode": {
+          "filter": {
+            "bool": {
+              "must": [
+                matchingTerms(searchParams),
+                ...termsForYear(searchParams),
+                ...termsForStatusCode(searchParams),
+                ...termsForOrganization(searchParams),
+                ...termsForLanguageCode(searchParams),
+                ...termsForPublicationFormat(searchParams),
+                ...termsForPublicationAudience(searchParams),
+                ...termsForPeerReviewed(searchParams),
+                ...termsForParentPublicationType(searchParams),
+                ...termsForInternationalPublication(searchParams),
+                ...termsForJufoClassCode(searchParams),
+                ...termsForArticleTypeCode(searchParams),
+                ...termsForFieldsOfScience(searchParams)
+              ]
+            }
+          },
+          "aggregations": {
+            "all_publicationTypeCodes": {
+              "terms": {
+                "field": "publicationTypeCode.keyword",
+                "size": 100
+              }
+            }
+          }
+        }
+      }
+    }
+  };
+}
+
 function additionsFromOrganization(searchParams: SearchParams) {
   return {
     "all_data_except_organizationId": {
@@ -1106,7 +1339,9 @@ function additionsFromOrganization(searchParams: SearchParams) {
                 ...termsForParentPublicationType(searchParams),
                 ...termsForInternationalPublication(searchParams),
                 ...termsForArticleTypeCode(searchParams),
-                ...termsForJufoClassCode(searchParams)
+                ...termsForJufoClassCode(searchParams),
+                ...termsForFieldsOfScience(searchParams),
+                ...termsForPublicationTypeCode(searchParams),
               ]
             }
           },
@@ -1150,6 +1385,47 @@ type OrgsAggsResponse = {
     };
   };
 };
+
+// helper for getting all terms instead of using a array literal
+function allMatchingTerms(searchParams: SearchParams) {
+  return [
+    matchingTerms(searchParams),
+    ...termsForYear(searchParams),
+    ...termsForTypeCode(searchParams),
+    ...termsForStatusCode(searchParams),
+    ...termsForOrganization(searchParams),
+    ...termsForLanguageCode(searchParams),
+    ...termsForPublicationFormat(searchParams),
+    ...termsForPublicationAudience(searchParams),
+    ...termsForPeerReviewed(searchParams),
+    ...termsForParentPublicationType(searchParams),
+    ...termsForInternationalPublication(searchParams),
+    ...termsForArticleTypeCode(searchParams),
+    ...termsForJufoClassCode(searchParams),
+    ...termsForFieldsOfScience(searchParams),
+    // ...termsForPublicationTypeCode(searchParams) // TODO ENABLE
+  ];
+}
+
+function allMatchingTermsExcept(excluded: string, searchParams: SearchParams) {
+  return [
+    matchingTerms(searchParams),
+    ...(excluded === "year"                     ? [] : termsForYear(searchParams)),
+    ...(excluded === "typeCode"                 ? [] : termsForTypeCode(searchParams)),
+    ...(excluded === "statusCode"               ? [] : termsForStatusCode(searchParams)),
+    ...(excluded === "organization"             ? [] : termsForOrganization(searchParams)),
+    ...(excluded === "languageCode"             ? [] : termsForLanguageCode(searchParams)),
+    ...(excluded === "publicationFormat"        ? [] : termsForPublicationFormat(searchParams)),
+    ...(excluded === "publicationAudience"      ? [] : termsForPublicationAudience(searchParams)),
+    ...(excluded === "peerReviewed"             ? [] : termsForPeerReviewed(searchParams)),
+    ...(excluded === "parentPublicationType"    ? [] : termsForParentPublicationType(searchParams)),
+    ...(excluded === "internationalPublication" ? [] : termsForInternationalPublication(searchParams)),
+    ...(excluded === "articleTypeCode"          ? [] : termsForArticleTypeCode(searchParams)),
+    ...(excluded === "jufoClassCode"            ? [] : termsForJufoClassCode(searchParams)),
+    ...(excluded === "fieldsOfScience"          ? [] : termsForFieldsOfScience(searchParams)),
+    // ...(excluded === "publicationTypeCode"   ? [] : termsForPublicationTypeCode(searchParams)), // TODO ENABLE
+    ];
+}
 
 function toIdNameLookup(data: OrgsAggsResponse): Map<string, string> {
   const pairs = getOrganizationNameBuckets(data).map((bucket) => [bucket.key.id, bucket.key.name]);
@@ -1199,4 +1475,12 @@ export function getArticleTypeCodeAdditions(aggregations: any) {
 
 export function getJufoClassCodeAdditions(aggregations: any) {
   return aggregations.all_data_except_jufoClassCode?.filtered_except_jufoClassCode.all_jufoClassCodes.buckets ?? [];
+}
+
+export function getFieldsOfScienceAdditions(aggregations: any) {
+  return aggregations.all_data_except_fieldsOfScience?.filtered_except_fieldsOfScience.fieldsOfScience_nested.all_fieldsOfScience.buckets ?? [];
+}
+
+export function getPublicationTypeCodeAdditions(aggregations: any) {
+  return aggregations.all_data_except_publicationTypeCode?.filtered_except_publicationTypeCode.all_publicationTypeCodes.buckets ?? [];
 }

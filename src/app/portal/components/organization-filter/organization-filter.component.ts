@@ -5,6 +5,7 @@ import { NgArrayPipesModule } from 'ngx-pipes';
 import { FormsModule } from '@angular/forms';
 import { LimitPipe } from '@portal/pipes/limit.pipe';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
+import { CollapsibleComponent } from '@portal/components/collapsible/collapsible.component';
 
 @Component({
   selector: 'app-organization-filter',
@@ -18,13 +19,16 @@ import { CdkAccordionModule } from '@angular/cdk/accordion';
     NgArrayPipesModule,
     NgForOf,
     FormsModule,
-    CdkAccordionModule
+    CdkAccordionModule,
+    CollapsibleComponent
   ],
   standalone: true
 })
 export class OrganizationFilterComponent {
   @Input() filterData: unknown;
   @Output() selected = new EventEmitter<string>();
+
+  selectedSector = -1;
 
   expanded = false;
   sectorFilter: Record<number, string> = {};

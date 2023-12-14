@@ -1,19 +1,31 @@
 <div class="collapsible-container">
   <div class='collapsible-label' (click)="toggle()">
-    {{label}}
+    <div style='display:flex'>
+      <ng-container *ngIf='decoration === "plus" && isOpen'>
+        <div style='margin-right: 10px'>-</div>
+      </ng-container>
+
+      <ng-container *ngIf='decoration === "plus" && !isOpen'>
+        <div style='margin-right: 10px'>+</div>
+      </ng-container>
+
+      <div>{{label}}</div>
+    </div>
 
     <span>
       <i class="fa fa-chevron-down" [ngClass]='{"icon-collapsed": !isOpen, "icon-expanded": isOpen}'></i>
     </span>
   </div>
 
+  <!--<div class="collapsible-content" [class.collapsed]="!isOpen">
+    &lt;!&ndash; TODO collapse is "instant" if DOM is cleaned before animation &ndash;&gt;
 
-
-  <div class="collapsible-content" [class.collapsed]="!isOpen">
-    <!-- TODO collapse is instant if DOM is cleaned before animation -->
-
-    <!--<ng-container *ngIf='isOpen'>-->
+    &lt;!&ndash;<ng-container *ngIf='isOpen'>&ndash;&gt;
       <ng-content></ng-content>
-    <!--</ng-container>-->
+    &lt;!&ndash;</ng-container>&ndash;&gt;
+  </div>-->
+
+  <div [@expandCollapse]="isOpen ? 'expanded' : 'collapsed'">
+    <ng-content></ng-content>
   </div>
 </div>

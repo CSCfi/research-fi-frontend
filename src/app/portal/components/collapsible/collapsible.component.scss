@@ -16,13 +16,8 @@
   justify-content: space-between;
 }
 
-.collapsible-icon {
-  transition: transform 0.1s ease-out;
-}
-
-/* icon can be flipped */
 .icon-collapsed {
-  transition: transform 0.25s ease-out;
+  transition: transform 0.25s linear;
   transform: rotate(0deg);
 }
 
@@ -31,20 +26,14 @@
   transform: rotate(180deg);
 }
 
-/*.collapsible-container .content {
-
-}
-
-.collapsible-container .content.collapsed {
-  // max-height: 1000px; !* Adjust as needed *!
-}*/
-
-
 .collapsible-content {
+  transition: max-height 0.4s ease-out;
   overflow: hidden;
-  transition: max-height 0.2s ease-out;
+
+  max-height: 1000px;
 }
 
 .collapsed {
+  // transition: 0.2s linear;
   max-height: 0;
 }
