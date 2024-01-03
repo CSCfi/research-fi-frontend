@@ -20,6 +20,7 @@ function parsePublicationSearch(data: any): PublicationSearch {
 }
 
 export interface HighlightedPublication {
+  id: string;
   publicationName: SafeHtml;
   authorsText: SafeHtml;
   authorsTextSplitted: SafeHtml;
@@ -188,6 +189,7 @@ export class Publication2Service {
     };
 
     return {
+      id: searchData._id,
       publicationName: this.sanitizer.sanitize(SecurityContext.HTML, values.publicationName),
       authorsText: this.sanitizer.sanitize(SecurityContext.HTML, values.authorsText),
       authorsTextSplitted: this.sanitizer.sanitize(SecurityContext.HTML, values.authorsTextSplitted),
@@ -498,6 +500,60 @@ export class Publication2Service {
       map(pairs => Object.fromEntries(pairs)),
       shareReplay({ bufferSize: 1, refCount: true })
     );
+  }
+
+  getPublicationTypeCodeNames(): Observable<Record<string, string>> {
+    const labels = [
+      { value: `A`,  name: $localize`@@publicationClassA:Vertaisarvioidut tieteelliset artikkelit` },
+      { value: `A1`, name: $localize`@@publicationClassA1:Alkuperäisartikkeli tieteellisessä aikakauslehdessä` },
+      { value: `A2`, name: $localize`@@publicationClassA2:Katsausartikkeli tieteellisessä aikakauslehdessä` },
+      { value: `A3`, name: $localize`@@publicationClassA3:Kirjan tai muun kokoomateoksen osa` },
+      { value: `A4`, name: $localize`@@publicationClassA4:Artikkeli konferenssijulkaisussa` },
+      { value: `B`,  name: $localize`@@publicationClassB:Vertaisarvioimattomat tieteelliset kirjoitukset` },
+      { value: `B1`, name: $localize`@@publicationClassB1:Kirjoitus tieteellisessä aikakausilehdessä` },
+      { value: `B2`, name: $localize`@@publicationClassB2:Kirjan tai muun kokoomateoksen osa` },
+      { value: `B3`, name: $localize`@@publicationClassB3:Vertaisarvioimaton artikkeli konferenssijulkaisussa` },
+      { value: `C`,  name: $localize`@@publicationClassC:Tieteelliset kirjat` },
+      { value: `C1`, name: $localize`@@publicationClassC1:Kustannettu tieteellinen erillisteos` },
+      { value: `C2`, name: $localize`@@publicationClassC2:Toimitettu kirja, kokoomateos, konferenssijulkaisu tai lehden erikoisnumero` },
+      { value: `D`,  name: $localize`@@publicationClassD:Ammattiyhteisölle suunnatut julkaisut` },
+      { value: `D1`, name: $localize`@@publicationClassD1:Artikkeli ammattilehdessä` },
+      { value: `D2`, name: $localize`@@publicationClassD2:Artikkeli ammatillisessa kokoomateoksessa` },
+      { value: `D3`, name: $localize`@@publicationClassD3:Artikkeli ammatillisessa konferenssijulkaisussa` },
+      { value: `D4`, name: $localize`@@publicationClassD4:Julkaistu kehittämis- tai tutkimusraportti taikka -selvitys` },
+      { value: `D5`, name: $localize`@@publicationClassD5:Ammatillinen kirja` },
+      { value: `D6`, name: $localize`@@publicationClassD6:Toimitettu ammatillinen teos` },
+      { value: `E`,  name: $localize`@@publicationClassE:Suurelle yleisölle suunnatut julkaisut` },
+      { value: `E1`, name: $localize`@@publicationClassE1:Yleistajuinen artikkeli, sanomalehtiartikkeli` },
+      { value: `E2`, name: $localize`@@publicationClassE2:Yleistajuinen monografia` },
+      { value: `E3`, name: $localize`@@publicationClassE3:Toimitettu yleistajuinen teos` },
+      { value: `F`,  name: $localize`@@publicationClassF:Julkinen taiteellinen ja taideteollinen toiminta` },
+      { value: `F1`, name: $localize`@@publicationClassF1:Itsenäinen teos tai esitys` },
+      { value: `F2`, name: $localize`@@publicationClassF2:Taiteellisen teoksen tai esityksen osatoteutus` },
+      { value: `F3`, name: $localize`@@publicationClassF3:Ei-taiteellisen julkaisun taiteellinen osa` },
+      { value: `G`,  name: $localize`@@publicationClassG:Opinnäytteet ` },
+      { value: `G1`, name: $localize`@@publicationClassG1:Ammattikorkeakoulututkinnon opinnäytetyö, kandidaatintyö` },
+      { value: `G2`, name: $localize`@@publicationClassG2:Pro gradu, diplomityö, ylempi amk-opinnäytetyö` },
+      { value: `G3`, name: $localize`@@publicationClassG3:Lisensiaatintyö` },
+      { value: `G4`, name: $localize`@@publicationClassG4:Monografiaväitöskirja` },
+      { value: `G5`, name: $localize`@@publicationClassG5:Artikkeliväitöskirja` },
+      { value: `H`,  name: $localize`@@publicationClassH:Patentit ja keksintöilmoitukset` },
+      { value: `H1`, name: $localize`@@publicationClassH1:Myönnetty patentti` },
+      { value: `H2`, name: $localize`@@publicationClassH2:Keksintöilmoitus` },
+      { value: `I`,  name: $localize`@@publicationClassI:Audiovisuaaliset julkaisut ja tieto- ja viestintätekniset sovellukset` },
+      { value: `I1`, name: $localize`@@publicationClassI1:Audiovisuaaliset julkaisut` },
+      { value: `I2`, name: $localize`@@publicationClassI2:Tieto- ja viestintätekniset sovellukset` }
+    ];
+
+    // Turn into key value object
+    const lookup = labels.reduce((acc, label) => {
+      acc[label.value] = label.name;
+      return acc;
+    });
+
+    return of({
+      ...lookup
+    });
   }
 }
 
@@ -1465,7 +1521,10 @@ export function getParentPublicationTypeAdditions(aggregations: any) {
   return aggregations.all_data_except_parentPublicationType?.filtered_except_parentPublicationType.all_parentPublicationTypes.buckets ?? [];
 }
 
-export function getInternationalPublicationAdditions(aggregations: any) {
+export function getPublisherInternationalityAdditions(aggregations: any) {
+  // used to be called "getInternationalPublicationAdditions"
+
+  // TODO rename all the way to with "PublisherInternationality"
   return aggregations.all_data_except_internationalPublication?.filtered_except_internationalPublication.all_internationalPublications.buckets ?? [];
 }
 

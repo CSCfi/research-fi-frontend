@@ -1,3 +1,9 @@
+<ng-template #tooltipElement>
+  <div>
+    <ng-content select="[tooltip]"></ng-content>
+  </div>
+</ng-template>
+
 <div class="collapsible-container">
   <div class='collapsible-label' (click)="toggle()">
     <div style='display:flex'>
@@ -10,20 +16,18 @@
       </ng-container>
 
       <div>{{label}}</div>
+
+      <ng-container *ngIf='hasTooltip'>
+        <div style='margin-left: 10px; color: rgb(69, 70, 185)'>
+          <i class="fa fa-info-circle" [tooltip]='tooltipElement'></i>
+        </div>
+      </ng-container>
     </div>
 
     <span>
       <i class="fa fa-chevron-down" [ngClass]='{"icon-collapsed": !isOpen, "icon-expanded": isOpen}'></i>
     </span>
   </div>
-
-  <!--<div class="collapsible-content" [class.collapsed]="!isOpen">
-    &lt;!&ndash; TODO collapse is "instant" if DOM is cleaned before animation &ndash;&gt;
-
-    &lt;!&ndash;<ng-container *ngIf='isOpen'>&ndash;&gt;
-      <ng-content></ng-content>
-    &lt;!&ndash;</ng-container>&ndash;&gt;
-  </div>-->
 
   <div [@expandCollapse]="isOpen ? 'expanded' : 'collapsed'">
     <ng-content></ng-content>

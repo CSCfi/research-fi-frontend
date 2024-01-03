@@ -1,7 +1,17 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component, ContentChild,
+  ContentChildren,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  QueryList, TemplateRef,
+  ViewChild
+} from '@angular/core';
 import { NgClass, NgIf } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 @Component({
   selector: 'app-collapsible',
@@ -10,7 +20,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
   imports: [
     NgIf,
     MatIconModule,
-    NgClass
+    NgClass,
+    TooltipModule
   ],
   standalone: true,
   animations: [
@@ -27,6 +38,8 @@ export class CollapsibleComponent {
 
   @Input() isOpen = false;
   @Output() isOpenChange = new EventEmitter<boolean>();
+
+  @Input() hasTooltip = false;
 
   toggle() {
     this.isOpen = !this.isOpen;

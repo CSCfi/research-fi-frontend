@@ -54,7 +54,7 @@
         <div style='margin: 1rem'></div>
 
         <div>
-          <app-collapsible label='Julkaisuvuosi'>
+          <app-collapsible [label]='labelText.yearOfPublication'>
             <ng-container *ngIf='yearFilters$ | async as yearFilters'>
               <ng-container *ngFor='let yearFilter of yearFilters | limit: filterLimits.year'>
                 <app-filter-option [label]='yearFilter.year'
@@ -87,7 +87,11 @@
         <div style='margin: 1rem'></div>
 
         <div>
-          <app-collapsible label='Tieteenala' decoration='plus'>
+          <app-collapsible [label]='labelText.fieldOfScience' decoration='plus' hasTooltip='true'>
+            <ng-container tooltip i18n="@@pFOSFTooltip">
+              Tilastokeskuksen tieteenalaluokitus. Taiteenalat OKM:n luokituksen mukaisesti. Julkaisulla voi olla 1-6 tieteen- tai taiteenalaa.
+            </ng-container>
+
             <ng-container *ngFor='let section of [1, 2, 3, 4, 5, 6, 8]'> <!-- 6 is last real, 9 is error codes -->
 
               <app-collapsible [label]='mainFieldOfScienceName[section]'>
@@ -112,7 +116,11 @@
         <div style='margin: 1rem'></div>
 
         <div>
-          <app-collapsible label='Julkaisutyyppi' decoration='plus'>
+          <app-collapsible [label]='labelText.publicationType' decoration='plus' hasTooltip='true'>
+            <ng-container tooltip i18n="@@pTypeFTooltip">
+              OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.
+            </ng-container>
+
             <ng-container *ngFor='let label of ["A", "B", "C", "D", "E", "F", "G", "I"]'>
 
               <app-collapsible [label]='label'>
@@ -138,7 +146,40 @@
 
         <div>
           <div style='white-space: pre'>
-            <app-collapsible label='Publication Format'>
+            <app-collapsible [label]='labelText.publicationFormat' hasTooltip='true'>
+              <ng-container tooltip>
+                <p>
+                  <strong><ng-container i18n="@@article">Artikkeli: </ng-container></strong>
+                  <ng-container i18n="@@articleTooltipContent">Sisältää alkuperäis- ja katsausartikkelit, kirjan tai lehden johdannot ja esipuheet, lyhyet tutkimusselostukset, pääkirjoitukset, keskustelupuheenvuorot ja kommentit.</ng-container>
+                </p>
+
+                <p>
+                  <strong><ng-container i18n="@@monograph">Erillisteos: </ng-container></strong>
+                  <ng-container i18n="@@monographTooltipContent">Sisältää monografiat/kirjat, tutkimus- ja kehitystyöhön perustuva kehittämis- tai tutkimusraportti, selvitykset, ns. white paperit sekä working papers ja discussion papers -tyyppiset julkaisut.</ng-container>
+                </p>
+
+
+                <p>
+                  <strong><ng-container i18n="@@editorial">Toimitustyö: </ng-container></strong>
+                  <ng-container i18n="@@editorialTooltipContent">Sisältää useista eri kirjoittajien artikkeleista koostuvan tieteellisen kirjan tai lehden erikoisnumeron toimitustyöt.</ng-container>
+                </p>
+
+                <p>
+                  <strong><ng-container i18n="@@abstract">Abstrakti: </ng-container></strong>
+                  <ng-container i18n="@@abstractTooltipContent">Sisältää konferenssiesitelmien abstraktit sekä laajennetut abstraktit.</ng-container>
+                </p>
+
+                <p>
+                  <strong><ng-container i18n="@@poster">Posteri: </ng-container></strong>
+                  <ng-container i18n="@@posterTooltipContent">Sisältää konferenssiesitelmien posterit.</ng-container>
+                </p>
+
+                <p>
+                  <strong><ng-container i18n="@@blog">Blogikirjoitus: </ng-container></strong>
+                  <ng-container i18n="@@blogTooltipContent">Sisältää blogimuotoiset julkaisut, joiden julkaisemisesta on päättänyt riippumaton toimituskunta tai joiden julkaisualustalla on ISSN-tunnus.</ng-container>
+                </p>
+              </ng-container>
+
               <ng-container *ngFor='let publicationFormatFilter of publicationFormatFilters$ | async'>
                 <app-filter-option [label]='publicationFormatFilter.name'
                                    [count]='publicationFormatFilter.count'
@@ -154,7 +195,28 @@
         <div style='margin: 1rem'></div>
 
         <div>
-          <app-collapsible label='Publication Audience'>
+          <app-collapsible [label]='labelText.publicationAudience' hasTooltip='true'>
+            <ng-container tooltip>
+              <p>
+                <ng-container i18n="@@publicationChannelAudience">Julkaisukanavan kohdeyleisö</ng-container>
+              </p>
+
+              <p>
+                <strong><ng-container i18n="@@scientificPublication">Tieteellinen julkaisu: </ng-container></strong>
+                <ng-container i18n="@@scientificPublicationTooltipContent">Julkaisut, jotka on tarkoitettu edistämään tiedettä sekä tuottamaan uutta tietoa.</ng-container>
+              </p>
+
+              <p>
+                <strong><ng-container i18n="@@professionalPublication">Ammatillinen julkaisu:</ng-container></strong>
+                <ng-container i18n="@@professionalPublicationTooltipContent">Julkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.</ng-container>
+              </p>
+
+              <p>
+                <strong><ng-container i18n="@@popularPublication">Yleistajuinen julkaisu:</ng-container></strong>
+                <ng-container i18n="@@popularPublicationTooltipContent">Julkaisut, jotka levittävät tutkimus- ja kehitystyöhön perustuvaa tietoa suurelle yleisölle ja joiden sisällön ymmärtäminen ei edellytä erityistä perehtyneisyyttä alaan.</ng-container>
+              </p>
+            </ng-container>
+
             <ng-container *ngFor='let publicationAudienceFilter of publicationAudienceFilters$ | async'>
               <app-filter-option [label]='publicationAudienceFilter.name'
                                  [count]='publicationAudienceFilter.count'
@@ -170,7 +232,29 @@
         <div style='margin: 1rem'></div>
 
         <div>
-          <app-collapsible label='Parent Publication Type'>
+          <app-collapsible [label]='labelText.parentPublicationType' hasTooltip='true'>
+            <ng-container tooltip>
+              <p>
+                <strong><ng-container i18n="@@journal">Lehti: </ng-container></strong>
+                <ng-container i18n="@@journalTooltipContent">sisältää tieteelliset aikakauslehdet ja ammattilehdet.</ng-container>
+              </p>
+
+              <p>
+                <strong><ng-container i18n="@@researchBook">Kokoomateos: </ng-container></strong>
+                <ng-container i18n="@@researchBookTooltipContent">Sisältää tieteelliset kokoomateokset, tieteelliset vuosikirjat ja vastaavat, ammatilliset käsi- tai opaskirjat, ammatilliset tietojärjestelmät tai kokoomateokset, oppikirja-aineistot sekä lyhyet ensyklopediatekstit.</ng-container>
+              </p>
+
+              <p>
+                <strong><ng-container i18n="@@Conference">Konferenssi: </ng-container></strong>
+                <ng-container i18n="@@ConferenceTooltipContent">Sisältää konferenssin painetut tai julkisesti saatavilla olevat julkaisut, ns. proceedings-julkaisut.</ng-container>
+              </p>
+
+              <p>
+                <strong><ng-container i18n='@@onlinePlatform'>Verkkoalusta: </ng-container></strong>
+                <ng-container i18n="@@onlinePlatformTooltipContent">Sisältää muilla sähköisillä alustoilla julkaistut julkaisut.</ng-container>
+              </p>
+            </ng-container>
+
             <ng-container *ngFor='let parentPublicationTypeFilter of parentPublicationTypeFilters$ | async'>
               <app-filter-option [label]='parentPublicationTypeFilter.name'
                                  [count]='parentPublicationTypeFilter.count'
@@ -185,7 +269,34 @@
         <div style='margin: 1rem'></div>
 
         <div>
-          <app-collapsible label='Article Type'>
+          <app-collapsible [label]='labelText.articleType' hasTooltip='true'>
+            <ng-container tooltip>
+              <p>
+                <strong><ng-container i18n="@@originalArticle">Alkuperäisartikkeli: </ng-container></strong>
+
+                <ng-container i18n="@@originalArticleTooltip">on pääosin aiemmin julkaisemattomasta materiaalista koostuva tieteellinen artikkeli.</ng-container>
+              </p>
+
+              <p>
+                <strong><ng-container i18n="@@reviewArticle">Katsausartikkeli: </ng-container></strong>
+
+                <ng-container i18n="@@reviewArticleTooltip">perustuu aikaisempiin samasta aihepiiristä tehtyihin julkaisuihin.</ng-container>
+              </p>
+
+              <p>
+                <strong><ng-container i18n="@@dataArticle">Data-artikkeli: </ng-container></strong>
+
+                <ng-container i18n="@@dataArticleTooltip">sisältää ns. data journals -julkaisuissa ilmestyneet, tutkimusaineistoja kuvailevat artikkelit.</ng-container>
+              </p>
+
+              <p>
+                <strong><ng-container i18n="@@otherArticle">Muu artikkeli: </ng-container></strong>
+
+                <ng-container i18n="@@otherArticleTooltip">sisältää muihin luokkiin kuulumattomat artikkelit.</ng-container>
+              </p>
+            </ng-container>
+
+
             <ng-container *ngFor='let articleTypeCodeFilter of articleTypeCodeFilters$ | async'>
               <app-filter-option [label]='articleTypeCodeFilter.name'
                                  [count]='articleTypeCodeFilter.count'
@@ -200,7 +311,9 @@
         <div style='margin: 1rem'></div>
 
         <div>
-          <app-collapsible label='Peer Reviewed'>
+          <app-collapsible [label]='labelText.peerReviewed' hasTooltip='true'>
+            <ng-container tooltip i18n="@@peerReviewedTooltip">Tieteellisten julkaisujen vertaisarvioinnilla tarkoitetaan menettelyä, jossa tutkimustuloksia julkaiseva lehti, konferenssi tai kirjakustantaja pyytää tieteenalan asiantuntijoita suorittamaan ennakkoarvion julkaistavaksi tarjottujen käsikirjoitusten tieteellisestä julkaisukelpoisuudesta.</ng-container>
+
             <ng-container *ngFor='let peerReviewedFilter of peerReviewedFilters$ | async'>
               <app-filter-option [label]='peerReviewedFilter.name'
                                  [count]='peerReviewedFilter.count'
@@ -215,8 +328,12 @@
         <div style='margin: 1rem'></div>
 
         <div>
-          <app-collapsible label='International Publication'>
-            <ng-container *ngFor='let internationalPublicationFilter of internationalPublicationFilters$ | async'>
+          <app-collapsible [label]='labelText.publisherInternationality' hasTooltip='true'>
+            <ng-container tooltip i18n="@@pCountryFTooltip">
+              Kotimaisen julkaisun kustantaja on suomalainen tai se on ensisijaisesti julkaistu Suomessa. Kansainvälisen julkaisun kustantaja ei ole suomalainen tai se on ensisijaisesti julkaistu muualla kuin Suomessa.
+            </ng-container>
+
+            <ng-container *ngFor='let internationalPublicationFilter of publisherInternationalityFilters$ | async'>
               <app-filter-option [label]='internationalPublicationFilter.name'
                                  [count]='internationalPublicationFilter.count'
                                  [value]='internationalPublicationFilter.enabled'
@@ -230,7 +347,11 @@
         <div style='margin: 1rem'></div>
 
         <div>
-          <app-collapsible label='Kieli'>
+          <app-collapsible [label]='labelText.language' hasTooltip='true'>
+            <ng-container tooltip i18n="@@pLangFTooltip">
+              Kieli, jolla julkaisu on kirjoitettu.
+            </ng-container>
+
             <ng-container *ngIf='languageCodeFilters$ | async as languageCodeFilters'>
               <ng-container *ngFor='let languageCodeFilter of languageCodeFilters | limit: filterLimits.language'>   <!-- LIMIT ? -->
                 <app-filter-option [label]='languageCodeFilter.name'
@@ -259,7 +380,11 @@
         <div style='margin: 1rem'></div>
 
         <div>
-          <app-collapsible label='Jufo'>
+          <app-collapsible [label]='labelText.jufoLevel' hasTooltip='true'>
+            <ng-container tooltip i18n="@@pJufoFTooltip">
+              Julkaisufoorumin (www.julkaisufoorumi.fi) mukainen julkaisukanavan (kirjakustantaja, konferenssi tai julkaisusarja) tasoluokitus: 1 = perustaso, 2 = johtava taso, 3 = korkein taso. Tasolla 0 ovat kanavat, jotka eivät joltain osin täytä tason 1 vaatimuksia tai ovat uusia. Julkaisufoorumitaso määräytyy julkaisun julkaisuvuoden mukaan.
+            </ng-container>
+
             <ng-container *ngFor='let jufoClassCodeFilter of jufoClassCodeFilters$ | async'>
               <app-filter-option [label]='jufoClassCodeFilter.id'
                                  [count]='jufoClassCodeFilter.count'
@@ -365,7 +490,7 @@
           </ng-container>
 
           <!-- international -->
-          <ng-container *ngFor='let internationalPublicationFilter of internationalPublicationFilters$ | async'>
+          <ng-container *ngFor='let internationalPublicationFilter of publisherInternationalityFilters$ | async'>
             <ng-container *ngIf='internationalPublicationFilter.enabled'>
 
               <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("international", internationalPublicationFilter.id)'>
@@ -405,17 +530,19 @@
       <table cdk-table [dataSource]="dataSource">
         <ng-container cdkColumnDef="publicationName">
           <cdk-header-cell cdk-header-cell *cdkHeaderCellDef>
-            Julkaisun nimi
+            <div i18n="@@publicationName">Julkaisun nimi</div>
           </cdk-header-cell>
 
           <cdk-cell *cdkCellDef="let element">
-            <div [innerHTML]='element.publicationName'></div>
+            <a style='text-decoration: underline' [routerLink]="'/results/publication/' + element.id" >
+              <div [innerHTML]='element.publicationName'></div>
+            </a>
           </cdk-cell>
         </ng-container>
 
         <ng-container cdkColumnDef="authorsText">
           <cdk-header-cell *cdkHeaderCellDef>
-            Tekijät
+            <ng-container i18n="@@publicationAuthors">Tekijät</ng-container>
           </cdk-header-cell>
 
           <cdk-cell *cdkCellDef="let element">
@@ -425,7 +552,7 @@
 
         <ng-container cdkColumnDef="publisherName">
           <cdk-header-cell *cdkHeaderCellDef>
-            Julkaisukanava
+            <ng-container i18n="@@publicationMedium">Julkaisukanava</ng-container>
           </cdk-header-cell>
 
           <cdk-cell *cdkCellDef="let element">
@@ -435,7 +562,7 @@
 
         <ng-container cdkColumnDef="publicationYear">
           <cdk-header-cell *cdkHeaderCellDef>
-            Julkaisuvuosi
+            <ng-container i18n="@@yearOfPublication">Julkaisuvuosi</ng-container>
           </cdk-header-cell>
 
           <cdk-cell *cdkCellDef="let element">

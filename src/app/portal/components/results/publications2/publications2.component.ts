@@ -1,12 +1,12 @@
 import { Component, inject, OnDestroy, Pipe, PipeTransform } from '@angular/core';
 import { CdkTableModule, DataSource } from '@angular/cdk/table';
 import { BehaviorSubject, combineLatest, merge, Observable } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AsyncPipe, JsonPipe, NgForOf, NgIf, NgStyle } from '@angular/common';
 import {
   getArticleTypeCodeAdditions, getFieldsOfScienceAdditions,
-  getInternationalPublicationAdditions, getJufoClassCodeAdditions,
+  getPublisherInternationalityAdditions, getJufoClassCodeAdditions,
   getLanguageCodeAdditions,
   getOrganizationAdditions,
   getParentPublicationTypeAdditions,
@@ -37,7 +37,7 @@ import { FirstLetterPipe } from '@shared/pipes/first-letter.pipe';
   imports: [CdkTableModule, FormsModule, AsyncPipe, JsonPipe, NgForOf, NgIf, LimitPipe, NgArrayPipesModule,
     SharedModule, //TODO not good?
     FormsModule,
-    SearchBar2Component, OrganizationFilterComponent, FilterOptionComponent, CollapsibleComponent, MatButtonModule, NgStyle, FilterLimitButtonComponent, FirstDigitPipe, FirstLetterPipe
+    SearchBar2Component, OrganizationFilterComponent, FilterOptionComponent, CollapsibleComponent, MatButtonModule, NgStyle, FilterLimitButtonComponent, FirstDigitPipe, FirstLetterPipe, RouterLink
   ],
   standalone: true
 })
@@ -49,6 +49,21 @@ export class Publications2Component implements OnDestroy {
   keywords = "";
   page = 1;
   size = 10;
+
+  labelText = {
+    yearOfPublication: $localize`:@@yearOfPublication:Julkaisuvuosi`,
+    organization: $localize`:@@organization:Organisaatio`,
+    fieldOfScience: $localize`:@@fieldOfScience:Tieteenala`,
+    publicationType: $localize`:@@publicationType:Julkaisutyyppi`,
+    publicationFormat: $localize`:@@publicationFormat:Julkaisumuoto`,
+    publicationAudience: $localize`:@@publicationAudience:Julkaisun yleisö`,
+    parentPublicationType: $localize`:@@parentPublicationType:Emojulkaisun tyyppi`,
+    articleType: $localize`:@@articleType:Artikkelin tyyppi`,
+    peerReviewed: $localize`:@@peerReviewed:Vertaisarvioitu`,
+    publisherInternationality: $localize`:@@publisherInternationality:Kustantajan kansainvälisyys`,
+    language: $localize`:@@language:Kieli`,
+    jufoLevel: $localize`:@@jufoLevel:Julkaisufoorumitaso`,
+  }
 
   filterCount$ = new BehaviorSubject(0);
   filterCountLookup: Record<string, number> = {};
@@ -178,14 +193,17 @@ export class Publications2Component implements OnDestroy {
     map(aggs => aggs.sort((a, b) => b.count - a.count))
   );
 
-  internationalPublicationAdditions$ = this.aggregations$.pipe(
-    map(aggs => getInternationalPublicationAdditions(aggs).map((bucket: any) => ({ id: bucket.key.toString(), count: bucket.doc_count })) ?? []),
+  // publisherInternationalityAdditions$
+  publisherInternationalityAdditions$ = this.aggregations$.pipe(
+    map(aggs => getPublisherInternationalityAdditions(aggs).map((bucket: any) => ({ id: bucket.key.toString(), count: bucket.doc_count })) ?? []),
     map(aggs => aggs.sort((a, b) => b.count - a.count))
   );
 
-  internationalPublicationNames$ = this.publications2Service.getInternationalPublicationNames();
+  // publisherInternationalityNames$
+  publisherInternationalityNames$ = this.publications2Service.getInternationalPublicationNames();
 
-  internationalPublicationFilters$ = combineLatest([this.internationalPublicationAdditions$, this.internationalPublicationNames$, this.searchParams$.pipe(map(params => params.international ?? []))]).pipe(
+  // publisherInternationalityFilters$
+  publisherInternationalityFilters$ = combineLatest([this.publisherInternationalityAdditions$, this.publisherInternationalityNames$, this.searchParams$.pipe(map(params => params.international ?? []))]).pipe(
     map(([internationalPublicationAdditions, internationalPublicationNames, enabledFilters]) => internationalPublicationAdditions.map(internationalPublicationAddition => ({
       id: internationalPublicationAddition.id,
       count: internationalPublicationAddition.count,
@@ -244,16 +262,18 @@ export class Publications2Component implements OnDestroy {
     tap(filters => this.updateFilterCount("fieldsOfScience", filters.filter(filter => filter.enabled).length))
   );
 
+  publicationTypeCodeNames$ = this.publications2Service.getPublicationTypeCodeNames();
+
   publicationTypeCodeAdditions$ = this.aggregations$.pipe(
     map(aggs => getPublicationTypeCodeAdditions(aggs).map((bucket: any) => ({ id: bucket.key.toString(), count: bucket.doc_count })) ?? []),
     map(aggs => aggs.sort((a, b) => b.count - a.count))
   );
 
-  publicationTypeCodeFilters$ = combineLatest([this.publicationTypeCodeAdditions$, this.searchParams$.pipe(map(params => params.publicationTypeCode ?? []))]).pipe(
-    map(([publicationTypeCodeAdditions, enabledFilters]) => publicationTypeCodeAdditions.map(publicationTypeCodeAddition => ({
+  publicationTypeCodeFilters$ = combineLatest([this.publicationTypeCodeAdditions$, this.publicationTypeCodeNames$, this.searchParams$.pipe(map(params => params.publicationTypeCode ?? []))]).pipe(
+    map(([publicationTypeCodeAdditions, publicationTypeCodeNames, enabledFilters]) => publicationTypeCodeAdditions.map(publicationTypeCodeAddition => ({
       id: publicationTypeCodeAddition.id,
       count: publicationTypeCodeAddition.count,
-      name: publicationTypeCodeAddition.id,
+      name: publicationTypeCodeNames[publicationTypeCodeAddition.id],
       enabled: enabledFilters.includes(publicationTypeCodeAddition.id)
     }))),
     tap(filters => this.updateFilterCount("publicationTypeCode", filters.filter(filter => filter.enabled).length))

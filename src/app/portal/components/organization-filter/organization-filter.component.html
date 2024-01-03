@@ -1,5 +1,9 @@
 <div style="background-color: lightcoral">
-  <app-collapsible label='Organisaatio' decoration='plus'>
+  <app-collapsible i18n-label='@@organization' label='Organisaatio' decoration='plus' hasTooltip='true'>
+    <ng-container tooltip i18n="@@pOrgFTooltip">
+      Julkaisun tekijän suomalainen organisaatio. Palvelu ei toistaiseksi sisällä tietoja julkaisujen ulkomaisista organisaatioista.
+    </ng-container>
+
     <ng-container *ngFor="let sector of [1,2,3,4,6]; let index = index;">
       <app-collapsible label='{{sectorNames[sector]}}' [isOpen]='sector === selectedSector' (isOpenChange)='selectedSector = sector'>
         <div><input type='checkbox'>Valitse kaikki</div>
