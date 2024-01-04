@@ -119,6 +119,10 @@ export class Publication2Service {
       from: from,
       size: size,
       track_total_hits: true,
+      sort: [
+        "_score",
+        { "publicationYear": { "order": "desc" } }
+      ],
       query: {
         bool: {
           must: {

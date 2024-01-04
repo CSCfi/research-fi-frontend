@@ -1,7 +1,7 @@
 import { Component, inject, OnDestroy, Pipe, PipeTransform } from '@angular/core';
 import { CdkTableModule, DataSource } from '@angular/cdk/table';
 import { BehaviorSubject, combineLatest, merge, Observable } from 'rxjs';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AsyncPipe, JsonPipe, NgForOf, NgIf, NgStyle } from '@angular/common';
 import {
@@ -37,6 +37,7 @@ import { FirstLetterPipe } from '@shared/pipes/first-letter.pipe';
   imports: [CdkTableModule, FormsModule, AsyncPipe, JsonPipe, NgForOf, NgIf, LimitPipe, NgArrayPipesModule,
     SharedModule, //TODO not good?
     FormsModule,
+    RouterModule,
     SearchBar2Component, OrganizationFilterComponent, FilterOptionComponent, CollapsibleComponent, MatButtonModule, NgStyle, FilterLimitButtonComponent, FirstDigitPipe, FirstLetterPipe, RouterLink
   ],
   standalone: true
