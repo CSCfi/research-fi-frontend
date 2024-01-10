@@ -41,12 +41,13 @@ export class OrganizationFilterComponent {
     6: 10,
   };
 
+  /* TODO localization solution */ // TODO ?
   public sectorNames = {
-    1: "Yliopisto",
-    2: "Ammattikorkeakoulu",
-    3: "Tutkimuslaitos",
-    4: "Yliopistollisen sairaalan erityisvastuualue",
-    6: "Muu"
+    1: $localize`:@@organizationSector1:Yliopisto`,
+    2: $localize`:@@organizationSector2:Ammattikorkeakoulu`,
+    3: $localize`:@@organizationSector3:Tutkimuslaitos`,
+    4: $localize`:@@organizationSector4:Yliopistollisen sairaalan erityisvastuualue`,
+    6: $localize`:@@organizationSector5:Muu`
   }
 
   toggleExpanded() {

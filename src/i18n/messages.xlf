@@ -394,6 +394,9 @@
           <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="notPeerReviewed" datatype="html">
+        <source>Ei-vertaisarvioitu</source>
+      </trans-unit>
       <trans-unit id="openAccess" datatype="html">
         <source>Avoin saatavuus</source>
         <context-group purpose="location">
@@ -1850,6 +1853,12 @@
       <trans-unit id="otherSciences">
         <source>Muut tieteet</source>
       </trans-unit>
+      <trans-unit id="arts">
+        <source>Taidealat</source>
+      </trans-unit>
+      <trans-unit id="fieldsOfArt">
+        <source>Taiteenalat</source>
+      </trans-unit>
       <!-- Publication class -->
       <trans-unit id="2864646710185946746">
         <source>Vertaisarvioidut tieteelliset artikkelit</source>
@@ -2514,6 +2523,35 @@
       <trans-unit id="publicationClassI2" datatype="html">
         <source>Tieto- ja viestintätekniset sovellukset</source>
       </trans-unit>
+
+      <trans-unit id="organizationSector1" datatype="html">
+        <source>Yliopisto</source>
+      </trans-unit>
+
+      <trans-unit id="organizationSector2" datatype="html">
+        <source>Ammattikorkeakoulu</source>
+      </trans-unit>
+
+      <trans-unit id="organizationSector3" datatype="html">
+        <source>Tutkimuslaitos</source>
+      </trans-unit>
+
+      <trans-unit id="organizationSector4" datatype="html">
+        <source>Yliopistollisen sairaalan erityisvastuualue</source>
+      </trans-unit>
+
+      <trans-unit id="organizationSector5" datatype="html">
+        <source>Muu</source>
+      </trans-unit>
+
+      <trans-unit id="domesticPublication" datatype="html">
+        <source>Kotimainen</source>
+      </trans-unit>
+
+      <trans-unit id="internationalPublication" datatype="html">
+        <source>Kansainvälinen</source>
+      </trans-unit>
+
     </body>
   </file>
 </xliff>

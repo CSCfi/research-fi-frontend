@@ -121,12 +121,12 @@
               OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.
             </ng-container>
 
-            <ng-container *ngFor='let label of ["A", "B", "C", "D", "E", "F", "G", "I"]'>
+            <ng-container *ngFor='let label of publicationTypeLabels'>
 
-              <app-collapsible [label]='label'>
+              <app-collapsible [label]='label.text'>
                 <ng-container *ngFor='let publicationTypeCodeFilter of publicationTypeCodeFilters$ | async'>
 
-                  <ng-container *ngIf='(publicationTypeCodeFilter.id | firstLetter) === label'>
+                  <ng-container *ngIf='(publicationTypeCodeFilter.id | firstLetter) === label.id'>
                     <app-filter-option [label]='publicationTypeCodeFilter.name'
                                        [count]='publicationTypeCodeFilter.count'
                                        [value]='publicationTypeCodeFilter.enabled'

@@ -66,6 +66,18 @@ export class Publications2Component implements OnDestroy {
     jufoLevel: $localize`:@@jufoLevel:Julkaisufoorumitaso`,
   }
 
+  publicationTypeLabels = [
+    {id: "A", text: $localize`:@@publicationClassA:Vertaisarvioidut tieteelliset artikkelit`},
+    {id: "B", text: $localize`:@@publicationClassB:Vertaisarvioimattomat tieteelliset kirjoitukset`},
+    {id: "C", text: $localize`:@@publicationClassC:Tieteelliset kirjat`},
+    {id: "D", text: $localize`:@@publicationClassD:Ammattiyhteisölle suunnatut julkaisut`},
+    {id: "E", text: $localize`:@@publicationClassE:Suurelle yleisölle suunnatut julkaisut`},
+    {id: "F", text: $localize`:@@publicationClassF:Julkinen taiteellinen ja taideteollinen toiminta`},
+    {id: "G", text: $localize`:@@publicationClassG:Opinnäytteet`},
+    {id: "I", text: $localize`:@@publicationClassI:Audiovisuaaliset julkaisut ja tieto- ja viestintätekniset sovellukset`},
+  ];
+
+
   filterCount$ = new BehaviorSubject(0);
   filterCountLookup: Record<string, number> = {};
 
@@ -300,27 +312,15 @@ export class Publications2Component implements OnDestroy {
     tap(filters => this.updateFilterCount("parentPublicationType", filters.filter(filter => filter.enabled).length))
   );
 
-
-
-  /* TODO localization solution */
-  public sectorName = {
-    1: "Yliopisto",
-    2: "Ammattikorkeakoulu",
-    3: "Tutkimuslaitos",
-    4: "Yliopistollisen sairaalan erityisvastuualue",
-    6: "Muu"
-  };
-
-  /* TODO localization solution */
   public mainFieldOfScienceName = {
-    "1": "Luonnontieteet",
-    "2": "Tekniikka",
-    "3": "Lääke- ja terveystieteet",
-    "4": "Maatalous- ja metsätieteet",
-    "5": "Yhteiskuntatieteet",
-    "6": "Humanistiset tieteet",
+    "1": $localize`:@@naturalSciences:Luonnontieteet`,
+    "2": $localize`:@@engineeringTecnology:Tekniikka`,
+    "3": $localize`:@@medicalHealthSciences:Lääke- ja terveystieteet`,
+    "4": $localize`:@@agriculturalSciences:Maatalous- ja metsätieteet`,
+    "5": $localize`:@@socialSciences:Yhteiskuntatieteet`,
+    "6": $localize`:@@humanities:Humanistiset tieteet`,
     // 7 not used
-    "8": "Taiteenala",
+    "8": $localize`:@@fieldsOfArt:Taiteenala`,
   }
 
   /*public collapseStates = {

@@ -6,7 +6,7 @@
 
 <div class="collapsible-container">
   <div class='collapsible-label' (click)="toggle()">
-    <div style='display:flex'>
+    <div style='display: flex; flex-wrap: wrap'>
       <ng-container *ngIf='decoration === "plus" && isOpen'>
         <div style='margin-right: 10px'>-</div>
       </ng-container>
@@ -15,17 +15,19 @@
         <div style='margin-right: 10px'>+</div>
       </ng-container>
 
-      <div>{{label}}</div>
+      <div>
+        {{label}}
 
-      <ng-container *ngIf='hasTooltip'>
-        <div style='margin-left: 10px; color: rgb(69, 70, 185)'>
-          <i class="fa fa-info-circle" [tooltip]='tooltipElement'></i>
-        </div>
-      </ng-container>
+        <ng-container *ngIf='hasTooltip'>
+          <div style='display: inline-block; margin-left: 10px; color: rgb(69, 70, 185)'>
+            <i class="fa fa-info-circle" [tooltip]='tooltipElement'></i>
+          </div>
+        </ng-container>
+      </div>
     </div>
 
     <span>
-      <i class="fa fa-chevron-down" [ngClass]='{"icon-collapsed": !isOpen, "icon-expanded": isOpen}'></i>
+      <i style='margin: 0 4px' class="fa fa-chevron-down" [ngClass]='{"icon-collapsed": !isOpen, "icon-expanded": isOpen}'></i>
     </span>
   </div>
 

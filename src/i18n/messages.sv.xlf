@@ -564,6 +564,10 @@
           <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="notPeerReviewed" datatype="html">
+        <source>Ei-vertaisarvioitu</source>
+        <target>Inte kollegialt utvärderad</target>
+      </trans-unit>
       <trans-unit id="openAccess" datatype="html">
         <source>Avoin saatavuus</source>
         <target state="translated">Öppen tillgång</target>
@@ -6479,6 +6483,42 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Tieto- ja viestintätekniset sovellukset</source>
         <target>Informations- och kommunikationstekniktillämpningar</target>
       </trans-unit>
+
+      <trans-unit id="organizationSector1" datatype="html">
+        <source>Yliopisto</source>
+        <target>Universitet</target>
+      </trans-unit>
+
+      <trans-unit id="organizationSector2" datatype="html">
+        <source>Ammattikorkeakoulu</source>
+        <target>Yrkeshögskola</target>
+      </trans-unit>
+
+      <trans-unit id="organizationSector3" datatype="html">
+        <source>Tutkimuslaitos</source>
+        <target>Forskningsinstitut</target>
+      </trans-unit>
+
+      <trans-unit id="organizationSector4" datatype="html">
+        <source>Yliopistollisen sairaalan erityisvastuualue</source>
+        <target>Universitetssjukhuset</target>
+      </trans-unit>
+
+      <trans-unit id="organizationSector5" datatype="html">
+       <source>Muu</source>
+       <target>Övrig</target>
+      </trans-unit>
+
+      <trans-unit id="domesticPublication" datatype="html">
+        <source>Kotimainen</source>
+        <target>Inhemsk</target>
+      </trans-unit>
+
+      <trans-unit id="internationalPublication" datatype="html">
+        <source>Kansainvälinen</source>
+        <target>Internationell</target>
+      </trans-unit>
+
     </body>
   </file>
 </xliff>

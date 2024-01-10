@@ -6,6 +6,11 @@ import { map, switchMap, take, tap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
+import { locale } from "../../../environments/locale";
+const path = suffixer(locale);
+
+console.log("LOOK HERE:", path`fieldsOfScience.nameFiScience.keyword`);
+
 /*const PublicationSearchSchema = object({
   publicationId: string(),
   title: string(),
@@ -66,7 +71,9 @@ export class Publication2Service {
   sanitizer = inject(DomSanitizer);
   locale = inject(LOCALE_ID);
 
-  path = suffixer(this.locale);
+  // path = suffixer(this.locale);
+
+  searchUrl = 'https://researchfi-api-qa.rahtiapp.fi/portalapi/publication/_search?'
 
   // organizationNames$ = this.getOrganizationNames();
 
@@ -115,7 +122,7 @@ export class Publication2Service {
 
     searchParams = searchParams as SearchParams; // TODO no effect?
 
-    return this.http.post('https://researchfi-api-qa.rahtiapp.fi/portalapi/publication/_search?', {
+    return this.http.post(this.searchUrl, {
       from: from,
       size: size,
       track_total_hits: true,
@@ -228,7 +235,7 @@ export class Publication2Service {
                         'size': 65536,
                         'sources': [
                           { 'id': { 'terms': { 'field': 'author.organization.organizationId.keyword' } } },
-                          { 'name': { 'terms': { 'field': 'author.organization.OrganizationNameFi.keyword' } } }        // TODO path template needed
+                          { 'name': { 'terms': { 'field': path`author.organization.OrganizationNameFi.keyword` } } }        // TODO path template needed
                         ]
                       }
                     }
@@ -244,7 +251,7 @@ export class Publication2Service {
     const sectorIds = [1, 2, 3, 4, /*5,*/ 6];
 
     const responses$ = sectorIds.map((sectorId) => {
-      return this.http.post<OrgsAggsResponse>('https://researchfi-api-qa.rahtiapp.fi/portalapi/publication/_search?', organizationNamesBySector(sectorId)).pipe(
+      return this.http.post<OrgsAggsResponse>(this.searchUrl, organizationNamesBySector(sectorId)).pipe(
         map((res) => getOrganizationNameBuckets(res).map((bucket) => [bucket.key.id, {name: bucket.key.name, sectorId}])),
       );
     });
@@ -271,7 +278,7 @@ export class Publication2Service {
             'size': 1000,
             'sources': [
               { 'id': { 'terms': { 'field': 'languages.languageCode.keyword' } } },
-              { 'nameFiLanguage': { 'terms': { 'field': 'languages.languageFi.keyword' } } }
+              { 'nameFiLanguage': { 'terms': { 'field': path`languages.languageFi.keyword` } } }                        // TODO: does the key need to be localized? // TODO remove "fi" ?
             ]
           }
         }
@@ -292,7 +299,7 @@ export class Publication2Service {
       };
     };
 
-    const response$ = this.http.post<LanguageAggregation>('https://researchfi-api-qa.rahtiapp.fi/portalapi/publication/_search?', body);
+    const response$ = this.http.post<LanguageAggregation>(this.searchUrl, body);
 
     return response$.pipe(
       map((res) => res.aggregations.composite_pairs.buckets.map((bucket) => [bucket.key.id, bucket.key.nameFiLanguage])),  // TODO localized path needed
@@ -310,7 +317,7 @@ export class Publication2Service {
             'size': 1000,
             'sources': [
               { 'id': { 'terms': { 'field': 'publicationFormat.id.keyword' } } },
-              { 'nameFiFormat': { 'terms': { 'field': 'publicationFormat.nameFiPublicationFormat.keyword' } } }
+              { 'nameFiFormat': { 'terms': { 'field': path`publicationFormat.nameFiPublicationFormat.keyword` } } }  // TODO Does the key need to be localized? // TODO remove "fi" ?
             ]
           }
         }
@@ -331,7 +338,7 @@ export class Publication2Service {
       };
     };
 
-    const response$ = this.http.post<PublicationFormatAggregation>('https://researchfi-api-qa.rahtiapp.fi/portalapi/publication/_search?', body);
+    const response$ = this.http.post<PublicationFormatAggregation>(this.searchUrl, body);
 
     return response$.pipe(
       map((res) => res.aggregations.composite_pairs.buckets.map((bucket) => [bucket.key.id, bucket.key.nameFiFormat])),  // TODO localized path needed
@@ -349,7 +356,7 @@ export class Publication2Service {
             'size': 1000,
             'sources': [
               { 'id': { 'terms': { 'field': 'publicationAudience.id.keyword' } } },
-              { 'nameFiAudience': { 'terms': { 'field': 'publicationAudience.nameFiPublicationAudience.keyword' } } }
+              { 'nameFiAudience': { 'terms': { 'field': path`publicationAudience.nameFiPublicationAudience.keyword` } } } // TODO Does the key need to be localized? // TODO remove "fi" ?
             ]
           }
         }
@@ -370,7 +377,7 @@ export class Publication2Service {
       };
     };
 
-    const response$ = this.http.post<PublicationAudienceAggregation>('https://researchfi-api-qa.rahtiapp.fi/portalapi/publication/_search?', body);
+    const response$ = this.http.post<PublicationAudienceAggregation>(this.searchUrl, body);
 
     return response$.pipe(
       map((res) => res.aggregations.composite_pairs.buckets.map((bucket) => [bucket.key.id, bucket.key.nameFiAudience])),  // TODO localized path needed
@@ -393,7 +400,7 @@ export class Publication2Service {
             "size": 1000,
             "sources": [
               { "id": { "terms": { "field": "parentPublicationType.id.keyword" } } },
-              { "nameFiParentPublicationType": { "terms": { "field": "parentPublicationType.nameFiParentPublicationType.keyword" } } }
+                { "nameFiParentPublicationType": { "terms": { "field": path`parentPublicationType.nameFiParentPublicationType.keyword` } } } // TODO Does the key need to be localized? // TODO remove "fi" ?
             ]
           }
         }
@@ -414,7 +421,7 @@ export class Publication2Service {
       };
     };
 
-    const response$ = this.http.post<ParentPublicationTypeAggregation>('https://researchfi-api-qa.rahtiapp.fi/portalapi/publication/_search?', body);
+    const response$ = this.http.post<ParentPublicationTypeAggregation>(this.searchUrl, body);
 
     return response$.pipe(
       map((res) => res.aggregations.composite_pairs.buckets.map((bucket) => [bucket.key.id, bucket.key.nameFiParentPublicationType])),  // TODO localized path needed
@@ -425,24 +432,24 @@ export class Publication2Service {
 
   getPeerReviewedNames(): Observable<Record<string, string>> {
     return of({
-      "0": "Ei-vertaisarvioitu", // TODO use localize``
-      "1": "Vertaisarvioitu"     // TODO use localize``
+      "0": $localize`:@@notPeerReviewed:Ei-vertaisarvioitu`,  // TODO does not exist in localization file
+      "1": $localize`:@@peerReviewed:Vertaisarvioitu`
     });
   }
 
   getInternationalPublicationNames(): Observable<Record<string, string>> {
     return of({
-      "0": "Kotimainen julkaisu",    // TODO use localize``
-      "1": "Kansainvälinen julkaisu" // TODO use localize``
+      "0": $localize`:@@domesticPublication:Kotimainen julkaisu`,
+      "1": $localize`:@@internationalPublication:Kansainvälinen julkaisu`
     });
   }
 
   getArticleTypeCodeNames(): Observable<Record<string, string>> {
     return of({
-      "0": "Lehti",       // TODO use localize``
-      "1": "Kokoomateos", // TODO use localize``
-      "2": "Konferenssi", // TODO use localize``
-      "3": "Verkkoalusta" // TODO use localize``
+      "0": $localize`:@@journal:Lehti`,
+      "1": $localize`:@@researchBook:Kokoomateos`,
+      "2": $localize`:@@Conference:Konferenssi`,
+      "3": $localize`:@@onlinePlatform:Verkkoalusta`
     });
   }
 
@@ -469,7 +476,7 @@ export class Publication2Service {
                   {
                     "name": {
                       "terms": {
-                        "field": "fieldsOfScience.nameFiScience.keyword"                                                // TODO localized path needed
+                        'field': path`fieldsOfScience.nameFiScience.keyword`                                                // TODO localized path needed
                       }
                     }
                   }
@@ -497,7 +504,7 @@ export class Publication2Service {
       };
     };
 
-    const response$ = this.http.post<FieldsOfScienceAggregation>('https://researchfi-api-qa.rahtiapp.fi/portalapi/publication/_search?', body);
+    const response$ = this.http.post<FieldsOfScienceAggregation>(this.searchUrl, body);
 
     return response$.pipe(
       map((res) => res.aggregations.fieldsOfScience_nested.composite_field_of_science.buckets.map((bucket) => [bucket.key.id, bucket.key.name])),
@@ -508,45 +515,45 @@ export class Publication2Service {
 
   getPublicationTypeCodeNames(): Observable<Record<string, string>> {
     const labels = [
-      { value: `A`,  name: $localize`@@publicationClassA:Vertaisarvioidut tieteelliset artikkelit` },
-      { value: `A1`, name: $localize`@@publicationClassA1:Alkuperäisartikkeli tieteellisessä aikakauslehdessä` },
-      { value: `A2`, name: $localize`@@publicationClassA2:Katsausartikkeli tieteellisessä aikakauslehdessä` },
-      { value: `A3`, name: $localize`@@publicationClassA3:Kirjan tai muun kokoomateoksen osa` },
-      { value: `A4`, name: $localize`@@publicationClassA4:Artikkeli konferenssijulkaisussa` },
-      { value: `B`,  name: $localize`@@publicationClassB:Vertaisarvioimattomat tieteelliset kirjoitukset` },
-      { value: `B1`, name: $localize`@@publicationClassB1:Kirjoitus tieteellisessä aikakausilehdessä` },
-      { value: `B2`, name: $localize`@@publicationClassB2:Kirjan tai muun kokoomateoksen osa` },
-      { value: `B3`, name: $localize`@@publicationClassB3:Vertaisarvioimaton artikkeli konferenssijulkaisussa` },
-      { value: `C`,  name: $localize`@@publicationClassC:Tieteelliset kirjat` },
-      { value: `C1`, name: $localize`@@publicationClassC1:Kustannettu tieteellinen erillisteos` },
-      { value: `C2`, name: $localize`@@publicationClassC2:Toimitettu kirja, kokoomateos, konferenssijulkaisu tai lehden erikoisnumero` },
-      { value: `D`,  name: $localize`@@publicationClassD:Ammattiyhteisölle suunnatut julkaisut` },
-      { value: `D1`, name: $localize`@@publicationClassD1:Artikkeli ammattilehdessä` },
-      { value: `D2`, name: $localize`@@publicationClassD2:Artikkeli ammatillisessa kokoomateoksessa` },
-      { value: `D3`, name: $localize`@@publicationClassD3:Artikkeli ammatillisessa konferenssijulkaisussa` },
-      { value: `D4`, name: $localize`@@publicationClassD4:Julkaistu kehittämis- tai tutkimusraportti taikka -selvitys` },
-      { value: `D5`, name: $localize`@@publicationClassD5:Ammatillinen kirja` },
-      { value: `D6`, name: $localize`@@publicationClassD6:Toimitettu ammatillinen teos` },
-      { value: `E`,  name: $localize`@@publicationClassE:Suurelle yleisölle suunnatut julkaisut` },
-      { value: `E1`, name: $localize`@@publicationClassE1:Yleistajuinen artikkeli, sanomalehtiartikkeli` },
-      { value: `E2`, name: $localize`@@publicationClassE2:Yleistajuinen monografia` },
-      { value: `E3`, name: $localize`@@publicationClassE3:Toimitettu yleistajuinen teos` },
-      { value: `F`,  name: $localize`@@publicationClassF:Julkinen taiteellinen ja taideteollinen toiminta` },
-      { value: `F1`, name: $localize`@@publicationClassF1:Itsenäinen teos tai esitys` },
-      { value: `F2`, name: $localize`@@publicationClassF2:Taiteellisen teoksen tai esityksen osatoteutus` },
-      { value: `F3`, name: $localize`@@publicationClassF3:Ei-taiteellisen julkaisun taiteellinen osa` },
-      { value: `G`,  name: $localize`@@publicationClassG:Opinnäytteet ` },
-      { value: `G1`, name: $localize`@@publicationClassG1:Ammattikorkeakoulututkinnon opinnäytetyö, kandidaatintyö` },
-      { value: `G2`, name: $localize`@@publicationClassG2:Pro gradu, diplomityö, ylempi amk-opinnäytetyö` },
-      { value: `G3`, name: $localize`@@publicationClassG3:Lisensiaatintyö` },
-      { value: `G4`, name: $localize`@@publicationClassG4:Monografiaväitöskirja` },
-      { value: `G5`, name: $localize`@@publicationClassG5:Artikkeliväitöskirja` },
-      { value: `H`,  name: $localize`@@publicationClassH:Patentit ja keksintöilmoitukset` },
-      { value: `H1`, name: $localize`@@publicationClassH1:Myönnetty patentti` },
-      { value: `H2`, name: $localize`@@publicationClassH2:Keksintöilmoitus` },
-      { value: `I`,  name: $localize`@@publicationClassI:Audiovisuaaliset julkaisut ja tieto- ja viestintätekniset sovellukset` },
-      { value: `I1`, name: $localize`@@publicationClassI1:Audiovisuaaliset julkaisut` },
-      { value: `I2`, name: $localize`@@publicationClassI2:Tieto- ja viestintätekniset sovellukset` }
+      { value: `A`,  name: $localize`:@@publicationClassA:Vertaisarvioidut tieteelliset artikkelit` },
+      { value: `A1`, name: $localize`:@@publicationClassA1:Alkuperäisartikkeli tieteellisessä aikakauslehdessä` },
+      { value: `A2`, name: $localize`:@@publicationClassA2:Katsausartikkeli tieteellisessä aikakauslehdessä` },
+      { value: `A3`, name: $localize`:@@publicationClassA3:Kirjan tai muun kokoomateoksen osa` },
+      { value: `A4`, name: $localize`:@@publicationClassA4:Artikkeli konferenssijulkaisussa` },
+      { value: `B`,  name: $localize`:@@publicationClassB:Vertaisarvioimattomat tieteelliset kirjoitukset` },
+      { value: `B1`, name: $localize`:@@publicationClassB1:Kirjoitus tieteellisessä aikakausilehdessä` },
+      { value: `B2`, name: $localize`:@@publicationClassB2:Kirjan tai muun kokoomateoksen osa` },
+      { value: `B3`, name: $localize`:@@publicationClassB3:Vertaisarvioimaton artikkeli konferenssijulkaisussa` },
+      { value: `C`,  name: $localize`:@@publicationClassC:Tieteelliset kirjat` },
+      { value: `C1`, name: $localize`:@@publicationClassC1:Kustannettu tieteellinen erillisteos` },
+      { value: `C2`, name: $localize`:@@publicationClassC2:Toimitettu kirja, kokoomateos, konferenssijulkaisu tai lehden erikoisnumero` },
+      { value: `D`,  name: $localize`:@@publicationClassD:Ammattiyhteisölle suunnatut julkaisut` },
+      { value: `D1`, name: $localize`:@@publicationClassD1:Artikkeli ammattilehdessä` },
+      { value: `D2`, name: $localize`:@@publicationClassD2:Artikkeli ammatillisessa kokoomateoksessa` },
+      { value: `D3`, name: $localize`:@@publicationClassD3:Artikkeli ammatillisessa konferenssijulkaisussa` },
+      { value: `D4`, name: $localize`:@@publicationClassD4:Julkaistu kehittämis- tai tutkimusraportti taikka -selvitys` },
+      { value: `D5`, name: $localize`:@@publicationClassD5:Ammatillinen kirja` },
+      { value: `D6`, name: $localize`:@@publicationClassD6:Toimitettu ammatillinen teos` },
+      { value: `E`,  name: $localize`:@@publicationClassE:Suurelle yleisölle suunnatut julkaisut` },
+      { value: `E1`, name: $localize`:@@publicationClassE1:Yleistajuinen artikkeli, sanomalehtiartikkeli` },
+      { value: `E2`, name: $localize`:@@publicationClassE2:Yleistajuinen monografia` },
+      { value: `E3`, name: $localize`:@@publicationClassE3:Toimitettu yleistajuinen teos` },
+      { value: `F`,  name: $localize`:@@publicationClassF:Julkinen taiteellinen ja taideteollinen toiminta` },
+      { value: `F1`, name: $localize`:@@publicationClassF1:Itsenäinen teos tai esitys` },
+      { value: `F2`, name: $localize`:@@publicationClassF2:Taiteellisen teoksen tai esityksen osatoteutus` },
+      { value: `F3`, name: $localize`:@@publicationClassF3:Ei-taiteellisen julkaisun taiteellinen osa` },
+      { value: `G`,  name: $localize`:@@publicationClassG:Opinnäytteet` },
+      { value: `G1`, name: $localize`:@@publicationClassG1:Ammattikorkeakoulututkinnon opinnäytetyö, kandidaatintyö` },
+      { value: `G2`, name: $localize`:@@publicationClassG2:Pro gradu, diplomityö, ylempi amk-opinnäytetyö` },
+      { value: `G3`, name: $localize`:@@publicationClassG3:Lisensiaatintyö` },
+      { value: `G4`, name: $localize`:@@publicationClassG4:Monografiaväitöskirja` },
+      { value: `G5`, name: $localize`:@@publicationClassG5:Artikkeliväitöskirja` },
+      { value: `H`,  name: $localize`:@@publicationClassH:Patentit ja keksintöilmoitukset` },
+      { value: `H1`, name: $localize`:@@publicationClassH1:Myönnetty patentti` },
+      { value: `H2`, name: $localize`:@@publicationClassH2:Keksintöilmoitus` },
+      { value: `I`,  name: $localize`:@@publicationClassI:Audiovisuaaliset julkaisut ja tieto- ja viestintätekniset sovellukset` },
+      { value: `I1`, name: $localize`:@@publicationClassI1:Audiovisuaaliset julkaisut` },
+      { value: `I2`, name: $localize`:@@publicationClassI2:Tieto- ja viestintätekniset sovellukset` }
     ];
 
     // Turn into key value object
@@ -1254,10 +1261,13 @@ type OrganizationAggregation = {
 function suffixer(locale) {
   const capitalized = locale.charAt(0).toUpperCase() + locale.slice(1).toLowerCase();
 
-  return strings => strings[0].replace(/(Fi|Sv|En)(?=\.|$)/g, capitalized);
-}
 
-const path = suffixer("fi");
+  // replace Fi with capitalized from middle or end of the string
+  // return strings => strings[0].replace(/(Fi|Sv|En)(?=\.|$)/g, capitalized);
+
+  // replace Fi with capitalized if the following character is a dot or a capital letter or end of string
+  return strings => strings[0].replace(/(Fi|Sv|En)(?=[\.A-Z]|$)/g, capitalized);
+}
 
 // NOTE: nested is needed for array type mapping
 function termsForOrganization(searchParams: SearchParams) {

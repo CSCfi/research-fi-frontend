@@ -570,6 +570,10 @@
           <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="notPeerReviewed" datatype="html">
+        <source>Ei-vertaisarvioitu</source>
+        <target>Non Peer-Reviewed</target>
+      </trans-unit>
       <trans-unit id="openAccess" datatype="html">
         <source>Avoin saatavuus</source>
         <target>Open access</target>
@@ -6475,6 +6479,42 @@
         <source>Tieto- ja viestintätekniset sovellukset</source>
         <target>ICT applications</target>
       </trans-unit>
+
+      <trans-unit id="organizationSector1" datatype="html">
+        <source>Yliopisto</source>
+        <target>University</target>
+      </trans-unit>
+
+      <trans-unit id="organizationSector2" datatype="html">
+        <source>Ammattikorkeakoulu</source>
+        <target>University of Applied Sciences</target>
+      </trans-unit>
+
+      <trans-unit id="organizationSector3" datatype="html">
+        <source>Tutkimuslaitos</source>
+        <target>Research institute</target>
+      </trans-unit>
+
+      <trans-unit id="organizationSector4" datatype="html">
+        <source>Yliopistollisen sairaalan erityisvastuualue</source>
+        <target>University Hospital</target>
+      </trans-unit>
+
+      <trans-unit id="organizationSector5" datatype="html">
+        <source>Muu</source>
+        <target>Other</target>
+      </trans-unit>
+
+      <trans-unit id="domesticPublication" datatype="html">
+        <source>Kotimainen</source>
+        <target>Domestic</target>
+      </trans-unit>
+
+      <trans-unit id="internationalPublication" datatype="html">
+        <source>Kansainvälinen</source>
+        <target>International</target>
+      </trans-unit>
+
     </body>
   </file>
 </xliff>
