@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatRippleModule } from '@angular/material/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-filter-option',
@@ -8,7 +9,8 @@ import { MatRippleModule } from '@angular/material/core';
   styleUrls: ['./filter-option.component.scss'],
   imports: [
     FormsModule,
-    MatRippleModule
+    MatRippleModule,
+    MatCheckboxModule
   ],
   standalone: true
 })
