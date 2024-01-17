@@ -394,6 +394,54 @@
             </ng-container>
           </app-collapsible>
         </div>
+
+        <!-- TODO DELETE -->
+        <div style='margin: 1rem'></div>
+
+        <div>
+          <app-collapsible [label]='labelText.openAccess' hasTooltip='true'>
+            <ng-container tooltip>
+              <p>
+                <strong><ng-container i18n='@@openAccessPublicationChannel'>Open access -julkaisukanava: </ng-container></strong>
+                <ng-container>Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.</ng-container>
+              </p>
+
+              <p>
+                <strong><ng-container i18n='@@delayedOpenAccessInfoCaption'>Viivästetty avoin saatavuus: </ng-container></strong>
+                <ng-container i18n='@@delayedOpenAccessInfo'>Julkaisukanavan tieteelliset artikkelit avataan kustantajan määrittelemän viiveajan jälkeen. Sisältää sekä jo avoimesti saatavilla että yhä maksumuurin takana olevia julkaisuja.</ng-container>
+              </p>
+
+              <p>
+                <strong><ng-container i18n='@@selfArchived'>Rinnakkaistallennettu: </ng-container></strong>
+                <ng-container>Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.</ng-container>
+              </p>
+
+              <p>
+                <strong><ng-container i18n='@@otherOpenAccess'>Muu avoin saatavuus: </ng-container></strong>
+                <ng-container>Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.</ng-container>
+              </p>
+
+              <p>
+                <strong><ng-container i18n='@@nonOpenAccess'>Ei avoin: </ng-container></strong>
+                <ng-container i18n='@@nonOpenAccessInfo'>Julkaisu ei ole ilmestynyt avoimessa julkaisukanavassa, eikä julkaisua ole saatavilla avoimena rinnakkaistallenteena. Huom. myös julkaisut jotka ovat tilapäisesti avoimesti saatavilla, esimerkiksi ajankohtaisen yhteiskunnallisesti merkittävän aiheen tai kustantajan markkinointikampanjan takia, tulevat näkyville tämän kategorian kautta.</ng-container>
+              </p>
+
+              <p>
+                <strong><ng-container i18n='@@noOpenAccessData'>Ei tietoa: </ng-container></strong>
+                <ng-container i18n='@@noOpenAccessDataInfo'>Julkaisun avoimen saatavuuden tilaa ei ole raportoitu.</ng-container>
+              </p>
+            </ng-container>
+
+            <ng-container *ngFor='let openAccessFilter of openAccessFilters$ | async'>
+              <app-filter-option [label]='openAccessFilter.name'
+                                 [count]='openAccessFilter.count'
+                                 [value]='openAccessFilter.enabled'
+                                 (valueChange)='toggleParam("openAccess", openAccessFilter.id)'>
+              </app-filter-option>
+            </ng-container>
+          </app-collapsible>
+        </div>
+
       </div>
     </div>
 

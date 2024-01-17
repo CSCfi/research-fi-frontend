@@ -15,7 +15,7 @@ import {
   getPublicationFormatAdditions, getPublicationTypeCodeAdditions,
   getYearAdditions,
   HighlightedPublication,
-  Publication2Service
+  Publication2Service, getOpenAccessAdditions
 } from '@portal/services/publication2.service';
 import { map, take, tap } from 'rxjs/operators';
 import { SharedModule } from '@shared/shared.module';
@@ -64,6 +64,7 @@ export class Publications2Component implements OnDestroy {
     publisherInternationality: $localize`:@@publisherInternationality:Kustantajan kansainvälisyys`,
     language: $localize`:@@language:Kieli`,
     jufoLevel: $localize`:@@jufoLevel:Julkaisufoorumitaso`,
+    openAccess: $localize`:@@openAccess:Avoin saatavuus`,
   }
 
   publicationTypeLabels = [
@@ -311,6 +312,25 @@ export class Publications2Component implements OnDestroy {
     }))),
     tap(filters => this.updateFilterCount("parentPublicationType", filters.filter(filter => filter.enabled).length))
   );
+
+  // TODO: OPEN ACCESS FILTER
+
+  additionsFromOpenAccess$ = this.aggregations$.pipe(
+    map(aggs => getOpenAccessAdditions(aggs).map((bucket: any) => ({ id: bucket.key.toString(), count: bucket.doc_count })) ?? []),
+    map(aggs => aggs.sort((a, b) => b.count - a.count))
+  );
+
+  openAccessFilters$ = combineLatest([this.additionsFromOpenAccess$, this.searchParams$.pipe(map(params => params.openAccess ?? []))]).pipe(
+    map(([additionsFromOpenAccess, enabledFilters]) => additionsFromOpenAccess.map(additionFromOpenAccess => ({
+      id: additionFromOpenAccess.id,
+      count: additionFromOpenAccess.count,
+      name: additionFromOpenAccess.id,                                // TODO TODO TODO TODO
+      enabled: enabledFilters.includes(additionFromOpenAccess.id)
+    }))),
+    tap(filters => this.updateFilterCount("openAccess", filters.filter(filter => filter.enabled).length))
+  );
+
+
 
   public mainFieldOfScienceName = {
     "1": $localize`:@@naturalSciences:Luonnontieteet`,
