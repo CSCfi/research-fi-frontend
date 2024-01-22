@@ -442,6 +442,45 @@
           </app-collapsible>
         </div>
 
+        <!-- TODO DELETE -->
+        <div style='margin: 1rem'></div>
+
+        <div>
+          <app-collapsible [label]='labelText.publisherOpenAccess' hasTooltip='true'>
+            <ng-container tooltip>
+              TODO
+            </ng-container>
+
+            <ng-container *ngFor='let publisherOpenAccessFilter of publisherOpenAccessFilters$ | async'>
+              <app-filter-option [label]='publisherOpenAccessFilter.name'
+                                 [count]='publisherOpenAccessFilter.count'
+                                 [value]='publisherOpenAccessFilter.enabled'
+                                 (valueChange)='toggleParam("publisherOpenAccessCode", publisherOpenAccessFilter.id)'>
+              </app-filter-option>
+            </ng-container>
+          </app-collapsible>
+        </div>
+
+        <!-- TODO DELETE -->
+        <div style='margin: 1rem'></div>
+
+        <!-- selfArchive -->
+        <div>
+          <app-collapsible [label]='labelText.selfArchivedCode' hasTooltip='true'>
+            <ng-container tooltip>
+              TODO
+            </ng-container>
+
+            <ng-container *ngFor='let selfArchiveFilter of selfArchivedCodeFilters$ | async'>
+              <app-filter-option [label]='selfArchiveFilter.name'
+                                 [count]='selfArchiveFilter.count'
+                                 [value]='selfArchiveFilter.enabled'
+                                 (valueChange)='toggleParam("selfArchive", selfArchiveFilter.id)'>
+              </app-filter-option>
+            </ng-container>
+          </app-collapsible>
+        </div>
+
       </div>
     </div>
 

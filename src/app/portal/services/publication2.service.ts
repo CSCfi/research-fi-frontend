@@ -724,32 +724,142 @@ function termsForJufoClassCode(searchParams: SearchParams) {
   return [];
 }
 
-function additionsFromYear(searchParams: SearchParams) {
-  return {
-    "all_data_except_publicationYear": {
-      "global": {},
-      "aggregations": {
-        "filtered_except_publicationYear": {
-          "filter": {
-            "bool": {
-              "must": [
-                ...additionFilterTerms("year", searchParams),
+function generateAggregationStep(name: string, lookup: Record<string, string> = {}) {
+  const fieldName = lookup[name] ?? name;
+
+  const topLevelPath = `all_data_except_${fieldName}`;
+  const middleLevelPath = `filtered_except_${fieldName}`;
+  const bottomLevelPath = `all_${fieldName}`;
+
+  function getAdditions(searchParams: SearchParams) {
+    const global = searchParams[name] != null
+
+    if (global) {
+      return {
+        [topLevelPath]: {
+          global: {},
+          aggregations: {
+            [middleLevelPath]: {
+              filter: {
+                bool: {
+                  must: [
+                    ...additionFilterTerms(name, searchParams)
+                  ]
+                }
+              },
+              aggregations: {
+                [bottomLevelPath]: {
+                  terms: {
+                    field: fieldName,
+                    size: 100
+                  }
+                }
+              }
+            }
+          }
+        }
+      };
+    } else {
+      return {
+        [topLevelPath]: {
+          filter: {
+            bool: {
+              must: [
+                ...additionFilterTerms(name, searchParams)
               ]
             }
           },
-          "aggregations": {
-            "all_publicationYears": {
-              "terms": {
-                "field": "publicationYear",
-                "size": 250,
+          aggregations: {
+            [bottomLevelPath]: {
+              terms: {
+                field: fieldName,
+                size: 100
+              }
+            }
+          }
+        }
+      };
+    }
+  }
+
+  function getBuckets(aggregations: any) {
+    // Use the topLevelPath, middleLevelPath and bottomLevelPath to get the buckets
+    // Detect if global query was made, without explicit "global" parameter
+    if (aggregations[topLevelPath]?.[middleLevelPath]?.[bottomLevelPath]?.buckets) {
+      return aggregations[topLevelPath][middleLevelPath][bottomLevelPath].buckets;
+    } else {
+      return aggregations[topLevelPath][bottomLevelPath].buckets;
+    }
+  }
+
+  return [getAdditions, getBuckets];
+}
+
+// TODO lookup for urlParam and field name
+const lookup = {
+  "year": "publicationYear",
+}
+
+const [additionsFromYear, getYearAdditions] = generateAggregationStep("year", lookup);
+export { getYearAdditions };
+
+function NOT_additionsFromYear(searchParams: SearchParams, global = false) {
+  if (global)
+    return {
+      "all_data_except_publicationYear": {
+        "global": {},
+        "aggregations": {
+          "filtered_except_publicationYear": {
+            "filter": {
+              "bool": {
+                "must": [
+                  ...additionFilterTerms("year", searchParams),
+                ]
+              }
+            },
+            "aggregations": {
+              "all_publicationYears": {
+                "terms": {
+                  "field": "publicationYear",
+                  "size": 250,
+                }
               }
             }
           }
         }
       }
-    }
-  };
+    };
+
+  else
+    return {
+      "all_data_except_publicationYear": {
+        "filter": {
+          "bool": {
+            "must": [
+              ...additionFilterTerms("year", searchParams),
+            ]
+          }
+        },
+        "aggregations": {
+          "all_publicationYears": {
+            "terms": {
+              "field": "publicationYear",
+              "size": 250,
+            }
+          }
+        }
+      }
+    };
 }
+
+export function NOT_getYearAdditions(aggregations: /*YearAggregation*/ any, global = false) {
+  if (global)
+    return aggregations.all_data_except_publicationYear?.filtered_except_publicationYear.all_publicationYears.buckets ?? [];
+  else
+    return aggregations.all_data_except_publicationYear.all_publicationYears.buckets ?? [];
+}
+
+
 
 type YearAggregation = {
   all_data_except_publicationYear: {
@@ -764,7 +874,9 @@ type YearAggregation = {
   };
 };
 
-function additionsFromTypeCode(searchParams: SearchParams) {
+// TODO IS THIS USED?
+function additionsFromTypeCode(searchParams: SearchParams, global = false) {
+  if (global)
   return {
     "all_data_except_publicationTypeCode": {
       "global": {},
@@ -788,6 +900,26 @@ function additionsFromTypeCode(searchParams: SearchParams) {
       }
     }
   };
+
+  else
+    return {
+      "all_data_except_publicationTypeCode": {
+        "filter": {
+          "bool": {
+            "must": [
+              ...additionFilterTerms("publicationTypeCode", searchParams),
+            ]
+          }
+        },
+        "aggregations": {
+          "all_publicationTypeCodes": {
+            "terms": {
+              "field": "publicationTypeCode.keyword"
+            }
+          }
+        }
+      }
+    };
 }
 
 function additionsFromStatusCode(searchParams: SearchParams) {
@@ -816,7 +948,8 @@ function additionsFromStatusCode(searchParams: SearchParams) {
   };
 }
 
-function additionsFromLanguageCode(searchParams: SearchParams) {
+function additionsFromLanguageCode(searchParams: SearchParams, global = false) {
+  if (global)
   return {
     "all_data_except_languageCode": {
       "global": {},
@@ -841,9 +974,31 @@ function additionsFromLanguageCode(searchParams: SearchParams) {
       }
     }
   };
+
+  else
+    return {
+      "all_data_except_languageCode": {
+        "filter": {
+          "bool": {
+            "must": [
+              ...additionFilterTerms("language", searchParams),
+            ]
+          }
+        },
+        "aggregations": {
+          "all_languageCodes": {
+            "terms": {
+              "field": "languages.languageCode.keyword",
+              "size": 1000,
+            }
+          }
+        }
+      }
+    };
 }
 
-function additionsFromPublicationFormat(searchParams: SearchParams) {
+function additionsFromPublicationFormat(searchParams: SearchParams, global = false) {
+  if (global)
   return {
     "all_data_except_publicationFormat": {
       "global": {},
@@ -868,9 +1023,31 @@ function additionsFromPublicationFormat(searchParams: SearchParams) {
       }
     }
   };
+
+  else
+    return {
+      "all_data_except_publicationFormat": {
+        "filter": {
+          "bool": {
+            "must": [
+              ...additionFilterTerms("publicationFormat", searchParams),
+            ]
+          }
+        },
+        "aggregations": {
+          "all_publicationFormats": {
+            "terms": {
+              "field": "publicationFormat.id.keyword",
+              "size": 1000,
+            }
+          }
+        }
+      }
+    };
 }
 
-function additionsFromPublicationAudience(searchParams: SearchParams) {
+function additionsFromPublicationAudience(searchParams: SearchParams, global = false) {
+  if (global)
   return {
     "all_data_except_publicationAudience": {
       "global": {},
@@ -894,9 +1071,30 @@ function additionsFromPublicationAudience(searchParams: SearchParams) {
       }
     }
   };
+
+  else
+    return {
+      "all_data_except_publicationAudience": {
+        "filter": {
+          "bool": {
+            "must": [
+              ...additionFilterTerms("publicationAudience", searchParams),
+            ]
+          }
+        },
+        "aggregations": {
+          "all_publicationAudiences": {
+            "terms": {
+              "field": "publicationAudience.id.keyword"
+            }
+          }
+        }
+      }
+    };
 }
 
-function additionsFromPeerReviewed(searchParams: SearchParams) {
+function additionsFromPeerReviewed(searchParams: SearchParams, global = false) {
+  if (global)
   return {
     "all_data_except_peerReviewed": {
       "global": {},
@@ -921,9 +1119,31 @@ function additionsFromPeerReviewed(searchParams: SearchParams) {
       }
     }
   };
+
+  else
+    return {
+      "all_data_except_peerReviewed": {
+        "filter": {
+          "bool": {
+            "must": [
+              ...additionFilterTerms("peerReviewed", searchParams),
+            ]
+          }
+        },
+        "aggregations": {
+          "all_peerReviewed": {
+            "terms": {
+              "field": "peerReviewed.id.keyword",
+              "size": 100
+            }
+          }
+        }
+      }
+    };
 }
 
-function additionsFromParentPublicationType(searchParams: SearchParams) {
+function additionsFromParentPublicationType(searchParams: SearchParams, global = false) {
+  if (global)
   return {
     "all_data_except_parentPublicationType": {
       "global": {},
@@ -948,9 +1168,31 @@ function additionsFromParentPublicationType(searchParams: SearchParams) {
       }
     }
   }
+
+  else
+    return {
+      "all_data_except_parentPublicationType": {
+        "filter": {
+          "bool": {
+            "must": [
+              ...additionFilterTerms("parentPublicationType", searchParams),
+            ]
+          }
+        },
+        "aggregations": {
+          "all_parentPublicationTypes": {
+            "terms": {
+              "field": "parentPublicationType.id.keyword",
+              "size": 100
+            }
+          }
+        }
+      }
+    };
 }
 
-function additionsFromInternationalPublication(searchParams: SearchParams) {
+function additionsFromInternationalPublication(searchParams: SearchParams, global = false) {
+  if (global)
   return {
     "all_data_except_internationalPublication": {
       "global": {},
@@ -975,10 +1217,32 @@ function additionsFromInternationalPublication(searchParams: SearchParams) {
       }
     }
   }
+
+  else
+    return {
+      "all_data_except_internationalPublication": {
+        "filter": {
+          "bool": {
+            "must": [
+              ...additionFilterTerms("internationalPublication", searchParams),
+            ]
+          }
+        },
+        "aggregations": {
+          "all_internationalPublications": {
+            "terms": {
+              "field": "internationalPublication",
+              "size": 100
+            }
+          }
+        }
+      }
+    };
 }
 
-function additionsFromArticleTypeCode(searchParams: SearchParams) {
-return {
+function additionsFromArticleTypeCode(searchParams: SearchParams, global = false) {
+  if (global)
+  return {
     "all_data_except_articleTypeCode": {
       "global": {},
       "aggregations": {
@@ -1002,9 +1266,31 @@ return {
       }
     }
   }
+
+  else
+    return {
+      "all_data_except_articleTypeCode": {
+        "filter": {
+          "bool": {
+            "must": [
+              ...additionFilterTerms("articleTypeCode", searchParams),
+            ]
+          }
+        },
+        "aggregations": {
+          "all_articleTypeCodes": {
+            "terms": {
+              "field": "articleTypeCode",
+              "size": 100
+            }
+          }
+        }
+      }
+    };
 }
 
-function additionsFromJufoClassCode(searchParams: SearchParams) {
+function additionsFromJufoClassCode(searchParams: SearchParams, global = false) {
+  if (global)
   return {
     "all_data_except_jufoClassCode": {
       "global": {},
@@ -1029,9 +1315,31 @@ function additionsFromJufoClassCode(searchParams: SearchParams) {
       }
     }
   }
+
+  else
+    return {
+      "all_data_except_jufoClassCode": {
+        "filter": {
+          "bool": {
+            "must": [
+              ...additionFilterTerms("jufoClassCode", searchParams),
+            ]
+          }
+        },
+        "aggregations": {
+          "all_jufoClassCodes": {
+            "terms": {
+              "field": "jufoClassCode.keyword",
+              "size": 100
+            }
+          }
+        }
+      }
+    };
 }
 
-function additionsFromFieldsOfScience(searchParams: SearchParams) {
+function additionsFromFieldsOfScience(searchParams: SearchParams, global = false) {
+  if (global)
   return {
     "all_data_except_fieldsOfScience": {
       "global": {},
@@ -1063,6 +1371,34 @@ function additionsFromFieldsOfScience(searchParams: SearchParams) {
       }
     }
   };
+
+  else
+    return {
+      "all_data_except_fieldsOfScience": {
+        "filter": {
+          "bool": {
+            "must": [
+              ...additionFilterTerms("fieldsOfScience", searchParams),
+            ]
+          }
+        },
+        "aggregations": {
+          "fieldsOfScience_nested": {
+            "nested": {
+              "path": "fieldsOfScience"
+            },
+            "aggregations": {
+              "all_fieldsOfScience": {
+                "terms": {
+                  "field": "fieldsOfScience.fieldIdScience",
+                  "size": 1000,
+                }
+              }
+            }
+          }
+        }
+      }
+    };
 }
 
 type OrganizationAggregation = {
@@ -1172,7 +1508,8 @@ function termsForOpenAccess(searchParams: SearchParams) {
   return [];
 }
 
-function additionsFromOpenAccess(searchParams: SearchParams) {
+function additionsFromOpenAccess(searchParams: SearchParams, global = false) {
+  if (global)
   return {
     "all_data_except_openAccess": {
       "global": {},
@@ -1197,6 +1534,27 @@ function additionsFromOpenAccess(searchParams: SearchParams) {
       }
     }
   };
+
+  else
+    return {
+      "all_data_except_openAccess": {
+        "filter": {
+          "bool": {
+            "must": [
+              ...additionFilterTerms("openAccess", searchParams),
+            ]
+          }
+        },
+        "aggregations": {
+          "all_openAccess": {
+            "terms": {
+              "field": "openAccess",
+              "size": 100
+            }
+          }
+        }
+      }
+    };
 }
 
 /*GET publication/_search
@@ -1224,6 +1582,55 @@ function termsForPublisherOpenAccessCode(searchParams: SearchParams) {
   return [];
 }
 
+function additionsFromPublisherOpenAccessCode(searchParams: SearchParams, global = false) {
+  if (global)
+  return {
+    "all_data_except_publisherOpenAccessCode": {
+      "global": {},
+      "aggregations": {
+        "filtered_except_publisherOpenAccessCode": {
+          "filter": {
+            "bool": {
+              "must": [
+                ...additionFilterTerms("publisherOpenAccessCode", searchParams),
+              ]
+            }
+          },
+          "aggregations": {
+            "all_publisherOpenAccessCodes": {
+              "terms": {
+                "field": "publisherOpenAccessCode",
+                "size": 100
+              }
+            }
+          }
+        }
+      }
+    }
+  };
+
+  else
+    return {
+      "all_data_except_publisherOpenAccessCode": {
+        "filter": {
+          "bool": {
+            "must": [
+              ...additionFilterTerms("publisherOpenAccessCode", searchParams),
+            ]
+          }
+        },
+        "aggregations": {
+          "all_publisherOpenAccessCodes": {
+            "terms": {
+              "field": "publisherOpenAccessCode",
+              "size": 100
+            }
+          }
+        }
+      }
+    };
+}
+
 /*GET publication/_search
 {
   "size": 0,
@@ -1248,7 +1655,57 @@ function termsForSelfArchivedCode(searchParams: SearchParams) {
   return [];
 }
 
-function additionsFromPublicationTypeCode(searchParams: SearchParams) {
+function additionsFromSelfArchivedCode(searchParams: SearchParams, global = false) {
+  if (global)
+  return {
+    "all_data_except_selfArchivedCode": {
+      "global": {},
+      "aggregations": {
+        "filtered_except_selfArchivedCode": {
+          "filter": {
+            "bool": {
+              "must": [
+                ...additionFilterTerms("selfArchivedCode", searchParams),
+              ]
+            }
+          },
+          "aggregations": {
+            "all_selfArchivedCodes": {
+              "terms": {
+                "field": "selfArchivedCode.keyword",
+                "size": 100
+              }
+            }
+          }
+        }
+      }
+    }
+  };
+
+  else
+    return {
+      "all_data_except_selfArchivedCode": {
+        "filter": {
+          "bool": {
+            "must": [
+              ...additionFilterTerms("selfArchivedCode", searchParams),
+            ]
+          }
+        },
+        "aggregations": {
+          "all_selfArchivedCodes": {
+            "terms": {
+              "field": "selfArchivedCode.keyword",
+              "size": 100
+            }
+          }
+        }
+      }
+    };
+}
+
+function additionsFromPublicationTypeCode(searchParams: SearchParams, global = false) {
+  if (global)
   return {
     "all_data_except_publicationTypeCode": {
       "global": {},
@@ -1273,9 +1730,31 @@ function additionsFromPublicationTypeCode(searchParams: SearchParams) {
       }
     }
   };
+
+  else
+    return {
+      "all_data_except_publicationTypeCode": {
+        "filter": {
+          "bool": {
+            "must": [
+              ...additionFilterTerms("publicationTypeCode", searchParams),
+            ]
+          }
+        },
+        "aggregations": {
+          "all_publicationTypeCodes": {
+            "terms": {
+              "field": "publicationTypeCode.keyword",
+              "size": 100
+            }
+          }
+        }
+      }
+    };
 }
 
-function additionsFromOrganization(searchParams: SearchParams) {
+function additionsFromOrganization(searchParams: SearchParams, global = false) {
+  if (global)
   return {
     "all_data_except_organizationId": {
       "global": {},
@@ -1307,6 +1786,34 @@ function additionsFromOrganization(searchParams: SearchParams) {
       }
     }
   };
+
+  else
+    return {
+      "all_data_except_organizationId": {
+        "filter": {
+          "bool": {
+            "must": [
+              ...additionFilterTerms("organization", searchParams),
+            ]
+          }
+        },
+        "aggregations": {
+          "organization_nested": {
+            "nested": {
+              "path": "author"
+            },
+            "aggregations": {
+              "all_organizationIds": {
+                "terms": {
+                  "field": "author.organization.organizationId.keyword",
+                  "size": 250,
+                }
+              }
+            }
+          }
+        }
+      }
+    };
 }
 
 type OrgsAggsResponse = {
@@ -1346,13 +1853,15 @@ function filteringTerms(searchParams: SearchParams) {
     ...termsForFieldsOfScience(searchParams),
     ...termsForPublicationTypeCode(searchParams),
     ...termsForOpenAccess(searchParams),
+    ...termsForPublisherOpenAccessCode(searchParams),
+    ...termsForSelfArchivedCode(searchParams),
   ];
 }
 
 function aggregationTerms(searchParams: SearchParams) {
   return {
     ...additionsFromYear(searchParams),
-    ...additionsFromTypeCode(searchParams),
+    ...additionsFromTypeCode(searchParams),   // TODO is this used?
     ...additionsFromStatusCode(searchParams),
     ...additionsFromOrganization(searchParams),
     ...additionsFromLanguageCode(searchParams),
@@ -1366,6 +1875,8 @@ function aggregationTerms(searchParams: SearchParams) {
     ...additionsFromFieldsOfScience(searchParams),
     ...additionsFromPublicationTypeCode(searchParams),
     ...additionsFromOpenAccess(searchParams),
+    ...additionsFromPublisherOpenAccessCode(searchParams),
+    ...additionsFromSelfArchivedCode(searchParams),
   };
 }
 
@@ -1387,6 +1898,8 @@ function additionFilterTerms(excluded: string, searchParams: SearchParams) {
     ...(excluded === "fieldsOfScience"          ? [] : termsForFieldsOfScience(searchParams)),
     ...(excluded === "publicationTypeCode"      ? [] : termsForPublicationTypeCode(searchParams)),
     ...(excluded === "openAccess"               ? [] : termsForOpenAccess(searchParams)),
+    ...(excluded === "publisherOpenAccessCode"  ? [] : termsForPublisherOpenAccessCode(searchParams)),
+    ...(excluded === "selfArchivedCode"         ? [] : termsForSelfArchivedCode(searchParams)),
   ];
 }
 
@@ -1400,57 +1913,106 @@ function getOrganizationNameBuckets(response: OrgsAggsResponse) {
   return response.aggregations.filtered_authors.single_sector.organizations.composite_orgs.buckets;
 }
 
-export function getOrganizationAdditions(aggregations: OrganizationAggregation) {
-  return aggregations.all_data_except_organizationId?.filtered_except_organizationId.organization_nested.all_organizationIds.buckets ?? [];
+
+export function getOrganizationAdditions(aggregations: /*OrganizationAggregation*/ any, global = false) {
+  if (global)
+    return aggregations.all_data_except_organizationId?.filtered_except_organizationId.organization_nested.all_organizationIds.buckets ?? [];
+  else
+    return aggregations.all_data_except_organizationId.organization_nested.all_organizationIds.buckets ?? [];
 }
 
-export function getYearAdditions(aggregations: YearAggregation) {
-  return aggregations.all_data_except_publicationYear?.filtered_except_publicationYear.all_publicationYears.buckets ?? [];
+export function getLanguageCodeAdditions(aggregations: any, global = false) {
+  if (global)
+    return aggregations.all_data_except_languageCode?.filtered_except_languageCode.all_languageCodes.buckets ?? [];
+  else {
+    return aggregations.all_data_except_languageCode.all_languageCodes.buckets ?? [];
+  }
 }
 
-export function getLanguageCodeAdditions(aggregations: any) {
-  return aggregations.all_data_except_languageCode?.filtered_except_languageCode.all_languageCodes.buckets ?? [];
+export function getPublicationFormatAdditions(aggregations: any, global = false) {
+  if (global)
+    return aggregations.all_data_except_publicationFormat?.filtered_except_publicationFormat.all_publicationFormats.buckets ?? [];
+  else
+    return aggregations.all_data_except_publicationFormat.all_publicationFormats.buckets ?? [];
 }
 
-export function getPublicationFormatAdditions(aggregations: any) {
-  return aggregations.all_data_except_publicationFormat?.filtered_except_publicationFormat.all_publicationFormats.buckets ?? [];
+export function getPublicationAudienceAdditions(aggregations: any, global = false) {
+  if (global)
+    return aggregations.all_data_except_publicationAudience?.filtered_except_publicationAudience.all_publicationAudiences.buckets ?? [];
+  else
+    return aggregations.all_data_except_publicationAudience.all_publicationAudiences.buckets ?? [];
 }
 
-export function getPublicationAudienceAdditions(aggregations: any) {
-  return aggregations.all_data_except_publicationAudience?.filtered_except_publicationAudience.all_publicationAudiences.buckets ?? [];
-}
-
-export function getPeerReviewedAdditions(aggregations: any) {
+export function getPeerReviewedAdditions(aggregations: any, global = false) {
+  if (global)
   return aggregations.all_data_except_peerReviewed?.filtered_except_peerReviewed.all_peerReviewed.buckets ?? [];
+  else
+    return aggregations.all_data_except_peerReviewed.all_peerReviewed.buckets ?? [];
 }
 
-export function getParentPublicationTypeAdditions(aggregations: any) {
-  return aggregations.all_data_except_parentPublicationType?.filtered_except_parentPublicationType.all_parentPublicationTypes.buckets ?? [];
+export function getParentPublicationTypeAdditions(aggregations: any, global = false) {
+  if (global)
+    return aggregations.all_data_except_parentPublicationType?.filtered_except_parentPublicationType.all_parentPublicationTypes.buckets ?? [];
+  else
+    return aggregations.all_data_except_parentPublicationType.all_parentPublicationTypes.buckets ?? [];
 }
 
-export function getPublisherInternationalityAdditions(aggregations: any) {
+export function getPublisherInternationalityAdditions(aggregations: any, global = false) {
   // used to be called "getInternationalPublicationAdditions"
 
   // TODO rename all the way to with "PublisherInternationality"
+
+  if (global)
   return aggregations.all_data_except_internationalPublication?.filtered_except_internationalPublication.all_internationalPublications.buckets ?? [];
+  else
+    return aggregations.all_data_except_internationalPublication.all_internationalPublications.buckets ?? [];
 }
 
-export function getArticleTypeCodeAdditions(aggregations: any) {
-  return aggregations.all_data_except_articleTypeCode?.filtered_except_articleTypeCode.all_articleTypeCodes.buckets ?? [];
+export function getArticleTypeCodeAdditions(aggregations: any, global = false) {
+  if (global)
+    return aggregations.all_data_except_articleTypeCode?.filtered_except_articleTypeCode.all_articleTypeCodes.buckets ?? [];
+  else
+    return aggregations.all_data_except_articleTypeCode.all_articleTypeCodes.buckets ?? [];
 }
 
-export function getJufoClassCodeAdditions(aggregations: any) {
-  return aggregations.all_data_except_jufoClassCode?.filtered_except_jufoClassCode.all_jufoClassCodes.buckets ?? [];
+export function getJufoClassCodeAdditions(aggregations: any, global = false) {
+  if (global)
+    return aggregations.all_data_except_jufoClassCode?.filtered_except_jufoClassCode.all_jufoClassCodes.buckets ?? [];
+  else
+    return aggregations.all_data_except_jufoClassCode.all_jufoClassCodes.buckets ?? [];
 }
 
-export function getFieldsOfScienceAdditions(aggregations: any) {
-  return aggregations.all_data_except_fieldsOfScience?.filtered_except_fieldsOfScience.fieldsOfScience_nested.all_fieldsOfScience.buckets ?? [];
+export function getFieldsOfScienceAdditions(aggregations: any, global = false) {
+  if (global)
+    return aggregations.all_data_except_fieldsOfScience?.filtered_except_fieldsOfScience.fieldsOfScience_nested.all_fieldsOfScience.buckets ?? [];
+  else
+    return aggregations.all_data_except_fieldsOfScience.fieldsOfScience_nested.all_fieldsOfScience.buckets ?? [];
 }
 
-export function getPublicationTypeCodeAdditions(aggregations: any) {
-  return aggregations.all_data_except_publicationTypeCode?.filtered_except_publicationTypeCode.all_publicationTypeCodes.buckets ?? [];
+export function getPublicationTypeCodeAdditions(aggregations: any, global = false) {
+  if (global)
+    return aggregations.all_data_except_publicationTypeCode?.filtered_except_publicationTypeCode.all_publicationTypeCodes.buckets ?? [];
+  else
+    return aggregations.all_data_except_publicationTypeCode.all_publicationTypeCodes.buckets ?? [];
 }
 
-export function getOpenAccessAdditions(aggregations: any) {
-  return aggregations.all_data_except_openAccess?.filtered_except_openAccess.all_openAccess.buckets ?? [];
+export function getOpenAccessAdditions(aggregations: any, global = false) {
+  if (global)
+    return aggregations.all_data_except_openAccess?.filtered_except_openAccess.all_openAccess.buckets ?? [];
+  else
+    return aggregations.all_data_except_openAccess.all_openAccess.buckets ?? [];
+}
+
+export function getPublisherOpenAccessCodeAdditions(aggregations: any, global = false) {
+  if (global)
+    return aggregations.all_data_except_publisherOpenAccessCode?.filtered_except_publisherOpenAccessCode.all_publisherOpenAccessCodes.buckets ?? [];
+  else
+    return aggregations.all_data_except_publisherOpenAccessCode.all_publisherOpenAccessCodes.buckets ?? [];
+}
+
+export function getSelfArchivedCodeAdditions(aggregations: any, global = false) {
+  if (global)
+    return aggregations.all_data_except_selfArchivedCode?.filtered_except_selfArchivedCode.all_selfArchivedCodes.buckets ?? [];
+  else
+    return aggregations.all_data_except_selfArchivedCode.all_selfArchivedCodes.buckets ?? [];
 }

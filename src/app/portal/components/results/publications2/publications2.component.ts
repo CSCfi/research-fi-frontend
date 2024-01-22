@@ -15,7 +15,7 @@ import {
   getPublicationFormatAdditions, getPublicationTypeCodeAdditions,
   getYearAdditions,
   HighlightedPublication,
-  Publication2Service, getOpenAccessAdditions
+  Publication2Service, getOpenAccessAdditions, getPublisherOpenAccessCodeAdditions, getSelfArchivedCodeAdditions
 } from '@portal/services/publication2.service';
 import { map, take, tap } from 'rxjs/operators';
 import { SharedModule } from '@shared/shared.module';
@@ -64,7 +64,11 @@ export class Publications2Component implements OnDestroy {
     publisherInternationality: $localize`:@@publisherInternationality:Kustantajan kansainvälisyys`,
     language: $localize`:@@language:Kieli`,
     jufoLevel: $localize`:@@jufoLevel:Julkaisufoorumitaso`,
+
+    // TODO: tarkista vielä nämä
     openAccess: $localize`:@@openAccess:Avoin saatavuus`,
+    publisherOpenAccess: $localize`:@@publisherOpenAccess:Avoin saatavuus kustantajan palvelussa`,
+    selfArchivedCode: $localize`:@@selfArchivedCode:selfArchivedCode TODO`,
   }
 
   publicationTypeLabels = [
@@ -313,8 +317,6 @@ export class Publications2Component implements OnDestroy {
     tap(filters => this.updateFilterCount("parentPublicationType", filters.filter(filter => filter.enabled).length))
   );
 
-  // TODO: OPEN ACCESS FILTER
-
   additionsFromOpenAccess$ = this.aggregations$.pipe(
     map(aggs => getOpenAccessAdditions(aggs).map((bucket: any) => ({ id: bucket.key.toString(), count: bucket.doc_count })) ?? []),
     map(aggs => aggs.sort((a, b) => b.count - a.count))
@@ -324,13 +326,43 @@ export class Publications2Component implements OnDestroy {
     map(([additionsFromOpenAccess, enabledFilters]) => additionsFromOpenAccess.map(additionFromOpenAccess => ({
       id: additionFromOpenAccess.id,
       count: additionFromOpenAccess.count,
-      name: additionFromOpenAccess.id,                                // TODO TODO TODO TODO
+      name: additionFromOpenAccess.id,                                                                                  // TODO TODO TODO TODO
       enabled: enabledFilters.includes(additionFromOpenAccess.id)
     }))),
     tap(filters => this.updateFilterCount("openAccess", filters.filter(filter => filter.enabled).length))
   );
 
+  additionsFromPublisherOpenAccess$ = this.aggregations$.pipe(
+    map(aggs => getPublisherOpenAccessCodeAdditions(aggs).map((bucket: any) => ({ id: bucket.key.toString(), count: bucket.doc_count })) ?? []),
+    map(aggs => aggs.sort((a, b) => b.count - a.count))
+  );
 
+  publisherOpenAccessFilters$ = combineLatest([this.additionsFromPublisherOpenAccess$, this.searchParams$.pipe(map(params => params.publisherOpenAccessCode ?? []))]).pipe(
+    map(([additionsFromPublisherOpenAccess, enabledFilters]) => additionsFromPublisherOpenAccess.map(additionFromPublisherOpenAccess => ({
+      id: additionFromPublisherOpenAccess.id,
+      count: additionFromPublisherOpenAccess.count,
+      name: additionFromPublisherOpenAccess.id,                                                                         // TODO TODO TODO TODO
+      enabled: enabledFilters.includes(additionFromPublisherOpenAccess.id)
+    }))),
+    tap(filters => this.updateFilterCount("publisherOpenAccess", filters.filter(filter => filter.enabled).length))
+  );
+
+  // TODO selfArchiveCode
+
+  additionsFromSelfArchivedCode$ = this.aggregations$.pipe(
+    map(aggs => getSelfArchivedCodeAdditions(aggs).map((bucket: any) => ({ id: bucket.key.toString(), count: bucket.doc_count })) ?? []),
+    map(aggs => aggs.sort((a, b) => b.count - a.count))
+  );
+
+  selfArchivedCodeFilters$ = combineLatest([this.additionsFromSelfArchivedCode$, this.searchParams$.pipe(map(params => params.selfArchiveCode ?? []))]).pipe(
+    map(([additionsFromSelfArchive, enabledFilters]) => additionsFromSelfArchive.map(additionFromSelfArchive => ({
+      id: additionFromSelfArchive.id,
+      count: additionFromSelfArchive.count,
+      name: additionFromSelfArchive.id,                                                                         // TODO TODO TODO TODO
+      enabled: enabledFilters.includes(additionFromSelfArchive.id)
+    }))),
+    tap(filters => this.updateFilterCount("selfArchiveCode", filters.filter(filter => filter.enabled).length))
+  );
 
   public mainFieldOfScienceName = {
     "1": $localize`:@@naturalSciences:Luonnontieteet`,
