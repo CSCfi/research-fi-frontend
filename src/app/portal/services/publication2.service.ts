@@ -9,8 +9,6 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { locale } from "../../../environments/locale";
 const path = suffixer(locale);
 
-console.log("LOOK HERE:", path`fieldsOfScience.nameFiScience.keyword`);
-
 /*const PublicationSearchSchema = object({
   publicationId: string(),
   title: string(),
@@ -75,11 +73,7 @@ export class Publication2Service {
   sanitizer = inject(DomSanitizer);
   locale = inject(LOCALE_ID);
 
-  // path = suffixer(this.locale);
-
   searchUrl = 'https://researchfi-api-qa.rahtiapp.fi/portalapi/publication/_search?'
-
-  // organizationNames$ = this.getOrganizationNames();
 
   searchParams = new BehaviorSubject<Record<string, string[]>>({});
 
@@ -240,13 +234,6 @@ export class Publication2Service {
       .pipe(shareReplay({ bufferSize: 1, refCount: true }));
   }
 
-/*
-"terms": {
-  "field": "languages.languageFi.keyword",
-  "size": 1000
-}
-*/
-
   getLanguageCodeNames(): Observable<Record<string, string>> {
     const body = {
       'size': 0,
@@ -363,11 +350,6 @@ export class Publication2Service {
       shareReplay({ bufferSize: 1, refCount: true })
     );
   }
-
-// getParentPublicationTypeNames
-// getInternationalPublicationNames
-// getArticleTypeCodeNames
-
 
   getParentPublicationTypeNames(): Observable<Record<string, string>> {
     const body = {
@@ -630,12 +612,6 @@ function termsForPublicationAudience(searchParams: SearchParams) {
   return [];
 }
 
-/* Peer reviewed
-"terms": {
-  "field": "peerReviewed.id.keyword",
-  "size": 100
-}
-*/
 function termsForPeerReviewed(searchParams: SearchParams) {
   if (searchParams.peerReviewed) {
     return [{
@@ -647,19 +623,6 @@ function termsForPeerReviewed(searchParams: SearchParams) {
   return [];
 }
 
-/* Parent Publication Type
-{
-  "size": 0,
-  "aggs": {
-    "parentPublicationType": {
-      "terms": {
-        "field": "parentPublicationType.id.keyword",
-        "size": 100
-      }
-    }
-  }
-}
-*/
 function termsForParentPublicationType(searchParams: SearchParams) {
   if (searchParams.parentPublicationType) {
     return [{
@@ -671,12 +634,6 @@ function termsForParentPublicationType(searchParams: SearchParams) {
   return [];
 }
 
-/* International Publication
-"terms": {
-  "field": "internationalPublication",
-  "size": 100
-}
-*/
 function termsForInternationalPublication(searchParams: SearchParams) {
   if (searchParams.international) {
     return [{
@@ -688,12 +645,6 @@ function termsForInternationalPublication(searchParams: SearchParams) {
   return [];
 }
 
-/*
-"terms": {
-  "field": "articleTypeCode",
-  "size": 100
-}
-*/
 function termsForArticleTypeCode(searchParams: SearchParams) {
   if (searchParams.articleType) {
     return [{
@@ -705,14 +656,6 @@ function termsForArticleTypeCode(searchParams: SearchParams) {
   return [];
 }
 
-/*
-"jufoClassCode": {
-  "terms": {
-    "field": "jufoClassCode.keyword",
-      "size": 100
-  }
-}
-*/
 function termsForJufoClassCode(searchParams: SearchParams) {
   if (searchParams.jufo) {
     return [{
@@ -724,17 +667,20 @@ function termsForJufoClassCode(searchParams: SearchParams) {
   return [];
 }
 
-function generateAggregationStep(name: string, lookup: Record<string, string> = {}) {
-  const fieldName = lookup[name] ?? name;
+function generateAggregationStep(name: SearchParamKey, lookup: Record<string, {fieldName: string, fieldPath: string}>) {
+  const fieldPath = lookup[name].fieldPath;
 
-  const topLevelPath = `all_data_except_${fieldName}`;
-  const middleLevelPath = `filtered_except_${fieldName}`;
-  const bottomLevelPath = `all_${fieldName}`;
+  const fieldName = lookup[name].fieldName;                                     // TODO: "fieldName" is just redundant
+  const topLevelPath = `top_level_${fieldName}`;                                // TODO: Use the established SearchParamKey and arbitary fieldPath
+  const middleLevelPath = `filtered_except_${fieldName}`;                       //
+  const bottomLevelPath = `all_${fieldName}`;                                   //
 
   function getAdditions(searchParams: SearchParams) {
     const global = searchParams[name] != null
 
     if (global) {
+      console.log("global", name);
+
       return {
         [topLevelPath]: {
           global: {},
@@ -750,7 +696,7 @@ function generateAggregationStep(name: string, lookup: Record<string, string> = 
               aggregations: {
                 [bottomLevelPath]: {
                   terms: {
-                    field: fieldName,
+                    field: fieldPath,
                     size: 100
                   }
                 }
@@ -760,6 +706,8 @@ function generateAggregationStep(name: string, lookup: Record<string, string> = 
         }
       };
     } else {
+      console.log("local", name);
+
       return {
         [topLevelPath]: {
           filter: {
@@ -772,7 +720,7 @@ function generateAggregationStep(name: string, lookup: Record<string, string> = 
           aggregations: {
             [bottomLevelPath]: {
               terms: {
-                field: fieldName,
+                field: fieldPath,
                 size: 100
               }
             }
@@ -783,8 +731,6 @@ function generateAggregationStep(name: string, lookup: Record<string, string> = 
   }
 
   function getBuckets(aggregations: any) {
-    // Use the topLevelPath, middleLevelPath and bottomLevelPath to get the buckets
-    // Detect if global query was made, without explicit "global" parameter
     if (aggregations[topLevelPath]?.[middleLevelPath]?.[bottomLevelPath]?.buckets) {
       return aggregations[topLevelPath][middleLevelPath][bottomLevelPath].buckets;
     } else {
@@ -795,639 +741,62 @@ function generateAggregationStep(name: string, lookup: Record<string, string> = 
   return [getAdditions, getBuckets];
 }
 
-// TODO lookup for urlParam and field name
-const lookup = {
-  "year": "publicationYear",
+type SearchParamKey = Exclude<keyof SearchParams, "q" | "page" | "size">;
+
+const lookup: Record<SearchParamKey, {fieldName: string, fieldPath: string}> = {
+  year:                    {fieldName: "publicationYear",          fieldPath: "publicationYear"},
+  language:                {fieldName: "languages",                fieldPath: "languages.languageCode.keyword"},
+  format:                  {fieldName: "publicationFormat",        fieldPath: "publicationFormat.id.keyword"},
+  audience:                {fieldName: "publicationAudience",      fieldPath: "publicationAudience.id.keyword"},
+  peerReviewed:            {fieldName: "peerReviewed",             fieldPath: "peerReviewed.id.keyword"},
+  parentPublicationType:   {fieldName: "parentPublicationType",    fieldPath: "parentPublicationType.id.keyword"},
+  international:           {fieldName: "internationalPublication", fieldPath: "internationalPublication"},
+  articleType:             {fieldName: "articleTypeCode",          fieldPath: "articleTypeCode"},
+  jufo:                    {fieldName: "jufoClassCode",            fieldPath: "jufoClassCode.keyword"},
+  publicationTypeCode:     {fieldName: "publicationTypeCode",      fieldPath: "publicationTypeCode.keyword"},
+  publicationStatusCode:   {fieldName: "publicationStatusCode",    fieldPath: "publicationStatusCode.keyword"},         // No trace of the previous implementation
+  fieldsOfScience:         {fieldName: "fieldsOfScience",          fieldPath: "fieldsOfScience.fieldIdScience"},
+  openAccess:              {fieldName: "openAccess",               fieldPath: "openAccess"},
+  publisherOpenAccessCode: {fieldName: "publisherOpenAccessCode",  fieldPath: "publisherOpenAccessCode"},
+  selfArchivedCode:        {fieldName: "selfArchivedCode",         fieldPath: "selfArchivedCode.keyword"},
+  organization:            {fieldName: "organization",             fieldPath: "author.organization.organizationId.keyword"},
 }
 
 const [additionsFromYear, getYearAdditions] = generateAggregationStep("year", lookup);
 export { getYearAdditions };
 
-function NOT_additionsFromYear(searchParams: SearchParams, global = false) {
-  if (global)
-    return {
-      "all_data_except_publicationYear": {
-        "global": {},
-        "aggregations": {
-          "filtered_except_publicationYear": {
-            "filter": {
-              "bool": {
-                "must": [
-                  ...additionFilterTerms("year", searchParams),
-                ]
-              }
-            },
-            "aggregations": {
-              "all_publicationYears": {
-                "terms": {
-                  "field": "publicationYear",
-                  "size": 250,
-                }
-              }
-            }
-          }
-        }
-      }
-    };
+const [additionsFromLanguageCode, getLanguageCodeAdditions] = generateAggregationStep("language", lookup);
+export { getLanguageCodeAdditions };
 
-  else
-    return {
-      "all_data_except_publicationYear": {
-        "filter": {
-          "bool": {
-            "must": [
-              ...additionFilterTerms("year", searchParams),
-            ]
-          }
-        },
-        "aggregations": {
-          "all_publicationYears": {
-            "terms": {
-              "field": "publicationYear",
-              "size": 250,
-            }
-          }
-        }
-      }
-    };
-}
+const [additionsFromPublicationFormat, getPublicationFormatAdditions] = generateAggregationStep("format", lookup);
+export { getPublicationFormatAdditions };
 
-export function NOT_getYearAdditions(aggregations: /*YearAggregation*/ any, global = false) {
-  if (global)
-    return aggregations.all_data_except_publicationYear?.filtered_except_publicationYear.all_publicationYears.buckets ?? [];
-  else
-    return aggregations.all_data_except_publicationYear.all_publicationYears.buckets ?? [];
-}
+const [additionsFromPublicationAudience, getPublicationAudienceAdditions] = generateAggregationStep("audience", lookup);
+export { getPublicationAudienceAdditions };
 
+const [additionsFromPeerReviewed, getPeerReviewedAdditions] = generateAggregationStep("peerReviewed", lookup);
+export { getPeerReviewedAdditions };
 
+const [additionsFromParentPublicationType, getParentPublicationTypeAdditions] = generateAggregationStep("parentPublicationType", lookup);
+export { getParentPublicationTypeAdditions };
 
-type YearAggregation = {
-  all_data_except_publicationYear: {
-    filtered_except_publicationYear: {
-      all_publicationYears: {
-        buckets: Array<{
-          key: number;
-          doc_count: number;
-        }>;
-      };
-    };
-  };
-};
+const [additionsFromInternationalPublication, getPublisherInternationalityAdditions] = generateAggregationStep("international", lookup);
+export { getPublisherInternationalityAdditions };
 
-// TODO IS THIS USED?
-function additionsFromTypeCode(searchParams: SearchParams, global = false) {
-  if (global)
-  return {
-    "all_data_except_publicationTypeCode": {
-      "global": {},
-      "aggregations": {
-        "filtered_except_publicationTypeCode": {
-          "filter": {
-            "bool": {
-              "must": [
-                ...additionFilterTerms("publicationTypeCode", searchParams),
-              ]
-            }
-          },
-          "aggregations": {
-            "all_publicationTypeCodes": {
-              "terms": {
-                "field": "publicationTypeCode.keyword"
-              }
-            }
-          }
-        }
-      }
-    }
-  };
+const [additionsFromArticleTypeCode, getArticleTypeCodeAdditions] = generateAggregationStep("articleType", lookup);
+export { getArticleTypeCodeAdditions };
 
-  else
-    return {
-      "all_data_except_publicationTypeCode": {
-        "filter": {
-          "bool": {
-            "must": [
-              ...additionFilterTerms("publicationTypeCode", searchParams),
-            ]
-          }
-        },
-        "aggregations": {
-          "all_publicationTypeCodes": {
-            "terms": {
-              "field": "publicationTypeCode.keyword"
-            }
-          }
-        }
-      }
-    };
-}
+const [additionsFromJufoClassCode, getJufoClassCodeAdditions] = generateAggregationStep("jufo", lookup);
+export { getJufoClassCodeAdditions };
 
-function additionsFromStatusCode(searchParams: SearchParams) {
-  return {
-    "all_data_except_publicationStatusCode": {
-      "global": {},
-      "aggregations": {
-        "filtered_except_publicationStatusCode": {
-          "filter": {
-            "bool": {
-              "must": [
-                ...additionFilterTerms("statusCode", searchParams),
-              ]
-            }
-          },
-          "aggregations": {
-            "all_publicationStatusCodes": {
-              "terms": {
-                "field": "publicationStatusCode.keyword"
-              }
-            }
-          }
-        }
-      }
-    }
-  };
-}
-
-function additionsFromLanguageCode(searchParams: SearchParams, global = false) {
-  if (global)
-  return {
-    "all_data_except_languageCode": {
-      "global": {},
-      "aggregations": {
-        "filtered_except_languageCode": {
-          "filter": {
-            "bool": {
-              "must": [
-                ...additionFilterTerms("language", searchParams),
-              ]
-            }
-          },
-          "aggregations": {
-            "all_languageCodes": {
-              "terms": {
-                "field": "languages.languageCode.keyword",
-                "size": 1000,
-              }
-            }
-          }
-        }
-      }
-    }
-  };
-
-  else
-    return {
-      "all_data_except_languageCode": {
-        "filter": {
-          "bool": {
-            "must": [
-              ...additionFilterTerms("language", searchParams),
-            ]
-          }
-        },
-        "aggregations": {
-          "all_languageCodes": {
-            "terms": {
-              "field": "languages.languageCode.keyword",
-              "size": 1000,
-            }
-          }
-        }
-      }
-    };
-}
-
-function additionsFromPublicationFormat(searchParams: SearchParams, global = false) {
-  if (global)
-  return {
-    "all_data_except_publicationFormat": {
-      "global": {},
-      "aggregations": {
-        "filtered_except_publicationFormat": {
-          "filter": {
-            "bool": {
-              "must": [
-                ...additionFilterTerms("publicationFormat", searchParams),
-              ]
-            }
-          },
-          "aggregations": {
-            "all_publicationFormats": {
-              "terms": {
-                "field": "publicationFormat.id.keyword",
-                "size": 1000,
-              }
-            }
-          }
-        }
-      }
-    }
-  };
-
-  else
-    return {
-      "all_data_except_publicationFormat": {
-        "filter": {
-          "bool": {
-            "must": [
-              ...additionFilterTerms("publicationFormat", searchParams),
-            ]
-          }
-        },
-        "aggregations": {
-          "all_publicationFormats": {
-            "terms": {
-              "field": "publicationFormat.id.keyword",
-              "size": 1000,
-            }
-          }
-        }
-      }
-    };
-}
-
-function additionsFromPublicationAudience(searchParams: SearchParams, global = false) {
-  if (global)
-  return {
-    "all_data_except_publicationAudience": {
-      "global": {},
-      "aggregations": {
-        "filtered_except_publicationAudience": {
-          "filter": {
-            "bool": {
-              "must": [
-                ...additionFilterTerms("publicationAudience", searchParams),
-              ]
-            }
-          },
-          "aggregations": {
-            "all_publicationAudiences": {
-              "terms": {
-                "field": "publicationAudience.id.keyword"
-              }
-            }
-          }
-        }
-      }
-    }
-  };
-
-  else
-    return {
-      "all_data_except_publicationAudience": {
-        "filter": {
-          "bool": {
-            "must": [
-              ...additionFilterTerms("publicationAudience", searchParams),
-            ]
-          }
-        },
-        "aggregations": {
-          "all_publicationAudiences": {
-            "terms": {
-              "field": "publicationAudience.id.keyword"
-            }
-          }
-        }
-      }
-    };
-}
-
-function additionsFromPeerReviewed(searchParams: SearchParams, global = false) {
-  if (global)
-  return {
-    "all_data_except_peerReviewed": {
-      "global": {},
-      "aggregations": {
-        "filtered_except_peerReviewed": {
-          "filter": {
-            "bool": {
-              "must": [
-                ...additionFilterTerms("peerReviewed", searchParams),
-              ]
-            }
-          },
-          "aggregations": {
-            "all_peerReviewed": {
-              "terms": {
-                "field": "peerReviewed.id.keyword",
-                "size": 100
-              }
-            }
-          }
-        }
-      }
-    }
-  };
-
-  else
-    return {
-      "all_data_except_peerReviewed": {
-        "filter": {
-          "bool": {
-            "must": [
-              ...additionFilterTerms("peerReviewed", searchParams),
-            ]
-          }
-        },
-        "aggregations": {
-          "all_peerReviewed": {
-            "terms": {
-              "field": "peerReviewed.id.keyword",
-              "size": 100
-            }
-          }
-        }
-      }
-    };
-}
-
-function additionsFromParentPublicationType(searchParams: SearchParams, global = false) {
-  if (global)
-  return {
-    "all_data_except_parentPublicationType": {
-      "global": {},
-      "aggregations": {
-        "filtered_except_parentPublicationType": {
-          "filter": {
-            "bool": {
-              "must": [
-                ...additionFilterTerms("parentPublicationType", searchParams),
-              ]
-            }
-          },
-          "aggregations": {
-            "all_parentPublicationTypes": {
-              "terms": {
-                "field": "parentPublicationType.id.keyword",
-                "size": 100
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  else
-    return {
-      "all_data_except_parentPublicationType": {
-        "filter": {
-          "bool": {
-            "must": [
-              ...additionFilterTerms("parentPublicationType", searchParams),
-            ]
-          }
-        },
-        "aggregations": {
-          "all_parentPublicationTypes": {
-            "terms": {
-              "field": "parentPublicationType.id.keyword",
-              "size": 100
-            }
-          }
-        }
-      }
-    };
-}
-
-function additionsFromInternationalPublication(searchParams: SearchParams, global = false) {
-  if (global)
-  return {
-    "all_data_except_internationalPublication": {
-      "global": {},
-      "aggregations": {
-        "filtered_except_internationalPublication": {
-          "filter": {
-            "bool": {
-              "must": [
-                ...additionFilterTerms("internationalPublication", searchParams),
-              ]
-            }
-          },
-          "aggregations": {
-            "all_internationalPublications": {
-              "terms": {
-                "field": "internationalPublication",
-                "size": 100
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  else
-    return {
-      "all_data_except_internationalPublication": {
-        "filter": {
-          "bool": {
-            "must": [
-              ...additionFilterTerms("internationalPublication", searchParams),
-            ]
-          }
-        },
-        "aggregations": {
-          "all_internationalPublications": {
-            "terms": {
-              "field": "internationalPublication",
-              "size": 100
-            }
-          }
-        }
-      }
-    };
-}
-
-function additionsFromArticleTypeCode(searchParams: SearchParams, global = false) {
-  if (global)
-  return {
-    "all_data_except_articleTypeCode": {
-      "global": {},
-      "aggregations": {
-        "filtered_except_articleTypeCode": {
-          "filter": {
-            "bool": {
-              "must": [
-                ...additionFilterTerms("articleTypeCode", searchParams),
-              ]
-            }
-          },
-          "aggregations": {
-            "all_articleTypeCodes": {
-              "terms": {
-                "field": "articleTypeCode",
-                "size": 100
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  else
-    return {
-      "all_data_except_articleTypeCode": {
-        "filter": {
-          "bool": {
-            "must": [
-              ...additionFilterTerms("articleTypeCode", searchParams),
-            ]
-          }
-        },
-        "aggregations": {
-          "all_articleTypeCodes": {
-            "terms": {
-              "field": "articleTypeCode",
-              "size": 100
-            }
-          }
-        }
-      }
-    };
-}
-
-function additionsFromJufoClassCode(searchParams: SearchParams, global = false) {
-  if (global)
-  return {
-    "all_data_except_jufoClassCode": {
-      "global": {},
-      "aggregations": {
-        "filtered_except_jufoClassCode": {
-          "filter": {
-            "bool": {
-              "must": [
-                ...additionFilterTerms("jufoClassCode", searchParams),
-              ]
-            }
-          },
-          "aggregations": {
-            "all_jufoClassCodes": {
-              "terms": {
-                "field": "jufoClassCode.keyword",
-                "size": 100
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  else
-    return {
-      "all_data_except_jufoClassCode": {
-        "filter": {
-          "bool": {
-            "must": [
-              ...additionFilterTerms("jufoClassCode", searchParams),
-            ]
-          }
-        },
-        "aggregations": {
-          "all_jufoClassCodes": {
-            "terms": {
-              "field": "jufoClassCode.keyword",
-              "size": 100
-            }
-          }
-        }
-      }
-    };
-}
-
-function additionsFromFieldsOfScience(searchParams: SearchParams, global = false) {
-  if (global)
-  return {
-    "all_data_except_fieldsOfScience": {
-      "global": {},
-      "aggregations": {
-        "filtered_except_fieldsOfScience": {
-          "filter": {
-            "bool": {
-              "must": [
-                ...additionFilterTerms("fieldsOfScience", searchParams),
-              ]
-            }
-          },
-          "aggregations": {
-            "fieldsOfScience_nested": {
-              "nested": {
-                "path": "fieldsOfScience"
-              },
-              "aggregations": {
-                "all_fieldsOfScience": {
-                  "terms": {
-                    "field": "fieldsOfScience.fieldIdScience",
-                    "size": 1000,
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  };
-
-  else
-    return {
-      "all_data_except_fieldsOfScience": {
-        "filter": {
-          "bool": {
-            "must": [
-              ...additionFilterTerms("fieldsOfScience", searchParams),
-            ]
-          }
-        },
-        "aggregations": {
-          "fieldsOfScience_nested": {
-            "nested": {
-              "path": "fieldsOfScience"
-            },
-            "aggregations": {
-              "all_fieldsOfScience": {
-                "terms": {
-                  "field": "fieldsOfScience.fieldIdScience",
-                  "size": 1000,
-                }
-              }
-            }
-          }
-        }
-      }
-    };
-}
-
-type OrganizationAggregation = {
-  all_data_except_organizationId: {
-    filtered_except_organizationId: {
-      organization_nested: {
-        all_organizationIds: {
-          buckets: Array<{
-            key: string;
-            doc_count: number;
-          }>;
-        };
-      };
-    };
-  };
-};
+const [additionsFromFieldsOfScience, getFieldsOfScienceAdditions] = generateAggregationStep("fieldsOfScience", lookup);
+export { getFieldsOfScienceAdditions };
 
 function suffixer(locale) {
   const capitalized = locale.charAt(0).toUpperCase() + locale.slice(1).toLowerCase();
-
-
-  // replace Fi with capitalized from middle or end of the string
-  // return strings => strings[0].replace(/(Fi|Sv|En)(?=\.|$)/g, capitalized);
-
-  // replace Fi with capitalized if the following character is a dot or a capital letter or end of string
   return strings => strings[0].replace(/(Fi|Sv|En)(?=[\.A-Z]|$)/g, capitalized);
 }
 
-// NOTE: nested is needed for array type mapping
 function termsForOrganization(searchParams: SearchParams) {
   if (searchParams.organization && searchParams.organization.length > 0) {
     return [{
@@ -1450,7 +819,6 @@ function termsForOrganization(searchParams: SearchParams) {
   return [];
 }
 
-// NOTE: nested is needed for array type mapping
 function termsForFieldsOfScience(searchParams: SearchParams) {
   if (searchParams.fieldsOfScience && searchParams.fieldsOfScience.length > 0) {
     return [{
@@ -1484,19 +852,6 @@ function termsForPublicationTypeCode(searchParams: SearchParams) {
   return [];
 }
 
-/*GET publication/_search
-{
-  "size": 0,
-  "aggs": {
-  "openAccess": {
-    "terms": {
-      "field": "openAccess",
-        "size": 100
-    }
-  }
-}
-}*/
-
 function termsForOpenAccess(searchParams: SearchParams) {
   if (searchParams.openAccess) {
     return [{
@@ -1508,68 +863,8 @@ function termsForOpenAccess(searchParams: SearchParams) {
   return [];
 }
 
-function additionsFromOpenAccess(searchParams: SearchParams, global = false) {
-  if (global)
-  return {
-    "all_data_except_openAccess": {
-      "global": {},
-      "aggregations": {
-        "filtered_except_openAccess": {
-          "filter": {
-            "bool": {
-              "must": [
-                ...additionFilterTerms("openAccess", searchParams),
-              ]
-            }
-          },
-          "aggregations": {
-            "all_openAccess": {
-              "terms": {
-                "field": "openAccess",
-                "size": 100
-              }
-            }
-          }
-        }
-      }
-    }
-  };
-
-  else
-    return {
-      "all_data_except_openAccess": {
-        "filter": {
-          "bool": {
-            "must": [
-              ...additionFilterTerms("openAccess", searchParams),
-            ]
-          }
-        },
-        "aggregations": {
-          "all_openAccess": {
-            "terms": {
-              "field": "openAccess",
-              "size": 100
-            }
-          }
-        }
-      }
-    };
-}
-
-/*GET publication/_search
-{
-  "size": 0,
-  "aggs": {
-  "openAccess": {
-    "terms": {
-      "field": "publisherOpenAccessCode",
-        "size": 100
-    }
-  }
-}
-
-}*/
+const [additionsFromOpenAccess, getOpenAccessAdditions] = generateAggregationStep("openAccess", lookup);
+export { getOpenAccessAdditions };
 
 function termsForPublisherOpenAccessCode(searchParams: SearchParams) {
   if (searchParams.publisherOpenAccessCode) {
@@ -1582,67 +877,8 @@ function termsForPublisherOpenAccessCode(searchParams: SearchParams) {
   return [];
 }
 
-function additionsFromPublisherOpenAccessCode(searchParams: SearchParams, global = false) {
-  if (global)
-  return {
-    "all_data_except_publisherOpenAccessCode": {
-      "global": {},
-      "aggregations": {
-        "filtered_except_publisherOpenAccessCode": {
-          "filter": {
-            "bool": {
-              "must": [
-                ...additionFilterTerms("publisherOpenAccessCode", searchParams),
-              ]
-            }
-          },
-          "aggregations": {
-            "all_publisherOpenAccessCodes": {
-              "terms": {
-                "field": "publisherOpenAccessCode",
-                "size": 100
-              }
-            }
-          }
-        }
-      }
-    }
-  };
-
-  else
-    return {
-      "all_data_except_publisherOpenAccessCode": {
-        "filter": {
-          "bool": {
-            "must": [
-              ...additionFilterTerms("publisherOpenAccessCode", searchParams),
-            ]
-          }
-        },
-        "aggregations": {
-          "all_publisherOpenAccessCodes": {
-            "terms": {
-              "field": "publisherOpenAccessCode",
-              "size": 100
-            }
-          }
-        }
-      }
-    };
-}
-
-/*GET publication/_search
-{
-  "size": 0,
-  "aggs": {
-  "openAccess": {
-    "terms": {
-      "field": "selfArchivedCode.keyword",
-        "size": 100
-    }
-  }
-}
-}*/
+const [additionsFromPublisherOpenAccessCode, getPublisherOpenAccessCodeAdditions] = generateAggregationStep("publisherOpenAccessCode", lookup);
+export { getPublisherOpenAccessCodeAdditions };
 
 function termsForSelfArchivedCode(searchParams: SearchParams) {
   if (searchParams.selfArchivedCode) {
@@ -1655,166 +891,14 @@ function termsForSelfArchivedCode(searchParams: SearchParams) {
   return [];
 }
 
-function additionsFromSelfArchivedCode(searchParams: SearchParams, global = false) {
-  if (global)
-  return {
-    "all_data_except_selfArchivedCode": {
-      "global": {},
-      "aggregations": {
-        "filtered_except_selfArchivedCode": {
-          "filter": {
-            "bool": {
-              "must": [
-                ...additionFilterTerms("selfArchivedCode", searchParams),
-              ]
-            }
-          },
-          "aggregations": {
-            "all_selfArchivedCodes": {
-              "terms": {
-                "field": "selfArchivedCode.keyword",
-                "size": 100
-              }
-            }
-          }
-        }
-      }
-    }
-  };
+const [additionsFromSelfArchivedCode, getSelfArchivedCodeAdditions] = generateAggregationStep("selfArchivedCode", lookup);
+export { getSelfArchivedCodeAdditions };
 
-  else
-    return {
-      "all_data_except_selfArchivedCode": {
-        "filter": {
-          "bool": {
-            "must": [
-              ...additionFilterTerms("selfArchivedCode", searchParams),
-            ]
-          }
-        },
-        "aggregations": {
-          "all_selfArchivedCodes": {
-            "terms": {
-              "field": "selfArchivedCode.keyword",
-              "size": 100
-            }
-          }
-        }
-      }
-    };
-}
+const [additionsFromPublicationTypeCode, getPublicationTypeCodeAdditions] = generateAggregationStep("publicationTypeCode", lookup);
+export { getPublicationTypeCodeAdditions };
 
-function additionsFromPublicationTypeCode(searchParams: SearchParams, global = false) {
-  if (global)
-  return {
-    "all_data_except_publicationTypeCode": {
-      "global": {},
-      "aggregations": {
-        "filtered_except_publicationTypeCode": {
-          "filter": {
-            "bool": {
-              "must": [
-                ...additionFilterTerms("publicationTypeCode", searchParams),
-              ]
-            }
-          },
-          "aggregations": {
-            "all_publicationTypeCodes": {
-              "terms": {
-                "field": "publicationTypeCode.keyword",
-                "size": 100
-              }
-            }
-          }
-        }
-      }
-    }
-  };
-
-  else
-    return {
-      "all_data_except_publicationTypeCode": {
-        "filter": {
-          "bool": {
-            "must": [
-              ...additionFilterTerms("publicationTypeCode", searchParams),
-            ]
-          }
-        },
-        "aggregations": {
-          "all_publicationTypeCodes": {
-            "terms": {
-              "field": "publicationTypeCode.keyword",
-              "size": 100
-            }
-          }
-        }
-      }
-    };
-}
-
-function additionsFromOrganization(searchParams: SearchParams, global = false) {
-  if (global)
-  return {
-    "all_data_except_organizationId": {
-      "global": {},
-      "aggregations": {
-        "filtered_except_organizationId": {
-          "filter": {
-            "bool": {
-              "must": [
-                ...additionFilterTerms("organization", searchParams),
-              ]
-            }
-          },
-          "aggregations": {
-            "organization_nested": {
-              "nested": {
-                "path": "author"
-              },
-              "aggregations": {
-                "all_organizationIds": {
-                  "terms": {
-                    "field": "author.organization.organizationId.keyword",
-                    "size": 250,
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  };
-
-  else
-    return {
-      "all_data_except_organizationId": {
-        "filter": {
-          "bool": {
-            "must": [
-              ...additionFilterTerms("organization", searchParams),
-            ]
-          }
-        },
-        "aggregations": {
-          "organization_nested": {
-            "nested": {
-              "path": "author"
-            },
-            "aggregations": {
-              "all_organizationIds": {
-                "terms": {
-                  "field": "author.organization.organizationId.keyword",
-                  "size": 250,
-                }
-              }
-            }
-          }
-        }
-      }
-    };
-}
+const [additionsFromOrganization, getOrganizationAdditions] = generateAggregationStep("organization", lookup);
+export { getOrganizationAdditions };
 
 type OrgsAggsResponse = {
   aggregations: {
@@ -1861,8 +945,6 @@ function filteringTerms(searchParams: SearchParams) {
 function aggregationTerms(searchParams: SearchParams) {
   return {
     ...additionsFromYear(searchParams),
-    ...additionsFromTypeCode(searchParams),   // TODO is this used?
-    ...additionsFromStatusCode(searchParams),
     ...additionsFromOrganization(searchParams),
     ...additionsFromLanguageCode(searchParams),
     ...additionsFromPublicationFormat(searchParams),
@@ -1880,139 +962,28 @@ function aggregationTerms(searchParams: SearchParams) {
   };
 }
 
-function additionFilterTerms(excluded: string, searchParams: SearchParams) {
+function additionFilterTerms(excluded: SearchParamKey, searchParams: SearchParams) {
   return [
     matchingTerms(searchParams),
-    ...(excluded === "year"                     ? [] : termsForYear(searchParams)),
-    ...(excluded === "typeCode"                 ? [] : termsForTypeCode(searchParams)),
-    ...(excluded === "statusCode"               ? [] : termsForStatusCode(searchParams)),
-    ...(excluded === "organization"             ? [] : termsForOrganization(searchParams)),
-    ...(excluded === "languageCode"             ? [] : termsForLanguageCode(searchParams)),
-    ...(excluded === "publicationFormat"        ? [] : termsForPublicationFormat(searchParams)),
-    ...(excluded === "publicationAudience"      ? [] : termsForPublicationAudience(searchParams)),
-    ...(excluded === "peerReviewed"             ? [] : termsForPeerReviewed(searchParams)),
-    ...(excluded === "parentPublicationType"    ? [] : termsForParentPublicationType(searchParams)),
-    ...(excluded === "internationalPublication" ? [] : termsForInternationalPublication(searchParams)),
-    ...(excluded === "articleTypeCode"          ? [] : termsForArticleTypeCode(searchParams)),
-    ...(excluded === "jufoClassCode"            ? [] : termsForJufoClassCode(searchParams)),
-    ...(excluded === "fieldsOfScience"          ? [] : termsForFieldsOfScience(searchParams)),
-    ...(excluded === "publicationTypeCode"      ? [] : termsForPublicationTypeCode(searchParams)),
-    ...(excluded === "openAccess"               ? [] : termsForOpenAccess(searchParams)),
-    ...(excluded === "publisherOpenAccessCode"  ? [] : termsForPublisherOpenAccessCode(searchParams)),
-    ...(excluded === "selfArchivedCode"         ? [] : termsForSelfArchivedCode(searchParams)),
+    ...(excluded === "year"                    ? [] : termsForYear(searchParams)),
+    ...(excluded === "publicationStatusCode"   ? [] : termsForStatusCode(searchParams)),
+    ...(excluded === "organization"            ? [] : termsForOrganization(searchParams)),
+    ...(excluded === "language"                ? [] : termsForLanguageCode(searchParams)),
+    ...(excluded === "format"                  ? [] : termsForPublicationFormat(searchParams)),
+    ...(excluded === "audience"                ? [] : termsForPublicationAudience(searchParams)),
+    ...(excluded === "peerReviewed"            ? [] : termsForPeerReviewed(searchParams)),
+    ...(excluded === "parentPublicationType"   ? [] : termsForParentPublicationType(searchParams)),
+    ...(excluded === "international"           ? [] : termsForInternationalPublication(searchParams)),
+    ...(excluded === "articleType"             ? [] : termsForArticleTypeCode(searchParams)),
+    ...(excluded === "jufo"                    ? [] : termsForJufoClassCode(searchParams)),
+    ...(excluded === "fieldsOfScience"         ? [] : termsForFieldsOfScience(searchParams)),
+    ...(excluded === "publicationTypeCode"     ? [] : termsForPublicationTypeCode(searchParams)),
+    ...(excluded === "openAccess"              ? [] : termsForOpenAccess(searchParams)),
+    ...(excluded === "publisherOpenAccessCode" ? [] : termsForPublisherOpenAccessCode(searchParams)),
+    ...(excluded === "selfArchivedCode"        ? [] : termsForSelfArchivedCode(searchParams)),
   ];
-}
-
-function toIdNameLookup(data: OrgsAggsResponse): Map<string, string> {
-  const pairs = getOrganizationNameBuckets(data).map((bucket) => [bucket.key.id, bucket.key.name]);
-
-  return Object.fromEntries(pairs);
 }
 
 function getOrganizationNameBuckets(response: OrgsAggsResponse) {
   return response.aggregations.filtered_authors.single_sector.organizations.composite_orgs.buckets;
-}
-
-
-export function getOrganizationAdditions(aggregations: /*OrganizationAggregation*/ any, global = false) {
-  if (global)
-    return aggregations.all_data_except_organizationId?.filtered_except_organizationId.organization_nested.all_organizationIds.buckets ?? [];
-  else
-    return aggregations.all_data_except_organizationId.organization_nested.all_organizationIds.buckets ?? [];
-}
-
-export function getLanguageCodeAdditions(aggregations: any, global = false) {
-  if (global)
-    return aggregations.all_data_except_languageCode?.filtered_except_languageCode.all_languageCodes.buckets ?? [];
-  else {
-    return aggregations.all_data_except_languageCode.all_languageCodes.buckets ?? [];
-  }
-}
-
-export function getPublicationFormatAdditions(aggregations: any, global = false) {
-  if (global)
-    return aggregations.all_data_except_publicationFormat?.filtered_except_publicationFormat.all_publicationFormats.buckets ?? [];
-  else
-    return aggregations.all_data_except_publicationFormat.all_publicationFormats.buckets ?? [];
-}
-
-export function getPublicationAudienceAdditions(aggregations: any, global = false) {
-  if (global)
-    return aggregations.all_data_except_publicationAudience?.filtered_except_publicationAudience.all_publicationAudiences.buckets ?? [];
-  else
-    return aggregations.all_data_except_publicationAudience.all_publicationAudiences.buckets ?? [];
-}
-
-export function getPeerReviewedAdditions(aggregations: any, global = false) {
-  if (global)
-  return aggregations.all_data_except_peerReviewed?.filtered_except_peerReviewed.all_peerReviewed.buckets ?? [];
-  else
-    return aggregations.all_data_except_peerReviewed.all_peerReviewed.buckets ?? [];
-}
-
-export function getParentPublicationTypeAdditions(aggregations: any, global = false) {
-  if (global)
-    return aggregations.all_data_except_parentPublicationType?.filtered_except_parentPublicationType.all_parentPublicationTypes.buckets ?? [];
-  else
-    return aggregations.all_data_except_parentPublicationType.all_parentPublicationTypes.buckets ?? [];
-}
-
-export function getPublisherInternationalityAdditions(aggregations: any, global = false) {
-  // used to be called "getInternationalPublicationAdditions"
-
-  // TODO rename all the way to with "PublisherInternationality"
-
-  if (global)
-  return aggregations.all_data_except_internationalPublication?.filtered_except_internationalPublication.all_internationalPublications.buckets ?? [];
-  else
-    return aggregations.all_data_except_internationalPublication.all_internationalPublications.buckets ?? [];
-}
-
-export function getArticleTypeCodeAdditions(aggregations: any, global = false) {
-  if (global)
-    return aggregations.all_data_except_articleTypeCode?.filtered_except_articleTypeCode.all_articleTypeCodes.buckets ?? [];
-  else
-    return aggregations.all_data_except_articleTypeCode.all_articleTypeCodes.buckets ?? [];
-}
-
-export function getJufoClassCodeAdditions(aggregations: any, global = false) {
-  if (global)
-    return aggregations.all_data_except_jufoClassCode?.filtered_except_jufoClassCode.all_jufoClassCodes.buckets ?? [];
-  else
-    return aggregations.all_data_except_jufoClassCode.all_jufoClassCodes.buckets ?? [];
-}
-
-export function getFieldsOfScienceAdditions(aggregations: any, global = false) {
-  if (global)
-    return aggregations.all_data_except_fieldsOfScience?.filtered_except_fieldsOfScience.fieldsOfScience_nested.all_fieldsOfScience.buckets ?? [];
-  else
-    return aggregations.all_data_except_fieldsOfScience.fieldsOfScience_nested.all_fieldsOfScience.buckets ?? [];
-}
-
-export function getPublicationTypeCodeAdditions(aggregations: any, global = false) {
-  if (global)
-    return aggregations.all_data_except_publicationTypeCode?.filtered_except_publicationTypeCode.all_publicationTypeCodes.buckets ?? [];
-  else
-    return aggregations.all_data_except_publicationTypeCode.all_publicationTypeCodes.buckets ?? [];
-}
-
-export function getOpenAccessAdditions(aggregations: any, global = false) {
-  if (global)
-    return aggregations.all_data_except_openAccess?.filtered_except_openAccess.all_openAccess.buckets ?? [];
-  else
-    return aggregations.all_data_except_openAccess.all_openAccess.buckets ?? [];
-}
-
-export function getPublisherOpenAccessCodeAdditions(aggregations: any, global = false) {
-  if (global)
-    return aggregations.all_data_except_publisherOpenAccessCode?.filtered_except_publisherOpenAccessCode.all_publisherOpenAccessCodes.buckets ?? [];
-  else
-    return aggregations.all_data_except_publisherOpenAccessCode.all_publisherOpenAccessCodes.buckets ?? [];
-}
-
-export function getSelfArchivedCodeAdditions(aggregations: any, global = false) {
-  if (global)
-    return aggregations.all_data_except_selfArchivedCode?.filtered_except_selfArchivedCode.all_selfArchivedCodes.buckets ?? [];
-  else
-    return aggregations.all_data_except_selfArchivedCode.all_selfArchivedCodes.buckets ?? [];
 }
