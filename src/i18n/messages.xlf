@@ -2552,6 +2552,83 @@
         <source>Kansainvälinen</source>
       </trans-unit>
 
+
+
+      <trans-unit id="publication2.openAccess.A.title">
+        <source>Avoimesti saatavilla: </source>
+      </trans-unit>
+
+      <trans-unit id="publication2.openAccess.A.description">
+        <source>Julkaisu on avoimesti saatavilla kustantajan palvelussa.</source>
+      </trans-unit>
+
+      <trans-unit id="publication2.openAccess.B.title">
+        <source>Ei avoin: </source>
+      </trans-unit>
+
+      <trans-unit id="publication2.openAccess.B.description">
+        <source>Julkaisu ei ole avoimesti saatavilla kustantajan palvelussa.</source>
+      </trans-unit>
+
+      <trans-unit id="publication2.openAccess.C.title">
+        <source>Ei tietoa: </source>
+      </trans-unit>
+
+      <trans-unit id="publication2.openAccess.C.description">
+        <source>Tietoa ei ole raportoitu.</source>
+      </trans-unit>
+
+
+
+      <trans-unit id="publication2.publisherOpenAccess.A.title">
+        <source>Kokonaan avoin julkaisukanava: </source>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.A.description">
+        <source>Julkaisukanavan kaikki julkaisut ovat pysyvästi avoimesti saatavilla.</source>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.B.title">
+        <source>Osittain avoin julkaisukanava: </source>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.B.description">
+        <source>Julkaisukanavassa vain osa julkaisuista on pysyvästi avoimesti saatavilla.</source>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.C.title">
+        <source>Viivästetysti avoin julkaisukanava: </source>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.C.description">
+        <source>Julkaisukanavan tieteelliset artikkelit avataan kustantajan määrittelemän viiveajan jälkeen.</source>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.D.title">
+        <source>Ei vastausta: </source>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.D.description">
+        <source>Julkaisukanava ei ole kokonaan, osittain tai viivästetysti avoin.</source>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.E.title">
+        <source>Ei tietoa: </source>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.E.description">
+        <source>Tietoa ei ole raportoitu.</source>
+      </trans-unit>
+
+
+
+      <trans-unit id="publication2.selfArchived.A.title">
+        <source>Rinnakkaistallennettu: </source>
+      </trans-unit>
+
+      <trans-unit id="publication2.selfArchived.A.description">
+        <source>Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -6515,6 +6515,115 @@
         <target>International</target>
       </trans-unit>
 
+
+
+      <trans-unit id="publication2.openAccess.A.title">
+        <source>Avoimesti saatavilla: </source>
+        <target>Open access: </target>
+      </trans-unit>
+
+      <trans-unit id="publication2.openAccess.A.description">
+        <source>Julkaisu on avoimesti saatavilla kustantajan palvelussa.</source>
+        <target>The publication is openly available in the publisher's service.</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.openAccess.B.title">
+        <source>Ei avoin: </source>
+        <target>Not open: </target>
+      </trans-unit>
+
+      <trans-unit id="publication2.openAccess.B.description">
+        <source>Julkaisu ei ole avoimesti saatavilla kustantajan palvelussa.</source>
+        <target>The publication is not openly available in the publisher's service.</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.openAccess.C.title">
+        <source>Ei tietoa: </source>
+        <target>Unknown: </target>
+      </trans-unit>
+
+      <trans-unit id="publication2.openAccess.C.description">
+        <source>Tietoa ei ole raportoitu.</source>
+        <target>No information has been reported.</target>
+      </trans-unit>
+
+
+
+      <trans-unit id="publication2.publisherOpenAccess.A.title">
+        <source>Kokonaan avoin julkaisukanava: </source>
+        <target>Fully open publication channel: </target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.A.description">
+        <source>Julkaisukanavan kaikki julkaisut ovat pysyvästi avoimesti saatavilla.</source>
+        <target>All publications are permanently openly available.</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.B.title">
+        <source>Osittain avoin julkaisukanava: </source>
+        <target>Partially open publication channel: </target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.B.description">
+        <source>Julkaisukanavassa vain osa julkaisuista on pysyvästi avoimesti saatavilla.</source>
+        <target>Only some of the publications are permanently openly available.</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.C.title">
+        <source>Viivästetysti avoin julkaisukanava: </source>
+        <target>Delayed open publication channel: </target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.C.description">
+        <source>Julkaisukanavan tieteelliset artikkelit avataan kustantajan määrittelemän viiveajan jälkeen.</source>
+        <target>Scientific articles are opened after a delay time defined by the publisher.</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.D.title">
+        <source>Ei vastausta: </source>
+        <target>No response: </target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.D.description">
+        <source>Julkaisukanava ei ole kokonaan, osittain tai viivästetysti avoin.</source>
+        <target>The publication channel is not fully, partially, or delayed open.</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.E.title">
+        <source>Ei tietoa: </source>
+        <target>Unknown: </target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.E.description">
+        <source>Tietoa ei ole raportoitu.</source>
+        <target>No information has been reported.</target>
+      </trans-unit>
+
+
+
+      <trans-unit id="publication2.selfArchived.A.title">
+        <source>Rinnakkaistallennettu: </source>
+        <target>Self-archived: </target>
+      </trans-unit>
+
+      <trans-unit id="publication2.selfArchived.A.description">
+        <source>Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.</source>
+        <target>The publication has been published in a publication archive specific to an organization or field of science either immediately or after a reasonable embargo period set by the publisher.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
+
+<!--
+Could you use this HTML template
+
+<p>
+  <strong><ng-container i18n='@@titleID'>Content content content...</ng-container></strong>
+  <ng-container i18n='@@descriptionID'>Content content content...</ng-container>
+</p>
+
+and this data
+
+
+And write out HTML with the data in it
+-->

@@ -6519,6 +6519,101 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <target>Internationell</target>
       </trans-unit>
 
+
+
+      <trans-unit id="publication2.openAccess.A.title">
+        <source>Avoimesti saatavilla: </source>
+        <target>Öppet tillgänglig: </target>
+      </trans-unit>
+
+      <trans-unit id="publication2.openAccess.A.description">
+        <source>Julkaisu on avoimesti saatavilla kustantajan palvelussa.</source>
+        <target>Publikationen är öppet tillgänglig i förlagets tjänst.</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.openAccess.B.title">
+        <source>Ei avoin: </source>
+        <target>Inte öppen: </target>
+      </trans-unit>
+
+      <trans-unit id="publication2.openAccess.B.description">
+        <source>Julkaisu ei ole avoimesti saatavilla kustantajan palvelussa.</source>
+        <target>Publikationen är inte öppet tillgänglig i förlagets tjänst.</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.openAccess.C.title">
+        <source>Ei tietoa: </source>
+        <target>Okänd: </target>
+      </trans-unit>
+
+      <trans-unit id="publication2.openAccess.C.description">
+        <source>Tietoa ei ole raportoitu.</source>
+        <target>Ingen information har rapporterats.</target>
+      </trans-unit>
+
+
+
+      <trans-unit id="publication2.publisherOpenAccess.A.title">
+        <source>Kokonaan avoin julkaisukanava: </source>
+        <target>Helt öppen publikationskanal: </target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.A.description">
+        <source>Julkaisukanavan kaikki julkaisut ovat pysyvästi avoimesti saatavilla.</source>
+        <target>Alla publikationer är permanent öppet tillgängliga.</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.B.title">
+        <source>Osittain avoin julkaisukanava: </source>
+        <target>Delvis öppen publikationskanal: </target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.B.description">
+        <source>Julkaisukanavassa vain osa julkaisuista on pysyvästi avoimesti saatavilla.</source>
+        <target>Endast en del av publikationerna är permanent öppet tillgängliga.</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.C.title">
+        <source>Viivästetysti avoin julkaisukanava: </source>
+        <target>Fördröjd öppen publiceringskanal: </target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.C.description">
+        <source>Julkaisukanavan tieteelliset artikkelit avataan kustantajan määrittelemän viiveajan jälkeen.</source>
+        <target>Vetenskapliga artiklar öppnas efter en fördröjningstid som definieras av förlaget.</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.D.title">
+        <source>Ei vastausta: </source>
+        <target>Inget svar: </target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.D.description">
+        <source>Julkaisukanava ei ole kokonaan, osittain tai viivästetysti avoin.</source>
+        <target>Publikationskanalen är inte helt, delvis eller fördröjd öppen.</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.E.title">
+        <source>Ei tietoa: </source>
+        <target>Okänd: </target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.E.description">
+        <source>Tietoa ei ole raportoitu.</source>
+        <target>Ingen information har rapporterats.</target>
+      </trans-unit>
+
+
+
+      <trans-unit id="publication2.selfArchived.A.title">
+        <source>Rinnakkaistallennettu: </source>
+        <target>Parallellsparad: </target>
+      </trans-unit>
+
+      <trans-unit id="publication2.selfArchived.A.description">
+        <source>Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.</source>
+        <target>Publikationen har publicerats i ett organisations- eller vetenskapsområdesspecifikt publikationsarkiv antingen omedelbart eller efter en av förläggaren fastställd skälig embargotid.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

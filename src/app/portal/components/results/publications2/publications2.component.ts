@@ -67,8 +67,8 @@ export class Publications2Component implements OnDestroy {
 
     // TODO: tarkista vielä nämä
     openAccess: $localize`:@@openAccess:Avoin saatavuus`,
-    publisherOpenAccess: $localize`:@@publisherOpenAccess:Avoin saatavuus kustantajan palvelussa`,
-    selfArchivedCode: $localize`:@@selfArchivedCode:selfArchivedCode TODO`,
+    publisherOpenAccess: $localize`:@@publisherOpenAccess:Julkaisukanavan avoin saatavuus`,
+    selfArchivedCode: $localize`:@@selfArchivedCode:Rinnakkaistallennettu`,
   }
 
   publicationTypeLabels = [

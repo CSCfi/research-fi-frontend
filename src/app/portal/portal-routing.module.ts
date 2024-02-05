@@ -102,9 +102,6 @@ const routes: Routes = [
   {
     path: 'results/publications2',
     component: Publications2Component,
-    /*resolve: {                                                                // TODO Delete
-      publications: PublicationsResolver
-    }*/
   },
   {
     path: 'results/:tab',

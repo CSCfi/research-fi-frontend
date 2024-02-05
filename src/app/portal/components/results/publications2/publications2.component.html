@@ -401,35 +401,22 @@
         <div>
           <app-collapsible [label]='labelText.openAccess' hasTooltip='true'>
             <ng-container tooltip>
+
               <p>
-                <strong><ng-container i18n='@@openAccessPublicationChannel'>Open access -julkaisukanava: </ng-container></strong>
-                <ng-container>Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.</ng-container>
+                <strong><ng-container i18n='@@publication2.openAccess.A.title'>Avoimesti saatavilla: </ng-container></strong>
+                <ng-container i18n='@@publication2.openAccess.A.description'>Julkaisu on avoimesti saatavilla kustantajan palvelussa.</ng-container>
               </p>
 
               <p>
-                <strong><ng-container i18n='@@delayedOpenAccessInfoCaption'>Viivästetty avoin saatavuus: </ng-container></strong>
-                <ng-container i18n='@@delayedOpenAccessInfo'>Julkaisukanavan tieteelliset artikkelit avataan kustantajan määrittelemän viiveajan jälkeen. Sisältää sekä jo avoimesti saatavilla että yhä maksumuurin takana olevia julkaisuja.</ng-container>
+                <strong><ng-container i18n='@@publication2.openAccess.B.title'>Ei avoin: </ng-container></strong>
+                <ng-container i18n='@@publication2.openAccess.B.description'>Julkaisu ei ole avoimesti saatavilla kustantajan palvelussa.</ng-container>
               </p>
 
               <p>
-                <strong><ng-container i18n='@@selfArchived'>Rinnakkaistallennettu: </ng-container></strong>
-                <ng-container>Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.</ng-container>
+                <strong><ng-container i18n='@@publication2.openAccess.C.title'>Ei tietoa: </ng-container></strong>
+                <ng-container i18n='@@publication2.openAccess.C.description'>Tietoa ei ole raportoitu.</ng-container>
               </p>
 
-              <p>
-                <strong><ng-container i18n='@@otherOpenAccess'>Muu avoin saatavuus: </ng-container></strong>
-                <ng-container>Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.</ng-container>
-              </p>
-
-              <p>
-                <strong><ng-container i18n='@@nonOpenAccess'>Ei avoin: </ng-container></strong>
-                <ng-container i18n='@@nonOpenAccessInfo'>Julkaisu ei ole ilmestynyt avoimessa julkaisukanavassa, eikä julkaisua ole saatavilla avoimena rinnakkaistallenteena. Huom. myös julkaisut jotka ovat tilapäisesti avoimesti saatavilla, esimerkiksi ajankohtaisen yhteiskunnallisesti merkittävän aiheen tai kustantajan markkinointikampanjan takia, tulevat näkyville tämän kategorian kautta.</ng-container>
-              </p>
-
-              <p>
-                <strong><ng-container i18n='@@noOpenAccessData'>Ei tietoa: </ng-container></strong>
-                <ng-container i18n='@@noOpenAccessDataInfo'>Julkaisun avoimen saatavuuden tilaa ei ole raportoitu.</ng-container>
-              </p>
             </ng-container>
 
             <ng-container *ngFor='let openAccessFilter of openAccessFilters$ | async'>
@@ -448,7 +435,31 @@
         <div>
           <app-collapsible [label]='labelText.publisherOpenAccess' hasTooltip='true'>
             <ng-container tooltip>
-              TODO
+              <p>
+                <strong><ng-container i18n='@@publication2.publisherOpenAccess.A.title'>Kokonaan avoin julkaisukanava: </ng-container></strong>
+                <ng-container i18n='@@publication2.publisherOpenAccess.A.description'>Julkaisukanavan kaikki julkaisut ovat pysyvästi avoimesti saatavilla.</ng-container>
+              </p>
+
+              <p>
+                <strong><ng-container i18n='@@publication2.publisherOpenAccess.B.title'>Osittain avoin julkaisukanava: </ng-container></strong>
+                <ng-container i18n='@@publication2.publisherOpenAccess.B.description'>Julkaisukanavassa vain osa julkaisuista on pysyvästi avoimesti saatavilla.</ng-container>
+              </p>
+
+              <p>
+                <strong><ng-container i18n='@@publication2.publisherOpenAccess.C.title'>Viivästetysti avoin julkaisukanava: </ng-container></strong>
+                <ng-container i18n='@@publication2.publisherOpenAccess.C.description'>Julkaisukanavan tieteelliset artikkelit avataan kustantajan määrittelemän viiveajan jälkeen.</ng-container>
+              </p>
+
+              <p>
+                <strong><ng-container i18n='@@publication2.publisherOpenAccess.D.title'>Ei vastausta: </ng-container></strong>
+                <ng-container i18n='@@publication2.publisherOpenAccess.D.description'>Julkaisukanava ei ole kokonaan, osittain tai viivästetysti avoin.</ng-container>
+              </p>
+
+              <p>
+                <strong><ng-container i18n='@@publication2.publisherOpenAccess.E.title'>Ei tietoa: </ng-container></strong>
+                <ng-container i18n='@@publication2.publisherOpenAccess.E.description'>Tietoa ei ole raportoitu.</ng-container>
+              </p>
+
             </ng-container>
 
             <ng-container *ngFor='let publisherOpenAccessFilter of publisherOpenAccessFilters$ | async'>
@@ -468,7 +479,10 @@
         <div>
           <app-collapsible [label]='labelText.selfArchivedCode' hasTooltip='true'>
             <ng-container tooltip>
-              TODO
+              <p>
+                <strong><ng-container i18n='@@publication2.selfArchived.A.title'>Rinnakkaistallennettu: </ng-container></strong>
+                <ng-container i18n='@@publication2.selfArchived.A.description'>Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.</ng-container>
+              </p>
             </ng-container>
 
             <ng-container *ngFor='let selfArchiveFilter of selfArchivedCodeFilters$ | async'>
