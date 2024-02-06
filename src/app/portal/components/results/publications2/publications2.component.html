@@ -1,683 +1,744 @@
-<div style="background-color: orange; height: 100px; display: flex; justify-content: center; align-items: center">
-  <app-search-bar2 [(value)]='keywords' (search)='searchKeywords(keywords)'></app-search-bar2>
-</div>
+<div class="search-container">
 
-<div style='max-width: 1440px; margin: 0 auto'>
+  <!-- TODO: standalone-header here -->
 
-  <!-- TAB LOOKING BUTTONS -->
-  <div style='height: 80px; margin-top: 20px; display: flex'>
-    <ng-container *ngFor='let tab of ["Julkaisut", "Tutkijat", "Hankkeet", "Aineistot", "Rahoitushaut", "Infrastruktuurit", "Organisaatio"]'>
-      <ng-container *ngIf='tab === "Julkaisut"'>
-        <div style='display: flex; justify-content: center; flex-grow: 1; align-items: center; height: 80px; border: 1px solid black; border-bottom: none; background-color: white'>
-          {{tab}}
+  <div class='search-bar' style="background-color: orange; height: 100px; display: flex; justify-content: center; align-items: center">
+    <app-search-bar2 [(value)]='keywords' (search)='searchKeywords(keywords)'></app-search-bar2>
+  </div>
+
+  <div class='search-filters' style='background-color: #e8e8f5; padding: 16px'>
+    <div style='width: 300px'>
+
+      <div style='display: flex; align-items: center'>
+        <i class='fa fa-sliders' style='font-size: 1.3rem; color: #4546b9; padding-right: 16px' aria-hidden='true'></i>
+        <h3 style='font-size: 1.4rem; margin: 0'>Rajaa hakua</h3>                                          <!-- TODO localize -->
+      </div>
+
+      <!-- TODO DELETE -->
+      <div style='margin: 1rem'></div>
+
+      <div>
+        <app-collapsible [label]='labelText.yearOfPublication'>
+          <ng-container *ngIf='yearFilters$ | async as yearFilters'>
+            <ng-container *ngFor='let yearFilter of yearFilters | limit: filterLimits.year'>
+              <app-filter-option [label]='yearFilter.year'
+                                 [count]='yearFilter.count'
+                                 [value]='yearFilter.enabled'
+                                 (valueChange)='toggleParam("year", yearFilter.year)'>
+              </app-filter-option>
+            </ng-container>
+
+            <div style='display: flex'>
+              <app-filter-limit-button [(value)]='filterLimits.year' [step]='10' [min]='10' [max]='yearFilters.length'>
+                Näytä enemmän
+              </app-filter-limit-button>
+
+              <app-filter-limit-button [(value)]='filterLimits.year' [step]='-10' [min]='10' [max]='yearFilters.length'>
+                Näytä vähemmän
+              </app-filter-limit-button>
+            </div>
+          </ng-container>
+
+        </app-collapsible>
+      </div>
+
+      <!-- TODO DELETE -->
+      <div style='margin: 1rem'></div>
+
+      <app-organization-filter [filterData]='organizationFilters$ | async' (selected)='toggleParam("organization", $event)'></app-organization-filter>
+
+      <!-- TODO DELETE -->
+      <div style='margin: 1rem'></div>
+
+      <div>
+        <app-collapsible [label]='labelText.fieldOfScience' decoration='plus' hasTooltip='true'>
+          <ng-container tooltip i18n="@@pFOSFTooltip">
+            Tilastokeskuksen tieteenalaluokitus. Taiteenalat OKM:n luokituksen mukaisesti. Julkaisulla voi olla 1-6 tieteen- tai taiteenalaa.
+          </ng-container>
+
+          <ng-container *ngFor='let section of [1, 2, 3, 4, 5, 6, 8]'> <!-- 6 is last real, 9 is error codes -->
+
+            <app-collapsible [label]='mainFieldOfScienceName[section]'>
+              <ng-container *ngFor='let fieldsOfScienceFilter of fieldsOfScienceFilters$ | async'>
+
+                <ng-container *ngIf='(fieldsOfScienceFilter.id | firstDigit) === section'>
+                  <app-filter-option [label]='fieldsOfScienceFilter.name'
+                                     [count]='fieldsOfScienceFilter.count'
+                                     [value]='fieldsOfScienceFilter.enabled'
+                                     (valueChange)='toggleParam("fieldsOfScience", fieldsOfScienceFilter.id)'>
+                  </app-filter-option>
+                </ng-container>
+
+              </ng-container>
+            </app-collapsible>
+
+          </ng-container>
+        </app-collapsible>
+      </div>
+
+      <!-- TODO DELETE -->
+      <div style='margin: 1rem'></div>
+
+      <div>
+        <app-collapsible [label]='labelText.publicationType' decoration='plus' hasTooltip='true'>
+          <ng-container tooltip i18n="@@pTypeFTooltip">
+            OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.
+          </ng-container>
+
+          <ng-container *ngFor='let label of publicationTypeLabels'>
+
+            <app-collapsible [label]='label.text'>
+              <ng-container *ngFor='let publicationTypeCodeFilter of publicationTypeCodeFilters$ | async'>
+
+                <ng-container *ngIf='(publicationTypeCodeFilter.id | firstLetter) === label.id'>
+                  <app-filter-option [label]='publicationTypeCodeFilter.name'
+                                     [count]='publicationTypeCodeFilter.count'
+                                     [value]='publicationTypeCodeFilter.enabled'
+                                     (valueChange)='toggleParam("publicationTypeCode", publicationTypeCodeFilter.id)'>
+                  </app-filter-option>
+                </ng-container>
+
+              </ng-container>
+            </app-collapsible>
+
+          </ng-container>
+        </app-collapsible>
+      </div>
+
+      <!-- TODO DELETE -->
+      <div style='margin: 1rem'></div>
+
+      <div>
+        <div style='white-space: pre'>
+          <app-collapsible [label]='labelText.publicationFormat' hasTooltip='true'>
+            <ng-container tooltip>
+              <p>
+                <strong><ng-container i18n="@@article">Artikkeli: </ng-container></strong>
+                <ng-container i18n="@@articleTooltipContent">Sisältää alkuperäis- ja katsausartikkelit, kirjan tai lehden johdannot ja esipuheet, lyhyet tutkimusselostukset, pääkirjoitukset, keskustelupuheenvuorot ja kommentit.</ng-container>
+              </p>
+
+              <p>
+                <strong><ng-container i18n="@@monograph">Erillisteos: </ng-container></strong>
+                <ng-container i18n="@@monographTooltipContent">Sisältää monografiat/kirjat, tutkimus- ja kehitystyöhön perustuva kehittämis- tai tutkimusraportti, selvitykset, ns. white paperit sekä working papers ja discussion papers -tyyppiset julkaisut.</ng-container>
+              </p>
+
+
+              <p>
+                <strong><ng-container i18n="@@editorial">Toimitustyö: </ng-container></strong>
+                <ng-container i18n="@@editorialTooltipContent">Sisältää useista eri kirjoittajien artikkeleista koostuvan tieteellisen kirjan tai lehden erikoisnumeron toimitustyöt.</ng-container>
+              </p>
+
+              <p>
+                <strong><ng-container i18n="@@abstract">Abstrakti: </ng-container></strong>
+                <ng-container i18n="@@abstractTooltipContent">Sisältää konferenssiesitelmien abstraktit sekä laajennetut abstraktit.</ng-container>
+              </p>
+
+              <p>
+                <strong><ng-container i18n="@@poster">Posteri: </ng-container></strong>
+                <ng-container i18n="@@posterTooltipContent">Sisältää konferenssiesitelmien posterit.</ng-container>
+              </p>
+
+              <p>
+                <strong><ng-container i18n="@@blog">Blogikirjoitus: </ng-container></strong>
+                <ng-container i18n="@@blogTooltipContent">Sisältää blogimuotoiset julkaisut, joiden julkaisemisesta on päättänyt riippumaton toimituskunta tai joiden julkaisualustalla on ISSN-tunnus.</ng-container>
+              </p>
+            </ng-container>
+
+            <ng-container *ngFor='let publicationFormatFilter of publicationFormatFilters$ | async'>
+              <app-filter-option [label]='publicationFormatFilter.name'
+                                 [count]='publicationFormatFilter.count'
+                                 [value]='publicationFormatFilter.enabled'
+                                 (valueChange)='toggleParam("format", publicationFormatFilter.id)'>
+              </app-filter-option>
+            </ng-container>
+          </app-collapsible>
         </div>
-      </ng-container>
+      </div>
 
-      <ng-container *ngIf='tab !== "Julkaisut"'>
-        <div style='display: flex; justify-content: center; flex-grow: 1; align-items: center; height: 70px; margin-top: 10px; border-bottom: 1px solid black; background-color: #e8e8f5'>
-          {{tab}}
-        </div>
-      </ng-container>
+      <!-- TODO DELETE -->
+      <div style='margin: 1rem'></div>
+
+      <div>
+        <app-collapsible [label]='labelText.publicationAudience' hasTooltip='true'>
+          <ng-container tooltip>
+            <p>
+              <ng-container i18n="@@publicationChannelAudience">Julkaisukanavan kohdeyleisö</ng-container>
+            </p>
+
+            <p>
+              <strong><ng-container i18n="@@scientificPublication">Tieteellinen julkaisu: </ng-container></strong>
+              <ng-container i18n="@@scientificPublicationTooltipContent">Julkaisut, jotka on tarkoitettu edistämään tiedettä sekä tuottamaan uutta tietoa.</ng-container>
+            </p>
+
+            <p>
+              <strong><ng-container i18n="@@professionalPublication">Ammatillinen julkaisu:</ng-container></strong>
+              <ng-container i18n="@@professionalPublicationTooltipContent">Julkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.</ng-container>
+            </p>
+
+            <p>
+              <strong><ng-container i18n="@@popularPublication">Yleistajuinen julkaisu:</ng-container></strong>
+              <ng-container i18n="@@popularPublicationTooltipContent">Julkaisut, jotka levittävät tutkimus- ja kehitystyöhön perustuvaa tietoa suurelle yleisölle ja joiden sisällön ymmärtäminen ei edellytä erityistä perehtyneisyyttä alaan.</ng-container>
+            </p>
+          </ng-container>
+
+          <ng-container *ngFor='let publicationAudienceFilter of publicationAudienceFilters$ | async'>
+            <app-filter-option [label]='publicationAudienceFilter.name'
+                               [count]='publicationAudienceFilter.count'
+                               [value]='publicationAudienceFilter.enabled'
+                               (valueChange)='toggleParam("audience", publicationAudienceFilter.id)'>
+            </app-filter-option>
+          </ng-container>
+        </app-collapsible>
+      </div>
+
+
+      <!-- TODO DELETE -->
+      <div style='margin: 1rem'></div>
+
+      <div>
+        <app-collapsible [label]='labelText.parentPublicationType' hasTooltip='true'>
+          <ng-container tooltip>
+            <p>
+              <strong><ng-container i18n="@@journal">Lehti: </ng-container></strong>
+              <ng-container i18n="@@journalTooltipContent">sisältää tieteelliset aikakauslehdet ja ammattilehdet.</ng-container>
+            </p>
+
+            <p>
+              <strong><ng-container i18n="@@researchBook">Kokoomateos: </ng-container></strong>
+              <ng-container i18n="@@researchBookTooltipContent">Sisältää tieteelliset kokoomateokset, tieteelliset vuosikirjat ja vastaavat, ammatilliset käsi- tai opaskirjat, ammatilliset tietojärjestelmät tai kokoomateokset, oppikirja-aineistot sekä lyhyet ensyklopediatekstit.</ng-container>
+            </p>
+
+            <p>
+              <strong><ng-container i18n="@@Conference">Konferenssi: </ng-container></strong>
+              <ng-container i18n="@@ConferenceTooltipContent">Sisältää konferenssin painetut tai julkisesti saatavilla olevat julkaisut, ns. proceedings-julkaisut.</ng-container>
+            </p>
+
+            <p>
+              <strong><ng-container i18n='@@onlinePlatform'>Verkkoalusta: </ng-container></strong>
+              <ng-container i18n="@@onlinePlatformTooltipContent">Sisältää muilla sähköisillä alustoilla julkaistut julkaisut.</ng-container>
+            </p>
+          </ng-container>
+
+          <ng-container *ngFor='let parentPublicationTypeFilter of parentPublicationTypeFilters$ | async'>
+            <app-filter-option [label]='parentPublicationTypeFilter.name'
+                               [count]='parentPublicationTypeFilter.count'
+                               [value]='parentPublicationTypeFilter.enabled'
+                               (valueChange)='toggleParam("parentPublicationType", parentPublicationTypeFilter.id)'>
+            </app-filter-option>
+          </ng-container>
+        </app-collapsible>
+      </div>
+
+      <!-- TODO DELETE -->
+      <div style='margin: 1rem'></div>
+
+      <div>
+        <app-collapsible [label]='labelText.articleType' hasTooltip='true'>
+          <ng-container tooltip>
+            <p>
+              <strong><ng-container i18n="@@originalArticle">Alkuperäisartikkeli: </ng-container></strong>
+
+              <ng-container i18n="@@originalArticleTooltip">on pääosin aiemmin julkaisemattomasta materiaalista koostuva tieteellinen artikkeli.</ng-container>
+            </p>
+
+            <p>
+              <strong><ng-container i18n="@@reviewArticle">Katsausartikkeli: </ng-container></strong>
+
+              <ng-container i18n="@@reviewArticleTooltip">perustuu aikaisempiin samasta aihepiiristä tehtyihin julkaisuihin.</ng-container>
+            </p>
+
+            <p>
+              <strong><ng-container i18n="@@dataArticle">Data-artikkeli: </ng-container></strong>
+
+              <ng-container i18n="@@dataArticleTooltip">sisältää ns. data journals -julkaisuissa ilmestyneet, tutkimusaineistoja kuvailevat artikkelit.</ng-container>
+            </p>
+
+            <p>
+              <strong><ng-container i18n="@@otherArticle">Muu artikkeli: </ng-container></strong>
+
+              <ng-container i18n="@@otherArticleTooltip">sisältää muihin luokkiin kuulumattomat artikkelit.</ng-container>
+            </p>
+          </ng-container>
+
+
+          <ng-container *ngFor='let articleTypeCodeFilter of articleTypeCodeFilters$ | async'>
+            <app-filter-option [label]='articleTypeCodeFilter.name'
+                               [count]='articleTypeCodeFilter.count'
+                               [value]='articleTypeCodeFilter.enabled'
+                               (valueChange)='toggleParam("articleType", articleTypeCodeFilter.id)'>
+            </app-filter-option>
+          </ng-container>
+        </app-collapsible>
+      </div>
+
+      <!-- TODO DELETE -->
+      <div style='margin: 1rem'></div>
+
+      <div>
+        <app-collapsible [label]='labelText.peerReviewed' hasTooltip='true'>
+          <ng-container tooltip i18n="@@peerReviewedTooltip">Tieteellisten julkaisujen vertaisarvioinnilla tarkoitetaan menettelyä, jossa tutkimustuloksia julkaiseva lehti, konferenssi tai kirjakustantaja pyytää tieteenalan asiantuntijoita suorittamaan ennakkoarvion julkaistavaksi tarjottujen käsikirjoitusten tieteellisestä julkaisukelpoisuudesta.</ng-container>
+
+          <ng-container *ngFor='let peerReviewedFilter of peerReviewedFilters$ | async'>
+            <app-filter-option [label]='peerReviewedFilter.name'
+                               [count]='peerReviewedFilter.count'
+                               [value]='peerReviewedFilter.enabled'
+                               (valueChange)='toggleParam("peerReviewed", peerReviewedFilter.id)'>
+            </app-filter-option>
+          </ng-container>
+        </app-collapsible>
+      </div>
+
+      <!-- TODO DELETE -->
+      <div style='margin: 1rem'></div>
+
+      <div>
+        <app-collapsible [label]='labelText.publisherInternationality' hasTooltip='true'>
+          <ng-container tooltip i18n="@@pCountryFTooltip">
+            Kotimaisen julkaisun kustantaja on suomalainen tai se on ensisijaisesti julkaistu Suomessa. Kansainvälisen julkaisun kustantaja ei ole suomalainen tai se on ensisijaisesti julkaistu muualla kuin Suomessa.
+          </ng-container>
+
+          <ng-container *ngFor='let internationalPublicationFilter of publisherInternationalityFilters$ | async'>
+            <app-filter-option [label]='internationalPublicationFilter.name'
+                               [count]='internationalPublicationFilter.count'
+                               [value]='internationalPublicationFilter.enabled'
+                               (valueChange)='toggleParam("international", internationalPublicationFilter.id)'>
+            </app-filter-option>
+          </ng-container>
+        </app-collapsible>
+      </div>
+
+      <!-- TODO DELETE -->
+      <div style='margin: 1rem'></div>
+
+      <div>
+        <app-collapsible [label]='labelText.language' hasTooltip='true'>
+          <ng-container tooltip i18n="@@pLangFTooltip">
+            Kieli, jolla julkaisu on kirjoitettu.
+          </ng-container>
+
+          <ng-container *ngIf='languageCodeFilters$ | async as languageCodeFilters'>
+            <ng-container *ngFor='let languageCodeFilter of languageCodeFilters | limit: filterLimits.language'>   <!-- LIMIT ? -->
+              <app-filter-option [label]='languageCodeFilter.name'
+                                 [count]='languageCodeFilter.count'
+                                 [value]='languageCodeFilter.enabled'
+                                 (valueChange)='toggleParam("language", languageCodeFilter.id)'>
+              </app-filter-option>
+            </ng-container>
+
+            <div style='display: flex'>
+              <app-filter-limit-button [(value)]='filterLimits.language' [step]='10' [min]='10' [max]='languageCodeFilters.length'>
+                Näytä enemmän
+              </app-filter-limit-button>
+
+              <app-filter-limit-button [(value)]='filterLimits.language' [step]='-10' [min]='10' [max]='languageCodeFilters.length'>
+                Näytä vähemmän
+              </app-filter-limit-button>
+            </div>
+          </ng-container>
+
+
+        </app-collapsible>
+      </div>
+
+      <!-- TODO DELETE -->
+      <div style='margin: 1rem'></div>
+
+      <div>
+        <app-collapsible [label]='labelText.jufoLevel' hasTooltip='true'>
+          <ng-container tooltip i18n="@@pJufoFTooltip">
+            Julkaisufoorumin (www.julkaisufoorumi.fi) mukainen julkaisukanavan (kirjakustantaja, konferenssi tai julkaisusarja) tasoluokitus: 1 = perustaso, 2 = johtava taso, 3 = korkein taso. Tasolla 0 ovat kanavat, jotka eivät joltain osin täytä tason 1 vaatimuksia tai ovat uusia. Julkaisufoorumitaso määräytyy julkaisun julkaisuvuoden mukaan.
+          </ng-container>
+
+          <ng-container *ngFor='let jufoClassCodeFilter of jufoClassCodeFilters$ | async'>
+            <app-filter-option [label]='jufoClassCodeFilter.id'
+                               [count]='jufoClassCodeFilter.count'
+                               [value]='jufoClassCodeFilter.enabled'
+                               (valueChange)='toggleParam("jufo", jufoClassCodeFilter.id)'>
+            </app-filter-option>
+          </ng-container>
+        </app-collapsible>
+      </div>
+
+      <!-- TODO DELETE -->
+      <div style='margin: 1rem'></div>
+
+      <div>
+        <app-collapsible [label]='labelText.openAccess' hasTooltip='true'>
+          <ng-container tooltip>
+
+            <p>
+              <strong><ng-container i18n='@@publication2.openAccess.A.title'>Avoimesti saatavilla: </ng-container></strong>
+              <ng-container i18n='@@publication2.openAccess.A.description'>Julkaisu on avoimesti saatavilla kustantajan palvelussa.</ng-container>
+            </p>
+
+            <p>
+              <strong><ng-container i18n='@@publication2.openAccess.B.title'>Ei avoin: </ng-container></strong>
+              <ng-container i18n='@@publication2.openAccess.B.description'>Julkaisu ei ole avoimesti saatavilla kustantajan palvelussa.</ng-container>
+            </p>
+
+            <p>
+              <strong><ng-container i18n='@@publication2.openAccess.C.title'>Ei tietoa: </ng-container></strong>
+              <ng-container i18n='@@publication2.openAccess.C.description'>Tietoa ei ole raportoitu.</ng-container>
+            </p>
+
+          </ng-container>
+
+          <ng-container *ngFor='let openAccessFilter of openAccessFilters$ | async'>
+            <app-filter-option [label]='openAccessFilter.name'
+                               [count]='openAccessFilter.count'
+                               [value]='openAccessFilter.enabled'
+                               (valueChange)='toggleParam("openAccess", openAccessFilter.id)'>
+            </app-filter-option>
+          </ng-container>
+        </app-collapsible>
+      </div>
+
+      <!-- TODO DELETE -->
+      <div style='margin: 1rem'></div>
+
+      <div>
+        <app-collapsible [label]='labelText.publisherOpenAccess' hasTooltip='true'>
+          <ng-container tooltip>
+            <p>
+              <strong><ng-container i18n='@@publication2.publisherOpenAccess.A.title'>Kokonaan avoin julkaisukanava: </ng-container></strong>
+              <ng-container i18n='@@publication2.publisherOpenAccess.A.description'>Julkaisukanavan kaikki julkaisut ovat pysyvästi avoimesti saatavilla.</ng-container>
+            </p>
+
+            <p>
+              <strong><ng-container i18n='@@publication2.publisherOpenAccess.B.title'>Osittain avoin julkaisukanava: </ng-container></strong>
+              <ng-container i18n='@@publication2.publisherOpenAccess.B.description'>Julkaisukanavassa vain osa julkaisuista on pysyvästi avoimesti saatavilla.</ng-container>
+            </p>
+
+            <p>
+              <strong><ng-container i18n='@@publication2.publisherOpenAccess.C.title'>Viivästetysti avoin julkaisukanava: </ng-container></strong>
+              <ng-container i18n='@@publication2.publisherOpenAccess.C.description'>Julkaisukanavan tieteelliset artikkelit avataan kustantajan määrittelemän viiveajan jälkeen.</ng-container>
+            </p>
+
+            <p>
+              <strong><ng-container i18n='@@publication2.publisherOpenAccess.D.title'>Ei vastausta: </ng-container></strong>
+              <ng-container i18n='@@publication2.publisherOpenAccess.D.description'>Julkaisukanava ei ole kokonaan, osittain tai viivästetysti avoin.</ng-container>
+            </p>
+
+            <p>
+              <strong><ng-container i18n='@@publication2.publisherOpenAccess.E.title'>Ei tietoa: </ng-container></strong>
+              <ng-container i18n='@@publication2.publisherOpenAccess.E.description'>Tietoa ei ole raportoitu.</ng-container>
+            </p>
+
+          </ng-container>
+
+          <ng-container *ngFor='let publisherOpenAccessFilter of publisherOpenAccessFilters$ | async'>
+            <app-filter-option [label]='publisherOpenAccessFilter.name'
+                               [count]='publisherOpenAccessFilter.count'
+                               [value]='publisherOpenAccessFilter.enabled'
+                               (valueChange)='toggleParam("publisherOpenAccessCode", publisherOpenAccessFilter.id)'>
+            </app-filter-option>
+          </ng-container>
+        </app-collapsible>
+      </div>
+
+      <!-- TODO DELETE -->
+      <div style='margin: 1rem'></div>
+
+      <!-- selfArchive -->
+      <div>
+        <app-collapsible [label]='labelText.selfArchivedCode' hasTooltip='true'>
+          <ng-container tooltip>
+            <p>
+              <strong><ng-container i18n='@@publication2.selfArchived.A.title'>Rinnakkaistallennettu: </ng-container></strong>
+              <ng-container i18n='@@publication2.selfArchived.A.description'>Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.</ng-container>
+            </p>
+          </ng-container>
+
+          <ng-container *ngFor='let selfArchiveFilter of selfArchivedCodeFilters$ | async'>
+            <app-filter-option [label]='selfArchiveFilter.name'
+                               [count]='selfArchiveFilter.count'
+                               [value]='selfArchiveFilter.enabled'
+                               (valueChange)='toggleParam("selfArchive", selfArchiveFilter.id)'>
+            </app-filter-option>
+          </ng-container>
+        </app-collapsible>
+      </div>
+
+    </div>
+  </div>
+
+  <div class='search-summary'>
+    <ng-container *ngIf='(filterCount$ | async) > 0'>
+      <div class='filters-summary'>
+        <div>Rajaukset ({{filterCount$ | async}}):</div>
+
+        <!-- year -->
+        <ng-container *ngFor='let yearFilter of yearFilters$ | async'>
+          <ng-container *ngIf='yearFilter.enabled'>
+
+            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("year", yearFilter.year)'>
+              <div style='font-size: 0.8rem; padding-left: 8px'>{{yearFilter.year}}</div>
+              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+            </div>
+
+          </ng-container>
+        </ng-container>
+
+        <!-- organization -->
+        <ng-container *ngFor='let organizationFilter of organizationFilters$ | async'>
+          <ng-container *ngIf='organizationFilter.enabled'>
+
+            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("organization", organizationFilter.id)'>
+              <div style='font-size: 0.8rem; padding-left: 8px'>{{organizationFilter.name}}</div>
+              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+            </div>
+
+          </ng-container>
+        </ng-container>
+
+        <!-- languageCode -->
+        <ng-container *ngFor='let languageCodeFilter of languageCodeFilters$ | async'>
+          <ng-container *ngIf='languageCodeFilter.enabled'>
+
+            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("language", languageCodeFilter.id)'>
+              <div style='font-size: 0.8rem; padding-left: 8px'>{{languageCodeFilter.name}}</div>
+              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+            </div>
+
+          </ng-container>
+        </ng-container>
+
+        <!-- publicationFormat -->
+        <ng-container *ngFor='let publicationFormatFilter of publicationFormatFilters$ | async'>
+          <ng-container *ngIf='publicationFormatFilter.enabled'>
+
+            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("format", publicationFormatFilter.id)'>
+              <div style='font-size: 0.8rem; padding-left: 8px'>{{publicationFormatFilter.name}}</div>
+              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+            </div>
+
+          </ng-container>
+        </ng-container>
+
+
+        <!-- publicationAudience -->
+        <ng-container *ngFor='let publicationAudienceFilter of publicationAudienceFilters$ | async'>
+          <ng-container *ngIf='publicationAudienceFilter.enabled'>
+
+            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("audience", publicationAudienceFilter.id)'>
+              <div style='font-size: 0.8rem; padding-left: 8px'>{{publicationAudienceFilter.name}}</div>
+              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+            </div>
+
+          </ng-container>
+        </ng-container>
+
+        <!-- peerReviewed -->
+        <ng-container *ngFor='let peerReviewedFilter of peerReviewedFilters$ | async'>
+          <ng-container *ngIf='peerReviewedFilter.enabled'>
+
+            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("peerReviewed", peerReviewedFilter.id)'>
+              <div style='font-size: 0.8rem; padding-left: 8px'>{{peerReviewedFilter.name}}</div>
+              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+            </div>
+
+          </ng-container>
+        </ng-container>
+
+        <!-- publicationType -->
+        <ng-container *ngFor='let parentPublicationTypeFilter of parentPublicationTypeFilters$ | async'>
+          <ng-container *ngIf='parentPublicationTypeFilter.enabled'>
+
+            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("parentPublicationType", parentPublicationTypeFilter.id)'>
+              <div style='font-size: 0.8rem; padding-left: 8px'>{{parentPublicationTypeFilter.name}}</div>
+              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+            </div>
+
+          </ng-container>
+        </ng-container>
+
+        <!-- international -->
+        <ng-container *ngFor='let internationalPublicationFilter of publisherInternationalityFilters$ | async'>
+          <ng-container *ngIf='internationalPublicationFilter.enabled'>
+
+            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("international", internationalPublicationFilter.id)'>
+              <div style='font-size: 0.8rem; padding-left: 8px'>{{internationalPublicationFilter.name}}</div>
+              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+            </div>
+
+          </ng-container>
+        </ng-container>
+
+        <!-- articleType -->
+        <ng-container *ngFor='let articleTypeCodeFilter of articleTypeCodeFilters$ | async'>
+          <ng-container *ngIf='articleTypeCodeFilter.enabled'>
+
+            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("articleType", articleTypeCodeFilter.id)'>
+              <div style='font-size: 0.8rem; padding-left: 8px'>{{articleTypeCodeFilter.name}}</div>
+              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+            </div>
+
+          </ng-container>
+        </ng-container>
+
+        <!-- jufo -->
+        <ng-container *ngFor='let jufoClassCodeFilter of jufoClassCodeFilters$ | async'>
+          <ng-container *ngIf='jufoClassCodeFilter.enabled'>
+
+            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("jufo", jufoClassCodeFilter.id)'>
+              <div style='font-size: 0.8rem; padding-left: 8px'>{{jufoClassCodeFilter.id}}</div>
+              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+            </div>
+
+          </ng-container>
+        </ng-container>
+      </div>
     </ng-container>
   </div>
 
-  <!-- SANDWITCHED QUANTITY, PER PAGE, LINK -->
-  <div style='display: flex; align-items: center; justify-content: space-between; width: 100%'>
-    <div>
-      <h2>Julkaisut - {{total$ | async}}</h2>
-    </div>
-
-    <div style='height: 58px; padding: 16px'>
-      Näytetään tulokset {{(page - 1) * size + 1}} - {{page * size}} / {{total$ | async}}
-
-      <select [ngModel]='size' (ngModelChange)='setPageSize($event)'>
-        <option [ngValue]='10'>10</option>
-        <option [ngValue]='100'>100</option>
-      </select>
-
-      tulosta / sivu
-
-      <a href='#'>Mitä julkaisutietoja palvelu sisältää?</a>
-    </div>
-  </div>
-
-  <div style='display: flex'>
-    <div style='background-color: #e8e8f5; padding: 16px'>
-      <div style='width: 300px'>
-
-        <div style='display: flex; align-items: center'>
-          <i class='fa fa-sliders' style='font-size: 1.3rem; color: #4546b9; padding-right: 16px' aria-hidden='true'></i>
-          <h3 style='font-size: 1.4rem; margin: 0'>Rajaa hakua</h3>                                          <!-- TODO localize -->
-        </div>
-
-        <!-- TODO DELETE -->
-        <div style='margin: 1rem'></div>
-
-        <div>
-          <app-collapsible [label]='labelText.yearOfPublication'>
-            <ng-container *ngIf='yearFilters$ | async as yearFilters'>
-              <ng-container *ngFor='let yearFilter of yearFilters | limit: filterLimits.year'>
-                <app-filter-option [label]='yearFilter.year'
-                                   [count]='yearFilter.count'
-                                   [value]='yearFilter.enabled'
-                                   (valueChange)='toggleParam("year", yearFilter.year)'>
-                </app-filter-option>
-              </ng-container>
-
-              <div style='display: flex'>
-                <app-filter-limit-button [(value)]='filterLimits.year' [step]='10' [min]='10' [max]='yearFilters.length'>
-                  Näytä enemmän
-                </app-filter-limit-button>
-
-                <app-filter-limit-button [(value)]='filterLimits.year' [step]='-10' [min]='10' [max]='yearFilters.length'>
-                  Näytä vähemmän
-                </app-filter-limit-button>
-              </div>
-            </ng-container>
-
-          </app-collapsible>
-        </div>
-
-        <!-- TODO DELETE -->
-        <div style='margin: 1rem'></div>
-
-        <app-organization-filter [filterData]='organizationFilters$ | async' (selected)='toggleParam("organization", $event)'></app-organization-filter>
-
-        <!-- TODO DELETE -->
-        <div style='margin: 1rem'></div>
-
-        <div>
-          <app-collapsible [label]='labelText.fieldOfScience' decoration='plus' hasTooltip='true'>
-            <ng-container tooltip i18n="@@pFOSFTooltip">
-              Tilastokeskuksen tieteenalaluokitus. Taiteenalat OKM:n luokituksen mukaisesti. Julkaisulla voi olla 1-6 tieteen- tai taiteenalaa.
-            </ng-container>
-
-            <ng-container *ngFor='let section of [1, 2, 3, 4, 5, 6, 8]'> <!-- 6 is last real, 9 is error codes -->
-
-              <app-collapsible [label]='mainFieldOfScienceName[section]'>
-                <ng-container *ngFor='let fieldsOfScienceFilter of fieldsOfScienceFilters$ | async'>
-
-                  <ng-container *ngIf='(fieldsOfScienceFilter.id | firstDigit) === section'>
-                    <app-filter-option [label]='fieldsOfScienceFilter.name'
-                                       [count]='fieldsOfScienceFilter.count'
-                                       [value]='fieldsOfScienceFilter.enabled'
-                                       (valueChange)='toggleParam("fieldsOfScience", fieldsOfScienceFilter.id)'>
-                    </app-filter-option>
-                  </ng-container>
-
-                </ng-container>
-              </app-collapsible>
-
-            </ng-container>
-          </app-collapsible>
-        </div>
-
-        <!-- TODO DELETE -->
-        <div style='margin: 1rem'></div>
-
-        <div>
-          <app-collapsible [label]='labelText.publicationType' decoration='plus' hasTooltip='true'>
-            <ng-container tooltip i18n="@@pTypeFTooltip">
-              OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.
-            </ng-container>
-
-            <ng-container *ngFor='let label of publicationTypeLabels'>
-
-              <app-collapsible [label]='label.text'>
-                <ng-container *ngFor='let publicationTypeCodeFilter of publicationTypeCodeFilters$ | async'>
-
-                  <ng-container *ngIf='(publicationTypeCodeFilter.id | firstLetter) === label.id'>
-                    <app-filter-option [label]='publicationTypeCodeFilter.name'
-                                       [count]='publicationTypeCodeFilter.count'
-                                       [value]='publicationTypeCodeFilter.enabled'
-                                       (valueChange)='toggleParam("publicationTypeCode", publicationTypeCodeFilter.id)'>
-                    </app-filter-option>
-                  </ng-container>
-
-                </ng-container>
-              </app-collapsible>
-
-            </ng-container>
-          </app-collapsible>
-        </div>
-
-        <!-- TODO DELETE -->
-        <div style='margin: 1rem'></div>
-
-        <div>
-          <div style='white-space: pre'>
-            <app-collapsible [label]='labelText.publicationFormat' hasTooltip='true'>
-              <ng-container tooltip>
-                <p>
-                  <strong><ng-container i18n="@@article">Artikkeli: </ng-container></strong>
-                  <ng-container i18n="@@articleTooltipContent">Sisältää alkuperäis- ja katsausartikkelit, kirjan tai lehden johdannot ja esipuheet, lyhyet tutkimusselostukset, pääkirjoitukset, keskustelupuheenvuorot ja kommentit.</ng-container>
-                </p>
-
-                <p>
-                  <strong><ng-container i18n="@@monograph">Erillisteos: </ng-container></strong>
-                  <ng-container i18n="@@monographTooltipContent">Sisältää monografiat/kirjat, tutkimus- ja kehitystyöhön perustuva kehittämis- tai tutkimusraportti, selvitykset, ns. white paperit sekä working papers ja discussion papers -tyyppiset julkaisut.</ng-container>
-                </p>
-
-
-                <p>
-                  <strong><ng-container i18n="@@editorial">Toimitustyö: </ng-container></strong>
-                  <ng-container i18n="@@editorialTooltipContent">Sisältää useista eri kirjoittajien artikkeleista koostuvan tieteellisen kirjan tai lehden erikoisnumeron toimitustyöt.</ng-container>
-                </p>
-
-                <p>
-                  <strong><ng-container i18n="@@abstract">Abstrakti: </ng-container></strong>
-                  <ng-container i18n="@@abstractTooltipContent">Sisältää konferenssiesitelmien abstraktit sekä laajennetut abstraktit.</ng-container>
-                </p>
-
-                <p>
-                  <strong><ng-container i18n="@@poster">Posteri: </ng-container></strong>
-                  <ng-container i18n="@@posterTooltipContent">Sisältää konferenssiesitelmien posterit.</ng-container>
-                </p>
-
-                <p>
-                  <strong><ng-container i18n="@@blog">Blogikirjoitus: </ng-container></strong>
-                  <ng-container i18n="@@blogTooltipContent">Sisältää blogimuotoiset julkaisut, joiden julkaisemisesta on päättänyt riippumaton toimituskunta tai joiden julkaisualustalla on ISSN-tunnus.</ng-container>
-                </p>
-              </ng-container>
-
-              <ng-container *ngFor='let publicationFormatFilter of publicationFormatFilters$ | async'>
-                <app-filter-option [label]='publicationFormatFilter.name'
-                                   [count]='publicationFormatFilter.count'
-                                   [value]='publicationFormatFilter.enabled'
-                                   (valueChange)='toggleParam("format", publicationFormatFilter.id)'>
-                </app-filter-option>
-              </ng-container>
-            </app-collapsible>
-          </div>
-        </div>
-
-        <!-- TODO DELETE -->
-        <div style='margin: 1rem'></div>
-
-        <div>
-          <app-collapsible [label]='labelText.publicationAudience' hasTooltip='true'>
-            <ng-container tooltip>
-              <p>
-                <ng-container i18n="@@publicationChannelAudience">Julkaisukanavan kohdeyleisö</ng-container>
-              </p>
-
-              <p>
-                <strong><ng-container i18n="@@scientificPublication">Tieteellinen julkaisu: </ng-container></strong>
-                <ng-container i18n="@@scientificPublicationTooltipContent">Julkaisut, jotka on tarkoitettu edistämään tiedettä sekä tuottamaan uutta tietoa.</ng-container>
-              </p>
-
-              <p>
-                <strong><ng-container i18n="@@professionalPublication">Ammatillinen julkaisu:</ng-container></strong>
-                <ng-container i18n="@@professionalPublicationTooltipContent">Julkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.</ng-container>
-              </p>
-
-              <p>
-                <strong><ng-container i18n="@@popularPublication">Yleistajuinen julkaisu:</ng-container></strong>
-                <ng-container i18n="@@popularPublicationTooltipContent">Julkaisut, jotka levittävät tutkimus- ja kehitystyöhön perustuvaa tietoa suurelle yleisölle ja joiden sisällön ymmärtäminen ei edellytä erityistä perehtyneisyyttä alaan.</ng-container>
-              </p>
-            </ng-container>
-
-            <ng-container *ngFor='let publicationAudienceFilter of publicationAudienceFilters$ | async'>
-              <app-filter-option [label]='publicationAudienceFilter.name'
-                                 [count]='publicationAudienceFilter.count'
-                                 [value]='publicationAudienceFilter.enabled'
-                                 (valueChange)='toggleParam("audience", publicationAudienceFilter.id)'>
-              </app-filter-option>
-            </ng-container>
-          </app-collapsible>
-        </div>
-
-
-        <!-- TODO DELETE -->
-        <div style='margin: 1rem'></div>
-
-        <div>
-          <app-collapsible [label]='labelText.parentPublicationType' hasTooltip='true'>
-            <ng-container tooltip>
-              <p>
-                <strong><ng-container i18n="@@journal">Lehti: </ng-container></strong>
-                <ng-container i18n="@@journalTooltipContent">sisältää tieteelliset aikakauslehdet ja ammattilehdet.</ng-container>
-              </p>
-
-              <p>
-                <strong><ng-container i18n="@@researchBook">Kokoomateos: </ng-container></strong>
-                <ng-container i18n="@@researchBookTooltipContent">Sisältää tieteelliset kokoomateokset, tieteelliset vuosikirjat ja vastaavat, ammatilliset käsi- tai opaskirjat, ammatilliset tietojärjestelmät tai kokoomateokset, oppikirja-aineistot sekä lyhyet ensyklopediatekstit.</ng-container>
-              </p>
-
-              <p>
-                <strong><ng-container i18n="@@Conference">Konferenssi: </ng-container></strong>
-                <ng-container i18n="@@ConferenceTooltipContent">Sisältää konferenssin painetut tai julkisesti saatavilla olevat julkaisut, ns. proceedings-julkaisut.</ng-container>
-              </p>
-
-              <p>
-                <strong><ng-container i18n='@@onlinePlatform'>Verkkoalusta: </ng-container></strong>
-                <ng-container i18n="@@onlinePlatformTooltipContent">Sisältää muilla sähköisillä alustoilla julkaistut julkaisut.</ng-container>
-              </p>
-            </ng-container>
-
-            <ng-container *ngFor='let parentPublicationTypeFilter of parentPublicationTypeFilters$ | async'>
-              <app-filter-option [label]='parentPublicationTypeFilter.name'
-                                 [count]='parentPublicationTypeFilter.count'
-                                 [value]='parentPublicationTypeFilter.enabled'
-                                 (valueChange)='toggleParam("parentPublicationType", parentPublicationTypeFilter.id)'>
-              </app-filter-option>
-            </ng-container>
-          </app-collapsible>
-        </div>
-
-        <!-- TODO DELETE -->
-        <div style='margin: 1rem'></div>
-
-        <div>
-          <app-collapsible [label]='labelText.articleType' hasTooltip='true'>
-            <ng-container tooltip>
-              <p>
-                <strong><ng-container i18n="@@originalArticle">Alkuperäisartikkeli: </ng-container></strong>
-
-                <ng-container i18n="@@originalArticleTooltip">on pääosin aiemmin julkaisemattomasta materiaalista koostuva tieteellinen artikkeli.</ng-container>
-              </p>
-
-              <p>
-                <strong><ng-container i18n="@@reviewArticle">Katsausartikkeli: </ng-container></strong>
-
-                <ng-container i18n="@@reviewArticleTooltip">perustuu aikaisempiin samasta aihepiiristä tehtyihin julkaisuihin.</ng-container>
-              </p>
-
-              <p>
-                <strong><ng-container i18n="@@dataArticle">Data-artikkeli: </ng-container></strong>
-
-                <ng-container i18n="@@dataArticleTooltip">sisältää ns. data journals -julkaisuissa ilmestyneet, tutkimusaineistoja kuvailevat artikkelit.</ng-container>
-              </p>
-
-              <p>
-                <strong><ng-container i18n="@@otherArticle">Muu artikkeli: </ng-container></strong>
-
-                <ng-container i18n="@@otherArticleTooltip">sisältää muihin luokkiin kuulumattomat artikkelit.</ng-container>
-              </p>
-            </ng-container>
-
-
-            <ng-container *ngFor='let articleTypeCodeFilter of articleTypeCodeFilters$ | async'>
-              <app-filter-option [label]='articleTypeCodeFilter.name'
-                                 [count]='articleTypeCodeFilter.count'
-                                 [value]='articleTypeCodeFilter.enabled'
-                                 (valueChange)='toggleParam("articleType", articleTypeCodeFilter.id)'>
-              </app-filter-option>
-            </ng-container>
-          </app-collapsible>
-        </div>
-
-        <!-- TODO DELETE -->
-        <div style='margin: 1rem'></div>
-
-        <div>
-          <app-collapsible [label]='labelText.peerReviewed' hasTooltip='true'>
-            <ng-container tooltip i18n="@@peerReviewedTooltip">Tieteellisten julkaisujen vertaisarvioinnilla tarkoitetaan menettelyä, jossa tutkimustuloksia julkaiseva lehti, konferenssi tai kirjakustantaja pyytää tieteenalan asiantuntijoita suorittamaan ennakkoarvion julkaistavaksi tarjottujen käsikirjoitusten tieteellisestä julkaisukelpoisuudesta.</ng-container>
-
-            <ng-container *ngFor='let peerReviewedFilter of peerReviewedFilters$ | async'>
-              <app-filter-option [label]='peerReviewedFilter.name'
-                                 [count]='peerReviewedFilter.count'
-                                 [value]='peerReviewedFilter.enabled'
-                                 (valueChange)='toggleParam("peerReviewed", peerReviewedFilter.id)'>
-              </app-filter-option>
-            </ng-container>
-          </app-collapsible>
-        </div>
-
-        <!-- TODO DELETE -->
-        <div style='margin: 1rem'></div>
-
-        <div>
-          <app-collapsible [label]='labelText.publisherInternationality' hasTooltip='true'>
-            <ng-container tooltip i18n="@@pCountryFTooltip">
-              Kotimaisen julkaisun kustantaja on suomalainen tai se on ensisijaisesti julkaistu Suomessa. Kansainvälisen julkaisun kustantaja ei ole suomalainen tai se on ensisijaisesti julkaistu muualla kuin Suomessa.
-            </ng-container>
-
-            <ng-container *ngFor='let internationalPublicationFilter of publisherInternationalityFilters$ | async'>
-              <app-filter-option [label]='internationalPublicationFilter.name'
-                                 [count]='internationalPublicationFilter.count'
-                                 [value]='internationalPublicationFilter.enabled'
-                                 (valueChange)='toggleParam("international", internationalPublicationFilter.id)'>
-              </app-filter-option>
-            </ng-container>
-          </app-collapsible>
-        </div>
-
-        <!-- TODO DELETE -->
-        <div style='margin: 1rem'></div>
-
-        <div>
-          <app-collapsible [label]='labelText.language' hasTooltip='true'>
-            <ng-container tooltip i18n="@@pLangFTooltip">
-              Kieli, jolla julkaisu on kirjoitettu.
-            </ng-container>
-
-            <ng-container *ngIf='languageCodeFilters$ | async as languageCodeFilters'>
-              <ng-container *ngFor='let languageCodeFilter of languageCodeFilters | limit: filterLimits.language'>   <!-- LIMIT ? -->
-                <app-filter-option [label]='languageCodeFilter.name'
-                                   [count]='languageCodeFilter.count'
-                                   [value]='languageCodeFilter.enabled'
-                                   (valueChange)='toggleParam("language", languageCodeFilter.id)'>
-                </app-filter-option>
-              </ng-container>
-
-              <div style='display: flex'>
-                <app-filter-limit-button [(value)]='filterLimits.language' [step]='10' [min]='10' [max]='languageCodeFilters.length'>
-                  Näytä enemmän
-                </app-filter-limit-button>
-
-                <app-filter-limit-button [(value)]='filterLimits.language' [step]='-10' [min]='10' [max]='languageCodeFilters.length'>
-                  Näytä vähemmän
-                </app-filter-limit-button>
-              </div>
-            </ng-container>
-
-
-          </app-collapsible>
-        </div>
-
-        <!-- TODO DELETE -->
-        <div style='margin: 1rem'></div>
-
-        <div>
-          <app-collapsible [label]='labelText.jufoLevel' hasTooltip='true'>
-            <ng-container tooltip i18n="@@pJufoFTooltip">
-              Julkaisufoorumin (www.julkaisufoorumi.fi) mukainen julkaisukanavan (kirjakustantaja, konferenssi tai julkaisusarja) tasoluokitus: 1 = perustaso, 2 = johtava taso, 3 = korkein taso. Tasolla 0 ovat kanavat, jotka eivät joltain osin täytä tason 1 vaatimuksia tai ovat uusia. Julkaisufoorumitaso määräytyy julkaisun julkaisuvuoden mukaan.
-            </ng-container>
-
-            <ng-container *ngFor='let jufoClassCodeFilter of jufoClassCodeFilters$ | async'>
-              <app-filter-option [label]='jufoClassCodeFilter.id'
-                                 [count]='jufoClassCodeFilter.count'
-                                 [value]='jufoClassCodeFilter.enabled'
-                                 (valueChange)='toggleParam("jufo", jufoClassCodeFilter.id)'>
-              </app-filter-option>
-            </ng-container>
-          </app-collapsible>
-        </div>
-
-        <!-- TODO DELETE -->
-        <div style='margin: 1rem'></div>
-
-        <div>
-          <app-collapsible [label]='labelText.openAccess' hasTooltip='true'>
-            <ng-container tooltip>
-
-              <p>
-                <strong><ng-container i18n='@@publication2.openAccess.A.title'>Avoimesti saatavilla: </ng-container></strong>
-                <ng-container i18n='@@publication2.openAccess.A.description'>Julkaisu on avoimesti saatavilla kustantajan palvelussa.</ng-container>
-              </p>
-
-              <p>
-                <strong><ng-container i18n='@@publication2.openAccess.B.title'>Ei avoin: </ng-container></strong>
-                <ng-container i18n='@@publication2.openAccess.B.description'>Julkaisu ei ole avoimesti saatavilla kustantajan palvelussa.</ng-container>
-              </p>
-
-              <p>
-                <strong><ng-container i18n='@@publication2.openAccess.C.title'>Ei tietoa: </ng-container></strong>
-                <ng-container i18n='@@publication2.openAccess.C.description'>Tietoa ei ole raportoitu.</ng-container>
-              </p>
-
-            </ng-container>
-
-            <ng-container *ngFor='let openAccessFilter of openAccessFilters$ | async'>
-              <app-filter-option [label]='openAccessFilter.name'
-                                 [count]='openAccessFilter.count'
-                                 [value]='openAccessFilter.enabled'
-                                 (valueChange)='toggleParam("openAccess", openAccessFilter.id)'>
-              </app-filter-option>
-            </ng-container>
-          </app-collapsible>
-        </div>
-
-        <!-- TODO DELETE -->
-        <div style='margin: 1rem'></div>
-
-        <div>
-          <app-collapsible [label]='labelText.publisherOpenAccess' hasTooltip='true'>
-            <ng-container tooltip>
-              <p>
-                <strong><ng-container i18n='@@publication2.publisherOpenAccess.A.title'>Kokonaan avoin julkaisukanava: </ng-container></strong>
-                <ng-container i18n='@@publication2.publisherOpenAccess.A.description'>Julkaisukanavan kaikki julkaisut ovat pysyvästi avoimesti saatavilla.</ng-container>
-              </p>
-
-              <p>
-                <strong><ng-container i18n='@@publication2.publisherOpenAccess.B.title'>Osittain avoin julkaisukanava: </ng-container></strong>
-                <ng-container i18n='@@publication2.publisherOpenAccess.B.description'>Julkaisukanavassa vain osa julkaisuista on pysyvästi avoimesti saatavilla.</ng-container>
-              </p>
-
-              <p>
-                <strong><ng-container i18n='@@publication2.publisherOpenAccess.C.title'>Viivästetysti avoin julkaisukanava: </ng-container></strong>
-                <ng-container i18n='@@publication2.publisherOpenAccess.C.description'>Julkaisukanavan tieteelliset artikkelit avataan kustantajan määrittelemän viiveajan jälkeen.</ng-container>
-              </p>
-
-              <p>
-                <strong><ng-container i18n='@@publication2.publisherOpenAccess.D.title'>Ei vastausta: </ng-container></strong>
-                <ng-container i18n='@@publication2.publisherOpenAccess.D.description'>Julkaisukanava ei ole kokonaan, osittain tai viivästetysti avoin.</ng-container>
-              </p>
-
-              <p>
-                <strong><ng-container i18n='@@publication2.publisherOpenAccess.E.title'>Ei tietoa: </ng-container></strong>
-                <ng-container i18n='@@publication2.publisherOpenAccess.E.description'>Tietoa ei ole raportoitu.</ng-container>
-              </p>
-
-            </ng-container>
-
-            <ng-container *ngFor='let publisherOpenAccessFilter of publisherOpenAccessFilters$ | async'>
-              <app-filter-option [label]='publisherOpenAccessFilter.name'
-                                 [count]='publisherOpenAccessFilter.count'
-                                 [value]='publisherOpenAccessFilter.enabled'
-                                 (valueChange)='toggleParam("publisherOpenAccessCode", publisherOpenAccessFilter.id)'>
-              </app-filter-option>
-            </ng-container>
-          </app-collapsible>
-        </div>
-
-        <!-- TODO DELETE -->
-        <div style='margin: 1rem'></div>
-
-        <!-- selfArchive -->
-        <div>
-          <app-collapsible [label]='labelText.selfArchivedCode' hasTooltip='true'>
-            <ng-container tooltip>
-              <p>
-                <strong><ng-container i18n='@@publication2.selfArchived.A.title'>Rinnakkaistallennettu: </ng-container></strong>
-                <ng-container i18n='@@publication2.selfArchived.A.description'>Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.</ng-container>
-              </p>
-            </ng-container>
-
-            <ng-container *ngFor='let selfArchiveFilter of selfArchivedCodeFilters$ | async'>
-              <app-filter-option [label]='selfArchiveFilter.name'
-                                 [count]='selfArchiveFilter.count'
-                                 [value]='selfArchiveFilter.enabled'
-                                 (valueChange)='toggleParam("selfArchive", selfArchiveFilter.id)'>
-              </app-filter-option>
-            </ng-container>
-          </app-collapsible>
-        </div>
-
-      </div>
-    </div>
-
-    <div style='max-width: 1550px; padding-left: 16px'>
-
-
-      <ng-container *ngIf='(filterCount$ | async) > 0'>
-        <div class='filters-summary'>
-          <div>Rajaukset ({{filterCount$ | async}}):</div>
-
-          <!-- year -->
-          <ng-container *ngFor='let yearFilter of yearFilters$ | async'>
-            <ng-container *ngIf='yearFilter.enabled'>
-
-              <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("year", yearFilter.year)'>
-                <div style='font-size: 0.8rem; padding-left: 8px'>{{yearFilter.year}}</div>
-                <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
-              </div>
-
-            </ng-container>
-          </ng-container>
-
-          <!-- organization -->
-          <ng-container *ngFor='let organizationFilter of organizationFilters$ | async'>
-            <ng-container *ngIf='organizationFilter.enabled'>
-
-              <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("organization", organizationFilter.id)'>
-                <div style='font-size: 0.8rem; padding-left: 8px'>{{organizationFilter.name}}</div>
-                <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
-              </div>
-
-            </ng-container>
-          </ng-container>
-
-          <!-- languageCode -->
-          <ng-container *ngFor='let languageCodeFilter of languageCodeFilters$ | async'>
-            <ng-container *ngIf='languageCodeFilter.enabled'>
-
-              <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("language", languageCodeFilter.id)'>
-                <div style='font-size: 0.8rem; padding-left: 8px'>{{languageCodeFilter.name}}</div>
-                <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
-              </div>
-
-            </ng-container>
-          </ng-container>
-
-          <!-- publicationFormat -->
-          <ng-container *ngFor='let publicationFormatFilter of publicationFormatFilters$ | async'>
-            <ng-container *ngIf='publicationFormatFilter.enabled'>
-
-              <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("format", publicationFormatFilter.id)'>
-                <div style='font-size: 0.8rem; padding-left: 8px'>{{publicationFormatFilter.name}}</div>
-                <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
-              </div>
-
-            </ng-container>
-          </ng-container>
-
-
-          <!-- publicationAudience -->
-          <ng-container *ngFor='let publicationAudienceFilter of publicationAudienceFilters$ | async'>
-            <ng-container *ngIf='publicationAudienceFilter.enabled'>
-
-              <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("audience", publicationAudienceFilter.id)'>
-                <div style='font-size: 0.8rem; padding-left: 8px'>{{publicationAudienceFilter.name}}</div>
-                <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
-              </div>
-
-            </ng-container>
-          </ng-container>
-
-          <!-- peerReviewed -->
-          <ng-container *ngFor='let peerReviewedFilter of peerReviewedFilters$ | async'>
-            <ng-container *ngIf='peerReviewedFilter.enabled'>
-
-              <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("peerReviewed", peerReviewedFilter.id)'>
-                <div style='font-size: 0.8rem; padding-left: 8px'>{{peerReviewedFilter.name}}</div>
-                <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
-              </div>
-
-            </ng-container>
-          </ng-container>
-
-          <!-- publicationType -->
-          <ng-container *ngFor='let parentPublicationTypeFilter of parentPublicationTypeFilters$ | async'>
-            <ng-container *ngIf='parentPublicationTypeFilter.enabled'>
-
-              <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("parentPublicationType", parentPublicationTypeFilter.id)'>
-                <div style='font-size: 0.8rem; padding-left: 8px'>{{parentPublicationTypeFilter.name}}</div>
-                <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
-              </div>
-
-            </ng-container>
-          </ng-container>
-
-          <!-- international -->
-          <ng-container *ngFor='let internationalPublicationFilter of publisherInternationalityFilters$ | async'>
-            <ng-container *ngIf='internationalPublicationFilter.enabled'>
-
-              <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("international", internationalPublicationFilter.id)'>
-                <div style='font-size: 0.8rem; padding-left: 8px'>{{internationalPublicationFilter.name}}</div>
-                <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
-              </div>
-
-            </ng-container>
-          </ng-container>
-
-          <!-- articleType -->
-          <ng-container *ngFor='let articleTypeCodeFilter of articleTypeCodeFilters$ | async'>
-            <ng-container *ngIf='articleTypeCodeFilter.enabled'>
-
-              <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("articleType", articleTypeCodeFilter.id)'>
-                <div style='font-size: 0.8rem; padding-left: 8px'>{{articleTypeCodeFilter.name}}</div>
-                <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
-              </div>
-
-            </ng-container>
-          </ng-container>
-
-          <!-- jufo -->
-          <ng-container *ngFor='let jufoClassCodeFilter of jufoClassCodeFilters$ | async'>
-            <ng-container *ngIf='jufoClassCodeFilter.enabled'>
-
-              <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("jufo", jufoClassCodeFilter.id)'>
-                <div style='font-size: 0.8rem; padding-left: 8px'>{{jufoClassCodeFilter.id}}</div>
-                <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
-              </div>
-
-            </ng-container>
-          </ng-container>
-        </div>
+  <div class='search-results'>
+    <table cdk-table [dataSource]="dataSource">
+      <!-- icon column that's just for aeshetics without any data -->
+      <ng-container cdkColumnDef="icon">
+        <cdk-header-cell *cdkHeaderCellDef></cdk-header-cell>
+
+        <cdk-cell *cdkCellDef="let element">
+          <i class='fa fa-file-lines'style='font-size: 2.5rem; color: #4546b9' aria-hidden='true'></i>
+        </cdk-cell>
       </ng-container>
 
-      <table cdk-table [dataSource]="dataSource">
-        <ng-container cdkColumnDef="publicationName">
-          <cdk-header-cell cdk-header-cell *cdkHeaderCellDef>
-            <div i18n="@@publicationName">Julkaisun nimi</div>
-          </cdk-header-cell>
+      <ng-container cdkColumnDef="publicationName">
+        <cdk-header-cell cdk-header-cell *cdkHeaderCellDef>
+          <div style='display: flex' (click)='toggleSort("publicationName")'>
+            <div style='font-weight: bold;' i18n="@@publicationName">
+              Julkaisun nimi
+            </div>
 
-          <cdk-cell *cdkCellDef="let element">
-            <a style='text-decoration: underline' [routerLink]="'/results/publication/' + element.id" >
-              <div [innerHTML]='element.publicationName'></div>
-            </a>
-          </cdk-cell>
-        </ng-container>
+            <app-column-sorter [name]='"publicationName"' [value]='sort'></app-column-sorter>
+          </div>
+        </cdk-header-cell>
 
-        <ng-container cdkColumnDef="authorsText">
-          <cdk-header-cell *cdkHeaderCellDef>
-            <ng-container i18n="@@publicationAuthors">Tekijät</ng-container>
-          </cdk-header-cell>
+        <cdk-cell *cdkCellDef="let element">
+          <a style='text-decoration: underline' [routerLink]="'/results/publication/' + element.id" >
+            <div [innerHTML]='element.publicationName'></div>
+          </a>
+        </cdk-cell>
+      </ng-container>
 
-          <cdk-cell *cdkCellDef="let element">
-            <div [innerHTML]='element.authorsText'></div>
-          </cdk-cell>
-        </ng-container>
+      <ng-container cdkColumnDef="authorsText">
+        <cdk-header-cell *cdkHeaderCellDef>
 
-        <ng-container cdkColumnDef="publisherName">
-          <cdk-header-cell *cdkHeaderCellDef>
-            <ng-container i18n="@@publicationMedium">Julkaisukanava</ng-container>
-          </cdk-header-cell>
+          <div style='display: flex'(click)='toggleSort("authorsText")'>
+            <div style='font-weight: bold' i18n="@@publicationAuthors">Tekijät</div>
 
-          <cdk-cell *cdkCellDef="let element">
-            <div [innerHTML]='element.publisherName'></div>
-          </cdk-cell>
-        </ng-container>
+            <app-column-sorter [name]='"authorsText"' [value]='sort'></app-column-sorter>
+          </div>
 
-        <ng-container cdkColumnDef="publicationYear">
-          <cdk-header-cell *cdkHeaderCellDef>
-            <ng-container i18n="@@yearOfPublication">Julkaisuvuosi</ng-container>
-          </cdk-header-cell>
+        </cdk-header-cell>
 
-          <cdk-cell *cdkCellDef="let element">
-            <div [innerHTML]='element.publicationYear'></div>
-          </cdk-cell>
-        </ng-container>
+        <cdk-cell *cdkCellDef="let element">
+          <div [innerHTML]='element.authorsText'></div>
+        </cdk-cell>
+      </ng-container>
 
-        <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
-        <tr cdk-row *cdkRowDef="let row; columns: displayedColumns"></tr>
-      </table>
+      <ng-container cdkColumnDef="publisherName">
+        <cdk-header-cell *cdkHeaderCellDef>
 
-      <div>
-        <app-pagination [page]='page' [pageSize]='size' [total]='total$ | async'></app-pagination>
-      </div>
+          <div style='display: flex' (click)='toggleSort("publisherName")'>
+            <div style='font-weight: bold' i18n="@@publicationMedium">
+              Julkaisukanava
+            </div>
+
+            <app-column-sorter [name]='"publisherName"' [value]='sort'></app-column-sorter>
+          </div>
+
+        </cdk-header-cell>
+
+        <cdk-cell *cdkCellDef="let element">
+          <div [innerHTML]='element.publisherName'></div>
+        </cdk-cell>
+      </ng-container>
+
+      <ng-container cdkColumnDef="publicationYear">
+        <cdk-header-cell *cdkHeaderCellDef>
+
+          <div style='display: flex' (click)='toggleSort("publicationYear")'>
+            <div style='font-weight: bold' i18n="@@yearOfPublication">
+              Julkaisuvuosi
+            </div>
+
+            <app-column-sorter [name]='"publicationYear"' [value]='sort'></app-column-sorter>
+          </div>
+
+        </cdk-header-cell>
+
+        <cdk-cell *cdkCellDef="let element">
+          <div [innerHTML]='element.publicationYear'></div>
+        </cdk-cell>
+      </ng-container>
+
+      <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+      <tr cdk-row *cdkRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+
+  <div class='search-pagination'>
+    <div style='width: 1000px'>
+      <app-pagination [page]='page' [pageSize]='size' [total]='total$ | async'></app-pagination>
     </div>
   </div>
+
+  <div><!-- style='max-width: 1440px; margin: 0 auto' -->
+
+    <!-- TAB LOOKING BUTTONS -->
+    <!--<div style='height: 80px; margin-top: 20px; display: flex'>
+      <ng-container *ngFor='let tab of ["Julkaisut", "Tutkijat", "Hankkeet", "Aineistot", "Rahoitushaut", "Infrastruktuurit", "Organisaatio"]'>
+        <ng-container *ngIf='tab === "Julkaisut"'>
+          <div style='display: flex; justify-content: center; flex-grow: 1; align-items: center; height: 80px; border: 1px solid black; border-bottom: none; background-color: white'>
+            {{tab}}
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf='tab !== "Julkaisut"'>
+          <div style='display: flex; justify-content: center; flex-grow: 1; align-items: center; height: 70px; margin-top: 10px; border-bottom: 1px solid black; background-color: #e8e8f5'>
+            {{tab}}
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>-->
+
+    <!-- SANDWITCHED QUANTITY, PER PAGE, LINK -->
+    <!--<div style='display: flex; align-items: center; justify-content: space-between; width: 100%'>
+      <div>
+        <h2>Julkaisut - {{total$ | async}}</h2>
+      </div>
+
+      <div style='height: 58px; padding: 16px'>
+        Näytetään tulokset {{(page - 1) * size + 1}} - {{page * size}} / {{total$ | async}}
+
+        <select [ngModel]='size' (ngModelChange)='setPageSize($event)'>
+          <option [ngValue]='10'>10</option>
+          <option [ngValue]='100'>100</option>
+        </select>
+
+        tulosta / sivu
+
+        <a href='#'>Mitä julkaisutietoja palvelu sisältää?</a>
+      </div>
+    </div>-->
+
+    <!--<div style='display: flex'>
+
+
+      <div style='max-width: 1550px; padding-left: 16px'>
+
+
+
+
+
+
+
+      </div>
+    </div>-->
+  </div>
+
+  <!-- TODO: standalone-footer here -->
+
 </div>
+
+

@@ -1,21 +1,27 @@
-import { Component, inject, OnDestroy, Pipe, PipeTransform } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { CdkTableModule, DataSource } from '@angular/cdk/table';
-import { BehaviorSubject, combineLatest, merge, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AsyncPipe, JsonPipe, NgForOf, NgIf, NgStyle } from '@angular/common';
 import {
-  getArticleTypeCodeAdditions, getFieldsOfScienceAdditions,
-  getPublisherInternationalityAdditions, getJufoClassCodeAdditions,
+  getArticleTypeCodeAdditions,
+  getFieldsOfScienceAdditions,
+  getJufoClassCodeAdditions,
   getLanguageCodeAdditions,
+  getOpenAccessAdditions,
   getOrganizationAdditions,
   getParentPublicationTypeAdditions,
   getPeerReviewedAdditions,
   getPublicationAudienceAdditions,
-  getPublicationFormatAdditions, getPublicationTypeCodeAdditions,
+  getPublicationFormatAdditions,
+  getPublicationTypeCodeAdditions,
+  getPublisherInternationalityAdditions,
+  getPublisherOpenAccessCodeAdditions,
+  getSelfArchivedCodeAdditions,
   getYearAdditions,
   HighlightedPublication,
-  Publication2Service, getOpenAccessAdditions, getPublisherOpenAccessCodeAdditions, getSelfArchivedCodeAdditions
+  Publication2Service, SearchParams
 } from '@portal/services/publication2.service';
 import { map, take, tap } from 'rxjs/operators';
 import { SharedModule } from '@shared/shared.module';
@@ -29,6 +35,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { FilterLimitButtonComponent } from '@portal/components/filter-limit-button/filter-limit-button.component';
 import { FirstDigitPipe } from '@shared/pipes/first-digit.pipe';
 import { FirstLetterPipe } from '@shared/pipes/first-letter.pipe';
+import { BreakpointObserver, LayoutModule } from '@angular/cdk/layout';
+import { ColumnSorterComponent } from '@shared/components/column-sorter/column-sorter.component';
 
 @Component({
   selector: 'app-publications2',
@@ -38,7 +46,8 @@ import { FirstLetterPipe } from '@shared/pipes/first-letter.pipe';
     SharedModule, //TODO not good?
     FormsModule,
     RouterModule,
-    SearchBar2Component, OrganizationFilterComponent, FilterOptionComponent, CollapsibleComponent, MatButtonModule, NgStyle, FilterLimitButtonComponent, FirstDigitPipe, FirstLetterPipe, RouterLink
+    SearchBar2Component, OrganizationFilterComponent, FilterOptionComponent, CollapsibleComponent, MatButtonModule, NgStyle, FilterLimitButtonComponent, FirstDigitPipe, FirstLetterPipe, RouterLink,
+    LayoutModule, ColumnSorterComponent
   ],
   standalone: true
 })
@@ -47,9 +56,13 @@ export class Publications2Component implements OnDestroy {
   router = inject(Router);
   publications2Service = inject(Publication2Service);
 
+  breakpointObserver = inject(BreakpointObserver);
+
   keywords = "";
   page = 1;
   size = 10;
+
+  sort = "";
 
   labelText = {
     yearOfPublication: $localize`:@@yearOfPublication:Julkaisuvuosi`,
@@ -64,8 +77,6 @@ export class Publications2Component implements OnDestroy {
     publisherInternationality: $localize`:@@publisherInternationality:Kustantajan kansainvälisyys`,
     language: $localize`:@@language:Kieli`,
     jufoLevel: $localize`:@@jufoLevel:Julkaisufoorumitaso`,
-
-    // TODO: tarkista vielä nämä
     openAccess: $localize`:@@openAccess:Avoin saatavuus`,
     publisherOpenAccess: $localize`:@@publisherOpenAccess:Julkaisukanavan avoin saatavuus`,
     selfArchivedCode: $localize`:@@selfArchivedCode:Rinnakkaistallennettu`,
@@ -93,7 +104,7 @@ export class Publications2Component implements OnDestroy {
     this.filterCount$.next(count);
   }
 
-  displayedColumns: string[] = ['publicationName', 'authorsText', 'publisherName', 'publicationYear'];
+  displayedColumns: string[] = ['icon', 'publicationName', 'authorsText', 'publisherName', 'publicationYear'];
 
   highlights$ = this.publications2Service.getSearch(); // TODO: /*: Observable<HighlightedPublication[]>*/
   dataSource = new PublicationDataSource(this.highlights$);
@@ -102,7 +113,11 @@ export class Publications2Component implements OnDestroy {
   aggregations$ = this.publications2Service.getAggregations();
 
   yearAdditions$ = this.aggregations$.pipe(
-    map(aggs => getYearAdditions(aggs).map((bucket: any) => ({ year: bucket.key.toString(), count: bucket.doc_count })) ?? []),
+    map(aggs =>
+      getYearAdditions(aggs).map(
+        (bucket: any) => ({ year: bucket.key.toString(), count: bucket.doc_count })
+      ) ?? []
+    ),
     map(aggs => aggs.sort((a, b) => b.year - a.year))
   );
 
@@ -384,6 +399,13 @@ export class Publications2Component implements OnDestroy {
     language: 10,
   };
 
+  breakpointSubscription = this.breakpointObserver.observe('(max-width: 1199px)').subscribe(result => {
+    if (result.matches) {
+      this.displayedColumns = ['icon', 'publicationName', 'authorsText', 'publicationYear'];
+    } else {
+      this.displayedColumns = ['icon', 'publicationName', 'authorsText', 'publisherName', 'publicationYear'];
+    }
+  });
 
   searchParamsSubscription = this.searchParams$.subscribe(searchParams => {
     this.publications2Service.updateSearchTerms(searchParams);
@@ -391,12 +413,14 @@ export class Publications2Component implements OnDestroy {
     this.keywords = searchParams.q?.[0] ?? "";
     this.page = parseInt(searchParams.page?.[0] ?? "1");
     this.size = parseInt(searchParams.size?.[0] ?? "10");
+    this.sort = searchParams.sort?.[0] ?? "";
   });
 
   total$ = this.publications2Service.getTotal();
 
   ngOnDestroy() {
     this.searchParamsSubscription.unsubscribe();
+    this.breakpointSubscription.unsubscribe();
   }
 
   toggleParam(key: string, value: string) {
@@ -423,6 +447,45 @@ export class Publications2Component implements OnDestroy {
         relativeTo: this.route,
         queryParams: concatFields(queryParams)
       });
+    });
+  }
+
+  setParam(key: string, value: string) {
+    this.searchParams$.pipe(take(1)).subscribe(filterParams => {
+      const queryParams = { ...filterParams };
+
+      queryParams[key] = [value];
+
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: concatFields(queryParams)
+      });
+    });
+  }
+
+  clearParam(key: string) {
+    this.searchParams$.pipe(take(1)).subscribe(filterParams => {
+      const queryParams = { ...filterParams };
+      delete queryParams[key];
+
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: concatFields(queryParams)
+      });
+    });
+  }
+
+  toggleSort(field: string) {
+    this.searchParams$.pipe(take(1)).subscribe(params => {
+      const existingSort = params.sort?.pop() ?? "";
+
+      if (existingSort === field + "Desc") {
+        this.clearParam("sort");
+      } else if (existingSort === field) {
+        this.setParam("sort", field + "Desc");
+      } else {
+        this.setParam("sort", field);
+      }
     });
   }
 

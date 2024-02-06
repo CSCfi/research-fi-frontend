@@ -36,10 +36,12 @@ type CachedPublicationSearch = {
   publicationSearch: PublicationSearch,
 }
 
-type SearchParams = {
+export type SearchParams = {
   q?: string[],
   page?: string[],
   size?: string[],
+  sort?: string[],
+
   year?: string[],
   organization?: string[],
 
@@ -75,7 +77,7 @@ export class Publication2Service {
 
   searchUrl = 'https://researchfi-api-qa.rahtiapp.fi/portalapi/publication/_search?'
 
-  searchParams = new BehaviorSubject<Record<string, string[]>>({});
+  searchParams = new BehaviorSubject<SearchParams>({});
 
   searchResults$: Observable<PublicationSearch> = this.searchParams.pipe(
     switchMap(searchParams => this.searchPublications(searchParams)),
@@ -108,25 +110,26 @@ export class Publication2Service {
     return this.publicationAggregations$;
   }
 
-  updateSearchTerms(searchParams: Record<string, string[]>): void {
+  updateSearchTerms(searchParams: SearchParams): void {
     this.searchParams.next(searchParams);
   }
 
-  private searchPublications(searchParams: Record<string, string[]>): Observable<unknown> {
+  private searchPublications(searchParams: SearchParams): Observable<unknown> {
     const q = searchParams.q?.[0] ?? "";
     const page = parseInt(searchParams.page?.[0] ?? "1");
     const size = parseInt(searchParams.size?.[0] ?? "10");
     const from = (page - 1) * size;
 
-    searchParams = searchParams as SearchParams; // TODO no effect?
+    // searchParams = searchParams as SearchParams; // TODO no effect?
 
     return this.http.post(this.searchUrl, {
       from: from,
       size: size,
       track_total_hits: true,
       sort: [
-        "_score",
-        { "publicationYear": { "order": "desc" } }
+        // "_score",
+        // { "publicationYear": { "order": "desc" } }
+        ...sortingTerms(searchParams)
       ],
       query: {
         bool: {
@@ -153,10 +156,13 @@ export class Publication2Service {
         post_tags: ["</em>"]
       },
       aggregations: {
-        ... aggregationTerms(searchParams),
+        ...aggregationTerms(searchParams),
       }
     });
   }
+
+  // sort column?
+  // sort=foo OR fooDesc
 
   createHighlightedPublications(searchData: PublicationSearch): HighlightedPublication[] {
     return searchData.hits.hits.map((hit: any/*ES doc for Publication*/) => this.createHighlightedPublication(hit));
@@ -731,17 +737,24 @@ function generateAggregationStep(name: SearchParamKey, lookup: Record<string, {f
   }
 
   function getBuckets(aggregations: any) {
+    if (aggregations == null) {
+      return [];
+    }
+
     if (aggregations[topLevelPath]?.[middleLevelPath]?.[bottomLevelPath]?.buckets) {
       return aggregations[topLevelPath][middleLevelPath][bottomLevelPath].buckets;
-    } else {
+    }
+    else if (aggregations[topLevelPath]?.[bottomLevelPath]?.buckets) {
       return aggregations[topLevelPath][bottomLevelPath].buckets;
+    } else {
+      return [];
     }
   }
 
   return [getAdditions, getBuckets];
 }
 
-type SearchParamKey = Exclude<keyof SearchParams, "q" | "page" | "size">;
+type SearchParamKey = Exclude<keyof SearchParams, "q" | "page" | "size" | "sort" | "sortName" | "sortDirection">;
 
 const lookup: Record<SearchParamKey, {fieldName: string, fieldPath: string}> = {
   year:                    {fieldName: "publicationYear",          fieldPath: "publicationYear"},
@@ -981,6 +994,25 @@ function additionFilterTerms(excluded: SearchParamKey, searchParams: SearchParam
     ...(excluded === "openAccess"              ? [] : termsForOpenAccess(searchParams)),
     ...(excluded === "publisherOpenAccessCode" ? [] : termsForPublisherOpenAccessCode(searchParams)),
     ...(excluded === "selfArchivedCode"        ? [] : termsForSelfArchivedCode(searchParams)),
+  ];
+}
+
+function sortingTerms(searchParams: SearchParams) {
+  let sortedField = "publicationYear";
+  let direction = "desc";
+
+  if (searchParams.sort != null) {
+    const value = searchParams.sort.pop();
+
+    sortedField = value.replace(/Desc$/, "");
+    direction = value.endsWith("Desc") ? "desc" : "asc";
+
+    sortedField += ".keyword";
+  }
+
+  return [
+    "_score",
+    { [sortedField]: { "order": direction } }
   ];
 }
 
