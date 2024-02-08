@@ -4,7 +4,7 @@
   grid-template-rows:
     auto
     minmax(0, auto)
-    // minmax(0, auto)
+    minmax(0, auto)
     auto;
 
   // grid-template-columns: 0px 350px 1fr 100px 0px;
@@ -18,25 +18,52 @@
 
   grid-template-areas:
     "search search search search"
+    ". tabs tabs ."
+    ". info info ."
     ". filters summary ."
     ". filters results ."
     ". filters pagination .";
 }
 
-@media (max-width: 1449px) {
+@media (max-width: 1200px) {
   .search-container {
     grid-template-columns: 350px 1fr;
 
     grid-template-areas:
     "search search"
+    "tabs tabs"
+    "info info"
     "filters summary"
     "filters results"
     "filters pagination";
   }
 }
 
+@media (max-width: 990px) {
+  .search-container {
+    grid-template-columns: 1fr;
+
+    grid-template-areas:
+    "search"
+    "tabs"
+    "info"
+    "summary"
+    "filters"
+    "results"
+    "pagination";
+  }
+}
+
 .search-bar {
   grid-area: search;
+}
+
+.search-tabs {
+  grid-area: tabs;
+}
+
+.search-info {
+  grid-area: info;
 }
 
 .search-filters {
@@ -79,20 +106,21 @@ cdk-header-row, cdk-row {
 }
 
 /* Define columns to ensure they take equal widths - adjust as required */
-/*[cdkColumnDef="title"] {
-  // width: 25%;
-}*/
+/*[cdkColumnDef="publicationName"] {
+  width: 35%;
+  background-color: red;
+}
 
-/*[cdkColumnDef="authors"] {
-  //  width: 25%;
-}*/
+[cdkColumnDef="authorsText"] {
+  width: 25%;
+}
 
-/*[cdkColumnDef="journalName"] {
-  // width: 25%;
-}*/
+[cdkColumnDef="publisherName"] {
+  width: 20%;
+}
 
-/*[cdkColumnDef="publicationYear"] {
-  // width: 25%;
+[cdkColumnDef="publicationYear"] {
+  width: 20%;
 }*/
 
 /*em {

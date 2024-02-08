@@ -14,21 +14,29 @@ const path = suffixer(locale);
   title: string(),
 });*/
 
-type PublicationSearch = any; // Output<typeof PublicationSearchSchema>;
+type TODO = any;
+type PublicationSearch = TODO; // Output<typeof PublicationSearchSchema>;
 
 // function that validates API response into a PublicationSearch
-function parsePublicationSearch(data: any): PublicationSearch {
+function parsePublicationSearch(data: TODO): PublicationSearch {
   return data;
   // return parse(PublicationSearchSchema, data);
 }
 
-export interface HighlightedPublication {
+// export interface HighlightedPublication {
+export type HighlightedPublication = {
   id: string;
   publicationName: SafeHtml;
   authorsText: SafeHtml;
   authorsTextSplitted: SafeHtml;
   publisherName: SafeHtml;
   publicationYear: SafeHtml;
+
+  badges: {
+    doi?: string;
+    peerReviewed?: boolean;
+    openAccess?: string;
+  };
 }
 
 type CachedPublicationSearch = {
@@ -91,7 +99,7 @@ export class Publication2Service {
 
   publicationSearch$: Observable<PublicationSearch> = this.searchResults$.pipe(
     map((data) => parsePublicationSearch(data)),
-    map((publicationSearch: PublicationSearch) => this.createHighlightedPublications(publicationSearch))
+    map<PublicationSearch[], HighlightedPublication[]>((publicationSearch: PublicationSearch) => this.createHighlightedPublications(publicationSearch))
   );
 
   publicationAggregations$ = this.searchResults$.pipe(
@@ -169,21 +177,43 @@ export class Publication2Service {
   }
 
   createHighlightedPublication(searchData: any/*ES doc for Publication*/): HighlightedPublication {
-    const values = {
-      publicationName: searchData.highlight?.publicationName?.[0] ?? searchData._source.publicationName ?? '',
-      authorsText: searchData.highlight?.authorsText?.[0] ?? searchData._source.authorsText ?? '',
-      authorsTextSplitted: searchData.highlight?.authorsText?.[0] ?? searchData._source.authorsText ?? '',
-      publisherName: searchData.highlight?.publisherName?.[0] ?? searchData._source.publisherName ?? '',
-      publicationYear: searchData.highlight?.publicationYear?.[0] ?? searchData._source.publicationYear ?? ''
-    };
+    const source = searchData._source;
+    const highlight = searchData.highlight;
+
+    /*const badgesExist = {
+      doi: source.doi != null || source.doiHandle != null,
+      peerReviewed: source.peerReviewed?.id === 1 ?? false,
+      openAccess: source.openAccess === 1
+    }*/
+
+    // badges are keys values with strings to strings
+
+
+    const badges: {
+      doi?: string;
+      peerReviewed?: boolean;
+      openAccess?: string;
+    } = {};
+
+    badges.doi = source.doi;
+    badges.openAccess = source.doiHandle;
+    badges.peerReviewed = source.peerReviewed[0].id === "1";
+
+    const publicationName = highlight?.publicationName?.[0] ?? source.publicationName ?? '';
+    const authorsText = highlight?.authorsText?.[0] ?? source.authorsText ?? '';
+    const authorsTextSplitted = highlight?.authorsText?.[0] ?? source.authorsText ?? '';
+    const publisherName = highlight?.publisherName?.[0] ?? source.publisherName ?? '';
+    const publicationYear = highlight?.publicationYear?.[0] ?? source.publicationYear ?? '';
 
     return {
       id: searchData._id,
-      publicationName: this.sanitizer.sanitize(SecurityContext.HTML, values.publicationName),
-      authorsText: this.sanitizer.sanitize(SecurityContext.HTML, values.authorsText),
-      authorsTextSplitted: this.sanitizer.sanitize(SecurityContext.HTML, values.authorsTextSplitted),
-      publisherName: this.sanitizer.sanitize(SecurityContext.HTML, values.publisherName),
-      publicationYear: this.sanitizer.sanitize(SecurityContext.HTML, values.publicationYear)
+      publicationName: this.sanitizer.sanitize(SecurityContext.HTML, publicationName),
+      authorsText: this.sanitizer.sanitize(SecurityContext.HTML, authorsText),
+      authorsTextSplitted: this.sanitizer.sanitize(SecurityContext.HTML, authorsTextSplitted),
+      publisherName: this.sanitizer.sanitize(SecurityContext.HTML, publisherName),
+      publicationYear: this.sanitizer.sanitize(SecurityContext.HTML, publicationYear),
+
+      badges: badges
     };
   }
 

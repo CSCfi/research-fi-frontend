@@ -399,11 +399,13 @@ export class Publications2Component implements OnDestroy {
     language: 10,
   };
 
-  breakpointSubscription = this.breakpointObserver.observe('(max-width: 1199px)').subscribe(result => {
-    if (result.matches) {
+  breakpointSubscription = this.breakpointObserver.observe(['(max-width: 1200px)', '(max-width: 990px)']).subscribe(result => {
+    this.displayedColumns = ['icon', 'publicationName', 'authorsText', 'publisherName', 'publicationYear'];
+
+    if (result.breakpoints['(max-width: 990px)']) {
+      this.displayedColumns = ['publicationName', 'publicationYear'];
+    } else if (result.breakpoints['(max-width: 1200px)']) {
       this.displayedColumns = ['icon', 'publicationName', 'authorsText', 'publicationYear'];
-    } else {
-      this.displayedColumns = ['icon', 'publicationName', 'authorsText', 'publisherName', 'publicationYear'];
     }
   });
 
