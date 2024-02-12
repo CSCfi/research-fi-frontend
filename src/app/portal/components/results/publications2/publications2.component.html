@@ -641,7 +641,7 @@
            <!-- TODO is simply ugly -->
           <!--<div style='width: 25px; height: 25px; background-color: magenta'></div>-->
 
-          <i class='fa fa-file-lines'style='font-size: 2.5rem; color: #4546b9; vertical-align: top' aria-hidden='true'></i>
+          <i class='fa fa-file-lines'style='font-size: 2.5rem; color: #4546b9; vertical-align: top; padding: 1rem' aria-hidden='true'></i>
         </cdk-cell>
       </ng-container>
 
@@ -686,23 +686,25 @@
             {{ element.badges | json }}
           </div>-->
 
-          <ng-container *ngIf='element.badges.peerReviewed'>
-            <div style='width: 110px; display: inline-block'>
-              <app-tag-peer-reviewed></app-tag-peer-reviewed>
-            </div>
-          </ng-container>
+          <div style='margin-top: 0.5rem'>
+            <ng-container *ngIf='element.badges.peerReviewed'>
+              <div style='width: 110px; display: inline-block'>
+                <app-tag-peer-reviewed></app-tag-peer-reviewed>
+              </div>
+            </ng-container>
 
-          <ng-container *ngIf='element.badges.openAccess'>
-            <div style='width: 156px; display: inline-block'>
-              <app-tag-open-access [link]='element.badges.openAccess'></app-tag-open-access>
-            </div>
-          </ng-container>
+            <ng-container *ngIf='element.badges.openAccess'>
+              <div style='width: 156px; display: inline-block'>
+                <app-tag-open-access [link]='element.badges.openAccess'></app-tag-open-access>
+              </div>
+            </ng-container>
 
-          <ng-container *ngIf='element.badges.doi'>
-            <div style='display: inline-block'>
-              <app-tag-doi [link]='element.badges.doi'></app-tag-doi>
-            </div>
-          </ng-container>
+            <ng-container *ngIf='element.badges.doi'>
+              <div><!-- style='display: inline-block' -->
+                <app-tag-doi [link]='element.badges.doi'></app-tag-doi>
+              </div>
+            </ng-container>
+          </div>
 
         </cdk-cell>
       </ng-container>

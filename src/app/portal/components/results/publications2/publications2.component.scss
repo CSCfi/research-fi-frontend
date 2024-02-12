@@ -5,6 +5,8 @@
     auto
     minmax(0, auto)
     minmax(0, auto)
+    minmax(0, auto)
+    auto
     auto;
 
   // grid-template-columns: 0px 350px 1fr 100px 0px;
@@ -93,7 +95,8 @@ cdk-table {
 /* Add some spacing and border to the cells */
 cdk-header-cell, cdk-cell {
   // padding: 16px;
-  padding: 0.5rem;
+  padding: 1rem 0.5rem;
+
   // border-bottom: 1px solid #e0e0e0;
   display: table-cell; /* This ensures they behave like traditional table cells */
 
