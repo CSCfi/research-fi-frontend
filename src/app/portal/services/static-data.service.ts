@@ -121,7 +121,7 @@ export class StaticDataService {
           label: $localize`:@@publicationClassA3:Kirjan tai muun kokoomateoksen osa`,
           key: '',
           doc_count: 0,
-        }, 
+        },
         {
           type: 'A4',
           label: $localize`:@@publicationClassA4:Artikkeli konferenssijulkaisussa`,
@@ -1129,7 +1129,7 @@ export class StaticDataService {
             order: 1,
           },
           {
-            script: 'doc["selfArchivedCode.keyword"].value + doc["openAccessCode"].value.toString() + doc["publisherOpenAccessCode"].value.toString()',
+            script: 'doc["selfArchivedCode.keyword"].value + doc["openAccess"].value.toString() + doc["publisherOpenAccessCode"].value.toString()',
             name: 'openAccess',
             size: 50,
             order: 2,
