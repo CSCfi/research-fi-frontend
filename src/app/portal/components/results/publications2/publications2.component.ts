@@ -79,7 +79,7 @@ export class Publications2Component implements OnDestroy {
     jufoLevel: $localize`:@@jufoLevel:Julkaisufoorumitaso`,
     openAccess: $localize`:@@openAccess:Avoin saatavuus`,
     publisherOpenAccess: $localize`:@@publisherOpenAccess:Julkaisukanavan avoin saatavuus`,
-    selfArchivedCode: $localize`:@@selfArchivedCode:Rinnakkaistallennettu`,
+    selfArchivedCode: $localize`:@@selfArchivedCode:Rinnakkaistallenne`,
   }
 
   publicationTypeLabels = [
@@ -337,11 +337,14 @@ export class Publications2Component implements OnDestroy {
     map(aggs => aggs.sort((a, b) => b.count - a.count))
   );
 
-  openAccessFilters$ = combineLatest([this.additionsFromOpenAccess$, this.searchParams$.pipe(map(params => params.openAccess ?? []))]).pipe(
-    map(([additionsFromOpenAccess, enabledFilters]) => additionsFromOpenAccess.map(additionFromOpenAccess => ({
+  // names
+  openAccessNames$ = this.publications2Service.getOpenAccessNames();
+
+  openAccessFilters$ = combineLatest([this.additionsFromOpenAccess$, this.openAccessNames$, this.searchParams$.pipe(map(params => params.openAccess ?? []))]).pipe(
+    map(([additionsFromOpenAccess, openAccessNames, enabledFilters]) => additionsFromOpenAccess.map(additionFromOpenAccess => ({
       id: additionFromOpenAccess.id,
       count: additionFromOpenAccess.count,
-      name: additionFromOpenAccess.id,                                                                                  // TODO TODO TODO TODO
+      name: openAccessNames[additionFromOpenAccess.id],
       enabled: enabledFilters.includes(additionFromOpenAccess.id)
     }))),
     tap(filters => this.updateFilterCount("openAccess", filters.filter(filter => filter.enabled).length))
@@ -352,11 +355,13 @@ export class Publications2Component implements OnDestroy {
     map(aggs => aggs.sort((a, b) => b.count - a.count))
   );
 
-  publisherOpenAccessFilters$ = combineLatest([this.additionsFromPublisherOpenAccess$, this.searchParams$.pipe(map(params => params.publisherOpenAccessCode ?? []))]).pipe(
-    map(([additionsFromPublisherOpenAccess, enabledFilters]) => additionsFromPublisherOpenAccess.map(additionFromPublisherOpenAccess => ({
+  publisherOpenAccessNames$ = this.publications2Service.getPublisherOpenAccessNames();
+
+  publisherOpenAccessFilters$ = combineLatest([this.additionsFromPublisherOpenAccess$, this.publisherOpenAccessNames$, this.searchParams$.pipe(map(params => params.publisherOpenAccessCode ?? []))]).pipe(
+    map(([additionsFromPublisherOpenAccess, publisherOpenAccessNames, enabledFilters]) => additionsFromPublisherOpenAccess.map(additionFromPublisherOpenAccess => ({
       id: additionFromPublisherOpenAccess.id,
       count: additionFromPublisherOpenAccess.count,
-      name: additionFromPublisherOpenAccess.id,                                                                         // TODO TODO TODO TODO
+      name: publisherOpenAccessNames[additionFromPublisherOpenAccess.id],
       enabled: enabledFilters.includes(additionFromPublisherOpenAccess.id)
     }))),
     tap(filters => this.updateFilterCount("publisherOpenAccess", filters.filter(filter => filter.enabled).length))
@@ -369,12 +374,27 @@ export class Publications2Component implements OnDestroy {
     map(aggs => aggs.sort((a, b) => b.count - a.count))
   );
 
-  selfArchivedCodeFilters$ = combineLatest([this.additionsFromSelfArchivedCode$, this.searchParams$.pipe(map(params => params.selfArchiveCode ?? []))]).pipe(
+  // names
+  selfArchivedCodeNames$ = this.publications2Service.getSelfArchivedCodeNames();
+
+  // OLD
+  /*selfArchivedCodeFilters$ = combineLatest([this.additionsFromSelfArchivedCode$, this.searchParams$.pipe(map(params => params.selfArchiveCode ?? []))]).pipe(
     map(([additionsFromSelfArchive, enabledFilters]) => additionsFromSelfArchive.map(additionFromSelfArchive => ({
       id: additionFromSelfArchive.id,
       count: additionFromSelfArchive.count,
       name: additionFromSelfArchive.id,                                                                         // TODO TODO TODO TODO
       enabled: enabledFilters.includes(additionFromSelfArchive.id)
+    }))),
+    tap(filters => this.updateFilterCount("selfArchiveCode", filters.filter(filter => filter.enabled).length))
+  );*/
+
+  // NEW
+  selfArchivedCodeFilters$ = combineLatest([this.additionsFromSelfArchivedCode$, this.selfArchivedCodeNames$, this.searchParams$.pipe(map(params => params.selfArchiveCode ?? []))]).pipe(
+    map(([additionsFromSelfArchivedCode, selfArchivedCodeNames, enabledFilters]) => additionsFromSelfArchivedCode.map(additionFromSelfArchivedCode => ({
+      id: additionFromSelfArchivedCode.id,
+      count: additionFromSelfArchivedCode.count,
+      name: selfArchivedCodeNames[additionFromSelfArchivedCode.id],
+      enabled: enabledFilters.includes(additionFromSelfArchivedCode.id)
     }))),
     tap(filters => this.updateFilterCount("selfArchiveCode", filters.filter(filter => filter.enabled).length))
   );

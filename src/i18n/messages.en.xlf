@@ -6610,6 +6610,70 @@
         <source>Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.</source>
         <target>The publication has been published in a publication archive specific to an organization or field of science either immediately or after a reasonable embargo period set by the publisher.</target>
       </trans-unit>
+
+
+
+      <trans-unit id="publication2.openAccess.Yes">
+        <source>Avoimesti saatavilla</source>
+        <target>Open access</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.openAccess.No">
+        <source>Ei avoin</source>
+        <target>Not open</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.openAccess.Unknown">
+        <source>Ei tietoa</source>
+        <target>Unknown</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.fullyOpen">
+        <source>Kokonaan avoin julkaisukanava</source>
+        <target>Fully open publication channel</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.partiallyOpen">
+        <source>Osittain avoin julkaisukanava</source>
+        <target>Partially open publication channel</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.delayedOpen">
+        <source>Viivästetysti avoin julkaisukanava</source>
+        <target>Delayed open publication channel</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.Unspecified">
+        <source>Ei vastausta</source>
+        <target>No answer</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.Unknown">
+        <source>Ei tietoa</source>
+        <target>No information</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.selfArchived.Yes">
+        <source>Rinnakkaistallennettu</source>
+        <target>Self-archived</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.selfArchived.No">
+        <source>Ei rinnakkaistallennettu</source>
+        <target>Not self-archived</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.selfArchived.Unknown">
+        <source>Ei tietoa</source>
+        <target>Unknown</target>
+      </trans-unit>
+
+
+      <trans-unit id="selfArchivedCode">
+        <source>Rinnakkaistallenne</source>
+        <target>Self-archived</target>
+      </trans-unit>
+
     </body>
   </file>
 </xliff>

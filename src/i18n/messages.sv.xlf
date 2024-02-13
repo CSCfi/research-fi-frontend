@@ -6614,6 +6614,71 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.</source>
         <target>Publikationen har publicerats i ett organisations- eller vetenskapsområdesspecifikt publikationsarkiv antingen omedelbart eller efter en av förläggaren fastställd skälig embargotid.</target>
       </trans-unit>
+
+
+
+      <trans-unit id="publication2.openAccess.Yes">
+        <source>Avoimesti saatavilla</source>
+        <target>Öppet tillgänglig</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.openAccess.No">
+        <source>Ei avoin</source>
+        <target>Inte öppen</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.openAccess.Unknown">
+        <source>Ei tietoa</source>
+        <target>Okänt</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.fullyOpen">
+        <source>Kokonaan avoin julkaisukanava</source>
+        <target>Helt öppen publikationskanal</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.partiallyOpen">
+        <source>Osittain avoin julkaisukanava</source>
+        <target>Delvis öppen publikationskanal</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.delayedOpen">
+        <source>Viivästetysti avoin julkaisukanava</source>
+        <target>Fördröjd öppen publikationskanal</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.Unspecified">
+        <source>Ei vastausta</source>
+        <target>Inget svar</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.Unknown">
+        <source>Ei tietoa</source>
+        <target>Ingen information</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.selfArchived.Yes">
+        <source>Rinnakkaistallennettu</source>
+        <target>Parallellsparad</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.selfArchived.No">
+        <source>Ei rinnakkaistallennettu</source>
+        <target>Inte parallellsparad</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.selfArchived.Unknown">
+        <source>Ei tietoa</source>
+        <target>Okänt</target>
+      </trans-unit>
+
+
+
+      <trans-unit id="selfArchivedCode">
+        <source>Rinnakkaistallenne</source>
+        <target>Parallell publicering</target>
+      </trans-unit>
+
     </body>
   </file>
 </xliff>

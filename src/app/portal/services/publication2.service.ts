@@ -562,6 +562,44 @@ export class Publication2Service {
       ...lookup
     });
   }
+
+  getOpenAccessNames(): Observable<Record<string, string>> {
+    return of({
+      "0": $localize`:@@publication2.openAccess.No:Ei avoin`,
+      "1": $localize`:@@publication2.openAccess.Yes:Avoimesti saatavilla`,
+      "9": $localize`:@@publication2.openAccess.Unknown:Ei tietoa`
+    });
+  }
+
+  getPublisherOpenAccessNames(): Observable<Record<string, string>> {
+    return of({
+      "1": $localize`:@@publication2.publisherOpenAccess.fullyOpen:Kokonaan avoin julkaisukanava`,
+      "2": $localize`:@@publication2.publisherOpenAccess.partiallyOpen:Osittain avoin julkaisukanava`,
+      "3": $localize`:@@publication2.publisherOpenAccess.delayedOpen:Viivästetysti avoin julkaisukanava`,
+      "0": $localize`:@@publication2.publisherOpenAccess.Unspecified:Ei vastausta`,
+      // "9": $localize`:@@publication2.publisherOpenAccess.Unknown:Ei tietoa`
+    });
+  }
+  /*      <trans-unit id="publication2.selfArchived.Yes">
+    <source>Rinnakkaistallennettu</source>
+  </trans-unit>
+
+  <trans-unit id="publication2.selfArchived.No">
+    <source>Ei rinnakkaistallennettu</source>
+  </trans-unit>
+
+  <trans-unit id="publication2.selfArchived.Unknown">
+    <source>Ei tietoa</source>
+  </trans-unit>*/
+
+  getSelfArchivedCodeNames(): Observable<Record<string, string>> {
+    return of({
+      "1": $localize`:@@publication2.selfArchived.Yes:Rinnakkaistallennettu`,
+      "0": $localize`:@@publication2.selfArchived.No:Ei rinnakkaistallennettu`,
+      " ": $localize`:@@publication2.selfArchived.Unknown:Ei tietoa`
+    });
+
+  }
 }
 
 function matchingTerms(searchParams: SearchParams) {
