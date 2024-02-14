@@ -166,6 +166,7 @@ import { CheckEmptyFieldsPipe } from './pipes/check-empty-fields.pipe';
 import { PersonGroupComponent } from './components/single/single-person/person-group/person-group.component';
 import { PersonGroupAdditionalComponent } from './components/single/single-person/person-group-additional/person-group-additional.component';
 import { FooterComponent } from '../layout/footer/footer.component';
+import { FixExternalUrlPipe } from '@portal/pipes/fix-external-url.pipe';
 
 @NgModule({
   declarations: [
@@ -287,7 +288,8 @@ import { FooterComponent } from '../layout/footer/footer.component';
     TooltipModule.forRoot(),
     MatTableModule,
     MatSortModule,
-    FooterComponent
+    FooterComponent,
+    FixExternalUrlPipe
   ],
   exports: [DatasetAuthorComponent, FiltersComponent],
   providers: [

@@ -10,35 +10,42 @@
     </mat-card-title>
 
     <ng-container *ngFor="let row of linksFields">
-      <app-single-result-link
-        [tag]="row.field === 'doi' ? 'DOI' : null"
-        [icon]="row.field !== 'doi'"
-        [label]="row.field !== 'doi' ? item.doi : item[row.field]"
-        [url]="
-          row.field === 'doi' ? 'https://doi.org/' + item.doi : item[row.field]
-        "
-      ></app-single-result-link>
+      <ng-container *ngIf="row.field as field">
+
+        <ng-container *ngIf="field === 'doi' && item.doi">
+          <app-single-result-link
+            [tag]="'DOI'"
+            [icon]="false"
+            [label]="item[field]"
+            [url]="'https://doi.org/' + item.doi">
+          </app-single-result-link>
+        </ng-container>
+
+        <ng-container *ngIf="field !== 'doi' && item[field]">
+          <app-single-result-link
+            [tag]="null"
+            [icon]="true"
+            [label]="item[field]"
+            [url]="item[field]">
+          </app-single-result-link>
+        </ng-container>
+
+      </ng-container>
     </ng-container>
 
-    <!-- Self archived addresses -->
     <ng-container *ngFor="let selfArchived of item.selfArchivedData">
       <ng-container *ngFor="let row of selfArchived.selfArchived">
+
         <app-single-result-link
           *ngIf="row.selfArchivedAddress | isUrl"
           [icon]="true"
-          [url]="row.selfArchivedAddress"
-        >
+          [url]="row.selfArchivedAddress">
         </app-single-result-link>
+
       </ng-container>
     </ng-container>
-    <div
-      *ngIf="
-        !linksFields.length &&
-        (!item.selfArchivedData || !item.selfArchivedData.length)
-      "
-      class="no-links"
-      i18n="@@noPublicationLinks"
-    >
+
+    <div *ngIf="!linksFields.length && !item.selfArchivedData?.length" class="no-links" i18n="@@noPublicationLinks">
       Julkaisuun ei ole tarjolla linkkejä tässä portaalissa
     </div>
   </div>
