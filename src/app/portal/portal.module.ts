@@ -167,6 +167,7 @@ import { PersonGroupComponent } from './components/single/single-person/person-g
 import { PersonGroupAdditionalComponent } from './components/single/single-person/person-group-additional/person-group-additional.component';
 import { FooterComponent } from '../layout/footer/footer.component';
 import { SearchBar2Component } from '@portal/search-bar2/search-bar2.component';
+import { FixExternalUrlPipe } from '@portal/pipes/fix-external-url.pipe';
 
 @NgModule({
   declarations: [
@@ -289,7 +290,8 @@ import { SearchBar2Component } from '@portal/search-bar2/search-bar2.component';
     MatTableModule,
     MatSortModule,
     FooterComponent,
-    SearchBar2Component
+    SearchBar2Component,
+    FixExternalUrlPipe
   ],
   exports: [DatasetAuthorComponent, FiltersComponent],
   providers: [
