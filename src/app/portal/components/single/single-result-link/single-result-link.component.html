@@ -6,17 +6,21 @@
 <div class="row links" [class.m-0]="simple" [class.simple]="simple">
   <div class="col-12 px-0 link-wrapper">
     <div class="link">
-      <span class="link-tag" *ngIf="tag"> {{ tag }}</span>
-      <span
-        *ngIf="icon"
-        class="link-tag fa fa-link center"
-        style="font-size: 22px; padding: 3px 12px"
-      ></span>
+      <ng-container *ngIf='tag'>
+        <span class="link-tag"> {{ tag }}</span>
+      </ng-container>
+
+      <ng-container *ngIf='icon'>
+        <span class="link-tag fa fa-link center" style="font-size: 22px; padding: 3px 12px"></span>
+      </ng-container>
+
       <span class="link-item" [class.p-0]="simple">
         <a [href]="fixExternalUrl(url)" target="_blank">
+
           <span class="link-label">
             {{ label ? label : (url | trimLinkPrefix) }}
           </span>
+
           <fa-icon icon="external-link-alt"></fa-icon>
         </a>
       </span>
