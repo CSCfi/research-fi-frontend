@@ -814,7 +814,8 @@ export class SinglePublicationComponent
     // Get & set publication type label
     if (
       source.publicationTypeCode === 'KA' ||
-      source.publicationTypeCode === 'KP'
+      source.publicationTypeCode === 'KP' ||
+      source.publicationTypeCode == null
     ) {
       source.publicationTypeCode = ' ';
     } else {

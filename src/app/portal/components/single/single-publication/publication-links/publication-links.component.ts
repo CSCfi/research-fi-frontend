@@ -5,17 +5,13 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-publication-links',
   templateUrl: './publication-links.component.html',
 })
-export class PublicationLinksComponent implements OnInit {
+export class PublicationLinksComponent {
   @Input() item: any;
-  @Input() linksFields: any;
-
-  constructor() {}
-
-  ngOnInit(): void {}
+  @Input() linksFields: any[];
 }
