@@ -580,17 +580,6 @@ export class Publication2Service {
       // "9": $localize`:@@publication2.publisherOpenAccess.Unknown:Ei tietoa`
     });
   }
-  /*      <trans-unit id="publication2.selfArchived.Yes">
-    <source>Rinnakkaistallennettu</source>
-  </trans-unit>
-
-  <trans-unit id="publication2.selfArchived.No">
-    <source>Ei rinnakkaistallennettu</source>
-  </trans-unit>
-
-  <trans-unit id="publication2.selfArchived.Unknown">
-    <source>Ei tietoa</source>
-  </trans-unit>*/
 
   getSelfArchivedCodeNames(): Observable<Record<string, string>> {
     return of({
@@ -835,7 +824,7 @@ const lookup: Record<SearchParamKey, {fieldName: string, fieldPath: string}> = {
   articleType:             {fieldName: "articleTypeCode",          fieldPath: "articleTypeCode"},
   jufo:                    {fieldName: "jufoClassCode",            fieldPath: "jufoClassCode.keyword"},
   publicationTypeCode:     {fieldName: "publicationTypeCode",      fieldPath: "publicationTypeCode.keyword"},
-  publicationStatusCode:   {fieldName: "publicationStatusCode",    fieldPath: "publicationStatusCode.keyword"},         // No trace of the previous implementation
+  publicationStatusCode:   {fieldName: "publicationStatusCode",    fieldPath: "publicationStatusCode.keyword"},
   fieldsOfScience:         {fieldName: "fieldsOfScience",          fieldPath: "fieldsOfScience.fieldIdScience"},
   openAccess:              {fieldName: "openAccess",               fieldPath: "openAccess"},
   publisherOpenAccessCode: {fieldName: "publisherOpenAccessCode",  fieldPath: "publisherOpenAccessCode"},

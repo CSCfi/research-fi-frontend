@@ -1,9 +1,9 @@
-import { Component, inject, OnDestroy } from '@angular/core';
+import { Component, inject, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
 import { CdkTableModule, DataSource } from '@angular/cdk/table';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, interval, Observable } from 'rxjs';
 import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { AsyncPipe, JsonPipe, NgForOf, NgIf, NgStyle } from '@angular/common';
+import { AsyncPipe, JsonPipe, NgForOf, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
   getArticleTypeCodeAdditions,
   getFieldsOfScienceAdditions,
@@ -37,6 +37,8 @@ import { FirstDigitPipe } from '@shared/pipes/first-digit.pipe';
 import { FirstLetterPipe } from '@shared/pipes/first-letter.pipe';
 import { BreakpointObserver, LayoutModule } from '@angular/cdk/layout';
 import { ColumnSorterComponent } from '@shared/components/column-sorter/column-sorter.component';
+import { faSlidersH } from '@fortawesome/free-solid-svg-icons';
+import { Dialog, DialogRef } from '@angular/cdk/dialog';
 
 @Component({
   selector: 'app-publications2',
@@ -47,7 +49,7 @@ import { ColumnSorterComponent } from '@shared/components/column-sorter/column-s
     FormsModule,
     RouterModule,
     SearchBar2Component, OrganizationFilterComponent, FilterOptionComponent, CollapsibleComponent, MatButtonModule, NgStyle, FilterLimitButtonComponent, FirstDigitPipe, FirstLetterPipe, RouterLink,
-    LayoutModule, ColumnSorterComponent
+    LayoutModule, ColumnSorterComponent, NgTemplateOutlet
   ],
   standalone: true
 })
@@ -55,14 +57,33 @@ export class Publications2Component implements OnDestroy {
   route = inject(ActivatedRoute);
   router = inject(Router);
   publications2Service = inject(Publication2Service);
-
   breakpointObserver = inject(BreakpointObserver);
+  dialog = inject(Dialog);
+
 
   keywords = "";
   page = 1;
   size = 10;
 
   sort = "";
+
+  dialogRef?: DialogRef<any>;
+
+  @ViewChild('searchDialog') dialogTemplate: TemplateRef<any>;
+
+  openDialog() {
+    this.dialogRef = this.dialog.open(this.dialogTemplate, {
+      panelClass: 'fullscreen-panel',
+    });
+
+    this.dialogRef.closed.subscribe(() => {
+      console.log('The dialog2 was closed');
+    });
+  }
+
+  closeDialog() {
+    this.dialogRef?.close();
+  }
 
   labelText = {
     yearOfPublication: $localize`:@@yearOfPublication:Julkaisuvuosi`,
@@ -216,26 +237,18 @@ export class Publications2Component implements OnDestroy {
     tap(filters => this.updateFilterCount("peerReviewed", filters.filter(filter => filter.enabled).length))
   );
 
-  // getParentPublicationTypeAdditions
-  // getInternationalPublicationAdditions
-  // getArticleTypeCodeAdditions
-  // getJufoClassCodeAdditions
-
   parentPublicationTypeAdditions$ = this.aggregations$.pipe(
     map(aggs => getParentPublicationTypeAdditions(aggs).map((bucket: any) => ({ id: bucket.key, count: bucket.doc_count })) ?? []),
     map(aggs => aggs.sort((a, b) => b.count - a.count))
   );
 
-  // publisherInternationalityAdditions$
   publisherInternationalityAdditions$ = this.aggregations$.pipe(
     map(aggs => getPublisherInternationalityAdditions(aggs).map((bucket: any) => ({ id: bucket.key.toString(), count: bucket.doc_count })) ?? []),
     map(aggs => aggs.sort((a, b) => b.count - a.count))
   );
 
-  // publisherInternationalityNames$
   publisherInternationalityNames$ = this.publications2Service.getInternationalPublicationNames();
 
-  // publisherInternationalityFilters$
   publisherInternationalityFilters$ = combineLatest([this.publisherInternationalityAdditions$, this.publisherInternationalityNames$, this.searchParams$.pipe(map(params => params.international ?? []))]).pipe(
     map(([internationalPublicationAdditions, internationalPublicationNames, enabledFilters]) => internationalPublicationAdditions.map(internationalPublicationAddition => ({
       id: internationalPublicationAddition.id,
@@ -367,36 +380,22 @@ export class Publications2Component implements OnDestroy {
     tap(filters => this.updateFilterCount("publisherOpenAccess", filters.filter(filter => filter.enabled).length))
   );
 
-  // TODO selfArchiveCode
-
   additionsFromSelfArchivedCode$ = this.aggregations$.pipe(
     map(aggs => getSelfArchivedCodeAdditions(aggs).map((bucket: any) => ({ id: bucket.key.toString(), count: bucket.doc_count })) ?? []),
     map(aggs => aggs.sort((a, b) => b.count - a.count))
   );
 
-  // names
   selfArchivedCodeNames$ = this.publications2Service.getSelfArchivedCodeNames();
 
-  // OLD
-  /*selfArchivedCodeFilters$ = combineLatest([this.additionsFromSelfArchivedCode$, this.searchParams$.pipe(map(params => params.selfArchiveCode ?? []))]).pipe(
-    map(([additionsFromSelfArchive, enabledFilters]) => additionsFromSelfArchive.map(additionFromSelfArchive => ({
-      id: additionFromSelfArchive.id,
-      count: additionFromSelfArchive.count,
-      name: additionFromSelfArchive.id,                                                                         // TODO TODO TODO TODO
-      enabled: enabledFilters.includes(additionFromSelfArchive.id)
-    }))),
-    tap(filters => this.updateFilterCount("selfArchiveCode", filters.filter(filter => filter.enabled).length))
-  );*/
-
-  // NEW
-  selfArchivedCodeFilters$ = combineLatest([this.additionsFromSelfArchivedCode$, this.selfArchivedCodeNames$, this.searchParams$.pipe(map(params => params.selfArchiveCode ?? []))]).pipe(
+  selfArchivedCodeFilters$ = combineLatest([this.additionsFromSelfArchivedCode$, this.selfArchivedCodeNames$, this.searchParams$.pipe(map(params => params.selfArchivedCode ?? []))]).pipe(
+    tap((values) => console.log(values)),
     map(([additionsFromSelfArchivedCode, selfArchivedCodeNames, enabledFilters]) => additionsFromSelfArchivedCode.map(additionFromSelfArchivedCode => ({
       id: additionFromSelfArchivedCode.id,
       count: additionFromSelfArchivedCode.count,
       name: selfArchivedCodeNames[additionFromSelfArchivedCode.id],
       enabled: enabledFilters.includes(additionFromSelfArchivedCode.id)
     }))),
-    tap(filters => this.updateFilterCount("selfArchiveCode", filters.filter(filter => filter.enabled).length))
+    tap(filters => this.updateFilterCount("selfArchivedCode", filters.filter(filter => filter.enabled).length))
   );
 
   public mainFieldOfScienceName = {
@@ -409,10 +408,6 @@ export class Publications2Component implements OnDestroy {
     // 7 not used
     "8": $localize`:@@fieldsOfArt:Taiteenala`,
   }
-
-  /*public collapseStates = {
-    "language": false,
-  };*/
 
   public filterLimits = {
     year: 10,
@@ -428,6 +423,8 @@ export class Publications2Component implements OnDestroy {
       this.displayedColumns = ['icon', 'publicationName', 'authorsText', 'publicationYear'];
     }
   });
+
+  narrowBreakpoint$: Observable<boolean> = this.breakpointObserver.observe('(max-width: 990px)').pipe(map(result => result.matches));
 
   searchParamsSubscription = this.searchParams$.subscribe(searchParams => {
     this.publications2Service.updateSearchTerms(searchParams);
@@ -467,6 +464,7 @@ export class Publications2Component implements OnDestroy {
 
       this.router.navigate([], {
         relativeTo: this.route,
+        skipLocationChange: true,
         queryParams: concatFields(queryParams)
       });
     });
@@ -480,6 +478,7 @@ export class Publications2Component implements OnDestroy {
 
       this.router.navigate([], {
         relativeTo: this.route,
+        skipLocationChange: true,
         queryParams: concatFields(queryParams)
       });
     });
@@ -492,6 +491,7 @@ export class Publications2Component implements OnDestroy {
 
       this.router.navigate([], {
         relativeTo: this.route,
+        skipLocationChange: true,
         queryParams: concatFields(queryParams)
       });
     });
@@ -514,6 +514,7 @@ export class Publications2Component implements OnDestroy {
   searchKeywords(keywords: string) {
     this.router.navigate([], {
       relativeTo: this.route,
+      skipLocationChange: true,
       queryParams: { q: keywords }, queryParamsHandling: 'merge'
     });
   }
@@ -525,6 +526,7 @@ export class Publications2Component implements OnDestroy {
       queryParams.page = [`${page + 1}`];
       this.router.navigate([], {
         relativeTo: this.route,
+        skipLocationChange: true,
         queryParams: queryParams
       });
     });
@@ -537,18 +539,18 @@ export class Publications2Component implements OnDestroy {
       queryParams.page = [`${page - 1}`];
       this.router.navigate([], {
         relativeTo: this.route,
+        skipLocationChange: true,
         queryParams: queryParams
       });
     });
   }
-
-  public num = 0;
 
   setPageSize(size: number) {
     console.log(size);
 
     this.router.navigate([], {
       relativeTo: this.route,
+      skipLocationChange: true,
       queryParams: { size }, queryParamsHandling: 'merge'
     });
   }
@@ -556,6 +558,8 @@ export class Publications2Component implements OnDestroy {
   clamp(value: number, min: number, max: number) {
     return Math.min(Math.max(value, min), max);
   }
+
+  faSlidersH = faSlidersH;
 }
 
 export class PublicationDataSource extends DataSource<HighlightedPublication> {

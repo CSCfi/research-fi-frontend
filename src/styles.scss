@@ -157,3 +157,11 @@ em.highlight {
     font-style: normal;
     padding: 0.1em 0;
 }
+
+.fullscreen-panel {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+
+  overflow-y: auto;
+}

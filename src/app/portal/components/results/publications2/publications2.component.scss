@@ -50,7 +50,7 @@
     "tabs"
     "info"
     "summary"
-    "filters"
+    "filters-toggle"
     "results"
     "pagination";
   }
@@ -70,6 +70,10 @@
 
 .search-filters {
   grid-area: filters;
+}
+
+.search-filters-toggle {
+  grid-area: filters-toggle;
 }
 
 .search-summary {
