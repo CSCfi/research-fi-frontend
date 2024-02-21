@@ -486,8 +486,9 @@
     <app-search-bar2 [(value)]='keywords' (search)='searchKeywords(keywords)'></app-search-bar2>
   </div>
 
-  <div class='search-tabs'>
-    <!-- TAB LOOKING BUTTONS -->
+  <!-- TODO HIDE FOR NOW -->
+  <!--<div class='search-tabs'>
+    &lt;!&ndash; TAB LOOKING BUTTONS &ndash;&gt;
     <div style='height: 80px; margin-top: 20px; display: flex'>
       <ng-container *ngFor='let tab of ["Julkaisut", "Tutkijat", "Hankkeet", "Aineistot", "Rahoitushaut", "Infrastruktuurit", "Organisaatio"]'>
         <ng-container *ngIf='tab === "Julkaisut"'>
@@ -503,10 +504,51 @@
         </ng-container>
       </ng-container>
     </div>
-  </div>
+  </div>-->
 
   <div class='search-info'>
+    <!--<div style='width: 100%; height: 25px; background-color: blue'></div>--> <!-- TODO: GO TO NEW SEARCH -->
+
+    <div class="row py-3 px-0 ps-lg-3 mt-3 justify-content-between login-snackbar" style='background-color: pink'>
+      <div class="row col-7 justify-content-start align-content-center">
+
+        <div class="col-auto mx-0 gx-0">
+          <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+        </div>
+
+        <div class="col-11 align-self-center" i18n="@@TODOTODOTODO">
+          TODO: Palaa vanhaan hakuun.
+        </div>
+
+      </div>
+
+      <div class="row col-5 pe-lg-0 justify-content-end">
+        <div class="col-auto pe-lg-0 py-1">
+          <app-primary-action-button
+            role="link"
+            content="Palaa vanhaan hakuun"
+            i18n-content="@@TODOTOODTODTODTODTO"
+            routerLink='/results/publications'
+          ></app-primary-action-button>
+        </div>
+
+        <!-- TODO: Ei tarvita ohjeita, ainakaan tähän -->
+        <!--<div class="col-auto pe-lg-0 py-1">
+          <app-secondary-button content="Ohjeet" i18n-content="@@instructions"></app-secondary-button>
+        </div>-->
+
+        <!-- TODO: Nappuloiden sulkeminen myös huono idea, jumituttaan? -->
+        <div class="col-auto align-self-center">
+          <!--<div>
+            <a tabindex="0" href="javascript:void(0)"><strong i18n="@@close">Sulje</strong></a>
+          </div>-->
+        </div>
+
+      </div>
+    </div>
+
     <div style='display: flex; align-items: center; justify-content: space-between; width: 100%'>
+
       <div>
         <h2>Julkaisut - {{total$ | async}}</h2>
       </div>
@@ -613,7 +655,6 @@
           </ng-container>
         </ng-container>
 
-
         <!-- publicationAudience -->
         <ng-container *ngFor='let publicationAudienceFilter of publicationAudienceFilters$ | async'>
           <ng-container *ngIf='publicationAudienceFilter.enabled'>
@@ -685,6 +726,45 @@
 
           </ng-container>
         </ng-container>
+
+        <!-- TODO new filter pills -->
+
+        <!-- openAccess -->
+        <ng-container *ngFor='let openAccessFilter of openAccessFilters$ | async'>
+          <ng-container *ngIf='openAccessFilter.enabled'>
+
+            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("openAccess", openAccessFilter.id)'>
+              <div style='font-size: 0.8rem; padding-left: 8px'>{{openAccessFilter.name}}</div>
+              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+            </div>
+
+          </ng-container>
+        </ng-container>
+
+        <!-- publisherOpenAccess -->
+        <ng-container *ngFor='let publisherOpenAccessFilter of publisherOpenAccessFilters$ | async'>
+          <ng-container *ngIf='publisherOpenAccessFilter.enabled'>
+
+            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("publisherOpenAccessCode", publisherOpenAccessFilter.id)'>
+              <div style='font-size: 0.8rem; padding-left: 8px'>{{publisherOpenAccessFilter.name}}</div>
+              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+            </div>
+
+          </ng-container>
+        </ng-container>
+
+        <!-- selfArchivedCode -->
+        <ng-container *ngFor='let selfArchivedCodeFilter of selfArchivedCodeFilters$ | async'>
+          <ng-container *ngIf='selfArchivedCodeFilter.enabled'>
+
+            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("selfArchivedCode", selfArchivedCodeFilter.id)'>
+              <div style='font-size: 0.8rem; padding-left: 8px'>{{selfArchivedCodeFilter.name}}</div>
+              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+            </div>
+
+          </ng-container>
+        </ng-container>
+
       </div>
     </ng-container>
   </div>
@@ -802,6 +882,13 @@
   </div>
 
   <div class='search-pagination'>
+    <!--<div>Page: {{page}}</div>
+    <div>Size: {{size}}</div>
+    <div>Total: {{total$ | async}}</div>
+
+    &lt;!&ndash; Sanity check, page amount &ndash;&gt;
+    <div>Pages: {{ (total$ | async) / size | ceil }}</div>-->
+
     <div style='width: 990px'>
       <app-pagination [page]='page' [pageSize]='size' [total]='total$ | async'></app-pagination>
     </div>

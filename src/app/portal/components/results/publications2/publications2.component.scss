@@ -20,7 +20,7 @@
 
   grid-template-areas:
     "search search search search"
-    ". tabs tabs ."
+    /*". tabs tabs ."*/
     ". info info ."
     ". filters summary ."
     ". filters results ."
@@ -33,7 +33,7 @@
 
     grid-template-areas:
     "search search"
-    "tabs tabs"
+    /*"tabs tabs"*/
     "info info"
     "filters summary"
     "filters results"
@@ -47,7 +47,7 @@
 
     grid-template-areas:
     "search"
-    "tabs"
+    /*"tabs"*/
     "info"
     "summary"
     "filters-toggle"

@@ -26,7 +26,7 @@ import {
 import { map, take, tap } from 'rxjs/operators';
 import { SharedModule } from '@shared/shared.module';
 import { SearchBar2Component } from '@portal/search-bar2/search-bar2.component';
-import { NgArrayPipesModule } from 'ngx-pipes';
+import { NgArrayPipesModule, NgMathPipesModule } from 'ngx-pipes';
 import { OrganizationFilterComponent } from '@portal/components/organization-filter/organization-filter.component';
 import { FilterOptionComponent } from '@portal/components/filter-option/filter-option.component';
 import { LimitPipe } from '@portal/pipes/limit.pipe';
@@ -39,6 +39,7 @@ import { BreakpointObserver, LayoutModule } from '@angular/cdk/layout';
 import { ColumnSorterComponent } from '@shared/components/column-sorter/column-sorter.component';
 import { faSlidersH } from '@fortawesome/free-solid-svg-icons';
 import { Dialog, DialogRef } from '@angular/cdk/dialog';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-publications2',
@@ -49,7 +50,7 @@ import { Dialog, DialogRef } from '@angular/cdk/dialog';
     FormsModule,
     RouterModule,
     SearchBar2Component, OrganizationFilterComponent, FilterOptionComponent, CollapsibleComponent, MatButtonModule, NgStyle, FilterLimitButtonComponent, FirstDigitPipe, FirstLetterPipe, RouterLink,
-    LayoutModule, ColumnSorterComponent, NgTemplateOutlet
+    LayoutModule, ColumnSorterComponent, NgTemplateOutlet, FontAwesomeModule, NgMathPipesModule
   ],
   standalone: true
 })
@@ -464,7 +465,7 @@ export class Publications2Component implements OnDestroy {
 
       this.router.navigate([], {
         relativeTo: this.route,
-        skipLocationChange: true,
+        // skipLocationChange: true,
         queryParams: concatFields(queryParams)
       });
     });
@@ -478,7 +479,7 @@ export class Publications2Component implements OnDestroy {
 
       this.router.navigate([], {
         relativeTo: this.route,
-        skipLocationChange: true,
+        // skipLocationChange: true,
         queryParams: concatFields(queryParams)
       });
     });
@@ -491,7 +492,7 @@ export class Publications2Component implements OnDestroy {
 
       this.router.navigate([], {
         relativeTo: this.route,
-        skipLocationChange: true,
+        // skipLocationChange: true,
         queryParams: concatFields(queryParams)
       });
     });
@@ -514,8 +515,14 @@ export class Publications2Component implements OnDestroy {
   searchKeywords(keywords: string) {
     this.router.navigate([], {
       relativeTo: this.route,
-      skipLocationChange: true,
-      queryParams: { q: keywords }, queryParamsHandling: 'merge'
+      // skipLocationChange: true,
+
+      queryParams: {
+        q: keywords,
+        page: "1"
+      },
+
+      queryParamsHandling: 'merge'
     });
   }
 
@@ -526,7 +533,7 @@ export class Publications2Component implements OnDestroy {
       queryParams.page = [`${page + 1}`];
       this.router.navigate([], {
         relativeTo: this.route,
-        skipLocationChange: true,
+        // skipLocationChange: true,
         queryParams: queryParams
       });
     });
@@ -539,7 +546,7 @@ export class Publications2Component implements OnDestroy {
       queryParams.page = [`${page - 1}`];
       this.router.navigate([], {
         relativeTo: this.route,
-        skipLocationChange: true,
+        // skipLocationChange: true,
         queryParams: queryParams
       });
     });
@@ -550,7 +557,7 @@ export class Publications2Component implements OnDestroy {
 
     this.router.navigate([], {
       relativeTo: this.route,
-      skipLocationChange: true,
+      // skipLocationChange: true,
       queryParams: { size }, queryParamsHandling: 'merge'
     });
   }
