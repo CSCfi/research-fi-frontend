@@ -3,7 +3,6 @@ import { LoggerService } from 'src/app/shared/services/logger.service';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
-import { apm } from '@elastic/apm-rum';
 import { AppSettingsService } from './app-settings.service';
 import * as Bowser from 'bowser';
 import { CustomErrorType } from '@shared/types';
@@ -38,7 +37,6 @@ export class ErrorHandlerService implements ErrorHandler {
 
       console.error(error);
       this.logger.log(error);
-      apm.captureError(error);
     }, 0);
   }
 }
