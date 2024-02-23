@@ -882,13 +882,6 @@
   </div>
 
   <div class='search-pagination'>
-    <!--<div>Page: {{page}}</div>
-    <div>Size: {{size}}</div>
-    <div>Total: {{total$ | async}}</div>
-
-    &lt;!&ndash; Sanity check, page amount &ndash;&gt;
-    <div>Pages: {{ (total$ | async) / size | ceil }}</div>-->
-
     <div style='width: 990px'>
       <app-pagination [page]='page' [pageSize]='size' [total]='total$ | async'></app-pagination>
     </div>

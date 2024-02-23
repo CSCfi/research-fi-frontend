@@ -859,9 +859,6 @@ export { getArticleTypeCodeAdditions };
 const [additionsFromJufoClassCode, getJufoClassCodeAdditions] = generateAggregationStep("jufo", lookup);
 export { getJufoClassCodeAdditions };
 
-const [additionsFromFieldsOfScience, getFieldsOfScienceAdditions] = generateAggregationStep("fieldsOfScience", lookup);
-export { getFieldsOfScienceAdditions };
-
 function suffixer(locale) {
   const capitalized = locale.charAt(0).toUpperCase() + locale.slice(1).toLowerCase();
   return strings => strings[0].replace(/(Fi|Sv|En)(?=[\.A-Z]|$)/g, capitalized);
@@ -966,9 +963,6 @@ export { getSelfArchivedCodeAdditions };
 
 const [additionsFromPublicationTypeCode, getPublicationTypeCodeAdditions] = generateAggregationStep("publicationTypeCode", lookup);
 export { getPublicationTypeCodeAdditions };
-
-const [additionsFromOrganization, getOrganizationAdditions] = generateAggregationStep("organization", lookup);
-export { getOrganizationAdditions };
 
 type OrgsAggsResponse = {
   aggregations: {
@@ -1075,4 +1069,144 @@ function sortingTerms(searchParams: SearchParams) {
 
 function getOrganizationNameBuckets(response: OrgsAggsResponse) {
   return response.aggregations.filtered_authors.single_sector.organizations.composite_orgs.buckets;
+}
+
+function additionsFromOrganization(searchParams: SearchParams, global = false) {
+  if (global)
+    return {
+      "all_data_except_organizationId": {
+        "global": {},
+        "aggregations": {
+          "filtered_except_organizationId": {
+            "filter": {
+              "bool": {
+                "must": [
+                  ...additionFilterTerms("organization", searchParams),
+                ]
+              }
+            },
+            "aggregations": {
+              "organization_nested": {
+                "nested": {
+                  "path": "author"
+                },
+                "aggregations": {
+                  "all_organizationIds": {
+                    "terms": {
+                      "field": "author.organization.organizationId.keyword",
+                      "size": 250,
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    };
+
+  else
+    return {
+      "all_data_except_organizationId": {
+        "filter": {
+          "bool": {
+            "must": [
+              ...additionFilterTerms("organization", searchParams),
+            ]
+          }
+        },
+        "aggregations": {
+          "organization_nested": {
+            "nested": {
+              "path": "author"
+            },
+            "aggregations": {
+              "all_organizationIds": {
+                "terms": {
+                  "field": "author.organization.organizationId.keyword",
+                  "size": 250,
+                }
+              }
+            }
+          }
+        }
+      }
+    };
+}
+
+export function getOrganizationAdditions(aggregations: /*OrganizationAggregation*/ any, global = false) {
+  if (global)
+    return aggregations.all_data_except_organizationId?.filtered_except_organizationId.organization_nested.all_organizationIds.buckets ?? [];
+  else
+    return aggregations.all_data_except_organizationId.organization_nested.all_organizationIds.buckets ?? [];
+}
+
+function additionsFromFieldsOfScience(searchParams: SearchParams, global = false) {
+  if (global)
+    return {
+      "all_data_except_fieldsOfScience": {
+        "global": {},
+        "aggregations": {
+          "filtered_except_fieldsOfScience": {
+            "filter": {
+              "bool": {
+                "must": [
+                  ...additionFilterTerms("fieldsOfScience", searchParams),
+                ]
+              }
+            },
+            "aggregations": {
+              "fieldsOfScience_nested": {
+                "nested": {
+                  "path": "fieldsOfScience"
+                },
+                "aggregations": {
+                  "all_fieldsOfScience": {
+                    "terms": {
+                      "field": "fieldsOfScience.fieldIdScience",
+                      "size": 1000,
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    };
+
+  else
+    return {
+      "all_data_except_fieldsOfScience": {
+        "filter": {
+          "bool": {
+            "must": [
+              ...additionFilterTerms("fieldsOfScience", searchParams),
+            ]
+          }
+        },
+        "aggregations": {
+          "fieldsOfScience_nested": {
+            "nested": {
+              "path": "fieldsOfScience"
+            },
+            "aggregations": {
+              "all_fieldsOfScience": {
+                "terms": {
+                  "field": "fieldsOfScience.fieldIdScience",
+                  "size": 1000,
+                }
+              }
+            }
+          }
+        }
+      }
+    };
+}
+
+export function getFieldsOfScienceAdditions(aggregations: any, global = false) {
+  if (global)
+    return aggregations.all_data_except_fieldsOfScience?.filtered_except_fieldsOfScience.fieldsOfScience_nested.all_fieldsOfScience.buckets ?? [];
+  else
+    return aggregations.all_data_except_fieldsOfScience.fieldsOfScience_nested.all_fieldsOfScience.buckets ?? [];
 }

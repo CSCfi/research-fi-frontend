@@ -5,9 +5,9 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import {
   faAngleDoubleLeft,
   faAngleDoubleRight,
@@ -23,19 +23,25 @@ import { map } from 'rxjs/operators';
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss'],
 })
-export class PaginationComponent implements OnInit {
-  @Input() page: number = 1;
-  @Input() pageSize: number = 10;
-  @Input() total: number = 0;
+export class PaginationComponent implements OnChanges {
+  @Input() page = 1;
+  @Input() pageSize = 10;
+  @Input() total = 0;
 
-  fromPage: number; // Used for HTML rendering
+  changed$ = new BehaviorSubject<void>(null);
 
-  ngOnInit(): void {
+  fromPage = (this.page - 1) * this.pageSize;
+
+  ngOnChanges() {
     this.fromPage = (this.page - 1) * this.pageSize;
+    this.changed$.next();
   }
 
-  pages$: Observable<number[]> = this.breakpointObserver.observe('(min-width: 1200px)').pipe(
-    map(result => generatePages(this.page, result.matches ? 9 : 5, this.total, this.pageSize))
+  pages$: Observable<number[]> = combineLatest([
+    this.breakpointObserver.observe('(min-width: 1200px)'),
+    this.changed$,
+  ]).pipe(
+    map(([result]) => generatePages(this.page, result.matches ? 9 : 5, this.total, this.pageSize))
   );
 
   order$ = this.breakpointObserver.observe('(min-width: 768px)').pipe(
@@ -47,7 +53,6 @@ export class PaginationComponent implements OnInit {
   previousPage = $localize`:@@previousPage:Edellinen sivu`;
   nextPage = $localize`:@@nextPage:Seuraava sivu`;
   tooManyResultstext = $localize`:@@tooManyResultsNavigationDisabled:Liikaa tuloksia. Haun loppuun navigoiminen estetty.`;
-
 
   faAngleRight = faAngleRight;
   faAngleLeft = faAngleLeft;
