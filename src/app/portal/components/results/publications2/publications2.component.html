@@ -516,8 +516,10 @@
           <fa-icon class="info-icon" icon="info-circle"></fa-icon>
         </div>
 
-        <div class="col-11 align-self-center" i18n="@@TODOTODOTODO">
-          TODO: Palaa vanhaan hakuun.
+        <div class="col-11 align-self-center">
+          <ng-container i18n="@@publication2.info">
+            Testaa uudistettun haun betaversiota. Uudistettu haku toimii vain julkaisuissa.
+          </ng-container>
         </div>
 
       </div>
@@ -526,8 +528,8 @@
         <div class="col-auto pe-lg-0 py-1">
           <app-primary-action-button
             role="link"
-            content="Palaa vanhaan hakuun"
-            i18n-content="@@TODOTOODTODTODTODTO"
+            content="Uuteen hakuun"
+            i18n-content="@@publication2.toNewSearch"
             routerLink='/results/publications'
           ></app-primary-action-button>
         </div>

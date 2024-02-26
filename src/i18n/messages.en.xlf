@@ -6674,20 +6674,62 @@
         <target>Self-archived</target>
       </trans-unit>
 
+
+
+      <trans-unit id="publication2.toNewSearch">
+        <source>Uuteen hakuun</source>
+        <target>To new search</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.info">
+        <source>Testaa uudistettun haun betaversiota. Uudistettu haku toimii vain julkaisuissa.</source>
+        <target>Test the beta version of the renewed search. The renewed search only works in publications.</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.toOldSearch">
+        <source>Vanhaan hakuun</source>
+        <target>Old search</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.tutorial.1">
+        <source>Kirjoita hakukenttään julkaisun nimi tai asiasana.</source>
+        <target>In the search field, enter the name of the publication or keyword.</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.tutorial.2">
+        <source>Hakutulosten rajaaminen onnistuu haun jälkeen hakunäkymässä.</source>
+        <target>You can filter search results after searching in the search view.</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.tutorial.3">
+        <source>Haku kohdistuu julkaisuihin.</source>
+        <target>The search targets publications.</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.tutorial.4">
+        <source>Haku käyttää sanojen välissä oletuksena OR-komentoa. Halutessasi voit lisätä sanojen väliin AND- tai NOT-komennon. Esimerkiksi Innovation AND gamification NOT games, jolloin haku etsii julkaisuja, joissa molemmat "innovation" ja "gamification" sanat, mutta ei "games" sanaa. Huomioithan, että AND, NOT ja OR -komennot tulee kirjoittaa hakukenttään isoilla kirjaimilla.</source>
+        <target>The search uses the OR command between words by default. If you want, you can add the AND or NOT command between words. For example, Innovation AND gamification NOT games, then the search looks for publications that contain both “innovation” and “gamification” words, but not the “games” word.</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.tutorial.5">
+        <source>Sulkemalla lauseen "fraasiksi" voit etsiä juuri siinä muodossa olevaa lausetta. Esimerkiksi "Innovations in gamifications", jolloin haku etsii julkaisuja, joissa löytyy juuri tämä lause. Voit yhdistää fraaseja AND-, OR- tai NOT-komennoilla.</source>
+        <target>By closing the sentence as a “phrase” you can search for a sentence that is exactly in that form. For example, “Innovations in gamifications”, then the search looks for publications that contain exactly this sentence. You can combine phrases with AND, OR or NOT commands.</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.tutorial.6">
+        <source>Voit hakea seuraavia metatietoja suoraan hakukentällä käyttämällä niille määriteltyjä komentoja. Haussa on käytettävä fraasihakua:</source>
+        <target>You can search for the following metadata directly in the search field by using the commands defined for them. The search must use phrase search:</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.tutorial.7">
+        <source>Haettaessa DOI:ta: doi:"100100100"</source>
+        <target>When searching for DOI: doi:"100100100"</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.tutorial.8">
+        <source>Haettaessa ISSN:ä: issn:"1234-1234"</source>
+        <target>When searching for ISSN: issn:"1234-1234"</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
-
-<!--
-Could you use this HTML template
-
-<p>
-  <strong><ng-container i18n='@@titleID'>Content content content...</ng-container></strong>
-  <ng-container i18n='@@descriptionID'>Content content content...</ng-container>
-</p>
-
-and this data
-
-
-And write out HTML with the data in it
--->
