@@ -37,7 +37,7 @@ import { FirstDigitPipe } from '@shared/pipes/first-digit.pipe';
 import { FirstLetterPipe } from '@shared/pipes/first-letter.pipe';
 import { BreakpointObserver, LayoutModule } from '@angular/cdk/layout';
 import { ColumnSorterComponent } from '@shared/components/column-sorter/column-sorter.component';
-import { faSlidersH } from '@fortawesome/free-solid-svg-icons';
+import { faChartBar, faSlidersH } from '@fortawesome/free-solid-svg-icons';
 import { Dialog, DialogRef } from '@angular/cdk/dialog';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -61,7 +61,6 @@ export class Publications2Component implements OnDestroy {
   breakpointObserver = inject(BreakpointObserver);
   dialog = inject(Dialog);
 
-
   keywords = "";
   page = 1;
   size = 10;
@@ -71,20 +70,6 @@ export class Publications2Component implements OnDestroy {
   dialogRef?: DialogRef<any>;
 
   @ViewChild('searchDialog') dialogTemplate: TemplateRef<any>;
-
-  openDialog() {
-    this.dialogRef = this.dialog.open(this.dialogTemplate, {
-      panelClass: 'fullscreen-panel',
-    });
-
-    this.dialogRef.closed.subscribe(() => {
-      console.log('The dialog2 was closed');
-    });
-  }
-
-  closeDialog() {
-    this.dialogRef?.close();
-  }
 
   labelText = {
     yearOfPublication: $localize`:@@yearOfPublication:Julkaisuvuosi`,
@@ -115,9 +100,25 @@ export class Publications2Component implements OnDestroy {
     {id: "I", text: $localize`:@@publicationClassI:Audiovisuaaliset julkaisut ja tieto- ja viestintätekniset sovellukset`},
   ];
 
-
   filterCount$ = new BehaviorSubject(0);
   filterCountLookup: Record<string, number> = {};
+
+  faSlidersH = faSlidersH;
+  faChartBar = faChartBar;
+
+  openDialog() {
+    this.dialogRef = this.dialog.open(this.dialogTemplate, {
+      panelClass: 'fullscreen-panel',
+    });
+
+    this.dialogRef.closed.subscribe(() => {
+      console.log('The dialog2 was closed');
+    });
+  }
+
+  closeDialog() {
+    this.dialogRef?.close();
+  }
 
   updateFilterCount(key: string, value: number) {
     this.filterCountLookup[key] = value;
@@ -565,8 +566,6 @@ export class Publications2Component implements OnDestroy {
   clamp(value: number, min: number, max: number) {
     return Math.min(Math.max(value, min), max);
   }
-
-  faSlidersH = faSlidersH;
 }
 
 export class PublicationDataSource extends DataSource<HighlightedPublication> {

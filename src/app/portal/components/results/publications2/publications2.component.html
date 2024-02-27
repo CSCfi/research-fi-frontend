@@ -600,8 +600,24 @@
     </div>
   </ng-container>
 
-  <div class='search-filters' style='background-color: #e8e8f5; padding: 16px' #filterDialog2>
-    <ng-container *ngTemplateOutlet="searchFilters"></ng-container>
+  <div class='search-filters' >
+    <!-- showAsVisual = $localize`:@@showAsVisual:Näytä kuvana`; -->
+    <!-- *ngIf="(tab === 'publications' || tab === 'fundings') && !mobile" -->
+
+    <div style='background-color: #e8e8f5; padding: 15px 0; margin-bottom: 10px'>
+      <div class="justify-content-center align-items-center d-none d-lg-flex visual-button-container">
+        <app-primary-action-button
+          content="Näytä kuvana"
+          i18n-content="@@showAsVisual"
+          [icon]="faChartBar"
+          [disabled]="true"
+        ></app-primary-action-button>
+      </div>
+    </div>
+
+    <div style='background-color: #e8e8f5; padding: 16px'>
+      <ng-container *ngTemplateOutlet="searchFilters"></ng-container>
+    </div>
   </div>
 
   <div class='search-summary'>

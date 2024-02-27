@@ -97,20 +97,29 @@ cdk-table {
 }
 
 /* Add some spacing and border to the cells */
-cdk-header-cell, cdk-cell {
-  // padding: 16px;
+cdk-cell {
   padding: 1rem 0.5rem;
-
-  // border-bottom: 1px solid #e0e0e0;
-  display: table-cell; /* This ensures they behave like traditional table cells */
-
+  display: table-cell;
   text-align: start;
+}
+
+cdk-header-cell {
+  padding: 0.25rem 0.5rem 1rem 0.5rem;
+  display: table-cell;
+  text-align: start;
+
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 1;
 }
 
 /* Define the header row and data row to behave like traditional table rows */
 cdk-header-row, cdk-row {
   display: table-row;
 }
+
+
 
 /* Define columns to ensure they take equal widths - adjust as required */
 /*[cdkColumnDef="publicationName"] {
