@@ -2726,6 +2726,13 @@
       <trans-unit id="publication2.tutorial.8">
         <source>Haettaessa ISSN:ä: issn:"1234-1234"</source>
       </trans-unit>
+
+
+
+      <trans-unit id="publication2.contentInfo">
+        <source>Mitä julkaisutietoja palvelu sisältää?</source>
+      </trans-unit>
+
     </body>
   </file>
 </xliff>

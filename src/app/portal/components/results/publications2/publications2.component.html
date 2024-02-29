@@ -565,7 +565,12 @@
 
         tulosta / sivu
 
-        <a href='#'>Mitä julkaisutietoja palvelu sisältää?</a>
+        <a [routerLink]='["/service-info"]' fragment='service-info2'>
+          <ng-container i18n="@@publication2.contentInfo">
+            Mitä julkaisutietoja palvelu sisältää?
+          </ng-container>
+        </a>
+
       </div>
     </div>
   </div>
@@ -782,6 +787,12 @@
 
           </ng-container>
         </ng-container>
+
+        <!-- make "pill" for running clearFilters -->
+        <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='clearFilters()'>
+          <div style='font-size: 0.8rem; padding-left: 8px'>Tyhjennä rajaukset</div>
+          <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+        </div>
 
       </div>
     </ng-container>

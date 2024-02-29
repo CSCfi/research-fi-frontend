@@ -6735,6 +6735,14 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Haettaessa ISSN:ä: issn:"1234-1234"</source>
         <target>När du söker efter ISSN: issn:"1234-1234"</target>
       </trans-unit>
+
+
+
+      <trans-unit id="publication2.contentInfo">
+        <source>Mitä julkaisutietoja palvelu sisältää?</source>
+        <target>Vilka publikationsuppgifter finns i tjänsten?</target>
+      </trans-unit>
+
     </body>
   </file>
 </xliff>

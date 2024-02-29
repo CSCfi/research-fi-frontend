@@ -6730,6 +6730,14 @@
         <source>Haettaessa ISSN:ä: issn:"1234-1234"</source>
         <target>When searching for ISSN: issn:"1234-1234"</target>
       </trans-unit>
+
+
+
+      <trans-unit id="publication2.contentInfo">
+        <source>Mitä julkaisutietoja palvelu sisältää?</source>
+        <target>What publication information is included in the service?</target>
+      </trans-unit>
+
     </body>
   </file>
 </xliff>

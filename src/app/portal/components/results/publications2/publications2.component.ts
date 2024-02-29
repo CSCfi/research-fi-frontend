@@ -23,7 +23,7 @@ import {
   HighlightedPublication,
   Publication2Service, SearchParams
 } from '@portal/services/publication2.service';
-import { map, take, tap } from 'rxjs/operators';
+import { filter, map, take, tap } from 'rxjs/operators';
 import { SharedModule } from '@shared/shared.module';
 import { SearchBar2Component } from '@portal/search-bar2/search-bar2.component';
 import { NgArrayPipesModule, NgMathPipesModule } from 'ngx-pipes';
@@ -127,6 +127,17 @@ export class Publications2Component implements OnDestroy {
     this.filterCount$.next(count);
   }
 
+  clearFilters() {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {
+        q: this.keywords,
+        page: this.page.toString(),
+        size: this.size.toString(),
+      }
+    });
+  }
+
   displayedColumns: string[] = ['icon', 'publicationName', 'authorsText', 'publisherName', 'publicationYear'];
 
   highlights$ = this.publications2Service.getSearch(); // TODO: /*: Observable<HighlightedPublication[]>*/
@@ -192,6 +203,7 @@ export class Publications2Component implements OnDestroy {
 
   publicationFormatAdditions$ = this.aggregations$.pipe(
     map(aggs => getPublicationFormatAdditions(aggs).map((bucket: any) => ({ id: bucket.key, count: bucket.doc_count })) ?? []),
+    map(aggs => aggs.filter(publicationFormatAddition => publicationFormatAddition.id !== "-1")),
     map(aggs => aggs.sort((a, b) => b.count - a.count))
   );
 
@@ -209,6 +221,7 @@ export class Publications2Component implements OnDestroy {
 
   publicationAudienceAdditions$ = this.aggregations$.pipe(
     map(aggs => getPublicationAudienceAdditions(aggs).map((bucket: any) => ({ id: bucket.key, count: bucket.doc_count })) ?? []),
+    map(aggs => aggs.filter(publicationAudienceAddition => publicationAudienceAddition.id !== "-1")),
     map(aggs => aggs.sort((a, b) => b.count - a.count))
   );
 
@@ -224,7 +237,8 @@ export class Publications2Component implements OnDestroy {
 
   peerReviewedAdditions$ = this.aggregations$.pipe(
     map(aggs => getPeerReviewedAdditions(aggs).map((bucket: any) => ({ id: bucket.key, count: bucket.doc_count })) ?? []),
-    map(aggs => aggs.sort((a, b) => b.count - a.count))
+    map(aggs => aggs.filter(peerReviewedAddition => ![' ', '-1'].includes(peerReviewedAddition.id))),
+    map(aggs => aggs.sort((a, b) => b.count - a.count)),
   );
 
   peerReviewedNames$ = this.publications2Service.getPeerReviewedNames();
@@ -241,11 +255,13 @@ export class Publications2Component implements OnDestroy {
 
   parentPublicationTypeAdditions$ = this.aggregations$.pipe(
     map(aggs => getParentPublicationTypeAdditions(aggs).map((bucket: any) => ({ id: bucket.key, count: bucket.doc_count })) ?? []),
+    map(aggs => aggs.filter(parentPublicationTypeAddition => parentPublicationTypeAddition.id !== "-1")),
     map(aggs => aggs.sort((a, b) => b.count - a.count))
   );
 
   publisherInternationalityAdditions$ = this.aggregations$.pipe(
     map(aggs => getPublisherInternationalityAdditions(aggs).map((bucket: any) => ({ id: bucket.key.toString(), count: bucket.doc_count })) ?? []),
+    map(aggs => aggs.filter(internationalPublicationAddition => internationalPublicationAddition.id !== "9")),
     map(aggs => aggs.sort((a, b) => b.count - a.count))
   );
 
