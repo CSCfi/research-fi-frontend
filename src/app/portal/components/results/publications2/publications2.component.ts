@@ -68,8 +68,25 @@ export class Publications2Component implements OnDestroy {
   sort = "";
 
   dialogRef?: DialogRef<any>;
-
   @ViewChild('searchDialog') dialogTemplate: TemplateRef<any>;
+
+  // Dialog for insturctions / tutorial
+  tutorialDialogRef?: DialogRef<any>;
+  @ViewChild('tutorialDialog') tutorialDialogTemplate: TemplateRef<any>;
+
+  openTutorialDialog() {
+    this.tutorialDialogRef = this.dialog.open(this.tutorialDialogTemplate, {
+      panelClass: 'large-responsive-panel',
+    });
+
+    this.tutorialDialogRef.closed.subscribe(() => {
+      console.log('The tutorial dialog was closed');
+    });
+  }
+
+  closeTutorialDialog() {
+    this.tutorialDialogRef?.close();
+  }
 
   labelText = {
     yearOfPublication: $localize`:@@yearOfPublication:Julkaisuvuosi`,

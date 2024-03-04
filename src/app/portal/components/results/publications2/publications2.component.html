@@ -478,12 +478,70 @@
   </div>
 </ng-template>
 
+<ng-template #tutorialDialog>
+  <div class='dialog-header' style='display: flex; justify-content: space-between; padding: 18px 16px'>
+    <div style='display: flex; align-items: center'>
+      <i class='fa fa-info-circle' style='font-size: 1.3rem; color: #4546b9; padding-right: 16px' aria-hidden='true'></i>
+      <h3 style='font-size: 1.4rem; margin: 0' i18n='@@searchHelpButton'>Hakuohje</h3>
+    </div>
+
+    <app-close-button tabindex="-1"
+      (click)='closeTutorialDialog()'
+      (keydown.enter)='closeTutorialDialog()'
+    ></app-close-button>
+  </div>
+
+  <div style='background-color: white; width: 100%; padding: 1rem'>
+    <p i18n="@@publication2.tutorial.1">
+      Testaa uudistetun haun betaversiota. Uudistettua hakua on toistaiseksi mahdollista testata ainoastaan julkaisutietojen hakemisessa.
+    </p>
+
+    <p i18n="@@publication2.tutorial.2">
+      Kirjoita hakukenttään esimerkiksi julkaisun tai tekijän nimi, tai julkaisuun liittyvä asiasana.
+    </p>
+
+    <p i18n="@@publication2.tutorial.3">
+      Haku käyttää sanojen välissä oletuksena OR-hakuoperaattioria. Halutessasi voit käyttää myös AND- ja NOT- hakuoperaattoireita. Esimerkiksi haku Innovation AND gamification NOT games etsii julkaisuja, joissa esiintyvät yhtä aikaa sanat "innovation" ja "gamification", mutta joissa ei ole mukana sanaa "games". Huomioithan, että AND, NOT ja OR -hakuoperaattorit tulee kirjoittaa hakukenttään isoilla kirjaimilla.
+    </p>
+
+    <p i18n="@@publication2.tutorial.4">
+      Sulkemalla haussa esiintyvät sanat lainausmerkeillä fraasiksi voit etsiä osumia jotka ovat täsmälleen samassa muodossa. Esimerkiksi fraasihaku "Innovations in gamifications" etsii julkaisuja, joissa esiintyy juuri tämä lause. Voit myös yhdistää useampia fraasihakuja AND-, OR- tai NOT-hakuoperaattoreilla.
+    </p>
+
+    <p i18n="@@publication2.tutorial.5">
+      Voit hakea kohdistetusti joitakin metatietoja suoraan hakukentässä käyttämällä niille erikseen määriteltyjä komentoja. Haussa on käytettävä fraasihakua. Toistaiseksi haku on mahdollista kohdistaa seuraaviin metatietoihin:
+    </p>
+
+    <ul>
+      <li i18n="@@publication2.tutorial.6">
+        DOI, kirjoita hakukenttään doi:"haettava tunnus", esimerkiksi doi:"100100100"
+      </li>
+
+      <li i18n="@@publication2.tutorial.7">
+        ISSN, kirjoita hakukenttään issn:"haettava tunnnus", esimerkiksi issn:"1234-1234"
+      </li>
+
+      <li i18n="@@publication2.tutorial.8">
+        ISBN, kirjoita hakukenttään isbn:"haettava tunnus", esimerkiksi isbn:"123-0-456-12345-1"
+      </li>
+
+      <li i18n="@@publication2.tutorial.9">
+        JUFO-tunnus, kirjoita hakukenttään jufoCode:"haettava tunnus", esimerkiksi jufoCode:"12345"
+      </li>
+    </ul>
+
+    <p i18n="@@publication2.tutorial.10">
+      Huomioithan, että kohdistetussa haussa metatietokentät tulee kirjoittaa pienillä kirjaimilla.
+    </p>
+  </div>
+</ng-template>
+
 <div class="search-container">
 
   <!-- TODO: standalone-header here -->
 
   <div class='search-bar' style="background-color: orange; height: 100px; display: flex; justify-content: center; align-items: center">
-    <app-search-bar2 [(value)]='keywords' (search)='searchKeywords(keywords)'></app-search-bar2>
+    <app-search-bar2 [(value)]='keywords' (search)='searchKeywords(keywords)' (instructions)='openTutorialDialog()'></app-search-bar2>
   </div>
 
   <!-- TODO HIDE FOR NOW -->
@@ -556,14 +614,18 @@
       </div>
 
       <div style='height: 58px; padding: 16px'>
-        Näytetään tulokset {{(page - 1) * size + 1}} - {{page * size}} / {{total$ | async}}
+        <ng-container i18n='@@paginationResultCount'>Näytetään tulokset </ng-container>
+
+        {{(page - 1) * size + 1}} - {{page * size}} / {{total$ | async}}
 
         <select [ngModel]='size' (ngModelChange)='setPageSize($event)'>
           <option [ngValue]='10'>10</option>
           <option [ngValue]='100'>100</option>
         </select>
 
-        tulosta / sivu
+
+        <ng-container i18n='@@search-bar.results'> tulosta </ng-container> / <ng-container i18n='@@search-bar.page'> sivu </ng-container>
+
 
         <a [routerLink]='["/service-info"]' fragment='service-info2'>
           <ng-container i18n="@@publication2.contentInfo">
@@ -648,6 +710,30 @@
 
             <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("organization", organizationFilter.id)'>
               <div style='font-size: 0.8rem; padding-left: 8px'>{{organizationFilter.name}}</div>
+              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+            </div>
+
+          </ng-container>
+        </ng-container>
+
+        <!-- fieldOfScience -->
+        <ng-container *ngFor='let fieldsOfScienceFilter of fieldsOfScienceFilters$ | async'>
+          <ng-container *ngIf='fieldsOfScienceFilter.enabled'>
+
+            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("fieldOfScience", fieldsOfScienceFilter.id)'>
+              <div style='font-size: 0.8rem; padding-left: 8px'>{{fieldsOfScienceFilter.name}}</div>
+              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+            </div>
+
+          </ng-container>
+        </ng-container>
+
+        <!-- publicationTypeCodeFilters$ -->
+        <ng-container *ngFor='let publicationTypeCodeFilter of publicationTypeCodeFilters$ | async'>
+          <ng-container *ngIf='publicationTypeCodeFilter.enabled'>
+
+            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("publicationType", publicationTypeCodeFilter.id)'>
+              <div style='font-size: 0.8rem; padding-left: 8px'>{{publicationTypeCodeFilter.name}}</div>
               <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
             </div>
 

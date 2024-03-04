@@ -26,8 +26,4 @@ export class SearchBar2Component {
   @Output() instructions = new EventEmitter<void>();
 
   public keywords = this.route.snapshot.queryParams.q ?? "";
-
-  searchKeywords(keywords: string) {
-    this.router.navigate([], { queryParams: { q: keywords }, queryParamsHandling: 'merge' });
-  }
 }

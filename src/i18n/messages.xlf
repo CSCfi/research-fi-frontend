@@ -2696,41 +2696,57 @@
       </trans-unit>
 
       <trans-unit id="publication2.tutorial.1">
-        <source>Kirjoita hakukenttään julkaisun nimi tai asiasana.</source>
+        <source>Testaa uudistetun haun betaversiota. Uudistettua hakua on toistaiseksi mahdollista testata ainoastaan julkaisutietojen hakemisessa.</source>
       </trans-unit>
 
       <trans-unit id="publication2.tutorial.2">
-        <source>Hakutulosten rajaaminen onnistuu haun jälkeen hakunäkymässä.</source>
+        <source>Kirjoita hakukenttään esimerkiksi julkaisun tai tekijän nimi, tai julkaisuun liittyvä asiasana.</source>
       </trans-unit>
 
       <trans-unit id="publication2.tutorial.3">
-        <source>Haku kohdistuu julkaisuihin.</source>
+        <source>Haku käyttää sanojen välissä oletuksena OR-hakuoperaattioria. Halutessasi voit käyttää myös AND- ja NOT- hakuoperaattoireita. Esimerkiksi haku Innovation AND gamification NOT games etsii julkaisuja, joissa esiintyvät yhtä aikaa sanat "innovation" ja "gamification", mutta joissa ei ole mukana sanaa "games". Huomioithan, että AND, NOT ja OR -hakuoperaattorit tulee kirjoittaa hakukenttään isoilla kirjaimilla.</source>
       </trans-unit>
 
       <trans-unit id="publication2.tutorial.4">
-        <source>Haku käyttää sanojen välissä oletuksena OR-komentoa. Halutessasi voit lisätä sanojen väliin AND- tai NOT-komennon. Esimerkiksi Innovation AND gamification NOT games, jolloin haku etsii julkaisuja, joissa molemmat "innovation" ja "gamification" sanat, mutta ei "games" sanaa. Huomioithan, että AND, NOT ja OR -komennot tulee kirjoittaa hakukenttään isoilla kirjaimilla.</source>
+        <source>Sulkemalla haussa esiintyvät sanat lainausmerkeillä fraasiksi voit etsiä osumia jotka ovat täsmälleen samassa muodossa. Esimerkiksi fraasihaku "Innovations in gamifications" etsii julkaisuja, joissa esiintyy juuri tämä lause. Voit myös yhdistää useampia fraasihakuja AND-, OR- tai NOT-hakuoperaattoreilla.</source>
       </trans-unit>
 
       <trans-unit id="publication2.tutorial.5">
-        <source>Sulkemalla lauseen "fraasiksi" voit etsiä juuri siinä muodossa olevaa lausetta. Esimerkiksi "Innovations in gamifications", jolloin haku etsii julkaisuja, joissa löytyy juuri tämä lause. Voit yhdistää fraaseja AND-, OR- tai NOT-komennoilla.</source>
+        <source>Voit hakea kohdistetusti joitakin metatietoja suoraan hakukentässä käyttämällä niille erikseen määriteltyjä komentoja. Haussa on käytettävä fraasihakua. Toistaiseksi haku on mahdollista kohdistaa seuraaviin metatietoihin:</source>
       </trans-unit>
 
       <trans-unit id="publication2.tutorial.6">
-        <source>Voit hakea seuraavia metatietoja suoraan hakukentällä käyttämällä niille määriteltyjä komentoja. Haussa on käytettävä fraasihakua:</source>
+        <source>DOI, kirjoita hakukenttään doi:"haettava tunnus", esimerkiksi doi:"100100100"</source>
       </trans-unit>
 
       <trans-unit id="publication2.tutorial.7">
-        <source>Haettaessa DOI:ta: doi:"100100100"</source>
+        <source>ISSN, kirjoita hakukenttään issn:"haettava tunnnus", esimerkiksi issn:"1234-1234"</source>
       </trans-unit>
 
       <trans-unit id="publication2.tutorial.8">
-        <source>Haettaessa ISSN:ä: issn:"1234-1234"</source>
+        <source>ISBN, kirjoita hakukenttään isbn:"haettava tunnus", esimerkiksi isbn:"123-0-456-12345-1"</source>
+      </trans-unit>
+
+      <trans-unit id="publication2.tutorial.9">
+        <source>JUFO-tunnus, kirjoita hakukenttään jufoCode:"haettava tunnus", esimerkiksi jufoCode:"12345"</source>
+      </trans-unit>
+
+      <trans-unit id="publication2.tutorial.10">
+        <source>Huomioithan, että kohdistetussa haussa metatietokentät tulee kirjoittaa pienillä kirjaimilla.</source>
       </trans-unit>
 
 
 
       <trans-unit id="publication2.contentInfo">
         <source>Mitä julkaisutietoja palvelu sisältää?</source>
+      </trans-unit>
+
+      <trans-unit id="search-bar.results">
+        <source> tulosta </source>
+      </trans-unit>
+
+      <trans-unit id="search-bar.page">
+        <source> sivu </source>
       </trans-unit>
 
     </body>

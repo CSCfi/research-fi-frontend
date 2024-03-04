@@ -6692,50 +6692,70 @@
       </trans-unit>
 
       <trans-unit id="publication2.tutorial.1">
-        <source>Kirjoita hakukenttään julkaisun nimi tai asiasana.</source>
-        <target>In the search field, enter the name of the publication or keyword.</target>
+        <source>Testaa uudistetun haun betaversiota. Uudistettua hakua on toistaiseksi mahdollista testata ainoastaan julkaisutietojen hakemisessa.</source>
+        <target>Test the beta version of the improved search function. The new search can currently only be tested in publication information retrieval.</target>
       </trans-unit>
 
       <trans-unit id="publication2.tutorial.2">
-        <source>Hakutulosten rajaaminen onnistuu haun jälkeen hakunäkymässä.</source>
-        <target>You can filter search results after searching in the search view.</target>
+        <source>Kirjoita hakukenttään esimerkiksi julkaisun tai tekijän nimi, tai julkaisuun liittyvä asiasana.</source>
+        <target>Write in the search field, for example, the name of the publication or author, or a keyword related to the publication.</target>
+
       </trans-unit>
 
       <trans-unit id="publication2.tutorial.3">
-        <source>Haku kohdistuu julkaisuihin.</source>
-        <target>The search targets publications.</target>
+        <source>Haku käyttää sanojen välissä oletuksena OR-hakuoperaattioria. Halutessasi voit käyttää myös AND- ja NOT- hakuoperaattoireita. Esimerkiksi haku Innovation AND gamification NOT games etsii julkaisuja, joissa esiintyvät yhtä aikaa sanat "innovation" ja "gamification", mutta joissa ei ole mukana sanaa "games". Huomioithan, että AND, NOT ja OR -hakuoperaattorit tulee kirjoittaa hakukenttään isoilla kirjaimilla.</source>
+        <target>The search uses the OR search operator by default between words. If you wish, you can also use the AND and NOT search operators. For example, the search Innovation AND gamification NOT games search for publications that simultaneously contain the words “innovation” and “gamification”, but do not include the word “games”. Please note that the AND, NOT, and OR search operators must be written in capital letters in the search field.</target>
       </trans-unit>
 
       <trans-unit id="publication2.tutorial.4">
-        <source>Haku käyttää sanojen välissä oletuksena OR-komentoa. Halutessasi voit lisätä sanojen väliin AND- tai NOT-komennon. Esimerkiksi Innovation AND gamification NOT games, jolloin haku etsii julkaisuja, joissa molemmat "innovation" ja "gamification" sanat, mutta ei "games" sanaa. Huomioithan, että AND, NOT ja OR -komennot tulee kirjoittaa hakukenttään isoilla kirjaimilla.</source>
-        <target>The search uses the OR command between words by default. If you want, you can add the AND or NOT command between words. For example, Innovation AND gamification NOT games, then the search looks for publications that contain both “innovation” and “gamification” words, but not the “games” word.</target>
+        <source>Sulkemalla haussa esiintyvät sanat lainausmerkeillä fraasiksi voit etsiä osumia jotka ovat täsmälleen samassa muodossa. Esimerkiksi fraasihaku "Innovations in gamifications" etsii julkaisuja, joissa esiintyy juuri tämä lause. Voit myös yhdistää useampia fraasihakuja AND-, OR- tai NOT-hakuoperaattoreilla.</source>
+        <target>By enclosing the phrases appearing in the search in quotation marks, you can search for matches exactly in the same form. For example, the phrase search "Innovations in gamifications" searches for publications that contain exactly this sentence. You can also combine several phrase searches with AND, OR, or NOT search operators.</target>
       </trans-unit>
 
       <trans-unit id="publication2.tutorial.5">
-        <source>Sulkemalla lauseen "fraasiksi" voit etsiä juuri siinä muodossa olevaa lausetta. Esimerkiksi "Innovations in gamifications", jolloin haku etsii julkaisuja, joissa löytyy juuri tämä lause. Voit yhdistää fraaseja AND-, OR- tai NOT-komennoilla.</source>
-        <target>By closing the sentence as a “phrase” you can search for a sentence that is exactly in that form. For example, “Innovations in gamifications”, then the search looks for publications that contain exactly this sentence. You can combine phrases with AND, OR or NOT commands.</target>
+        <source>Voit hakea kohdistetusti joitakin metatietoja suoraan hakukentässä käyttämällä niille erikseen määriteltyjä komentoja. Haussa on käytettävä fraasihakua. Toistaiseksi haku on mahdollista kohdistaa seuraaviin metatietoihin:</source>
+        <target>You can also search for some metadata directly in the search field using commands defined separately for them. Phrase search must be used in the search. At the moment, the search can be targeted at the following metadata:</target>
       </trans-unit>
 
       <trans-unit id="publication2.tutorial.6">
-        <source>Voit hakea seuraavia metatietoja suoraan hakukentällä käyttämällä niille määriteltyjä komentoja. Haussa on käytettävä fraasihakua:</source>
-        <target>You can search for the following metadata directly in the search field by using the commands defined for them. The search must use phrase search:</target>
+        <source>DOI, kirjoita hakukenttään doi:"haettava tunnus", esimerkiksi doi:"100100100"</source>
+        <target>DOI, write in the search field doi:"searched identifier", for example, doi:"100100100"</target>
       </trans-unit>
 
       <trans-unit id="publication2.tutorial.7">
-        <source>Haettaessa DOI:ta: doi:"100100100"</source>
-        <target>When searching for DOI: doi:"100100100"</target>
+        <source>ISSN, kirjoita hakukenttään issn:"haettava tunnnus", esimerkiksi issn:"1234-1234"</source>
+        <target>ISSN, write in the search field issn:"searched identifier", for example, issn:"1234-1234"</target>
       </trans-unit>
 
       <trans-unit id="publication2.tutorial.8">
-        <source>Haettaessa ISSN:ä: issn:"1234-1234"</source>
-        <target>When searching for ISSN: issn:"1234-1234"</target>
+        <source>ISBN, kirjoita hakukenttään isbn:"haettava tunnus", esimerkiksi isbn:"123-0-456-12345-1"</source>
+        <target>ISBN, write in the search field isbn:"searched identifier", for example, isbn:"123-0-456-12345-1"</target>
       </trans-unit>
 
+      <trans-unit id="publication2.tutorial.9">
+        <source>JUFO-tunnus, kirjoita hakukenttään jufoCode:"haettava tunnus", esimerkiksi jufoCode:"12345"</source>
+        <target>JUFO code, write in the search field jufoCode:"searched identifier", for example, jufoCode:"12345"</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.tutorial.10">
+        <source>Huomioithan, että kohdistetussa haussa metatietokentät tulee kirjoittaa pienillä kirjaimilla.</source>
+        <target>Please note that metadata fields must be written in lowercase in targeted search.</target>
+      </trans-unit>
 
 
       <trans-unit id="publication2.contentInfo">
         <source>Mitä julkaisutietoja palvelu sisältää?</source>
         <target>What publication information is included in the service?</target>
+      </trans-unit>
+
+      <trans-unit id="search-bar.results">
+        <source> tulosta </source>
+        <target> results </target>
+      </trans-unit>
+
+      <trans-unit id="search-bar.page">
+        <source> sivu </source>
+        <target> page </target>
       </trans-unit>
 
     </body>

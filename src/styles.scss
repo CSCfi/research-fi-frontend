@@ -165,3 +165,17 @@ em.highlight {
 
   overflow-y: auto;
 }
+
+.large-responsive-panel {
+  width: 800px;
+  height: 1000px;
+  background-color: white;
+  overflow-y: auto;
+  padding: 0 1em;
+
+  // for small screens 1199px and below be like fullscreen-panel
+  @media (max-width: 1199px) {
+    width: 100%;
+    height: 100%;
+  }
+}
