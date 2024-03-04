@@ -6683,17 +6683,22 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
 
       <trans-unit id="publication2.toNewSearch">
         <source>Uuteen hakuun</source>
-        <target>Ny sökning</target>
+        <target>Förnyad sökning</target>
       </trans-unit>
 
-      <trans-unit id="publication2.info">
-        <source>Testaa uudistettun haun betaversiota. Uudistettu haku toimii vain julkaisuissa.</source>
-        <target>Testa betaversionen av den förnyade sökningen. Den förnyade sökningen fungerar endast i publikationer.</target>
+      <trans-unit id="publication2.toNewInfo">
+        <source>Testaa haun uudistettua betaversiota. Betaversio toimii vain julkaisujen hakuun. Tiedot vastaavat nykyisen sivuston sisältöä julkaisujen osalta.</source>
+        <target>Testa betaversionen av den förnyade sökningen. Den förnyade sökningen fungerar endast i publikationer. Informationen motsvarar innehållet på den aktuella webbplatsen för publikationer.</target>
       </trans-unit>
 
       <trans-unit id="publication2.toOldSearch">
-        <source>Vanhaan hakuun</source>
-        <target>Gammal sökning</target>
+        <source>Nykyiseen versioon</source>
+        <target>Återvänd till nuvarande version</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.toOldInfo">
+        <source>Olet haun uudistetussa betaversiossa. Voit palata takaisin koko sivustolle.</source>
+        <target>Du är i den förnyade betaversionen av sökningen. Du kan gå tillbaka till hela webbplatsen.</target>
       </trans-unit>
 
       <trans-unit id="publication2.tutorial.1">

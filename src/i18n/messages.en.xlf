@@ -6681,14 +6681,19 @@
         <target>To new search</target>
       </trans-unit>
 
-      <trans-unit id="publication2.info">
-        <source>Testaa uudistettun haun betaversiota. Uudistettu haku toimii vain julkaisuissa.</source>
-        <target>Test the beta version of the renewed search. The renewed search only works in publications.</target>
+      <trans-unit id="publication2.toNewInfo">
+        <source>Testaa haun uudistettua betaversiota. Betaversio toimii vain julkaisujen hakuun. Tiedot vastaavat nykyisen sivuston sisältöä julkaisujen osalta.</source>
+        <target>Test the beta version of the improved search. The improved search only works in publications. The information corresponds to the content of the current site for publications.</target>
       </trans-unit>
 
       <trans-unit id="publication2.toOldSearch">
-        <source>Vanhaan hakuun</source>
-        <target>Old search</target>
+        <source>Nykyiseen versioon</source>
+        <target>Back to the current version</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.toOldInfo">
+        <source>Olet haun uudistetussa betaversiossa. Voit palata takaisin koko sivustolle.</source>
+        <target>You are in the improved beta version of the search. You can go back to the whole site.</target>
       </trans-unit>
 
       <trans-unit id="publication2.tutorial.1">
@@ -6699,7 +6704,6 @@
       <trans-unit id="publication2.tutorial.2">
         <source>Kirjoita hakukenttään esimerkiksi julkaisun tai tekijän nimi, tai julkaisuun liittyvä asiasana.</source>
         <target>Write in the search field, for example, the name of the publication or author, or a keyword related to the publication.</target>
-
       </trans-unit>
 
       <trans-unit id="publication2.tutorial.3">

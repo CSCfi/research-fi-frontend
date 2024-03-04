@@ -2687,12 +2687,16 @@
         <source>Uuteen hakuun</source>
       </trans-unit>
 
-      <trans-unit id="publication2.info">
-        <source>Testaa uudistettun haun betaversiota. Uudistettu haku toimii vain julkaisuissa.</source>
+      <trans-unit id="publication2.toNewInfo">
+        <source>Testaa haun uudistettua betaversiota. Betaversio toimii vain julkaisujen hakuun. Tiedot vastaavat nykyisen sivuston sisältöä julkaisujen osalta.</source>
       </trans-unit>
 
       <trans-unit id="publication2.toOldSearch">
-        <source>Vanhaan hakuun</source>
+        <source>Nykyiseen versioon</source>
+      </trans-unit>
+
+      <trans-unit id="publication2.toOldInfo">
+        <source>Olet haun uudistetussa betaversiossa. Voit palata takaisin koko sivustolle.</source>
       </trans-unit>
 
       <trans-unit id="publication2.tutorial.1">
