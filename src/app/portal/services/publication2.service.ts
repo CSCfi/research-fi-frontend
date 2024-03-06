@@ -1052,18 +1052,22 @@ function sortingTerms(searchParams: SearchParams) {
   let sortedField = "publicationYear";
   let direction = "desc";
 
+  const textFields = ["publicationName", "authorsText", "publisherName"];
+
   if (searchParams.sort != null) {
     const value = searchParams.sort.pop();
 
     sortedField = value.replace(/Desc$/, "");
     direction = value.endsWith("Desc") ? "desc" : "asc";
 
-    sortedField += ".keyword";
+    if (textFields.includes(sortedField)) {
+      sortedField += ".keyword";
+    }
   }
 
   return [
-    "_score",
-    { [sortedField]: { "order": direction } }
+    { [sortedField]: { "order": direction } },
+    "_score"
   ];
 }
 
