@@ -629,8 +629,15 @@ function splitFields(obj: Record<string, string | string[]>): Record<string, str
   const result: Record<string, string[]> = {};
 
   for (const key in obj) {
-    const value = obj[key];
-    result[key] = splitParams(value);
+    // console log key and value
+    // console.log(key, obj[key]);
+
+    if (key === 'q') {
+      result[key] = [obj[key] as string];
+    } else {
+      const value = obj[key];
+      result[key] = splitParams(value);
+    }
   }
 
   return result;
