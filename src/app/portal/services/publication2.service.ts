@@ -591,8 +591,23 @@ export class Publication2Service {
   }
 }
 
+function escapeLastQuoteIfOdd(inputString: string): string {
+  // Count the number of quotation marks in the string
+  const quoteCount = (inputString.match(/"/g) || []).length;
+
+  // If the count is odd, escape the last quotation mark
+  if (quoteCount % 2 !== 0) {
+    const lastQuoteIndex = inputString.lastIndexOf('"');
+    // Replace the last quotation mark with an escaped version
+    inputString = inputString.substring(0, lastQuoteIndex) + '\\"' + inputString.substring(lastQuoteIndex + 1);
+  }
+
+  return inputString;
+}
+
 function matchingTerms(searchParams: SearchParams) {
-  const q = (searchParams.q ?? [""])[0];
+  let q = (searchParams.q ?? [""])[0];
+  q = escapeLastQuoteIfOdd(q);
 
   if (q === "") {
     return {
