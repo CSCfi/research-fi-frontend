@@ -423,7 +423,6 @@ export class Publications2Component implements OnDestroy {
   selfArchivedCodeNames$ = this.publications2Service.getSelfArchivedCodeNames();
 
   selfArchivedCodeFilters$ = combineLatest([this.additionsFromSelfArchivedCode$, this.selfArchivedCodeNames$, this.searchParams$.pipe(map(params => params.selfArchivedCode ?? []))]).pipe(
-    tap((values) => console.log(values)),
     map(([additionsFromSelfArchivedCode, selfArchivedCodeNames, enabledFilters]) => additionsFromSelfArchivedCode.map(additionFromSelfArchivedCode => ({
       id: additionFromSelfArchivedCode.id,
       count: additionFromSelfArchivedCode.count,

@@ -28,7 +28,6 @@ export type HighlightedPublication = {
   id: string;
   publicationName: SafeHtml;
   authorsText: SafeHtml;
-  authorsTextSplitted: SafeHtml;
   publisherName: SafeHtml;
   publicationYear: SafeHtml;
 
@@ -128,15 +127,14 @@ export class Publication2Service {
     const size = parseInt(searchParams.size?.[0] ?? "10");
     const from = (page - 1) * size;
 
-    // searchParams = searchParams as SearchParams; // TODO no effect?
+    // Settings for highlighting in ElasticSearch
+    const largeHighlight = { fragment_size: 200, number_of_fragments: 15 };
 
     return this.http.post(this.searchUrl, {
       from: from,
       size: size,
       track_total_hits: true,
       sort: [
-        // "_score",
-        // { "publicationYear": { "order": "desc" } }
         ...sortingTerms(searchParams)
       ],
       query: {
@@ -155,10 +153,9 @@ export class Publication2Service {
       },
       highlight: {
         fields: {
-          publicationName: {},
-          authorsText: {},
-          authorsTextSplitted: {},
-          publisherName: {}
+          publicationName: { ...largeHighlight },
+          authorsText: { ...largeHighlight, type: "plain" },
+          publisherName: { ...largeHighlight }
         },
         pre_tags: ["<em class=\"highlight\">"],
         post_tags: ["</em>"]
@@ -199,17 +196,15 @@ export class Publication2Service {
     badges.openAccess = source.doiHandle;
     badges.peerReviewed = source.peerReviewed[0].id === "1";
 
-    const publicationName = highlight?.publicationName?.[0] ?? source.publicationName ?? '';
-    const authorsText = highlight?.authorsText?.[0] ?? source.authorsText ?? '';
-    const authorsTextSplitted = highlight?.authorsText?.[0] ?? source.authorsText ?? '';
-    const publisherName = highlight?.publisherName?.[0] ?? source.publisherName ?? '';
-    const publicationYear = highlight?.publicationYear?.[0] ?? source.publicationYear ?? '';
+    const publicationName = highlight?.publicationName?.join() ?? source.publicationName ?? '';
+    const authorsText = highlight?.authorsText?.join() ?? source.authorsText ?? '';
+    const publisherName = highlight?.publisherName?.join() ?? source.publisherName ?? '';
+    const publicationYear = highlight?.publicationYear?.join() ?? source.publicationYear ?? '';
 
     return {
       id: searchData._id,
       publicationName: this.sanitizer.sanitize(SecurityContext.HTML, publicationName),
       authorsText: this.sanitizer.sanitize(SecurityContext.HTML, authorsText),
-      authorsTextSplitted: this.sanitizer.sanitize(SecurityContext.HTML, authorsTextSplitted),
       publisherName: this.sanitizer.sanitize(SecurityContext.HTML, publisherName),
       publicationYear: this.sanitizer.sanitize(SecurityContext.HTML, publicationYear),
 
