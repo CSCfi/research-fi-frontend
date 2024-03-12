@@ -46,7 +46,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   templateUrl: './publications2.component.html',
   styleUrls: ['./publications2.component.scss'],
   imports: [CdkTableModule, FormsModule, AsyncPipe, JsonPipe, NgForOf, NgIf, LimitPipe, NgArrayPipesModule,
-    SharedModule, //TODO not good?
+    SharedModule, //TODO do not depend on shared module
     FormsModule,
     RouterModule,
     SearchBar2Component, OrganizationFilterComponent, FilterOptionComponent, CollapsibleComponent, MatButtonModule, NgStyle, FilterLimitButtonComponent, FirstDigitPipe, FirstLetterPipe, RouterLink,
@@ -117,9 +117,6 @@ export class Publications2Component implements OnDestroy {
     {id: "I", text: $localize`:@@publicationClassI:Audiovisuaaliset julkaisut ja tieto- ja viestintätekniset sovellukset`},
   ];
 
-  filterCount$ = new BehaviorSubject(0);
-  filterCountLookup: Record<string, number> = {};
-
   faSlidersH = faSlidersH;
   faChartBar = faChartBar;
 
@@ -135,13 +132,6 @@ export class Publications2Component implements OnDestroy {
 
   closeDialog() {
     this.dialogRef?.close();
-  }
-
-  updateFilterCount(key: string, value: number) {
-    this.filterCountLookup[key] = value;
-    const count = Object.values(this.filterCountLookup).reduce((a, b) => a + b, 0);
-
-    this.filterCount$.next(count);
   }
 
   clearFilters() {
@@ -172,13 +162,14 @@ export class Publications2Component implements OnDestroy {
     map(aggs => aggs.sort((a, b) => b.year - a.year))
   );
 
-  yearFilters$ = combineLatest([this.yearAdditions$, this.searchParams$.pipe(map(params => params.year ?? []))]).pipe(
+  enabledYearFilters$ = this.searchParams$.pipe(map(params => params.year ?? []));
+
+  yearFilters$ = combineLatest([this.yearAdditions$, this.enabledYearFilters$]).pipe(
     map(([yearAdditions, enabledFilters]) => yearAdditions.map(yearAddition => ({
       year: yearAddition.year,
       count: yearAddition.count,
       enabled: enabledFilters.includes(yearAddition.year.toString())
-    }))),
-    tap(filters => this.updateFilterCount("year", filters.filter(filter => filter.enabled).length))
+    })))
   );
 
   organizationNames$ = this.publications2Service.getOrganizationNames();
@@ -188,15 +179,20 @@ export class Publications2Component implements OnDestroy {
     map(aggs => aggs.sort((a, b) => b.count - a.count))
   );
 
-  organizationFilters$ = combineLatest([this.organizationAdditions$, this.organizationNames$, this.searchParams$.pipe(map(params => params.organization ?? []))]).pipe(
+  enabledOrganizationFilters$ = this.searchParams$.pipe(map(params => params.organization ?? []));
+
+  enabledOrganizationFiltersWithNames$ = combineLatest([this.enabledOrganizationFilters$, this.organizationNames$]).pipe(
+    map(([enabledFilters, organizationNames]) => enabledFilters.map(filter => ({ id: filter, name: organizationNames[filter].name })))
+  );
+
+  organizationFilters$ = combineLatest([this.organizationAdditions$, this.organizationNames$, this.enabledOrganizationFilters$]).pipe(
     map(([organizationAdditions, organizationNames, enabledFilters]) => organizationAdditions.map(organizationAddition => ({
       id: organizationAddition.id,
       count: organizationAddition.count,
       name: organizationNames[organizationAddition.id].name,
       sectorId: organizationNames[organizationAddition.id].sectorId,
       enabled: enabledFilters.includes(organizationAddition.id)
-    }))),
-    tap(filters => this.updateFilterCount("organization", filters.filter(filter => filter.enabled).length))
+    })))
   );
 
   languageCodeAdditions$ = this.aggregations$.pipe(
@@ -206,14 +202,19 @@ export class Publications2Component implements OnDestroy {
 
   languageCodeNames$ = this.publications2Service.getLanguageCodeNames();
 
-  languageCodeFilters$ = combineLatest([this.languageCodeAdditions$, this.languageCodeNames$, this.searchParams$.pipe(map(params => params.language ?? []))]).pipe(
+  enabledLanguageCodeFilters$ = this.searchParams$.pipe(map(params => params.language ?? []));
+
+  enabledLanguageCodeFiltersWithNames$ = combineLatest([this.enabledLanguageCodeFilters$, this.languageCodeNames$]).pipe(
+    map(([enabledFilters, languageCodeNames]) => enabledFilters.map(filter => ({ id: filter, name: languageCodeNames[filter] })))
+  );
+
+  languageCodeFilters$ = combineLatest([this.languageCodeAdditions$, this.languageCodeNames$, this.enabledLanguageCodeFilters$]).pipe(
     map(([languageCodeAdditions, languageCodeNames, enabledFilters]) => languageCodeAdditions.map(languageCodeAddition => ({
       id: languageCodeAddition.languageCode,
       count: languageCodeAddition.count,
       name: languageCodeNames[languageCodeAddition.languageCode],
       enabled: enabledFilters.includes(languageCodeAddition.languageCode)
-    }))),
-    tap(filters => this.updateFilterCount("language", filters.filter(filter => filter.enabled).length))
+    })))
   );
 
   publicationFormatNames$ = this.publications2Service.getPublicationFormatNames();
@@ -224,14 +225,19 @@ export class Publications2Component implements OnDestroy {
     map(aggs => aggs.sort((a, b) => b.count - a.count))
   );
 
-  publicationFormatFilters$ = combineLatest([this.publicationFormatAdditions$, this.publicationFormatNames$, this.searchParams$.pipe(map(params => params.format ?? []))]).pipe(
+  enabledPublicationFormatFilters$ = this.searchParams$.pipe(map(params => params.format ?? []));
+
+  enabledPublicationFormatFiltersWithNames$ = combineLatest([this.enabledPublicationFormatFilters$, this.publicationFormatNames$]).pipe(
+    map(([enabledFilters, publicationFormatNames]) => enabledFilters.map(filter => ({ id: filter, name: publicationFormatNames[filter] })))
+  );
+
+  publicationFormatFilters$ = combineLatest([this.publicationFormatAdditions$, this.publicationFormatNames$, this.enabledPublicationFormatFilters$]).pipe(
     map(([publicationFormatAdditions, publicationFormatNames, enabledFilters]) => publicationFormatAdditions.map(publicationFormatAddition => ({
       id: publicationFormatAddition.id,
       count: publicationFormatAddition.count,
       name: publicationFormatNames[publicationFormatAddition.id],
       enabled: enabledFilters.includes(publicationFormatAddition.id)
-    }))),
-    tap(filters => this.updateFilterCount("format", filters.filter(filter => filter.enabled).length))
+    })))
   );
 
   publicationAudienceNames$ = this.publications2Service.getPublicationAudienceNames();
@@ -242,14 +248,19 @@ export class Publications2Component implements OnDestroy {
     map(aggs => aggs.sort((a, b) => b.count - a.count))
   );
 
-  publicationAudienceFilters$ = combineLatest([this.publicationAudienceAdditions$, this.publicationAudienceNames$, this.searchParams$.pipe(map(params => params.audience ?? []))]).pipe(
+  enabledPublicationAudienceFilters$ = this.searchParams$.pipe(map(params => params.audience ?? []));
+
+  enabledPublicationAudienceFiltersWithNames$ = combineLatest([this.enabledPublicationAudienceFilters$, this.publicationAudienceNames$]).pipe(
+    map(([enabledFilters, publicationAudienceNames]) => enabledFilters.map(filter => ({ id: filter, name: publicationAudienceNames[filter] })))
+  );
+
+  publicationAudienceFilters$ = combineLatest([this.publicationAudienceAdditions$, this.publicationAudienceNames$, this.enabledPublicationAudienceFilters$]).pipe(
     map(([publicationAudienceAdditions, publicationAudienceNames, enabledFilters]) => publicationAudienceAdditions.map(publicationAudienceAddition => ({
       id: publicationAudienceAddition.id,
       count: publicationAudienceAddition.count,
       name: publicationAudienceNames[publicationAudienceAddition.id],
       enabled: enabledFilters.includes(publicationAudienceAddition.id)
-    }))),
-    tap(filters => this.updateFilterCount("audience", filters.filter(filter => filter.enabled).length))
+    })))
   );
 
   peerReviewedAdditions$ = this.aggregations$.pipe(
@@ -260,14 +271,19 @@ export class Publications2Component implements OnDestroy {
 
   peerReviewedNames$ = this.publications2Service.getPeerReviewedNames();
 
-  peerReviewedFilters$ = combineLatest([this.peerReviewedAdditions$, this.peerReviewedNames$, this.searchParams$.pipe(map(params => params.peerReviewed ?? []))]).pipe(
+  enabledPeerReviewedFilters$ = this.searchParams$.pipe(map(params => params.peerReviewed ?? []));
+
+  enabledPeerReviewedFiltersWithNames$ = combineLatest([this.enabledPeerReviewedFilters$, this.peerReviewedNames$]).pipe(
+    map(([enabledFilters, peerReviewedNames]) => enabledFilters.map(filter => ({ id: filter, name: peerReviewedNames[filter] })))
+  );
+
+  peerReviewedFilters$ = combineLatest([this.peerReviewedAdditions$, this.peerReviewedNames$, this.enabledPeerReviewedFilters$]).pipe(
     map(([peerReviewedAdditions, peerReviewedNames, enabledFilters]) => peerReviewedAdditions.map(peerReviewedAddition => ({
       id: peerReviewedAddition.id,
       count: peerReviewedAddition.count,
       name: peerReviewedNames[peerReviewedAddition.id],
       enabled: enabledFilters.includes(peerReviewedAddition.id)
-    }))),
-    tap(filters => this.updateFilterCount("peerReviewed", filters.filter(filter => filter.enabled).length))
+    })))
   );
 
   parentPublicationTypeAdditions$ = this.aggregations$.pipe(
@@ -284,14 +300,19 @@ export class Publications2Component implements OnDestroy {
 
   publisherInternationalityNames$ = this.publications2Service.getInternationalPublicationNames();
 
-  publisherInternationalityFilters$ = combineLatest([this.publisherInternationalityAdditions$, this.publisherInternationalityNames$, this.searchParams$.pipe(map(params => params.international ?? []))]).pipe(
+  enabledPublisherInternationalityFilters$ = this.searchParams$.pipe(map(params => params.international ?? []));
+
+  enabledPublisherInternationalityFiltersWithNames$ = combineLatest([this.enabledPublisherInternationalityFilters$, this.publisherInternationalityNames$]).pipe(
+    map(([enabledFilters, publisherInternationalityNames]) => enabledFilters.map(filter => ({ id: filter, name: publisherInternationalityNames[filter] })))
+  );
+
+  publisherInternationalityFilters$ = combineLatest([this.publisherInternationalityAdditions$, this.publisherInternationalityNames$, this.enabledPublisherInternationalityFilters$]).pipe(
     map(([internationalPublicationAdditions, internationalPublicationNames, enabledFilters]) => internationalPublicationAdditions.map(internationalPublicationAddition => ({
       id: internationalPublicationAddition.id,
       count: internationalPublicationAddition.count,
       name: internationalPublicationNames[internationalPublicationAddition.id],
       enabled: enabledFilters.includes(internationalPublicationAddition.id)
-    }))),
-    tap(filters => this.updateFilterCount("international", filters.filter(filter => filter.enabled).length))
+    })))
   );
 
   articleTypeCodeAdditions$ = this.aggregations$.pipe(
@@ -301,14 +322,19 @@ export class Publications2Component implements OnDestroy {
 
   articleTypeCodeNames$ = this.publications2Service.getArticleTypeCodeNames();
 
-  articleTypeCodeFilters$ = combineLatest([this.articleTypeCodeAdditions$, this.articleTypeCodeNames$, this.searchParams$.pipe(map(params => params.articleType ?? []))]).pipe(
+  enabledArticleTypeCodeFilters$ = this.searchParams$.pipe(map(params => params.articleType ?? []));
+
+  enabledArticleTypeCodeFiltersWithNames$ = combineLatest([this.enabledArticleTypeCodeFilters$, this.articleTypeCodeNames$]).pipe(
+    map(([enabledFilters, articleTypeCodeNames]) => enabledFilters.map(filter => ({ id: filter, name: articleTypeCodeNames[filter] })))
+  );
+
+  articleTypeCodeFilters$ = combineLatest([this.articleTypeCodeAdditions$, this.articleTypeCodeNames$, this.enabledArticleTypeCodeFilters$]).pipe(
     map(([articleTypeCodeAdditions, articleTypeCodeNames, enabledFilters]) => articleTypeCodeAdditions.map(articleTypeCodeAddition => ({
       id: articleTypeCodeAddition.id,
       count: articleTypeCodeAddition.count,
       name: articleTypeCodeNames[articleTypeCodeAddition.id],
       enabled: enabledFilters.includes(articleTypeCodeAddition.id)
-    }))),
-    tap(filters => this.updateFilterCount("articleType", filters.filter(filter => filter.enabled).length))
+    })))
   );
 
   jufoClassCodeAdditions$ = this.aggregations$.pipe(
@@ -316,14 +342,15 @@ export class Publications2Component implements OnDestroy {
     map(aggs => aggs.sort((a, b) => b.count - a.count))
   );
 
-  jufoClassCodeFilters$ = combineLatest([this.jufoClassCodeAdditions$, this.searchParams$.pipe(map(params => params.jufo ?? []))]).pipe(
+  enabledJufoClassCodeFilters$ = this.searchParams$.pipe(map(params => params.jufo ?? []));
+
+  jufoClassCodeFilters$ = combineLatest([this.jufoClassCodeAdditions$, this.enabledJufoClassCodeFilters$]).pipe(
     map(([jufoClassCodeAdditions, enabledFilters]) => jufoClassCodeAdditions.map(jufoClassCodeAddition => ({
       id: jufoClassCodeAddition.id,
       count: jufoClassCodeAddition.count,
       name: jufoClassCodeAddition.id,
       enabled: enabledFilters.includes(jufoClassCodeAddition.id)
-    }))),
-    tap(filters => this.updateFilterCount("jufo", filters.filter(filter => filter.enabled).length))
+    })))
   );
 
   fieldsOfScienceNames$ = this.publications2Service.getFieldsOfScienceNames();
@@ -333,14 +360,19 @@ export class Publications2Component implements OnDestroy {
     map(aggs => aggs.sort((a, b) => b.count - a.count))
   );
 
-  fieldsOfScienceFilters$ = combineLatest([this.fieldsOfScienceAdditions$, this.fieldsOfScienceNames$, this.searchParams$.pipe(map(params => params.fieldsOfScience ?? []))]).pipe(
+  enabledFieldsOfScienceFilters$ = this.searchParams$.pipe(map(params => params.fieldsOfScience ?? []));
+
+  enabledFieldsOfScienceFiltersWithNames$ = combineLatest([this.enabledFieldsOfScienceFilters$, this.fieldsOfScienceNames$]).pipe(
+    map(([enabledFilters, fieldsOfScienceNames]) => enabledFilters.map(filter => ({ id: filter, name: fieldsOfScienceNames[filter] })))
+  );
+
+  fieldsOfScienceFilters$ = combineLatest([this.fieldsOfScienceAdditions$, this.fieldsOfScienceNames$, this.enabledFieldsOfScienceFilters$]).pipe(
     map(([fieldsOfScienceAdditions, fieldsOfScienceNames, enabledFilters]) => fieldsOfScienceAdditions.map(fieldsOfScienceAddition => ({
       id: fieldsOfScienceAddition.id,
       count: fieldsOfScienceAddition.count,
       name: fieldsOfScienceNames[fieldsOfScienceAddition.id],
       enabled: enabledFilters.includes(fieldsOfScienceAddition.id)
-    }))),
-    tap(filters => this.updateFilterCount("fieldsOfScience", filters.filter(filter => filter.enabled).length))
+    })))
   );
 
   publicationTypeCodeNames$ = this.publications2Service.getPublicationTypeCodeNames();
@@ -350,34 +382,36 @@ export class Publications2Component implements OnDestroy {
     map(aggs => aggs.sort((a, b) => b.count - a.count))
   );
 
-  publicationTypeCodeFilters$ = combineLatest([this.publicationTypeCodeAdditions$, this.publicationTypeCodeNames$, this.searchParams$.pipe(map(params => params.publicationTypeCode ?? []))]).pipe(
+  enabledPublicationTypeCodeFilters$ = this.searchParams$.pipe(map(params => params.publicationTypeCode ?? []));
+
+  enabledPublicationTypeCodeFiltersWithNames$ = combineLatest([this.enabledPublicationTypeCodeFilters$, this.publicationTypeCodeNames$]).pipe(
+    map(([enabledFilters, publicationTypeCodeNames]) => enabledFilters.map(filter => ({ id: filter, name: publicationTypeCodeNames[filter] })))
+  );
+
+  publicationTypeCodeFilters$ = combineLatest([this.publicationTypeCodeAdditions$, this.publicationTypeCodeNames$, this.enabledPublicationTypeCodeFilters$]).pipe(
     map(([publicationTypeCodeAdditions, publicationTypeCodeNames, enabledFilters]) => publicationTypeCodeAdditions.map(publicationTypeCodeAddition => ({
       id: publicationTypeCodeAddition.id,
       count: publicationTypeCodeAddition.count,
       name: publicationTypeCodeNames[publicationTypeCodeAddition.id],
       enabled: enabledFilters.includes(publicationTypeCodeAddition.id)
-    }))),
-    tap(filters => this.updateFilterCount("publicationTypeCode", filters.filter(filter => filter.enabled).length))
+    })))
   );
-
-  // getParentPublicationTypeNames
-  // getInternationalPublicationNames
-  // getArticleTypeCodeNames
 
   parentPublicationTypeNames$ = this.publications2Service.getParentPublicationTypeNames();
 
-  // TODO these give just ids and not names
-  // internationalPublicationNames$ = this.publications2Service.getInternationalPublicationNames();
-  // articleTypeCodeNames$ = this.publications2Service.getArticleTypeCodeNames();
+  enabledParentPublicationTypeFilters$ = this.searchParams$.pipe(map(params => params.parentPublicationType ?? []));
 
-  parentPublicationTypeFilters$ = combineLatest([this.parentPublicationTypeAdditions$, this.parentPublicationTypeNames$, this.searchParams$.pipe(map(params => params.parentPublicationType ?? []))]).pipe(
+  enabledParentPublicationTypeFiltersWithNames$ = combineLatest([this.enabledParentPublicationTypeFilters$, this.parentPublicationTypeNames$]).pipe(
+    map(([enabledFilters, parentPublicationTypeNames]) => enabledFilters.map(filter => ({ id: filter, name: parentPublicationTypeNames[filter] })))
+  );
+
+  parentPublicationTypeFilters$ = combineLatest([this.parentPublicationTypeAdditions$, this.parentPublicationTypeNames$, this.enabledParentPublicationTypeFilters$]).pipe(
     map(([parentPublicationTypeAdditions, parentPublicationTypeNames, enabledFilters]) => parentPublicationTypeAdditions.map(parentPublicationTypeAddition => ({
       id: parentPublicationTypeAddition.id,
       count: parentPublicationTypeAddition.count,
       name: parentPublicationTypeNames[parentPublicationTypeAddition.id],
       enabled: enabledFilters.includes(parentPublicationTypeAddition.id)
-    }))),
-    tap(filters => this.updateFilterCount("parentPublicationType", filters.filter(filter => filter.enabled).length))
+    })))
   );
 
   additionsFromOpenAccess$ = this.aggregations$.pipe(
@@ -385,17 +419,21 @@ export class Publications2Component implements OnDestroy {
     map(aggs => aggs.sort((a, b) => b.count - a.count))
   );
 
-  // names
   openAccessNames$ = this.publications2Service.getOpenAccessNames();
 
-  openAccessFilters$ = combineLatest([this.additionsFromOpenAccess$, this.openAccessNames$, this.searchParams$.pipe(map(params => params.openAccess ?? []))]).pipe(
+  enabledOpenAccessFilters$ = this.searchParams$.pipe(map(params => params.openAccess ?? []));
+
+  enabledOpenAccessFiltersWithNames$ = combineLatest([this.enabledOpenAccessFilters$, this.openAccessNames$]).pipe(
+    map(([enabledFilters, openAccessNames]) => enabledFilters.map(filter => ({ id: filter, name: openAccessNames[filter] })))
+  );
+
+  openAccessFilters$ = combineLatest([this.additionsFromOpenAccess$, this.openAccessNames$, this.enabledOpenAccessFilters$]).pipe(
     map(([additionsFromOpenAccess, openAccessNames, enabledFilters]) => additionsFromOpenAccess.map(additionFromOpenAccess => ({
       id: additionFromOpenAccess.id,
       count: additionFromOpenAccess.count,
       name: openAccessNames[additionFromOpenAccess.id],
       enabled: enabledFilters.includes(additionFromOpenAccess.id)
-    }))),
-    tap(filters => this.updateFilterCount("openAccess", filters.filter(filter => filter.enabled).length))
+    })))
   );
 
   additionsFromPublisherOpenAccess$ = this.aggregations$.pipe(
@@ -405,14 +443,19 @@ export class Publications2Component implements OnDestroy {
 
   publisherOpenAccessNames$ = this.publications2Service.getPublisherOpenAccessNames();
 
-  publisherOpenAccessFilters$ = combineLatest([this.additionsFromPublisherOpenAccess$, this.publisherOpenAccessNames$, this.searchParams$.pipe(map(params => params.publisherOpenAccessCode ?? []))]).pipe(
+  enabledPublisherOpenAccessFilters$ = this.searchParams$.pipe(map(params => params.publisherOpenAccessCode ?? []));
+
+  enabledPublisherOpenAccessFiltersWithNames$ = combineLatest([this.enabledPublisherOpenAccessFilters$, this.publisherOpenAccessNames$]).pipe(
+    map(([enabledFilters, publisherOpenAccessNames]) => enabledFilters.map(filter => ({ id: filter, name: publisherOpenAccessNames[filter] })))
+  );
+
+  publisherOpenAccessFilters$ = combineLatest([this.additionsFromPublisherOpenAccess$, this.publisherOpenAccessNames$, this.enabledPublisherOpenAccessFilters$]).pipe(
     map(([additionsFromPublisherOpenAccess, publisherOpenAccessNames, enabledFilters]) => additionsFromPublisherOpenAccess.map(additionFromPublisherOpenAccess => ({
       id: additionFromPublisherOpenAccess.id,
       count: additionFromPublisherOpenAccess.count,
       name: publisherOpenAccessNames[additionFromPublisherOpenAccess.id],
       enabled: enabledFilters.includes(additionFromPublisherOpenAccess.id)
-    }))),
-    tap(filters => this.updateFilterCount("publisherOpenAccess", filters.filter(filter => filter.enabled).length))
+    })))
   );
 
   additionsFromSelfArchivedCode$ = this.aggregations$.pipe(
@@ -422,14 +465,23 @@ export class Publications2Component implements OnDestroy {
 
   selfArchivedCodeNames$ = this.publications2Service.getSelfArchivedCodeNames();
 
-  selfArchivedCodeFilters$ = combineLatest([this.additionsFromSelfArchivedCode$, this.selfArchivedCodeNames$, this.searchParams$.pipe(map(params => params.selfArchivedCode ?? []))]).pipe(
+  enabledSelfArchivedCodeFilters$ = this.searchParams$.pipe(map(params => params.selfArchivedCode ?? []));
+
+  enabledSelfArchivedCodeFiltersWithNames$ = combineLatest([this.enabledSelfArchivedCodeFilters$, this.selfArchivedCodeNames$]).pipe(
+    map(([enabledFilters, selfArchivedCodeNames]) => enabledFilters.map(filter => ({ id: filter, name: selfArchivedCodeNames[filter] })))
+  );
+
+  selfArchivedCodeFilters$ = combineLatest([this.additionsFromSelfArchivedCode$, this.selfArchivedCodeNames$, this.enabledSelfArchivedCodeFilters$]).pipe(
     map(([additionsFromSelfArchivedCode, selfArchivedCodeNames, enabledFilters]) => additionsFromSelfArchivedCode.map(additionFromSelfArchivedCode => ({
       id: additionFromSelfArchivedCode.id,
       count: additionFromSelfArchivedCode.count,
       name: selfArchivedCodeNames[additionFromSelfArchivedCode.id],
       enabled: enabledFilters.includes(additionFromSelfArchivedCode.id)
-    }))),
-    tap(filters => this.updateFilterCount("selfArchivedCode", filters.filter(filter => filter.enabled).length))
+    })))
+  );
+
+  searchTermsCount$ = this.searchParams$.pipe(
+    map(params => Object.keys(params).filter(key => !['q', 'page', 'size', 'sort'].includes(key)).reduce((acc, key) => acc + params[key].length, 0))
   );
 
   public mainFieldOfScienceName = {
@@ -552,7 +604,7 @@ export class Publications2Component implements OnDestroy {
     });
   }
 
-  searchKeywords(keywords: string) {
+  setKeywords(keywords: string) {
     this.router.navigate([], {
       relativeTo: this.route,
       // skipLocationChange: true,
@@ -566,11 +618,13 @@ export class Publications2Component implements OnDestroy {
     });
   }
 
-  nextPage() { // TODO CLEAN UP
+  nextPage() {
     this.searchParams$.pipe(take(1)).subscribe(searchParams => {
       const queryParams = { ...searchParams };
+
       const page = parseInt(queryParams.page?.[0] ?? "1");
       queryParams.page = [`${page + 1}`];
+
       this.router.navigate([], {
         relativeTo: this.route,
         // skipLocationChange: true,
@@ -579,11 +633,13 @@ export class Publications2Component implements OnDestroy {
     });
   }
 
-  previousPage() { // TODO CLEAN UP
+  previousPage() {
     this.searchParams$.pipe(take(1)).subscribe(searchParams => {
       const queryParams = { ...searchParams };
+
       const page = parseInt(queryParams.page?.[0] ?? "1");
       queryParams.page = [`${page - 1}`];
+
       this.router.navigate([], {
         relativeTo: this.route,
         // skipLocationChange: true,

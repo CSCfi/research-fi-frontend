@@ -10,6 +10,7 @@
   <input
     [ngModel]='value'
     (ngModelChange)='valueChange.emit($event)'
+    (keyup.enter)='search.emit(keywords)'
     class='search-input'
     style='margin-right: 8px'
     type='search'

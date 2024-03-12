@@ -541,7 +541,7 @@
   <!-- TODO: standalone-header here -->
 
   <div class='search-bar' style="background-color: orange; height: 100px; display: flex; justify-content: center; align-items: center">
-    <app-search-bar2 [(value)]='keywords' (search)='searchKeywords(keywords)' (instructions)='openTutorialDialog()'></app-search-bar2>
+    <app-search-bar2 [(value)]='keywords' (search)='setKeywords(keywords)' (instructions)='openTutorialDialog()'></app-search-bar2>
   </div>
 
   <!-- TODO HIDE FOR NOW -->
@@ -653,7 +653,7 @@
           ></app-secondary-button>
         </div>
 
-        <!-- TODO: Add this -->
+        <!-- TODO: Add sorting management -->
         <!--<div class="mx-auto" style='flex-grow: 1'>
           <app-secondary-button
             [content]='"Osuva tulos ensin"'
@@ -691,190 +691,130 @@
 
   <div class='search-combination'>
     <div>
-      <ng-container *ngIf='(filterCount$ | async) > 0'>
+      <ng-container *ngIf='(searchTermsCount$ | async) > 0'>
         <div class='filters-summary'>
-          <div>Rajaukset ({{filterCount$ | async}}):</div>
+          <div>Rajaukset ({{searchTermsCount$ | async}})</div>
 
           <!-- year -->
-          <ng-container *ngFor='let yearFilter of yearFilters$ | async'>
-            <ng-container *ngIf='yearFilter.enabled'>
-
-              <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("year", yearFilter.year)'>
-                <div style='font-size: 0.8rem; padding-left: 8px'>{{yearFilter.year}}</div>
-                <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
-              </div>
-
-            </ng-container>
+          <ng-container *ngFor='let yearfilter of enabledYearFilters$ | async'>
+            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("year", yearfilter)'>
+              <div style='font-size: 0.8rem; padding-left: 8px'>{{yearfilter}}</div>
+              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+            </div>
           </ng-container>
 
           <!-- organization -->
-          <ng-container *ngFor='let organizationFilter of organizationFilters$ | async'>
-            <ng-container *ngIf='organizationFilter.enabled'>
-
-              <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("organization", organizationFilter.id)'>
-                <div style='font-size: 0.8rem; padding-left: 8px'>{{organizationFilter.name}}</div>
-                <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
-              </div>
-
-            </ng-container>
+          <ng-container *ngFor='let organizationFilter of enabledOrganizationFiltersWithNames$ | async'>
+            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("organization", organizationFilter.id)'>
+              <div style='font-size: 0.8rem; padding-left: 8px'>{{organizationFilter.name}}</div>
+              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+            </div>
           </ng-container>
 
           <!-- fieldOfScience -->
-          <ng-container *ngFor='let fieldsOfScienceFilter of fieldsOfScienceFilters$ | async'>
-            <ng-container *ngIf='fieldsOfScienceFilter.enabled'>
-
-              <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("fieldOfScience", fieldsOfScienceFilter.id)'>
-                <div style='font-size: 0.8rem; padding-left: 8px'>{{fieldsOfScienceFilter.name}}</div>
-                <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
-              </div>
-
-            </ng-container>
+          <ng-container *ngFor='let fieldsOfScienceFilter of enabledFieldsOfScienceFiltersWithNames$ | async'>
+            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("fieldOfScience", fieldsOfScienceFilter.id)'>
+              <div style='font-size: 0.8rem; padding-left: 8px'>{{fieldsOfScienceFilter.name}}</div>
+              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+            </div>
           </ng-container>
 
           <!-- publicationTypeCodeFilters$ -->
-          <ng-container *ngFor='let publicationTypeCodeFilter of publicationTypeCodeFilters$ | async'>
-            <ng-container *ngIf='publicationTypeCodeFilter.enabled'>
-
-              <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("publicationType", publicationTypeCodeFilter.id)'>
-                <div style='font-size: 0.8rem; padding-left: 8px'>{{publicationTypeCodeFilter.name}}</div>
-                <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
-              </div>
-
-            </ng-container>
+          <ng-container *ngFor='let publicationTypeCodeFilter of enabledPublicationTypeCodeFiltersWithNames$ | async'>
+            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("publicationType", publicationTypeCodeFilter.id)'>
+              <div style='font-size: 0.8rem; padding-left: 8px'>{{publicationTypeCodeFilter.name}}</div>
+              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+            </div>
           </ng-container>
 
           <!-- languageCode -->
-          <ng-container *ngFor='let languageCodeFilter of languageCodeFilters$ | async'>
-            <ng-container *ngIf='languageCodeFilter.enabled'>
-
-              <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("language", languageCodeFilter.id)'>
-                <div style='font-size: 0.8rem; padding-left: 8px'>{{languageCodeFilter.name}}</div>
-                <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
-              </div>
-
-            </ng-container>
+          <ng-container *ngFor='let languageCodeFilter of enabledLanguageCodeFiltersWithNames$ | async'>
+            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("language", languageCodeFilter.id)'>
+              <div style='font-size: 0.8rem; padding-left: 8px'>{{languageCodeFilter.name}}</div>
+              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+            </div>
           </ng-container>
 
           <!-- publicationFormat -->
-          <ng-container *ngFor='let publicationFormatFilter of publicationFormatFilters$ | async'>
-            <ng-container *ngIf='publicationFormatFilter.enabled'>
-
-              <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("format", publicationFormatFilter.id)'>
-                <div style='font-size: 0.8rem; padding-left: 8px'>{{publicationFormatFilter.name}}</div>
-                <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
-              </div>
-
-            </ng-container>
+          <ng-container *ngFor='let publicationFormatFilter of enabledPublicationFormatFiltersWithNames$ | async'>
+            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("format", publicationFormatFilter.id)'>
+              <div style='font-size: 0.8rem; padding-left: 8px'>{{publicationFormatFilter.name}}</div>
+              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+            </div>
           </ng-container>
 
           <!-- publicationAudience -->
-          <ng-container *ngFor='let publicationAudienceFilter of publicationAudienceFilters$ | async'>
-            <ng-container *ngIf='publicationAudienceFilter.enabled'>
-
-              <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("audience", publicationAudienceFilter.id)'>
-                <div style='font-size: 0.8rem; padding-left: 8px'>{{publicationAudienceFilter.name}}</div>
-                <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
-              </div>
-
-            </ng-container>
+          <ng-container *ngFor='let publicationAudienceFilter of enabledPublicationAudienceFiltersWithNames$ | async'>
+            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("audience", publicationAudienceFilter.id)'>
+              <div style='font-size: 0.8rem; padding-left: 8px'>{{publicationAudienceFilter.name}}</div>
+              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+            </div>
           </ng-container>
 
           <!-- peerReviewed -->
-          <ng-container *ngFor='let peerReviewedFilter of peerReviewedFilters$ | async'>
-            <ng-container *ngIf='peerReviewedFilter.enabled'>
-
-              <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("peerReviewed", peerReviewedFilter.id)'>
-                <div style='font-size: 0.8rem; padding-left: 8px'>{{peerReviewedFilter.name}}</div>
-                <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
-              </div>
-
-            </ng-container>
+          <ng-container *ngFor='let peerReviewedFilter of enabledPeerReviewedFiltersWithNames$ | async'>
+            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("peerReviewed", peerReviewedFilter.id)'>
+              <div style='font-size: 0.8rem; padding-left: 8px'>{{peerReviewedFilter.name}}</div>
+              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+            </div>
           </ng-container>
 
           <!-- publicationType -->
-          <ng-container *ngFor='let parentPublicationTypeFilter of parentPublicationTypeFilters$ | async'>
-            <ng-container *ngIf='parentPublicationTypeFilter.enabled'>
-
-              <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("parentPublicationType", parentPublicationTypeFilter.id)'>
-                <div style='font-size: 0.8rem; padding-left: 8px'>{{parentPublicationTypeFilter.name}}</div>
-                <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
-              </div>
-
-            </ng-container>
+          <ng-container *ngFor='let parentPublicationTypeFilter of enabledParentPublicationTypeFiltersWithNames$ | async'>
+            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("parentPublicationType", parentPublicationTypeFilter.id)'>
+              <div style='font-size: 0.8rem; padding-left: 8px'>{{parentPublicationTypeFilter.name}}</div>
+              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+            </div>
           </ng-container>
 
           <!-- international -->
-          <ng-container *ngFor='let internationalPublicationFilter of publisherInternationalityFilters$ | async'>
-            <ng-container *ngIf='internationalPublicationFilter.enabled'>
-
-              <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("international", internationalPublicationFilter.id)'>
-                <div style='font-size: 0.8rem; padding-left: 8px'>{{internationalPublicationFilter.name}}</div>
-                <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
-              </div>
-
-            </ng-container>
+          <ng-container *ngFor='let internationalPublicationFilter of enabledPublisherInternationalityFiltersWithNames$ | async'>
+            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("international", internationalPublicationFilter.id)'>
+              <div style='font-size: 0.8rem; padding-left: 8px'>{{internationalPublicationFilter.name}}</div>
+              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+            </div>
           </ng-container>
 
           <!-- articleType -->
-          <ng-container *ngFor='let articleTypeCodeFilter of articleTypeCodeFilters$ | async'>
-            <ng-container *ngIf='articleTypeCodeFilter.enabled'>
-
-              <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("articleType", articleTypeCodeFilter.id)'>
-                <div style='font-size: 0.8rem; padding-left: 8px'>{{articleTypeCodeFilter.name}}</div>
-                <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
-              </div>
-
-            </ng-container>
+          <ng-container *ngFor='let articleTypeCodeFilter of enabledArticleTypeCodeFiltersWithNames$ | async'>
+            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("articleType", articleTypeCodeFilter.id)'>
+              <div style='font-size: 0.8rem; padding-left: 8px'>{{articleTypeCodeFilter.name}}</div>
+              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+            </div>
           </ng-container>
 
           <!-- jufo -->
-          <ng-container *ngFor='let jufoClassCodeFilter of jufoClassCodeFilters$ | async'>
-            <ng-container *ngIf='jufoClassCodeFilter.enabled'>
-
-              <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("jufo", jufoClassCodeFilter.id)'>
-                <div style='font-size: 0.8rem; padding-left: 8px'>{{jufoClassCodeFilter.id}}</div>
-                <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
-              </div>
-
-            </ng-container>
+          <ng-container *ngFor='let jufoClassCodeFilter of enabledJufoClassCodeFilters$ | async'>
+            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("jufo", jufoClassCodeFilter)'>
+              <div style='font-size: 0.8rem; padding-left: 8px'>{{jufoClassCodeFilter}}</div>
+              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+            </div>
           </ng-container>
 
           <!-- TODO new filter pills -->
 
           <!-- openAccess -->
-          <ng-container *ngFor='let openAccessFilter of openAccessFilters$ | async'>
-            <ng-container *ngIf='openAccessFilter.enabled'>
-
-              <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("openAccess", openAccessFilter.id)'>
-                <div style='font-size: 0.8rem; padding-left: 8px'>{{openAccessFilter.name}}</div>
-                <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
-              </div>
-
-            </ng-container>
+          <ng-container *ngFor='let openAccessFilter of enabledOpenAccessFiltersWithNames$ | async'>
+            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("openAccess", openAccessFilter.id)'>
+              <div style='font-size: 0.8rem; padding-left: 8px'>{{openAccessFilter.name}}</div>
+              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+            </div>
           </ng-container>
 
           <!-- publisherOpenAccess -->
-          <ng-container *ngFor='let publisherOpenAccessFilter of publisherOpenAccessFilters$ | async'>
-            <ng-container *ngIf='publisherOpenAccessFilter.enabled'>
-
-              <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("publisherOpenAccessCode", publisherOpenAccessFilter.id)'>
-                <div style='font-size: 0.8rem; padding-left: 8px'>{{publisherOpenAccessFilter.name}}</div>
-                <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
-              </div>
-
-            </ng-container>
+          <ng-container *ngFor='let publisherOpenAccessFilter of enabledPublisherOpenAccessFiltersWithNames$ | async'>
+            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("publisherOpenAccessCode", publisherOpenAccessFilter.id)'>
+              <div style='font-size: 0.8rem; padding-left: 8px'>{{publisherOpenAccessFilter.name}}</div>
+              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+            </div>
           </ng-container>
 
           <!-- selfArchivedCode -->
-          <ng-container *ngFor='let selfArchivedCodeFilter of selfArchivedCodeFilters$ | async'>
-            <ng-container *ngIf='selfArchivedCodeFilter.enabled'>
-
-              <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("selfArchivedCode", selfArchivedCodeFilter.id)'>
-                <div style='font-size: 0.8rem; padding-left: 8px'>{{selfArchivedCodeFilter.name}}</div>
-                <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
-              </div>
-
-            </ng-container>
+          <ng-container *ngFor='let selfArchivedCodeFilter of enabledSelfArchivedCodeFiltersWithNames$ | async'>
+            <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("selfArchivedCode", selfArchivedCodeFilter.id)'>
+              <div style='font-size: 0.8rem; padding-left: 8px'>{{selfArchivedCodeFilter.name}}</div>
+              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+            </div>
           </ng-container>
 
           <!-- make "pill" for running clearFilters -->
