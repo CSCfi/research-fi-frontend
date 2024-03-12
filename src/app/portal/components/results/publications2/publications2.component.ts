@@ -496,6 +496,8 @@ export class Publications2Component implements OnDestroy {
         delete queryParams[key];
       }
 
+      queryParams.page = ["1"];
+
       this.router.navigate([], {
         relativeTo: this.route,
         // skipLocationChange: true,
@@ -510,6 +512,8 @@ export class Publications2Component implements OnDestroy {
 
       queryParams[key] = [value];
 
+      queryParams.page = ["1"];
+
       this.router.navigate([], {
         relativeTo: this.route,
         // skipLocationChange: true,
@@ -521,7 +525,10 @@ export class Publications2Component implements OnDestroy {
   clearParam(key: string) {
     this.searchParams$.pipe(take(1)).subscribe(filterParams => {
       const queryParams = { ...filterParams };
+
       delete queryParams[key];
+
+      queryParams.page = ["1"];
 
       this.router.navigate([], {
         relativeTo: this.route,
