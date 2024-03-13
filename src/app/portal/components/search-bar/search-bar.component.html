@@ -139,27 +139,24 @@
                 <span i18n="Search@@search" class="search-button">Hae</span>
               </button>
             </div>
-            <div
-              class="search-help ps-2"
-              (clickOutside)="onClickedOutside($event)"
-            >
-              <button
-                [ngClass]="showHelp ? 'up' : 'down'"
-                mat-button
-                (click)="showHelp = !showHelp"
-              >
-                <ng-container i18n="Search help button@@searchHelpButton"
-                  >Hakuohje</ng-container
-                >
+
+            <div class="search-help ps-2" (clickOutside)="onClickedOutside($event)">
+              <button [ngClass]="showHelp ? 'up' : 'down'" mat-button (click)="showHelp = !showHelp">
+                <ng-container i18n="Search help button@@searchHelpButton">
+                  Hakuohje
+                </ng-container>
               </button>
+
               <div class="search-helper" *ngIf="showHelp">
                 <p i18n="Search help@@searchHelp1">
                   Kirjoita hakukenttään julkaisun nimi, asiasana, hankkeen nimi
                   tai esimerkiksi organisaation nimi.
                 </p>
+
                 <p i18n="Search help@@searchHelp2">
                   Hakutulosten rajaaminen onnistuu haun jälkeen hakunäkymässä.
                 </p>
+
                 <p i18n="Search help@@searchHelp3">
                   Haku kohdistuu julkaisuihin, tutkijoihin, hankkeisiin, aineistoihin, rahoitushakuihin,
                   infrastruktuureihin ja organisaatioihin.

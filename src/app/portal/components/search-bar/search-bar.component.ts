@@ -201,17 +201,18 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
     this.setCompletionWidth();
   }
 
-  fireAutoSuggest() {
-    this.autoSuggestSub = this.queryField.valueChanges
-      .pipe(debounceTime(1000), distinctUntilChanged())
+  fireAutoSuggest() {                                                                                                   // TODO: Dense code warning; IS THIS DIFFERENT FROM NORMAL SEARCHES?
+    this.autoSuggestSub = this.queryField.valueChanges.pipe(debounceTime(1000), distinctUntilChanged())
       .subscribe((result) => {
         this.keyManager = new ActiveDescendantKeyManager(this.items)
           .withWrap()
           .withTypeAhead();
         this.currentInput = result;
+
         if (result.length > 2) {
           this.topData = [];
           this.otherData = [];
+
           this.autoSuggestResponseSub = this.autosuggestService
             .search(result)
             .pipe(map((response) => [response]))
@@ -219,17 +220,18 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
               // Sort indices with highest doc count
               const arr = [];
               this.autoSuggestResponse = response;
-              const source =
-                this.autoSuggestResponse[0].aggregations._index.buckets;
+              const source = this.autoSuggestResponse[0].aggregations._index.buckets;
+
               Object.keys(source)
                 .sort((a, b) => source[b].doc_count - source[a].doc_count)
                 .forEach((key) => {
-                  arr.push({
+                  arr.push({                                                                                            // TODO: arr side-effect
                     index: key,
                     source: source[key],
                     translation: this.translations[key],
                   });
                 });
+
               // Show hits for top 2 indices with most results
               this.topData = arr.slice(0, 2);
               // List other indices, filter out indices with no results

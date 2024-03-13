@@ -564,6 +564,10 @@
           <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="notPeerReviewed" datatype="html">
+        <source>Ei-vertaisarvioitu</source>
+        <target>Inte kollegialt utvärderad</target>
+      </trans-unit>
       <trans-unit id="openAccess" datatype="html">
         <source>Avoin saatavuus</source>
         <target state="translated">Öppen tillgång</target>
@@ -6479,6 +6483,289 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Tieto- ja viestintätekniset sovellukset</source>
         <target>Informations- och kommunikationstekniktillämpningar</target>
       </trans-unit>
+
+      <trans-unit id="organizationSector1" datatype="html">
+        <source>Yliopisto</source>
+        <target>Universitet</target>
+      </trans-unit>
+
+      <trans-unit id="organizationSector2" datatype="html">
+        <source>Ammattikorkeakoulu</source>
+        <target>Yrkeshögskola</target>
+      </trans-unit>
+
+      <trans-unit id="organizationSector3" datatype="html">
+        <source>Tutkimuslaitos</source>
+        <target>Forskningsinstitut</target>
+      </trans-unit>
+
+      <trans-unit id="organizationSector4" datatype="html">
+        <source>Yliopistollisen sairaalan erityisvastuualue</source>
+        <target>Universitetssjukhuset</target>
+      </trans-unit>
+
+      <trans-unit id="organizationSector5" datatype="html">
+       <source>Muu</source>
+       <target>Övrig</target>
+      </trans-unit>
+
+      <trans-unit id="domesticPublication" datatype="html">
+        <source>Kotimainen</source>
+        <target>Inhemsk</target>
+      </trans-unit>
+
+      <trans-unit id="internationalPublication" datatype="html">
+        <source>Kansainvälinen</source>
+        <target>Internationell</target>
+      </trans-unit>
+
+
+
+      <trans-unit id="publication2.openAccess.A.title">
+        <source>Avoimesti saatavilla: </source>
+        <target>Öppet tillgänglig: </target>
+      </trans-unit>
+
+      <trans-unit id="publication2.openAccess.A.description">
+        <source>Julkaisu on avoimesti saatavilla kustantajan palvelussa.</source>
+        <target>Publikationen är öppet tillgänglig i förlagets tjänst.</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.openAccess.B.title">
+        <source>Ei avoin: </source>
+        <target>Inte öppen: </target>
+      </trans-unit>
+
+      <trans-unit id="publication2.openAccess.B.description">
+        <source>Julkaisu ei ole avoimesti saatavilla kustantajan palvelussa.</source>
+        <target>Publikationen är inte öppet tillgänglig i förlagets tjänst.</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.openAccess.C.title">
+        <source>Ei tietoa: </source>
+        <target>Okänd: </target>
+      </trans-unit>
+
+      <trans-unit id="publication2.openAccess.C.description">
+        <source>Tietoa ei ole raportoitu.</source>
+        <target>Ingen information har rapporterats.</target>
+      </trans-unit>
+
+
+
+      <trans-unit id="publication2.publisherOpenAccess.A.title">
+        <source>Kokonaan avoin julkaisukanava: </source>
+        <target>Helt öppen publikationskanal: </target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.A.description">
+        <source>Julkaisukanavan kaikki julkaisut ovat pysyvästi avoimesti saatavilla.</source>
+        <target>Alla publikationer är permanent öppet tillgängliga.</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.B.title">
+        <source>Osittain avoin julkaisukanava: </source>
+        <target>Delvis öppen publikationskanal: </target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.B.description">
+        <source>Julkaisukanavassa vain osa julkaisuista on pysyvästi avoimesti saatavilla.</source>
+        <target>Endast en del av publikationerna är permanent öppet tillgängliga.</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.C.title">
+        <source>Viivästetysti avoin julkaisukanava: </source>
+        <target>Fördröjd öppen publiceringskanal: </target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.C.description">
+        <source>Julkaisukanavan tieteelliset artikkelit avataan kustantajan määrittelemän viiveajan jälkeen.</source>
+        <target>Vetenskapliga artiklar öppnas efter en fördröjningstid som definieras av förlaget.</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.D.title">
+        <source>Ei vastausta: </source>
+        <target>Inget svar: </target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.D.description">
+        <source>Julkaisukanava ei ole kokonaan, osittain tai viivästetysti avoin.</source>
+        <target>Publikationskanalen är inte helt, delvis eller fördröjd öppen.</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.E.title">
+        <source>Ei tietoa: </source>
+        <target>Okänd: </target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.E.description">
+        <source>Tietoa ei ole raportoitu.</source>
+        <target>Ingen information har rapporterats.</target>
+      </trans-unit>
+
+
+
+      <trans-unit id="publication2.selfArchived.A.title">
+        <source>Rinnakkaistallennettu: </source>
+        <target>Parallellsparad: </target>
+      </trans-unit>
+
+      <trans-unit id="publication2.selfArchived.A.description">
+        <source>Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.</source>
+        <target>Publikationen har publicerats i ett organisations- eller vetenskapsområdesspecifikt publikationsarkiv antingen omedelbart eller efter en av förläggaren fastställd skälig embargotid.</target>
+      </trans-unit>
+
+
+
+      <trans-unit id="publication2.openAccess.Yes">
+        <source>Avoimesti saatavilla</source>
+        <target>Öppet tillgänglig</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.openAccess.No">
+        <source>Ei avoin</source>
+        <target>Inte öppen</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.openAccess.Unknown">
+        <source>Ei tietoa</source>
+        <target>Okänt</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.fullyOpen">
+        <source>Kokonaan avoin julkaisukanava</source>
+        <target>Helt öppen publikationskanal</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.partiallyOpen">
+        <source>Osittain avoin julkaisukanava</source>
+        <target>Delvis öppen publikationskanal</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.delayedOpen">
+        <source>Viivästetysti avoin julkaisukanava</source>
+        <target>Fördröjd öppen publikationskanal</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.Unspecified">
+        <source>Ei vastausta</source>
+        <target>Inget svar</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.publisherOpenAccess.Unknown">
+        <source>Ei tietoa</source>
+        <target>Ingen information</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.selfArchived.Yes">
+        <source>Rinnakkaistallennettu</source>
+        <target>Parallellsparad</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.selfArchived.No">
+        <source>Ei rinnakkaistallennettu</source>
+        <target>Inte parallellsparad</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.selfArchived.Unknown">
+        <source>Ei tietoa</source>
+        <target>Okänt</target>
+      </trans-unit>
+
+
+
+      <trans-unit id="selfArchivedCode">
+        <source>Rinnakkaistallenne</source>
+        <target>Parallell publicering</target>
+      </trans-unit>
+
+
+
+      <trans-unit id="publication2.toNewSearch">
+        <source>Uuteen hakuun</source>
+        <target>Förnyad sökning</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.toNewInfo">
+        <source>Testaa haun uudistettua betaversiota. Betaversio toimii vain julkaisujen hakuun. Tiedot vastaavat nykyisen sivuston sisältöä julkaisujen osalta.</source>
+        <target>Testa betaversionen av den förnyade sökningen. Den förnyade sökningen fungerar endast i publikationer. Informationen motsvarar innehållet på den aktuella webbplatsen för publikationer.</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.toOldSearch">
+        <source>Nykyiseen versioon</source>
+        <target>Återvänd till nuvarande version</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.toOldInfo">
+        <source>Olet haun uudistetussa betaversiossa. Voit palata takaisin koko sivustolle.</source>
+        <target>Du är i den förnyade betaversionen av sökningen. Du kan gå tillbaka till hela webbplatsen.</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.tutorial.1">
+        <source>Testaa uudistetun haun betaversiota. Uudistettua hakua on toistaiseksi mahdollista testata ainoastaan julkaisutietojen hakemisessa.</source>
+        <target>Testa betaversionen av den nya sökningen. Den nya sökningen kan endast testas i publikationsinformationssökning för tillfället.</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.tutorial.2">
+        <source>Kirjoita hakukenttään esimerkiksi julkaisun tai tekijän nimi, tai julkaisuun liittyvä asiasana.</source>
+        <target>Skriv i sökfältet, till exempel namnet på publikationen eller författaren, eller ett nyckelord relaterat till publikationen.</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.tutorial.3">
+        <source>Haku käyttää sanojen välissä oletuksena OR-hakuoperaattioria. Halutessasi voit käyttää myös AND- ja NOT- hakuoperaattoireita. Esimerkiksi haku Innovation AND gamification NOT games etsii julkaisuja, joissa esiintyvät yhtä aikaa sanat "innovation" ja "gamification", mutta joissa ei ole mukana sanaa "games". Huomioithan, että AND, NOT ja OR -hakuoperaattorit tulee kirjoittaa hakukenttään isoilla kirjaimilla.</source>
+        <target>Sökningen använder OR-sökoperatören som standard mellan ord. Om du vill kan du också använda AND och NOT sökoperatorer. Till exempel sökningen Innovation AND gamification NOT games söker efter publikationer som samtidigt innehåller orden “innovation” och “gamification”, men inte inkluderar ordet “games”. Observera att AND, NOT och OR sökoperatorer måste skrivas med stora bokstäver i sökfältet.</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.tutorial.4">
+        <source>Sulkemalla haussa esiintyvät sanat lainausmerkeillä fraasiksi voit etsiä osumia jotka ovat täsmälleen samassa muodossa. Esimerkiksi fraasihaku "Innovations in gamifications" etsii julkaisuja, joissa esiintyy juuri tämä lause. Voit myös yhdistää useampia fraasihakuja AND-, OR- tai NOT-hakuoperaattoreilla.</source>
+        <target>Genom att sätta fraser som visas i sökningen inom citationstecken kan du söka efter matchningar som är exakt i samma form. Till exempel frassökningen "Innovations in gamifications" söker efter publikationer som innehåller exakt denna mening. Du kan också kombinera flera frassökningar med AND, OR eller NOT sökoperatorer.</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.tutorial.5">
+        <source>Voit hakea kohdistetusti joitakin metatietoja suoraan hakukentässä käyttämällä niille erikseen määriteltyjä komentoja. Haussa on käytettävä fraasihakua. Toistaiseksi haku on mahdollista kohdistaa seuraaviin metatietoihin:</source>
+        <target>Du kan söka efter viss metadata direkt i sökfältet med hjälp av kommandon som definierats separat för dem. Frassökning måste användas i sökningen. För tillfället kan sökningen riktas mot följande metadata: </target>
+      </trans-unit>
+
+      <trans-unit id="publication2.tutorial.6">
+        <source>DOI, kirjoita hakukenttään doi:"haettava tunnus", esimerkiksi doi:"100100100"</source>
+        <target>DOI, skriv i sökfältet doi:"sökt identifierare", till exempel doi:"100100100"</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.tutorial.7">
+        <source>ISSN, kirjoita hakukenttään issn:"haettava tunnnus", esimerkiksi issn:"1234-1234"</source>
+        <target>ISSN, skriv i sökfältet issn:"sökt identifierare", till exempel issn:"1234-1234"</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.tutorial.8">
+        <source>ISBN, kirjoita hakukenttään isbn:"haettava tunnus", esimerkiksi isbn:"123-0-456-12345-1"</source>
+        <target>ISBN, skriv i sökfältet isbn:"sökt identifierare", till exempel isbn:"123-0-456-12345-1"</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.tutorial.9">
+        <source>JUFO-tunnus, kirjoita hakukenttään jufoCode:"haettava tunnus", esimerkiksi jufoCode:"12345"</source>
+        <target>JUFO-kod, skriv i sökfältet jufoCode:"sökt identifierare", till exempel jufoCode:"12345"</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.tutorial.10">
+        <source>Huomioithan, että kohdistetussa haussa metatietokentät tulee kirjoittaa pienillä kirjaimilla.</source>
+        <target>Observera att i riktad sökning måste metadatafält skrivas med små bokstäver.</target>
+      </trans-unit>
+
+      <trans-unit id="publication2.contentInfo">
+        <source>Mitä julkaisutietoja palvelu sisältää?</source>
+        <target>Vilka publikationsuppgifter finns i tjänsten?</target>
+      </trans-unit>
+
+      <trans-unit id="search-bar.results">
+        <source> tulosta </source>
+        <target> resultat </target>
+      </trans-unit>
+
+      <trans-unit id="search-bar.page">
+        <source> sivu </source>
+        <target> sida </target>
+      </trans-unit>
+
     </body>
   </file>
 </xliff>

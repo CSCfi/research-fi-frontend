@@ -158,6 +158,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   showLoginInfoDialog = false;
   betaDialogTitle = $localize`:@@researchersProfile:Tutkijan tiedot`;
   mydataLoginSnackbarVisible = false;
+  betaSearchBannerVisible = false;
 
   private metaTagsList = [
     MetaTags.publications,
@@ -234,6 +235,10 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     if (isPlatformBrowser(this.platformId)){
       if (sessionStorage.getItem('researchersLoginSnackbarVisible')) {
         this.mydataLoginSnackbarVisible = true;
+      }
+
+      if (!sessionStorage.getItem('betaSearchBannerDismissed')) {
+        this.betaSearchBannerVisible = true;
       }
     }
 
@@ -596,6 +601,14 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.mydataLoginSnackbarVisible = false;
     if (isPlatformBrowser(this.platformId)) {
       sessionStorage.removeItem('researchersLoginSnackbarVisible');
+    }
+  }
+
+  hideBetaSearchBanner() {
+    this.betaSearchBannerVisible = false;
+
+    if (isPlatformBrowser(this.platformId)) {
+      sessionStorage.setItem('betaSearchBannerDismissed', 'true');
     }
   }
 
