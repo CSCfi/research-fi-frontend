@@ -1,0 +1,36 @@
+<div style='display: flex; justify-content: center;'>
+  <!--<div style='display:flex; justify-content: center; align-items: center; background-color: white; height: 55px; width: 180px; margin-right: 8px'>
+    Kohdista haku
+  </div>-->
+
+  <!--
+    [(ngModel)]='keywords'
+  -->
+
+  <input
+    [ngModel]='value'
+    (ngModelChange)='valueChange.emit($event)'
+    (keyup.enter)='search.emit(keywords)'
+    class='search-input'
+    style='margin-right: 8px'
+    type='search'
+    i18n-title='@@searchTooltip'
+    title='Voit hakea julkaisuja, tutkijoita, rahoituspäätöksiä, aineistoja, rahoitushakuja, infrastruktuureja ja organisaatioita kuvailevaa tietoa.'
+    i18n-placeholder='@@searchPlaceholder'
+    placeholder='Esim. julkaisu, tieteenala, asiasana'
+    autocomplete='off'
+    tabindex='0'
+  />
+
+  <button matRipple style='display: flex; justify-content: center; align-items: center; background-color: white; height: 55px; width: 115px; margin-right: 8px' (click)='search.emit(keywords)'>
+    Hae
+  </button>
+
+  <div matRipple style='cursor: pointer; user-select: none; color: white; font-size: 14px; padding: 0 1rem; display: flex; justify-content: center; align-items: center; margin-right: 8px' (click)='instructions.emit()'>
+    <ng-container i18n='@@searchHelpButton'>
+      Hakuohje
+    </ng-container>
+
+    <i class='fas fa-chevron-down' style='margin-left: 0.5rem'></i>
+  </div>
+</div>

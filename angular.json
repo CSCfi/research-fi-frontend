@@ -92,11 +92,23 @@
             "en": {
               "localize": [
                 "en"
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/locale.ts",
+                  "with": "src/environments/locale.en.ts"
+                }
               ]
             },
             "sv": {
               "localize": [
                 "sv"
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/locale.ts",
+                  "with": "src/environments/locale.sv.ts"
+                }
               ]
             },
             "es5": {

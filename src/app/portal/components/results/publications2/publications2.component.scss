@@ -1,0 +1,131 @@
+.search-container {
+  display: grid;
+
+  grid-template-rows:
+    auto
+    minmax(0, auto)
+    minmax(0, auto)
+    minmax(0, auto)
+    minmax(0, auto);
+
+  grid-template-columns: 1fr minmax(0, 350px) minmax(0, 1100px) 1fr;
+
+  grid-template-areas:
+    "search search search search"
+    ". info info ."
+    ". filters results .";
+}
+
+@media (max-width: 1200px) {
+  .search-container {
+    grid-template-columns: 350px minmax(0, 1fr);
+
+    grid-template-areas:
+    "search search"
+    "info info"
+    "filters results"
+  }
+}
+
+@media (max-width: 990px) {
+  .search-container {
+    grid-template-columns: minmax(0, 1fr);
+
+    grid-template-areas:
+    "search"
+    "info"
+    "filters-toggle"
+    "results"
+  }
+}
+
+.search-bar {
+  grid-area: search;
+}
+
+.search-tabs {
+  grid-area: tabs;
+}
+
+.search-info {
+  grid-area: info;
+}
+
+.search-filters {
+  grid-area: filters;
+}
+
+.search-filters-toggle {
+  grid-area: filters-toggle;
+}
+
+.search-pagination {
+  display: flex;
+  justify-content: center;
+}
+
+.search-combination {
+  grid-area: results;
+}
+
+/* Ensure the table takes the full width */
+cdk-table {
+  // width: 100%;
+}
+
+/* Add some spacing and border to the cells */
+cdk-cell {
+  padding: 1rem 0.5rem;
+  display: table-cell;
+  text-align: start;
+}
+
+cdk-header-cell {
+  padding: 0.25rem 0.5rem 1rem 0.5rem;
+  display: table-cell;
+  text-align: start;
+
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 1;
+}
+
+/* Define the header row and data row to behave like traditional table rows */
+cdk-header-row, cdk-row {
+  display: table-row;
+}
+
+
+
+/* Define columns to ensure they take equal widths - adjust as required */
+/*[cdkColumnDef="publicationName"] {
+  width: 35%;
+  background-color: red;
+}
+
+[cdkColumnDef="authorsText"] {
+  width: 25%;
+}
+
+[cdkColumnDef="publisherName"] {
+  width: 20%;
+}
+
+[cdkColumnDef="publicationYear"] {
+  width: 20%;
+}*/
+
+/*em {
+  background-color: #FFFF00;
+  font-style: normal;
+  padding: 0.1em 0;
+}*/
+
+.filters-summary {
+  background-color: #e8e8f5;
+  padding: 16px;
+  border: 1px solid #4546b9;
+  border-radius: 4px;
+  margin: 0 0 1.5rem 1.5rem;
+}

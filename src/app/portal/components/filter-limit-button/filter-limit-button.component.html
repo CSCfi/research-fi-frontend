@@ -1,0 +1,16 @@
+<ng-template #buttonContent>
+  <ng-content></ng-content>
+</ng-template>
+
+<ng-container *ngIf="step > 0">
+  <button class='limit-button' mat-button [disabled]='value >= max' (click)='valueChange.emit(clamp(value + step))'>
+    <ng-container *ngTemplateOutlet="buttonContent"></ng-container>
+  </button>
+</ng-container>
+
+<ng-container *ngIf="step < 0">
+  <button class='limit-button' mat-button [disabled]='value <= min' (click)='valueChange.emit(clamp(value + step))'>
+    <ng-container *ngTemplateOutlet="buttonContent"></ng-container>
+  </button>
+</ng-container>
+
