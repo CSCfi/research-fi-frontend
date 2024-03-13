@@ -8,7 +8,7 @@
     minmax(0, auto)
     minmax(0, auto);
 
-  grid-template-columns: 1fr 350px 1100px 1fr;
+  grid-template-columns: 1fr minmax(0, 350px) minmax(0, 1100px) 1fr;
 
   grid-template-areas:
     "search search search search"
@@ -18,7 +18,7 @@
 
 @media (max-width: 1200px) {
   .search-container {
-    grid-template-columns: 350px 1fr;
+    grid-template-columns: 350px minmax(0, 1fr);
 
     grid-template-areas:
     "search search"
@@ -29,7 +29,7 @@
 
 @media (max-width: 990px) {
   .search-container {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
 
     grid-template-areas:
     "search"
