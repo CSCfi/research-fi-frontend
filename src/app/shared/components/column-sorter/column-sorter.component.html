@@ -1,0 +1,13 @@
+<div style='padding-left: 0.75rem'>
+  <ng-container *ngIf='value !== name && value !== (name + "Desc")'>
+    <i class='fa fa-sort' aria-hidden='true'></i>
+  </ng-container>
+
+  <ng-container *ngIf='value === name'>
+    <i class='fa fa-sort-up' aria-hidden='true'></i>
+  </ng-container>
+
+  <ng-container *ngIf='value === (name + "Desc")'>
+    <i class='fa fa-sort-down' aria-hidden='true'></i>
+  </ng-container>
+</div>

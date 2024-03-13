@@ -5,9 +5,9 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import {
   faAngleDoubleLeft,
   faAngleDoubleRight,
@@ -23,30 +23,36 @@ import { map } from 'rxjs/operators';
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss'],
 })
-export class PaginationComponent implements OnInit {
-  @Input() page: number = 1;
-  @Input() pageSize: number = 10;
-  @Input() total: any;
+export class PaginationComponent implements OnChanges {
+  @Input() page = 1;
+  @Input() pageSize = 10;
+  @Input() total = 0;
 
-  fromPage: number; // Used for HTML rendering
+  changed$ = new BehaviorSubject<void>(null);
 
-  ngOnInit(): void {
+  fromPage = (this.page - 1) * this.pageSize;
+
+  ngOnChanges() {
     this.fromPage = (this.page - 1) * this.pageSize;
+    this.changed$.next();
   }
 
-  pages$: Observable<number[]> = this.breakpointObserver.observe('(min-width: 1200px)').pipe(
-    map(result => generatePages(this.page, result.matches ? 9 : 5, this.total, this.pageSize))
+  pages$: Observable<number[]> = combineLatest([
+    this.breakpointObserver.observe('(min-width: 1200px)'),
+    this.changed$,
+  ]).pipe(
+    map(([result]) => generatePages(this.page, result.matches ? 9 : 5, this.total, this.pageSize))
   );
 
   order$ = this.breakpointObserver.observe('(min-width: 768px)').pipe(
     map(result => result.matches)
   );
 
+  previous = $localize`:@@previous:Edellinen`;
+  next = $localize`:@@next:Seuraava`;
   previousPage = $localize`:@@previousPage:Edellinen sivu`;
   nextPage = $localize`:@@nextPage:Seuraava sivu`;
   tooManyResultstext = $localize`:@@tooManyResultsNavigationDisabled:Liikaa tuloksia. Haun loppuun navigoiminen estetty.`;
-  previous = $localize`:@@previous:Edellinen`;
-  next = $localize`:@@next:Seuraava`;
 
   faAngleRight = faAngleRight;
   faAngleLeft = faAngleLeft;
@@ -99,8 +105,8 @@ function generatePages(currentPage: number, range: 5 | 9, results: number, pageS
     output = [i-4, i-3, i-2, i-1, i, i+1, i+2, i+3, i+4];
   }
 
-  let min = Math.min(...output);
-  let max = Math.max(...output);
+  const min = Math.min(...output);
+  const max = Math.max(...output);
 
   if (min < 1) {
     const increment = 1 - output[0];

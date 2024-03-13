@@ -1,0 +1,35 @@
+<div style="background-color: lightcoral">
+  <app-collapsible i18n-label='@@organization' label='Organisaatio' decoration='plus' hasTooltip='true'>
+    <ng-container tooltip i18n="@@pOrgFTooltip">
+      Julkaisun tekijän suomalainen organisaatio. Palvelu ei toistaiseksi sisällä tietoja julkaisujen ulkomaisista organisaatioista.
+    </ng-container>
+
+    <ng-container *ngFor="let sector of [1,2,3,4,6]; let index = index;">
+      <app-collapsible label='{{sectorNames[sector]}}' [isOpen]='sector === selectedSector' (isOpenChange)='selectedSector = sector'>
+        <div><input type='checkbox'>Valitse kaikki</div>
+
+        <input type='text' [(ngModel)]='sectorFilter[sector]'>
+
+        <ng-container *ngFor='let organizationFilter of filterData
+            | filterBy: ["sectorId"]: sector
+            | filterBy: ["name"]: sectorFilter[sector]
+            | limit: sectorLimits[sector]'>
+
+          <app-filter-option
+            [label]='organizationFilter.name'
+            [count]='organizationFilter.count'
+            [value]='organizationFilter.enabled'
+            (valueChange)='selected.emit(organizationFilter.id)'>
+          </app-filter-option>
+        </ng-container>
+      </app-collapsible>
+
+      <!-- TODO Over 10? grow limit -->
+      <!-- TODO Also shrink limit  -->
+    </ng-container>
+
+  </app-collapsible>
+</div>
+
+
+
