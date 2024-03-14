@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 import { locale } from "../../../environments/locale";
+import { AppConfigService } from '@shared/services/app-config-service.service';
 const path = suffixer(locale);
 
 /*const PublicationSearchSchema = object({
@@ -82,7 +83,8 @@ export class Publication2Service {
   sanitizer = inject(DomSanitizer);
   locale = inject(LOCALE_ID);
 
-  searchUrl = 'https://researchfi-api-qa.rahtiapp.fi/portalapi/publication/_search?'
+  appConfigService = inject(AppConfigService);
+  searchUrl = this.appConfigService.apiUrl + '/publication/_search'
 
   searchParams = new BehaviorSubject<SearchParams>({});
 
