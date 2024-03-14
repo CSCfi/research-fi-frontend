@@ -84,7 +84,7 @@ export class Publication2Service {
   locale = inject(LOCALE_ID);
 
   appConfigService = inject(AppConfigService);
-  searchUrl = this.appConfigService.apiUrl + '/portalapi/publication/_search'
+  searchUrl = this.appConfigService.apiUrl + '/publication/_search'
 
   searchParams = new BehaviorSubject<SearchParams>({});
 
