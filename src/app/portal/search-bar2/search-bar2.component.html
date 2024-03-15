@@ -11,9 +11,8 @@
     [ngModel]='value'
     (ngModelChange)='valueChange.emit($event)'
     (keyup.enter)='search.emit(keywords)'
-    class='search-input'
-    style='margin-right: 8px'
     type='search'
+    class='search-input'
     i18n-title='@@searchTooltip'
     title='Voit hakea julkaisuja, tutkijoita, rahoituspäätöksiä, aineistoja, rahoitushakuja, infrastruktuureja ja organisaatioita kuvailevaa tietoa.'
     i18n-placeholder='@@searchPlaceholder'
@@ -21,6 +20,10 @@
     autocomplete='off'
     tabindex='0'
   />
+
+  <div style='display: flex; justify-content: center; align-items: center; background-color: white; width: 50px; cursor: pointer; border-top-right-radius: 4px; border-bottom-right-radius: 4px; margin-right: 8px' (click)='clear.emit()'>
+    <i class='fas fa-times' style='color: black; font-size: 1rem;'></i>
+  </div>
 
   <button matRipple style='display: flex; justify-content: center; align-items: center; background-color: white; height: 55px; width: 115px; margin-right: 8px' (click)='search.emit(keywords)'>
     Hae

@@ -25,5 +25,8 @@ export class SearchBar2Component {
   // instruction button is pressed output
   @Output() instructions = new EventEmitter<void>();
 
+  // clear event output
+  @Output() clear = new EventEmitter<void>();
+
   public keywords = this.route.snapshot.queryParams.q ?? "";
 }
