@@ -1073,11 +1073,16 @@ function sortingTerms(searchParams: SearchParams) {
     if (textFields.includes(sortedField)) {
       sortedField += ".keyword";
     }
+
+    return [
+      { [sortedField]: { "order": direction } },
+      "_score"
+    ];
   }
 
   return [
+    "_score",
     { [sortedField]: { "order": direction } },
-    "_score"
   ];
 }
 

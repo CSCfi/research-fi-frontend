@@ -661,6 +661,10 @@ export class Publications2Component implements OnDestroy {
   clamp(value: number, min: number, max: number) {
     return Math.min(Math.max(value, min), max);
   }
+
+  clearKeywordField() {
+    this.keywords = "";
+  }
 }
 
 export class PublicationDataSource extends DataSource<HighlightedPublication> {

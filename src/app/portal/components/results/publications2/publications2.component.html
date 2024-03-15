@@ -541,28 +541,8 @@
   <!-- TODO: standalone-header here -->
 
   <div class='search-bar' style="background-color: orange; height: 100px; display: flex; justify-content: center; align-items: center">
-    <app-search-bar2 [(value)]='keywords' (search)='setKeywords(keywords)' (instructions)='openTutorialDialog()'></app-search-bar2>
+    <app-search-bar2 [(value)]='keywords' (search)='setKeywords(keywords)' (instructions)='openTutorialDialog()' (clear)='clearKeywordField()'></app-search-bar2>
   </div>
-
-  <!-- TODO HIDE FOR NOW -->
-  <!--<div class='search-tabs'>
-    &lt;!&ndash; TAB LOOKING BUTTONS &ndash;&gt;
-    <div style='height: 80px; margin-top: 20px; display: flex'>
-      <ng-container *ngFor='let tab of ["Julkaisut", "Tutkijat", "Hankkeet", "Aineistot", "Rahoitushaut", "Infrastruktuurit", "Organisaatio"]'>
-        <ng-container *ngIf='tab === "Julkaisut"'>
-          <div style='display: flex; justify-content: center; flex-grow: 1; align-items: center; height: 80px; border: 1px solid black; border-bottom: none; background-color: white'>
-            {{tab}}
-          </div>
-        </ng-container>
-
-        <ng-container *ngIf='tab !== "Julkaisut"'>
-          <div style='display: flex; justify-content: center; flex-grow: 1; align-items: center; height: 70px; margin-top: 10px; border-bottom: 1px solid black; background-color: #e8e8f5'>
-            {{tab}}
-          </div>
-        </ng-container>
-      </ng-container>
-    </div>
-  </div>-->
 
   <div class='search-info'>
     <!--<div style='width: 100%; height: 25px; background-color: blue'></div>--> <!-- TODO: GO TO NEW SEARCH -->
