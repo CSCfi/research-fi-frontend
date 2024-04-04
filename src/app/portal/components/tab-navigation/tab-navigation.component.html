@@ -1,0 +1,34 @@
+<div style='display: flex; justify-content: center; align-items: center; padding: 10px'>
+  <div class='navigation-layout'>
+
+    <ng-container *ngIf='responsiveOrder$ | async as defaultOrderButtons'>
+      <ng-container *ngFor='let button of defaultOrderButtons | slice: 0:(end$ | async); trackBy: trackByLabel'>
+
+        <app-tab-button [icon]='button.icon' [label]='button.label' [count]='button.count' [route]='button.route'></app-tab-button>
+
+      </ng-container>
+    </ng-container>
+
+  </div>
+</div>
+
+<ng-container *ngIf='(isDesktop$ | async) === false'>
+  <ng-container *ngIf='(showAll$ | async) === false'>
+    <div class="expand-text" (click)='toggleAll()'>
+      <div style='margin-right: 0.25rem'>Näytä lisää</div>
+      <i class='fa-solid fa-caret-down'></i>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf='(showAll$ | async) === true'>
+    <div class='expand-text' (click)='toggleAll()'>
+      <div style='margin-right: 0.25rem'>Näytä vähemmän</div>
+      <i class='fa-solid fa-caret-up'></i>
+    </div>
+  </ng-container>
+</ng-container>
+
+
+
+
+
