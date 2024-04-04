@@ -1,8 +1,8 @@
 <div style='display: flex; justify-content: center; align-items: center; padding: 10px'>
   <div class='navigation-layout'>
 
-    <ng-container *ngIf='responsiveOrder$ | async as defaultOrderButtons'>
-      <ng-container *ngFor='let button of defaultOrderButtons | slice: 0:(end$ | async); trackBy: trackByLabel'>
+    <ng-container *ngIf='responsiveOrder$ | async as responsiveOrder'>
+      <ng-container *ngFor='let button of responsiveOrder | slice: 0:(end$ | async); trackBy: trackByLabel'>
 
         <app-tab-button [icon]='button.icon' [label]='button.label' [count]='button.count' [route]='button.route'></app-tab-button>
 
