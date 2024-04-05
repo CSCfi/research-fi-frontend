@@ -2753,6 +2753,38 @@
         <source> sivu </source>
       </trans-unit>
 
+
+
+      <trans-unit id="navigation.publications">
+        <source>Julkaisut</source>
+      </trans-unit>
+
+      <trans-unit id="navigation.persons">
+        <source>Tutkijat</source>
+      </trans-unit>
+
+      <trans-unit id="navigation.fundings">
+        <source>Hankkeet</source>
+      </trans-unit>
+
+      <trans-unit id="navigation.datasets">
+        <source>Aineistot</source>
+      </trans-unit>
+
+      <trans-unit id="navigation.funding-calls">
+        <source>Rahoitushaut</source>
+      </trans-unit>
+
+      <trans-unit id="navigation.infrastructures">
+        <source>Infrastruktuurit</source>
+      </trans-unit>
+
+      <trans-unit id="navigation.organizations">
+        <source>Organisaatiot</source>
+      </trans-unit>
+
+
+
     </body>
   </file>
 </xliff>

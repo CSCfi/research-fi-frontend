@@ -25,6 +25,7 @@ export class TabButtonComponent {
   @Input() label: string;
   @Input() count: number;
   @Input() route: string;
+  @Input() active = false;
 
   countOps = {
     duration: 0.5,

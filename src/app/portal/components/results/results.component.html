@@ -14,12 +14,6 @@ Copyright 2019 Ministry of Education and Culture, Finland
 
     <app-tab-navigation></app-tab-navigation>
 
-    <app-result-tab
-      style="width: 100%"
-      class="px-0"
-      [allData]="tabValues"
-    ></app-result-tab>
-
     <!-- TODO: Button for navigation to the new publication search -->
     <ng-container *ngIf="tab === 'publications' && betaSearchBannerVisible">
       <div class="row py-3 px-0 ps-lg-3 mt-3 justify-content-between login-snackbar">

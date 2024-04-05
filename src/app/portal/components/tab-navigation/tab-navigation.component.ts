@@ -1,7 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TabButtonComponent } from '@portal/components/tab-button/tab-button.component';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, startWith } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@shared/services/app-config-service.service';
@@ -10,7 +10,7 @@ import { SearchService } from '@portal/services/search.service';
 import { ActivatedRoute } from '@angular/router';
 
 type IndexCounts = { [index: string]: number };
-type ButtonData = { label: string, icon: string, route: string, count: number };
+type ButtonData = { label: string, icon: string, route: string, count: number, active: boolean };
 
 @Component({
   selector: 'app-tab-navigation',
@@ -20,8 +20,6 @@ type ButtonData = { label: string, icon: string, route: string, count: number };
   styleUrls: ['./tab-navigation.component.scss']
 })
 export class TabNavigationComponent {
-  // @Input() state
-
   http = inject(HttpClient);
   breakpointObserver = inject(BreakpointObserver);
   appConfigService = inject(AppConfigService);
@@ -40,7 +38,8 @@ export class TabNavigationComponent {
     map(buckets => buckets.reduce((acc, [key, value]) => ({ ...acc, [key]: (value as any).doc_count }), {}))
   );
 
-  input$ = this.route.params.pipe(map(params => params["input"]));
+  input$ = this.route.params.pipe(map(params => params["input"]))
+  tab$ = this.route.params.pipe(map(params => params["tab"]))
 
   partialCounts$ = this.input$.pipe(
     switchMap(input => this.http.post(this.url, payloadWithKeywords(input)).pipe(
@@ -52,18 +51,19 @@ export class TabNavigationComponent {
 
   counts$ = this.route.params.pipe(
     map(params => params["tab"] && params["input"]),
-    switchMap(isPartial => isPartial ? this.partialCounts$ : this.fullCounts$)
+    switchMap(isPartial => isPartial ? this.partialCounts$ : this.fullCounts$),
+    startWith({ publications: -1, persons: -1, fundings: -1, datasets: -1, fundingCalls: -1, infrastructures: -1, organizations: -1 })
   );
 
-  defaultOrderButtons$: Observable<ButtonData[]> = this.counts$.pipe(
-    map(counts => [
-      { label: 'Publications',    icon: 'faFileLines',  route: "/results/publications",    count: counts.publications },
-      { label: 'Persons',         icon: 'faUsers',      route: "/results/persons",         count: counts.persons },
-      { label: 'Fundings',        icon: 'faBriefcase',  route: "/results/fundings",        count: counts.fundings },
-      { label: 'Datasets',        icon: 'faFileAlt',    route: "/results/datasets",        count: counts.datasets },
-      { label: 'Funding Calls',   icon: 'faBullhorn',   route: "/results/funding-calls",   count: counts.fundingCalls },
-      { label: 'Infrastructures', icon: 'faUniversity', route: "/results/infrastructures", count: counts.infrastructures },
-      { label: 'Organizations',   icon: 'faCalculator', route: "/results/organizations",   count: counts.organizations },
+  defaultOrderButtons$: Observable<ButtonData[]> = combineLatest([this.counts$, this.tab$]).pipe(
+    map(([counts, tab]) => [
+      { label: $localize`:@@navigation.publications:Julkaisut`,           icon: `faFileLines`,  route: "/results/publications",    count: counts.publications,    active: tab === `publications` },
+      { label: $localize`:@@navigation.persons:Tutkijat`,                 icon: 'faUsers',      route: "/results/persons",         count: counts.persons,         active: tab === 'persons' },
+      { label: $localize`:@@navigation.fundings:Hankkeet`,                icon: 'faBriefcase',  route: "/results/fundings",        count: counts.fundings,        active: tab === 'fundings' },
+      { label: $localize`:@@navigation.datasets:Aineistot`,               icon: 'faFileAlt',    route: "/results/datasets",        count: counts.datasets,        active: tab === 'datasets' },
+      { label: $localize`:@@navigation.funding-calls:Rahoitushaut`,       icon: 'faBullhorn',   route: "/results/funding-calls",   count: counts.fundingCalls,    active: tab === 'funding-calls' },
+      { label: $localize`:@@navigation.infrastructures:Infrastruktuurit`, icon: 'faUniversity', route: "/results/infrastructures", count: counts.infrastructures, active: tab === 'infrastructures' },
+      { label: $localize`:@@navigation.organizations:Organisaatiot`,      icon: 'faCalculator', route: "/results/organizations",   count: counts.organizations,   active: tab === 'organizations' },
     ])
   );
 
@@ -71,17 +71,17 @@ export class TabNavigationComponent {
     map(buttons => buttons.sort((a, b) => b.count - a.count))
   );
 
-  responsiveOrder$: Observable<ButtonData[]> = this.breakpointObserver.observe(['(max-width: 768px)']).pipe(
+  responsiveOrder$: Observable<ButtonData[]> = this.breakpointObserver.observe(['(max-width: 600px)']).pipe(
     switchMap(result => result.matches ? this.sortedButtons$ : this.defaultOrderButtons$)
   );
 
-  responsiveSize$: Observable<number> = this.breakpointObserver.observe(['(min-width: 1200px)', '(min-width: 990px)', '(min-width: 768px)']).pipe(
+  responsiveSize$: Observable<number> = this.breakpointObserver.observe(['(min-width: 1200px)', '(min-width: 900px)', '(min-width: 600px)']).pipe(
     map(result => {
       if (result.breakpoints['(min-width: 1200px)']) {
         return 8;
-      } else if (result.breakpoints['(min-width: 990px)']) {
+      } else if (result.breakpoints['(min-width: 900px)']) {
         return 3;
-      } else if (result.breakpoints['(min-width: 768px)']) {
+      } else if (result.breakpoints['(min-width: 600px)']) {
         return 3;
       } else {
         return 3;

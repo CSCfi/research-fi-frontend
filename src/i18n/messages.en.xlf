@@ -6762,6 +6762,43 @@
         <target> page </target>
       </trans-unit>
 
+
+      <trans-unit id="navigation.publications">
+        <source>Julkaisut</source>
+        <target>Publications</target>
+      </trans-unit>
+
+      <trans-unit id="navigation.persons">
+        <source>Tutkijat</source>
+        <target>People</target>
+      </trans-unit>
+
+      <trans-unit id="navigation.fundings">
+        <source>Hankkeet</source>
+        <target>Projects</target>
+      </trans-unit>
+
+      <trans-unit id="navigation.datasets">
+        <source>Aineistot</source>
+        <target>Research data</target>
+      </trans-unit>
+
+      <trans-unit id="navigation.funding-calls">
+        <source>Rahoitushaut</source>
+        <target>Funding calls</target>
+      </trans-unit>
+
+      <trans-unit id="navigation.infrastructures">
+        <source>Infrastruktuurit</source>
+        <target>Infrastructures</target>
+      </trans-unit>
+
+      <trans-unit id="navigation.organizations">
+        <source>Organisaatiot</source>
+        <target>Organizations</target>
+      </trans-unit>
+
+
     </body>
   </file>
 </xliff>

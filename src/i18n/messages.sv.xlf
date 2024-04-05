@@ -6766,6 +6766,43 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <target> sida </target>
       </trans-unit>
 
+
+      <trans-unit id="navigation.publications">
+        <source>Julkaisut</source>
+        <target>Publikationer</target>
+      </trans-unit>
+
+      <trans-unit id="navigation.persons">
+        <source>Tutkijat</source>
+        <target>Personer</target>
+      </trans-unit>
+
+      <trans-unit id="navigation.fundings">
+        <source>Hankkeet</source>
+        <target>Projekt</target>
+      </trans-unit>
+
+      <trans-unit id="navigation.datasets">
+        <source>Aineistot</source>
+        <target>Data</target>
+      </trans-unit>
+
+      <trans-unit id="navigation.funding-calls">
+        <source>Rahoitushaut</source>
+        <target>Utlysningar</target>
+      </trans-unit>
+
+      <trans-unit id="navigation.infrastructures">
+        <source>Infrastruktuurit</source>
+        <target>Infrastrukturer</target>
+      </trans-unit>
+
+      <trans-unit id="navigation.organizations">
+        <source>Organisaatiot</source>
+        <target>Organisationer</target>
+      </trans-unit>
+
+
     </body>
   </file>
 </xliff>

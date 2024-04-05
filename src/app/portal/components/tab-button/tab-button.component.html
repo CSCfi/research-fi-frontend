@@ -1,4 +1,4 @@
-<a class='tab-button-layout2 link-button' [routerLink]='route' style='text-decoration: none'>
+<a class='tab-button-layout2 link-button' [ngClass]='{"link-button__active": active}' [routerLink]='route' style='text-decoration: none'>
 
   <div style='display: flex'>
     <fa-icon [icon]="_icon" style='margin-right: 12px'></fa-icon>
@@ -6,7 +6,8 @@
     <div>{{ label }}</div>
   </div>
 
-  <!--<div class='animated-number'>{{ count | number:'1.0-0' }}</div>-->
-  <div [countUp]="count" [options]="countOps">
-  </div>
+  <ng-container *ngIf='count !== -1'>
+    <div [countUp]="count" [options]="countOps"></div>
+  </ng-container>
+
 </a>
