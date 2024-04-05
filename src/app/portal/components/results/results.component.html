@@ -9,10 +9,12 @@ Copyright 2019 Ministry of Education and Culture, Finland
   <app-search-bar></app-search-bar>
 </aside>
 
+<nav>
+  <app-tab-navigation></app-tab-navigation>
+</nav>
+
 <div class="center-content wrapper" style="margin-top: 0">
   <div class="row g-0">
-
-    <app-tab-navigation></app-tab-navigation>
 
     <!-- TODO: Button for navigation to the new publication search -->
     <ng-container *ngIf="tab === 'publications' && betaSearchBannerVisible">

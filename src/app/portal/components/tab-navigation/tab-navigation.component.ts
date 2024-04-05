@@ -71,7 +71,7 @@ export class TabNavigationComponent {
     map(buttons => buttons.sort((a, b) => b.count - a.count))
   );
 
-  responsiveOrder$: Observable<ButtonData[]> = this.breakpointObserver.observe(['(max-width: 600px)']).pipe(
+  responsiveOrder$: Observable<ButtonData[]> = this.breakpointObserver.observe(['(max-width: 900px)']).pipe(
     switchMap(result => result.matches ? this.sortedButtons$ : this.defaultOrderButtons$)
   );
 

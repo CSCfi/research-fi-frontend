@@ -1,15 +1,30 @@
+:host {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  padding: 20px 10px 15px 10px;
+
+  width: 100%;
+
+  @media (min-width: 900px) {
+    width: auto;
+  }
+}
+
 .navigation-layout {
   display: grid;
-  grid-template-columns: repeat(1, 1fr);
+  grid-template-columns: 1fr;
   grid-column-gap: 16px;
   grid-row-gap: 7px;
 
-  @media (min-width: 600px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  width: 100%;
 
   @media (min-width: 900px) {
     grid-template-columns: repeat(3, 1fr);
+    width: auto;
   }
 
   @media (min-width: 1200px) {
