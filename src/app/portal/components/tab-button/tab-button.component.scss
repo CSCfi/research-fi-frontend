@@ -48,6 +48,11 @@
   border: 2px solid #4546B9;
 }
 
+.link-button__disabled {
+  color: #B0B0B0;
+  cursor: not-allowed;
+}
+
 /*.animated-number {
   font-variant-numeric: tabular-nums;
 }*/

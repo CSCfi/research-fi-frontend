@@ -1,11 +1,35 @@
 <div class='navigation-layout'>
-  <ng-container *ngIf='responsiveOrder$ | async as responsiveOrder'>
-    <ng-container *ngFor='let button of responsiveOrder | slice: 0:(end$ | async); trackBy: trackByLabel'>
 
-      <app-tab-button [icon]='button.icon' [label]='button.label' [count]='button.count' [route]='button.route' [active]='button.active'></app-tab-button>
+  <ng-container *ngIf='slicedButtons$ | async as buttons'>
+    <ng-container *ngFor='let button of buttons; trackBy: trackByLabel'>
+
+      <app-tab-button [icon]='button.icon'
+                      [label]='button.label'
+                      [count]='button.count'
+                      [active]='button.active'
+                      [disabled]='button.disabled'
+                      [routerLink]='button.route + "/" + ((input$ | async) ?? "")'
+                      [queryParams]='queryParams$ | async'>
+      </app-tab-button>
 
     </ng-container>
   </ng-container>
+
+  <ng-container *ngIf='(isActiveVisible$ | async) === false'>
+    <ng-container *ngIf='activeButton$ | async as button'>
+
+      <app-tab-button [icon]='button.icon'
+                      [label]='button.label'
+                      [count]='button.count'
+                      [active]='button.active'
+                      [disabled]='button.disabled'
+                      [routerLink]='button.route + "/" + ((input$ | async) ?? "")'
+                      [queryParams]='queryParams$ | async'>
+      </app-tab-button>
+
+    </ng-container>
+  </ng-container>
+
 </div>
 
 <ng-container *ngIf='(isDesktop$ | async) === false'>

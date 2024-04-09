@@ -7,10 +7,10 @@ import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@shared/services/app-config-service.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { SearchService } from '@portal/services/search.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 
 type IndexCounts = { [index: string]: number };
-type ButtonData = { label: string, icon: string, route: string, count: number, active: boolean };
+type ButtonData = { label: string, icon: string, route: string, count: number, active: boolean, disabled?: boolean};
 
 @Component({
   selector: 'app-tab-navigation',
@@ -24,13 +24,15 @@ export class TabNavigationComponent {
   breakpointObserver = inject(BreakpointObserver);
   appConfigService = inject(AppConfigService);
 
+  route = inject(ActivatedRoute);
+  router = inject(Router);
+
   url = this.appConfigService.apiUrl + "publication,person,funding,dataset,funding-call,infrastructure,organization/_search?request_cache=true";
 
   showAll$ = new BehaviorSubject(false);
 
   // Legacy compatibility
   searchService = inject(SearchService);
-  route = inject(ActivatedRoute);
 
   fullCounts$: Observable<IndexCounts> = this.http.post(this.url, payloadWithoutKeywords()).pipe(
     map((response: any) => response.aggregations),
@@ -40,6 +42,11 @@ export class TabNavigationComponent {
 
   input$ = this.route.params.pipe(map(params => params["input"]))
   tab$ = this.route.params.pipe(map(params => params["tab"]))
+
+  // Just the "size" (of the page) of the query parameters is needed
+  queryParams$ = this.route.queryParams.pipe(
+    map(queryParams => ({ size: queryParams.size }))
+  );
 
   partialCounts$ = this.input$.pipe(
     switchMap(input => this.http.post(this.url, payloadWithKeywords(input)).pipe(
@@ -58,12 +65,18 @@ export class TabNavigationComponent {
   defaultOrderButtons$: Observable<ButtonData[]> = combineLatest([this.counts$, this.tab$]).pipe(
     map(([counts, tab]) => [
       { label: $localize`:@@navigation.publications:Julkaisut`,           icon: `faFileLines`,  route: "/results/publications",    count: counts.publications,    active: tab === `publications` },
-      { label: $localize`:@@navigation.persons:Tutkijat`,                 icon: 'faUsers',      route: "/results/persons",         count: counts.persons,         active: tab === 'persons' },
-      { label: $localize`:@@navigation.fundings:Hankkeet`,                icon: 'faBriefcase',  route: "/results/fundings",        count: counts.fundings,        active: tab === 'fundings' },
-      { label: $localize`:@@navigation.datasets:Aineistot`,               icon: 'faFileAlt',    route: "/results/datasets",        count: counts.datasets,        active: tab === 'datasets' },
       { label: $localize`:@@navigation.funding-calls:Rahoitushaut`,       icon: 'faBullhorn',   route: "/results/funding-calls",   count: counts.fundingCalls,    active: tab === 'funding-calls' },
+
+      // label: $localize`:@@navigation.fundings:Hankkeet`,
+      { label: "Myönnetty rahoitus",                                      icon: 'faBriefcase',  route: "/results/fundings",        count: counts.fundings,        active: tab === 'fundings' },
+      // "Myönnetty rahoitus",
+
+      { label: $localize`:@@navigation.persons:Tutkijat`,                 icon: 'faUsers',      route: "/results/persons",         count: counts.persons,         active: tab === 'persons' },
+      { label: $localize`:@@navigation.datasets:Aineistot`,               icon: 'faFileAlt',    route: "/results/datasets",        count: counts.datasets,        active: tab === 'datasets' },
       { label: $localize`:@@navigation.infrastructures:Infrastruktuurit`, icon: 'faUniversity', route: "/results/infrastructures", count: counts.infrastructures, active: tab === 'infrastructures' },
       { label: $localize`:@@navigation.organizations:Organisaatiot`,      icon: 'faCalculator', route: "/results/organizations",   count: counts.organizations,   active: tab === 'organizations' },
+
+      { label: "Hankkeet (tulossa)",                                      icon: `faFileLines`,  route: "/results/publications",    count: -1,                     active: false, disabled: true },
     ])
   );
 
@@ -89,8 +102,24 @@ export class TabNavigationComponent {
     })
   );
 
-  end$ = combineLatest([this.showAll$, this.responsiveSize$, this.defaultOrderButtons$]).pipe(
+  sliceEnd$ = combineLatest([this.showAll$, this.responsiveSize$, this.defaultOrderButtons$]).pipe(
     map<[boolean, number, ButtonData[]], number>(([showAll, end, buttons]) => showAll ? buttons.length : end)
+  );
+
+  slicedButtons$: Observable<ButtonData[]> = combineLatest([this.responsiveOrder$, this.sliceEnd$]).pipe(
+    map(([buttons, end]) => buttons.slice(0, end))
+  );
+
+  activeButton$: Observable<ButtonData> = combineLatest([this.defaultOrderButtons$]).pipe(
+    map(([buttons]) => buttons.find(button => button.active))
+  );
+
+  isActiveVisible$ = combineLatest([this.activeButton$, this.slicedButtons$]).pipe(
+    // See inclusion based on the label field
+    map(([active, buttons]) => buttons.map(b => b.label).includes(active.label))
+
+    // Compare button against buttons
+    // map(([active, buttons]) => buttons.includes(active))
   );
 
   isDesktop$ = this.breakpointObserver.observe(['(min-width: 1200px)']).pipe(
@@ -103,6 +132,28 @@ export class TabNavigationComponent {
 
   trackByLabel(index: number, button: ButtonData) {
     return button.label;
+  }
+
+  changeLastPartOfUrl(newLastSegment: string) {
+    // Extract the current URL segments.
+    this.route.url.subscribe((segments: UrlSegment[]) => {
+      const pathSegments = segments.map(s => s.path);
+
+      if (pathSegments.length > 0) {
+        // Modify the last part of the path.
+        pathSegments[pathSegments.length - 1] = newLastSegment;
+      }
+
+      // Retain the existing query parameters.
+      const queryParams = this.route.snapshot.queryParams;
+
+      // Navigate to the new URL.
+      this.router.navigate([pathSegments.join('/')], { queryParams: queryParams }).then(success => {
+        if (!success) {
+          console.error('Navigation failed!');
+        }
+      });
+    });
   }
 }
 

@@ -24,8 +24,12 @@ import { RouterLinkWithHref } from '@angular/router';
 export class TabButtonComponent {
   @Input() label: string;
   @Input() count: number;
-  @Input() route: string;
+
+  @Input() routerLink: string;
+  @Input() queryParams: any;
+
   @Input() active = false;
+  @Input() disabled = false;
 
   countOps = {
     duration: 0.5,
