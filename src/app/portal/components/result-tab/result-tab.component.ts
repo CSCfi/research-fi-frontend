@@ -29,7 +29,7 @@ import { WINDOW } from 'src/app/shared/services/window.service';
 import { DataService } from 'src/app/portal/services/data.service';
 
 @Component({
-  selector: 'app-result-tab',
+  selector: ' app-result-tab',
   templateUrl: './result-tab.component.html',
   styleUrls: ['./result-tab.component.scss'],
   encapsulation: ViewEncapsulation.None,
@@ -170,17 +170,17 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
               // Scroll with current index and left + width offsets
               if (
                 this.scroll.nativeElement.children[2].children[
-                  this.currentIndex + difference
-                ]
+                this.currentIndex + difference
+                  ]
               ) {
                 this.scrollToPosition(
                   this.currentIndex,
                   this.scroll.nativeElement.children[2].children[
-                    this.currentIndex + difference
-                  ].offsetLeft,
+                  this.currentIndex + difference
+                    ].offsetLeft,
                   this.scroll.nativeElement.children[2].children[
-                    this.currentIndex + difference
-                  ].offsetWidth
+                  this.currentIndex + difference
+                    ].offsetWidth
                 );
               }
             }

@@ -9,14 +9,26 @@ Copyright 2019 Ministry of Education and Culture, Finland
   <app-search-bar></app-search-bar>
 </aside>
 
-<nav>
+<!--<div>
+  {{ lessThan600$ | async | json }}
+</div>-->
+
+<ng-container *ngIf='(lessThan600$ | async) === false'>
   <app-tab-navigation></app-tab-navigation>
-</nav>
+</ng-container>
+
+<div [ngStyle]='{visibility: (lessThan600$ | async) ? "visible" : "hidden"}'>
+  <app-result-tab
+    style="width: 100%"
+    class="px-0"
+    [allData]="tabValues"
+  ></app-result-tab>
+</div>
+
 
 <div class="center-content wrapper" style="margin-top: 0">
   <div class="row g-0">
 
-    <!-- TODO: Button for navigation to the new publication search -->
     <ng-container *ngIf="tab === 'publications' && betaSearchBannerVisible">
       <div class="row py-3 px-0 ps-lg-3 mt-3 justify-content-between login-snackbar">
         <div class="row col-7 justify-content-start align-content-center">
@@ -58,7 +70,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
     <!-- MyData login in persons tab -->
     <div
       class="row py-3 px-0 ps-lg-3 mt-3 justify-content-between login-snackbar"
-      *ngIf="tab === 'persons' && mydataLoginSnackbarVisible">                                                          <!-- REMOVE TODO: Yleistetty logiikka, "tab" muuttuja kertoo valitun -->
+      *ngIf="tab === 'persons' && mydataLoginSnackbarVisible">
       <div class="row col-7 justify-content-start align-content-center">
         <div class="col-auto mx-0 gx-0">
           <fa-icon class="info-icon" icon="info-circle"></fa-icon>
@@ -85,7 +97,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
           </app-secondary-button>
         </div>
         <div class="col-auto align-self-center">
-          <div> <!-- TODO: hideMydataLoginSnackbar is technically wrong, or poorly named -->
+          <div>
           <a
             tabindex="0"
             (click)="hideMydataLoginSnackbar()"
