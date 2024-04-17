@@ -24,6 +24,8 @@ import { DOCUMENT } from '@angular/common';
   styleUrls: ['./single-funding-call.component.scss'],
 })
 export class SingleFundingCallComponent implements OnInit {
+  newUiToggle = false;
+
   public singleId: any;
   responseData: Search;
   searchTerm: string;
@@ -191,7 +193,9 @@ export class SingleFundingCallComponent implements OnInit {
     this.dataSub = this.singleService.getSingleFundingCall(id).subscribe({
       next: (responseData) => {
         this.responseData = responseData;
+
         const fundingCall = this.responseData.fundingCalls[0];
+
         if (fundingCall) {
           this.addTopLevelScienceAreas(fundingCall);
           switch (this.localeId) {
