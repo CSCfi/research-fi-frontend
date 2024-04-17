@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TabButtonComponent } from '@portal/components/tab-button/tab-button.component';
 import { BehaviorSubject, combineLatest, Observable, startWith } from 'rxjs';
@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@shared/services/app-config-service.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { SearchService } from '@portal/services/search.service';
-import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 type IndexCounts = { [index: string]: number };
 type ButtonData = { label: string, icon: string, route: string, count: number, active: boolean, disabled?: boolean};
@@ -26,6 +26,13 @@ export class TabNavigationComponent {
 
   route = inject(ActivatedRoute);
   router = inject(Router);
+
+  // Experimental
+  // scroll: ElementRef;
+
+  // TODO: Get "#scroll" div element from the template
+  @ViewChild('scroll') scroll: ElementRef;
+
 
   url = this.appConfigService.apiUrl + "publication,person,funding,dataset,funding-call,infrastructure,organization/_search?request_cache=true";
 
@@ -134,27 +141,75 @@ export class TabNavigationComponent {
     return button.label;
   }
 
-  changeLastPartOfUrl(newLastSegment: string) {
-    // Extract the current URL segments.
-    this.route.url.subscribe((segments: UrlSegment[]) => {
-      const pathSegments = segments.map(s => s.path);
+  scrollLeft() {
+    // this.disableScroll(false);
+    /*this.scroll.nativeElement.scrollLeft -= Math.max(
+      150,
+      1 + this.scrollWidth / 4
+    );*/
 
-      if (pathSegments.length > 0) {
-        // Modify the last part of the path.
-        pathSegments[pathSegments.length - 1] = newLastSegment;
-      }
+    // this.scroll.nativeElement.scrollLeft -= 150;
 
-      // Retain the existing query parameters.
-      const queryParams = this.route.snapshot.queryParams;
+    /*this.scroll.nativeElement.scrollTo({
+      left: this.scroll.nativeElement.scrollLeft - 150,
+      behavior: 'smooth'
+    });*/
 
-      // Navigate to the new URL.
-      this.router.navigate([pathSegments.join('/')], { queryParams: queryParams }).then(success => {
-        if (!success) {
-          console.error('Navigation failed!');
-        }
-      });
+    // Scroll 25% of the width of the scroll element
+    this.scroll.nativeElement.scrollTo({
+      left: this.scroll.nativeElement.scrollLeft - this.scroll.nativeElement.scrollWidth / 4,
+      behavior: 'smooth'
     });
   }
+
+  scrollRight() {
+    // this.disableScroll(false);
+    /*this.scroll.nativeElement.scrollLeft += Math.max(
+      150,
+      1 + this.scrollWidth / 4
+    );*/
+
+    // this.scroll.nativeElement.scrollLeft += 150;
+
+    /*this.scroll.nativeElement.scrollTo({
+      left: this.scroll.nativeElement.scrollLeft + 150,
+      behavior: 'smooth'
+    });*/
+
+    // Scroll 25% of the width of the scroll element
+    this.scroll.nativeElement.scrollTo({
+      left: this.scroll.nativeElement.scrollLeft + this.scroll.nativeElement.scrollWidth / 4,
+      behavior: 'smooth'
+    });
+  }
+
+  // Snippet to serve as an example
+  /*
+  scrollToElement(id: string) {
+    const element = document.getElementById(id);
+    const scrollableElement = document.querySelector('.scrollmenu');
+    if (element && scrollableElement) {
+        const elementRect = element.getBoundingClientRect();
+        const absoluteElementTop = elementRect.top + window.pageYOffset;
+        const middle = absoluteElementTop - (window.innerHeight / 2);
+        scrollableElement.scrollTo({ top: middle, behavior: 'smooth' });
+    }
+  }
+  */
+
+  // Scroll to the Nth element, elements are not queriable but all are 180px with a 10px margin
+  scrollTo(index: number) {
+    const elementWidth = 180;
+    const margin = 10;
+    const scrollWidth = elementWidth + margin;
+    const scrollLeft = index * scrollWidth;
+
+    this.scroll.nativeElement.scrollTo({
+      left: scrollLeft,
+      behavior: 'smooth'
+    });
+  }
+
 }
 
 function payloadWithoutKeywords() {

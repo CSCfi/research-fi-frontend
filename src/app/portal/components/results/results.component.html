@@ -13,11 +13,12 @@ Copyright 2019 Ministry of Education and Culture, Finland
   {{ lessThan600$ | async | json }}
 </div>-->
 
-<ng-container *ngIf='(lessThan600$ | async) === false'>
+<!--<ng-container *ngIf='(lessThan600$ | async) === false'>-->
   <app-tab-navigation></app-tab-navigation>
-</ng-container>
+<!--</ng-container>-->
 
-<div [ngStyle]='{visibility: (lessThan600$ | async) ? "visible" : "hidden"}'>
+<!--  [ngStyle]='{visibility: (lessThan600$ | async) ? "visible" : "hidden"}' -->
+<div>
   <app-result-tab
     style="width: 100%"
     class="px-0"

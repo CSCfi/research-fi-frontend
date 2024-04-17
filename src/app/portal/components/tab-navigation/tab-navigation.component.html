@@ -49,6 +49,35 @@
 </ng-container>
 
 
+<div style='display: flex'>
+  <button (click)='scrollTo(0)'>0</button>
+  <button (click)='scrollTo(1)'>1</button>
+  <button (click)='scrollTo(2)'>2</button>
+  <button (click)='scrollTo(3)'>3</button>
+  <button (click)='scrollTo(4)'>4</button>
+  <button (click)='scrollTo(5)'>5</button>
+  <button (click)='scrollTo(6)'>6</button>
+  <button (click)='scrollTo(7)'>7</button>
+  <button (click)='scrollTo(8)'>8</button>
+</div>
+
+<div style='display: flex'>
+  <button (click)='scrollLeft()'>LEFT</button>
+  <button (click)='scrollRight()'>RIGHT</button>
+</div>
+
+<div class='scrollmenu' #scroll>
+
+  <ng-container *ngIf='defaultOrderButtons$ | async as buttons'>
+    <ng-container *ngFor='let button of buttons; trackBy: trackByLabel'>
+      <div class='nav-btn' [class.active]='button.active' [class.not-active]='!button.active' [class.disabled]='button.disabled'>
+        {{ button.label }} <br> {{ button.count }}
+      </div>
+    </ng-container>
+  </ng-container>
+
+</div>
+
 
 
 
