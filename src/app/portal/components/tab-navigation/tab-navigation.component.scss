@@ -47,8 +47,15 @@
 
 /********************************/
 
-/* scrollable-navigation.component.css */
-.scrollmenu {
+.scroll-wrapper {
+  position: relative; /* Contains the absolute positioning of the buttons */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 100%;
+}
+
+.scroll-menu {
   overflow-x: auto;
   white-space: nowrap;
   scroll-snap-type: x mandatory;  /* Setting up horizontal snapping */
@@ -67,9 +74,11 @@
   }*/
 
   scrollbar-width: none;
+
+  // position: relative;
 }
 
-.nav-btn {
+.nav-btn222 {
   display: inline-block;
   padding: 10px 20px;
   // margin-right: 10px;
@@ -111,27 +120,63 @@
   cursor: not-allowed;
 }
 
-/*.button-content {
+.left-btn, .right-btn {
+  position: absolute;
+  bottom: 0;
+  z-index: 9;
+}
+
+.left-btn {
+  left: 8px;
+  bottom: 8px;
+}
+
+.right-btn {
+  right: 8px;
+  bottom: 8px;
+}
+
+.left-gradient-container {
+  position: absolute;
+  z-index: 10;
+  width: 75px;
+  height: 95px;
+  left: 0;
+  background: linear-gradient(to right, rgb(255, 255, 255), rgba(255, 255, 255, 0));
+}
+
+.right-gradient-container {
+  position: absolute;
+  z-index: 10;
+  width: 50px;
+  height: 95px;
+  right: 0;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), rgb(255, 255, 255));
+}
+
+.nav-arrow {
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  flex: 0 0 50px;
+
+  margin-top: 40px;
+
+  border-radius: 50%;
+  box-shadow: 1px 3px 3px;
+
+  background-color: #4546b9;
+  color: white;
+
+  font-size: 2em;
+  text-align: center;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
-}*/
 
-/* Optional: Styling the scrollbar for aesthetics */
-/*.scrollmenu::-webkit-scrollbar {
-  height: 8px;
+  fa-icon {
+    display: block;
+    margin-top: 2px;
+    margin-left: 1px;
+  }
 }
-
-.scrollmenu::-webkit-scrollbar-track {
-  background-color: #f0f0f0;
-}
-
-.scrollmenu::-webkit-scrollbar-thumb {
-  background-color: #888;
-}
-
-.scrollmenu::-webkit-scrollbar-thumb:hover {
-  background-color: #555;
-}*/

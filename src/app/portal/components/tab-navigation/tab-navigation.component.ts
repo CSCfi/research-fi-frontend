@@ -1,25 +1,30 @@
-import { Component, ElementRef, inject, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TabButtonComponent } from '@portal/components/tab-button/tab-button.component';
-import { BehaviorSubject, combineLatest, Observable, startWith } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, fromEvent, Observable, startWith } from 'rxjs';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@shared/services/app-config-service.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { SearchService } from '@portal/services/search.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TabNavigationButtonComponent } from '@portal/components/tab-navigation-button/tab-navigation-button.component';
 
 type IndexCounts = { [index: string]: number };
 type ButtonData = { label: string, icon: string, route: string, count: number, active: boolean, disabled?: boolean};
 
+const EPSILON = 1;
+
 @Component({
   selector: 'app-tab-navigation',
   standalone: true,
-  imports: [CommonModule, TabButtonComponent],
+  imports: [CommonModule, TabButtonComponent, FontAwesomeModule, RouterLink, TabNavigationButtonComponent],
   templateUrl: './tab-navigation.component.html',
   styleUrls: ['./tab-navigation.component.scss']
 })
-export class TabNavigationComponent {
+export class TabNavigationComponent implements AfterViewInit {
   http = inject(HttpClient);
   breakpointObserver = inject(BreakpointObserver);
   appConfigService = inject(AppConfigService);
@@ -28,11 +33,45 @@ export class TabNavigationComponent {
   router = inject(Router);
 
   // Experimental
-  // scroll: ElementRef;
-
-  // TODO: Get "#scroll" div element from the template
   @ViewChild('scroll') scroll: ElementRef;
+  // scrollPosition$: Observable<number>;
+  scrollAtStart$: Observable<boolean>;
+  scrollAtEnd$: Observable<boolean>;
 
+  // resizeObservable$: Observable<ResizeObserverEntry[]>;
+
+  ngAfterViewInit() {
+    const resizeObservable$: Observable<ResizeObserverEntry[]> = new Observable(subscriber => {
+      const resizeObserver = new ResizeObserver((entries) => { subscriber.next(entries); });
+      
+      resizeObserver.observe(this.scroll.nativeElement);
+      return () => resizeObserver.disconnect();
+    });
+
+    const scrollPosition$ = fromEvent(this.scroll.nativeElement, 'scroll').pipe(
+      map((event: Event) => (event.target as HTMLElement).scrollLeft),
+      startWith(0)
+    );
+
+    const scrollPositionFiringFromParentSize$ = combineLatest([scrollPosition$, resizeObservable$]).pipe(
+      map( ([scrollLeft]) => scrollLeft )
+    );
+
+    this.scrollAtStart$ = scrollPositionFiringFromParentSize$.pipe(map(scrollLeft => scrollLeft === 0));
+
+    this.scrollAtEnd$ = scrollPositionFiringFromParentSize$.pipe(
+      tap((scrollLeft) => { console.log(this.scroll.nativeElement.scrollWidth, this.scroll.nativeElement.clientWidth, scrollLeft, this.scroll.nativeElement.scrollWidth - this.scroll.nativeElement.clientWidth - scrollLeft); }),
+      map(scrollLeft => Math.abs(this.scroll.nativeElement.scrollWidth - this.scroll.nativeElement.clientWidth - scrollLeft) <= EPSILON),
+      map(isNearEnd => isNearEnd)
+    );
+
+    this.defaultOrderButtons$.pipe(map(buttons => buttons.findIndex(button => button.active)), take(1)).subscribe(index => {
+      this.scrollTo(index)
+    });
+  }
+
+  faArrowLeft = faArrowLeft;
+  faArrowRight = faArrowRight;
 
   url = this.appConfigService.apiUrl + "publication,person,funding,dataset,funding-call,infrastructure,organization/_search?request_cache=true";
 
@@ -50,8 +89,7 @@ export class TabNavigationComponent {
   input$ = this.route.params.pipe(map(params => params["input"]))
   tab$ = this.route.params.pipe(map(params => params["tab"]))
 
-  // Just the "size" (of the page) of the query parameters is needed
-  queryParams$ = this.route.queryParams.pipe(
+  pageSizeParams$ = this.route.queryParams.pipe(
     map(queryParams => ({ size: queryParams.size }))
   );
 
@@ -122,11 +160,13 @@ export class TabNavigationComponent {
   );
 
   isActiveVisible$ = combineLatest([this.activeButton$, this.slicedButtons$]).pipe(
-    // See inclusion based on the label field
-    map(([active, buttons]) => buttons.map(b => b.label).includes(active.label))
+    map(([active, buttons]) => {
+      if (active == null) {
+        return false;
+      }
 
-    // Compare button against buttons
-    // map(([active, buttons]) => buttons.includes(active))
+      return buttons.map(b => b.label).includes(active.label)
+    })
   );
 
   isDesktop$ = this.breakpointObserver.observe(['(min-width: 1200px)']).pipe(
@@ -142,20 +182,6 @@ export class TabNavigationComponent {
   }
 
   scrollLeft() {
-    // this.disableScroll(false);
-    /*this.scroll.nativeElement.scrollLeft -= Math.max(
-      150,
-      1 + this.scrollWidth / 4
-    );*/
-
-    // this.scroll.nativeElement.scrollLeft -= 150;
-
-    /*this.scroll.nativeElement.scrollTo({
-      left: this.scroll.nativeElement.scrollLeft - 150,
-      behavior: 'smooth'
-    });*/
-
-    // Scroll 25% of the width of the scroll element
     this.scroll.nativeElement.scrollTo({
       left: this.scroll.nativeElement.scrollLeft - this.scroll.nativeElement.scrollWidth / 4,
       behavior: 'smooth'
@@ -163,53 +189,27 @@ export class TabNavigationComponent {
   }
 
   scrollRight() {
-    // this.disableScroll(false);
-    /*this.scroll.nativeElement.scrollLeft += Math.max(
-      150,
-      1 + this.scrollWidth / 4
-    );*/
-
-    // this.scroll.nativeElement.scrollLeft += 150;
-
-    /*this.scroll.nativeElement.scrollTo({
-      left: this.scroll.nativeElement.scrollLeft + 150,
-      behavior: 'smooth'
-    });*/
-
-    // Scroll 25% of the width of the scroll element
     this.scroll.nativeElement.scrollTo({
       left: this.scroll.nativeElement.scrollLeft + this.scroll.nativeElement.scrollWidth / 4,
       behavior: 'smooth'
     });
   }
 
-  // Snippet to serve as an example
-  /*
-  scrollToElement(id: string) {
-    const element = document.getElementById(id);
-    const scrollableElement = document.querySelector('.scrollmenu');
-    if (element && scrollableElement) {
-        const elementRect = element.getBoundingClientRect();
-        const absoluteElementTop = elementRect.top + window.pageYOffset;
-        const middle = absoluteElementTop - (window.innerHeight / 2);
-        scrollableElement.scrollTo({ top: middle, behavior: 'smooth' });
-    }
-  }
-  */
-
-  // Scroll to the Nth element, elements are not queriable but all are 180px with a 10px margin
   scrollTo(index: number) {
     const elementWidth = 180;
     const margin = 10;
     const scrollWidth = elementWidth + margin;
+
     const scrollLeft = index * scrollWidth;
+
+    // const customOffset = -150;
+    // const scrollLeft = index * scrollWidth + customOffset;
 
     this.scroll.nativeElement.scrollTo({
       left: scrollLeft,
       behavior: 'smooth'
     });
   }
-
 }
 
 function payloadWithoutKeywords() {

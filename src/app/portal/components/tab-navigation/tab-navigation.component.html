@@ -9,7 +9,7 @@
                       [active]='button.active'
                       [disabled]='button.disabled'
                       [routerLink]='button.route + "/" + ((input$ | async) ?? "")'
-                      [queryParams]='queryParams$ | async'>
+                      [queryParams]='pageSizeParams$ | async'>
       </app-tab-button>
 
     </ng-container>
@@ -24,7 +24,7 @@
                       [active]='button.active'
                       [disabled]='button.disabled'
                       [routerLink]='button.route + "/" + ((input$ | async) ?? "")'
-                      [queryParams]='queryParams$ | async'>
+                      [queryParams]='pageSizeParams$ | async'>
       </app-tab-button>
 
     </ng-container>
@@ -48,35 +48,47 @@
   </ng-container>
 </ng-container>
 
+<div> {{ scrollAtStart$ | async }} {{ scrollAtEnd$ | async }}</div>
 
-<div style='display: flex'>
-  <button (click)='scrollTo(0)'>0</button>
-  <button (click)='scrollTo(1)'>1</button>
-  <button (click)='scrollTo(2)'>2</button>
-  <button (click)='scrollTo(3)'>3</button>
-  <button (click)='scrollTo(4)'>4</button>
-  <button (click)='scrollTo(5)'>5</button>
-  <button (click)='scrollTo(6)'>6</button>
-  <button (click)='scrollTo(7)'>7</button>
-  <button (click)='scrollTo(8)'>8</button>
-</div>
+<div class='scroll-wrapper'>
 
-<div style='display: flex'>
-  <button (click)='scrollLeft()'>LEFT</button>
-  <button (click)='scrollRight()'>RIGHT</button>
-</div>
+  <div class='left-btn left-gradient-container' [style.visibility]='(scrollAtStart$ | async) === false ? "visible" : "hidden"' (click)='scrollLeft()'>
+    <div class='nav-arrow'>
+      <fa-icon [icon]="faArrowLeft"></fa-icon>
+    </div>
+  </div>
 
-<div class='scrollmenu' #scroll>
+  <div class='right-btn right-gradient-container' [style.visibility]='(scrollAtEnd$ | async) === false ? "visible" : "hidden"' (click)='scrollRight()'>
+    <div class='nav-arrow'>
+      <fa-icon [icon]="faArrowRight"></fa-icon>
+    </div>
+  </div>
 
-  <ng-container *ngIf='defaultOrderButtons$ | async as buttons'>
-    <ng-container *ngFor='let button of buttons; trackBy: trackByLabel'>
-      <div class='nav-btn' [class.active]='button.active' [class.not-active]='!button.active' [class.disabled]='button.disabled'>
-        {{ button.label }} <br> {{ button.count }}
-      </div>
+  <div class='scroll-menu' #scroll>
+
+    <ng-container *ngIf='defaultOrderButtons$ | async as buttons'>
+      <ng-container *ngFor='let button of buttons; trackBy: trackByLabel'>
+
+        <!--<div class='nav-btn222' [class.active]='button.active' [class.not-active]='!button.active' [class.disabled]='button.disabled'>
+          {{ button.label }} <br> {{ button.count }}
+        </div>-->
+
+        <app-tab-navigation-button [label]='button.label'
+                                   [count]='button.count'
+                                   [active]='button.active'
+                                   [disabled]='button.disabled'
+                                   [routerLink]='button.route + "/" + ((input$ | async) ?? "")'
+                                   [queryParams]='pageSizeParams$ | async'>
+        </app-tab-navigation-button>
+      </ng-container>
     </ng-container>
-  </ng-container>
+
+  </div>
 
 </div>
+
+
+
 
 
 
