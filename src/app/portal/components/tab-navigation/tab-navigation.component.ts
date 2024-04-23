@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, inject, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, Input, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TabButtonComponent } from '@portal/components/tab-button/tab-button.component';
 import { BehaviorSubject, combineLatest, fromEvent, Observable, startWith } from 'rxjs';
@@ -25,6 +25,8 @@ const EPSILON = 1;
   styleUrls: ['./tab-navigation.component.scss']
 })
 export class TabNavigationComponent implements AfterViewInit {
+  @Input() homepage = false;
+
   http = inject(HttpClient);
   breakpointObserver = inject(BreakpointObserver);
   appConfigService = inject(AppConfigService);
@@ -32,21 +34,13 @@ export class TabNavigationComponent implements AfterViewInit {
   route = inject(ActivatedRoute);
   router = inject(Router);
 
-  // Experimental
   @ViewChild('scroll') scroll: ElementRef;
-  // scrollPosition$: Observable<number>;
+
   scrollAtStart$: Observable<boolean>;
   scrollAtEnd$: Observable<boolean>;
 
-  // resizeObservable$: Observable<ResizeObserverEntry[]>;
-
   ngAfterViewInit() {
-    const resizeObservable$: Observable<ResizeObserverEntry[]> = new Observable(subscriber => {
-      const resizeObserver = new ResizeObserver((entries) => { subscriber.next(entries); });
-      
-      resizeObserver.observe(this.scroll.nativeElement);
-      return () => resizeObserver.disconnect();
-    });
+    const resizeObservable$ = createResizeObservable(this.scroll.nativeElement);
 
     const scrollPosition$ = fromEvent(this.scroll.nativeElement, 'scroll').pipe(
       map((event: Event) => (event.target as HTMLElement).scrollLeft),
@@ -60,7 +54,6 @@ export class TabNavigationComponent implements AfterViewInit {
     this.scrollAtStart$ = scrollPositionFiringFromParentSize$.pipe(map(scrollLeft => scrollLeft === 0));
 
     this.scrollAtEnd$ = scrollPositionFiringFromParentSize$.pipe(
-      tap((scrollLeft) => { console.log(this.scroll.nativeElement.scrollWidth, this.scroll.nativeElement.clientWidth, scrollLeft, this.scroll.nativeElement.scrollWidth - this.scroll.nativeElement.clientWidth - scrollLeft); }),
       map(scrollLeft => Math.abs(this.scroll.nativeElement.scrollWidth - this.scroll.nativeElement.clientWidth - scrollLeft) <= EPSILON),
       map(isNearEnd => isNearEnd)
     );
@@ -169,7 +162,11 @@ export class TabNavigationComponent implements AfterViewInit {
     })
   );
 
-  isDesktop$ = this.breakpointObserver.observe(['(min-width: 1200px)']).pipe(
+  moreThan1200$ = this.breakpointObserver.observe(['(min-width: 1200px)']).pipe(
+    map(result => result.matches)
+  );
+
+  moreThan900$ = this.breakpointObserver.observe(['(min-width: 900px)']).pipe(
     map(result => result.matches)
   );
 
@@ -210,6 +207,15 @@ export class TabNavigationComponent implements AfterViewInit {
       behavior: 'smooth'
     });
   }
+}
+
+function createResizeObservable(element: HTMLElement): Observable<ResizeObserverEntry[]> {
+  return new Observable(subscriber => {
+    const resizeObserver = new ResizeObserver((entries) => { subscriber.next(entries); });
+
+    resizeObserver.observe(element);
+    return () => resizeObserver.disconnect();
+  });
 }
 
 function payloadWithoutKeywords() {

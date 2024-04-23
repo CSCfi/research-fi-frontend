@@ -5,7 +5,7 @@
   justify-content: center;
   align-items: center;
 
-  padding: 20px 10px 15px 10px;
+  padding: 0 10px 10px 10px;
 
   width: 100%;
 
@@ -21,6 +21,8 @@
   grid-row-gap: 7px;
 
   width: 100%;
+
+  margin-top: 1.5rem;
 
   @media (min-width: 900px) {
     grid-template-columns: repeat(3, 1fr);
@@ -59,7 +61,7 @@
   overflow-x: auto;
   white-space: nowrap;
   scroll-snap-type: x mandatory;  /* Setting up horizontal snapping */
-  padding: 10px 0;
+  padding: 10px 0 0 0;
   -webkit-overflow-scrolling: touch; /* Smooth scrolling on mobile devices */
   // border: 1px solid magenta;
 
@@ -128,12 +130,12 @@
 
 .left-btn {
   left: 8px;
-  bottom: 8px;
+  bottom: -2px;
 }
 
 .right-btn {
   right: 8px;
-  bottom: 8px;
+  bottom: -2px;
 }
 
 .left-gradient-container {
@@ -179,4 +181,15 @@
     margin-top: 2px;
     margin-left: 1px;
   }
+}
+
+.hidden {
+  position: absolute;
+  // width: 1px;
+  // height: 1px;
+  // margin: -1px;
+  // padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }

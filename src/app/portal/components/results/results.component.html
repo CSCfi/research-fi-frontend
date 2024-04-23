@@ -9,23 +9,9 @@ Copyright 2019 Ministry of Education and Culture, Finland
   <app-search-bar></app-search-bar>
 </aside>
 
-<!--<div>
-  {{ lessThan600$ | async | json }}
-</div>-->
-
-<!--<ng-container *ngIf='(lessThan600$ | async) === false'>-->
+<nav>
   <app-tab-navigation></app-tab-navigation>
-<!--</ng-container>-->
-
-<!--  [ngStyle]='{visibility: (lessThan600$ | async) ? "visible" : "hidden"}' -->
-<div>
-  <app-result-tab
-    style="width: 100%"
-    class="px-0"
-    [allData]="tabValues"
-  ></app-result-tab>
-</div>
-
+</nav>
 
 <div class="center-content wrapper" style="margin-top: 0">
   <div class="row g-0">
