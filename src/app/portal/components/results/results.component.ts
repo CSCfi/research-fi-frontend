@@ -236,6 +236,10 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.showInfo = false;
   }
 
+  tabName$ = this.route.params.pipe(
+    map((params) => params.tab)
+  );
+
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)){
       if (sessionStorage.getItem('researchersLoginSnackbarVisible')) {

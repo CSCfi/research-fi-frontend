@@ -179,18 +179,25 @@ Copyright 2019 Ministry of Education and Culture, Finland
         </div>
 
         <div class="col-auto text-end d-none d-lg-block ps-4 pe-0">
-          <a
-            routerLink="/service-info"
-            fragment="service-info-2"
-            class="theme-link"
-          ><strong>
-            <ng-container *ngIf="selectedTabData.singular === 'Rahoitushaku'" i18n="@@fundingCallsIncluded">
-              Mitä rahoitushakutietoja palvelu sisältää?
-            </ng-container>
+          <a routerLink="/service-info" fragment="service-info-2" class="theme-link">
+            <strong>
+              <ng-container [ngSwitch]="tabName$ | async">
 
-              <ng-container *ngIf="selectedTabData.singular !== 'Rahoitushaku'" i18n="@@resultInfo1">Mitä</ng-container>
-                      <span *ngIf="selectedTabData.singular !== 'Rahoitushaku'"> {{ selectedTabData?.singular.toLowerCase() }}</span>
-              <ng-container *ngIf="selectedTabData.singular !== 'Rahoitushaku'" i18n="@@resultInfo2">tietoja palvelu sisältää?</ng-container>
+                <ng-container *ngSwitchCase="'funding-calls'" i18n="@@fundingCallsIncluded">
+                  Mitä rahoitushakutietoja palvelu sisältää?
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'fundings'" i18n="@@fundingsDataDisclaimerLink">
+                  Mitä rahoitusmyöntöjen tietoja palvelu sisältää?
+                </ng-container>
+
+                <ng-container *ngSwitchDefault>
+                  <ng-container i18n="@@resultInfo1">Mitä</ng-container>
+                  <span> {{ selectedTabData?.singular.toLowerCase() }}</span>
+                  <ng-container i18n="@@resultInfo2">tietoja palvelu sisältää?</ng-container>
+                </ng-container>
+
+            </ng-container>
             </strong>
           </a>
         </div>

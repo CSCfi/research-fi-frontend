@@ -150,6 +150,8 @@
           "options": {
             "buildTarget": "research-fi:build",
             "format": "xlf",
+            "includeContext": false,
+            "sort": "stableAppendNew",
             "outputPath": "src/i18n",
             "targetFiles": [
               "messages.en.xlf",
@@ -220,22 +222,6 @@
             }
           },
           "defaultConfiguration": ""
-        },
-        "xliffmerge": {
-          "builder": "@ngx-i18nsupport/tooling:xliffmerge",
-          "options": {
-            "xliffmergeOptions": {
-              "i18nFormat": "xlf",
-              "srcDir": "src/i18n",
-              "genDir": "src/i18n",
-              "defaultLanguage": "fi",
-              "languages": [
-                "fi",
-                "sv",
-                "en"
-              ]
-            }
-          }
         }
       }
     },

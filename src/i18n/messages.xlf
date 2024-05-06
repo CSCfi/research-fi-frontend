@@ -1113,7 +1113,7 @@
         <source> Hankkeiden tiedon ikoni</source>
       </trans-unit>
       <trans-unit id="fundingName" datatype="html">
-        <source>Hankkeen nimi</source>
+        <source>Myönnetty rahoitus</source>
       </trans-unit>
       <trans-unit id="fundingFunded" datatype="html">
         <source>Saaja</source>
@@ -1581,7 +1581,7 @@
         <source>Sektori (A-Ö)</source>
       </trans-unit>
       <trans-unit id="fundingDescription" datatype="html">
-        <source>Hankkeen kuvaus</source>
+        <source>Rahoitetun hankkeen kuvaus</source>
       </trans-unit>
       <trans-unit id="descriptionNotAvailable" datatype="html">
         <source>Kuvausta ei saatavilla.</source>
@@ -1900,19 +1900,19 @@
         <source> Muut tiedot </source>
       </trans-unit>
       <trans-unit id="fundingHomePage" datatype="html">
-        <source>Hankkeen verkkosivu</source>
+        <source>Myöntöön liittyvä verkkosivu</source>
       </trans-unit>
       <trans-unit id="noFundingLinks" datatype="html">
-        <source> Hankkeeseen ei ole tarjolla linkkejä tässä portaalissa </source>
+        <source> Rahoitusmyöntöön ei ole tarjolla linkkejä tässä portaalissa </source>
       </trans-unit>
       <trans-unit id="relatedFundings" datatype="html">
-        <source>Hae hankkeeseen liittyvät </source>
+        <source>Hae hankkeeseen liittyvät (tulossa)</source>
       </trans-unit>
       <trans-unit id="share" datatype="html">
         <source>Jaa</source>
       </trans-unit>
       <trans-unit id="fundingSource" datatype="html">
-        <source>Hanketiedon lähde</source>
+        <source>Rahoitustiedon lähde</source>
       </trans-unit>
       <trans-unit id="noInformationSource" datatype="html">
         <source> Tiedon lähde ei saatavilla. </source>
@@ -1920,11 +1920,8 @@
       <trans-unit id="9202070759244622574" datatype="html">
         <source>Akronyymi</source>
       </trans-unit>
-      <trans-unit id="2316103457117210615" datatype="html">
-        <source>Hankkeen kuvaus</source>
-      </trans-unit>
       <trans-unit id="sfDescriptionTooltip" datatype="html">
-        <source>Kuvaus kertoo tiiviisti hankkeen tavoitteesta</source>
+        <source>Kuvaus kertoo tiiviisti tavoitteista.</source>
       </trans-unit>
       <trans-unit id="8647421993794321964" datatype="html">
         <source>Aloitusvuosi</source>
@@ -1945,7 +1942,7 @@
         <source>Puiteohjelma</source>
       </trans-unit>
       <trans-unit id="fieldOfScienceTooltip" datatype="html">
-        <source>Tilastokeskuksen tieteenalaluokitus. Yhteen hankkeeseen voi liittyä useita tieteenaloja. Kaikki rahoittajat eivät käytä tieteenalaluokitusta.</source>
+        <source>Tilastokeskuksen tieteenalaluokitus. Yhteen rahoitusmyöntöön voi liittyä useita tieteenaloja. Kaikki rahoittajat eivät käytä tieteenaloja.</source>
       </trans-unit>
       <trans-unit id="5693158486934642346" datatype="html">
         <source>Tutkimusalat</source>
@@ -1960,13 +1957,13 @@
         <source>Tunnistetut aiheet</source>
       </trans-unit>
       <trans-unit id="identifiedTopicsTooltip" datatype="html">
-        <source>Koneoppimisen avulla hankkeiden tiedoista tutkimustietovarannossa muodostettu aiheluokittelu. Hanke liittyy aiheeseen, jota se todennäköisimmin käsittelee. Kaikista hankkeista ei ole riittävästi tietoa aiheen päättelyyn.</source>
+        <source>Koneoppimisen avulla myönnettyjen rahoitusten tiedoista tutkimustietovarannossa muodostettu aiheluokittelu. Rahoitusmyöntö liittyy aiheeseen, jota se todennäköisimmin käsittelee. Kaikista rahoitusmyönnöistä ei ole riittävästi tietoa aiheen päättelyyn.</source>
       </trans-unit>
       <trans-unit id="4073996987769162370" datatype="html">
         <source>Rahoituksen saaja voi olla henkilö tai organisaatio. Usein saajaksi mainittu henkilö on vastuullinen tutkija, joka ei itse käytä myönnettyä rahoitusta vaan sillä katetaan hankkeen kustannuksia.</source>
       </trans-unit>
       <trans-unit id="fundingAmountTooltip" datatype="html">
-        <source>Rahoittajan hankkeelle myöntämä yhteissumma. Summa ei sisällä hankkeen kaikkia kustannuksia. Organisaatio, jossa hanke toteutetaan, voi rahoittaa siitä tietyn osan (ns. omarahoitusosuus) ja hankkeella voi olla muitakin rahoittajia.</source>
+        <source>Rahoittajan myöntämä yhteissumma. Summa ei sisällä hankkeen kaikkia kustannuksia. Organisaatio, jossa hanke toteutetaan, voi rahoittaa siitä tietyn osan (ns. omarahoitusosuus) ja hankkeella voi olla muitakin rahoittajia.</source>
       </trans-unit>
       <trans-unit id="relatedFundingTooltip" datatype="html">
         <source>Rahoituspäätökseen liittyvät muut päätökset, kuten esimerkiksi samalle hankkeelle myönnetty tutkimuskulurahoitus. Sisältää tiedot liittyvän päätöksen tunnisteesta, rahoitusmuodosta, aloitusvuodesta sekä myönnetyn rahoituksen määrästä.</source>
@@ -1975,10 +1972,10 @@
         <source>Tutkimusrahoittaja, joka on myöntänyt rahoituksen. Kaikki tiedejatutkimus.fi ‑palveluun tietoja toimittavat tutkimusrahoittajat ovat organisaatiot-osiossa.</source>
       </trans-unit>
       <trans-unit id="sfCallProgrammeTooltip" datatype="html">
-        <source>Rahoittajan haku, josta rahoitus on myönnetty. Kilpailtu tutkimusrahoitus myönnetään usein avoimien hakujen kautta, joissa rahoituksen myöntämisen perusteena ovat ennalta määrätyt kriteerit. Hakemukset arvioidaan ja rahoitus myönnetään kriteerien ja muiden tavoitteiden perusteella parhaiksi katsotuille hakemuksille.</source>
+        <source>Rahoittajan haku, josta rahoitus on myönnetty. Kilpailtu tutkimusrahoitus myönnetään usein avoimien hakujen kautta, joissa rahoituksen myöntämisen perusteena ovat ennalta määrätyt kriteerit. Hakemukset arvioidaan ja rahoitus myönnetään kriteerien ja muiden tavoitteiden perusteella parhaiksi katsotuille hakemuksille</source>
       </trans-unit>
-      <trans-unit id="6587616297300188756" datatype="html">
-        <source>Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa.</source>
+      <trans-unit id="1565148669960905628" datatype="html">
+        <source>Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa myönnetystä rahoituksesta on tarkempaa tietoa.</source>
       </trans-unit>
       <trans-unit id="infraServices" datatype="html">
         <source>Tutkimusinfrastruktuurin palvelut</source>
@@ -2524,19 +2521,19 @@
         <source>Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuotoja on ryhmitelty rahoittajittain suodattimeen, koska ne ovat usein rahoittajakohtaisia.</source>
       </trans-unit>
       <trans-unit id="fFieldsOfScienceTooltip" datatype="html">
-        <source>Tilastokeskuksen tieteenalaluokitus. Yhteen hankkeeseen voi liittyä useita tieteenaloja. Kaikki rahoittajat eivät käytä tieteenaloja. Siksi suodatinta käyttämällä ei voi selvittää jonkin tieteenalan osuutta kokonaisrahoituksesta.</source>
+        <source>Tilastokeskuksen tieteenalaluokitus. Yhteen rahoitusmyöntöön voi liittyä useita tieteenaloja. Kaikki rahoittajat eivät käytä tieteenaloja. Siksi suodatinta käyttämällä ei voi selvittää jonkin tieteenalan osuutta kokonaisrahoituksesta.</source>
       </trans-unit>
       <trans-unit id="funderTopicTooltip" datatype="html">
-        <source>Hankkeen aihetta luokittelevia valintoja. Pääosin luokittelut eivät ole kattavia ja voivat olla rahoittajakohtaisia.</source>
+        <source>Rahoitusmyönnön aihetta luokittelevia valintoja. Pääosin luokittelut eivät ole kattavia ja voivat olla rahoittajakohtaisia.</source>
       </trans-unit>
       <trans-unit id="fkeywordsTooltip" datatype="html">
-        <source>Haun rajaus hankkeen tiedoissa olevien avainsanojen perusteella.</source>
+        <source>Haun rajaus rahoitusmyönnön tiedoissa olevien avainsanojen perusteella.</source>
       </trans-unit>
       <trans-unit id="FAField" datatype="html">
         <source>Teemat</source>
       </trans-unit>
       <trans-unit id="fthemesTooltip" datatype="html">
-        <source>Osa rahoittajista järjestää haut teemojen mukaisesti. Teemat ovat tyypillisesti rahoittajakohtaisia, jolloin hakutuloksessa näkyy vain yhden rahoittajan hankkeita.</source>
+        <source>Osa rahoittajista järjestää haut teemojen mukaisesti. Teemat ovat tyypillisesti rahoittajakohtaisia, jolloin hakutuloksessa näkyy vain yhden rahoittajan myöntämiä rahoituksia.</source>
       </trans-unit>
       <trans-unit id="identifiedTopic" datatype="html">
         <source>Tunnistettu aihe</source>
@@ -2545,7 +2542,7 @@
         <source>Suomen Akatemian tutkimusalat</source>
       </trans-unit>
       <trans-unit id="fresearchFieldTooltip" datatype="html">
-        <source>Suomen Akatemian luokittelee hankkeensa myös oman tutkimusalaluokittelunsa mukaisesti. Valinta kohdistuu vain Akatemian myöntämään rahoitukseen.</source>
+        <source>Suomen Akatemia luokittelee rahoitusmyöntönsä myös oman tutkimusalaluokittelunsa mukaisesti. Valinta kohdistuu vain Akatemian myöntämään rahoitukseen.</source>
       </trans-unit>
       <trans-unit id="iYearFTooltip" datatype="html">
         <source>Tutkimusinfrastruktuurin toiminnan aloitusvuosi. Jos aloitusvuosi ei ole tiedossa, käytetään vuotta jolloin tiedot on toimitettu tiedejatutkimus.fi-palveluun.</source>
@@ -2839,7 +2836,7 @@
         <source>Suomalaiseen tutkimukseen liittyviä tutkijoita ja tutkimuksen asiantuntijoita.</source>
       </trans-unit>
       <trans-unit id="funding" datatype="html">
-        <source>hanke</source>
+        <source>myönnetty rahoitus</source>
       </trans-unit>
       <trans-unit id="fundingsTooltip" datatype="html">
         <source>Suomalaisten julkisten ja yksityisten tutkimusrahoittajien rahoituspäätöksiä siitä alkaen, kun rahoittaja on liittynyt palveluun. EU:n suomalaisille organisaatioille myöntämät rahoituspäätökset Horizon 2020 puiteohjelmasta alkaen.</source>
@@ -3011,6 +3008,18 @@
       </trans-unit>
       <trans-unit id="navigationHeaderProfile" datatype="html">
         <source>Profiili</source>
+      </trans-unit>
+      <trans-unit id="fundingsDataDisclaimerLink" datatype="html">
+        <source> Mitä rahoitusmyöntöjen tietoja palvelu sisältää? </source>
+      </trans-unit>
+      <trans-unit id="navigation.fundings" datatype="html">
+        <source>Myönnetyt rahoitukset</source>
+      </trans-unit>
+      <trans-unit id="6064019274846168031" datatype="html">
+        <source>Rahoitetun hankkeen kuvaus</source>
+      </trans-unit>
+      <trans-unit id="navigation.projects" datatype="html">
+        <source>Hankkeet</source>
       </trans-unit>
     </body>
   </file>

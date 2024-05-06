@@ -369,8 +369,8 @@
         <target>Home</target>
       </trans-unit>
       <trans-unit id="fundingName" datatype="html">
-        <source>Hankkeen nimi</source>
-        <target>Project name</target>
+        <source>Myönnetty rahoitus</source>
+        <target>Granted funding </target>
       </trans-unit>
       <trans-unit id="fundingFunder" datatype="html">
         <source>Rahoittaja</source>
@@ -413,24 +413,24 @@
         <target state="new">Other information</target>
       </trans-unit>
       <trans-unit id="fundingHomePage" datatype="html">
-        <source>Hankkeen verkkosivu</source>
-        <target>Project website</target>
+        <source>Myöntöön liittyvä verkkosivu</source>
+        <target>Website of the granted funding</target>
       </trans-unit>
       <trans-unit id="noFundingLinks" datatype="html">
-        <source> Hankkeeseen ei ole tarjolla linkkejä tässä portaalissa </source>
-        <target state="new">Project has no links available in this portal</target>
+        <source> Rahoitusmyöntöön ei ole tarjolla linkkejä tässä portaalissa </source>
+        <target> Granted funding has no links available in this portal </target>
       </trans-unit>
       <trans-unit id="relatedFundings" datatype="html">
-        <source>Hae hankkeeseen liittyvät </source>
-        <target state="new">Related to this project</target>
+        <source>Hae hankkeeseen liittyvät (tulossa)</source>
+        <target>Related to this funding (Coming soon)</target>
       </trans-unit>
       <trans-unit id="share" datatype="html">
         <source>Jaa</source>
         <target>Share</target>
       </trans-unit>
       <trans-unit id="fundingSource" datatype="html">
-        <source>Hanketiedon lähde</source>
-        <target>Source of project information</target>
+        <source>Rahoitustiedon lähde</source>
+        <target>Source of the granted funding </target>
       </trans-unit>
       <trans-unit id="noInformationSource" datatype="html">
         <source> Tiedon lähde ei saatavilla. </source>
@@ -609,8 +609,8 @@
         <target>No infrastructures</target>
       </trans-unit>
       <trans-unit id="fundingDescription" datatype="html">
-        <source>Hankkeen kuvaus</source>
-        <target>Project description</target>
+        <source>Rahoitetun hankkeen kuvaus</source>
+        <target>Description of the granted funding</target>
       </trans-unit>
       <trans-unit id="description" datatype="html">
         <source>Kuvaus</source>
@@ -1535,10 +1535,6 @@
         <source>Akronyymi</source>
         <target>Acronym</target>
       </trans-unit>
-      <trans-unit id="2316103457117210615" datatype="html">
-        <source>Hankkeen kuvaus</source>
-        <target>Project description</target>
-      </trans-unit>
       <trans-unit id="8647421993794321964" datatype="html">
         <source>Aloitusvuosi</source>
         <target>Starting year</target>
@@ -1616,8 +1612,8 @@
         <target>Links</target>
       </trans-unit>
       <trans-unit id="sfDescriptionTooltip" datatype="html">
-        <source>Kuvaus kertoo tiiviisti hankkeen tavoitteesta</source>
-        <target>Concise description of the project objective</target>
+        <source>Kuvaus kertoo tiiviisti tavoitteista.</source>
+        <target>Concise description of the grant objective</target>
       </trans-unit>
       <trans-unit id="sfStartYearTooltip" datatype="html">
         <source>Vuosi, jolle rahoitus on myönnetty. Useampivuotisissa rahoituksissa ensimmäinen vuosi.</source>
@@ -1644,32 +1640,32 @@
         <target>Identified topics</target>
       </trans-unit>
       <trans-unit id="identifiedTopicsTooltip" datatype="html">
-        <source>Koneoppimisen avulla hankkeiden tiedoista tutkimustietovarannossa muodostettu aiheluokittelu. Hanke liittyy aiheeseen, jota se todennäköisimmin käsittelee. Kaikista hankkeista ei ole riittävästi tietoa aiheen päättelyyn.</source>
-        <target>Comprehensive topic categorisation, spanning all projects in the Hub, is formed with the help of machine learning. Then each project is assigned the topic it most likely addresses. There is not enough information on all projects to identify the topic.</target>
+        <source>Koneoppimisen avulla myönnettyjen rahoitusten tiedoista tutkimustietovarannossa muodostettu aiheluokittelu. Rahoitusmyöntö liittyy aiheeseen, jota se todennäköisimmin käsittelee. Kaikista rahoitusmyönnöistä ei ole riittävästi tietoa aiheen päättelyyn.</source>
+        <target>Comprehensive topic categorisation, spanning all grants in the Hub, is formed with the help of machine learning. Then each grant is assigned the topic it most likely addresses. There is not enough information on all grants to identify the topic.</target>
       </trans-unit>
       <trans-unit id="fieldOfScienceTooltip" datatype="html">
-        <source>Tilastokeskuksen tieteenalaluokitus. Yhteen hankkeeseen voi liittyä useita tieteenaloja. Kaikki rahoittajat eivät käytä tieteenalaluokitusta.</source>
-        <target state="new">The Statistic Finland’s Field of Science classification. One grant may involve multiple fields of science. These classifications are not used by every funder.</target>
+        <source>Tilastokeskuksen tieteenalaluokitus. Yhteen rahoitusmyöntöön voi liittyä useita tieteenaloja. Kaikki rahoittajat eivät käytä tieteenaloja.</source>
+        <target>The Statistics Finland’s Fields of science classification. One grant may involve multiple fields of science. Not all funders use fields of science.</target>
       </trans-unit>
       <trans-unit id="fieldsOfResearchTooltip" datatype="html">
         <source>Suomen Akatemian luokittelee hankkeensa myös oman tutkimusalaluokittelunsa mukaisesti.</source>
         <target>The Academy of Finland categorizes also projects according to its own research fields.</target>
       </trans-unit>
       <trans-unit id="fkeywordsTooltip" datatype="html">
-        <source>Haun rajaus hankkeen tiedoissa olevien avainsanojen perusteella.</source>
-        <target>Limit search based on the keywords in the project information.</target>
+        <source>Haun rajaus rahoitusmyönnön tiedoissa olevien avainsanojen perusteella.</source>
+        <target>Limit search based on the keywords in the grant information.</target>
       </trans-unit>
       <trans-unit id="fthemesTooltip" datatype="html">
-        <source>Osa rahoittajista järjestää haut teemojen mukaisesti. Teemat ovat tyypillisesti rahoittajakohtaisia, jolloin hakutuloksessa näkyy vain yhden rahoittajan hankkeita.</source>
-        <target>Some funders organize calls according to themes. Themes are typically funder specific causing results to show only projects funded by one funder.</target>
+        <source>Osa rahoittajista järjestää haut teemojen mukaisesti. Teemat ovat tyypillisesti rahoittajakohtaisia, jolloin hakutuloksessa näkyy vain yhden rahoittajan myöntämiä rahoituksia.</source>
+        <target>Some funders organize calls according to themes. Themes are typically funder specific causing results to show only grants funded by one funder.</target>
       </trans-unit>
       <trans-unit id="fresearchFieldTooltip" datatype="html">
-        <source>Suomen Akatemian luokittelee hankkeensa myös oman tutkimusalaluokittelunsa mukaisesti. Valinta kohdistuu vain Akatemian myöntämään rahoitukseen.</source>
-        <target>The Academy of Finland categorizes also projects according to its own research fields. The filter applies only to funding granted by the Academy of Finland.</target>
+        <source>Suomen Akatemia luokittelee rahoitusmyöntönsä myös oman tutkimusalaluokittelunsa mukaisesti. Valinta kohdistuu vain Akatemian myöntämään rahoitukseen.</source>
+        <target>The Research Council of Finland categorizes also grants according to its own research fields. The filter applies only to funding granted by the Research Council of Finland.</target>
       </trans-unit>
       <trans-unit id="sfCallProgrammeTooltip" datatype="html">
-        <source>Rahoittajan haku, josta rahoitus on myönnetty. Kilpailtu tutkimusrahoitus myönnetään usein avoimien hakujen kautta, joissa rahoituksen myöntämisen perusteena ovat ennalta määrätyt kriteerit. Hakemukset arvioidaan ja rahoitus myönnetään kriteerien ja muiden tavoitteiden perusteella parhaiksi katsotuille hakemuksille.</source>
-        <target>Funder´s call granting the funding. Competed research funding is often granted through open calls, in which funding is granted on the basis of prescribed criteria. Applications are evaluated and funding is granted to the best</target>
+        <source>Rahoittajan haku, josta rahoitus on myönnetty. Kilpailtu tutkimusrahoitus myönnetään usein avoimien hakujen kautta, joissa rahoituksen myöntämisen perusteena ovat ennalta määrätyt kriteerit. Hakemukset arvioidaan ja rahoitus myönnetään kriteerien ja muiden tavoitteiden perusteella parhaiksi katsotuille hakemuksille</source>
+        <target>Funder&apos;s call granting the funding. Competed research funding is often granted through open calls, in which funding is granted on the basis of prescribed criteria. Applications are evaluated and funding is granted to the best applicants based on this criteria and other objectives.</target>
       </trans-unit>
       <trans-unit id="relatedFundingTooltip" datatype="html">
         <source>Rahoituspäätökseen liittyvät muut päätökset, kuten esimerkiksi samalle hankkeelle myönnetty tutkimuskulurahoitus. Sisältää tiedot liittyvän päätöksen tunnisteesta, rahoitusmuodosta, aloitusvuodesta sekä myönnetyn rahoituksen määrästä.</source>
@@ -1684,16 +1680,16 @@
         <target>The funding recipient may be a person or organization. In many cases, the specified funding recipient is a principal investigator (PI), who will not personally be using the funding as it will instead be used to cover project costs.</target>
       </trans-unit>
       <trans-unit id="fundingAmountTooltip" datatype="html">
-        <source>Rahoittajan hankkeelle myöntämä yhteissumma. Summa ei sisällä hankkeen kaikkia kustannuksia. Organisaatio, jossa hanke toteutetaan, voi rahoittaa siitä tietyn osan (ns. omarahoitusosuus) ja hankkeella voi olla muitakin rahoittajia.</source>
-        <target state="translated">The total amount granted by the funder for the project. The amount does not include all project costs. The organisation in which the project is carried out may fund a certain part of it (i-e. self-financing contribution) and the project may also have other funders.</target>
+        <source>Rahoittajan myöntämä yhteissumma. Summa ei sisällä hankkeen kaikkia kustannuksia. Organisaatio, jossa hanke toteutetaan, voi rahoittaa siitä tietyn osan (ns. omarahoitusosuus) ja hankkeella voi olla muitakin rahoittajia.</source>
+        <target>The total amount granted by the funder. The amount does not include all project costs. The organization in which the project is carried out may fund a certain part of it (i.e. self-financing contribution) and the project may also have other funders.</target>
       </trans-unit>
       <trans-unit id="singleFundingFunderTooltip" datatype="html">
         <source>Tutkimusrahoittaja, joka on myöntänyt rahoituksen. Kaikki tiedejatutkimus.fi ‑palveluun tietoja toimittavat tutkimusrahoittajat ovat organisaatiot-osiossa.</source>
         <target>Researcher funders which have granted funding. All research funders submitting information to the research.fi-service are listed in the Organizations section.</target>
       </trans-unit>
-      <trans-unit id="6587616297300188756" datatype="html">
-        <source>Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa.</source>
-        <target>A website outside the research.fi service that contains more detailed information on the project.</target>
+      <trans-unit id="1565148669960905628" datatype="html">
+        <source>Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa myönnetystä rahoituksesta on tarkempaa tietoa.</source>
+        <target>A website outside the research.fi service that contains more detailed information on the grant.</target>
       </trans-unit>
       <trans-unit id="datasetBetaInfo" datatype="html">
         <source>Tutkimusaineistojen kuvailutiedot ovat uusi tietokokonaisuus Tiedejatutkimus.fi -portaalissa. Tietojen lähteenä ovat Fairdata-palveluista löytyvät kuvailutiedot. Koska kyseessä on uusi kokonaisuus, toivomme palautetta tiedejatutkimus@csc.fi osoitteeseen.</source>
@@ -2308,16 +2304,16 @@
         <target>Method of funding research. Funding instruments include research grants, project funding and research infrastructure funding. The funding instruments are grouped by funder in the filter, because they are often funder-specific.</target>
       </trans-unit>
       <trans-unit id="fFieldsOfScienceTooltip" datatype="html">
-        <source>Tilastokeskuksen tieteenalaluokitus. Yhteen hankkeeseen voi liittyä useita tieteenaloja. Kaikki rahoittajat eivät käytä tieteenaloja. Siksi suodatinta käyttämällä ei voi selvittää jonkin tieteenalan osuutta kokonaisrahoituksesta.</source>
-        <target>The Statistics Finland’s Fields of science classification. One project may involve multiple fields of science. Not all funders use fields of science. As a result, filters cannot be used to determine the share of total funding for a given field of science.</target>
+        <source>Tilastokeskuksen tieteenalaluokitus. Yhteen rahoitusmyöntöön voi liittyä useita tieteenaloja. Kaikki rahoittajat eivät käytä tieteenaloja. Siksi suodatinta käyttämällä ei voi selvittää jonkin tieteenalan osuutta kokonaisrahoituksesta.</source>
+        <target>The Statistics Finland’s Fields of science classification. One grant may involve multiple fields of science. Not all funders use fields of science. As a result, filters cannot be used to determine the share of total funding for a given field of science.</target>
       </trans-unit>
       <trans-unit id="personsOrgTooltip" datatype="html">
         <source>Tutkijan ensisijaiseksi valitsema affiliaatio. Ei sisällä toistaiseksi tietoja ulkomaisista organisaatioista ja osassa tapauksista tutkijan organisaatiotieto ei ole yhdistynyt kotimaiseen organisaatioon.</source>
         <target>Primary affiliation chosen by the researcher. At the moment does not contain information about foreign organizations and in some cases the organizational information of the researcher has not been connected to the domestic organization.</target>
       </trans-unit>
       <trans-unit id="funderTopicTooltip" datatype="html">
-        <source>Hankkeen aihetta luokittelevia valintoja. Pääosin luokittelut eivät ole kattavia ja voivat olla rahoittajakohtaisia.</source>
-        <target>Filters that categorize project topics. In general, categories are not comprehensive and may be specific for individual funder.</target>
+        <source>Rahoitusmyönnön aihetta luokittelevia valintoja. Pääosin luokittelut eivät ole kattavia ja voivat olla rahoittajakohtaisia.</source>
+        <target>Filters that categorize grant topics. In general, categories are not comprehensive and may be specific for individual funder.</target>
       </trans-unit>
       <trans-unit id="FAField" datatype="html">
         <source>Teemat</source>
@@ -2380,8 +2376,8 @@
         <target state="new">Author</target>
       </trans-unit>
       <trans-unit id="funding" datatype="html">
-        <source>hanke</source>
-        <target state="new">Project</target>
+        <source>myönnetty rahoitus</source>
+        <target>Granted funding</target>
       </trans-unit>
       <trans-unit id="dataset" datatype="html">
         <source>aineisto</source>
@@ -4004,7 +4000,23 @@
       </trans-unit>
       <trans-unit id="a818b5edba676050331e259094fc81116a60c329" datatype="html">
         <source>Hae</source>
-        <target state="new">Hae</target>
+        <target>Search</target>
+      </trans-unit>
+      <trans-unit id="fundingsDataDisclaimerLink" datatype="html">
+        <source> Mitä rahoitusmyöntöjen tietoja palvelu sisältää? </source>
+        <target>What information about granted funding does the service contain?</target>
+      </trans-unit>
+      <trans-unit id="navigation.fundings" datatype="html">
+        <source>Myönnetyt rahoitukset</source>
+        <target>Granted funding</target>
+      </trans-unit>
+      <trans-unit id="6064019274846168031" datatype="html">
+        <source>Rahoitetun hankkeen kuvaus</source>
+        <target>Description of the granted funding</target>
+      </trans-unit>
+      <trans-unit id="navigation.projects" datatype="html">
+        <source>Hankkeet</source>
+        <target>Projects</target>
       </trans-unit>
     </body>
   </file>
