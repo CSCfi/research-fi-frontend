@@ -3021,6 +3021,9 @@
       <trans-unit id="navigation.projects" datatype="html">
         <source>Hankkeet</source>
       </trans-unit>
+      <trans-unit id="7faaf4f818cbabf5f42648c7271cb60b1cb5356a" datatype="html">
+        <source>Hankkeet uudistuvat. Aiempien hankkeiden tiedot löytyvät nyt ‘Myönnetty rahoitus‘ -osiosta.</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -4011,7 +4011,7 @@
       </trans-unit>
       <trans-unit id="navigation.fundings" datatype="html">
         <source>Myönnetyt rahoitukset</source>
-        <target>Beviljade finansieringar</target>
+        <target>Beviljade finansiering</target>
       </trans-unit>
       <trans-unit id="6064019274846168031" datatype="html">
         <source>Rahoitetun hankkeen kuvaus</source>
@@ -4020,6 +4020,10 @@
       <trans-unit id="navigation.projects" datatype="html">
         <source>Hankkeet</source>
         <target>Projekt</target>
+      </trans-unit>
+      <trans-unit id="7faaf4f818cbabf5f42648c7271cb60b1cb5356a" datatype="html">
+        <source>Hankkeet uudistuvat. Aiempien hankkeiden tiedot löytyvät nyt ‘Myönnetty rahoitus‘ -osiosta.</source>
+        <target>Projekten förnyas. Information från tidigare projekt kan nu hittas i avsnittet ‘Beviljade finansiering’.</target>
       </trans-unit>
     </body>
   </file>

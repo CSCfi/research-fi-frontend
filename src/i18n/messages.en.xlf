@@ -4018,6 +4018,10 @@
         <source>Hankkeet</source>
         <target>Projects</target>
       </trans-unit>
+      <trans-unit id="7faaf4f818cbabf5f42648c7271cb60b1cb5356a" datatype="html">
+        <source>Hankkeet uudistuvat. Aiempien hankkeiden tiedot löytyvät nyt ‘Myönnetty rahoitus‘ -osiosta.</source>
+        <target>The projects are being renewed. The information from previous projects can now be found in the ‘Granted funding’ section.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

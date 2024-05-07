@@ -11,6 +11,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TabNavigationButtonComponent } from '@portal/components/tab-navigation-button/tab-navigation-button.component';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 type IndexCounts = { [index: string]: number };
 type ButtonData = { label: string, icon: string, route: string, count: number, active: boolean, disabled?: boolean};
@@ -20,7 +21,7 @@ const EPSILON = 1;
 @Component({
   selector: 'app-tab-navigation',
   standalone: true,
-  imports: [CommonModule, TabButtonComponent, FontAwesomeModule, RouterLink, TabNavigationButtonComponent],
+  imports: [CommonModule, TabButtonComponent, FontAwesomeModule, RouterLink, TabNavigationButtonComponent, TooltipModule],
   templateUrl: './tab-navigation.component.html',
   styleUrls: ['./tab-navigation.component.scss']
 })
@@ -109,7 +110,7 @@ export class TabNavigationComponent implements AfterViewInit {
       { label: $localize`:@@navigation.datasets:Aineistot`,               icon: 'faAlignLeft',  route: "/results/datasets",        count: counts.datasets,        active: tab === 'datasets' },
       { label: $localize`:@@navigation.infrastructures:Infrastruktuurit`, icon: 'faCalculator', route: "/results/infrastructures", count: counts.infrastructures, active: tab === 'infrastructures' },
       { label: $localize`:@@navigation.organizations:Organisaatiot`,      icon: 'faUniversity', route: "/results/organizations",   count: counts.organizations,   active: tab === 'organizations' },
-      { label: $localize`:@@navigation.projects:Hankkeet`,                icon: `faAlignLeft`,  route: "/results/publications",    count: -1,                     active: false, disabled: true },
+      { label: $localize`:@@navigation.projects:Hankkeet`,                icon: `faAlignLeft`,  route: "/results/projects",         count: -1,                     active: false, disabled: true },
     ])
   );
 
