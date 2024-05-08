@@ -20,7 +20,6 @@
                           [count]='button.count'
                           [active]='button.active'
                           [disabled]='button.disabled'
-                          [routerLink]='button.route + "/" + ((input$ | async) ?? "")'
                           [queryParams]='pageSizeParams$ | async'
                           [tooltip]='tooltipTemplate'>
           </app-tab-button>
@@ -82,14 +81,35 @@
   <div class='scroll-menu' #scroll>
     <ng-container *ngIf='defaultOrderButtons$ | async as buttons'>
       <ng-container *ngFor='let button of buttons; trackBy: trackByLabel'>
-        <app-tab-navigation-button [label]='button.label'
-                                   [count]='button.count'
-                                   [active]='button.active'
-                                   [disabled]='button.disabled'
-                                   [routerLink]='button.route + "/" + ((input$ | async) ?? "")'
-                                   [queryParams]='pageSizeParams$ | async'>
-        </app-tab-navigation-button>
+
+
+        <ng-container *ngIf='button.route !== "/results/projects"'>
+          <app-tab-navigation-button [label]='button.label'
+                                     [count]='button.count'
+                                     [active]='button.active'
+                                     [disabled]='button.disabled'
+                                     [routerLink]='button.route + "/" + ((input$ | async) ?? "")'
+                                     [queryParams]='pageSizeParams$ | async'>
+          </app-tab-navigation-button>
+        </ng-container>
+
+        <ng-container *ngIf='button.route === "/results/projects"'>
+          <app-tab-navigation-button [label]='button.label'
+                                     [count]='button.count'
+                                     [active]='button.active'
+                                     [disabled]='button.disabled'
+                                     [queryParams]='pageSizeParams$ | async'
+                                     [tooltip]='tooltipTemplate'
+                                     boundariesElement="window">
+          </app-tab-navigation-button>
+        </ng-container>
+
       </ng-container>
+
+      <ng-template #tooltipTemplate>
+        <div i18n>Hankkeet uudistuvat. Aiempien hankkeiden tiedot löytyvät nyt ‘Myönnetty rahoitus‘ -osiosta.</div>
+      </ng-template>
+
     </ng-container>
   </div>
 </div>
