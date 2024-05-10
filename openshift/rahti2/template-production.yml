@@ -1,0 +1,236 @@
+# This file is part of the research.fi service
+#
+# Copyright 2024 Ministry of Education and Culture, Finland
+#
+# :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+# :license: MIT
+apiVersion: template.openshift.io/v1
+kind: Template
+metadata:
+  labels:
+    app: researchfi-frontend-production
+    template: researchfi-frontend-production
+  name: researchfi-frontend-production
+  annotations:
+    description: Research.fi production Angular web application
+    iconClass: icon-angularjs
+objects:
+
+  # Service (staging)
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: researchfi-frontend-staging
+      labels:
+        app: researchfi-frontend-production
+      annotations:
+        description: Research.fi staging Angular web application
+    spec:
+      ports:
+        - name: angular
+          port: 8080
+          targetPort: 8080
+      selector:
+        app: frontend-staging
+
+  # Service (production)
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: researchfi-frontend-production
+      labels:
+        app: researchfi-frontend-production
+      annotations:
+        description: Research.fi production Angular web application
+    spec:
+      ports:
+        - name: frontend
+          port: 8080
+          targetPort: 8080
+      selector:
+        depcfg: frontend-production
+
+  # ImageStream (staging)
+  - apiVersion: image.openshift.io/v1
+    kind: ImageStream
+    metadata:
+      name: researchfi-frontend-staging
+      labels:
+        app: researchfi-frontend-production
+
+  # ImageStream (production)
+  - apiVersion: image.openshift.io/v1
+    kind: ImageStream
+    metadata:
+      name: researchfi-frontend-production
+      labels:
+        app: researchfi-frontend-production
+
+  # BuildConfig using Docker build strategy
+  - apiVersion: build.openshift.io/v1
+    kind: BuildConfig
+    metadata:
+      name: researchfi-frontend-build-production
+      labels:
+        app: researchfi-frontend-production
+    spec:
+      source:
+        git:
+          uri: https://github.com/CSCfi/research-fi-frontend.git
+          ref: master
+        contextDir: .
+      strategy:
+        type: Docker
+        dockerStrategy:
+          dockerfilePath: openshift/rahti2/Dockerfile
+      output:
+        to:
+          kind: ImageStreamTag
+          name: researchfi-frontend-staging:latest
+      resources:
+        limits:
+          cpu: 2
+          memory: 6Gi
+        requests:
+          cpu: 1
+          memory: 4Gi
+      successfulBuildsHistoryLimit: 2
+      failedBuildsHistoryLimit: 2
+
+  # Deployment config (staging)
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: researchfi-frontend-staging
+      labels:
+          app: researchfi-frontend-production
+    spec:
+      selector:
+        matchLabels:
+          app: frontend-staging
+      template:
+        metadata:
+          labels:
+            app: researchfi-frontend-production
+        spec:
+          containers:
+            - name: frontend-staging
+              image: image-registry.openshift-image-registry.svc:5000/researchfi-production/researchfi-frontend-staging
+              imagePullPolicy: Always
+              ports:
+                - containerPort: 8080
+                  protocol: TCP
+              volumeMounts:
+                - name: config-volume-fi
+                  mountPath: /dist/browser/fi/assets/config
+                - name: config-volume-sv
+                  mountPath: /dist/browser/sv/assets/config
+                - name: config-volume-en
+                  mountPath: /dist/browser/en/assets/config
+          volumes:
+            - name: config-volume-fi
+              configMap:
+                name: frontend-config-production
+                items:
+                  - key: configfile
+                    path: config.json
+                  - key: configfile_auth_fi
+                    path: auth_config.json
+            - name: config-volume-sv
+              configMap:
+                name: frontend-config-production
+                items:
+                  - key: configfile
+                    path: config.json
+                  - key: configfile_auth_sv
+                    path: auth_config.json
+            - name: config-volume-en
+              configMap:
+                name: frontend-config-production
+                items:
+                  - key: configfile
+                    path: config.json
+                  - key: configfile_auth_en
+                    path: auth_config.json
+      replicas: 1
+      triggers:
+        - type: ConfigChange
+        - type: ImageChange
+          imageChangeParams:
+            automatic: true
+            containerNames:
+              - frontend-staging
+            from:
+              kind: ImageStreamTag
+              name: researchfi-frontend-staging:latest
+      strategy:
+        type: RollingUpdate
+
+  # Deployment config (production)
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: researchfi-frontend-production
+      labels:
+        app: researchfi-frontend-production
+    spec:
+      selector:
+        matchLabels:
+          app: frontend-production
+      template:
+        metadata:
+          labels:
+            app: researchfi-frontend-production
+        spec:
+          containers:
+            - name: frontend-production
+              image: image-registry.openshift-image-registry.svc:5000/researchfi-production/researchfi-frontend-production
+              imagePullPolicy: Always
+              ports:
+                - containerPort: 8080
+                  protocol: TCP
+              volumeMounts:
+                - name: config-volume-fi
+                  mountPath: /dist/browser/fi/assets/config
+                - name: config-volume-sv
+                  mountPath: /dist/browser/sv/assets/config
+                - name: config-volume-en
+                  mountPath: /dist/browser/en/assets/config
+          volumes:
+            - name: config-volume-fi
+              configMap:
+                name: frontend-config-production
+                items:
+                  - key: configfile
+                    path: config.json
+                  - key: configfile_auth_fi
+                    path: auth_config.json
+            - name: config-volume-sv
+              configMap:
+                name: frontend-config-production
+                items:
+                  - key: configfile
+                    path: config.json
+                  - key: configfile_auth_sv
+                    path: auth_config.json
+            - name: config-volume-en
+              configMap:
+                name: frontend-config-production
+                items:
+                  - key: configfile
+                    path: config.json
+                  - key: configfile_auth_en
+                    path: auth_config.json
+      replicas: 1
+      triggers:
+        - type: ConfigChange
+        - type: ImageChange
+          imageChangeParams:
+            automatic: true
+            containerNames:
+              - frontend-production
+            from:
+              kind: ImageStreamTag
+              name: researchfi-frontend-production:latest
+      strategy:
+        type: RollingUpdate
