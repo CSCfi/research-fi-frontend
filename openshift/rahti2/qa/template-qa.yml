@@ -8,11 +8,11 @@ apiVersion: template.openshift.io/v1
 kind: Template
 metadata:
   labels:
-    app: researchfi-frontend-devel
-    template: researchfi-frontend-devel
-  name: researchfi-frontend-devel
+    app: researchfi-frontend-qa
+    template: researchfi-frontend-qa
+  name: researchfi-frontend-qa
   annotations:
-    description: Research.fi devel Angular web application
+    description: Research.fi QA Angular web application
     iconClass: icon-angularjs
 objects:
 
@@ -20,48 +20,47 @@ objects:
   - apiVersion: v1
     kind: Service
     metadata:
-      name: researchfi-frontend-devel
+      name: researchfi-frontend-qa
       labels:
-        app: researchfi-frontend-devel
+        app: researchfi-frontend-qa
       annotations:
-        description: Research.fi devel Angular web application
+        description: Research.fi QA Angular web application
     spec:
       ports:
         - name: angular
           port: 8080
           targetPort: 8080
       selector:
-        app: researchfi-frontend-devel
+        app: researchfi-frontend-qa
 
   # ImageStream
   - apiVersion: image.openshift.io/v1
     kind: ImageStream
     metadata:
-      name: researchfi-frontend-devel
+      name: researchfi-frontend-qa
       labels:
-        app: researchfi-frontend-devel
+        app: researchfi-frontend-qa
 
   # BuildConfig using Docker build strategy
   - apiVersion: build.openshift.io/v1
     kind: BuildConfig
     metadata:
-      name: researchfi-frontend-build-devel
+      name: researchfi-frontend-build-qa
       labels:
-        app: researchfi-frontend-devel
+        app: researchfi-frontend-qa
     spec:
       source:
         git:
           uri: https://github.com/CSCfi/research-fi-frontend.git
-          ref: devel
+          ref: qa
         contextDir: .
       strategy:
-        type: Docker
         dockerStrategy:
-          dockerfilePath: openshift/rahti2/Dockerfile
+          dockerfilePath: openshift/rahti2/qa/Dockerfile
       output:
         to:
           kind: ImageStreamTag
-          name: researchfi-frontend-devel:latest
+          name: researchfi-frontend-qa:latest
       resources:
         limits:
           cpu: 2
@@ -72,25 +71,25 @@ objects:
       successfulBuildsHistoryLimit: 2
       failedBuildsHistoryLimit: 2
 
-  # Deployment config (development)
+  # Deployment config (qa)
   - apiVersion: apps/v1
     kind: Deployment
     metadata:
-      name: researchfi-frontend-devel
+      name: researchfi-frontend-qa
       labels:
-        app: researchfi-frontend-devel
+        app: researchfi-frontend-qa
     spec:
       selector:
         matchLabels:
-          app: researchfi-frontend-devel
+          app: researchfi-frontend-qa
       template:
         metadata:
           labels:
-            app: researchfi-frontend-devel
+            app: researchfi-frontend-qa
         spec:
           containers:
-            - name: frontend-devel
-              image: image-registry.openshift-image-registry.svc:5000/researchfi-devel/researchfi-frontend-devel
+            - name: frontend-qa
+              image: image-registry.openshift-image-registry.svc:5000/researchfi-qa/researchfi-frontend-qa
               imagePullPolicy: Always
               ports:
                 - containerPort: 8080
@@ -105,7 +104,7 @@ objects:
           volumes:
             - name: config-volume-fi
               configMap:
-                name: frontend-config-devel
+                name: frontend-config-qa
                 items:
                   - key: configfile
                     path: config.json
@@ -113,7 +112,7 @@ objects:
                     path: auth_config.json
             - name: config-volume-sv
               configMap:
-                name: frontend-config-devel
+                name: frontend-config-qa
                 items:
                   - key: configfile
                     path: config.json
@@ -121,7 +120,7 @@ objects:
                     path: auth_config.json
             - name: config-volume-en
               configMap:
-                name: frontend-config-devel
+                name: frontend-config-qa
                 items:
                   - key: configfile
                     path: config.json
@@ -134,9 +133,9 @@ objects:
           imageChangeParams:
             automatic: true
             containerNames:
-              - frontend-devel
+              - frontend-qa
             from:
               kind: ImageStreamTag
-              name: researchfi-frontend-devel:latest
+              name: researchfi-frontend-qa:latest
       strategy:
         type: RollingUpdate

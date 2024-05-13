@@ -82,7 +82,7 @@ objects:
       strategy:
         type: Docker
         dockerStrategy:
-          dockerfilePath: openshift/rahti2/Dockerfile
+          dockerfilePath: openshift/rahti2/production/Dockerfile
       output:
         to:
           kind: ImageStreamTag
