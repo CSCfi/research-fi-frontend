@@ -31,7 +31,8 @@ objects:
           port: 8080
           targetPort: 8080
       selector:
-        depcfg: researchfi-frontend-production
+        matchLabels:
+          app: researchfi-frontend-production
 
   # ImageStream
   - apiVersion: image.openshift.io/v1
