@@ -8,11 +8,11 @@ apiVersion: template.openshift.io/v1
 kind: Template
 metadata:
   labels:
-    app: researchfi-frontend-production
-    template: researchfi-frontend-production
-  name: researchfi-frontend-production
+    app: researchfi-frontend-production-staging
+    template: researchfi-frontend-production-staging
+  name: researchfi-frontend-production-staging
   annotations:
-    description: Research.fi production Angular web application
+    description: Research.fi production staging Angular web application
     iconClass: icon-angularjs
 objects:
 
@@ -20,46 +20,78 @@ objects:
   - apiVersion: v1
     kind: Service
     metadata:
-      name: researchfi-frontend-production
+      name: researchfi-frontend-production-staging
       labels:
-        app: researchfi-frontend-production
+        app: researchfi-frontend-production-staging
       annotations:
-        description: Research.fi production Angular web application
+        description: Research.fi production staging Angular web application
     spec:
       ports:
         - name: angular
           port: 8080
           targetPort: 8080
       selector:
-        depcfg: researchfi-frontend-production
+        app: researchfi-frontend-production-staging
 
   # ImageStream
   - apiVersion: image.openshift.io/v1
     kind: ImageStream
     metadata:
-      name: researchfi-frontend-production
+      name: researchfi-frontend-production-staging
       labels:
-        app: researchfi-frontend-production
+        app: researchfi-frontend-production-staging
 
-  # Deployment config
+
+  # BuildConfig using Docker build strategy
+  - apiVersion: build.openshift.io/v1
+    kind: BuildConfig
+    metadata:
+      name: researchfi-frontend-build-production-staging
+      labels:
+        app: researchfi-frontend-production-staging
+    spec:
+      source:
+        git:
+          uri: https://github.com/CSCfi/research-fi-frontend.git
+          ref: master
+        contextDir: .
+      strategy:
+        type: Docker
+        dockerStrategy:
+          dockerfilePath: openshift/rahti2/production-staging/Dockerfile
+      output:
+        to:
+          kind: ImageStreamTag
+          name: researchfi-frontend-production-staging:latest
+      resources:
+        limits:
+          cpu: 1
+          memory: 6Gi
+        requests:
+          cpu: 0.5
+          memory: 4Gi
+      successfulBuildsHistoryLimit: 2
+      failedBuildsHistoryLimit: 2
+
+  # Deployment config (staging)
   - apiVersion: apps/v1
     kind: Deployment
     metadata:
-      name: researchfi-frontend-production
+      name: researchfi-frontend-production-staging
       labels:
-        app: researchfi-frontend-production
+          app: researchfi-frontend-production-staging
     spec:
       selector:
         matchLabels:
-          app: researchfi-frontend-production
+          app: researchfi-frontend-production-staging
       template:
         metadata:
           labels:
-            app: researchfi-frontend-production
+            app: researchfi-frontend-production-staging
         spec:
           containers:
-            - name: researchfi-frontend-production
-              image: image-registry.openshift-image-registry.svc:5000/researchfi-production/researchfi-frontend-production
+            - name: researchfi-frontend-production-staging
+              image: image-registry.openshift-image-registry.svc:5000/researchfi-production/researchfi-frontend-production-staging
               imagePullPolicy: Always
               ports:
                 - containerPort: 8080
@@ -103,9 +135,9 @@ objects:
           imageChangeParams:
             automatic: true
             containerNames:
-              - researchfi-frontend-production
+              - researchfi-frontend-production-staging
             from:
               kind: ImageStreamTag
-              name: researchfi-frontend-production:latest
+              name: researchfi-frontend-production-staging:latest
       strategy:
         type: RollingUpdate
