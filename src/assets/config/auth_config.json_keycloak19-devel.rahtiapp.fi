@@ -1,0 +1,16 @@
+{
+  "stsServer": "https://keycloak19-devel.rahtiapp.fi/realms/mydata" ,
+  "redirectUrl": "https://localhost:5003/mydata/redirect" ,
+  "postLogoutRedirectUri": "https://localhost:5003/mydata" ,
+  "clientId": "js",
+  "scope": "openid api1",
+  "responseType": "code",
+  "silentRenew": true,
+  "useRefreshToken": true,
+  "postLoginRoute": "mydata/service-deployment?step=3",
+  "ignoreNonceAfterRefresh": true,
+  "historyCleanupOff": false,
+  "customParamsAuthRequest": {
+    "ui_locales": "fi"
+  }
+}
