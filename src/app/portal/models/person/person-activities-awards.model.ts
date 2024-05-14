@@ -32,7 +32,6 @@ export class PersonActivitiesAndRewardsAdapter
   constructor(private utils: ModelUtilsService) {}
 
   adapt(activity: any): PersonActivitiesAndRewards {
-    console.log('activity', activity);
     const getYearRange = () => {
       return [activity.startDate.year, activity.endDate.year]
         .filter((item) => item > 0)

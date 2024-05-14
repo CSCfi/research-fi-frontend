@@ -62,7 +62,7 @@ export class SearchAdapter implements Adapter<Search> {
         try {
           tab.push(adapter.adapt(e._source));
         } catch (error) {
-          console.error(error);
+          console.error(error, e);
         }
       });
     };
