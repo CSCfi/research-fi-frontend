@@ -4,19 +4,18 @@ Copyright 2019 Ministry of Education and Culture, Finland
 :license: MIT -->
 
 <h1 #srHeader aria-live="polite" class="sr-only"></h1>
+
 <aside>
   <app-search-bar></app-search-bar>
 </aside>
 
+<nav>
+  <app-tab-navigation></app-tab-navigation>
+</nav>
+
 <div class="center-content wrapper" style="margin-top: 0">
   <div class="row g-0">
-    <app-result-tab
-      style="width: 100%"
-      class="px-0"
-      [allData]="tabValues"
-    ></app-result-tab>
 
-    <!-- TODO: Button for navigation to the new publication search -->
     <ng-container *ngIf="tab === 'publications' && betaSearchBannerVisible">
       <div class="row py-3 px-0 ps-lg-3 mt-3 justify-content-between login-snackbar">
         <div class="row col-7 justify-content-start align-content-center">
@@ -58,7 +57,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
     <!-- MyData login in persons tab -->
     <div
       class="row py-3 px-0 ps-lg-3 mt-3 justify-content-between login-snackbar"
-      *ngIf="tab === 'persons' && mydataLoginSnackbarVisible">                                                          <!-- REMOVE TODO: Yleistetty logiikka, "tab" muuttuja kertoo valitun -->
+      *ngIf="tab === 'persons' && mydataLoginSnackbarVisible">
       <div class="row col-7 justify-content-start align-content-center">
         <div class="col-auto mx-0 gx-0">
           <fa-icon class="info-icon" icon="info-circle"></fa-icon>
@@ -85,7 +84,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
           </app-secondary-button>
         </div>
         <div class="col-auto align-self-center">
-          <div> <!-- TODO: hideMydataLoginSnackbar is technically wrong, or poorly named -->
+          <div>
           <a
             tabindex="0"
             (click)="hideMydataLoginSnackbar()"
@@ -180,18 +179,25 @@ Copyright 2019 Ministry of Education and Culture, Finland
         </div>
 
         <div class="col-auto text-end d-none d-lg-block ps-4 pe-0">
-          <a
-            routerLink="/service-info"
-            fragment="service-info-2"
-            class="theme-link"
-          ><strong>
-            <ng-container *ngIf="selectedTabData.singular === 'Rahoitushaku'" i18n="@@fundingCallsIncluded">
-              Mitä rahoitushakutietoja palvelu sisältää?
-            </ng-container>
+          <a routerLink="/service-info" fragment="service-info-2" class="theme-link">
+            <strong>
+              <ng-container [ngSwitch]="tabName$ | async">
 
-              <ng-container *ngIf="selectedTabData.singular !== 'Rahoitushaku'" i18n="@@resultInfo1">Mitä</ng-container>
-                      <span *ngIf="selectedTabData.singular !== 'Rahoitushaku'"> {{ selectedTabData?.singular.toLowerCase() }}</span>
-              <ng-container *ngIf="selectedTabData.singular !== 'Rahoitushaku'" i18n="@@resultInfo2">tietoja palvelu sisältää?</ng-container>
+                <ng-container *ngSwitchCase="'funding-calls'" i18n="@@fundingCallsIncluded">
+                  Mitä rahoitushakutietoja palvelu sisältää?
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'fundings'" i18n="@@fundingsDataDisclaimerLink">
+                  Mitä rahoitusmyöntöjen tietoja palvelu sisältää?
+                </ng-container>
+
+                <ng-container *ngSwitchDefault>
+                  <ng-container i18n="@@resultInfo1">Mitä</ng-container>
+                  <span> {{ selectedTabData?.singular.toLowerCase() }}</span>
+                  <ng-container i18n="@@resultInfo2">tietoja palvelu sisältää?</ng-container>
+                </ng-container>
+
+            </ng-container>
             </strong>
           </a>
         </div>

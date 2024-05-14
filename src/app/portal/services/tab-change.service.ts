@@ -34,10 +34,10 @@ export class TabChangeService {
     },
     {
       data: 'fundings',
-      label: $localize`:@@fundings:Hankkeet`,
+      label: $localize`:@@fundings:Myönnetyt rahoitukset`,
       link: 'fundings',
       icon: faBriefcase,
-      singular: $localize`:@@funding:hanke`,
+      singular: $localize`:@@funding:myönnetty rahoitus`,
       tooltip: $localize`:@@fundingsTooltip:Suomalaisten julkisten ja yksityisten tutkimusrahoittajien rahoituspäätöksiä siitä alkaen, kun rahoittaja on liittynyt palveluun. EU:n suomalaisille organisaatioille myöntämät rahoituspäätökset Horizon 2020 puiteohjelmasta alkaen.`,
     },
     {

@@ -1,0 +1,15 @@
+<a [routerLink]='routerLink' [queryParams]='queryParams' [class.active-text]='active'>
+  <div>
+    {{label}}
+  </div>
+
+  <ng-container *ngIf='count !== -1'>
+    <div [countUp]="count" [options]="countOps" [reanimateOnClick]='false'>
+      {{count}}
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf='count === -1'>
+    <div></div>
+  </ng-container>
+</a>
