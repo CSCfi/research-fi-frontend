@@ -50,6 +50,7 @@ export type Filters = {
   coPublication: string[];
   date: string[];
   status: string[];
+  typeOfFundingId: string[];
 };
 
 @Injectable({
@@ -90,6 +91,7 @@ export class FilterService {
   dateFilter: string[];
   fundingCallCategoryFilter: string[];
   statusFilter: string[];
+  typeOfFundingIdFilter: string[];
 
   private filterSource = new BehaviorSubject({
     toYear: [],
@@ -122,6 +124,7 @@ export class FilterService {
     coPublication: [],
     date: [],
     status: [],
+    typeOfFundingId: [],
   });
   filters = this.filterSource.asObservable();
   localeC: string;
@@ -196,6 +199,7 @@ export class FilterService {
       // Funding calls
       date: mapFilter(source.date),
       status: mapFilter(source.status),
+      typeOfFundingId: mapFilter(source.typeOfFundingId),
     };
   }
 
@@ -297,6 +301,11 @@ export class FilterService {
     this.fundingCallCategoryFilter = this.basicFilter(
       filter.field,
       'categories.codeValue.keyword'
+    );
+
+    this.typeOfFundingIdFilter = this.basicFilter(
+      filter.typeOfFundingId,
+      'typeOfFundingId.keyword'
     );
   }
 
@@ -956,13 +965,10 @@ export class FilterService {
 
       // FundingCalls
       ...basicFilter('funding-call', this.organizationFilter),
-      ...nestedFilter(
-        'funding-call',
-        this.fundingCallCategoryFilter,
-        'categories'
-      ),
+      ...nestedFilter('funding-call', this.fundingCallCategoryFilter, 'categories'),
       ...rangeFilter('funding-call', this.dateFilter),
       ...multipleRangeFilter('funding-call', this.statusFilter),
+      ...basicFilter('funding-call', this.typeOfFundingIdFilter),
 
       // Global filters
       ...globalFilter(this.yearFilter),

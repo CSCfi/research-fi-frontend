@@ -1616,6 +1616,7 @@ export class AggregationService {
             },
           },
         };
+
         payLoad.aggs.organization = {
           filter: {
             bool: {
@@ -1642,6 +1643,32 @@ export class AggregationService {
             },
           },
         };
+
+        payLoad.aggs.typeOfFundingId = {
+          filter: {
+            bool: {
+              filter: filterActive('typeOfFundingId.keyword'),
+            },
+          },
+          aggs: {
+            fundingId: {
+              terms: {
+                field: "typeOfFundingId.keyword",
+                size: 500,
+                exclude: '',
+              },
+              aggs: {
+                fundingNames: {
+                  terms: {
+                    field: "typeOfFundingName" + this.localeC + ".keyword",
+                    size: 100
+                  }
+                }
+              }
+            }
+          }
+        }
+
         payLoad.aggs.status = {
           composite: {
             size: 2000,
