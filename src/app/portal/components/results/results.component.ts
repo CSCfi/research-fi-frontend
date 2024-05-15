@@ -17,7 +17,6 @@ import {
   PLATFORM_ID,
   AfterViewInit,
   TemplateRef,
-  inject,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { SearchService } from '@portal/services/search.service';
@@ -43,7 +42,6 @@ import {
   faInfoCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import { AppSettingsService } from '@shared/services/app-settings.service';
-import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-results',
@@ -51,9 +49,6 @@ import { BreakpointObserver } from '@angular/cdk/layout';
   styleUrls: ['./results.component.scss'],
 })
 export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
-  breakpointObserver$ = inject(BreakpointObserver);
-  lessThan600$ = this.breakpointObserver$.observe('(max-width: 600px)').pipe(map(result => result.matches));
-
   clearAllFilters = false;
 
   public searchTerm: any;
@@ -235,10 +230,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   onClickedOutside($event) {
     this.showInfo = false;
   }
-
-  tabName$ = this.route.params.pipe(
-    map((params) => params.tab)
-  );
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)){

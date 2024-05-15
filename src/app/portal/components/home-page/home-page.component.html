@@ -11,9 +11,13 @@
   <app-search-bar></app-search-bar>
 </aside>
 
-<nav>
-  <app-tab-navigation [homepage]='true'></app-tab-navigation>
-</nav>
+<aside>
+  <app-result-tab
+    [homepageStyle]="basicStyle"
+    [isHomepage]="true"
+    [allData]="allData"
+  ></app-result-tab>
+</aside>
 
 <main id="main-content pt-0">
   <div class="wrapper">

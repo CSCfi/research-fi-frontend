@@ -500,7 +500,7 @@
           <div class="inner">
             <mat-card-title>
               <h2>
-                <span class="pe-1" i18n="@@fundingHomePage">Myöntöön liittyvä verkkosivu</span>
+                <span class="pe-1" i18n="@@fundingHomePage">Hankkeen verkkosivu</span>
 
                 <ng-template #tooltipTemplate>
                   <div [innerHtml]="homepageTooltip.tooltip"></div>
@@ -518,7 +518,7 @@
             </ng-container>
 
             <div *ngIf="!linkFields.length" class="no-links" i18n="@@noFundingLinks">
-              Rahoitusmyöntöön ei ole tarjolla linkkejä tässä portaalissa
+              Hankkeeseen ei ole tarjolla linkkejä tässä portaalissa
             </div>
           </div>
         </mat-card>
@@ -529,7 +529,11 @@
           <div class="inner">
             <mat-card-title>
               <h2>
-                <ng-container i18n='@@relatedFundings'>Hae hankkeeseen liittyvät (tulossa)</ng-container>
+                <ng-container i18n="@@relatedFundings"
+                  >Hae hankkeeseen liittyvät
+                </ng-container>
+
+                (<ng-container i18n="@@comingSoon">tulossa</ng-container>)
               </h2>
             </mat-card-title>
 
@@ -562,7 +566,7 @@
       <aside>
         <mat-card>
           <div class="inner">
-            <mat-card-title><h2 i18n="@@fundingSource">Rahoitustiedon lähde</h2></mat-card-title>
+            <mat-card-title><h2 i18n="@@fundingSource">Hanketiedon lähde</h2></mat-card-title>
             <div *ngFor="let source of responseData.fundings">
               <p *ngIf="source.funder.name.trim().length > 0">
                 <ng-container *ngIf="!item.structuralFund">{{source.funder.name}}</ng-container>

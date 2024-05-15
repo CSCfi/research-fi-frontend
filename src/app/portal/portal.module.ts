@@ -168,7 +168,6 @@ import { PersonGroupAdditionalComponent } from './components/single/single-perso
 import { FooterComponent } from '../layout/footer/footer.component';
 import { SearchBar2Component } from '@portal/search-bar2/search-bar2.component';
 import { FixExternalUrlPipe } from '@portal/pipes/fix-external-url.pipe';
-import { TabNavigationComponent } from '@portal/components/tab-navigation/tab-navigation.component';
 
 @NgModule({
   declarations: [
@@ -292,8 +291,7 @@ import { TabNavigationComponent } from '@portal/components/tab-navigation/tab-na
     MatSortModule,
     FooterComponent,
     SearchBar2Component,
-    FixExternalUrlPipe,
-    TabNavigationComponent
+    FixExternalUrlPipe
   ],
   exports: [DatasetAuthorComponent, FiltersComponent],
   providers: [

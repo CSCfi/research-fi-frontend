@@ -46,9 +46,9 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   info = [
     { label: $localize`Akronyymi`, field: 'acronym' },
     {
-      label: $localize`Rahoitetun hankkeen kuvaus`,
+      label: $localize`Hankkeen kuvaus`,
       field: 'description',
-      tooltip: $localize`:@@sfDescriptionTooltip:Kuvaus kertoo tiiviisti tavoitteista.`,
+      tooltip: $localize`:@@sfDescriptionTooltip:Kuvaus kertoo tiiviisti hankkeen tavoitteesta`,
     },
     {
       label: $localize`Aloitusvuosi`,
@@ -73,6 +73,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
       field: 'frameworkProgramme',
       tooltip: 'Puiteohjelma',
     },
+    // {label: $localize`Haku`, field: 'callProgrammeName', tooltip: $localize`:@@sfCallProgrammeTooltip:Rahoittajan haku, josta rahoitus on myönnetty. Kilpailtu tutkimusrahoitus myönnetään usein avoimien hakujen kautta, joissa rahoituksen myöntämisen perusteena ovat ennalta määrätyt kriteerit. Hakemukset arvioidaan ja rahoitus myönnetään kriteerien ja muiden tavoitteiden perusteella parhaiksi katsotuille hakemuksille.`}
   ];
 
   other = [
@@ -83,7 +84,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     {
       label: $localize`:@@fieldsOfScience:Tieteenalat`,
       field: 'fieldsOfScience',
-      tooltip: $localize`:@@fieldOfScienceTooltip:Tilastokeskuksen tieteenalaluokitus. Yhteen rahoitusmyöntöön voi liittyä useita tieteenaloja. Kaikki rahoittajat eivät käytä tieteenaloja.`,
+      tooltip: $localize`:@@fieldOfScienceTooltip:Tilastokeskuksen tieteenalaluokitus. Yhteen hankkeeseen voi liittyä useita tieteenaloja. Kaikki rahoittajat eivät käytä tieteenalaluokitusta.`,
     },
     {
       label: $localize`Tutkimusalat`,
@@ -91,12 +92,12 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
       tooltip: $localize`:@@fieldsOfResearchTooltip:Suomen Akatemian luokittelee hankkeensa myös oman tutkimusalaluokittelunsa mukaisesti.`,
     },
     { label: $localize`Teema-alat`, field: 'fieldsOfTheme' },
-    { label: $localize`:@@fundingHomePage:Myöntöön liittyvä verkkosivu`, field: '?' },
+    { label: $localize`:@@fundingHomePage:Hankkeen verkkosivu`, field: '?' },
     { label: $localize`:@@keywords:Avainsanat`, field: 'keywords' },
     {
       label: $localize`:@@identifiedTopics:Tunnistetut aiheet`,
       field: 'topics',
-      tooltip: $localize`:@@identifiedTopicsTooltip:Koneoppimisen avulla myönnettyjen rahoitusten tiedoista tutkimustietovarannossa muodostettu aiheluokittelu. Rahoitusmyöntö liittyy aiheeseen, jota se todennäköisimmin käsittelee. Kaikista rahoitusmyönnöistä ei ole riittävästi tietoa aiheen päättelyyn.`,
+      tooltip: $localize`:@@identifiedTopicsTooltip:Koneoppimisen avulla hankkeiden tiedoista tutkimustietovarannossa muodostettu aiheluokittelu. Hanke liittyy aiheeseen, jota se todennäköisimmin käsittelee. Kaikista hankkeista ei ole riittävästi tietoa aiheen päättelyyn.`,
     },
   ];
 
@@ -110,7 +111,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   };
 
   fundingAmountTooltip = {
-    tooltip: $localize`:@@fundingAmountTooltip:Rahoittajan myöntämä yhteissumma. Summa ei sisällä hankkeen kaikkia kustannuksia. Organisaatio, jossa hanke toteutetaan, voi rahoittaa siitä tietyn osan (ns. omarahoitusosuus) ja hankkeella voi olla muitakin rahoittajia.`,
+    tooltip: $localize`:@@fundingAmountTooltip:Rahoittajan hankkeelle myöntämä yhteissumma. Summa ei sisällä hankkeen kaikkia kustannuksia. Organisaatio, jossa hanke toteutetaan, voi rahoittaa siitä tietyn osan (ns. omarahoitusosuus) ja hankkeella voi olla muitakin rahoittajia.`,
   };
 
   relatedFundingsTooltip = {
@@ -122,11 +123,11 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   };
 
   callProgrammeTooltip = {
-    tooltip: $localize`:@@sfCallProgrammeTooltip:Rahoittajan haku, josta rahoitus on myönnetty. Kilpailtu tutkimusrahoitus myönnetään usein avoimien hakujen kautta, joissa rahoituksen myöntämisen perusteena ovat ennalta määrätyt kriteerit. Hakemukset arvioidaan ja rahoitus myönnetään kriteerien ja muiden tavoitteiden perusteella parhaiksi katsotuille hakemuksille`,
+    tooltip: $localize`:@@sfCallProgrammeTooltip:Rahoittajan haku, josta rahoitus on myönnetty. Kilpailtu tutkimusrahoitus myönnetään usein avoimien hakujen kautta, joissa rahoituksen myöntämisen perusteena ovat ennalta määrätyt kriteerit. Hakemukset arvioidaan ja rahoitus myönnetään kriteerien ja muiden tavoitteiden perusteella parhaiksi katsotuille hakemuksille.`,
   };
 
   homepageTooltip = {
-    tooltip: $localize`Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa myönnetystä rahoituksesta on tarkempaa tietoa.`,
+    tooltip: $localize`Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa.`,
   };
 
   cordisLink = 'https://cordis.europa.eu/programme/id/';

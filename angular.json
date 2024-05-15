@@ -146,17 +146,9 @@
           }
         },
         "extract-i18n": {
-          "builder": "ng-extract-i18n-merge:ng-extract-i18n-merge",
+          "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "research-fi:build",
-            "format": "xlf",
-            "includeContext": false,
-            "sort": "stableAppendNew",
-            "outputPath": "src/i18n",
-            "targetFiles": [
-              "messages.en.xlf",
-              "messages.sv.xlf"
-            ]
+            "browserTarget": "research-fi:build"
           }
         },
         "test": {
@@ -222,6 +214,22 @@
             }
           },
           "defaultConfiguration": ""
+        },
+        "xliffmerge": {
+          "builder": "@ngx-i18nsupport/tooling:xliffmerge",
+          "options": {
+            "xliffmergeOptions": {
+              "i18nFormat": "xlf",
+              "srcDir": "src/i18n",
+              "genDir": "src/i18n",
+              "defaultLanguage": "fi",
+              "languages": [
+                "fi",
+                "sv",
+                "en"
+              ]
+            }
+          }
         }
       }
     },

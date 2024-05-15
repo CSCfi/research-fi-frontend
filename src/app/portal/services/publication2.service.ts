@@ -754,6 +754,8 @@ function generateAggregationStep(name: SearchParamKey, lookup: Record<string, {f
     const global = searchParams[name] != null
 
     if (global) {
+      // console.log("global", name);
+
       return {
         [topLevelPath]: {
           global: {},
@@ -779,6 +781,8 @@ function generateAggregationStep(name: SearchParamKey, lookup: Record<string, {f
         }
       };
     } else {
+      // console.log("local", name);
+
       return {
         [topLevelPath]: {
           filter: {

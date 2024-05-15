@@ -154,8 +154,11 @@ export class Publications2Component implements OnDestroy {
   aggregations$ = this.publications2Service.getAggregations();
 
   yearAdditions$ = this.aggregations$.pipe(
-    map(aggs => getYearAdditions(aggs)
-      .map((bucket: any) => ({ year: bucket.key.toString(), count: bucket.doc_count })) ?? []),
+    map(aggs =>
+      getYearAdditions(aggs).map(
+        (bucket: any) => ({ year: bucket.key.toString(), count: bucket.doc_count })
+      ) ?? []
+    ),
     map(aggs => aggs.sort((a, b) => b.year - a.year))
   );
 
