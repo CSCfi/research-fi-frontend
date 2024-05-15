@@ -54,7 +54,7 @@ export class FundingFilterService {
       label: $localize`:@@fieldOfScience:Tieteenala`,
       hasSubFields: true,
       limitHeight: false,
-      tooltip: $localize`:@@fFieldsOfScienceTooltip:Tilastokeskuksen tieteenalaluokitus. Yhteen hankkeeseen voi liittyä useita tieteenaloja. Kaikki rahoittajat eivät käytä tieteenaloja. Siksi suodatinta käyttämällä ei voi selvittää jonkin tieteenalan osuutta kokonaisrahoituksesta.`,
+      tooltip: $localize`:@@fFieldsOfScienceTooltip:Tilastokeskuksen tieteenalaluokitus. Yhteen rahoitusmyöntöön voi liittyä useita tieteenaloja. Kaikki rahoittajat eivät käytä tieteenaloja. Siksi suodatinta käyttämällä ei voi selvittää jonkin tieteenalan osuutta kokonaisrahoituksesta.`,
     },
     // {
     //   field: 'scheme',
@@ -71,7 +71,7 @@ export class FundingFilterService {
       hasSubFields: true,
       open: true,
       searchFromParent: true,
-      tooltip: $localize`:@@funderTopicTooltip:Hankkeen aihetta luokittelevia valintoja. Pääosin luokittelut eivät ole kattavia ja voivat olla rahoittajakohtaisia.`,
+      tooltip: $localize`:@@funderTopicTooltip:Rahoitusmyönnön aihetta luokittelevia valintoja. Pääosin luokittelut eivät ole kattavia ja voivat olla rahoittajakohtaisia.`,
     },
   ];
 
@@ -316,22 +316,22 @@ export class FundingFilterService {
         switch (item.key) {
           case 'Avainsana': {
             item.key = $localize`:@@keywords:Avainsanat`;
-            item.tooltip = $localize`:@@fkeywordsTooltip:Haun rajaus hankkeen tiedoissa olevien avainsanojen perusteella.`;
+            item.tooltip = $localize`:@@fkeywordsTooltip:Haun rajaus rahoitusmyönnön tiedoissa olevien avainsanojen perusteella.`;
             break;
           }
           case 'Teema-ala': {
             item.key = $localize`:@@FAField:Teemat`;
-            item.tooltip = $localize`:@@fthemesTooltip:Osa rahoittajista järjestää haut teemojen mukaisesti. Teemat ovat tyypillisesti rahoittajakohtaisia, jolloin hakutuloksessa näkyy vain yhden rahoittajan hankkeita.`;
+            item.tooltip = $localize`:@@fthemesTooltip:Osa rahoittajista järjestää haut teemojen mukaisesti. Teemat ovat tyypillisesti rahoittajakohtaisia, jolloin hakutuloksessa näkyy vain yhden rahoittajan myöntämiä rahoituksia.`;
             break;
           }
           case 'topic': {
             item.key = $localize`:@@identifiedTopic:Tunnistettu aihe`;
-            item.tooltip = $localize`:@@identifiedTopicsTooltip:Koneoppimisen avulla hankkeiden tiedoista tutkimustietovarannossa muodostettu aiheluokittelu. Hanke liittyy aiheeseen, jota se todennäköisimmin käsittelee. Kaikista hankkeista ei ole riittävästi tietoa aiheen päättelyyn.`;
+            item.tooltip = $localize`:@@identifiedTopicsTooltip:Koneoppimisen avulla myönnettyjen rahoitusten tiedoista tutkimustietovarannossa muodostettu aiheluokittelu. Rahoitusmyöntö liittyy aiheeseen, jota se todennäköisimmin käsittelee. Osassa rahoitusmyönnöistä ei ole riittävästi tietoa aiheen päättelyyn.`;
             break;
           }
           case 'Tutkimusala': {
             item.key = $localize`:@@FAResearchFields:Suomen Akatemian tutkimusalat`;
-            item.tooltip = $localize`:@@fresearchFieldTooltip:Suomen Akatemian luokittelee hankkeensa myös oman tutkimusalaluokittelunsa mukaisesti. Valinta kohdistuu vain Akatemian myöntämään rahoitukseen.`;
+            item.tooltip = $localize`:@@fresearchFieldTooltip:Suomen Akatemia luokittelee rahoitusmyöntönsä myös oman tutkimusalaluokittelunsa mukaisesti. Valinta kohdistuu vain Akatemian myöntämään rahoitukseen.`;
             break;
           }
         }

@@ -63,8 +63,14 @@ export class PersonAdapter implements Adapter<Person> {
     @Inject(LOCALE_ID) protected localeId: string
   ) {}
   adapt(data: any): Person {
-    const capitalizeFirstLetter = (str: string) =>
-      str[0].toUpperCase() + str.slice(1);
+    const capitalizeFirstLetter = (str: string) => {
+      // Check if the string is null, undefined, or empty
+      if (!str || str.length === 0) {
+        return '';
+      }
+
+      return str[0].toUpperCase() + str.slice(1);
+    };
 
     const names = data.personal.names[0];
 

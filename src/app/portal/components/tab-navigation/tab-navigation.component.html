@@ -1,0 +1,115 @@
+<ng-container *ngIf='(moreThan900$ | async) || homepage'>
+  <div class='navigation-layout'>
+    <ng-container *ngIf='slicedButtons$ | async as buttons'>
+      <ng-container *ngFor='let button of buttons; trackBy: trackByLabel'>
+
+        <ng-container *ngIf='button.route !== "/results/projects"'>
+          <app-tab-button [icon]='button.icon'
+                          [label]='button.label'
+                          [count]='button.count'
+                          [active]='button.active'
+                          [disabled]='button.disabled'
+                          [routerLink]='button.route + "/" + ((input$ | async) ?? "")'
+                          [queryParams]='pageSizeParams$ | async'>
+          </app-tab-button>
+        </ng-container>
+
+        <ng-container *ngIf='button.route === "/results/projects"'>
+          <app-tab-button [icon]='button.icon'
+                          [label]='button.label'
+                          [count]='button.count'
+                          [active]='button.active'
+                          [disabled]='button.disabled'
+                          [queryParams]='pageSizeParams$ | async'
+                          [tooltip]='tooltipTemplate'>
+          </app-tab-button>
+
+          <ng-template #tooltipTemplate>
+            <div i18n>Hankkeet uudistuvat. Aiempien hankkeiden tiedot löytyvät nyt ‘Myönnetty rahoitus‘ -osiosta.</div>
+          </ng-template>
+        </ng-container>
+
+      </ng-container>
+    </ng-container>
+
+    <ng-container *ngIf='(isActiveVisible$ | async) === false'>
+      <ng-container *ngIf='activeButton$ | async as button'>
+
+        <app-tab-button [icon]='button.icon'
+                        [label]='button.label'
+                        [count]='button.count'
+                        [active]='button.active'
+                        [disabled]='button.disabled'
+                        [routerLink]='button.route + "/" + ((input$ | async) ?? "")'
+                        [queryParams]='pageSizeParams$ | async'>
+        </app-tab-button>
+
+      </ng-container>
+    </ng-container>
+  </div>
+
+  <ng-container *ngIf='(moreThan1200$ | async) === false'>
+    <ng-container *ngIf='(showAll$ | async) === false'>
+      <div class="expand-text" (click)='toggleAll()'>
+        <div style='margin-right: 0.25rem'>Näytä lisää</div>
+        <i class='fa-solid fa-caret-down'></i>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf='(showAll$ | async) === true'>
+      <div class='expand-text' (click)='toggleAll()'>
+        <div style='margin-right: 0.25rem'>Näytä vähemmän</div>
+        <i class='fa-solid fa-caret-up'></i>
+      </div>
+    </ng-container>
+  </ng-container>
+</ng-container>
+
+<div class='scroll-wrapper' [class.hidden]='(moreThan900$ | async) === true || homepage'>
+  <div class='left-btn left-gradient-container' [style.visibility]='(scrollAtStart$ | async) === false ? "visible" : "hidden"' (click)='scrollLeft()'>
+    <div class='nav-arrow'>
+      <fa-icon [icon]="faArrowLeft"></fa-icon>
+    </div>
+  </div>
+
+  <div class='right-btn right-gradient-container' [style.visibility]='(scrollAtEnd$ | async) === false ? "visible" : "hidden"' (click)='scrollRight()'>
+    <div class='nav-arrow'>
+      <fa-icon [icon]="faArrowRight"></fa-icon>
+    </div>
+  </div>
+
+  <div class='scroll-menu' #scroll>
+    <ng-container *ngIf='defaultOrderButtons$ | async as buttons'>
+      <ng-container *ngFor='let button of buttons; trackBy: trackByLabel'>
+
+
+        <ng-container *ngIf='button.route !== "/results/projects"'>
+          <app-tab-navigation-button [label]='button.label'
+                                     [count]='button.count'
+                                     [active]='button.active'
+                                     [disabled]='button.disabled'
+                                     [routerLink]='button.route + "/" + ((input$ | async) ?? "")'
+                                     [queryParams]='pageSizeParams$ | async'>
+          </app-tab-navigation-button>
+        </ng-container>
+
+        <ng-container *ngIf='button.route === "/results/projects"'>
+          <app-tab-navigation-button [label]='button.label'
+                                     [count]='button.count'
+                                     [active]='button.active'
+                                     [disabled]='button.disabled'
+                                     [queryParams]='pageSizeParams$ | async'
+                                     [tooltip]='tooltipTemplate'
+                                     boundariesElement="window">
+          </app-tab-navigation-button>
+        </ng-container>
+
+      </ng-container>
+
+      <ng-template #tooltipTemplate>
+        <div i18n>Hankkeet uudistuvat. Aiempien hankkeiden tiedot löytyvät nyt ‘Myönnetty rahoitus‘ -osiosta.</div>
+      </ng-template>
+
+    </ng-container>
+  </div>
+</div>

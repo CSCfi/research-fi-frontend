@@ -1,0 +1,45 @@
+:host {
+  display: inline-block;
+  padding: 10px 20px;
+
+  width: 180px;
+  flex: 0 0 180px;
+  height: 90px;
+
+  text-align: center;
+  cursor: pointer;
+  scroll-snap-align: start;
+
+  box-sizing: border-box;
+
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #4546B9;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  user-select: none;
+}
+
+.active-text {
+  font-weight: 700;
+}
+
+.active {
+  border: #3366cc 1px solid;
+  border-bottom: initial;
+}
+
+.not-active {
+  background-color: #e8e8f5;
+  border-top: 15px solid white;
+  border-bottom: #3366cc 1px solid;
+}
+
+.disabled {
+  background-color: #f0f0f0;
+  color: #b3b3b3;
+  cursor: not-allowed;
+}

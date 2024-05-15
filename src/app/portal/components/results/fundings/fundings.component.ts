@@ -87,7 +87,7 @@ export class FundingsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.tableColumns = [
       {
         key: 'name',
-        label: $localize`:@@fundingName:Hankkeen nimi`,
+        label: $localize`:@@fundingName:Myönnetty rahoitus`,
         class: 'col-8 col-lg-5 col-xl-3',
         mobile: true,
       },
