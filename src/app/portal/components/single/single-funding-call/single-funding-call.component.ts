@@ -24,7 +24,7 @@ import { DOCUMENT } from '@angular/common';
   styleUrls: ['./single-funding-call.component.scss'],
 })
 export class SingleFundingCallComponent implements OnInit {
-  newUiToggle = false;
+  newUiToggle = true;
 
   public singleId: any;
   responseData: Search;
@@ -63,6 +63,59 @@ export class SingleFundingCallComponent implements OnInit {
   funderFields = [
     { label: $localize`:@@fundingFunder:Rahoittaja`, field: 'foundation' },
   ];
+
+  typeOfFundingFields = {
+    '75': $localize`:@@typeOfFundingId.75: `,
+    "60": $localize`:@@typeOfFundingId.60:Strategisen tutkimuksen rahoitus`,
+    "42": $localize`:@@typeOfFundingId.42:Kansainvälinen yhteisrahoitteinen ohjelma`,
+    "35": $localize`:@@typeOfFundingId.35:Suunnattu akatemiahanke`,
+    "80": $localize`:@@typeOfFundingId.80:Tutkijoiden liikkuvuus ulkomaille`,
+    "19": $localize`:@@typeOfFundingId.19:Tutkimusinfrastruktuuri`,
+    "37": $localize`:@@typeOfFundingId.37:Akatemiaohjelma`,
+    "72": $localize`:@@typeOfFundingId.72:Tutkijoiden liikkuvuus Suomeen`,
+    "90": $localize`:@@typeOfFundingId.90:Lippulaivat`,
+    "11": $localize`:@@typeOfFundingId.11:Muu tieteen edistäminen`,
+    "27": $localize`:@@typeOfFundingId.27:Akatemiahanke`,
+    "61": $localize`:@@typeOfFundingId.61:Akatemiaohjelman kansainvälinen tutkimushanke`,
+    "65": $localize`:@@typeOfFundingId.65:Tutkijatohtorin tehtävä`,
+    "66": $localize`:@@typeOfFundingId.66:Akatemiatutkijan tehtävä`,
+  }
+
+  /*
+  ""
+  "75": " "
+  "60": "Strategisen tutkimuksen rahoitus"
+  "42": "Kansainvälinen yhteisrahoitteinen ohjelma"
+  "35": "Suunnattu akatemiahanke"
+  "80": "Tutkijoiden liikkuvuus ulkomaille"
+  "19": "Tutkimusinfrastruktuuri"
+  "37": "Akatemiaohjelma"
+  "72": "Tutkijoiden liikkuvuus Suomeen"
+  "90": "Lippulaivat"
+  "11": "Muu tieteen edistäminen"
+  "27": "Akatemiahanke"
+  "61": "Akatemiaohjelman kansainvälinen tutkimushanke"
+  "65": "Tutkijatohtorin tehtävä"
+  "66": "Akatemiatutkijan tehtävä"
+  */
+
+  /*
+  " "
+  "Strategisen tutkimuksen rahoitus"
+  "Kansainvälinen yhteisrahoitteinen ohjelma"
+  "Suunnattu akatemiahanke"
+  "Tutkijoiden liikkuvuus ulkomaille"
+  "Tutkimusinfrastruktuuri"
+  "Akatemiaohjelma"
+  "Tutkijoiden liikkuvuus Suomeen"
+  "Lippulaivat"
+  "Muu tieteen edistäminen"
+  "Akatemiahanke"
+  "Akatemiaohjelman kansainvälinen tutkimushanke"
+  "Tutkijatohtorin tehtävä"
+  "Akatemiatutkijan tehtävä"
+  "Akatemiatutkijan tutkimuskulut"
+  */
 
   linkFields = ['url', 'foundationUrl', 'applicationUrl'];
 

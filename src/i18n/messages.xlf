@@ -3024,6 +3024,12 @@
       <trans-unit id="7faaf4f818cbabf5f42648c7271cb60b1cb5356a" datatype="html">
         <source>Hankkeet uudistuvat. Aiempien hankkeiden tiedot löytyvät nyt ‘Myönnetty rahoitus‘ -osiosta.</source>
       </trans-unit>
+      <trans-unit id="fundingType" datatype="html">
+        <source>Rahoitusmuoto</source>
+      </trans-unit>
+      <trans-unit id="fundingTypeTooltip" datatype="html">
+        <source>Rahoitusmuoto kuvaa kenelle tai millaiseen tarkoitukseen haettava rahoitus on tarkoitettu. Ensimmäisessä vaiheessa tietoa rahoitusmuodosta toimittaa Suomen Akatemia, jaottelua laajennetaan muiden rahoittajien avoimiin hakuihin.</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

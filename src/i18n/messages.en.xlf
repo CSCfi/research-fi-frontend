@@ -4022,6 +4022,14 @@
         <source>Hankkeet uudistuvat. Aiempien hankkeiden tiedot löytyvät nyt ‘Myönnetty rahoitus‘ -osiosta.</source>
         <target>The projects are being renewed. The information from previous projects can now be found in the ‘Granted funding’ section.</target>
       </trans-unit>
+      <trans-unit id="fundingType" datatype="html">
+        <source>Rahoitusmuoto</source>
+        <target>Method of funding</target>
+      </trans-unit>
+      <trans-unit id="fundingTypeTooltip" datatype="html">
+        <source>Rahoitusmuoto kuvaa kenelle tai millaiseen tarkoitukseen haettava rahoitus on tarkoitettu. Ensimmäisessä vaiheessa tietoa rahoitusmuodosta toimittaa Suomen Akatemia, jaottelua laajennetaan muiden rahoittajien avoimiin hakuihin.</source>
+        <target>The method of funding describes for whom or for what purpose the funding is intended. In the first phase, information on the funding instrument will be provided by Research Council of Finland, it will be expanded to other funders open calls later.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

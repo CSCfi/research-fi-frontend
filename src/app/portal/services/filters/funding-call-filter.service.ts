@@ -52,7 +52,7 @@ export class FundingCallFilterService {
       hasSubFields: false,
       open: true,
       limitHeight: true,
-      tooltip: $localize`:@@fundingCallFunderTooltip:Rahoitushausta vastaava tutkimusrahoittaja.`,
+      tooltip: $localize`:@@fundingTypeTooltip:Rahoitusmuoto kuvaa kenelle tai millaiseen tarkoitukseen haettava rahoitus on tarkoitettu. Ensimmäisessä vaiheessa tietoa rahoitusmuodosta toimittaa Suomen Akatemia, jaottelua laajennetaan muiden rahoittajien avoimiin hakuihin.`,
     },
   ];
 
