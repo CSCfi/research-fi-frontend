@@ -399,9 +399,9 @@
               <div *ngIf="call.council?.length > 0">
                 <h2>Rahoitushaun vaihe</h2> <!-- {{ councilDecisionHeading }} -->
 
-                <div *ngFor="let row of call.council; let i = index"> <!-- call.council -->
+                <div *ngFor="let row of call.council; let i = index" style="margin-bottom: 1rem"> <!-- call.council -->
                   <div>
-                    <div style='font-weight: bold'>Päättäjä {{ i + 1 }}</div> <!-- {{ row.decisionMaker }} -->
+                    <div style='font-weight: bold'>{{ row.decisionMaker }}</div> <!-- {{ row.decisionMaker }} -->
 
                     <div style='display: flex'>
                       <div style='font-style: italic'>{{ row.Phase }}</div> <!-- {{ row.phase }} --> <!-- Päätetty -->

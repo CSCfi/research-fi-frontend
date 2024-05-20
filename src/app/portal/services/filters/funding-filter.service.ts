@@ -73,6 +73,23 @@ export class FundingFilterService {
       searchFromParent: true,
       tooltip: $localize`:@@funderTopicTooltip:Rahoitusmyönnön aihetta luokittelevia valintoja. Pääosin luokittelut eivät ole kattavia ja voivat olla rahoittajakohtaisia.`,
     },
+    {
+      field: 'xyzw',
+      label: "Päättäjä",
+      hasSubFields: false,
+      limitHeight: false,
+      open: true,
+      tooltip: $localize`:@@fFunderFTooltip:Rahoituksen myöntänyt tutkimusrahoittaja. Luettelossa ovat vain ne rahoittajat, jotka toimittavat tietoja palveluun.`,
+    },
+    {
+      field: 'decisionYear',
+      label: "Päätösvuosi",
+      hasSubFields: false,
+      open: true,
+      limitHeight: true,
+      hideSearch: true,
+      tooltip: "TODO",
+    },
   ];
 
   singleFilterData = [
@@ -116,6 +133,8 @@ export class FundingFilterService {
       source.fundingStatus.buckets = this.onGoing(
         source.fundingStatus.status.buckets
       );
+
+      source.decisionYear.buckets = source.decisionYear.decisionYear.buckets;
     }
     source.shaped = true;
     return source;
@@ -206,6 +225,32 @@ export class FundingFilterService {
   }
 
   funder(data) {
+    // Filter out empty keys
+    const res = data.filter((item) => {
+      return item.key !== ' ';
+    });
+
+    res.map((item) => {
+      item.label = item.label || item.key;
+      item.key = item.funderId.buckets[0]?.key || item.key;
+    });
+    return res;
+  }
+
+  abcdef(data) {
+    // Filter out empty keys
+    const res = data.filter((item) => {
+      return item.key !== ' ';
+    });
+
+    res.map((item) => {
+      item.label = item.label || item.key;
+      item.key = item.funderId.buckets[0]?.key || item.key;
+    });
+    return res;
+  }
+
+  xyzw(data) {
     // Filter out empty keys
     const res = data.filter((item) => {
       return item.key !== ' ';

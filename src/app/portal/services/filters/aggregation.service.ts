@@ -1219,6 +1219,75 @@ export class AggregationService {
           },
         };
 
+        payLoad.aggs.funder = {
+          filter: {
+            bool: {
+              filter: filterActive('funderBusinessId.pid_content.keyword'),
+            },
+          },
+          aggs: {
+            funders: {
+              terms: {
+                field: 'funderName' + this.localeC + '.keyword',
+                size: 250,
+                order: {
+                  _key: 'asc',
+                },
+              },
+              aggs: {
+                funderId: {
+                  terms: {
+                    field: 'funderBusinessId.pid_content.keyword',
+                  },
+                },
+              },
+            },
+          },
+        };
+
+        payLoad.aggs.xyzw = {
+          filter: {
+            bool: {
+              filter: filterActive('funderBusinessId.pid_content.keyword'),
+            },
+          },
+          aggs: {
+            funders: {
+              terms: {
+                field: 'funderName' + this.localeC + '.keyword',
+                size: 250,
+                order: {
+                  _key: 'asc',
+                },
+              },
+              aggs: {
+                funderId: {
+                  terms: {
+                    field: 'funderBusinessId.pid_content.keyword',
+                  },
+                },
+              },
+            },
+          },
+        };
+
+        payLoad.aggs.decisionYear = {
+          filter: {
+            bool: {
+              filter: filterActive("fundingEndYear"),
+            },
+          },
+          aggs: {
+            decisionYear: {
+              terms: {
+                field: "fundingEndYear",
+                order: { _key: 'desc' },
+                size: 100
+              }
+            }
+          },
+        };
+
         break;
       // Datasets
       case 'datasets':
