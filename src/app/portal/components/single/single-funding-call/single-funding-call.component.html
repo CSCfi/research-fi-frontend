@@ -380,33 +380,17 @@
                               </div> -->
               </div>
 
-              <!-- council decision data MOCK -->
-              <!-- EXAMPLE
-"council": [
-  {
-    "decisionMaker": "BTY",
-    "approvalDate": "2023-12-12",
-    "Phase": "PAATETTY"
-  },
-  {
-    "decisionMaker": "LT",
-    "approvalDate": "2023-12-12",
-    "Phase": "PAATETTY"
-  }
-],
-               -->
+              <div *ngIf="call.council">
+                <h2>Rahoitushaun vaihe</h2>
 
-              <div *ngIf="call.council?.length > 0">
-                <h2>Rahoitushaun vaihe</h2> <!-- {{ councilDecisionHeading }} -->
-
-                <div *ngFor="let row of call.council; let i = index" style="margin-bottom: 1rem"> <!-- call.council -->
+                <div *ngFor="let row of call.council; let i = index" style="margin-bottom: 1rem">
                   <div>
-                    <div style='font-weight: bold'>{{ row.decisionMaker }}</div> <!-- {{ row.decisionMaker }} -->
+                    <div style='font-weight: bold'>{{ row.decisionMakerNameFi }}</div>
 
                     <div style='display: flex'>
-                      <div style='font-style: italic'>{{ row.Phase }}</div> <!-- {{ row.phase }} --> <!-- Päätetty -->
+                      <div style='font-style: italic'>{{ row.phase }}</div>
                       <div style='width: 1rem'></div>
-                      <div style='border-bottom: 1rem'>{{row.approvalDate | date}}</div> <!-- {{ row.approvalDate }} -->
+                      <div style='border-bottom: 1rem'>{{row.approvalDate | date}}</div>
                     </div>
 
                   </div>

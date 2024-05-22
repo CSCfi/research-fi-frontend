@@ -51,6 +51,8 @@ export type Filters = {
   date: string[];
   status: string[];
   typeOfFundingId: string[];
+  approvalYear: string[];
+  decisionMaker: string[];
 };
 
 @Injectable({
@@ -92,6 +94,8 @@ export class FilterService {
   fundingCallCategoryFilter: string[];
   statusFilter: string[];
   typeOfFundingIdFilter: string[];
+  approvalYearFilter: string[];
+  decisionMakerFilter: string[];
 
   private filterSource = new BehaviorSubject({
     toYear: [],
@@ -125,6 +129,7 @@ export class FilterService {
     date: [],
     status: [],
     typeOfFundingId: [],
+    approvalYear: [],
   });
   filters = this.filterSource.asObservable();
   localeC: string;
@@ -200,6 +205,9 @@ export class FilterService {
       date: mapFilter(source.date),
       status: mapFilter(source.status),
       typeOfFundingId: mapFilter(source.typeOfFundingId),
+
+      approvalYear: mapFilter(source.approvalYear),
+      decisionMaker: mapFilter(source.decisionMaker),
     };
   }
 
@@ -306,6 +314,16 @@ export class FilterService {
     this.typeOfFundingIdFilter = this.basicFilter(
       filter.typeOfFundingId,
       'typeOfFundingId.keyword'
+    );
+
+    this.approvalYearFilter = this.basicFilter(
+      filter.approvalYear,
+      'council.approvalYear'
+    );
+
+    this.decisionMakerFilter = this.basicFilter(
+      filter.decisionMaker,
+      'council.decisionMakerId.keyword'
     );
   }
 
@@ -927,6 +945,8 @@ export class FilterService {
       ...nestedFilter('funding', this.fieldFilter, 'fieldsOfScience'),
       ...basicFilter('funding', this.fundingSchemeFilter),
       ...basicFilter('funding', this.statusFilter),
+      ...basicFilter('funding', this.approvalYearFilter),
+      ...basicFilter('funding', this.decisionMakerFilter),
 
       // Datasets
       ...basicFilter('dataset', this.dataSourceFilter),

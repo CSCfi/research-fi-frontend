@@ -1245,42 +1245,33 @@ export class AggregationService {
           },
         };
 
-        payLoad.aggs.xyzw = {
+        payLoad.aggs.decisionMaker = {
           filter: {
             bool: {
-              filter: filterActive('funderBusinessId.pid_content.keyword'),
+              filter: filterActive("council.decisionMakerId.keyword"),
             },
           },
           aggs: {
-            funders: {
+            decisionMaker: {
               terms: {
-                field: 'funderName' + this.localeC + '.keyword',
-                size: 250,
-                order: {
-                  _key: 'asc',
-                },
-              },
-              aggs: {
-                funderId: {
-                  terms: {
-                    field: 'funderBusinessId.pid_content.keyword',
-                  },
-                },
-              },
-            },
+                field: "council.decisionMakerId.keyword",
+                order: { _key: 'desc' },
+                size: 100
+              }
+            }
           },
         };
 
-        payLoad.aggs.decisionYear = {
+        payLoad.aggs.approvalYear = {
           filter: {
             bool: {
-              filter: filterActive("fundingEndYear"),
+              filter: filterActive("council.approvalYear"),
             },
           },
           aggs: {
-            decisionYear: {
+            approvalYear: {
               terms: {
-                field: "fundingEndYear",
+                field: "council.approvalYear",
                 order: { _key: 'desc' },
                 size: 100
               }
