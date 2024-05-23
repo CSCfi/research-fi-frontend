@@ -38,7 +38,7 @@ export class FundingCall {
     }[],
     public daysLeft: number,
     public typeOfFundingId: string,
-    public council: any,
+    public council: any
   ) {}
 }
 
