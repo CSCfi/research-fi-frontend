@@ -383,18 +383,64 @@
               <div *ngIf="call.council">
                 <h2>Rahoitushaun vaihe</h2>
 
-                <div *ngFor="let row of call.council; let i = index" style="margin-bottom: 1rem">
-                  <div>
-                    <div style='font-weight: bold'>{{ row.decisionMakerNameFi }}</div>
+                <ng-container *ngIf='call.council | groupBy: "decisionMakerId" as grouped'>
 
-                    <div style='display: flex'>
-                      <div style='font-style: italic'>{{ row.phase }}</div>
-                      <div style='width: 1rem'></div>
-                      <div style='border-bottom: 1rem'>{{row.approvalDate | date}}</div>
+                  <!-- LT -->
+                  <ng-container *ngIf='grouped?.LT?.length > 0'>
+                    <div style='font-weight: bold'>Luonnontieteiden ja tekniikan tutkimuksen toimikunta</div>
+
+                    <div *ngFor="let row of grouped.LT; let i = index">
+                      <div style='border-bottom: 1rem'>{{ row.phase }} {{row.approvalDate | date}}</div>
                     </div>
 
-                  </div>
-                </div>
+                    <div style='margin-bottom: 1rem'></div>
+                  </ng-container>
+
+                  <!-- BTY -->
+                  <ng-container *ngIf='grouped?.BTY?.length > 0'>
+                    <div style='font-weight: bold'>Biotieteiden, terveyden ja ympäristön tutkimuksen toimikunta</div>
+
+                    <div *ngFor="let row of grouped.BTY; let i = index">
+                      <div style='border-bottom: 1rem'>{{ row.phase }} {{row.approvalDate | date}}</div>
+                    </div>
+
+                    <div style='margin-bottom: 1rem'></div>
+                  </ng-container>
+
+                  <!-- KY -->
+                  <ng-container *ngIf='grouped?.KY?.length > 0'>
+                    <div style='font-weight: bold'>Kulttuurin ja yhteiskunnan tutkimuksen toimikunta</div>
+
+                    <div *ngFor="let row of grouped.KY; let i = index">
+                      <div style='border-bottom: 1rem'>{{ row.phase }} {{row.approvalDate | date}}</div>
+                    </div>
+
+                    <div style='margin-bottom: 1rem'></div>
+                  </ng-container>
+
+                  <!-- TIK -->
+                  <ng-container *ngIf='grouped?.TIK?.length > 0'>
+                    <div style='font-weight: bold'>Tutkimusinfrastruktuurikomitea</div>
+
+                    <div *ngFor="let row of grouped.TIK; let i = index">
+                      <div style='border-bottom: 1rem'>{{ row.phase }} {{row.approvalDate | date}}</div>
+                    </div>
+
+                    <div style='margin-bottom: 1rem'></div>
+                  </ng-container>
+
+                  <!-- STN -->
+                  <ng-container *ngIf='grouped?.STN?.length > 0'>
+                    <div style='font-weight: bold'>Strategisen tutkimuksen neuvosto</div>
+
+                    <div *ngFor="let row of grouped.STN; let i = index">
+                      <div style='border-bottom: 1rem'>{{ row.phase }} {{row.approvalDate | date}}</div>
+                    </div>
+
+                    <div style='margin-bottom: 1rem'></div>
+                  </ng-container>
+
+                </ng-container>
               </div>
 
               <div *ngIf="contactInfoRows?.length > 0">
