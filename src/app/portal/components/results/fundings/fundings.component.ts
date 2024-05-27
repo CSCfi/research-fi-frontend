@@ -13,7 +13,7 @@ import {
   AfterViewInit,
   ViewChild,
   ElementRef,
-  ChangeDetectorRef,
+  ChangeDetectorRef, inject, LOCALE_ID
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
@@ -124,7 +124,7 @@ export class FundingsComponent implements OnInit, OnDestroy, AfterViewInit {
       },
       funded: {
         label: this.highlightPipe.transform(
-          funding.recipient.personNameAndOrg || '',
+          justOrgIfFundedBySuomenAkatemia(funding) || '',
           this.input
         ),
       },
@@ -140,5 +140,13 @@ export class FundingsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.inputSub?.unsubscribe();
     this.focusSub?.unsubscribe();
     this.tabChangeService.targetFocus('');
+  }
+}
+
+function justOrgIfFundedBySuomenAkatemia(funding) {
+  if (funding.funder.name === "Suomen Akatemia" || funding.funder.name === "Research Council of Finland" || funding.funder.name === "Finlands Akademi") {
+    return funding.recipient.organizationName
+  } else {
+    return funding.recipient.personNameAndOrg;
   }
 }

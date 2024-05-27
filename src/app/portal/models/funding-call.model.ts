@@ -36,7 +36,9 @@ export class FundingCall {
       parentId;
       parentName: string;
     }[],
-    public daysLeft: number
+    public daysLeft: number,
+    public typeOfFundingId: string,
+    public council: any
   ) {}
 }
 
@@ -127,6 +129,14 @@ export class FundingCallAdapter implements Adapter<FundingCall> {
       month: "numeric",
       year: "numeric" }).format(dueDate.getTime());
 
+    // Rahoitustyyppi
+    // console.log("item.typeOfFundingId", item.typeOfFundingId);
+
+    // Päätökset? siis Rahoitushaun vaiheet (?)
+    // console.log("item.council", item.council);
+
+    // Yhteistiedot ja --> titteli? <--
+
     return new FundingCall(
       item.id,
       this.utils.checkTranslation('name', item),
@@ -141,7 +151,9 @@ export class FundingCallAdapter implements Adapter<FundingCall> {
       dueTimeString,
       foundation,
       categories.sort((a, b) => +(a.name > b.name) - 0.5),
-      Math.floor(daysLeft)
+      Math.floor(daysLeft),
+      item.typeOfFundingId,
+      item.council
     );
   }
 

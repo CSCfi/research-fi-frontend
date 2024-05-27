@@ -16,6 +16,16 @@ import {
   testFinnishBusinessId,
 } from '@shared/services/model-util.service';
 
+export type Council = {
+  decisionMakerId: string;
+  decisionMakerNameFi: string;
+  decisionMakerNameEn: string;
+  decisionMakerNameSv: string;
+  approvalDate: string;
+  approvalYear: number;
+  phase: string;
+};
+
 export class Funding {
   constructor(
     public id: number,
@@ -41,7 +51,8 @@ export class Funding {
     public structuralFund: boolean,
     public relatedFundings: RelatedFunding[],
     public additionalOrgs: { name: string; orgId: number }[],
-    public totalFundingAmount: number
+    public totalFundingAmount: number,
+    public council?: Council,
   ) {}
 }
 
@@ -232,7 +243,8 @@ export class FundingAdapter implements Adapter<Funding> {
       item.structuralFund,
       relatedFundings,
       additionalOrgs,
-      totalFundingAmount
+      totalFundingAmount,
+      item.council?.length > 0 ? item.council[0] : undefined
     );
   }
 }

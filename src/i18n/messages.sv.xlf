@@ -4025,6 +4025,14 @@
         <source>Hankkeet uudistuvat. Aiempien hankkeiden tiedot löytyvät nyt ‘Myönnetty rahoitus‘ -osiosta.</source>
         <target>Projekten förnyas. Information från tidigare projekt kan nu hittas i avsnittet ‘Beviljade finansiering’.</target>
       </trans-unit>
+      <trans-unit id="fundingType" datatype="html">
+        <source>Rahoitusmuoto</source>
+        <target>Finansieringsmetoden</target>
+      </trans-unit>
+      <trans-unit id="fundingTypeTooltip" datatype="html">
+        <source>Rahoitusmuoto kuvaa kenelle tai millaiseen tarkoitukseen haettava rahoitus on tarkoitettu. Ensimmäisessä vaiheessa tietoa rahoitusmuodosta toimittaa Suomen Akatemia, jaottelua laajennetaan muiden rahoittajien avoimiin hakuihin.</source>
+        <target>Finansieringsmetoden beskriver vem eller för vilket ändamål finansieringen är avsedd. I den första fasen kommer information om finansieringsinstrumentet att tillhandahållas av Finlands Akademi, som senare utvidgas till att omfatta andra finansiärer som öppnar utlysningar.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

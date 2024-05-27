@@ -27,6 +27,15 @@ export class FundingFilterService {
       tooltip: $localize`:@@fYearFTooltip:Vuosi, jolle rahoitus on myönnetty. Useampivuotisissa rahoituksissa ensimmäinen vuosi.`,
     },
     {
+      field: 'approvalYear',
+      label: "Myöntövuosi",
+      hasSubFields: false,
+      open: true,
+      limitHeight: true,
+      hideSearch: true,
+      tooltip: "TODO",
+    },
+    {
       field: 'organization',
       label: $localize`:@@organization:Organisaatio`,
       hasSubFields: true,
@@ -36,6 +45,14 @@ export class FundingFilterService {
     {
       field: 'funder',
       label: $localize`:@@fundingFunder:Rahoittaja`,
+      hasSubFields: false,
+      limitHeight: false,
+      open: true,
+      tooltip: $localize`:@@fFunderFTooltip:Rahoituksen myöntänyt tutkimusrahoittaja. Luettelossa ovat vain ne rahoittajat, jotka toimittavat tietoja palveluun.`,
+    },
+    {
+      field: 'decisionMaker',
+      label: "Suomen Akatemian päättäjä",
       hasSubFields: false,
       limitHeight: false,
       open: true,
@@ -116,6 +133,12 @@ export class FundingFilterService {
       source.fundingStatus.buckets = this.onGoing(
         source.fundingStatus.status.buckets
       );
+
+      source.approvalYear.buckets = source.approvalYear.approvalYear.buckets;
+      // source.approvalYear.buckets = this.mapApprovalYear(source.approvalYear.approvalYear.buckets);
+
+      // source.decisionMaker.buckets = source.decisionMaker.decisionMaker.buckets;
+      source.decisionMaker.buckets = this.mapDecisionMaker(source.decisionMaker.decisionMaker.buckets);
     }
     source.shaped = true;
     return source;
@@ -345,6 +368,25 @@ export class FundingFilterService {
     return data.map(
       (item) => (item.key = { key: 'onGoing', doc_count: item.doc_count })
     );
+  }
+
+  labels = {
+    LT:  $localize`Luonnontieteiden ja tekniikan tutkimuksen toimikunta`,
+    BTY: $localize`Biotieteiden, terveyden ja ympäristön tutkimuksen toimikunta`,
+    KY:  $localize`Kulttuurin ja yhteiskunnan tutkimuksen toimikunta`,
+    TIK: $localize`Tutkimusinfrastruktuurikomitea`,
+    STN: $localize`Strategisen tutkimuksen neuvosto`
+  }
+
+  mapDecisionMaker(data) {
+    // SAME AS: source.decisionMaker.buckets = source.decisionMaker.decisionMaker.buckets;
+    // But processes the labels with the labels object
+
+    data.map((item) => {
+      item.label = this.labels[item.key] || item.key;
+    });
+
+    return data;
   }
 
   getSingleAmount(data) {

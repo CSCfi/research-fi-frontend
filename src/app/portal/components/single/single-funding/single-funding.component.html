@@ -462,6 +462,20 @@
                 </div>
               </ng-template>
             </div>
+
+            <ng-container *ngIf="item.council">
+              <div class="row">
+                <h2 class="col-12 col-sm-4 col-lg-3 th">
+                  <span class="pe-1">Päättäjä</span>
+                </h2>
+
+                <div class="col-12 col-sm-8 col-lg-9 td">
+                  {{ item.council.decisionMakerNameFi }} <br>
+                  {{ item.council.approvalDate | date }} päätetty
+                </div>
+              </div>
+            </ng-container>
+
           </div>
 
           <!-- Other -->

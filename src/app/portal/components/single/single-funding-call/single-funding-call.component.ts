@@ -24,6 +24,8 @@ import { DOCUMENT } from '@angular/common';
   styleUrls: ['./single-funding-call.component.scss'],
 })
 export class SingleFundingCallComponent implements OnInit {
+  newUiToggle = true;
+
   public singleId: any;
   responseData: Search;
   searchTerm: string;
@@ -61,6 +63,79 @@ export class SingleFundingCallComponent implements OnInit {
   funderFields = [
     { label: $localize`:@@fundingFunder:Rahoittaja`, field: 'foundation' },
   ];
+
+  typeOfFundingFields = {
+    "16": $localize`Tutkijankoulutus ja tutkijoiden työskentely ulkomailla`,
+    "61": $localize`Tutkijatohtorin tehtävä`,
+    "62": $localize`Tutkijatohtorin tutkimuskulut`,
+    "65": $localize`Akatemiatutkijan tehtävä`,
+    "66": $localize`Akatemiatutkijan tutkimuskulut`,
+    "68": $localize`Akatemiaprofessorin tehtävä`,
+    "69": $localize`Akatemiaprofessorin tutkimuskulut`,
+    "08": $localize`Kahdenväliset yhteistyösopimukset, yhteishaut`,
+    "10": $localize`Huippuyksikköohjelma`,
+    "11": $localize`Akatemiahanke`,
+    "19": $localize`Akatemiaohjelma`,
+    "27": $localize`Akatemiaohjelman kansainvälinen tutkimushanke`,
+    "29": $localize`Pohjoismaiset huippuyksikköohjelmat`,
+    "33": $localize`Akatemiaohjelmien koordinointi`,
+    "42": $localize`Suunnattu akatemiahanke`,
+    "46": $localize`Kehitystutkimus`,
+    "55": $localize`Tutkijatohtorin projekti`,
+    "60": $localize`Kansainvälinen yhteisrahoitteinen ohjelma`,
+    "34": $localize`Tohtoriohjelmien toiminnan rahoitus`,
+    "58": $localize`Finland Distinguished Professor Programme`,
+    "71": $localize`Yliopistojen profiloitumisen vahvistaminen PROFI`,
+    "72": $localize`Lippulaivat`,
+    "80": $localize`Tutkimusinfrastruktuuri`,
+    "81": $localize`Jäsenmaksu (Infra)`,
+    "75": $localize`Strategisen tutkimuksen rahoitus`,
+    "76": $localize`STN EU vastinraha`,
+    "35": $localize`Tutkijoiden liikkuvuus ulkomaille`,
+    "37": $localize`Tutkijoiden liikkuvuus Suomeen`,
+    "40": $localize`Kansallinen ulkopuolisen rahoituksen hanke (Tieteellinen seura)`,
+    "44": $localize`Tutkimuksen arviointi`,
+    "49": $localize`Rahoitusosuus (muut kuin Infra)`,
+    "87": $localize`Kansainvälinen ulkopuolisen rahoituksen hanke / EU-Hanke`,
+    "88": $localize`Kansainvälinen ulkopuolisen rahoituksen hanke / Nordforsk, Noria-Net -hanke`,
+    "90": $localize`Muu tieteen edistäminen`,
+  }
+
+  /*
+  ""
+  "75": " "
+  "60": "Strategisen tutkimuksen rahoitus"
+  "42": "Kansainvälinen yhteisrahoitteinen ohjelma"
+  "35": "Suunnattu akatemiahanke"
+  "80": "Tutkijoiden liikkuvuus ulkomaille"
+  "19": "Tutkimusinfrastruktuuri"
+  "37": "Akatemiaohjelma"
+  "72": "Tutkijoiden liikkuvuus Suomeen"
+  "90": "Lippulaivat"
+  "11": "Muu tieteen edistäminen"
+  "27": "Akatemiahanke"
+  "61": "Akatemiaohjelman kansainvälinen tutkimushanke"
+  "65": "Tutkijatohtorin tehtävä"
+  "66": "Akatemiatutkijan tehtävä"
+  */
+
+  /*
+  " "
+  "Strategisen tutkimuksen rahoitus"
+  "Kansainvälinen yhteisrahoitteinen ohjelma"
+  "Suunnattu akatemiahanke"
+  "Tutkijoiden liikkuvuus ulkomaille"
+  "Tutkimusinfrastruktuuri"
+  "Akatemiaohjelma"
+  "Tutkijoiden liikkuvuus Suomeen"
+  "Lippulaivat"
+  "Muu tieteen edistäminen"
+  "Akatemiahanke"
+  "Akatemiaohjelman kansainvälinen tutkimushanke"
+  "Tutkijatohtorin tehtävä"
+  "Akatemiatutkijan tehtävä"
+  "Akatemiatutkijan tutkimuskulut"
+  */
 
   linkFields = ['url', 'foundationUrl', 'applicationUrl'];
 
@@ -191,7 +266,9 @@ export class SingleFundingCallComponent implements OnInit {
     this.dataSub = this.singleService.getSingleFundingCall(id).subscribe({
       next: (responseData) => {
         this.responseData = responseData;
+
         const fundingCall = this.responseData.fundingCalls[0];
+
         if (fundingCall) {
           this.addTopLevelScienceAreas(fundingCall);
           switch (this.localeId) {
