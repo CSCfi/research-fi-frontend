@@ -219,7 +219,7 @@
           <ng-container *ngIf="call.typeOfFundingId">
             <div class="row content">
               <h2 class="col-12 col-sm-6 col-lg-3 th">
-                <span class="pe-1">Rahoitusmuoto</span>
+                <span class="pe-1" i18n>Rahoitusmuoto</span>
 
                 <!--<ng-template #tooltipTemplate>
                   <div>XXX</div>
@@ -381,19 +381,19 @@
               </div>
 
               <div *ngIf="call.council">
-                <h2>Rahoitushaun vaihe</h2>
+                <h2 i18n>Rahoitushaun vaihe</h2>
 
                 <ng-container *ngIf='call.council | groupBy: "decisionMakerId" as grouped'>
 
                   <!-- LT -->
                   <ng-container *ngIf='grouped?.LT?.length > 0'>
-                    <div style='font-weight: bold'>Luonnontieteiden ja tekniikan tutkimuksen toimikunta</div>
+                    <div style='font-weight: bold' i18n>Luonnontieteiden ja tekniikan tutkimuksen toimikunta</div>
 
                     <div *ngFor="let row of grouped.LT; let i = index">
                       <div style='display: flex; border-bottom: 1rem'>
                         <div style='min-width: 100px'>{{ row.phase }}</div>
                         <div style='min-width: 100px'>{{ row.approvalDate | date }}</div>
-                        <a [routerLink]='["/results/fundings"]' [queryParams]='{decisionMaker: "LT", callId: call.id}'>Näytä päätökset</a>
+                        <a [routerLink]='["/results/fundings"]' [queryParams]='{decisionMaker: "LT", callId: call.id}' i18n>Näytä myönnöt</a>
                       </div>
                     </div>
 
@@ -402,7 +402,7 @@
 
                   <!-- BTY -->
                   <ng-container *ngIf='grouped?.BTY?.length > 0'>
-                    <div style='font-weight: bold'>Biotieteiden, terveyden ja ympäristön tutkimuksen toimikunta</div>
+                    <div style='font-weight: bold' i18n>Biotieteiden, terveyden ja ympäristön tutkimuksen toimikunta</div>
 
                     <div *ngFor="let row of grouped.BTY; let i = index">
                       <!--<div style='border-bottom: 1rem'>{{ row.phase }} {{row.approvalDate | date}}</div>-->
@@ -410,7 +410,7 @@
                       <div style='display: flex; border-bottom: 1rem'>
                         <div style='min-width: 100px'>{{ row.phase }}</div>
                         <div style='min-width: 100px'>{{ row.approvalDate | date }}</div>
-                        <a [routerLink]='["/results/fundings"]' [queryParams]='{decisionMaker: "BTY", callId: call.id}'>Näytä päätökset</a>
+                        <a [routerLink]='["/results/fundings"]' [queryParams]='{decisionMaker: "BTY", callId: call.id}' i18n>Näytä myönnöt</a>
                       </div>
                     </div>
 
@@ -419,13 +419,13 @@
 
                   <!-- KY -->
                   <ng-container *ngIf='grouped?.KY?.length > 0'>
-                    <div style='font-weight: bold'>Kulttuurin ja yhteiskunnan tutkimuksen toimikunta</div>
+                    <div style='font-weight: bold' i18n>Kulttuurin ja yhteiskunnan tutkimuksen toimikunta</div>
 
                     <div *ngFor="let row of grouped.KY; let i = index">
                       <div style='display: flex; border-bottom: 1rem'>
                         <div style='min-width: 100px'>{{ row.phase }}</div>
                         <div style='min-width: 100px'>{{ row.approvalDate | date }}</div>
-                        <a [routerLink]='["/results/fundings"]' [queryParams]='{decisionMaker: "KY", callId: call.id}'>Näytä päätökset</a>
+                        <a [routerLink]='["/results/fundings"]' [queryParams]='{decisionMaker: "KY", callId: call.id}' i18n>Näytä myönnöt</a>
                       </div>
                     </div>
 
@@ -434,13 +434,13 @@
 
                   <!-- TIK -->
                   <ng-container *ngIf='grouped?.TIK?.length > 0'>
-                    <div style='font-weight: bold'>Tutkimusinfrastruktuurikomitea</div>
+                    <div style='font-weight: bold' i18n>Tutkimusinfrastruktuurikomitea</div>
 
                     <div *ngFor="let row of grouped.TIK; let i = index">
                       <div style='display: flex; border-bottom: 1rem'>
                         <div style='min-width: 100px'>{{ row.phase }}</div>
                         <div style='min-width: 100px'>{{ row.approvalDate | date }}</div>
-                        <a [routerLink]='["/results/fundings"]' [queryParams]='{decisionMaker: "TIK", callId: call.id}'>Näytä päätökset</a>
+                        <a [routerLink]='["/results/fundings"]' [queryParams]='{decisionMaker: "TIK", callId: call.id}' i18n>Näytä myönnöt</a>
                       </div>
                     </div>
 
@@ -449,13 +449,13 @@
 
                   <!-- STN -->
                   <ng-container *ngIf='grouped?.STN?.length > 0'>
-                    <div style='font-weight: bold'>Strategisen tutkimuksen neuvosto</div>
+                    <div style='font-weight: bold' i18n>Strategisen tutkimuksen neuvosto</div>
 
                     <div *ngFor="let row of grouped.STN; let i = index">
                       <div style='display: flex; border-bottom: 1rem'>
                         <div style='min-width: 100px'>{{ row.phase }}</div>
                         <div style='min-width: 100px'>{{ row.approvalDate | date }}</div>
-                        <a [routerLink]='["/results/fundings"]' [queryParams]='{decisionMaker: "STN", callId: call.id}'>Näytä päätökset</a>
+                        <a [routerLink]='["/results/fundings"]' [queryParams]='{decisionMaker: "STN", callId: call.id}' i18n>Näytä myönnöt</a>
                       </div>
                     </div>
 

@@ -28,12 +28,12 @@ export class FundingFilterService {
     },
     {
       field: 'approvalYear',
-      label: "Myöntövuosi",
+      label: $localize`Myöntövuosi`,
       hasSubFields: false,
       open: true,
       limitHeight: true,
       hideSearch: true,
-      tooltip: "TODO",
+      tooltip: $localize`Vuosi, jona rahoitus on myönnetty. Ensimmäisessä vaiheessa tietoa myöntövuodesta toimittaa Suomen Akatemia. Tietoa myöntövuodesta laajennetaan myöhemmin muihin rahoittajiin.`,
     },
     {
       field: 'organization',
@@ -52,7 +52,7 @@ export class FundingFilterService {
     },
     {
       field: 'decisionMaker',
-      label: "Suomen Akatemian päättäjä",
+      label: $localize`Suomen Akatemian päättäjä`,
       hasSubFields: false,
       limitHeight: false,
       open: true,
