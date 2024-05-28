@@ -427,7 +427,7 @@
               <!-- Normal funding -->
               <ng-container *ngIf="!item.euFunding; else euCallProgramme">
                 <div class="col-12 col-sm-8 col-lg-9 td">
-                  {{ item.funder.callProgrammeName }}
+                  <a [routerLink]="'/results/funding-calls/' + item.funder.callProgrammeName">{{ item.funder.callProgrammeName }}</a>
                 </div>
               </ng-container>
 

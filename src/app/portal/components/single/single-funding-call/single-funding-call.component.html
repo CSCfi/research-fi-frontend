@@ -393,7 +393,7 @@
                       <div style='display: flex; border-bottom: 1rem'>
                         <div style='min-width: 100px'>{{ row.phase }}</div>
                         <div style='min-width: 100px'>{{ row.approvalDate | date }}</div>
-                        <a [routerLink]='["/results/fundings"]' [queryParams]='{decisionMaker: "LT", callId: call.id}' i18n>Näytä myönnöt</a>
+                        <a [routerLink]='["/results/fundings"]' [queryParams]='{decisionMaker: "LT", callId: call.id, approvalDate: row.approvalDate}' i18n>Näytä myönnöt</a>
                       </div>
                     </div>
 
@@ -410,7 +410,7 @@
                       <div style='display: flex; border-bottom: 1rem'>
                         <div style='min-width: 100px'>{{ row.phase }}</div>
                         <div style='min-width: 100px'>{{ row.approvalDate | date }}</div>
-                        <a [routerLink]='["/results/fundings"]' [queryParams]='{decisionMaker: "BTY", callId: call.id}' i18n>Näytä myönnöt</a>
+                        <a [routerLink]='["/results/fundings"]' [queryParams]='{decisionMaker: "BTY", callId: call.id, approvalDate: row.approvalDate}' i18n>Näytä myönnöt</a>
                       </div>
                     </div>
 
@@ -425,7 +425,7 @@
                       <div style='display: flex; border-bottom: 1rem'>
                         <div style='min-width: 100px'>{{ row.phase }}</div>
                         <div style='min-width: 100px'>{{ row.approvalDate | date }}</div>
-                        <a [routerLink]='["/results/fundings"]' [queryParams]='{decisionMaker: "KY", callId: call.id}' i18n>Näytä myönnöt</a>
+                        <a [routerLink]='["/results/fundings"]' [queryParams]='{decisionMaker: "KY", callId: call.id, approvalDate: row.approvalDate}' i18n>Näytä myönnöt</a>
                       </div>
                     </div>
 
@@ -440,7 +440,7 @@
                       <div style='display: flex; border-bottom: 1rem'>
                         <div style='min-width: 100px'>{{ row.phase }}</div>
                         <div style='min-width: 100px'>{{ row.approvalDate | date }}</div>
-                        <a [routerLink]='["/results/fundings"]' [queryParams]='{decisionMaker: "TIK", callId: call.id}' i18n>Näytä myönnöt</a>
+                        <a [routerLink]='["/results/fundings"]' [queryParams]='{decisionMaker: "TIK", callId: call.id, approvalDate: row.approvalDate}' i18n>Näytä myönnöt</a>
                       </div>
                     </div>
 
@@ -455,7 +455,7 @@
                       <div style='display: flex; border-bottom: 1rem'>
                         <div style='min-width: 100px'>{{ row.phase }}</div>
                         <div style='min-width: 100px'>{{ row.approvalDate | date }}</div>
-                        <a [routerLink]='["/results/fundings"]' [queryParams]='{decisionMaker: "STN", callId: call.id}' i18n>Näytä myönnöt</a>
+                        <a [routerLink]='["/results/fundings"]' [queryParams]='{decisionMaker: "STN", callId: call.id, approvalDate: row.approvalDate}' i18n>Näytä myönnöt</a>
                       </div>
                     </div>
 
