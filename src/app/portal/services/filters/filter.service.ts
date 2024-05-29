@@ -321,7 +321,7 @@ export class FilterService {
 
     this.typeOfFundingIdFilter = this.basicFilter(
       filter.typeOfFundingId,
-      'typeOfFundingId.keyword'
+      'typeOfFundingGroupId.keyword'
     );
 
     this.approvalYearFilter = this.basicFilter(

@@ -1707,20 +1707,20 @@ export class AggregationService {
         payLoad.aggs.typeOfFundingId = {
           filter: {
             bool: {
-              filter: filterActive('typeOfFundingId.keyword'),
+              filter: filterActive('typeOfFundingGroupId.keyword'),
             },
           },
           aggs: {
             fundingId: {
               terms: {
-                field: "typeOfFundingId.keyword",
+                field: "typeOfFundingGroupId.keyword",
                 size: 500,
-                exclude: '',
+                exclude: ' ',
               },
               aggs: {
                 fundingNames: {
                   terms: {
-                    field: "typeOfFundingName" + this.localeC + ".keyword",
+                    field: "typeOfFundingGroupName" + this.localeC + ".keyword",
                     size: 100
                   }
                 }

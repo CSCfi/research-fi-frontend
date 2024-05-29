@@ -4034,142 +4034,6 @@
         <source>Rahoitushaun vaihe</source>
         <target>State of funding call</target>
       </trans-unit>
-      <trans-unit id="4779141095570972780" datatype="html">
-        <source>Tutkijankoulutus ja tutkijoiden työskentely ulkomailla</source>
-        <target state="new">Tutkijankoulutus ja tutkijoiden työskentely ulkomailla</target>
-      </trans-unit>
-      <trans-unit id="2075948058024506168" datatype="html">
-        <source>Tutkijatohtorin tehtävä</source>
-        <target state="new">Tutkijatohtorin tehtävä</target>
-      </trans-unit>
-      <trans-unit id="7494934175116800135" datatype="html">
-        <source>Tutkijatohtorin tutkimuskulut</source>
-        <target state="new">Tutkijatohtorin tutkimuskulut</target>
-      </trans-unit>
-      <trans-unit id="7147137154194854507" datatype="html">
-        <source>Akatemiatutkijan tehtävä</source>
-        <target state="new">Akatemiatutkijan tehtävä</target>
-      </trans-unit>
-      <trans-unit id="3171857755870970286" datatype="html">
-        <source>Akatemiatutkijan tutkimuskulut</source>
-        <target state="new">Akatemiatutkijan tutkimuskulut</target>
-      </trans-unit>
-      <trans-unit id="3927925351701414648" datatype="html">
-        <source>Akatemiaprofessorin tehtävä</source>
-        <target state="new">Akatemiaprofessorin tehtävä</target>
-      </trans-unit>
-      <trans-unit id="7590410042570931377" datatype="html">
-        <source>Akatemiaprofessorin tutkimuskulut</source>
-        <target state="new">Akatemiaprofessorin tutkimuskulut</target>
-      </trans-unit>
-      <trans-unit id="94035577101502253" datatype="html">
-        <source>Kahdenväliset yhteistyösopimukset, yhteishaut</source>
-        <target state="new">Kahdenväliset yhteistyösopimukset, yhteishaut</target>
-      </trans-unit>
-      <trans-unit id="4165055786032242018" datatype="html">
-        <source>Huippuyksikköohjelma</source>
-        <target state="new">Huippuyksikköohjelma</target>
-      </trans-unit>
-      <trans-unit id="8324453451463863141" datatype="html">
-        <source>Akatemiahanke</source>
-        <target state="new">Akatemiahanke</target>
-      </trans-unit>
-      <trans-unit id="824732859712328125" datatype="html">
-        <source>Akatemiaohjelma</source>
-        <target state="new">Akatemiaohjelma</target>
-      </trans-unit>
-      <trans-unit id="6676070322310995046" datatype="html">
-        <source>Akatemiaohjelman kansainvälinen tutkimushanke</source>
-        <target state="new">Akatemiaohjelman kansainvälinen tutkimushanke</target>
-      </trans-unit>
-      <trans-unit id="2102080730822972781" datatype="html">
-        <source>Pohjoismaiset huippuyksikköohjelmat</source>
-        <target state="new">Pohjoismaiset huippuyksikköohjelmat</target>
-      </trans-unit>
-      <trans-unit id="2802694949364565142" datatype="html">
-        <source>Akatemiaohjelmien koordinointi</source>
-        <target state="new">Akatemiaohjelmien koordinointi</target>
-      </trans-unit>
-      <trans-unit id="3525671084017979380" datatype="html">
-        <source>Suunnattu akatemiahanke</source>
-        <target state="new">Suunnattu akatemiahanke</target>
-      </trans-unit>
-      <trans-unit id="1005275322700551995" datatype="html">
-        <source>Kehitystutkimus</source>
-        <target state="new">Kehitystutkimus</target>
-      </trans-unit>
-      <trans-unit id="6611096938219187094" datatype="html">
-        <source>Tutkijatohtorin projekti</source>
-        <target state="new">Tutkijatohtorin projekti</target>
-      </trans-unit>
-      <trans-unit id="2041136177196750720" datatype="html">
-        <source>Kansainvälinen yhteisrahoitteinen ohjelma</source>
-        <target state="new">Kansainvälinen yhteisrahoitteinen ohjelma</target>
-      </trans-unit>
-      <trans-unit id="6586146403315372170" datatype="html">
-        <source>Tohtoriohjelmien toiminnan rahoitus</source>
-        <target state="new">Tohtoriohjelmien toiminnan rahoitus</target>
-      </trans-unit>
-      <trans-unit id="8244249009602419581" datatype="html">
-        <source>Finland Distinguished Professor Programme</source>
-        <target state="new">Finland Distinguished Professor Programme</target>
-      </trans-unit>
-      <trans-unit id="4084349995542942299" datatype="html">
-        <source>Yliopistojen profiloitumisen vahvistaminen PROFI</source>
-        <target state="new">Yliopistojen profiloitumisen vahvistaminen PROFI</target>
-      </trans-unit>
-      <trans-unit id="3880534532540473484" datatype="html">
-        <source>Lippulaivat</source>
-        <target state="new">Lippulaivat</target>
-      </trans-unit>
-      <trans-unit id="80568044368940804" datatype="html">
-        <source>Tutkimusinfrastruktuuri</source>
-        <target state="new">Tutkimusinfrastruktuuri</target>
-      </trans-unit>
-      <trans-unit id="532065401059178833" datatype="html">
-        <source>Jäsenmaksu (Infra)</source>
-        <target state="new">Jäsenmaksu (Infra)</target>
-      </trans-unit>
-      <trans-unit id="9179802099361915852" datatype="html">
-        <source>Strategisen tutkimuksen rahoitus</source>
-        <target state="new">Strategisen tutkimuksen rahoitus</target>
-      </trans-unit>
-      <trans-unit id="2236615769061000797" datatype="html">
-        <source>STN EU vastinraha</source>
-        <target state="new">STN EU vastinraha</target>
-      </trans-unit>
-      <trans-unit id="5984927916476785125" datatype="html">
-        <source>Tutkijoiden liikkuvuus ulkomaille</source>
-        <target state="new">Tutkijoiden liikkuvuus ulkomaille</target>
-      </trans-unit>
-      <trans-unit id="2533535419095871606" datatype="html">
-        <source>Tutkijoiden liikkuvuus Suomeen</source>
-        <target state="new">Tutkijoiden liikkuvuus Suomeen</target>
-      </trans-unit>
-      <trans-unit id="6541704812317220278" datatype="html">
-        <source>Kansallinen ulkopuolisen rahoituksen hanke (Tieteellinen seura)</source>
-        <target state="new">Kansallinen ulkopuolisen rahoituksen hanke (Tieteellinen seura)</target>
-      </trans-unit>
-      <trans-unit id="6689296183671201114" datatype="html">
-        <source>Tutkimuksen arviointi</source>
-        <target state="new">Tutkimuksen arviointi</target>
-      </trans-unit>
-      <trans-unit id="986094117061778360" datatype="html">
-        <source>Rahoitusosuus (muut kuin Infra)</source>
-        <target state="new">Rahoitusosuus (muut kuin Infra)</target>
-      </trans-unit>
-      <trans-unit id="4208376250168473405" datatype="html">
-        <source>Kansainvälinen ulkopuolisen rahoituksen hanke / EU-Hanke</source>
-        <target state="new">Kansainvälinen ulkopuolisen rahoituksen hanke / EU-Hanke</target>
-      </trans-unit>
-      <trans-unit id="202707189569403758" datatype="html">
-        <source>Kansainvälinen ulkopuolisen rahoituksen hanke / Nordforsk, Noria-Net -hanke</source>
-        <target state="new">Kansainvälinen ulkopuolisen rahoituksen hanke / Nordforsk, Noria-Net -hanke</target>
-      </trans-unit>
-      <trans-unit id="4489440949938040810" datatype="html">
-        <source>Muu tieteen edistäminen</source>
-        <target state="new">Muu tieteen edistäminen</target>
-      </trans-unit>
       <trans-unit id="9195882976109410881" datatype="html">
         <source>Vuosi, jona rahoitus on myönnetty. Ensimmäisessä vaiheessa tietoa myöntövuodesta toimittaa Suomen Akatemia. Tietoa myöntövuodesta laajennetaan myöhemmin muihin rahoittajiin.</source>
         <target>The year in which the funding was granted. In the first phase, information on the year of grant is provided by the Research Council of Finland. Information on the year of the grant will be extended to other funders at a later date.</target>
@@ -4213,6 +4077,46 @@
       <trans-unit id="6513753384822692310" datatype="html">
         <source>Suomen Akatemian päättäjä</source>
         <target>Research Council of Finland&apos;s decision maker</target>
+      </trans-unit>
+      <trans-unit id="fa1db83f11474f1f1902ac43f0ab21fb92b291c9" datatype="html">
+        <source>Luonnontieteiden ja tekniikan tutkimuksen toimikunta</source>
+        <target state="new">Luonnontieteiden ja tekniikan tutkimuksen toimikunta</target>
+      </trans-unit>
+      <trans-unit id="52ce8e8d7d374ffb52f1388ab9540834353977ac" datatype="html">
+        <source>Biotieteiden, terveyden ja ympäristön tutkimuksen toimikunta</source>
+        <target state="new">Biotieteiden, terveyden ja ympäristön tutkimuksen toimikunta</target>
+      </trans-unit>
+      <trans-unit id="9ead7dcac3ee2204234abb05ab4b7ade3b997501" datatype="html">
+        <source>Kulttuurin ja yhteiskunnan tutkimuksen toimikunta</source>
+        <target state="new">Kulttuurin ja yhteiskunnan tutkimuksen toimikunta</target>
+      </trans-unit>
+      <trans-unit id="b8ff2189e0f87a04b8910355c0da14d1422b62b8" datatype="html">
+        <source>Tutkimusinfrastruktuurikomitea</source>
+        <target state="new">Tutkimusinfrastruktuurikomitea</target>
+      </trans-unit>
+      <trans-unit id="95fa64198fd91da75df92f4616031d75b0717443" datatype="html">
+        <source>Strategisen tutkimuksen neuvosto</source>
+        <target state="new">Strategisen tutkimuksen neuvosto</target>
+      </trans-unit>
+      <trans-unit id="2164427846406249488" datatype="html">
+        <source>Liikkuvuus / Matka-apuraha</source>
+        <target>Mobility / Travel grant</target>
+      </trans-unit>
+      <trans-unit id="9134340364192318026" datatype="html">
+        <source>Tutkijan rahoitus</source>
+        <target>Funding for researcher</target>
+      </trans-unit>
+      <trans-unit id="2700022207975886181" datatype="html">
+        <source>Tutkimusedellytysten ja -ympäristön rahoitus / strateginen rahoitus</source>
+        <target>Funding for research conditions and environments / strategic funding</target>
+      </trans-unit>
+      <trans-unit id="2337108059168251695" datatype="html">
+        <source>Väitöskirjatyö</source>
+        <target>Project funding</target>
+      </trans-unit>
+      <trans-unit id="8920333653294778198" datatype="html">
+        <source>Tutkimushankerahoitus</source>
+        <target>Project funding</target>
       </trans-unit>
     </body>
   </file>

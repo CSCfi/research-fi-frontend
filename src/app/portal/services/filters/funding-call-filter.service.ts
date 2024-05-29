@@ -91,8 +91,6 @@ export class FundingCallFilterService {
       item.doc_count = item.fundingNames.buckets[0]?.doc_count;
     }
 
-    // Sort by number of docs
-
     data.buckets.sort((a, b) => b.doc_count - a.doc_count);
   }
 

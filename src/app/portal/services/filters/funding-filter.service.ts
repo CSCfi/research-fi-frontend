@@ -135,9 +135,6 @@ export class FundingFilterService {
       );
 
       source.approvalYear.buckets = source.approvalYear.approvalYear.buckets;
-      // source.approvalYear.buckets = this.mapApprovalYear(source.approvalYear.approvalYear.buckets);
-
-      // source.decisionMaker.buckets = source.decisionMaker.decisionMaker.buckets;
       source.decisionMaker.buckets = this.mapDecisionMaker(source.decisionMaker.decisionMaker.buckets);
     }
     source.shaped = true;
@@ -242,6 +239,7 @@ export class FundingFilterService {
   }
 
   typeOfFunding(d) {
+    d = d.filter((item) => item.key);
     const locale = this.currentLocale;
 
     // Copy data and check that localized data exists. If not, default to english
