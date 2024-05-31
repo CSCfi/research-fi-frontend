@@ -26,6 +26,7 @@ import { UtilityService } from 'src/app/shared/services/utility.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { SettingsService } from 'src/app/portal/services/settings.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { decisionMakerLabels } from '../../../../utility/localization';
 
 @Component({
   selector: 'app-single-funding',
@@ -129,6 +130,10 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     tooltip: $localize`Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa myönnetystä rahoituksesta on tarkempaa tietoa.`,
   };
 
+  decisionMakerTooltip = {
+    tooltip: $localize`Suomen akatemian toimielin, joka myönsi rahoituksen.`,
+  };
+
   cordisLink = 'https://cordis.europa.eu/programme/id/';
   cordisProjectLink = 'https://cordis.europa.eu/project/id/';
   euraLink = 'https://www.eura2014.fi/rrtiepa/projekti.php?projektikoodi=';
@@ -156,6 +161,8 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   dataSub: Subscription;
 
   hasFundedPerson = false;
+
+  protected readonly decisionMakerLabels = decisionMakerLabels;
 
   constructor(
     private route: ActivatedRoute,

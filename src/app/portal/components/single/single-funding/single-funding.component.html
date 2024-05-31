@@ -469,9 +469,14 @@
                   <span class="pe-1" i18n>Päättäjä</span>
                 </h2>
 
-                <div class="col-12 col-sm-8 col-lg-9 td">
-                  {{ item.council.decisionMakerNameFi }} <br>
-                  {{ item.council.approvalDate | date }}
+                <ng-template #tooltipTemplate>
+                  <div [innerHtml]="decisionMakerTooltip"></div>
+                </ng-template>
+
+                <div [tooltip]='tooltipTemplate' class="col-12 col-sm-8 col-lg-9 td">
+                  <!--{{ item.council.decisionMakerName }} <br>-->
+                  {{ decisionMakerLabels[item.council.decisionMakerId] }} <br>
+                  {{ item.council.approvalDate | date: 'dd.MM.yyyy' }}
                 </div>
               </div>
             </ng-container>

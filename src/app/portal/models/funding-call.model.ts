@@ -38,6 +38,7 @@ export class FundingCall {
     }[],
     public daysLeft: number,
     public typeOfFundingId: string,
+    public typeOfFundingGroupId: string,
     public council: any
   ) {}
 }
@@ -153,6 +154,7 @@ export class FundingCallAdapter implements Adapter<FundingCall> {
       categories.sort((a, b) => +(a.name > b.name) - 0.5),
       Math.floor(daysLeft),
       item.typeOfFundingId,
+      item.typeOfFundingGroupId,
       item.council
     );
   }

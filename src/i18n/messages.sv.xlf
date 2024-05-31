@@ -4121,6 +4121,150 @@
         <source>Tutkimushankerahoitus</source>
         <target>Projektfinansiering</target>
       </trans-unit>
+      <trans-unit id="4779141095570972780" datatype="html">
+        <source>Tutkijankoulutus ja tutkijoiden työskentely ulkomailla</source>
+        <target>Forskarutbildning och forskares arbete utomlands</target>
+      </trans-unit>
+      <trans-unit id="2075948058024506168" datatype="html">
+        <source>Tutkijatohtorin tehtävä</source>
+        <target state="new">Forskardoktorer</target>
+      </trans-unit>
+      <trans-unit id="7494934175116800135" datatype="html">
+        <source>Tutkijatohtorin tutkimuskulut</source>
+        <target>Finansiering för forskardoktors forskningskostnader</target>
+      </trans-unit>
+      <trans-unit id="7147137154194854507" datatype="html">
+        <source>Akatemiatutkijan tehtävä</source>
+        <target>Akademiforskare</target>
+      </trans-unit>
+      <trans-unit id="3171857755870970286" datatype="html">
+        <source>Akatemiatutkijan tutkimuskulut</source>
+        <target>Akademiforskarens forskningskostnader</target>
+      </trans-unit>
+      <trans-unit id="3927925351701414648" datatype="html">
+        <source>Akatemiaprofessorin tehtävä</source>
+        <target>Akademiprofessorer</target>
+      </trans-unit>
+      <trans-unit id="7590410042570931377" datatype="html">
+        <source>Akatemiaprofessorin tutkimuskulut</source>
+        <target>Akademiprofessors forskningskostnader</target>
+      </trans-unit>
+      <trans-unit id="94035577101502253" datatype="html">
+        <source>Kahdenväliset yhteistyösopimukset, yhteishaut</source>
+        <target>Bilaterala avtal, gemensamma utlysningar</target>
+      </trans-unit>
+      <trans-unit id="4165055786032242018" datatype="html">
+        <source>Huippuyksikköohjelma</source>
+        <target state="new">Huippuyksikköohjelma</target>
+      </trans-unit>
+      <trans-unit id="8324453451463863141" datatype="html">
+        <source>Akatemiahanke</source>
+        <target>Akademiprojekt</target>
+      </trans-unit>
+      <trans-unit id="824732859712328125" datatype="html">
+        <source>Akatemiaohjelma</source>
+        <target>Akademiprogram</target>
+      </trans-unit>
+      <trans-unit id="6676070322310995046" datatype="html">
+        <source>Akatemiaohjelman kansainvälinen tutkimushanke</source>
+        <target>Internationellt forskningsprojekt om en akademiprogram</target>
+      </trans-unit>
+      <trans-unit id="2102080730822972781" datatype="html">
+        <source>Pohjoismaiset huippuyksikköohjelmat</source>
+        <target>Nordiska spetsforskningsenheter</target>
+      </trans-unit>
+      <trans-unit id="2802694949364565142" datatype="html">
+        <source>Akatemiaohjelmien koordinointi</source>
+        <target>Koordineering om akademiprogram</target>
+      </trans-unit>
+      <trans-unit id="3525671084017979380" datatype="html">
+        <source>Suunnattu akatemiahanke</source>
+        <target>Akademiprojekt med särskild inriktning</target>
+      </trans-unit>
+      <trans-unit id="1005275322700551995" datatype="html">
+        <source>Kehitystutkimus</source>
+        <target>Utvecklingsforskning</target>
+      </trans-unit>
+      <trans-unit id="6611096938219187094" datatype="html">
+        <source>Tutkijatohtorin projekti</source>
+        <target>TForskardoktorsprojekt</target>
+      </trans-unit>
+      <trans-unit id="2041136177196750720" datatype="html">
+        <source>Kansainvälinen yhteisrahoitteinen ohjelma</source>
+        <target>Internationell utlysning</target>
+      </trans-unit>
+      <trans-unit id="6586146403315372170" datatype="html">
+        <source>Tohtoriohjelmien toiminnan rahoitus</source>
+        <target>Finansiering om doktorandprograms verksamhet</target>
+      </trans-unit>
+      <trans-unit id="8244249009602419581" datatype="html">
+        <source>Finland Distinguished Professor Programme</source>
+        <target>Finland Distinguished Professor Programme</target>
+      </trans-unit>
+      <trans-unit id="4084349995542942299" datatype="html">
+        <source>Yliopistojen profiloitumisen vahvistaminen PROFI</source>
+        <target>Stärkande av universitetens profilering PROFI</target>
+      </trans-unit>
+      <trans-unit id="3880534532540473484" datatype="html">
+        <source>Lippulaivat</source>
+        <target>Flaggskeppfinsnsiering</target>
+      </trans-unit>
+      <trans-unit id="80568044368940804" datatype="html">
+        <source>Tutkimusinfrastruktuuri</source>
+        <target>Forskningsinfrastruktur</target>
+      </trans-unit>
+      <trans-unit id="532065401059178833" datatype="html">
+        <source>Jäsenmaksu (Infra)</source>
+        <target>Medlemsavgift (Infrastruktur)</target>
+      </trans-unit>
+      <trans-unit id="9179802099361915852" datatype="html">
+        <source>Strategisen tutkimuksen rahoitus</source>
+        <target>Finansiering för strategisk forskning</target>
+      </trans-unit>
+      <trans-unit id="2236615769061000797" datatype="html">
+        <source>STN EU-vastinraha</source>
+        <target>RSF EU-motfinansiering</target>
+      </trans-unit>
+      <trans-unit id="5984927916476785125" datatype="html">
+        <source>Tutkijoiden liikkuvuus ulkomaille</source>
+        <target>Forskarmobilitet till utlandet</target>
+      </trans-unit>
+      <trans-unit id="2533535419095871606" datatype="html">
+        <source>Tutkijoiden liikkuvuus Suomeen</source>
+        <target>Forskarmobilitet till Finland</target>
+      </trans-unit>
+      <trans-unit id="6541704812317220278" datatype="html">
+        <source>Kansallinen ulkopuolisen rahoituksen hanke (Tieteellinen seura)</source>
+        <target state="new">Nationellt projekt med extern finansiering (Vetenskaplig samfund)</target>
+      </trans-unit>
+      <trans-unit id="6689296183671201114" datatype="html">
+        <source>Tutkimuksen arviointi</source>
+        <target state="new">Tutkimuksen arviointi</target>
+      </trans-unit>
+      <trans-unit id="986094117061778360" datatype="html">
+        <source>Rahoitusosuus (muut kuin Infra)</source>
+        <target>Finansieringsandel (andra än infra</target>
+      </trans-unit>
+      <trans-unit id="4208376250168473405" datatype="html">
+        <source>Kansainvälinen ulkopuolisen rahoituksen hanke / EU-Hanke</source>
+        <target>Internationellt projekt med extern finansiering / EU-projekt</target>
+      </trans-unit>
+      <trans-unit id="202707189569403758" datatype="html">
+        <source>Kansainvälinen ulkopuolisen rahoituksen hanke / Nordforsk, Noria-Net -hanke</source>
+        <target>Internationellt projekt med extern finansiering / Nordforsk-, Noria-Net-projekt</target>
+      </trans-unit>
+      <trans-unit id="4489440949938040810" datatype="html">
+        <source>Muu tieteen edistäminen</source>
+        <target>Övrig främjandet av vetenskap</target>
+      </trans-unit>
+      <trans-unit id="7729094977625637676" datatype="html">
+        <source>Suomen akatemian toimielin, joka myönsi rahoituksen.</source>
+        <target>Finlands Akademis organ som beviljade finansieringen.</target>
+      </trans-unit>
+      <trans-unit id="2063507122981687475" datatype="html">
+        <source>Kliininen tutkija</source>
+        <target>Kliniska forskare</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
