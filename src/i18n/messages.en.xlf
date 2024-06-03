@@ -4236,7 +4236,7 @@
       </trans-unit>
       <trans-unit id="6689296183671201114" datatype="html">
         <source>Tutkimuksen arviointi</source>
-        <target state="new">Tutkimuksen arviointi</target>
+        <target>Research evaluation</target>
       </trans-unit>
       <trans-unit id="986094117061778360" datatype="html">
         <source>Rahoitusosuus (muut kuin Infra)</source>
