@@ -1,13 +1,14 @@
-import { inject, Injectable, LOCALE_ID, OnInit, SecurityContext } from '@angular/core';
+import { inject, Injectable, LOCALE_ID, SecurityContext } from '@angular/core';
 // import { object, Output, parse, string } from 'valibot';
 import { BehaviorSubject, forkJoin, Observable, of, shareReplay } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { map, switchMap, take, tap } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
-import { locale } from "../../../environments/locale";
+import { locale } from '../../../environments/locale';
 import { AppConfigService } from '@shared/services/app-config-service.service';
+import { suffixer } from '../../utility/localization';
+
 const path = suffixer(locale);
 
 /*const PublicationSearchSchema = object({
@@ -866,11 +867,6 @@ export { getArticleTypeCodeAdditions };
 
 const [additionsFromJufoClassCode, getJufoClassCodeAdditions] = generateAggregationStep("jufo", lookup);
 export { getJufoClassCodeAdditions };
-
-function suffixer(locale) {
-  const capitalized = locale.charAt(0).toUpperCase() + locale.slice(1).toLowerCase();
-  return strings => strings[0].replace(/(Fi|Sv|En)(?=[\.A-Z]|$)/g, capitalized);
-}
 
 function termsForOrganization(searchParams: SearchParams) {
   if (searchParams.organization && searchParams.organization.length > 0) {

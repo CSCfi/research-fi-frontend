@@ -50,6 +50,11 @@ describe('FilterService', () => {
     accessType: [],
     date: [],
     status: [],
+    typeOfFundingId: [],
+    approvalYear: [],
+    decisionMaker: [],
+    callId: [],
+    approvalDate: [],
   };
   let tabChangeService: TabChangeService;
 

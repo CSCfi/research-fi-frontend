@@ -50,6 +50,11 @@ export type Filters = {
   coPublication: string[];
   date: string[];
   status: string[];
+  typeOfFundingId: string[];
+  approvalYear: string[];
+  decisionMaker: string[];
+  callId: string[];
+  approvalDate: string[];
 };
 
 @Injectable({
@@ -90,6 +95,11 @@ export class FilterService {
   dateFilter: string[];
   fundingCallCategoryFilter: string[];
   statusFilter: string[];
+  typeOfFundingIdFilter: string[];
+  approvalYearFilter: string[];
+  decisionMakerFilter: string[];
+  callIdFilter: string[];
+  approvalDateFilter: string[];
 
   private filterSource = new BehaviorSubject({
     toYear: [],
@@ -122,6 +132,8 @@ export class FilterService {
     coPublication: [],
     date: [],
     status: [],
+    typeOfFundingId: [],
+    approvalYear: [],
   });
   filters = this.filterSource.asObservable();
   localeC: string;
@@ -188,6 +200,10 @@ export class FilterService {
       fundingStatus: mapFilter(source.fundingStatus),
       fundingAmount: mapFilter(source.fundingAmount),
       topic: mapFilter(source.topic),
+
+      callId: mapFilter(source.callId),
+      approvalDate: mapFilter(source.approvalDate),
+
       // Datasets
       dataSource: mapFilter(source.dataSource),
       accessType: mapFilter(source.accessType),
@@ -196,6 +212,9 @@ export class FilterService {
       // Funding calls
       date: mapFilter(source.date),
       status: mapFilter(source.status),
+      typeOfFundingId: mapFilter(source.typeOfFundingId),
+      approvalYear: mapFilter(source.approvalYear),
+      decisionMaker: mapFilter(source.decisionMaker),
     };
   }
 
@@ -270,6 +289,7 @@ export class FilterService {
       filter.topic,
       'keywords.keyword.keyword'
     );
+
     // Datasets
     this.dataSourceFilter = this.basicFilter(
       filter.dataSource,
@@ -297,6 +317,31 @@ export class FilterService {
     this.fundingCallCategoryFilter = this.basicFilter(
       filter.field,
       'categories.codeValue.keyword'
+    );
+
+    this.typeOfFundingIdFilter = this.basicFilter(
+      filter.typeOfFundingId,
+      'typeOfFundingGroupId.keyword'
+    );
+
+    this.approvalYearFilter = this.basicFilter(
+      filter.approvalYear,
+      'council.approvalYear'
+    );
+
+    this.decisionMakerFilter = this.basicFilter(
+      filter.decisionMaker,
+      'council.decisionMakerId.keyword'
+    );
+
+    this.callIdFilter = this.basicFilter(
+      filter.callId,
+      'callProgrammeId'
+    );
+
+    this.approvalDateFilter = this.basicFilter(
+      filter.approvalDate,
+      'council.approvalDate'
     );
   }
 
@@ -918,6 +963,10 @@ export class FilterService {
       ...nestedFilter('funding', this.fieldFilter, 'fieldsOfScience'),
       ...basicFilter('funding', this.fundingSchemeFilter),
       ...basicFilter('funding', this.statusFilter),
+      ...basicFilter('funding', this.approvalYearFilter),
+      ...basicFilter('funding', this.decisionMakerFilter),
+      ...basicFilter('funding', this.callIdFilter),
+      ...basicFilter('funding', this.approvalDateFilter),
 
       // Datasets
       ...basicFilter('dataset', this.dataSourceFilter),
@@ -956,13 +1005,10 @@ export class FilterService {
 
       // FundingCalls
       ...basicFilter('funding-call', this.organizationFilter),
-      ...nestedFilter(
-        'funding-call',
-        this.fundingCallCategoryFilter,
-        'categories'
-      ),
+      ...nestedFilter('funding-call', this.fundingCallCategoryFilter, 'categories'),
       ...rangeFilter('funding-call', this.dateFilter),
       ...multipleRangeFilter('funding-call', this.statusFilter),
+      ...basicFilter('funding-call', this.typeOfFundingIdFilter),
 
       // Global filters
       ...globalFilter(this.yearFilter),

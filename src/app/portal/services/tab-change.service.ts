@@ -34,7 +34,7 @@ export class TabChangeService {
     },
     {
       data: 'fundings',
-      label: $localize`:@@fundings:Myönnetyt rahoitukset`,
+      label: $localize`:@@navigation.fundings:Myönnetty rahoitus`,
       link: 'fundings',
       icon: faBriefcase,
       singular: $localize`:@@funding:myönnetty rahoitus`,

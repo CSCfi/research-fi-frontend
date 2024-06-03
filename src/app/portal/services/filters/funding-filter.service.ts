@@ -5,12 +5,13 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Injectable, Inject, LOCALE_ID } from '@angular/core';
+import { Inject, Injectable, LOCALE_ID } from '@angular/core';
 import { FilterMethodService } from './filter-method.service';
 import { StaticDataService } from '../static-data.service';
 import { cloneDeep } from 'lodash-es';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { FilterConfigType } from 'src/types';
+import { decisionMakerLabels } from '../../../utility/localization';
 
 @Injectable({
   providedIn: 'root',
@@ -27,6 +28,15 @@ export class FundingFilterService {
       tooltip: $localize`:@@fYearFTooltip:Vuosi, jolle rahoitus on myönnetty. Useampivuotisissa rahoituksissa ensimmäinen vuosi.`,
     },
     {
+      field: 'approvalYear',
+      label: $localize`Myöntövuosi`,
+      hasSubFields: false,
+      open: true,
+      limitHeight: true,
+      hideSearch: true,
+      tooltip: $localize`Vuosi, jona rahoitus on myönnetty. Ensimmäisessä vaiheessa tietoa myöntövuodesta toimittaa Suomen Akatemia. Tietoa myöntövuodesta laajennetaan myöhemmin muihin rahoittajiin.`,
+    },
+    {
       field: 'organization',
       label: $localize`:@@organization:Organisaatio`,
       hasSubFields: true,
@@ -40,6 +50,14 @@ export class FundingFilterService {
       limitHeight: false,
       open: true,
       tooltip: $localize`:@@fFunderFTooltip:Rahoituksen myöntänyt tutkimusrahoittaja. Luettelossa ovat vain ne rahoittajat, jotka toimittavat tietoja palveluun.`,
+    },
+    {
+      field: 'decisionMaker',
+      label: $localize`Suomen Akatemian päättäjä`,
+      hasSubFields: false,
+      limitHeight: false,
+      open: true,
+      tooltip: $localize`Suomen akatemian toimielin, joka myönsi rahoituksen.`,
     },
     {
       field: 'typeOfFunding',
@@ -116,6 +134,9 @@ export class FundingFilterService {
       source.fundingStatus.buckets = this.onGoing(
         source.fundingStatus.status.buckets
       );
+
+      source.approvalYear.buckets = source.approvalYear.approvalYear.buckets;
+      source.decisionMaker.buckets = this.mapDecisionMaker(source.decisionMaker.decisionMaker.buckets);
     }
     source.shaped = true;
     return source;
@@ -219,6 +240,7 @@ export class FundingFilterService {
   }
 
   typeOfFunding(d) {
+    d = d.filter((item) => item.key);
     const locale = this.currentLocale;
 
     // Copy data and check that localized data exists. If not, default to english
@@ -345,6 +367,14 @@ export class FundingFilterService {
     return data.map(
       (item) => (item.key = { key: 'onGoing', doc_count: item.doc_count })
     );
+  }
+
+  mapDecisionMaker(data) {
+    data.map((item) => {
+      item.label = decisionMakerLabels[item.key] || item.key;
+    });
+
+    return data;
   }
 
   getSingleAmount(data) {
