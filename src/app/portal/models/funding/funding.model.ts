@@ -4,7 +4,7 @@
 //
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
-import { Injectable } from '@angular/core';
+import { inject, Injectable, LOCALE_ID } from '@angular/core';
 import { Adapter } from '../adapter.model';
 import { Recipient, RecipientAdapter } from './recipient.model';
 import { Funder, FunderAdapter } from './funder.model';
@@ -15,12 +15,14 @@ import {
   parseYear,
   testFinnishBusinessId,
 } from '@shared/services/model-util.service';
+import { suffixer } from '../../../utility/localization';
 
 export type Council = {
   decisionMakerId: string;
   decisionMakerNameFi: string;
   decisionMakerNameEn: string;
   decisionMakerNameSv: string;
+  decisionMakerName: string;
   approvalDate: string;
   approvalYear: number;
   phase: string;
@@ -60,6 +62,9 @@ export class Funding {
   providedIn: 'root',
 })
 export class FundingAdapter implements Adapter<Funding> {
+  locale = inject(LOCALE_ID);
+  pathFi = suffixer(this.locale);
+
   constructor(
     private r: RecipientAdapter,
     private f: FunderAdapter,
@@ -218,6 +223,13 @@ export class FundingAdapter implements Adapter<Funding> {
       ?.filter((x) => x.scheme === 'topic')
       .map((x) => x.keyword)
       .join(', ');
+
+    if (item.council != null) {
+      item.council = item.council.map((council) => ({
+        ...council,
+        decisionMakerName: council[this.pathFi`decisionMakerNameFi`],
+      }));
+    }
 
     return new Funding(
       item.mainProjectId || item.projectId,

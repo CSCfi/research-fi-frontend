@@ -41,15 +41,6 @@ export class FundingCallFilterService {
       limitHeight: true,
       tooltip: $localize`:@@fundingCallFunderTooltip:Rahoitushausta vastaava tutkimusrahoittaja.`,
     },
-
-    // FIN: Rahoitusmuoto
-    // EN: Method of funding
-    // SWE: Finansieringsmetoden
-
-    // FIN: Rahoitusmuoto kuvaa kenelle tai millaiseen tarkoitukseen haettava rahoitus on tarkoitettu. Ensimmäisessä vaiheessa tietoa rahoitusmuodosta toimittaa Suomen Akatemia, jaottelua laajennetaan muiden rahoittajien avoimiin hakuihin.
-    // EN: The method of funding describes for whom or for what purpose the funding is intended. In the first phase, information on the funding instrument will be provided by Research Council of Finland, it will be expanded to other funders open calls later.
-    // SWE: Finansieringsmetoden beskriver vem eller för vilket ändamål finansieringen är avsedd. I den första fasen kommer information om finansieringsinstrumentet att tillhandahållas av Finlands Akademi, som senare utvidgas till att omfatta andra finansiärer som öppnar utlysningar.
-
     {
       field: 'typeOfFundingId',
       label: $localize`:@@fundingType:Rahoitusmuoto`,
@@ -99,8 +90,6 @@ export class FundingCallFilterService {
       item.label = item.fundingNames.buckets[0]?.key;
       item.doc_count = item.fundingNames.buckets[0]?.doc_count;
     }
-
-    // Sort by number of docs
 
     data.buckets.sort((a, b) => b.doc_count - a.doc_count);
   }

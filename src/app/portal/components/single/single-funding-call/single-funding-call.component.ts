@@ -64,10 +64,19 @@ export class SingleFundingCallComponent implements OnInit {
     { label: $localize`:@@fundingFunder:Rahoittaja`, field: 'foundation' },
   ];
 
+  typeOfFundingGroupFields = {
+    "1": $localize`Liikkuvuus / Matka-apuraha`,
+    "2": $localize`Tutkijan rahoitus`,
+    "3": $localize`Tutkimusedellytysten ja -ympäristön rahoitus / strateginen rahoitus`,
+    "4": $localize`Tutkimushankerahoitus`,
+    "5": $localize`Väitöskirjatyö`,
+  }
+
   typeOfFundingFields = {
     "16": $localize`Tutkijankoulutus ja tutkijoiden työskentely ulkomailla`,
     "61": $localize`Tutkijatohtorin tehtävä`,
     "62": $localize`Tutkijatohtorin tutkimuskulut`,
+    "63": $localize`Kliininen tutkija`,
     "65": $localize`Akatemiatutkijan tehtävä`,
     "66": $localize`Akatemiatutkijan tutkimuskulut`,
     "68": $localize`Akatemiaprofessorin tehtävä`,
@@ -90,7 +99,7 @@ export class SingleFundingCallComponent implements OnInit {
     "80": $localize`Tutkimusinfrastruktuuri`,
     "81": $localize`Jäsenmaksu (Infra)`,
     "75": $localize`Strategisen tutkimuksen rahoitus`,
-    "76": $localize`STN EU vastinraha`,
+    "76": $localize`STN-EU vastinraha`,
     "35": $localize`Tutkijoiden liikkuvuus ulkomaille`,
     "37": $localize`Tutkijoiden liikkuvuus Suomeen`,
     "40": $localize`Kansallinen ulkopuolisen rahoituksen hanke (Tieteellinen seura)`,
@@ -100,42 +109,6 @@ export class SingleFundingCallComponent implements OnInit {
     "88": $localize`Kansainvälinen ulkopuolisen rahoituksen hanke / Nordforsk, Noria-Net -hanke`,
     "90": $localize`Muu tieteen edistäminen`,
   }
-
-  /*
-  ""
-  "75": " "
-  "60": "Strategisen tutkimuksen rahoitus"
-  "42": "Kansainvälinen yhteisrahoitteinen ohjelma"
-  "35": "Suunnattu akatemiahanke"
-  "80": "Tutkijoiden liikkuvuus ulkomaille"
-  "19": "Tutkimusinfrastruktuuri"
-  "37": "Akatemiaohjelma"
-  "72": "Tutkijoiden liikkuvuus Suomeen"
-  "90": "Lippulaivat"
-  "11": "Muu tieteen edistäminen"
-  "27": "Akatemiahanke"
-  "61": "Akatemiaohjelman kansainvälinen tutkimushanke"
-  "65": "Tutkijatohtorin tehtävä"
-  "66": "Akatemiatutkijan tehtävä"
-  */
-
-  /*
-  " "
-  "Strategisen tutkimuksen rahoitus"
-  "Kansainvälinen yhteisrahoitteinen ohjelma"
-  "Suunnattu akatemiahanke"
-  "Tutkijoiden liikkuvuus ulkomaille"
-  "Tutkimusinfrastruktuuri"
-  "Akatemiaohjelma"
-  "Tutkijoiden liikkuvuus Suomeen"
-  "Lippulaivat"
-  "Muu tieteen edistäminen"
-  "Akatemiahanke"
-  "Akatemiaohjelman kansainvälinen tutkimushanke"
-  "Tutkijatohtorin tehtävä"
-  "Akatemiatutkijan tehtävä"
-  "Akatemiatutkijan tutkimuskulut"
-  */
 
   linkFields = ['url', 'foundationUrl', 'applicationUrl'];
 

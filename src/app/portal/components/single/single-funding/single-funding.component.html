@@ -427,7 +427,7 @@
               <!-- Normal funding -->
               <ng-container *ngIf="!item.euFunding; else euCallProgramme">
                 <div class="col-12 col-sm-8 col-lg-9 td">
-                  {{ item.funder.callProgrammeName }}
+                  <a [routerLink]="'/results/funding-calls/' + item.funder.callProgrammeName">{{ item.funder.callProgrammeName }}</a>
                 </div>
               </ng-container>
 
@@ -466,12 +466,17 @@
             <ng-container *ngIf="item.council">
               <div class="row">
                 <h2 class="col-12 col-sm-4 col-lg-3 th">
-                  <span class="pe-1">Päättäjä</span>
+                  <span class="pe-1" i18n>Päättäjä</span>
                 </h2>
 
-                <div class="col-12 col-sm-8 col-lg-9 td">
-                  {{ item.council.decisionMakerNameFi }} <br>
-                  {{ item.council.approvalDate | date }} päätetty
+                <ng-template #tooltipTemplate>
+                  <div [innerHtml]="decisionMakerTooltip"></div>
+                </ng-template>
+
+                <div [tooltip]='tooltipTemplate' class="col-12 col-sm-8 col-lg-9 td">
+                  <!--{{ item.council.decisionMakerName }} <br>-->
+                  {{ decisionMakerLabels[item.council.decisionMakerId] }} <br>
+                  {{ item.council.approvalDate | date: 'dd.MM.yyyy' }}
                 </div>
               </div>
             </ng-container>

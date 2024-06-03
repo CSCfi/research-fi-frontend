@@ -54,6 +54,7 @@ export type Filters = {
   approvalYear: string[];
   decisionMaker: string[];
   callId: string[];
+  approvalDate: string[];
 };
 
 @Injectable({
@@ -98,6 +99,7 @@ export class FilterService {
   approvalYearFilter: string[];
   decisionMakerFilter: string[];
   callIdFilter: string[];
+  approvalDateFilter: string[];
 
   private filterSource = new BehaviorSubject({
     toYear: [],
@@ -200,6 +202,7 @@ export class FilterService {
       topic: mapFilter(source.topic),
 
       callId: mapFilter(source.callId),
+      approvalDate: mapFilter(source.approvalDate),
 
       // Datasets
       dataSource: mapFilter(source.dataSource),
@@ -318,7 +321,7 @@ export class FilterService {
 
     this.typeOfFundingIdFilter = this.basicFilter(
       filter.typeOfFundingId,
-      'typeOfFundingId.keyword'
+      'typeOfFundingGroupId.keyword'
     );
 
     this.approvalYearFilter = this.basicFilter(
@@ -334,6 +337,11 @@ export class FilterService {
     this.callIdFilter = this.basicFilter(
       filter.callId,
       'callProgrammeId'
+    );
+
+    this.approvalDateFilter = this.basicFilter(
+      filter.approvalDate,
+      'council.approvalDate'
     );
   }
 
@@ -958,6 +966,7 @@ export class FilterService {
       ...basicFilter('funding', this.approvalYearFilter),
       ...basicFilter('funding', this.decisionMakerFilter),
       ...basicFilter('funding', this.callIdFilter),
+      ...basicFilter('funding', this.approvalDateFilter),
 
       // Datasets
       ...basicFilter('dataset', this.dataSourceFilter),

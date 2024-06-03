@@ -54,6 +54,7 @@ describe('FilterService', () => {
     approvalYear: [],
     decisionMaker: [],
     callId: [],
+    approvalDate: [],
   };
   let tabChangeService: TabChangeService;
 
