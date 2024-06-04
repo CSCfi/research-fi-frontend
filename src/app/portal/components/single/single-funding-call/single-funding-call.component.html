@@ -6,25 +6,16 @@
 <div class="bar background-primary"></div>
 <h1 #srHeader class="sr-only"></h1>
 
-<div
-  class="wrapper single-funding-calls-wrap"
-  *ngIf="responseData"
-  id="main-content"
->
+<div class="wrapper single-funding-calls-wrap" *ngIf="responseData" id="main-content">
   <div class="row shared">
     <p class="back col-12 mb-3">
-      <a
-        #backToResultsLink
-        routerLink="/results/{{ tab }}/{{ searchTerm }}"
-        [queryParams]="tabQueryParams"
-        >&lt;
-        <ng-container i18n="@@backToResults"
-          >Takaisin hakutuloksiin
-        </ng-container>
+      <a #backToResultsLink routerLink="/results/{{ tab }}/{{ searchTerm }}" [queryParams]="tabQueryParams">
+        &lt;
+        <ng-container i18n="@@backToResults">Takaisin hakutuloksiin</ng-container>
       </a>
     </p>
   </div>
-  <!-- Breadcrumb -->
+
   <app-breadcrumb
     [type]="'funding-call'"
     [responseData]="responseData"
@@ -33,14 +24,83 @@
     [resultNameField]="'name'"
     [queryParams]="tabQueryParams"
   ></app-breadcrumb>
-  <div class="row shared">
-    <div
-      class="col-12"
-      style="margin: 10px 0 10px 0"
-      *ngIf="responseData.total === 0"
-    >
+
+  <!--<button (click)='newUiToggle = !newUiToggle' style='margin-bottom: 1rem'>{{ newUiToggle }}</button>-->
+
+  <div *ngIf='!newUiToggle'>
+
+    <div style='white-space: pre'>{{responseData | json}}</div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+
+    <div class='new-container'>
+      <div class='sub-container'>
+        <h1 class='header'>Tutkimusapuraha</h1>
+
+        <div class='new-row'>
+          <div class='title'>Hakuaika</div>
+          <div class='content'>Arvo 1</div>
+        </div>
+
+        <div class='new-row'>
+          <div class='title'>Kuvaus</div>
+          <div class='content'>Arvo 2</div>
+        </div>
+
+        <div class='new-row'>
+          <div class='title'>Hakuohjeet</div>
+          <div class='content'>Arvo 3</div>
+        </div>
+
+        <div class='new-row'>
+          <div class='title'>Hakualat</div>
+          <div class='content'>Arvo 3</div>
+        </div>
+
+        <div class='new-row'>
+          <div class='title'>Lorem ipsum dolor.</div>
+          <div class='content'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium consectetur cupiditate dolorem et fuga incidunt maiores natus, provident quo rerum?</div>
+        </div>
+
+      </div>
+
+      <div class='side-panel'>
+        <div style='padding: 16px; background-color: #e8e8f5; margin-bottom: 10px'>
+          <div style='background-color: white; padding: 16px; min-height: 100px'>
+            <h2 style='font-size: 1.25rem'>
+              Helsingin Sanomain Säätiö sr
+            </h2>
+
+            <h2 style='font-size: 1.25rem'>
+              Yhteystiedot
+            </h2>
+          </div>
+        </div>
+
+        <div style='padding: 16px; background-color: #e8e8f5'>
+          <div style='background-color: white; padding: 16px; min-height: 100px'>
+            <h2 style='font-size: 1.25rem'>
+              Jaa
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row shared" *ngIf='newUiToggle'>
+    <div class="col-12" style="margin: 10px 0 10px 0" *ngIf="responseData.total === 0">
       <h2 i18n="@@404">404 - Virheellinen osoite</h2>
     </div>
+
     <main class="col-12 col-md-8">
       <div *ngFor="let call of responseData.fundingCalls">
         <div class="row d-flex justify-content-around">
@@ -50,6 +110,8 @@
         </div>
 
         <div id="info">
+
+
           <!-- ApplicationPeriod -->
           <div class="row content" *ngFor="let row of applicationPeriodFields">
             <!-- Labels -->
@@ -102,6 +164,7 @@
               </div>
             </div>
           </div>
+
           <!-- InfoFields -->
           <div class="row content" *ngFor="let row of infoFields">
             <!-- Labels -->
@@ -152,6 +215,48 @@
               </a>
             </div>
           </div>
+
+          <ng-container *ngIf="call.typeOfFundingId">
+            <div class="row content">
+              <h2 class="col-12 col-sm-6 col-lg-3 th">
+                <span class="pe-1" i18n>Rahoitusmuoto</span>
+
+                <!--<ng-template #tooltipTemplate>
+                  <div>XXX</div>
+                </ng-template>
+
+                <span tabindex="0" placement="top" [tooltip]="tooltipTemplate" #elem>
+                  <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                </span>-->
+              </h2>
+
+              <div class="col-12 col-sm-8 col-lg-9 td">
+                <div> {{ typeOfFundingFields[call.typeOfFundingId] }} </div>
+
+                <!--<div [ngClass]="expand ? 'expand' : 'short'">
+                  &lt;!&ndash; Not continuous &ndash;&gt;
+                  &lt;!&ndash; Show open date only if not 1900 &ndash;&gt;
+                  <ng-container *ngIf="call.openDate.getYear()">
+                    {{ call.openDateString }}
+                  </ng-container>
+
+                  &lt;!&ndash; Show dash if range &ndash;&gt;
+                  <ng-container *ngIf="call.openDate.getYear() || call.dueDate.getFullYear() !== 2100"> - </ng-container>
+
+                  &lt;!&ndash; Show due date if not continuous &ndash;&gt;
+                  <ng-container *ngIf="call.dueDate.getFullYear() !== 2100">
+                    {{ call.dueDateString }}
+                    <ng-container *ngIf="call.dueTimeString"><span i18n="@@timeAt">klo</span>{{ call.dueTimeString }}</ng-container>
+                  </ng-container>
+
+                  &lt;!&ndash; Continuous &ndash;&gt;
+                  <ng-container *ngIf="call.dueDate.getFullYear() === 2100" i18n="@@continuous">Jatkuva</ng-container>
+                </div>-->
+              </div>
+            </div>
+          </ng-container>
+
+
           <!-- ApplicationInfoFields -->
           <div class="row content" *ngFor="let row of applicationInfoFields">
             <!-- Labels -->
@@ -196,6 +301,7 @@
               </a>
             </div>
           </div>
+
           <!-- Categories -->
           <ng-container *ngIf="call.categories.length">
             <div class="row content" *ngFor="let row of categories">
@@ -244,15 +350,13 @@
         </div>
       </div>
     </main>
-    <div
-      *ngFor="let call of responseData.fundingCalls"
-      class="col-12 col-md-4 funding-sidebar"
-    >
+
+    <div *ngFor="let call of responseData.fundingCalls" class="col-12 col-md-4 funding-sidebar">
       <ng-container *ngFor="let row of funderFields">
         <aside>
           <mat-card>
             <div class="inner">
-              <div *ngIf="call[row.field].name" class="mt-0 mb-4">
+              <div *ngIf="call[row.field].name" class="mt-0"> <!-- mb-4 -->
                 <mat-card-title>
                   <h2 class="mb-0">
                     {{ call[row.field].name }}
@@ -260,16 +364,10 @@
                 </mat-card-title>
 
                 <ng-container *ngFor="let linkField of linkFields">
-                  <h2
-                    *ngIf="
-                      linkField === 'applicationUrl' &&
-                      call[row.field].applicationUrl
-                    "
-                    i18n="@@fundingCallWebsite"
-                    class="mt-4"
-                  >
+                  <h2 *ngIf="linkField === 'applicationUrl' && call[row.field].applicationUrl" i18n="@@fundingCallWebsite" class="mt-4">
                     Rahoitushaun verkkosivu
                   </h2>
+
                   <app-single-result-link
                     *ngIf="call[row.field][linkField]"
                     tag="URL"
@@ -281,21 +379,98 @@
                                   Rahoitushakuun ei ole tarjolla linkkejä tässä portaalissa
                               </div> -->
               </div>
-              <div *ngIf="contactInfoRows?.length > 0">
-                <h2>
-                  {{ contactInfoHeading }}
-                </h2>
-                <div *ngFor="let row of contactInfoRows">
-                  <ng-container
-                    *ngIf="row?.field === 'emailAddress'; else nonEmail"
-                  >
-                    <a
-                      href="javascript:void(0)"
-                      (click)="showEmail($event, row?.email)"
-                      i18n="@@showEmailAddress"
-                      >Näytä sähköpostiosoite</a
-                    >
+
+              <div *ngIf="call.council">
+                <h2 i18n>Rahoitushaun vaihe</h2>
+
+                <ng-container *ngIf='call.council | groupBy: "decisionMakerId" as grouped'>
+
+                  <!-- LT -->
+                  <ng-container *ngIf='grouped?.LT?.length > 0'>
+                    <div style='font-weight: bold' i18n>Luonnontieteiden ja tekniikan tutkimuksen toimikunta</div>
+
+                    <div *ngFor="let row of grouped.LT; let i = index">
+                      <div style='display: flex; border-bottom: 1rem'>
+                        <div style='min-width: 100px'>{{ row.phase }}</div>
+                        <div style='min-width: 100px'>{{ row.approvalDate | date: 'dd.MM.yyyy' }}</div>
+                        <a [routerLink]='["/results/fundings"]' [queryParams]='{decisionMaker: "LT", callId: call.id, approvalDate: row.approvalDate}' i18n>Näytä myönnöt</a>
+                      </div>
+                    </div>
+
+                    <div style='margin-bottom: 1rem'></div>
                   </ng-container>
+
+                  <!-- BTY -->
+                  <ng-container *ngIf='grouped?.BTY?.length > 0'>
+                    <div style='font-weight: bold' i18n>Biotieteiden, terveyden ja ympäristön tutkimuksen toimikunta</div>
+
+                    <div *ngFor="let row of grouped.BTY; let i = index">
+                      <div style='display: flex; border-bottom: 1rem'>
+                        <div style='min-width: 100px'>{{ row.phase }}</div>
+                        <div style='min-width: 100px'>{{ row.approvalDate | date: 'dd.MM.yyyy' }}</div>
+                        <a [routerLink]='["/results/fundings"]' [queryParams]='{decisionMaker: "BTY", callId: call.id, approvalDate: row.approvalDate}' i18n>Näytä myönnöt</a>
+                      </div>
+                    </div>
+
+                    <div style='margin-bottom: 1rem'></div>
+                  </ng-container>
+
+                  <!-- KY -->
+                  <ng-container *ngIf='grouped?.KY?.length > 0'>
+                    <div style='font-weight: bold' i18n>Kulttuurin ja yhteiskunnan tutkimuksen toimikunta</div>
+
+                    <div *ngFor="let row of grouped.KY; let i = index">
+                      <div style='display: flex; border-bottom: 1rem'>
+                        <div style='min-width: 100px'>{{ row.phase }}</div>
+                        <div style='min-width: 100px'>{{ row.approvalDate | date: 'dd.MM.yyyy' }}</div>
+                        <a [routerLink]='["/results/fundings"]' [queryParams]='{decisionMaker: "KY", callId: call.id, approvalDate: row.approvalDate}' i18n>Näytä myönnöt</a>
+                      </div>
+                    </div>
+
+                    <div style='margin-bottom: 1rem'></div>
+                  </ng-container>
+
+                  <!-- TIK -->
+                  <ng-container *ngIf='grouped?.TIK?.length > 0'>
+                    <div style='font-weight: bold' i18n>Tutkimusinfrastruktuurikomitea</div>
+
+                    <div *ngFor="let row of grouped.TIK; let i = index">
+                      <div style='display: flex; border-bottom: 1rem'>
+                        <div style='min-width: 100px'>{{ row.phase }}</div>
+                        <div style='min-width: 100px'>{{ row.approvalDate | date: 'dd.MM.yyyy' }}</div>
+                        <a [routerLink]='["/results/fundings"]' [queryParams]='{decisionMaker: "TIK", callId: call.id, approvalDate: row.approvalDate}' i18n>Näytä myönnöt</a>
+                      </div>
+                    </div>
+
+                    <div style='margin-bottom: 1rem'></div>
+                  </ng-container>
+
+                  <!-- STN -->
+                  <ng-container *ngIf='grouped?.STN?.length > 0'>
+                    <div style='font-weight: bold' i18n>Strategisen tutkimuksen neuvosto</div>
+
+                    <div *ngFor="let row of grouped.STN; let i = index">
+                      <div style='display: flex; border-bottom: 1rem'>
+                        <div style='min-width: 100px'>{{ row.phase }}</div>
+                        <div style='min-width: 100px'>{{ row.approvalDate | date: 'dd.MM.yyyy' }}</div>
+                        <a [routerLink]='["/results/fundings"]' [queryParams]='{decisionMaker: "STN", callId: call.id, approvalDate: row.approvalDate}' i18n>Näytä myönnöt</a>
+                      </div>
+                    </div>
+
+                    <div style='margin-bottom: 1rem'></div>
+                  </ng-container>
+
+                </ng-container>
+              </div>
+
+              <div *ngIf="contactInfoRows?.length > 0">
+                <h2>{{ contactInfoHeading }}</h2>
+
+                <div *ngFor="let row of contactInfoRows">
+                  <ng-container *ngIf="row?.field === 'emailAddress'; else nonEmail">
+                    <a href="javascript:void(0)" (click)="showEmail($event, row?.email)" i18n="@@showEmailAddress">Näytä sähköpostiosoite</a>
+                  </ng-container>
+
                   <ng-template #nonEmail>
                     <div>{{ row }}</div>
                   </ng-template>

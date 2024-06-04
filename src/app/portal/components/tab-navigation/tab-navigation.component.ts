@@ -105,7 +105,7 @@ export class TabNavigationComponent implements AfterViewInit {
     map(([counts, tab]) => [
       { label: $localize`:@@navigation.publications:Julkaisut`,           icon: `faFileLines`,  route: "/results/publications",    count: counts.publications,    active: tab === `publications` },
       { label: $localize`:@@navigation.funding-calls:Rahoitushaut`,       icon: 'faBullhorn',   route: "/results/funding-calls",   count: counts.fundingCalls,    active: tab === 'funding-calls' },
-      { label: $localize`:@@navigation.fundings:Myönnetyt rahoitukset`,   icon: 'faBriefcase',  route: "/results/fundings",        count: counts.fundings,        active: tab === 'fundings' },
+      { label: $localize`:@@navigation.fundings:Myönnetty rahoitus`,      icon: 'faBriefcase',  route: "/results/fundings",        count: counts.fundings,        active: tab === 'fundings' },
       { label: $localize`:@@navigation.persons:Tutkijat`,                 icon: 'faUsers',      route: "/results/persons",         count: counts.persons,         active: tab === 'persons' },
       { label: $localize`:@@navigation.datasets:Aineistot`,               icon: 'faAlignLeft',  route: "/results/datasets",        count: counts.datasets,        active: tab === 'datasets' },
       { label: $localize`:@@navigation.infrastructures:Infrastruktuurit`, icon: 'faCalculator', route: "/results/infrastructures", count: counts.infrastructures, active: tab === 'infrastructures' },

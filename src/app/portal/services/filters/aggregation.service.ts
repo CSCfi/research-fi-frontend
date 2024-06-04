@@ -1219,6 +1219,66 @@ export class AggregationService {
           },
         };
 
+        payLoad.aggs.funder = {
+          filter: {
+            bool: {
+              filter: filterActive('funderBusinessId.pid_content.keyword'),
+            },
+          },
+          aggs: {
+            funders: {
+              terms: {
+                field: 'funderName' + this.localeC + '.keyword',
+                size: 250,
+                order: {
+                  _key: 'asc',
+                },
+              },
+              aggs: {
+                funderId: {
+                  terms: {
+                    field: 'funderBusinessId.pid_content.keyword',
+                  },
+                },
+              },
+            },
+          },
+        };
+
+        payLoad.aggs.decisionMaker = {
+          filter: {
+            bool: {
+              filter: filterActive("council.decisionMakerId.keyword"),
+            },
+          },
+          aggs: {
+            decisionMaker: {
+              terms: {
+                field: "council.decisionMakerId.keyword",
+                order: { _key: 'desc' },
+                size: 100
+              }
+            }
+          },
+        };
+
+        payLoad.aggs.approvalYear = {
+          filter: {
+            bool: {
+              filter: filterActive("council.approvalYear"),
+            },
+          },
+          aggs: {
+            approvalYear: {
+              terms: {
+                field: "council.approvalYear",
+                order: { _key: 'desc' },
+                size: 100
+              }
+            }
+          },
+        };
+
         break;
       // Datasets
       case 'datasets':
@@ -1616,6 +1676,7 @@ export class AggregationService {
             },
           },
         };
+
         payLoad.aggs.organization = {
           filter: {
             bool: {
@@ -1642,6 +1703,32 @@ export class AggregationService {
             },
           },
         };
+
+        payLoad.aggs.typeOfFundingId = {
+          filter: {
+            bool: {
+              filter: filterActive('typeOfFundingGroupId.keyword'),
+            },
+          },
+          aggs: {
+            fundingId: {
+              terms: {
+                field: "typeOfFundingGroupId.keyword",
+                size: 500,
+                exclude: ' ',
+              },
+              aggs: {
+                fundingNames: {
+                  terms: {
+                    field: "typeOfFundingGroupName" + this.localeC + ".keyword",
+                    size: 100
+                  }
+                }
+              }
+            }
+          }
+        }
+
         payLoad.aggs.status = {
           composite: {
             size: 2000,
