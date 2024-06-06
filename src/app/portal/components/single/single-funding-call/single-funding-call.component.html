@@ -391,8 +391,8 @@
 
                     <div *ngFor="let row of grouped.LT; let i = index">
                       <div style='display: flex; border-bottom: 1rem'>
-                        <div style='min-width: 100px'>{{ row.phase }}</div>
-                        <div style='min-width: 100px'>{{ row.approvalDate | date: 'dd.MM.yyyy' }}</div>
+                        <div style='min-width: 80px; margin-right: 1rem'>{{ row.phase }}</div>
+                        <div style='min-width: 80px; margin-right: 1rem'>{{ row.approvalDate | date: 'dd.MM.yyyy' }}</div>
                         <a [routerLink]='["/results/fundings"]' [queryParams]='{decisionMaker: "LT", callId: call.id, approvalDate: row.approvalDate}' i18n>Näytä myönnöt</a>
                       </div>
                     </div>
@@ -406,8 +406,8 @@
 
                     <div *ngFor="let row of grouped.BTY; let i = index">
                       <div style='display: flex; border-bottom: 1rem'>
-                        <div style='min-width: 100px'>{{ row.phase }}</div>
-                        <div style='min-width: 100px'>{{ row.approvalDate | date: 'dd.MM.yyyy' }}</div>
+                        <div style='min-width: 80px; margin-right: 1rem'>{{ row.phase }}</div>
+                        <div style='min-width: 80px; margin-right: 1rem'>{{ row.approvalDate | date: 'dd.MM.yyyy' }}</div>
                         <a [routerLink]='["/results/fundings"]' [queryParams]='{decisionMaker: "BTY", callId: call.id, approvalDate: row.approvalDate}' i18n>Näytä myönnöt</a>
                       </div>
                     </div>
@@ -421,8 +421,8 @@
 
                     <div *ngFor="let row of grouped.KY; let i = index">
                       <div style='display: flex; border-bottom: 1rem'>
-                        <div style='min-width: 100px'>{{ row.phase }}</div>
-                        <div style='min-width: 100px'>{{ row.approvalDate | date: 'dd.MM.yyyy' }}</div>
+                        <div style='min-width: 80px; margin-right: 1rem'>{{ row.phase }}</div>
+                        <div style='min-width: 80px; margin-right: 1rem'>{{ row.approvalDate | date: 'dd.MM.yyyy' }}</div>
                         <a [routerLink]='["/results/fundings"]' [queryParams]='{decisionMaker: "KY", callId: call.id, approvalDate: row.approvalDate}' i18n>Näytä myönnöt</a>
                       </div>
                     </div>
@@ -436,8 +436,8 @@
 
                     <div *ngFor="let row of grouped.TIK; let i = index">
                       <div style='display: flex; border-bottom: 1rem'>
-                        <div style='min-width: 100px'>{{ row.phase }}</div>
-                        <div style='min-width: 100px'>{{ row.approvalDate | date: 'dd.MM.yyyy' }}</div>
+                        <div style='min-width: 80px; margin-right: 1rem'>{{ row.phase }}</div>
+                        <div style='min-width: 80px; margin-right: 1rem'>{{ row.approvalDate | date: 'dd.MM.yyyy' }}</div>
                         <a [routerLink]='["/results/fundings"]' [queryParams]='{decisionMaker: "TIK", callId: call.id, approvalDate: row.approvalDate}' i18n>Näytä myönnöt</a>
                       </div>
                     </div>
@@ -451,8 +451,8 @@
 
                     <div *ngFor="let row of grouped.STN; let i = index">
                       <div style='display: flex; border-bottom: 1rem'>
-                        <div style='min-width: 100px'>{{ row.phase }}</div>
-                        <div style='min-width: 100px'>{{ row.approvalDate | date: 'dd.MM.yyyy' }}</div>
+                        <div style='min-width: 80px; margin-right: 1rem'>{{ row.phase }}</div>
+                        <div style='min-width: 80px; margin-right: 1rem'>{{ row.approvalDate | date: 'dd.MM.yyyy' }}</div>
                         <a [routerLink]='["/results/fundings"]' [queryParams]='{decisionMaker: "STN", callId: call.id, approvalDate: row.approvalDate}' i18n>Näytä myönnöt</a>
                       </div>
                     </div>
