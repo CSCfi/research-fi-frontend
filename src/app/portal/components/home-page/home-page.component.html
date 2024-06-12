@@ -33,7 +33,7 @@
             <a
               class="shortcut"
               #main
-              [href]="item.link"
+              [href]="item.link | safeUrl"
               target="_blank"
             >
               <div
@@ -63,7 +63,7 @@
               <a
                 class="shortcut"
                 #main
-                routerLink="{{ item.link }}"
+                [href]="item.link | safeUrl"
                 (click)="item[toggleReview] ? toggleReview() : null"
               >
                 <div
