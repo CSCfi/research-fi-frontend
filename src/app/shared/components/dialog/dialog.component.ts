@@ -16,10 +16,10 @@ import {
   TemplateRef,
 } from '@angular/core';
 import {
-  DialogPosition,
-  MatDialog,
-  MatDialogRef,
-} from '@angular/material/dialog';
+  LegacyDialogPosition as DialogPosition,
+  MatLegacyDialog as MatDialog,
+  MatLegacyDialogRef as MatDialogRef,
+} from '@angular/material/legacy-dialog';
 import { Icon } from '@fortawesome/fontawesome-svg-core';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';

@@ -9,7 +9,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AppConfigService } from 'src/app/shared/services/app-config-service.service';
 import { AppConfigServiceMock } from 'src/app/portal/services/search.service.spec';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
 
 describe('NewsComponent', () => {
   let newsComponent: NewsComponent;

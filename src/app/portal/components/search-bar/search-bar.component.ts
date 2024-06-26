@@ -38,7 +38,7 @@ import { FilterService } from '@portal/services/filters/filter.service';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { StaticDataService } from '@portal/services/static-data.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
-import { MatMenuTrigger } from '@angular/material/menu';
+import { MatLegacyMenuTrigger as MatMenuTrigger } from '@angular/material/legacy-menu';
 
 @Component({
   selector: 'app-search-bar',

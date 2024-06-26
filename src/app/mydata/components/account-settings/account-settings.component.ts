@@ -2,7 +2,7 @@ import { Component, OnInit, TemplateRef, ViewEncapsulation } from '@angular/core
 import { ProfileService } from '@mydata/services/profile.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs/operators';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { CommonStrings } from '@mydata/constants/strings';
 import { cloneDeep } from 'lodash-es';

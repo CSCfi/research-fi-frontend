@@ -28,7 +28,7 @@ import { faQuoteRight, faCopy } from '@fortawesome/free-solid-svg-icons';
 import { HttpHeaders } from '@angular/common/http';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { Search } from 'src/app/portal/models/search.model';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { ModelUtilsService } from '@shared/services/model-util.service';

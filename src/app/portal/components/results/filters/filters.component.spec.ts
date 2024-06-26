@@ -16,7 +16,7 @@ import AggResponse from 'src/testdata/aggregationresponse.json';
 import AggPublicationResponse from 'src/testdata/aggpublicationresponse.json';
 import { of } from 'rxjs/internal/observable/of';
 import { PublicationFilterService } from '@portal/services/filters/publication-filter.service';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
 
 describe('FiltersComponent', () => {
   let component: FiltersComponent;

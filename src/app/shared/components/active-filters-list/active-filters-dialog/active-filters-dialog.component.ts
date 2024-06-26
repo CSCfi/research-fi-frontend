@@ -16,7 +16,7 @@ import {
 import { faTimes, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { SortService } from 'src/app/portal/services/sort.service';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 
 @Component({
   selector: 'app-active-filters-dialog',

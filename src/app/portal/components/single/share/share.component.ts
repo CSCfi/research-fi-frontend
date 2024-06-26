@@ -7,7 +7,7 @@
 
 import { Component, OnInit, Inject, LOCALE_ID, Input, OnChanges } from '@angular/core';
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { DOCUMENT } from '@angular/common';
 
 @Component({
