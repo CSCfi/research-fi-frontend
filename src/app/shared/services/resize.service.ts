@@ -24,6 +24,6 @@ export class ResizeService {
   };
 
   constructor(eventManager: EventManager) {
-    eventManager.addGlobalEventListener('window', 'resize', this.getDims);
+    // eventManager.addGlobalEventListener('window', 'resize', this.getDims);   // TODO: Angular 16 update
   }
 }

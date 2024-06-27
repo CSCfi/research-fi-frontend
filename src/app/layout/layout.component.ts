@@ -35,7 +35,11 @@ export class LayoutComponent implements OnInit {
   }
 
   routerEvents() {
-    this.router.events.subscribe((event: RouterEvent) => {
+    // TODO: Angular 16 update workarounds
+    // this.loading = false;
+    // this.showDivider = false;
+
+    /*this.router.events.subscribe((event: RouterEvent) => { // TODO: Angular 16 update
       switch (true) {
         case event instanceof NavigationStart: {
           this.loading = true;
@@ -52,6 +56,6 @@ export class LayoutComponent implements OnInit {
           break;
         }
       }
-    });
+    });*/
   }
 }
