@@ -126,22 +126,22 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "research-fi:build:fi",
             "port": 5003,
-            "ssl": true
+            "ssl": true,
+            "buildTarget": "research-fi:build:fi"
           },
           "configurations": {
             "fi": {
-              "browserTarget": "research-fi:build:fi"
+              "buildTarget": "research-fi:build:fi"
             },
             "en": {
-              "browserTarget": "research-fi:build:en"
+              "buildTarget": "research-fi:build:en"
             },
             "sv": {
-              "browserTarget": "research-fi:build:sv"
+              "buildTarget": "research-fi:build:sv"
             },
             "es5": {
-              "browserTarget": "research-fi:build:es5"
+              "buildTarget": "research-fi:build:es5"
             }
           }
         },

@@ -98,7 +98,6 @@ import {
 
 import { TooltipComponent } from './components/results/tooltip/tooltip.component';
 import { WINDOW_PROVIDERS } from '../shared/services/window.service';
-import { TransferHttpCacheModule } from '@nguniversal/common';
 import { SuggestComponent } from './components/results/suggest/suggest.component';
 import { NewsComponent } from './components/news/news/news.component';
 import { InfrastructuresComponent } from './components/results/infrastructures/infrastructures.component';
@@ -284,7 +283,6 @@ import { NgArrayPipesModule } from 'ngx-pipes';
     ClipboardModule,
     CountUpModule,
     FontAwesomeModule,
-    TransferHttpCacheModule,
 
     SharedModule,
     A11yModule,

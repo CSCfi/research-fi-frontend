@@ -14,7 +14,7 @@ import {
   HttpEvent,
 } from '@angular/common/http';
 import { Request } from 'express';
-import { REQUEST } from '@nguniversal/express-engine/tokens';
+import { REQUEST } from '../express.tokens';
 import { EXPRESS_HTTP_PORT } from './app.global';
 import { map } from 'rxjs/operators';
 
