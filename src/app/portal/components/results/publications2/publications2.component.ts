@@ -31,7 +31,7 @@ import { OrganizationFilterComponent } from '@portal/components/organization-fil
 import { FilterOptionComponent } from '@portal/components/filter-option/filter-option.component';
 import { LimitPipe } from '@portal/pipes/limit.pipe';
 import { CollapsibleComponent } from '@portal/components/collapsible/collapsible.component';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+import { MatButtonModule } from '@angular/material/button';
 import { FilterLimitButtonComponent } from '@portal/components/filter-limit-button/filter-limit-button.component';
 import { FirstDigitPipe } from '@shared/pipes/first-digit.pipe';
 import { FirstLetterPipe } from '@shared/pipes/first-letter.pipe';

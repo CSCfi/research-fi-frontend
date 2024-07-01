@@ -24,7 +24,7 @@
     color: mat-contrast($primary, 200);
   }
 
-  .mat-stroked-button:not([disabled]) {
+  .mat-mdc-outlined-button:not([disabled]) {
     border: 2px solid;
     border-color: mat-color($primary);
     color: mat-color($primary);

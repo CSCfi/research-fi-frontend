@@ -48,7 +48,7 @@
       margin-top: 0;
     }
 
-    .mat-radio-button {
+    .mat-mdc-radio-button {
       display: block;
     }
 
@@ -99,7 +99,7 @@
       z-index: 39;
     }
 
-    .mat-list-base .mat-list-item,
+    .mat-mdc-list-base .mat-mdc-list-item,
     .mat-list-base .mat-list-option {
       height: auto;
       display: flex;
@@ -143,11 +143,12 @@
     }
 
     // Year filter select
+    /*  TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
     mat-form-field,
     .mat-form-field-infix {
       max-width: 100%;
     }
-
+    /*  TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
     mat-form-field .mat-form-field-wrapper {
       width: 100%;
     }
@@ -191,7 +192,7 @@
       overflow: hidden;
       display: block;
     }
-
+    /*  TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.*/
     label.mat-checkbox-layout {
       margin-bottom: 0;
     }
@@ -212,22 +213,22 @@
     }
 
     // Segments
-    .mat-list-base {
+    .mat-mdc-list-base {
       padding: 0;
     }
 
-    .mat-list-base .mat-list-item .mat-list-text,
+    .mat-mdc-list-base .mat-mdc-list-item .mat-list-text,
     .mat-list-base .mat-list-option .mat-list-text {
       flex-direction: row !important;
       display: block !important;
     }
-
-    .mat-list-base .mat-list-option .mat-list-item-content {
+    /*  TODO(mdc-migration): The following rule targets internal classes of list that may no longer apply for the MDC version.*/
+    .mat-mdc-list-base .mat-list-option .mat-list-item-content {
       width: 100%;
       padding: 12px 1rem;
     }
-
-    .mat-list-base
+    /*  TODO(mdc-migration): The following rule targets internal classes of list that may no longer apply for the MDC version.*/
+    .mat-mdc-list-base
       .mat-list-option.mat-list-option
       .mat-list-item-content
       .mat-list-text {
@@ -235,7 +236,7 @@
       padding-left: 0;
       overflow: visible;
     }
-
+    /*  TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version.*/
     mat-selection-list.limit {
       overflow: hidden;
     }
@@ -273,21 +274,21 @@
       font-size: 15px;
       padding-bottom: 1rem;
     }
-
+    /*  TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.*/
     .mat-checkbox-inner-container {
       margin-right: 15px;
     }
 
-    .single-checkbox .mat-checkbox {
+    .single-checkbox .mat-mdc-checkbox {
       display: flex;
       align-items: center;
       height: 100%;
     }
-
+    /*  TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.*/
     .single-checkbox label.mat-checkbox-layout {
       margin: 0;
     }
-
+    /*  TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.*/
     .mat-checkbox-layout {
       white-space: pre-wrap;
     }
@@ -330,7 +331,7 @@
         overflow-y: auto;
       }
 
-      .mat-list-base .mat-list-item,
+      .mat-mdc-list-base .mat-mdc-list-item,
       .mat-list-base .mat-list-option {
         min-height: 48px;
       }
@@ -340,7 +341,7 @@
       .single-checkbox {
         font-size: 18px !important;
       }
-
+      /*  TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.*/
       .mat-pseudo-checkbox,
       .mat-checkbox-inner-container {
         width: 22px;

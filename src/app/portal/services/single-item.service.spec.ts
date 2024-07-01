@@ -14,7 +14,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { SingleItemService } from './single-item.service';
 import { SettingsService } from './settings.service';
 import { AppConfigService } from '@shared/services/app-config-service.service';
-import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import ResponseJsonPublications from 'src/testdata/searchresponse-publications.json';
 

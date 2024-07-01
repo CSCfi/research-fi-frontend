@@ -33,14 +33,14 @@
         color: mat-color($primary);
       }
 
-      .mat-raised-button.mat-primary {
+      .mat-mdc-raised-button.mat-primary {
         background: white;
         color: mat-color($primary);
         border: 2px solid mat-color($primary);
         border-radius: 20px;
       }
 
-      .mat-raised-button:disabled.mat-primary {
+      .mat-mdc-raised-button:disabled.mat-primary {
         background: white;
         color: mat-color($primary, lighter);
         border: 2px solid mat-color($primary, lighter);

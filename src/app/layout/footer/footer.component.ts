@@ -16,7 +16,7 @@ import { AsyncPipe, NgIf } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Router, RouterLink } from '@angular/router';
 import { interval, lastValueFrom, take } from 'rxjs';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+import { MatButtonModule } from '@angular/material/button';
 
 function email(strings) {
     return `${strings[0]}@csc.fi`;

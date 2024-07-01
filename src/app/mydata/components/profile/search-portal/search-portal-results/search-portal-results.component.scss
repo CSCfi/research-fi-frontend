@@ -5,6 +5,7 @@
 //  :author: CSC - I
 
 app-search-portal-results {
+  /*  TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.*/
   .mat-checkbox-inner-container {
     margin-top: 0.175rem !important;
   }
@@ -63,11 +64,11 @@ app-search-portal-results {
   }
 
   @media (max-width: 991px) {
-    .mat-header-row {
+    .mat-mdc-header-row {
       display: none;
     }
 
-    .mat-row {
+    .mat-mdc-row {
       display: block;
       padding: 0.5rem 0;
     }

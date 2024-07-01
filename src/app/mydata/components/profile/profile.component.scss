@@ -14,11 +14,11 @@ app-profile {
     padding: 0.5rem;
     margin: 0 0.5rem;
   }
-
+  /*  TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.*/
   .mat-checkbox-inner-container {
     margin-top: 4px;
   }
-
+  /*  TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.*/
   .mat-checkbox-layout {
     white-space: normal;
   }
