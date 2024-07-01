@@ -1,10 +1,18 @@
+@use 'migration' as *;
+@use '@angular/material' as mat;
+
 @import './styles-custom-palettes.scss';
 
-$researchfi-primary: mat-palette($researchfi-primary-palette, 500, 300, 900);
-$researchfi-accent: mat-palette($mat-green);
-$researchfi-warn: mat-palette($mat-red);
+// $researchfi-primary: mat-palette($researchfi-primary-palette, 500, 300, 900);
+$researchfi-primary: mat.define-palette($researchfi-primary-palette, 500, 300, 900);
 
-$researchfi-theme: mat-light-theme(
+// $researchfi-accent: mat-palette($mat-green);
+$researchfi-accent: mat.define-palette(mat.$green-palette);
+
+// $researchfi-warn: mat-palette($mat-red);
+$researchfi-warn: mat.define-palette(mat.$red-palette);
+
+$researchfi-theme: mat.define-light-theme(
   $researchfi-primary,
   $researchfi-accent,
   $researchfi-warn
@@ -50,7 +58,7 @@ input[type='search']::-webkit-search-results-decoration {
 }
 
 body {
-  color: mat-contrast($primary, 300);
+  color: mat.get-contrast-color-from-palette($researchfi-primary, 300);
   font-family: 'Roboto', sans-serif;
 }
 

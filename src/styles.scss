@@ -6,12 +6,12 @@
 //  :license: MIT
 
 // You can add global styles to this file, and also import other style files
-@import '@angular/material/theming';
+
+@use '@angular/material' as mat;
+@include mat.core();
 
 @import './bootstrap_overrides.scss';
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
-
-@include mat-core();
 
 @import '~font-awesome/css/font-awesome.css';
 @import '~@fortawesome/fontawesome-free/css/all.css';
@@ -144,7 +144,7 @@ html {
 }
 
 body {
-  @include angular-material-theme($researchfi-theme);
+  @include mat.all-component-themes($researchfi-theme);
   @include researchfi-components-theme($researchfi-theme);
   overflow-y: scroll;
   position: relative;

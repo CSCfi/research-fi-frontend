@@ -1,4 +1,4 @@
-@import '@angular/material/theming';
+@use 'src/migration' as *;
 
 @mixin app-search-bar-theme($theme) {
   $primary: map-get($theme, primary);
