@@ -39,7 +39,6 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js"
             ],
             "allowedCommonJsDependencies": [
@@ -195,35 +194,6 @@
               "devServerTarget": "research-fi:serve:production"
             }
           }
-        },
-        "server": {
-          "builder": "@angular-devkit/build-angular:server",
-          "options": {
-            "main": "src/main.server.ts",
-            "tsConfig": "src/tsconfig.server.json",
-            "localize": [
-              "fi",
-              "en",
-              "sv"
-            ],
-            "sourceMap": true,
-            "optimization": true,
-            "buildOptimizer": true
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "outputPath": "dist/server",
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "buildOptimizer": true
-            }
-          },
-          "defaultConfiguration": ""
         }
       }
     },
