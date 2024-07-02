@@ -7,7 +7,6 @@
 
 import {
   ElementRef,
-  ComponentFactoryResolver,
   ApplicationRef,
   Injector,
 } from '@angular/core';
@@ -16,7 +15,7 @@ import { DomPortalOutlet } from '@angular/cdk/portal';
 export function createDomPortalOutlet(elRef: ElementRef, injector: Injector) {
   return new DomPortalOutlet(
     elRef.nativeElement,
-    injector.get<ComponentFactoryResolver>(ComponentFactoryResolver as any),
+    null, // injector.get<ComponentFactoryResolver>(ComponentFactoryResolver as any), // NO LONGER NEEDED
     injector.get<ApplicationRef>(ApplicationRef as any),
     injector
   );
