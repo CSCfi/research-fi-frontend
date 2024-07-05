@@ -15,13 +15,24 @@ import {
   EventEmitter,
   AfterViewInit,
 } from '@angular/core';
-import { UntypedFormBuilder } from '@angular/forms';
+import { UntypedFormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { PrimaryActionButtonComponent } from '../buttons/primary-action-button/primary-action-button.component';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss'],
+    selector: 'app-search',
+    templateUrl: './search.component.html',
+    styleUrls: ['./search.component.scss'],
+    standalone: true,
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        NgIf,
+        TooltipModule,
+        PrimaryActionButtonComponent,
+    ],
 })
 export class SearchComponent implements OnInit, AfterViewInit {
   @Input() placeholder: string;

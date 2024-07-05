@@ -17,11 +17,21 @@ import { faTimes, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { SortService } from 'src/app/portal/services/sort.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MatButton } from '@angular/material/button';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-active-filters-dialog',
-  templateUrl: './active-filters-dialog.component.html',
-  styleUrls: ['./active-filters-dialog.component.scss'],
+    selector: 'app-active-filters-dialog',
+    templateUrl: './active-filters-dialog.component.html',
+    styleUrls: ['./active-filters-dialog.component.scss'],
+    standalone: true,
+    imports: [
+        NgFor,
+        NgIf,
+        MatButton,
+        FontAwesomeModule,
+    ],
 })
 export class ActiveFiltersDialogComponent implements OnInit {
   @Input() data: any;

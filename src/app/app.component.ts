@@ -9,14 +9,17 @@ import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser, PlatformLocation } from '@angular/common';
 import { AppConfigService } from '@shared/services/app-config-service.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { NavigationStart, Router } from '@angular/router';
+import { NavigationStart, Router, RouterOutlet } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { LayoutComponent } from './layout/layout.component';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    standalone: true,
+    imports: [LayoutComponent, RouterOutlet],
 })
 export class AppComponent {
   title = 'research-fi-portal';

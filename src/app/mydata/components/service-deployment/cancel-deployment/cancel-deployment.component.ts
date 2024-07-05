@@ -5,10 +5,19 @@ import { ProfileService } from '@mydata/services/profile.service';
 import { UtilityService } from '@shared/services/utility.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { take } from 'rxjs';
+import { SecondaryButtonComponent } from '../../../../shared/components/buttons/secondary-button/secondary-button.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-cancel-deployment',
-  templateUrl: './cancel-deployment.component.html',
+    selector: 'app-cancel-deployment',
+    templateUrl: './cancel-deployment.component.html',
+    standalone: true,
+    imports: [
+        NgIf,
+        MatProgressSpinner,
+        SecondaryButtonComponent,
+    ],
 })
 export class CancelDeploymentComponent implements OnInit {
   previousStep: number;

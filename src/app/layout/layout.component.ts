@@ -13,11 +13,26 @@ import {
   NavigationEnd,
 } from '@angular/router';
 import { take } from 'rxjs';
+import { FooterComponent } from './footer/footer.component';
+import { BannerDividerComponent } from '../shared/components/banner-divider/banner-divider.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { NgIf } from '@angular/common';
+import { HeaderComponent } from './header/header.component';
+import { ErrorModalComponent } from './error-modal/error-modal.component';
 
 @Component({
-  selector: 'app-layout',
-  templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss'],
+    selector: 'app-layout',
+    templateUrl: './layout.component.html',
+    styleUrls: ['./layout.component.scss'],
+    standalone: true,
+    imports: [
+        ErrorModalComponent,
+        HeaderComponent,
+        NgIf,
+        MatProgressSpinner,
+        BannerDividerComponent,
+        FooterComponent,
+    ],
 })
 
 /*

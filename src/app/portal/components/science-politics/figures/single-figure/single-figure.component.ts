@@ -21,12 +21,12 @@ import {
   ViewChild,
   PLATFORM_ID,
 } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgIf, NgFor } from '@angular/common';
 import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
 import { ResizeService } from 'src/app/shared/services/resize.service';
 import { Subscription, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { WINDOW } from 'src/app/shared/services/window.service';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { UtilityService } from 'src/app/shared/services/utility.service';
@@ -35,12 +35,40 @@ import { cloneDeep } from 'lodash-es';
 import { CMSContentService } from '@shared/services/cms-content.service';
 import { Figure } from 'src/app/portal/models/figure/figure.model';
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { SafeUrlPipe } from '../../../../pipes/safe-url.pipe';
+import { CarouselComponent } from '../carousel/carousel.component';
+import { FigureFiltersComponent } from '../figure-filters/figure-filters.component';
+import { SecondaryButtonComponent } from '../../../../../shared/components/buttons/secondary-button/secondary-button.component';
+import { ShareComponent } from '../../../single/share/share.component';
+import { FiguresInfoComponent } from '../figures-info/figures-info.component';
+import { MatChip } from '@angular/material/chips';
+import { ClickOutsideDirective } from '../../../../../shared/directives/click-outside.directive';
+import { BreadcrumbComponent } from '../../../breadcrumb/breadcrumb.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { BannerDividerComponent } from '../../../../../shared/components/banner-divider/banner-divider.component';
 
 @Component({
-  selector: 'app-single-figure',
-  templateUrl: './single-figure.component.html',
-  styleUrls: ['./single-figure.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-single-figure',
+    templateUrl: './single-figure.component.html',
+    styleUrls: ['./single-figure.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [
+        BannerDividerComponent,
+        NgIf,
+        MatProgressSpinner,
+        RouterLink,
+        BreadcrumbComponent,
+        NgFor,
+        ClickOutsideDirective,
+        MatChip,
+        FiguresInfoComponent,
+        ShareComponent,
+        SecondaryButtonComponent,
+        FigureFiltersComponent,
+        CarouselComponent,
+        SafeUrlPipe,
+    ],
 })
 export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChildren('content') content: QueryList<ElementRef>;

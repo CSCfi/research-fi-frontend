@@ -7,17 +7,36 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription, combineLatest } from 'rxjs';
 import { ResizeService } from 'src/app/shared/services/resize.service';
 import { WINDOW } from '@shared/services/window.service';
+import { SafeUrlPipe } from '../../../../pipes/safe-url.pipe';
+import { SecondaryButtonComponent } from '../../../../../shared/components/buttons/secondary-button/secondary-button.component';
+import { ShareComponent } from '../../../single/share/share.component';
+import { NgIf, NgFor } from '@angular/common';
+import { ClickOutsideDirective } from '../../../../../shared/directives/click-outside.directive';
+import { BreadcrumbComponent } from '../../../breadcrumb/breadcrumb.component';
+import { BannerDividerComponent } from '../../../../../shared/components/banner-divider/banner-divider.component';
 
 @Component({
-  selector: 'app-single-indicator',
-  templateUrl: './single-indicator.component.html',
-  styleUrls: ['./single-indicator.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-single-indicator',
+    templateUrl: './single-indicator.component.html',
+    styleUrls: ['./single-indicator.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [
+        BannerDividerComponent,
+        RouterLink,
+        BreadcrumbComponent,
+        ClickOutsideDirective,
+        NgIf,
+        ShareComponent,
+        SecondaryButtonComponent,
+        NgFor,
+        SafeUrlPipe,
+    ],
 })
 export class SingleIndicatorComponent implements OnInit {
 

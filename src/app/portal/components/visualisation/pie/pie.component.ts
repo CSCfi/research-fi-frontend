@@ -18,13 +18,16 @@ import { PublicationVisual } from 'src/app/portal/models/visualisation/publicati
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { FundingVisual } from 'src/app/portal/models/visualisation/funding-visual.model';
 import { StaticDataService } from 'src/app/portal/services/static-data.service';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, NgIf } from '@angular/common';
 import { DataService } from 'src/app/portal/services/data.service';
+import { SafeUrlPipe } from '../../../pipes/safe-url.pipe';
 
 @Component({
-  selector: 'app-pie',
-  templateUrl: './pie.component.html',
-  styleUrls: ['./pie.component.scss']
+    selector: 'app-pie',
+    templateUrl: './pie.component.html',
+    styleUrls: ['./pie.component.scss'],
+    standalone: true,
+    imports: [NgIf, SafeUrlPipe]
 })
 export class PieComponent implements OnInit, OnChanges {
   

@@ -29,32 +29,30 @@ import { WINDOW_PROVIDERS } from '../shared/services/window.service';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 @NgModule({
-    declarations: [
+    imports: [
+        CommonModule,
+        SharedModule,
+        AppRoutingModule,
+        MatSelectModule,
+        MatMenuModule,
+        MatIconModule,
+        MatButtonModule,
+        MatDialogModule,
+        MatRadioModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatCheckboxModule,
+        MatProgressSpinnerModule,
+        FormsModule,
+        FontAwesomeModule,
+        TooltipModule.forRoot(),
+        FooterComponent,
         LayoutComponent,
         HeaderComponent,
         // FooterComponent,
-        ErrorModalComponent,
+        ErrorModalComponent
     ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    AppRoutingModule,
-    MatSelectModule,
-    MatMenuModule,
-    MatIconModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatRadioModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCheckboxModule,
-    MatProgressSpinnerModule,
-    FormsModule,
-    FontAwesomeModule,
-    TooltipModule.forRoot(),
-    FooterComponent
-  ],
-  exports: [LayoutComponent], // FooterComponent
+    exports: [LayoutComponent], // FooterComponent
     providers: [WINDOW_PROVIDERS]
 })
 export class LayoutModule {}

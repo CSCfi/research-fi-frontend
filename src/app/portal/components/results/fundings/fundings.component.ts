@@ -23,11 +23,24 @@ import { Search } from 'src/app/portal/models/search.model';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { TableColumn, TableRow } from 'src/types';
 import { HighlightSearch } from '@portal/pipes/highlight.pipe';
+import { NoResultsComponent } from '../no-results/no-results.component';
+import { ResultsPaginationComponent } from '../results-pagination/results-pagination.component';
+import { TableComponent } from '../../../../shared/components/table/table.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-fundings',
-  templateUrl: './fundings.component.html',
-  styleUrls: ['./fundings.component.scss'],
+    selector: 'app-fundings',
+    templateUrl: './fundings.component.html',
+    styleUrls: ['./fundings.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        MatProgressSpinner,
+        TableComponent,
+        ResultsPaginationComponent,
+        NoResultsComponent,
+    ],
 })
 export class FundingsComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() resultData: Search;

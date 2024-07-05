@@ -27,12 +27,30 @@ import { TabChangeService } from '@portal/services/tab-change.service';
 import { Subscription } from 'rxjs';
 import { TableColumn, TableRow } from 'src/types';
 import { UtilityService } from '@shared/services/utility.service';
+import { HighlightSearch as HighlightSearch_1 } from '../../../pipes/highlight.pipe';
+import { NoResultsComponent } from '../no-results/no-results.component';
+import { ResultsPaginationComponent } from '../results-pagination/results-pagination.component';
+import { RouterLink } from '@angular/router';
+import { TableComponent } from '../../../../shared/components/table/table.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { NgIf, NgFor } from '@angular/common';
 
 @Component({
-  selector: 'app-persons',
-  templateUrl: '../persons/persons.component.html',
-  styleUrls: ['./persons.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-persons',
+    templateUrl: '../persons/persons.component.html',
+    styleUrls: ['./persons.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [
+        NgIf,
+        MatProgressSpinner,
+        TableComponent,
+        NgFor,
+        RouterLink,
+        ResultsPaginationComponent,
+        NoResultsComponent,
+        HighlightSearch_1,
+    ],
 })
 export class PersonsComponent implements OnInit, AfterViewInit {
   @Input() resultData: Search;

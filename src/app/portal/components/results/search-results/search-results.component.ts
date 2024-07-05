@@ -35,8 +35,9 @@ import { FundingCallResultsComponent} from '@portal/components/results/funding-c
  * Eg. results/publications
  */
 @Component({
-  selector: 'app-search-results',
-  template: '<div #portalHost></div>',
+    selector: 'app-search-results',
+    template: '<div #portalHost></div>',
+    standalone: true,
 })
 export class SearchResultsComponent implements OnInit, OnChanges, OnDestroy {
   portalHost: DomPortalOutlet;
@@ -148,8 +149,9 @@ export class SearchResultsComponent implements OnInit, OnChanges, OnDestroy {
 }
 
 @Component({
-  selector: 'app-empty-result',
-  template: '<b>Component not implemented yet</b>',
+    selector: 'app-empty-result',
+    template: '<b>Component not implemented yet</b>',
+    standalone: true,
 })
 export class EmptyResultComponent {
   @Input() resultData;

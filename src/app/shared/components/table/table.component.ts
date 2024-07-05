@@ -16,8 +16,8 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox';
-import { Sort } from '@angular/material/sort';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Sort, MatSort, MatSortHeader } from '@angular/material/sort';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Icon } from '@fortawesome/fontawesome-svg-core';
 import {
   faSort,
@@ -25,14 +25,52 @@ import {
   faSortUp,
 } from '@fortawesome/free-solid-svg-icons';
 import { TableColumn, TableRow } from 'src/types';
+import { CutContentPipe } from '../../pipes/cut-content.pipe';
+import { TableCardComponent } from './table-card/table-card.component';
+import { TableCellComponent } from './table-cell/table-cell.component';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FormsModule } from '@angular/forms';
+import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
+import { NgIf, NgFor, NgClass, NgSwitch, NgSwitchCase, NgSwitchDefault, NgTemplateOutlet } from '@angular/common';
 
 // type Selection = { checked: boolean; index: number };
 
 @Component({
-  selector: 'app-table',
-  templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-table',
+    templateUrl: './table.component.html',
+    styleUrls: ['./table.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [
+        NgIf,
+        MatTable,
+        MatSort,
+        NgFor,
+        MatColumnDef,
+        MatHeaderCellDef,
+        MatHeaderCell,
+        MatSortHeader,
+        NgClass,
+        NgSwitch,
+        NgSwitchCase,
+        MatCheckbox,
+        FormsModule,
+        NgSwitchDefault,
+        FontAwesomeModule,
+        TooltipModule,
+        MatCellDef,
+        MatCell,
+        RouterLink,
+        NgTemplateOutlet,
+        TableCellComponent,
+        MatHeaderRowDef,
+        MatHeaderRow,
+        MatRowDef,
+        MatRow,
+        TableCardComponent,
+        CutContentPipe,
+    ],
 })
 export class TableComponent implements OnInit {
   @Input() columns: TableColumn[];

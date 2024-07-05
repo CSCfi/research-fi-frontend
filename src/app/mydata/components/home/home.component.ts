@@ -9,15 +9,23 @@ import { Component, OnInit } from '@angular/core';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { UtilityService } from '@shared/services/utility.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { NotificationService } from '@shared/services/notification.service';
 import { DialogEventsService } from '@shared/services/dialog-events.service';
+import { SecondaryButtonComponent } from '../../../shared/components/buttons/secondary-button/secondary-button.component';
+import { PrimaryActionButtonComponent } from '../../../shared/components/buttons/primary-action-button/primary-action-button.component';
 
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.scss'],
+    standalone: true,
+    imports: [
+        PrimaryActionButtonComponent,
+        RouterLink,
+        SecondaryButtonComponent,
+    ],
 })
 export class HomeComponent implements OnInit {
   title = $localize`:@@home:Etusivu`;

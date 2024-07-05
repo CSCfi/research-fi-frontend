@@ -8,12 +8,22 @@ import {
 } from '@angular/core';
 import { ResizeService } from 'src/app/shared/services/resize.service';
 import { WINDOW } from 'src/app/shared/services/window.service';
+import { NgIf, NgClass } from '@angular/common';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ClickOutsideDirective } from '../../../../../shared/directives/click-outside.directive';
 
 @Component({
-  selector: 'app-figures-info',
-  templateUrl: './figures-info.component.html',
-  styleUrls: ['./figures-info.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-figures-info',
+    templateUrl: './figures-info.component.html',
+    styleUrls: ['./figures-info.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [
+        ClickOutsideDirective,
+        FontAwesomeModule,
+        NgIf,
+        NgClass,
+    ],
 })
 export class FiguresInfoComponent implements OnInit, OnDestroy {
   @Input() labelText: string;

@@ -18,7 +18,7 @@ import {
   ViewChildren,
   QueryList,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { SearchService } from 'src/app/portal/services/search.service';
 import { SortService } from 'src/app/portal/services/sort.service';
@@ -27,11 +27,34 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { TableColumn, TableRow } from 'src/types';
 import { HighlightSearch } from '@portal/pipes/highlight.pipe';
+import { HandleInfrastructureLinkPipe } from '../../../pipes/handle-infrastructure-link.pipe';
+import { HighlightSearch as HighlightSearch_1 } from '../../../pipes/highlight.pipe';
+import { NoResultsComponent } from '../no-results/no-results.component';
+import { ResultsPaginationComponent } from '../results-pagination/results-pagination.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { TableComponent } from '../../../../shared/components/table/table.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { NgIf, NgFor } from '@angular/common';
 
 @Component({
-  selector: 'app-infrastructures',
-  templateUrl: './infrastructures.component.html',
-  styleUrls: ['./infrastructures.component.scss'],
+    selector: 'app-infrastructures',
+    templateUrl: './infrastructures.component.html',
+    styleUrls: ['./infrastructures.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        MatProgressSpinner,
+        TableComponent,
+        NgFor,
+        RouterLink,
+        TooltipModule,
+        FontAwesomeModule,
+        ResultsPaginationComponent,
+        NoResultsComponent,
+        HighlightSearch_1,
+        HandleInfrastructureLinkPipe,
+    ],
 })
 export class InfrastructuresComponent
   implements OnInit, OnDestroy, AfterViewInit

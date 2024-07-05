@@ -3,11 +3,22 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ProfileService } from '@mydata/services/profile.service';
 import { Subscription, take } from 'rxjs';
+import { DialogComponent } from '../../../../shared/components/dialog/dialog.component';
+import { NgIf } from '@angular/common';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { PrimaryActionButtonComponent } from '../../../../shared/components/buttons/primary-action-button/primary-action-button.component';
 
 @Component({
-  selector: 'app-orcid-data-fetch',
-  templateUrl: './orcid-data-fetch.component.html',
-  styleUrls: ['./orcid-data-fetch.component.scss'],
+    selector: 'app-orcid-data-fetch',
+    templateUrl: './orcid-data-fetch.component.html',
+    styleUrls: ['./orcid-data-fetch.component.scss'],
+    standalone: true,
+    imports: [
+        PrimaryActionButtonComponent,
+        MatProgressSpinner,
+        NgIf,
+        DialogComponent,
+    ],
 })
 export class OrcidDataFetchComponent implements OnInit, OnDestroy {
   @Input() userData: any;

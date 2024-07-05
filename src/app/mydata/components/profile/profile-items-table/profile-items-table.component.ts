@@ -14,7 +14,7 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
-import { Sort, SortDirection } from '@angular/material/sort';
+import { Sort, SortDirection, MatSort, MatSortHeader } from '@angular/material/sort';
 import {
   faSort,
   faSortDown,
@@ -26,12 +26,47 @@ import { FundingsService } from '@mydata/services/fundings.service';
 import { PatchService } from '@mydata/services/patch.service';
 import { PublicationsService } from '@mydata/services/publications.service';
 import { EditorModalColumn, ItemMeta } from 'src/types';
+import { IsPortalItemPipe } from '../../../pipes/is-portal-item.pipe';
+import { GetValuePipe } from '../../../pipes/get-value.pipe';
+import { CutContentPipe } from '../../../../shared/pipes/cut-content.pipe';
+import { MatPaginator } from '@angular/material/paginator';
+import { DatasetAuthorComponent } from '../../../../portal/components/single/single-dataset/dataset-author/dataset-author.component';
+import { SecondaryButtonComponent } from '../../../../shared/components/buttons/secondary-button/secondary-button.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgFor, NgIf } from '@angular/common';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 
 @Component({
-  selector: 'app-profile-items-table',
-  templateUrl: './profile-items-table.component.html',
-  styleUrls: ['./profile-items-table.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-profile-items-table',
+    templateUrl: './profile-items-table.component.html',
+    styleUrls: ['./profile-items-table.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [
+        MatTable,
+        MatSort,
+        MatColumnDef,
+        MatHeaderCellDef,
+        MatHeaderCell,
+        MatCheckbox,
+        MatCellDef,
+        MatCell,
+        NgFor,
+        MatSortHeader,
+        NgIf,
+        FontAwesomeModule,
+        SecondaryButtonComponent,
+        DatasetAuthorComponent,
+        MatHeaderRowDef,
+        MatHeaderRow,
+        MatRowDef,
+        MatRow,
+        MatPaginator,
+        CutContentPipe,
+        GetValuePipe,
+        IsPortalItemPipe,
+    ],
 })
 export class ProfileItemsTableComponent implements OnInit, OnChanges {
   @Input() columns: EditorModalColumn[];

@@ -19,7 +19,7 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { map, takeUntil } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { mergePublications } from '@mydata/utils';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { DraftService } from '@mydata/services/draft.service';
 import { PatchService } from '@mydata/services/patch.service';
 import { SnackbarService } from '@mydata/services/snackbar.service';
@@ -35,12 +35,39 @@ import { lastValueFrom, Observable, Subject, timer, BehaviorSubject, combineLate
 import { cloneDeep } from 'lodash-es';
 import { Person } from '@portal/models/person/person.model';
 import { SingleItemService } from '@portal/services/single-item.service';
+import { DialogComponent } from '../../../shared/components/dialog/dialog.component';
+import { MydataBetaInfoComponent } from '../mydata-beta-info/mydata-beta-info.component';
+import { CollaborationCardComponent } from './cards/collaboration-card/collaboration-card.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { ProfileSummaryComponent } from './profile-summary/profile-summary.component';
+import { ContactCardComponent } from './cards/contact-card/contact-card.component';
+import { DraftSummaryComponent } from './draft-summary/draft-summary.component';
+import { MatButton } from '@angular/material/button';
+import { PrimaryActionButtonComponent } from '../../../shared/components/buttons/primary-action-button/primary-action-button.component';
+import { WelcomeDialogComponent } from './welcome-dialog/welcome-dialog.component';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-profile',
+    templateUrl: './profile.component.html',
+    styleUrls: ['./profile.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [
+        NgIf,
+        WelcomeDialogComponent,
+        PrimaryActionButtonComponent,
+        MatButton,
+        DraftSummaryComponent,
+        RouterLink,
+        ContactCardComponent,
+        ProfileSummaryComponent,
+        MatProgressSpinner,
+        CollaborationCardComponent,
+        MydataBetaInfoComponent,
+        DialogComponent,
+        AsyncPipe,
+    ],
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   @ViewChild('collaborationComponentRef') collaborationComponentRef;

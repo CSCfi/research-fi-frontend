@@ -18,11 +18,26 @@ import { NotificationService } from '@shared/services/notification.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { clone, cloneDeep } from 'lodash-es';
+import { DataSourcesSelectionActionsComponent } from './data-sources-selection-actions/data-sources-selection-actions.component';
+import { ActiveFiltersListComponent } from '../../../../shared/components/active-filters-list/active-filters-list.component';
+import { SortByButtonComponent } from '../../../../shared/components/buttons/sort-by-button/sort-by-button.component';
+import { DataSourcesFiltersComponent } from './data-sources-filters/data-sources-filters.component';
+import { NgTemplateOutlet, NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-data-sources',
-  templateUrl: './data-sources.component.html',
-  styleUrls: ['./data-sources.component.scss'],
+    selector: 'app-data-sources',
+    templateUrl: './data-sources.component.html',
+    styleUrls: ['./data-sources.component.scss'],
+    standalone: true,
+    imports: [
+        NgTemplateOutlet,
+        DataSourcesFiltersComponent,
+        SortByButtonComponent,
+        NgIf,
+        ActiveFiltersListComponent,
+        DataSourcesTableComponent,
+        DataSourcesSelectionActionsComponent,
+    ],
 })
 export class DataSourcesComponent implements OnInit, OnDestroy {
   orcidData: Record<string, unknown>;

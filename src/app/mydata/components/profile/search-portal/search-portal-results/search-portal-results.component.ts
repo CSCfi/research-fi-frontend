@@ -17,7 +17,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { Sort } from '@angular/material/sort';
+import { Sort, MatSort, MatSortHeader } from '@angular/material/sort';
 import {
   faSort,
   faSortDown,
@@ -31,12 +31,42 @@ import {
 import { SearchPortalService } from '@mydata/services/search-portal.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
+import { GetValuePipe } from '../../../../pipes/get-value.pipe';
+import { CutContentPipe } from '../../../../../shared/pipes/cut-content.pipe';
+import { DatasetAuthorComponent } from '../../../../../portal/components/single/single-dataset/dataset-author/dataset-author.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
+import { NgIf, NgFor } from '@angular/common';
 
 @Component({
-  selector: 'app-search-portal-results',
-  templateUrl: './search-portal-results.component.html',
-  styleUrls: ['./search-portal-results.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-search-portal-results',
+    templateUrl: './search-portal-results.component.html',
+    styleUrls: ['./search-portal-results.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [
+        NgIf,
+        MatTable,
+        MatSort,
+        MatColumnDef,
+        MatHeaderCellDef,
+        MatHeaderCell,
+        MatCellDef,
+        MatCell,
+        MatCheckbox,
+        NgFor,
+        MatSortHeader,
+        FontAwesomeModule,
+        DatasetAuthorComponent,
+        MatHeaderRowDef,
+        MatHeaderRow,
+        MatRowDef,
+        MatRow,
+        MatPaginator,
+        CutContentPipe,
+        GetValuePipe,
+    ],
 })
 export class SearchPortalResultsComponent
   implements OnInit, OnChanges, OnDestroy

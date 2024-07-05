@@ -22,7 +22,7 @@ import { DatasetsService } from '@mydata/services/datasets.service';
 import { FundingsService } from '@mydata/services/fundings.service';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { MatTabChangeEvent } from '@angular/material/tabs';
+import { MatTabChangeEvent, MatTabGroup, MatTab, MatTabLabel } from '@angular/material/tabs';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { CommonStrings } from '@mydata/constants/strings';
 import {
@@ -35,12 +35,33 @@ import {
 import { EditorModalColumn } from 'src/types';
 import { SearchPortalService } from '@mydata/services/search-portal.service';
 import { GroupTypes } from '@mydata/constants/groupTypes';
+import { DialogComponent } from '../../../../shared/components/dialog/dialog.component';
+import { SearchPortalComponent } from '../search-portal/search-portal.component';
+import { ProfileItemsTableComponent } from '../profile-items-table/profile-items-table.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ProfilePanelComponent } from '../profile-panel/profile-panel.component';
+import { AutofocusDirective } from '../../../../shared/directives/autofocus.directive';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-editor-modal',
-  templateUrl: './editor-modal.component.html',
-  styleUrls: ['./editor-modal.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-editor-modal',
+    templateUrl: './editor-modal.component.html',
+    styleUrls: ['./editor-modal.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [
+        NgIf,
+        MatCheckbox,
+        AutofocusDirective,
+        ProfilePanelComponent,
+        MatTabGroup,
+        MatTab,
+        FontAwesomeModule,
+        ProfileItemsTableComponent,
+        MatTabLabel,
+        SearchPortalComponent,
+        DialogComponent,
+    ],
 })
 export class EditorModalComponent implements OnInit {
   @Input() dialogData: { data: any; trigger: number };

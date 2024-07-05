@@ -8,10 +8,23 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { sortItemsByNew } from '@mydata/utils';
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { GetItemsByPipe } from '../../../../pipes/get-items-by.pipe';
+import { SummaryDividerComponent } from '../summary-divider/summary-divider.component';
+import { NgIf, NgFor, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
 
 @Component({
-  selector: 'app-summary-affiliations',
-  templateUrl: './summary-affiliation.component.html',
+    selector: 'app-summary-affiliations',
+    templateUrl: './summary-affiliation.component.html',
+    standalone: true,
+    imports: [
+        NgIf,
+        NgFor,
+        SummaryDividerComponent,
+        NgSwitch,
+        NgSwitchCase,
+        NgSwitchDefault,
+        GetItemsByPipe,
+    ],
 })
 export class SummaryAffiliationsComponent implements OnInit {
   @Input() data: any;

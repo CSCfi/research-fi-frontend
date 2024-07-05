@@ -1,12 +1,40 @@
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { News } from 'src/app/portal/models/news.model';
 import { FundingCall } from '@portal/models/funding-call.model';
+import { SafeUrlPipe } from '../../../pipes/safe-url.pipe';
+import { HighlightSearch } from '../../../pipes/highlight.pipe';
+import { CutContentPipe } from '../../../../shared/pipes/cut-content.pipe';
+import { RouterLink } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault, NgClass, DatePipe } from '@angular/common';
+import { MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardContent, MatCardActions, MatCardFooter } from '@angular/material/card';
 
 @Component({
-  selector: 'app-news-card',
-  templateUrl: './news-card.component.html',
-  styleUrls: ['./news-card.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-news-card',
+    templateUrl: './news-card.component.html',
+    styleUrls: ['./news-card.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [
+        MatCard,
+        MatCardHeader,
+        MatCardTitle,
+        NgIf,
+        NgSwitch,
+        NgSwitchCase,
+        NgSwitchDefault,
+        FontAwesomeModule,
+        RouterLink,
+        MatCardSubtitle,
+        MatCardContent,
+        NgClass,
+        MatCardActions,
+        MatCardFooter,
+        DatePipe,
+        CutContentPipe,
+        HighlightSearch,
+        SafeUrlPipe,
+    ],
 })
 export class NewsCardComponent implements OnInit {
   @Input() itemTypeFundingCalls = false;

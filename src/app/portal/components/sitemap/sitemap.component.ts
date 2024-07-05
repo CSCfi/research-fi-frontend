@@ -13,11 +13,20 @@ import { UtilityService } from 'src/app/shared/services/utility.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
+import { RouterLink } from '@angular/router';
+import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component';
+import { BannerDividerComponent } from '../../../shared/components/banner-divider/banner-divider.component';
 
 @Component({
-  selector: 'app-sitemap',
-  templateUrl: './sitemap.component.html',
-  styleUrls: ['./sitemap.component.scss'],
+    selector: 'app-sitemap',
+    templateUrl: './sitemap.component.html',
+    styleUrls: ['./sitemap.component.scss'],
+    standalone: true,
+    imports: [
+        BannerDividerComponent,
+        BreadcrumbComponent,
+        RouterLink,
+    ],
 })
 export class SitemapComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('mainFocus') mainFocus: ElementRef;

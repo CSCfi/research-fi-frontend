@@ -1,4 +1,4 @@
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, NgIf, NgFor, NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -11,7 +11,7 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { HighlightSearch } from '@portal/pipes/highlight.pipe';
 import { Search } from 'src/app/portal/models/search.model';
 import { SearchService } from 'src/app/portal/services/search.service';
@@ -19,11 +19,30 @@ import { SortService } from 'src/app/portal/services/sort.service';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { TableColumn, TableRow } from 'src/types';
+import { HighlightSearch as HighlightSearch_1 } from '../../../pipes/highlight.pipe';
+import { NoResultsComponent } from '../no-results/no-results.component';
+import { ResultsPaginationComponent } from '../results-pagination/results-pagination.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TableComponent } from '../../../../shared/components/table/table.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
-  selector: 'app-datasets',
-  templateUrl: './datasets.component.html',
-  styleUrls: ['./datasets.component.scss'],
+    selector: 'app-datasets',
+    templateUrl: './datasets.component.html',
+    styleUrls: ['./datasets.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        MatProgressSpinner,
+        TableComponent,
+        NgFor,
+        RouterLink,
+        FontAwesomeModule,
+        NgTemplateOutlet,
+        ResultsPaginationComponent,
+        NoResultsComponent,
+        HighlightSearch_1,
+    ],
 })
 export class DatasetsComponent implements OnInit {
   @Input() resultData: Search;

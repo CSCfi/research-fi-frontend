@@ -26,8 +26,8 @@ import {
   faChevronUp,
 } from '@fortawesome/free-solid-svg-icons';
 import { faChartBar } from '@fortawesome/free-regular-svg-icons';
-import { isPlatformBrowser, ViewportScroller } from '@angular/common';
-import { UntypedFormControl } from '@angular/forms';
+import { isPlatformBrowser, ViewportScroller, NgIf, NgClass, NgFor, NgTemplateOutlet } from '@angular/common';
+import { UntypedFormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { ResizeService } from 'src/app/shared/services/resize.service';
@@ -35,7 +35,7 @@ import { Subscription } from 'rxjs';
 import { ScrollService } from 'src/app/portal/services/scroll.service';
 import { DataService } from 'src/app/portal/services/data.service';
 import { WINDOW } from 'src/app/shared/services/window.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HistoryService } from 'src/app/portal/services/history.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { UtilityService } from 'src/app/shared/services/utility.service';
@@ -43,11 +43,37 @@ import { cloneDeep } from 'lodash-es';
 import { CMSContentService } from '@shared/services/cms-content.service';
 import { Figure } from 'src/app/portal/models/figure/figure.model';
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { CutContentPipe } from '../../../../shared/pipes/cut-content.pipe';
+import { MatChip } from '@angular/material/chips';
+import { MatButton } from '@angular/material/button';
+import { ScrollSpyDirective } from '../../../directives/scroll-spy.directive';
+import { FigureFiltersComponent } from './figure-filters/figure-filters.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { BannerDividerComponent } from '../../../../shared/components/banner-divider/banner-divider.component';
 
 @Component({
-  selector: 'app-figures',
-  templateUrl: './figures.component.html',
-  styleUrls: ['./figures.component.scss'],
+    selector: 'app-figures',
+    templateUrl: './figures.component.html',
+    styleUrls: ['./figures.component.scss'],
+    standalone: true,
+    imports: [
+        BannerDividerComponent,
+        NgIf,
+        NgClass,
+        FontAwesomeModule,
+        MatProgressSpinner,
+        NgFor,
+        FormsModule,
+        ReactiveFormsModule,
+        FigureFiltersComponent,
+        ScrollSpyDirective,
+        MatButton,
+        NgTemplateOutlet,
+        RouterLink,
+        MatChip,
+        CutContentPipe,
+    ],
 })
 export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   faIconCircle = faInfoCircle;

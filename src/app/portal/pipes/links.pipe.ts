@@ -8,7 +8,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'links',
+    name: 'links',
+    standalone: true,
 })
 export class LinksPipe implements PipeTransform {
   // This pipe is intended to use with publications only

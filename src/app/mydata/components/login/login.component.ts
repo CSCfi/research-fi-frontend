@@ -6,15 +6,31 @@
 //  :license: MIT
 
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { UtilityService } from '@shared/services/utility.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { SecondaryButtonComponent } from '../../../shared/components/buttons/secondary-button/secondary-button.component';
+import { MyDataTerms } from '../mydata-terms/mydata-terms.component';
+import { FormsModule } from '@angular/forms';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { PrimaryActionButtonComponent } from '../../../shared/components/buttons/primary-action-button/primary-action-button.component';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        PrimaryActionButtonComponent,
+        MatCheckbox,
+        FormsModule,
+        MyDataTerms,
+        SecondaryButtonComponent,
+        RouterLink,
+    ],
 })
 export class LoginComponent implements OnInit {
   title = $localize`:@@serviceDeployment:Profiilityökalun käyttöönotto - Tutkijan tiedot`;

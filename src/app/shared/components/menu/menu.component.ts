@@ -6,10 +6,19 @@
 // :license: MIT
 
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { NgFor } from '@angular/common';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 
 @Component({
-  selector: 'app-menu',
-  templateUrl: './menu.component.html',
+    selector: 'app-menu',
+    templateUrl: './menu.component.html',
+    standalone: true,
+    imports: [
+        MatMenuTrigger,
+        MatMenu,
+        NgFor,
+        MatMenuItem,
+    ],
 })
 export class MenuComponent {
   @Input() label: string;
