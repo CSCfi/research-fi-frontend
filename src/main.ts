@@ -9,7 +9,7 @@ import { AuthConfigModule } from './app/auth-config.module';
 import { MyDataModule } from './app/mydata/mydata.module';
 import { PortalModule } from './app/portal/portal.module';
 import { SharedModule } from './app/shared/shared.module';
-import { LayoutModule } from './app/layout/layout.module';
+// import { LayoutModule } from './app/layout/layout.module';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { ErrorHandlerService } from './app/shared/services/error-handler.service';
@@ -29,10 +29,12 @@ document.addEventListener('DOMContentLoaded', () => {
       importProvidersFrom(
         BrowserModule,
         BrowserModule.withServerTransition({ appId: 'serverApp' }),
-        LayoutModule,
+
+        // LayoutModule,
         SharedModule,
         PortalModule,
         MyDataModule,
+
         AuthConfigModule,
         FontAwesomeModule
       ),
