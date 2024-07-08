@@ -12,8 +12,6 @@ import { CommonModule } from '@angular/common';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { PortalRoutingModule } from './portal-routing.module';
-
 import {
   FontAwesomeModule,
   FaIconLibrary,
@@ -172,7 +170,6 @@ import { NgArrayPipesModule } from 'ngx-pipes';
 
 @NgModule({
     imports: [
-        PortalRoutingModule,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,

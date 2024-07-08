@@ -6,9 +6,7 @@ import { environment } from './environments/environment';
 import { AppComponent } from './app/app.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AuthConfigModule } from './app/auth-config.module';
-import { MyDataRoutingModule } from './app/mydata/mydata-routing.module';
 import { MyDataModule } from './app/mydata/mydata.module';
-import { PortalRoutingModule } from './app/portal/portal-routing.module';
 import { PortalModule } from './app/portal/portal.module';
 import { SharedModule } from './app/shared/shared.module';
 import { LayoutModule } from './app/layout/layout.module';
@@ -18,6 +16,8 @@ import { ErrorHandlerService } from './app/shared/services/error-handler.service
 import { InterceptService } from './app/shared/services/intercept.service';
 import { HTTP_INTERCEPTORS, withInterceptorsFromDi, provideHttpClient } from '@angular/common/http';
 import { AppConfigService } from './app/shared/services/app-config-service.service';
+import { provideRouter } from '@angular/router';
+import { routes } from './app/routes';
 
 if (environment.production) {
   enableProdMode();
@@ -26,8 +26,18 @@ if (environment.production) {
 document.addEventListener('DOMContentLoaded', () => {
   bootstrapApplication(AppComponent, {
     providers: [
-        importProvidersFrom(BrowserModule, BrowserModule.withServerTransition({ appId: 'serverApp' }), LayoutModule, SharedModule, PortalModule, PortalRoutingModule, MyDataModule, MyDataRoutingModule, AuthConfigModule, FontAwesomeModule),
-        AppConfigService,
+      importProvidersFrom(
+        BrowserModule,
+        BrowserModule.withServerTransition({ appId: 'serverApp' }),
+        LayoutModule,
+        SharedModule,
+        PortalModule,
+        MyDataModule,
+        AuthConfigModule,
+        FontAwesomeModule
+      ),
+
+      AppConfigService,
         {
             provide: APP_INITIALIZER,
             multi: true,
@@ -48,6 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
             provide: ErrorHandler,
             useClass: ErrorHandlerService,
         },
+
+        provideRouter(routes),
         provideHttpClient(withInterceptorsFromDi()),
         provideAnimations(),
     ]

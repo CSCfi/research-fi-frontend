@@ -11,7 +11,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { LayoutComponent } from './layout.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { AppRoutingModule } from '../app-routing.module';
 import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
@@ -32,7 +31,6 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
     imports: [
         CommonModule,
         SharedModule,
-        AppRoutingModule,
         MatSelectModule,
         MatMenuModule,
         MatIconModule,
@@ -49,10 +47,9 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
         FooterComponent,
         LayoutComponent,
         HeaderComponent,
-        // FooterComponent,
         ErrorModalComponent
     ],
-    exports: [LayoutComponent], // FooterComponent
+    exports: [LayoutComponent],
     providers: [WINDOW_PROVIDERS]
 })
 export class LayoutModule {}

@@ -9,8 +9,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { MyDataRoutingModule } from './mydata-routing.module';
-
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -112,7 +110,6 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
     imports: [
         CommonModule,
         FormsModule,
-        MyDataRoutingModule,
         SharedModule,
         FontAwesomeModule,
         TooltipModule.forRoot(),
