@@ -26,9 +26,8 @@ import { Search } from 'src/app/portal/models/search.model';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { TableColumn, TableRow } from 'src/types';
-import { HighlightSearch } from '@portal/pipes/highlight.pipe';
+import { HighlightSearchPipe } from '@portal/pipes/highlight.pipe';
 import { HandleInfrastructureLinkPipe } from '../../../pipes/handle-infrastructure-link.pipe';
-import { HighlightSearch as HighlightSearch_1 } from '../../../pipes/highlight.pipe';
 import { NoResultsComponent } from '../no-results/no-results.component';
 import { ResultsPaginationComponent } from '../results-pagination/results-pagination.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -52,7 +51,7 @@ import { NgIf, NgFor } from '@angular/common';
         FontAwesomeModule,
         ResultsPaginationComponent,
         NoResultsComponent,
-        HighlightSearch_1,
+        HighlightSearchPipe,
         HandleInfrastructureLinkPipe,
     ],
 })
@@ -89,7 +88,7 @@ export class InfrastructuresComponent
     private sortService: SortService,
     private cdr: ChangeDetectorRef,
     public utilityService: UtilityService,
-    private highlightPipe: HighlightSearch
+    private highlightPipe: HighlightSearchPipe
   ) {}
 
   ngOnInit() {

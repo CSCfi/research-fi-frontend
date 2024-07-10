@@ -28,7 +28,6 @@ import { Search } from 'src/app/portal/models/search.model';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { TableColumn, TableRow } from 'src/types';
 import { LinksPipe } from '../../../pipes/links.pipe';
-import { HighlightSearch } from '@portal/pipes/highlight.pipe';
 import { NoResultsComponent } from '../no-results/no-results.component';
 import { ResultsPaginationComponent } from '../results-pagination/results-pagination.component';
 import { TagDoiComponent } from '../../../../shared/components/tags/tag-doi/tag-doi.component';
@@ -37,6 +36,7 @@ import { TagPeerReviewedComponent } from '../../../../shared/components/tags/tag
 import { TableComponent } from '../../../../shared/components/table/table.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { CutContentPipe } from '@shared/pipes/cut-content.pipe';
+import { HighlightSearchPipe } from '@portal/pipes/highlight.pipe';
 
 @Component({
     selector: 'app-publications',
@@ -54,9 +54,9 @@ import { CutContentPipe } from '@shared/pipes/cut-content.pipe';
     TagDoiComponent,
     ResultsPaginationComponent,
     NoResultsComponent,
-    HighlightSearch,
     LinksPipe,
-    CutContentPipe
+    CutContentPipe,
+    HighlightSearchPipe
   ]
 })
 export class PublicationsComponent implements OnInit, OnDestroy, AfterViewInit {
@@ -97,7 +97,7 @@ export class PublicationsComponent implements OnInit, OnDestroy, AfterViewInit {
     private searchService: SearchService,
     private cdr: ChangeDetectorRef,
     public utilityService: UtilityService,
-    private highlightPipe: HighlightSearch,
+    private highlightPipe: HighlightSearchPipe,
     private cutContentPipe: CutContentPipe
   ) {
     this.documentLang = this.document.documentElement.lang;

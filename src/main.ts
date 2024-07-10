@@ -8,7 +8,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AuthConfigModule } from './app/auth-config.module';
 import { MyDataModule } from './app/mydata/mydata.module';
 import { PortalModule } from './app/portal/portal.module';
-import { SharedModule } from './app/shared/shared.module';
+// import { SharedModule } from './app/shared/shared.module';
 // import { LayoutModule } from './app/layout/layout.module';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
@@ -18,6 +18,9 @@ import { HTTP_INTERCEPTORS, withInterceptorsFromDi, provideHttpClient } from '@a
 import { AppConfigService } from './app/shared/services/app-config-service.service';
 import { provideRouter } from '@angular/router';
 import { routes } from './app/routes';
+import { WINDOW_PROVIDERS } from '@shared/services/window.service';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 
 if (environment.production) {
   enableProdMode();
@@ -31,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         BrowserModule.withServerTransition({ appId: 'serverApp' }),
 
         // LayoutModule,
-        SharedModule,
+        // SharedModule,
         PortalModule,
         MyDataModule,
 
@@ -59,6 +62,17 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             provide: ErrorHandler,
             useClass: ErrorHandlerService,
+        },
+
+        WINDOW_PROVIDERS,
+
+        {
+          provide: LocationStrategy,
+          useClass: PathLocationStrategy,
+        },
+        {
+          provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+          useValue: { duration: 3000 },
         },
 
         provideRouter(routes),

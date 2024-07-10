@@ -21,7 +21,7 @@ import { SearchService } from 'src/app/portal/services/search.service';
 import { SortService } from 'src/app/portal/services/sort.service';
 import { Search } from 'src/app/portal/models/search.model';
 import { UtilityService } from 'src/app/shared/services/utility.service';
-import { HighlightSearch } from '@portal/pipes/highlight.pipe';
+import { HighlightSearchPipe } from '@portal/pipes/highlight.pipe';
 import { TableColumn, TableRow } from 'src/types';
 import { NoResultsComponent } from '../no-results/no-results.component';
 import { ResultsPaginationComponent } from '../results-pagination/results-pagination.component';
@@ -75,7 +75,7 @@ export class OrganizationsComponent
     private sortService: SortService,
     private cdr: ChangeDetectorRef,
     public utilityService: UtilityService,
-    private highlightPipe: HighlightSearch
+    private highlightPipe: HighlightSearchPipe
   ) {}
 
   ngOnInit() {

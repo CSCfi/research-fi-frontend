@@ -15,7 +15,7 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Search } from '@portal/models/search.model';
-import { HighlightSearch } from '@portal/pipes/highlight.pipe';
+import { HighlightSearchPipe } from '@portal/pipes/highlight.pipe';
 import { SearchService } from '@portal/services/search.service';
 import { SortService } from '@portal/services/sort.service';
 import { TabChangeService } from '@portal/services/tab-change.service';
@@ -84,7 +84,7 @@ export class FundingCallResultsComponent
     private searchService: SearchService,
     private cdr: ChangeDetectorRef,
     public utilityService: UtilityService,
-    private highlightPipe: HighlightSearch
+    private highlightPipe: HighlightSearchPipe
   ) {
     this.currentLocale =
       this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);

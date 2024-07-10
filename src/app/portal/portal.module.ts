@@ -5,12 +5,12 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Title, Meta } from '@angular/platform-browser';
+// import { Title, Meta } from '@angular/platform-browser';
 import { NgModule, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+// import { CommonModule } from '@angular/common';
 
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+// import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {
   FontAwesomeModule,
@@ -31,9 +31,9 @@ import { MatInputModule } from '@angular/material/input';
 // import { SearchBarComponent } from './components/search-bar/search-bar.component';
 // import { ResultsComponent } from './components/results/results.component';
 
-import { SearchService } from './services/search.service';
-import { AutosuggestService } from './services/autosuggest.service';
-import { AppConfigService } from '../shared/services/app-config-service.service';
+// import { SearchService } from './services/search.service';
+// import { AutosuggestService } from './services/autosuggest.service';
+// import { AppConfigService } from '../shared/services/app-config-service.service';
 
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
@@ -84,8 +84,8 @@ import { CountUpModule } from 'ngx-countup';
 // import { ListItemComponent } from './components/search-bar/list-item/list-item.component';
 // import { SunburstComponent } from './components/visualisation/sunburst/sunburst.component';
 // import { TreemapComponent } from './components/visualisation/treemap/treemap.component';
-import { HighlightSearch } from './pipes/highlight.pipe';
-import { LinksPipe } from './pipes/links.pipe';
+// import { HighlightSearchPipe } from './pipes/highlight.pipe';
+// import { LinksPipe } from './pipes/links.pipe';
 
 import {
   Location,
@@ -95,7 +95,7 @@ import {
 } from '@angular/common';
 
 // import { TooltipComponent } from './components/results/tooltip/tooltip.component';
-import { WINDOW_PROVIDERS } from '../shared/services/window.service';
+// import { WINDOW_PROVIDERS } from '../shared/services/window.service';
 // import { SuggestComponent } from './components/results/suggest/suggest.component';
 // import { NewsComponent } from './components/news/news/news.component';
 // import { InfrastructuresComponent } from './components/results/infrastructures/infrastructures.component';
@@ -111,7 +111,7 @@ import { WINDOW_PROVIDERS } from '../shared/services/window.service';
 // import { FilterSumPipe } from './pipes/filter-sum.pipe';
 // import { ResearchInnovationSystemComponent } from './components/science-politics/research-innovation-system/research-innovation-system.component';
 // import { FiguresComponent } from './components/science-politics/figures/figures.component';
-import { ScrollSpyDirective } from './directives/scroll-spy.directive';
+// import { ScrollSpyDirective } from './directives/scroll-spy.directive';
 // import { SingleFigureComponent } from './components/science-politics/figures/single-figure/single-figure.component';
 // import { RelatedLinksComponent } from './components/single/related-links/related-links.component';
 import { Event, Scroll, Router } from '@angular/router'; // Router required by scroll logic
@@ -170,9 +170,9 @@ import { Subscription } from 'rxjs';
 
 @NgModule({
     imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
+        // CommonModule,
+        // FormsModule,
+        // ReactiveFormsModule,
         MatIconModule,
         MatInputModule,
         MatAutocompleteModule,
@@ -229,7 +229,7 @@ import { Subscription } from 'rxjs';
         // ListItemComponent,
         // SunburstComponent,
         // TreemapComponent,
-        HighlightSearch,
+        // HighlightSearchPipe,
         // TooltipComponent,
         // SuggestComponent,
         // NewsComponent,
@@ -244,7 +244,7 @@ import { Subscription } from 'rxjs';
         // SafeUrlPipe,
         // ResearchInnovationSystemComponent,
         // FiguresComponent,
-        ScrollSpyDirective,
+        // ScrollSpyDirective,
         // CleanCitationPipe,
         // ReplaceSpacePipe,
         // SingleFigureComponent,
@@ -291,22 +291,24 @@ import { Subscription } from 'rxjs';
     ],
     exports: [/*DatasetAuthorComponent, FiltersComponent*/],
     providers: [
-        SearchService,
-        Title,
-        Meta,
-        AutosuggestService,
-        WINDOW_PROVIDERS,
-        AppConfigService,
-        Location,
-        {
+        // SearchService,
+        // Title,
+        // Meta,
+
+        // AutosuggestService,
+
+        // WINDOW_PROVIDERS,
+        // AppConfigService,
+        // Location,
+        /*{
             provide: LocationStrategy,
             useClass: PathLocationStrategy,
         },
         {
             provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
             useValue: { duration: 3000 },
-        },
-        HighlightSearch,
+        },*/
+        // HighlightSearchPipe,
     ],
 })
 export class PortalModule implements OnDestroy {
@@ -350,11 +352,15 @@ export class PortalModule implements OnDestroy {
     private historyService: HistoryService,
     private tabChangeService: TabChangeService
   ) {
+    console.log('PortalModule HERE!');
+
     this.startPage = router.parseUrl(router.url).queryParams.page || 1;
 
     // Scroll to top of page
     // Timeout value of 0 helps Firefox to scroll
     const scrollToTop = () => {
+      console.log("scrollToTop");
+
       setTimeout(() => viewportScroller.scrollToPosition([0, 0]), 0);
     };
 
@@ -362,6 +368,8 @@ export class PortalModule implements OnDestroy {
     this.routeSub = router.events
       .pipe(filter((e: Event): e is Scroll => e instanceof Scroll))
       .subscribe((e) => {
+        console.log("routeSub fires");
+
         const currentUrl = e.routerEvent.url;
         const history = this.historyService.history;
         const resultPages = tabChangeService.tabData
@@ -415,6 +423,8 @@ export class PortalModule implements OnDestroy {
           scrollToTop();
         }
       });
+
+    console.log("Adding global icons");
     // Add global icons
     library.addIcons(faExternalLinkAlt as any, faInfoCircle as any);
   }

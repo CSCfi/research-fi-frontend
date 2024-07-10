@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { News } from 'src/app/portal/models/news.model';
 import { FundingCall } from '@portal/models/funding-call.model';
 import { SafeUrlPipe } from '../../../pipes/safe-url.pipe';
-import { HighlightSearch } from '../../../pipes/highlight.pipe';
+import { HighlightSearchPipe } from '../../../pipes/highlight.pipe';
 import { CutContentPipe } from '../../../../shared/pipes/cut-content.pipe';
 import { RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -32,7 +32,7 @@ import { MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardContent, 
         MatCardFooter,
         DatePipe,
         CutContentPipe,
-        HighlightSearch,
+        HighlightSearchPipe,
         SafeUrlPipe,
     ],
 })

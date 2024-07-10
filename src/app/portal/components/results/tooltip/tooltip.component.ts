@@ -8,7 +8,7 @@
 import { Component, Input, Inject, OnInit, OnDestroy } from '@angular/core';
 import { DOCUMENT, NgStyle, NgIf, NgClass } from '@angular/common';
 import { SearchService } from 'src/app/portal/services/search.service';
-import { HighlightSearch } from '../../../pipes/highlight.pipe';
+import { HighlightSearchPipe } from '../../../pipes/highlight.pipe';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -20,7 +20,7 @@ import { RouterLink } from '@angular/router';
         RouterLink,
         NgIf,
         NgClass,
-        HighlightSearch,
+        HighlightSearchPipe,
     ],
 })
 export class TooltipComponent implements OnInit, OnDestroy {

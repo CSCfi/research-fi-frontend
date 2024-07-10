@@ -22,7 +22,7 @@ import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { Search } from 'src/app/portal/models/search.model';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { TableColumn, TableRow } from 'src/types';
-import { HighlightSearch } from '@portal/pipes/highlight.pipe';
+import { HighlightSearchPipe } from '@portal/pipes/highlight.pipe';
 import { NoResultsComponent } from '../no-results/no-results.component';
 import { ResultsPaginationComponent } from '../results-pagination/results-pagination.component';
 import { TableComponent } from '../../../../shared/components/table/table.component';
@@ -69,7 +69,7 @@ export class FundingsComponent implements OnInit, OnDestroy, AfterViewInit {
     private searchService: SearchService,
     private cdr: ChangeDetectorRef,
     public utilityService: UtilityService,
-    private highlightPipe: HighlightSearch
+    private highlightPipe: HighlightSearchPipe
   ) {}
 
   ngOnInit() {

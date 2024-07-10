@@ -15,7 +15,9 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 
 // https://github.com/damienbod/angular-auth-oidc-client/blob/main/docs/guards.md
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthGuard  {
   constructor(
     private readonly oidcSecurityService: OidcSecurityService,
@@ -45,7 +47,7 @@ export class AuthGuard  {
             handleUnauthorized();
           }
           else {
-            // Steps until 2 should be accessible without authentication. 
+            // Steps until 2 should be accessible without authentication.
             return true;
           }
         } else if (!isAuthenticated) {

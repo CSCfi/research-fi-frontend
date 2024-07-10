@@ -39,7 +39,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { StaticDataService } from '@portal/services/static-data.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
-import { HighlightSearch } from '../../pipes/highlight.pipe';
+import { HighlightSearchPipe } from '../../pipes/highlight.pipe';
 import { NotificationBannerComponent } from '../../../shared/components/notification-banner/notification-banner.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { ClickOutsideDirective } from '../../../shared/directives/click-outside.directive';
@@ -68,7 +68,7 @@ import { MatButton } from '@angular/material/button';
         RouterLink,
         NotificationBannerComponent,
         AsyncPipe,
-        HighlightSearch,
+        HighlightSearchPipe,
     ],
 })
 export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {

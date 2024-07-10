@@ -20,14 +20,13 @@ import {
 } from '@angular/core';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { Search } from '@portal/models/search.model';
-import { HighlightSearch } from '@portal/pipes/highlight.pipe';
+import { HighlightSearchPipe } from '@portal/pipes/highlight.pipe';
 import { SearchService } from '@portal/services/search.service';
 import { SortService } from '@portal/services/sort.service';
 import { TabChangeService } from '@portal/services/tab-change.service';
 import { Subscription } from 'rxjs';
 import { TableColumn, TableRow } from 'src/types';
 import { UtilityService } from '@shared/services/utility.service';
-import { HighlightSearch as HighlightSearch_1 } from '../../../pipes/highlight.pipe';
 import { NoResultsComponent } from '../no-results/no-results.component';
 import { ResultsPaginationComponent } from '../results-pagination/results-pagination.component';
 import { RouterLink } from '@angular/router';
@@ -49,7 +48,7 @@ import { NgIf, NgFor } from '@angular/common';
         RouterLink,
         ResultsPaginationComponent,
         NoResultsComponent,
-        HighlightSearch_1,
+        HighlightSearchPipe,
     ],
 })
 export class PersonsComponent implements OnInit, AfterViewInit {
@@ -73,7 +72,7 @@ export class PersonsComponent implements OnInit, AfterViewInit {
   constructor(
     private searchService: SearchService,
     private cdr: ChangeDetectorRef,
-    private highlightPipe: HighlightSearch,
+    private highlightPipe: HighlightSearchPipe,
     private tabChangeService: TabChangeService,
     public sortService: SortService,
     public utilityService: UtilityService

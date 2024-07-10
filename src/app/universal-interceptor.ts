@@ -32,10 +32,14 @@ export class UniversalInterceptor implements HttpInterceptor {
     @Optional() @Inject(REQUEST) protected request: Request,
     @Inject(LOCALE_ID) protected localeId: string
   ) {
+    console.log('UniversalInterceptor HERE!');
+
     this.localeId = localeId;
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
+    console.log('UniversalInterceptor intercept');
+
     let serverReq: HttpRequest<any> = req;
     /*
     Modify requests for 'config.json' and 'auth_config.json'.
