@@ -6,45 +6,48 @@
 //  :license: MIT
 
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+// import { CommonModule } from '@angular/common';
+// import { FormsModule } from '@angular/forms';
 
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
+// import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatTabsModule } from '@angular/material/tabs';
-import {
+// import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+// import { MatCheckboxModule } from '@angular/material/checkbox';
+// import { MatRadioModule } from '@angular/material/radio';
+// import { MatExpansionModule } from '@angular/material/expansion';
+// import { MatFormFieldModule } from '@angular/material/form-field';
+// import { MatSelectModule } from '@angular/material/select';
+// import { MatButtonToggleModule } from '@angular/material/button-toggle';
+// import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+// import { MatTabsModule } from '@angular/material/tabs';
+/*import {
   MatSnackBarModule,
   MatSnackBarConfig,
   MAT_SNACK_BAR_DEFAULT_OPTIONS,
-} from '@angular/material/snack-bar';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatPaginatorIntl } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
-import { MatButtonModule } from '@angular/material/button';
-import { MatRippleModule } from '@angular/material/core';
-import { MatMenuModule } from '@angular/material/menu';
+} from '@angular/material/snack-bar';*/
+// import { MatDialogModule } from '@angular/material/dialog';
+// import { MatDividerModule } from '@angular/material/divider';
+// import { MatTableModule } from '@angular/material/table';
+// import { MatPaginatorModule } from '@angular/material/paginator';
+// import { MatPaginatorIntl } from '@angular/material/paginator';
+// import { MatSortModule } from '@angular/material/sort';
+// import { MatButtonModule } from '@angular/material/button';
+// import { MatRippleModule } from '@angular/material/core';
+// import { MatMenuModule } from '@angular/material/menu';
 
 // import { HomeComponent } from './components/home/home.component';
 // import { NotFoundComponent } from './components/not-found/not-found.component';
 // import { RedirectComponent } from './components/redirect/redirect.component';
 
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+// import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+/*import {
+  CustomPaginatorIntlComponent
+} from '@mydata/components/profile/search-portal/custom-paginator-intl/custom-paginator-intl.component';*/
 // import { LoginComponent } from './components/login/login.component';
 
 // import { AuthGuard } from './services/auth-guard.service';
 
-import { SharedModule } from '../shared/shared.module';
+// import { SharedModule } from '../shared/shared.module';
 
 // import { ProfilePanelComponent } from './components/profile/profile-panel/profile-panel.component';
 // import { FilterPipe } from './pipes/filter.pipe';
@@ -59,7 +62,7 @@ import { SharedModule } from '../shared/shared.module';
 // import { PrimaryBadgeComponent } from './components/profile/profile-panel/primary-badge/primary-badge.component';
 // import { SearchPortalComponent } from './components/profile/search-portal/search-portal.component';
 // import { SearchPortalResultsComponent } from './components/profile/search-portal/search-portal-results/search-portal-results.component';
-import { CustomPaginatorIntlComponent } from './components/profile/search-portal/custom-paginator-intl/custom-paginator-intl.component';
+// import { CustomPaginatorIntlComponent } from './components/profile/search-portal/custom-paginator-intl/custom-paginator-intl.component';
 // import { countFieldItemsPipe } from './pipes/count-field-items.pipe';
 // import { MydataBetaInfoComponent } from './components/mydata-beta-info/mydata-beta-info.component';
 // import { ProfileSummaryComponent } from './components/profile/profile-summary/profile-summary.component';
@@ -100,37 +103,37 @@ import { CustomPaginatorIntlComponent } from './components/profile/search-portal
 // import { ProfileItemsTableComponent } from './components/profile/profile-items-table/profile-items-table.component';
 // import { IsPortalItemPipe } from './pipes/is-portal-item.pipe';
 
-const matSnackbarDefaultConfig: MatSnackBarConfig = {
+/*const matSnackbarDefaultConfig: MatSnackBarConfig = {
   verticalPosition: 'top',
   horizontalPosition: 'center',
   duration: 3000,
-};
+};*/
 
 @NgModule({
     imports: [
-        CommonModule,
-        FormsModule,
-        SharedModule,
-        FontAwesomeModule,
-        TooltipModule.forRoot(),
-        MatProgressSpinnerModule,
-        MatCheckboxModule,
-        MatRadioModule,
-        MatExpansionModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        MatButtonToggleModule,
-        MatSlideToggleModule,
-        MatTabsModule,
-        MatSnackBarModule,
-        MatDialogModule,
-        MatDividerModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatSortModule,
-        MatButtonModule,
-        MatRippleModule,
-        MatMenuModule,
+        // CommonModule,
+        // FormsModule,
+        // SharedModule,
+        // FontAwesomeModule,
+        // TooltipModule.forRoot(),
+        // MatProgressSpinnerModule,
+        // MatCheckboxModule,
+        // MatRadioModule,
+        // MatExpansionModule,
+        // MatFormFieldModule,
+        // MatSelectModule,
+        // MatButtonToggleModule,
+        // MatSlideToggleModule,
+        // MatTabsModule,
+        // MatSnackBarModule,
+        // MatDialogModule,
+        // MatDividerModule,
+        // MatTableModule,
+        // MatPaginatorModule,
+        // MatSortModule,
+        // MatButtonModule,
+        // MatRippleModule,
+        // MatMenuModule,
         // PortalModule,
         // HomeComponent,
         // NotFoundComponent,
@@ -191,7 +194,6 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
     providers: [
         // AuthGuard,
 
-        // TODO: move to main.ts?
         // { provide: MatPaginatorIntl, useClass: CustomPaginatorIntlComponent },
         /*{
             provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,

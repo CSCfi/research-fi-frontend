@@ -9,7 +9,7 @@
 import { NgModule, OnDestroy } from '@angular/core';
 // import { CommonModule } from '@angular/common';
 
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
+// import { TooltipModule } from 'ngx-bootstrap/tooltip';
 // import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {
@@ -21,11 +21,11 @@ import {
   faInfoCircle,
 } from '@fortawesome/free-solid-svg-icons';
 
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
+// import { MatAutocompleteModule } from '@angular/material/autocomplete';
+// import { MatChipsModule } from '@angular/material/chips';
+// import { MatFormFieldModule } from '@angular/material/form-field';
+// import { MatIconModule } from '@angular/material/icon';
+// import { MatInputModule } from '@angular/material/input';
 
 // import { HomePageComponent } from './components/home-page/home-page.component';
 // import { SearchBarComponent } from './components/search-bar/search-bar.component';
@@ -35,31 +35,31 @@ import { MatInputModule } from '@angular/material/input';
 // import { AutosuggestService } from './services/autosuggest.service';
 // import { AppConfigService } from '../shared/services/app-config-service.service';
 
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatCardModule } from '@angular/material/card';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatSelectModule } from '@angular/material/select';
-import { MatListModule } from '@angular/material/list';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatDialogModule } from '@angular/material/dialog';
-import {
+// import { MatCheckboxModule } from '@angular/material/checkbox';
+// import { MatCardModule } from '@angular/material/card';
+// import { MatDatepickerModule } from '@angular/material/datepicker';
+// import { MatNativeDateModule } from '@angular/material/core';
+// import { MatRadioModule } from '@angular/material/radio';
+// import { MatSelectModule } from '@angular/material/select';
+// import { MatListModule } from '@angular/material/list';
+// import { MatTabsModule } from '@angular/material/tabs';
+// import { MatPaginatorModule } from '@angular/material/paginator';
+// import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+// import { MatExpansionModule } from '@angular/material/expansion';
+// import { MatButtonModule } from '@angular/material/button';
+// import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+// import { MatDialogModule } from '@angular/material/dialog';
+/*import {
   MatSnackBarModule,
   MAT_SNACK_BAR_DEFAULT_OPTIONS,
 } from '@angular/material/snack-bar';
-import { MatMenuModule } from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu';*/
 
-import { ScrollingModule } from '@angular/cdk/scrolling';
-import { ClipboardModule } from '@angular/cdk/clipboard';
-import { A11yModule } from '@angular/cdk/a11y';
+// import { ScrollingModule } from '@angular/cdk/scrolling';
+// import { ClipboardModule } from '@angular/cdk/clipboard';
+// import { A11yModule } from '@angular/cdk/a11y';
 
-import { CountUpModule } from 'ngx-countup';
+// import { CountUpModule } from 'ngx-countup';
 
 // import { SinglePublicationComponent } from './components/single/single-publication/single-publication.component';
 // import { SingleFundingComponent } from './components/single/single-funding/single-funding.component';
@@ -119,7 +119,7 @@ import { Event, Scroll, Router } from '@angular/router'; // Router required by s
 // import { PrivacyComponent } from './components/privacy/privacy.component';
 // import { AccessibilityComponent } from './components/accessibility/accessibility.component';
 
-import { SharedModule } from '../shared/shared.module';
+// import { SharedModule } from '../shared/shared.module';
 import { filter } from 'rxjs/operators';
 // import { NewsCardComponent } from './components/news/news-card/news-card.component';
 // import { SitemapComponent } from './components/sitemap/sitemap.component';
@@ -148,8 +148,8 @@ import { TabChangeService } from './services/tab-change.service';
 // import { PublicationLinksComponent } from './components/single/single-publication/publication-links/publication-links.component';
 // import { DatasetAuthorComponent } from './components/single/single-dataset/dataset-author/dataset-author.component';
 // import { TkiReportsComponent } from '@portal/components/science-politics/tki-reports/tki-reports.component';
-import { MatTableModule } from '@angular/material/table';
-import { MatSortModule } from '@angular/material/sort';
+// import { MatTableModule } from '@angular/material/table';
+// import { MatSortModule } from '@angular/material/sort';
 // import { HandleInfrastructureLinkPipe } from './pipes/handle-infrastructure-link.pipe';
 import { Subscription } from 'rxjs';
 // import { NoResultsComponent } from './components/results/no-results/no-results.component';
@@ -173,36 +173,36 @@ import { Subscription } from 'rxjs';
         // CommonModule,
         // FormsModule,
         // ReactiveFormsModule,
-        MatIconModule,
-        MatInputModule,
-        MatAutocompleteModule,
-        MatChipsModule,
-        MatFormFieldModule,
-        MatCheckboxModule,
-        MatCardModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatRadioModule,
-        MatSelectModule,
-        MatListModule,
-        MatTabsModule,
-        MatProgressSpinnerModule,
-        MatExpansionModule,
-        MatPaginatorModule,
-        MatButtonModule,
-        MatSlideToggleModule,
-        MatDialogModule,
-        MatSnackBarModule,
-        MatMenuModule,
-        ScrollingModule,
-        ClipboardModule,
-        CountUpModule,
-        FontAwesomeModule,
-        SharedModule,
-        A11yModule,
-        TooltipModule.forRoot(),
-        MatTableModule,
-        MatSortModule,
+        // MatIconModule,
+        // MatInputModule,
+        // MatAutocompleteModule,
+        // MatChipsModule,
+        // MatFormFieldModule,
+        // MatCheckboxModule,
+        // MatCardModule,
+        // MatDatepickerModule,
+        // MatNativeDateModule,
+        // MatRadioModule,
+        // MatSelectModule,
+        // MatListModule,
+        // MatTabsModule,
+        // MatProgressSpinnerModule,
+        // MatExpansionModule,
+        // MatPaginatorModule,
+        // MatButtonModule,
+        // MatSlideToggleModule,
+        // MatDialogModule,
+        // MatSnackBarModule,
+        // MatMenuModule,
+        // ScrollingModule,
+        // ClipboardModule,
+        // CountUpModule,
+        // FontAwesomeModule,
+        // SharedModule,
+        // A11yModule,
+        // TooltipModule.forRoot(),
+        // MatTableModule,
+        // MatSortModule,
         // FooterComponent,
         // SearchBar2Component,
         // FixExternalUrlPipe,

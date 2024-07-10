@@ -6,27 +6,27 @@
 // :license: MIT
 
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+// import { RouterModule } from '@angular/router';
+// import { CommonModule } from '@angular/common';
 // import { InfoComponent } from './components/info/info.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+// import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+// import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { MatRippleModule } from '@angular/material/core';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatTableModule } from '@angular/material/table';
-import { MatSortModule } from '@angular/material/sort';
+// import { MatRippleModule } from '@angular/material/core';
+// import { MatButtonToggleModule } from '@angular/material/button-toggle';
+// import { MatRadioModule } from '@angular/material/radio';
+// import { MatCheckboxModule } from '@angular/material/checkbox';
+// import { MatSelectModule } from '@angular/material/select';
+// import { MatFormFieldModule } from '@angular/material/form-field';
+// import { MatMenuModule } from '@angular/material/menu';
+// import { MatButtonModule } from '@angular/material/button';
+// import { MatInputModule } from '@angular/material/input';
+// import { MatDialogModule } from '@angular/material/dialog';
+// import { MatTableModule } from '@angular/material/table';
+// import { MatSortModule } from '@angular/material/sort';
 
-import { CollapseModule } from 'ngx-bootstrap/collapse';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
+// import { CollapseModule } from 'ngx-bootstrap/collapse';
+// import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 // import { SecondaryButtonComponent } from './components/buttons/secondary-button/secondary-button.component';
 // import { PrimaryActionButtonComponent } from './components/buttons/primary-action-button/primary-action-button.component';
@@ -40,13 +40,13 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 // import { ReviewComponent } from './components/review/review.component';
 
 // import { ThousandSeparatorPipe } from './pipes/thousand-separator.pipe';
-import { CutContentPipe } from './pipes/cut-content.pipe';
+// import { CutContentPipe } from './pipes/cut-content.pipe';
 // import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
 // import { DialogComponent } from './components/dialog/dialog.component';
 // import { DialogTemplateComponent } from './components/dialog/dialog-template/dialog-template.component';
 // import { BannerDividerComponent } from './components/banner-divider/banner-divider.component';
 
-import { ClickOutsideDirective } from './directives/click-outside.directive';
+// import { ClickOutsideDirective } from './directives/click-outside.directive';
 // import { NotificationBannerComponent } from './components/notification-banner/notification-banner.component';
 // import { TableComponent } from './components/table/table.component';
 // import { TableCellComponent } from './components/table/table-cell/table-cell.component';
@@ -54,9 +54,9 @@ import { ClickOutsideDirective } from './directives/click-outside.directive';
 // import { ActiveFiltersDialogComponent } from './components/active-filters-list/active-filters-dialog/active-filters-dialog.component';
 // import { TableCardComponent } from './components/table/table-card/table-card.component';
 // import { SortByButtonComponent } from './components/buttons/sort-by-button/sort-by-button.component';
-import { PaginationComponent } from './components/pagination/pagination.component';
+// import { PaginationComponent } from './components/pagination/pagination.component';
 // import { ResultCountComponent } from './components/result-count/result-count.component';
-import { AutofocusDirective } from './directives/autofocus.directive';
+// import { AutofocusDirective } from './directives/autofocus.directive';
 // import { TagComponent } from './components/tag/tag.component';
 // import { TagDoiComponent } from './components/tags/tag-doi/tag-doi.component';
 // import { TagOpenAccessComponent } from './components/tags/tag-open-access/tag-open-access.component';
@@ -66,7 +66,7 @@ import { AutofocusDirective } from './directives/autofocus.directive';
 
 // import { OrcidComponent } from '../shared/components/orcid/orcid.component';
 // import { WelcomeStepperComponent } from '@mydata/components/welcome-stepper/welcome-stepper.component';
-import { MatStepperModule } from '@angular/material/stepper';
+// import { MatStepperModule } from '@angular/material/stepper';
 
 @NgModule({
     exports: [
@@ -81,18 +81,18 @@ import { MatStepperModule } from '@angular/material/stepper';
         // SearchComponent,
         // ReviewComponent,
         // ThousandSeparatorPipe,
-        CutContentPipe,
+        // CutContentPipe,
         // SanitizeHtmlPipe,
         // DialogComponent,
         // BannerDividerComponent,
-        ClickOutsideDirective,
+        // ClickOutsideDirective,
         // NotificationBannerComponent,
         // TableComponent,
         // ActiveFiltersListComponent,
         // SortByButtonComponent,
-        PaginationComponent,
+        // PaginationComponent,
         // ResultCountComponent,
-        AutofocusDirective,
+        // AutofocusDirective,
         // TagComponent,
         // TagDoiComponent,
         // TagOpenAccessComponent,
@@ -103,26 +103,26 @@ import { MatStepperModule } from '@angular/material/stepper';
         // WelcomeStepperComponent,
     ],
     imports: [
-        CommonModule,
-        RouterModule,
-        FontAwesomeModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatRippleModule,
-        MatButtonToggleModule,
-        MatRadioModule,
-        MatCheckboxModule,
-        MatSelectModule,
-        MatFormFieldModule,
-        MatMenuModule,
-        MatButtonModule,
-        MatInputModule,
-        MatDialogModule,
-        MatTableModule,
-        MatSortModule,
-        CollapseModule.forRoot(),
-        TooltipModule.forRoot(),
-        MatStepperModule,
+        // CommonModule,
+        // RouterModule,
+        // FontAwesomeModule,
+        // FormsModule,
+        // ReactiveFormsModule,
+        // MatRippleModule,
+        // MatButtonToggleModule,
+        // MatRadioModule,
+        // MatCheckboxModule,
+        // MatSelectModule,
+        // MatFormFieldModule,
+        // MatMenuModule,
+        // MatButtonModule,
+        // MatInputModule,
+        // MatDialogModule,
+        // MatTableModule,
+        // MatSortModule,
+        // CollapseModule.forRoot(),
+        // TooltipModule.forRoot(),
+        // MatStepperModule,
         // InfoComponent,
         // SecondaryButtonComponent,
         // PrimaryActionButtonComponent,
@@ -135,12 +135,12 @@ import { MatStepperModule } from '@angular/material/stepper';
         // SearchComponent,
         // ReviewComponent,
         // ThousandSeparatorPipe,
-        CutContentPipe,
+        // CutContentPipe,
         // SanitizeHtmlPipe,
         // DialogComponent,
         // DialogTemplateComponent,
         // BannerDividerComponent,
-        ClickOutsideDirective,
+        // ClickOutsideDirective,
         // NotificationBannerComponent,
         // TableComponent,
         // TableCellComponent,
@@ -148,9 +148,9 @@ import { MatStepperModule } from '@angular/material/stepper';
         // ActiveFiltersDialogComponent,
         // TableCardComponent,
         // SortByButtonComponent,
-        PaginationComponent,
+        // PaginationComponent,
         // ResultCountComponent,
-        AutofocusDirective,
+        // AutofocusDirective,
         // TagComponent,
         // TagDoiComponent,
         // TagOpenAccessComponent,
@@ -160,6 +160,6 @@ import { MatStepperModule } from '@angular/material/stepper';
         // OrcidComponent,
         // WelcomeStepperComponent,
     ],
-    providers: [CutContentPipe],
+    providers: [/*CutContentPipe*/],
 })
 export class SharedModule {}

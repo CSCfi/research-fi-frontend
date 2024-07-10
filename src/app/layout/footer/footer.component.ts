@@ -11,7 +11,7 @@ import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { DialogEventsService } from '@shared/services/dialog-events.service';
-import { SharedModule } from '@shared/shared.module';
+// import { SharedModule } from '@shared/shared.module';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Router, RouterLink } from '@angular/router';
@@ -32,7 +32,7 @@ function email(strings) {
   styleUrls: ['./footer.component.scss'],
   encapsulation: ViewEncapsulation.None,
   imports: [
-    SharedModule,
+    // SharedModule,
     AsyncPipe,
     FontAwesomeModule,
     NgIf,

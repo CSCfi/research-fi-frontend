@@ -102,15 +102,15 @@ export class TabNavigationComponent implements AfterViewInit {
   );
 
   defaultOrderButtons$: Observable<ButtonData[]> = combineLatest([this.counts$, this.tab$]).pipe(
-    map(([counts, tab]) => [
-      { label: $localize`:@@navigation.publications:Julkaisut`,           icon: `faFileLines`,  route: "/results/publications",    count: -1, /*counts.publications,   */ active: tab === `publications` },
-      { label: $localize`:@@navigation.funding-calls:Rahoitushaut`,       icon: 'faBullhorn',   route: "/results/funding-calls",   count: -1, /*counts.fundingCalls,   */ active: tab === 'funding-calls' },
-      { label: $localize`:@@navigation.fundings:Myönnetty rahoitus`,      icon: 'faBriefcase',  route: "/results/fundings",        count: -1, /*counts.fundings,       */ active: tab === 'fundings' },
-      { label: $localize`:@@navigation.persons:Tutkijat`,                 icon: 'faUsers',      route: "/results/persons",         count: -1, /*counts.persons,        */ active: tab === 'persons' },
-      { label: $localize`:@@navigation.datasets:Aineistot`,               icon: 'faAlignLeft',  route: "/results/datasets",        count: -1, /*counts.datasets,       */ active: tab === 'datasets' },
-      { label: $localize`:@@navigation.infrastructures:Infrastruktuurit`, icon: 'faCalculator', route: "/results/infrastructures", count: -1, /*counts.infrastructures,*/ active: tab === 'infrastructures' },
-      { label: $localize`:@@navigation.organizations:Organisaatiot`,      icon: 'faUniversity', route: "/results/organizations",   count: -1, /*counts.organizations,  */ active: tab === 'organizations' },
-      { label: $localize`:@@navigation.projects:Hankkeet`,                icon: `faAlignLeft`,  route: "/results/projects",        count: -1,                             active: false, disabled: true },
+    map(([counts, tab]) => [                                                                                                       // -1 is not displayed
+      { label: $localize`:@@navigation.publications:Julkaisut`,           icon: `faFileLines`,  route: "/results/publications",    count: 1000, /*counts.publications,   */ active: tab === `publications` },
+      { label: $localize`:@@navigation.funding-calls:Rahoitushaut`,       icon: 'faBullhorn',   route: "/results/funding-calls",   count: 1000, /*counts.fundingCalls,   */ active: tab === 'funding-calls' },
+      { label: $localize`:@@navigation.fundings:Myönnetty rahoitus`,      icon: 'faBriefcase',  route: "/results/fundings",        count: 1000, /*counts.fundings,       */ active: tab === 'fundings' },
+      { label: $localize`:@@navigation.persons:Tutkijat`,                 icon: 'faUsers',      route: "/results/persons",         count: 1000, /*counts.persons,        */ active: tab === 'persons' },
+      { label: $localize`:@@navigation.datasets:Aineistot`,               icon: 'faAlignLeft',  route: "/results/datasets",        count: 1000, /*counts.datasets,       */ active: tab === 'datasets' },
+      { label: $localize`:@@navigation.infrastructures:Infrastruktuurit`, icon: 'faCalculator', route: "/results/infrastructures", count: 1000, /*counts.infrastructures,*/ active: tab === 'infrastructures' },
+      { label: $localize`:@@navigation.organizations:Organisaatiot`,      icon: 'faUniversity', route: "/results/organizations",   count: 1000, /*counts.organizations,  */ active: tab === 'organizations' },
+      { label: $localize`:@@navigation.projects:Hankkeet`,                icon: `faAlignLeft`,  route: "/results/projects",        count: 1000,                             active: false, disabled: true },
     ])
   );
 

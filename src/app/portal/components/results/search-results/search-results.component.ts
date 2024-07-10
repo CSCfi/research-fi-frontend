@@ -31,6 +31,8 @@ import { DatasetsComponent } from '../datasets/datasets.component';
 import { FundingCallResultsComponent} from '@portal/components/results/funding-call-results/funding-call-results.component';
 import { HighlightSearchPipe } from '@portal/pipes/highlight.pipe';
 import { DomSanitizer } from '@angular/platform-browser';
+import { CutContentPipe } from '@shared/pipes/cut-content.pipe';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 /*
  * Dynamically render component for selected tab.
@@ -146,7 +148,9 @@ export class SearchResultsComponent implements OnInit, OnChanges, OnDestroy {
 
     const portalInjector = Injector.create({
       providers: [
-        { provide: HighlightSearchPipe, useValue: new HighlightSearchPipe(this.sanitizer) }
+        { provide: HighlightSearchPipe, useValue: new HighlightSearchPipe(this.sanitizer) },
+        { provide: CutContentPipe, useValue: new CutContentPipe()},
+        { provide: MatDatepickerModule, useValue: new MatDatepickerModule()}
       ],
       parent: this.injector
     });
