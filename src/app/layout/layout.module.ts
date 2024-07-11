@@ -23,9 +23,9 @@ import { NgModule } from '@angular/core';
 // import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 // import { FormsModule } from '@angular/forms';
 // import { ErrorModalComponent } from './error-modal/error-modal.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+// import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 // import { WINDOW_PROVIDERS } from '../shared/services/window.service';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
+// import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 @NgModule({
     imports: [

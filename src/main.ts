@@ -7,7 +7,7 @@ import { AppComponent } from './app/app.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AuthConfigModule } from './app/auth-config.module';
 // import { MyDataModule } from './app/mydata/mydata.module';
-import { PortalModule } from './app/portal/portal.module';
+// import { PortalModule } from './app/portal/portal.module';
 // import { SharedModule } from './app/shared/shared.module';
 // import { LayoutModule } from './app/layout/layout.module';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // LayoutModule,
         // SharedModule,
-        PortalModule,
+        // PortalModule,
         // MyDataModule,
 
         AuthConfigModule,

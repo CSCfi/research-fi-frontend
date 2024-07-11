@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, inject, Inject, PLATFORM_ID } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser, PlatformLocation } from '@angular/common';
 import { AppConfigService } from '@shared/services/app-config-service.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
@@ -13,6 +13,7 @@ import { NavigationStart, Router, RouterOutlet } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { LayoutComponent } from './layout/layout.component';
+import { MysteryService } from '@portal/services/mystery.service';
 
 @Component({
     selector: 'app-root',
@@ -22,6 +23,8 @@ import { LayoutComponent } from './layout/layout.component';
     imports: [LayoutComponent, RouterOutlet],
 })
 export class AppComponent {
+  mysteryService = inject(MysteryService);
+
   title = 'research-fi-portal';
 
   constructor(

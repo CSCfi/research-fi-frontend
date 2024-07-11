@@ -6,20 +6,20 @@
 //  :license: MIT
 
 // import { Title, Meta } from '@angular/platform-browser';
-import { NgModule, OnDestroy } from '@angular/core';
+import { NgModule } from '@angular/core';
 // import { CommonModule } from '@angular/common';
 
 // import { TooltipModule } from 'ngx-bootstrap/tooltip';
 // import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import {
+/*import {
   FontAwesomeModule,
   FaIconLibrary,
-} from '@fortawesome/angular-fontawesome';
-import {
+} from '@fortawesome/angular-fontawesome';*/
+/*import {
   faExternalLinkAlt,
   faInfoCircle,
-} from '@fortawesome/free-solid-svg-icons';
+} from '@fortawesome/free-solid-svg-icons';*/
 
 // import { MatAutocompleteModule } from '@angular/material/autocomplete';
 // import { MatChipsModule } from '@angular/material/chips';
@@ -87,12 +87,12 @@ import { MatMenuModule } from '@angular/material/menu';*/
 // import { HighlightSearchPipe } from './pipes/highlight.pipe';
 // import { LinksPipe } from './pipes/links.pipe';
 
-import {
+/*import {
   Location,
   LocationStrategy,
   PathLocationStrategy,
   ViewportScroller,
-} from '@angular/common';
+} from '@angular/common';*/
 
 // import { TooltipComponent } from './components/results/tooltip/tooltip.component';
 // import { WINDOW_PROVIDERS } from '../shared/services/window.service';
@@ -114,18 +114,18 @@ import {
 // import { ScrollSpyDirective } from './directives/scroll-spy.directive';
 // import { SingleFigureComponent } from './components/science-politics/figures/single-figure/single-figure.component';
 // import { RelatedLinksComponent } from './components/single/related-links/related-links.component';
-import { Event, Scroll, Router } from '@angular/router'; // Router required by scroll logic
+// import { Event, Scroll, Router } from '@angular/router'; // Router required by scroll logic
 // import { ServiceInfoComponent } from './components/service-info/service-info.component';
 // import { PrivacyComponent } from './components/privacy/privacy.component';
 // import { AccessibilityComponent } from './components/accessibility/accessibility.component';
 
 // import { SharedModule } from '../shared/shared.module';
-import { filter } from 'rxjs/operators';
+// import { filter } from 'rxjs/operators';
 // import { NewsCardComponent } from './components/news/news-card/news-card.component';
 // import { SitemapComponent } from './components/sitemap/sitemap.component';
 // import { TabItemComponent } from './components/result-tab/tab-item/tab-item.component';
-import { HistoryService } from './services/history.service';
-import { TabChangeService } from './services/tab-change.service';
+// import { HistoryService } from './services/history.service';
+// import { TabChangeService } from './services/tab-change.service';
 // import { NewsPaginationComponent } from './components/news/news-pagination/news-pagination.component';
 // import { CarouselComponent } from './components/science-politics/figures/carousel/carousel.component';
 // import { BarComponent } from './components/visualisation/bar/bar.component';
@@ -151,7 +151,7 @@ import { TabChangeService } from './services/tab-change.service';
 // import { MatTableModule } from '@angular/material/table';
 // import { MatSortModule } from '@angular/material/sort';
 // import { HandleInfrastructureLinkPipe } from './pipes/handle-infrastructure-link.pipe';
-import { Subscription } from 'rxjs';
+// import { Subscription } from 'rxjs';
 // import { NoResultsComponent } from './components/results/no-results/no-results.component';
 // import { FundingCallCategoryFiltersComponent } from './components/results/funding-call-category-filters/funding-call-category-filters.component';
 // import { SingleResultLinkComponent } from './components/single/single-result-link/single-result-link.component';
@@ -311,125 +311,4 @@ import { Subscription } from 'rxjs';
         // HighlightSearchPipe,
     ],
 })
-export class PortalModule implements OnDestroy {
-  startPage;
-  routeSub: Subscription;
-
-  isResultPage(url: string) {
-    // Check if the page is on results, and that the tabname ends with 's' (not single result)
-    return (
-      url?.includes('/results') &&
-      url?.split('/')[2].split('?')[0].slice(-1) === 's'
-    );
-  }
-
-  newPage(oldUrl: string, newUrl: string) {
-    // Check if both urls are on the results page (tab change)
-    if (this.isResultPage(oldUrl) && this.isResultPage(newUrl)) {
-      return false;
-      // Check deepest locations without query params
-    } else if (
-      oldUrl?.split('/').slice(-1)[0].split('?')[0] ===
-      newUrl.split('/').slice(-1)[0].split('?')[0]
-    ) {
-      return false;
-      // Same for fragments
-    } else if (
-      oldUrl?.split('/').slice(-1)[0].split('#')[0] ===
-      newUrl.split('/').slice(-1)[0].split('#')[0]
-    ) {
-      return false;
-      // Otherwise new page
-    } else {
-      return true;
-    }
-  }
-
-  constructor(
-    library: FaIconLibrary,
-    router: Router,
-    viewportScroller: ViewportScroller,
-    private historyService: HistoryService,
-    private tabChangeService: TabChangeService
-  ) {
-    console.log('PortalModule HERE!');
-
-    this.startPage = router.parseUrl(router.url).queryParams.page || 1;
-
-    // Scroll to top of page
-    // Timeout value of 0 helps Firefox to scroll
-    const scrollToTop = () => {
-      console.log("scrollToTop");
-
-      setTimeout(() => viewportScroller.scrollToPosition([0, 0]), 0);
-    };
-
-    // Used to prevent scroll to top when filters are selected
-    this.routeSub = router.events
-      .pipe(filter((e: Event): e is Scroll => e instanceof Scroll))
-      .subscribe((e) => {
-        console.log("routeSub fires");
-
-        const currentUrl = e.routerEvent.url;
-        const history = this.historyService.history;
-        const resultPages = tabChangeService.tabData
-          .map((tab) => tab.link)
-          .filter((item) => item);
-
-        // Trigger new page so first tab focuses skip links
-        const prevPageLocation = history[history.length - 2];
-        const currentPageLocation = currentUrl;
-        if (this.newPage(prevPageLocation, currentPageLocation)) {
-          this.tabChangeService.triggerNewPage();
-        }
-
-        // Check that route is in results and not in single result
-        if (
-          currentUrl.includes('/results') &&
-          !resultPages.some((item) =>
-            currentUrl.includes(`/${item.slice(0, -1)}/`)
-          )
-        ) {
-          const targetPage = +router.parseUrl(currentUrl).queryParams.page || 1;
-          // Different page or coming from different route
-          if (
-            this.startPage !== targetPage ||
-            !history[history.length - 2]?.includes('/results')
-          ) {
-            scrollToTop();
-          }
-          this.startPage = targetPage;
-
-          // Similar to /results but for /funding-calls
-        } else if (currentUrl.includes('/funding-calls')) {
-          const targetPage = +router.parseUrl(currentUrl).queryParams.page || 1;
-          // Different page or coming from different route
-          if (
-            this.startPage !== targetPage ||
-            !history[history.length - 2]?.includes('/funding-calls')
-          ) {
-            scrollToTop();
-          }
-          this.startPage = targetPage;
-        } else if (currentUrl.includes('/science-research-figures')) {
-          // scroll to top only in single figure view
-          if (!history[history.length - 2]?.includes('figures/s')) {
-            scrollToTop();
-          }
-          if (!currentUrl.includes('filter')) {
-            scrollToTop();
-          }
-        } else {
-          scrollToTop();
-        }
-      });
-
-    console.log("Adding global icons");
-    // Add global icons
-    library.addIcons(faExternalLinkAlt as any, faInfoCircle as any);
-  }
-
-  ngOnDestroy(): void {
-    this.routeSub?.unsubscribe();
-  }
-}
+export class PortalModule {}
