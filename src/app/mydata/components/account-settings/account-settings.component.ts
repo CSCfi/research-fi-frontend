@@ -177,9 +177,6 @@ export class AccountSettingsComponent implements OnInit {
         this.hidePublicProfile();
         break;
       }
-      case 'showPublicProfile': {
-        this.showPublicProfile();
-      }
       case 'changeOrcidFetchState': {
         this.enableOrDisableOrcidFetching();
         break;

@@ -1,41 +1,40 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
-    "downlevelIteration": true,
     "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": false,
+    "strict": false,
+    "noImplicitOverride": false,
+    "noPropertyAccessFromIndexSignature": false,
+    "noImplicitReturns": false,
+    "noFallthroughCasesInSwitch": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
     "sourceMap": true,
     "declaration": false,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "moduleResolution": "node",
     "importHelpers": true,
     "target": "ES2022",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
+    "module": "ES2022",
+    "useDefineForClassFields": false,
     "lib": [
-      "es2019",
-      "dom",
-      "esnext.array"
+      "ES2022",
+      "dom"
     ],
     "paths": {
-      "@portal/*": [
-        "src/app/portal/*"
-      ],
-      "@mydata/*": [
-        "src/app/mydata/*"
-      ],
-      "@shared/*": [
-        "src/app/shared/*"
-      ],
-      "core-js/es7/reflect": [
-        "node_modules/core-js/proposals/reflect-metadata"
-      ]
-    },
-    "useDefineForClassFields": false
+      "@portal/*": ["src/app/portal/*"],
+      "@mydata/*": ["src/app/mydata/*"],
+      "@shared/*": ["src/app/shared/*"],
+      "core-js/es7/reflect": ["node_modules/core-js/proposals/reflect-metadata"]
+    }
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
   }
 }
