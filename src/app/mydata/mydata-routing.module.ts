@@ -8,7 +8,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
-import { LoginComponent } from './components/login/login.component';
 import { ServiceDeploymentComponent } from './components/service-deployment/service-deployment.component';
 import { CancelDeploymentComponent } from './components/service-deployment/cancel-deployment/cancel-deployment.component';
 import { RedirectComponent } from './components/redirect/redirect.component';
@@ -26,14 +25,6 @@ const routes: Routes = [
     path: '',
     pathMatch: 'full',
     component: HomeComponent,
-  },
-  {
-    path: 'login',
-    pathMatch: 'full',
-    component: LoginComponent,
-    resolve: {
-      pages: PageResolverService,
-    },
   },
   {
     path: 'service-deployment',
