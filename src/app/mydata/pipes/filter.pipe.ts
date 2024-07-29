@@ -21,7 +21,7 @@ export class FilterPipe implements PipeTransform {
   transform(
     value: any,
     callback: any,
-    extras: { type: string; patchItems: any[]; arg: string }
+    extras?: { type: string; patchItems: any[]; arg: string }
   ) {
     // Case for checking if group items match patch item array
     if (extras?.patchItems) {
