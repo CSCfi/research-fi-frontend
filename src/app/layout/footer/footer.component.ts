@@ -52,9 +52,9 @@ export class FooterComponent {
   email = email`tiedejatutkimus`;
 
   buildInfo = '';
-  faTwitter = faTwitter;
+  faTwitter = faTwitter as any; // TODO: Fix type
 
-  faTimes = faTimes;
+  faTimes = faTimes as any; // TODO: Fix type
   showReviewButton: boolean;
 
   // Dialog variables

@@ -97,7 +97,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   currentDomain: DomainObject;
   lang: string;
-  langMenuOpen: false;
+  langMenuOpen = false;
   currentRoute: any;
   routeSub: Subscription;
   showSkipLinks: boolean;
