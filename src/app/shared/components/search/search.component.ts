@@ -39,7 +39,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
   @Input() initialTerm: string;
   @Input() autofocus: boolean;
 
-  @Output() getSearchTerm = new EventEmitter<boolean>();
+  @Output() getSearchTerm = new EventEmitter<string>();
   @Output() resetSearch = new EventEmitter<boolean>();
 
   searchForm = this.formBuilder.group({

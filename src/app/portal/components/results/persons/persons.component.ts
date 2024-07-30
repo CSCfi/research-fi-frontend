@@ -60,7 +60,7 @@ export class PersonsComponent implements OnInit, AfterViewInit {
   focusSub: any;
   tableColumns: TableColumn[];
   tableRows: Record<string, TableRow>[];
-  rowIcon = faUser;
+  rowIcon: any = faUser;
   iconTitle: 'Tutkijoiden tiedon ikoni';
   dataMapped: boolean;
 

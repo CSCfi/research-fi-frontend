@@ -66,7 +66,7 @@ export class PublicationsComponent implements OnInit, OnDestroy, AfterViewInit {
   sortDirection: boolean;
   @ViewChild('main') mainContent: ElementRef;
 
-  faIcon = this.tabChangeService.tabData
+  faIcon: any = this.tabChangeService.tabData
     .filter((t) => t.data === 'publications')
     .map((t) => t.icon)
     .pop();

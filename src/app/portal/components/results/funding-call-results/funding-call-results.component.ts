@@ -51,7 +51,7 @@ export class FundingCallResultsComponent
   expandStatus: Array<boolean> = [];
   @ViewChild('main') mainContent: ElementRef;
 
-  faIcon = this.tabChangeService.tabData
+  faIcon: any = this.tabChangeService.tabData
     .filter((t) => t.data === 'fundingCalls')
     .map((t) => t.icon)
     .pop();

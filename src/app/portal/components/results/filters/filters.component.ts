@@ -132,7 +132,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   visualFilterSub: Subscription;
   subFilters: MatSelectionList[];
   totalCount = 0;
-  faSlidersH = faSlidersH;
+  faSlidersH: any = faSlidersH;
   faPlus = faPlus;
   faMinus = faMinus;
   panelHeight = 'auto';

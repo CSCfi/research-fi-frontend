@@ -102,7 +102,7 @@ export class EditorModalComponent implements OnInit {
 
   disabledSearchPortalModalIds = [GroupTypes.activitiesAndRewards];
 
-  faSearch = faSearch;
+  faSearch = faSearch as any; // TODO: Fix type
 
   currentTabIndex: number = 0;
   importedItems: any[];

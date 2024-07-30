@@ -50,7 +50,7 @@ export class DatasetsComponent implements OnInit {
   sortDirection: boolean;
   @ViewChild('main') mainContent: ElementRef;
 
-  faIcon = this.tabChangeService.tabData
+  faIcon: any = this.tabChangeService.tabData
     .filter((t) => t.data === 'datasets')
     .map((t) => t.icon)
     .pop();

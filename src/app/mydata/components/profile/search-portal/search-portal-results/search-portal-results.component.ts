@@ -88,9 +88,9 @@ export class SearchPortalResultsComponent
   currentPageSize = 10;
   pageCount: number;
 
-  faSort = faSort;
-  faSortDown = faSortDown;
-  faSortUp = faSortUp;
+  faSort = faSort as any; // TODO: Fix type
+  faSortDown = faSortDown as any; // TODO: Fix type
+  faSortUp = faSortUp as any; // TODO: Fix type
 
   columns: string[] = ['selection', 'year', 'name', 'show-more'];
 

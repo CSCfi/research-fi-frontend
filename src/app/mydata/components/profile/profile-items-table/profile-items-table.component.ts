@@ -84,9 +84,9 @@ export class ProfileItemsTableComponent implements OnInit, OnChanges {
 
   showMoreArray = [];
 
-  faSort = faSort;
-  faSortDown = faSortDown;
-  faSortUp = faSortUp;
+  faSort = faSort as any; // TODO: Fix type
+  faSortDown = faSortDown as any; // TODO: Fix type
+  faSortUp = faSortUp as any; // TODO: Fix type
 
   displayedColumns: string[];
 

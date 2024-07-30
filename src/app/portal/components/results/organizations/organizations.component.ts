@@ -57,7 +57,7 @@ export class OrganizationsComponent
   expandStatus: Array<boolean> = [];
   sortColumn: string;
   sortDirection: boolean;
-  faIcon = this.tabChangeService.tabData
+  faIcon: any = this.tabChangeService.tabData
     .filter((t) => t.data === 'organizations')
     .map((t) => t.icon)
     .pop();

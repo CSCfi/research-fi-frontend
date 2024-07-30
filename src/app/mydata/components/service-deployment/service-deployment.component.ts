@@ -21,7 +21,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 
-type Step = { label: string; icon: IconDefinition; loading?: boolean };
+type Step = { label: string; icon: /*IconDefinition*/ any; loading?: boolean };
 @Component({
     selector: 'app-service-deployment',
     templateUrl: './service-deployment.component.html',

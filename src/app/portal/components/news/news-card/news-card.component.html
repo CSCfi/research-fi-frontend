@@ -114,14 +114,11 @@
       class="row"
       [class.soon]="_fundingCall.daysLeft <= 3"
     >
-      <span class="col pt-4 pb-1 date-line accented-line"
-        >Hakuaika päättyy<span
+      <span class="col pt-4 pb-1 date-line accented-line">
+        Hakuaika päättyy
+        <span
           class="inline-date"
-          [innerHtml]="
-            _fundingCall.dueDate.getFullYear() !== 2100
-              ? (_fundingCall.dueDateString | highlight: input)
-              : '-'
-          "
+          [innerHtml]="_fundingCall.dueDate.getFullYear() !== 2100 ? (_fundingCall.dueDateString | highlight: input) : '-'"
         ></span
       ></span>
     </div>
