@@ -1,4 +1,4 @@
-@use 'src/migration' as *;
+@use 'migration' as *;
 
 @mixin app-science-politics-theme-shared($theme) {
   $primary: map-get($theme, primary);

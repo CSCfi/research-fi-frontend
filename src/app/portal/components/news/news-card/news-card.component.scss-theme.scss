@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-@use 'src/migration' as *;
+@use 'migration' as *;
 
 @mixin app-news-card-theme($theme) {
   $primary: map-get($theme, primary);
