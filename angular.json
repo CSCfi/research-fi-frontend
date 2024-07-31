@@ -91,6 +91,10 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "port": 5003,
+            "ssl": true
+          },
           "configurations": {
             "production": {
               "buildTarget": "research-fi:build:production"
