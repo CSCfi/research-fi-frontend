@@ -6,10 +6,10 @@ import { app as serverSv } from './server/sv/server.mjs';
 const express = require('express');
 
 function run() {
-  const port = process.env.PORT || 4000;
+  const port = process.env.PORT || 4200;
   const server = express();
 
-  server.use('/fr', serverFi());
+  server.use('/fi', serverFi());
   server.use('/sv', serverSv());
   server.use('/en', serverEn());
   server.listen(port, () => {

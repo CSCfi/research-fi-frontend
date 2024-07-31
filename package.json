@@ -25,9 +25,11 @@
     "ng2": "ng",
     "start2": "ng serve",
     "build2": "ng build && node copy-proxy-server.js",
+    "build3": "ng build --source-map && node copy-proxy-server.js",
     "watch2": "ng build --watch --configuration development",
     "test2": "ng test",
-    "serve:ssr:research-fi": "node dist/research-fi/proxy-server.mjs"
+    "serve2": "node dist/research-fi/proxy-server.mjs",
+    "build-and-serve": "npm run build3 && npm run serve2"
   },
   "private": true,
   "dependencies": {

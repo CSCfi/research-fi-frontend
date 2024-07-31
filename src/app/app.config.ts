@@ -6,7 +6,7 @@ import { routes } from './routes';
 import { AuthConfigModule } from './auth-config.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppConfigService } from '@shared/services/app-config-service.service';
-import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
 import { InterceptService } from '@shared/services/intercept.service';
 import { ErrorHandlerService } from '@shared/services/error-handler.service';
 import { WINDOW_PROVIDERS } from '@shared/services/window.service';
@@ -78,7 +78,7 @@ export const appConfig: ApplicationConfig = {
 
     provideClientHydration(),
     provideRouter(routes),
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(withFetch(), withInterceptorsFromDi()),
     provideAnimations(),
   ]
 };

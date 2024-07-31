@@ -1,4 +1,14 @@
-import { AfterViewInit, Component, ElementRef, inject, Input, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import {
+  afterNextRender,
+  AfterViewInit,
+  Component,
+  ElementRef,
+  inject,
+  Input,
+  QueryList,
+  ViewChild,
+  ViewChildren
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TabButtonComponent } from '@portal/components/tab-button/tab-button.component';
 import { BehaviorSubject, combineLatest, fromEvent, Observable, startWith } from 'rxjs';
@@ -25,7 +35,7 @@ const EPSILON = 1;
   templateUrl: './tab-navigation.component.html',
   styleUrls: ['./tab-navigation.component.scss']
 })
-export class TabNavigationComponent implements AfterViewInit {
+export class TabNavigationComponent {
   @Input() homepage = false;
 
   http = inject(HttpClient);
@@ -40,27 +50,29 @@ export class TabNavigationComponent implements AfterViewInit {
   scrollAtStart$: Observable<boolean>;
   scrollAtEnd$: Observable<boolean>;
 
-  ngAfterViewInit() {
-    const resizeObservable$ = createResizeObservable(this.scroll.nativeElement);
+  constructor() {
+    afterNextRender(() => {
+      const resizeObservable$ = createResizeObservable(this.scroll.nativeElement);
 
-    const scrollPosition$ = fromEvent(this.scroll.nativeElement, 'scroll').pipe(
-      map((event: Event) => (event.target as HTMLElement).scrollLeft),
-      startWith(0)
-    );
+      const scrollPosition$ = fromEvent(this.scroll.nativeElement, 'scroll').pipe(
+        map((event: Event) => (event.target as HTMLElement).scrollLeft),
+        startWith(0)
+      );
 
-    const scrollPositionFiringFromParentSize$ = combineLatest([scrollPosition$, resizeObservable$]).pipe(
-      map( ([scrollLeft]) => scrollLeft )
-    );
+      const scrollPositionFiringFromParentSize$ = combineLatest([scrollPosition$, resizeObservable$]).pipe(
+        map( ([scrollLeft]) => scrollLeft )
+      );
 
-    this.scrollAtStart$ = scrollPositionFiringFromParentSize$.pipe(map(scrollLeft => scrollLeft === 0));
+      this.scrollAtStart$ = scrollPositionFiringFromParentSize$.pipe(map(scrollLeft => scrollLeft === 0));
 
-    this.scrollAtEnd$ = scrollPositionFiringFromParentSize$.pipe(
-      map(scrollLeft => Math.abs(this.scroll.nativeElement.scrollWidth - this.scroll.nativeElement.clientWidth - scrollLeft) <= EPSILON),
-      map(isNearEnd => isNearEnd)
-    );
+      this.scrollAtEnd$ = scrollPositionFiringFromParentSize$.pipe(
+        map(scrollLeft => Math.abs(this.scroll.nativeElement.scrollWidth - this.scroll.nativeElement.clientWidth - scrollLeft) <= EPSILON),
+        map(isNearEnd => isNearEnd)
+      );
 
-    this.defaultOrderButtons$.pipe(map(buttons => buttons.findIndex(button => button.active)), take(1)).subscribe(index => {
-      this.scrollTo(index)
+      this.defaultOrderButtons$.pipe(map(buttons => buttons.findIndex(button => button.active)), take(1)).subscribe(index => {
+        this.scrollTo(index)
+      });
     });
   }
 
