@@ -10,7 +10,7 @@
                           [active]='button.active'
                           [disabled]='button.disabled'
                           [routerLink]='button.route + "/" + ((input$ | async) ?? "")'
-                          [queryParams]='pageSizeParams$ | async'>
+                          [queryParams]='button.queryParams | async'>
           </app-tab-button>
         </ng-container>
 
@@ -20,7 +20,6 @@
                           [count]='button.count'
                           [active]='button.active'
                           [disabled]='button.disabled'
-                          [queryParams]='pageSizeParams$ | async'
                           [tooltip]='tooltipTemplate'>
           </app-tab-button>
 
