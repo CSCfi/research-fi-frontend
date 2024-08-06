@@ -14,7 +14,7 @@ import { TabNavigationButtonComponent } from '@portal/components/tab-navigation-
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 type IndexCounts = { [index: string]: number };
-type ButtonData = { label: string, icon: string, route: string, count: number, active: boolean, disabled?: boolean};
+type ButtonData = { label: string, icon: string, route: string, count: number, active: boolean, disabled?: boolean, queryParams?: Observable<any>};
 
 const EPSILON = 1;
 
@@ -87,6 +87,10 @@ export class TabNavigationComponent implements AfterViewInit {
     map(queryParams => ({ size: queryParams.size }))
   );
 
+  fundingSearchPageParams$ = this.route.queryParams.pipe(
+    map(queryParams => ({ page: queryParams.page, status: "open" }))
+  );
+
   partialCounts$ = this.input$.pipe(
     switchMap(input => this.http.post(this.url, payloadWithKeywords(input)).pipe(
       map((response: any) => response.aggregations),
@@ -103,14 +107,14 @@ export class TabNavigationComponent implements AfterViewInit {
 
   defaultOrderButtons$: Observable<ButtonData[]> = combineLatest([this.counts$, this.tab$]).pipe(
     map(([counts, tab]) => [
-      { label: $localize`:@@navigation.publications:Julkaisut`,           icon: `faFileLines`,  route: "/results/publications",    count: counts.publications,    active: tab === `publications` },
-      { label: $localize`:@@navigation.funding-calls:Rahoitushaut`,       icon: 'faBullhorn',   route: "/results/funding-calls",   count: counts.fundingCalls,    active: tab === 'funding-calls' },
-      { label: $localize`:@@navigation.fundings:Myönnetty rahoitus`,      icon: 'faBriefcase',  route: "/results/fundings",        count: counts.fundings,        active: tab === 'fundings' },
-      { label: $localize`:@@navigation.persons:Tutkijat`,                 icon: 'faUsers',      route: "/results/persons",         count: counts.persons,         active: tab === 'persons' },
-      { label: $localize`:@@navigation.datasets:Aineistot`,               icon: 'faAlignLeft',  route: "/results/datasets",        count: counts.datasets,        active: tab === 'datasets' },
-      { label: $localize`:@@navigation.infrastructures:Infrastruktuurit`, icon: 'faCalculator', route: "/results/infrastructures", count: counts.infrastructures, active: tab === 'infrastructures' },
-      { label: $localize`:@@navigation.organizations:Organisaatiot`,      icon: 'faUniversity', route: "/results/organizations",   count: counts.organizations,   active: tab === 'organizations' },
-      { label: $localize`:@@navigation.projects:Hankkeet`,                icon: `faAlignLeft`,  route: "/results/projects",         count: -1,                     active: false, disabled: true },
+      { label: $localize`:@@navigation.publications:Julkaisut`,           icon: `faFileLines`,  route: "/results/publications",    count: counts.publications, queryParams: this.pageSizeParams$,          active: tab === `publications` },
+      { label: $localize`:@@navigation.funding-calls:Rahoitushaut`,       icon: 'faBullhorn',   route: "/results/funding-calls",   count: counts.fundingCalls, queryParams: this.fundingSearchPageParams$, active: tab === 'funding-calls' },
+      { label: $localize`:@@navigation.fundings:Myönnetty rahoitus`,      icon: 'faBriefcase',  route: "/results/fundings",        count: counts.fundings, queryParams: this.pageSizeParams$,              active: tab === 'fundings' },
+      { label: $localize`:@@navigation.persons:Tutkijat`,                 icon: 'faUsers',      route: "/results/persons",         count: counts.persons, queryParams: this.pageSizeParams$,               active: tab === 'persons' },
+      { label: $localize`:@@navigation.datasets:Aineistot`,               icon: 'faAlignLeft',  route: "/results/datasets",        count: counts.datasets, queryParams: this.pageSizeParams$,              active: tab === 'datasets' },
+      { label: $localize`:@@navigation.infrastructures:Infrastruktuurit`, icon: 'faCalculator', route: "/results/infrastructures", count: counts.infrastructures, queryParams: this.pageSizeParams$,       active: tab === 'infrastructures' },
+      { label: $localize`:@@navigation.organizations:Organisaatiot`,      icon: 'faUniversity', route: "/results/organizations",   count: counts.organizations, queryParams: this.pageSizeParams$,         active: tab === 'organizations' },
+      { label: $localize`:@@navigation.projects:Hankkeet`,                icon: `faAlignLeft`,  route: "/results/projects",        count: -1, queryParams: this.pageSizeParams$,                           active: false, disabled: true },
     ])
   );
 
