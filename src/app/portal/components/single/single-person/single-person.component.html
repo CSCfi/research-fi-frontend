@@ -95,41 +95,46 @@
             </ng-container> -->
 
             <!-- By organizations -->
-            <ng-container *ngFor=' let organization of person.affiliations.organizations; let i = index'>
+            <ng-container *ngFor='let organization of person.affiliations.organizations; let last = last'>
               <div class='sub-heading'>{{ organization.name }}</div>
 
-              <!-- Affiliation details -->
-              <div class='row'>
-                <ng-container *ngFor=' let row of affiliationFields | checkEmptyFields: organization.items; let j = index'>
+              <ng-container *ngFor='let affiliation of organization.items'>
+                <div style='display: flex'>
+                  <div style='flex: 1'>
+                    <ng-container *ngIf='affiliation.departmentName'>
+                      <div style='margin-bottom: 1rem'>
+                        <div class='sub-heading'>
+                          <ng-container i18n='@@unit'>Yksikkö</ng-container>
+                        </div>
 
-                  <div class='col-6' [class.ps-0]='j % 2 === 0'>
-                    <div class='sub-heading'>{{ row.label }}</div>
+                        <div>
+                          {{ affiliation.departmentName }}
+                        </div>
+                      </div>
+                    </ng-container>
 
-                    <div *ngFor='let affiliation of organization.items'>
-                      {{ affiliation[row.key] || '&nbsp;' }}
-
-                      <ng-container *ngIf="row.key === 'positionName' && affiliation.yearDisplay">
-                        {{ affiliation.yearDisplay }}
-                      </ng-container>
+                    <div>
+                      <ng-container i18n='@@source'>Lähde</ng-container>: {{ affiliation.source }}
                     </div>
                   </div>
-                </ng-container>
-              </div>
 
-              <!-- Affiliation data source -->
-              <div class='row g-0 pt-3'>
-                <div class='col'>
+                  <div style='flex: 1'>
+                    <ng-container *ngIf='affiliation.positionName'>
+                      <div class='sub-heading'>
+                        <ng-container i18n='@@title'>Nimike</ng-container>
+                      </div>
+                    </ng-container>
 
-                  <ng-container i18n='@@source'>Lähde</ng-container>
-                  :
-                  {{ organization.items[0].source }}
-
+                    <!-- Displaying empty positionName with yearDisplay is fine also -->
+                    <div>
+                      {{ affiliation.positionName }} {{ affiliation.yearDisplay }}
+                    </div>
+                  </div>
                 </div>
-              </div>
 
-
-              <ng-container *ngIf="i + 1 < person.affiliations.organizations.length">
-                <hr />
+                <ng-container *ngIf='!last'>
+                  <hr />
+                </ng-container>
               </ng-container>
 
             </ng-container>

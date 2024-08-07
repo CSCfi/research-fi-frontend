@@ -235,8 +235,7 @@ export class SinglePublicationComponent
       label: $localize`Julkaisu\u00ADfoorumi`,
       field: 'jufoCode',
       link: true,
-      linkPath:
-        'https://jfp.csc.fi/en/web/haku/julkaisukanavahaku#!PublicationInformationView/id/',
+      linkPath: 'https://jfp.csc.fi/jufoportaali?Jufo_ID=',
       tooltip: $localize`Julkaisukanavan tunniste Julkaisufoorumissa (www.julkaisufoorumi.fi).`,
     },
     {
