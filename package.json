@@ -18,17 +18,17 @@
     "lint": "ng lint",
     "dev:ssr": "ng run research-fi:serve-ssr",
     "serve:ssr": "node dist/research-fi/server/main.js",
-    "build:ssr": "ng build && ng run research-fi:server",
+    "OLD_build:ssr": "ng build && ng run research-fi:server",
     "prerender": "ng run research-fi:prerender",
     "DIVIDE": "echo '----------------------------------------'",
     "ng2": "ng",
     "start2": "dotenvx run -- ng serve",
-    "build2": "ng build && node copy-proxy-server.js",
+    "build:ssr": "ng build && node copy-proxy-server.js",
     "build3": "ng build --source-map && node copy-proxy-server.js",
     "watch2": "ng build --watch --configuration development",
     "test2": "ng test",
     "serve2": "node dist/research-fi/proxy-server.mjs",
-    "build-and-serve": "dotenvx run -- npm run build3 && npm run serve2"
+    "build-and-serve": "npm run build:ssr && dotenvx run -- npm run serve2"
   },
   "private": true,
   "dependencies": {

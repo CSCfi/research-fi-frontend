@@ -6,7 +6,7 @@ import { app as serverSv } from './server/sv/server.mjs';
 const express = require('express');
 
 function run() {
-  const port = process.env.PORT || 4200;
+  const port = process.env.PORT || 8080;
   const server = express();
 
   server.use('/fi', serverFi());

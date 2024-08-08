@@ -7,7 +7,7 @@ const ENV_KEY = makeStateKey<{
   buildInfo: string,
   profileApiUrl: string,
   apiUrl: string,
-  matomoSiteId: number
+  matomoSiteId: string
 }>('env');
 
 /**
@@ -18,23 +18,14 @@ const ENV_KEY = makeStateKey<{
 export function transferStateFactory(transferState: TransferState) {
   return () => {
     const envVars = {
-      cmsUrl: "https://cms-nginx-devel-researchfi.2.rahtiapp.fi",
-      buildInfo: "devel",
-      matomoSiteId: 4,
-      profileApiUrl: "https://mydata-api-devel.2.rahtiapp.fi/api",
-      apiUrl: "https://researchfi-api-devel.2.rahtiapp.fi",
-
-      /*cmsUrl: process.env.SSR_CMS_URL,
-      buildInfo: process.env.SSR_API_URL,
-      matomoSiteId: process.env.SSR_PROFILE_API_URL,
-      profileApiUrl: process.env.SSR_BUILD_INFO,
-      apiUrl: process.env.SSR_MATOMO_SITE_ID*/
-
-
-
+      cmsUrl: process.env.SSR_CMS_URL,
+      buildInfo: process.env.SSR_BUILD_INFO,
+      matomoSiteId: process.env.matomoSiteId,
+      profileApiUrl: process.env.SSR_PROFILE_API_URL,
+      apiUrl: process.env.SSR_API_URL,
     };
 
-    transferState.set<{ cmsUrl: string }>(ENV_KEY, envVars);
+    transferState.set<{ cmsUrl: string, buildInfo: string, profileApiUrl: string, apiUrl: string, matomoSiteId: string }>(ENV_KEY, envVars);
   };
 }
 
