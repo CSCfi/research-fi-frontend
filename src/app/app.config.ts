@@ -34,7 +34,7 @@ export const appConfig: ApplicationConfig = {
       FontAwesomeModule
     ),
 
-    AppConfigService,
+    /*AppConfigService,
     {
       provide: APP_INITIALIZER,
       multi: true,
@@ -42,10 +42,11 @@ export const appConfig: ApplicationConfig = {
       useFactory: (appConfigService: AppConfigService) => {
         // Load configuration from file when application starts.
         return () => {
+          console.log("OLD WAY OF APP_INITIALIZER IS SET");
           return appConfigService.loadAppConfig();
         };
       }
-    },
+    },*/
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptService,

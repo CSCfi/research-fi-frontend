@@ -52,8 +52,6 @@ export class MysteryService implements OnDestroy {
     private historyService: HistoryService,
     private tabChangeService: TabChangeService
   ) {
-    console.log('XXX MysteryService HERE!');
-
     this.startPage = router.parseUrl(router.url).queryParams.page || 1;
 
     // Scroll to top of page
@@ -124,7 +122,7 @@ export class MysteryService implements OnDestroy {
         }
       });
 
-    console.log("XXX Adding global icons");
+    // console.log("XXX Adding global icons");
     // Add global icons
     library.addIcons(faExternalLinkAlt as any, faInfoCircle as any);
   }
