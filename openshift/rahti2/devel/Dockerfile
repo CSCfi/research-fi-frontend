@@ -11,7 +11,7 @@ COPY . /app
 WORKDIR /app
 RUN chown -R node:node /app
 USER node
-RUN npm install
+RUN npm ci
 RUN npm run build:ssr
 
 # Stage 2: Serve Angular application
@@ -22,6 +22,10 @@ COPY --from=builder /app/dist/ /dist/
 ## SSR build warns from non existent stylesheet in 'browser/'
 # ## Manually copy this file from localized build to suppress this warning
 # COPY --from=builder /app/dist/browser/fi/*.css /dist/browser/
+
+# Copy dependencies
+COPY --from=builder /app/node_modules/ /node_modules/
+
 WORKDIR /
 
 RUN chown -R node:node /dist
