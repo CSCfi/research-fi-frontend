@@ -26,6 +26,8 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 type IndexCounts = { [index: string]: number };
 type ButtonData = { label: string, icon: string, route: string, count: number, active: boolean, disabled?: boolean};
 
+type Counts = { publications: number, persons: number, fundings: number, datasets: number, fundingCalls: number, infrastructures: number, organizations: number };
+
 const EPSILON = 1;
 
 @Component({
@@ -103,7 +105,7 @@ export class TabNavigationComponent {
     switchMap(input => this.http.post(this.url, payloadWithKeywords(input)).pipe(
       map((response: any) => response.aggregations),
       map(aggregations => Object.entries(aggregations._index.buckets)),
-      map(buckets => buckets.reduce((acc, [key, value]) => ({ ...acc, [key]: (value as any).doc_count }), {}))
+      map(buckets => buckets.reduce((acc, [key, value]) => ({ ...acc, [key]: (value as any).doc_count }), {} as Counts))
     )),
   );
 
@@ -115,14 +117,14 @@ export class TabNavigationComponent {
 
   defaultOrderButtons$: Observable<ButtonData[]> = combineLatest([this.counts$, this.tab$]).pipe(
     map(([counts, tab]) => [                                                                                                       // -1 is not displayed
-      { label: $localize`:@@navigation.publications:Julkaisut`,           icon: `faFileLines`,  route: "/results/publications",    count: 1000, /*counts.publications,   */ active: tab === `publications` },
-      { label: $localize`:@@navigation.funding-calls:Rahoitushaut`,       icon: 'faBullhorn',   route: "/results/funding-calls",   count: 1000, /*counts.fundingCalls,   */ active: tab === 'funding-calls' },
-      { label: $localize`:@@navigation.fundings:Myönnetty rahoitus`,      icon: 'faBriefcase',  route: "/results/fundings",        count: 1000, /*counts.fundings,       */ active: tab === 'fundings' },
-      { label: $localize`:@@navigation.persons:Tutkijat`,                 icon: 'faUsers',      route: "/results/persons",         count: 1000, /*counts.persons,        */ active: tab === 'persons' },
-      { label: $localize`:@@navigation.datasets:Aineistot`,               icon: 'faAlignLeft',  route: "/results/datasets",        count: 1000, /*counts.datasets,       */ active: tab === 'datasets' },
-      { label: $localize`:@@navigation.infrastructures:Infrastruktuurit`, icon: 'faCalculator', route: "/results/infrastructures", count: 1000, /*counts.infrastructures,*/ active: tab === 'infrastructures' },
-      { label: $localize`:@@navigation.organizations:Organisaatiot`,      icon: 'faUniversity', route: "/results/organizations",   count: 1000, /*counts.organizations,  */ active: tab === 'organizations' },
-      { label: $localize`:@@navigation.projects:Hankkeet`,                icon: `faAlignLeft`,  route: "/results/projects",        count: 1000,                             active: false, disabled: true },
+      { label: $localize`:@@navigation.publications:Julkaisut`,           icon: `faFileLines`,  route: "/results/publications",    count: counts.publications,    active: tab === `publications` },
+      { label: $localize`:@@navigation.funding-calls:Rahoitushaut`,       icon: 'faBullhorn',   route: "/results/funding-calls",   count: counts.fundingCalls,    active: tab === 'funding-calls' },
+      { label: $localize`:@@navigation.fundings:Myönnetty rahoitus`,      icon: 'faBriefcase',  route: "/results/fundings",        count: counts.fundings,        active: tab === 'fundings' },
+      { label: $localize`:@@navigation.persons:Tutkijat`,                 icon: 'faUsers',      route: "/results/persons",         count: counts.persons,         active: tab === 'persons' },
+      { label: $localize`:@@navigation.datasets:Aineistot`,               icon: 'faAlignLeft',  route: "/results/datasets",        count: counts.datasets,        active: tab === 'datasets' },
+      { label: $localize`:@@navigation.infrastructures:Infrastruktuurit`, icon: 'faCalculator', route: "/results/infrastructures", count: counts.infrastructures, active: tab === 'infrastructures' },
+      { label: $localize`:@@navigation.organizations:Organisaatiot`,      icon: 'faUniversity', route: "/results/organizations",   count: counts.organizations,   active: tab === 'organizations' },
+      { label: $localize`:@@navigation.projects:Hankkeet`,                icon: `faAlignLeft`,  route: "/results/projects",        count: -1,                     active: false, disable: true },
     ])
   );
 
