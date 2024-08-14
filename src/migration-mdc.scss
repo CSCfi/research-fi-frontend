@@ -1,0 +1,51 @@
+// MDC MIGRATION EXPERIMENTS
+
+// TODO: Material 3 SASS API is most likely the best practice for customizing Material components.
+
+// Button left of search bar
+.mat-mdc-button:not(:disabled) {
+  color: #4546b9 !important;
+  text-decoration: none;
+  height: 53px;
+}
+
+// Checkbox in left sidepanel in search pages
+.mat-mdc-list-option .mdc-checkbox__checkmark-path {
+  color: white;
+}
+
+// Expansion panel's content in search pages
+body app-filters mat-expansion-panel.mat-expansion-panel.mat-expanded, body .filters-dialog mat-expansion-panel.mat-expansion-panel.mat-expanded {
+  font-size: 0.88rem;
+}
+
+// Expansion panel's checkbox lines
+body .mat-mdc-list-item.mdc-list-item--with-leading-avatar.mdc-list-item--with-one-line, body .mat-mdc-list-item.mdc-list-item--with-leading-checkbox.mdc-list-item--with-one-line, body .mat-mdc-list-item.mdc-list-item--with-leading-icon.mdc-list-item--with-one-line {
+  height: 44px;
+}
+
+// Expansion panel's datepicker
+.mat-mdc-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-mdc-text-field-wrapper {
+  width: 120px;
+  height: 45px;
+}
+
+body .mat-accent .mdc-list-item__start, body .mat-accent .mdc-list-item__end {
+  margin-right: 0;
+}
+
+// Results page's table's row separation
+mat-row, mat-header-row, mat-footer-row {
+  margin-bottom: 18px;
+  border: none !important;
+}
+
+// Table header row's bottom border
+.mat-mdc-header-cell {
+  border: none !important;
+}
+
+// Table cell's border
+.mat-mdc-cell {
+  border: none !important;
+}

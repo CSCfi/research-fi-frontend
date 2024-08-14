@@ -355,7 +355,8 @@
                 activeFilters[filter.field].indexOf(item.key) > -1
               "
             >
-              <div class="row d-flex justify-content-around">
+              <!--<div class="row d-flex justify-content-around">-->
+              <div class="row d-flex justify-content-between">
                 <div class="col-8 pe-0">
                   <span class="label pe-2">{{
                     item.label ? item.label : item.key
@@ -543,7 +544,8 @@
                   "
                   [id]="filter.field + field.key | replaceSpace"
                 >
-                  <div class="row d-flex justify-content-around">
+                  <!--<div class="row d-flex justify-content-around">-->
+                  <div class="row d-flex justify-content-between">
                     <div class="col-9">
                       <span class="label">{{ field.label }}</span>
                     </div>

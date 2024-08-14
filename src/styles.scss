@@ -10,6 +10,8 @@
 @use '@angular/material' as mat;
 @include mat.core();
 
+@import "migration-mdc";
+
 @import './bootstrap_overrides.scss';
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
 
