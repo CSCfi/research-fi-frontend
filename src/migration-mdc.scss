@@ -21,7 +21,7 @@ body app-filters mat-expansion-panel.mat-expansion-panel.mat-expanded, body .fil
 
 // Expansion panel's checkbox lines
 body .mat-mdc-list-item.mdc-list-item--with-leading-avatar.mdc-list-item--with-one-line, body .mat-mdc-list-item.mdc-list-item--with-leading-checkbox.mdc-list-item--with-one-line, body .mat-mdc-list-item.mdc-list-item--with-leading-icon.mdc-list-item--with-one-line {
-  height: 44px;
+  height: 44px !important;
 }
 
 // Expansion panel's datepicker
@@ -36,7 +36,7 @@ body .mat-accent .mdc-list-item__start, body .mat-accent .mdc-list-item__end {
 
 // Results page's table's row separation
 mat-row, mat-header-row, mat-footer-row {
-  margin-bottom: 18px;
+  margin-bottom: 30px;
   border: none !important;
 }
 

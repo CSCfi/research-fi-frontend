@@ -30,7 +30,7 @@ import { SafeUrlPipe } from '../../../pipes/safe-url.pipe';
     imports: [NgIf, SafeUrlPipe]
 })
 export class PieComponent implements OnInit, OnChanges {
-  
+
   @Input() data: Visual;
   @Input() height: number;
   @Input() width: number;
@@ -83,9 +83,9 @@ export class PieComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit(): void {
-    d3.formatDefaultLocale(this.staticDataService.visualisationData.locale); 
+    d3.formatDefaultLocale(this.staticDataService.visualisationData.locale);
   }
-    
+
   ngOnChanges(changes: SimpleChanges) {
     // Wait for all inputs
     if (
@@ -117,7 +117,7 @@ export class PieComponent implements OnInit, OnChanges {
     let visualisationData: PublicationVisual | FundingVisual;
     let ylabel = '';
     let format = ',';
- 
+
     switch (this.tab) {
       case 'publications':
         visualisationData = this.data.publicationData;
@@ -136,14 +136,14 @@ export class PieComponent implements OnInit, OnChanges {
 
     this.categoryObject = this.categories[fieldIdx];
     const sample: VisualData[] = visualisationData[this.categoryObject.field];
-    
+
     // Funding amount graph is an exception
     if (this.categoryObject.field === 'amount') {
       this.legendWidth = 0;
       ylabel = 'Myönnetty summa';
       format = '$,';
     }
-    
+
     // Data is transformed into suitable form for pie chart
 
     const newData = [];
@@ -189,21 +189,18 @@ export class PieComponent implements OnInit, OnChanges {
     this.Radius = Math.min(this.width, this.height) / 2;
 
     // Color stuff
-    // Init seeding again with seedrandom
-    const seedrandom = require('seedrandom');
-    seedrandom('randomseed', { global: true });
 
     const len = newData.length;
     // Create color scale
     const color = d3.scaleOrdinal(
       // Shuffle the color order from the first onward
-      UtilityService.shuffle(
+      UtilityService.seededShuffle(
         // Quantize the desired scale to the length of data
         d3.quantize(c.interpolateSinebow, d3.max([len + 1, 3])).slice(0, -1),
         1 // quantize() sets first and last element to same
       )
     );
-    
+
     // Clear contents
     this.svg = d3.select('svg#chart');
     this.svg.selectAll('*').remove();
@@ -215,7 +212,7 @@ export class PieComponent implements OnInit, OnChanges {
       .append('g')
       .attr('id', 'main')
       .attr('transform', `translate(${this.margin * 2}, ${this.margin * 2})`);
-    
+
     // Legend init
     const legendSvg = d3.select('svg#legend');
     legendSvg.selectAll('*').remove();
@@ -249,7 +246,7 @@ export class PieComponent implements OnInit, OnChanges {
             .enter()
             .append("g")
             .attr("class", "arc")
-            .on('mouseenter', (d, i, n: any) => 
+            .on('mouseenter', (d, i, n: any) =>
           this.showInfo(
             d,
             i,
@@ -316,7 +313,7 @@ export class PieComponent implements OnInit, OnChanges {
     .on('mouseout', (d, i, n) => this.decreaseFontSize(i, n))
     .style('cursor', this.categoryObject.filter ? 'pointer' : 'default');
 
- 
+
     // Graph title
     this.g
       .append('text')
@@ -386,7 +383,7 @@ export class PieComponent implements OnInit, OnChanges {
     const y = +elem.attr('y');
     const width = +elem.attr('width');
     const height = +elem.attr('height');
-    
+
     // Make hovered box wider
     elem
       .transition()
@@ -482,7 +479,7 @@ export class PieComponent implements OnInit, OnChanges {
 
     circle2
       .attr('cx', rectX + padding + 5)
-      .attr('cy', rectY + rectHeight + 2) 
+      .attr('cy', rectY + rectHeight + 2)
       .attr('r', 5)
       .attr('fill', color(i));
   }
@@ -516,7 +513,7 @@ export class PieComponent implements OnInit, OnChanges {
     if (this.categoryObject.filter) {
 
       const elem: any = d3.select(n[i]);
-      
+
       elem
       .transition()
       .duration(300)

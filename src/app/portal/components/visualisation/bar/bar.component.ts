@@ -157,15 +157,12 @@ export class BarComponent implements OnChanges {
     );
 
     // Color stuff
-    // Init seeding again with seedrandom
-    const seedrandom = require('seedrandom');
-    seedrandom('randomseed', { global: true });
 
     const len = d3.max(sample.map((x) => x.data.length));
     // Create color scale
     const color = d3.scaleOrdinal(
       // Shuffle the color order from the first onward (year colors stay same)
-      UtilityService.shuffle(
+      UtilityService.seededShuffle(
         // Quantize the desired scale to the length of data
         d3.quantize(c.interpolateSinebow, d3.max([len + 1, 3])).slice(0, -1),
         1 // quantize() sets first and last element to same
@@ -173,7 +170,7 @@ export class BarComponent implements OnChanges {
     );
 
     // Clear contents
-    this.svg = d3.select('svg#chart');
+      this.svg = d3.select('svg#chart');
     this.svg.selectAll('*').remove();
 
     const legendSvg = d3.select('svg#legend');
