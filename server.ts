@@ -10,14 +10,17 @@ import { REQUEST, RESPONSE } from './src/express.tokens';
 export function app(): express.Express {
   const server = express();
   const serverDistFolder = dirname(fileURLToPath(import.meta.url));
+
   /**
    * Get the language from the corresponding folder
    */
   const lang = basename(serverDistFolder);
+
   /**
    * Set the route for static content and APP_BASE_HREF
    */
   const langPath = `/${lang}/`;
+
   /**
    * Note that the 'browser' folder is located two directories above 'server/{lang}/'
    */
