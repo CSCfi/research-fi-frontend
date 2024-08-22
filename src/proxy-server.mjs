@@ -34,14 +34,29 @@ function run() {
       return;
     }
 
-    const transporter = createTransport({
-      host: process.env.SMTP_HOST,
-      port: 587,
-      auth: {
-        user: process.env.SMTP_USER,
+    let transportConfig;
+
+    if (process.env.SMTP_RAHTI_SKIP_AUTHENTICATION === "true") {
+      transportConfig = {
+        host: process.env.SMTP_HOST,
+        port: 25,
+        secure: false,
+        tls: {
+          rejectUnauthorized: false,
+        },
+      };
+    } else {
+      transportConfig = {
+        host: process.env.SMTP_HOST,
+        port: 587,
+        auth: {
+          user: process.env.SMTP_USER,
           pass: process.env.SMTP_PASSWORD
-      }
-    });
+        }
+      };
+    }
+
+    const transporter = createTransport(transportConfig);
 
     const mailOptions = {
       from: 'noreply@research.fi',
