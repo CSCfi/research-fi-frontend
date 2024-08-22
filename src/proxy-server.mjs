@@ -27,7 +27,7 @@ function run() {
   server.use(express.json());
 
   server.post('/feedback', async (req, res) => {
-    if (!process.env.SMTP_ENABLED) {
+    if (process.env.SMTP_ENABLED !== "true") {
       const errorMsg = 'Email: Error: Sending is disabled';
       console.error(errorMsg);
       res.status(500).send({ error: errorMsg });
