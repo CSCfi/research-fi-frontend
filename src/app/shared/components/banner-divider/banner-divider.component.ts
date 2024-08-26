@@ -15,7 +15,6 @@ import { NgStyle, NgIf, NgTemplateOutlet } from '@angular/common';
     ],
 })
 export class BannerDividerComponent implements OnInit {
-  @Input() heightInRem: string;
   @Input() template: TemplateRef<any>;
 
   defaultHeight = 3.125;

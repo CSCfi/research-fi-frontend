@@ -41,7 +41,6 @@ import { ErrorModalComponent } from './error-modal/error-modal.component';
 */
 export class LayoutComponent implements OnInit {
   loading: boolean;
-  showDivider: boolean;
 
   constructor(private router: Router) {}
 
@@ -54,23 +53,18 @@ export class LayoutComponent implements OnInit {
     // this.loading = false;
     // this.showDivider = false;
 
-    /*this.router.events.subscribe((event: RouterEvent) => { // TODO: Angular 16 update
+    this.router.events.subscribe((event: any) => { // TODO: Angular 16 update
       switch (true) {
         case event instanceof NavigationStart: {
           this.loading = true;
-          this.showDivider = false;
           break;
         }
         case event instanceof NavigationEnd: {
           this.loading = false;
 
-          // Flag for rendering banner divider in MyData routes
-          if (event.url.includes('/mydata')) {
-            this.showDivider = true;
-          }
           break;
         }
       }
-    });*/
+    });
   }
 }
