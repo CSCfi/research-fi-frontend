@@ -46,6 +46,7 @@ import { MatButton } from '@angular/material/button';
 import { PrimaryActionButtonComponent } from '../../../shared/components/buttons/primary-action-button/primary-action-button.component';
 import { WelcomeDialogComponent } from './welcome-dialog/welcome-dialog.component';
 import { NgIf, AsyncPipe } from '@angular/common';
+import { BannerDividerComponent } from '@shared/components/banner-divider/banner-divider.component';
 
 @Component({
     selector: 'app-profile',
@@ -53,21 +54,22 @@ import { NgIf, AsyncPipe } from '@angular/common';
     styleUrls: ['./profile.component.scss'],
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [
-        NgIf,
-        WelcomeDialogComponent,
-        PrimaryActionButtonComponent,
-        MatButton,
-        DraftSummaryComponent,
-        RouterLink,
-        ContactCardComponent,
-        ProfileSummaryComponent,
-        MatProgressSpinner,
-        CollaborationCardComponent,
-        MydataBetaInfoComponent,
-        DialogComponent,
-        AsyncPipe,
-    ],
+  imports: [
+    NgIf,
+    WelcomeDialogComponent,
+    PrimaryActionButtonComponent,
+    MatButton,
+    DraftSummaryComponent,
+    RouterLink,
+    ContactCardComponent,
+    ProfileSummaryComponent,
+    MatProgressSpinner,
+    CollaborationCardComponent,
+    MydataBetaInfoComponent,
+    DialogComponent,
+    AsyncPipe,
+    BannerDividerComponent
+  ]
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   @ViewChild('collaborationComponentRef') collaborationComponentRef;

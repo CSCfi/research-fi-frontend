@@ -20,6 +20,7 @@ import { PrimaryActionButtonComponent } from '../../../shared/components/buttons
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
+import { BannerDividerComponent } from '@shared/components/banner-divider/banner-divider.component';
 
 type Step = { label: string; icon: /*IconDefinition*/ any; loading?: boolean };
 @Component({
@@ -27,20 +28,21 @@ type Step = { label: string; icon: /*IconDefinition*/ any; loading?: boolean };
     templateUrl: './service-deployment.component.html',
     styleUrls: ['./service-deployment.component.scss'],
     standalone: true,
-    imports: [
-        NgIf,
-        MatProgressSpinner,
-        FontAwesomeModule,
-        NgSwitch,
-        NgSwitchCase,
-        PrimaryActionButtonComponent,
-        ServiceTermsComponent,
-        OrcidLoginComponent,
-        OrcidDataFetchComponent,
-        SecondaryButtonComponent,
-        RouterLink,
-        OrcidComponent,
-    ],
+  imports: [
+    NgIf,
+    MatProgressSpinner,
+    FontAwesomeModule,
+    NgSwitch,
+    NgSwitchCase,
+    PrimaryActionButtonComponent,
+    ServiceTermsComponent,
+    OrcidLoginComponent,
+    OrcidDataFetchComponent,
+    SecondaryButtonComponent,
+    RouterLink,
+    OrcidComponent,
+    BannerDividerComponent
+  ]
 })
 export class ServiceDeploymentComponent implements OnInit, OnDestroy {
   step: number;

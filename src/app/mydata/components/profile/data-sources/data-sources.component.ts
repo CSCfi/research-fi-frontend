@@ -23,21 +23,23 @@ import { ActiveFiltersListComponent } from '../../../../shared/components/active
 import { SortByButtonComponent } from '../../../../shared/components/buttons/sort-by-button/sort-by-button.component';
 import { DataSourcesFiltersComponent } from './data-sources-filters/data-sources-filters.component';
 import { NgTemplateOutlet, NgIf } from '@angular/common';
+import { BannerDividerComponent } from '@shared/components/banner-divider/banner-divider.component';
 
 @Component({
     selector: 'app-data-sources',
     templateUrl: './data-sources.component.html',
     styleUrls: ['./data-sources.component.scss'],
     standalone: true,
-    imports: [
-        NgTemplateOutlet,
-        DataSourcesFiltersComponent,
-        SortByButtonComponent,
-        NgIf,
-        ActiveFiltersListComponent,
-        DataSourcesTableComponent,
-        DataSourcesSelectionActionsComponent,
-    ],
+  imports: [
+    NgTemplateOutlet,
+    DataSourcesFiltersComponent,
+    SortByButtonComponent,
+    NgIf,
+    ActiveFiltersListComponent,
+    DataSourcesTableComponent,
+    DataSourcesSelectionActionsComponent,
+    BannerDividerComponent
+  ]
 })
 export class DataSourcesComponent implements OnInit, OnDestroy {
   orcidData: Record<string, unknown>;

@@ -14,6 +14,7 @@ import { PrimaryActionButtonComponent } from '../../../shared/components/buttons
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { SecondaryButtonComponent } from '../../../shared/components/buttons/secondary-button/secondary-button.component';
 import { NgIf, AsyncPipe } from '@angular/common';
+import { BannerDividerComponent } from '@shared/components/banner-divider/banner-divider.component';
 
 @Component({
     selector: 'app-account-settings',
@@ -21,14 +22,15 @@ import { NgIf, AsyncPipe } from '@angular/common';
     styleUrls: ['./account-settings.component.scss'],
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [
-        NgIf,
-        SecondaryButtonComponent,
-        MatProgressSpinner,
-        PrimaryActionButtonComponent,
-        DialogComponent,
-        AsyncPipe,
-    ],
+  imports: [
+    NgIf,
+    SecondaryButtonComponent,
+    MatProgressSpinner,
+    PrimaryActionButtonComponent,
+    DialogComponent,
+    AsyncPipe,
+    BannerDividerComponent
+  ]
 })
 export class AccountSettingsComponent implements OnInit {
   orcid: any;

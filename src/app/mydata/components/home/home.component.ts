@@ -14,6 +14,7 @@ import { NotificationService } from '@shared/services/notification.service';
 import { DialogEventsService } from '@shared/services/dialog-events.service';
 import { SecondaryButtonComponent } from '../../../shared/components/buttons/secondary-button/secondary-button.component';
 import { PrimaryActionButtonComponent } from '../../../shared/components/buttons/primary-action-button/primary-action-button.component';
+import { BannerDividerComponent } from '@shared/components/banner-divider/banner-divider.component';
 
 
 @Component({
@@ -21,11 +22,12 @@ import { PrimaryActionButtonComponent } from '../../../shared/components/buttons
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss'],
     standalone: true,
-    imports: [
-        PrimaryActionButtonComponent,
-        RouterLink,
-        SecondaryButtonComponent,
-    ],
+  imports: [
+    PrimaryActionButtonComponent,
+    RouterLink,
+    SecondaryButtonComponent,
+    BannerDividerComponent
+  ]
 })
 export class HomeComponent implements OnInit {
   title = $localize`:@@home:Etusivu`;
