@@ -41,6 +41,13 @@ import { faChartBar, faSlidersH } from '@fortawesome/free-solid-svg-icons';
 import { Dialog, DialogRef } from '@angular/cdk/dialog';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PaginationComponent } from '@shared/components/pagination/pagination.component';
+import {
+  PrimaryActionButtonComponent
+} from '@shared/components/buttons/primary-action-button/primary-action-button.component';
+import { SecondaryButtonComponent } from '@shared/components/buttons/secondary-button/secondary-button.component';
+import { TagPeerReviewedComponent } from '@shared/components/tags/tag-peer-reviewed/tag-peer-reviewed.component';
+import { TagOpenAccessComponent } from '@shared/components/tags/tag-open-access/tag-open-access.component';
+import { TagDoiComponent } from '@shared/components/tags/tag-doi/tag-doi.component';
 
 @Component({
   selector: 'app-publications2',
@@ -51,7 +58,7 @@ import { PaginationComponent } from '@shared/components/pagination/pagination.co
     FormsModule,
     RouterModule,
     SearchBar2Component, OrganizationFilterComponent, FilterOptionComponent, CollapsibleComponent, MatButtonModule, NgStyle, FilterLimitButtonComponent, FirstDigitPipe, FirstLetterPipe, RouterLink,
-    LayoutModule, ColumnSorterComponent, NgTemplateOutlet, FontAwesomeModule, NgMathPipesModule, PaginationComponent
+    LayoutModule, ColumnSorterComponent, NgTemplateOutlet, FontAwesomeModule, NgMathPipesModule, PaginationComponent, PrimaryActionButtonComponent, SecondaryButtonComponent, TagPeerReviewedComponent, TagOpenAccessComponent, TagDoiComponent
   ],
   standalone: true
 })
