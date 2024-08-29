@@ -49,3 +49,12 @@ mat-row, mat-header-row, mat-footer-row {
 .mat-mdc-cell {
   border: none !important;
 }
+
+
+// Feedback button
+app-footer button.review {
+  text-transform: uppercase;
+  letter-spacing: .7px;
+  font-size: 14px;
+  font-weight: 500;
+}
