@@ -10,8 +10,9 @@
 }
 
 // Checkbox in left sidepanel in search pages
-.mat-mdc-list-option .mdc-checkbox__checkmark-path {
-  color: white;
+// .mat-mdc-list-option .mdc-checkbox__checkmark-path {
+.mdc-checkbox__checkmark {
+  color: white !important;
 }
 
 // Expansion panel's content in search pages
@@ -50,6 +51,10 @@ mat-row, mat-header-row, mat-footer-row {
   border: none !important;
 }
 
+// Dropdown link lists from the header
+.mat-mdc-menu-item, .mat-mdc-menu-item:visited, .mat-mdc-menu-item:link {
+  font-size: 14px !important;
+}
 
 // Feedback button
 app-footer button.review {
@@ -57,4 +62,17 @@ app-footer button.review {
   letter-spacing: .7px;
   font-size: 14px;
   font-weight: 500;
+}
+
+// Remove news card's border
+.mat-mdc-card-outlined {
+  border: none !important;
+}
+
+.mat-mdc-card-header {
+  padding: 0 !important;
+}
+
+body app-news-card mat-card.mat-mdc-card {
+  padding: 1rem !important;
 }
