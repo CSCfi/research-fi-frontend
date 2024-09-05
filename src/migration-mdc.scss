@@ -103,3 +103,39 @@ body app-news-card mat-card.mat-mdc-card {
 app-search-bar > div > div > div > form > div > div.input-group > button > span.mdc-button__label > span {
   font-weight: 500;
 }
+
+// New's page's tab sizes
+#main-content > div > mat-tab-group > mat-tab-header {
+  width: 325px;
+  // border-bottom: solid red 2px;
+}
+
+// New's page's horizontal line between tabs and content
+/*.mat-mdc-tab .mdc-tab__text-label {
+  border: 1px solid red;
+}*/
+
+// New's page's tab labels
+/*.mat-mdc-tab-labels {
+  color: black !important;
+  font-size: 14px;
+}*/
+
+.mat-mdc-tab .mdc-tab__text-label {
+  color: black !important;
+  font-size: 0.88rem;
+}
+
+/*.mat-mdc-card-content {
+  padding: 0;
+}*/
+
+app-news-card mat-card-content p:last-child {
+  margin-top: 0 !important;
+}
+
+.mat-mdc-card-content {
+  font-size: 0.88rem;
+  padding-left: 0 !important;
+  margin-bottom: 1.10rem !important;
+}
