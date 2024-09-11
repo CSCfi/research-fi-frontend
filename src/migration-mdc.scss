@@ -107,28 +107,14 @@ app-search-bar > div > div > div > form > div > div.input-group > button > span.
 // New's page's tab sizes
 #main-content > div > mat-tab-group > mat-tab-header {
   width: 325px;
-  // border-bottom: solid red 2px;
 }
 
-// New's page's horizontal line between tabs and content
-/*.mat-mdc-tab .mdc-tab__text-label {
-  border: 1px solid red;
-}*/
-
-// New's page's tab labels
-/*.mat-mdc-tab-labels {
-  color: black !important;
-  font-size: 14px;
-}*/
-
+// New's page's tab text
 .mat-mdc-tab .mdc-tab__text-label {
   color: black !important;
   font-size: 0.88rem;
+  font-weight: 500;
 }
-
-/*.mat-mdc-card-content {
-  padding: 0;
-}*/
 
 app-news-card mat-card-content p:last-child {
   margin-top: 0 !important;
