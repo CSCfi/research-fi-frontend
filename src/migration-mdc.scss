@@ -41,6 +41,30 @@ mat-row, mat-header-row, mat-footer-row {
   border: none !important;
 }
 
+
+
+// Researchers profile tool
+app-data-sources-table {
+  mat-row, mat-header-row, mat-footer-row {
+    margin-bottom: 0px;
+    border-bottom: 1px solid black;
+  }
+
+  .mat-mdc-cell {
+    border-bottom: 1px solid #0000001f !important;
+  }
+
+  app-table-cell .mat-column-selection mat-checkbox {
+    margin-top: 0rem;
+  }
+  .mdc-data-table__cell, .mdc-data-table__header-cell {
+    padding:16px 16px 8px 16px !important;
+  }
+  app-table :not(mat-header-cell) .mat-column-selection mat-checkbox, app-table-cell .mat-column-selection mat-checkbox {
+    margin-top: -0.5rem;
+  }
+}
+
 // Table header row's bottom border
 .mat-mdc-header-cell {
   border: none !important;
