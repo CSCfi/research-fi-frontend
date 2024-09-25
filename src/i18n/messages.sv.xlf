@@ -3939,11 +3939,11 @@
       </trans-unit>
       <trans-unit id="publication2.tutorial.3" datatype="html">
         <source> Haku käyttää sanojen välissä oletuksena OR-hakuoperaattioria. Halutessasi voit käyttää myös AND- ja NOT- hakuoperaattoireita. Esimerkiksi haku Innovation AND gamification NOT games etsii julkaisuja, joissa esiintyvät yhtä aikaa sanat &quot;innovation&quot; ja &quot;gamification&quot;, mutta joissa ei ole mukana sanaa &quot;games&quot;. Huomioithan, että AND, NOT ja OR -hakuoperaattorit tulee kirjoittaa hakukenttään isoilla kirjaimilla. </source>
-        <target state="new">Sökningen använder OR-sökoperatören som standard mellan ord. Sökoperatorer AND och NOT kan också användas. Till exempel sökningen Innovation AND gamification NOT games söker efter publikationer som innehåller både “innovation” och “gamification”, men inte “games”. Lägg märke till att AND, NOT och OR måste skrivas med stora bokstäver i sökfältet.</target>
+        <target state="new">Sökningen använder OR-sökoperatören som standard mellan ord. Sökoperatorer AND och NOT kan också användas. Till exempel sökningen Innovation AND gamification NOT games söker efter publikationer som innehåller både &quot;innovation&quot; och &quot;gamification&quot;, men inte &quot;games&quot;. Lägg märke till att AND, NOT och OR måste skrivas med stora bokstäver i sökfältet.</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.4" datatype="html">
         <source> Sulkemalla haussa esiintyvät sanat lainausmerkeillä fraasiksi voit etsiä osumia jotka ovat täsmälleen samassa muodossa. Esimerkiksi fraasihaku &quot;Innovations in gamifications&quot; etsii julkaisuja, joissa esiintyy juuri tämä lause. Voit myös yhdistää useampia fraasihakuja AND-, OR- tai NOT-hakuoperaattoreilla. </source>
-        <target state="new">Genom att använda citattecken kan du söka på exakta fraser. Till exempel frassökningen “Innovations in gamifications” söker efter publikationer som innehåller exakt samma fras. Du kan också kombinera flera frassökningar med AND, OR eller NOT.</target>
+        <target state="new">Genom att använda citattecken kan du söka på exakta fraser. Till exempel frassökningen &quot;Innovations in gamifications&quot; söker efter publikationer som innehåller exakt samma fras. Du kan också kombinera flera frassökningar med AND, OR eller NOT.</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.5" datatype="html">
         <source> Voit hakea kohdistetusti joitakin metatietoja suoraan hakukentässä käyttämällä niille erikseen määriteltyjä komentoja. Haussa on käytettävä fraasihakua. Toistaiseksi haku on mahdollista kohdistaa seuraaviin metatietoihin: </source>
