@@ -2,17 +2,119 @@
 
 // TODO: Material 3 SASS API is most likely the best practice for customizing Material components.
 
-// Button left of search bar
-.mat-mdc-button:not(:disabled) {
-  color: #4546b9 !important;
-  text-decoration: none;
-  height: 53px;
+
+// Search filters
+app-funding-call-category-filters {
+  .mat-chip {
+    max-height: 32px;
+    button:hover:not(:active) {
+      //background-color: #f7f7fb;
+    }
+    .mat-mdc-focus-indicator {
+      background-color: #4546b9 !important;
+    }
+    button:active {
+      //background-color: #4546b9;
+    }
+  }
+}
+
+app-active-filters {
+  .mat-mdc-button:not(:disabled) {
+    color: initial !important;
+  }
+}
+
+.mat-mdc-form-field-icon-suffix {
+  display: flex;
+}
+
+mat-datepicker-toggle {
+  &.x-button {
+    margin-right: -14px !important;
+  }
+  mat-icon {
+    padding: 10px;
+    margin-left: -5px;
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
+  .mat-mdc-button-persistent-ripple {
+    display: none !important;
+  }
+  button {
+    margin-bottom: -10px;
+    &:hover {
+      background-color: transparent !important;
+      fill: transparent !important;
+    }
+  }
+}
+
+mat-calendar {
+  button {
+    margin-bottom: -10px;
+  }
 }
 
 // Checkbox in left sidepanel in search pages
 // .mat-mdc-list-option .mdc-checkbox__checkmark-path {
 .mdc-checkbox__checkmark {
   color: white !important;
+}
+
+// Funding call category filters
+mat-chip-option {
+  display: flex !important;
+}
+
+.mdc-evolution-chip__text-label {
+  white-space: initial !important;
+  font-size: 0.875rem !important;
+  &.mat-mdc-chip-action-label {
+    padding: 5px 13px;
+  }
+}
+
+.mat-mdc-chip.mat-mdc-standard-chip {
+  height: auto;
+  padding: 1px 0px;
+}
+
+.mat-mdc-standard-chip .mdc-evolution-chip__action--primary {
+  padding: 0px !important;
+}
+
+.mat-mdc-standard-chip.mdc-evolution-chip--with-primary-graphic .mdc-evolution-chip__graphic {
+  display: none;
+}
+
+.mdc-checkbox {
+  width: 16px !important;
+  height: 16px !important;
+  padding: 12px 10px !important;
+}
+
+.mdc-checkbox__background {
+  width: 16px !important;
+  height: 16px !important;
+  margin-top: 1px !important;
+}
+
+
+// Button left of search bar
+.mat-mdc-button:not(:disabled) {
+  color: #4546b9 !important;
+  text-decoration: none;
+}
+
+.search button {
+  height: 53px;
+}
+
+// Dialog modals
+mat-dialog-content .mat-mdc-radio-button.mat-accent{
+  margin: 0px;
 }
 
 // Expansion panel's content in search pages
@@ -40,8 +142,6 @@ mat-row, mat-header-row, mat-footer-row {
   margin-bottom: 30px;
   border: none !important;
 }
-
-
 
 // Researchers profile tool
 app-data-sources-table {
@@ -151,5 +251,5 @@ app-news-card mat-card-content p:last-child {
 }
 
 a {
-  text-decoration-color: #2868c6 !important;
+  //text-decoration-color: #2868c6 !important;
 }

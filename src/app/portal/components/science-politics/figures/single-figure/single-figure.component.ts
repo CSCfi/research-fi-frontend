@@ -83,6 +83,7 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
   allContent: any;
   combinedData: any;
   routeSub: Subscription;
+  screenWidthSubscription: Subscription;
   currentParent: any;
   currentItem: any;
   result: any;

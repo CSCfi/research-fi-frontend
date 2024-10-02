@@ -36,6 +36,8 @@
 
     a.header-link:hover {
       color: mat-contrast($primary, 500);
+      text-decoration: underline;
+      text-decoration-color: #fff;
     }
 
     .tint-background {

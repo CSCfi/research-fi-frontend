@@ -90,7 +90,7 @@ export class DialogComponent implements OnInit, OnDestroy, OnChanges {
     const wideDialog = checkInput(this.wide);
 
     const dialogSettings = {
-      maxWidth: wideDialog ? 'calc(100% - 3rem)' : '44vh',
+      maxWidth: wideDialog ? 'calc(100% - 3rem)' : '780px',
     };
 
     const smallDialogSettings = {

@@ -119,7 +119,7 @@ export class SingleIndicatorComponent implements OnInit {
   }
 
   onResize(dims) {
-    this.colWidth = this.iframe.nativeElement.offsetWidth - 15;
+    this.colWidth = this?.iframe?.nativeElement?.offsetWidth ?? 0;
     this.cdRef.detectChanges();
   }
 
