@@ -261,8 +261,9 @@
               </div>
             </div>
             <div class="row">
+
+              <!-- Start date -->
               <div class="col-10">
-                <!-- Start date -->
                 <mat-form-field appearance="fill">
                   <mat-label i18n="@@dateRangeStart"
                     >Haku alkaa aikaisintaan</mat-label
@@ -277,7 +278,7 @@
                     [max]="getActiveDate('end')"
                     #startDate
                   />
-                  <mat-datepicker-toggle
+                  <mat-datepicker-toggle class="d-flex x-button"
                     *ngIf="startDate.value"
                     matSuffix
                     (click)="dateChange(null, 'start')"
@@ -286,13 +287,14 @@
                       >x</mat-icon
                     >
                   </mat-datepicker-toggle>
-                  <mat-datepicker-toggle
+                  <mat-datepicker-toggle class="d-flex"
                     matSuffix
                     [for]="startPicker"
                   ></mat-datepicker-toggle>
                   <mat-datepicker #startPicker></mat-datepicker>
                 </mat-form-field>
               </div>
+
               <!-- End date -->
               <div class="col-10">
                 <mat-form-field appearance="fill">
@@ -309,7 +311,7 @@
                     [min]="getActiveDate('start')"
                     #endDate
                   />
-                  <mat-datepicker-toggle
+                  <mat-datepicker-toggle class="d-flex x-button"
                     *ngIf="endDate.value"
                     matSuffix
                     (click)="dateChange(null, 'end')"
@@ -318,7 +320,7 @@
                       >x</mat-icon
                     >
                   </mat-datepicker-toggle>
-                  <mat-datepicker-toggle
+                  <mat-datepicker-toggle class="d-flex"
                     matSuffix
                     [for]="endPicker"
                   ></mat-datepicker-toggle>

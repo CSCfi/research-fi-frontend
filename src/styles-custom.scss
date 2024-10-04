@@ -60,9 +60,7 @@ input[type='search']::-webkit-search-results-decoration {
 body {
   color: mat.get-contrast-color-from-palette($researchfi-primary, 300);
   font-family: 'Roboto', sans-serif;
-}
 
-body {
   button:focus-visible,
   input:focus-visible,
   select:focus-visible,
@@ -197,8 +195,22 @@ a {
   text-decoration: none;
 }
 
+
+.link-img {
+  a:hover {
+    text-decoration: none;
+  }
+}
+
 a:hover {
   text-decoration: underline;
+  text-decoration-color: black;
+}
+
+footer {
+  a:hover {
+    text-decoration-color: #4546b9 !important;
+  }
 }
 
 // Add icon to external links. This class is added in CMS.
@@ -402,6 +414,12 @@ fa-icon[icon='external-link-alt'] {
   color: mat-color($primary, default);
   cursor: pointer;
 }
+
+// Mat modal
+.mat-mdc-dialog-content {
+  --mdc-dialog-supporting-text-color: rgba(0, 0, 0, 0.87);
+}
+
 
 // Mat select
 .mat-mdc-select-panel {
@@ -739,6 +757,16 @@ mat-basic-chip.tag {
       display: block;
       padding: 0.5rem 0;
     }
+  }
+}
+
+app-share {
+  button {
+    min-width: 180px !important;
+    white-space: nowrap;
+  }
+  .fa-copy {
+    max-height: 19px !important;
   }
 }
 

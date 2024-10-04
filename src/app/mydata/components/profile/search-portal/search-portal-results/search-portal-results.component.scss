@@ -18,6 +18,14 @@ app-search-portal-results {
     min-height: unset;
   }
 
+  mat-paginator {
+    font-size: 0.875rem !important;
+  }
+
+  mat-option {
+    font-size: 0.875rem !important;
+  }
+
   mat-row,
   mat-footer-row {
     min-height: unset;
@@ -37,7 +45,10 @@ app-search-portal-results {
   }
 
   mat-cell {
+    justify-content: start;
+    flex-direction: column;
     margin-top: 0.25rem;
+    letter-spacing: 0 !important;
   }
 
   .mat-column-selection {
@@ -54,7 +65,11 @@ app-search-portal-results {
   }
 
   .mat-column-show-more {
-    flex: 0 0 6.5rem;
+    display: flex;
+    justify-content: flex-end;
+    a {
+      font-weight: bold;
+    }
   }
 
   mat-cell:first-of-type,

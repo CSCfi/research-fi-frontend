@@ -198,8 +198,8 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
       this.commonTags['imgAlt' + this.currentLocale]
     );
 
-    this.resizeSub = this.resizeService.onResize$.subscribe((_) =>
-      this.onResize()
+    this.resizeSub = this.resizeService.onResize$.subscribe((dims) =>
+      this.onResize(dims)
     );
     this.scrollSub = this.scrollService.onScroll
       .pipe(debounceTime(300))
@@ -311,8 +311,8 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
     this.currentSection = sectionId ? sectionId : 's0';
   }
 
-  onResize() {
-    this.mobile = this.window.innerWidth > 991 ? false : true;
+  onResize(dims: any) {
+    this.mobile = dims.width > 991 ? false : true;
     this.showIntro = this.mobile ? false : true;
   }
 

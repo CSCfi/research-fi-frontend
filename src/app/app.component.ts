@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, inject, Inject, PLATFORM_ID, TransferState } from '@angular/core';
+import { Component, HostListener, inject, Inject, PLATFORM_ID, TransferState } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser, JsonPipe, PlatformLocation } from '@angular/common';
 import { AppConfigService } from '@shared/services/app-config-service.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
@@ -14,6 +14,7 @@ import { take } from 'rxjs/operators';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { LayoutComponent } from './layout/layout.component';
 import { MysteryService } from '@portal/services/mystery.service';
+import { ResizeService } from '@shared/services/resize.service';
 
 @Component({
     selector: 'app-root',
@@ -28,10 +29,18 @@ export class AppComponent {
 
   title = 'research-fi-portal';
 
+  @HostListener('window:resize', ['$event'])
+  onWindowResize() {
+    if (isPlatformBrowser(this.platformId)) {
+      this.resizeService.updateScreenSize(window.innerWidth, window.innerHeight);
+    }
+  }
+
   constructor(
     private appConfigService: AppConfigService,
     private oidcSecurityService: OidcSecurityService,
     private appSettingsService: AppSettingsService,
+    private resizeService: ResizeService,
     private router: Router,
     private platform: PlatformLocation,
     @Inject(PLATFORM_ID) private platformId: object,
@@ -39,6 +48,7 @@ export class AppComponent {
   ) {
     // SSR platform check
     if (isPlatformBrowser(this.platformId)) {
+      this.resizeService.updateScreenSize(window.innerWidth, window.innerHeight);
       // APM config
       // const apm = apmService.init({
       //   serviceName: 'Angular',

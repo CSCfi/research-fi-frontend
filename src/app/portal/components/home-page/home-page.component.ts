@@ -173,7 +173,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onResize() {
     // Timeout needs to be added because shortcutItem list doesn't keep up with resize
-    setTimeout((x) => {
+    setTimeout(() => {
       this.getHeight();
     }, 200);
   }

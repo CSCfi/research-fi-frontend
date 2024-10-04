@@ -46,7 +46,11 @@ app-profile-items-table {
   }
 
   .mat-column-show-more {
-    flex: 0 0 6.5rem;
+    display: flex;
+    justify-content: flex-end;
+    a {
+      font-weight: bold;
+    }
   }
 
   // Cell with multiple rows which can be expanded with 'show more'

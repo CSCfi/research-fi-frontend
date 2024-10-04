@@ -7,8 +7,8 @@
 
 <div class="row">
   <div class="col px-0">
-    <div class="row pb-2" *ngFor="let item of filters">
-      <div class="col px-0" [class.narrow]="narrow">
+    <div class="row" *ngFor="let item of filters">
+      <div class="col ps-0 pe-1" [class.narrow]="narrow">
         <mat-chip-listbox class="mat-chip-list-stacked" [selectable]="true">
           <mat-chip-option
             [selected]="
