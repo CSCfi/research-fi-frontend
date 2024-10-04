@@ -3,7 +3,23 @@
 // TODO: Material 3 SASS API is most likely the best practice for customizing Material components.
 
 
-// Researchers profile tool search field
+// Modal
+.mat-mdc-dialog-container {
+  min-width: 50% !important;
+  max-width: 800px !important;
+}
+
+.mat-mdc-dialog-surface, .mdc-dialog__container {
+  max-width: 100%;
+  min-width: 100%;
+}
+
+.mat-mdc-dialog-panel {
+  min-width: 50% !important;
+  max-width: 80% !important;
+}
+
+  // Researchers profile tool search field
 app-search .input {
   margin-left: 2px;
 }
