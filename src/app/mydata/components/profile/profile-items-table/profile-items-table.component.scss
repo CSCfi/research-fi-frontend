@@ -20,7 +20,7 @@ app-profile-items-table {
 
   mat-header-row,
   mat-row {
-    padding: 0 1rem;
+    padding: 0;
   }
 
   mat-row,
@@ -47,9 +47,12 @@ app-profile-items-table {
 
   .mat-column-show-more {
     display: flex;
+    flex-direction: row;
     justify-content: flex-end;
+    padding-right: 24px !important;
     a {
       font-weight: bold;
+      text-decoration-color: #4546B9;
     }
   }
 

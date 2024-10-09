@@ -79,7 +79,7 @@
         <ng-container *ngIf="column.additionalFields">
           <ng-container *ngFor="let additionalField of column.additionalFields">
 
-            <div class="row mt-2 font-size-small w-100" [class.d-none]="additionalField.hidden && showMoreArray.indexOf(i) === -1" *ngIf="item | getValue: additionalField.field">
+            <div class="row font-size-small w-100" [class.d-none]="additionalField.hidden && showMoreArray.indexOf(i) === -1" *ngIf="item | getValue: additionalField.field">
               <!-- Optional label for additional field -->
               <div class="col-12 px-0 fw-bold" *ngIf="item[additionalField.field]?.length">
                 {{ additionalField.label }}

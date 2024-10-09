@@ -152,8 +152,13 @@ mat-chip-option {
 }
 
 // Researchers profile tool terms of use checkboxes
+app-activity-item {
+  line-height: 1.2rem;
+}
+
 mat-checkbox, .mdc-form-field.mat-internal-form-field {
   width: 100% !important;
+  white-space: nowrap !important;
 }
 
 // Dialog modals
@@ -194,24 +199,73 @@ app-search-portal-results .mat-mdc-cell {
   line-height: 1.2rem;
 }
 
-app-data-sources-table, app-search-portal-results {
+.cdk-overlay-pane {
+  --mat-option-label-text-size: 0.85rem;
+}
+
+.mat-mdc-paginator-page-size-select {
+  height: 36px !important;
+}
+.mat-mdc-option {
+  min-height: 36px !important;
+  height: 1.8rem !important;
+}
+
+app-data-sources-table {
+  .mdc-data-table__cell, .mdc-data-table__header-cell {
+    padding:16px 16px 8px 16px !important;
+  }
+}
+
+app-data-sources-table, app-search-portal-results, app-profile-items-table {
   mat-row, mat-header-row, mat-footer-row {
+    padding: 0px;
     margin-bottom: 0px;
     border-bottom: 1px solid black;
   }
 
+  .mdc-data-table__cell {
+    padding: 0px 15px 5px 15px !important;
+    margin-bottom: 5px;
+  }
+
+  .mdc-data-table__header-cell {
+    padding: 7px 15px !important;
+  }
+
   .mat-mdc-cell {
     border-bottom: 1px solid #0000001f !important;
+    white-space: nowrap;
+    .col, a {
+      margin-top: 10px;
+    }
   }
 
   app-table-cell .mat-column-selection mat-checkbox {
     margin-top: 0rem;
   }
-  .mdc-data-table__cell, .mdc-data-table__header-cell {
-    padding:16px 16px 8px 16px !important;
+
+  .mdc-data-table__header-cell {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
   }
+
   app-table :not(mat-header-cell) .mat-column-selection mat-checkbox, app-table-cell .mat-column-selection mat-checkbox {
     margin-top: -0.5rem;
+  }
+}
+
+// Publications table
+app-profile-items-table {
+  .mat-mdc-cell {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    white-space: initial !important;
+    .col, a {
+      margin-top: 7px;
+    }
   }
 }
 

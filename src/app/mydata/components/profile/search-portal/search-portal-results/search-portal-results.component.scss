@@ -34,7 +34,7 @@ app-search-portal-results {
 
   mat-header-row,
   mat-row {
-    padding: 0 1rem;
+    padding: 0px
   }
 
   mat-cell,
@@ -66,9 +66,12 @@ app-search-portal-results {
 
   .mat-column-show-more {
     display: flex;
+    flex-direction: row;
     justify-content: flex-end;
+    padding-right: 24px !important;
     a {
       font-weight: bold;
+      text-decoration-color: #4546B9;
     }
   }
 
