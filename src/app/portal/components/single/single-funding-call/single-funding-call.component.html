@@ -460,6 +460,21 @@
                     <div style='margin-bottom: 1rem'></div>
                   </ng-container>
 
+                  <!-- MUU -->
+                  <ng-container *ngIf='grouped?.MUU?.length > 0'>
+                    <div style='font-weight: bold' i18n>Suomen akatemian muu päättäjä</div>
+
+                    <div *ngFor="let row of grouped.MUU; let i = index">
+                      <div style='display: flex; border-bottom: 1rem'>
+                        <div style='min-width: 80px; margin-right: 1rem'>{{ row.phase }}</div>
+                        <div style='min-width: 80px; margin-right: 1rem'>{{ row.approvalDate | date: 'dd.MM.yyyy' }}</div>
+                        <a [routerLink]='["/results/fundings"]' [queryParams]='{decisionMaker: "MUU", callId: call.id}' i18n>Näytä myönnöt</a>
+                      </div>
+                    </div>
+
+                    <div style='margin-bottom: 1rem'></div>
+                  </ng-container>
+
                 </ng-container>
               </div>
 
