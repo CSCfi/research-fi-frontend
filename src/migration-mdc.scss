@@ -140,7 +140,6 @@ mat-chip-option {
   margin-top: 1px !important;
 }
 
-
 // Button left of search bar
 .mat-mdc-button:not(:disabled) {
   color: #4546b9 !important;
@@ -212,12 +211,33 @@ app-search-portal-results .mat-mdc-cell {
 }
 
 app-data-sources-table {
+  mat-row, mat-header-row, mat-footer-row {
+    margin-bottom: 0px;
+    border-bottom: 1px solid black;
+  }
+
+  .mat-mdc-cell {
+    border-bottom: 1px solid #0000001f !important;
+  }
+
+  app-table-cell .mat-column-selection mat-checkbox {
+    margin-top: 0rem;
+  }
   .mdc-data-table__cell, .mdc-data-table__header-cell {
     padding:16px 16px 8px 16px !important;
   }
+  app-table :not(mat-header-cell) .mat-column-selection mat-checkbox, app-table-cell .mat-column-selection mat-checkbox {
+    margin-top: -0.5rem;
+  }
 }
 
-app-data-sources-table, app-search-portal-results, app-profile-items-table {
+app-search-portal-results, app-profile-items-table {
+  mat-header-row {
+    .mdc-checkbox .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not([data-indeterminate=true])~.mdc-checkbox__background {
+      background-color:#fff
+    }
+  }
+
   mat-row, mat-header-row, mat-footer-row {
     padding: 0px;
     margin-bottom: 0px;
