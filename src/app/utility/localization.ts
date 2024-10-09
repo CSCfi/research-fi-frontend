@@ -8,5 +8,6 @@ export const decisionMakerLabels = {
   BTY: $localize`Biotieteiden, terveyden ja ympäristön tutkimuksen toimikunta`,
   KY:  $localize`Kulttuurin ja yhteiskunnan tutkimuksen toimikunta`,
   TIK: $localize`Tutkimusinfrastruktuurikomitea`,
-  STN: $localize`Strategisen tutkimuksen neuvosto`
+  STN: $localize`Strategisen tutkimuksen neuvosto`,
+  MUU: $localize`Suomen akatemian muu päättäjä`
 } as const;
