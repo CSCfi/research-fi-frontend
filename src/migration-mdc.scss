@@ -39,10 +39,10 @@ bs-tooltip-container {
 // Modal
 .mat-mdc-dialog-container {
   min-width: 50% !important;
-  max-width: 800px !important;
+  //max-width: 800px !important;
 }
 
-.results-component-wrapper {
+
   .cdk-overlay-pane {
     max-width: unset !important;
   }
@@ -50,7 +50,7 @@ bs-tooltip-container {
     max-width: unset !important;
     margin: 25px;
   }
-}
+
 
 .mat-mdc-dialog-surface, .mdc-dialog__container {
   max-width: 100%;
@@ -59,7 +59,7 @@ bs-tooltip-container {
 
 .mat-mdc-dialog-panel {
   min-width: 50% !important;
-  max-width: 80% !important;
+  max-width: unset !important;
 }
 
   // Researchers profile tool search field
@@ -246,6 +246,7 @@ app-search-portal-results .mat-mdc-cell {
 }
 
 .cdk-overlay-pane {
+  margin: 0 !important;
   --mat-option-label-text-size: 0.85rem;
 }
 
