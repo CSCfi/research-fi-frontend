@@ -216,7 +216,10 @@ body app-filters mat-expansion-panel.mat-expansion-panel.mat-expanded, body .fil
 // Expansion panel's checkbox rows
 body .mat-mdc-list-item.mdc-list-item--with-leading-avatar.mdc-list-item--with-one-line, body .mat-mdc-list-item.mdc-list-item--with-leading-checkbox.mdc-list-item--with-one-line, body .mat-mdc-list-item.mdc-list-item--with-leading-icon.mdc-list-item--with-one-line {
   height: auto !important;
-  padding: 5px 0px !important;
+
+  .mdc-list-item__content {
+    padding: 12px 0px !important;
+  }
 }
 
 // Expansion panel's datepicker
