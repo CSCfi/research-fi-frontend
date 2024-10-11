@@ -364,7 +364,7 @@
                     item.label ? item.label : item.key
                   }}</span>
                 </div>
-                <div class="col-2 pe-0 text-end" *ngIf="item.tooltip">
+                <div class="col-2 text-end" *ngIf="item.tooltip">
                   <ng-template #tooltipTemplate>
                     <div [innerHtml]="item?.tooltip"></div>
                   </ng-template>
