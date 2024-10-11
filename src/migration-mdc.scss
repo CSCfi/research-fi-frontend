@@ -34,8 +34,13 @@ bs-tooltip-container {
 }
 
 // Modals
+.mat-mdc-dialog-panel {
+  min-width: 40% !important;
+  max-width: unset !important;
+}
+
 .mat-mdc-dialog-container {
-  min-width: 50% !important;
+  min-width: 40% !important;
   margin: 25px 0px 0px 0px !important;
   //max-width: 800px !important;
 }
@@ -53,11 +58,6 @@ bs-tooltip-container {
   max-width: unset !important;
   max-width: 100%;
   min-width: 100%;
-}
-
-.mat-mdc-dialog-panel {
-  min-width: 50% !important;
-  max-width: unset !important;
 }
 
 .welcome-stepper-wrap {
