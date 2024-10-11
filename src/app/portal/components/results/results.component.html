@@ -432,7 +432,9 @@ Copyright 2019 Ministry of Education and Culture, Finland
   </ng-template>
 
   <!-- Reusable dialog -->
+  <div class="chart-wrapper">
   <app-dialog
+          class="chart-wrapper"
     *ngIf="showDialog"
     [template]="dialogTemplate"
     [title]="dialogTitle"
@@ -444,6 +446,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
     extraClass="visual-dialog"
     [headerInfoTemplate]="dialogHeaderInfo"
   ></app-dialog>
+  </div>
 
   <ng-template #dialogHeaderInfo>
     <div

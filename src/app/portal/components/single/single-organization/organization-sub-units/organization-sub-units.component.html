@@ -24,7 +24,6 @@
   <div class="col-12 col-sm-6 col-lg-9 td">
     <ul class="list-unstyled">
       <li *ngFor="let subUnit of item.subUnits">
-        <p>{{item | json}}</p>
         <a
           [routerLink]="['/results/publications/' + subUnit.subUnitID]"
           [queryParams]="{ target: 'subUnitID', organization: item.id }"

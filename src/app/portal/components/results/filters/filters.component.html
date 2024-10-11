@@ -377,7 +377,8 @@
                     <fa-icon class="info-icon" icon="info-circle"></fa-icon>
                   </span>
                 </div>
-                <div class="col-2 count">
+                <!-- [ngClass]="['item.tooltip', { 'col-2': item.tooltip }, { 'col-2': !item.tooltip }]" -->
+                <div [className]="item.tooltip ? 'count col-2' : 'count col-4'">
                   <span
                     class="amount"
                     [innerHtml]="item.doc_count | thousandSeparator"

@@ -3,10 +3,53 @@
 // TODO: Material 3 SASS API is most likely the best practice for customizing Material components.
 
 
+
+
+// Icons
+.svg-inline--fa {
+  max-height: 42px !important;
+  max-width: 42px !important;
+}
+
+.info-icon {
+  .svg-inline--fa {
+    max-height: 16px !important;
+    max-width: 16px !important;
+  }
+}
+
+// Filters
+mat-list-option {
+  overflow-x: unset !important;
+  overflow-y: unset !important;
+  height: auto !important;
+  line-height: 1.25rem !important;
+}
+
+.mdc-list-item__primary-text {
+  white-space: normal !important;
+}
+
+// Tooltip
+bs-tooltip-container {
+  z-index: 10000 !important;
+  position: absolute;
+}
+
 // Modal
 .mat-mdc-dialog-container {
   min-width: 50% !important;
   max-width: 800px !important;
+}
+
+.results-component-wrapper {
+  .cdk-overlay-pane {
+    max-width: unset !important;
+  }
+  .mat-mdc-dialog-surface, .mdc-dialog__container {
+    max-width: unset !important;
+    margin: 25px;
+  }
 }
 
 .mat-mdc-dialog-surface, .mdc-dialog__container {
@@ -170,9 +213,10 @@ body app-filters mat-expansion-panel.mat-expansion-panel.mat-expanded, body .fil
   font-size: 0.88rem;
 }
 
-// Expansion panel's checkbox lines
+// Expansion panel's checkbox rows
 body .mat-mdc-list-item.mdc-list-item--with-leading-avatar.mdc-list-item--with-one-line, body .mat-mdc-list-item.mdc-list-item--with-leading-checkbox.mdc-list-item--with-one-line, body .mat-mdc-list-item.mdc-list-item--with-leading-icon.mdc-list-item--with-one-line {
-  height: 44px !important;
+  height: auto !important;
+  padding: 5px 0px !important;
 }
 
 // Expansion panel's datepicker
@@ -195,7 +239,7 @@ mat-row, mat-header-row, mat-footer-row {
 app-search-portal-results .mat-mdc-cell {
   padding: 8px 10px;
   padding-left: 10px;
-  line-height: 1.2rem;
+  line-height: 1.25rem !important;
 }
 
 .cdk-overlay-pane {
