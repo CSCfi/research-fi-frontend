@@ -2,9 +2,6 @@
 
 // TODO: Material 3 SASS API is most likely the best practice for customizing Material components.
 
-
-
-
 // Icons
 .svg-inline--fa {
   max-height: 42px !important;
@@ -36,23 +33,19 @@ bs-tooltip-container {
   position: absolute;
 }
 
-// Modal
+// Modals
 .mat-mdc-dialog-container {
   min-width: 50% !important;
+  margin: 0px !important;
   //max-width: 800px !important;
 }
 
-
-  .cdk-overlay-pane {
-    max-width: unset !important;
-  }
-  .mat-mdc-dialog-surface, .mdc-dialog__container {
-    max-width: unset !important;
-    margin: 25px;
-  }
-
+.cdk-overlay-pane {
+  max-width: unset !important;
+}
 
 .mat-mdc-dialog-surface, .mdc-dialog__container {
+  max-width: unset !important;
   max-width: 100%;
   min-width: 100%;
 }
@@ -62,7 +55,17 @@ bs-tooltip-container {
   max-width: unset !important;
 }
 
-  // Researchers profile tool search field
+.welcome-stepper-wrap {
+  mat-stepper {
+    max-width: 550px !important;
+  }
+}
+
+.feedback-form {
+  max-width: 930px !important;
+}
+
+// Researchers profile tool search field
 app-search .input {
   margin-left: 2px;
 }
@@ -76,12 +79,15 @@ app-search .input {
 app-funding-call-category-filters {
   .mat-chip {
     max-height: 32px;
+
     button:hover:not(:active) {
       //background-color: #f7f7fb;
     }
+
     .mat-mdc-focus-indicator {
       background-color: #4546b9 !important;
     }
+
     button:active {
       //background-color: #4546b9;
     }
@@ -102,17 +108,21 @@ mat-datepicker-toggle {
   &.x-button {
     margin-right: -14px !important;
   }
+
   mat-icon {
     padding: 10px;
     margin-left: -5px;
     font-size: 1.3rem;
     font-weight: bold;
   }
+
   .mat-mdc-button-persistent-ripple {
     display: none !important;
   }
+
   button {
     margin-bottom: -10px;
+
     &:hover {
       background-color: transparent !important;
       fill: transparent !important;
@@ -128,8 +138,9 @@ mat-calendar {
 
 .mdc-floating-label--float-above {
   margin-top: -1px !important;
+
   mat-label {
-  font-size: 1rem !important;
+    font-size: 1rem !important;
   }
 }
 
@@ -153,6 +164,7 @@ mat-chip-option {
 .mdc-evolution-chip__text-label {
   white-space: initial !important;
   font-size: 0.875rem !important;
+
   &.mat-mdc-chip-action-label {
     padding: 5px 13px;
   }
@@ -204,7 +216,7 @@ mat-checkbox, .mdc-form-field.mat-internal-form-field {
 }
 
 // Dialog modals
-mat-dialog-content .mat-mdc-radio-button.mat-accent{
+mat-dialog-content .mat-mdc-radio-button.mat-accent {
   margin: 0px;
 }
 
@@ -253,6 +265,7 @@ app-search-portal-results .mat-mdc-cell {
 .mat-mdc-paginator-page-size-select {
   height: 36px !important;
 }
+
 .mat-mdc-option {
   min-height: 36px !important;
   height: 1.8rem !important;
@@ -271,9 +284,11 @@ app-data-sources-table {
   app-table-cell .mat-column-selection mat-checkbox {
     margin-top: 0rem;
   }
+
   .mdc-data-table__cell, .mdc-data-table__header-cell {
-    padding:16px 16px 8px 16px !important;
+    padding: 16px 16px 8px 16px !important;
   }
+
   app-table :not(mat-header-cell) .mat-column-selection mat-checkbox, app-table-cell .mat-column-selection mat-checkbox {
     margin-top: -0.5rem;
   }
@@ -281,8 +296,8 @@ app-data-sources-table {
 
 app-search-portal-results, app-profile-items-table {
   mat-header-row {
-    .mdc-checkbox .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not([data-indeterminate=true])~.mdc-checkbox__background {
-      background-color:#fff
+    .mdc-checkbox .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not([data-indeterminate=true]) ~ .mdc-checkbox__background {
+      background-color: #fff
     }
   }
 
@@ -304,6 +319,7 @@ app-search-portal-results, app-profile-items-table {
   .mat-mdc-cell {
     border-bottom: 1px solid #0000001f !important;
     white-space: nowrap;
+
     .col, a {
       margin-top: 10px;
     }
@@ -331,6 +347,7 @@ app-profile-items-table {
     flex-direction: column;
     justify-content: start;
     white-space: initial !important;
+
     .col, a {
       margin-top: 7px;
     }

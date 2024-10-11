@@ -5,6 +5,7 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
+<div class="feedback-form">
 <div class="row" *ngIf="!result; else resultTemplate">
   <div class="col">
     <p i18n="@@r1">
@@ -205,6 +206,7 @@
       </div>
     </ng-template>
   </div>
+</div>
 </div>
 
 <ng-template #resultTemplate>
