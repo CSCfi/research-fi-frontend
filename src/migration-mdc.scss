@@ -36,8 +36,13 @@ bs-tooltip-container {
 // Modals
 .mat-mdc-dialog-container {
   min-width: 50% !important;
-  margin: 0px !important;
+  margin: 25px 0px 0px 0px !important;
   //max-width: 800px !important;
+}
+
+.mat-dialog-content {
+  margin: 25px 0px 0px 0px;
+  max-height: 65vh !important;
 }
 
 .cdk-overlay-pane {
@@ -217,11 +222,6 @@ app-activity-item {
 mat-checkbox, .mdc-form-field.mat-internal-form-field {
   width: 100% !important;
   white-space: nowrap !important;
-}
-
-// Dialog modals
-mat-dialog-content .mat-mdc-radio-button.mat-accent {
-  margin: 0px;
 }
 
 // Expansion panel's content in search pages
