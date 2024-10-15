@@ -60,6 +60,10 @@ bs-tooltip-container {
   overflow-y: inherit !important;
 }
 
+.mdc-dialog__actions {
+  border-top: 1px solid #0000001f !important;
+}
+
 .welcome-stepper-wrap {
   mat-stepper {
     max-width: 550px !important;
@@ -261,9 +265,21 @@ app-search-portal-results .mat-mdc-cell {
   line-height: 1.25rem !important;
 }
 
+.checkbox-header-cell {
+  min-width: 65px;
+}
+
+.show-more-cell {
+  flex: 1;
+  white-space: initial;
+}
+
 .cdk-overlay-pane {
   margin: 0 !important;
   --mat-option-label-text-size: 0.85rem;
+}
+.mat-mdc-paginator {
+  font-size: 0.85rem !important;
 }
 
 .mat-mdc-paginator-page-size-select {
@@ -300,29 +316,34 @@ app-data-sources-table {
 
 app-search-portal-results, app-profile-items-table {
   mat-header-row {
-    .mdc-checkbox .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not([data-indeterminate=true]) ~ .mdc-checkbox__background {
-      background-color: #fff
+    .mdc-checkbox .mdc-checkbox__native-control:not(:checked) ~ .mdc-checkbox__background, .mdc-checkbox__background:hover,
+    .mdc-checkbox:not(:disabled):active .mdc-checkbox__native-control:not(:checked)~.mdc-checkbox__background {
+      background-color: #fff !important
+    }
+    .mdc-checkbox {
+      margin-left: 15px;
     }
   }
 
   mat-row, mat-header-row, mat-footer-row {
     padding: 0px;
     margin-bottom: 0px;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #0000001f !important;
   }
 
   .mdc-data-table__cell {
-    padding: 0px 15px 5px 15px !important;
+    //padding: 3px 0px 6px 15px !important;
+    padding: 0px 0px 0px 15px !important;
     margin-bottom: 5px;
   }
 
   .mdc-data-table__header-cell {
-    padding: 7px 15px !important;
+    padding: 4px 15px 4px 0px !important;
   }
 
   .mat-mdc-cell {
-    border-bottom: 1px solid #0000001f !important;
-    white-space: nowrap;
+
+    white-space: normal;
 
     .col, a {
       margin-top: 10px;
