@@ -34,22 +34,22 @@ describe('SearchBarComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [SearchBarComponent],
-      providers: [
+    providers: [
         SearchService,
         AutosuggestService,
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: AppConfigService, useClass: AppConfigServiceMock },
         WINDOW_PROVIDERS,
-      ],
-      imports: [
+    ],
+    imports: [
         HttpClientTestingModule,
         RouterTestingModule,
         MatMenuModule,
-        MatDialogModule
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    });
+        MatDialogModule,
+        SearchBarComponent
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+});
 
     fixture = TestBed.createComponent(SearchBarComponent);
     searchBarComponent = fixture.componentInstance;

@@ -1,43 +1,54 @@
-// This file is part of the research.fi API service
-//
-// Copyright 2019 Ministry of Education and Culture, Finland
-//
-// :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
-// :license: MIT
-
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { HomePageComponent } from './components/home-page/home-page.component';
-import { ResultsComponent } from './components/results/results.component';
-import { SinglePublicationComponent } from './components/single/single-publication/single-publication.component';
-import { SingleFundingComponent } from './components/single/single-funding/single-funding.component';
-import { SingleOrganizationComponent } from './components/single/single-organization/single-organization.component';
-import { VisualisationComponent } from './components/visualisation/visualisation.component';
-import { NewsComponent } from './components/news/news/news.component';
-// tslint:disable-next-line: max-line-length
-import { ResearchInnovationSystemComponent } from './components/science-politics/research-innovation-system/research-innovation-system.component';
-import { FiguresComponent } from './components/science-politics/figures/figures.component';
-import { OpenScienceAndResearchIndicatorsComponent } from './components/science-politics/open-science-and-research-indicators/open-science-and-research-indicators.component';
-import { ExternalLinksComponent } from './components/science-politics/external-links/external-links.component';
-import { SingleFigureComponent } from './components/science-politics/figures/single-figure/single-figure.component';
-import { ServiceInfoComponent } from './components/service-info/service-info.component';
-import { PrivacyComponent } from './components/privacy/privacy.component';
-import { AccessibilityComponent } from './components/accessibility/accessibility.component';
-import { SitemapComponent } from './components/sitemap/sitemap.component';
-import { SingleInfrastructureComponent } from './components/single/single-infrastructure/single-infrastructure.component';
-import { NotFoundComponent } from '../shared/components/not-found/not-found.component';
-import { PageResolverService } from '../shared/resolvers/page-resolver.service';
-import { ResearchInnovationSystemSectorResolver } from './resolvers/research-innovation-system-sector-resolver.service';
-import { ExternalLinkResolver } from './resolvers/external-link-resolver.service';
-import { ShortcutResolverService } from './resolvers/shortcut-resolver.service';
-import { SingleDatasetComponent } from './components/single/single-dataset/single-dataset.component';
-import { SingleFundingCallComponent } from './components/single/single-funding-call/single-funding-call.component';
-import { SingleIndicatorComponent } from './components/science-politics/open-science-and-research-indicators/single-indicator/single-indicator.component';
-import { SinglePersonComponent } from './components/single/single-person/single-person.component';
+import { Routes } from '@angular/router';
+import { PageResolverService } from '@shared/resolvers/page-resolver.service';
+import { HomePageComponent } from '@portal/components/home-page/home-page.component';
+import { ShortcutResolverService } from '@portal/resolvers/shortcut-resolver.service';
+import { SinglePublicationComponent } from '@portal/components/single/single-publication/single-publication.component';
+import { SinglePersonComponent } from '@portal/components/single/single-person/single-person.component';
+import { SingleFundingComponent } from '@portal/components/single/single-funding/single-funding.component';
+import { SingleDatasetComponent } from '@portal/components/single/single-dataset/single-dataset.component';
+import {
+  SingleOrganizationComponent
+} from '@portal/components/single/single-organization/single-organization.component';
+import {
+  SingleInfrastructureComponent
+} from '@portal/components/single/single-infrastructure/single-infrastructure.component';
+import {
+  SingleFundingCallComponent
+} from '@portal/components/single/single-funding-call/single-funding-call.component';
 import { Publications2Component } from '@portal/components/results/publications2/publications2.component';
-// import { TkiReportsComponent } from "@portal/components/science-politics/tki-reports/tki-reports.component";
+import { ResultsComponent } from '@portal/components/results/results.component';
+import { VisualisationComponent } from '@portal/components/visualisation/visualisation.component';
+import { NewsComponent } from '@portal/components/news/news/news.component';
+import {
+  ResearchInnovationSystemComponent
+} from '@portal/components/science-politics/research-innovation-system/research-innovation-system.component';
+import {
+  ResearchInnovationSystemSectorResolver
+} from '@portal/resolvers/research-innovation-system-sector-resolver.service';
+import { ExternalLinksComponent } from '@portal/components/science-politics/external-links/external-links.component';
+import { ExternalLinkResolver } from '@portal/resolvers/external-link-resolver.service';
+import { FiguresComponent } from '@portal/components/science-politics/figures/figures.component';
+import {
+  SingleFigureComponent
+} from '@portal/components/science-politics/figures/single-figure/single-figure.component';
+import {
+  OpenScienceAndResearchIndicatorsComponent
+} from '@portal/components/science-politics/open-science-and-research-indicators/open-science-and-research-indicators.component';
+import {
+  SingleIndicatorComponent
+} from '@portal/components/science-politics/open-science-and-research-indicators/single-indicator/single-indicator.component';
+import { ServiceInfoComponent } from '@portal/components/service-info/service-info.component';
+import { PrivacyComponent } from '@portal/components/privacy/privacy.component';
+import { AccessibilityComponent } from '@portal/components/accessibility/accessibility.component';
+import { SitemapComponent } from '@portal/components/sitemap/sitemap.component';
+import { NotFoundComponent } from '@shared/components/not-found/not-found.component';
 
-const routes: Routes = [
+export const routes: Routes = [
+  {
+    path: 'mydata',
+    loadChildren: () =>
+      import('./mydata/mydata-routing.module').then((m) => m.MyDataRoutingModule),
+  },
   {
     path: '',
     pathMatch: 'full',
@@ -235,9 +246,3 @@ const routes: Routes = [
     pathMatch: 'full',
   },
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
-})
-export class PortalRoutingModule {}

@@ -1,20 +1,30 @@
 import { Component, EventEmitter, OnInit, Output, ViewEncapsulation } from '@angular/core';
-import { MatStepperModule } from '@angular/material/stepper'
+import { MatStepperModule, MatStepper, MatStep, MatStepLabel, MatStepContent } from '@angular/material/stepper'
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { ActivatedRoute, NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Location } from "@angular/common";
+import { Location, AsyncPipe } from "@angular/common";
 import { DialogEventsService } from '@shared/services/dialog-events.service';
 import { DialogAction } from '../../../../types';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { DialogComponent } from '../../../shared/components/dialog/dialog.component';
 
 @Component({
-  selector: 'app-welcome-stepper',
-  templateUrl: './welcome-stepper.component.html',
-  styleUrls: ['./welcome-stepper.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-welcome-stepper',
+    templateUrl: './welcome-stepper.component.html',
+    styleUrls: ['./welcome-stepper.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [
+        MatStepper,
+        MatStep,
+        MatStepLabel,
+        MatStepContent,
+        DialogComponent,
+        AsyncPipe,
+    ],
 })
 
 export class WelcomeStepperComponent implements OnInit {

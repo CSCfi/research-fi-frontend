@@ -16,6 +16,7 @@ app-secondary-button {
   }
 }
 
+/*  TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.*/
 mat-checkbox:not(:first-of-type),
 mat-checkbox:not(:last-of-type) {
   padding: 0.5rem 0;

@@ -29,11 +29,26 @@ import { TableRow } from 'src/types';
 import { TableComponent } from '@shared/components/table/table.component';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { PaginationComponent } from '../../../../../shared/components/pagination/pagination.component';
+import { TableComponent as TableComponent_1 } from '../../../../../shared/components/table/table.component';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-data-sources-table',
-  templateUrl: './data-sources-table.component.html',
-  styleUrls: ['./data-sources-table.component.scss'],
+    selector: 'app-data-sources-table',
+    templateUrl: './data-sources-table.component.html',
+    styleUrls: ['./data-sources-table.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        TableComponent_1,
+        PaginationComponent,
+        NgFor,
+        MatMenuTrigger,
+        MatMenu,
+        MatMenuItem,
+        AsyncPipe,
+    ],
 })
 export class DataSourcesTableComponent
   implements OnInit, AfterViewInit, OnChanges, OnDestroy

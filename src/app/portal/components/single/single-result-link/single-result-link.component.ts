@@ -6,11 +6,22 @@
 //  :license: MIT
 
 import { Component, Input } from '@angular/core';
+import { FixExternalUrlPipe } from '../../../pipes/fix-external-url.pipe';
+import { TrimLinkPrefixPipe } from '../../../../shared/pipes/trim-link-prefix.pipe';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-single-result-link',
-  templateUrl: './single-result-link.component.html',
-  styleUrls: ['./single-result-link.component.scss'],
+    selector: 'app-single-result-link',
+    templateUrl: './single-result-link.component.html',
+    styleUrls: ['./single-result-link.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        FontAwesomeModule,
+        TrimLinkPrefixPipe,
+        FixExternalUrlPipe,
+    ],
 })
 export class SingleResultLinkComponent {
   @Input() tag: string;

@@ -15,16 +15,21 @@ import {
   TemplateRef,
 } from '@angular/core';
 import { Visual } from 'src/app/portal/models/visualisation/visualisations.model';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, NgIf } from '@angular/common';
 import { WINDOW } from 'src/app/shared/services/window.service';
+import { PieComponent } from './pie/pie.component';
+import { BarComponent } from './bar/bar.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
-  selector: 'app-visualisation',
-  templateUrl: './visualisation.component.html',
-  styleUrls: ['./visualisation.component.scss'],
-  host: {
-    '(window:resize)': 'onResize($event)'
-  }
+    selector: 'app-visualisation',
+    templateUrl: './visualisation.component.html',
+    styleUrls: ['./visualisation.component.scss'],
+    host: {
+        '(window:resize)': 'onResize($event)'
+    },
+    standalone: true,
+    imports: [NgIf, MatProgressSpinner, BarComponent, PieComponent]
 })
 export class VisualisationComponent implements OnInit {
   @ViewChild('main') main: ElementRef;

@@ -80,7 +80,7 @@ export class AppSettingsService {
   };
 
   myDataSettings = {
-    debug: !environment.production,
+    debug: false, // !environment.production,
     beta: true,
     appName: 'myData',
     label: $localize`:@@researchersProfile:Tutkijan tiedot -työkalu`,

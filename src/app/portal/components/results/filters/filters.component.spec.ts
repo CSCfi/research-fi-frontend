@@ -33,16 +33,15 @@ describe('FiltersComponent', () => {
 
   beforeEach((() => {
     TestBed.configureTestingModule({
-      declarations: [FiltersComponent],
-      providers: [
+    providers: [
         { provide: Router, useValue: routerSpy },
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
         WINDOW_PROVIDERS,
         PublicationFilterService,
-      ],
-      imports: [MatDialogModule],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    ],
+    imports: [MatDialogModule, FiltersComponent],
+    schemas: [NO_ERRORS_SCHEMA],
+}).compileComponents();
 
     fixture = TestBed.createComponent(FiltersComponent);
     component = fixture.componentInstance;

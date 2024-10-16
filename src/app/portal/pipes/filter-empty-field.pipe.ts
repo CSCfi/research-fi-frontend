@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 
 @Pipe({
-  name: 'filterEmptyField',
+    name: 'filterEmptyField',
+    standalone: true,
 })
 
 // Helper pipe for checking if the field exists and has data

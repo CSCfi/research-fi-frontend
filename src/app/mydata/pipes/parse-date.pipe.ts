@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'parseDate',
+    name: 'parseDate',
+    standalone: true,
 })
 export class ParseDatePipe implements PipeTransform {
   transform(object: any): unknown {

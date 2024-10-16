@@ -9,7 +9,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { CheckFieldLocalePipe } from './check-field-locale.pipe';
 
 @Pipe({
-  name: 'getPrimaryOptions',
+    name: 'getPrimaryOptions',
+    standalone: true,
 })
 export class GetPrimaryOptionsPipe implements PipeTransform {
   transform(

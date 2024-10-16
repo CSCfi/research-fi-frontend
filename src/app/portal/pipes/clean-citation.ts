@@ -8,7 +8,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'cleanCitation',
+    name: 'cleanCitation',
+    standalone: true,
 })
 export class CleanCitationPipe implements PipeTransform {
   constructor() {}

@@ -8,7 +8,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'hasSelectedItems',
+    name: 'hasSelectedItems',
+    standalone: true,
 })
 export class HasSelectedItemsPipe implements PipeTransform {
   transform(data: any): boolean {

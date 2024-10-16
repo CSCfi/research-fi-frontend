@@ -3219,12 +3219,6 @@
       <trans-unit id="publication2.tutorial.52" datatype="html">
         <source> Jokerimerkillä * voit korvata yhden tai useamman merkin hakusanan keskeltä tai lopusta. Jokerimerkki * edustaa myös tyhjää merkkiä. Jos haluat hakea samaan aikaan esimerkiksi sanoja &quot;color&quot; ja &quot;colour&quot;, voit käyttää hakutermiä colo*r. Esimerkiksi hakutermillä tietotek* voit hakea sanoja jotka alkavat kirjaimilla tietotek, kuten &quot;tietotekniikka&quot; ja &quot;tietotekniset&quot;. </source>
       </trans-unit>
-      <trans-unit id="2404930950771668634" datatype="html">
-        <source>Suomen akatemian muu päättäjä</source>
-      </trans-unit>
-      <trans-unit id="5b7cc93f54464f32cf771464204823d4113f0799" datatype="html">
-        <source>Suomen akatemian muu päättäjä</source>
-      </trans-unit>
     </body>
   </file>
 </xliff>

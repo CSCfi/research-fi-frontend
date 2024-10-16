@@ -14,7 +14,7 @@
   <!-- Selection column -->
   <ng-container matColumnDef="selection">
     <!-- Select all -->
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef [style]="'flex: 0'">
       <!-- Hidden from beta -->
        <mat-checkbox
         (change)="toggleAll($event)"
@@ -23,7 +23,7 @@
     </mat-header-cell>
 
     <!-- Row select -->
-    <mat-cell *matCellDef="let item; let i = index">
+    <mat-cell *matCellDef="let item; let i = index" [style]="'flex: 0'">
       <mat-checkbox
         (change)="toggleItem($event, item)"
         [checked]="item.itemMeta?.show"
@@ -33,7 +33,7 @@
 
   <ng-container *ngFor="let column of columns">
     <ng-container [matColumnDef]="column.id">
-      <mat-header-cell *matHeaderCellDef [mat-sort-header]="column.id" [style]="'flex: 0 0 ' + column.width">
+      <mat-header-cell *matHeaderCellDef [mat-sort-header]="column.id" [style]="'flex: ' + column.width">
         {{ column.label }}
 
         <!-- Sort indicators -->
@@ -50,7 +50,7 @@
         </div>
       </mat-header-cell>
 
-      <mat-cell *matCellDef="let item; let i = index" [style]="'flex: 0 0 ' + column.width" [class.expandable-cell]="column.additionalFields">
+      <mat-cell *matCellDef="let item; let i = index" [style]="'flex: ' + column.width" [class.expandable-cell]="column.additionalFields">
         <div class="row w-100">
 
           <ng-container *ngIf="column.field !== 'source'; else sourceCellTemplate">
@@ -79,7 +79,7 @@
         <ng-container *ngIf="column.additionalFields">
           <ng-container *ngFor="let additionalField of column.additionalFields">
 
-            <div class="row mt-2 font-size-small w-100" [class.d-none]="additionalField.hidden && showMoreArray.indexOf(i) === -1" *ngIf="item | getValue: additionalField.field">
+            <div class="row font-size-small w-100" [class.d-none]="additionalField.hidden && showMoreArray.indexOf(i) === -1" *ngIf="item | getValue: additionalField.field">
               <!-- Optional label for additional field -->
               <div class="col-12 px-0 fw-bold" *ngIf="item[additionalField.field]?.length">
                 {{ additionalField.label }}
@@ -110,7 +110,7 @@
   </ng-container>
 
   <ng-container matColumnDef="show-more">
-    <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef class="show-more-cell"> </mat-header-cell>
     <mat-cell *matCellDef="let item; let i = index">
       <a href="javascript:void(0)" (click)="toggleShowMore(i)">
         <ng-container *ngIf="showMoreArray.indexOf(i) === -1" i18n="@@showMore">

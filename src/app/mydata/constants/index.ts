@@ -107,13 +107,14 @@ export const PublicationColumns = [
     id: 'year',
     label: $localize`:@@year:Vuosi`,
     field: 'publicationYear',
-    width: '4rem;',
+    width: '1',
   },
   {
     id: 'name',
     ellipsis: true,
     label: $localize`:@@name:Nimi`,
     field: 'title',
+    width: '8',
     additionalFields: [
       { field: 'authors', ellipsis: true },
       { field: 'parentPublicationName', hidden: true },
@@ -124,7 +125,7 @@ export const PublicationColumns = [
     id: 'source',
     label: $localize`:@@source:Lähde`,
     field: 'source',
-    width: '8rem',
+    width: '2',
   },
 ];
 
@@ -133,13 +134,14 @@ export const DatasetColumns = [
     id: 'year',
     label: $localize`:@@year:Vuosi`,
     field: 'year',
-    width: '4rem;',
+    width: '1',
   },
   {
     id: 'name',
     ellipsis: true,
     label: $localize`:@@name:Nimi`,
     field: 'name',
+    width: '8',
     additionalFields: [
       {
         field: 'authors',
@@ -163,7 +165,7 @@ export const DatasetColumns = [
     id: 'source',
     label: $localize`:@@source:Lähde`,
     field: 'source',
-    width: '8rem',
+    width: '2',
   },
 ];
 
@@ -172,13 +174,14 @@ export const ActivityColumns = [
     id: 'timing',
     label: $localize`:@@timing:Ajoitus`,
     field: 'timing',
-    width: '6rem;',
+    width: '2',
   },
   {
     id: 'roleNameType',
     ellipsis: true,
     label: $localize`:@@activity:Aktiviteetti`,
     field: 'roleNameType',
+    width: '6',
     additionalFields: [
       {
         field: 'type',
@@ -211,7 +214,7 @@ export const ActivityColumns = [
     id: 'source',
     label: $localize`:@@source:Lähde`,
     field: 'source',
-    width: '8rem',
+    width: '2',
   },
 ];
 
@@ -220,13 +223,14 @@ export const FundingColumns = [
     id: 'year',
     label: $localize`:@@year:Vuosi`,
     field: 'startYear',
-    width: '4rem;',
+    width: '1',
   },
   {
     id: 'name',
     ellipsis: true,
     label: $localize`:@@name:Nimi`,
     field: 'name',
+    width: '8',
     additionalFields: [
       // { field: 'funderProjectNumber' },
       // {
@@ -252,7 +256,7 @@ export const FundingColumns = [
     id: 'source',
     label: $localize`:@@source:Lähde`,
     field: 'source',
-    width: '8rem',
+    width: '2',
   },
 ];
 

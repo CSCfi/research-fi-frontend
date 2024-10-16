@@ -5,26 +5,40 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-@import '@angular/material/theming';
+@use 'migration' as *;
 
 @mixin app-filters-theme-shared($theme) {
   $primary: map-get($theme, primary);
 
 
   app-funding-call-category-filters {
-    .mat-chip {
+    margin-bottom: 10px;
+    .mat-mdc-chip {
       border: 2px solid mat-color($primary, 500);
-      color:  mat-color($primary, 500);
+      color: mat-color($primary, 500);
 
-      &.mat-standard-chip {
-        background-color: mat-contrast($primary, 500);
-        background: mat-contrast($primary, 500);
+      &.cdk-focused .mat-mdc-chip-focus-overlay {
+        //background-color: transparent;
+        &:hover{
+          background-color: mat-contrast($primary, 500);
+        }
+      }
+
+      &.mat-mdc-standard-chip {
+        &:not(.mdc-evolution-chip--disabled) {
+          background: transparent;
+        }
+        &.mdc-evolution-chip--selected {
+          background: mat-color($primary, 500) !important;
+        }
+
         &:hover::after, &:focus::after {
           opacity: 0;
         }
         &:hover {
-          background: mat-color($primary, 100) !important;
+          background: mat-color($primary, 100);
         }
+        /*  TODO(mdc-migration): The following rule targets internal classes of chips that may no longer apply for the MDC version.*/
         &.mat-chip-selected {
           background-color: mat-color($primary, 500) !important;
         }
@@ -53,13 +67,13 @@
     .filter-sidebar h3 {
       background: mat-color($primary, 100);
     }
-
+    /*  TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.*/
     span.mat-checkbox-label,
     span.label {
       color: mat-contrast($primary, 200);
     }
-
-    .mat-checkbox .mat-checkbox-frame {
+    /*  TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.*/
+    .mat-mdc-checkbox .mat-checkbox-frame {
       background: mat-contrast($primary, 500);
     }
 
@@ -103,7 +117,7 @@
     }
 
     // Single checkbox items
-    .mat-checkbox:hover {
+    .mat-mdc-checkbox:hover {
       background: none !important;
     }
 
