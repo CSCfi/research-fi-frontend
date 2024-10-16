@@ -174,13 +174,14 @@ export const ActivityColumns = [
     id: 'timing',
     label: $localize`:@@timing:Ajoitus`,
     field: 'timing',
-    width: '6',
+    width: '2',
   },
   {
     id: 'roleNameType',
     ellipsis: true,
     label: $localize`:@@activity:Aktiviteetti`,
     field: 'roleNameType',
+    width: '6',
     additionalFields: [
       {
         field: 'type',
