@@ -9,12 +9,28 @@ import { cloneDeep } from 'lodash-es';
 import { Constants } from '@mydata/constants';
 import { getName } from '@mydata/utils';
 import { SnackbarService } from '@mydata/services/snackbar.service';
+import { DialogComponent } from '../../../shared/components/dialog/dialog.component';
+import { PrimaryActionButtonComponent } from '../../../shared/components/buttons/primary-action-button/primary-action-button.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { SecondaryButtonComponent } from '../../../shared/components/buttons/secondary-button/secondary-button.component';
+import { NgIf, AsyncPipe } from '@angular/common';
+import { BannerDividerComponent } from '@shared/components/banner-divider/banner-divider.component';
 
 @Component({
-  selector: 'app-account-settings',
-  templateUrl: './account-settings.component.html',
-  styleUrls: ['./account-settings.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-account-settings',
+    templateUrl: './account-settings.component.html',
+    styleUrls: ['./account-settings.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+  imports: [
+    NgIf,
+    SecondaryButtonComponent,
+    MatProgressSpinner,
+    PrimaryActionButtonComponent,
+    DialogComponent,
+    AsyncPipe,
+    BannerDividerComponent
+  ]
 })
 export class AccountSettingsComponent implements OnInit {
   orcid: any;
@@ -162,9 +178,6 @@ export class AccountSettingsComponent implements OnInit {
       case 'hidePublicProfile': {
         this.hidePublicProfile();
         break;
-      }
-      case 'showPublicProfile': {
-        this.showPublicProfile();
       }
       case 'changeOrcidFetchState': {
         this.enableOrDisableOrcidFetching();

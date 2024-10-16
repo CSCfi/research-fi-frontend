@@ -115,7 +115,8 @@
       ></app-activity-item>
     </ng-container>
 
-    <ng-template #publicationTemplate [ngTemplateOutlet]="currentTemplate">
+    <!-- TODO: Undefined variable for [ngTemplateOutlet]="currentTemplate" during Angular 17 upgrade -->
+    <ng-template #publicationTemplate>
       <!-- item from search (portal) -->
 
       <ng-container *ngIf="_item.title">

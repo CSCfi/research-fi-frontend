@@ -9,10 +9,21 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { SortByOption } from 'src/types';
+import { NgFor } from '@angular/common';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { SecondaryButtonComponent } from '../secondary-button/secondary-button.component';
 
 @Component({
-  selector: 'app-sort-by-button',
-  templateUrl: './sort-by-button.component.html',
+    selector: 'app-sort-by-button',
+    templateUrl: './sort-by-button.component.html',
+    standalone: true,
+    imports: [
+        SecondaryButtonComponent,
+        MatMenuTrigger,
+        MatMenu,
+        MatMenuItem,
+        NgFor,
+    ],
 })
 
 /*

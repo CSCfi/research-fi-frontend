@@ -9,7 +9,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { CapitalizedLocales } from '@shared/constants';
 
 @Pipe({
-  name: 'getLocalizedValues',
+    name: 'getLocalizedValues',
+    standalone: true,
 })
 
 /*

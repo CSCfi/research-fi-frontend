@@ -10,7 +10,9 @@ import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from 'src/app/shared/services/app-config-service.service';
 import { SettingsService } from './settings.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AutosuggestService {
   apiUrl: any;
 

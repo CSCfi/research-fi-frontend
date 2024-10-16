@@ -1,4 +1,4 @@
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, NgIf, NgFor, NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -11,19 +11,37 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { HighlightSearch } from '@portal/pipes/highlight.pipe';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { HighlightSearchPipe } from '@portal/pipes/highlight.pipe';
 import { Search } from 'src/app/portal/models/search.model';
 import { SearchService } from 'src/app/portal/services/search.service';
 import { SortService } from 'src/app/portal/services/sort.service';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { TableColumn, TableRow } from 'src/types';
+import { NoResultsComponent } from '../no-results/no-results.component';
+import { ResultsPaginationComponent } from '../results-pagination/results-pagination.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TableComponent } from '../../../../shared/components/table/table.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
-  selector: 'app-datasets',
-  templateUrl: './datasets.component.html',
-  styleUrls: ['./datasets.component.scss'],
+    selector: 'app-datasets',
+    templateUrl: './datasets.component.html',
+    styleUrls: ['./datasets.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        MatProgressSpinner,
+        TableComponent,
+        NgFor,
+        RouterLink,
+        FontAwesomeModule,
+        NgTemplateOutlet,
+        ResultsPaginationComponent,
+        NoResultsComponent,
+        HighlightSearchPipe,
+    ],
 })
 export class DatasetsComponent implements OnInit {
   @Input() resultData: Search;
@@ -32,7 +50,7 @@ export class DatasetsComponent implements OnInit {
   sortDirection: boolean;
   @ViewChild('main') mainContent: ElementRef;
 
-  faIcon = this.tabChangeService.tabData
+  faIcon: any = this.tabChangeService.tabData
     .filter((t) => t.data === 'datasets')
     .map((t) => t.icon)
     .pop();
@@ -63,7 +81,7 @@ export class DatasetsComponent implements OnInit {
     private searchService: SearchService,
     private cdr: ChangeDetectorRef,
     public utilityService: UtilityService,
-    private highlightPipe: HighlightSearch
+    private highlightPipe: HighlightSearchPipe
   ) {
     this.documentLang = this.document.documentElement.lang;
   }

@@ -8,7 +8,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'joinDataSources',
+    name: 'joinDataSources',
+    standalone: true,
 })
 export class JoinDataSourcesPipe implements PipeTransform {
   transform(items: any, locale: string) {

@@ -1,14 +1,15 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "extends": "./tsconfig.app.json",
   "compilerOptions": {
-    "outDir": "../out-tsc/app-server",
-    "module": "commonjs"
+    "outDir": "../out-tsc/server",
+    "types": [
+      "node",
+      "@angular/localize"
+    ]
   },
-  "files": ["./main.server.ts"],
-  "angularCompilerOptions": {
-    "entryModule": "./app/app.server.module#AppServerModule",
-    "enableIvy": true,
-    "strictTemplate": true,
-  },
-  "include": ["src/**/*.d.ts"]
+  "files": [
+    "src/main.server.ts",
+    "server.ts"
+  ]
 }

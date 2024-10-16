@@ -20,7 +20,8 @@ import { DOCUMENT } from '@angular/common';
 import { filter } from 'rxjs/operators';
 
 @Directive({
-  selector: '[clickOutside]',
+    selector: '[clickOutside]',
+    standalone: true,
 })
 export class ClickOutsideDirective implements OnInit, OnDestroy {
   @Output('clickOutside') clickOutside = new EventEmitter<MouseEvent>();

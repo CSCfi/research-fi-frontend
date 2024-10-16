@@ -14,8 +14,8 @@
   "
 >
   <ng-container matColumnDef="selection">
-    <mat-header-cell *matHeaderCellDef></mat-header-cell>
-    <mat-cell *matCellDef="let item; let i = index">
+    <mat-header-cell *matHeaderCellDef class="checkbox-header-cell"></mat-header-cell>
+    <mat-cell *matCellDef="let item; let i = index" [style]="'flex: 0'">
       <mat-checkbox
         [checked]="
           selectedItemsIdArray.indexOf(item[currentTable.idField]) > -1 ||
@@ -34,7 +34,7 @@
       <mat-header-cell
         *matHeaderCellDef
         [mat-sort-header]="column.id"
-        [style]="'flex: 0 0 ' + column.width"
+        [style]="'flex: ' + column.width"
       >
         {{ column.label }}
 
@@ -67,7 +67,7 @@
 
       <mat-cell
         *matCellDef="let item; let i = index"
-        [style]="'flex: 0 0 ' + column.width"
+        [style]="'flex:' + column.width"
       >
         <div class="row w-100">
           <div
@@ -83,7 +83,7 @@
         <ng-container *ngIf="column.additionalFields">
           <ng-container *ngFor="let additionalField of column.additionalFields">
             <div
-              class="row mt-2 font-size-small w-100"
+              class="row font-size-small w-100"
               [class.d-none]="
                 additionalField.hidden && showMoreArray.indexOf(i) === -1
               "
@@ -137,7 +137,7 @@
   </ng-container>
 
   <ng-container matColumnDef="show-more">
-    <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef class="show-more-cell"> </mat-header-cell>
     <mat-cell *matCellDef="let item; let i = index">
       <a href="javascript:void(0)" (click)="toggleShowMore(i)">
         <ng-container *ngIf="showMoreArray.indexOf(i) === -1" i18n="@@showMore">

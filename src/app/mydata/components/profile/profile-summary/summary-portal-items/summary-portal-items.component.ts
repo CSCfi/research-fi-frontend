@@ -8,10 +8,23 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { mergePublications, sortItemsByNew } from '@mydata/utils';
 import { cloneDeep } from 'lodash-es';
+import { MatButton } from '@angular/material/button';
+import { SummaryDividerComponent } from '../summary-divider/summary-divider.component';
+import { PanelArrayItemComponent } from '../../profile-panel/panel-array-item/panel-array-item.component';
+import { NgFor, NgIf, LowerCasePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-summary-portal-items',
-  templateUrl: './summary-portal-items.component.html',
+    selector: 'app-summary-portal-items',
+    templateUrl: './summary-portal-items.component.html',
+    standalone: true,
+    imports: [
+        NgFor,
+        NgIf,
+        PanelArrayItemComponent,
+        SummaryDividerComponent,
+        MatButton,
+        LowerCasePipe,
+    ],
 })
 export class SummaryPortalItemsComponent implements OnInit {
   @Input() data: any;

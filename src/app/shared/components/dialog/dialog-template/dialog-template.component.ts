@@ -18,18 +18,37 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { take } from 'rxjs/operators';
 import { cloneDeep } from 'lodash-es';
 import { Subscription } from 'rxjs';
 import { DialogAction } from 'src/types';
+import { SecondaryButtonComponent } from '../../buttons/secondary-button/secondary-button.component';
+import { PrimaryActionButtonComponent } from '../../buttons/primary-action-button/primary-action-button.component';
+import { CloseButtonComponent } from '../../buttons/close-button/close-button.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgIf, NgStyle, NgTemplateOutlet, NgClass, NgFor } from '@angular/common';
 
 @Component({
-  selector: 'app-dialog-template',
-  templateUrl: './dialog-template.component.html',
-  styleUrls: ['./dialog-template.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-dialog-template',
+    templateUrl: './dialog-template.component.html',
+    styleUrls: ['./dialog-template.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [
+        NgIf,
+        NgStyle,
+        FontAwesomeModule,
+        NgTemplateOutlet,
+        CloseButtonComponent,
+        MatDialogContent,
+        NgClass,
+        MatDialogActions,
+        NgFor,
+        PrimaryActionButtonComponent,
+        SecondaryButtonComponent,
+    ],
 })
 export class DialogTemplateComponent
   implements OnInit, AfterViewInit, OnDestroy

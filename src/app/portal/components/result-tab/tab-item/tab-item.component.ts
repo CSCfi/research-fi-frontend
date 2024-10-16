@@ -13,11 +13,23 @@ import { SearchService } from 'src/app/portal/services/search.service';
 import { SettingsService } from 'src/app/portal/services/settings.service';
 import { DataService } from 'src/app/portal/services/data.service';
 import { UtilityService } from 'src/app/shared/services/utility.service';
+import { CountUpModule } from 'ngx-countup';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgIf, AsyncPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-tab-item',
-  templateUrl: './tab-item.component.html',
-  styleUrls: ['./tab-item.component.scss'],
+    selector: 'app-tab-item',
+    templateUrl: './tab-item.component.html',
+    styleUrls: ['./tab-item.component.scss'],
+    standalone: true,
+    imports: [
+        RouterLink,
+        NgIf,
+        FontAwesomeModule,
+        CountUpModule,
+        AsyncPipe,
+    ],
 })
 export class TabItemComponent
   implements OnInit, AfterViewInit, OnChanges, OnDestroy

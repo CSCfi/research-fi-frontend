@@ -9,11 +9,19 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { NgFor } from '@angular/common';
+import { MatChipListbox, MatChipOption } from '@angular/material/chips';
 
 @Component({
-  selector: 'app-funding-call-category-filters',
-  templateUrl: './funding-call-category-filters.component.html',
-  styleUrls: ['./funding-call-category-filters.component.scss'],
+    selector: 'app-funding-call-category-filters',
+    templateUrl: './funding-call-category-filters.component.html',
+    styleUrls: ['./funding-call-category-filters.component.scss'],
+    standalone: true,
+    imports: [
+        MatChipListbox,
+        NgFor,
+        MatChipOption,
+    ],
 })
 export class FundingCallCategoryFiltersComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute) {}

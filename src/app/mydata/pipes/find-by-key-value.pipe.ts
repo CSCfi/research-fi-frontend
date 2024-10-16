@@ -8,7 +8,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'findByKeyValue',
+    name: 'findByKeyValue',
+    standalone: true,
 })
 
 /*
