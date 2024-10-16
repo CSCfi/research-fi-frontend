@@ -2824,7 +2824,7 @@
       </trans-unit>
       <trans-unit id="importingDataWait" datatype="html">
         <source>
-          <x id="INTERPOLATION" equiv-text="&lt;/span &gt; &lt;/div&gt; &lt;/div&gt; &lt;/ng-template&gt; &lt;app-dia"/>
+          <x id="INTERPOLATION" equiv-text="&lt;/span &gt; &lt;/div&gt; &lt;/div&gt; &lt;/ng-template&gt; &lt;app-dialog"/>
         </source>
         <target state="new">Uppgifterna hämtas, vänta en stund...</target>
       </trans-unit>
@@ -3919,7 +3919,7 @@
       </trans-unit>
       <trans-unit id="publication2.toNewInfo" datatype="html">
         <source> Testaa haun uudistettua betaversiota. Betaversio toimii vain julkaisujen hakuun. Tiedot vastaavat nykyisen sivuston sisältöä julkaisujen osalta. </source>
-        <target state="new">Testa betaversionen av den förnyade sökningen. Den förnyade sökningen fungerar endast i publikationer. Informationen motsvarar innehållet på den aktuella webbplatsen för publikationer.</target>
+        <target state="new">Prova nya sökningens betaversion. För tillfället kan den nya sökningen provas endast med publikationsinformation.</target>
       </trans-unit>
       <trans-unit id="publication2.toOldSearch" datatype="html">
         <source>Vanhaan hakuun</source>
@@ -3931,43 +3931,43 @@
       </trans-unit>
       <trans-unit id="publication2.tutorial.1" datatype="html">
         <source> Testaa uudistetun haun betaversiota. Uudistettua hakua on toistaiseksi mahdollista testata ainoastaan julkaisutietojen hakemisessa. </source>
-        <target state="new">Testa betaversionen av den nya sökningen. Den nya sökningen kan endast testas i publikationsinformationssökning för tillfället.</target>
+        <target state="new">Prova nya sökningens betaversion. För tillfället kan den nya sökningen provas endast med publikationsinformation.</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.2" datatype="html">
         <source> Kirjoita hakukenttään esimerkiksi julkaisun tai tekijän nimi, tai julkaisuun liittyvä asiasana. </source>
-        <target state="new">Skriv i sökfältet, till exempel namnet på publikationen eller författaren, eller ett nyckelord relaterat till publikationen.</target>
+        <target state="new">Skriv i sökfältet t.ex. publikationsnamn, författaren, eller ett nyckelord relaterat till publikationen.</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.3" datatype="html">
         <source> Haku käyttää sanojen välissä oletuksena OR-hakuoperaattioria. Halutessasi voit käyttää myös AND- ja NOT- hakuoperaattoireita. Esimerkiksi haku Innovation AND gamification NOT games etsii julkaisuja, joissa esiintyvät yhtä aikaa sanat &quot;innovation&quot; ja &quot;gamification&quot;, mutta joissa ei ole mukana sanaa &quot;games&quot;. Huomioithan, että AND, NOT ja OR -hakuoperaattorit tulee kirjoittaa hakukenttään isoilla kirjaimilla. </source>
-        <target state="new">Sökningen använder OR-sökoperatören som standard mellan ord. Om du vill kan du också använda AND och NOT sökoperatorer. Till exempel sökningen Innovation AND gamification NOT games söker efter publikationer som samtidigt innehåller orden “innovation” och “gamification”, men inte inkluderar ordet “games”. Observera att AND, NOT och OR sökoperatorer måste skrivas med stora bokstäver i sökfältet.</target>
+        <target state="new">Sökningen använder OR-sökoperatören som standard mellan ord. Sökoperatorer AND och NOT kan också användas. Till exempel sökningen Innovation AND gamification NOT games söker efter publikationer som innehåller både &quot;innovation&quot; och &quot;gamification&quot;, men inte &quot;games&quot;. Lägg märke till att AND, NOT och OR måste skrivas med stora bokstäver i sökfältet.</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.4" datatype="html">
         <source> Sulkemalla haussa esiintyvät sanat lainausmerkeillä fraasiksi voit etsiä osumia jotka ovat täsmälleen samassa muodossa. Esimerkiksi fraasihaku &quot;Innovations in gamifications&quot; etsii julkaisuja, joissa esiintyy juuri tämä lause. Voit myös yhdistää useampia fraasihakuja AND-, OR- tai NOT-hakuoperaattoreilla. </source>
-        <target state="new">Genom att sätta fraser som visas i sökningen inom citationstecken kan du söka efter matchningar som är exakt i samma form. Till exempel frassökningen &quot;Innovations in gamifications&quot; söker efter publikationer som innehåller exakt denna mening. Du kan också kombinera flera frassökningar med AND, OR eller NOT sökoperatorer.</target>
+        <target state="new">Genom att använda citattecken kan du söka på exakta fraser. Till exempel frassökningen &quot;Innovations in gamifications&quot; söker efter publikationer som innehåller exakt samma fras. Du kan också kombinera flera frassökningar med AND, OR eller NOT.</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.5" datatype="html">
         <source> Voit hakea kohdistetusti joitakin metatietoja suoraan hakukentässä käyttämällä niille erikseen määriteltyjä komentoja. Haussa on käytettävä fraasihakua. Toistaiseksi haku on mahdollista kohdistaa seuraaviin metatietoihin: </source>
-        <target state="new">Du kan söka efter viss metadata direkt i sökfältet med hjälp av kommandon som definierats separat för dem. Frassökning måste användas i sökningen. För tillfället kan sökningen riktas mot följande metadata: </target>
+        <target state="new">Du kan söka efter vissa metadata direkt i sökfältet med hjälp av specialkommandon. Frassökning måste användas i sökningen. För tillfället kan sökningen inriktas på följande uppgifter:</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.6" datatype="html">
         <source> DOI, kirjoita hakukenttään doi:&quot;haettava tunnus&quot;, esimerkiksi doi:&quot;100100100&quot; </source>
-        <target state="new">DOI, skriv i sökfältet doi:&quot;sökt identifierare&quot;, till exempel doi:&quot;100100100&quot;</target>
+        <target state="new">DOI, skriv i sökfältet doi:&quot;identifierare&quot;, till exempel doi:&quot;100100100&quot;</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.7" datatype="html">
         <source> ISSN, kirjoita hakukenttään issn:&quot;haettava tunnnus&quot;, esimerkiksi issn:&quot;1234-1234&quot; </source>
-        <target state="new">ISSN, skriv i sökfältet issn:&quot;sökt identifierare&quot;, till exempel issn:&quot;1234-1234&quot;</target>
+        <target state="new">ISSN, skriv i sökfältet issn:&quot;identifierare&quot;, till exempel issn:&quot;1234-1234&quot;</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.8" datatype="html">
         <source> ISBN, kirjoita hakukenttään isbn:&quot;haettava tunnus&quot;, esimerkiksi isbn:&quot;123-0-456-12345-1&quot; </source>
-        <target state="new">ISBN, skriv i sökfältet isbn:&quot;sökt identifierare&quot;, till exempel isbn:&quot;123-0-456-12345-1&quot;</target>
+        <target state="new">ISBN, skriv i sökfältet isbn:&quot;identifierare&quot;, till exempel isbn:&quot;123-0-456-12345-1&quot;</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.9" datatype="html">
         <source> JUFO-tunnus, kirjoita hakukenttään jufoCode:&quot;haettava tunnus&quot;, esimerkiksi jufoCode:&quot;12345&quot; </source>
-        <target state="new">JUFO-kod, skriv i sökfältet jufoCode:&quot;sökt identifierare&quot;, till exempel jufoCode:&quot;12345&quot;</target>
+        <target state="new">JUFO-kod, skriv i sökfältet jufoCode:&quot;identifierare&quot;, till exempel jufoCode:&quot;12345&quot;</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.10" datatype="html">
         <source> Huomioithan, että kohdistetussa haussa metatietokentät tulee kirjoittaa pienillä kirjaimilla. </source>
-        <target state="new">Observera att i riktad sökning måste metadatafält skrivas med små bokstäver.</target>
+        <target state="new">Observera att metadatafält måste skrivas med små bokstäver vid riktad sökning.</target>
       </trans-unit>
       <trans-unit id="publication2.contentInfo" datatype="html">
         <source> Mitä julkaisutietoja palvelu sisältää? </source>
@@ -4221,9 +4221,9 @@
         <source>Strategisen tutkimuksen rahoitus</source>
         <target>Finansiering för strategisk forskning</target>
       </trans-unit>
-      <trans-unit id="2236615769061000797" datatype="html">
-        <source>STN EU-vastinraha</source>
-        <target>RSF EU-motfinansiering</target>
+      <trans-unit id="6890144111944813748" datatype="html">
+        <source>STN-EU vastinraha</source>
+        <target state="new">RSF EU-motfinansiering</target>
       </trans-unit>
       <trans-unit id="5984927916476785125" datatype="html">
         <source>Tutkijoiden liikkuvuus ulkomaille</source>
@@ -4264,6 +4264,26 @@
       <trans-unit id="2063507122981687475" datatype="html">
         <source>Kliininen tutkija</source>
         <target>Kliniska forskare</target>
+      </trans-unit>
+      <trans-unit id="publication2.tutorial.91" datatype="html">
+        <source> Lehden nimi, kirjoita hakukenttään journalName: &quot;haettava nimike&quot;, esimerkiksi journalName:&quot;Nature&quot; </source>
+        <target state="new">Journalnamn, skriv i sökfältet journalName: &quot;identifierare&quot;, till exempel journalName:&quot;Nature&quot;</target>
+      </trans-unit>
+      <trans-unit id="publication2.tutorial.92" datatype="html">
+        <source> Konferenssin nimi, kirjoita hakukenttään conferenceName: &quot;haettava nimike&quot;, esimerkiksi conferenceName:&quot;ACM Multimedia&quot; </source>
+        <target state="new">Konferens namn, skriv i sökfältet conferenceName: &quot;identifierare&quot;, till exempel conferenceName:&quot;ACM Multimedia&quot;</target>
+      </trans-unit>
+      <trans-unit id="publication2.tutorial.93" datatype="html">
+        <source> Kustantajan nimi, kirjoita hakukenttään publisherName: &quot;haettava nimike&quot;, esimerkiksi publisherName:&quot;Springer&quot; </source>
+        <target state="new">Förläggare namn, skriv i sökfältet publisherName: &quot;identifierare&quot;, till exempel publisherName:&quot;Springer&quot;</target>
+      </trans-unit>
+      <trans-unit id="publication2.tutorial.51" datatype="html">
+        <source> Jokerimerkillä ? voit korvata yhden merkin hakusanasta. Jos haluat hakea samaan aikaan esimerkiksi sanoja &quot;woman&quot; ja &quot;women&quot;, voit käyttää hakuatermiä wom?n. </source>
+        <target state="new">Använd jokertecken i sökningen för att söka på delar av ord och sökfraser. Ett frågetecken, ?, står för ett valfritt tecken i söktermen. Till exempel wom?n ger träff på orden &quot;woman&quot; och &quot;women&quot;.</target>
+      </trans-unit>
+      <trans-unit id="publication2.tutorial.52" datatype="html">
+        <source> Jokerimerkillä * voit korvata yhden tai useamman merkin hakusanan keskeltä tai lopusta. Jokerimerkki * edustaa myös tyhjää merkkiä. Jos haluat hakea samaan aikaan esimerkiksi sanoja &quot;color&quot; ja &quot;colour&quot;, voit käyttää hakutermiä colo*r. Esimerkiksi hakutermillä tietotek* voit hakea sanoja jotka alkavat kirjaimilla tietotek, kuten &quot;tietotekniikka&quot; ja &quot;tietotekniset&quot;. </source>
+        <target state="new">En asterisk, *, står för ingen, ett eller flera tecken. Asterisken kan placeras i början, i slutet eller i mitt i ett ord. Till exempel sökningen colo*r ger träff på orden &quot;color&quot; och &quot;colour&quot;.</target>
       </trans-unit>
     </body>
   </file>

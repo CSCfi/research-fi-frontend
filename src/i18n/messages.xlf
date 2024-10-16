@@ -636,7 +636,7 @@
       </trans-unit>
       <trans-unit id="importingDataWait" datatype="html">
         <source>
-          <x id="INTERPOLATION" equiv-text="&lt;/span &gt; &lt;/div&gt; &lt;/div&gt; &lt;/ng-template&gt; &lt;app-dia"/>
+          <x id="INTERPOLATION" equiv-text="&lt;/span &gt; &lt;/div&gt; &lt;/div&gt; &lt;/ng-template&gt; &lt;app-dialog"/>
         </source>
       </trans-unit>
       <trans-unit id="orcidDataFetchWaitingText" datatype="html">
@@ -3111,8 +3111,8 @@
       <trans-unit id="2102080730822972781" datatype="html">
         <source>Pohjoismaiset huippuyksikköohjelmat</source>
       </trans-unit>
-      <trans-unit id="2236615769061000797" datatype="html">
-        <source>STN EU-vastinraha</source>
+      <trans-unit id="6890144111944813748" datatype="html">
+        <source>STN-EU vastinraha</source>
       </trans-unit>
       <trans-unit id="2533535419095871606" datatype="html">
         <source>Tutkijoiden liikkuvuus Suomeen</source>
@@ -3203,6 +3203,21 @@
       </trans-unit>
       <trans-unit id="2063507122981687475" datatype="html">
         <source>Kliininen tutkija</source>
+      </trans-unit>
+      <trans-unit id="publication2.tutorial.91" datatype="html">
+        <source> Lehden nimi, kirjoita hakukenttään journalName: &quot;haettava nimike&quot;, esimerkiksi journalName:&quot;Nature&quot; </source>
+      </trans-unit>
+      <trans-unit id="publication2.tutorial.92" datatype="html">
+        <source> Konferenssin nimi, kirjoita hakukenttään conferenceName: &quot;haettava nimike&quot;, esimerkiksi conferenceName:&quot;ACM Multimedia&quot; </source>
+      </trans-unit>
+      <trans-unit id="publication2.tutorial.93" datatype="html">
+        <source> Kustantajan nimi, kirjoita hakukenttään publisherName: &quot;haettava nimike&quot;, esimerkiksi publisherName:&quot;Springer&quot; </source>
+      </trans-unit>
+      <trans-unit id="publication2.tutorial.51" datatype="html">
+        <source> Jokerimerkillä ? voit korvata yhden merkin hakusanasta. Jos haluat hakea samaan aikaan esimerkiksi sanoja &quot;woman&quot; ja &quot;women&quot;, voit käyttää hakuatermiä wom?n. </source>
+      </trans-unit>
+      <trans-unit id="publication2.tutorial.52" datatype="html">
+        <source> Jokerimerkillä * voit korvata yhden tai useamman merkin hakusanan keskeltä tai lopusta. Jokerimerkki * edustaa myös tyhjää merkkiä. Jos haluat hakea samaan aikaan esimerkiksi sanoja &quot;color&quot; ja &quot;colour&quot;, voit käyttää hakutermiä colo*r. Esimerkiksi hakutermillä tietotek* voit hakea sanoja jotka alkavat kirjaimilla tietotek, kuten &quot;tietotekniikka&quot; ja &quot;tietotekniset&quot;. </source>
       </trans-unit>
     </body>
   </file>
