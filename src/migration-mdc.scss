@@ -75,7 +75,7 @@ bs-tooltip-container {
 }
 
 .profile-tool-modal {
-  max-width: 1126px;
+  max-width: 864px;
 }
 
 // Researchers profile tool search field
@@ -200,6 +200,7 @@ mat-chip-option {
   width: 16px !important;
   height: 16px !important;
   padding: 12px 10px !important;
+  --mdc-checkbox-selected-checkmark-color: #fff;
 }
 
 .mdc-checkbox__background {

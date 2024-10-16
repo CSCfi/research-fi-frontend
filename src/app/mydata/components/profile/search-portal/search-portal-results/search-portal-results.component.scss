@@ -66,6 +66,7 @@ app-search-portal-results {
 
   .mat-column-show-more {
     display: flex;
+    flex: 2;
     flex-direction: row;
     padding-right: 24px !important;
     a {

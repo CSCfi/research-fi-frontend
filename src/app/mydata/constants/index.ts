@@ -125,7 +125,7 @@ export const PublicationColumns = [
     id: 'source',
     label: $localize`:@@source:Lähde`,
     field: 'source',
-    width: '1',
+    width: '2',
   },
 ];
 
@@ -165,7 +165,7 @@ export const DatasetColumns = [
     id: 'source',
     label: $localize`:@@source:Lähde`,
     field: 'source',
-    width: '1',
+    width: '2',
   },
 ];
 
@@ -213,7 +213,7 @@ export const ActivityColumns = [
     id: 'source',
     label: $localize`:@@source:Lähde`,
     field: 'source',
-    width: '1',
+    width: '2',
   },
 ];
 
@@ -255,7 +255,7 @@ export const FundingColumns = [
     id: 'source',
     label: $localize`:@@source:Lähde`,
     field: 'source',
-    width: '1',
+    width: '2',
   },
 ];
 
