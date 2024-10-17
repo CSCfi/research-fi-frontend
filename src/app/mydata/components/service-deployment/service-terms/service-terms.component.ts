@@ -1,11 +1,26 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { CommonStrings } from '@mydata/constants/strings';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { DialogComponent } from '../../../../shared/components/dialog/dialog.component';
+import { NgIf } from '@angular/common';
+import { PrimaryActionButtonComponent } from '../../../../shared/components/buttons/primary-action-button/primary-action-button.component';
+import { MyDataTerms } from '../../mydata-terms/mydata-terms.component';
+import { FormsModule } from '@angular/forms';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
-  selector: 'app-service-terms',
-  templateUrl: './service-terms.component.html',
-  styleUrls: ['./service-terms.component.scss'],
+    selector: 'app-service-terms',
+    templateUrl: './service-terms.component.html',
+    styleUrls: ['./service-terms.component.scss'],
+    standalone: true,
+    imports: [
+        MatCheckbox,
+        FormsModule,
+        MyDataTerms,
+        PrimaryActionButtonComponent,
+        NgIf,
+        DialogComponent,
+    ],
 })
 export class ServiceTermsComponent implements OnInit {
   dialogTitle: string;

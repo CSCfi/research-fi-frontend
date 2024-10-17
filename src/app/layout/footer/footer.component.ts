@@ -11,12 +11,15 @@ import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { DialogEventsService } from '@shared/services/dialog-events.service';
-import { SharedModule } from '@shared/shared.module';
+// import { SharedModule } from '@shared/shared.module';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { Router, RouterLinkWithHref } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { interval, lastValueFrom, take } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
+import { ReviewComponent } from '@shared/components/review/review.component';
+import { DialogComponent } from '@shared/components/dialog/dialog.component';
+import { WelcomeStepperComponent } from '@mydata/components/welcome-stepper/welcome-stepper.component';
 
 function email(strings) {
     return `${strings[0]}@csc.fi`;
@@ -29,12 +32,15 @@ function email(strings) {
   styleUrls: ['./footer.component.scss'],
   encapsulation: ViewEncapsulation.None,
   imports: [
-    SharedModule,
+    // SharedModule,
     AsyncPipe,
     FontAwesomeModule,
     NgIf,
-    RouterLinkWithHref,
-    MatButtonModule
+    RouterLink,
+    MatButtonModule,
+    ReviewComponent,
+    DialogComponent,
+    WelcomeStepperComponent
   ]
 })
 export class FooterComponent {
@@ -46,9 +52,9 @@ export class FooterComponent {
   email = email`tiedejatutkimus`;
 
   buildInfo = '';
-  faTwitter = faTwitter;
+  faTwitter = faTwitter as any; // TODO: Fix type
 
-  faTimes = faTimes;
+  faTimes = faTimes as any; // TODO: Fix type
   showReviewButton: boolean;
 
   // Dialog variables

@@ -8,8 +8,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'countFieldItems',
-  pure: false,
+    name: 'countFieldItems',
+    pure: false,
+    standalone: true,
 })
 
 /*

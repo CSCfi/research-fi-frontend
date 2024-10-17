@@ -23,7 +23,6 @@ import '@angular/localize/init';
  */
 // import 'core-js/es7/array';
 // import 'core-js/es7/object';
-import 'array-flat-polyfill';
 
 /**
  * By default, zone.js will patch all possible macroTask and DomEvents
@@ -57,4 +56,3 @@ import 'zone.js'; // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
-import 'core-js/es7/reflect';

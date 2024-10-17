@@ -43,6 +43,8 @@
       class="pt-lg-3"
     >
       <mat-tab i18n-label="@@latest" label="Uusimmat">
+        <div style='border-top: 1px solid rgba(120, 120, 120, 0.25)'></div>
+
         <h2 class="fw-bold px-3 mt-2" i18n="@@latest">Uusimmat</h2>
         <app-latest-news
           [mobile]="appSettingsService.mobileStatus | async"

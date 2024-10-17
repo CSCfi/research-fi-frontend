@@ -142,8 +142,7 @@
                   class="nav-item nav-link lang-box"
                   [class.active-lang]="localeId.toUpperCase() === domain.locale"
                   [href]="domain.url + currentRoute"
-                  [disabled]="appSettings.beta"
-                >
+                > <!-- [disabled]="appSettings.beta" -->
                   <span class="label">{{ domain.label }}</span>
                 </a>
               </li>

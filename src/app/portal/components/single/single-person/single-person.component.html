@@ -265,7 +265,7 @@
 
         <!-- Contact -->
         <aside *ngIf='(contactFields | checkEmptyFields: person.contact).length'>
-          <mat-card>
+          <mat-card appearance="outlined">
             <div class='inner'>
               <mat-card-title>
                 <h2 i18n='@@contactInfo' class='mb-4'>Yhteystiedot</h2>
@@ -333,7 +333,7 @@
 
         <!-- Collaboration -->
         <aside *ngIf="person?.collaboration.length > 0">
-          <mat-card>
+          <mat-card appearance="outlined">
             <div class="inner collaboration">
               <h2 class="mb-4" i18n="@@collaborationHeader">Yhteistyö</h2>
               <ul>
@@ -347,7 +347,7 @@
 
         <!-- Related -->
         <aside>
-          <mat-card>
+          <mat-card appearance="outlined">
             <div class='inner'>
               <h2 i18n='@@researchersSectionIncoming'>Tutkijan (tulossa)</h2>
 
@@ -358,7 +358,7 @@
 
         <!-- Share -->
         <aside>
-          <mat-card>
+          <mat-card appearance="outlined">
             <div class='inner'>
               <mat-card-title>
                 <h2 i18n='@@shareHeader'>Jaa</h2>
@@ -371,7 +371,7 @@
 
         <!-- Sources -->
         <aside *ngIf='person.uniqueDataSources'>
-          <mat-card>
+          <mat-card appearance="outlined">
             <div class='inner'>
               <mat-card-title>
                 <h2>{{ dataSourcesCaption }}</h2>

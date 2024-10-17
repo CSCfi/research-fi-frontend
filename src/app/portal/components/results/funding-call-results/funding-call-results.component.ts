@@ -15,18 +15,31 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Search } from '@portal/models/search.model';
-import { HighlightSearch } from '@portal/pipes/highlight.pipe';
+import { HighlightSearchPipe } from '@portal/pipes/highlight.pipe';
 import { SearchService } from '@portal/services/search.service';
 import { SortService } from '@portal/services/sort.service';
 import { TabChangeService } from '@portal/services/tab-change.service';
 import { UtilityService } from '@shared/services/utility.service';
 import { Subscription } from 'rxjs';
 import { TableColumn, TableRow } from 'src/types';
+import { NoResultsComponent } from '../no-results/no-results.component';
+import { ResultsPaginationComponent } from '../results-pagination/results-pagination.component';
+import { TableComponent } from '../../../../shared/components/table/table.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-funding-call-results',
-  templateUrl: './funding-call-results.component.html',
-  styleUrls: ['./funding-call-results.component.scss'],
+    selector: 'app-funding-call-results',
+    templateUrl: './funding-call-results.component.html',
+    styleUrls: ['./funding-call-results.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        MatProgressSpinner,
+        TableComponent,
+        ResultsPaginationComponent,
+        NoResultsComponent,
+    ],
 })
 export class FundingCallResultsComponent
   implements OnInit, OnDestroy, AfterViewInit
@@ -38,7 +51,7 @@ export class FundingCallResultsComponent
   expandStatus: Array<boolean> = [];
   @ViewChild('main') mainContent: ElementRef;
 
-  faIcon = this.tabChangeService.tabData
+  faIcon: any = this.tabChangeService.tabData
     .filter((t) => t.data === 'fundingCalls')
     .map((t) => t.icon)
     .pop();
@@ -71,7 +84,7 @@ export class FundingCallResultsComponent
     private searchService: SearchService,
     private cdr: ChangeDetectorRef,
     public utilityService: UtilityService,
-    private highlightPipe: HighlightSearch
+    private highlightPipe: HighlightSearchPipe
   ) {
     this.currentLocale =
       this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);

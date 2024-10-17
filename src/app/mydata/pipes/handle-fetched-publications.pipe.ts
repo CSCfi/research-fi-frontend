@@ -10,7 +10,8 @@ import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { cloneDeep } from 'lodash-es';
 
 @Pipe({
-  name: 'handleFetchedPublications',
+    name: 'handleFetchedPublications',
+    standalone: true,
 })
 
 /*

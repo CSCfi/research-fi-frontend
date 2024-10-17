@@ -15,12 +15,26 @@ import {
 } from '@angular/core';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { ActiveFilter, ActiveFiltersDialogConfig } from 'src/types';
+import { DialogComponent } from '../dialog/dialog.component';
+import { ActiveFiltersDialogComponent } from './active-filters-dialog/active-filters-dialog.component';
+import { MatButton } from '@angular/material/button';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-active-filters-list',
-  templateUrl: './active-filters-list.component.html',
-  styleUrls: ['./active-filters-list.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-active-filters-list',
+    templateUrl: './active-filters-list.component.html',
+    styleUrls: ['./active-filters-list.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [
+        NgFor,
+        NgIf,
+        FontAwesomeModule,
+        MatButton,
+        ActiveFiltersDialogComponent,
+        DialogComponent,
+    ],
 })
 export class ActiveFiltersListComponent implements OnInit {
   faTrashAlt = faTrashAlt;

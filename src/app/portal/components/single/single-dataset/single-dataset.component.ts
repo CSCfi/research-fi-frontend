@@ -13,7 +13,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { faAlignLeft, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
@@ -24,11 +24,48 @@ import { SingleItemService } from 'src/app/portal/services/single-item.service';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
+import { SafeUrlPipe } from '../../../pipes/safe-url.pipe';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { ShareComponent } from '../share/share.component';
+import { RelatedLinksComponent } from '../related-links/related-links.component';
+import { SingleResultLinkComponent } from '../single-result-link/single-result-link.component';
+import { MatCard, MatCardTitle } from '@angular/material/card';
+import { DatasetAuthorComponent } from './dataset-author/dataset-author.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { SecondaryButtonComponent } from '../../../../shared/components/buttons/secondary-button/secondary-button.component';
+import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
+import { NgIf, NgFor, NgClass } from '@angular/common';
+import { SearchBarComponent } from '../../search-bar/search-bar.component';
 
 @Component({
-  selector: 'app-single-dataset',
-  templateUrl: './single-dataset.component.html',
-  styleUrls: ['./single-dataset.component.scss'],
+    selector: 'app-single-dataset',
+    templateUrl: './single-dataset.component.html',
+    styleUrls: ['./single-dataset.component.scss'],
+    standalone: true,
+    imports: [
+        SearchBarComponent,
+        NgIf,
+        RouterLink,
+        BreadcrumbComponent,
+        NgFor,
+        SecondaryButtonComponent,
+        MatMenuTrigger,
+        MatMenu,
+        MatMenuItem,
+        NgClass,
+        TooltipModule,
+        FontAwesomeModule,
+        DatasetAuthorComponent,
+        MatCard,
+        MatCardTitle,
+        SingleResultLinkComponent,
+        RelatedLinksComponent,
+        ShareComponent,
+        MatProgressSpinner,
+        SafeUrlPipe,
+    ],
 })
 export class SingleDatasetComponent implements OnInit {
   public singleId: any;

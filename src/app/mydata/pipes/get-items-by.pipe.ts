@@ -8,7 +8,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'getItemsBy',
+    name: 'getItemsBy',
+    standalone: true,
 })
 export class GetItemsByPipe implements PipeTransform {
   transform(items: any, property: string) {

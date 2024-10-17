@@ -21,7 +21,7 @@ import {
 } from '@angular/core';
 import { SearchService } from 'src/app/portal/services/search.service';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgIf, NgFor, AsyncPipe } from '@angular/common';
 import { DataService } from 'src/app/portal/services/data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FilterService } from 'src/app/portal/services/filters/filter.service';
@@ -29,11 +29,31 @@ import { SortService } from 'src/app/portal/services/sort.service';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { ThousandSeparatorPipe } from '../../../../shared/pipes/thousand-separator.pipe';
+import { NewsPaginationComponent } from '../news-pagination/news-pagination.component';
+import { NewsCardComponent } from '../news-card/news-card.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { ActiveFiltersComponent } from '../../results/active-filters/active-filters.component';
+import { SearchComponent } from '../../../../shared/components/search/search.component';
+import { FiltersComponent } from '../../results/filters/filters.component';
 
 @Component({
-  selector: 'app-news-results',
-  templateUrl: './news-results.component.html',
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-news-results',
+    templateUrl: './news-results.component.html',
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [
+        NgIf,
+        FiltersComponent,
+        SearchComponent,
+        ActiveFiltersComponent,
+        MatProgressSpinner,
+        NgFor,
+        NewsCardComponent,
+        NewsPaginationComponent,
+        AsyncPipe,
+        ThousandSeparatorPipe,
+    ],
 })
 export class NewsResultsComponent
   implements OnInit, AfterViewInit, OnDestroy, OnChanges

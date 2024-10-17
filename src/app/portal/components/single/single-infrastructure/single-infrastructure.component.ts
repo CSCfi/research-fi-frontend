@@ -14,8 +14,8 @@ import {
   LOCALE_ID,
   Inject,
 } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { DOCUMENT, NgIf, NgFor, NgClass, NgSwitch } from '@angular/common';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
 import { SearchService } from '../../../services/search.service';
 import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
@@ -26,11 +26,36 @@ import { UtilityService } from 'src/app/shared/services/utility.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { SettingsService } from 'src/app/portal/services/settings.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { ShareComponent } from '../share/share.component';
+import { RelatedLinksComponent } from '../related-links/related-links.component';
+import { SingleResultLinkComponent } from '../single-result-link/single-result-link.component';
+import { MatCard, MatCardTitle } from '@angular/material/card';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
+import { SearchBarComponent } from '../../search-bar/search-bar.component';
 
 @Component({
-  selector: 'app-single-infrastructure',
-  templateUrl: './single-infrastructure.component.html',
-  styleUrls: ['./single-infrastructure.component.scss'],
+    selector: 'app-single-infrastructure',
+    templateUrl: './single-infrastructure.component.html',
+    styleUrls: ['./single-infrastructure.component.scss'],
+    standalone: true,
+    imports: [
+        SearchBarComponent,
+        NgIf,
+        RouterLink,
+        BreadcrumbComponent,
+        NgFor,
+        TooltipModule,
+        FontAwesomeModule,
+        NgClass,
+        NgSwitch,
+        MatCard,
+        MatCardTitle,
+        SingleResultLinkComponent,
+        RelatedLinksComponent,
+        ShareComponent,
+    ],
 })
 export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   public singleId: any;

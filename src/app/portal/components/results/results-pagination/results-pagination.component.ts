@@ -7,10 +7,13 @@
 
 import { Component, Input, OnInit } from '@angular/core';
 import { SearchService } from '@portal/services/search.service';
+import { PaginationComponent } from '../../../../shared/components/pagination/pagination.component';
 
 @Component({
-  selector: 'app-results-pagination',
-  templateUrl: './results-pagination.component.html',
+    selector: 'app-results-pagination',
+    templateUrl: './results-pagination.component.html',
+    standalone: true,
+    imports: [PaginationComponent],
 })
 export class ResultsPaginationComponent implements OnInit {
   @Input() data: any;

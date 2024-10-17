@@ -6,11 +6,7 @@
 //  :license: MIT
 
 import { Injectable, OnDestroy } from '@angular/core';
-import {
-  Resolve,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { ProfileService } from '@mydata/services/profile.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
@@ -19,7 +15,7 @@ import {firstValueFrom, Subject, takeUntil} from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class OrcidProfileResolverService implements Resolve<any>, OnDestroy {
+export class OrcidProfileResolverService  implements OnDestroy {
   unsubscribeOnDestroy = new Subject();
 
   constructor(

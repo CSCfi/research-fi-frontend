@@ -5,6 +5,7 @@
 //  :author: CSC - I
 
 app-search-portal-results {
+  /*  TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.*/
   .mat-checkbox-inner-container {
     margin-top: 0.175rem !important;
   }
@@ -17,6 +18,14 @@ app-search-portal-results {
     min-height: unset;
   }
 
+  mat-paginator {
+    font-size: 0.875rem !important;
+  }
+
+  mat-option {
+    font-size: 0.875rem !important;
+  }
+
   mat-row,
   mat-footer-row {
     min-height: unset;
@@ -25,7 +34,7 @@ app-search-portal-results {
 
   mat-header-row,
   mat-row {
-    padding: 0 1rem;
+    padding: 0px
   }
 
   mat-cell,
@@ -36,7 +45,10 @@ app-search-portal-results {
   }
 
   mat-cell {
+    justify-content: start;
+    flex-direction: column;
     margin-top: 0.25rem;
+    letter-spacing: 0 !important;
   }
 
   .mat-column-selection {
@@ -53,7 +65,14 @@ app-search-portal-results {
   }
 
   .mat-column-show-more {
-    flex: 0 0 6.5rem;
+    display: flex;
+    flex: 2;
+    flex-direction: row;
+    padding-right: 24px !important;
+    a {
+      font-weight: bold;
+      text-decoration-color: #4546B9;
+    }
   }
 
   mat-cell:first-of-type,
@@ -63,11 +82,11 @@ app-search-portal-results {
   }
 
   @media (max-width: 991px) {
-    .mat-header-row {
+    .mat-mdc-header-row {
       display: none;
     }
 
-    .mat-row {
+    .mat-mdc-row {
       display: block;
       padding: 0.5rem 0;
     }

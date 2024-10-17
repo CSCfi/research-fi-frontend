@@ -6,11 +6,19 @@
 //  :license: MIT
 
 import { Component, Input, OnInit } from '@angular/core';
+import { OrcidComponent } from '../../../../../shared/components/orcid/orcid.component';
+import { NgIf, NgFor } from '@angular/common';
 
 @Component({
-  selector: 'app-dataset-author',
-  templateUrl: './dataset-author.component.html',
-  styleUrls: ['./dataset-author.component.scss'],
+    selector: 'app-dataset-author',
+    templateUrl: './dataset-author.component.html',
+    styleUrls: ['./dataset-author.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        NgFor,
+        OrcidComponent,
+    ],
 })
 export class DatasetAuthorComponent implements OnInit {
   @Input() org: any;

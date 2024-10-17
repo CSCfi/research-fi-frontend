@@ -4,6 +4,7 @@
  :license: MIT -->
 
 <ng-template #editorTemplate>
+  <div class="profile-tool-modal">
   <ng-container
     *ngIf="
       portalModalIndicatorIds.indexOf(editorData.id) === -1;
@@ -112,6 +113,7 @@
       </mat-tab>
     </mat-tab-group>
   </ng-template>
+  </div>
 </ng-template>
 
 <app-dialog

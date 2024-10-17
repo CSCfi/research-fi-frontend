@@ -147,11 +147,11 @@
   }
 
   .tki-search-results-desktop {
-    th.mat-header-cell:first-of-type {
+    th.mat-mdc-header-cell:first-of-type {
       padding-left: 0px;
     }
 
-    .mat-header-cell {
+    .mat-mdc-header-cell {
       font-weight: bold;
       font-size: 0.9rem;
       color: #4d4d4d;
@@ -161,7 +161,7 @@
       min-width: 100px;
     }
 
-    .mat-cell {
+    .mat-mdc-cell {
       font-size: 0.95rem;
       padding: 10px 20px 10px 0px;
 

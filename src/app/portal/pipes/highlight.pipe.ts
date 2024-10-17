@@ -9,9 +9,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Pipe({
-  name: 'highlight',
+    name: 'highlight',
+    standalone: true,
 })
-export class HighlightSearch implements PipeTransform {
+export class HighlightSearchPipe implements PipeTransform {
   constructor(private sanitizer: DomSanitizer) {}
 
   transform(value: any, keywords: any): any {

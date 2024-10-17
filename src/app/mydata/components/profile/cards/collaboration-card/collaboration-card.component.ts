@@ -19,12 +19,26 @@ import { take } from 'rxjs/operators';
 import { cloneDeep } from 'lodash-es';
 import { Constants } from '@mydata/constants';
 import { Subscription } from 'rxjs';
+import { DialogComponent } from '../../../../../shared/components/dialog/dialog.component';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { EmptyCardComponent } from '../empty-card/empty-card.component';
+import { NgIf, NgFor } from '@angular/common';
+import { ProfileEditorCardHeaderComponent } from '../profile-editor-card-header/profile-editor-card-header.component';
 
 @Component({
-  selector: 'app-collaboration-card',
-  templateUrl: './collaboration-card.component.html',
-  styleUrls: ['./collaboration-card.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-collaboration-card',
+    templateUrl: './collaboration-card.component.html',
+    styleUrls: ['./collaboration-card.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [
+        ProfileEditorCardHeaderComponent,
+        NgIf,
+        EmptyCardComponent,
+        NgFor,
+        MatCheckbox,
+        DialogComponent,
+    ],
 })
 export class CollaborationCardComponent implements OnInit, OnDestroy {
   @Input() label: string;

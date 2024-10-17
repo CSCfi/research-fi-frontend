@@ -19,21 +19,45 @@ import {
   TemplateRef,
   QueryList,
 } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { DOCUMENT, NgIf, NgFor } from '@angular/common';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { SearchService } from 'src/app/portal/services/search.service';
 import { Search } from 'src/app/portal/models/search.model';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { TableColumn, TableRow } from 'src/types';
-import { HighlightSearch } from '@portal/pipes/highlight.pipe';
-import { CutContentPipe } from '../../../../shared/pipes/cut-content.pipe';
+import { LinksPipe } from '../../../pipes/links.pipe';
+import { NoResultsComponent } from '../no-results/no-results.component';
+import { ResultsPaginationComponent } from '../results-pagination/results-pagination.component';
+import { TagDoiComponent } from '../../../../shared/components/tags/tag-doi/tag-doi.component';
+import { TagOpenAccessComponent } from '../../../../shared/components/tags/tag-open-access/tag-open-access.component';
+import { TagPeerReviewedComponent } from '../../../../shared/components/tags/tag-peer-reviewed/tag-peer-reviewed.component';
+import { TableComponent } from '../../../../shared/components/table/table.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { CutContentPipe } from '@shared/pipes/cut-content.pipe';
+import { HighlightSearchPipe } from '@portal/pipes/highlight.pipe';
 
 @Component({
-  selector: 'app-publications',
-  templateUrl: './publications.component.html',
-  styleUrls: ['./publications.component.scss'],
+    selector: 'app-publications',
+    templateUrl: './publications.component.html',
+    styleUrls: ['./publications.component.scss'],
+    standalone: true,
+  imports: [
+    NgIf,
+    MatProgressSpinner,
+    TableComponent,
+    NgFor,
+    RouterLink,
+    TagPeerReviewedComponent,
+    TagOpenAccessComponent,
+    TagDoiComponent,
+    ResultsPaginationComponent,
+    NoResultsComponent,
+    LinksPipe,
+    CutContentPipe,
+    HighlightSearchPipe
+  ]
 })
 export class PublicationsComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() resultData: Search;
@@ -42,7 +66,7 @@ export class PublicationsComponent implements OnInit, OnDestroy, AfterViewInit {
   sortDirection: boolean;
   @ViewChild('main') mainContent: ElementRef;
 
-  faIcon = this.tabChangeService.tabData
+  faIcon: any = this.tabChangeService.tabData
     .filter((t) => t.data === 'publications')
     .map((t) => t.icon)
     .pop();
@@ -73,7 +97,7 @@ export class PublicationsComponent implements OnInit, OnDestroy, AfterViewInit {
     private searchService: SearchService,
     private cdr: ChangeDetectorRef,
     public utilityService: UtilityService,
-    private highlightPipe: HighlightSearch,
+    private highlightPipe: HighlightSearchPipe,
     private cutContentPipe: CutContentPipe
   ) {
     this.documentLang = this.document.documentElement.lang;

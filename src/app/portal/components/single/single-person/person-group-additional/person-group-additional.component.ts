@@ -6,11 +6,21 @@
 // :license: MIT
 
 import { Component, Input, OnInit } from '@angular/core';
+import { CheckEmptyFieldsPipe } from '../../../../pipes/check-empty-fields.pipe';
+import { SingleResultLinkComponent } from '../../single-result-link/single-result-link.component';
+import { NgIf, NgFor } from '@angular/common';
 
 @Component({
-  selector: 'app-person-group-additional',
-  templateUrl: './person-group-additional.component.html',
-  styleUrls: ['./person-group-additional.component.scss'],
+    selector: 'app-person-group-additional',
+    templateUrl: './person-group-additional.component.html',
+    styleUrls: ['./person-group-additional.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        NgFor,
+        SingleResultLinkComponent,
+        CheckEmptyFieldsPipe,
+    ],
 })
 export class PersonGroupAdditionalComponent implements OnInit {
   @Input() fields: any[];

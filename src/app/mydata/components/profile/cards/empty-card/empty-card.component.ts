@@ -6,10 +6,13 @@
 //  :license: MIT
 
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { SecondaryButtonComponent } from '../../../../../shared/components/buttons/secondary-button/secondary-button.component';
 
 @Component({
-  selector: 'app-empty-card',
-  templateUrl: './empty-card.component.html',
+    selector: 'app-empty-card',
+    templateUrl: './empty-card.component.html',
+    standalone: true,
+    imports: [SecondaryButtonComponent],
 })
 export class EmptyCardComponent implements OnInit {
   @Output() onButtonClick = new EventEmitter<any>();

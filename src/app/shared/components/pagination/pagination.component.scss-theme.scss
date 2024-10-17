@@ -1,4 +1,4 @@
-@import '@angular/material/theming';
+@use 'migration' as *;
 
 @mixin app-pagination-theme($theme) {
   $primary: map-get($theme, primary);

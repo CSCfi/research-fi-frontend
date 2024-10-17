@@ -16,10 +16,35 @@ import { checkGroupSelected } from '@mydata/utils';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { ProfileService } from '@mydata/services/profile.service';
 import { ActivatedRoute } from '@angular/router';
+import { HasSelectedItemsPipe } from '../../../../pipes/has-selected-items.pipe';
+import { JoinAllGroupItemsPipe } from '../../../../pipes/join-all-group-items.pipe';
+import { FilterPipe } from '../../../../pipes/filter.pipe';
+import { EditorModalComponent } from '../../editor-modal/editor-modal.component';
+import { PanelArrayItemComponent } from '../../profile-panel/panel-array-item/panel-array-item.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { EmptyCardComponent } from '../empty-card/empty-card.component';
+import { NgIf, NgFor, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
+import { ProfileEditorCardHeaderComponent } from '../profile-editor-card-header/profile-editor-card-header.component';
 
 @Component({
-  selector: 'app-contact-card',
-  templateUrl: './contact-card.component.html',
+    selector: 'app-contact-card',
+    templateUrl: './contact-card.component.html',
+    standalone: true,
+    imports: [
+        ProfileEditorCardHeaderComponent,
+        NgIf,
+        EmptyCardComponent,
+        NgFor,
+        NgSwitch,
+        NgSwitchCase,
+        NgSwitchDefault,
+        FontAwesomeModule,
+        PanelArrayItemComponent,
+        EditorModalComponent,
+        FilterPipe,
+        JoinAllGroupItemsPipe,
+        HasSelectedItemsPipe,
+    ],
 })
 export class ContactCardComponent implements OnInit, OnChanges {
   @Input() data: any;

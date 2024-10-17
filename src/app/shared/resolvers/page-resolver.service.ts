@@ -7,18 +7,14 @@
 
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import {
-  Resolve,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import { CMSContentService } from '../services/cms-content.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class PageResolverService implements Resolve<any> {
+export class PageResolverService  {
   constructor(
     private cmsContentService: CMSContentService,
     @Inject(PLATFORM_ID) private platformId: object

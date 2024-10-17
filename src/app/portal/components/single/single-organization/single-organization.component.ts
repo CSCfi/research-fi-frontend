@@ -14,7 +14,7 @@ import {
   Inject,
   LOCALE_ID,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { SingleItemService } from '@portal/services/single-item.service';
 import { SearchService } from '@portal/services/search.service';
 import { forkJoin, Observable, Subscription } from 'rxjs';
@@ -28,11 +28,48 @@ import { ResizeService } from '@shared/services/resize.service';
 import { WINDOW } from '@shared/services/window.service';
 import { CMSContentService } from '@shared/services/cms-content.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { FilterEmptyFieldPipe } from '../../../pipes/filter-empty-field.pipe';
+import { SafeUrlPipe } from '../../../pipes/safe-url.pipe';
+import { ShareComponent } from '../share/share.component';
+import { RelatedLinksComponent } from '../related-links/related-links.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SingleResultLinkComponent } from '../single-result-link/single-result-link.component';
+import { NewsCardComponent } from '../../news/news-card/news-card.component';
+import { MatCard, MatCardTitle } from '@angular/material/card';
+import { OrganizationVisualisationsComponent } from './organization-visualisations/organization-visualisations.component';
+import { OrganizationSubUnitsComponent } from './organization-sub-units/organization-sub-units.component';
+import { OrganizationInformationComponent } from './organization-information/organization-information.component';
+import { MatTabGroup, MatTab } from '@angular/material/tabs';
+import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
+import { NgIf, NgFor } from '@angular/common';
+import { SearchBarComponent } from '../../search-bar/search-bar.component';
 
 @Component({
-  selector: 'app-single-organization',
-  templateUrl: './single-organization.component.html',
-  styleUrls: ['./single-organization.component.scss'],
+    selector: 'app-single-organization',
+    templateUrl: './single-organization.component.html',
+    styleUrls: ['./single-organization.component.scss'],
+    standalone: true,
+    imports: [
+        SearchBarComponent,
+        NgIf,
+        RouterLink,
+        BreadcrumbComponent,
+        NgFor,
+        MatTabGroup,
+        MatTab,
+        OrganizationInformationComponent,
+        OrganizationSubUnitsComponent,
+        OrganizationVisualisationsComponent,
+        MatCard,
+        MatCardTitle,
+        NewsCardComponent,
+        SingleResultLinkComponent,
+        FontAwesomeModule,
+        RelatedLinksComponent,
+        ShareComponent,
+        SafeUrlPipe,
+        FilterEmptyFieldPipe,
+    ],
 })
 export class SingleOrganizationComponent implements OnInit, OnDestroy {
   linkFields = [{ label: $localize`:@@links:Linkit`, field: 'homepage' }];

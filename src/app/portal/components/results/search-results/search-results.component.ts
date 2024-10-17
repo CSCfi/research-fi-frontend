@@ -29,14 +29,19 @@ import { InfrastructuresComponent } from '../infrastructures/infrastructures.com
 import { Search } from 'src/app/portal/models/search.model';
 import { DatasetsComponent } from '../datasets/datasets.component';
 import { FundingCallResultsComponent} from '@portal/components/results/funding-call-results/funding-call-results.component';
+import { HighlightSearchPipe } from '@portal/pipes/highlight.pipe';
+import { DomSanitizer } from '@angular/platform-browser';
+import { CutContentPipe } from '@shared/pipes/cut-content.pipe';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 /*
  * Dynamically render component for selected tab.
  * Eg. results/publications
  */
 @Component({
-  selector: 'app-search-results',
-  template: '<div #portalHost></div>',
+    selector: 'app-search-results',
+    template: '<div #portalHost></div>',
+    standalone: true,
 })
 export class SearchResultsComponent implements OnInit, OnChanges, OnDestroy {
   portalHost: DomPortalOutlet;
@@ -57,7 +62,8 @@ export class SearchResultsComponent implements OnInit, OnChanges, OnDestroy {
 
   constructor(
     private injector: Injector,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit() {
@@ -140,7 +146,16 @@ export class SearchResultsComponent implements OnInit, OnChanges, OnDestroy {
         break;
     }
 
-    const myPortal = new ComponentPortal(child);
+    const portalInjector = Injector.create({
+      providers: [
+        { provide: HighlightSearchPipe, useValue: new HighlightSearchPipe(this.sanitizer) },
+        { provide: CutContentPipe, useValue: new CutContentPipe()},
+        { provide: MatDatepickerModule, useValue: new MatDatepickerModule()}
+      ],
+      parent: this.injector
+    });
+
+    const myPortal = new ComponentPortal(child, null, portalInjector);
     this.portalHost.detach();
     this.componentRef = this.portalHost.attach(myPortal);
     this.componentRef.instance.resultData = this.responseData;
@@ -148,8 +163,9 @@ export class SearchResultsComponent implements OnInit, OnChanges, OnDestroy {
 }
 
 @Component({
-  selector: 'app-empty-result',
-  template: '<b>Component not implemented yet</b>',
+    selector: 'app-empty-result',
+    template: '<b>Component not implemented yet</b>',
+    standalone: true,
 })
 export class EmptyResultComponent {
   @Input() resultData;

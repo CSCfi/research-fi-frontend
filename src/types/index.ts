@@ -130,6 +130,16 @@ export type EditorModalColumn = {
   width?: string;
   ellipsis?: boolean;
   additionalFields?: AdditionalField[];
+  sortDisabled?: any;
 };
 
-type AdditionalField = { field: string; ellipsis?: boolean; hidden?: boolean };
+type AdditionalField = {
+  field: string;
+  ellipsis?: boolean;
+  hidden?: boolean;
+
+  // New fields that turned out to be non-existant during Angular 17 upgrade
+  label?: string;
+  useComponent?: any;
+  cutContent?: any;
+};

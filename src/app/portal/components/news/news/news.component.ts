@@ -19,8 +19,8 @@ import {
 } from '@angular/core';
 import { SearchService } from 'src/app/portal/services/search.service';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
-import { isPlatformBrowser } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { isPlatformBrowser, AsyncPipe } from '@angular/common';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { WINDOW } from 'src/app/shared/services/window.service';
 import { ResizeService } from 'src/app/shared/services/resize.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
@@ -28,12 +28,26 @@ import { UtilityService } from 'src/app/shared/services/utility.service';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { NewsResultsComponent } from '../news-results/news-results.component';
+import { LatestNewsComponent } from '../latest-news/latest-news.component';
+import { MatTabGroup, MatTab } from '@angular/material/tabs';
+import { BannerDividerComponent } from '../../../../shared/components/banner-divider/banner-divider.component';
 
 @Component({
-  selector: 'app-news',
-  templateUrl: './news.component.html',
-  styleUrls: ['./news.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-news',
+    templateUrl: './news.component.html',
+    styleUrls: ['./news.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [
+        BannerDividerComponent,
+        RouterLink,
+        MatTabGroup,
+        MatTab,
+        LatestNewsComponent,
+        NewsResultsComponent,
+        AsyncPipe,
+    ],
 })
 export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('serviceInfoLink') serviceInfoLink: ElementRef;

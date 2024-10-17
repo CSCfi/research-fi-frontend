@@ -5,8 +5,7 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
-// Styles
-@import '@angular/material/theming';
+@use 'migration' as *;
 
 @mixin mat-expansion-panel-style($theme) {
   $primary: map-get($theme, primary);

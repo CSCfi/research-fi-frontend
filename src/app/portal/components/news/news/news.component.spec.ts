@@ -17,20 +17,20 @@ describe('NewsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [NewsComponent],
-      providers: [
+    providers: [
         SearchService,
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: AppConfigService, useClass: AppConfigServiceMock },
         WINDOW_PROVIDERS,
-      ],
-      imports: [
+    ],
+    imports: [
         HttpClientTestingModule,
         RouterTestingModule,
-        MatDialogModule
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    });
+        MatDialogModule,
+        NewsComponent
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+});
 
     fixture = TestBed.createComponent(NewsComponent);
     newsComponent = fixture.componentInstance;

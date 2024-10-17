@@ -30,10 +30,45 @@ import { GroupTypes } from '@mydata/constants/groupTypes';
 import { CommonStrings } from '@mydata/constants/strings';
 import { DatasetsService } from '@mydata/services/datasets.service';
 import { FundingsService } from '@mydata/services/fundings.service';
+import { FindSelectedItemPipe } from '../../../pipes/find-selected-item.pipe';
+import { JoinDataSourcesPipe } from '../../../pipes/join-data-sources.pipe';
+import { FilterPipe } from '../../../pipes/filter.pipe';
+import { JoinItemsPipe } from '../../../../shared/pipes/join-items.pipe';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { PrimaryBadgeComponent } from './primary-badge/primary-badge.component';
+import { SecondaryButtonComponent } from '../../../../shared/components/buttons/secondary-button/secondary-button.component';
+import { PanelArrayItemComponent } from './panel-array-item/panel-array-item.component';
+import { MatRadioButton } from '@angular/material/radio';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
+import { NgIf, NgFor, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
 
 @Component({
-  selector: 'app-profile-panel',
-  templateUrl: './profile-panel.component.html',
+    selector: 'app-profile-panel',
+    templateUrl: './profile-panel.component.html',
+    standalone: true,
+    imports: [
+        NgIf,
+        MatAccordion,
+        NgFor,
+        MatExpansionPanel,
+        MatExpansionPanelHeader,
+        MatExpansionPanelTitle,
+        NgSwitch,
+        NgSwitchCase,
+        MatCheckbox,
+        NgSwitchDefault,
+        MatRadioButton,
+        PanelArrayItemComponent,
+        SecondaryButtonComponent,
+        PrimaryBadgeComponent,
+        FontAwesomeModule,
+        SearchPortalComponent,
+        JoinItemsPipe,
+        FilterPipe,
+        JoinDataSourcesPipe,
+        FindSelectedItemPipe,
+    ],
 })
 export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() primarySource: string;

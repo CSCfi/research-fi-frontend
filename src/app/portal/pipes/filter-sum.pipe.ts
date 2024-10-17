@@ -8,7 +8,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'filterSum',
+    name: 'filterSum',
+    standalone: true,
 })
 export class FilterSumPipe implements PipeTransform {
   // Sum doc_count of filter options

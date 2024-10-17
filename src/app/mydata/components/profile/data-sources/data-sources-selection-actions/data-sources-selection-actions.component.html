@@ -8,7 +8,7 @@
   <app-secondary-button
     *ngIf="
       action.id === 'share' ||
-      (selectedItems | filter: filterByStatus:{ arg: action.id }).length
+      (selectedItems | filter: filterByStatus:{ arg: action.id } ).length
     "
     [content]="action.label"
     (click)="openDialog(i)"

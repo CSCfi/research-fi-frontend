@@ -150,7 +150,7 @@
         padding-right: 0.25rem;
       }
 
-      .mat-checkbox {
+      .mat-mdc-checkbox {
         cursor: default;
       }
 
@@ -171,7 +171,7 @@
       }
 
       // Sidebar
-      .mat-card-title,
+      .mat-mdc-card-title,
       .mat-card h2 {
         padding: 0;
       }
@@ -182,15 +182,15 @@
         white-space: nowrap;
         max-width: 100%;
       }
-
-      mat-card.mat-card {
+      /*  TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version.*/
+      mat-card.mat-mdc-card {
         margin-bottom: 10px;
         padding: 16px;
         box-shadow: none;
         border-radius: 2px;
       }
 
-      .mat-card-title {
+      .mat-mdc-card-title {
         font-size: 1rem;
         line-height: 1.275;
         font-weight: 500;
@@ -306,7 +306,7 @@
         padding: 0;
         margin-block-end: 1em;
       }
-
+      /*  TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version.*/
       span.mat-button-wrapper {
         font-size: 1.3em;
         line-height: 1.95;
@@ -314,7 +314,7 @@
         white-space: normal;
       }
 
-      button.mat-raised-button {
+      button.mat-mdc-raised-button {
         width: 100%;
         padding: 10px;
         margin: 10px 0;

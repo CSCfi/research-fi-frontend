@@ -515,7 +515,7 @@
 
     <div *ngFor="let item of responseData.fundings" class="col-12 col-md-4 col-xl-4">
       <aside>
-        <mat-card>
+        <mat-card appearance="outlined">
           <div class="inner">
             <mat-card-title>
               <h2>
@@ -544,7 +544,7 @@
       </aside>
 
       <aside>
-        <mat-card>
+        <mat-card appearance="outlined">
           <div class="inner">
             <mat-card-title>
               <h2>
@@ -570,7 +570,7 @@
 
       <!-- Copy url -->
       <aside>
-        <mat-card>
+        <mat-card appearance="outlined">
           <div class="inner">
             <mat-card-title><h2 i18n="@@share">Jaa</h2></mat-card-title>
             <app-share [id]="item.id"></app-share>
@@ -579,7 +579,7 @@
       </aside>
 
       <aside>
-        <mat-card>
+        <mat-card appearance="outlined">
           <div class="inner">
             <mat-card-title><h2 i18n="@@fundingSource">Rahoitustiedon lähde</h2></mat-card-title>
             <div *ngFor="let source of responseData.fundings">

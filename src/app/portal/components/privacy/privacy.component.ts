@@ -18,7 +18,7 @@ import {
 } from '@angular/core';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { Subscription } from 'rxjs';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser, NgIf } from '@angular/common';
 import { PrivacyService } from 'src/app/portal/services/privacy.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -26,11 +26,26 @@ import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { WINDOW } from 'src/app/shared/services/window.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { SanitizeHtmlPipe } from '../../../shared/pipes/sanitize-html.pipe';
+import { MatButton } from '@angular/material/button';
+import { MatTabGroup, MatTab } from '@angular/material/tabs';
+import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component';
+import { BannerDividerComponent } from '../../../shared/components/banner-divider/banner-divider.component';
 
 @Component({
-  selector: 'app-privacy',
-  templateUrl: './privacy.component.html',
-  styleUrls: ['./privacy.component.scss'],
+    selector: 'app-privacy',
+    templateUrl: './privacy.component.html',
+    styleUrls: ['./privacy.component.scss'],
+    standalone: true,
+    imports: [
+        BannerDividerComponent,
+        BreadcrumbComponent,
+        MatTabGroup,
+        MatTab,
+        NgIf,
+        MatButton,
+        SanitizeHtmlPipe,
+    ],
 })
 export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
   focusSub: Subscription;

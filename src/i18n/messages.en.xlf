@@ -4263,32 +4263,24 @@
         <target>Clinical researcher</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.91" datatype="html">
-        <source> Lehden nimi, kirjoita hakukenttään journalName: &quot;haettava nimike&quot;, esimerkiksi journalName:&quot;Nature&quot; </source>
+        <source>Lehden nimi, kirjoita hakukenttään journalName: &quot;haettava nimike&quot;, esimerkiksi journalName:&quot;Nature&quot;</source>
         <target state="new">Journal name, write in the search field journalName: &quot;searched identifier&quot;, for example, journalName:&quot;Nature&quot;</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.92" datatype="html">
-        <source> Konferenssin nimi, kirjoita hakukenttään conferenceName: &quot;haettava nimike&quot;, esimerkiksi conferenceName:&quot;ACM Multimedia&quot; </source>
+        <source>Konferenssin nimi, kirjoita hakukenttään conferenceName: &quot;haettava nimike&quot;, esimerkiksi conferenceName:&quot;ACM Multimedia&quot; </source>
         <target state="new"> Conference name, write in the search field conferenceName: &quot;searched identifier&quot;, for example, conferenceName:&quot;ACM Multimedia&quot;</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.93" datatype="html">
-        <source> Kustantajan nimi, kirjoita hakukenttään publisherName: &quot;haettava nimike&quot;, esimerkiksi publisherName:&quot;Springer&quot; </source>
+        <source>Kustantajan nimi, kirjoita hakukenttään publisherName: &quot;haettava nimike&quot;, esimerkiksi publisherName:&quot;Springer&quot;</source>
         <target state="new">Publisher name, write in the search field publisherName: &quot;searched identifier&quot;, for example, publisherName:&quot;Springer&quot;</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.51" datatype="html">
-        <source> Jokerimerkillä ? voit korvata yhden merkin hakusanasta. Jos haluat hakea samaan aikaan esimerkiksi sanoja &quot;woman&quot; ja &quot;women&quot;, voit käyttää hakuatermiä wom?n. </source>
+        <source>Jokerimerkillä ? voit korvata yhden merkin hakusanasta. Jos haluat hakea samaan aikaan esimerkiksi sanoja &quot;woman&quot; ja &quot;women&quot;, voit käyttää hakuatermiä wom?n.</source>
         <target state="new">With a wildcard ? you can replace one character of the search term. For example, if you want to search for the words &quot;woman&quot; and &quot;women&quot; at the same time, you can use the search term wom?n.</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.52" datatype="html">
-        <source> Jokerimerkillä * voit korvata yhden tai useamman merkin hakusanan keskeltä tai lopusta. Jokerimerkki * edustaa myös tyhjää merkkiä. Jos haluat hakea samaan aikaan esimerkiksi sanoja &quot;color&quot; ja &quot;colour&quot;, voit käyttää hakutermiä colo*r. Esimerkiksi hakutermillä tietotek* voit hakea sanoja jotka alkavat kirjaimilla tietotek, kuten &quot;tietotekniikka&quot; ja &quot;tietotekniset&quot;. </source>
-        <target state="new">With a wildcard * you can replace one or more characters in the middle or at the end of the search term. The wildcard also represents a null character. For example, if you want to search for the words &quot;color&quot; and &quot;colour&quot; at the same time, you can use the search term colo*r.</target>
-      </trans-unit>
-      <trans-unit id="2404930950771668634" datatype="html">
-        <source>Suomen akatemian muu päättäjä</source>
-        <target state="new">Other decision-maker of the Research Council of Finland</target>
-      </trans-unit>
-      <trans-unit id="5b7cc93f54464f32cf771464204823d4113f0799" datatype="html">
-        <source>Suomen akatemian muu päättäjä</source>
-        <target state="new">Other decision-maker of the Research Council of Finland</target>
+        <source>Jokerimerkillä * voit korvata yhden tai useamman merkin hakusanan keskeltä tai lopusta. Jokerimerkki * edustaa myös tyhjää merkkiä. Jos haluat hakea samaan aikaan esimerkiksi sanoja &quot;color&quot; ja &quot;colour&quot;, voit käyttää hakutermiä colo*r. Esimerkiksi hakutermillä tietotek* voit hakea sanoja jotka alkavat kirjaimilla tietotek, kuten &quot;tietotekniikka&quot; ja &quot;tietotekniset&quot;. </source>
+        <target state="new">With a wildcard * you can replace one or more characters in the middle or at the end of the search term. The wildcard  also represents a null character. For example, if you want to search for the words &quot;color&quot; and &quot;colour&quot; at the same time, you can use the search term colo*r.</target>
       </trans-unit>
     </body>
   </file>

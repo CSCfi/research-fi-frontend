@@ -1,11 +1,21 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, OnInit, Input } from '@angular/core';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgIf, NgClass } from '@angular/common';
+import { MatRipple } from '@angular/material/core';
 
 @Component({
-  selector: 'app-secondary-button',
-  templateUrl: './secondary-button.component.html',
-  styleUrls: ['../buttons-shared.scss'],
+    selector: 'app-secondary-button',
+    templateUrl: './secondary-button.component.html',
+    styleUrls: ['../buttons-shared.scss'],
+    standalone: true,
+    imports: [
+        MatRipple,
+        NgIf,
+        FontAwesomeModule,
+        NgClass,
+    ],
 })
 export class SecondaryButtonComponent implements OnInit {
   @Input() icon: IconDefinition;

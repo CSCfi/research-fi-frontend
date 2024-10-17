@@ -26,8 +26,8 @@ app-table-cell {
   }
 
   .mat-sort-header,
-  .mat-cell,
-  .mat-footer-cell {
+  .mat-mdc-cell,
+  .mat-mdc-footer-cell {
     font-size: 1rem;
   }
 
@@ -92,7 +92,7 @@ app-table-cell {
     padding-right: $row-x-padding !important;
   }
 
-  .mat-table-sticky mat-header-cell {
+  .mat-mdc-table-sticky mat-header-cell {
     padding: 0.5rem 1rem;
   }
 

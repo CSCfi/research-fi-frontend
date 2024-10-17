@@ -9,11 +9,23 @@ import { Component, OnInit } from '@angular/core';
 import { NotificationService } from '@shared/services/notification.service';
 import { NotificationObject } from '@shared/types';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
+import { MatButton } from '@angular/material/button';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgIf, NgFor } from '@angular/common';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 @Component({
-  selector: 'app-notification-banner',
-  templateUrl: './notification-banner.component.html',
-  styleUrls: ['./notification-banner.component.scss'],
+    selector: 'app-notification-banner',
+    templateUrl: './notification-banner.component.html',
+    styleUrls: ['./notification-banner.component.scss'],
+    standalone: true,
+    imports: [
+        CollapseModule,
+        NgIf,
+        FontAwesomeModule,
+        NgFor,
+        MatButton,
+    ],
 })
 export class NotificationBannerComponent implements OnInit {
   isCollapsed = true;

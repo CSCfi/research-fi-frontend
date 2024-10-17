@@ -287,14 +287,14 @@ app-search-bar {
   .search-help button {
     height: 52px;
   }
-
+  /*  TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version.*/
   .search-help button.down span.mat-button-wrapper:after {
     font-family: 'FontAwesome';
     content: '\f078';
     display: inline-block;
     padding-left: 0.25rem;
   }
-
+  /*  TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version.*/
   .search-help button.up span.mat-button-wrapper:after {
     font-family: 'FontAwesome';
     content: '\f077';

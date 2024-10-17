@@ -22,12 +22,31 @@ import { SearchPortalService } from '@mydata/services/search-portal.service';
 import { GroupTypes } from '@mydata/constants/groupTypes';
 import { Subscription } from 'rxjs';
 import { Sort } from '@angular/material/sort';
+import { ThousandSeparatorPipe } from '../../../../shared/pipes/thousand-separator.pipe';
+import { SearchPortalResultsComponent } from './search-portal-results/search-portal-results.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { SearchComponent } from '../../../../shared/components/search/search.component';
+import { NgSwitch, NgSwitchCase, NgIf, NgSwitchDefault, NgClass } from '@angular/common';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
-  selector: 'app-search-portal',
-  templateUrl: './search-portal.component.html',
-  styleUrls: ['./search-portal.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-search-portal',
+    templateUrl: './search-portal.component.html',
+    styleUrls: ['./search-portal.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [
+        FontAwesomeModule,
+        NgSwitch,
+        NgSwitchCase,
+        SearchComponent,
+        NgIf,
+        NgSwitchDefault,
+        NgClass,
+        MatProgressSpinner,
+        SearchPortalResultsComponent,
+        ThousandSeparatorPipe,
+    ],
 })
 export class SearchPortalComponent implements OnInit, OnDestroy {
   @Input() data: any;

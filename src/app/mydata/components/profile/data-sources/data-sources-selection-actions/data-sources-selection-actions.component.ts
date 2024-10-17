@@ -13,13 +13,35 @@ import { ProfileService } from '@mydata/services/profile.service';
 import { cloneDeep } from 'lodash-es';
 import { HttpResponse } from '@angular/common/http';
 import { SnackbarService } from '@mydata/services/snackbar.service';
+import { FilterPipe } from '../../../../pipes/filter.pipe';
+import { DraftSummaryComponent } from '../../draft-summary/draft-summary.component';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { DialogComponent } from '../../../../../shared/components/dialog/dialog.component';
+import { PrimaryActionButtonComponent } from '../../../../../shared/components/buttons/primary-action-button/primary-action-button.component';
+import { SecondaryButtonComponent } from '../../../../../shared/components/buttons/secondary-button/secondary-button.component';
+import { NgFor, NgIf, NgSwitch, NgSwitchCase, NgTemplateOutlet, NgSwitchDefault } from '@angular/common';
 
 type Action = 'publish' | 'hide' | 'share';
 
 @Component({
-  selector: 'app-data-sources-selection-actions',
-  templateUrl: './data-sources-selection-actions.component.html',
-  styleUrls: ['./data-sources-selection-actions.component.scss'],
+    selector: 'app-data-sources-selection-actions',
+    templateUrl: './data-sources-selection-actions.component.html',
+    styleUrls: ['./data-sources-selection-actions.component.scss'],
+    standalone: true,
+    imports: [
+        NgFor,
+        NgIf,
+        SecondaryButtonComponent,
+        PrimaryActionButtonComponent,
+        DialogComponent,
+        NgSwitch,
+        NgSwitchCase,
+        NgTemplateOutlet,
+        NgSwitchDefault,
+        MatCheckbox,
+        DraftSummaryComponent,
+        FilterPipe,
+    ],
 })
 export class DataSourcesSelectionActionsComponent implements OnInit, OnDestroy {
   @Input() selectedItems: any[];

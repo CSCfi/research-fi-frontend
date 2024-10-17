@@ -56,3 +56,6 @@ src/assets/config/auth_config.json
 /test-results/
 /playwright-report/
 /playwright/.cache/
+
+# dotenvx
+/.env

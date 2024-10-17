@@ -19,12 +19,12 @@ import {
   ViewEncapsulation,
   HostListener,
 } from '@angular/core';
-import { DOCUMENT, PlatformLocation } from '@angular/common';
+import { DOCUMENT, PlatformLocation, NgClass, NgIf, NgFor } from '@angular/common';
 import { ResizeService } from 'src/app/shared/services/resize.service';
 import { Observable, Subscription, take } from 'rxjs';
 import { WINDOW } from 'src/app/shared/services/window.service';
 import { isPlatformBrowser } from '@angular/common';
-import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import {
   faChevronDown,
@@ -41,14 +41,34 @@ import {
 } from 'angular-auth-oidc-client';
 import { Constants } from '@mydata/constants';
 import { DraftService } from '@mydata/services/draft.service';
+import { PrimaryActionButtonComponent } from '../../shared/components/buttons/primary-action-button/primary-action-button.component';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { ClickOutsideDirective } from '../../shared/directives/click-outside.directive';
+import { CloseButtonComponent } from '../../shared/components/buttons/close-button/close-button.component';
+import { DialogComponent } from '../../shared/components/dialog/dialog.component';
 
 type DomainObject = { label: string; locale: string; url: string };
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [
+        NgClass,
+        NgIf,
+        RouterLink,
+        DialogComponent,
+        CloseButtonComponent,
+        NgFor,
+        RouterLinkActive,
+        ClickOutsideDirective,
+        MatMenuTrigger,
+        MatMenu,
+        MatMenuItem,
+        PrimaryActionButtonComponent,
+    ],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild('mainNavbar', { static: true }) mainNavbar: ElementRef;
@@ -77,7 +97,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   currentDomain: DomainObject;
   lang: string;
-  langMenuOpen: false;
+  langMenuOpen = false;
   currentRoute: any;
   routeSub: Subscription;
   showSkipLinks: boolean;

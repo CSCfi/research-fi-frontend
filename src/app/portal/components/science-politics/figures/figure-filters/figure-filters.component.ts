@@ -10,12 +10,23 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { FiguresInfoComponent } from '../figures-info/figures-info.component';
+import { MatChipListbox, MatChipOption } from '@angular/material/chips';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-figure-filters',
-  templateUrl: './figure-filters.component.html',
-  styleUrls: ['./figure-filters.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-figure-filters',
+    templateUrl: './figure-filters.component.html',
+    styleUrls: ['./figure-filters.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [
+        NgFor,
+        MatChipListbox,
+        MatChipOption,
+        NgIf,
+        FiguresInfoComponent,
+    ],
 })
 export class FigureFiltersComponent implements OnInit, OnChanges {
   @Output() clicked = new EventEmitter<boolean>();

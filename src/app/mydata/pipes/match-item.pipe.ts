@@ -8,7 +8,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'matchItem',
+    name: 'matchItem',
+    standalone: true,
 })
 /*
  * Find match between patch items and item in profile data

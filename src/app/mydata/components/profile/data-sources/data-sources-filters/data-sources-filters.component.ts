@@ -10,11 +10,14 @@ import { FiltersConfig } from '@mydata/constants';
 import { getUniqueSources, filterData } from '@mydata/utils';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
+import { FiltersComponent } from '../../../../../portal/components/results/filters/filters.component';
 
 @Component({
-  selector: 'app-data-sources-filters',
-  templateUrl: './data-sources-filters.component.html',
-  styleUrls: ['./data-sources-filters.component.scss'],
+    selector: 'app-data-sources-filters',
+    templateUrl: './data-sources-filters.component.html',
+    styleUrls: ['./data-sources-filters.component.scss'],
+    standalone: true,
+    imports: [FiltersComponent],
 })
 
 /*

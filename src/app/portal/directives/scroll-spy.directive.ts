@@ -9,7 +9,8 @@ import {
 } from '@angular/core';
 
 @Directive({
-  selector: '[appScrollSpy]',
+    selector: '[appScrollSpy]',
+    standalone: true,
 })
 // Used in Figures on science and research to find active section when scrolling content
 // Active section is highlighted in sidebar navigation

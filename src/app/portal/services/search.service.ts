@@ -27,7 +27,9 @@ import {
 } from '@portal/models/funding-call.model';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class SearchService {
   searchTerm: string;
   pageNumber: number;

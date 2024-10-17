@@ -6,7 +6,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { faAlignLeft } from '@fortawesome/free-solid-svg-icons';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
@@ -17,11 +17,35 @@ import { SingleItemService } from '@portal/services/single-item.service';
 import { TabChangeService } from '@portal/services/tab-change.service';
 import { UtilityService } from '@shared/services/utility.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, NgIf, NgFor, NgClass, JsonPipe, DatePipe } from '@angular/common';
+import { NgArrayPipesModule } from 'ngx-pipes';
+import { ShareComponent } from '../share/share.component';
+import { SingleResultLinkComponent } from '../single-result-link/single-result-link.component';
+import { MatCard, MatCardTitle } from '@angular/material/card';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
 @Component({
-  selector: 'app-single-funding-call',
-  templateUrl: './single-funding-call.component.html',
-  styleUrls: ['./single-funding-call.component.scss'],
+    selector: 'app-single-funding-call',
+    templateUrl: './single-funding-call.component.html',
+    styleUrls: ['./single-funding-call.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        RouterLink,
+        BreadcrumbComponent,
+        NgFor,
+        TooltipModule,
+        FontAwesomeModule,
+        NgClass,
+        MatCard,
+        MatCardTitle,
+        SingleResultLinkComponent,
+        ShareComponent,
+        JsonPipe,
+        DatePipe,
+        NgArrayPipesModule,
+    ],
 })
 export class SingleFundingCallComponent implements OnInit {
   newUiToggle = true;

@@ -24,15 +24,27 @@ import {
   faAngleDown,
   faAngleUp,
 } from '@fortawesome/free-solid-svg-icons';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgIf, NgFor, NgStyle } from '@angular/common';
 import { WINDOW } from 'src/app/shared/services/window.service';
 import { DataService } from 'src/app/portal/services/data.service';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { TabItemComponent } from './tab-item/tab-item.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
-  selector: ' app-result-tab',
-  templateUrl: './result-tab.component.html',
-  styleUrls: ['./result-tab.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: ' app-result-tab',
+    templateUrl: './result-tab.component.html',
+    styleUrls: ['./result-tab.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [
+        NgIf,
+        NgFor,
+        NgStyle,
+        FontAwesomeModule,
+        TabItemComponent,
+        MatProgressSpinner,
+    ],
 })
 export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   @ViewChildren('scroll') ref: QueryList<any>;

@@ -24,7 +24,7 @@ import {
   Publication2Service, SearchParams
 } from '@portal/services/publication2.service';
 import { filter, map, take, tap } from 'rxjs/operators';
-import { SharedModule } from '@shared/shared.module';
+// import { SharedModule } from '@shared/shared.module';
 import { SearchBar2Component } from '@portal/search-bar2/search-bar2.component';
 import { NgArrayPipesModule, NgMathPipesModule } from 'ngx-pipes';
 import { OrganizationFilterComponent } from '@portal/components/organization-filter/organization-filter.component';
@@ -40,17 +40,25 @@ import { ColumnSorterComponent } from '@shared/components/column-sorter/column-s
 import { faChartBar, faSlidersH } from '@fortawesome/free-solid-svg-icons';
 import { Dialog, DialogRef } from '@angular/cdk/dialog';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { PaginationComponent } from '@shared/components/pagination/pagination.component';
+import {
+  PrimaryActionButtonComponent
+} from '@shared/components/buttons/primary-action-button/primary-action-button.component';
+import { SecondaryButtonComponent } from '@shared/components/buttons/secondary-button/secondary-button.component';
+import { TagPeerReviewedComponent } from '@shared/components/tags/tag-peer-reviewed/tag-peer-reviewed.component';
+import { TagOpenAccessComponent } from '@shared/components/tags/tag-open-access/tag-open-access.component';
+import { TagDoiComponent } from '@shared/components/tags/tag-doi/tag-doi.component';
 
 @Component({
   selector: 'app-publications2',
   templateUrl: './publications2.component.html',
   styleUrls: ['./publications2.component.scss'],
   imports: [CdkTableModule, FormsModule, AsyncPipe, JsonPipe, NgForOf, NgIf, LimitPipe, NgArrayPipesModule,
-    SharedModule, //TODO do not depend on shared module
+    // SharedModule, //TODO do not depend on shared module
     FormsModule,
     RouterModule,
     SearchBar2Component, OrganizationFilterComponent, FilterOptionComponent, CollapsibleComponent, MatButtonModule, NgStyle, FilterLimitButtonComponent, FirstDigitPipe, FirstLetterPipe, RouterLink,
-    LayoutModule, ColumnSorterComponent, NgTemplateOutlet, FontAwesomeModule, NgMathPipesModule
+    LayoutModule, ColumnSorterComponent, NgTemplateOutlet, FontAwesomeModule, NgMathPipesModule, PaginationComponent, PrimaryActionButtonComponent, SecondaryButtonComponent, TagPeerReviewedComponent, TagOpenAccessComponent, TagDoiComponent
   ],
   standalone: true
 })

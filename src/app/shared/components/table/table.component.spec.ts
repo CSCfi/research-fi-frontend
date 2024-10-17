@@ -23,18 +23,18 @@ describe('TableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TableComponent, TableCellComponent, CutContentPipe],
-      imports: [
+    imports: [
         MatTableModule,
         MatSortModule,
         BrowserAnimationsModule,
         RouterTestingModule,
-      ],
-      providers: [
+        TableComponent, TableCellComponent, CutContentPipe,
+    ],
+    providers: [
         CutContentPipe,
         { provide: ActivatedRoute, useValue: routeMock },
-      ],
-    }).compileComponents();
+    ],
+}).compileComponents();
   });
 
   beforeEach(() => {

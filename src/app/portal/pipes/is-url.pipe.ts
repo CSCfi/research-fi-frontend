@@ -8,7 +8,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'isUrl',
+    name: 'isUrl',
+    standalone: true,
 })
 export class IsUrlPipe implements PipeTransform {
   transform(url: string): boolean {

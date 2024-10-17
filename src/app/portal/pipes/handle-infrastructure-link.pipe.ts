@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'handleInfrastructureLink',
+    name: 'handleInfrastructureLink',
+    standalone: true,
 })
 export class HandleInfrastructureLinkPipe implements PipeTransform {
   transform(link: string): string {

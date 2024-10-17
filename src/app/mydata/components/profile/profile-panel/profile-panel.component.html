@@ -76,12 +76,13 @@
         </mat-expansion-panel-header>
 
         <ng-container *ngIf="field.label === 'Affiliaatiot'">
-          <p class="row" i18n="@@primaryInfoWillAppearFirst">
+          <p class="row smaller-text" i18n="@@primaryInfoWillAppearFirst">
             Ensisijaiset näytetään profiilissasi listan ensimmäisinä.
           </p>
         </ng-container>
 
         <!-- Options -->
+        <div class="affiliation-table-wrapper">
         <ng-container *ngFor="let item of field.items; let j = index">
           <!-- {{ item | json }} -->
           <!-- Keywords have values that need to be joined -->
@@ -194,7 +195,7 @@
               <!-- Primary affiliation -->
               <div class="row pb-3">
                 <div
-                  class="col-auto px-4 mx-1 cursor-pointer"
+                  class="col-auto px-4 mx-3 cursor-pointer"
                   *ngIf="item.itemMeta.type === fieldTypes.activityAffiliation"
                 >
                   <app-primary-badge
@@ -212,6 +213,7 @@
             </ng-container>
           </ng-container>
         </ng-container>
+        </div>
 
         <div class="row py-3 font-size-small" *ngIf="field.single">
           <div class="col col-lg-6 ps-0">
@@ -228,8 +230,8 @@
 
 <!-- Search from portal dialog -->
 <ng-container *ngIf="showDialog">
+  <!-- TODO: Undefined event emitter (onEditorClose)="handleChanges($event)" found during Angular 17 upgrade -->
   <app-search-portal
     [data]="dialogData"
-    (onEditorClose)="handleChanges($event)"
   ></app-search-portal>
 </ng-container>

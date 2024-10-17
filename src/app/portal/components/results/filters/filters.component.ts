@@ -20,8 +20,8 @@ import {
   ViewEncapsulation,
   ViewChild,
 } from '@angular/core';
-import { MatSelectionList } from '@angular/material/list';
-import { Router, ActivatedRoute } from '@angular/router';
+import { MatSelectionList, MatListOption } from '@angular/material/list';
+import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
 import { Subscription } from 'rxjs';
 import { WINDOW } from 'src/app/shared/services/window.service';
@@ -35,17 +35,70 @@ import { InfrastructureFilterService } from 'src/app/portal/services/filters/inf
 import { OrganizationFilterService } from 'src/app/portal/services/filters/organization-filter.service';
 import { NewsFilterService } from 'src/app/portal/services/filters/news-filter.service';
 import { faSlidersH, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
-import { isPlatformBrowser, DOCUMENT } from '@angular/common';
+import { isPlatformBrowser, DOCUMENT, NgTemplateOutlet, NgIf, NgFor, NgClass } from '@angular/common';
 import { DataService } from 'src/app/portal/services/data.service';
 import { FundingCallFilterService } from '@portal/services/filters/funding-call-filter.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { FilterConfigType } from 'src/types';
+import { ConvertToArrayPipe } from '../../../pipes/convert-to-array.pipe';
+import { ReplaceSpacePipe } from '../../../pipes/replace-space';
+import { FilterItemPipe } from '../../../pipes/filter-item.pipe';
+import { ThousandSeparatorPipe } from '../../../../shared/pipes/thousand-separator.pipe';
+import { DialogComponent } from '../../../../shared/components/dialog/dialog.component';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatDatepickerInput, MatDatepickerToggle, MatDatepickerToggleIcon, MatDatepicker } from '@angular/material/datepicker';
+import { MatInput } from '@angular/material/input';
+import { MatOption } from '@angular/material/core';
+import { MatSelect } from '@angular/material/select';
+import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { SecondaryButtonComponent } from '../../../../shared/components/buttons/secondary-button/secondary-button.component';
 
 @Component({
-  selector: 'app-filters',
-  templateUrl: './filters.component.html',
-  styleUrls: ['./filters.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-filters',
+    templateUrl: './filters.component.html',
+    styleUrls: ['./filters.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [
+        SecondaryButtonComponent,
+        NgTemplateOutlet,
+        NgIf,
+        MatProgressSpinner,
+        FontAwesomeModule,
+        NgFor,
+        MatExpansionPanel,
+        MatExpansionPanelHeader,
+        NgClass,
+        MatExpansionPanelTitle,
+        TooltipModule,
+        MatSlideToggle,
+        MatFormField,
+        MatLabel,
+        MatSelect,
+        MatOption,
+        MatInput,
+        MatDatepickerInput,
+        MatDatepickerToggle,
+        MatSuffix,
+        MatIcon,
+        MatDatepickerToggleIcon,
+        MatDatepicker,
+        MatSelectionList,
+        MatListOption,
+        MatButton,
+        RouterLink,
+        DialogComponent,
+        ThousandSeparatorPipe,
+        FilterItemPipe,
+        ReplaceSpacePipe,
+        ConvertToArrayPipe,
+    ],
 })
 export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   @Input() responseData: any;
@@ -79,7 +132,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   visualFilterSub: Subscription;
   subFilters: MatSelectionList[];
   totalCount = 0;
-  faSlidersH = faSlidersH;
+  faSlidersH: any = faSlidersH;
   faPlus = faPlus;
   faMinus = faMinus;
   panelHeight = 'auto';

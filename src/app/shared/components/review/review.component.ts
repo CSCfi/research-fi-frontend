@@ -6,17 +6,42 @@
 //  :license: MIT
 
 import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subscription } from 'rxjs';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { UtilityService } from '@shared/services/utility.service';
+import { MatButton } from '@angular/material/button';
+import { PrimaryActionButtonComponent } from '../buttons/primary-action-button/primary-action-button.component';
+import { SecondaryButtonComponent } from '../buttons/secondary-button/secondary-button.component';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MatInput } from '@angular/material/input';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+import { MatRadioGroup, MatRadioButton } from '@angular/material/radio';
+import { NgIf, NgFor } from '@angular/common';
 
 @Component({
-  selector: 'app-review',
-  templateUrl: './review.component.html',
-  styleUrls: ['./review.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-review',
+    templateUrl: './review.component.html',
+    styleUrls: ['./review.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [
+        NgIf,
+        RouterLink,
+        MatRadioGroup,
+        FormsModule,
+        NgFor,
+        MatRadioButton,
+        MatFormField,
+        MatLabel,
+        MatInput,
+        MatCheckbox,
+        SecondaryButtonComponent,
+        PrimaryActionButtonComponent,
+        MatButton,
+    ],
 })
 export class ReviewComponent implements OnInit, OnDestroy {
   underReview = false;

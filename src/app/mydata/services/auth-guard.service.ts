@@ -6,12 +6,7 @@
 //  :license: MIT
 
 import { Injectable } from '@angular/core';
-import {
-  CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-  Router,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { of, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
@@ -20,8 +15,10 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 
 // https://github.com/damienbod/angular-auth-oidc-client/blob/main/docs/guards.md
-@Injectable()
-export class AuthGuard implements CanActivate {
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthGuard  {
   constructor(
     private readonly oidcSecurityService: OidcSecurityService,
     private router: Router,
@@ -50,7 +47,7 @@ export class AuthGuard implements CanActivate {
             handleUnauthorized();
           }
           else {
-            // Steps until 2 should be accessible without authentication. 
+            // Steps until 2 should be accessible without authentication.
             return true;
           }
         } else if (!isAuthenticated) {

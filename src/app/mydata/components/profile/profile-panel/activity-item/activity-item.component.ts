@@ -6,10 +6,13 @@
 //  :license: MIT
 
 import { Component, Input, OnInit } from '@angular/core';
+import { NgFor } from '@angular/common';
 
 @Component({
-  selector: 'app-activity-item',
-  templateUrl: './activity-item.component.html',
+    selector: 'app-activity-item',
+    templateUrl: './activity-item.component.html',
+    standalone: true,
+    imports: [NgFor],
 })
 export class ActivityItemComponent implements OnInit {
   @Input() rows: any[];

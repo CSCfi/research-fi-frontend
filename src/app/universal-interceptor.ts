@@ -14,7 +14,7 @@ import {
   HttpEvent,
 } from '@angular/common/http';
 import { Request } from 'express';
-import { REQUEST } from '@nguniversal/express-engine/tokens';
+import { REQUEST } from '../express.tokens';
 import { EXPRESS_HTTP_PORT } from './app.global';
 import { map } from 'rxjs/operators';
 
@@ -32,10 +32,14 @@ export class UniversalInterceptor implements HttpInterceptor {
     @Optional() @Inject(REQUEST) protected request: Request,
     @Inject(LOCALE_ID) protected localeId: string
   ) {
+    console.log('UniversalInterceptor HERE!');
+
     this.localeId = localeId;
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
+    console.log('UniversalInterceptor intercept');
+
     let serverReq: HttpRequest<any> = req;
     /*
     Modify requests for 'config.json' and 'auth_config.json'.

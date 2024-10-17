@@ -8,7 +8,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'trimLinkPrefix',
+    name: 'trimLinkPrefix',
+    standalone: true,
 })
 export class TrimLinkPrefixPipe implements PipeTransform {
   transform(url: string, prefix?: string): string {

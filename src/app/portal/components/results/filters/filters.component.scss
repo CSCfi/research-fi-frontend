@@ -7,21 +7,23 @@
 
 @import './filters-shared.scss';
 
-app-funding-call-category-filters .mat-standard-chip {
+app-funding-call-category-filters .mat-mdc-standard-chip {
   border-radius: 10px;
 }
 
-app-funding-call-category-filters .mat-chip-list-stacked .mat-chip-list-wrapper .mat-standard-chip {
+/*  TODO(mdc-migration): The following rule targets internal classes of chips that may no longer apply for the MDC version.*/
+app-funding-call-category-filters .mat-chip-list-stacked .mat-chip-list-wrapper .mat-mdc-standard-chip {
   width: auto !important;
 }
 
 app-funding-call-category-filters {
+  /*  TODO(mdc-migration): The following rule targets internal classes of chips that may no longer apply for the MDC version.*/
   .mat-chip-list-wrapper {
     flex-direction: row !important;
     margin-top: 10px;
     margin-bottom: 15px;
   }
-  .mat-chip {
+  .mat-mdc-chip {
     cursor: pointer;
     border-radius: 4px;
   }

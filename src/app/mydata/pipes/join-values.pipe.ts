@@ -8,7 +8,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'joinValues',
+    name: 'joinValues',
+    standalone: true,
 })
 
 /*

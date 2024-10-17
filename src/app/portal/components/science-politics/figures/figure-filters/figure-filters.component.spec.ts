@@ -10,10 +10,9 @@ describe('FigureFiltersComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [FigureFiltersComponent],
-      providers: [{ provide: Router, useValue: routerSpy }],
-      imports: [MatChipsModule],
-    }).compileComponents();
+    providers: [{ provide: Router, useValue: routerSpy }],
+    imports: [MatChipsModule, FigureFiltersComponent],
+}).compileComponents();
   }));
 
   beforeEach(() => {

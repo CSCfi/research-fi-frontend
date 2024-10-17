@@ -20,13 +20,13 @@ import {
   LOCALE_ID,
   OnDestroy,
 } from '@angular/core';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser, NgIf, NgFor, NgStyle, NgClass, AsyncPipe } from '@angular/common';
 import { SearchService } from '@portal/services/search.service';
 import { SortService } from '@portal/services/sort.service';
 import { AutosuggestService } from '@portal/services/autosuggest.service';
 import { TabChangeService } from '@portal/services/tab-change.service';
-import { UntypedFormControl } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { UntypedFormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { SingleItemService } from '@portal/services/single-item.service';
@@ -38,13 +38,38 @@ import { FilterService } from '@portal/services/filters/filter.service';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { StaticDataService } from '@portal/services/static-data.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
-import { MatMenuTrigger } from '@angular/material/menu';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { HighlightSearchPipe } from '../../pipes/highlight.pipe';
+import { NotificationBannerComponent } from '../../../shared/components/notification-banner/notification-banner.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { ClickOutsideDirective } from '../../../shared/directives/click-outside.directive';
+import { MatButton } from '@angular/material/button';
 
 @Component({
-  selector: 'app-search-bar',
-  templateUrl: './search-bar.component.html',
-  styleUrls: ['./search-bar.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-search-bar',
+    templateUrl: './search-bar.component.html',
+    styleUrls: ['./search-bar.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [
+        FormsModule,
+        MatButton,
+        MatMenuTrigger,
+        NgIf,
+        MatMenu,
+        NgFor,
+        MatMenuItem,
+        ReactiveFormsModule,
+        NgStyle,
+        ClickOutsideDirective,
+        NgClass,
+        MatProgressSpinner,
+        ListItemComponent,
+        RouterLink,
+        NotificationBannerComponent,
+        AsyncPipe,
+        HighlightSearchPipe,
+    ],
 })
 export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('searchTargetMenuTrigger') searchTargetMenuTrigger: MatMenuTrigger;

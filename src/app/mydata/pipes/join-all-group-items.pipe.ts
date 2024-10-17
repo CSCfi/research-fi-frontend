@@ -8,7 +8,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'joinAllGroupItems',
+    name: 'joinAllGroupItems',
+    standalone: true,
 })
 export class JoinAllGroupItemsPipe implements PipeTransform {
   transform(items: any) {

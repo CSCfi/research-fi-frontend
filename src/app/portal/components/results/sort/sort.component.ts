@@ -11,13 +11,24 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
 import { SortService } from '@portal/services/sort.service';
 import { TabChangeService } from '@portal/services/tab-change.service';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { NgFor } from '@angular/common';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { SecondaryButtonComponent } from '../../../../shared/components/buttons/secondary-button/secondary-button.component';
 
 type SortOption = { label: string; value: string };
 @Component({
-  selector: 'app-sort',
-  templateUrl: './sort.component.html',
-  styleUrls: ['./sort.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-sort',
+    templateUrl: './sort.component.html',
+    styleUrls: ['./sort.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [
+        SecondaryButtonComponent,
+        MatMenuTrigger,
+        MatMenu,
+        MatMenuItem,
+        NgFor,
+    ],
 })
 export class SortComponent implements OnInit, OnDestroy {
   tabLink: string;

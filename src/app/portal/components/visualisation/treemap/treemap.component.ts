@@ -11,9 +11,10 @@ import * as d3 from 'd3v4';
 import { HierarchyNode, ScaleLinear } from 'd3';
 
 @Component({
-  selector: 'app-treemap',
-  templateUrl: './treemap.component.html',
-  styleUrls: ['./treemap.component.scss'],
+    selector: 'app-treemap',
+    templateUrl: './treemap.component.html',
+    styleUrls: ['./treemap.component.scss'],
+    standalone: true,
 })
 export class TreemapComponent implements OnInit, OnChanges {
   @Input() data;

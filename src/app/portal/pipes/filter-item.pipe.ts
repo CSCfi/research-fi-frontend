@@ -8,8 +8,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'filterItem',
-  pure: false,
+    name: 'filterItem',
+    pure: false,
+    standalone: true,
 })
 // This pipe is used to set "Select all" checkbox
 export class FilterItemPipe implements PipeTransform {

@@ -6,7 +6,7 @@
 // :license: MIT
 
 import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Person } from '@portal/models/person/person.model';
 import { Search } from '@portal/models/search.model';
 import { SearchService } from '@portal/services/search.service';
@@ -17,15 +17,47 @@ import { UtilityService } from '@shared/services/utility.service';
 import { Observable, of } from 'rxjs';
 import { delay, map, switchMap, take } from 'rxjs/operators';
 
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, NgIf, NgFor, NgTemplateOutlet, NgClass, AsyncPipe } from '@angular/common';
 import { PersonPublication } from '@portal/models/person/person-publication.model';
+import { CheckEmptyFieldsPipe } from '../../../pipes/check-empty-fields.pipe';
+import { JoinItemsPipe } from '../../../../shared/pipes/join-items.pipe';
+import { ShareComponent } from '../share/share.component';
+import { RelatedLinksComponent } from '../related-links/related-links.component';
+import { SingleResultLinkComponent } from '../single-result-link/single-result-link.component';
+import { MatCard, MatCardTitle } from '@angular/material/card';
+import { PersonGroupComponent } from './person-group/person-group.component';
+import { TagDoiComponent } from '../../../../shared/components/tags/tag-doi/tag-doi.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
+import { SearchBarComponent } from '../../search-bar/search-bar.component';
 
 type Field = { key: string; label?: string };
 
 @Component({
-  selector: 'app-single-person',
-  templateUrl: './single-person.component.html',
-  styleUrls: ['./single-person.component.scss'],
+    selector: 'app-single-person',
+    templateUrl: './single-person.component.html',
+    styleUrls: ['./single-person.component.scss'],
+    standalone: true,
+    imports: [
+        SearchBarComponent,
+        NgIf,
+        RouterLink,
+        BreadcrumbComponent,
+        FontAwesomeModule,
+        NgFor,
+        NgTemplateOutlet,
+        NgClass,
+        TagDoiComponent,
+        PersonGroupComponent,
+        MatCard,
+        MatCardTitle,
+        SingleResultLinkComponent,
+        RelatedLinksComponent,
+        ShareComponent,
+        AsyncPipe,
+        JoinItemsPipe,
+        CheckEmptyFieldsPipe,
+    ],
 })
 export class SinglePersonComponent implements OnInit {
   responseData: Search;

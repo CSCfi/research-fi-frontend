@@ -1,12 +1,12 @@
 import { Component, HostBinding, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterLinkWithHref } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { CountUpModule } from 'ngx-countup';
 
 @Component({
   selector: 'app-tab-navigation-button',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkWithHref, CountUpModule],
+  imports: [CommonModule, RouterLink, RouterLink, CountUpModule],
   templateUrl: './tab-navigation-button.component.html',
   styleUrls: ['./tab-navigation-button.component.scss']
 })

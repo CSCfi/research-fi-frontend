@@ -24,7 +24,9 @@ export class InterceptService implements HttpInterceptor {
     private errorService: ErrorHandlerService,
     private router: Router,
     private appConfigService: AppConfigService
-  ) {}
+  ) {
+    // console.log('"InterceptService" interceptor HERE!');
+  }
 
   handleError(error: HttpErrorResponse) {
     this.errorService.updateError({ status: error.status });

@@ -14,7 +14,7 @@ import {
   Inject,
   LOCALE_ID,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
 import { SearchService } from '../../../services/search.service';
 import { Subscription } from 'rxjs';
@@ -27,11 +27,44 @@ import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { SettingsService } from 'src/app/portal/services/settings.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { decisionMakerLabels } from '../../../../utility/localization';
+import { ThousandSeparatorPipe } from '../../../../shared/pipes/thousand-separator.pipe';
+import { ShareComponent } from '../share/share.component';
+import { RelatedLinksComponent } from '../related-links/related-links.component';
+import { SingleResultLinkComponent } from '../single-result-link/single-result-link.component';
+import { MatCard, MatCardTitle } from '@angular/material/card';
+import { OrcidComponent } from '../../../../shared/components/orcid/orcid.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
+import { NgIf, NgFor, NgClass, NgSwitch, NgSwitchDefault, NgSwitchCase, DatePipe } from '@angular/common';
+import { SearchBarComponent } from '../../search-bar/search-bar.component';
 
 @Component({
-  selector: 'app-single-funding',
-  templateUrl: './single-funding.component.html',
-  styleUrls: ['./single-funding.component.scss'],
+    selector: 'app-single-funding',
+    templateUrl: './single-funding.component.html',
+    styleUrls: ['./single-funding.component.scss'],
+    standalone: true,
+    imports: [
+        SearchBarComponent,
+        NgIf,
+        RouterLink,
+        BreadcrumbComponent,
+        NgFor,
+        TooltipModule,
+        FontAwesomeModule,
+        NgClass,
+        NgSwitch,
+        NgSwitchDefault,
+        OrcidComponent,
+        NgSwitchCase,
+        MatCard,
+        MatCardTitle,
+        SingleResultLinkComponent,
+        RelatedLinksComponent,
+        ShareComponent,
+        DatePipe,
+        ThousandSeparatorPipe,
+    ],
 })
 export class SingleFundingComponent implements OnInit, OnDestroy {
   public singleId: any;

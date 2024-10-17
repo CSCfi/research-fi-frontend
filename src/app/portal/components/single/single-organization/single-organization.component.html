@@ -100,7 +100,7 @@
       class="col-12 col-md-4"
     >
       <aside *ngIf="news?.length">
-        <mat-card>
+        <mat-card appearance="outlined">
           <div class="inner px-0">
             <mat-card-title
               ><h2 i18n="@@news" class="ps-3">Uutiset</h2>
@@ -131,7 +131,7 @@
         </mat-card>
       </aside>
       <aside>
-        <mat-card>
+        <mat-card appearance="outlined">
           <div class="inner">
             <!-- Links -->
             <h2 i18n="@@organizationHomepage" class="m-0 pb-0">
@@ -197,7 +197,7 @@
         </mat-card>
       </aside>
       <aside>
-        <mat-card>
+        <mat-card appearance="outlined">
           <div class="inner">
             <mat-card-title>
               <h2>
@@ -226,7 +226,7 @@
         </mat-card>
       </aside>
       <aside>
-        <mat-card>
+        <mat-card appearance="outlined">
           <div class="inner">
             <mat-card-title><h2 i18n="@@share">Jaa</h2></mat-card-title>
             <app-share [id]="item.id"></app-share>
@@ -234,7 +234,7 @@
         </mat-card>
       </aside>
       <aside>
-        <mat-card>
+        <mat-card appearance="outlined">
           <div class="inner">
             <mat-card-title
               ><h2 i18n="@@orgInfoSource">

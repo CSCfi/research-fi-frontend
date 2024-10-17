@@ -8,10 +8,26 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { ParseDatePipe } from '../../../../pipes/parse-date.pipe';
+import { GetLocalizedValuesPipe } from '../../../../pipes/getLocalizedValues.pipe';
+import { ActivityItemComponent } from '../activity-item/activity-item.component';
+import { NgIf, NgSwitch, NgSwitchCase, NgFor, NgTemplateOutlet, NgSwitchDefault } from '@angular/common';
 
 @Component({
-  selector: 'app-panel-array-item',
-  templateUrl: './panel-array-item.component.html',
+    selector: 'app-panel-array-item',
+    templateUrl: './panel-array-item.component.html',
+    standalone: true,
+    imports: [
+        NgIf,
+        NgSwitch,
+        NgSwitchCase,
+        NgFor,
+        ActivityItemComponent,
+        NgTemplateOutlet,
+        NgSwitchDefault,
+        GetLocalizedValuesPipe,
+        ParseDatePipe,
+    ],
 })
 export class PanelArrayItemComponent implements OnInit {
   @Input() set item(item: any) {

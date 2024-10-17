@@ -9,10 +9,22 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { SearchService } from '@portal/services/search.service';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { SecondaryButtonComponent } from '../../../../shared/components/buttons/secondary-button/secondary-button.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { NewsCardComponent } from '../news-card/news-card.component';
+import { NgIf, NgFor } from '@angular/common';
 
 @Component({
-  selector: 'app-latest-news',
-  templateUrl: './latest-news.component.html',
+    selector: 'app-latest-news',
+    templateUrl: './latest-news.component.html',
+    standalone: true,
+    imports: [
+        NgIf,
+        NgFor,
+        NewsCardComponent,
+        MatProgressSpinner,
+        SecondaryButtonComponent,
+    ],
 })
 export class LatestNewsComponent implements OnInit, OnDestroy {
   data: any = [];

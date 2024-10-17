@@ -10,7 +10,8 @@ import { GroupTypes } from '@mydata/constants/groupTypes';
 import { get } from 'lodash-es';
 
 @Pipe({
-  name: 'sortByFieldType',
+    name: 'sortByFieldType',
+    standalone: true,
 })
 export class SortByFieldTypePipe implements PipeTransform {
   transform(items: any[], fieldType: string): any[] {

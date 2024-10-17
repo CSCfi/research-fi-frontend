@@ -15,6 +15,7 @@
 ></app-empty-card>
 
 <ng-template #dialogTemplate>
+  <div class="profile-tool-modal">
   <div class="row pb-3">
     <span class="col" i18n="@@selectInformationToDisplayInProfile"
       >Valitse profiilissasi näytettävät tiedot</span
@@ -30,6 +31,7 @@
       >{{ option[nameLocale] }}</mat-checkbox
     >
   </section>
+  </div>
 </ng-template>
 
 <app-dialog

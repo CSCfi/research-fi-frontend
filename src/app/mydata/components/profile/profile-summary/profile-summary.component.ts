@@ -28,12 +28,37 @@ import { CommonStrings } from '@mydata/constants/strings';
 import { DatasetsService } from '@mydata/services/datasets.service';
 import { FundingsService } from '@mydata/services/fundings.service';
 import { Subscription } from 'rxjs';
+import { HasSelectedItemsPipe } from '../../../pipes/has-selected-items.pipe';
+import { JoinItemsPipe } from '../../../../shared/pipes/join-items.pipe';
+import { EditorModalComponent } from '../editor-modal/editor-modal.component';
+import { PanelArrayItemComponent } from '../profile-panel/panel-array-item/panel-array-item.component';
+import { SummaryDividerComponent } from './summary-divider/summary-divider.component';
+import { SummaryPortalItemsComponent } from './summary-portal-items/summary-portal-items.component';
+import { SummaryAffiliationsComponent } from './summary-affiliations/summary-affiliation.component';
+import { SecondaryButtonComponent } from '../../../../shared/components/buttons/secondary-button/secondary-button.component';
+import { NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
 
 @Component({
-  selector: 'app-profile-summary',
-  templateUrl: './profile-summary.component.html',
-  styleUrls: ['./profile-summary.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-profile-summary',
+    templateUrl: './profile-summary.component.html',
+    styleUrls: ['./profile-summary.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [
+        NgFor,
+        NgIf,
+        SecondaryButtonComponent,
+        NgSwitch,
+        NgSwitchCase,
+        SummaryAffiliationsComponent,
+        SummaryPortalItemsComponent,
+        NgSwitchDefault,
+        SummaryDividerComponent,
+        PanelArrayItemComponent,
+        EditorModalComponent,
+        JoinItemsPipe,
+        HasSelectedItemsPipe,
+    ],
 })
 export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
   @Input() profileData: any;

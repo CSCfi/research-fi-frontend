@@ -15,14 +15,14 @@ import {
   LOCALE_ID,
   AfterViewInit,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
 import { SearchService } from '../../../services/search.service';
 import { TabChangeService } from '../../../services/tab-change.service';
 import { StaticDataService } from '../../../services/static-data.service';
 import { SettingsService } from '../../../services/settings.service';
 import { Subscription } from 'rxjs';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, NgIf, NgFor, NgClass, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
 import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { faQuoteRight, faCopy } from '@fortawesome/free-solid-svg-icons';
 import { HttpHeaders } from '@angular/common/http';
@@ -32,11 +32,50 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { ModelUtilsService } from '@shared/services/model-util.service';
+import { CleanCitationPipe } from '../../../pipes/clean-citation';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { CdkCopyToClipboard } from '@angular/cdk/clipboard';
+import { DialogComponent } from '../../../../shared/components/dialog/dialog.component';
+import { ShareComponent } from '../share/share.component';
+import { SecondaryButtonComponent } from '../../../../shared/components/buttons/secondary-button/secondary-button.component';
+import { RelatedLinksComponent } from '../related-links/related-links.component';
+import { MatCard, MatCardTitle } from '@angular/material/card';
+import { PublicationLinksComponent } from './publication-links/publication-links.component';
+import { OrcidComponent } from '../../../../shared/components/orcid/orcid.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
+import { SearchBarComponent } from '../../search-bar/search-bar.component';
 
 @Component({
-  selector: 'app-single-publication',
-  templateUrl: './single-publication.component.html',
-  styleUrls: ['./single-publication.component.scss'],
+    selector: 'app-single-publication',
+    templateUrl: './single-publication.component.html',
+    styleUrls: ['./single-publication.component.scss'],
+    standalone: true,
+    imports: [
+        SearchBarComponent,
+        NgIf,
+        RouterLink,
+        BreadcrumbComponent,
+        NgFor,
+        TooltipModule,
+        FontAwesomeModule,
+        NgClass,
+        OrcidComponent,
+        NgSwitch,
+        NgSwitchCase,
+        NgSwitchDefault,
+        PublicationLinksComponent,
+        MatCard,
+        MatCardTitle,
+        RelatedLinksComponent,
+        SecondaryButtonComponent,
+        ShareComponent,
+        DialogComponent,
+        CdkCopyToClipboard,
+        MatProgressSpinner,
+        CleanCitationPipe,
+    ],
 })
 export class SinglePublicationComponent
   implements OnInit, AfterViewInit, OnDestroy

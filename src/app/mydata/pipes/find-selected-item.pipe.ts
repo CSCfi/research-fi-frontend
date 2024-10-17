@@ -8,7 +8,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'findSelectedItem',
+    name: 'findSelectedItem',
+    standalone: true,
 })
 export class FindSelectedItemPipe implements PipeTransform {
   transform(items: any[]) {

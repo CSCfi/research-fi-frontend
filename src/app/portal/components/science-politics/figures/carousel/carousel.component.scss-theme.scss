@@ -5,7 +5,7 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
-@import '@angular/material/theming';
+@use 'migration' as *;
 
 @mixin app-carousel-theme($theme) {
   $primary: map-get($theme, primary);
@@ -24,7 +24,7 @@
     color: mat-contrast($primary, 200);
   }
 
-  .mat-stroked-button:not([disabled]) {
+  .mat-mdc-outlined-button:not([disabled]) {
     border: 2px solid;
     border-color: mat-color($primary);
     color: mat-color($primary);

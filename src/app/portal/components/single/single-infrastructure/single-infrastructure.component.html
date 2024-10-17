@@ -104,7 +104,7 @@
             >
               <ng-container>
                 <h3
-                  class="header trHeader subtitle service-name"
+                  class="header ms-2 trHeader subtitle service-name"
                   (click)="toggleService(i)"
                   [ngClass]="showService[i] ? 'open' : 'closed'"
                 >
@@ -385,7 +385,7 @@
       class="col-12 col-md-4"
     >
       <aside>
-        <mat-card>
+        <mat-card appearance="outlined">
           <div class="inner">
             <ng-container *ngIf="item.urn">
               <mat-card-title><h2>Tunniste</h2></mat-card-title>
@@ -417,7 +417,7 @@
         </mat-card>
       </aside>
       <aside>
-        <mat-card>
+        <mat-card appearance="outlined">
           <div class="inner">
             <mat-card-title
               ><h2>
@@ -436,7 +436,7 @@
       </aside>
       <!-- Social icons -->
       <aside>
-        <mat-card>
+        <mat-card appearance="outlined">
           <div class="inner">
             <mat-card-title><h2 i18n="@@share">Jaa</h2></mat-card-title>
             <app-share [id]="item.id"></app-share>
@@ -445,7 +445,7 @@
       </aside>
       <!-- Source -->
       <aside>
-        <mat-card>
+        <mat-card appearance="outlined">
           <div class="inner">
             <mat-card-title
               ><h2 i18n="@@infraSource">

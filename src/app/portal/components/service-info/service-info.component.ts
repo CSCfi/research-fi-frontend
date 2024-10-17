@@ -14,18 +14,40 @@ import {
 } from '@angular/core';
 import { faInfo } from '@fortawesome/free-solid-svg-icons';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
-import { DOCUMENT, isPlatformBrowser, Location, ViewportScroller } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser, Location, ViewportScroller, NgFor, NgIf } from '@angular/common';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { ActivatedRoute} from '@angular/router';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
+import { SanitizeHtmlPipe } from '../../../shared/pipes/sanitize-html.pipe';
+import { DialogComponent } from '../../../shared/components/dialog/dialog.component';
+import { ReviewComponent } from '../../../shared/components/review/review.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
+import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component';
+import { BannerDividerComponent } from '../../../shared/components/banner-divider/banner-divider.component';
 
 @Component({
-  selector: 'app-service-info',
-  templateUrl: './service-info.component.html',
-  styleUrls: ['./service-info.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-service-info',
+    templateUrl: './service-info.component.html',
+    styleUrls: ['./service-info.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [
+        BannerDividerComponent,
+        BreadcrumbComponent,
+        MatAccordion,
+        NgFor,
+        MatExpansionPanel,
+        MatExpansionPanelHeader,
+        MatExpansionPanelTitle,
+        FontAwesomeModule,
+        NgIf,
+        ReviewComponent,
+        DialogComponent,
+        SanitizeHtmlPipe,
+    ],
 })
 export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   faInfo = faInfo;

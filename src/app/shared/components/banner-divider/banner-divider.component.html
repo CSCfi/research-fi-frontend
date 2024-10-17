@@ -5,7 +5,7 @@
 
 <div
   class="bar"
-  [ngStyle]="{ minHeight: (heightInRem ? heightInRem : defaultHeight) + 'rem' }"
+  [ngStyle]="{ minHeight: defaultHeight + 'rem' }"
 >
   <ng-container *ngIf="template">
     <ng-container [ngTemplateOutlet]="template"></ng-container>

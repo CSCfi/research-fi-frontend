@@ -9,21 +9,15 @@
 
 import { Injectable, EventEmitter } from '@angular/core';
 import { EventManager } from '@angular/platform-browser';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ResizeService {
-  public onResize$ = new EventEmitter<{ width: number; height: number }>();
+  public onResize$ = new BehaviorSubject<{ width: number; height: number }>({ width: undefined, height: undefined });
 
-  private getDims = (e: any): void => {
-    this.onResize$.emit({
-      width: e.target.innerWidth,
-      height: e.target.innerHeight,
-    });
-  };
-
-  constructor(eventManager: EventManager) {
-    eventManager.addGlobalEventListener('window', 'resize', this.getDims);
+  updateScreenSize(width: number, height: number) {
+    this.onResize$.next({width, height});
   }
 }

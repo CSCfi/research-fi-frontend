@@ -26,8 +26,9 @@ import { take } from 'rxjs/operators';
 import { DialogTemplateComponent } from './dialog-template/dialog-template.component';
 
 @Component({
-  selector: 'app-dialog',
-  templateUrl: './dialog.component.html',
+    selector: 'app-dialog',
+    templateUrl: './dialog.component.html',
+    standalone: true,
 })
 export class DialogComponent implements OnInit, OnDestroy, OnChanges {
   @Input() title: string;
@@ -89,7 +90,7 @@ export class DialogComponent implements OnInit, OnDestroy, OnChanges {
     const wideDialog = checkInput(this.wide);
 
     const dialogSettings = {
-      maxWidth: wideDialog ? 'calc(100% - 3rem)' : '44vh',
+      maxWidth: wideDialog ? 'calc(100% - 3rem)' : '780px',
     };
 
     const smallDialogSettings = {

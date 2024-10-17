@@ -18,7 +18,7 @@ import {
   LOCALE_ID,
   OnDestroy,
 } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, NgFor, NgIf, NgStyle } from '@angular/common';
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
 import { map } from 'rxjs/operators';
@@ -30,15 +30,35 @@ import { News } from '@portal/models/news.model';
 import { Shortcut } from '@portal/models/shortcut.model';
 import { UtilityService } from '@shared/services/utility.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Search } from '@portal/models/search.model';
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { SafeUrlPipe } from '../../pipes/safe-url.pipe';
+import { DialogComponent } from '../../../shared/components/dialog/dialog.component';
+import { ReviewComponent } from '../../../shared/components/review/review.component';
+import { DividerComponent } from '../../../shared/components/divider/divider.component';
+import { NewsCardComponent } from '../news/news-card/news-card.component';
+import { TabNavigationComponent } from '../tab-navigation/tab-navigation.component';
 
 @Component({
-  providers: [SearchBarComponent],
-  selector: 'app-home-page',
-  templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.scss'],
+    providers: [SearchBarComponent],
+    selector: 'app-home-page',
+    templateUrl: './home-page.component.html',
+    styleUrls: ['./home-page.component.scss'],
+    standalone: true,
+    imports: [
+        SearchBarComponent,
+        TabNavigationComponent,
+        NgFor,
+        NgIf,
+        RouterLink,
+        NewsCardComponent,
+        DividerComponent,
+        NgStyle,
+        ReviewComponent,
+        DialogComponent,
+        SafeUrlPipe,
+    ],
 })
 export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   allData: any[];
@@ -153,7 +173,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onResize() {
     // Timeout needs to be added because shortcutItem list doesn't keep up with resize
-    setTimeout((x) => {
+    setTimeout(() => {
       this.getHeight();
     }, 200);
   }
