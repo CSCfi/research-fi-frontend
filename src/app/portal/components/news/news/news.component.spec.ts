@@ -10,6 +10,7 @@ import { AppConfigService } from 'src/app/shared/services/app-config-service.ser
 import { AppConfigServiceMock } from 'src/app/portal/services/search.service.spec';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 describe('NewsComponent', () => {
   let newsComponent: NewsComponent;
@@ -21,6 +22,7 @@ describe('NewsComponent', () => {
         SearchService,
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: AppConfigService, useClass: AppConfigServiceMock },
+        provideAnimations(),
         WINDOW_PROVIDERS,
     ],
     imports: [
