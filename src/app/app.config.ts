@@ -31,8 +31,9 @@ export const appConfig: ApplicationConfig = {
       BrowserModule,
       BrowserModule.withServerTransition({ appId: 'serverApp' }),
       AuthConfigModule,
-      FontAwesomeModule
+      FontAwesomeModule,
     ),
+    provideAnimations(),
 
     /*AppConfigService,
     {

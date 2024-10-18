@@ -28,7 +28,8 @@
     "watch2": "ng build --watch --configuration development",
     "test2": "ng test",
     "serve2": "node dist/research-fi/proxy-server.mjs",
-    "build-and-serve": "npm run build:ssr && dotenvx run -- npm run serve2"
+    "build-and-serve": "npm run build:ssr && dotenvx run -- npm run serve2",
+    "analyze-webpack": "ng build --configuration=production --localize --stats-json && webpack-bundle-analyzer dist/research-fi/stats.json"
   },
   "private": true,
   "dependencies": {
@@ -104,7 +105,8 @@
     "karma-jasmine-html-reporter": "^1.5.4",
     "ng-extract-i18n-merge": "^2.11.2",
     "protractor": "~7.0.0",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "webpack-bundle-analyzer": "^4.10.2"
   },
   "optionalDependencies": {
     "esbuild-android-arm64": "^0.15.13"

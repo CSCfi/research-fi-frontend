@@ -17,6 +17,7 @@ import AggPublicationResponse from 'src/testdata/aggpublicationresponse.json';
 import { of } from 'rxjs/internal/observable/of';
 import { PublicationFilterService } from '@portal/services/filters/publication-filter.service';
 import { MatDialogModule } from '@angular/material/dialog';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 describe('FiltersComponent', () => {
   let component: FiltersComponent;
@@ -36,6 +37,7 @@ describe('FiltersComponent', () => {
     providers: [
         { provide: Router, useValue: routerSpy },
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
+        provideAnimations(),
         WINDOW_PROVIDERS,
         PublicationFilterService,
     ],
