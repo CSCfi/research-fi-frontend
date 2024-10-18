@@ -10,6 +10,7 @@ import { AppConfigService } from 'src/app/shared/services/app-config-service.ser
 import { AppConfigServiceMock } from 'src/app/portal/services/search.service.spec';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 describe('NewsComponent', () => {
   let newsComponent: NewsComponent;
@@ -17,20 +18,21 @@ describe('NewsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [NewsComponent],
-      providers: [
+    providers: [
         SearchService,
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: AppConfigService, useClass: AppConfigServiceMock },
+        provideAnimations(),
         WINDOW_PROVIDERS,
-      ],
-      imports: [
+    ],
+    imports: [
         HttpClientTestingModule,
         RouterTestingModule,
-        MatDialogModule
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    });
+        MatDialogModule,
+        NewsComponent
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+});
 
     fixture = TestBed.createComponent(NewsComponent);
     newsComponent = fixture.componentInstance;

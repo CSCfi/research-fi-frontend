@@ -20,19 +20,36 @@ import {
 } from '@angular/core';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { Search } from '@portal/models/search.model';
-import { HighlightSearch } from '@portal/pipes/highlight.pipe';
+import { HighlightSearchPipe } from '@portal/pipes/highlight.pipe';
 import { SearchService } from '@portal/services/search.service';
 import { SortService } from '@portal/services/sort.service';
 import { TabChangeService } from '@portal/services/tab-change.service';
 import { Subscription } from 'rxjs';
 import { TableColumn, TableRow } from 'src/types';
 import { UtilityService } from '@shared/services/utility.service';
+import { NoResultsComponent } from '../no-results/no-results.component';
+import { ResultsPaginationComponent } from '../results-pagination/results-pagination.component';
+import { RouterLink } from '@angular/router';
+import { TableComponent } from '../../../../shared/components/table/table.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { NgIf, NgFor } from '@angular/common';
 
 @Component({
-  selector: 'app-persons',
-  templateUrl: '../persons/persons.component.html',
-  styleUrls: ['./persons.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-persons',
+    templateUrl: '../persons/persons.component.html',
+    styleUrls: ['./persons.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [
+        NgIf,
+        MatProgressSpinner,
+        TableComponent,
+        NgFor,
+        RouterLink,
+        ResultsPaginationComponent,
+        NoResultsComponent,
+        HighlightSearchPipe,
+    ],
 })
 export class PersonsComponent implements OnInit, AfterViewInit {
   @Input() resultData: Search;
@@ -43,7 +60,7 @@ export class PersonsComponent implements OnInit, AfterViewInit {
   focusSub: any;
   tableColumns: TableColumn[];
   tableRows: Record<string, TableRow>[];
-  rowIcon = faUser;
+  rowIcon: any = faUser;
   iconTitle: 'Tutkijoiden tiedon ikoni';
   dataMapped: boolean;
 
@@ -55,7 +72,7 @@ export class PersonsComponent implements OnInit, AfterViewInit {
   constructor(
     private searchService: SearchService,
     private cdr: ChangeDetectorRef,
-    private highlightPipe: HighlightSearch,
+    private highlightPipe: HighlightSearchPipe,
     private tabChangeService: TabChangeService,
     public sortService: SortService,
     public utilityService: UtilityService

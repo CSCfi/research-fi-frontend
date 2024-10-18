@@ -19,11 +19,11 @@ import {
   TemplateRef,
   inject,
 } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgIf, NgClass, NgTemplateOutlet, NgSwitch, NgSwitchCase, NgSwitchDefault, NgFor, AsyncPipe } from '@angular/common';
 import { SearchService } from '@portal/services/search.service';
 import { SortService } from '@portal/services/sort.service';
 import { map, debounceTime, take, skip, connect } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TabChangeService } from '@portal/services/tab-change.service';
 import { FilterService } from '@portal/services/filters/filter.service';
 import { DataService } from '@portal/services/data.service';
@@ -44,11 +44,58 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { ClickOutsideDirective } from '../../../shared/directives/click-outside.directive';
+import { DialogComponent } from '../../../shared/components/dialog/dialog.component';
+import { VisualisationComponent } from '../visualisation/visualisation.component';
+import { MatOption } from '@angular/material/core';
+import { MatSelect } from '@angular/material/select';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { FiltersComponent } from './filters/filters.component';
+import { SearchResultsComponent } from './search-results/search-results.component';
+import { ActiveFiltersComponent } from './active-filters/active-filters.component';
+import { FundingCallCategoryFiltersComponent } from './funding-call-category-filters/funding-call-category-filters.component';
+import { SortComponent } from './sort/sort.component';
+import { ResultCountComponent } from '../../../shared/components/result-count/result-count.component';
+import { SecondaryButtonComponent } from '../../../shared/components/buttons/secondary-button/secondary-button.component';
+import { PrimaryActionButtonComponent } from '../../../shared/components/buttons/primary-action-button/primary-action-button.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TabNavigationComponent } from '../tab-navigation/tab-navigation.component';
+import { SearchBarComponent } from '../search-bar/search-bar.component';
 
 @Component({
-  selector: 'app-results',
-  templateUrl: './results.component.html',
-  styleUrls: ['./results.component.scss'],
+    selector: 'app-results',
+    templateUrl: './results.component.html',
+    styleUrls: ['./results.component.scss'],
+    standalone: true,
+    imports: [
+        SearchBarComponent,
+        TabNavigationComponent,
+        NgIf,
+        FontAwesomeModule,
+        PrimaryActionButtonComponent,
+        RouterLink,
+        SecondaryButtonComponent,
+        ResultCountComponent,
+        NgClass,
+        NgTemplateOutlet,
+        SortComponent,
+        NgSwitch,
+        NgSwitchCase,
+        NgSwitchDefault,
+        FundingCallCategoryFiltersComponent,
+        ActiveFiltersComponent,
+        SearchResultsComponent,
+        NgFor,
+        FiltersComponent,
+        MatFormField,
+        MatLabel,
+        MatSelect,
+        MatOption,
+        VisualisationComponent,
+        DialogComponent,
+        ClickOutsideDirective,
+        AsyncPipe,
+    ],
 })
 export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   breakpointObserver$ = inject(BreakpointObserver);

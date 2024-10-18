@@ -60,11 +60,13 @@
             </a>
           </ng-container>
             <ng-container *ngIf="!item.isExternalLink">
+
+              <!-- Found during Angular 17 upgrade: (click)="item[toggleReview] ? toggleReview() : null" -->
               <a
                 class="shortcut"
                 #main
                 [href]="item.link | safeUrl"
-                (click)="item[toggleReview] ? toggleReview() : null"
+                (click)="toggleReview()"
               >
                 <div
                   class="cover-img"

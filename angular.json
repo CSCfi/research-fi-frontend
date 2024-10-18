@@ -4,13 +4,6 @@
   "newProjectRoot": "projects",
   "projects": {
     "research-fi": {
-      "i18n": {
-        "sourceLocale": "fi",
-        "locales": {
-          "en": "src/i18n/messages.en.xlf",
-          "sv": "src/i18n/messages.sv.xlf"
-        }
-      },
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,58 +13,57 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+      "i18n": {
+        "sourceLocale": {
+          "code": "fi"
+        },
+        "locales": {
+          "en": {
+            "translation": "src/i18n/messages.en.xlf",
+            "baseHref": "/en/"
+          },
+          "sv": {
+            "translation": "src/i18n/messages.sv.xlf",
+            "baseHref": "/sv/"
+          }
+        }
+      },
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/browser/",
+            "outputPath": "dist/research-fi",
             "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.app.json",
+            "browser": "src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
             "assets": [
-              "src/assets/favicon.ico",
+              "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
-              "./node_modules/@fortawesome/fontawesome-svg-core/styles.css",
-              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "src/styles.scss"
             ],
-            "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.min.js"
-            ],
-            "allowedCommonJsDependencies": [
-              "lodash",
-              "opentracing/lib/span",
-              "opentracing/lib/tracer",
-              "error-stack-parser"
-            ],
-            "vendorChunk": true,
-            "extractLicenses": false,
-            "buildOptimizer": false,
-            "sourceMap": true,
-            "optimization": false,
-            "namedChunks": true
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src"
+              ]
+            },
+            "scripts": [],
+            "server": "src/main.server.ts",
+            "prerender": false,
+            "ssr": {
+              "entry": "server.ts"
+            },
+            "localize": true,
+            "i18nMissingTranslation": "warning",
+            "i18nDuplicateTranslation": "warning"
           },
           "configurations": {
             "production": {
-              "outputPath": "dist/browser/",
-              "baseHref": "/",
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": true,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -82,68 +74,36 @@
                   "type": "anyComponentStyle",
                   "maximumWarning": "8kb"
                 }
-              ]
+              ],
+              "outputHashing": "all"
             },
-            "fi": {
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
               "localize": [
                 "fi"
-              ]
-            },
-            "en": {
-              "localize": [
-                "en"
               ],
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/locale.ts",
-                  "with": "src/environments/locale.en.ts"
-                }
-              ]
-            },
-            "sv": {
-              "localize": [
-                "sv"
-              ],
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/locale.ts",
-                  "with": "src/environments/locale.sv.ts"
-                }
-              ]
-            },
-            "es5": {
-              "budgets": [
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
-                }
-              ],
-              "tsConfig": "./tsconfig.es5.json"
+              "baseHref": "/fi/"
             }
           },
-          "defaultConfiguration": ""
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "research-fi:build:fi",
             "port": 5003,
             "ssl": true
           },
           "configurations": {
-            "fi": {
-              "browserTarget": "research-fi:build:fi"
+            "production": {
+              "buildTarget": "research-fi:build:production"
             },
-            "en": {
-              "browserTarget": "research-fi:build:en"
-            },
-            "sv": {
-              "browserTarget": "research-fi:build:sv"
-            },
-            "es5": {
-              "browserTarget": "research-fi:build:es5"
+            "development": {
+              "buildTarget": "research-fi:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "ng-extract-i18n-merge:ng-extract-i18n-merge",
@@ -159,93 +119,44 @@
             ]
           }
         },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+        "extract-i18n-2": {
+          "builder": "ng-extract-i18n-merge:ng-extract-i18n-merge",
           "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.spec.json",
-            "karmaConfig": "src/karma.conf.js",
-            "assets": [
-              "src/assets/favicon.ico",
-              "src/assets",
-              "src/assets/config/config.json"
-            ],
-            "styles": [],
-            "scripts": []
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
+            "browserTarget": "research-fi:build",
+            "format": "xlf",
+            "outputPath": "src/i18n",
+            "targetFiles": [
+              "messages.en.xlf",
+              "messages.sv.xlf"
             ]
           }
         },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "research-fi:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "research-fi:serve:production"
-            }
-          }
-        },
-        "server": {
-          "builder": "@angular-devkit/build-angular:server",
-          "options": {
-            "main": "src/main.server.ts",
-            "tsConfig": "src/tsconfig.server.json",
-            "localize": [
-              "fi",
-              "en",
-              "sv"
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
             ],
-            "sourceMap": true,
-            "optimization": true
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "outputPath": "dist/server",
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          },
-          "defaultConfiguration": ""
-        }
-      }
-    },
-    "research-fi-e2e": {
-      "root": "e2e/",
-      "projectType": "application",
-      "prefix": "",
-      "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "research-fi:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "research-fi:serve:production"
-            }
+            "tsConfig": "src/tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src"]
+            },
+            "scripts": []
           }
         }
       }
     }
   },
   "cli": {
-    "analytics": "62223fc9-a5db-4ac2-971b-f0c9a7c7c85e"
+    "analytics": false
   }
 }

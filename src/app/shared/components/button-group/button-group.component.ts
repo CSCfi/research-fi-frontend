@@ -6,12 +6,26 @@
 //  :license: MIT
 
 import { Component, Input, OnChanges, ViewEncapsulation } from '@angular/core';
+import { MatRadioGroup, MatRadioButton } from '@angular/material/radio';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { NgFor, NgIf } from '@angular/common';
+import { MatButtonToggleGroup, MatButtonToggle } from '@angular/material/button-toggle';
 
 @Component({
-  selector: 'app-button-group',
-  templateUrl: './button-group.component.html',
-  styleUrls: ['./button-group.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-button-group',
+    templateUrl: './button-group.component.html',
+    styleUrls: ['./button-group.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [
+        MatButtonToggleGroup,
+        NgFor,
+        MatButtonToggle,
+        NgIf,
+        MatCheckbox,
+        MatRadioGroup,
+        MatRadioButton,
+    ],
 })
 export class ButtonGroupComponent {
   @Input() multiple: boolean;

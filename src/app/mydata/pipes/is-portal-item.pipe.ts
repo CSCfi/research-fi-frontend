@@ -10,7 +10,8 @@ import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { ItemMeta } from 'src/types';
 
 @Pipe({
-  name: 'isPortalItem',
+    name: 'isPortalItem',
+    standalone: true,
 })
 
 // Usage (item.itemMeta | isPortalItem)

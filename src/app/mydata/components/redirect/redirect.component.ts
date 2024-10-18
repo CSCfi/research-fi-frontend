@@ -6,9 +6,12 @@
 //  :license: MIT
 
 import { Component } from '@angular/core';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
-  selector: 'app-redirect',
-  templateUrl: './redirect.component.html',
+    selector: 'app-redirect',
+    templateUrl: './redirect.component.html',
+    standalone: true,
+    imports: [MatProgressSpinner],
 })
 export class RedirectComponent {}

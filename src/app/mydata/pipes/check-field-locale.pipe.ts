@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'checkFieldLocale',
+    name: 'checkFieldLocale',
+    standalone: true,
 })
 export class CheckFieldLocalePipe implements PipeTransform {
   transform(item: any, locale: string, fieldName: string) {

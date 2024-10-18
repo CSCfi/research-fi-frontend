@@ -12,12 +12,12 @@ import {
   faUsers
 } from '@fortawesome/free-solid-svg-icons';
 import { CountUpModule } from 'ngx-countup';
-import { RouterLinkWithHref } from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-tab-button',
   standalone: true,
-  imports: [CommonModule, FontAwesomeModule, CountUpModule, RouterLinkWithHref],
+  imports: [CommonModule, FontAwesomeModule, CountUpModule, RouterLink],
   templateUrl: './tab-button.component.html',
   styleUrls: ['./tab-button.component.scss']
 })

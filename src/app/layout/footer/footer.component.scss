@@ -47,6 +47,10 @@ app-footer {
   footer {
     width: 100%;
     padding: 2rem 0;
+    a:hover {
+      text-decoration: underline;
+      text-decoration-color: #4546b9 !important;
+    }
   }
 
   .header {

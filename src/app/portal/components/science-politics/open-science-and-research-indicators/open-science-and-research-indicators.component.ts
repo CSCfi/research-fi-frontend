@@ -3,12 +3,23 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { UtilityService } from '@shared/services/utility.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { SafeUrlPipe } from '../../../pipes/safe-url.pipe';
+import { CutContentPipe } from '../../../../shared/pipes/cut-content.pipe';
+import { NgFor } from '@angular/common';
+import { BannerDividerComponent } from '../../../../shared/components/banner-divider/banner-divider.component';
 
 @Component({
-  selector: 'app-open-science-and-research-indicators',
-  templateUrl: './open-science-and-research-indicators.component.html',
-  styleUrls: ['./open-science-and-research-indicators.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-open-science-and-research-indicators',
+    templateUrl: './open-science-and-research-indicators.component.html',
+    styleUrls: ['./open-science-and-research-indicators.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [
+        BannerDividerComponent,
+        NgFor,
+        CutContentPipe,
+        SafeUrlPipe,
+    ],
 })
 export class OpenScienceAndResearchIndicatorsComponent implements OnInit {
   currentLocale = '';
