@@ -502,7 +502,7 @@
               <!-- TODO: Change aria label field when content available -->
               <mat-selection-list [attr.aria-label]="filter.field">
                 <!-- Select all -->
-                <mat-list-option
+                <mat-list-option disableRipple
                   *ngIf="item.subData?.length"
                   checkboxPosition="before"
                   (click)="selectAll(filter.field, item)"
@@ -525,7 +525,7 @@
                   <!-- <div class="col col-3 count align-self-center"><span class="amount" [innerHtml]="(item.subData | filterSum) | thousandSeparator"></span></div> -->
                 </mat-list-option>
                 <!-- Options -->
-                <mat-list-option
+                <mat-list-option disableRipple
                   checkboxPosition="before"
                   *ngFor="
                     let field of item.subData.slice(
