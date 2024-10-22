@@ -100,6 +100,11 @@ span.total {
 .visual-button-container {
   padding: 15px 0;
   margin-bottom: 10px;
+  app-primary-action-button {
+    min-width: 188.25px !important;
+    max-height: 44px !important;
+    white-space: nowrap;
+  }
 }
 
 .modal-header {

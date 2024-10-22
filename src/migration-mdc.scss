@@ -8,12 +8,41 @@
   max-width: 42px !important;
 }
 
+.svg-inline--fa.fa-chart-bar {
+  max-height: 16px !important;
+  max-width: 16px !important;
+}
+.open-access, .tag-content {
+  overflow: hidden;
+  .svg-inline--fa {
+    max-height: 14.8px !important;
+    max-width: 14px !important;
+  }
+}
+
+.tag-content {
+  a {
+    display: block;
+    max-height: 26.8px;
+  }
+
+  max-height: 26.8px;
+}
+
 .info-icon {
   .svg-inline--fa {
     max-height: 16px !important;
     max-width: 16px !important;
   }
 }
+
+.login-snackbar .info-icon {
+  .svg-inline--fa {
+    max-height: 42px !important;
+    max-width: 42px !important;
+  }
+}
+
 
 // Filters
 mat-list-option {
