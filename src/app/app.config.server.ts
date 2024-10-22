@@ -16,7 +16,6 @@ const ENV_KEY = makeStateKey<{
  * This function is executed as an app initializer.
  */
 export function transferStateFactory(transferState: TransferState) {
-  console.log('matomoSiteId', process.env.SSR_MATOMO_SITE_ID);
   return () => {
     const envVars = {
       cmsUrl: process.env.SSR_CMS_URL,
