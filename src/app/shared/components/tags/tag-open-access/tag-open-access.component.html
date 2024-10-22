@@ -12,9 +12,10 @@
     </div>
   </a>
 
-  <a *ngIf="link.length < 1" [href]="link" target="_blank">
-    <fa-icon icon="external-link-alt"></fa-icon>
-  </a>
+  <div *ngIf="link.length < 1" target="_blank" class="d-flex">
+    <img src="assets/img/openaccess.svg" />
+    <span class="fw-bold" i18n="@@openAccess">Avoin saatavuus</span>
+  </div>
 </div>
 
 
