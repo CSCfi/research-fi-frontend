@@ -4,17 +4,17 @@
  :license: MIT -->
 
 <div class="tag open-access rounded">
-  <a *ngIf="link.length > 0; else plainText" [href]="link" target="_blank">
-    <ng-container [ngTemplateOutlet]="tabContent"></ng-container>
-    <fa-icon icon="external-link-alt"></fa-icon>
+  <a *ngIf="link.length > 0" [href]="link" target="_blank">
+    <div class="d-flex">
+      <img src="assets/img/openaccess.svg" />
+      <span class="fw-bold" i18n="@@openAccess">Avoin saatavuus</span>
+      <fa-icon icon="external-link-alt"></fa-icon>
+    </div>
   </a>
 
-  <ng-template #plainText>
-    <ng-container [ngTemplateOutlet]="tabContent"></ng-container>
-  </ng-template>
+  <a *ngIf="link.length < 1" [href]="link" target="_blank">
+    <fa-icon icon="external-link-alt"></fa-icon>
+  </a>
 </div>
 
-<ng-template #tabContent>
-  <img src="assets/img/openaccess.svg" />
-  <span class="fw-bold" i18n="@@openAccess">Avoin saatavuus</span>
-</ng-template>
+
