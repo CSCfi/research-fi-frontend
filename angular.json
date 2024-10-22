@@ -144,10 +144,8 @@
               "src/favicon.ico",
               "src/assets"
             ],
-            "styles": [{
-              "input": "src/styles.scss",
-              "inject": false
-            }
+            "styles": [
+              "src/styles.scss"
             ],
             "stylePreprocessorOptions": {
               "includePaths": ["src"]
