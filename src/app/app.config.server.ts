@@ -20,7 +20,7 @@ export function transferStateFactory(transferState: TransferState) {
     const envVars = {
       cmsUrl: process.env.SSR_CMS_URL,
       buildInfo: process.env.SSR_BUILD_INFO,
-      matomoSiteId: process.env.matomoSiteId,
+      matomoSiteId: process.env.SSR_MATOMO_SITE_ID,
       profileApiUrl: process.env.SSR_PROFILE_API_URL,
       apiUrl: process.env.SSR_API_URL,
     };
