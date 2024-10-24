@@ -72,7 +72,7 @@ export class FooterComponent {
     private dialogEventsService: DialogEventsService,
     private router: Router
   ) {
-    this.buildInfo = this.appConfigService.buildInfo;
+    this.buildInfo = this.appConfigService.buildInfo !== 'prod' ? this.appConfigService.buildInfo : '';
     this.showReviewButton = true;
   }
 
