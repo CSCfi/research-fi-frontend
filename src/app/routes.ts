@@ -160,7 +160,7 @@ export const routes: Routes = [
   },
   {
     path: 'science-innovation-policy',
-    component: ResearchInnovationSystemComponent,
+    redirectTo: 'science-innovation-policy/open-science-and-research-indicators',
     pathMatch: 'full',
   },
   {
