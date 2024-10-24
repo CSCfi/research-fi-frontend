@@ -272,7 +272,11 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
               }
             }
             const titleString = this.utilityService.getTitle();
-            this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
+
+            if (titleString) {
+              this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
+            }
+
             this.utilityService.addMeta(
               titleString,
               this.metaTags['description' + this.currentLocale],
@@ -352,7 +356,8 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     // Related data
     let relatedOrgs = [];
     // Filter items with sectorId, this makes sure that the organization can be found from organizations tab
-    if (source.recipient.organizations.length) {
+
+    if (source?.recipient?.organizations?.length) {
       relatedOrgs = source.recipient.organizations
         .filter((item) => item.sectorId)
         .map((item) => item.id);
