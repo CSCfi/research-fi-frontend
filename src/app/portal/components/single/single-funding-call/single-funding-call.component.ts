@@ -344,7 +344,7 @@ export class SingleFundingCallComponent implements OnInit {
     const contactInfo =
       this.responseData.fundingCalls[0]?.contactInfo.split(/[\n,;]/);
     contactInfo.forEach((info) => {
-      if (info.length > 0) {
+      if (info?.length > 0) {
         this.contactInfoRows.push(
           this.processPossibleEmailRow(this.removeHtmlTags(info))
         );
