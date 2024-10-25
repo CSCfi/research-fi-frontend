@@ -270,20 +270,22 @@ export class SingleFundingCallComponent implements OnInit {
           this.addTopLevelScienceAreas(fundingCall);
           switch (this.localeId) {
             case 'fi': {
-              this.setTitle(fundingCall.name + ' - Tiedejatutkimus.fi');
+              this.setTitle(fundingCall?.name ? fundingCall.name + ' - Tiedejatutkimus.fi' : 'Tiedejatutkimus.fi');
               break;
             }
             case 'en': {
-              this.setTitle(fundingCall.name.trim() + ' - Research.fi');
+              this.setTitle(fundingCall?.name ? fundingCall.name + ' - Research.fi' : 'Research.fi');
               break;
             }
             case 'sv': {
-              this.setTitle(fundingCall.name.trim() + ' - Forskning.fi');
+              this.setTitle(fundingCall?.name ? fundingCall.name + ' - Forskning.fi' : 'Forskning.fi');
               break;
             }
           }
           const titleString = this.utilityService.getTitle();
-          this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
+          if (titleString) {
+            this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
+          }
           this.utilityService.addMeta(
             titleString,
             this.metaTags['description' + this.currentLocale],
@@ -341,15 +343,19 @@ export class SingleFundingCallComponent implements OnInit {
       checkEmpty(item)
     );
 
-    const contactInfo =
-      this.responseData.fundingCalls[0]?.contactInfo.split(/[\n,;]/);
-    contactInfo.forEach((info) => {
-      if (info?.length > 0) {
-        this.contactInfoRows.push(
-          this.processPossibleEmailRow(this.removeHtmlTags(info))
-        );
-      }
-    });
+
+
+    if (this.responseData.fundingCalls[0]?.contactInfo) {
+      const contactInfo =
+        this.responseData.fundingCalls[0]?.contactInfo.split(/[\n,;]/);
+      contactInfo.forEach((info) => {
+        if (info?.length > 0) {
+          this.contactInfoRows.push(
+            this.processPossibleEmailRow(this.removeHtmlTags(info))
+          );
+        }
+      });
+    }
 
     // Short version is not HTML formatted
     this.applicationInfoFields.forEach((item) => {
