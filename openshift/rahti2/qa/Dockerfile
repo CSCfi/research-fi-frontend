@@ -21,7 +21,9 @@ COPY --from=builder /app/dist/ /dist/
 ### Do not use this file copy method.
 ## SSR build warns from non existent stylesheet in 'browser/'
 # ## Manually copy this file from localized build to suppress this warning
-COPY --from=builder /app/dist/browser/fi/*.css /dist/browser/
+COPY --from=builder /dist/browser/fi/*.css /dist/server/fi/
+COPY --from=builder /dist/browser/sv/*.css /dist/server/sv/
+COPY --from=builder /dist/browser/en/*.css /dist/server/en/
 
 # Copy dependencies
 COPY --from=builder /app/node_modules/ /node_modules/
