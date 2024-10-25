@@ -3,7 +3,7 @@
 <main id="main-content" class="wrapper main-content-wrap">
   <div class="wrapper">
     <a
-      routerLink="/science-innovation-policy/open-science-and-research-indicators/"
+      routerLink="/science-innovation-policy/open-science-and-research-indicators"
       class="back"
     ><<
       <ng-container i18n="@@back">Takaisin</ng-container>
@@ -90,11 +90,11 @@
         <div *ngFor="let link of siblingPageLinks" class="col-3 d-flex">
           <div [class.selected]="link.selected === true" class="indicator-link-box">
             <a [href]="currentPageUrl + link.id | safeUrl">
-              <h3>{{ link['title' + currentLocale] }}</h3>
+              <h3>{{ link ? link['title' + currentLocale] : '' }}</h3>
               <div class="img-wrap">
                 <img
                   src="{{link.image}}"
-                  alt="{{link['title' + currentLocale]}}"
+                  alt="{{link ? link['title' + currentLocale] : ''}}"
                 />
               </div>
             </a>

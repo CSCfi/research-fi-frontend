@@ -13,7 +13,7 @@
   [class.homepage]="isHomepage"
   [class.active]="selectedTab === tab.link"
   [queryParams]="targetQueryParams"
-  routerLink="/results/{{ tab.link }}/{{ searchService.currentInput | async }}/"
+  routerLink="/results/{{ tab.link }}/{{ searchService.currentInput | async }}"
   [tabindex]="isHomepage && tab.data.length !== 0 ? 0 : -1"
   [title]="tab.tooltip"
   placement="bottom"
