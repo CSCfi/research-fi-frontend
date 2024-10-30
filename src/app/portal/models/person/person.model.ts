@@ -75,9 +75,11 @@ export class PersonAdapter implements Adapter<Person> {
     const names = data.personal.names[0];
 
     // Capitalize first letter of each name
-    const fullName = `${capitalizeFirstLetter(
+    const fullName = names.lastName.length > 0 ? `${capitalizeFirstLetter(
       names.lastName
     )}, ${names.firstNames
+      .split(' ')
+      .map((name) => capitalizeFirstLetter(name)).join(' ')}` : `- , ${names.firstNames
       .split(' ')
       .map((name) => capitalizeFirstLetter(name)).join(' ')}`;
 

@@ -94,10 +94,8 @@ export class ResearchInnovationSystemComponent
   ngOnInit(): void {
     // Get data. Data is passed with resolver in router
     const pageData = this.route.snapshot.data.pages;
-    this.introText = pageData.find(
-      (el) => el.id === 'science-innovation-system'
-    );
-
+    this.introText = pageData ? pageData.find(
+      (el) => el.id === 'science-innovation-system') : '';
     this.sectorData = this.route.snapshot.data.sectorData;
 
     // Set title and meta tags
