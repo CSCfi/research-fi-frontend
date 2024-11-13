@@ -415,6 +415,59 @@ export class SortService {
         }
         break;
       }
+      case 'projects': {
+        this.yearField = 'thesisYear.keyword';
+        switch (this.sortColumn) {
+          case 'name': {
+            const sortString = 'name' + this.localeC + '.keyword';
+            this.sort = [
+              {
+                [sortString]: {
+                  order: this.sortDirection ? 'desc' : 'asc',
+                  unmapped_type: 'long',
+                },
+              },
+            ];
+            break;
+          }
+          case 'abbreviation': {
+            const sortString = 'abbreviation' + '.keyword';
+            this.sort = [
+              {
+                [sortString]: {
+                  order: this.sortDirection ? 'desc' : 'asc',
+                  unmapped_type: 'long',
+                },
+              },
+            ];
+            break;
+          }
+          case 'year': {
+            this.sort = [
+              {
+                startYear: {
+                  order: this.sortDirection ? 'desc' : 'asc',
+                  unmapped_type: 'long',
+                },
+              },
+            ];
+            break;
+          }
+          default: {
+            const sortString = 'name' + this.localeC + '.keyword';
+            this.sort = [
+              {
+                [sortString]: {
+                  order: this.sortDirection ? 'desc' : 'asc',
+                  unmapped_type: 'long',
+                },
+              },
+            ];
+            break;
+          }
+        }
+        break;
+      }
 
       case 'fundingCalls': {
         const sortByFunderName = {

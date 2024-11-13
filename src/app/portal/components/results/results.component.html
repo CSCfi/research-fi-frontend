@@ -31,19 +31,19 @@ Copyright 2019 Ministry of Education and Culture, Finland
         <div class="row col-5 pe-lg-0 justify-content-end">
           <div class="col-auto pe-lg-0 py-1">
             <app-primary-action-button
-              role="link"
-              routerLink='/results/publications2'
-              content="Uuteen hakuun"
-              i18n-content="@@publication2.toNewSearch">
+                    role="link"
+                    routerLink='/results/publications2'
+                    content="Uuteen hakuun"
+                    i18n-content="@@publication2.toNewSearch">
             </app-primary-action-button>
           </div>
 
           <div class="col-auto align-self-center">
             <div>
               <a
-                tabindex="0"
-                (click)="hideBetaSearchBanner()"
-                href="javascript:void(0)">
+                      tabindex="0"
+                      (click)="hideBetaSearchBanner()"
+                      href="javascript:void(0)">
                 <strong i18n="@@close">Sulje</strong>
               </a>
             </div>
@@ -56,8 +56,8 @@ Copyright 2019 Ministry of Education and Culture, Finland
 
     <!-- MyData login in persons tab -->
     <div
-      class="row py-3 px-0 ps-lg-3 mt-3 justify-content-between login-snackbar"
-      *ngIf="tab === 'persons' && mydataLoginSnackbarVisible">
+            class="row py-3 px-0 ps-lg-3 mt-3 justify-content-between login-snackbar"
+            *ngIf="tab === 'persons' && mydataLoginSnackbarVisible">
       <div class="row col-7 justify-content-start align-content-center">
         <div class="col-auto mx-0 gx-0">
           <fa-icon class="info-icon" icon="info-circle"></fa-icon>
@@ -70,27 +70,27 @@ Copyright 2019 Ministry of Education and Culture, Finland
       <div class="row col-5 pe-lg-0 justify-content-end">
         <div class="col-auto pe-lg-0 py-1">
           <app-primary-action-button
-            role="link"
-            (click)="router.navigate(['/mydata'])"
-            content="Kirjaudu sisään"
-            i18n-content="@@logIn">
+                  role="link"
+                  (click)="router.navigate(['/mydata'])"
+                  content="Kirjaudu sisään"
+                  i18n-content="@@logIn">
           </app-primary-action-button>
         </div>
         <div class="col-auto pe-lg-0 py-1">
           <app-secondary-button
-            content="Ohjeet"
-            i18n-content="@@instructions"
-            (click)="showLoginInfoDialog = true">
+                  content="Ohjeet"
+                  i18n-content="@@instructions"
+                  (click)="showLoginInfoDialog = true">
           </app-secondary-button>
         </div>
         <div class="col-auto align-self-center">
           <div>
-          <a
-            tabindex="0"
-            (click)="hideMydataLoginSnackbar()"
-            href="javascript:void(0)">
-            <strong i18n="@@close">Sulje</strong>
-          </a>
+            <a
+                    tabindex="0"
+                    (click)="hideMydataLoginSnackbar()"
+                    href="javascript:void(0)">
+              <strong i18n="@@close">Sulje</strong>
+            </a>
           </div>
         </div>
       </div>
@@ -101,9 +101,9 @@ Copyright 2019 Ministry of Education and Culture, Finland
       <!-- Tab label and total count -->
       <div class="row align-items-center justify-content-between">
         <h2
-          role="status"
-          class="col-auto total"
-          *ngIf="selectedTabData ? selectedTabData.label : ''"
+                role="status"
+                class="col-auto total"
+                *ngIf="selectedTabData ? selectedTabData.label : ''"
         >
           {{ selectedTabData.label }} -
           <span class="total">{{ parsedTotal }}</span>
@@ -113,26 +113,26 @@ Copyright 2019 Ministry of Education and Culture, Finland
         <!-- Mobile page settings -->
         <div class="col-auto px-0" *ngIf="selectedTabData && mobile">
           <app-result-count
-            [page]="searchService.pageNumber"
-            [pageSize]="searchService.pageSize"
-            [total]="dataService.currentTotal | async"
+                  [page]="searchService.pageNumber"
+                  [pageSize]="searchService.pageSize"
+                  [total]="dataService.currentTotal | async"
           ></app-result-count>
         </div>
       </div>
 
       <!-- Skip link -->
       <div
-        id="sr-helper"
-        class="row skip-links pb-2"
-        [ngClass]="showSkipLinks ? 'show' : 'sr-only'"
+              id="sr-helper"
+              class="row skip-links pb-2"
+              [ngClass]="showSkipLinks ? 'show' : 'sr-only'"
       >
         <a
-          (focus)="showSkipLinks = true"
-          #skipToResults
-          tabindex="0"
-          (click)="changeFocusTarget('main')"
-          (blur)="resetFocus(); showSkipLinks = false"
-          href="javascript:void(0)"
+                (focus)="showSkipLinks = true"
+                #skipToResults
+                tabindex="0"
+                (click)="changeFocusTarget('main')"
+                (blur)="resetFocus(); showSkipLinks = false"
+                href="javascript:void(0)"
         >
           <span i18n="@@skipToResults">Hyppää hakutuloksiin</span>
         </a>
@@ -140,13 +140,13 @@ Copyright 2019 Ministry of Education and Culture, Finland
 
       <!-- Open visual button -->
       <div
-        class="justify-content-center align-items-center d-none d-lg-flex visual-button-container"
-        *ngIf="(tab === 'publications' || tab === 'fundings') && !mobile"
+              class="justify-content-center align-items-center d-none d-lg-flex visual-button-container"
+              *ngIf="(tab === 'publications' || tab === 'fundings') && !mobile"
       >
         <app-primary-action-button
-          [content]="showAsVisual"
-          [icon]="faChartBar"
-          (click)="openDialog(visualModal)"
+                [content]="showAsVisual"
+                [icon]="faChartBar"
+                (click)="openDialog(visualModal)"
         ></app-primary-action-button>
       </div>
 
@@ -171,10 +171,10 @@ Copyright 2019 Ministry of Education and Culture, Finland
       <div class="row justify-content-end py-3 pe-0" *ngIf="!mobile">
         <div class="col-auto px-0" *ngIf="selectedTabData">
           <app-result-count
-            [page]="searchService.pageNumber"
-            [pageSize]="searchService.pageSize"
-            [total]="dataService.currentTotal | async"
-            [focusSelect]="focusMainContent"
+                  [page]="searchService.pageNumber"
+                  [pageSize]="searchService.pageSize"
+                  [total]="dataService.currentTotal | async"
+                  [focusSelect]="focusMainContent"
           ></app-result-count>
         </div>
 
@@ -191,13 +191,17 @@ Copyright 2019 Ministry of Education and Culture, Finland
                   Mitä rahoitusmyöntöjen tietoja palvelu sisältää?
                 </ng-container>
 
+                <ng-container *ngSwitchCase="'projects'" i18n="@@projectsDataDisclaimerLink">
+                  Mitä hanketietoja palvelu sisältää?
+                </ng-container>
+
                 <ng-container *ngSwitchDefault>
                   <ng-container i18n="@@resultInfo1">Mitä</ng-container>
                   <span> {{ selectedTabData?.singular.toLowerCase() }}</span>
                   <ng-container i18n="@@resultInfo2">tietoja palvelu sisältää?</ng-container>
                 </ng-container>
 
-            </ng-container>
+              </ng-container>
             </strong>
           </a>
         </div>
@@ -209,15 +213,15 @@ Copyright 2019 Ministry of Education and Culture, Finland
           <ng-container *ngIf="page <= 1000; else pageOverflow">
             <div class="col px-0 ps-lg-2">
               <app-funding-call-category-filters
-                *ngIf="tab === 'funding-calls' && filterValues"
-                [resetFundingCallCategoryFilters]="clearAllFilters"
-                [responseData]="filterValues"
-                (filterChangeOutput)="setExternalFilters($event)"
+                      *ngIf="tab === 'funding-calls' && filterValues"
+                      [resetFundingCallCategoryFilters]="clearAllFilters"
+                      [responseData]="filterValues"
+                      (filterChangeOutput)="setExternalFilters($event)"
               >
               </app-funding-call-category-filters>
 
               <app-active-filters
-                (clearAllFilters)="this.clearAllFiltersFromActiveFilters()"
+                      (clearAllFilters)="this.clearAllFiltersFromActiveFilters()"
               ></app-active-filters>
             </div>
           </ng-container>
@@ -226,9 +230,9 @@ Copyright 2019 Ministry of Education and Culture, Finland
         <!-- Results -->
         <div class="row">
           <app-search-results
-            class="col px-0 ps-lg-2"
-            [currentTab]="selectedTabData"
-            [updateFilters]="updateFilters"
+                  class="col px-0 ps-lg-2"
+                  [currentTab]="selectedTabData"
+                  [updateFilters]="updateFilters"
           ></app-search-results>
         </div>
       </main>
@@ -239,10 +243,10 @@ Copyright 2019 Ministry of Education and Culture, Finland
   <ng-template #filtersTemplate>
     <ng-container *ngFor="let item of tabChangeService.tabData">
       <app-filters
-        *ngIf="tab === item.link"
-        [responseData]="filterValues"
-        [filterOrigin]="item.data"
-        [externalFilterQuery]="tab === 'funding-calls' && externalFilterQuery"
+              *ngIf="tab === item.link"
+              [responseData]="filterValues"
+              [filterOrigin]="item.data"
+              [externalFilterQuery]="tab === 'funding-calls' && externalFilterQuery"
       ></app-filters>
     </ng-container>
   </ng-template>
@@ -263,26 +267,26 @@ Copyright 2019 Ministry of Education and Culture, Finland
       <div class="row">
         <div class="col-3">
           <div
-            #info
-            *ngIf="showInfo"
-            class="info p-3"
-            [ngClass]="mobile ? 'right' : 'left'"
+                  #info
+                  *ngIf="showInfo"
+                  class="info p-3"
+                  [ngClass]="mobile ? 'right' : 'left'"
           >
             <strong class="d-block pb-2" i18n="@@additionalInfo"
-              >Lisätietoa</strong
+            >Lisätietoa</strong
             >
             <div [innerHtml]="visualisationInfo"></div>
           </div>
           <!-- <mat-slide-toggle [(ngModel)]="fundingAmount" *ngIf="tab === 'fundings'" (change)="changeVisual($event)">Myönnetyn summan mukaan</mat-slide-toggle> -->
           <mat-form-field class="visual-select">
             <mat-label class="strong" i18n="@@chooseTheme"
-              >Valitse teema</mat-label
+            >Valitse teema</mat-label
             >
             <mat-select (selectionChange)="changeVisual($event)">
               <mat-option
-                *ngFor="let category of visualisationCategories; let i = index"
-                value="{{ i }}"
-                >{{ category.select }}</mat-option
+                      *ngFor="let category of visualisationCategories; let i = index"
+                      value="{{ i }}"
+              >{{ category.select }}</mat-option
               >
             </mat-select>
           </mat-form-field>
@@ -290,10 +294,10 @@ Copyright 2019 Ministry of Education and Culture, Finland
             <ng-container [ngTemplateOutlet]="filtersTemplate"></ng-container>
           </div>
           <app-secondary-button
-            (click)="clearFilters()"
-            [big]="true"
-            [content]="clearActiveFilters"
-            [icon]="faTrash"
+                  (click)="clearFilters()"
+                  [big]="true"
+                  [content]="clearActiveFilters"
+                  [icon]="faTrash"
           ></app-secondary-button>
         </div>
         <div class="col-9 row">
@@ -319,93 +323,93 @@ Copyright 2019 Ministry of Education and Culture, Finland
             </button>
           </div>   -->
           <app-active-filters
-            (clearAllFilters)="this.clearAllFiltersFromActiveFilters()"
+                  (clearAllFilters)="this.clearAllFiltersFromActiveFilters()"
           ></app-active-filters>
           <app-visualisation
-            #visualisationsRef
-            [data]="visualData"
-            [tab]="tab"
-            [visIdx]="visIdx"
-            [percentage]="percentage"
-            [loading]="visualLoading"
-            [searchTerm]="searchTerm"
-            [searchTarget]="searchTargetName"
-            [visualisationType]="visualisationType"
+                  #visualisationsRef
+                  [data]="visualData"
+                  [tab]="tab"
+                  [visIdx]="visIdx"
+                  [percentage]="percentage"
+                  [loading]="visualLoading"
+                  [searchTerm]="searchTerm"
+                  [searchTarget]="searchTargetName"
+                  [visualisationType]="visualisationType"
           ></app-visualisation>
           <div class="row vis-info">
             <div class="col">
               <div class="row">
                 <div
-                  *ngIf="tab === 'publications'"
-                  class="vis-style-toggles row"
+                        *ngIf="tab === 'publications'"
+                        class="vis-style-toggles row"
                 >
                   <button
-                    class="col vis-style-toggle ttv-button"
-                    [class.active]="!percentage && !fundingAmount"
-                    (click)="
+                          class="col vis-style-toggle ttv-button"
+                          [class.active]="!percentage && !fundingAmount"
+                          (click)="
                       percentage = false;
                       fundingAmount = false;
                       changeVisual($event)
                     "
-                    i18n="@@asCountPublication"
+                          i18n="@@asCountPublication"
                   >
                     Julkaisujen määrä
                   </button>
                   <button
-                    class="col vis-style-toggle ttv-button"
-                    [class.active]="percentage && !fundingAmount"
-                    (click)="percentage = true; fundingAmount = false"
-                    i18n="@@asPercentPublication"
+                          class="col vis-style-toggle ttv-button"
+                          [class.active]="percentage && !fundingAmount"
+                          (click)="percentage = true; fundingAmount = false"
+                          i18n="@@asPercentPublication"
                   >
                     % julkaisujen määrästä
                   </button>
                 </div>
                 <div *ngIf="tab === 'fundings'" class="vis-style-toggles row">
                   <button
-                    class="col-6 vis-style-toggle ttv-button"
-                    [class.active]="!percentage && !fundingAmount"
-                    (click)="
+                          class="col-6 vis-style-toggle ttv-button"
+                          [class.active]="!percentage && !fundingAmount"
+                          (click)="
                       changeVisual({ fundingAmount: false });
                       percentage = false;
                       fundingAmount = false
                     "
-                    i18n="@@asCountFunding"
+                          i18n="@@asCountFunding"
                   >
                     Hankkeiden määrä
                   </button>
                   <button
-                    class="col-6 vis-style-toggle ttv-button"
-                    [class.active]="percentage && !fundingAmount"
-                    (click)="
+                          class="col-6 vis-style-toggle ttv-button"
+                          [class.active]="percentage && !fundingAmount"
+                          (click)="
                       changeVisual({ fundingAmount: false });
                       percentage = true;
                       fundingAmount = false
                     "
-                    i18n="@@asPercentFunding"
+                          i18n="@@asPercentFunding"
                   >
                     % hankkeiden määrästä
                   </button>
                   <button
-                    class="col-6 vis-style-toggle ttv-button"
-                    [class.active]="!percentage && fundingAmount"
-                    (click)="
+                          class="col-6 vis-style-toggle ttv-button"
+                          [class.active]="!percentage && fundingAmount"
+                          (click)="
                       changeVisual({ fundingAmount: true });
                       percentage = false;
                       fundingAmount = true
                     "
-                    i18n="@@asCountAmount"
+                          i18n="@@asCountAmount"
                   >
                     Myöntösumma
                   </button>
                   <button
-                    class="col-6 vis-style-toggle ttv-button"
-                    [class.active]="percentage && fundingAmount"
-                    (click)="
+                          class="col-6 vis-style-toggle ttv-button"
+                          [class.active]="percentage && fundingAmount"
+                          (click)="
                       changeVisual({ fundingAmount: true });
                       percentage = true;
                       fundingAmount = true
                     "
-                    i18n="@@asPercentAmount"
+                          i18n="@@asPercentAmount"
                   >
                     % myöntösummasta
                   </button>
@@ -419,10 +423,10 @@ Copyright 2019 Ministry of Education and Culture, Finland
             </div>
             <div class="col pe-0 text-end">
               <app-secondary-button
-                id="download-image"
-                [icon]="faDownload"
-                [content]="downloadImage"
-                (click)="visualisationsRef.saveAsImageClick()"
+                      id="download-image"
+                      [icon]="faDownload"
+                      [content]="downloadImage"
+                      (click)="visualisationsRef.saveAsImageClick()"
               ></app-secondary-button>
             </div>
           </div>
@@ -433,33 +437,33 @@ Copyright 2019 Ministry of Education and Culture, Finland
 
   <!-- Reusable dialog -->
   <div class="chart-wrapper">
-  <app-dialog
-          class="chart-wrapper"
-    *ngIf="showDialog"
-    [template]="dialogTemplate"
-    [title]="dialogTitle"
-    (onActionClick)="closeDialog()"
-    centerTitle
-    wide
-    noPadding
-    position="top"
-    extraClass="visual-dialog"
-    [headerInfoTemplate]="dialogHeaderInfo"
-  ></app-dialog>
+    <app-dialog
+            class="chart-wrapper"
+            *ngIf="showDialog"
+            [template]="dialogTemplate"
+            [title]="dialogTitle"
+            (onActionClick)="closeDialog()"
+            centerTitle
+            wide
+            noPadding
+            position="top"
+            extraClass="visual-dialog"
+            [headerInfoTemplate]="dialogHeaderInfo"
+    ></app-dialog>
   </div>
 
   <ng-template #dialogHeaderInfo>
     <div
-      class="d-inline-block"
-      (click)="showInfo = !showInfo"
-      (keydown.enter)="showInfo = !showInfo"
-      tabindex="0"
-      (clickOutside)="onClickedOutside($event)"
+            class="d-inline-block"
+            (click)="showInfo = !showInfo"
+            (keydown.enter)="showInfo = !showInfo"
+            tabindex="0"
+            (clickOutside)="onClickedOutside($event)"
     >
       <fa-icon
-        class="info-icon pe-2"
-        icon="info-circle"
-        (mouseenter)="showInfo = true"
+              class="info-icon pe-2"
+              icon="info-circle"
+              (mouseenter)="showInfo = true"
       ></fa-icon>
       <a>{{ additionalInfo }} </a>
     </div>
@@ -467,10 +471,10 @@ Copyright 2019 Ministry of Education and Culture, Finland
 </div>
 
 <app-dialog
-  *ngIf="showLoginInfoDialog"
-  [title]="betaDialogTitle"
-  [template]="myDataBetaTemplate"
-  (onActionClick)="showLoginInfoDialog = false"
+        *ngIf="showLoginInfoDialog"
+        [title]="betaDialogTitle"
+        [template]="myDataBetaTemplate"
+        (onActionClick)="showLoginInfoDialog = false"
 ></app-dialog>
 
 <ng-template #myDataBetaTemplate>

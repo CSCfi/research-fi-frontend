@@ -1,0 +1,37 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<div class="spinner-center" *ngIf="!resultData">
+  <mat-spinner
+    [diameter]="80"
+    i18n-aria-label="@@loading"
+    aria-label="Ladataan"
+  ></mat-spinner>
+</div>
+<!-- Data -->
+<div *ngIf="resultData && resultData.total > 0; else noResults">
+  <app-table
+    *ngIf="dataMapped"
+    [columns]="tableColumns"
+    [rows]="tableRows"
+    [icon]="faIcon"
+    [iconTitle]="projectLinkTitle"
+    iconLinkField="name"
+    [sortColumn]="sortService.sortColumn"
+    [sortDirection]="sortService.sortDirection ? 'desc' : 'asc'"
+    (onSortChange)="utilityService.sortBy($event.active)"
+  ></app-table>
+
+  <!-- Pagination -->
+  <app-results-pagination [data]="resultData"></app-results-pagination>
+</div>
+
+<ng-template #noResults>
+  <app-no-results
+    *ngIf="resultData && resultData.total === 0"
+    heading="Ei hankkeita"
+    i18n-heading="@@noFundings"
+  ></app-no-results>
+</ng-template>

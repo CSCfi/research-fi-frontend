@@ -25,6 +25,7 @@ export class SingleItemService {
   organizationApiUrl = '';
   infrastructureApiUrl = '';
   fundingCallApiUrl = '';
+  projectApiUrl = '';
   private getIdSubject = new Subject<string>();
   currentId = this.getIdSubject.asObservable();
   resultId: string;
@@ -43,6 +44,7 @@ export class SingleItemService {
     this.organizationApiUrl = this.apiUrl + 'organization/_search';
     this.infrastructureApiUrl = this.apiUrl + 'infrastructure/_search';
     this.fundingCallApiUrl = this.apiUrl + 'funding-call/_search';
+    this.projectApiUrl = this.apiUrl + 'project/_search';
   }
 
   updateId(singleId: string) {
@@ -118,6 +120,14 @@ export class SingleItemService {
       .post<Search>(this.fundingCallApiUrl, this.constructPayload('id', id))
       .pipe(
         map((data: any) => this.searchAdapter.adapt(data, 'funding-calls'))
+      );
+  }
+
+  getSingleProject(id): Observable<Search> {
+    return this.http
+      .post<Search>(this.projectApiUrl, this.constructPayload('id', id))
+      .pipe(
+        map((data: any) => this.searchAdapter.adapt(data, 'projects'))
       );
   }
 

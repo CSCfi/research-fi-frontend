@@ -27,7 +27,7 @@ type IndexCounts = { [index: string]: number };
 type ButtonData = { label: string, icon: string, route: string, count: number, active: boolean, disabled?: boolean, queryParams?: Observable<any>};
 
 
-type Counts = { publications: number, persons: number, fundings: number, datasets: number, fundingCalls: number, infrastructures: number, organizations: number };
+type Counts = { publications: number, persons: number, fundings: number, datasets: number, fundingCalls: number, infrastructures: number, organizations: number, projects: number };
 
 const EPSILON = 1;
 
@@ -82,7 +82,7 @@ export class TabNavigationComponent {
   faArrowLeft = faArrowLeft;
   faArrowRight = faArrowRight;
 
-  url = this.appConfigService.apiUrl + "publication,person,funding,dataset,funding-call,infrastructure,organization/_search?request_cache=true";
+  url = this.appConfigService.apiUrl + "publication,person,funding,dataset,funding-call,infrastructure,organization,project/_search?request_cache=true";
 
   showAll$ = new BehaviorSubject(false);
 
@@ -117,7 +117,7 @@ export class TabNavigationComponent {
   counts$ = this.route.params.pipe(
     map(params => params["tab"] && params["input"]),
     switchMap(isPartial => isPartial ? this.partialCounts$ : this.fullCounts$),
-    startWith({ publications: -1, persons: -1, fundings: -1, datasets: -1, fundingCalls: -1, infrastructures: -1, organizations: -1 })
+    startWith({ publications: -1, persons: -1, fundings: -1, datasets: -1, fundingCalls: -1, infrastructures: -1, organizations: -1, projects: -1 })
   );
 
   defaultOrderButtons$: Observable<ButtonData[]> = combineLatest([this.counts$, this.tab$]).pipe(
@@ -129,7 +129,7 @@ export class TabNavigationComponent {
       { label: $localize`:@@navigation.datasets:Aineistot`,               icon: 'faAlignLeft',  route: "/results/datasets",        count: counts.datasets, queryParams: this.pageSizeParams$,              active: tab === 'datasets' },
       { label: $localize`:@@navigation.infrastructures:Infrastruktuurit`, icon: 'faCalculator', route: "/results/infrastructures", count: counts.infrastructures, queryParams: this.pageSizeParams$,       active: tab === 'infrastructures' },
       { label: $localize`:@@navigation.organizations:Organisaatiot`,      icon: 'faUniversity', route: "/results/organizations",   count: counts.organizations, queryParams: this.pageSizeParams$,         active: tab === 'organizations' },
-      { label: $localize`:@@navigation.projects:Hankkeet`,                icon: `faAlignLeft`,  route: "/results/projects",        count: -1, queryParams: this.pageSizeParams$,                           active: false, disabled: true },
+      { label: $localize`:@@navigation.projects:Hankkeet`,                icon: `faAlignLeft`,  route: "/results/projects",        count: counts.projects, queryParams: this.pageSizeParams$,              active: tab === 'projects' },
     ])
   );
 
@@ -284,6 +284,11 @@ function payloadWithoutKeywords() {
             "fundingCalls": {
               "match": {
                 "_index": "funding-call"
+              }
+            },
+            "projects": {
+              "match": {
+                "_index": "project"
               }
             }
           }
@@ -996,6 +1001,47 @@ function payloadWithKeywords(keywords: string) {
                             "foundation.nameFi",
                             "foundation.nameSv",
                             "foundation.nameEn"
+                          ],
+                          "operator": "AND",
+                          "lenient": "true"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "bool": {
+              "must": [
+                {
+                  "term": {
+                    "_index": "project"
+                  }
+                },
+                {
+                  "bool": {
+                    "should": [
+                      {
+                        "multi_match": {
+                          "query": keywords,
+                          "analyzer": "standard",
+                          "type": "phrase_prefix",
+                          "fields": [
+                            "name",
+                          ],
+                          "operator": "AND",
+                          "lenient": "true",
+                          "max_expansions": 1024
+                        }
+                      },
+                      {
+                        "multi_match": {
+                          "query": keywords,
+                          "type": "cross_fields",
+                          "fields": [
+                            "name"
                           ],
                           "operator": "AND",
                           "lenient": "true"

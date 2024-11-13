@@ -41,7 +41,6 @@ export class SearchPortalService {
     sortSettings: { active: string; direction: string }
   ) {
     let sortField: string;
-
     switch (sortSettings.active) {
       case 'year': {
         sortField = this.getDefaultSortField(groupId);

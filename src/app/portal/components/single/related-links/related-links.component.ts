@@ -35,7 +35,7 @@ export class RelatedLinksComponent implements OnInit, OnDestroy {
       disabled: true,
     },
     { label: $localize`:@@authors:Tutkijat`, tab: 'persons', disabled: true },
-    { label: $localize`:@@fundings:Hankkeet`, tab: 'fundings', disabled: true },
+    { label: $localize`:@@approvedFundings:Myönnetty rahoitus`, tab: 'fundings', disabled: true },
     {
       label: $localize`:@@datasets:Aineistot`,
       tab: 'datasets',
@@ -54,6 +54,11 @@ export class RelatedLinksComponent implements OnInit, OnDestroy {
     {
       label: $localize`:@@organizations:Organisaatiot`,
       tab: 'organizations',
+      disabled: true,
+    },
+    {
+      label: $localize`:@@projects:Hankkeet`,
+      tab: 'projects',
       disabled: true,
     },
   ];

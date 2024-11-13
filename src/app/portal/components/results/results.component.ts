@@ -220,6 +220,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     MetaTags.infrastructures,
     MetaTags.organizations,
     MetaTags.fundingCalls,
+    MetaTags.projects
   ];
   private metaTags: { link: string };
   private commonTags = MetaTags.common;
