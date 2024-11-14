@@ -3208,22 +3208,22 @@
         <source>Lyhenne</source>
       </trans-unit>
       <trans-unit id="spDescriptionTooltip" datatype="html">
-        <source>Kuvaus kertoo tiiviisti tavoitteista.</source>
+        <source>Kuvaus kertoo tiiviisti hankkeesta</source>
       </trans-unit>
       <trans-unit id="spEndYearTooltip" datatype="html">
-        <source>Päättymisvuosi</source>
+        <source>Hankkeen päättymisvuosi</source>
       </trans-unit>
       <trans-unit id="spObjectivesTooltip" datatype="html">
-        <source>Tavoitteet</source>
+        <source>Kuvaus hankkeelle asetetuista tavoitteista</source>
       </trans-unit>
-      <trans-unit id="spOutcomesTooltip" datatype="html">
-        <source>Tulokset</source>
+      <trans-unit id="spResultsTooltip" datatype="html">
+        <source>Hankkeen saavuttamat tulokset</source>
       </trans-unit>
       <trans-unit id="spParticipantsTooltip" datatype="html">
-        <source>Osallistujat</source>
+        <source>Hankkeeseen osallistuvat organisaatiot ja henkilöt</source>
       </trans-unit>
       <trans-unit id="spStartYearTooltip" datatype="html">
-        <source>Aloitusvuosi</source>
+        <source>Hankkeen alkamisvuosi</source>
       </trans-unit>
       <trans-unit id="projectSingular" datatype="html">
         <source>projekti</source>
@@ -3251,6 +3251,9 @@
       </trans-unit>
       <trans-unit id="spKeywordsTooltip" datatype="html">
         <source>Avainsanat</source>
+      </trans-unit>
+      <trans-unit id="431495012273552004" datatype="html">
+        <source>@@spHomePageTooltip:Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa.</source>
       </trans-unit>
     </body>
   </file>

@@ -88,31 +88,31 @@ export class SingleProjectComponent implements OnInit, OnDestroy {
     {
       label: $localize`:@@spStartYear:Aloitusvuosi`,
       field: 'startYear',
-      tooltip: $localize`:@@spStartYearTooltip:Aloitusvuosi`,
+      tooltip: $localize`:@@spStartYearTooltip:Hankkeen alkamisvuosi`,
       showOnlyLabel: false
     },
     {
       label: $localize`:@@spEndYear:Päättymisvuosi`,
       field: 'endYear',
-      tooltip: $localize`:@@spEndYearTooltip:Päättymisvuosi`,
+      tooltip: $localize`:@@spEndYearTooltip:Hankkeen päättymisvuosi`,
       showOnlyLabel: false
     },
     {
       label: $localize`:@@spDescription:Kuvaus`,
       field: 'summary',
-      tooltip: $localize`:@@spDescriptionTooltip:Kuvaus kertoo tiiviisti tavoitteista.`,
+      tooltip: $localize`:@@spDescriptionTooltip:Kuvaus kertoo tiiviisti hankkeesta`,
       showOnlyLabel: false
     },
     {
       label: $localize`:@@spObjectives:Tavoitteet`,
       field: 'goals',
-      tooltip: $localize`:@@spObjectivesTooltip:Tavoitteet`,
+      tooltip: $localize`:@@spObjectivesTooltip:Kuvaus hankkeelle asetetuista tavoitteista`,
       showOnlyLabel: false
     },
     {
       label: $localize`:@@spParticipants:Osallistujat`,
       field: 'participants',
-      tooltip: $localize`:@@spParticipantsTooltip:Osallistujat`,
+      tooltip: $localize`:@@spParticipantsTooltip:Hankkeeseen osallistuvat organisaatiot ja henkilöt`,
       showOnlyLabel: true,
       subFields: [{
         label: $localize`:@@spOrganizations:Organisaatiot`,
@@ -127,7 +127,7 @@ export class SingleProjectComponent implements OnInit, OnDestroy {
     {
       label: $localize`:@@spResults:Tulokset`,
       field: 'results',
-      tooltip: $localize`:@@spOutcomesTooltip:Tulokset`,
+      tooltip: $localize`:@@spResultsTooltip:Hankkeen saavuttamat tulokset`,
       showOnlyLabel: true,
       subFields: [{
         label: $localize`:@@resultsAndEffect:Tulokset ja vaikuttavuus`,
@@ -151,7 +151,7 @@ export class SingleProjectComponent implements OnInit, OnDestroy {
   ];
 
   homepageTooltip = {
-    tooltip: $localize`Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa myönnetystä rahoituksesta on tarkempaa tietoa.`
+    tooltip: $localize`:@@spHomePageTooltip:Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa.`
   };
 
   errorMessage = [];
