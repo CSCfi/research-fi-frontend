@@ -4242,7 +4242,7 @@
         <source>Hanketiedon lähde</source>
         <target state="new">Hanketiedon lähde</target>
       </trans-unit>
-      <trans-unit id="486660071516642410" datatype="html">
+      <trans-unit id="spAbbreviation" datatype="html">
         <source>Lyhenne</source>
         <target state="new">Lyhenne</target>
       </trans-unit>
@@ -4258,15 +4258,11 @@
         <source>Päättymisvuosi</source>
         <target state="new">End year</target>
       </trans-unit>
-      <trans-unit id="2316103457117210615" datatype="html">
-        <source>Hankkeen kuvaus</source>
-        <target state="new">Placeholder</target>
-      </trans-unit>
       <trans-unit id="spDescriptionTooltip" datatype="html">
         <source>Kuvaus kertoo tiiviisti tavoitteista.</source>
         <target state="new">Description</target>
       </trans-unit>
-      <trans-unit id="9200025601085779198" datatype="html">
+      <trans-unit id="spObjectives" datatype="html">
         <source>Tavoitteet</source>
         <target state="new">Tavoitteet</target>
       </trans-unit>
@@ -4274,7 +4270,7 @@
         <source>Tavoitteet</source>
         <target state="new">Placeholder</target>
       </trans-unit>
-      <trans-unit id="8198101569802288264" datatype="html">
+      <trans-unit id="spParticipants" datatype="html">
         <source>Osallistujat</source>
         <target state="new">Osallistujat</target>
       </trans-unit>
@@ -4282,7 +4278,7 @@
         <source>Osallistujat</source>
         <target state="new">Participants</target>
       </trans-unit>
-      <trans-unit id="4365265181652607247" datatype="html">
+      <trans-unit id="spResults" datatype="html">
         <source>Tulokset</source>
         <target state="new">Tulokset</target>
       </trans-unit>
@@ -4290,13 +4286,9 @@
         <source>Tulokset</source>
         <target state="new">Placeholder</target>
       </trans-unit>
-      <trans-unit id="8267503431374218899" datatype="html">
+      <trans-unit id="spotherInfo" datatype="html">
         <source>Muut tiedot</source>
         <target state="new">Muut tiedot</target>
-      </trans-unit>
-      <trans-unit id="spAdditionalInfoTooltip" datatype="html">
-        <source>Muut tiedot</source>
-        <target state="new">Other information</target>
       </trans-unit>
       <trans-unit id="projectSingular" datatype="html">
         <source>projekti</source>
@@ -4305,6 +4297,34 @@
       <trans-unit id="projectsTooltip" datatype="html">
         <source>Placeholder</source>
         <target state="new">Placeholder</target>
+      </trans-unit>
+      <trans-unit id="spStartYear" datatype="html">
+        <source>Aloitusvuosi</source>
+        <target state="new">Aloitusvuosi</target>
+      </trans-unit>
+      <trans-unit id="spEndYear" datatype="html">
+        <source>Päättymisvuosi</source>
+        <target state="new">Päättymisvuosi</target>
+      </trans-unit>
+      <trans-unit id="spDescription" datatype="html">
+        <source>Kuvaus</source>
+        <target state="new">Kuvaus</target>
+      </trans-unit>
+      <trans-unit id="spOrganizations" datatype="html">
+        <source>Organisaatiot</source>
+        <target state="new">Organisaatiot</target>
+      </trans-unit>
+      <trans-unit id="spPersons" datatype="html">
+        <source>Henkilöt</source>
+        <target state="new">Henkilöt</target>
+      </trans-unit>
+      <trans-unit id="resultsAndEffect" datatype="html">
+        <source>Tulokset ja vaikuttavuus</source>
+        <target state="new">Tulokset ja vaikuttavuus</target>
+      </trans-unit>
+      <trans-unit id="spKeywordsTooltip" datatype="html">
+        <source>Haun rajaus hankkeen tiedoissa olevien avainsanojen perusteella.</source>
+        <target>Limit search based on the keywords in the project's information.</target>
       </trans-unit>
     </body>
   </file>

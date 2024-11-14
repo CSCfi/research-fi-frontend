@@ -80,52 +80,69 @@ export class SingleProjectComponent implements OnInit, OnDestroy {
 
   info = [
     {
-      label: $localize`Lyhenne`,
+      label: $localize`:@@spAbbreviation:Lyhenne`,
       field: 'abbreviation',
       tooltip: $localize`:@@spAbbreviationTooltip:Lyhenne`,
       showOnlyLabel: false
     },
     {
-      label: $localize`Aloitusvuosi`,
+      label: $localize`:@@spStartYear:Aloitusvuosi`,
       field: 'startYear',
       tooltip: $localize`:@@spStartYearTooltip:Aloitusvuosi`,
       showOnlyLabel: false
     },
     {
-      label: $localize`Päättymisvuosi`,
+      label: $localize`:@@spEndYear:Päättymisvuosi`,
       field: 'endYear',
       tooltip: $localize`:@@spEndYearTooltip:Päättymisvuosi`,
       showOnlyLabel: false
     },
     {
-      label: $localize`Hankkeen kuvaus`,
+      label: $localize`:@@spDescription:Kuvaus`,
       field: 'summary',
       tooltip: $localize`:@@spDescriptionTooltip:Kuvaus kertoo tiiviisti tavoitteista.`,
       showOnlyLabel: false
     },
     {
-      label: $localize`Tavoitteet`,
+      label: $localize`:@@spObjectives:Tavoitteet`,
       field: 'goals',
       tooltip: $localize`:@@spObjectivesTooltip:Tavoitteet`,
       showOnlyLabel: false
     },
     {
-      label: $localize`Osallistujat`,
+      label: $localize`:@@spParticipants:Osallistujat`,
       field: 'participants',
       tooltip: $localize`:@@spParticipantsTooltip:Osallistujat`,
-      showOnlyLabel: true
+      showOnlyLabel: true,
+      subFields: [{
+        label: $localize`:@@spOrganizations:Organisaatiot`,
+        field: 'responsibleOrganizations',
+        showOnlyLabel: false
+      },
+        {
+          label: $localize`:@@spPersons:Henkilöt`,
+          field: 'responsiblePersons',
+        }]
     },
     {
-      label: $localize`Tulokset`,
+      label: $localize`:@@spResults:Tulokset`,
       field: 'results',
       tooltip: $localize`:@@spOutcomesTooltip:Tulokset`,
-      showOnlyLabel: true
+      showOnlyLabel: true,
+      subFields: [{
+        label: $localize`:@@resultsAndEffect:Tulokset ja vaikuttavuus`,
+        field: 'outcomeEffect',
+      }]
     },
     {
-      label: $localize`Muut tiedot`,
+      label: $localize`:@@spotherInfo:Muut tiedot`,
       field: 'additionalInfo',
-      tooltip: $localize`:@@spAdditionalInfoTooltip:Muut tiedot`,
-      showOnlyLabel: true
+      showOnlyLabel: true,
+      subFields: [{
+        label: $localize`:@@spKeywordsTooltip:Avainsanat`,
+        field: 'keywords',
+        tooltip: $localize`:@@spKeywordsTooltip:Haun rajaus hankkeen tiedoissa olevien avainsanojen perusteella.`,
+      }]
     }
   ];
 

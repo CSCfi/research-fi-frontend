@@ -3165,25 +3165,22 @@
       <trans-unit id="publication2.tutorial.52" datatype="html">
         <source> Jokerimerkillä * voit korvata yhden tai useamman merkin hakusanan keskeltä tai lopusta. Jokerimerkki * edustaa myös tyhjää merkkiä. Jos haluat hakea samaan aikaan esimerkiksi sanoja &quot;color&quot; ja &quot;colour&quot;, voit käyttää hakutermiä colo*r. Esimerkiksi hakutermillä tietotek* voit hakea sanoja jotka alkavat kirjaimilla tietotek, kuten &quot;tietotekniikka&quot; ja &quot;tietotekniset&quot;. </source>
       </trans-unit>
-      <trans-unit id="2316103457117210615" datatype="html">
-        <source>Hankkeen kuvaus</source>
-      </trans-unit>
       <trans-unit id="2404930950771668634" datatype="html">
         <source>Suomen akatemian muu päättäjä</source>
       </trans-unit>
-      <trans-unit id="4365265181652607247" datatype="html">
+      <trans-unit id="spResults" datatype="html">
         <source>Tulokset</source>
       </trans-unit>
-      <trans-unit id="486660071516642410" datatype="html">
+      <trans-unit id="spAbbreviation" datatype="html">
         <source>Lyhenne</source>
       </trans-unit>
-      <trans-unit id="8198101569802288264" datatype="html">
+      <trans-unit id="spParticipants" datatype="html">
         <source>Osallistujat</source>
       </trans-unit>
-      <trans-unit id="8267503431374218899" datatype="html">
+      <trans-unit id="spotherInfo" datatype="html">
         <source>Muut tiedot</source>
       </trans-unit>
-      <trans-unit id="9200025601085779198" datatype="html">
+      <trans-unit id="spObjectives" datatype="html">
         <source>Tavoitteet</source>
       </trans-unit>
       <trans-unit id="approvedFundings" datatype="html">
@@ -3210,9 +3207,6 @@
       <trans-unit id="spAbbreviationTooltip" datatype="html">
         <source>Lyhenne</source>
       </trans-unit>
-      <trans-unit id="spAdditionalInfoTooltip" datatype="html">
-        <source>Muut tiedot</source>
-      </trans-unit>
       <trans-unit id="spDescriptionTooltip" datatype="html">
         <source>Kuvaus kertoo tiiviisti tavoitteista.</source>
       </trans-unit>
@@ -3236,6 +3230,27 @@
       </trans-unit>
       <trans-unit id="projectsTooltip" datatype="html">
         <source>Placeholder</source>
+      </trans-unit>
+      <trans-unit id="spDescription" datatype="html">
+        <source>Kuvaus</source>
+      </trans-unit>
+      <trans-unit id="spEndYear" datatype="html">
+        <source>Päättymisvuosi</source>
+      </trans-unit>
+      <trans-unit id="spOrganizations" datatype="html">
+        <source>Organisaatiot</source>
+      </trans-unit>
+      <trans-unit id="spPersons" datatype="html">
+        <source>Henkilöt</source>
+      </trans-unit>
+      <trans-unit id="spStartYear" datatype="html">
+        <source>Aloitusvuosi</source>
+      </trans-unit>
+      <trans-unit id="resultsAndEffect" datatype="html">
+        <source>Tulokset ja vaikuttavuus</source>
+      </trans-unit>
+      <trans-unit id="spKeywordsTooltip" datatype="html">
+        <source>Avainsanat</source>
       </trans-unit>
     </body>
   </file>
