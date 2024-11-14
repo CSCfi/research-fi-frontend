@@ -16,7 +16,7 @@
       </trans-unit>
       <trans-unit id="searchTooltip" datatype="html">
         <source>Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa.</source>
-        <target state="new">You can search for publications, researchers, funding decisions, research data, funding calls, infrastructures and organizations.</target>
+        <target>You can search for publications, researchers, funding decisions, research data, funding calls, infrastructures and organizations.</target>
       </trans-unit>
       <trans-unit id="searchTarget" datatype="html">
         <source>Kohdista haku</source>
@@ -32,7 +32,7 @@
       </trans-unit>
       <trans-unit id="search" datatype="html">
         <source>Hae</source>
-        <target state="new">Search</target>
+        <target>Search</target>
       </trans-unit>
       <trans-unit id="searchHelpButton" datatype="html">
         <source>Hakuohje</source>
@@ -40,17 +40,17 @@
       </trans-unit>
       <trans-unit id="searchHelp1" datatype="html">
         <source> Kirjoita hakukenttään julkaisun nimi, asiasana, hankkeen nimi tai esimerkiksi organisaation nimi. </source>
-        <target state="new">In the search field, enter the name of the publication, keyword, project name or, for example, the name of the organization.</target>
+        <target>In the search field, enter the name of the publication, keyword, project name or, for example, the name of the organization.</target>
         <note priority="1" from="description">Search help</note>
       </trans-unit>
       <trans-unit id="searchHelp2" datatype="html">
         <source> Hakutulosten rajaaminen onnistuu haun jälkeen hakunäkymässä. </source>
-        <target state="new">You can filter search results after searching in the search view.</target>
+        <target>You can filter search results after searching in the search view.</target>
         <note priority="1" from="description">Search help</note>
       </trans-unit>
       <trans-unit id="searchHelp3" datatype="html">
         <source> Haku kohdistuu julkaisuihin, tutkijoihin, hankkeisiin, aineistoihin, rahoitushakuihin, infrastruktuureihin ja organisaatioihin. </source>
-        <target state="new">The search targets publications, researchers, projects, research data, funding calls, infrastructures, and organizations.</target>
+        <target>The search targets publications, researchers, projects, research data, funding calls, infrastructures, and organizations.</target>
         <note priority="1" from="description">Search help</note>
       </trans-unit>
       <trans-unit id="searchSuggest1" datatype="html">
@@ -92,7 +92,7 @@
       </trans-unit>
       <trans-unit id="searchHistory" datatype="html">
         <source> Hait viimeksi: </source>
-        <target state="new">Last search:</target>
+        <target>Last search:</target>
         <note priority="1" from="description">Search history</note>
       </trans-unit>
       <trans-unit id="emptySearchHistory" datatype="html">
@@ -102,19 +102,19 @@
       </trans-unit>
       <trans-unit id="homeNewsHeaderPlain" datatype="html">
         <source> Uusimmat tiede- ja tutkimusuutiset </source>
-        <target state="new">Latest science and research news</target>
+        <target>Latest science and research news</target>
       </trans-unit>
       <trans-unit id="researchFinland" datatype="html">
         <source> Tiede ja tutkimus Suomessa </source>
-        <target state="new">Science and research in Finland</target>
+        <target>Science and research in Finland</target>
       </trans-unit>
       <trans-unit id="singleResult" datatype="html">
         <source> hakutulos </source>
-        <target state="new">search result</target>
+        <target>search result</target>
       </trans-unit>
       <trans-unit id="resultCount" datatype="html">
         <source> hakutulosta </source>
-        <target state="new">search results</target>
+        <target>search results</target>
       </trans-unit>
       <trans-unit id="skipToResults" datatype="html">
         <source>Hyppää hakutuloksiin</source>
@@ -142,7 +142,7 @@
       </trans-unit>
       <trans-unit id="maxResults2" datatype="html">
         <source> Jos hakemaasi tulosta ei löytynyt, yritä tarkentaa hakua. </source>
-        <target state="new">If the result you were looking for was not found, try refining your search.</target>
+        <target>If the result you were looking for was not found, try refining your search.</target>
       </trans-unit>
       <trans-unit id="backToResults" datatype="html">
         <source>Takaisin hakutuloksiin</source>
@@ -186,19 +186,19 @@
       </trans-unit>
       <trans-unit id="showSpecific" datatype="html">
         <source> Näytä tarkemmin </source>
-        <target state="new">Show more detail</target>
+        <target>Show more detail</target>
       </trans-unit>
       <trans-unit id="hideSubUnits" datatype="html">
         <source> Piilota alayksiköt </source>
-        <target state="new">Hide subunits</target>
+        <target>Hide subunits</target>
       </trans-unit>
       <trans-unit id="publicationMediumInfo" datatype="html">
         <source> Julkaisukanavan tiedot </source>
-        <target state="new">Publication channel information</target>
+        <target>Publication channel information</target>
       </trans-unit>
       <trans-unit id="otherInfo" datatype="html">
         <source> Muut tiedot </source>
-        <target state="new">Other information</target>
+        <target>Other information</target>
       </trans-unit>
       <trans-unit id="publicationLinks" datatype="html">
         <source>Linkit julkaisuun</source>
@@ -206,7 +206,7 @@
       </trans-unit>
       <trans-unit id="noPublicationLinks" datatype="html">
         <source> Julkaisuun ei ole tarjolla linkkejä tässä portaalissa </source>
-        <target state="new">There are no links to the publication on this service</target>
+        <target>There are no links to the publication on this service</target>
       </trans-unit>
       <trans-unit id="externalLinks" datatype="html">
         <source>Hae julkaisua muualta</source>
@@ -242,7 +242,7 @@
       </trans-unit>
       <trans-unit id="citeDialogFooterText" datatype="html">
         <source> Automaattisesti luotujen viitteiden tiedoissa voi esiintyä virheitä. Tarkista aina viitteen tiedot. </source>
-        <target state="new">Errors may occur in automatically generated references. Always check the reference details.</target>
+        <target>Errors may occur in automatically generated references. Always check the reference details.</target>
       </trans-unit>
       <trans-unit id="publicationName" datatype="html">
         <source>Julkaisun nimi</source>
@@ -282,7 +282,7 @@
       </trans-unit>
       <trans-unit id="resultSearchTermWarning" datatype="html">
         <source> Tarkista, onko hakutermissä kirjoitusvirheitä.<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> Voi myös olla, että hakemaasi tietoa ei ole tarjolla tässä verkkopalvelussa. </source>
-        <target state="new">Check your search term for spelling errors.<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/> It may also be that the information you are looking for is not available in this online service.</target>
+        <target>Check your search term for spelling errors.<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/> It may also be that the information you are looking for is not available in this online service.</target>
       </trans-unit>
       <trans-unit id="resultsAboutService" datatype="html">
         <source>Mitä tietoja Tiedejatutkimus.fi sisältää?</source>
@@ -290,7 +290,7 @@
       </trans-unit>
       <trans-unit id="sortByRelevance" datatype="html">
         <source>Osuvin ensin</source>
-        <target state="new">Most relevant first</target>
+        <target>Most relevant first</target>
       </trans-unit>
       <trans-unit id="resultsOnPage" datatype="html">
         <source>Tuloksia sivulla</source>
@@ -310,7 +310,7 @@
       </trans-unit>
       <trans-unit id="paginationResultCount" datatype="html">
         <source>Näytetään tulokset </source>
-        <target state="new">Displaying results</target>
+        <target>Displaying results</target>
       </trans-unit>
       <trans-unit id="page" datatype="html">
         <source>Sivu</source>
@@ -358,7 +358,7 @@
       </trans-unit>
       <trans-unit id="fundingRecipientHeader" datatype="html">
         <source> Myönnetty rahoitus </source>
-        <target state="new">Granted funding</target>
+        <target>Granted funding</target>
       </trans-unit>
       <trans-unit id="contactPerson" datatype="html">
         <source>Yhteyshenkilö</source>
@@ -366,15 +366,15 @@
       </trans-unit>
       <trans-unit id="academyConsortium" datatype="html">
         <source> Rooli Suomen Akatemian konsortiossa </source>
-        <target state="new">Role in consortium of the Academy of Finland</target>
+        <target>Role in consortium of the Academy of Finland</target>
       </trans-unit>
       <trans-unit id="otherConsortium" datatype="html">
         <source> Muut osapuolet </source>
-        <target state="new">Other consortium parties</target>
+        <target>Other consortium parties</target>
       </trans-unit>
       <trans-unit id="fundingOtherInfo" datatype="html">
         <source> Muut tiedot </source>
-        <target state="new">Other information</target>
+        <target>Other information</target>
       </trans-unit>
       <trans-unit id="fundingHomePage" datatype="html">
         <source>Myöntöön liittyvä verkkosivu</source>
@@ -398,7 +398,7 @@
       </trans-unit>
       <trans-unit id="noInformationSource" datatype="html">
         <source> Tiedon lähde ei saatavilla. </source>
-        <target state="new">Data source not available.</target>
+        <target>Data source not available.</target>
       </trans-unit>
       <trans-unit id="activeFilters" datatype="html">
         <source>Rajaukset</source>
@@ -406,7 +406,7 @@
       </trans-unit>
       <trans-unit id="activeFiltersListHelp" datatype="html">
         <source> Voit poistaa rajauksia tästä listasta. Rajausten muutokset päivittyvät samalla hakutulosnäkymään. </source>
-        <target state="new">You can remove filters from this list. The filter changes are also updated in the search results view.</target>
+        <target>You can remove filters from this list. The filter changes are also updated in the search results view.</target>
       </trans-unit>
       <trans-unit id="close" datatype="html">
         <source>Sulje</source>
@@ -426,7 +426,7 @@
       </trans-unit>
       <trans-unit id="clearActiveFilters" datatype="html">
         <source> Tyhjennä rajaukset</source>
-        <target state="new">Clear filters</target>
+        <target>Clear filters</target>
       </trans-unit>
       <trans-unit id="chooseTheme" datatype="html">
         <source>Valitse teema</source>
@@ -434,23 +434,23 @@
       </trans-unit>
       <trans-unit id="asCountPublication" datatype="html">
         <source> Julkaisujen määrä </source>
-        <target state="new">Number of publications</target>
+        <target>Number of publications</target>
       </trans-unit>
       <trans-unit id="asPercentPublication" datatype="html">
         <source> % julkaisujen määrästä </source>
-        <target state="new">Percentage of the number of publications</target>
+        <target>Percentage of the number of publications</target>
       </trans-unit>
       <trans-unit id="asCountFunding" datatype="html">
         <source> Hankkeiden määrä </source>
-        <target state="new">Number of projects</target>
+        <target>Number of projects</target>
       </trans-unit>
       <trans-unit id="asPercentFunding" datatype="html">
         <source> % hankkeiden määrästä </source>
-        <target state="new">Percentage of the number of projects</target>
+        <target>Percentage of the number of projects</target>
       </trans-unit>
       <trans-unit id="asPercentAmount" datatype="html">
         <source> % myöntösummasta </source>
-        <target state="new">Percentage of the amount granted</target>
+        <target>Percentage of the amount granted</target>
       </trans-unit>
       <trans-unit id="downloadAsImage" datatype="html">
         <source>Lataa kuvana</source>
@@ -470,11 +470,11 @@
       </trans-unit>
       <trans-unit id="organizationHomepage" datatype="html">
         <source> Organisaation verkkosivu </source>
-        <target state="new">Organization website</target>
+        <target>Organization website</target>
       </trans-unit>
       <trans-unit id="noOrganizationLinks" datatype="html">
         <source> Organisaatioon ei ole tarjolla linkkejä tässä portaalissa </source>
-        <target state="new">There are no links to the organization on this service</target>
+        <target>There are no links to the organization on this service</target>
       </trans-unit>
       <trans-unit id="relatedOrganizations" datatype="html">
         <source>Hae organisaatioon liittyvät</source>
@@ -486,7 +486,7 @@
       </trans-unit>
       <trans-unit id="orgInfoSource" datatype="html">
         <source> Organisaatiotiedon lähde </source>
-        <target state="new">Source of organization information</target>
+        <target>Source of organization information</target>
       </trans-unit>
       <trans-unit id="publicationCountByYear" datatype="html">
         <source>Julkaisujen määrä vuosittain</source>
@@ -546,7 +546,7 @@
       </trans-unit>
       <trans-unit id="asCountAmount" datatype="html">
         <source> Myöntösumma </source>
-        <target state="new">Amount granted</target>
+        <target>Amount granted</target>
       </trans-unit>
       <trans-unit id="infraAcronym" datatype="html">
         <source>Lyhenne</source>
@@ -578,7 +578,7 @@
       </trans-unit>
       <trans-unit id="newsHeader" datatype="html">
         <source> Tiede- ja tutkimusuutiset </source>
-        <target state="new">Science and research news</target>
+        <target>Science and research news</target>
       </trans-unit>
       <trans-unit id="news" datatype="html">
         <source>Uutiset</source>
@@ -594,7 +594,7 @@
       </trans-unit>
       <trans-unit id="noResultsInfo" datatype="html">
         <source> Hakutermissä voi olla kirjoitusvirhe, tai sitä vastaavaa rajaustekijää ei ole tarjolla tässä osiossa. </source>
-        <target state="new">The search term may contain a typographical error or its corresponding filter factor is not available in this section.</target>
+        <target>The search term may contain a typographical error or its corresponding filter factor is not available in this section.</target>
       </trans-unit>
       <trans-unit id="filterCoPublications" datatype="html">
         <source>Näytä ainoastaan yhteisjulkaisut</source>
@@ -606,7 +606,7 @@
       </trans-unit>
       <trans-unit id="filterCoPublicationsTooltip" datatype="html">
         <source> Valitsemalla ”näytä ainoastaan yhteisjulkaisut” voit tarkastella suomalaisten organisaatioiden yhteisiä julkaisuja. Hakutulos näyttää tällöin vain sellaiset julkaisut, joissa kaikki alla olevasta listasta valitut organisaatiot ovat mukana. Jos yhtään organisaatiota ei ole valittu, hakutulos näyttää kaikki yhteisjulkaisut. </source>
-        <target state="new">By choosing the ”show only co-publications” you can see what publications are made as a collaboration between Finnish research organizations. The search results will show only those publications where the authors are from all of the organizations selected in the list below. If no organization is selected, the search result will show all co-publications.</target>
+        <target>By choosing the ”show only co-publications” you can see what publications are made as a collaboration between Finnish research organizations. The search results will show only those publications where the authors are from all of the organizations selected in the list below. If no organization is selected, the search result will show all co-publications.</target>
       </trans-unit>
       <trans-unit id="copyLink" datatype="html">
         <source>Kopioi linkki</source>
@@ -622,7 +622,7 @@
       </trans-unit>
       <trans-unit id="infraHomePage" datatype="html">
         <source> Infrastruktuurin verkkosivu </source>
-        <target state="new">Infrastructure website</target>
+        <target>Infrastructure website</target>
       </trans-unit>
       <trans-unit id="showEmailAddress" datatype="html">
         <source>Näytä sähköpostiosoite</source>
@@ -630,7 +630,7 @@
       </trans-unit>
       <trans-unit id="noInfraLinks" datatype="html">
         <source> Infrastruktuuriin ei ole tarjolla linkkejä tässä portaalissa </source>
-        <target state="new">There are no links to the organization on this service</target>
+        <target>There are no links to the organization on this service</target>
       </trans-unit>
       <trans-unit id="relatedInfrastructures" datatype="html">
         <source>Hae infrastruktuuriin liittyvät</source>
@@ -638,11 +638,11 @@
       </trans-unit>
       <trans-unit id="infraSource" datatype="html">
         <source> Infrastruktuuritiedon lähde </source>
-        <target state="new">Source of infrastructure information</target>
+        <target>Source of infrastructure information</target>
       </trans-unit>
       <trans-unit id="missingInfraSource" datatype="html">
         <source> Infrastruktuuritiedon lähde puuttuu. </source>
-        <target state="new">Infrastructure information source missing.</target>
+        <target>Infrastructure information source missing.</target>
       </trans-unit>
       <trans-unit id="closeButton" datatype="html">
         <source>Sulje</source>
@@ -670,16 +670,16 @@
       </trans-unit>
       <trans-unit id="yearFilterSeparateSelection" datatype="html">
         <source> Valitse yksitellen </source>
-        <target state="new">Select individually</target>
+        <target>Select individually</target>
         <note priority="1" from="description">Year filter separate</note>
       </trans-unit>
       <trans-unit id="showMore" datatype="html">
         <source> Näytä lisää </source>
-        <target state="new">Show more</target>
+        <target>Show more</target>
       </trans-unit>
       <trans-unit id="showLess" datatype="html">
         <source> Näytä vähemmän </source>
-        <target state="new">Show less</target>
+        <target>Show less</target>
       </trans-unit>
       <trans-unit id="selectAll" datatype="html">
         <source>Valitse kaikki</source>
@@ -719,11 +719,11 @@
       </trans-unit>
       <trans-unit id="figureKeyboardHelp1" datatype="html">
         <source> Saat näppäimistöohjeet esiin näppäinyhdistelmällä “vaihtonäppäin + ?&quot; silloin, kun selaimesi fokus on allaolevassa visualisoinnissa. </source>
-        <target state="new">For keyboard instructions, press&quot; Shift +?\” while your browser&apos;s focus is in the visualization below.</target>
+        <target>For keyboard instructions, press&quot; Shift +?\” while your browser&apos;s focus is in the visualization below.</target>
       </trans-unit>
       <trans-unit id="figureKeyboardHelp2" datatype="html">
         <source> Näppäimistöohje esitetään selaimesi kieliasetuksen mukaisella kielellä. </source>
-        <target state="new">Keyboard help is displayed in the language specified in your browser&apos;s language setting.</target>
+        <target>Keyboard help is displayed in the language specified in your browser&apos;s language setting.</target>
       </trans-unit>
       <trans-unit id="showAsVisual" datatype="html">
         <source>Näytä kuvana</source>
@@ -739,7 +739,7 @@
       </trans-unit>
       <trans-unit id="figureUpdateDate" datatype="html">
         <source>Vuosittainen päivitysajankohta:</source>
-        <target state="new">Annual update</target>
+        <target>Annual update</target>
       </trans-unit>
       <trans-unit id="downloadCSV" datatype="html">
         <source>Lataa tiedostona (csv)</source>
@@ -747,7 +747,7 @@
       </trans-unit>
       <trans-unit id="moreFiguresFrom" datatype="html">
         <source> Lisää lukuja tieteestä ja tutkimuksesta </source>
-        <target state="new">More figures from science and research</target>
+        <target>More figures from science and research</target>
       </trans-unit>
       <trans-unit id="shareThisPage" datatype="html">
         <source>Jaa tämä sivu:</source>
@@ -771,11 +771,11 @@
       </trans-unit>
       <trans-unit id="publications" datatype="html">
         <source>julkaisuja</source>
-        <target state="new">Publications</target>
+        <target>Publications</target>
       </trans-unit>
       <trans-unit id="authors" datatype="html">
         <source>tutkijat</source>
-        <target state="new">People</target>
+        <target>People</target>
       </trans-unit>
       <trans-unit id="fundings" datatype="html">
         <source>hankkeita</source>
@@ -783,11 +783,11 @@
       </trans-unit>
       <trans-unit id="datasets" datatype="html">
         <source>aineistoja</source>
-        <target state="new">Research data</target>
+        <target>Research data</target>
       </trans-unit>
       <trans-unit id="infrastructures" datatype="html">
         <source>infrastruktuurit</source>
-        <target state="new">Infrastructures</target>
+        <target>Infrastructures</target>
       </trans-unit>
       <trans-unit id="otherResearchActivities" datatype="html">
         <source>Muut tutkimusaktiviteetit</source>
@@ -795,7 +795,7 @@
       </trans-unit>
       <trans-unit id="organizations" datatype="html">
         <source>tutkimusorganisaatiot</source>
-        <target state="new">Organizations</target>
+        <target>Organizations</target>
       </trans-unit>
       <trans-unit id="comingSoon" datatype="html">
         <source>Tulossa</source>
@@ -803,7 +803,7 @@
       </trans-unit>
       <trans-unit id="headerMenuOpen" datatype="html">
         <source> Valikko </source>
-        <target state="new">Menu</target>
+        <target>Menu</target>
       </trans-unit>
       <trans-unit id="headerLink3" datatype="html">
         <source>Tiede- ja innovaatiopolitiikka</source>
@@ -819,7 +819,7 @@
       </trans-unit>
       <trans-unit id="informationSourceProducers" datatype="html">
         <source> Tiedon lähteet ja tuottajat </source>
-        <target state="new">Data sources and producers</target>
+        <target>Data sources and producers</target>
       </trans-unit>
       <trans-unit id="headerLink6" datatype="html">
         <source>Tiede- ja tutkimusuutiset</source>
@@ -871,7 +871,7 @@
       </trans-unit>
       <trans-unit id="footerHeader1" datatype="html">
         <source> Palvelun tarjoaa </source>
-        <target state="new">The service is provided by</target>
+        <target>The service is provided by</target>
         <note priority="1" from="description">Footer-header</note>
       </trans-unit>
       <trans-unit id="okmLogo" datatype="html">
@@ -880,7 +880,7 @@
       </trans-unit>
       <trans-unit id="footerHeader2" datatype="html">
         <source> Yhteistyössä </source>
-        <target state="new">In cooperation with</target>
+        <target>In cooperation with</target>
         <note priority="1" from="description">Footer-header</note>
       </trans-unit>
       <trans-unit id="CSCLogoAltText" datatype="html">
@@ -894,7 +894,7 @@
       </trans-unit>
       <trans-unit id="footerHeader5" datatype="html">
         <source> Info ja yhteystiedot </source>
-        <target state="new">Statements and practices</target>
+        <target>Statements and practices</target>
         <note priority="1" from="description">Footer-header</note>
       </trans-unit>
       <trans-unit id="followUs" datatype="html">
@@ -903,7 +903,7 @@
       </trans-unit>
       <trans-unit id="twitterFooter" datatype="html">
         <source><x id="START_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="&lt;fa-icon class=&quot;social-icon&quot; [icon]=&quot;faTwitter&quot;&gt;"/><x id="CLOSE_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="&lt;/fa-icon&gt;"/>Tiedejatutkimus.fi Twitterissä</source>
-        <target state="new"> <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon&gt;"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon&gt;"/>Research.fi at Twitter</target>
+        <target> <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon&gt;"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon&gt;"/>Research.fi at Twitter</target>
         <note priority="1" from="description">Twitter-footer</note>
       </trans-unit>
       <trans-unit id="twitterTitleText" datatype="html">
@@ -912,7 +912,7 @@
       </trans-unit>
       <trans-unit id="reviewButton" datatype="html">
         <source> Anna palautetta! </source>
-        <target state="new">Give feedback!</target>
+        <target>Give feedback!</target>
         <note priority="1" from="description">Review-button</note>
       </trans-unit>
       <trans-unit id="yes" datatype="html">
@@ -961,7 +961,7 @@
       </trans-unit>
       <trans-unit id="fieldsOfArt" datatype="html">
         <source>Taiteenala</source>
-        <target state="new">Fields of Art</target>
+        <target>Fields of Art</target>
       </trans-unit>
       <trans-unit id="artPublicationType" datatype="html">
         <source>Taidejulkaisun tyyppi</source>
@@ -1049,15 +1049,15 @@
       </trans-unit>
       <trans-unit id="cmsErrorContent1" datatype="html">
         <source> Emme valitettavasti saa yhteyttä kaikkiin järjestelmämme osiin. </source>
-        <target state="new">Unfortunately we are unable to contact all parts of the system.</target>
+        <target>Unfortunately we are unable to contact all parts of the system.</target>
       </trans-unit>
       <trans-unit id="cmsErrorContent2" datatype="html">
         <source> Osa tiedejatutkimus.fi:stä on tilapäisesti poissa käytöstä. </source>
-        <target state="new">A part of research.fi is temporarily out of order.</target>
+        <target>A part of research.fi is temporarily out of order.</target>
       </trans-unit>
       <trans-unit id="cmsErrorContent3" datatype="html">
         <source> Voit jatkaa portaalin käyttöä rajoitetulla tietosisällöllä. </source>
-        <target state="new">You can continue to use the portal with limited information content.</target>
+        <target>You can continue to use the portal with limited information content.</target>
       </trans-unit>
       <trans-unit id="publicationType" datatype="html">
         <source>Julkaisutyyppi</source>
@@ -1077,7 +1077,7 @@
       </trans-unit>
       <trans-unit id="publicationChannelAudience" datatype="html">
         <source>Julkaisukanavan kohdeyleisö</source>
-        <target state="new">Publication channel’s target audience</target>
+        <target>Publication channel’s target audience</target>
       </trans-unit>
       <trans-unit id="audience" datatype="html">
         <source>Yleisö</source>
@@ -1093,19 +1093,19 @@
       </trans-unit>
       <trans-unit id="otherArticle" datatype="html">
         <source>Muu artikkeli: </source>
-        <target state="new">Other article</target>
+        <target>Other article</target>
       </trans-unit>
       <trans-unit id="originalArticle" datatype="html">
         <source>Alkuperäisartikkeli: </source>
-        <target state="new">Original article</target>
+        <target>Original article</target>
       </trans-unit>
       <trans-unit id="dataArticle" datatype="html">
         <source>Data-artikkeli: </source>
-        <target state="new">Data article</target>
+        <target>Data article</target>
       </trans-unit>
       <trans-unit id="reviewArticle" datatype="html">
         <source>Katsausartikkeli: </source>
-        <target state="new">Review article</target>
+        <target>Review article</target>
       </trans-unit>
       <trans-unit id="otherArticleTooltip" datatype="html">
         <source>sisältää muihin luokkiin kuulumattomat artikkelit.</source>
@@ -1129,7 +1129,7 @@
       </trans-unit>
       <trans-unit id="article" datatype="html">
         <source>Artikkeli: </source>
-        <target state="new">Article</target>
+        <target>Article</target>
       </trans-unit>
       <trans-unit id="articleTooltipContent" datatype="html">
         <source>Sisältää alkuperäis- ja katsausartikkelit, kirjan tai lehden johdannot ja esipuheet, lyhyet tutkimusselostukset, pääkirjoitukset, keskustelupuheenvuorot ja kommentit.</source>
@@ -1137,7 +1137,7 @@
       </trans-unit>
       <trans-unit id="monograph" datatype="html">
         <source>Erillisteos: </source>
-        <target state="new">Monograph</target>
+        <target>Monograph</target>
       </trans-unit>
       <trans-unit id="monographTooltipContent" datatype="html">
         <source>Sisältää monografiat/kirjat, tutkimus- ja kehitystyöhön perustuva kehittämis- tai tutkimusraportti, selvitykset, ns. white paperit sekä working papers ja discussion papers -tyyppiset julkaisut.</source>
@@ -1145,7 +1145,7 @@
       </trans-unit>
       <trans-unit id="editorial" datatype="html">
         <source>Toimitustyö: </source>
-        <target state="new">Editorial work</target>
+        <target>Editorial work</target>
       </trans-unit>
       <trans-unit id="editorialTooltipContent" datatype="html">
         <source>Sisältää useista eri kirjoittajien artikkeleista koostuvan tieteellisen kirjan tai lehden erikoisnumeron toimitustyöt.</source>
@@ -1153,7 +1153,7 @@
       </trans-unit>
       <trans-unit id="abstract" datatype="html">
         <source>Abstrakti: </source>
-        <target state="new">Abstract</target>
+        <target>Abstract</target>
       </trans-unit>
       <trans-unit id="abstractTooltipContent" datatype="html">
         <source>Sisältää konferenssiesitelmien abstraktit sekä laajennetut abstraktit.</source>
@@ -1161,7 +1161,7 @@
       </trans-unit>
       <trans-unit id="poster" datatype="html">
         <source>Posteri: </source>
-        <target state="new">Poster</target>
+        <target>Poster</target>
       </trans-unit>
       <trans-unit id="posterTooltipContent" datatype="html">
         <source>Sisältää konferenssiesitelmien posterit.</source>
@@ -1169,7 +1169,7 @@
       </trans-unit>
       <trans-unit id="blog" datatype="html">
         <source>Blogikirjoitus: </source>
-        <target state="new">Blog</target>
+        <target>Blog</target>
       </trans-unit>
       <trans-unit id="blogTooltipContent" datatype="html">
         <source>Sisältää blogimuotoiset julkaisut, joiden julkaisemisesta on päättänyt riippumaton toimituskunta tai joiden julkaisualustalla on ISSN-tunnus.</source>
@@ -1177,15 +1177,15 @@
       </trans-unit>
       <trans-unit id="journal" datatype="html">
         <source>Lehti: </source>
-        <target state="new">Journal</target>
+        <target>Journal</target>
       </trans-unit>
       <trans-unit id="journalTooltipContent" datatype="html">
         <source>sisältää tieteelliset aikakauslehdet ja ammattilehdet.</source>
-        <target state="new">Includes scientific journals and professional journals.</target>
+        <target>Includes scientific journals and professional journals.</target>
       </trans-unit>
       <trans-unit id="researchBook" datatype="html">
         <source>Kokoomateos: </source>
-        <target state="new">Research book</target>
+        <target>Research book</target>
       </trans-unit>
       <trans-unit id="researchBookTooltipContent" datatype="html">
         <source>Sisältää tieteelliset kokoomateokset, tieteelliset vuosikirjat ja vastaavat, ammatilliset käsi- tai opaskirjat, ammatilliset tietojärjestelmät tai kokoomateokset, oppikirja-aineistot sekä lyhyet ensyklopediatekstit.</source>
@@ -1193,7 +1193,7 @@
       </trans-unit>
       <trans-unit id="Conference" datatype="html">
         <source>Konferenssi: </source>
-        <target state="new">Conference</target>
+        <target>Conference</target>
       </trans-unit>
       <trans-unit id="ConferenceTooltipContent" datatype="html">
         <source>Sisältää konferenssin painetut tai julkisesti saatavilla olevat julkaisut, ns. proceedings-julkaisut.</source>
@@ -1201,15 +1201,15 @@
       </trans-unit>
       <trans-unit id="scientificPublication" datatype="html">
         <source>Tieteellinen julkaisu: </source>
-        <target state="new">Scientific publication</target>
+        <target>Scientific publication</target>
       </trans-unit>
       <trans-unit id="scientificPublicationTooltipContent" datatype="html">
         <source>Julkaisut, jotka on tarkoitettu edistämään tiedettä sekä tuottamaan uutta tietoa.</source>
-        <target state="new">Publications intended to promote science and to produce new information.</target>
+        <target>Publications intended to promote science and to produce new information.</target>
       </trans-unit>
       <trans-unit id="professionalPublication" datatype="html">
         <source>Ammatillinen julkaisu:</source>
-        <target state="new">Professional publication</target>
+        <target>Professional publication</target>
       </trans-unit>
       <trans-unit id="professionalPublicationTooltipContent" datatype="html">
         <source>Julkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.</source>
@@ -1217,7 +1217,7 @@
       </trans-unit>
       <trans-unit id="popularPublication" datatype="html">
         <source>Yleistajuinen julkaisu:</source>
-        <target state="new">Popular publication</target>
+        <target>Popular publication</target>
       </trans-unit>
       <trans-unit id="popularPublicationTooltipContent" datatype="html">
         <source>Julkaisut, jotka levittävät tutkimus- ja kehitystyöhön perustuvaa tietoa suurelle yleisölle ja joiden sisällön ymmärtäminen ei edellytä erityistä perehtyneisyyttä alaan.</source>
@@ -1249,7 +1249,7 @@
       </trans-unit>
       <trans-unit id="publisherOpenAccess" datatype="html">
         <source>Julkaisukanavan avoin saatavuus</source>
-        <target state="new">Open access in the publisher’s service</target>
+        <target>Open access in the publisher’s service</target>
       </trans-unit>
       <trans-unit id="embargoDate" datatype="html">
         <source>Rinnakkaistallenteen julkaisuviiveen (embargo) päättymispäivä</source>
@@ -1329,7 +1329,7 @@
       </trans-unit>
       <trans-unit id="publisherVersion" datatype="html">
         <source>Kustantajan versio</source>
-        <target state="new">Publisher&apos;s version:</target>
+        <target>Publisher&apos;s version:</target>
       </trans-unit>
       <trans-unit id="publisherVersionTooltip" datatype="html">
         <source>Kustantajan palvelussa julkaistu artikkeli.</source>
@@ -1337,7 +1337,7 @@
       </trans-unit>
       <trans-unit id="finalDraft" datatype="html">
         <source>Viimeinen käsikirjoitusversio</source>
-        <target state="new">Final draft</target>
+        <target>Final draft</target>
       </trans-unit>
       <trans-unit id="finalDraftTooltip" datatype="html">
         <source>Kustantajalle lähetetty viimeinen (vertaisarvioitu) versio käsikirjoituksesta, joka on hyväksytty julkaistavaksi.</source>
@@ -1353,7 +1353,7 @@
       </trans-unit>
       <trans-unit id="okmDataCollection" datatype="html">
         <source>Julkaisu kuuluu opetus- ja kulttuuriministeriön tiedonkeruuseen</source>
-        <target state="new">The publication is included in the Ministry of Education and Culture’s Publication data collection</target>
+        <target>The publication is included in the Ministry of Education and Culture’s Publication data collection</target>
       </trans-unit>
       <trans-unit id="okmDataCollectionShort" datatype="html">
         <source>Kuuluu OKM:n tiedonkeruuseen</source>
@@ -1365,7 +1365,7 @@
       </trans-unit>
       <trans-unit id="onlinePlatform" datatype="html">
         <source>Verkkoalusta: </source>
-        <target state="new">Online platform</target>
+        <target>Online platform</target>
       </trans-unit>
       <trans-unit id="onlinePlatformTooltipContent" datatype="html">
         <source>Sisältää muilla sähköisillä alustoilla julkaistut julkaisut.</source>
@@ -1401,11 +1401,11 @@
       </trans-unit>
       <trans-unit id="jufoLevel" datatype="html">
         <source>Julkaisufoorumitaso</source>
-        <target state="new">​Publication forum level</target>
+        <target>​Publication forum level</target>
       </trans-unit>
       <trans-unit id="openAccessPublicationChannel" datatype="html">
         <source>Open Access -julkaisukanava</source>
-        <target state="new">Open access publication channel</target>
+        <target>Open access publication channel</target>
       </trans-unit>
       <trans-unit id="8722392264873780327" datatype="html">
         <source>Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.</source>
@@ -1529,7 +1529,7 @@
       </trans-unit>
       <trans-unit id="amountGranted" datatype="html">
         <source> Myönnetty summa </source>
-        <target state="new">Amount granted</target>
+        <target>Amount granted</target>
       </trans-unit>
       <trans-unit id="sumGranted" datatype="html">
         <source>Summa</source>
@@ -1629,7 +1629,7 @@
       </trans-unit>
       <trans-unit id="otherRelatedFundings" datatype="html">
         <source> Muut päätökset </source>
-        <target state="new">Related funding decisions</target>
+        <target>Related funding decisions</target>
       </trans-unit>
       <trans-unit id="4073996987769162370" datatype="html">
         <source>Rahoituksen saaja voi olla henkilö tai organisaatio. Usein saajaksi mainittu henkilö on vastuullinen tutkija, joka ei itse käytä myönnettyä rahoitusta vaan sillä katetaan hankkeen kustannuksia.</source>
@@ -1697,15 +1697,15 @@
       </trans-unit>
       <trans-unit id="datasetsRelated" datatype="html">
         <source> Liittyvät aineistot </source>
-        <target state="new">Related to this research data</target>
+        <target>Related to this research data</target>
       </trans-unit>
       <trans-unit id="datasetAuthorsTooltip" datatype="html">
         <source>Tutkimukseen tai aineiston tekemiseen osallistuneet henkilöt ja organisaatiot. </source>
-        <target state="new">The persons and organizations involved in the research or the production of research data.</target>
+        <target>The persons and organizations involved in the research or the production of research data.</target>
       </trans-unit>
       <trans-unit id="datasetProjectTooltip" datatype="html">
         <source>Projekti, jonka tuotoksena aineisto on luotu. </source>
-        <target state="new">The project in which the data was created.</target>
+        <target>The project in which the data was created.</target>
       </trans-unit>
       <trans-unit id="datasetLicenseTooltip" datatype="html">
         <source>Lisenssi, joka määrittelee aineiston käyttöehdot.</source>
@@ -1725,11 +1725,11 @@
       </trans-unit>
       <trans-unit id="datasetAccessOpenTooltip" datatype="html">
         <source>Aineisto on avoimesti saatavilla</source>
-        <target state="new">The data is openly accessible.</target>
+        <target>The data is openly accessible.</target>
       </trans-unit>
       <trans-unit id="datasetAccessPermit" datatype="html">
         <source>Vaatii luvan hakemista Fairdata-palvelussa</source>
-        <target state="new">Permit required</target>
+        <target>Permit required</target>
       </trans-unit>
       <trans-unit id="datasetAccessPermitTooltip" datatype="html">
         <source>Pääsy aineistoon vaatii luvan hakemista Fairdata-palvelussa.</source>
@@ -1737,7 +1737,7 @@
       </trans-unit>
       <trans-unit id="datasetAccessLogin" datatype="html">
         <source>Vaatii kirjautumisen Fairdata-palvelussa</source>
-        <target state="new">Requires login</target>
+        <target>Requires login</target>
       </trans-unit>
       <trans-unit id="datasetAccessLoginTooltip" datatype="html">
         <source>Pääsy aineistoon vaatii kirjautumisen Fairdata-palvelussa.</source>
@@ -1765,11 +1765,11 @@
       </trans-unit>
       <trans-unit id="noDatasetLinks" datatype="html">
         <source> Tutkimusaineistoon ei ole tarjolla linkkejä tässä portaalissa </source>
-        <target state="new">There are no links to the research data on this portal</target>
+        <target>There are no links to the research data on this portal</target>
       </trans-unit>
       <trans-unit id="datasetSource" datatype="html">
         <source>Tutkimusaineistotiedon lähde</source>
-        <target state="new">Source of research data</target>
+        <target>Source of research data</target>
       </trans-unit>
       <trans-unit id="relatedDatasets" datatype="html">
         <source>Hae tutkimusaineistoon liittyvät</source>
@@ -1953,11 +1953,11 @@
       </trans-unit>
       <trans-unit id="infraOtherInfo" datatype="html">
         <source> Tutkimusinfrastruktuurin muut tiedot </source>
-        <target state="new">Other information</target>
+        <target>Other information</target>
       </trans-unit>
       <trans-unit id="infraClassifications" datatype="html">
         <source> Luokituksia </source>
-        <target state="new">Classifications</target>
+        <target>Classifications</target>
       </trans-unit>
       <trans-unit id="contactInfo" datatype="html">
         <source>Yhteystiedot</source>
@@ -1977,7 +1977,7 @@
       </trans-unit>
       <trans-unit id="furtherInformation" datatype="html">
         <source> Lisätiedot </source>
-        <target state="new">Further information</target>
+        <target>Further information</target>
       </trans-unit>
       <trans-unit id="showMoreNews" datatype="html">
         <source>Näytä lisää uutisia</source>
@@ -2041,7 +2041,7 @@
       </trans-unit>
       <trans-unit id="orgThesisCountBscApplied" datatype="html">
         <source>Alempi ammattikorkeakoulutukinto</source>
-        <target state="new">Bachelor&apos;s degree (polytechnic)</target>
+        <target>Bachelor&apos;s degree (polytechnic)</target>
       </trans-unit>
       <trans-unit id="orgThesisCountMsc" datatype="html">
         <source>Ylempi korkeakoulututkinto</source>
@@ -2049,7 +2049,7 @@
       </trans-unit>
       <trans-unit id="orgThesisCountMscApplied" datatype="html">
         <source>Ylempi ammattikorkeakoulutukinto</source>
-        <target state="new">Master&apos;s degree (polytechnic)</target>
+        <target>Master&apos;s degree (polytechnic)</target>
       </trans-unit>
       <trans-unit id="orgThesisCountLic" datatype="html">
         <source>Lisensiaatintutkinto</source>
@@ -2105,7 +2105,7 @@
       </trans-unit>
       <trans-unit id="fundingCallWebsite" datatype="html">
         <source> Rahoitushaun verkkosivu </source>
-        <target state="new">Funding call website</target>
+        <target>Funding call website</target>
       </trans-unit>
       <trans-unit id="noFundingCalls" datatype="html">
         <source>Ei rahoitushakuja</source>
@@ -2121,11 +2121,11 @@
       </trans-unit>
       <trans-unit id="openFundingCalls" datatype="html">
         <source> Avoimet rahoitushaut </source>
-        <target state="new">Open funding calls</target>
+        <target>Open funding calls</target>
       </trans-unit>
       <trans-unit id="openCalls" datatype="html">
         <source>Avoimet haut pl. tulevat</source>
-        <target state="new">Open calls</target>
+        <target>Open calls</target>
       </trans-unit>
       <trans-unit id="futureCalls" datatype="html">
         <source>Tulevat haut</source>
@@ -2165,7 +2165,7 @@
       </trans-unit>
       <trans-unit id="closesLatest" datatype="html">
         <source>Päättyy viimeistään</source>
-        <target state="new">Closes at the latest</target>
+        <target>Closes at the latest</target>
       </trans-unit>
       <trans-unit id="endDate" datatype="html">
         <source>Päättymispäivä</source>
@@ -2217,27 +2217,27 @@
       </trans-unit>
       <trans-unit id="pOrgFTooltip" datatype="html">
         <source> Julkaisun tekijän suomalainen organisaatio. Palvelu ei toistaiseksi sisällä tietoja julkaisujen ulkomaisista organisaatioista. </source>
-        <target state="new">Finnish organization of the publication’s author. The service currently does not contain any information on publications’ foreign organizations.</target>
+        <target>Finnish organization of the publication’s author. The service currently does not contain any information on publications’ foreign organizations.</target>
       </trans-unit>
       <trans-unit id="pFOSFTooltip" datatype="html">
         <source> Tilastokeskuksen tieteenalaluokitus. Taiteenalat OKM:n luokituksen mukaisesti. Julkaisulla voi olla 1-6 tieteen- tai taiteenalaa. </source>
-        <target state="new">The Statistics Finland Fields of science classification. Fields of Art according to Ministry of Education and Culture Publication data collection. A publication may include 1-6 fields of science or art.</target>
+        <target>The Statistics Finland Fields of science classification. Fields of Art according to Ministry of Education and Culture Publication data collection. A publication may include 1-6 fields of science or art.</target>
       </trans-unit>
       <trans-unit id="pTypeFTooltip" datatype="html">
         <source> OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G. </source>
-        <target state="new">Publication type A-G categories according to Ministry of Education and Culture Publication data collection.</target>
+        <target>Publication type A-G categories according to Ministry of Education and Culture Publication data collection.</target>
       </trans-unit>
       <trans-unit id="pCountryFTooltip" datatype="html">
         <source> Kotimaisen julkaisun kustantaja on suomalainen tai se on ensisijaisesti julkaistu Suomessa. Kansainvälisen julkaisun kustantaja ei ole suomalainen tai se on ensisijaisesti julkaistu muualla kuin Suomessa. </source>
-        <target state="new">The publisher of the domestic publication is Finnish or it is primarily published in Finland. The publisher of the international publication is not Finnish or it is primarily published elsewhere than in Finland.</target>
+        <target>The publisher of the domestic publication is Finnish or it is primarily published in Finland. The publisher of the international publication is not Finnish or it is primarily published elsewhere than in Finland.</target>
       </trans-unit>
       <trans-unit id="pLangFTooltip" datatype="html">
         <source> Kieli, jolla julkaisu on kirjoitettu. </source>
-        <target state="new">Language in which the publication is written.</target>
+        <target>Language in which the publication is written.</target>
       </trans-unit>
       <trans-unit id="pJufoFTooltip" datatype="html">
         <source> Julkaisufoorumin (www.julkaisufoorumi.fi) mukainen julkaisukanavan (kirjakustantaja, konferenssi tai julkaisusarja) tasoluokitus: 1 = perustaso, 2 = johtava taso, 3 = korkein taso. Tasolla 0 ovat kanavat, jotka eivät joltain osin täytä tason 1 vaatimuksia tai ovat uusia. Julkaisufoorumitaso määräytyy julkaisun julkaisuvuoden mukaan. </source>
-        <target state="new">Publication Forum (www.julkaisufoorumi.fi) classification of publication channels (book publisher, conference or book series): 1 = basic level, 2 = leading level, 3 = highest level. Category 0 is for publication channels that have been evaluated but do not meet all of the level 1 criteria. The publication forum classification level is determined by the publication year of the publication.</target>
+        <target>Publication Forum (www.julkaisufoorumi.fi) classification of publication channels (book publisher, conference or book series): 1 = basic level, 2 = leading level, 3 = highest level. Category 0 is for publication channels that have been evaluated but do not meet all of the level 1 criteria. The publication forum classification level is determined by the publication year of the publication.</target>
       </trans-unit>
       <trans-unit id="intCoPublicationTooltip" datatype="html">
         <source>Julkaisussa on tekijöitä myös muualta kuin suomalaisista tutkimusorganisaatioista.</source>
@@ -2325,11 +2325,11 @@
       </trans-unit>
       <trans-unit id="publication" datatype="html">
         <source>julkaisu</source>
-        <target state="new">Publication</target>
+        <target>Publication</target>
       </trans-unit>
       <trans-unit id="author" datatype="html">
         <source>tutkija</source>
-        <target state="new">Author</target>
+        <target>Author</target>
       </trans-unit>
       <trans-unit id="funding" datatype="html">
         <source>myönnetty rahoitus</source>
@@ -2337,15 +2337,15 @@
       </trans-unit>
       <trans-unit id="dataset" datatype="html">
         <source>aineisto</source>
-        <target state="new">Research data</target>
+        <target>Research data</target>
       </trans-unit>
       <trans-unit id="infrastructure" datatype="html">
         <source>infrastruktuuri</source>
-        <target state="new">Infrastructure</target>
+        <target>Infrastructure</target>
       </trans-unit>
       <trans-unit id="otherResearchActivity" datatype="html">
         <source>Muu tutkimustoiminta</source>
-        <target state="new">Other research activitity</target>
+        <target>Other research activitity</target>
       </trans-unit>
       <trans-unit id="organization" datatype="html">
         <source>Organisaatio</source>
@@ -2353,7 +2353,7 @@
       </trans-unit>
       <trans-unit id="organizationSingular" datatype="html">
         <source>organisaatio</source>
-        <target state="new">Organization</target>
+        <target>Organization</target>
       </trans-unit>
       <trans-unit id="department" datatype="html">
         <source>Yksikkö</source>
@@ -2389,7 +2389,7 @@
       </trans-unit>
       <trans-unit id="figuresSecHeader" datatype="html">
         <source> Tiedon lähteet ja tuottajat </source>
-        <target state="new">Data sources and producers</target>
+        <target>Data sources and producers</target>
       </trans-unit>
       <trans-unit id="figuresSearchPlaceholder" datatype="html">
         <source>Hae tilastoa...</source>
@@ -2425,7 +2425,7 @@
       </trans-unit>
       <trans-unit id="r1" datatype="html">
         <source> Tällä lomakkeella voit antaa palautetta Tiedejatutkimus.fi -verkkopalvelusta.<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> Kaikki palautteet ja kysymykset ovat tervetulleita! Voit myös lähettää palautteesi tai kysymyksesi vapaamuotoisesti sähköpostilla osoitteeseen tiedejatutkimus@csc.fi<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/><x id="START_LINK" ctype="x-a" equiv-text="&lt;a routerLink=&quot;/privacy&quot; class=&quot;d-inline-block pt-2&quot;&gt;"/>Tietosuojaseloste<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
-        <target state="new">Use this form to provide feedback on the tiedejatutkimus.fi online service. All feedback and questions are welcome! You can also send your feedback or question by e-mail to tiedejatutkimus@csc.fi<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/> <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>Privacy statement<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></target>
+        <target>Use this form to provide feedback on the tiedejatutkimus.fi online service. All feedback and questions are welcome! You can also send your feedback or question by e-mail to tiedejatutkimus@csc.fi<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/> <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>Privacy statement<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></target>
       </trans-unit>
       <trans-unit id="r2" datatype="html">
         <source>Kerro palautteesi tai kysy!</source>
@@ -2461,7 +2461,7 @@
       </trans-unit>
       <trans-unit id="r8" datatype="html">
         <source> Muu </source>
-        <target state="new">Other</target>
+        <target>Other</target>
       </trans-unit>
       <trans-unit id="r9" datatype="html">
         <source>Mitä osiota palautteesi koskee?</source>
@@ -2505,7 +2505,7 @@
       </trans-unit>
       <trans-unit id="ur4" datatype="html">
         <source>Palautetta koskeva sijainti verkkopalvelussa:</source>
-        <target state="new">Location of the feedback in the service</target>
+        <target>Location of the feedback in the service</target>
       </trans-unit>
       <trans-unit id="ur6" datatype="html">
         <source>Olen tarkistanut syöttämäni tiedot *</source>
@@ -2533,31 +2533,31 @@
       </trans-unit>
       <trans-unit id="closeForm" datatype="html">
         <source> Sulje lomake </source>
-        <target state="new">Close form</target>
+        <target>Close form</target>
       </trans-unit>
       <trans-unit id="iconPublications" datatype="html">
         <source> Julkaisujen tiedon ikoni</source>
-        <target state="new">Publications information icon</target>
+        <target>Publications information icon</target>
       </trans-unit>
       <trans-unit id="iconProjects" datatype="html">
         <source> Hankkeiden tiedon ikoni</source>
-        <target state="new">Projects information icon</target>
+        <target>Projects information icon</target>
       </trans-unit>
       <trans-unit id="iconDatasets" datatype="html">
         <source> Tutkimusaineistojen tiedon ikoni</source>
-        <target state="new">Research data information icon</target>
+        <target>Research data information icon</target>
       </trans-unit>
       <trans-unit id="iconFundingCalls" datatype="html">
         <source> Rahoitushakujen tiedon ikoni</source>
-        <target state="new">Funding calls information icon</target>
+        <target>Funding calls information icon</target>
       </trans-unit>
       <trans-unit id="iconInfrastructures" datatype="html">
         <source> Infrastruktuurien tiedon ikoni</source>
-        <target state="new">Infrastructures information icon</target>
+        <target>Infrastructures information icon</target>
       </trans-unit>
       <trans-unit id="iconOrganizations" datatype="html">
         <source> Organisaatioiden tiedon ikoni</source>
-        <target state="new">Organizations information icon</target>
+        <target>Organizations information icon</target>
       </trans-unit>
       <trans-unit id="cookiesApproved" datatype="html">
         <source>Evästeet hyväksytty</source>
@@ -2625,7 +2625,7 @@
       </trans-unit>
       <trans-unit id="readMore" datatype="html">
         <source>Lisätietoa</source>
-        <target state="new">Read more</target>
+        <target>Read more</target>
       </trans-unit>
       <trans-unit id="research" datatype="html">
         <source>Tutkimustoiminta</source>
@@ -2641,7 +2641,7 @@
       </trans-unit>
       <trans-unit id="researchersProfile" datatype="html">
         <source>Tutkijan tiedot</source>
-        <target state="new">Researcher’s Profile Tool</target>
+        <target>Researcher’s Profile Tool</target>
       </trans-unit>
       <trans-unit id="homeNewUser" datatype="html">
         <source>Uusi käyttäjä?</source>
@@ -2705,15 +2705,15 @@
       </trans-unit>
       <trans-unit id="cancelServiceDeployment" datatype="html">
         <source> Peruutetaanko palvelun käyttöönotto? </source>
-        <target state="new">Cancel service deployment?</target>
+        <target>Cancel service deployment?</target>
       </trans-unit>
       <trans-unit id="deploymentAbort" datatype="html">
         <source> Käyttöönotto keskeytetään, ja mitään tietoja ei tallenneta. </source>
-        <target state="new">The deployment will be aborted and no data will be saved.</target>
+        <target>The deployment will be aborted and no data will be saved.</target>
       </trans-unit>
       <trans-unit id="yesCancelDeployment" datatype="html">
         <source> Kyllä, peruuta käyttöönotto</source>
-        <target state="new">Yes, I want to cancel the deployment</target>
+        <target>Yes, I want to cancel the deployment</target>
       </trans-unit>
       <trans-unit id="noContinueDeployment" datatype="html">
         <source>Ei, jatkan käyttöönottoa</source>
@@ -2733,7 +2733,7 @@
       </trans-unit>
       <trans-unit id="termsForTool" datatype="html">
         <source> Tutkijan tiedot -työkalun käyttöehdot </source>
-        <target state="new">Terms of use for the Researcher’s Profile Tool</target>
+        <target>Terms of use for the Researcher’s Profile Tool</target>
       </trans-unit>
       <trans-unit id="openTermsOfUse" datatype="html">
         <source>Avaa käyttöehdot</source>
@@ -2745,7 +2745,7 @@
       </trans-unit>
       <trans-unit id="processingOfPersonalData" datatype="html">
         <source> Henkilötietojen käsittely </source>
-        <target state="new">Processing of personal data</target>
+        <target>Processing of personal data</target>
       </trans-unit>
       <trans-unit id="openPersonalDataProcessingPrinciples" datatype="html">
         <source>Avaa henkilötietojen käsittelyperiaatteet</source>
@@ -2775,7 +2775,7 @@
         <source>
           <x id="INTERPOLATION" equiv-text="{{orcidDataFetchWaitingText}}"/>
         </source>
-        <target state="new">Importing data, please wait...</target>
+        <target>Importing data, please wait...</target>
       </trans-unit>
       <trans-unit id="importMyOrcidData" datatype="html">
         <source>Tuo Orcid-tietoni</source>
@@ -2787,7 +2787,7 @@
       </trans-unit>
       <trans-unit id="publicProfile" datatype="html">
         <source> Profiili </source>
-        <target state="new">Profile</target>
+        <target>Profile</target>
       </trans-unit>
       <trans-unit id="navigationHeaderProfile" datatype="html">
         <source>Profiili</source>
@@ -2811,7 +2811,7 @@
       </trans-unit>
       <trans-unit id="discardChanges" datatype="html">
         <source> Hylkää muutokset </source>
-        <target state="new">Discard changes</target>
+        <target>Discard changes</target>
       </trans-unit>
       <trans-unit id="publish" datatype="html">
         <source>Julkaise</source>
@@ -2829,13 +2829,13 @@
         <source>
           <x id="INTERPOLATION" equiv-text="{{deleteProfileWait}}"/>
         </source>
-        <target state="new">Deleting profile, please wait...</target>
+        <target>Deleting profile, please wait...</target>
       </trans-unit>
       <trans-unit id="deleteProfileConnProblem" datatype="html">
         <source>
           <x id="INTERPOLATION" equiv-text="{{connectionProblemDeleteProfile}}"/>
         </source>
-        <target state="new">Connection issue. Deleting the profile failed. Try it again in a while.</target>
+        <target>Connection issue. Deleting the profile failed. Try it again in a while.</target>
       </trans-unit>
       <trans-unit id="hideProfile" datatype="html">
         <source>Piilota profiili</source>
@@ -2859,7 +2859,7 @@
       </trans-unit>
       <trans-unit id="deleteProfileModalTitle" datatype="html">
         <source>Haluatko poistaa julkisen profiilisi?</source>
-        <target state="new">Do you want to delete your profile?</target>
+        <target>Do you want to delete your profile?</target>
       </trans-unit>
       <trans-unit id="hideProfileWait" datatype="html">
         <source>Profiilia piilotetaan, odota hetki...</source>
@@ -2871,11 +2871,11 @@
       </trans-unit>
       <trans-unit id="connectionProblemDeleteProfile" datatype="html">
         <source>Yhteysongelma. Profiilin poisto ei onnistu. Kokeile hetken kuluttua uudestaan....</source>
-        <target state="new">Connection issue. Deleting the profile failed. Try it again in a while.</target>
+        <target>Connection issue. Deleting the profile failed. Try it again in a while.</target>
       </trans-unit>
       <trans-unit id="connectionProblemHideProfile" datatype="html">
         <source>Yhteysongelma. Profiilin piilottaminen ei onnistu. Kokeile hetken kuluttua uudestaan....</source>
-        <target state="new">Connection issue. Hiding the profile failed. Try it again in a while.</target>
+        <target>Connection issue. Hiding the profile failed. Try it again in a while.</target>
       </trans-unit>
       <trans-unit id="removeProfileCaption" datatype="html">
         <source>Profiilin poistaminen</source>
@@ -2883,7 +2883,7 @@
       </trans-unit>
       <trans-unit id="youHaveNotSelectedAnyPublicData" datatype="html">
         <source> Et ole vielä valinnut julkisesti näytettäviä tietoja </source>
-        <target state="new">You have not yet selected the information to be displayed publicly</target>
+        <target>You have not yet selected the information to be displayed publicly</target>
       </trans-unit>
       <trans-unit id="select" datatype="html">
         <source>Valitse</source>
@@ -2915,7 +2915,7 @@
       </trans-unit>
       <trans-unit id="education" datatype="html">
         <source>koulutus</source>
-        <target state="new">Education</target>
+        <target>Education</target>
       </trans-unit>
       <trans-unit id="activitiesAndAwards" datatype="html">
         <source>Aktiviteetit ja palkinnot</source>
@@ -2923,7 +2923,7 @@
       </trans-unit>
       <trans-unit id="activities" datatype="html">
         <source>aktiviteetteja</source>
-        <target state="new">activities</target>
+        <target>activities</target>
       </trans-unit>
       <trans-unit id="researchData" datatype="html">
         <source>Tutkimusaineistot</source>
@@ -2935,7 +2935,7 @@
       </trans-unit>
       <trans-unit id="primaryInfoWillAppearFirst" datatype="html">
         <source> Ensisijaiset näytetään profiilissasi listan ensimmäisinä. </source>
-        <target state="new">The primary information will appear first on the list in your profile.</target>
+        <target>The primary information will appear first on the list in your profile.</target>
       </trans-unit>
       <trans-unit id="email" datatype="html">
         <source>Sähköposti</source>
@@ -2947,11 +2947,11 @@
       </trans-unit>
       <trans-unit id="profilePublishedToast" datatype="html">
         <source>Profiili julkaistu. Tiedot näkyvät muutaman minuutin kuluttua tiedejatutkimus.fi -palvelussa.</source>
-        <target state="new">Profile published successfully. The information will be available on the Research.fi service in a few minutes.</target>
+        <target>Profile published successfully. The information will be available on the Research.fi service in a few minutes.</target>
       </trans-unit>
       <trans-unit id="profileHiddenToast" datatype="html">
         <source>Profiilin piilottaminen onnistui. Profiilisi piilotetaan Tiedejatutkimus.fi -palvelusta muutaman minuutin kuluttua.</source>
-        <target state="new">Hiding the profile was successful. Your profile will be hidden from the Research.fi service in a few minutes.</target>
+        <target>Hiding the profile was successful. Your profile will be hidden from the Research.fi service in a few minutes.</target>
       </trans-unit>
       <trans-unit id="dataSavingError" datatype="html">
         <source>Virhe tiedon tallennuksessa</source>
@@ -3067,7 +3067,7 @@
       </trans-unit>
       <trans-unit id="addedDatasets" datatype="html">
         <source>Tuodut aineistot</source>
-        <target state="new">Added research data</target>
+        <target>Added research data</target>
       </trans-unit>
       <trans-unit id="addedProjects" datatype="html">
         <source>Tuodut hankkeet</source>
@@ -3079,15 +3079,15 @@
       </trans-unit>
       <trans-unit id="discardSessionChanges" datatype="html">
         <source> Hylätäänkö julkaisemattomat muutokset? </source>
-        <target state="new">Do you want to discard all unsaved changes?</target>
+        <target>Do you want to discard all unsaved changes?</target>
       </trans-unit>
       <trans-unit id="sessionExpiredLogin" datatype="html">
         <source> Istunto on vanhentunut. Kirjaudu sisään jatkaaksesi. </source>
-        <target state="new">Session has expired. Log in to continue.</target>
+        <target>Session has expired. Log in to continue.</target>
       </trans-unit>
       <trans-unit id="youHaveUnpublishedChangesContinue" datatype="html">
         <source> Sinulla on julkaisemattomia muutoksia. Jos kirjaudut ulos, tiedot menetetään. </source>
-        <target state="new">You have unpublished changes. If you log out, the changes will be lost.</target>
+        <target>You have unpublished changes. If you log out, the changes will be lost.</target>
       </trans-unit>
       <trans-unit id="youHaveUnpublishedChangesSnackbar" datatype="html">
         <source>Sinulla on julkaisemattomia muutoksia profiilinäkymässä.</source>
@@ -3095,7 +3095,7 @@
       </trans-unit>
       <trans-unit id="youHaveUnpublishedChangesSnackbarButton" datatype="html">
         <source>Tarkasta muutokset.</source>
-        <target state="new">Check the changes</target>
+        <target>Check the changes</target>
       </trans-unit>
       <trans-unit id="suomiFiAutheticationProblemSnackbarText" datatype="html">
         <source>Osalla käyttäjistä on ilmennyt virhetilanne Suomi.fi-tunnistautumisen jälkeen, joka estää pääsyn profiilin luontiin. Mikäli virhetilanne ilmenee, kirjautumista pääsee jatkamaan klikkaamalla &quot;Kirjaudu sisään&quot; -painiketta sivun ylälaidassa.</source>
@@ -3151,7 +3151,7 @@
       </trans-unit>
       <trans-unit id="welcomeStepperStep6Content" datatype="html">
         <source>Profiilisi on nyt löydettävissä Tiedejatutkimus.fi-sivustolla, josta mm. tiedotusvälineet, rahoittajat, tutkimusyhteistyöstä kiinnostuneet sekä muut tutkimustiedon etsijät voivat löytää profiilisi!</source>
-        <target state="new">Your profile is now available on the Research.fi website, where, for example, the media, funders, those interested in research cooperation and other research information seekers can find it.</target>
+        <target>Your profile is now available on the Research.fi website, where, for example, the media, funders, those interested in research cooperation and other research information seekers can find it.</target>
       </trans-unit>
       <trans-unit id="closeInstructions" datatype="html">
         <source>Sulje ohjeet</source>
@@ -3183,11 +3183,11 @@
       </trans-unit>
       <trans-unit id="accountSettingsHideAccountInfo" datatype="html">
         <source>Julkisen profiilin piilottaminen tarkoittaa sitä, että profiilisi piilotetaan Tiedejatutkimus.fi-palvelusta. Voit edelleen kirjautua työkaluun ja julkaista profiilisi uudestaan.</source>
-        <target state="new">Hiding your public profile means that it is hidden in the Research.fi service. You can still log in and re-publish your profile.</target>
+        <target>Hiding your public profile means that it is hidden in the Research.fi service. You can still log in and re-publish your profile.</target>
       </trans-unit>
       <trans-unit id="accountSettingsHideAccountModalText" datatype="html">
         <source>Julkisen profiilin piilottaminen tarkoittaa sitä, että profiilisi piilotetaan Tiedejatutkimus.fi-palvelusta. Voit edelleen kirjautua työkaluun ja julkaista profiilisi uudestaan.</source>
-        <target state="new">Hiding your public profile means that it is hidden in the Research.fi service. You can still log in and re-publish your profile.</target>
+        <target>Hiding your public profile means that it is hidden in the Research.fi service. You can still log in and re-publish your profile.</target>
       </trans-unit>
       <trans-unit id="orcidDataFetchWaitingText" datatype="html">
         <source>Tietoja tuodaan, odota hetki...</source>
@@ -3227,11 +3227,11 @@
       </trans-unit>
       <trans-unit id="myDataEditorModalPublicationTabInfo" datatype="html">
         <source>Tiedejatutkimus.fi-palvelusta löytyvät julkaisut, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. Julkaisuja, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä &quot;Hae muita julkaisuja&quot; -toiminnolla.</source>
-        <target state="new">Research data with your ORCID iD in Research.fi are automatically added to your information. Datasets that are not associated with your ORCID iD can be added using the &quot;Search for other research data&quot; function.</target>
+        <target>Research data with your ORCID iD in Research.fi are automatically added to your information. Datasets that are not associated with your ORCID iD can be added using the &quot;Search for other research data&quot; function.</target>
       </trans-unit>
       <trans-unit id="myDataEditorModalPublicationChooseItems" datatype="html">
         <source>Voit valita profiiliisi julkaisuja alla olevasta listasta.</source>
-        <target state="new">You can select publications for your profile from the list below.</target>
+        <target>You can select publications for your profile from the list below.</target>
       </trans-unit>
       <trans-unit id="myDataEditorModalDatasetTabInfo" datatype="html">
         <source>Tiedejatutkimus.fi-palvelusta löytyvät tutkimusaineistot, joissa on ORCID-tunnuksesi, lisätään profiiliisi automaattisesti. Aineistoja, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä &quot;Hae muita tutkimusaineistoja&quot; -toiminnolla.</source>
@@ -3283,7 +3283,7 @@
       </trans-unit>
       <trans-unit id="dataAndSources" datatype="html">
         <source> Tiedot ja tietolähteet </source>
-        <target state="new">Data and sources</target>
+        <target>Data and sources</target>
       </trans-unit>
       <trans-unit id="dataSources" datatype="html">
         <source>Lähteet</source>
@@ -3315,15 +3315,15 @@
       </trans-unit>
       <trans-unit id="dataSourcesContentSort" datatype="html">
         <source>Tieto (A-Ö)</source>
-        <target state="new">Content (A-Ö)</target>
+        <target>Content (A-Ö)</target>
       </trans-unit>
       <trans-unit id="dataSourcesSourceSort" datatype="html">
         <source>Lähde (A-Ö)</source>
-        <target state="new">Source (Ä-Ö)</target>
+        <target>Source (Ä-Ö)</target>
       </trans-unit>
       <trans-unit id="show" datatype="html">
         <source> Näytä </source>
-        <target state="new">Show</target>
+        <target>Show</target>
       </trans-unit>
       <trans-unit id="public" datatype="html">
         <source>Julkinen</source>
@@ -3371,15 +3371,15 @@
       </trans-unit>
       <trans-unit id="personsResultsInfoText_2" datatype="html">
         <source>Profiiliin liitetään kotiorganisaatioista ja ORCID-palvelusta siirrettyä tietoa sekä Tiedejatutkimus.fi:hin jo aiemmin siirrettyä tietoa. </source>
-        <target state="new">Profile is compiled with information transferred from home organisations and ORCID service and information already transferred to Research.fi.</target>
+        <target>Profile is compiled with information transferred from home organisations and ORCID service and information already transferred to Research.fi.</target>
       </trans-unit>
       <trans-unit id="showDataToPublishInService" datatype="html">
         <source>Aseta valitut tiedot julkiseksi Tiedejatutkimus.fi -palvelussa</source>
-        <target state="new">Set selected information to public in Research.fi service</target>
+        <target>Set selected information to public in Research.fi service</target>
       </trans-unit>
       <trans-unit id="showDataToHideInService" datatype="html">
         <source>Piilota valitut tiedot tiedejatutkimus.fi -palvelusta</source>
-        <target state="new">Hide selected information from Research.fi service</target>
+        <target>Hide selected information from Research.fi service</target>
       </trans-unit>
       <trans-unit id="showDataToHide" datatype="html">
         <source>Näytä piilotettavat tiedot</source>
@@ -3395,7 +3395,7 @@
       </trans-unit>
       <trans-unit id="orcidTemplateStatusSubstring1" datatype="html">
         <source>Ei ORCID-tunnukseen yhdistettyjä </source>
-        <target state="new">No</target>
+        <target>No</target>
       </trans-unit>
       <trans-unit id="orcidTemplateStatusSubstring2" datatype="html">
         <source>
@@ -3404,7 +3404,7 @@
       </trans-unit>
       <trans-unit id="authSuccessText1" datatype="html">
         <source> Kirjaudu seuraavaksi ORCID-tunnuksillasi, jotta voimme tuoda tutkimukseen liittyvät tietosi palveluun ja yhdistää tietojasi Tutkijan tiedot -työkalussa. </source>
-        <target state="new">Next, log in with your ORCID iD to import your research information into the service and connect it in the Researcher Profile Tool.</target>
+        <target>Next, log in with your ORCID iD to import your research information into the service and connect it in the Researcher Profile Tool.</target>
       </trans-unit>
       <trans-unit id="authSuccessText2" datatype="html">
         <source>Huomaathan jos sinulta puuttuvat profiilin luontiin vaadittavat ORCID-tunnukset, voit luoda ne</source>
@@ -3432,11 +3432,11 @@
       </trans-unit>
       <trans-unit id="logInToCreateProfile" datatype="html">
         <source> Kirjaudu sisään luodaksesi profiilin tai valitaksesi profiilissasi näkyviä tietoja. </source>
-        <target state="new">Log in to create a profile or select the information that appears on your profile.</target>
+        <target>Log in to create a profile or select the information that appears on your profile.</target>
       </trans-unit>
       <trans-unit id="activitesAndRewards" datatype="html">
         <source>aktiviteetit ja palkinnot</source>
-        <target state="new">Activities and awards</target>
+        <target>Activities and awards</target>
       </trans-unit>
       <trans-unit id="toMyProfile" datatype="html">
         <source>Julkiseen profiiliin</source>
@@ -3448,7 +3448,7 @@
       </trans-unit>
       <trans-unit id="mydata.profile.profile-is-hidden" datatype="html">
         <source> Olet piilottanut profiilisi Tiedejatutkimus.fi-palvelusta </source>
-        <target state="new">You have hidden your profile from Research.fi service </target>
+        <target>You have hidden your profile from Research.fi service </target>
       </trans-unit>
       <trans-unit id="mydata.profile.republish-modal.title" datatype="html">
         <source>Julkaise piilotettu profiili</source>
@@ -3488,7 +3488,7 @@
       </trans-unit>
       <trans-unit id="footer.title.portal" datatype="html">
         <source> Tiedejatutkimus.fi </source>
-        <target state="new">Research.fi</target>
+        <target>Research.fi</target>
       </trans-unit>
       <trans-unit id="footer.link.portal" datatype="html">
         <source>Tiedejatutkimus.fi</source>
@@ -3516,7 +3516,7 @@
       </trans-unit>
       <trans-unit id="footer.title.mydata" datatype="html">
         <source> Tutkijan Tiedot -työkalu </source>
-        <target state="new">Researcher&apos;s Profile Tool</target>
+        <target>Researcher&apos;s Profile Tool</target>
       </trans-unit>
       <trans-unit id="footer.link.mydata" datatype="html">
         <source>Tutkijan tiedot -työkalu</source>
@@ -3736,11 +3736,11 @@
       </trans-unit>
       <trans-unit id="domesticPublication" datatype="html">
         <source>Kotimainen julkaisu</source>
-        <target state="new">Domestic</target>
+        <target>Domestic</target>
       </trans-unit>
       <trans-unit id="internationalPublication" datatype="html">
         <source>Kansainvälinen julkaisu</source>
-        <target state="new">International</target>
+        <target>International</target>
       </trans-unit>
       <trans-unit id="publication2.openAccess.A.title" datatype="html">
         <source>Avoimesti saatavilla: </source>
@@ -3864,59 +3864,59 @@
       </trans-unit>
       <trans-unit id="publication2.toNewInfo" datatype="html">
         <source> Testaa haun uudistettua betaversiota. Betaversio toimii vain julkaisujen hakuun. Tiedot vastaavat nykyisen sivuston sisältöä julkaisujen osalta. </source>
-        <target state="new">Test the beta version of the improved search. The improved search only works in publications. The information corresponds to the content of the current site for publications.</target>
+        <target>Test the beta version of the improved search. The improved search only works in publications. The information corresponds to the content of the current site for publications.</target>
       </trans-unit>
       <trans-unit id="publication2.toOldSearch" datatype="html">
         <source>Vanhaan hakuun</source>
-        <target state="new">Back to the current version</target>
+        <target>Back to the current version</target>
       </trans-unit>
       <trans-unit id="publication2.toOldInfo" datatype="html">
         <source> Olet haun uudistetussa betaversiossa. Voit palata takaisin koko sivustolle. </source>
-        <target state="new">You are in the improved beta version of the search. You can go back to the whole site.</target>
+        <target>You are in the improved beta version of the search. You can go back to the whole site.</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.1" datatype="html">
         <source> Testaa uudistetun haun betaversiota. Uudistettua hakua on toistaiseksi mahdollista testata ainoastaan julkaisutietojen hakemisessa. </source>
-        <target state="new">Test the beta version of the improved search function. The new search can currently only be tested in publication information retrieval.</target>
+        <target>Test the beta version of the improved search function. The new search can currently only be tested in publication information retrieval.</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.2" datatype="html">
         <source> Kirjoita hakukenttään esimerkiksi julkaisun tai tekijän nimi, tai julkaisuun liittyvä asiasana. </source>
-        <target state="new">Write in the search field, for example, the name of the publication or author, or a keyword related to the publication.</target>
+        <target>Write in the search field, for example, the name of the publication or author, or a keyword related to the publication.</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.3" datatype="html">
         <source> Haku käyttää sanojen välissä oletuksena OR-hakuoperaattioria. Halutessasi voit käyttää myös AND- ja NOT- hakuoperaattoireita. Esimerkiksi haku Innovation AND gamification NOT games etsii julkaisuja, joissa esiintyvät yhtä aikaa sanat &quot;innovation&quot; ja &quot;gamification&quot;, mutta joissa ei ole mukana sanaa &quot;games&quot;. Huomioithan, että AND, NOT ja OR -hakuoperaattorit tulee kirjoittaa hakukenttään isoilla kirjaimilla. </source>
-        <target state="new">The search uses the OR search operator by default between words. If you wish, you can also use the AND and NOT search operators. For example, the search Innovation AND gamification NOT games search for publications that simultaneously contain the words “innovation” and “gamification”, but do not include the word “games”. Please note that the AND, NOT, and OR search operators must be written in capital letters in the search field.</target>
+        <target>The search uses the OR search operator by default between words. If you wish, you can also use the AND and NOT search operators. For example, the search Innovation AND gamification NOT games search for publications that simultaneously contain the words “innovation” and “gamification”, but do not include the word “games”. Please note that the AND, NOT, and OR search operators must be written in capital letters in the search field.</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.4" datatype="html">
         <source> Sulkemalla haussa esiintyvät sanat lainausmerkeillä fraasiksi voit etsiä osumia jotka ovat täsmälleen samassa muodossa. Esimerkiksi fraasihaku &quot;Innovations in gamifications&quot; etsii julkaisuja, joissa esiintyy juuri tämä lause. Voit myös yhdistää useampia fraasihakuja AND-, OR- tai NOT-hakuoperaattoreilla. </source>
-        <target state="new">By enclosing the phrases appearing in the search in quotation marks, you can search for matches exactly in the same form. For example, the phrase search &quot;Innovations in gamifications&quot; searches for publications that contain exactly this sentence. You can also combine several phrase searches with AND, OR, or NOT search operators.</target>
+        <target>By enclosing the phrases appearing in the search in quotation marks, you can search for matches exactly in the same form. For example, the phrase search &quot;Innovations in gamifications&quot; searches for publications that contain exactly this sentence. You can also combine several phrase searches with AND, OR, or NOT search operators.</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.5" datatype="html">
         <source> Voit hakea kohdistetusti joitakin metatietoja suoraan hakukentässä käyttämällä niille erikseen määriteltyjä komentoja. Haussa on käytettävä fraasihakua. Toistaiseksi haku on mahdollista kohdistaa seuraaviin metatietoihin: </source>
-        <target state="new">You can also search for some metadata directly in the search field using commands defined separately for them. Phrase search must be used in the search. At the moment, the search can be targeted at the following metadata:</target>
+        <target>You can also search for some metadata directly in the search field using commands defined separately for them. Phrase search must be used in the search. At the moment, the search can be targeted at the following metadata:</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.6" datatype="html">
         <source> DOI, kirjoita hakukenttään doi:&quot;haettava tunnus&quot;, esimerkiksi doi:&quot;100100100&quot; </source>
-        <target state="new">DOI, write in the search field doi:&quot;searched identifier&quot;, for example, doi:&quot;100100100&quot;</target>
+        <target>DOI, write in the search field doi:&quot;searched identifier&quot;, for example, doi:&quot;100100100&quot;</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.7" datatype="html">
         <source> ISSN, kirjoita hakukenttään issn:&quot;haettava tunnnus&quot;, esimerkiksi issn:&quot;1234-1234&quot; </source>
-        <target state="new">ISSN, write in the search field issn:&quot;searched identifier&quot;, for example, issn:&quot;1234-1234&quot;</target>
+        <target>ISSN, write in the search field issn:&quot;searched identifier&quot;, for example, issn:&quot;1234-1234&quot;</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.8" datatype="html">
         <source> ISBN, kirjoita hakukenttään isbn:&quot;haettava tunnus&quot;, esimerkiksi isbn:&quot;123-0-456-12345-1&quot; </source>
-        <target state="new">ISBN, write in the search field isbn:&quot;searched identifier&quot;, for example, isbn:&quot;123-0-456-12345-1&quot;</target>
+        <target>ISBN, write in the search field isbn:&quot;searched identifier&quot;, for example, isbn:&quot;123-0-456-12345-1&quot;</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.9" datatype="html">
         <source> JUFO-tunnus, kirjoita hakukenttään jufoCode:&quot;haettava tunnus&quot;, esimerkiksi jufoCode:&quot;12345&quot; </source>
-        <target state="new">JUFO code, write in the search field jufoCode:&quot;searched identifier&quot;, for example, jufoCode:&quot;12345&quot;</target>
+        <target>JUFO code, write in the search field jufoCode:&quot;searched identifier&quot;, for example, jufoCode:&quot;12345&quot;</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.10" datatype="html">
         <source> Huomioithan, että kohdistetussa haussa metatietokentät tulee kirjoittaa pienillä kirjaimilla. </source>
-        <target state="new">Please note that metadata fields must be written in lowercase in targeted search.</target>
+        <target>Please note that metadata fields must be written in lowercase in targeted search.</target>
       </trans-unit>
       <trans-unit id="publication2.contentInfo" datatype="html">
         <source> Mitä julkaisutietoja palvelu sisältää? </source>
-        <target state="new">What publication information is included in the service?</target>
+        <target>What publication information is included in the service?</target>
       </trans-unit>
       <trans-unit id="search-bar.results" datatype="html">
         <source> tulosta </source>
@@ -4088,7 +4088,7 @@
       </trans-unit>
       <trans-unit id="824732859712328125" datatype="html">
         <source>Akatemiaohjelma</source>
-        <target state="new">Academy programme</target>
+        <target>Academy programme</target>
       </trans-unit>
       <trans-unit id="6676070322310995046" datatype="html">
         <source>Akatemiaohjelman kansainvälinen tutkimushanke</source>
@@ -4148,11 +4148,11 @@
       </trans-unit>
       <trans-unit id="6890144111944813748" datatype="html">
         <source>STN-EU vastinraha</source>
-        <target state="new">SRC matching funds for EU projects</target>
+        <target>SRC matching funds for EU projects</target>
       </trans-unit>
       <trans-unit id="5984927916476785125" datatype="html">
         <source>Tutkijoiden liikkuvuus ulkomaille</source>
-        <target state="new">Researcher mobility abroad</target>
+        <target>Researcher mobility abroad</target>
       </trans-unit>
       <trans-unit id="2533535419095871606" datatype="html">
         <source>Tutkijoiden liikkuvuus Suomeen</source>
@@ -4168,7 +4168,7 @@
       </trans-unit>
       <trans-unit id="986094117061778360" datatype="html">
         <source>Rahoitusosuus (muut kuin Infra)</source>
-        <target state="new">Funding contribution (other than infra)</target>
+        <target>Funding contribution (other than infra)</target>
       </trans-unit>
       <trans-unit id="4208376250168473405" datatype="html">
         <source>Kansainvälinen ulkopuolisen rahoituksen hanke / EU-Hanke</source>
@@ -4176,7 +4176,7 @@
       </trans-unit>
       <trans-unit id="202707189569403758" datatype="html">
         <source>Kansainvälinen ulkopuolisen rahoituksen hanke / Nordforsk, Noria-Net -hanke</source>
-        <target state="new">International external funding project / Nordforsk-, Noria-Net-project</target>
+        <target>International external funding project / Nordforsk-, Noria-Net-project</target>
       </trans-unit>
       <trans-unit id="4489440949938040810" datatype="html">
         <source>Muu tieteen edistäminen</source>
@@ -4192,139 +4192,147 @@
       </trans-unit>
       <trans-unit id="publication2.tutorial.91" datatype="html">
         <source> Lehden nimi, kirjoita hakukenttään journalName: &quot;haettava nimike&quot;, esimerkiksi journalName:&quot;Nature&quot; </source>
-        <target state="new">Journal name, write in the search field journalName: &quot;searched identifier&quot;, for example, journalName:&quot;Nature&quot;</target>
+        <target>Journal name, write in the search field journalName: &quot;searched identifier&quot;, for example, journalName:&quot;Nature&quot;</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.92" datatype="html">
         <source> Konferenssin nimi, kirjoita hakukenttään conferenceName: &quot;haettava nimike&quot;, esimerkiksi conferenceName:&quot;ACM Multimedia&quot; </source>
-        <target state="new"> Conference name, write in the search field conferenceName: &quot;searched identifier&quot;, for example, conferenceName:&quot;ACM Multimedia&quot;</target>
+        <target> Conference name, write in the search field conferenceName: &quot;searched identifier&quot;, for example, conferenceName:&quot;ACM Multimedia&quot;</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.93" datatype="html">
         <source> Kustantajan nimi, kirjoita hakukenttään publisherName: &quot;haettava nimike&quot;, esimerkiksi publisherName:&quot;Springer&quot; </source>
-        <target state="new">Publisher name, write in the search field publisherName: &quot;searched identifier&quot;, for example, publisherName:&quot;Springer&quot;</target>
+        <target>Publisher name, write in the search field publisherName: &quot;searched identifier&quot;, for example, publisherName:&quot;Springer&quot;</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.51" datatype="html">
         <source> Jokerimerkillä ? voit korvata yhden merkin hakusanasta. Jos haluat hakea samaan aikaan esimerkiksi sanoja &quot;woman&quot; ja &quot;women&quot;, voit käyttää hakuatermiä wom?n. </source>
-        <target state="new">With a wildcard ? you can replace one character of the search term. For example, if you want to search for the words &quot;woman&quot; and &quot;women&quot; at the same time, you can use the search term wom?n.</target>
+        <target>With a wildcard ? you can replace one character of the search term. For example, if you want to search for the words &quot;woman&quot; and &quot;women&quot; at the same time, you can use the search term wom?n.</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.52" datatype="html">
         <source> Jokerimerkillä * voit korvata yhden tai useamman merkin hakusanan keskeltä tai lopusta. Jokerimerkki * edustaa myös tyhjää merkkiä. Jos haluat hakea samaan aikaan esimerkiksi sanoja &quot;color&quot; ja &quot;colour&quot;, voit käyttää hakutermiä colo*r. Esimerkiksi hakutermillä tietotek* voit hakea sanoja jotka alkavat kirjaimilla tietotek, kuten &quot;tietotekniikka&quot; ja &quot;tietotekniset&quot;. </source>
-        <target state="new">With a wildcard * you can replace one or more characters in the middle or at the end of the search term. The wildcard also represents a null character. For example, if you want to search for the words &quot;color&quot; and &quot;colour&quot; at the same time, you can use the search term colo*r.</target>
+        <target>With a wildcard * you can replace one or more characters in the middle or at the end of the search term. The wildcard also represents a null character. For example, if you want to search for the words &quot;color&quot; and &quot;colour&quot; at the same time, you can use the search term colo*r.</target>
       </trans-unit>
       <trans-unit id="projectsDataDisclaimerLink" datatype="html">
         <source> Mitä hanketietoja palvelu sisältää? </source>
-        <target state="new"> Mitä hanketietoja palvelu sisältää? </target>
+        <target> Mitä hanketietoja palvelu sisältää? </target>
       </trans-unit>
       <trans-unit id="approvedFundings" datatype="html">
         <source>Myönnetty rahoitus</source>
-        <target state="new">Myönnetty rahoitus</target>
+        <target>Myönnetty rahoitus</target>
       </trans-unit>
       <trans-unit id="projects" datatype="html">
         <source>Hankkeet</source>
-        <target state="new">Hankkeet</target>
+        <target>Hankkeet</target>
       </trans-unit>
       <trans-unit id="2404930950771668634" datatype="html">
         <source>Suomen akatemian muu päättäjä</source>
-        <target state="new">Suomen akatemian muu päättäjä</target>
+        <target>Suomen akatemian muu päättäjä</target>
       </trans-unit>
       <trans-unit id="projectsExternalLinks" datatype="html">
         <source>Linkit hankkeeseen</source>
-        <target state="new">Linkit hankkeeseen</target>
+        <target>Linkit hankkeeseen</target>
       </trans-unit>
       <trans-unit id="noProjectLinks" datatype="html">
         <source> Hankkeeseen ei ole tarjolla linkkejä tässä portaalissa <x id="INTERPOLATION" equiv-text="{{projectURL}}"/> </source>
-        <target state="new"> Hankkeeseen ei ole tarjolla linkkejä tässä portaalissa <x id="INTERPOLATION" equiv-text="{{projectURL}}"/> </target>
+        <target> Hankkeeseen ei ole tarjolla linkkejä tässä portaalissa <x id="INTERPOLATION" equiv-text="{{projectURL}}"/> </target>
       </trans-unit>
       <trans-unit id="relatedProjects" datatype="html">
         <source>Hae hankkeeseen liittyvät (tulossa) </source>
-        <target state="new">Hae hankkeeseen liittyvät (tulossa) </target>
+        <target>Hae hankkeeseen liittyvät (tulossa) </target>
       </trans-unit>
       <trans-unit id="projectSource" datatype="html">
         <source>Hanketiedon lähde</source>
-        <target state="new">Hanketiedon lähde</target>
+        <target>Hanketiedon lähde</target>
       </trans-unit>
       <trans-unit id="spAbbreviation" datatype="html">
         <source>Lyhenne</source>
-        <target state="new">Lyhenne</target>
+        <target>Lyhenne</target>
       </trans-unit>
       <trans-unit id="spAbbreviationTooltip" datatype="html">
         <source>Lyhenne</source>
-        <target state="new">Abbreviation</target>
+        <target>Abbreviation</target>
       </trans-unit>
       <trans-unit id="spStartYearTooltip" datatype="html">
-        <source>Aloitusvuosi</source>
-        <target state="new">Start year</target>
+        <source>Hankkeen alkamisvuosi</source>
+        <target>Start year</target>
       </trans-unit>
       <trans-unit id="spEndYearTooltip" datatype="html">
-        <source>Päättymisvuosi</source>
-        <target state="new">End year</target>
+        <source>Hankkeen päättymisvuosi</source>
+        <target>End year</target>
       </trans-unit>
       <trans-unit id="spDescriptionTooltip" datatype="html">
-        <source>Kuvaus kertoo tiiviisti tavoitteista.</source>
-        <target state="new">Description</target>
+        <source>Kuvaus kertoo tiiviisti hankkeesta</source>
+        <target>Kuvaus kertoo tiiviisti hankkeesta</target>
       </trans-unit>
       <trans-unit id="spObjectives" datatype="html">
         <source>Tavoitteet</source>
-        <target state="new">Tavoitteet</target>
+        <target>Tavoitteet</target>
       </trans-unit>
       <trans-unit id="spObjectivesTooltip" datatype="html">
-        <source>Tavoitteet</source>
-        <target state="new">Placeholder</target>
+        <source>Kuvaus hankkeelle asetetuista tavoitteista</source>
+        <target>Kuvaus hankkeelle asetetuista tavoitteista</target>
       </trans-unit>
       <trans-unit id="spParticipants" datatype="html">
         <source>Osallistujat</source>
-        <target state="new">Osallistujat</target>
+        <target>Osallistujat</target>
       </trans-unit>
       <trans-unit id="spParticipantsTooltip" datatype="html">
-        <source>Osallistujat</source>
-        <target state="new">Participants</target>
+        <source>Hankkeeseen osallistuvat organisaatiot ja henkilöt</source>
+        <target>Hankkeeseen osallistuvat organisaatiot ja henkilöt</target>
       </trans-unit>
       <trans-unit id="spResults" datatype="html">
         <source>Tulokset</source>
-        <target state="new">Tulokset</target>
+        <target>Tulokset</target>
       </trans-unit>
-      <trans-unit id="spOutcomesTooltip" datatype="html">
-        <source>Tulokset</source>
-        <target state="new">Placeholder</target>
+      <trans-unit id="spResultsTooltip" datatype="html">
+        <source>Hankkeen saavuttamat tulokset</source>
+        <target>Hankkeen saavuttamat tulokset</target>
       </trans-unit>
       <trans-unit id="spotherInfo" datatype="html">
         <source>Muut tiedot</source>
-        <target state="new">Muut tiedot</target>
+        <target>Muut tiedot</target>
       </trans-unit>
       <trans-unit id="projectSingular" datatype="html">
         <source>projekti</source>
-        <target state="new">projekti</target>
+        <target>projekti</target>
       </trans-unit>
       <trans-unit id="projectsTooltip" datatype="html">
         <source>Placeholder</source>
-        <target state="new">Placeholder</target>
+        <target>Placeholder</target>
       </trans-unit>
       <trans-unit id="spStartYear" datatype="html">
         <source>Aloitusvuosi</source>
-        <target state="new">Aloitusvuosi</target>
+        <target>Aloitusvuosi</target>
       </trans-unit>
       <trans-unit id="spEndYear" datatype="html">
         <source>Päättymisvuosi</source>
-        <target state="new">Päättymisvuosi</target>
+        <target>Päättymisvuosi</target>
       </trans-unit>
       <trans-unit id="spDescription" datatype="html">
         <source>Kuvaus</source>
-        <target state="new">Kuvaus</target>
+        <target>Kuvaus</target>
       </trans-unit>
       <trans-unit id="spOrganizations" datatype="html">
         <source>Organisaatiot</source>
-        <target state="new">Organisaatiot</target>
+        <target>Organisaatiot</target>
       </trans-unit>
       <trans-unit id="spPersons" datatype="html">
         <source>Henkilöt</source>
-        <target state="new">Henkilöt</target>
+        <target>Henkilöt</target>
       </trans-unit>
       <trans-unit id="resultsAndEffect" datatype="html">
         <source>Tulokset ja vaikuttavuus</source>
-        <target state="new">Tulokset ja vaikuttavuus</target>
+        <target>Tulokset ja vaikuttavuus</target>
       </trans-unit>
       <trans-unit id="spKeywordsTooltip" datatype="html">
-        <source>Haun rajaus hankkeen tiedoissa olevien avainsanojen perusteella.</source>
-        <target>Limit search based on the keywords in the project's information.</target>
+        <source>Hankkeen avainsanat</source>
+        <target>Hankkeen avainsanat</target>
+      </trans-unit>
+      <trans-unit id="spFilterKeywordsTooltip" datatype="html">
+        <source>Avainsanat</source>
+        <target>Limit search based on the keywords in the project&apos;s information.</target>
+      </trans-unit>
+      <trans-unit id="spHomePageTooltip" datatype="html">
+        <source>Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa.</source>
+        <target>Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa.</target>
       </trans-unit>
     </body>
   </file>
