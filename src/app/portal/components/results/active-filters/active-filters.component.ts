@@ -38,6 +38,7 @@ import { FundingCallFilterService } from '@portal/services/filters/funding-call-
 import { StaticDataService } from '@portal/services/static-data.service';
 import { FilterConfigType } from 'src/types';
 import { ActiveFiltersListComponent } from '../../../../shared/components/active-filters-list/active-filters-list.component';
+import { ProjectFilterService } from '@portal/services/filters/project-filter.service';
 
 @Component({
     selector: 'app-active-filters',
@@ -112,6 +113,7 @@ export class ActiveFiltersComponent
     private infrastructureFilters: InfrastructureFilterService,
     private organizationFilters: OrganizationFilterService,
     private fundingCallFilters: FundingCallFilterService,
+    private projectFilters: ProjectFilterService,
     private newsFilters: NewsFilterService,
     private settingsService: SettingsService,
     @Inject(PLATFORM_ID) private platformId: object,
@@ -152,6 +154,9 @@ export class ActiveFiltersComponent
         break;
       case 'news':
         this.filtersConfig = this.newsFilters.filterData;
+        break;
+      case 'projects':
+        this.filtersConfig = this.projectFilters.filterData;
         break;
 
       default:

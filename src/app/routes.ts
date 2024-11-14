@@ -5,6 +5,7 @@ import { ShortcutResolverService } from '@portal/resolvers/shortcut-resolver.ser
 import { SinglePublicationComponent } from '@portal/components/single/single-publication/single-publication.component';
 import { SinglePersonComponent } from '@portal/components/single/single-person/single-person.component';
 import { SingleFundingComponent } from '@portal/components/single/single-funding/single-funding.component';
+import { SingleProjectComponent} from '@portal/components/single/single-project/single-project.component';
 import { SingleDatasetComponent } from '@portal/components/single/single-dataset/single-dataset.component';
 import {
   SingleOrganizationComponent
@@ -106,6 +107,10 @@ export const routes: Routes = [
     component: SingleFundingCallComponent,
   },
   {
+    path: 'results/project/:id',
+    component: SingleProjectComponent,
+  },
+  {
     path: 'results',
     redirectTo: 'results/publications',
     pathMatch: 'full',
@@ -156,6 +161,16 @@ export const routes: Routes = [
   {
     path: 'funding-calls/:input',
     redirectTo: 'results/funding-calls/:input',
+    pathMatch: 'full',
+  },
+  {
+    path: 'project',
+    redirectTo: 'results/project',
+    pathMatch: 'full',
+  },
+  {
+    path: 'project/:input',
+    redirectTo: 'results/project/:input',
     pathMatch: 'full',
   },
   {

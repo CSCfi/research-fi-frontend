@@ -1,0 +1,238 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Minisdivy of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ldiv., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<h1 #srHeader class="sr-only"></h1>
+
+<aside>
+    <app-search-bar></app-search-bar>
+</aside>
+
+<div class="wrapper" *ngIf="responseData" id="main-content">
+    <div class="row shared">
+        <p class="back col-12" style="padding-bottom: 0.25rem">
+            <a #backToResultsLink routerLink="/results/{{ tab }}/{{ searchTerm }}" [queryParams]="tabQueryParams">
+                &lt;
+                <ng-container i18n="@@backToResults">Takaisin hakutuloksiin</ng-container>
+            </a>
+        </p>
+    </div>
+
+    <!-- Breadcrumb -->
+    <app-breadcrumb
+            [type]="'single'"
+            [responseData]="responseData"
+            [tab]="tab"
+            [tabName]="tabData.label"
+            [resultNameField]="'name'"
+            [queryParams]="tabQueryParams"
+    ></app-breadcrumb>
+
+    <div class="row shared">
+        <ng-container *ngIf="responseData.total === 0">
+            <div class="col-12" style="margin: 10px 0 10px 0">
+                <h2 i18n="@@404">404 - Virheellinen osoite</h2>
+            </div>
+        </ng-container>
+
+        <!-- MAIN CONTENT -->
+        <main class="col-12 col-md-8">
+            <div *ngFor="let item of responseData.projects">
+                <h1 class="result-header">{{ item.name }}</h1>
+
+                <div id="info">
+                    <div>
+                        <ng-container *ngFor="let row of infoFields">
+                            <div class="row content" *ngIf="item[row.field] || (item['outcomeEffect'] && row.field === 'results') || (item['keywords'] && row.field === 'additionalInfo')">
+                                <h2 class="col-12 col-sm-4 col-lg-3 th">
+                                    <span class="pe-1">{{ row.label }}</span>
+
+                                    <ng-container *ngIf="row.tooltip">
+                                        <ng-template #tooltipTemplate>
+                                            <div [innerHtml]="row.tooltip"></div>
+                                        </ng-template>
+
+                                        <span [tooltip]="tooltipTemplate" tabindex="0" placement="top" #elem>
+                                            <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                                        </span>
+                                    </ng-container>
+                                </h2>
+
+                                <div class="col-12 col-sm-8 col-lg-9 td">
+
+                                    <div *ngIf="!row.showOnlyLabel || item['outcomeEffect'] || item['keywords']">
+                                        {{ item[row.field] }}
+                                    </div>
+
+                                    <div *ngIf="row.field === 'participants'">
+                                        <h3 *ngIf="item['responsibleOrganizations']?.length > 0">{{row.subFields[0].label}}</h3>
+                                        <ng-container *ngFor="let org of item['responsibleOrganizations']">
+                                            <p>{{ org.orgName }}</p>
+                                        </ng-container>
+
+                                        <h3 *ngIf="item['responsiblePerson']?.length > 0">{{row.subFields[1].label}}</h3>
+                                        <ng-container *ngFor="let person of item['responsiblePerson']">
+                                            <div>
+                                                {{ person.fullName }}
+                                            </div>
+                                        </ng-container>
+                                    </div>
+
+                                    <div *ngIf="row.field ==='additionalInfo'">
+                                        <ng-container *ngFor="let subfield of row.subFields">
+                                            <h3>{{subfield.label}}
+                                                <ng-container *ngIf="subfield.tooltip">
+                                                    <ng-template #tooltipTemplate>
+                                                        <div [innerHtml]="subfield.tooltip"></div>
+                                                    </ng-template>
+
+                                                    <span [tooltip]="tooltipTemplate" tabindex="0" placement="top"
+                                                          #elem>
+                                            <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                                        </span>
+                                                </ng-container>
+                                            </h3>
+                                            <p>{{ item[subfield.field] }}</p>
+                                        </ng-container>
+                                    </div>
+
+                                    <div *ngIf="row.field === 'results' && item['outcomeEffect']">
+                                        <ng-container *ngFor="let subfield of row.subFields">
+                                            <span *ngIf="item[subfield.field]">
+                                            <h3>{{subfield.label}}
+                                                <ng-container *ngIf="subfield.tooltip">
+                                                    <ng-template #tooltipTemplate>
+                                                        <div [innerHtml]="subfield.tooltip"></div>
+                                                    </ng-template>
+
+                                                    <span [tooltip]="tooltipTemplate" tabindex="0" placement="top"
+                                                          #elem>
+                                            <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                                        </span>
+                                                </ng-container>
+                                            </h3>
+                                            <p>{{ item[subfield.field] }}</p>
+                                                </span>
+                                        </ng-container>
+                                    </div>
+
+                                    <a href="javascript:void(0)" class="read-more"
+                                       *ngIf="row.field === 'description' && item.description?.length > 128"
+                                       (click)="expandDescription()" [innerHTML]="expand ? showLess : showMore"></a>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- SIDE PANEL -->
+        <div *ngFor="let item of responseData.projects" class="col-12 col-md-4 col-xl-4">
+            <aside>
+                <mat-card appearance="outlined">
+                    <div class="inner">
+                        <mat-card-title>
+                            <h2>
+                                <span class="pe-1"
+                                      i18n="@@projectsExternalLinks">Linkit hankkeeseen</span>
+                                <ng-template #tooltipTemplate>
+                                    <div [innerHtml]="homepageTooltip.tooltip"></div>
+                                </ng-template>
+
+                                <span [tooltip]="tooltipTemplate" tabindex="0" placement="top" #elem>
+
+                            <p *ngIf="item?.projectUrl?.trim().length > 0">
+                                <a [href]="item.projectUrl" target="_blank">{{ item.projectUrl }}
+                                    <fa-icon icon="external-link-alt"></fa-icon> </a>
+                            </p>
+
+                                    <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                                </span>
+                            </h2>
+                        </mat-card-title>
+
+
+                        <!-- Cordis link is displayed only with eu funding. Filtering is done in ts file -->
+                        <app-single-result-link *ngIf="projectURL"
+                                                [icon]="true"
+                                                [url]="projectURL"></app-single-result-link>
+
+
+                        <div *ngIf="projectURL?.length < 1" class="no-links" i18n="@@noProjectLinks">
+                            Hankkeeseen ei ole tarjolla linkkejä tässä portaalissa {{projectURL}}
+                        </div>
+                    </div>
+                </mat-card>
+            </aside>
+
+            <aside>
+                <mat-card appearance="outlined">
+                    <div class="inner">
+                        <mat-card-title>
+                            <h2>
+                                <ng-container i18n='@@relatedProjects'>Hae hankkeeseen liittyvät
+                                    (tulossa)
+                                </ng-container>
+                            </h2>
+                        </mat-card-title>
+
+                        <app-related-links [id]="" [relatedData]="relatedData"></app-related-links>
+                    </div>
+                </mat-card>
+            </aside>
+
+            <!-- <aside>
+                      <mat-card>
+                          <mat-card-title><h2>Viittaa</h2></mat-card-title>
+                          <div class="row">
+                              <div class="col-12 reference">
+                                  <button mat-raised-button color="primary"><fa-icon [icon]="faQuoteRight" class="quote"></fa-icon>Kopioi viitetiedot...</button>
+                              </div>
+                          </div>
+                      </mat-card>
+                  </aside> -->
+
+            <!-- Copy url -->
+            <aside>
+                <mat-card appearance="outlined">
+                    <div class="inner">
+                        <mat-card-title><h2 i18n="@@share">Jaa</h2></mat-card-title>
+                        <app-share [id]="item.id"></app-share>
+                    </div>
+                </mat-card>
+            </aside>
+
+            <aside>
+                <mat-card appearance="outlined">
+                    <div class="inner">
+                        <mat-card-title><h2 i18n="@@projectSource">Hanketiedon lähde</h2>
+                        </mat-card-title>
+                        <div *ngFor="let source of responseData.fundings">
+                            <p *ngIf="source.funder.name.trim().length > 0">
+                                <ng-container
+                                        *ngIf="!item.structuralFund">{{source.funder.name}}</ng-container>
+
+                                <ng-container *ngIf="item.structuralFund">Rakennerahastotietopalvelu
+                                    <!-- Structural fund source link --> (<a
+                                            href="https://www.eura2014.fi/rrtiepa/" target="_blank">eura2014.fi
+                                        <fa-icon icon="external-link-alt"></fa-icon>
+                                    </a>)
+                                </ng-container>
+                            </p>
+
+                            <p *ngIf="source.funder.name.trim().length === 0"
+                               i18n="@@noInformationSource">
+                                Tiedon lähde ei saatavilla.
+                            </p>
+                        </div>
+
+                        <div class="clear"></div>
+                    </div>
+                </mat-card>
+            </aside>
+        </div>
+    </div>
+</div>
+

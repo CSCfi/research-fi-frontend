@@ -27,6 +27,7 @@ export class SettingsService {
       'funding-call',
       'infrastructure',
       'organization',
+      'project',
     ];
 
     this.indexList = indices.join(',') + '/_search?';
@@ -112,31 +113,31 @@ export class SettingsService {
                 // News content field has umlauts converted to coded characters, query needs to be made with both coded and decoded umlauts
                 ...(index === 'news'
                   ? [
-                      {
-                        multi_match: {
-                          query: term
-                            .replace(/ä/g, '&auml;')
-                            .replace(/ä/g, '&ouml;'),
-                          analyzer: targetAnalyzer,
-                          type: targetType,
-                          fields: targetFields.length > 0 ? targetFields : '',
-                          operator: 'AND',
-                          lenient: 'true',
-                          max_expansions: 1024,
-                        },
+                    {
+                      multi_match: {
+                        query: term
+                          .replace(/ä/g, '&auml;')
+                          .replace(/ä/g, '&ouml;'),
+                        analyzer: targetAnalyzer,
+                        type: targetType,
+                        fields: targetFields.length > 0 ? targetFields : '',
+                        operator: 'AND',
+                        lenient: 'true',
+                        max_expansions: 1024,
                       },
-                      {
-                        multi_match: {
-                          query: term
-                            .replace(/ä/g, '&auml;')
-                            .replace(/ö/g, '&ouml;'),
-                          type: 'cross_fields',
-                          fields: targetFields.length > 0 ? targetFields : '',
-                          operator: 'AND',
-                          lenient: 'true',
-                        },
+                    },
+                    {
+                      multi_match: {
+                        query: term
+                          .replace(/ä/g, '&auml;')
+                          .replace(/ö/g, '&ouml;'),
+                        type: 'cross_fields',
+                        fields: targetFields.length > 0 ? targetFields : '',
+                        operator: 'AND',
+                        lenient: 'true',
                       },
-                    ]
+                    },
+                  ]
                   : []),
               ],
             },
@@ -297,59 +298,59 @@ export class SettingsService {
         ];
       } else {
         res.bool.must[1].bool.should = [
-        {
-          multi_match: {
-            query: term,
-            analyzer: targetAnalyzer,
-            type: targetType,
-            fields: targetFields.length > 0 ? targetFields : '',
-            operator: 'AND',
-            lenient: 'true',
-            max_expansions: 1024
-          }
-        },
-        {
-          multi_match: {
-            query: term,
-            type: 'cross_fields',
-            fields: targetFields.length > 0 ? targetFields : '',
-            operator: 'AND',
-            lenient: 'true'
-          }
-        },
-        {
-          nested: {
-            path: 'activity.affiliations',
-            query: {
-              bool: {
-                should: [
-                  {
-                    multi_match: {
-                      query: term,
-                      type: 'best_fields',
-                      operator: 'OR',
-                      fields: [
-                        'activity.affiliations.organizationNameFi',
-                        'activity.affiliations.organizationNameSv',
-                        'activity.affiliations.organizationNameEn',
+          {
+            multi_match: {
+              query: term,
+              analyzer: targetAnalyzer,
+              type: targetType,
+              fields: targetFields.length > 0 ? targetFields : '',
+              operator: 'AND',
+              lenient: 'true',
+              max_expansions: 1024
+            }
+          },
+          {
+            multi_match: {
+              query: term,
+              type: 'cross_fields',
+              fields: targetFields.length > 0 ? targetFields : '',
+              operator: 'AND',
+              lenient: 'true'
+            }
+          },
+          {
+            nested: {
+              path: 'activity.affiliations',
+              query: {
+                bool: {
+                  should: [
+                    {
+                      multi_match: {
+                        query: term,
+                        type: 'best_fields',
+                        operator: 'OR',
+                        fields: [
+                          'activity.affiliations.organizationNameFi',
+                          'activity.affiliations.organizationNameSv',
+                          'activity.affiliations.organizationNameEn',
 
-                        'activity.educations.nameFi',
-                        'activity.educations.nameSv',
-                        'activity.educations.nameEn',
+                          'activity.educations.nameFi',
+                          'activity.educations.nameSv',
+                          'activity.educations.nameEn',
 
-                        'activity.affiliations.positionNameFi',
-                        'activity.affiliations.positionNameSv',
-                        'activity.affiliations.positionNameEn',
-                      ],
-                      lenient: 'true'
+                          'activity.affiliations.positionNameFi',
+                          'activity.affiliations.positionNameSv',
+                          'activity.affiliations.positionNameEn',
+                        ],
+                        lenient: 'true'
+                      }
                     }
-                  }
-                ]
+                  ]
+                }
               }
             }
           }
-        }
-      ] as any;
+        ] as any;
       }
     }
 
@@ -361,8 +362,8 @@ export class SettingsService {
     const targetFields = this.target
       ? this.staticDataService.targetNestedQueryFields(this.target, index)
       : this.related
-      ? this.staticDataService.nestedRelatedFields(index)
-      : this.staticDataService.nestedQueryFields(index);
+        ? this.staticDataService.nestedRelatedFields(index)
+        : this.staticDataService.nestedQueryFields(index);
 
     const query = (path) => ({
       nested: {
@@ -449,6 +450,14 @@ export class SettingsService {
             {
               bool: {
                 must: [
+                  { term: { _index: 'project' } },
+                  this.querySettings('project', term),
+                ],
+              },
+            },
+            {
+              bool: {
+                must: [
                   { term: { _index: 'person' } },
                   {
                     bool: {
@@ -528,6 +537,11 @@ export class SettingsService {
               fundingCalls: {
                 match: {
                   _index: 'funding-call',
+                },
+              },
+              projects: {
+                match: {
+                  _index: 'project',
                 },
               },
             },

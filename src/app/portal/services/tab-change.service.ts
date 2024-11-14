@@ -73,6 +73,14 @@ export class TabChangeService {
       singular: $localize`:@@organizationSingular:organisaatio`,
       tooltip: $localize`:@@organizationsTooltip:Tiedejatutkimus.fi -palveluun tietoja toimittavat tutkimusorganisaatiot ja \u2011rahoittajat.`,
     },
+    {
+      data: 'projects',
+      label: 'Hankkeet',
+      link: 'projects',
+      icon: faUniversity,
+      singular: $localize`:@@projectSingular:projekti`,
+      tooltip: $localize`:@@projectsTooltip:Placeholder`,
+    },
   ];
 
   fundingCall = {

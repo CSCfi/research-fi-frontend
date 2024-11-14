@@ -596,6 +596,21 @@ export class StaticDataService {
         ];
         break;
       }
+      case 'project': {
+        res = [
+          'nameFi^2',
+          'nameEn^2',
+          'nameSv^2',
+          'abbreviationFi',
+          'abbreviationSv',
+          'abbreviationEn',
+          'responsibleOrganization.orgNameFi',
+          'responsibleOrganization.orgNameSv',
+          'responsibleOrganization.orgNameEn',
+          'responsiblePerson',
+        ];
+        break;
+      }
     }
     return res;
   }
@@ -687,6 +702,10 @@ export class StaticDataService {
         res = [''];
         break;
       }
+      case 'projects': {
+        res = [''];
+        break;
+      }
     }
     return res;
   }
@@ -720,7 +739,8 @@ export class StaticDataService {
         funding: ['fundingContactPersonLastName', 'fundingContactPersonFirstNames'],
         dataset: ['creatorsText'],
         infrastructure: [''],
-        organization: ['']
+        organization: [''],
+        project: ['nameFi']
       },
       title: {
         publication: ['publicationName'],
@@ -734,14 +754,16 @@ export class StaticDataService {
           'services.serviceName',
           'services.serviceAcronym'
         ],
-        organization: ['']
+        organization: [''],
+        project: ['nameFi']
       },
       keywords: {
         publication: ['keywords.keyword'],
         funding: ['keywords.keyword'],
         dataset: ['keywords.keyword'],
         infrastructure: ['keywords.keyword'],
-        organization: ['']
+        organization: [''],
+        project: ['']
       },
       organization: {
         publication: [''],
@@ -765,12 +787,13 @@ export class StaticDataService {
         infrastructure: [''],
         organization: ['']
       },
+
       default: {
         publication: [target],
         funding: [''],
         dataset: [''],
         infrastructure: [''],
-        organization: ['']
+        organization: [''],
       }
     };
 
@@ -861,6 +884,10 @@ export class StaticDataService {
             break;
           }
           case 'organization': {
+            res = [''];
+            break;
+          }
+          case 'project': {
             res = [''];
             break;
           }

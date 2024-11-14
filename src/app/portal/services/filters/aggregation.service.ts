@@ -1280,6 +1280,77 @@ export class AggregationService {
         };
 
         break;
+
+      // Projects
+      case 'projects':
+        payLoad.aggs.year = yearAgg;
+
+        // TODO: Sector & organization
+
+        // Active
+        payLoad.aggs.fundingStatus = {
+          filter: {
+            bool: {
+              filter: filterActive('fundingEndDate'),
+            },
+          },
+          aggs: {
+            status: {
+              range: {
+                field: 'fundingEndDate',
+                ranges: [
+                  {
+                    from: this.today,
+                  },
+                ],
+              },
+            },
+          },
+        };
+
+        payLoad.aggs.topic = {
+          nested: {
+            path: 'keywords',
+          },
+          aggs: {
+            scheme: {
+              terms: {
+                field: 'keywords.scheme.keyword',
+                exclude: ' ',
+                size: 10,
+                order: {
+                  _key: 'asc',
+                },
+              },
+              aggs: {
+                keywords: {
+                  terms: {
+                    field: 'keywords.keyword.keyword',
+                    exclude: ' ',
+                    size: 250,
+                  },
+                  aggs: {
+                    filtered: {
+                      reverse_nested: {},
+                      aggs: {
+                        filterCount: {
+                          filter: {
+                            bool: {
+                              filter: filterActiveNested('keywords'),
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        };
+
+        break;
+
       // Datasets
       case 'datasets':
         payLoad.aggs.year = yearAggDatasets;

@@ -120,6 +120,15 @@
     "descriptionSv": "Beskrivning av forskningsdata i Forskning.fi. Sökresultaten kan avgränsas efter sökningen med funktionen Avgränsa sökningen.",
     "link": "datasets"
   },
+  "projects": {
+    "titleFi": "",
+    "titleEn": "",
+    "titleSv": "",
+    "descriptionFi": "PROJECTS DESCRIPTION PLACEHOLDER",
+    "descriptionEn": "PROJECTS DESCRIPTION PLACEHOLDER\"",
+    "descriptionSv": "PROJECTS DESCRIPTION PLACEHOLDER\"",
+    "link": "projects"
+  },
   "singleDataset": {
     "titleFi": "",
     "titleEn": "",
