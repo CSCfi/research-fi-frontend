@@ -4326,6 +4326,10 @@
         <target>Tulokset ja vaikuttavuus</target>
       </trans-unit>
       <trans-unit id="spKeywordsTooltip" datatype="html">
+        <source>Hankkeen avainsanat</source>
+        <target>Hankkeen avainsanat</target>
+      </trans-unit>
+      <trans-unit id="spFilterKeywordsTooltip" datatype="html">
         <source>Avainsanat</source>
         <target>Begränsa sökningen enligt nyckelorden i projekt.</target>
       </trans-unit>

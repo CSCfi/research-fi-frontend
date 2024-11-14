@@ -141,7 +141,7 @@ export class SingleProjectComponent implements OnInit, OnDestroy {
       subFields: [{
         label: $localize`:@@spKeywordsTooltip:Avainsanat`,
         field: 'keywords',
-        tooltip: $localize`:@@spKeywordsTooltip:Haun rajaus hankkeen tiedoissa olevien avainsanojen perusteella.`,
+        tooltip: $localize`:@@spKeywordsTooltip:Hankkeen avainsanat`,
       }]
     }
   ];
