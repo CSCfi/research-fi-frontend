@@ -5,6 +5,8 @@
 
 <app-welcome-dialog *ngIf="showWelcomeDialog"></app-welcome-dialog>
 
+<app-banner-divider></app-banner-divider>
+
 <main id="main-content">
   <div class="wrapper">
     <div class="row d-flex justify-content-between pt-3 pb-5">
@@ -193,7 +195,7 @@
         </ng-template>
       </div>
 
-      <div class="col-12 col-lg-5 px-0 px-lg-3">
+      <div class="col-12 col-lg-5 px-0 px-lg-2">
         <!-- DEBUGGING -->
         <ng-container *ngIf="appSettingsService.myDataSettings.debug">
           <div>

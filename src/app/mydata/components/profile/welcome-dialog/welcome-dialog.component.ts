@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { DialogComponent } from '../../../../shared/components/dialog/dialog.component';
 
 @Component({
-  selector: 'app-welcome-dialog',
-  templateUrl: './welcome-dialog.component.html',
+    selector: 'app-welcome-dialog',
+    templateUrl: './welcome-dialog.component.html',
+    standalone: true,
+    imports: [DialogComponent],
 })
 export class WelcomeDialogComponent implements OnInit {
   showDialog = true;

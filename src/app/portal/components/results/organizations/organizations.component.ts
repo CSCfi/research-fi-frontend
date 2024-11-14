@@ -21,13 +21,26 @@ import { SearchService } from 'src/app/portal/services/search.service';
 import { SortService } from 'src/app/portal/services/sort.service';
 import { Search } from 'src/app/portal/models/search.model';
 import { UtilityService } from 'src/app/shared/services/utility.service';
-import { HighlightSearch } from '@portal/pipes/highlight.pipe';
+import { HighlightSearchPipe } from '@portal/pipes/highlight.pipe';
 import { TableColumn, TableRow } from 'src/types';
+import { NoResultsComponent } from '../no-results/no-results.component';
+import { ResultsPaginationComponent } from '../results-pagination/results-pagination.component';
+import { TableComponent } from '../../../../shared/components/table/table.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-organizations',
-  templateUrl: './organizations.component.html',
-  styleUrls: ['./organizations.component.scss'],
+    selector: 'app-organizations',
+    templateUrl: './organizations.component.html',
+    styleUrls: ['./organizations.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        MatProgressSpinner,
+        TableComponent,
+        ResultsPaginationComponent,
+        NoResultsComponent,
+    ],
 })
 export class OrganizationsComponent
   implements OnInit, OnDestroy, AfterViewInit
@@ -44,7 +57,7 @@ export class OrganizationsComponent
   expandStatus: Array<boolean> = [];
   sortColumn: string;
   sortDirection: boolean;
-  faIcon = this.tabChangeService.tabData
+  faIcon: any = this.tabChangeService.tabData
     .filter((t) => t.data === 'organizations')
     .map((t) => t.icon)
     .pop();
@@ -62,7 +75,7 @@ export class OrganizationsComponent
     private sortService: SortService,
     private cdr: ChangeDetectorRef,
     public utilityService: UtilityService,
-    private highlightPipe: HighlightSearch
+    private highlightPipe: HighlightSearchPipe
   ) {}
 
   ngOnInit() {

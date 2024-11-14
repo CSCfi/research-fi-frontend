@@ -2,10 +2,11 @@ import { Component, HostBinding, Input } from '@angular/core';
 import { Highlightable } from '@angular/cdk/a11y';
 
 @Component({
-  selector: 'app-list-item',
-  template: `<div [class.disabled]="disabled">
+    selector: 'app-list-item',
+    template: `<div [class.disabled]="disabled">
     <ng-content></ng-content>
   </div>`,
+    standalone: true,
 })
 export class ListItemComponent implements Highlightable {
   @Input() id;

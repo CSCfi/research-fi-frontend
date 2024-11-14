@@ -39,6 +39,7 @@ img {
 }
 
 @media (max-width: 575px) {
+  /*  TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version.*/
   mat-tab-group {
     max-width: 80vw;
     word-wrap: break-word;

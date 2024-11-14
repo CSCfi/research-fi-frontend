@@ -1,4 +1,4 @@
-@import '@angular/material/theming';
+@use 'migration' as *;
 
 @mixin app-footer-theme($theme) {
   $primary: map-get($theme, primary);

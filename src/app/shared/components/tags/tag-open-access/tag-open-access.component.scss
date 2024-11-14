@@ -7,6 +7,12 @@
 
 .open-access {
   border: 2px solid #ea883e;
+  max-width: 152px;
+  max-height: 29px;
+  .svg-inline--fa {
+    max-height: 14.8px !important;
+    max-width: 14px !important;
+  }
 }
 
 a {
@@ -17,4 +23,6 @@ img {
   height: 1rem;
   width: auto;
   margin-right: 0.5rem;
+  max-width: 10.2px !important;
+  max-height: 16px !important;
 }

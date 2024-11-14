@@ -1,4 +1,5 @@
 <mat-card
+  appearance="outlined"
   class="col-12 news-card mat-elevation-z"
   [class.dense]="dense"
   [class.limit-width]="isHomepage"
@@ -8,24 +9,16 @@
     <mat-card-title [class.high-header]="isHomepage">
       <ng-container *ngIf="!itemTypeFundingCalls" [ngSwitch]="isHomepage">
         <a [attr.href]="item.url" target="_blank" class="d-block">
-          <div class="row d-flex justify-content-between">
-            <div class="col-11 px-0">
-              <h3>
-                <ng-container *ngSwitchCase="true">{{
-                  item.headline
-                }}</ng-container>
-                <ng-container *ngSwitchDefault>
-                  <span
-                    [innerHTML]="
-                      itemTypeFundingCalls
-                        ? _fundingCall.name
-                        : (item.headline | highlight: term)
-                    "
-                  ></span>
-                </ng-container>
-              </h3>
-            </div>
-            <div class="col-auto px-0 align-self-end mb-1">
+          <div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem'>
+            <ng-container *ngSwitchCase="true">
+              <h3> {{ item.headline }} </h3>
+            </ng-container>
+
+            <ng-container *ngSwitchDefault>
+              <h3 [innerHTML]="itemTypeFundingCalls ? _fundingCall.name : (item.headline | highlight: term)"></h3>
+            </ng-container>
+
+            <div>
               <fa-icon class="icon" icon="external-link-alt"></fa-icon>
             </div>
           </div>
@@ -33,21 +26,15 @@
       </ng-container>
 
       <ng-container *ngIf="itemTypeFundingCalls" [ngSwitch]="isHomepage">
-        <a
-          routerLink="/results/funding-call/{{ _fundingCall.id }}"
-          class="d-block"
-        >
-          <div class="row d-flex justify-content-between">
-            <div class="col-11 ps-0">
-              <h3>
-                <ng-container *ngSwitchCase="true">{{
-                  _fundingCall.name
-                }}</ng-container>
-                <ng-container *ngSwitchDefault>
-                  <span [innerHTML]="_fundingCall.name"></span>
-                </ng-container>
-              </h3>
-            </div>
+        <a routerLink="/results/funding-call/{{ _fundingCall.id }}" class="d-block">
+          <div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem'>
+            <ng-container *ngSwitchCase="true">
+              <h3> {{ _fundingCall.name }} </h3>
+            </ng-container>
+
+            <ng-container *ngSwitchDefault>
+              <h3 [innerHTML]="_fundingCall.name"></h3>
+            </ng-container>
           </div>
         </a>
       </ng-container>
@@ -56,10 +43,7 @@
 
   <mat-card-subtitle class="mb-0"> </mat-card-subtitle>
 
-  <mat-card-content
-    *ngIf="!dense && !itemTypeFundingCalls"
-    [class.low-content]="!isHomepage"
-  >
+  <mat-card-content *ngIf="!dense && !itemTypeFundingCalls" [class.low-content]="!isHomepage">
     <div class="row">
       <span
         class="preview"
@@ -69,39 +53,35 @@
     </div>
   </mat-card-content>
 
-  <mat-card-actions
+  <!--<mat-card-actions
     *ngIf="!dense && !itemTypeFundingCalls"
     [ngClass]="isHomepage ? '' : 'ms-0 me-0'"
   >
     <div class="row">
-      <!-- <div class="col pl-0" [ngClass]="item.mediaUri?.length > 0 ? 'link' : ''">
+      &lt;!&ndash; <div class="col pl-0" [ngClass]="item.mediaUri?.length > 0 ? 'link' : ''">
                 <a class="org-link" href="{{item.url}}" target="_blank" aria-label="Lue koko uutinen organisaation verkkosivuilla"><ng-container i18n="@@readOriginialNews">Lue koko uutinen organisaation verkkosivuilla </ng-container><fa-icon icon="external-link-alt"></fa-icon></a>
-            </div> -->
+            </div> &ndash;&gt;
       <div *ngIf="item.mediaUri?.length > 0" class="col pe-0 text-end">
-        <!-- <img [src]="item.mediaUri | safeUrl"> -->
+        &lt;!&ndash; <img [src]="item.mediaUri | safeUrl"> &ndash;&gt;
       </div>
     </div>
-  </mat-card-actions>
+  </mat-card-actions>-->
 
   <mat-card-footer>
     <!-- News footer -->
     <div *ngIf="!itemTypeFundingCalls" class="row">
       <div class="col-9 pb-3 no-gutters">
-        <span
-          class="col pt-4 pb-1 date-line"
-          [class.accented-line]="isHomepage"
-          >{{ item.timestamp | date: 'dd.MM.yyyy' }}</span
-        >
+        <span class="col pt-4 pb-1 date-line" [class.accented-line]="isHomepage">
+          {{ item.timestamp | date: 'dd.MM.yyyy' }}
+        </span>
+
         <span *ngIf="item.author" class="col-2">{{ item.author }}</span>
-        <span
-          *ngIf="item.mediaUri?.length > 0"
-          class="col-2 pe-0 text-end"
-        ></span>
-        <span
-          class="author-line mb-3"
-          [innerHTML]="item?.organizationNameFi?.trim() | highlight: term"
-        ></span>
+
+        <span *ngIf="item.mediaUri?.length > 0" class="col-2 pe-0 text-end"></span>
+
+        <span class="author-line mb-3" [innerHTML]="item?.organizationNameFi?.trim() | highlight: term"></span>
       </div>
+
       <div *ngIf="!isHomepage" class="col-3 d-flex justify-content-end align-self-center">
         <img class="news-img pe-0" [src]="item.mediaUri | safeUrl" />
       </div>
@@ -113,14 +93,11 @@
       class="row"
       [class.soon]="_fundingCall.daysLeft <= 3"
     >
-      <span class="col pt-4 pb-1 date-line accented-line"
-        >Hakuaika päättyy<span
+      <span class="col pt-4 pb-1 date-line accented-line">
+        Hakuaika päättyy
+        <span
           class="inline-date"
-          [innerHtml]="
-            _fundingCall.dueDate.getFullYear() !== 2100
-              ? (_fundingCall.dueDateString | highlight: input)
-              : '-'
-          "
+          [innerHtml]="_fundingCall.dueDate.getFullYear() !== 2100 ? (_fundingCall.dueDateString | highlight: input) : '-'"
         ></span
       ></span>
     </div>
@@ -138,6 +115,7 @@
     </div>
   </mat-card-footer>
 </mat-card>
+
 <div class="news-card-divider">
-  <hr />
+  <div style='border-bottom: 2px solid #4546b9; margin: 0 0.75rem 0.35rem'></div>
 </div>

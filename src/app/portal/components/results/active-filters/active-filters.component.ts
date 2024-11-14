@@ -33,14 +33,17 @@ import { OrganizationFilterService } from '@portal/services/filters/organization
 import { SettingsService } from '@portal/services/settings.service';
 import { NewsFilterService } from '@portal/services/filters/news-filter.service';
 import { SearchService } from '@portal/services/search.service';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgIf } from '@angular/common';
 import { FundingCallFilterService } from '@portal/services/filters/funding-call-filter.service';
 import { StaticDataService } from '@portal/services/static-data.service';
 import { FilterConfigType } from 'src/types';
+import { ActiveFiltersListComponent } from '../../../../shared/components/active-filters-list/active-filters-list.component';
 
 @Component({
-  selector: 'app-active-filters',
-  templateUrl: './active-filters.component.html',
+    selector: 'app-active-filters',
+    templateUrl: './active-filters.component.html',
+    standalone: true,
+    imports: [NgIf, ActiveFiltersListComponent],
 })
 export class ActiveFiltersComponent
   implements OnInit, OnDestroy, AfterContentInit

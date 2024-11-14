@@ -19,11 +19,11 @@ import {
   TemplateRef,
   inject,
 } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgIf, NgClass, NgTemplateOutlet, NgSwitch, NgSwitchCase, NgSwitchDefault, NgFor, AsyncPipe } from '@angular/common';
 import { SearchService } from '@portal/services/search.service';
 import { SortService } from '@portal/services/sort.service';
 import { map, debounceTime, take, skip, connect } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TabChangeService } from '@portal/services/tab-change.service';
 import { FilterService } from '@portal/services/filters/filter.service';
 import { DataService } from '@portal/services/data.service';
@@ -44,11 +44,58 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { ClickOutsideDirective } from '../../../shared/directives/click-outside.directive';
+import { DialogComponent } from '../../../shared/components/dialog/dialog.component';
+import { VisualisationComponent } from '../visualisation/visualisation.component';
+import { MatOption } from '@angular/material/core';
+import { MatSelect } from '@angular/material/select';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { FiltersComponent } from './filters/filters.component';
+import { SearchResultsComponent } from './search-results/search-results.component';
+import { ActiveFiltersComponent } from './active-filters/active-filters.component';
+import { FundingCallCategoryFiltersComponent } from './funding-call-category-filters/funding-call-category-filters.component';
+import { SortComponent } from './sort/sort.component';
+import { ResultCountComponent } from '../../../shared/components/result-count/result-count.component';
+import { SecondaryButtonComponent } from '../../../shared/components/buttons/secondary-button/secondary-button.component';
+import { PrimaryActionButtonComponent } from '../../../shared/components/buttons/primary-action-button/primary-action-button.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TabNavigationComponent } from '../tab-navigation/tab-navigation.component';
+import { SearchBarComponent } from '../search-bar/search-bar.component';
 
 @Component({
-  selector: 'app-results',
-  templateUrl: './results.component.html',
-  styleUrls: ['./results.component.scss'],
+    selector: 'app-results',
+    templateUrl: './results.component.html',
+    styleUrls: ['./results.component.scss'],
+    standalone: true,
+    imports: [
+        SearchBarComponent,
+        TabNavigationComponent,
+        NgIf,
+        FontAwesomeModule,
+        PrimaryActionButtonComponent,
+        RouterLink,
+        SecondaryButtonComponent,
+        ResultCountComponent,
+        NgClass,
+        NgTemplateOutlet,
+        SortComponent,
+        NgSwitch,
+        NgSwitchCase,
+        NgSwitchDefault,
+        FundingCallCategoryFiltersComponent,
+        ActiveFiltersComponent,
+        SearchResultsComponent,
+        NgFor,
+        FiltersComponent,
+        MatFormField,
+        MatLabel,
+        MatSelect,
+        MatOption,
+        VisualisationComponent,
+        DialogComponent,
+        ClickOutsideDirective,
+        AsyncPipe,
+    ],
 })
 export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   breakpointObserver$ = inject(BreakpointObserver);
@@ -306,17 +353,17 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     );
   }
 
-  doSearch(query: any, params: any){
+  doSearch(queryParams: any, targetTab: any){
     // Change query target
-    this.settingsService.changeTarget(query.target ? query.target : null);
+    this.settingsService.changeTarget(queryParams.target ? queryParams.target : null);
     // Get search target name for visuals
     this.searchTargetName = this.staticDataService.targets?.find(
-      (t) => t.value === query.target
+      (t) => t.value === queryParams.target
     )?.['viewValue' + this.currentLocale];
 
-    this.searchService.pageSize = parseInt(query.size, 10) || 10;
+    this.searchService.pageSize = parseInt(queryParams.size, 10) || 10;
 
-    this.page = +query.page || 1;
+    this.page = +queryParams.page || 1;
     if (this.page > 1000) {
       this.pageFallback = true;
       this.getTabValues();
@@ -325,12 +372,12 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
     // Check for Angular Univeral SSR, get filters if browser
     if (isPlatformBrowser(this.platformId)) {
-      this.filters = this.filterService.filterList(query);
+      this.filters = this.filterService.filterList(queryParams);
     }
 
-    const tabChanged = this.tab !== params.tab;
+    const tabChanged = this.tab !== targetTab.tab;
 
-    this.searchTerm = params.input || '';
+    this.searchTerm = targetTab.input || '';
     // Send search term to sort service
     this.sortService.getTerm(this.searchTerm);
 
@@ -344,11 +391,11 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.total = 1;
 
     this.selectedTabData = this.tabData.filter(
-      (tab) => tab.link === params.tab
+      (tab) => tab.link === targetTab.tab
     )[0];
 
     this.metaTags = this.metaTagsList.filter(
-      (tab) => tab.link === params.tab
+      (tab) => tab.link === targetTab.tab
     )[0];
 
     // Default to publications if invalid tab
@@ -358,6 +405,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     this.tab = this.selectedTabData.link;
+    this.tabChangeService.tabQueryParams[this.tab] = queryParams;
+
 
     if (tabChanged) {
       this.tabChangeService.changeTab(this.selectedTabData);
@@ -386,12 +435,12 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.visual = this.visual && !!this.visualisationCategories.length;
     }
 
-    this.sortService.updateSort(query.sort);
+    this.sortService.updateSort(queryParams.sort);
     this.searchService.updatePageNumber(
       this.page,
       this.searchService.pageSize
     );
-    this.searchService.updateQueryParams(query);
+    this.searchService.updateQueryParams(queryParams);
 
     // Check for Angular Univeral SSR, update filters if browser
     if (isPlatformBrowser(this.platformId)) {

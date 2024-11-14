@@ -261,8 +261,9 @@
               </div>
             </div>
             <div class="row">
+
+              <!-- Start date -->
               <div class="col-10">
-                <!-- Start date -->
                 <mat-form-field appearance="fill">
                   <mat-label i18n="@@dateRangeStart"
                     >Haku alkaa aikaisintaan</mat-label
@@ -277,7 +278,7 @@
                     [max]="getActiveDate('end')"
                     #startDate
                   />
-                  <mat-datepicker-toggle
+                  <mat-datepicker-toggle class="d-flex x-button"
                     *ngIf="startDate.value"
                     matSuffix
                     (click)="dateChange(null, 'start')"
@@ -286,13 +287,14 @@
                       >x</mat-icon
                     >
                   </mat-datepicker-toggle>
-                  <mat-datepicker-toggle
+                  <mat-datepicker-toggle class="d-flex"
                     matSuffix
                     [for]="startPicker"
                   ></mat-datepicker-toggle>
                   <mat-datepicker #startPicker></mat-datepicker>
                 </mat-form-field>
               </div>
+
               <!-- End date -->
               <div class="col-10">
                 <mat-form-field appearance="fill">
@@ -309,7 +311,7 @@
                     [min]="getActiveDate('start')"
                     #endDate
                   />
-                  <mat-datepicker-toggle
+                  <mat-datepicker-toggle class="d-flex x-button"
                     *ngIf="endDate.value"
                     matSuffix
                     (click)="dateChange(null, 'end')"
@@ -318,7 +320,7 @@
                       >x</mat-icon
                     >
                   </mat-datepicker-toggle>
-                  <mat-datepicker-toggle
+                  <mat-datepicker-toggle class="d-flex"
                     matSuffix
                     [for]="endPicker"
                   ></mat-datepicker-toggle>
@@ -335,7 +337,7 @@
             "
           >
             <!-- Options -->
-            <mat-list-option
+            <mat-list-option disableRipple
               checkboxPosition="before"
               *ngFor="
                 let item of responseData.aggregations[
@@ -355,13 +357,14 @@
                 activeFilters[filter.field].indexOf(item.key) > -1
               "
             >
-              <div class="row d-flex justify-content-around">
+              <!--<div class="row d-flex justify-content-around">-->
+              <div class="row d-flex justify-content-between">
                 <div class="col-8 pe-0">
                   <span class="label pe-2">{{
                     item.label ? item.label : item.key
                   }}</span>
                 </div>
-                <div class="col-2 pe-0 text-end" *ngIf="item.tooltip">
+                <div class="col-2 text-end" *ngIf="item.tooltip">
                   <ng-template #tooltipTemplate>
                     <div [innerHtml]="item?.tooltip"></div>
                   </ng-template>
@@ -374,7 +377,8 @@
                     <fa-icon class="info-icon" icon="info-circle"></fa-icon>
                   </span>
                 </div>
-                <div class="col-2 count">
+                <!-- [ngClass]="['item.tooltip', { 'col-2': item.tooltip }, { 'col-2': !item.tooltip }]" -->
+                <div [className]="item.tooltip ? 'count col-2' : 'count col-4'">
                   <span
                     class="amount"
                     [innerHtml]="item.doc_count | thousandSeparator"
@@ -498,7 +502,7 @@
               <!-- TODO: Change aria label field when content available -->
               <mat-selection-list [attr.aria-label]="filter.field">
                 <!-- Select all -->
-                <mat-list-option
+                <mat-list-option disableRipple
                   *ngIf="item.subData?.length"
                   checkboxPosition="before"
                   (click)="selectAll(filter.field, item)"
@@ -521,7 +525,7 @@
                   <!-- <div class="col col-3 count align-self-center"><span class="amount" [innerHtml]="(item.subData | filterSum) | thousandSeparator"></span></div> -->
                 </mat-list-option>
                 <!-- Options -->
-                <mat-list-option
+                <mat-list-option disableRipple
                   checkboxPosition="before"
                   *ngFor="
                     let field of item.subData.slice(
@@ -543,7 +547,8 @@
                   "
                   [id]="filter.field + field.key | replaceSpace"
                 >
-                  <div class="row d-flex justify-content-around">
+                  <!--<div class="row d-flex justify-content-around">-->
+                  <div class="row d-flex justify-content-between">
                     <div class="col-9">
                       <span class="label">{{ field.label }}</span>
                     </div>

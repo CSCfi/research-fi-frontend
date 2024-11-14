@@ -7,11 +7,14 @@
 
 import { Component, Input } from '@angular/core';
 import { PatchService } from '@mydata/services/patch.service';
+import { MatRipple } from '@angular/material/core';
 
 @Component({
-  selector: 'app-primary-badge',
-  templateUrl: './primary-badge.component.html',
-  styleUrls: ['./primary-badge.component.scss'],
+    selector: 'app-primary-badge',
+    templateUrl: './primary-badge.component.html',
+    styleUrls: ['./primary-badge.component.scss'],
+    standalone: true,
+    imports: [MatRipple],
 })
 export class PrimaryBadgeComponent {
   @Input() label: string;

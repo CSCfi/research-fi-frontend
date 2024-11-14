@@ -8,11 +8,19 @@
 import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { MatButton } from '@angular/material/button';
+import { NgClass, NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-mydata-beta-info',
-  templateUrl: './mydata-beta-info.component.html',
-  styleUrls: ['./mydata-beta-info.component.scss'],
+    selector: 'app-mydata-beta-info',
+    templateUrl: './mydata-beta-info.component.html',
+    styleUrls: ['./mydata-beta-info.component.scss'],
+    standalone: true,
+    imports: [
+        NgClass,
+        NgIf,
+        MatButton,
+    ],
 })
 export class MydataBetaInfoComponent implements OnInit {
   @Input() template: TemplateRef<any>;

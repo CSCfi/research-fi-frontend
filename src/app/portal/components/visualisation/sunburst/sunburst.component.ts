@@ -11,9 +11,10 @@ import * as d3 from 'd3v4';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-sunburst',
-  templateUrl: './sunburst.component.html',
-  styleUrls: ['./sunburst.component.scss'],
+    selector: 'app-sunburst',
+    templateUrl: './sunburst.component.html',
+    styleUrls: ['./sunburst.component.scss'],
+    standalone: true,
 })
 export class SunburstComponent implements OnInit, OnChanges {
   @Input() data;

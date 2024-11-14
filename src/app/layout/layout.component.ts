@@ -13,11 +13,26 @@ import {
   NavigationEnd,
 } from '@angular/router';
 import { take } from 'rxjs';
+import { FooterComponent } from './footer/footer.component';
+import { BannerDividerComponent } from '../shared/components/banner-divider/banner-divider.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { NgIf } from '@angular/common';
+import { HeaderComponent } from './header/header.component';
+import { ErrorModalComponent } from './error-modal/error-modal.component';
 
 @Component({
-  selector: 'app-layout',
-  templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss'],
+    selector: 'app-layout',
+    templateUrl: './layout.component.html',
+    styleUrls: ['./layout.component.scss'],
+    standalone: true,
+    imports: [
+        ErrorModalComponent,
+        HeaderComponent,
+        NgIf,
+        MatProgressSpinner,
+        BannerDividerComponent,
+        FooterComponent,
+    ],
 })
 
 /*
@@ -26,7 +41,6 @@ import { take } from 'rxjs';
 */
 export class LayoutComponent implements OnInit {
   loading: boolean;
-  showDivider: boolean;
 
   constructor(private router: Router) {}
 
@@ -35,20 +49,19 @@ export class LayoutComponent implements OnInit {
   }
 
   routerEvents() {
-    this.router.events.subscribe((event: RouterEvent) => {
+    // TODO: Angular 16 update workarounds
+    // this.loading = false;
+    // this.showDivider = false;
+
+    this.router.events.subscribe((event: any) => { // TODO: Angular 16 update
       switch (true) {
         case event instanceof NavigationStart: {
           this.loading = true;
-          this.showDivider = false;
           break;
         }
         case event instanceof NavigationEnd: {
           this.loading = false;
 
-          // Flag for rendering banner divider in MyData routes
-          if (event.url.includes('/mydata')) {
-            this.showDivider = true;
-          }
           break;
         }
       }

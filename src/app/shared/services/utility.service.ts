@@ -14,6 +14,8 @@ import { Meta, Title } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 
+import seedrandom from 'seedrandom';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -122,7 +124,9 @@ export class UtilityService {
 
   // Fisher–Yates Shuffle
   // https://bost.ocks.org/mike/shuffle/
-  static shuffle(arr: any[], start = 0): any[] {
+  static seededShuffle(arr: any[], start = 0, seed = 'randomseed'): any[] {            // TODO: rename with default seed? seededShuffle?
+    const seededRandom = seedrandom(seed);
+
     const prefix = arr.slice(0, start);
     const array = arr.slice(start);
 
@@ -133,7 +137,7 @@ export class UtilityService {
     // While there remain elements to shuffle…
     while (m) {
       // Pick a remaining element…
-      i = Math.floor(Math.random() * m--);
+      i = Math.floor(seededRandom() * m--);
 
       // And swap it with the current element.
       t = array[m];

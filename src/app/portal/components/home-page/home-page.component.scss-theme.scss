@@ -1,4 +1,4 @@
-@import '@angular/material/theming';
+@use 'migration' as *;
 
 @mixin app-home-page-theme($theme) {
   $primary: map-get($theme, primary);
@@ -36,6 +36,8 @@
 
     a.header-link:hover {
       color: mat-contrast($primary, 500);
+      text-decoration: underline;
+      text-decoration-color: #fff;
     }
 
     .tint-background {

@@ -8,9 +8,10 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-summary-divider',
-  templateUrl: './summary-divider.component.html',
-  styleUrls: ['./summary-divider.component.scss'],
+    selector: 'app-summary-divider',
+    templateUrl: './summary-divider.component.html',
+    styleUrls: ['./summary-divider.component.scss'],
+    standalone: true,
 })
 export class SummaryDividerComponent {
   @Input() thick: boolean;

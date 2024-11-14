@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'hasFetchedItem',
+    name: 'hasFetchedItem',
+    standalone: true,
 })
 export class HasFetchedItemPipe implements PipeTransform {
   transform(items: any[]): boolean {

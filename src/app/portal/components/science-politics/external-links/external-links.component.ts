@@ -19,11 +19,23 @@ import { ActivatedRoute } from '@angular/router';
 import { TabChangeService } from '@portal/services/tab-change.service';
 import { Subscription } from 'rxjs';
 import { UtilityService } from '@shared/services/utility.service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { DividerComponent } from '../../../../shared/components/divider/divider.component';
+import { NgFor, NgClass } from '@angular/common';
+import { BannerDividerComponent } from '../../../../shared/components/banner-divider/banner-divider.component';
 
 @Component({
-  selector: 'app-external-links',
-  templateUrl: './external-links.component.html',
-  styleUrls: ['./external-links.component.scss'],
+    selector: 'app-external-links',
+    templateUrl: './external-links.component.html',
+    styleUrls: ['./external-links.component.scss'],
+    standalone: true,
+    imports: [
+        BannerDividerComponent,
+        NgFor,
+        DividerComponent,
+        NgClass,
+        FontAwesomeModule,
+    ],
 })
 export class ExternalLinksComponent
   implements OnInit, AfterViewInit, OnDestroy

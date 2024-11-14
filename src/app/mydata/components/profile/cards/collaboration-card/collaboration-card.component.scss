@@ -10,6 +10,7 @@
  */
 
 app-collaboration-card {
+  /*  TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.*/
   .mat-checkbox-disabled span.mat-checkbox-label {
     color: inherit;
   }

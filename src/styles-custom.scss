@@ -1,10 +1,19 @@
+
+@use '@angular/material' as mat;
+@use 'migration' as *;
+
 @import './styles-custom-palettes.scss';
 
-$researchfi-primary: mat-palette($researchfi-primary-palette, 500, 300, 900);
-$researchfi-accent: mat-palette($mat-green);
-$researchfi-warn: mat-palette($mat-red);
+// $researchfi-primary: mat-palette($researchfi-primary-palette, 500, 300, 900);
+$researchfi-primary: mat.define-palette($researchfi-primary-palette, 500, 300, 900);
 
-$researchfi-theme: mat-light-theme(
+// $researchfi-accent: mat-palette($mat-green);
+$researchfi-accent: mat.define-palette(mat.$green-palette);
+
+// $researchfi-warn: mat-palette($mat-red);
+$researchfi-warn: mat.define-palette(mat.$red-palette);
+
+$researchfi-theme: mat.define-light-theme(
   $researchfi-primary,
   $researchfi-accent,
   $researchfi-warn
@@ -50,15 +59,13 @@ input[type='search']::-webkit-search-results-decoration {
 }
 
 body {
-  color: mat-contrast($primary, 300);
+  color: mat.get-contrast-color-from-palette($researchfi-primary, 300);
   font-family: 'Roboto', sans-serif;
-}
 
-body {
   button:focus-visible,
   input:focus-visible,
   select:focus-visible,
-  textarea:not(.mat-input-element):focus-visible,
+  textarea:not(.mat-mdc-input-element):focus-visible,
   *:not(.bundler:not(.homepage)):not(.mat-expansion-panel-header):not(.mat-input-element):focus-visible {
     // High contrast focus indicator for keyboard users
     outline: 2px transparent solid !important;
@@ -80,6 +87,7 @@ body.menu-open {
 }
 
 // Display primary colored border around Material UI elements
+/* TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.*/
 mat-expansion-panel-header:focus-visible,
 mat-checkbox.cdk-keyboard-focused .mat-ripple-element {
   outline: 2px solid mat-color($primary, default) !important;
@@ -89,27 +97,30 @@ mat-expansion-panel-header:focus-visible {
   outline-offset: -2px;
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.*/
 mat-checkbox.cdk-keyboard-focused .mat-ripple-element {
   width: 2rem;
   height: 2rem;
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of radio that may no longer apply for the MDC version.*/
 mat-radio-button.cdk-keyboard-focused .mat-ripple-element {
   border: 2px solid mat-color($primary, default); // Centering element with outline doesn't seem to work
 }
 
 .cdk-keyboard-focused {
+  /* TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.*/
   .mat-checkbox-frame,
   .mat-checkbox-background,
   .mat-radio-outer-circle,
   .mat-radio-inner-circle {
     z-index: 2;
   }
-
+  /* TODO(mdc-migration): The following rule targets internal classes of slide-toggle that may no longer apply for the MDC version.*/
   .mat-ripple:not(.mat-slide-toggle-ripple) {
     padding: 4px !important;
   }
-
+  /* TODO(mdc-migration): The following rule targets internal classes of slide-toggle that may no longer apply for the MDC version.*/
   .mat-ripple-element:not(.mat-slide-toggle-persistent-ripple) {
     background-color: mat-color($primary, 100) !important;
     opacity: 1 !important;
@@ -185,8 +196,22 @@ a {
   text-decoration: none;
 }
 
+
+.link-img {
+  a:hover {
+    text-decoration: none;
+  }
+}
+
 a:hover {
   text-decoration: underline;
+  text-decoration-color: black;
+}
+
+footer {
+  a:hover {
+    text-decoration-color: #4546b9 !important;
+  }
 }
 
 // Add icon to external links. This class is added in CMS.
@@ -231,6 +256,10 @@ ol {
 
 span.bold {
   font-weight: bold;
+}
+
+.smaller-text {
+  font-size: 0.85rem;
 }
 
 .strong {
@@ -334,6 +363,7 @@ mark,
   overflow: hidden;
   white-space: nowrap;
   width: 100%;
+
 }
 
 // Buttons
@@ -364,19 +394,23 @@ fa-icon[icon='external-link-alt'] {
  */
 
 // Radio button
+/* TODO(mdc-migration): The following rule targets internal classes of radio that may no longer apply for the MDC version.*/
 .mat-radio-label-content {
   margin-left: 0.25rem;
 }
 
 // Checkbox
+/* TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.*/
 .mat-checkbox-label {
   margin-left: 0.5rem;
 }
 
 // Multiline checkboxes
+/* TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.*/
 .mat-checkbox-layout {
   white-space: normal !important;
 }
+/* TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.*/
 .mat-checkbox-inner-container {
   margin-top: 0.25rem !important;
 }
@@ -387,8 +421,14 @@ fa-icon[icon='external-link-alt'] {
   cursor: pointer;
 }
 
+// Mat modal
+.mat-mdc-dialog-content {
+  --mdc-dialog-supporting-text-color: rgba(0, 0, 0, 0.87);
+}
+
+
 // Mat select
-.mat-select-panel {
+.mat-mdc-select-panel {
   background: white !important;
 }
 
@@ -398,7 +438,7 @@ fa-icon[icon='external-link-alt'] {
 // }
 
 // Mat-card
-body mat-card.mat-card {
+body mat-card.mat-mdc-card {
   background: mat-color($primary, 100);
 }
 
@@ -410,11 +450,11 @@ body mat-card.mat-card {
 
 // Mat menu
 // Search target menu
-.search-target.mat-menu-item {
+.search-target.mat-mdc-menu-item {
   width: 180px;
 }
 
-.mat-menu-item:focus {
+.mat-mdc-menu-item:focus {
   box-shadow: none !important;
 }
 
@@ -499,7 +539,7 @@ mat-basic-chip.tag {
 }
 
 // Mat Dialog
-.mat-dialog-container {
+.mat-mdc-dialog-container {
   overflow: hidden !important;
   padding: 0 !important;
 }
@@ -509,7 +549,7 @@ mat-basic-chip.tag {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.mat-dialog-content {
+.mat-mdc-dialog-content {
   // max-height: 85vh !important;
   // padding: 0 1rem !important;
 
@@ -518,7 +558,7 @@ mat-basic-chip.tag {
   padding: 0 !important;
 }
 
-.mat-dialog-actions {
+.mat-mdc-dialog-actions {
   display: flex !important;
   flex-wrap: wrap;
   justify-content: flex-end !important;
@@ -541,28 +581,29 @@ mat-basic-chip.tag {
 }
 
 // Custom Mat Tab
+/* TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version.*/
 .mat-tab-label {
   opacity: 1 !important;
 }
 
 .custom-tab-group {
-  .mat-tab-header {
+  .mat-mdc-tab-header {
     overflow: visible !important;
     position: relative !important;
     border-bottom: 1px solid mat-color($primary, default) !important;
   }
-
+  /* TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version.*/
   .mat-tab-label-container {
     overflow: visible !important;
     position: relative;
   }
-
+  /* TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version.*/
   .mat-tab-label-container,
   .mat-tab-label-active {
     height: 54px !important;
     margin-top: 0 !important;
   }
-
+  /* TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version.*/
   .mat-tab-label-active {
     position: relative;
     z-index: 4;
@@ -571,11 +612,11 @@ mat-basic-chip.tag {
     border: 1px solid mat-color($primary, default);
     border-bottom: 0;
   }
-
+  /* TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version.*/
   .mat-tab-label {
     margin-top: 6px;
   }
-
+  /* TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version.*/
   .mat-tab-label:not(.mat-tab-label-active) {
     background: #e8e8f5;
   }
@@ -583,7 +624,7 @@ mat-basic-chip.tag {
   // .mat-tab-body-wrapper {
   //   padding-top: 1rem;
   // }
-
+  /* TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version.*/
   .mat-tab-body-content {
     overflow: hidden;
     padding-top: 1rem;
@@ -703,12 +744,12 @@ mat-basic-chip.tag {
     padding: 1rem 0;
   }
 
-  .mat-dialog-content {
+  .mat-mdc-dialog-content {
     max-height: calc(100% - 10rem) !important;
     padding-bottom: 4rem !important;
   }
 
-  .mat-dialog-actions {
+  .mat-mdc-dialog-actions {
     padding: 0.5rem 0 !important;
     position: absolute;
     background: white;
@@ -722,6 +763,16 @@ mat-basic-chip.tag {
       display: block;
       padding: 0.5rem 0;
     }
+  }
+}
+
+app-share {
+  button {
+    min-width: 180px !important;
+    white-space: nowrap;
+  }
+  .fa-copy {
+    max-height: 19px !important;
   }
 }
 

@@ -22,12 +22,25 @@ import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { Search } from 'src/app/portal/models/search.model';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { TableColumn, TableRow } from 'src/types';
-import { HighlightSearch } from '@portal/pipes/highlight.pipe';
+import { HighlightSearchPipe } from '@portal/pipes/highlight.pipe';
+import { NoResultsComponent } from '../no-results/no-results.component';
+import { ResultsPaginationComponent } from '../results-pagination/results-pagination.component';
+import { TableComponent } from '../../../../shared/components/table/table.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-fundings',
-  templateUrl: './fundings.component.html',
-  styleUrls: ['./fundings.component.scss'],
+    selector: 'app-fundings',
+    templateUrl: './fundings.component.html',
+    styleUrls: ['./fundings.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        MatProgressSpinner,
+        TableComponent,
+        ResultsPaginationComponent,
+        NoResultsComponent,
+    ],
 })
 export class FundingsComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() resultData: Search;
@@ -35,7 +48,7 @@ export class FundingsComponent implements OnInit, OnDestroy, AfterViewInit {
   expandStatus: Array<boolean> = [];
   sortColumn: string;
   sortDirection: boolean;
-  faIcon = this.tabChangeService.tabData
+  faIcon: any = this.tabChangeService.tabData
     .filter((t) => t.data === 'fundings')
     .map((t) => t.icon)
     .pop();
@@ -56,7 +69,7 @@ export class FundingsComponent implements OnInit, OnDestroy, AfterViewInit {
     private searchService: SearchService,
     private cdr: ChangeDetectorRef,
     public utilityService: UtilityService,
-    private highlightPipe: HighlightSearch
+    private highlightPipe: HighlightSearchPipe
   ) {}
 
   ngOnInit() {

@@ -23,14 +23,31 @@ import { ResizeService } from 'src/app/shared/services/resize.service';
 import { Subscription } from 'rxjs';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { UtilityService } from 'src/app/shared/services/utility.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Sector } from 'src/app/portal/models/research-innovation-system/sector.model';
 import { AppSettingsService } from '@shared/services/app-settings.service';
+import { SafeUrlPipe } from '../../../pipes/safe-url.pipe';
+import { NgFor, NgClass, NgIf } from '@angular/common';
+import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
+import { BannerDividerComponent } from '../../../../shared/components/banner-divider/banner-divider.component';
 
 @Component({
-  selector: 'app-research-innovation-system',
-  templateUrl: './research-innovation-system.component.html',
-  styleUrls: ['./research-innovation-system.component.scss'],
+    selector: 'app-research-innovation-system',
+    templateUrl: './research-innovation-system.component.html',
+    styleUrls: ['./research-innovation-system.component.scss'],
+    standalone: true,
+    imports: [
+        BannerDividerComponent,
+        MatAccordion,
+        NgFor,
+        MatExpansionPanel,
+        MatExpansionPanelHeader,
+        MatExpansionPanelTitle,
+        NgClass,
+        NgIf,
+        RouterLink,
+        SafeUrlPipe,
+    ],
 })
 export class ResearchInnovationSystemComponent
   implements OnInit, AfterViewInit, OnDestroy
@@ -77,10 +94,8 @@ export class ResearchInnovationSystemComponent
   ngOnInit(): void {
     // Get data. Data is passed with resolver in router
     const pageData = this.route.snapshot.data.pages;
-    this.introText = pageData.find(
-      (el) => el.id === 'science-innovation-system'
-    );
-
+    this.introText = pageData ? pageData.find(
+      (el) => el.id === 'science-innovation-system') : '';
     this.sectorData = this.route.snapshot.data.sectorData;
 
     // Set title and meta tags

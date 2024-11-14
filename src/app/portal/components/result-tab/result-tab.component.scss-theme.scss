@@ -1,4 +1,4 @@
-@import '@angular/material/theming';
+@use 'migration' as *;
 
 @mixin app-result-tab-theme($theme) {
   $primary: map-get($theme, primary);
