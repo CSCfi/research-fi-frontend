@@ -64,16 +64,11 @@ export class ProjectFilterService {
 
   // Used to count category hit amounts in filters
   shapeData(data) {
-    console.log('€€€€€€€€€€€€€€€ shaping', data);
     let source = data.aggregations;
-    console.log('######## data', data);
-
 
     if (!source.shaped) {
       // Year
-      console.log('!!!!!!!!!!!!! source1', source);
       source.year.buckets = this.mapYear(source.year.years.buckets);
-      console.log('source.year.buckets', source.year.buckets);
       // Organization
       source.organization = cloneDeep(source.organizations.organization);
       source.organization.buckets = source.organizations.organization.buckets.map(

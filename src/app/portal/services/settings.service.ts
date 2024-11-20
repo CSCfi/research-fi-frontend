@@ -40,7 +40,6 @@ export class SettingsService {
 
   // Global settings for query, auto-suggest settings are located in autosuggest.service
   querySettings(index: string, term: string = '') {
-    console.log(index, term);
     let targetFields: any;
     let onlyDigits: any;
     let hasDigits: any;
