@@ -4326,16 +4326,36 @@
         <target>Tulokset ja vaikuttavuus</target>
       </trans-unit>
       <trans-unit id="spKeywordsTooltip" datatype="html">
-        <source>Hankkeen avainsanat</source>
-        <target>Hankkeen avainsanat</target>
+        <source>Avainsanat</source>
+        <target state="new">Hankkeen avainsanat</target>
       </trans-unit>
-      <trans-unit id="spFilterKeywordsTooltip" datatype="html">
+      <trans-unit id="spFiltersKeywords" datatype="html">
         <source>Avainsanat</source>
         <target>Begränsa sökningen enligt nyckelorden i projekt.</target>
       </trans-unit>
       <trans-unit id="spHomePageTooltip" datatype="html">
         <source>Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa.</source>
         <target>Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa.</target>
+      </trans-unit>
+      <trans-unit id="spFiltersStartYear" datatype="html">
+        <source>Aloitusvuosi</source>
+        <target state="new">Aloitusvuosi</target>
+      </trans-unit>
+      <trans-unit id="spFiltersStartYearTooltip" datatype="html">
+        <source>Haun rajaus hankkeen alkamisvuoden mukaan</source>
+        <target state="new">Haun rajaus hankkeen alkamisvuoden mukaan</target>
+      </trans-unit>
+      <trans-unit id="spFiltersOrganization" datatype="html">
+        <source>Organisaatio</source>
+        <target state="new">Organisaatio</target>
+      </trans-unit>
+      <trans-unit id="spFiltersOrganizationTooltip" datatype="html">
+        <source>Haun rajaus hankkeeseen osallistuvien organisaatioiden mukaan</source>
+        <target state="new">Haun rajaus hankkeeseen osallistuvien organisaatioiden mukaan</target>
+      </trans-unit>
+      <trans-unit id="spFiltersKeywordsTooltip" datatype="html">
+        <source>Haun rajaus hankkeen tiedoissa olevien avainsanojen perusteella</source>
+        <target state="new">Haun rajaus hankkeen tiedoissa olevien avainsanojen perusteella</target>
       </trans-unit>
     </body>
   </file>

@@ -416,7 +416,7 @@ export class SortService {
         break;
       }
       case 'projects': {
-        this.yearField = 'thesisYear.keyword';
+        this.yearField = 'startYear';
         switch (this.sortColumn) {
           case 'name': {
             const sortString = 'name' + this.localeC + '.keyword';
@@ -431,7 +431,7 @@ export class SortService {
             break;
           }
           case 'abbreviation': {
-            const sortString = 'abbreviation' + '.keyword';
+            const sortString = 'abbreviation.keyword';
             this.sort = [
               {
                 [sortString]: {

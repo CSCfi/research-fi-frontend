@@ -391,6 +391,12 @@ export class FilterService {
         });
         break;
       }
+      case 'projects': {
+        filter.forEach((value) => {
+          res.push({ term: { startYear: value } });
+        });
+        break;
+      }
     }
     return res;
   }
@@ -553,6 +559,13 @@ export class FilterService {
       }
       case 'funding-calls': {
         const field = 'foundation.businessId.keyword';
+        filter.forEach((value) => {
+          res.push({ term: { [field]: value } });
+        });
+        break;
+      }
+      case 'projects': {
+        const field = 'responsibleOrganization.orgId.keyword';
         filter.forEach((value) => {
           res.push({ term: { [field]: value } });
         });
@@ -1009,6 +1022,11 @@ export class FilterService {
       ...rangeFilter('funding-call', this.dateFilter),
       ...multipleRangeFilter('funding-call', this.statusFilter),
       ...basicFilter('funding-call', this.typeOfFundingIdFilter),
+
+      // Projects
+      ...basicFilter('project', this.yearFilter),
+      ...basicFilter('project', this.organizationFilter),
+
 
       // Global filters
       ...globalFilter(this.yearFilter),

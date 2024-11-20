@@ -3252,8 +3252,26 @@
       <trans-unit id="spKeywordsTooltip" datatype="html">
         <source>Avainsanat</source>
       </trans-unit>
-      <trans-unit id="431495012273552004" datatype="html">
-        <source>@@spHomePageTooltip:Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa.</source>
+      <trans-unit id="spFiltersKeywords" datatype="html">
+        <source>Avainsanat</source>
+      </trans-unit>
+      <trans-unit id="spFiltersKeywordsTooltip" datatype="html">
+        <source>Haun rajaus hankkeen tiedoissa olevien avainsanojen perusteella</source>
+      </trans-unit>
+      <trans-unit id="spFiltersOrganization" datatype="html">
+        <source>Organisaatio</source>
+      </trans-unit>
+      <trans-unit id="spFiltersOrganizationTooltip" datatype="html">
+        <source>Haun rajaus hankkeeseen osallistuvien organisaatioiden mukaan</source>
+      </trans-unit>
+      <trans-unit id="spFiltersStartYear" datatype="html">
+        <source>Aloitusvuosi</source>
+      </trans-unit>
+      <trans-unit id="spFiltersStartYearTooltip" datatype="html">
+        <source>Haun rajaus hankkeen alkamisvuoden mukaan</source>
+      </trans-unit>
+      <trans-unit id="spHomePageTooltip" datatype="html">
+        <source>Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa.</source>
       </trans-unit>
     </body>
   </file>

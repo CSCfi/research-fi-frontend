@@ -1278,77 +1278,60 @@ export class AggregationService {
             }
           },
         };
-
+        payLoad.aggs.organizations = {
+          filter: {
+            bool: {
+              filter: filterActive("council.approvalYear"),
+            },
+          },
+          aggs: {
+            approvalYear: {
+              terms: {
+                field: "council.approvalYear",
+                order: { _key: 'desc' },
+                size: 100
+              }
+            }
+          },
+        };
         break;
 
       // Projects
       case 'projects':
         payLoad.aggs.year = yearAgg;
-
-        // TODO: Sector & organization
-
-        // Active
-        payLoad.aggs.fundingStatus = {
+        payLoad.aggs.organizations = {
           filter: {
             bool: {
-              filter: filterActive('fundingEndDate'),
             },
           },
           aggs: {
-            status: {
-              range: {
-                field: 'fundingEndDate',
-                ranges: [
-                  {
-                    from: this.today,
-                  },
-                ],
-              },
-            },
-          },
-        };
-
-        payLoad.aggs.topic = {
-          nested: {
-            path: 'keywords',
-          },
-          aggs: {
-            scheme: {
+            organization: {
               terms: {
-                field: 'keywords.scheme.keyword',
-                exclude: ' ',
-                size: 10,
-                order: {
-                  _key: 'asc',
-                },
+                size: 50,
+                field:
+                  'responsibleOrganization.orgId.keyword',
               },
               aggs: {
-                keywords: {
+                organizationName: {
                   terms: {
-                    field: 'keywords.keyword.keyword',
+                    field:
+                      'responsibleOrganization.orgName' +
+                      this.localeC +
+                      '.keyword',
                     exclude: ' ',
-                    size: 250,
-                  },
-                  aggs: {
-                    filtered: {
-                      reverse_nested: {},
-                      aggs: {
-                        filterCount: {
-                          filter: {
-                            bool: {
-                              filter: filterActiveNested('keywords'),
-                            },
-                          },
-                        },
-                      },
-                    },
                   },
                 },
               },
             },
-          },
-        };
-
+            keywords: {
+              terms: {
+                size: 50,
+                field:
+                  'keywords.keyword.keyword',
+              },
+            }
+          }
+        }
         break;
 
       // Datasets

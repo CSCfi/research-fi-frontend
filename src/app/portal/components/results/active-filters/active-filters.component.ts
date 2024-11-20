@@ -172,17 +172,17 @@ export class ActiveFiltersComponent
     this.translationFlag = false;
     const errorMsg = 'error translating filter';
 
-    this.queryParams = this.filterService.filters.subscribe((filter) => {
+    this.queryParams = this.filterService.filters.subscribe((allFilters) => {
       // Get from & to year values from filter list
-      this.fromYear = parseInt(filter.fromYear[0]?.slice(1), 10);
-      this.toYear = parseInt(filter.toYear[0]?.slice(1), 10);
-      const years = filter.year.map((item) => parseInt(item, 10));
+      this.fromYear = parseInt(allFilters.fromYear[0]?.slice(1), 10);
+      this.toYear = parseInt(allFilters.toYear[0]?.slice(1), 10);
+      const years = allFilters.year.map((item) => parseInt(item, 10));
       let yearWarning = false;
 
       if (this.fromYear && this.toYear) {
         // Check if years missing between range and add warning flag
         if (
-          filter.year.filter(
+          allFilters.year.filter(
             (item) => this.fromYear <= item && item <= this.toYear
           ).length !==
           this.toYear - this.fromYear + 1
@@ -191,14 +191,14 @@ export class ActiveFiltersComponent
         }
       } else if (this.fromYear) {
         if (
-          filter.year.filter((item) => this.fromYear <= item).length !==
+          allFilters.year.filter((item) => this.fromYear <= item).length !==
           Math.max(...years) - this.fromYear + 1
         ) {
           yearWarning = true;
         }
       } else if (this.toYear) {
         if (
-          filter.year.filter((item) => this.toYear >= item).length !==
+          allFilters.year.filter((item) => this.toYear >= item).length !==
           this.toYear + 1 - Math.min(...years)
         ) {
           yearWarning = true;
@@ -207,21 +207,20 @@ export class ActiveFiltersComponent
 
       // Reset active filter so push doesn't duplicate
       this.activeFilters = [];
-      const newFilters = {};
+      const filtersFromAllCategories = {};
 
       // Merge and format arrays
-      Object.keys(filter).forEach((key) => {
-        newFilters[key] = filter[key].map((val) => {
+      Object.keys(allFilters).forEach((key) => {
+        filtersFromAllCategories[key] = allFilters[key].map((val) => {
           return {
             category: key,
             value: val,
             translation: this.translations[val] || val,
           };
         });
-        this.activeFilters.push(...newFilters[key]);
+        this.activeFilters.push(...filtersFromAllCategories[key]);
       });
       const tab = this.tabChangeService.tab;
-
       // Subscribe to aggregation data and shape to get corresponding values
       this.filterResponse = this.searchService
         .getAllFilters(tab)
@@ -257,6 +256,10 @@ export class ActiveFiltersComponent
             }
             case 'news': {
               this.response = this.newsFilters.shapeData(response);
+              break;
+            }
+            case 'projects': {
+              this.response = this.projectFilters.shapeData(response);
               break;
             }
           }
@@ -307,7 +310,7 @@ export class ActiveFiltersComponent
               }
 
               if (val.category === 'date') {
-                const dateString = filter.date ? filter.date[0] : '';
+                const dateString = allFilters.date ? allFilters.date[0] : '';
                 const startDate = dateString?.split('|')[0];
                 const endDate = dateString?.split('|')[1];
                 const startDateString = startDate
@@ -503,7 +506,7 @@ export class ActiveFiltersComponent
               if (val.category === 'organization' && source.organization) {
                 // Funding organization name
                 if (tab === 'fundings') {
-                  setTimeout((t) => {
+                  setTimeout(() => {
                     if (source.organization.funded.sectorName.buckets) {
                       source.organization.funded.sectorName.buckets.forEach(
                         (sector) => {
@@ -522,7 +525,7 @@ export class ActiveFiltersComponent
                   }, 1);
                   // Dataset & persons organization name
                 } else if (tab === 'datasets' || tab === 'persons') {
-                  setTimeout((t) => {
+                  setTimeout(() => {
                     if (source.organization.sectorName.buckets) {
                       source.organization.sectorName.buckets.forEach(
                         (sector) => {
@@ -541,7 +544,7 @@ export class ActiveFiltersComponent
                   }, 1);
                   // Infrastructure organization name
                 } else if (tab === 'infrastructures') {
-                  setTimeout((t) => {
+                  setTimeout(() => {
                     if (source.organization.sector.buckets) {
                       source.organization.sector.buckets.forEach((sector) => {
                         if (sector.subData.find((x) => x.key === val.value)) {
@@ -586,9 +589,23 @@ export class ActiveFiltersComponent
                       }
                     });
                   }
-                } else {
+                } else if (tab === 'projects') {
+                  if (source.organizations?.organization?.buckets){
+                    source.organizations.organization.buckets.forEach(
+                      (bucket) => {
+                        if (bucket.key === val.value) {
+                          const foundIndex = this.activeFilters.findIndex(
+                            (x) => x.value === val.value
+                          );
+                          this.activeFilters[foundIndex].translation = bucket.translation;
+                        }
+                      }
+                    );
+                  }
+                }
+                else {
                   // Common usage e.g. in publications, persons, datasets
-                  setTimeout((t) => {
+                  setTimeout(() => {
                     if (source.organization.sectorName.buckets) {
                       source.organization.sectorName.buckets.forEach(
                         (sector) => {
