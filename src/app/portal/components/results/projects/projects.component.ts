@@ -49,7 +49,7 @@ export class ProjectsComponent implements OnInit, OnDestroy, AfterViewInit {
   sortColumn: string;
   sortDirection: boolean;
   faIcon: any = this.tabChangeService.tabData
-    .filter((t) => t.data === 'fundings')
+    .filter((t) => t.data === 'projects')
     .map((t) => t.icon)
     .pop();
   inputSub: any;

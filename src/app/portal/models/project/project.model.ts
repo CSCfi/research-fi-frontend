@@ -61,7 +61,7 @@ export class ProjectAdapter implements Adapter<Project> {
       this.utils.checkTranslation('summary', item),
       this.utils.checkTranslation('additionalInformation', item),
       this.utils.checkTranslation('goals', item),
-      this.utils.checkTranslation('abbreviation', item),
+      item.abbreviation,
       this.utils.checkTranslation('outcomeEffect', item),
       item.startYear,
       item.endYear,

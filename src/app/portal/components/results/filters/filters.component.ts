@@ -35,7 +35,7 @@ import { InfrastructureFilterService } from 'src/app/portal/services/filters/inf
 import { OrganizationFilterService } from 'src/app/portal/services/filters/organization-filter.service';
 import { NewsFilterService } from 'src/app/portal/services/filters/news-filter.service';
 import { faSlidersH, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
-import { isPlatformBrowser, DOCUMENT, NgTemplateOutlet, NgIf, NgFor, NgClass } from '@angular/common';
+import { isPlatformBrowser, DOCUMENT, NgTemplateOutlet, NgIf, NgFor, NgClass, JsonPipe } from '@angular/common';
 import { DataService } from 'src/app/portal/services/data.service';
 import { FundingCallFilterService } from '@portal/services/filters/funding-call-filter.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
@@ -99,7 +99,8 @@ import { ProjectFilterService } from '@portal/services/filters/project-filter.se
     FilterItemPipe,
     ReplaceSpacePipe,
     ConvertToArrayPipe,
-  ],
+    JsonPipe
+  ]
 })
 export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   @Input() responseData: any;

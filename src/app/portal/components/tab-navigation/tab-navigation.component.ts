@@ -1029,7 +1029,14 @@ function payloadWithKeywords(keywords: string) {
                           "analyzer": "standard",
                           "type": "phrase_prefix",
                           "fields": [
-                            "name",
+                            'nameFi^2',
+                            'nameEn^2',
+                            'nameSv^2',
+                            'abbreviation',
+                            'responsibleOrganization.orgNameFi',
+                            'responsibleOrganization.orgNameSv',
+                            'responsibleOrganization.orgNameEn',
+                            'responsiblePerson',
                           ],
                           "operator": "AND",
                           "lenient": "true",
@@ -1041,7 +1048,14 @@ function payloadWithKeywords(keywords: string) {
                           "query": keywords,
                           "type": "cross_fields",
                           "fields": [
-                            "name"
+                            'nameFi^2',
+                            'nameEn^2',
+                            'nameSv^2',
+                            'abbreviation',
+                            'responsibleOrganization.orgNameFi',
+                            'responsibleOrganization.orgNameSv',
+                            'responsibleOrganization.orgNameEn',
+                            'responsiblePerson',
                           ],
                           "operator": "AND",
                           "lenient": "true"
@@ -1105,6 +1119,11 @@ function payloadWithKeywords(keywords: string) {
             "fundingCalls": {
               "match": {
                 "_index": "funding-call"
+              }
+            },
+            "projects": {
+              "match": {
+                "_index": "project"
               }
             }
           }

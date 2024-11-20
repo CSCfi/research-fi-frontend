@@ -20,27 +20,28 @@ export class ProjectFilterService {
   filterData: FilterConfigType[] = [
     {
       field: 'year',
-      label: $localize`:@@fundingYear:Aloitusvuosi`,
+      label: $localize`:@@spFiltersStartYear:Aloitusvuosi`,
       hasSubFields: false,
       open: true,
       limitHeight: true,
       hideSearch: true,
-      tooltip: $localize`:@@fYearFTooltip:Vuosi, jolle rahoitus on myönnetty. Useampivuotisissa rahoituksissa ensimmäinen vuosi.`,
+      tooltip: $localize`:@@spFiltersStartYearTooltip:Haun rajaus hankkeen alkamisvuoden mukaan`,
     },
     {
       field: 'organization',
-      label: $localize`:@@organization:Organisaatio`,
-      hasSubFields: true,
+      label: $localize`:@@spFiltersOrganization:Organisaatio`,
+      open: true,
+      hasSubFields: false,
       limitHeight: false,
-      tooltip: $localize`:@@fOrgFTooltip:Organisaatio, jossa saaja työskentelee tai jolle rahoitus on myönnetty.`,
+      tooltip: $localize`:@@spFiltersOrganizationTooltip:Haun rajaus hankkeeseen osallistuvien organisaatioiden mukaan`,
     },
     {
-      field: 'topic',
-      label: $localize`:@@funderTopic:Aihe`,
+      field: 'keywords',
+      label: $localize`:@@spFiltersKeywords:Avainsanat`,
       hasSubFields: true,
       open: true,
       searchFromParent: true,
-      tooltip: $localize`:@@funderTopicTooltip:Rahoitusmyönnön aihetta luokittelevia valintoja. Pääosin luokittelut eivät ole kattavia ja voivat olla rahoittajakohtaisia.`,
+      tooltip: $localize`:@@spFiltersKeywordsTooltip:Haun rajaus hankkeen tiedoissa olevien avainsanojen perusteella`,
     },
   ];
 
@@ -61,17 +62,24 @@ export class ProjectFilterService {
     this.currentLocale = this.appSettingsService.capitalizedLocale;
   }
 
+  // Used to count category hit amounts in filters
   shapeData(data) {
-    const source = data.aggregations;
+    let source = data.aggregations;
 
     if (!source.shaped) {
       // Year
       source.year.buckets = this.mapYear(source.year.years.buckets);
       // Organization
-      source.organization.buckets = this.organization(
-        source.organization,
-        source.organizationConsortium
+      source.organization = cloneDeep(source.organizations.organization);
+      source.organization.buckets = source.organizations.organization.buckets.map(
+        (item) => {
+          //console.log('item', item.organizationName.buckets[0].key);
+          item.label = item.organizationName.buckets[0].key.trim();
+          item.translation = item.organizationName.buckets[0].key.trim();
+          return item;
+        }
       );
+      console.log('!!!!!!!!!!!!!!!!!! SOURCE2', source);
     }
     source.shaped = true;
     return source;
@@ -85,11 +93,22 @@ export class ProjectFilterService {
     return clone;
   }
 
-  organization(fgp, oc) {
-    let fData = fgp.funded?.sectorName.buckets || [];
-    const oData = oc.funded?.sectorName.buckets || [];
+  mapOrganizations(data) {
+    const clone = cloneDeep(data);
+    clone.map((item) => {
+      item.key = item.key.toString();
+    });
+    return clone;
+  }
 
-    if (fData.length && oData.length) {
+  organization(fgp, oc) {
+    console.log('org', fgp, oc);
+    let fData = undefined;
+      // fgp.funded?.sectorName.buckets || [];
+    const oData = undefined;
+      // oc.funded?.sectorName.buckets || [];
+
+    if (fData?.length && oData?.length) {
       // Find differences in consortium and funding group data, merge difference into fData
       const parentDiff = oData.filter(
         (item1) => !fData.some((item2) => item2.key === item1.key)
@@ -141,7 +160,7 @@ export class ProjectFilterService {
         item.organizations.buckets.sort((a, b) => b.doc_count - a.doc_count);
       });
     } else {
-      fData = fData.concat(oData);
+      //fData = fData.concat(oData);
     }
 
     // Add data into buckets field, filter items with doc count, set key and label
@@ -159,102 +178,6 @@ export class ProjectFilterService {
     });
 
     return merged;
-  }
-
-  funder(data) {
-    // Filter out empty keys
-    const res = data.filter((item) => {
-      return item.key !== ' ';
-    });
-
-    res.map((item) => {
-      item.label = item.label || item.key;
-      item.key = item.funderId.buckets[0]?.key || item.key;
-    });
-    return res;
-  }
-
-  typeOfFunding(d) {
-    d = d.filter((item) => item.key);
-    const locale = this.currentLocale;
-
-    // Copy data and check that localized data exists. If not, default to english
-    const data = [...d];
-    data.forEach((item) => {
-      if (!item['header' + locale].buckets.length) {
-        item['header' + locale] = item.headerEn;
-        item['header' + locale].buckets.forEach((type) => {
-          if (!type['typeName' + locale].buckets.length) {
-            type['typeName' + locale] = type.typeNameEn;
-          }
-        });
-      }
-    });
-    // Map sub items
-    data.map((item) => {
-      item.id = item.key;
-      item.key = item['header' + locale].buckets[0].key;
-      item.subData = item['header' + locale].buckets[0]['typeName' + locale]
-        .buckets.length
-        ? item['header' + locale].buckets[0]['typeName' + locale].buckets
-        : item['headerEn'].buckets[0]['typeNameEn'].buckets;
-      item.subData.map((type) => {
-        (type.label = type.label ? type.label : type.key),
-          (type.key = type.typeId.buckets[0].key),
-          (type.doc_count = type.doc_count);
-      });
-    });
-
-    // Rearrange with custom order
-    const rearranged = [];
-
-    data.forEach((item) => {
-      switch (item.id) {
-        case '0004': {
-          rearranged.push(item);
-          break;
-        }
-        case '0001': {
-          rearranged.push(item);
-          break;
-        }
-        case '0002': {
-          rearranged.push(item);
-          break;
-        }
-        case '0003': {
-          rearranged.push(item);
-          break;
-        }
-        default: {
-          rearranged.push(item);
-        }
-      }
-    });
-
-    return rearranged.reverse();
-  }
-
-  minorField(data) {
-    let res = [];
-    // check if major aggregation is available
-    if (data.length) {
-      const combinedMajorFields = data
-        ? this.filterMethodService.separateMinor(data ? data : [])
-        : [];
-
-      const result = cloneDeep(this.staticDataService.majorFieldsOfScience);
-
-      for (let i = 0; i < combinedMajorFields.length; i++) {
-        if (result[i]) {
-          result[i].subData = combinedMajorFields[i];
-        }
-      }
-      res = result;
-    } else {
-      res = [];
-    }
-    return res;
   }
 
   mapTopic(data) {

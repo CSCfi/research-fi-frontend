@@ -601,9 +601,7 @@ export class StaticDataService {
           'nameFi^2',
           'nameEn^2',
           'nameSv^2',
-          'abbreviationFi',
-          'abbreviationSv',
-          'abbreviationEn',
+          'abbreviation',
           'responsibleOrganization.orgNameFi',
           'responsibleOrganization.orgNameSv',
           'responsibleOrganization.orgNameEn',
@@ -778,14 +776,16 @@ export class StaticDataService {
           'responsibleOrganizationNameEn',
           'responsibleOrganizationNameSv'
         ],
-        organization: ['nameFi', 'nameEn', 'nameSv', 'variantNames']
+        organization: ['nameFi', 'nameEn', 'nameSv', 'variantNames'],
+        project: ['']
       },
       funder: {
         publication: [''],
         funding: ['funderNameFi', 'funderNameEn', 'funderNameSv', 'funderNameUnd'],
         dataset: [''],
         infrastructure: [''],
-        organization: ['']
+        organization: [''],
+        project: ['']
       },
 
       default: {
@@ -794,6 +794,7 @@ export class StaticDataService {
         dataset: [''],
         infrastructure: [''],
         organization: [''],
+        project: ['']
       }
     };
 
