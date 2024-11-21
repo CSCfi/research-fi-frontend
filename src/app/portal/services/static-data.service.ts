@@ -700,8 +700,8 @@ export class StaticDataService {
         res = [''];
         break;
       }
-      case 'projects': {
-        res = [''];
+      case 'project': {
+        res = ['responsibleOrganization.orgId.keyword'];
         break;
       }
     }
