@@ -23,7 +23,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
             <fa-icon class="info-icon" icon="info-circle"></fa-icon>
           </div>
 
-          <div class="col-11 align-self-center" i18n="@@publication2.toNewInfo">
+          <div *ngIf="tab === 'publications'" class="col-11 align-self-center" i18n="@@publication2.toNewInfo">
             Testaa haun uudistettua betaversiota. Betaversio toimii vain julkaisujen hakuun. Tiedot vastaavat nykyisen sivuston sisältöä julkaisujen osalta.
           </div>
         </div>
@@ -31,6 +31,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
         <div class="row col-5 pe-lg-0 justify-content-end">
           <div class="col-auto pe-lg-0 py-1">
             <app-primary-action-button
+                    *ngIf="tab === 'publications'"
                     role="link"
                     routerLink='/results/publications2'
                     content="Uuteen hakuun"
@@ -42,7 +43,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
             <div>
               <a
                       tabindex="0"
-                      (click)="hideBetaSearchBanner()"
+                      (click)="tab === hideBetaSearchBanner()"
                       href="javascript:void(0)">
                 <strong i18n="@@close">Sulje</strong>
               </a>
@@ -52,6 +53,38 @@ Copyright 2019 Ministry of Education and Culture, Finland
       </div>
     </ng-container>
 
+    <ng-container *ngIf="tab === 'projects' && projectInfoBannerVisible">
+      <div class="row py-3 px-0 ps-lg-3 mt-3 justify-content-between login-snackbar">
+        <div class="row col-9 justify-content-start align-content-center">
+          <div class="col-auto mx-0 gx-0 d-flex flex-column justify-content-center">
+            <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+          </div>
+          <div class="col-11 align-self-center" i18n="@@projectsBetaDescription">
+            Hankkeet ovat tutkimusorganisaatioiden tutkimushankkeita. Tällä hetkellä palvelu sisältää tietoa luonnonvara-alan hankekuvauksista (entinen Hankehaavi-verkkohakemisto). Myöhemmässä vaiheessa tiedot tulevat täydentymään myös muiden alojen tutkimushankkeilla ja kattavammilla kuvailutiedoilla.
+          </div>
+        </div>
+        <div class="col-3 pe-lg-0 d-flex flex-row justify-content-evenly flex-wrap">
+          <div class="d-flex flex-column justify-content-center">
+            <app-primary-action-button
+                    role="link"
+                    routerLink="/service-info/"
+                    fragment="service-info-2"
+                    content="Lue lisää"
+                    i18n-content="@@publication2.toNewSearch">
+            </app-primary-action-button>
+          </div>
+          <div class="d-flex flex-column justify-content-center">
+              <a
+                      tabindex="0"
+                      (click)="hideProjectsInfoBanner()"
+                      href="javascript:void(0)">
+                <strong i18n="@@close">Sulje</strong>
+              </a>
+
+          </div>
+        </div>
+      </div>
+    </ng-container>
 
 
     <!-- MyData login in persons tab -->

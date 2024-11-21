@@ -4354,6 +4354,10 @@
         <source>Haun rajaus hankkeen tiedoissa olevien avainsanojen perusteella</source>
         <target state="new">Haun rajaus hankkeen tiedoissa olevien avainsanojen perusteella</target>
       </trans-unit>
+      <trans-unit id="projectsBetaDescription" datatype="html">
+        <source> Hankkeet ovat tutkimusorganisaatioiden tutkimushankkeita. Tällä hetkellä palvelu sisältää tietoa luonnonvara-alan hankekuvauksista (entinen Hankehaavi-verkkohakemisto). Myöhemmässä vaiheessa tiedot tulevat täydentymään myös muiden alojen tutkimushankkeilla ja kattavammilla kuvailutiedoilla. </source>
+        <target state="new"> Hankkeet ovat tutkimusorganisaatioiden tutkimushankkeita. Tällä hetkellä palvelu sisältää tietoa luonnonvara-alan hankekuvauksista (entinen Hankehaavi-verkkohakemisto). Myöhemmässä vaiheessa tiedot tulevat täydentymään myös muiden alojen tutkimushankkeilla ja kattavammilla kuvailutiedoilla. </target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

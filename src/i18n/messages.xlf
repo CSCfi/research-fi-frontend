@@ -3273,6 +3273,9 @@
       <trans-unit id="spHomePageTooltip" datatype="html">
         <source>Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa.</source>
       </trans-unit>
+      <trans-unit id="projectsBetaDescription" datatype="html">
+        <source> Hankkeet ovat tutkimusorganisaatioiden tutkimushankkeita. Tällä hetkellä palvelu sisältää tietoa luonnonvara-alan hankekuvauksista (entinen Hankehaavi-verkkohakemisto). Myöhemmässä vaiheessa tiedot tulevat täydentymään myös muiden alojen tutkimushankkeilla ja kattavammilla kuvailutiedoilla. </source>
+      </trans-unit>
     </body>
   </file>
 </xliff>
