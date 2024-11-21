@@ -44,7 +44,7 @@
                 <div id="info">
                     <div>
                         <ng-container *ngFor="let row of infoFields">
-                            <div class="row content" *ngIf="item[row.field] || (item['outcomeEffect'] && row.field === 'results') || (item['keywords'] && row.field === 'additionalInfo')">
+                            <div class="row content" *ngIf="item[row.field] || (item['outcomeEffect'] && row.field === 'results') || (item['keywords'] && row.field === 'additionalInfo') || row.field === 'participants'">
                                 <h2 class="col-12 col-sm-4 col-lg-3 th">
                                     <span class="pe-1">{{ row.label }}</span>
 
@@ -68,7 +68,8 @@
                                     <div *ngIf="row.field === 'participants'">
                                         <h3 *ngIf="item['responsibleOrganizations']?.length > 0">{{row.subFields[0].label}}</h3>
                                         <ng-container *ngFor="let org of item['responsibleOrganizations']">
-                                            <p>{{ org.orgName }}</p>
+                                            <div class="mb-3"><a [href]="'/results/organization/' + org.orgId" target="_parent">{{ org.orgName }}</a></div>
+
                                         </ng-container>
 
                                         <h3 *ngIf="item['responsiblePerson']?.length > 0">{{row.subFields[1].label}}</h3>

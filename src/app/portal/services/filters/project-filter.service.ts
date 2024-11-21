@@ -101,7 +101,6 @@ export class ProjectFilterService {
   }
 
   organization(fgp, oc) {
-    console.log('org', fgp, oc);
     let fData = undefined;
       // fgp.funded?.sectorName.buckets || [];
     const oData = undefined;

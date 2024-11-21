@@ -152,6 +152,7 @@ export class SingleItemService {
                   this.settingsService.querySettings('infrastructure', id),
                   this.settingsService.querySettings('organization', id),
                   this.settingsService.querySettings('funding-call', id),
+                  this.settingsService.querySettings('project', id),
                 ],
               },
             },
@@ -195,6 +196,11 @@ export class SingleItemService {
               fundingCalls: {
                 match: {
                   _index: 'funding-call',
+                },
+              },
+              projects: {
+                match: {
+                  _index: 'project',
                 },
               },
             },

@@ -55,7 +55,6 @@ export class SettingsService {
         ? this.staticDataService.relatedFields(index)
         : this.staticDataService.queryFields(index);
     }
-
     // Set analyzer & type
     onlyDigits = /^\d+$/.test(term);
     hasDigits = /\d/.test(term);
