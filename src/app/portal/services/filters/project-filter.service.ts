@@ -79,7 +79,6 @@ export class ProjectFilterService {
           return item;
         }
       );
-      console.log('!!!!!!!!!!!!!!!!!! SOURCE2', source);
     }
     source.shaped = true;
     return source;

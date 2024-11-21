@@ -89,7 +89,7 @@ export class TabNavigationComponent {
   // Legacy compatibility
   searchService = inject(SearchService);
 
-  fullCounts$: Observable<IndexCounts> = this.http.post(this.url, payloadWithoutKeywords()).pipe(
+  fullCounts$: Observable<IndexCounts> = this.http.post(this.url, payloadWithoutSearchKeywords()).pipe(
     map((response: any) => response.aggregations),
     map(aggregations => Object.entries(aggregations._index.buckets)),
     map(buckets => buckets.reduce((acc, [key, value]) => ({ ...acc, [key]: (value as any).doc_count }), {}))
@@ -107,7 +107,7 @@ export class TabNavigationComponent {
   );
 
   partialCounts$ = this.input$.pipe(
-    switchMap(input => this.http.post(this.url, payloadWithKeywords(input)).pipe(
+    switchMap(input => this.http.post(this.url, payloadWithSearchKeywords(input)).pipe(
       map((response: any) => response.aggregations),
       map(aggregations => Object.entries(aggregations._index.buckets)),
       map(buckets => buckets.reduce((acc, [key, value]) => ({ ...acc, [key]: (value as any).doc_count }), {} as Counts))
@@ -233,7 +233,7 @@ function createResizeObservable(element: HTMLElement): Observable<ResizeObserver
   });
 }
 
-function payloadWithoutKeywords() {
+function payloadWithoutSearchKeywords() {
   return {
     "size": 0,
     "aggs": {
@@ -298,7 +298,7 @@ function payloadWithoutKeywords() {
   }
 }
 
-function payloadWithKeywords(keywords: string) {
+function payloadWithSearchKeywords(keywords: string) {
   return {
     "query": {
       "bool": {
