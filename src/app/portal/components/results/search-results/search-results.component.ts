@@ -104,7 +104,7 @@ export class SearchResultsComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.dataSub.unsubscribe();
+    this?.dataSub?.unsubscribe();
   }
 
   changeComponent(tab) {

@@ -453,6 +453,18 @@ export class SortService {
             ];
             break;
           }
+          case 'organization': {
+            const sortString = 'responsibleOrganization.orgName' + this.localeC + '.keyword';
+            this.sort = [
+              {
+                [sortString]: {
+                  order: this.sortDirection ? 'desc' : 'asc',
+                  unmapped_type: 'long',
+                },
+              },
+            ];
+            break;
+          }
           default: {
             const sortString = 'name' + this.localeC + '.keyword';
             this.sort = [
