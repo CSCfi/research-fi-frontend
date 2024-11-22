@@ -664,6 +664,8 @@ export class AggregationService {
           },
         };
         break;
+
+      // Researchers
       case 'persons':
         payLoad.aggs.organization = {
           nested: {
@@ -765,6 +767,8 @@ export class AggregationService {
         };
 
         break;
+
+      // Fundings
       case 'fundings':
         payLoad.aggs.year = yearAgg;
         // Funder
@@ -793,6 +797,7 @@ export class AggregationService {
             },
           },
         };
+
         // Sector & organization
         payLoad.aggs.organization = {
           nested: {
@@ -930,6 +935,7 @@ export class AggregationService {
             },
           },
         };
+
         // Type of funding
         payLoad.aggs.typeOfFunding = {
           filter: {
@@ -1119,6 +1125,7 @@ export class AggregationService {
             },
           },
         };
+
         // Field of science
         payLoad.aggs.field = {
           nested: {
@@ -1302,6 +1309,7 @@ export class AggregationService {
         payLoad.aggs.organizations = {
           filter: {
             bool: {
+              filter: filterActive('responsibleOrganization.orgId.keyword'),
             },
           },
           aggs: {
@@ -1670,7 +1678,6 @@ export class AggregationService {
         break;
 
       // Funding-calls
-
       case 'funding-calls':
         payLoad.aggs.mainCategory = {
           nested: {
