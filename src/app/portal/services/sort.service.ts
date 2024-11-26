@@ -108,7 +108,7 @@ export class SortService {
               {
                 'authorsText.keyword': {
                   order: this.sortDirection ? 'desc' : 'asc',
-                  unmapped_type: 'date',
+                  unmapped_type: 'long',
                 },
               },
             ];
