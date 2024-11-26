@@ -1062,16 +1062,8 @@ export class FilterService {
       // If publications are searched without a search term then set sort as publicationYear
       if (tab === 'publications') {
         sortOrder.push({publicationYear: {order:'desc'}});
-      } else {
-        sortOrder.push('_score');
       }
-    } else {
-      if (tab === 'publications') {
         sortOrder.push('_score');
-        sortOrder.push({publicationYear: {order:'desc'}});
-      } else {
-        sortOrder.push('_score');
-      }
     }
 
     const queryPayload = searchTerm.length > 0 ? query : randomQuery;
