@@ -44,7 +44,8 @@ export class Person {
     public keywords: string,
     public collaboration: string[],
     public uniqueDataSources: any,
-    public orcidLink?: string
+    public orcidLink?: string,
+    public updated?: string
   ) {}
 }
 
@@ -147,11 +148,11 @@ export class PersonAdapter implements Adapter<Person> {
     const fieldsOfScience = 'Placeholder';
 
     const keywords = data.personal.keywords
-      .map((keyword) => keyword.value)
+      .map((keyword) => keyword.value).sort()
       .join(', ');
 
     const uniqueDataSources = data.uniqueDataSources
-      ?.map((item) => this.utils.checkTranslation('name', item.organization))
+      ?.map((item) => this.utils.checkTranslation('name', item.organization)).sort()
       .join(', ');
 
     return new Person(
@@ -172,7 +173,8 @@ export class PersonAdapter implements Adapter<Person> {
       fieldsOfScience,
       keywords,
       collaboration,
-      uniqueDataSources
+      uniqueDataSources,
+      data.updated
     );
   }
 }
