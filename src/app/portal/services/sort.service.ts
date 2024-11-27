@@ -166,7 +166,10 @@ export class SortService {
                 [organizationSortString]: {
                   order: this.sortDirection ? 'desc' : 'asc',
                   mode: "min",
-                  nested: this.generateNested('activity.affiliations'),
+                  nested: this.generateNested('activity.affiliations', this.generateTermFilter(
+                    'activity.affiliations.itemMeta.primaryValue',
+                    true
+                  )),
                   unmapped_type : "long",
                 },
               },
