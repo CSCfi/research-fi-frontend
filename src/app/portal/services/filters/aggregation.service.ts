@@ -664,6 +664,8 @@ export class AggregationService {
           },
         };
         break;
+
+      // Researchers
       case 'persons':
         payLoad.aggs.organization = {
           nested: {

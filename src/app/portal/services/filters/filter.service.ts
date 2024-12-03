@@ -1062,14 +1062,15 @@ export class FilterService {
       // If publications are searched without a search term then set sort as publicationYear
       if (tab === 'publications') {
         sortOrder.push({publicationYear: {order:'desc'}});
-      } else {
+      } else if (tab !== 'persons' && tab !== 'projects') {
         sortOrder.push('_score');
       }
     } else {
+      // Search term or sort is used
       if (tab === 'publications') {
         sortOrder.push('_score');
         sortOrder.push({publicationYear: {order:'desc'}});
-      } else {
+      } else if (tab !== 'persons' && tab !== 'projects') {
         sortOrder.push('_score');
       }
     }

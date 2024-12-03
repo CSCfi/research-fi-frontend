@@ -144,16 +144,81 @@ export class SortService {
         break;
       }
       case 'persons': {
-        this.sort = [
-          {
-            'personal.names.lastName.keyword': {
-              order: this.sortDirection ? 'desc' : 'asc',
-              unmapped_type: 'long',
-            },
-          },
-        ];
+        switch (this.sortColumn) {
+          case 'name': {
+            this.sort = [
+              {
+                'personal.names.lastName.keyword': {
+                  order: this.sortDirection ? 'desc' : 'asc',
+                  mode: "min",
+                  unmapped_type : "long",
+                },
+              },
+            ];
+            break;
+          }
+          case 'organization': {
+            const organizationSortString = 'activity.affiliations.organizationName' +
+              this.localeC +
+              '.keyword';
+            this.sort = [
+              {
+                [organizationSortString]: {
+                  order: this.sortDirection ? 'desc' : 'asc',
+                  mode: "min",
+                  nested: this.generateNested('activity.affiliations', this.generateTermFilter(
+                    'activity.affiliations.itemMeta.primaryValue',
+                    true
+                  )),
+                  unmapped_type : "long",
+                },
+              },
+            ];
+            break;
+          }
+          case 'positionName': {
+            const organizationSortString = 'activity.affiliations.positionName' +
+              this.localeC +
+              '.keyword';
+            this.sort = [
+              {
+                [organizationSortString]: {
+                  order: this.sortDirection ? 'desc' : 'asc',
+                  mode: "min",
+                  nested: this.generateNested('activity.affiliations'),
+                  unmapped_type : "long",
+                },
+              },
+            ];
+            break;
+          }
+          case 'keywords': {
+            this.sort = [
+              {
+                'personal.keywords.value.keyword': {
+                  order: this.sortDirection ? 'desc' : 'asc',
+                  mode: "min",
+                  unmapped_type : "long",
+                },
+              },
+            ];
+            break;
+          }
+          default: {
+            this.sort = [
+              {
+                'updated': {
+                  order: 'desc',
+                  unmapped_type : "long",
+                },
+              }
+            ];
+            break;
+          }
+        }
         break;
       }
+
       case 'fundings': {
         this.yearField = 'fundingStartYear';
         switch (this.sortColumn) {
