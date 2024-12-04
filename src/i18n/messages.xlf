@@ -91,7 +91,7 @@
         <source>Twitter -palvelun logo</source>
       </trans-unit>
       <trans-unit id="twitterFooter" datatype="html">
-        <source><x id="START_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="&lt;/fa-icon&gt;Tiedejatutkimus.fi Twitterissä&lt;/a&gt;"/><x id="CLOSE_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="Tiedejatutki"/>Tiedejatutkimus.fi Twitterissä</source>
+        <source><x id="START_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="&lt;fa-icon class=&quot;social-icon&quot; [icon]=&quot;faTwitter&quot;&gt;"/><x id="CLOSE_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="&lt;/fa-icon&gt;"/>Tiedejatutkimus.fi Twitterissä</source>
         <note priority="1" from="description">Twitter-footer</note>
       </trans-unit>
       <trans-unit id="reviewButton" datatype="html">
@@ -148,12 +148,12 @@
       </trans-unit>
       <trans-unit id="deletingProfileWait" datatype="html">
         <source>
-          <x id="INTERPOLATION" equiv-text="&lt;/span &gt; &lt;/div&gt; &lt;/div&gt;"/>
+          <x id="INTERPOLATION" equiv-text="{{deleteProfileWait}}"/>
         </source>
       </trans-unit>
       <trans-unit id="deleteProfileConnProblem" datatype="html">
         <source>
-          <x id="INTERPOLATION" equiv-text="&lt;/ng-container &gt;"/>
+          <x id="INTERPOLATION" equiv-text="{{connectionProblemDeleteProfile}}"/>
         </source>
       </trans-unit>
       <trans-unit id="hideProfile" datatype="html">
@@ -260,9 +260,6 @@
       </trans-unit>
       <trans-unit id="suomiFiAutheticationProblemSnackbarText" datatype="html">
         <source>Osalla käyttäjistä on ilmennyt virhetilanne Suomi.fi-tunnistautumisen jälkeen, joka estää pääsyn profiilin luontiin. Mikäli virhetilanne ilmenee, kirjautumista pääsee jatkamaan klikkaamalla &quot;Kirjaudu sisään&quot; -painiketta sivun ylälaidassa.</source>
-      </trans-unit>
-      <trans-unit id="begin" datatype="html">
-        <source>Avaa käyttöehdot ja henkilötietojen käsittelyperiaatteet</source>
       </trans-unit>
       <trans-unit id="termsForTool" datatype="html">
         <source> Tutkijan tiedot -työkalun käyttöehdot </source>
@@ -422,13 +419,10 @@
         <source>Voit valita profiiliisi tutkimusaineistoja alla olevasta listasta.</source>
       </trans-unit>
       <trans-unit id="fundings" datatype="html">
-        <source>myönnettyjä rahoituksia</source>
-      </trans-unit>
-      <trans-unit id="selectProjects" datatype="html">
-        <source>Valitse hankkeet</source>
+        <source>rahoitusmyöntöjä</source>
       </trans-unit>
       <trans-unit id="myDataEditorModalFundingTabInfo" datatype="html">
-        <source>Tiedejatutkimus.fi-palvelusta löytyvät hankkeet, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. hankkeita, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä &quot;Hae muita rahoitusmyöntöjä&quot; -toiminnolla.</source>
+        <source>Tiedejatutkimus.fi-palvelusta löytyvät myönnetyt rahoitukset, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. Myönnettyä rahoitusta, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä &quot;Hae muita myönnetyjä rahoituksia&quot; -toiminnolla.</source>
       </trans-unit>
       <trans-unit id="activities" datatype="html">
         <source>aktiviteetteja</source>
@@ -554,7 +548,7 @@
         <source>tutkimusaineisto</source>
       </trans-unit>
       <trans-unit id="fundingItem" datatype="html">
-        <source>hanke</source>
+        <source>myönnetty rahoitus</source>
       </trans-unit>
       <trans-unit id="fromYourData" datatype="html">
         <source> tiedoistasi?</source>
@@ -636,7 +630,7 @@
       </trans-unit>
       <trans-unit id="importingDataWait" datatype="html">
         <source>
-          <x id="INTERPOLATION" equiv-text="&lt;/span &gt; &lt;/div&gt; &lt;/div&gt; &lt;/ng-template&gt; &lt;app-dialog"/>
+          <x id="INTERPOLATION" equiv-text="{{orcidDataFetchWaitingText}}"/>
         </source>
       </trans-unit>
       <trans-unit id="orcidDataFetchWaitingText" datatype="html">
@@ -1580,12 +1574,6 @@
       <trans-unit id="sortSectorNameAsc" datatype="html">
         <source>Sektori (A-Ö)</source>
       </trans-unit>
-      <trans-unit id="fundingDescription" datatype="html">
-        <source>Rahoitetun hankkeen kuvaus</source>
-      </trans-unit>
-      <trans-unit id="descriptionNotAvailable" datatype="html">
-        <source>Kuvausta ei saatavilla.</source>
-      </trans-unit>
       <trans-unit id="externalLinksHeader" datatype="html">
         <source>Tieteestä ja tutkimuksesta muualla</source>
       </trans-unit>
@@ -1634,35 +1622,8 @@
       <trans-unit id="moreFiguresFrom" datatype="html">
         <source> Lisää lukuja tieteestä ja tutkimuksesta </source>
       </trans-unit>
-      <trans-unit id="tkiReportsHeader" datatype="html">
-        <source>Selvityksiä ja raportteja</source>
-      </trans-unit>
-      <trans-unit id="searchTooltipTki" datatype="html">
-        <source>Voit hakea selvityksiä ja raportteja Suomen tutkimus- ja innovaatiojärjestelmästä</source>
-      </trans-unit>
-      <trans-unit id="searchTooltipPlaceholderTki" datatype="html">
-        <source>Hae raportti...</source>
-      </trans-unit>
       <trans-unit id="resetSearchTooltip" datatype="html">
         <source>Tyhjennä haku</source>
-      </trans-unit>
-      <trans-unit id="sortByName" datatype="html">
-        <source>Järjestä nimen mukaan</source>
-      </trans-unit>
-      <trans-unit id="sortByYear" datatype="html">
-        <source>Järjestä julkaisuvuoden mukaan</source>
-      </trans-unit>
-      <trans-unit id="sortByAuthors" datatype="html">
-        <source>Järjestä tekijöiden mukaan</source>
-      </trans-unit>
-      <trans-unit id="sortByKeywords" datatype="html">
-        <source>Järjestä avainsanojen mukaan</source>
-      </trans-unit>
-      <trans-unit id="tkiName" datatype="html">
-        <source>Nimi</source>
-      </trans-unit>
-      <trans-unit id="tkiKeywords" datatype="html">
-        <source>Asiasanat</source>
       </trans-unit>
       <trans-unit id="searchSlogan" datatype="html">
         <source> Hae tietoa tutkimuksesta Suomessa </source>
@@ -1676,7 +1637,7 @@
       <trans-unit id="searchPlaceholder" datatype="html">
         <source>Esim. julkaisu, tieteenala, asiasana</source>
       </trans-unit>
-      <trans-unit id="a818b5edba676050331e259094fc81116a60c329" datatype="html">
+      <trans-unit id="8803797161784514845" datatype="html">
         <source>Hae</source>
       </trans-unit>
       <trans-unit id="searchHelp1" datatype="html">
@@ -3021,7 +2982,7 @@
       <trans-unit id="navigation.projects" datatype="html">
         <source>Hankkeet</source>
       </trans-unit>
-      <trans-unit id="7faaf4f818cbabf5f42648c7271cb60b1cb5356a" datatype="html">
+      <trans-unit id="6312855125143647093" datatype="html">
         <source>Hankkeet uudistuvat. Aiempien hankkeiden tiedot löytyvät nyt ‘Myönnetty rahoitus‘ -osiosta.</source>
       </trans-unit>
       <trans-unit id="fundingType" datatype="html">
@@ -3048,16 +3009,16 @@
       <trans-unit id="9195882976109410881" datatype="html">
         <source>Vuosi, jona rahoitus on myönnetty. Ensimmäisessä vaiheessa tietoa myöntövuodesta toimittaa Suomen Akatemia. Tietoa myöntövuodesta laajennetaan myöhemmin muihin rahoittajiin.</source>
       </trans-unit>
-      <trans-unit id="ff436ef2addfec3d2b4e377712a81daf9f09bb6a" datatype="html">
+      <trans-unit id="3432026286733000875" datatype="html">
         <source>Rahoitushaun vaihe</source>
       </trans-unit>
-      <trans-unit id="0a5ec82b7c8c2675e6278a56cf9c3933179cc6ef" datatype="html">
+      <trans-unit id="4126295923781957141" datatype="html">
         <source>Näytä myönnöt</source>
       </trans-unit>
-      <trans-unit id="1b2059933962d468db9b827cc790b176a1d05169" datatype="html">
+      <trans-unit id="8826410345133306919" datatype="html">
         <source>Päättäjä</source>
       </trans-unit>
-      <trans-unit id="7386997347fcca9a43be13da6fae595d0f4d17ee" datatype="html">
+      <trans-unit id="3277993170150764605" datatype="html">
         <source>Rahoitusmuoto</source>
       </trans-unit>
       <trans-unit id="2970737301478733442" datatype="html">
@@ -3065,21 +3026,6 @@
       </trans-unit>
       <trans-unit id="6513753384822692310" datatype="html">
         <source>Suomen Akatemian päättäjä</source>
-      </trans-unit>
-      <trans-unit id="52ce8e8d7d374ffb52f1388ab9540834353977ac" datatype="html">
-        <source>Biotieteiden, terveyden ja ympäristön tutkimuksen toimikunta</source>
-      </trans-unit>
-      <trans-unit id="95fa64198fd91da75df92f4616031d75b0717443" datatype="html">
-        <source>Strategisen tutkimuksen neuvosto</source>
-      </trans-unit>
-      <trans-unit id="9ead7dcac3ee2204234abb05ab4b7ade3b997501" datatype="html">
-        <source>Kulttuurin ja yhteiskunnan tutkimuksen toimikunta</source>
-      </trans-unit>
-      <trans-unit id="b8ff2189e0f87a04b8910355c0da14d1422b62b8" datatype="html">
-        <source>Tutkimusinfrastruktuurikomitea</source>
-      </trans-unit>
-      <trans-unit id="fa1db83f11474f1f1902ac43f0ab21fb92b291c9" datatype="html">
-        <source>Luonnontieteiden ja tekniikan tutkimuksen toimikunta</source>
       </trans-unit>
       <trans-unit id="2164427846406249488" datatype="html">
         <source>Liikkuvuus / Matka-apuraha</source>
@@ -3218,6 +3164,12 @@
       </trans-unit>
       <trans-unit id="publication2.tutorial.52" datatype="html">
         <source> Jokerimerkillä * voit korvata yhden tai useamman merkin hakusanan keskeltä tai lopusta. Jokerimerkki * edustaa myös tyhjää merkkiä. Jos haluat hakea samaan aikaan esimerkiksi sanoja &quot;color&quot; ja &quot;colour&quot;, voit käyttää hakutermiä colo*r. Esimerkiksi hakutermillä tietotek* voit hakea sanoja jotka alkavat kirjaimilla tietotek, kuten &quot;tietotekniikka&quot; ja &quot;tietotekniset&quot;. </source>
+      </trans-unit>
+      <trans-unit id="2404930950771668634" datatype="html">
+        <source>Suomen akatemian muu päättäjä</source>
+      </trans-unit>
+      <trans-unit id="selectGrantedFunding" datatype="html">
+        <source>Valitse myönnetty rahoitus</source>
       </trans-unit>
     </body>
   </file>
