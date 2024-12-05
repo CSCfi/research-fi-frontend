@@ -2378,6 +2378,10 @@
         <source>myönnetty rahoitus</source>
         <target>Beviljade finansiering</target>
       </trans-unit>
+      <trans-unit id="grantedFunding" datatype="html">
+        <source>rahoitusmyöntöjä</source>
+        <target>beviljade bidragen</target>
+      </trans-unit>
       <trans-unit id="dataset" datatype="html">
         <source>aineisto</source>
         <target state="new">Data</target>

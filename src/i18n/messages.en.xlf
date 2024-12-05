@@ -2379,6 +2379,10 @@
         <source>myönnetty rahoitus</source>
         <target>Granted funding</target>
       </trans-unit>
+      <trans-unit id="grantedFunding" datatype="html">
+        <source> rahoitusmyöntöjä</source>
+        <target> granted funding</target>
+      </trans-unit>
       <trans-unit id="dataset" datatype="html">
         <source>aineisto</source>
         <target state="new">Research data</target>
@@ -3054,7 +3058,7 @@
         <target>research data -item</target>
       </trans-unit>
       <trans-unit id="fundingItem" datatype="html">
-        <source>myönnetty rahoitus</source>
+        <source>rahoitusmyöntö/source>
         <target state="new">granted funding</target>
       </trans-unit>
       <trans-unit id="searchForMissingPublication" datatype="html">
