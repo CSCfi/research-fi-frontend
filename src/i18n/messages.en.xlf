@@ -3242,7 +3242,7 @@
         <target>You can select research data for your profile from the list below.</target>
       </trans-unit>
       <trans-unit id="myDataEditorModalFundingTabInfo" datatype="html">
-        <source>Tiedejatutkimus.fi-palvelusta löytyvät myönnetyt rahoitukset, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. Myönnettyä rahoitusta, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä &quot;Hae muita myönnetyjä rahoituksia&quot; -toiminnolla.</source>
+        <source>Tiedejatutkimus.fi-palvelusta löytyvät rahoitusmyönnöt, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. Myönnettyä rahoitusta, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä &quot;Hae muita myönnetyjä rahoituksia&quot; -toiminnolla.</source>
         <target state="new">Granted funding with your ORCID iD in Research.fi are automatically added to your information. Granted funding not associated with your ORCID iD can be added using the &quot;Search for other granted funding&quot; function.</target>
       </trans-unit>
       <trans-unit id="searchForOtherPublicationsFromPortal" datatype="html">
