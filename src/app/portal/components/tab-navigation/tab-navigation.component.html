@@ -50,14 +50,14 @@
   <ng-container *ngIf='(moreThan1200$ | async) === false'>
     <ng-container *ngIf='(showAll$ | async) === false'>
       <div class="expand-text" (click)='toggleAll()'>
-        <div style='margin-right: 0.25rem'>Näytä lisää</div>
+        <div style='margin-right: 0.25rem' i18n="@@showMore">Näytä lisää</div>
         <i class='fa-solid fa-caret-down'></i>
       </div>
     </ng-container>
 
     <ng-container *ngIf='(showAll$ | async) === true'>
       <div class='expand-text' (click)='toggleAll()'>
-        <div style='margin-right: 0.25rem'>Näytä vähemmän</div>
+        <div style='margin-right: 0.25rem' i18n="@@showLess">Näytä vähemmän</div>
         <i class='fa-solid fa-caret-up'></i>
       </div>
     </ng-container>

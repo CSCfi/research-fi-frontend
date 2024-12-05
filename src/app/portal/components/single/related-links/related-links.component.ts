@@ -35,7 +35,7 @@ export class RelatedLinksComponent implements OnInit, OnDestroy {
       disabled: true,
     },
     { label: $localize`:@@authors:Tutkijat`, tab: 'persons', disabled: true },
-    { label: $localize`:@@fundings:Hankkeet`, tab: 'fundings', disabled: true },
+    { label: $localize`:@@fundings:Rahoitusmyönnöt`, tab: 'fundings', disabled: true },
     {
       label: $localize`:@@datasets:Aineistot`,
       tab: 'datasets',
