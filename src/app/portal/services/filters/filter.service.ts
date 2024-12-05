@@ -1054,7 +1054,6 @@ export class FilterService {
     };
 
     // Randomize results if no search term and no sorting activated. Random score doesn't work if sort isn't based with score
-    console.log('SEARCH PROPS', searchTerm.length, this.sortService.searchTerm, this.sortService.sortMethod);
     if (
       searchTerm.length === 0 &&
       (!this.sortService.sortMethod ||
@@ -1062,24 +1061,21 @@ export class FilterService {
     ) {
       // If publications are searched without a search term then set sort as publicationYear
       if (tab === 'publications') {
-        console.log('publ no term');
         sortOrder.push({publicationYear: {order:'desc'}});
       } else if (tab !== 'persons' && tab !== 'projects') {
-        console.log('not pers, not proj');
         sortOrder.push('_score');
       }
     } else {
       // Search term or sort is used
       if (tab === 'publications') {
-        console.log('publ has term');
-        //sortOrder.push({publicationYear: {order:'desc'}});
+        sortOrder.push('_score');
+        sortOrder.push({publicationYear: {order:'desc'}});
       } else if (tab !== 'persons' && tab !== 'projects') {
-        console.log('not pers, not proj');
         sortOrder.push('_score');
       }
     }
 
-    const queryPayload = searchTerm.length > 0 ? query : query;
+    const queryPayload = searchTerm.length > 0 ? query : randomQuery;
 
     return {
       query: queryPayload,
