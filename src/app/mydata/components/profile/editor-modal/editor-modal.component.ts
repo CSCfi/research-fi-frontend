@@ -157,7 +157,7 @@ export class EditorModalComponent implements OnInit {
         this.selectItemsTabLabel = $localize`:@@selectGrantedFunding:Valitse myönnetty rahoitus`;
         this.portalItemGroupStringPlural = $localize`:@@fundings:rahoitusmyönnöt`;
         this.tableColumns = FundingColumns;
-        this.tabInfoText = $localize`:@@myDataEditorModalFundingTabInfo:Tiedejatutkimus.fi-palvelusta löytyvät myönnetyt rahoitukset, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. Myönnettyä rahoitusta, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä "Hae muita myönnetyjä rahoituksia" -toiminnolla.`;
+        this.tabInfoText = $localize`:@@myDataEditorModalFundingTabInfo:Tiedejatutkimus.fi-palvelusta löytyvät rahoitusmyönnöt, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. Myönnettyä rahoitusta, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä "Hae muita myönnetyjä rahoituksia" -toiminnolla.`;
         break;
       }
       case 'activitiesAndRewards': {
