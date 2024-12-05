@@ -422,7 +422,7 @@
         <source>rahoitusmyöntöjä</source>
       </trans-unit>
       <trans-unit id="myDataEditorModalFundingTabInfo" datatype="html">
-        <source>Tiedejatutkimus.fi-palvelusta löytyvät myönnetyt rahoitukset, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. Myönnettyä rahoitusta, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä &quot;Hae muita myönnetyjä rahoituksia&quot; -toiminnolla.</source>
+        <source>Tiedejatutkimus.fi-palvelusta löytyvät rahoitusmyönnöt, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. Myönnettyä rahoitusta, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä &quot;Hae muita myönnetyjä rahoituksia&quot; -toiminnolla.</source>
       </trans-unit>
       <trans-unit id="activities" datatype="html">
         <source>aktiviteetteja</source>

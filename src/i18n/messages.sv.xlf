@@ -3007,8 +3007,8 @@
         <target>forskningsdata</target>
       </trans-unit>
       <trans-unit id="fundingItem" datatype="html">
-        <source>rahoitusmyöntö</source>
-        <target>bidrag</target>
+        <source>myönnetty rahoitus</source>
+        <target state="new">bidrag</target>
       </trans-unit>
       <trans-unit id="searchForMissingPublication" datatype="html">
         <source>Puuttuvan julkaisun hakeminen</source>
@@ -3251,7 +3251,7 @@
         <target>Sök andra forskningsdata på Forskning.fi med datasets eller upphovsmannens namn och lägg till dem till din profil.</target>
       </trans-unit>
       <trans-unit id="searchForOtherFundingsFromPortal" datatype="html">
-        <source>Hae muita rahoitusmyöntöjä Tiedejatutkimus.fi:stä myönnetyn rahoituksen sisältämien tietojen perusteella ja liitä ne profiiliisi.</source>
+        <source>Hae muita myönnettyjä rahoituksia Tiedejatutkimus.fi:stä myönnetyn rahoituksen sisältämien tietojen perusteella ja liitä ne profiiliisi.</source>
         <target state="new">Sök andra beviljade finansiering på Forskning.fi utifrån uppgifterna om beviljade finansiering och bifoga dem till din profil.</target>
       </trans-unit>
       <trans-unit id="myDataEditorModalActivityTabInfo" datatype="html">
