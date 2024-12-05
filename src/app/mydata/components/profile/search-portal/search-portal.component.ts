@@ -125,7 +125,7 @@ export class SearchPortalComponent implements OnInit, OnDestroy {
       case GroupTypes.funding: {
         this.searchHelpText = this.searchForFundingsWithName;
         this.searchPlaceholder = this.fundingSearchPlaceholder;
-        this.infoText = $localize`:@@searchForOtherFundingsFromPortal:Hae muita myönnettyjä rahoituksia Tiedejatutkimus.fi:stä myönnetyn rahoituksen sisältämien tietojen perusteella ja liitä ne profiiliisi.`;
+        this.infoText = $localize`:@@searchForOtherFundingsFromPortal:Hae muita rahoitusmyöntöjä Tiedejatutkimus.fi:stä myönnetyn rahoituksen sisältämien tietojen perusteella ja liitä ne profiiliisi.`;
         break;
       }
     }

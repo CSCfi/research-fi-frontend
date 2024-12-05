@@ -611,7 +611,7 @@
         <source>Hae muita tutkimusaineistoja Tiedejatutkimus.fi:stä aineiston tai tekijän nimellä ja liitä ne profiiliisi.</source>
       </trans-unit>
       <trans-unit id="searchForOtherFundingsFromPortal" datatype="html">
-        <source>Hae muita myönnettyjä rahoituksia Tiedejatutkimus.fi:stä myönnetyn rahoituksen sisältämien tietojen perusteella ja liitä ne profiiliisi.</source>
+        <source>Hae muita rahoitusmyöntöjä Tiedejatutkimus.fi:stä myönnetyn rahoituksen sisältämien tietojen perusteella ja liitä ne profiiliisi.</source>
       </trans-unit>
       <trans-unit id="startManagingYourProfile" datatype="html">
         <source>Voit aloittaa Tutkijan tiedot -profiilin hallinnoinnin.</source>

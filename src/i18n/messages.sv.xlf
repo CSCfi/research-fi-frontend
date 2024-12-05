@@ -3303,7 +3303,7 @@
         <target>Sök andra forskningsdata på Forskning.fi med datasets eller upphovsmannens namn och lägg till dem till din profil.</target>
       </trans-unit>
       <trans-unit id="searchForOtherFundingsFromPortal" datatype="html">
-        <source>Hae muita myönnettyjä rahoituksia Tiedejatutkimus.fi:stä myönnetyn rahoituksen sisältämien tietojen perusteella ja liitä ne profiiliisi.</source>
+        <source>Hae muita rahoitusmyöntöjä Tiedejatutkimus.fi:stä myönnetyn rahoituksen sisältämien tietojen perusteella ja liitä ne profiiliisi.</source>
         <target state="new">Sök andra beviljade finansiering på Forskning.fi utifrån uppgifterna om beviljade finansiering och bifoga dem till din profil.</target>
       </trans-unit>
       <trans-unit id="myDataEditorModalActivityTabInfo" datatype="html">
