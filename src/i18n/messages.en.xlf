@@ -3254,7 +3254,7 @@
         <target>Search for other research data in Research.fi with the name of the material or author and attach them to your profile.</target>
       </trans-unit>
       <trans-unit id="searchForOtherFundingsFromPortal" datatype="html">
-        <source>Hae muita myönnettyjä rahoituksia Tiedejatutkimus.fi:stä myönnetyn rahoituksen sisältämien tietojen perusteella ja liitä ne profiiliisi.</source>
+        <source>Hae muita rahoitusmyöntöjä Tiedejatutkimus.fi:stä myönnetyn rahoituksen sisältämien tietojen perusteella ja liitä ne profiiliisi.</source>
         <target>Search for other granted fundings at Research.fi based on the information in the granted funding and attach them to your profile.</target>
       </trans-unit>
       <trans-unit id="myDataEditorModalActivityTabInfo" datatype="html">
