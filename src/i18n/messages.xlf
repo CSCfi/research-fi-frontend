@@ -602,7 +602,7 @@
         <source>Hae muita tutkimusaineistoja Tiedejatutkimus.fi:stä aineiston tai tekijän nimellä ja liitä ne profiiliisi.</source>
       </trans-unit>
       <trans-unit id="searchForOtherFundingsFromPortal" datatype="html">
-        <source>Hae muita myönnettyjä rahoituksia Tiedejatutkimus.fi:stä myönnetyn rahoituksen sisältämien tietojen perusteella ja liitä ne profiiliisi.</source>
+        <source>Hae muita rahoitusmyöntöjä Tiedejatutkimus.fi:stä myönnetyn rahoituksen sisältämien tietojen perusteella ja liitä ne profiiliisi.</source>
       </trans-unit>
       <trans-unit id="startManagingYourProfile" datatype="html">
         <source>Voit aloittaa Tutkijan tiedot -profiilin hallinnoinnin.</source>
@@ -1574,6 +1574,12 @@
       <trans-unit id="sortSectorNameAsc" datatype="html">
         <source>Sektori (A-Ö)</source>
       </trans-unit>
+      <trans-unit id="fundingDescription" datatype="html">
+        <source>Rahoitetun hankkeen kuvaus</source>
+      </trans-unit>
+      <trans-unit id="descriptionNotAvailable" datatype="html">
+        <source>Kuvausta ei saatavilla.</source>
+      </trans-unit>
       <trans-unit id="externalLinksHeader" datatype="html">
         <source>Tieteestä ja tutkimuksesta muualla</source>
       </trans-unit>
@@ -1622,8 +1628,35 @@
       <trans-unit id="moreFiguresFrom" datatype="html">
         <source> Lisää lukuja tieteestä ja tutkimuksesta </source>
       </trans-unit>
+      <trans-unit id="tkiReportsHeader" datatype="html">
+        <source>Selvityksiä ja raportteja</source>
+      </trans-unit>
+      <trans-unit id="searchTooltipTki" datatype="html">
+        <source>Voit hakea selvityksiä ja raportteja Suomen tutkimus- ja innovaatiojärjestelmästä</source>
+      </trans-unit>
+      <trans-unit id="searchTooltipPlaceholderTki" datatype="html">
+        <source>Hae raportti...</source>
+      </trans-unit>
       <trans-unit id="resetSearchTooltip" datatype="html">
         <source>Tyhjennä haku</source>
+      </trans-unit>
+      <trans-unit id="sortByName" datatype="html">
+        <source>Järjestä nimen mukaan</source>
+      </trans-unit>
+      <trans-unit id="sortByYear" datatype="html">
+        <source>Järjestä julkaisuvuoden mukaan</source>
+      </trans-unit>
+      <trans-unit id="sortByAuthors" datatype="html">
+        <source>Järjestä tekijöiden mukaan</source>
+      </trans-unit>
+      <trans-unit id="sortByKeywords" datatype="html">
+        <source>Järjestä avainsanojen mukaan</source>
+      </trans-unit>
+      <trans-unit id="tkiName" datatype="html">
+        <source>Nimi</source>
+      </trans-unit>
+      <trans-unit id="tkiKeywords" datatype="html">
+        <source>Asiasanat</source>
       </trans-unit>
       <trans-unit id="searchSlogan" datatype="html">
         <source> Hae tietoa tutkimuksesta Suomessa </source>
@@ -3026,6 +3059,21 @@
       </trans-unit>
       <trans-unit id="6513753384822692310" datatype="html">
         <source>Suomen Akatemian päättäjä</source>
+      </trans-unit>
+      <trans-unit id="52ce8e8d7d374ffb52f1388ab9540834353977ac" datatype="html">
+        <source>Biotieteiden, terveyden ja ympäristön tutkimuksen toimikunta</source>
+      </trans-unit>
+      <trans-unit id="95fa64198fd91da75df92f4616031d75b0717443" datatype="html">
+        <source>Strategisen tutkimuksen neuvosto</source>
+      </trans-unit>
+      <trans-unit id="9ead7dcac3ee2204234abb05ab4b7ade3b997501" datatype="html">
+        <source>Kulttuurin ja yhteiskunnan tutkimuksen toimikunta</source>
+      </trans-unit>
+      <trans-unit id="b8ff2189e0f87a04b8910355c0da14d1422b62b8" datatype="html">
+        <source>Tutkimusinfrastruktuurikomitea</source>
+      </trans-unit>
+      <trans-unit id="fa1db83f11474f1f1902ac43f0ab21fb92b291c9" datatype="html">
+        <source>Luonnontieteiden ja tekniikan tutkimuksen toimikunta</source>
       </trans-unit>
       <trans-unit id="2164427846406249488" datatype="html">
         <source>Liikkuvuus / Matka-apuraha</source>
