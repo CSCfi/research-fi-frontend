@@ -425,7 +425,7 @@
       </trans-unit>
       <trans-unit id="relatedFundings" datatype="html">
         <source>Hae hankkeeseen liittyvät (tulossa)</source>
-        <target>Relaterade till detta bidrag (På kommande) </target>
+        <target state="new">Relaterade till detta bidrag (På kommande) </target>
       </trans-unit>
       <trans-unit id="share" datatype="html">
         <source>Jaa</source>
@@ -2375,8 +2375,8 @@
         <target state="new">Forskare</target>
       </trans-unit>
       <trans-unit id="funding" datatype="html">
-        <source>myönnetty rahoitus</source>
-        <target>Beviljade finansiering</target>
+        <source>Myönnetty rahoitus</source>
+        <target state="new">Beviljade finansiering</target>
       </trans-unit>
       <trans-unit id="grantedFunding" datatype="html">
         <source>rahoitusmyöntöjä</source>
@@ -2730,6 +2730,10 @@
         <source>Pikaohjeet</source>
         <target>Snabbstartsguide</target>
       </trans-unit>
+      <trans-unit id="begin" datatype="html">
+        <source>Avaa käyttöehdot ja henkilötietojen käsittelyperiaatteet</source>
+        <target state="new">Börja</target>
+      </trans-unit>
       <trans-unit id="cancel" datatype="html">
         <source>Peruuta</source>
         <target>Ångra</target>
@@ -3055,7 +3059,7 @@
         <target>forskningsdata</target>
       </trans-unit>
       <trans-unit id="fundingItem" datatype="html">
-        <source>myönnetty rahoitus</source>
+        <source>rahoitusmyöntö</source>
         <target state="new">bidrag</target>
       </trans-unit>
       <trans-unit id="searchForMissingPublication" datatype="html">
