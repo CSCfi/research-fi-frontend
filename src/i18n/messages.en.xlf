@@ -822,8 +822,8 @@
         <target state="new">People</target>
       </trans-unit>
       <trans-unit id="fundings" datatype="html">
-        <source>hankkeita</source>
-        <target>Granted funding</target>
+        <source>rahoitusmyöntöjä</source>
+        <target state="new">Granted funding</target>
       </trans-unit>
       <trans-unit id="datasets" datatype="html">
         <source>aineistoja</source>
@@ -946,7 +946,7 @@
         <target>Follow us!</target>
       </trans-unit>
       <trans-unit id="twitterFooter" datatype="html">
-        <source><x id="START_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="&lt;/fa-icon&gt;Tiedejatutkimus.fi Twitterissä&lt;/a&gt;"/><x id="CLOSE_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="Tiedejatutki"/>Tiedejatutkimus.fi Twitterissä</source>
+        <source><x id="START_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="&lt;fa-icon class=&quot;social-icon&quot; [icon]=&quot;faTwitter&quot;&gt;"/><x id="CLOSE_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="&lt;/fa-icon&gt;"/>Tiedejatutkimus.fi Twitterissä</source>
         <target state="new"> <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon&gt;"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon&gt;"/>Research.fi at Twitter</target>
         <note priority="1" from="description">Twitter-footer</note>
       </trans-unit>
@@ -2727,10 +2727,6 @@
         <source>Pikaohjeet</source>
         <target>Quickstart guide</target>
       </trans-unit>
-      <trans-unit id="begin" datatype="html">
-        <source>Avaa käyttöehdot ja henkilötietojen käsittelyperiaatteet</source>
-        <target state="new">Begin</target>
-      </trans-unit>
       <trans-unit id="cancel" datatype="html">
         <source>Peruuta</source>
         <target>Cancel</target>
@@ -2821,7 +2817,7 @@
       </trans-unit>
       <trans-unit id="importingDataWait" datatype="html">
         <source>
-          <x id="INTERPOLATION" equiv-text="&lt;/span &gt; &lt;/div&gt; &lt;/div&gt; &lt;/ng-template&gt; &lt;app-dialog"/>
+          <x id="INTERPOLATION" equiv-text="{{orcidDataFetchWaitingText}}"/>
         </source>
         <target state="new">Importing data, please wait...</target>
       </trans-unit>
@@ -2875,13 +2871,13 @@
       </trans-unit>
       <trans-unit id="deletingProfileWait" datatype="html">
         <source>
-          <x id="INTERPOLATION" equiv-text="&lt;/span &gt; &lt;/div&gt; &lt;/div&gt;"/>
+          <x id="INTERPOLATION" equiv-text="{{deleteProfileWait}}"/>
         </source>
         <target state="new">Deleting profile, please wait...</target>
       </trans-unit>
       <trans-unit id="deleteProfileConnProblem" datatype="html">
         <source>
-          <x id="INTERPOLATION" equiv-text="&lt;/ng-container &gt;"/>
+          <x id="INTERPOLATION" equiv-text="{{connectionProblemDeleteProfile}}"/>
         </source>
         <target state="new">Connection issue. Deleting the profile failed. Try it again in a while.</target>
       </trans-unit>
@@ -3058,8 +3054,8 @@
         <target>research data -item</target>
       </trans-unit>
       <trans-unit id="fundingItem" datatype="html">
-        <source>hanke</source>
-        <target>project</target>
+        <source>myönnetty rahoitus</source>
+        <target state="new">granted funding</target>
       </trans-unit>
       <trans-unit id="searchForMissingPublication" datatype="html">
         <source>Puuttuvan julkaisun hakeminen</source>
@@ -3265,9 +3261,9 @@
         <source>Valitse aineistot</source>
         <target>Select datasets</target>
       </trans-unit>
-      <trans-unit id="selectProjects" datatype="html">
-        <source>Valitse hankkeet</source>
-        <target>Select projects</target>
+      <trans-unit id="selectGrantedFunding" datatype="html">
+        <source>Valitse myönnetty rahoitus</source>
+        <target>Select granted funding</target>
       </trans-unit>
       <trans-unit id="selectActivities" datatype="html">
         <source>Valitse aktiviteetit</source>
@@ -3290,8 +3286,8 @@
         <target>You can select research data for your profile from the list below.</target>
       </trans-unit>
       <trans-unit id="myDataEditorModalFundingTabInfo" datatype="html">
-        <source>Tiedejatutkimus.fi-palvelusta löytyvät hankkeet, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. hankkeita, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä &quot;Hae muita hankkeita&quot; -toiminnolla.</source>
-        <target>Projects with your ORCID iD in Research.fi are automatically added to your information. Projects not associated with your ORCID iD can be added using the &quot;Search for other projects&quot; function.</target>
+        <source>Tiedejatutkimus.fi-palvelusta löytyvät rahoitusmyönnöt, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. Myönnettyä rahoitusta, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä &quot;Hae muita myönnetyjä rahoituksia&quot; -toiminnolla.</source>
+        <target state="new">Granted funding with your ORCID iD in Research.fi are automatically added to your information. Granted funding not associated with your ORCID iD can be added using the &quot;Search for other granted funding&quot; function.</target>
       </trans-unit>
       <trans-unit id="searchForOtherPublicationsFromPortal" datatype="html">
         <source>Hae muita julkaisuja Tiedejatutkimus.fi:stä julkaisun tai tekijän nimellä ja liitä ne profiiliisi.</source>
@@ -3302,8 +3298,8 @@
         <target>Search for other research data in Research.fi with the name of the material or author and attach them to your profile.</target>
       </trans-unit>
       <trans-unit id="searchForOtherFundingsFromPortal" datatype="html">
-        <source>Hae muita hankkeita Tiedejatutkimus.fi:stä hankkeen sisältämien tietojen perusteella ja liitä ne profiiliisi.</source>
-        <target>Search for other projects at Research.fi based on the information in the project and attach them to your profile.</target>
+        <source>Hae muita rahoitusmyöntöjä Tiedejatutkimus.fi:stä myönnetyn rahoituksen sisältämien tietojen perusteella ja liitä ne profiiliisi.</source>
+        <target state="new">Search for other granted fundings at Research.fi based on the information in the granted funding and attach them to your profile.</target>
       </trans-unit>
       <trans-unit id="myDataEditorModalActivityTabInfo" datatype="html">
         <source>Voit muokata ORCIDista tuotuja tietoja ORCID-profiilissasi. Tietojen päivittyminen voi viedä noin vuorokauden. Kotiorganisaatiosta tuotuja tietoja voi muokata vain oman organisaation järjestelmässä.</source>
@@ -3998,7 +3994,7 @@
         <source>Organisaatiot</source>
         <target>Organizations</target>
       </trans-unit>
-      <trans-unit id="a818b5edba676050331e259094fc81116a60c329" datatype="html">
+      <trans-unit id="8803797161784514845" datatype="html">
         <source>Hae</source>
         <target>Search</target>
       </trans-unit>
@@ -4018,7 +4014,7 @@
         <source>Hankkeet</source>
         <target>Projects</target>
       </trans-unit>
-      <trans-unit id="7faaf4f818cbabf5f42648c7271cb60b1cb5356a" datatype="html">
+      <trans-unit id="6312855125143647093" datatype="html">
         <source>Hankkeet uudistuvat. Aiempien hankkeiden tiedot löytyvät nyt ‘Myönnetty rahoitus‘ -osiosta.</source>
         <target>The projects are being renewed. The information from previous projects can now be found in the ‘Granted funding’ section.</target>
       </trans-unit>
@@ -4030,7 +4026,7 @@
         <source>Rahoitusmuoto kuvaa kenelle tai millaiseen tarkoitukseen haettava rahoitus on tarkoitettu. Ensimmäisessä vaiheessa tietoa rahoitusmuodosta toimittaa Suomen Akatemia, jaottelua laajennetaan muiden rahoittajien avoimiin hakuihin.</source>
         <target>The method of funding describes for whom or for what purpose the funding is intended. In the first phase, information on the funding instrument will be provided by Research Council of Finland, it will be expanded to other funders open calls later.</target>
       </trans-unit>
-      <trans-unit id="ff436ef2addfec3d2b4e377712a81daf9f09bb6a" datatype="html">
+      <trans-unit id="3432026286733000875" datatype="html">
         <source>Rahoitushaun vaihe</source>
         <target>State of funding call</target>
       </trans-unit>
@@ -4058,15 +4054,15 @@
         <source>Strategisen tutkimuksen neuvosto</source>
         <target>Strategic Research Council</target>
       </trans-unit>
-      <trans-unit id="0a5ec82b7c8c2675e6278a56cf9c3933179cc6ef" datatype="html">
+      <trans-unit id="4126295923781957141" datatype="html">
         <source>Näytä myönnöt</source>
         <target>Show funding</target>
       </trans-unit>
-      <trans-unit id="1b2059933962d468db9b827cc790b176a1d05169" datatype="html">
+      <trans-unit id="8826410345133306919" datatype="html">
         <source>Päättäjä</source>
         <target>Decision maker</target>
       </trans-unit>
-      <trans-unit id="7386997347fcca9a43be13da6fae595d0f4d17ee" datatype="html">
+      <trans-unit id="3277993170150764605" datatype="html">
         <source>Rahoitusmuoto</source>
         <target>Method of funding</target>
       </trans-unit>
@@ -4263,24 +4259,28 @@
         <target>Clinical researcher</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.91" datatype="html">
-        <source>Lehden nimi, kirjoita hakukenttään journalName: &quot;haettava nimike&quot;, esimerkiksi journalName:&quot;Nature&quot;</source>
+        <source> Lehden nimi, kirjoita hakukenttään journalName: &quot;haettava nimike&quot;, esimerkiksi journalName:&quot;Nature&quot; </source>
         <target state="new">Journal name, write in the search field journalName: &quot;searched identifier&quot;, for example, journalName:&quot;Nature&quot;</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.92" datatype="html">
-        <source>Konferenssin nimi, kirjoita hakukenttään conferenceName: &quot;haettava nimike&quot;, esimerkiksi conferenceName:&quot;ACM Multimedia&quot; </source>
+        <source> Konferenssin nimi, kirjoita hakukenttään conferenceName: &quot;haettava nimike&quot;, esimerkiksi conferenceName:&quot;ACM Multimedia&quot; </source>
         <target state="new"> Conference name, write in the search field conferenceName: &quot;searched identifier&quot;, for example, conferenceName:&quot;ACM Multimedia&quot;</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.93" datatype="html">
-        <source>Kustantajan nimi, kirjoita hakukenttään publisherName: &quot;haettava nimike&quot;, esimerkiksi publisherName:&quot;Springer&quot;</source>
+        <source> Kustantajan nimi, kirjoita hakukenttään publisherName: &quot;haettava nimike&quot;, esimerkiksi publisherName:&quot;Springer&quot; </source>
         <target state="new">Publisher name, write in the search field publisherName: &quot;searched identifier&quot;, for example, publisherName:&quot;Springer&quot;</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.51" datatype="html">
-        <source>Jokerimerkillä ? voit korvata yhden merkin hakusanasta. Jos haluat hakea samaan aikaan esimerkiksi sanoja &quot;woman&quot; ja &quot;women&quot;, voit käyttää hakuatermiä wom?n.</source>
+        <source> Jokerimerkillä ? voit korvata yhden merkin hakusanasta. Jos haluat hakea samaan aikaan esimerkiksi sanoja &quot;woman&quot; ja &quot;women&quot;, voit käyttää hakuatermiä wom?n. </source>
         <target state="new">With a wildcard ? you can replace one character of the search term. For example, if you want to search for the words &quot;woman&quot; and &quot;women&quot; at the same time, you can use the search term wom?n.</target>
       </trans-unit>
       <trans-unit id="publication2.tutorial.52" datatype="html">
-        <source>Jokerimerkillä * voit korvata yhden tai useamman merkin hakusanan keskeltä tai lopusta. Jokerimerkki * edustaa myös tyhjää merkkiä. Jos haluat hakea samaan aikaan esimerkiksi sanoja &quot;color&quot; ja &quot;colour&quot;, voit käyttää hakutermiä colo*r. Esimerkiksi hakutermillä tietotek* voit hakea sanoja jotka alkavat kirjaimilla tietotek, kuten &quot;tietotekniikka&quot; ja &quot;tietotekniset&quot;. </source>
-        <target state="new">With a wildcard * you can replace one or more characters in the middle or at the end of the search term. The wildcard  also represents a null character. For example, if you want to search for the words &quot;color&quot; and &quot;colour&quot; at the same time, you can use the search term colo*r.</target>
+        <source> Jokerimerkillä * voit korvata yhden tai useamman merkin hakusanan keskeltä tai lopusta. Jokerimerkki * edustaa myös tyhjää merkkiä. Jos haluat hakea samaan aikaan esimerkiksi sanoja &quot;color&quot; ja &quot;colour&quot;, voit käyttää hakutermiä colo*r. Esimerkiksi hakutermillä tietotek* voit hakea sanoja jotka alkavat kirjaimilla tietotek, kuten &quot;tietotekniikka&quot; ja &quot;tietotekniset&quot;. </source>
+        <target state="new">With a wildcard * you can replace one or more characters in the middle or at the end of the search term. The wildcard also represents a null character. For example, if you want to search for the words &quot;color&quot; and &quot;colour&quot; at the same time, you can use the search term colo*r.</target>
+      </trans-unit>
+      <trans-unit id="2404930950771668634" datatype="html">
+        <source>Suomen akatemian muu päättäjä</source>
+        <target state="new">Suomen akatemian muu päättäjä</target>
       </trans-unit>
     </body>
   </file>
