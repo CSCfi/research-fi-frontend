@@ -422,7 +422,7 @@
       </trans-unit>
       <trans-unit id="relatedFundings" datatype="html">
         <source>Hae hankkeeseen liittyvät (tulossa)</source>
-        <target>Related to this funding (Coming soon)</target>
+        <target state="new">Related to this funding (Coming soon)</target>
       </trans-unit>
       <trans-unit id="share" datatype="html">
         <source>Jaa</source>
@@ -2376,12 +2376,12 @@
         <target state="new">Author</target>
       </trans-unit>
       <trans-unit id="funding" datatype="html">
-        <source>myönnetty rahoitus</source>
-        <target>Granted funding</target>
+        <source>Myönnetty rahoitus</source>
+        <target state="new">Granted funding</target>
       </trans-unit>
       <trans-unit id="grantedFunding" datatype="html">
-        <source> rahoitusmyöntöjä</source>
-        <target> granted funding</target>
+        <source>rahoitusmyöntöjä</source>
+        <target state="new"> granted funding</target>
       </trans-unit>
       <trans-unit id="dataset" datatype="html">
         <source>aineisto</source>
@@ -2731,6 +2731,10 @@
         <source>Pikaohjeet</source>
         <target>Quickstart guide</target>
       </trans-unit>
+      <trans-unit id="begin" datatype="html">
+        <source>Avaa käyttöehdot ja henkilötietojen käsittelyperiaatteet</source>
+        <target state="new">Begin</target>
+      </trans-unit>
       <trans-unit id="cancel" datatype="html">
         <source>Peruuta</source>
         <target>Cancel</target>
@@ -3058,7 +3062,7 @@
         <target>research data -item</target>
       </trans-unit>
       <trans-unit id="fundingItem" datatype="html">
-        <source>rahoitusmyöntö/source>
+        <source>rahoitusmyöntö</source>
         <target state="new">granted funding</target>
       </trans-unit>
       <trans-unit id="searchForMissingPublication" datatype="html">
@@ -3302,7 +3306,7 @@
         <target>Search for other research data in Research.fi with the name of the material or author and attach them to your profile.</target>
       </trans-unit>
       <trans-unit id="searchForOtherFundingsFromPortal" datatype="html">
-        <source>Hae muita rahoitusmyöntöjä Tiedejatutkimus.fi:stä myönnetyn rahoituksen sisältämien tietojen perusteella ja liitä ne profiiliisi.</source>
+        <source>Hae muita myönnettyjä rahoituksia Tiedejatutkimus.fi:stä myönnetyn rahoituksen sisältämien tietojen perusteella ja liitä ne profiiliisi.</source>
         <target state="new">Search for other granted fundings at Research.fi based on the information in the granted funding and attach them to your profile.</target>
       </trans-unit>
       <trans-unit id="myDataEditorModalActivityTabInfo" datatype="html">
