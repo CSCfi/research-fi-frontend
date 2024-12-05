@@ -3010,7 +3010,7 @@
         <target>research data -item</target>
       </trans-unit>
       <trans-unit id="fundingItem" datatype="html">
-        <source>myönnetty rahoitus</source>
+        <source>rahoitusmyöntö</source>
         <target>granted funding</target>
       </trans-unit>
       <trans-unit id="searchForMissingPublication" datatype="html">

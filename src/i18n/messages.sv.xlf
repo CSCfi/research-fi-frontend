@@ -3007,8 +3007,8 @@
         <target>forskningsdata</target>
       </trans-unit>
       <trans-unit id="fundingItem" datatype="html">
-        <source>myönnetty rahoitus</source>
-        <target>beviljade finansiering</target>
+        <source>rahoitusmyöntö</source>
+        <target>bidrag</target>
       </trans-unit>
       <trans-unit id="searchForMissingPublication" datatype="html">
         <source>Puuttuvan julkaisun hakeminen</source>
@@ -3239,8 +3239,8 @@
         <target>Du kan välja forskningsdata till din profil från listan nedan.</target>
       </trans-unit>
       <trans-unit id="myDataEditorModalFundingTabInfo" datatype="html">
-        <source>Tiedejatutkimus.fi-palvelusta löytyvät myönnetyt rahoitukset, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. Myönnettyä rahoitusta, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä &quot;Hae muita myönnetyjä rahoituksia&quot; -toiminnolla.</source>
-        <target state="new">I tjänsten Forskning.fi hittar du beviljade finansiering med din ORCID-kod som läggs till din uppgifter automatiskt. beviljade finansiering som inte är kopplade till din ORCID-kod kan du lägga till med funktionen &quot;Hämta andra beviljade finansiering&quot;.</target>
+        <source>Tiedejatutkimus.fi-palvelusta löytyvät rahoitusmyönnöt, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. Myönnettyä rahoitusta, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä &quot;Hae muita myönnetyjä rahoituksia&quot; -toiminnolla.</source>
+        <target state="new">I tjänsten Forskning.fi hittar du beviljade bidrag med din ORCID-kod som läggs till din uppgifter automatiskt. beviljade finansiering som inte är kopplade till din ORCID-kod kan du lägga till med funktionen &quot;Hämta andra beviljade bidragen&quot;.</target>
       </trans-unit>
       <trans-unit id="searchForOtherPublicationsFromPortal" datatype="html">
         <source>Hae muita julkaisuja Tiedejatutkimus.fi:stä julkaisun tai tekijän nimellä ja liitä ne profiiliisi.</source>
@@ -3959,7 +3959,7 @@
       </trans-unit>
       <trans-unit id="fundingsDataDisclaimerLink" datatype="html">
         <source> Mitä rahoitusmyöntöjen tietoja palvelu sisältää? </source>
-        <target>Vilka uppgifter om den beviljade finansiering finns i tjänsten?</target>
+        <target>Vilka uppgifter om den beviljade bidragen finns i tjänsten?</target>
       </trans-unit>
       <trans-unit id="navigation.fundings" datatype="html">
         <source>Myönnetty rahoitus</source>
