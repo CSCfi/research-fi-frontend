@@ -2086,7 +2086,7 @@
         <source>Tutkimusalat</source>
       </trans-unit>
       <trans-unit id="fieldsOfResearchTooltip" datatype="html">
-        <source>Suomen Akatemian luokittelee hankkeensa myös oman tutkimusalaluokittelunsa mukaisesti.</source>
+        <source>Suomen Akatemia luokittelee rahoitusmyöntönsä myös oman tutkimusalaluokittelunsa mukaisesti.</source>
       </trans-unit>
       <trans-unit id="5590978338889886967" datatype="html">
         <source>Teema-alat</source>

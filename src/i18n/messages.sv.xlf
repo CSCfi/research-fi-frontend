@@ -1603,8 +1603,8 @@
         <target>Statistikcentralens klassificering av vetenskapsområden. Beviljade finansiering kan omfatta flera vetenskapsområden. Vissa finansiärer använder inte vetenskapsområden.</target>
       </trans-unit>
       <trans-unit id="fieldsOfResearchTooltip" datatype="html">
-        <source>Suomen Akatemian luokittelee hankkeensa myös oman tutkimusalaluokittelunsa mukaisesti.</source>
-        <target>Finlands Akademi använder också sina egna forskningsområden.</target>
+        <source>Suomen Akatemia luokittelee rahoitusmyöntönsä myös oman tutkimusalaluokittelunsa mukaisesti.</source>
+        <target>Finlands Akademi klassificerar sin finansiering också efter egna forskningsområden.</target>
       </trans-unit>
       <trans-unit id="fkeywordsTooltip" datatype="html">
         <source>Haun rajaus rahoitusmyönnön tiedoissa olevien avainsanojen perusteella.</source>
