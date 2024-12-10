@@ -10,45 +10,9 @@
         <source> Hae tietoa tutkimuksesta Suomessa </source>
         <target> Search for information on research in Finland </target>
       </trans-unit>
-      <trans-unit id="tkiReportsHeader" datatype="html">
-        <source>Selvityksiä ja raportteja</source>
-        <target>Studies and reports</target>
-      </trans-unit>
-      <trans-unit id="searchTooltipTki" datatype="html">
-        <source>Voit hakea selvityksiä ja raportteja Suomen tutkimus- ja innovaatiojärjestelmästä</source>
-        <target>You can search reports about the Finnish research and innovation system</target>
-      </trans-unit>
-      <trans-unit id="sortByName" datatype="html">
-        <source>Järjestä nimen mukaan</source>
-        <target>Sort by title</target>
-      </trans-unit>
-      <trans-unit id="sortByYear" datatype="html">
-        <source>Järjestä julkaisuvuoden mukaan</source>
-        <target>Sort by year of publication</target>
-      </trans-unit>
-      <trans-unit id="sortByAuthors" datatype="html">
-        <source>Järjestä tekijöiden mukaan</source>
-        <target>Sort by authors</target>
-      </trans-unit>
-      <trans-unit id="sortByKeywords" datatype="html">
-        <source>Järjestä avainsanojen mukaan</source>
-        <target state="new">Sort by keywords</target>
-      </trans-unit>
-      <trans-unit id="tkiKeywords" datatype="html">
-        <source>Asiasanat</source>
-        <target>Keywords</target>
-      </trans-unit>
-      <trans-unit id="tkiName" datatype="html">
-        <source>Nimi</source>
-        <target>Title</target>
-      </trans-unit>
       <trans-unit id="tkiAuthors" datatype="html">
         <source>Tekijät</source>
         <target>Authors</target>
-      </trans-unit>
-      <trans-unit id="searchTooltipPlaceholderTki" datatype="html">
-        <source>Hae raportti...</source>
-        <target>Search reports...</target>
       </trans-unit>
       <trans-unit id="searchTooltip" datatype="html">
         <source>Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa.</source>
@@ -478,11 +442,11 @@
       </trans-unit>
       <trans-unit id="asCountFunding" datatype="html">
         <source> Hankkeiden määrä </source>
-        <target state="new">Number of projects</target>
+        <target state="new">Number of grants</target>
       </trans-unit>
       <trans-unit id="asPercentFunding" datatype="html">
         <source> % hankkeiden määrästä </source>
-        <target state="new">Percentage of the number of projects</target>
+        <target state="new">Percentage of the number of grants</target>
       </trans-unit>
       <trans-unit id="asPercentAmount" datatype="html">
         <source> % myöntösummasta </source>
@@ -562,23 +526,23 @@
       </trans-unit>
       <trans-unit id="fundingCountByYear" datatype="html">
         <source>Hankkeiden jakautuminen vuosittain</source>
-        <target>Distribution of projects by year</target>
+        <target state="new">Distribution of grants by year</target>
       </trans-unit>
       <trans-unit id="fundingCountByFunder" datatype="html">
         <source>Hankkeiden jakautuminen rahoittajan mukaan</source>
-        <target>Distribution of projects by funder</target>
+        <target state="new">Distribution of grants by funder</target>
       </trans-unit>
       <trans-unit id="fundingCountByOrg" datatype="html">
         <source>Hankkeiden jakautuminen organisaatioittain</source>
-        <target>Distribution of projects by organization</target>
+        <target state="new">Distribution of grants by organization</target>
       </trans-unit>
       <trans-unit id="fundingCountByType" datatype="html">
         <source>Hankkeiden jakautuminen rahoitusmuodon mukaan</source>
-        <target>Distribution of projects by funding instrument</target>
+        <target state="new">Distribution of grants by funding instrument</target>
       </trans-unit>
       <trans-unit id="fundingCountByFOS" datatype="html">
         <source>Hankkeiden jakautuminen tieteenaloittain</source>
-        <target>Distribution of projects by field of science</target>
+        <target state="new">Distribution of grants by field of science</target>
       </trans-unit>
       <trans-unit id="asCountAmount" datatype="html">
         <source> Myöntösumma </source>
@@ -608,17 +572,9 @@
         <source>Ei infrastruktuureja</source>
         <target>No infrastructures</target>
       </trans-unit>
-      <trans-unit id="fundingDescription" datatype="html">
-        <source>Rahoitetun hankkeen kuvaus</source>
-        <target>Description of the granted funding</target>
-      </trans-unit>
       <trans-unit id="description" datatype="html">
         <source>Kuvaus</source>
         <target>Description</target>
-      </trans-unit>
-      <trans-unit id="descriptionNotAvailable" datatype="html">
-        <source>Kuvausta ei saatavilla.</source>
-        <target>Description not available.</target>
       </trans-unit>
       <trans-unit id="newsHeader" datatype="html">
         <source> Tiede- ja tutkimusuutiset </source>
@@ -832,10 +788,6 @@
       <trans-unit id="infrastructures" datatype="html">
         <source>infrastruktuurit</source>
         <target state="new">Infrastructures</target>
-      </trans-unit>
-      <trans-unit id="otherResearchActivities" datatype="html">
-        <source>Muut tutkimusaktiviteetit</source>
-        <target>Other research activities</target>
       </trans-unit>
       <trans-unit id="organizations" datatype="html">
         <source>tutkimusorganisaatiot</source>
@@ -2731,10 +2683,6 @@
         <source>Pikaohjeet</source>
         <target>Quickstart guide</target>
       </trans-unit>
-      <trans-unit id="begin" datatype="html">
-        <source>Avaa käyttöehdot ja henkilötietojen käsittelyperiaatteet</source>
-        <target state="new">Begin</target>
-      </trans-unit>
       <trans-unit id="cancel" datatype="html">
         <source>Peruuta</source>
         <target>Cancel</target>
@@ -4081,26 +4029,6 @@
       <trans-unit id="6513753384822692310" datatype="html">
         <source>Suomen Akatemian päättäjä</source>
         <target>Research Council of Finland&apos;s decision maker</target>
-      </trans-unit>
-      <trans-unit id="fa1db83f11474f1f1902ac43f0ab21fb92b291c9" datatype="html">
-        <source>Luonnontieteiden ja tekniikan tutkimuksen toimikunta</source>
-        <target state="new">Luonnontieteiden ja tekniikan tutkimuksen toimikunta</target>
-      </trans-unit>
-      <trans-unit id="52ce8e8d7d374ffb52f1388ab9540834353977ac" datatype="html">
-        <source>Biotieteiden, terveyden ja ympäristön tutkimuksen toimikunta</source>
-        <target state="new">Biotieteiden, terveyden ja ympäristön tutkimuksen toimikunta</target>
-      </trans-unit>
-      <trans-unit id="9ead7dcac3ee2204234abb05ab4b7ade3b997501" datatype="html">
-        <source>Kulttuurin ja yhteiskunnan tutkimuksen toimikunta</source>
-        <target state="new">Kulttuurin ja yhteiskunnan tutkimuksen toimikunta</target>
-      </trans-unit>
-      <trans-unit id="b8ff2189e0f87a04b8910355c0da14d1422b62b8" datatype="html">
-        <source>Tutkimusinfrastruktuurikomitea</source>
-        <target state="new">Tutkimusinfrastruktuurikomitea</target>
-      </trans-unit>
-      <trans-unit id="95fa64198fd91da75df92f4616031d75b0717443" datatype="html">
-        <source>Strategisen tutkimuksen neuvosto</source>
-        <target state="new">Strategisen tutkimuksen neuvosto</target>
       </trans-unit>
       <trans-unit id="2164427846406249488" datatype="html">
         <source>Liikkuvuus / Matka-apuraha</source>
