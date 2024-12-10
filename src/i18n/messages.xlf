@@ -1542,10 +1542,10 @@
         <source> % julkaisujen määrästä </source>
       </trans-unit>
       <trans-unit id="asCountFunding" datatype="html">
-        <source> Hankkeiden määrä </source>
+        <source> Rahoitusmyöntöjen määrä </source>
       </trans-unit>
       <trans-unit id="asPercentFunding" datatype="html">
-        <source> % hankkeiden määrästä </source>
+        <source> % rahoitusmyöntöjen määrästä </source>
       </trans-unit>
       <trans-unit id="asCountAmount" datatype="html">
         <source> Myöntösumma </source>

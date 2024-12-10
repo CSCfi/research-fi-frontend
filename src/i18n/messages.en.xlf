@@ -441,11 +441,11 @@
         <target state="new">Percentage of the number of publications</target>
       </trans-unit>
       <trans-unit id="asCountFunding" datatype="html">
-        <source> Hankkeiden määrä </source>
+        <source> Rahoitusmyöntöjen määrä </source>
         <target state="new">Number of grants</target>
       </trans-unit>
       <trans-unit id="asPercentFunding" datatype="html">
-        <source> % hankkeiden määrästä </source>
+        <source> % rahoitusmyöntöjen määrästä </source>
         <target state="new">Percentage of the number of grants</target>
       </trans-unit>
       <trans-unit id="asPercentAmount" datatype="html">
