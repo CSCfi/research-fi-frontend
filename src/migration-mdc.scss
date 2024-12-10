@@ -258,6 +258,10 @@ mat-checkbox, .mdc-form-field.mat-internal-form-field {
   white-space: nowrap !important;
 }
 
+app-collaboration-card .mdc-form-field.mat-internal-form-field {
+  white-space: initial !important;
+}
+
 // Expansion panel's content in search pages
 body app-filters mat-expansion-panel.mat-expansion-panel.mat-expanded, body .filters-dialog mat-expansion-panel.mat-expansion-panel.mat-expanded {
   font-size: 0.88rem;
