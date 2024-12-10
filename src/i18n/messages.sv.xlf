@@ -451,14 +451,6 @@
         <source> % rahoitusmyöntöjen määrästä </source>
         <target state="new">Procent av antalet bidrag</target>
       </trans-unit>
-      <trans-unit id="asCountProject" datatype="html">
-        <source> Hankkeiden määrä </source>
-        <target state="new">Antalet projekt</target>
-      </trans-unit>
-      <trans-unit id="asPercentProject" datatype="html">
-        <source> % hankkeiden määrästä </source>
-        <target state="new">Procent av antalet projekt</target>
-      </trans-unit>
       <trans-unit id="asPercentAmount" datatype="html">
         <source> % myöntösummasta </source>
         <target state="new">Procent av det beviljade beloppet</target>
