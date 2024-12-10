@@ -1600,8 +1600,8 @@
         <target>The Statistics Finland’s Fields of science classification. One grant may involve multiple fields of science. Not all funders use fields of science.</target>
       </trans-unit>
       <trans-unit id="fieldsOfResearchTooltip" datatype="html">
-        <source>Suomen Akatemian luokittelee hankkeensa myös oman tutkimusalaluokittelunsa mukaisesti.</source>
-        <target>The Academy of Finland categorizes also projects according to its own research fields.</target>
+        <source>Suomen Akatemia luokittelee rahoitusmyöntönsä myös oman tutkimusalaluokittelunsa mukaisesti.</source>
+        <target>Research Council of Finland categorizes grants also according to its own research fields. </target>
       </trans-unit>
       <trans-unit id="fkeywordsTooltip" datatype="html">
         <source>Haun rajaus rahoitusmyönnön tiedoissa olevien avainsanojen perusteella.</source>
