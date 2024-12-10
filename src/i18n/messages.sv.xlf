@@ -480,10 +480,18 @@
         <target state="new">Procent av antalet publikationer</target>
       </trans-unit>
       <trans-unit id="asCountFunding" datatype="html">
+        <source> Rahoitusmyöntöjen määrä </source>
+        <target state="new">Antalet bidrag</target>
+      </trans-unit>
+      <trans-unit id="asCountProject" datatype="html">
         <source> Hankkeiden määrä </source>
         <target state="new">Antalet projekter</target>
       </trans-unit>
       <trans-unit id="asPercentFunding" datatype="html">
+        <source> % rahoitusmyöntöjen määrästä </source>
+        <target state="new">Procent av antalet bidrag</target>
+      </trans-unit>
+      <trans-unit id="asPercentProject" datatype="html">
         <source> % hankkeiden määrästä </source>
         <target state="new">Procent av antalet projekter</target>
       </trans-unit>
@@ -564,22 +572,42 @@
         <target>Antal publikationer per öppen tillgång</target>
       </trans-unit>
       <trans-unit id="fundingCountByYear" datatype="html">
+        <source>Rahoitusmyöntöjen jakautuminen vuosittain</source>
+        <target>Fördelning bidrag per år</target>
+      </trans-unit>
+      <trans-unit id="fundingCountByFunder" datatype="html">
+        <source>Rahoitusmyöntöjen jakautuminen rahoittajan mukaan</source>
+        <target>Fördelning bidrag per finansiär</target>
+      </trans-unit>
+      <trans-unit id="fundingCountByOrg" datatype="html">
+        <source>Rahoitusmyöntöjen jakautuminen organisaatioittain</source>
+        <target>Fördelning bidrag per organisation</target>
+      </trans-unit>
+      <trans-unit id="fundingCountByType" datatype="html">
+        <source>Rahoitusmyöntöjen jakautuminen rahoitusmuodon mukaan</source>
+        <target>Fördelning bidrag per typ av finansiering</target>
+      </trans-unit>
+      <trans-unit id="fundingCountByFOS" datatype="html">
+        <source>Rahoitusmyöntöjen jakautuminen tieteenaloittain</source>
+        <target>Fördelning bidrag per vetenskapsområde</target>
+      </trans-unit>
+      <trans-unit id="projectCountByYear" datatype="html">
         <source>Hankkeiden jakautuminen vuosittain</source>
         <target>Fördelning projekt per år</target>
       </trans-unit>
-      <trans-unit id="fundingCountByFunder" datatype="html">
+      <trans-unit id="projectCountByFunder" datatype="html">
         <source>Hankkeiden jakautuminen rahoittajan mukaan</source>
         <target>Fördelning projekt per finansiär</target>
       </trans-unit>
-      <trans-unit id="fundingCountByOrg" datatype="html">
+      <trans-unit id="projectCountByOrg" datatype="html">
         <source>Hankkeiden jakautuminen organisaatioittain</source>
         <target>Fördelning projekt per organisation</target>
       </trans-unit>
-      <trans-unit id="fundingCountByType" datatype="html">
+      <trans-unit id="projectCountByType" datatype="html">
         <source>Hankkeiden jakautuminen rahoitusmuodon mukaan</source>
         <target>Fördelning projekt per typ av finansiering</target>
       </trans-unit>
-      <trans-unit id="fundingCountByFOS" datatype="html">
+      <trans-unit id="projectCountByFOS" datatype="html">
         <source>Hankkeiden jakautuminen tieteenaloittain</source>
         <target>Fördelning projekt per vetenskapsområde</target>
       </trans-unit>
