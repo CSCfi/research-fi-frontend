@@ -2041,7 +2041,7 @@
         <source> Rahoitusmyöntöön ei ole tarjolla linkkejä tässä portaalissa </source>
       </trans-unit>
       <trans-unit id="relatedFundings" datatype="html">
-        <source>Hae rahoituspäätökseen liittyvät (tulossa)</source>
+        <source>Hae rahoitukseen liittyvät (tulossa)</source>
       </trans-unit>
       <trans-unit id="share" datatype="html">
         <source>Jaa</source>
