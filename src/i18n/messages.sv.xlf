@@ -4221,6 +4221,10 @@
         <source>Suomen akatemian muu päättäjä</source>
         <target state="new">Suomen akatemian muu päättäjä</target>
       </trans-unit>
+      <trans-unit id="typeOfFundingTooltip" datatype="html">
+        <source>Puiteohjelma</source>
+        <target state="new">Framework programme</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
