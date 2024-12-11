@@ -424,7 +424,7 @@
         <target> Bidraget har inga tillgängliga länkar i portalen </target>
       </trans-unit>
       <trans-unit id="relatedFundings" datatype="html">
-        <source>Hae rahoituspäätökseen liittyvät (tulossa)</source>
+        <source>Hae rahoitukseen liittyvät (tulossa)</source>
         <target state="new">Relaterade till detta bidrag (På kommande) </target>
       </trans-unit>
       <trans-unit id="share" datatype="html">

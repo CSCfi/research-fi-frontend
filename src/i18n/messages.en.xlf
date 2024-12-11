@@ -421,7 +421,7 @@
         <target> Granted funding has no links available in this portal </target>
       </trans-unit>
       <trans-unit id="relatedFundings" datatype="html">
-        <source>Hae rahoituspäätökseen liittyvät (tulossa)</source>
+        <source>Hae rahoitukseen liittyvät (tulossa)</source>
         <target state="new">Related to this funding (Coming soon)</target>
       </trans-unit>
       <trans-unit id="share" datatype="html">
