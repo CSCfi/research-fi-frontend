@@ -74,7 +74,7 @@ export class ProfileAdapter implements Adapter<Profile> {
       },
       {
         id: GroupTypes.funding,
-        label: $localize`:@@fundings:Hankkeet`,
+        label: $localize`:@@fundings:Myönnetty rahoitus`,
         fields: mapModel(this.fundingFieldsAdapter, data.activity),
       },
       {
