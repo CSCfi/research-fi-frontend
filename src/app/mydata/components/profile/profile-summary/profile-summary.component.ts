@@ -110,7 +110,6 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnChanges(): void {
     this.displayData = cloneDeep(this.profileData);
-
     // Clear imported items
     this.profileData.forEach((group) => {
       if (group.fields.find((field) => field.id === 'imported')) {

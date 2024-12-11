@@ -35,7 +35,7 @@ export class FundingFieldsAdapter implements Adapter<FundingFields> {
         item,
         'funding',
         'fundingDecisions',
-        $localize`:@@publications:Hankkeet`
+        $localize`:@@funding:Myönnetty rahoitus`
       )
     );
   }

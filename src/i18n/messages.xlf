@@ -391,6 +391,9 @@
       <trans-unit id="searchForOther" datatype="html">
         <source>Hae muita</source>
       </trans-unit>
+      <trans-unit id="grantedFunding" datatype="html">
+        <source>rahoitusmyöntöjä</source>
+      </trans-unit>
       <trans-unit id="comingSoon" datatype="html">
         <source>Tulossa</source>
       </trans-unit>
@@ -419,13 +422,13 @@
         <source>Voit valita profiiliisi tutkimusaineistoja alla olevasta listasta.</source>
       </trans-unit>
       <trans-unit id="fundings" datatype="html">
-        <source>hankkeita</source>
+        <source>rahoitusmyöntöjä</source>
       </trans-unit>
-      <trans-unit id="selectProjects" datatype="html">
-        <source>Valitse hankkeet</source>
+      <trans-unit id="selectGrantedFunding" datatype="html">
+        <source>Valitse myönnetty rahoitus</source>
       </trans-unit>
       <trans-unit id="myDataEditorModalFundingTabInfo" datatype="html">
-        <source>Tiedejatutkimus.fi-palvelusta löytyvät hankkeet, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. hankkeita, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä &quot;Hae muita hankkeita&quot; -toiminnolla.</source>
+        <source>Tiedejatutkimus.fi-palvelusta löytyvät rahoitusmyönnöt, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. Myönnettyä rahoitusta, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä &quot;Hae muita myönnetyjä rahoituksia&quot; -toiminnolla.</source>
       </trans-unit>
       <trans-unit id="activities" datatype="html">
         <source>aktiviteetteja</source>
@@ -551,7 +554,7 @@
         <source>tutkimusaineisto</source>
       </trans-unit>
       <trans-unit id="fundingItem" datatype="html">
-        <source>hanke</source>
+        <source>rahoitusmyöntö</source>
       </trans-unit>
       <trans-unit id="fromYourData" datatype="html">
         <source> tiedoistasi?</source>
@@ -605,7 +608,7 @@
         <source>Hae muita tutkimusaineistoja Tiedejatutkimus.fi:stä aineiston tai tekijän nimellä ja liitä ne profiiliisi.</source>
       </trans-unit>
       <trans-unit id="searchForOtherFundingsFromPortal" datatype="html">
-        <source>Hae muita hankkeita Tiedejatutkimus.fi:stä hankkeen sisältämien tietojen perusteella ja liitä ne profiiliisi.</source>
+        <source>Hae muita rahoitusmyöntöjä Tiedejatutkimus.fi:stä myönnetyn rahoituksen sisältämien tietojen perusteella ja liitä ne profiiliisi.</source>
       </trans-unit>
       <trans-unit id="startManagingYourProfile" datatype="html">
         <source>Voit aloittaa Tutkijan tiedot -profiilin hallinnoinnin.</source>
@@ -800,6 +803,9 @@
       </trans-unit>
       <trans-unit id="affiliations" datatype="html">
         <source>Affiliaatiot</source>
+      </trans-unit>
+      <trans-unit id="funding" datatype="html">
+        <source>Myönnetty rahoitus</source>
       </trans-unit>
       <trans-unit id="email" datatype="html">
         <source>Sähköposti</source>
@@ -1376,6 +1382,12 @@
       <trans-unit id="publication2.tutorial.5" datatype="html">
         <source> Voit hakea kohdistetusti joitakin metatietoja suoraan hakukentässä käyttämällä niille erikseen määriteltyjä komentoja. Haussa on käytettävä fraasihakua. Toistaiseksi haku on mahdollista kohdistaa seuraaviin metatietoihin: </source>
       </trans-unit>
+      <trans-unit id="publication2.tutorial.51" datatype="html">
+        <source> Jokerimerkillä ? voit korvata yhden merkin hakusanasta. Jos haluat hakea samaan aikaan esimerkiksi sanoja &quot;woman&quot; ja &quot;women&quot;, voit käyttää hakuatermiä wom?n. </source>
+      </trans-unit>
+      <trans-unit id="publication2.tutorial.52" datatype="html">
+        <source> Jokerimerkillä * voit korvata yhden tai useamman merkin hakusanan keskeltä tai lopusta. Jokerimerkki * edustaa myös tyhjää merkkiä. Jos haluat hakea samaan aikaan esimerkiksi sanoja &quot;color&quot; ja &quot;colour&quot;, voit käyttää hakutermiä colo*r. Esimerkiksi hakutermillä tietotek* voit hakea sanoja jotka alkavat kirjaimilla tietotek, kuten &quot;tietotekniikka&quot; ja &quot;tietotekniset&quot;. </source>
+      </trans-unit>
       <trans-unit id="publication2.tutorial.6" datatype="html">
         <source> DOI, kirjoita hakukenttään doi:&quot;haettava tunnus&quot;, esimerkiksi doi:&quot;100100100&quot; </source>
       </trans-unit>
@@ -1387,6 +1399,15 @@
       </trans-unit>
       <trans-unit id="publication2.tutorial.9" datatype="html">
         <source> JUFO-tunnus, kirjoita hakukenttään jufoCode:&quot;haettava tunnus&quot;, esimerkiksi jufoCode:&quot;12345&quot; </source>
+      </trans-unit>
+      <trans-unit id="publication2.tutorial.91" datatype="html">
+        <source> Lehden nimi, kirjoita hakukenttään journalName: &quot;haettava nimike&quot;, esimerkiksi journalName:&quot;Nature&quot; </source>
+      </trans-unit>
+      <trans-unit id="publication2.tutorial.92" datatype="html">
+        <source> Konferenssin nimi, kirjoita hakukenttään conferenceName: &quot;haettava nimike&quot;, esimerkiksi conferenceName:&quot;ACM Multimedia&quot; </source>
+      </trans-unit>
+      <trans-unit id="publication2.tutorial.93" datatype="html">
+        <source> Kustantajan nimi, kirjoita hakukenttään publisherName: &quot;haettava nimike&quot;, esimerkiksi publisherName:&quot;Springer&quot; </source>
       </trans-unit>
       <trans-unit id="publication2.tutorial.10" datatype="html">
         <source> Huomioithan, että kohdistetussa haussa metatietokentät tulee kirjoittaa pienillä kirjaimilla. </source>
@@ -1499,6 +1520,9 @@
       <trans-unit id="skipToResults" datatype="html">
         <source>Hyppää hakutuloksiin</source>
       </trans-unit>
+      <trans-unit id="fundingsDataDisclaimerLink" datatype="html">
+        <source> Mitä rahoitusmyöntöjen tietoja palvelu sisältää? </source>
+      </trans-unit>
       <trans-unit id="resultInfo2" datatype="html">
         <source>tietoja palvelu sisältää?</source>
       </trans-unit>
@@ -1518,10 +1542,10 @@
         <source> % julkaisujen määrästä </source>
       </trans-unit>
       <trans-unit id="asCountFunding" datatype="html">
-        <source> Hankkeiden määrä </source>
+        <source> Rahoitusmyöntöjen määrä </source>
       </trans-unit>
       <trans-unit id="asPercentFunding" datatype="html">
-        <source> % hankkeiden määrästä </source>
+        <source> % rahoitusmyöntöjen määrästä </source>
       </trans-unit>
       <trans-unit id="asCountAmount" datatype="html">
         <source> Myöntösumma </source>
@@ -1625,9 +1649,6 @@
       <trans-unit id="moreFiguresFrom" datatype="html">
         <source> Lisää lukuja tieteestä ja tutkimuksesta </source>
       </trans-unit>
-      <trans-unit id="resetSearchTooltip" datatype="html">
-        <source>Tyhjennä haku</source>
-      </trans-unit>
       <trans-unit id="searchSlogan" datatype="html">
         <source> Hae tietoa tutkimuksesta Suomessa </source>
       </trans-unit>
@@ -1639,6 +1660,9 @@
       </trans-unit>
       <trans-unit id="searchPlaceholder" datatype="html">
         <source>Esim. julkaisu, tieteenala, asiasana</source>
+      </trans-unit>
+      <trans-unit id="resetSearchTooltip" datatype="html">
+        <source>Tyhjennä haku</source>
       </trans-unit>
       <trans-unit id="8803797161784514845" datatype="html">
         <source>Hae</source>
@@ -1694,9 +1718,6 @@
       </trans-unit>
       <trans-unit id="faq" datatype="html">
         <source>Usein kysytyt kysymykset</source>
-      </trans-unit>
-      <trans-unit id="otherResearchActivities" datatype="html">
-        <source>Muut tutkimusaktiviteetit</source>
       </trans-unit>
       <trans-unit id="copyLink" datatype="html">
         <source>Kopioi linkki</source>
@@ -1800,8 +1821,35 @@
       <trans-unit id="timeAt" datatype="html">
         <source>klo</source>
       </trans-unit>
+      <trans-unit id="3277993170150764605" datatype="html">
+        <source>Rahoitusmuoto</source>
+      </trans-unit>
       <trans-unit id="fundingCallWebsite" datatype="html">
         <source> Rahoitushaun verkkosivu </source>
+      </trans-unit>
+      <trans-unit id="3432026286733000875" datatype="html">
+        <source>Rahoitushaun vaihe</source>
+      </trans-unit>
+      <trans-unit id="5534105236041691302" datatype="html">
+        <source>Luonnontieteiden ja tekniikan tutkimuksen toimikunta</source>
+      </trans-unit>
+      <trans-unit id="4126295923781957141" datatype="html">
+        <source>Näytä myönnöt</source>
+      </trans-unit>
+      <trans-unit id="4424042627869359759" datatype="html">
+        <source>Biotieteiden, terveyden ja ympäristön tutkimuksen toimikunta</source>
+      </trans-unit>
+      <trans-unit id="9024376060582650262" datatype="html">
+        <source>Kulttuurin ja yhteiskunnan tutkimuksen toimikunta</source>
+      </trans-unit>
+      <trans-unit id="6231254567627755767" datatype="html">
+        <source>Tutkimusinfrastruktuurikomitea</source>
+      </trans-unit>
+      <trans-unit id="169710103287565084" datatype="html">
+        <source>Strategisen tutkimuksen neuvosto</source>
+      </trans-unit>
+      <trans-unit id="2404930950771668634" datatype="html">
+        <source>Suomen akatemian muu päättäjä</source>
       </trans-unit>
       <trans-unit id="showEmailAddress" datatype="html">
         <source>Näytä sähköpostiosoite</source>
@@ -1811,6 +1859,126 @@
       </trans-unit>
       <trans-unit id="applicationInstructions" datatype="html">
         <source>Hakuohjeet</source>
+      </trans-unit>
+      <trans-unit id="2164427846406249488" datatype="html">
+        <source>Liikkuvuus / Matka-apuraha</source>
+      </trans-unit>
+      <trans-unit id="9134340364192318026" datatype="html">
+        <source>Tutkijan rahoitus</source>
+      </trans-unit>
+      <trans-unit id="2700022207975886181" datatype="html">
+        <source>Tutkimusedellytysten ja -ympäristön rahoitus / strateginen rahoitus</source>
+      </trans-unit>
+      <trans-unit id="8920333653294778198" datatype="html">
+        <source>Tutkimushankerahoitus</source>
+      </trans-unit>
+      <trans-unit id="2337108059168251695" datatype="html">
+        <source>Väitöskirjatyö</source>
+      </trans-unit>
+      <trans-unit id="4779141095570972780" datatype="html">
+        <source>Tutkijankoulutus ja tutkijoiden työskentely ulkomailla</source>
+      </trans-unit>
+      <trans-unit id="2075948058024506168" datatype="html">
+        <source>Tutkijatohtorin tehtävä</source>
+      </trans-unit>
+      <trans-unit id="7494934175116800135" datatype="html">
+        <source>Tutkijatohtorin tutkimuskulut</source>
+      </trans-unit>
+      <trans-unit id="2063507122981687475" datatype="html">
+        <source>Kliininen tutkija</source>
+      </trans-unit>
+      <trans-unit id="7147137154194854507" datatype="html">
+        <source>Akatemiatutkijan tehtävä</source>
+      </trans-unit>
+      <trans-unit id="3171857755870970286" datatype="html">
+        <source>Akatemiatutkijan tutkimuskulut</source>
+      </trans-unit>
+      <trans-unit id="3927925351701414648" datatype="html">
+        <source>Akatemiaprofessorin tehtävä</source>
+      </trans-unit>
+      <trans-unit id="7590410042570931377" datatype="html">
+        <source>Akatemiaprofessorin tutkimuskulut</source>
+      </trans-unit>
+      <trans-unit id="94035577101502253" datatype="html">
+        <source>Kahdenväliset yhteistyösopimukset, yhteishaut</source>
+      </trans-unit>
+      <trans-unit id="4165055786032242018" datatype="html">
+        <source>Huippuyksikköohjelma</source>
+      </trans-unit>
+      <trans-unit id="8324453451463863141" datatype="html">
+        <source>Akatemiahanke</source>
+      </trans-unit>
+      <trans-unit id="824732859712328125" datatype="html">
+        <source>Akatemiaohjelma</source>
+      </trans-unit>
+      <trans-unit id="6676070322310995046" datatype="html">
+        <source>Akatemiaohjelman kansainvälinen tutkimushanke</source>
+      </trans-unit>
+      <trans-unit id="2102080730822972781" datatype="html">
+        <source>Pohjoismaiset huippuyksikköohjelmat</source>
+      </trans-unit>
+      <trans-unit id="2802694949364565142" datatype="html">
+        <source>Akatemiaohjelmien koordinointi</source>
+      </trans-unit>
+      <trans-unit id="3525671084017979380" datatype="html">
+        <source>Suunnattu akatemiahanke</source>
+      </trans-unit>
+      <trans-unit id="1005275322700551995" datatype="html">
+        <source>Kehitystutkimus</source>
+      </trans-unit>
+      <trans-unit id="6611096938219187094" datatype="html">
+        <source>Tutkijatohtorin projekti</source>
+      </trans-unit>
+      <trans-unit id="2041136177196750720" datatype="html">
+        <source>Kansainvälinen yhteisrahoitteinen ohjelma</source>
+      </trans-unit>
+      <trans-unit id="6586146403315372170" datatype="html">
+        <source>Tohtoriohjelmien toiminnan rahoitus</source>
+      </trans-unit>
+      <trans-unit id="8244249009602419581" datatype="html">
+        <source>Finland Distinguished Professor Programme</source>
+      </trans-unit>
+      <trans-unit id="4084349995542942299" datatype="html">
+        <source>Yliopistojen profiloitumisen vahvistaminen PROFI</source>
+      </trans-unit>
+      <trans-unit id="3880534532540473484" datatype="html">
+        <source>Lippulaivat</source>
+      </trans-unit>
+      <trans-unit id="80568044368940804" datatype="html">
+        <source>Tutkimusinfrastruktuuri</source>
+      </trans-unit>
+      <trans-unit id="532065401059178833" datatype="html">
+        <source>Jäsenmaksu (Infra)</source>
+      </trans-unit>
+      <trans-unit id="9179802099361915852" datatype="html">
+        <source>Strategisen tutkimuksen rahoitus</source>
+      </trans-unit>
+      <trans-unit id="6890144111944813748" datatype="html">
+        <source>STN-EU vastinraha</source>
+      </trans-unit>
+      <trans-unit id="5984927916476785125" datatype="html">
+        <source>Tutkijoiden liikkuvuus ulkomaille</source>
+      </trans-unit>
+      <trans-unit id="2533535419095871606" datatype="html">
+        <source>Tutkijoiden liikkuvuus Suomeen</source>
+      </trans-unit>
+      <trans-unit id="6541704812317220278" datatype="html">
+        <source>Kansallinen ulkopuolisen rahoituksen hanke (Tieteellinen seura)</source>
+      </trans-unit>
+      <trans-unit id="6689296183671201114" datatype="html">
+        <source>Tutkimuksen arviointi</source>
+      </trans-unit>
+      <trans-unit id="986094117061778360" datatype="html">
+        <source>Rahoitusosuus (muut kuin Infra)</source>
+      </trans-unit>
+      <trans-unit id="4208376250168473405" datatype="html">
+        <source>Kansainvälinen ulkopuolisen rahoituksen hanke / EU-Hanke</source>
+      </trans-unit>
+      <trans-unit id="202707189569403758" datatype="html">
+        <source>Kansainvälinen ulkopuolisen rahoituksen hanke / Nordforsk, Noria-Net -hanke</source>
+      </trans-unit>
+      <trans-unit id="4489440949938040810" datatype="html">
+        <source>Muu tieteen edistäminen</source>
       </trans-unit>
       <trans-unit id="7839812640827186036" datatype="html">
         <source>Sähköpostiosoite</source>
@@ -1860,6 +2028,9 @@
       <trans-unit id="funderCallId" datatype="html">
         <source>Haun tunniste</source>
       </trans-unit>
+      <trans-unit id="8826410345133306919" datatype="html">
+        <source>Päättäjä</source>
+      </trans-unit>
       <trans-unit id="fundingOtherInfo" datatype="html">
         <source> Muut tiedot </source>
       </trans-unit>
@@ -1870,7 +2041,7 @@
         <source> Rahoitusmyöntöön ei ole tarjolla linkkejä tässä portaalissa </source>
       </trans-unit>
       <trans-unit id="relatedFundings" datatype="html">
-        <source>Hae hankkeeseen liittyvät (tulossa)</source>
+        <source>Hae rahoitukseen liittyvät (tulossa)</source>
       </trans-unit>
       <trans-unit id="share" datatype="html">
         <source>Jaa</source>
@@ -1883,6 +2054,9 @@
       </trans-unit>
       <trans-unit id="9202070759244622574" datatype="html">
         <source>Akronyymi</source>
+      </trans-unit>
+      <trans-unit id="6064019274846168031" datatype="html">
+        <source>Rahoitetun hankkeen kuvaus</source>
       </trans-unit>
       <trans-unit id="sfDescriptionTooltip" datatype="html">
         <source>Kuvaus kertoo tiiviisti tavoitteista.</source>
@@ -1912,7 +2086,7 @@
         <source>Tutkimusalat</source>
       </trans-unit>
       <trans-unit id="fieldsOfResearchTooltip" datatype="html">
-        <source>Suomen Akatemian luokittelee hankkeensa myös oman tutkimusalaluokittelunsa mukaisesti.</source>
+        <source>Suomen Akatemia luokittelee rahoitusmyöntönsä myös oman tutkimusalaluokittelunsa mukaisesti.</source>
       </trans-unit>
       <trans-unit id="5590978338889886967" datatype="html">
         <source>Teema-alat</source>
@@ -1940,6 +2114,9 @@
       </trans-unit>
       <trans-unit id="1565148669960905628" datatype="html">
         <source>Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa myönnetystä rahoituksesta on tarkempaa tietoa.</source>
+      </trans-unit>
+      <trans-unit id="7729094977625637676" datatype="html">
+        <source>Suomen akatemian toimielin, joka myönsi rahoituksen.</source>
       </trans-unit>
       <trans-unit id="infraServices" datatype="html">
         <source>Tutkimusinfrastruktuurin palvelut</source>
@@ -2196,6 +2373,9 @@
       <trans-unit id="3537901381707941652" datatype="html">
         <source>Emojulkaisun nimi</source>
       </trans-unit>
+      <trans-unit id="unit" datatype="html">
+        <source>Yksikkö</source>
+      </trans-unit>
       <trans-unit id="degrees" datatype="html">
         <source>Tutkinnot</source>
       </trans-unit>
@@ -2204,9 +2384,6 @@
       </trans-unit>
       <trans-unit id="dataSources" datatype="html">
         <source>Lähteet</source>
-      </trans-unit>
-      <trans-unit id="unit" datatype="html">
-        <source>Yksikkö</source>
       </trans-unit>
       <trans-unit id="internationalCollaboration" datatype="html">
         <source>Kansainvälinen yhteistyö</source>
@@ -2430,6 +2607,9 @@
       <trans-unit id="navigation.funding-calls" datatype="html">
         <source>Rahoitushaut</source>
       </trans-unit>
+      <trans-unit id="navigation.fundings" datatype="html">
+        <source>Myönnetty rahoitus</source>
+      </trans-unit>
       <trans-unit id="navigation.persons" datatype="html">
         <source>Tutkijat</source>
       </trans-unit>
@@ -2441,6 +2621,9 @@
       </trans-unit>
       <trans-unit id="navigation.organizations" datatype="html">
         <source>Organisaatiot</source>
+      </trans-unit>
+      <trans-unit id="navigation.projects" datatype="html">
+        <source>Hankkeet</source>
       </trans-unit>
       <trans-unit id="informationMissing" datatype="html">
         <source>Tieto puuttuu</source>
@@ -2472,14 +2655,29 @@
       <trans-unit id="fundingCallFunderTooltip" datatype="html">
         <source>Rahoitushausta vastaava tutkimusrahoittaja.</source>
       </trans-unit>
+      <trans-unit id="fundingType" datatype="html">
+        <source>Rahoitusmuoto</source>
+      </trans-unit>
+      <trans-unit id="fundingTypeTooltip" datatype="html">
+        <source>Rahoitusmuoto kuvaa kenelle tai millaiseen tarkoitukseen haettava rahoitus on tarkoitettu. Ensimmäisessä vaiheessa tietoa rahoitusmuodosta toimittaa Suomen Akatemia, jaottelua laajennetaan muiden rahoittajien avoimiin hakuihin.</source>
+      </trans-unit>
       <trans-unit id="fYearFTooltip" datatype="html">
         <source>Vuosi, jolle rahoitus on myönnetty. Useampivuotisissa rahoituksissa ensimmäinen vuosi.</source>
+      </trans-unit>
+      <trans-unit id="2970737301478733442" datatype="html">
+        <source>Myöntövuosi</source>
+      </trans-unit>
+      <trans-unit id="9195882976109410881" datatype="html">
+        <source>Vuosi, jona rahoitus on myönnetty. Ensimmäisessä vaiheessa tietoa myöntövuodesta toimittaa Suomen Akatemia. Tietoa myöntövuodesta laajennetaan myöhemmin muihin rahoittajiin.</source>
       </trans-unit>
       <trans-unit id="fOrgFTooltip" datatype="html">
         <source>Organisaatio, jossa saaja työskentelee tai jolle rahoitus on myönnetty.</source>
       </trans-unit>
       <trans-unit id="fFunderFTooltip" datatype="html">
         <source>Rahoituksen myöntänyt tutkimusrahoittaja. Luettelossa ovat vain ne rahoittajat, jotka toimittavat tietoja palveluun.</source>
+      </trans-unit>
+      <trans-unit id="6513753384822692310" datatype="html">
+        <source>Suomen Akatemian päättäjä</source>
       </trans-unit>
       <trans-unit id="fTypeOfFundingTooltip" datatype="html">
         <source>Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuotoja on ryhmitelty rahoittajittain suodattimeen, koska ne ovat usein rahoittajakohtaisia.</source>
@@ -2799,9 +2997,6 @@
       <trans-unit id="authorsTooltip" datatype="html">
         <source>Suomalaiseen tutkimukseen liittyviä tutkijoita ja tutkimuksen asiantuntijoita.</source>
       </trans-unit>
-      <trans-unit id="funding" datatype="html">
-        <source>myönnetty rahoitus</source>
-      </trans-unit>
       <trans-unit id="fundingsTooltip" datatype="html">
         <source>Suomalaisten julkisten ja yksityisten tutkimusrahoittajien rahoituspäätöksiä siitä alkaen, kun rahoittaja on liittynyt palveluun. EU:n suomalaisille organisaatioille myöntämät rahoituspäätökset Horizon 2020 puiteohjelmasta alkaen.</source>
       </trans-unit>
@@ -2973,200 +3168,8 @@
       <trans-unit id="navigationHeaderProfile" datatype="html">
         <source>Profiili</source>
       </trans-unit>
-      <trans-unit id="fundingsDataDisclaimerLink" datatype="html">
-        <source> Mitä rahoitusmyöntöjen tietoja palvelu sisältää? </source>
-      </trans-unit>
-      <trans-unit id="navigation.fundings" datatype="html">
-        <source>Myönnetty rahoitus</source>
-      </trans-unit>
-      <trans-unit id="6064019274846168031" datatype="html">
-        <source>Rahoitetun hankkeen kuvaus</source>
-      </trans-unit>
-      <trans-unit id="navigation.projects" datatype="html">
-        <source>Hankkeet</source>
-      </trans-unit>
-      <trans-unit id="fundingType" datatype="html">
-        <source>Rahoitusmuoto</source>
-      </trans-unit>
-      <trans-unit id="fundingTypeTooltip" datatype="html">
-        <source>Rahoitusmuoto kuvaa kenelle tai millaiseen tarkoitukseen haettava rahoitus on tarkoitettu. Ensimmäisessä vaiheessa tietoa rahoitusmuodosta toimittaa Suomen Akatemia, jaottelua laajennetaan muiden rahoittajien avoimiin hakuihin.</source>
-      </trans-unit>
-      <trans-unit id="169710103287565084" datatype="html">
-        <source>Strategisen tutkimuksen neuvosto</source>
-      </trans-unit>
-      <trans-unit id="4424042627869359759" datatype="html">
-        <source>Biotieteiden, terveyden ja ympäristön tutkimuksen toimikunta</source>
-      </trans-unit>
-      <trans-unit id="5534105236041691302" datatype="html">
-        <source>Luonnontieteiden ja tekniikan tutkimuksen toimikunta</source>
-      </trans-unit>
-      <trans-unit id="6231254567627755767" datatype="html">
-        <source>Tutkimusinfrastruktuurikomitea</source>
-      </trans-unit>
-      <trans-unit id="9024376060582650262" datatype="html">
-        <source>Kulttuurin ja yhteiskunnan tutkimuksen toimikunta</source>
-      </trans-unit>
-      <trans-unit id="9195882976109410881" datatype="html">
-        <source>Vuosi, jona rahoitus on myönnetty. Ensimmäisessä vaiheessa tietoa myöntövuodesta toimittaa Suomen Akatemia. Tietoa myöntövuodesta laajennetaan myöhemmin muihin rahoittajiin.</source>
-      </trans-unit>
-      <trans-unit id="3432026286733000875" datatype="html">
-        <source>Rahoitushaun vaihe</source>
-      </trans-unit>
-      <trans-unit id="4126295923781957141" datatype="html">
-        <source>Näytä myönnöt</source>
-      </trans-unit>
-      <trans-unit id="8826410345133306919" datatype="html">
-        <source>Päättäjä</source>
-      </trans-unit>
-      <trans-unit id="3277993170150764605" datatype="html">
-        <source>Rahoitusmuoto</source>
-      </trans-unit>
-      <trans-unit id="2970737301478733442" datatype="html">
-        <source>Myöntövuosi</source>
-      </trans-unit>
-      <trans-unit id="6513753384822692310" datatype="html">
-        <source>Suomen Akatemian päättäjä</source>
-      </trans-unit>
-      <trans-unit id="2164427846406249488" datatype="html">
-        <source>Liikkuvuus / Matka-apuraha</source>
-      </trans-unit>
-      <trans-unit id="2337108059168251695" datatype="html">
-        <source>Väitöskirjatyö</source>
-      </trans-unit>
-      <trans-unit id="2700022207975886181" datatype="html">
-        <source>Tutkimusedellytysten ja -ympäristön rahoitus / strateginen rahoitus</source>
-      </trans-unit>
-      <trans-unit id="9134340364192318026" datatype="html">
-        <source>Tutkijan rahoitus</source>
-      </trans-unit>
-      <trans-unit id="8920333653294778198" datatype="html">
-        <source>Tutkimushankerahoitus</source>
-      </trans-unit>
-      <trans-unit id="1005275322700551995" datatype="html">
-        <source>Kehitystutkimus</source>
-      </trans-unit>
-      <trans-unit id="202707189569403758" datatype="html">
-        <source>Kansainvälinen ulkopuolisen rahoituksen hanke / Nordforsk, Noria-Net -hanke</source>
-      </trans-unit>
-      <trans-unit id="2041136177196750720" datatype="html">
-        <source>Kansainvälinen yhteisrahoitteinen ohjelma</source>
-      </trans-unit>
-      <trans-unit id="2075948058024506168" datatype="html">
-        <source>Tutkijatohtorin tehtävä</source>
-      </trans-unit>
-      <trans-unit id="2102080730822972781" datatype="html">
-        <source>Pohjoismaiset huippuyksikköohjelmat</source>
-      </trans-unit>
-      <trans-unit id="6890144111944813748" datatype="html">
-        <source>STN-EU vastinraha</source>
-      </trans-unit>
-      <trans-unit id="2533535419095871606" datatype="html">
-        <source>Tutkijoiden liikkuvuus Suomeen</source>
-      </trans-unit>
-      <trans-unit id="2802694949364565142" datatype="html">
-        <source>Akatemiaohjelmien koordinointi</source>
-      </trans-unit>
-      <trans-unit id="3171857755870970286" datatype="html">
-        <source>Akatemiatutkijan tutkimuskulut</source>
-      </trans-unit>
-      <trans-unit id="3525671084017979380" datatype="html">
-        <source>Suunnattu akatemiahanke</source>
-      </trans-unit>
-      <trans-unit id="3880534532540473484" datatype="html">
-        <source>Lippulaivat</source>
-      </trans-unit>
-      <trans-unit id="3927925351701414648" datatype="html">
-        <source>Akatemiaprofessorin tehtävä</source>
-      </trans-unit>
-      <trans-unit id="4084349995542942299" datatype="html">
-        <source>Yliopistojen profiloitumisen vahvistaminen PROFI</source>
-      </trans-unit>
-      <trans-unit id="4165055786032242018" datatype="html">
-        <source>Huippuyksikköohjelma</source>
-      </trans-unit>
-      <trans-unit id="4208376250168473405" datatype="html">
-        <source>Kansainvälinen ulkopuolisen rahoituksen hanke / EU-Hanke</source>
-      </trans-unit>
-      <trans-unit id="4489440949938040810" datatype="html">
-        <source>Muu tieteen edistäminen</source>
-      </trans-unit>
-      <trans-unit id="4779141095570972780" datatype="html">
-        <source>Tutkijankoulutus ja tutkijoiden työskentely ulkomailla</source>
-      </trans-unit>
-      <trans-unit id="532065401059178833" datatype="html">
-        <source>Jäsenmaksu (Infra)</source>
-      </trans-unit>
-      <trans-unit id="5984927916476785125" datatype="html">
-        <source>Tutkijoiden liikkuvuus ulkomaille</source>
-      </trans-unit>
-      <trans-unit id="6541704812317220278" datatype="html">
-        <source>Kansallinen ulkopuolisen rahoituksen hanke (Tieteellinen seura)</source>
-      </trans-unit>
-      <trans-unit id="6586146403315372170" datatype="html">
-        <source>Tohtoriohjelmien toiminnan rahoitus</source>
-      </trans-unit>
-      <trans-unit id="6611096938219187094" datatype="html">
-        <source>Tutkijatohtorin projekti</source>
-      </trans-unit>
-      <trans-unit id="6676070322310995046" datatype="html">
-        <source>Akatemiaohjelman kansainvälinen tutkimushanke</source>
-      </trans-unit>
-      <trans-unit id="6689296183671201114" datatype="html">
-        <source>Tutkimuksen arviointi</source>
-      </trans-unit>
-      <trans-unit id="7147137154194854507" datatype="html">
-        <source>Akatemiatutkijan tehtävä</source>
-      </trans-unit>
-      <trans-unit id="7494934175116800135" datatype="html">
-        <source>Tutkijatohtorin tutkimuskulut</source>
-      </trans-unit>
-      <trans-unit id="7590410042570931377" datatype="html">
-        <source>Akatemiaprofessorin tutkimuskulut</source>
-      </trans-unit>
-      <trans-unit id="7729094977625637676" datatype="html">
-        <source>Suomen akatemian toimielin, joka myönsi rahoituksen.</source>
-      </trans-unit>
-      <trans-unit id="80568044368940804" datatype="html">
-        <source>Tutkimusinfrastruktuuri</source>
-      </trans-unit>
-      <trans-unit id="8244249009602419581" datatype="html">
-        <source>Finland Distinguished Professor Programme</source>
-      </trans-unit>
-      <trans-unit id="824732859712328125" datatype="html">
-        <source>Akatemiaohjelma</source>
-      </trans-unit>
-      <trans-unit id="8324453451463863141" datatype="html">
-        <source>Akatemiahanke</source>
-      </trans-unit>
-      <trans-unit id="9179802099361915852" datatype="html">
-        <source>Strategisen tutkimuksen rahoitus</source>
-      </trans-unit>
-      <trans-unit id="94035577101502253" datatype="html">
-        <source>Kahdenväliset yhteistyösopimukset, yhteishaut</source>
-      </trans-unit>
-      <trans-unit id="986094117061778360" datatype="html">
-        <source>Rahoitusosuus (muut kuin Infra)</source>
-      </trans-unit>
-      <trans-unit id="2063507122981687475" datatype="html">
-        <source>Kliininen tutkija</source>
-      </trans-unit>
-      <trans-unit id="publication2.tutorial.91" datatype="html">
-        <source> Lehden nimi, kirjoita hakukenttään journalName: &quot;haettava nimike&quot;, esimerkiksi journalName:&quot;Nature&quot; </source>
-      </trans-unit>
-      <trans-unit id="publication2.tutorial.92" datatype="html">
-        <source> Konferenssin nimi, kirjoita hakukenttään conferenceName: &quot;haettava nimike&quot;, esimerkiksi conferenceName:&quot;ACM Multimedia&quot; </source>
-      </trans-unit>
-      <trans-unit id="publication2.tutorial.93" datatype="html">
-        <source> Kustantajan nimi, kirjoita hakukenttään publisherName: &quot;haettava nimike&quot;, esimerkiksi publisherName:&quot;Springer&quot; </source>
-      </trans-unit>
-      <trans-unit id="publication2.tutorial.51" datatype="html">
-        <source> Jokerimerkillä ? voit korvata yhden merkin hakusanasta. Jos haluat hakea samaan aikaan esimerkiksi sanoja &quot;woman&quot; ja &quot;women&quot;, voit käyttää hakuatermiä wom?n. </source>
-      </trans-unit>
-      <trans-unit id="publication2.tutorial.52" datatype="html">
-        <source> Jokerimerkillä * voit korvata yhden tai useamman merkin hakusanan keskeltä tai lopusta. Jokerimerkki * edustaa myös tyhjää merkkiä. Jos haluat hakea samaan aikaan esimerkiksi sanoja &quot;color&quot; ja &quot;colour&quot;, voit käyttää hakutermiä colo*r. Esimerkiksi hakutermillä tietotek* voit hakea sanoja jotka alkavat kirjaimilla tietotek, kuten &quot;tietotekniikka&quot; ja &quot;tietotekniset&quot;. </source>
-      </trans-unit>
-      <trans-unit id="2404930950771668634" datatype="html">
-        <source>Suomen akatemian muu päättäjä</source>
+      <trans-unit id="typeOfFundingTooltip" datatype="html">
+        <source>Puiteohjelma</source>
       </trans-unit>
       <trans-unit id="spResults" datatype="html">
         <source>Tulokset</source>
@@ -3182,9 +3185,6 @@
       </trans-unit>
       <trans-unit id="spObjectives" datatype="html">
         <source>Tavoitteet</source>
-      </trans-unit>
-      <trans-unit id="approvedFundings" datatype="html">
-        <source>Myönnetty rahoitus</source>
       </trans-unit>
       <trans-unit id="noProjectLinks" datatype="html">
         <source> Hankkeeseen ei ole tarjolla linkkejä tässä portaalissa <x id="INTERPOLATION" equiv-text="{{projectURL}}"/> </source>

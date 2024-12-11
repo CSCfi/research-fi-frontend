@@ -127,7 +127,7 @@ export class PieComponent implements OnInit, OnChanges {
       case 'fundings':
         visualisationData = this.data.fundingData;
         this.categories = this.funding;
-        ylabel = 'Hankkeiden määrä';
+        ylabel = 'Rahoitusmyöntöjen määrä';
         break;
 
       default:

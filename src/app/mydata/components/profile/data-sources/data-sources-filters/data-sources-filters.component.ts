@@ -64,6 +64,8 @@ export class DataSourcesFiltersComponent
     const handleDataFilter = (category: string) =>
       filterData(profileData, this.activeFilters, category);
 
+    console.log('profileData', profileData);
+
     // JSON structure mimics the one we got in Portal from Elasticsearch
     const filters = {
       aggregations: {

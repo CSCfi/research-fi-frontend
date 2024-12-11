@@ -25,11 +25,11 @@
           </ng-container>
 
           <div style='display: flex'>
-            <app-filter-limit-button [(value)]='filterLimits.year' [step]='10' [min]='10' [max]='yearFilters.length'>
+            <app-filter-limit-button [(value)]='filterLimits.year' [step]='10' [min]='10' [max]='yearFilters.length'i18n="@@showMore">
               Näytä enemmän
             </app-filter-limit-button>
 
-            <app-filter-limit-button [(value)]='filterLimits.year' [step]='-10' [min]='10' [max]='yearFilters.length'>
+            <app-filter-limit-button [(value)]='filterLimits.year' [step]='-10' [min]='10' [max]='yearFilters.length' i18n="@@showLess">
               Näytä vähemmän
             </app-filter-limit-button>
           </div>
@@ -322,11 +322,11 @@
           </ng-container>
 
           <div style='display: flex'>
-            <app-filter-limit-button [(value)]='filterLimits.language' [step]='10' [min]='10' [max]='languageCodeFilters.length'>
+            <app-filter-limit-button [(value)]='filterLimits.language' [step]='10' [min]='10' [max]='languageCodeFilters.length' i18n="@@showMore">
               Näytä enemmän
             </app-filter-limit-button>
 
-            <app-filter-limit-button [(value)]='filterLimits.language' [step]='-10' [min]='10' [max]='languageCodeFilters.length'>
+            <app-filter-limit-button [(value)]='filterLimits.language' [step]='-10' [min]='10' [max]='languageCodeFilters.length' i18n="@@showLess">
               Näytä vähemmän
             </app-filter-limit-button>
           </div>
