@@ -3171,6 +3171,9 @@
       <trans-unit id="navigationHeaderProfile" datatype="html">
         <source>Profiili</source>
       </trans-unit>
+      <trans-unit id="typeOfFundingTooltip" datatype="html">
+        <source>Puiteohjelma</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

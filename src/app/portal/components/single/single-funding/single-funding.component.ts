@@ -105,7 +105,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     {
       label: $localize`:@@frameworkProgramme:Puiteohjelma`,
       field: 'frameworkProgramme',
-      tooltip: 'Puiteohjelma',
+      tooltip: $localize`:@@typeOfFundingTooltip:Puiteohjelma`,
     },
   ];
 
