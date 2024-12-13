@@ -16,6 +16,7 @@ export class Funder {
     public typeOfFundingId: string,
     public typeOfFundingName: string,
     public callProgrammeName: string,
+    public callProgrammeId: string,
     public callProgrammeNameUnd: string,
     public callProgrammeHomePage: string,
     public frameworkProgramme: string,
@@ -50,6 +51,7 @@ export class FunderAdapter implements Adapter<Funder> {
         ? this.utils.checkTranslation('typeOfFundingName', item)
         : item.typeOfFundingId,
       this.utils.checkTranslation('callProgrammeName', item),
+      item.callProgrammeId,
       item.callProgrammeNameUnd,
       item.callProgrammeHomePage,
       this.utils.checkTranslation(
