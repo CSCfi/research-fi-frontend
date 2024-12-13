@@ -83,9 +83,10 @@ export class FilterService {
   okmDataCollectionFilter: string[];
   coPublicationFilter: string[];
   sectorFilter: string[];
-  topicFilter: string[];
+  topicFilterFundings: string[];
+  topicFilterProjects: string[];
   organizationFilter: string[];
-  keywordFilter: string[];
+  keywordFilterPersons: string[];
   positionFilter: string[];
   dataSourceFilter: string[];
   accessTypeFilter: string[];
@@ -223,7 +224,7 @@ export class FilterService {
     // Global
     this.yearFilter = this.filterByYear(filter.year);
     this.organizationFilter = this.filterByOrganization(filter.organization);
-    this.keywordFilter = this.filterByKeyword(filter.keyword);
+    this.keywordFilterPersons = this.filterByPersonsKeyword(filter.keyword);
 
     this.positionFilter = this.filterByPosition(filter.position);
 
@@ -285,11 +286,14 @@ export class FilterService {
       filter.scheme,
       'keywords.scheme.keyword'
     );
-    this.topicFilter = this.basicFilter(
+    this.topicFilterFundings = this.basicFilter(
       filter.topic,
       'keywords.keyword.keyword'
     );
-
+    this.topicFilterProjects = this.basicFilter(
+      filter.topic,
+      'keywords.keyword.keyword'
+    );
     // Datasets
     this.dataSourceFilter = this.basicFilter(
       filter.dataSource,
@@ -575,7 +579,7 @@ export class FilterService {
     return res;
   }
 
-  private filterByKeyword(filter: string[]) {
+  private filterByPersonsKeyword(filter: string[]) {
     const res = [];
     const currentTab = this.tabChangeService.tab;
     switch (currentTab) {
@@ -591,7 +595,6 @@ export class FilterService {
         }
       }
     }
-
     return res;
   }
 
@@ -925,7 +928,7 @@ export class FilterService {
       ...basicFilter('publication', this.okmDataCollectionFilter),
       ...basicFilter('publication', this.coPublicationFilter),
       // Persons
-      ...basicFilter('person', this.keywordFilter),
+      ...basicFilter('person', this.keywordFilterPersons),
       ...nestedFilter('person', this.organizationFilter, 'activity.affiliations.sector.organization'),
       ...nestedFilter('person', this.positionFilter, 'activity.affiliations'),
       // Fundings
@@ -972,7 +975,7 @@ export class FilterService {
         : []),
       ...basicFilter('funding', this.funderFilter),
       ...basicFilter('funding', this.typeOfFundingFilter),
-      ...nestedFilter('funding', this.topicFilter, 'keywords'),
+      ...nestedFilter('funding', this.topicFilterFundings, 'keywords'),
       ...nestedFilter('funding', this.fieldFilter, 'fieldsOfScience'),
       ...basicFilter('funding', this.fundingSchemeFilter),
       ...basicFilter('funding', this.statusFilter),
@@ -1026,7 +1029,7 @@ export class FilterService {
       // Projects
       ...basicFilter('project', this.yearFilter),
       ...basicFilter('project', this.organizationFilter),
-
+      ...nestedFilter('project', this.topicFilterProjects, 'keywords'),
 
       // Global filters
       ...globalFilter(this.yearFilter),

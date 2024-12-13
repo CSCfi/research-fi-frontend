@@ -36,11 +36,11 @@ export class ProjectFilterService {
       tooltip: $localize`:@@spFiltersOrganizationTooltip:Haun rajaus hankkeeseen osallistuvien organisaatioiden mukaan`,
     },
     {
-      field: 'keywords',
+      field: 'topic',
       label: $localize`:@@spFiltersKeywords:Avainsanat`,
-      hasSubFields: true,
+      hasSubFields: false,
       open: true,
-      searchFromParent: true,
+      limitHeight: false,
       tooltip: $localize`:@@spFiltersKeywordsTooltip:Haun rajaus hankkeen tiedoissa olevien avainsanojen perusteella`,
     },
   ];
@@ -77,8 +77,8 @@ export class ProjectFilterService {
           item.label = item.organizationName.buckets[0].key.trim();
           item.translation = item.organizationName.buckets[0].key.trim();
           return item;
-        }
-      );
+        });
+      source.topic.buckets = this.mapTopic(source.topic.scheme.buckets);
     }
     source.shaped = true;
     return source;
@@ -89,6 +89,7 @@ export class ProjectFilterService {
     clone.map((item) => {
       item.key = item.key.toString();
     });
+    console.log('years', clone);
     return clone;
   }
 
@@ -174,68 +175,29 @@ export class ProjectFilterService {
         subItem.doc_count = subItem.doc_count;
       });
     });
-
     return merged;
   }
 
   mapTopic(data) {
+    let mappedData = [];
     data.forEach((item) => {
       if (item.key !== 'YSA' && item.key !== 'YSO') {
-        item.subData = item.keywords.buckets.filter(
+        mappedData = item.keywords.buckets.filter(
           (x) => x.filtered.filterCount.doc_count > 0
         );
-
-        item.subData.map(
+        mappedData.map(
           (x) => (
             (x.label = x.key), (x.doc_count = x.filtered.filterCount.doc_count)
           )
         );
-
-        switch (item.key) {
-          case 'Avainsana': {
-            item.key = $localize`:@@keywords:Avainsanat`;
-            item.tooltip = $localize`:@@fkeywordsTooltip:Haun rajaus rahoitusmyönnön tiedoissa olevien avainsanojen perusteella.`;
-            break;
-          }
-          case 'Teema-ala': {
-            item.key = $localize`:@@FAField:Teemat`;
-            item.tooltip = $localize`:@@fthemesTooltip:Osa rahoittajista järjestää haut teemojen mukaisesti. Teemat ovat tyypillisesti rahoittajakohtaisia, jolloin hakutuloksessa näkyy vain yhden rahoittajan myöntämiä rahoituksia.`;
-            break;
-          }
-          case 'topic': {
-            item.key = $localize`:@@identifiedTopic:Tunnistettu aihe`;
-            item.tooltip = $localize`:@@identifiedTopicsTooltip:Koneoppimisen avulla myönnettyjen rahoitusten tiedoista tutkimustietovarannossa muodostettu aiheluokittelu. Rahoitusmyöntö liittyy aiheeseen, jota se todennäköisimmin käsittelee. Osassa rahoitusmyönnöistä ei ole riittävästi tietoa aiheen päättelyyn.`;
-            break;
-          }
-          case 'Tutkimusala': {
-            item.key = $localize`:@@FAResearchFields:Suomen Akatemian tutkimusalat`;
-            item.tooltip = $localize`:@@fresearchFieldTooltip:Suomen Akatemia luokittelee rahoitusmyöntönsä myös oman tutkimusalaluokittelunsa mukaisesti. Valinta kohdistuu vain Akatemian myöntämään rahoitukseen.`;
-            break;
-          }
-        }
       }
     });
-
-    return data;
+    return mappedData;
   }
 
   onGoing(data) {
     return data.map(
       (item) => (item.key = { key: 'onGoing', doc_count: item.doc_count })
     );
-  }
-
-  mapDecisionMaker(data) {
-    data.map((item) => {
-      item.label = decisionMakerLabels[item.key] || item.key;
-    });
-
-    return data;
-  }
-
-  getSingleAmount(data) {
-    if (data.length > 0) {
-      return data.filter((x) => x.key === 1);
-    }
   }
 }

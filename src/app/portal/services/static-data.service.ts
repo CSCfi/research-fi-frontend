@@ -761,7 +761,7 @@ export class StaticDataService {
         dataset: ['keywords.keyword'],
         infrastructure: ['keywords.keyword'],
         organization: [''],
-        project: ['']
+        project: ['keywords.keyword']
       },
       organization: {
         publication: [''],
