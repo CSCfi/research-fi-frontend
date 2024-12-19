@@ -428,7 +428,7 @@
               <ng-container *ngIf="!item.euFunding; else euCallProgramme">
                 <div class="col-12 col-sm-8 col-lg-9 td">
                     <!-- If funder is Research council of Finland, directly link to single funding call with id, otherwise link to search page -->
-                  <a [routerLink]="item.funder.callProgrammeId && item.funder.funderOrganizationId === ('02458939' || '605001') ? '/results/funding-call/' + item.funder.callProgrammeId : '/results/funding-calls/' + item.funder.callProgrammeName">{{ item.funder.callProgrammeName }}</a>
+                  <a [routerLink]="item.funder.callProgrammeId && (item.funder.funderOrganizationId === '02458939' || item.funder.funderOrganizationId === '605001') ? '/results/funding-call/' + item.funder.callProgrammeId : '/results/funding-calls/' + item.funder.callProgrammeName">{{ item.funder.callProgrammeName }}</a>
                 </div>
               </ng-container>
 
