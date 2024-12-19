@@ -13,6 +13,7 @@ export class Funder {
   constructor(
     public name: string,
     public nameUnd: string,
+    public funderOrganizationId: string,
     public typeOfFundingId: string,
     public typeOfFundingName: string,
     public callProgrammeName: string,
@@ -45,7 +46,8 @@ export class FunderAdapter implements Adapter<Funder> {
 
     return new Funder(
       this.utils.checkTranslation('funderName', item),
-      item.funderNameUnd,
+    item.funderNameUnd,
+      item.funderOrganizationId,
       item.typeOfFundingId,
       this.utils.checkTranslation('typeOfFundingName', item)?.trim().length > 0
         ? this.utils.checkTranslation('typeOfFundingName', item)
