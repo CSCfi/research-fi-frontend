@@ -115,13 +115,21 @@ export class SingleProjectComponent implements OnInit, OnDestroy {
       tooltip: $localize`:@@spParticipantsTooltip:Hankkeeseen osallistuvat organisaatiot ja henkilöt`,
       showOnlyLabel: true,
       subFields: [{
-        label: $localize`:@@spOrganizations:Organisaatiot`,
+        label: $localize`:@@spResponsibleOrganization:Vastuuorganisaatio`,
         field: 'responsibleOrganizations',
         showOnlyLabel: false
       },
         {
+          label: $localize`:@@spOriginalOrganizations:Alkuperäinen vastuuorganisaatio`,
+          field: 'originalResponsibleOrganization',
+        },
+        {
           label: $localize`:@@spPersons:Henkilöt`,
           field: 'responsiblePersons',
+        },
+        {
+          label: $localize`:@@spRelatedOrganizations:Liittyvät organisaatiot`,
+          field: 'relatedOrganizations',
         }]
     },
     {
@@ -237,6 +245,7 @@ export class SingleProjectComponent implements OnInit, OnDestroy {
       // .pipe(map(responseData => [responseData]))
       .subscribe({
         next: (responseData) => {
+          console.log(responseData);
           this.responseData = responseData;
           const project = this.responseData.projects[0];
           if (project) {

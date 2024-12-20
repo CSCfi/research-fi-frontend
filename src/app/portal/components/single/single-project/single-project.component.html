@@ -66,18 +66,43 @@
                                     </div>
 
                                     <div *ngIf="row.field === 'participants'">
+                                        <div class="row">
+                                            <div class="col-6 g-0">
                                         <h3 *ngIf="item['responsibleOrganizations']?.length > 0">{{row.subFields[0].label}}</h3>
                                         <ng-container *ngFor="let org of item['responsibleOrganizations']">
                                             <div class="mb-3"><a [href]="'/results/organization/' + org.orgId" target="_parent">{{ org.orgName }}</a></div>
-
                                         </ng-container>
-
-                                        <h3 *ngIf="item['responsiblePerson']?.length > 0">{{row.subFields[1].label}}</h3>
+                                            </div>
+                                            <div class="col-6 g-0" *ngIf="(item['originalOrganizations']?.length > 0 && item['responsibleOrganizations']?.length > 0) && (item['originalOrganizations'][0].orgId !== item['responsibleOrganizations'][0].orgId)">
+                                        <h3>{{row.subFields[1].label}}</h3>
+                                        <ng-container *ngFor="let origOrg of item['originalOrganizations']">
+                                            <div class="mb-3">{{ origOrg.orgName }}</div>
+                                        </ng-container>
+                                            </div>
+                                        </div>
+                                        <h3 *ngIf="item['responsiblePerson']?.length > 0">{{row.subFields[2].label}}</h3>
                                         <ng-container *ngFor="let person of item['responsiblePerson']">
                                             <div>
                                                 {{ person.fullName }}
                                             </div>
                                         </ng-container>
+                                        <div></div>
+                                        <br/>
+                                        <h3 *ngIf="item['relatedOrganizations']?.length > 0">{{row.subFields[3].label}}</h3>
+                                        <ng-container *ngFor="let relOrg of item['relatedOrganizations']">
+                                            <!-- disabled since organization id's dont' match -->
+                                            <!-- <div *ngIf="relOrg.orgLinkId" class="mb-3"><a [href]="'/results/organization/' + relOrg.orgLinkId" target="_parent">{{ relOrg.orgName }}</a></div> -->
+                                            <div>
+                                                {{ relOrg.orgName }}
+                                            </div>
+                                        </ng-container>
+
+
+                                        <br/>
+
+
+
+
                                     </div>
 
                                     <div *ngIf="row.field ==='additionalInfo'">
@@ -210,20 +235,11 @@
                     <div class="inner">
                         <mat-card-title><h2 i18n="@@projectSource">Hanketiedon lähde</h2>
                         </mat-card-title>
-                        <div *ngFor="let source of responseData.fundings">
-                            <p *ngIf="source.funder.name.trim().length > 0">
-                                <ng-container
-                                        *ngIf="!item.structuralFund">{{source.funder.name}}</ng-container>
-
-                                <ng-container *ngIf="item.structuralFund">Rakennerahastotietopalvelu
-                                    <!-- Structural fund source link --> (<a
-                                            href="https://www.eura2014.fi/rrtiepa/" target="_blank">eura2014.fi
-                                        <fa-icon icon="external-link-alt"></fa-icon>
-                                    </a>)
-                                </ng-container>
+                        <div *ngFor="let source of responseData.projects">
+                            <p *ngIf="source.dataSource.trim().length > 0">
+                                {{source.dataSource.trim()}}
                             </p>
-
-                            <p *ngIf="source.funder.name.trim().length === 0"
+                            <p *ngIf="source.dataSource.trim().length === 0"
                                i18n="@@noInformationSource">
                                 Tiedon lähde ei saatavilla.
                             </p>
