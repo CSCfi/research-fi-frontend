@@ -24,9 +24,14 @@ export class Project {
     public projectURL: string,
     public responsibleOrganizations: object[],
     public responsibleOrganization: string,
+    public relatedOrganizations: object[],
+    public relatedOrganization: string,
+    public originalOrganizations: object[],
+    public originalOrganization: string,
     public responsiblePerson: object[],
     public keywords: string,
-    public completions: object[]
+    public completions: object[],
+    public dataSource: string
   ) {
   }
 }
@@ -51,7 +56,33 @@ export class ProjectAdapter implements Adapter<Project> {
       });
     }
 
+    const relOrgList = [];
+    if (item.relatedOrganizations) {
+      item.relatedOrganizations.forEach((org) => {
+        relOrgList.push({
+            orgName: this.utils.checkTranslation('orgName', org).trim(),
+            orgId: org.orgid,
+            orgLinkId: org.businessId ? org.orgid : ''
+          }
+        );
+      });
+    }
+
+    const origOrgList = [];
+    if (item.originalOrganization) {
+      item.originalOrganization.forEach((org) => {
+        origOrgList.push({
+            orgName: this.utils.checkTranslation('orgName', org).trim(),
+            orgId: org.orgid
+          }
+        );
+      });
+    }
+
+    const origOrgStr = origOrgList.map(org => org.orgName).join(', ');
+    const relOrgStr = relOrgList.map(org => org.orgName).join(', ');
     const respOrgStr = respOrgList.map(org => org.orgName).join(', ');
+
     const keywords = item?.keywords ? item.keywords.filter((item) => item?.keyword && item.keyword.trim().length > 0).map(kw => kw.keyword.replace(/,$/, '')).join(', ') : '';
 
     return new Project(
@@ -68,9 +99,14 @@ export class ProjectAdapter implements Adapter<Project> {
       item.projectURL,
       respOrgList,
       respOrgStr,
+      relOrgList,
+      relOrgStr,
+      origOrgList,
+      origOrgStr,
       item.responsiblePerson,
       keywords,
-      item?.completions ? item.completions : []
+      item?.completions ? item.completions : [],
+      item.dataSource
     );
   }
 }
