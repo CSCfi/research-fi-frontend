@@ -153,11 +153,11 @@ export class EditorModalComponent implements OnInit {
         break;
       }
       case 'funding': {
-        this.addFromPortalTabString = $localize`:@@fundings:hankkeita`;
-        this.selectItemsTabLabel = $localize`:@@selectProjects:Valitse hankkeet`;
-        this.portalItemGroupStringPlural = $localize`:@@fundings:hankkeet`;
+        this.addFromPortalTabString = $localize`:@@fundings:rahoitusmyöntöjä`;
+        this.selectItemsTabLabel = $localize`:@@selectGrantedFunding:Valitse myönnetty rahoitus`;
+        this.portalItemGroupStringPlural = $localize`:@@fundings:rahoitusmyönnöt`;
         this.tableColumns = FundingColumns;
-        this.tabInfoText = $localize`:@@myDataEditorModalFundingTabInfo:Tiedejatutkimus.fi-palvelusta löytyvät hankkeet, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. hankkeita, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä "Hae muita hankkeita" -toiminnolla.`;
+        this.tabInfoText = $localize`:@@myDataEditorModalFundingTabInfo:Tiedejatutkimus.fi-palvelusta löytyvät rahoitusmyönnöt, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. Myönnettyä rahoitusta, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä "Hae muita myönnetyjä rahoituksia" -toiminnolla.`;
         break;
       }
       case 'activitiesAndRewards': {

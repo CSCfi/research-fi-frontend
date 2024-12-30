@@ -105,7 +105,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     {
       label: $localize`:@@frameworkProgramme:Puiteohjelma`,
       field: 'frameworkProgramme',
-      tooltip: 'Puiteohjelma',
+      tooltip: $localize`:@@typeOfFundingTooltip:Puiteohjelma`,
     },
   ];
 
@@ -122,7 +122,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     {
       label: $localize`Tutkimusalat`,
       field: 'fieldsOfResearch',
-      tooltip: $localize`:@@fieldsOfResearchTooltip:Suomen Akatemian luokittelee hankkeensa myös oman tutkimusalaluokittelunsa mukaisesti.`,
+      tooltip: $localize`:@@fieldsOfResearchTooltip:Suomen Akatemia luokittelee rahoitusmyöntönsä myös oman tutkimusalaluokittelunsa mukaisesti.`,
     },
     { label: $localize`Teema-alat`, field: 'fieldsOfTheme' },
     { label: $localize`:@@fundingHomePage:Myöntöön liittyvä verkkosivu`, field: '?' },

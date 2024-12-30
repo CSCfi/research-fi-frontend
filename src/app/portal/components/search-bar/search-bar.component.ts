@@ -102,7 +102,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   translations = {
     publication: $localize`:@@publications:julkaisut`,
     person: $localize`:@@authors:tutkijat`,
-    funding: $localize`:@@fundings:rahoitetut hankkeet`,
+    funding: $localize`:@@fundings:rahoitusmyönnöt`,
     dataset: $localize`:@@datasets:aineistot`,
     infrastructure: $localize`:@@infrastructures:infrastruktuurit`,
     organization: $localize`:@@organizations:tutkimusorganisaatiot`,
