@@ -18,9 +18,6 @@ export class HighlightSearchPipe implements PipeTransform {
 
   transform(value: any, keywords: any): any {
     // Convert value to string to highlight numbers also
-    console.log(value, keywords);
-    console.log(keywords);
-    console.log('-')
     value = value ? value.toString() : value;
 
     if (!value || !keywords) {
