@@ -26,7 +26,7 @@ export class HighlightSearchPipe implements PipeTransform {
 
     const LETTER_EXPRESSION = /^\p{L}$/u;
     const isLetter = (character) => {
-      return character && (LETTER_EXPRESSION.test(character) || !isNaN(character) || character === '.' || character === ',');
+      return character && (LETTER_EXPRESSION.test(character) || !isNaN(character));
     };
 
     // Replace coded umlauts
