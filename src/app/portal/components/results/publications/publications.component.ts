@@ -173,10 +173,7 @@ export class PublicationsComponent implements OnInit, OnDestroy, AfterViewInit {
         template: channelColumnArray[index],
       },
       year: {
-        label: this.highlightPipe.transform(
-          publication.publicationYear,
-          this.input
-        ),
+        label: publication.publicationYear,
       },
     }));
 

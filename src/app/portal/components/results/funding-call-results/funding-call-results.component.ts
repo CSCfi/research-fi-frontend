@@ -162,13 +162,13 @@ export class FundingCallResultsComponent
       },
       callOpen: {
         label: call.openDate.getFullYear()
-          ? this.highlightPipe.transform(call.openDateString === '01.01.1900' ? '-' : call.openDateString, this.input)
+          ? call.openDateString === '01.01.1900' ? '-' : call.openDateString
           : '-',
       },
       callDue: {
         label:
           call.dueDate.getFullYear() !== 2100
-            ? this.highlightPipe.transform(call.dueDateString, this.input)
+            ? call.dueDateString
             : $localize`:@@continuous:Jatkuva`,
       },
     }));
