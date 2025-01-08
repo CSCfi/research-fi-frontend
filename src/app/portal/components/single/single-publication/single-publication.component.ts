@@ -74,8 +74,8 @@ import { SearchBarComponent } from '../../search-bar/search-bar.component';
         DialogComponent,
         CdkCopyToClipboard,
         MatProgressSpinner,
-        CleanCitationPipe,
-    ],
+    CleanCitationPipe
+  ]
 })
 export class SinglePublicationComponent
   implements OnInit, AfterViewInit, OnDestroy
@@ -644,7 +644,9 @@ export class SinglePublicationComponent
       checkEmpty(item)
     );
     this.typeFields = this.typeFields.filter((item) => checkEmpty(item));
-    this.mediumFields = this.mediumFields.filter((item) => checkEmpty(item));
+
+    // Jufo code 0 must be shown, so exception added
+    this.mediumFields = this.mediumFields.filter((item) => item.field !== 'jufoClassCode' ? checkEmpty(item) : true);
     this.linksFields = this.linksFields.filter((item) => checkEmpty(item));
     this.otherFields = this.otherFields.filter((item) => checkEmpty(item));
     this.open_accessFields = this.open_accessFields.filter((item) =>
