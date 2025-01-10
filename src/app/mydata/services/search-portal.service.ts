@@ -50,7 +50,7 @@ export class SearchPortalService {
       case 'name': {
         switch (groupId) {
           case 'publication': {
-            sortField = 'publicationName.keyword';
+            sortField = 'publicationYear';
             break;
           }
           case 'dataset': {
@@ -106,12 +106,14 @@ export class SearchPortalService {
   }
 
   getData(term: string, groupId: string) {
+    console.log('term', term, 'groupid', groupId);
     // Default sort to descending
-    const sort = this.currentSort
+    let sort = this.currentSort
       ? this.currentSort
       : {
-          [this.getDefaultSortField(groupId)]: { order: 'desc' },
+          [this.getDefaultSortField(groupId)]: { order: 'desc' , unmapped_type: 'long'},
         };
+    sort = [sort, '_score'];
 
     const pageSettings = this.pageSettings;
 
@@ -124,6 +126,8 @@ export class SearchPortalService {
       from: pageSettings ? pageSettings.pageIndex * pageSettings.pageSize : 0,
       size: pageSettings ? pageSettings.pageSize : 10,
     };
+
+    console.log('payload', payload);
 
     if (term?.length) payload = Object.assign(payload, { query: query });
 
