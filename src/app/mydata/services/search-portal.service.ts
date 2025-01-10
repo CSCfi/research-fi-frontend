@@ -106,7 +106,6 @@ export class SearchPortalService {
   }
 
   getData(term: string, groupId: string) {
-    console.log('term', term, 'groupid', groupId);
     // Default sort to descending
     let sort = this.currentSort
       ? this.currentSort
@@ -126,8 +125,6 @@ export class SearchPortalService {
       from: pageSettings ? pageSettings.pageIndex * pageSettings.pageSize : 0,
       size: pageSettings ? pageSettings.pageSize : 10,
     };
-
-    console.log('payload', payload);
 
     if (term?.length) payload = Object.assign(payload, { query: query });
 
