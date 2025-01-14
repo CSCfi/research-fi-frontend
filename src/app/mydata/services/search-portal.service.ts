@@ -12,7 +12,7 @@ export interface Respone {
 }
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class SearchPortalService {
   apiUrl: string;
@@ -67,8 +67,8 @@ export class SearchPortalService {
 
     this.currentSort = {
       [sortField]: {
-        order: sortSettings.direction,
-      },
+        order: sortSettings.direction
+      }
     };
   }
 
@@ -108,9 +108,11 @@ export class SearchPortalService {
   getData(term: string, groupId: string) {
 
     // Leverage query generation method from portal
-    const finalQuery = {'bool': {
-        'must': [{'term': {'_index': groupId}}, this.searchSettingsService.querySettings(groupId, term)]
-      }};
+    const finalQuery = {
+      'bool': {
+        'must': [{ 'term': { '_index': groupId } }, this.searchSettingsService.querySettings(groupId, term)]
+      }
+    };
     let sort = undefined;
 
     // Queries and sorts are different for publication category, default sort is descending
@@ -118,17 +120,16 @@ export class SearchPortalService {
       const publicationSort = this.currentSort
         ? this.currentSort
         : {
-          [this.getDefaultSortField(groupId)]: { order: 'desc'},
+          [this.getDefaultSortField(groupId)]: { order: 'desc' }
         };
       sort = ['_score', publicationSort, '_score'];
-    }
-    else {
-      const generalSort= this.currentSort
+    } else {
+      const generalSort = this.currentSort
         ? this.currentSort
         : {
-          [this.getDefaultSortField(groupId)]: { order: 'desc', unmapped_type: 'long'},
+          [this.getDefaultSortField(groupId)]: { order: 'desc', unmapped_type: 'long' }
         };
-      sort =[generalSort, '_score', '_score'];
+      sort = [generalSort, '_score', '_score'];
     }
 
     const pageSettings = this.pageSettings;
@@ -137,7 +138,7 @@ export class SearchPortalService {
       track_total_hits: true,
       sort: sort,
       from: pageSettings ? pageSettings.pageIndex * pageSettings.pageSize : 0,
-      size: pageSettings ? pageSettings.pageSize : 10,
+      size: pageSettings ? pageSettings.pageSize : 10
     };
 
     if (term?.length) payload = Object.assign(payload, { query: finalQuery });
