@@ -12,7 +12,7 @@ export interface Respone {
 }
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class SearchPortalService {
   apiUrl: string;
@@ -67,8 +67,8 @@ export class SearchPortalService {
 
     this.currentSort = {
       [sortField]: {
-        order: sortSettings.direction,
-      },
+        order: sortSettings.direction
+      }
     };
   }
 
@@ -106,27 +106,42 @@ export class SearchPortalService {
   }
 
   getData(term: string, groupId: string) {
-    // Default sort to descending
-    let sort = this.currentSort
-      ? this.currentSort
-      : {
-          [this.getDefaultSortField(groupId)]: { order: 'desc' , unmapped_type: 'long'},
-        };
-    sort = [sort, '_score'];
-
-    const pageSettings = this.pageSettings;
 
     // Leverage query generation method from portal
-    const query = this.searchSettingsService.querySettings(groupId, term);
+    const finalQuery = {
+      'bool': {
+        'must': [{ 'term': { '_index': groupId } }, this.searchSettingsService.querySettings(groupId, term)]
+      }
+    };
+    let sort = undefined;
+
+    // Queries and sorts are different for publication category, default sort is descending
+    if (groupId === 'publication') {
+      const publicationSort = this.currentSort
+        ? this.currentSort
+        : {
+          [this.getDefaultSortField(groupId)]: { order: 'desc' }
+        };
+      sort = ['_score', publicationSort, '_score'];
+    } else {
+      const generalSort = this.currentSort
+        ? this.currentSort
+        : {
+          [this.getDefaultSortField(groupId)]: { order: 'desc', unmapped_type: 'long' }
+        };
+      sort = [generalSort, '_score', '_score'];
+    }
+
+    const pageSettings = this.pageSettings;
 
     let payload = {
       track_total_hits: true,
       sort: sort,
       from: pageSettings ? pageSettings.pageIndex * pageSettings.pageSize : 0,
-      size: pageSettings ? pageSettings.pageSize : 10,
+      size: pageSettings ? pageSettings.pageSize : 10
     };
 
-    if (term?.length) payload = Object.assign(payload, { query: query });
+    if (term?.length) payload = Object.assign(payload, { query: finalQuery });
 
     // TODO: Map response
     return this.http
