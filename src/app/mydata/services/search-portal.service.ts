@@ -107,33 +107,35 @@ export class SearchPortalService {
 
   getData(term: string, groupId: string) {
 
-    // Default sort to descending
-    const sort = this.currentSort
-      ? this.currentSort
-      : {
-          [this.getDefaultSortField(groupId)]: { order: 'desc'},
-        };
-
     // Leverage query generation method from portal
     const finalQuery = {'bool': {
         'must': [{'term': {'_index': groupId}}, this.searchSettingsService.querySettings(groupId, term)]
       }};
-    let finalSort = undefined;
+    let sort = undefined;
 
-    // Query sorts are different for publication category
+    // Queries and sorts are different for publication category, default sort is descending
     if (groupId === 'publication') {
-      finalSort = ['_score', sort, '_score'];
+      const publicationSort = this.currentSort
+        ? this.currentSort
+        : {
+          [this.getDefaultSortField(groupId)]: { order: 'desc'},
+        };
+      sort = ['_score', publicationSort, '_score'];
     }
     else {
-      finalSort =[sort, '_score', '_score'];
+      const generalSort= this.currentSort
+        ? this.currentSort
+        : {
+          [this.getDefaultSortField(groupId)]: { order: 'desc', unmapped_type: 'long'},
+        };
+      sort =[generalSort, '_score', '_score'];
     }
 
     const pageSettings = this.pageSettings;
 
-
     let payload = {
       track_total_hits: true,
-      sort: finalSort,
+      sort: sort,
       from: pageSettings ? pageSettings.pageIndex * pageSettings.pageSize : 0,
       size: pageSettings ? pageSettings.pageSize : 10,
     };
