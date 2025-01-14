@@ -106,27 +106,39 @@ export class SearchPortalService {
   }
 
   getData(term: string, groupId: string) {
+
     // Default sort to descending
-    let sort = this.currentSort
+    const sort = this.currentSort
       ? this.currentSort
       : {
-          [this.getDefaultSortField(groupId)]: { order: 'desc' , unmapped_type: 'long'},
+          [this.getDefaultSortField(groupId)]: { order: 'desc'},
         };
-    sort = [sort, '_score'];
+
+    // Leverage query generation method from portal
+    const finalQuery = {'bool': {
+        'must': [{'term': {'_index': groupId}}, this.searchSettingsService.querySettings(groupId, term)]
+      }};
+    let finalSort = undefined;
+
+    // Query sorts are different for publication category
+    if (groupId === 'publication') {
+      finalSort = ['_score', sort, '_score'];
+    }
+    else {
+      finalSort =[sort, '_score', '_score'];
+    }
 
     const pageSettings = this.pageSettings;
 
-    // Leverage query generation method from portal
-    const query = this.searchSettingsService.querySettings(groupId, term);
 
     let payload = {
       track_total_hits: true,
-      sort: sort,
+      sort: finalSort,
       from: pageSettings ? pageSettings.pageIndex * pageSettings.pageSize : 0,
       size: pageSettings ? pageSettings.pageSize : 10,
     };
 
-    if (term?.length) payload = Object.assign(payload, { query: query });
+    if (term?.length) payload = Object.assign(payload, { query: finalQuery });
 
     // TODO: Map response
     return this.http
