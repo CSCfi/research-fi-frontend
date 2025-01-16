@@ -13,6 +13,7 @@ import { DomSanitizer } from '@angular/platform-browser';
     standalone: true,
 })
 export class HighlightSearchPipe implements PipeTransform {
+
   constructor(private sanitizer: DomSanitizer) {}
 
   transform(value: any, keywords: any): any {
@@ -25,7 +26,7 @@ export class HighlightSearchPipe implements PipeTransform {
 
     const LETTER_EXPRESSION = /^\p{L}$/u;
     const isLetter = (character) => {
-      return character && LETTER_EXPRESSION.test(character);
+      return character && (LETTER_EXPRESSION.test(character) || !isNaN(character));
     };
 
     // Replace coded umlauts
@@ -39,57 +40,53 @@ export class HighlightSearchPipe implements PipeTransform {
       .filter(Boolean)
       .map((item) => item.replace(/,|;/g, ''));
 
-    // Map value keys and loop through args, replace with tags
+    // Loop through input values and compare with keywords. Highlight keyword in <mark></mark> tags if input contains a keyword.
     const match = valueArr.map((e) => {
-      for (let i = 0; i < keywordsArr.length; i++) {
-        //Neutralising the effect of accents
-        const temp_e = e.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-        let aKeyword = keywordsArr[i]
-          .normalize('NFD')
-          .replace(/[\u0300-\u036f]/g, '');
+      for (let i = 0; i < keywordsArr.length; i+=1) {
+        let aKeyword = keywordsArr[i];
 
-        // Replace first and last special characters from the string
+        // Crop first and last special characters from the string
         isLetter(aKeyword.charAt(0)) ? null : aKeyword = aKeyword.substring(1);
-        isLetter(aKeyword.charAt(aKeyword.length -1)) ? null : aKeyword = aKeyword.slice(0, -1);
+        isLetter(aKeyword.charAt(aKeyword.length - 1)) ? null : aKeyword = aKeyword.slice(0, -1);
 
-        if (
-          aKeyword.length > 0 &&
-          temp_e.toLowerCase().includes(aKeyword.toLowerCase())
-        ) {
-          // 'gi' stands for case insensitive, use 'g' if needed for case sensitive
-          const src = new RegExp(keywordsArr[i], 'gi');
-          const found = e.match(src);
-          const src_accent = new RegExp(aKeyword, 'gi');
-          const found_accent = temp_e.match(src_accent);
+        // Normalization used to handle accented characters
+        let normalizedWord = aKeyword.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+        let normalizedInput = e.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
-          if (found) {
-            e = e.replace(src, '<mark>' + found[0] + '</mark>');
-            if (aKeyword.length == temp_e.length) {
-              keywordsArr.splice(i, 1);
-              i--;
-            }
-            break;
-          } else if (found_accent) {
-            e = temp_e.replace(
-              src_accent,
-              '<mark>' + found_accent[0] + '</mark>'
-            );
-            if (aKeyword.length == temp_e.length) {
-              keywordsArr.splice(i, 1);
-              i--;
-            }
-            break;
-          } else {
-            return e;
-          }
+        if (aKeyword.length > 0 && normalizedInput.includes(normalizedWord)) {
+          return (HighlightWords(e, aKeyword, ''));
         }
       }
       return e;
     });
 
+    // Recursive highlight function.
+    function HighlightWords(input: string, word: string, processedHighlight: string) {
+      let normalizedWord = word.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      let stillToProcessInput = input.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      const firstOccurrence = stillToProcessInput.toLowerCase().indexOf(normalizedWord.toLowerCase());
+
+      if (firstOccurrence !== -1) {
+        let sliceIndex = firstOccurrence + normalizedWord.length;
+        processedHighlight += input.slice(0, firstOccurrence);
+        processedHighlight += '<mark>' + input.slice(firstOccurrence, sliceIndex) + '</mark>';
+
+        // Process input as it is, normalization used only to interpret accented characters like search does
+        stillToProcessInput = input.slice(sliceIndex, input.length);
+        if (stillToProcessInput.length > 0) {
+          return HighlightWords(stillToProcessInput, word, processedHighlight)
+        } else {
+          return processedHighlight;
+        }
+      } else {
+          return processedHighlight + stillToProcessInput;
+      }
+    }
+
     const result = match.join(' ');
 
     // Needs to be bypassed because of dynamic value
     return this.sanitizer.bypassSecurityTrustHtml(result);
+
   }
 }
