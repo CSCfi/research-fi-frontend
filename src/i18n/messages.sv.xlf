@@ -4223,7 +4223,7 @@
       </trans-unit>
       <trans-unit id="typeOfFundingTooltip" datatype="html">
         <source>Puiteohjelma</source>
-        <target state="new">Framework programme</target>
+        <target state="new">Ramprogram</target>
       </trans-unit>
       <trans-unit id="projectsDataDisclaimerLink" datatype="html">
         <source> Mitä hanketietoja palvelu sisältää? </source>
