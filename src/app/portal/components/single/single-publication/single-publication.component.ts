@@ -631,12 +631,17 @@ export class SinglePublicationComponent
   }
 
   filterData() {
-    // Helper function to check if the field exists and has data
+    // Helper function to check if the field exists and has valid data
     const checkEmpty = (item: { field: string }) => {
       return UtilityService.stringHasContent(
         this.responseData.publications[0][item.field]
       );
     };
+    // Helper function to check if the field has some data
+    const checkIfValueExists = (item: { field: string }) => {
+      return this.responseData.publications[0][item.field]?.length > 0;
+    };
+
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter((item) => checkEmpty(item));
     // this.authorFields = this.authorFields.filter(item => checkEmpty(item));
@@ -644,7 +649,9 @@ export class SinglePublicationComponent
       checkEmpty(item)
     );
     this.typeFields = this.typeFields.filter((item) => checkEmpty(item));
-    this.mediumFields = this.mediumFields.filter((item) => checkEmpty(item));
+
+    // Jufo code 0 must be shown, so exception added. Check empty function cannot be used, since in interprets 0 as empty.
+    this.mediumFields = this.mediumFields.filter((item) => item.field !== 'jufoClassCode' ? checkEmpty(item) : checkIfValueExists(item));
     this.linksFields = this.linksFields.filter((item) => checkEmpty(item));
     this.otherFields = this.otherFields.filter((item) => checkEmpty(item));
     this.open_accessFields = this.open_accessFields.filter((item) =>

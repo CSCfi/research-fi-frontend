@@ -55,6 +55,7 @@ export class SettingsService {
         ? this.staticDataService.relatedFields(index)
         : this.staticDataService.queryFields(index);
     }
+
     // Set analyzer & type
     onlyDigits = /^\d+$/.test(term);
     hasDigits = /\d/.test(term);
@@ -75,8 +76,8 @@ export class SettingsService {
         must: [
           {
             term: {
-              _index: index,
-            },
+              _index: index
+            }
           },
           {
             bool: {
@@ -89,8 +90,8 @@ export class SettingsService {
                     fields: targetFields.length > 0 ? targetFields : '',
                     operator: 'AND',
                     lenient: 'true',
-                    max_expansions: 1024,
-                  },
+                    max_expansions: 1024
+                  }
                 },
                 {
                   multi_match: {
@@ -98,8 +99,8 @@ export class SettingsService {
                     type: 'cross_fields',
                     fields: targetFields.length > 0 ? targetFields : '',
                     operator: 'AND',
-                    lenient: 'true',
-                  },
+                    lenient: 'true'
+                  }
                 },
                 // index === 'publication' was moved below the declaration
                 // index === 'person' was moved below the declaration
@@ -109,6 +110,8 @@ export class SettingsService {
                 ...(index === 'dataset'
                   ? [{ bool: { should: this.generateNested('dataset', term) } }]
                   : []),
+
+
                 // News content field has umlauts converted to coded characters, query needs to be made with both coded and decoded umlauts
                 ...(index === 'news'
                   ? [
@@ -122,8 +125,8 @@ export class SettingsService {
                         fields: targetFields.length > 0 ? targetFields : '',
                         operator: 'AND',
                         lenient: 'true',
-                        max_expansions: 1024,
-                      },
+                        max_expansions: 1024
+                      }
                     },
                     {
                       multi_match: {
@@ -133,16 +136,33 @@ export class SettingsService {
                         type: 'cross_fields',
                         fields: targetFields.length > 0 ? targetFields : '',
                         operator: 'AND',
-                        lenient: 'true',
-                      },
-                    },
+                        lenient: 'true'
+                      }
+                    }
                   ]
-                  : []),
-              ],
-            },
+                  : [])
+              ]
+            }
           },
-        ],
-      },
+          ...(index === 'dataset'
+            ? [{
+              bool: {
+                should: [
+                  {
+                    term: {
+                      isLatestVersion: 1
+                    }
+                  }
+                ]
+              }
+            }]
+            : [{
+              bool: {
+                should: []
+              }
+            }])
+        ]
+      }
     };
 
     if (index === 'publication') {
@@ -151,14 +171,14 @@ export class SettingsService {
         publicationNameFuzzy: 0.4,
         authorsTextSplitted: 1.25,
         authorsTextSplittedFuzzy: 0.4,
-        author: 0.4,
+        author: 0.4
       };
 
       const matchPublicationName = {
         match: {
           publicationName: {
             query: term,
-            boost: boosts.publicationName,
+            boost: boosts.publicationName
           }
         }
       };
@@ -169,7 +189,7 @@ export class SettingsService {
             query: term,
 
             fuzziness: 2,
-            boost: boosts.publicationNameFuzzy,
+            boost: boosts.publicationNameFuzzy
           }
         }
       };
@@ -179,7 +199,7 @@ export class SettingsService {
           authorsTextSplitted: {
             query: term,
             operator: 'and',
-            boost: boosts.authorsTextSplitted,
+            boost: boosts.authorsTextSplitted
           }
         }
       };
@@ -190,7 +210,7 @@ export class SettingsService {
             query: term,
             operator: 'and',
             fuzziness: 2,
-            boost: boosts.authorsTextSplittedFuzzy,
+            boost: boosts.authorsTextSplittedFuzzy
           }
         }
       };
@@ -204,16 +224,16 @@ export class SettingsService {
 
       const matchKeywords = {
         match: {
-          "keywords.keyword": {
-            query: term,
+          'keywords.keyword': {
+            query: term
           }
         }
-      }
+      };
 
       const matchJournalName = {
         match_phrase_prefix: {
           journalName: {
-            query: term,
+            query: term
           }
         }
       };
@@ -221,7 +241,7 @@ export class SettingsService {
       const matchJufo = {
         match: {
           jufoCode: {
-            query: term,
+            query: term
           }
         }
       };
@@ -233,7 +253,7 @@ export class SettingsService {
             boost: 2
           }
         }
-      }
+      };
 
       const matchISSN = {
         match_phrase: {
@@ -242,7 +262,7 @@ export class SettingsService {
             boost: 2
           }
         }
-      }
+      };
 
       const matchParentPublicationName = {
         match_phrase: {
@@ -251,10 +271,10 @@ export class SettingsService {
             boost: 2
           }
         }
-      }
+      };
 
       // New match statements
-      if (this.target === "name") {
+      if (this.target === 'name') {
         res.bool.must[1].bool.should = [
           matchAuthorsTextSplitted,
           // matchAuthorsTextSplittedFuzzy,
@@ -287,7 +307,7 @@ export class SettingsService {
             }
           }
         ];
-      } else if (this.target === "keywords") {
+      } else if (this.target === 'keywords') {
         (res as any).bool.must[1].bool.should = [
           {
             match: {
@@ -339,7 +359,7 @@ export class SettingsService {
 
                           'activity.affiliations.positionNameFi',
                           'activity.affiliations.positionNameSv',
-                          'activity.affiliations.positionNameEn',
+                          'activity.affiliations.positionNameEn'
                         ],
                         lenient: 'true'
                       }
@@ -373,10 +393,10 @@ export class SettingsService {
             type: 'cross_fields',
             fields: targetFields.length > 0 ? targetFields : '',
             operator: 'AND',
-            lenient: 'true',
-          },
-        },
-      },
+            lenient: 'true'
+          }
+        }
+      }
     });
 
     let res;
@@ -389,7 +409,7 @@ export class SettingsService {
         res = [
           query('organizationConsortium'),
           query('fundingGroupPerson'),
-          query('keywords'),
+          query('keywords')
         ];
         break;
       }
@@ -410,41 +430,41 @@ export class SettingsService {
               bool: {
                 must: [
                   { term: { _index: 'publication' } },
-                  this.querySettings('publication', term),
-                ],
-              },
+                  this.querySettings('publication', term)
+                ]
+              }
             },
             {
               bool: {
                 must: [
                   { term: { _index: 'funding' } },
-                  this.querySettings('funding', term),
-                ],
-              },
+                  this.querySettings('funding', term)
+                ]
+              }
             },
             {
               bool: {
                 must: [
                   { term: { _index: 'dataset' } },
-                  this.querySettings('dataset', term),
-                ],
-              },
+                  this.querySettings('dataset', term)
+                ]
+              }
             },
             {
               bool: {
                 must: [
                   { term: { _index: 'infrastructure' } },
-                  this.querySettings('infrastructure', term),
-                ],
-              },
+                  this.querySettings('infrastructure', term)
+                ]
+              }
             },
             {
               bool: {
                 must: [
                   { term: { _index: 'funding-call' } },
-                  this.querySettings('funding-call', term),
-                ],
-              },
+                  this.querySettings('funding-call', term)
+                ]
+              }
             },
             {
               bool: {
@@ -467,26 +487,26 @@ export class SettingsService {
                             analyzer: 'standard',
                             fields: ['firstName', 'lastName'],
                             operator: 'and',
-                            prefix_length: 1,
-                          },
-                        },
-                      ],
-                    },
-                  },
-                ],
-              },
+                            prefix_length: 1
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
             },
             {
               bool: {
                 must: [
                   { term: { _index: 'organization' } },
-                  this.querySettings('organization', term),
-                ],
-              },
-            },
+                  this.querySettings('organization', term)
+                ]
+              }
+            }
           ],
-          boost: 1,
-        },
+          boost: 1
+        }
       },
       aggs: {
         _index: {
@@ -494,44 +514,44 @@ export class SettingsService {
             filters: {
               person: {
                 match: {
-                  _index: 'person',
-                },
+                  _index: 'person'
+                }
               },
               publication: {
                 match: {
-                  _index: 'publication',
-                },
+                  _index: 'publication'
+                }
               },
               funding: {
                 match: {
-                  _index: 'funding',
-                },
+                  _index: 'funding'
+                }
               },
               dataset: {
                 bool: {
                   must: [
                     {
                       match: {
-                        _index: 'dataset',
-                      },
+                        _index: 'dataset'
+                      }
                     },
                     {
                       term: {
-                        isLatestVersion: 1,
-                      },
-                    },
-                  ],
-                },
+                        isLatestVersion: 1
+                      }
+                    }
+                  ]
+                }
               },
               infrastructure: {
                 match: {
-                  _index: 'infrastructure',
-                },
+                  _index: 'infrastructure'
+                }
               },
               organization: {
                 match: {
-                  _index: 'organization',
-                },
+                  _index: 'organization'
+                }
               },
               fundingCalls: {
                 match: {
@@ -548,13 +568,13 @@ export class SettingsService {
           aggs: {
             index_results: {
               top_hits: {
-                size: 3,
-              },
-            },
-          },
-        },
+                size: 3
+              }
+            }
+          }
+        }
       },
-      ...(term ? this.completionsSettings(term) : []),
+      ...(term ? this.completionsSettings(term) : [])
     };
     return res;
   }
@@ -570,11 +590,11 @@ export class SettingsService {
             size: 5,
             skip_duplicates: true,
             fuzzy: {
-              fuzziness: 0,
-            },
-          },
-        },
-      },
+              fuzziness: 0
+            }
+          }
+        }
+      }
     };
     return res;
   }

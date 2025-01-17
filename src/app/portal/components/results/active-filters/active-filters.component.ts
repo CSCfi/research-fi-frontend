@@ -348,10 +348,14 @@ export class ActiveFiltersComponent
               // Field of science
               if (val.category === 'field' && source.field?.fields) {
                 const result = source.field.fields.buckets.find(
-                  (key) =>
-                    parseInt(key.fieldId.buckets[0].key, 10) ===
-                    parseInt(val.value, 10)
+                  (key) => {
+                    const res = key.fieldId.buckets.find(item => {
+                      return parseInt(item.key, 10) === parseInt(val.value, 10)
+                    });
+                    return res;
+                  }
                 );
+
                 const foundIndex = this.activeFilters.findIndex(
                   (x) => x.value === val.value
                 );

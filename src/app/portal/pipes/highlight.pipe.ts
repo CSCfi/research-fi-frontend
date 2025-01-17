@@ -9,8 +9,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Pipe({
-    name: 'highlight',
-    standalone: true,
+  name: 'highlight',
+  standalone: true,
 })
 export class HighlightSearchPipe implements PipeTransform {
 
@@ -26,7 +26,7 @@ export class HighlightSearchPipe implements PipeTransform {
 
     const LETTER_EXPRESSION = /^\p{L}$/u;
     const isLetter = (character) => {
-      return character && (LETTER_EXPRESSION.test(character) || !isNaN(character) || character === '.' || character === ',');
+      return character && (LETTER_EXPRESSION.test(character) || !isNaN(character));
     };
 
     // Replace coded umlauts
@@ -79,7 +79,7 @@ export class HighlightSearchPipe implements PipeTransform {
           return processedHighlight;
         }
       } else {
-          return processedHighlight + stillToProcessInput;
+        return processedHighlight + stillToProcessInput;
       }
     }
 

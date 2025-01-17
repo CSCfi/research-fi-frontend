@@ -19,26 +19,32 @@ export class FilterMethodService {
   // Map minor fields of science to arrays by major
   separateMinor(source) {
     let mapped: any;
+    const subFieldsMerged = [];
     this.combined = [];
-    // Map fields by field & nested id
+
+    // Merge nested subfields of science
     if (source && source.length > 0) {
-      mapped = source.map((majorField) => ({
-        key: majorField.fieldId.buckets[0]?.key.toString() || -1,
-        label: majorField.key,
-        // Invalid response if key is 0
-        id: majorField.fieldId.buckets[0]?.key || -1,
-        doc_count: majorField.fieldId.buckets[0]?.key
-          // Separate logic for publications and datasets
-          ? majorField.filtered.filterCount.doc_count
-          : -1,
-      }));
+      source.forEach(item => {
+        item.fieldId.buckets.forEach(fieldId => {
+          subFieldsMerged.push({
+            key: fieldId?.key.toString() || -1,
+            label: item.key,
+            // Invalid response if key is 0
+            id: fieldId?.key || -1,
+            doc_count: fieldId?.key
+              // Separate logic for publications and datasets
+              ? fieldId?.doc_count
+              : -1,
+          });
+        });
+      });
     }
     // Loop through major fields & push all instances as separate arrays
     this.staticDataService.majorFieldsOfScience.forEach((item) => {
-        let i = item.id;
-        if (mapped) {
+        const i = item.id;
+        if (subFieldsMerged) {
           this.combined.push(
-            mapped
+            subFieldsMerged
               .filter((obj) => {
                 return obj.id.toString().charAt(0).includes(String(i))
               })
