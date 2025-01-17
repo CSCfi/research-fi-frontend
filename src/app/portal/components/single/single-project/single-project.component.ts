@@ -74,7 +74,7 @@ export class SingleProjectComponent implements OnInit, OnDestroy {
   pageNumber: any;
   tabQueryParams: any;
   tab = 'projects';
-  private metaTags = MetaTags.singleFunding;
+  private metaTags = MetaTags.singleProject;
   private commonTags = MetaTags.common;
   public academyOfFinland = this.translateAcademyOfFinland(this.localeId);
 

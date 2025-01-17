@@ -111,6 +111,23 @@
     "descriptionEn": "Read more about the funding decision in Research.fi.",
     "descriptionSv": "Bekanta dig med närmare uppgifter om finansieringsbeslutet i forksning.fi."
   },
+  "projects": {
+    "titleFi": "",
+    "titleEn": "",
+    "titleSv": "",
+    "descriptionFi": "Hankkeet tiedejatutkimus.fi-palvelussa. Hakutuloksia voi rajata haun jälkeen rajaa hakua -toiminnolla.",
+    "descriptionEn": "Project decisions in Research.fi. You can use the Refine search function to refine your search results.",
+    "descriptionSv": "Projekt i forskning.fi. Sökresultaten kan avgränsas efter sökningen med funktionen Avgränsa sökningen.",
+    "link": "projects"
+  },
+  "singleProject":
+  { "titleFi": "",
+    "titleEn": "",
+    "titleSv": "",
+    "descriptionFi": "Tutustu hankkeen tietoihin tiedejatutkimus.fi-palvelussa.",
+    "descriptionEn": "Read more about the project decision in Research.fi.",
+    "descriptionSv": "Bekanta dig med närmare uppgifter om projekt i forksning.fi."
+  },
   "datasets": {
     "titleFi": "",
     "titleEn": "",
@@ -119,15 +136,6 @@
     "descriptionEn": "Metadata for research data in the Research.fi service. Use the Filter results function to filter your search results.",
     "descriptionSv": "Beskrivning av forskningsdata i Forskning.fi. Sökresultaten kan avgränsas efter sökningen med funktionen Avgränsa sökningen.",
     "link": "datasets"
-  },
-  "projects": {
-    "titleFi": "",
-    "titleEn": "",
-    "titleSv": "",
-    "descriptionFi": "PROJECTS DESCRIPTION PLACEHOLDER",
-    "descriptionEn": "PROJECTS DESCRIPTION PLACEHOLDER",
-    "descriptionSv": "PROJECTS DESCRIPTION PLACEHOLDER",
-    "link": "projects"
   },
   "singleDataset": {
     "titleFi": "",
