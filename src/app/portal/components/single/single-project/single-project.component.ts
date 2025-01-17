@@ -74,7 +74,7 @@ export class SingleProjectComponent implements OnInit, OnDestroy {
   pageNumber: any;
   tabQueryParams: any;
   tab = 'projects';
-  private metaTags = MetaTags.singleFunding;
+  private metaTags = MetaTags.singleProject;
   private commonTags = MetaTags.common;
   public academyOfFinland = this.translateAcademyOfFinland(this.localeId);
 
@@ -143,7 +143,7 @@ export class SingleProjectComponent implements OnInit, OnDestroy {
       }]
     },
     {
-      label: $localize`:@@spotherInfo:Muut tiedot`,
+      label: $localize`:@@spOtherInfo:Muut tiedot`,
       field: 'additionalInfo',
       showOnlyLabel: true,
       subFields: [{

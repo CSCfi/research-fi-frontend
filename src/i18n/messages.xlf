@@ -3180,7 +3180,7 @@
       <trans-unit id="spParticipants" datatype="html">
         <source>Osallistujat</source>
       </trans-unit>
-      <trans-unit id="spotherInfo" datatype="html">
+      <trans-unit id="spOtherInfo" datatype="html">
         <source>Muut tiedot</source>
       </trans-unit>
       <trans-unit id="spObjectives" datatype="html">
@@ -3228,17 +3228,11 @@
       <trans-unit id="projectSingular" datatype="html">
         <source>projekti</source>
       </trans-unit>
-      <trans-unit id="projectsTooltip" datatype="html">
-        <source>Placeholder</source>
-      </trans-unit>
       <trans-unit id="spDescription" datatype="html">
         <source>Kuvaus</source>
       </trans-unit>
       <trans-unit id="spEndYear" datatype="html">
         <source>Päättymisvuosi</source>
-      </trans-unit>
-      <trans-unit id="spOrganizations" datatype="html">
-        <source>Organisaatiot</source>
       </trans-unit>
       <trans-unit id="spPersons" datatype="html">
         <source>Henkilöt</source>
@@ -3275,6 +3269,15 @@
       </trans-unit>
       <trans-unit id="projectsBetaDescription" datatype="html">
         <source> Hankkeet ovat tutkimusorganisaatioiden tutkimushankkeita. Tällä hetkellä palvelu sisältää tietoa luonnonvara-alan hankekuvauksista (entinen Hankehaavi-verkkohakemisto). Myöhemmässä vaiheessa tiedot tulevat täydentymään myös muiden alojen tutkimushankkeilla ja kattavammilla kuvailutiedoilla. </source>
+      </trans-unit>
+      <trans-unit id="spOriginalOrganizations" datatype="html">
+        <source>Alkuperäinen vastuuorganisaatio</source>
+      </trans-unit>
+      <trans-unit id="spRelatedOrganizations" datatype="html">
+        <source>Liittyvät organisaatiot</source>
+      </trans-unit>
+      <trans-unit id="spResponsibleOrganization" datatype="html">
+        <source>Vastuuorganisaatio</source>
       </trans-unit>
     </body>
   </file>

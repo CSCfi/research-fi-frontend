@@ -79,7 +79,7 @@ export class TabChangeService {
       link: 'projects',
       icon: faAlignLeft,
       singular: $localize`:@@projectSingular:projekti`,
-      tooltip: $localize`:@@projectsTooltip:Placeholder`,
+      tooltip: $localize`:@@projectsBetaDescription:Hankkeet ovat tutkimusorganisaatioiden tutkimushankkeita. Tällä hetkellä palvelu sisältää tietoa luonnonvara-alan hankekuvauksista (entinen Hankehaavi-verkkohakemisto). Myöhemmässä vaiheessa tiedot tulevat täydentymään myös muiden alojen tutkimushankkeilla ja kattavammilla kuvailutiedoilla.`,
     },
   ];
 
