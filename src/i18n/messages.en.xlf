@@ -4351,7 +4351,7 @@
         <target state="new">Limit search based on the organizations participating in the project.</target>
       </trans-unit>
       <trans-unit id="spFiltersKeywordsTooltip" datatype="html">
-        <source>Haun rajaus hankkeen tiedoissa olevien avainsanojen perusteella</source>
+        <source>Haun rajaus hankkeen tiedoissa olevien avainsanojen perusteella.</source>
         <target state="new">Limit search based on the keywords in the project&apos;s information.</target>
       </trans-unit>
       <trans-unit id="projectsBetaDescription" datatype="html">
@@ -4365,6 +4365,10 @@
       <trans-unit id="spRelatedOrganizations" datatype="html">
         <source>Liittyvät organisaatiot</source>
         <target state="new">Related organizations</target>
+      </trans-unit>
+      <trans-unit id="spReadMore" datatype="html">
+        <source>Lue lisää</source>
+        <target state="new">Read more</target>
       </trans-unit>
     </body>
   </file>

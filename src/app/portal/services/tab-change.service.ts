@@ -75,7 +75,7 @@ export class TabChangeService {
     },
     {
       data: 'projects',
-      label: 'Hankkeet',
+      label: $localize`:@@projects:Hankkeet`,
       link: 'projects',
       icon: faAlignLeft,
       singular: $localize`:@@projectSingular:projekti`,
