@@ -3256,7 +3256,7 @@
         <source>Organisaatio</source>
       </trans-unit>
       <trans-unit id="spFiltersOrganizationTooltip" datatype="html">
-        <source>Haun rajaus hankkeeseen osallistuvien organisaatioiden mukaa.n</source>
+        <source>Haun rajaus hankkeeseen osallistuvien organisaatioiden mukaan.</source>
       </trans-unit>
       <trans-unit id="spFiltersStartYear" datatype="html">
         <source>Aloitusvuosi</source>
@@ -3278,6 +3278,9 @@
       </trans-unit>
       <trans-unit id="spResponsibleOrganization" datatype="html">
         <source>Vastuuorganisaatio</source>
+      </trans-unit>
+      <trans-unit id="spReadMore" datatype="html">
+        <source>Lue lisää</source>
       </trans-unit>
     </body>
   </file>

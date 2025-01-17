@@ -4243,7 +4243,7 @@
       </trans-unit>
       <trans-unit id="relatedProjects" datatype="html">
         <source>Hae hankkeeseen liittyvät (tulossa) </source>
-        <target>Relaterade till detta projekt (På kommande)  </target>
+        <target>Relaterade till detta projekt (På kommande) </target>
       </trans-unit>
       <trans-unit id="projectSource" datatype="html">
         <source>Hanketiedon lähde</source>
@@ -4339,7 +4339,7 @@
       </trans-unit>
       <trans-unit id="spFiltersStartYear" datatype="html">
         <source>Aloitusvuosi</source>
-        <target state="new">Aloitusvuosi</target>
+        <target state="new">Startår</target>
       </trans-unit>
       <trans-unit id="spFiltersStartYearTooltip" datatype="html">
         <source>Haun rajaus hankkeen alkamisvuoden mukaan.</source>
@@ -4368,6 +4368,10 @@
       <trans-unit id="spRelatedOrganizations" datatype="html">
         <source>Liittyvät organisaatiot</source>
         <target state="new">Relaterade organisationer</target>
+      </trans-unit>
+      <trans-unit id="spReadMore" datatype="html">
+        <source>Lue lisää</source>
+        <target state="new">Läs mera</target>
       </trans-unit>
     </body>
   </file>
