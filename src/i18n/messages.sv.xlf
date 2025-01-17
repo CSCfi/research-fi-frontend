@@ -4227,7 +4227,7 @@
       </trans-unit>
       <trans-unit id="projects" datatype="html">
         <source>Hankkeet</source>
-        <target>Hankkeet</target>
+        <target>Projekt</target>
       </trans-unit>
       <trans-unit id="2404930950771668634" datatype="html">
         <source>Suomen akatemian muu päättäjä</source>
@@ -4235,15 +4235,15 @@
       </trans-unit>
       <trans-unit id="projectsExternalLinks" datatype="html">
         <source>Linkit hankkeeseen</source>
-        <target>Linkit hankkeeseen</target>
+        <target>Projektets webbplats</target>
       </trans-unit>
       <trans-unit id="noProjectLinks" datatype="html">
         <source> Hankkeeseen ei ole tarjolla linkkejä tässä portaalissa <x id="INTERPOLATION" equiv-text="{{projectURL}}"/> </source>
-        <target> Hankkeeseen ei ole tarjolla linkkejä tässä portaalissa <x id="INTERPOLATION" equiv-text="{{projectURL}}"/> </target>
+        <target> Projektet har inga tillgängliga länkar i portalen <x id="INTERPOLATION" equiv-text="{{projectURL}}"/> </target>
       </trans-unit>
       <trans-unit id="relatedProjects" datatype="html">
         <source>Hae hankkeeseen liittyvät (tulossa) </source>
-        <target>Hae hankkeeseen liittyvät (tulossa) </target>
+        <target>Relaterade till detta projekt (På kommande)  </target>
       </trans-unit>
       <trans-unit id="projectSource" datatype="html">
         <source>Hanketiedon lähde</source>
@@ -4251,7 +4251,7 @@
       </trans-unit>
       <trans-unit id="spAbbreviation" datatype="html">
         <source>Lyhenne</source>
-        <target>Lyhenne</target>
+        <target>Förkortning</target>
       </trans-unit>
       <trans-unit id="spAbbreviationTooltip" datatype="html">
         <source>Lyhenne</source>
@@ -4342,20 +4342,20 @@
         <target state="new">Aloitusvuosi</target>
       </trans-unit>
       <trans-unit id="spFiltersStartYearTooltip" datatype="html">
-        <source>Haun rajaus hankkeen alkamisvuoden mukaan</source>
-        <target state="new">Begränsa sökningen enligt projektets startår</target>
+        <source>Haun rajaus hankkeen alkamisvuoden mukaan.</source>
+        <target state="new">Begränsa sökningen enligt projektets startår.</target>
       </trans-unit>
       <trans-unit id="spFiltersOrganization" datatype="html">
         <source>Organisaatio</source>
         <target state="new">Organisation</target>
       </trans-unit>
       <trans-unit id="spFiltersOrganizationTooltip" datatype="html">
-        <source>Haun rajaus hankkeeseen osallistuvien organisaatioiden mukaan</source>
-        <target state="new">Begränsa sökningen enligt organisationer som deltar i projektet</target>
+        <source>Haun rajaus hankkeeseen osallistuvien organisaatioiden mukaan.</source>
+        <target state="new">Begränsa sökningen enligt organisationer som deltar i projektet.</target>
       </trans-unit>
       <trans-unit id="spFiltersKeywordsTooltip" datatype="html">
-        <source>Haun rajaus hankkeen tiedoissa olevien avainsanojen perusteella</source>
-        <target state="new">Begränsa sökningen enligt nyckelorden i projekt</target>
+        <source>Haun rajaus hankkeen tiedoissa olevien avainsanojen perusteella.</source>
+        <target state="new">Begränsa sökningen enligt nyckelorden i projekt.</target>
       </trans-unit>
       <trans-unit id="projectsBetaDescription" datatype="html">
         <source> Hankkeet ovat tutkimusorganisaatioiden tutkimushankkeita. Tällä hetkellä palvelu sisältää tietoa luonnonvara-alan hankekuvauksista (entinen Hankehaavi-verkkohakemisto). Myöhemmässä vaiheessa tiedot tulevat täydentymään myös muiden alojen tutkimushankkeilla ja kattavammilla kuvailutiedoilla. </source>

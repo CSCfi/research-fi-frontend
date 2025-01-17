@@ -25,7 +25,7 @@ export class ProjectFilterService {
       open: true,
       limitHeight: true,
       hideSearch: true,
-      tooltip: $localize`:@@spFiltersStartYearTooltip:Haun rajaus hankkeen alkamisvuoden mukaan`,
+      tooltip: $localize`:@@spFiltersStartYearTooltip:Haun rajaus hankkeen alkamisvuoden mukaan.`,
     },
     {
       field: 'organization',
@@ -33,7 +33,7 @@ export class ProjectFilterService {
       open: true,
       hasSubFields: false,
       limitHeight: false,
-      tooltip: $localize`:@@spFiltersOrganizationTooltip:Haun rajaus hankkeeseen osallistuvien organisaatioiden mukaan`,
+      tooltip: $localize`:@@spFiltersOrganizationTooltip:Haun rajaus hankkeeseen osallistuvien organisaatioiden mukaan.`,
     },
     {
       field: 'topic',
@@ -41,7 +41,7 @@ export class ProjectFilterService {
       hasSubFields: false,
       open: true,
       limitHeight: false,
-      tooltip: $localize`:@@spFiltersKeywordsTooltip:Haun rajaus hankkeen tiedoissa olevien avainsanojen perusteella`,
+      tooltip: $localize`:@@spFiltersKeywordsTooltip:Haun rajaus hankkeen tiedoissa olevien avainsanojen perusteella.`,
     },
   ];
 
