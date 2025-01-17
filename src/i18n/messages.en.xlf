@@ -1865,7 +1865,7 @@
       </trans-unit>
       <trans-unit id="7836161693422735311" datatype="html">
         <source>Kuvaus</source>
-        <target>Descriptio</target>
+        <target>Description</target>
       </trans-unit>
       <trans-unit id="7839812640827186036" datatype="html">
         <source>Sähköpostiosoite</source>
@@ -4224,7 +4224,7 @@
       </trans-unit>
       <trans-unit id="projectsDataDisclaimerLink" datatype="html">
         <source> Mitä hanketietoja palvelu sisältää? </source>
-        <target> Mitä hanketietoja palvelu sisältää? </target>
+        <target> What information about projects does the service contain? </target>
       </trans-unit>
       <trans-unit id="projects" datatype="html">
         <source>Hankkeet</source>
@@ -4260,47 +4260,47 @@
       </trans-unit>
       <trans-unit id="spStartYearTooltip" datatype="html">
         <source>Hankkeen alkamisvuosi</source>
-        <target>Start year</target>
+        <target>The start year of the project</target>
       </trans-unit>
       <trans-unit id="spEndYearTooltip" datatype="html">
         <source>Hankkeen päättymisvuosi</source>
-        <target>End year</target>
+        <target>The end year of the project</target>
       </trans-unit>
       <trans-unit id="spDescriptionTooltip" datatype="html">
         <source>Kuvaus kertoo tiiviisti hankkeesta</source>
-        <target>Kuvaus kertoo tiiviisti hankkeesta</target>
+        <target>Concise description of the project</target>
       </trans-unit>
       <trans-unit id="spObjectives" datatype="html">
         <source>Tavoitteet</source>
-        <target>Tavoitteet</target>
+        <target>Objectives of the project</target>
       </trans-unit>
       <trans-unit id="spObjectivesTooltip" datatype="html">
         <source>Kuvaus hankkeelle asetetuista tavoitteista</source>
-        <target>Kuvaus hankkeelle asetetuista tavoitteista</target>
+        <target>Description of the objectives set for the project</target>
       </trans-unit>
       <trans-unit id="spParticipants" datatype="html">
         <source>Osallistujat</source>
-        <target>Osallistujat</target>
+        <target>Participants</target>
       </trans-unit>
       <trans-unit id="spParticipantsTooltip" datatype="html">
         <source>Hankkeeseen osallistuvat organisaatiot ja henkilöt</source>
-        <target>Hankkeeseen osallistuvat organisaatiot ja henkilöt</target>
+        <target>Organizations and individuals participating in the project</target>
       </trans-unit>
       <trans-unit id="spResults" datatype="html">
         <source>Tulokset</source>
-        <target>Tulokset</target>
+        <target>Results</target>
       </trans-unit>
       <trans-unit id="spResultsTooltip" datatype="html">
         <source>Hankkeen saavuttamat tulokset</source>
-        <target>Hankkeen saavuttamat tulokset</target>
+        <target>The results achieved by the project</target>
       </trans-unit>
-      <trans-unit id="spotherInfo" datatype="html">
+      <trans-unit id="spOtherInfo" datatype="html">
         <source>Muut tiedot</source>
-        <target>Muut tiedot</target>
+        <target>Other information</target>
       </trans-unit>
       <trans-unit id="projectSingular" datatype="html">
         <source>projekti</source>
-        <target>projekti</target>
+        <target>project</target>
       </trans-unit>
       <trans-unit id="projectsTooltip" datatype="html">
         <source>Placeholder</source>
@@ -4308,63 +4308,67 @@
       </trans-unit>
       <trans-unit id="spStartYear" datatype="html">
         <source>Aloitusvuosi</source>
-        <target>Aloitusvuosi</target>
+        <target>Starting year</target>
       </trans-unit>
       <trans-unit id="spEndYear" datatype="html">
         <source>Päättymisvuosi</source>
-        <target>Päättymisvuosi</target>
+        <target>End year</target>
       </trans-unit>
       <trans-unit id="spDescription" datatype="html">
         <source>Kuvaus</source>
-        <target>Kuvaus</target>
+        <target>Description</target>
       </trans-unit>
       <trans-unit id="spOrganizations" datatype="html">
         <source>Organisaatiot</source>
-        <target>Organisaatiot</target>
+        <target>Organizations</target>
       </trans-unit>
+      <trans-unit id="spOriginalOrganizations" datatype="html">
+        <source>Alkuperäinen organisaatio</source>
+        <target>Original organization</target>
+       </trans-unit>
       <trans-unit id="spPersons" datatype="html">
         <source>Henkilöt</source>
-        <target>Henkilöt</target>
+        <target>Persons</target>
       </trans-unit>
       <trans-unit id="resultsAndEffect" datatype="html">
         <source>Tulokset ja vaikuttavuus</source>
-        <target>Tulokset ja vaikuttavuus</target>
+        <target>Results and impact</target>
       </trans-unit>
       <trans-unit id="spKeywordsTooltip" datatype="html">
         <source>Avainsanat</source>
-        <target state="new">Hankkeen avainsanat</target>
+        <target state="new">Limit search based on the keywords in the project&apos;s information.</target>
       </trans-unit>
       <trans-unit id="spFiltersKeywords" datatype="html">
         <source>Avainsanat</source>
-        <target>Limit search based on the keywords in the project&apos;s information.</target>
+        <target>Keywords</target>
       </trans-unit>
       <trans-unit id="spHomePageTooltip" datatype="html">
         <source>Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa.</source>
-        <target>Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa.</target>
+        <target>A website outside the research.fi service that contains more detailed information on the project.</target>
       </trans-unit>
       <trans-unit id="spFiltersStartYear" datatype="html">
         <source>Aloitusvuosi</source>
-        <target state="new">Aloitusvuosi</target>
+        <target>Starting year</target>
       </trans-unit>
       <trans-unit id="spFiltersStartYearTooltip" datatype="html">
         <source>Haun rajaus hankkeen alkamisvuoden mukaan</source>
-        <target state="new">Haun rajaus hankkeen alkamisvuoden mukaan</target>
+        <target state="new">Limit search based on the start year of the project</target>
       </trans-unit>
       <trans-unit id="spFiltersOrganization" datatype="html">
         <source>Organisaatio</source>
-        <target state="new">Organisaatio</target>
+        <target state="new">Organization</target>
       </trans-unit>
       <trans-unit id="spFiltersOrganizationTooltip" datatype="html">
         <source>Haun rajaus hankkeeseen osallistuvien organisaatioiden mukaan</source>
-        <target state="new">Haun rajaus hankkeeseen osallistuvien organisaatioiden mukaan</target>
+        <target state="new">Limit search based on the organizations participating in the project</target>
       </trans-unit>
       <trans-unit id="spFiltersKeywordsTooltip" datatype="html">
         <source>Haun rajaus hankkeen tiedoissa olevien avainsanojen perusteella</source>
-        <target state="new">Haun rajaus hankkeen tiedoissa olevien avainsanojen perusteella</target>
+        <target state="new">Limit search based on the keywords in the project's information</target>
       </trans-unit>
       <trans-unit id="projectsBetaDescription" datatype="html">
         <source> Hankkeet ovat tutkimusorganisaatioiden tutkimushankkeita. Tällä hetkellä palvelu sisältää tietoa luonnonvara-alan hankekuvauksista (entinen Hankehaavi-verkkohakemisto). Myöhemmässä vaiheessa tiedot tulevat täydentymään myös muiden alojen tutkimushankkeilla ja kattavammilla kuvailutiedoilla. </source>
-        <target state="new"> Hankkeet ovat tutkimusorganisaatioiden tutkimushankkeita. Tällä hetkellä palvelu sisältää tietoa luonnonvara-alan hankekuvauksista (entinen Hankehaavi-verkkohakemisto). Myöhemmässä vaiheessa tiedot tulevat täydentymään myös muiden alojen tutkimushankkeilla ja kattavammilla kuvailutiedoilla. </target>
+        <target state="new"> The projects are research projects of research organisations. Currently, the service contains information on project descriptions in the natural resources sector (formerly Hankehavi online directory). At a later stage, the data will also be supplemented by research projects in other fields and more comprehensive descriptive information. </target>
       </trans-unit>
     </body>
   </file>

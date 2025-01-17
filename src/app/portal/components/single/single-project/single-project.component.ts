@@ -143,7 +143,7 @@ export class SingleProjectComponent implements OnInit, OnDestroy {
       }]
     },
     {
-      label: $localize`:@@spotherInfo:Muut tiedot`,
+      label: $localize`:@@spOtherInfo:Muut tiedot`,
       field: 'additionalInfo',
       showOnlyLabel: true,
       subFields: [{

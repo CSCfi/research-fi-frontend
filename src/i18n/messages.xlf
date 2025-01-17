@@ -3180,7 +3180,7 @@
       <trans-unit id="spParticipants" datatype="html">
         <source>Osallistujat</source>
       </trans-unit>
-      <trans-unit id="spotherInfo" datatype="html">
+      <trans-unit id="spOtherInfo" datatype="html">
         <source>Muut tiedot</source>
       </trans-unit>
       <trans-unit id="spObjectives" datatype="html">
