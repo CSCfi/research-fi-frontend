@@ -3973,10 +3973,6 @@
         <source>Hankkeet</source>
         <target>Projekt</target>
       </trans-unit>
-      <trans-unit id="6312855125143647093" datatype="html">
-        <source>Hankkeet uudistuvat. Aiempien hankkeiden tiedot löytyvät nyt ‘Myönnetty rahoitus‘ -osiosta.</source>
-        <target>Projekten förnyas. Information från tidigare projekt kan nu hittas i avsnittet ‘Beviljade finansiering’.</target>
-      </trans-unit>
       <trans-unit id="fundingType" datatype="html">
         <source>Rahoitusmuoto</source>
         <target>Finansieringsmetoden</target>
@@ -4227,7 +4223,7 @@
       </trans-unit>
       <trans-unit id="projectsDataDisclaimerLink" datatype="html">
         <source> Mitä hanketietoja palvelu sisältää? </source>
-        <target> Vilka uppgifter om  projekten finns i tjänsten? </target>
+        <target> Vilka uppgifter om projekten finns i tjänsten? </target>
       </trans-unit>
       <trans-unit id="projects" datatype="html">
         <source>Hankkeet</source>
@@ -4305,10 +4301,6 @@
         <source>projekti</source>
         <target>projekt</target>
       </trans-unit>
-      <trans-unit id="projectsTooltip" datatype="html">
-        <source>Placeholder</source>
-        <target>Placeholder</target>
-      </trans-unit>
       <trans-unit id="spStartYear" datatype="html">
         <source>Aloitusvuosi</source>
         <target>Startår</target>
@@ -4321,14 +4313,10 @@
         <source>Kuvaus</source>
         <target>Kuvaus</target>
       </trans-unit>
-      <trans-unit id="spOrganizations" datatype="html">
-        <source>Organisaatiot</source>
-        <target>Organisationer</target>
-      </trans-unit>
       <trans-unit id="spOriginalOrganizations" datatype="html">
-        <source>Alkuperäinen organisaatio</source>
-        <target>Ursprunglig organisation</target>
-       </trans-unit>
+        <source>Alkuperäinen vastuuorganisaatio</source>
+        <target state="new">Ursprunglig organisation</target>
+      </trans-unit>
       <trans-unit id="spPersons" datatype="html">
         <source>Henkilöt</source>
         <target>Henkilöt</target>
@@ -4372,6 +4360,14 @@
       <trans-unit id="projectsBetaDescription" datatype="html">
         <source> Hankkeet ovat tutkimusorganisaatioiden tutkimushankkeita. Tällä hetkellä palvelu sisältää tietoa luonnonvara-alan hankekuvauksista (entinen Hankehaavi-verkkohakemisto). Myöhemmässä vaiheessa tiedot tulevat täydentymään myös muiden alojen tutkimushankkeilla ja kattavammilla kuvailutiedoilla. </source>
         <target state="new"> Projekten är forskningsprojekt för forskningsorganisationer. För närvarande innehåller tjänsten information om projektbeskrivningar inom naturresursbranschen (tidigare Hankehaavi-webbkatalogen). I ett senare skede kommer informationen också att kompletteras med forskningsprojekt inom andra områden och mer omfattande beskrivningsdata. </target>
+      </trans-unit>
+      <trans-unit id="spResponsibleOrganization" datatype="html">
+        <source>Vastuuorganisaatio</source>
+        <target state="new">Vastuuorganisaatio</target>
+      </trans-unit>
+      <trans-unit id="spRelatedOrganizations" datatype="html">
+        <source>Liittyvät organisaatiot</source>
+        <target state="new">Liittyvät organisaatiot</target>
       </trans-unit>
     </body>
   </file>

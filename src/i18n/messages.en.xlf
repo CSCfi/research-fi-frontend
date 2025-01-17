@@ -3970,10 +3970,6 @@
         <source>Hankkeet</source>
         <target>Projects</target>
       </trans-unit>
-      <trans-unit id="6312855125143647093" datatype="html">
-        <source>Hankkeet uudistuvat. Aiempien hankkeiden tiedot löytyvät nyt ‘Myönnetty rahoitus‘ -osiosta.</source>
-        <target>The projects are being renewed. The information from previous projects can now be found in the ‘Granted funding’ section.</target>
-      </trans-unit>
       <trans-unit id="fundingType" datatype="html">
         <source>Rahoitusmuoto</source>
         <target>Method of funding</target>
@@ -4302,10 +4298,6 @@
         <source>projekti</source>
         <target>project</target>
       </trans-unit>
-      <trans-unit id="projectsTooltip" datatype="html">
-        <source>Placeholder</source>
-        <target>Placeholder</target>
-      </trans-unit>
       <trans-unit id="spStartYear" datatype="html">
         <source>Aloitusvuosi</source>
         <target>Starting year</target>
@@ -4318,14 +4310,10 @@
         <source>Kuvaus</source>
         <target>Description</target>
       </trans-unit>
-      <trans-unit id="spOrganizations" datatype="html">
-        <source>Organisaatiot</source>
-        <target>Organizations</target>
-      </trans-unit>
       <trans-unit id="spOriginalOrganizations" datatype="html">
-        <source>Alkuperäinen organisaatio</source>
-        <target>Original organization</target>
-       </trans-unit>
+        <source>Alkuperäinen vastuuorganisaatio</source>
+        <target state="new">Original organization</target>
+      </trans-unit>
       <trans-unit id="spPersons" datatype="html">
         <source>Henkilöt</source>
         <target>Persons</target>
@@ -4364,11 +4352,19 @@
       </trans-unit>
       <trans-unit id="spFiltersKeywordsTooltip" datatype="html">
         <source>Haun rajaus hankkeen tiedoissa olevien avainsanojen perusteella</source>
-        <target state="new">Limit search based on the keywords in the project's information</target>
+        <target state="new">Limit search based on the keywords in the project&apos;s information</target>
       </trans-unit>
       <trans-unit id="projectsBetaDescription" datatype="html">
         <source> Hankkeet ovat tutkimusorganisaatioiden tutkimushankkeita. Tällä hetkellä palvelu sisältää tietoa luonnonvara-alan hankekuvauksista (entinen Hankehaavi-verkkohakemisto). Myöhemmässä vaiheessa tiedot tulevat täydentymään myös muiden alojen tutkimushankkeilla ja kattavammilla kuvailutiedoilla. </source>
         <target state="new"> The projects are research projects of research organisations. Currently, the service contains information on project descriptions in the natural resources sector (formerly Hankehavi online directory). At a later stage, the data will also be supplemented by research projects in other fields and more comprehensive descriptive information. </target>
+      </trans-unit>
+      <trans-unit id="spResponsibleOrganization" datatype="html">
+        <source>Vastuuorganisaatio</source>
+        <target state="new">Vastuuorganisaatio</target>
+      </trans-unit>
+      <trans-unit id="spRelatedOrganizations" datatype="html">
+        <source>Liittyvät organisaatiot</source>
+        <target state="new">Liittyvät organisaatiot</target>
       </trans-unit>
     </body>
   </file>
