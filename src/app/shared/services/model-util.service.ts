@@ -234,7 +234,7 @@ export class ModelUtilsService {
   }
 
   getYearRange(startYear, endYear) {
-    return [startYear, endYear].filter((year) => year > 0).join(' - ');
+    return (startYear > 0) ? [startYear, endYear > 0 ? endYear : ''].join(' - ') : [];
   }
 
   getDateRange(startDate, endDate) {
