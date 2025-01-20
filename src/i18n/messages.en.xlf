@@ -4356,7 +4356,7 @@
       </trans-unit>
       <trans-unit id="projectsBetaDescription" datatype="html">
         <source> Hankkeet ovat tutkimusorganisaatioiden tutkimushankkeita. Tällä hetkellä palvelu sisältää tietoa luonnonvara-alan hankekuvauksista (entinen Hankehaavi-verkkohakemisto). Myöhemmässä vaiheessa tiedot tulevat täydentymään myös muiden alojen tutkimushankkeilla ja kattavammilla kuvailutiedoilla. </source>
-        <target state="new"> The projects are research projects of research organisations. Currently, the service contains information on project descriptions in the natural resources sector (formerly Hankehavi online directory). At a later stage, the data will also be supplemented by research projects in other fields and more comprehensive descriptive information. </target>
+        <target state="new"> The projects are research projects of research organisations. Currently, the service contains information on project descriptions in the natural resources sector (formerly Hankehaavi online directory). At a later stage, the data will also be supplemented by research projects in other fields and more comprehensive descriptive information. </target>
       </trans-unit>
       <trans-unit id="spResponsibleOrganization" datatype="html">
         <source>Vastuuorganisaatio</source>
