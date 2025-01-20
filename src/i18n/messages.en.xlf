@@ -525,23 +525,23 @@
         <target>Number of publications by open access</target>
       </trans-unit>
       <trans-unit id="fundingCountByYear" datatype="html">
-        <source>Hankkeiden jakautuminen vuosittain</source>
+        <source>Rahoitusmyöntöjen jakautuminen vuosittain</source>
         <target state="new">Distribution of grants by year</target>
       </trans-unit>
       <trans-unit id="fundingCountByFunder" datatype="html">
-        <source>Hankkeiden jakautuminen rahoittajan mukaan</source>
+        <source>Rahoitusmyöntöjen jakautuminen rahoittajan mukaan</source>
         <target state="new">Distribution of grants by funder</target>
       </trans-unit>
       <trans-unit id="fundingCountByOrg" datatype="html">
-        <source>Hankkeiden jakautuminen organisaatioittain</source>
+        <source>Rahoitusmyöntöjen jakautuminen organisaatioittain</source>
         <target state="new">Distribution of grants by organization</target>
       </trans-unit>
       <trans-unit id="fundingCountByType" datatype="html">
-        <source>Hankkeiden jakautuminen rahoitusmuodon mukaan</source>
+        <source>Rahoitusmyöntöjen jakautuminen rahoitusmuodon mukaan</source>
         <target state="new">Distribution of grants by funding instrument</target>
       </trans-unit>
       <trans-unit id="fundingCountByFOS" datatype="html">
-        <source>Hankkeiden jakautuminen tieteenaloittain</source>
+        <source>Rahoitusmyöntöjen jakautuminen tieteenaloittain</source>
         <target state="new">Distribution of grants by field of science</target>
       </trans-unit>
       <trans-unit id="asCountAmount" datatype="html">
