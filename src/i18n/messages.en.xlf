@@ -4280,7 +4280,7 @@
       </trans-unit>
       <trans-unit id="spParticipantsTooltip" datatype="html">
         <source>Hankkeeseen osallistuvat organisaatiot ja henkilöt</source>
-        <target>Organizations and individuals participating in the project</target>
+        <target>Organizations and individuals participating in the project.</target>
       </trans-unit>
       <trans-unit id="spResults" datatype="html">
         <source>Tulokset</source>
