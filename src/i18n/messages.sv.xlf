@@ -4283,7 +4283,7 @@
       </trans-unit>
       <trans-unit id="spParticipantsTooltip" datatype="html">
         <source>Hankkeeseen osallistuvat organisaatiot ja henkilöt</source>
-        <target>Organisationer och individer som deltar i projektet</target>
+        <target>Organisationer och individer som deltar i projektet.</target>
       </trans-unit>
       <trans-unit id="spResults" datatype="html">
         <source>Tulokset</source>
@@ -4307,11 +4307,11 @@
       </trans-unit>
       <trans-unit id="spEndYear" datatype="html">
         <source>Päättymisvuosi</source>
-        <target>Päättymisvuosi</target>
+        <target>Slutår</target>
       </trans-unit>
       <trans-unit id="spDescription" datatype="html">
         <source>Kuvaus</source>
-        <target>Kuvaus</target>
+        <target>Beskrivning</target>
       </trans-unit>
       <trans-unit id="spOriginalOrganizations" datatype="html">
         <source>Alkuperäinen vastuuorganisaatio</source>
