@@ -2968,22 +2968,22 @@
         <source>Julkaisujen määrä avoimen saatavuuden mukaan</source>
       </trans-unit>
       <trans-unit id="fundingCountByYear" datatype="html">
-        <source>Hankkeiden jakautuminen vuosittain</source>
+        <source>Rahoitusmyöntöjen jakautuminen vuosittain</source>
       </trans-unit>
       <trans-unit id="fundingCountByFunder" datatype="html">
-        <source>Hankkeiden jakautuminen rahoittajan mukaan</source>
+        <source>Rahoitusmyöntöjen jakautuminen rahoittajan mukaan</source>
       </trans-unit>
       <trans-unit id="fundingCountByOrg" datatype="html">
-        <source>Hankkeiden jakautuminen organisaatioittain</source>
+        <source>Rahoitusmyöntöjen jakautuminen organisaatioittain</source>
       </trans-unit>
       <trans-unit id="fundingCountByType" datatype="html">
-        <source>Hankkeiden jakautuminen rahoitusmuodon mukaan</source>
+        <source>Rahoitusmyöntöjen jakautuminen rahoitusmuodon mukaan</source>
       </trans-unit>
       <trans-unit id="fundingCountByFOS" datatype="html">
-        <source>Hankkeiden jakautuminen tieteenaloittain</source>
+        <source>Rahoitusmyöntöjen jakautuminen tieteenaloittain</source>
       </trans-unit>
       <trans-unit id="fundingCountByIdentifiedTopic" datatype="html">
-        <source>Hankkeiden jakautuminen tunnistetun aiheen mukaan</source>
+        <source>Rahoitusmyöntöjen jakautuminen tunnistetun aiheen mukaan</source>
       </trans-unit>
       <trans-unit id="publication" datatype="html">
         <source>julkaisu</source>

@@ -1179,7 +1179,7 @@ export class StaticDataService {
     funding: [
       {
         field: 'year',
-        title: $localize`:@@fundingCountByYear:Hankkeiden jakautuminen vuosittain`,
+        title: $localize`:@@fundingCountByYear:Rahoitusmyöntöjen jakautuminen vuosittain`,
         select: $localize`:@@startYear:Aloitusvuosi`,
         filter: 'year',
         hierarchy: [
@@ -1283,7 +1283,7 @@ export class StaticDataService {
       // },
       {
         field: 'funder',
-        title: $localize`:@@fundingCountByFunder:Hankkeiden jakautuminen rahoittajan mukaan`,
+        title: $localize`:@@fundingCountByFunder:Rahoitusmyöntöjen jakautuminen rahoittajan mukaan`,
         select: $localize`:@@fundingFunder:Rahoittaja`,
         filter: 'funder',
         hierarchy: [
@@ -1366,7 +1366,7 @@ export class StaticDataService {
       },
       {
         field: 'organization',
-        title: $localize`:@@fundingCountByOrg:Hankkeiden jakautuminen organisaatioittain`,
+        title: $localize`:@@fundingCountByOrg:Rahoitusmyöntöjen jakautuminen organisaatioittain`,
         select: $localize`:@@organization:Organisaatio`,
         // tslint:disable-next-line: max-line-length
         message:
@@ -1465,10 +1465,10 @@ export class StaticDataService {
       },
       {
         field: 'typeOfFunding',
-        title: $localize`:@@fundingCountByType:Hankkeiden jakautuminen rahoitusmuodon mukaan`,
+        title: $localize`:@@fundingCountByType:Rahoitusmyöntöjen jakautuminen rahoitusmuodon mukaan`,
         select: $localize`:@@typeOfFunding:Rahoitusmuoto`,
         message:
-          'Huom. Hankkeita, joille ei ole määritelty rahoitusmuotoa, ei lasketa mukaan kuavaajaan.',
+          'Huom. Rahoitusmyöntöjen, joille ei ole määritelty rahoitusmuotoa, ei lasketa mukaan kuavaajaan.',
         filter: 'typeOfFunding',
         hierarchy: [
           {
@@ -1553,11 +1553,11 @@ export class StaticDataService {
       },
       {
         field: 'fieldOfScience',
-        title: $localize`:@@fundingCountByFOS:Hankkeiden jakautuminen tieteenaloittain`,
+        title: $localize`:@@fundingCountByFOS:Rahoitusmyöntöjen jakautuminen tieteenaloittain`,
         select: $localize`:@@fieldOfScience:Tieteenala`,
         // tslint:disable-next-line: max-line-length
         message:
-          'Huom. Yhdellä hankkeella voi olla useita tieteenaloja. Hanke sisältyy tällöin jokaisen siihen liitetyn tieteenalan lukumäärään. Hankkeita, joille ei ole määritelty tieteenalaa, ei lasketa mukaan kuvaajaan.',
+          'Huom. Yhdellä hankkeella voi olla useita tieteenaloja. Hanke sisältyy tällöin jokaisen siihen liitetyn tieteenalan lukumäärään. Rahoitusmyöntöjä, joille ei ole määritelty tieteenalaa, ei lasketa mukaan kuvaajaan.',
         filter: 'field',
         hierarchy: [
           {
@@ -1657,7 +1657,7 @@ export class StaticDataService {
       },
       {
         field: 'identifiedTopic',
-        title: $localize`:@@fundingCountByIdentifiedTopic:Hankkeiden jakautuminen tunnistetun aiheen mukaan`,
+        title: $localize`:@@fundingCountByIdentifiedTopic:Rahoitusmyöntöjen jakautuminen tunnistetun aiheen mukaan`,
         select: $localize`:@@identifiedTopic:Tunnistettu aihe`,
         filter: 'topic',
         hierarchy: [
