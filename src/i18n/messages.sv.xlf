@@ -4363,7 +4363,7 @@
       </trans-unit>
       <trans-unit id="spResponsibleOrganization" datatype="html">
         <source>Vastuuorganisaatio</source>
-        <target state="new">Ursprunglig organisation</target>
+        <target state="new">Ansvarig organisation</target>
       </trans-unit>
       <trans-unit id="spRelatedOrganizations" datatype="html">
         <source>Liittyvät organisaatiot</source>
