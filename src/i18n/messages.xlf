@@ -3204,9 +3204,6 @@
       <trans-unit id="relatedProjects" datatype="html">
         <source>Hae hankkeeseen liittyvät (tulossa) </source>
       </trans-unit>
-      <trans-unit id="spAbbreviationTooltip" datatype="html">
-        <source>Lyhenne</source>
-      </trans-unit>
       <trans-unit id="spDescriptionTooltip" datatype="html">
         <source>Kuvaus kertoo tiiviisti hankkeesta</source>
       </trans-unit>
