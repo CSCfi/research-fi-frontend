@@ -4370,7 +4370,7 @@
         <target state="new">Läs mera</target>
       </trans-unit>
       <trans-unit id="spSortsProject" datatype="html">
-        <source>Projekti</source>
+        <source>Hanke</source>
         <target state="new">Projekt</target>
       </trans-unit>
       <trans-unit id="spSortsAcronym" datatype="html">

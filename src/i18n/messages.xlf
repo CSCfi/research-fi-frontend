@@ -3286,7 +3286,7 @@
         <source>Organisaatio</source>
       </trans-unit>
       <trans-unit id="spSortsProject" datatype="html">
-        <source>Projekti</source>
+        <source>Hanke</source>
       </trans-unit>
       <trans-unit id="spSortsStartYear" datatype="html">
         <source>Aloitusvuosi</source>
