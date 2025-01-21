@@ -1,0 +1,26 @@
+//  This file is part of the research.fi API service
+//
+//  Copyright 2019 Ministry of Education and Culture, Finland
+//
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
+@use 'migration' as *;
+
+@mixin app-single-funding-theme($theme) {
+  $primary: map-get($theme, primary);
+
+  app-single-funding {
+    .index-name {
+      color: mat-contrast($primary, 50);
+    }
+
+    .shared tr {
+      background-color: transparent !important;
+    }
+
+    table div:nth-child(even) {
+      background-color: mat-color($primary, 50);
+    }
+  }
+}

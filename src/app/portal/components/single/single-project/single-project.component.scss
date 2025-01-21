@@ -1,0 +1,51 @@
+//  This file is part of the research.fi API service
+//
+//  Copyright 2019 Ministry of Education and Culture, Finland
+//
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
+.inner tr {
+  background-color: transparent;
+}
+
+.recipient {
+  div.col-12.col-sm-3,
+  .amount {
+    // padding: 0;
+  }
+}
+
+h2, h3 {
+  font-size: 16px;
+}
+
+h3.th {
+  padding: 1rem !important;
+}
+
+td p:first-child {
+  font-weight: 400;
+}
+
+.link-wrapper,
+.info-link {
+  width: 100%;
+  padding-top: 10px;
+}
+
+.info-link {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 575px) {
+  .mobile-list {
+    padding: 0 15px !important;
+    &:last-child {
+      margin-bottom: 1rem;
+    }
+  }
+}

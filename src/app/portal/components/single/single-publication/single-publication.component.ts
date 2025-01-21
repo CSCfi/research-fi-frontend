@@ -74,8 +74,8 @@ import { SearchBarComponent } from '../../search-bar/search-bar.component';
         DialogComponent,
         CdkCopyToClipboard,
         MatProgressSpinner,
-    CleanCitationPipe
-  ]
+        CleanCitationPipe,
+    ],
 })
 export class SinglePublicationComponent
   implements OnInit, AfterViewInit, OnDestroy

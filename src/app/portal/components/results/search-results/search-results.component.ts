@@ -33,15 +33,16 @@ import { HighlightSearchPipe } from '@portal/pipes/highlight.pipe';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CutContentPipe } from '@shared/pipes/cut-content.pipe';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { ProjectsComponent } from '@portal/components/results/projects/projects.component';
 
 /*
  * Dynamically render component for selected tab.
  * Eg. results/publications
  */
 @Component({
-    selector: 'app-search-results',
-    template: '<div #portalHost></div>',
-    standalone: true,
+  selector: 'app-search-results',
+  template: '<div #portalHost></div>',
+  standalone: true,
 })
 export class SearchResultsComponent implements OnInit, OnChanges, OnDestroy {
   portalHost: DomPortalOutlet;
@@ -103,7 +104,7 @@ export class SearchResultsComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.dataSub.unsubscribe();
+    this?.dataSub?.unsubscribe();
   }
 
   changeComponent(tab) {
@@ -139,6 +140,10 @@ export class SearchResultsComponent implements OnInit, OnChanges, OnDestroy {
 
       case 'fundingCalls':
         child = FundingCallResultsComponent;
+        break;
+
+      case 'projects':
+        child = ProjectsComponent;
         break;
 
       default:

@@ -523,7 +523,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
     for (const delay of delays) {
       await lastValueFrom(timer(delay));
-      console.log("polling profile");
 
       response = await lastValueFrom(this.updatePerson());
 

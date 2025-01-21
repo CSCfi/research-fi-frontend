@@ -1,0 +1,8 @@
+@use 'src/migration' as *;
+
+@mixin app-fundings-theme($theme) {
+  $primary: map-get($theme, primary);
+
+  app-fundings {
+  }
+}
