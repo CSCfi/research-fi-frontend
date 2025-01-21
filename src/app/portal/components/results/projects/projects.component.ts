@@ -100,25 +100,25 @@ export class ProjectsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.tableColumns = [
       {
         key: 'name',
-        label: 'Hanke',
+        label: $localize`:@@spSortsProject:Hanke`,
         class: 'col-8 col-lg-5 col-xl-3',
         mobile: true,
       },
       {
         key: 'abbreviation',
-        label: 'Akronyymi',
+        label: $localize`:@@spSortsAcronym:Acronym`,
         class: 'col-lg-4 col-xl-3 d-none d-lg-block',
         mobile: false,
       },
       {
         key: 'organization',
-        label: 'Organisaatio',
+        label: $localize`:@@spSortsOrganization:Organization`,
         class: 'col-xl-3 d-none d-xl-block',
         mobile: false,
       },
       {
         key: 'year',
-        label: 'Aloitusvuosi',
+        label: $localize`:@@spSortsStartYear:Starting year`,
         class: 'col-lg-2',
         mobile: true,
       },

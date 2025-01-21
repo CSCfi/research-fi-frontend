@@ -3282,6 +3282,18 @@
       <trans-unit id="spReadMore" datatype="html">
         <source>Lue lisää</source>
       </trans-unit>
+      <trans-unit id="spSortsAcronym" datatype="html">
+        <source>Lyhenne</source>
+      </trans-unit>
+      <trans-unit id="spSortsOrganization" datatype="html">
+        <source>Organisaatio</source>
+      </trans-unit>
+      <trans-unit id="spSortsProject" datatype="html">
+        <source>Hanke</source>
+      </trans-unit>
+      <trans-unit id="spSortsStartYear" datatype="html">
+        <source>Aloitusvuosi</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>
