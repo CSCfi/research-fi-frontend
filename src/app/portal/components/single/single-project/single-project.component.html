@@ -80,8 +80,8 @@
                                         </ng-container>
                                             </div>
                                         </div>
-                                        <h3 *ngIf="item['responsiblePerson']?.length > 0">{{row.subFields[2].label}}</h3>
-                                        <ng-container *ngFor="let person of item['responsiblePerson']">
+                                        <ng-container *ngFor="let person of item['responsiblePerson']; let i = index">
+                                            <h3 *ngIf="i === 0 && item['responsiblePerson']?.length > 0 && person.fullName.length > 0">{{row.subFields[2].label}}</h3>
                                             <div>
                                                 {{ person.fullName }}
                                             </div>

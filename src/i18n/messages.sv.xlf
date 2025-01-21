@@ -4247,7 +4247,7 @@
       </trans-unit>
       <trans-unit id="projectSource" datatype="html">
         <source>Hanketiedon lähde</source>
-        <target>Hanketiedon lähde</target>
+        <target>Projektinformationens källa</target>
       </trans-unit>
       <trans-unit id="spAbbreviation" datatype="html">
         <source>Lyhenne</source>
