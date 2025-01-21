@@ -1583,8 +1583,8 @@
         <target>Sätt att finansiera forskning. Typer av finansiering är till exempel forskningsbidrag, projektfinansiering och forskningsinfrastrukturfinansiering. Finansieringstyper är ofta finansiärspecifika.</target>
       </trans-unit>
       <trans-unit id="fundingCountByIdentifiedTopic" datatype="html">
-        <source>Hankkeiden jakautuminen tunnistetun aiheen mukaan</source>
-        <target>Fördelning av projekt efter identifierat ämne</target>
+        <source>Rahoitusmyöntöjen jakautuminen tunnistetun aiheen mukaan</source>
+        <target state="new">Fördelning av projekt efter identifierat ämne</target>
       </trans-unit>
       <trans-unit id="identifiedTopic" datatype="html">
         <source>Tunnistettu aihe</source>
@@ -3019,8 +3019,8 @@
         <target>Searching for a missing research data</target>
       </trans-unit>
       <trans-unit id="searchForMissingFunding" datatype="html">
-        <source>Puuttuvan rahoitusmyönnön hakeminen</source>
-        <target>Searching for a missing project</target>
+        <source>Puuttuvan hankkeen hakeminen</source>
+        <target state="new">Searching for a missing project</target>
       </trans-unit>
       <trans-unit id="searchForPublicationWithName" datatype="html">
         <source>Hae omalla nimelläsi tai julkaisun nimellä</source>
@@ -3031,8 +3031,8 @@
         <target>Search for research data under the name of the author or organization </target>
       </trans-unit>
       <trans-unit id="searchForFundingWithName" datatype="html">
-        <source>Hae rahoitusmyönnön tai vastuullisen tutkijan nimellä</source>
-        <target>Search for a project with project name or principal investigator name</target>
+        <source>Hae hankkeen tai vastuullisen tutkijan nimellä</source>
+        <target state="new">Search for a project with project name or principal investigator name</target>
       </trans-unit>
       <trans-unit id="dataSourceIsResearchFi" datatype="html">
         <source>Tietolähteenä käytetään Tiedejatutkimus.fi-palvelua</source>
@@ -4247,7 +4247,7 @@
       </trans-unit>
       <trans-unit id="projectSource" datatype="html">
         <source>Hanketiedon lähde</source>
-        <target>Hanketiedon lähde</target>
+        <target>Projektinformationens källa</target>
       </trans-unit>
       <trans-unit id="spAbbreviation" datatype="html">
         <source>Lyhenne</source>
@@ -4372,6 +4372,22 @@
       <trans-unit id="spReadMore" datatype="html">
         <source>Lue lisää</source>
         <target state="new">Läs mera</target>
+      </trans-unit>
+      <trans-unit id="spSortsProject" datatype="html">
+        <source>Project</source>
+        <target state="new">Projekt</target>
+      </trans-unit>
+      <trans-unit id="spSortsAcronym" datatype="html">
+        <source>Acronym</source>
+        <target state="new">Akronym</target>
+      </trans-unit>
+      <trans-unit id="spSortsOrganization" datatype="html">
+        <source>Organization</source>
+        <target state="new">Organisation</target>
+      </trans-unit>
+      <trans-unit id="spSortsStartYear" datatype="html">
+        <source>Starting year</source>
+        <target state="new">Startår</target>
       </trans-unit>
     </body>
   </file>
