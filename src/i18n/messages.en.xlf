@@ -4250,10 +4250,6 @@
         <source>Lyhenne</source>
         <target>Abbreviation</target>
       </trans-unit>
-      <trans-unit id="spAbbreviationTooltip" datatype="html">
-        <source>Lyhenne</source>
-        <target>Abbreviation</target>
-      </trans-unit>
       <trans-unit id="spStartYearTooltip" datatype="html">
         <source>Hankkeen alkamisvuosi</source>
         <target>The start year of the project</target>
@@ -4371,19 +4367,19 @@
         <target state="new">Read more</target>
       </trans-unit>
       <trans-unit id="spSortsProject" datatype="html">
-        <source>Project</source>
+        <source>Projekti</source>
         <target state="new">Project</target>
       </trans-unit>
       <trans-unit id="spSortsAcronym" datatype="html">
-        <source>Acronym</source>
+        <source>Lyhenne</source>
         <target state="new">Acronym</target>
       </trans-unit>
       <trans-unit id="spSortsOrganization" datatype="html">
-        <source>Organization</source>
+        <source>Organisaatio</source>
         <target state="new">Organization</target>
       </trans-unit>
       <trans-unit id="spSortsStartYear" datatype="html">
-        <source>Starting year</source>
+        <source>Aloitusvuosi</source>
         <target state="new">Starting year</target>
       </trans-unit>
     </body>
