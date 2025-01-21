@@ -654,8 +654,6 @@ export class Publications2Component implements OnDestroy {
   }
 
   setPageSize(size: number) {
-    console.log(size);
-
     this.router.navigate([], {
       relativeTo: this.route,
       // skipLocationChange: true,

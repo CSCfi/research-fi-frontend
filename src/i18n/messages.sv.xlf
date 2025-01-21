@@ -528,23 +528,23 @@
         <target>Antal publikationer per öppen tillgång</target>
       </trans-unit>
       <trans-unit id="fundingCountByYear" datatype="html">
-        <source>Hankkeiden jakautuminen vuosittain</source>
+        <source>Rahoitusmyöntöjen jakautuminen vuosittain</source>
         <target state="new">Fördelning bidrag per år</target>
       </trans-unit>
       <trans-unit id="fundingCountByFunder" datatype="html">
-        <source>Hankkeiden jakautuminen rahoittajan mukaan</source>
+        <source>Rahoitusmyöntöjen jakautuminen rahoittajan mukaan</source>
         <target state="new">Fördelning bidrag per finansiär</target>
       </trans-unit>
       <trans-unit id="fundingCountByOrg" datatype="html">
-        <source>Hankkeiden jakautuminen organisaatioittain</source>
+        <source>Rahoitusmyöntöjen jakautuminen organisaatioittain</source>
         <target state="new">Fördelning bidrag per organisation</target>
       </trans-unit>
       <trans-unit id="fundingCountByType" datatype="html">
-        <source>Hankkeiden jakautuminen rahoitusmuodon mukaan</source>
+        <source>Rahoitusmyöntöjen jakautuminen rahoitusmuodon mukaan</source>
         <target state="new">Fördelning bidrag per typ av finansiering</target>
       </trans-unit>
       <trans-unit id="fundingCountByFOS" datatype="html">
-        <source>Hankkeiden jakautuminen tieteenaloittain</source>
+        <source>Rahoitusmyöntöjen jakautuminen tieteenaloittain</source>
         <target state="new">Fördelning bidrag per vetenskapsområde</target>
       </trans-unit>
       <trans-unit id="asCountAmount" datatype="html">
@@ -3019,7 +3019,7 @@
         <target>Searching for a missing research data</target>
       </trans-unit>
       <trans-unit id="searchForMissingFunding" datatype="html">
-        <source>Puuttuvan hankkeen hakeminen</source>
+        <source>Puuttuvan rahoitusmyönnön hakeminen</source>
         <target>Searching for a missing project</target>
       </trans-unit>
       <trans-unit id="searchForPublicationWithName" datatype="html">
@@ -3031,7 +3031,7 @@
         <target>Search for research data under the name of the author or organization </target>
       </trans-unit>
       <trans-unit id="searchForFundingWithName" datatype="html">
-        <source>Hae hankkeen tai vastuullisen tutkijan nimellä</source>
+        <source>Hae rahoitusmyönnön tai vastuullisen tutkijan nimellä</source>
         <target>Search for a project with project name or principal investigator name</target>
       </trans-unit>
       <trans-unit id="dataSourceIsResearchFi" datatype="html">
@@ -4219,11 +4219,163 @@
       </trans-unit>
       <trans-unit id="2404930950771668634" datatype="html">
         <source>Suomen akatemian muu päättäjä</source>
-        <target state="new">Suomen akatemian muu päättäjä</target>
+        <target>Suomen akatemian muu päättäjä</target>
       </trans-unit>
       <trans-unit id="typeOfFundingTooltip" datatype="html">
         <source>Puiteohjelma</source>
         <target state="new">Ramprogram</target>
+      </trans-unit>
+      <trans-unit id="projectsDataDisclaimerLink" datatype="html">
+        <source> Mitä hanketietoja palvelu sisältää? </source>
+        <target> Vilka uppgifter om projekten finns i tjänsten? </target>
+      </trans-unit>
+      <trans-unit id="projects" datatype="html">
+        <source>Hankkeet</source>
+        <target>Projekt</target>
+      </trans-unit>
+      <trans-unit id="2404930950771668634" datatype="html">
+        <source>Suomen akatemian muu päättäjä</source>
+        <target>Suomen akatemian muu päättäjä</target>
+      </trans-unit>
+      <trans-unit id="projectsExternalLinks" datatype="html">
+        <source>Linkit hankkeeseen</source>
+        <target>Projektets webbplats</target>
+      </trans-unit>
+      <trans-unit id="noProjectLinks" datatype="html">
+        <source> Hankkeeseen ei ole tarjolla linkkejä tässä portaalissa <x id="INTERPOLATION" equiv-text="{{projectURL}}"/> </source>
+        <target> Projektet har inga tillgängliga länkar i portalen <x id="INTERPOLATION" equiv-text="{{projectURL}}"/> </target>
+      </trans-unit>
+      <trans-unit id="relatedProjects" datatype="html">
+        <source>Hae hankkeeseen liittyvät (tulossa) </source>
+        <target>Relaterade till detta projekt (På kommande) </target>
+      </trans-unit>
+      <trans-unit id="projectSource" datatype="html">
+        <source>Hanketiedon lähde</source>
+        <target>Hanketiedon lähde</target>
+      </trans-unit>
+      <trans-unit id="spAbbreviation" datatype="html">
+        <source>Lyhenne</source>
+        <target>Förkortning</target>
+      </trans-unit>
+      <trans-unit id="spAbbreviationTooltip" datatype="html">
+        <source>Lyhenne</source>
+        <target>Förkortning</target>
+      </trans-unit>
+      <trans-unit id="spStartYearTooltip" datatype="html">
+        <source>Hankkeen alkamisvuosi</source>
+        <target state="new">Projektets startår</target>
+      </trans-unit>
+      <trans-unit id="spEndYearTooltip" datatype="html">
+        <source>Hankkeen päättymisvuosi</source>
+        <target>Projektets slutår</target>
+      </trans-unit>
+      <trans-unit id="spDescriptionTooltip" datatype="html">
+        <source>Kuvaus kertoo tiiviisti hankkeesta</source>
+        <target>Kortfattad beskrivning av projektet</target>
+      </trans-unit>
+      <trans-unit id="spObjectives" datatype="html">
+        <source>Tavoitteet</source>
+        <target>Projektmål</target>
+      </trans-unit>
+      <trans-unit id="spObjectivesTooltip" datatype="html">
+        <source>Kuvaus hankkeelle asetetuista tavoitteista</source>
+        <target>Beskrivning av uppsatta mål för projektet</target>
+      </trans-unit>
+      <trans-unit id="spParticipants" datatype="html">
+        <source>Osallistujat</source>
+        <target>Projektdeltagare</target>
+      </trans-unit>
+      <trans-unit id="spParticipantsTooltip" datatype="html">
+        <source>Hankkeeseen osallistuvat organisaatiot ja henkilöt</source>
+        <target>Organisationer och individer som deltar i projektet.</target>
+      </trans-unit>
+      <trans-unit id="spResults" datatype="html">
+        <source>Tulokset</source>
+        <target>Resultat</target>
+      </trans-unit>
+      <trans-unit id="spResultsTooltip" datatype="html">
+        <source>Hankkeen saavuttamat tulokset</source>
+        <target>De resultat som projektet uppnått</target>
+      </trans-unit>
+      <trans-unit id="spOtherInfo" datatype="html">
+        <source>Muut tiedot</source>
+        <target>Övriga uppgifter</target>
+      </trans-unit>
+      <trans-unit id="projectSingular" datatype="html">
+        <source>projekti</source>
+        <target>projekt</target>
+      </trans-unit>
+      <trans-unit id="spStartYear" datatype="html">
+        <source>Aloitusvuosi</source>
+        <target>Startår</target>
+      </trans-unit>
+      <trans-unit id="spEndYear" datatype="html">
+        <source>Päättymisvuosi</source>
+        <target>Slutår</target>
+      </trans-unit>
+      <trans-unit id="spDescription" datatype="html">
+        <source>Kuvaus</source>
+        <target>Beskrivning</target>
+      </trans-unit>
+      <trans-unit id="spOriginalOrganizations" datatype="html">
+        <source>Alkuperäinen vastuuorganisaatio</source>
+        <target state="new">Ursprunglig organisation</target>
+      </trans-unit>
+      <trans-unit id="spPersons" datatype="html">
+        <source>Henkilöt</source>
+        <target>Personer</target>
+      </trans-unit>
+      <trans-unit id="resultsAndEffect" datatype="html">
+        <source>Tulokset ja vaikuttavuus</source>
+        <target>Resultat och påverkan</target>
+      </trans-unit>
+      <trans-unit id="spKeywordsTooltip" datatype="html">
+        <source>Avainsanat</source>
+        <target>Begränsa sökningen enligt nyckelorden i projekt.</target>
+      </trans-unit>
+      <trans-unit id="spFiltersKeywords" datatype="html">
+        <source>Avainsanat</source>
+        <target>Nyckelord</target>
+      </trans-unit>
+      <trans-unit id="spHomePageTooltip" datatype="html">
+        <source>Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa.</source>
+        <target>En webbplats utanför tjänsten forskning.fi där det finns närmare information om projekt.</target>
+      </trans-unit>
+      <trans-unit id="spFiltersStartYear" datatype="html">
+        <source>Aloitusvuosi</source>
+        <target state="new">Startår</target>
+      </trans-unit>
+      <trans-unit id="spFiltersStartYearTooltip" datatype="html">
+        <source>Haun rajaus hankkeen alkamisvuoden mukaan.</source>
+        <target state="new">Begränsa sökningen enligt projektets startår.</target>
+      </trans-unit>
+      <trans-unit id="spFiltersOrganization" datatype="html">
+        <source>Organisaatio</source>
+        <target state="new">Organisation</target>
+      </trans-unit>
+      <trans-unit id="spFiltersOrganizationTooltip" datatype="html">
+        <source>Haun rajaus hankkeeseen osallistuvien organisaatioiden mukaan.</source>
+        <target state="new">Begränsa sökningen enligt organisationer som deltar i projektet.</target>
+      </trans-unit>
+      <trans-unit id="spFiltersKeywordsTooltip" datatype="html">
+        <source>Haun rajaus hankkeen tiedoissa olevien avainsanojen perusteella.</source>
+        <target state="new">Begränsa sökningen enligt nyckelorden i projekt.</target>
+      </trans-unit>
+      <trans-unit id="projectsBetaDescription" datatype="html">
+        <source> Hankkeet ovat tutkimusorganisaatioiden tutkimushankkeita. Tällä hetkellä palvelu sisältää tietoa luonnonvara-alan hankekuvauksista (entinen Hankehaavi-verkkohakemisto). Myöhemmässä vaiheessa tiedot tulevat täydentymään myös muiden alojen tutkimushankkeilla ja kattavammilla kuvailutiedoilla. </source>
+        <target state="new"> Projekten är forskningsprojekt för forskningsorganisationer. För närvarande innehåller tjänsten information om projektbeskrivningar inom naturresursbranschen (tidigare Hankehaavi-webbkatalogen). I ett senare skede kommer informationen också att kompletteras med forskningsprojekt inom andra områden och mer omfattande beskrivningsdata. </target>
+      </trans-unit>
+      <trans-unit id="spResponsibleOrganization" datatype="html">
+        <source>Vastuuorganisaatio</source>
+        <target state="new">Ansvarig organisation</target>
+      </trans-unit>
+      <trans-unit id="spRelatedOrganizations" datatype="html">
+        <source>Liittyvät organisaatiot</source>
+        <target state="new">Relaterade organisationer</target>
+      </trans-unit>
+      <trans-unit id="spReadMore" datatype="html">
+        <source>Lue lisää</source>
+        <target state="new">Läs mera</target>
       </trans-unit>
     </body>
   </file>

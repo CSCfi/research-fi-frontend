@@ -9,8 +9,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Pipe({
-    name: 'highlight',
-    standalone: true,
+  name: 'highlight',
+  standalone: true,
 })
 export class HighlightSearchPipe implements PipeTransform {
 
@@ -79,7 +79,7 @@ export class HighlightSearchPipe implements PipeTransform {
           return processedHighlight;
         }
       } else {
-          return processedHighlight + stillToProcessInput;
+        return processedHighlight + stillToProcessInput;
       }
     }
 

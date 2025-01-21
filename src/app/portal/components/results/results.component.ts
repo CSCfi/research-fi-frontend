@@ -211,6 +211,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   betaDialogTitle = $localize`:@@researchersProfile:Tutkijan tiedot`;
   mydataLoginSnackbarVisible = false;
   betaSearchBannerVisible = false;
+  projectInfoBannerVisible = false;
 
   private metaTagsList = [
     MetaTags.publications,
@@ -220,6 +221,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     MetaTags.infrastructures,
     MetaTags.organizations,
     MetaTags.fundingCalls,
+    MetaTags.projects
   ];
   private metaTags: { link: string };
   private commonTags = MetaTags.common;
@@ -295,6 +297,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
       if (!sessionStorage.getItem('betaSearchBannerDismissed')) {
         this.betaSearchBannerVisible = true;
+        this.projectInfoBannerVisible = true;
       }
     }
 
@@ -667,6 +670,14 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
     if (isPlatformBrowser(this.platformId)) {
       sessionStorage.setItem('betaSearchBannerDismissed', 'true');
+    }
+  }
+
+  hideProjectsInfoBanner() {
+    this.projectInfoBannerVisible = false;
+
+    if (isPlatformBrowser(this.platformId)) {
+      sessionStorage.setItem('projectInfoBannerDismissed', 'true');
     }
   }
 

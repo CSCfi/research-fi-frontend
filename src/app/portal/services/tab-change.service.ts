@@ -73,6 +73,14 @@ export class TabChangeService {
       singular: $localize`:@@organizationSingular:organisaatio`,
       tooltip: $localize`:@@organizationsTooltip:Tiedejatutkimus.fi -palveluun tietoja toimittavat tutkimusorganisaatiot ja \u2011rahoittajat.`,
     },
+    {
+      data: 'projects',
+      label: $localize`:@@projects:Hankkeet`,
+      link: 'projects',
+      icon: faAlignLeft,
+      singular: $localize`:@@projectSingular:projekti`,
+      tooltip: $localize`:@@projectsBetaDescription:Hankkeet ovat tutkimusorganisaatioiden tutkimushankkeita. Tällä hetkellä palvelu sisältää tietoa luonnonvara-alan hankekuvauksista (entinen Hankehaavi-verkkohakemisto). Myöhemmässä vaiheessa tiedot tulevat täydentymään myös muiden alojen tutkimushankkeilla ja kattavammilla kuvailutiedoilla.`,
+    },
   ];
 
   fundingCall = {

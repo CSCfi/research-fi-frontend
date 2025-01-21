@@ -26,7 +26,8 @@ export class SettingsService {
       'dataset',
       'funding-call',
       'infrastructure',
-      'organization'
+      'organization',
+      'project',
     ];
 
     this.indexList = indices.join(',') + '/_search?';
@@ -468,6 +469,14 @@ export class SettingsService {
             {
               bool: {
                 must: [
+                  { term: { _index: 'project' } },
+                  this.querySettings('project', term),
+                ],
+              },
+            },
+            {
+              bool: {
+                must: [
                   { term: { _index: 'person' } },
                   {
                     bool: {
@@ -546,10 +555,15 @@ export class SettingsService {
               },
               fundingCalls: {
                 match: {
-                  _index: 'funding-call'
-                }
-              }
-            }
+                  _index: 'funding-call',
+                },
+              },
+              projects: {
+                match: {
+                  _index: 'project',
+                },
+              },
+            },
           },
           aggs: {
             index_results: {

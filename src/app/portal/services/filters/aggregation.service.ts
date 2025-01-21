@@ -767,6 +767,8 @@ export class AggregationService {
         };
 
         break;
+
+      // Fundings
       case 'fundings':
         payLoad.aggs.year = yearAgg;
         // Funder
@@ -795,6 +797,7 @@ export class AggregationService {
             },
           },
         };
+
         // Sector & organization
         payLoad.aggs.organization = {
           nested: {
@@ -932,6 +935,7 @@ export class AggregationService {
             },
           },
         };
+
         // Type of funding
         payLoad.aggs.typeOfFunding = {
           filter: {
@@ -1121,6 +1125,7 @@ export class AggregationService {
             },
           },
         };
+
         // Field of science
         payLoad.aggs.field = {
           nested: {
@@ -1280,8 +1285,96 @@ export class AggregationService {
             }
           },
         };
-
+        payLoad.aggs.organizations = {
+          filter: {
+            bool: {
+              filter: filterActive("council.approvalYear"),
+            },
+          },
+          aggs: {
+            approvalYear: {
+              terms: {
+                field: "council.approvalYear",
+                order: { _key: 'desc' },
+                size: 100
+              }
+            }
+          },
+        };
         break;
+
+      // Projects
+      case 'projects':
+        payLoad.aggs.year = yearAgg;
+        payLoad.aggs.organizations = {
+          filter: {
+            bool: {
+              filter: filterActive('responsibleOrganization.orgId.keyword'),
+            },
+          },
+          aggs: {
+            organization: {
+              terms: {
+                size: 50,
+                field:
+                  'responsibleOrganization.orgId.keyword',
+              },
+              aggs: {
+                organizationName: {
+                  terms: {
+                    field:
+                      'responsibleOrganization.orgName' +
+                      this.localeC +
+                      '.keyword',
+                    exclude: ' ',
+                  },
+                },
+              },
+            },
+          }
+        },
+        payLoad.aggs.topic = {
+        nested: {
+          path: 'keywords',
+        },
+        aggs: {
+          scheme: {
+            terms: {
+              field: 'keywords.scheme.keyword',
+                exclude: ' ',
+                size: 10,
+                order: {
+                _key: 'asc',
+              },
+            },
+            aggs: {
+              keywords: {
+                terms: {
+                  field: 'keywords.keyword.keyword',
+                    exclude: ' ',
+                    size: 250,
+                },
+                aggs: {
+                  filtered: {
+                    reverse_nested: {},
+                    aggs: {
+                      filterCount: {
+                        filter: {
+                          bool: {
+                            filter: filterActiveNested('keywords'),
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      }
+      break;
+
       // Datasets
       case 'datasets':
         payLoad.aggs.year = yearAggDatasets;
@@ -1618,7 +1711,6 @@ export class AggregationService {
         break;
 
       // Funding-calls
-
       case 'funding-calls':
         payLoad.aggs.mainCategory = {
           nested: {

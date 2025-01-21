@@ -20,6 +20,7 @@ import {
   Infrastructure,
 } from './infrastructure/infrastructure.model';
 import { FundingCall, FundingCallAdapter } from './funding-call.model';
+import { Project, ProjectAdapter } from '@portal/models/project/project.model';
 
 export class Search {
   constructor(
@@ -30,7 +31,8 @@ export class Search {
     public datasets: Dataset[],
     public infrastructures: Infrastructure[],
     public organizations: Organization[],
-    public fundingCalls: FundingCall[]
+    public fundingCalls: FundingCall[],
+    public projects: Project[]
   ) {}
 }
 
@@ -45,7 +47,8 @@ export class SearchAdapter implements Adapter<Search> {
     private datasetAdapter: DatasetAdapter,
     private organizationAdapter: OrganizationAdapter,
     private infrastructureAdapter: InfrastructureAdapter,
-    private fundingCallAdapter: FundingCallAdapter
+    private fundingCallAdapter: FundingCallAdapter,
+    private projectsAdapter: ProjectAdapter,
   ) {}
   adapt(item: any, tab?: string): Search {
     const publications: Publication[] = [];
@@ -55,6 +58,7 @@ export class SearchAdapter implements Adapter<Search> {
     const infrastructures: Infrastructure[] = [];
     const organizations: Organization[] = [];
     const fundingCalls: FundingCall[] = [];
+    const projects: Project[] = [];
 
     // Enables error handling when mapping data
     const adaptResults = (tab, adapter) => {
@@ -89,6 +93,9 @@ export class SearchAdapter implements Adapter<Search> {
       case 'funding-calls':
         adaptResults(fundingCalls, this.fundingCallAdapter);
         break;
+      case 'projects':
+        adaptResults(projects, this.projectsAdapter);
+        break;
     }
 
     return new Search(
@@ -99,7 +106,8 @@ export class SearchAdapter implements Adapter<Search> {
       datasets,
       infrastructures,
       organizations,
-      fundingCalls
+      fundingCalls,
+      projects
     );
   }
 }

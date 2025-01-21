@@ -51,6 +51,11 @@ export class RelatedLinksComponent implements OnInit, OnDestroy {
       tab: 'organizations',
       disabled: true,
     },
+    {
+      label: $localize`:@@projects:Hankkeet`,
+      tab: 'projects',
+      disabled: true,
+    },
   ];
 
   docCountData: any;

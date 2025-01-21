@@ -131,6 +131,7 @@ export class SearchService {
               infrastructures: { match: { _index: 'infrastructure' } },
               organizations: { match: { _index: 'organization' } },
               fundingCalls: { match: { _index: 'funding-call' } },
+              projects: { match: { _index: 'project' } },
             },
           },
         },
@@ -200,6 +201,10 @@ export class SearchService {
                     'funding-call',
                     this.searchTerm
                   ),
+                  this.settingsService.querySettings(
+                    'project',
+                    this.searchTerm
+                  ),
                 ],
               },
             },
@@ -257,6 +262,11 @@ export class SearchService {
               fundingCalls: {
                 match: {
                   _index: 'funding-call',
+                },
+              },
+              projects: {
+                match: {
+                  _index: 'project',
                 },
               },
             },
