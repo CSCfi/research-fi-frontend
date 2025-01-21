@@ -100,7 +100,7 @@ export class ProjectsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.tableColumns = [
       {
         key: 'name',
-        label: $localize`:@@spSortsProject:Hanke`,
+        label: $localize`:@@spSortsProject:Project`,
         class: 'col-8 col-lg-5 col-xl-3',
         mobile: true,
       },
