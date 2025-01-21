@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
 import { StaticDataService } from './static-data.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class SettingsService {
   indexList: string;
