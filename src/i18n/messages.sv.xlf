@@ -4323,7 +4323,7 @@
       </trans-unit>
       <trans-unit id="spKeywordsTooltip" datatype="html">
         <source>Avainsanat</source>
-        <target>Begränsa sökningen enligt nyckelorden i projekt.</target>
+        <target>Nyckelord för projektet</target>
       </trans-unit>
       <trans-unit id="spFiltersKeywords" datatype="html">
         <source>Avainsanat</source>

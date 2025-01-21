@@ -146,7 +146,7 @@ export class SingleProjectComponent implements OnInit, OnDestroy {
       field: 'additionalInfo',
       showOnlyLabel: true,
       subFields: [{
-        label: $localize`:@@spKeywordsTooltip:Avainsanat`,
+        label: $localize`:@@keywords:Avainsanat`,
         field: 'keywords',
         tooltip: $localize`:@@spKeywordsTooltip:Hankkeen avainsanat`,
       }]
