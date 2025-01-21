@@ -89,7 +89,6 @@ export class ProjectFilterService {
     clone.map((item) => {
       item.key = item.key.toString();
     });
-    console.log('years', clone);
     return clone;
   }
 
