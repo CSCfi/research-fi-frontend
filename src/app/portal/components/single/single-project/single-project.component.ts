@@ -82,7 +82,6 @@ export class SingleProjectComponent implements OnInit, OnDestroy {
     {
       label: $localize`:@@spAbbreviation:Lyhenne`,
       field: 'abbreviation',
-      tooltip: $localize`:@@spAbbreviationTooltip:Lyhenne`,
       showOnlyLabel: false
     },
     {
