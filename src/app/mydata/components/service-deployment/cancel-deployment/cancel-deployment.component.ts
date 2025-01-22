@@ -1,10 +1,10 @@
-import { HttpResponse } from '@angular/common/http';
+import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProfileService } from '@mydata/services/profile.service';
 import { UtilityService } from '@shared/services/utility.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { take } from 'rxjs';
+import { firstValueFrom, take } from 'rxjs';
 import { SecondaryButtonComponent } from '../../../../shared/components/buttons/secondary-button/secondary-button.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { NgIf } from '@angular/common';
@@ -44,23 +44,23 @@ export class CancelDeploymentComponent implements OnInit {
 
   cancelDeployment() {
     this.loading = true;
+    this.oidcSecurityService.getAccessToken().subscribe(
+      token => {
+        if (token) {
+          this.profileService
+            .deleteAccount().then(
+            (value) => {
+              this.oidcSecurityService.logoff();
+            },
+            (reason) => {
+              console.error(reason);
+            },);
+        } else {
+          this.router.navigate(['/mydata']);
+        }
+      }
+    );
 
-    const token = this.oidcSecurityService.getAccessToken();
-
-    const logout = () => this.oidcSecurityService.logoff();
-
-    if (token) {
-      this.profileService
-        .deleteAccount().then(
-        (value) => {
-          this.oidcSecurityService.logoff()
-        },
-        (reason) => {
-          console.error(reason);
-        },);
-    } else {
-      this.router.navigate(['/mydata']);
-    }
   }
 
   continueDeployment() {
