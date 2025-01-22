@@ -4319,8 +4319,8 @@
         <target>Results and impact</target>
       </trans-unit>
       <trans-unit id="spKeywordsTooltip" datatype="html">
-        <source>Avainsanat</source>
-        <target state="new">Limit search based on the keywords in the project&apos;s information.</target>
+        <source>Hankkeen avainsanat</source>
+        <target state="new">Keywords of the project</target>
       </trans-unit>
       <trans-unit id="spFiltersKeywords" datatype="html">
         <source>Avainsanat</source>
@@ -4370,9 +4370,9 @@
         <source>Hanke</source>
         <target state="new">Project</target>
       </trans-unit>
-      <trans-unit id="spSortsAcronym" datatype="html">
+      <trans-unit id="spSortsAbbreviation" datatype="html">
         <source>Lyhenne</source>
-        <target state="new">Acronym</target>
+        <target state="new">Abbreviation</target>
       </trans-unit>
       <trans-unit id="spSortsOrganization" datatype="html">
         <source>Organisaatio</source>
