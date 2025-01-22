@@ -101,25 +101,19 @@ export class ProjectsComponent implements OnInit, OnDestroy, AfterViewInit {
       {
         key: 'name',
         label: $localize`:@@spSortsProject:Hankkeen nimi`,
-        class: 'col-8 col-lg-5 col-xl-3',
+        class: 'col-6',
         mobile: true,
-      },
-      {
-        key: 'abbreviation',
-        label: $localize`:@@spSortsAbbreviation:Lyhenne`,
-        class: 'col-lg-4 col-xl-3 d-none d-lg-block',
-        mobile: false,
       },
       {
         key: 'organization',
         label: $localize`:@@spSortsOrganization:Organisaatio`,
-        class: 'col-xl-3 d-none d-xl-block',
+        class: 'col-3',
         mobile: false,
       },
       {
         key: 'year',
         label: $localize`:@@spSortsStartYear:Aloitusvuosi`,
-        class: 'col-lg-2',
+        class: 'col-2',
         mobile: true,
       },
     ];
@@ -128,9 +122,6 @@ export class ProjectsComponent implements OnInit, OnDestroy, AfterViewInit {
         label: this.highlightPipe.transform(project.name, this.input),
         title: project.name,
         link: `/results/project/${project.id}`,
-      },
-      abbreviation: {
-        label: this.highlightPipe.transform(project.abbreviation, this.input),
       },
       organization: {
         label: this.highlightPipe.transform(
