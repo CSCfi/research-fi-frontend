@@ -4367,7 +4367,7 @@
         <target state="new">Read more</target>
       </trans-unit>
       <trans-unit id="spSortsProject" datatype="html">
-        <source>Hanke</source>
+        <source>Hankkeen nimi</source>
         <target state="new">Project</target>
       </trans-unit>
       <trans-unit id="spSortsAbbreviation" datatype="html">
