@@ -4371,7 +4371,7 @@
       </trans-unit>
       <trans-unit id="spSortsProject" datatype="html">
         <source>Hankkeen nimi</source>
-        <target state="new">Projekt</target>
+        <target state="new">Projektets namn</target>
       </trans-unit>
       <trans-unit id="spSortsAbbreviation" datatype="html">
         <source>Lyhenne</source>
