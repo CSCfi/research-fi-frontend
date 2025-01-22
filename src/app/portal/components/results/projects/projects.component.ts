@@ -106,7 +106,7 @@ export class ProjectsComponent implements OnInit, OnDestroy, AfterViewInit {
       },
       {
         key: 'abbreviation',
-        label: $localize`:@@spSortsAcronym:Lyhenne`,
+        label: $localize`:@@spSortsAbbreviation:Lyhenne`,
         class: 'col-lg-4 col-xl-3 d-none d-lg-block',
         mobile: false,
       },

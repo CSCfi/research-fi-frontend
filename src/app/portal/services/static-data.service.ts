@@ -602,6 +602,7 @@ export class StaticDataService {
           'nameEn^2',
           'nameSv^2',
           'abbreviation',
+          'responsiblePerson.fullName',
           'responsibleOrganization.orgNameFi',
           'responsibleOrganization.orgNameSv',
           'responsibleOrganization.orgNameEn',

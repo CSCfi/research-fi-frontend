@@ -4322,8 +4322,8 @@
         <target>Resultat och påverkan</target>
       </trans-unit>
       <trans-unit id="spKeywordsTooltip" datatype="html">
-        <source>Avainsanat</source>
-        <target>Nyckelord för projektet</target>
+        <source>Hankkeen avainsanat</source>
+        <target state="new">Nyckelord för projektet</target>
       </trans-unit>
       <trans-unit id="spFiltersKeywords" datatype="html">
         <source>Avainsanat</source>
@@ -4373,9 +4373,9 @@
         <source>Hanke</source>
         <target state="new">Projekt</target>
       </trans-unit>
-      <trans-unit id="spSortsAcronym" datatype="html">
+      <trans-unit id="spSortsAbbreviation" datatype="html">
         <source>Lyhenne</source>
-        <target state="new">Akronym</target>
+        <target state="new">Förkortning</target>
       </trans-unit>
       <trans-unit id="spSortsOrganization" datatype="html">
         <source>Organisaatio</source>

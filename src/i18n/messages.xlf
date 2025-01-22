@@ -3241,7 +3241,7 @@
         <source>Tulokset ja vaikuttavuus</source>
       </trans-unit>
       <trans-unit id="spKeywordsTooltip" datatype="html">
-        <source>Avainsanat</source>
+        <source>Hankkeen avainsanat</source>
       </trans-unit>
       <trans-unit id="spFiltersKeywords" datatype="html">
         <source>Avainsanat</source>
@@ -3279,7 +3279,7 @@
       <trans-unit id="spReadMore" datatype="html">
         <source>Lue lisää</source>
       </trans-unit>
-      <trans-unit id="spSortsAcronym" datatype="html">
+      <trans-unit id="spSortsAbbreviation" datatype="html">
         <source>Lyhenne</source>
       </trans-unit>
       <trans-unit id="spSortsOrganization" datatype="html">
