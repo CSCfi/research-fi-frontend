@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProfileService } from '@mydata/services/profile.service';
 import { UtilityService } from '@shared/services/utility.service';
@@ -7,6 +7,7 @@ import { SecondaryButtonComponent } from '../../../../shared/components/buttons/
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { NgIf } from '@angular/common';
 import { BannerDividerComponent } from '@shared/components/banner-divider/banner-divider.component';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-cancel-deployment',
@@ -19,9 +20,10 @@ import { BannerDividerComponent } from '@shared/components/banner-divider/banner
     BannerDividerComponent
   ]
 })
-export class CancelDeploymentComponent implements OnInit {
+export class CancelDeploymentComponent implements OnInit, OnDestroy {
   previousStep: number;
   loading = false;
+  private loginSubscription: Subscription;
 
   constructor(
     private router: Router,
@@ -40,9 +42,15 @@ export class CancelDeploymentComponent implements OnInit {
     );
   }
 
+  ngOnDestroy(): void {
+    if (this.loginSubscription) {
+      this.loginSubscription.unsubscribe();
+    }
+  }
+
   cancelDeployment() {
     this.loading = true;
-    this.oidcSecurityService.getAccessToken().subscribe(
+    this.loginSubscription = this.oidcSecurityService.getAccessToken().subscribe(
       token => {
         if (token) {
           this.profileService

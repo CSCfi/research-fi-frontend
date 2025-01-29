@@ -230,7 +230,7 @@
                             [id]="item._source[doc.link]"
                           >
                             <a
-                              class="item"
+                              class="item search-anchor-link"
                               tabindex="-1"
                               routerLink="/results/{{ data.index }}/{{
                                 item._source[doc.link]
@@ -253,7 +253,7 @@
                         <div align="center">
                           <a
                             tabindex="-1"
-                            class="fw-bold"
+                            class="fw-bold search-anchor-link"
                             (keydown.enter)="newInput(data.index, undefined)"
                             (click)="newInput(data.index, undefined)"
                             href="javascript:void(0);"
@@ -278,7 +278,7 @@
                       >
                         <a
                           tabindex="-1"
-                          class="fw-bold"
+                          class="fw-bold search-anchor-link"
                           (click)="newInput(data.index, undefined)"
                           href="javascript:void(0);"
                         >
@@ -317,6 +317,7 @@
                         [historyItem]="item"
                       >
                         <a
+                          class="search-anchor-link"
                           tabindex="-1"
                           href="javascript:void(0);"
                           (click)="newInput(undefined, item); clearResponse()"
@@ -331,6 +332,7 @@
                         [clear]="additional"
                       >
                         <a
+                          class="search-anchor-link"
                           tabindex="-1"
                           href="javascript:void(0);"
                           (click)="clearHistory()"

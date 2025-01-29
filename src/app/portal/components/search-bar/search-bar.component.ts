@@ -103,7 +103,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
     { index: 'organization', field: 'nameFi', link: 'organizationId' },
   ];
 
-  searchFieldsParts = ['searchTargetButton', 'searchInput', 'searchButton', 'resetSearch'];
+  searchFieldsParts = ['searchTargetButton', 'searchInput', 'searchButton', 'resetSearch', 'search-anchor-link'];
 
   translations = {
     publication: $localize`:@@publications:julkaisut`,
@@ -415,16 +415,18 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   public onClick(targetElement) {
     const clickedInside = this.inputGroup.nativeElement.contains(targetElement);
     if (!clickedInside) {
+      console.log('click outside');
       this.showAutosuggest(false);
       this.completion = '';
     }
   }
 
-  // Hide auto-suggest and reset completion if focused outside search field elements
+  // Hide auto-suggest and reset completion if focused outside search field elements. Needed for keyboard usage.
   @HostListener('document:focusin', ['$event.target'])
   public placeholder(targetElement) {
-    console.log('targetElement.id', targetElement.id);
-    if (!this.searchFieldsParts.includes(targetElement.id)) {
+    console.log('targetElement.id', targetElement.id, targetElement, targetElement.class);
+    if (!this.searchFieldsParts.includes(targetElement.id) && !this.searchFieldsParts.some(p => targetElement.classList.includes(p))) {
+      console.log('NOT CONTAINS MARKED');
       this.showAutosuggest(false);
     }
   }

@@ -19,7 +19,18 @@ import {
   TemplateRef,
   inject,
 } from '@angular/core';
-import { isPlatformBrowser, NgIf, NgClass, NgTemplateOutlet, NgSwitch, NgSwitchCase, NgSwitchDefault, NgFor, AsyncPipe } from '@angular/common';
+import {
+  isPlatformBrowser,
+  NgIf,
+  NgClass,
+  NgTemplateOutlet,
+  NgSwitch,
+  NgSwitchCase,
+  NgSwitchDefault,
+  NgFor,
+  AsyncPipe,
+  NgStyle
+} from '@angular/common';
 import { SearchService } from '@portal/services/search.service';
 import { SortService } from '@portal/services/sort.service';
 import { map, debounceTime, take, skip, connect } from 'rxjs/operators';
@@ -68,35 +79,36 @@ import { ResizeService } from '@shared/services/resize.service';
     templateUrl: './results.component.html',
     styleUrls: ['./results.component.scss'],
     standalone: true,
-    imports: [
-        SearchBarComponent,
-        TabNavigationComponent,
-        NgIf,
-        FontAwesomeModule,
-        PrimaryActionButtonComponent,
-        RouterLink,
-        SecondaryButtonComponent,
-        ResultCountComponent,
-        NgClass,
-        NgTemplateOutlet,
-        SortComponent,
-        NgSwitch,
-        NgSwitchCase,
-        NgSwitchDefault,
-        FundingCallCategoryFiltersComponent,
-        ActiveFiltersComponent,
-        SearchResultsComponent,
-        NgFor,
-        FiltersComponent,
-        MatFormField,
-        MatLabel,
-        MatSelect,
-        MatOption,
-        VisualisationComponent,
-        DialogComponent,
-        ClickOutsideDirective,
-        AsyncPipe,
-    ],
+  imports: [
+    SearchBarComponent,
+    TabNavigationComponent,
+    NgIf,
+    FontAwesomeModule,
+    PrimaryActionButtonComponent,
+    RouterLink,
+    SecondaryButtonComponent,
+    ResultCountComponent,
+    NgClass,
+    NgTemplateOutlet,
+    SortComponent,
+    NgSwitch,
+    NgSwitchCase,
+    NgSwitchDefault,
+    FundingCallCategoryFiltersComponent,
+    ActiveFiltersComponent,
+    SearchResultsComponent,
+    NgFor,
+    FiltersComponent,
+    MatFormField,
+    MatLabel,
+    MatSelect,
+    MatOption,
+    VisualisationComponent,
+    DialogComponent,
+    ClickOutsideDirective,
+    AsyncPipe,
+    NgStyle
+  ]
 })
 export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   breakpointObserver$ = inject(BreakpointObserver);
