@@ -61,6 +61,7 @@ import { PrimaryActionButtonComponent } from '../../../shared/components/buttons
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TabNavigationComponent } from '../tab-navigation/tab-navigation.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { ResizeService } from '@shared/services/resize.service';
 
 @Component({
     selector: 'app-results',
@@ -227,11 +228,16 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   private commonTags = MetaTags.common;
   inputSub: Subscription;
   mobileStatusSub: Subscription;
+  screenHeight = 0;
 
   showDialog: boolean;
   dialogTemplate: TemplateRef<any>;
   dialogTitle: string;
   focusMainContent: number;
+  isOverlayVisible: boolean;
+  overlayTopMargin: string;
+  overlayBrowserHeight: number;
+  resizeSub: Subscription;
 
   constructor(
     public searchService: SearchService,
@@ -247,7 +253,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     private utilityService: UtilityService,
     private settingsService: SettingsService,
     private staticDataService: StaticDataService,
-    private appSettingsService: AppSettingsService
+    private appSettingsService: AppSettingsService,
+    private resizeService: ResizeService,
   ) {
     this.filters = Object.assign(
       {},
@@ -300,6 +307,10 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.projectInfoBannerVisible = true;
       }
     }
+
+    this.resizeSub = this.resizeService.onResize$.subscribe((size) =>
+    {this.screenHeight = size.height}
+    );
 
     // Subscribe to route params and query params in one subscription
     this.combinedRouteParams = combineLatest([
@@ -689,6 +700,25 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     this.cdr.detectChanges();
+  }
+
+  setOverlayVisibility(state: boolean){
+    this.isOverlayVisible = state;
+    console.log('emit or click received', state);
+  }
+
+
+   hideOverlay(){
+    this.isOverlayVisible = false;
+    console.log(' click received');
+  }
+
+  setOverlayTopMargin(margin: string){
+    this.overlayTopMargin = margin;
+  }
+
+  setOverlayBrowserHeight(height: number){
+    this.overlayBrowserHeight = height;
   }
 
   // Unsubscribe to prevent memory leaks

@@ -2,6 +2,9 @@
 
 // TODO: Material 3 SASS API is most likely the best practice for customizing Material components.
 
+$zindex-tooltip: 10080;
+
+
 // Icons
 .svg-inline--fa {
   max-height: 42px !important;
@@ -58,7 +61,6 @@ mat-list-option {
 
 // Tooltip
 bs-tooltip-container {
-  z-index: 10000 !important;
   position: absolute;
 }
 

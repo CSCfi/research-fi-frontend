@@ -37,8 +37,9 @@
           <div class="input-group" #inputGroup>
             <!-- Search target -->
             <button
+                    id="searchTargetButton"
               mat-button
-              (blur)="showAutoSuggest = false"
+              (blur)="autosuggestVisible = false"
               class="btn btn-search-target me-2 d-none d-md-block"
               type="button"
               [matMenuTriggerFor]="searchTargetMenu"
@@ -87,7 +88,7 @@
                 autocomplete="off"
                 tabindex="0"
                 value="{{ searchService.currentInput | async }}"
-                (focus)="onFocus()"
+                (focus)="inputFileldOnFocus()"
                 (keyup)="setCompletionWidth()"
                 (keydown)="onKeydown($event); disableKeys($event)"
               />
@@ -126,9 +127,9 @@
             <span id="completionAssist"></span>
             <!-- Send -->
             <div class="input-group-append ps-2">
-              <button
+              <button id="searchButton"
                 mat-button
-                (blur)="showAutoSuggest = false"
+                (blur)="autosuggestVisible = false"
                 class="btn btn-search h-100"
                 type="button"
                 (keydown.enter)="setFocus()"
@@ -167,7 +168,7 @@
             <!-- Auto suggest -->
             <div
               class="auto-suggest position-absolute"
-              *ngIf="showAutoSuggest"
+              *ngIf="autosuggestVisible"
               role="listbox"
             >
               <div
@@ -354,11 +355,3 @@
 </div>
 
 <app-notification-banner></app-notification-banner>
-
-<!-- Overlay when auto suggest is active -->
-<div
-  *ngIf="showAutoSuggest"
-  id="overlay"
-  (click)="(showAutoSuggest === false)"
-  [ngStyle]="{ 'margin-top': topMargin + 'px', height: browserHeight + 'px' }"
-></div>

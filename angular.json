@@ -91,9 +91,9 @@
               "extractLicenses": false,
               "sourceMap": true,
               "localize": [
-                "fi"
+                "en"
               ],
-              "baseHref": "/fi/"
+              "baseHref": "/en/"
             }
           },
           "defaultConfiguration": "production"

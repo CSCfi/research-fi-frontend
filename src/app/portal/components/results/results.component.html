@@ -6,7 +6,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
 <h1 #srHeader aria-live="polite" class="sr-only"></h1>
 
 <aside>
-  <app-search-bar></app-search-bar>
+  <app-search-bar (isOverlayVisible)="setOverlayVisibility($event)" (overlayBrowserHeightOutput) = "setOverlayBrowserHeight($event)" (overlayTopMarginOutput)="setOverlayTopMargin($event)"></app-search-bar>
 </aside>
 
 <nav>
@@ -519,3 +519,11 @@ Copyright 2019 Ministry of Education and Culture, Finland
     </div>
   </div>
 </ng-template>
+
+<!-- Overlay when auto suggest is active -->
+<div
+        *ngIf="isOverlayVisible"
+        id="overlay"
+        (click)="hideOverlay()"
+        [ngStyle]="{ 'margin-top': overlayTopMargin + 'px', height: screenHeight + 'px' }"
+></div>

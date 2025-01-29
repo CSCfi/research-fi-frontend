@@ -95,6 +95,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   currentLocale: string;
   showDialog: boolean;
   shortcutData: Shortcut[] = [];
+  overlayVisible: boolean = false;
 
   constructor(
     private searchService: SearchService,
@@ -213,6 +214,11 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
         next: (allData) => (this.allData = allData),
         error: (error) => (this.errorMessage = error as any),
       });
+  }
+
+  setOverlayVisibility() {
+    console.log('overlay set to');
+    //this.overlayVisible = visible;
   }
 
   toggleReview() {

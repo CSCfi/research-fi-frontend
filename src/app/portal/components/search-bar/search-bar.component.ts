@@ -18,7 +18,7 @@ import {
   PLATFORM_ID,
   ViewEncapsulation,
   LOCALE_ID,
-  OnDestroy,
+  OnDestroy, Output, EventEmitter
 } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser, NgIf, NgFor, NgStyle, NgClass, AsyncPipe } from '@angular/common';
 import { SearchService } from '@portal/services/search.service';
@@ -76,6 +76,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('searchInput', { static: true }) searchInput: ElementRef;
   @ViewChild('inputGroup', { static: true }) inputGroup: ElementRef;
   @ViewChild('searchBar', { static: true }) searchBar: ElementRef;
+
   input: string;
   sub: Subscription;
   autoSuggestResponse: any;
@@ -83,13 +84,16 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   otherData: any[];
   queryField: UntypedFormControl = new UntypedFormControl();
   currentInput: any;
-  showAutoSuggest = false;
+  autosuggestVisible = false;
   queryHistory: any;
   showHelp = false;
   @ViewChildren(ListItemComponent) items: QueryList<any>;
   private keyManager: ActiveDescendantKeyManager<ListItemComponent>;
 
   faTimes = faTimes;
+  @Output() isOverlayVisible = new EventEmitter<boolean>();
+  @Output() overlayBrowserHeightOutput = new EventEmitter<number>();
+  @Output() overlayTopMarginOutput = new EventEmitter<string>();
 
   docList = [
     { index: 'publication', field: 'publicationName', link: 'publicationId' },
@@ -98,6 +102,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
     { index: 'infrastructure', field: 'name', link: 'name' },
     { index: 'organization', field: 'nameFi', link: 'organizationId' },
   ];
+
+  searchFieldsParts = ['searchTargetButton', 'searchInput', 'searchButton', 'resetSearch'];
 
   translations = {
     publication: $localize`:@@publications:julkaisut`,
@@ -172,6 +178,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
       this.topMargin =
         this.searchBar.nativeElement.offsetHight +
         this.searchBar.nativeElement.offsetTop;
+        this.overlayTopMarginOutput.emit(this.topMargin);
     });
     // Get previous search term and set it to form control value
     this.inputSub = this.searchService.currentInput.subscribe(
@@ -191,6 +198,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.currentFocusTargetSub =
       this.tabChangeService.currentFocusTarget.subscribe((target) => {
+        console.log('target', target);
         if (target === 'search-input') {
           this.searchInput.nativeElement.focus();
         }
@@ -208,12 +216,12 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  onFocus() {
+  inputFileldOnFocus() {
     // Show auto-suggest when input in focus
     if (this.currentInput !== this.queryField.value) {
       this.fireAutoSuggest();
     }
-    this.showAutoSuggest = true;
+    this.showAutosuggest(true);
     // Hides query history if search term isn't altered after history clear button click
     this.queryHistory = this.getHistory();
     // Set queryfield value to trigger subscription and fetch suggestions
@@ -222,7 +230,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
     // This is used for overlay heigth calcualtion
     this.browserHeight =
       this.document.body.scrollHeight - this.searchBar.nativeElement.offsetTop;
-
+    this.overlayBrowserHeightOutput.emit(this.browserHeight);
     this.setCompletionWidth();
   }
 
@@ -275,13 +283,18 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
       });
   }
 
+  showAutosuggest(visible: boolean) {
+    this.isOverlayVisible.emit(visible);
+    this.autosuggestVisible = visible;
+  }
+
   // Keycodes
   onKeydown(event) {
     // Reset completion with else than right arrow
     if (event.keyCode !== 39) {
       this.completion = '';
     }
-    this.showAutoSuggest = true;
+    this.showAutosuggest(true);
     // Listen for enter key and match with auto-suggest values
     if (event.keyCode === 13 && this.keyManager.activeItem) {
       const doc = this.keyManager.activeItem.doc;
@@ -319,7 +332,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     // Hide auto-suggest with esc key
     if (event.keyCode === 27) {
-      this.showAutoSuggest = false;
+      this.showAutosuggest(false);
     }
     // Reset completion with right arrow key
     if (event.keyCode === 39) {
@@ -402,8 +415,17 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   public onClick(targetElement) {
     const clickedInside = this.inputGroup.nativeElement.contains(targetElement);
     if (!clickedInside) {
-      this.showAutoSuggest = false;
+      this.showAutosuggest(false);
       this.completion = '';
+    }
+  }
+
+  // Hide auto-suggest and reset completion if focused outside search field elements
+  @HostListener('document:focusin', ['$event.target'])
+  public placeholder(targetElement) {
+    console.log('targetElement.id', targetElement.id);
+    if (!this.searchFieldsParts.includes(targetElement.id)) {
+      this.showAutosuggest(false);
     }
   }
 
@@ -462,7 +484,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
       ? this.getHistory()
       : '';
     // Hide auto-suggest
-    this.showAutoSuggest = false;
+    this.showAutosuggest(false);
     // Reset completion
     this.completion = '';
     // Reset sort
@@ -521,7 +543,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   addToHistory(id: string) {
     if (isPlatformBrowser(this.platformId)) {
-      this.showAutoSuggest = false;
+      this.showAutosuggest(false);
       this.singleService.updateId(id);
       localStorage.setItem(localStorage.length.toString(), this.currentInput);
       this.searchService.updateInput(this.currentInput);
@@ -531,7 +553,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   clearHistory() {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.clear();
-      this.showAutoSuggest = false;
+      this.showAutosuggest(false);
     }
   }
 

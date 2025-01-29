@@ -56,13 +56,33 @@
 
     <div class="row d-flex justify-content-center">
       <div class="col">
-        <app-secondary-button
+          <ng-container [ngSwitch]="step">
+              <app-secondary-button *ngSwitchCase="1"
+                                    content="Back"
+                                    routerLink="/mydata/cancel-deployment"
+                                    tabindex="-1"
+                                    [big]="true"
+              ></app-secondary-button>
+              <app-secondary-button *ngSwitchCase="2"
+                                    content="Back"
+                                    routerLink="/mydata/cancel-deployment"
+                                    tabindex="-1"
+                                    [big]="true"
+              ></app-secondary-button>
+              <app-secondary-button *ngSwitchCase="3"
+                                    content="Back"
+                                    routerLink="/mydata/cancel-deployment"
+                                    tabindex="-1"
+                                    [big]="true"
+              ></app-secondary-button>
+              <app-secondary-button *ngSwitchCase="4"
           i18n-content="@@cancelDeployment"
           content="Peruuta käyttöönotto"
           routerLink="/mydata/cancel-deployment"
           tabindex="-1"
           [big]="true"
         ></app-secondary-button>
+          </ng-container>
       </div>
     </div>
 
