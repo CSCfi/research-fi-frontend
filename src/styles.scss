@@ -83,6 +83,30 @@
 @import './app/mydata/components/welcome-stepper/welcome-stepper.component.scss';
 @import './app/mydata/components/account-settings/account-settings.component.scss';
 
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  src: url('assets/fonts/roboto/rbt100-900.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  src: url('assets/fonts/roboto/rbt100-900.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: 100%;
+  src: url('assets/fonts/roboto/rbt100-900.woff2') format('woff2');
+}
+
 // Global element color definitions
 @mixin researchfi-components-theme($theme) {
   @include mat-expansion-panel-style($theme);
