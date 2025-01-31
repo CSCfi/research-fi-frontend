@@ -82,18 +82,12 @@
 @import './app/mydata/components/welcome-stepper/welcome-stepper.component.scss';
 @import './app/mydata/components/account-settings/account-settings.component.scss';
 
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-stretch: 100%;
-  src: url('assets/fonts/roboto/rbt-ltn.woff2') format('woff2');
-}
 
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
   font-stretch: 100%;
-  src: url('assets/fonts/roboto/rbt-ltn-ext.woff2') format('woff2');
+  src: url('assets/fonts/roboto/rbt.woff2') format('woff2');
 }
 
 // Global element color definitions
