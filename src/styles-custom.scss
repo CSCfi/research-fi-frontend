@@ -544,6 +544,10 @@ mat-basic-chip.tag {
   z-index: 15;
 }
 
+.raised-z-150 {
+  z-index: 150;
+}
+
 // Single result pages, fixes overflows in tooltips
 app-single-dataset, app-single-funding, app-single-funding-call, app-single-infrastructure, app-single-organization, app-single-person, app-single-project, app-single-publication, app-single-result-link {
   h3 {

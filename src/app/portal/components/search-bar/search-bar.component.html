@@ -34,7 +34,7 @@
               #elem
             ></span>
           </div>
-          <div class="input-group main-search" #inputGroup>
+          <div [ngClass]="autosuggestVisible ? 'input-group main-search raised-z-150' : 'input-group main-search'"  #inputGroup>
             <!-- Search target -->
             <button
                     id="searchTargetButton"
