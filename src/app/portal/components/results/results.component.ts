@@ -73,6 +73,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TabNavigationComponent } from '../tab-navigation/tab-navigation.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { ResizeService } from '@shared/services/resize.service';
+import { SearchbarBackdropComponent } from '../../../layout/searchbar-backdrop/searchbar-backdrop.component';
 
 @Component({
     selector: 'app-results',
@@ -107,7 +108,8 @@ import { ResizeService } from '@shared/services/resize.service';
     DialogComponent,
     ClickOutsideDirective,
     AsyncPipe,
-    NgStyle
+    NgStyle,
+    SearchbarBackdropComponent
   ]
 })
 export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
@@ -234,7 +236,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     MetaTags.infrastructures,
     MetaTags.organizations,
     MetaTags.fundingCalls,
-    MetaTags.projects
   ];
   private metaTags: { link: string };
   private commonTags = MetaTags.common;

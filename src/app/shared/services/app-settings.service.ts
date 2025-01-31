@@ -21,7 +21,13 @@ import { environment } from 'src/environments/environment';
 export class AppSettingsService {
   // Project wide settings
   private mobileSource = new BehaviorSubject(false);
+  private backdropVisible = new BehaviorSubject(false);
+  private backdropHeight = new BehaviorSubject(0);
+  private backdropTopMargin = new BehaviorSubject(0);
   mobileStatus = this.mobileSource.asObservable();
+  searchbarBackdropVisible = this.backdropVisible.asObservable();
+  searchbarBackdropHeight = this.backdropHeight.asObservable();
+  searchbarBackdropTopMargin = this.backdropTopMargin.asObservable();
 
   private appSettingsSource = new Subject<any>();
   appSettings = this.appSettingsSource.asObservable();
@@ -137,6 +143,21 @@ export class AppSettingsService {
 
   updateMobileStatus(status) {
     this.mobileSource.next(status);
+  }
+
+  setSearchbarBackdropVisible(visible: boolean) {
+    console.log('setting visible in service');
+    this.backdropVisible.next(visible);
+  }
+
+  setSearchbarBackdropHeight(height: number) {
+    console.log('setting height in service');
+    this.backdropHeight.next(height);
+  }
+
+  setSearchbarBackdropTopMargin(topMargin: number) {
+    console.log('setting topMargin in service');
+    this.backdropTopMargin.next(topMargin);
   }
 
   setCurrentAppSettings(app) {

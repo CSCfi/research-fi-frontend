@@ -91,9 +91,6 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   private keyManager: ActiveDescendantKeyManager<ListItemComponent>;
 
   faTimes = faTimes;
-  @Output() isOverlayVisible = new EventEmitter<boolean>();
-  @Output() overlayBrowserHeightOutput = new EventEmitter<number>();
-  @Output() overlayTopMarginOutput = new EventEmitter<string>();
 
   docList = [
     { index: 'publication', field: 'publicationName', link: 'publicationId' },
@@ -178,7 +175,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
       this.topMargin =
         this.searchBar.nativeElement.offsetHight +
         this.searchBar.nativeElement.offsetTop;
-        this.overlayTopMarginOutput.emit(this.topMargin);
+      this.appSettingsService.setSearchbarBackdropTopMargin(this.topMargin);
     });
     // Get previous search term and set it to form control value
     this.inputSub = this.searchService.currentInput.subscribe(
@@ -230,7 +227,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
     // This is used for overlay heigth calcualtion
     this.browserHeight =
       this.document.body.scrollHeight - this.searchBar.nativeElement.offsetTop;
-    this.overlayBrowserHeightOutput.emit(this.browserHeight);
+    this.appSettingsService.setSearchbarBackdropHeight(this.browserHeight);
     this.setCompletionWidth();
   }
 
@@ -284,7 +281,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   showAutosuggest(visible: boolean) {
-    this.isOverlayVisible.emit(visible);
+    console.log('showAutosuggest', visible);
+    this.appSettingsService.setSearchbarBackdropVisible(visible);
     this.autosuggestVisible = visible;
   }
 
@@ -425,7 +423,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   @HostListener('document:focusin', ['$event.target'])
   public placeholder(targetElement) {
     console.log('targetElement.id', targetElement.id, targetElement, targetElement.class);
-    if (!this.searchFieldsParts.includes(targetElement.id) && !this.searchFieldsParts.some(p => targetElement.classList.includes(p))) {
+    if (!this.searchFieldsParts.includes(targetElement.id) && !this.searchFieldsParts.some(p => targetElement && targetElement.classList.includes(p))) {
       console.log('NOT CONTAINS MARKED');
       this.showAutosuggest(false);
     }

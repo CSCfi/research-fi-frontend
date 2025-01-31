@@ -39,7 +39,6 @@ app-search-bar {
     border-top-right-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
     width: 180px;
-    z-index: 100 !important;
   }
 
   // Input
@@ -54,6 +53,8 @@ app-search-bar {
 
   .search-input {
     padding: 5px 0;
+    position: relative;
+    z-index: 11 !important;
   }
 
   .search-input input {
@@ -314,7 +315,7 @@ app-search-bar {
 
   // Overlay base style comes from header component style
   #overlay {
-    z-index: 95;
+    z-index: 10;
   }
 
   // Responsive

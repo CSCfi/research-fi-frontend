@@ -38,33 +38,35 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
 import { NgIf, NgFor, NgClass, NgSwitch, NgSwitchDefault, NgSwitchCase, DatePipe } from '@angular/common';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
+import { SearchbarBackdropComponent } from '../../../../layout/searchbar-backdrop/searchbar-backdrop.component';
 
 @Component({
     selector: 'app-single-funding',
     templateUrl: './single-funding.component.html',
     styleUrls: ['./single-funding.component.scss'],
     standalone: true,
-    imports: [
-        SearchBarComponent,
-        NgIf,
-        RouterLink,
-        BreadcrumbComponent,
-        NgFor,
-        TooltipModule,
-        FontAwesomeModule,
-        NgClass,
-        NgSwitch,
-        NgSwitchDefault,
-        OrcidComponent,
-        NgSwitchCase,
-        MatCard,
-        MatCardTitle,
-        SingleResultLinkComponent,
-        RelatedLinksComponent,
-        ShareComponent,
-        DatePipe,
-        ThousandSeparatorPipe,
-    ],
+  imports: [
+    SearchBarComponent,
+    NgIf,
+    RouterLink,
+    BreadcrumbComponent,
+    NgFor,
+    TooltipModule,
+    FontAwesomeModule,
+    NgClass,
+    NgSwitch,
+    NgSwitchDefault,
+    OrcidComponent,
+    NgSwitchCase,
+    MatCard,
+    MatCardTitle,
+    SingleResultLinkComponent,
+    RelatedLinksComponent,
+    ShareComponent,
+    DatePipe,
+    ThousandSeparatorPipe,
+    SearchbarBackdropComponent
+  ]
 })
 export class SingleFundingComponent implements OnInit, OnDestroy {
   public singleId: any;

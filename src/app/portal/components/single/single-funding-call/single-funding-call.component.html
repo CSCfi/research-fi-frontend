@@ -3,8 +3,11 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<div class="bar background-primary"></div>
 <h1 #srHeader class="sr-only"></h1>
+
+<aside>
+    <app-search-bar></app-search-bar>
+</aside>
 
 <div class="wrapper single-funding-calls-wrap" *ngIf="responseData" id="main-content">
   <div class="row shared">
@@ -552,3 +555,6 @@
     </div>
   </div>
 </div>
+
+<!-- Overlay when auto suggest is active -->
+<app-searchbar-backdrop></app-searchbar-backdrop>

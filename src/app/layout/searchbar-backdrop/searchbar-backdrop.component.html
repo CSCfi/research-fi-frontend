@@ -1,0 +1,5 @@
+<div *ngIf="isOverlayVisible"
+id="overlay"
+(click)="hideOverlay()"
+[ngStyle]="{ 'margin-top': overlayTopMargin + 'px', height: overlayBrowserHeight + 'px' }"
+></div>

@@ -7,6 +7,7 @@
 <aside>
   <app-search-bar></app-search-bar>
 </aside>
+
 <div class="wrapper" *ngIf="responseData" id="main-content">
   <div class="row shared">
     <p class="back col-12" style="padding-bottom: 0.25rem">
@@ -786,3 +787,6 @@
     >Julkaisulla täytyy olla DOI-tunniste viitetietojen hakemiseen</ng-container
   >
 </ng-template>
+
+<!-- Overlay when auto suggest is active -->
+<app-searchbar-backdrop></app-searchbar-backdrop>

@@ -25,27 +25,31 @@ import { MatCard, MatCardTitle } from '@angular/material/card';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
+import { SearchBarComponent } from '@portal/components/search-bar/search-bar.component';
+import { SearchbarBackdropComponent } from '../../../../layout/searchbar-backdrop/searchbar-backdrop.component';
 @Component({
     selector: 'app-single-funding-call',
     templateUrl: './single-funding-call.component.html',
     styleUrls: ['./single-funding-call.component.scss'],
     standalone: true,
-    imports: [
-        NgIf,
-        RouterLink,
-        BreadcrumbComponent,
-        NgFor,
-        TooltipModule,
-        FontAwesomeModule,
-        NgClass,
-        MatCard,
-        MatCardTitle,
-        SingleResultLinkComponent,
-        ShareComponent,
-        JsonPipe,
-        DatePipe,
-        NgArrayPipesModule,
-    ],
+  imports: [
+    NgIf,
+    RouterLink,
+    BreadcrumbComponent,
+    NgFor,
+    TooltipModule,
+    FontAwesomeModule,
+    NgClass,
+    MatCard,
+    MatCardTitle,
+    SingleResultLinkComponent,
+    ShareComponent,
+    JsonPipe,
+    DatePipe,
+    NgArrayPipesModule,
+    SearchBarComponent,
+    SearchbarBackdropComponent
+  ]
 })
 export class SingleFundingCallComponent implements OnInit {
   newUiToggle = true;

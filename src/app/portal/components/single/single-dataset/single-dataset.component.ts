@@ -38,34 +38,36 @@ import { SecondaryButtonComponent } from '../../../../shared/components/buttons/
 import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
 import { NgIf, NgFor, NgClass } from '@angular/common';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
+import { SearchbarBackdropComponent } from '../../../../layout/searchbar-backdrop/searchbar-backdrop.component';
 
 @Component({
     selector: 'app-single-dataset',
     templateUrl: './single-dataset.component.html',
     styleUrls: ['./single-dataset.component.scss'],
     standalone: true,
-    imports: [
-        SearchBarComponent,
-        NgIf,
-        RouterLink,
-        BreadcrumbComponent,
-        NgFor,
-        SecondaryButtonComponent,
-        MatMenuTrigger,
-        MatMenu,
-        MatMenuItem,
-        NgClass,
-        TooltipModule,
-        FontAwesomeModule,
-        DatasetAuthorComponent,
-        MatCard,
-        MatCardTitle,
-        SingleResultLinkComponent,
-        RelatedLinksComponent,
-        ShareComponent,
-        MatProgressSpinner,
-        SafeUrlPipe,
-    ],
+  imports: [
+    SearchBarComponent,
+    NgIf,
+    RouterLink,
+    BreadcrumbComponent,
+    NgFor,
+    SecondaryButtonComponent,
+    MatMenuTrigger,
+    MatMenu,
+    MatMenuItem,
+    NgClass,
+    TooltipModule,
+    FontAwesomeModule,
+    DatasetAuthorComponent,
+    MatCard,
+    MatCardTitle,
+    SingleResultLinkComponent,
+    RelatedLinksComponent,
+    ShareComponent,
+    MatProgressSpinner,
+    SafeUrlPipe,
+    SearchbarBackdropComponent
+  ]
 })
 export class SingleDatasetComponent implements OnInit {
   public singleId: any;

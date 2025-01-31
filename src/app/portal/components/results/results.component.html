@@ -521,9 +521,4 @@ Copyright 2019 Ministry of Education and Culture, Finland
 </ng-template>
 
 <!-- Overlay when auto suggest is active -->
-<div
-        *ngIf="isOverlayVisible"
-        id="overlay"
-        (click)="hideOverlay()"
-        [ngStyle]="{ 'margin-top': overlayTopMargin + 'px', height: overlayBrowserHeight + 'px' }"
-></div>
+<app-searchbar-backdrop></app-searchbar-backdrop>
