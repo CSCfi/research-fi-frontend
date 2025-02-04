@@ -62,6 +62,7 @@ app-search-bar {
     overflow: hidden;
     border: none;
     padding-right: 2.75rem;
+    width: 100%;
   }
 
   .col-12.search.increase {
@@ -360,7 +361,11 @@ app-search-bar {
     }
 
     .list-group-item {
-      margin: 0 -15px;
+      margin: 10px 0px;
+    }
+
+    .other-links ul li {
+      padding-left: 15px;
     }
 
     i.fa.fa-search {
