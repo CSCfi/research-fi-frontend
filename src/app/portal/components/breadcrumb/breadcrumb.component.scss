@@ -73,10 +73,6 @@ li.breadcrumb-item.arrow_box.last.arrow_box {
 
 // Responsive
 @media (max-width: 991px) {
-  .breadcrumb {
-    padding: 0.75rem 0;
-  }
-
   li.breadcrumb-item.arrow_box.active {
     width: 210px;
   }
