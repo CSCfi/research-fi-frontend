@@ -61,6 +61,7 @@ input[type='search']::-webkit-search-results-decoration {
 body {
   color: mat.get-contrast-color-from-palette($researchfi-primary, 300);
   font-family: 'Roboto', sans-serif;
+  font-synthesis: none;
 
   button:focus-visible,
   input:focus-visible,
