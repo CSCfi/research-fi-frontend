@@ -4354,8 +4354,8 @@
         <target state="new">Begränsa sökningen enligt nyckelorden i projekt.</target>
       </trans-unit>
       <trans-unit id="projectsBetaDescription" datatype="html">
-        <source> Hankkeet ovat tutkimusorganisaatioiden tutkimushankkeita. Tällä hetkellä palvelu sisältää tietoa luonnonvara-alan hankekuvauksista (entinen Hankehaavi-verkkohakemisto). Myöhemmässä vaiheessa tiedot tulevat täydentymään myös muiden alojen tutkimushankkeilla ja kattavammilla kuvailutiedoilla. </source>
-        <target state="new"> Projekten är forskningsprojekt för forskningsorganisationer. För närvarande innehåller tjänsten information om projektbeskrivningar inom naturresursbranschen (tidigare Hankehaavi-webbkatalogen). I ett senare skede kommer informationen också att kompletteras med forskningsprojekt inom andra områden och mer omfattande beskrivningsdata. </target>
+        <source> Hankkeet ovat tutkimusorganisaatioiden tutkimushankkeita. Alkuvaiheessa palvelu sisältää entisestä Hankehaavi-verkkohakemistosta tuotuja hankekuvauksia, joita ei tällä hetkellä voi päivittää. Myöhemmässä vaiheessa tiedot tulevat täydentymään myös muiden alojen tutkimushankkeilla ja kattavammilla kuvailutiedoilla. </source>
+        <target state="new"> Projekten är forskningsprojekt för forskningsorganisationer. I det inledande skedet innehåller tjänsten projektbeskrivningar hämtade från den tidigare Hankehaavi-webbkatalogen. För närvarande går det inte att uppdatera projektbeskrivningarna. I ett senare skede kommer informationen också att kompletteras med forskningsprojekt inom andra områden och mer omfattande beskrivningsdata. </target>
       </trans-unit>
       <trans-unit id="spResponsibleOrganization" datatype="html">
         <source>Vastuuorganisaatio</source>
