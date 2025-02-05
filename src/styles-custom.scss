@@ -72,7 +72,7 @@ body {
     outline: 2px transparent solid !important;
     box-shadow: 0 0 0 2px white, 0 0 0 4px mat-color($primary, default),
       0 0 3px 5px white !important;
-    z-index: 100; // If no margin between next focusable element, high number because of target serach button
+    z-index: 55; // If no margin between next focusable element, high number because of target serach button
   }
 }
 
@@ -536,6 +536,24 @@ mat-basic-chip.tag {
     ul {
       list-style: inside !important;
     }
+  }
+}
+
+// Main search
+.main-search {
+  position: relative;
+  z-index: 15;
+}
+
+.raised-z-150 {
+  z-index: 150;
+}
+
+// Single result pages, fixes overflows in tooltips
+app-single-dataset, app-single-funding, app-single-funding-call, app-single-infrastructure, app-single-organization, app-single-person, app-single-project, app-single-publication, app-single-result-link {
+  h3 {
+    position: relative;
+    z-index: 75 !important;
   }
 }
 

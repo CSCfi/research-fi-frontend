@@ -83,7 +83,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   otherData: any[];
   queryField: UntypedFormControl = new UntypedFormControl();
   currentInput: any;
-  showAutoSuggest = false;
+  autoSuggestVisible = false;
   queryHistory: any;
   showHelp = false;
   @ViewChildren(ListItemComponent) items: QueryList<any>;
@@ -208,12 +208,12 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  onFocus() {
+  inputFieldOnFocus() {
     // Show auto-suggest when input in focus
     if (this.currentInput !== this.queryField.value) {
       this.fireAutoSuggest();
     }
-    this.showAutoSuggest = true;
+    this.autoSuggestVisible = true;
     // Hides query history if search term isn't altered after history clear button click
     this.queryHistory = this.getHistory();
     // Set queryfield value to trigger subscription and fetch suggestions
@@ -275,13 +275,33 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
       });
   }
 
+  // Empty search with enter or space when close button is focused
+  onKeydownCloseButton(event){
+    if (event.keyCode === 13 || (event.keyCode === 32)) {
+      this.resetSearch();
+      this.searchInput.nativeElement.focus();
+    }
+  }
+
+  // Show search help with enter or space when close help button is focused
+  onKeydownSearchHelp(event){
+    // Empty search with enter
+    if (event.keyCode === 13 || (event.keyCode === 32)) {
+      this.showHelp = !this.showHelp;
+    }
+  }
+
   // Keycodes
-  onKeydown(event) {
+  onKeydownSearchBar(event) {
     // Reset completion with else than right arrow
     if (event.keyCode !== 39) {
       this.completion = '';
     }
-    this.showAutoSuggest = true;
+    this.autoSuggestVisible = true;
+    if (event.keyCode === 13) {
+      this.autoSuggestVisible = false;
+    }
+
     // Listen for enter key and match with auto-suggest values
     if (event.keyCode === 13 && this.keyManager.activeItem) {
       const doc = this.keyManager.activeItem.doc;
@@ -319,7 +339,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     // Hide auto-suggest with esc key
     if (event.keyCode === 27) {
-      this.showAutoSuggest = false;
+      this.autoSuggestVisible = false;
     }
     // Reset completion with right arrow key
     if (event.keyCode === 39) {
@@ -402,7 +422,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   public onClick(targetElement) {
     const clickedInside = this.inputGroup.nativeElement.contains(targetElement);
     if (!clickedInside) {
-      this.showAutoSuggest = false;
+      this.autoSuggestVisible = false;
       this.completion = '';
     }
   }
@@ -462,7 +482,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
       ? this.getHistory()
       : '';
     // Hide auto-suggest
-    this.showAutoSuggest = false;
+    this.autoSuggestVisible = false;
     // Reset completion
     this.completion = '';
     // Reset sort
@@ -521,7 +541,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   addToHistory(id: string) {
     if (isPlatformBrowser(this.platformId)) {
-      this.showAutoSuggest = false;
+      this.autoSuggestVisible = false;
       this.singleService.updateId(id);
       localStorage.setItem(localStorage.length.toString(), this.currentInput);
       this.searchService.updateInput(this.currentInput);
@@ -531,7 +551,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   clearHistory() {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.clear();
-      this.showAutoSuggest = false;
+      this.autoSuggestVisible = false;
     }
   }
 

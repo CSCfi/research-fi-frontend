@@ -34,11 +34,11 @@
               #elem
             ></span>
           </div>
-          <div class="input-group" #inputGroup>
+          <div [ngClass]="autoSuggestVisible ? 'input-group main-search raised-z-150' : 'input-group main-search'" #inputGroup>
             <!-- Search target -->
             <button
               mat-button
-              (blur)="showAutoSuggest = false"
+              (blur)="autoSuggestVisible = false"
               class="btn btn-search-target me-2 d-none d-md-block"
               type="button"
               [matMenuTriggerFor]="searchTargetMenu"
@@ -87,9 +87,9 @@
                 autocomplete="off"
                 tabindex="0"
                 value="{{ searchService.currentInput | async }}"
-                (focus)="onFocus()"
+                (focus)="inputFieldOnFocus()"
                 (keyup)="setCompletionWidth()"
-                (keydown)="onKeydown($event); disableKeys($event)"
+                (keydown)="onKeydownSearchBar($event); disableKeys($event)"
               />
               <!-- Reset button -->
               <div
@@ -100,6 +100,7 @@
                   id="resetSearch"
                   *ngIf="searchInput.value !== ''"
                   (click)="resetSearch()"
+                  (keydown)="onKeydownCloseButton($event)"
                   tabindex="0"
                   (mouseenter)="
                     utilityService.tooltipMouseenter(resetSearchElem)
@@ -126,9 +127,9 @@
             <span id="completionAssist"></span>
             <!-- Send -->
             <div class="input-group-append ps-2">
-              <button
+              <button id="searchButton"
                 mat-button
-                (blur)="showAutoSuggest = false"
+                (blur)="autoSuggestVisible = false"
                 class="btn btn-search h-100"
                 type="button"
                 (keydown.enter)="setFocus()"
@@ -141,7 +142,7 @@
             </div>
 
             <div class="search-help ps-2" (clickOutside)="onClickedOutside($event)">
-              <button [ngClass]="showHelp ? 'up' : 'down'" mat-button (click)="showHelp = !showHelp">
+              <button [ngClass]="showHelp ? 'up' : 'down'" mat-button (click)="onKeydownSearchHelp($event)" (keydown)="onKeydownSearchHelp($event)">
                 <ng-container i18n="Search help button@@searchHelpButton">
                   Hakuohje
                 </ng-container>
@@ -167,7 +168,7 @@
             <!-- Auto suggest -->
             <div
               class="auto-suggest position-absolute"
-              *ngIf="showAutoSuggest"
+              *ngIf="autoSuggestVisible"
               role="listbox"
             >
               <div
@@ -357,8 +358,8 @@
 
 <!-- Overlay when auto suggest is active -->
 <div
-  *ngIf="showAutoSuggest"
+  *ngIf="autoSuggestVisible"
   id="overlay"
-  (click)="(showAutoSuggest === false)"
+  (click)="(autoSuggestVisible === false)"
   [ngStyle]="{ 'margin-top': topMargin + 'px', height: browserHeight + 'px' }"
 ></div>
