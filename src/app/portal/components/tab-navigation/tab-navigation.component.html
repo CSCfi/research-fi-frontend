@@ -8,7 +8,8 @@
                           [active]='button.active'
                           [disabled]='button.disabled'
                           [routerLink]='button.route + "/" + ((input$ | async) ?? "")'
-                          [queryParams]='button.queryParams | async'>
+                          [queryParams]='button.queryParams | async'
+                          tabindex="-1">
           </app-tab-button>
       </ng-container>
     </ng-container>
@@ -22,7 +23,8 @@
                         [active]='button.active'
                         [disabled]='button.disabled'
                         [routerLink]='button.route + "/" + ((input$ | async) ?? "")'
-                        [queryParams]='pageSizeParams$ | async'>
+                        [queryParams]='pageSizeParams$ | async'
+                        tabindex="-1">
         </app-tab-button>
 
       </ng-container>
