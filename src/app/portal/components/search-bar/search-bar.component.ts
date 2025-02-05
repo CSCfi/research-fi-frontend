@@ -283,12 +283,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  // Show search help with enter or space when close help button is focused
-  onKeydownSearchHelp(event){
-    // Empty search with enter
-    if (event.keyCode === 13 || (event.keyCode === 32)) {
-      this.showHelp = !this.showHelp;
-    }
+  toggleSearchHelpVisibility(){
+    this.showHelp = !this.showHelp;
   }
 
   // Keycodes
