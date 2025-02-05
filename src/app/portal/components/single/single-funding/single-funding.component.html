@@ -468,13 +468,16 @@
               <div class="row">
                 <h2 class="col-12 col-sm-4 col-lg-3 th">
                   <span class="pe-1" i18n>Päättäjä</span>
+                    <ng-template #tooltipTemplate>
+                        <div [innerHtml]="decisionMakerTooltip.tooltip"></div>
+                    </ng-template>
+
+                    <span [tooltip]="tooltipTemplate" tabindex="0" placement="top" #elem>
+                    <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                  </span>
                 </h2>
 
-                <ng-template #tooltipTemplate>
-                  <div [innerHtml]="decisionMakerTooltip"></div>
-                </ng-template>
-
-                <div [tooltip]='tooltipTemplate' class="col-12 col-sm-8 col-lg-9 td">
+                <div class="col-12 col-sm-8 col-lg-9 td">
                   <!--{{ item.council.decisionMakerName }} <br>-->
                   {{ decisionMakerLabels[item.council.decisionMakerId] }} <br>
                   {{ item.council.approvalDate | date: 'dd.MM.yyyy' }}

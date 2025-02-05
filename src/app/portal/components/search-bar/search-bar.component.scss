@@ -39,7 +39,7 @@ app-search-bar {
     border-top-right-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
     width: 180px;
-    z-index: 100 !important;
+    z-index: 55 !important;
   }
 
   // Input
@@ -54,6 +54,8 @@ app-search-bar {
 
   .search-input {
     padding: 5px 0;
+    position: relative;
+    z-index: 11 !important;
   }
 
   .search-input input {
@@ -78,7 +80,7 @@ app-search-bar {
 
   .has-search .form-control-feedback {
     position: absolute;
-    z-index: 100;
+    z-index: 55;
     display: block;
     width: 2.375rem;
     height: 2.375rem;
@@ -94,7 +96,7 @@ app-search-bar {
   }
 
   .input-group > .form-control:focus {
-    z-index: 104;
+    z-index: 55;
   }
 
   .form-group.has-search {
@@ -105,11 +107,11 @@ app-search-bar {
 
   input,
   .search-input {
-    z-index: 102;
+    z-index: 55;
   }
 
   .input-group-append {
-    z-index: 101;
+    z-index: 55;
   }
 
   input[placeholder] {
@@ -166,7 +168,7 @@ app-search-bar {
   .reset {
     margin-top: -4px;
     position: absolute;
-    z-index: 103;
+    z-index: 55;
     right: 0;
   }
 
@@ -195,7 +197,7 @@ app-search-bar {
   .auto-suggest {
     padding: 10px 0;
     background: #fff;
-    z-index: 100;
+    z-index: 55;
     left: 0;
     right: 0;
     margin-left: auto !important;
@@ -315,7 +317,7 @@ app-search-bar {
 
   // Overlay base style comes from header component style
   #overlay {
-    z-index: 98;
+    z-index: 80;
   }
 
   // Responsive
