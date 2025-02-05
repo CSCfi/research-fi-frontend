@@ -146,7 +146,7 @@ describe('SearchBarComponent', () => {
     searchBarComponent.items = new QueryList<any>();
     searchBarComponent.ngAfterViewInit();
 
-    searchBarComponent.onKeydown({ keyCode: 39 });
+    searchBarComponent.onKeydownSearchBar({ keyCode: 39 });
 
     // Expect completion to be moved to search input
     expect(searchBarComponent.searchInput.nativeElement.value).toBe(

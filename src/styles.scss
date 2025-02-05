@@ -6,7 +6,6 @@
 //  :license: MIT
 
 // You can add global styles to this file, and also import other style files
-
 @use '@angular/material' as mat;
 @include mat.core();
 
@@ -86,25 +85,8 @@
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
-  font-weight: 400;
   font-stretch: 100%;
-  src: url('assets/fonts/roboto/rbt100-900.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 500;
-  font-stretch: 100%;
-  src: url('assets/fonts/roboto/rbt100-900.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 700;
-  font-stretch: 100%;
-  src: url('assets/fonts/roboto/rbt100-900.woff2') format('woff2');
+  src: url('assets/fonts/roboto/rbt.woff2') format('woff2');
 }
 
 // Global element color definitions
@@ -176,6 +158,7 @@ body {
   position: relative;
   margin: 0 auto;
   min-height: 100%;
+  font-family: 'Roboto', sans-serif;
 }
 
 em.highlight {

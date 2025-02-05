@@ -2601,9 +2601,6 @@
       <trans-unit id="footerLink9" datatype="html">
         <source>Tietosuoja</source>
       </trans-unit>
-      <trans-unit id="6312855125143647093" datatype="html">
-        <source>Hankkeet uudistuvat. Aiempien hankkeiden tiedot löytyvät nyt ‘Myönnetty rahoitus‘ -osiosta.</source>
-      </trans-unit>
       <trans-unit id="navigation.publications" datatype="html">
         <source>Julkaisut</source>
       </trans-unit>
@@ -2971,22 +2968,22 @@
         <source>Julkaisujen määrä avoimen saatavuuden mukaan</source>
       </trans-unit>
       <trans-unit id="fundingCountByYear" datatype="html">
-        <source>Hankkeiden jakautuminen vuosittain</source>
+        <source>Rahoitusmyöntöjen jakautuminen vuosittain</source>
       </trans-unit>
       <trans-unit id="fundingCountByFunder" datatype="html">
-        <source>Hankkeiden jakautuminen rahoittajan mukaan</source>
+        <source>Rahoitusmyöntöjen jakautuminen rahoittajan mukaan</source>
       </trans-unit>
       <trans-unit id="fundingCountByOrg" datatype="html">
-        <source>Hankkeiden jakautuminen organisaatioittain</source>
+        <source>Rahoitusmyöntöjen jakautuminen organisaatioittain</source>
       </trans-unit>
       <trans-unit id="fundingCountByType" datatype="html">
-        <source>Hankkeiden jakautuminen rahoitusmuodon mukaan</source>
+        <source>Rahoitusmyöntöjen jakautuminen rahoitusmuodon mukaan</source>
       </trans-unit>
       <trans-unit id="fundingCountByFOS" datatype="html">
-        <source>Hankkeiden jakautuminen tieteenaloittain</source>
+        <source>Rahoitusmyöntöjen jakautuminen tieteenaloittain</source>
       </trans-unit>
       <trans-unit id="fundingCountByIdentifiedTopic" datatype="html">
-        <source>Hankkeiden jakautuminen tunnistetun aiheen mukaan</source>
+        <source>Rahoitusmyöntöjen jakautuminen tunnistetun aiheen mukaan</source>
       </trans-unit>
       <trans-unit id="publication" datatype="html">
         <source>julkaisu</source>
@@ -3173,6 +3170,126 @@
       </trans-unit>
       <trans-unit id="typeOfFundingTooltip" datatype="html">
         <source>Puiteohjelma</source>
+      </trans-unit>
+      <trans-unit id="spResults" datatype="html">
+        <source>Tulokset</source>
+      </trans-unit>
+      <trans-unit id="spAbbreviation" datatype="html">
+        <source>Lyhenne</source>
+      </trans-unit>
+      <trans-unit id="spParticipants" datatype="html">
+        <source>Osallistujat</source>
+      </trans-unit>
+      <trans-unit id="spOtherInfo" datatype="html">
+        <source>Muut tiedot</source>
+      </trans-unit>
+      <trans-unit id="spObjectives" datatype="html">
+        <source>Tavoitteet</source>
+      </trans-unit>
+      <trans-unit id="noProjectLinks" datatype="html">
+        <source> Hankkeeseen ei ole tarjolla linkkejä tässä portaalissa <x id="INTERPOLATION" equiv-text="{{projectURL}}"/> </source>
+      </trans-unit>
+      <trans-unit id="projects" datatype="html">
+        <source>Hankkeet</source>
+      </trans-unit>
+      <trans-unit id="projectsDataDisclaimerLink" datatype="html">
+        <source> Mitä hanketietoja palvelu sisältää? </source>
+      </trans-unit>
+      <trans-unit id="projectsExternalLinks" datatype="html">
+        <source>Linkit hankkeeseen</source>
+      </trans-unit>
+      <trans-unit id="projectSource" datatype="html">
+        <source>Hanketiedon lähde</source>
+      </trans-unit>
+      <trans-unit id="relatedProjects" datatype="html">
+        <source>Hae hankkeeseen liittyvät (tulossa) </source>
+      </trans-unit>
+      <trans-unit id="spDescriptionTooltip" datatype="html">
+        <source>Kuvaus kertoo tiiviisti hankkeesta</source>
+      </trans-unit>
+      <trans-unit id="spEndYearTooltip" datatype="html">
+        <source>Hankkeen päättymisvuosi</source>
+      </trans-unit>
+      <trans-unit id="spObjectivesTooltip" datatype="html">
+        <source>Kuvaus hankkeelle asetetuista tavoitteista</source>
+      </trans-unit>
+      <trans-unit id="spResultsTooltip" datatype="html">
+        <source>Hankkeen saavuttamat tulokset</source>
+      </trans-unit>
+      <trans-unit id="spParticipantsTooltip" datatype="html">
+        <source>Hankkeeseen osallistuvat organisaatiot ja henkilöt</source>
+      </trans-unit>
+      <trans-unit id="spStartYearTooltip" datatype="html">
+        <source>Hankkeen alkamisvuosi</source>
+      </trans-unit>
+      <trans-unit id="projectSingular" datatype="html">
+        <source>projekti</source>
+      </trans-unit>
+      <trans-unit id="spDescription" datatype="html">
+        <source>Kuvaus</source>
+      </trans-unit>
+      <trans-unit id="spEndYear" datatype="html">
+        <source>Päättymisvuosi</source>
+      </trans-unit>
+      <trans-unit id="spPersons" datatype="html">
+        <source>Henkilöt</source>
+      </trans-unit>
+      <trans-unit id="spStartYear" datatype="html">
+        <source>Aloitusvuosi</source>
+      </trans-unit>
+      <trans-unit id="resultsAndEffect" datatype="html">
+        <source>Tulokset ja vaikuttavuus</source>
+      </trans-unit>
+      <trans-unit id="spKeywordsTooltip" datatype="html">
+        <source>Hankkeen avainsanat</source>
+      </trans-unit>
+      <trans-unit id="spFiltersKeywords" datatype="html">
+        <source>Avainsanat</source>
+      </trans-unit>
+      <trans-unit id="spFiltersKeywordsTooltip" datatype="html">
+        <source>Haun rajaus hankkeen tiedoissa olevien avainsanojen perusteella.</source>
+      </trans-unit>
+      <trans-unit id="spFiltersOrganization" datatype="html">
+        <source>Organisaatio</source>
+      </trans-unit>
+      <trans-unit id="spFiltersOrganizationTooltip" datatype="html">
+        <source>Haun rajaus hankkeeseen osallistuvien organisaatioiden mukaan.</source>
+      </trans-unit>
+      <trans-unit id="spFiltersStartYear" datatype="html">
+        <source>Aloitusvuosi</source>
+      </trans-unit>
+      <trans-unit id="spFiltersStartYearTooltip" datatype="html">
+        <source>Haun rajaus hankkeen alkamisvuoden mukaan.</source>
+      </trans-unit>
+      <trans-unit id="spHomePageTooltip" datatype="html">
+        <source>Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa.</source>
+      </trans-unit>
+      <trans-unit id="projectsBetaDescription" datatype="html">
+        <source> Hankkeet ovat tutkimusorganisaatioiden tutkimushankkeita. Alkuvaiheessa palvelu sisältää entisestä Hankehaavi-verkkohakemistosta tuotuja hankekuvauksia, joita ei tällä hetkellä voi päivittää. Myöhemmässä vaiheessa tiedot tulevat täydentymään myös muiden alojen tutkimushankkeilla ja kattavammilla kuvailutiedoilla. </source>
+      </trans-unit>
+      <trans-unit id="spOriginalOrganizations" datatype="html">
+        <source>Alkuperäinen vastuuorganisaatio</source>
+      </trans-unit>
+      <trans-unit id="spRelatedOrganizations" datatype="html">
+        <source>Liittyvät organisaatiot</source>
+      </trans-unit>
+      <trans-unit id="spResponsibleOrganization" datatype="html">
+        <source>Vastuuorganisaatio</source>
+      </trans-unit>
+      <trans-unit id="spReadMore" datatype="html">
+        <source>Lue lisää</source>
+      </trans-unit>
+      <trans-unit id="spSortsAbbreviation" datatype="html">
+        <source>Lyhenne</source>
+      </trans-unit>
+      <trans-unit id="spSortsOrganization" datatype="html">
+        <source>Organisaatio</source>
+      </trans-unit>
+      <trans-unit id="spSortsProject" datatype="html">
+        <source>Hankkeen nimi</source>
+      </trans-unit>
+      <trans-unit id="spSortsStartYear" datatype="html">
+        <source>Aloitusvuosi</source>
       </trans-unit>
     </body>
   </file>

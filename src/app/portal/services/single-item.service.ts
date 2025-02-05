@@ -25,6 +25,7 @@ export class SingleItemService {
   organizationApiUrl = '';
   infrastructureApiUrl = '';
   fundingCallApiUrl = '';
+  projectApiUrl = '';
   private getIdSubject = new Subject<string>();
   currentId = this.getIdSubject.asObservable();
   resultId: string;
@@ -43,6 +44,7 @@ export class SingleItemService {
     this.organizationApiUrl = this.apiUrl + 'organization/_search';
     this.infrastructureApiUrl = this.apiUrl + 'infrastructure/_search';
     this.fundingCallApiUrl = this.apiUrl + 'funding-call/_search';
+    this.projectApiUrl = this.apiUrl + 'project/_search';
   }
 
   updateId(singleId: string) {
@@ -121,6 +123,14 @@ export class SingleItemService {
       );
   }
 
+  getSingleProject(id): Observable<Search> {
+    return this.http
+      .post<Search>(this.projectApiUrl, this.constructPayload('id', id))
+      .pipe(
+        map((data: any) => this.searchAdapter.adapt(data, 'projects'))
+      );
+  }
+
   getCount(tab, id, filters): Observable<any> {
     // Reset target so query settings are reseted
     this.settingsService.changeTarget(null);
@@ -142,6 +152,7 @@ export class SingleItemService {
                   this.settingsService.querySettings('infrastructure', id),
                   this.settingsService.querySettings('organization', id),
                   this.settingsService.querySettings('funding-call', id),
+                  this.settingsService.querySettings('project', id),
                 ],
               },
             },
@@ -185,6 +196,11 @@ export class SingleItemService {
               fundingCalls: {
                 match: {
                   _index: 'funding-call',
+                },
+              },
+              projects: {
+                match: {
+                  _index: 'project',
                 },
               },
             },

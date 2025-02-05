@@ -27,7 +27,7 @@ type IndexCounts = { [index: string]: number };
 type ButtonData = { label: string, icon: string, route: string, count: number, active: boolean, disabled?: boolean, queryParams?: Observable<any>};
 
 
-type Counts = { publications: number, persons: number, fundings: number, datasets: number, fundingCalls: number, infrastructures: number, organizations: number };
+type Counts = { publications: number, persons: number, fundings: number, datasets: number, fundingCalls: number, infrastructures: number, organizations: number, projects: number };
 
 const EPSILON = 1;
 
@@ -82,14 +82,14 @@ export class TabNavigationComponent {
   faArrowLeft = faArrowLeft;
   faArrowRight = faArrowRight;
 
-  url = this.appConfigService.apiUrl + "publication,person,funding,dataset,funding-call,infrastructure,organization/_search?request_cache=true";
+  url = this.appConfigService.apiUrl + "publication,person,funding,dataset,funding-call,infrastructure,organization,project/_search?request_cache=true";
 
   showAll$ = new BehaviorSubject(false);
 
   // Legacy compatibility
   searchService = inject(SearchService);
 
-  fullCounts$: Observable<IndexCounts> = this.http.post(this.url, payloadWithoutKeywords()).pipe(
+  fullCounts$: Observable<IndexCounts> = this.http.post(this.url, payloadWithoutSearchKeywords()).pipe(
     map((response: any) => response.aggregations),
     map(aggregations => Object.entries(aggregations._index.buckets)),
     map(buckets => buckets.reduce((acc, [key, value]) => ({ ...acc, [key]: (value as any).doc_count }), {}))
@@ -107,7 +107,7 @@ export class TabNavigationComponent {
   );
 
   partialCounts$ = this.input$.pipe(
-    switchMap(input => this.http.post(this.url, payloadWithKeywords(input)).pipe(
+    switchMap(input => this.http.post(this.url, payloadWithSearchKeywords(input)).pipe(
       map((response: any) => response.aggregations),
       map(aggregations => Object.entries(aggregations._index.buckets)),
       map(buckets => buckets.reduce((acc, [key, value]) => ({ ...acc, [key]: (value as any).doc_count }), {} as Counts))
@@ -117,7 +117,7 @@ export class TabNavigationComponent {
   counts$ = this.route.params.pipe(
     map(params => params["tab"] && params["input"]),
     switchMap(isPartial => isPartial ? this.partialCounts$ : this.fullCounts$),
-    startWith({ publications: -1, persons: -1, fundings: -1, datasets: -1, fundingCalls: -1, infrastructures: -1, organizations: -1 })
+    startWith({ publications: -1, persons: -1, fundings: -1, datasets: -1, fundingCalls: -1, infrastructures: -1, organizations: -1, projects: -1 })
   );
 
   defaultOrderButtons$: Observable<ButtonData[]> = combineLatest([this.counts$, this.tab$]).pipe(
@@ -129,7 +129,7 @@ export class TabNavigationComponent {
       { label: $localize`:@@navigation.datasets:Aineistot`,               icon: 'faAlignLeft',  route: "/results/datasets",        count: counts.datasets, queryParams: this.pageSizeParams$,              active: tab === 'datasets' },
       { label: $localize`:@@navigation.infrastructures:Infrastruktuurit`, icon: 'faCalculator', route: "/results/infrastructures", count: counts.infrastructures, queryParams: this.pageSizeParams$,       active: tab === 'infrastructures' },
       { label: $localize`:@@navigation.organizations:Organisaatiot`,      icon: 'faUniversity', route: "/results/organizations",   count: counts.organizations, queryParams: this.pageSizeParams$,         active: tab === 'organizations' },
-      { label: $localize`:@@navigation.projects:Hankkeet`,                icon: `faAlignLeft`,  route: "/results/projects",        count: -1, queryParams: this.pageSizeParams$,                           active: false, disabled: true },
+      { label: $localize`:@@navigation.projects:Hankkeet`,                icon: `faAlignLeft`,  route: "/results/projects",        count: counts.projects, queryParams: this.pageSizeParams$,              active: tab === 'projects' },
     ])
   );
 
@@ -233,7 +233,7 @@ function createResizeObservable(element: HTMLElement): Observable<ResizeObserver
   });
 }
 
-function payloadWithoutKeywords() {
+function payloadWithoutSearchKeywords() {
   return {
     "size": 0,
     "aggs": {
@@ -285,6 +285,11 @@ function payloadWithoutKeywords() {
               "match": {
                 "_index": "funding-call"
               }
+            },
+            "projects": {
+              "match": {
+                "_index": "project"
+              }
             }
           }
         }
@@ -293,7 +298,7 @@ function payloadWithoutKeywords() {
   }
 }
 
-function payloadWithKeywords(keywords: string) {
+function payloadWithSearchKeywords(keywords: string) {
   return {
     "query": {
       "bool": {
@@ -1006,6 +1011,61 @@ function payloadWithKeywords(keywords: string) {
                 }
               ]
             }
+          },
+          {
+            "bool": {
+              "must": [
+                {
+                  "term": {
+                    "_index": "project"
+                  }
+                },
+                {
+                  "bool": {
+                    "should": [
+                      {
+                        "multi_match": {
+                          "query": keywords,
+                          "analyzer": "standard",
+                          "type": "phrase_prefix",
+                          "fields": [
+                            'nameFi^2',
+                            'nameEn^2',
+                            'nameSv^2',
+                            'abbreviation',
+                            'responsibleOrganization.orgNameFi',
+                            'responsibleOrganization.orgNameSv',
+                            'responsibleOrganization.orgNameEn',
+                            'responsiblePerson',
+                          ],
+                          "operator": "AND",
+                          "lenient": "true",
+                          "max_expansions": 1024
+                        }
+                      },
+                      {
+                        "multi_match": {
+                          "query": keywords,
+                          "type": "cross_fields",
+                          "fields": [
+                            'nameFi^2',
+                            'nameEn^2',
+                            'nameSv^2',
+                            'abbreviation',
+                            'responsibleOrganization.orgNameFi',
+                            'responsibleOrganization.orgNameSv',
+                            'responsibleOrganization.orgNameEn',
+                            'responsiblePerson',
+                          ],
+                          "operator": "AND",
+                          "lenient": "true"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
           }
         ]
       }
@@ -1059,6 +1119,11 @@ function payloadWithKeywords(keywords: string) {
             "fundingCalls": {
               "match": {
                 "_index": "funding-call"
+              }
+            },
+            "projects": {
+              "match": {
+                "_index": "project"
               }
             }
           }

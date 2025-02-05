@@ -35,7 +35,7 @@ import { InfrastructureFilterService } from 'src/app/portal/services/filters/inf
 import { OrganizationFilterService } from 'src/app/portal/services/filters/organization-filter.service';
 import { NewsFilterService } from 'src/app/portal/services/filters/news-filter.service';
 import { faSlidersH, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
-import { isPlatformBrowser, DOCUMENT, NgTemplateOutlet, NgIf, NgFor, NgClass } from '@angular/common';
+import { isPlatformBrowser, DOCUMENT, NgTemplateOutlet, NgIf, NgFor, NgClass, JsonPipe } from '@angular/common';
 import { DataService } from 'src/app/portal/services/data.service';
 import { FundingCallFilterService } from '@portal/services/filters/funding-call-filter.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
@@ -58,47 +58,49 @@ import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } fr
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { SecondaryButtonComponent } from '../../../../shared/components/buttons/secondary-button/secondary-button.component';
+import { ProjectFilterService } from '@portal/services/filters/project-filter.service';
 
 @Component({
-    selector: 'app-filters',
-    templateUrl: './filters.component.html',
-    styleUrls: ['./filters.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    standalone: true,
-    imports: [
-        SecondaryButtonComponent,
-        NgTemplateOutlet,
-        NgIf,
-        MatProgressSpinner,
-        FontAwesomeModule,
-        NgFor,
-        MatExpansionPanel,
-        MatExpansionPanelHeader,
-        NgClass,
-        MatExpansionPanelTitle,
-        TooltipModule,
-        MatSlideToggle,
-        MatFormField,
-        MatLabel,
-        MatSelect,
-        MatOption,
-        MatInput,
-        MatDatepickerInput,
-        MatDatepickerToggle,
-        MatSuffix,
-        MatIcon,
-        MatDatepickerToggleIcon,
-        MatDatepicker,
-        MatSelectionList,
-        MatListOption,
-        MatButton,
-        RouterLink,
-        DialogComponent,
-        ThousandSeparatorPipe,
-        FilterItemPipe,
-        ReplaceSpacePipe,
-        ConvertToArrayPipe,
-    ],
+  selector: 'app-filters',
+  templateUrl: './filters.component.html',
+  styleUrls: ['./filters.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  imports: [
+    SecondaryButtonComponent,
+    NgTemplateOutlet,
+    NgIf,
+    MatProgressSpinner,
+    FontAwesomeModule,
+    NgFor,
+    MatExpansionPanel,
+    MatExpansionPanelHeader,
+    NgClass,
+    MatExpansionPanelTitle,
+    TooltipModule,
+    MatSlideToggle,
+    MatFormField,
+    MatLabel,
+    MatSelect,
+    MatOption,
+    MatInput,
+    MatDatepickerInput,
+    MatDatepickerToggle,
+    MatSuffix,
+    MatIcon,
+    MatDatepickerToggleIcon,
+    MatDatepicker,
+    MatSelectionList,
+    MatListOption,
+    MatButton,
+    RouterLink,
+    DialogComponent,
+    ThousandSeparatorPipe,
+    FilterItemPipe,
+    ReplaceSpacePipe,
+    ConvertToArrayPipe,
+    JsonPipe
+  ]
 })
 export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   @Input() responseData: any;
@@ -170,6 +172,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     private infrastructureFilters: InfrastructureFilterService,
     private organizationFilters: OrganizationFilterService,
     private fundingCallFilters: FundingCallFilterService,
+    private projectFilters: ProjectFilterService,
     private newsFilters: NewsFilterService,
     @Inject(PLATFORM_ID) private platformId: object,
     private dataService: DataService,
@@ -192,8 +195,8 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     this.filterHeading = this.headingText
       ? this.headingText
       : this.filterOrigin === 'news'
-      ? this.filterNewsHeader
-      : this.filterSearchHeader;
+        ? this.filterNewsHeader
+        : this.filterSearchHeader;
 
     // Visualisation click filtering
     this.visualFilterSub = this.dataService.newFilter.subscribe((f) =>
@@ -284,6 +287,12 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
           this.currentFilter = this.fundingCallFilters.filterData;
           this.currentSingleFilter = this.fundingCallFilters.singleFilterData;
           this.fundingCallFilters.shapeData(this.responseData);
+          break;
+        }
+        case 'projects': {
+          this.currentFilter = this.projectFilters.filterData;
+          this.currentSingleFilter = this.projectFilters.singleFilterData;
+          this.projectFilters.shapeData(this.responseData);
           break;
         }
         case 'news': {
@@ -444,13 +453,13 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         if (event.value) {
           this.toYear
             ? source.map((x) =>
-                x.key >= event.value && x.key <= this.toYear
-                  ? selected.push(x.key.toString())
-                  : null
-              )
+              x.key >= event.value && x.key <= this.toYear
+                ? selected.push(x.key.toString())
+                : null
+            )
             : source.map((x) =>
-                x.key >= event.value ? selected.push(x.key.toString()) : null
-              );
+              x.key >= event.value ? selected.push(x.key.toString()) : null
+            );
         } else {
           source.map((x) =>
             x.key <= this.toYear ? selected.push(x.key.toString()) : null
@@ -463,13 +472,13 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         if (event.value) {
           this.fromYear
             ? source.map((x) =>
-                x.key <= event.value && x.key >= this.fromYear
-                  ? selected.push(x.key.toString())
-                  : null
-              )
+              x.key <= event.value && x.key >= this.fromYear
+                ? selected.push(x.key.toString())
+                : null
+            )
             : source.map((x) =>
-                x.key <= event.value ? selected.push(x.key.toString()) : null
-              );
+              x.key <= event.value ? selected.push(x.key.toString()) : null
+            );
         } else {
           source.map((x) =>
             x.key >= this.fromYear ? selected.push(x.key.toString()) : null

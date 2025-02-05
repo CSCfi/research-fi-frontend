@@ -596,6 +596,20 @@ export class StaticDataService {
         ];
         break;
       }
+      case 'project': {
+        res = [
+          'nameFi^2',
+          'nameEn^2',
+          'nameSv^2',
+          'abbreviation',
+          'responsiblePerson.fullName',
+          'responsibleOrganization.orgNameFi',
+          'responsibleOrganization.orgNameSv',
+          'responsibleOrganization.orgNameEn',
+          'responsiblePerson',
+        ];
+        break;
+      }
     }
     return res;
   }
@@ -687,6 +701,10 @@ export class StaticDataService {
         res = [''];
         break;
       }
+      case 'project': {
+        res = ['responsibleOrganization.orgId.keyword'];
+        break;
+      }
     }
     return res;
   }
@@ -720,7 +738,8 @@ export class StaticDataService {
         funding: ['fundingContactPersonLastName', 'fundingContactPersonFirstNames'],
         dataset: ['creatorsText'],
         infrastructure: [''],
-        organization: ['']
+        organization: [''],
+        project: ['nameFi']
       },
       title: {
         publication: ['publicationName'],
@@ -734,14 +753,16 @@ export class StaticDataService {
           'services.serviceName',
           'services.serviceAcronym'
         ],
-        organization: ['']
+        organization: [''],
+        project: ['nameFi']
       },
       keywords: {
         publication: ['keywords.keyword'],
         funding: ['keywords.keyword'],
         dataset: ['keywords.keyword'],
         infrastructure: ['keywords.keyword'],
-        organization: ['']
+        organization: [''],
+        project: ['keywords.keyword']
       },
       organization: {
         publication: [''],
@@ -756,21 +777,25 @@ export class StaticDataService {
           'responsibleOrganizationNameEn',
           'responsibleOrganizationNameSv'
         ],
-        organization: ['nameFi', 'nameEn', 'nameSv', 'variantNames']
+        organization: ['nameFi', 'nameEn', 'nameSv', 'variantNames'],
+        project: ['']
       },
       funder: {
         publication: [''],
         funding: ['funderNameFi', 'funderNameEn', 'funderNameSv', 'funderNameUnd'],
         dataset: [''],
         infrastructure: [''],
-        organization: ['']
+        organization: [''],
+        project: ['']
       },
+
       default: {
         publication: [target],
         funding: [''],
         dataset: [''],
         infrastructure: [''],
-        organization: ['']
+        organization: [''],
+        project: ['']
       }
     };
 
@@ -864,6 +889,10 @@ export class StaticDataService {
             res = [''];
             break;
           }
+          case 'project': {
+            res = [''];
+            break;
+          }
         }
         break;
       }
@@ -903,11 +932,11 @@ export class StaticDataService {
       '<ul><li>You can select a theme to view the number of publications, in which case you can see the annual distribution of publications by field of science, main field of science, organization, publication type, open access, publication country, or publication forum level.</li><li>You can filter the number of publications to include the publication years, organizations, fields of science, etc. from the menus below.</li><li>NB. A publication can link to multiple fields of science and organizations. The publication will show in all related fields of science and organizations when the search is filtered by field of science or organization.</li><li>The numbers include the publications included in the Research.fi service. They are updated daily as new publications are added to the service. You can find the actual annual statistics on science and research in the <a href="/science-innovation-policy/science-research-figures">‘Figures on science and research’ section</a> and from <a href="https://vipunen.fi/en-gb/higher-education-and-r-d-activity">Vipunen <i class="fas fa-external-link-alt"></i></a> - the statistical portal of the Finnish education administration.</li></ul>',
     // tslint:disable-next-line: max-line-length
     fundingTooltipFi:
-      '<ul><li>Voit valita rahoitusmäärien tarkasteluun teeman, jolloin näet rahoitusmyöntöjen jakautumisen vuosittain joko rahoittajan, organisaation, rahoitusmuodon tai tieteenalan mukaan.</li><li>Alla olevista valikoista voit rajata rahoitusmyöntöjen lukumääriin sisällytettäväksi haluamasi vuodet, organisaatiot, rahoittajat jne.</li><li>Huom. Yksittäiseen rahoitusmyöntöön voi liittyä useita tieteenaloja ja organisaatioita. Rahoitusmyöntö näkyy kaikissa siihen liittyvissä tieteenaloissa ja organisaatioissa, kun hakua rajataan lukumäärän tai myöntösumman mukaan.</li><li>Lukumäärät sisältävät Tiedejatutkimus.fi-palvelun sisältämät rahoitusmyönnöt. Ne päivittyvät jatkuvasti, kun palveluun lisätään uusia rahoitusmyöntöjä. Varsinaisia vuositilastoja tieteestä ja tutkimuksesta löydät <a href="/science-innovation-policy/science-research-figures">Lukuja tieteestä ja tutkimuksesta -osiosta</a> sekä opetushallinnon tilastopalvelu <a href="https://vipunen.fi/fi-fi/korkeakoulutuksen-yhteiset-ja-tk-toiminta">Vipusesta <i class="fas fa-external-link-alt"></i></a>.</li></ul>',
+      '<ul><li>Voit valita myönnetyn rahoituksen määrien tarkasteluun teeman, jolloin näet rahoitusmyöntöjen jakautumisen vuosittain joko rahoittajan, organisaation, rahoitusmuodon tai tieteenalan mukaan.</li><li>Alla olevista valikoista voit rajata rahoitusmyöntöjen lukumääriin sisällytettäväksi haluamasi vuodet, organisaatiot, rahoittajat jne.</li><li>Huom. Yksittäiseen rahoitusmyöntöön voi liittyä useita tieteenaloja ja organisaatioita. Rahoitusmyöntö näkyy kaikissa siihen liittyvissä tieteenaloissa ja organisaatioissa, kun hakua rajataan lukumäärän tai myöntösumman mukaan.</li><li>Lukumäärät sisältävät Tiedejatutkimus.fi-palvelun sisältämät rahoitusmyönnöt. Ne päivittyvät jatkuvasti, kun palveluun lisätään uusia rahoitusmyöntöjä. Varsinaisia vuositilastoja tieteestä ja tutkimuksesta löydät <a href="/science-innovation-policy/science-research-figures">Lukuja tieteestä ja tutkimuksesta -osiosta</a> sekä opetushallinnon tilastopalvelu <a href="https://vipunen.fi/fi-fi/korkeakoulutuksen-yhteiset-ja-tk-toiminta">Vipusesta <i class="fas fa-external-link-alt"></i></a>.</li></ul>',
     // tslint:disable-next-line: max-line-length
        // tslint:disable-next-line: max-line-length
     fundingTooltipSv:
-      '<ul><li>Efter du har valt ett tema för att visa antalet bidrag, kan du undersöka den årliga distributionen av bidrager enligt finansiär, organisation, typ av finansiering eller vetenskapsområde.</li><li>Använd menyerna nedan för att begränsa antalet bidrager som ska visas efter år, organisationer, finansiärer osv.</li><li>Obs. En bidrag kan ha flera vetenskapsområden och organisationer. Bidragen visas i alla relaterade vetenskapsområden och organisationer när man begränser sökningen av antalet bidrager eller det beviljade beloppet.</li><li>Siffrorna inkluderar bidrager i Forskning.fi-tjänsten. Informationen uppdateras dagligen. Egentliga årliga statistiken om vetenskap och forskning hittar du både i avsnittet <a href="/science-innovation-policy/science-research-figures">Siffror om vetenskap och forskning</a> och från utbildningsförvaltningens statistiktjänst <a href="https://vipunen.fi/sv-fi/h%C3%B6gskoleutbildning-och-fou-verksamhet">Vipunen <i class="fas fa-external-link-alt"></i></a>.</li></ul>',
+      '<ul><li>Efter du har valt ett tema för att visa antalet beviljade finansiering, kan du undersöka den årliga distributionen av bidragen enligt finansiär, organisation, typ av finansiering eller vetenskapsområde.</li><li>Använd menyerna nedan för att begränsa antalet bidragen som ska visas efter år, organisationer, finansiärer osv.</li><li>Obs. Ett bidrag kan ha flera vetenskapsområden och organisationer. Bidraget visas i alla relaterade vetenskapsområden och organisationer när man begränsar sökningen av antalet bidragen eller det beviljade beloppet.</li><li>Siffrorna inkluderar bidragen i Forskning.fi-tjänsten. Informationen uppdateras dagligen. Egentliga årliga statistiken om vetenskap och forskning hittar du både i avsnittet <a href="/science-innovation-policy/science-research-figures">Siffror om vetenskap och forskning</a> och från utbildningsförvaltningens statistiktjänst <a href="https://vipunen.fi/sv-fi/h%C3%B6gskoleutbildning-och-fou-verksamhet">Vipunen <i class="fas fa-external-link-alt"></i></a>.</li></ul>',
     fundingTooltipEn:
       '<ul><li>You can select a theme to view the number of grants, in which case you can see the annual distribution of grants by funder, organization, funding instrument or field of science.</li><li>You can filter the number of grants to include the years, organizations, funders, etc. from the menus below.</li><li>NB: A grant can be linked to multiple fields of science and organizations. In this case, the grant will show in all related fields of science and organizations when the search is filtered by number of grants or granted amount.</li><li>The numbers include the grants included in the Research.fi service. They are updated daily as new grants are added to the service. You can find the actual annual statistics on science and research in the <a href="/science-innovation-policy/science-research-figures">‘Figures on science and research’ section</a> and from <a href="https://vipunen.fi/en-gb/higher-education-and-r-d-activity">Vipunen <i class="fas fa-external-link-alt"></i></a> - the statistical portal of the Finnish education administration.</li></ul>',
     projectTooltipFi:
@@ -1151,7 +1180,7 @@ export class StaticDataService {
     funding: [
       {
         field: 'year',
-        title: $localize`:@@fundingCountByYear:Hankkeiden jakautuminen vuosittain`,
+        title: $localize`:@@fundingCountByYear:Rahoitusmyöntöjen jakautuminen vuosittain`,
         select: $localize`:@@startYear:Aloitusvuosi`,
         filter: 'year',
         hierarchy: [
@@ -1255,7 +1284,7 @@ export class StaticDataService {
       // },
       {
         field: 'funder',
-        title: $localize`:@@fundingCountByFunder:Hankkeiden jakautuminen rahoittajan mukaan`,
+        title: $localize`:@@fundingCountByFunder:Rahoitusmyöntöjen jakautuminen rahoittajan mukaan`,
         select: $localize`:@@fundingFunder:Rahoittaja`,
         filter: 'funder',
         hierarchy: [
@@ -1338,7 +1367,7 @@ export class StaticDataService {
       },
       {
         field: 'organization',
-        title: $localize`:@@fundingCountByOrg:Hankkeiden jakautuminen organisaatioittain`,
+        title: $localize`:@@fundingCountByOrg:Rahoitusmyöntöjen jakautuminen organisaatioittain`,
         select: $localize`:@@organization:Organisaatio`,
         // tslint:disable-next-line: max-line-length
         message:
@@ -1437,10 +1466,10 @@ export class StaticDataService {
       },
       {
         field: 'typeOfFunding',
-        title: $localize`:@@fundingCountByType:Hankkeiden jakautuminen rahoitusmuodon mukaan`,
+        title: $localize`:@@fundingCountByType:Rahoitusmyöntöjen jakautuminen rahoitusmuodon mukaan`,
         select: $localize`:@@typeOfFunding:Rahoitusmuoto`,
         message:
-          'Huom. Hankkeita, joille ei ole määritelty rahoitusmuotoa, ei lasketa mukaan kuavaajaan.',
+          'Huom. Rahoitusmyöntöjen, joille ei ole määritelty rahoitusmuotoa, ei lasketa mukaan kuavaajaan.',
         filter: 'typeOfFunding',
         hierarchy: [
           {
@@ -1525,11 +1554,11 @@ export class StaticDataService {
       },
       {
         field: 'fieldOfScience',
-        title: $localize`:@@fundingCountByFOS:Hankkeiden jakautuminen tieteenaloittain`,
+        title: $localize`:@@fundingCountByFOS:Rahoitusmyöntöjen jakautuminen tieteenaloittain`,
         select: $localize`:@@fieldOfScience:Tieteenala`,
         // tslint:disable-next-line: max-line-length
         message:
-          'Huom. Yhdellä hankkeella voi olla useita tieteenaloja. Hanke sisältyy tällöin jokaisen siihen liitetyn tieteenalan lukumäärään. Hankkeita, joille ei ole määritelty tieteenalaa, ei lasketa mukaan kuvaajaan.',
+          'Huom. Yhdellä hankkeella voi olla useita tieteenaloja. Hanke sisältyy tällöin jokaisen siihen liitetyn tieteenalan lukumäärään. Rahoitusmyöntöjä, joille ei ole määritelty tieteenalaa, ei lasketa mukaan kuvaajaan.',
         filter: 'field',
         hierarchy: [
           {
@@ -1629,7 +1658,7 @@ export class StaticDataService {
       },
       {
         field: 'identifiedTopic',
-        title: $localize`:@@fundingCountByIdentifiedTopic:Hankkeiden jakautuminen tunnistetun aiheen mukaan`,
+        title: $localize`:@@fundingCountByIdentifiedTopic:Rahoitusmyöntöjen jakautuminen tunnistetun aiheen mukaan`,
         select: $localize`:@@identifiedTopic:Tunnistettu aihe`,
         filter: 'topic',
         hierarchy: [
