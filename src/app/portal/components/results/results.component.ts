@@ -294,9 +294,10 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       if (sessionStorage.getItem('researchersLoginSnackbarVisible')) {
         this.mydataLoginSnackbarVisible = true;
       }
-
       if (!sessionStorage.getItem('betaSearchBannerDismissed')) {
         this.betaSearchBannerVisible = true;
+      }
+      if (!sessionStorage.getItem('projectInfoBannerDismissed')) {
         this.projectInfoBannerVisible = true;
       }
     }
