@@ -280,7 +280,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.document.activeElement.blur();
       });
 
-      // Set researchers tab login snackbar visible when page loaded/refreshed
+      // Set banners visible when page loaded/refreshed
       sessionStorage.setItem('researchersLoginSnackbarVisible','true');
       sessionStorage.setItem('projectInfoBannerVisible','true');
       sessionStorage.setItem('betaSearchBannerVisible','true');
