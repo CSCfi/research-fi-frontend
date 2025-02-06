@@ -294,10 +294,10 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       if (sessionStorage.getItem('researchersLoginSnackbarVisible')) {
         this.mydataLoginSnackbarVisible = true;
       }
-      if (!sessionStorage.getItem('betaSearchBannerDismissed')) {
+      if (sessionStorage.getItem('betaSearchBannerVisible')) {
         this.betaSearchBannerVisible = true;
       }
-      if (!sessionStorage.getItem('projectInfoBannerDismissed')) {
+      if (sessionStorage.getItem('projectInfoBannerVisible')) {
         this.projectInfoBannerVisible = true;
       }
     }
@@ -668,17 +668,15 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   hideBetaSearchBanner() {
     this.betaSearchBannerVisible = false;
-
     if (isPlatformBrowser(this.platformId)) {
-      sessionStorage.setItem('betaSearchBannerDismissed', 'true');
+      sessionStorage.removeItem('betaSearchBannerVisible');
     }
   }
 
   hideProjectsInfoBanner() {
     this.projectInfoBannerVisible = false;
-
     if (isPlatformBrowser(this.platformId)) {
-      sessionStorage.setItem('projectInfoBannerDismissed', 'true');
+      sessionStorage.removeItem('projectInfoBannerVisible');
     }
   }
 
