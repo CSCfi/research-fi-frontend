@@ -48,7 +48,7 @@
   </ng-container>
 </ng-container>
 
-<div class='scroll-wrapper' [class.hidden]='(moreThan900$ | async) === true || homepage'>
+<div class='scroll-wrapper' [class.d-none]='(moreThan900$ | async) === true || homepage'>
   <div class='left-btn left-gradient-container' [style.visibility]='(scrollAtStart$ | async) === false ? "visible" : "hidden"' (click)='scrollLeft()'>
     <div class='nav-arrow'>
       <fa-icon [icon]="faArrowLeft"></fa-icon>
