@@ -3240,7 +3240,7 @@
       </trans-unit>
       <trans-unit id="myDataEditorModalFundingTabInfo" datatype="html">
         <source>Tiedejatutkimus.fi-palvelusta löytyvät rahoitusmyönnöt, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. Myönnettyä rahoitusta, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä &quot;Hae muita myönnetyjä rahoituksia&quot; -toiminnolla.</source>
-        <target state="new">I tjänsten Forskning.fi hittar du beviljade bidrag med din ORCID-kod som läggs till din uppgifter automatiskt. beviljade finansiering som inte är kopplade till din ORCID-kod kan du lägga till med funktionen &quot;Hämta andra beviljade bidragen&quot;.</target>
+        <target state="new">I tjänsten Forskning.fi hittar du beviljade bidrag med din ORCID-kod som läggs till din uppgifter automatiskt. Beviljade finansiering som inte är kopplade till din ORCID-kod kan du lägga till med funktionen &quot;Hämta andra beviljade bidragen&quot;.</target>
       </trans-unit>
       <trans-unit id="searchForOtherPublicationsFromPortal" datatype="html">
         <source>Hae muita julkaisuja Tiedejatutkimus.fi:stä julkaisun tai tekijän nimellä ja liitä ne profiiliisi.</source>
