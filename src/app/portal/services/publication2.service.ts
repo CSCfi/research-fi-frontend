@@ -440,7 +440,7 @@ export class Publication2Service {
 
   getArticleTypeCodeNames(): Observable<Record<string, string>> {
     return of({
-      "0": $localize`:@@journal:Lehti`,
+      "0": $localize`:@@journalOrSeries:Lehti/Sarja`,
       "1": $localize`:@@researchBook:Kokoomateos`,
       "2": $localize`:@@Conference:Konferenssi`,
       "3": $localize`:@@onlinePlatform:Verkkoalusta`

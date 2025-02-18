@@ -154,7 +154,7 @@ export class SinglePublicationComponent
       field: 'parentPublicationType',
       tooltip:
         '<p><strong>' +
-        $localize`:@@journal:Lehti` +
+        $localize`:@@journalOrSeries:Lehti/Sarja` +
         ': </strong>' +
         $localize`:@@journalTooltipContent:Sisältää tieteelliset aikakauslehdet ja ammattilehdet.` +
         '</p><p><strong>' +
@@ -224,7 +224,7 @@ export class SinglePublicationComponent
 
   mediumFields = [
     {
-      label: $localize`Lehti`,
+      label: $localize`Lehti/Sarja`,
       field: 'journalName',
       link: true,
       linkPath: '/results/publications/' /*, lang: true */,

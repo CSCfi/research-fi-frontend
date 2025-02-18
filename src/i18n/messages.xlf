@@ -1250,8 +1250,8 @@
       <trans-unit id="popularPublicationTooltipContent" datatype="html">
         <source>Julkaisut, jotka levittävät tutkimus- ja kehitystyöhön perustuvaa tietoa suurelle yleisölle ja joiden sisällön ymmärtäminen ei edellytä erityistä perehtyneisyyttä alaan.</source>
       </trans-unit>
-      <trans-unit id="journal" datatype="html">
-        <source>Lehti: </source>
+      <trans-unit id="journalOrSeries" datatype="html">
+        <source>Lehti/Sarja: </source>
       </trans-unit>
       <trans-unit id="journalTooltipContent" datatype="html">
         <source>sisältää tieteelliset aikakauslehdet ja ammattilehdet.</source>

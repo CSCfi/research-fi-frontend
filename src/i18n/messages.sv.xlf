@@ -1174,9 +1174,9 @@
         <source>Sisältää blogimuotoiset julkaisut, joiden julkaisemisesta on päättänyt riippumaton toimituskunta tai joiden julkaisualustalla on ISSN-tunnus.</source>
         <target state="new">Innehåller publikationer i bloggformat som har publicerats av en oberoende redaktion eller vars publikationsplattform har ett ISSN-nummer.</target>
       </trans-unit>
-      <trans-unit id="journal" datatype="html">
-        <source>Lehti: </source>
-        <target state="new">Tidning</target>
+      <trans-unit id="journalOrSeries" datatype="html">
+        <source>Lehti/Sarja: </source>
+        <target state="new">Journal/Serie</target>
       </trans-unit>
       <trans-unit id="journalTooltipContent" datatype="html">
         <source>sisältää tieteelliset aikakauslehdet ja ammattilehdet.</source>
@@ -1231,8 +1231,8 @@
         <target state="translated">Fullständig information om publikationens upphovspersoner anges i den form och i den ordning som de nämns i den ursprungliga publikationen eller källdatabasen.</target>
       </trans-unit>
       <trans-unit id="3294281240991807762" datatype="html">
-        <source>Lehti</source>
-        <target>Journal</target>
+        <source>Lehti/Sarja</source>
+        <target>Journal/Serie</target>
       </trans-unit>
       <trans-unit id="3537901381707941652" datatype="html">
         <source>Emojulkaisun nimi</source>
@@ -3240,7 +3240,7 @@
       </trans-unit>
       <trans-unit id="myDataEditorModalFundingTabInfo" datatype="html">
         <source>Tiedejatutkimus.fi-palvelusta löytyvät rahoitusmyönnöt, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. Myönnettyä rahoitusta, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä &quot;Hae muita myönnetyjä rahoituksia&quot; -toiminnolla.</source>
-        <target state="new">I tjänsten Forskning.fi hittar du beviljade bidrag med din ORCID-kod som läggs till din uppgifter automatiskt. beviljade finansiering som inte är kopplade till din ORCID-kod kan du lägga till med funktionen &quot;Hämta andra beviljade bidragen&quot;.</target>
+        <target state="new">I tjänsten Forskning.fi hittar du beviljade bidrag med din ORCID-kod som läggs till din uppgifter automatiskt. Beviljade finansiering som inte är kopplade till din ORCID-kod kan du lägga till med funktionen &quot;Hämta andra beviljade bidragen&quot;.</target>
       </trans-unit>
       <trans-unit id="searchForOtherPublicationsFromPortal" datatype="html">
         <source>Hae muita julkaisuja Tiedejatutkimus.fi:stä julkaisun tai tekijän nimellä ja liitä ne profiiliisi.</source>

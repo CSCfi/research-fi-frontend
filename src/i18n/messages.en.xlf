@@ -1171,9 +1171,9 @@
         <source>Sisältää blogimuotoiset julkaisut, joiden julkaisemisesta on päättänyt riippumaton toimituskunta tai joiden julkaisualustalla on ISSN-tunnus.</source>
         <target>Contains blog publications that have been approved for publication by an independent editorial board or that are published on a platform assigned an ISSN number.</target>
       </trans-unit>
-      <trans-unit id="journal" datatype="html">
-        <source>Lehti: </source>
-        <target state="new">Journal</target>
+      <trans-unit id="journalOrSeries" datatype="html">
+        <source>Lehti/Sarja: </source>
+        <target state="new">Journal/Series</target>
       </trans-unit>
       <trans-unit id="journalTooltipContent" datatype="html">
         <source>sisältää tieteelliset aikakauslehdet ja ammattilehdet.</source>
@@ -1228,8 +1228,8 @@
         <target>Publication authors in the order they are listed in the original publication. If there are more than 20 authors, not all of them will necessarily be mentioned.</target>
       </trans-unit>
       <trans-unit id="3294281240991807762" datatype="html">
-        <source>Lehti</source>
-        <target>Journal</target>
+        <source>Lehti/Sarja</source>
+        <target>Journal/Series</target>
       </trans-unit>
       <trans-unit id="3537901381707941652" datatype="html">
         <source>Emojulkaisun nimi</source>

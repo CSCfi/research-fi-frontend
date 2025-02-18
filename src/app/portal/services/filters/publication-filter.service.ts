@@ -105,7 +105,7 @@ export class PublicationFilterService {
       open: false,
       tooltip:
         '<p><strong>' +
-        $localize`:@@journal:Lehti` +
+        $localize`:@@journalOrSeries:Lehti/Sarja` +
         ': </strong>' +
         $localize`:@@journalTooltipContent:sisältää tieteelliset aikakauslehdet ja ammattilehdet.` +
         '</p><p><strong>' +
