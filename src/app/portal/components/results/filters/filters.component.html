@@ -338,7 +338,7 @@
           >
             <!-- Options -->
             <mat-list-option disableRipple
-              checkboxPosition="before"
+              togglePosition="before"
               *ngFor="
                 let item of responseData.aggregations[
                   filter.field
@@ -354,7 +354,7 @@
               [value]="item.key"
               [selected]="
                 activeFilters[filter.field] &&
-                activeFilters[filter.field].indexOf(item.key) > -1
+                activeFilters[filter.field].indexOf(item.key.toString()) > -1
               "
             >
               <!--<div class="row d-flex justify-content-around">-->
