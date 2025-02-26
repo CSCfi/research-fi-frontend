@@ -6,10 +6,7 @@
 //  :license: MIT
 
 import { TestBed } from '@angular/core/testing';
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SingleItemService } from './single-item.service';
 import { SettingsService } from './settings.service';
@@ -17,6 +14,7 @@ import { AppConfigService } from '@shared/services/app-config-service.service';
 import { MatDialogModule } from '@angular/material/dialog';
 
 import ResponseJsonPublications from 'src/testdata/searchresponse-publications.json';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 const mockApiUrl = 'test.api.fi/';
 
@@ -31,13 +29,15 @@ describe('SingleItemService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule, MatDialogModule],
-      providers: [
+    imports: [RouterTestingModule, MatDialogModule],
+    providers: [
         SingleItemService,
         SettingsService,
         { provide: AppConfigService, useClass: AppConfigServiceMock },
-      ],
-    });
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+});
     service = TestBed.inject(SingleItemService);
   });
 
