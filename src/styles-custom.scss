@@ -5,15 +5,15 @@
 @import './styles-custom-palettes.scss';
 
 // $researchfi-primary: mat-palette($researchfi-primary-palette, 500, 300, 900);
-$researchfi-primary: mat.define-palette($researchfi-primary-palette, 500, 300, 900);
+$researchfi-primary: mat.m2-define-palette($researchfi-primary-palette, 500, 300, 900);
 
 // $researchfi-accent: mat-palette($mat-green);
-$researchfi-accent: mat.define-palette(mat.$green-palette);
+$researchfi-accent: mat.m2-define-palette(mat.$m2-green-palette);
 
 // $researchfi-warn: mat-palette($mat-red);
-$researchfi-warn: mat.define-palette(mat.$red-palette);
+$researchfi-warn: mat.m2-define-palette(mat.$m2-red-palette);
 
-$researchfi-theme: mat.define-light-theme(
+$researchfi-theme: mat.m2-define-light-theme(
   $researchfi-primary,
   $researchfi-accent,
   $researchfi-warn
@@ -59,7 +59,7 @@ input[type='search']::-webkit-search-results-decoration {
 }
 
 body {
-  color: mat.get-contrast-color-from-palette($researchfi-primary, 300);
+  color: mat.m2-get-contrast-color-from-palette($researchfi-primary, 300);
   font-family: 'Roboto', sans-serif;
   font-synthesis: none;
 
@@ -327,7 +327,7 @@ mark,
 
 // Content
 .full-width {
-  background: mat-color($primary);
+  background: mat-color($primary, default);
   min-height: 3rem;
 }
 

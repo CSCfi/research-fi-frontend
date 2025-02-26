@@ -1,9 +1,9 @@
 @use '@angular/material' as mat;
 
-@function mat-color($palette, $shade: 500) {
-  @return mat.get-color-from-palette($palette, $shade);
+@function mat-color($palette, $shade:500) {
+  @return mat.m2-get-color-from-palette($palette, $shade);
 }
 
 @function mat-contrast($palette, $hue) {
-  @return mat.get-contrast-color-from-palette($palette, $hue);
+  @return mat.m2-get-contrast-color-from-palette($palette, $hue);
 }
