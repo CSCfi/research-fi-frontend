@@ -34,6 +34,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { CutContentPipe } from '@shared/pipes/cut-content.pipe';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ProjectsComponent } from '@portal/components/results/projects/projects.component';
+import { IconAndScrollService } from '@portal/services/icon-and-scroll.service';
 
 /*
  * Dynamically render component for selected tab.
@@ -64,7 +65,8 @@ export class SearchResultsComponent implements OnInit, OnChanges, OnDestroy {
   constructor(
     private injector: Injector,
     private searchService: SearchService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private iconAndScrollService: IconAndScrollService,
   ) {}
 
   ngOnInit() {
@@ -99,7 +101,10 @@ export class SearchResultsComponent implements OnInit, OnChanges, OnDestroy {
           this.searchService.updateTotal(this.responseData.total);
         },
         error: (error) => (this.errorMessage = error as any),
-        complete: () => this.changeComponent(this.currentTab),
+        complete: () => {
+          this.changeComponent(this.currentTab)
+          this.iconAndScrollService.notifyContentFetched();
+        }
       });
   }
 

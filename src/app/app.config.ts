@@ -1,6 +1,6 @@
 import { APP_INITIALIZER, ApplicationConfig, ErrorHandler, importProvidersFrom } from '@angular/core';
 
-import { bootstrapApplication, BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import {
   InMemoryScrollingFeature,
   InMemoryScrollingOptions,
@@ -31,7 +31,7 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
 };
 
 const scrollConfig: InMemoryScrollingOptions = {
-  scrollPositionRestoration: 'top',
+  scrollPositionRestoration: 'enabled',
   anchorScrolling: 'enabled',
 };
 
@@ -92,7 +92,7 @@ export const appConfig: ApplicationConfig = {
     { provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS },
 
     provideClientHydration(),
-    provideRouter(routes, inMemoryScrollingFeature),
+    provideRouter(routes),
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
     provideAnimations(),
   ]
