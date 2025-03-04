@@ -31,7 +31,7 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
 };
 
 const scrollConfig: InMemoryScrollingOptions = {
-  scrollPositionRestoration: 'enabled',
+  scrollPositionRestoration: 'top',
   anchorScrolling: 'enabled',
 };
 
@@ -92,7 +92,7 @@ export const appConfig: ApplicationConfig = {
     { provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS },
 
     provideClientHydration(),
-    provideRouter(routes),
+    provideRouter(routes, inMemoryScrollingFeature),
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
     provideAnimations(),
   ]
