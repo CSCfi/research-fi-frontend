@@ -116,7 +116,6 @@ export class IconAndScrollService implements OnDestroy {
           const targetPage = +router.parseUrl(currentUrl).queryParams.page || 1;
           this.startPage = targetPage;
 
-          // Similar to /results but for /funding-calls
         } else if (
           currentUrl.includes('/results') &&
           resultPages.some((item) =>
