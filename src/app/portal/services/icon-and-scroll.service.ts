@@ -1,7 +1,7 @@
 import { Inject, Injectable, OnDestroy, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { Event, NavigationEnd, Router, Scroll } from '@angular/router';
+import { Event, NavigationEnd, Router } from '@angular/router';
 import { isPlatformBrowser, ViewportScroller } from '@angular/common';
 import { HistoryService } from '@portal/services/history.service';
 import { TabChangeService } from '@portal/services/tab-change.service';
@@ -12,6 +12,9 @@ import { faExternalLinkAlt, faInfoCircle } from '@fortawesome/free-solid-svg-ico
   providedIn: 'root'
 })
 export class IconAndScrollService implements OnDestroy {
+  SCROLL_TO_TOP_URLS = ['/','/accessibility', '/privacy', '/mydata/terms', '/mydata/privacy', '/service-info'];
+  SCROLL_TO_TOP_URL_FRAGMENTS = ['/science-innovation-policy/science-research-figures/'];
+
   startPage;
   resultsPageScrollPositionY = -1;
   routeSub: Subscription;
@@ -48,7 +51,6 @@ export class IconAndScrollService implements OnDestroy {
     }
   }
 
-
   notifyContentFetched() {
     this.isContentFetched.next(true);
   }
@@ -63,7 +65,7 @@ export class IconAndScrollService implements OnDestroy {
   ) {
     this.isContentFetched.subscribe(isContentFetched => {
       if (isContentFetched && this.resultsPageScrollPositionY !== -1) {
-        resultsPageMemoryScroll();
+        //resultsPageMemoryScroll();
       }
     });
 
@@ -75,10 +77,12 @@ export class IconAndScrollService implements OnDestroy {
     // Scroll to top of page
     // Timeout value of 0 helps Firefox to scroll
     const scrollToTop = () => {
-      //console.log("XXX scrollToTop");
-      setTimeout(() => viewportScroller.scrollToPosition([0, 0]), 10);
+      if (isPlatformBrowser(this.platformId)) {
+        setTimeout(() => viewportScroller.scrollToPosition([0, 0]), 0);
+      }
     };
 
+    // Stub for CSCTV-4122 implementation
     const resultsPageMemoryScroll = () => {
       if (isPlatformBrowser(this.platformId)) {
         setTimeout(() => {
@@ -106,6 +110,11 @@ export class IconAndScrollService implements OnDestroy {
           this.tabChangeService.triggerNewPage();
         }
 
+        // Scroll to page top on these pages. These should be removed when CSCTTV-4122 implemented.
+        if (this.SCROLL_TO_TOP_URLS.includes(currentUrl)  || this.SCROLL_TO_TOP_URL_FRAGMENTS.some((fragment) => currentUrl.includes(fragment))) {
+          scrollToTop();
+        }
+
         // Check that route is in results and not in single result
         if (
           currentUrl.includes('/results') &&
@@ -116,20 +125,32 @@ export class IconAndScrollService implements OnDestroy {
           const targetPage = +router.parseUrl(currentUrl).queryParams.page || 1;
           this.startPage = targetPage;
 
-        } else if (
-          currentUrl.includes('/results') &&
-          resultPages.some((item) =>
-            currentUrl.includes(`/${item.slice(0, -1)}/`)
-          )
-        ) {
-          if (isPlatformBrowser(this.platformId)) {
-            // Navigated from results page
-            if (this.isResultPage(history[history.length - 2])) {
-              this.resultsPageScrollPositionY = viewportScroller.getScrollPosition()[1];
-              viewportScroller.scrollToPosition([0, 0]);
-            }
-          }
+          /*  // Preserve scroll position for changed filters and query param changes. Stub for CSCTTV-4122.
+                    if (this.isResultPage(prevPageLocation)){
+                      this.resultsPageScrollPositionY = viewportScroller.getScrollPosition()[1];
+                      setTimeout(() => {
+                        viewportScroller.scrollToPosition([0, this.resultsPageScrollPositionY]);
+                        this.resultsPageScrollPositionY = -1;
+                      }, 10);
+                    }*/
+
         }
+
+        /*  // Preserve scroll position when arriving from single result page. Stub for CSCTTV-4122.
+               else if (
+                 currentUrl.includes('/results') &&
+                 resultPages.some((item) =>
+                   currentUrl.includes(`/${item.slice(0, -1)}/`)
+                 )
+               ) {
+                 if (isPlatformBrowser(this.platformId)) {
+                   // Navigated to single result page from results page
+                   if (this.isResultPage(history[history.length - 2])) {
+                     this.resultsPageScrollPositionY = viewportScroller.getScrollPosition()[1];
+                     viewportScroller.scrollToPosition([0, 0]);
+                   }
+                 }
+               }*/
       });
   }
 

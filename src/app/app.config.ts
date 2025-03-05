@@ -30,8 +30,9 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
   duration: 3000
 };
 
+// scrollPositionRestoration should be set to 'top' in CSCTV-4122 implementation
 const scrollConfig: InMemoryScrollingOptions = {
-  scrollPositionRestoration: 'top',
+  scrollPositionRestoration: 'disabled',
   anchorScrolling: 'enabled',
 };
 
