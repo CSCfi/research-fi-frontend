@@ -134,6 +134,9 @@ export class IconAndScrollService implements OnDestroy {
                       }, 10);
                     }*/
 
+        } else {
+          // Navigation is on single result page
+          scrollToTop();
         }
 
         /*  // Preserve scroll position when arriving from single result page. Stub for CSCTTV-4122.
