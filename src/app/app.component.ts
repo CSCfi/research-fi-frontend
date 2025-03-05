@@ -6,14 +6,14 @@
 //  :license: MIT
 
 import { Component, HostListener, inject, Inject, PLATFORM_ID, TransferState } from '@angular/core';
-import { DOCUMENT, isPlatformBrowser, JsonPipe, PlatformLocation } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser, JsonPipe, PlatformLocation, ViewportScroller } from '@angular/common';
 import { AppConfigService } from '@shared/services/app-config-service.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { NavigationStart, Router, RouterOutlet } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { LayoutComponent } from './layout/layout.component';
-import { MysteryService } from '@portal/services/mystery.service';
+import { IconAndScrollService } from '@portal/services/icon-and-scroll.service';
 import { ResizeService } from '@shared/services/resize.service';
 
 @Component({
@@ -24,7 +24,7 @@ import { ResizeService } from '@shared/services/resize.service';
   imports: [LayoutComponent, RouterOutlet, JsonPipe]
 })
 export class AppComponent {
-  mysteryService = inject(MysteryService);
+  iconAndScrollService = inject(IconAndScrollService);
   transferedState = inject(TransferState);
 
   title = 'research-fi-portal';
@@ -43,6 +43,7 @@ export class AppComponent {
     private resizeService: ResizeService,
     private router: Router,
     private platform: PlatformLocation,
+    private viewPortScroller: ViewportScroller,
     @Inject(PLATFORM_ID) private platformId: object,
     @Inject(DOCUMENT) private document: any,
   ) {

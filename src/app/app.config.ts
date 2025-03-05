@@ -1,6 +1,6 @@
 import { APP_INITIALIZER, ApplicationConfig, ErrorHandler, importProvidersFrom } from '@angular/core';
 
-import { bootstrapApplication, BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import {
   InMemoryScrollingFeature,
   InMemoryScrollingOptions,
@@ -30,8 +30,9 @@ const matSnackbarDefaultConfig: MatSnackBarConfig = {
   duration: 3000
 };
 
+// scrollPositionRestoration should be set to 'top' in CSCTV-4122 implementation
 const scrollConfig: InMemoryScrollingOptions = {
-  scrollPositionRestoration: 'top',
+  scrollPositionRestoration: 'disabled',
   anchorScrolling: 'enabled',
 };
 

@@ -244,7 +244,6 @@ export class SingleProjectComponent implements OnInit, OnDestroy {
       // .pipe(map(responseData => [responseData]))
       .subscribe({
         next: (responseData) => {
-          console.log(responseData);
           this.responseData = responseData;
           const project = this.responseData.projects[0];
           if (project) {
