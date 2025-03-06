@@ -61,7 +61,6 @@ import { PrimaryActionButtonComponent } from '../../../shared/components/buttons
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TabNavigationComponent } from '../tab-navigation/tab-navigation.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
-import { IconAndScrollService } from '@portal/services/icon-and-scroll.service';
 
 @Component({
     selector: 'app-results',
@@ -484,10 +483,12 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit() {
     // Set focus to header
-    this.tabSub = this.tabChangeService.currentFocus.subscribe((focus) => {
+    this.tabSub = this.tabChangeService.focusToSkipToResultsObs.subscribe((focus) => {
       if (focus) {
         this.showSkipLinks = true;
-        this.skipToResults.nativeElement.focus();
+        this.skipToResults.nativeElement.focus({
+          preventScroll:true
+        });
       }
     });
     // Focus to skip-to results link when clicked from header skip-links
@@ -503,7 +504,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   // Reset focus on blur
   resetFocus() {
-    this.tabChangeService.changeFocus(false);
+    this.tabChangeService.focusToSkipToResults(false);
   }
 
   navigateToVisualisation() {
