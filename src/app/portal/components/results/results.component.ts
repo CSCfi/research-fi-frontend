@@ -61,7 +61,6 @@ import { PrimaryActionButtonComponent } from '../../../shared/components/buttons
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TabNavigationComponent } from '../tab-navigation/tab-navigation.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
-import { IconAndScrollService } from '@portal/services/icon-and-scroll.service';
 
 @Component({
     selector: 'app-results',
@@ -249,7 +248,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     private settingsService: SettingsService,
     private staticDataService: StaticDataService,
     private appSettingsService: AppSettingsService,
-    private iconAndScrollService: IconAndScrollService,
   ) {
     this.filters = Object.assign(
       {},
