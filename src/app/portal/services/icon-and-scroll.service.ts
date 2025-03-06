@@ -20,6 +20,7 @@ export class IconAndScrollService implements OnDestroy {
   routeSub: Subscription;
 
   private isContentFetched = new BehaviorSubject(false);
+  private requestScrollToTop = new BehaviorSubject(false);
 
   isResultPage(url: string) {
     // Check if the page is on results, and that the tabname ends with 's' (not single result)
@@ -55,6 +56,10 @@ export class IconAndScrollService implements OnDestroy {
     this.isContentFetched.next(true);
   }
 
+  scrollToTop() {
+    this.requestScrollToTop.next(true);
+  }
+
   constructor(
     library: FaIconLibrary,
     router: Router,
@@ -66,6 +71,12 @@ export class IconAndScrollService implements OnDestroy {
     this.isContentFetched.subscribe(isContentFetched => {
       if (isContentFetched && this.resultsPageScrollPositionY !== -1) {
         //resultsPageMemoryScroll();
+      }
+    });
+
+    this.requestScrollToTop.subscribe(state => {
+      if (state) {
+        scrollToTop();
       }
     });
 
@@ -92,7 +103,7 @@ export class IconAndScrollService implements OnDestroy {
       }
     };
 
-    // Used to prevent scroll to top when filters are selected
+    // Scroll position logics
     this.routeSub = router.events
       .pipe(filter((e: Event): e is NavigationEnd => e instanceof NavigationEnd))
       .subscribe((e) => {
@@ -102,12 +113,18 @@ export class IconAndScrollService implements OnDestroy {
           .map((tab) => tab.link)
           .filter((item) => item);
 
-        // Trigger new page so first tab focuses skip links
         const prevPageLocation = history[history.length - 2];
         const currentPageLocation = currentUrl;
 
+        // Disabled legacy code to change focus to header skip links for accessibility reasons in all cases except result page tab change. Need to clarify does this work as intended.
         if (this.newPage(prevPageLocation, currentPageLocation)) {
-          this.tabChangeService.triggerNewPage();
+          //this.tabChangeService.triggerNewPage();
+
+          // Needs implementation which doesn't show skip links with mouse inputs
+          //this.tabChangeService.toggleSkipToInput(false);
+        } else {
+          // Needs implementation which doesn't show skip links with mouse inputs
+          //this.tabChangeService.focusToSkipToResults(true);
         }
 
         // Scroll to page top on these pages. These should be removed when CSCTTV-4122 implemented.

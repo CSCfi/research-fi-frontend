@@ -346,7 +346,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setFocus() {
-    this.tabChangeService.changeFocus(true);
+    this.tabChangeService.focusToSkipToResults(true);
   }
 
   getCompletion() {

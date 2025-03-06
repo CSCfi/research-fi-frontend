@@ -276,6 +276,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.onResize(dims)
       );
       this.newPageSub = this.tabChangeService.newPage.subscribe((_) => {
+        // Blur page for tab accessibility to focus on header skip links
         this.firstTab = true;
         this.document.activeElement.blur();
       });
