@@ -118,7 +118,7 @@ export class IconAndScrollService implements OnDestroy {
 
         // Disabled legacy code to change focus to header skip links for accessibility reasons in all cases except result page tab change. Need to clarify does this work as intended.
         if (this.newPage(prevPageLocation, currentPageLocation)) {
-          this.tabChangeService.triggerNewPage();
+          //this.tabChangeService.triggerNewPage();
 
           // Needs implementation which doesn't show skip links with mouse inputs
           //this.tabChangeService.toggleSkipToInput(false);
