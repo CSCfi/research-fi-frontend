@@ -258,7 +258,8 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
         break;
       }
       case 13: {
-        this.tabChangeService.changeFocus(true);
+        // Enter press
+        this.tabChangeService.focusToSkipToResults(true);
       }
     }
   }
