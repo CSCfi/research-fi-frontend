@@ -10,10 +10,7 @@ import { FilterService } from './filters/filter.service';
 import { SortService } from './sort.service';
 import { TabChangeService } from './tab-change.service';
 import { SearchService } from './search.service';
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppConfigService } from '@shared/services/app-config-service.service';
 
@@ -21,6 +18,7 @@ import ResponseJsonPublications from 'src/testdata/searchresponse-publications.j
 import ResponseJsonFundings from 'src/testdata/searchresponse-fundings.json';
 import ResponseJsonInfrastructures from 'src/testdata/searchresponse-infrastructures.json';
 import { MatDialogModule } from '@angular/material/dialog';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 const mockApiUrl = 'test.api.fi/';
 
@@ -36,15 +34,17 @@ describe('SearchService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule, MatDialogModule],
-      providers: [
+    imports: [RouterTestingModule, MatDialogModule],
+    providers: [
         SearchService,
         FilterService,
         SortService,
         TabChangeService,
         { provide: AppConfigService, useClass: AppConfigServiceMock },
-      ],
-    });
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+});
 
     searchService = TestBed.inject(SearchService);
     httpController = TestBed.inject(HttpTestingController);

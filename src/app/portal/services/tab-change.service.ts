@@ -105,12 +105,12 @@ export class TabChangeService {
     icon: '',
     singular: '',
   });
-  private focusSource = new BehaviorSubject(false);
+  private focusToSkipToResultsSource = new BehaviorSubject(false);
   private focusTarget = new BehaviorSubject('');
   private skipToInput = new BehaviorSubject(true);
   private newPageSource = new BehaviorSubject(true);
   currentTab = this.tabSource.asObservable();
-  currentFocus = this.focusSource.asObservable();
+  focusToSkipToResultsObs = this.focusToSkipToResultsSource.asObservable();
   currentFocusTarget = this.focusTarget.asObservable();
   currentSkipToInput = this.skipToInput.asObservable();
   newPage = this.newPageSource.asObservable();
@@ -124,8 +124,8 @@ export class TabChangeService {
   constructor(@Inject(LOCALE_ID) protected localeId: string) {}
 
   // If focus is true, focus result header.
-  changeFocus(focus) {
-    this.focusSource.next(focus);
+  focusToSkipToResults(focus) {
+    this.focusToSkipToResultsSource.next(focus);
   }
 
   targetFocus(target) {
@@ -145,6 +145,7 @@ export class TabChangeService {
   }) {
     this.tab = tab.link;
     this.tabSource.next(tab);
+    //this.focusToSkipToResults(true);
   }
 
   // Show / hide skip to input - skip-link

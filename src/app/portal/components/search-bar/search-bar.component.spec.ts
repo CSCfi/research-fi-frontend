@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { WINDOW_PROVIDERS } from '@shared/services/window.service';
 import { ActivatedRouteStub } from 'src/testing/activated-route-stub';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { AppConfigService } from '@shared/services/app-config-service.service';
 import { AppConfigServiceMock } from '@portal/services/search.service.spec';
 import { MatMenuModule } from '@angular/material/menu';
@@ -21,6 +21,7 @@ import { delay } from 'rxjs/operators';
 import response from 'src/testdata/autosuggest-response.json'
 import { MatDialogModule } from '@angular/material/dialog';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('SearchBarComponent', () => {
   const aggregations = response.aggregations
@@ -35,6 +36,11 @@ describe('SearchBarComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [RouterTestingModule,
+        MatMenuModule,
+        MatDialogModule,
+        SearchBarComponent],
     providers: [
         SearchService,
         AutosuggestService,
@@ -42,15 +48,9 @@ describe('SearchBarComponent', () => {
         { provide: AppConfigService, useClass: AppConfigServiceMock },
         provideAnimations(),
         WINDOW_PROVIDERS,
-    ],
-    imports: [
-        HttpClientTestingModule,
-        RouterTestingModule,
-        MatMenuModule,
-        MatDialogModule,
-        SearchBarComponent
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
 });
 
     fixture = TestBed.createComponent(SearchBarComponent);

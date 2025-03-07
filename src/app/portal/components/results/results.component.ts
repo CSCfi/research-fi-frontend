@@ -247,7 +247,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     private utilityService: UtilityService,
     private settingsService: SettingsService,
     private staticDataService: StaticDataService,
-    private appSettingsService: AppSettingsService
+    private appSettingsService: AppSettingsService,
   ) {
     this.filters = Object.assign(
       {},
@@ -483,10 +483,12 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit() {
     // Set focus to header
-    this.tabSub = this.tabChangeService.currentFocus.subscribe((focus) => {
+    this.tabSub = this.tabChangeService.focusToSkipToResultsObs.subscribe((focus) => {
       if (focus) {
         this.showSkipLinks = true;
-        this.skipToResults.nativeElement.focus();
+        this.skipToResults.nativeElement.focus({
+          preventScroll:true
+        });
       }
     });
     // Focus to skip-to results link when clicked from header skip-links
@@ -502,7 +504,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   // Reset focus on blur
   resetFocus() {
-    this.tabChangeService.changeFocus(false);
+    this.tabChangeService.focusToSkipToResults(false);
   }
 
   navigateToVisualisation() {
