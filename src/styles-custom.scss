@@ -385,6 +385,15 @@ mat-icon[data-mat-icon-name='general.info'] {
   }
 }
 
+mat-icon[data-mat-icon-name='general.fa.twitter'] {
+  display: inline !important;
+  height: 40px;
+  width: 40px;
+  svg {
+      width:32px;
+  }
+}
+
 mat-card {
   a {
     margin-left: 5px;

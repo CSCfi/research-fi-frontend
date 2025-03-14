@@ -117,7 +117,7 @@
                 title="Twitter -palvelun logo"
                 i18n="Twitter-footer@@twitterFooter"
               >
-                <fa-icon class="social-icon" [icon]="faTwitter"></fa-icon>Tiedejatutkimus.fi Twitterissä</a>
+                  <mat-icon [svgIcon]="'general.fa.twitter'"></mat-icon>Tiedejatutkimus.fi Twitterissä</a>
             </li>
           </ul>
         </div>
@@ -141,11 +141,7 @@
       Anna palautetta!
     </button>
     <button class="close" mat-raised-button (click)="close()">
-      <fa-icon
-        class="close-icon"
-        style="font-size: 1.2rem"
-        [icon]="faTimes"
-      ></fa-icon>
+        <mat-icon [svgIcon]="'general.fa.times'"></mat-icon>
     </button>
   </div>
 
