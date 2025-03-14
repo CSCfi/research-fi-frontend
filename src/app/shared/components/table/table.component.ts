@@ -18,12 +18,6 @@ import {
 import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox';
 import { Sort, MatSort, MatSortHeader } from '@angular/material/sort';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { Icon } from '@fortawesome/fontawesome-svg-core';
-import {
-  faSort,
-  faSortDown,
-  faSortUp,
-} from '@fortawesome/free-solid-svg-icons';
 import { TableColumn, TableRow } from 'src/types';
 import { CutContentPipe } from '../../pipes/cut-content.pipe';
 import { TableCardComponent } from './table-card/table-card.component';
@@ -33,6 +27,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
 import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 import { NgIf, NgFor, NgClass, NgSwitch, NgSwitchCase, NgSwitchDefault, NgTemplateOutlet } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
 
 // type Selection = { checked: boolean; index: number };
 
@@ -42,35 +37,36 @@ import { NgIf, NgFor, NgClass, NgSwitch, NgSwitchCase, NgSwitchDefault, NgTempla
     styleUrls: ['./table.component.scss'],
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [
-        NgIf,
-        MatTable,
-        MatSort,
-        NgFor,
-        MatColumnDef,
-        MatHeaderCellDef,
-        MatHeaderCell,
-        MatSortHeader,
-        NgClass,
-        NgSwitch,
-        NgSwitchCase,
-        MatCheckbox,
-        FormsModule,
-        NgSwitchDefault,
-        FontAwesomeModule,
-        TooltipModule,
-        MatCellDef,
-        MatCell,
-        RouterLink,
-        NgTemplateOutlet,
-        TableCellComponent,
-        MatHeaderRowDef,
-        MatHeaderRow,
-        MatRowDef,
-        MatRow,
-        TableCardComponent,
-        CutContentPipe,
-    ],
+  imports: [
+    NgIf,
+    MatTable,
+    MatSort,
+    NgFor,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatSortHeader,
+    NgClass,
+    NgSwitch,
+    NgSwitchCase,
+    MatCheckbox,
+    FormsModule,
+    NgSwitchDefault,
+    FontAwesomeModule,
+    TooltipModule,
+    MatCellDef,
+    MatCell,
+    RouterLink,
+    NgTemplateOutlet,
+    TableCellComponent,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRowDef,
+    MatRow,
+    TableCardComponent,
+    CutContentPipe,
+    MatIcon
+  ]
 })
 export class TableComponent implements OnInit {
   @Input() columns: TableColumn[];
@@ -78,7 +74,7 @@ export class TableComponent implements OnInit {
   @Input() activeRowIdentifierField: string; // Row highlight
   @Input() borders: boolean; // Add borders to rows
   @Input() alignCenter: boolean;
-  @Input() icon: Icon;
+  @Input() svgIconIdString: string;
   @Input() iconTitle: string;
   @Input() iconLinkField: string; // Icon can act as a link. Icon link field object needs a 'link' prop
   @Input() sortColumn: string;
@@ -101,10 +97,6 @@ export class TableComponent implements OnInit {
 
   selectable: boolean;
 
-  faSort = faSort;
-  faSortDown = faSortDown;
-  faSortUp = faSortUp;
-
   @ViewChildren('rowSelect') rowSelectList: QueryList<MatCheckbox>;
 
   constructor(private route: ActivatedRoute, private router: Router) {}
@@ -115,14 +107,14 @@ export class TableComponent implements OnInit {
       (column) => column.key === 'selection'
     );
 
-    if (this.icon) {
+    if (this.svgIconIdString) {
       this.columns.unshift({
         key: 'icon',
         label: 'Icon',
         mobile: false,
         labelHidden: true,
       });
-      this.rows = this.rows.map((row) => ({ icon: this.icon, ...row }));
+      this.rows = this.rows.map((row) => ({ icon: this.svgIconIdString, ...row }));
     }
 
     this.displayedColumns = this.columns.map((row) => row.key);

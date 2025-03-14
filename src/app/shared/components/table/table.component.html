@@ -7,7 +7,7 @@
   Mat-table doesn't keep up with change detection in component destroy lifecycle hook
   and tries to find a icon column which is only populated in init -->
 <mat-table
-  *ngIf="(icon && columns[0].key === 'icon') || !icon"
+  *ngIf="(svgIconIdString && columns[0].key === 'icon') || !svgIconIdString"
   [dataSource]="rows"
   matSort
   (matSortChange)="sortData($event)"
@@ -44,29 +44,24 @@
         <!-- Column label -->
         <div *ngSwitchDefault class="column-label">
           <span [class.pe-2]="column.tooltip">{{ column.label }}</span>
-          <fa-icon
-            *ngIf="column.tooltip && column.showTooltipIcon"
-            class="info-icon font-size-big"
-            [tooltip]="column.tooltip"
-            container="body"
-            icon="info-circle"
-            tabindex="0"
-          ></fa-icon>
+            <mat-icon
+                    *ngIf="column.tooltip && column.showTooltipIcon"
+                    class="info-icon font-size-big"
+                    [tooltip]="column.tooltip"
+                    container="body"
+                    icon="info-circle"
+                    tabindex="0"
+                    [svgIcon]="'general.info'"></mat-icon>
+
         </div>
       </ng-container>
 
       <!-- Sort indicator -->
       <div class="sort-indicator" *ngIf="!column.sortDisabled">
-        <fa-icon
-          [icon]="faSort"
-          *ngIf="sortColumn !== column.key; else activeSortIndicatorTemplate"
-        ></fa-icon>
+          <mat-icon *ngIf="sortColumn !== column.key; else activeSortIndicatorTemplate" [svgIcon]="'general.fa.sort'"></mat-icon>
         <ng-template #activeSortIndicatorTemplate>
-          <fa-icon [icon]="faSortUp" *ngIf="sortDirection === 'asc'"></fa-icon>
-          <fa-icon
-            [icon]="faSortDown"
-            *ngIf="sortDirection === 'desc'"
-          ></fa-icon>
+            <mat-icon *ngIf="sortDirection === 'asc'" [svgIcon]="'general.fa.sortUp'"></mat-icon>
+            <mat-icon *ngIf="sortDirection === 'desc'" [svgIcon]="'general.fa.sortDown'"></mat-icon>
         </ng-template>
       </div>
     </mat-header-cell>
@@ -93,11 +88,7 @@
         </a>
       </ng-container>
       <ng-template #iconTemplate>
-        <fa-icon
-          [icon]="row.icon"
-          *ngSwitchCase="'icon'"
-          [title]="iconTitle"
-        ></fa-icon>
+          <mat-icon *ngSwitchCase="'icon'" [svgIcon]="row.icon" [title]="iconTitle" class="category-icon"></mat-icon>
       </ng-template>
 
       <!-- Selectable row -->
