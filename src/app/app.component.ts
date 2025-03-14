@@ -13,8 +13,9 @@ import { NavigationStart, Router, RouterOutlet } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { LayoutComponent } from './layout/layout.component';
-import { IconAndScrollService } from '@portal/services/icon-and-scroll.service';
+import { ScrollingService } from '@portal/services/scrolling.service';
 import { ResizeService } from '@shared/services/resize.service';
+import { IconService } from '@portal/services/IconService';
 
 @Component({
     selector: 'app-root',
@@ -24,7 +25,8 @@ import { ResizeService } from '@shared/services/resize.service';
   imports: [LayoutComponent, RouterOutlet, JsonPipe]
 })
 export class AppComponent {
-  iconAndScrollService = inject(IconAndScrollService);
+  iconAndScrollService = inject(ScrollingService);
+  iconService = inject(IconService);
   transferedState = inject(TransferState);
 
   title = 'research-fi-portal';
