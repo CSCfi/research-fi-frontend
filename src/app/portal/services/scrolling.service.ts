@@ -6,12 +6,11 @@ import { isPlatformBrowser, ViewportScroller } from '@angular/common';
 import { HistoryService } from '@portal/services/history.service';
 import { TabChangeService } from '@portal/services/tab-change.service';
 import { filter } from 'rxjs/operators';
-import { faExternalLinkAlt, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Injectable({
   providedIn: 'root'
 })
-export class IconAndScrollService implements OnDestroy {
+export class ScrollingService implements OnDestroy {
   SCROLL_TO_TOP_URLS = ['/','/accessibility', '/privacy', '/mydata/terms', '/mydata/privacy', '/service-info'];
   SCROLL_TO_TOP_URL_FRAGMENTS = ['/science-innovation-policy/science-research-figures/'];
 
@@ -79,9 +78,6 @@ export class IconAndScrollService implements OnDestroy {
         scrollToTop();
       }
     });
-
-    // Add global icons
-    library.addIcons(faExternalLinkAlt as any, faInfoCircle as any);
 
     this.startPage = router.parseUrl(router.url).queryParams.page || 1;
 
