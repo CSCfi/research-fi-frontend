@@ -1,0 +1,72 @@
+export interface CustomIcon {
+  idString: string;
+  path: string;
+  description: string;
+  preferredWidth?: number;
+  preferredHeight?: number;
+}
+
+export const customIcons: CustomIcon[] = [
+  { idString: 'general.arrowLeft', path: 'assets/img/icons/chevron-left.svg', description: 'Left arrow icon'},
+  { idString: 'general.arrowRight', path: 'assets/img/icons/chevron-right.svg', description: 'Right arrow icon'},
+  { idString: 'general.chartBar', path: 'assets/img/icons/chart-bar.svg', description: 'Bar chart icon'},
+  { idString: 'general.chevronDown', path: 'assets/img/icons/chevron-down.svg', description: 'Chevron down icon'},
+  { idString: 'general.chevronLeft', path: 'assets/img/icons/chevron-left.svg', description: 'Chevron left icon'},
+  { idString: 'general.chevronRight', path: 'assets/img/icons/chevron-right.svg', description: 'Chevron right icon'},
+  { idString: 'general.chevronUp', path: 'assets/img/icons/chevron-up.svg', description: 'Chevron up icon'},
+  { idString: 'general.circleMinus', path: 'assets/img/icons/circle-minus.svg', description: 'Circle minus icon'},
+  { idString: 'general.circleMinusOutlines', path: 'assets/img/icons/circle-minus-outlines.svg', description: 'Circle minus icon'},
+  { idString: 'general.circlePlus', path: 'assets/img/icons/circle-plus.svg', description: 'Circle plus icon'},
+  { idString: 'general.circlePlusOutlines', path: 'assets/img/icons/circle-plus-outlines.svg', description: 'Circle plus icon'},
+  { idString: 'general.close', path: 'assets/img/icons/close.svg', description: 'Close icon'},
+  { idString: 'general.delete', path: 'assets/img/icons/delete.svg', description: 'Delete icon'},
+  { idString: 'general.edit', path: 'assets/img/icons/edit.svg', description: 'Edit icon'},
+  { idString: 'general.email', path: 'assets/img/icons/email.svg', description: 'Email icon'},
+  { idString: 'general.externalLink2', path: 'assets/img/icons/open-external-link-icon.svg', description: 'External link icon'},
+  { idString: 'general.filter', path: 'assets/img/icons/filter.svg', description: 'Filter icon'},
+  { idString: 'general.info', path: 'assets/img/icons/info.svg', description: 'Info icon'},
+  { idString: 'general.link', path: 'assets/img/icons/link.svg', description: 'Link icon'},
+  { idString: 'general.locked', path: 'assets/img/icons/locked.svg', description: 'Locked icon'},
+  { idString: 'general.minus', path: 'assets/img/icons/minus.svg', description: 'Minus icon'},
+  { idString: 'general.externalLink', path: 'assets/img/icons/open_in_new.svg', description: 'Open in new window icon'},
+  { idString: 'general.orcid', path: 'assets/img/icons/orcid.svg', description: 'Orcid icon'},
+  { idString: 'general.plus', path: 'assets/img/icons/plus.svg', description: 'Plus icon'},
+  { idString: 'general.search', path: 'assets/img/icons/search.svg', description: 'Search icon'},
+  { idString: 'general.share', path: 'assets/img/icons/share.svg', description: 'Share icon'},
+  { idString: 'general.sort', path: 'assets/img/icons/sort.svg', description: 'Sort icon'},
+  { idString: 'general.sortList', path: 'assets/img/icons/sort_list.svg', description: 'Sort list icon'},
+  { idString: 'general.unchecked', path: 'assets/img/icons/unchecked.svg', description: 'Unchecked icon'},
+  { idString: 'general.unlocked', path: 'assets/img/icons/lock_open.svg', description: 'Unlocked open icon'},
+  { idString: 'general.user', path: 'assets/img/icons/user.svg', description: 'User icon'},
+  { idString: 'general.warning', path: 'assets/img/icons/warning.svg', description: 'Warning icon'},
+
+  // Old font awesome icons
+  { idString: 'general.fa.infoCircle', path: 'assets/img/icons/fa-circle-info.svg', description: 'Info icon'},
+  { idString: 'general.fa.minus', path: 'assets/img/icons/fa-minus.svg', description: 'Minus icon'},
+  { idString: 'general.fa.plus', path: 'assets/img/icons/fa-plus.svg', description: 'Plus icon'},
+  { idString: 'general.fa.sliders', path: 'assets/img/icons/fa-sliders-h.svg', description: 'Sliders icon'},
+  { idString: 'general.fa.chartBar', path: 'assets/img/icons/fa-chart-bar.svg', description: 'Chart icon'},
+  { idString: 'general.fa.sort', path: 'assets/img/icons/fa-sort.svg', description: 'Sort icon'},
+  { idString: 'general.fa.sortUp', path: 'assets/img/icons/fa-sort-up.svg', description: 'Sort up icon'},
+  { idString: 'general.fa.sortDown', path: 'assets/img/icons/fa-sort-down.svg', description: 'Sort down icon'},
+  { idString: 'general.fa.twitter', path: 'assets/img/icons/fa-twitter.svg', description: 'Twitter icon'},
+  { idString: 'general.fa.linkedin', path: 'assets/img/icons/fa-linkedin-square.svg', description: 'Linkedin icon'},
+  { idString: 'general.fa.facebook', path: 'assets/img/icons/fa-facebook-square.svg', description: 'Facebook icon'},
+  { idString: 'general.fa.mail', path: 'assets/img/icons/fa-envelope.svg', description: 'Mail icon'},
+  { idString: 'general.fa.phone', path: 'assets/img/icons/fa-phone.svg', description: 'Phone icon'},
+  { idString: 'general.fa.file', path: 'assets/img/icons/fa-file.svg', description: 'File icon'},
+  { idString: 'general.fa.download', path: 'assets/img/icons/fa-download.svg', description: 'Download icon'},
+  { idString: 'general.fa.warning', path: 'assets/img/icons/fa-exclamation-triangle.svg', description: 'Warning icon'},
+  { idString: 'general.fa.times', path: 'assets/img/icons/fa-times.svg', description: 'Close icon'},
+
+  // Main search result categories
+  { idString: 'main.categories.publications', path: 'assets/img/icons/fa-file-lines.svg', description: 'Publications icon'},
+  { idString: 'main.categories.fundingCalls', path: 'assets/img/icons/fa-bullhorn.svg', description: 'Funding calls icon'},
+  { idString: 'main.categories.grantedFunding', path: 'assets/img/icons/fa-briefcase.svg', description: 'Granted funding icon'},
+  { idString: 'main.categories.people', path: 'assets/img/icons/fa-users.svg', description: 'People icon'},
+  { idString: 'main.categories.people.single', path: 'assets/img/icons/fa-user.svg', description: 'User icon'},
+  { idString: 'main.categories.datasets', path: 'assets/img/icons/fa-align-left.svg', description: 'Align left icon'},
+  { idString: 'main.categories.infrastructures', path: 'assets/img/icons/fa-calculator.svg', description: 'Infrastructures icon'},
+  { idString: 'main.categories.organizations', path: 'assets/img/icons/fa-building-columns.svg', description: 'Organizations icon'},
+  { idString: 'main.categories.projects', path: 'assets/img/icons/fa-align-left.svg', description: 'Projects icon'},
+];
