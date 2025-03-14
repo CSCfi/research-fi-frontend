@@ -375,7 +375,60 @@ mark,
   padding: 0 32px;
 }
 
+// Info icon
+mat-icon[data-mat-icon-name='general.info'] {
+  display: inline !important;
+  svg {
+    width: 21px;
+    margin-left: -2px;
+    margin-top: -3px;
+  }
+}
+
+mat-card {
+  a {
+    margin-left: 5px;
+  }
+  .mat-icon {
+    height: 100% !important
+  }
+
+  mat-icon[data-mat-icon-name='general.email'] {
+    svg {
+      margin-top: -3px;
+      width: 22px;
+      margin-left: 0px;
+    }
+  }
+
+
+  mat-icon[data-mat-icon-name='general.link'] {
+    svg {
+      margin-top: -2px;
+      width: 24px;
+    }
+  }
+}
+
+.mat-icon {
+  //padding-top: 4px;
+  display: flex !important;
+  justify-content: center !important;;
+  flex-direction: column !important;
+  svg {
+    width: 16px;
+  }
+}
+
 // Icons
+mat-icon[data-mat-icon-name='general.externalLink'] {
+  padding-left: 4px;
+  svg {
+  width: 20px;
+  padding-top: 2px;
+  }
+}
+
 fa-icon[icon='external-link-alt'] {
   padding-left: 5px;
 }
@@ -420,6 +473,32 @@ fa-icon[icon='external-link-alt'] {
 .info-icon {
   color: mat-color($primary, default);
   cursor: pointer;
+}
+
+.info-circle {
+  color: mat-color($primary, default);
+  height: 32px !important;
+  width: 32px !important;
+  &.large-circle {
+    svg {
+      height: 32px !important;
+      width: 32px !important;
+    }
+  }
+}
+
+// Category search result pages
+mat-table {
+  mat-icon.category-icon {
+    color: mat-color($primary, default);
+    height: 42px !important;
+    width: 42px !important;
+    margin-top: 10px;
+      svg {
+        height: 42px !important;
+        width: 42px !important;
+      }
+    }
 }
 
 // Mat modal
