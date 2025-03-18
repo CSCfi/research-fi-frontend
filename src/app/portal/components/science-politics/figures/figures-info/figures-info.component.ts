@@ -11,6 +11,7 @@ import { WINDOW } from 'src/app/shared/services/window.service';
 import { NgIf, NgClass } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ClickOutsideDirective } from '../../../../../shared/directives/click-outside.directive';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
     selector: 'app-figures-info',
@@ -18,12 +19,13 @@ import { ClickOutsideDirective } from '../../../../../shared/directives/click-ou
     styleUrls: ['./figures-info.component.scss'],
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [
-        ClickOutsideDirective,
-        FontAwesomeModule,
-        NgIf,
-        NgClass,
-    ],
+  imports: [
+    ClickOutsideDirective,
+    FontAwesomeModule,
+    NgIf,
+    NgClass,
+    MatIcon
+  ]
 })
 export class FiguresInfoComponent implements OnInit, OnDestroy {
   @Input() labelText: string;

@@ -27,7 +27,7 @@
             </li>
             <li class="pb-1">{{ link.content }}</li>
             <a #mainFocus [href]="link.url" target="_blank"
-              ><fa-icon class="ps-0" icon="external-link-alt"></fa-icon>
+              ><mat-icon [svgIcon]="'general.externalLink'" class="external-link-icon"></mat-icon>
               {{ link.url }}</a
             >
           </ul>

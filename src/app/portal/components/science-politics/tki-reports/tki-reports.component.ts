@@ -28,6 +28,7 @@ import { PrimaryActionButtonComponent } from '../../../../shared/components/butt
 import { FormsModule } from '@angular/forms';
 import { MatInput } from '@angular/material/input';
 import { BannerDividerComponent } from '../../../../shared/components/banner-divider/banner-divider.component';
+import { MatIcon } from '@angular/material/icon';
 
 export interface Report {
   id: number;
@@ -43,7 +44,7 @@ export interface Report {
     templateUrl: './tki-reports.component.html',
     styleUrls: ['./tki-reports.component.scss'],
     standalone: true,
-    imports: [BannerDividerComponent, NgIf, NgStyle, MatInput, FormsModule, PrimaryActionButtonComponent, NgFor, ListItemComponent_1, FontAwesomeModule, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, HighlightSearchPipe]
+  imports: [BannerDividerComponent, NgIf, NgStyle, MatInput, FormsModule, PrimaryActionButtonComponent, NgFor, ListItemComponent_1, FontAwesomeModule, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, HighlightSearchPipe, MatIcon]
 })
 export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
 

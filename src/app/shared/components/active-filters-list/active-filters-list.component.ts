@@ -20,6 +20,7 @@ import { ActiveFiltersDialogComponent } from './active-filters-dialog/active-fil
 import { MatButton } from '@angular/material/button';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgFor, NgIf } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
     selector: 'app-active-filters-list',
@@ -27,14 +28,15 @@ import { NgFor, NgIf } from '@angular/common';
     styleUrls: ['./active-filters-list.component.scss'],
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [
-        NgFor,
-        NgIf,
-        FontAwesomeModule,
-        MatButton,
-        ActiveFiltersDialogComponent,
-        DialogComponent,
-    ],
+  imports: [
+    NgFor,
+    NgIf,
+    FontAwesomeModule,
+    MatButton,
+    ActiveFiltersDialogComponent,
+    DialogComponent,
+    MatIcon
+  ]
 })
 export class ActiveFiltersListComponent implements OnInit {
 

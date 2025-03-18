@@ -6,13 +6,11 @@
 # :license: MIT -->
 
 <ng-container (clickOutside)="onClickedOutside($event)">
-  <fa-icon
-    tabindex="0"
-    class="info-icon d-inline-block"
-    icon="info-circle"
-    (mouseenter)="showInfo = true"
-    (keydown.enter)="showInfo = !showInfo"
-  ></fa-icon>
+    <mat-icon [svgIcon]="'general.info'" tabindex="0"
+              class="info-icon d-inline-block"
+              icon="info-circle"
+              (mouseenter)="showInfo = true"
+              (keydown.enter)="showInfo = !showInfo"></mat-icon>
   <div
     #info
     *ngIf="showInfo"

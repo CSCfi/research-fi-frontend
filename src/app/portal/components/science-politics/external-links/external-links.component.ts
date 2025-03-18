@@ -23,19 +23,21 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DividerComponent } from '../../../../shared/components/divider/divider.component';
 import { NgFor, NgClass } from '@angular/common';
 import { BannerDividerComponent } from '../../../../shared/components/banner-divider/banner-divider.component';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
     selector: 'app-external-links',
     templateUrl: './external-links.component.html',
     styleUrls: ['./external-links.component.scss'],
     standalone: true,
-    imports: [
-        BannerDividerComponent,
-        NgFor,
-        DividerComponent,
-        NgClass,
-        FontAwesomeModule,
-    ],
+  imports: [
+    BannerDividerComponent,
+    NgFor,
+    DividerComponent,
+    NgClass,
+    FontAwesomeModule,
+    MatIcon
+  ]
 })
 export class ExternalLinksComponent
   implements OnInit, AfterViewInit, OnDestroy

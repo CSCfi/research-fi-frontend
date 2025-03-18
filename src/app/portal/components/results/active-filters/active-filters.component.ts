@@ -20,10 +20,6 @@ import { Router } from '@angular/router';
 import { SortService } from '@portal/services/sort.service';
 import { FilterService } from '@portal/services/filters/filter.service';
 import { TabChangeService } from '@portal/services/tab-change.service';
-import {
-  faExclamationTriangle,
-  faTrashAlt,
-} from '@fortawesome/free-solid-svg-icons';
 import { PublicationFilterService } from '@portal/services/filters/publication-filter.service';
 import { PersonFilterService } from '@portal/services/filters/person-filter.service';
 import { FundingFilterService } from '@portal/services/filters/funding-filter.service';
@@ -82,8 +78,6 @@ export class ActiveFiltersComponent
   response: any;
   tabSub: any;
   currentTab: any;
-  faExclamationTriangle = faExclamationTriangle;
-  faTrashAlt = faTrashAlt;
   hoverIndex: any;
   fromYear: number;
   toYear: number;

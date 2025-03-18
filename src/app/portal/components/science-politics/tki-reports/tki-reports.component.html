@@ -164,7 +164,7 @@
       <div *ngFor="let row of resultDataMobile">
         <h2>Nimi</h2>
         <a [attr.href]="row.link" target="_blank"
-          ><p>{{ row.name }}<fa-icon icon="external-link-alt"></fa-icon></p
+          ><p>{{ row.name }}<mat-icon [svgIcon]="'general.externalLink'" class="external-link-icon"></mat-icon></p
         ></a>
         <h2>Vuosi</h2>
         <p [innerHTML]="row.year | highlight: value"></p>
@@ -199,7 +199,7 @@
             <p>
               <a [attr.href]="element.link" target="_blank"
                 >{{ element.name }}
-                <fa-icon icon="external-link-alt"></fa-icon>
+                  <mat-icon [svgIcon]="'general.externalLink'" class="external-link-icon"></mat-icon>
               </a>
             </p>
           </td>
