@@ -63,10 +63,11 @@ export class InfrastructuresComponent
   expandStatus: Array<boolean> = [];
   sortColumn: string;
   sortDirection: boolean;
-  faIcon: any = this.tabChangeService.tabData
+  svgIconIdString: string = this.tabChangeService.tabData
     .filter((t) => t.data === 'infrastructures')
     .map((t) => t.icon)
     .pop();
+
   inputSub: any;
   input: string;
   focusSub: any;

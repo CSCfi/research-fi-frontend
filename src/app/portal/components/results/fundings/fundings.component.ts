@@ -48,10 +48,11 @@ export class FundingsComponent implements OnInit, OnDestroy, AfterViewInit {
   expandStatus: Array<boolean> = [];
   sortColumn: string;
   sortDirection: boolean;
-  faIcon: any = this.tabChangeService.tabData
+  svgIconIdString: string = this.tabChangeService.tabData
     .filter((t) => t.data === 'fundings')
     .map((t) => t.icon)
     .pop();
+
   inputSub: any;
   input: string;
   focusSub: any;

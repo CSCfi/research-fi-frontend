@@ -11,7 +11,7 @@
 >
   <app-secondary-button
     [content]="filterHeading"
-    [icon]="faSlidersH"
+    [svgIconIdString]="'general.fa.slider'"
     [noSmIcon]="true"
     [big]="true"
     (click)="openDialog(filterModal)"
@@ -37,8 +37,7 @@
 <ng-template #filters>
   <div class="filter-sidebar" *ngIf="responseData">
     <h3 class="header" *ngIf="!mobile && !showButton">
-      <fa-icon class="filter-icon" [icon]="faSlidersH"></fa-icon
-      >{{ filterHeading }}
+        <mat-icon [svgIcon]="'general.fa.slider'"></mat-icon>{{ filterHeading }}
     </h3>
     <div class="filter-wrapper">
       <mat-expansion-panel
@@ -65,10 +64,10 @@
               <div *ngIf="filter.hasSubFields" class="col col-1">
                 <button tabindex="-1" class="show-options">
                   <span *ngIf="!filter.open">
-                    <fa-icon [icon]="faPlus"></fa-icon>
+                      <mat-icon [svgIcon]="'general.plus'"></mat-icon>
                   </span>
                   <span *ngIf="filter.open">
-                    <fa-icon [icon]="faMinus"></fa-icon>
+                      <mat-icon [svgIcon]="'general.minus'"></mat-icon>
                   </span>
                 </button>
               </div>
@@ -85,7 +84,7 @@
                     placement="top"
                     #elem
                   >
-                    <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                    <mat-icon [svgIcon]="'general.info'"></mat-icon>
                   </span>
                 </ng-container>
                 <ng-container *ngIf="filter.errorTooltip">
@@ -98,11 +97,7 @@
                     tabindex="0"
                     placement="top"
                     #elem
-                  >
-                    <fa-icon
-                      class="info-icon error-color"
-                      icon="info-circle"
-                    ></fa-icon>
+                  ><mat-icon [svgIcon]="'general.info'"></mat-icon>
                   </span>
                 </ng-container>
               </div>
@@ -149,7 +144,7 @@
                 placement="top"
                 #elem
               >
-                <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                <mat-icon [svgIcon]="'general.info'"></mat-icon>
               </span>
             </div>
           </div>
@@ -374,7 +369,7 @@
                     placement="top"
                     #elem
                   >
-                    <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                    <mat-icon [svgIcon]="'general.info'"></mat-icon>
                   </span>
                 </div>
                 <!-- [ngClass]="['item.tooltip', { 'col-2': item.tooltip }, { 'col-2': !item.tooltip }]" -->
@@ -471,10 +466,7 @@
                           placement="top"
                           #elem
                         >
-                          <fa-icon
-                            class="info-icon"
-                            icon="info-circle"
-                          ></fa-icon>
+                          <mat-icon [svgIcon]="'general.info'"></mat-icon>
                         </span>
                       </ng-container>
                     </div>

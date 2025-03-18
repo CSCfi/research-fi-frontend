@@ -24,24 +24,26 @@ import { ResultsPaginationComponent } from '../results-pagination/results-pagina
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TableComponent } from '../../../../shared/components/table/table.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
     selector: 'app-datasets',
     templateUrl: './datasets.component.html',
     styleUrls: ['./datasets.component.scss'],
     standalone: true,
-    imports: [
-        NgIf,
-        MatProgressSpinner,
-        TableComponent,
-        NgFor,
-        RouterLink,
-        FontAwesomeModule,
-        NgTemplateOutlet,
-        ResultsPaginationComponent,
-        NoResultsComponent,
-        HighlightSearchPipe,
-    ],
+  imports: [
+    NgIf,
+    MatProgressSpinner,
+    TableComponent,
+    NgFor,
+    RouterLink,
+    FontAwesomeModule,
+    NgTemplateOutlet,
+    ResultsPaginationComponent,
+    NoResultsComponent,
+    HighlightSearchPipe,
+    MatIcon
+  ]
 })
 export class DatasetsComponent implements OnInit {
   @Input() resultData: Search;
@@ -50,10 +52,11 @@ export class DatasetsComponent implements OnInit {
   sortDirection: boolean;
   @ViewChild('main') mainContent: ElementRef;
 
-  faIcon: any = this.tabChangeService.tabData
+  svgIconIdString: string = this.tabChangeService.tabData
     .filter((t) => t.data === 'datasets')
     .map((t) => t.icon)
     .pop();
+
   documentLang: any;
   input: string;
   inputSub: any;

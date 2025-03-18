@@ -61,41 +61,43 @@ import { PrimaryActionButtonComponent } from '../../../shared/components/buttons
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TabNavigationComponent } from '../tab-navigation/tab-navigation.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
     selector: 'app-results',
     templateUrl: './results.component.html',
     styleUrls: ['./results.component.scss'],
     standalone: true,
-    imports: [
-        SearchBarComponent,
-        TabNavigationComponent,
-        NgIf,
-        FontAwesomeModule,
-        PrimaryActionButtonComponent,
-        RouterLink,
-        SecondaryButtonComponent,
-        ResultCountComponent,
-        NgClass,
-        NgTemplateOutlet,
-        SortComponent,
-        NgSwitch,
-        NgSwitchCase,
-        NgSwitchDefault,
-        FundingCallCategoryFiltersComponent,
-        ActiveFiltersComponent,
-        SearchResultsComponent,
-        NgFor,
-        FiltersComponent,
-        MatFormField,
-        MatLabel,
-        MatSelect,
-        MatOption,
-        VisualisationComponent,
-        DialogComponent,
-        ClickOutsideDirective,
-        AsyncPipe,
-    ],
+  imports: [
+    SearchBarComponent,
+    TabNavigationComponent,
+    NgIf,
+    FontAwesomeModule,
+    PrimaryActionButtonComponent,
+    RouterLink,
+    SecondaryButtonComponent,
+    ResultCountComponent,
+    NgClass,
+    NgTemplateOutlet,
+    SortComponent,
+    NgSwitch,
+    NgSwitchCase,
+    NgSwitchDefault,
+    FundingCallCategoryFiltersComponent,
+    ActiveFiltersComponent,
+    SearchResultsComponent,
+    NgFor,
+    FiltersComponent,
+    MatFormField,
+    MatLabel,
+    MatSelect,
+    MatOption,
+    VisualisationComponent,
+    DialogComponent,
+    ClickOutsideDirective,
+    AsyncPipe,
+    MatIcon
+  ]
 })
 export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   breakpointObserver$ = inject(BreakpointObserver);
@@ -189,9 +191,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   visualisationType = false;
 
   faDownload = faDownload;
-  faTrash = faTrash;
-  faChartBar = faChartBar;
-  faInfoCircle = faInfoCircle;
   showAsVisual = $localize`:@@showAsVisual:Näytä kuvana`;
   additionalInfo = $localize`:@@additionalInfo:Lisätietoa`;
   clearActiveFilters = $localize`:@@clearActiveFilters: Tyhjennä rajaukset`;

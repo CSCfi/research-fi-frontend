@@ -10,15 +10,14 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
-  Input,
+  Input, OnDestroy,
   OnInit,
   QueryList,
   TemplateRef,
   ViewChild,
   ViewChildren,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { Search } from '@portal/models/search.model';
 import { HighlightSearchPipe } from '@portal/pipes/highlight.pipe';
 import { SearchService } from '@portal/services/search.service';
@@ -51,7 +50,7 @@ import { NgIf, NgFor } from '@angular/common';
         HighlightSearchPipe,
     ],
 })
-export class PersonsComponent implements OnInit, AfterViewInit {
+export class PersonsComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() resultData: Search;
   expandStatus: Array<boolean> = [];
 
@@ -60,11 +59,12 @@ export class PersonsComponent implements OnInit, AfterViewInit {
   focusSub: any;
   tableColumns: TableColumn[];
   tableRows: Record<string, TableRow>[];
-  rowIcon: any = faUser;
-  iconTitle: 'Tutkijoiden tiedon ikoni';
+  iconTitle= '';
   dataMapped: boolean;
 
   @ViewChild('main') mainContent: ElementRef;
+
+  svgIconIdString = 'main.categories.people.single';
 
   @ViewChildren('personNameColumn', { read: TemplateRef })
   personNameColumns: QueryList<ElementRef>;

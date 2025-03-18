@@ -34,7 +34,6 @@ import { DatasetFilterService } from 'src/app/portal/services/filters/dataset-fi
 import { InfrastructureFilterService } from 'src/app/portal/services/filters/infrastructure-filter.service';
 import { OrganizationFilterService } from 'src/app/portal/services/filters/organization-filter.service';
 import { NewsFilterService } from 'src/app/portal/services/filters/news-filter.service';
-import { faSlidersH, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { isPlatformBrowser, DOCUMENT, NgTemplateOutlet, NgIf, NgFor, NgClass, JsonPipe } from '@angular/common';
 import { DataService } from 'src/app/portal/services/data.service';
 import { FundingCallFilterService } from '@portal/services/filters/funding-call-filter.service';
@@ -134,9 +133,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   visualFilterSub: Subscription;
   subFilters: MatSelectionList[];
   totalCount = 0;
-  faSlidersH: any = faSlidersH;
-  faPlus = faPlus;
-  faMinus = faMinus;
   panelHeight = 'auto';
   panelArr = [];
   showMoreCount: any;

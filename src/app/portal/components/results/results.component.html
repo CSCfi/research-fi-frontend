@@ -19,8 +19,8 @@ Copyright 2019 Ministry of Education and Culture, Finland
     <ng-container *ngIf="tab === 'publications' && betaSearchBannerVisible">
       <div class="row py-3 px-0 ps-lg-3 mt-3 justify-content-between login-snackbar">
         <div class="row col-7 justify-content-start align-content-center">
-          <div class="col-auto mx-0 gx-0">
-            <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+          <div class="col-auto mx-0 gx-0 d-flex flex-column justify-content-center">
+              <mat-icon [svgIcon]="'general.info'" class="info-icon info-circle large-circle"></mat-icon>
           </div>
 
           <div *ngIf="tab === 'publications'" class="col-11 align-self-center" i18n="@@publication2.toNewInfo">
@@ -58,7 +58,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
       <div class="row py-3 px-0 ps-lg-3 mt-3 justify-content-between login-snackbar">
         <div class="row col-9 justify-content-start align-content-center">
           <div class="col-auto mx-0 gx-0 d-flex flex-column justify-content-center">
-            <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+              <mat-icon [svgIcon]="'general.info'" class="info-icon info-circle large-circle"></mat-icon>
           </div>
           <div class="col-11 align-self-center" i18n="@@projectsBetaDescription">
             Hankkeet ovat tutkimusorganisaatioiden tutkimushankkeita. Alkuvaiheessa palvelu sisältää entisestä Hankehaavi-verkkohakemistosta tuotuja hankekuvauksia, joita ei tällä hetkellä voi päivittää. Myöhemmässä vaiheessa tiedot tulevat täydentymään myös muiden alojen tutkimushankkeilla ja kattavammilla kuvailutiedoilla.
