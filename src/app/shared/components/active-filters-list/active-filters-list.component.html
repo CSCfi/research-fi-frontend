@@ -23,16 +23,16 @@ Copyright 2019 Ministry of Education and Culture, Finland
         <span id="{{ activeFilter.value }}">{{
           activeFilter.translation
         }}</span>
-        <fa-icon
-          tabindex="0"
-          (focus)="enter(i)"
-          (blur)="leave()"
-          (mouseenter)="enter(i)"
-          (mouseleave)="leave()"
-          *ngIf="activeFilter.warning"
-          class="icon warning"
-          [icon]="faExclamationTriangle"
-        ></fa-icon>
+          <!-- seems deprecated, need to check what is this -->
+          <mat-icon [svgIcon]="'general.fa.delete'"
+                    tabindex="0"
+                    (focus)="enter(i)"
+                    (blur)="leave()"
+                    (mouseenter)="enter(i)"
+                    (mouseleave)="leave()"
+                    *ngIf="activeFilter.warning"
+                    class="icon warning"
+          ></mat-icon>
         <div
           class="warning-info"
           *ngIf="activeFilter.warning && hoverIndex === i"
@@ -58,7 +58,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
         Näytä kaikki
       </button>
       <button class="clear filter" mat-button (click)="clearFilters()">
-        <fa-icon class="clear" [icon]="faTrashAlt"></fa-icon>
+          <mat-icon [svgIcon]="'general.fa.delete'"></mat-icon>
         <ng-container i18n="@@clearActiveFilters"
           >Tyhjennä rajaukset</ng-container
         >

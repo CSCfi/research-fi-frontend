@@ -8,7 +8,7 @@
 <ng-container *ngIf="orcid; else plainImageTemplate">
   <a href="https://orcid.org/{{ orcid }}" target="_blank">
     <ng-container [ngTemplateOutlet]="orcidLogoTemplate"></ng-container>
-    <fa-icon icon="external-link-alt"></fa-icon>
+    <mat-icon [svgIcon]="'general.externalLink'" class="external-link-icon"></mat-icon>
   </a>
 </ng-container>
 

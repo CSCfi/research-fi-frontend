@@ -37,7 +37,6 @@ import { NgFor, NgIf } from '@angular/common';
     ],
 })
 export class ActiveFiltersListComponent implements OnInit {
-  faTrashAlt = faTrashAlt;
 
   @Input() filters: ActiveFilter[] = [];
   @Input() dialogConfig: ActiveFiltersDialogConfig;

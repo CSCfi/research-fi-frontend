@@ -8,17 +8,19 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
     selector: 'app-orcid',
     templateUrl: './orcid.component.html',
     styleUrls: ['./orcid.component.scss'],
     standalone: true,
-    imports: [
-        NgIf,
-        NgTemplateOutlet,
-        FontAwesomeModule,
-    ],
+  imports: [
+    NgIf,
+    NgTemplateOutlet,
+    FontAwesomeModule,
+    MatIcon
+  ]
 })
 export class OrcidComponent implements OnInit {
   @Input() orcid: string;

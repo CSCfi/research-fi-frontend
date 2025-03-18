@@ -8,17 +8,19 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
     selector: 'app-tag-open-access',
     templateUrl: './tag-open-access.component.html',
     styleUrls: ['./tag-open-access.component.scss'],
     standalone: true,
-    imports: [
-        NgIf,
-        NgTemplateOutlet,
-        FontAwesomeModule,
-    ],
+  imports: [
+    NgIf,
+    NgTemplateOutlet,
+    FontAwesomeModule,
+    MatIcon
+  ]
 })
 export class TagOpenAccessComponent implements OnInit {
   @Input() link: string;
