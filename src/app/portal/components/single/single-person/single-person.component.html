@@ -47,8 +47,7 @@
                 <img class='orcid-icon' src='assets/img/orcid_icon.svg' alt='Orcid -palvelun logo' />
                 https://orcid.org/{{ person.orcid }}
               </span>
-
-              <fa-icon icon='external-link-alt'></fa-icon>
+              <mat-icon [svgIcon]="'general.externalLink'" class="external-link-icon"></mat-icon>
             </a>
 
           </div>
@@ -271,11 +270,11 @@
                 <h2 i18n='@@contactInfo' class='mb-4'>Yhteystiedot</h2>
               </mat-card-title>
 
-              <ng-container *ngFor='let row of contactFields'>
+              <ng-container *ngFor="let row of contactFields">
                 <ng-container *ngIf="person.contact[row.key]?.length && row.key !== 'otherNames'">
                   <li *ngFor='let item of person.contact[row.key]' class='row'>
-                    <ng-container *ngIf='item.icon'>
-                      <fa-icon [icon]='item.icon' class='col-1 ps-0 pb-3'></fa-icon>
+                    <ng-container *ngIf="item.icon">
+                        <mat-icon [svgIcon]="item.icon" class='col-1 ps-0 pb-3'></mat-icon>
                     </ng-container>
 
                     <span class='fw-bold col-auto ps-0' *ngIf='row.label'>

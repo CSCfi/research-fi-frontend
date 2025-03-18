@@ -46,36 +46,38 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
     selector: 'app-single-publication',
     templateUrl: './single-publication.component.html',
     styleUrls: ['./single-publication.component.scss'],
     standalone: true,
-    imports: [
-        SearchBarComponent,
-        NgIf,
-        RouterLink,
-        BreadcrumbComponent,
-        NgFor,
-        TooltipModule,
-        FontAwesomeModule,
-        NgClass,
-        OrcidComponent,
-        NgSwitch,
-        NgSwitchCase,
-        NgSwitchDefault,
-        PublicationLinksComponent,
-        MatCard,
-        MatCardTitle,
-        RelatedLinksComponent,
-        SecondaryButtonComponent,
-        ShareComponent,
-        DialogComponent,
-        CdkCopyToClipboard,
-        MatProgressSpinner,
-        CleanCitationPipe,
-    ],
+  imports: [
+    SearchBarComponent,
+    NgIf,
+    RouterLink,
+    BreadcrumbComponent,
+    NgFor,
+    TooltipModule,
+    FontAwesomeModule,
+    NgClass,
+    OrcidComponent,
+    NgSwitch,
+    NgSwitchCase,
+    NgSwitchDefault,
+    PublicationLinksComponent,
+    MatCard,
+    MatCardTitle,
+    RelatedLinksComponent,
+    SecondaryButtonComponent,
+    ShareComponent,
+    DialogComponent,
+    CdkCopyToClipboard,
+    MatProgressSpinner,
+    CleanCitationPipe,
+    MatIcon
+  ]
 })
 export class SinglePublicationComponent
   implements OnInit, AfterViewInit, OnDestroy

@@ -62,7 +62,7 @@
                   placement="top"
                   #elem
                 >
-                  <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                  <mat-icon [svgIcon]="'general.info'"></mat-icon>
                 </span>
               </ng-container>
             </h2>
@@ -105,7 +105,7 @@
                   placement="top"
                   #elem
                 >
-                  <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                  <mat-icon [svgIcon]="'general.info'"></mat-icon>
                 </span>
               </ng-container>
               <div class="show-more-wrapper" *ngIf="hasSubUnits">
@@ -275,7 +275,7 @@
                     placement="top"
                     #elem
                   >
-                    <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                    <mat-icon [svgIcon]="'general.info'"></mat-icon>
                   </span>
                 </ng-container>
               </h3>
@@ -301,7 +301,7 @@
                       placement="top"
                       #elem
                     >
-                      <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                      <mat-icon [svgIcon]="'general.info'"></mat-icon>
                     </span>
                   </ng-container>
                 </h3>
@@ -328,7 +328,7 @@
                       placement="top"
                       #elem
                     >
-                      <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                      <mat-icon [svgIcon]="'general.info'"></mat-icon>
                     </span>
                   </ng-container>
                 </h3>
@@ -355,7 +355,7 @@
                       placement="top"
                       #elem
                     >
-                      <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                      <mat-icon [svgIcon]="'general.info'"></mat-icon>
                     </span>
                   </ng-container>
                 </h3>
@@ -390,7 +390,7 @@
                         placement="top"
                         #elem
                       >
-                        <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                        <mat-icon [svgIcon]="'general.info'"></mat-icon>
                       </span>
                     </ng-container>
                   </h3>
@@ -425,10 +425,7 @@
                       target="_blank"
                     >
                       {{ item[row.field]
-                      }}<fa-icon
-                        class="icon"
-                        icon="external-link-alt"
-                      ></fa-icon>
+                      }}<mat-icon [svgIcon]="'general.externalLink'"></mat-icon>
                     </a>
                     <!-- Parent publication name -->
                     <a
@@ -487,7 +484,7 @@
                       </ng-template>
 
                       <span [tooltip]="tooltipTemplate" tabindex="0" placement="top" #elem>
-                        <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                        <mat-icon [svgIcon]="'general.info'"></mat-icon>
                       </span>
                     </ng-container>
                   </h3>
@@ -518,7 +515,7 @@
                     placement="top"
                     #elem
                   >
-                    <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                    <mat-icon [svgIcon]="'general.info'"></mat-icon>
                   </span>
                 </ng-container>
               </h3>
@@ -552,7 +549,7 @@
                       placement="top"
                       #elem
                     >
-                      <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                      <mat-icon [svgIcon]="'general.info'"></mat-icon>
                     </span>
                   </ng-container>
                 </h3>
@@ -578,7 +575,7 @@
                       placement="top"
                       #elem
                     >
-                      <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                      <mat-icon [svgIcon]="'general.info'"></mat-icon>
                     </span>
                   </ng-container>
                 </h3>
@@ -639,8 +636,7 @@
                 <a
                   href="https://scholar.google.com/scholar?q={{ item.title }}"
                   target="_blank"
-                  >Google Scholar<fa-icon icon="external-link-alt"></fa-icon
-                ></a>
+                  >Google Scholar<mat-icon [svgIcon]="'general.externalLink'" class="external-link-icon"></mat-icon></a>
               </div>
               <div class="col-12 col-sm-6 col-md-12 col-xl-6 other-link">
                 <a
@@ -648,8 +644,7 @@
                     item.doi !== ' ' ? item.doi : item.title
                   }}"
                   target="_blank"
-                  >CrossRef<fa-icon icon="external-link-alt"></fa-icon
-                ></a>
+                  >CrossRef<mat-icon [svgIcon]="'general.externalLink'" class="external-link-icon"></mat-icon></a>
               </div>
             </div>
           </div>

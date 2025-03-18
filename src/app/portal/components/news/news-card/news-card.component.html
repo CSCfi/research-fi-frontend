@@ -19,7 +19,7 @@
             </ng-container>
 
             <div>
-              <fa-icon class="icon" icon="external-link-alt"></fa-icon>
+                <mat-icon [svgIcon]="'general.externalLink'" class="external-link-icon"></mat-icon>
             </div>
           </div>
         </a>
@@ -59,7 +59,7 @@
   >
     <div class="row">
       &lt;!&ndash; <div class="col pl-0" [ngClass]="item.mediaUri?.length > 0 ? 'link' : ''">
-                <a class="org-link" href="{{item.url}}" target="_blank" aria-label="Lue koko uutinen organisaation verkkosivuilla"><ng-container i18n="@@readOriginialNews">Lue koko uutinen organisaation verkkosivuilla </ng-container><fa-icon icon="external-link-alt"></fa-icon></a>
+                <a class="org-link" href="{{item.url}}" target="_blank" aria-label="Lue koko uutinen organisaation verkkosivuilla"><ng-container i18n="@@readOriginialNews">Lue koko uutinen organisaation verkkosivuilla </ng-container><mat-icon [svgIcon]="'general.externalLink'" class="external-link-icon"></mat-icon></a>
             </div> &ndash;&gt;
       <div *ngIf="item.mediaUri?.length > 0" class="col pe-0 text-end">
         &lt;!&ndash; <img [src]="item.mediaUri | safeUrl"> &ndash;&gt;

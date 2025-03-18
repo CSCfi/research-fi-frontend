@@ -25,27 +25,29 @@ import { MatCard, MatCardTitle } from '@angular/material/card';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
+import { MatIcon } from '@angular/material/icon';
 @Component({
     selector: 'app-single-funding-call',
     templateUrl: './single-funding-call.component.html',
     styleUrls: ['./single-funding-call.component.scss'],
     standalone: true,
-    imports: [
-        NgIf,
-        RouterLink,
-        BreadcrumbComponent,
-        NgFor,
-        TooltipModule,
-        FontAwesomeModule,
-        NgClass,
-        MatCard,
-        MatCardTitle,
-        SingleResultLinkComponent,
-        ShareComponent,
-        JsonPipe,
-        DatePipe,
-        NgArrayPipesModule,
-    ],
+  imports: [
+    NgIf,
+    RouterLink,
+    BreadcrumbComponent,
+    NgFor,
+    TooltipModule,
+    FontAwesomeModule,
+    NgClass,
+    MatCard,
+    MatCardTitle,
+    SingleResultLinkComponent,
+    ShareComponent,
+    JsonPipe,
+    DatePipe,
+    NgArrayPipesModule,
+    MatIcon
+  ]
 })
 export class SingleFundingCallComponent implements OnInit {
   newUiToggle = true;

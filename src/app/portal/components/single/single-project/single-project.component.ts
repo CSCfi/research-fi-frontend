@@ -38,6 +38,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
 import { NgIf, NgFor, NgClass, NgSwitch, NgSwitchDefault, NgSwitchCase, DatePipe, JsonPipe } from '@angular/common';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-single-project',
@@ -64,7 +65,8 @@ import { SearchBarComponent } from '../../search-bar/search-bar.component';
     ShareComponent,
     DatePipe,
     ThousandSeparatorPipe,
-    JsonPipe
+    JsonPipe,
+    MatIcon
   ]
 })
 export class SingleProjectComponent implements OnInit, OnDestroy {

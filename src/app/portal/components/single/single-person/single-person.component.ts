@@ -30,6 +30,7 @@ import { TagDoiComponent } from '../../../../shared/components/tags/tag-doi/tag-
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
+import { MatIcon } from '@angular/material/icon';
 
 type Field = { key: string; label?: string };
 
@@ -38,26 +39,27 @@ type Field = { key: string; label?: string };
     templateUrl: './single-person.component.html',
     styleUrls: ['./single-person.component.scss'],
     standalone: true,
-    imports: [
-        SearchBarComponent,
-        NgIf,
-        RouterLink,
-        BreadcrumbComponent,
-        FontAwesomeModule,
-        NgFor,
-        NgTemplateOutlet,
-        NgClass,
-        TagDoiComponent,
-        PersonGroupComponent,
-        MatCard,
-        MatCardTitle,
-        SingleResultLinkComponent,
-        RelatedLinksComponent,
-        ShareComponent,
-        AsyncPipe,
-        JoinItemsPipe,
-        CheckEmptyFieldsPipe,
-    ],
+  imports: [
+    SearchBarComponent,
+    NgIf,
+    RouterLink,
+    BreadcrumbComponent,
+    FontAwesomeModule,
+    NgFor,
+    NgTemplateOutlet,
+    NgClass,
+    TagDoiComponent,
+    PersonGroupComponent,
+    MatCard,
+    MatCardTitle,
+    SingleResultLinkComponent,
+    RelatedLinksComponent,
+    ShareComponent,
+    AsyncPipe,
+    JoinItemsPipe,
+    CheckEmptyFieldsPipe,
+    MatIcon
+  ]
 })
 export class SinglePersonComponent implements OnInit {
   responseData: Search;

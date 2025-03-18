@@ -19,7 +19,7 @@
         <a [href]="url | fixExternalUrl" target="_blank">
           <span class="link-label">{{ label ? (label | trimLinkPrefix) : (url | trimLinkPrefix) }}</span>
 
-          <fa-icon icon="external-link-alt"></fa-icon>
+          <mat-icon [svgIcon]="'general.externalLink'" class="external-link-icon"></mat-icon>
         </a>
       </span>
 
