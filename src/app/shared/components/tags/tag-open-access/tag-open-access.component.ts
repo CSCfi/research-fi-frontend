@@ -6,8 +6,7 @@
 //  :license: MIT
 
 import { Component, Input, OnInit } from '@angular/core';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
@@ -18,8 +17,8 @@ import { MatIcon } from '@angular/material/icon';
   imports: [
     NgIf,
     NgTemplateOutlet,
-    FontAwesomeModule,
-    MatIcon
+    MatIcon,
+    NgClass
   ]
 })
 export class TagOpenAccessComponent implements OnInit {

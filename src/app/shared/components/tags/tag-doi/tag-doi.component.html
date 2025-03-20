@@ -3,13 +3,24 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<div class="tag doi">
-  <div class="tag-id">DOI</div>
+<div *ngIf="linkDoi" class="tag doi">
+    <div class="tag-id">DOI</div>
 
-  <div class="tag-content">
-    <a href="https://doi.org/{{ link }} " target="_blank">
-      <span>{{ link | trimLinkPrefix: 'doi.org' }}</span>
-      <fa-icon class="primary-color" icon="external-link-alt"></fa-icon>
-    </a>
-  </div>
+    <div class="tag-content">
+        <a href="https://doi.org/{{ linkDoi }} " target="_blank">
+            <span class="doi-text">{{ linkDoi | trimLinkPrefix: 'doi.org' }}</span>
+            <mat-icon [svgIcon]="'general.externalLink'"></mat-icon>
+        </a>
+    </div>
+</div>
+
+<div *ngIf="linkUrn" class="tag doi">
+    <div class="tag-id">URN</div>
+
+    <div class="tag-content">
+        <a href="https://doi.org/{{ linkUrn }} " target="_blank">
+            <span class="doi-text">{{ linkUrn | trimLinkPrefix: 'doi.org' }}</span>
+            <mat-icon [svgIcon]="'general.externalLink'"></mat-icon>
+        </a>
+    </div>
 </div>
