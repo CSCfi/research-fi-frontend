@@ -1,6 +1,5 @@
 import { Inject, Injectable, OnDestroy, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { Event, NavigationEnd, Router } from '@angular/router';
 import { isPlatformBrowser, ViewportScroller } from '@angular/common';
 import { HistoryService } from '@portal/services/history.service';
@@ -60,7 +59,6 @@ export class ScrollingService implements OnDestroy {
   }
 
   constructor(
-    library: FaIconLibrary,
     router: Router,
     viewportScroller: ViewportScroller,
     private historyService: HistoryService,

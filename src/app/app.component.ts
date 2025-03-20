@@ -25,10 +25,6 @@ import { IconService } from '@portal/services/IconService';
   imports: [LayoutComponent, RouterOutlet, JsonPipe]
 })
 export class AppComponent {
-  iconAndScrollService = inject(ScrollingService);
-  iconService = inject(IconService);
-  transferedState = inject(TransferState);
-
   title = 'research-fi-portal';
 
   @HostListener('window:resize', ['$event'])
@@ -46,11 +42,16 @@ export class AppComponent {
     private router: Router,
     private platform: PlatformLocation,
     private viewPortScroller: ViewportScroller,
+    private iconService: IconService,
+    private iconAndScrollService: ScrollingService,
+    private transferedState: TransferState,
     @Inject(PLATFORM_ID) private platformId: object,
     @Inject(DOCUMENT) private document: any,
   ) {
+
     // SSR platform check
     if (isPlatformBrowser(this.platformId)) {
+      this.iconService.createIcons();
       this.resizeService.updateScreenSize(window.innerWidth, window.innerHeight);
       // APM config
       // const apm = apmService.init({
