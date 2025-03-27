@@ -2,7 +2,7 @@
   <a class='tab-button-layout2 link-button' [ngClass]='{"link-button__active": active, "link-button__disabled": disabled}' style='text-decoration: none' [routerLink]='routerLink' [queryParams]='queryParams'>
 
     <div style='display: flex'>
-        <mat-icon *ngIf="!!_icon" [svgIcon]="_icon"></mat-icon>
+        <app-svg-sprites *ngIf="!!_icon" [iconName]="_icon" cssClass="main-category-icon"></app-svg-sprites>
       <div>{{ label }} <span *ngIf="routerLink.includes('/results/projects/')"> - BETA</span></div>
     </div>
 
@@ -16,7 +16,7 @@
   <a class='tab-button-layout2 link-button' [ngClass]='{"link-button__active": active, "link-button__disabled": disabled}' style='text-decoration: none'>
 
     <div style='display: flex'>
-        <mat-icon *ngIf="!!_icon" [svgIcon]="_icon"></mat-icon>
+        <app-svg-sprites *ngIf="!!_icon" [iconName]="_icon" cssClass="main-category-icon"></app-svg-sprites>
         <div>{{ label }}</div>
     </div>
 

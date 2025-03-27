@@ -123,14 +123,14 @@ export class TabNavigationComponent {
 
   defaultOrderButtons$: Observable<ButtonData[]> = combineLatest([this.counts$, this.tab$]).pipe(
     map(([counts, tab]) => [
-      { label: $localize`:@@navigation.publications:Julkaisut`,           icon: 'main.categories.publications',  route: "/results/publications",    count: counts.publications, queryParams: this.pageSizeParams$,          active: tab === `publications` },
-      { label: $localize`:@@navigation.funding-calls:Rahoitushaut`,       icon: 'main.categories.fundingCalls',   route: "/results/funding-calls",   count: counts.fundingCalls, queryParams: this.fundingSearchPageParams$, active: tab === 'funding-calls' },
-      { label: $localize`:@@navigation.fundings:Myönnetty rahoitus`,      icon: 'main.categories.grantedFunding',  route: "/results/fundings",        count: counts.fundings, queryParams: this.pageSizeParams$,              active: tab === 'fundings' },
-      { label: $localize`:@@navigation.persons:Tutkijat`,                 icon: 'main.categories.people',      route: "/results/persons",         count: counts.persons, queryParams: this.pageSizeParams$,               active: tab === 'persons' },
-      { label: $localize`:@@navigation.datasets:Aineistot`,               icon: 'main.categories.datasets',  route: "/results/datasets",        count: counts.datasets, queryParams: this.pageSizeParams$,              active: tab === 'datasets' },
-      { label: $localize`:@@navigation.infrastructures:Infrastruktuurit`, icon: 'main.categories.infrastructures', route: "/results/infrastructures", count: counts.infrastructures, queryParams: this.pageSizeParams$,       active: tab === 'infrastructures' },
-      { label: $localize`:@@navigation.organizations:Organisaatiot`,      icon: 'main.categories.organizations', route: "/results/organizations",   count: counts.organizations, queryParams: this.pageSizeParams$,         active: tab === 'organizations' },
-      { label: $localize`:@@navigation.projects:Hankkeet`,                icon: 'main.categories.projects',  route: "/results/projects",        count: counts.projects, queryParams: this.pageSizeParams$,              active: tab === 'projects' },
+      { label: $localize`:@@navigation.publications:Julkaisut`,           icon: 'book',  route: "/results/publications",    count: counts.publications, queryParams: this.pageSizeParams$,          active: tab === `publications` },
+      { label: $localize`:@@navigation.funding-calls:Rahoitushaut`,       icon: 'megaphone',   route: "/results/funding-calls",   count: counts.fundingCalls, queryParams: this.fundingSearchPageParams$, active: tab === 'funding-calls' },
+      { label: $localize`:@@navigation.fundings:Myönnetty rahoitus`,      icon: 'coins',  route: "/results/fundings",        count: counts.fundings, queryParams: this.pageSizeParams$,              active: tab === 'fundings' },
+      { label: $localize`:@@navigation.persons:Tutkijat`,                 icon: 'group',      route: "/results/persons",         count: counts.persons, queryParams: this.pageSizeParams$,               active: tab === 'persons' },
+      { label: $localize`:@@navigation.datasets:Aineistot`,               icon: 'chart',  route: "/results/datasets",        count: counts.datasets, queryParams: this.pageSizeParams$,              active: tab === 'datasets' },
+      { label: $localize`:@@navigation.infrastructures:Infrastruktuurit`, icon: 'lan', route: "/results/infrastructures", count: counts.infrastructures, queryParams: this.pageSizeParams$,       active: tab === 'infrastructures' },
+      { label: $localize`:@@navigation.organizations:Organisaatiot`,      icon: 'organisation', route: "/results/organizations",   count: counts.organizations, queryParams: this.pageSizeParams$,         active: tab === 'organizations' },
+      { label: $localize`:@@navigation.projects:Hankkeet`,                icon: 'work',  route: "/results/projects",        count: counts.projects, queryParams: this.pageSizeParams$,              active: tab === 'projects' },
     ])
   );
 
