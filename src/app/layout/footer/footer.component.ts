@@ -19,6 +19,7 @@ import { ReviewComponent } from '@shared/components/review/review.component';
 import { DialogComponent } from '@shared/components/dialog/dialog.component';
 import { WelcomeStepperComponent } from '@mydata/components/welcome-stepper/welcome-stepper.component';
 import { MatIcon } from '@angular/material/icon';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 function email(strings) {
     return `${strings[0]}@csc.fi`;
@@ -40,7 +41,8 @@ function email(strings) {
     ReviewComponent,
     DialogComponent,
     WelcomeStepperComponent,
-    MatIcon
+    MatIcon,
+    SvgSpritesComponent
   ]
 })
 export class FooterComponent {
