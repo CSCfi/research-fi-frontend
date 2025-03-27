@@ -1,0 +1,53 @@
+:host {
+  color: #4546b9;
+  display: inline-block;
+  .svg-icon {
+    display: inline-block !important;
+    max-width: 40px;
+    max-height: 40px;
+  }
+  .main-category-icon {
+    color: #4546b9 !important;
+    fill: #4546b9 !important;
+    margin-right: 14px;
+    margin-left: 3px;
+    width: 23px;
+    height: 23px;
+  }
+  .info-icon {
+    width: 22px;
+    height: 22px;
+    margin-top: -2px;
+    margin-left: -4px;
+    &.info-banner {
+      width: 30px;
+      height: 30px;
+      margin-right: 4px;
+    }
+  }
+  .twitter-icon {
+    height: 30px;
+    width: 40px;
+    margin-right: 10px;
+    display: inline-flex;
+    color: #4546b9;
+    fill: #4546b9;
+  }
+  .show-as-image-button {
+    height: 18px;
+    width: 18px;
+    color: #fff;
+    fill: #fff;
+    margin-right: 10px;
+  }
+  .plus-icon, .minus-icon {
+    width: 22px;
+    height: 22px;
+    margin-top: -5px;
+  }
+  @media (max-width: 991px) {
+    .info-icon {
+      display: none;
+    }
+  }
+}
