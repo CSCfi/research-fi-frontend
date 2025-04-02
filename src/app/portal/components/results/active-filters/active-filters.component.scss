@@ -1,0 +1,9 @@
+ ul, button {
+    display: flex !important;
+  }
+  .mat-icon {
+    display: flex !important;
+    svg {
+      width: 20px
+    }
+  }

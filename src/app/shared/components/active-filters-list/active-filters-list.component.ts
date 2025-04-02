@@ -21,6 +21,7 @@ import { MatButton } from '@angular/material/button';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgFor, NgIf } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-active-filters-list',
@@ -35,7 +36,8 @@ import { MatIcon } from '@angular/material/icon';
     MatButton,
     ActiveFiltersDialogComponent,
     DialogComponent,
-    MatIcon
+    MatIcon,
+    SvgSpritesComponent
   ]
 })
 export class ActiveFiltersListComponent implements OnInit {

@@ -4,7 +4,7 @@
  :license: MIT -->
 
 <a href="javascript:void(0)" [matMenuTriggerFor]="menu" class="primary-color">
-  <span class="pe-2">{{ label }}</span> <i class="fas fa-chevron-down"></i>
+  <span class="pe-2">{{ label }}</span> > <app-svg-sprites [iconName]="'chevron-down'"></app-svg-sprites>
 </a>
 <mat-menu #menu="matMenu" xPosition="before">
   <button

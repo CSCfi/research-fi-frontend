@@ -24,8 +24,10 @@
             *ngIf="!!icon && !iconAfter"
             [icon]="icon"
     ></fa-icon>
-    <mat-icon [ngClass]="{ 'd-none d-sm-inline': noSmIcon }" *ngIf="!!svgIconIdString && !iconAfter"
-              [svgIcon]="svgIconIdString"></mat-icon>
+    <app-svg-sprites [ngClass]="{ 'd-none d-sm-inline': noSmIcon }" *ngIf="!!svgSymbolName && !iconAfter"
+              [iconName]="svgSymbolName" [cssClass]="svgCssClass"></app-svg-sprites>
+
+
     <ng-container class="d-flex">{{ content }}</ng-container>
     <fa-icon
             class="after"
@@ -33,7 +35,7 @@
             *ngIf="!!icon && iconAfter"
             [icon]="icon"
     ></fa-icon>
-    <mat-icon [ngClass]="{ 'd-none d-sm-inline': noSmIcon }" *ngIf="!!svgIconIdString && iconAfter"
-              [svgIcon]="svgIconIdString"></mat-icon>
+    <app-svg-sprites [ngClass]="{ 'd-none d-sm-inline': noSmIcon }" *ngIf="!!svgSymbolName && iconAfter"
+                     [iconName]="svgSymbolName" [cssClass]="svgCssClass"></app-svg-sprites>
     </span>
 </button>

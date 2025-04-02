@@ -18,7 +18,7 @@
           *ngIf="!filter.hide"
           (click)="removeFilter(filter.value)"
           (keydown.enter)="removeFilter(filter.value)"
-          class="filter modal-filter"
+          class="filter modal-filter d-flex"
         >
           <span>{{ filter.translation }}</span>
         </li>
@@ -28,8 +28,9 @@
 </div>
 <div class="row mt-4">
   <div class="col px-0 text-center">
-    <button mat-flat-button color="primary" (click)="clearFilters()">
-        <mat-icon [svgIcon]="'general.delete'"></mat-icon><ng-container i18n="@@clearAllActive"
+    <button class="d-flex" mat-flat-button color="primary" (click)="clearFilters()">
+        <app-svg-sprites [iconName]="'delete'" cssClass="delete-icon button-icon filters-icon"></app-svg-sprites>
+        <ng-container i18n="@@clearAllActive"
         >Tyhjennä kaikki rajaukset</ng-container
       >
     </button>

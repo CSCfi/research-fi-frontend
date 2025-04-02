@@ -47,11 +47,11 @@ import { MatButton } from '@angular/material/button';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
-  selector: 'app-search-bar',
-  templateUrl: './search-bar.component.html',
-  styleUrls: ['./search-bar.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  standalone: true,
+    selector: 'app-search-bar',
+    templateUrl: './search-bar.component.html',
+    styleUrls: ['./search-bar.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
   imports: [
     FormsModule,
     MatButton,

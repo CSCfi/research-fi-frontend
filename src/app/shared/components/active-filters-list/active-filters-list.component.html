@@ -24,15 +24,14 @@ Copyright 2019 Ministry of Education and Culture, Finland
           activeFilter.translation
         }}</span>
           <!-- seems deprecated, need to check what is this -->
-          <mat-icon [svgIcon]="'general.fa.delete'"
-                    tabindex="0"
-                    (focus)="enter(i)"
-                    (blur)="leave()"
-                    (mouseenter)="enter(i)"
-                    (mouseleave)="leave()"
-                    *ngIf="activeFilter.warning"
-                    class="icon warning"
-          ></mat-icon>
+          <app-svg-sprites [iconName]="'delete'" tabindex="0"
+                           (focus)="enter(i)"
+                           (blur)="leave()"
+                           (mouseenter)="enter(i)"
+                           (mouseleave)="leave()"ngOnDestroy
+                           *ngIf="activeFilter.warning"
+                           class="icon warning"
+                           cssClass="delete-icon"></app-svg-sprites>
         <div
           class="warning-info"
           *ngIf="activeFilter.warning && hoverIndex === i"
@@ -48,7 +47,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
       ...
     </div>
     <div class="d-inline-flex">
-      <button
+      <button class="d-flex"
         *ngIf="filters.length > 6"
         class="show filter"
         mat-button
@@ -57,8 +56,8 @@ Copyright 2019 Ministry of Education and Culture, Finland
       >
         Näytä kaikki
       </button>
-      <button class="clear filter" mat-button (click)="clearFilters()">
-          <mat-icon [svgIcon]="'general.fa.delete'"></mat-icon>
+      <button class="clear filter d-flex" mat-button (click)="clearFilters()">
+          <app-svg-sprites [iconName]="'delete'" cssClass="delete-icon filters-icon"></app-svg-sprites>
         <ng-container i18n="@@clearActiveFilters"
           >Tyhjennä rajaukset</ng-container
         >

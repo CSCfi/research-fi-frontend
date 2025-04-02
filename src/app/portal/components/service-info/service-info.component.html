@@ -29,7 +29,7 @@
               >
                 <mat-expansion-panel-header collapsedHeight="61px">
                   <mat-panel-title>
-                    <fa-icon class="icon" [icon]="faInfo"></fa-icon>
+                      <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                     <div class="title align-self-center">
                       <h2 [id]="item['title' + currentLocale]">
                         {{ item['title' + currentLocale] }}
