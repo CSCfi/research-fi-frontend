@@ -78,8 +78,7 @@
                   *ngSwitchCase="fieldTypes.personWebLink"
                   target="_blank"
                   [attr.href]="item.url"
-                  >{{ item.url }}<fa-icon icon="external-link-alt"></fa-icon
-                ></a>
+                  >{{ item.url }}<app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites></a>
                 <!-- Email -->
                 <a
                   *ngSwitchCase="fieldTypes.personEmailAddress"

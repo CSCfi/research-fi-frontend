@@ -7,6 +7,7 @@ import { SecondaryButtonComponent } from '../../../../shared/components/buttons/
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { NgIf } from '@angular/common';
 import { BannerDividerComponent } from '@shared/components/banner-divider/banner-divider.component';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-cancel-deployment',
@@ -16,7 +17,8 @@ import { BannerDividerComponent } from '@shared/components/banner-divider/banner
     NgIf,
     MatProgressSpinner,
     SecondaryButtonComponent,
-    BannerDividerComponent
+    BannerDividerComponent,
+    SvgSpritesComponent
   ]
 })
 export class CancelDeploymentComponent implements OnInit {

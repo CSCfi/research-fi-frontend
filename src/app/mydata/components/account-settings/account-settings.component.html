@@ -147,7 +147,7 @@
               <div *ngIf="connProblemDeleteProfile">
                 <div class="row">
                   <div class="col mx-3">
-                    <i class="fas fa-exclamation-triangle"></i>
+                      <app-svg-sprites [iconName]="'warning'" cssClass="warning-icon"></app-svg-sprites>
                     <ng-container i18n="@@deleteProfileConnProblem"
                     >{{connectionProblemDeleteProfile}}
                     </ng-container
@@ -190,7 +190,7 @@
               <div *ngIf="connProblemHideProfile">
                 <div class="row">
                   <div class="col mx-3">
-                    <i class="fas fa-exclamation-triangle"></i>
+                      <app-svg-sprites [iconName]="'warning'" cssClass="warning-icon"></app-svg-sprites>
                     <ng-container i18n="@@deleteProfileConnProblem"
                     >Yhteysongelma. Profiilin piilottaminen ei onnistu. Kokeile
                       hetken kuluttua uudestaan.

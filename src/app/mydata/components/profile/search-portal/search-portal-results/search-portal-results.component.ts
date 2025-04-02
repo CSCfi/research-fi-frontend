@@ -38,6 +38,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 import { NgIf, NgFor } from '@angular/common';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-search-portal-results',
@@ -45,28 +46,29 @@ import { NgIf, NgFor } from '@angular/common';
     styleUrls: ['./search-portal-results.component.scss'],
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [
-        NgIf,
-        MatTable,
-        MatSort,
-        MatColumnDef,
-        MatHeaderCellDef,
-        MatHeaderCell,
-        MatCellDef,
-        MatCell,
-        MatCheckbox,
-        NgFor,
-        MatSortHeader,
-        FontAwesomeModule,
-        DatasetAuthorComponent,
-        MatHeaderRowDef,
-        MatHeaderRow,
-        MatRowDef,
-        MatRow,
-        MatPaginator,
-        CutContentPipe,
-        GetValuePipe,
-    ],
+  imports: [
+    NgIf,
+    MatTable,
+    MatSort,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatCellDef,
+    MatCell,
+    MatCheckbox,
+    NgFor,
+    MatSortHeader,
+    FontAwesomeModule,
+    DatasetAuthorComponent,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRowDef,
+    MatRow,
+    MatPaginator,
+    CutContentPipe,
+    GetValuePipe,
+    SvgSpritesComponent
+  ]
 })
 export class SearchPortalResultsComponent
   implements OnInit, OnChanges, OnDestroy

@@ -42,33 +42,35 @@ import { MatRadioButton } from '@angular/material/radio';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
 import { NgIf, NgFor, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-profile-panel',
     templateUrl: './profile-panel.component.html',
     standalone: true,
-    imports: [
-        NgIf,
-        MatAccordion,
-        NgFor,
-        MatExpansionPanel,
-        MatExpansionPanelHeader,
-        MatExpansionPanelTitle,
-        NgSwitch,
-        NgSwitchCase,
-        MatCheckbox,
-        NgSwitchDefault,
-        MatRadioButton,
-        PanelArrayItemComponent,
-        SecondaryButtonComponent,
-        PrimaryBadgeComponent,
-        FontAwesomeModule,
-        SearchPortalComponent,
-        JoinItemsPipe,
-        FilterPipe,
-        JoinDataSourcesPipe,
-        FindSelectedItemPipe,
-    ],
+  imports: [
+    NgIf,
+    MatAccordion,
+    NgFor,
+    MatExpansionPanel,
+    MatExpansionPanelHeader,
+    MatExpansionPanelTitle,
+    NgSwitch,
+    NgSwitchCase,
+    MatCheckbox,
+    NgSwitchDefault,
+    MatRadioButton,
+    PanelArrayItemComponent,
+    SecondaryButtonComponent,
+    PrimaryBadgeComponent,
+    FontAwesomeModule,
+    SearchPortalComponent,
+    JoinItemsPipe,
+    FilterPipe,
+    JoinDataSourcesPipe,
+    FindSelectedItemPipe,
+    SvgSpritesComponent
+  ]
 })
 export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() primarySource: string;

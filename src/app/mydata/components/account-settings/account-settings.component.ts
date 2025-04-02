@@ -15,6 +15,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { SecondaryButtonComponent } from '../../../shared/components/buttons/secondary-button/secondary-button.component';
 import { NgIf, AsyncPipe } from '@angular/common';
 import { BannerDividerComponent } from '@shared/components/banner-divider/banner-divider.component';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-account-settings',
@@ -29,7 +30,8 @@ import { BannerDividerComponent } from '@shared/components/banner-divider/banner
     PrimaryActionButtonComponent,
     DialogComponent,
     AsyncPipe,
-    BannerDividerComponent
+    BannerDividerComponent,
+    SvgSpritesComponent
   ]
 })
 export class AccountSettingsComponent implements OnInit {

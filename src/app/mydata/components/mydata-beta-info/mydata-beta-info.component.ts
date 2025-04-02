@@ -10,17 +10,19 @@ import { ActivatedRoute } from '@angular/router';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { MatButton } from '@angular/material/button';
 import { NgClass, NgIf } from '@angular/common';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-mydata-beta-info',
     templateUrl: './mydata-beta-info.component.html',
     styleUrls: ['./mydata-beta-info.component.scss'],
     standalone: true,
-    imports: [
-        NgClass,
-        NgIf,
-        MatButton,
-    ],
+  imports: [
+    NgClass,
+    NgIf,
+    MatButton,
+    SvgSpritesComponent
+  ]
 })
 export class MydataBetaInfoComponent implements OnInit {
   @Input() template: TemplateRef<any>;
