@@ -9,7 +9,7 @@
     <div class="tag-content">
         <a href="https://doi.org/{{ linkDoi }} " target="_blank">
             <span class="doi-text">{{ linkDoi | trimLinkPrefix: 'doi.org' }}</span>
-            <mat-icon [svgIcon]="'general.externalLink'"></mat-icon>
+            <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon doi-svg"></app-svg-sprites>
         </a>
     </div>
 </div>
@@ -20,7 +20,7 @@
     <div class="tag-content">
         <a href="https://doi.org/{{ linkUrn }} " target="_blank">
             <span class="doi-text">{{ linkUrn | trimLinkPrefix: 'doi.org' }}</span>
-            <mat-icon [svgIcon]="'general.externalLink'"></mat-icon>
+            <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon doi-svg"></app-svg-sprites>
         </a>
     </div>
 </div>

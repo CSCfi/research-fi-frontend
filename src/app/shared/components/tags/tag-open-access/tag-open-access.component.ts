@@ -8,6 +8,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-tag-open-access',
@@ -18,7 +19,8 @@ import { MatIcon } from '@angular/material/icon';
     NgIf,
     NgTemplateOutlet,
     MatIcon,
-    NgClass
+    NgClass,
+    SvgSpritesComponent
   ]
 })
 export class TagOpenAccessComponent implements OnInit {

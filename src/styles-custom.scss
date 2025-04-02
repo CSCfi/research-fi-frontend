@@ -508,7 +508,7 @@ mat-icon[data-mat-icon-name="general.info"] {
 }
 
 // Help icon
-.info-icon {
+.info-icon-old {
   color: mat-color($primary, default);
   cursor: pointer;
 }
@@ -767,6 +767,14 @@ app-single-dataset, app-single-funding, app-single-funding-call, app-single-infr
   }
 }
 
+app-svg-icons {
+  img {
+    width: 16px;
+    height: 16px;
+    color: mat-color($primary, default);
+  }
+}
+
 .sort-indicator {
   display: flex;
   margin-left: 4px;
@@ -777,7 +785,7 @@ app-single-dataset, app-single-funding, app-single-funding-call, app-single-infr
     margin-top: 4px;
   }
   svg {
-    width: 16px !important;
+    width: 18px !important;
   }
 }
 
@@ -878,7 +886,7 @@ app-single-dataset, app-single-funding, app-single-funding-call, app-single-infr
 }
 
 @media (max-width: 991px) {
-  .info-icon {
+  .info-icon-old {
     display: none;
   }
 

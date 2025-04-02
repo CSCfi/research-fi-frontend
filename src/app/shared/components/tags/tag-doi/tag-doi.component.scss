@@ -9,8 +9,7 @@
   .tag-id {
     background: #363636;
     color: white;
-    border: 1px solid #363636;
-    padding: 3px 10px 3px 15px;
+    padding: 4px 10px 3px 15px;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
     border-top-right-radius: 0;
@@ -18,19 +17,18 @@
   }
 
   .tag-content {
-    background: white;
-    padding: 3px 16px 0px 10px;
+    background: #EBEBEB;
+    padding: 4px 16px 0px 10px;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-    border: 1px solid #363636;
     a {
       display: flex;
       color: #363636;
       text-decoration: none;
       .doi-text {
-        max-width: 130px;
+        max-width: 231px;
         margin-top: 0px;
         overflow: hidden;
         white-space: nowrap;

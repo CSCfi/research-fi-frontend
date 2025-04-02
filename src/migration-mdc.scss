@@ -29,14 +29,14 @@
   max-height: 28px;
 }
 
-.info-icon {
+.info-icon-old {
   .svg-inline--fa {
     max-height: 16px !important;
     max-width: 16px !important;
   }
 }
 
-.login-snackbar .info-icon {
+.login-snackbar .info-icon-old {
   .svg-inline--fa {
     max-height: 42px !important;
     max-width: 42px !important;
@@ -133,6 +133,13 @@ app-funding-call-category-filters {
     button:active {
       //background-color: #4546b9;
     }
+  }
+}
+
+.mat-mdc-button {
+  display: flex;
+  .mat-icon {
+    min-height: 30px !important;
   }
 }
 

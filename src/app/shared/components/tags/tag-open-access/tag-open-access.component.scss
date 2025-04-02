@@ -10,20 +10,25 @@
 }
 
 .open-access {
-  border: 1px solid #ea883e;
+  border: 1px solid #C0DBA2;
+  background: #C0DBA2;
   max-width: 170px;
   max-height: 29px;
 
   a, .no-link {
-    color: #bc520a;
+    color: #294210;
     text-decoration: none !important;
   }
 
   a {
     &:hover, &:active, &:focus {
-      color: #bc520a;
+      color: #294210;
       text-decoration: underline !important;
     }
+  }
+
+  .tag-text {
+    //font-size: 0.85rem;
   }
 
   .mat-icon[data-mat-icon-name='general.unlocked.openAccess'] {
@@ -36,6 +41,7 @@
     svg {
       padding-top: 0px;
       width: 16px;
+      color: #294210;
     }
   }
 }
