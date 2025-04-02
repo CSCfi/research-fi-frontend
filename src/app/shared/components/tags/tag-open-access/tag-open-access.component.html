@@ -7,14 +7,18 @@
   <a *ngIf="link?.length > 0" [href]="link" target="_blank">
     <div class="d-flex">
         <app-svg-sprites [iconName]="'lock_open'" cssClass="lock_open-icon open-access-svg"></app-svg-sprites>
-      <span class="tag-text" i18n="@@openAccess">Avoin saatavuus</span>
+        <div class="text-wrapper">
+            <div class="tag-text" i18n="@@openAccess">Avoin saatavuus</div>
+        </div>
         <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon-openaccess open-access-svg"></app-svg-sprites>
     </div>
   </a>
 
   <div *ngIf="!link" class="d-flex">
       <app-svg-sprites [iconName]="'lock_open'" cssClass="lock_open-icon open-access-svg"></app-svg-sprites>
-      <span class="tag-text" i18n="@@openAccess">Avoin saatavuus</span>
+      <div class="text-wrapper">
+          <span class="tag-text" i18n="@@openAccess">Avoin saatavuus</span>
+      </div>
   </div>
 </div>
 

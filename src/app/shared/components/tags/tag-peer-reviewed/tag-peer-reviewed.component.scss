@@ -5,4 +5,10 @@
   max-width: 114px;
   margin-right: 8px;
   font-weight: 500;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  .text-wrapper {
+    height: 18px;
+  }
 }

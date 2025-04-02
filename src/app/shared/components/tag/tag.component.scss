@@ -30,6 +30,9 @@ app-tag {
     }
 
     .tag-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       background: white;
       padding: 3px 10px;
       border-top-right-radius: 20px;
