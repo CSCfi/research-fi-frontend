@@ -54,7 +54,7 @@
                     </ng-template>
 
                     <span [tooltip]="tooltipTemplate" tabindex="0" placement="top" #elem>
-                      <mat-icon [svgIcon]="'general.info'"></mat-icon>
+                      <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                     </span>
                   </ng-container>
                 </h2>
@@ -83,7 +83,7 @@
                 </ng-template>
 
                 <span [tooltip]="tooltipTemplate" tabindex="0" placement="top" #elem>
-                  <mat-icon [svgIcon]="'general.info'"></mat-icon>
+                  <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                 </span>
               </h2>
 
@@ -261,7 +261,7 @@
                   </ng-template>
 
                   <span [tooltip]="tooltipTemplate" tabindex="0" placement="top" #elem>
-                    <mat-icon [svgIcon]="'general.info'"></mat-icon>
+                    <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                   </span>
                 </ng-container>
               </h2>
@@ -299,7 +299,7 @@
                 </ng-template>
 
                 <span [tooltip]="tooltipTemplate" tabindex="0" placement="top" #elem>
-                  <mat-icon [svgIcon]="'general.info'"></mat-icon>
+                  <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                 </span>
               </h2>
 
@@ -381,7 +381,7 @@
                 </ng-template>
 
                 <span [tooltip]="tooltipTemplate" tabindex="0" placement="top" #elem>
-                  <mat-icon [svgIcon]="'general.info'"></mat-icon>
+                  <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                 </span>
               </h2>
 
@@ -400,7 +400,7 @@
                   </ng-template>
 
                   <span [tooltip]="tooltipTemplate" tabindex="0" placement="top" #elem>
-                    <mat-icon [svgIcon]="'general.info'"></mat-icon>
+                    <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                   </span>
                 </ng-container>
               </h2>
@@ -420,7 +420,7 @@
                 </ng-template>
 
                 <span [tooltip]="tooltipTemplate" tabindex="0" placement="top" #elem>
-                  <mat-icon [svgIcon]="'general.info'"></mat-icon>
+                  <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                 </span>
               </h2>
 
@@ -440,18 +440,18 @@
                   </div>
 
                   {{ item.funder.euCallProgrammes[0].name }}
-                  (<a [href]="cordisLink + item.funder.euCallProgrammes[0].id" target="_blank">{{ item.funder.euCallProgrammes[0].id }}<mat-icon [svgIcon]="'general.externalLink'" class="external-link-icon"></mat-icon> </a>)
+                  (<a [href]="cordisLink + item.funder.euCallProgrammes[0].id" target="_blank">{{ item.funder.euCallProgrammes[0].id }}<app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites> </a>)
                 </div>
 
                 <div *ngFor="let programme of item.funder.euCallProgrammes.slice(1)" class="col-12 col-sm-8 col-lg-9 offset-sm-4 offset-lg-3 td">
                   {{ programme.name }}
-                  (<a [href]="cordisLink + programme.id" target="_blank">{{ programme.id }}<mat-icon [svgIcon]="'general.externalLink'" class="external-link-icon"></mat-icon> </a>)
+                  (<a [href]="cordisLink + programme.id" target="_blank">{{ programme.id }}<app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites> </a>)
                 </div>
 
                 <div class="col-12 col-sm-8 col-lg-9 offset-sm-4 offset-lg-3 td">
                   <div><strong i18n="@@funderTopic">Aihe</strong></div>
                   {{ item.funder.topicName }}
-                  (<a [href]="cordisLink + 'H2020_' + item.funder.topicId" target="_blank">{{ item.funder.topicId }}<mat-icon [svgIcon]="'general.externalLink'" class="external-link-icon"></mat-icon> </a>)
+                  (<a [href]="cordisLink + 'H2020_' + item.funder.topicId" target="_blank">{{ item.funder.topicId }}<app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites> </a>)
                 </div>
 
                 <div class="col-12 col-sm-8 col-lg-9 offset-sm-4 offset-lg-3 td">
@@ -473,7 +473,7 @@
                     </ng-template>
 
                     <span [tooltip]="tooltipTemplate" tabindex="0" placement="top" #elem>
-                    <mat-icon [svgIcon]="'general.info'"></mat-icon>
+                    <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                   </span>
                 </h2>
 
@@ -503,7 +503,7 @@
                   </ng-template>
 
                   <span [tooltip]="tooltipTemplate" tabindex="0" placement="top" #elem>
-                    <mat-icon [svgIcon]="'general.info'"></mat-icon>
+                    <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                   </span>
                 </ng-container>
               </h2>
@@ -530,7 +530,7 @@
                 </ng-template>
 
                 <span [tooltip]="tooltipTemplate" tabindex="0" placement="top" #elem>
-                  <mat-icon [svgIcon]="'general.info'"></mat-icon>
+                  <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                 </span>
               </h2>
             </mat-card-title>
@@ -590,7 +590,7 @@
               <p *ngIf="source.funder.name.trim().length > 0">
                 <ng-container *ngIf="!item.structuralFund">{{source.funder.name}}</ng-container>
 
-                <ng-container *ngIf="item.structuralFund">Rakennerahastotietopalvelu <!-- Structural fund source link --> (<a href="https://www.eura2014.fi/rrtiepa/" target="_blank">eura2014.fi<mat-icon [svgIcon]="'general.externalLink'" class="external-link-icon"></mat-icon> </a>)</ng-container>
+                <ng-container *ngIf="item.structuralFund">Rakennerahastotietopalvelu <!-- Structural fund source link --> (<a href="https://www.eura2014.fi/rrtiepa/" target="_blank">eura2014.fi<app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites> </a>)</ng-container>
               </p>
 
               <p *ngIf="source.funder.name.trim().length === 0" i18n="@@noInformationSource">

@@ -35,6 +35,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
 import { MatIcon } from '@angular/material/icon';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-single-infrastructure',
@@ -56,7 +57,8 @@ import { MatIcon } from '@angular/material/icon';
     SingleResultLinkComponent,
     RelatedLinksComponent,
     ShareComponent,
-    MatIcon
+    MatIcon,
+    SvgSpritesComponent
   ]
 })
 export class SingleInfrastructureComponent implements OnInit, OnDestroy {

@@ -58,7 +58,7 @@
                       placement="top"
                       #elem
                     >
-                      <mat-icon [svgIcon]="'general.info'"></mat-icon>
+                      <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                     </span>
                   </ng-container>
                 </h2>
@@ -95,7 +95,7 @@
                 placement="top"
                 #elem
               >
-                <mat-icon [svgIcon]="'general.info'"></mat-icon>
+                <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
               </span>
             </h2>
             <div
@@ -133,7 +133,7 @@
                             placement="top"
                             #elem
                           >
-                            <mat-icon [svgIcon]="'general.info'"></mat-icon>
+                            <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                           </span>
                         </ng-container>
                       </h4>
@@ -186,7 +186,7 @@
                           placement="top"
                           #elem
                         >
-                          <mat-icon [svgIcon]="'general.info'"></mat-icon>
+                          <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                         </span>
                       </h4>
                       <div class="col-12 col-sm-6 col-lg-9 td">
@@ -238,14 +238,11 @@
                               "
                               href="{{ servicePoint[row.field] }}"
                               >{{ servicePoint[row.field] }}
-                              <i
-                                *ngIf="
+                                <app-svg-sprites *ngIf="
                                   row.field === 'infoUrl' ||
                                   row.field === 'accessPolicyUrl'
-                                "
-                                class="fas fa-external-link-alt"
-                              ></i
-                            ></a>
+                                " [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
+                             </a>
                           </div>
                         </ng-container>
                       </div>
@@ -297,7 +294,7 @@
                         placement="top"
                         #elem
                       >
-                        <mat-icon [svgIcon]="'general.info'"></mat-icon>
+                        <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                       </span>
                     </ng-container>
                   </h4>

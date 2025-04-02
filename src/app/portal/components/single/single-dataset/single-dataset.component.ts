@@ -39,6 +39,7 @@ import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
 import { NgIf, NgFor, NgClass } from '@angular/common';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
 import { MatIcon } from '@angular/material/icon';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-single-dataset',
@@ -66,7 +67,8 @@ import { MatIcon } from '@angular/material/icon';
     ShareComponent,
     MatProgressSpinner,
     SafeUrlPipe,
-    MatIcon
+    MatIcon,
+    SvgSpritesComponent
   ]
 })
 export class SingleDatasetComponent implements OnInit {

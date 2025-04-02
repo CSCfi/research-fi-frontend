@@ -62,7 +62,7 @@
                   placement="top"
                   #elem
                 >
-                  <mat-icon [svgIcon]="'general.info'"></mat-icon>
+                  <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                 </span>
               </ng-container>
             </h2>
@@ -105,7 +105,7 @@
                   placement="top"
                   #elem
                 >
-                  <mat-icon [svgIcon]="'general.info'"></mat-icon>
+                  <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                 </span>
               </ng-container>
               <div class="show-more-wrapper" *ngIf="hasSubUnits">
@@ -275,7 +275,7 @@
                     placement="top"
                     #elem
                   >
-                    <mat-icon [svgIcon]="'general.info'"></mat-icon>
+                    <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                   </span>
                 </ng-container>
               </h3>
@@ -301,7 +301,7 @@
                       placement="top"
                       #elem
                     >
-                      <mat-icon [svgIcon]="'general.info'"></mat-icon>
+                      <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                     </span>
                   </ng-container>
                 </h3>
@@ -328,7 +328,7 @@
                       placement="top"
                       #elem
                     >
-                      <mat-icon [svgIcon]="'general.info'"></mat-icon>
+                      <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                     </span>
                   </ng-container>
                 </h3>
@@ -355,7 +355,7 @@
                       placement="top"
                       #elem
                     >
-                      <mat-icon [svgIcon]="'general.info'"></mat-icon>
+                      <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                     </span>
                   </ng-container>
                 </h3>
@@ -390,7 +390,7 @@
                         placement="top"
                         #elem
                       >
-                        <mat-icon [svgIcon]="'general.info'"></mat-icon>
+                        <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                       </span>
                     </ng-container>
                   </h3>
@@ -425,7 +425,7 @@
                       target="_blank"
                     >
                       {{ item[row.field]
-                      }}<mat-icon [svgIcon]="'general.externalLink'"></mat-icon>
+                      }}<app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites>
                     </a>
                     <!-- Parent publication name -->
                     <a
@@ -484,7 +484,7 @@
                       </ng-template>
 
                       <span [tooltip]="tooltipTemplate" tabindex="0" placement="top" #elem>
-                        <mat-icon [svgIcon]="'general.info'"></mat-icon>
+                        <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                       </span>
                     </ng-container>
                   </h3>
@@ -515,7 +515,7 @@
                     placement="top"
                     #elem
                   >
-                    <mat-icon [svgIcon]="'general.info'"></mat-icon>
+                    <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                   </span>
                 </ng-container>
               </h3>
@@ -549,7 +549,7 @@
                       placement="top"
                       #elem
                     >
-                      <mat-icon [svgIcon]="'general.info'"></mat-icon>
+                      <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                     </span>
                   </ng-container>
                 </h3>
@@ -575,7 +575,7 @@
                       placement="top"
                       #elem
                     >
-                      <mat-icon [svgIcon]="'general.info'"></mat-icon>
+                      <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                     </span>
                   </ng-container>
                 </h3>
@@ -603,7 +603,7 @@
                     placement="top"
                     #elem
                   >
-                    <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                     <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                   </span>
                 </ng-container>
               </h3>
@@ -636,7 +636,7 @@
                 <a
                   href="https://scholar.google.com/scholar?q={{ item.title }}"
                   target="_blank"
-                  >Google Scholar<mat-icon [svgIcon]="'general.externalLink'" class="external-link-icon"></mat-icon></a>
+                  >Google Scholar<app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites></a>
               </div>
               <div class="col-12 col-sm-6 col-md-12 col-xl-6 other-link">
                 <a
@@ -644,7 +644,7 @@
                     item.doi !== ' ' ? item.doi : item.title
                   }}"
                   target="_blank"
-                  >CrossRef<mat-icon [svgIcon]="'general.externalLink'" class="external-link-icon"></mat-icon></a>
+                  >CrossRef<app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites></a>
               </div>
             </div>
           </div>
@@ -678,13 +678,14 @@
             </mat-card-title>
             <div>
               <div class="reference">
-                <app-secondary-button
-                  #citeButton
-                  (click)="openDialog()"
-                  [content]="copyReferences"
-                  [icon]="faQuoteRight"
-                  [big]="true"
-                ></app-secondary-button>
+                  <app-secondary-button
+                    #citeButton
+                    (click)="openDialog()"
+                    [content]="copyReferences"
+                    [svgSymbolName]="'fa-quote'"
+                    [svgCssClass]="'quote-icon'"
+                    [big]="true"
+                  ></app-secondary-button>
                 <!-- <small *ngIf="!hasDoi" class="no-doi-warn" i18n="@@doiWarning">Viitetiedot eivät ole saatavilla, koska julkaisulla ei ole DOI-tunnistetta.</small> -->
               </div>
             </div>
@@ -747,7 +748,8 @@
           (click)="openSnackBar()"
           class="copy"
           [content]="copyToClipboard"
-          [icon]="faCopy"
+          [svgSymbolName]="'copy'"
+          [svgCssClass]="'copy-icon'"
         ></app-secondary-button>
       </div>
     </div>

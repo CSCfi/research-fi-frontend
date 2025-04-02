@@ -47,7 +47,7 @@
                 <img class='orcid-icon' src='assets/img/orcid_icon.svg' alt='Orcid -palvelun logo' />
                 https://orcid.org/{{ person.orcid }}
               </span>
-              <mat-icon [svgIcon]="'general.externalLink'" class="external-link-icon"></mat-icon>
+              <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites>
             </a>
 
           </div>
@@ -274,7 +274,7 @@
                 <ng-container *ngIf="person.contact[row.key]?.length && row.key !== 'otherNames'">
                   <li *ngFor='let item of person.contact[row.key]' class='row'>
                     <ng-container *ngIf="item.icon">
-                        <mat-icon [svgIcon]="item.icon" class='col-1 ps-0 pb-3'></mat-icon>
+                        <app-svg-sprites [iconName]="item.icon" cssClass="contact-item-icon"></app-svg-sprites>
                     </ng-container>
 
                     <span class='fw-bold col-auto ps-0' *ngIf='row.label'>

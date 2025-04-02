@@ -44,6 +44,7 @@ import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
 import { NgIf, NgFor } from '@angular/common';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
 import { MatIcon } from '@angular/material/icon';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-single-organization',
@@ -70,7 +71,8 @@ import { MatIcon } from '@angular/material/icon';
     ShareComponent,
     SafeUrlPipe,
     FilterEmptyFieldPipe,
-    MatIcon
+    MatIcon,
+    SvgSpritesComponent
   ]
 })
 export class SingleOrganizationComponent implements OnInit, OnDestroy {

@@ -54,7 +54,7 @@
                                         </ng-template>
 
                                         <span [tooltip]="tooltipTemplate" tabindex="0" placement="top" #elem>
-                                            <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                                            <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                                         </span>
                                     </ng-container>
                                 </h2>
@@ -115,7 +115,7 @@
 
                                                     <span [tooltip]="tooltipTemplate" tabindex="0" placement="top"
                                                           #elem>
-                                            <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                                            <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                                         </span>
                                                 </ng-container>
                                             </h3>
@@ -134,7 +134,7 @@
 
                                                     <span [tooltip]="tooltipTemplate" tabindex="0" placement="top"
                                                           #elem>
-                                            <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                                            <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                                         </span>
                                                 </ng-container>
                                             </h3>
@@ -171,10 +171,10 @@
 
                             <p *ngIf="item?.projectUrl?.trim().length > 0">
                                 <a [href]="item.projectUrl" target="_blank">{{ item.projectUrl }}
-                                    <mat-icon [svgIcon]="'general.externalLink'" class="external-link-icon"></mat-icon> </a>
+                                    <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites> </a>
                             </p>
 
-                                    <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                                    <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                                 </span>
                             </h2>
                         </mat-card-title>

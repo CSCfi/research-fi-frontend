@@ -12,14 +12,13 @@
       </ng-container>
 
       <ng-container *ngIf="icon">
-        <span class="link-tag fa fa-link center" style="font-size: 22px; padding: 3px 12px"></span>
+          <span class="link-tag"><app-svg-sprites [iconName]="'link'" cssClass="link-icon"></app-svg-sprites></span>
       </ng-container>
 
       <span class="link-item" [class.p-0]="simple">
         <a [href]="url | fixExternalUrl" target="_blank">
           <span class="link-label">{{ label ? (label | trimLinkPrefix) : (url | trimLinkPrefix) }}</span>
-
-          <mat-icon [svgIcon]="'general.externalLink'" class="external-link-icon"></mat-icon>
+          <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites>
         </a>
       </span>
 

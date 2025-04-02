@@ -18,8 +18,6 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
 import { SearchService } from '../../../services/search.service';
 import { Subscription } from 'rxjs';
-import { faQuoteRight } from '@fortawesome/free-solid-svg-icons';
-import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { Search } from 'src/app/portal/models/search.model';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { UtilityService } from 'src/app/shared/services/utility.service';
@@ -39,6 +37,7 @@ import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
 import { NgIf, NgFor, NgClass, NgSwitch, NgSwitchDefault, NgSwitchCase, DatePipe } from '@angular/common';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
 import { MatIcon } from '@angular/material/icon';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-single-funding',
@@ -65,7 +64,8 @@ import { MatIcon } from '@angular/material/icon';
     ShareComponent,
     DatePipe,
     ThousandSeparatorPipe,
-    MatIcon
+    MatIcon,
+    SvgSpritesComponent
   ]
 })
 export class SingleFundingComponent implements OnInit, OnDestroy {
@@ -177,9 +177,6 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
   @ViewChild('backToResultsLink') backToResultsLink: ElementRef;
   idSub: Subscription;
-
-  faQuoteRight = faQuoteRight;
-  faIcon = faFileAlt;
 
   expand: boolean;
   infoFields: any[];

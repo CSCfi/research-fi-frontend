@@ -11,6 +11,7 @@ import { TrimLinkPrefixPipe } from '../../../../shared/pipes/trim-link-prefix.pi
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgIf } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-single-result-link',
@@ -22,7 +23,8 @@ import { MatIcon } from '@angular/material/icon';
     FontAwesomeModule,
     TrimLinkPrefixPipe,
     FixExternalUrlPipe,
-    MatIcon
+    MatIcon,
+    SvgSpritesComponent
   ]
 })
 export class SingleResultLinkComponent {

@@ -31,6 +31,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
 import { MatIcon } from '@angular/material/icon';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 type Field = { key: string; label?: string };
 
@@ -58,7 +59,8 @@ type Field = { key: string; label?: string };
     AsyncPipe,
     JoinItemsPipe,
     CheckEmptyFieldsPipe,
-    MatIcon
+    MatIcon,
+    SvgSpritesComponent
   ]
 })
 export class SinglePersonComponent implements OnInit {
