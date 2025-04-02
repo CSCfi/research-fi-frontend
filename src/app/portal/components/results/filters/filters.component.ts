@@ -58,7 +58,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { SecondaryButtonComponent } from '../../../../shared/components/buttons/secondary-button/secondary-button.component';
 import { ProjectFilterService } from '@portal/services/filters/project-filter.service';
-import { SvgIconsComponent } from '@shared/components/svg-icons/svg-icons.component';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 import { faSlidersH } from '@fortawesome/free-solid-svg-icons';
 
@@ -102,7 +101,6 @@ import { faSlidersH } from '@fortawesome/free-solid-svg-icons';
     ReplaceSpacePipe,
     ConvertToArrayPipe,
     JsonPipe,
-    SvgIconsComponent,
     SvgSpritesComponent
   ]
 })

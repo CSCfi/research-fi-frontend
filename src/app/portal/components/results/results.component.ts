@@ -56,7 +56,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TabNavigationComponent } from '../tab-navigation/tab-navigation.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { MatIcon } from '@angular/material/icon';
-import { SvgIconsComponent } from '@shared/components/svg-icons/svg-icons.component';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
@@ -93,7 +92,6 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     ClickOutsideDirective,
     AsyncPipe,
     MatIcon,
-    SvgIconsComponent,
     SvgSpritesComponent
   ]
 })
