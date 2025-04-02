@@ -7,7 +7,7 @@
   Mat-table doesn't keep up with change detection in component destroy lifecycle hook
   and tries to find a icon column which is only populated in init -->
 <mat-table
-  *ngIf="(svgIconIdString && columns[0].key === 'icon') || !svgIconIdString"
+  *ngIf="(svgSymbolName && columns[0].key === 'icon') || !svgSymbolName"
   [dataSource]="rows"
   matSort
   (matSortChange)="sortData($event)"
@@ -44,24 +44,16 @@
         <!-- Column label -->
         <div *ngSwitchDefault class="column-label">
           <span [class.pe-2]="column.tooltip">{{ column.label }}</span>
-            <mat-icon
-                    *ngIf="column.tooltip && column.showTooltipIcon"
-                    class="info-icon font-size-big"
-                    [tooltip]="column.tooltip"
-                    container="body"
-                    icon="info-circle"
-                    tabindex="0"
-                    [svgIcon]="'general.info'"></mat-icon>
-
+            <app-svg-sprites *ngIf="column.tooltip && column.showTooltipIcon" [iconName]="'info'" cssClass="info-icon table-icon"></app-svg-sprites>
         </div>
       </ng-container>
 
       <!-- Sort indicator -->
       <div class="sort-indicator" *ngIf="!column.sortDisabled">
-          <mat-icon *ngIf="sortColumn !== column.key; else activeSortIndicatorTemplate" [svgIcon]="'general.fa.sort'"></mat-icon>
+          <app-svg-sprites *ngIf="sortColumn !== column.key; else activeSortIndicatorTemplate" [iconName]="'sort'" cssClass="sort-icon"></app-svg-sprites>
         <ng-template #activeSortIndicatorTemplate>
-            <mat-icon *ngIf="sortDirection === 'asc'" [svgIcon]="'general.fa.sortUp'"></mat-icon>
-            <mat-icon *ngIf="sortDirection === 'desc'" [svgIcon]="'general.fa.sortDown'"></mat-icon>
+            <app-svg-sprites [ngClass]="sortDirection === 'asc' ? 'chev-up' : ''" *ngIf="sortDirection === 'asc'"  [iconName]="'sort'" cssClass="sort-icon-down"></app-svg-sprites>
+            <app-svg-sprites [ngClass]="sortDirection === 'desc' ? 'chev-down' : ''" *ngIf="sortDirection === 'desc'"  [iconName]="'sort'" cssClass="sort-icon-up"></app-svg-sprites>
         </ng-template>
       </div>
     </mat-header-cell>
@@ -88,7 +80,7 @@
         </a>
       </ng-container>
       <ng-template #iconTemplate>
-          <mat-icon *ngSwitchCase="'icon'" [svgIcon]="row.icon" [title]="iconTitle" class="category-icon"></mat-icon>
+          <app-svg-sprites [iconName]="row.icon" cssClass="categories-icon" class="category-icon"></app-svg-sprites>
       </ng-template>
 
       <!-- Selectable row -->

@@ -28,6 +28,7 @@ import { FormsModule } from '@angular/forms';
 import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 import { NgIf, NgFor, NgClass, NgSwitch, NgSwitchCase, NgSwitchDefault, NgTemplateOutlet } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 // type Selection = { checked: boolean; index: number };
 
@@ -65,7 +66,8 @@ import { MatIcon } from '@angular/material/icon';
     MatRow,
     TableCardComponent,
     CutContentPipe,
-    MatIcon
+    MatIcon,
+    SvgSpritesComponent
   ]
 })
 export class TableComponent implements OnInit {
@@ -74,7 +76,7 @@ export class TableComponent implements OnInit {
   @Input() activeRowIdentifierField: string; // Row highlight
   @Input() borders: boolean; // Add borders to rows
   @Input() alignCenter: boolean;
-  @Input() svgIconIdString: string;
+  @Input() svgSymbolName: string;
   @Input() iconTitle: string;
   @Input() iconLinkField: string; // Icon can act as a link. Icon link field object needs a 'link' prop
   @Input() sortColumn: string;
@@ -107,14 +109,14 @@ export class TableComponent implements OnInit {
       (column) => column.key === 'selection'
     );
 
-    if (this.svgIconIdString) {
+    if (this.svgSymbolName) {
       this.columns.unshift({
         key: 'icon',
         label: 'Icon',
         mobile: false,
         labelHidden: true,
       });
-      this.rows = this.rows.map((row) => ({ icon: this.svgIconIdString, ...row }));
+      this.rows = this.rows.map((row) => ({ icon: this.svgSymbolName, ...row }));
     }
 
     this.displayedColumns = this.columns.map((row) => row.key);
