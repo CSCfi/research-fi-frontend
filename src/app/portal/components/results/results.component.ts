@@ -36,12 +36,6 @@ import {
   VisualQuery,
 } from 'src/app/portal/models/visualisation/visualisations.model';
 import { StaticDataService } from 'src/app/portal/services/static-data.service';
-import {
-  faDownload,
-  faTrash,
-  faChartBar,
-  faInfoCircle,
-} from '@fortawesome/free-solid-svg-icons';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { ClickOutsideDirective } from '../../../shared/directives/click-outside.directive';
@@ -62,6 +56,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TabNavigationComponent } from '../tab-navigation/tab-navigation.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { MatIcon } from '@angular/material/icon';
+import { SvgIconsComponent } from '@shared/components/svg-icons/svg-icons.component';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-results',
@@ -96,7 +92,9 @@ import { MatIcon } from '@angular/material/icon';
     DialogComponent,
     ClickOutsideDirective,
     AsyncPipe,
-    MatIcon
+    MatIcon,
+    SvgIconsComponent,
+    SvgSpritesComponent
   ]
 })
 export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
@@ -190,7 +188,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   fundingAmount = false;
   visualisationType = false;
 
-  faDownload = faDownload;
   showAsVisual = $localize`:@@showAsVisual:Näytä kuvana`;
   additionalInfo = $localize`:@@additionalInfo:Lisätietoa`;
   clearActiveFilters = $localize`:@@clearActiveFilters: Tyhjennä rajaukset`;

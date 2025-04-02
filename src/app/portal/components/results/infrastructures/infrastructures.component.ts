@@ -35,25 +35,27 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { TableComponent } from '../../../../shared/components/table/table.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { NgIf, NgFor } from '@angular/common';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-infrastructures',
     templateUrl: './infrastructures.component.html',
     styleUrls: ['./infrastructures.component.scss'],
     standalone: true,
-    imports: [
-        NgIf,
-        MatProgressSpinner,
-        TableComponent,
-        NgFor,
-        RouterLink,
-        TooltipModule,
-        FontAwesomeModule,
-        ResultsPaginationComponent,
-        NoResultsComponent,
-        HighlightSearchPipe,
-        HandleInfrastructureLinkPipe,
-    ],
+  imports: [
+    NgIf,
+    MatProgressSpinner,
+    TableComponent,
+    NgFor,
+    RouterLink,
+    TooltipModule,
+    FontAwesomeModule,
+    ResultsPaginationComponent,
+    NoResultsComponent,
+    HighlightSearchPipe,
+    HandleInfrastructureLinkPipe,
+    SvgSpritesComponent
+  ]
 })
 export class InfrastructuresComponent
   implements OnInit, OnDestroy, AfterViewInit
@@ -63,7 +65,7 @@ export class InfrastructuresComponent
   expandStatus: Array<boolean> = [];
   sortColumn: string;
   sortDirection: boolean;
-  svgIconIdString: string = this.tabChangeService.tabData
+  svgSymbolName: string = this.tabChangeService.tabData
     .filter((t) => t.data === 'infrastructures')
     .map((t) => t.icon)
     .pop();

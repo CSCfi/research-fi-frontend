@@ -58,6 +58,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { SecondaryButtonComponent } from '../../../../shared/components/buttons/secondary-button/secondary-button.component';
 import { ProjectFilterService } from '@portal/services/filters/project-filter.service';
+import { SvgIconsComponent } from '@shared/components/svg-icons/svg-icons.component';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
+import { faSlidersH } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-filters',
@@ -98,7 +101,9 @@ import { ProjectFilterService } from '@portal/services/filters/project-filter.se
     FilterItemPipe,
     ReplaceSpacePipe,
     ConvertToArrayPipe,
-    JsonPipe
+    JsonPipe,
+    SvgIconsComponent,
+    SvgSpritesComponent
   ]
 })
 export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
@@ -588,4 +593,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   trackByFn(index: any, item) {
     return item.key;
   }
+
+  protected readonly faSlidersH = faSlidersH;
 }

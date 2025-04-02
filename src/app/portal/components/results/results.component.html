@@ -20,7 +20,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
       <div class="row py-3 px-0 ps-lg-3 mt-3 justify-content-between login-snackbar">
         <div class="row col-7 justify-content-start align-content-center">
           <div class="col-auto mx-0 gx-0 d-flex flex-column justify-content-center">
-              <mat-icon [svgIcon]="'general.info'" class="info-icon info-circle large-circle"></mat-icon>
+              <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-banner"></app-svg-sprites>
           </div>
 
           <div *ngIf="tab === 'publications'" class="col-11 align-self-center" i18n="@@publication2.toNewInfo">
@@ -58,7 +58,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
       <div class="row py-3 px-0 ps-lg-3 mt-3 justify-content-between login-snackbar">
         <div class="row col-9 justify-content-start align-content-center">
           <div class="col-auto mx-0 gx-0 d-flex flex-column justify-content-center">
-              <mat-icon [svgIcon]="'general.info'" class="info-icon info-circle large-circle"></mat-icon>
+              <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-banner"></app-svg-sprites>
           </div>
           <div class="col-11 align-self-center" i18n="@@projectsBetaDescription">
             Hankkeet ovat tutkimusorganisaatioiden tutkimushankkeita. Alkuvaiheessa palvelu sisältää entisestä Hankehaavi-verkkohakemistosta tuotuja hankekuvauksia, joita ei tällä hetkellä voi päivittää. Myöhemmässä vaiheessa tiedot tulevat täydentymään myös muiden alojen tutkimushankkeilla ja kattavammilla kuvailutiedoilla.
@@ -95,7 +95,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
             *ngIf="tab === 'persons' && mydataLoginSnackbarVisible">
       <div class="row col-7 justify-content-start align-content-center">
         <div class="col-auto mx-0 gx-0">
-          <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+            <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-banner"></app-svg-sprites>
         </div>
         <div class="col-11 align-self-center" i18n="@@logInToCreateProfile">
           Kirjaudu sisään luodaksesi profiilin tai valitaksesi profiilissasi
@@ -180,7 +180,8 @@ Copyright 2019 Ministry of Education and Culture, Finland
       >
         <app-primary-action-button
                 [content]="showAsVisual"
-                [icon]="faChartBar"
+                [svgSymbolName]="'fa-chart-bar'"
+                [svgCssClass]="'show-as-image-button'"
                 (click)="openDialog(visualModal)"
         ></app-primary-action-button>
       </div>
@@ -213,7 +214,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
           ></app-result-count>
         </div>
 
-        <div class="col-auto text-end d-none d-lg-block ps-4 pe-0">
+        <div class="col-auto text-end px-0 d-none d-lg-block ps-4 pe-0">
           <a routerLink="/service-info" fragment="service-info-2" class="theme-link">
             <strong>
               <ng-container [ngSwitch]="tabName$ | async">
@@ -332,7 +333,8 @@ Copyright 2019 Ministry of Education and Culture, Finland
                   (click)="clearFilters()"
                   [big]="true"
                   [content]="clearActiveFilters"
-                  [icon]="faTrash"
+                  [svgSymbolName]="'delete'"
+                  [svgCssClass]="'delete-icon button-icon'"
           ></app-secondary-button>
         </div>
         <div class="col-9 row">
@@ -459,8 +461,9 @@ Copyright 2019 Ministry of Education and Culture, Finland
             <div class="col pe-0 text-end">
               <app-secondary-button
                       id="download-image"
-                      [icon]="faDownload"
                       [content]="downloadImage"
+                      [svgSymbolName]="'download'"
+                      [svgCssClass]="'download-icon button-icon'"
                       (click)="visualisationsRef.saveAsImageClick()"
               ></app-secondary-button>
             </div>
@@ -495,11 +498,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
             tabindex="0"
             (clickOutside)="onClickedOutside($event)"
     >
-      <fa-icon
-              class="info-icon pe-2"
-              icon="info-circle"
-              (mouseenter)="showInfo = true"
-      ></fa-icon>
+        <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
       <a>{{ additionalInfo }} </a>
     </div>
   </ng-template>

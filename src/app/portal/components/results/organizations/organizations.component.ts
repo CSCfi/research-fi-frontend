@@ -57,7 +57,7 @@ export class OrganizationsComponent
   expandStatus: Array<boolean> = [];
   sortColumn: string;
   sortDirection: boolean;
-  svgIconIdString: string = this.tabChangeService.tabData
+  svgSymbolName: string = this.tabChangeService.tabData
     .filter((t) => t.data === 'organizations')
     .map((t) => t.icon)
     .pop();

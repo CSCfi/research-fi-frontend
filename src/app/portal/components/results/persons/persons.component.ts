@@ -64,7 +64,7 @@ export class PersonsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('main') mainContent: ElementRef;
 
-  svgIconIdString = 'main.categories.people.single';
+  svgSymbolName = 'main.categories.people.single';
 
   @ViewChildren('personNameColumn', { read: TemplateRef })
   personNameColumns: QueryList<ElementRef>;

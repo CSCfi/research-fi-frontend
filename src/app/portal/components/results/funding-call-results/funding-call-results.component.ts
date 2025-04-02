@@ -51,7 +51,7 @@ export class FundingCallResultsComponent
   expandStatus: Array<boolean> = [];
   @ViewChild('main') mainContent: ElementRef;
 
-  svgIconIdString: string = this.tabChangeService.tabData
+  svgSymbolName: string = this.tabChangeService.tabData
     .filter((t) => t.data === 'fundingCalls')
     .map((t) => t.icon)
     .pop();
