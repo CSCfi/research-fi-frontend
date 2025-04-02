@@ -192,8 +192,8 @@
                         [class.fw-bold]="dropdownOpen"
                       >
                         <span class="label pe-2">{{ item.label }}</span>
-                        <i class="fa fa-chevron-down" *ngIf="!dropdownOpen"></i>
-                        <i class="fa fa-chevron-up" *ngIf="dropdownOpen"></i>
+                          <app-svg-sprites [iconName]="'chevron-up'" cssClass="chevron-up-icon navi-icon" *ngIf="!dropdownOpen"></app-svg-sprites>
+                          <app-svg-sprites [iconName]="'chevron-down'" cssClass="chevron-down-icon" navi-icon *ngIf="dropdownOpen"></app-svg-sprites>
                       </a>
                       <ul
                         class="dropdown"
@@ -225,8 +225,8 @@
                         >
                           {{ item.label }}</span
                         >
-                        <i class="fa fa-chevron-down" *ngIf="!dropdownOpen"></i>
-                        <i class="fa fa-chevron-up" *ngIf="dropdownOpen"></i>
+                          <app-svg-sprites  *ngIf="!dropdownOpen" [iconName]="'chevron-down'" cssClass="chevron-down-icon navi-icon"></app-svg-sprites>
+                          <app-svg-sprites *ngIf="dropdownOpen" [iconName]="'chevron-up'" cssClass="chevron-up-icon navi-icon"></app-svg-sprites>
                       </a>
 
                       <mat-menu
@@ -261,8 +261,8 @@
                     <span class="label fw-bold pe-2">
                       {{ currentDomain.label }}
                     </span>
-                    <i class="fa fa-chevron-down" *ngIf="!langMenuOpen"></i>
-                    <i class="fa fa-chevron-up" *ngIf="langMenuOpen"></i>
+                      <app-svg-sprites *ngIf="!langMenuOpen" [iconName]="'chevron-down'" cssClass="chevron-down-icon navi-icon"></app-svg-sprites>
+                      <app-svg-sprites *ngIf="langMenuOpen" [iconName]="'chevron-up'" cssClass="chevron-up-icon navi-icon"></app-svg-sprites>
                   </a>
                 </li>
                 <mat-menu
