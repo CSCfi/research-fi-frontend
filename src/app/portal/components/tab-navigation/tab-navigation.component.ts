@@ -23,6 +23,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TabNavigationButtonComponent } from '@portal/components/tab-navigation-button/tab-navigation-button.component';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { MatIcon } from '@angular/material/icon';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 type IndexCounts = { [index: string]: number };
 type ButtonData = { label: string, icon: string, route: string, count: number, active: boolean, disabled?: boolean, queryParams?: Observable<any>};
@@ -35,7 +36,7 @@ const EPSILON = 1;
 @Component({
   selector: 'app-tab-navigation',
   standalone: true,
-  imports: [CommonModule, TabButtonComponent, FontAwesomeModule, RouterLink, TabNavigationButtonComponent, TooltipModule, MatIcon],
+  imports: [CommonModule, TabButtonComponent, FontAwesomeModule, RouterLink, TabNavigationButtonComponent, TooltipModule, MatIcon, SvgSpritesComponent],
   templateUrl: './tab-navigation.component.html',
   styleUrls: ['./tab-navigation.component.scss']
 })

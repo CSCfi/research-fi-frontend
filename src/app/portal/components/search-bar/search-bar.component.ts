@@ -44,32 +44,34 @@ import { NotificationBannerComponent } from '../../../shared/components/notifica
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { ClickOutsideDirective } from '../../../shared/directives/click-outside.directive';
 import { MatButton } from '@angular/material/button';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
-    selector: 'app-search-bar',
-    templateUrl: './search-bar.component.html',
-    styleUrls: ['./search-bar.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    standalone: true,
-    imports: [
-        FormsModule,
-        MatButton,
-        MatMenuTrigger,
-        NgIf,
-        MatMenu,
-        NgFor,
-        MatMenuItem,
-        ReactiveFormsModule,
-        NgStyle,
-        ClickOutsideDirective,
-        NgClass,
-        MatProgressSpinner,
-        ListItemComponent,
-        RouterLink,
-        NotificationBannerComponent,
-        AsyncPipe,
-        HighlightSearchPipe,
-    ],
+  selector: 'app-search-bar',
+  templateUrl: './search-bar.component.html',
+  styleUrls: ['./search-bar.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  imports: [
+    FormsModule,
+    MatButton,
+    MatMenuTrigger,
+    NgIf,
+    MatMenu,
+    NgFor,
+    MatMenuItem,
+    ReactiveFormsModule,
+    NgStyle,
+    ClickOutsideDirective,
+    NgClass,
+    MatProgressSpinner,
+    ListItemComponent,
+    RouterLink,
+    NotificationBannerComponent,
+    AsyncPipe,
+    HighlightSearchPipe,
+    SvgSpritesComponent
+  ]
 })
 export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('searchTargetMenuTrigger') searchTargetMenuTrigger: MatMenuTrigger;
