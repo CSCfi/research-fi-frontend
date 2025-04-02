@@ -52,6 +52,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BannerDividerComponent } from '../../../../shared/components/banner-divider/banner-divider.component';
 import { MatIcon } from '@angular/material/icon';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-figures',
@@ -74,7 +75,8 @@ import { MatIcon } from '@angular/material/icon';
     RouterLink,
     MatChip,
     CutContentPipe,
-    MatIcon
+    MatIcon,
+    SvgSpritesComponent
   ]
 })
 export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
