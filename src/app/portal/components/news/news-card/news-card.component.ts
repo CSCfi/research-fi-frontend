@@ -8,7 +8,6 @@ import { RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault, NgClass, DatePipe } from '@angular/common';
 import { MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardContent, MatCardActions, MatCardFooter } from '@angular/material/card';
-import { MatIcon } from '@angular/material/icon';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
@@ -36,7 +35,6 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     CutContentPipe,
     HighlightSearchPipe,
     SafeUrlPipe,
-    MatIcon,
     SvgSpritesComponent
   ]
 })

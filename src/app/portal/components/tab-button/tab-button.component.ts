@@ -3,13 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CountUpModule } from 'ngx-countup';
 import { RouterLink } from '@angular/router';
-import { MatIcon } from '@angular/material/icon';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
   selector: 'app-tab-button',
   standalone: true,
-  imports: [CommonModule, FontAwesomeModule, CountUpModule, RouterLink, MatIcon, SvgSpritesComponent],
+  imports: [CommonModule, FontAwesomeModule, CountUpModule, RouterLink,  SvgSpritesComponent],
   templateUrl: './tab-button.component.html',
   styleUrls: ['./tab-button.component.scss']
 })

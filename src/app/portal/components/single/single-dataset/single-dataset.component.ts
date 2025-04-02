@@ -38,7 +38,6 @@ import { SecondaryButtonComponent } from '../../../../shared/components/buttons/
 import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
 import { NgIf, NgFor, NgClass } from '@angular/common';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
-import { MatIcon } from '@angular/material/icon';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
@@ -67,7 +66,6 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     ShareComponent,
     MatProgressSpinner,
     SafeUrlPipe,
-    MatIcon,
     SvgSpritesComponent
   ]
 })

@@ -19,7 +19,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatButton } from '@angular/material/button';
 import { NgFor, NgIf } from '@angular/common';
-import { MatIcon } from '@angular/material/icon';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
@@ -32,7 +31,6 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     NgIf,
     MatButton,
     FontAwesomeModule,
-    MatIcon,
     SvgSpritesComponent
   ]
 })

@@ -55,7 +55,6 @@ import { PrimaryActionButtonComponent } from '../../../shared/components/buttons
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TabNavigationComponent } from '../tab-navigation/tab-navigation.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
-import { MatIcon } from '@angular/material/icon';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
@@ -91,7 +90,6 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     DialogComponent,
     ClickOutsideDirective,
     AsyncPipe,
-    MatIcon,
     SvgSpritesComponent
   ]
 })

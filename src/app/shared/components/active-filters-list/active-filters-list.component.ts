@@ -20,7 +20,6 @@ import { ActiveFiltersDialogComponent } from './active-filters-dialog/active-fil
 import { MatButton } from '@angular/material/button';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgFor, NgIf } from '@angular/common';
-import { MatIcon } from '@angular/material/icon';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
@@ -36,7 +35,6 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     MatButton,
     ActiveFiltersDialogComponent,
     DialogComponent,
-    MatIcon,
     SvgSpritesComponent
   ]
 })

@@ -36,7 +36,6 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
 import { NgIf, NgFor, NgClass, NgSwitch, NgSwitchDefault, NgSwitchCase, DatePipe } from '@angular/common';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
-import { MatIcon } from '@angular/material/icon';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
@@ -64,7 +63,6 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     ShareComponent,
     DatePipe,
     ThousandSeparatorPipe,
-    MatIcon,
     SvgSpritesComponent
   ]
 })
