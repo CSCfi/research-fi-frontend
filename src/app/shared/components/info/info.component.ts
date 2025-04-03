@@ -8,13 +8,14 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-info',
     templateUrl: './info.component.html',
     styleUrls: ['./info.component.scss'],
     standalone: true,
-    imports: [FontAwesomeModule],
+  imports: [FontAwesomeModule, SvgSpritesComponent]
 })
 export class InfoComponent implements OnInit {
   @Input() content;

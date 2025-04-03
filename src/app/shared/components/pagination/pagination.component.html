@@ -24,7 +24,8 @@
             (click)="goToPage(page - 1, pageSize)"
             [disabled]="fromPage <= 1"
             [content]="previous"
-            [icon]="faAngleLeft"
+            [svgSymbolName]="'chevron-left'"
+            [svgCssClass]="'chevron-left-pagination'"
             [noSmIcon]="true"
           >
           </app-secondary-button>
@@ -47,7 +48,8 @@
             (click)="goToPage(page + 1)"
             [disabled]="fromPage + pageSize >= total"
             [content]="next"
-            [icon]="faAngleRight"
+            [svgSymbolName]="'chevron-right'"
+            [svgCssClass]="'chevron-right-pagination'"
             [iconAfter]="true"
             [noSmIcon]="true"
           >

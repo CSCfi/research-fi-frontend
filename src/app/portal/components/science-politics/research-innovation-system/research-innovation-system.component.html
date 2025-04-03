@@ -36,7 +36,9 @@
             >
               <mat-expansion-panel-header collapsedHeight="61px">
                 <mat-panel-title>
-                  <i class="icon fas" [ngClass]="'fa-' + sector.icon"></i>
+                    <div class="innovation-system-wrapper">
+                        <app-svg-sprites [iconName]="sector.icon" cssClass="{{sector.icon + '-icon innovation-system-icon'}}"></app-svg-sprites>
+                    </div>
                   <div class="title align-self-center">
                     <h2 class="m-0">{{ sector.name }}</h2>
                   </div>

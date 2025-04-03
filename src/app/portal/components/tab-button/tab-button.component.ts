@@ -1,23 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import {
-  faAlignLeft,
-  faBriefcase,
-  faBullhorn,
-  faCalculator,
-  faFileAlt,
-  faFileLines,
-  faUniversity,
-  faUsers
-} from '@fortawesome/free-solid-svg-icons';
 import { CountUpModule } from 'ngx-countup';
 import { RouterLink } from '@angular/router';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
   selector: 'app-tab-button',
   standalone: true,
-  imports: [CommonModule, FontAwesomeModule, CountUpModule, RouterLink],
+  imports: [CommonModule, FontAwesomeModule, CountUpModule, RouterLink,  SvgSpritesComponent],
   templateUrl: './tab-button.component.html',
   styleUrls: ['./tab-button.component.scss']
 })
@@ -36,22 +27,9 @@ export class TabButtonComponent {
     separator: ' ',
   };
 
-  protected _icon = faFileLines;
-
-  private iconMap = {
-    'faFileLines': faFileLines,
-    'faFileAlt': faFileAlt,
-    'faUsers': faUsers,
-    'faBriefcase': faBriefcase,
-    'faAlignLeft': faAlignLeft,
-    'faBullhorn': faBullhorn,
-    'faCalculator': faCalculator,
-    'faUniversity': faUniversity,
-  };
+  protected _icon = '';
 
   @Input() set icon(iconName: string) {
-    if (this.iconMap[iconName]) {
-      this._icon = this.iconMap[iconName];
-    }
+    this._icon = iconName;
   }
 }

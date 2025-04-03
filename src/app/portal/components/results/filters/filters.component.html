@@ -11,7 +11,8 @@
 >
   <app-secondary-button
     [content]="filterHeading"
-    [icon]="faSlidersH"
+    [svgSymbolName]="'sliders'"
+    [svgCssClass]="'sliders-icon'"
     [noSmIcon]="true"
     [big]="true"
     (click)="openDialog(filterModal)"
@@ -37,9 +38,9 @@
 <ng-template #filters>
   <div class="filter-sidebar" *ngIf="responseData">
     <h3 class="header" *ngIf="!mobile && !showButton">
-      <fa-icon class="filter-icon" [icon]="faSlidersH"></fa-icon
-      >{{ filterHeading }}
+        <app-svg-sprites [iconName]="'sliders'" cssClass="sliders-icon"></app-svg-sprites>{{ filterHeading }}
     </h3>
+
     <div class="filter-wrapper">
       <mat-expansion-panel
         *ngFor="let filter of currentFilter; let i = index"
@@ -65,10 +66,10 @@
               <div *ngIf="filter.hasSubFields" class="col col-1">
                 <button tabindex="-1" class="show-options">
                   <span *ngIf="!filter.open">
-                    <fa-icon [icon]="faPlus"></fa-icon>
+                      <app-svg-sprites [iconName]="'plus'" cssClass="plus-icon"></app-svg-sprites>
                   </span>
                   <span *ngIf="filter.open">
-                    <fa-icon [icon]="faMinus"></fa-icon>
+                      <app-svg-sprites [iconName]="'minus'" cssClass="minus-icon"></app-svg-sprites>
                   </span>
                 </button>
               </div>
@@ -85,7 +86,7 @@
                     placement="top"
                     #elem
                   >
-                    <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                    <app-svg-sprites [iconName]="'info'" cssClass="info-icon filters-icon"></app-svg-sprites>
                   </span>
                 </ng-container>
                 <ng-container *ngIf="filter.errorTooltip">
@@ -98,11 +99,7 @@
                     tabindex="0"
                     placement="top"
                     #elem
-                  >
-                    <fa-icon
-                      class="info-icon error-color"
-                      icon="info-circle"
-                    ></fa-icon>
+                  ><app-svg-sprites [iconName]="'info'" cssClass="info-icon filters-icon"></app-svg-sprites>
                   </span>
                 </ng-container>
               </div>
@@ -149,7 +146,7 @@
                 placement="top"
                 #elem
               >
-                <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                <app-svg-sprites [iconName]="'info'" cssClass="info-icon filters-icon"></app-svg-sprites>
               </span>
             </div>
           </div>
@@ -374,7 +371,7 @@
                     placement="top"
                     #elem
                   >
-                    <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                    <app-svg-sprites [iconName]="'info'" cssClass="info-icon filters-icon"></app-svg-sprites>
                   </span>
                 </div>
                 <!-- [ngClass]="['item.tooltip', { 'col-2': item.tooltip }, { 'col-2': !item.tooltip }]" -->
@@ -471,10 +468,7 @@
                           placement="top"
                           #elem
                         >
-                          <fa-icon
-                            class="info-icon"
-                            icon="info-circle"
-                          ></fa-icon>
+                          <app-svg-sprites [iconName]="'info'" cssClass="info-icon filters-icon"></app-svg-sprites>
                         </span>
                       </ng-container>
                     </div>
@@ -650,7 +644,7 @@
                     placement="top"
                     #elem
                   >
-                    <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                    <app-svg-sprites [iconName]="'info'" cssClass="info-icon filters-icon"></app-svg-sprites>
                   </span>
                 </ng-container>
               </div>

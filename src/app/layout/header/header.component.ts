@@ -46,6 +46,7 @@ import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 import { ClickOutsideDirective } from '../../shared/directives/click-outside.directive';
 import { CloseButtonComponent } from '../../shared/components/buttons/close-button/close-button.component';
 import { DialogComponent } from '../../shared/components/dialog/dialog.component';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 type DomainObject = { label: string; locale: string; url: string };
 
@@ -55,20 +56,21 @@ type DomainObject = { label: string; locale: string; url: string };
     styleUrls: ['./header.component.scss'],
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [
-        NgClass,
-        NgIf,
-        RouterLink,
-        DialogComponent,
-        CloseButtonComponent,
-        NgFor,
-        RouterLinkActive,
-        ClickOutsideDirective,
-        MatMenuTrigger,
-        MatMenu,
-        MatMenuItem,
-        PrimaryActionButtonComponent,
-    ],
+  imports: [
+    NgClass,
+    NgIf,
+    RouterLink,
+    DialogComponent,
+    CloseButtonComponent,
+    NgFor,
+    RouterLinkActive,
+    ClickOutsideDirective,
+    MatMenuTrigger,
+    MatMenu,
+    MatMenuItem,
+    PrimaryActionButtonComponent,
+    SvgSpritesComponent
+  ]
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild('mainNavbar', { static: true }) mainNavbar: ElementRef;

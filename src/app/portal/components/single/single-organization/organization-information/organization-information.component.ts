@@ -11,19 +11,21 @@ import { FilterEmptyFieldPipe } from '../../../../pipes/filter-empty-field.pipe'
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { NgFor, NgIf } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
     selector: 'app-organization-information',
     templateUrl: './organization-information.component.html',
     styleUrls: ['./organization-information.component.scss'],
     standalone: true,
-    imports: [
-        NgFor,
-        NgIf,
-        TooltipModule,
-        FontAwesomeModule,
-        FilterEmptyFieldPipe,
-    ],
+  imports: [
+    NgFor,
+    NgIf,
+    TooltipModule,
+    FontAwesomeModule,
+    FilterEmptyFieldPipe,
+    MatIcon
+  ]
 })
 export class OrganizationInformationComponent implements OnInit {
   @Input() item: any;

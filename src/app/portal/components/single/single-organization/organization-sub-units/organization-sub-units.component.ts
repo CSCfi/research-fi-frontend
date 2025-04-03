@@ -10,19 +10,21 @@ import { RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { NgFor, NgIf } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
     selector: 'app-organization-sub-units',
     templateUrl: './organization-sub-units.component.html',
     styleUrls: ['./organization-sub-units.component.scss'],
     standalone: true,
-    imports: [
-        NgFor,
-        NgIf,
-        TooltipModule,
-        FontAwesomeModule,
-        RouterLink,
-    ],
+  imports: [
+    NgFor,
+    NgIf,
+    TooltipModule,
+    FontAwesomeModule,
+    RouterLink,
+    MatIcon
+  ]
 })
 export class OrganizationSubUnitsComponent implements OnInit {
   @Input() item: any;

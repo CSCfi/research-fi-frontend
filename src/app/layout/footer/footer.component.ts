@@ -7,8 +7,6 @@
 
 import { Component, ElementRef, inject, LOCALE_ID, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { AppConfigService } from '../../shared/services/app-config-service.service';
-import { faTwitter } from '@fortawesome/free-brands-svg-icons';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { DialogEventsService } from '@shared/services/dialog-events.service';
 // import { SharedModule } from '@shared/shared.module';
@@ -20,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { ReviewComponent } from '@shared/components/review/review.component';
 import { DialogComponent } from '@shared/components/dialog/dialog.component';
 import { WelcomeStepperComponent } from '@mydata/components/welcome-stepper/welcome-stepper.component';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 function email(strings) {
     return `${strings[0]}@csc.fi`;
@@ -40,7 +39,8 @@ function email(strings) {
     MatButtonModule,
     ReviewComponent,
     DialogComponent,
-    WelcomeStepperComponent
+    WelcomeStepperComponent,
+    SvgSpritesComponent
   ]
 })
 export class FooterComponent {
@@ -52,9 +52,6 @@ export class FooterComponent {
   email = email`tiedejatutkimus`;
 
   buildInfo = '';
-  faTwitter = faTwitter as any; // TODO: Fix type
-
-  faTimes = faTimes as any; // TODO: Fix type
   showReviewButton: boolean;
 
   // Dialog variables

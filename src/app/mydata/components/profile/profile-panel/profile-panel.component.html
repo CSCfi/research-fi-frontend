@@ -217,7 +217,7 @@
 
         <div class="row py-3 font-size-small" *ngIf="field.single">
           <div class="col col-lg-6 ps-0">
-            <fa-icon class="pe-1 opacity-3" icon="info-circle"></fa-icon>
+              <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
             <span i18n="@@canSelectOnlyOneOption"
               >Voit valita yhden vaihtoehdon</span
             >

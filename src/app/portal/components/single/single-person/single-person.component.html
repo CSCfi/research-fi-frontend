@@ -47,8 +47,7 @@
                 <img class='orcid-icon' src='assets/img/orcid_icon.svg' alt='Orcid -palvelun logo' />
                 https://orcid.org/{{ person.orcid }}
               </span>
-
-              <fa-icon icon='external-link-alt'></fa-icon>
+              <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites>
             </a>
 
           </div>
@@ -265,51 +264,43 @@
 
         <!-- Contact -->
         <aside *ngIf='(contactFields | checkEmptyFields: person.contact).length'>
+
           <mat-card appearance="outlined">
             <div class='inner'>
               <mat-card-title>
                 <h2 i18n='@@contactInfo' class='mb-4'>Yhteystiedot</h2>
               </mat-card-title>
+              <ng-container *ngFor="let row of contactFields">
 
-              <ng-container *ngFor='let row of contactFields'>
                 <ng-container *ngIf="person.contact[row.key]?.length && row.key !== 'otherNames'">
                   <li *ngFor='let item of person.contact[row.key]' class='row'>
-                    <ng-container *ngIf='item.icon'>
-                      <fa-icon [icon]='item.icon' class='col-1 ps-0 pb-3'></fa-icon>
-                    </ng-container>
 
-                    <span class='fw-bold col-auto ps-0' *ngIf='row.label'>
-                      {{ row.label }}
-                    </span>
+                      <div *ngIf="row.key === 'links'" class='col ps-0 truncate d-flex justify-content-center flex-column py-1'>
+                          <div *ngIf="item.icon" class="d-flex">
+                              <app-svg-sprites [iconName]="item.icon" cssClass="person-contact-item-icon"></app-svg-sprites>
+                              <app-single-result-link [label]='item.value' [url]='item.value' [simple]='true'></app-single-result-link>
+                        </div>
+                      </div>
 
-                    <span class='col ps-0' [class.px-0]="row.key === 'links'" [class.truncate]="row.key === 'links'">
-                      <ng-container *ngIf="row.key === 'emails'; else nonEmail">
+                      <div *ngIf="row.key === 'emails'" class="d-flex gx-0 py-1">
+                          <app-svg-sprites [iconName]="'email'" cssClass="person-contact-item-icon email-icon"></app-svg-sprites>
                         <ng-container *ngIf='isEmailVisible === false'>
-                          <a (click)='showEmail()' i18n='@@showEmailAddress'>Näytä sähköpostiosoite</a>
+                            <div class="d-flex justify-content-center flex-column">
+                                <a (click)='showEmail()' i18n='@@showEmailAddress'>Näytä sähköpostiosoite</a>
+                            </div>
                         </ng-container>
 
                         <ng-container *ngIf='isEmailVisible === true'>
                           <span>{{item.value}}</span>
                         </ng-container>
-                      </ng-container>
-
-                      <ng-template #nonEmail>
-                        <ng-container *ngIf="row.key === 'links'; else plainText">
-                          <app-single-result-link [label]='item.value' [url]='item.value' [simple]='true'></app-single-result-link>
-                        </ng-container>
-
-                        <ng-template #plainText>
-                          {{ item.value }}
-                        </ng-template>
-                      </ng-template>
-                    </span>
+                      </div>
                   </li>
                 </ng-container>
 
                 <ng-container *ngIf="person.contact[row.key]?.length && row.key === 'otherNames'">
                   <!-- Double iteration just to align items into columns -->
                   <li>
-                    <div class="row g-0">
+                    <div class="row g-0 py-2">
                       <div class="col-3">
                         <ng-container *ngFor='let item of person.contact[row.key]; let i = index'>
                           <ng-container *ngIf="row.label && i === 0">

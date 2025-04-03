@@ -38,6 +38,8 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
 import { NgIf, NgFor, NgClass, NgSwitch, NgSwitchDefault, NgSwitchCase, DatePipe, JsonPipe } from '@angular/common';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
+import { MatIcon } from '@angular/material/icon';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
   selector: 'app-single-project',
@@ -64,7 +66,9 @@ import { SearchBarComponent } from '../../search-bar/search-bar.component';
     ShareComponent,
     DatePipe,
     ThousandSeparatorPipe,
-    JsonPipe
+    JsonPipe,
+    MatIcon,
+    SvgSpritesComponent
   ]
 })
 export class SingleProjectComponent implements OnInit, OnDestroy {
@@ -165,9 +169,6 @@ export class SingleProjectComponent implements OnInit, OnDestroy {
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
   @ViewChild('backToResultsLink') backToResultsLink: ElementRef;
   idSub: Subscription;
-
-  faQuoteRight = faQuoteRight;
-  faIcon = faFileAlt;
 
   expand: boolean;
   infoFields: any[];

@@ -30,6 +30,7 @@
     border: 2px solid #00a19a;
   }
   .open-access {
+    background: #C0DBA2;
     color: #bc520a;
     border: 2px solid #ea883e;
   }
@@ -50,15 +51,15 @@
     background: #363636;
     border: 2px solid #363636;
     padding: 3px 10px 3px 11px;
-    border-top-left-radius: 3px;
-    border-bottom-left-radius: 3px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
   .doi-link {
     padding: 3px 10px;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     border: 2px solid #363636;

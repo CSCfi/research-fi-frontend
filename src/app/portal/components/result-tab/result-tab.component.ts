@@ -30,6 +30,7 @@ import { DataService } from 'src/app/portal/services/data.service';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { TabItemComponent } from './tab-item/tab-item.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: ' app-result-tab',
@@ -37,14 +38,15 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     styleUrls: ['./result-tab.component.scss'],
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [
-        NgIf,
-        NgFor,
-        NgStyle,
-        FontAwesomeModule,
-        TabItemComponent,
-        MatProgressSpinner,
-    ],
+  imports: [
+    NgIf,
+    NgFor,
+    NgStyle,
+    FontAwesomeModule,
+    TabItemComponent,
+    MatProgressSpinner,
+    SvgSpritesComponent
+  ]
 })
 export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   @ViewChildren('scroll') ref: QueryList<any>;

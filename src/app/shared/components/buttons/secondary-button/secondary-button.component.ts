@@ -4,18 +4,22 @@ import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgIf, NgClass } from '@angular/common';
 import { MatRipple } from '@angular/material/core';
+import { MatIcon } from '@angular/material/icon';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-secondary-button',
     templateUrl: './secondary-button.component.html',
     styleUrls: ['../buttons-shared.scss'],
     standalone: true,
-    imports: [
-        MatRipple,
-        NgIf,
-        FontAwesomeModule,
-        NgClass,
-    ],
+  imports: [
+    MatRipple,
+    NgIf,
+    FontAwesomeModule,
+    NgClass,
+    MatIcon,
+    SvgSpritesComponent
+  ]
 })
 export class SecondaryButtonComponent implements OnInit {
   @Input() icon: IconDefinition;
@@ -29,6 +33,8 @@ export class SecondaryButtonComponent implements OnInit {
   @Input() px0: boolean;
   @Input() announce: boolean;
   @Input() announceText: string;
+  @Input() svgSymbolName: string;
+  @Input() svgCssClass: string;
 
   constructor(private liveAnnouncer: LiveAnnouncer) {}
 

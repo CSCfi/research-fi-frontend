@@ -898,9 +898,8 @@
         <target>Follow us!</target>
       </trans-unit>
       <trans-unit id="twitterFooter" datatype="html">
-        <source><x id="START_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="&lt;fa-icon class=&quot;social-icon&quot; [icon]=&quot;faTwitter&quot;&gt;"/><x id="CLOSE_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="&lt;/fa-icon&gt;"/>Tiedejatutkimus.fi Twitterissä</source>
-        <target state="new"> <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon&gt;"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon&gt;"/>Research.fi at Twitter</target>
-        <note priority="1" from="description">Twitter-footer</note>
+        <source>Tiedejatutkimus.fi Twitterissä</source>
+        <target state="new">Research.fi at Twitter</target>
       </trans-unit>
       <trans-unit id="twitterTitleText" datatype="html">
         <source>Twitter -palvelun logo</source>

@@ -21,6 +21,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 import { BannerDividerComponent } from '@shared/components/banner-divider/banner-divider.component';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 type Step = { label: string; icon: /*IconDefinition*/ any; loading?: boolean };
 @Component({
@@ -41,7 +42,8 @@ type Step = { label: string; icon: /*IconDefinition*/ any; loading?: boolean };
     SecondaryButtonComponent,
     RouterLink,
     OrcidComponent,
-    BannerDividerComponent
+    BannerDividerComponent,
+    SvgSpritesComponent
   ]
 })
 export class ServiceDeploymentComponent implements OnInit, OnDestroy {

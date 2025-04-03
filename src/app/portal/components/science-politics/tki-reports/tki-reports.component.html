@@ -66,7 +66,8 @@
             class="search-button"
             content="Hae"
             i18n-content="Search@@search"
-            [icon]="faSearch"
+            [svgSymbolName]="'search'"
+            [svgCssClass]="'search-icon button-icon'"
             (click)="doFiltering(false)"
             (keyup.enter)="doFiltering(false)"
             type="submit"
@@ -164,7 +165,7 @@
       <div *ngFor="let row of resultDataMobile">
         <h2>Nimi</h2>
         <a [attr.href]="row.link" target="_blank"
-          ><p>{{ row.name }}<fa-icon icon="external-link-alt"></fa-icon></p
+          ><p>{{ row.name }}<app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites></p
         ></a>
         <h2>Vuosi</h2>
         <p [innerHTML]="row.year | highlight: value"></p>
@@ -199,7 +200,7 @@
             <p>
               <a [attr.href]="element.link" target="_blank"
                 >{{ element.name }}
-                <fa-icon icon="external-link-alt"></fa-icon>
+                  <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites>
               </a>
             </p>
           </td>

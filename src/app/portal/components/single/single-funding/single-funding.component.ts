@@ -18,8 +18,6 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
 import { SearchService } from '../../../services/search.service';
 import { Subscription } from 'rxjs';
-import { faQuoteRight } from '@fortawesome/free-solid-svg-icons';
-import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { Search } from 'src/app/portal/models/search.model';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { UtilityService } from 'src/app/shared/services/utility.service';
@@ -38,33 +36,35 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
 import { NgIf, NgFor, NgClass, NgSwitch, NgSwitchDefault, NgSwitchCase, DatePipe } from '@angular/common';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-single-funding',
     templateUrl: './single-funding.component.html',
     styleUrls: ['./single-funding.component.scss'],
     standalone: true,
-    imports: [
-        SearchBarComponent,
-        NgIf,
-        RouterLink,
-        BreadcrumbComponent,
-        NgFor,
-        TooltipModule,
-        FontAwesomeModule,
-        NgClass,
-        NgSwitch,
-        NgSwitchDefault,
-        OrcidComponent,
-        NgSwitchCase,
-        MatCard,
-        MatCardTitle,
-        SingleResultLinkComponent,
-        RelatedLinksComponent,
-        ShareComponent,
-        DatePipe,
-        ThousandSeparatorPipe,
-    ],
+  imports: [
+    SearchBarComponent,
+    NgIf,
+    RouterLink,
+    BreadcrumbComponent,
+    NgFor,
+    TooltipModule,
+    FontAwesomeModule,
+    NgClass,
+    NgSwitch,
+    NgSwitchDefault,
+    OrcidComponent,
+    NgSwitchCase,
+    MatCard,
+    MatCardTitle,
+    SingleResultLinkComponent,
+    RelatedLinksComponent,
+    ShareComponent,
+    DatePipe,
+    ThousandSeparatorPipe,
+    SvgSpritesComponent
+  ]
 })
 export class SingleFundingComponent implements OnInit, OnDestroy {
   public singleId: any;
@@ -175,9 +175,6 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
   @ViewChild('backToResultsLink') backToResultsLink: ElementRef;
   idSub: Subscription;
-
-  faQuoteRight = faQuoteRight;
-  faIcon = faFileAlt;
 
   expand: boolean;
   infoFields: any[];

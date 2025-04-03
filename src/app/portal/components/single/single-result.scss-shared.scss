@@ -217,20 +217,26 @@
             max-width: 100%;
           }
         }
-        .link-item a {
-          display: flex;
+        .link-item {
+          padding: 3px 10px;
+          a, mat-icon {
+            display: flex !important;
+          }
         }
         .link-tag,
         span.link-item,
         .link {
           padding: 4px 10px 3px;
         }
-        .link-item {
-          padding: 3px 10px;
+        .link-tag {
+          display: flex;
+          justify-content: center;
         }
 
         .link-tag,
         .link-item {
+          max-height: 32px;
+          min-width: 47px;
           vertical-align: middle;
         }
 

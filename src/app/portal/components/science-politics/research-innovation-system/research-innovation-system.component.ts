@@ -30,24 +30,26 @@ import { SafeUrlPipe } from '../../../pipes/safe-url.pipe';
 import { NgFor, NgClass, NgIf } from '@angular/common';
 import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
 import { BannerDividerComponent } from '../../../../shared/components/banner-divider/banner-divider.component';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-research-innovation-system',
     templateUrl: './research-innovation-system.component.html',
     styleUrls: ['./research-innovation-system.component.scss'],
     standalone: true,
-    imports: [
-        BannerDividerComponent,
-        MatAccordion,
-        NgFor,
-        MatExpansionPanel,
-        MatExpansionPanelHeader,
-        MatExpansionPanelTitle,
-        NgClass,
-        NgIf,
-        RouterLink,
-        SafeUrlPipe,
-    ],
+  imports: [
+    BannerDividerComponent,
+    MatAccordion,
+    NgFor,
+    MatExpansionPanel,
+    MatExpansionPanelHeader,
+    MatExpansionPanelTitle,
+    NgClass,
+    NgIf,
+    RouterLink,
+    SafeUrlPipe,
+    SvgSpritesComponent
+  ]
 })
 export class ResearchInnovationSystemComponent
   implements OnInit, AfterViewInit, OnDestroy

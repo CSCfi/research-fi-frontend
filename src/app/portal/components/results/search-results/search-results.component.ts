@@ -34,7 +34,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { CutContentPipe } from '@shared/pipes/cut-content.pipe';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ProjectsComponent } from '@portal/components/results/projects/projects.component';
-import { IconAndScrollService } from '@portal/services/icon-and-scroll.service';
+import { ScrollingService } from '@portal/services/scrolling.service';
 
 /*
  * Dynamically render component for selected tab.
@@ -66,7 +66,7 @@ export class SearchResultsComponent implements OnInit, OnChanges, OnDestroy {
     private injector: Injector,
     private searchService: SearchService,
     private sanitizer: DomSanitizer,
-    private iconAndScrollService: IconAndScrollService,
+    private iconAndScrollService: ScrollingService,
   ) {}
 
   ngOnInit() {

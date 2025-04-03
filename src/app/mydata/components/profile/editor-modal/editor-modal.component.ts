@@ -42,6 +42,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProfilePanelComponent } from '../profile-panel/profile-panel.component';
 import { AutofocusDirective } from '../../../../shared/directives/autofocus.directive';
 import { NgIf } from '@angular/common';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-editor-modal',
@@ -49,19 +50,20 @@ import { NgIf } from '@angular/common';
     styleUrls: ['./editor-modal.component.scss'],
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [
-        NgIf,
-        MatCheckbox,
-        AutofocusDirective,
-        ProfilePanelComponent,
-        MatTabGroup,
-        MatTab,
-        FontAwesomeModule,
-        ProfileItemsTableComponent,
-        MatTabLabel,
-        SearchPortalComponent,
-        DialogComponent,
-    ],
+  imports: [
+    NgIf,
+    MatCheckbox,
+    AutofocusDirective,
+    ProfilePanelComponent,
+    MatTabGroup,
+    MatTab,
+    FontAwesomeModule,
+    ProfileItemsTableComponent,
+    MatTabLabel,
+    SearchPortalComponent,
+    DialogComponent,
+    SvgSpritesComponent
+  ]
 })
 export class EditorModalComponent implements OnInit {
   @Input() dialogData: { data: any; trigger: number };

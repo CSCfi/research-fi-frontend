@@ -30,7 +30,7 @@
               >
                 <div class="row">
                   <div class="col-auto pe-0">
-                    <fa-icon class="icon" [icon]="faIconCircle"></fa-icon>
+                      <app-svg-sprites [iconName]="'plus'" cssClass="plus-icon figures-page"></app-svg-sprites>
                   </div>
                   <div class="col" i18n="@@figuresSecHeader">
                     Tiedon lähteet ja tuottajat
@@ -57,10 +57,8 @@
               >
                 <div class="row">
                   <div class="col-auto pe-0">
-                    <fa-icon
-                      class="icon"
-                      [icon]="item.placement > 0 ? faChartBar : faIconCircle"
-                    ></fa-icon>
+                      <app-svg-sprites *ngIf="item.placement > 0" [iconName]="'fa-chart-bar'" cssClass="chart-icon"></app-svg-sprites>
+                      <app-svg-sprites *ngIf="!item.placement > 0" [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
                   </div>
                   <div class="col">
                     {{ item['title' + currentLocale] }}
@@ -73,7 +71,7 @@
                 <div class="row">
                   <div class="col">
                     <div class="search">
-                      <fa-icon [icon]="faSearch" class="search-icon"></fa-icon>
+                        <app-svg-sprites [iconName]="'search'" cssClass="search-icon"></app-svg-sprites>
                       <input
                         type="text"
                         #searchInput
@@ -127,10 +125,8 @@
                 <h2 i18n="@@informationSourceProducers">
                   Tiedon lähteet ja tuottajat
                 </h2>
-                <fa-icon
-                  class="dropdown-icon align-self-center"
-                  [icon]="showIntro ? faChevronUp : faChevronDown"
-                ></fa-icon>
+                  <app-svg-sprites *ngIf="showIntro" [iconName]="'chevron-up'" cssClass="chevron-up-icon"></app-svg-sprites>
+                  <app-svg-sprites *ngIf="!showIntro" [iconName]="'chevron-down'" cssClass="chevron-down-icon"></app-svg-sprites>
               </button>
             </div>
             <ng-container *ngIf="showIntro && content && !loading">

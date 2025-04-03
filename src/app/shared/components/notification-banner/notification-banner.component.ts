@@ -13,19 +13,21 @@ import { MatButton } from '@angular/material/button';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgIf, NgFor } from '@angular/common';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-notification-banner',
     templateUrl: './notification-banner.component.html',
     styleUrls: ['./notification-banner.component.scss'],
     standalone: true,
-    imports: [
-        CollapseModule,
-        NgIf,
-        FontAwesomeModule,
-        NgFor,
-        MatButton,
-    ],
+  imports: [
+    CollapseModule,
+    NgIf,
+    FontAwesomeModule,
+    NgFor,
+    MatButton,
+    SvgSpritesComponent
+  ]
 })
 export class NotificationBannerComponent implements OnInit {
   isCollapsed = true;

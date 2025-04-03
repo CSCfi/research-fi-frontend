@@ -16,7 +16,6 @@ import {
   AfterViewInit,
 } from '@angular/core';
 import { UntypedFormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { PrimaryActionButtonComponent } from '../buttons/primary-action-button/primary-action-button.component';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { NgIf } from '@angular/common';
@@ -46,7 +45,6 @@ export class SearchComponent implements OnInit, AfterViewInit {
     term: '',
   });
 
-  faSearch = faSearch;
 
   @ViewChild('searchInput') searchInput: ElementRef;
 

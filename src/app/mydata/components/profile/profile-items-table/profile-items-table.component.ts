@@ -36,6 +36,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgFor, NgIf } from '@angular/common';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-profile-items-table',
@@ -43,30 +44,31 @@ import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, Ma
     styleUrls: ['./profile-items-table.component.scss'],
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [
-        MatTable,
-        MatSort,
-        MatColumnDef,
-        MatHeaderCellDef,
-        MatHeaderCell,
-        MatCheckbox,
-        MatCellDef,
-        MatCell,
-        NgFor,
-        MatSortHeader,
-        NgIf,
-        FontAwesomeModule,
-        SecondaryButtonComponent,
-        DatasetAuthorComponent,
-        MatHeaderRowDef,
-        MatHeaderRow,
-        MatRowDef,
-        MatRow,
-        MatPaginator,
-        CutContentPipe,
-        GetValuePipe,
-        IsPortalItemPipe,
-    ],
+  imports: [
+    MatTable,
+    MatSort,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatCheckbox,
+    MatCellDef,
+    MatCell,
+    NgFor,
+    MatSortHeader,
+    NgIf,
+    FontAwesomeModule,
+    SecondaryButtonComponent,
+    DatasetAuthorComponent,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRowDef,
+    MatRow,
+    MatPaginator,
+    CutContentPipe,
+    GetValuePipe,
+    IsPortalItemPipe,
+    SvgSpritesComponent
+  ]
 })
 export class ProfileItemsTableComponent implements OnInit, OnChanges {
   @Input() columns: EditorModalColumn[];

@@ -34,7 +34,6 @@ import { DatasetFilterService } from 'src/app/portal/services/filters/dataset-fi
 import { InfrastructureFilterService } from 'src/app/portal/services/filters/infrastructure-filter.service';
 import { OrganizationFilterService } from 'src/app/portal/services/filters/organization-filter.service';
 import { NewsFilterService } from 'src/app/portal/services/filters/news-filter.service';
-import { faSlidersH, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { isPlatformBrowser, DOCUMENT, NgTemplateOutlet, NgIf, NgFor, NgClass, JsonPipe } from '@angular/common';
 import { DataService } from 'src/app/portal/services/data.service';
 import { FundingCallFilterService } from '@portal/services/filters/funding-call-filter.service';
@@ -59,6 +58,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { SecondaryButtonComponent } from '../../../../shared/components/buttons/secondary-button/secondary-button.component';
 import { ProjectFilterService } from '@portal/services/filters/project-filter.service';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
+import { faSlidersH } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-filters',
@@ -99,7 +100,8 @@ import { ProjectFilterService } from '@portal/services/filters/project-filter.se
     FilterItemPipe,
     ReplaceSpacePipe,
     ConvertToArrayPipe,
-    JsonPipe
+    JsonPipe,
+    SvgSpritesComponent
   ]
 })
 export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
@@ -134,9 +136,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   visualFilterSub: Subscription;
   subFilters: MatSelectionList[];
   totalCount = 0;
-  faSlidersH: any = faSlidersH;
-  faPlus = faPlus;
-  faMinus = faMinus;
   panelHeight = 'auto';
   panelArr = [];
   showMoreCount: any;
@@ -592,4 +591,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   trackByFn(index: any, item) {
     return item.key;
   }
+
+  protected readonly faSlidersH = faSlidersH;
 }

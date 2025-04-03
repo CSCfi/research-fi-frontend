@@ -73,7 +73,7 @@
           <a [href]="userData.orcid" target="_blank">
             <app-orcid></app-orcid>
             <span class="ps-1 text-underline">{{ userData.orcid }}</span>
-            <fa-icon icon="external-link-alt"></fa-icon>
+            <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites>
           </a>
         </div>
       </div>
