@@ -37,6 +37,13 @@
       margin-left: 7px;
       color: #c5c5e5;
     }
+    &.figures-page {
+      width: 25px;
+      height: 25px;
+      margin-top: -2px;
+      margin-left: -3px;
+      margin-right: -4px;
+    }
   }
   .quote-icon {
     color: #4546b9;
@@ -198,7 +205,7 @@
     width: 24px;
     color: #000;
     fill: #000;
-    &.give-feedback {
+    &.give-feedback, &.close-component {
       color: #4546b9;
       fill: #4546b9;
     }

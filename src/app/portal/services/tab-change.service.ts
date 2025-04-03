@@ -60,7 +60,7 @@ export class TabChangeService {
       data: 'infrastructures',
       label: $localize`:@@infrastructures:Infrastruktuurit`,
       link: 'infrastructures',
-      icon: 'lan',
+      icon: '',
       singular: $localize`:@@infrastructure:infrastruktuuri`,
       tooltip: $localize`:@@infrastructuresTooltip:Suomessa ylläpidettäviä tutkimusinfrastruktuureja. Infrastruktuurit ovat keskitetysti, hajautetusti tai virtuaalisesti saatavilla olevia välineitä, laitteistoja, tietoverkkoja, tietokantoja, aineistoja ja palveluita, jotka mahdollistavat tutkimuksen tekemistä.`,
     },
