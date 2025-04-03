@@ -17,7 +17,7 @@ import { UtilityService } from '@shared/services/utility.service';
 import { Observable, of } from 'rxjs';
 import { delay, map, switchMap, take } from 'rxjs/operators';
 
-import { DOCUMENT, NgIf, NgFor, NgTemplateOutlet, NgClass, AsyncPipe } from '@angular/common';
+import { DOCUMENT, NgIf, NgFor, NgTemplateOutlet, NgClass, AsyncPipe, JsonPipe } from '@angular/common';
 import { PersonPublication } from '@portal/models/person/person-publication.model';
 import { CheckEmptyFieldsPipe } from '../../../pipes/check-empty-fields.pipe';
 import { JoinItemsPipe } from '../../../../shared/pipes/join-items.pipe';
@@ -58,7 +58,8 @@ type Field = { key: string; label?: string };
     AsyncPipe,
     JoinItemsPipe,
     CheckEmptyFieldsPipe,
-    SvgSpritesComponent
+    SvgSpritesComponent,
+    JsonPipe
   ]
 })
 export class SinglePersonComponent implements OnInit {

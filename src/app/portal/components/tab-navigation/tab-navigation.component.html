@@ -51,13 +51,13 @@
 <div class='scroll-wrapper' [class.d-none]='(moreThan900$ | async) === true || homepage'>
   <div class='left-btn left-gradient-container' [style.visibility]='(scrollAtStart$ | async) === false ? "visible" : "hidden"' (click)='scrollLeft()'>
     <div class='nav-arrow'>
-        <app-svg-sprites [iconName]="'chevron-left'" cssClass="chevron-left-icon nav-icon"></app-svg-sprites>
+        <app-svg-sprites [iconName]="'fa-arrow-left'" cssClass="arrow-left-icon nav-icon"></app-svg-sprites>
     </div>
   </div>
 
   <div class='right-btn right-gradient-container' [style.visibility]='(scrollAtEnd$ | async) === false ? "visible" : "hidden"' (click)='scrollRight()'>
     <div class='nav-arrow'>
-        <app-svg-sprites [iconName]="'chevron-right'" cssClass="chevron-right-icon nav-icon"></app-svg-sprites>
+        <app-svg-sprites [iconName]="'fa-arrow-right'" cssClass="arrow-right-icon nav-icon"></app-svg-sprites>
     </div>
   </div>
 

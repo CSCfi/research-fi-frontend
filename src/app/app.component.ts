@@ -42,7 +42,6 @@ export class AppComponent {
     private router: Router,
     private platform: PlatformLocation,
     private viewPortScroller: ViewportScroller,
-    private iconService: IconService,
     private iconAndScrollService: ScrollingService,
     private transferedState: TransferState,
     @Inject(PLATFORM_ID) private platformId: object,
@@ -51,7 +50,7 @@ export class AppComponent {
 
     // SSR platform check
     if (isPlatformBrowser(this.platformId)) {
-      this.iconService.createIcons();
+      //this.iconService.createIcons();
       this.resizeService.updateScreenSize(window.innerWidth, window.innerHeight);
       // APM config
       // const apm = apmService.init({

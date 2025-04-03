@@ -26,7 +26,16 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
 import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
-import { NgIf, NgFor, NgClass, NgSwitch, NgSwitchCase, NgSwitchDefault, NgTemplateOutlet } from '@angular/common';
+import {
+  NgIf,
+  NgFor,
+  NgClass,
+  NgSwitch,
+  NgSwitchCase,
+  NgSwitchDefault,
+  NgTemplateOutlet,
+  JsonPipe
+} from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
@@ -67,7 +76,8 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     TableCardComponent,
     CutContentPipe,
     MatIcon,
-    SvgSpritesComponent
+    SvgSpritesComponent,
+    JsonPipe
   ]
 })
 export class TableComponent implements OnInit {
@@ -103,6 +113,7 @@ export class TableComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private router: Router) {}
 
+
   ngOnInit(): void {
     // selectable is used when displaying select all -checkbox in cards view
     this.selectable = !!this.columns.find(
@@ -117,6 +128,8 @@ export class TableComponent implements OnInit {
         labelHidden: true,
       });
       this.rows = this.rows.map((row) => ({ icon: this.svgSymbolName, ...row }));
+      console.log('this.rows', this.rows);
+      console.log('this.columns', this.columns);
     }
 
     this.displayedColumns = this.columns.map((row) => row.key);

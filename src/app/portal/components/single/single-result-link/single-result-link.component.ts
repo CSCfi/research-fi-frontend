@@ -23,7 +23,6 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     FontAwesomeModule,
     TrimLinkPrefixPipe,
     FixExternalUrlPipe,
-    MatIcon,
     SvgSpritesComponent
   ]
 })
