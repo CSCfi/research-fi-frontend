@@ -1383,7 +1383,7 @@ export class AggregationService {
           'dataSources',
           'dataCatalog.name' + this.localeC + '.keyword',
           null,
-          null,
+          50,
           true
         );
         payLoad.aggs.accessType = basicAgg(
