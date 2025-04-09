@@ -23,14 +23,12 @@ import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { SearchService } from 'src/app/portal/services/search.service';
 import { SortService } from 'src/app/portal/services/sort.service';
 import { Search } from 'src/app/portal/models/search.model';
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { TableColumn, TableRow } from 'src/types';
 import { HighlightSearchPipe } from '@portal/pipes/highlight.pipe';
 import { HandleInfrastructureLinkPipe } from '../../../pipes/handle-infrastructure-link.pipe';
 import { NoResultsComponent } from '../no-results/no-results.component';
 import { ResultsPaginationComponent } from '../results-pagination/results-pagination.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { TableComponent } from '../../../../shared/components/table/table.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
@@ -49,7 +47,6 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     NgFor,
     RouterLink,
     TooltipModule,
-    FontAwesomeModule,
     ResultsPaginationComponent,
     NoResultsComponent,
     HighlightSearchPipe,
@@ -73,7 +70,6 @@ export class InfrastructuresComponent
   inputSub: any;
   input: string;
   focusSub: any;
-  faCheckCircle = faCheckCircle;
 
   tableColumns: TableColumn[];
   tableRows: Record<string, TableRow>[];

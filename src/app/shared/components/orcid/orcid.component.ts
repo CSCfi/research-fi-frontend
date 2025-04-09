@@ -6,7 +6,6 @@
 //  :license: MIT
 
 import { Component, OnInit, Input } from '@angular/core';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 
@@ -18,7 +17,6 @@ import { MatIcon } from '@angular/material/icon';
   imports: [
     NgIf,
     NgTemplateOutlet,
-    FontAwesomeModule,
     MatIcon
   ]
 })

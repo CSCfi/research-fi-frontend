@@ -21,7 +21,6 @@ import { PublicationsService } from '@mydata/services/publications.service';
 import { DatasetsService } from '@mydata/services/datasets.service';
 import { FundingsService } from '@mydata/services/fundings.service';
 import { MatCheckbox } from '@angular/material/checkbox';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { MatTabChangeEvent, MatTabGroup, MatTab, MatTabLabel } from '@angular/material/tabs';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { CommonStrings } from '@mydata/constants/strings';
@@ -38,7 +37,6 @@ import { GroupTypes } from '@mydata/constants/groupTypes';
 import { DialogComponent } from '../../../../shared/components/dialog/dialog.component';
 import { SearchPortalComponent } from '../search-portal/search-portal.component';
 import { ProfileItemsTableComponent } from '../profile-items-table/profile-items-table.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProfilePanelComponent } from '../profile-panel/profile-panel.component';
 import { AutofocusDirective } from '../../../../shared/directives/autofocus.directive';
 import { NgIf } from '@angular/common';
@@ -57,7 +55,6 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     ProfilePanelComponent,
     MatTabGroup,
     MatTab,
-    FontAwesomeModule,
     ProfileItemsTableComponent,
     MatTabLabel,
     SearchPortalComponent,
@@ -103,8 +100,7 @@ export class EditorModalComponent implements OnInit {
   portalModalIndicatorIds = PortalGroupIds;
 
   disabledSearchPortalModalIds = [GroupTypes.activitiesAndRewards];
-
-  faSearch = faSearch as any; // TODO: Fix type
+  e
 
   currentTabIndex: number = 0;
   importedItems: any[];

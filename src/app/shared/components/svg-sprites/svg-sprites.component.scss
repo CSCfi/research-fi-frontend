@@ -103,7 +103,7 @@
       color: #363636;
     }
     &.contact-icon {
-      color: #3366cc;
+      color: #4546b9;
     }
   }
   .warning-icon {
@@ -112,11 +112,32 @@
     color: rgba(0, 0, 0, 0.87);
   }
 
+  .search-icon {
+    &.button-icon {
+      color: #fff;
+      width: 23px;
+      height: 23px;
+      margin-right: 7px;
+    }
+    &.tab-button-icon {
+      max-width: 24px;
+      max-height: 24px;
+    }
+  }
+
   .chevron-up-icon, .chevron-down-icon, .chevron-left-icon, .chevron-right-icon {
     width: 18px;
     height: 18px;
     &.navi-icon {
-      color: rgba(0, 0, 0, 0.87)
+      color: rgba(0, 0, 0, 0.87);
+    }
+    &.beta-search-icon {
+      color: #fff;
+    }
+    &.button-icon {
+      width: 20px;
+      height: 20px;
+      margin-left: 5px;
     }
   }
   .chevron-left-icon {
@@ -189,9 +210,19 @@
       fill: #000;
       }
     }
+
   .chart-icon {
     width: 20px;
     height: 20px;
+  }
+
+  .fa-chart-bar {
+    &.button-icon {
+      color: #fff;
+      width: 23px;
+      height: 23px;
+      margin-right: 7px;
+    }
   }
 
   .link-icon {
@@ -231,15 +262,28 @@
   }
 
   .person-contact-item-icon {
-    height: 26px;
-    width: 24px;
-    margin-right: 6px;
+    height: 21px;
+    width: 23px;
+    margin-top: -2px;
     color: #4546b9;
+    fill: #4546b9;
     &.email-icon {
       height: 22px;
       width: 22px;
       margin-right: 7px;
     }
+  }
+
+  .registration-step-icon, .deployment-step-icon, .undo-icon {
+    color: #4546b9;
+    fill: #4546b9;
+  }
+
+  .fa-angle-double-left, .fa-angle-double-right {
+    color: #4546b9;
+    fill: #4546b9;
+    width: 16px;
+    height: 16px;
   }
 
   .table-column-icon {

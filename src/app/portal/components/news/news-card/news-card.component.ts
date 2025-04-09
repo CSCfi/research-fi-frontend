@@ -5,7 +5,6 @@ import { SafeUrlPipe } from '../../../pipes/safe-url.pipe';
 import { HighlightSearchPipe } from '../../../pipes/highlight.pipe';
 import { CutContentPipe } from '../../../../shared/pipes/cut-content.pipe';
 import { RouterLink } from '@angular/router';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault, NgClass, DatePipe } from '@angular/common';
 import { MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardContent, MatCardActions, MatCardFooter } from '@angular/material/card';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
@@ -24,7 +23,6 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     NgSwitch,
     NgSwitchCase,
     NgSwitchDefault,
-    FontAwesomeModule,
     RouterLink,
     MatCardSubtitle,
     MatCardContent,

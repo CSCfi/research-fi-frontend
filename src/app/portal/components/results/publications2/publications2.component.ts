@@ -37,9 +37,7 @@ import { FirstDigitPipe } from '@shared/pipes/first-digit.pipe';
 import { FirstLetterPipe } from '@shared/pipes/first-letter.pipe';
 import { BreakpointObserver, LayoutModule } from '@angular/cdk/layout';
 import { ColumnSorterComponent } from '@shared/components/column-sorter/column-sorter.component';
-import { faChartBar } from '@fortawesome/free-solid-svg-icons';
 import { Dialog, DialogRef } from '@angular/cdk/dialog';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PaginationComponent } from '@shared/components/pagination/pagination.component';
 import {
   PrimaryActionButtonComponent
@@ -59,7 +57,7 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     FormsModule,
     RouterModule,
     SearchBar2Component, OrganizationFilterComponent, FilterOptionComponent, CollapsibleComponent, MatButtonModule, NgStyle, FilterLimitButtonComponent, FirstDigitPipe, FirstLetterPipe, RouterLink,
-    LayoutModule, ColumnSorterComponent, NgTemplateOutlet, FontAwesomeModule, NgMathPipesModule, PaginationComponent, PrimaryActionButtonComponent, SecondaryButtonComponent, TagPeerReviewedComponent, TagOpenAccessComponent, TagDoiComponent, SvgSpritesComponent
+    LayoutModule, ColumnSorterComponent, NgTemplateOutlet, NgMathPipesModule, PaginationComponent, PrimaryActionButtonComponent, SecondaryButtonComponent, TagPeerReviewedComponent, TagOpenAccessComponent, TagDoiComponent, SvgSpritesComponent
   ],
   standalone: true
 })
@@ -125,8 +123,6 @@ export class Publications2Component implements OnDestroy {
     {id: "G", text: $localize`:@@publicationClassG:Opinnäytteet`},
     {id: "I", text: $localize`:@@publicationClassI:Audiovisuaaliset julkaisut ja tieto- ja viestintätekniset sovellukset`},
   ];
-
-  faChartBar = faChartBar;
 
   openDialog() {
     this.dialogRef = this.dialog.open(this.dialogTemplate, {

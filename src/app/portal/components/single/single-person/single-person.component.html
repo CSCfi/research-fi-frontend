@@ -275,10 +275,10 @@
                 <ng-container *ngIf="person.contact[row.key]?.length && row.key !== 'otherNames'">
                   <li *ngFor='let item of person.contact[row.key]' class='row'>
 
-                      <div *ngIf="row.key === 'links'" class='col ps-0 truncate d-flex justify-content-center flex-column py-1'>
-                          <div *ngIf="item.icon" class="d-flex">
-                              <app-svg-sprites [iconName]="item.icon" cssClass="person-contact-item-icon"></app-svg-sprites>
-                              <app-single-result-link [label]='item.value' [url]='item.value' [simple]='true'></app-single-result-link>
+                      <div *ngIf="row.key === 'links'" class='col px-0 truncate d-flex justify-content-center flex-column py-1'>
+                          <div *ngIf="item.icon" class="row">
+                              <app-svg-sprites class="gx-0 col-sm-1 col-xl-1" [iconName]="item.icon" cssClass="person-contact-item-icon"></app-svg-sprites>
+                              <app-single-result-link class="col-xs-10 col-sm-10 col-xl-11 px-0" [label]='item.value' [url]='item.value' [simple]='true'></app-single-result-link>
                         </div>
                       </div>
 

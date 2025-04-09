@@ -732,7 +732,8 @@
   *ngIf="showDialog"
   [template]="dialogTemplate"
   [title]="dialogTitle"
-  [icon]="faSlidersH"
+  [svgSymbolName]="'sliders'"
+  [svgCssClass]="'sliders-icon dialog-icon'"
   (onActionClick)="closeDialog()"
   noPadding
   extraClass="filters-dialog"

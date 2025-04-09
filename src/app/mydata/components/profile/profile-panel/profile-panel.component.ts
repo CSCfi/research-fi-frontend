@@ -22,7 +22,6 @@ import { checkGroupSelected, isEmptySection } from '@mydata/utils';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SearchPortalComponent } from '../search-portal/search-portal.component';
 import { PublicationsService } from '@mydata/services/publications.service';
-import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { PatchService } from '@mydata/services/patch.service';
 import { ProfileService } from '@mydata/services/profile.service';
 import { cloneDeep } from 'lodash-es';
@@ -34,7 +33,6 @@ import { FindSelectedItemPipe } from '../../../pipes/find-selected-item.pipe';
 import { JoinDataSourcesPipe } from '../../../pipes/join-data-sources.pipe';
 import { FilterPipe } from '../../../pipes/filter.pipe';
 import { JoinItemsPipe } from '../../../../shared/pipes/join-items.pipe';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PrimaryBadgeComponent } from './primary-badge/primary-badge.component';
 import { SecondaryButtonComponent } from '../../../../shared/components/buttons/secondary-button/secondary-button.component';
 import { PanelArrayItemComponent } from './panel-array-item/panel-array-item.component';
@@ -45,9 +43,9 @@ import { NgIf, NgFor, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/c
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
-    selector: 'app-profile-panel',
-    templateUrl: './profile-panel.component.html',
-    standalone: true,
+  selector: 'app-profile-panel',
+  templateUrl: './profile-panel.component.html',
+  standalone: true,
   imports: [
     NgIf,
     MatAccordion,
@@ -63,7 +61,6 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     PanelArrayItemComponent,
     SecondaryButtonComponent,
     PrimaryBadgeComponent,
-    FontAwesomeModule,
     SearchPortalComponent,
     JoinItemsPipe,
     FilterPipe,
@@ -96,9 +93,6 @@ export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   dialogData: any;
   currentGroupId: any;
   dialogRef: MatDialogRef<SearchPortalComponent>;
-
-  faChevronDown = faChevronDown;
-  faChevronUp = faChevronUp;
 
   disableAnimation = true;
   hasFetchedPublications: boolean;

@@ -1,7 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, OnInit, Input, input } from '@angular/core';
-import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgIf, NgClass } from '@angular/common';
 import { MatRipple } from '@angular/material/core';
 import { MatIcon } from '@angular/material/icon';
@@ -15,14 +13,12 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
   imports: [
     MatRipple,
     NgIf,
-    FontAwesomeModule,
     NgClass,
     MatIcon,
     SvgSpritesComponent
   ]
 })
 export class PrimaryActionButtonComponent implements OnInit {
-  @Input() icon: IconDefinition;
   @Input() iconAfter: boolean;
   @Input() noSmIcon: boolean;
   @Input() content: string;

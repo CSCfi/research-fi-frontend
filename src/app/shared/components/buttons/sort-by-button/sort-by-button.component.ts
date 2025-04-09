@@ -7,7 +7,6 @@
 
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { SortByOption } from 'src/types';
 import { NgFor } from '@angular/common';
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
@@ -44,7 +43,6 @@ export class SortByButtonComponent implements OnInit {
     key: 'reset',
   };
 
-  faChevronDown = faChevronDown;
   activeSortLabel: string;
 
   constructor(private route: ActivatedRoute, private router: Router) {}

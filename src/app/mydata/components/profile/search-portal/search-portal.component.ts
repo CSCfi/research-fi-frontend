@@ -27,17 +27,15 @@ import { SearchPortalResultsComponent } from './search-portal-results/search-por
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { SearchComponent } from '../../../../shared/components/search/search.component';
 import { NgSwitch, NgSwitchCase, NgIf, NgSwitchDefault, NgClass } from '@angular/common';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
-    selector: 'app-search-portal',
-    templateUrl: './search-portal.component.html',
-    styleUrls: ['./search-portal.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    standalone: true,
+  selector: 'app-search-portal',
+  templateUrl: './search-portal.component.html',
+  styleUrls: ['./search-portal.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  standalone: true,
   imports: [
-    FontAwesomeModule,
     NgSwitch,
     NgSwitchCase,
     SearchComponent,

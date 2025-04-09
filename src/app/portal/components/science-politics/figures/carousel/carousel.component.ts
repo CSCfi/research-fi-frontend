@@ -6,10 +6,6 @@
 // :license: MIT
 
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import {
-  faAngleDoubleRight,
-  faAngleDoubleLeft,
-} from '@fortawesome/free-solid-svg-icons';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { CutContentPipe } from '../../../../../shared/pipes/cut-content.pipe';
 import { RouterLink } from '@angular/router';
@@ -38,8 +34,6 @@ export class CarouselComponent implements OnInit, OnChanges {
   idx: number;
   maxIdx: number;
   currentLocale: string;
-  faAngleDoubleRight = faAngleDoubleRight;
-  faAngleDoubleLeft = faAngleDoubleLeft;
 
   next = $localize`:@@next:Seuraava`;
   previous = $localize`:@@previous:Edellinen`;

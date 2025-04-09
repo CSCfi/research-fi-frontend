@@ -9,7 +9,6 @@ import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewEncapsulation }
 import { Router, RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subscription } from 'rxjs';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { UtilityService } from '@shared/services/utility.service';
 import { MatButton } from '@angular/material/button';
 import { PrimaryActionButtonComponent } from '../buttons/primary-action-button/primary-action-button.component';
@@ -65,7 +64,6 @@ export class ReviewComponent implements OnInit, OnDestroy {
   sending = false;
   error = false;
   success = false;
-  faTimes = faTimes;
 
   @Output() onClose = new EventEmitter<void>();
 

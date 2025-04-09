@@ -52,7 +52,6 @@ import { SortComponent } from './sort/sort.component';
 import { ResultCountComponent } from '../../../shared/components/result-count/result-count.component';
 import { SecondaryButtonComponent } from '../../../shared/components/buttons/secondary-button/secondary-button.component';
 import { PrimaryActionButtonComponent } from '../../../shared/components/buttons/primary-action-button/primary-action-button.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TabNavigationComponent } from '../tab-navigation/tab-navigation.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
@@ -66,7 +65,6 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     SearchBarComponent,
     TabNavigationComponent,
     NgIf,
-    FontAwesomeModule,
     PrimaryActionButtonComponent,
     RouterLink,
     SecondaryButtonComponent,

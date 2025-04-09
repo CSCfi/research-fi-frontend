@@ -18,7 +18,6 @@ import { DOCUMENT, NgIf, NgFor, NgClass, NgSwitch } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
 import { SearchService } from '../../../services/search.service';
-import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { Subscription } from 'rxjs';
 import { Search } from 'src/app/portal/models/search.model';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
@@ -34,7 +33,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
-import { MatIcon } from '@angular/material/icon';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
@@ -57,7 +55,6 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     SingleResultLinkComponent,
     RelatedLinksComponent,
     ShareComponent,
-    MatIcon,
     SvgSpritesComponent
   ]
 })
@@ -185,7 +182,6 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   serviceExpand: boolean[] = [];
   showService: boolean[] = [];
   showServicePoint: boolean[][] = [];
-  faIcon = faFileAlt;
   tabData: any;
   currentLocale: string;
   serviceHeader = $localize`:@@infraServiceHeader:Palvelu`;

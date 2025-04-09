@@ -6,7 +6,6 @@
 //  :license: MIT
 
 import { Component, OnInit, Inject, LOCALE_ID, Input, OnChanges } from '@angular/core';
-import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DOCUMENT } from '@angular/common';
 import { CdkCopyToClipboard } from '@angular/cdk/clipboard';
@@ -23,7 +22,6 @@ export class ShareComponent implements OnInit, OnChanges {
   @Input() big = true;
   @Input() id: string;
 
-  faCopy = faCopy;
   currentUrl: string;
   message: string;
 

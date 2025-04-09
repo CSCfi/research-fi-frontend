@@ -8,7 +8,6 @@
 import { Component, Input } from '@angular/core';
 import { FixExternalUrlPipe } from '../../../pipes/fix-external-url.pipe';
 import { TrimLinkPrefixPipe } from '../../../../shared/pipes/trim-link-prefix.pipe';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgIf } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
@@ -20,7 +19,6 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     standalone: true,
   imports: [
     NgIf,
-    FontAwesomeModule,
     TrimLinkPrefixPipe,
     FixExternalUrlPipe,
     SvgSpritesComponent

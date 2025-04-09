@@ -10,21 +10,23 @@ import { DialogEventsService } from '@shared/services/dialog-events.service';
 import { DialogAction } from '../../../../types';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { DialogComponent } from '../../../shared/components/dialog/dialog.component';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
-    selector: 'app-welcome-stepper',
-    templateUrl: './welcome-stepper.component.html',
-    styleUrls: ['./welcome-stepper.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    standalone: true,
-    imports: [
-        MatStepper,
-        MatStep,
-        MatStepLabel,
-        MatStepContent,
-        DialogComponent,
-        AsyncPipe,
-    ],
+  selector: 'app-welcome-stepper',
+  templateUrl: './welcome-stepper.component.html',
+  styleUrls: ['./welcome-stepper.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  imports: [
+    MatStepper,
+    MatStep,
+    MatStepLabel,
+    MatStepContent,
+    DialogComponent,
+    AsyncPipe,
+    SvgSpritesComponent
+  ]
 })
 
 export class WelcomeStepperComponent implements OnInit {

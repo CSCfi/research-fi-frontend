@@ -6,79 +6,79 @@
 # :license: MIT -->
 
 <header class="wrapper">
-  <div
-    id="srHelper"
-    class="row skip-links"
-    [ngClass]="showSkipLinks ? 'show' : 'sr-only'"
-    #srHelper
-  >
-    <ul>
-      <li *ngIf="hideInputSkip">
-        <a
-          i18n="@@skipToInput"
-          (blur)="showSkipLinks = false"
-          (click)="changeFocus('search-input')"
-          (focus)="showSkipLinks = true"
-          tabindex="0"
-          href="javascript:void(0)"
-          #start
-          >Hyppää hakukenttään</a
-        >
-      </li>
-      <li>
-        <a
-          i18n="@@skipToMain"
-          (blur)="showSkipLinks = false"
-          (click)="changeFocus('main-link')"
-          (focus)="showSkipLinks = true"
-          tabindex="0"
-          href="javascript:void(0)"
-          #start
-          >Hyppää sivun pääsisältöön</a
-        >
-      </li>
-      <li>
-        <a
-          i18n="@@skipToAccessibility"
-          (blur)="showSkipLinks = false"
-          (focus)="showSkipLinks = true"
-          tabindex="0"
-          routerLink="/accessibility"
-          >Hyppää saavutettavuusselosteeseen</a
-        >
-      </li>
-    </ul>
-  </div>
+    <div
+            id="srHelper"
+            class="row skip-links"
+            [ngClass]="showSkipLinks ? 'show' : 'sr-only'"
+            #srHelper
+    >
+        <ul>
+            <li *ngIf="hideInputSkip">
+                <a
+                        i18n="@@skipToInput"
+                        (blur)="showSkipLinks = false"
+                        (click)="changeFocus('search-input')"
+                        (focus)="showSkipLinks = true"
+                        tabindex="0"
+                        href="javascript:void(0)"
+                        #start
+                >Hyppää hakukenttään</a
+                >
+            </li>
+            <li>
+                <a
+                        i18n="@@skipToMain"
+                        (blur)="showSkipLinks = false"
+                        (click)="changeFocus('main-link')"
+                        (focus)="showSkipLinks = true"
+                        tabindex="0"
+                        href="javascript:void(0)"
+                        #start
+                >Hyppää sivun pääsisältöön</a
+                >
+            </li>
+            <li>
+                <a
+                        i18n="@@skipToAccessibility"
+                        (blur)="showSkipLinks = false"
+                        (focus)="showSkipLinks = true"
+                        tabindex="0"
+                        routerLink="/accessibility"
+                >Hyppää saavutettavuusselosteeseen</a
+                >
+            </li>
+        </ul>
+    </div>
 
-  <div
-    *ngIf="appSettings"
-    offClick
-    class="navbar navbar-expand-xl navbar-light row"
-    #mainHeader
-  >
-    <div class="logo col">
-      <div class="row">
-        <div class="col-auto p-0">
-          <a
-            class="navbar-brand"
-            [routerLink]="appSettings.beta ? '/mydata' : ''"
-          >
-            <img
-              src="assets/img/logo.svg"
-              i18n-alt="@@portalLogoAltText"
-              alt="Tutkimustietovarannon portaalin logo, abstrakti ikkuna"
-            />
-          </a>
-        </div>
-        <div class="col-auto align-self-center p-0 ps-1 pe-2 pe-md-3">
-          <a class="logo-text" [routerLink]="appSettings.baseRoute"
-            ><span>{{ appSettings.label }}</span></a
-          >
-        </div>
-        <div
-          class="col-auto px-0 mt-0 mt-md-1 align-self-center"
-          *ngIf="appSettings.beta"
-        ><!--
+    <div
+            *ngIf="appSettings"
+            offClick
+            class="navbar navbar-expand-xl navbar-light row"
+            #mainHeader
+    >
+        <div class="logo col">
+            <div class="row">
+                <div class="col-auto p-0">
+                    <a
+                            class="navbar-brand"
+                            [routerLink]="appSettings.beta ? '/mydata' : ''"
+                    >
+                        <img
+                                src="assets/img/logo.svg"
+                                i18n-alt="@@portalLogoAltText"
+                                alt="Tutkimustietovarannon portaalin logo, abstrakti ikkuna"
+                        />
+                    </a>
+                </div>
+                <div class="col-auto align-self-center p-0 ps-1 pe-2 pe-md-3">
+                    <a class="logo-text" [routerLink]="appSettings.baseRoute"
+                    ><span>{{ appSettings.label }}</span></a
+                    >
+                </div>
+                <div
+                        class="col-auto px-0 mt-0 mt-md-1 align-self-center"
+                        *ngIf="appSettings.beta"
+                ><!--
           <app-primary-action-button
             content="Beta"
             (click)="openDialog('Beta', betaInfoTemplate, basicDialogActions)"
@@ -86,226 +86,226 @@
             [betaButton]="true"
           ></app-primary-action-button>
           -->
+                </div>
+
+                <ng-template #betaInfoTemplate>
+                    <div class="px-3" [innerHTML]="myDataBetaTextContent"></div>
+                </ng-template>
+
+                <app-dialog
+                        *ngIf="showDialog"
+                        [template]="dialogTemplate"
+                        [title]="dialogTitle"
+                        (onActionClick)="doDialogAction($event)"
+                        [actions]="dialogActions"
+                ></app-dialog>
+            </div>
         </div>
-
-        <ng-template #betaInfoTemplate>
-          <div class="px-3" [innerHTML]="myDataBetaTextContent"></div>
-        </ng-template>
-
-        <app-dialog
-          *ngIf="showDialog"
-          [template]="dialogTemplate"
-          [title]="dialogTitle"
-          (onActionClick)="doDialogAction($event)"
-          [actions]="dialogActions"
-        ></app-dialog>
-      </div>
-    </div>
-    <nav class="nav-top col-auto" [class.beta-mobile-menu]="appSettings.beta">
-      <div class="mobile ml-auto toggle-button-wrapper">
-        <button
-          *ngIf="!navbarOpen"
-          class="navbar-toggler navbar-toggler-right menu"
-          type="button"
-          (click)="toggleNavbar()"
-          #navbarToggler
-        >
-          <div class="toggle-menu-text closed" i18n="@@headerMenuOpen">
-            Valikko
-          </div>
-        </button>
-        <app-close-button
-          *ngIf="navbarOpen"
-          (click)="toggleNavbar()"
-        ></app-close-button>
-      </div>
-      <div
-        [class.overflow-hider]="hideOverflow && mobileMenu"
-        [class.absolute]="mobileMenu"
-        [ngClass]="mobileMenu ? (hideOverflow ? 'invisible' : 'visible') : ''"
-        #overflowHider
-      >
-        <div
-          class="collapse navbar-collapse menu row"
-          [class.mobile-bar]="mobileMenu"
-          [class.open]="navbarOpen && mobileMenu"
-          #mainNavbar
-        >
-          <!-- Lang selector -->
-          <div class="navbar-expand mx-auto navbar-nav lang mobile">
-            <ul class="navbar-nav mx-auto">
-              <li
-                *ngFor="let domain of appSettings.localizedDomains"
-                [class.col-4]="mobileMenu"
-              >
-                <a
-                  class="nav-item nav-link lang-box"
-                  [class.active-lang]="localeId.toUpperCase() === domain.locale"
-                  [href]="domain.url + currentRoute"
-                > <!-- [disabled]="appSettings.beta" -->
-                  <span class="label">{{ domain.label }}</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <!-- Nav items -->
-          <div class="col p-0">
-            <ul class="nav-right navbar-nav main" [class.row]="!mobileMenu">
-              <ng-container *ngFor="let item of navigationLinks">
-                <li
-                  *ngIf="!item.dropdownItems; else dropdownLink"
-                  class="nav-item col col-auto p-0"
+        <nav class="nav-top col-auto" [class.beta-mobile-menu]="appSettings.beta">
+            <div class="mobile ml-auto toggle-button-wrapper">
+                <button
+                        *ngIf="!navbarOpen"
+                        class="navbar-toggler navbar-toggler-right menu"
+                        type="button"
+                        (click)="toggleNavbar()"
+                        #navbarToggler
                 >
-                  <a
-                    class="nav-item nav-link"
-                    [class.primary-color]="item.loginProcess"
-                    [routerLink]="
+                    <div class="toggle-menu-text closed" i18n="@@headerMenuOpen">
+                        Valikko
+                    </div>
+                </button>
+                <app-close-button
+                        *ngIf="navbarOpen"
+                        (click)="toggleNavbar()"
+                ></app-close-button>
+            </div>
+            <div
+                    [class.overflow-hider]="hideOverflow && mobileMenu"
+                    [class.absolute]="mobileMenu"
+                    [ngClass]="mobileMenu ? (hideOverflow ? 'invisible' : 'visible') : ''"
+                    #overflowHider
+            >
+                <div
+                        class="collapse navbar-collapse menu row"
+                        [class.mobile-bar]="mobileMenu"
+                        [class.open]="navbarOpen && mobileMenu"
+                        #mainNavbar
+                >
+                    <!-- Lang selector -->
+                    <div class="navbar-expand mx-auto navbar-nav lang mobile">
+                        <ul class="navbar-nav mx-auto">
+                            <li
+                                    *ngFor="let domain of appSettings.localizedDomains"
+                                    [class.col-4]="mobileMenu"
+                            >
+                                <a
+                                        class="nav-item nav-link lang-box"
+                                        [class.active-lang]="localeId.toUpperCase() === domain.locale"
+                                        [href]="domain.url + currentRoute"
+                                > <!-- [disabled]="appSettings.beta" -->
+                                    <span class="label">{{ domain.label }}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Nav items -->
+                    <div class="col p-0">
+                        <ul class="nav-right navbar-nav main" [class.row]="!mobileMenu">
+                            <ng-container *ngFor="let item of navigationLinks">
+                                <li
+                                        *ngIf="!item.dropdownItems; else dropdownLink"
+                                        class="nav-item col col-auto p-0"
+                                >
+                                    <a
+                                            class="nav-item nav-link"
+                                            [class.primary-color]="item.loginProcess"
+                                            [routerLink]="
                       item.link.trim().length > 0 ? item.link : currentRoute
                     "
-                    [queryParams]="item.queryParams"
-                    routerLinkActive="active-link"
-                    [routerLinkActiveOptions]="{ exact: item.exact }"
-                    (click)="handleLinkClick(item)"
-                  >
-                    <span class="label">{{ item.label }}</span>
-                  </a>
-                </li>
-                <ng-template #dropdownLink>
-                  <li
-                    class="nav-item col col-auto p-0 parent"
-                    (click)="dropdownOpen = !dropdownOpen"
-                    (clickOutside)="onClickedOutside($event)"
-                  >
-                    <ng-container *ngIf="mobileMenu; else dropDownMenuTemplate">
-                      <a
-                        class="nav-item nav-link parent-link disabled-link"
-                        tabindex="0"
-                        [routerLink]="item.link"
-                        routerLinkActive="active-link"
-                        (keydown.enter)="
+                                            [queryParams]="item.queryParams"
+                                            routerLinkActive="active-link"
+                                            [routerLinkActiveOptions]="{ exact: item.exact }"
+                                            (click)="handleLinkClick(item)"
+                                    >
+                                        <span class="label">{{ item.label }}</span>
+                                    </a>
+                                </li>
+                                <ng-template #dropdownLink>
+                                    <li
+                                            class="nav-item col col-auto p-0 parent"
+                                            (click)="dropdownOpen = !dropdownOpen"
+                                            (clickOutside)="onClickedOutside($event)"
+                                    >
+                                        <ng-container *ngIf="mobileMenu; else dropDownMenuTemplate">
+                                            <a
+                                                    class="nav-item nav-link parent-link disabled-link"
+                                                    tabindex="0"
+                                                    [routerLink]="item.link"
+                                                    routerLinkActive="active-link"
+                                                    (keydown.enter)="
                           $event.preventDefault(); dropdownOpen = !dropdownOpen
                         "
-                        (keydown.space)="
+                                                    (keydown.space)="
                           $event.preventDefault(); dropdownOpen = !dropdownOpen
                         "
-                        [class.open]="dropdownOpen"
-                        [class.fw-bold]="dropdownOpen"
-                      >
-                        <span class="label pe-2">{{ item.label }}</span>
-                          <app-svg-sprites [iconName]="'chevron-up'" cssClass="chevron-up-icon navi-icon" *ngIf="!dropdownOpen"></app-svg-sprites>
-                          <app-svg-sprites [iconName]="'chevron-down'" cssClass="chevron-down-icon" navi-icon *ngIf="dropdownOpen"></app-svg-sprites>
-                      </a>
-                      <ul
-                        class="dropdown"
-                        [class.mat-elevation-z4]="!mobile"
-                        [class.rounded]="!mobile"
-                        *ngIf="dropdownOpen"
-                      >
-                        <li *ngFor="let subItem of item.dropdownItems">
-                          <a
-                            [routerLink]="subItem.link"
-                            routerLinkActive="active-link"
-                            (click)="navbarOpen && toggleNavbar()"
-                            >{{ subItem.label }}
-                          </a>
-                        </li>
-                      </ul>
-                    </ng-container>
-                    <ng-template #dropDownMenuTemplate>
-                      <a
-                        href="javascript:void(0)"
-                        class="nav-item nav-link"
-                        [matMenuTriggerFor]="dropdownMenu"
-                      >
+                                                    [class.open]="dropdownOpen"
+                                                    [class.fw-bold]="dropdownOpen"
+                                            >
+                                                <span class="label pe-2">{{ item.label }}</span>
+                                                <app-svg-sprites [iconName]="'chevron-up'" cssClass="chevron-up-icon navi-icon" *ngIf="!dropdownOpen"></app-svg-sprites>
+                                                <app-svg-sprites [iconName]="'chevron-down'" cssClass="chevron-down-icon navi-icon" *ngIf="dropdownOpen"></app-svg-sprites>
+                                            </a>
+                                            <ul
+                                                    class="dropdown"
+                                                    [class.mat-elevation-z4]="!mobile"
+                                                    [class.rounded]="!mobile"
+                                                    *ngIf="dropdownOpen"
+                                            >
+                                                <li *ngFor="let subItem of item.dropdownItems">
+                                                    <a
+                                                            [routerLink]="subItem.link"
+                                                            routerLinkActive="active-link"
+                                                            (click)="navbarOpen && toggleNavbar()"
+                                                    >{{ subItem.label }}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </ng-container>
+                                        <ng-template #dropDownMenuTemplate>
+                                            <a
+                                                    href="javascript:void(0)"
+                                                    class="nav-item nav-link"
+                                                    [matMenuTriggerFor]="dropdownMenu"
+                                            >
                         <span
-                          class="label pe-2"
-                          [class.fw-bold]="
+                                class="label pe-2"
+                                [class.fw-bold]="
                             currentRoute.includes(item.link) || dropdownOpen
                           "
                         >
                           {{ item.label }}</span
                         >
-                          <app-svg-sprites  *ngIf="!dropdownOpen" [iconName]="'chevron-down'" cssClass="chevron-down-icon navi-icon"></app-svg-sprites>
-                          <app-svg-sprites *ngIf="dropdownOpen" [iconName]="'chevron-up'" cssClass="chevron-up-icon navi-icon"></app-svg-sprites>
-                      </a>
+                                                <app-svg-sprites  *ngIf="!dropdownOpen" [iconName]="'chevron-down'" cssClass="chevron-down-icon navi-icon"></app-svg-sprites>
+                                                <app-svg-sprites *ngIf="dropdownOpen" [iconName]="'chevron-up'" cssClass="chevron-up-icon navi-icon"></app-svg-sprites>
+                                            </a>
 
-                      <mat-menu
-                        #dropdownMenu="matMenu"
-                        (closed)="dropdownOpen = false"
-                      >
-                        <button
-                          *ngFor="let subItem of item.dropdownItems"
-                          mat-menu-item
-                          [routerLink]="subItem.link"
-                          routerLinkActive="fw-bold"
-                        >
-                          {{ subItem.label }}
-                        </button>
-                      </mat-menu>
-                    </ng-template>
-                  </li>
-                </ng-template>
-              </ng-container>
-              <!-- Lang selector -->
-              <ng-container *ngIf="currentDomain">
-                <li
-                  #navLink
-                  class="nav-item col col-auto p-0 mr-0 lang-selector"
-                >
-                  <a
-                    href="javascript:void(0)"
-                    class="nav-item nav-link"
-                    [matMenuTriggerFor]="langSelector"
-                    (click)="langMenuOpen = !langMenuOpen"
-                  >
+                                            <mat-menu
+                                              #dropdownMenu="matMenu"
+                                              (closed)="dropdownOpen = false"
+                                            >
+                                                <button
+                                                        *ngFor="let subItem of item.dropdownItems"
+                                                        mat-menu-item
+                                                        [routerLink]="subItem.link"
+                                                        routerLinkActive="fw-bold"
+                                                >
+                                                    {{ subItem.label }}
+                                                </button>
+                                            </mat-menu>
+                                        </ng-template>
+                                    </li>
+                                </ng-template>
+                            </ng-container>
+                            <!-- Lang selector -->
+                            <ng-container *ngIf="currentDomain">
+                                <li
+                                  #navLink
+                                  class="nav-item col col-auto p-0 mr-0 lang-selector"
+                                >
+                                    <a
+                                            href="javascript:void(0)"
+                                            class="nav-item nav-link"
+                                            [matMenuTriggerFor]="langSelector"
+                                            (click)="langMenuOpen = !langMenuOpen"
+                                    >
                     <span class="label fw-bold pe-2">
                       {{ currentDomain.label }}
                     </span>
-                      <app-svg-sprites *ngIf="!langMenuOpen" [iconName]="'chevron-down'" cssClass="chevron-down-icon navi-icon"></app-svg-sprites>
-                      <app-svg-sprites *ngIf="langMenuOpen" [iconName]="'chevron-up'" cssClass="chevron-up-icon navi-icon"></app-svg-sprites>
-                  </a>
-                </li>
-                <mat-menu
-                  #langSelector="matMenu"
-                  (closed)="langMenuOpen = false"
-                >
-                  <button
-                    *ngFor="let domain of appSettings.localizedDomains"
-                    mat-menu-item
-                    (click)="changeLang(domain)"
-                    [disabled]="domain.locale === currentDomain.locale"
-                  >
-                    {{ domain.label }}
-                  </button>
-                </mat-menu>
-              </ng-container>
-              <div *ngIf="mobileMenu" class=""></div>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </nav>
-  </div>
+                                        <app-svg-sprites *ngIf="!langMenuOpen" [iconName]="'chevron-down'" cssClass="chevron-down-icon navi-icon"></app-svg-sprites>
+                                        <app-svg-sprites *ngIf="langMenuOpen" [iconName]="'chevron-up'" cssClass="chevron-up-icon navi-icon"></app-svg-sprites>
+                                    </a>
+                                </li>
+                                <mat-menu
+                                  #langSelector="matMenu"
+                                  (closed)="langMenuOpen = false"
+                                >
+                                    <button
+                                            *ngFor="let domain of appSettings.localizedDomains"
+                                            mat-menu-item
+                                            (click)="changeLang(domain)"
+                                            [disabled]="domain.locale === currentDomain.locale"
+                                    >
+                                        {{ domain.label }}
+                                    </button>
+                                </mat-menu>
+                            </ng-container>
+                            <div *ngIf="mobileMenu" class=""></div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
 
-  <!-- Auth session expired template -->
-  <ng-template #authExpiredTemplate>
-    <p i18n="@@sessionExpiredLogin">
-      Istunto on vanhentunut. Kirjaudu sisään jatkaaksesi.
-    </p>
+    <!-- Auth session expired template -->
+    <ng-template #authExpiredTemplate>
+        <p i18n="@@sessionExpiredLogin">
+            Istunto on vanhentunut. Kirjaudu sisään jatkaaksesi.
+        </p>
 
-    <app-primary-action-button
-      (click)="login()"
-      content="Kirjaudu sisään"
-    ></app-primary-action-button>
-  </ng-template>
+        <app-primary-action-button
+                (click)="login()"
+                content="Kirjaudu sisään"
+        ></app-primary-action-button>
+    </ng-template>
 
-  <!-- Unsaved draft template -->
-  <ng-template #unsavedDraftTemplate>
-    <p i18n="@@youHaveUnpublishedChangesContinue">
-      Sinulla on julkaisemattomia muutoksia. Jos kirjaudut ulos, tiedot
-      menetetään.
-    </p>
-  </ng-template>
+    <!-- Unsaved draft template -->
+    <ng-template #unsavedDraftTemplate>
+        <p i18n="@@youHaveUnpublishedChangesContinue">
+            Sinulla on julkaisemattomia muutoksia. Jos kirjaudut ulos, tiedot
+            menetetään.
+        </p>
+    </ng-template>
 
-  <div *ngIf="navbarOpen" id="overlay" (click)="toggleNavbar()" #overlay></div>
+    <div *ngIf="navbarOpen" id="overlay" (click)="toggleNavbar()" #overlay></div>
 </header>

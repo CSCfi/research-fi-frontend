@@ -19,7 +19,6 @@ import { ActivatedRoute } from '@angular/router';
 import { TabChangeService } from '@portal/services/tab-change.service';
 import { Subscription } from 'rxjs';
 import { UtilityService } from '@shared/services/utility.service';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DividerComponent } from '../../../../shared/components/divider/divider.component';
 import { NgFor, NgClass } from '@angular/common';
 import { BannerDividerComponent } from '../../../../shared/components/banner-divider/banner-divider.component';
@@ -36,7 +35,6 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     NgFor,
     DividerComponent,
     NgClass,
-    FontAwesomeModule,
     MatIcon,
     SvgSpritesComponent
   ]

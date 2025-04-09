@@ -3,13 +3,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ProfileService } from '@mydata/services/profile.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { UtilityService } from '@shared/services/utility.service';
-import { Subscription, switchMap } from 'rxjs';
-import {
-  faHandshakeAlt,
-  faFileAlt,
-  faDownload,
-  IconDefinition,
-} from '@fortawesome/free-solid-svg-icons';
+import { Subscription } from 'rxjs';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { OrcidComponent } from '../../../shared/components/orcid/orcid.component';
 import { SecondaryButtonComponent } from '../../../shared/components/buttons/secondary-button/secondary-button.component';
@@ -17,22 +11,20 @@ import { OrcidDataFetchComponent } from './orcid-data-fetch/orcid-data-fetch.com
 import { OrcidLoginComponent } from './orcid-login/orcid-login.component';
 import { ServiceTermsComponent } from './service-terms/service-terms.component';
 import { PrimaryActionButtonComponent } from '../../../shared/components/buttons/primary-action-button/primary-action-button.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 import { BannerDividerComponent } from '@shared/components/banner-divider/banner-divider.component';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
-type Step = { label: string; icon: /*IconDefinition*/ any; loading?: boolean };
+type Step = { label: string; icon: string; loading?: boolean };
 @Component({
-    selector: 'app-service-deployment',
-    templateUrl: './service-deployment.component.html',
-    styleUrls: ['./service-deployment.component.scss'],
-    standalone: true,
+  selector: 'app-service-deployment',
+  templateUrl: './service-deployment.component.html',
+  styleUrls: ['./service-deployment.component.scss'],
+  standalone: true,
   imports: [
     NgIf,
     MatProgressSpinner,
-    FontAwesomeModule,
     NgSwitch,
     NgSwitchCase,
     PrimaryActionButtonComponent,
@@ -63,19 +55,19 @@ export class ServiceDeploymentComponent implements OnInit, OnDestroy {
   steps: Step[] = [
     {
       label: $localize`:@@serviceDeploymentCreateProfile:Kokoa profiili`,
-      icon: faHandshakeAlt,
+      icon: 'fa-handshake',
     },
     {
       label: $localize`:@@termsPersonalDataProcessing:Käyttöehdot ja henkilötietojen käsittely`,
-      icon: faFileAlt,
+      icon: 'fa-file-alt',
     },
     {
       label: $localize`:@@serviceDeploymentAuthenticationSucceful:Tunnistautuminen onnistui`,
-      icon: faHandshakeAlt,
+      icon: 'fa-handshake',
     },
     {
       label: $localize`:@@serviceDeploymentOrcidLoginSuccesful:ORCID-kirjautuminen onnistui`,
-      icon: faDownload,
+      icon: 'download',
       loading: true,
     },
   ];

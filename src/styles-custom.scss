@@ -216,10 +216,11 @@ footer {
 
 // Add icon to external links. This class is added in CMS.
 a.ext::after {
-  font-family: 'Font Awesome 5 Free';
+  font-family: "Open_in_new";
   font-weight: 900;
-  content: '\f35d';
+  content: 'O';
   margin-left: 0.3rem;
+  font-size: 0.85rem;
 }
 
 p a {

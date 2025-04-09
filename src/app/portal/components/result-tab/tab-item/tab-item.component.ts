@@ -14,7 +14,6 @@ import { SettingsService } from 'src/app/portal/services/settings.service';
 import { DataService } from 'src/app/portal/services/data.service';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { CountUpModule } from 'ngx-countup';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgIf, AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
@@ -26,7 +25,6 @@ import { RouterLink } from '@angular/router';
     imports: [
         RouterLink,
         NgIf,
-        FontAwesomeModule,
         CountUpModule,
         AsyncPipe,
     ],

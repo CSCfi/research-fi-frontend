@@ -18,18 +18,11 @@ import { TabChangeService } from '../../services/tab-change.service';
 import { Subscription, take } from 'rxjs';
 import { ResizeService } from 'src/app/shared/services/resize.service';
 import { Router } from '@angular/router';
-import {
-  faArrowLeft,
-  faArrowRight,
-  faAngleDown,
-  faAngleUp,
-} from '@fortawesome/free-solid-svg-icons';
 import { isPlatformBrowser, NgIf, NgFor, NgStyle } from '@angular/common';
 import { WINDOW } from 'src/app/shared/services/window.service';
 import { DataService } from 'src/app/portal/services/data.service';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { TabItemComponent } from './tab-item/tab-item.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
@@ -42,7 +35,6 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     NgIf,
     NgFor,
     NgStyle,
-    FontAwesomeModule,
     TabItemComponent,
     MatProgressSpinner,
     SvgSpritesComponent
@@ -82,10 +74,6 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
 
   locale: string;
 
-  faArrowLeft = faArrowLeft;
-  faArrowRight = faArrowRight;
-  faAngleUp = faAngleUp;
-  faAngleDown = faAngleDown;
   currentTab: { data: string; label: string; link: string; icon: string };
   currentIndex: any;
   scrollTo: boolean;

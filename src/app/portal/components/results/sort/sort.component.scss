@@ -58,8 +58,6 @@ app-sort {
   }
   /* TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version.*/
   mat-form-field.sort-button .mat-select-value-text::after {
-    font-family: 'FontAwesome';
-    content: '\f078';
     font-size: 1rem;
     padding-left: 0.5rem;
   }

@@ -11,7 +11,8 @@
           <!-- Results start -->
           <app-secondary-button
             class="col-auto ps-0 d-block d-md-none"
-            [icon]="faAngleDoubleLeft"
+            [svgSymbolName]="'fa-angle-double-left'"
+            [svgCssClass]="'fa-angle-double-left'"
             [iconOnly]="true"
             (click)="goToFirstPage()"
             [disabled]="fromPage <= 1"
@@ -58,7 +59,8 @@
           <!-- Results end -->
           <app-secondary-button
             class="col-auto p-0 d-block d-md-none"
-            [icon]="total >= 10000 ? faInfoCircle : faAngleDoubleRight"
+            [svgSymbolName]="total >= 10000 ? 'info' : 'fa-angle-double-right'"
+            [svgCssClass]="total >= 10000 ? 'info-icon' : 'fa-angle-double-right'"
             [iconOnly]="true"
             (click)="total >= 10000 ? null : goToLastPage()"
             [disabled]="fromPage + pageSize >= total"
