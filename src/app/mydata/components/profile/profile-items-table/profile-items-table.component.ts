@@ -15,11 +15,6 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { Sort, SortDirection, MatSort, MatSortHeader } from '@angular/material/sort';
-import {
-  faSort,
-  faSortDown,
-  faSortUp,
-} from '@fortawesome/free-solid-svg-icons';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { DatasetsService } from '@mydata/services/datasets.service';
 import { FundingsService } from '@mydata/services/fundings.service';
@@ -32,18 +27,17 @@ import { CutContentPipe } from '../../../../shared/pipes/cut-content.pipe';
 import { MatPaginator } from '@angular/material/paginator';
 import { DatasetAuthorComponent } from '../../../../portal/components/single/single-dataset/dataset-author/dataset-author.component';
 import { SecondaryButtonComponent } from '../../../../shared/components/buttons/secondary-button/secondary-button.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgFor, NgIf } from '@angular/common';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
-    selector: 'app-profile-items-table',
-    templateUrl: './profile-items-table.component.html',
-    styleUrls: ['./profile-items-table.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    standalone: true,
+  selector: 'app-profile-items-table',
+  templateUrl: './profile-items-table.component.html',
+  styleUrls: ['./profile-items-table.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  standalone: true,
   imports: [
     MatTable,
     MatSort,
@@ -56,7 +50,6 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     NgFor,
     MatSortHeader,
     NgIf,
-    FontAwesomeModule,
     SecondaryButtonComponent,
     DatasetAuthorComponent,
     MatHeaderRowDef,
@@ -85,10 +78,6 @@ export class ProfileItemsTableComponent implements OnInit, OnChanges {
   pageCount: number;
 
   showMoreArray = [];
-
-  faSort = faSort as any; // TODO: Fix type
-  faSortDown = faSortDown as any; // TODO: Fix type
-  faSortUp = faSortUp as any; // TODO: Fix type
 
   displayedColumns: string[];
 
