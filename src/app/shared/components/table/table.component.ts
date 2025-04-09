@@ -23,7 +23,6 @@ import { CutContentPipe } from '../../pipes/cut-content.pipe';
 import { TableCardComponent } from './table-card/table-card.component';
 import { TableCellComponent } from './table-cell/table-cell.component';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
 import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 import {
@@ -62,7 +61,6 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     MatCheckbox,
     FormsModule,
     NgSwitchDefault,
-    FontAwesomeModule,
     TooltipModule,
     MatCellDef,
     MatCell,
