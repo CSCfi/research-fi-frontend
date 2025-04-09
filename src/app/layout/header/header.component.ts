@@ -26,11 +26,6 @@ import { WINDOW } from 'src/app/shared/services/window.service';
 import { isPlatformBrowser } from '@angular/common';
 import { Router, NavigationEnd, ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
 import { UtilityService } from 'src/app/shared/services/utility.service';
-import {
-  faChevronDown,
-  faChevronUp,
-  faInfoCircle,
-} from '@fortawesome/free-solid-svg-icons';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { PrivacyService } from 'src/app/portal/services/privacy.service';
 import { CMSContentService } from '@shared/services/cms-content.service';
@@ -51,11 +46,11 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
 type DomainObject = { label: string; locale: string; url: string };
 
 @Component({
-    selector: 'app-header',
-    templateUrl: './header.component.html',
-    styleUrls: ['./header.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    standalone: true,
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  standalone: true,
   imports: [
     NgClass,
     NgIf,
@@ -107,10 +102,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   countTab = 0;
 
   navigationLinks: any[];
-
-  faChevronDown = faChevronDown;
-  faChevronUp = faChevronUp;
-  faInfoCircle = faInfoCircle;
 
   widthFlag: boolean;
 
@@ -320,7 +311,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   @HostListener('document:keydown.tab', ['$event'])
-  // Toggle between viewing and hiding focused element outlines
+    // Toggle between viewing and hiding focused element outlines
   handleTabPressed = (e: any): void => {
     if (isPlatformBrowser(this.platformId)) {
       const consent = localStorage.getItem('cookieConsent');
@@ -371,7 +362,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.document.body.classList.add('menu-open');
       setTimeout(() => {
         this.overlay &&
-          this.renderer.setStyle(this.overlay?.nativeElement, 'top', '350px');
+        this.renderer.setStyle(this.overlay?.nativeElement, 'top', '350px');
       }, 500);
     } else {
       this.document.body.classList.remove('menu-open');

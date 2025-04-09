@@ -11,7 +11,6 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
 import { DialogEventsService } from '@shared/services/dialog-events.service';
 // import { SharedModule } from '@shared/shared.module';
 import { AsyncPipe, NgIf } from '@angular/common';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Router, RouterLink } from '@angular/router';
 import { interval, lastValueFrom, take } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
@@ -21,7 +20,7 @@ import { WelcomeStepperComponent } from '@mydata/components/welcome-stepper/welc
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 function email(strings) {
-    return `${strings[0]}@csc.fi`;
+  return `${strings[0]}@csc.fi`;
 }
 
 @Component({
@@ -33,7 +32,6 @@ function email(strings) {
   imports: [
     // SharedModule,
     AsyncPipe,
-    FontAwesomeModule,
     NgIf,
     RouterLink,
     MatButtonModule,

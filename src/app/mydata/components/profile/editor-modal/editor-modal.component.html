@@ -93,7 +93,7 @@
         [disabled]="disabledSearchPortalModalIds.indexOf(editorData.id) > -1"
       >
         <ng-template mat-tab-label *ngIf="this.dialogData.data.id !== 'activitiesAndRewards'">
-            <app-svg-sprites [iconName]="'search'" cssClass="search-icon" class="pe-3"></app-svg-sprites>
+            <app-svg-sprites [iconName]="'search'" cssClass="search-icon tab-button-icon" class="pe-3"></app-svg-sprites>
           <ng-container i18n="@@searchForOther">Hae muita</ng-container>
             <div>&nbsp;</div>
             <span *ngIf="this.dialogData.data.id === 'funding'">
