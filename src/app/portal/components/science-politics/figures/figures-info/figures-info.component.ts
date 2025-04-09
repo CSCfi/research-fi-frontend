@@ -9,7 +9,6 @@ import {
 import { ResizeService } from 'src/app/shared/services/resize.service';
 import { WINDOW } from 'src/app/shared/services/window.service';
 import { NgIf, NgClass } from '@angular/common';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ClickOutsideDirective } from '../../../../../shared/directives/click-outside.directive';
 import { MatIcon } from '@angular/material/icon';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
@@ -22,7 +21,6 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     standalone: true,
   imports: [
     ClickOutsideDirective,
-    FontAwesomeModule,
     NgIf,
     NgClass,
     MatIcon,

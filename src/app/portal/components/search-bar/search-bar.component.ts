@@ -35,7 +35,6 @@ import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { SettingsService } from '@portal/services/settings.service';
 import { UtilityService } from '@shared/services/utility.service';
 import { FilterService } from '@portal/services/filters/filter.service';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { StaticDataService } from '@portal/services/static-data.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
@@ -90,8 +89,6 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   showHelp = false;
   @ViewChildren(ListItemComponent) items: QueryList<any>;
   private keyManager: ActiveDescendantKeyManager<ListItemComponent>;
-
-  faTimes = faTimes;
 
   docList = [
     { index: 'publication', field: 'publicationName', link: 'publicationId' },

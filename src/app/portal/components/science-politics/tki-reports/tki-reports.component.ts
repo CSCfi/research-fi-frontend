@@ -21,7 +21,6 @@ import { Subscription } from 'rxjs';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { ListItemComponent } from '@portal/components/search-bar/list-item/list-item.component';
 import { HighlightSearchPipe } from '../../../pipes/highlight.pipe';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ListItemComponent as ListItemComponent_1 } from '../../search-bar/list-item/list-item.component';
 import { PrimaryActionButtonComponent } from '../../../../shared/components/buttons/primary-action-button/primary-action-button.component';
 import { FormsModule } from '@angular/forms';
@@ -44,7 +43,7 @@ export interface Report {
     templateUrl: './tki-reports.component.html',
     styleUrls: ['./tki-reports.component.scss'],
     standalone: true,
-  imports: [BannerDividerComponent, NgIf, NgStyle, MatInput, FormsModule, PrimaryActionButtonComponent, NgFor, ListItemComponent_1, FontAwesomeModule, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, HighlightSearchPipe, MatIcon, SvgSpritesComponent]
+  imports: [BannerDividerComponent, NgIf, NgStyle, MatInput, FormsModule, PrimaryActionButtonComponent, NgFor, ListItemComponent_1, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, HighlightSearchPipe, MatIcon, SvgSpritesComponent]
 })
 export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
 

@@ -16,7 +16,6 @@ import {
   OnDestroy,
   ChangeDetectorRef,
 } from '@angular/core';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { ResizeService } from 'src/app/shared/services/resize.service';
@@ -54,7 +53,6 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
 export class ResearchInnovationSystemComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
-  faTimes = faTimes;
   openedIdx = -1;
 
   private metaTags = MetaTags.researchInnovation;
