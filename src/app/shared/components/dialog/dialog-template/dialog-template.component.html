@@ -14,11 +14,14 @@
   <!-- Title -->
   <div class="col-8 col-sm-auto d-flex justify-content-center flex-column">
     <h2 class="dialog-title h5 d-inline-block pe-2">
+      <!-- Icon removed. Component deprecated.
       <fa-icon
         *ngIf="data.icon"
         [icon]="data.icon"
         class="primary-color pe-3"
-      ></fa-icon
+      >
+      </fa-icon
+      -->
       >{{ data.title }}
     </h2>
     <ng-container *ngIf="data.headerInfoTemplate"
