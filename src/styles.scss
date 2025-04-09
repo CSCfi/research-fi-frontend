@@ -83,6 +83,13 @@
 @import './app/mydata/components/account-settings/account-settings.component.scss';
 
 @font-face {
+  font-family: 'Open_in_new';
+  font-style: normal;
+  font-stretch: 100%;
+  src: url('assets/fonts/open_in_new.woff') format('woff');
+}
+
+@font-face {
   font-family: 'Roboto';
   font-style: normal;
   font-stretch: 100%;
