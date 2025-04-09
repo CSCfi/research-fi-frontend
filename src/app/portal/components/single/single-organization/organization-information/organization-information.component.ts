@@ -8,7 +8,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { FilterEmptyFieldPipe } from '../../../../pipes/filter-empty-field.pipe';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { NgFor, NgIf } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
@@ -22,7 +21,6 @@ import { MatIcon } from '@angular/material/icon';
     NgFor,
     NgIf,
     TooltipModule,
-    FontAwesomeModule,
     FilterEmptyFieldPipe,
     MatIcon
   ]

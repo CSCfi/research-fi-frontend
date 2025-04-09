@@ -23,7 +23,6 @@ import { StaticDataService } from '../../../services/static-data.service';
 import { SettingsService } from '../../../services/settings.service';
 import { Subscription } from 'rxjs';
 import { DOCUMENT, NgIf, NgFor, NgClass, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
-import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { HttpHeaders } from '@angular/common/http';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { Search } from 'src/app/portal/models/search.model';
@@ -41,7 +40,6 @@ import { RelatedLinksComponent } from '../related-links/related-links.component'
 import { MatCard, MatCardTitle } from '@angular/material/card';
 import { PublicationLinksComponent } from './publication-links/publication-links.component';
 import { OrcidComponent } from '../../../../shared/components/orcid/orcid.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
@@ -60,7 +58,6 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     BreadcrumbComponent,
     NgFor,
     TooltipModule,
-    FontAwesomeModule,
     NgClass,
     OrcidComponent,
     NgSwitch,

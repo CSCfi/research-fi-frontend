@@ -32,7 +32,6 @@ import { FilterEmptyFieldPipe } from '../../../pipes/filter-empty-field.pipe';
 import { SafeUrlPipe } from '../../../pipes/safe-url.pipe';
 import { ShareComponent } from '../share/share.component';
 import { RelatedLinksComponent } from '../related-links/related-links.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SingleResultLinkComponent } from '../single-result-link/single-result-link.component';
 import { NewsCardComponent } from '../../news/news-card/news-card.component';
 import { MatCard, MatCardTitle } from '@angular/material/card';
@@ -66,7 +65,6 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     MatCardTitle,
     NewsCardComponent,
     SingleResultLinkComponent,
-    FontAwesomeModule,
     RelatedLinksComponent,
     ShareComponent,
     SafeUrlPipe,

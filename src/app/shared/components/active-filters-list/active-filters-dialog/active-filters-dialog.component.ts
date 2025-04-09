@@ -16,7 +16,6 @@ import {
 import { SortService } from 'src/app/portal/services/sort.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatButton } from '@angular/material/button';
 import { NgFor, NgIf } from '@angular/common';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
@@ -30,7 +29,6 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     NgFor,
     NgIf,
     MatButton,
-    FontAwesomeModule,
     SvgSpritesComponent
   ]
 })

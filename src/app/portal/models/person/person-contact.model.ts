@@ -46,9 +46,9 @@ export class PersonContactAdapter implements Adapter<PersonContact> {
     // Web links can have different icons depending on link target
     const handleLinkIcon = (url: string | string[] = '') => {
       if (url.includes('linkedin')) {
-        return 'fa-linkedin-square';
+        return 'fa-linkedin';
       } else if (url.includes('twitter')) {
-        return 'fa-twitter-square';
+        return 'fa-x-twitter-square';
       } else if (url.includes('facebook')) {
         return 'fa-facebook-square';
       } else return 'link';

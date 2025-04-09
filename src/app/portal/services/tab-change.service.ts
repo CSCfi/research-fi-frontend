@@ -1,14 +1,5 @@
 import { Injectable, LOCALE_ID, Inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import {
-  faFileAlt,
-  faUsers,
-  faBriefcase,
-  faAlignLeft,
-  faCalculator,
-  faUniversity,
-  faBullhorn,
-} from '@fortawesome/free-solid-svg-icons';
 
 @Injectable({
   providedIn: 'root',

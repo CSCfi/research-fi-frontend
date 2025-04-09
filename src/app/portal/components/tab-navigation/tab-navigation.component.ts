@@ -18,8 +18,6 @@ import { AppConfigService } from '@shared/services/app-config-service.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { SearchService } from '@portal/services/search.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TabNavigationButtonComponent } from '@portal/components/tab-navigation-button/tab-navigation-button.component';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
@@ -35,7 +33,7 @@ const EPSILON = 1;
 @Component({
   selector: 'app-tab-navigation',
   standalone: true,
-  imports: [CommonModule, TabButtonComponent, FontAwesomeModule, RouterLink, TabNavigationButtonComponent, TooltipModule, SvgSpritesComponent],
+  imports: [CommonModule, TabButtonComponent, RouterLink, TabNavigationButtonComponent, TooltipModule, SvgSpritesComponent],
   templateUrl: './tab-navigation.component.html',
   styleUrls: ['./tab-navigation.component.scss']
 })
@@ -79,9 +77,6 @@ export class TabNavigationComponent {
       });
     });
   }
-
-  faArrowLeft = faArrowLeft;
-  faArrowRight = faArrowRight;
 
   url = this.appConfigService.apiUrl + "publication,person,funding,dataset,funding-call,infrastructure,organization,project/_search?request_cache=true";
 

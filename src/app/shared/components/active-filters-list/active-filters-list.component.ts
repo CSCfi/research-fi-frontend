@@ -13,12 +13,10 @@ import {
   ViewEncapsulation,
   EventEmitter,
 } from '@angular/core';
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { ActiveFilter, ActiveFiltersDialogConfig } from 'src/types';
 import { DialogComponent } from '../dialog/dialog.component';
 import { ActiveFiltersDialogComponent } from './active-filters-dialog/active-filters-dialog.component';
 import { MatButton } from '@angular/material/button';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgFor, NgIf } from '@angular/common';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
@@ -31,7 +29,6 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
   imports: [
     NgFor,
     NgIf,
-    FontAwesomeModule,
     MatButton,
     ActiveFiltersDialogComponent,
     DialogComponent,

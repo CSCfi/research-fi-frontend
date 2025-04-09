@@ -27,7 +27,6 @@ import { SingleResultLinkComponent } from '../single-result-link/single-result-l
 import { MatCard, MatCardTitle } from '@angular/material/card';
 import { PersonGroupComponent } from './person-group/person-group.component';
 import { TagDoiComponent } from '../../../../shared/components/tags/tag-doi/tag-doi.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
@@ -44,7 +43,6 @@ type Field = { key: string; label?: string };
     NgIf,
     RouterLink,
     BreadcrumbComponent,
-    FontAwesomeModule,
     NgFor,
     NgTemplateOutlet,
     NgClass,

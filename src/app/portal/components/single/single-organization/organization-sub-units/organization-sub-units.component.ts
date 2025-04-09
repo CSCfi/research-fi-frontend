@@ -7,7 +7,6 @@
 
 import { Component, Input, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { NgFor, NgIf } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
@@ -21,7 +20,6 @@ import { MatIcon } from '@angular/material/icon';
     NgFor,
     NgIf,
     TooltipModule,
-    FontAwesomeModule,
     RouterLink,
     MatIcon
   ]
