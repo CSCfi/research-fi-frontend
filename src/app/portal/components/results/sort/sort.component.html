@@ -7,9 +7,9 @@
   [content]="currentSort.label ? currentSort.label : sortByRelevance.label"
   [big]="true"
   [matMenuTriggerFor]="menu"
-  [icon]="faChevronDown"
-  [iconAfter]="true"
->
+  [svgSymbolName]="'chevron-down'"
+  [svgCssClass]="'chevron-down-icon'"
+  [iconAfter]="true">
 </app-secondary-button>
 
 <mat-menu #menu="matMenu">

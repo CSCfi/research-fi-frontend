@@ -54,12 +54,11 @@ import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field'
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { SecondaryButtonComponent } from '../../../../shared/components/buttons/secondary-button/secondary-button.component';
 import { ProjectFilterService } from '@portal/services/filters/project-filter.service';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
-import { faSlidersH } from '@fortawesome/free-solid-svg-icons';
+import { PrimaryActionButtonComponent } from '@shared/components/buttons/primary-action-button/primary-action-button.component';
 
 @Component({
   selector: 'app-filters',
@@ -72,7 +71,6 @@ import { faSlidersH } from '@fortawesome/free-solid-svg-icons';
     NgTemplateOutlet,
     NgIf,
     MatProgressSpinner,
-    FontAwesomeModule,
     NgFor,
     MatExpansionPanel,
     MatExpansionPanelHeader,
@@ -101,7 +99,8 @@ import { faSlidersH } from '@fortawesome/free-solid-svg-icons';
     ReplaceSpacePipe,
     ConvertToArrayPipe,
     JsonPipe,
-    SvgSpritesComponent
+    SvgSpritesComponent,
+    PrimaryActionButtonComponent
   ]
 })
 export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
@@ -591,6 +590,4 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   trackByFn(index: any, item) {
     return item.key;
   }
-
-  protected readonly faSlidersH = faSlidersH;
 }
