@@ -23,59 +23,61 @@ Copyright 2019 Ministry of Education and Culture, Finland
         <span id="{{ activeFilter.value }}">{{
           activeFilter.translation
         }}</span>
-          <!-- seems deprecated, need to check what is this -->
-          <app-svg-sprites [iconName]="'delete'" tabindex="0"
-                           (focus)="enter(i)"
-                           (blur)="leave()"
-                           (mouseenter)="enter(i)"
-                           (mouseleave)="leave()"ngOnDestroy
-                           *ngIf="activeFilter.warning"
-                           class="icon warning"
-                           cssClass="delete-icon"></app-svg-sprites>
-        <div
-          class="warning-info"
-          *ngIf="activeFilter.warning && hoverIndex === i"
-        >
-          <span i18n="@@yearRangeWarning"
-            >Aikavälissä ei ole mukana kaikkia vuosia. Voit tarkistaa vuodet
-            "Rajaa hakua" -valikosta vasemmalla.</span
-          >
-        </div>
-      </li>
-    </ng-container>
-    <div class="ellipsis" *ngIf="filters.length > 6" (click)="openDialog()">
-      ...
-    </div>
-    <div class="d-inline-flex">
-      <button class="d-flex"
-        *ngIf="filters.length > 6"
-        class="show filter"
-        mat-button
-        (click)="openDialog()"
-        i18n="@@showAll"
+        <app-svg-sprites [iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
+
+        <!-- seems deprecated, need to check what is this -->
+        <!--<app-svg-sprites [iconName]="'delete'" tabindex="0"
+                         (focus)="enter(i)"
+                         (blur)="leave()"
+                         (mouseenter)="enter(i)"
+                         (mouseleave)="leave()"ngOnDestroy
+                         *ngIf="activeFilter.warning"
+                         class="icon warning"
+                         cssClass="delete-icon"></app-svg-sprites>-->
+      <div
+        class="warning-info"
+        *ngIf="activeFilter.warning && hoverIndex === i"
       >
-        Näytä kaikki
-      </button>
-      <button class="clear filter d-flex" mat-button (click)="clearFilters()">
-          <app-svg-sprites [iconName]="'delete'" cssClass="delete-icon filters-icon"></app-svg-sprites>
-        <ng-container i18n="@@clearActiveFilters"
-          >Tyhjennä rajaukset</ng-container
+        <span i18n="@@yearRangeWarning"
+          >Aikavälissä ei ole mukana kaikkia vuosia. Voit tarkistaa vuodet
+          "Rajaa hakua" -valikosta vasemmalla.</span
         >
-      </button>
-    </div>
-  </ul>
+      </div>
+    </li>
+  </ng-container>
+  <div class="ellipsis" *ngIf="filters.length > 6" (click)="openDialog()">
+    ...
+  </div>
+  <div class="d-inline-flex">
+    <button class="d-flex"
+      *ngIf="filters.length > 6"
+      class="show filter"
+      mat-button
+      (click)="openDialog()"
+      i18n="@@showAll"
+    >
+      Näytä kaikki
+    </button>
+    <button class="clear filter d-flex" mat-button (click)="clearFilters()">
+        <app-svg-sprites [iconName]="'delete'" cssClass="delete-icon filters-icon"></app-svg-sprites>
+      <ng-container i18n="@@clearActiveFilters"
+        >Tyhjennä rajaukset</ng-container
+      >
+    </button>
+  </div>
+</ul>
 </div>
 
 <ng-template #filterListDialog>
-  <app-active-filters-dialog
-    [data]="dialogData"
-    (clearAllFilters)="clearFilters()"
-  ></app-active-filters-dialog>
+<app-active-filters-dialog
+  [data]="dialogData"
+  (clearAllFilters)="clearFilters()"
+></app-active-filters-dialog>
 </ng-template>
 
 <app-dialog
-  *ngIf="showDialog"
-  [title]="dialogTitle"
-  [template]="filterListDialog"
-  (onActionClick)="closeDialog()"
+*ngIf="showDialog"
+[title]="dialogTitle"
+[template]="filterListDialog"
+(onActionClick)="closeDialog()"
 ></app-dialog>
