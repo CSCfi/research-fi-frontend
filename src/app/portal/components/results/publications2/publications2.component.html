@@ -680,7 +680,7 @@
             content="Näytä kuvana"
             i18n-content="@@showAsVisual"
             [svgSymbolName]="'fa-chart-bar'"
-            [svgSymbolName]="'fa-chart-bar-icon'"
+            [svgCssClass]="'show-as-image-button'"
             [disabled]="true"
           ></app-primary-action-button>
         </div>
@@ -851,7 +851,7 @@
                 Julkaisun nimi
               </div>
 
-              <app-column-sorter [name]='"publicationName"' [order]='sort'></app-column-sorter>
+              <app-column-sorter [name]='"publicationName"' [value]='sort' [order]="''"></app-column-sorter>
             </div>
           </cdk-header-cell>
 
@@ -891,7 +891,7 @@
             <div style='display: flex'(click)='toggleSort("authorsText")'>
               <div class="fw-bold d-flex justify-content-center flex-column" i18n="@@publicationAuthors">Tekijät</div>
 
-              <app-column-sorter [name]='"authorsText"' [value]='sort'></app-column-sorter>
+              <app-column-sorter [name]='"authorsText"' [value]='sort' [order]="''"></app-column-sorter>
             </div>
 
           </cdk-header-cell>
@@ -909,7 +909,7 @@
                 Julkaisukanava
               </div>
 
-              <app-column-sorter [name]='"publisherName"' [value]='sort'></app-column-sorter>
+              <app-column-sorter [name]='"publisherName"' [value]='sort' [order]="''"></app-column-sorter>
             </div>
 
           </cdk-header-cell>
@@ -927,7 +927,7 @@
                 Julkaisuvuosi
               </div>
 
-              <app-column-sorter [name]='"publicationYear"' [value]='sort'></app-column-sorter>
+              <app-column-sorter [name]='"publicationYear"' [value]='sort' [order]="''"></app-column-sorter>
             </div>
 
           </cdk-header-cell>
