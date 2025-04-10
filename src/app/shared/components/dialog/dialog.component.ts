@@ -46,6 +46,7 @@ export class DialogComponent implements OnInit, OnDestroy, OnChanges {
   @Input() hideClose: boolean;
   @Input() headerInfoTemplate: TemplateRef<any>;
   @Input() selectedItemsCount: number;
+  @Input() svgCssClass: string;
   @Output() onDialogClose = new EventEmitter<any>();
   @Output() onActionClick = new EventEmitter<any>();
 
