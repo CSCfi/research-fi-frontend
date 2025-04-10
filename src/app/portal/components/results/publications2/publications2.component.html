@@ -481,7 +481,7 @@
 <ng-template #tutorialDialog>
   <div class='dialog-header' style='display: flex; justify-content: space-between; padding: 18px 16px'>
     <div style='display: flex; align-items: center'>
-      <i class='fa fa-info-circle' style='font-size: 1.3rem; color: #4546b9; padding-right: 16px' aria-hidden='true'></i>
+      <app-svg-sprites class='ps-1 pe-2' [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
       <h3 style='font-size: 1.4rem; margin: 0' i18n='@@searchHelpButton'>Hakuohje</h3>
     </div>
 
@@ -702,7 +702,7 @@
           <ng-container *ngFor='let yearfilter of enabledYearFilters$ | async'>
             <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("year", yearfilter)'>
               <div style='font-size: 0.8rem; padding-left: 8px'>{{yearfilter}}</div>
-              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+              <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
             </div>
           </ng-container>
 
@@ -710,7 +710,7 @@
           <ng-container *ngFor='let organizationFilter of enabledOrganizationFiltersWithNames$ | async'>
             <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("organization", organizationFilter.id)'>
               <div style='font-size: 0.8rem; padding-left: 8px'>{{organizationFilter.name}}</div>
-              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+              <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
             </div>
           </ng-container>
 
@@ -718,7 +718,7 @@
           <ng-container *ngFor='let fieldsOfScienceFilter of enabledFieldsOfScienceFiltersWithNames$ | async'>
             <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("fieldOfScience", fieldsOfScienceFilter.id)'>
               <div style='font-size: 0.8rem; padding-left: 8px'>{{fieldsOfScienceFilter.name}}</div>
-              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+              <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
             </div>
           </ng-container>
 
@@ -726,7 +726,7 @@
           <ng-container *ngFor='let publicationTypeCodeFilter of enabledPublicationTypeCodeFiltersWithNames$ | async'>
             <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("publicationType", publicationTypeCodeFilter.id)'>
               <div style='font-size: 0.8rem; padding-left: 8px'>{{publicationTypeCodeFilter.name}}</div>
-              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+              <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
             </div>
           </ng-container>
 
@@ -734,7 +734,7 @@
           <ng-container *ngFor='let languageCodeFilter of enabledLanguageCodeFiltersWithNames$ | async'>
             <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("language", languageCodeFilter.id)'>
               <div style='font-size: 0.8rem; padding-left: 8px'>{{languageCodeFilter.name}}</div>
-              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+              <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
             </div>
           </ng-container>
 
@@ -742,7 +742,7 @@
           <ng-container *ngFor='let publicationFormatFilter of enabledPublicationFormatFiltersWithNames$ | async'>
             <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("format", publicationFormatFilter.id)'>
               <div style='font-size: 0.8rem; padding-left: 8px'>{{publicationFormatFilter.name}}</div>
-              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+              <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
             </div>
           </ng-container>
 
@@ -750,7 +750,7 @@
           <ng-container *ngFor='let publicationAudienceFilter of enabledPublicationAudienceFiltersWithNames$ | async'>
             <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("audience", publicationAudienceFilter.id)'>
               <div style='font-size: 0.8rem; padding-left: 8px'>{{publicationAudienceFilter.name}}</div>
-              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+              <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
             </div>
           </ng-container>
 
@@ -758,7 +758,7 @@
           <ng-container *ngFor='let peerReviewedFilter of enabledPeerReviewedFiltersWithNames$ | async'>
             <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("peerReviewed", peerReviewedFilter.id)'>
               <div style='font-size: 0.8rem; padding-left: 8px'>{{peerReviewedFilter.name}}</div>
-              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+              <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
             </div>
           </ng-container>
 
@@ -766,7 +766,7 @@
           <ng-container *ngFor='let parentPublicationTypeFilter of enabledParentPublicationTypeFiltersWithNames$ | async'>
             <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("parentPublicationType", parentPublicationTypeFilter.id)'>
               <div style='font-size: 0.8rem; padding-left: 8px'>{{parentPublicationTypeFilter.name}}</div>
-              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+              <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
             </div>
           </ng-container>
 
@@ -774,7 +774,7 @@
           <ng-container *ngFor='let internationalPublicationFilter of enabledPublisherInternationalityFiltersWithNames$ | async'>
             <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("international", internationalPublicationFilter.id)'>
               <div style='font-size: 0.8rem; padding-left: 8px'>{{internationalPublicationFilter.name}}</div>
-              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+              <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
             </div>
           </ng-container>
 
@@ -782,7 +782,7 @@
           <ng-container *ngFor='let articleTypeCodeFilter of enabledArticleTypeCodeFiltersWithNames$ | async'>
             <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("articleType", articleTypeCodeFilter.id)'>
               <div style='font-size: 0.8rem; padding-left: 8px'>{{articleTypeCodeFilter.name}}</div>
-              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+              <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
             </div>
           </ng-container>
 
@@ -790,7 +790,7 @@
           <ng-container *ngFor='let jufoClassCodeFilter of enabledJufoClassCodeFilters$ | async'>
             <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("jufo", jufoClassCodeFilter)'>
               <div style='font-size: 0.8rem; padding-left: 8px'>{{jufoClassCodeFilter}}</div>
-              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+              <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
             </div>
           </ng-container>
 
@@ -800,7 +800,7 @@
           <ng-container *ngFor='let openAccessFilter of enabledOpenAccessFiltersWithNames$ | async'>
             <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("openAccess", openAccessFilter.id)'>
               <div style='font-size: 0.8rem; padding-left: 8px'>{{openAccessFilter.name}}</div>
-              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+              <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
             </div>
           </ng-container>
 
@@ -808,7 +808,7 @@
           <ng-container *ngFor='let publisherOpenAccessFilter of enabledPublisherOpenAccessFiltersWithNames$ | async'>
             <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("publisherOpenAccessCode", publisherOpenAccessFilter.id)'>
               <div style='font-size: 0.8rem; padding-left: 8px'>{{publisherOpenAccessFilter.name}}</div>
-              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+              <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
             </div>
           </ng-container>
 
@@ -816,14 +816,14 @@
           <ng-container *ngFor='let selfArchivedCodeFilter of enabledSelfArchivedCodeFiltersWithNames$ | async'>
             <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='toggleParam("selfArchivedCode", selfArchivedCodeFilter.id)'>
               <div style='font-size: 0.8rem; padding-left: 8px'>{{selfArchivedCodeFilter.name}}</div>
-              <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+              <app-svg-sprites style='width: 26px'[iconName]="'close'" tabindex="0" cssClass="close-icon filters-icon"></app-svg-sprites>
             </div>
           </ng-container>
 
           <!-- make "pill" for running clearFilters -->
           <div style='display: inline-flex; align-items: center; background-color: white; border: 2px solid #4546b9; padding: 7px 3px; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 4px' (click)='clearFilters()'>
             <div style='font-size: 0.8rem; padding-left: 8px'>Tyhjennä rajaukset</div>
-            <i class='fa fa-times' style='padding-left: 7px; padding-right: 8px' aria-hidden='true'></i>
+            <app-svg-sprites style='width: 26px; margin-left: 10px'[iconName]="'delete'" cssClass="delete-icon filters-icon"></app-svg-sprites>
           </div>
 
         </div>
@@ -831,6 +831,7 @@
     </div>
 
     <div>
+      <!-- TODO: fix sort display logic -->
       <table cdk-table [dataSource]="dataSource" style='width: 100%'>
         <!-- icon column that's just for aeshetics without any data -->
         <ng-container cdkColumnDef="icon">
@@ -840,18 +841,17 @@
             <!-- TODO is simply ugly -->
             <!--<div style='width: 25px; height: 25px; background-color: magenta'></div>-->
 
-            <i class='fa fa-file-lines'style='font-size: 2.5rem; color: #4546b9; vertical-align: top; padding: 1rem' aria-hidden='true'></i>
           </cdk-cell>
         </ng-container>
 
         <ng-container cdkColumnDef="publicationName">
           <cdk-header-cell cdk-header-cell *cdkHeaderCellDef style='min-width: 300px'>
             <div style='display: flex' (click)='toggleSort("publicationName")'>
-              <div style='font-weight: bold;' i18n="@@publicationName">
+              <div class="fw-bold d-flex justify-content-center flex-column" i18n="@@publicationName">
                 Julkaisun nimi
               </div>
 
-              <app-column-sorter [name]='"publicationName"' [value]='sort'></app-column-sorter>
+              <app-column-sorter [name]='"publicationName"' [order]='sort'></app-column-sorter>
             </div>
           </cdk-header-cell>
 
@@ -870,7 +870,7 @@
               </ng-container>
 
               <ng-container *ngIf='element.badges.openAccess'>
-                <div style='width: 156px; display: inline-block'>
+                <div style='display: inline-block'>
                   <app-tag-open-access [link]='element.badges.openAccess'></app-tag-open-access>
                 </div>
               </ng-container>
@@ -889,7 +889,7 @@
           <cdk-header-cell *cdkHeaderCellDef>
 
             <div style='display: flex'(click)='toggleSort("authorsText")'>
-              <div style='font-weight: bold' i18n="@@publicationAuthors">Tekijät</div>
+              <div class="fw-bold d-flex justify-content-center flex-column" i18n="@@publicationAuthors">Tekijät</div>
 
               <app-column-sorter [name]='"authorsText"' [value]='sort'></app-column-sorter>
             </div>
@@ -905,7 +905,7 @@
           <cdk-header-cell *cdkHeaderCellDef>
 
             <div style='display: flex' (click)='toggleSort("publisherName")'>
-              <div style='font-weight: bold' i18n="@@publicationMedium">
+              <div class="fw-bold d-flex justify-content-center flex-column" i18n="@@publicationMedium">
                 Julkaisukanava
               </div>
 
@@ -923,7 +923,7 @@
           <cdk-header-cell *cdkHeaderCellDef>
 
             <div style='display: flex' (click)='toggleSort("publicationYear")'>
-              <div style='font-weight: bold' i18n="@@yearOfPublication">
+              <div class="fw-bold d-flex justify-content-center flex-column" i18n="@@yearOfPublication">
                 Julkaisuvuosi
               </div>
 

@@ -19,19 +19,21 @@ import { UntypedFormBuilder, FormsModule, ReactiveFormsModule } from '@angular/f
 import { PrimaryActionButtonComponent } from '../buttons/primary-action-button/primary-action-button.component';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { NgIf } from '@angular/common';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-search',
     templateUrl: './search.component.html',
     styleUrls: ['./search.component.scss'],
     standalone: true,
-    imports: [
-        FormsModule,
-        ReactiveFormsModule,
-        NgIf,
-        TooltipModule,
-        PrimaryActionButtonComponent,
-    ],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    NgIf,
+    TooltipModule,
+    PrimaryActionButtonComponent,
+    SvgSpritesComponent
+  ]
 })
 export class SearchComponent implements OnInit, AfterViewInit {
   @Input() placeholder: string;

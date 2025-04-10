@@ -776,13 +776,7 @@ app-svg-icons {
 
 .sort-indicator {
   display: flex;
-  margin-left: 4px;
-  .chev-up {
-    margin-bottom: 4px;
-  }
-  .chev-down {
-    margin-top: 4px;
-  }
+  margin-left: 6px;
   svg {
     width: 18px !important;
   }
