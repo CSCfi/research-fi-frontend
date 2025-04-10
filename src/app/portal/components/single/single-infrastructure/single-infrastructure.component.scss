@@ -31,16 +31,7 @@ h4.th.classification {
   font-weight: bold;
 }
 
-.subtitle.open::after {
-  font-family: 'FontAwesome';
-  content: '\f0de';
-  vertical-align: middle;
-  margin-left: 10px;
-}
-
-.subtitle.closed::after {
-  font-family: 'FontAwesome';
-  content: '\f0dd';
-  vertical-align: text-bottom;
-  margin-left: 10px;
+.chevron-wrapper {
+  margin-top: 15px;
+  margin-left: 6px;
 }

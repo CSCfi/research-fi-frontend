@@ -141,13 +141,15 @@
               </button>
             </div>
 
-            <div class="search-help ps-2" (clickOutside)="onClickedOutside($event)">
-              <button [ngClass]="showHelp ? 'up' : 'down'" mat-button (click)="toggleSearchHelpVisibility()" (keydown.enter)="toggleSearchHelpVisibility()">
-                <ng-container i18n="Search help button@@searchHelpButton">
+            <div class="search-help-wrapper">
+              <div class="search-help-button" role="button" tabindex="0" (clickOutside)="onClickedOutside($event)" (click)="toggleSearchHelpVisibility()" (keydown.enter)="toggleSearchHelpVisibility()">
+                <span class="button-text">
+                  <ng-container i18n="Search help button@@searchHelpButton">
                   Hakuohje
-                </ng-container>
-              </button>
-
+                  </ng-container>
+                  <app-svg-sprites [iconName]="showHelp ? 'chevron-up' : 'chevron-down'" cssClass="chevron-icon search-help"></app-svg-sprites>
+              </span>
+            </div>
               <div class="search-helper" *ngIf="showHelp">
                 <p i18n="Search help@@searchHelp1">
                   Kirjoita hakukenttään julkaisun nimi, asiasana, hankkeen nimi

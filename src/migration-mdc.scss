@@ -456,28 +456,6 @@ body app-news-card mat-card.mat-mdc-card {
   padding: 1rem !important;
 }
 
-// Search's help button
-.search-help > button > span {
-  font-size: 0.88rem;
-  padding: 0.5rem;
-  font-weight: 500;
-}
-
-.search-help > button.down > span.mdc-button__label::after {
-  font-family: 'FontAwesome';
-  content: '\f078';
-  display: inline-block;
-  padding-left: 0.25rem;
-}
-
-// Search's help button
-.search-help > button.up > span.mdc-button__label::after {
-  font-family: 'FontAwesome';
-  content: '\f077';
-  display: inline-block;
-  padding-left: 0.25rem;
-}
-
 // Search's dropdown
 app-search-bar > div > div > div > form > div > div.input-group > button > span.mdc-button__label > span {
   font-weight: 500;

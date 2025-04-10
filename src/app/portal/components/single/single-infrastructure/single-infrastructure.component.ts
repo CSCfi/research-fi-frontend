@@ -29,7 +29,6 @@ import { ShareComponent } from '../share/share.component';
 import { RelatedLinksComponent } from '../related-links/related-links.component';
 import { SingleResultLinkComponent } from '../single-result-link/single-result-link.component';
 import { MatCard, MatCardTitle } from '@angular/material/card';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
@@ -47,7 +46,6 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     BreadcrumbComponent,
     NgFor,
     TooltipModule,
-    FontAwesomeModule,
     NgClass,
     NgSwitch,
     MatCard,

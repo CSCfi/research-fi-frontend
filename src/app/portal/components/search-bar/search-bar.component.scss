@@ -277,12 +277,21 @@ app-search-bar {
   }
 
   // Search help
-  .search-help {
+  .search-help-button {
+    width: 130px;
+    margin-left: 10px;
+    color: #fff;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     margin-right: -110px;
-  }
-
-  .search-help button {
-    height: 52px;
+    z-index: 9999;
+    padding: 1rem 0.5rem;
+    border-radius: 0.25rem;
+    .button-text {
+      margin-left: 15px;
+    }
   }
 
   .search-helper {
@@ -291,7 +300,7 @@ app-search-bar {
     width: 211px;
     padding: 1rem 0.5rem;
     right: -110px;
-    margin-top: 4px;
+    margin-top: 7px;
     border-radius: 0.25rem;
   }
 
@@ -308,7 +317,7 @@ app-search-bar {
   }
 
   @media (max-width: 1054px) {
-    .search-help {
+    .search-help-button, .search-helper {
       display: none;
     }
   }
