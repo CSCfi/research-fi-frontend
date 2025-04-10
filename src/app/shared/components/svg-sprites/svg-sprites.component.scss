@@ -125,7 +125,7 @@
     }
   }
 
-  .chevron-up-icon, .chevron-down-icon, .chevron-left-icon, .chevron-right-icon {
+  .chevron-up-icon, .chevron-down-icon, .chevron-left-icon, .chevron-right-icon, .chevron-icon {
     width: 18px;
     height: 18px;
     &.navi-icon {
@@ -138,6 +138,15 @@
       width: 20px;
       height: 20px;
       margin-left: 5px;
+    }
+    &.single-page {
+      fill: #4546b9;
+      cursor: pointer;
+    }
+    &.search-help {
+      color: #fff;
+      margin-left: 2px;
+      margin-top: -2px;
     }
   }
   .chevron-left-icon {
@@ -180,6 +189,7 @@
   .chevron-down-icon-search {
     width: 18px;
     height: 18px;
+    margin-top: -2px;
   }
 
   .arrow-left-icon, .arrow-right-icon {
@@ -239,6 +249,15 @@
     &.give-feedback, &.close-component {
       color: #4546b9;
       fill: #4546b9;
+    }
+    &.filters-icon {
+      width: 20px;
+      height: 20px;
+      color: #000;
+      fill: #000;
+      margin-top: -2px;
+      margin-left: 3px;
+      margin-right: -22px;
     }
   }
   .copy-icon, .download-icon {
