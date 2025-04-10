@@ -1,17 +1,19 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
+import { JsonPipe, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
   selector: 'app-column-sorter',
   templateUrl: './column-sorter.component.html',
   styleUrls: ['./column-sorter.component.scss'],
   imports: [
-    NgSwitch, NgSwitchCase, NgIf
+    NgSwitch, NgSwitchCase, NgIf, SvgSpritesComponent, JsonPipe
   ],
   standalone: true
 })
 export class ColumnSorterComponent {
   @Input() name: string;
+  @Input() order: string;
   @Input() value: string;
 
   /*@Input() direction: number;

@@ -108,7 +108,7 @@
                   i18n-title="@@resetSearchTooltip"
                   title="Tyhjennä haku"
                 >
-                  <i class="fa fa-times"></i>
+                  <app-svg-sprites [iconName]="'close'" cssClass="close-icon search-bar-icons"></app-svg-sprites>
                 </span>
               </div>
               <!-- Completion -->
@@ -136,7 +136,6 @@
                 (click)="newInput(undefined, undefined)"
                 (keydown.enter)="newInput(undefined, undefined)"
               >
-                <i class="fa fa-search"></i>
                 <span class="search-button" i18n>Hae</span>
               </button>
             </div>

@@ -35,14 +35,14 @@
     <ng-container *ngIf='(showAll$ | async) === false'>
       <div class="expand-text" (click)='toggleAll()'>
         <div style='margin-right: 0.25rem' i18n="@@showMore">Näytä lisää</div>
-        <i class='fa-solid fa-caret-down'></i>
+        <app-svg-sprites [iconName]="'chevron-down'" cssClass="chevron-down-icon navi-icon theme-color"></app-svg-sprites>
       </div>
     </ng-container>
 
     <ng-container *ngIf='(showAll$ | async) === true'>
       <div class='expand-text' (click)='toggleAll()'>
         <div style='margin-right: 0.25rem' i18n="@@showLess">Näytä vähemmän</div>
-        <i class='fa-solid fa-caret-up'></i>
+        <app-svg-sprites [iconName]="'chevron-up'" cssClass="chevron-up-icon navi-icon theme-color"></app-svg-sprites>
       </div>
     </ng-container>
   </ng-container>

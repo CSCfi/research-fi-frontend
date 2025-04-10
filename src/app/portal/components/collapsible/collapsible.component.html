@@ -20,14 +20,15 @@
 
         <ng-container *ngIf='hasTooltip'>
           <div style='display: inline-block; margin-left: 10px; color: rgb(69, 70, 185)'>
-            <i class="fa fa-info-circle" [tooltip]='tooltipElement'></i>
+            <app-svg-sprites [iconName]="'info'" cssClass="info-icon"></app-svg-sprites>
           </div>
         </ng-container>
       </div>
     </div>
 
     <span>
-      <i style='margin: 0 4px' class="fa fa-chevron-down" [ngClass]='{"icon-collapsed": !isOpen, "icon-expanded": isOpen}'></i>
+      <app-svg-sprites [iconName]="'chevron-down'" cssClass="chevron-down-icon navi-icon" *ngIf="!isOpen"></app-svg-sprites>
+      <app-svg-sprites [iconName]="'chevron-up'" cssClass="chevron-down-icon navi-icon" *ngIf="isOpen"></app-svg-sprites>
     </span>
   </div>
 
