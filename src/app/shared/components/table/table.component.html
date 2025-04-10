@@ -53,8 +53,8 @@
       <div class="sort-indicator" *ngIf="!column.sortDisabled">
           <app-svg-sprites *ngIf="sortColumn !== column.key; else activeSortIndicatorTemplate" [iconName]="'sort'" cssClass="sort-icon"></app-svg-sprites>
         <ng-template #activeSortIndicatorTemplate>
-            <app-svg-sprites [ngClass]="sortDirection === 'asc' ? 'chev-up' : ''" *ngIf="sortDirection === 'asc'"  [iconName]="'sort'" cssClass="sort-icon-down"></app-svg-sprites>
-            <app-svg-sprites [ngClass]="sortDirection === 'desc' ? 'chev-down' : ''" *ngIf="sortDirection === 'desc'"  [iconName]="'sort'" cssClass="sort-icon-up"></app-svg-sprites>
+            <app-svg-sprites [ngClass]="sortDirection === 'asc' ? 'chev-up' : ''" *ngIf="sortDirection === 'asc'"  [iconName]="'sort-asc'" cssClass="sort-icon-down"></app-svg-sprites>
+            <app-svg-sprites [ngClass]="sortDirection === 'desc' ? 'chev-down' : ''" *ngIf="sortDirection === 'desc'"  [iconName]="'sort-desc'" cssClass="sort-icon-up"></app-svg-sprites>
         </ng-template>
       </div>
     </mat-header-cell>
