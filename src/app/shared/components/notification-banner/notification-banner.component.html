@@ -10,11 +10,13 @@
 >
   <div class="col-8 m-auto py-3 px-0" *ngIf="notificationObject">
     <div class="row justify-content-center">
-      <div class="col-auto">
-          <app-svg-sprites [iconName]="'warning'" cssClass="warning-icon"></app-svg-sprites>
+      <div class="col-auto d-flex flex-column justify-content-center">
+        <div>
+          <app-svg-sprites [iconName]="'warning'" cssClass="warning-icon theme-purple"></app-svg-sprites>
         <span aria-live="assertive">
           {{ notificationObject.notificationText }}
         </span>
+        </div>
       </div>
       <div class="col-auto">
         <ng-container *ngFor="let button of notificationObject.buttons">
