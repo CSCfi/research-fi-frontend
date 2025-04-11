@@ -9,7 +9,6 @@ import {
 } from '@angular/router';
 import { routes } from './routes';
 import { AuthConfigModule } from './auth-config.module';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppConfigService } from '@shared/services/app-config-service.service';
 import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
 import { InterceptService } from '@shared/services/intercept.service';
@@ -45,7 +44,6 @@ export const appConfig: ApplicationConfig = {
       BrowserModule,
       BrowserModule.withServerTransition({ appId: 'serverApp' }),
       AuthConfigModule,
-      FontAwesomeModule,
     ),
     provideAnimations(),
 

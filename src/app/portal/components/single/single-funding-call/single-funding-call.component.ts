@@ -7,7 +7,6 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { faAlignLeft } from '@fortawesome/free-solid-svg-icons';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
 import { Search } from '@portal/models/search.model';
@@ -22,30 +21,30 @@ import { NgArrayPipesModule } from 'ngx-pipes';
 import { ShareComponent } from '../share/share.component';
 import { SingleResultLinkComponent } from '../single-result-link/single-result-link.component';
 import { MatCard, MatCardTitle } from '@angular/material/card';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
+import { MatIcon } from '@angular/material/icon';
 @Component({
     selector: 'app-single-funding-call',
     templateUrl: './single-funding-call.component.html',
     styleUrls: ['./single-funding-call.component.scss'],
     standalone: true,
-    imports: [
-        NgIf,
-        RouterLink,
-        BreadcrumbComponent,
-        NgFor,
-        TooltipModule,
-        FontAwesomeModule,
-        NgClass,
-        MatCard,
-        MatCardTitle,
-        SingleResultLinkComponent,
-        ShareComponent,
-        JsonPipe,
-        DatePipe,
-        NgArrayPipesModule,
-    ],
+  imports: [
+    NgIf,
+    RouterLink,
+    BreadcrumbComponent,
+    NgFor,
+    TooltipModule,
+    NgClass,
+    MatCard,
+    MatCardTitle,
+    SingleResultLinkComponent,
+    ShareComponent,
+    JsonPipe,
+    DatePipe,
+    NgArrayPipesModule,
+    MatIcon
+  ]
 })
 export class SingleFundingCallComponent implements OnInit {
   newUiToggle = true;
@@ -145,7 +144,6 @@ export class SingleFundingCallComponent implements OnInit {
   expandDescription: boolean;
   expandTerms: boolean;
   latestSubUnitYear: string;
-  faIcon = faAlignLeft;
   subUnitSlice = 10;
   currentLocale: string;
   tabData: any;

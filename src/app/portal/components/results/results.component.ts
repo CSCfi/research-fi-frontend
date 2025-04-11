@@ -36,12 +36,6 @@ import {
   VisualQuery,
 } from 'src/app/portal/models/visualisation/visualisations.model';
 import { StaticDataService } from 'src/app/portal/services/static-data.service';
-import {
-  faDownload,
-  faTrash,
-  faChartBar,
-  faInfoCircle,
-} from '@fortawesome/free-solid-svg-icons';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { ClickOutsideDirective } from '../../../shared/directives/click-outside.directive';
@@ -58,44 +52,44 @@ import { SortComponent } from './sort/sort.component';
 import { ResultCountComponent } from '../../../shared/components/result-count/result-count.component';
 import { SecondaryButtonComponent } from '../../../shared/components/buttons/secondary-button/secondary-button.component';
 import { PrimaryActionButtonComponent } from '../../../shared/components/buttons/primary-action-button/primary-action-button.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TabNavigationComponent } from '../tab-navigation/tab-navigation.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-results',
     templateUrl: './results.component.html',
     styleUrls: ['./results.component.scss'],
     standalone: true,
-    imports: [
-        SearchBarComponent,
-        TabNavigationComponent,
-        NgIf,
-        FontAwesomeModule,
-        PrimaryActionButtonComponent,
-        RouterLink,
-        SecondaryButtonComponent,
-        ResultCountComponent,
-        NgClass,
-        NgTemplateOutlet,
-        SortComponent,
-        NgSwitch,
-        NgSwitchCase,
-        NgSwitchDefault,
-        FundingCallCategoryFiltersComponent,
-        ActiveFiltersComponent,
-        SearchResultsComponent,
-        NgFor,
-        FiltersComponent,
-        MatFormField,
-        MatLabel,
-        MatSelect,
-        MatOption,
-        VisualisationComponent,
-        DialogComponent,
-        ClickOutsideDirective,
-        AsyncPipe,
-    ],
+  imports: [
+    SearchBarComponent,
+    TabNavigationComponent,
+    NgIf,
+    PrimaryActionButtonComponent,
+    RouterLink,
+    SecondaryButtonComponent,
+    ResultCountComponent,
+    NgClass,
+    NgTemplateOutlet,
+    SortComponent,
+    NgSwitch,
+    NgSwitchCase,
+    NgSwitchDefault,
+    FundingCallCategoryFiltersComponent,
+    ActiveFiltersComponent,
+    SearchResultsComponent,
+    NgFor,
+    FiltersComponent,
+    MatFormField,
+    MatLabel,
+    MatSelect,
+    MatOption,
+    VisualisationComponent,
+    DialogComponent,
+    ClickOutsideDirective,
+    AsyncPipe,
+    SvgSpritesComponent
+  ]
 })
 export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   breakpointObserver$ = inject(BreakpointObserver);
@@ -188,10 +182,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   fundingAmount = false;
   visualisationType = false;
 
-  faDownload = faDownload;
-  faTrash = faTrash;
-  faChartBar = faChartBar;
-  faInfoCircle = faInfoCircle;
   showAsVisual = $localize`:@@showAsVisual:Näytä kuvana`;
   additionalInfo = $localize`:@@additionalInfo:Lisätietoa`;
   clearActiveFilters = $localize`:@@clearActiveFilters: Tyhjennä rajaukset`;

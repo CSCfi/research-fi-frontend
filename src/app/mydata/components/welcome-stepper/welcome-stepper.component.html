@@ -5,82 +5,79 @@
 
 
 <ng-template #welcomeTemplate>
-  <div class="welcome-stepper-wrap">
-    <mat-stepper orientation="vertical">
-      <mat-step [stepControl]="firstFormGroup">
-        <ng-template matStepLabel>{{this.localizedStepCaptions[0]}}</ng-template>
-        <ng-template matStepContent>
-          <div class="stepper-icon-row d-flex justify-content-evenly">
-            <div class="stepper-icon-wrap">
-              <div class="font-wrap">
-                <i class="fas fa-user-lock"></i>
-              </div>
-            </div>
-            <div class="stepper-icon-wrap">
-              <img class="orcid"
-                src="assets/img/orcid_icon.svg"
-                alt="Ikoni orcid"
-              />
-            </div>
-            <div class="stepper-icon-wrap">
-              <div class="font-wrap">
-                <i class="fas fa-user-check"></i>
-              </div>
-            </div>
-          </div>
-          <p>{{this.localizedStepContent[0]}}</p>
-        </ng-template>
-      </mat-step>
-      <mat-step [stepControl]="firstFormGroup">
-        <ng-template matStepLabel>{{this.localizedStepCaptions[1]}}</ng-template>
-        <ng-template matStepContent>
-          <p>{{this.localizedStepContent[1]}}</p>
-          <p>{{this.localizedStepContent[2]}}</p>
-        </ng-template>
-      </mat-step>
-      <mat-step [stepControl]="firstFormGroup">
-        <ng-template matStepLabel>{{this.localizedStepCaptions[2]}}</ng-template>
-        <p>{{this.localizedStepContent[3]}}</p>
-      </mat-step>
-      <mat-step [stepControl]="firstFormGroup">
-        <ng-template matStepLabel>{{this.localizedStepCaptions[3]}}</ng-template>
-        <div class="stepper-icon-row d-flex justify-content-evenly">
-          <div class="stepper-icon-wrap">
-            <div class="font-wrap">
-              <i class="fas fa-eye"></i>
-            </div>
-          </div>
-        </div>
-        <p>{{this.localizedStepContent[4]}}</p>
-      </mat-step>
-      <mat-step [stepControl]="firstFormGroup">
-        <ng-template matStepLabel>{{this.localizedStepCaptions[4]}}</ng-template>
-        <div class="stepper-icon-row d-flex justify-content-evenly">
-          <div class="stepper-icon-wrap">
-            <div class="font-wrap">
-              <i class="fas fa-share-alt-square"></i>
-            </div>
-          </div>
-        </div>
-        <p>{{this.localizedStepContent[5]}}</p>
-      </mat-step>
-      <mat-step completed="false">
-        <ng-template matStepLabel>{{this.localizedStepCaptions[5]}}</ng-template>
-        <div class="stepper-icon-wrap">
-          <div class="font-wrap">
-            <i class="fas fa-check-square"></i>
-          </div>
-        </div>
-        <p>{{this.localizedStepContent[6]}}</p>
-      </mat-step>
-    </mat-stepper>
-  </div>
+    <div class="welcome-stepper-wrap">
+        <mat-stepper orientation="vertical">
+            <mat-step [stepControl]="firstFormGroup">
+                <ng-template matStepLabel>{{this.localizedStepCaptions[0]}}</ng-template>
+                <ng-template matStepContent>
+                    <div class="stepper-icon-row d-flex justify-content-evenly">
+                        <div class="stepper-icon-wrap">
+                            <app-svg-sprites [iconName]="'fa-user-lock'" cssClass="registration-step-icon"></app-svg-sprites>
+                        </div>
+                        <div class="stepper-icon-wrap">
+                            <img class="orcid"
+                                 src="assets/img/orcid_icon.svg"
+                                 alt="Ikoni orcid"
+                            />
+                        </div>
+                        <div class="stepper-icon-wrap">
+                            <app-svg-sprites [iconName]="'fa-user-check'" cssClass="registration-step-icon"></app-svg-sprites>
+                        </div>
+                    </div>
+                    <p>{{this.localizedStepContent[0]}}</p>
+                </ng-template>
+            </mat-step>
+            <mat-step [stepControl]="firstFormGroup">
+                <ng-template matStepLabel>{{this.localizedStepCaptions[1]}}</ng-template>
+                <ng-template matStepContent>
+                    <p>{{this.localizedStepContent[1]}}</p>
+                    <p>{{this.localizedStepContent[2]}}</p>
+                </ng-template>
+            </mat-step>
+            <mat-step [stepControl]="firstFormGroup">
+                <ng-template matStepLabel>{{this.localizedStepCaptions[2]}}</ng-template>
+                <p>{{this.localizedStepContent[3]}}</p>
+            </mat-step>
+            <mat-step [stepControl]="firstFormGroup">
+                <ng-template matStepLabel>{{this.localizedStepCaptions[3]}}</ng-template>
+                <div class="stepper-icon-row d-flex justify-content-evenly">
+                    <div class="stepper-icon-wrap">
+                        <div class="font-wrap">
+                            <app-svg-sprites [iconName]="'fa-eye'" cssClass="registration-step-icon"></app-svg-sprites>
+                        </div>
+                    </div>
+                </div>
+                <p>{{this.localizedStepContent[4]}}</p>
+            </mat-step>
+            <mat-step [stepControl]="firstFormGroup">
+                <ng-template matStepLabel>{{this.localizedStepCaptions[4]}}</ng-template>
+                <div class="stepper-icon-row d-flex justify-content-evenly">
+                    <div class="stepper-icon-wrap">
+                        <div class="font-wrap">
+                            <app-svg-sprites [iconName]="'fa-share-alt-square'" cssClass="registration-step-icon"></app-svg-sprites>
+                        </div>
+                    </div>
+                </div>
+                <p>{{this.localizedStepContent[5]}}</p>
+            </mat-step>
+            <mat-step completed="false">
+                <ng-template matStepLabel>{{this.localizedStepCaptions[5]}}</ng-template>
+                <br>
+                <div class="stepper-icon-wrap">
+                    <div class="font-wrap">
+                        <app-svg-sprites [iconName]="'fa-check-square'" cssClass="registration-step-icon"></app-svg-sprites>
+                    </div>
+                </div>
+                <p>{{this.localizedStepContent[6]}}</p>
+            </mat-step>
+        </mat-stepper>
+    </div>
 </ng-template>
 
 <app-dialog
-  [template]="welcomeTemplate"
-  [title]="localizedTitle"
-  [actions]="localizedDialogActions$ | async"
-  (onActionClick)="doDialogAction($event)"
+        [template]="welcomeTemplate"
+        [title]="localizedTitle"
+        [actions]="localizedDialogActions$ | async"
+        (onActionClick)="doDialogAction($event)"
 >
 </app-dialog>

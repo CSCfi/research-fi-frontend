@@ -9,7 +9,8 @@
       routerLink="/science-innovation-policy/science-research-figures/{{
         data[idx - 1].id
       }}"
-      [icon]="faAngleDoubleLeft"
+      [svgSymbolName]="'fa-arrow-left'"
+      [svgCssClass]="'arrow-left-icon button-icon'"
       [queryParams]="queryParams"
     ></app-secondary-button>
     <app-secondary-button
@@ -17,7 +18,8 @@
       [big]="true"
       [disabled]="true"
       [content]="previous"
-      [icon]="faAngleDoubleLeft"
+      [svgSymbolName]="'fa-arrow-left'"
+      [svgCssClass]="'arrow-left-icon button-icon'"
     ></app-secondary-button>
   </div>
   <div
@@ -51,8 +53,9 @@
       routerLink="/science-innovation-policy/science-research-figures/{{
         data[idx + 1].id
       }}"
-      [icon]="faAngleDoubleRight"
       [iconAfter]="true"
+      [svgSymbolName]="'fa-arrow-right'"
+      [svgCssClass]="'arrow-right-icon button-icon'"
       [queryParams]="queryParams"
     ></app-secondary-button>
     <app-secondary-button
@@ -60,7 +63,8 @@
       [big]="true"
       [disabled]="true"
       [content]="next"
-      [icon]="faAngleDoubleRight"
+      [svgSymbolName]="'fa-chevron-right'"
+      [svgCssClass]="'arrow-right-icon button-icon'"
       [iconAfter]="true"
     ></app-secondary-button>
   </div>

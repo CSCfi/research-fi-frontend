@@ -5,9 +5,9 @@ import { SafeUrlPipe } from '../../../pipes/safe-url.pipe';
 import { HighlightSearchPipe } from '../../../pipes/highlight.pipe';
 import { CutContentPipe } from '../../../../shared/pipes/cut-content.pipe';
 import { RouterLink } from '@angular/router';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault, NgClass, DatePipe } from '@angular/common';
 import { MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardContent, MatCardActions, MatCardFooter } from '@angular/material/card';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-news-card',
@@ -15,26 +15,26 @@ import { MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardContent, 
     styleUrls: ['./news-card.component.scss'],
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [
-        MatCard,
-        MatCardHeader,
-        MatCardTitle,
-        NgIf,
-        NgSwitch,
-        NgSwitchCase,
-        NgSwitchDefault,
-        FontAwesomeModule,
-        RouterLink,
-        MatCardSubtitle,
-        MatCardContent,
-        NgClass,
-        MatCardActions,
-        MatCardFooter,
-        DatePipe,
-        CutContentPipe,
-        HighlightSearchPipe,
-        SafeUrlPipe,
-    ],
+  imports: [
+    MatCard,
+    MatCardHeader,
+    MatCardTitle,
+    NgIf,
+    NgSwitch,
+    NgSwitchCase,
+    NgSwitchDefault,
+    RouterLink,
+    MatCardSubtitle,
+    MatCardContent,
+    NgClass,
+    MatCardActions,
+    MatCardFooter,
+    DatePipe,
+    CutContentPipe,
+    HighlightSearchPipe,
+    SafeUrlPipe,
+    SvgSpritesComponent
+  ]
 })
 export class NewsCardComponent implements OnInit {
   @Input() itemTypeFundingCalls = false;

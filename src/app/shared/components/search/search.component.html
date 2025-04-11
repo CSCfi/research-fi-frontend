@@ -27,7 +27,7 @@
         i18n-tooltip="@@resetSearchTooltip"
         tooltip="Tyhjennä haku"
       >
-        <i class="fa fa-times"></i>
+         <app-svg-sprites [iconName]="'close'" cssClass="close-icon"></app-svg-sprites>
       </span>
     </div>
     <div
@@ -36,7 +36,8 @@
       <app-primary-action-button
         content="Hae"
         i18n-content="Search@@search"
-        [icon]="faSearch"
+        [svgSymbolName]="'search'"
+        [svgCssClass]="'search-icon button-icon'"
         type="submit"
       ></app-primary-action-button>
     </div>

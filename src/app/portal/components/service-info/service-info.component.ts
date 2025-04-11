@@ -12,7 +12,6 @@ import {
   ChangeDetectorRef,
   TemplateRef
 } from '@angular/core';
-import { faInfo } from '@fortawesome/free-solid-svg-icons';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { DOCUMENT, isPlatformBrowser, Location, ViewportScroller, NgFor, NgIf } from '@angular/common';
 import { UtilityService } from 'src/app/shared/services/utility.service';
@@ -23,10 +22,10 @@ import { Subscription } from 'rxjs';
 import { SanitizeHtmlPipe } from '../../../shared/pipes/sanitize-html.pipe';
 import { DialogComponent } from '../../../shared/components/dialog/dialog.component';
 import { ReviewComponent } from '../../../shared/components/review/review.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
 import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component';
 import { BannerDividerComponent } from '../../../shared/components/banner-divider/banner-divider.component';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-service-info',
@@ -34,24 +33,22 @@ import { BannerDividerComponent } from '../../../shared/components/banner-divide
     styleUrls: ['./service-info.component.scss'],
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [
-        BannerDividerComponent,
-        BreadcrumbComponent,
-        MatAccordion,
-        NgFor,
-        MatExpansionPanel,
-        MatExpansionPanelHeader,
-        MatExpansionPanelTitle,
-        FontAwesomeModule,
-        NgIf,
-        ReviewComponent,
-        DialogComponent,
-        SanitizeHtmlPipe,
-    ],
+  imports: [
+    BannerDividerComponent,
+    BreadcrumbComponent,
+    MatAccordion,
+    NgFor,
+    MatExpansionPanel,
+    MatExpansionPanelHeader,
+    MatExpansionPanelTitle,
+    NgIf,
+    ReviewComponent,
+    DialogComponent,
+    SanitizeHtmlPipe,
+    SvgSpritesComponent
+  ]
 })
 export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
-  faInfo = faInfo;
-
   @ViewChild('mainFocus') mainFocus: ElementRef;
   @ViewChild('reviewDialog') reviewDialog: TemplateRef<any>;
   focusSub: Subscription;

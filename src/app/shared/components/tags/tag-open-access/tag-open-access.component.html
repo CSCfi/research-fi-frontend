@@ -3,18 +3,22 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<div class="tag open-access rounded">
-  <a *ngIf="link.length > 0" [href]="link" target="_blank">
+<div [ngClass]="link?.length > 0 ? 'tag open-access rounded' : 'tag open-access rounded no-link'">
+  <a *ngIf="link?.length > 0" [href]="link" target="_blank">
     <div class="d-flex">
-      <img src="assets/img/openaccess.svg" />
-      <span class="fw-bold" i18n="@@openAccess">Avoin saatavuus</span>
-      <fa-icon icon="external-link-alt"></fa-icon>
+        <app-svg-sprites [iconName]="'lock_open'" cssClass="lock_open-icon open-access-svg"></app-svg-sprites>
+        <div class="text-wrapper">
+            <div class="tag-text" i18n="@@openAccess">Avoin saatavuus</div>
+        </div>
+        <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon-openaccess open-access-svg"></app-svg-sprites>
     </div>
   </a>
 
-  <div *ngIf="link.length < 1" class="d-flex">
-    <img src="assets/img/openaccess.svg" />
-    <span class="fw-bold" i18n="@@openAccess">Avoin saatavuus</span>
+  <div *ngIf="!link" class="d-flex">
+      <app-svg-sprites [iconName]="'lock_open'" cssClass="lock_open-icon open-access-svg"></app-svg-sprites>
+      <div class="text-wrapper">
+          <span class="tag-text" i18n="@@openAccess">Avoin saatavuus</span>
+      </div>
   </div>
 </div>
 

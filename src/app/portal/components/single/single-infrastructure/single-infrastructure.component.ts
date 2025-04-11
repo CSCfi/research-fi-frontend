@@ -18,7 +18,6 @@ import { DOCUMENT, NgIf, NgFor, NgClass, NgSwitch } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
 import { SearchService } from '../../../services/search.service';
-import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { Subscription } from 'rxjs';
 import { Search } from 'src/app/portal/models/search.model';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
@@ -30,32 +29,32 @@ import { ShareComponent } from '../share/share.component';
 import { RelatedLinksComponent } from '../related-links/related-links.component';
 import { SingleResultLinkComponent } from '../single-result-link/single-result-link.component';
 import { MatCard, MatCardTitle } from '@angular/material/card';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-single-infrastructure',
     templateUrl: './single-infrastructure.component.html',
     styleUrls: ['./single-infrastructure.component.scss'],
     standalone: true,
-    imports: [
-        SearchBarComponent,
-        NgIf,
-        RouterLink,
-        BreadcrumbComponent,
-        NgFor,
-        TooltipModule,
-        FontAwesomeModule,
-        NgClass,
-        NgSwitch,
-        MatCard,
-        MatCardTitle,
-        SingleResultLinkComponent,
-        RelatedLinksComponent,
-        ShareComponent,
-    ],
+  imports: [
+    SearchBarComponent,
+    NgIf,
+    RouterLink,
+    BreadcrumbComponent,
+    NgFor,
+    TooltipModule,
+    NgClass,
+    NgSwitch,
+    MatCard,
+    MatCardTitle,
+    SingleResultLinkComponent,
+    RelatedLinksComponent,
+    ShareComponent,
+    SvgSpritesComponent
+  ]
 })
 export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   public singleId: any;
@@ -181,7 +180,6 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   serviceExpand: boolean[] = [];
   showService: boolean[] = [];
   showServicePoint: boolean[][] = [];
-  faIcon = faFileAlt;
   tabData: any;
   currentLocale: string;
   serviceHeader = $localize`:@@infraServiceHeader:Palvelu`;

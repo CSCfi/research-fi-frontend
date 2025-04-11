@@ -8,7 +8,8 @@
     [cdkCopyToClipboard]="currentUrl"
     (click)="openSnackBar()"
     [content]="copyLink"
-    [icon]="faCopy"
+    [svgSymbolName]="'copy'"
+    [svgCssClass]="'copy-icon button-icon'"
     [big]="big"
   ></app-secondary-button>
 </div>

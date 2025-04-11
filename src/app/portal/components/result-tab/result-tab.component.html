@@ -17,7 +17,7 @@
       >
         <div class="grad grad-left"></div>
         <div class="nav-arrow nav-arrow-left" (click)="scrollLeft()">
-          <fa-icon [icon]="faArrowLeft"></fa-icon>
+            <app-svg-sprites [iconName]="'chevron-left'" cssClass="chevron-left-icon nav-icon"></app-svg-sprites>
         </div>
       </div>
       <div
@@ -30,7 +30,7 @@
       >
         <div class="grad grad-right"></div>
         <div class="nav-arrow nav-arrow-right" (click)="scrollRight()">
-          <fa-icon [icon]="faArrowRight"></fa-icon>
+            <app-svg-sprites [iconName]="'chevron-right'" cssClass="chevron-left-icon nav-icon"></app-svg-sprites>
         </div>
       </div>
       <ng-container
@@ -59,14 +59,14 @@
                 class="label text-center homepage homepage-label"
               >
                 <ng-container i18n="@@showAll">Näytä kaikki </ng-container>
-                <div><fa-icon [icon]="faAngleDown"></fa-icon></div>
+                <div><app-svg-sprites [iconName]="'chevron-down'" cssClass="chevron-down-icon"></app-svg-sprites></div>
               </div>
               <div
                 *ngIf="tabsOpen"
                 class="label text-center homepage homepage-label"
               >
                 <ng-container i18n="@@showLess">Näytä vähemmän </ng-container>
-                <div><fa-icon [icon]="faAngleUp"></fa-icon></div>
+                <div><app-svg-sprites [iconName]="'chevron-up'" cssClass="chevron-up-icon"></app-svg-sprites></div>
               </div>
             </button>
           </ng-container>

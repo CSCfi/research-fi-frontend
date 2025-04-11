@@ -8,21 +8,10 @@
 import { Adapter } from '../adapter.model';
 import { Injectable } from '@angular/core';
 import { ModelUtilsService } from '@shared/services/model-util.service';
-import {
-  faFacebookSquare,
-  faLinkedin,
-  faTwitterSquare,
-} from '@fortawesome/free-brands-svg-icons';
-import {
-  faLink,
-  faEnvelope,
-  IconDefinition,
-  faPhone,
-} from '@fortawesome/free-solid-svg-icons';
 
 type ContactItem = {
   value: string;
-  icon?: IconDefinition;
+  icon?: string;
 };
 
 export class PersonContact {
@@ -43,27 +32,28 @@ export class PersonContactAdapter implements Adapter<PersonContact> {
   adapt(data: any): PersonContact {
     const mapValues = (
       items: any[],
-      options?: { fieldName?: string; icon?: IconDefinition }
+      options?: { fieldName?: string; icon?: string }
     ) =>
       items.map((item) => ({
         value: item[options?.fieldName ? options.fieldName : 'value'],
         icon: item.icon || options.icon,
       }));
 
-    const emails = mapValues(data.emails, { icon: faEnvelope });
-    const phoneNumbers = mapValues(data.telephoneNumbers, { icon: faPhone });
+    const emails = mapValues(data.emails, { icon: 'general.email' });
+    const phoneNumbers = mapValues(data.telephoneNumbers, { icon: 'general.fa.phone' });
     const otherNames = mapValues(data.otherNames, { fieldName: 'fullName' });
 
     // Web links can have different icons depending on link target
     const handleLinkIcon = (url: string | string[] = '') => {
       if (url.includes('linkedin')) {
-        return faLinkedin;
+        return 'fa-linkedin';
       } else if (url.includes('twitter')) {
-        return faTwitterSquare;
+        return 'fa-x-twitter-square';
       } else if (url.includes('facebook')) {
-        return faFacebookSquare;
-      } else return faLink;
+        return 'fa-facebook-square';
+      } else return 'link';
     };
+
 
     const webLinks = mapValues(
       data.webLinks.map((item) => ({

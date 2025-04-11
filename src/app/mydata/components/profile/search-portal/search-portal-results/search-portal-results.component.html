@@ -40,27 +40,16 @@
 
         <!-- Sort indicators -->
         <div class="sort-indicator">
-          <fa-icon
-            [icon]="faSort"
-            *ngIf="
+            <app-svg-sprites *ngIf="
               activeSort?.active !== column.id;
               else activeSortIndicatorTemplate
-            "
-          >
-          </fa-icon>
+            " [iconName]="'sort'" cssClass="sort-icon"></app-svg-sprites>
 
           <ng-template #activeSortIndicatorTemplate>
             <!-- <fa-icon [icon]="faSort" *ngIf="activeSort.direction === ''">
             </fa-icon> -->
-
-            <fa-icon [icon]="faSortUp" *ngIf="activeSort.direction === 'asc'">
-            </fa-icon>
-
-            <fa-icon
-              [icon]="faSortDown"
-              *ngIf="activeSort.direction === 'desc'"
-            >
-            </fa-icon>
+              <app-svg-sprites *ngIf="activeSort.direction === 'asc'" [iconName]="'sort-asc'" cssClass="sort-up-icon"></app-svg-sprites>
+              <app-svg-sprites *ngIf="activeSort.direction === 'desc'" [iconName]="'sort-desc'" cssClass="sort-down-icon"></app-svg-sprites>
           </ng-template>
         </div>
       </mat-header-cell>

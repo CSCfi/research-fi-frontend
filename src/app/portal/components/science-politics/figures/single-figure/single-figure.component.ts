@@ -22,7 +22,6 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import { isPlatformBrowser, NgIf, NgFor } from '@angular/common';
-import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
 import { ResizeService } from 'src/app/shared/services/resize.service';
 import { Subscription, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -77,7 +76,6 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
   figureData: Figure[] = [];
   flatData: any[] = [];
   colWidth: number;
-  faQuestion = faQuestionCircle;
   resizeSub: Subscription;
   dataSub: any;
   allContent: any;

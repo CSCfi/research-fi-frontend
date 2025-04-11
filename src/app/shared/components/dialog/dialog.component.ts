@@ -20,7 +20,6 @@ import {
   MatDialog,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { Icon } from '@fortawesome/fontawesome-svg-core';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { DialogTemplateComponent } from './dialog-template/dialog-template.component';
@@ -38,7 +37,7 @@ export class DialogComponent implements OnInit, OnDestroy, OnChanges {
   @Input() extraContentTemplate: any;
   @Input() small: boolean;
   @Input() disableClose: boolean;
-  @Input() icon: Icon;
+  @Input() icon: string;
   @Input() centerTitle: any;
   @Input() noPadding: any;
   @Input() wide: any;
@@ -47,6 +46,7 @@ export class DialogComponent implements OnInit, OnDestroy, OnChanges {
   @Input() hideClose: boolean;
   @Input() headerInfoTemplate: TemplateRef<any>;
   @Input() selectedItemsCount: number;
+  @Input() svgCssClass: string;
   @Output() onDialogClose = new EventEmitter<any>();
   @Output() onActionClick = new EventEmitter<any>();
 

@@ -51,7 +51,7 @@
       <mat-tab [label]="selectItemsTabLabel">
         <div class="row tab-info background-light pt-3 my-4">
           <div class="col-auto">
-            <fa-icon class="info-icon big-icon" icon="info-circle"></fa-icon>
+              <app-svg-sprites [iconName]="'info'" cssClass="info-icon large-icon"></app-svg-sprites>
           </div>
           <div class="col ps-0">
             <p class="fw-bold" i18n="@@selectInformationToDisplayInProfile">
@@ -93,7 +93,7 @@
         [disabled]="disabledSearchPortalModalIds.indexOf(editorData.id) > -1"
       >
         <ng-template mat-tab-label *ngIf="this.dialogData.data.id !== 'activitiesAndRewards'">
-          <fa-icon [icon]="faSearch" class="pe-3"></fa-icon>
+            <app-svg-sprites [iconName]="'search'" cssClass="search-icon tab-button-icon" class="pe-3"></app-svg-sprites>
           <ng-container i18n="@@searchForOther">Hae muita</ng-container>
             <div>&nbsp;</div>
             <span *ngIf="this.dialogData.data.id === 'funding'">

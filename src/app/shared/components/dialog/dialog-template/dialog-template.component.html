@@ -12,14 +12,17 @@
     [ngStyle]="{ width: closeButtonWidth + 'px' }"
   ></div>
   <!-- Title -->
-  <div class="col-8 col-sm-auto">
+  <div class="col-8 col-sm-auto d-flex justify-content-center flex-column">
     <h2 class="dialog-title h5 d-inline-block pe-2">
+      <!-- Icon removed. Component deprecated.
       <fa-icon
         *ngIf="data.icon"
         [icon]="data.icon"
         class="primary-color pe-3"
-      ></fa-icon
-      >{{ data.title }}
+      >
+      </fa-icon
+      -->
+      {{ data.title }}
     </h2>
     <ng-container *ngIf="data.headerInfoTemplate"
       ><ng-container [ngTemplateOutlet]="data.headerInfoTemplate"></ng-container
@@ -27,7 +30,7 @@
   </div>
   <!-- Close button -->
   <div
-    class="col-auto text-end mt-1 mt-sm-0 align-self-sm-center order-2 order-sm-3"
+    class="col-auto text-end px-0 mt-1 mt-sm-0 align-self-sm-center order-2 order-sm-3"
     [class.d-lg-none]="data.hideClose"
     #closeButton
   >

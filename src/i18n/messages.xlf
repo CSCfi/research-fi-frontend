@@ -91,7 +91,7 @@
         <source>Twitter -palvelun logo</source>
       </trans-unit>
       <trans-unit id="twitterFooter" datatype="html">
-        <source><x id="START_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="&lt;fa-icon class=&quot;social-icon&quot; [icon]=&quot;faTwitter&quot;&gt;"/><x id="CLOSE_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="&lt;/fa-icon&gt;"/>Tiedejatutkimus.fi Twitterissä</source>
+        <source>Tiedejatutkimus.fi Twitterissä</source>
         <note priority="1" from="description">Twitter-footer</note>
       </trans-unit>
       <trans-unit id="reviewButton" datatype="html">

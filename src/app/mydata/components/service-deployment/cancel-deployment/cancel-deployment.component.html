@@ -1,57 +1,59 @@
 <app-banner-divider></app-banner-divider>
 
 <main id="main-content" class="col col-lg-3 mx-auto">
-  <mat-spinner
-    *ngIf="loading"
-    class="mx-auto"
-    [diameter]="80"
-    i18n-aria-label="@@loading"
-    aria-label="Ladataan"
-  ></mat-spinner>
+    <mat-spinner
+            *ngIf="loading"
+            class="mx-auto"
+            [diameter]="80"
+            i18n-aria-label="@@loading"
+            aria-label="Ladataan"
+    ></mat-spinner>
 
-  <ng-container *ngIf="!loading">
-    <div class="row pb-4">
-      <div class="col text-center">
-        <h1 class="h4" i18n="@@cancelServiceDeployment">
-          Peruutetaanko palvelun käyttöönotto?
-        </h1>
-      </div>
-      <!-- Icon -->
-      <i class="col-12 pt-3 h1 primary-color text-center fas fa-undo-alt"></i>
-    </div>
+    <ng-container *ngIf="!loading">
+        <div class="row pb-4">
+            <div class="col text-center">
+                <h1 class="h4" i18n="@@cancelServiceDeployment">
+                    Peruutetaanko palvelun käyttöönotto?
+                </h1>
+            </div>
+            <!-- Icon -->
+            <div class="col-12 pt-3 h1 primary-color text-center">
+                <app-svg-sprites [iconName]="'fa-undo-alt'" cssClass="undo-icon"></app-svg-sprites>
+            </div>
+        </div>
 
-    <div class="row pb-4 d-flex justify-content-center">
-      <div class="col">
-        <p>
-          <ng-container i18n="@@deploymentAbort">
-            Käyttöönotto keskeytetään, ja mitään tietoja ei tallenneta.
-          </ng-container>
-        </p>
-      </div>
-    </div>
+        <div class="row pb-4 d-flex justify-content-center">
+            <div class="col">
+                <p>
+                    <ng-container i18n="@@deploymentAbort">
+                        Käyttöönotto keskeytetään, ja mitään tietoja ei tallenneta.
+                    </ng-container>
+                </p>
+            </div>
+        </div>
 
-    <div class="row pb-3 d-flex justify-content-center">
-      <div class="col">
-        <app-secondary-button
-          i18n-content="@@yesCancelDeployment"
-          content="	Kyllä, peruuta käyttöönotto"
-          tabindex="-1"
-          [big]="true"
-          (click)="cancelDeployment()"
-        >
-        </app-secondary-button>
-      </div>
-    </div>
-    <div class="row d-flex justify-content-center">
-      <div class="col">
-        <app-secondary-button
-          i18n-content="@@noContinueDeployment"
-          content="Ei, jatkan käyttöönottoa"
-          [big]="true"
-          (click)="continueDeployment()"
-        >
-        </app-secondary-button>
-      </div>
-    </div>
-  </ng-container>
+        <div class="row pb-3 d-flex justify-content-center">
+            <div class="col">
+                <app-secondary-button
+                        i18n-content="@@yesCancelDeployment"
+                        content="	Kyllä, peruuta käyttöönotto"
+                        tabindex="-1"
+                        [big]="true"
+                        (click)="cancelDeployment()"
+                >
+                </app-secondary-button>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col">
+                <app-secondary-button
+                        i18n-content="@@noContinueDeployment"
+                        content="Ei, jatkan käyttöönottoa"
+                        [big]="true"
+                        (click)="continueDeployment()"
+                >
+                </app-secondary-button>
+            </div>
+        </div>
+    </ng-container>
 </main>

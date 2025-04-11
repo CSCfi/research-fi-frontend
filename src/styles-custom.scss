@@ -190,8 +190,7 @@ h4 {
 }
 
 a {
-  // Accessibility checked color
-  color: #3366cc;
+  color: #4546b9;
   font-weight: 400;
   cursor: pointer;
   text-decoration: none;
@@ -217,10 +216,11 @@ footer {
 
 // Add icon to external links. This class is added in CMS.
 a.ext::after {
-  font-family: 'Font Awesome 5 Free';
+  font-family: "Open_in_new";
   font-weight: 900;
-  content: '\f35d';
+  content: 'O';
   margin-left: 0.3rem;
+  font-size: 0.85rem;
 }
 
 p a {
@@ -375,9 +375,99 @@ mark,
   padding: 0 32px;
 }
 
-// Icons
+app-tab-button {
+  svg {
+    height: 16px;
+    width: 16px;
+  }
+}
+
+// Icon customizations
+mat-icon[data-mat-icon-name='general.info'] {
+  display: inline !important;
+  svg {
+    width: 21px;
+    margin-left: -2px;
+    margin-top: -3px;
+  }
+}
+
+mat-icon[data-mat-icon-name='general.fa.sliders'] {
+  display: inline !important;
+  svg {
+    color: #4546b9;
+    width:20px;
+    margin-top: -4px;
+  }
+}
+
+mat-icon[data-mat-icon-name='general.fa.twitter'] {
+  display: inline !important;
+  height: 40px;
+  width: 40px;
+  svg {
+      width:32px;
+  }
+}
+
+
+// TODO: need to be refactored to contact icon styles
+/*mat-card {
+  a {
+    margin-left: 5px;
+  }
+  .mat-icon {
+    height: 100% !important
+  }
+
+  mat-icon[data-mat-icon-name='general.email'] {
+    svg {
+      margin-top: -3px;
+      width: 22px;
+      margin-left: 0px;
+    }
+  }
+
+
+  mat-icon[data-mat-icon-name='general.link'] {
+    svg {
+      margin-top: -2px;
+      width: 24px;
+    }
+  }
+}*/
+
+.mat-icon, mat-icon {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  svg {
+    //width: 16px;
+  }
+}
+
+.mat-icon[data-mat-icon-name='general.externalLink'] {
+  padding-left: 4px;
+  svg {
+  width: 20px;
+  padding-top: 2px;
+  }
+}
+
+app-tag-peer-reviewed, app-tag-open-access {
+  .rounded {
+  border-radius: 20px !important;
+  }
+}
+
 fa-icon[icon='external-link-alt'] {
   padding-left: 5px;
+}
+
+mat-icon[data-mat-icon-name="general.info"] {
+  &.large-circle {
+  display: flex !important;
+  }
 }
 
 .big-icon svg {
@@ -417,9 +507,35 @@ fa-icon[icon='external-link-alt'] {
 }
 
 // Help icon
-.info-icon {
+.info-icon-old {
   color: mat-color($primary, default);
   cursor: pointer;
+}
+
+.info-circle {
+  color: mat-color($primary, default);
+  height: 32px !important;
+  width: 32px !important;
+  &.large-circle {
+    svg {
+      height: 32px !important;
+      width: 32px !important;
+    }
+  }
+}
+
+// Category search result pages
+mat-table {
+  mat-icon.category-icon {
+    color: mat-color($primary, default);
+    height: 42px !important;
+    width: 42px !important;
+    margin-top: 10px;
+      svg {
+        height: 42px !important;
+        width: 42px !important;
+      }
+    }
 }
 
 // Mat modal
@@ -650,6 +766,22 @@ app-single-dataset, app-single-funding, app-single-funding-call, app-single-infr
   }
 }
 
+app-svg-icons {
+  img {
+    width: 16px;
+    height: 16px;
+    color: mat-color($primary, default);
+  }
+}
+
+.sort-indicator {
+  display: flex;
+  margin-left: 6px;
+  svg {
+    width: 18px !important;
+  }
+}
+
 // Material table
 .custom-table {
   /*
@@ -747,7 +879,7 @@ app-single-dataset, app-single-funding, app-single-funding-call, app-single-infr
 }
 
 @media (max-width: 991px) {
-  .info-icon {
+  .info-icon-old {
     display: none;
   }
 

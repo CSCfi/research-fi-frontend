@@ -6,83 +6,82 @@
 <app-banner-divider></app-banner-divider>
 
 <main id="main-content" class="col col-lg-3 mx-auto">
-  <mat-spinner
-    *ngIf="currentStep.loading"
-    class="mx-auto"
-    [diameter]="80"
-    i18n-aria-label="@@loading"
-    aria-label="Ladataan"
-  ></mat-spinner>
+    <mat-spinner
+            *ngIf="currentStep.loading"
+            class="mx-auto"
+            [diameter]="80"
+            i18n-aria-label="@@loading"
+            aria-label="Ladataan"
+    ></mat-spinner>
 
-  <ng-container *ngIf="!currentStep.loading">
-    <div class="row pb-4 text-center">
-      <div class="col">
-        <span class="h4">{{ title }}</span>
-        <h1 class="h4 fw-bold mt-3">{{ currentStep.label }}</h1>
-      </div>
-      <!-- Icon -->
-      <fa-icon
-        [icon]="currentStep.icon"
-        class="col-12 pt-3 h1 primary-color text-center"
-      ></fa-icon>
-    </div>
-
-    <!-- Introduction step content -->
-    <ng-container [ngSwitch]="step">
-      <div class="row pb-4 d-flex justify-content-center">
-        <div class="col">
-          <!-- Introduction -->
-          <ng-container *ngSwitchCase="1">
-            <div class="pb-5" [innerHTML]="textContent"></div>
-            <app-primary-action-button
-              content="{{ openTermsAndProcessingPrinciples }}"
-              [big]="true"
-              (click)="changeStep(2)"
-            >
-            </app-primary-action-button>
-          </ng-container>
-          <!-- Terms -->
-          <app-service-terms *ngSwitchCase="2"></app-service-terms>
-          <!-- ORCID login -->
-          <app-orcid-login *ngSwitchCase="3"></app-orcid-login>
-          <!-- ORCID data fetch -->
-          <app-orcid-data-fetch
-            *ngSwitchCase="4"
-            [orcid]="orcid"
-          ></app-orcid-data-fetch>
+    <ng-container *ngIf="!currentStep.loading">
+        <div class="row pb-4 text-center">
+            <div class="col">
+                <span class="h4">{{ title }}</span>
+                <h1 class="h4 fw-bold mt-3">{{ currentStep.label }}</h1>
+            </div>
+            <!-- Icon -->
+            <div class="col-12 pt-3 h1 primary-color text-center">
+                <app-svg-sprites [iconName]="currentStep.icon" cssClass="deployment-step-icon"></app-svg-sprites>
+            </div>
         </div>
-      </div>
+
+        <!-- Introduction step content -->
+        <ng-container [ngSwitch]="step">
+            <div class="row pb-4 d-flex justify-content-center">
+                <div class="col">
+                    <!-- Introduction -->
+                    <ng-container *ngSwitchCase="1">
+                        <div class="pb-5" [innerHTML]="textContent"></div>
+                        <app-primary-action-button
+                                content="{{ openTermsAndProcessingPrinciples }}"
+                                [big]="true"
+                                (click)="changeStep(2)"
+                        >
+                        </app-primary-action-button>
+                    </ng-container>
+                    <!-- Terms -->
+                    <app-service-terms *ngSwitchCase="2"></app-service-terms>
+                    <!-- ORCID login -->
+                    <app-orcid-login *ngSwitchCase="3"></app-orcid-login>
+                    <!-- ORCID data fetch -->
+                    <app-orcid-data-fetch
+                            *ngSwitchCase="4"
+                            [orcid]="orcid"
+                    ></app-orcid-data-fetch>
+                </div>
+            </div>
+        </ng-container>
+
+        <div class="row d-flex justify-content-center">
+            <div class="col">
+                <app-secondary-button
+                        i18n-content="@@cancelDeployment"
+                        content="Peruuta käyttöönotto"
+                        routerLink="/mydata/cancel-deployment"
+                        tabindex="-1"
+                        [big]="true"
+                ></app-secondary-button>
+            </div>
+        </div>
+
+        <!-- ORCID info -->
+        <div class="py-5" *ngIf="step === 4 && userData">
+            <div class="row justify-content-center">
+                <div class="col-auto">
+                    <a [href]="userData.orcid" target="_blank">
+                        <app-orcid></app-orcid>
+                        <span class="ps-1 text-underline">{{ userData.orcid }}</span>
+                        <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites>
+                    </a>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-auto">
+                    {{ userData.name }}
+                </div>
+            </div>
+        </div>
     </ng-container>
-
-    <div class="row d-flex justify-content-center">
-      <div class="col">
-        <app-secondary-button
-          i18n-content="@@cancelDeployment"
-          content="Peruuta käyttöönotto"
-          routerLink="/mydata/cancel-deployment"
-          tabindex="-1"
-          [big]="true"
-        ></app-secondary-button>
-      </div>
-    </div>
-
-    <!-- ORCID info -->
-    <div class="py-5" *ngIf="step === 4 && userData">
-      <div class="row justify-content-center">
-        <div class="col-auto">
-          <a [href]="userData.orcid" target="_blank">
-            <app-orcid></app-orcid>
-            <span class="ps-1 text-underline">{{ userData.orcid }}</span>
-            <fa-icon icon="external-link-alt"></fa-icon>
-          </a>
-        </div>
-      </div>
-
-      <div class="row justify-content-center">
-        <div class="col-auto">
-          {{ userData.name }}
-        </div>
-      </div>
-    </div>
-  </ng-container>
 </main>

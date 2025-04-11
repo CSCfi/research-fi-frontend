@@ -14,7 +14,6 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { faAlignLeft, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Subscription } from 'rxjs';
 import { Search } from 'src/app/portal/models/search.model';
@@ -31,41 +30,41 @@ import { RelatedLinksComponent } from '../related-links/related-links.component'
 import { SingleResultLinkComponent } from '../single-result-link/single-result-link.component';
 import { MatCard, MatCardTitle } from '@angular/material/card';
 import { DatasetAuthorComponent } from './dataset-author/dataset-author.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 import { SecondaryButtonComponent } from '../../../../shared/components/buttons/secondary-button/secondary-button.component';
 import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
 import { NgIf, NgFor, NgClass } from '@angular/common';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-single-dataset',
     templateUrl: './single-dataset.component.html',
     styleUrls: ['./single-dataset.component.scss'],
     standalone: true,
-    imports: [
-        SearchBarComponent,
-        NgIf,
-        RouterLink,
-        BreadcrumbComponent,
-        NgFor,
-        SecondaryButtonComponent,
-        MatMenuTrigger,
-        MatMenu,
-        MatMenuItem,
-        NgClass,
-        TooltipModule,
-        FontAwesomeModule,
-        DatasetAuthorComponent,
-        MatCard,
-        MatCardTitle,
-        SingleResultLinkComponent,
-        RelatedLinksComponent,
-        ShareComponent,
-        MatProgressSpinner,
-        SafeUrlPipe,
-    ],
+  imports: [
+    SearchBarComponent,
+    NgIf,
+    RouterLink,
+    BreadcrumbComponent,
+    NgFor,
+    SecondaryButtonComponent,
+    MatMenuTrigger,
+    MatMenu,
+    MatMenuItem,
+    NgClass,
+    TooltipModule,
+    DatasetAuthorComponent,
+    MatCard,
+    MatCardTitle,
+    SingleResultLinkComponent,
+    RelatedLinksComponent,
+    ShareComponent,
+    MatProgressSpinner,
+    SafeUrlPipe,
+    SvgSpritesComponent
+  ]
 })
 export class SingleDatasetComponent implements OnInit {
   public singleId: any;
@@ -197,8 +196,6 @@ export class SingleDatasetComponent implements OnInit {
   idSub: Subscription;
   expand: boolean;
   latestSubUnitYear: string;
-  faIcon = faAlignLeft;
-  faChevronDown = faChevronDown;
   subUnitSlice = 10;
   currentLocale: string;
   tabData: any;

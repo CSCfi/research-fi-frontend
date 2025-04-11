@@ -66,10 +66,11 @@ export class PublicationsComponent implements OnInit, OnDestroy, AfterViewInit {
   sortDirection: boolean;
   @ViewChild('main') mainContent: ElementRef;
 
-  faIcon: any = this.tabChangeService.tabData
+  svgSymbolName: string = this.tabChangeService.tabData
     .filter((t) => t.data === 'publications')
     .map((t) => t.icon)
     .pop();
+
   documentLang: any;
   input: string;
   inputSub: any;

@@ -33,22 +33,24 @@ import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 import { PaginationComponent } from '../../../../../shared/components/pagination/pagination.component';
 import { TableComponent as TableComponent_1 } from '../../../../../shared/components/table/table.component';
 import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-data-sources-table',
     templateUrl: './data-sources-table.component.html',
     styleUrls: ['./data-sources-table.component.scss'],
     standalone: true,
-    imports: [
-        NgIf,
-        TableComponent_1,
-        PaginationComponent,
-        NgFor,
-        MatMenuTrigger,
-        MatMenu,
-        MatMenuItem,
-        AsyncPipe,
-    ],
+  imports: [
+    NgIf,
+    TableComponent_1,
+    PaginationComponent,
+    NgFor,
+    MatMenuTrigger,
+    MatMenu,
+    MatMenuItem,
+    AsyncPipe,
+    SvgSpritesComponent
+  ]
 })
 export class DataSourcesTableComponent
   implements OnInit, AfterViewInit, OnChanges, OnDestroy

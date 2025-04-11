@@ -35,7 +35,6 @@ import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { SettingsService } from '@portal/services/settings.service';
 import { UtilityService } from '@shared/services/utility.service';
 import { FilterService } from '@portal/services/filters/filter.service';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { StaticDataService } from '@portal/services/static-data.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
@@ -44,6 +43,7 @@ import { NotificationBannerComponent } from '../../../shared/components/notifica
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { ClickOutsideDirective } from '../../../shared/directives/click-outside.directive';
 import { MatButton } from '@angular/material/button';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-search-bar',
@@ -51,25 +51,26 @@ import { MatButton } from '@angular/material/button';
     styleUrls: ['./search-bar.component.scss'],
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [
-        FormsModule,
-        MatButton,
-        MatMenuTrigger,
-        NgIf,
-        MatMenu,
-        NgFor,
-        MatMenuItem,
-        ReactiveFormsModule,
-        NgStyle,
-        ClickOutsideDirective,
-        NgClass,
-        MatProgressSpinner,
-        ListItemComponent,
-        RouterLink,
-        NotificationBannerComponent,
-        AsyncPipe,
-        HighlightSearchPipe,
-    ],
+  imports: [
+    FormsModule,
+    MatButton,
+    MatMenuTrigger,
+    NgIf,
+    MatMenu,
+    NgFor,
+    MatMenuItem,
+    ReactiveFormsModule,
+    NgStyle,
+    ClickOutsideDirective,
+    NgClass,
+    MatProgressSpinner,
+    ListItemComponent,
+    RouterLink,
+    NotificationBannerComponent,
+    AsyncPipe,
+    HighlightSearchPipe,
+    SvgSpritesComponent
+  ]
 })
 export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('searchTargetMenuTrigger') searchTargetMenuTrigger: MatMenuTrigger;
@@ -88,8 +89,6 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   showHelp = false;
   @ViewChildren(ListItemComponent) items: QueryList<any>;
   private keyManager: ActiveDescendantKeyManager<ListItemComponent>;
-
-  faTimes = faTimes;
 
   docList = [
     { index: 'publication', field: 'publicationName', link: 'publicationId' },

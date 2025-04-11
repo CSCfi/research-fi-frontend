@@ -2,8 +2,7 @@
   <a class='tab-button-layout2 link-button' [ngClass]='{"link-button__active": active, "link-button__disabled": disabled}' style='text-decoration: none' [routerLink]='routerLink' [queryParams]='queryParams'>
 
     <div style='display: flex'>
-      <fa-icon [icon]="_icon" style='margin-right: 12px'></fa-icon>
-
+        <app-svg-sprites *ngIf="!!_icon" [iconName]="_icon" cssClass="main-category-icon"></app-svg-sprites>
       <div>{{ label }} <span *ngIf="routerLink.includes('/results/projects/')"> - BETA</span></div>
     </div>
 
@@ -17,9 +16,8 @@
   <a class='tab-button-layout2 link-button' [ngClass]='{"link-button__active": active, "link-button__disabled": disabled}' style='text-decoration: none'>
 
     <div style='display: flex'>
-      <fa-icon [icon]="_icon" style='margin-right: 12px'></fa-icon>
-
-      <div>{{ label }}</div>
+        <app-svg-sprites *ngIf="!!_icon" [iconName]="_icon" cssClass="main-category-icon"></app-svg-sprites>
+        <div>{{ label }}</div>
     </div>
 
     <ng-container *ngIf='count !== -1'>

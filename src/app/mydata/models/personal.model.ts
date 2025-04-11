@@ -8,17 +8,6 @@
 import { Injectable } from '@angular/core';
 import { Adapter } from './adapter.model';
 
-import {
-  faTwitterSquare,
-  faFacebookSquare,
-  faLinkedin,
-} from '@fortawesome/free-brands-svg-icons';
-
-import {
-  faLink,
-  faEnvelope,
-  faPhoneSquareAlt,
-} from '@fortawesome/free-solid-svg-icons';
 import { MydataUtilityService } from '@mydata/services/mydata-utility.service';
 
 export class PersonalFields {
@@ -39,12 +28,12 @@ export class PersonalFieldsAdapter implements Adapter<PersonalFields> {
   adapt(item: any): PersonalFields {
     const handleLinkIcon = (url: string | string[] = '') => {
       if (url.includes('linkedin')) {
-        return faLinkedin;
+        return 'fa-linkedin';
       } else if (url.includes('twitter')) {
-        return faTwitterSquare;
+        return 'fa-x-twitter-square';
       } else if (url.includes('facebook')) {
-        return faFacebookSquare;
-      } else return faLink;
+        return 'fa-facebook-square';
+      } else return 'link';
     };
 
     const email = this.mydataUtils.mapField(
@@ -70,7 +59,7 @@ export class PersonalFieldsAdapter implements Adapter<PersonalFields> {
       );
     };
 
-    mapIcons(email, () => faEnvelope);
+    mapIcons(email, () => 'fa-envelope');
     mapIcons(webLinks, handleLinkIcon, 'url');
 
     let pf: PersonalFields = new PersonalFields(

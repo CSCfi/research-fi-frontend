@@ -19,20 +19,13 @@ import {
   QueryList,
   PLATFORM_ID,
 } from '@angular/core';
-import {
-  faInfoCircle,
-  faSearch,
-  faChevronDown,
-  faChevronUp,
-} from '@fortawesome/free-solid-svg-icons';
-import { faChartBar } from '@fortawesome/free-regular-svg-icons';
 import { isPlatformBrowser, ViewportScroller, NgIf, NgClass, NgFor, NgTemplateOutlet } from '@angular/common';
 import { UntypedFormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { ResizeService } from 'src/app/shared/services/resize.service';
 import { Subscription } from 'rxjs';
-import { ScrollService } from 'src/app/portal/services/scroll.service';
+import { LegacyScrollService } from '@portal/services/legacy-scroll.service';
 import { DataService } from 'src/app/portal/services/data.service';
 import { WINDOW } from 'src/app/shared/services/window.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -49,39 +42,35 @@ import { MatButton } from '@angular/material/button';
 import { ScrollSpyDirective } from '../../../directives/scroll-spy.directive';
 import { FigureFiltersComponent } from './figure-filters/figure-filters.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BannerDividerComponent } from '../../../../shared/components/banner-divider/banner-divider.component';
+import { MatIcon } from '@angular/material/icon';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-figures',
     templateUrl: './figures.component.html',
     styleUrls: ['./figures.component.scss'],
     standalone: true,
-    imports: [
-        BannerDividerComponent,
-        NgIf,
-        NgClass,
-        FontAwesomeModule,
-        MatProgressSpinner,
-        NgFor,
-        FormsModule,
-        ReactiveFormsModule,
-        FigureFiltersComponent,
-        ScrollSpyDirective,
-        MatButton,
-        NgTemplateOutlet,
-        RouterLink,
-        MatChip,
-        CutContentPipe,
-    ],
+  imports: [
+    BannerDividerComponent,
+    NgIf,
+    NgClass,
+    MatProgressSpinner,
+    NgFor,
+    FormsModule,
+    ReactiveFormsModule,
+    FigureFiltersComponent,
+    ScrollSpyDirective,
+    MatButton,
+    NgTemplateOutlet,
+    RouterLink,
+    MatChip,
+    CutContentPipe,
+    MatIcon,
+    SvgSpritesComponent
+  ]
 })
 export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
-  faIconCircle = faInfoCircle;
-  faSearch = faSearch;
-  faChartBar = faChartBar;
-  faChevronDown = faChevronDown;
-  faChevronUp = faChevronUp;
-
   currentSection: any;
   queryField: UntypedFormControl = new UntypedFormControl();
   figureData: Figure[] = [];
@@ -123,7 +112,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
     @Inject(LOCALE_ID) protected localeId: string,
     private tabChangeService: TabChangeService,
     private resizeService: ResizeService,
-    private scrollService: ScrollService,
+    private scrollService: LegacyScrollService,
     private dataService: DataService,
     private historyService: HistoryService,
     private utilityService: UtilityService,

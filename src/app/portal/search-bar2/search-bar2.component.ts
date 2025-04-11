@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { MatRippleModule } from '@angular/material/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
   selector: 'app-search-bar2',
   standalone: true,
-  imports: [CommonModule, MatRippleModule, FormsModule],
+  imports: [CommonModule, MatRippleModule, FormsModule, SvgSpritesComponent],
   templateUrl: './search-bar2.component.html',
   styleUrls: ['./search-bar2.component.scss']
 })
