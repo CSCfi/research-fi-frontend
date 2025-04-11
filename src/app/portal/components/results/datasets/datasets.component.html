@@ -50,7 +50,7 @@
 
             <!-- Open access -->
             <div *ngIf="dataset.openAccess">
-              <app-tag-open-access></app-tag-open-access>
+              <app-tag-open-access [link]='dataset.fairdataUrl?.trim()'></app-tag-open-access>
           </div>
 
             <!-- DOI -->
@@ -81,7 +81,7 @@
             </a> -->
           <!-- Span is for datasets that doesn't have OA link. Angular doesn't allow void(0) to be passed without unsafe warnings -->
           <span *ngIf="dataset.openAccess">
-              <app-tag-open-access></app-tag-open-access>
+              <app-tag-open-access [link]='dataset.fairdataUrl?.trim()'></app-tag-open-access>
           </span>
           <!-- DOI -->
             <div *ngIf="dataset.doi?.trim()">
