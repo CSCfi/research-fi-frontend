@@ -84,48 +84,48 @@
 
             <!-- Delete profile modal template -->
             <ng-template #deleteProfileTemplate>
-              <p class="px-3 pt-3" >
+              <p class="px-3 pt-3 mini-modal-width" >
                 {{deleteProfileModalText}}
               </p>
             </ng-template>
 
             <!-- Show profile modal template -->
             <ng-template #showProfileTemplate>
-              <p class=" pt-3">
+              <p class=" pt-3 mini-modal-width">
                 {{showProfileModalText}}
               </p>
             </ng-template>
 
             <!-- Hide profile modal template -->
             <ng-template #hideProfileTemplate>
-              <p class="px-3 pt-3">
+              <p class="px-3 pt-3 mini-modal-width">
                 {{hideProfileModalText}}
               </p>
             </ng-template>
 
             <ng-template #showProfileTemplate>
-              <p class="px-3 pt-3">
+              <p class="px-3 pt-3 mini-modal-width">
                 {{showProfileModalText}}
               </p>
             </ng-template>
 
             <!-- Enable orcid fetch modal template -->
             <ng-template #enableOrcidTemplate>
-              <p class="px-3 pt-3">
+              <p class="px-3 pt-3 mini-modal-width">
                 {{orcidFetchModalTextEnable}}
               </p>
             </ng-template>
 
             <!-- Disable orcid fetch modal template -->
             <ng-template #disableOrcidTemplate>
-              <p class="px-3 pt-3">
+              <p class="px-3 pt-3 mini-modal-width">
                 {{orcidFetchModalTextDisable}}
               </p>
             </ng-template>
 
             <ng-template #deletingProfileTemplate>
               <div
-                class="row d-flex justify-content-center"
+                class="row d-flex justify-content-center mini-modal-width"
                 *ngIf="deleteProfileInProgress && !connProblemDeleteProfile"
               >
                 <div class="col-auto align-self-center">
@@ -168,7 +168,7 @@
 
             <ng-template #hidingProfileTemplate>
               <div
-                class="row d-flex justify-content-center"
+                class="row d-flex justify-content-center mini-modal-width"
                 *ngIf="hideProfileInProgress && !connProblemHideProfile"
               >
                 <div class="col-auto align-self-center">
@@ -188,7 +188,7 @@
               </div>
 
               <div *ngIf="connProblemHideProfile">
-                <div class="row">
+                <div class="row mini-modal-width">
                   <div class="col mx-3">
                       <app-svg-sprites [iconName]="'warning'" cssClass="warning-icon"></app-svg-sprites>
                     <ng-container i18n="@@deleteProfileConnProblem"
@@ -243,7 +243,7 @@
           <div class="row pb-1 mt-4 bordered-section">
           <div class="col-12 px-0">
             <h3>{{hideProfileTitle}}</h3>
-          <p class="px-0">{{generalInfoHideProfile}}</p>
+          <p class="px-0 mini">{{generalInfoHideProfile}}</p>
           </div>
           <br>
           <div class="col-12 px-0 button-row">
