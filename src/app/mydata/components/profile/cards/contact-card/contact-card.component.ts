@@ -22,7 +22,7 @@ import { FilterPipe } from '../../../../pipes/filter.pipe';
 import { EditorModalComponent } from '../../editor-modal/editor-modal.component';
 import { PanelArrayItemComponent } from '../../profile-panel/panel-array-item/panel-array-item.component';
 import { EmptyCardComponent } from '../empty-card/empty-card.component';
-import { NgIf, NgFor, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
+import { NgIf, NgFor, NgSwitch, NgSwitchCase, NgSwitchDefault, JsonPipe } from '@angular/common';
 import { ProfileEditorCardHeaderComponent } from '../profile-editor-card-header/profile-editor-card-header.component';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
@@ -43,7 +43,8 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     FilterPipe,
     JoinAllGroupItemsPipe,
     HasSelectedItemsPipe,
-    SvgSpritesComponent
+    SvgSpritesComponent,
+    JsonPipe
   ]
 })
 export class ContactCardComponent implements OnInit, OnChanges {
@@ -79,6 +80,7 @@ export class ContactCardComponent implements OnInit, OnChanges {
     this.myDataProfile = this.route.snapshot.data.myDataProfile;
     this.publishedFullname = null;
     //this.setVisibleNameById(null);
+    console.log('contactFields', this.contactFields);
   }
 
   openDialog(event: MouseEvent) {

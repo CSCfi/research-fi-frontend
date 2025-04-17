@@ -5,7 +5,33 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
+app-mydata-side-navigation {
+  position: sticky;
+  top: 177px;
+}
+
+.side-navigation-side-border {
+  border-right: 2px solid #E8E8F3;
+}
+
 app-profile {
+  h2 {
+    font-size: 1.5rem;
+  }
+  h3 {
+    font-size: 1.1rem !important;
+  }
+  #main-content {
+    background: #F7F7FB;
+  }
+
+  .group-wrapper {
+    background: #fff;
+    border: 1px solid #e8e8f5;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
   .profile-image-container {
     border: 1px solid;
     border-radius: 50%;
@@ -29,5 +55,26 @@ app-profile {
     padding: 1rem;
     margin: 1rem 0;
     border: 0.75rem solid;
+  }
+
+  .static-footer {
+    background: #E8E8F4;
+    position: sticky;
+    height: 75px;
+    width: 100%;
+    bottom: 0px;
+  }
+
+  .footer-button-wrap {
+    padding-top: 14px;
+    padding-right: 25px;
+  }
+  .notification-circle {
+    width: 12px;
+    height: 12px;
+    background: #4546b9;
+    border-radius: 10px;
+    margin-right: 6px;
+    margin-left: 10px;
   }
 }

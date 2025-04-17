@@ -47,6 +47,11 @@ import { PrimaryActionButtonComponent } from '../../../shared/components/buttons
 import { WelcomeDialogComponent } from './welcome-dialog/welcome-dialog.component';
 import { NgIf, AsyncPipe } from '@angular/common';
 import { BannerDividerComponent } from '@shared/components/banner-divider/banner-divider.component';
+import { SecondaryButtonComponent } from '@shared/components/buttons/secondary-button/secondary-button.component';
+import { TertiaryButtonComponent } from '@shared/components/buttons/tertiary-button/tertiary-button.component';
+import {
+  MydataSideNavigationComponent
+} from '@mydata/components/mydata-side-navigation/mydata-side-navigation.component';
 
 @Component({
     selector: 'app-profile',
@@ -58,6 +63,7 @@ import { BannerDividerComponent } from '@shared/components/banner-divider/banner
     NgIf,
     WelcomeDialogComponent,
     PrimaryActionButtonComponent,
+    SecondaryButtonComponent,
     MatButton,
     DraftSummaryComponent,
     RouterLink,
@@ -68,7 +74,9 @@ import { BannerDividerComponent } from '@shared/components/banner-divider/banner
     MydataBetaInfoComponent,
     DialogComponent,
     AsyncPipe,
-    BannerDividerComponent
+    BannerDividerComponent,
+    TertiaryButtonComponent,
+    MydataSideNavigationComponent
   ]
 })
 export class ProfileComponent implements OnInit, OnDestroy {

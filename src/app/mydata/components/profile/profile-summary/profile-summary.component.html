@@ -6,27 +6,30 @@
 <ng-container *ngFor="let group of displayData.slice(1); let i = index">
   <div *ngIf="summaryGroupIds.indexOf(group.id) > -1" class="group-wrapper py-3">
     <div class="row py-2 justify-content-between">
-      <h3 class="col-8 col-md-6 col-lg-4 align-self-center fw-bold order-1 font-size-normal">
+      <h2 class="col-8 col-md-6 col-lg-8 align-self-center order-1 font-size-normal">
         {{ group.label }}
-      </h3>
+      </h2>
 
       <div class="col align-self-center fst-italic order-3 order-md-2 mt-3 mt-md-0" i18n="@@youHaveNotSelectedAnyPublicData" *ngIf="!(group.fields | hasSelectedItems)">
         {{ noPublicDataText }}
       </div>
 
       <div class="col-auto order-2 order-md-3">
-        <app-secondary-button
+        <app-tertiary-button
           [content]="(group.fields | hasSelectedItems) ? editString : selectString"
           [announce]="!(group.fields | hasSelectedItems)"
           [announceText]="group.label + ' ' + noPublicDataText"
+          [svgSymbolName]="'edit'"
+          [svgCssClass]="'open_in_new-icon button-icon'"
           (click)="openDialog($event, i + 1)"
-        ></app-secondary-button>
+        ></app-tertiary-button>
       </div>
     </div>
 
     <ng-container *ngFor="let field of group.fields">
       <div *ngIf="field && field | hasSelectedItems" class="row py-2">
         <div class="col px-0" [ngSwitch]="group.id">
+
           <app-summary-affiliations
             *ngSwitchCase="groupTypes.affiliation"
             [data]="field"
@@ -79,8 +82,8 @@
           ></app-summary-portal-items>
 
           <div class="summary-panel-wrapper" *ngSwitchDefault>
-            <div class="col px-3 fw-bold py-2" *ngIf="field | hasSelectedItems">
-              {{ field.label }}
+            <div class="col px-3 py-2" *ngIf="field | hasSelectedItems">
+              <h3>{{ field.label }}</h3>
             </div>
 
             <div *ngIf="field.items[0]?.itemMeta?.type">
@@ -88,7 +91,7 @@
                 <div class="summary-panel" *ngSwitchCase="fieldTypes.personKeyword">
                   <!-- Display joined keywords only if item has show property set to true -->
                   <div class="row" *ngIf="field.items[0].itemMeta.show">
-                    <div class="col pb-2 font-size-smaller">
+                    <div class="col pb-2">
                       {{ field.items | joinItems: 'value' }}
                     </div>
                   </div>
@@ -98,7 +101,7 @@
                 <ng-container *ngSwitchDefault>
                   <div class="summary-panel" *ngFor="let item of field.items">
                     <div class="row d-flex justify-content-between py-1" *ngIf="item.itemMeta.show">
-                      <div class="col font-size-smaller">
+                      <div class="col">
                         <app-panel-array-item
                           [item]="item"
                           [fieldType]="field.items[0].itemMeta.show"

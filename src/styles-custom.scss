@@ -71,7 +71,7 @@ body {
     // High contrast focus indicator for keyboard users
     outline: 2px transparent solid !important;
     box-shadow: 0 0 0 2px white, 0 0 0 4px mat-color($primary, default),
-      0 0 3px 5px white !important;
+      0 0 3px 5px white;
     z-index: 55; // If no margin between next focusable element, high number because of target serach button
   }
 }

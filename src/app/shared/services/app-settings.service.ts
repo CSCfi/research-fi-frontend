@@ -75,6 +75,11 @@ export class AppSettingsService {
         link: '/news',
         exact: true,
       },
+      {
+        label:$localize`:@@researchersProfileNew:Oma profiili`,
+        link: '/mydata',
+        exact: false,
+},
     ],
     localizedDomains: this.defaultDomains,
   };

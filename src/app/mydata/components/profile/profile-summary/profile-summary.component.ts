@@ -37,6 +37,7 @@ import { SummaryPortalItemsComponent } from './summary-portal-items/summary-port
 import { SummaryAffiliationsComponent } from './summary-affiliations/summary-affiliation.component';
 import { SecondaryButtonComponent } from '../../../../shared/components/buttons/secondary-button/secondary-button.component';
 import { NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
+import { TertiaryButtonComponent } from '@shared/components/buttons/tertiary-button/tertiary-button.component';
 
 @Component({
     selector: 'app-profile-summary',
@@ -44,21 +45,22 @@ import { NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/c
     styleUrls: ['./profile-summary.component.scss'],
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [
-        NgFor,
-        NgIf,
-        SecondaryButtonComponent,
-        NgSwitch,
-        NgSwitchCase,
-        SummaryAffiliationsComponent,
-        SummaryPortalItemsComponent,
-        NgSwitchDefault,
-        SummaryDividerComponent,
-        PanelArrayItemComponent,
-        EditorModalComponent,
-        JoinItemsPipe,
-        HasSelectedItemsPipe,
-    ],
+  imports: [
+    NgFor,
+    NgIf,
+    SecondaryButtonComponent,
+    NgSwitch,
+    NgSwitchCase,
+    SummaryAffiliationsComponent,
+    SummaryPortalItemsComponent,
+    NgSwitchDefault,
+    SummaryDividerComponent,
+    PanelArrayItemComponent,
+    EditorModalComponent,
+    JoinItemsPipe,
+    HasSelectedItemsPipe,
+    TertiaryButtonComponent
+  ]
 })
 export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
   @Input() profileData: any;
