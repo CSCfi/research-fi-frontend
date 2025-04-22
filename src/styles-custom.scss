@@ -927,6 +927,12 @@ app-share {
   }
 }
 
+@media (min-width: 991px) {
+  .mini-modal-width {
+    width: 45vw;
+  }
+}
+
 @media (max-width: 1199px) {
   .wrapper {
     padding: 0 8px;
