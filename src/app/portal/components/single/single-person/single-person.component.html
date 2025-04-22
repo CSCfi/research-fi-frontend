@@ -274,7 +274,6 @@
 
                 <ng-container *ngIf="person.contact[row.key]?.length && row.key !== 'otherNames'">
                   <li *ngFor='let item of person.contact[row.key]' class='row'>
-                    {{item | json}}
                       <div *ngIf="row.key === 'links'" class='col px-0 truncate d-flex justify-content-center flex-column py-1'>
                           <div *ngIf="item.icon" class="row">
                               <app-svg-sprites class="gx-0 col-sm-1 col-xl-1" [iconName]="item.icon" cssClass="person-contact-item-icon"></app-svg-sprites>
