@@ -15,7 +15,6 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
 import { LayoutComponent } from './layout/layout.component';
 import { ScrollingService } from '@portal/services/scrolling.service';
 import { ResizeService } from '@shared/services/resize.service';
-import { IconService } from '@portal/services/IconService';
 
 @Component({
     selector: 'app-root',
