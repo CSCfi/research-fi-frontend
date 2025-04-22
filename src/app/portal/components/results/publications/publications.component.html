@@ -12,7 +12,7 @@
     *ngIf="dataMapped"
     [columns]="tableColumns"
     [rows]="tableRows"
-    [icon]="faIcon"
+    [svgSymbolName]="svgSymbolName"
     [iconTitle]="iconTitlePublications"
     iconLinkField="name"
     [sortColumn]="sortService.sortColumn"
@@ -51,7 +51,7 @@
             <!-- DOI -->
             <app-tag-doi
               *ngIf="publication.doi?.trim()"
-              [link]="publication.doi"
+              [linkDoi]="publication.doi"
             ></app-tag-doi>
           </div>
         </div>

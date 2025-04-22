@@ -9,12 +9,12 @@
       class="col text-center"
       [ngClass]="showCloseButton ? 'offset-3 offset-md-2 ' : ''"
     >
-      <i class="fas fa-exclamation-triangle font-size-bigger"></i>
+        <app-svg-sprites [iconName]="'warning'" cssClass="warning-icon"></app-svg-sprites>
     </div>
     <div class="col-3 col-md-2 text-end" *ngIf="showCloseButton">
       <button mat-button (click)="toggle()">
         <ng-container *ngIf="open">
-          <i class="fas fa-times mt-n1"></i>
+            <app-svg-sprites [iconName]="'close'" cssClass="close-icon"></app-svg-sprites>
           <ng-container i18n="@@close">Sulje</ng-container>
         </ng-container>
         <ng-container *ngIf="!open">

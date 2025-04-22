@@ -23,37 +23,36 @@ import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { SearchService } from 'src/app/portal/services/search.service';
 import { SortService } from 'src/app/portal/services/sort.service';
 import { Search } from 'src/app/portal/models/search.model';
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { TableColumn, TableRow } from 'src/types';
 import { HighlightSearchPipe } from '@portal/pipes/highlight.pipe';
 import { HandleInfrastructureLinkPipe } from '../../../pipes/handle-infrastructure-link.pipe';
 import { NoResultsComponent } from '../no-results/no-results.component';
 import { ResultsPaginationComponent } from '../results-pagination/results-pagination.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { TableComponent } from '../../../../shared/components/table/table.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { NgIf, NgFor } from '@angular/common';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-infrastructures',
     templateUrl: './infrastructures.component.html',
     styleUrls: ['./infrastructures.component.scss'],
     standalone: true,
-    imports: [
-        NgIf,
-        MatProgressSpinner,
-        TableComponent,
-        NgFor,
-        RouterLink,
-        TooltipModule,
-        FontAwesomeModule,
-        ResultsPaginationComponent,
-        NoResultsComponent,
-        HighlightSearchPipe,
-        HandleInfrastructureLinkPipe,
-    ],
+  imports: [
+    NgIf,
+    MatProgressSpinner,
+    TableComponent,
+    NgFor,
+    RouterLink,
+    TooltipModule,
+    ResultsPaginationComponent,
+    NoResultsComponent,
+    HighlightSearchPipe,
+    HandleInfrastructureLinkPipe,
+    SvgSpritesComponent
+  ]
 })
 export class InfrastructuresComponent
   implements OnInit, OnDestroy, AfterViewInit
@@ -63,14 +62,14 @@ export class InfrastructuresComponent
   expandStatus: Array<boolean> = [];
   sortColumn: string;
   sortDirection: boolean;
-  faIcon: any = this.tabChangeService.tabData
+  svgSymbolName: string = this.tabChangeService.tabData
     .filter((t) => t.data === 'infrastructures')
     .map((t) => t.icon)
     .pop();
+
   inputSub: any;
   input: string;
   focusSub: any;
-  faCheckCircle = faCheckCircle;
 
   tableColumns: TableColumn[];
   tableRows: Record<string, TableRow>[];

@@ -23,6 +23,10 @@
 
     .active {
       background: #dc1ddf0f;
+      .svg-icon {
+        fill: #4546b9 !important;
+        color: #4546b9 !important;
+      }
     }
 
     .active .icon,

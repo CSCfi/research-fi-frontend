@@ -7,20 +7,22 @@ import { PrimaryActionButtonComponent } from '../../../../shared/components/butt
 import { MyDataTerms } from '../../mydata-terms/mydata-terms.component';
 import { FormsModule } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-service-terms',
     templateUrl: './service-terms.component.html',
     styleUrls: ['./service-terms.component.scss'],
     standalone: true,
-    imports: [
-        MatCheckbox,
-        FormsModule,
-        MyDataTerms,
-        PrimaryActionButtonComponent,
-        NgIf,
-        DialogComponent,
-    ],
+  imports: [
+    MatCheckbox,
+    FormsModule,
+    MyDataTerms,
+    PrimaryActionButtonComponent,
+    NgIf,
+    DialogComponent,
+    SvgSpritesComponent
+  ]
 })
 export class ServiceTermsComponent implements OnInit {
   dialogTitle: string;

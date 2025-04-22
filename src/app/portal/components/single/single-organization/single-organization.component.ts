@@ -32,7 +32,6 @@ import { FilterEmptyFieldPipe } from '../../../pipes/filter-empty-field.pipe';
 import { SafeUrlPipe } from '../../../pipes/safe-url.pipe';
 import { ShareComponent } from '../share/share.component';
 import { RelatedLinksComponent } from '../related-links/related-links.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SingleResultLinkComponent } from '../single-result-link/single-result-link.component';
 import { NewsCardComponent } from '../../news/news-card/news-card.component';
 import { MatCard, MatCardTitle } from '@angular/material/card';
@@ -43,33 +42,36 @@ import { MatTabGroup, MatTab } from '@angular/material/tabs';
 import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
 import { NgIf, NgFor } from '@angular/common';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
+import { MatIcon } from '@angular/material/icon';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-single-organization',
     templateUrl: './single-organization.component.html',
     styleUrls: ['./single-organization.component.scss'],
     standalone: true,
-    imports: [
-        SearchBarComponent,
-        NgIf,
-        RouterLink,
-        BreadcrumbComponent,
-        NgFor,
-        MatTabGroup,
-        MatTab,
-        OrganizationInformationComponent,
-        OrganizationSubUnitsComponent,
-        OrganizationVisualisationsComponent,
-        MatCard,
-        MatCardTitle,
-        NewsCardComponent,
-        SingleResultLinkComponent,
-        FontAwesomeModule,
-        RelatedLinksComponent,
-        ShareComponent,
-        SafeUrlPipe,
-        FilterEmptyFieldPipe,
-    ],
+  imports: [
+    SearchBarComponent,
+    NgIf,
+    RouterLink,
+    BreadcrumbComponent,
+    NgFor,
+    MatTabGroup,
+    MatTab,
+    OrganizationInformationComponent,
+    OrganizationSubUnitsComponent,
+    OrganizationVisualisationsComponent,
+    MatCard,
+    MatCardTitle,
+    NewsCardComponent,
+    SingleResultLinkComponent,
+    RelatedLinksComponent,
+    ShareComponent,
+    SafeUrlPipe,
+    FilterEmptyFieldPipe,
+    MatIcon,
+    SvgSpritesComponent
+  ]
 })
 export class SingleOrganizationComponent implements OnInit, OnDestroy {
   linkFields = [{ label: $localize`:@@links:Linkit`, field: 'homepage' }];

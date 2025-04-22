@@ -14,9 +14,6 @@
 @import './bootstrap_overrides.scss';
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
 
-@import 'font-awesome/css/font-awesome.css';
-@import '@fortawesome/fontawesome-free/css/all.css';
-
 @import 'styles-custom.scss';
 // @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700|Material+Icons');
 
@@ -81,6 +78,13 @@
 @import './app/mydata/components/profile/data-sources/data-sources-theme.scss';
 @import './app/mydata/components/welcome-stepper/welcome-stepper.component.scss';
 @import './app/mydata/components/account-settings/account-settings.component.scss';
+
+@font-face {
+  font-family: 'Open_in_new';
+  font-style: normal;
+  font-stretch: 100%;
+  src: url('assets/fonts/open_in_new.woff') format('woff');
+}
 
 @font-face {
   font-family: 'Roboto';
@@ -165,6 +169,26 @@ em.highlight {
     background-color: #FFFF00;
     font-style: normal;
     padding: 0.1em 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+.sr-only-focusable:active,
+.sr-only-focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
 }
 
 .fullscreen-panel {

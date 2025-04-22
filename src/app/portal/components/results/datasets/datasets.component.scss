@@ -14,7 +14,7 @@
     border-radius: 3px;
     color: white;
     font-weight: bold;
-    margin: 4px;
+    margin-right: 8px;
     width: fit-content;
     height: fit-content;
     white-space: nowrap;
@@ -31,6 +31,7 @@
   }
   .open-access {
     color: #bc520a;
+    background: #C0DBA2;
     border: 2px solid #ea883e;
   }
   .open-access-image {
@@ -46,6 +47,10 @@
   .open-access,
   .version {
     padding: 3px 15px;
+    height: 26px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
   }
   .doi-tag {
     background: #363636;

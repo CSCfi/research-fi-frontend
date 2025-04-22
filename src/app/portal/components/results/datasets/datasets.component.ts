@@ -21,27 +21,31 @@ import { UtilityService } from 'src/app/shared/services/utility.service';
 import { TableColumn, TableRow } from 'src/types';
 import { NoResultsComponent } from '../no-results/no-results.component';
 import { ResultsPaginationComponent } from '../results-pagination/results-pagination.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TableComponent } from '../../../../shared/components/table/table.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatIcon } from '@angular/material/icon';
+import { TagOpenAccessComponent } from '@shared/components/tags/tag-open-access/tag-open-access.component';
+import { TagDoiComponent } from '@shared/components/tags/tag-doi/tag-doi.component';
 
 @Component({
     selector: 'app-datasets',
     templateUrl: './datasets.component.html',
     styleUrls: ['./datasets.component.scss'],
     standalone: true,
-    imports: [
-        NgIf,
-        MatProgressSpinner,
-        TableComponent,
-        NgFor,
-        RouterLink,
-        FontAwesomeModule,
-        NgTemplateOutlet,
-        ResultsPaginationComponent,
-        NoResultsComponent,
-        HighlightSearchPipe,
-    ],
+  imports: [
+    NgIf,
+    MatProgressSpinner,
+    TableComponent,
+    NgFor,
+    RouterLink,
+    NgTemplateOutlet,
+    ResultsPaginationComponent,
+    NoResultsComponent,
+    HighlightSearchPipe,
+    MatIcon,
+    TagOpenAccessComponent,
+    TagDoiComponent
+  ]
 })
 export class DatasetsComponent implements OnInit {
   @Input() resultData: Search;
@@ -50,10 +54,11 @@ export class DatasetsComponent implements OnInit {
   sortDirection: boolean;
   @ViewChild('main') mainContent: ElementRef;
 
-  faIcon: any = this.tabChangeService.tabData
+  svgSymbolName: string = this.tabChangeService.tabData
     .filter((t) => t.data === 'datasets')
     .map((t) => t.icon)
     .pop();
+
   documentLang: any;
   input: string;
   inputSub: any;

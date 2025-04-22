@@ -2,7 +2,6 @@
  Copyright 2019 Ministry of Education and Culture, Finland
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
-
 <div class="row links" [class.m-0]="simple" [class.simple]="simple">
   <div class="col-12 px-0 link-wrapper">
     <div class="link">
@@ -12,14 +11,13 @@
       </ng-container>
 
       <ng-container *ngIf="icon">
-        <span class="link-tag fa fa-link center" style="font-size: 22px; padding: 3px 12px"></span>
+          <span class="link-tag"><app-svg-sprites [iconName]="'link'" cssClass="link-icon"></app-svg-sprites></span>
       </ng-container>
 
       <span class="link-item" [class.p-0]="simple">
         <a [href]="url | fixExternalUrl" target="_blank">
           <span class="link-label">{{ label ? (label | trimLinkPrefix) : (url | trimLinkPrefix) }}</span>
-
-          <fa-icon icon="external-link-alt"></fa-icon>
+          <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites>
         </a>
       </span>
 

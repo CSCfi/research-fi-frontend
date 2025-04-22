@@ -116,16 +116,6 @@ app-header {
   .toggle-menu-text {
     font-weight: bold;
     text-align: end;
-    &::after {
-      font-family: 'FontAwesome';
-      margin-left: 10px;
-    }
-    &.closed::after {
-      content: '\f078';
-    }
-    &.open::after {
-      content: '\f077';
-    }
   }
 
   .logo {

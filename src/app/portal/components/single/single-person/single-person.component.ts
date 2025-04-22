@@ -17,7 +17,7 @@ import { UtilityService } from '@shared/services/utility.service';
 import { Observable, of } from 'rxjs';
 import { delay, map, switchMap, take } from 'rxjs/operators';
 
-import { DOCUMENT, NgIf, NgFor, NgTemplateOutlet, NgClass, AsyncPipe } from '@angular/common';
+import { DOCUMENT, NgIf, NgFor, NgTemplateOutlet, NgClass, AsyncPipe, JsonPipe } from '@angular/common';
 import { PersonPublication } from '@portal/models/person/person-publication.model';
 import { CheckEmptyFieldsPipe } from '../../../pipes/check-empty-fields.pipe';
 import { JoinItemsPipe } from '../../../../shared/pipes/join-items.pipe';
@@ -27,9 +27,9 @@ import { SingleResultLinkComponent } from '../single-result-link/single-result-l
 import { MatCard, MatCardTitle } from '@angular/material/card';
 import { PersonGroupComponent } from './person-group/person-group.component';
 import { TagDoiComponent } from '../../../../shared/components/tags/tag-doi/tag-doi.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 type Field = { key: string; label?: string };
 
@@ -38,26 +38,27 @@ type Field = { key: string; label?: string };
     templateUrl: './single-person.component.html',
     styleUrls: ['./single-person.component.scss'],
     standalone: true,
-    imports: [
-        SearchBarComponent,
-        NgIf,
-        RouterLink,
-        BreadcrumbComponent,
-        FontAwesomeModule,
-        NgFor,
-        NgTemplateOutlet,
-        NgClass,
-        TagDoiComponent,
-        PersonGroupComponent,
-        MatCard,
-        MatCardTitle,
-        SingleResultLinkComponent,
-        RelatedLinksComponent,
-        ShareComponent,
-        AsyncPipe,
-        JoinItemsPipe,
-        CheckEmptyFieldsPipe,
-    ],
+  imports: [
+    SearchBarComponent,
+    NgIf,
+    RouterLink,
+    BreadcrumbComponent,
+    NgFor,
+    NgTemplateOutlet,
+    NgClass,
+    TagDoiComponent,
+    PersonGroupComponent,
+    MatCard,
+    MatCardTitle,
+    SingleResultLinkComponent,
+    RelatedLinksComponent,
+    ShareComponent,
+    AsyncPipe,
+    JoinItemsPipe,
+    CheckEmptyFieldsPipe,
+    SvgSpritesComponent,
+    JsonPipe
+  ]
 })
 export class SinglePersonComponent implements OnInit {
   responseData: Search;

@@ -13,7 +13,7 @@ import { NavigationStart, Router, RouterOutlet } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { LayoutComponent } from './layout/layout.component';
-import { IconAndScrollService } from '@portal/services/icon-and-scroll.service';
+import { ScrollingService } from '@portal/services/scrolling.service';
 import { ResizeService } from '@shared/services/resize.service';
 
 @Component({
@@ -24,9 +24,6 @@ import { ResizeService } from '@shared/services/resize.service';
   imports: [LayoutComponent, RouterOutlet, JsonPipe]
 })
 export class AppComponent {
-  iconAndScrollService = inject(IconAndScrollService);
-  transferedState = inject(TransferState);
-
   title = 'research-fi-portal';
 
   @HostListener('window:resize', ['$event'])
@@ -44,11 +41,15 @@ export class AppComponent {
     private router: Router,
     private platform: PlatformLocation,
     private viewPortScroller: ViewportScroller,
+    private iconAndScrollService: ScrollingService,
+    private transferedState: TransferState,
     @Inject(PLATFORM_ID) private platformId: object,
     @Inject(DOCUMENT) private document: any,
   ) {
+
     // SSR platform check
     if (isPlatformBrowser(this.platformId)) {
+      //this.iconService.createIcons();
       this.resizeService.updateScreenSize(window.innerWidth, window.innerHeight);
       // APM config
       // const apm = apmService.init({

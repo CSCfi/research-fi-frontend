@@ -57,10 +57,11 @@ export class OrganizationsComponent
   expandStatus: Array<boolean> = [];
   sortColumn: string;
   sortDirection: boolean;
-  faIcon: any = this.tabChangeService.tabData
+  svgSymbolName: string = this.tabChangeService.tabData
     .filter((t) => t.data === 'organizations')
     .map((t) => t.icon)
     .pop();
+
   inputSub: any;
   input: string;
   focusSub: any;

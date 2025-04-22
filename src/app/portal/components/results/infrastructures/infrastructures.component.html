@@ -16,7 +16,7 @@
     *ngIf="dataMapped"
     [columns]="tableColumns"
     [rows]="tableRows"
-    [icon]="faIcon"
+    [svgSymbolName]="svgSymbolName"
     [iconTitle]="iconTitleInfrastructures"
     iconLinkField="name"
     [sortColumn]="sortService.sortColumn"
@@ -63,10 +63,7 @@
               #elem
             >
               <ng-container i18n="@@finlandRoadmap">Tiekartalla</ng-container
-              ><fa-icon
-                class="check-icon ps-1"
-                [icon]="faCheckCircle"
-              ></fa-icon>
+              ><app-svg-sprites [iconName]="'fa-check-circle'" cssClass="fa-check-circle" class="check-icon ps-1"></app-svg-sprites>
             </span>
           </div>
         </div>

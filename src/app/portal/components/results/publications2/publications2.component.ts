@@ -37,9 +37,7 @@ import { FirstDigitPipe } from '@shared/pipes/first-digit.pipe';
 import { FirstLetterPipe } from '@shared/pipes/first-letter.pipe';
 import { BreakpointObserver, LayoutModule } from '@angular/cdk/layout';
 import { ColumnSorterComponent } from '@shared/components/column-sorter/column-sorter.component';
-import { faChartBar, faSlidersH } from '@fortawesome/free-solid-svg-icons';
 import { Dialog, DialogRef } from '@angular/cdk/dialog';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PaginationComponent } from '@shared/components/pagination/pagination.component';
 import {
   PrimaryActionButtonComponent
@@ -48,6 +46,7 @@ import { SecondaryButtonComponent } from '@shared/components/buttons/secondary-b
 import { TagPeerReviewedComponent } from '@shared/components/tags/tag-peer-reviewed/tag-peer-reviewed.component';
 import { TagOpenAccessComponent } from '@shared/components/tags/tag-open-access/tag-open-access.component';
 import { TagDoiComponent } from '@shared/components/tags/tag-doi/tag-doi.component';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
   selector: 'app-publications2',
@@ -58,7 +57,7 @@ import { TagDoiComponent } from '@shared/components/tags/tag-doi/tag-doi.compone
     FormsModule,
     RouterModule,
     SearchBar2Component, OrganizationFilterComponent, FilterOptionComponent, CollapsibleComponent, MatButtonModule, NgStyle, FilterLimitButtonComponent, FirstDigitPipe, FirstLetterPipe, RouterLink,
-    LayoutModule, ColumnSorterComponent, NgTemplateOutlet, FontAwesomeModule, NgMathPipesModule, PaginationComponent, PrimaryActionButtonComponent, SecondaryButtonComponent, TagPeerReviewedComponent, TagOpenAccessComponent, TagDoiComponent
+    LayoutModule, ColumnSorterComponent, NgTemplateOutlet, NgMathPipesModule, PaginationComponent, PrimaryActionButtonComponent, SecondaryButtonComponent, TagPeerReviewedComponent, TagOpenAccessComponent, TagDoiComponent, SvgSpritesComponent
   ],
   standalone: true
 })
@@ -88,7 +87,7 @@ export class Publications2Component implements OnDestroy {
     });
 
     this.tutorialDialogRef.closed.subscribe(() => {
-      console.log('The tutorial dialog was closed');
+      //console.log('The tutorial dialog was closed');
     });
   }
 
@@ -125,16 +124,13 @@ export class Publications2Component implements OnDestroy {
     {id: "I", text: $localize`:@@publicationClassI:Audiovisuaaliset julkaisut ja tieto- ja viestintätekniset sovellukset`},
   ];
 
-  faSlidersH = faSlidersH;
-  faChartBar = faChartBar;
-
   openDialog() {
     this.dialogRef = this.dialog.open(this.dialogTemplate, {
       panelClass: 'fullscreen-panel',
     });
 
     this.dialogRef.closed.subscribe(() => {
-      console.log('The dialog2 was closed');
+      //console.log('The dialog2 was closed');
     });
   }
 

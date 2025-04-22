@@ -21,30 +21,30 @@ import { JoinAllGroupItemsPipe } from '../../../../pipes/join-all-group-items.pi
 import { FilterPipe } from '../../../../pipes/filter.pipe';
 import { EditorModalComponent } from '../../editor-modal/editor-modal.component';
 import { PanelArrayItemComponent } from '../../profile-panel/panel-array-item/panel-array-item.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { EmptyCardComponent } from '../empty-card/empty-card.component';
 import { NgIf, NgFor, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
 import { ProfileEditorCardHeaderComponent } from '../profile-editor-card-header/profile-editor-card-header.component';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-contact-card',
     templateUrl: './contact-card.component.html',
     standalone: true,
-    imports: [
-        ProfileEditorCardHeaderComponent,
-        NgIf,
-        EmptyCardComponent,
-        NgFor,
-        NgSwitch,
-        NgSwitchCase,
-        NgSwitchDefault,
-        FontAwesomeModule,
-        PanelArrayItemComponent,
-        EditorModalComponent,
-        FilterPipe,
-        JoinAllGroupItemsPipe,
-        HasSelectedItemsPipe,
-    ],
+  imports: [
+    ProfileEditorCardHeaderComponent,
+    NgIf,
+    EmptyCardComponent,
+    NgFor,
+    NgSwitch,
+    NgSwitchCase,
+    NgSwitchDefault,
+    PanelArrayItemComponent,
+    EditorModalComponent,
+    FilterPipe,
+    JoinAllGroupItemsPipe,
+    HasSelectedItemsPipe,
+    SvgSpritesComponent
+  ]
 })
 export class ContactCardComponent implements OnInit, OnChanges {
   @Input() data: any;

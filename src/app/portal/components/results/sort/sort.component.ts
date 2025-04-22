@@ -10,10 +10,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { SortService } from '@portal/services/sort.service';
 import { TabChangeService } from '@portal/services/tab-change.service';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { NgFor } from '@angular/common';
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 import { SecondaryButtonComponent } from '../../../../shared/components/buttons/secondary-button/secondary-button.component';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 type SortOption = { label: string; value: string };
 @Component({
@@ -22,13 +22,14 @@ type SortOption = { label: string; value: string };
     styleUrls: ['./sort.component.scss'],
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [
-        SecondaryButtonComponent,
-        MatMenuTrigger,
-        MatMenu,
-        MatMenuItem,
-        NgFor,
-    ],
+  imports: [
+    SecondaryButtonComponent,
+    MatMenuTrigger,
+    MatMenu,
+    MatMenuItem,
+    NgFor,
+    SvgSpritesComponent
+  ]
 })
 export class SortComponent implements OnInit, OnDestroy {
   tabLink: string;
@@ -39,7 +40,6 @@ export class SortComponent implements OnInit, OnDestroy {
     label: $localize`:@@sortByRelevance:Osuvin tulos ensin`,
     value: 'reset',
   };
-  faChevronDown = faChevronDown;
 
   // Assign values to dropdown list by current tab
   publicationFields: SortOption[] = [

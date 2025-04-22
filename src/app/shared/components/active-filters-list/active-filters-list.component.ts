@@ -13,13 +13,12 @@ import {
   ViewEncapsulation,
   EventEmitter,
 } from '@angular/core';
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { ActiveFilter, ActiveFiltersDialogConfig } from 'src/types';
 import { DialogComponent } from '../dialog/dialog.component';
 import { ActiveFiltersDialogComponent } from './active-filters-dialog/active-filters-dialog.component';
 import { MatButton } from '@angular/material/button';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgFor, NgIf } from '@angular/common';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-active-filters-list',
@@ -27,17 +26,16 @@ import { NgFor, NgIf } from '@angular/common';
     styleUrls: ['./active-filters-list.component.scss'],
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [
-        NgFor,
-        NgIf,
-        FontAwesomeModule,
-        MatButton,
-        ActiveFiltersDialogComponent,
-        DialogComponent,
-    ],
+  imports: [
+    NgFor,
+    NgIf,
+    MatButton,
+    ActiveFiltersDialogComponent,
+    DialogComponent,
+    SvgSpritesComponent
+  ]
 })
 export class ActiveFiltersListComponent implements OnInit {
-  faTrashAlt = faTrashAlt;
 
   @Input() filters: ActiveFilter[] = [];
   @Input() dialogConfig: ActiveFiltersDialogConfig;

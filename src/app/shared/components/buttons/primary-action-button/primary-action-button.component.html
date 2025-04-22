@@ -4,30 +4,25 @@
  :license: MIT -->
 
 <button
-  class="primary-action text-center ttv-button"
-  [class.icon]="!!icon"
-  [class.big]="big"
-  [class.small]="small"
-  [class.icon-after]="iconAfter"
-  [class.no-sm-icon]="noSmIcon"
-  [class.rounded-0]="disabledRounded"
-  [class.beta-button]="betaButton"
-  [class.px-0]="px0"
-  [disabled]="disabled"
-  matRipple
-  (focus)="handleFocus()"
+        class="primary-action text-center ttv-button"
+        [class.big]="big"
+        [class.small]="small"
+        [class.icon-after]="iconAfter"
+        [class.no-sm-icon]="noSmIcon"
+        [class.rounded-0]="disabledRounded"
+        [class.beta-button]="betaButton"
+        [class.px-0]="px0"
+        [disabled]="disabled"
+        matRipple
+        (focus)="handleFocus()"
 >
-  <fa-icon
-    class="before"
-    [ngClass]="{ 'd-none d-sm-inline': noSmIcon }"
-    *ngIf="!!icon && !iconAfter"
-    [icon]="icon"
-  ></fa-icon>
-  <ng-container>{{ content }}</ng-container>
-  <fa-icon
-    class="after"
-    [ngClass]="{ 'd-none d-sm-inline': noSmIcon }"
-    *ngIf="!!icon && iconAfter"
-    [icon]="icon"
-  ></fa-icon>
+    <span class="d-flex justify-content-center">
+    <app-svg-sprites [ngClass]="{ 'd-none d-sm-inline': noSmIcon }" *ngIf="!!svgSymbolName && !iconAfter"
+              [iconName]="svgSymbolName" [cssClass]="svgCssClass"></app-svg-sprites>
+
+
+    <ng-container class="d-flex">{{ content }}</ng-container>
+    <app-svg-sprites [ngClass]="{ 'd-none d-sm-inline': noSmIcon }" *ngIf="!!svgSymbolName && iconAfter"
+                     [iconName]="svgSymbolName" [cssClass]="svgCssClass"></app-svg-sprites>
+    </span>
 </button>

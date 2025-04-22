@@ -73,6 +73,11 @@
         .link-item {
           vertical-align: middle;
         }
+        .link-tag {
+          path {
+            fill: #fff;
+          }
+        }
 
         &:not(.simple) .link {
           color: black;

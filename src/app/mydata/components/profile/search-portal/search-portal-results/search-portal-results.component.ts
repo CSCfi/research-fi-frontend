@@ -19,11 +19,6 @@ import {
 import { MatPaginator } from '@angular/material/paginator';
 import { Sort, MatSort, MatSortHeader } from '@angular/material/sort';
 import {
-  faSort,
-  faSortDown,
-  faSortUp,
-} from '@fortawesome/free-solid-svg-icons';
-import {
   DatasetColumns,
   FundingColumns,
   PublicationColumns,
@@ -34,39 +29,39 @@ import { Subscription } from 'rxjs';
 import { GetValuePipe } from '../../../../pipes/get-value.pipe';
 import { CutContentPipe } from '../../../../../shared/pipes/cut-content.pipe';
 import { DatasetAuthorComponent } from '../../../../../portal/components/single/single-dataset/dataset-author/dataset-author.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 import { NgIf, NgFor } from '@angular/common';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
-    selector: 'app-search-portal-results',
-    templateUrl: './search-portal-results.component.html',
-    styleUrls: ['./search-portal-results.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    standalone: true,
-    imports: [
-        NgIf,
-        MatTable,
-        MatSort,
-        MatColumnDef,
-        MatHeaderCellDef,
-        MatHeaderCell,
-        MatCellDef,
-        MatCell,
-        MatCheckbox,
-        NgFor,
-        MatSortHeader,
-        FontAwesomeModule,
-        DatasetAuthorComponent,
-        MatHeaderRowDef,
-        MatHeaderRow,
-        MatRowDef,
-        MatRow,
-        MatPaginator,
-        CutContentPipe,
-        GetValuePipe,
-    ],
+  selector: 'app-search-portal-results',
+  templateUrl: './search-portal-results.component.html',
+  styleUrls: ['./search-portal-results.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  imports: [
+    NgIf,
+    MatTable,
+    MatSort,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatCellDef,
+    MatCell,
+    MatCheckbox,
+    NgFor,
+    MatSortHeader,
+    DatasetAuthorComponent,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRowDef,
+    MatRow,
+    MatPaginator,
+    CutContentPipe,
+    GetValuePipe,
+    SvgSpritesComponent
+  ]
 })
 export class SearchPortalResultsComponent
   implements OnInit, OnChanges, OnDestroy
@@ -87,10 +82,6 @@ export class SearchPortalResultsComponent
   currentPage = 1;
   currentPageSize = 10;
   pageCount: number;
-
-  faSort = faSort as any; // TODO: Fix type
-  faSortDown = faSortDown as any; // TODO: Fix type
-  faSortUp = faSortUp as any; // TODO: Fix type
 
   columns: string[] = ['selection', 'year', 'name', 'show-more'];
 
@@ -209,7 +200,7 @@ export class SearchPortalResultsComponent
     if (event.checked) {
       // Prevent adding of duplicate items
       !arr.find((item) => item.id === selectedItem.id) &&
-        arr.push({ ...selectedItem, show: true });
+      arr.push({ ...selectedItem, show: true });
     } else {
       arr = arr.filter((item) => item.id !== selectedItem.id);
       this.currentSelection = arr;

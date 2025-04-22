@@ -27,7 +27,6 @@ import { DialogAction } from 'src/types';
 import { SecondaryButtonComponent } from '../../buttons/secondary-button/secondary-button.component';
 import { PrimaryActionButtonComponent } from '../../buttons/primary-action-button/primary-action-button.component';
 import { CloseButtonComponent } from '../../buttons/close-button/close-button.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgIf, NgStyle, NgTemplateOutlet, NgClass, NgFor } from '@angular/common';
 
 @Component({
@@ -39,7 +38,6 @@ import { NgIf, NgStyle, NgTemplateOutlet, NgClass, NgFor } from '@angular/common
     imports: [
         NgIf,
         NgStyle,
-        FontAwesomeModule,
         NgTemplateOutlet,
         CloseButtonComponent,
         MatDialogContent,

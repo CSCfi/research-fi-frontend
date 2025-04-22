@@ -3,6 +3,7 @@ import { NgClass, NgIf } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
   selector: 'app-collapsible',
@@ -12,7 +13,8 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
     NgIf,
     MatIconModule,
     NgClass,
-    TooltipModule
+    TooltipModule,
+    SvgSpritesComponent
   ],
   standalone: true,
   animations: [

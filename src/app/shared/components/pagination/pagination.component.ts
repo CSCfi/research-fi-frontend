@@ -8,13 +8,6 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
-import {
-  faAngleDoubleLeft,
-  faAngleDoubleRight,
-  faAngleLeft,
-  faAngleRight,
-  faInfoCircle
-} from '@fortawesome/free-solid-svg-icons';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { map } from 'rxjs/operators';
 import { ResultCountComponent } from '../result-count/result-count.component';
@@ -66,12 +59,6 @@ export class PaginationComponent implements OnChanges {
   previousPage = $localize`:@@previousPage:Edellinen sivu`;
   nextPage = $localize`:@@nextPage:Seuraava sivu`;
   tooManyResultstext = $localize`:@@tooManyResultsNavigationDisabled:Liikaa tuloksia. Haun loppuun navigoiminen estetty.`;
-
-  faAngleRight = faAngleRight;
-  faAngleLeft = faAngleLeft;
-  faAngleDoubleRight = faAngleDoubleRight;
-  faAngleDoubleLeft = faAngleDoubleLeft;
-  faInfoCircle = faInfoCircle;
 
   constructor(
     private route: ActivatedRoute,

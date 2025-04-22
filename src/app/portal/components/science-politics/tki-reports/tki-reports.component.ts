@@ -11,7 +11,6 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import dummyData from 'src/app/portal/components/science-politics/tki-reports/tki-dummydata.json';
 import { DOCUMENT, NgIf, NgStyle, NgFor } from '@angular/common';
 import { UtilityService } from '@shared/services/utility.service';
@@ -22,12 +21,13 @@ import { Subscription } from 'rxjs';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { ListItemComponent } from '@portal/components/search-bar/list-item/list-item.component';
 import { HighlightSearchPipe } from '../../../pipes/highlight.pipe';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ListItemComponent as ListItemComponent_1 } from '../../search-bar/list-item/list-item.component';
 import { PrimaryActionButtonComponent } from '../../../../shared/components/buttons/primary-action-button/primary-action-button.component';
 import { FormsModule } from '@angular/forms';
 import { MatInput } from '@angular/material/input';
 import { BannerDividerComponent } from '../../../../shared/components/banner-divider/banner-divider.component';
+import { MatIcon } from '@angular/material/icon';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 export interface Report {
   id: number;
@@ -43,7 +43,7 @@ export interface Report {
     templateUrl: './tki-reports.component.html',
     styleUrls: ['./tki-reports.component.scss'],
     standalone: true,
-    imports: [BannerDividerComponent, NgIf, NgStyle, MatInput, FormsModule, PrimaryActionButtonComponent, NgFor, ListItemComponent_1, FontAwesomeModule, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, HighlightSearchPipe]
+  imports: [BannerDividerComponent, NgIf, NgStyle, MatInput, FormsModule, PrimaryActionButtonComponent, NgFor, ListItemComponent_1, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, HighlightSearchPipe, MatIcon, SvgSpritesComponent]
 })
 export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
 
@@ -76,7 +76,6 @@ export class TkiReportsComponent implements OnInit, AfterViewInit, OnDestroy {
   matchedKeywords = new Set();
   matchedYears = new Set();
   filteredArticleIds = new Set();
-  faSearch = faSearch;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,

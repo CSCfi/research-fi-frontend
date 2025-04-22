@@ -35,14 +35,14 @@
     <ng-container *ngIf='(showAll$ | async) === false'>
       <div class="expand-text" (click)='toggleAll()'>
         <div style='margin-right: 0.25rem' i18n="@@showMore">Näytä lisää</div>
-        <i class='fa-solid fa-caret-down'></i>
+        <app-svg-sprites [iconName]="'chevron-down'" cssClass="chevron-down-icon navi-icon theme-color"></app-svg-sprites>
       </div>
     </ng-container>
 
     <ng-container *ngIf='(showAll$ | async) === true'>
       <div class='expand-text' (click)='toggleAll()'>
         <div style='margin-right: 0.25rem' i18n="@@showLess">Näytä vähemmän</div>
-        <i class='fa-solid fa-caret-up'></i>
+        <app-svg-sprites [iconName]="'chevron-up'" cssClass="chevron-up-icon navi-icon theme-color"></app-svg-sprites>
       </div>
     </ng-container>
   </ng-container>
@@ -51,13 +51,13 @@
 <div class='scroll-wrapper' [class.d-none]='(moreThan900$ | async) === true || homepage'>
   <div class='left-btn left-gradient-container' [style.visibility]='(scrollAtStart$ | async) === false ? "visible" : "hidden"' (click)='scrollLeft()'>
     <div class='nav-arrow'>
-      <fa-icon [icon]="faArrowLeft"></fa-icon>
+        <app-svg-sprites [iconName]="'fa-arrow-left'" cssClass="arrow-left-icon nav-icon"></app-svg-sprites>
     </div>
   </div>
 
   <div class='right-btn right-gradient-container' [style.visibility]='(scrollAtEnd$ | async) === false ? "visible" : "hidden"' (click)='scrollRight()'>
     <div class='nav-arrow'>
-      <fa-icon [icon]="faArrowRight"></fa-icon>
+        <app-svg-sprites [iconName]="'fa-arrow-right'" cssClass="arrow-right-icon nav-icon"></app-svg-sprites>
     </div>
   </div>
 

@@ -1,0 +1,349 @@
+:host {
+  color: #4546b9;
+  display: inline-block;
+  line-height: inherit;
+  .svg-icon {
+    display: inline-block !important;
+    max-width: 40px;
+    max-height: 40px;
+    &.figures-page {
+      color: #000;
+    }
+  }
+  .main-category-icon {
+    color: #4546b9 !important;
+    fill: #4546b9 !important;
+    margin-right: 14px;
+    margin-left: 3px;
+    width: 23px;
+    height: 23px;
+  }
+  .info-icon {
+    width: 20px;
+    height: 20px;
+    margin-top: -2px;
+    &.info-banner {
+      width: 38px;
+      height: 38px;
+      margin-right: 4px;
+    }
+    &.filters-icon {
+      margin-left: -3px;
+    }
+    &.faq-icon {
+      width: 38px;
+      height: 38px;
+      margin-top: -2px;
+      margin-left: 7px;
+      color: #c5c5e5;
+    }
+    &.figures-page {
+      width: 25px;
+      height: 25px;
+      margin-top: -2px;
+      margin-left: -3px;
+      margin-right: -4px;
+    }
+  }
+  .quote-icon {
+    color: #4546b9;
+    fill: #4546b9;
+    width: 16px;
+    height: 16px;
+    margin-top: -4px;
+    margin-right: 8px;
+  }
+
+  .contact-icon {
+    color: #000;
+    height: 18px;
+    width: 18px;
+  }
+
+  .twitter-icon {
+    height: 30px;
+    width: 40px;
+    margin-right: 2px;
+    display: inline-flex;
+    color: #4546b9;
+    fill: #4546b9;
+  }
+  .show-as-image-button {
+    height: 18px;
+    width: 18px;
+    color: #fff;
+    fill: #fff;
+    margin-right: 10px;
+  }
+  .plus-icon, .minus-icon {
+    width: 22px;
+    height: 22px;
+    margin-top: -5px;
+  }
+  .lock_open-icon {
+    width: 16px;
+    height: 16px;
+    margin-left: -4px;
+    margin-right: 3px;
+    &.open-access-svg {
+      color: #294210;
+    }
+    color: #bc520a;
+  }
+  .open_in_new-icon-openaccess, .open_in_new-icon {
+    width: 18px;
+    height: 18px;
+    margin-left: 5px;
+    margin-bottom: 2px;
+    &.open-access-svg {
+      color: #294210;
+      margin-bottom: 0px;
+    }
+    &.doi-svg {
+      color: #363636;
+    }
+    &.contact-icon {
+      color: #4546b9;
+    }
+  }
+  .warning-icon {
+    width: 25px;
+    height: 25px;
+    color: rgba(0, 0, 0, 0.87);
+  }
+
+  .theme-purple {
+    color: #4546b9;
+  }
+
+  .search-icon {
+    &.button-icon {
+      color: #fff;
+      width: 23px;
+      height: 23px;
+      margin-right: 7px;
+    }
+    &.tab-button-icon {
+      max-width: 24px;
+      max-height: 24px;
+    }
+    &.main-search-button {
+      width: 23px;
+      height: 23px;
+      margin-top: -2px;
+      margin-right: -45px;
+      margin-left: -30px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .search-icon {
+      &.main-search-button {
+        display: none !important;
+      }
+    }
+  }
+
+  .chevron-up-icon, .chevron-down-icon, .chevron-left-icon, .chevron-right-icon, .chevron-icon {
+    width: 18px;
+    height: 18px;
+    &.navi-icon {
+      color: rgba(0, 0, 0, 0.87);
+    }
+    &.beta-search-icon {
+      color: #fff;
+    }
+    &.button-icon {
+      width: 20px;
+      height: 20px;
+      margin-left: 5px;
+    }
+    &.single-page {
+      fill: #4546b9;
+      cursor: pointer;
+    }
+    &.search-help {
+      color: #fff;
+      margin-left: 2px;
+      margin-top: -2px;
+    }
+    &.theme-color {
+      fill: #4546b9;
+      color: #4546b9;
+    }
+  }
+  .chevron-left-icon {
+    margin-right: 4px;
+    &.button-icon {
+      width: 16px;
+      height: 16px;
+      margin-top: -3px;
+    }
+    &.nav-icon {
+      color: #fff;
+    }
+  }
+  .chevron-right-icon {
+    margin-left: 4px;
+    &.button-icon {
+      width: 16px;
+      height: 16px;
+      margin-top: -3px;
+    }
+    &.nav-icon {
+      color: #fff;
+    }
+  }
+
+  .chevron-left-pagination {
+    width: 16px;
+    height: 16px;
+    margin-top: -3px;
+    margin-right: 7px;
+  }
+
+  .chevron-right-pagination {
+    width: 16px;
+    height: 16px;
+    margin-top: -3px;
+    margin-left: 7px;
+  }
+
+  .chevron-down-icon-search {
+    width: 18px;
+    height: 18px;
+    margin-top: -2px;
+  }
+
+  .arrow-left-icon, .arrow-right-icon {
+    height: 25px;
+    width: 25px;
+    fill: #fff;
+  }
+
+  .sliders-icon {
+    width: 22px;
+    height: 22px;
+    margin-top: -4px;
+    margin-right: 13px;
+    margin-left: 0px;
+    fill: #4546b9;
+  }
+
+  .primary-button-icon {
+    color: #fff !important;
+    fill: #fff !important;
+  }
+
+  .delete-icon {
+    width: 18px;
+    height: 20px;
+    margin-top: -3px;
+    margin-right: 5px;
+    margin-left: -3px;
+    color: #4546b9;
+    fill: #4546b9;
+    &.filters-icon {
+      color: #000;
+      fill: #000;
+      }
+    }
+
+  .chart-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .fa-chart-bar {
+    &.button-icon {
+      color: #fff;
+      width: 23px;
+      height: 23px;
+      margin-right: 7px;
+    }
+  }
+
+  .link-icon {
+    width: 25px;
+    height: 25px;
+    margin-top: -2px;
+    color: #fff;
+  }
+
+  .close-icon {
+    width: 24px;
+    color: #000;
+    fill: #000;
+    &.give-feedback, &.close-component {
+      color: #4546b9;
+      fill: #4546b9;
+    }
+    &.filters-icon {
+      width: 20px;
+      height: 20px;
+      color: #000;
+      fill: #000;
+      margin-top: -2px;
+      margin-left: 3px;
+      margin-right: -22px;
+    }
+  }
+  .copy-icon, .download-icon {
+    color: #4546b9;
+    fill: #4546b9;
+    width: 16px;
+    height: 16px;
+    margin-top: -4px;
+    margin-right: 8px;
+  }
+
+  .innovation-system-icon {
+    width: 22px;
+    height: 22px;
+    margin-top: 11px;
+    margin-left: 12px;
+    fill: #fff;
+    &.euro-sign-icon {
+      margin-left: 10px;
+    }
+  }
+
+  .person-contact-item-icon {
+    height: 21px;
+    width: 23px;
+    margin-top: -2px;
+    color: #4546b9;
+    fill: #4546b9;
+    &.email-icon {
+      height: 22px;
+      width: 22px;
+      margin-right: 7px;
+    }
+  }
+
+  .registration-step-icon, .deployment-step-icon, .undo-icon {
+    color: #4546b9;
+    fill: #4546b9;
+  }
+
+  .fa-angle-double-left, .fa-angle-double-right {
+    color: #4546b9;
+    fill: #4546b9;
+    width: 16px;
+    height: 16px;
+  }
+
+  .table-column-icon {
+    //margin-top: 15px;
+  }
+
+  .sort-order, .sort-order-asc, .sort-order-desc {
+
+  }
+
+  @media (max-width: 991px) {
+    .info-icon {
+      display: none;
+    }
+  }
+}

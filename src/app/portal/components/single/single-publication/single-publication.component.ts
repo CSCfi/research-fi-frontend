@@ -23,8 +23,6 @@ import { StaticDataService } from '../../../services/static-data.service';
 import { SettingsService } from '../../../services/settings.service';
 import { Subscription } from 'rxjs';
 import { DOCUMENT, NgIf, NgFor, NgClass, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
-import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
-import { faQuoteRight, faCopy } from '@fortawesome/free-solid-svg-icons';
 import { HttpHeaders } from '@angular/common/http';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { Search } from 'src/app/portal/models/search.model';
@@ -42,40 +40,42 @@ import { RelatedLinksComponent } from '../related-links/related-links.component'
 import { MatCard, MatCardTitle } from '@angular/material/card';
 import { PublicationLinksComponent } from './publication-links/publication-links.component';
 import { OrcidComponent } from '../../../../shared/components/orcid/orcid.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
+import { MatIcon } from '@angular/material/icon';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-single-publication',
     templateUrl: './single-publication.component.html',
     styleUrls: ['./single-publication.component.scss'],
     standalone: true,
-    imports: [
-        SearchBarComponent,
-        NgIf,
-        RouterLink,
-        BreadcrumbComponent,
-        NgFor,
-        TooltipModule,
-        FontAwesomeModule,
-        NgClass,
-        OrcidComponent,
-        NgSwitch,
-        NgSwitchCase,
-        NgSwitchDefault,
-        PublicationLinksComponent,
-        MatCard,
-        MatCardTitle,
-        RelatedLinksComponent,
-        SecondaryButtonComponent,
-        ShareComponent,
-        DialogComponent,
-        CdkCopyToClipboard,
-        MatProgressSpinner,
-        CleanCitationPipe,
-    ],
+  imports: [
+    SearchBarComponent,
+    NgIf,
+    RouterLink,
+    BreadcrumbComponent,
+    NgFor,
+    TooltipModule,
+    NgClass,
+    OrcidComponent,
+    NgSwitch,
+    NgSwitchCase,
+    NgSwitchDefault,
+    PublicationLinksComponent,
+    MatCard,
+    MatCardTitle,
+    RelatedLinksComponent,
+    SecondaryButtonComponent,
+    ShareComponent,
+    DialogComponent,
+    CdkCopyToClipboard,
+    MatProgressSpinner,
+    CleanCitationPipe,
+    MatIcon,
+    SvgSpritesComponent
+  ]
 })
 export class SinglePublicationComponent
   implements OnInit, AfterViewInit, OnDestroy
@@ -470,9 +470,6 @@ export class SinglePublicationComponent
   dataSub: Subscription;
   juFoCode: any;
   expand: boolean;
-  faQuoteRight = faQuoteRight;
-  faIcon = faFileAlt;
-  faCopy = faCopy;
   publicationType: any;
   publicationTypeLabel: string;
   showSubUnits = false;

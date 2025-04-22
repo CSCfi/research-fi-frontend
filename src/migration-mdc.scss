@@ -23,20 +23,20 @@
 .tag-content {
   a {
     display: block;
-    max-height: 26.8px;
+    max-height: 28px;
   }
 
-  max-height: 26.8px;
+  max-height: 28px;
 }
 
-.info-icon {
+.info-icon-old {
   .svg-inline--fa {
     max-height: 16px !important;
     max-width: 16px !important;
   }
 }
 
-.login-snackbar .info-icon {
+.login-snackbar .info-icon-old {
   .svg-inline--fa {
     max-height: 42px !important;
     max-width: 42px !important;
@@ -133,6 +133,13 @@ app-funding-call-category-filters {
     button:active {
       //background-color: #4546b9;
     }
+  }
+}
+
+.mat-mdc-button {
+  display: flex;
+  .mat-icon {
+    min-height: 30px !important;
   }
 }
 
@@ -447,28 +454,6 @@ app-footer button.review {
 
 body app-news-card mat-card.mat-mdc-card {
   padding: 1rem !important;
-}
-
-// Search's help button
-.search-help > button > span {
-  font-size: 0.88rem;
-  padding: 0.5rem;
-  font-weight: 500;
-}
-
-.search-help > button.down > span.mdc-button__label::after {
-  font-family: 'FontAwesome';
-  content: '\f078';
-  display: inline-block;
-  padding-left: 0.25rem;
-}
-
-// Search's help button
-.search-help > button.up > span.mdc-button__label::after {
-  font-family: 'FontAwesome';
-  content: '\f077';
-  display: inline-block;
-  padding-left: 0.25rem;
 }
 
 // Search's dropdown

@@ -81,10 +81,7 @@
       [matMenuTriggerFor]="menu"
     >
       <span class="d-block col-auto px-0">1 valittu</span>
-
-      <i
-        class="col-auto align-self-center primary-color fa fa-chevron-down"
-      ></i>
+        <app-svg-sprites [iconName]="'chevron-down'" cssClass="chevron-down-icon"></app-svg-sprites>
     </a>
     <mat-menu #menu="matMenu">
       <button mat-menu-item *ngFor="let target of shareTargets">

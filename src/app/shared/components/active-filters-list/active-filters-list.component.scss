@@ -78,14 +78,6 @@ app-active-filters-dialog {
     font-weight: 500;
   }
 
-  .active-filters li:after {
-    position: absolute;
-    font-family: 'FontAwesome';
-    content: '\f00d ';
-    font-size: 1rem;
-    padding-left: 7px;
-  }
-
   .active-filters li:hover::after {
     font-size: 1.075rem;
     top: 1px;

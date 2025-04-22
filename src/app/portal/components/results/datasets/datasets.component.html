@@ -12,8 +12,8 @@
     *ngIf="dataMapped"
     [columns]="tableColumns"
     [rows]="tableRows"
-    [icon]="faIcon"
     [iconTitle]="iconTitleDatasets"
+    [svgSymbolName]="svgSymbolName"
     iconLinkField="name"
     [sortColumn]="sortService.sortColumn"
     [sortDirection]="sortService.sortDirection ? 'desc' : 'asc'"
@@ -44,33 +44,26 @@
             >
               <span class="open-access-image"></span>
               <span i18n="@@openAccess">Avoin saatavuus</span
-              ><fa-icon icon="external-link-alt"></fa-icon>
+              ><app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites>
             </a> -->
           <!-- Span is for datasets that doesn't have OA link. Angular doesn't allow void(0) to be passed without unsafe warnings -->
-          <span *ngIf="dataset.openAccess" class="open-access div">
-            <span class="open-access-image"></span>
-            <span i18n="@@openAccess">Avoin saatavuus</span>
-          </span>
-          <!-- DOI -->
-          <div *ngIf="dataset.doi?.trim()" class="doi">
-            <span class="doi-tag">DOI</span>
-            <span class="doi-link"
-              ><a href="https://doi.org/{{ dataset.doi }}" target="_blank"
-                >{{ dataset.doi
-                }}<fa-icon icon="external-link-alt"></fa-icon></a
-            ></span>
+
+            <!-- Open access -->
+            <div *ngIf="dataset.openAccess">
+              <app-tag-open-access [link]='dataset.fairdataUrl?.trim()'></app-tag-open-access>
           </div>
+
+            <!-- DOI -->
+            <div *ngIf="dataset.doi?.trim()">
+                <app-tag-doi [linkDoi]="dataset.doi?.trim()"></app-tag-doi>
+            </div>
           <!-- Dataset versions tag -->
           <ng-container *ngTemplateOutlet="versionTag"></ng-container>
           <!-- URN -->
-          <div *ngIf="dataset.urn?.trim()" class="doi">
-            <span class="doi-tag">URN</span>
-            <span class="doi-link"
-              ><a href="http://urn.fi/{{ dataset.urn }}" target="_blank"
-                >{{ dataset.urn
-                }}<fa-icon icon="external-link-alt"></fa-icon></a
-            ></span>
-          </div>
+            <!-- URN -->
+            <div *ngIf="dataset.urn?.trim()" class="doi">
+                <app-tag-doi [linkUrn]="dataset.urn?.trim()"></app-tag-doi>
+            </div>
         </div>
       </ng-template>
 
@@ -84,32 +77,21 @@
             >
               <span class="open-access-image"></span>
               <span i18n="@@openAccess">Avoin saatavuus</span
-              ><fa-icon icon="external-link-alt"></fa-icon>
+              ><app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites>
             </a> -->
           <!-- Span is for datasets that doesn't have OA link. Angular doesn't allow void(0) to be passed without unsafe warnings -->
-          <span *ngIf="dataset.openAccess" class="open-access div">
-            <span class="open-access-image"></span>
-            <span i18n="@@openAccess">Avoin saatavuus</span>
+          <span *ngIf="dataset.openAccess">
+              <app-tag-open-access [link]='dataset.fairdataUrl?.trim()'></app-tag-open-access>
           </span>
           <!-- DOI -->
-          <div *ngIf="dataset.doi?.trim()" class="doi">
-            <span class="doi-tag">DOI</span>
-            <span class="doi-link"
-              ><a href="https://doi.org/{{ dataset.doi }}" target="_blank"
-                >{{ dataset.doi
-                }}<fa-icon icon="external-link-alt"></fa-icon></a
-            ></span>
-          </div>
+            <div *ngIf="dataset.doi?.trim()">
+            <app-tag-doi [linkDoi]="dataset.doi?.trim()"></app-tag-doi>
+            </div>
           <!-- Dataset versions tag -->
           <ng-container *ngTemplateOutlet="versionTag"></ng-container>
           <!-- URN -->
           <div *ngIf="dataset.urn?.trim()" class="doi">
-            <span class="doi-tag">URN</span>
-            <span class="doi-link"
-              ><a href="http://urn.fi/{{ dataset.urn }}" target="_blank"
-                >{{ dataset.urn
-                }}<fa-icon icon="external-link-alt"></fa-icon></a
-            ></span>
+              <app-tag-doi [linkUrn]="dataset.urn?.trim()"></app-tag-doi>
           </div>
         </div>
       </ng-template>

@@ -11,7 +11,7 @@ import { EventManager } from '@angular/platform-browser';
 @Injectable({
   providedIn: 'root',
 })
-export class ScrollService {
+export class LegacyScrollService {
   public onScroll = new EventEmitter<{ x: number; y: number }>();
 
   private getScroll = (e: any): void => {
