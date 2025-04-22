@@ -917,10 +917,6 @@ app-svg-icons {
   }
 }
 
-.mini-modal-width {
-  width: 45vw;
-}
-
 app-share {
   button {
     min-width: 180px !important;
@@ -928,6 +924,12 @@ app-share {
   }
   .fa-copy {
     max-height: 19px !important;
+  }
+}
+
+@media (min-width: 991px) {
+  .mini-modal-width {
+    width: 45vw;
   }
 }
 
