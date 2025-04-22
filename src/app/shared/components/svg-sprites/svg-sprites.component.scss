@@ -136,6 +136,14 @@
     }
   }
 
+  @media (max-width: 767px) {
+    .search-icon {
+      &.main-search-button {
+        display: none !important;
+      }
+    }
+  }
+
   .chevron-up-icon, .chevron-down-icon, .chevron-left-icon, .chevron-right-icon, .chevron-icon {
     width: 18px;
     height: 18px;
