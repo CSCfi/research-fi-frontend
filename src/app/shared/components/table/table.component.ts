@@ -126,8 +126,6 @@ export class TableComponent implements OnInit {
         labelHidden: true,
       });
       this.rows = this.rows.map((row) => ({ icon: this.svgSymbolName, ...row }));
-      console.log('this.rows', this.rows);
-      console.log('this.columns', this.columns);
     }
 
     this.displayedColumns = this.columns.map((row) => row.key);

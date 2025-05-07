@@ -87,7 +87,7 @@ export class Publications2Component implements OnDestroy {
     });
 
     this.tutorialDialogRef.closed.subscribe(() => {
-      console.log('The tutorial dialog was closed');
+      //console.log('The tutorial dialog was closed');
     });
   }
 
@@ -130,7 +130,7 @@ export class Publications2Component implements OnDestroy {
     });
 
     this.dialogRef.closed.subscribe(() => {
-      console.log('The dialog2 was closed');
+      //console.log('The dialog2 was closed');
     });
   }
 
