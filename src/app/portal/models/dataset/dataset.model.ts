@@ -130,7 +130,7 @@ export class DatasetAdapter implements Adapter<Dataset> {
         actorRole
       );
       actorRole.sector.forEach((sector) => {
-        sector.organization.forEach((org) => {
+        sector?.organization?.forEach((org) => {
           const parentOrgName = this.utils
             .checkTranslation('OrganizationName', org)
             .trim();
