@@ -239,6 +239,14 @@ mat-chip-option {
   --mdc-checkbox-selected-checkmark-color: #fff;
 }
 
+.mat-mdc-checkbox-disabled {
+  --mat-checkbox-disabled-label-color: black;
+  .mdc-checkbox__background {
+    color: #4546b9 !important;
+    background: #4546b9 !important;
+  }
+}
+
 .mdc-checkbox__background {
   width: 16px !important;
   height: 16px !important;
@@ -267,6 +275,8 @@ mat-checkbox, .mdc-form-field.mat-internal-form-field {
 
 app-collaboration-card .mdc-form-field.mat-internal-form-field {
   white-space: initial !important;
+  line-height: 1.1rem;
+  margin-bottom: 8px;
 }
 
 // Expansion panel's content in search pages

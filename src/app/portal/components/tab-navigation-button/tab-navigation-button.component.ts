@@ -27,7 +27,7 @@ export class TabNavigationButtonComponent {
 
   buttonClicked(){
     this.buttonClick.emit(true);
-    console.log('clicked button');
+    //console.log('clicked button');
   }
 
   countOps = {

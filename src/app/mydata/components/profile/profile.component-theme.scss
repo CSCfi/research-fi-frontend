@@ -10,7 +10,7 @@
 @mixin app-profile-theme($theme) {
   app-profile,
   app-draft-summary {
-    .row.profile {
+    .profile {
       border-bottom: 0.25rem solid mat-color($primary, 500);
     }
 
@@ -19,7 +19,7 @@
     }
 
     .group-wrapper:nth-child(even) {
-      background-color: mat-color($primary, 50);
+      //background-color: mat-color($primary, 50);
     }
     /*  TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.*/
     .mat-checkbox-disabled.mat-checkbox-checked .mat-checkbox-background {

@@ -9,3 +9,14 @@
 .summary-panel-wrapper .summary-panel:last-child app-summary-divider {
   display: none;
 }
+
+h2, h3 {
+  font-size: 1.4rem !important;
+}
+
+.group-wrapper {
+  background: #fff;
+  border: 1px solid #e8e8f5;
+  padding: 10px;
+  margin-bottom: 10px;
+}

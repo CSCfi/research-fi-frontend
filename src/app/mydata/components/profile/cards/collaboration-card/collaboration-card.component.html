@@ -43,13 +43,12 @@
   (onActionClick)="doDialogAction($event)"
 ></app-dialog>
 
-<div class="row mt-3" *ngIf="hasCheckedOption">
+<div class="row mt-3 gx-0" *ngIf="hasCheckedOption">
   <section>
     <ng-container *ngFor="let option of collaborationOptions">
       <mat-checkbox
         class="py-1 py-lg-0 w-100"
-        *ngIf="option?.selected"
-        [checked]="true"
+        [checked]="option?.selected"
         disabled
         color="primary"
       >

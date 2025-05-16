@@ -100,7 +100,6 @@ export class EditorModalComponent implements OnInit {
   portalModalIndicatorIds = PortalGroupIds;
 
   disabledSearchPortalModalIds = [GroupTypes.activitiesAndRewards];
-  e
 
   currentTabIndex: number = 0;
   importedItems: any[];

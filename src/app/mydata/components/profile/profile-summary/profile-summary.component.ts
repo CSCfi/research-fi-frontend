@@ -37,6 +37,7 @@ import { SummaryPortalItemsComponent } from './summary-portal-items/summary-port
 import { SummaryAffiliationsComponent } from './summary-affiliations/summary-affiliation.component';
 import { SecondaryButtonComponent } from '../../../../shared/components/buttons/secondary-button/secondary-button.component';
 import { NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
+import { TertiaryButtonComponent } from '@shared/components/buttons/tertiary-button/tertiary-button.component';
 
 @Component({
     selector: 'app-profile-summary',
@@ -44,21 +45,22 @@ import { NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/c
     styleUrls: ['./profile-summary.component.scss'],
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [
-        NgFor,
-        NgIf,
-        SecondaryButtonComponent,
-        NgSwitch,
-        NgSwitchCase,
-        SummaryAffiliationsComponent,
-        SummaryPortalItemsComponent,
-        NgSwitchDefault,
-        SummaryDividerComponent,
-        PanelArrayItemComponent,
-        EditorModalComponent,
-        JoinItemsPipe,
-        HasSelectedItemsPipe,
-    ],
+  imports: [
+    NgFor,
+    NgIf,
+    SecondaryButtonComponent,
+    NgSwitch,
+    NgSwitchCase,
+    SummaryAffiliationsComponent,
+    SummaryPortalItemsComponent,
+    NgSwitchDefault,
+    SummaryDividerComponent,
+    PanelArrayItemComponent,
+    EditorModalComponent,
+    JoinItemsPipe,
+    HasSelectedItemsPipe,
+    TertiaryButtonComponent
+  ]
 })
 export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
   @Input() profileData: any;
@@ -149,8 +151,6 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
 
     const confirmedPayLoad = this.patchService.confirmedPayLoad;
 
-    this.draftService.saveDraft(this.displayData);
-
     // Groups are used in different loops to set storage items and handle removal of items
     const patchGroups = [
       { key: Constants.draftProfile, data: this.displayData },
@@ -221,7 +221,7 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
       // Set draft data into storage with SSR check
       if (this.appSettingsService.isBrowser && confirmedPayLoad.length) {
         patchGroups.forEach((group) => {
-          sessionStorage.setItem(group.key, JSON.stringify(group.data));
+          this.draftService.updateFieldInDraft(group.key, group.data);
         });
 
         // Display snackbar only if user has made changes
