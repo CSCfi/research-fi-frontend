@@ -5,7 +5,7 @@
 
 <ng-container *ngFor="let group of displayData.slice(1); let i = index">
   <div *ngIf="summaryGroupIds.indexOf(group.id) > -1" class="group-wrapper py-3">
-    <div class="row py-2 justify-content-between">
+    <div class="row pt-2 pb-3 justify-content-between">
       <h2 class="col-8 col-md-6 col-lg-8 align-self-center order-1 font-size-normal">
         {{ group.label }}
       </h2>

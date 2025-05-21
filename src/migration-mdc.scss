@@ -237,14 +237,7 @@ mat-chip-option {
   height: 16px !important;
   padding: 12px 10px !important;
   --mdc-checkbox-selected-checkmark-color: #fff;
-}
-
-.mat-mdc-checkbox-disabled {
-  --mat-checkbox-disabled-label-color: black;
-  .mdc-checkbox__background {
-    color: #4546b9 !important;
-    background: #4546b9 !important;
-  }
+  --mdc-checkbox-selected-icon-color: #4546b9;
 }
 
 .mdc-checkbox__background {
