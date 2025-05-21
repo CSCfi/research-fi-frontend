@@ -9,3 +9,27 @@
 .summary-panel-wrapper .summary-panel:last-child app-summary-divider {
   display: none;
 }
+
+h2, h3 {
+  font-size: 1.4rem !important;
+}
+
+.group-wrapper {
+  background: #fff;
+  border: 1px solid #e8e8f5;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.year-caption {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  margin-left: 16px;
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+
+.base-text {
+  font-weight: 500 !important;
+  font-size: 1rem;
+}

@@ -1,0 +1,35 @@
+app-mydata-side-navigation {
+  background: #F7F7FB;
+}
+
+
+app-secondary-action-button {
+  background: #F7F7FB;
+}
+
+.side-navi-button {
+  height: 50px;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  border: 0px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-left: 6px solid #F7F7FB;
+  &.active {
+    background: #E8E8F4;
+    border-left: 6px solid #4546B2;
+    font-weight: bold;
+  }
+  &:hover:not(.active) {
+    background: #E8E8F4;
+    border-left: 6px solid #E8E8F4;
+  }
+}
+
+ul li {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}

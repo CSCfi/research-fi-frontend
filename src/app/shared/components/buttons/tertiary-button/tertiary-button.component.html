@@ -1,0 +1,20 @@
+<button
+        class="tertiary-button"
+        [class.big]="big"
+        [class.small]="small"
+        [class.icon-after]="iconAfter"
+        [class.icon-only]="iconOnly"
+        [class.no-sm-icon]="noSmIcon"
+        [class.px-0]="px0"
+        [disabled]="disabled"
+        (focus)="handleFocus()"
+>
+    <span class="svg-pad">
+    <app-svg-sprites [ngClass]="{ 'd-none d-sm-inline': noSmIcon }" *ngIf="!!svgSymbolName && !iconAfter"
+                     [iconName]="svgSymbolName" [cssClass]="svgCssClass"></app-svg-sprites>
+    <ng-container class="d-flex">{{ content }}</ng-container>
+    <app-svg-sprites [ngClass]="{ 'd-none d-sm-inline': noSmIcon }" *ngIf="!!svgSymbolName && iconAfter"
+                     [iconName]="svgSymbolName" [cssClass]="svgCssClass"></app-svg-sprites>
+    </span>
+</button>
+

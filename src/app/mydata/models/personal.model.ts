@@ -59,7 +59,7 @@ export class PersonalFieldsAdapter implements Adapter<PersonalFields> {
       );
     };
 
-    mapIcons(email, () => 'fa-envelope');
+    mapIcons(email, () => 'email');
     mapIcons(webLinks, handleLinkIcon, 'url');
 
     let pf: PersonalFields = new PersonalFields(

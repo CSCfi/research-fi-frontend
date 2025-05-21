@@ -4,8 +4,28 @@
 //
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
+.side-navigation-side-border {
+  border-right: 2px solid #E8E8F3;
+}
 
 app-profile {
+  h2 {
+    font-size: 1.5rem;
+  }
+  h3 {
+    font-size: 1.1rem !important;
+  }
+  #main-content {
+    background: #F7F7FB;
+  }
+
+  .group-wrapper {
+    background: #fff;
+    border: 1px solid #e8e8f5;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
   .profile-image-container {
     border: 1px solid;
     border-radius: 50%;
@@ -29,5 +49,43 @@ app-profile {
     padding: 1rem;
     margin: 1rem 0;
     border: 0.75rem solid;
+  }
+
+  --mdc-checkbox-selected-icon-color: #4546b9;
+  --mdc-checkbox-selected-focus-icon-color: #4546b9;
+  --mdc-checkbox-selected-hover-icon-color: #4546b9;
+  --mdc-checkbox-disabled-unselected-icon-color: #4546b9;
+  --mdc-checkbox-selected-pressed-state-layer-color: #4546b9;
+  --mat-checkbox-disabled-label-color: black;
+  --mat-app-primary:  #4546b9;
+  --mat-app-secondary:  #4546b9;
+
+  .mdc-checkbox__native-control:focus:focus:checked~.mdc-checkbox__background,
+  .mdc-checkbox__native-control:focus:focus:indeterminate~.mdc-checkbox__background {
+    border-color:#4546b9 !important;
+    background-color:#4546b9 !important;
+  }
+
+  .mdc-checkbox:hover .mdc-checkbox__native-control:checked~.mdc-checkbox__background,
+  .mdc-checkbox:hover .mdc-checkbox__native-control:indeterminate~.mdc-checkbox__background {
+    border-color:#4546b9 !important;
+    background-color:#4546b9 !important;
+  }
+
+  .mdc-checkbox:hover, .mdc-checkbox__background:hover, .mdc-checkbox__native-control:focus:focus:checked ~ .mdc-checkbox__background {
+    background-color: #4546b9 !important;
+    border-color: #4546b9 !important;
+  }
+
+  .mdc-checkbox__background {
+    border-color: #4546b9  !important;
+  }
+
+  .mat-mdc-checkbox-disabled.mat-mdc-checkbox-checked {
+    .mdc-checkbox__background {
+      color: #4546b9 !important;
+      background: #4546b9 !important;
+      border-color: #4546b9;
+    }
   }
 }

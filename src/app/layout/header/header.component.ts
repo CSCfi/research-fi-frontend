@@ -201,7 +201,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
         // Set header items based on base url
         this.appSettings = this.currentRoute.includes('/mydata')
-          ? this.appSettingsService.myDataSettings
+          ? this.appSettingsService.portalSettings
           : this.appSettingsService.portalSettings;
 
         this.currentDomain = this.appSettings.localizedDomains.find(

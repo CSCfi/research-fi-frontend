@@ -24,6 +24,10 @@ import { SortByButtonComponent } from '../../../../shared/components/buttons/sor
 import { DataSourcesFiltersComponent } from './data-sources-filters/data-sources-filters.component';
 import { NgTemplateOutlet, NgIf } from '@angular/common';
 import { BannerDividerComponent } from '@shared/components/banner-divider/banner-divider.component';
+import {
+  MydataSideNavigationComponent
+} from '@mydata/components/mydata-side-navigation/mydata-side-navigation.component';
+import { StickyFooterComponent } from '@mydata/components/sticky-footer/sticky-footer.component';
 
 @Component({
     selector: 'app-data-sources',
@@ -38,7 +42,9 @@ import { BannerDividerComponent } from '@shared/components/banner-divider/banner
     ActiveFiltersListComponent,
     DataSourcesTableComponent,
     DataSourcesSelectionActionsComponent,
-    BannerDividerComponent
+    BannerDividerComponent,
+    MydataSideNavigationComponent,
+    StickyFooterComponent
   ]
 })
 export class DataSourcesComponent implements OnInit, OnDestroy {
@@ -81,21 +87,6 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
     this.locale = this.appSettingsService.capitalizedLocale;
 
     const draftProfile = this.profileService.getDraftProfile();
-
-    /*
-     * Inform user if unsaved changes in profile view
-     */
-    if (draftProfile) {
-      this.notificationService.notify({
-        notificationText: $localize`:@@youHaveUnpublishedChangesSnackbar:Sinulla on julkaisemattomia muutoksia profiilinäkymässä.`,
-        buttons: [
-          {
-            label: $localize`:@@youHaveUnpublishedChangesSnackbarButton:Tarkasta muutokset.`,
-            action: () => this.router.navigate(['mydata/profile']),
-          },
-        ],
-      });
-    }
 
     const orcidProfile = this.route.snapshot.data.orcidProfile;
     const myDataProfile = this.route.snapshot.data.myDataProfile;

@@ -11,20 +11,22 @@ import { cloneDeep } from 'lodash-es';
 import { MatButton } from '@angular/material/button';
 import { SummaryDividerComponent } from '../summary-divider/summary-divider.component';
 import { PanelArrayItemComponent } from '../../profile-panel/panel-array-item/panel-array-item.component';
-import { NgFor, NgIf, LowerCasePipe } from '@angular/common';
+import { NgFor, NgIf, LowerCasePipe, NgClass } from '@angular/common';
+import { FieldTypes } from '@mydata/constants/fieldTypes';
 
 @Component({
     selector: 'app-summary-portal-items',
     templateUrl: './summary-portal-items.component.html',
     standalone: true,
-    imports: [
-        NgFor,
-        NgIf,
-        PanelArrayItemComponent,
-        SummaryDividerComponent,
-        MatButton,
-        LowerCasePipe,
-    ],
+  imports: [
+    NgFor,
+    NgIf,
+    PanelArrayItemComponent,
+    SummaryDividerComponent,
+    MatButton,
+    LowerCasePipe,
+    NgClass
+  ]
 })
 export class SummaryPortalItemsComponent implements OnInit {
   @Input() data: any;
@@ -34,6 +36,7 @@ export class SummaryPortalItemsComponent implements OnInit {
 
   sortItemsByNew = sortItemsByNew;
   sortedItems: any[] = [];
+  yearsList = new Set([]);
 
   itemDisplayCount = 3;
 
@@ -41,10 +44,20 @@ export class SummaryPortalItemsComponent implements OnInit {
 
   constructor() {}
 
+  comparePublicationYears(a, b) {
+    return a.publicationYear - b.publicationYear;
+  }
+
   ngOnInit(): void {
     // User can have duplicate publications, one from ORCID and one from Research.fi
     // Merge these and display only one
     const dataCopy = cloneDeep(this.data);
+
+    if (this.fieldType === FieldTypes.activityPublication) {
+      console.log('is publications', this.data);
+      this.data.items = this.data.items.sort(this.comparePublicationYears).reverse();
+      console.log('sorted', this.data);
+    }
 
     if (dataCopy.id === 'publication') {
       // mergePublications(dataCopy);
@@ -59,7 +72,10 @@ export class SummaryPortalItemsComponent implements OnInit {
     }
   }
 
+
   showAllItems() {
     this.itemDisplayCount = this.sortedItems.length;
   }
+
+  protected readonly FieldTypes = FieldTypes;
 }

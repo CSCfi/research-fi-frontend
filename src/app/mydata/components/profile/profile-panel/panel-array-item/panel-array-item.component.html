@@ -2,7 +2,7 @@
  Copyright 2019 Ministry of Education and Culture, Finland
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
-
+<span [ngClass]="fieldType === (fieldTypes.activityPublication || fieldTypes.activityDataset || fieldTypes.activityDatasetOrcid) ? 'publication-item': ''">
 <ng-container *ngIf="!localized; else localizedTemplate">
   <ng-container [ngSwitch]="fieldType">
     <ng-container *ngSwitchCase="fieldTypes.personWebLink">
@@ -118,13 +118,12 @@
     <!-- TODO: Undefined variable for [ngTemplateOutlet]="currentTemplate" during Angular 17 upgrade -->
     <ng-template #publicationTemplate>
       <!-- item from search (portal) -->
-
       <ng-container *ngIf="_item.title">
-        <app-activity-item [rows]="summary ? [_item.title, _item.publicationYear] : [_item.title, _item.authors, _item.publicationYear]" [smallLastItem]="true"></app-activity-item>
+        <app-activity-item [rows]="summary ? [_item.title] : [_item.title, _item.authors]" [smallLastItem]="true"></app-activity-item>
       </ng-container>
 
       <ng-container *ngIf="!_item.title">
-        <app-activity-item [rows]="summary ? [_item.publicationName, _item.publicationYear] : [_item.publicationName, _item.authors, _item.publicationYear]" [smallLastItem]="true"></app-activity-item>
+        <app-activity-item [rows]="summary ? [_item.publicationName] : [_item.publicationName, _item.authors]" [smallLastItem]="true"></app-activity-item>
       </ng-container>
     </ng-template>
 
@@ -149,3 +148,4 @@
     </div>
   </ng-container>
 </ng-template>
+</span>

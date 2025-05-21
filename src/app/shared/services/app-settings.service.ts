@@ -75,6 +75,11 @@ export class AppSettingsService {
         link: '/news',
         exact: true,
       },
+      {
+        label:$localize`:@@researchersProfileNew:Oma profiili`,
+        link: '/mydata/profile',
+        exact: false,
+},
     ],
     localizedDomains: this.defaultDomains,
   };
@@ -99,9 +104,8 @@ export class AppSettingsService {
         link: '/mydata/account-settings',
       },
       {
-        label: $localize`:@@logIn:Kirjaudu sisään`,
-        link: '',
-        loginProcess: true,
+        label: $localize`:@@logout:Kirjaudu ulos`,
+        link: '/logout',
       },
     ],
     localizedDomains: this.defaultDomains,
