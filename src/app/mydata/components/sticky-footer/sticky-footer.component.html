@@ -12,18 +12,6 @@
 <!-- Footer content -->
 <div class="static-footer">
   <div class="row d-flex justify-content-between footer-button-wrap">
-    <ng-container *ngIf="(isProfileVisible | async) === false">
-
-      <div class="col-auto me-3" i18n="@@mydata.profile.profile-is-hidden">
-        Olet piilottanut profiilisi Tiedejatutkimus.fi-palvelusta
-      </div>
-
-      <app-primary-action-button class="col-auto px-2" i18n-content="@@publishEllipsis" content="Julkaise..."
-                                 (click)="openDialog(republishUpdatedProfile,republishUpdatedProfileTemplate,dataToPublishTemplate,republishActions,false)"></app-primary-action-button>
-
-
-
-    </ng-container>
     <div class="col-auto">
       <ng-container *ngIf="(isProfilePublished  | async) && (isProfileVisible | async)">
           <a [routerLink]="['/', 'results', 'person', orcid]" target="_blank">
@@ -31,25 +19,42 @@
           </a>
       </ng-container>
     </div>
-    <div class="col-auto">
-      <ng-container *ngIf="((isDraftProfileChanged) | async) && (isProfileVisible | async)">
+
+    <ng-container *ngIf="(isProfileVisible | async) === false">
+      <div class="col-auto">
         <div class="d-flex">
+          <div class="d-flex justify-content-center flex-column">
+              <div class="notification-circle"></div>
+          </div>
+          <div class="align-content-center" i18n="@@mydata.profile.profile-is-hidden">Olet piilottanut profiilisi Tiedejatutkimus.fi-palvelusta</div>
+
+          <app-primary-action-button class="col-auto px-2" i18n-content="@@publishEllipsis" content="Julkaise..."
+                                     (click)="openDialog(republishUpdatedProfile,republishUpdatedProfileTemplate,dataToPublishTemplate,republishActions,false)"></app-primary-action-button>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="(isProfileVisible | async) === true">
+    <div class="col-auto">
+        <div class="d-flex">
+          <ng-container *ngIf="(((isDraftProfileChanged) | async) && (isProfileVisible | async))">
           <div class="d-flex justify-content-center flex-column">
             <div class="notification-circle"></div>
           </div>
           <div class="align-content-center">Julkaisemattomia muutoksia</div>
-          <app-primary-action-button class="col-auto ps-3 pe-2" i18n-content="@@publishEllipsis" content="Julkaise..."
+          </ng-container>
+          <app-primary-action-button class="col-auto ps-3 pe-2" i18n-content="@@publishEllipsis" content="Julkaise..." [disabled]="!(((isDraftProfileChanged) | async) && (isProfileVisible | async))"
                                      (click)="openDialog(publishUpdatedProfile,publishUpdatedProfileTemplate,dataToPublishTemplate,publishUpdatedProfileDialogActions,false)"></app-primary-action-button>
           <!-- Discard draft -->
           <div class="d-flex justify-content-center flex-column">
-            <button class="col-auto pe-lg-0" mat-button color="primary" i18n="@@discardChanges"
+            <button class="col-auto pe-lg-0" mat-button color="primary" i18n="@@discardChanges"[disabled]="!(((isDraftProfileChanged) | async) && (isProfileVisible | async))"
                     (click)="openDialog(discardChanges, discardChangesTemplate, undefined, discardChangesActions, false)">
               Hylkää muutokset
             </button>
           </div>
         </div>
-      </ng-container>
     </div>
+    </ng-container>
   </div>
 </div>
 

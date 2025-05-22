@@ -39,6 +39,7 @@ export class PanelArrayItemComponent implements OnInit {
   @Input() localized: boolean;
   @Input() summary: boolean;
   hasOpenScienceTag = false;
+  linkToPublication = undefined;
 
   fieldTypes = FieldTypes;
   _item: any;
@@ -53,8 +54,8 @@ export class PanelArrayItemComponent implements OnInit {
   ngOnInit(): void {
     this._item?.dataSources?.forEach(ds => {
       console.log('ds', ds);
-      if (ds.registeredDataSource === 'Tiedejatutkimus.fi') {
-        console.log('!!!!! ttv', this._item);
+      if (ds.registeredDataSource !== 'ORCID') {
+        this.linkToPublication = this._item?.publicationId;
       }
       }
     );

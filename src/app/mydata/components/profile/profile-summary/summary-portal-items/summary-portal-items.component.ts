@@ -11,8 +11,10 @@ import { cloneDeep } from 'lodash-es';
 import { MatButton } from '@angular/material/button';
 import { SummaryDividerComponent } from '../summary-divider/summary-divider.component';
 import { PanelArrayItemComponent } from '../../profile-panel/panel-array-item/panel-array-item.component';
-import { NgFor, NgIf, LowerCasePipe, NgClass } from '@angular/common';
+import { NgFor, NgIf, LowerCasePipe, NgClass, JsonPipe } from '@angular/common';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
+import { HasSelectedItemsPipe } from '@mydata/pipes/has-selected-items.pipe';
+import { TertiaryButtonComponent } from '@shared/components/buttons/tertiary-button/tertiary-button.component';
 
 @Component({
     selector: 'app-summary-portal-items',
@@ -25,7 +27,10 @@ import { FieldTypes } from '@mydata/constants/fieldTypes';
     SummaryDividerComponent,
     MatButton,
     LowerCasePipe,
-    NgClass
+    NgClass,
+    JsonPipe,
+    HasSelectedItemsPipe,
+    TertiaryButtonComponent
   ]
 })
 export class SummaryPortalItemsComponent implements OnInit {

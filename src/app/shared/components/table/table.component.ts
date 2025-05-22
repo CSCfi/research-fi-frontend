@@ -95,6 +95,7 @@ export class TableComponent implements OnInit {
   @Input() currentSelection: any[];
   @Input() pageNumber: number;
   @Input() pageSize: number;
+  @Input() profileToolThemeBackground: boolean;
 
   @Output() onSortChange = new EventEmitter<Sort>();
   @Output() onSelectionChange = new EventEmitter<number | string>();

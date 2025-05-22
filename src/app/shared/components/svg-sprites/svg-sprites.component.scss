@@ -201,6 +201,14 @@
       color: #fff;
     }
   }
+  .chevron-down-icon {
+    &.tertiary-button-icon {
+      margin-left: 4px;
+      width: 18px;
+      height: 18px;
+      margin-top: 0px;
+    }
+  }
 
   .chevron-left-pagination {
     width: 16px;
