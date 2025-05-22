@@ -119,7 +119,7 @@
     <ng-template #publicationTemplate>
       <!-- item from search (portal) -->
       <ng-container *ngIf="_item.title">
-        <app-activity-item [rows]="summary ? [_item.title] : [_item.title, _item.authors]" [smallLastItem]="true"></app-activity-item>
+        <app-activity-item [link]="linkToPublication" [rows]="summary ? [_item.title] : [_item.title, _item.authors]" [smallLastItem]="true"></app-activity-item>
       </ng-container>
 
       <ng-container *ngIf="!_item.title">

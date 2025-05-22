@@ -5,6 +5,11 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
+.mat-mdc-table.profile-tool-background {
+    background-color: #f7f7fb !important;
+  }
+
+
 app-table,
 app-table-cell {
   .mat-column-icon {

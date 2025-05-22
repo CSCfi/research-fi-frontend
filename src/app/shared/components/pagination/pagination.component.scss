@@ -62,6 +62,10 @@
       font-weight: bold;
     }
 
+    .pagination .page-button {
+      background: transparent;
+    }
+
     @media (max-width: 991px) {
       .result-count {
         align-items: center;

@@ -25,8 +25,8 @@
   </div>
 </div>
 
-<div class="row justify-content-center">
-  <button *ngIf="sortedItems.length > 3 && itemDisplayCount === 3" class="col-auto" mat-button (click)="showAllItems()" color="primary">
-    {{ showMorePrefix }} {{ showMoreLabel | lowercase }}
-  </button>
+<div class="row justify-content-center mt-4">
+  <div>
+  <app-tertiary-button *ngIf="sortedItems.length > 3 && itemDisplayCount === 3" i18n-content="@@publishEllipsis" content="{{ showMorePrefix }} {{ showMoreLabel | lowercase }}" i18n-content="@@reselect" [svgSymbolName]="'chevron-down'" [svgCssClass]="'chevron-down-icon tertiary-button-icon'" (click)="showAllItems()"></app-tertiary-button>
+  </div>
 </div>

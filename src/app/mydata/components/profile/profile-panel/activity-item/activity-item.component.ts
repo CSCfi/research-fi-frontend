@@ -6,17 +6,20 @@
 //  :license: MIT
 
 import { Component, Input, OnInit } from '@angular/core';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-activity-item',
     templateUrl: './activity-item.component.html',
+    styleUrls: ['./activity-item.component.scss'],
     standalone: true,
-    imports: [NgFor],
+  imports: [NgFor, NgIf, RouterLink]
 })
 export class ActivityItemComponent implements OnInit {
   @Input() rows: any[];
   @Input() smallLastItem: boolean;
+  @Input() link: string;
 
   constructor() {}
 
