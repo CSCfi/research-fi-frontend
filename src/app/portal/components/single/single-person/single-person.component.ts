@@ -30,6 +30,9 @@ import { TagDoiComponent } from '../../../../shared/components/tags/tag-doi/tag-
 import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
+import {
+  PersonProfileViewComponent
+} from '@mydata/components/profile/person-profile-view/person-profile-view.component';
 
 type Field = { key: string; label?: string };
 
@@ -57,7 +60,8 @@ type Field = { key: string; label?: string };
     JoinItemsPipe,
     CheckEmptyFieldsPipe,
     SvgSpritesComponent,
-    JsonPipe
+    JsonPipe,
+    PersonProfileViewComponent
   ]
 })
 export class SinglePersonComponent implements OnInit {

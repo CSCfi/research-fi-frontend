@@ -38,6 +38,10 @@ import { SummaryAffiliationsComponent } from './summary-affiliations/summary-aff
 import { SecondaryButtonComponent } from '../../../../shared/components/buttons/secondary-button/secondary-button.component';
 import { NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
 import { TertiaryButtonComponent } from '@shared/components/buttons/tertiary-button/tertiary-button.component';
+import { ProfileSummaryViewComponent } from '@mydata/components/shared-layouts/profile-summary-view/profile-summary-view.component';
+import {
+  PersonProfileViewComponent
+} from '@mydata/components/profile/person-profile-view/person-profile-view.component';
 
 @Component({
     selector: 'app-profile-summary',
@@ -59,7 +63,9 @@ import { TertiaryButtonComponent } from '@shared/components/buttons/tertiary-but
     EditorModalComponent,
     JoinItemsPipe,
     HasSelectedItemsPipe,
-    TertiaryButtonComponent
+    TertiaryButtonComponent,
+    ProfileSummaryViewComponent,
+    PersonProfileViewComponent
   ]
 })
 export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
@@ -78,23 +84,7 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
   showDialog: boolean;
   dialogData: any;
   currentIndex: number;
-
-  editString = CommonStrings.reselect;
-  selectString = CommonStrings.select;
-
   removeGroupItemsSub: Subscription;
-
-  noPublicDataText = $localize`:@@youHaveNotSelectedAnyPublicData:Et ole vielä valinnut julkisesti näytettäviä tietoja`;
-
-  summaryGroupIds = [
-    GroupTypes.publication,
-    GroupTypes.dataset,
-    GroupTypes.education,
-    GroupTypes.affiliation,
-    GroupTypes.description,
-    GroupTypes.activitiesAndRewards,
-    GroupTypes.funding,
-  ];
 
   constructor(
     private appSettingsService: AppSettingsService,
@@ -108,7 +98,9 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
     this.locale = this.appSettingsService.capitalizedLocale;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log('displayData', this.displayData);
+  }
 
   ngOnChanges(): void {
     this.displayData = cloneDeep(this.profileData);
@@ -118,6 +110,26 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
         group.fields = group.fields.filter((item) => item.id !== 'imported');
       }
     });
+  }
+
+  openDialogCall(index: number) {
+    this.showDialog = true;
+
+    const selectedGroup = cloneDeep(this.profileData[index]);
+
+    const filteredFields = selectedGroup.fields.filter(
+      (field) => field.items.length
+    );
+
+    // Filter out fields with 0 items from groups that don't use search from portal functionality
+    if (PortalGroups.indexOf(selectedGroup.id) === -1) {
+      selectedGroup.fields = filteredFields;
+    }
+
+    this.dialogData = {
+      data: selectedGroup,
+    };
+    this.currentIndex = index;
   }
 
   openDialog(event: MouseEvent, index: number) {
@@ -247,6 +259,7 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
 
       group.fields = [{ ...existing, items: merged }];
     }
+    console.log('displayData', this.displayData);
   }
 
   ngOnDestroy(): void {
