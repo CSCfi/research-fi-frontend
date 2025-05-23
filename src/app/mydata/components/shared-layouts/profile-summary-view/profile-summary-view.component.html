@@ -4,10 +4,10 @@
   </h2>
 
   <div class="col-auto order-2 order-md-3">
-    <div *ngIf="editControlsVisible">
+    <div *ngIf="editControlsVisible && data.items[0].itemMeta.type !== fieldTypes.personKeyword">
       <app-tertiary-button
-              [content]="(data.fields | hasSelectedItems) ? editString : selectString"
-              [announce]="!(data.fields | hasSelectedItems)"
+              [content]="(data | hasSelectedItems) ? editString : selectString"
+              [announce]="!(data | hasSelectedItems)"
               [announceText]="data.label + ' ' + noPublicDataText"
               [svgSymbolName]="'edit'"
               [svgCssClass]="'open_in_new-icon button-icon'"
@@ -17,33 +17,18 @@
   </div>
 </div>
 
-<div class="row pt-2 pb-3 justify-content-between">
-  <div class="col align-self-center fst-italic order-3 order-md-2 mt-3 mt-md-0" i18n="@@youHaveNotSelectedAnyPublicData"
-       *ngIf="!(data.fields | hasSelectedItems)">
-    {{ noPublicDataText }}
-  </div>
-</div>
-
 <!-- DESCRIPTION -->
 <div class="pt-2" *ngIf="sectionName === groupTypes.description">
   <div class="summary-panel-wrapper">
-    <div class="col px-3 py-2" *ngIf="data | hasSelectedItems">
-      <h3>{{ data.label }}</h3>
+    <div class="row pt-2 pb-3 justify-content-between">
+      <div class="col align-self-center fst-italic order-3 order-md-2 mt-3 mt-md-0" i18n="@@youHaveNotSelectedAnyPublicData"
+           *ngIf="!(data | hasSelectedItems)">
+        {{ noPublicDataText }}
+      </div>
     </div>
-
     <div *ngIf="data.items[0]?.itemMeta?.type">
       <ng-container [ngSwitch]="data.items[0].itemMeta.type">
-        <div class="summary-panel" *ngSwitchCase="fieldTypes.personKeyword">
-          <!-- Display joined keywords only if item has show property set to true -->
-          <div class="row" *ngIf="data.items[0].itemMeta.show">
-            <div class="col pb-2">
-              {{ data.items | joinItems: 'value' }}
-            </div>
-          </div>
-          <app-summary-divider></app-summary-divider>
-        </div>
-
-        <ng-container>
+        <div *ngSwitchCase="fieldTypes.personResearcherDescription">
           <div class="summary-panel" *ngFor="let item of data.items">
             <div class="row d-flex justify-content-between py-1" *ngIf="item.itemMeta.show">
               <div class="col">
@@ -56,7 +41,17 @@
             </div>
             <app-summary-divider></app-summary-divider>
           </div>
-        </ng-container>
+        </div>
+
+        <div class="summary-panel" *ngSwitchCase="fieldTypes.personKeyword">
+          <!-- Display joined keywords only if item has show property set to true -->
+          <div class="row" *ngIf="data.items[0].itemMeta.show">
+            <div class="col pb-2">
+              {{ data.items | joinItems: 'value' }}
+            </div>
+          </div>
+          <app-summary-divider></app-summary-divider>
+        </div>
       </ng-container>
     </div>
   </div>
@@ -109,10 +104,6 @@
 
 <!-- EDUCATION -->
 <div class="pt-2" *ngIf="sectionName === groupTypes.education">
-  <div class="row">
-    <div class="col-9"><h2>{{ data.label }}</h2></div>
-    <div class="col-3"></div>
-  </div>
   <div class="row mb-4" *ngFor="let item of data.items; let i = index">
     <ng-container *ngIf="item.itemMeta.show">
       <div class="row">
@@ -139,7 +130,6 @@
 <!-- DATASETS -->
 <div class="pt-2" *ngIf="sectionName === groupTypes.dataset">
   <app-summary-portal-items
-          *ngSwitchCase="groupTypes.dataset"
           [data]="data"
           [fieldType]="fieldTypes.activityDataset"
           sortField="year"
