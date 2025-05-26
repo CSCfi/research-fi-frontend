@@ -8,6 +8,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { FieldTypes } from '@mydata/constants/fieldTypes';
 
 @Component({
     selector: 'app-activity-item',
@@ -20,6 +21,8 @@ export class ActivityItemComponent implements OnInit {
   @Input() rows: any[];
   @Input() smallLastItem: boolean;
   @Input() link: string;
+  @Input() fieldType: number;
+  fieldTypes =  FieldTypes;
 
   constructor() {}
 
@@ -30,5 +33,8 @@ export class ActivityItemComponent implements OnInit {
     // First row should be highlighted.
     // Row value is empty string if no match in profile data
     this.rows = this.rows.filter((item) => item?.toString().trim().length > 0);
+    console.log('this.fieldType', this.fieldType);
+    console.log('this.rows', this.rows);
+    console.log('this.link', this.link);
   }
 }

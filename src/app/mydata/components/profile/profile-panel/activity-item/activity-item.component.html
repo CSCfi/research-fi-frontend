@@ -21,10 +21,16 @@
                   [class.font-size-small]="
         rows.length > 1 && i === rows.length - 1 && smallLastItem
       "
-          >
+          ><span *ngIf="fieldType === fieldTypes.activityPublication">
              <a [routerLink]="['/', 'results', 'publication', link]" target="_blank">
       {{ value }}
              </a>
+            </span>
+            <span *ngIf="fieldType === fieldTypes.activityDataset">
+             <a [routerLink]="['/', 'results', 'dataset', link]" target="_blank">
+      {{ value }}
+             </a>
+            </span>
     </span>
     </ng-container>
   </div>

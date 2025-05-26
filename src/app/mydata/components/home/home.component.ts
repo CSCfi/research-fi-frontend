@@ -60,7 +60,6 @@ export class HomeComponent implements OnInit {
         map(({ isAuthenticated }) => {
           // allow navigation if authenticated
           if (isAuthenticated) {
-            console.log('IS AUTH', isAuthenticated);
           }
         })
       );
