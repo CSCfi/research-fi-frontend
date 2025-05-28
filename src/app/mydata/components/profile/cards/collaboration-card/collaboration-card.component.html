@@ -5,11 +5,6 @@
 
 <app-collaboration-view [hasEditRights]='true' [label]="label" [hasCheckedOption]="hasCheckedOption" [collaborationOptions]="collaborationOptions" (handleOpenDialog)="openDialog()"></app-collaboration-view>
 
-<app-empty-card
-  *ngIf="!hasCheckedOption"
-  (onButtonClick)="openDialog()"
-></app-empty-card>
-
 <ng-template #dialogTemplate>
   <div class="profile-tool-modal">
   <div class="row pb-3">

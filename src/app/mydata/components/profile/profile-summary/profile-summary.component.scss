@@ -10,8 +10,10 @@
   display: none;
 }
 
-h2, h3 {
-  font-size: 1.4rem !important;
+.content-container .container-fluid {
+  h2, h3 {
+    font-size: 1.4rem;
+  }
 }
 
 .group-wrapper {

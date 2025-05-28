@@ -67,7 +67,7 @@
         <!-- Left side fields for profile data -->
         <div class="row">
         <ng-container *ngIf="profileData; else loadingTemplate">
-          <div class="col-8">
+          <div class="col-lg-8 col-md-12">
           <app-profile-summary class="d-block pt-3" [profileData]="profileData" [name]="profileService.currentEditorProfileName | async" [orcid]="orcid"></app-profile-summary>
           </div>
         </ng-container>
