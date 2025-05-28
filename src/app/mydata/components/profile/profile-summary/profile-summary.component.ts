@@ -70,6 +70,8 @@ import {
 })
 export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
   @Input() profileData: any;
+  @Input() name: string;
+  @Input() orcid: string;
   displayData: any;
 
   fieldTypes = FieldTypes;
@@ -99,7 +101,13 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnInit(): void {
-    console.log('displayData', this.displayData);
+
+    // Change order of keywords and description data, since UI is built to follow the order of data.
+    const description = this.displayData.filter(d => d.id === 'description');
+    const keywords = description[0].fields.filter(field => field.id === 'keywords');
+    const researchDescription = description[0].fields.filter(field => field.id === 'researchDescription');
+    description[0].fields = [];
+    description[0].fields.push(researchDescription[0], keywords[0]);
   }
 
   ngOnChanges(): void {
@@ -259,7 +267,6 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
 
       group.fields = [{ ...existing, items: merged }];
     }
-    console.log('displayData', this.displayData);
   }
 
   ngOnDestroy(): void {

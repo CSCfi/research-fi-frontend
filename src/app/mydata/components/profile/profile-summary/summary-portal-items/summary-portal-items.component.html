@@ -21,7 +21,7 @@
       </div>
 
       <div class="row">
-        <div [ngClass]="fieldType === FieldTypes.activityPublication ? 'col px-4' : 'col'">
+        <div [ngClass]="fieldType === FieldTypes.activityPublication || fieldType === FieldTypes.activityDataset ? 'col px-4' : 'col'">
           <app-panel-array-item [item]="item" [fieldType]="fieldType" [summary]="true"></app-panel-array-item>
         </div>
       </div>

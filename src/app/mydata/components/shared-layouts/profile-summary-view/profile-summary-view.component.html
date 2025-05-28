@@ -20,9 +20,8 @@
 <!-- DESCRIPTION -->
 <div class="pt-2" *ngIf="sectionName === groupTypes.description">
   <div class="summary-panel-wrapper">
-    <div class="row pt-2 pb-3 justify-content-between">
-      <div class="col align-self-center fst-italic order-3 order-md-2 mt-3 mt-md-0" i18n="@@youHaveNotSelectedAnyPublicData"
-           *ngIf="!(data | hasSelectedItems)">
+    <div *ngIf="!(data | hasSelectedItems)" class="row pt-2 pb-3 justify-content-between">
+      <div class="col align-self-center fst-italic order-3 order-md-2 mt-3 mt-md-0" i18n="@@youHaveNotSelectedAnyPublicData">
         {{ noPublicDataText }}
       </div>
     </div>

@@ -1,1 +1,24 @@
-<p>collaboration-view works!</p>
+<app-profile-editor-card-header
+        [label]="label"
+        [displayButton]="hasEditRights"
+        (handleOpenDialog)="openDialog()"
+></app-profile-editor-card-header>
+<app-empty-card
+        *ngIf="!hasCheckedOption"
+        (onButtonClick)="openDialog()"
+></app-empty-card>
+
+<div class="row mt-3 gx-0" *ngIf="hasCheckedOption">
+  <section>
+    <ng-container *ngFor="let option of collaborationOptions">
+      <mat-checkbox
+              class="py-1 py-lg-0 w-100"
+              [checked]="option?.selected"
+              disabled
+              color="primary"
+      >
+        {{ option[nameLocale] }}
+      </mat-checkbox>
+    </ng-container>
+  </section>
+</div>

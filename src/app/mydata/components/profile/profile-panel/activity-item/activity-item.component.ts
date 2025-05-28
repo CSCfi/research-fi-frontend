@@ -33,8 +33,5 @@ export class ActivityItemComponent implements OnInit {
     // First row should be highlighted.
     // Row value is empty string if no match in profile data
     this.rows = this.rows.filter((item) => item?.toString().trim().length > 0);
-    console.log('this.fieldType', this.fieldType);
-    console.log('this.rows', this.rows);
-    console.log('this.link', this.link);
   }
 }

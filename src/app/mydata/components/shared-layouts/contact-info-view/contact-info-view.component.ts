@@ -32,7 +32,7 @@ import { checkGroupSelected } from '@mydata/utils';
   styleUrl: './contact-info-view.component.scss'
 })
 export class ContactInfoViewComponent {
-  @Input() contactFields: any;
+  @Input() contactFields: string;
   @Input() data: any;
   @Input() label: string;
   @Output() handleOpenDialog = new EventEmitter();

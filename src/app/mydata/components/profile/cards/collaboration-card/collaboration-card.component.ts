@@ -24,6 +24,9 @@ import { MatCheckbox } from '@angular/material/checkbox';
 import { EmptyCardComponent } from '../empty-card/empty-card.component';
 import { NgIf, NgFor } from '@angular/common';
 import { ProfileEditorCardHeaderComponent } from '../profile-editor-card-header/profile-editor-card-header.component';
+import {
+  CollaborationViewComponent
+} from '@mydata/components/shared-layouts/collaboration-view/collaboration-view.component';
 
 @Component({
     selector: 'app-collaboration-card',
@@ -31,14 +34,15 @@ import { ProfileEditorCardHeaderComponent } from '../profile-editor-card-header/
     styleUrls: ['./collaboration-card.component.scss'],
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [
-        ProfileEditorCardHeaderComponent,
-        NgIf,
-        EmptyCardComponent,
-        NgFor,
-        MatCheckbox,
-        DialogComponent,
-    ],
+  imports: [
+    ProfileEditorCardHeaderComponent,
+    NgIf,
+    EmptyCardComponent,
+    NgFor,
+    MatCheckbox,
+    DialogComponent,
+    CollaborationViewComponent
+  ]
 })
 export class CollaborationCardComponent implements OnInit, OnDestroy {
   @Input() label: string;

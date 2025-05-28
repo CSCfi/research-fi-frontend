@@ -65,17 +65,12 @@ export class SummaryPortalItemsComponent implements OnInit {
     const dataCopy = cloneDeep(this.data);
 
     if (this.fieldType === FieldTypes.activityPublication) {
-      console.log('is publications', this.data);
       this.data.items = this.data.items.sort(this.comparePublicationYearsPublications).reverse();
-      console.log('sorted', this.data);
     }
 
     if (this.fieldType === FieldTypes.activityDataset) {
-      console.log('is datasets', this.data);
       this.data.items = this.data.items.sort(this.comparePublicationYearsDataset).reverse();
-      console.log('sorted', this.data);
     }
-
 
     if (dataCopy.id === 'publication') {
       // mergePublications(dataCopy);

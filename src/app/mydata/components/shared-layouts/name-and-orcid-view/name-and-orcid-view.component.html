@@ -1,1 +1,26 @@
-<p>name-and-orcid-view works!</p>
+<div class="group-wrapper">
+  <div class="row pt-2 pb-3 justify-content-between">
+    <div class="col-9"><h1 class="d-inline">{{ name }}</h1>
+      <app-tertiary-button class="mx-4" *ngIf="shareButtonVisible" i18n-content="@@publishEllipsis"
+                           content="Jaa profiili" i18n-content="@@reselect" [svgSymbolName]="'share'"
+                           [svgCssClass]="'share-icon button-icon'" (click)="copyLink()"></app-tertiary-button>
+    </div>
+    <div class="col-3"></div>
+  </div>
+  <div class="row">
+    <div class="col-12 pb-3">
+      <a [href]="'https://orcid.org/' + orcid" target='_blank'>
+              <span *ngIf='orcid'>
+                            <img
+                                    class="orcid-icon mt-n1 pe-2"
+                                    src="assets/img/orcid_icon.svg"
+                                    alt="Orcid -palvelun logo"
+                            />
+            <span>{{ orcid }}</span>
+                {{ orcid }}
+              </span>
+        <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites>
+      </a>
+    </div>
+  </div>
+</div>
