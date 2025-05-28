@@ -24,6 +24,9 @@ import { EmptyCardComponent } from '../empty-card/empty-card.component';
 import { NgIf, NgFor, NgSwitch, NgSwitchCase, NgSwitchDefault, JsonPipe } from '@angular/common';
 import { ProfileEditorCardHeaderComponent } from '../profile-editor-card-header/profile-editor-card-header.component';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
+import {
+  ContactInfoViewComponent
+} from '@mydata/components/shared-layouts/contact-info-view/contact-info-view.component';
 
 @Component({
     selector: 'app-contact-card',
@@ -41,6 +44,7 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     JoinAllGroupItemsPipe,
     HasSelectedItemsPipe,
     SvgSpritesComponent,
+    ContactInfoViewComponent
   ]
 })
 export class ContactCardComponent implements OnInit, OnChanges {
@@ -77,7 +81,7 @@ export class ContactCardComponent implements OnInit, OnChanges {
     //this.setVisibleNameById(null);
   }
 
-  openDialog(event: MouseEvent) {
+  openDialog(event: any) {
     this.showDialog = true;
     this.dialogData = { data: cloneDeep(this.data[0]), trigger: event.detail };
   }

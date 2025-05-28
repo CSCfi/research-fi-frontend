@@ -11,7 +11,19 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
 import { ParseDatePipe } from '../../../../pipes/parse-date.pipe';
 import { GetLocalizedValuesPipe } from '../../../../pipes/getLocalizedValues.pipe';
 import { ActivityItemComponent } from '../activity-item/activity-item.component';
-import { NgIf, NgSwitch, NgSwitchCase, NgFor, NgTemplateOutlet, NgSwitchDefault, NgClass } from '@angular/common';
+import {
+  NgIf,
+  NgSwitch,
+  NgSwitchCase,
+  NgFor,
+  NgTemplateOutlet,
+  NgSwitchDefault,
+  NgClass,
+  JsonPipe
+} from '@angular/common';
+import { TagOpenAccessComponent } from '@shared/components/tags/tag-open-access/tag-open-access.component';
+import { TagDoiComponent } from '@shared/components/tags/tag-doi/tag-doi.component';
+import { TagPeerReviewedComponent } from '@shared/components/tags/tag-peer-reviewed/tag-peer-reviewed.component';
 
 @Component({
     selector: 'app-panel-array-item',
@@ -28,7 +40,11 @@ import { NgIf, NgSwitch, NgSwitchCase, NgFor, NgTemplateOutlet, NgSwitchDefault,
     NgSwitchDefault,
     GetLocalizedValuesPipe,
     ParseDatePipe,
-    NgClass
+    NgClass,
+    TagOpenAccessComponent,
+    JsonPipe,
+    TagDoiComponent,
+    TagPeerReviewedComponent
   ]
 })
 export class PanelArrayItemComponent implements OnInit {
@@ -39,7 +55,7 @@ export class PanelArrayItemComponent implements OnInit {
   @Input() localized: boolean;
   @Input() summary: boolean;
   hasOpenScienceTag = false;
-  linkToPublication = undefined;
+  link = undefined;
 
   fieldTypes = FieldTypes;
   _item: any;
@@ -53,9 +69,8 @@ export class PanelArrayItemComponent implements OnInit {
 
   ngOnInit(): void {
     this._item?.dataSources?.forEach(ds => {
-      console.log('ds', ds);
       if (ds.registeredDataSource !== 'ORCID') {
-        this.linkToPublication = this._item?.publicationId;
+        this.link = this._item?.id;
       }
       }
     );

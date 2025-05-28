@@ -8,13 +8,20 @@
     <ng-container *ngIf="item.itemMeta.show">
       <div *ngIf="i === 0" class="year-caption">
         {{sortedItems.slice(0, itemDisplayCount)[i].publicationYear}}
+        <span *ngIf="fieldType === fieldTypes.activityDataset">{{sortedItems.slice(0, itemDisplayCount)[i].year}}</span>
       </div>
+      <!-- PUBLICATIONS -->
       <div *ngIf="i > 0 && sortedItems.slice(0, itemDisplayCount)[i].publicationYear !== sortedItems.slice(0, itemDisplayCount)[i-1].publicationYear" class="year-caption">
         {{sortedItems.slice(0, itemDisplayCount)[i].publicationYear}}
       </div>
+      <!-- DATASETS -->
+      <div *ngIf="i > 0 && sortedItems.slice(0, itemDisplayCount)[i].year !== sortedItems.slice(0, itemDisplayCount)[i-1].year" class="year-caption">
+        {{sortedItems.slice(0, itemDisplayCount)[i].publicationYear}}
+        <span *ngIf="fieldType === fieldTypes.activityDataset">{{sortedItems.slice(0, itemDisplayCount)[i].year}}</span>
+      </div>
 
       <div class="row">
-        <div [ngClass]="fieldType === FieldTypes.activityPublication ? 'col px-4' : 'col'">
+        <div [ngClass]="fieldType === FieldTypes.activityPublication || fieldType === FieldTypes.activityDataset ? 'col px-4' : 'col'">
           <app-panel-array-item [item]="item" [fieldType]="fieldType" [summary]="true"></app-panel-array-item>
         </div>
       </div>

@@ -38,6 +38,7 @@ export class SummaryPortalItemsComponent implements OnInit {
   @Input() fieldType: any;
   @Input() sortField: string;
   @Input() showMoreLabel: string;
+  fieldTypes = FieldTypes;
 
   sortItemsByNew = sortItemsByNew;
   sortedItems: any[] = [];
@@ -49,8 +50,13 @@ export class SummaryPortalItemsComponent implements OnInit {
 
   constructor() {}
 
-  comparePublicationYears(a, b) {
+
+  comparePublicationYearsPublications(a, b) {
     return a.publicationYear - b.publicationYear;
+  }
+
+  comparePublicationYearsDataset(a, b) {
+    return a.year - b.year;
   }
 
   ngOnInit(): void {
@@ -59,9 +65,11 @@ export class SummaryPortalItemsComponent implements OnInit {
     const dataCopy = cloneDeep(this.data);
 
     if (this.fieldType === FieldTypes.activityPublication) {
-      console.log('is publications', this.data);
-      this.data.items = this.data.items.sort(this.comparePublicationYears).reverse();
-      console.log('sorted', this.data);
+      this.data.items = this.data.items.sort(this.comparePublicationYearsPublications).reverse();
+    }
+
+    if (this.fieldType === FieldTypes.activityDataset) {
+      this.data.items = this.data.items.sort(this.comparePublicationYearsDataset).reverse();
     }
 
     if (dataCopy.id === 'publication') {

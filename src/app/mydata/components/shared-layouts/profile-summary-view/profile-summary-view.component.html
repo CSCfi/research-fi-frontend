@@ -1,0 +1,163 @@
+<div class="row pt-2 pb-3 justify-content-between">
+  <h2 class="col-8 col-md-6 col-lg-8 align-self-center order-1 font-size-normal">
+    {{ data.label }}
+  </h2>
+
+  <div class="col-auto order-2 order-md-3">
+    <div *ngIf="editControlsVisible && data.items[0].itemMeta.type !== fieldTypes.personKeyword">
+      <app-tertiary-button
+              [content]="(data | hasSelectedItems) ? editString : selectString"
+              [announce]="!(data | hasSelectedItems)"
+              [announceText]="data.label + ' ' + noPublicDataText"
+              [svgSymbolName]="'edit'"
+              [svgCssClass]="'open_in_new-icon button-icon'"
+              (click)="openDialog($event, sectionIndex + 1)"
+      ></app-tertiary-button>
+    </div>
+  </div>
+</div>
+
+<!-- DESCRIPTION -->
+<div class="pt-2" *ngIf="sectionName === groupTypes.description">
+  <div class="summary-panel-wrapper">
+    <div *ngIf="!(data | hasSelectedItems)" class="row pt-2 pb-3 justify-content-between">
+      <div class="col align-self-center fst-italic order-3 order-md-2 mt-3 mt-md-0" i18n="@@youHaveNotSelectedAnyPublicData">
+        {{ noPublicDataText }}
+      </div>
+    </div>
+    <div *ngIf="data.items[0]?.itemMeta?.type">
+      <ng-container [ngSwitch]="data.items[0].itemMeta.type">
+        <div *ngSwitchCase="fieldTypes.personResearcherDescription">
+          <div class="summary-panel" *ngFor="let item of data.items">
+            <div class="row d-flex justify-content-between py-1" *ngIf="item.itemMeta.show">
+              <div class="col">
+                <app-panel-array-item
+                        [item]="item"
+                        [fieldType]="data.items[0].itemMeta.show"
+                        [localized]="data.localized"
+                ></app-panel-array-item>
+              </div>
+            </div>
+            <app-summary-divider></app-summary-divider>
+          </div>
+        </div>
+
+        <div class="summary-panel" *ngSwitchCase="fieldTypes.personKeyword">
+          <!-- Display joined keywords only if item has show property set to true -->
+          <div class="row" *ngIf="data.items[0].itemMeta.show">
+            <div class="col pb-2">
+              {{ data.items | joinItems: 'value' }}
+            </div>
+          </div>
+          <app-summary-divider></app-summary-divider>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<!-- AFFILIATIONS -->
+<div class="pt-2" *ngIf="sectionName === groupTypes.affiliation">
+  <!-- Iterate primary affiliations -->
+  <div class="row" *ngFor="let item of data.items; let i = index">
+    <ng-container *ngIf="item.itemMeta.primaryValue && item.itemMeta.show">
+      <div class="col-3 fw-bold"><span
+              *ngIf="item['organizationName' + locale]">{{ item['organizationName' + locale] }}</span></div>
+      <div class="col-6">
+        <div class="fw-bold">{{ item['positionName' + locale] }}</div>
+        <div><span *ngIf="item['departmentName' + locale]">{{ item['departmentName' + locale] }}</span></div>
+        <div>{{ item['startDate'].year }} - {{ item['endDate'].year }}</div>
+      </div>
+      <div class="col-3">
+        <ng-container *ngFor="let ds of item.dataSources; let j = index">
+          <div *ngFor="let ds of item.dataSources; let j = index" class="font-size-smaller">
+            <span i18n="@@source">Lähde</span>:
+            <span>{{ ds.organization['name' + locale] }}</span>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+  </div>
+  <br>
+  <!-- Iterate non primary affiliations -->
+  <div class="row mb-4" *ngFor="let item of data.items; let i = index">
+    <ng-container *ngIf="!item.itemMeta.primaryValue && item.itemMeta.show">
+      <div class="col-3 fw-bold"><span
+              *ngIf="item['organizationName' + locale]">{{ item['organizationName' + locale] }}</span></div>
+      <div class="col-6">
+        <div class="fw-bold">{{ item['positionName' + locale] }}</div>
+        <div><span *ngIf="item['departmentName' + locale]">{{ item['departmentName' + locale] }}</span></div>
+        <div>{{ item['startDate'].year }} - {{ item['endDate'].year }}</div>
+      </div>
+      <div class="col-3">
+        <ng-container *ngFor="let ds of item.dataSources; let j = index">
+          <div *ngFor="let ds of item.dataSources; let j = index" class="font-size-smaller">
+            <span i18n="@@source">Lähde</span>:
+            <span>{{ ds.organization['name' + locale] }}</span>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<!-- EDUCATION -->
+<div class="pt-2" *ngIf="sectionName === groupTypes.education">
+  <div class="row mb-4" *ngFor="let item of data.items; let i = index">
+    <ng-container *ngIf="item.itemMeta.show">
+      <div class="row">
+        <div class="col-12"><span class="fw-bold">{{ item['name' + locale] }}  </span>{{ item?.startDate?.year }} -
+          <span *ngIf="item?.endDate?.year > 0">{{ item?.endDate?.year }}</span></div>
+        <!-- TODO: add checkLang pipe -->
+        <div class="col-12">{{ item.degreeGrantingInstitutionName }}</div>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<!-- PUBLICATIONS -->
+<div class="pt-2" *ngIf="sectionName === groupTypes.publication">
+  <app-summary-portal-items
+          [data]="data"
+          [fieldType]="fieldTypes.activityPublication"
+          sortField="publicationYear"
+          showMoreLabel="julkaisut"
+          i18n-showMoreLabel="@@publications"
+  ></app-summary-portal-items>
+</div>
+
+<!-- DATASETS -->
+<div class="pt-2" *ngIf="sectionName === groupTypes.dataset">
+  <app-summary-portal-items
+          [data]="data"
+          [fieldType]="fieldTypes.activityDataset"
+          sortField="year"
+          showMoreLabel="tutkimusaineistot"
+          i18n-showMoreLabel="@@datasets"
+  ></app-summary-portal-items>
+</div>
+
+<!-- FUNDING -->
+<div class="pt-2" *ngIf="sectionName === groupTypes.funding">
+  <app-summary-portal-items
+          [data]="data"
+          [fieldType]="fieldTypes.activityFunding"
+          sortField="startYear"
+          showMoreLabel="rahoitusmyönnöt"
+          i18n-showMoreLabel="@@fundings"
+  ></app-summary-portal-items>
+</div>
+
+<!-- ACTIVITIES AND REWARDS -->
+<div class="pt-2" *ngIf="sectionName === groupTypes.activitiesAndRewards">
+  <app-summary-portal-items
+          [data]="data"
+          [fieldType]="fieldTypes.activityActivitiesAndRewards || fieldTypes.activityActivitiesAndRewardsOrcid"
+          sortField="name"
+          showMoreLabel="aktiviteetit ja palkinnot"
+          i18n-showMoreLabel="@@activitesAndRewards"
+  ></app-summary-portal-items>
+</div>
+
+
+

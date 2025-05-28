@@ -26,18 +26,18 @@
 
     <ng-container *ngSwitchCase="fieldTypes.activityAffiliation">
       <app-activity-item
-        [rows]="[
+              [rows]="[
           _item['positionName' + locale],
           _item['organizationName' + locale],
           _item.year
         ]"
-        [smallLastItem]="true"
+              [smallLastItem]="true"
       ></app-activity-item>
     </ng-container>
 
     <ng-container *ngSwitchCase="fieldTypes.activityEducation">
       <app-activity-item
-        [rows]="[
+              [rows]="[
           _item['name' + locale],
           _item.degreeGrantingInstitutionName,
           (_item.startDate | parseDate) + ' - ' + (_item.endDate | parseDate)
@@ -46,72 +46,90 @@
     </ng-container>
 
     <ng-container
-      *ngSwitchCase="fieldTypes.activityPublication"
-      [ngTemplateOutlet]="publicationTemplate"
+            *ngSwitchCase="fieldTypes.activityPublication"
+            [ngTemplateOutlet]="publicationTemplate"
     >
     </ng-container>
 
     <ng-container
-      *ngSwitchCase="fieldTypes.activityOrcidPublication"
-      [ngTemplateOutlet]="publicationTemplate"
+            *ngSwitchCase="fieldTypes.activityOrcidPublication"
+            [ngTemplateOutlet]="publicationTemplate"
     >
     </ng-container>
 
     <ng-container *ngSwitchCase="fieldTypes.activityDataset">
       <ng-container *ngIf="_item?.name; else localized">
         <app-activity-item
-          [rows]="[_item['name'], _item.year]"
-          [smallLastItem]="true"
+                [rows]="[_item['name'], _item.year]"
+                [link]="link"
+                [fieldType]="fieldType"
+                [smallLastItem]="true"
         ></app-activity-item>
+
+    <div class="row badge-row gx-0">
+      <div class="col-auto d-inline-flex">
+        <app-tag-peer-reviewed *ngIf="_item.peerReviewed"></app-tag-peer-reviewed>
+        <app-tag-open-access class='me-2' *ngIf="_item.openAccess === true"></app-tag-open-access>
+        <app-tag-doi *ngIf="_item.doi" [linkDoi]="_item.doi"></app-tag-doi>
+        </div>
+    </div>
       </ng-container>
       <ng-template #localized>
         <app-activity-item
-          [rows]="[_item['name' + locale], _item.datasetCreated]"
-          [smallLastItem]="true"
+                [rows]="[_item['name' + locale], _item.datasetCreated]"
+                [smallLastItem]="true"
         ></app-activity-item>
+
+    <div class="row badge-row gx-0">
+      <div class="col-auto d-inline-flex">
+        <app-tag-peer-reviewed *ngIf="_item.peerReviewed"></app-tag-peer-reviewed>
+        <app-tag-open-access class='me-2' *ngIf="_item.openAccess === true"></app-tag-open-access>
+        <app-tag-doi *ngIf="_item.doi" [linkDoi]="_item.doi"></app-tag-doi>
+        </div>
+    </div>
       </ng-template>
     </ng-container>
 
     <ng-container *ngSwitchCase="fieldTypes.activityDatasetOrcid">
       <ng-container *ngIf="_item?.name; else localized">
         <app-activity-item
-          [rows]="[_item['name'], _item.year]"
-          [smallLastItem]="true"
+                [rows]="[_item['name'], _item.year]"
+                [smallLastItem]="true"
         ></app-activity-item>
       </ng-container>
       <ng-template #localized>
         <app-activity-item
-          [rows]="[_item['name' + locale], _item.datasetCreated]"
-          [smallLastItem]="true"
+                [rows]="[_item['name' + locale], _item.datasetCreated]"
+                [smallLastItem]="true"
         ></app-activity-item>
       </ng-template>
     </ng-container>
 
     <ng-container *ngSwitchCase="fieldTypes.activityActivitiesAndRewards">
       <app-activity-item
-        [rows]="[_item.name, _item.timing]"
-        [smallLastItem]="true"
+              [rows]="[_item.name, _item.timing]"
+              [smallLastItem]="true"
       ></app-activity-item>
     </ng-container>
 
     <ng-container *ngSwitchCase="fieldTypes.activityActivitiesAndRewardsOrcid">
       <app-activity-item
-        [rows]="[_item.name, _item.timing]"
-        [smallLastItem]="true"
+              [rows]="[_item.name, _item.timing]"
+              [smallLastItem]="true"
       ></app-activity-item>
     </ng-container>
 
     <ng-container *ngSwitchCase="fieldTypes.activityFunding">
       <app-activity-item
-        [rows]="[_item.name, _item.funder.name, _item.year]"
-        [smallLastItem]="true"
+              [rows]="[_item.name, _item.funder.name, _item.year]"
+              [smallLastItem]="true"
       ></app-activity-item>
     </ng-container>
 
     <ng-container *ngSwitchCase="fieldTypes.activityFundingOrcid">
       <app-activity-item
-        [rows]="[_item.name, _item.funder.name, _item.year]"
-        [smallLastItem]="true"
+              [rows]="[_item.name, _item.funder.name, _item.year]"
+              [smallLastItem]="true"
       ></app-activity-item>
     </ng-container>
 
@@ -119,13 +137,26 @@
     <ng-template #publicationTemplate>
       <!-- item from search (portal) -->
       <ng-container *ngIf="_item.title">
-        <app-activity-item [link]="linkToPublication" [rows]="summary ? [_item.title] : [_item.title, _item.authors]" [smallLastItem]="true"></app-activity-item>
+        <app-activity-item [fieldType]="fieldType" [link]="link"
+                           [rows]="summary ? [_item.title] : [_item.title, _item.authors]"
+                           [smallLastItem]="true"></app-activity-item>
       </ng-container>
 
       <ng-container *ngIf="!_item.title">
-        <app-activity-item [rows]="summary ? [_item.publicationName] : [_item.publicationName, _item.authors]" [smallLastItem]="true"></app-activity-item>
+        <app-activity-item [rows]="summary ? [_item.publicationName] : [_item.publicationName, _item.authors]"
+                           [smallLastItem]="true"></app-activity-item>
       </ng-container>
+
+      <div class="row badge-row gx-0">
+        <div class="col-auto d-inline-flex">
+          <app-tag-peer-reviewed *ngIf="_item.peerReviewed"></app-tag-peer-reviewed>
+          <app-tag-open-access class='me-2'
+                             *ngIf="_item.openAccess === 1 || _item.selfArchivedCode === '1'"></app-tag-open-access>
+          <app-tag-doi *ngIf="_item.doi" [linkDoi]="_item.doi"></app-tag-doi>
+          </div>
+      </div>
     </ng-template>
+
 
     <ng-container *ngSwitchDefault>
       {{ _item.value }}

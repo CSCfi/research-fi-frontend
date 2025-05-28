@@ -123,6 +123,13 @@
     color: #4546b9;
   }
 
+  .share-icon {
+    &.button-icon {
+      max-width: 20px;
+      max-height: 20px;
+    }
+  }
+
   .search-icon {
     &.button-icon {
       color: #fff;

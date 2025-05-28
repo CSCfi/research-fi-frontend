@@ -8,6 +8,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { FieldTypes } from '@mydata/constants/fieldTypes';
 
 @Component({
     selector: 'app-activity-item',
@@ -20,6 +21,8 @@ export class ActivityItemComponent implements OnInit {
   @Input() rows: any[];
   @Input() smallLastItem: boolean;
   @Input() link: string;
+  @Input() fieldType: number;
+  fieldTypes =  FieldTypes;
 
   constructor() {}
 

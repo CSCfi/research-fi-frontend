@@ -259,25 +259,27 @@ export class DraftService {
   }
 
   updatePerson() {
+    console.log('this.orcid', this.orcid);
     const id = this.orcid;
+    if (this.orcid) {
+      const source = this.singleItemService.getSinglePerson(id);
 
-    const source = this.singleItemService.getSinglePerson(id);
+      source.subscribe({
+          next: (search) => {
+            const person = search.persons[0] as Person;
 
-    source.subscribe({
-        next: (search) => {
-          const person = search.persons[0] as Person;
-
-          if (person != null) {
-            this.person$.next(person);
+            if (person != null) {
+              this.person$.next(person);
+            }
+          },
+          error: (error) => {
+            console.error("Error in updating person", error);
           }
-        },
-        error: (error) => {
-          console.error("Error in updating person", error);
         }
-      }
-    );
+      );
 
-    return source;
+      return source;
+    }
   }
 
   private async setProfileVisible() {
