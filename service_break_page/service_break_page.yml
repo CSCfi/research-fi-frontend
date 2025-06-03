@@ -67,7 +67,7 @@ objects:
 
   # Deployment config
   - apiVersion: apps/v1
-    kind: DeploymentConfig
+    kind: Deployment
     metadata:
       name: nginx-service-break-page
       labels:
@@ -100,4 +100,4 @@ objects:
               kind: ImageStreamTag
               name: nginx-service-break-page:latest
       strategy:
-        type: Rolling
+        type: RollingUpdate
