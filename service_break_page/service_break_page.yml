@@ -101,3 +101,23 @@ objects:
               name: nginx-service-break-page:latest
       strategy:
         type: RollingUpdate
+
+ # Route
+  - apiVersion: route.openshift.io/v1
+    kind: Route
+    metadata:
+      name: nginx-service-break-page
+      labels:
+        app: nginx-service-break-page
+    spec:
+      host: researchfi-service-break.2.rahtiapp.fi
+      to:
+        kind: Service
+        name: nginx-service-break-page
+        weight: 100
+      port:
+        targetPort: nginx
+      tls:
+        termination: edge
+        insecureEdgeTerminationPolicy: Redirect
+      wildcardPolicy: None
