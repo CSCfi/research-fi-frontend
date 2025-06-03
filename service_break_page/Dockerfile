@@ -8,6 +8,6 @@
 # Use non-root version of nginx
 FROM image-registry.openshift-image-registry.svc:5000/researchfi-production/nginx-unprivileged:latest
 ENV TZ=Europe/Helsinki
-COPY service_break_page/default.conf /etc/nginx/conf.d
+COPY service_break_page/nginx.conf /etc/nginx/
 COPY service_break_page/html /usr/share/nginx/html
 EXPOSE 8080
