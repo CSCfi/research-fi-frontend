@@ -116,7 +116,7 @@ objects:
         name: nginx-service-break-page
         weight: 100
       port:
-        targetPort: nginx
+        targetPort: nginx-service-break-page
       tls:
         termination: edge
         insecureEdgeTerminationPolicy: Redirect
