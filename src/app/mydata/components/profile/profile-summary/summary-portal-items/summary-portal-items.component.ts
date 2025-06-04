@@ -72,6 +72,11 @@ export class SummaryPortalItemsComponent implements OnInit {
       this.data.items = this.data.items.sort(this.comparePublicationYearsDataset).reverse();
     }
 
+    if (this.fieldType === FieldTypes.activityFunding) {
+      console.log('FUNDING', this.data.items);
+      this.data.items = this.data.items.sort(this.comparePublicationYearsDataset).reverse();
+    }
+
     if (dataCopy.id === 'publication') {
       // mergePublications(dataCopy);
     }

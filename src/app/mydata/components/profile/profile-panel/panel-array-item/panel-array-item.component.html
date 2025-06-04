@@ -66,12 +66,13 @@
                 [smallLastItem]="true"
         ></app-activity-item>
 
-    <div class="row badge-row gx-0">
-      <div class="col-auto d-inline-flex">
-        <app-tag-peer-reviewed *ngIf="_item.peerReviewed"></app-tag-peer-reviewed>
-        <app-tag-open-access class='me-2' *ngIf="_item.openAccess === true"></app-tag-open-access>
-        <app-tag-doi *ngIf="_item.doi" [linkDoi]="_item.doi"></app-tag-doi>
+    <div class="row">
+      <div class="badge-row gx-0">
+        <div class="d-flex"><app-tag-open-access class='me-2 d-flex' *ngIf="_item.openAccess === true"></app-tag-open-access>
+          <app-tag-doi *ngIf="_item.doi" [linkDoi]="_item.doi" class='d-flex'></app-tag-doi>
         </div>
+        <div><app-tag-peer-reviewed class='d-flex' *ngIf="_item.peerReviewed"></app-tag-peer-reviewed></div>
+      </div>
     </div>
       </ng-container>
       <ng-template #localized>
@@ -80,12 +81,13 @@
                 [smallLastItem]="true"
         ></app-activity-item>
 
-    <div class="row badge-row gx-0">
-      <div class="col-auto d-inline-flex">
-        <app-tag-peer-reviewed *ngIf="_item.peerReviewed"></app-tag-peer-reviewed>
-        <app-tag-open-access class='me-2' *ngIf="_item.openAccess === true"></app-tag-open-access>
-        <app-tag-doi *ngIf="_item.doi" [linkDoi]="_item.doi"></app-tag-doi>
+    <div class="row">
+      <div class="badge-row gx-0">
+        <div class="d-flex"><app-tag-open-access class='me-2 d-flex' *ngIf="_item.openAccess === true"></app-tag-open-access>
+          <app-tag-doi *ngIf="_item.doi" [linkDoi]="_item.doi" class='d-flex'></app-tag-doi>
         </div>
+        <div><app-tag-peer-reviewed class='d-flex' *ngIf="_item.peerReviewed"></app-tag-peer-reviewed></div>
+      </div>
     </div>
       </ng-template>
     </ng-container>
@@ -122,7 +124,9 @@
     <ng-container *ngSwitchCase="fieldTypes.activityFunding">
       <app-activity-item
               [rows]="[_item.name, _item.funder.name, _item.year]"
-              [smallLastItem]="true"
+              [link]="link"
+              [fieldType]="fieldType"
+              [smallLastItem]="false"
       ></app-activity-item>
     </ng-container>
 
@@ -147,13 +151,10 @@
                            [smallLastItem]="true"></app-activity-item>
       </ng-container>
 
-      <div class="row badge-row gx-0">
-        <div class="col-auto d-inline-flex">
-          <app-tag-peer-reviewed *ngIf="_item.peerReviewed"></app-tag-peer-reviewed>
-          <app-tag-open-access class='me-2'
-                             *ngIf="_item.openAccess === 1 || _item.selfArchivedCode === '1'"></app-tag-open-access>
-          <app-tag-doi *ngIf="_item.doi" [linkDoi]="_item.doi"></app-tag-doi>
-          </div>
+      <div class="badge-row gx-0">
+          <div class="d-flex">
+          <app-tag-open-access class='me-2' *ngIf="_item.openAccess === 1 || _item.selfArchivedCode === '1'"></app-tag-open-access><app-tag-doi *ngIf="_item.doi" [linkDoi]="_item.doi"></app-tag-doi></div>
+          <div><app-tag-peer-reviewed *ngIf="_item.peerReviewed"></app-tag-peer-reviewed></div>
       </div>
     </ng-template>
 

@@ -5,33 +5,45 @@
 
 <div class="row activity-item-wrap">
   <div class="col ps-0">
-    <ng-container *ngIf="!link">
-    <span
-            *ngFor="let value of rows; let i = index"
-            [class.font-size-small]="
+    <ng-container *ngIf="!link && fieldType !== fieldTypes.activityActivitiesAndRewards">
+      <div
+              *ngFor="let value of rows; let i = index"
+              [class.font-size-small]="
         rows.length > 1 && i === rows.length - 1 && smallLastItem
       "
-    >
-      {{ value }}
-    </span>
+      >
+        <div *ngIf="i === 0" class="title-bottom-pad fw-bold">
+            {{ value }}
+        </div>
+        <div *ngIf="i > 0">
+          {{ value }}
+        </div>
+      </div>
     </ng-container>
     <ng-container *ngIf="link">
-          <span
-                  *ngFor="let value of rows; let i = index"
-                  [class.font-size-small]="
-        rows.length > 1 && i === rows.length - 1 && smallLastItem
-      "
-          ><span *ngIf="fieldType === fieldTypes.activityPublication">
-             <a [routerLink]="['/', 'results', 'publication', link]" target="_blank">
-      {{ value }}
-             </a>
-            </span>
-            <span *ngIf="fieldType === fieldTypes.activityDataset">
-             <a [routerLink]="['/', 'results', 'dataset', link]" target="_blank">
-      {{ value }}
-             </a>
-            </span>
-    </span>
+      <div *ngFor="let value of rows; let i = index"
+           [class.font-size-small]="rows.length > 1 && i === rows.length - 1 && smallLastItem"
+      >
+        <div *ngIf="fieldType === fieldTypes.activityPublication">
+          <a [routerLink]="['/', 'results', 'publication', link]" target="_blank">
+            {{ value }}
+          </a>
+        </div>
+        <div *ngIf="i < rows.length - 1 && fieldType === fieldTypes.activityDataset">
+          <a [routerLink]="['/', 'results', 'dataset', link]" target="_blank">
+            {{ value }}
+          </a>
+        </div>
+        <div *ngIf="i < rows.length - 1 && fieldType === fieldTypes.activityFunding">
+          <div *ngIf="i === 0" class="title-bottom-pad"><a [routerLink]="['/', 'results', 'funding', link]"
+                                                           target="_blank">{{ value }}</a>
+          </div>
+          <div *ngIf="i > 0">{{ value }}</div>
+        </div>
+        <div *ngIf="i === rows.length - 1 && fieldType === fieldTypes.activityFunding" class="mt-1">
+          {{ value }}
+        </div>
+      </div>
     </ng-container>
   </div>
 </div>

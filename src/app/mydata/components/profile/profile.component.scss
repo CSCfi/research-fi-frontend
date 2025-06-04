@@ -8,6 +8,13 @@
   border-right: 2px solid #E8E8F3;
 }
 
+app-footer .review-button {
+  position: fixed;
+  z-index: 999;
+  right: 0;
+  bottom: 96px;
+}
+
 app-profile {
   h2 {
     font-size: 1.5rem;
