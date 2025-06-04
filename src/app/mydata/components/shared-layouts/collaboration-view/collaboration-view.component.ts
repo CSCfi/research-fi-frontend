@@ -29,7 +29,6 @@ export class CollaborationViewComponent implements OnInit {
   @Input() label: string;
   @Input() hasCheckedOption: boolean;
   @Input() hasEditRights: boolean;
-  @Input() hasMadeChanges: boolean;
   @Output() handleOpenDialog = new EventEmitter();
 
   nameLocale = '';

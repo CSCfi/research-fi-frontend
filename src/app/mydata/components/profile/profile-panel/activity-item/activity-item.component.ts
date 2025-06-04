@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, Input, OnInit } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+import { JsonPipe, NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 
@@ -15,7 +15,7 @@ import { FieldTypes } from '@mydata/constants/fieldTypes';
     templateUrl: './activity-item.component.html',
     styleUrls: ['./activity-item.component.scss'],
     standalone: true,
-  imports: [NgFor, NgIf, RouterLink]
+  imports: [NgFor, NgIf, RouterLink, JsonPipe]
 })
 export class ActivityItemComponent implements OnInit {
   @Input() rows: any[];

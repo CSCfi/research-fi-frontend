@@ -126,6 +126,7 @@ export class CollaborationCardComponent implements OnInit, OnDestroy {
   }
 
   doDialogAction(action: string) {
+    console.log('doing dialog action', action);
     this.dialog.closeAll();
     this.showDialog = false;
 
@@ -139,8 +140,8 @@ export class CollaborationCardComponent implements OnInit, OnDestroy {
       });
 
       this.collaborationsService.addToPayload(this.optionsToggled);
+      this.collaborationsService.confirmPayload();
     }
-
     this.checkForSelection();
     this.optionsToggled = [];
   }
