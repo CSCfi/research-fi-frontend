@@ -27,7 +27,7 @@ export class PersonProfileViewComponent {
   @Input() displayData: any;
   @Input() name: any;
   @Input() orcid: any;
-  @Input() editControlsVisible: any;
+  @Input() isPortalSinglePage: any;
   @Output() openDialog = new EventEmitter<number>();
 
   openDialogCall(event: any){

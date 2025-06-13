@@ -50,6 +50,7 @@ import { TagPeerReviewedComponent } from '@shared/components/tags/tag-peer-revie
 export class PanelArrayItemComponent implements OnInit {
   @Input() set item(item: any) {
     this._item = item;
+    //console.log('ITEM', item);
   }
   @Input() fieldType: number;
   @Input() localized: boolean;

@@ -28,13 +28,44 @@
     </div>
 
     <app-breadcrumb
-      [type]="'single'"
-      [responseData]='{persons: [person]}'
-      tab='persons'
-      [tabName]='tabData.label'
-      [resultNameField]="'name'"
-      [queryParams]='tabQueryParams'
+            [type]="'single'"
+            [responseData]='{persons: [person]}'
+            tab='persons'
+            [tabName]='tabData.label'
+            [resultNameField]="'name'"
+            [queryParams]='tabQueryParams'
     ></app-breadcrumb>
+
+    <div class="row justify-content-between">
+      <!-- Main content -->
+      <div class="col-12 col-lg-8">
+        <app-person-profile-view [displayData]="profileFormatted" [name]="'test'" [orcid]="'test'"
+                                 [isPortalSinglePage]="true" (openDialog)="undefined"></app-person-profile-view>
+      </div>
+
+      <div class="col-12 col-lg-4">
+        <!-- Contact card in desktop view -->
+        <ng-container *ngIf="profileFormatted">
+          <aside class="group-wrapper d-none d-lg-block">
+            <app-contact-card i18n-label="@@contactInfo" label="Yhteystiedot" [data]="profileFormatted" [showEditButton]="false"></app-contact-card>
+          </aside>
+        </ng-container>
+
+        <!-- Collaboration -->
+        <aside class="group-wrapper">
+          <div class="card-content-wrapper">
+            <app-collaboration-card
+                    *ngIf="profileFormatted"
+                    [data]="profileFormatted"
+                    [editControlsVisible]="false"
+                    #collaborationComponentRef
+                    i18n-label="@@cooperation"
+                    label="Yhteistyö"
+            ></app-collaboration-card>
+          </div>
+        </aside>
+      </div>
+    </div>
 
     <div class='row shared'>
       <main class='col-12 col-md-8 px-0' *ngIf='person'>
@@ -44,7 +75,7 @@
 
             <a [href]="'https://orcid.org/' + person.orcid" target='_blank'>
               <span *ngIf='person.orcid'>
-                <img class='orcid-icon' src='assets/img/orcid_icon.svg' alt='Orcid -palvelun logo' />
+                <img class='orcid-icon' src='assets/img/orcid_icon.svg' alt='Orcid -palvelun logo'/>
                 https://orcid.org/{{ person.orcid }}
               </span>
               <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites>
@@ -113,7 +144,8 @@
                     </ng-container>
 
                     <div>
-                      <ng-container i18n='@@source'>Lähde</ng-container>: {{ affiliation.source }}
+                      <ng-container i18n='@@source'>Lähde</ng-container>
+                      : {{ affiliation.source }}
                     </div>
                   </div>
 
@@ -132,7 +164,7 @@
                 </div>
 
                 <ng-container *ngIf='!last'>
-                  <hr />
+                  <hr/>
                 </ng-container>
               </ng-container>
 
@@ -171,18 +203,19 @@
             <h3 class='p-0'>{{ publicationsCaption }} ({{ person.publications.length }})</h3>
 
             <div class='row g-0'>
-              <ng-container *ngFor='let publication of ((sortedPublications$ | async) ?? []).slice(0, maxPublicationCount); let last = last'>
+              <ng-container
+                      *ngFor='let publication of ((sortedPublications$ | async) ?? []).slice(0, maxPublicationCount); let last = last'>
                 <ng-container *ngIf="publication.id != null && publication.id != ''">
-                  <a [routerLink]="['/', 'results', 'publication', publication.id]">{{publication.name}}</a>
+                  <a [routerLink]="['/', 'results', 'publication', publication.id]">{{ publication.name }}</a>
                 </ng-container>
 
                 <ng-container *ngIf="publication.id == null || publication.id == ''">
-                  <div>{{publication.name}}</div>
+                  <div>{{ publication.name }}</div>
                 </ng-container>
 
-                <div>{{publication.authorsText}}</div>
-                <div>{{publication.journalName}}</div>
-                <div class='font-size-small'>{{publication.year}}</div>
+                <div>{{ publication.authorsText }}</div>
+                <div>{{ publication.journalName }}</div>
+                <div class='font-size-small'>{{ publication.year }}</div>
 
                 <ng-container *ngIf="publication.doi != null && publication.doi != ''">
                   <app-tag-doi [link]='publication.doi'></app-tag-doi>
@@ -204,38 +237,38 @@
 
         <!-- Datasets -->
         <app-person-group
-          *ngIf='person.datasets?.length'
-          class='content'
-          label='Tutkimusaineistot'
-          i18n-label='@@datasets'
-          [data]='person.datasets'
-          [fields]='datasetFields'
-          [maxItemCount]='maxDatasetCount'
-          tab='dataset'
+                *ngIf='person.datasets?.length'
+                class='content'
+                label='Tutkimusaineistot'
+                i18n-label='@@datasets'
+                [data]='person.datasets'
+                [fields]='datasetFields'
+                [maxItemCount]='maxDatasetCount'
+                tab='dataset'
         ></app-person-group>
 
         <!-- Fundings -->
         <app-person-group
-          *ngIf='person.fundings?.length'
-          class='content'
-          label='Rahoitusmyönnöt'
-          i18n-label='@@fundings'
-          [data]='person.fundings'
-          [fields]='fundingFields'
-          [maxItemCount]='maxFundingCount'
-          tab='funding'
+                *ngIf='person.fundings?.length'
+                class='content'
+                label='Rahoitusmyönnöt'
+                i18n-label='@@fundings'
+                [data]='person.fundings'
+                [fields]='fundingFields'
+                [maxItemCount]='maxFundingCount'
+                tab='funding'
         ></app-person-group>
 
         <!-- Activites and rewards -->
         <app-person-group
-          *ngIf='person.activityAndAwards?.length'
-          class='content'
-          label='Aktiviteetit ja palkinnot'
-          i18n-label='@@activitiesAndAwards'
-          [data]='person.activityAndAwards'
-          [fields]='activityAndAwardsFields'
-          [maxItemCount]='maxActivityAndAwardsCount'
-          [additionalFields]='activityAndAwardsAdditionalFields'
+                *ngIf='person.activityAndAwards?.length'
+                class='content'
+                label='Aktiviteetit ja palkinnot'
+                i18n-label='@@activitiesAndAwards'
+                [data]='person.activityAndAwards'
+                [fields]='activityAndAwardsFields'
+                [maxItemCount]='maxActivityAndAwardsCount'
+                [additionalFields]='activityAndAwardsAdditionalFields'
         ></app-person-group>
       </main>
 
@@ -274,25 +307,29 @@
 
                 <ng-container *ngIf="person.contact[row.key]?.length && row.key !== 'otherNames'">
                   <li *ngFor='let item of person.contact[row.key]' class='row'>
-                      <div *ngIf="row.key === 'links'" class='col px-0 truncate d-flex justify-content-center flex-column py-1'>
-                          <div *ngIf="item.icon" class="row">
-                              <app-svg-sprites class="gx-0 col-sm-1 col-xl-1" [iconName]="item.icon" cssClass="person-contact-item-icon"></app-svg-sprites>
-                              <app-single-result-link class="col-xs-10 col-sm-10 col-xl-11 px-0" [label]='item.value' [url]='item.value' [simple]='true'></app-single-result-link>
+                    <div *ngIf="row.key === 'links'"
+                         class='col px-0 truncate d-flex justify-content-center flex-column py-1'>
+                      <div *ngIf="item.icon" class="row">
+                        <app-svg-sprites class="gx-0 col-sm-1 col-xl-1" [iconName]="item.icon"
+                                         cssClass="person-contact-item-icon"></app-svg-sprites>
+                        <app-single-result-link class="col-xs-10 col-sm-10 col-xl-11 px-0" [label]='item.value'
+                                                [url]='item.value' [simple]='true'></app-single-result-link>
+                      </div>
+                    </div>
+
+                    <div *ngIf="row.key === 'emails'" class="d-flex gx-0 py-1">
+                      <app-svg-sprites [iconName]="'email'"
+                                       cssClass="person-contact-item-icon email-icon"></app-svg-sprites>
+                      <ng-container *ngIf='isEmailVisible === false'>
+                        <div class="d-flex justify-content-center flex-column">
+                          <a (click)='showEmail()' i18n='@@showEmailAddress'>Näytä sähköpostiosoite</a>
                         </div>
-                      </div>
+                      </ng-container>
 
-                      <div *ngIf="row.key === 'emails'" class="d-flex gx-0 py-1">
-                          <app-svg-sprites [iconName]="'email'" cssClass="person-contact-item-icon email-icon"></app-svg-sprites>
-                        <ng-container *ngIf='isEmailVisible === false'>
-                            <div class="d-flex justify-content-center flex-column">
-                                <a (click)='showEmail()' i18n='@@showEmailAddress'>Näytä sähköpostiosoite</a>
-                            </div>
-                        </ng-container>
-
-                        <ng-container *ngIf='isEmailVisible === true'>
-                          <span>{{item.value}}</span>
-                        </ng-container>
-                      </div>
+                      <ng-container *ngIf='isEmailVisible === true'>
+                        <span>{{ item.value }}</span>
+                      </ng-container>
+                    </div>
                   </li>
                 </ng-container>
 
@@ -303,14 +340,14 @@
                       <div class="col-3">
                         <ng-container *ngFor='let item of person.contact[row.key]; let i = index'>
                           <ng-container *ngIf="row.label && i === 0">
-                            <span class="fw-bold">{{row.label}}</span>
+                            <span class="fw-bold">{{ row.label }}</span>
                           </ng-container>
                         </ng-container>
                       </div>
                       <div class="col-9 ps-3">
                         <ng-container *ngFor='let item of person.contact[row.key]; let i = index'>
-                          <span *ngIf="i === 0">{{item.value}}</span>
-                          <span *ngIf="i !== 0">, {{item.value}}</span>
+                          <span *ngIf="i === 0">{{ item.value }}</span>
+                          <span *ngIf="i !== 0">, {{ item.value }}</span>
                         </ng-container>
                       </div>
                     </div>
@@ -327,9 +364,9 @@
             <div class="inner collaboration">
               <h2 class="mb-4" i18n="@@collaborationHeader">Yhteistyö</h2>
               <ul>
-              <ng-container *ngFor='let item of person.collaboration'>
-                <li class="mb-2">{{item}}</li>
-              </ng-container>
+                <ng-container *ngFor='let item of person.collaboration'>
+                  <li class="mb-2">{{ item }}</li>
+                </ng-container>
               </ul>
             </div>
           </mat-card>

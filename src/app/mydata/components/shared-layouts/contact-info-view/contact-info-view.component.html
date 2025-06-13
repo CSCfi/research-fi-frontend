@@ -1,6 +1,6 @@
 <app-profile-editor-card-header
         [label]="label"
-        [displayButton]="(this.publishedFullname?.length > 0) || (contactFields | hasSelectedItems)"
+        [displayButton]="((this.publishedFullname?.length > 0) || (contactFields | hasSelectedItems)) && showEditButton"
         (handleOpenDialog)="openDialog($event)"
 ></app-profile-editor-card-header>
 

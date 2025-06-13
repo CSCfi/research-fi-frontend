@@ -3,7 +3,7 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<app-collaboration-view [hasEditRights]='true' [label]="label" [hasCheckedOption]="hasCheckedOption" [collaborationOptions]="collaborationOptions" (handleOpenDialog)="openDialog()"></app-collaboration-view>
+<app-collaboration-view [hasEditRights]="editControlsVisible" [label]="label" [hasCheckedOption]="hasCheckedOption" [collaborationOptions]="collaborationOptions" (handleOpenDialog)="openDialog()"></app-collaboration-view>
 
 <ng-template #dialogTemplate>
   <div class="profile-tool-modal">
@@ -33,8 +33,7 @@
   (onActionClick)="doDialogAction($event)"
 ></app-dialog>
 
-<div class="row mt-3">
-  <section>
+<div class="row gx-0 mt-3">
     <ng-container *ngFor="let option of collaborationOptions">
       <mat-checkbox
         class="py-1 py-lg-0 w-100"
@@ -46,5 +45,4 @@
         {{ option[nameLocale] }}
       </mat-checkbox>
     </ng-container>
-  </section>
 </div>

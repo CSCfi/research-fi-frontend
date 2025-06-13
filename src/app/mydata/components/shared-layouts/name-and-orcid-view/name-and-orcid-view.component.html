@@ -1,14 +1,14 @@
-<div class="group-wrapper">
+<div [ngClass]="isEditorView ? 'group-wrapper' : 'pt-2'">
   <div class="row pt-2 pb-3 justify-content-between">
     <div class="col-9"><h1 class="d-inline">{{ name }}</h1>
-      <app-tertiary-button class="mx-4" *ngIf="shareButtonVisible" i18n-content="@@publishEllipsis"
+      <app-tertiary-button class="mx-4" *ngIf="!isEditorView" i18n-content="@@publishEllipsis"
                            content="Jaa profiili" i18n-content="@@reselect" [svgSymbolName]="'share'"
                            [svgCssClass]="'share-icon button-icon'" (click)="copyLink()"></app-tertiary-button>
     </div>
     <div class="col-3"></div>
   </div>
   <div class="row">
-    <div class="col-12 pb-3">
+    <div class="col-auto pb-3">
       <a [href]="'https://orcid.org/' + orcid" target='_blank'>
               <span *ngIf='orcid'>
                             <img

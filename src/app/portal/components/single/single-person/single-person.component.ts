@@ -33,14 +33,27 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
 import {
   PersonProfileViewComponent
 } from '@mydata/components/profile/person-profile-view/person-profile-view.component';
+import { cloneDeep } from 'lodash-es';
+import { FieldTypes } from '@mydata/constants/fieldTypes';
+import { GroupTypes } from '@mydata/constants/groupTypes';
+import {
+  CollaborationCardComponent
+} from '@mydata/components/profile/cards/collaboration-card/collaboration-card.component';
+import { ContactCardComponent } from '@mydata/components/profile/cards/contact-card/contact-card.component';
+import { MydataBetaInfoComponent } from '@mydata/components/mydata-beta-info/mydata-beta-info.component';
+import {
+  MydataSideNavigationComponent
+} from '@mydata/components/mydata-side-navigation/mydata-side-navigation.component';
+
+import { convertToProfileToolFormat as convertToProfileToolFormat} from '@portal/models/person/profiletool-person-adapter';
 
 type Field = { key: string; label?: string };
 
 @Component({
-    selector: 'app-single-person',
-    templateUrl: './single-person.component.html',
-    styleUrls: ['./single-person.component.scss'],
-    standalone: true,
+  selector: 'app-single-person',
+  templateUrl: './single-person.component.html',
+  styleUrls: ['./single-person.component.scss'],
+  standalone: true,
   imports: [
     SearchBarComponent,
     NgIf,
@@ -61,10 +74,17 @@ type Field = { key: string; label?: string };
     CheckEmptyFieldsPipe,
     SvgSpritesComponent,
     JsonPipe,
-    PersonProfileViewComponent
+    PersonProfileViewComponent,
+    CollaborationCardComponent,
+    ContactCardComponent,
+    MydataBetaInfoComponent,
+    MydataSideNavigationComponent
   ]
 })
 export class SinglePersonComponent implements OnInit {
+  protected readonly groupTypes = GroupTypes;
+  protected readonly fieldTypes = FieldTypes;
+
   responseData: Search;
   tabQueryParams: any;
   searchTerm: string;
@@ -77,10 +97,13 @@ export class SinglePersonComponent implements OnInit {
   educationCaption = $localize`:@@education:Koulutus`;
   dataSourcesCaption = $localize`:@@dataSources:Lähteet`;
 
+  profileFormatted = [];
+  profileFormattedTemp = [];
+
   descriptionFields: Field[] = [
     {
       key: 'description',
-      label: $localize`:@@descriptionOfResearch:Tutkimustoiminnan kuvaus`,
+      label: $localize`:@@descriptionOfResearch:Tutkimustoiminnan kuvaus`
     },
     // {
     //   key: 'fieldsOfScience',
@@ -88,15 +111,15 @@ export class SinglePersonComponent implements OnInit {
     // },
     {
       key: 'keywords',
-      label: $localize`:@@keywords:Avainsanat`,
-    },
+      label: $localize`:@@keywords:Avainsanat`
+    }
   ];
 
   affiliationFields: Field[] = [
     { key: 'departmentName', label: $localize`:@@unit:Yksikkö` },
     { key: 'positionName', label: $localize`:@@title:Nimike` },
     { key: 'communityName', label: 'Tutkimusyhteisö' }, // Not implemented yet
-    { key: 'role', label: 'Rooli tutkimusyhteisössä' }, // Not implemented yet
+    { key: 'role', label: 'Rooli tutkimusyhteisössä' } // Not implemented yet
   ];
 
   publicationFields = [{ key: 'name' }, { key: 'year' }, { key: 'doi' }];
@@ -111,30 +134,34 @@ export class SinglePersonComponent implements OnInit {
     { key: 'name', bold: true },
     { key: 'type', bold: true },
     { key: 'year' },
-    { key: 'otherNames', label: $localize`:@@otherNames:Muut nimet` },
+    { key: 'otherNames', label: $localize`:@@otherNames:Muut nimet` }
   ];
 
   activityAndAwardsAdditionalFields = [
     { key: 'description' },
-    { key: 'organizationName',
-      label: $localize`:@@organization:Organisaatio`, },
-    { key: 'departmentName',
-      label: $localize`:@@department:Yksikkö`, },
+    {
+      key: 'organizationName',
+      label: $localize`:@@organization:Organisaatio`
+    },
+    {
+      key: 'departmentName',
+      label: $localize`:@@department:Yksikkö`
+    },
     {
       key: 'internationalCollaboration',
-      label: $localize`:@@internationalCollaboration:Kansainvälinen yhteistyö`,
+      label: $localize`:@@internationalCollaboration:Kansainvälinen yhteistyö`
     },
-    { key: 'url' },
+    { key: 'url' }
   ];
 
   contactFields: Field[] = [
     { key: 'emails' },
     { key: 'links' },
-    { key: 'otherNames', label: $localize`:@@otherNames:Muut nimet` },
+    { key: 'otherNames', label: $localize`:@@otherNames:Muut nimet` }
   ];
 
   person$: Observable<Person>;
-  sortedPublications$: Observable<PersonPublication[]>
+  sortedPublications$: Observable<PersonPublication[]>;
 
   isLoaded$: Observable<boolean>;
 
@@ -151,6 +178,8 @@ export class SinglePersonComponent implements OnInit {
   maxActivityAndAwardsCount = this.initialItemCount;
   showAllActivityAndAwards = false;
 
+  profileDataConverted = [];
+
   constructor(
     private route: ActivatedRoute,
     public router: Router,
@@ -159,17 +188,18 @@ export class SinglePersonComponent implements OnInit {
     private utilityService: UtilityService,
     private tabChangeService: TabChangeService,
     @Inject(LOCALE_ID) protected localeId: string,
-    @Inject(DOCUMENT) private document: any,
-  ) {}
+    @Inject(DOCUMENT) private document: any
+  ) {
+  }
 
   ngOnInit(): void {
     this.person$ = this.route.params.pipe(switchMap((params) => {
-      const id = params["id"];
+      const id = params['id'];
 
       return this.singleItemService.getSinglePerson(id).pipe(map((search) => {
         return search.persons[0] as Person;
       }));
-    }))
+    }));
 
     this.sortedPublications$ = this.person$.pipe(map((person) => {
       return person.publications.sort((a, b) => {
@@ -194,6 +224,7 @@ export class SinglePersonComponent implements OnInit {
       if (this.searchService.searchTerm == null) {
         this.searchService.searchTerm = params.id;
         this.getData(params.id);
+        this.getDataRaw(params.id);
         this.searchService.searchTerm = ''; // Empty search term so breadcrumb link is correct
       }
     });
@@ -210,13 +241,23 @@ export class SinglePersonComponent implements OnInit {
     this.utilityService.setTitle(newTitle);
   }
 
+  getDataRaw(id: string) {
+    this.singleItemService
+      .getSinglePersonRawData(id)
+      .pipe(take(1))
+      .subscribe((result: any) => {
+        if (result) {
+          this.profileFormatted = convertToProfileToolFormat(result.hits.hits[0]._source, this.localeId);
+        }
+      });
+  }
+
   getData(id: string) {
     this.singleItemService
       .getSinglePerson(id)
       .pipe(take(1))
       .subscribe((result) => {
         this.responseData = result;
-
         const personRes = result.persons[0];
 
         if (personRes) {
@@ -226,6 +267,7 @@ export class SinglePersonComponent implements OnInit {
         }
       });
   }
+
 
   showEmail() {
     this.isEmailVisible = true;

@@ -50,6 +50,7 @@ import {
 export class ContactCardComponent implements OnInit, OnChanges {
   @Input() data: any;
   @Input() label: string;
+  @Input() showEditButton: boolean;
 
   fieldTypes = FieldTypes;
   checkGroupSelected = checkGroupSelected;
