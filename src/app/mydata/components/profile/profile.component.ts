@@ -25,19 +25,22 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { ProfileSummaryComponent } from './profile-summary/profile-summary.component';
 import { ContactCardComponent } from './cards/contact-card/contact-card.component';
 import { WelcomeDialogComponent } from './welcome-dialog/welcome-dialog.component';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { NgIf, AsyncPipe, JsonPipe } from '@angular/common';
 import { BannerDividerComponent } from '@shared/components/banner-divider/banner-divider.component';
 import {
   MydataSideNavigationComponent
 } from '@mydata/components/mydata-side-navigation/mydata-side-navigation.component';
 import { StickyFooterComponent } from '@mydata/components/sticky-footer/sticky-footer.component';
+import {
+  NameAndOrcidViewComponent
+} from '@mydata/components/shared-layouts/name-and-orcid-view/name-and-orcid-view.component';
 
 @Component({
-    selector: 'app-profile',
-    templateUrl: './profile.component.html',
-    styleUrls: ['./profile.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    standalone: true,
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  standalone: true,
   imports: [
     NgIf,
     WelcomeDialogComponent,
@@ -49,7 +52,9 @@ import { StickyFooterComponent } from '@mydata/components/sticky-footer/sticky-f
     AsyncPipe,
     BannerDividerComponent,
     MydataSideNavigationComponent,
-    StickyFooterComponent
+    StickyFooterComponent,
+    JsonPipe,
+    NameAndOrcidViewComponent
   ]
 })
 export class ProfileComponent implements OnInit {
@@ -106,9 +111,11 @@ export class ProfileComponent implements OnInit {
       // Display either draft profile from storage or profile from database
       if (parsedDraft) {
         this.profileData = parsedDraft;
+        console.log('PROFILE', myDataProfile);
         this.profileService.setEditorProfileName(getName(parsedDraft));
       } else {
         this.profileData = myDataProfile.profileData;
+        console.log('PROFILE', myDataProfile);
         this.profileService.setEditorProfileName(myDataProfile.name);
       }
     }

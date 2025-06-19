@@ -1,0 +1,22 @@
+.group-wrapper {
+  background: #fff;
+  border: 1px solid #e8e8f5;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+app-profile-card,
+.profile-card {
+  display: block;
+  padding: 1rem;
+  margin: 1rem 0;
+  border: 0.75rem solid;
+}
+
+h2 {
+  font-size: 1.5rem !important;
+}
+
+h3 {
+  font-size: 1.1rem !important;
+}
