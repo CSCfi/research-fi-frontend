@@ -73,6 +73,11 @@ export class SingleItemService {
       .pipe(map((data: any) => this.searchAdapter.adapt(data, 'publications')));
   }
 
+  getSinglePersonRawData(id): Observable<any> {
+    return this.http
+      .post<Search>(this.personApiUrl, this.constructPayload('id', id));
+  }
+
   getSinglePerson(id): Observable<Search> {
     return this.http
       .post<Search>(this.personApiUrl, this.constructPayload('id', id))
