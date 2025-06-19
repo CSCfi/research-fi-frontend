@@ -5,7 +5,7 @@
 
 <div class="row gx-3">
   <div class="col pt-2">
-    <h2 class="fw-bold font-size-normal">{{ label }}</h2>
+    <h2 class="fw-bold">{{ label }}</h2>
   </div>
   <div class="col-auto pt-2">
     <app-tertiary-button *ngIf="displayButton" i18n-content="@@publishEllipsis" content="Vaihda valintoja" i18n-content="@@reselect" [svgSymbolName]="'edit'" [svgCssClass]="'open_in_new-icon button-icon'" (click)="openDialog($event)"></app-tertiary-button>

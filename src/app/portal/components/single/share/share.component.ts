@@ -7,20 +7,22 @@
 
 import { Component, OnInit, Inject, LOCALE_ID, Input, OnChanges } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, NgIf } from '@angular/common';
 import { CdkCopyToClipboard } from '@angular/cdk/clipboard';
 import { SecondaryButtonComponent } from '../../../../shared/components/buttons/secondary-button/secondary-button.component';
+import { TertiaryButtonComponent } from '@shared/components/buttons/tertiary-button/tertiary-button.component';
 
 @Component({
-    selector: 'app-share',
-    templateUrl: './share.component.html',
-    styleUrls: ['./share.component.scss'],
-    standalone: true,
-    imports: [SecondaryButtonComponent, CdkCopyToClipboard],
+  selector: 'app-share',
+  templateUrl: './share.component.html',
+  styleUrls: ['./share.component.scss'],
+  standalone: true,
+  imports: [SecondaryButtonComponent, CdkCopyToClipboard, NgIf, TertiaryButtonComponent]
 })
 export class ShareComponent implements OnInit, OnChanges {
   @Input() big = true;
   @Input() id: string;
+  @Input() useNewLayoutButton: boolean;
 
   currentUrl: string;
   message: string;

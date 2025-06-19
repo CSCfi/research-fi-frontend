@@ -1,26 +1,24 @@
-<div class="group-wrapper">
+<div [ngClass]="!isEditorView ? 'group-wrapper' : 'pt-2'">
   <div class="row pt-2 pb-3 justify-content-between">
-    <div class="col-9"><h1 class="d-inline">{{ name }}</h1>
-      <app-tertiary-button class="mx-4" *ngIf="shareButtonVisible" i18n-content="@@publishEllipsis"
-                           content="Jaa profiili" i18n-content="@@reselect" [svgSymbolName]="'share'"
-                           [svgCssClass]="'share-icon button-icon'" (click)="copyLink()"></app-tertiary-button>
+    <div class="col-9 d-flex"><h1 class="d-inline">{{ name.charAt(0).toUpperCase() + name.slice(1) }}</h1>
+      <app-share *ngIf="!isEditorView" [useNewLayoutButton]="true"></app-share>
     </div>
     <div class="col-3"></div>
   </div>
   <div class="row">
     <div class="col-12 pb-3">
-      <a [href]="'https://orcid.org/' + orcid" target='_blank'>
-              <span *ngIf='orcid'>
-                            <img
-                                    class="orcid-icon mt-n1 pe-2"
-                                    src="assets/img/orcid_icon.svg"
-                                    alt="Orcid -palvelun logo"
-                            />
-            <span>{{ orcid }}</span>
-                {{ orcid }}
-              </span>
-        <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites>
-      </a>
+
+      <div *ngIf='orcid'>
+        <a class='d-flex' [href]="'https://orcid.org/' + orcid" target='_blank'>
+          <img
+                  class="orcid-icon"
+                  src="assets/img/orcid_icon.svg"
+                  alt="Orcid -palvelun logo"
+          />
+          <span class="orcid-link">{{ orcid }}</span>
+          <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon" class="open-in-new-link"></app-svg-sprites>
+        </a>
+      </div>
     </div>
   </div>
 </div>

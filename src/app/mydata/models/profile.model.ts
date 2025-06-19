@@ -82,6 +82,11 @@ export class ProfileAdapter implements Adapter<Profile> {
         label: $localize`:@@activitiesAndAwards:Aktiviteetit ja palkinnot`,
         fields: mapModel(this.activitiesAndRewardsAdapter, data.activity),
       },
+      {
+        id: GroupTypes.cooperation,
+        label: $localize`:@@collaborationHeader:Yhteistyö`,
+        fields: data.cooperation
+      }
     ]);
   }
 

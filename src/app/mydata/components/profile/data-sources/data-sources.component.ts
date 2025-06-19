@@ -30,10 +30,10 @@ import {
 import { StickyFooterComponent } from '@mydata/components/sticky-footer/sticky-footer.component';
 
 @Component({
-    selector: 'app-data-sources',
-    templateUrl: './data-sources.component.html',
-    styleUrls: ['./data-sources.component.scss'],
-    standalone: true,
+  selector: 'app-data-sources',
+  templateUrl: './data-sources.component.html',
+  styleUrls: ['./data-sources.component.scss'],
+  standalone: true,
   imports: [
     NgTemplateOutlet,
     DataSourcesFiltersComponent,
@@ -89,7 +89,10 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
     const draftProfile = this.profileService.getDraftProfile();
 
     const orcidProfile = this.route.snapshot.data.orcidProfile;
-    const myDataProfile = this.route.snapshot.data.myDataProfile;
+    let myDataProfile = this.route.snapshot.data.myDataProfile;
+
+    // Remove cooperation options data
+    myDataProfile.profileData = this.route.snapshot.data.myDataProfile.profileData.slice(0, -1);
 
     this.orcidData = orcidProfile;
     this.profileData = myDataProfile;
@@ -164,7 +167,7 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
 
   async reloadProfileData(activeFilters: any) {
     this.profileService
-      .getProfileData()
+      .fetchProfileDataFromBackend()
       .then(
         (value) => {
           if (value) {

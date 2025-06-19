@@ -45,7 +45,7 @@ import {
 
 export class ProfileSummaryViewComponent implements OnInit  {
   @Input() data: any;
-  @Input() editControlsVisible: any;
+  @Input() isPortalSinglePage: any;
   @Input() sectionName: string;
   @Input() sectionIndex: number;
   @Output() openDialogCall = new EventEmitter<number>();

@@ -15,6 +15,7 @@ import { BehaviorSubject, firstValueFrom, Subject } from 'rxjs';
 import { ErrorHandlerService } from '@shared/services/error-handler.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Constants } from '@mydata/constants';
+import { map, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +24,7 @@ export class ProfileService {
   apiUrl: string;
   httpOptions: any;
   currentProfileData: any[];
+  collaborationChoices: any[];
 
   testData = testData;
 
@@ -99,6 +101,10 @@ export class ProfileService {
     this.currentProfileData = data;
   }
 
+  setCurrentCollaborationChoices(data){
+    this.collaborationChoices = data;
+  }
+
   setUserData(data: any) {
     this.userDataSource.next(data);
   }
@@ -119,18 +125,18 @@ export class ProfileService {
   }
 
   public async initializeProfileVisibility() {
-     await this.updateToken();
-     let value;
+    await this.updateToken();
+    let value;
 
-     try {
+    try {
       value = await firstValueFrom(this.http.get(this.apiUrl + '/settings/', this.httpOptions));
-     } catch (error) {
-       console.error(error);
-     }
+    } catch (error) {
+      console.error(error);
+    }
 
-     this.profileVisibility$.next(!value.data.hidden);
+    this.profileVisibility$.next(!value.data.hidden);
 
-     return value;
+    return value;
   }
 
   public getProfileVisibility() {
@@ -150,7 +156,7 @@ export class ProfileService {
       console.error(error);
     }
 
-     return value;
+    return value;
   }
 
   async showProfile() {
@@ -182,10 +188,27 @@ export class ProfileService {
     return await firstValueFrom(this.http.get(this.apiUrl + '/orcid/', this.httpOptions));
   }
 
-  async getProfileData(): Promise<any> {
+  async fetchProfileDataFromBackend(): Promise<any> {
     await this.updateToken();
     const profile = await firstValueFrom(this.http.get(this.apiUrl + '/profiledata/', this.httpOptions));
-    return this.profileAdapter.adapt(profile);
+    const resp= this.profileAdapter.adapt(profile);
+    await this.fetchCollaborationOptionsFromBackend();
+    return resp;
+  }
+
+  async fetchCollaborationOptionsFromBackend() {
+    const cooperationChoices = await firstValueFrom(this.http.get(this.apiUrl + '/cooperationchoices/', this.httpOptions));
+    this.setCurrentCollaborationChoices(cooperationChoices);
+    return cooperationChoices;
+  }
+
+  tokenToHttpOptions(token: string) {
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      }),
+    };
   }
 
   // Draft profile is stored in session storage

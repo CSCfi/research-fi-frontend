@@ -19,94 +19,100 @@
       <!-- Main content -->
       <div class="col-8 col-md-10 pt-4">
 
-<!--        <div class="row d-flex justify-content-between pt-3 pb-5">
-          <div class="col-6 col-md-6">
-            <div class="row d-flex text-capitalize" *ngIf="profileService.currentEditorProfileName | async">
-              <h1 class="col-12">
-                {{ profileService.currentEditorProfileName | async }}
-              </h1>
-              <div class="col align-self-center">
-                <img class="orcid-icon mt-n1 pe-2" src="assets/img/orcid_icon.svg" alt="Orcid -palvelun logo"/>
-                <span>{{ orcid }}</span>
-              </div>
-            </div>
-          </div>
+        <!--        <div class="row d-flex justify-content-between pt-3 pb-5">
+                  <div class="col-6 col-md-6">
+                    <div class="row d-flex text-capitalize" *ngIf="profileService.currentEditorProfileName | async">
+                      <h1 class="col-12">
+                        {{ profileService.currentEditorProfileName | async }}
+                      </h1>
+                      <div class="col align-self-center">
+                        <img class="orcid-icon mt-n1 pe-2" src="assets/img/orcid_icon.svg" alt="Orcid -palvelun logo"/>
+                        <span>{{ orcid }}</span>
+                      </div>
+                    </div>
+                  </div>
 
-          <div class="col d-flex justify-content-end">
-            <ng-container *ngIf="false">
-            &lt;!&ndash; TODO: add luonnos text here. Check from draft service &ndash;&gt;
-            </ng-container>
-          </div>
+                  <div class="col d-flex justify-content-end">
+                    <ng-container *ngIf="false">
+                    &lt;!&ndash; TODO: add luonnos text here. Check from draft service &ndash;&gt;
+                    </ng-container>
+                  </div>
 
-          &lt;!&ndash; <div class="col-5 d-none d-md-block px-lg-0">
-            <div class="row justify-content-end align-items-center">
-              <div class="col-auto profile-image-container opacity-3">
-                <i class="fas fa-user text-center d-block h1"></i>
-              </div>
-              <a disabled class="col-auto px-0 disabled"
-                >+
-                <ng-container i18n="@@addPublicProfilePicture"
-                  >Lisää Julkinen profiilikuva</ng-container
-                ></a
-              >
-            </div>
-          </div> &ndash;&gt;
-        </div>
+                  &lt;!&ndash; <div class="col-5 d-none d-md-block px-lg-0">
+                    <div class="row justify-content-end align-items-center">
+                      <div class="col-auto profile-image-container opacity-3">
+                        <i class="fas fa-user text-center d-block h1"></i>
+                      </div>
+                      <a disabled class="col-auto px-0 disabled"
+                        >+
+                        <ng-container i18n="@@addPublicProfilePicture"
+                          >Lisää Julkinen profiilikuva</ng-container
+                        ></a
+                      >
+                    </div>
+                  </div> &ndash;&gt;
+                </div>
 
-        &lt;!&ndash; Contact card in mobile view &ndash;&gt;
-        <aside *ngIf="profileData" class="profile-card d-block d-lg-none">
-          <div class="card-content-wrapper">
-          <app-contact-card
-                  i18n-label="@@contactInfo"
-                  label="Yhteystiedot"
-                  [data]="profileData"
-          ></app-contact-card>
-          </div>
-        </aside>-->
+                &lt;!&ndash; Contact card in mobile view &ndash;&gt;
+                <aside *ngIf="profileData" class="profile-card d-block d-lg-none">
+                  <div class="card-content-wrapper">
+                  <app-contact-card
+                          i18n-label="@@contactInfo"
+                          label="Yhteystiedot"
+                          [data]="profileData"
+                  ></app-contact-card>
+                  </div>
+                </aside>-->
 
         <!-- Left side fields for profile data -->
         <div class="row">
-        <ng-container *ngIf="profileData; else loadingTemplate">
-          <div class="col-lg-8 col-md-12">
-          <app-profile-summary class="d-block pt-3" [profileData]="profileData" [name]="profileService.currentEditorProfileName | async" [orcid]="orcid"></app-profile-summary>
-          </div>
-        </ng-container>
+          <ng-container *ngIf="profileData; else loadingTemplate">
+            <div class="col-12">
+              <app-name-and-orcid-view [name]="'test'" [orcid]="'test'" [isEditorView]="true"></app-name-and-orcid-view>
+            </div>
+            <div class="col-lg-8 col-md-12">
+              <app-profile-summary class="d-block pt-3" [profileData]="profileData" [name]="profileService.currentEditorProfileName | async" [orcid]="orcid"></app-profile-summary>
+            </div>
+          </ng-container>
 
 
-        <ng-template #loadingTemplate>
-          <mat-spinner class="mx-auto mt-3" [diameter]="80"></mat-spinner>
-        </ng-template>
+          <ng-template #loadingTemplate>
+            <mat-spinner class="mx-auto mt-3" [diameter]="80"></mat-spinner>
+          </ng-template>
 
 
-      <div class="col-12 col-lg-4 pt-3 px-0 px-lg-2">
-        <!-- Contact card in desktop view -->
-        <ng-container *ngIf="profileData">
-          <aside class="group-wrapper d-none d-lg-block">
-            <app-contact-card i18n-label="@@contactInfo" label="Yhteystiedot" [data]="profileData"></app-contact-card>
-          </aside>
-        </ng-container>
+          <div class="col-12 col-lg-4 pt-3 px-0 px-lg-2">
+            <!-- Contact card in desktop view -->
+            <ng-container *ngIf="profileData">
+              <aside class="group-wrapper d-none d-lg-block">
+                <app-contact-card i18n-label="@@contactInfo" label="Yhteystiedot" [data]="profileData" [showEditButton]="true"></app-contact-card>
+              </aside>
+            </ng-container>
 
 
-        <!-- Collaboration -->
-        <aside class="group-wrapper">
-          <div class="card-content-wrapper">
-          <app-collaboration-card
-            #collaborationComponentRef
-            i18n-label="@@cooperation"
-            label="Yhteistyö"
-          ></app-collaboration-card>
-          </div>
-        </aside>
+            <!-- Collaboration -->
+            <aside class="group-wrapper">
+              <div class="card-content-wrapper">
+                <app-collaboration-card
+                        *ngIf="profileData"
+                        #collaborationComponentRef
+                        i18n-label="@@cooperation"
+                        label="Yhteistyö"
+                        [data]="profileData"
+                        [isEditorView]="true"
+                ></app-collaboration-card>
+              </div>
+            </aside>
 
-        <!-- Beta info -->
-        <div class="row py-3 d-flex justify-content-center">
-          <div class="col px-0">
-            <app-mydata-beta-info></app-mydata-beta-info>
+            <!-- Beta info -->
+            <div class="row py-3 d-flex justify-content-center">
+              <div class="col px-0">
+                <app-mydata-beta-info></app-mydata-beta-info>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    </div>
     </div>
   </div>
 </main>

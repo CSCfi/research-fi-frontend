@@ -14,6 +14,7 @@ export const GroupTypes = {
   dataset: 'dataset',
   funding: 'funding',
   activitiesAndRewards: 'activitiesAndRewards',
+  cooperation: 'cooperation'
 };
 
 export const PortalGroups = [

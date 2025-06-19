@@ -35,6 +35,7 @@ export class ContactInfoViewComponent {
   @Input() contactFields: string;
   @Input() data: any;
   @Input() label: string;
+  @Input() showEditButton: boolean;
   @Output() handleOpenDialog = new EventEmitter();
 
   publishedFullname: string;

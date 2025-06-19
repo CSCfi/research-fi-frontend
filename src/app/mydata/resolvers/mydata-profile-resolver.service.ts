@@ -33,7 +33,7 @@ export class MyDataProfileResolverService  implements OnDestroy {
     if (!storedProfileData) {
       return new Promise((resolve) => {
         this.profileService
-          .getProfileData()
+          .fetchProfileDataFromBackend()
           .then(
             (value) => {
               if (value) {

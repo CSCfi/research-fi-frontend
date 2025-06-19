@@ -4,9 +4,9 @@
  :license: MIT -->
 
 
-<app-person-profile-view [displayData]="displayData" [name]="name" [orcid]=orcid [editControlsVisible]="true" (openDialog)="openDialogCall($event)"></app-person-profile-view>
+<app-person-profile-view [displayData]="displayData" [name]="name" [orcid]=orcid [isPortalSinglePage]="false" (openDialog)="openDialogCall($event)"></app-person-profile-view>
 
 <app-editor-modal *ngIf="showDialog"
-  [dialogData]="dialogData"
-  (onEditorClose)="handleChanges($event)"
+                  [dialogData]="dialogData"
+                  (onEditorClose)="handleChanges($event)"
 ></app-editor-modal>

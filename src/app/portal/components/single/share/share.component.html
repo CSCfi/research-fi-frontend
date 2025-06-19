@@ -3,13 +3,19 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<div class="share">
+<div *ngIf="!useNewLayoutButton" class="share">
   <app-secondary-button
-    [cdkCopyToClipboard]="currentUrl"
-    (click)="openSnackBar()"
-    [content]="copyLink"
-    [svgSymbolName]="'copy'"
-    [svgCssClass]="'copy-icon button-icon'"
-    [big]="big"
+          [cdkCopyToClipboard]="currentUrl"
+          (click)="openSnackBar()"
+          [content]="copyLink"
+          [svgSymbolName]="'copy'"
+          [svgCssClass]="'copy-icon button-icon'"
+          [big]="big"
   ></app-secondary-button>
+</div>
+
+<div *ngIf="useNewLayoutButton">
+  <app-tertiary-button class="mx-4" [cdkCopyToClipboard]="currentUrl" content="Jaa profiili" i18n-content="@@reselect"
+                       [svgSymbolName]="'share'" [svgCssClass]="'share-icon button-icon'"
+                       (click)="openSnackBar()"></app-tertiary-button>
 </div>

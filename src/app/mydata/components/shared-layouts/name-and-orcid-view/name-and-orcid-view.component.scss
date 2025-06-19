@@ -1,0 +1,27 @@
+.group-wrapper {
+  background: #fff;
+  border: 1px solid #e8e8f5;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.orcid-icon {
+  max-width: 18px;
+  margin-right: 7px;
+  height: auto;
+}
+
+.orcid-link {
+  font-size: 18px;
+  text-decoration: underline;
+}
+
+.open-in-new-link {
+  //margin-top: 3px;
+}
+
+app-share {
+  width: 100px;
+  margin-top: 6px;
+  margin-left: -35px;
+}
