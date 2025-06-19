@@ -19,8 +19,8 @@ import { DatasetsService } from '@mydata/services/datasets.service';
 import { FundingsService } from '@mydata/services/fundings.service';
 import { UtilityService } from '@shared/services/utility.service';
 import { SingleItemService } from '@portal/services/single-item.service';
-import { map, takeUntil } from 'rxjs/operators';
-import { BehaviorSubject, combineLatest, lastValueFrom, Observable, Subject, timer } from 'rxjs';
+import { map, take, takeUntil } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, lastValueFrom, Observable, Subject, Subscription, timer } from 'rxjs';
 import { Person } from '@portal/models/person/person.model';
 import { SnackbarService } from '@mydata/services/snackbar.service';
 import { cloneDeep } from 'lodash-es';
@@ -29,13 +29,12 @@ import { cloneDeep } from 'lodash-es';
   providedIn: 'root'
 })
 export class DraftService {
-  draftData: any = null;
   draftProfileData: any;
   orcidData: any;
-  testData: any;
   orcid: string;
 
   person$ = new BehaviorSubject<Person>(null);
+
   hasProfile$: Observable<boolean>;
   public showLogoutConfirmModal = new BehaviorSubject<boolean>(false);
 
@@ -48,6 +47,7 @@ export class DraftService {
   ]).pipe(
     map(([pubs, datasets, fundings, patches, collabs]) => !!(pubs.length || datasets.length || fundings.length || patches.length || collabs.length))
   );
+  private collaborationOptionsSub: Subscription;
 
   constructor(private appSettingsService: AppSettingsService,
               public profileService: ProfileService,
@@ -123,6 +123,7 @@ export class DraftService {
     this.updatePerson();
 
     this.hasProfile$ = this.person$.pipe(map((person) => person != null ));
+    //this.fetchCollaborationChoices();
   }
 
   getDraftProfile() {
@@ -137,10 +138,6 @@ export class DraftService {
       }
     }
     return profileData;
-  }
-
-  saveProfileDataDraft(data) {
-    this.draftData = data;
   }
 
   updateFieldInDraft(fieldId: string, data: any) {
@@ -167,8 +164,6 @@ export class DraftService {
   }
 
   clearData() {
-    this.draftData = null;
-
     if (this.appSettingsService.isBrowser) {
       sessionStorage.removeItem(Constants.draftProfile);
       sessionStorage.removeItem(Constants.draftPatchPayload);
@@ -183,6 +178,16 @@ export class DraftService {
     this.orcidData = orcidProfile;
     this.orcid = orcidProfile.orcid;
     this.init();
+  }
+
+  private fetchCollaborationChoices() {
+    this.collaborationOptionsSub = this.collaborationsService
+      .getCooperationChoices()
+      .pipe(take(1))
+      .subscribe((response: any) => {
+        const options = response?.data;
+        console.log('!!!!! collab options:', options);
+      });
   }
 
   /*
