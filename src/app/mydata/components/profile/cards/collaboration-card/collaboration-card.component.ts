@@ -79,7 +79,6 @@ export class CollaborationCardComponent implements OnInit {
   }
 
   doDialogAction(action: string) {
-    console.log('doing dialog action', action);
     this.dialog.closeAll();
     this.showDialog = false;
 

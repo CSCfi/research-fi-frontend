@@ -180,16 +180,6 @@ export class DraftService {
     this.init();
   }
 
-  private fetchCollaborationChoices() {
-    this.collaborationOptionsSub = this.collaborationsService
-      .getCooperationChoices()
-      .pipe(take(1))
-      .subscribe((response: any) => {
-        const options = response?.data;
-        console.log('!!!!! collab options:', options);
-      });
-  }
-
   /*
    * Add selected publications to profile
    */

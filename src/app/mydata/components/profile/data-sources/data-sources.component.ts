@@ -175,7 +175,6 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
               cloneDeep(value.profileData)
             );
             this.initialProfileData = clone(value.profileData);
-            console.log('initial profileData', this.initialProfileData);
             //this.visibleData = cloneDeep(value.profileData);
             this.storeOriginalKeywords(this.initialProfileData);
             this.clearFilters();

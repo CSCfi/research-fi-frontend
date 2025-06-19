@@ -23,7 +23,6 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
 
   if (profile) {
     let profileFormattedTemp = [];
-    console.log('profile', profile);
 
     // 1/8 --- CONTACT
     let contact = [];
@@ -228,7 +227,6 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
     };
     profileFormattedTemp.push(orcid);
 
-    console.log('FORMATTED PROFILE', profileFormattedTemp);
     return profileFormattedTemp;
   }
 }
