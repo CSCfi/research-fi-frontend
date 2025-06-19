@@ -1,6 +1,6 @@
 <app-profile-editor-card-header
         [label]="label"
-        [displayButton]="((this.publishedFullname?.length > 0) || (contactFields | hasSelectedItems)) && showEditButton"
+        [displayButton]="(this.publishedFullname?.length > 0) || (contactFields | hasSelectedItems)"
         (handleOpenDialog)="openDialog($event)"
 ></app-profile-editor-card-header>
 
@@ -32,14 +32,19 @@
             <ng-container *ngFor="let item of field.items">
               <div class="row" *ngIf="item.itemMeta.show">
                 <div class="col px-1">
-                  <app-svg-sprites [iconName]="'email'" cssClass="contact-icon" class="pe-3"></app-svg-sprites>
+                  <app-svg-sprites *ngIf="item.icon" [iconName]="item.icon" cssClass="contact-icon" class="pe-3"></app-svg-sprites>
                   <ng-container [ngSwitch]="item.itemMeta.type">
                     <!-- Email -->
+                    <ng-container *ngIf='!isEmailVisible && !isEditorView'>
+                        <a (click)='showEmail()' i18n='@@showEmailAddress' class="purple-text">Näytä sähköpostiosoite</a>
+                    </ng-container>
+                    <ng-container *ngIf='isEmailVisible || isEditorView'>
                     <a
                             *ngSwitchCase="fieldTypes.personEmailAddress"
                             [href]="'mailto:' + item.value"
                     >{{ item.value }}
                     </a>
+                  </ng-container>
                   </ng-container>
                 </div>
               </div>
@@ -54,8 +59,8 @@
             <h3>{{ field.label }}</h3>
             <ng-container *ngFor="let item of field.items">
               <div class="row" *ngIf="item.itemMeta.show">
-                <div class="col px-1 pb-2">
-                  <app-svg-sprites [iconName]="'link'" cssClass="contact-icon" class="pe-3"></app-svg-sprites>
+                <div class="col px-1 pb-1">
+                  <app-svg-sprites *ngIf="item.icon" [iconName]="item.icon" cssClass="contact-icon" class="pe-3"></app-svg-sprites>
                   <ng-container [ngSwitch]="item.itemMeta.type">
                     <!-- Links -->
                     <a

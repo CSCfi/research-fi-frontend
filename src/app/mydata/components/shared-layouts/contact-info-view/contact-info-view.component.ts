@@ -35,11 +35,17 @@ export class ContactInfoViewComponent {
   @Input() contactFields: string;
   @Input() data: any;
   @Input() label: string;
-  @Input() showEditButton: boolean;
+  @Input() isEditorView: boolean;
   @Output() handleOpenDialog = new EventEmitter();
 
   publishedFullname: string;
   publishedFullnameLabel: string;
+  isEmailVisible: boolean;
+
+
+  showEmail() {
+    this.isEmailVisible = true;
+  }
 
   checkGroupSelected = checkGroupSelected;
   fieldTypes = FieldTypes;
