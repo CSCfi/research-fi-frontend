@@ -1,10 +1,14 @@
-<div class="row pt-2 pb-3 justify-content-between">
-  <h2 class="col-8 col-md-6 col-lg-8 align-self-center order-1 font-size-normal">
+<div *ngIf="!isPortalSinglePage || ((data | hasSelectedItems) && isPortalSinglePage)" class="group-wrapper py-3">
+<div class="row py-2">
+  <div class="col px-0">
+<!-- DESCRIPTION LABEL -->
+<div class="row pb-3 justify-content-between">
+  <h2 class="col-8 col-md-6 col-lg-8 align-self-center order-1">
     {{ data.label }}
   </h2>
 
   <div class="col-auto order-2 order-md-3">
-    <div *ngIf="editControlsVisible && data.items[0].itemMeta.type !== fieldTypes.personKeyword">
+    <div *ngIf="!isPortalSinglePage && data?.items[0]?.itemMeta?.type !== fieldTypes.personKeyword">
       <app-tertiary-button
               [content]="(data | hasSelectedItems) ? editString : selectString"
               [announce]="!(data | hasSelectedItems)"
@@ -17,29 +21,28 @@
   </div>
 </div>
 
-<div *ngIf="!(data | hasSelectedItems)" class="row pt-2 pb-3 justify-content-between">
+<div *ngIf="!(data | hasSelectedItems) && !isPortalSinglePage" class="row pt-2 pb-3 justify-content-between">
   <div class="col align-self-center fst-italic order-3 order-md-2 mt-3 mt-md-0" i18n="@@youHaveNotSelectedAnyPublicData">
     {{ noPublicDataText }}
   </div>
 </div>
 
-<!-- DESCRIPTION -->
+<!-- DESCRIPTION AND KEYWORDS DATA -->
 <div class="pt-2" *ngIf="sectionName === groupTypes.description">
   <div class="summary-panel-wrapper">
-    <div *ngIf="data.items[0]?.itemMeta?.type">
-      <ng-container [ngSwitch]="data.items[0].itemMeta.type">
+    <div *ngIf="data?.items[0]?.itemMeta?.type">
+      <ng-container [ngSwitch]="data?.items[0]?.itemMeta?.type">
         <div *ngSwitchCase="fieldTypes.personResearcherDescription">
           <div class="summary-panel" *ngFor="let item of data.items">
             <div class="row d-flex justify-content-between py-1" *ngIf="item.itemMeta.show">
               <div class="col">
-                <app-panel-array-item
-                        [item]="item"
-                        [fieldType]="data.items[0].itemMeta.show"
-                        [localized]="data.localized"
+                <app-panel-array-item *ngIf="item"
+                                      [item]="item"
+                                      [fieldType]="data?.items[0].itemMeta.show"
+                                      [localized]="data.localized"
                 ></app-panel-array-item>
               </div>
             </div>
-            <app-summary-divider></app-summary-divider>
           </div>
         </div>
 
@@ -50,7 +53,6 @@
               {{ data.items | joinItems: 'value' }}
             </div>
           </div>
-          <app-summary-divider></app-summary-divider>
         </div>
       </ng-container>
     </div>
@@ -61,7 +63,7 @@
 <div class="pt-2" *ngIf="sectionName === groupTypes.affiliation">
   <!-- Iterate primary affiliations -->
   <div class="row" *ngFor="let item of data.items; let i = index">
-    <ng-container *ngIf="item.itemMeta.primaryValue && item.itemMeta.show">
+    <ng-container *ngIf="(item.itemMeta.primaryValue && (item.itemMeta.show|| isPortalSinglePage))">
       <div class="col-3 fw-bold"><span
               *ngIf="item['organizationName' + locale]">{{ item['organizationName' + locale] }}</span></div>
       <div class="col-6">
@@ -81,7 +83,7 @@
   </div>
   <!-- Iterate non primary affiliations -->
   <div class="row mb-4" *ngFor="let item of data.items; let i = index">
-    <ng-container *ngIf="!item.itemMeta.primaryValue && item.itemMeta.show">
+    <ng-container *ngIf="(!item.itemMeta.primaryValue && (item.itemMeta.show|| isPortalSinglePage))">
       <div class="col-3 fw-bold"><span
               *ngIf="item['organizationName' + locale]">{{ item['organizationName' + locale] }}</span></div>
       <div class="col-6">
@@ -104,12 +106,12 @@
 <!-- EDUCATION -->
 <div class="pt-2" *ngIf="sectionName === groupTypes.education">
   <div class="row mb-4" *ngFor="let item of data.items; let i = index">
-    <ng-container *ngIf="item.itemMeta.show">
+    <ng-container *ngIf="item.itemMeta.show || isPortalSinglePage">
       <div class="row">
-        <div class="col-12"><span class="fw-bold">{{ item['name' + locale] }}  </span>{{ item?.startDate?.year }} -
+        <div class="col-12 gx-0"><span class="fw-bold">{{ item['name' + locale] }}  </span>{{ item?.startDate?.year }} -
           <span *ngIf="item?.endDate?.year > 0">{{ item?.endDate?.year }}</span></div>
         <!-- TODO: add checkLang pipe -->
-        <div class="col-12">{{ item.degreeGrantingInstitutionName }}</div>
+        <div class="col-12 gx-0">{{ item.degreeGrantingInstitutionName }}</div>
       </div>
     </ng-container>
   </div>
@@ -158,6 +160,7 @@
           i18n-showMoreLabel="@@activitesAndRewards"
   ></app-summary-portal-items>
 </div>
-
-
+  </div>
+</div>
+</div>
 

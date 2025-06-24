@@ -22,18 +22,18 @@ import { Subscription } from 'rxjs';
 import { DialogComponent } from '../../../../../shared/components/dialog/dialog.component';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { EmptyCardComponent } from '../empty-card/empty-card.component';
-import { NgIf, NgFor } from '@angular/common';
+import { NgIf, NgFor, JsonPipe } from '@angular/common';
 import { ProfileEditorCardHeaderComponent } from '../profile-editor-card-header/profile-editor-card-header.component';
 import {
   CollaborationViewComponent
 } from '@mydata/components/shared-layouts/collaboration-view/collaboration-view.component';
 
 @Component({
-    selector: 'app-collaboration-card',
-    templateUrl: './collaboration-card.component.html',
-    styleUrls: ['./collaboration-card.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    standalone: true,
+  selector: 'app-collaboration-card',
+  templateUrl: './collaboration-card.component.html',
+  styleUrls: ['./collaboration-card.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  standalone: true,
   imports: [
     ProfileEditorCardHeaderComponent,
     NgIf,
@@ -41,16 +41,19 @@ import {
     NgFor,
     MatCheckbox,
     DialogComponent,
-    CollaborationViewComponent
+    CollaborationViewComponent,
+    JsonPipe
   ]
 })
-export class CollaborationCardComponent implements OnInit, OnDestroy {
+export class CollaborationCardComponent implements OnInit {
   @Input() label: string;
+  @Input() data: any;
+  @Input() isEditorView: boolean;
 
   originalCollaborationOptions;
   collaborationOptions = [];
   showDialog: boolean;
-  hasCheckedOption: boolean;
+  hasCheckedOption: boolean = false;
 
   dialogActions = [
     { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'cancel' },
@@ -58,8 +61,6 @@ export class CollaborationCardComponent implements OnInit, OnDestroy {
   ];
   optionsToggled = [];
   nameLocale = '';
-
-  collaborationOptionsSub: Subscription;
 
   constructor(
     private dialog: MatDialog,
@@ -69,55 +70,8 @@ export class CollaborationCardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.nameLocale = 'name' + this.appSettingsService.capitalizedLocale;
-
-    this.fetchCollaborationChoices();
-  }
-
-  private fetchCollaborationChoices() {
-    this.collaborationOptionsSub = this.collaborationsService
-      .getCooperationChoices()
-      .pipe(take(1))
-      .subscribe((response: any) => {
-        const options = response?.data;
-
-        this.originalCollaborationOptions = options;
-
-        this.setInitialValue(options);
-
-        // Render selections from storage if draft available
-        const draft = sessionStorage.getItem(
-          Constants.draftCollaborationPatchPayload
-        );
-
-        const draftOptions = draft && JSON.parse(draft);
-
-        if (draftOptions) {
-          for (const [i, option] of options.entries()) {
-            const match = draftOptions.find(
-              (draftOption) => option.id === draftOption.id
-            );
-
-            if (match) {
-              options[i].selected = match.selected;
-            }
-          }
-        }
-
-        this.collaborationOptions = options;
-
-        this.checkForSelection();
-      });
-  }
-
-  private setInitialValue(options) {
-    this.collaborationsService.setInitialValue(cloneDeep(options));
-  }
-
-  public resetInitialValue() {
-    this.collaborationOptions = cloneDeep(
-      this.collaborationsService.initialValue
-    );
-
+    const collabFields = this.data.filter(item => item.id === 'cooperation');
+    this.collaborationOptions = collabFields[0].fields;
     this.checkForSelection();
   }
 
@@ -126,7 +80,6 @@ export class CollaborationCardComponent implements OnInit, OnDestroy {
   }
 
   doDialogAction(action: string) {
-    console.log('doing dialog action', action);
     this.dialog.closeAll();
     this.showDialog = false;
 
@@ -167,9 +120,5 @@ export class CollaborationCardComponent implements OnInit, OnDestroy {
     this.hasCheckedOption = !!this.collaborationOptions.find(
       (option) => option.selected
     );
-  }
-
-  ngOnDestroy(): void {
-    this.collaborationOptionsSub?.unsubscribe();
   }
 }

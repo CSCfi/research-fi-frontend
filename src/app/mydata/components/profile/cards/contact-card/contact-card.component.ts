@@ -29,9 +29,9 @@ import {
 } from '@mydata/components/shared-layouts/contact-info-view/contact-info-view.component';
 
 @Component({
-    selector: 'app-contact-card',
-    templateUrl: './contact-card.component.html',
-    standalone: true,
+  selector: 'app-contact-card',
+  templateUrl: './contact-card.component.html',
+  standalone: true,
   imports: [
     ProfileEditorCardHeaderComponent,
     NgIf,
@@ -50,6 +50,7 @@ import {
 export class ContactCardComponent implements OnInit, OnChanges {
   @Input() data: any;
   @Input() label: string;
+  @Input() isEditorView: boolean;
 
   fieldTypes = FieldTypes;
   checkGroupSelected = checkGroupSelected;
@@ -89,26 +90,26 @@ export class ContactCardComponent implements OnInit, OnChanges {
   setVisibleNameById(metaId: number) {
     // Without id, sets current name from profile
     if (this.myDataProfile) {
-    this.publishedFullname = this.myDataProfile.profileData.filter(
-      item => item.id === 'contact')[0].fields.filter(
-      item => {
-        if (item.id === 'name') {
-          this.publishedFullnameLabel = item.label;
-          return true;
+      this.publishedFullname = this.myDataProfile.profileData.filter(
+        item => item.id === 'contact')[0].fields.filter(
+        item => {
+          if (item.id === 'name') {
+            this.publishedFullnameLabel = item.label;
+            return true;
+          }
         }
+      )[0].items.filter(
+        item => {
+          if (metaId) {
+            return item.itemMeta.id === metaId;
+          } else {
+            return item.itemMeta.show === true;
+          }
+        })[0].fullName;
+      if (metaId) {
+        this.profileService.setEditorProfileName(this.publishedFullname);
       }
-    )[0].items.filter(
-      item => {
-        if (metaId) {
-          return item.itemMeta.id === metaId;
-        } else {
-          return item.itemMeta.show === true;
-        }
-      })[0].fullName;
-    if (metaId) {
-      this.profileService.setEditorProfileName(this.publishedFullname);
     }
-  }
   }
 
   handleChanges(result) {
