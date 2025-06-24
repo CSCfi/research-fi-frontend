@@ -24,7 +24,7 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
   if (profile) {
     let profileFormattedTemp = [];
 
-    // 1/8 --- CONTACT
+    // 1/10 --- CONTACT
     let contact = [];
 
     // OTHER NAMES
@@ -71,7 +71,7 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
       id: 'contact', label: 'Yhteystiedot', fields: contact
     });
 
-    // 2/8 --- DESCRIPTION
+    // 2/10 --- DESCRIPTION
     cloneDeep(profile.personal.researcherDescriptions[0]);
     const description = {
       id: 'description',
@@ -81,8 +81,10 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
     const descriptionTyped = [];
     const itemMeta = { show: true, type: 140 };
     descriptionTyped.push(cloneDeep(profile.personal.researcherDescriptions[0]));
-    descriptionTyped[0].itemMeta = itemMeta;
-    descriptionTyped[0].value = checkTranslation('researchDescription', profile.personal.researcherDescriptions[0], localeId);
+    if (descriptionTyped[0]) {
+      descriptionTyped[0].itemMeta = itemMeta;
+      descriptionTyped[0].value = checkTranslation('researchDescription', profile.personal.researcherDescriptions[0], localeId);
+    }
 
     description.fields.push({
       id: 'researchDescription',
@@ -99,15 +101,21 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
     });
     description.fields.push({ id: 'keywords', label: keywordsCaption, items: keywordsTyped });
 
-    // 3/8 --- AFFILIATIONS
+    // 3/10 --- AFFILIATIONS
+    let typedAffiliations = cloneDeep(profile.activity.affiliations);
+    typedAffiliations = typedAffiliations.map(item => {
+      item.itemMeta = { type: fieldTypes.activityAffiliation, show: true };
+
+      return item;
+    });
     const affiliationObj = {
       id: groupTypes.affiliation, label: affiliationsCaption, fields: [{
-        id: 'affiliation', label: affiliationsCaption, items: cloneDeep(profile.activity.affiliations)
+        id: 'affiliation', label: affiliationsCaption, items: typedAffiliations
       }]
     };
     profileFormattedTemp.push(affiliationObj);
 
-    // 4/8 --- EDUCATION
+    // 4/10 --- EDUCATION
     const educationObj = {
       id: groupTypes.education, label: educationCaption, fields: [{
         id: 'education', label: educationCaption, items: cloneDeep(profile.activity.educations)
@@ -115,7 +123,7 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
     };
     profileFormattedTemp.push(educationObj);
 
-    // 5/8 --- PUBLICATION
+    // 5/10 --- PUBLICATION
     let typedPublications = cloneDeep(profile.activity.publications);
     typedPublications = typedPublications.map(item => {
       item.itemMeta = { type: fieldTypes.activityPublication, show: true };
@@ -131,7 +139,7 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
     };
     profileFormattedTemp.push(publication);
 
-    // 6/8 --- DATASET
+    // 6/10 --- DATASET
     let typedDatasets = cloneDeep(profile.activity.researchDatasets);
     typedDatasets = typedDatasets.map(item => {
       item.itemMeta = { type: fieldTypes.activityDataset, show: true };
@@ -150,7 +158,7 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
 
     //TODO: funder localizations
 
-    // 7/8 --- FUNDING
+    // 7/10 --- FUNDING
     let typedFundings = cloneDeep(profile.activity.fundingDecisions);
     typedFundings = typedFundings.map(item => {
       item.id = item.projectId
@@ -172,7 +180,7 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
     };
     profileFormattedTemp.push(funding);
 
-    // 8/8 --- ACTIVITIES AND REWARDS
+    // 8/10 --- ACTIVITIES AND REWARDS
     let typedAcitivities = cloneDeep(profile.activity.activitiesAndRewards);
     typedAcitivities = typedAcitivities.map(item => {
       item.timing = item?.startDate?.year > 0 ? item.startDate.year + ' - ' + item?.endDate?.year : item?.endDate?.year > 0 ? item?.endDate?.year : '';
@@ -193,7 +201,7 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
     };
     profileFormattedTemp.push(activities);
 
-    // 9/8 --- COOPERATION
+    // 9/10 --- COOPERATION
     const allOptionsSelected = profile.cooperation.map(item => {
       item.selected = true;
       return item;
@@ -206,7 +214,7 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
     };
     profileFormattedTemp.push(cooperationObj);
 
-    // 10/8 --- NAMES
+    // 10/10 --- NAMES
     let typedNames = cloneDeep(profile.personal.names);
     typedNames = typedNames.map(item => {
       item.itemMeta = { type: fieldTypes.personName, show: true };
@@ -227,6 +235,7 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
     };
     profileFormattedTemp.push(orcid);
 
+    console.log('profile formatted', profileFormattedTemp);
     return profileFormattedTemp;
   }
 }
