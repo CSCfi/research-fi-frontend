@@ -8,15 +8,17 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'hasSelectedItems',
-    standalone: true,
+  name: 'hasSelectedItems',
+  standalone: true
 })
 export class HasSelectedItemsPipe implements PipeTransform {
   transform(data: any): boolean {
     if (data?.length) {
       return data.some((group) => group.items.find((el) => el.itemMeta.show));
     } else if (data?.items) {
-      return data.items.some((item) => item.itemMeta.show);
-    } else return false;
+      return data.items.some((item) => item?.itemMeta?.show);
+    } else {
+      return false;
+    }
   }
 }

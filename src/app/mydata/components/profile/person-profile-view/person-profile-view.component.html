@@ -10,10 +10,7 @@
 <!-- Slice first contact info out and two last infos. These are used in other views. -->
 <div *ngIf="displayData">
   <ng-container *ngFor="let group of displayData.slice(1, -3); let i = index">
-    <div class="group-wrapper py-3">
       <ng-container *ngFor="let field of group.fields">
-        <div class="row py-2">
-          <div class="col px-0">
             <app-profile-summary-view
                     [isPortalSinglePage]="isPortalSinglePage"
                     [data]="field"
@@ -21,9 +18,6 @@
                     [sectionIndex]="i"
                     (openDialogCall)="openDialogCall($event)"
             ></app-profile-summary-view>
-          </div>
-        </div>
       </ng-container>
-    </div>
   </ng-container>
 </div>

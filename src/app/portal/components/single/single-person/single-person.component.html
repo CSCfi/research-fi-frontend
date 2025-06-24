@@ -46,14 +46,10 @@
         <div class="col-12 col-lg-4 gx-3">
           <!-- Contact card in desktop view -->
           <ng-container *ngIf="profileFormatted">
-            <aside class="group-wrapper d-none d-lg-block">
               <app-contact-card i18n-label="@@contactInfo" label="Yhteystiedot" [data]="profileFormatted" [isEditorView]="false"></app-contact-card>
-            </aside>
           </ng-container>
 
           <!-- Collaboration -->
-          <aside class="group-wrapper">
-            <div class="card-content-wrapper">
               <app-collaboration-card
                       *ngIf="profileFormatted"
                       [data]="profileFormatted"
@@ -62,8 +58,6 @@
                       i18n-label="@@cooperation"
                       label="Yhteistyö"
               ></app-collaboration-card>
-            </div>
-          </aside>
         </div>
       </div>
 

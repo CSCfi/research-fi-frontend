@@ -3,7 +3,8 @@
         [displayButton]="hasEditRights"
         (handleOpenDialog)="openDialog()"
 ></app-profile-editor-card-header>
+
 <app-empty-card
-        *ngIf="!hasCheckedOption"
+        *ngIf="!hasCheckedOption && hasEditRights"
         (onButtonClick)="openDialog()"
 ></app-empty-card>

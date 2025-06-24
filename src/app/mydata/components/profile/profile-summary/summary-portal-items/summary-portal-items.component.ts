@@ -19,6 +19,7 @@ import { TertiaryButtonComponent } from '@shared/components/buttons/tertiary-but
 @Component({
     selector: 'app-summary-portal-items',
     templateUrl: './summary-portal-items.component.html',
+  styleUrls: ['./summary-portal-items.component.scss'],
     standalone: true,
   imports: [
     NgFor,
@@ -33,6 +34,7 @@ import { TertiaryButtonComponent } from '@shared/components/buttons/tertiary-but
     TertiaryButtonComponent
   ]
 })
+
 export class SummaryPortalItemsComponent implements OnInit {
   @Input() data: any;
   @Input() fieldType: any;

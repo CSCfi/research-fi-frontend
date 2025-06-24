@@ -1,11 +1,12 @@
+<aside *ngIf="(contactFields | hasSelectedItems) || isEditorView" class="group-wrapper">
 <app-profile-editor-card-header
         [label]="label"
-        [displayButton]="(this.publishedFullname?.length > 0) || (contactFields | hasSelectedItems)"
+        [displayButton]="(this.publishedFullname?.length > 0) || (contactFields | hasSelectedItems) && isEditorView"
         (handleOpenDialog)="openDialog($event)"
 ></app-profile-editor-card-header>
 
 <app-empty-card
-        *ngIf="!(this.publishedFullname?.length > 0) && !(contactFields | hasSelectedItems)"
+        *ngIf="!(contactFields | hasSelectedItems) && isEditorView"
         (onButtonClick)="openDialog($event)"
 ></app-empty-card>
 
@@ -67,7 +68,7 @@
                             *ngSwitchCase="fieldTypes.personWebLink"
                             target="_blank"
                             [attr.href]="item.url"
-                    >{{ item.url }}<app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon contact-icon"></app-svg-sprites></a>
+                    >{{ item.url }}<app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites></a>
                   </ng-container>
                 </div>
               </div>
@@ -139,3 +140,4 @@
     </ng-container>
   </ng-container>
 </div>
+</aside>

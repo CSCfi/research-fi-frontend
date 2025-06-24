@@ -2,7 +2,8 @@
  Copyright 2019 Ministry of Education and Culture, Finland
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
-
+<aside *ngIf="hasCheckedOption || isEditorView" class="group-wrapper">
+  <div class="card-content-wrapper">
 <app-collaboration-view [hasEditRights]="isEditorView" [label]="label" [hasCheckedOption]="hasCheckedOption"
                         [collaborationOptions]="collaborationOptions"
                         (handleOpenDialog)="openDialog()"></app-collaboration-view>
@@ -31,6 +32,8 @@
     </ul>
   </div>
 </div>
+  </div>
+</aside>
 
 <!-- Editor modal -->
 <ng-template #dialogTemplate>

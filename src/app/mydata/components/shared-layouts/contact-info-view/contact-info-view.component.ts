@@ -4,7 +4,7 @@ import { EmptyCardComponent } from '@mydata/components/profile/cards/empty-card/
 import { FilterPipe } from '@mydata/pipes/filter.pipe';
 import { HasSelectedItemsPipe } from '@mydata/pipes/has-selected-items.pipe';
 import { JoinAllGroupItemsPipe } from '@mydata/pipes/join-all-group-items.pipe';
-import { NgForOf, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
+import { JsonPipe, NgForOf, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 import {
   ProfileEditorCardHeaderComponent
 } from '@mydata/components/profile/cards/profile-editor-card-header/profile-editor-card-header.component';
@@ -26,7 +26,8 @@ import { checkGroupSelected } from '@mydata/utils';
     NgSwitchCase,
     ProfileEditorCardHeaderComponent,
     SvgSpritesComponent,
-    NgSwitch
+    NgSwitch,
+    JsonPipe
   ],
   templateUrl: './contact-info-view.component.html',
   styleUrl: './contact-info-view.component.scss'

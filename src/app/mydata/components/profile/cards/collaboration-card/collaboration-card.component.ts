@@ -53,7 +53,7 @@ export class CollaborationCardComponent implements OnInit {
   originalCollaborationOptions;
   collaborationOptions = [];
   showDialog: boolean;
-  hasCheckedOption: boolean = true;
+  hasCheckedOption: boolean = false;
 
   dialogActions = [
     { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'cancel' },
@@ -72,6 +72,7 @@ export class CollaborationCardComponent implements OnInit {
     this.nameLocale = 'name' + this.appSettingsService.capitalizedLocale;
     const collabFields = this.data.filter(item => item.id === 'cooperation');
     this.collaborationOptions = collabFields[0].fields;
+    this.checkForSelection();
   }
 
   openDialog() {
