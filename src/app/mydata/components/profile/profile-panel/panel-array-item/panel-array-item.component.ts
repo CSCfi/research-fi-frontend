@@ -24,6 +24,7 @@ import {
 import { TagOpenAccessComponent } from '@shared/components/tags/tag-open-access/tag-open-access.component';
 import { TagDoiComponent } from '@shared/components/tags/tag-doi/tag-doi.component';
 import { TagPeerReviewedComponent } from '@shared/components/tags/tag-peer-reviewed/tag-peer-reviewed.component';
+import { FirstLetterPipe } from '@shared/pipes/first-letter.pipe';
 
 @Component({
     selector: 'app-panel-array-item',
@@ -44,7 +45,8 @@ import { TagPeerReviewedComponent } from '@shared/components/tags/tag-peer-revie
     TagOpenAccessComponent,
     JsonPipe,
     TagDoiComponent,
-    TagPeerReviewedComponent
+    TagPeerReviewedComponent,
+    FirstLetterPipe
   ]
 })
 export class PanelArrayItemComponent implements OnInit {

@@ -109,15 +109,17 @@
 
     <ng-container *ngSwitchCase="fieldTypes.activityActivitiesAndRewards">
       <app-activity-item
-              [rows]="[_item.name, _item.organizationName, _item.timing]"
-              [smallLastItem]="true"
+              [rows]="[_item['activityTypeName' + locale], _item['organizationName' + locale], _item['timing']]"
+              [fieldType]="fieldType"
+              [smallLastItem]="false"
       ></app-activity-item>
     </ng-container>
 
     <ng-container *ngSwitchCase="fieldTypes.activityActivitiesAndRewardsOrcid">
       <app-activity-item
-              [rows]="[_item.name, _item.timing]"
-              [smallLastItem]="true"
+              [rows]="[_item['activityTypeName' + locale], _item['organizationName' + locale], _item['timing']]"
+              [fieldType]="fieldType"
+              [smallLastItem]="false"
       ></app-activity-item>
     </ng-container>
 
