@@ -153,7 +153,7 @@
 <!-- ACTIVITIES AND REWARDS -->
 <div class="pt-2" *ngIf="sectionName === groupTypes.activitiesAndRewards">
   <app-summary-portal-items
-          [data]="data"
+          [data]="data | formatAndSortTimespan: groupTypes.activitiesAndRewards"
           [fieldType]="fieldTypes.activityActivitiesAndRewards || fieldTypes.activityActivitiesAndRewardsOrcid"
           sortField="name"
           showMoreLabel="aktiviteetit ja palkinnot"

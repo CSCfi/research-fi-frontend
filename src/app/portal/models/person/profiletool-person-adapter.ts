@@ -19,8 +19,6 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
   const internationalCollaborationCaption = $localize`:@@internationalCollaboration:Kansainvälinen yhteistyö`
   const dataSourcesCaption = $localize`:@@dataSources:Lähteet`;
 
-  console.log(profile);
-
   if (profile) {
     let profileFormattedTemp = [];
 
@@ -182,13 +180,7 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
 
     // 8/10 --- ACTIVITIES AND REWARDS
     let typedAcitivities = cloneDeep(profile.activity.activitiesAndRewards);
-    typedAcitivities = typedAcitivities.map(item => {
-      item.timing = item?.startDate?.year > 0 ? item.startDate.year + ' - ' + item?.endDate?.year : item?.endDate?.year > 0 ? item?.endDate?.year : '';
-      item.itemMeta = { type: fieldTypes.activityActivitiesAndRewards, show: true };
-      item.name = item?.activityTypeNameFi ? item?.activityTypeNameFi : '';
-      item.organizationName = checkTranslation('organizationName', item, localeId);
-      return item;
-    });
+    typedAcitivities = formatTiming(typedAcitivities, localeId);
 
     const activities = {
       id: groupTypes.activitiesAndRewards,
@@ -235,9 +227,19 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
     };
     profileFormattedTemp.push(orcid);
 
-    console.log('profile formatted', profileFormattedTemp);
     return profileFormattedTemp;
   }
+}
+
+function formatTiming(items: any, localeId: string){
+  items = items.map(item => {
+    item.timing = item?.startDate?.year > 0 ? item.startDate.year + ' - ' + item?.endDate?.year : item?.endDate?.year > 0 ? item?.endDate?.year : '';
+    item.itemMeta = { type: fieldTypes.activityActivitiesAndRewards, show: true };
+    item.name = item?.activityTypeNameFi ? item?.activityTypeNameFi : '';
+    item.organizationName = checkTranslation('organizationName', item, localeId);
+    return item;
+  });
+  return items;
 }
 
 // Point of language test is to populate data if no content available in current locale.

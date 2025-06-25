@@ -18,6 +18,7 @@ import { GroupTypes } from '@mydata/constants/groupTypes';
 import {
   SummaryPortalItemsComponent
 } from '@mydata/components/profile/profile-summary/summary-portal-items/summary-portal-items.component';
+import { FormatAndSortTimespanPipe } from '@shared/pipes/format-and-sort-timespan.pipe';
 
 @Component({
   selector: 'app-profile-summary-view',
@@ -38,7 +39,8 @@ import {
     JoinItemsPipe,
     PanelArrayItemComponent,
     TertiaryButtonComponent,
-    SummaryPortalItemsComponent
+    SummaryPortalItemsComponent,
+    FormatAndSortTimespanPipe
   ]
 })
 
