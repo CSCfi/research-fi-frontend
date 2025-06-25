@@ -57,7 +57,6 @@ export class ProfileSummaryViewComponent implements OnInit  {
   noPublicDataText = $localize`:@@youHaveNotSelectedAnyPublicData:Et ole vielä valinnut julkisesti näytettäviä tietoja`;
 
   sortItemsByNew = sortItemsByNew;
-  sortedItems: any[];
 
   locale = 'Fi';
 
@@ -85,9 +84,6 @@ export class ProfileSummaryViewComponent implements OnInit  {
   }
 
   ngOnInit(): void {
-    let degree = '';
-
-
     switch (this.sectionName) {
       case 'education': {
         //degree: this.utils.checkTranslation('name', item);
@@ -95,10 +91,6 @@ export class ProfileSummaryViewComponent implements OnInit  {
     }
 
     this.locale = this.appSettingsService.capitalizedLocale;
-    this.sortedItems = this.sortItemsByNew(
-      this.data.items,
-      'itemMeta.primaryValue'
-    );
   }
 
   protected readonly fieldTypes = FieldTypes;

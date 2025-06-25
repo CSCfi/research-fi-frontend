@@ -4,7 +4,7 @@
  :license: MIT -->
 <div class="summary-panel-wrapper">
   <div class="summary-panel" *ngFor="let item of sortedItems.slice(0, itemDisplayCount); index as i">
-    <ng-container *ngIf="item.itemMeta.show">
+    <ng-container *ngIf="item.itemMeta.show && fieldType !== FieldTypes.activityActivitiesAndRewards">
       <div *ngIf="i === 0" class="year-caption">
         {{sortedItems.slice(0, itemDisplayCount)[i].publicationYear}}
         <span *ngIf="fieldType === fieldTypes.activityDataset">{{sortedItems.slice(0, itemDisplayCount)[i].year}}</span>
@@ -28,6 +28,15 @@
       <app-summary-divider></app-summary-divider>
       </div>
     </ng-container>
+
+    <!-- ACTIVITIES AND REWARDS -->
+    <div *ngIf="fieldType === FieldTypes.activityActivitiesAndRewards || fieldType === FieldTypes.activityActivitiesAndRewardsOrcid" class="row">
+      <div class="col px-4">
+        <app-panel-array-item [item]="item" [fieldType]="fieldType" [summary]="true"></app-panel-array-item>
+      </div>
+      <app-summary-divider></app-summary-divider>
+    </div>
+
   </div>
 </div>
 

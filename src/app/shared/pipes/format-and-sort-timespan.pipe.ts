@@ -5,8 +5,10 @@ import { cloneDeep } from 'lodash-es';
   name: 'formatAndSortTimespan',
   standalone: true
 })
+
 export class FormatAndSortTimespanPipe implements PipeTransform {
   transform(data: any, dataType: string): unknown {
+    const presentLocalization = $localize`:@@present:nykyhetki`;
 
     if (data?.items) {
       const sorted = cloneDeep(data);
@@ -16,15 +18,15 @@ export class FormatAndSortTimespanPipe implements PipeTransform {
         // Show single year
         if (item.startDate.year === item.endDate.year) {
           if (item.endDate.year === 0) {
-            item.timing = 'unknown - present';
+            item.timing = '';
           } else {
-            item.timing = item.startDate.year;
+            item.timing = item.startDate.year.toString();
           }
         }
         // Start date missing
         else if (item.startDate.year === 0) {
           if (item.endDate.year > 0) {
-            item.timing = 'unknown' + ' - ' + item.endDate.year;
+            item.timing = item.endDate.year.toString();
           }
           // Start and end date missing
           else {
@@ -32,7 +34,7 @@ export class FormatAndSortTimespanPipe implements PipeTransform {
           }
           // End date missing
         } else if (item.endDate.year === 0) {
-          item.timing = item.startDate.year + ' - ' + 'present';
+          item.timing = item.startDate.year + ' - ' + presentLocalization;
         }
         // Regular case
         else {
@@ -40,6 +42,19 @@ export class FormatAndSortTimespanPipe implements PipeTransform {
         }
         return item;
       });
+
+      // Sort items with empty timing to last
+      const timingExists = [];
+      const noTiming = [];
+      sorted.items.forEach(item => {
+        if (item.timing === '') {
+          noTiming.push(item);
+        }
+        else {
+          timingExists.push(item);
+        }
+      });
+      sorted.items = timingExists.concat(noTiming);
       return sorted;
     }
   }

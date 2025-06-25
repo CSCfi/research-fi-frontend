@@ -89,8 +89,6 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
       label: $localize`:@@description:Kuvaus`,
       items: cloneDeep(descriptionTyped)
     });
-    profileFormattedTemp.push(description);
-
 
     // KEYWORDS
     const keywordsTyped = profile.personal.keywords.map(item => {
@@ -98,6 +96,7 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
       return item;
     });
     description.fields.push({ id: 'keywords', label: keywordsCaption, items: keywordsTyped });
+    profileFormattedTemp.push(description);
 
     // 3/10 --- AFFILIATIONS
     let typedAffiliations = cloneDeep(profile.activity.affiliations);
@@ -180,7 +179,7 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
 
     // 8/10 --- ACTIVITIES AND REWARDS
     let typedAcitivities = cloneDeep(profile.activity.activitiesAndRewards);
-    typedAcitivities = formatTiming(typedAcitivities, localeId);
+    typedAcitivities = formatActivityItems(typedAcitivities, localeId);
 
     const activities = {
       id: groupTypes.activitiesAndRewards,
@@ -231,12 +230,9 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
   }
 }
 
-function formatTiming(items: any, localeId: string){
+function formatActivityItems(items: any, localeId: string){
   items = items.map(item => {
-    item.timing = item?.startDate?.year > 0 ? item.startDate.year + ' - ' + item?.endDate?.year : item?.endDate?.year > 0 ? item?.endDate?.year : '';
     item.itemMeta = { type: fieldTypes.activityActivitiesAndRewards, show: true };
-    item.name = item?.activityTypeNameFi ? item?.activityTypeNameFi : '';
-    item.organizationName = checkTranslation('organizationName', item, localeId);
     return item;
   });
   return items;
