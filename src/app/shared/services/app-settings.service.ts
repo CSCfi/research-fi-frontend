@@ -97,11 +97,11 @@ export class AppSettingsService {
       },
       {
         label: $localize`:@@dataAndSources:Tiedot ja tietolähteet`,
-        link: '/mydata/data-sources',
+        link: '/mydata/profile/data-sources',
       },
       {
         label: $localize`:@@accountSettings:Tiliasetukset`,
-        link: '/mydata/account-settings',
+        link: '/mydata/profile/account-settings',
       },
       {
         label: $localize`:@@logout:Kirjaudu ulos`,
