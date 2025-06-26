@@ -34,6 +34,7 @@ export class DraftService {
   orcid: string;
 
   person$ = new BehaviorSubject<Person>(null);
+  public dataHasBeenReset = new BehaviorSubject<boolean>(false);
 
   hasProfile$: Observable<boolean>;
   public showLogoutConfirmModal = new BehaviorSubject<boolean>(false);
@@ -369,6 +370,8 @@ export class DraftService {
     this.draftProfileData = currentProfileData;
     this.profileService.setEditorProfileName(getName(currentProfileData));
     this.clearDraftData();
+    // Notify profile component to refresh view
+    this.dataHasBeenReset.next(true);
     //TODO: this.collaborationComponentRef?.resetInitialValue();
     //TODO: Call refresh in profile?
   }

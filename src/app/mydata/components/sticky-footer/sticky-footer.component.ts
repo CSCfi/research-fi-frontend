@@ -165,6 +165,7 @@ export class StickyFooterComponent implements OnInit, OnDestroy {
         break;
       }
       case 'discard': {
+        this.profileService.clearDraftProfile();
         this.draftService.reset();
         break;
       }
