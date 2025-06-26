@@ -163,6 +163,7 @@
                       item.link.trim().length > 0 ? item.link : currentRoute
                     "
                                             [queryParams]="item.queryParams"
+
                                             routerLinkActive="active-link"
                                             [routerLinkActiveOptions]="{ exact: item.exact }"
                                             (click)="handleLinkClick(item)"

@@ -34,6 +34,7 @@ import { StickyFooterComponent } from '@mydata/components/sticky-footer/sticky-f
 import {
   NameAndOrcidViewComponent
 } from '@mydata/components/shared-layouts/name-and-orcid-view/name-and-orcid-view.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -61,8 +62,8 @@ export class ProfileComponent implements OnInit {
   @ViewChild('collaborationComponentRef') collaborationComponentRef;
 
   profileData: any;
-  testData: any;
   orcid: string;
+  fullName: Observable<string>;
 
   publishUpdatedProfile = $localize`:@@publishUpdatedProfile:Julkaise päivitetty profiili`;
   discardChanges = $localize`:@@discardChanges:Hylkää muutokset`;
@@ -81,14 +82,17 @@ export class ProfileComponent implements OnInit {
     private utilityService: UtilityService,
   ) {
     this.profileService.initializeProfileVisibility();
-
-    this.testData = profileService.testData;
+      this.fullName = this.profileService.getEditorProfileNameObservable();
 
     // Find if user has navigated to profile route from service deployment stepper
     // Display welcome dialog if so
     this.previousRoute = this.router
       .getCurrentNavigation()
       .previousNavigation?.finalUrl.toString();
+  }
+
+  setPersonNameFromProfileData(){
+    this.fullName = this.profileService.currentEditorProfileName;
   }
 
   ngOnInit(): void {
@@ -118,6 +122,7 @@ export class ProfileComponent implements OnInit {
         console.log('PROFILE', myDataProfile);
         this.profileService.setEditorProfileName(myDataProfile.name);
       }
+      this.setPersonNameFromProfileData();
     }
   }
 }

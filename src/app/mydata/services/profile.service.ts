@@ -93,6 +93,10 @@ export class ProfileService {
     this.orcidUserProfile = profileData;
   }
 
+  getEditorProfileNameObservable() {
+    return this.currentEditorProfileName;
+  }
+
   setEditorProfileName(fullName: string) {
     this.editorProfileNameSource.next(fullName);
   }

@@ -52,7 +52,7 @@ const routes: Routes = [
     },
   },
   {
-    path: 'data-sources',
+    path: 'profile/data-sources',
     pathMatch: 'full',
     component: DataSourcesComponent,
     canActivate: [AuthGuard],
@@ -62,7 +62,7 @@ const routes: Routes = [
     },
   },
   {
-    path: 'account-settings',
+    path: 'profile/account-settings',
     pathMatch: 'full',
     component: AccountSettingsComponent,
     canActivate: [AuthGuard],

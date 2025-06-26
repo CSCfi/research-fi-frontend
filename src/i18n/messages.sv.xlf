@@ -647,10 +647,6 @@
         <source> Infrastruktuuritiedon lähde puuttuu. </source>
         <target state="new">Infrastrukturinformationens källa saknas.</target>
       </trans-unit>
-      <trans-unit id="closeButton" datatype="html">
-        <source>Sulje</source>
-        <target state="translated">Stäng</target>
-      </trans-unit>
       <trans-unit id="yearRange" datatype="html">
         <source>Valitse aikaväli</source>
         <target state="translated">Välj tidsintervall</target>
@@ -901,8 +897,9 @@
         <target state="translated">Följ oss!</target>
       </trans-unit>
       <trans-unit id="twitterFooter" datatype="html">
-        <source>Tiedejatutkimus.fi Twitterissä</source>
+        <source><x id="START_TAG_APP_SVG_SPRITES" ctype="x-app_svg_sprites" equiv-text="&lt;app-svg-sprites [iconName]=&quot;&apos;fa-twitter&apos;&quot; cssClass=&quot;twitter-icon&quot;&gt;"/><x id="CLOSE_TAG_APP_SVG_SPRITES" ctype="x-app_svg_sprites" equiv-text="&lt;/app-svg-sprites&gt;"/>Tiedejatutkimus.fi Twitterissä</source>
         <target state="new">Forskning.fi i Twitter</target>
+        <note priority="1" from="description">Twitter-footer</note>
       </trans-unit>
       <trans-unit id="twitterTitleText" datatype="html">
         <source>Twitter -palvelun logo</source>
@@ -1969,10 +1966,6 @@
         <source>Perustiedot</source>
         <target>Basinformation</target>
       </trans-unit>
-      <trans-unit id="furtherInformation" datatype="html">
-        <source> Lisätiedot </source>
-        <target state="new">Ytterligare information</target>
-      </trans-unit>
       <trans-unit id="showMoreNews" datatype="html">
         <source>Näytä lisää uutisia</source>
         <target>Visa fler nyheter</target>
@@ -2633,10 +2626,6 @@
         <source>Ladataan</source>
         <target>Laddas</target>
       </trans-unit>
-      <trans-unit id="researchersSectionIncoming" datatype="html">
-        <source>Tutkijan (tulossa)</source>
-        <target>Forskares (kommande)</target>
-      </trans-unit>
       <trans-unit id="researchersProfile" datatype="html">
         <source>Tutkijan tiedot</source>
         <target state="new">Forskarens profilverktyg</target>
@@ -2787,10 +2776,6 @@
         <source>Profiili</source>
         <target>Profil</target>
       </trans-unit>
-      <trans-unit id="publicProfile" datatype="html">
-        <source> Profiili </source>
-        <target state="new">Profil</target>
-      </trans-unit>
       <trans-unit id="navigationHeaderProfile" datatype="html">
         <source>Profiili</source>
         <target>Profil</target>
@@ -2803,16 +2788,12 @@
         <source>Tietojen päivittyminen voi kestää muutaman minuutin.</source>
         <target>Det kan ta några minuter att uppdatera uppgifterna.</target>
       </trans-unit>
-      <trans-unit id="draft" datatype="html">
-        <source>Luonnos</source>
-        <target>Draft</target>
-      </trans-unit>
       <trans-unit id="publishUpdatedProfile" datatype="html">
         <source>Julkaise päivitetty profiili</source>
         <target>Publicera den uppdaterade profilen</target>
       </trans-unit>
       <trans-unit id="discardChanges" datatype="html">
-        <source> Hylkää muutokset </source>
+        <source>Hylkää muutokset</source>
         <target state="new">Avvisa ändringar</target>
       </trans-unit>
       <trans-unit id="publish" datatype="html">
@@ -2820,8 +2801,8 @@
         <target>Publicera</target>
       </trans-unit>
       <trans-unit id="publishEllipsis" datatype="html">
-        <source>Julkaise...</source>
-        <target>Publicera...</target>
+        <source>Siirry julkiseen profiiliin</source>
+        <target state="new">Publicera...</target>
       </trans-unit>
       <trans-unit id="deleteProfile" datatype="html">
         <source>Poista profiili</source>
@@ -2910,7 +2891,7 @@
         <target>Affiliering</target>
       </trans-unit>
       <trans-unit id="education" datatype="html">
-        <source>koulutus</source>
+        <source>Koulutus</source>
         <target state="new">Utbildning</target>
       </trans-unit>
       <trans-unit id="activitiesAndAwards" datatype="html">
@@ -3090,7 +3071,7 @@
         <target>Du har opublicerade ändringar i profilvyn.</target>
       </trans-unit>
       <trans-unit id="youHaveUnpublishedChangesSnackbarButton" datatype="html">
-        <source>Tarkasta muutokset.</source>
+        <source>Tarkasta muutokset...</source>
         <target state="new">Kontrollera ändringarna.</target>
       </trans-unit>
       <trans-unit id="suomiFiAutheticationProblemSnackbarText" datatype="html">
@@ -3418,10 +3399,6 @@
         <source>Yksikkö</source>
         <target>Enheten</target>
       </trans-unit>
-      <trans-unit id="degrees" datatype="html">
-        <source>Tutkinnot</source>
-        <target>Grader</target>
-      </trans-unit>
       <trans-unit id="logInToCreateProfile" datatype="html">
         <source> Kirjaudu sisään luodaksesi profiilin tai valitaksesi profiilissasi näkyviä tietoja. </source>
         <target state="new">Logga in för att skapa en profil eller välja de uppgifter som visas i din profil.</target>
@@ -3444,16 +3421,8 @@
         <source>Valitse aktiviteetit</source>
         <target>Välj aktiviteter</target>
       </trans-unit>
-      <trans-unit id="toMyProfile" datatype="html">
-        <source>Julkiseen profiiliin</source>
-        <target>Till offentliga profil</target>
-      </trans-unit>
-      <trans-unit id="visitMyProfile" datatype="html">
-        <source>Tarkastele julkista profiiliasi Tiedejatutkimus.fi:ssä</source>
-        <target>Se din offentliga profil på Forsking.fi</target>
-      </trans-unit>
       <trans-unit id="mydata.profile.profile-is-hidden" datatype="html">
-        <source> Olet piilottanut profiilisi Tiedejatutkimus.fi-palvelusta </source>
+        <source>Olet piilottanut profiilisi Tiedejatutkimus.fi-palvelusta</source>
         <target state="new">Du har dold din profil från Forskning.fi-tjänsten</target>
       </trans-unit>
       <trans-unit id="mydata.profile.republish-modal.title" datatype="html">
@@ -4372,10 +4341,6 @@
         <source>Hankkeen nimi</source>
         <target state="new">Projektets namn</target>
       </trans-unit>
-      <trans-unit id="spSortsAbbreviation" datatype="html">
-        <source>Lyhenne</source>
-        <target state="new">Förkortning</target>
-      </trans-unit>
       <trans-unit id="spSortsOrganization" datatype="html">
         <source>Organisaatio</source>
         <target state="new">Organisation</target>
@@ -4383,6 +4348,22 @@
       <trans-unit id="spSortsStartYear" datatype="html">
         <source>Aloitusvuosi</source>
         <target state="new">Startår</target>
+      </trans-unit>
+      <trans-unit id="discardAndLogout" datatype="html">
+        <source>Kirjaudu ulos ja hylkää muutokset.</source>
+        <target state="new">Kirjaudu ulos ja hylkää muutokset.</target>
+      </trans-unit>
+      <trans-unit id="discardChangesAndLogout" datatype="html">
+        <source> Haluatko hylätä julkaisemattomat muutokset ja kirjautua ulos? </source>
+        <target state="new"> Haluatko hylätä julkaisemattomat muutokset ja kirjautua ulos? </target>
+      </trans-unit>
+      <trans-unit id="present" datatype="html">
+        <source>nykyhetki</source>
+        <target state="new">nuvarande</target>
+      </trans-unit>
+      <trans-unit id="researchersProfileNew" datatype="html">
+        <source>Oma profiili</source>
+        <target state="new">Min profil</target>
       </trans-unit>
     </body>
   </file>

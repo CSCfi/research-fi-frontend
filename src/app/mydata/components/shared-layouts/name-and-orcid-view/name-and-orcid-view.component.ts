@@ -5,6 +5,7 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
 import { TertiaryButtonComponent } from '@shared/components/buttons/tertiary-button/tertiary-button.component';
 import { CdkCopyToClipboard } from '@angular/cdk/clipboard';
 import { ShareComponent } from '@portal/components/single/share/share.component';
+import { CapitalizeFirstLetterPipe } from '@shared/pipes/capitalize-first-letter.pipe';
 
 @Component({
   selector: 'app-name-and-orcid-view',
@@ -15,7 +16,8 @@ import { ShareComponent } from '@portal/components/single/share/share.component'
     TertiaryButtonComponent,
     NgClass,
     CdkCopyToClipboard,
-    ShareComponent
+    ShareComponent,
+    CapitalizeFirstLetterPipe
   ],
   templateUrl: './name-and-orcid-view.component.html',
   styleUrl: './name-and-orcid-view.component.scss'

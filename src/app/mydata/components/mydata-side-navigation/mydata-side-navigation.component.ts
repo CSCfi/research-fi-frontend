@@ -79,7 +79,7 @@ export class MydataSideNavigationComponent implements OnInit, OnDestroy {
         notificationText: $localize`:@@youHaveUnpublishedChangesSnackbar:Sinulla on julkaisemattomia muutoksia profiilinäkymässä.`,
         buttons: [
           {
-            label: $localize`:@@youHaveUnpublishedChangesSnackbarButton:Julkaise muutokset...`,
+            label: $localize`:@@youHaveUnpublishedChangesSnackbarButton:Tarkasta muutokset...`,
             action: () => this.router.navigate(['mydata/profile']),
           },          {
             label: $localize`:@@discardAndLogout:Kirjaudu ulos ja hylkää muutokset.`,

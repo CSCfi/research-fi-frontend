@@ -68,7 +68,7 @@
         <div class="row">
           <ng-container *ngIf="profileData; else loadingTemplate">
             <div class="col-12">
-              <app-name-and-orcid-view [name]="'test'" [orcid]="'test'" [isEditorView]="true"></app-name-and-orcid-view>
+              <app-name-and-orcid-view [name]="fullName | async" [orcid]="orcid" [isEditorView]="true"></app-name-and-orcid-view>
             </div>
             <div class="col-lg-8 col-md-12">
               <app-profile-summary class="d-block pt-3" [profileData]="profileData" [name]="profileService.currentEditorProfileName | async" [orcid]="orcid"></app-profile-summary>
