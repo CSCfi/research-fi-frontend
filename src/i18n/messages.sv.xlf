@@ -4362,7 +4362,7 @@
       </trans-unit>
       <trans-unit id="researchersProfileNew" datatype="html">
         <source>Oma profiili</source>
-        <target state="new">Oma profiili</target>
+        <target state="new">Min profil</target>
       </trans-unit>
     </body>
   </file>
