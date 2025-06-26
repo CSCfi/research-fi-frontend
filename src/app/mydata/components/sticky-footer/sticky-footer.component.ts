@@ -172,6 +172,7 @@ export class StickyFooterComponent implements OnInit, OnDestroy {
         break;
       }
       case 'discardChangesAndLogout': {
+        this.profileService.clearDraftProfile();
         this.draftService.reset();
         this.oidcSecurityService.logoff();
         break;

@@ -13,7 +13,7 @@
 <div class="static-footer">
   <div class="wrapper">
     <div class="row d-flex justify-content-between footer-button-wrap">
-      <div class="col-auto">
+      <div class="col-auto gx-0">
         <ng-container *ngIf="(isProfilePublished  | async) && (isProfileVisible | async)">
           <a [routerLink]="['/', 'results', 'person', orcid]" target="_blank">
             <app-secondary-button class="col-auto" i18n-content="@@publishEllipsis"

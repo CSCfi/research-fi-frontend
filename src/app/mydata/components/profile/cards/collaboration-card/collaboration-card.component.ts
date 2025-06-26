@@ -25,6 +25,7 @@ import {
   CollaborationViewComponent
 } from '@mydata/components/shared-layouts/collaboration-view/collaboration-view.component';
 import { DraftService } from '@mydata/services/draft.service';
+import { Constants } from '@mydata/constants';
 
 @Component({
   selector: 'app-collaboration-card',
@@ -102,6 +103,13 @@ export class CollaborationCardComponent implements OnInit, OnDestroy {
 
         this.collaborationOptions[match].selected = option.selected;
       });
+
+      // Set draft data into storage with SSR check
+      if (this.appSettingsService.isBrowser) {
+        // TODO: update session storage draftProfile accordingly
+        //this.draftService.updateFieldInDraft(Constants.draftCollaborationPatchPayload, this.optionsToggled);
+        //console.log('updating draft', this.draftService.getDraftProfile());
+      }
 
       this.collaborationsService.addToPayload(this.optionsToggled);
       this.collaborationsService.confirmPayload();
