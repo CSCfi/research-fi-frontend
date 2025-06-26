@@ -81,6 +81,8 @@ export class DraftSummaryComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.collaborationOptions = this.collaborationsService.confirmedPayload;
+    console.log('this.collaborationOptions:', this.collaborationOptions);
+    console.log('this.profileData', this.profileData);
 
     this.nameLocale = 'name' + this.appSettingsService.capitalizedLocale;
     this.patchPayloadSub = combineLatest([

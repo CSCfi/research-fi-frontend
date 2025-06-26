@@ -13,6 +13,7 @@ import { DialogComponent } from '@shared/components/dialog/dialog.component';
 import { DraftService } from '@mydata/services/draft.service';
 import { map } from 'rxjs/operators';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { CollaborationsService } from '@mydata/services/collaborations.service';
 
 @Component({
   selector: 'app-sticky-footer',
@@ -33,6 +34,7 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
 export class StickyFooterComponent implements OnInit, OnDestroy {
   orcidData: any;
   profileData: any;
+  collaborationOptions: any[];
   orcid: string;
 
   isProfilePublished = this.draftService.person$.pipe(map((person) => person != null ));
@@ -50,6 +52,7 @@ export class StickyFooterComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private route: ActivatedRoute,
     public draftService: DraftService,
+    public collaborationsService: CollaborationsService,
     private oidcSecurityService: OidcSecurityService,
   ) {
     this.profileService.initializeProfileVisibility();
@@ -64,6 +67,7 @@ export class StickyFooterComponent implements OnInit, OnDestroy {
     this.orcidData = orcidProfile;
     this.orcid = orcidProfile.orcid;
     this.profileData = this.draftService.getDraftProfile();
+    this.collaborationOptions = this.collaborationsService.confirmedPayload;
     }
 
   // Dialog texts
