@@ -10,14 +10,11 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { CollaborationsService } from '@mydata/services/collaborations.service';
-import { take } from 'rxjs/operators';
-import { cloneDeep } from 'lodash-es';
-import { Constants } from '@mydata/constants';
 import { Subscription } from 'rxjs';
 import { DialogComponent } from '../../../../../shared/components/dialog/dialog.component';
 import { MatCheckbox } from '@angular/material/checkbox';
@@ -27,6 +24,8 @@ import { ProfileEditorCardHeaderComponent } from '../profile-editor-card-header/
 import {
   CollaborationViewComponent
 } from '@mydata/components/shared-layouts/collaboration-view/collaboration-view.component';
+import { DraftService } from '@mydata/services/draft.service';
+import { Constants } from '@mydata/constants';
 
 @Component({
   selector: 'app-collaboration-card',
@@ -45,7 +44,7 @@ import {
     JsonPipe
   ]
 })
-export class CollaborationCardComponent implements OnInit {
+export class CollaborationCardComponent implements OnInit, OnDestroy {
   @Input() label: string;
   @Input() data: any;
   @Input() isEditorView: boolean;
@@ -61,15 +60,28 @@ export class CollaborationCardComponent implements OnInit {
   ];
   optionsToggled = [];
   nameLocale = '';
+  private dataHasBeenResetSub: Subscription;
 
   constructor(
     private dialog: MatDialog,
     private collaborationsService: CollaborationsService,
-    private appSettingsService: AppSettingsService
+    private appSettingsService: AppSettingsService,
+    private draftService: DraftService,
   ) {}
 
   ngOnInit(): void {
     this.nameLocale = 'name' + this.appSettingsService.capitalizedLocale;
+    const collabFields = this.data.filter(item => item.id === 'cooperation');
+    this.collaborationOptions = collabFields[0].fields;
+    this.checkForSelection();
+    this.dataHasBeenResetSub = this.draftService.dataHasBeenReset.subscribe(val => {
+      if (val === true) {
+        this.resetInitialValue();
+      }
+    });
+  }
+
+  public resetInitialValue() {
     const collabFields = this.data.filter(item => item.id === 'cooperation');
     this.collaborationOptions = collabFields[0].fields;
     this.checkForSelection();
@@ -91,6 +103,13 @@ export class CollaborationCardComponent implements OnInit {
 
         this.collaborationOptions[match].selected = option.selected;
       });
+
+      // Set draft data into storage with SSR check
+      if (this.appSettingsService.isBrowser) {
+        // TODO: update session storage draftProfile accordingly
+        //this.draftService.updateFieldInDraft(Constants.draftCollaborationPatchPayload, this.optionsToggled);
+        //console.log('updating draft', this.draftService.getDraftProfile());
+      }
 
       this.collaborationsService.addToPayload(this.optionsToggled);
       this.collaborationsService.confirmPayload();
@@ -120,5 +139,9 @@ export class CollaborationCardComponent implements OnInit {
     this.hasCheckedOption = !!this.collaborationOptions.find(
       (option) => option.selected
     );
+  }
+
+  ngOnDestroy() {
+    this.dataHasBeenResetSub.unsubscribe();
   }
 }

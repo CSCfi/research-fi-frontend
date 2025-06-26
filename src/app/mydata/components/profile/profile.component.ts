@@ -9,11 +9,10 @@ import {
   Component,
   OnInit,
   ViewEncapsulation,
-  ViewChild,
+  ViewChild, ChangeDetectorRef, OnDestroy
 } from '@angular/core';
 import { ProfileService } from '@mydata/services/profile.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
-import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DraftService } from '@mydata/services/draft.service';
 import { CommonStrings } from '@mydata/constants/strings';
@@ -34,7 +33,8 @@ import { StickyFooterComponent } from '@mydata/components/sticky-footer/sticky-f
 import {
   NameAndOrcidViewComponent
 } from '@mydata/components/shared-layouts/name-and-orcid-view/name-and-orcid-view.component';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { cloneDeep } from 'lodash-es';
 
 @Component({
   selector: 'app-profile',
@@ -58,7 +58,7 @@ import { Observable } from 'rxjs';
     NameAndOrcidViewComponent
   ]
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   @ViewChild('collaborationComponentRef') collaborationComponentRef;
 
   profileData: any;
@@ -72,6 +72,7 @@ export class ProfileComponent implements OnInit {
 
   previousRoute: string | undefined;
   showWelcomeDialog = false;
+  dataHasBeenResetSub: Subscription;
 
   constructor(
     public profileService: ProfileService,
@@ -80,6 +81,7 @@ export class ProfileComponent implements OnInit {
     private route: ActivatedRoute,
     public draftService: DraftService,
     private utilityService: UtilityService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {
     this.profileService.initializeProfileVisibility();
       this.fullName = this.profileService.getEditorProfileNameObservable();
@@ -91,11 +93,22 @@ export class ProfileComponent implements OnInit {
       .previousNavigation?.finalUrl.toString();
   }
 
-  setPersonNameFromProfileData(){
-    this.fullName = this.profileService.currentEditorProfileName;
+  ngOnInit(): void {
+    this.reloadViewData();
+    this.dataHasBeenResetSub = this.draftService.dataHasBeenReset.subscribe(val => {
+      if (val === true) {
+        this.resetProfileData();
+        this.changeDetectorRef.detectChanges();
+      }
+    });
   }
 
-  ngOnInit(): void {
+  resetProfileData(){
+    this.profileData = cloneDeep(this.profileService.currentProfileData);
+    this.collaborationComponentRef?.resetInitialValue();
+  }
+
+  reloadViewData(){
     this.utilityService.setMyDataTitle($localize`:@@profile:Profiili`);
 
     // Get data from resolver
@@ -114,15 +127,19 @@ export class ProfileComponent implements OnInit {
 
       // Display either draft profile from storage or profile from database
       if (parsedDraft) {
+        console.log(parsedDraft);
         this.profileData = parsedDraft;
-        console.log('PROFILE', myDataProfile);
+        console.log('PROFILE FROM DRAFT', myDataProfile);
         this.profileService.setEditorProfileName(getName(parsedDraft));
       } else {
         this.profileData = myDataProfile.profileData;
         console.log('PROFILE', myDataProfile);
         this.profileService.setEditorProfileName(myDataProfile.name);
       }
-      this.setPersonNameFromProfileData();
+      this.fullName = this.profileService.currentEditorProfileName;
     }
+  }
+  ngOnDestroy() {
+    this.dataHasBeenResetSub.unsubscribe();
   }
 }

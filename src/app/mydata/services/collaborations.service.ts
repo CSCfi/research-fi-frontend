@@ -47,7 +47,6 @@ export class CollaborationsService {
   }
 
   addToPayload(payload: any) {
-    console.log('added to payload', payload);
     let temp = this.tempPayload;
 
     // Patch only unique items

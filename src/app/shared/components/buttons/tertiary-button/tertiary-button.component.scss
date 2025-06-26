@@ -28,3 +28,13 @@
       box-shadow: none !important;
     }
   }
+
+  button:disabled,
+  button[disabled]{
+    //background-color: #cccccc;
+    opacity: 0.6;
+    &:hover {
+      text-decoration: none;
+      cursor: default;
+    }
+  }
