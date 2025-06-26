@@ -91,7 +91,7 @@
         <source>Twitter -palvelun logo</source>
       </trans-unit>
       <trans-unit id="twitterFooter" datatype="html">
-        <source>Tiedejatutkimus.fi Twitterissä</source>
+        <source><x id="START_TAG_APP_SVG_SPRITES" ctype="x-app_svg_sprites" equiv-text="&lt;app-svg-sprites [iconName]=&quot;&apos;fa-twitter&apos;&quot; cssClass=&quot;twitter-icon&quot;&gt;"/><x id="CLOSE_TAG_APP_SVG_SPRITES" ctype="x-app_svg_sprites" equiv-text="&lt;/app-svg-sprites&gt;"/>Tiedejatutkimus.fi Twitterissä</source>
         <note priority="1" from="description">Twitter-footer</note>
       </trans-unit>
       <trans-unit id="reviewButton" datatype="html">
@@ -367,7 +367,7 @@
         <source>Sinulla on julkaisemattomia muutoksia profiilinäkymässä.</source>
       </trans-unit>
       <trans-unit id="youHaveUnpublishedChangesSnackbarButton" datatype="html">
-        <source>Julkaise muutokset...</source>
+        <source>Tarkasta muutokset...</source>
       </trans-unit>
       <trans-unit id="keywords" datatype="html">
         <source>Avainsanat</source>

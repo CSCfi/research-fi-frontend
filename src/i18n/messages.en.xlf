@@ -3074,7 +3074,7 @@
         <target>You have unpublished changes in the profile view.</target>
       </trans-unit>
       <trans-unit id="youHaveUnpublishedChangesSnackbarButton" datatype="html">
-        <source>Julkaise muutokset...</source>
+        <source>Tarkasta muutokset...</source>
         <target state="new">Check the changes</target>
       </trans-unit>
       <trans-unit id="suomiFiAutheticationProblemSnackbarText" datatype="html">
