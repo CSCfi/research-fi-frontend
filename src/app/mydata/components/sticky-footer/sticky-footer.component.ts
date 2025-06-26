@@ -14,6 +14,7 @@ import { DraftService } from '@mydata/services/draft.service';
 import { map } from 'rxjs/operators';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { CollaborationsService } from '@mydata/services/collaborations.service';
+import { TertiaryButtonComponent } from '@shared/components/buttons/tertiary-button/tertiary-button.component';
 
 @Component({
   selector: 'app-sticky-footer',
@@ -26,7 +27,8 @@ import { CollaborationsService } from '@mydata/services/collaborations.service';
     SecondaryButtonComponent,
     DraftSummaryComponent,
     DialogComponent,
-    RouterLink
+    RouterLink,
+    TertiaryButtonComponent
   ],
   templateUrl: './sticky-footer.component.html',
   styleUrl: './sticky-footer.component.scss'

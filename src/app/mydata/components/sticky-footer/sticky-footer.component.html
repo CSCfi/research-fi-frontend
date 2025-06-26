@@ -11,127 +11,136 @@
 
 <!-- Footer content -->
 <div class="static-footer">
-  <div class="row d-flex justify-content-between footer-button-wrap">
-    <div class="col-auto">
-      <ng-container *ngIf="(isProfilePublished  | async) && (isProfileVisible | async)">
+  <div class="wrapper">
+    <div class="row d-flex justify-content-between footer-button-wrap">
+      <div class="col-auto">
+        <ng-container *ngIf="(isProfilePublished  | async) && (isProfileVisible | async)">
           <a [routerLink]="['/', 'results', 'person', orcid]" target="_blank">
-            <app-secondary-button class="col-auto" i18n-content="@@publishEllipsis" content="Siirry julkiseen profiiliin" [svgSymbolName]="'open_in_new'" [svgCssClass]="'open_in_new-icon button-icon'" [iconAfter]="true"></app-secondary-button>
+            <app-secondary-button class="col-auto" i18n-content="@@publishEllipsis"
+                                  content="Siirry julkiseen profiiliin" [svgSymbolName]="'open_in_new'"
+                                  [svgCssClass]="'open_in_new-icon button-icon'"
+                                  [iconAfter]="true"></app-secondary-button>
           </a>
+        </ng-container>
+      </div>
+
+      <ng-container *ngIf="(isProfileVisible | async) === false">
+        <div class="col-auto">
+          <div class="d-flex">
+            <div class="d-flex justify-content-center flex-column">
+              <div class="notification-circle"></div>
+            </div>
+            <div class="align-content-center" i18n="@@mydata.profile.profile-is-hidden">Olet piilottanut profiilisi
+              Tiedejatutkimus.fi-palvelusta
+            </div>
+
+            <app-primary-action-button class="col-auto px-2" i18n-content="@@publishEllipsis" content="Julkaise..."
+                                       (click)="openDialog(republishUpdatedProfile,republishUpdatedProfileTemplate,dataToPublishTemplate,republishActions,false)"></app-primary-action-button>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="(isProfileVisible | async) === true">
+        <div class="col-auto">
+          <div class="d-flex">
+            <ng-container *ngIf="(((isDraftProfileChanged) | async) && (isProfileVisible | async))">
+              <div class="d-flex justify-content-center flex-column">
+                <div class="notification-circle"></div>
+              </div>
+              <div class="align-content-center">Julkaisemattomia muutoksia</div>
+            </ng-container>
+            <app-primary-action-button class="col-auto ps-3 pe-2" i18n-content="@@publishEllipsis" content="Julkaise..."
+                                       [disabled]="!(((isDraftProfileChanged) | async) && (isProfileVisible | async))"
+                                       (click)="openDialog(publishUpdatedProfile,publishUpdatedProfileTemplate,dataToPublishTemplate,publishUpdatedProfileDialogActions,false)"></app-primary-action-button>
+            <!-- Discard draft -->
+            <div class="d-flex justify-content-center flex-column">
+              <app-tertiary-button color="primary" class="ms-2" content="Hylkää muutokset"
+                                   i18n="@@discardChanges"
+                                   [disabled]="!(((isDraftProfileChanged) | async) && (isProfileVisible | async))"
+                                   (click)="openDialog(discardChanges, discardChangesTemplate, undefined, discardChangesActions, false)">
+              </app-tertiary-button>
+            </div>
+          </div>
+        </div>
       </ng-container>
     </div>
-
-    <ng-container *ngIf="(isProfileVisible | async) === false">
-      <div class="col-auto">
-        <div class="d-flex">
-          <div class="d-flex justify-content-center flex-column">
-              <div class="notification-circle"></div>
-          </div>
-          <div class="align-content-center" i18n="@@mydata.profile.profile-is-hidden">Olet piilottanut profiilisi Tiedejatutkimus.fi-palvelusta</div>
-
-          <app-primary-action-button class="col-auto px-2" i18n-content="@@publishEllipsis" content="Julkaise..."
-                                     (click)="openDialog(republishUpdatedProfile,republishUpdatedProfileTemplate,dataToPublishTemplate,republishActions,false)"></app-primary-action-button>
-        </div>
-      </div>
-    </ng-container>
-
-    <ng-container *ngIf="(isProfileVisible | async) === true">
-    <div class="col-auto">
-        <div class="d-flex">
-          <ng-container *ngIf="(((isDraftProfileChanged) | async) && (isProfileVisible | async))">
-          <div class="d-flex justify-content-center flex-column">
-            <div class="notification-circle"></div>
-          </div>
-          <div class="align-content-center">Julkaisemattomia muutoksia</div>
-          </ng-container>
-          <app-primary-action-button class="col-auto ps-3 pe-2" i18n-content="@@publishEllipsis" content="Julkaise..." [disabled]="!(((isDraftProfileChanged) | async) && (isProfileVisible | async))"
-                                     (click)="openDialog(publishUpdatedProfile,publishUpdatedProfileTemplate,dataToPublishTemplate,publishUpdatedProfileDialogActions,false)"></app-primary-action-button>
-          <!-- Discard draft -->
-          <div class="d-flex justify-content-center flex-column">
-            <button class="col-auto pe-lg-0" mat-button color="primary" i18n="@@discardChanges"[disabled]="!(((isDraftProfileChanged) | async) && (isProfileVisible | async))"
-                    (click)="openDialog(discardChanges, discardChangesTemplate, undefined, discardChangesActions, false)">
-              Hylkää muutokset
-            </button>
-          </div>
-        </div>
-    </div>
-    </ng-container>
-  </div>
-</div>
-
-<!-- Confirmation modals -->
-<div class="row d-flex justify-content-between pt-3 pb-5 d-none">
-  <div class="col d-flex justify-content-end">
-    <!-- Handle draft publish -->
-    <ng-template #publishUpdatedProfileTemplate>
-      <div class="row">
-        <p class="col">
-          <ng-container i18n="@@updatedProfilePublishedAt">
-            Valitsemalla "Julkaise", valitsemasi tiedot julkaistaan
-            Tiedejatutkimus.fi-palvelussa.
-          </ng-container>
-
-          <br/>
-
-          <ng-container i18n="@@updatingPublicDataTakesFewMinutes">
-            Tietojen päivittyminen voi kestää muutaman
-            minuutin.
-          </ng-container>
-        </p>
-      </div>
-    </ng-template>
-
-    <ng-template #republishUpdatedProfileTemplate>
-      <div class="row">
-        <p class="col">
-          <ng-container i18n="@@updatedProfilePublishedAt">
-            Valitsemalla "Julkaise", valitsemasi tiedot julkaistaan
-            Tiedejatutkimus.fi-palvelussa.
-          </ng-container>
-
-          <br/>
-
-          <ng-container i18n="@@updatingPublicDataTakesFewMinutes">
-            Tietojen päivittyminen voi kestää muutaman
-            minuutin.
-          </ng-container>
-        </p>
-      </div>
-    </ng-template>
-
-    <ng-template #dataToPublishTemplate>
-      <!-- The patch payload consists of profileData and collaborationOptions, check both changes -->
-      <app-draft-summary *ngIf="profileData || collaborationOptions" [profileData]="profileData"></app-draft-summary>
-    </ng-template>
-
-    <ng-template #discardChangesTemplate>
-      <div class="row">
-        <div class="col">
-      <p i18n="@@discardSessionChanges">
-        Hylätäänkö julkaisemattomat muutokset?
-      </p>
-        </div>
-      </div>
-    </ng-template>
-
-    <ng-template #discardChangesAndLogoutTemplate>
-      <p i18n="@@discardChangesAndLogout">
-        Haluatko hylätä julkaisemattomat muutokset ja kirjautua ulos?
-      </p>
-    </ng-template>
-
   </div>
 
-  <!-- <div class="col-5 d-none d-md-block px-lg-0">
-    <div class="row justify-content-end align-items-center">
-      <div class="col-auto profile-image-container opacity-3">
-        <i class="fas fa-user text-center d-block h1"></i>
-      </div>
-      <a disabled class="col-auto px-0 disabled"
-        >+
-        <ng-container i18n="@@addPublicProfilePicture"
-          >Lisää Julkinen profiilikuva</ng-container
-        ></a
-      >
+  <!-- Confirmation modals -->
+  <div class="row d-flex justify-content-between pt-3 pb-5 d-none">
+    <div class="col d-flex justify-content-end">
+      <!-- Handle draft publish -->
+      <ng-template #publishUpdatedProfileTemplate>
+        <div class="row">
+          <p class="col">
+            <ng-container i18n="@@updatedProfilePublishedAt">
+              Valitsemalla "Julkaise", valitsemasi tiedot julkaistaan
+              Tiedejatutkimus.fi-palvelussa.
+            </ng-container>
+
+            <br/>
+
+            <ng-container i18n="@@updatingPublicDataTakesFewMinutes">
+              Tietojen päivittyminen voi kestää muutaman
+              minuutin.
+            </ng-container>
+          </p>
+        </div>
+      </ng-template>
+
+      <ng-template #republishUpdatedProfileTemplate>
+        <div class="row">
+          <p class="col">
+            <ng-container i18n="@@updatedProfilePublishedAt">
+              Valitsemalla "Julkaise", valitsemasi tiedot julkaistaan
+              Tiedejatutkimus.fi-palvelussa.
+            </ng-container>
+
+            <br/>
+
+            <ng-container i18n="@@updatingPublicDataTakesFewMinutes">
+              Tietojen päivittyminen voi kestää muutaman
+              minuutin.
+            </ng-container>
+          </p>
+        </div>
+      </ng-template>
+
+      <ng-template #dataToPublishTemplate>
+        <!-- The patch payload consists of profileData and collaborationOptions, check both changes -->
+        <app-draft-summary *ngIf="profileData || collaborationOptions" [profileData]="profileData"></app-draft-summary>
+      </ng-template>
+
+      <ng-template #discardChangesTemplate>
+        <div class="row">
+          <div class="col">
+            <p i18n="@@discardSessionChanges">
+              Hylätäänkö julkaisemattomat muutokset?
+            </p>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template #discardChangesAndLogoutTemplate>
+        <p i18n="@@discardChangesAndLogout">
+          Haluatko hylätä julkaisemattomat muutokset ja kirjautua ulos?
+        </p>
+      </ng-template>
+
     </div>
-  </div> -->
+
+    <!-- <div class="col-5 d-none d-md-block px-lg-0">
+      <div class="row justify-content-end align-items-center">
+        <div class="col-auto profile-image-container opacity-3">
+          <i class="fas fa-user text-center d-block h1"></i>
+        </div>
+        <a disabled class="col-auto px-0 disabled"
+          >+
+          <ng-container i18n="@@addPublicProfilePicture"
+            >Lisää Julkinen profiilikuva</ng-container
+          ></a
+        >
+      </div>
+    </div> -->
+  </div>
 </div>
