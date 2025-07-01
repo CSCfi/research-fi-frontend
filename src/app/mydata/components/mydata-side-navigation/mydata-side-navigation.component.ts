@@ -75,18 +75,6 @@ export class MydataSideNavigationComponent implements OnInit, OnDestroy {
     this.draftProfile = this.profileService.getDraftProfile();
     if (this.draftProfile) {
       this.draftService.showLogoutConfirmModal.next(true);
-      this.notificationService.notify({
-        notificationText: $localize`:@@youHaveUnpublishedChangesSnackbar:Sinulla on julkaisemattomia muutoksia profiilinäkymässä.`,
-        buttons: [
-          {
-            label: $localize`:@@youHaveUnpublishedChangesSnackbarButton:Tarkasta muutokset...`,
-            action: () => this.router.navigate(['mydata/profile']),
-          },          {
-            label: $localize`:@@discardAndLogout:Kirjaudu ulos ja hylkää muutokset.`,
-            action: () => this.oidcSecurityService.logoff(),
-          },
-        ],
-      });
     } else {
       this.oidcSecurityService.logoff();
     }
