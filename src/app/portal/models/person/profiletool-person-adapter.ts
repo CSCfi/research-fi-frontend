@@ -227,9 +227,7 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
       label: 'Orcid',
       value: profile.id
     };
-    profileFormattedTemp.push(orcid);
-    console.log('formatted', profileFormattedTemp);
-
+    profileFormattedTemp.push(orcid);;
     return profileFormattedTemp;
   }
 }
