@@ -43,5 +43,6 @@
 <div class="row justify-content-center mt-4">
   <div>
   <app-tertiary-button *ngIf="sortedItems.length > 3 && itemDisplayCount === 3" i18n-content="@@publishEllipsis" content="{{ showMorePrefix }} {{ showMoreLabel | lowercase }}" i18n-content="@@reselect" [svgSymbolName]="'chevron-down'" [svgCssClass]="'chevron-down-icon tertiary-button-icon'" (click)="showAllItems()"></app-tertiary-button>
+    <app-tertiary-button *ngIf="sortedItems.length > 3 && itemDisplayCount !== 3" i18n-content="@@publishEllipsis" content="{{ showLessPrefix }}" i18n-content="@@showLess" [svgSymbolName]="'chevron-up'" [svgCssClass]="'chevron-up-icon tertiary-button-icon'" (click)="showLessItems()"></app-tertiary-button>
   </div>
 </div>

@@ -15,6 +15,7 @@ import { NgFor, NgIf, LowerCasePipe, NgClass, JsonPipe } from '@angular/common';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { HasSelectedItemsPipe } from '@mydata/pipes/has-selected-items.pipe';
 import { TertiaryButtonComponent } from '@shared/components/buttons/tertiary-button/tertiary-button.component';
+import { FilterLimitButtonComponent } from '@portal/components/filter-limit-button/filter-limit-button.component';
 
 @Component({
     selector: 'app-summary-portal-items',
@@ -31,7 +32,8 @@ import { TertiaryButtonComponent } from '@shared/components/buttons/tertiary-but
     NgClass,
     JsonPipe,
     HasSelectedItemsPipe,
-    TertiaryButtonComponent
+    TertiaryButtonComponent,
+    FilterLimitButtonComponent
   ]
 })
 
@@ -49,6 +51,7 @@ export class SummaryPortalItemsComponent implements OnInit {
   itemDisplayCount = 3;
 
   showMorePrefix = $localize`:@@showAll:Näytä kaikki`;
+  showLessPrefix = $localize`:@@showLess:Näytä vähemmän`;
 
   constructor() {}
 
@@ -95,6 +98,11 @@ export class SummaryPortalItemsComponent implements OnInit {
   showAllItems() {
     this.itemDisplayCount = this.sortedItems.length;
   }
+
+  showLessItems() {
+    this.itemDisplayCount = 3;
+  }
+
 
   protected readonly FieldTypes = FieldTypes;
 }
