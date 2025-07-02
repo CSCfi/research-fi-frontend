@@ -20,7 +20,7 @@
       </div>
 
       <div class="row">
-        <div [ngClass]="fieldType === FieldTypes.activityPublication || fieldType === FieldTypes.activityDataset ? 'col px-4' : 'col'">
+        <div [ngClass]="fieldType === FieldTypes.activityPublication || fieldType === FieldTypes.activityDataset ? 'col' : 'col'">
           <app-panel-array-item [item]="item" [fieldType]="fieldType" [summary]="true"></app-panel-array-item>
         </div>
       </div>
@@ -31,7 +31,7 @@
 
     <!-- ACTIVITIES AND REWARDS -->
     <div *ngIf="fieldType === FieldTypes.activityActivitiesAndRewards || fieldType === FieldTypes.activityActivitiesAndRewardsOrcid" class="row">
-      <div class="col px-4">
+      <div class="col">
         <app-panel-array-item [item]="item" [fieldType]="fieldType" [summary]="true"></app-panel-array-item>
       </div>
       <app-summary-divider></app-summary-divider>
@@ -42,7 +42,7 @@
 
 <div class="row justify-content-center mt-4">
   <div>
-  <app-tertiary-button *ngIf="sortedItems.length > 3 && itemDisplayCount === 3" i18n-content="@@publishEllipsis" content="{{ showMorePrefix }} {{ showMoreLabel | lowercase }}" i18n-content="@@reselect" [svgSymbolName]="'chevron-down'" [svgCssClass]="'chevron-down-icon tertiary-button-icon'" (click)="showAllItems()"></app-tertiary-button>
-    <app-tertiary-button *ngIf="sortedItems.length > 3 && itemDisplayCount !== 3" i18n-content="@@publishEllipsis" content="{{ showLessPrefix }}" i18n-content="@@showLess" [svgSymbolName]="'chevron-up'" [svgCssClass]="'chevron-up-icon tertiary-button-icon'" (click)="showLessItems()"></app-tertiary-button>
+  <app-tertiary-button *ngIf="sortedItems.length > 3 && itemDisplayCount === 3" i18n-content="@@publishEllipsis" content="{{ showMorePrefix }} {{ showMoreLabel | lowercase }}" i18n-content="@@reselect" [svgSymbolName]="'chevron-down'" [svgCssClass]="'chevron-down-icon tertiary-button-icon'" [iconAfter]="true" (click)="showAllItems()"></app-tertiary-button>
+    <app-tertiary-button *ngIf="sortedItems.length > 3 && itemDisplayCount !== 3" i18n-content="@@publishEllipsis" content="{{ showLessPrefix }}" i18n-content="@@showLess" [svgSymbolName]="'chevron-up'" [svgCssClass]="'chevron-up-icon tertiary-button-icon'" [iconAfter]="true" (click)="showLessItems()"></app-tertiary-button>
   </div>
 </div>

@@ -20,6 +20,7 @@ import {
 } from '@mydata/components/profile/profile-summary/summary-portal-items/summary-portal-items.component';
 import { FormatAndSortTimespanPipe } from '@shared/pipes/format-and-sort-timespan.pipe';
 import { GeneralBadgeComponent } from '@shared/components/general-badge/general-badge.component';
+import { CountSelectedItemsPipe } from '@mydata/pipes/count-selected-items.pipe';
 
 @Component({
   selector: 'app-profile-summary-view',
@@ -42,7 +43,8 @@ import { GeneralBadgeComponent } from '@shared/components/general-badge/general-
     TertiaryButtonComponent,
     SummaryPortalItemsComponent,
     FormatAndSortTimespanPipe,
-    GeneralBadgeComponent
+    GeneralBadgeComponent,
+    CountSelectedItemsPipe
   ]
 })
 

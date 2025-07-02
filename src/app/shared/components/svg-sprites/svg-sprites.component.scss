@@ -189,6 +189,15 @@
       color: #4546b9;
     }
   }
+  .tertiary-button-icon {
+    &.icon-left {
+      margin-right: 8px !important;
+    }
+    &.icon-right {
+      margin-left: 8px !important;
+    }
+  }
+
   .chevron-left-icon {
     margin-right: 4px;
     &.button-icon {

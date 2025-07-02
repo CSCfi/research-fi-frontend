@@ -112,9 +112,15 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
     profileFormattedTemp.push(affiliationObj);
 
     // 4/10 --- EDUCATION
+    let typedEducation = cloneDeep(profile.activity.educations);
+    typedEducation = typedEducation.map(item => {
+      item.itemMeta = { type: fieldTypes.activityEducation, show: true };
+      return item;
+    });
+
     const educationObj = {
       id: groupTypes.education, label: educationCaption, fields: [{
-        id: 'education', label: educationCaption, items: cloneDeep(profile.activity.educations)
+        id: 'education', label: educationCaption, items: typedEducation
       }]
     };
     profileFormattedTemp.push(educationObj);
@@ -222,6 +228,7 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
       value: profile.id
     };
     profileFormattedTemp.push(orcid);
+    console.log('formatted', profileFormattedTemp);
 
     return profileFormattedTemp;
   }
