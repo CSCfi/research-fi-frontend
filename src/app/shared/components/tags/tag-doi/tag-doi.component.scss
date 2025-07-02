@@ -36,6 +36,8 @@
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+        font-size: 13px;
+        font-weight: 400;
       }
       &:hover, &:active, &:focus  {
         text-decoration: underline;
