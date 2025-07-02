@@ -46,16 +46,20 @@
                   </div>
                 </div>
               </div>
-
-              <div class="summary-panel" *ngSwitchCase="fieldTypes.personKeyword">
-                <!-- Display joined keywords only if item has show property set to true -->
-                <div class="row" *ngIf="data.items[0].itemMeta.show">
-                  <div class="col pb-2">
-                    {{ data.items | joinItems: 'value' }}
-                  </div>
-                </div>
-              </div>
             </ng-container>
+          </div>
+
+          <div  *ngIf="data?.keywordItems?.items[0]?.itemMeta?.show">
+            <br/>
+            <!-- Display joined keywords only if item has show property set to true -->
+            <div class="row">
+              <h3>{{data.keywordItems.label}}</h3>
+            </div>
+            <div class="row">
+              <div class="col pb-2">
+                {{ data.keywordItems.items | joinItems: 'value' }}
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -63,28 +67,31 @@
       <!-- AFFILIATIONS -->
       <div class="pt-2" *ngIf="sectionName === groupTypes.affiliation">
         <!-- Iterate primary affiliations -->
-        <div class="row" *ngFor="let item of data.items; let i = index">
+        <div *ngFor="let item of data.items; let i = index">
           <ng-container *ngIf="(item.itemMeta.primaryValue && (item.itemMeta.show|| isPortalSinglePage))">
-            <div class="col-3 fw-bold"><span
-                    *ngIf="item['organizationName' + locale]">{{ item['organizationName' + locale] }}</span></div>
+            <div class="row mb-4">
+            <div class="col-3 fw-bold"><div class="d-flex justify-content-center flex-column"><span
+                    *ngIf="item['organizationName' + locale]">{{ item['organizationName' + locale] }}</span></div></div>
             <div class="col-6">
-              <div class="fw-bold">{{ item['positionName' + locale] }}</div>
+              <div class="fw-bold d-flex"><div class="d-flex justify-content-center flex-column mb-1">{{ item['positionName' + locale] }}</div><app-general-badge class="d-flex" [textInput]="primary"></app-general-badge></div>
               <div><span *ngIf="item['departmentName' + locale]">{{ item['departmentName' + locale] }}</span></div>
               <div>{{ item['startDate'].year }} - {{ item['endDate'].year }}</div>
             </div>
             <div class="col-3">
               <ng-container *ngFor="let ds of item.dataSources; let j = index">
-                <div *ngFor="let ds of item.dataSources; let j = index" class="font-size-smaller">
+                <div *ngFor="let ds of item.dataSources; let j = index" class="font-size-smaller mt-1">
                   <span i18n="@@source">Lähde</span>:
                   <span>{{ ds.organization['name' + locale] }}</span>
                 </div>
               </ng-container>
+            </div>
             </div>
           </ng-container>
         </div>
         <!-- Iterate non primary affiliations -->
-        <div class="row mb-4" *ngFor="let item of data.items; let i = index">
+        <div *ngFor="let item of data.items; let i = index">
           <ng-container *ngIf="(!item.itemMeta.primaryValue && (item.itemMeta.show|| isPortalSinglePage))">
+            <div class="row mb-4">
             <div class="col-3 fw-bold"><span
                     *ngIf="item['organizationName' + locale]">{{ item['organizationName' + locale] }}</span></div>
             <div class="col-6">
@@ -99,6 +106,7 @@
                   <span>{{ ds.organization['name' + locale] }}</span>
                 </div>
               </ng-container>
+            </div>
             </div>
           </ng-container>
         </div>

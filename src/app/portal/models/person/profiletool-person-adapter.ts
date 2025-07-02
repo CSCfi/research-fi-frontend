@@ -20,10 +20,10 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
   const dataSourcesCaption = $localize`:@@dataSources:Lähteet`;
 
   if (profile) {
-    let profileFormattedTemp = [];
+    const profileFormattedTemp = [];
 
     // 1/10 --- CONTACT
-    let contact = [];
+    const contact = [];
 
     // OTHER NAMES
     let typedOtherNames = cloneDeep(profile.personal.otherNames);
@@ -32,7 +32,7 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
       return item;
     });
 
-    let otherNames = {
+    const otherNames = {
       id: 'otherNames',
       label: otherNamesCaption,
       items: typedOtherNames
@@ -45,7 +45,7 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
       item.itemMeta = { type: fieldTypes.personEmailAddress, show: true };
       return item;
     });
-    let emails = {
+    const emails = {
       id: 'email',
       label:$localize`:@@email:Sähköposti`,
       items: typedEmails
@@ -58,7 +58,7 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
       item.itemMeta = { type: fieldTypes.personWebLink, show: true };
       return item;
     });
-    let links = {
+    const links = {
       id: 'webLinks',
       label: $localize`:@@links:Linkit`,
       items: cloneDeep(typedWebLinks)
@@ -74,7 +74,7 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
     const description = {
       id: 'description',
       label: descriptionCaption,
-      fields: []
+      fields: [],
     };
     const descriptionTyped = [];
     const itemMeta = { show: true, type: 140 };
@@ -84,25 +84,24 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
       descriptionTyped[0].value = checkTranslation('researchDescription', profile.personal.researcherDescriptions[0], localeId);
     }
 
-    description.fields.push({
-      id: 'researchDescription',
-      label: $localize`:@@description:Kuvaus`,
-      items: cloneDeep(descriptionTyped)
-    });
-
     // KEYWORDS
     const keywordsTyped = profile.personal.keywords.map(item => {
       item.itemMeta = { show: true, type: fieldTypes.personKeyword };
       return item;
     });
-    description.fields.push({ id: 'keywords', label: keywordsCaption, items: keywordsTyped });
+
+    description.fields.push({
+      id: 'researchDescription',
+      label: $localize`:@@description:Kuvaus`,
+      items: cloneDeep(descriptionTyped),
+      keywordItems: { id: 'keywords', label: keywordsCaption, items: keywordsTyped }
+    });
     profileFormattedTemp.push(description);
 
     // 3/10 --- AFFILIATIONS
     let typedAffiliations = cloneDeep(profile.activity.affiliations);
     typedAffiliations = typedAffiliations.map(item => {
-      item.itemMeta = { type: fieldTypes.activityAffiliation, show: true };
-
+      item.itemMeta = item.itemMeta?.primaryValue === true ? { type: fieldTypes.activityAffiliation, show: true, primaryValue: true } : { type: fieldTypes.activityAffiliation, show: true };
       return item;
     });
     const affiliationObj = {
@@ -152,8 +151,6 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
       fields: [{ id: 'dataset', label: datasetsCaption, items: typedDatasets }]
     };
     profileFormattedTemp.push(dataset);
-
-    //TODO: funder localizations
 
     // 7/10 --- FUNDING
     let typedFundings = cloneDeep(profile.activity.fundingDecisions);

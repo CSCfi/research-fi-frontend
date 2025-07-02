@@ -103,18 +103,19 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
   ngOnInit(): void {
   }
 
-  reverseDescriptionAndKeywords() {
+  reverseAndFormatDescriptionAndKeywords() {
     // Change order of keywords and description data, since UI is built to follow the order of data.
     const description = this.displayData.filter(d => d.id === 'description');
     const keywords = description[0].fields.filter(field => field.id === 'keywords');
     const researchDescription = description[0].fields.filter(field => field.id === 'researchDescription');
     description[0].fields = [];
-    description[0].fields.push(researchDescription[0], keywords[0]);
+    description[0].fields.push(researchDescription[0]);
+    description[0].fields[0].keywordItems = keywords[0];
   }
 
   ngOnChanges(): void {
     this.displayData = cloneDeep(this.profileData);
-    this.reverseDescriptionAndKeywords();
+    this.reverseAndFormatDescriptionAndKeywords();
     // Clear imported items
     this.profileData.forEach((group) => {
       if (group.fields.find((field) => field.id === 'imported')) {
@@ -256,7 +257,7 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
         }
       }
     }
-    this.reverseDescriptionAndKeywords();
+    this.reverseAndFormatDescriptionAndKeywords();
   }
 
   // Merge imported items for display purposes.

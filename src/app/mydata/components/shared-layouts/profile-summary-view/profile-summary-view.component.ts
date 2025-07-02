@@ -19,6 +19,7 @@ import {
   SummaryPortalItemsComponent
 } from '@mydata/components/profile/profile-summary/summary-portal-items/summary-portal-items.component';
 import { FormatAndSortTimespanPipe } from '@shared/pipes/format-and-sort-timespan.pipe';
+import { GeneralBadgeComponent } from '@shared/components/general-badge/general-badge.component';
 
 @Component({
   selector: 'app-profile-summary-view',
@@ -40,7 +41,8 @@ import { FormatAndSortTimespanPipe } from '@shared/pipes/format-and-sort-timespa
     PanelArrayItemComponent,
     TertiaryButtonComponent,
     SummaryPortalItemsComponent,
-    FormatAndSortTimespanPipe
+    FormatAndSortTimespanPipe,
+    GeneralBadgeComponent
   ]
 })
 
@@ -52,6 +54,7 @@ export class ProfileSummaryViewComponent implements OnInit  {
   @Input() sectionIndex: number;
   @Output() openDialogCall = new EventEmitter<number>();
 
+  primary = $localize`:@@primary:Ensisijainen`;
   editString = CommonStrings.reselect;
   selectString = CommonStrings.select;
   noPublicDataText = $localize`:@@youHaveNotSelectedAnyPublicData:Et ole vielä valinnut julkisesti näytettäviä tietoja`;
@@ -89,7 +92,6 @@ export class ProfileSummaryViewComponent implements OnInit  {
         //degree: this.utils.checkTranslation('name', item);
       }
     }
-
     this.locale = this.appSettingsService.capitalizedLocale;
   }
 

@@ -68,7 +68,7 @@
 
     <div class="row">
       <div class="badge-row gx-0">
-        <div class="d-flex"><app-tag-open-access class='me-2 d-flex' *ngIf="_item.openAccess === true"></app-tag-open-access>
+        <div class="d-flex"><app-tag-open-access class='me-2 d-flex' *ngIf="_item.openAccess === true || _item.accessType === 'open'"></app-tag-open-access>
           <app-tag-doi *ngIf="_item.doi" [linkDoi]="_item.doi" class='d-flex'></app-tag-doi>
         </div>
         <div><app-tag-peer-reviewed class='d-flex' *ngIf="_item.peerReviewed"></app-tag-peer-reviewed></div>
@@ -153,6 +153,7 @@
                            [smallLastItem]="true"></app-activity-item>
       </ng-container>
 
+      <!-- Publications badges -->
       <div class="badge-row gx-0">
           <div class="d-flex">
           <app-tag-open-access class='me-2' *ngIf="_item.openAccess === 1 || _item.selfArchivedCode === '1'"></app-tag-open-access><app-tag-doi *ngIf="_item.doi" [linkDoi]="_item.doi"></app-tag-doi></div>

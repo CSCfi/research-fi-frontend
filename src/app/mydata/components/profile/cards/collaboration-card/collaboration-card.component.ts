@@ -142,6 +142,8 @@ export class CollaborationCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.dataHasBeenResetSub.unsubscribe();
+    if (this.dataHasBeenResetSub){
+      this.dataHasBeenResetSub.unsubscribe();
+    }
   }
 }
