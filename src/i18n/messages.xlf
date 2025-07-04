@@ -367,7 +367,7 @@
         <source>Sinulla on julkaisemattomia muutoksia profiilinäkymässä.</source>
       </trans-unit>
       <trans-unit id="youHaveUnpublishedChangesSnackbarButton" datatype="html">
-        <source>Tarkasta muutokset...</source>
+        <source>Tarkasta muutokset.</source>
       </trans-unit>
       <trans-unit id="keywords" datatype="html">
         <source>Avainsanat</source>
@@ -500,7 +500,7 @@
         <source>Näytä kaikki</source>
       </trans-unit>
       <trans-unit id="mydata.profile.profile-is-hidden" datatype="html">
-        <source>Olet piilottanut profiilisi Tiedejatutkimus.fi-palvelusta</source>
+        <source>Olet piilottanut profiilisi Tiedejatutkimus.fi-palvelusta </source>
       </trans-unit>
       <trans-unit id="publishEllipsis" datatype="html">
         <source>Siirry julkiseen profiiliin</source>
@@ -3264,17 +3264,32 @@
       <trans-unit id="spSortsStartYear" datatype="html">
         <source>Aloitusvuosi</source>
       </trans-unit>
-      <trans-unit id="discardAndLogout" datatype="html">
-        <source>Kirjaudu ulos ja hylkää muutokset.</source>
-      </trans-unit>
       <trans-unit id="discardChangesAndLogout" datatype="html">
-        <source> Haluatko hylätä julkaisemattomat muutokset ja kirjautua ulos? </source>
+        <source>Hylkää muutokset</source>
       </trans-unit>
       <trans-unit id="present" datatype="html">
         <source>nykyhetki</source>
       </trans-unit>
       <trans-unit id="researchersProfileNew" datatype="html">
         <source>Oma profiili</source>
+      </trans-unit>
+      <trans-unit id="otherPublications" datatype="html">
+        <source>Muut julkaisut</source>
+      </trans-unit>
+      <trans-unit id="highlightingOpenScience" datatype="html">
+        <source>Avoimen tieteen korostus</source>
+      </trans-unit>
+      <trans-unit id="highlightOpenAccessPublications" datatype="html">
+        <source>Korosta avoimia julkaisuja profiilissasi</source>
+      </trans-unit>
+      <trans-unit id="highlightOpenAccessPublicationsInfo" datatype="html">
+        <source>Korostus nostaa avoimesti saatavilla olevat julkaisut julkaisulistan kärkeen profiilissasi. Tiedejatutkimus.fi -palvelusta löytyviin avoimiin julkaisuihin lisätään automaattisesti avoimen tieteen merkintä.</source>
+      </trans-unit>
+      <trans-unit id="noOpenPublicationAvailable" datatype="html">
+        <source>Ei avoimesti saatavilla olevia julkaisuja</source>
+      </trans-unit>
+      <trans-unit id="openAccessPublications" datatype="html">
+        <source>Avoimesti saatavilla olevat julkaisut</source>
       </trans-unit>
     </body>
   </file>
