@@ -54,6 +54,10 @@ export class SummaryPortalItemsComponent implements OnInit {
   showMorePrefix = $localize`:@@showAll:Näytä kaikki`;
   showLessPrefix = $localize`:@@showLess:Näytä vähemmän`;
 
+  openAccessPublications = $localize`:@@openAccessPublications:Avoimesti saatavilla olevat julkaisut`;
+  otherPublications = $localize`:otherPublications:@@Muut julkaisut`;
+  noOpenAccessPublications = $localize`:@@noOpenPublicationAvailable:Ei avoimesti saatavilla olevia julkaisuja`;
+
   hasOpenPublications = false;
 
   constructor() {

@@ -22,11 +22,14 @@ import { NgIf } from '@angular/common';
 export class OpenScienceSettingsCardComponent {
   @Output() emitHighlightOpenness = new EventEmitter<boolean>();
 
-   label = 'Highlight open science';
-    highlightChecked = false;
+  highlightingOpenScience = $localize`:@@highlightingOpenScience:Avoimen tieteen korostus`;
+  highlightOpenAccessPublications = $localize`:@@highlightOpenAccessPublications:Korosta avoimia julkaisuja profiilissasi`;
+  highlightOpenAccessPublicationsInfo = $localize`:@@highlightOpenAccessPublicationsInfo:Korostus nostaa avoimesti saatavilla olevat julkaisut julkaisulistan kärkeen profiilissasi. Tiedejatutkimus.fi -palvelusta löytyviin avoimiin julkaisuihin lisätään automaattisesti avoimen tieteen merkintä.`;
 
-    toggleChecked(){
-      this.highlightChecked = !this.highlightChecked;
-      this.emitHighlightOpenness.emit(this.highlightChecked);
-    }
+  highlightChecked = false;
+
+  toggleChecked() {
+    this.highlightChecked = !this.highlightChecked;
+    this.emitHighlightOpenness.emit(this.highlightChecked);
+  }
 }
