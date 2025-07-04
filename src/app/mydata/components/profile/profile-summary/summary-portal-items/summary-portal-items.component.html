@@ -6,19 +6,23 @@
   <div class="summary-panel" *ngFor="let item of sortedItems.slice(0, itemDisplayCount); index as i">
     <ng-container *ngIf="item.itemMeta.show && fieldType !== FieldTypes.activityActivitiesAndRewards">
       <div *ngIf="i === 0" class="year-caption">
+        <h3 *ngIf="hasOpenPublications && highlightOpenness && fieldType === fieldTypes.activityPublication">Open access publications</h3>
+        <h3 *ngIf="item?.nonOpenCaptionRow && highlightOpenness">Other publications</h3>
         {{sortedItems.slice(0, itemDisplayCount)[i].publicationYear}}
         <span *ngIf="fieldType === fieldTypes.activityDataset">{{sortedItems.slice(0, itemDisplayCount)[i].year}}</span>
       </div>
-      <!-- PUBLICATIONS -->
+      <!-- PUBLICATIONS YEAR-->
+      <div class="year-caption"><h3 *ngIf="item?.nonOpenCaptionRow && highlightOpenness">Other publications</h3></div>
       <div *ngIf="i > 0 && sortedItems.slice(0, itemDisplayCount)[i].publicationYear !== sortedItems.slice(0, itemDisplayCount)[i-1].publicationYear" class="year-caption">
         {{sortedItems.slice(0, itemDisplayCount)[i].publicationYear}}
       </div>
-      <!-- DATASETS -->
+      <!-- DATASETS YEAR -->
       <div *ngIf="i > 0 && sortedItems.slice(0, itemDisplayCount)[i].year !== sortedItems.slice(0, itemDisplayCount)[i-1].year" class="year-caption">
         {{sortedItems.slice(0, itemDisplayCount)[i].publicationYear}}
         <span *ngIf="fieldType === fieldTypes.activityDataset">{{sortedItems.slice(0, itemDisplayCount)[i].year}}</span>
       </div>
 
+      <!-- SHARED ROW CONTENT -->
       <div class="row">
         <div [ngClass]="fieldType === FieldTypes.activityPublication || fieldType === FieldTypes.activityDataset ? 'col' : 'col'">
           <app-panel-array-item [item]="item" [fieldType]="fieldType" [summary]="true"></app-panel-array-item>

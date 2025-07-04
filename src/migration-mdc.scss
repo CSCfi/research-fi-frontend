@@ -263,7 +263,12 @@ app-activity-item {
 
 mat-checkbox, .mdc-form-field.mat-internal-form-field {
   width: 100% !important;
-  white-space: nowrap !important;
+}
+
+app-table {
+  mat-checkbox, .mdc-form-field.mat-internal-form-field {
+    white-space: nowrap !important;
+  }
 }
 
 app-collaboration-card .mdc-form-field.mat-internal-form-field {

@@ -9,7 +9,7 @@ import {
   Component,
   OnInit,
   ViewEncapsulation,
-  ViewChild, ChangeDetectorRef, OnDestroy
+  ViewChild, ChangeDetectorRef, OnDestroy, Output, EventEmitter
 } from '@angular/core';
 import { ProfileService } from '@mydata/services/profile.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
@@ -35,6 +35,9 @@ import {
 } from '@mydata/components/shared-layouts/name-and-orcid-view/name-and-orcid-view.component';
 import { Observable, Subscription } from 'rxjs';
 import { cloneDeep } from 'lodash-es';
+import {
+  OpenScienceSettingsCardComponent
+} from '@mydata/components/profile/cards/open-science-settings-card/open-science-settings-card.component';
 
 @Component({
   selector: 'app-profile',
@@ -55,15 +58,18 @@ import { cloneDeep } from 'lodash-es';
     MydataSideNavigationComponent,
     StickyFooterComponent,
     JsonPipe,
-    NameAndOrcidViewComponent
+    NameAndOrcidViewComponent,
+    OpenScienceSettingsCardComponent
   ]
 })
 export class ProfileComponent implements OnInit, OnDestroy {
+  @Output() emitHighlightOpenness = new EventEmitter<boolean>();
   @ViewChild('collaborationComponentRef') collaborationComponentRef;
 
   profileData: any;
   orcid: string;
   fullName: Observable<string>;
+  highlightOpenness: Observable<boolean>
 
   publishUpdatedProfile = $localize`:@@publishUpdatedProfile:Julkaise päivitetty profiili`;
   discardChanges = $localize`:@@discardChanges:Hylkää muutokset`;
@@ -101,6 +107,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.changeDetectorRef.detectChanges();
       }
     });
+  }
+
+  forwardHighlightOpennessState(state: boolean){
+    this.emitHighlightOpenness.emit(state);
   }
 
   resetProfileData(){

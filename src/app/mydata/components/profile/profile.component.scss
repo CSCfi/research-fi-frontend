@@ -67,27 +67,6 @@ app-profile {
   --mat-app-primary:  #4546b9;
   --mat-app-secondary:  #4546b9;
 
-  .mdc-checkbox__native-control:focus:focus:checked~.mdc-checkbox__background,
-  .mdc-checkbox__native-control:focus:focus:indeterminate~.mdc-checkbox__background {
-    border-color:#4546b9 !important;
-    background-color:#4546b9 !important;
-  }
-
-  .mdc-checkbox:hover .mdc-checkbox__native-control:checked~.mdc-checkbox__background,
-  .mdc-checkbox:hover .mdc-checkbox__native-control:indeterminate~.mdc-checkbox__background {
-    border-color:#4546b9 !important;
-    background-color:#4546b9 !important;
-  }
-
-  .mdc-checkbox:hover, .mdc-checkbox__background:hover, .mdc-checkbox__native-control:focus:focus:checked ~ .mdc-checkbox__background {
-    background-color: #4546b9 !important;
-    border-color: #4546b9 !important;
-  }
-
-  .mdc-checkbox__background {
-    border-color: #4546b9  !important;
-  }
-
   .mat-mdc-checkbox-disabled.mat-mdc-checkbox-checked {
     .mdc-checkbox__background {
       color: #4546b9 !important;

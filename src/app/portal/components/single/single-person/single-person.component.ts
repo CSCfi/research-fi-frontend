@@ -178,6 +178,7 @@ export class SinglePersonComponent implements OnInit {
       if (result) {
         this.profileFormatted = convertToProfileToolFormat(result.hits.hits[0]._source, this.localeId);
         this.isLoaded$ = of(true).pipe(delay(100));
+        if (this.profileFormatted) {}
       }
       return result;
     });

@@ -72,6 +72,7 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
   @Input() profileData: any;
   @Input() name: string;
   @Input() orcid: string;
+  @Input() highlightOpenness: boolean;
   displayData: any;
 
   fieldTypes = FieldTypes;

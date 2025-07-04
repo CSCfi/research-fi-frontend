@@ -71,7 +71,7 @@
               <app-name-and-orcid-view [name]="fullName | async" [orcid]="orcid" [isEditorView]="true"></app-name-and-orcid-view>
             </div>
             <div class="col-lg-8 col-md-12">
-              <app-profile-summary class="d-block pt-3" [profileData]="profileData" [name]="profileService.currentEditorProfileName | async" [orcid]="orcid"></app-profile-summary>
+              <app-profile-summary class="d-block pt-3" [profileData]="profileData" [name]="profileService.currentEditorProfileName | async" [orcid]="orcid" [highlightOpenness]="emitHighlightOpenness | async"></app-profile-summary>
             </div>
           </ng-container>
 
@@ -106,6 +106,8 @@
                 <app-mydata-beta-info></app-mydata-beta-info>
               </div>
             </div>
+
+            <app-open-science-settings-card (emitHighlightOpenness)="forwardHighlightOpennessState($event)"></app-open-science-settings-card>
           </div>
         </div>
       </div>

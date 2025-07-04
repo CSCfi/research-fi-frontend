@@ -227,7 +227,10 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
       label: 'Orcid',
       value: profile.id
     };
-    profileFormattedTemp.push(orcid);;
+    profileFormattedTemp.push(orcid);
+
+    profileFormattedTemp.push({settings: {'highlightOpenness': profile.settings.highlightOpeness}})
+
     return profileFormattedTemp;
   }
 }
