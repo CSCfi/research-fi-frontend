@@ -168,7 +168,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
             this.consent = localStorage.getItem('cookieConsent');
           }
         }
-        console.log('ROUTER EVENT', e);
         if (e?.url.startsWith('/mydata')) {
           this.profileToolDropdownOpen = true;
           this.isInMydataRoute = true;
