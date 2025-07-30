@@ -77,9 +77,86 @@ export class AppSettingsService {
       },
       {
         label:$localize`:@@researchersProfileNew:Oma profiili`,
-        link: '/mydata/profile',
+        link: '/mydata',
+        exact: true,
+      },
+    ],
+    localizedDomains: this.defaultDomains,
+  };
+
+  portalSettingsLoggedIn = {
+    appName: 'portal',
+    label: $localize`:@@appName:Tiedejatutkimus.fi`,
+    baseRoute: '',
+    navItems: [
+      { label: $localize`:@@headerLink1:Etusivu`, link: '/', exact: true },
+      {
+        label: $localize`:@@headerLink2:Haku`,
+        link: '/results/',
         exact: false,
-},
+      },
+      {
+        label: $localize`:@@headerLink3:Tiede- ja innovaatiopolitiikka`,
+        link: '/science-innovation-policy/',
+        dropdownItems: [
+          {
+            label: $localize`:@@openScienceAndResearchIndicatorsHeader:Avoimen tieteen ja tutkimuksen seuranta`,
+            link: '/science-innovation-policy/open-science-and-research-indicators/',
+            exact: true,
+          },
+          {
+            label: $localize`:@@headerLink4:Tutkimus- ja innovaatiojärjestelmä`,
+            link: '/science-innovation-policy/research-innovation-system/',
+            exact: true,
+          },
+          {
+            label: $localize`:@@headerLink5:Lukuja tieteestä ja tutkimuksesta`,
+            link: '/science-innovation-policy/science-research-figures/',
+            exact: true,
+          },
+          {
+            label: $localize`:@@externalLinksHeader:Tieteestä ja tutkimuksesta muualla`,
+            link: '/science-innovation-policy/external-links/',
+            exact: true,
+          },
+        ],
+      },
+      {
+        label: $localize`:@@headerLink6:Tiede- ja tutkimusuutiset`,
+        link: '/news',
+        exact: true,
+      },
+      {
+        label:$localize`:@@researchersProfileNew:Oma profiili`,
+        link: '/mydata/profile',
+        exact: true,
+        profileTooldropdownItems: [
+          {
+            label: $localize`:@@navigationHeaderProfile:Profiili`,
+            link: '/mydata/profile',
+            exact: true,
+            showForDesktop: false,
+          },
+          {
+            label: $localize`:@@dataAndSources:Tiedot ja tietolähteet`,
+            link: '/mydata/profile/data-sources',
+            exact: true,
+            showForDesktop: false,
+          },
+          {
+            label: $localize`:@@accountSettings:Tiliasetukset`,
+            link: '/mydata/profile/account-settings',
+            exact: true,
+            showForDesktop: false,
+          },
+          {
+            label: $localize`:@@logout:Kirjaudu ulos`,
+            link: '/logout',
+            exact: true,
+            showForDesktop: false,
+          },
+        ],
+      },
     ],
     localizedDomains: this.defaultDomains,
   };

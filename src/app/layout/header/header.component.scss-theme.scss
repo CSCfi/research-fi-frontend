@@ -51,13 +51,13 @@
         color: mat-color($primary);
 
         li a.lang-box {
-          background: mat-contrast($primary, 600);
-          border: solid 2px mat-color($primary);
+          background: transparent;
+          border: solid 2px #E8E8F4;
         }
 
         li a.lang-box.active-lang {
-          background: mat-color($primary);
-          color: mat-color($primary, default-contrast);
+          background: transparent;
+          color: black;
         }
       }
 
