@@ -144,10 +144,10 @@ export class AccountSettingsComponent implements OnInit {
     },
   ];
 
-  profileVisibility$ = this.profileService.getProfileVisibility();
+  profileVisibility$ = this.profileService.getProfileVisibilityObservable();
 
   constructor(public profileService: ProfileService, private router: Router, private route: ActivatedRoute, public dialog: MatDialog, public oidcSecurityService: OidcSecurityService,  private snackbarService: SnackbarService) {
-    this.profileService.initializeProfileVisibility();
+    this.profileService.initializeProfileVisibilityAndSettings();
   }
 
   ngOnInit(): void {
@@ -290,6 +290,7 @@ export class AccountSettingsComponent implements OnInit {
     sessionStorage.removeItem(Constants.draftDatasetPatchPayload);
     sessionStorage.removeItem(Constants.draftFundingPatchPayload);
     sessionStorage.removeItem(Constants.draftCollaborationPatchPayload);
+    sessionStorage.removeItem(Constants.draftHighlightOpenness);
 
     this.profileData = currentProfileData;
     this.profileService.setEditorProfileName(getName(currentProfileData));

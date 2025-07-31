@@ -69,7 +69,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   profileData: any;
   orcid: string;
   fullName: Observable<string>;
-  highlightOpenness: Observable<boolean>
+  highlightOpennessInitialState$: Observable<boolean>;
 
   publishUpdatedProfile = $localize`:@@publishUpdatedProfile:Julkaise päivitetty profiili`;
   discardChanges = $localize`:@@discardChanges:Hylkää muutokset`;
@@ -89,7 +89,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private utilityService: UtilityService,
     private changeDetectorRef: ChangeDetectorRef
   ) {
-    this.profileService.initializeProfileVisibility();
+    this.profileService.initializeProfileVisibilityAndSettings();
       this.fullName = this.profileService.getEditorProfileNameObservable();
 
     // Find if user has navigated to profile route from service deployment stepper
@@ -110,6 +110,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   forwardHighlightOpennessState(state: boolean){
+    this.draftService.addToHighlightOpennessPayload(state)
     this.emitHighlightOpenness.emit(state);
   }
 
@@ -147,6 +148,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.profileService.setEditorProfileName(myDataProfile.name);
       }
       this.fullName = this.profileService.currentEditorProfileName;
+      this.highlightOpennessInitialState$ = this.profileService.getHighlighOpennessObservable();
     }
   }
   ngOnDestroy() {

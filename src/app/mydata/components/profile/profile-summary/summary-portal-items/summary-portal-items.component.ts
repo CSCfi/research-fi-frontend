@@ -98,27 +98,33 @@ export class SummaryPortalItemsComponent implements OnInit {
         // Add tag to mark row has a caption
         if (nonOpenPublications.length > 0) nonOpenPublications[0].nonOpenCaptionRow = true;
         dataCopy.items = cloneDeep(concatPublications);
+        this.sortedItems = dataCopy.items.filter((item) => item.itemMeta.show);
+      }
+      else if (dataCopy?.items?.length > 0) {
+        this.sortedItems = dataCopy.items.filter((item) => item.itemMeta.show).sort(this.comparePublicationYearsPublications).reverse();
       }
     }
 
-    if (this.fieldType === FieldTypes.activityDataset) {
-      dataCopy.items = dataCopy.items.sort(this.comparePublicationYearsDatasetOrFunding).reverse();
-    }
+    else {
+      if (this.fieldType === FieldTypes.activityDataset) {
+        dataCopy.items = dataCopy.items.sort(this.comparePublicationYearsDatasetOrFunding).reverse();
+      }
 
-    if (this.fieldType === FieldTypes.activityFunding) {
-      dataCopy.items = dataCopy.items.sort(this.comparePublicationYearsDatasetOrFunding).reverse();
-    }
+      if (this.fieldType === FieldTypes.activityFunding) {
+        dataCopy.items = dataCopy.items.sort(this.comparePublicationYearsDatasetOrFunding).reverse();
+      }
 
-    if (dataCopy.id === 'publication') {
-      // mergePublications(dataCopy);
-    }
+      if (dataCopy.id === 'publication') {
+        //mergePublications(dataCopy);
+      }
 
-    // Display only selected items
-    if (dataCopy?.items) {
-      this.sortedItems = this.sortItemsByNew(
-        dataCopy.items,
-        this.sortField
-      ).filter((item) => item.itemMeta.show);
+      // Display only selected items
+      if (dataCopy?.items) {
+        this.sortedItems = this.sortItemsByNew(
+          dataCopy.items,
+          this.sortField
+        ).filter((item) => item.itemMeta.show);
+      }
     }
   }
 

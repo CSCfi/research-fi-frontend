@@ -17,7 +17,7 @@
         <app-mydata-side-navigation></app-mydata-side-navigation>
       </div>
       <!-- Main content -->
-      <div class="col-8 col-md-10 pt-4">
+      <div class="col-xl-10 col-md-12 pt-4">
 
         <!--        <div class="row d-flex justify-content-between pt-3 pb-5">
                   <div class="col-6 col-md-6">
@@ -70,7 +70,7 @@
             <div class="col-12">
               <app-name-and-orcid-view [name]="fullName | async" [orcid]="orcid" [isEditorView]="true"></app-name-and-orcid-view>
             </div>
-            <div class="col-lg-8 col-md-12">
+            <div class="col-12 col-md-7 col-lg-8">
               <app-profile-summary class="d-block pt-3" [profileData]="profileData" [name]="profileService.currentEditorProfileName | async" [orcid]="orcid" [highlightOpenness]="emitHighlightOpenness | async"></app-profile-summary>
             </div>
           </ng-container>
@@ -81,7 +81,7 @@
           </ng-template>
 
 
-          <div class="col-12 col-lg-4 pt-3 px-0 px-lg-2">
+          <div class="col-12 col-md-5 col-lg-4 pt-3 px-0 px-lg-2">
             <!-- Contact card -->
             <ng-container *ngIf="profileData">
               <aside>
@@ -107,7 +107,7 @@
               </div>
             </div>
 
-            <app-open-science-settings-card (emitHighlightOpenness)="forwardHighlightOpennessState($event)"></app-open-science-settings-card>
+            <app-open-science-settings-card [highlightChecked]="highlightOpennessInitialState$ | async" (emitHighlightOpenness)="forwardHighlightOpennessState($event)"></app-open-science-settings-card>
           </div>
         </div>
       </div>

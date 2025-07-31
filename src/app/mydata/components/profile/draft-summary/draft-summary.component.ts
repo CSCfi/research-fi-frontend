@@ -52,8 +52,11 @@ export class DraftSummaryComponent implements OnInit, OnDestroy {
 
   @Input() profileData: any;
   @Input() collaborationOptions: any;
+  @Input() highlightOpenness: any;
 
   collaborationHeader = $localize`:@@collaborationHeader:Yhteistyö`;
+  accountSettingsHeader = $localize`:@@accountSettings:Tiliasetukset`;
+  highlightOpennessHeader = $localize`:@@highlightOpenAccessPublications:Korosta avoimia julkaisuja profiilissasi`;
   selectedData: any;
 
   checkGroupPatchItem = checkGroupPatchItem;

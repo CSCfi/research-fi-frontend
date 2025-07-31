@@ -25,6 +25,7 @@ export class ProfileService {
   httpOptions: any;
   currentProfileData: any[];
   collaborationChoices: any[];
+  settingsData: any[];
 
   testData = testData;
 
@@ -43,6 +44,8 @@ export class ProfileService {
   orcidUserProfile: Record<string, unknown>; // Set via orcid-profile-resolver
 
   private profileVisibility$ = new BehaviorSubject(false);
+  highlightOpenness$ = new BehaviorSubject(false);
+  private automaticPublishing$ = new BehaviorSubject(false);
 
   constructor(
     private http: HttpClient,
@@ -128,7 +131,7 @@ export class ProfileService {
     return await firstValueFrom(this.http.delete(this.apiUrl + '/userprofile/', this.httpOptions));
   }
 
-  public async initializeProfileVisibility() {
+  public async initializeProfileVisibilityAndSettings() {
     await this.updateToken();
     let value;
 
@@ -137,14 +140,33 @@ export class ProfileService {
     } catch (error) {
       console.error(error);
     }
+    this.settingsData = value.data;
 
     this.profileVisibility$.next(!value.data.hidden);
+    this.highlightOpenness$.next(value.data.highlightOpeness);
+    this.automaticPublishing$.next(value.data.publishNewData);
 
     return value;
   }
 
-  public getProfileVisibility() {
+  public getProfileVisibilityObservable() {
     return this.profileVisibility$.asObservable();
+  }
+
+  public setHighlightOpennessInitialValue(value: boolean) {
+    this.highlightOpenness$.next(value);
+  }
+
+  public getHighlighOpennessObservable() {
+    return this.highlightOpenness$;
+  }
+
+  public getHighlighOpennessState() {
+    return this.highlightOpenness$.getValue();
+  }
+
+  public getAutomaticPublishingState() {
+    return this.automaticPublishing$.getValue();
   }
 
   async hideProfile() {
@@ -159,7 +181,6 @@ export class ProfileService {
     } catch (error) {
       console.error(error);
     }
-
     return value;
   }
 
@@ -174,8 +195,14 @@ export class ProfileService {
     } catch (error) {
       console.error(error);
     }
-
     return value
+  }
+
+  setHighlightOpennessState(value) {
+    return this.oidcSecurityService.getAccessToken().pipe(map(this.tokenToHttpOptions), switchMap((options) => {
+      const body = { highlightOpeness: value };
+      return this.http.post(this.apiUrl + '/settings/', body, this.httpOptions)
+    }));
   }
 
   /*
@@ -222,10 +249,16 @@ export class ProfileService {
     }
   }
 
-  clearDraftProfile() {
+  clearDraftProfileFromSessionStorage() {
     if (this.appSettingsService.isBrowser) {
       sessionStorage.removeItem(Constants.draftProfile);
     }
+  }
+
+  async patchSettingsData(data) {
+    await this.updateToken();
+    let body = { data: data };
+    return await firstValueFrom(this.http.patch(this.apiUrl + '/settings/', body, this.httpOptions));
   }
 
   async patchObjects(items) {
