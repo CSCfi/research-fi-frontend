@@ -3291,6 +3291,9 @@
       <trans-unit id="openAccessPublications" datatype="html">
         <source>Avoimesti saatavilla olevat julkaisut</source>
       </trans-unit>
+      <trans-unit id="unpublishedChanges" datatype="html">
+        <source>Julkaisemattomia muutoksia</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

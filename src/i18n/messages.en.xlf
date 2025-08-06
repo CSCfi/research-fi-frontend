@@ -4382,6 +4382,10 @@
         <source>Ei avoimesti saatavilla olevia julkaisuja</source>
         <target>No open access publications</target>
       </trans-unit>
+      <trans-unit id="unpublishedChanges" datatype="html">
+        <source>Julkaisemattomia muutoksia</source>
+        <target state="new">Unpublished changes</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
