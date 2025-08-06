@@ -9,7 +9,7 @@ import {
   Component,
   OnInit,
   ViewEncapsulation,
-  ViewChild, ChangeDetectorRef, OnDestroy
+  ViewChild, ChangeDetectorRef, OnDestroy, Output, EventEmitter
 } from '@angular/core';
 import { ProfileService } from '@mydata/services/profile.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
@@ -33,8 +33,11 @@ import { StickyFooterComponent } from '@mydata/components/sticky-footer/sticky-f
 import {
   NameAndOrcidViewComponent
 } from '@mydata/components/shared-layouts/name-and-orcid-view/name-and-orcid-view.component';
-import { Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { cloneDeep } from 'lodash-es';
+import {
+  OpenScienceSettingsCardComponent
+} from '@mydata/components/profile/cards/open-science-settings-card/open-science-settings-card.component';
 
 @Component({
   selector: 'app-profile',
@@ -55,11 +58,15 @@ import { cloneDeep } from 'lodash-es';
     MydataSideNavigationComponent,
     StickyFooterComponent,
     JsonPipe,
-    NameAndOrcidViewComponent
+    NameAndOrcidViewComponent,
+    OpenScienceSettingsCardComponent
   ]
 })
 export class ProfileComponent implements OnInit, OnDestroy {
+  @Output() emitHighlightOpenness = new EventEmitter<boolean>();
   @ViewChild('collaborationComponentRef') collaborationComponentRef;
+
+  highlightOpennessSub = new BehaviorSubject(undefined);
 
   profileData: any;
   orcid: string;
@@ -83,8 +90,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private utilityService: UtilityService,
     private changeDetectorRef: ChangeDetectorRef
   ) {
-    this.profileService.initializeProfileVisibility();
-      this.fullName = this.profileService.getEditorProfileNameObservable();
+    this.profileService.initializeProfileVisibilityAndSettings();
+    this.fullName = this.profileService.getEditorProfileNameObservable();
 
     // Find if user has navigated to profile route from service deployment stepper
     // Display welcome dialog if so
@@ -96,19 +103,32 @@ export class ProfileComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.reloadViewData();
     this.dataHasBeenResetSub = this.draftService.dataHasBeenReset.subscribe(val => {
+      console.log('RESET SUB VAL', val);
       if (val === true) {
         this.resetProfileData();
+        this.reloadViewData();
         this.changeDetectorRef.detectChanges();
       }
     });
   }
 
-  resetProfileData(){
+  updateHighlightOpennessUiState(state: boolean){
+    this.emitHighlightOpenness.emit(state);
+    this.highlightOpennessSub.next(state);
+  }
+
+  forwardHighlightOpennessState(state: boolean) {
+    this.draftService.addToHighlightOpennessPayload(state);
+    this.updateHighlightOpennessUiState(state);
+  }
+
+  resetProfileData() {
     this.profileData = cloneDeep(this.profileService.currentProfileData);
     this.collaborationComponentRef?.resetInitialValue();
   }
 
-  reloadViewData(){
+  reloadViewData() {
+    console.log('!!!! reloading view');
     this.utilityService.setMyDataTitle($localize`:@@profile:Profiili`);
 
     // Get data from resolver
@@ -122,9 +142,22 @@ export class ProfileComponent implements OnInit, OnDestroy {
      * Set draft data to profile view if draft available.
      * Drafts are deleted with reset and publish methods
      */
-    if (this.appSettingsService.isBrowser) {
-      const parsedDraft = this.draftService.getDraftProfile();
+    this.profileService.initializeProfileVisibilityAndSettings().then(val => {
+      if (val?.data?.highlightOpeness) {
+        const draftHighlightOpennessState = this.draftService.getDraftHighlightOpennessState();
+        if (draftHighlightOpennessState) {
+          // State from draft
+          this.updateHighlightOpennessUiState(draftHighlightOpennessState[0]);
+        } else {
+          // Original state from back end
+          this.updateHighlightOpennessUiState(val?.data?.highlightOpeness);
+        }
+      }
+      else {
+        this.updateHighlightOpennessUiState(this.draftService.getDraftHighlightOpennessState()[0]);
+      }
 
+      const parsedDraft = this.draftService.getDraftProfile();
       // Display either draft profile from storage or profile from database
       if (parsedDraft) {
         console.log(parsedDraft);
@@ -137,8 +170,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.profileService.setEditorProfileName(myDataProfile.name);
       }
       this.fullName = this.profileService.currentEditorProfileName;
-    }
+      //this.highlightOpennessInitialState$ = this.draftService.highlightOpennessPayloadSubObs;
+      //this.highlightOpennessInitialState$ = this.profileService.getHighlighOpennessInitialStateObservable();
+      }
+    );
+
   }
+
   ngOnDestroy() {
     this.dataHasBeenResetSub.unsubscribe();
   }

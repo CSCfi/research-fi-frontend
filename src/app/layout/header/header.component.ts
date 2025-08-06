@@ -83,6 +83,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   navbarOpen = false;
   hideOverflow = true;
   dropdownOpen = false;
+  profileToolDropdownOpen = false;
   maxWidth = 992;
   mobileNavBreakPoint = 1200;
   mobile = this.window.innerWidth < this.maxWidth;
@@ -118,6 +119,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   appSettings: any;
   isAuthenticated: Observable<AuthenticatedResult>;
+  isAuthenticatedBool = false;
   loggedIn: boolean;
 
   // Dialog variables
@@ -130,6 +132,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ];
 
   myDataBetaTextContent: string;
+  isInMydataRoute = false;
 
   constructor(
     private resizeService: ResizeService,
@@ -155,6 +158,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.isAuthenticated = this.oidcSecurityService.isAuthenticated$;
   }
 
+
   routeEvent(router: Router) {
     this.routeSub = router.events.subscribe((e) => {
       if (e instanceof NavigationEnd) {
@@ -163,6 +167,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
           if (localStorage.getItem('cookieConsent')) {
             this.consent = localStorage.getItem('cookieConsent');
           }
+        }
+        if (e?.url.startsWith('/mydata')) {
+          this.profileToolDropdownOpen = true;
+          this.isInMydataRoute = true;
+        } else {
+          this.profileToolDropdownOpen = true;
+          this.isInMydataRoute = false;
         }
 
         // Set tracking cookies according to consent parameter
@@ -200,8 +211,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.currentRoute = e.urlAfterRedirects.split('#')[0];
 
         // Set header items based on base url
-        this.appSettings = this.currentRoute.includes('/mydata')
-          ? this.appSettingsService.portalSettings
+        this.appSettings = this.isAuthenticatedBool
+          ? this.appSettingsService.portalSettingsLoggedIn
           : this.appSettingsService.portalSettings;
 
         this.currentDomain = this.appSettings.localizedDomains.find(
@@ -233,18 +244,25 @@ export class HeaderComponent implements OnInit, OnDestroy {
         // Click functionality is handled in handleClick method
         this.isAuthenticated.pipe(take(1)).subscribe((authenticated) => {
           const isAuthenticated = authenticated.isAuthenticated;
+          this.isAuthenticatedBool = authenticated.isAuthenticated;
+          console.log('isAuthenticated', isAuthenticated);
 
-          if (this.currentRoute.includes('/mydata')) {
+
+
+          if (this.currentRoute.includes('/mydata') && this.currentRoute !== '/mydata') {
             this.loggedIn = isAuthenticated;
+            if (!isAuthenticated) {
+              this.router.navigate(['/mydata']);
+            }
+            /*            // Hide navigation links other than login if user hasn't authenticated
+                        this.navigationLinks = isAuthenticated
+                          ? navItems
+                          : navItems.filter((item) => item.loginProcess);
 
-            // Hide navigation links other than login if user hasn't authenticated
-            this.navigationLinks = isAuthenticated
-              ? navItems
-              : navItems.filter((item) => item.loginProcess);
-
-            navItems.find((item) => item.loginProcess).label = isAuthenticated
-              ? $localize`:@@logout:Kirjaudu ulos`
-              : $localize`:@@logIn:Kirjaudu sisään`;
+                        navItems.find((item) => item.loginProcess).label = isAuthenticated
+                          ? $localize`:@@logout:Kirjaudu ulos`
+                          : $localize`:@@logIn:Kirjaudu sisään`;
+                      */
           }
         });
       }
@@ -356,14 +374,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
   toggleNavbar() {
     // Toggle navbar state
     this.navbarOpen = !this.navbarOpen;
+    this.profileToolDropdownOpen = this.isInMydataRoute;
 
     // Set the overlay lower so skip links dont mess up overlay
     if (this.navbarOpen) {
       this.document.body.classList.add('menu-open');
-      setTimeout(() => {
+/*      setTimeout(() => {
         this.overlay &&
         this.renderer.setStyle(this.overlay?.nativeElement, 'top', '350px');
-      }, 500);
+      }, 500);*/
     } else {
       this.document.body.classList.remove('menu-open');
     }
@@ -473,7 +492,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   doDialogAction(action: string) {
     if (action === 'logout') {
       this.oidcSecurityService.logoff();
-      this.draftService.clearData();
+      this.draftService.clearDraftData();
     }
 
     this.dialogTitle = '';

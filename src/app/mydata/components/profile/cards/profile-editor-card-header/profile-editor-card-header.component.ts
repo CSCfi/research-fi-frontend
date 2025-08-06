@@ -10,10 +10,13 @@ import { TertiaryButtonComponent } from '@shared/components/buttons/tertiary-but
   standalone: true,
   imports: [NgIf, SecondaryButtonComponent, TertiaryButtonComponent]
 })
+
 export class ProfileEditorCardHeaderComponent {
   @Input() label: string;
   @Input() displayButton: boolean;
   @Output() handleOpenDialog = new EventEmitter();
+
+
 
   constructor() {}
 

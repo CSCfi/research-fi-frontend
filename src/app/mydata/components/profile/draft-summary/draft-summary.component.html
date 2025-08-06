@@ -155,4 +155,23 @@
       </mat-checkbox>
     </ng-container>
   </mat-expansion-panel>
+
+  <mat-expansion-panel
+          id="highlight-openness-panel"
+          [expanded]="false"
+          *ngIf="highlightOpenness.length"
+  >
+    <mat-expansion-panel-header class="pe-1 pe-md-3">
+      <mat-panel-title class="fw-bold">
+        {{ accountSettingsHeader }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+      <mat-checkbox
+              [ngClass]="highlightOpenness[0] ? 'py-1 py-lg-0 w-100 checked' : 'py-1 py-lg-0 w-100 unchecked'"
+              [checked]="highlightOpenness[0]"
+              disabled
+      >
+        {{ highlightOpennessHeader }}
+      </mat-checkbox>
+  </mat-expansion-panel>
 </mat-accordion>

@@ -18,10 +18,10 @@ import { TertiaryButtonComponent } from '@shared/components/buttons/tertiary-but
 import { FilterLimitButtonComponent } from '@portal/components/filter-limit-button/filter-limit-button.component';
 
 @Component({
-    selector: 'app-summary-portal-items',
-    templateUrl: './summary-portal-items.component.html',
+  selector: 'app-summary-portal-items',
+  templateUrl: './summary-portal-items.component.html',
   styleUrls: ['./summary-portal-items.component.scss'],
-    standalone: true,
+  standalone: true,
   imports: [
     NgFor,
     NgIf,
@@ -42,6 +42,7 @@ export class SummaryPortalItemsComponent implements OnInit {
   @Input() fieldType: any;
   @Input() sortField: string;
   @Input() showMoreLabel: string;
+  @Input() highlightOpenness: boolean;
   fieldTypes = FieldTypes;
 
   sortItemsByNew = sortItemsByNew;
@@ -53,44 +54,77 @@ export class SummaryPortalItemsComponent implements OnInit {
   showMorePrefix = $localize`:@@showAll:Näytä kaikki`;
   showLessPrefix = $localize`:@@showLess:Näytä vähemmän`;
 
-  constructor() {}
+  openAccessPublications = $localize`:@@openAccessPublications:Avoimesti saatavilla olevat julkaisut`;
+  otherPublications = $localize`:@@otherPublications:Muut julkaisut`;
+  noOpenAccessPublications = $localize`:@@noOpenPublicationAvailable:Ei avoimesti saatavilla olevia julkaisuja`;
+
+  hasOpenPublications = false;
+
+  constructor() {
+  }
 
 
   comparePublicationYearsPublications(a, b) {
     return a.publicationYear - b.publicationYear;
   }
 
-  comparePublicationYearsDataset(a, b) {
+  comparePublicationYearsDatasetOrFunding(a, b) {
     return a.year - b.year;
   }
 
+  arrangeOpenPublicationsFirst(a, b) {
+    //console.log('SORT OPEN FIRST', a, b);
+    // A is open access and B not
+    if ((a.openAccess !== 0 || a.selfArchivedCode !== '0') && !(b.openAccess !== 0 || b.selfArchivedCode !== '0')) {
+      return -1;
+    }
+    // A is not open access and B is
+    else if (!(a.openAccess !== 0 || a.selfArchivedCode !== '0') && (b.openAccess !== 0 || b.selfArchivedCode !== '0')) {
+      return 1;
+    }
+    return 0;
+  }
+
   ngOnInit(): void {
-    // User can have duplicate publications, one from ORCID and one from Research.fi
-    // Merge these and display only one
-    const dataCopy = cloneDeep(this.data);
+    let dataCopy = cloneDeep(this.data);
 
     if (this.fieldType === FieldTypes.activityPublication) {
-      this.data.items = this.data.items.sort(this.comparePublicationYearsPublications).reverse();
+      if (this.highlightOpenness && dataCopy?.items) {
+        const openPublications = dataCopy.items.filter(item => item.openAccess !== 0 || (item.selfArchivedCode && item.selfArchivedCode !== '0')).sort(this.comparePublicationYearsPublications).reverse();
+        this.hasOpenPublications = (openPublications.length > 0);
+        const nonOpenPublications = dataCopy.items.filter(item => !(item.openAccess !== 0 || (item.selfArchivedCode && item.selfArchivedCode !== '0'))).sort(this.comparePublicationYearsPublications).reverse();
+        const concatPublications = openPublications.concat(nonOpenPublications);
+
+        // Add tag to mark row has a caption
+        if (nonOpenPublications.length > 0) nonOpenPublications[0].nonOpenCaptionRow = true;
+        dataCopy.items = cloneDeep(concatPublications);
+        this.sortedItems = dataCopy.items.filter((item) => item.itemMeta.show);
+      }
+      else if (dataCopy?.items?.length > 0) {
+        this.sortedItems = dataCopy.items.filter((item) => item.itemMeta.show).sort(this.comparePublicationYearsPublications).reverse();
+      }
     }
 
-    if (this.fieldType === FieldTypes.activityDataset) {
-      this.data.items = this.data.items.sort(this.comparePublicationYearsDataset).reverse();
-    }
+    else {
+      if (this.fieldType === FieldTypes.activityDataset) {
+        dataCopy.items = dataCopy.items.sort(this.comparePublicationYearsDatasetOrFunding).reverse();
+      }
 
-    if (this.fieldType === FieldTypes.activityFunding) {
-      this.data.items = this.data.items.sort(this.comparePublicationYearsDataset).reverse();
-    }
+      if (this.fieldType === FieldTypes.activityFunding) {
+        dataCopy.items = dataCopy.items.sort(this.comparePublicationYearsDatasetOrFunding).reverse();
+      }
 
-    if (dataCopy.id === 'publication') {
-      // mergePublications(dataCopy);
-    }
+      if (dataCopy.id === 'publication') {
+        //mergePublications(dataCopy);
+      }
 
-    // Display only selected items
-    if (dataCopy?.items) {
-      this.sortedItems = this.sortItemsByNew(
-        dataCopy.items,
-        this.sortField
-      ).filter((item) => item.itemMeta.show);
+      // Display only selected items
+      if (dataCopy?.items) {
+        this.sortedItems = this.sortItemsByNew(
+          dataCopy.items,
+          this.sortField
+        ).filter((item) => item.itemMeta.show);
+      }
     }
   }
 

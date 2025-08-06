@@ -39,16 +39,19 @@ export class DraftService {
   hasProfile$: Observable<boolean>;
   public showLogoutConfirmModal = new BehaviorSubject<boolean>(false);
 
+  private highlightOpennessPayloadSub = new BehaviorSubject<any>([]);
+  highlightOpennessPayloadSubObs =  this.highlightOpennessPayloadSub.asObservable();
+
   edited$ = combineLatest([
     this.publicationsService.currentPublicationPayload,
     this.datasetsService.currentDatasetPayload,
     this.fundingsService.currentFundingPayload,
     this.patchService.currentPatchItems,
     this.collaborationsService.currentCollaborationsPayload,
+    this.highlightOpennessPayloadSubObs
   ]).pipe(
-    map(([pubs, datasets, fundings, patches, collabs]) => !!(pubs.length || datasets.length || fundings.length || patches.length || collabs.length))
+    map(([pubs, datasets, fundings, patches, collabs, highlightOpenness]) => !!(pubs.length || datasets.length || fundings.length || patches.length || collabs.length || highlightOpenness.length))
   );
-  private collaborationOptionsSub: Subscription;
 
   constructor(private appSettingsService: AppSettingsService,
               public profileService: ProfileService,
@@ -88,6 +91,9 @@ export class DraftService {
       const draftFundingPatchPayload = JSON.parse(
         sessionStorage.getItem(Constants.draftFundingPatchPayload)
       );
+      const draftHighlightOpennessPayload = JSON.parse(
+        sessionStorage.getItem(Constants.draftHighlightOpenness)
+      );
 
       // Profile, publications, datasets, collaborations and fundings have separate draft data
       const draftItems = [
@@ -117,6 +123,13 @@ export class DraftService {
           item.service.confirmPayload();
         }
       });
+
+      // Openness highlight states don't have a service for simplicity
+      if (draftHighlightOpennessPayload) {
+        this.highlightOpennessPayloadSub.next(draftHighlightOpennessPayload);
+      }
+
+      //TODO: check if initial values are changed
     }
 
     this.profileService.profileInitialized = true;
@@ -141,6 +154,17 @@ export class DraftService {
     return profileData;
   }
 
+  getDraftHighlightOpennessState() {
+    let draftHighlightOpenness = undefined;
+    if (this.appSettingsService.isBrowser) {
+      const draft = sessionStorage.getItem(Constants.draftHighlightOpenness);
+      if (draft) {
+        draftHighlightOpenness = JSON.parse(draft);
+      }
+    }
+    return draftHighlightOpenness;
+  }
+
   updateFieldInDraft(fieldId: string, data: any) {
     if (fieldId && data) {
       sessionStorage.setItem(fieldId, JSON.stringify(data)
@@ -161,10 +185,11 @@ export class DraftService {
       service.clearPayload();
       service.cancelConfirmedPayload();
     });
-    this.clearData();
+    this.clearSessionStorageData();
+    this.highlightOpennessPayloadSub.next([]);
   }
 
-  clearData() {
+  clearSessionStorageData() {
     if (this.appSettingsService.isBrowser) {
       sessionStorage.removeItem(Constants.draftProfile);
       sessionStorage.removeItem(Constants.draftPatchPayload);
@@ -172,6 +197,7 @@ export class DraftService {
       sessionStorage.removeItem(Constants.draftDatasetPatchPayload);
       sessionStorage.removeItem(Constants.draftFundingPatchPayload);
       sessionStorage.removeItem(Constants.draftCollaborationPatchPayload);
+      sessionStorage.removeItem(Constants.draftHighlightOpenness);
     }
   }
 
@@ -254,6 +280,27 @@ export class DraftService {
     });
   }
 
+  /*
+ * Patch highlight openness state to backend
+ */
+  private patchHighlightOpennessPromise() {
+    return new Promise((resolve, reject) => {
+      this.profileService
+        .setHighlightOpennessState(this.highlightOpennessPayloadSub.getValue()[0])
+        .pipe(takeUntil(this.unsubscribe))
+        .subscribe({
+          next: (result) => {
+            resolve(true);
+            sessionStorage.removeItem(Constants.draftHighlightOpenness);
+            this.profileService.highlightOpennessInitialState$.next(this.highlightOpennessPayloadSub.getValue()[0]);
+          },
+          error: (error) => {
+            reject(error);
+          },
+        });
+    });
+  }
+
   updatePerson() {
     console.log('this.orcid', this.orcid);
     const id = this.orcid;
@@ -305,6 +352,15 @@ export class DraftService {
     }
   }
 
+  public addToHighlightOpennessPayload(value: boolean){
+    sessionStorage.setItem(Constants.draftHighlightOpenness, JSON.stringify([value]));
+    if (value !== this.profileService.getHighlighOpennessInitialState()) {
+      this.highlightOpennessPayloadSub.next([value]);
+    } else {
+      this.highlightOpennessPayloadSub.next([]);
+    }
+  }
+
   async publish() {
     const promises = [];
 
@@ -329,6 +385,10 @@ export class DraftService {
       {
         handler: () => this.patchCooperationChoicesPromise(),
         payload: this.collaborationsService.confirmedPayload,
+      },
+      {
+        handler: () => this.patchHighlightOpennessPromise(),
+        payload: this.highlightOpennessPayloadSub.getValue(),
       },
     ];
 
@@ -369,7 +429,9 @@ export class DraftService {
     );
     this.draftProfileData = currentProfileData;
     this.profileService.setEditorProfileName(getName(currentProfileData));
+    this.profileService.initializeProfileVisibilityAndSettings();
     this.clearDraftData();
+
     // Notify profile component to refresh view
     this.dataHasBeenReset.next(true);
     //TODO: this.collaborationComponentRef?.resetInitialValue();

@@ -20,7 +20,7 @@ import { JoinItemsPipe } from '../../../../shared/pipes/join-items.pipe';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { PrimaryBadgeComponent } from '../profile-panel/primary-badge/primary-badge.component';
 import { PanelArrayItemComponent } from '../profile-panel/panel-array-item/panel-array-item.component';
-import { JsonPipe, NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
+import { JsonPipe, NgClass, NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
 import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
 
 @Component({
@@ -44,7 +44,8 @@ import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionP
     JoinItemsPipe,
     countFieldItemsPipe,
     FindByKeyValuePipe,
-    JsonPipe
+    JsonPipe,
+    NgClass
   ]
 })
 export class DraftSummaryComponent implements OnInit, OnDestroy {
@@ -52,8 +53,11 @@ export class DraftSummaryComponent implements OnInit, OnDestroy {
 
   @Input() profileData: any;
   @Input() collaborationOptions: any;
+  @Input() highlightOpenness: any;
 
   collaborationHeader = $localize`:@@collaborationHeader:Yhteistyö`;
+  accountSettingsHeader = $localize`:@@accountSettings:Tiliasetukset`;
+  highlightOpennessHeader = $localize`:@@highlightOpenAccessPublications:Korosta avoimia julkaisuja profiilissasi`;
   selectedData: any;
 
   checkGroupPatchItem = checkGroupPatchItem;

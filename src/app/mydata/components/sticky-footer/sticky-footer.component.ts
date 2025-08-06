@@ -37,11 +37,12 @@ export class StickyFooterComponent implements OnInit, OnDestroy {
   orcidData: any;
   profileData: any;
   collaborationOptions: any[];
+  highlightOpenness$: any;
   orcid: string;
 
   isProfilePublished = this.draftService.person$.pipe(map((person) => person != null ));
   isDraftProfileChanged =  this.draftService.edited$;
-  isProfileVisible = this.profileService.getProfileVisibility();
+  isProfileVisible = this.profileService.getProfileVisibilityObservable();
   isLogoutConfirmModalVisible = this.draftService.showLogoutConfirmModal.subscribe(val => {
     if (val === true) {
       this.draftService.showLogoutConfirmModal.next(false);
@@ -57,7 +58,7 @@ export class StickyFooterComponent implements OnInit, OnDestroy {
     public collaborationsService: CollaborationsService,
     private oidcSecurityService: OidcSecurityService,
   ) {
-    this.profileService.initializeProfileVisibility();
+    this.profileService.initializeProfileVisibilityAndSettings();
   }
 
   ngOnInit(): void {
@@ -70,6 +71,7 @@ export class StickyFooterComponent implements OnInit, OnDestroy {
     this.orcid = orcidProfile.orcid;
     this.profileData = this.draftService.getDraftProfile();
     this.collaborationOptions = this.collaborationsService.confirmedPayload;
+    this.highlightOpenness$ = this.draftService.highlightOpennessPayloadSubObs;
     }
 
   // Dialog texts
@@ -167,12 +169,12 @@ export class StickyFooterComponent implements OnInit, OnDestroy {
         break;
       }
       case 'discard': {
-        this.profileService.clearDraftProfile();
+        this.profileService.clearDraftProfileFromSessionStorage();
         this.draftService.reset();
         break;
       }
       case 'discardChangesAndLogout': {
-        this.profileService.clearDraftProfile();
+        this.profileService.clearDraftProfileFromSessionStorage();
         this.draftService.reset();
         this.oidcSecurityService.logoff();
         break;

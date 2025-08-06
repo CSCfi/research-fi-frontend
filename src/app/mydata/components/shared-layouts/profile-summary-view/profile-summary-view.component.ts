@@ -54,6 +54,7 @@ export class ProfileSummaryViewComponent implements OnInit  {
   @Input() isPortalSinglePage: any;
   @Input() sectionName: string;
   @Input() sectionIndex: number;
+  @Input() highlightOpenness: boolean;
   @Output() openDialogCall = new EventEmitter<number>();
 
   primary = $localize`:@@primary:Ensisijainen`;

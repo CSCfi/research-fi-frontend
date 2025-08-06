@@ -39,8 +39,8 @@
       <div class="row justify-content-between">
         <!-- Main content -->
         <div class="col-12 col-lg-8 gx-3">
-          <app-person-profile-view *ngIf="profileFormatted" [displayData]="profileFormatted" [name]="'test'" [orcid]="'test'"
-                                   [isPortalSinglePage]="true" (openDialog)="undefined"></app-person-profile-view>
+          <app-person-profile-view *ngIf="profileFormatted" [displayData]="profileFormatted" [name]="''" [orcid]="''"
+                                   [isPortalSinglePage]="true" (openDialog)="undefined" [highlightOpenness]="profileFormatted[11].settings.highlightOpenness"></app-person-profile-view>
         </div>
 
         <div class="col-12 col-lg-4 gx-3">

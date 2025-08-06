@@ -3071,7 +3071,7 @@
         <target>Du har opublicerade ändringar i profilvyn.</target>
       </trans-unit>
       <trans-unit id="youHaveUnpublishedChangesSnackbarButton" datatype="html">
-        <source>Tarkasta muutokset...</source>
+        <source>Tarkasta muutokset.</source>
         <target state="new">Kontrollera ändringarna.</target>
       </trans-unit>
       <trans-unit id="suomiFiAutheticationProblemSnackbarText" datatype="html">
@@ -3422,8 +3422,8 @@
         <target>Välj aktiviteter</target>
       </trans-unit>
       <trans-unit id="mydata.profile.profile-is-hidden" datatype="html">
-        <source>Olet piilottanut profiilisi Tiedejatutkimus.fi-palvelusta</source>
-        <target state="new">Du har dold din profil från Forskning.fi-tjänsten</target>
+        <source>Olet piilottanut profiilisi Tiedejatutkimus.fi-palvelusta </source>
+        <target state="new">Du har dold din profil från Forskning.fi-tjänsten </target>
       </trans-unit>
       <trans-unit id="mydata.profile.republish-modal.title" datatype="html">
         <source>Julkaise piilotettu profiili</source>
@@ -4349,13 +4349,9 @@
         <source>Aloitusvuosi</source>
         <target state="new">Startår</target>
       </trans-unit>
-      <trans-unit id="discardAndLogout" datatype="html">
-        <source>Kirjaudu ulos ja hylkää muutokset.</source>
-        <target state="new">Kirjaudu ulos ja hylkää muutokset.</target>
-      </trans-unit>
       <trans-unit id="discardChangesAndLogout" datatype="html">
-        <source> Haluatko hylätä julkaisemattomat muutokset ja kirjautua ulos? </source>
-        <target state="new"> Haluatko hylätä julkaisemattomat muutokset ja kirjautua ulos? </target>
+        <source>Hylkää muutokset</source>
+        <target state="new">Hylkää muutokset</target>
       </trans-unit>
       <trans-unit id="present" datatype="html">
         <source>nykyhetki</source>
@@ -4364,6 +4360,30 @@
       <trans-unit id="researchersProfileNew" datatype="html">
         <source>Oma profiili</source>
         <target state="new">Min profil</target>
+      </trans-unit>
+      <trans-unit id="highlightingOpenScience" datatype="html">
+        <source>Avoimen tieteen korostus</source>
+        <target state="new">Framhäv öppen vetenskap</target>
+      </trans-unit>
+      <trans-unit id="highlightOpenAccessPublications" datatype="html">
+        <source>Korosta avoimia julkaisuja profiilissasi</source>
+        <target state="new">Framhäv öppet tillgängliga publikationer i din profil</target>
+      </trans-unit>
+      <trans-unit id="highlightOpenAccessPublicationsInfo" datatype="html">
+        <source>Korostus nostaa avoimesti saatavilla olevat julkaisut julkaisulistan kärkeen profiilissasi. Tiedejatutkimus.fi -palvelusta löytyviin avoimiin julkaisuihin lisätään automaattisesti avoimen tieteen merkintä.</source>
+        <target state="new">Framhävning placerar öppet tillgängliga publikationer högst upp i din publikationslista. Publikationer som finns i Forskning.fi -tjänsten och är öppet tillgängliga får automatiskt en märkning för öppen vetenskap.</target>
+      </trans-unit>
+      <trans-unit id="openAccessPublications" datatype="html">
+        <source>Avoimesti saatavilla olevat julkaisut</source>
+        <target state="new">Avoimesti saatavilla olevat julkaisut</target>
+      </trans-unit>
+      <trans-unit id="otherPublications" datatype="html">
+        <source>Muut julkaisut</source>
+        <target state="new">Övriga publikationer</target>
+      </trans-unit>
+      <trans-unit id="noOpenPublicationAvailable" datatype="html">
+        <source>Ei avoimesti saatavilla olevia julkaisuja</source>
+        <target state="new">Inga publikationer med öppen tillgång</target>
       </trans-unit>
     </body>
   </file>

@@ -108,7 +108,7 @@
 
       <ng-template #dataToPublishTemplate>
         <!-- The patch payload consists of profileData and collaborationOptions, check both changes -->
-        <app-draft-summary *ngIf="profileData || collaborationOptions" [profileData]="profileData"></app-draft-summary>
+        <app-draft-summary *ngIf="profileData || collaborationOptions || (highlightOpenness$ | async)" [profileData]="profileData" [highlightOpenness]="highlightOpenness$ | async"></app-draft-summary>
       </ng-template>
 
       <ng-template #discardChangesTemplate>
@@ -120,13 +120,6 @@
           </div>
         </div>
       </ng-template>
-
-      <ng-template #discardChangesAndLogoutTemplate>
-        <p i18n="@@discardChangesAndLogout">
-          Haluatko hylätä julkaisemattomat muutokset ja kirjautua ulos?
-        </p>
-      </ng-template>
-
     </div>
 
     <!-- <div class="col-5 d-none d-md-block px-lg-0">
