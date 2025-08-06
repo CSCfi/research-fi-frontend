@@ -4385,6 +4385,10 @@
         <source>Ei avoimesti saatavilla olevia julkaisuja</source>
         <target state="new">Inga publikationer med öppen tillgång</target>
       </trans-unit>
+      <trans-unit id="unpublishedChanges" datatype="html">
+        <source>Julkaisemattomia muutoksia</source>
+        <target state="new">Opublicerade ändringar</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

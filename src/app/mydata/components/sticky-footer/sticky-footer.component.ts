@@ -76,11 +76,12 @@ export class StickyFooterComponent implements OnInit, OnDestroy {
 
   // Dialog texts
   publishUpdatedProfile = $localize`:@@publishUpdatedProfile:Julkaise päivitetty profiili`;
-  discardChanges = $localize`:@@discardChangesAndLogout:Hylkää muutokset`;
+  discardChanges = $localize`:@@discardChanges:Hylkää muutokset`;
   logout = $localize`:@@logout:Kirjaudu ulos`;
   discardChangesAndLogout = $localize`:@@discardChangesAndLogout:Hylkää muutokset ja kirjaudu ulos`;
   republishUpdatedProfile = $localize`:@@mydata.profile.republish-modal.title:Julkaise piilotettu profiili`;
   republishText = $localize`:@@publish:Julkaise`;
+  unpublishedChanges = $localize`:@@unpublishedChanges:Julkaisemattomia muutoksia`;
   @ViewChild('discardChangesTemplate', { static: true }) discardChangesTemplate: ElementRef;
 
   // Dialog variables
