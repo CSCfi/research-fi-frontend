@@ -13,3 +13,18 @@
 #collaboration-options-panel .mat-checkbox-disabled .mat-checkbox-label {
   color: #000;
 }
+
+.mat-mdc-checkbox.mat-mdc-checkbox-disabled label {
+  color: black !important;
+}
+
+.mat-mdc-checkbox.mat-mdc-checkbox-disabled.unchecked label {
+  color: black !important;
+  text-decoration: line-through;
+}
+
+.mat-mdc-checkbox-disabled.mat-mdc-checkbox-checked .mdc-checkbox__background {
+  color: #4546b9 !important;
+  background: #4546b9 !important;
+  border-color: #4546b9;
+}

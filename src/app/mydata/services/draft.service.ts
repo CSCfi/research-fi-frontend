@@ -154,6 +154,17 @@ export class DraftService {
     return profileData;
   }
 
+  getDraftHighlightOpennessState() {
+    let draftHighlightOpenness = undefined;
+    if (this.appSettingsService.isBrowser) {
+      const draft = sessionStorage.getItem(Constants.draftHighlightOpenness);
+      if (draft) {
+        draftHighlightOpenness = JSON.parse(draft);
+      }
+    }
+    return draftHighlightOpenness;
+  }
+
   updateFieldInDraft(fieldId: string, data: any) {
     if (fieldId && data) {
       sessionStorage.setItem(fieldId, JSON.stringify(data)
@@ -280,7 +291,8 @@ export class DraftService {
         .subscribe({
           next: (result) => {
             resolve(true);
-            this.profileService.setHighlightOpennessInitialValue(this.highlightOpennessPayloadSub.getValue()[0]);
+            sessionStorage.removeItem(Constants.draftHighlightOpenness);
+            this.profileService.highlightOpennessInitialState$.next(this.highlightOpennessPayloadSub.getValue()[0]);
           },
           error: (error) => {
             reject(error);
@@ -341,12 +353,11 @@ export class DraftService {
   }
 
   public addToHighlightOpennessPayload(value: boolean){
-    if (value !== this.profileService.getHighlighOpennessState()) {
+    sessionStorage.setItem(Constants.draftHighlightOpenness, JSON.stringify([value]));
+    if (value !== this.profileService.getHighlighOpennessInitialState()) {
       this.highlightOpennessPayloadSub.next([value]);
-      sessionStorage.setItem(Constants.draftHighlightOpenness, JSON.stringify([value]));
     } else {
       this.highlightOpennessPayloadSub.next([]);
-      sessionStorage.setItem(Constants.draftHighlightOpenness, JSON.stringify([]));
     }
   }
 

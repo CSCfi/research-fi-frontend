@@ -33,6 +33,7 @@ import {
 } from '@mydata/components/mydata-side-navigation/mydata-side-navigation.component';
 import { StickyFooterComponent } from '@mydata/components/sticky-footer/sticky-footer.component';
 import { CollaborationsService } from '@mydata/services/collaborations.service';
+import { DraftService } from '@mydata/services/draft.service';
 
 @Component({
   selector: 'app-data-sources',
@@ -78,7 +79,8 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
     itemMeta: ItemMeta;
   }[];
   nameField: any;
-
+  private highlightOpenness = [];
+  private highlightOpennessObs: Subscription;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -86,13 +88,15 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
     private collaborationsService: CollaborationsService,
     private patchService: PatchService,
     private notificationService: NotificationService,
-    private appSettingsService: AppSettingsService
+    private appSettingsService: AppSettingsService,
+    private draftService : DraftService,
   ) {
   }
 
 
   ngOnInit(): void {
     this.locale = this.appSettingsService.capitalizedLocale;
+    this.highlightOpennessObs = this.draftService.highlightOpennessPayloadSubObs.subscribe(value => this.highlightOpenness = value);
 
     const draftProfile = this.profileService.getDraftProfile();
     const collaborationOptions = this.collaborationsService.confirmedPayload;
@@ -100,7 +104,7 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
     /*
      *  Inform user if unsaved changes in profile view
      */
-    if (draftProfile || collaborationOptions?.length > 0) {
+    if (draftProfile || collaborationOptions?.length > 0  || (this.highlightOpenness.length > 0)) {
       this.notificationService.notify({
         notificationText: $localize`:@@youHaveUnpublishedChangesSnackbar:Sinulla on julkaisemattomia muutoksia profiilinäkymässä.`,
         buttons: [
@@ -232,6 +236,7 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
   };
 
   ngOnDestroy(): void {
+    this.highlightOpennessObs?.unsubscribe();
     this.queryParamsSub?.unsubscribe();
     this.notificationService.clearNotification();
   }

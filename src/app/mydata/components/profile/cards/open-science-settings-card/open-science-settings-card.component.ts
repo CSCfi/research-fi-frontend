@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { HasSelectedItemsPipe } from '@mydata/pipes/has-selected-items.pipe';
 import {
   ProfileEditorCardHeaderComponent

@@ -68,7 +68,7 @@ import {
     PersonProfileViewComponent
   ]
 })
-export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
+export class ProfileSummaryComponent implements OnChanges, OnDestroy, OnChanges {
   @Input() profileData: any;
   @Input() name: string;
   @Input() orcid: string;
@@ -99,9 +99,6 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
     private draftService: DraftService
   ) {
     this.locale = this.appSettingsService.capitalizedLocale;
-  }
-
-  ngOnInit(): void {
   }
 
   reverseAndFormatDescriptionAndKeywords() {

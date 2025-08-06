@@ -43,9 +43,9 @@ export class ProfileService {
   userData = this.userDataSource.asObservable();
   orcidUserProfile: Record<string, unknown>; // Set via orcid-profile-resolver
 
-  private profileVisibility$ = new BehaviorSubject(false);
-  highlightOpenness$ = new BehaviorSubject(false);
-  private automaticPublishing$ = new BehaviorSubject(false);
+  private profileVisibilityInitialState$ = new BehaviorSubject(false);
+  highlightOpennessInitialState$ = new BehaviorSubject(undefined);
+  private automaticPublishingInitialState$ = new BehaviorSubject(false);
 
   constructor(
     private http: HttpClient,
@@ -141,32 +141,23 @@ export class ProfileService {
       console.error(error);
     }
     this.settingsData = value.data;
-
-    this.profileVisibility$.next(!value.data.hidden);
-    this.highlightOpenness$.next(value.data.highlightOpeness);
-    this.automaticPublishing$.next(value.data.publishNewData);
+    this.profileVisibilityInitialState$.next(!value.data.hidden);
+    this.highlightOpennessInitialState$.next(value.data.highlightOpeness);
+    this.automaticPublishingInitialState$.next(value.data.publishNewData);
 
     return value;
   }
 
   public getProfileVisibilityObservable() {
-    return this.profileVisibility$.asObservable();
+    return this.profileVisibilityInitialState$.asObservable();
   }
 
-  public setHighlightOpennessInitialValue(value: boolean) {
-    this.highlightOpenness$.next(value);
-  }
-
-  public getHighlighOpennessObservable() {
-    return this.highlightOpenness$;
-  }
-
-  public getHighlighOpennessState() {
-    return this.highlightOpenness$.getValue();
+  public getHighlighOpennessInitialState() {
+    return this.highlightOpennessInitialState$.getValue();
   }
 
   public getAutomaticPublishingState() {
-    return this.automaticPublishing$.getValue();
+    return this.automaticPublishingInitialState$.getValue();
   }
 
   async hideProfile() {
@@ -177,7 +168,7 @@ export class ProfileService {
       await this.updateToken();
       value = await firstValueFrom(this.http.post(this.apiUrl + '/settings/', body, this.httpOptions));
 
-      this.profileVisibility$.next(false);
+      this.profileVisibilityInitialState$.next(false);
     } catch (error) {
       console.error(error);
     }
@@ -191,7 +182,7 @@ export class ProfileService {
     try {
       await this.updateToken();
       value = await firstValueFrom(this.http.post(this.apiUrl + '/settings/', body, this.httpOptions));
-      this.profileVisibility$.next(true);
+      this.profileVisibilityInitialState$.next(true);
     } catch (error) {
       console.error(error);
     }

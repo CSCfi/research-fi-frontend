@@ -167,7 +167,7 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
       <mat-checkbox
-              class="py-1 py-lg-0 w-100"
+              [ngClass]="highlightOpenness[0] ? 'py-1 py-lg-0 w-100 checked' : 'py-1 py-lg-0 w-100 unchecked'"
               [checked]="highlightOpenness[0]"
               disabled
       >

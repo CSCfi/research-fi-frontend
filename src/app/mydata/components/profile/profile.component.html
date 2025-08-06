@@ -107,7 +107,7 @@
               </div>
             </div>
 
-            <app-open-science-settings-card [highlightChecked]="highlightOpennessInitialState$ | async" (emitHighlightOpenness)="forwardHighlightOpennessState($event)"></app-open-science-settings-card>
+            <app-open-science-settings-card [highlightChecked]="highlightOpennessSub | async" (emitHighlightOpenness)="forwardHighlightOpennessState($event)"></app-open-science-settings-card>
           </div>
         </div>
       </div>
