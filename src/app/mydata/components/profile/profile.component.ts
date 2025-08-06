@@ -155,7 +155,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
       else {
         const opennessState = this.draftService.getDraftHighlightOpennessState();
-        if (opennessState && opennesState[0]){
+        if (opennessState && opennessState[0]){
           this.updateHighlightOpennessUiState(this.draftService.getDraftHighlightOpennessState()[0]);
         }
       }
