@@ -140,6 +140,7 @@ export class DraftService {
     //this.fetchCollaborationChoices();
   }
 
+  // Main method for getting draft data
   getDraftProfile() {
     let profileData = undefined;
     if (this.appSettingsService.isBrowser) {
@@ -167,12 +168,11 @@ export class DraftService {
 
   updateFieldInDraft(fieldId: string, data: any) {
     if (fieldId && data) {
-      sessionStorage.setItem(fieldId, JSON.stringify(data)
-      );
+      sessionStorage.setItem(fieldId, JSON.stringify(data));
     }
   }
 
-  clearDraftData() {
+  clearDraftPayloadData() {
     const itemServices = [
       this.patchService,
       this.collaborationsService,
@@ -185,7 +185,7 @@ export class DraftService {
       service.clearPayload();
       service.cancelConfirmedPayload();
     });
-    this.clearSessionStorageData();
+    //this.clearSessionStorageData();
     this.highlightOpennessPayloadSub.next([]);
   }
 
@@ -407,21 +407,22 @@ export class DraftService {
       if (response.includes(false)) {
         this.snackbarService.showPatchMessage('error');
       } else {
-        this.clearDraftData();
+        this.clearDraftPayloadData();
         this.snackbarService.showPatchMessage('success');
       }
     } catch (error) {
       this.snackbarService.showPatchMessage('error');
       console.error(`Error in data patching`, error);
     }
+    //console.log('set draft profile data as current', this.draftProfileData);
 
-    this.profileService.setCurrentProfileData(this.draftProfileData);
+    this.profileService.setCurrentProfileData(this.getDraftProfile());
 
     await this.setProfileVisible();
     await this.pollProfile();
   }
   /*
- * Clear draft data from storage and service
+ * Clear draft data from storage and service. Used only by footer manual reset.
  */
   reset() {
     const currentProfileData = cloneDeep(
@@ -430,7 +431,8 @@ export class DraftService {
     this.draftProfileData = currentProfileData;
     this.profileService.setEditorProfileName(getName(currentProfileData));
     this.profileService.initializeProfileVisibilityAndSettings();
-    this.clearDraftData();
+    this.clearDraftPayloadData();
+    this.clearSessionStorageData();
 
     // Notify profile component to refresh view
     this.dataHasBeenReset.next(true);

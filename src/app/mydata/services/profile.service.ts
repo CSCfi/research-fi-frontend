@@ -104,6 +104,7 @@ export class ProfileService {
     this.editorProfileNameSource.next(fullName);
   }
 
+  // Represents visible profile data and is used from draft data in updates or from back end in init phase
   setCurrentProfileData(data) {
     this.currentProfileData = data;
   }
