@@ -3,6 +3,13 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 <div class="summary-panel-wrapper">
+  <div *ngIf="fieldType === fieldTypes.activityPublication" class="row gx-2">
+    <div class="d-flex mb-3">
+      <mat-checkbox [checked]="filterPeerReviewedPublications" color="primary" (change)=togglePeerReviewedFilter()>
+        Show only peer reviewed
+      </mat-checkbox>
+    </div>
+  </div>
   <div class="summary-panel" *ngFor="let item of sortedItems.slice(0, itemDisplayCount); index as i">
     <ng-container *ngIf="item.itemMeta.show && fieldType !== FieldTypes.activityActivitiesAndRewards">
       <div *ngIf="i === 0" class="year-caption">

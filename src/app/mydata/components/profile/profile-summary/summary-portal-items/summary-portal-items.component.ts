@@ -16,6 +16,7 @@ import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { HasSelectedItemsPipe } from '@mydata/pipes/has-selected-items.pipe';
 import { TertiaryButtonComponent } from '@shared/components/buttons/tertiary-button/tertiary-button.component';
 import { FilterLimitButtonComponent } from '@portal/components/filter-limit-button/filter-limit-button.component';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-summary-portal-items',
@@ -33,7 +34,8 @@ import { FilterLimitButtonComponent } from '@portal/components/filter-limit-butt
     JsonPipe,
     HasSelectedItemsPipe,
     TertiaryButtonComponent,
-    FilterLimitButtonComponent
+    FilterLimitButtonComponent,
+    MatCheckbox
   ]
 })
 
@@ -47,6 +49,7 @@ export class SummaryPortalItemsComponent implements OnInit {
 
   sortItemsByNew = sortItemsByNew;
   sortedItems: any[] = [];
+  sortedItemsTemp: any[] = [];
   yearsList = new Set([]);
 
   itemDisplayCount = 3;
@@ -59,10 +62,25 @@ export class SummaryPortalItemsComponent implements OnInit {
   noOpenAccessPublications = $localize`:@@noOpenPublicationAvailable:Ei avoimesti saatavilla olevia julkaisuja`;
 
   hasOpenPublications = false;
+  filterPeerReviewedPublications = false;
 
   constructor() {
   }
 
+  isPeerReviewed(publicationTypeCode: any){
+    return (publicationTypeCode && (publicationTypeCode[0] === 'A' || publicationTypeCode[0] === 'C'));
+  }
+
+  togglePeerReviewedFilter(){
+    this.filterPeerReviewedPublications = !this.filterPeerReviewedPublications;
+    if (this.filterPeerReviewedPublications){
+      this.sortedItemsTemp = cloneDeep(this.sortedItems);
+      this.sortedItems = this.sortedItems.filter((item) => this.isPeerReviewed(item?.publicationTypeCode));
+    }
+    else {
+      this.sortedItems = cloneDeep(this.sortedItemsTemp);
+    }
+  }
 
   comparePublicationYearsPublications(a, b) {
     return a.publicationYear - b.publicationYear;
