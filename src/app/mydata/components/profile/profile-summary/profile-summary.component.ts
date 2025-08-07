@@ -255,7 +255,7 @@ export class ProfileSummaryComponent implements OnChanges, OnDestroy, OnChanges 
         }
       }
     }
-    //this.reverseAndFormatDescriptionAndKeywords();
+    this.reverseAndFormatDescriptionAndKeywords();
   }
 
   // Merge imported items for display purposes.

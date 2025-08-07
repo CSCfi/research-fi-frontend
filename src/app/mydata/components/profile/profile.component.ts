@@ -103,7 +103,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.reloadViewData();
     this.dataHasBeenResetSub = this.draftService.dataHasBeenReset.subscribe(val => {
-      console.log('RESET SUB VAL', val);
       if (val === true) {
         this.resetProfileData();
         this.reloadViewData();
@@ -128,7 +127,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   reloadViewData() {
-    console.log('!!!! reloading view');
     this.utilityService.setMyDataTitle($localize`:@@profile:Profiili`);
 
     // Get data from resolver
