@@ -4347,8 +4347,8 @@
         <target state="new">Starting year</target>
       </trans-unit>
       <trans-unit id="discardChangesAndLogout" datatype="html">
-        <source>Hylkää muutokset</source>
-        <target state="new">Hylkää muutokset</target>
+        <source>Hylkää muutokset ja kirjaudu ulos</source>
+        <target state="new">Discard changes and sign out</target>
       </trans-unit>
       <trans-unit id="present" datatype="html">
         <source>nykyhetki</source>

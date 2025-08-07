@@ -3265,7 +3265,7 @@
         <source>Aloitusvuosi</source>
       </trans-unit>
       <trans-unit id="discardChangesAndLogout" datatype="html">
-        <source>Hylkää muutokset</source>
+        <source>Hylkää muutokset ja kirjaudu ulos</source>
       </trans-unit>
       <trans-unit id="present" datatype="html">
         <source>nykyhetki</source>

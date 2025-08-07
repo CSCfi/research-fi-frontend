@@ -420,6 +420,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (isPlatformBrowser(this.platformId)) {
       if (
         sessionStorage.getItem(Constants.draftPatchPayload) ||
+        sessionStorage.getItem(Constants.draftHighlightOpenness) ||
         sessionStorage.getItem(Constants.draftPublicationPatchPayload)
       ) {
         const logoutDialogActions = [
