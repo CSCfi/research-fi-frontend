@@ -145,10 +145,7 @@ export class ContactCardComponent implements OnInit, OnChanges {
 
         if (confirmedPayLoad.length) {
           // Set draft profile data to storage
-          sessionStorage.setItem(
-            Constants.draftProfile,
-            JSON.stringify(this.data)
-          );
+          sessionStorage.setItem(Constants.draftProfile, JSON.stringify(this.data));
         }
       }
 
