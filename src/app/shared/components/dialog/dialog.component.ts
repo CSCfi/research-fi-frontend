@@ -91,6 +91,7 @@ export class DialogComponent implements OnInit, OnDestroy, OnChanges {
 
     const dialogSettings = {
       maxWidth: wideDialog ? 'calc(100% - 3rem)' : '780px',
+      height: 'unset',
     };
 
     const smallDialogSettings = {
