@@ -369,6 +369,9 @@
       <trans-unit id="youHaveUnpublishedChangesSnackbarButton" datatype="html">
         <source>Tarkasta muutokset.</source>
       </trans-unit>
+      <trans-unit id="shareProfile" datatype="html">
+        <source> Jaa profiili </source>
+      </trans-unit>
       <trans-unit id="keywords" datatype="html">
         <source>Avainsanat</source>
       </trans-unit>
@@ -510,6 +513,9 @@
       </trans-unit>
       <trans-unit id="discardSessionChanges" datatype="html">
         <source> Hylätäänkö julkaisemattomat muutokset? </source>
+      </trans-unit>
+      <trans-unit id="toMyProfile" datatype="html">
+        <source>Julkiseen profiiliin</source>
       </trans-unit>
       <trans-unit id="contactInfo" datatype="html">
         <source>Yhteystiedot</source>
