@@ -129,31 +129,26 @@ export class AppSettingsService {
       {
         label:$localize`:@@researchersProfileNew:Oma profiili`,
         link: '/mydata/profile',
-        exact: true,
         profileTooldropdownItems: [
           {
             label: $localize`:@@navigationHeaderProfile:Profiili`,
             link: '/mydata/profile',
             exact: true,
-            showForDesktop: false,
           },
           {
             label: $localize`:@@dataAndSources:Tiedot ja tietolähteet`,
             link: '/mydata/profile/data-sources',
             exact: true,
-            showForDesktop: false,
           },
           {
             label: $localize`:@@accountSettings:Tiliasetukset`,
             link: '/mydata/profile/account-settings',
             exact: true,
-            showForDesktop: false,
           },
           {
             label: $localize`:@@logout:Kirjaudu ulos`,
             link: '/logout',
             exact: true,
-            showForDesktop: false,
           },
         ],
       },
