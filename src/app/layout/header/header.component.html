@@ -192,11 +192,10 @@
                           $event.preventDefault();  (dropdownOpen = !dropdownOpen) && (profileToolDropdownOpen = false)
                         "
                                                     [class.open]="dropdownOpen"
-                                                    [class.fw-bold]="dropdownOpen"
                                             >
                                                 <span class="label pe-2">{{ item.label }}</span>
-                                                <app-svg-sprites [iconName]="'chevron-up'" cssClass="chevron-up-icon navi-icon theme-color" *ngIf="!dropdownOpen"></app-svg-sprites>
-                                                <app-svg-sprites [iconName]="'chevron-down'" cssClass="chevron-down-icon navi-icon theme-color" *ngIf="dropdownOpen"></app-svg-sprites>
+                                                <app-svg-sprites [iconName]="'chevron-down'" cssClass="chevron-down-icon navi-icon theme-color" *ngIf="!dropdownOpen"></app-svg-sprites>
+                                                <app-svg-sprites [iconName]="'chevron-up'" cssClass="chevron-up-icon navi-icon theme-color" *ngIf="dropdownOpen"></app-svg-sprites>
                                             </a>
                                             <ul
                                                     class="dropdown"
@@ -255,6 +254,8 @@
                                   (click)="(profileToolDropdownOpen = !profileToolDropdownOpen) && (dropdownOpen = false)"
                                   (clickOutside)="onClickedOutside($event)"
                               >
+
+                                <!-- Profile tool mobile navigation dropdown menu -->
                                 <ng-container *ngIf="mobileMenu; else dropDownMenuTemplatePt">
                                   <a
                                           class="nav-item nav-link parent-link disabled-link"
@@ -269,11 +270,10 @@
                           $event.preventDefault(); (profileToolDropdownOpen = !profileToolDropdownOpen) && (dropdownOpen = false)
                         "
                                           [class.open]="profileToolDropdownOpen"
-                                          [class.fw-bold]="profileToolDropdownOpen"
                                   >
                                     <span class="label pe-2">{{ item.label }}</span>
-                                    <app-svg-sprites [iconName]="'chevron-up'" cssClass="chevron-up-icon navi-icon" *ngIf="!profileToolDropdownOpen"></app-svg-sprites>
-                                    <app-svg-sprites [iconName]="'chevron-down'" cssClass="chevron-down-icon navi-icon" *ngIf="profileToolDropdownOpen"></app-svg-sprites>
+                                    <app-svg-sprites [iconName]="'chevron-down'" cssClass="chevron-down-icon navi-icon theme-color" *ngIf="!profileToolDropdownOpen"></app-svg-sprites>
+                                    <app-svg-sprites [iconName]="'chevron-up'" cssClass="chevron-up-icon navi-icon theme-color" *ngIf="profileToolDropdownOpen"></app-svg-sprites>
                                   </a>
                                   <ul
                                           class="dropdown"
@@ -282,15 +282,17 @@
                                   >
                                     <li *ngFor="let subItem of item.profileTooldropdownItems">
                                       <a
-                                              [routerLink]="subItem.link"
                                               [routerLinkActiveOptions]="{ exact: item.exact }"
                                               routerLinkActive="active-link"
-                                              (click)="navbarOpen && toggleNavbar()"
-                                      >{{ subItem.label }}
+                                              [routerLink]="subItem.link === '/logout' ? undefined : subItem.link"
+                                              (click)="subItem.link === '/logout' ? handleLogoutAndLoginClick() : (navbarOpen && toggleNavbar())"
+                                      >{{subItem.label}}
                                       </a>
                                     </li>
                                   </ul>
                                 </ng-container>
+
+                                <!-- Profile tool desktop navigation dropdown menu -->
                                 <ng-template #dropDownMenuTemplatePt>
                                   <a
                                           href="javascript:void(0)"
@@ -313,9 +315,10 @@
                                     <button
                                             *ngFor="let subItem of item.profileTooldropdownItems"
                                             mat-menu-item
-                                            [routerLink]="subItem.link"
                                             [routerLinkActiveOptions]="{ exact: item.exact }"
                                             routerLinkActive="fw-bold"
+                                            [routerLink]="subItem.link === '/logout' ? undefined : subItem.link"
+                                            (click)="subItem.link === '/logout' ? handleLogoutAndLoginClick() : (dropdownOpen = !dropdownOpen)"
                                     >
                                       {{ subItem.label }}
                                     </button>
