@@ -47,6 +47,10 @@ app-header {
     padding-left: 2px;
   }
 
+  a {
+    color: rgba(0, 0, 0, 0.87) !important;
+  }
+
   ul.navbar-nav.main {
     justify-content: center;
   }
@@ -144,8 +148,9 @@ app-header {
 
   a.nav-item.nav-link.active-lang,
   .active-link {
-    font-weight: 500;
-    background-color: #E8E8F4;
+    &.parent-link {
+      background-color: #E8E8F4;
+    }
     &.lang-box {
       text-decoration: underline;
     }
@@ -153,7 +158,7 @@ app-header {
 
   .dropdown a.nav-item.nav-link.active-lang,
   .dropdown .active-link {
-    font-weight: bold;
+    font-weight: 500;
     background-color: transparent;
   }
 
@@ -208,7 +213,7 @@ app-header {
 
   .navbar-nav.lang {
     width: calc(100vw - 56px);
-    min-width: 340px;
+    min-width: 304px;
     max-width: 484px;
   }
 
@@ -223,7 +228,7 @@ app-header {
     overflow-x: hidden;
     // 100vw - padding
     width: calc(100vw - 40px);
-    min-width: 360px;
+    min-width: 320px;
     max-width: 500px;
     min-height: 15rem;
 
@@ -366,7 +371,10 @@ app-header {
       margin: 0;
       margin-right: 8px;
       .label {
-        margin-left: 8px;
+        margin-left: 6px;
+      }
+      &.lang-box .label {
+        margin-left: 0px;
       }
     }
 

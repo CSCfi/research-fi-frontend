@@ -80,6 +80,8 @@ export class ProfileService {
     }
   }
 
+
+
   setErrorMessage(errorMessage: string) {
     this.errorHandlerService.updateError({
       message: errorMessage,
@@ -197,6 +199,10 @@ export class ProfileService {
     }));
   }
 
+  logoutFromTool(){
+    this.oidcSecurityService.logoff();
+  }
+
   /*
    * Keycloak account is created after succesful Suomi.fi authentication.
    * Delete this account if user cancels service deployment.
@@ -232,19 +238,6 @@ export class ProfileService {
         Authorization: `Bearer ${token}`,
       }),
     };
-  }
-
-  // Draft profile is stored in session storage
-  getDraftProfile() {
-    if (this.appSettingsService.isBrowser) {
-      return sessionStorage.getItem(Constants.draftProfile);
-    }
-  }
-
-  clearDraftProfileFromSessionStorage() {
-    if (this.appSettingsService.isBrowser) {
-      sessionStorage.removeItem(Constants.draftProfile);
-    }
   }
 
   async patchSettingsData(data) {

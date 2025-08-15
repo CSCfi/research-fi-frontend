@@ -337,6 +337,7 @@ mark,
 }
 
 #main-content {
+  overflow-x: hidden;
   padding: 2.5rem 0;
   &.tt-main-content {
     background: #F7F7FB;
@@ -946,7 +947,7 @@ app-share {
 
 @media (min-width: 1200px) and (max-width: 1440px) {
   .wrapper {
-    max-width: 90vw;
+    max-width: 93vw;
     &.tt-wrapper {
       max-width: 93vw;
     }

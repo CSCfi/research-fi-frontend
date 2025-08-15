@@ -45,6 +45,7 @@ export class SummaryPortalItemsComponent implements OnInit {
   @Input() sortField: string;
   @Input() showMoreLabel: string;
   @Input() highlightOpenness: boolean;
+  @Input() isPortalSinglePage: boolean;
   fieldTypes = FieldTypes;
 
   sortItemsByNew = sortItemsByNew;
@@ -53,6 +54,8 @@ export class SummaryPortalItemsComponent implements OnInit {
   yearsList = new Set([]);
 
   itemDisplayCount = 3;
+
+  showOnlyPeerReviewed  = $localize`:@@showOnlyPeerReviewed:Näytä vain vertaisarvioidut`;
 
   showMorePrefix = $localize`:@@showAll:Näytä kaikki`;
   showLessPrefix = $localize`:@@showLess:Näytä vähemmän`;

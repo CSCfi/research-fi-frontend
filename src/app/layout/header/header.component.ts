@@ -17,7 +17,7 @@ import {
   PLATFORM_ID,
   Renderer2,
   ViewEncapsulation,
-  HostListener,
+  HostListener
 } from '@angular/core';
 import { DOCUMENT, PlatformLocation, NgClass, NgIf, NgFor } from '@angular/common';
 import { ResizeService } from 'src/app/shared/services/resize.service';
@@ -32,11 +32,13 @@ import { CMSContentService } from '@shared/services/cms-content.service';
 import { AppSettingsService } from 'src/app/shared/services/app-settings.service';
 import {
   AuthenticatedResult,
-  OidcSecurityService,
+  OidcSecurityService
 } from 'angular-auth-oidc-client';
 import { Constants } from '@mydata/constants';
 import { DraftService } from '@mydata/services/draft.service';
-import { PrimaryActionButtonComponent } from '../../shared/components/buttons/primary-action-button/primary-action-button.component';
+import {
+  PrimaryActionButtonComponent
+} from '../../shared/components/buttons/primary-action-button/primary-action-button.component';
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 import { ClickOutsideDirective } from '../../shared/directives/click-outside.directive';
 import { CloseButtonComponent } from '../../shared/components/buttons/close-button/close-button.component';
@@ -128,11 +130,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   dialogTitle: any;
   dialogActions: any[];
   basicDialogActions = [
-    { label: $localize`:@@close:Sulje`, primary: true, method: 'close' },
+    { label: $localize`:@@close:Sulje`, primary: true, method: 'close' }
   ];
 
   myDataBetaTextContent: string;
   isInMydataRoute = false;
+  isInScienceAndInnovationRoute = false;
 
   constructor(
     private resizeService: ResizeService,
@@ -161,6 +164,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   routeEvent(router: Router) {
     this.routeSub = router.events.subscribe((e) => {
+      //this.toggleNavbar();
+      //this.dropdownOpen = false;
+      //this.navbarOpen = false;
       if (e instanceof NavigationEnd) {
         if (isPlatformBrowser(this.platformId)) {
           // Check if consent has been chosen & set variable. This is used in preserving consent status between language versions
@@ -169,12 +175,23 @@ export class HeaderComponent implements OnInit, OnDestroy {
           }
         }
         if (e?.url.startsWith('/mydata')) {
-          this.profileToolDropdownOpen = true;
+          // Dropdown caret direction in init
+          this.profileToolDropdownOpen = false;
           this.isInMydataRoute = true;
         } else {
-          this.profileToolDropdownOpen = true;
+          this.profileToolDropdownOpen = false;
           this.isInMydataRoute = false;
         }
+        if (e?.url.startsWith('/science-innovation-policy')) {
+          // Dropdown caret direction in init
+          e?.url === '/science-innovation-policy' ? this.dropdownOpen = false : this.dropdownOpen = true;
+          this.dropdownOpen = false;
+          this.isInScienceAndInnovationRoute = true;
+        } else {
+          this.dropdownOpen = false;
+          this.isInScienceAndInnovationRoute = false;
+        }
+
 
         // Set tracking cookies according to consent parameter
         this.route.queryParams.pipe(take(1)).subscribe((params) => {
@@ -199,10 +216,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
             // Consent parameter is removed from url when user navigates between localized versions
             this.router.navigate([], {
               queryParams: {
-                consent: null,
+                consent: null
               },
               queryParamsHandling: 'merge',
-              replaceUrl: true,
+              replaceUrl: true
             });
           }
         });
@@ -245,8 +262,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.isAuthenticated.pipe(take(1)).subscribe((authenticated) => {
           const isAuthenticated = authenticated.isAuthenticated;
           this.isAuthenticatedBool = authenticated.isAuthenticated;
-          console.log('isAuthenticated', isAuthenticated);
-
 
 
           if (this.currentRoute.includes('/mydata') && this.currentRoute !== '/mydata') {
@@ -293,9 +308,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       });
 
       // Set banners visible when page loaded/refreshed
-      sessionStorage.setItem('researchersLoginSnackbarVisible','true');
-      sessionStorage.setItem('projectInfoBannerVisible','true');
-      sessionStorage.setItem('betaSearchBannerVisible','true');
+      sessionStorage.setItem('researchersLoginSnackbarVisible', 'true');
+      sessionStorage.setItem('projectInfoBannerVisible', 'true');
+      sessionStorage.setItem('betaSearchBannerVisible', 'true');
     }
 
     // Subscribe to consent status and set consent. This is also used in linking between language versions
@@ -375,14 +390,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
     // Toggle navbar state
     this.navbarOpen = !this.navbarOpen;
     this.profileToolDropdownOpen = this.isInMydataRoute;
+    this.dropdownOpen = this.isInScienceAndInnovationRoute;
 
     // Set the overlay lower so skip links dont mess up overlay
     if (this.navbarOpen) {
       this.document.body.classList.add('menu-open');
-/*      setTimeout(() => {
-        this.overlay &&
-        this.renderer.setStyle(this.overlay?.nativeElement, 'top', '350px');
-      }, 500);*/
+      /*      setTimeout(() => {
+              this.overlay &&
+              this.renderer.setStyle(this.overlay?.nativeElement, 'top', '350px');
+            }, 500);*/
     } else {
       this.document.body.classList.remove('menu-open');
     }
@@ -408,40 +424,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   handleLinkClick(item) {
     if (this.navbarOpen) this.toggleNavbar();
+  }
 
-    if (item.loginProcess) {
-      this.loggedIn
-        ? this.handleMyDataLogoff()
-        : this.oidcSecurityService.authorize();
-    }
+  handleLogoutAndLoginClick() {
+    if (this.navbarOpen) this.toggleNavbar();
+    this.loggedIn ? this.handleMyDataLogoff() : this.oidcSecurityService.authorize();
   }
 
   handleMyDataLogoff() {
     if (isPlatformBrowser(this.platformId)) {
-      if (
-        sessionStorage.getItem(Constants.draftPatchPayload) ||
-        sessionStorage.getItem(Constants.draftHighlightOpenness) ||
-        sessionStorage.getItem(Constants.draftPublicationPatchPayload)
-      ) {
-        const logoutDialogActions = [
-          {
-            label: $localize`:@@logout:Kirjaudu ulos`,
-            primary: true,
-            method: 'logout',
-          },
-          {
-            label: $localize`:@@cancel:Peruuta`,
-            method: 'close',
-          },
-        ];
-
-        this.openDialog(
-          'Kirjaudu ulos',
-          this.unsavedDraftTemplate,
-          logoutDialogActions
-        );
+      const draftProfile = this.draftService.getDraftProfile();
+      if (draftProfile) {
+        this.draftService.showLogoutConfirmModal.next(true);
       } else {
-        this.oidcSecurityService.logoff();
+        this.draftService.clearDraftAndLogout();
       }
     }
   }

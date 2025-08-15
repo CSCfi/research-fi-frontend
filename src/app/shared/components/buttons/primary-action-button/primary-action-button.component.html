@@ -19,9 +19,7 @@
     <span class="d-flex justify-content-center">
     <app-svg-sprites [ngClass]="{ 'd-none d-sm-inline': noSmIcon }" *ngIf="!!svgSymbolName && !iconAfter"
               [iconName]="svgSymbolName" [cssClass]="svgCssClass"></app-svg-sprites>
-
-
-    <ng-container class="d-flex">{{ content }}</ng-container>
+      <div class="d-flex">{{ content }}</div>
     <app-svg-sprites [ngClass]="{ 'd-none d-sm-inline': noSmIcon }" *ngIf="!!svgSymbolName && iconAfter"
                      [iconName]="svgSymbolName" [cssClass]="svgCssClass"></app-svg-sprites>
     </span>

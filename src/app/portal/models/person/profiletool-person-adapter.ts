@@ -229,7 +229,16 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
     };
     profileFormattedTemp.push(orcid);
 
-    profileFormattedTemp.push({settings: {'highlightOpenness': profile.settings.highlightOpeness}})
+    profileFormattedTemp.push({settings: {'highlightOpenness': profile.settings?.highlightOpeness}})
+
+    const uniqueDatasourcesStr = profile?.uniqueDataSources?.map((item) => checkTranslation('name', item.organization, localeId)).sort().join(', ');
+
+    const uniqueDataSources = {
+      id: 'uniqueDataSources',
+      label: 'Data sources',
+      value: (uniqueDatasourcesStr ? uniqueDatasourcesStr : '')
+    };
+    profileFormattedTemp.push(uniqueDataSources);
 
     return profileFormattedTemp;
   }

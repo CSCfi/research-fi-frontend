@@ -3077,6 +3077,10 @@
         <source>Tarkasta muutokset.</source>
         <target state="new">Check the changes</target>
       </trans-unit>
+      <trans-unit id="shareProfile" datatype="html">
+        <source> Jaa profiili </source>
+        <target state="new">Share profile</target>
+      </trans-unit>
       <trans-unit id="suomiFiAutheticationProblemSnackbarText" datatype="html">
         <source>Osalla käyttäjistä on ilmennyt virhetilanne Suomi.fi-tunnistautumisen jälkeen, joka estää pääsyn profiilin luontiin. Mikäli virhetilanne ilmenee, kirjautumista pääsee jatkamaan klikkaamalla &quot;Kirjaudu sisään&quot; -painiketta sivun ylälaidassa.</source>
         <target>Some users have experienced an error following Suomi.fi authentication. The error prevents access to the profile tool. In case the error occurs, the user can continue the login process by clicking &quot;Log in&quot; on top of the page.</target>
@@ -3413,6 +3417,10 @@
       <trans-unit id="activitesAndRewards" datatype="html">
         <source>aktiviteetit ja palkinnot</source>
         <target state="new">Activities and awards</target>
+      </trans-unit>
+      <trans-unit id="toMyProfile" datatype="html">
+        <source>Julkiseen profiiliin</source>
+        <target>To public profile</target>
       </trans-unit>
       <trans-unit id="mydata.profile.profile-is-hidden" datatype="html">
         <source>Olet piilottanut profiilisi Tiedejatutkimus.fi-palvelusta </source>

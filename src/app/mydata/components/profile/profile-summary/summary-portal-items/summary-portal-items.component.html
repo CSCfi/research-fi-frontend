@@ -3,10 +3,10 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 <div class="summary-panel-wrapper">
-  <div *ngIf="fieldType === fieldTypes.activityPublication" class="row gx-2">
+  <div *ngIf="isPortalSinglePage && fieldType === fieldTypes.activityPublication" class="row gx-2">
     <div class="d-flex mb-3">
       <mat-checkbox [checked]="filterPeerReviewedPublications" color="primary" (change)=togglePeerReviewedFilter()>
-        Show only peer reviewed
+        {{showOnlyPeerReviewed}}
       </mat-checkbox>
     </div>
   </div>

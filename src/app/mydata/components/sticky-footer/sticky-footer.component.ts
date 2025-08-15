@@ -1,5 +1,5 @@
-import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { AsyncPipe, isPlatformBrowser, NgIf } from '@angular/common';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AsyncPipe, NgIf } from '@angular/common';
 import { MatButton } from '@angular/material/button';
 import {
   PrimaryActionButtonComponent
@@ -12,7 +12,6 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { DialogComponent } from '@shared/components/dialog/dialog.component';
 import { DraftService } from '@mydata/services/draft.service';
 import { map } from 'rxjs/operators';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { CollaborationsService } from '@mydata/services/collaborations.service';
 import { TertiaryButtonComponent } from '@shared/components/buttons/tertiary-button/tertiary-button.component';
 
@@ -56,16 +55,14 @@ export class StickyFooterComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     public draftService: DraftService,
     public collaborationsService: CollaborationsService,
-    private oidcSecurityService: OidcSecurityService,
   ) {
-    this.profileService.initializeProfileVisibilityAndSettings();
+    //this.profileService.initializeProfileVisibilityAndSettings();
   }
 
   ngOnInit(): void {
 
     // Get data from resolver
     const orcidProfile = this.route.snapshot.data.orcidProfile;
-    const myDataProfile = this.route.snapshot.data.myDataProfile;
 
     this.orcidData = orcidProfile;
     this.orcid = orcidProfile.orcid;
@@ -170,14 +167,11 @@ export class StickyFooterComponent implements OnInit, OnDestroy {
         break;
       }
       case 'discard': {
-        this.profileService.clearDraftProfileFromSessionStorage();
-        this.draftService.reset();
+        this.draftService.clearDraftData();
         break;
       }
       case 'discardChangesAndLogout': {
-        this.profileService.clearDraftProfileFromSessionStorage();
-        this.draftService.reset();
-        this.oidcSecurityService.logoff();
+        this.draftService.clearDraftAndLogout();
         break;
       }
       case 'republish': {

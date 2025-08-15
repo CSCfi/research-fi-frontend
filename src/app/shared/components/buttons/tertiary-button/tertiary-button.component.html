@@ -12,7 +12,7 @@
     <span class="svg-pad">
     <app-svg-sprites [ngClass]="{ 'd-none d-sm-inline': noSmIcon }" *ngIf="!!svgSymbolName && !iconAfter"
                      [iconName]="svgSymbolName" [cssClass]="svgCssClass + ' icon-left'"></app-svg-sprites>
-    <ng-container class="d-flex">{{ content }}</ng-container>
+      <div [ngClass]="!!svgSymbolName ? 'd-flex' : 'd-flex text-start'">{{ content }}</div>
     <app-svg-sprites [ngClass]="{ 'd-none d-sm-inline': noSmIcon }" *ngIf="!!svgSymbolName && iconAfter"
                      [iconName]="svgSymbolName" [cssClass]="svgCssClass + ' icon-right'"></app-svg-sprites>
     </span>

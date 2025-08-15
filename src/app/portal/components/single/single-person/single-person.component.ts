@@ -14,7 +14,7 @@ import { SingleItemService } from '@portal/services/single-item.service';
 import { TabChangeService } from '@portal/services/tab-change.service';
 import { UtilityService } from '@shared/services/utility.service';
 
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { delay, map, switchMap, take } from 'rxjs/operators';
 
 import { DOCUMENT, NgIf, NgFor, NgTemplateOutlet, NgClass, AsyncPipe, JsonPipe } from '@angular/common';
@@ -46,6 +46,10 @@ import {
 } from '@mydata/components/mydata-side-navigation/mydata-side-navigation.component';
 
 import { convertToProfileToolFormat as convertToProfileToolFormat} from '@portal/models/person/profiletool-person-adapter';
+import { RelatedLinksNewComponent } from '@portal/components/single/related-links-new/related-links-new.component';
+import {
+  DataSourcesInfoCardComponent
+} from '@portal/components/single/single-person/data-sources-info-card/data-sources-info-card.component';
 
 type Field = { key: string; label?: string };
 
@@ -65,6 +69,10 @@ type Field = { key: string; label?: string };
     PersonProfileViewComponent,
     CollaborationCardComponent,
     ContactCardComponent,
+    MatCard,
+    RelatedLinksComponent,
+    RelatedLinksNewComponent,
+    DataSourcesInfoCardComponent
   ]
 })
 export class SinglePersonComponent implements OnInit {
@@ -113,8 +121,6 @@ export class SinglePersonComponent implements OnInit {
   person$: Observable<Person>;
   sortedPublications$: Observable<PersonPublication[]>;
 
-  isLoaded$: Observable<boolean>;
-
   initialItemCount = 3;
 
   maxPublicationCount = this.initialItemCount;
@@ -128,8 +134,7 @@ export class SinglePersonComponent implements OnInit {
   maxActivityAndAwardsCount = this.initialItemCount;
   showAllActivityAndAwards = false;
 
-  profileDataConverted = [];
-  $profileDataConverted: Observable<any>;
+  profileNotFound$ = new BehaviorSubject(false);
 
   constructor(
     private route: ActivatedRoute,
@@ -146,7 +151,7 @@ export class SinglePersonComponent implements OnInit {
   ngOnInit(): void {
     this.person$ = this.route.params.pipe(switchMap((params) => {
       const id = params['id'];
-      this.profileFormatted = this.getDataRaw(id);
+      this.getDataRaw(id);
       return this.singleItemService.getSinglePerson(id).pipe(map((search) => {
         return search.persons[0] as Person;
       }));
@@ -175,12 +180,12 @@ export class SinglePersonComponent implements OnInit {
   getDataRaw(id: string) {
     this.singleItemService
       .getSinglePersonRawData(id).subscribe((result: any) => {
-      if (result) {
+      if (result.hits.hits.length > 0) {
         this.profileFormatted = convertToProfileToolFormat(result.hits.hits[0]._source, this.localeId);
-        this.isLoaded$ = of(true).pipe(delay(100));
-        if (this.profileFormatted) {}
       }
-      return result;
+      else {
+        this.profileNotFound$.next(true);
+      }
     });
   }
 

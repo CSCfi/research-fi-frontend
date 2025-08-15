@@ -9,7 +9,7 @@ import {
   Component,
   OnInit,
   ViewEncapsulation,
-  ViewChild, ChangeDetectorRef, OnDestroy, Output, EventEmitter
+  ViewChild, ChangeDetectorRef, OnDestroy, Output, EventEmitter, Inject
 } from '@angular/core';
 import { ProfileService } from '@mydata/services/profile.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
@@ -24,7 +24,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { ProfileSummaryComponent } from './profile-summary/profile-summary.component';
 import { ContactCardComponent } from './cards/contact-card/contact-card.component';
 import { WelcomeDialogComponent } from './welcome-dialog/welcome-dialog.component';
-import { NgIf, AsyncPipe, JsonPipe } from '@angular/common';
+import { NgIf, AsyncPipe, JsonPipe, DOCUMENT } from '@angular/common';
 import { BannerDividerComponent } from '@shared/components/banner-divider/banner-divider.component';
 import {
   MydataSideNavigationComponent
@@ -88,7 +88,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     public draftService: DraftService,
     private utilityService: UtilityService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    @Inject(DOCUMENT) private document: any,
   ) {
     this.profileService.initializeProfileVisibilityAndSettings();
     this.fullName = this.profileService.getEditorProfileNameObservable();
@@ -163,11 +164,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
       if (parsedDraft) {
         console.log(parsedDraft);
         this.profileData = parsedDraft;
-        console.log('PROFILE FROM DRAFT', myDataProfile);
         this.profileService.setEditorProfileName(getName(parsedDraft));
       } else {
         this.profileData = myDataProfile.profileData;
-        console.log('PROFILE', myDataProfile);
         this.profileService.setEditorProfileName(myDataProfile.name);
       }
       this.fullName = this.profileService.currentEditorProfileName;

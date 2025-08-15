@@ -98,7 +98,7 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
     this.locale = this.appSettingsService.capitalizedLocale;
     this.highlightOpennessObs = this.draftService.highlightOpennessPayloadSubObs.subscribe(value => this.highlightOpenness = value);
 
-    const draftProfile = this.profileService.getDraftProfile();
+    const draftProfile = this.draftService.getDraftProfile();
     const collaborationOptions = this.collaborationsService.confirmedPayload;
 
     /*
