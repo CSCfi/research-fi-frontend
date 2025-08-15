@@ -16,8 +16,6 @@ export class ProfileEditorCardHeaderComponent {
   @Input() displayButton: boolean;
   @Output() handleOpenDialog = new EventEmitter();
 
-
-
   constructor() {}
 
   openDialog(event: MouseEvent) {
