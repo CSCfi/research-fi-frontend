@@ -20,3 +20,13 @@ h2 {
 h3 {
   font-size: 1.1rem !important;
 }
+
+.badge-mobile-wrap {
+  margin-left: -12px !important;
+}
+
+@media (max-width: 480px) {
+  .switch-choices-button {
+    width: 100px;
+  }
+}

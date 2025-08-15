@@ -36,7 +36,6 @@ export class MydataSideNavigationComponent implements OnInit, OnDestroy {
     @Inject(LOCALE_ID) protected localeId: string,
     @Inject(PLATFORM_ID) private platformId: object,
     private router: Router,
-    public profileService: ProfileService,
     private platform: PlatformLocation,
     private utilityService: UtilityService,
     private cmsContentService: CMSContentService,
@@ -49,7 +48,7 @@ export class MydataSideNavigationComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.locale = this.appSettingsService.capitalizedLocale;
-    this.draftProfile = this.profileService.getDraftProfile();
+    this.draftProfile = this.draftService.getDraftProfile();
     this.appSettings = this.appSettingsService.myDataSettings;
     this.navItems = this.appSettings.navItems;
     const currentUrl = this.router.url;
@@ -72,7 +71,7 @@ export class MydataSideNavigationComponent implements OnInit, OnDestroy {
   }
 
   logout(){
-    this.draftProfile = this.profileService.getDraftProfile();
+    this.draftProfile = this.draftService.getDraftProfile();
     if (this.draftProfile) {
       this.draftService.showLogoutConfirmModal.next(true);
     } else {

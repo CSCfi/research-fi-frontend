@@ -3,13 +3,14 @@
     <div class="col px-0">
       <!-- SECTION LABEL AND EDIT BUTTON -->
       <div class="row pb-3 justify-content-between">
-        <h2 class="col-8 col-md-6 col-lg-8 align-self-center order-1">
+        <h2 class="col order-1">
           {{ data.label }}<span
                 *ngIf="data?.items[0]?.itemMeta?.type !== fieldTypes.personResearcherDescription && data?.items[0]?.itemMeta?.type !== fieldTypes.personKeyword && data?.items[0]?.itemMeta?.type !== fieldTypes.activityAffiliation"><span *ngIf="(data| countSelectedItems) > 0"> ({{ data| countSelectedItems }})</span></span>
         </h2>
-        <div class="col-auto order-2 order-md-3">
-          <div *ngIf="!isPortalSinglePage && data?.items[0]?.itemMeta?.type !== fieldTypes.personKeyword">
+        <div class="col-auto order-2 order-md-3 gx-0 gx-sm-3">
+          <div *ngIf="!isPortalSinglePage && data?.items[0]?.itemMeta?.type !== fieldTypes.personKeyword" class="d-flex justify-content-end">
             <app-tertiary-button
+                    class="switch-choices-button"
                     [content]="(data | hasSelectedItems) ? editString : selectString"
                     [announce]="!(data | hasSelectedItems)"
                     [announceText]="data.label + ' ' + noPublicDataText"
@@ -70,14 +71,15 @@
         <div *ngFor="let item of data.items; let i = index">
           <ng-container *ngIf="(item.itemMeta.primaryValue && (item.itemMeta.show|| isPortalSinglePage))">
             <div class="row mb-4">
-            <div class="col-3 fw-bold"><div class="d-flex justify-content-center flex-column"><span
+            <div class="col-4 col-sm-3 fw-bold"><div class="d-flex justify-content-center flex-column"><span
                     *ngIf="item['organizationName' + locale]">{{ item['organizationName' + locale] }}</span></div></div>
-            <div class="col-6">
-              <div class="fw-bold d-flex"><div class="d-flex justify-content-center flex-column mb-1">{{ item['positionName' + locale] }}</div><app-general-badge class="d-flex" [textInput]="primary"></app-general-badge></div>
+            <div class="col-5 col-sm-6">
+              <div class="fw-bold d-flex"><div class="d-flex justify-content-center flex-column mb-1">{{ item['positionName' + locale] }}</div><app-general-badge class="d-none d-sm-flex ms-2" [textInput]="primary"></app-general-badge></div>
               <div><span *ngIf="item['departmentName' + locale]">{{ item['departmentName' + locale] }}</span></div>
               <div>{{ item['startDate'].year }} - {{ item['endDate'].year }}</div>
             </div>
             <div class="col-3">
+              <app-general-badge class="d-flex d-sm-none mb-4 badge-mobile-wrap" [textInput]="primary"></app-general-badge>
               <ng-container *ngFor="let ds of item.dataSources; let j = index">
                 <div *ngFor="let ds of item.dataSources; let j = index" class="font-size-smaller mt-1">
                   <span i18n="@@source">Lähde</span>:
@@ -92,9 +94,9 @@
         <div *ngFor="let item of data.items; let i = index">
           <ng-container *ngIf="(!item.itemMeta.primaryValue && (item.itemMeta.show|| isPortalSinglePage))">
             <div class="row mb-4">
-            <div class="col-3 fw-bold"><span
+            <div class="col-4 col-sm-3 fw-bold"><span
                     *ngIf="item['organizationName' + locale]">{{ item['organizationName' + locale] }}</span></div>
-            <div class="col-6">
+            <div class="col-5 col-sm-6">
               <div class="fw-bold">{{ item['positionName' + locale] }}</div>
               <div><span *ngIf="item['departmentName' + locale]">{{ item['departmentName' + locale] }}</span></div>
               <div>{{ item['startDate'].year }} - {{ item['endDate'].year }}</div>
@@ -130,6 +132,7 @@
       <!-- PUBLICATIONS -->
       <div class="pt-2" *ngIf="sectionName === groupTypes.publication">
         <app-summary-portal-items
+                [isPortalSinglePage]="isPortalSinglePage"
                 [data]="data"
                 [fieldType]="fieldTypes.activityPublication"
                 [highlightOpenness]="highlightOpenness"
@@ -142,6 +145,7 @@
       <!-- DATASETS -->
       <div class="pt-2" *ngIf="sectionName === groupTypes.dataset">
         <app-summary-portal-items
+                [isPortalSinglePage]="isPortalSinglePage"
                 [data]="data"
                 [fieldType]="fieldTypes.activityDataset"
                 sortField="year"
@@ -153,6 +157,7 @@
       <!-- FUNDING -->
       <div class="pt-2" *ngIf="sectionName === groupTypes.funding">
         <app-summary-portal-items
+                [isPortalSinglePage]="isPortalSinglePage"
                 [data]="data"
                 [fieldType]="fieldTypes.activityFunding"
                 sortField="startYear"
@@ -164,6 +169,7 @@
       <!-- ACTIVITIES AND REWARDS -->
       <div class="pt-2" *ngIf="sectionName === groupTypes.activitiesAndRewards">
         <app-summary-portal-items
+                [isPortalSinglePage]="isPortalSinglePage"
                 [data]="data | formatAndSortTimespan: groupTypes.activitiesAndRewards"
                 [fieldType]="fieldTypes.activityActivitiesAndRewards || fieldTypes.activityActivitiesAndRewardsOrcid"
                 sortField="name"

@@ -239,7 +239,7 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
       value: (uniqueDatasourcesStr ? uniqueDatasourcesStr : '')
     };
     profileFormattedTemp.push(uniqueDataSources);
-    
+
     return profileFormattedTemp;
   }
 }

@@ -10,7 +10,6 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Constants } from '@mydata/constants';
 import { getName } from '@mydata/utils';
 import { ProfileService } from '@mydata/services/profile.service';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { MatDialog } from '@angular/material/dialog';
 import { PatchService } from '@mydata/services/patch.service';
 import { CollaborationsService } from '@mydata/services/collaborations.service';
@@ -55,7 +54,6 @@ export class DraftService {
 
   constructor(private appSettingsService: AppSettingsService,
               public profileService: ProfileService,
-              public oidcSecurityService: OidcSecurityService,
               public dialog: MatDialog,
               public patchService: PatchService,
               public collaborationsService: CollaborationsService,
@@ -138,6 +136,11 @@ export class DraftService {
 
     this.hasProfile$ = this.person$.pipe(map((person) => person != null ));
     //this.fetchCollaborationChoices();
+  }
+
+  clearDraftAndLogout(){
+    this.clearDraftData();
+    this.profileService.logoutFromTool();
   }
 
   // Main method for getting draft data
@@ -302,7 +305,6 @@ export class DraftService {
   }
 
   updatePerson() {
-    console.log('this.orcid', this.orcid);
     const id = this.orcid;
     if (this.orcid) {
       const source = this.singleItemService.getSinglePerson(id);
@@ -424,7 +426,7 @@ export class DraftService {
   /*
  * Clear draft data from storage and service. Used only by footer manual reset.
  */
-  reset() {
+  clearDraftData() {
     const currentProfileData = cloneDeep(
       this.profileService.currentProfileData
     );
@@ -433,6 +435,7 @@ export class DraftService {
     this.profileService.initializeProfileVisibilityAndSettings();
     this.clearDraftPayloadData();
     this.clearSessionStorageData();
+    sessionStorage.removeItem(Constants.draftProfile);
 
     // Notify profile component to refresh view
     this.dataHasBeenReset.next(true);

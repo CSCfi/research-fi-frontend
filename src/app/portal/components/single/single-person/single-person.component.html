@@ -8,7 +8,7 @@
     <app-search-bar></app-search-bar>
   </aside>
 
-  <ng-container *ngIf='(person$ | async) == null && (isLoaded$ | async) === true'>
+  <ng-container *ngIf='(profileNotFound$ | async) === true'>
     <div class='col-12' style='margin: 10px 0 10px 0'>
       <h2 i18n='@@404'>404 - Virheellinen osoite</h2>
     </div>
@@ -40,24 +40,31 @@
         <!-- Main content -->
         <div class="col-12 col-lg-8 gx-3">
           <app-person-profile-view *ngIf="profileFormatted" [displayData]="profileFormatted" [name]="''" [orcid]="''"
-                                   [isPortalSinglePage]="true" (openDialog)="undefined" [highlightOpenness]="profileFormatted[11].settings.highlightOpenness"></app-person-profile-view>
+                                   [isPortalSinglePage]="true" (openDialog)="undefined"
+                                   [highlightOpenness]="profileFormatted[11].settings.highlightOpenness"></app-person-profile-view>
         </div>
 
         <div class="col-12 col-lg-4 gx-3">
-          <!-- Contact card in desktop view -->
+          <!-- Contact card -->
           <ng-container *ngIf="profileFormatted">
-              <app-contact-card i18n-label="@@contactInfo" label="Yhteystiedot" [data]="profileFormatted" [isEditorView]="false"></app-contact-card>
+            <app-contact-card i18n-label="@@contactInfo" label="Yhteystiedot" [data]="profileFormatted"
+                              [isEditorView]="false"></app-contact-card>
+
+            <!-- Collaboration card -->
+            <app-collaboration-card
+                    *ngIf="profileFormatted"
+                    [data]="profileFormatted"
+                    [isEditorView]="false"
+                    #collaborationComponentRef
+                    i18n-label="@@cooperation"
+                    label="Yhteistyö"
+            ></app-collaboration-card>
+
+            <!-- Data sources card -->
+            <app-data-sources-info-card [dataSources]="profileFormatted[12].value"></app-data-sources-info-card>
           </ng-container>
 
-          <!-- Collaboration -->
-              <app-collaboration-card
-                      *ngIf="profileFormatted"
-                      [data]="profileFormatted"
-                      [isEditorView]="false"
-                      #collaborationComponentRef
-                      i18n-label="@@cooperation"
-                      label="Yhteistyö"
-              ></app-collaboration-card>
+
         </div>
       </div>
 
@@ -406,9 +413,4 @@
           </div>-->
     </div>
   </ng-container>
-
-  <!-- E.g. 'Job title, Organization name' -->
-  <ng-template #affiliationPositionOrganization let-affiliation='affiliation'>
-    {{ [affiliation.positionName, affiliation.organizationName] | joinItems }}
-  </ng-template>
 </div>
