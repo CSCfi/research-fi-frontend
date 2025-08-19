@@ -2798,7 +2798,7 @@
         <target>Publish</target>
       </trans-unit>
       <trans-unit id="publishEllipsis" datatype="html">
-        <source>Siirry julkiseen profiiliin</source>
+        <source>Julkaise...</source>
         <target state="new">Publish...</target>
       </trans-unit>
       <trans-unit id="deleteProfile" datatype="html">
@@ -3078,7 +3078,7 @@
         <target state="new">Check the changes</target>
       </trans-unit>
       <trans-unit id="shareProfile" datatype="html">
-        <source> Jaa profiili </source>
+        <source>Jaa profiili</source>
         <target state="new">Share profile</target>
       </trans-unit>
       <trans-unit id="suomiFiAutheticationProblemSnackbarText" datatype="html">
@@ -3419,8 +3419,8 @@
         <target state="new">Activities and awards</target>
       </trans-unit>
       <trans-unit id="toMyProfile" datatype="html">
-        <source>Julkiseen profiiliin</source>
-        <target>To public profile</target>
+        <source>Siirry julkiseen profiiliin</source>
+        <target state="new">To public profile</target>
       </trans-unit>
       <trans-unit id="mydata.profile.profile-is-hidden" datatype="html">
         <source>Olet piilottanut profiilisi Tiedejatutkimus.fi-palvelusta </source>
@@ -4393,6 +4393,14 @@
       <trans-unit id="unpublishedChanges" datatype="html">
         <source>Julkaisemattomia muutoksia</source>
         <target state="new">Unpublished changes</target>
+      </trans-unit>
+      <trans-unit id="showOnlyPeerReviewed" datatype="html">
+        <source>Näytä vain vertaisarvioidut</source>
+        <target state="new">Näytä vain vertaisarvioidut</target>
+      </trans-unit>
+      <trans-unit id="researchersSectionIncoming" datatype="html">
+        <source>Tutkijan (tulossa)</source>
+        <target state="new">Tutkijan (tulossa)</target>
       </trans-unit>
     </body>
   </file>
