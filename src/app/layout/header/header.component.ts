@@ -266,9 +266,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
           if (this.currentRoute.includes('/mydata') && this.currentRoute !== '/mydata') {
             this.loggedIn = isAuthenticated;
-            if (!isAuthenticated) {
-              this.router.navigate(['/mydata']);
-            }
+
             /*            // Hide navigation links other than login if user hasn't authenticated
                         this.navigationLinks = isAuthenticated
                           ? navItems
