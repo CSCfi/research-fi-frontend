@@ -63,7 +63,7 @@ import {
   ]
 })
 export class ProfileComponent implements OnInit, OnDestroy {
-  @Output() emitHighlightOpenness = new EventEmitter<boolean>();
+  @Output() emitHighlightOpenness = new BehaviorSubject<boolean>(false);
   @ViewChild('collaborationComponentRef') collaborationComponentRef;
 
   highlightOpennessSub = new BehaviorSubject(undefined);
@@ -113,7 +113,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   updateHighlightOpennessUiState(state: boolean){
-    this.emitHighlightOpenness.emit(state);
+    this.emitHighlightOpenness.next(state);
     this.highlightOpennessSub.next(state);
   }
 
@@ -142,7 +142,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
      * Drafts are deleted with reset and publish methods
      */
     this.profileService.initializeProfileVisibilityAndSettings().then(val => {
-      if (val?.data?.highlightOpeness) {
+      if (val) {
         const draftHighlightOpennessState = this.draftService.getDraftHighlightOpennessState();
         if (draftHighlightOpennessState) {
           // State from draft
