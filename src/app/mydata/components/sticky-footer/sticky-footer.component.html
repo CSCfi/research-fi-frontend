@@ -47,7 +47,7 @@
               <div class="d-none d-sm-flex  justify-content-center flex-column ms-2">
                 <div class="notification-circle"></div>
               </div>
-              <div class="align-content-center d-none d-sm-block me-2">{{unpublishedChanges}}</div>
+              <div class="align-content-center d-none d-sm-block me-4">{{unpublishedChanges}}</div>
             </ng-container>
             <app-primary-action-button class="col-auto pe-2" i18n-content="@@publishEllipsis" content="Julkaise..."
                                        [disabled]="!(((isDraftProfileChanged) | async) && (isProfileVisible | async))"

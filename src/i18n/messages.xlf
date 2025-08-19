@@ -370,7 +370,7 @@
         <source>Tarkasta muutokset.</source>
       </trans-unit>
       <trans-unit id="shareProfile" datatype="html">
-        <source> Jaa profiili </source>
+        <source>Jaa profiili</source>
       </trans-unit>
       <trans-unit id="keywords" datatype="html">
         <source>Avainsanat</source>
@@ -506,7 +506,7 @@
         <source>Olet piilottanut profiilisi Tiedejatutkimus.fi-palvelusta </source>
       </trans-unit>
       <trans-unit id="publishEllipsis" datatype="html">
-        <source>Siirry julkiseen profiiliin</source>
+        <source>Julkaise...</source>
       </trans-unit>
       <trans-unit id="discardChanges" datatype="html">
         <source>Hylkää muutokset</source>
@@ -515,7 +515,7 @@
         <source> Hylätäänkö julkaisemattomat muutokset? </source>
       </trans-unit>
       <trans-unit id="toMyProfile" datatype="html">
-        <source>Julkiseen profiiliin</source>
+        <source>Siirry julkiseen profiiliin</source>
       </trans-unit>
       <trans-unit id="contactInfo" datatype="html">
         <source>Yhteystiedot</source>
@@ -3299,6 +3299,12 @@
       </trans-unit>
       <trans-unit id="unpublishedChanges" datatype="html">
         <source>Julkaisemattomia muutoksia</source>
+      </trans-unit>
+      <trans-unit id="researchersSectionIncoming" datatype="html">
+        <source>Tutkijan (tulossa)</source>
+      </trans-unit>
+      <trans-unit id="showOnlyPeerReviewed" datatype="html">
+        <source>Näytä vain vertaisarvioidut</source>
       </trans-unit>
     </body>
   </file>

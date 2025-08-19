@@ -111,8 +111,14 @@ export class SummaryPortalItemsComponent implements OnInit {
 
     if (this.fieldType === FieldTypes.activityPublication) {
       if (this.highlightOpenness && dataCopy?.items) {
-        const openPublications = dataCopy.items.filter(item => item.openAccess !== 0 || (item.selfArchivedCode && item.selfArchivedCode !== '0')).sort(this.comparePublicationYearsPublications).reverse();
-        this.hasOpenPublications = (openPublications.length > 0);
+        let openPublications = dataCopy.items.filter(item => item.openAccess !== 0 || (item.selfArchivedCode && item.selfArchivedCode !== '0')).sort(this.comparePublicationYearsPublications).reverse();
+        if (openPublications.length > 0) {
+          openPublications = openPublications.filter((item) => item.itemMeta.show);
+          this.hasOpenPublications = (openPublications.length > 0);
+        } else {
+          this.hasOpenPublications = false;
+        }
+
         const nonOpenPublications = dataCopy.items.filter(item => !(item.openAccess !== 0 || (item.selfArchivedCode && item.selfArchivedCode !== '0'))).sort(this.comparePublicationYearsPublications).reverse();
         const concatPublications = openPublications.concat(nonOpenPublications);
 
