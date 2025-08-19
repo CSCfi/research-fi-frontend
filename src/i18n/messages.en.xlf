@@ -4396,7 +4396,7 @@
       </trans-unit>
       <trans-unit id="showOnlyPeerReviewed" datatype="html">
         <source>Näytä vain vertaisarvioidut</source>
-        <target state="new">Näytä vain vertaisarvioidut</target>
+        <target state="new">Show only peer-reviewed</target>
       </trans-unit>
       <trans-unit id="researchersSectionIncoming" datatype="html">
         <source>Tutkijan (tulossa)</source>
