@@ -95,7 +95,8 @@ export class DraftService {
 
       // Profile, publications, datasets, collaborations and fundings have separate draft data
       const draftItems = [
-        { payload: draftPatchPayload, service: this.patchService },
+        { payload: draftPatchPayload,
+          service: this.patchService },
         {
           payload: draftPublicationPatchPayload,
           service: this.publicationsService
@@ -409,7 +410,11 @@ export class DraftService {
       if (response.includes(false)) {
         this.snackbarService.showPatchMessage('error');
       } else {
-        this.clearDraftPayloadData();
+        //this.clearDraftPayloadData();
+        // Timeout to wait back end to save the data
+        setTimeout(() => {
+          this.clearDraftData();
+        }, 500);
         this.snackbarService.showPatchMessage('success');
       }
     } catch (error) {
