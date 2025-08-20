@@ -25,6 +25,17 @@ h3 {
   margin-left: -12px !important;
 }
 
+app-sort-dropdown-menu {
+  position: static;
+  z-index: 50;
+  height: 0px;
+  width: 1px;
+}
+
+.sort-button {
+  z-index: 51;
+}
+
 @media (max-width: 480px) {
   .switch-choices-button {
     width: 100px;

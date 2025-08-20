@@ -4405,6 +4405,18 @@
         <source>Tutkijan (tulossa)</source>
         <target state="new">Tutkijan (tulossa)</target>
       </trans-unit>
+      <trans-unit id="sortBy" datatype="html">
+        <source>Lajittele</source>
+        <target state="new">Sortera</target>
+      </trans-unit>
+      <trans-unit id="sortByYear" datatype="html">
+        <source>vuoden mukaan</source>
+        <target state="new">enligt år</target>
+      </trans-unit>
+      <trans-unit id="sortByOpenness" datatype="html">
+        <source>avoimen saatavuuden mukaan </source>
+        <target state="new">enligt öppen tillgång</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
