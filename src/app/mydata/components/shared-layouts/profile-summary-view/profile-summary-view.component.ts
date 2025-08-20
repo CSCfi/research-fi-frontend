@@ -3,7 +3,7 @@ import { sortItemsByNew } from '@mydata/utils';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { GetItemsByPipe } from '@mydata/pipes/get-items-by.pipe';
 import { SummaryDividerComponent } from '@mydata/components/profile/profile-summary/summary-divider/summary-divider.component';
-import { NgIf, NgFor, NgSwitch, NgSwitchCase, NgSwitchDefault, JsonPipe } from '@angular/common';
+import { NgIf, NgFor, NgSwitch, NgSwitchCase, NgSwitchDefault, JsonPipe, AsyncPipe } from '@angular/common';
 import { ModelUtilsService } from '@shared/services/model-util.service';
 import { CheckLangPipe} from '@mydata/pipes/check-lang.pipe';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
@@ -21,6 +21,10 @@ import {
 import { FormatAndSortTimespanPipe } from '@shared/pipes/format-and-sort-timespan.pipe';
 import { GeneralBadgeComponent } from '@shared/components/general-badge/general-badge.component';
 import { CountSelectedItemsPipe } from '@mydata/pipes/count-selected-items.pipe';
+import {
+  SortDropdownMenuComponent
+} from '@mydata/components/shared-layouts/profile-summary-view/sort-dropdown-menu/sort-dropdown-menu.component';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-profile-summary-view',
@@ -44,7 +48,9 @@ import { CountSelectedItemsPipe } from '@mydata/pipes/count-selected-items.pipe'
     SummaryPortalItemsComponent,
     FormatAndSortTimespanPipe,
     GeneralBadgeComponent,
-    CountSelectedItemsPipe
+    CountSelectedItemsPipe,
+    SortDropdownMenuComponent,
+    AsyncPipe
   ]
 })
 
@@ -62,7 +68,15 @@ export class ProfileSummaryViewComponent implements OnInit  {
   selectString = CommonStrings.select;
   noPublicDataText = $localize`:@@youHaveNotSelectedAnyPublicData:Et ole vielä valinnut julkisesti näytettäviä tietoja`;
 
+  sortByText = $localize`:@@sortBy:Lajittele`;
+  byYearText = $localize`:@@sortByYear:vuoden mukaan`;
+  byOpennessText = $localize`:@@sortByOpenness:avoimen saatavuuden mukaan`;
+
+  highlightOpennessDropdownSelection = new BehaviorSubject(undefined);
+  highlightOpennessState = new BehaviorSubject(false);
+
   sortItemsByNew = sortItemsByNew;
+  showSortMenu = false;
 
   locale = 'Fi';
 
@@ -89,6 +103,15 @@ export class ProfileSummaryViewComponent implements OnInit  {
     this.openDialogCall.emit(index);
   }
 
+  showSortMenuClick() {
+    this.showSortMenu = !this.showSortMenu;
+  }
+
+  setHighlightingOpennessSelection(input: number) {
+    this.highlightOpennessDropdownSelection.next(input);
+    this.highlightOpennessState.next(input === 0 ? true : false);
+  }
+
   ngOnInit(): void {
     switch (this.sectionName) {
       case 'education': {
@@ -96,6 +119,8 @@ export class ProfileSummaryViewComponent implements OnInit  {
       }
     }
     this.locale = this.appSettingsService.capitalizedLocale;
+    this.highlightOpennessDropdownSelection.next(this.highlightOpenness === true ? 0 : 1);
+    this.highlightOpennessState.next(this.highlightOpenness);
   }
 
   protected readonly fieldTypes = FieldTypes;

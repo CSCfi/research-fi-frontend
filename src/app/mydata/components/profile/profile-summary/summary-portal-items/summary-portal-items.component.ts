@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges, OnChanges } from '@angular/core';
 import { mergePublications, sortItemsByNew } from '@mydata/utils';
 import { cloneDeep } from 'lodash-es';
 import { MatButton } from '@angular/material/button';
@@ -39,7 +39,7 @@ import { MatCheckbox } from '@angular/material/checkbox';
   ]
 })
 
-export class SummaryPortalItemsComponent implements OnInit {
+export class SummaryPortalItemsComponent implements OnInit, OnChanges {
   @Input() data: any;
   @Input() fieldType: any;
   @Input() sortField: string;
@@ -74,6 +74,10 @@ export class SummaryPortalItemsComponent implements OnInit {
     return (publicationTypeCode && (publicationTypeCode[0] === 'A' || publicationTypeCode[0] === 'C'));
   }
 
+  ngOnChanges(): void {
+    this.init();
+  }
+  
   togglePeerReviewedFilter(){
     this.filterPeerReviewedPublications = !this.filterPeerReviewedPublications;
     if (this.filterPeerReviewedPublications){
@@ -106,8 +110,12 @@ export class SummaryPortalItemsComponent implements OnInit {
     return 0;
   }
 
-  ngOnInit(): void {
-    let dataCopy = cloneDeep(this.data);
+  ngOnInit() {
+    this.init();
+  }
+
+  init(): void {
+    const dataCopy = cloneDeep(this.data);
 
     if (this.fieldType === FieldTypes.activityPublication) {
       if (this.highlightOpenness && dataCopy?.items) {

@@ -1,4 +1,4 @@
-<div *ngIf="!isPortalSinglePage || ((data | hasSelectedItems) && isPortalSinglePage)" class="group-wrapper py-3">
+<div *ngIf="!isPortalSinglePage || ((data | hasSelectedItems) && isPortalSinglePage)" class="group-wrapper py-3 ps-2 pe-3">
   <div class="row py-2">
     <div class="col px-0">
       <!-- SECTION LABEL AND EDIT BUTTON -->
@@ -7,7 +7,7 @@
           {{ data.label }}<span
                 *ngIf="data?.items[0]?.itemMeta?.type !== fieldTypes.personResearcherDescription && data?.items[0]?.itemMeta?.type !== fieldTypes.personKeyword && data?.items[0]?.itemMeta?.type !== fieldTypes.activityAffiliation"><span *ngIf="(data| countSelectedItems) > 0"> ({{ data| countSelectedItems }})</span></span>
         </h2>
-        <div class="col-auto order-2 order-md-3 gx-0 gx-sm-3">
+        <div class="col-6 order-2 order-md-3 gx-0 gx-sm-3">
           <div *ngIf="!isPortalSinglePage && data?.items[0]?.itemMeta?.type !== fieldTypes.personKeyword" class="d-flex justify-content-end">
             <app-tertiary-button
                     class="switch-choices-button"
@@ -18,6 +18,18 @@
                     [svgCssClass]="'open_in_new-icon button-icon'"
                     (click)="openDialog($event, sectionIndex + 1)"
             ></app-tertiary-button>
+          </div>
+          <div *ngIf="isPortalSinglePage && data?.items[0]?.itemMeta?.type === fieldTypes.activityPublication" class="d-flex justify-content-end">
+
+            <!-- Sort publications button -->
+            <app-tertiary-button
+                    class="sort-button"
+                    [content]="(highlightOpennessState | async) === true ? (sortByText + ': ' + byOpennessText) : (sortByText + ': ' + byYearText)"
+                    [svgSymbolName]="'sliders'"
+                    [svgCssClass]="'sliders-icon button-icon'"
+                    (click)="showSortMenuClick()"
+            ></app-tertiary-button>
+            <app-sort-dropdown-menu [showMenuTrigger]="showSortMenu" [selection]="highlightOpennessDropdownSelection | async" (valueChange)="setHighlightingOpennessSelection($event)"></app-sort-dropdown-menu>
           </div>
         </div>
       </div>
@@ -135,7 +147,7 @@
                 [isPortalSinglePage]="isPortalSinglePage"
                 [data]="data"
                 [fieldType]="fieldTypes.activityPublication"
-                [highlightOpenness]="highlightOpenness"
+                [highlightOpenness]="highlightOpennessState | async"
                 sortField="publicationYear"
                 showMoreLabel="julkaisut"
                 i18n-showMoreLabel="@@publications"
