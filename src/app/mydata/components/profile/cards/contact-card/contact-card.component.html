@@ -3,105 +3,11 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<app-profile-editor-card-header
-  [label]="label"
-  [displayButton]="(this.publishedFullname?.length > 0) || (contactFields | hasSelectedItems)"
-  (handleOpenDialog)="openDialog($event)"
-></app-profile-editor-card-header>
-
-<app-empty-card
-  *ngIf="!(this.publishedFullname?.length > 0) && !(contactFields | hasSelectedItems)"
-  (onButtonClick)="openDialog($event)"
-></app-empty-card>
-
-<div class="d-block mt-3">
-  <div *ngIf="this.publishedFullname && !(contactFields | hasSelectedItems)">
-    <div class="row py-2">
-      <div class="col px-0">
-            <span
-              class="fw-bold d-inline-block pe-3"
-              *ngIf="data[0].fields.length > 1"
-            >{{ this.publishedFullnameLabel }}
-            </span>
-        <span>{{this.publishedFullname}}</span>
-      </div>
-    </div>
-  </div>
-
-  <ng-container *ngFor="let field of contactFields; let i = index">
-    <ng-container [ngSwitch]="field.id">
-      <ng-container *ngSwitchCase="'name'">
-        <ng-container *ngFor="let item of field.items">
-        <div
-          class="row py-2"
-          *ngIf="item.itemMeta.show === true"
-        >
-          <div class="col px-0">
-            <span
-              class="fw-bold d-inline-block pe-3"
-              *ngIf="data[0].fields.length > 1"
-            >{{ field.label }}
-            </span>
-            <span>{{item.value}}</span>
-          </div>
-        </div>
-        </ng-container>
-      </ng-container>
-      <ng-container *ngSwitchCase="'otherNames'">
-        <div
-          class="row py-2"
-          *ngIf="(field.items | filter: checkGroupSelected).length"
-        >
-          <div class="col px-0">
-            <span
-              class="fw-bold d-inline-block pe-3"
-              *ngIf="data[0].fields.length > 1"
-              >{{ field.label }}
-            </span>
-            <span>{{ field.items | joinAllGroupItems }}</span>
-          </div>
-        </div>
-      </ng-container>
-
-      <ng-container *ngSwitchDefault>
-        <ng-container *ngFor="let item of field.items">
-          <div class="row py-1" *ngIf="item.itemMeta.show">
-            <div class="col px-0">
-                <app-svg-sprites *ngIf="item.icon" [iconName]="item.icon" cssClass="contact-icon" class="pe-3"></app-svg-sprites>
-              <ng-container [ngSwitch]="item.itemMeta.type">
-                <!-- Links -->
-                <a
-                  *ngSwitchCase="fieldTypes.personWebLink"
-                  target="_blank"
-                  [attr.href]="item.url"
-                  >{{ item.url }}<app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon contact-icon"></app-svg-sprites></a>
-                <!-- Email -->
-                <a
-                  *ngSwitchCase="fieldTypes.personEmailAddress"
-                  [href]="'mailto:' + item.value"
-                  >{{ item.value }}
-                </a>
-                <!-- Default -->
-                <ng-container *ngSwitchDefault>
-
-                  <!-- TODO: Even in used or working? groupItem is undefined variable -->
-                  <!--<app-panel-array-item
-                    [item]="item"
-                    [fieldType]="groupItem"
-                  ></app-panel-array-item-->
-                ></ng-container>
-              </ng-container>
-            </div>
-          </div>
-        </ng-container>
-      </ng-container>
-    </ng-container>
-  </ng-container>
-</div>
+<app-contact-info-view [label]="label" [contactFields]="contactFields" [data]="data" (handleOpenDialog)="openDialog($event)" [isEditorView]="isEditorView"></app-contact-info-view>
 
 <ng-container *ngIf="showDialog">
   <app-editor-modal
-    [dialogData]="dialogData"
-    (onEditorClose)="handleChanges($event)"
+          [dialogData]="dialogData"
+          (onEditorClose)="handleChanges($event)"
   ></app-editor-modal>
 </ng-container>

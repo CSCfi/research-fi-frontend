@@ -2,23 +2,57 @@
  Copyright 2019 Ministry of Education and Culture, Finland
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
-
 <div class="summary-panel-wrapper">
-  <div class="summary-panel" *ngFor="let item of sortedItems.slice(0, itemDisplayCount)">
-    <ng-container *ngIf="item.itemMeta.show">
+  <div *ngIf="isPortalSinglePage && fieldType === fieldTypes.activityPublication" class="row gx-2">
+    <div class="d-flex mb-3">
+      <mat-checkbox [checked]="filterPeerReviewedPublications" color="primary" (change)=togglePeerReviewedFilter()>
+        {{showOnlyPeerReviewed}}
+      </mat-checkbox>
+    </div>
+  </div>
+  <div class="summary-panel" *ngFor="let item of sortedItems.slice(0, itemDisplayCount); index as i">
+    <ng-container *ngIf="item.itemMeta.show && fieldType !== FieldTypes.activityActivitiesAndRewards">
+      <div *ngIf="i === 0" class="year-caption">
+        <h3 *ngIf="hasOpenPublications && highlightOpenness && fieldType === fieldTypes.activityPublication">{{openAccessPublications}}</h3>
+        <h3 *ngIf="!hasOpenPublications && highlightOpenness && fieldType === fieldTypes.activityPublication">{{noOpenAccessPublications}}</h3>
+        <span *ngIf="fieldType === fieldTypes.activityDataset">{{sortedItems.slice(0, itemDisplayCount)[i].year}}</span>
+      </div>
+      <!-- PUBLICATIONS YEAR-->
+      <div class="year-caption"><h3 *ngIf="item?.nonOpenCaptionRow && highlightOpenness">{{otherPublications}}</h3></div>
+      <div class="year-caption">{{sortedItems.slice(0, itemDisplayCount)[i].publicationYear}}</div>
+      <div *ngIf="i > 0 && sortedItems.slice(0, itemDisplayCount)[i].publicationYear !== sortedItems.slice(0, itemDisplayCount)[i-1].publicationYear" class="year-caption">
+      </div>
+      <!-- DATASETS YEAR -->
+      <div *ngIf="i > 0 && sortedItems.slice(0, itemDisplayCount)[i].year !== sortedItems.slice(0, itemDisplayCount)[i-1].year" class="year-caption">
+        {{sortedItems.slice(0, itemDisplayCount)[i].publicationYear}}
+        <span *ngIf="fieldType === fieldTypes.activityDataset">{{sortedItems.slice(0, itemDisplayCount)[i].year}}</span>
+      </div>
+
+      <!-- SHARED ROW CONTENT -->
       <div class="row">
-        <div class="col font-size-smaller">
+        <div [ngClass]="fieldType === FieldTypes.activityPublication || fieldType === FieldTypes.activityDataset ? 'col' : 'col'">
           <app-panel-array-item [item]="item" [fieldType]="fieldType" [summary]="true"></app-panel-array-item>
         </div>
       </div>
-
+      <div class="row">
       <app-summary-divider></app-summary-divider>
+      </div>
     </ng-container>
+
+    <!-- ACTIVITIES AND REWARDS -->
+    <div *ngIf="fieldType === FieldTypes.activityActivitiesAndRewards || fieldType === FieldTypes.activityActivitiesAndRewardsOrcid" class="row">
+      <div class="col">
+        <app-panel-array-item [item]="item" [fieldType]="fieldType" [summary]="true"></app-panel-array-item>
+      </div>
+      <app-summary-divider></app-summary-divider>
+    </div>
+
   </div>
 </div>
 
-<div class="row justify-content-center">
-  <button *ngIf="sortedItems.length > 3 && itemDisplayCount === 3" class="col-auto" mat-button (click)="showAllItems()" color="primary">
-    {{ showMorePrefix }} {{ showMoreLabel | lowercase }}
-  </button>
+<div class="row justify-content-center mt-4">
+  <div>
+  <app-tertiary-button *ngIf="sortedItems.length > 3 && itemDisplayCount === 3"  content="{{ showMorePrefix }} {{ showMoreLabel | lowercase }}" [svgSymbolName]="'chevron-down'" [svgCssClass]="'chevron-down-icon tertiary-button-icon'" [iconAfter]="true" (click)="showAllItems()"></app-tertiary-button>
+    <app-tertiary-button *ngIf="sortedItems.length > 3 && itemDisplayCount !== 3" content="{{ showLessPrefix }}" [svgSymbolName]="'chevron-up'" [svgCssClass]="'chevron-up-icon tertiary-button-icon'" [iconAfter]="true" (click)="showLessItems()"></app-tertiary-button>
+  </div>
 </div>

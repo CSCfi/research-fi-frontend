@@ -32,6 +32,12 @@
     //font-size: 0.85rem;
     height: 16px;
     margin-top: 1px;
+    font-size: 13px;
+    font-weight: 400;
+  }
+
+  .text-wrapper {
+    white-space: nowrap;
   }
 
   .mat-icon[data-mat-icon-name='general.unlocked.openAccess'] {

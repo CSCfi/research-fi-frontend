@@ -1,0 +1,11 @@
+<nav>
+  <ul>
+    <ng-container *ngFor="let item of navItems">
+      <li>
+        <div class="side-navi-button" role="button" [class]="item?.active === true ? 'active' : ''"
+             (click)="navigateTo(item.link)">{{ item?.label }}
+        </div>
+      </li>
+    </ng-container>
+  </ul>
+</nav>

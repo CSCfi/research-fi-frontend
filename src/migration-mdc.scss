@@ -237,6 +237,7 @@ mat-chip-option {
   height: 16px !important;
   padding: 12px 10px !important;
   --mdc-checkbox-selected-checkmark-color: #fff;
+  --mdc-checkbox-selected-icon-color: #4546b9;
 }
 
 .mdc-checkbox__background {
@@ -262,11 +263,18 @@ app-activity-item {
 
 mat-checkbox, .mdc-form-field.mat-internal-form-field {
   width: 100% !important;
-  white-space: nowrap !important;
+}
+
+app-table {
+  mat-checkbox, .mdc-form-field.mat-internal-form-field {
+    white-space: nowrap !important;
+  }
 }
 
 app-collaboration-card .mdc-form-field.mat-internal-form-field {
   white-space: initial !important;
+  line-height: 1.1rem;
+  margin-bottom: 8px;
 }
 
 // Expansion panel's content in search pages

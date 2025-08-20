@@ -95,7 +95,6 @@ export class CollaborationsService {
 
   cancelConfirmedPayload() {
     this.clearPayload();
-    this.confirmedPayload = [];
     this.confirmedPayloadSource.next([]);
   }
 

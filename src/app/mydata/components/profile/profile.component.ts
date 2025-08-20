@@ -9,174 +9,90 @@ import {
   Component,
   OnInit,
   ViewEncapsulation,
-  ViewChild,
-  ElementRef,
-  OnDestroy,
+  ViewChild, ChangeDetectorRef, OnDestroy, Output, EventEmitter, Inject
 } from '@angular/core';
 import { ProfileService } from '@mydata/services/profile.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { map, takeUntil } from 'rxjs/operators';
-import { MatDialog } from '@angular/material/dialog';
-import { mergePublications } from '@mydata/utils';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DraftService } from '@mydata/services/draft.service';
-import { PatchService } from '@mydata/services/patch.service';
-import { SnackbarService } from '@mydata/services/snackbar.service';
-import { Constants } from '@mydata/constants/';
-import { PublicationsService } from '@mydata/services/publications.service';
 import { CommonStrings } from '@mydata/constants/strings';
 import { getName } from '@mydata/utils';
 import { UtilityService } from '@shared/services/utility.service';
-import { DatasetsService } from '@mydata/services/datasets.service';
-import { FundingsService } from '@mydata/services/fundings.service';
-import { CollaborationsService } from '@mydata/services/collaborations.service';
-import { lastValueFrom, Observable, Subject, timer, BehaviorSubject, combineLatest } from 'rxjs';
-import { cloneDeep } from 'lodash-es';
-import { Person } from '@portal/models/person/person.model';
-import { SingleItemService } from '@portal/services/single-item.service';
-import { DialogComponent } from '../../../shared/components/dialog/dialog.component';
 import { MydataBetaInfoComponent } from '../mydata-beta-info/mydata-beta-info.component';
 import { CollaborationCardComponent } from './cards/collaboration-card/collaboration-card.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { ProfileSummaryComponent } from './profile-summary/profile-summary.component';
 import { ContactCardComponent } from './cards/contact-card/contact-card.component';
-import { DraftSummaryComponent } from './draft-summary/draft-summary.component';
-import { MatButton } from '@angular/material/button';
-import { PrimaryActionButtonComponent } from '../../../shared/components/buttons/primary-action-button/primary-action-button.component';
 import { WelcomeDialogComponent } from './welcome-dialog/welcome-dialog.component';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { NgIf, AsyncPipe, JsonPipe, DOCUMENT } from '@angular/common';
 import { BannerDividerComponent } from '@shared/components/banner-divider/banner-divider.component';
+import {
+  MydataSideNavigationComponent
+} from '@mydata/components/mydata-side-navigation/mydata-side-navigation.component';
+import { StickyFooterComponent } from '@mydata/components/sticky-footer/sticky-footer.component';
+import {
+  NameAndOrcidViewComponent
+} from '@mydata/components/shared-layouts/name-and-orcid-view/name-and-orcid-view.component';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { cloneDeep } from 'lodash-es';
+import {
+  OpenScienceSettingsCardComponent
+} from '@mydata/components/profile/cards/open-science-settings-card/open-science-settings-card.component';
 
 @Component({
-    selector: 'app-profile',
-    templateUrl: './profile.component.html',
-    styleUrls: ['./profile.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    standalone: true,
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  standalone: true,
   imports: [
     NgIf,
     WelcomeDialogComponent,
-    PrimaryActionButtonComponent,
-    MatButton,
-    DraftSummaryComponent,
-    RouterLink,
     ContactCardComponent,
     ProfileSummaryComponent,
     MatProgressSpinner,
     CollaborationCardComponent,
     MydataBetaInfoComponent,
-    DialogComponent,
     AsyncPipe,
-    BannerDividerComponent
+    BannerDividerComponent,
+    MydataSideNavigationComponent,
+    StickyFooterComponent,
+    JsonPipe,
+    NameAndOrcidViewComponent,
+    OpenScienceSettingsCardComponent
   ]
 })
 export class ProfileComponent implements OnInit, OnDestroy {
+  @Output() emitHighlightOpenness = new BehaviorSubject<boolean>(false);
   @ViewChild('collaborationComponentRef') collaborationComponentRef;
 
-  orcidData: any;
+  highlightOpennessSub = new BehaviorSubject(undefined);
+
   profileData: any;
-  testData: any;
   orcid: string;
-  currentProfileName: string;
+  fullName: Observable<string>;
 
   publishUpdatedProfile = $localize`:@@publishUpdatedProfile:Julkaise päivitetty profiili`;
   discardChanges = $localize`:@@discardChanges:Hylkää muutokset`;
   termsForTool = CommonStrings.termsForTool;
   processingOfPersonalData = CommonStrings.processingOfPersonalData;
 
-  republishUpdatedProfile = $localize`:@@mydata.profile.republish-modal.title:Julkaise piilotettu profiili`;
-  republishText = $localize`:@@publish:Julkaise`;
-
-  // Dialog variables
-  showDialog: boolean;
-  dialogTitle: any;
-  dialogTemplate: any;
-  dialogExtraContentTemplate: any;
-  currentDialogActions: any[];
-  disableDialogClose: boolean;
-  showDataToPublish = $localize`:@@showDataToPublish:Näytä julkaistavat tiedot`;
-  basicDialogActions = [
-    { label: $localize`:@@close:Sulje`, primary: true, method: 'close' },
-  ];
-  publishUpdatedProfileDialogActions = [
-    {
-      label: this.showDataToPublish,
-      labelToggle: {
-        on: this.showDataToPublish,
-        off: $localize`:@@hideDataToPublish:Piilota julkaistavat tiedot`,
-      },
-      primary: false,
-      method: 'preview',
-      flexStart: true,
-    },
-    { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'cancel' },
-    { label: $localize`:@@publish:Julkaise`, primary: true, method: 'publish' },
-  ];
-  discardChangesActions = [
-    { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'close' },
-    {
-      label: this.discardChanges,
-      primary: true,
-      method: 'discard',
-    },
-  ];
-
-  republishActions = [
-    { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'close' },
-    {
-      label: this.republishText,
-      primary: true,
-      method: 'republish',
-    },
-  ];
-
-  connProblem: boolean;
-  loading: boolean;
-
-  draftPayload: any[];
-
   previousRoute: string | undefined;
   showWelcomeDialog = false;
-
-  private unsubscribe = new Subject();
-
-  // person$: Observable<Person>;
-  person$ = new BehaviorSubject<Person>(null);
-
-  hasProfile$: Observable<boolean>;
-  profileVisible$ = this.profileService.getProfileVisibility();
-
-  edited$ = combineLatest([
-    this.publicationsService.currentPublicationPayload,
-    this.datasetsService.currentDatasetPayload,
-    this.fundingsService.currentFundingPayload,
-    this.patchService.currentPatchItems,
-    this.collaborationsService.currentCollaborationsPayload,
-  ]).pipe(
-    map(([pubs, datasets, fundings, patches, collabs]) => !!(pubs.length || datasets.length || fundings.length || patches.length || collabs.length))
-  );
+  dataHasBeenResetSub: Subscription;
 
   constructor(
     public profileService: ProfileService,
-    public oidcSecurityService: OidcSecurityService,
     public appSettingsService: AppSettingsService,
-    public dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute,
-    private snackbarService: SnackbarService,
     public draftService: DraftService,
-    public patchService: PatchService,
-    public collaborationsService: CollaborationsService,
-    public publicationsService: PublicationsService,
-    public datasetsService: DatasetsService,
-    public fundingsService: FundingsService,
     private utilityService: UtilityService,
-    private singleItemService: SingleItemService,
+    private changeDetectorRef: ChangeDetectorRef,
+    @Inject(DOCUMENT) private document: any,
   ) {
-    this.profileService.initializeProfileVisibility();
-
-    this.testData = profileService.testData;
+    this.profileService.initializeProfileVisibilityAndSettings();
+    this.fullName = this.profileService.getEditorProfileNameObservable();
 
     // Find if user has navigated to profile route from service deployment stepper
     // Display welcome dialog if so
@@ -186,348 +102,82 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.reloadViewData();
+    this.dataHasBeenResetSub = this.draftService.dataHasBeenReset.subscribe(val => {
+      if (val === true) {
+        this.resetProfileData();
+        this.reloadViewData();
+        this.changeDetectorRef.detectChanges();
+      }
+    });
+  }
+
+  updateHighlightOpennessUiState(state: boolean){
+    this.emitHighlightOpenness.next(state);
+    this.highlightOpennessSub.next(state);
+  }
+
+  forwardHighlightOpennessState(state: boolean) {
+    this.draftService.addToHighlightOpennessPayload(state);
+    this.updateHighlightOpennessUiState(state);
+  }
+
+  resetProfileData() {
+    this.profileData = cloneDeep(this.profileService.currentProfileData);
+    this.collaborationComponentRef?.resetInitialValue();
+  }
+
+  reloadViewData() {
     this.utilityService.setMyDataTitle($localize`:@@profile:Profiili`);
 
     // Get data from resolver
     const orcidProfile = this.route.snapshot.data.orcidProfile;
-    const myDataProfile = this.route.snapshot.data.myDataProfile;
-
-    this.orcidData = orcidProfile;
     this.orcid = orcidProfile.orcid;
+    const myDataProfile = this.route.snapshot.data.myDataProfile;
+    this.draftService.setOrcidData(orcidProfile);
 
     /*
      * Draft data is stored in session storage.
      * Set draft data to profile view if draft available.
      * Drafts are deleted with reset and publish methods
      */
-    if (this.appSettingsService.isBrowser) {
-      const draft = sessionStorage.getItem(Constants.draftProfile);
-      const draftPatchPayload = JSON.parse(
-        sessionStorage.getItem(Constants.draftPatchPayload)
-      );
-      const draftPublicationPatchPayload = JSON.parse(
-        sessionStorage.getItem(Constants.draftPublicationPatchPayload)
-      );
-      const draftDatasetPatchPayload = JSON.parse(
-        sessionStorage.getItem(Constants.draftDatasetPatchPayload)
-      );
-      const draftCollaborationPatchPayload = JSON.parse(
-        sessionStorage.getItem(Constants.draftCollaborationPatchPayload)
-      );
-      const draftFundingPatchPayload = JSON.parse(
-        sessionStorage.getItem(Constants.draftFundingPatchPayload)
-      );
+    this.profileService.initializeProfileVisibilityAndSettings().then(val => {
+      if (val) {
+        const draftHighlightOpennessState = this.draftService.getDraftHighlightOpennessState();
+        if (draftHighlightOpennessState) {
+          // State from draft
+          this.updateHighlightOpennessUiState(draftHighlightOpennessState[0]);
+        } else {
+          // Original state from back end
+          this.updateHighlightOpennessUiState(val?.data?.highlightOpeness);
+        }
+      }
+      else {
+        const opennessState = this.draftService.getDraftHighlightOpennessState();
+        if (opennessState && opennessState[0]){
+          this.updateHighlightOpennessUiState(this.draftService.getDraftHighlightOpennessState()[0]);
+        }
+      }
 
-      this.draftPayload = draftPatchPayload;
-
+      const parsedDraft = this.draftService.getDraftProfile();
       // Display either draft profile from storage or profile from database
-      if (draft) {
-        const parsedDraft = JSON.parse(draft);
-        this.draftService.saveDraft(parsedDraft);
+      if (parsedDraft) {
+        console.log(parsedDraft);
         this.profileData = parsedDraft;
         this.profileService.setEditorProfileName(getName(parsedDraft));
       } else {
         this.profileData = myDataProfile.profileData;
         this.profileService.setEditorProfileName(myDataProfile.name);
       }
-
-      // Profile, publications, datasets, collaborations and fundings have separate draft data
-      const draftItems = [
-        { payload: draftPatchPayload, service: this.patchService },
-        {
-          payload: draftPublicationPatchPayload,
-          service: this.publicationsService,
-        },
-        {
-          payload: draftDatasetPatchPayload,
-          service: this.datasetsService,
-        },
-        {
-          payload: draftFundingPatchPayload,
-          service: this.fundingsService,
-        },
-        {
-          payload: draftCollaborationPatchPayload,
-          service: this.collaborationsService,
-        },
-      ];
-
-      // Set draft item into view if draft available in storage
-      draftItems.forEach((item) => {
-        if (item.payload && !this.profileService.profileInitialized) {
-          item.service.addToPayload(item.payload);
-          item.service.confirmPayload();
-        }
-      });
-    }
-
-    this.profileService.profileInitialized = true;
-
-    this.updatePerson();
-
-    this.hasProfile$ = this.person$.pipe(map((person) => person != null ));
-  }
-
-  openDialog(title: string, template: any, extraContentTemplate: any, actions: any, disableDialogClose: boolean) {
-    this.dialogTitle = title;
-    this.showDialog = true;
-    this.dialogTemplate = template;
-    this.dialogExtraContentTemplate = extraContentTemplate;
-    this.currentDialogActions = actions;
-    this.disableDialogClose = disableDialogClose;
-  }
-
-  doDialogAction(action: string) {
-    this.dialog.closeAll();
-    this.dialogTitle = '';
-    this.showDialog = false;
-    this.dialogTemplate = null;
-
-    switch (action) {
-      case 'publish': {
-        this.publish();
-        break;
-      }
-      case 'discard': {
-        this.reset();
-        break;
-      }
-      case 'republish': {
-        this.republish();
-        break;
-      }
-    }
-  }
-
-  closeDialog() {
-    this.dialog.closeAll();
-    this.dialogTitle = '';
-    this.showDialog = false;
-    this.dialogTemplate = null;
-    this.disableDialogClose = false;
-  }
-
-  /*
-   * Add selected publications to profile
-   */
-  private handlePublicationsPromise() {
-    return new Promise((resolve, reject) => {
-      this.publicationsService
-        .addPublications()
-        .pipe(takeUntil(this.unsubscribe))
-        .subscribe({
-          next: (result) => {
-            resolve(true);
-          },
-          error: (error) => {
-            reject(error);
-          },
-        });
-    });
-  }
-
-  /*
-   * Patch items to backend
-   */
-  private patchItemsPromise() {
-    const patchItems = this.patchService.confirmedPayLoad;
-    return this.profileService.patchObjects(patchItems);
-  }
-
-  /*
-   * Patch datasets to backend
-   */
-  private handleDatasetsPromise() {
-    // return this.datasetsService.addDatasets();
-    return lastValueFrom(this.datasetsService.addDatasets());
-  }
-
-  /*
-   * Patch fundings to backend
-   */
-  private handleFundingsPromise() {
-    return new Promise((resolve, reject) => {
-      this.fundingsService
-        .addFundings()
-        .pipe(takeUntil(this.unsubscribe))
-        .subscribe({
-          next: (result) => {
-            resolve(true);
-          },
-          error: (error) => {
-            reject(error);
-          },
-        });
-    });
-  }
-
-  /*
-   * Patch cooperation choices to backend
-   */
-  private patchCooperationChoicesPromise() {
-    return new Promise((resolve, reject) => {
-      this.collaborationsService
-        .patchCooperationChoices()
-        .pipe(takeUntil(this.unsubscribe))
-        .subscribe({
-          next: (result) => {
-            resolve(true);
-          },
-          error: (error) => {
-            reject(error);
-          },
-        });
-    });
-  }
-
-  async publish() {
-    const promises = [];
-
-    // Use of handler property as function prevents handler method firing when iterating
-    const promiseHandlers: {handler: () => Promise<any>, payload: any}[] = [
-      {
-        handler: () => this.handlePublicationsPromise(),
-        payload: this.publicationsService.confirmedPayload,
-      },
-      {
-        handler: () => this.handleDatasetsPromise(),
-        payload: this.datasetsService.confirmedPayload,
-      },
-      {
-        handler: () => this.handleFundingsPromise(),
-        payload: this.fundingsService.confirmedPayload,
-      },
-      {
-        handler: () => this.patchItemsPromise(),
-        payload: this.patchService.confirmedPayLoad,
-      },
-      {
-        handler: () => this.patchCooperationChoicesPromise(),
-        payload: this.collaborationsService.confirmedPayload,
-      },
-    ];
-
-    // Prevent empty payload API requests
-    for (const item of promiseHandlers) {
-      if (item.payload.length > 0) {
-        promises.push(item.handler());
-      }
-    }
-
-    // Enable hide profile button in account settings section, if it has been disabled
-    sessionStorage.removeItem('profileHidden');
-
-    try {
-      const response = await Promise.all(promises);
-      if (response.includes(false)) {
-        this.snackbarService.showPatchMessage('error');
-      } else {
-        this.clearDraftData();
-        this.snackbarService.showPatchMessage('success');
-      }
-    } catch (error) {
-      this.snackbarService.showPatchMessage('error');
-      console.error(`Error in data patching`, error);
-    }
-
-    this.profileService.setCurrentProfileData(this.profileData);
-
-    await this.setProfileVisible();
-    await this.pollProfile();
-  }
-
-  /*
-   * Clear draft data from storage and service
-   */
-  reset() {
-    const currentProfileData = cloneDeep(
-      this.profileService.currentProfileData
-    );
-
-    sessionStorage.removeItem(Constants.draftProfile);
-    sessionStorage.removeItem(Constants.draftPatchPayload);
-    sessionStorage.removeItem(Constants.draftPublicationPatchPayload);
-    sessionStorage.removeItem(Constants.draftDatasetPatchPayload);
-    sessionStorage.removeItem(Constants.draftFundingPatchPayload);
-    sessionStorage.removeItem(Constants.draftCollaborationPatchPayload);
-
-    this.profileData = currentProfileData;
-    this.profileService.setEditorProfileName(getName(currentProfileData));
-    this.clearDraftData();
-    this.collaborationComponentRef?.resetInitialValue();
-  }
-
-  clearDraftData() {
-    const itemServices = [
-      this.patchService,
-      this.collaborationsService,
-      this.publicationsService,
-      this.datasetsService,
-      this.fundingsService,
-    ];
-
-    itemServices.forEach((service) => {
-      service.clearPayload();
-      service.cancelConfirmedPayload();
-    });
-
-    this.draftService.clearData();
-  }
-
-  ngOnDestroy(): void {
-    this.unsubscribe.next(null);
-    this.unsubscribe.complete();
-  }
-
-  private updatePerson() {
-    const id = this.orcid;
-
-    const source = this.singleItemService.getSinglePerson(id);
-
-    source.subscribe({
-        next: (search) => {
-          const person = search.persons[0] as Person;
-
-          if (person != null) {
-            this.person$.next(person);
-          }
-        },
-        error: (error) => {
-          console.error("Error in updating person", error);
-        }
+      this.fullName = this.profileService.currentEditorProfileName;
+      //this.highlightOpennessInitialState$ = this.draftService.highlightOpennessPayloadSubObs;
+      //this.highlightOpennessInitialState$ = this.profileService.getHighlighOpennessInitialStateObservable();
       }
     );
 
-    return source;
   }
 
-  private async setProfileVisible() {
-    await this.profileService.showProfile();
+  ngOnDestroy() {
+    this.dataHasBeenResetSub.unsubscribe();
   }
-
-  async republish() {
-
-
-    try {
-      const response = await this.setProfileVisible();
-      await this.pollProfile();
-      this.snackbarService.showPatchMessage('success');
-    } catch (error) {
-      console.error(`Error in data patching`, error);
-    }
-  }
-
-  private async pollProfile() {
-    let response;
-    const delays = [2000, 2000, 2000, 2000, 20000];
-
-    for (const delay of delays) {
-      await lastValueFrom(timer(delay));
-
-      response = await lastValueFrom(this.updatePerson());
-
-      if (response != null) { return; }
-    }
-  }
-
 }

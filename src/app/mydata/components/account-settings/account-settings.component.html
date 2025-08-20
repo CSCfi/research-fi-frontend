@@ -1,37 +1,47 @@
 <app-banner-divider></app-banner-divider>
 
-<main id="main-content" class="account-settings-wrap">
-  <div class="wrapper">
-    <div class="row d-flex justify-content-between pt-3 pb-5">
-      <div class="col-12 col-md-8 col-xl-6 px-0">
+
+<main id="main-content" class="tt-main-content account-settings-wrap pt-0">
+  <div class="wrapper tt-wrapper">
+    <div class="row d-flex justify-content-between">
+      <!-- Side navigation pad -->
+      <div class="col-4 col-md-2 pt-4 px-0 side-navigation-side-border d-none d-xl-block">
+        <app-mydata-side-navigation></app-mydata-side-navigation>
+      </div>
+      <!-- Main content -->
+      <div class="col-12 col-md-10 pt-4 px-4 pb-5">
         <div
-          class="row d-flex"
+          class="row d-flex justify-content-between pt-3"
         >
-          <h1 class="col-12 px-0 pb-2">{{accountSettingsTitle}}</h1>
-        </div>
-        <div class="row pb-1">
-          <span class="col px-0 fw-bold">{{ profileData?.name }}</span>
-        </div>
-        <div class="row pb-1">
-          <div class="col align-self-center px-0">
-            <img
-              class="orcid-icon mt-n1 pe-2"
-              src="assets/img/orcid_icon.svg"
-              alt="Orcid -palvelun logo"
-            />
-            <span>{{ orcid }}</span>
+          <div class="col-12">
+            <div class="row">
+            <h1 class="col-12 pb-2 px-1">{{accountSettingsTitle}}</h1>
+            </div>
+            <div class="row pb-1">
+              <span class="col fw-bold">{{ profileData?.name }}</span>
+            </div>
+            <div class="row pb-1">
+              <div class="col align-self-center px-0">
+                <img
+                        class="orcid-icon mt-n1 pe-2"
+                        src="assets/img/orcid_icon.svg"
+                        alt="Orcid -palvelun logo"
+                />
+                <span>{{ orcid }}</span>
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- Orcid section -->
-        <div class="row pb-1 mt-4 bordered-section d-none">
+        <div class="row pb-1 mt-4 py-3 bordered-section d-none">
           <div class="col-12 px-0">
             <h3>ORCID-tietojen automaattinen päivittyminen</h3>
           <p class="px-0">{{generalInfoOrcid}}</p>
           <br>
           </div>
 
-          <div class="col-12 px-0 button-row">
+          <div class="col-12 button-row">
           <app-secondary-button *ngIf="!isOrcidFetchInUse"
             (click)="
                 openDialog({
@@ -62,12 +72,12 @@
         </div>
 
         <!-- Delete profile section -->
-        <div class="row pb-1 mt-4 bordered-section">
-          <div class="col-12 px-0">
+        <div class="row pb-1 mt-4 py-3 bordered-section">
+          <div class="col-12 pt-2">
             <h3>{{deleteProfileTitle}}</h3>
-          <p class="px-0">{{generalInfoDeleteProfile}}</p>
+          <p class="px-0 pt-2">{{generalInfoDeleteProfile}}</p>
           </div>
-          <div class="col-12 px-0 button-row">
+          <div class="col-12 button-row">
             <app-secondary-button
               (click)="
                 openDialog({
@@ -241,12 +251,12 @@
         <!-- Show/hide profile section -->
         <ng-container *ngIf='(profileVisibility$ | async) === true'>
           <div class="row pb-1 mt-4 bordered-section">
-          <div class="col-12 px-0">
+          <div class="col-12 pt-3 pb-2">
             <h3>{{hideProfileTitle}}</h3>
-          <p class="px-0 mini">{{generalInfoHideProfile}}</p>
+          <p class="px-0 mini pt-2">{{generalInfoHideProfile}}</p>
           </div>
           <br>
-          <div class="col-12 px-0 button-row">
+          <div class="col-12 button-row">
           <app-secondary-button
                                 (click)="
                 openDialog({
@@ -286,7 +296,7 @@
           <p class="px-0">{{showProfileText}}</p>
           </div>
           <br>
-          <div class="col-12 px-0 button-row">
+          <div class="col-12 button-row">
           <app-secondary-button
                                 (click)="
                 openDialog({
@@ -307,3 +317,5 @@
     </div>
   </div>
 </main>
+
+<app-sticky-footer class="d-none"></app-sticky-footer>

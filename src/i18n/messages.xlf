@@ -91,7 +91,7 @@
         <source>Twitter -palvelun logo</source>
       </trans-unit>
       <trans-unit id="twitterFooter" datatype="html">
-        <source>Tiedejatutkimus.fi Twitterissä</source>
+        <source><x id="START_TAG_APP_SVG_SPRITES" ctype="x-app_svg_sprites" equiv-text="&lt;app-svg-sprites [iconName]=&quot;&apos;fa-twitter&apos;&quot; cssClass=&quot;twitter-icon&quot;&gt;"/><x id="CLOSE_TAG_APP_SVG_SPRITES" ctype="x-app_svg_sprites" equiv-text="&lt;/app-svg-sprites&gt;"/>Tiedejatutkimus.fi Twitterissä</source>
         <note priority="1" from="description">Twitter-footer</note>
       </trans-unit>
       <trans-unit id="reviewButton" datatype="html">
@@ -369,6 +369,9 @@
       <trans-unit id="youHaveUnpublishedChangesSnackbarButton" datatype="html">
         <source>Tarkasta muutokset.</source>
       </trans-unit>
+      <trans-unit id="shareProfile" datatype="html">
+        <source>Jaa profiili</source>
+      </trans-unit>
       <trans-unit id="keywords" datatype="html">
         <source>Avainsanat</source>
       </trans-unit>
@@ -473,7 +476,7 @@
         <source>Voit valita yhden vaihtoehdon</source>
       </trans-unit>
       <trans-unit id="education" datatype="html">
-        <source>koulutus</source>
+        <source>Koulutus</source>
       </trans-unit>
       <trans-unit id="activitesAndRewards" datatype="html">
         <source>aktiviteetit ja palkinnot</source>
@@ -500,28 +503,19 @@
         <source>Näytä kaikki</source>
       </trans-unit>
       <trans-unit id="mydata.profile.profile-is-hidden" datatype="html">
-        <source> Olet piilottanut profiilisi Tiedejatutkimus.fi-palvelusta </source>
+        <source>Olet piilottanut profiilisi Tiedejatutkimus.fi-palvelusta </source>
       </trans-unit>
       <trans-unit id="publishEllipsis" datatype="html">
         <source>Julkaise...</source>
       </trans-unit>
       <trans-unit id="discardChanges" datatype="html">
-        <source> Hylkää muutokset </source>
+        <source>Hylkää muutokset</source>
       </trans-unit>
       <trans-unit id="discardSessionChanges" datatype="html">
         <source> Hylätäänkö julkaisemattomat muutokset? </source>
       </trans-unit>
-      <trans-unit id="publicProfile" datatype="html">
-        <source> Profiili </source>
-      </trans-unit>
-      <trans-unit id="draft" datatype="html">
-        <source>Luonnos</source>
-      </trans-unit>
-      <trans-unit id="visitMyProfile" datatype="html">
-        <source>Tarkastele julkista profiiliasi Tiedejatutkimus.fi:ssä</source>
-      </trans-unit>
       <trans-unit id="toMyProfile" datatype="html">
-        <source>Julkiseen profiiliin</source>
+        <source>Siirry julkiseen profiiliin</source>
       </trans-unit>
       <trans-unit id="contactInfo" datatype="html">
         <source>Yhteystiedot</source>
@@ -2367,20 +2361,11 @@
       <trans-unit id="tilastokeskus" datatype="html">
         <source>Tilastokeskus</source>
       </trans-unit>
-      <trans-unit id="furtherInformation" datatype="html">
-        <source> Lisätiedot </source>
-      </trans-unit>
       <trans-unit id="3537901381707941652" datatype="html">
         <source>Emojulkaisun nimi</source>
       </trans-unit>
       <trans-unit id="unit" datatype="html">
         <source>Yksikkö</source>
-      </trans-unit>
-      <trans-unit id="degrees" datatype="html">
-        <source>Tutkinnot</source>
-      </trans-unit>
-      <trans-unit id="researchersSectionIncoming" datatype="html">
-        <source>Tutkijan (tulossa)</source>
       </trans-unit>
       <trans-unit id="dataSources" datatype="html">
         <source>Lähteet</source>
@@ -3033,9 +3018,6 @@
       <trans-unit id="yearRangeWarning" datatype="html">
         <source>Aikavälissä ei ole mukana kaikkia vuosia. Voit tarkistaa vuodet &quot;Rajaa hakua&quot; -valikosta vasemmalla.</source>
       </trans-unit>
-      <trans-unit id="closeButton" datatype="html">
-        <source>Sulje</source>
-      </trans-unit>
       <trans-unit id="tooManyResultsNavigationDisabled" datatype="html">
         <source>Liikaa tuloksia. Haun loppuun navigoiminen estetty.</source>
       </trans-unit>
@@ -3279,9 +3261,6 @@
       <trans-unit id="spReadMore" datatype="html">
         <source>Lue lisää</source>
       </trans-unit>
-      <trans-unit id="spSortsAbbreviation" datatype="html">
-        <source>Lyhenne</source>
-      </trans-unit>
       <trans-unit id="spSortsOrganization" datatype="html">
         <source>Organisaatio</source>
       </trans-unit>
@@ -3290,6 +3269,51 @@
       </trans-unit>
       <trans-unit id="spSortsStartYear" datatype="html">
         <source>Aloitusvuosi</source>
+      </trans-unit>
+      <trans-unit id="discardChangesAndLogout" datatype="html">
+        <source>Hylkää muutokset ja kirjaudu ulos</source>
+      </trans-unit>
+      <trans-unit id="present" datatype="html">
+        <source>nykyhetki</source>
+      </trans-unit>
+      <trans-unit id="researchersProfileNew" datatype="html">
+        <source>Oma profiili</source>
+      </trans-unit>
+      <trans-unit id="otherPublications" datatype="html">
+        <source>Muut julkaisut</source>
+      </trans-unit>
+      <trans-unit id="highlightingOpenScience" datatype="html">
+        <source>Avoimen tieteen korostus</source>
+      </trans-unit>
+      <trans-unit id="highlightOpenAccessPublications" datatype="html">
+        <source>Korosta avoimia julkaisuja profiilissasi</source>
+      </trans-unit>
+      <trans-unit id="highlightOpenAccessPublicationsInfo" datatype="html">
+        <source>Korostus nostaa avoimesti saatavilla olevat julkaisut julkaisulistan kärkeen profiilissasi. Tiedejatutkimus.fi -palvelusta löytyviin avoimiin julkaisuihin lisätään automaattisesti avoimen tieteen merkintä.</source>
+      </trans-unit>
+      <trans-unit id="noOpenPublicationAvailable" datatype="html">
+        <source>Ei avoimesti saatavilla olevia julkaisuja</source>
+      </trans-unit>
+      <trans-unit id="openAccessPublications" datatype="html">
+        <source>Avoimesti saatavilla olevat julkaisut</source>
+      </trans-unit>
+      <trans-unit id="unpublishedChanges" datatype="html">
+        <source>Julkaisemattomia muutoksia</source>
+      </trans-unit>
+      <trans-unit id="researchersSectionIncoming" datatype="html">
+        <source>Tutkijan (tulossa)</source>
+      </trans-unit>
+      <trans-unit id="showOnlyPeerReviewed" datatype="html">
+        <source>Näytä vain vertaisarvioidut</source>
+      </trans-unit>
+      <trans-unit id="sortBy" datatype="html">
+        <source>Lajittele</source>
+      </trans-unit>
+      <trans-unit id="sortByYear" datatype="html">
+        <source>vuoden mukaan</source>
+      </trans-unit>
+      <trans-unit id="sortByOpenness" datatype="html">
+        <source>avoimen saatavuuden mukaan</source>
       </trans-unit>
     </body>
   </file>

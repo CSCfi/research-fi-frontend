@@ -18,6 +18,7 @@
   [class.ms-4]="columns.length < 5"
   [class.align-center]="alignCenter"
   [class.select-row]="displayedColumns.indexOf('selection') > -1"
+  [class.profile-tool-background]="profileToolThemeBackground"
 >
   <ng-container *ngFor="let column of columns" [matColumnDef]="column.key">
     <mat-header-cell

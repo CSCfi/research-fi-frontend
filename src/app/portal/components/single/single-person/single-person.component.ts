@@ -14,7 +14,7 @@ import { SingleItemService } from '@portal/services/single-item.service';
 import { TabChangeService } from '@portal/services/tab-change.service';
 import { UtilityService } from '@shared/services/utility.service';
 
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { delay, map, switchMap, take } from 'rxjs/operators';
 
 import { DOCUMENT, NgIf, NgFor, NgTemplateOutlet, NgClass, AsyncPipe, JsonPipe } from '@angular/common';
@@ -30,37 +30,55 @@ import { TagDoiComponent } from '../../../../shared/components/tags/tag-doi/tag-
 import { BreadcrumbComponent } from '../../breadcrumb/breadcrumb.component';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
+import {
+  PersonProfileViewComponent
+} from '@mydata/components/profile/person-profile-view/person-profile-view.component';
+import { cloneDeep } from 'lodash-es';
+import { FieldTypes } from '@mydata/constants/fieldTypes';
+import { GroupTypes } from '@mydata/constants/groupTypes';
+import {
+  CollaborationCardComponent
+} from '@mydata/components/profile/cards/collaboration-card/collaboration-card.component';
+import { ContactCardComponent } from '@mydata/components/profile/cards/contact-card/contact-card.component';
+import { MydataBetaInfoComponent } from '@mydata/components/mydata-beta-info/mydata-beta-info.component';
+import {
+  MydataSideNavigationComponent
+} from '@mydata/components/mydata-side-navigation/mydata-side-navigation.component';
+
+import { convertToProfileToolFormat as convertToProfileToolFormat} from '@portal/models/person/profiletool-person-adapter';
+import { RelatedLinksNewComponent } from '@portal/components/single/related-links-new/related-links-new.component';
+import {
+  DataSourcesInfoCardComponent
+} from '@portal/components/single/single-person/data-sources-info-card/data-sources-info-card.component';
 
 type Field = { key: string; label?: string };
 
 @Component({
-    selector: 'app-single-person',
-    templateUrl: './single-person.component.html',
-    styleUrls: ['./single-person.component.scss'],
-    standalone: true,
+  selector: 'app-single-person',
+  templateUrl: './single-person.component.html',
+  styleUrls: ['./single-person.component.scss'],
+  standalone: true,
   imports: [
     SearchBarComponent,
     NgIf,
     RouterLink,
     BreadcrumbComponent,
-    NgFor,
-    NgTemplateOutlet,
-    NgClass,
-    TagDoiComponent,
-    PersonGroupComponent,
-    MatCard,
-    MatCardTitle,
-    SingleResultLinkComponent,
-    RelatedLinksComponent,
-    ShareComponent,
     AsyncPipe,
     JoinItemsPipe,
-    CheckEmptyFieldsPipe,
-    SvgSpritesComponent,
-    JsonPipe
+    JsonPipe,
+    PersonProfileViewComponent,
+    CollaborationCardComponent,
+    ContactCardComponent,
+    MatCard,
+    RelatedLinksComponent,
+    RelatedLinksNewComponent,
+    DataSourcesInfoCardComponent
   ]
 })
 export class SinglePersonComponent implements OnInit {
+  protected readonly groupTypes = GroupTypes;
+  protected readonly fieldTypes = FieldTypes;
+
   responseData: Search;
   tabQueryParams: any;
   searchTerm: string;
@@ -69,14 +87,13 @@ export class SinglePersonComponent implements OnInit {
 
   isEmailVisible = false;
 
-  affiliationsCaption = $localize`:@@affiliations:Affiliaatiot`;
-  educationCaption = $localize`:@@education:Koulutus`;
-  dataSourcesCaption = $localize`:@@dataSources:Lähteet`;
+  profileFormatted = undefined;
+  profileFormattedTemp = [];
 
   descriptionFields: Field[] = [
     {
       key: 'description',
-      label: $localize`:@@descriptionOfResearch:Tutkimustoiminnan kuvaus`,
+      label: $localize`:@@descriptionOfResearch:Tutkimustoiminnan kuvaus`
     },
     // {
     //   key: 'fieldsOfScience',
@@ -84,55 +101,25 @@ export class SinglePersonComponent implements OnInit {
     // },
     {
       key: 'keywords',
-      label: $localize`:@@keywords:Avainsanat`,
-    },
+      label: $localize`:@@keywords:Avainsanat`
+    }
   ];
 
   affiliationFields: Field[] = [
     { key: 'departmentName', label: $localize`:@@unit:Yksikkö` },
     { key: 'positionName', label: $localize`:@@title:Nimike` },
     { key: 'communityName', label: 'Tutkimusyhteisö' }, // Not implemented yet
-    { key: 'role', label: 'Rooli tutkimusyhteisössä' }, // Not implemented yet
+    { key: 'role', label: 'Rooli tutkimusyhteisössä' } // Not implemented yet
   ];
 
   publicationFields = [{ key: 'name' }, { key: 'year' }, { key: 'doi' }];
-  publicationsCaption = $localize`:@@publications:Julkaisut`;
 
   datasetFields = [{ key: 'name' }, { key: 'year' }];
 
   fundingFields = [{ key: 'name' }, { key: 'funderName' }, { key: 'year' }];
 
-  activityAndAwardsFields = [
-    { key: 'role', bold: true },
-    { key: 'name', bold: true },
-    { key: 'type', bold: true },
-    { key: 'year' },
-    { key: 'otherNames', label: $localize`:@@otherNames:Muut nimet` },
-  ];
-
-  activityAndAwardsAdditionalFields = [
-    { key: 'description' },
-    { key: 'organizationName',
-      label: $localize`:@@organization:Organisaatio`, },
-    { key: 'departmentName',
-      label: $localize`:@@department:Yksikkö`, },
-    {
-      key: 'internationalCollaboration',
-      label: $localize`:@@internationalCollaboration:Kansainvälinen yhteistyö`,
-    },
-    { key: 'url' },
-  ];
-
-  contactFields: Field[] = [
-    { key: 'emails' },
-    { key: 'links' },
-    { key: 'otherNames', label: $localize`:@@otherNames:Muut nimet` },
-  ];
-
   person$: Observable<Person>;
-  sortedPublications$: Observable<PersonPublication[]>
-
-  isLoaded$: Observable<boolean>;
+  sortedPublications$: Observable<PersonPublication[]>;
 
   initialItemCount = 3;
 
@@ -147,6 +134,8 @@ export class SinglePersonComponent implements OnInit {
   maxActivityAndAwardsCount = this.initialItemCount;
   showAllActivityAndAwards = false;
 
+  profileNotFound$ = new BehaviorSubject(false);
+
   constructor(
     private route: ActivatedRoute,
     public router: Router,
@@ -155,41 +144,23 @@ export class SinglePersonComponent implements OnInit {
     private utilityService: UtilityService,
     private tabChangeService: TabChangeService,
     @Inject(LOCALE_ID) protected localeId: string,
-    @Inject(DOCUMENT) private document: any,
-  ) {}
+    @Inject(DOCUMENT) private document: any
+  ) {
+  }
 
   ngOnInit(): void {
     this.person$ = this.route.params.pipe(switchMap((params) => {
-      const id = params["id"];
-
+      const id = params['id'];
+      this.getDataRaw(id);
       return this.singleItemService.getSinglePerson(id).pipe(map((search) => {
         return search.persons[0] as Person;
       }));
-    }))
-
-    this.sortedPublications$ = this.person$.pipe(map((person) => {
-      return person.publications.sort((a, b) => {
-        const yearDiff = b.year - a.year;
-        const nameDiff = a.name.localeCompare(b.name);
-
-        if (yearDiff !== 0) {
-          return yearDiff;
-        } else
-          return nameDiff;
-      });
     }));
-
-    this.person$.pipe(take(1)).subscribe({
-      complete: () => {
-        // delay masks very fast loading where "404" flashes on screen
-        this.isLoaded$ = of(true).pipe(delay(100));
-      }
-    });
 
     this.route.params.pipe(take(1)).subscribe((params) => {
       if (this.searchService.searchTerm == null) {
         this.searchService.searchTerm = params.id;
-        this.getData(params.id);
+        //this.profileFormatted = this.getDataRaw(params.id);
         this.searchService.searchTerm = ''; // Empty search term so breadcrumb link is correct
       }
     });
@@ -206,21 +177,16 @@ export class SinglePersonComponent implements OnInit {
     this.utilityService.setTitle(newTitle);
   }
 
-  getData(id: string) {
+  getDataRaw(id: string) {
     this.singleItemService
-      .getSinglePerson(id)
-      .pipe(take(1))
-      .subscribe((result) => {
-        this.responseData = result;
-
-        const personRes = result.persons[0];
-
-        if (personRes) {
-          this.setTitle(
-            `${personRes.name} - ${$localize`:@@appName:Tiedejatutkimus.fi`}`
-          );
-        }
-      });
+      .getSinglePersonRawData(id).subscribe((result: any) => {
+      if (result.hits.hits.length > 0) {
+        this.profileFormatted = convertToProfileToolFormat(result.hits.hits[0]._source, this.localeId);
+      }
+      else {
+        this.profileNotFound$.next(true);
+      }
+    });
   }
 
   showEmail() {
