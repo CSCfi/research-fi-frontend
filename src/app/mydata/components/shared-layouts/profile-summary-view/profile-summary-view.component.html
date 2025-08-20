@@ -23,7 +23,7 @@
 
             <!-- Sort publications button -->
             <app-tertiary-button
-                    class="sort-button"
+                    class="sort-button z-0"
                     [content]="(highlightOpennessState | async) === true ? (sortByText + ': ' + byOpennessText) : (sortByText + ': ' + byYearText)"
                     [svgSymbolName]="'sliders'"
                     [svgCssClass]="'sliders-icon button-icon'"
