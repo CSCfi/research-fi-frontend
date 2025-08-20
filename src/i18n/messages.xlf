@@ -3306,6 +3306,15 @@
       <trans-unit id="showOnlyPeerReviewed" datatype="html">
         <source>Näytä vain vertaisarvioidut</source>
       </trans-unit>
+      <trans-unit id="sortBy" datatype="html">
+        <source>Lajittele</source>
+      </trans-unit>
+      <trans-unit id="sortByYear" datatype="html">
+        <source>vuoden mukaan</source>
+      </trans-unit>
+      <trans-unit id="sortByOpenness" datatype="html">
+        <source>avoimen saatavuuden mukaan</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>
