@@ -1,17 +1,31 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { cloneDeep } from 'lodash-es';
+import { GroupTypes } from '@mydata/constants/groupTypes';
+
 
 @Pipe({
   name: 'formatAndSortTimespan',
   standalone: true
 })
 
+
 export class FormatAndSortTimespanPipe implements PipeTransform {
+  protected readonly groupTypes = GroupTypes;
   transform(data: any, dataType: string): unknown {
+
     const presentLocalization = $localize`:@@present:nykyhetki`;
 
     if (data?.items) {
       const sorted = cloneDeep(data);
+
+      if (dataType === this.groupTypes.funding) {
+        sorted.items = sorted.items.map(item => {
+          item.startDate = {year: item.startYear ? item.startYear : 0};
+          item.endDate = {year: item.endYear ? item.endYear : 0};
+          return item;
+        });
+      }
+
       sorted.items = sorted.items.sort(customSort);
 
       sorted.items = sorted.items.map(item => {
