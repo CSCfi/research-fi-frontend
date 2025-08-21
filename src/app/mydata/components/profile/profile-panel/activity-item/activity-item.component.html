@@ -20,7 +20,7 @@
           {{ value | capitalizeFirstLetter }}
         </div>
 
-        <div *ngIf="i === rows.length - 1" class="mt-1">
+        <div *ngIf="i > 0 && i === rows.length - 1" class="mt-1">
           {{ value | capitalizeFirstLetter }}
         </div>
       </div>
@@ -32,18 +32,18 @@
            [class.font-size-small]="rows.length > 1 && i === rows.length - 1 && smallLastItem"
       >
         <div *ngIf="fieldType === fieldTypes.activityPublication">
-          <a [routerLink]="['/', 'results', 'publication', link]" target="_blank">
+          <a [routerLink]="['/', 'results', 'publication', link]" target="_parent">
             {{ value }}
           </a>
         </div>
         <div *ngIf="i < rows.length - 1 && fieldType === fieldTypes.activityDataset">
-          <a [routerLink]="['/', 'results', 'dataset', link]" target="_blank">
+          <a [routerLink]="['/', 'results', 'dataset', link]" target="_parent">
             {{ value }}
           </a>
         </div>
         <div *ngIf="i < rows.length - 1 && fieldType === fieldTypes.activityFunding">
           <div *ngIf="i === 0" class="title-bottom-pad font-weight-500"><a [routerLink]="['/', 'results', 'funding', link]"
-                                                           target="_blank">{{ value | capitalizeFirstLetter }}</a>
+                                                           target="_parent">{{ value | capitalizeFirstLetter }}</a>
           </div>
           <div *ngIf="i > 0">{{ value }}</div>
         </div>
