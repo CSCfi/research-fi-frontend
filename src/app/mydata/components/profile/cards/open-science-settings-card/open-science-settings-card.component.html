@@ -1,19 +1,20 @@
 <div class="group-wrapper">
-  <app-profile-editor-card-header
-          [label]="highlightingOpenScience"
-          [displayButton]="false"
-  ></app-profile-editor-card-header>
+  <div class="row">
+    <div class="col-12 mt-2 gx-2"><h2>{{ highlightingOpenScience }}</h2></div>
+  </div>
 
   <div class="row gx-0 mt-3">
     <div class="d-flex mb-3">
       <mat-checkbox [checked]="highlightChecked" color="primary" (change)=toggleChecked()>
-        {{highlightOpenAccessPublications}}
+        {{ highlightOpenAccessPublications }}
       </mat-checkbox>
     </div>
   </div>
   <div class="openness-info-box row gx-0">
-    <div class="col-2 gx-0"><app-svg-sprites [iconName]="'info'" cssClass="info-icon green-info-box"></app-svg-sprites></div>
-    <div class="col-10 gx-0 gy-1">{{highlightOpenAccessPublicationsInfo}}</div>
+    <div class="col-2 gx-0">
+      <app-svg-sprites [iconName]="'info'" cssClass="info-icon green-info-box"></app-svg-sprites>
+    </div>
+    <div class="col-10 gx-0 gy-1">{{ highlightOpenAccessPublicationsInfo }}</div>
   </div>
 </div>
 

@@ -94,11 +94,19 @@
                         *ngIf="item['organizationName' + locale]">{{ item['organizationName' + locale] }}</span></div>
               </div>
               <div class="col-5 col-sm-6">
-                <div class="fw-bold d-flex">
+
+                <div class="fw-bold d-flex justify-content-between">
                   <div class="d-flex justify-content-center flex-column mb-1">{{ item['positionName' + locale] }}</div>
-                  <app-general-badge class="d-none d-sm-flex ms-2" [textInput]="primary"></app-general-badge>
+                  <app-general-badge *ngIf="item['positionName' + locale]?.length > 0" class="d-none d-sm-flex ms-2"
+                                     [textInput]="primary"></app-general-badge>
                 </div>
-                <div><span *ngIf="item['departmentName' + locale]">{{ item['departmentName' + locale] }}</span></div>
+
+                <div class="d-flex justify-content-between"><span
+                        *ngIf="item['departmentName' + locale]">{{ item['departmentName' + locale] }}</span>
+                  <app-general-badge *ngIf="!(item['positionName' + locale]?.length > 0)" class="d-none d-sm-flex ms-2"
+                                     [textInput]="primary"></app-general-badge>
+                </div>
+
                 <div *ngIf="item?.timing">{{ item?.timing }}</div>
               </div>
               <div class="col-3">
@@ -140,14 +148,15 @@
 
       <!-- EDUCATION -->
       <div class="pt-2" *ngIf="sectionName === groupTypes.education">
-        <div class="row mb-4" *ngFor="let item of ((data | formatAndSortTimespan: groupTypes.education).items); let i = index">
+        <div class="row mb-4"
+             *ngFor="let item of ((data | formatAndSortTimespan: groupTypes.education).items); let i = index">
           <ng-container *ngIf="item.itemMeta.show || isPortalSinglePage">
             <div class="row">
               <div class="col-12 gx-0"><span class="fw-bold">{{ item['name' + locale] }}</span>
                 <div *ngIf="item?.timing > 0">{{ item?.timing }}</div>
-              <!-- TODO: add checkLang pipe -->
-              <div class="col-12 gx-0">{{ item.degreeGrantingInstitutionName }}</div>
-            </div>
+                <!-- TODO: add checkLang pipe -->
+                <div class="col-12 gx-0">{{ item.degreeGrantingInstitutionName }}</div>
+              </div>
             </div>
           </ng-container>
         </div>
