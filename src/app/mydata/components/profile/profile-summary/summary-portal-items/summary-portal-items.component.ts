@@ -80,12 +80,13 @@ export class SummaryPortalItemsComponent implements OnInit, OnChanges {
   
   togglePeerReviewedFilter(){
     this.filterPeerReviewedPublications = !this.filterPeerReviewedPublications;
+    this.init();
+  }
+
+  doPeerReviewedPublicationsFiltering(){
     if (this.filterPeerReviewedPublications){
       this.sortedItemsTemp = cloneDeep(this.sortedItems);
       this.sortedItems = this.sortedItems.filter((item) => this.isPeerReviewed(item?.publicationTypeCode));
-    }
-    else {
-      this.sortedItems = cloneDeep(this.sortedItemsTemp);
     }
   }
 
@@ -117,6 +118,8 @@ export class SummaryPortalItemsComponent implements OnInit, OnChanges {
   init(): void {
     const dataCopy = cloneDeep(this.data);
 
+    //this.doPeerReviewedPublicationsFiltering();
+
     if (this.fieldType === FieldTypes.activityPublication) {
       if (this.highlightOpenness && dataCopy?.items) {
         let openPublications = dataCopy.items.filter(item => item.openAccess !== 0 || (item.selfArchivedCode && item.selfArchivedCode !== '0')).sort(this.comparePublicationYearsPublications).reverse();
@@ -138,6 +141,7 @@ export class SummaryPortalItemsComponent implements OnInit, OnChanges {
       else if (dataCopy?.items?.length > 0) {
         this.sortedItems = dataCopy.items.filter((item) => item.itemMeta.show).sort(this.comparePublicationYearsPublications).reverse();
       }
+      this.doPeerReviewedPublicationsFiltering();
     }
 
     else {
