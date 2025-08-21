@@ -125,7 +125,7 @@
 
     <ng-container *ngSwitchCase="fieldTypes.activityFunding">
       <app-activity-item
-              [rows]="[_item.name, _item.funder.name, _item.year]"
+              [rows]="[_item.name, _item.funder.name, _item['timing']]"
               [link]="link"
               [fieldType]="fieldType"
               [smallLastItem]="false"
@@ -134,7 +134,7 @@
 
     <ng-container *ngSwitchCase="fieldTypes.activityFundingOrcid">
       <app-activity-item
-              [rows]="[_item.name, _item.funder.name, _item.year]"
+              [rows]="[_item.name, _item.funder.name, _item['timing']]"
               [smallLastItem]="true"
       ></app-activity-item>
     </ng-container>

@@ -182,7 +182,7 @@
       <div class="pt-2" *ngIf="sectionName === groupTypes.funding">
         <app-summary-portal-items
                 [isPortalSinglePage]="isPortalSinglePage"
-                [data]="data"
+                [data]="data | formatAndSortTimespan: groupTypes.funding"
                 [fieldType]="fieldTypes.activityFunding"
                 sortField="startYear"
                 showMoreLabel="rahoitusmyönnöt"
