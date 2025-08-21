@@ -1,14 +1,17 @@
-<div *ngIf="!isPortalSinglePage || ((data | hasSelectedItems) && isPortalSinglePage)" class="group-wrapper py-3 ps-2 pe-3">
+<div *ngIf="!isPortalSinglePage || ((data | hasSelectedItems) && isPortalSinglePage)"
+     class="group-wrapper py-3 ps-2 pe-3">
   <div class="row py-2">
     <div class="col px-0">
       <!-- SECTION LABEL AND EDIT BUTTON -->
       <div class="row pb-3 justify-content-between">
         <h2 class="col order-1">
           {{ data.label }}<span
-                *ngIf="data?.items[0]?.itemMeta?.type !== fieldTypes.personResearcherDescription && data?.items[0]?.itemMeta?.type !== fieldTypes.personKeyword && data?.items[0]?.itemMeta?.type !== fieldTypes.activityAffiliation"><span *ngIf="(data| countSelectedItems) > 0"> ({{ data| countSelectedItems }})</span></span>
+                *ngIf="data?.items[0]?.itemMeta?.type !== fieldTypes.personResearcherDescription && data?.items[0]?.itemMeta?.type !== fieldTypes.personKeyword && data?.items[0]?.itemMeta?.type !== fieldTypes.activityAffiliation"><span
+                *ngIf="(data| countSelectedItems) > 0"> ({{ data| countSelectedItems }})</span></span>
         </h2>
         <div class="col-6 order-2 order-md-3 gx-0 gx-sm-3">
-          <div *ngIf="!isPortalSinglePage && data?.items[0]?.itemMeta?.type !== fieldTypes.personKeyword" class="d-flex justify-content-end">
+          <div *ngIf="!isPortalSinglePage && data?.items[0]?.itemMeta?.type !== fieldTypes.personKeyword"
+               class="d-flex justify-content-end">
             <app-tertiary-button
                     class="switch-choices-button"
                     [content]="(data | hasSelectedItems) ? editString : selectString"
@@ -19,7 +22,8 @@
                     (click)="openDialog($event, sectionIndex + 1)"
             ></app-tertiary-button>
           </div>
-          <div *ngIf="isPortalSinglePage && data?.items[0]?.itemMeta?.type === fieldTypes.activityPublication" class="d-flex justify-content-end">
+          <div *ngIf="isPortalSinglePage && data?.items[0]?.itemMeta?.type === fieldTypes.activityPublication"
+               class="d-flex justify-content-end">
 
             <!-- Sort publications button -->
             <app-tertiary-button
@@ -29,7 +33,9 @@
                     [svgCssClass]="'sliders-icon button-icon'"
                     (click)="showSortMenuClick()"
             ></app-tertiary-button>
-            <app-sort-dropdown-menu [showMenuTrigger]="showSortMenu" [selection]="highlightOpennessDropdownSelection | async" (valueChange)="setHighlightingOpennessSelection($event)"></app-sort-dropdown-menu>
+            <app-sort-dropdown-menu [showMenuTrigger]="showSortMenu"
+                                    [selection]="highlightOpennessDropdownSelection | async"
+                                    (valueChange)="setHighlightingOpennessSelection($event)"></app-sort-dropdown-menu>
           </div>
         </div>
       </div>
@@ -63,10 +69,10 @@
             </ng-container>
           </div>
 
-          <div  *ngIf="data?.keywordItems?.items[0]?.itemMeta?.show">
+          <div *ngIf="data?.keywordItems?.items[0]?.itemMeta?.show">
             <!-- Display joined keywords only if item has show property set to true -->
             <div class="row">
-              <h3>{{data.keywordItems.label}}</h3>
+              <h3>{{ data.keywordItems.label }}</h3>
             </div>
             <div class="row">
               <div class="col pb-2">
@@ -80,47 +86,53 @@
       <!-- AFFILIATIONS -->
       <div class="pt-2" *ngIf="sectionName === groupTypes.affiliation">
         <!-- Iterate primary affiliations -->
-        <div *ngFor="let item of data.items; let i = index">
+        <div *ngFor="let item of ((data | formatAndSortTimespan: groupTypes.activitiesAndRewards).items); let i = index">
           <ng-container *ngIf="(item.itemMeta.primaryValue && (item.itemMeta.show|| isPortalSinglePage))">
             <div class="row mb-4">
-            <div class="col-4 col-sm-3 fw-bold"><div class="d-flex justify-content-center flex-column"><span
-                    *ngIf="item['organizationName' + locale]">{{ item['organizationName' + locale] }}</span></div></div>
-            <div class="col-5 col-sm-6">
-              <div class="fw-bold d-flex"><div class="d-flex justify-content-center flex-column mb-1">{{ item['positionName' + locale] }}</div><app-general-badge class="d-none d-sm-flex ms-2" [textInput]="primary"></app-general-badge></div>
-              <div><span *ngIf="item['departmentName' + locale]">{{ item['departmentName' + locale] }}</span></div>
-              <div>{{ item['startDate'].year }} - {{ item['endDate'].year }}</div>
-            </div>
-            <div class="col-3">
-              <app-general-badge class="d-flex d-sm-none mb-4 badge-mobile-wrap" [textInput]="primary"></app-general-badge>
-              <ng-container *ngFor="let ds of item.dataSources; let j = index">
-                <div *ngFor="let ds of item.dataSources; let j = index" class="font-size-smaller mt-1">
-                  <span i18n="@@source">Lähde</span>:
-                  <span>{{ ds.organization['name' + locale] }}</span>
+              <div class="col-4 col-sm-3 fw-bold">
+                <div class="d-flex justify-content-center flex-column"><span
+                        *ngIf="item['organizationName' + locale]">{{ item['organizationName' + locale] }}</span></div>
+              </div>
+              <div class="col-5 col-sm-6">
+                <div class="fw-bold d-flex">
+                  <div class="d-flex justify-content-center flex-column mb-1">{{ item['positionName' + locale] }}</div>
+                  <app-general-badge class="d-none d-sm-flex ms-2" [textInput]="primary"></app-general-badge>
                 </div>
-              </ng-container>
-            </div>
+                <div><span *ngIf="item['departmentName' + locale]">{{ item['departmentName' + locale] }}</span></div>
+                <div *ngIf="item?.timing">{{ item?.timing }}</div>
+              </div>
+              <div class="col-3">
+                <app-general-badge class="d-flex d-sm-none mb-4 badge-mobile-wrap"
+                                   [textInput]="primary"></app-general-badge>
+                <ng-container *ngFor="let ds of item.dataSources; let j = index">
+                  <div *ngFor="let ds of item.dataSources; let j = index" class="font-size-smaller mt-1">
+                    <span i18n="@@source">Lähde</span>:
+                    <span>{{ ds.organization['name' + locale] }}</span>
+                  </div>
+                </ng-container>
+              </div>
             </div>
           </ng-container>
         </div>
         <!-- Iterate non primary affiliations -->
-        <div *ngFor="let item of data.items; let i = index">
+        <div *ngFor="let item of ((data | formatAndSortTimespan: groupTypes.affiliation).items); let i = index">
           <ng-container *ngIf="(!item.itemMeta.primaryValue && (item.itemMeta.show|| isPortalSinglePage))">
             <div class="row mb-4">
-            <div class="col-4 col-sm-3 fw-bold"><span
-                    *ngIf="item['organizationName' + locale]">{{ item['organizationName' + locale] }}</span></div>
-            <div class="col-5 col-sm-6">
-              <div class="fw-bold">{{ item['positionName' + locale] }}</div>
-              <div><span *ngIf="item['departmentName' + locale]">{{ item['departmentName' + locale] }}</span></div>
-              <div>{{ item['startDate'].year }} - {{ item['endDate'].year }}</div>
-            </div>
-            <div class="col-3">
-              <ng-container *ngFor="let ds of item.dataSources; let j = index">
-                <div *ngFor="let ds of item.dataSources; let j = index" class="font-size-smaller">
-                  <span i18n="@@source">Lähde</span>:
-                  <span>{{ ds.organization['name' + locale] }}</span>
+              <div class="col-4 col-sm-3 fw-bold"><span
+                      *ngIf="item['organizationName' + locale]">{{ item['organizationName' + locale] }}</span></div>
+              <div class="col-5 col-sm-6">
+                <div class="fw-bold">{{ item['positionName' + locale] }}</div>
+                <div><span *ngIf="item['departmentName' + locale]">{{ item['departmentName' + locale] }}</span></div>
+                <div *ngIf="item?.timing">{{ item?.timing }}</div>
+                <div class="col-3">
+                  <ng-container *ngFor="let ds of item.dataSources; let j = index">
+                    <div *ngFor="let ds of item.dataSources; let j = index" class="font-size-smaller">
+                      <span i18n="@@source">Lähde</span>:
+                      <span>{{ ds.organization['name' + locale] }}</span>
+                    </div>
+                  </ng-container>
                 </div>
-              </ng-container>
-            </div>
+              </div>
             </div>
           </ng-container>
         </div>
@@ -128,14 +140,14 @@
 
       <!-- EDUCATION -->
       <div class="pt-2" *ngIf="sectionName === groupTypes.education">
-        <div class="row mb-4" *ngFor="let item of data.items; let i = index">
+        <div class="row mb-4" *ngFor="let item of ((data | formatAndSortTimespan: groupTypes.education).items); let i = index">
           <ng-container *ngIf="item.itemMeta.show || isPortalSinglePage">
             <div class="row">
-              <div class="col-12 gx-0"><span
-                      class="fw-bold">{{ item['name' + locale] }}  </span>{{ item?.startDate?.year }} -
-                <span *ngIf="item?.endDate?.year > 0">{{ item?.endDate?.year }}</span></div>
+              <div class="col-12 gx-0"><span class="fw-bold">{{ item['name' + locale] }}</span>
+                <div *ngIf="item?.timing > 0">{{ item?.timing }}</div>
               <!-- TODO: add checkLang pipe -->
               <div class="col-12 gx-0">{{ item.degreeGrantingInstitutionName }}</div>
+            </div>
             </div>
           </ng-container>
         </div>
