@@ -109,7 +109,7 @@
 
     <ng-container *ngSwitchCase="fieldTypes.activityActivitiesAndRewards">
       <app-activity-item
-              [rows]="[_item['activityTypeName' + locale], _item['name' + locale], _item['organizationName' + locale], _item['timing']]"
+              [rows]="[_item['activityTypeName' + locale], _item['name' + locale], _item['organizationName' + locale], _item['timing'], _item.url ? _item.url : '*', _item?.internationalCollaboration ? hasInternationalCollaborationYes : hasInternationalCollaborationNo]"
               [fieldType]="fieldType"
               [smallLastItem]="false"
       ></app-activity-item>
@@ -117,7 +117,7 @@
 
     <ng-container *ngSwitchCase="fieldTypes.activityActivitiesAndRewardsOrcid">
       <app-activity-item
-              [rows]="[_item['activityTypeName' + locale], _item['name' + locale], _item['organizationName' + locale], _item['timing']]"
+              [rows]="[_item['activityTypeName' + locale], _item['name' + locale], _item['organizationName' + locale], _item['timing'], _item.url ? _item.url : '*', _item?.internationalCollaboration ? hasInternationalCollaborationYes : hasInternationalCollaborationNo]"
               [fieldType]="fieldType"
               [smallLastItem]="false"
       ></app-activity-item>

@@ -3315,6 +3315,9 @@
       <trans-unit id="sortByOpenness" datatype="html">
         <source>avoimen saatavuuden mukaan</source>
       </trans-unit>
+      <trans-unit id="noPeerReviewedPublications" datatype="html">
+        <source>Ei vertaisarvioituja julkaisuja</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

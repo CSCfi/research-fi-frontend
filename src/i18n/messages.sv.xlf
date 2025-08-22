@@ -4414,8 +4414,12 @@
         <target state="new">enligt år</target>
       </trans-unit>
       <trans-unit id="sortByOpenness" datatype="html">
-        <source>avoimen saatavuuden mukaan </source>
+        <source>avoimen saatavuuden mukaan</source>
         <target state="new">enligt öppen tillgång</target>
+      </trans-unit>
+      <trans-unit id="noPeerReviewedPublications" datatype="html">
+        <source>Ei vertaisarvioituja julkaisuja</source>
+        <target state="new">Inga referentgranskade publikationer</target>
       </trans-unit>
     </body>
   </file>
