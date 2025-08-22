@@ -42,6 +42,7 @@ export class StickyFooterComponent implements OnInit, OnDestroy {
   isProfilePublished = this.draftService.person$.pipe(map((person) => person != null ));
   isDraftProfileChanged =  this.draftService.edited$;
   isProfileVisible = this.profileService.getProfileVisibilityObservable();
+  publishingInProgress = this.draftService.getPublishingInProgressObservable();
   isLogoutConfirmModalVisible = this.draftService.showLogoutConfirmModal.subscribe(val => {
     if (val === true) {
       this.draftService.showLogoutConfirmModal.next(false);

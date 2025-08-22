@@ -34,6 +34,7 @@ export class DraftService {
 
   person$ = new BehaviorSubject<Person>(null);
   public dataHasBeenReset = new BehaviorSubject<boolean>(false);
+  private publishingInProgress$ = new BehaviorSubject<boolean>(false);
 
   hasProfile$: Observable<boolean>;
   public showLogoutConfirmModal = new BehaviorSubject<boolean>(false);
@@ -41,6 +42,7 @@ export class DraftService {
   private highlightOpennessPayloadSub = new BehaviorSubject<any>([]);
   highlightOpennessPayloadSubObs =  this.highlightOpennessPayloadSub.asObservable();
 
+  // Wait until all the payloads are empty (
   edited$ = combineLatest([
     this.publicationsService.currentPublicationPayload,
     this.datasetsService.currentDatasetPayload,
@@ -168,6 +170,10 @@ export class DraftService {
       }
     }
     return draftHighlightOpenness;
+  }
+
+  public getPublishingInProgressObservable() {
+    return this.publishingInProgress$.asObservable();
   }
 
   updateFieldInDraft(fieldId: string, data: any) {
@@ -365,6 +371,7 @@ export class DraftService {
   }
 
   async publish() {
+    this.publishingInProgress$.next(true);
     const promises = [];
 
     // Use of handler property as function prevents handler method firing when iterating
@@ -410,8 +417,7 @@ export class DraftService {
       if (response.includes(false)) {
         this.snackbarService.showPatchMessage('error');
       } else {
-        //this.clearDraftPayloadData();
-        // Timeout to wait back end to save the data
+        // Timeout to wait new data available from back end
         setTimeout(() => {
           this.clearDraftData();
         }, 500);
@@ -427,6 +433,7 @@ export class DraftService {
 
     await this.setProfileVisible();
     await this.pollProfile();
+    this.publishingInProgress$.next(false);
   }
   /*
  * Clear draft data from storage and service. Used only by footer manual reset.
