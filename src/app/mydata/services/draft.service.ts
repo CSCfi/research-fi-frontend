@@ -28,7 +28,6 @@ import { cloneDeep } from 'lodash-es';
   providedIn: 'root'
 })
 export class DraftService {
-  draftProfileData: any;
   orcidData: any;
   orcid: string;
 
@@ -435,19 +434,14 @@ export class DraftService {
     await this.pollProfile();
     this.publishingInProgress$.next(false);
   }
+
   /*
- * Clear draft data from storage and service. Used only by footer manual reset.
+ * Clear draft data from storage and service.
  */
   clearDraftData() {
-    const currentProfileData = cloneDeep(
-      this.profileService.currentProfileData
-    );
-    this.draftProfileData = currentProfileData;
-    this.profileService.setEditorProfileName(getName(currentProfileData));
     this.profileService.initializeProfileVisibilityAndSettings();
     this.clearDraftPayloadData();
     this.clearSessionStorageData();
-    sessionStorage.removeItem(Constants.draftProfile);
 
     // Notify profile component to refresh view
     this.dataHasBeenReset.next(true);
