@@ -61,6 +61,12 @@ export class PanelArrayItemComponent implements OnInit {
   hasOpenScienceTag = false;
   link = undefined;
 
+  hasInternationalCollaboration = $localize`:@@internationalCollaboration:Kansainvälinen yhteistyö`;
+  yesLocalization = $localize`:@@yes:Kyllä`;
+  noLocalization = $localize`:@@no:Ei`;
+  hasInternationalCollaborationYes = this.hasInternationalCollaboration + ': ' + this.yesLocalization;
+  hasInternationalCollaborationNo = this.hasInternationalCollaboration + ': ' + this.noLocalization;
+
   fieldTypes = FieldTypes;
   _item: any;
 

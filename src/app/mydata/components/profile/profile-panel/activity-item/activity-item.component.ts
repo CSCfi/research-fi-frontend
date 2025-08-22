@@ -6,18 +6,19 @@
 //  :license: MIT
 
 import { Component, Input, OnInit } from '@angular/core';
-import { JsonPipe, NgFor, NgIf } from '@angular/common';
+import { JsonPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { FirstLetterPipe } from '@shared/pipes/first-letter.pipe';
 import { CapitalizeFirstLetterPipe } from '@shared/pipes/capitalize-first-letter.pipe';
+import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
     selector: 'app-activity-item',
     templateUrl: './activity-item.component.html',
     styleUrls: ['./activity-item.component.scss'],
     standalone: true,
-  imports: [NgFor, NgIf, RouterLink, JsonPipe, FirstLetterPipe, CapitalizeFirstLetterPipe]
+  imports: [NgFor, NgIf, RouterLink, JsonPipe, FirstLetterPipe, CapitalizeFirstLetterPipe, NgClass, SvgSpritesComponent]
 })
 export class ActivityItemComponent implements OnInit {
   @Input() rows: any[];
@@ -25,6 +26,8 @@ export class ActivityItemComponent implements OnInit {
   @Input() link: string;
   @Input() fieldType: number;
   fieldTypes =  FieldTypes;
+
+  foldOpen = false;
 
   constructor() {}
 
@@ -36,4 +39,10 @@ export class ActivityItemComponent implements OnInit {
     // Row value is empty string if no match in profile data
     this.rows = this.rows.filter((item) => item?.toString().trim().length > 0);
   }
+
+  toggleFold(){
+    this.foldOpen = !this.foldOpen;
+  }
+
+  protected readonly FieldTypes = FieldTypes;
 }

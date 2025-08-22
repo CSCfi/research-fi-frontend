@@ -37,8 +37,11 @@ app-sort-dropdown-menu {
 }
 
 app-general-badge, .general-badge-wrapper {
-  margin-top: -6px !important;
-  margin-bottom: 6px !important;
+  margin-top: -1px !important;
+}
+
+.source-row {
+  margin-top: 2px;
 }
 
 @media (max-width: 480px) {

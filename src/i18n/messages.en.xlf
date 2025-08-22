@@ -4414,6 +4414,10 @@
         <source>avoimen saatavuuden mukaan</source>
         <target state="new">by open access</target>
       </trans-unit>
+      <trans-unit id="noPeerReviewedPublications" datatype="html">
+        <source>Ei vertaisarvioituja julkaisuja</source>
+        <target state="new">No peer-reviewed publications</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

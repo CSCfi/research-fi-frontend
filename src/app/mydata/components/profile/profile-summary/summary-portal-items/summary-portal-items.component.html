@@ -10,7 +10,10 @@
       </mat-checkbox>
     </div>
   </div>
-  <div class="summary-panel" *ngFor="let item of sortedItems.slice(0, itemDisplayCount); index as i">
+  <div class="ms-3 mt-3">
+    <div *ngIf="filterPeerReviewedPublications && sortedItems.length < 1">{{noPeerReviewedPublications}}</div>
+  </div>
+    <div class="summary-panel" *ngFor="let item of sortedItems.slice(0, itemDisplayCount); index as i">
     <ng-container *ngIf="item.itemMeta.show && fieldType !== FieldTypes.activityActivitiesAndRewards">
       <div *ngIf="i === 0" class="year-caption">
         <h3 *ngIf="hasOpenPublications && highlightOpenness && fieldType === fieldTypes.activityPublication">{{openAccessPublications}}</h3>

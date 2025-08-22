@@ -56,6 +56,7 @@ export class SummaryPortalItemsComponent implements OnInit, OnChanges {
   itemDisplayCount = 3;
 
   showOnlyPeerReviewed  = $localize`:@@showOnlyPeerReviewed:Näytä vain vertaisarvioidut`;
+  noPeerReviewedPublications = $localize`:@@noPeerReviewedPublications:Ei vertaisarvioituja julkaisuja`;
 
   showMorePrefix = $localize`:@@showAll:Näytä kaikki`;
   showLessPrefix = $localize`:@@showLess:Näytä vähemmän`;
