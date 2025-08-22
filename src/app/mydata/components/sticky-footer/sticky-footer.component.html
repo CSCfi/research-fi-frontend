@@ -43,20 +43,20 @@
       <ng-container *ngIf="(isProfileVisible | async) === true">
         <div class="col-auto gx-0">
           <div class="d-flex">
-            <ng-container *ngIf="(((isDraftProfileChanged) | async) && (isProfileVisible | async))">
+            <ng-container *ngIf="((isDraftProfileChanged) | async) && ((publishingInProgress | async) === false)">
               <div class="d-none d-sm-flex  justify-content-center flex-column ms-2">
                 <div class="notification-circle"></div>
               </div>
               <div class="align-content-center d-none d-sm-block me-4">{{unpublishedChanges}}</div>
             </ng-container>
             <app-primary-action-button class="col-auto pe-2" i18n-content="@@publishEllipsis" content="Julkaise..."
-                                       [disabled]="!(((isDraftProfileChanged) | async) && (isProfileVisible | async))"
+                                       [disabled]="(((isDraftProfileChanged) | async) === false) || ((publishingInProgress | async) === true)"
                                        (click)="openDialog(publishUpdatedProfile,publishUpdatedProfileTemplate,dataToPublishTemplate,publishUpdatedProfileDialogActions,false)"></app-primary-action-button>
             <!-- Discard draft -->
             <div class="d-flex justify-content-center flex-column ms-2">
               <app-tertiary-button color="primary" class="ms-2" content="Hylkää muutokset"
                                    i18n-content="@@discardChanges"
-                                   [disabled]="!(((isDraftProfileChanged) | async) && (isProfileVisible | async))"
+                                   [disabled]="(((isDraftProfileChanged) | async) === false) || ((publishingInProgress | async) === true)"
                                    (click)="openDialog(discardChanges, discardChangesTemplate, undefined, discardChangesActions, false)">
               </app-tertiary-button>
             </div>
