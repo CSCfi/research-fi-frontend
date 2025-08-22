@@ -162,10 +162,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
       const parsedDraft = this.draftService.getDraftProfile();
       // Display either draft profile from storage or profile from database
       if (parsedDraft) {
-        console.log(parsedDraft);
+        //console.log('parsed draft', parsedDraft);
         this.profileData = parsedDraft;
         this.profileService.setEditorProfileName(getName(parsedDraft));
       } else {
+        //console.log('data from back end', myDataProfile.profileData);
         this.profileData = myDataProfile.profileData;
         this.profileService.setEditorProfileName(myDataProfile.name);
       }
