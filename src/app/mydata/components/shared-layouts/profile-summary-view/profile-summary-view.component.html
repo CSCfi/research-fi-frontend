@@ -114,7 +114,7 @@
                 <app-general-badge class="d-flex d-sm-none mb-4 badge-mobile-wrap"
                                    [textInput]="primary"></app-general-badge>
                 <ng-container *ngFor="let ds of item.dataSources; let j = index">
-                  <div *ngFor="let ds of item.dataSources; let j = index" class="font-size-smaller mt-1">
+                  <div *ngFor="let ds of item.dataSources; let j = index" class="font-size-smaller source-row">
                     <span i18n="@@source">Lähde</span>:
                     <span>{{ ds.organization['name' + locale] }}</span>
                   </div>
