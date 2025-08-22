@@ -5,7 +5,36 @@
 
 <div class="row activity-item-wrap">
   <div class="col ps-0">
-    <ng-container *ngIf="!link">
+    <ng-container *ngIf="fieldType === FieldTypes.activityActivitiesAndRewards || fieldType === fieldTypes.activityActivitiesAndRewardsOrcid">
+      <div
+              *ngFor="let value of rows; let i = index"
+              [class.font-size-small]="
+        rows.length > 1 && i === rows.length - 1 && smallLastItem
+      "
+      >
+        <div *ngIf="i === 0" class="title-bottom-pad font-weight-500">
+          <div class="activity-title-row" role='button' (click)='toggleFold()'>{{ value | capitalizeFirstLetter }}
+            <app-svg-sprites *ngIf="!foldOpen" [iconName]="'chevron-down'" cssClass="chevron-down-icon navi-icon theme-color"></app-svg-sprites>
+            <app-svg-sprites *ngIf="foldOpen" [iconName]="'chevron-up'" cssClass="chevron-up-icon navi-icon theme-color"></app-svg-sprites></div>
+        </div>
+
+        <div *ngIf="i > 0 && i < rows.length - 2" class="mt-1">
+          {{ value | capitalizeFirstLetter }}
+        </div>
+
+        <div [ngClass]="foldOpen ? 'd-block' : 'd-none'" class="folded-content">
+          <div *ngIf="value !== '*' && i  === rows.length - 2" class="mt-1">
+            <a [attr.href]="value" target="_blank">{{ value }}</a>
+          </div>
+          <div *ngIf="i  === rows.length - 1" class="mt-1">
+            {{ value | capitalizeFirstLetter }}
+          </div>
+        </div>
+      </div>
+
+    </ng-container>
+
+    <ng-container *ngIf="!link && fieldType !== FieldTypes.activityActivitiesAndRewards && fieldType !== fieldTypes.activityActivitiesAndRewardsOrcid">
       <div
               *ngFor="let value of rows; let i = index"
               [class.font-size-small]="
@@ -27,7 +56,7 @@
     </ng-container>
 
 
-    <ng-container *ngIf="link">
+    <ng-container *ngIf="link && fieldType !== FieldTypes.activityActivitiesAndRewards && fieldType !== fieldTypes.activityActivitiesAndRewardsOrcid">
       <div *ngFor="let value of rows; let i = index"
            [class.font-size-small]="rows.length > 1 && i === rows.length - 1 && smallLastItem"
       >
