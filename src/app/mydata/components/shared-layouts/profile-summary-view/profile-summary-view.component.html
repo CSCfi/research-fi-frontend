@@ -93,8 +93,8 @@
                 <div class="d-flex justify-content-center flex-column"><span
                         *ngIf="item['organizationName' + locale]">{{ item['organizationName' + locale] }}</span></div>
               </div>
-              <div class="col-5 col-sm-6">
 
+              <div class="col-5 col-sm-6">
                 <div class="fw-bold d-flex justify-content-between">
                   <div class="d-flex justify-content-center flex-column mb-1">{{ item['positionName' + locale] }}</div>
                   <app-general-badge *ngIf="item['positionName' + locale]?.length > 0" class="d-none d-sm-flex ms-2"
@@ -109,6 +109,7 @@
 
                 <div *ngIf="item?.timing">{{ item?.timing }}</div>
               </div>
+
               <div class="col-3">
                 <app-general-badge class="d-flex d-sm-none mb-4 badge-mobile-wrap"
                                    [textInput]="primary"></app-general-badge>
@@ -119,6 +120,7 @@
                   </div>
                 </ng-container>
               </div>
+
             </div>
           </ng-container>
         </div>
@@ -128,10 +130,12 @@
             <div class="row mb-4">
               <div class="col-4 col-sm-3 fw-bold"><span
                       *ngIf="item['organizationName' + locale]">{{ item['organizationName' + locale] }}</span></div>
+
               <div class="col-5 col-sm-6">
                 <div class="fw-bold">{{ item['positionName' + locale] }}</div>
                 <div><span *ngIf="item['departmentName' + locale]">{{ item['departmentName' + locale] }}</span></div>
                 <div *ngIf="item?.timing">{{ item?.timing }}</div>
+              </div>
                 <div class="col-3">
                   <ng-container *ngFor="let ds of item.dataSources; let j = index">
                     <div *ngFor="let ds of item.dataSources; let j = index" class="font-size-smaller">
@@ -139,7 +143,6 @@
                       <span>{{ ds.organization['name' + locale] }}</span>
                     </div>
                   </ng-container>
-                </div>
               </div>
             </div>
           </ng-container>
