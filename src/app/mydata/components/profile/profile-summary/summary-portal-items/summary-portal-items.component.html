@@ -4,28 +4,36 @@
  :license: MIT -->
 <div class="summary-panel-wrapper">
   <div *ngIf="isPortalSinglePage && fieldType === fieldTypes.activityPublication" class="row gx-2">
-    <div class="d-flex mb-3">
+    <div class="d-flex mb-3 checkbox-align-wrap">
       <mat-checkbox [checked]="filterPeerReviewedPublications" color="primary" (change)=togglePeerReviewedFilter()>
         {{showOnlyPeerReviewed}}
       </mat-checkbox>
     </div>
   </div>
   <div class="ms-3 mt-3">
-    <div *ngIf="filterPeerReviewedPublications && sortedItems.length < 1">{{noPeerReviewedPublications}}</div>
+    <h3 *ngIf="filterPeerReviewedPublications && sortedItems.length < 1">{{noPeerReviewedPublications}}</h3>
   </div>
     <div class="summary-panel" *ngFor="let item of sortedItems.slice(0, itemDisplayCount); index as i">
-    <ng-container *ngIf="item.itemMeta.show && fieldType !== FieldTypes.activityActivitiesAndRewards">
-      <div *ngIf="i === 0" class="year-caption">
-        <h3 *ngIf="hasOpenPublications && highlightOpenness && fieldType === fieldTypes.activityPublication">{{openAccessPublications}}</h3>
-        <h3 *ngIf="!hasOpenPublications && highlightOpenness && fieldType === fieldTypes.activityPublication">{{noOpenAccessPublications}}</h3>
+
+    <ng-container *ngIf="item.itemMeta.show && fieldType !== FieldTypes.activityActivitiesAndRewards && fieldType !== FieldTypes.activityActivitiesAndRewardsOrcid && fieldType !== FieldTypes.activityActivitiesAndRewards">
+
+      <!-- PUBLICATIONS OR DATASETS YEAR (FIRST)-->
+      <div *ngIf="i === 0 && (fieldType === FieldTypes.activityPublication || fieldType === FieldTypes.activityOrcidPublication || fieldType === FieldTypes.activityDataset || fieldType === FieldTypes.activityDatasetOrcid)" class="year-caption">
+        <h3 *ngIf="hasOpenPublications && highlightOpenness">{{openAccessPublications}}</h3>
+        <h3 *ngIf="!hasOpenPublications && highlightOpenness">{{noOpenAccessPublications}}</h3>
         <span *ngIf="fieldType === fieldTypes.activityDataset">{{sortedItems.slice(0, itemDisplayCount)[i].year}}</span>
       </div>
-      <!-- PUBLICATIONS YEAR-->
-      <div class="year-caption"><h3 *ngIf="item?.nonOpenCaptionRow && highlightOpenness">{{otherPublications}}</h3></div>
-      <div class="year-caption">{{sortedItems.slice(0, itemDisplayCount)[i].publicationYear}}</div>
-      <div *ngIf="i > 0 && sortedItems.slice(0, itemDisplayCount)[i].publicationYear !== sortedItems.slice(0, itemDisplayCount)[i-1].publicationYear" class="year-caption">
+
+      <!-- PUBLICATIONS YEAR (NOT FIRST)-->
+      <div *ngIf="item?.nonOpenCaptionRow && highlightOpenness" class="year-caption mt-4"><h3>{{otherPublications}}</h3></div>
+      <div *ngIf="i === 0 && (fieldType === FieldTypes.activityPublication || fieldType === FieldTypes.activityOrcidPublication)" class="year-caption">
+        {{sortedItems.slice(0, itemDisplayCount)[i].publicationYear}}
       </div>
-      <!-- DATASETS YEAR -->
+      <div *ngIf="i > 0 && sortedItems.slice(0, itemDisplayCount)[i].publicationYear !== sortedItems.slice(0, itemDisplayCount)[i-1].publicationYear" class="year-caption">
+        {{sortedItems.slice(0, itemDisplayCount)[i].publicationYear}}
+      </div>
+
+      <!-- DATASETS YEAR (NOT FIRST) -->
       <div *ngIf="i > 0 && sortedItems.slice(0, itemDisplayCount)[i].year !== sortedItems.slice(0, itemDisplayCount)[i-1].year" class="year-caption">
         {{sortedItems.slice(0, itemDisplayCount)[i].publicationYear}}
         <span *ngIf="fieldType === fieldTypes.activityDataset">{{sortedItems.slice(0, itemDisplayCount)[i].year}}</span>
@@ -33,8 +41,8 @@
 
       <!-- SHARED ROW CONTENT -->
       <div class="row">
-        <div [ngClass]="fieldType === FieldTypes.activityPublication || fieldType === FieldTypes.activityDataset ? 'col' : 'col'">
-          <app-panel-array-item [item]="item" [fieldType]="fieldType" [summary]="true"></app-panel-array-item>
+        <div [ngClass]="fieldType === FieldTypes.activityPublication || fieldType === FieldTypes.activityOrcidPublication || fieldType === FieldTypes.activityDataset || fieldType === FieldTypes.activityDatasetOrcid ? 'col' : 'col'">
+          <app-panel-array-item [item]="item" [fieldType]="fieldType" [summary]="false"></app-panel-array-item>
         </div>
       </div>
       <div class="row">
@@ -43,7 +51,7 @@
     </ng-container>
 
     <!-- ACTIVITIES AND REWARDS -->
-    <div *ngIf="fieldType === FieldTypes.activityActivitiesAndRewards || fieldType === FieldTypes.activityActivitiesAndRewardsOrcid" class="row">
+    <div *ngIf="fieldType === FieldTypes.activityActivitiesAndRewards || fieldType === FieldTypes.activityActivitiesAndRewardsOrcid || fieldType === FieldTypes.activityDataset || fieldType === FieldTypes.activityDatasetOrcid" class="row">
       <div class="col">
         <app-panel-array-item [item]="item" [fieldType]="fieldType" [summary]="true"></app-panel-array-item>
       </div>

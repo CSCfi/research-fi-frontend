@@ -9,7 +9,7 @@ app-tag-doi,
 app-tag-open-access,
 app-tag-peer-reviewed {
   .tag {
-    height: 28px;
+    min-height: 28px;
     display: flex;
     flex-wrap: nowrap;
     font-size: 0.75rem;

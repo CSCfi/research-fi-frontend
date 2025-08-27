@@ -44,6 +44,10 @@ app-general-badge, .general-badge-wrapper {
   margin-top: 2px;
 }
 
+.break-word {
+  word-break: break-word;
+}
+
 @media (max-width: 480px) {
   .switch-choices-button {
     width: 100px;

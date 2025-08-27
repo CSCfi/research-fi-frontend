@@ -4,7 +4,7 @@
  :license: MIT -->
 
 <div *ngIf="displayData && isPortalSinglePage">
-  <app-name-and-orcid-view [name]="displayData[9].fields[0].items[0].fullName" [orcid]="displayData[10].value" [isEditorView]="!isPortalSinglePage"></app-name-and-orcid-view>
+  <app-name-and-orcid-view [data]="displayData" [orcid]="this.displayData[10].value" [isEditorView]="!isPortalSinglePage"></app-name-and-orcid-view>
 </div>
 
 <!-- Slice first contact info out and two last infos. These are used in other views. -->

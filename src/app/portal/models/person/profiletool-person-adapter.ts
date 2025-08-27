@@ -196,7 +196,7 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
     profileFormattedTemp.push(activities);
 
     // 9/10 --- COOPERATION
-    const allOptionsSelected = profile.cooperation.map(item => {
+    const allOptionsSelected = profile?.cooperation?.map(item => {
       item.selected = true;
       return item;
     });
