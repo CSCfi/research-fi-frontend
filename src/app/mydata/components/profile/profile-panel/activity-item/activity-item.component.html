@@ -60,11 +60,15 @@
       <div *ngFor="let value of rows; let i = index"
            [class.font-size-small]="rows.length > 1 && i === rows.length - 1 && smallLastItem"
       >
-        <div *ngIf="fieldType === fieldTypes.activityPublication">
+        <div *ngIf="fieldType === fieldTypes.activityPublication && i === 0">
           <a [routerLink]="['/', 'results', 'publication', link]" target="_parent">
             {{ value }}
           </a>
         </div>
+        <div *ngIf="fieldType === fieldTypes.activityPublication && i !== 0">
+          <div class="fw-normal publication-row-base-text">{{ value }}</div>
+        </div>
+
         <div *ngIf="i < rows.length - 1 && fieldType === fieldTypes.activityDataset">
           <a [routerLink]="['/', 'results', 'dataset', link]" target="_parent">
             {{ value }}

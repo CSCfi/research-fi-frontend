@@ -1,10 +1,14 @@
 <div [ngClass]="!isEditorView ? 'group-wrapper' : 'pt-2'">
   <div class="row pt-2 pb-3 justify-content-between">
-    <div class="col-9 d-flex"><h1 class="d-inline">{{ name | capitalizeFirstLetter}}</h1>
+    <div *ngIf="isEditorView" class="col-9 d-flex"><h1 class="d-inline">{{ name | capitalizeFirstLetter}}</h1>
       <app-share *ngIf="!isEditorView" [useNewLayoutButton]="true"></app-share>
     </div>
-    <div class="col-3"></div>
+    <div *ngIf="!isEditorView" class="col-9 d-flex"><h1 class="d-inline">{{ data[9].fields[0].items[0].fullName | capitalizeFirstLetter}}</h1>
+      <app-share [useNewLayoutButton]="true"></app-share>
+    </div>
+    <div class="mt-2">{{positionTitleStr}}</div>
   </div>
+
   <div class="row">
     <div class="col-12 pb-3">
 

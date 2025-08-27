@@ -155,7 +155,7 @@ export class ProfileService {
     return this.profileVisibilityInitialState$.asObservable();
   }
 
-  public getHighlighOpennessInitialState() {
+  public getHighlightOpennessInitialState() {
     return this.highlightOpennessInitialState$.getValue();
   }
 
