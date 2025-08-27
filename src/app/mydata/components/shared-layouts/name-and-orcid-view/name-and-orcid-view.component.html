@@ -3,7 +3,7 @@
     <div *ngIf="isEditorView" class="col-9 d-flex"><h1 class="d-inline">{{ name | capitalizeFirstLetter}}</h1>
       <app-share *ngIf="!isEditorView" [useNewLayoutButton]="true"></app-share>
     </div>
-    <div *ngIf="!isEditorView" class="col-9 d-flex"><h1 class="d-inline">{{ data[9].fields[0].items[0].fullName | capitalizeFirstLetter}}</h1>
+    <div *ngIf="!isEditorView" class="col-9 d-flex"><h1 class="d-inline">{{ fullName | capitalizeFirstLetter}}</h1>
       <app-share [useNewLayoutButton]="true"></app-share>
     </div>
     <div class="mt-2">{{positionTitleStr}}</div>

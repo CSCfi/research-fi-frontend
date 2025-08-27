@@ -35,6 +35,7 @@ export class NameAndOrcidViewComponent implements OnInit {
   positionTitleItem = undefined;
   positionTitles:string[] = [];
   positionTitleStr = '';
+  fullName = '';
 
   constructor(private appSettingsService: AppSettingsService) {
   }
@@ -47,7 +48,17 @@ export class NameAndOrcidViewComponent implements OnInit {
     this.locale = this.appSettingsService.capitalizedLocale;
     this.positionTitleItem = this.data[2].fields[0].items.filter(item => item.itemMeta.primaryValue === true);
 
-    if (this.positionTitleItem.length > 0 ) {
+    if (this.data[9].fields[0].items[0].fullName) {
+      this.fullName = this.data[9].fields[0].items[0].fullName.trim();
+    } else {
+      this.fullName = this.data[9].fields[0].items[0]?.firstNames + ' ' + this.data[9].fields[0].items[0]?.lastName
+    }
+
+    if (!this.isEditorView) {
+      this.positionTitleItem = this.data[2].fields[0].items.filter(item => item.itemMeta.primaryValue === true);
+    }
+
+    if (this.positionTitleItem.length > 0) {
       if (Object.hasOwn(this.positionTitleItem[0], ('positionName' + this.locale))) {
         this.positionTitles = this.positionTitleItem.map((item) => item[('positionName' + this.locale)]);
         this.positionTitles = this.positionTitles.filter((item, index) => this.positionTitles.indexOf(item) === index);

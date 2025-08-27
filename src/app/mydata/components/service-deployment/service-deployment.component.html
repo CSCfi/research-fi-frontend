@@ -69,7 +69,7 @@
         <div class="py-5" *ngIf="step === 4 && userData">
             <div class="row justify-content-center">
                 <div class="col-auto">
-                    <a [href]="userData.orcid" target="_blank">
+                    <a [href]="'https://orcid.org/' + userData.orcid" target="_blank">
                         <app-orcid></app-orcid>
                         <span class="ps-1 text-underline">{{ userData.orcid }}</span>
                         <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites>
