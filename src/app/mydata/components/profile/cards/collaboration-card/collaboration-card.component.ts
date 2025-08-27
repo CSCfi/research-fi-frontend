@@ -97,7 +97,7 @@ export class CollaborationCardComponent implements OnInit, OnDestroy {
 
     if (action) {
       this.optionsToggled.forEach((option) => {
-        const match = this.collaborationOptions.findIndex(
+        const match = this.collaborationOptions?.findIndex(
           (item) => item.id === option.id
         );
 
@@ -136,7 +136,7 @@ export class CollaborationCardComponent implements OnInit, OnDestroy {
   }
 
   private checkForSelection() {
-    this.hasCheckedOption = !!this.collaborationOptions.find(
+    this.hasCheckedOption = !!this.collaborationOptions?.find(
       (option) => option.selected
     );
   }
