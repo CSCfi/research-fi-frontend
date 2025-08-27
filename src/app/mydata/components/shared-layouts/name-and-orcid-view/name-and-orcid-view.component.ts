@@ -61,7 +61,7 @@ export class NameAndOrcidViewComponent implements OnInit {
     if (this.positionTitleItem.length > 0) {
       if (Object.hasOwn(this.positionTitleItem[0], ('positionName' + this.locale))) {
         this.positionTitles = this.positionTitleItem.map((item) => item[('positionName' + this.locale)]);
-        this.positionTitles = this.positionTitles.filter((item, index) => this.positionTitles.indexOf(item) === index);
+        this.positionTitles = this.positionTitles.filter((item, index) => this.positionTitles.indexOf(item) === index).filter(item => item.length > 0);
         this.positionTitleStr = this.positionTitles.join(', ');
       }
     }

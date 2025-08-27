@@ -1,16 +1,16 @@
 <div [ngClass]="!isEditorView ? 'group-wrapper' : 'pt-2'">
   <div class="row pt-2 pb-3 justify-content-between">
-    <div *ngIf="isEditorView" class="col-9 d-flex"><h1 class="d-inline">{{ name | capitalizeFirstLetter}}</h1>
+    <div *ngIf="isEditorView" class="col-9 d-flex gx-3"><h1 class="d-inline">{{ name | capitalizeFirstLetter}}</h1>
       <app-share *ngIf="!isEditorView" [useNewLayoutButton]="true"></app-share>
     </div>
-    <div *ngIf="!isEditorView" class="col-9 d-flex"><h1 class="d-inline">{{ fullName | capitalizeFirstLetter}}</h1>
+    <div *ngIf="!isEditorView" class="col-9 d-flex gx-3"><h1 class="d-inline">{{ fullName | capitalizeFirstLetter}}</h1>
       <app-share [useNewLayoutButton]="true"></app-share>
     </div>
-    <div class="mt-2">{{positionTitleStr}}</div>
+    <div class="col-12 gx-3 mt-2">{{positionTitleStr}}</div>
   </div>
 
   <div class="row">
-    <div class="col-12 pb-3">
+    <div class="col-12 pb-3 gx-3">
 
       <div *ngIf='orcid'>
         <a class='d-flex' [href]="'https://orcid.org/' + orcid" target='_blank'>
