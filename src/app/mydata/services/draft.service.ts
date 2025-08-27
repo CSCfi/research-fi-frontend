@@ -362,7 +362,7 @@ export class DraftService {
 
   public addToHighlightOpennessPayload(value: boolean){
     sessionStorage.setItem(Constants.draftHighlightOpenness, JSON.stringify([value]));
-    if (value !== this.profileService.getHighlighOpennessInitialState()) {
+    if (value !== this.profileService.getHighlightOpennessInitialState()) {
       this.highlightOpennessPayloadSub.next([value]);
     } else {
       this.highlightOpennessPayloadSub.next([]);
