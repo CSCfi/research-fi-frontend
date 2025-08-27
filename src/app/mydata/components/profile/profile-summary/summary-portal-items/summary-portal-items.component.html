@@ -11,7 +11,7 @@
     </div>
   </div>
   <div class="ms-3 mt-3">
-    <h3 *ngIf="filterPeerReviewedPublications && sortedItems.length < 1">{{noPeerReviewedPublications}}</h3>
+    <div *ngIf="filterPeerReviewedPublications && sortedItems.length < 1">{{noPeerReviewedPublications}}</div>
   </div>
     <div class="summary-panel" *ngFor="let item of sortedItems.slice(0, itemDisplayCount); index as i">
 
@@ -20,7 +20,7 @@
       <!-- PUBLICATIONS OR DATASETS YEAR (FIRST)-->
       <div *ngIf="i === 0 && (fieldType === FieldTypes.activityPublication || fieldType === FieldTypes.activityOrcidPublication || fieldType === FieldTypes.activityDataset || fieldType === FieldTypes.activityDatasetOrcid)" class="year-caption">
         <h3 *ngIf="hasOpenPublications && highlightOpenness">{{openAccessPublications}}</h3>
-        <h3 *ngIf="!hasOpenPublications && highlightOpenness">{{noOpenAccessPublications}}</h3>
+        <div class="fw-normal" *ngIf="!hasOpenPublications && highlightOpenness">{{noOpenAccessPublications}}</div>
         <span *ngIf="fieldType === fieldTypes.activityDataset">{{sortedItems.slice(0, itemDisplayCount)[i].year}}</span>
       </div>
 
