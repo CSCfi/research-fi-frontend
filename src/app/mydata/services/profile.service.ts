@@ -111,6 +111,11 @@ export class ProfileService {
     this.currentProfileData = data;
   }
 
+  // This must be called in order to resolver to fetch new data from back end
+  clearCurrentProfileData() {
+    this.currentProfileData = undefined;
+  }
+
   setCurrentCollaborationChoices(data){
     this.collaborationChoices = data;
   }
@@ -134,7 +139,7 @@ export class ProfileService {
     return await firstValueFrom(this.http.delete(this.apiUrl + '/userprofile/', this.httpOptions));
   }
 
-  public async initializeProfileVisibilityAndSettings() {
+  public async fetchProfileVisibilityAndSettings() {
     await this.updateToken();
     let value;
 
