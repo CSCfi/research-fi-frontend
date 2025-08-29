@@ -97,6 +97,7 @@
     margin-right: 3px;
     &.open-access-svg {
       color: #294210;
+      margin-top: 5px;
     }
     color: #bc520a;
   }
@@ -106,10 +107,12 @@
     margin-left: 5px;
     margin-bottom: 2px;
     &.open-access-svg {
+      margin-top: 5px;
+      margin-bottom: 4px;
       color: #294210;
-      margin-bottom: 0px;
     }
     &.doi-svg {
+      margin-bottom: 4px !important;
       color: #363636;
     }
     &.contact-icon {

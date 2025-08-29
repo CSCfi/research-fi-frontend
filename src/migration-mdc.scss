@@ -2,24 +2,6 @@
 
 // TODO: Material 3 SASS API is most likely the best practice for customizing Material components.
 
-// Icons
-.svg-inline--fa {
-  max-height: 42px !important;
-  max-width: 42px !important;
-}
-
-.svg-inline--fa.fa-chart-bar {
-  max-height: 16px !important;
-  max-width: 16px !important;
-}
-.open-access, .tag-content {
-  overflow: hidden;
-  .svg-inline--fa {
-    max-height: 14.8px !important;
-    max-width: 14px !important;
-  }
-}
-
 .tag-content {
   a {
     display: block;

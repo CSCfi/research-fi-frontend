@@ -439,9 +439,9 @@ export class DraftService {
  * Clear draft data from storage and service.
  */
   clearDraftData() {
-    this.profileService.initializeProfileVisibilityAndSettings();
     this.clearDraftPayloadData();
     this.clearSessionStorageData();
+    this.profileService.fetchProfileVisibilityAndSettings();
 
     // Notify profile component to refresh view
     this.dataHasBeenReset.next(true);

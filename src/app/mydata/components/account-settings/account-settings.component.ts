@@ -147,7 +147,7 @@ export class AccountSettingsComponent implements OnInit {
   profileVisibility$ = this.profileService.getProfileVisibilityObservable();
 
   constructor(public profileService: ProfileService, private router: Router, private route: ActivatedRoute, public dialog: MatDialog, public oidcSecurityService: OidcSecurityService,  private snackbarService: SnackbarService) {
-    this.profileService.initializeProfileVisibilityAndSettings();
+    this.profileService.fetchProfileVisibilityAndSettings();
   }
 
   ngOnInit(): void {
