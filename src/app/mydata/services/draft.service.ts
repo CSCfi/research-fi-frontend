@@ -35,7 +35,6 @@ export class DraftService {
   public dataHasBeenReset = new BehaviorSubject<boolean>(false);
   private publishingInProgress$ = new BehaviorSubject<boolean>(false);
 
-  hasProfile$: Observable<boolean>;
   public showLogoutConfirmModal = new BehaviorSubject<boolean>(false);
 
   private highlightOpennessPayloadSub = new BehaviorSubject<any>([]);
@@ -136,7 +135,6 @@ export class DraftService {
 
     this.updatePerson();
 
-    this.hasProfile$ = this.person$.pipe(map((person) => person != null ));
     //this.fetchCollaborationChoices();
   }
 
@@ -349,14 +347,16 @@ export class DraftService {
 
   private async pollProfile() {
     let response;
-    const delays = [2000, 2000, 2000, 2000, 20000];
+    const delays = [2000, 2000, 2000, 2000, 2000, 2000, 5000, 20000];
 
     for (const delay of delays) {
       await lastValueFrom(timer(delay));
 
       response = await lastValueFrom(this.updatePerson());
 
-      if (response != null) { return; }
+      if (response != null && response?.persons?.length > 0) {
+        this.publishingInProgress$.next(false);
+        return; }
     }
   }
 
@@ -419,6 +419,7 @@ export class DraftService {
         // Timeout to wait new data available from back end
         setTimeout(() => {
           this.clearDraftData();
+          this.updatePerson();
         }, 500);
         this.snackbarService.showPatchMessage('success');
       }
