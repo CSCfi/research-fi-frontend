@@ -2,7 +2,7 @@
   background: #D1E5F0;
   border: 1px solid #D1E5F0;
   color: #1F4D6D;
-  min-width: 116px;
+  //min-width: 116px;
   max-width: 134px;
   margin-right: 8px;
   font-size: 13px;
@@ -13,5 +13,11 @@
   .text-wrapper {
     height: 18px;
     white-space: nowrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 27px;
+    line-height: 1.1rem;
   }
 }
