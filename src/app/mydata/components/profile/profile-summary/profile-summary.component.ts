@@ -241,7 +241,7 @@ export class ProfileSummaryComponent implements OnChanges, OnDestroy, OnChanges 
       });
 
       // Set draft data into storage with SSR check
-      if (this.appSettingsService.isBrowser && confirmedPayLoad.length) {
+      if (this.appSettingsService.isBrowser) {
         patchGroups.forEach((group) => {
           this.draftService.updateFieldInDraft(group.key, group.data);
         });

@@ -34,7 +34,7 @@ import {
   NameAndOrcidViewComponent
 } from '@mydata/components/shared-layouts/name-and-orcid-view/name-and-orcid-view.component';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { cloneDeep } from 'lodash-es';
+import { clone, cloneDeep } from 'lodash-es';
 import {
   OpenScienceSettingsCardComponent
 } from '@mydata/components/profile/cards/open-science-settings-card/open-science-settings-card.component';
@@ -91,7 +91,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private changeDetectorRef: ChangeDetectorRef,
     @Inject(DOCUMENT) private document: any,
   ) {
-    this.profileService.initializeProfileVisibilityAndSettings();
+    this.profileService.fetchProfileVisibilityAndSettings();
     this.fullName = this.profileService.getEditorProfileNameObservable();
 
     // Find if user has navigated to profile route from service deployment stepper
@@ -133,7 +133,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     // Get data from resolver
     const orcidProfile = this.route.snapshot.data.orcidProfile;
     this.orcid = orcidProfile.orcid;
-    const myDataProfile = this.route.snapshot.data.myDataProfile;
     this.draftService.setOrcidData(orcidProfile);
 
     /*
@@ -141,7 +140,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
      * Set draft data to profile view if draft available.
      * Drafts are deleted with reset and publish methods
      */
-    this.profileService.initializeProfileVisibilityAndSettings().then(val => {
+    this.profileService.fetchProfileVisibilityAndSettings().then(val => {
       if (val) {
         const draftHighlightOpennessState = this.draftService.getDraftHighlightOpennessState();
         if (draftHighlightOpennessState) {
@@ -162,13 +161,24 @@ export class ProfileComponent implements OnInit, OnDestroy {
       const parsedDraft = this.draftService.getDraftProfile();
       // Display either draft profile from storage or profile from database
       if (parsedDraft) {
-        //console.log('parsed draft', parsedDraft);
+        console.log('parsed draft', parsedDraft);
         this.profileData = parsedDraft;
         this.profileService.setEditorProfileName(getName(parsedDraft));
       } else {
-        //console.log('data from back end', myDataProfile.profileData);
-        this.profileData = myDataProfile.profileData;
-        this.profileService.setEditorProfileName(myDataProfile.name);
+        this.profileService.clearCurrentProfileData();
+        this.profileService
+          .fetchProfileDataFromBackend()
+          .then(
+            (value) => {
+              if (value) {
+                this.profileService.setCurrentProfileData(
+                  cloneDeep(value.profileData)
+                );
+                this.profileData = clone(value.profileData);
+                console.log('DATA FROM BACK END', this.profileData);
+              }
+            });
+        this.profileService.setEditorProfileName(this.route.snapshot.data.myDataProfile.name);
       }
       this.fullName = this.profileService.currentEditorProfileName;
       //this.highlightOpennessInitialState$ = this.draftService.highlightOpennessPayloadSubObs;
