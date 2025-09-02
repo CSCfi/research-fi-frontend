@@ -15,6 +15,7 @@ import { DialogEventsService } from '@shared/services/dialog-events.service';
 import { SecondaryButtonComponent } from '../../../shared/components/buttons/secondary-button/secondary-button.component';
 import { PrimaryActionButtonComponent } from '../../../shared/components/buttons/primary-action-button/primary-action-button.component';
 import { BannerDividerComponent } from '@shared/components/banner-divider/banner-divider.component';
+import { map, take } from 'rxjs/operators';
 
 
 @Component({
@@ -52,6 +53,18 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.utilityService.setMyDataTitle(this.title);
     this.locale = this.appSettingsService.currentLocale;
+
+
+      this.oidcSecurityService.isAuthenticated$.pipe(
+        take(1),
+        map(({ isAuthenticated }) => {
+          // allow navigation if authenticated
+          if (isAuthenticated) {
+          }
+        })
+      );
+
+
 
     // BANNER THAT WAS USED TO INFORM USERS REGARDING THE PROBLEM WITH SUOMI.FI AUTHENTICATION
     /*this.notificationService.notify({

@@ -3,17 +3,87 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<div class="row">
+<div class="row activity-item-wrap">
   <div class="col ps-0">
-    <span
-      class="row"
-      *ngFor="let value of rows; let i = index"
-      [class.fw-bold]="i === 0"
-      [class.font-size-small]="
+    <ng-container *ngIf="fieldType === FieldTypes.activityActivitiesAndRewards || fieldType === fieldTypes.activityActivitiesAndRewardsOrcid">
+      <div
+              *ngFor="let value of rows; let i = index"
+              [class.font-size-small]="
         rows.length > 1 && i === rows.length - 1 && smallLastItem
       "
-    >
-      {{ value }}
-    </span>
+      >
+        <div *ngIf="i === 0" class="title-bottom-pad font-weight-500">
+          <div class="activity-title-row" role='button' (click)='toggleFold()'>{{ value | capitalizeFirstLetter }}
+            <app-svg-sprites *ngIf="!foldOpen" [iconName]="'chevron-down'" cssClass="chevron-down-icon navi-icon theme-color"></app-svg-sprites>
+            <app-svg-sprites *ngIf="foldOpen" [iconName]="'chevron-up'" cssClass="chevron-up-icon navi-icon theme-color"></app-svg-sprites></div>
+        </div>
+
+        <div *ngIf="i > 0 && i < rows.length - 2" class="mt-1">
+          {{ value | capitalizeFirstLetter }}
+        </div>
+
+        <div [ngClass]="foldOpen ? 'd-block' : 'd-none'" class="folded-content">
+          <div *ngIf="value !== '*' && i  === rows.length - 2" class="mt-1">
+            <a [attr.href]="value" target="_blank">{{ value }}</a>
+          </div>
+          <div *ngIf="i  === rows.length - 1" class="mt-1">
+            {{ value | capitalizeFirstLetter }}
+          </div>
+        </div>
+      </div>
+
+    </ng-container>
+
+    <ng-container *ngIf="!link && fieldType !== FieldTypes.activityActivitiesAndRewards && fieldType !== fieldTypes.activityActivitiesAndRewardsOrcid">
+      <div
+              *ngFor="let value of rows; let i = index"
+              [class.font-size-small]="
+        rows.length > 1 && i === rows.length - 1 && smallLastItem
+      "
+      >
+        <div *ngIf="i === 0" class="title-bottom-pad font-weight-500">
+          {{ value | capitalizeFirstLetter }}
+        </div>
+
+        <div *ngIf="i > 0 && i < rows.length - 1" class="mt-1">
+          {{ value | capitalizeFirstLetter }}
+        </div>
+
+        <div *ngIf="i > 0 && i === rows.length - 1" class="mt-1">
+          {{ value | capitalizeFirstLetter }}
+        </div>
+      </div>
+    </ng-container>
+
+
+    <ng-container *ngIf="link && fieldType !== FieldTypes.activityActivitiesAndRewards && fieldType !== fieldTypes.activityActivitiesAndRewardsOrcid">
+      <div *ngFor="let value of rows; let i = index"
+           [class.font-size-small]="rows.length > 1 && i === rows.length - 1 && smallLastItem"
+      >
+        <div *ngIf="fieldType === fieldTypes.activityPublication && i === 0">
+          <a [routerLink]="['/', 'results', 'publication', link]" target="_parent">
+            {{ value }}
+          </a>
+        </div>
+        <div *ngIf="fieldType === fieldTypes.activityPublication && i !== 0">
+          <div class="fw-normal publication-row-base-text">{{ value }}</div>
+        </div>
+
+        <div *ngIf="i < rows.length - 1 && fieldType === fieldTypes.activityDataset">
+          <a [routerLink]="['/', 'results', 'dataset', link]" target="_parent">
+            {{ value }}
+          </a>
+        </div>
+        <div *ngIf="i < rows.length - 1 && fieldType === fieldTypes.activityFunding">
+          <div *ngIf="i === 0" class="title-bottom-pad font-weight-500"><a [routerLink]="['/', 'results', 'funding', link]"
+                                                           target="_parent">{{ value | capitalizeFirstLetter }}</a>
+          </div>
+          <div *ngIf="i > 0">{{ value }}</div>
+        </div>
+        <div *ngIf="i === rows.length - 1 && fieldType === fieldTypes.activityFunding" class="mt-1">
+          {{ value }}
+        </div>
+      </div>
+    </ng-container>
   </div>
 </div>

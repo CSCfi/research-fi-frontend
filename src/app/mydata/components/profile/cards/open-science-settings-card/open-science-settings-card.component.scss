@@ -1,0 +1,21 @@
+.group-wrapper {
+  background: #fff;
+  border: 1px solid #e8e8f5;
+  padding: 16px;
+  margin-bottom: 16px;
+  mat-checkbox, .mdc-form-field.mat-internal-form-field {
+    white-space: pre-line !important;
+  }
+  .openness-info-box {
+    background: #C0DBA2;
+    padding: 15px 20px;
+    margin: 8px;
+    border-radius: 4px;
+  }
+
+  .info-circle-color {
+    color: #294210;
+    fill: #294210;
+  }
+}
+

@@ -2,13 +2,22 @@
   background: #D1E5F0;
   border: 1px solid #D1E5F0;
   color: #1F4D6D;
-  max-width: 114px;
+  //min-width: 116px;
+  max-width: 134px;
   margin-right: 8px;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 400;
   display: flex;
   justify-content: center;
   flex-direction: column;
   .text-wrapper {
     height: 18px;
+    white-space: nowrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 27px;
+    line-height: 1.1rem;
   }
 }

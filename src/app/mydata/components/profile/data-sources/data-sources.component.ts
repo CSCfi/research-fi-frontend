@@ -18,18 +18,28 @@ import { NotificationService } from '@shared/services/notification.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { clone, cloneDeep } from 'lodash-es';
-import { DataSourcesSelectionActionsComponent } from './data-sources-selection-actions/data-sources-selection-actions.component';
-import { ActiveFiltersListComponent } from '../../../../shared/components/active-filters-list/active-filters-list.component';
+import {
+  DataSourcesSelectionActionsComponent
+} from './data-sources-selection-actions/data-sources-selection-actions.component';
+import {
+  ActiveFiltersListComponent
+} from '../../../../shared/components/active-filters-list/active-filters-list.component';
 import { SortByButtonComponent } from '../../../../shared/components/buttons/sort-by-button/sort-by-button.component';
 import { DataSourcesFiltersComponent } from './data-sources-filters/data-sources-filters.component';
 import { NgTemplateOutlet, NgIf } from '@angular/common';
 import { BannerDividerComponent } from '@shared/components/banner-divider/banner-divider.component';
+import {
+  MydataSideNavigationComponent
+} from '@mydata/components/mydata-side-navigation/mydata-side-navigation.component';
+import { StickyFooterComponent } from '@mydata/components/sticky-footer/sticky-footer.component';
+import { CollaborationsService } from '@mydata/services/collaborations.service';
+import { DraftService } from '@mydata/services/draft.service';
 
 @Component({
-    selector: 'app-data-sources',
-    templateUrl: './data-sources.component.html',
-    styleUrls: ['./data-sources.component.scss'],
-    standalone: true,
+  selector: 'app-data-sources',
+  templateUrl: './data-sources.component.html',
+  styleUrls: ['./data-sources.component.scss'],
+  standalone: true,
   imports: [
     NgTemplateOutlet,
     DataSourcesFiltersComponent,
@@ -38,7 +48,9 @@ import { BannerDividerComponent } from '@shared/components/banner-divider/banner
     ActiveFiltersListComponent,
     DataSourcesTableComponent,
     DataSourcesSelectionActionsComponent,
-    BannerDividerComponent
+    BannerDividerComponent,
+    MydataSideNavigationComponent,
+    StickyFooterComponent
   ]
 })
 export class DataSourcesComponent implements OnInit, OnDestroy {
@@ -67,38 +79,48 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
     itemMeta: ItemMeta;
   }[];
   nameField: any;
-
+  private highlightOpenness = [];
+  private highlightOpennessObs: Subscription;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     public profileService: ProfileService,
+    private collaborationsService: CollaborationsService,
     private patchService: PatchService,
     private notificationService: NotificationService,
-    private appSettingsService: AppSettingsService
-  ) {}
+    private appSettingsService: AppSettingsService,
+    private draftService : DraftService,
+  ) {
+  }
+
 
   ngOnInit(): void {
     this.locale = this.appSettingsService.capitalizedLocale;
+    this.highlightOpennessObs = this.draftService.highlightOpennessPayloadSubObs.subscribe(value => this.highlightOpenness = value);
 
-    const draftProfile = this.profileService.getDraftProfile();
+    const draftProfile = this.draftService.getDraftProfile();
+    const collaborationOptions = this.collaborationsService.confirmedPayload;
 
     /*
-     * Inform user if unsaved changes in profile view
+     *  Inform user if unsaved changes in profile view
      */
-    if (draftProfile) {
+    if (draftProfile || collaborationOptions?.length > 0  || (this.highlightOpenness.length > 0)) {
       this.notificationService.notify({
         notificationText: $localize`:@@youHaveUnpublishedChangesSnackbar:Sinulla on julkaisemattomia muutoksia profiilinäkymässä.`,
         buttons: [
           {
             label: $localize`:@@youHaveUnpublishedChangesSnackbarButton:Tarkasta muutokset.`,
-            action: () => this.router.navigate(['mydata/profile']),
-          },
-        ],
+            action: () => this.router.navigate(['mydata/profile'])
+          }
+        ]
       });
     }
 
     const orcidProfile = this.route.snapshot.data.orcidProfile;
-    const myDataProfile = this.route.snapshot.data.myDataProfile;
+    let myDataProfile = this.route.snapshot.data.myDataProfile;
+
+    // Remove cooperation options data
+    myDataProfile.profileData = this.route.snapshot.data.myDataProfile.profileData.slice(0, -1);
 
     this.orcidData = orcidProfile;
     this.profileData = myDataProfile;
@@ -124,12 +146,12 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
     // Get active filters from query parameters
     // Match params with filters config that filter keys match
     this.queryParamsSub = this.route.queryParams.subscribe((queryParams) => {
-      this.doFiltering(queryParams)
+      this.doFiltering(queryParams);
     });
     this.setSortOptions();
   }
 
-  doFiltering(queryParams: any){
+  doFiltering(queryParams: any) {
     {
       const filterConfigFields = FiltersConfig.map((item) => item.field);
       const activeFilters = {};
@@ -160,7 +182,7 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
 
       // Configuration for displaying active filters list in dialog
       this.activeFiltersDialogConfig = {
-        filtersConfig: FiltersConfig,
+        filtersConfig: FiltersConfig
       };
 
       this.visibleData =
@@ -173,7 +195,7 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
 
   async reloadProfileData(activeFilters: any) {
     this.profileService
-      .getProfileData()
+      .fetchProfileDataFromBackend()
       .then(
         (value) => {
           if (value) {
@@ -206,14 +228,15 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
               .map((keyword) => keyword.value)
               .join(', '),
             dataSources: keywordsField.items[0].dataSources,
-            itemMeta: keywordsField.items[0].itemMeta,
-          },
+            itemMeta: keywordsField.items[0].itemMeta
+          }
         ];
       }
     }
   };
 
   ngOnDestroy(): void {
+    this.highlightOpennessObs?.unsubscribe();
     this.queryParamsSub?.unsubscribe();
     this.notificationService.clearNotification();
   }
@@ -224,7 +247,7 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
       (item) => ({
         key: item.key,
         label: item.mobileSortLabel || item.label,
-        direction: item.mobileSortDirection,
+        direction: item.mobileSortDirection
       })
     );
   }
@@ -233,7 +256,7 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
   parseActiveFilters(activeFilters) {
     const statuses = [
       { id: 'public', label: $localize`:@@public:Julkinen` },
-      { id: 'private', label: $localize`:@@notPublic:Ei julkinen` },
+      { id: 'private', label: $localize`:@@notPublic:Ei julkinen` }
     ];
 
     const datasets = this.initialProfileData
@@ -245,7 +268,7 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
       this.appSettingsService.capitalizedLocale
     ).map((source) => ({
       id: source.key,
-      label: source.label,
+      label: source.label
     }));
 
     const mappedFilters = [...statuses, ...datasets, ...sources];
@@ -259,7 +282,7 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
           value: activeFilter,
           translation: mappedFilters.find(
             (filter) => filter.id === activeFilter
-          )?.label,
+          )?.label
         });
       });
     }
@@ -330,7 +353,7 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
           groupLabel: group.label,
           source: item.dataSources
             ?.map((source) => source.organization['name' + this.locale])
-            .join(', '),
+            .join(', ')
         });
       }
     }
@@ -348,12 +371,12 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
       if (item.itemMeta.type === FieldTypes.personKeyword) {
         payload = this.originalKeywords.map((item) => ({
           ...item.itemMeta,
-          show: !item.itemMeta.show,
+          show: !item.itemMeta.show
         }));
       } else {
         payload = {
           ...item.itemMeta,
-          show: !item.itemMeta.show,
+          show: !item.itemMeta.show
         };
       }
 

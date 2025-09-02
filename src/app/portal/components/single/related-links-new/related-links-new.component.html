@@ -1,0 +1,43 @@
+
+<aside class="group-wrapper">
+  <div class="card-content-wrapper">
+    <app-profile-editor-card-header
+            [label]="incomingCaption"
+            [displayButton]="false"
+    ></app-profile-editor-card-header>
+<div class="row related">
+  <ul class="col-12 col-sm-6 col-md-12 col-xl-6">
+    <ng-container *ngFor="let link of relatedList.slice(0, 3)">
+      <li *ngIf="link.tab !== currentParent">
+        <a
+                [class.disabled]="link.disabled"
+                routerLink="/results/{{ link.tab }}/"
+                [queryParams]="queryParams"
+        >
+          {{ link.label }}
+          <span *ngIf="!link.disabled"
+          >({{ docCountData[link.tab]?.doc_count }})</span
+          >
+        </a>
+      </li>
+    </ng-container>
+  </ul>
+  <ul class="col-12 col-sm-6 col-md-12 col-xl-6">
+    <ng-container *ngFor="let link of relatedList.slice(3, relatedList.length)">
+      <li *ngIf="link.tab !== currentParent">
+        <a
+                [class.disabled]="link.disabled"
+                routerLink="/results/{{ link.tab }}/"
+                [queryParams]="queryParams"
+        >
+          {{ link.label }}
+          <span *ngIf="!link.disabled"
+          >({{ docCountData[link.tab]?.doc_count }})</span
+          >
+        </a>
+      </li>
+    </ng-container>
+  </ul>
+</div>
+  </div>
+</aside>

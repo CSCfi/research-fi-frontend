@@ -7,6 +7,7 @@
 
 .doi {
   .tag-id {
+    line-height: 1.15rem;
     background: #363636;
     color: white;
     padding: 5px 10px 3px 15px;
@@ -17,6 +18,7 @@
   }
 
   .tag-content {
+    line-height: 1.3rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -36,6 +38,8 @@
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+        font-size: 13px;
+        font-weight: 400;
       }
       &:hover, &:active, &:focus  {
         text-decoration: underline;

@@ -9,7 +9,7 @@ app-tag-doi,
 app-tag-open-access,
 app-tag-peer-reviewed {
   .tag {
-    height: 28px;
+    height: 29px;
     display: flex;
     flex-wrap: nowrap;
     font-size: 0.75rem;
@@ -20,7 +20,7 @@ app-tag-peer-reviewed {
   .peer-reviewed,
   .open-access {
     color: rgba(0, 0, 0, 0.87);
-    padding: 0.2rem 1rem;
+    padding: 0 1rem;
   }
   .mat-icon[data-mat-icon-name='general.externalLink'] {
     height: 20px;

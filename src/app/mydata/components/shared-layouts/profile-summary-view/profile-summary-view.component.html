@@ -1,0 +1,219 @@
+<div *ngIf="!isPortalSinglePage || ((data | hasSelectedItems) && isPortalSinglePage)"
+     class="group-wrapper py-3 ps-2 pe-3">
+  <div class="row py-2">
+    <div class="col px-0">
+      <!-- SECTION LABEL AND EDIT BUTTON -->
+      <div class="row pb-3 justify-content-between">
+        <h2 class="col order-1">
+          {{ data.label }}<span
+                *ngIf="data?.items[0]?.itemMeta?.type !== fieldTypes.personResearcherDescription && data?.items[0]?.itemMeta?.type !== fieldTypes.personKeyword && data?.items[0]?.itemMeta?.type !== fieldTypes.activityAffiliation"><span
+                *ngIf="(data| countSelectedItems) > 0"> ({{ data| countSelectedItems }})</span></span>
+        </h2>
+        <div class="col-6 order-2 order-md-3 gx-0 gx-sm-3">
+          <div *ngIf="!isPortalSinglePage && data?.items[0]?.itemMeta?.type !== fieldTypes.personKeyword"
+               class="d-flex justify-content-end">
+            <app-tertiary-button
+                    class="switch-choices-button"
+                    [content]="(data | hasSelectedItems) ? editString : selectString"
+                    [announce]="!(data | hasSelectedItems)"
+                    [announceText]="data.label + ' ' + noPublicDataText"
+                    [svgSymbolName]="'edit'"
+                    [svgCssClass]="'open_in_new-icon button-icon'"
+                    (click)="openDialog($event, sectionIndex + 1)"
+            ></app-tertiary-button>
+          </div>
+          <div *ngIf="isPortalSinglePage && data?.items[0]?.itemMeta?.type === fieldTypes.activityPublication"
+               class="d-flex justify-content-end">
+
+            <!-- Sort publications button -->
+            <app-tertiary-button
+                    class="sort-button z-0"
+                    [content]="(highlightOpennessState | async) === true ? (sortByText + ': ' + byOpennessText) : (sortByText + ': ' + byYearText)"
+                    [svgSymbolName]="'sliders'"
+                    [svgCssClass]="'sliders-icon button-icon'"
+                    (click)="showSortMenuClick()"
+            ></app-tertiary-button>
+            <app-sort-dropdown-menu [showMenuTrigger]="showSortMenu"
+                                    [selection]="highlightOpennessDropdownSelection | async"
+                                    (valueChange)="setHighlightingOpennessSelection($event)"></app-sort-dropdown-menu>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="!(data | hasSelectedItems) && !isPortalSinglePage" class="row pt-2 pb-3 justify-content-between">
+        <div class="col align-self-center fst-italic order-3 order-md-2 mt-3 mt-md-0"
+             i18n="@@youHaveNotSelectedAnyPublicData">
+          {{ noPublicDataText }}
+        </div>
+      </div>
+
+      <!-- DESCRIPTION AND KEYWORDS DATA -->
+      <div class="pt-2" *ngIf="sectionName === groupTypes.description">
+        <div class="summary-panel-wrapper">
+          <div *ngIf="data?.items[0]?.itemMeta?.type">
+            <ng-container [ngSwitch]="data?.items[0]?.itemMeta?.type">
+              <div *ngSwitchCase="fieldTypes.personResearcherDescription">
+                <div class="summary-panel" *ngFor="let item of data.items">
+                  <div class="row d-flex justify-content-between py-1" *ngIf="item.itemMeta.show">
+                    <div class="col">
+                      <app-panel-array-item *ngIf="item"
+                                            [item]="item"
+                                            [fieldType]="data?.items[0].itemMeta.show"
+                                            [localized]="data.localized"
+                      ></app-panel-array-item>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br/>
+            </ng-container>
+          </div>
+
+          <div *ngIf="data?.keywordItems?.items[0]?.itemMeta?.show">
+            <!-- Display joined keywords only if item has show property set to true -->
+            <div class="row">
+              <h3>{{ data.keywordItems.label }}</h3>
+            </div>
+            <div class="row">
+              <div class="col pb-2">
+                {{ data.keywordItems.items | joinItems: 'value' }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AFFILIATIONS -->
+      <div class="pt-2" *ngIf="sectionName === groupTypes.affiliation">
+        <!-- Iterate primary affiliations -->
+        <div *ngFor="let item of ((data | formatAndSortTimespan: groupTypes.activitiesAndRewards).items); let i = index">
+          <ng-container *ngIf="(item.itemMeta.primaryValue && (item.itemMeta.show|| isPortalSinglePage))">
+            <div class="row mb-4">
+              <div class="col-4 col-sm-3 fw-bold">
+                <div class="d-flex justify-content-center flex-column"><span
+                        *ngIf="item['organizationName' + locale]">{{ item['organizationName' + locale] }}</span></div>
+              </div>
+
+              <div class="col-5 col-sm-6 break-word">
+                <div class="fw-bold d-flex justify-content-between">
+                  <div class="d-flex justify-content-center flex-column mb-1">{{ item['positionName' + locale] }}</div>
+                  <app-general-badge *ngIf="item['positionName' + locale]?.length > 0" class="d-none d-sm-flex ms-2"
+                                     [textInput]="primary"></app-general-badge>
+                </div>
+
+                <div class="d-flex justify-content-between"><div><span
+                        *ngIf="item['departmentName' + locale]">{{ item['departmentName' + locale] }}</span></div>
+                  <app-general-badge *ngIf="!(item['positionName' + locale]?.length > 0)" class="d-none d-sm-flex ms-2"
+                                     [textInput]="primary"></app-general-badge>
+                </div>
+
+                <div *ngIf="item?.timing">{{ item?.timing }}</div>
+              </div>
+
+              <div class="col-3">
+                <app-general-badge class="d-flex d-sm-none mb-4 badge-mobile-wrap"
+                                   [textInput]="primary"></app-general-badge>
+                <ng-container *ngFor="let ds of item.dataSources; let j = index">
+                  <div *ngFor="let ds of item.dataSources; let j = index" class="font-size-smaller source-row">
+                    <span i18n="@@source">Lähde</span>:
+                    <span>{{ ds.organization['name' + locale] }}</span>
+                  </div>
+                </ng-container>
+              </div>
+
+            </div>
+          </ng-container>
+        </div>
+        <!-- Iterate non primary affiliations -->
+        <div *ngFor="let item of ((data | formatAndSortTimespan: groupTypes.affiliation).items); let i = index">
+          <ng-container *ngIf="(!item.itemMeta.primaryValue && (item.itemMeta.show|| isPortalSinglePage))">
+            <div class="row mb-4">
+              <div class="col-4 col-sm-3 fw-bold"><span
+                      *ngIf="item['organizationName' + locale]">{{ item['organizationName' + locale] }}</span></div>
+
+              <div class="col-5 col-sm-6 break-word">
+                <div class="fw-bold">{{ item['positionName' + locale] }}</div>
+                <div><span *ngIf="item['departmentName' + locale]">{{ item['departmentName' + locale] }}</span></div>
+                <div *ngIf="item?.timing">{{ item?.timing }}</div>
+              </div>
+                <div class="col-3">
+                  <ng-container *ngFor="let ds of item.dataSources; let j = index">
+                    <div *ngFor="let ds of item.dataSources; let j = index" class="font-size-smaller">
+                      <span i18n="@@source">Lähde</span>:
+                      <span>{{ ds.organization['name' + locale] }}</span>
+                    </div>
+                  </ng-container>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+
+      <!-- EDUCATION -->
+      <div class="pt-2" *ngIf="sectionName === groupTypes.education">
+        <div class="row mb-4"
+             *ngFor="let item of ((data | formatAndSortTimespan: groupTypes.education).items); let i = index">
+          <ng-container *ngIf="item.itemMeta.show || isPortalSinglePage">
+            <div class="row">
+              <div class="col-12 gx-0"><span class="fw-bold">{{ item['name' + locale] }}</span>
+                <div *ngIf="item?.timing > 0">{{ item?.timing }}</div>
+                <!-- TODO: add checkLang pipe -->
+                <div class="col-12 gx-0">{{ item.degreeGrantingInstitutionName }}</div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+
+      <!-- PUBLICATIONS -->
+      <div class="pt-2" *ngIf="sectionName === groupTypes.publication">
+        <app-summary-portal-items
+                [isPortalSinglePage]="isPortalSinglePage"
+                [data]="data"
+                [fieldType]="fieldTypes.activityPublication"
+                [highlightOpenness]="highlightOpennessState | async"
+                sortField="publicationYear"
+                showMoreLabel="julkaisut"
+                i18n-showMoreLabel="@@publications"
+        ></app-summary-portal-items>
+      </div>
+
+      <!-- DATASETS -->
+      <div class="pt-2" *ngIf="sectionName === groupTypes.dataset">
+        <app-summary-portal-items
+                [isPortalSinglePage]="isPortalSinglePage"
+                [data]="data"
+                [fieldType]="fieldTypes.activityDataset"
+                sortField="year"
+                showMoreLabel="tutkimusaineistot"
+                i18n-showMoreLabel="@@datasets"
+        ></app-summary-portal-items>
+      </div>
+
+      <!-- FUNDING -->
+      <div class="pt-2" *ngIf="sectionName === groupTypes.funding">
+        <app-summary-portal-items
+                [isPortalSinglePage]="isPortalSinglePage"
+                [data]="data | formatAndSortTimespan: groupTypes.funding"
+                [fieldType]="fieldTypes.activityFunding"
+                sortField="startYear"
+                showMoreLabel="rahoitusmyönnöt"
+                i18n-showMoreLabel="@@fundings"
+        ></app-summary-portal-items>
+      </div>
+
+      <!-- ACTIVITIES AND REWARDS -->
+      <div class="pt-2" *ngIf="sectionName === groupTypes.activitiesAndRewards">
+        <app-summary-portal-items
+                [isPortalSinglePage]="isPortalSinglePage"
+                [data]="data | formatAndSortTimespan: groupTypes.activitiesAndRewards"
+                [fieldType]="fieldTypes.activityActivitiesAndRewards || fieldTypes.activityActivitiesAndRewardsOrcid"
+                sortField="name"
+                showMoreLabel="aktiviteetit ja palkinnot"
+                i18n-showMoreLabel="@@activitesAndRewards"
+        ></app-summary-portal-items>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -16,6 +16,10 @@ import { SecondaryButtonComponent } from '../../../shared/components/buttons/sec
 import { NgIf, AsyncPipe } from '@angular/common';
 import { BannerDividerComponent } from '@shared/components/banner-divider/banner-divider.component';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
+import {
+  MydataSideNavigationComponent
+} from '@mydata/components/mydata-side-navigation/mydata-side-navigation.component';
+import { StickyFooterComponent } from '@mydata/components/sticky-footer/sticky-footer.component';
 
 @Component({
     selector: 'app-account-settings',
@@ -31,7 +35,9 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     DialogComponent,
     AsyncPipe,
     BannerDividerComponent,
-    SvgSpritesComponent
+    SvgSpritesComponent,
+    MydataSideNavigationComponent,
+    StickyFooterComponent
   ]
 })
 export class AccountSettingsComponent implements OnInit {
@@ -138,10 +144,10 @@ export class AccountSettingsComponent implements OnInit {
     },
   ];
 
-  profileVisibility$ = this.profileService.getProfileVisibility();
+  profileVisibility$ = this.profileService.getProfileVisibilityObservable();
 
   constructor(public profileService: ProfileService, private router: Router, private route: ActivatedRoute, public dialog: MatDialog, public oidcSecurityService: OidcSecurityService,  private snackbarService: SnackbarService) {
-    this.profileService.initializeProfileVisibility();
+    this.profileService.fetchProfileVisibilityAndSettings();
   }
 
   ngOnInit(): void {
@@ -284,6 +290,7 @@ export class AccountSettingsComponent implements OnInit {
     sessionStorage.removeItem(Constants.draftDatasetPatchPayload);
     sessionStorage.removeItem(Constants.draftFundingPatchPayload);
     sessionStorage.removeItem(Constants.draftCollaborationPatchPayload);
+    sessionStorage.removeItem(Constants.draftHighlightOpenness);
 
     this.profileData = currentProfileData;
     this.profileService.setEditorProfileName(getName(currentProfileData));

@@ -20,7 +20,7 @@ import { JoinItemsPipe } from '../../../../shared/pipes/join-items.pipe';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { PrimaryBadgeComponent } from '../profile-panel/primary-badge/primary-badge.component';
 import { PanelArrayItemComponent } from '../profile-panel/panel-array-item/panel-array-item.component';
-import { NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
+import { JsonPipe, NgClass, NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
 import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
 
 @Component({
@@ -28,31 +28,36 @@ import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionP
     templateUrl: './draft-summary.component.html',
     styleUrls: ['./draft-summary.component.scss'],
     standalone: true,
-    imports: [
-        MatAccordion,
-        NgFor,
-        NgIf,
-        MatExpansionPanel,
-        MatExpansionPanelHeader,
-        MatExpansionPanelTitle,
-        NgSwitch,
-        NgSwitchCase,
-        NgSwitchDefault,
-        PanelArrayItemComponent,
-        PrimaryBadgeComponent,
-        MatCheckbox,
-        JoinItemsPipe,
-        countFieldItemsPipe,
-        FindByKeyValuePipe,
-    ],
+  imports: [
+    MatAccordion,
+    NgFor,
+    NgIf,
+    MatExpansionPanel,
+    MatExpansionPanelHeader,
+    MatExpansionPanelTitle,
+    NgSwitch,
+    NgSwitchCase,
+    NgSwitchDefault,
+    PanelArrayItemComponent,
+    PrimaryBadgeComponent,
+    MatCheckbox,
+    JoinItemsPipe,
+    countFieldItemsPipe,
+    FindByKeyValuePipe,
+    JsonPipe,
+    NgClass
+  ]
 })
 export class DraftSummaryComponent implements OnInit, OnDestroy {
   fieldTypes = FieldTypes;
 
   @Input() profileData: any;
   @Input() collaborationOptions: any;
+  @Input() highlightOpenness: any;
 
   collaborationHeader = $localize`:@@collaborationHeader:Yhteistyö`;
+  accountSettingsHeader = $localize`:@@accountSettings:Tiliasetukset`;
+  highlightOpennessHeader = $localize`:@@highlightOpenAccessPublications:Korosta avoimia julkaisuja profiilissasi`;
   selectedData: any;
 
   checkGroupPatchItem = checkGroupPatchItem;

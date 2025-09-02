@@ -1,0 +1,24 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<div *ngIf="displayData && isPortalSinglePage">
+  <app-name-and-orcid-view [data]="displayData" [orcid]="this.displayData[10].value" [isEditorView]="!isPortalSinglePage"></app-name-and-orcid-view>
+</div>
+
+<!-- Slice first contact info out and two last infos. These are used in other views. -->
+<div *ngIf="displayData">
+  <ng-container *ngFor="let group of displayData.slice(1, isPortalSinglePage ? -4 : -1); let i = index">
+      <ng-container *ngFor="let field of group.fields">
+            <app-profile-summary-view
+                    [isPortalSinglePage]="isPortalSinglePage"
+                    [data]="field"
+                    [sectionName]="group.id"
+                    [highlightOpenness]="highlightOpenness"
+                    [sectionIndex]="i"
+                    (openDialogCall)="openDialogCall($event)"
+            ></app-profile-summary-view>
+      </ng-container>
+  </ng-container>
+</div>

@@ -2,24 +2,6 @@
 
 // TODO: Material 3 SASS API is most likely the best practice for customizing Material components.
 
-// Icons
-.svg-inline--fa {
-  max-height: 42px !important;
-  max-width: 42px !important;
-}
-
-.svg-inline--fa.fa-chart-bar {
-  max-height: 16px !important;
-  max-width: 16px !important;
-}
-.open-access, .tag-content {
-  overflow: hidden;
-  .svg-inline--fa {
-    max-height: 14.8px !important;
-    max-width: 14px !important;
-  }
-}
-
 .tag-content {
   a {
     display: block;
@@ -237,6 +219,7 @@ mat-chip-option {
   height: 16px !important;
   padding: 12px 10px !important;
   --mdc-checkbox-selected-checkmark-color: #fff;
+  --mdc-checkbox-selected-icon-color: #4546b9;
 }
 
 .mdc-checkbox__background {
@@ -262,11 +245,18 @@ app-activity-item {
 
 mat-checkbox, .mdc-form-field.mat-internal-form-field {
   width: 100% !important;
-  white-space: nowrap !important;
+}
+
+app-table {
+  mat-checkbox, .mdc-form-field.mat-internal-form-field {
+    white-space: nowrap !important;
+  }
 }
 
 app-collaboration-card .mdc-form-field.mat-internal-form-field {
   white-space: initial !important;
+  line-height: 1.1rem;
+  margin-bottom: 8px;
 }
 
 // Expansion panel's content in search pages

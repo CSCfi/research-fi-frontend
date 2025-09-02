@@ -10,43 +10,49 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { CollaborationsService } from '@mydata/services/collaborations.service';
-import { take } from 'rxjs/operators';
-import { cloneDeep } from 'lodash-es';
-import { Constants } from '@mydata/constants';
 import { Subscription } from 'rxjs';
 import { DialogComponent } from '../../../../../shared/components/dialog/dialog.component';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { EmptyCardComponent } from '../empty-card/empty-card.component';
-import { NgIf, NgFor } from '@angular/common';
+import { NgIf, NgFor, JsonPipe } from '@angular/common';
 import { ProfileEditorCardHeaderComponent } from '../profile-editor-card-header/profile-editor-card-header.component';
+import {
+  CollaborationViewComponent
+} from '@mydata/components/shared-layouts/collaboration-view/collaboration-view.component';
+import { DraftService } from '@mydata/services/draft.service';
+import { Constants } from '@mydata/constants';
 
 @Component({
-    selector: 'app-collaboration-card',
-    templateUrl: './collaboration-card.component.html',
-    styleUrls: ['./collaboration-card.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    standalone: true,
-    imports: [
-        ProfileEditorCardHeaderComponent,
-        NgIf,
-        EmptyCardComponent,
-        NgFor,
-        MatCheckbox,
-        DialogComponent,
-    ],
+  selector: 'app-collaboration-card',
+  templateUrl: './collaboration-card.component.html',
+  styleUrls: ['./collaboration-card.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  imports: [
+    ProfileEditorCardHeaderComponent,
+    NgIf,
+    EmptyCardComponent,
+    NgFor,
+    MatCheckbox,
+    DialogComponent,
+    CollaborationViewComponent,
+    JsonPipe
+  ]
 })
 export class CollaborationCardComponent implements OnInit, OnDestroy {
   @Input() label: string;
+  @Input() data: any;
+  @Input() isEditorView: boolean;
 
   originalCollaborationOptions;
   collaborationOptions = [];
   showDialog: boolean;
-  hasCheckedOption: boolean;
+  hasCheckedOption: boolean = false;
 
   dialogActions = [
     { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'cancel' },
@@ -54,66 +60,30 @@ export class CollaborationCardComponent implements OnInit, OnDestroy {
   ];
   optionsToggled = [];
   nameLocale = '';
-
-  collaborationOptionsSub: Subscription;
+  private dataHasBeenResetSub: Subscription;
 
   constructor(
     private dialog: MatDialog,
     private collaborationsService: CollaborationsService,
-    private appSettingsService: AppSettingsService
+    private appSettingsService: AppSettingsService,
+    private draftService: DraftService,
   ) {}
 
   ngOnInit(): void {
     this.nameLocale = 'name' + this.appSettingsService.capitalizedLocale;
-
-    this.fetchCollaborationChoices();
-  }
-
-  private fetchCollaborationChoices() {
-    this.collaborationOptionsSub = this.collaborationsService
-      .getCooperationChoices()
-      .pipe(take(1))
-      .subscribe((response: any) => {
-        const options = response?.data;
-
-        this.originalCollaborationOptions = options;
-
-        this.setInitialValue(options);
-
-        // Render selections from storage if draft available
-        const draft = sessionStorage.getItem(
-          Constants.draftCollaborationPatchPayload
-        );
-
-        const draftOptions = draft && JSON.parse(draft);
-
-        if (draftOptions) {
-          for (const [i, option] of options.entries()) {
-            const match = draftOptions.find(
-              (draftOption) => option.id === draftOption.id
-            );
-
-            if (match) {
-              options[i].selected = match.selected;
-            }
-          }
-        }
-
-        this.collaborationOptions = options;
-
-        this.checkForSelection();
-      });
-  }
-
-  private setInitialValue(options) {
-    this.collaborationsService.setInitialValue(cloneDeep(options));
+    const collabFields = this.data.filter(item => item.id === 'cooperation');
+    this.collaborationOptions = collabFields[0].fields;
+    this.checkForSelection();
+    this.dataHasBeenResetSub = this.draftService.dataHasBeenReset.subscribe(val => {
+      if (val === true) {
+        this.resetInitialValue();
+      }
+    });
   }
 
   public resetInitialValue() {
-    this.collaborationOptions = cloneDeep(
-      this.collaborationsService.initialValue
-    );
-
+    const collabFields = this.data.filter(item => item.id === 'cooperation');
+    this.collaborationOptions = collabFields[0].fields;
     this.checkForSelection();
   }
 
@@ -127,16 +97,23 @@ export class CollaborationCardComponent implements OnInit, OnDestroy {
 
     if (action) {
       this.optionsToggled.forEach((option) => {
-        const match = this.collaborationOptions.findIndex(
+        const match = this.collaborationOptions?.findIndex(
           (item) => item.id === option.id
         );
 
         this.collaborationOptions[match].selected = option.selected;
       });
 
-      this.collaborationsService.addToPayload(this.optionsToggled);
-    }
+      // Set draft data into storage with SSR check
+      if (this.appSettingsService.isBrowser) {
+        // TODO: update session storage draftProfile accordingly
+        //this.draftService.updateFieldInDraft(Constants.draftCollaborationPatchPayload, this.optionsToggled);
+        //console.log('updating draft', this.draftService.getDraftProfile());
+      }
 
+      this.collaborationsService.addToPayload(this.optionsToggled);
+      this.collaborationsService.confirmPayload();
+    }
     this.checkForSelection();
     this.optionsToggled = [];
   }
@@ -159,12 +136,14 @@ export class CollaborationCardComponent implements OnInit, OnDestroy {
   }
 
   private checkForSelection() {
-    this.hasCheckedOption = !!this.collaborationOptions.find(
+    this.hasCheckedOption = !!this.collaborationOptions?.find(
       (option) => option.selected
     );
   }
 
-  ngOnDestroy(): void {
-    this.collaborationOptionsSub?.unsubscribe();
+  ngOnDestroy() {
+    if (this.dataHasBeenResetSub){
+      this.dataHasBeenResetSub.unsubscribe();
+    }
   }
 }

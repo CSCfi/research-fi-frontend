@@ -3,16 +3,11 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<div class="row">
-  <div class="col px-0">
-    <h3 class="fw-bold font-size-normal">{{ label }}</h3>
+<div class="row gx-2">
+  <div class="col-5 pt-2">
+    <h2 class="fw-bold">{{ label }}</h2>
   </div>
-  <div class="col-auto px-0">
-    <app-secondary-button
-      *ngIf="displayButton"
-      i18n-content="@@reselect"
-      content="Vaihda valintoja"
-      (click)="openDialog($event)"
-    ></app-secondary-button>
+  <div class="col-7 pt-2 d-flex justify-content-end switch-choices-button pe-2">
+    <app-tertiary-button *ngIf="displayButton" i18n-content="@@publishEllipsis" content="Vaihda valintoja" i18n-content="@@reselect" [svgSymbolName]="'edit'" [svgCssClass]="'open_in_new-icon button-icon'" (click)="openDialog($event)"></app-tertiary-button>
   </div>
 </div>

@@ -1,0 +1,26 @@
+@media (max-width: 894px) {
+  .static-footer {
+    height: 130px !important;
+  }
+}
+
+.static-footer {
+  background: #E8E8F4;
+  position: sticky;
+  height: 75px;
+  width: 100%;
+  bottom: 0px;
+}
+
+.footer-button-wrap {
+  padding-top: 14px;
+  padding-right: 25px;
+}
+.notification-circle {
+  width: 12px;
+  height: 12px;
+  background: #4546b9;
+  border-radius: 10px;
+  margin-right: 12px;
+  margin-left: 10px;
+}

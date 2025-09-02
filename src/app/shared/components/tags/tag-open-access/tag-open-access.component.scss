@@ -10,10 +10,11 @@
 }
 
 .open-access {
-  border: 1px solid #C0DBA2;
+  //border: 1px solid #C0DBA2;
   background: #C0DBA2;
   max-width: 170px;
   max-height: 29px;
+  line-height: 1rem;
 
   a, .no-link {
     color: #294210;
@@ -31,7 +32,18 @@
     color: #294210;
     //font-size: 0.85rem;
     height: 16px;
-    margin-top: 1px;
+    font-size: 13px;
+    font-weight: 400;
+  }
+
+  .text-wrapper {
+    white-space: nowrap;
+    height: 27px;
+    line-height: 1.1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
   }
 
   .mat-icon[data-mat-icon-name='general.unlocked.openAccess'] {

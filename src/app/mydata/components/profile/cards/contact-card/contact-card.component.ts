@@ -6,7 +6,6 @@
 //  :license: MIT
 
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { DraftService } from '@mydata/services/draft.service';
 import { SnackbarService } from '@mydata/services/snackbar.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { PatchService } from '@mydata/services/patch.service';
@@ -22,14 +21,17 @@ import { FilterPipe } from '../../../../pipes/filter.pipe';
 import { EditorModalComponent } from '../../editor-modal/editor-modal.component';
 import { PanelArrayItemComponent } from '../../profile-panel/panel-array-item/panel-array-item.component';
 import { EmptyCardComponent } from '../empty-card/empty-card.component';
-import { NgIf, NgFor, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
+import { NgIf, NgFor, NgSwitch, NgSwitchCase, NgSwitchDefault, JsonPipe } from '@angular/common';
 import { ProfileEditorCardHeaderComponent } from '../profile-editor-card-header/profile-editor-card-header.component';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
+import {
+  ContactInfoViewComponent
+} from '@mydata/components/shared-layouts/contact-info-view/contact-info-view.component';
 
 @Component({
-    selector: 'app-contact-card',
-    templateUrl: './contact-card.component.html',
-    standalone: true,
+  selector: 'app-contact-card',
+  templateUrl: './contact-card.component.html',
+  standalone: true,
   imports: [
     ProfileEditorCardHeaderComponent,
     NgIf,
@@ -37,18 +39,18 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     NgFor,
     NgSwitch,
     NgSwitchCase,
-    NgSwitchDefault,
-    PanelArrayItemComponent,
     EditorModalComponent,
     FilterPipe,
     JoinAllGroupItemsPipe,
     HasSelectedItemsPipe,
-    SvgSpritesComponent
+    SvgSpritesComponent,
+    ContactInfoViewComponent
   ]
 })
 export class ContactCardComponent implements OnInit, OnChanges {
   @Input() data: any;
   @Input() label: string;
+  @Input() isEditorView: boolean;
 
   fieldTypes = FieldTypes;
   checkGroupSelected = checkGroupSelected;
@@ -64,7 +66,6 @@ export class ContactCardComponent implements OnInit, OnChanges {
     private appSettingsService: AppSettingsService,
     private patchService: PatchService,
     private snackbarService: SnackbarService,
-    private draftService: DraftService,
     public profileService: ProfileService,
     private route: ActivatedRoute,
   ) {}
@@ -81,7 +82,7 @@ export class ContactCardComponent implements OnInit, OnChanges {
     //this.setVisibleNameById(null);
   }
 
-  openDialog(event: MouseEvent) {
+  openDialog(event: any) {
     this.showDialog = true;
     this.dialogData = { data: cloneDeep(this.data[0]), trigger: event.detail };
   }
@@ -89,26 +90,26 @@ export class ContactCardComponent implements OnInit, OnChanges {
   setVisibleNameById(metaId: number) {
     // Without id, sets current name from profile
     if (this.myDataProfile) {
-    this.publishedFullname = this.myDataProfile.profileData.filter(
-      item => item.id === 'contact')[0].fields.filter(
-      item => {
-        if (item.id === 'name') {
-          this.publishedFullnameLabel = item.label;
-          return true;
+      this.publishedFullname = this.myDataProfile.profileData.filter(
+        item => item.id === 'contact')[0].fields.filter(
+        item => {
+          if (item.id === 'name') {
+            this.publishedFullnameLabel = item.label;
+            return true;
+          }
         }
+      )[0].items.filter(
+        item => {
+          if (metaId) {
+            return item.itemMeta.id === metaId;
+          } else {
+            return item.itemMeta.show === true;
+          }
+        })[0].fullName;
+      if (metaId) {
+        this.profileService.setEditorProfileName(this.publishedFullname);
       }
-    )[0].items.filter(
-      item => {
-        if (metaId) {
-          return item.itemMeta.id === metaId;
-        } else {
-          return item.itemMeta.show === true;
-        }
-      })[0].fullName;
-    if (metaId) {
-      this.profileService.setEditorProfileName(this.publishedFullname);
     }
-  }
   }
 
   handleChanges(result) {
@@ -134,8 +135,6 @@ export class ContactCardComponent implements OnInit, OnChanges {
         this.contactFields = result.fields;
         this.data[0] = result;
 
-        this.draftService.saveDraft(this.data);
-
         // Do actions only if user has made changes
         if (confirmedPayLoad.length) {
           this.snackbarService.show(
@@ -146,10 +145,7 @@ export class ContactCardComponent implements OnInit, OnChanges {
 
         if (confirmedPayLoad.length) {
           // Set draft profile data to storage
-          sessionStorage.setItem(
-            Constants.draftProfile,
-            JSON.stringify(this.data)
-          );
+          sessionStorage.setItem(Constants.draftProfile, JSON.stringify(this.data));
         }
       }
 

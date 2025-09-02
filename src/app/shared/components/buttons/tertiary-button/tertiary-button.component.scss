@@ -1,0 +1,39 @@
+
+  button {
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    color: #4546b9;
+    font-size: 1rem;
+    margin-top: -1px;
+    font-weight: 500;
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    .svg-pad {
+      //font-size: 0.9rem;
+      display: flex;
+      justify-content: center;
+
+      app-svg-sprites {
+        margin-right: 6px;
+        margin-top: -1px;
+      }
+    }
+    &:focus-visible {
+      text-decoration: underline !important;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+  }
+
+  button:disabled,
+  button[disabled]{
+    //background-color: #cccccc;
+    opacity: 0.6;
+    &:hover {
+      text-decoration: none;
+      cursor: default;
+    }
+  }

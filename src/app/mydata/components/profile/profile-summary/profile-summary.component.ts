@@ -37,6 +37,11 @@ import { SummaryPortalItemsComponent } from './summary-portal-items/summary-port
 import { SummaryAffiliationsComponent } from './summary-affiliations/summary-affiliation.component';
 import { SecondaryButtonComponent } from '../../../../shared/components/buttons/secondary-button/secondary-button.component';
 import { NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
+import { TertiaryButtonComponent } from '@shared/components/buttons/tertiary-button/tertiary-button.component';
+import { ProfileSummaryViewComponent } from '@mydata/components/shared-layouts/profile-summary-view/profile-summary-view.component';
+import {
+  PersonProfileViewComponent
+} from '@mydata/components/profile/person-profile-view/person-profile-view.component';
 
 @Component({
     selector: 'app-profile-summary',
@@ -44,24 +49,30 @@ import { NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/c
     styleUrls: ['./profile-summary.component.scss'],
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [
-        NgFor,
-        NgIf,
-        SecondaryButtonComponent,
-        NgSwitch,
-        NgSwitchCase,
-        SummaryAffiliationsComponent,
-        SummaryPortalItemsComponent,
-        NgSwitchDefault,
-        SummaryDividerComponent,
-        PanelArrayItemComponent,
-        EditorModalComponent,
-        JoinItemsPipe,
-        HasSelectedItemsPipe,
-    ],
+  imports: [
+    NgFor,
+    NgIf,
+    SecondaryButtonComponent,
+    NgSwitch,
+    NgSwitchCase,
+    SummaryAffiliationsComponent,
+    SummaryPortalItemsComponent,
+    NgSwitchDefault,
+    SummaryDividerComponent,
+    PanelArrayItemComponent,
+    EditorModalComponent,
+    JoinItemsPipe,
+    HasSelectedItemsPipe,
+    TertiaryButtonComponent,
+    ProfileSummaryViewComponent,
+    PersonProfileViewComponent
+  ]
 })
-export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
+export class ProfileSummaryComponent implements OnChanges, OnDestroy, OnChanges {
   @Input() profileData: any;
+  @Input() name: string;
+  @Input() orcid: string;
+  @Input() highlightOpenness: boolean;
   displayData: any;
 
   fieldTypes = FieldTypes;
@@ -76,23 +87,7 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
   showDialog: boolean;
   dialogData: any;
   currentIndex: number;
-
-  editString = CommonStrings.reselect;
-  selectString = CommonStrings.select;
-
   removeGroupItemsSub: Subscription;
-
-  noPublicDataText = $localize`:@@youHaveNotSelectedAnyPublicData:Et ole vielä valinnut julkisesti näytettäviä tietoja`;
-
-  summaryGroupIds = [
-    GroupTypes.publication,
-    GroupTypes.dataset,
-    GroupTypes.education,
-    GroupTypes.affiliation,
-    GroupTypes.description,
-    GroupTypes.activitiesAndRewards,
-    GroupTypes.funding,
-  ];
 
   constructor(
     private appSettingsService: AppSettingsService,
@@ -106,16 +101,45 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
     this.locale = this.appSettingsService.capitalizedLocale;
   }
 
-  ngOnInit(): void {}
+  reverseAndFormatDescriptionAndKeywords() {
+    // Change order of keywords and description data, since UI is built to follow the order of data.
+    const description = this.displayData.filter(d => d.id === 'description');
+    const keywords = description[0].fields.filter(field => field.id === 'keywords');
+    const researchDescription = description[0].fields.filter(field => field.id === 'researchDescription');
+    description[0].fields = [];
+    description[0].fields.push(researchDescription[0]);
+    description[0].fields[0].keywordItems = keywords[0];
+  }
 
   ngOnChanges(): void {
     this.displayData = cloneDeep(this.profileData);
+    this.reverseAndFormatDescriptionAndKeywords();
     // Clear imported items
     this.profileData.forEach((group) => {
       if (group.fields.find((field) => field.id === 'imported')) {
         group.fields = group.fields.filter((item) => item.id !== 'imported');
       }
     });
+  }
+
+  openDialogCall(index: number) {
+    this.showDialog = true;
+
+    const selectedGroup = cloneDeep(this.profileData[index]);
+
+    const filteredFields = selectedGroup.fields.filter(
+      (field) => field.items.length
+    );
+
+    // Filter out fields with 0 items from groups that don't use search from portal functionality
+    if (PortalGroups.indexOf(selectedGroup.id) === -1) {
+      selectedGroup.fields = filteredFields;
+    }
+
+    this.dialogData = {
+      data: selectedGroup,
+    };
+    this.currentIndex = index;
   }
 
   openDialog(event: MouseEvent, index: number) {
@@ -148,8 +172,6 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
     this.closeDialog();
 
     const confirmedPayLoad = this.patchService.confirmedPayLoad;
-
-    this.draftService.saveDraft(this.displayData);
 
     // Groups are used in different loops to set storage items and handle removal of items
     const patchGroups = [
@@ -219,9 +241,9 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
       });
 
       // Set draft data into storage with SSR check
-      if (this.appSettingsService.isBrowser && confirmedPayLoad.length) {
+      if (this.appSettingsService.isBrowser) {
         patchGroups.forEach((group) => {
-          sessionStorage.setItem(group.key, JSON.stringify(group.data));
+          this.draftService.updateFieldInDraft(group.key, group.data);
         });
 
         // Display snackbar only if user has made changes
@@ -233,6 +255,7 @@ export class ProfileSummaryComponent implements OnInit, OnDestroy, OnChanges {
         }
       }
     }
+    this.reverseAndFormatDescriptionAndKeywords();
   }
 
   // Merge imported items for display purposes.

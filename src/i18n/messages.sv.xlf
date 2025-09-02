@@ -647,10 +647,6 @@
         <source> Infrastruktuuritiedon lähde puuttuu. </source>
         <target state="new">Infrastrukturinformationens källa saknas.</target>
       </trans-unit>
-      <trans-unit id="closeButton" datatype="html">
-        <source>Sulje</source>
-        <target state="translated">Stäng</target>
-      </trans-unit>
       <trans-unit id="yearRange" datatype="html">
         <source>Valitse aikaväli</source>
         <target state="translated">Välj tidsintervall</target>
@@ -901,8 +897,9 @@
         <target state="translated">Följ oss!</target>
       </trans-unit>
       <trans-unit id="twitterFooter" datatype="html">
-        <source>Tiedejatutkimus.fi Twitterissä</source>
+        <source><x id="START_TAG_APP_SVG_SPRITES" ctype="x-app_svg_sprites" equiv-text="&lt;app-svg-sprites [iconName]=&quot;&apos;fa-twitter&apos;&quot; cssClass=&quot;twitter-icon&quot;&gt;"/><x id="CLOSE_TAG_APP_SVG_SPRITES" ctype="x-app_svg_sprites" equiv-text="&lt;/app-svg-sprites&gt;"/>Tiedejatutkimus.fi Twitterissä</source>
         <target state="new">Forskning.fi i Twitter</target>
+        <note priority="1" from="description">Twitter-footer</note>
       </trans-unit>
       <trans-unit id="twitterTitleText" datatype="html">
         <source>Twitter -palvelun logo</source>
@@ -1969,10 +1966,6 @@
         <source>Perustiedot</source>
         <target>Basinformation</target>
       </trans-unit>
-      <trans-unit id="furtherInformation" datatype="html">
-        <source> Lisätiedot </source>
-        <target state="new">Ytterligare information</target>
-      </trans-unit>
       <trans-unit id="showMoreNews" datatype="html">
         <source>Näytä lisää uutisia</source>
         <target>Visa fler nyheter</target>
@@ -2633,10 +2626,6 @@
         <source>Ladataan</source>
         <target>Laddas</target>
       </trans-unit>
-      <trans-unit id="researchersSectionIncoming" datatype="html">
-        <source>Tutkijan (tulossa)</source>
-        <target>Forskares (kommande)</target>
-      </trans-unit>
       <trans-unit id="researchersProfile" datatype="html">
         <source>Tutkijan tiedot</source>
         <target state="new">Forskarens profilverktyg</target>
@@ -2787,10 +2776,6 @@
         <source>Profiili</source>
         <target>Profil</target>
       </trans-unit>
-      <trans-unit id="publicProfile" datatype="html">
-        <source> Profiili </source>
-        <target state="new">Profil</target>
-      </trans-unit>
       <trans-unit id="navigationHeaderProfile" datatype="html">
         <source>Profiili</source>
         <target>Profil</target>
@@ -2803,16 +2788,12 @@
         <source>Tietojen päivittyminen voi kestää muutaman minuutin.</source>
         <target>Det kan ta några minuter att uppdatera uppgifterna.</target>
       </trans-unit>
-      <trans-unit id="draft" datatype="html">
-        <source>Luonnos</source>
-        <target>Draft</target>
-      </trans-unit>
       <trans-unit id="publishUpdatedProfile" datatype="html">
         <source>Julkaise päivitetty profiili</source>
         <target>Publicera den uppdaterade profilen</target>
       </trans-unit>
       <trans-unit id="discardChanges" datatype="html">
-        <source> Hylkää muutokset </source>
+        <source>Hylkää muutokset</source>
         <target state="new">Avvisa ändringar</target>
       </trans-unit>
       <trans-unit id="publish" datatype="html">
@@ -2821,7 +2802,7 @@
       </trans-unit>
       <trans-unit id="publishEllipsis" datatype="html">
         <source>Julkaise...</source>
-        <target>Publicera...</target>
+        <target state="new">Publicera...</target>
       </trans-unit>
       <trans-unit id="deleteProfile" datatype="html">
         <source>Poista profiili</source>
@@ -2910,7 +2891,7 @@
         <target>Affiliering</target>
       </trans-unit>
       <trans-unit id="education" datatype="html">
-        <source>koulutus</source>
+        <source>Koulutus</source>
         <target state="new">Utbildning</target>
       </trans-unit>
       <trans-unit id="activitiesAndAwards" datatype="html">
@@ -3092,6 +3073,10 @@
       <trans-unit id="youHaveUnpublishedChangesSnackbarButton" datatype="html">
         <source>Tarkasta muutokset.</source>
         <target state="new">Kontrollera ändringarna.</target>
+      </trans-unit>
+      <trans-unit id="shareProfile" datatype="html">
+        <source>Jaa profiili</source>
+        <target state="new">Dela profil</target>
       </trans-unit>
       <trans-unit id="suomiFiAutheticationProblemSnackbarText" datatype="html">
         <source>Osalla käyttäjistä on ilmennyt virhetilanne Suomi.fi-tunnistautumisen jälkeen, joka estää pääsyn profiilin luontiin. Mikäli virhetilanne ilmenee, kirjautumista pääsee jatkamaan klikkaamalla &quot;Kirjaudu sisään&quot; -painiketta sivun ylälaidassa.</source>
@@ -3418,10 +3403,6 @@
         <source>Yksikkö</source>
         <target>Enheten</target>
       </trans-unit>
-      <trans-unit id="degrees" datatype="html">
-        <source>Tutkinnot</source>
-        <target>Grader</target>
-      </trans-unit>
       <trans-unit id="logInToCreateProfile" datatype="html">
         <source> Kirjaudu sisään luodaksesi profiilin tai valitaksesi profiilissasi näkyviä tietoja. </source>
         <target state="new">Logga in för att skapa en profil eller välja de uppgifter som visas i din profil.</target>
@@ -3445,16 +3426,12 @@
         <target>Välj aktiviteter</target>
       </trans-unit>
       <trans-unit id="toMyProfile" datatype="html">
-        <source>Julkiseen profiiliin</source>
-        <target>Till offentliga profil</target>
-      </trans-unit>
-      <trans-unit id="visitMyProfile" datatype="html">
-        <source>Tarkastele julkista profiiliasi Tiedejatutkimus.fi:ssä</source>
-        <target>Se din offentliga profil på Forsking.fi</target>
+        <source>Siirry julkiseen profiiliin</source>
+        <target state="new">Till offentliga profil</target>
       </trans-unit>
       <trans-unit id="mydata.profile.profile-is-hidden" datatype="html">
-        <source> Olet piilottanut profiilisi Tiedejatutkimus.fi-palvelusta </source>
-        <target state="new">Du har dold din profil från Forskning.fi-tjänsten</target>
+        <source>Olet piilottanut profiilisi Tiedejatutkimus.fi-palvelusta </source>
+        <target state="new">Du har dold din profil från Forskning.fi-tjänsten </target>
       </trans-unit>
       <trans-unit id="mydata.profile.republish-modal.title" datatype="html">
         <source>Julkaise piilotettu profiili</source>
@@ -4372,10 +4349,6 @@
         <source>Hankkeen nimi</source>
         <target state="new">Projektets namn</target>
       </trans-unit>
-      <trans-unit id="spSortsAbbreviation" datatype="html">
-        <source>Lyhenne</source>
-        <target state="new">Förkortning</target>
-      </trans-unit>
       <trans-unit id="spSortsOrganization" datatype="html">
         <source>Organisaatio</source>
         <target state="new">Organisation</target>
@@ -4383,6 +4356,70 @@
       <trans-unit id="spSortsStartYear" datatype="html">
         <source>Aloitusvuosi</source>
         <target state="new">Startår</target>
+      </trans-unit>
+      <trans-unit id="discardChangesAndLogout" datatype="html">
+        <source>Hylkää muutokset ja kirjaudu ulos</source>
+        <target state="new">Kassera ändringar och logga ut</target>
+      </trans-unit>
+      <trans-unit id="present" datatype="html">
+        <source>nykyhetki</source>
+        <target state="new">nuvarande</target>
+      </trans-unit>
+      <trans-unit id="researchersProfileNew" datatype="html">
+        <source>Oma profiili</source>
+        <target state="new">Min profil</target>
+      </trans-unit>
+      <trans-unit id="highlightingOpenScience" datatype="html">
+        <source>Avoimen tieteen korostus</source>
+        <target state="new">Framhäv öppen vetenskap</target>
+      </trans-unit>
+      <trans-unit id="highlightOpenAccessPublications" datatype="html">
+        <source>Korosta avoimia julkaisuja profiilissasi</source>
+        <target state="new">Framhäv öppet tillgängliga publikationer i din profil</target>
+      </trans-unit>
+      <trans-unit id="highlightOpenAccessPublicationsInfo" datatype="html">
+        <source>Korostus nostaa avoimesti saatavilla olevat julkaisut julkaisulistan kärkeen profiilissasi. Tiedejatutkimus.fi -palvelusta löytyviin avoimiin julkaisuihin lisätään automaattisesti avoimen tieteen merkintä.</source>
+        <target state="new">Framhävning placerar öppet tillgängliga publikationer högst upp i din publikationslista. Publikationer som finns i Forskning.fi -tjänsten och är öppet tillgängliga får automatiskt en märkning för öppen vetenskap.</target>
+      </trans-unit>
+      <trans-unit id="openAccessPublications" datatype="html">
+        <source>Avoimesti saatavilla olevat julkaisut</source>
+        <target state="new">Avoimesti saatavilla olevat julkaisut</target>
+      </trans-unit>
+      <trans-unit id="otherPublications" datatype="html">
+        <source>Muut julkaisut</source>
+        <target state="new">Övriga publikationer</target>
+      </trans-unit>
+      <trans-unit id="noOpenPublicationAvailable" datatype="html">
+        <source>Ei avoimesti saatavilla olevia julkaisuja</source>
+        <target state="new">Inga publikationer med öppen tillgång</target>
+      </trans-unit>
+      <trans-unit id="unpublishedChanges" datatype="html">
+        <source>Julkaisemattomia muutoksia</source>
+        <target state="new">Opublicerade ändringar</target>
+      </trans-unit>
+      <trans-unit id="showOnlyPeerReviewed" datatype="html">
+        <source>Näytä vain vertaisarvioidut</source>
+        <target state="new">Visa endast referentgranskade</target>
+      </trans-unit>
+      <trans-unit id="researchersSectionIncoming" datatype="html">
+        <source>Tutkijan (tulossa)</source>
+        <target state="new">Tutkijan (tulossa)</target>
+      </trans-unit>
+      <trans-unit id="sortBy" datatype="html">
+        <source>Lajittele</source>
+        <target state="new">Sortera</target>
+      </trans-unit>
+      <trans-unit id="sortByYear" datatype="html">
+        <source>vuoden mukaan</source>
+        <target state="new">enligt år</target>
+      </trans-unit>
+      <trans-unit id="sortByOpenness" datatype="html">
+        <source>avoimen saatavuuden mukaan</source>
+        <target state="new">enligt öppen tillgång</target>
+      </trans-unit>
+      <trans-unit id="noPeerReviewedPublications" datatype="html">
+        <source>Ei vertaisarvioituja julkaisuja</source>
+        <target state="new">Inga referentgranskade publikationer</target>
       </trans-unit>
     </body>
   </file>

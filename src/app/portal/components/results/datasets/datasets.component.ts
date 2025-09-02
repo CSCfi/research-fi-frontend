@@ -1,4 +1,4 @@
-import { DOCUMENT, NgIf, NgFor, NgTemplateOutlet } from '@angular/common';
+import { DOCUMENT, NgIf, NgFor, NgTemplateOutlet, JsonPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -44,7 +44,8 @@ import { TagDoiComponent } from '@shared/components/tags/tag-doi/tag-doi.compone
     HighlightSearchPipe,
     MatIcon,
     TagOpenAccessComponent,
-    TagDoiComponent
+    TagDoiComponent,
+    JsonPipe
   ]
 })
 export class DatasetsComponent implements OnInit {

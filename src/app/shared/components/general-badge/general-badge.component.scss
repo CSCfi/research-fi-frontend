@@ -1,0 +1,43 @@
+.general-badge-wrapper {
+  border: 1px solid #4546b9;
+  background: #4546b9;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 170px;
+  min-height: 27px;
+  max-height: 27px;
+  border-radius: 20px;
+  padding: 0px 14px;
+  font-weight: 400;
+
+  a, .no-link {
+    color: #fff;
+    text-decoration: none !important;
+  }
+
+  a {
+    &:hover, &:active, &:focus {
+      color: #fff;
+      text-decoration: underline !important;
+    }
+  }
+
+  .badge-text {
+    color: #fff;
+    //font-size: 0.85rem;
+    height: 16px;
+    margin-top: 1px;
+  }
+
+  .text-wrapper {
+    font-size: 13px;
+    color: #fff;
+    white-space: nowrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    line-height: 1rem;
+  }
+}

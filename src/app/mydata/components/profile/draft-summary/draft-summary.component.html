@@ -2,7 +2,6 @@
  Copyright 2019 Ministry of Education and Culture, Finland
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
-
 <mat-accordion multi>
   <ng-container *ngFor="let group of profileData; let i = index">
     <mat-expansion-panel
@@ -62,7 +61,7 @@
               but displayed as a joined list. Show only the first row, since
               all rows are equal when combined.
             -->
-            <ng-container *ngIf="i == 0">
+            <ng-container *ngIf="i === 0">
               <div class="row py-2">
                 <div class="col px-0">
                   <div class="row">
@@ -155,5 +154,24 @@
         {{ option[nameLocale] }}
       </mat-checkbox>
     </ng-container>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel
+          id="highlight-openness-panel"
+          [expanded]="false"
+          *ngIf="highlightOpenness.length"
+  >
+    <mat-expansion-panel-header class="pe-1 pe-md-3">
+      <mat-panel-title class="fw-bold">
+        {{ accountSettingsHeader }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+      <mat-checkbox
+              [ngClass]="highlightOpenness[0] ? 'py-1 py-lg-0 w-100 checked' : 'py-1 py-lg-0 w-100 unchecked'"
+              [checked]="highlightOpenness[0]"
+              disabled
+      >
+        {{ highlightOpennessHeader }}
+      </mat-checkbox>
   </mat-expansion-panel>
 </mat-accordion>

@@ -15,6 +15,7 @@ import { BehaviorSubject, firstValueFrom, Subject } from 'rxjs';
 import { ErrorHandlerService } from '@shared/services/error-handler.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { Constants } from '@mydata/constants';
+import { map, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +24,8 @@ export class ProfileService {
   apiUrl: string;
   httpOptions: any;
   currentProfileData: any[];
+  collaborationChoices: any[];
+  settingsData: any[];
 
   testData = testData;
 
@@ -40,7 +43,9 @@ export class ProfileService {
   userData = this.userDataSource.asObservable();
   orcidUserProfile: Record<string, unknown>; // Set via orcid-profile-resolver
 
-  private profileVisibility$ = new BehaviorSubject(false);
+  private profileVisibilityInitialState$ = new BehaviorSubject(false);
+  highlightOpennessInitialState$ = new BehaviorSubject(undefined);
+  private automaticPublishingInitialState$ = new BehaviorSubject(false);
 
   constructor(
     private http: HttpClient,
@@ -75,6 +80,8 @@ export class ProfileService {
     }
   }
 
+
+
   setErrorMessage(errorMessage: string) {
     this.errorHandlerService.updateError({
       message: errorMessage,
@@ -91,12 +98,26 @@ export class ProfileService {
     this.orcidUserProfile = profileData;
   }
 
+  getEditorProfileNameObservable() {
+    return this.currentEditorProfileName;
+  }
+
   setEditorProfileName(fullName: string) {
     this.editorProfileNameSource.next(fullName);
   }
 
+  // Represents visible profile data and is used from draft data in updates or from back end in init phase
   setCurrentProfileData(data) {
     this.currentProfileData = data;
+  }
+
+  // This must be called in order to resolver to fetch new data from back end
+  clearCurrentProfileData() {
+    this.currentProfileData = undefined;
+  }
+
+  setCurrentCollaborationChoices(data){
+    this.collaborationChoices = data;
   }
 
   setUserData(data: any) {
@@ -118,23 +139,33 @@ export class ProfileService {
     return await firstValueFrom(this.http.delete(this.apiUrl + '/userprofile/', this.httpOptions));
   }
 
-  public async initializeProfileVisibility() {
-     await this.updateToken();
-     let value;
+  public async fetchProfileVisibilityAndSettings() {
+    await this.updateToken();
+    let value;
 
-     try {
+    try {
       value = await firstValueFrom(this.http.get(this.apiUrl + '/settings/', this.httpOptions));
-     } catch (error) {
-       console.error(error);
-     }
+    } catch (error) {
+      console.error(error);
+    }
+    this.settingsData = value.data;
+    this.profileVisibilityInitialState$.next(!value.data.hidden);
+    this.highlightOpennessInitialState$.next(value.data.highlightOpeness);
+    this.automaticPublishingInitialState$.next(value.data.publishNewData);
 
-     this.profileVisibility$.next(!value.data.hidden);
-
-     return value;
+    return value;
   }
 
-  public getProfileVisibility() {
-    return this.profileVisibility$.asObservable();
+  public getProfileVisibilityObservable() {
+    return this.profileVisibilityInitialState$.asObservable();
+  }
+
+  public getHighlightOpennessInitialState() {
+    return this.highlightOpennessInitialState$.getValue();
+  }
+
+  public getAutomaticPublishingState() {
+    return this.automaticPublishingInitialState$.getValue();
   }
 
   async hideProfile() {
@@ -145,12 +176,11 @@ export class ProfileService {
       await this.updateToken();
       value = await firstValueFrom(this.http.post(this.apiUrl + '/settings/', body, this.httpOptions));
 
-      this.profileVisibility$.next(false);
+      this.profileVisibilityInitialState$.next(false);
     } catch (error) {
       console.error(error);
     }
-
-     return value;
+    return value;
   }
 
   async showProfile() {
@@ -160,12 +190,22 @@ export class ProfileService {
     try {
       await this.updateToken();
       value = await firstValueFrom(this.http.post(this.apiUrl + '/settings/', body, this.httpOptions));
-      this.profileVisibility$.next(true);
+      this.profileVisibilityInitialState$.next(true);
     } catch (error) {
       console.error(error);
     }
-
     return value
+  }
+
+  setHighlightOpennessState(value) {
+    return this.oidcSecurityService.getAccessToken().pipe(map(this.tokenToHttpOptions), switchMap((options) => {
+      const body = { highlightOpeness: value };
+      return this.http.post(this.apiUrl + '/settings/', body, this.httpOptions)
+    }));
+  }
+
+  logoutFromTool(){
+    this.oidcSecurityService.logoff();
   }
 
   /*
@@ -182,23 +222,33 @@ export class ProfileService {
     return await firstValueFrom(this.http.get(this.apiUrl + '/orcid/', this.httpOptions));
   }
 
-  async getProfileData(): Promise<any> {
+  async fetchProfileDataFromBackend(): Promise<any> {
     await this.updateToken();
     const profile = await firstValueFrom(this.http.get(this.apiUrl + '/profiledata/', this.httpOptions));
-    return this.profileAdapter.adapt(profile);
+    const resp= this.profileAdapter.adapt(profile);
+    await this.fetchCollaborationOptionsFromBackend();
+    return resp;
   }
 
-  // Draft profile is stored in session storage
-  getDraftProfile() {
-    if (this.appSettingsService.isBrowser) {
-      return sessionStorage.getItem(Constants.draftProfile);
-    }
+  async fetchCollaborationOptionsFromBackend() {
+    const cooperationChoices = await firstValueFrom(this.http.get(this.apiUrl + '/cooperationchoices/', this.httpOptions));
+    this.setCurrentCollaborationChoices(cooperationChoices);
+    return cooperationChoices;
   }
 
-  clearDraftProfile() {
-    if (this.appSettingsService.isBrowser) {
-      sessionStorage.removeItem(Constants.draftProfile);
-    }
+  tokenToHttpOptions(token: string) {
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      }),
+    };
+  }
+
+  async patchSettingsData(data) {
+    await this.updateToken();
+    let body = { data: data };
+    return await firstValueFrom(this.http.patch(this.apiUrl + '/settings/', body, this.httpOptions));
   }
 
   async patchObjects(items) {

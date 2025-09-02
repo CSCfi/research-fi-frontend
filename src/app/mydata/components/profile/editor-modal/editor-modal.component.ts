@@ -245,7 +245,8 @@ export class EditorModalComponent implements OnInit {
       case 'cancel': {
         this.patchService.clearPayload();
         this.publicationsService.clearPayload();
-        this.publicationsService.clearDeletables();
+        this.datasetsService.clearPayload();
+        this.fundingsService.clearDeletables();
         break;
       }
     }
