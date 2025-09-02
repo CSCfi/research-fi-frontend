@@ -67,8 +67,7 @@
         ></app-activity-item>
 
         <!-- Dataset badges -->
-    <div *ngIf="_item.openAccess === true || _item.accessType === 'open' || (_item.publicationTypeCode | peerReviewed)"
-         class="row">
+    <div class="row">
       <div class="badge-row gx-0 flex-wrap">
         <div class="d-flex flex-wrap"><app-tag-open-access class='me-2 d-flex'
                                                            *ngIf="_item.openAccess === true || _item.accessType === 'open'"></app-tag-open-access>
@@ -85,8 +84,7 @@
                 [smallLastItem]="true"
         ></app-activity-item>
 
-        <div *ngIf="_item.openAccess === true || _item.accessType === 'open' || (_item.publicationTypeCode | peerReviewed)"
-             class="row">
+        <div class="row">
       <div class="badge-row gx-0 flex-wrap">
         <div class="d-flex flex-wrap"><app-tag-open-access class='me-2 d-flex'
                                                            *ngIf="_item.openAccess === true || _item.accessType === 'open'"></app-tag-open-access>
@@ -161,12 +159,14 @@
       </ng-container>
 
       <!-- Publications badges -->
-      <div *ngIf="_item.openAccess !== 0 || _item.selfArchivedCode === '1' || _item.selfArchivedCode === 1 || (_item.publicationTypeCode | peerReviewed)" class="badge-row gx-0 flex-wrap">
-          <div class="d-flex flex-wrap">
-          <app-tag-open-access class='me-2'
-                               *ngIf="_item.openAccess !== 0 || _item.selfArchivedCode === '1' || _item.selfArchivedCode === 1"></app-tag-open-access><app-tag-doi
-                  *ngIf="_item.doi" [linkDoi]="_item.doi"></app-tag-doi></div>
-          <div><app-tag-peer-reviewed *ngIf="_item.publicationTypeCode | peerReviewed"></app-tag-peer-reviewed></div>
+      <div class="badge-row gx-0 flex-wrap">
+        <div class="d-flex flex-wrap">
+          <app-tag-open-access class='me-2' *ngIf="_item.openAccess !== 0 || _item.selfArchivedCode === '1' || _item.selfArchivedCode === 1"></app-tag-open-access>
+          <app-tag-doi *ngIf="_item.doi" [linkDoi]="_item.doi"></app-tag-doi>
+        </div>
+          <div>
+            <app-tag-peer-reviewed *ngIf="_item.publicationTypeCode | peerReviewed"></app-tag-peer-reviewed>
+          </div>
       </div>
     </ng-template>
 
