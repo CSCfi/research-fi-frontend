@@ -161,7 +161,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
       const parsedDraft = this.draftService.getDraftProfile();
       // Display either draft profile from storage or profile from database
       if (parsedDraft) {
-        console.log('parsed draft', parsedDraft);
         this.profileData = parsedDraft;
         this.profileService.setEditorProfileName(getName(parsedDraft));
       } else {
@@ -175,7 +174,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
                   cloneDeep(value.profileData)
                 );
                 this.profileData = clone(value.profileData);
-                console.log('DATA FROM BACK END', this.profileData);
               }
             });
         this.profileService.setEditorProfileName(this.route.snapshot.data.myDataProfile.name);
