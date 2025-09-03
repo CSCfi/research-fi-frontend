@@ -20,6 +20,9 @@ import {
   MydataSideNavigationComponent
 } from '@mydata/components/mydata-side-navigation/mydata-side-navigation.component';
 import { StickyFooterComponent } from '@mydata/components/sticky-footer/sticky-footer.component';
+import {
+  AutomaticPublishingSettingsComponent
+} from '@mydata/components/automatic-publishing-settings/automatic-publishing-settings.component';
 
 @Component({
     selector: 'app-account-settings',
@@ -37,7 +40,8 @@ import { StickyFooterComponent } from '@mydata/components/sticky-footer/sticky-f
     BannerDividerComponent,
     SvgSpritesComponent,
     MydataSideNavigationComponent,
-    StickyFooterComponent
+    StickyFooterComponent,
+    AutomaticPublishingSettingsComponent
   ]
 })
 export class AccountSettingsComponent implements OnInit {
@@ -119,6 +123,10 @@ export class AccountSettingsComponent implements OnInit {
       method: 'showPublicProfile',
     },
   ];
+
+  // Automatic publishing
+  automaticPublishingTitle = $localize`:@@automaticPublishingTitle:Tietojen automaattinen julkaiseminen`;
+
 
   // Orcid variables
   isOrcidFetchInUse = false;

@@ -289,6 +289,46 @@
         </div>
         </ng-container>
 
+        <!-- Automatic publishing section -->
+        <ng-container>
+          <div class="row pb-1 mt-4 bordered-section">
+            <div class="col-12 pt-3 pb-2 heading-minus-margin">
+              <h3>{{automaticPublishingTitle}}</h3>
+            </div>
+            <app-automatic-publishing-settings></app-automatic-publishing-settings>
+            <div class="col-12 button-row">
+              <app-secondary-button
+                      (click)="
+                openDialog({
+                  title: hideProfileModalTitle,
+                  template: hideProfileTemplate,
+                  actions: hideProfileDialogActions,
+                  disableDialogClose: true
+                })
+              "
+                      i18n-content="@@hideProfile"
+                      content="Piilota profiili"
+              ></app-secondary-button>
+
+              <!--
+              <app-secondary-button *ngIf="isProfileHidden"
+                                    (click)="
+                    openDialog({
+                      title: hideProfileTitle,
+                      template: showProfileTemplate,
+                      actions: showProfileDialogActions,
+                      disableDialogClose: true
+                    })
+                  "
+                                    i18n-content="@@showProfile"
+                                    content="Näytä profiili"
+                                    [disabled]="hideProfileInProgress || deleteProfileInProgress"
+              ></app-secondary-button>
+              -->
+            </div>
+          </div>
+        </ng-container>
+
         <ng-container *ngIf='(profileVisibility$ | async) === false'>
           <div class="row pb-1 mt-4 bordered-section">
           <div class="col-12 pt-3">
