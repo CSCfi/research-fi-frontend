@@ -45,7 +45,7 @@ export class ProfileService {
 
   private profileVisibilityInitialState$ = new BehaviorSubject(false);
   highlightOpennessInitialState$ = new BehaviorSubject(undefined);
-  private automaticPublishingInitialState$ = new BehaviorSubject(false);
+  automaticPublishingInitialState$ = new BehaviorSubject(undefined);
 
   constructor(
     private http: HttpClient,
@@ -148,6 +148,7 @@ export class ProfileService {
     } catch (error) {
       console.error(error);
     }
+    // TODO: refactor all states into settingsData
     this.settingsData = value.data;
     this.profileVisibilityInitialState$.next(!value.data.hidden);
     this.highlightOpennessInitialState$.next(value.data.highlightOpeness);
@@ -160,11 +161,11 @@ export class ProfileService {
     return this.profileVisibilityInitialState$.asObservable();
   }
 
-  public getHighlightOpennessInitialState() {
+  public getHighlightOpennessInitialStateValue() {
     return this.highlightOpennessInitialState$.getValue();
   }
 
-  public getAutomaticPublishingState() {
+  public getAutomaticPublishingInitialStateValue() {
     return this.automaticPublishingInitialState$.getValue();
   }
 
@@ -200,6 +201,20 @@ export class ProfileService {
   setHighlightOpennessState(value) {
     return this.oidcSecurityService.getAccessToken().pipe(map(this.tokenToHttpOptions), switchMap((options) => {
       const body = { highlightOpeness: value };
+      return this.http.post(this.apiUrl + '/settings/', body, this.httpOptions)
+    }));
+  }
+
+  patchSettingsDataStates(values: any) {
+    return this.oidcSecurityService.getAccessToken().pipe(map(this.tokenToHttpOptions), switchMap((options) => {
+      const body = { hidden: values[0], publishNewData: values[1], highlightOpeness: values[2] };
+      return this.http.post(this.apiUrl + '/settings/', body, this.httpOptions)
+    }));
+  }
+
+  patchAutomaticPublishingState(state: boolean) {
+    return this.oidcSecurityService.getAccessToken().pipe(map(this.tokenToHttpOptions), switchMap((options) => {
+      const body = { publishNewData: state };
       return this.http.post(this.apiUrl + '/settings/', body, this.httpOptions)
     }));
   }
