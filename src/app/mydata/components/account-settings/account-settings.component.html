@@ -313,6 +313,27 @@
           </div>
         </ng-container>
 
+        <!-- Automatic publishing section -->
+        <ng-container>
+          <div class="row pb-1 mt-4 bordered-section">
+            <div class="col-12 pt-3 pb-2">
+              <h3>{{automaticPublishingTitle}}</h3>
+            </div>
+            <div>
+              <div>{{automaticPublishingAccountSettingsInfoText1}}</div>
+              <li class="ms-4">{{ automaticPublsihingInfoTextBullet1 }}
+              <a [href]="automaticPublsihingInfoTextBullet2Link"
+                     target="_blank" class="fw-bold">{{ automaticPublsihingInfoTextBullet2 }}
+                <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"
+                                 class="open-in-new-link"></app-svg-sprites>
+              </a></li>
+            </div>
+            <div class="mt-2 mb-4">
+              <app-automatic-publishing-settings [usedInPublishModal]="false" [isAutomaticPublishingActive]="this.profileService.automaticPublishingInitialState$ | async" (setAutomaticPublishingActiveState)="patchAutomaticPublishingActiveState($event)"></app-automatic-publishing-settings>
+            </div>
+          </div>
+        </ng-container>
+
       </div>
     </div>
   </div>

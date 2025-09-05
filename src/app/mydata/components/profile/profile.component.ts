@@ -113,13 +113,21 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   updateHighlightOpennessUiState(state: boolean){
+    // Used only by profile summary
     this.emitHighlightOpenness.next(state);
+    // Used only by open science settings card
     this.highlightOpennessSub.next(state);
   }
 
-  forwardHighlightOpennessState(state: boolean) {
+  // Called only by open science settings card
+  setHighlightOpennessState(state: boolean) {
     this.draftService.addToHighlightOpennessPayload(state);
     this.updateHighlightOpennessUiState(state);
+  }
+
+  setAutomaticPublishingState(state: boolean) {
+    this.draftService.addToAutomaticPublishingPayload(state);
+    //this.updateHighlightOpennessUiState(state);
   }
 
   resetProfileData() {

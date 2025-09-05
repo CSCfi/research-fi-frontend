@@ -50,7 +50,22 @@
       margin-top: 3px;
       color: #294210;
     }
+    &.info-box-large {
+      width: 24px;
+      height: 24px;
+      margin-top: -4px;
+    }
   }
+  .info-icon-transparent {
+    width: 19px;
+    height: 19px;
+    &.mini-info-icon {
+      margin-right: 7px;
+      margin-top: -1px;
+      margin-left: -2px;
+    }
+  }
+
   .quote-icon {
     color: #4546b9;
     fill: #4546b9;

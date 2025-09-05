@@ -16,6 +16,9 @@ export const Constants = {
   draftCollaborationPatchPayload: 'mydata_draft_collaboration_patch_payload',
   draftProfile: 'mydata_draft',
   draftHighlightOpenness: 'mydata_draft_highlight_openness',
+  draftAutomaticPublishing: 'mydata_draft_automatic_publishing',
+  draftProfileHidden: 'mydata_draft_profile_hidden',
+  draftSettings: 'mydata_draft_settings',
 };
 
 export const FiltersConfig: FilterConfigType[] = [

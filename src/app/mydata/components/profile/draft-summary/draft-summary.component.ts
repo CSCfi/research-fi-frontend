@@ -22,6 +22,9 @@ import { PrimaryBadgeComponent } from '../profile-panel/primary-badge/primary-ba
 import { PanelArrayItemComponent } from '../profile-panel/panel-array-item/panel-array-item.component';
 import { JsonPipe, NgClass, NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
 import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
+import {
+  SummaryDividerComponent
+} from '@mydata/components/profile/profile-summary/summary-divider/summary-divider.component';
 
 @Component({
     selector: 'app-draft-summary',
@@ -45,7 +48,8 @@ import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionP
     countFieldItemsPipe,
     FindByKeyValuePipe,
     JsonPipe,
-    NgClass
+    NgClass,
+    SummaryDividerComponent
   ]
 })
 export class DraftSummaryComponent implements OnInit, OnDestroy {
@@ -54,10 +58,13 @@ export class DraftSummaryComponent implements OnInit, OnDestroy {
   @Input() profileData: any;
   @Input() collaborationOptions: any;
   @Input() highlightOpenness: any;
+  @Input() automaticPublishing: any;
+  @Input() accountSettingsFoldOpen: any;
 
   collaborationHeader = $localize`:@@collaborationHeader:Yhteistyö`;
   accountSettingsHeader = $localize`:@@accountSettings:Tiliasetukset`;
   highlightOpennessHeader = $localize`:@@highlightOpenAccessPublications:Korosta avoimia julkaisuja profiilissasi`;
+  automaticPublishingHeader = $localize`:@@automaticPublishingHeader:Tietojen automaattinen julkaisu`;
   selectedData: any;
 
   checkGroupPatchItem = checkGroupPatchItem;
@@ -109,4 +116,6 @@ export class DraftSummaryComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.patchPayloadSub?.unsubscribe();
   }
+
+  protected readonly event = event;
 }
