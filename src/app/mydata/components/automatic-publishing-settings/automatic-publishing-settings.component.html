@@ -1,10 +1,67 @@
-<div>{{automaticPublishingIsPossible}}</div>
-<div>
-<ul>
-  <li>{{automaticPublsihingInfoTextBullet1}}</li>
-  <li><a [href]="automaticPublsihingInfoTextBullet2Link" target="_blank">{{automaticPublsihingInfoTextBullet2}}<app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon" class="open-in-new-link"></app-svg-sprites></a></li>
-</ul>
+<!-- Publish modal version -->
+<div *ngIf="usedInPublishModal" class="info-frame">
+  <div class="d-flex">
+    <div class="me-3">
+      <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-box-large"></app-svg-sprites>
+    </div>
+    <div>
+      <h4>{{ automaticPublishingIsPossible }}</h4>
+      <div>{{ automaticPublishingAccountSettingsInfoText1 }}</div>
+      <div>
+        <ul>
+          <li>{{ automaticPublsihingInfoTextBullet1 }}</li>
+          <li><a [href]="automaticPublsihingInfoTextBullet2Link"
+                 target="_blank">{{ automaticPublsihingInfoTextBullet2 }}
+            <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"
+                             class="open-in-new-link"></app-svg-sprites>
+          </a></li>
+        </ul>
+        <div class="checkbox-row row">
+          <div class="col-auto gx-0">
+            <mat-checkbox [checked]="isAutomaticPublishingActive" (change)="valueChange($event)"
+                          aria-labelledby="ap-cb-label"></mat-checkbox>
+          </div>
+          <div class="col-11 gx-0 row d-flex justify-content-center flex-row">
+            <div
+                    class="col-6 gx-0 fw-bold d-flex flex-column justify-content-center">{{ automaticPublishingCheckboxLabel1 }}
+            </div>
+            <div class="col-6 gx-0 d-flex flex-column justify-content-center">{{ automaticPublishingCheckboxLabel2 }}</div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="isChecked" class="additional-info-text-wrap">
+        <div>
+          <app-svg-sprites [iconName]="'info-transparent'"
+                           cssClass="info-icon-transparent mini-info-icon"></app-svg-sprites>
+        </div>
+        <div>{{ automaticPublishingCheckboxActiveAdditionalInfo }}</div>
+      </div>
+    </div>
+  </div>
+  <!-- Initialize the width of the modal -->
+  <div class="modal-width-prefer-wrap"></div>
 </div>
 
+<!-- Account settings page version -->
+<div *ngIf="!usedInPublishModal" class="info-frame">
 
+  <div class="checkbox-row row">
+    <div class="col-auto gx-0">
+      <mat-checkbox [checked]="isAutomaticPublishingActive" (change)="valueChange($event)"
+                    aria-labelledby="ap-cb-label"></mat-checkbox>
+    </div>
+    <div class="col-11 gx-0 row d-flex justify-content-center flex-row">
+      <div class="col-6 gx-0 fw-bold d-flex flex-column justify-content-center">{{ automaticPublishingCheckboxLabel1 }}
+      </div>
+      <div class="col-6 gx-0 d-flex flex-column justify-content-center">{{ automaticPublishingCheckboxLabel2 }}</div>
+    </div>
+  </div>
+  <div *ngIf="isChecked" class="additional-info-text-wrap">
+    <div>
+      <app-svg-sprites [iconName]="'info-transparent'"
+                       cssClass="info-icon-transparent mini-info-icon"></app-svg-sprites>
+    </div>
+    <div>{{ automaticPublishingCheckboxActiveAdditionalInfo }}</div>
+  </div>
+</div>
 
