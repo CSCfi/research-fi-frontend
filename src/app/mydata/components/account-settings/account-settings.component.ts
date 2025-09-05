@@ -23,6 +23,7 @@ import { StickyFooterComponent } from '@mydata/components/sticky-footer/sticky-f
 import {
   AutomaticPublishingSettingsComponent
 } from '@mydata/components/automatic-publishing-settings/automatic-publishing-settings.component';
+import { DraftService } from '@mydata/services/draft.service';
 
 @Component({
     selector: 'app-account-settings',
@@ -127,6 +128,11 @@ export class AccountSettingsComponent implements OnInit {
   // Automatic publishing
   automaticPublishingTitle = $localize`:@@automaticPublishingTitle:Tietojen automaattinen julkaiseminen`;
 
+  automaticPublishingAccountSettingsInfoText1 = $localize`:@@automaticPublishingAccountSettingsInfoText1:Kun ominaisuus on valittu, tietolähteissä tehdyt muutokset näkyvät automaattisesti profiilissasi.`;
+  automaticPublsihingInfoTextBullet1 = $localize`:@@automaticPublsihingInfoTextBullet1:Tutkimustoiminnan kuvaus ja osa yhteystiedoista eivät kuulu automaattisen julkaisun piiriin.`;
+  automaticPublsihingInfoTextBullet2 = $localize`:@@automaticPublsihingInfoTextBullet2:Katso tarkempi määrittely`;
+  automaticPublsihingInfoTextBullet2Link = 'https://wiki.eduuni.fi/x/cbJqJ';
+
 
   // Orcid variables
   isOrcidFetchInUse = false;
@@ -154,7 +160,7 @@ export class AccountSettingsComponent implements OnInit {
 
   profileVisibility$ = this.profileService.getProfileVisibilityObservable();
 
-  constructor(public profileService: ProfileService, private router: Router, private route: ActivatedRoute, public dialog: MatDialog, public oidcSecurityService: OidcSecurityService,  private snackbarService: SnackbarService) {
+  constructor(public profileService: ProfileService, private draftService: DraftService, private router: Router, private route: ActivatedRoute, public dialog: MatDialog, public oidcSecurityService: OidcSecurityService,  private snackbarService: SnackbarService) {
     this.profileService.fetchProfileVisibilityAndSettings();
   }
 
@@ -237,6 +243,28 @@ export class AccountSettingsComponent implements OnInit {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  patchAutomaticPublishingActiveState(state: any){
+    this.draftService.patchAutomaticPublishingPromise(state).then(
+      (value) => {
+        this.dialog.closeAll();
+        if (state === true) {
+          this.snackbarService.show(
+            $localize`:@@profileHiddenToast:Automaattinen julkaisu on asetettu päälle ja muutokset on tallennettu tiliasetuksiisi.`,
+            'success'
+          );
+        }
+        else {
+          this.snackbarService.show(
+            $localize`:@@profileHiddenToast:Automaattinen julkaisu on asetettu pois päältä ja muutokset on tallennettu tiliasetuksiisi.`,
+            'success'
+          );
+        }
+      },
+      (reason) => {
+        //TODO: implement error handling
+      },);
   }
 
   hidePublicProfile() {
