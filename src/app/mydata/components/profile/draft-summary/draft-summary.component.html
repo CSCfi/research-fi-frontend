@@ -3,6 +3,11 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 <mat-accordion multi>
+  <mat-expansion-panel hideToggle disabled="true" (click)="$event.preventDefault()" class="draft-summary-panel-header">
+    <mat-expansion-panel-header aria-disabled="true" (click)="$event.preventDefault()">
+      <mat-panel-title>Julkaistavat tiedot</mat-panel-title>
+    </mat-expansion-panel-header>
+  </mat-expansion-panel>
   <ng-container *ngFor="let group of profileData; let i = index">
     <mat-expansion-panel
       *ngIf="
@@ -50,8 +55,8 @@
           <!-- person keyword fields -->
           <ng-container *ngSwitchCase="fieldTypes.personKeyword">
             <span
-              *ngIf="fieldTypes.personKeyword && i == 0"
-              class="fw-bold d-block py-2"
+              *ngIf="fieldTypes.personKeyword && i === 0"
+              class="fw-bold d-block pt-2"
               i18n="@@keywords"
               >Avainsanat</span
             >
@@ -62,7 +67,7 @@
               all rows are equal when combined.
             -->
             <ng-container *ngIf="i === 0">
-              <div class="row py-2">
+              <div class="row pt-2">
                 <div class="col px-0">
                   <div class="row">
                     <div
@@ -85,16 +90,16 @@
           </ng-container>
           <!-- Default view -->
           <ng-container *ngSwitchDefault>
-            <div class="row py-2">
-              <div class="col px-0">
+            <div class="row">
+              <div [ngClass]="i === 0 ? 'col px-0 pt-3' : 'col px-0'">
                 <div
-                  class="row d-flex justify-content-between py-1"
+                  class="row d-flex justify-content-between pt-1"
                   [class.justify-content-between]="true"
                 >
                   <div
                     class="col px-0 font-size-smaller"
-                    [class.col-auto]="true"
                   >
+                    <app-summary-divider *ngIf="i > 0"></app-summary-divider>
                     <app-panel-array-item
                       [class.text-strike]="
                         !(
@@ -107,7 +112,6 @@
                       [localized]="item.localized"
                     ></app-panel-array-item>
                   </div>
-
                   <!-- check *ngIf="
                       item.itemMeta.primaryValue &&
                       groupItem.groupMeta.type ===
@@ -145,9 +149,9 @@
         {{ collaborationHeader }} ({{ collaborationOptions.length }})
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <ng-container *ngFor="let option of collaborationOptions">
+    <ng-container *ngFor="let option of collaborationOptions; let j = index">
       <mat-checkbox
-        class="py-1 py-lg-0 w-100"
+              [ngClass]="j > 0 ? 'py-lg-0 w-100' : 'pt-3 py-lg-0 w-100'"
         [checked]="option?.selected"
         disabled
       >
@@ -159,19 +163,27 @@
   <mat-expansion-panel
           id="highlight-openness-panel"
           [expanded]="false"
-          *ngIf="highlightOpenness.length"
+          *ngIf="highlightOpenness.length || automaticPublishing.length"
   >
     <mat-expansion-panel-header class="pe-1 pe-md-3">
       <mat-panel-title class="fw-bold">
-        {{ accountSettingsHeader }}
+        {{ accountSettingsHeader }} {{ highlightOpenness.length + automaticPublishing.length > 0 ? '('+ (highlightOpenness.length + automaticPublishing.length) + ')': ''}}
       </mat-panel-title>
     </mat-expansion-panel-header>
-      <mat-checkbox
-              [ngClass]="highlightOpenness[0] ? 'py-1 py-lg-0 w-100 checked' : 'py-1 py-lg-0 w-100 unchecked'"
+      <mat-checkbox *ngIf="highlightOpenness.length"
+              [ngClass]="highlightOpenness[0] ? 'py-1 pt-3 w-100 checked' : 'py-1 pt-3 w-100 unchecked'"
               [checked]="highlightOpenness[0]"
               disabled
       >
         {{ highlightOpennessHeader }}
       </mat-checkbox>
+    <mat-checkbox *ngIf="automaticPublishing.length"
+            [ngClass]="automaticPublishing[0] ? 'py-1 pt-3 w-100 checked' : 'py-1 pt-3 w-100 unchecked'"
+            [checked]="automaticPublishing[0]"
+            disabled
+    >
+      {{ automaticPublishingHeader }}
+    </mat-checkbox>
   </mat-expansion-panel>
+
 </mat-accordion>
