@@ -29,16 +29,20 @@
 }
 
 .draft-summary-panel-header {
-  //border: 1px solid var(--purple-bg, #E8E8F5) !important;
   border-bottom: 1.5px solid #0000001a;
-  background: var(--purple-light-bg, #F7F7FB) !important;
+  background: transparent !important;
+  //background: var(--purple-light-bg, #F7F7FB) !important;
   font-weight: bold;
   margin-top: 16px;
   &:hover {
-    background: var(--purple-light-bg, #F7F7FB) !important;
+    background: transparent !important;
   }
   .mat-expansion-panel-header {
     cursor: initial !important;
+  }
+  &:first-of-type {
+    background: var(--purple-light-bg, #F7F7FB) !important;
+    border: 1px solid var(--purple-bg, #E8E8F5) !important;
   }
 }
 
@@ -54,7 +58,7 @@
   color: rgba(0, 0, 0, 0.87);
   //max-height: 48px;
   &:hover {
-    background: var(--purple-light-bg, #F7F7FB) !important;
+    background: transparent !important;
     }
   --mat-expansion-header-indicator-color: #4546b9 !important;
 }
