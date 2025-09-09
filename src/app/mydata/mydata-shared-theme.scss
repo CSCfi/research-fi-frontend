@@ -8,6 +8,8 @@
 @use 'migration' as *;
 
 @mixin app-mydata-shared-theme($theme) {
+  --mdc-snackbar-supporting-text-color: #000;
+
   $primary: map-get($theme, primary);
   $warn: map-get($theme, warn);
 
@@ -18,12 +20,45 @@
     }
   }
 
-  .mat-mdc-snack-bar-container.success {
-    background: mat-color($primary, 700);
-    color: mat-contrast($primary, 500);
+  // Shared with some of the modals
+  .mat-mdc-dialog-content {
+    max-width: 800px;
+  }
 
-    .mat-mdc-button {
-      color: #fff;
+  .mat-mdc-snack-bar-handset .mat-mdc-snack-bar-container {
+    width: unset;
+  }
+
+  .mat-mdc-snackbar-container {
+    --mdc-snackbar-container-color: transparent !important;
+  }
+
+  .mat-mdc-snackbar-surface {
+    background: transparent !important;
+    .mdc-button__label {
+      color: #4546b9 !important;
+      font-weight: bold;
+    }
+  }
+
+  .mat-mdc-snack-bar-container {
+    margin-top: 77px;
+    border-radius: 5px;
+    &.success {
+      background: #B2DAD8;
+      color: black !important;
+      border: 1px solid #00857E;
+      .mat-mdc-button {
+        color: #fff;
+      }
+    }
+    &.error {
+      background: #FFB07C;
+      color: black !important;
+      border: 1px solid #e77d56;
+      .mat-mdc-button {
+        color: #fff;
+      }
     }
   }
 
