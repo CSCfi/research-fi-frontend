@@ -104,7 +104,7 @@ export class DataSourcesComponent implements OnInit, OnDestroy {
     /*
      *  Inform user if unsaved changes in profile view
      */
-    if (draftProfile || collaborationOptions?.length > 0  || (this.highlightOpenness.length > 0)) {
+    if (draftProfile || collaborationOptions?.length > 0  || (this.highlightOpenness?.length > 0)) {
       this.notificationService.notify({
         notificationText: $localize`:@@youHaveUnpublishedChangesSnackbar:Sinulla on julkaisemattomia muutoksia profiilinäkymässä.`,
         buttons: [

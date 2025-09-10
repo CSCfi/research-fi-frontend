@@ -163,21 +163,21 @@
   <mat-expansion-panel
           id="highlight-openness-panel"
           [expanded]="false"
-          *ngIf="highlightOpenness.length || automaticPublishing.length"
+          *ngIf="highlightOpenness?.length || automaticPublishing?.length"
   >
     <mat-expansion-panel-header class="pe-1 pe-md-3">
       <mat-panel-title class="fw-bold">
-        {{ accountSettingsHeader }} {{ highlightOpenness.length + automaticPublishing.length > 0 ? '('+ (highlightOpenness.length + automaticPublishing.length) + ')': ''}}
+        {{ accountSettingsHeader }} {{ highlightOpenness?.length + automaticPublishing?.length > 0 ? '('+ (highlightOpenness?.length + automaticPublishing?.length) + ')': ''}}
       </mat-panel-title>
     </mat-expansion-panel-header>
-      <mat-checkbox *ngIf="highlightOpenness.length"
+      <mat-checkbox *ngIf="highlightOpenness?.length"
               [ngClass]="highlightOpenness[0] ? 'py-1 pt-3 w-100 checked' : 'py-1 pt-3 w-100 unchecked'"
               [checked]="highlightOpenness[0]"
               disabled
       >
         {{ highlightOpennessHeader }}
       </mat-checkbox>
-    <mat-checkbox *ngIf="automaticPublishing.length"
+    <mat-checkbox *ngIf="automaticPublishing?.length"
             [ngClass]="automaticPublishing[0] ? 'py-1 pt-3 w-100 checked' : 'py-1 pt-3 w-100 unchecked'"
             [checked]="automaticPublishing[0]"
             disabled
