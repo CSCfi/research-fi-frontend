@@ -25,6 +25,7 @@ import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionP
 import {
   SummaryDividerComponent
 } from '@mydata/components/profile/profile-summary/summary-divider/summary-divider.component';
+import { GeneralBadgeComponent } from '@shared/components/general-badge/general-badge.component';
 
 @Component({
     selector: 'app-draft-summary',
@@ -49,7 +50,8 @@ import {
     FindByKeyValuePipe,
     JsonPipe,
     NgClass,
-    SummaryDividerComponent
+    SummaryDividerComponent,
+    GeneralBadgeComponent
   ]
 })
 export class DraftSummaryComponent implements OnInit, OnDestroy {
@@ -60,11 +62,14 @@ export class DraftSummaryComponent implements OnInit, OnDestroy {
   @Input() highlightOpenness: any;
   @Input() automaticPublishing: any;
   @Input() accountSettingsFoldOpen: any;
+  @Input() isModalSummaryView: boolean;
 
   collaborationHeader = $localize`:@@collaborationHeader:Yhteistyö`;
   accountSettingsHeader = $localize`:@@accountSettings:Tiliasetukset`;
   highlightOpennessHeader = $localize`:@@highlightOpenAccessPublications:Korosta avoimia julkaisuja profiilissasi`;
   automaticPublishingHeader = $localize`:@@automaticPublishingHeader:Tietojen automaattinen julkaisu`;
+  primary = $localize`:@@primary:Ensisijainen`;
+
   selectedData: any;
 
   checkGroupPatchItem = checkGroupPatchItem;

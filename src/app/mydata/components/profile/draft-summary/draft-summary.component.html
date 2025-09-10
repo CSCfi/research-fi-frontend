@@ -90,7 +90,8 @@
           </ng-container>
           <!-- Default view -->
           <ng-container *ngSwitchDefault>
-            <div class="row">
+            <div class="row gx-0">
+              <app-summary-divider *ngIf="i > 0"></app-summary-divider>
               <div [ngClass]="i === 0 ? 'col px-0 pt-3' : 'col px-0'">
                 <div
                   class="row d-flex justify-content-between pt-1"
@@ -99,7 +100,6 @@
                   <div
                     class="col px-0 font-size-smaller"
                   >
-                    <app-summary-divider *ngIf="i > 0"></app-summary-divider>
                     <app-panel-array-item
                       [class.text-strike]="
                         !(
@@ -110,6 +110,7 @@
                       [item]="item"
                       [fieldType]="item.itemMeta.type"
                       [localized]="item.localized"
+                      [isModalSummaryView]="true"
                     ></app-panel-array-item>
                   </div>
                   <!-- check *ngIf="
@@ -123,12 +124,7 @@
                     "
                     class="col-auto px-4 mx-3 cursor-pointer"
                   >
-                    <app-primary-badge
-                      i18n-label="@@primary"
-                      label="Ensisijainen"
-                      [selected]="true"
-                      [disabled]="true"
-                    ></app-primary-badge>
+                    <app-general-badge class="d-none d-sm-flex ms-2" [textInput]="primary"></app-general-badge>
                   </div>
                 </div>
               </div>
