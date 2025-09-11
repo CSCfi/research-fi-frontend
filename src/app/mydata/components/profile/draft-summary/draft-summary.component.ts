@@ -67,7 +67,8 @@ export class DraftSummaryComponent implements OnInit, OnDestroy {
   collaborationHeader = $localize`:@@collaborationHeader:Yhteistyö`;
   accountSettingsHeader = $localize`:@@accountSettings:Tiliasetukset`;
   highlightOpennessHeader = $localize`:@@highlightOpenAccessPublications:Korosta avoimia julkaisuja profiilissasi`;
-  automaticPublishingHeader = $localize`:@@automaticPublishingHeader:Tietojen automaattinen julkaisu`;
+  automaticPublishingHeader = $localize`:@@automaticPublishingHeader:Tietojen automaattinen julkaiseminen`;
+  automaticPublishingBullet = $localize`:@@automaticPublishingCheckboxLabel:Julkaise päivittyneet tiedot automaattisesti.`;
   primary = $localize`:@@primary:Ensisijainen`;
 
   selectedData: any;
