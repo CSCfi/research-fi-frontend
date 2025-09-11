@@ -34,7 +34,7 @@
         </div>
 
         <!-- Orcid section -->
-        <div class="row pb-1 mt-4 py-3 bordered-section d-none">
+        <div class="row pb-1 mt-3 py-3 bordered-section d-none">
           <div class="col-12 px-0">
             <h3>ORCID-tietojen automaattinen päivittyminen</h3>
           <p class="px-0">{{generalInfoOrcid}}</p>
@@ -72,7 +72,7 @@
         </div>
 
         <!-- Delete profile section -->
-        <div class="row pb-1 mt-4 py-3 bordered-section">
+        <div class="row pb-1 mt-3 py-3 bordered-section">
           <div class="col-12 pt-2">
             <h3>{{deleteProfileTitle}}</h3>
           <p class="px-0 pt-2">{{generalInfoDeleteProfile}}</p>
@@ -118,6 +118,35 @@
                 {{showProfileModalText}}
               </p>
             </ng-template>
+
+
+            <!-- Enable or disable automatic publishing modal template (general info) -->
+            <ng-template #automaticPublishingTemplate>
+              <p class="px-3 mini-modal-width">
+                <ng-container>
+                  <div class="row">
+                    <div>
+                      <div>{{automaticPublishingAccountSettingsInfoText1}}</div>
+                      <li class="ms-4">{{ automaticPublsihingInfoTextBullet1 }}
+                        <a [href]="automaticPublsihingInfoTextBullet2Link"
+                           target="_blank" class="fw-bold">{{ automaticPublsihingInfoTextBullet2 }}
+                          <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"
+                                           class="open-in-new-link"></app-svg-sprites>
+                        </a></li>
+                    </div>
+                  </div>
+                </ng-container>
+              </p>
+            </ng-template>
+
+
+            <!-- Disable automatic publishing modal template -->
+            <ng-template #disableAutomaticPublishingTemplate>
+              <p class="px-3 pt-3 mini-modal-width">
+                {{automaticPublishingModalTitleDisable}}
+              </p>
+            </ng-template>
+
 
             <!-- Enable orcid fetch modal template -->
             <ng-template #enableOrcidTemplate>
@@ -250,7 +279,7 @@
 
         <!-- Show/hide profile section -->
         <ng-container *ngIf='(profileVisibility$ | async) === true'>
-          <div class="row pb-1 mt-4 bordered-section">
+          <div class="row pb-1 mt-3 bordered-section">
           <div class="col-12 pt-3 pb-2">
             <h3>{{hideProfileTitle}}</h3>
           <p class="px-0 mini pt-2">{{generalInfoHideProfile}}</p>
@@ -290,7 +319,7 @@
         </ng-container>
 
         <ng-container *ngIf='(profileVisibility$ | async) === false'>
-          <div class="row pb-1 mt-4 bordered-section">
+          <div class="row pb-1 mt-3 bordered-section">
           <div class="col-12 pt-3">
             <h3>{{showProfileTitle}}</h3>
           <p class="pt-2">{{showProfileText}}</p>
@@ -314,26 +343,67 @@
         </ng-container>
 
         <!-- Automatic publishing section -->
-        <ng-container>
-          <div class="row pb-1 mt-4 bordered-section">
+        <ng-container *ngIf="this.automaticPublishingState === false">
+          <div class="row pb-1 mt-3 bordered-section">
             <div class="col-12 pt-3 pb-2">
               <h3>{{automaticPublishingTitle}}</h3>
-            </div>
-            <div>
-              <div>{{automaticPublishingAccountSettingsInfoText1}}</div>
+              <div class="pt-2">{{automaticPublishingAccountSettingsInfoText1}}</div>
               <li class="ms-4">{{ automaticPublsihingInfoTextBullet1 }}
-              <a [href]="automaticPublsihingInfoTextBullet2Link"
-                     target="_blank" class="fw-bold">{{ automaticPublsihingInfoTextBullet2 }}
-                <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"
-                                 class="open-in-new-link"></app-svg-sprites>
-              </a></li>
+                <a [href]="automaticPublsihingInfoTextBullet2Link"
+                   target="_blank" class="fw-bold">{{ automaticPublsihingInfoTextBullet2 }}
+                  <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"
+                                   class="open-in-new-link"></app-svg-sprites>
+                </a></li>
             </div>
-            <div class="mt-2 mb-4">
-              <app-automatic-publishing-settings [usedInPublishModal]="false" [isAutomaticPublishingActive]="this.profileService.automaticPublishingInitialState$ | async" (setAutomaticPublishingActiveState)="patchAutomaticPublishingActiveState($event)"></app-automatic-publishing-settings>
+
+            <br>
+            <div class="col-12 button-row">
+              <app-secondary-button
+                      (click)="
+                openDialog({
+                  title: automaticPublishingModalTitleEnable,
+                  template: automaticPublishingTemplate,
+                  actions: automaticPublishingDialogActionsEnable,
+                  disableDialogClose: true
+                })
+              "
+                      i18n-content="@@enableAutomaticPublishing"
+                      content="Ota automaattinen julkaiseminen käyttöön"
+              ></app-secondary-button>
             </div>
           </div>
         </ng-container>
 
+        <ng-container *ngIf="this.automaticPublishingState === true">
+          <div class="row pb-1 mt-3 bordered-section">
+            <div class="col-12 pt-3 pb-2">
+              <h3>{{automaticPublishingTitle}}</h3>
+              <div class="pt-2">{{automaticPublishingAccountSettingsInfoText1}}</div>
+              <li class="ms-4">{{ automaticPublsihingInfoTextBullet1 }}
+                <a [href]="automaticPublsihingInfoTextBullet2Link"
+                   target="_blank" class="fw-bold">{{ automaticPublsihingInfoTextBullet2 }}
+                  <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"
+                                   class="open-in-new-link"></app-svg-sprites>
+                </a></li>
+            </div>
+
+            <br>
+            <div class="col-12 button-row">
+              <app-secondary-button
+                      (click)="
+                openDialog({
+                  title: automaticPublishingModalTitleDisable,
+                  template: automaticPublishingTemplate,
+                  actions: automaticPublishingDialogActionsDisable,
+                  disableDialogClose: true
+                })
+              "
+                      i18n-content="@@disableAutomaticPublishing"
+                      content="Ota automaattinen julkaiseminen pois käytöstä"
+              ></app-secondary-button>
+            </div>
+          </div>
+        </ng-container>
       </div>
     </div>
   </div>

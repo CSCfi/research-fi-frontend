@@ -125,11 +125,34 @@ export class AccountSettingsComponent implements OnInit {
     },
   ];
 
-  // Automatic publishing
+  // Automatic publishing modal
+  automaticPublishingModalTitleEnable = $localize`:@@automaticPublishingModalTitle: Haluatko ottaa automaattisen julkaiseminen käyttöön?`;
+  automaticPublishingModalTitleDisable = $localize`:@@automaticPublishingModalTitle: Haluatko ottaa automaattisen julkaiseminen pois käytöstä?`;
+  automaticPublishingDialogActionsEnable = [
+    { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'close' },
+    {
+      label: $localize`:@@enableAutomaticPublishing:Ota automaattinen julkaiseminen käyttöön`,
+      primary: true,
+      method: 'enableAutomaticPublishing',
+    },
+  ];
+
+  automaticPublishingDialogActionsDisable = [
+    { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'close' },
+    {
+      label: $localize`:@@disableAutomaticPublishing:Ota automaattinen julkaiseminen pois käytöstä`,
+      primary: true,
+      method: 'disableAutomaticPublishing',
+    },
+  ];
+
+  enableAutomaticPublishing = $localize`:@@enableAutomaticPublishing:Ota automaattinen julkaiseminen käyttöön`;
+  disableAutomaticPublishing = $localize`:@@disableAutomaticPublishing:Ota automaattinen julkaiseminen pois käytöstä`;
+
   automaticPublishingTitle = $localize`:@@automaticPublishingTitle:Tietojen automaattinen julkaiseminen`;
 
   automaticPublishingAccountSettingsInfoText1 = $localize`:@@automaticPublishingAccountSettingsInfoText1:Kun ominaisuus on valittu, tietolähteissä tehdyt muutokset näkyvät automaattisesti profiilissasi.`;
-  automaticPublsihingInfoTextBullet1 = $localize`:@@automaticPublsihingInfoTextBullet1:Tutkimustoiminnan kuvaus ja osa yhteystiedoista eivät kuulu automaattisen julkaisun piiriin.`;
+  automaticPublsihingInfoTextBullet1 = $localize`:@@automaticPublsihingInfoTextBullet1:Tutkimustoiminnan kuvaus ja osa yhteystiedoista eivät kuulu automaattisen julkaisemisen piiriin.`;
   automaticPublsihingInfoTextBullet2 = $localize`:@@automaticPublsihingInfoTextBullet2:Katso tarkempi määrittely`;
   automaticPublsihingInfoTextBullet2Link = 'https://wiki.eduuni.fi/x/cbJqJ';
 
@@ -159,6 +182,7 @@ export class AccountSettingsComponent implements OnInit {
   ];
 
   profileVisibility$ = this.profileService.getProfileVisibilityObservable();
+  automaticPublishingState = false;
 
   constructor(public profileService: ProfileService, private draftService: DraftService, private router: Router, private route: ActivatedRoute, public dialog: MatDialog, public oidcSecurityService: OidcSecurityService,  private snackbarService: SnackbarService) {
     this.profileService.fetchProfileVisibilityAndSettings();
@@ -171,6 +195,10 @@ export class AccountSettingsComponent implements OnInit {
 
     this.orcidData = orcidProfile;
     this.orcid = orcidProfile.orcid;
+
+    if (this.profileService.automaticPublishingInitialState$.getValue()) {
+      this.automaticPublishingState = this.profileService.automaticPublishingInitialState$.getValue();
+    }
   }
 
   openDialog(props: { template: TemplateRef<any>; disableDialogClose: boolean; title: string; actions: ({ method: string; label: string; primary: boolean } | { method: string; label: string; primary: boolean })[] }){
@@ -203,6 +231,14 @@ export class AccountSettingsComponent implements OnInit {
       }
       case 'changeOrcidFetchState': {
         this.enableOrDisableOrcidFetching();
+        break;
+      }
+      case 'enableAutomaticPublishing': {
+        this.patchAutomaticPublishingActiveState(true);
+        break;
+      }
+      case 'disableAutomaticPublishing': {
+        this.patchAutomaticPublishingActiveState(false);
         break;
       }
     }
@@ -250,14 +286,16 @@ export class AccountSettingsComponent implements OnInit {
       (value) => {
         this.dialog.closeAll();
         if (state === true) {
+          this.automaticPublishingState = true;
           this.snackbarService.show(
-            $localize`:@@profileHiddenToast:Automaattinen julkaisu on asetettu päälle ja muutokset on tallennettu tiliasetuksiisi.`,
+            $localize`:@@profileHiddenToast:Automaattinen julkaiseminen on asetettu päälle ja muutokset on tallennettu tiliasetuksiisi.`,
             'success'
           );
         }
         else {
+          this.automaticPublishingState = false;
           this.snackbarService.show(
-            $localize`:@@profileHiddenToast:Automaattinen julkaisu on asetettu pois päältä ja muutokset on tallennettu tiliasetuksiisi.`,
+            $localize`:@@profileHiddenToast:Automaattinen julkaiseminen on asetettu pois päältä ja muutokset on tallennettu tiliasetuksiisi.`,
             'success'
           );
         }
