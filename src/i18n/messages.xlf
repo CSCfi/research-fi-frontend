@@ -222,7 +222,7 @@
         <source>Profiili julkaistu. Tiedot näkyvät muutaman minuutin kuluttua tiedejatutkimus.fi -palvelussa.</source>
       </trans-unit>
       <trans-unit id="profileHiddenToast" datatype="html">
-        <source>Automaattinen julkaiseminen on asetettu päälle ja muutokset on tallennettu tiliasetuksiisi.</source>
+        <source>Profiilin piilottaminen onnistui. Profiilisi piilotetaan Tiedejatutkimus.fi -palvelusta muutaman minuutin kuluttua.</source>
       </trans-unit>
       <trans-unit id="homeNewUser" datatype="html">
         <source>Uusi käyttäjä?</source>
@@ -3330,7 +3330,7 @@
         <source>Tietojen automaattinen julkaiseminen on nyt mahdollista</source>
       </trans-unit>
       <trans-unit id="automaticPublishingModalTitle" datatype="html">
-        <source> Haluatko ottaa automaattisen julkaiseminen käyttöön?</source>
+        <source>Haluatko ottaa automaattisen julkaiseminen käyttöön?</source>
       </trans-unit>
       <trans-unit id="automaticPublishingTitle" datatype="html">
         <source>Tietojen automaattinen julkaiseminen</source>
@@ -3350,8 +3350,11 @@
       <trans-unit id="enableAutomaticPublishing" datatype="html">
         <source>Ota automaattinen julkaiseminen käyttöön</source>
       </trans-unit>
-      <trans-unit id="showDataToPublishNow" datatype="html">
-        <source>Näytä nyt julkaistavat tiedot</source>
+      <trans-unit id="automaticPublishingDisabledToast" datatype="html">
+        <source>Automaattinen julkaisu on otettu pois käytöstä ja muutokset on tallennettu tiliasetuksiisi.</source>
+      </trans-unit>
+      <trans-unit id="automaticPublishingEnabledToast" datatype="html">
+        <source>Automaattinen julkaisu on otettu käyttöön ja muutokset on tallennettu tiliasetuksiisi.</source>
       </trans-unit>
     </body>
   </file>

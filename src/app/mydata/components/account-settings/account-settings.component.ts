@@ -288,14 +288,14 @@ export class AccountSettingsComponent implements OnInit {
         if (state === true) {
           this.automaticPublishingState = true;
           this.snackbarService.show(
-            $localize`:@@profileHiddenToast:Automaattinen julkaiseminen on asetettu päälle ja muutokset on tallennettu tiliasetuksiisi.`,
+            $localize`:@@automaticPublishingEnabledToast:Automaattinen julkaisu on otettu käyttöön ja muutokset on tallennettu tiliasetuksiisi.`,
             'success'
           );
         }
         else {
           this.automaticPublishingState = false;
           this.snackbarService.show(
-            $localize`:@@profileHiddenToast:Automaattinen julkaiseminen on asetettu pois päältä ja muutokset on tallennettu tiliasetuksiisi.`,
+            $localize`:@@automaticPublishingDisabledToast:Automaattinen julkaisu on otettu pois käytöstä ja muutokset on tallennettu tiliasetuksiisi.`,
             'success'
           );
         }

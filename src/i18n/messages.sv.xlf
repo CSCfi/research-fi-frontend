@@ -2918,7 +2918,7 @@
         <target state="new">Profilen har publicerats. Uppgifterna visas om några minuter i tjänsten Forskning.fi.</target>
       </trans-unit>
       <trans-unit id="profileHiddenToast" datatype="html">
-        <source>Automaattinen julkaiseminen on asetettu päälle ja muutokset on tallennettu tiliasetuksiisi.</source>
+        <source>Profiilin piilottaminen onnistui. Profiilisi piilotetaan Tiedejatutkimus.fi -palvelusta muutaman minuutin kuluttua.</source>
         <target state="new">Att dölja profilen var framgångsrik. Din profil kommer att döljas från tjänsten Forskning.fi om några minuter.</target>
       </trans-unit>
       <trans-unit id="dataSavingError" datatype="html">
@@ -4422,7 +4422,7 @@
       </trans-unit>
       <trans-unit id="automaticPublishingModalTitle" datatype="html">
         <source>Haluatko ottaa automaattisen julkaiseminen käyttöön?</source>
-        <target state="new">Vill du aktivera automatisk publicering?</target>
+        <target state="new"> Vill du aktivera automatisk publicering?</target>
       </trans-unit>
       <trans-unit id="automaticPublishingTitle" datatype="html">
         <source>Tietojen automaattinen julkaiseminen</source>
@@ -4464,9 +4464,13 @@
         <source>Tietojen automaattinen julkaiseminen</source>
         <target state="new">Automatisk publicering av data</target>
       </trans-unit>
-      <trans-unit id="showDataToPublishNow" datatype="html">
-        <source>Näytä nyt julkaistavat tiedot</source>
-        <target state="new">Näytä nyt julkaistavat tiedot</target>
+      <trans-unit id="automaticPublishingEnabledToast" datatype="html">
+        <source>Automaattinen julkaisu on otettu käyttöön ja muutokset on tallennettu tiliasetuksiisi.</source>
+        <target state="new">Automatisk publicering har aktiverats och ändringarna har sparats i dina kontoinställningar.</target>
+      </trans-unit>
+      <trans-unit id="automaticPublishingDisabledToast" datatype="html">
+        <source>Automaattinen julkaisu on otettu pois käytöstä ja muutokset on tallennettu tiliasetuksiisi.</source>
+        <target state="new">Automatisk publicering har inaktiverats och ändringarna har sparats i dina kontoinställningar.</target>
       </trans-unit>
     </body>
   </file>
