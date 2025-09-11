@@ -22,7 +22,7 @@
 
   // Shared with some of the modals
   .mat-mdc-dialog-content {
-    max-width: 800px;
+    //max-width: 800px;
   }
 
   .mat-mdc-snack-bar-handset .mat-mdc-snack-bar-container {
@@ -45,19 +45,27 @@
     margin-top: 77px;
     border-radius: 5px;
     &.success {
-      background: #B2DAD8;
+      background: #A9D7AE;
       color: black !important;
-      border: 1px solid #00857E;
+      border: 1px solid #014C07;
       .mat-mdc-button {
-        color: #fff;
+        color: #014C07;
+      }
+      .mdc-button__label {
+        color: #014C07 !important;
+        font-weight: bold;
       }
     }
     &.error {
-      background: #FFB07C;
+      background: #F2B58C;
       color: black !important;
-      border: 1px solid #e77d56;
+      border: 1px solid #622E04;
       .mat-mdc-button {
         color: #fff;
+      }
+      .mdc-button__label {
+        color: #622E04 !important;
+        font-weight: bold;
       }
     }
   }

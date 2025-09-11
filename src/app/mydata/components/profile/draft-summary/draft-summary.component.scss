@@ -8,6 +8,11 @@
 /*
  * Theme colors defined in profile.component-theme.scss
  */
+.draft-summary-wrap {
+  li {
+    margin-bottom: 6px;
+  }
+}
 
 /*  TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.*/
 #collaboration-options-panel .mat-checkbox-disabled .mat-checkbox-label {

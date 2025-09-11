@@ -19,7 +19,7 @@ import { Subscription } from 'rxjs';
 import { DialogComponent } from '../../../../../shared/components/dialog/dialog.component';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { EmptyCardComponent } from '../empty-card/empty-card.component';
-import { NgIf, NgFor, JsonPipe } from '@angular/common';
+import { NgIf, NgFor, JsonPipe, NgClass } from '@angular/common';
 import { ProfileEditorCardHeaderComponent } from '../profile-editor-card-header/profile-editor-card-header.component';
 import {
   CollaborationViewComponent
@@ -41,7 +41,8 @@ import { Constants } from '@mydata/constants';
     MatCheckbox,
     DialogComponent,
     CollaborationViewComponent,
-    JsonPipe
+    JsonPipe,
+    NgClass
   ]
 })
 export class CollaborationCardComponent implements OnInit, OnDestroy {
