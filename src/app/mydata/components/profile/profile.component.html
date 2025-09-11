@@ -99,13 +99,6 @@
                         [isEditorView]="true"
                 ></app-collaboration-card>
 
-            <!-- Yellow info box -->
-            <div class="row pb-2 d-flex justify-content-cente yellow-info-box">
-              <div class="col px-0">
-                <app-mydata-beta-info></app-mydata-beta-info>
-              </div>
-            </div>
-
             <!-- Open science settings -->
             <app-open-science-settings-card class='open-science-card' [highlightChecked]="highlightOpennessSub | async" (emitHighlightOpenness)="setHighlightOpennessState($event)"></app-open-science-settings-card>
           </div>
