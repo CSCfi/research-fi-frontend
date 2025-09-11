@@ -98,7 +98,7 @@ export class StickyFooterComponent implements OnInit, OnDestroy {
   dialogExtraContentTemplate: any;
   currentDialogActions: any[];
   disableDialogClose: boolean;
-  showDataToPublishNow = $localize`:@@showDataToPublishNow:Näytä nyt julkaistavat tiedot`;
+
   basicDialogActions = [
     { label: $localize`:@@close:Sulje`, primary: true, method: 'close' },
   ];

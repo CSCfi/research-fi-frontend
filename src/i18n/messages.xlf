@@ -87,13 +87,6 @@
       <trans-unit id="followUs" datatype="html">
         <source>Seuraa meitä!</source>
       </trans-unit>
-      <trans-unit id="twitterTitleText" datatype="html">
-        <source>Twitter -palvelun logo</source>
-      </trans-unit>
-      <trans-unit id="twitterFooter" datatype="html">
-        <source><x id="START_TAG_APP_SVG_SPRITES" ctype="x-app_svg_sprites" equiv-text="&lt;app-svg-sprites [iconName]=&quot;&apos;fa-twitter&apos;&quot; cssClass=&quot;twitter-icon&quot;&gt;"/><x id="CLOSE_TAG_APP_SVG_SPRITES" ctype="x-app_svg_sprites" equiv-text="&lt;/app-svg-sprites&gt;"/>Tiedejatutkimus.fi Twitterissä</source>
-        <note priority="1" from="description">Twitter-footer</note>
-      </trans-unit>
       <trans-unit id="reviewButton" datatype="html">
         <source> Anna palautetta! </source>
         <note priority="1" from="description">Review-button</note>
@@ -3317,6 +3310,51 @@
       </trans-unit>
       <trans-unit id="noPeerReviewedPublications" datatype="html">
         <source>Ei vertaisarvioituja julkaisuja</source>
+      </trans-unit>
+      <trans-unit id="automaticPublishingAccountSettingsInfoText1" datatype="html">
+        <source>Kun ominaisuus on valittu, tietolähteissä tehdyt muutokset näkyvät automaattisesti profiilissasi.</source>
+      </trans-unit>
+      <trans-unit id="automaticPublishingCheckboxActiveAdditionalInfo" datatype="html">
+        <source>Koska tietolähteitä on kaksi, profiilissasi saattaa ilmetä joitakin kaksoiskappaleita esimerkiksi aktiviteetti-tiedostoista. Pystyt piilottamaan kaksoiskappaleet manuaalisesti profiilissasi.</source>
+      </trans-unit>
+      <trans-unit id="automaticPublishingCheckboxLabel" datatype="html">
+        <source>Julkaise päivittyneet tiedot automaattisesti.</source>
+      </trans-unit>
+      <trans-unit id="automaticPublishingCheckboxLabel2" datatype="html">
+        <source>Tietolähteet: Tiedejatutkimus.fi ja ORCID</source>
+      </trans-unit>
+      <trans-unit id="automaticPublishingHeader" datatype="html">
+        <source>Tietojen automaattinen julkaiseminen</source>
+      </trans-unit>
+      <trans-unit id="automaticPublishingIsPossible" datatype="html">
+        <source>Tietojen automaattinen julkaiseminen on nyt mahdollista</source>
+      </trans-unit>
+      <trans-unit id="automaticPublishingModalTitle" datatype="html">
+        <source>Haluatko ottaa automaattisen julkaiseminen käyttöön?</source>
+      </trans-unit>
+      <trans-unit id="automaticPublishingTitle" datatype="html">
+        <source>Tietojen automaattinen julkaiseminen</source>
+      </trans-unit>
+      <trans-unit id="automaticPublsihingInfoText1" datatype="html">
+        <source>Tietolähteissä tehdyt muutokset voidaan julkaista automaattisesti profiilissasi.</source>
+      </trans-unit>
+      <trans-unit id="automaticPublsihingInfoTextBullet1" datatype="html">
+        <source>Tutkimustoiminnan kuvaus ja osa yhteystiedoista eivät kuulu automaattisen julkaisemisen piiriin.</source>
+      </trans-unit>
+      <trans-unit id="automaticPublsihingInfoTextBullet2" datatype="html">
+        <source>Katso tarkempi määrittely</source>
+      </trans-unit>
+      <trans-unit id="disableAutomaticPublishing" datatype="html">
+        <source>Ota automaattinen julkaiseminen pois käytöstä</source>
+      </trans-unit>
+      <trans-unit id="enableAutomaticPublishing" datatype="html">
+        <source>Ota automaattinen julkaiseminen käyttöön</source>
+      </trans-unit>
+      <trans-unit id="automaticPublishingDisabledToast" datatype="html">
+        <source>Automaattinen julkaisu on otettu pois käytöstä ja muutokset on tallennettu tiliasetuksiisi.</source>
+      </trans-unit>
+      <trans-unit id="automaticPublishingEnabledToast" datatype="html">
+        <source>Automaattinen julkaisu on otettu käyttöön ja muutokset on tallennettu tiliasetuksiisi.</source>
       </trans-unit>
     </body>
   </file>
