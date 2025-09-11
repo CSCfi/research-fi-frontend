@@ -896,15 +896,6 @@
         <source>Seuraa meitä!</source>
         <target state="translated">Följ oss!</target>
       </trans-unit>
-      <trans-unit id="twitterFooter" datatype="html">
-        <source><x id="START_TAG_APP_SVG_SPRITES" ctype="x-app_svg_sprites" equiv-text="&lt;app-svg-sprites [iconName]=&quot;&apos;fa-twitter&apos;&quot; cssClass=&quot;twitter-icon&quot;&gt;"/><x id="CLOSE_TAG_APP_SVG_SPRITES" ctype="x-app_svg_sprites" equiv-text="&lt;/app-svg-sprites&gt;"/>Tiedejatutkimus.fi Twitterissä</source>
-        <target state="new">Forskning.fi i Twitter</target>
-        <note priority="1" from="description">Twitter-footer</note>
-      </trans-unit>
-      <trans-unit id="twitterTitleText" datatype="html">
-        <source>Twitter -palvelun logo</source>
-        <target state="translated">Twitter-tjänstens logotyp</target>
-      </trans-unit>
       <trans-unit id="reviewButton" datatype="html">
         <source> Anna palautetta! </source>
         <target state="new">Ge respons!</target>
@@ -2927,8 +2918,8 @@
         <target state="new">Profilen har publicerats. Uppgifterna visas om några minuter i tjänsten Forskning.fi.</target>
       </trans-unit>
       <trans-unit id="profileHiddenToast" datatype="html">
-        <source>Profiilin piilottaminen onnistui. Profiilisi piilotetaan Tiedejatutkimus.fi -palvelusta muutaman minuutin kuluttua.</source>
-        <target>Att dölja profilen var framgångsrik. Din profil kommer att döljas från tjänsten Forskning.fi om några minuter.</target>
+        <source>Automaattinen julkaiseminen on asetettu päälle ja muutokset on tallennettu tiliasetuksiisi.</source>
+        <target state="new">Att dölja profilen var framgångsrik. Din profil kommer att döljas från tjänsten Forskning.fi om några minuter.</target>
       </trans-unit>
       <trans-unit id="dataSavingError" datatype="html">
         <source>Virhe tiedon tallennuksessa</source>
@@ -4420,6 +4411,62 @@
       <trans-unit id="noPeerReviewedPublications" datatype="html">
         <source>Ei vertaisarvioituja julkaisuja</source>
         <target state="new">Inga referentgranskade publikationer</target>
+      </trans-unit>
+      <trans-unit id="enableAutomaticPublishing" datatype="html">
+        <source>Ota automaattinen julkaiseminen käyttöön</source>
+        <target state="new">Aktivera automatisk publicering</target>
+      </trans-unit>
+      <trans-unit id="disableAutomaticPublishing" datatype="html">
+        <source>Ota automaattinen julkaiseminen pois käytöstä</source>
+        <target state="new">Inaktivera automatisk publicering</target>
+      </trans-unit>
+      <trans-unit id="automaticPublishingModalTitle" datatype="html">
+        <source>Haluatko ottaa automaattisen julkaiseminen käyttöön?</source>
+        <target state="new">Vill du aktivera automatisk publicering?</target>
+      </trans-unit>
+      <trans-unit id="automaticPublishingTitle" datatype="html">
+        <source>Tietojen automaattinen julkaiseminen</source>
+        <target state="new">Automatisk publicering av information</target>
+      </trans-unit>
+      <trans-unit id="automaticPublishingAccountSettingsInfoText1" datatype="html">
+        <source>Kun ominaisuus on valittu, tietolähteissä tehdyt muutokset näkyvät automaattisesti profiilissasi.</source>
+        <target state="new">När den här funktionen är aktiverad visas ändringar i datakällorna automatiskt i din profil.</target>
+      </trans-unit>
+      <trans-unit id="automaticPublsihingInfoTextBullet1" datatype="html">
+        <source>Tutkimustoiminnan kuvaus ja osa yhteystiedoista eivät kuulu automaattisen julkaisemisen piiriin.</source>
+        <target state="new">Beskrivningen av din forskningsverksamhet och vissa kontaktuppgifter ingår inte i den automatiska publiceringen.</target>
+      </trans-unit>
+      <trans-unit id="automaticPublsihingInfoTextBullet2" datatype="html">
+        <source>Katso tarkempi määrittely</source>
+        <target state="new">Se detaljerad specifikation</target>
+      </trans-unit>
+      <trans-unit id="automaticPublishingIsPossible" datatype="html">
+        <source>Tietojen automaattinen julkaiseminen on nyt mahdollista</source>
+        <target state="new">Automatisk publicering av information är nu möjlig</target>
+      </trans-unit>
+      <trans-unit id="automaticPublsihingInfoText1" datatype="html">
+        <source>Tietolähteissä tehdyt muutokset voidaan julkaista automaattisesti profiilissasi.</source>
+        <target state="new">Ändringar i datakällorna kan publiceras automatiskt i din profil.</target>
+      </trans-unit>
+      <trans-unit id="automaticPublishingCheckboxLabel" datatype="html">
+        <source>Julkaise päivittyneet tiedot automaattisesti.</source>
+        <target state="new">Publicera uppdaterad information automatiskt.</target>
+      </trans-unit>
+      <trans-unit id="automaticPublishingCheckboxLabel2" datatype="html">
+        <source>Tietolähteet: Tiedejatutkimus.fi ja ORCID</source>
+        <target state="new">Datakällor: Forskning.fi och ORCID</target>
+      </trans-unit>
+      <trans-unit id="automaticPublishingCheckboxActiveAdditionalInfo" datatype="html">
+        <source>Koska tietolähteitä on kaksi, profiilissasi saattaa ilmetä joitakin kaksoiskappaleita esimerkiksi aktiviteetti-tiedostoista. Pystyt piilottamaan kaksoiskappaleet manuaalisesti profiilissasi.</source>
+        <target state="new">Eftersom det finns två datakällor kan det förekomma vissa dubbletter i din profil, till exempel i aktivitetsinformationen. Du kan dölja dubbletterna manuellt i din profil.</target>
+      </trans-unit>
+      <trans-unit id="automaticPublishingHeader" datatype="html">
+        <source>Tietojen automaattinen julkaiseminen</source>
+        <target state="new">Automatisk publicering av data</target>
+      </trans-unit>
+      <trans-unit id="showDataToPublishNow" datatype="html">
+        <source>Näytä nyt julkaistavat tiedot</source>
+        <target state="new">Näytä nyt julkaistavat tiedot</target>
       </trans-unit>
     </body>
   </file>
