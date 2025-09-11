@@ -31,14 +31,13 @@
   *ngIf="showDialog"
   [title]="dialogTitle"
   [template]="dialogTemplate"
-  [extraContentTemplate]="patchSelectionsTemplate"
   [actions]="dialogActions"
   [hideClose]="true"
   (onActionClick)="handleDialogAction($event)"
 ></app-dialog>
 
 <ng-template #dialogTemplate>
-  <div class="row py-4 mb-3">
+  <div class="row pt-2 pb-4 mb-3">
     <div class="col">
       <ng-container [ngSwitch]="selectedAction">
         <ng-container
@@ -61,12 +60,11 @@
           </p>
         </ng-container>
       </ng-container>
-    </div>
-  </div>
-
-  <div class="row pb-4 pb-lg-5 mb-lg-5">
-    <div class="col">
-      <ng-container [ngTemplateOutlet]="itemsSelectedText"></ng-container>
+      <app-draft-summary
+              *ngIf="filteredProfileData"
+              [profileData]="filteredProfileData"
+              [isModalSummaryView]="true"
+      ></app-draft-summary>
     </div>
   </div>
 </ng-template>
@@ -89,10 +87,3 @@
   </span>
 </ng-template>
 
-<!-- Patch preview in dialog -->
-<ng-template #patchSelectionsTemplate>
-  <app-draft-summary
-    *ngIf="filteredProfileData"
-    [profileData]="filteredProfileData"
-  ></app-draft-summary>
-</ng-template>

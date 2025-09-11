@@ -14,6 +14,10 @@ import { DraftService } from '@mydata/services/draft.service';
 import { map } from 'rxjs/operators';
 import { CollaborationsService } from '@mydata/services/collaborations.service';
 import { TertiaryButtonComponent } from '@shared/components/buttons/tertiary-button/tertiary-button.component';
+import {
+  AutomaticPublishingSettingsComponent
+} from '@mydata/components/automatic-publishing-settings/automatic-publishing-settings.component';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-sticky-footer',
@@ -27,16 +31,20 @@ import { TertiaryButtonComponent } from '@shared/components/buttons/tertiary-but
     DraftSummaryComponent,
     DialogComponent,
     RouterLink,
-    TertiaryButtonComponent
+    TertiaryButtonComponent,
+    AutomaticPublishingSettingsComponent
   ],
   templateUrl: './sticky-footer.component.html',
   styleUrl: './sticky-footer.component.scss'
 })
 export class StickyFooterComponent implements OnInit, OnDestroy {
+  public accountSettingsFoldOpen = new BehaviorSubject<boolean>(false);
+
   orcidData: any;
   profileData: any;
   collaborationOptions: any[];
   highlightOpenness$: any;
+  automaticPublishing$: any;
   orcid: string;
 
   isProfilePublished = this.draftService.person$.pipe(map((person) => person != null ));
@@ -70,6 +78,7 @@ export class StickyFooterComponent implements OnInit, OnDestroy {
     this.profileData = this.draftService.getDraftProfile();
     this.collaborationOptions = this.collaborationsService.confirmedPayload;
     this.highlightOpenness$ = this.draftService.highlightOpennessPayloadSubObs;
+    this.automaticPublishing$ = this.draftService.automaticPublishingPayloadSubObs;
     }
 
   // Dialog texts
@@ -89,21 +98,11 @@ export class StickyFooterComponent implements OnInit, OnDestroy {
   dialogExtraContentTemplate: any;
   currentDialogActions: any[];
   disableDialogClose: boolean;
-  showDataToPublish = $localize`:@@showDataToPublish:Näytä julkaistavat tiedot`;
+  showDataToPublishNow = $localize`:@@showDataToPublishNow:Näytä nyt julkaistavat tiedot`;
   basicDialogActions = [
     { label: $localize`:@@close:Sulje`, primary: true, method: 'close' },
   ];
   publishUpdatedProfileDialogActions = [
-    {
-      label: this.showDataToPublish,
-      labelToggle: {
-        on: this.showDataToPublish,
-        off: $localize`:@@hideDataToPublish:Piilota julkaistavat tiedot`,
-      },
-      primary: false,
-      method: 'preview',
-      flexStart: true,
-    },
     { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'cancel' },
     { label: $localize`:@@publish:Julkaise`, primary: true, method: 'publish' },
   ];
@@ -180,6 +179,11 @@ export class StickyFooterComponent implements OnInit, OnDestroy {
         break;
       }
     }
+  }
+
+  emitAutomaticPublishingActiveState(state: any){
+    this.accountSettingsFoldOpen.next(true);
+    this.draftService.addToAutomaticPublishingPayload(state)
   }
 
   ngOnDestroy() {
