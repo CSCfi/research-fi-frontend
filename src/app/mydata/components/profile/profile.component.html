@@ -100,7 +100,7 @@
                 ></app-collaboration-card>
 
             <!-- Open science settings -->
-            <app-open-science-settings-card class='open-science-card' [highlightChecked]="highlightOpennessSub | async" (emitHighlightOpenness)="setHighlightOpennessState($event)"></app-open-science-settings-card>
+            <app-open-science-settings-card *ngIf="profileData" class='open-science-card' [highlightChecked]="highlightOpennessSub | async" (emitHighlightOpenness)="setHighlightOpennessState($event)"></app-open-science-settings-card>
           </div>
         </div>
       </div>
