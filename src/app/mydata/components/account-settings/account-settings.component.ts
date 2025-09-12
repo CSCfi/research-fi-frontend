@@ -24,6 +24,11 @@ import {
   AutomaticPublishingSettingsComponent
 } from '@mydata/components/automatic-publishing-settings/automatic-publishing-settings.component';
 import { DraftService } from '@mydata/services/draft.service';
+import {
+  BannerContent,
+  GeneralInfoBannerComponent
+} from '@shared/components/general-info-banner/general-info-banner.component';
+import { $localize } from '@angular/localize/init';
 
 @Component({
     selector: 'app-account-settings',
@@ -42,7 +47,8 @@ import { DraftService } from '@mydata/services/draft.service';
     SvgSpritesComponent,
     MydataSideNavigationComponent,
     StickyFooterComponent,
-    AutomaticPublishingSettingsComponent
+    AutomaticPublishingSettingsComponent,
+    GeneralInfoBannerComponent
   ]
 })
 export class AccountSettingsComponent implements OnInit {
@@ -55,6 +61,19 @@ export class AccountSettingsComponent implements OnInit {
   loadingHideProfile: boolean;
 
   accountSettingsTitle = $localize`:@@accountSettings:Tiliasetukset`;
+
+  automaticPublishingBannerContent: BannerContent = {
+    bannerId: 'automatic_publishing_banner',
+    bannerType: 'profile-tool-banner',
+    iconType: 'info',
+    bannerTheme: 'yellow',
+    heading: $localize`:@@automaticPublishingIsPossible:Tietojen automaattinen julkaiseminen on nyt mahdollista`,
+    textContent: $localize`:@@automaticPublishingShortDescription:Voit määrittää, että sinuun liittyvät uudet tiedot julkaistaan automaattisesti profiilissasi.`,
+    link1Target: 'internal',
+    link1Text: $localize`:@@readMoreAndTakeIntoUse:Lue lisää ja ota käyttöön`,
+    link1Url: '/mydata/profile/account-settings',
+    rememberDismissed: true
+  }
 
   // Dialog variables
   showDialog: boolean;
