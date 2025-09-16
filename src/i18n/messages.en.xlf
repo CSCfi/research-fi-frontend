@@ -3417,6 +3417,26 @@
         <source>Julkaise piilotettu profiili</source>
         <target>Publish hidden profile</target>
       </trans-unit>
+      <trans-unit id="mydata.account.title-for-hide" datatype="html">
+        <source>Julkaise piilotettu profiili</source>
+        <target>Publish a hidden profile</target>
+      </trans-unit>
+      <trans-unit id="mydata.account.text-for-hide" datatype="html">
+        <source>Piilottamasi profiili julkaistaan uudestaan niillä tiedoilla, jotka olet aiemmin valinnut julkisiksi Tiedejatutkimus.fi-palveluun.</source>
+        <target>The profile you hide will be published again with information that you have previously selected to be public to Research.fi.</target>
+      </trans-unit>
+      <trans-unit id="mydata.account.hide-modal.title" datatype="html">
+        <source>Haluatko julkaista piilottamasi profiilin?</source>
+        <target>Would you like to publish the profile you have hidden?</target>
+      </trans-unit>
+      <trans-unit id="mydata.account.hide-modal.text" datatype="html">
+        <source>Piilottamasi profiili julkaistaan uudestaan niillä tiedoilla, jotka olet aiemmin valinnut julkisiksi Tiedejatutkimus.fi-palveluun.</source>
+        <target>The profile you hide will be published again with information that you have previously selected to be public to Research.fi.</target>
+      </trans-unit>
+      <trans-unit id="mydata.account.republish-button.text" datatype="html">
+        <source>Julkaise profiili</source>
+        <target>Publish profile</target>
+      </trans-unit>
       <trans-unit id="instructions" datatype="html">
         <source>Ohjeet</source>
         <target>Instructions</target>
