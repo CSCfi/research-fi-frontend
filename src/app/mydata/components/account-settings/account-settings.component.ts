@@ -28,7 +28,6 @@ import {
   BannerContent,
   GeneralInfoBannerComponent
 } from '@shared/components/general-info-banner/general-info-banner.component';
-import { $localize } from '@angular/localize/init';
 
 @Component({
     selector: 'app-account-settings',
