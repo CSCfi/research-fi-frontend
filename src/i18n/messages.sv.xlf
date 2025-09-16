@@ -2763,10 +2763,6 @@
         <source>Tuo Orcid-tietoni</source>
         <target>Hämta mina ORCID-uppgifter</target>
       </trans-unit>
-      <trans-unit id="profile" datatype="html">
-        <source>Profiili</source>
-        <target>Profil</target>
-      </trans-unit>
       <trans-unit id="navigationHeaderProfile" datatype="html">
         <source>Profiili</source>
         <target>Profil</target>
@@ -4421,7 +4417,7 @@
         <target state="new">Inaktivera automatisk publicering</target>
       </trans-unit>
       <trans-unit id="automaticPublishingModalTitle" datatype="html">
-        <source>Haluatko ottaa automaattisen julkaiseminen käyttöön?</source>
+        <source>Haluatko ottaa automaattisen julkaisemisen käyttöön?</source>
         <target state="new"> Vill du aktivera automatisk publicering?</target>
       </trans-unit>
       <trans-unit id="automaticPublishingTitle" datatype="html">
@@ -4464,12 +4460,24 @@
         <source>Tietojen automaattinen julkaiseminen</source>
         <target state="new">Automatisk publicering av data</target>
       </trans-unit>
+      <trans-unit id="automaticPublishingShortDescription" datatype="html">
+        <source>Voit määrittää, että sinuun liittyvät uudet tiedot julkaistaan automaattisesti profiilissasi.</source>
+        <target state="new">Du kan ställa in att ny information som rör dig publiceras automatiskt i din profil.</target>
+      </trans-unit>
+      <trans-unit id="readMoreAndTakeIntoUse" datatype="html">
+        <source>Lue lisää ja ota käyttöön</source>
+        <target state="new">Läs mer och aktivera</target>
+      </trans-unit>
+      <trans-unit id="profile" datatype="html">
+        <source>Profiili</source>
+        <target state="new">Profil</target>
+      </trans-unit>
       <trans-unit id="automaticPublishingEnabledToast" datatype="html">
-        <source>Automaattinen julkaisu on otettu käyttöön ja muutokset on tallennettu tiliasetuksiisi.</source>
+        <source>Automaattinen julkaiseminen on otettu käyttöön ja muutokset on tallennettu tiliasetuksiisi.</source>
         <target state="new">Automatisk publicering har aktiverats och ändringarna har sparats i dina kontoinställningar.</target>
       </trans-unit>
       <trans-unit id="automaticPublishingDisabledToast" datatype="html">
-        <source>Automaattinen julkaisu on otettu pois käytöstä ja muutokset on tallennettu tiliasetuksiisi.</source>
+        <source>Automaattinen julkaiseminen on otettu pois käytöstä ja muutokset on tallennettu tiliasetuksiisi.</source>
         <target state="new">Automatisk publicering har inaktiverats och ändringarna har sparats i dina kontoinställningar.</target>
       </trans-unit>
     </body>

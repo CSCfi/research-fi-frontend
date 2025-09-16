@@ -62,6 +62,8 @@ export class AccountSettingsComponent implements OnInit {
 
   accountSettingsTitle = $localize`:@@accountSettings:Tiliasetukset`;
 
+  textContent = $localize`:@@automaticPublishingShortDescription:Voit määrittää, että sinuun liittyvät uudet tiedot julkaistaan automaattisesti profiilissasi.`;
+
   automaticPublishingBannerContent: BannerContent = {
     bannerId: 'automatic_publishing_banner',
     bannerType: 'profile-tool-banner',
@@ -145,8 +147,8 @@ export class AccountSettingsComponent implements OnInit {
   ];
 
   // Automatic publishing modal
-  automaticPublishingModalTitleEnable = $localize`:@@automaticPublishingModalTitle: Haluatko ottaa automaattisen julkaiseminen käyttöön?`;
-  automaticPublishingModalTitleDisable = $localize`:@@automaticPublishingModalTitle: Haluatko ottaa automaattisen julkaiseminen pois käytöstä?`;
+  automaticPublishingModalTitleEnable = $localize`:@@automaticPublishingModalTitle: Haluatko ottaa automaattisen julkaisemisen käyttöön?`;
+  automaticPublishingModalTitleDisable = $localize`:@@automaticPublishingModalTitle: Haluatko ottaa automaattisen julkaisemisen pois käytöstä?`;
   automaticPublishingDialogActionsEnable = [
     { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'close' },
     {
@@ -307,14 +309,14 @@ export class AccountSettingsComponent implements OnInit {
         if (state === true) {
           this.automaticPublishingState = true;
           this.snackbarService.show(
-            $localize`:@@automaticPublishingEnabledToast:Automaattinen julkaisu on otettu käyttöön ja muutokset on tallennettu tiliasetuksiisi.`,
+            $localize`:@@automaticPublishingEnabledToast:Automaattinen julkaiseminen on otettu käyttöön ja muutokset on tallennettu tiliasetuksiisi.`,
             'success'
           );
         }
         else {
           this.automaticPublishingState = false;
           this.snackbarService.show(
-            $localize`:@@automaticPublishingDisabledToast:Automaattinen julkaisu on otettu pois käytöstä ja muutokset on tallennettu tiliasetuksiisi.`,
+            $localize`:@@automaticPublishingDisabledToast:Automaattinen julkaiseminen on otettu pois käytöstä ja muutokset on tallennettu tiliasetuksiisi.`,
             'success'
           );
         }

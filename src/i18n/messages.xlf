@@ -519,9 +519,6 @@
       <trans-unit id="mydata.profile.republish-modal.title" datatype="html">
         <source>Julkaise piilotettu profiili</source>
       </trans-unit>
-      <trans-unit id="profile" datatype="html">
-        <source>Profiili</source>
-      </trans-unit>
       <trans-unit id="resultsOnPage" datatype="html">
         <source>Tuloksia sivulla</source>
       </trans-unit>
@@ -3330,7 +3327,7 @@
         <source>Tietojen automaattinen julkaiseminen on nyt mahdollista</source>
       </trans-unit>
       <trans-unit id="automaticPublishingModalTitle" datatype="html">
-        <source>Haluatko ottaa automaattisen julkaiseminen käyttöön?</source>
+        <source>Haluatko ottaa automaattisen julkaisemisen käyttöön?</source>
       </trans-unit>
       <trans-unit id="automaticPublishingTitle" datatype="html">
         <source>Tietojen automaattinen julkaiseminen</source>
@@ -3344,6 +3341,15 @@
       <trans-unit id="automaticPublsihingInfoTextBullet2" datatype="html">
         <source>Katso tarkempi määrittely</source>
       </trans-unit>
+      <trans-unit id="automaticPublishingShortDescription" datatype="html">
+        <source>Voit määrittää, että sinuun liittyvät uudet tiedot julkaistaan automaattisesti profiilissasi.</source>
+      </trans-unit>
+      <trans-unit id="profile" datatype="html">
+        <source>Profiili</source>
+      </trans-unit>
+      <trans-unit id="readMoreAndTakeIntoUse" datatype="html">
+        <source>Lue lisää ja ota käyttöön</source>
+      </trans-unit>
       <trans-unit id="disableAutomaticPublishing" datatype="html">
         <source>Ota automaattinen julkaiseminen pois käytöstä</source>
       </trans-unit>
@@ -3351,10 +3357,10 @@
         <source>Ota automaattinen julkaiseminen käyttöön</source>
       </trans-unit>
       <trans-unit id="automaticPublishingDisabledToast" datatype="html">
-        <source>Automaattinen julkaisu on otettu pois käytöstä ja muutokset on tallennettu tiliasetuksiisi.</source>
+        <source>Automaattinen julkaiseminen on otettu pois käytöstä ja muutokset on tallennettu tiliasetuksiisi.</source>
       </trans-unit>
       <trans-unit id="automaticPublishingEnabledToast" datatype="html">
-        <source>Automaattinen julkaisu on otettu käyttöön ja muutokset on tallennettu tiliasetuksiisi.</source>
+        <source>Automaattinen julkaiseminen on otettu käyttöön ja muutokset on tallennettu tiliasetuksiisi.</source>
       </trans-unit>
     </body>
   </file>
