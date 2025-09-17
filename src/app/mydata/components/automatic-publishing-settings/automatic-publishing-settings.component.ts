@@ -46,7 +46,6 @@ export class AutomaticPublishingSettingsComponent implements OnInit {
   valueChange(event: any){
     this.setAutomaticPublishingActiveState.emit(event.checked);
     this.isChecked = event.checked
-    console.log(event);
   }
 
 }
