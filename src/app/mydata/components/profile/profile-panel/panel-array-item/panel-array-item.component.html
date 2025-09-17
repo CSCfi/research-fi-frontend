@@ -161,7 +161,7 @@
       <!-- Publications badges -->
       <div class="badge-row gx-0 flex-wrap">
         <div class="d-flex flex-wrap">
-          <app-tag-open-access class='me-2' *ngIf="_item.openAccess !== 0 || _item.selfArchivedCode === '1' || _item.selfArchivedCode === 1"></app-tag-open-access>
+          <app-tag-open-access class='me-2' *ngIf="_item.openAccess === 1 || _item.openAccess === '1' || _item.selfArchivedCode === '1' || _item.selfArchivedCode === 1"></app-tag-open-access>
           <app-tag-doi *ngIf="_item.doi" [linkDoi]="_item.doi"></app-tag-doi>
         </div>
           <div>
