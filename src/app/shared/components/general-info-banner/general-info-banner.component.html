@@ -1,0 +1,38 @@
+<div *ngIf="isBannerVisible() === true" class="row">
+  <div [ngClass]="bannerContent.bannerType === 'profile-tool-banner' ? 'general-banner-wrapper profile-tool-banner' : 'general-banner-wrapper'">
+    <div class="banner-content">
+      <div class="banner-icon d-none d-sm-flex">
+        <app-svg-sprites [iconName]="'info'" cssClass="info-icon banner-icon"></app-svg-sprites>
+      </div>
+      <div class="row w-100">
+        <div class="banner-text-wrapper col-12 col-lg-9 gx-4 px-4 gx-sm-0 px-sm-0">
+          <div class="banner-texts">
+            <div class="banner-heading">{{ bannerContent.heading }}</div>
+            <div class="banner-text-content">{{ bannerContent.textContent }}</div>
+          </div>
+        </div>
+
+        <!-- Desktop version -->
+        <div class="banner-actions-wrapper col-12 col-lg-3 gx-0 d-none d-lg-flex">
+          <div class="banner-link"><a tabindex="0" class="fw-bold"
+                                      routerLink="{{bannerContent.link1Url}}">{{ bannerContent.link1Text }}</a></div>
+          <div *ngIf="bannerContent?.link2Text?.length > 0 && bannerContent?.link2Url?.length > 0" class="banner-link">
+            <a tabindex="0" routerLink="{{bannerContent.link2Url}}}}">{{ bannerContent.link2Text }}</a></div>
+        </div>
+
+        <!-- Mobile version -->
+        <div class="banner-actions-wrapper col-12 col-lg-3 gx-0 d-flex d-lg-none gx-4 px-4 gx-sm-0 px-sm-0">
+          <div class="banner-link-mobile"><a tabindex="0" class="fw-bold"
+                                      routerLink="{{bannerContent.link1Url}}">{{ bannerContent.link1Text }}</a></div>
+          <div *ngIf="bannerContent?.link2Text?.length > 0 && bannerContent?.link2Url?.length > 0" class="banner-link">
+            <a tabindex="0" routerLink="{{bannerContent.link2Url}}}}">{{ bannerContent.link2Text }}</a></div>
+        </div>
+      </div>
+
+      <div class="banner-close-button" (click)="dismissBanner()">
+        <app-svg-sprites [iconName]="'close'" cssClass="close-icon close-component"></app-svg-sprites>
+      </div>
+    </div>
+  </div>
+</div>
+

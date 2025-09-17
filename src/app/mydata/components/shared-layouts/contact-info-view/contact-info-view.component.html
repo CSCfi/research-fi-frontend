@@ -10,7 +10,7 @@
         (onButtonClick)="openDialog($event)"
 ></app-empty-card>
 
-<div class="d-block px-1 mt-3">
+<div class="d-block px-1 mt-3 ms-1">
   <div *ngIf="this.publishedFullname && !(contactFields | hasSelectedItems)">
     <div class="row py-2">
       <div class="col px-0">
@@ -112,7 +112,7 @@
           >
             <div class="col px-0 contact-row">
             <span
-                    class="fw-bold d-inline-block pe-3"
+                    class="fw-bold d-inline-block pe-3 text-nowrap"
                     *ngIf="data[0].fields.length > 1"
             >{{ field.label }}
             </span>
@@ -129,7 +129,7 @@
         >
           <div class="col px-0 contact-row">
             <span
-                    class="fw-bold d-inline-block pe-3"
+                    class="fw-bold d-inline-block pe-3 text-nowrap"
                     *ngIf="data[0].fields.length > 1"
             >{{ field.label }}
             </span>

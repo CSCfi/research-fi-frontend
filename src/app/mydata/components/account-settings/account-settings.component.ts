@@ -20,6 +20,14 @@ import {
   MydataSideNavigationComponent
 } from '@mydata/components/mydata-side-navigation/mydata-side-navigation.component';
 import { StickyFooterComponent } from '@mydata/components/sticky-footer/sticky-footer.component';
+import {
+  AutomaticPublishingSettingsComponent
+} from '@mydata/components/automatic-publishing-settings/automatic-publishing-settings.component';
+import { DraftService } from '@mydata/services/draft.service';
+import {
+  BannerContent,
+  GeneralInfoBannerComponent
+} from '@shared/components/general-info-banner/general-info-banner.component';
 
 @Component({
     selector: 'app-account-settings',
@@ -37,7 +45,9 @@ import { StickyFooterComponent } from '@mydata/components/sticky-footer/sticky-f
     BannerDividerComponent,
     SvgSpritesComponent,
     MydataSideNavigationComponent,
-    StickyFooterComponent
+    StickyFooterComponent,
+    AutomaticPublishingSettingsComponent,
+    GeneralInfoBannerComponent
   ]
 })
 export class AccountSettingsComponent implements OnInit {
@@ -50,6 +60,21 @@ export class AccountSettingsComponent implements OnInit {
   loadingHideProfile: boolean;
 
   accountSettingsTitle = $localize`:@@accountSettings:Tiliasetukset`;
+
+  textContent = $localize`:@@automaticPublishingShortDescription:Voit määrittää, että sinuun liittyvät uudet tiedot julkaistaan automaattisesti profiilissasi.`;
+
+  automaticPublishingBannerContent: BannerContent = {
+    bannerId: 'automatic_publishing_banner',
+    bannerType: 'profile-tool-banner',
+    iconType: 'info',
+    bannerTheme: 'yellow',
+    heading: $localize`:@@automaticPublishingIsPossible:Tietojen automaattinen julkaiseminen on nyt mahdollista`,
+    textContent: $localize`:@@automaticPublishingShortDescription:Voit määrittää, että sinuun liittyvät uudet tiedot julkaistaan automaattisesti profiilissasi.`,
+    link1Target: 'internal',
+    link1Text: $localize`:@@readMoreAndTakeIntoUse:Lue lisää ja ota käyttöön`,
+    link1Url: '/mydata/profile/account-settings',
+    rememberDismissed: true
+  }
 
   // Dialog variables
   showDialog: boolean;
@@ -120,6 +145,38 @@ export class AccountSettingsComponent implements OnInit {
     },
   ];
 
+  // Automatic publishing modal
+  automaticPublishingModalTitleEnable = $localize`:@@automaticPublishingModalTitle: Haluatko ottaa automaattisen julkaisemisen käyttöön?`;
+  automaticPublishingModalTitleDisable = $localize`:@@automaticPublishingModalTitle: Haluatko ottaa automaattisen julkaisemisen pois käytöstä?`;
+  automaticPublishingDialogActionsEnable = [
+    { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'close' },
+    {
+      label: $localize`:@@enableAutomaticPublishing:Ota automaattinen julkaiseminen käyttöön`,
+      primary: true,
+      method: 'enableAutomaticPublishing',
+    },
+  ];
+
+  automaticPublishingDialogActionsDisable = [
+    { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'close' },
+    {
+      label: $localize`:@@disableAutomaticPublishing:Ota automaattinen julkaiseminen pois käytöstä`,
+      primary: true,
+      method: 'disableAutomaticPublishing',
+    },
+  ];
+
+  enableAutomaticPublishing = $localize`:@@enableAutomaticPublishing:Ota automaattinen julkaiseminen käyttöön`;
+  disableAutomaticPublishing = $localize`:@@disableAutomaticPublishing:Ota automaattinen julkaiseminen pois käytöstä`;
+
+  automaticPublishingTitle = $localize`:@@automaticPublishingTitle:Tietojen automaattinen julkaiseminen`;
+
+  automaticPublishingAccountSettingsInfoText1 = $localize`:@@automaticPublishingAccountSettingsInfoText1:Kun ominaisuus on valittu, tietolähteissä tehdyt muutokset näkyvät automaattisesti profiilissasi.`;
+  automaticPublsihingInfoTextBullet1 = $localize`:@@automaticPublsihingInfoTextBullet1:Tutkimustoiminnan kuvaus ja osa yhteystiedoista eivät kuulu automaattisen julkaisemisen piiriin.`;
+  automaticPublsihingInfoTextBullet2 = $localize`:@@automaticPublsihingInfoTextBullet2:Katso tarkempi määrittely`;
+  automaticPublsihingInfoTextBullet2Link = 'https://wiki.eduuni.fi/x/cbJqJ';
+
+
   // Orcid variables
   isOrcidFetchInUse = false;
   automaticOrcidFetchCaption = $localize`:@@showDataToPublish:ORCID-tietojen automaattinen päivittyminen`;
@@ -145,8 +202,9 @@ export class AccountSettingsComponent implements OnInit {
   ];
 
   profileVisibility$ = this.profileService.getProfileVisibilityObservable();
+  automaticPublishingState = false;
 
-  constructor(public profileService: ProfileService, private router: Router, private route: ActivatedRoute, public dialog: MatDialog, public oidcSecurityService: OidcSecurityService,  private snackbarService: SnackbarService) {
+  constructor(public profileService: ProfileService, private draftService: DraftService, private router: Router, private route: ActivatedRoute, public dialog: MatDialog, public oidcSecurityService: OidcSecurityService,  private snackbarService: SnackbarService) {
     this.profileService.fetchProfileVisibilityAndSettings();
   }
 
@@ -157,6 +215,10 @@ export class AccountSettingsComponent implements OnInit {
 
     this.orcidData = orcidProfile;
     this.orcid = orcidProfile.orcid;
+
+    if (this.profileService.automaticPublishingInitialState$.getValue()) {
+      this.automaticPublishingState = this.profileService.automaticPublishingInitialState$.getValue();
+    }
   }
 
   openDialog(props: { template: TemplateRef<any>; disableDialogClose: boolean; title: string; actions: ({ method: string; label: string; primary: boolean } | { method: string; label: string; primary: boolean })[] }){
@@ -189,6 +251,14 @@ export class AccountSettingsComponent implements OnInit {
       }
       case 'changeOrcidFetchState': {
         this.enableOrDisableOrcidFetching();
+        break;
+      }
+      case 'enableAutomaticPublishing': {
+        this.patchAutomaticPublishingActiveState(true);
+        break;
+      }
+      case 'disableAutomaticPublishing': {
+        this.patchAutomaticPublishingActiveState(false);
         break;
       }
     }
@@ -229,6 +299,30 @@ export class AccountSettingsComponent implements OnInit {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  patchAutomaticPublishingActiveState(state: any){
+    this.draftService.patchAutomaticPublishingPromise(state).then(
+      (value) => {
+        this.dialog.closeAll();
+        if (state === true) {
+          this.automaticPublishingState = true;
+          this.snackbarService.show(
+            $localize`:@@automaticPublishingEnabledToast:Automaattinen julkaiseminen on otettu käyttöön ja muutokset on tallennettu tiliasetuksiisi.`,
+            'success'
+          );
+        }
+        else {
+          this.automaticPublishingState = false;
+          this.snackbarService.show(
+            $localize`:@@automaticPublishingDisabledToast:Automaattinen julkaiseminen on otettu pois käytöstä ja muutokset on tallennettu tiliasetuksiisi.`,
+            'success'
+          );
+        }
+      },
+      (reason) => {
+        //TODO: implement error handling
+      },);
   }
 
   hidePublicProfile() {

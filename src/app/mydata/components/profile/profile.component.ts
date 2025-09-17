@@ -38,6 +38,10 @@ import { clone, cloneDeep } from 'lodash-es';
 import {
   OpenScienceSettingsCardComponent
 } from '@mydata/components/profile/cards/open-science-settings-card/open-science-settings-card.component';
+import {
+  BannerContent,
+  GeneralInfoBannerComponent
+} from '@shared/components/general-info-banner/general-info-banner.component';
 
 @Component({
   selector: 'app-profile',
@@ -59,7 +63,8 @@ import {
     StickyFooterComponent,
     JsonPipe,
     NameAndOrcidViewComponent,
-    OpenScienceSettingsCardComponent
+    OpenScienceSettingsCardComponent,
+    GeneralInfoBannerComponent
   ]
 })
 export class ProfileComponent implements OnInit, OnDestroy {
@@ -80,6 +85,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
   previousRoute: string | undefined;
   showWelcomeDialog = false;
   dataHasBeenResetSub: Subscription;
+
+  automaticPublishingBannerContent: BannerContent = {
+    bannerId: 'automatic_publishing_banner',
+    bannerType: 'profile-tool-banner',
+    iconType: 'info',
+    bannerTheme: 'yellow',
+    heading: $localize`:@@automaticPublishingIsPossible:Tietojen automaattinen julkaiseminen on nyt mahdollista`,
+    textContent: $localize`:@@automaticPublishingShortDescription:Voit määrittää, että sinuun liittyvät uudet tiedot julkaistaan automaattisesti profiilissasi.`,
+    link1Target: 'internal',
+    link1Text: $localize`:@@readMoreAndTakeIntoUse:Lue lisää ja ota käyttöön`,
+    link1Url: '/mydata/profile/account-settings',
+    rememberDismissed: true
+  }
 
   constructor(
     public profileService: ProfileService,
@@ -113,13 +131,21 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   updateHighlightOpennessUiState(state: boolean){
+    // Used only by profile summary
     this.emitHighlightOpenness.next(state);
+    // Used only by open science settings card
     this.highlightOpennessSub.next(state);
   }
 
-  forwardHighlightOpennessState(state: boolean) {
+  // Called only by open science settings card
+  setHighlightOpennessState(state: boolean) {
     this.draftService.addToHighlightOpennessPayload(state);
     this.updateHighlightOpennessUiState(state);
+  }
+
+  setAutomaticPublishingState(state: boolean) {
+    this.draftService.addToAutomaticPublishingPayload(state);
+    //this.updateHighlightOpennessUiState(state);
   }
 
   resetProfileData() {

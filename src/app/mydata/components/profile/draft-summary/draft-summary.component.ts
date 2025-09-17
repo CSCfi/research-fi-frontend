@@ -22,6 +22,10 @@ import { PrimaryBadgeComponent } from '../profile-panel/primary-badge/primary-ba
 import { PanelArrayItemComponent } from '../profile-panel/panel-array-item/panel-array-item.component';
 import { JsonPipe, NgClass, NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
 import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
+import {
+  SummaryDividerComponent
+} from '@mydata/components/profile/profile-summary/summary-divider/summary-divider.component';
+import { GeneralBadgeComponent } from '@shared/components/general-badge/general-badge.component';
 
 @Component({
     selector: 'app-draft-summary',
@@ -45,7 +49,9 @@ import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionP
     countFieldItemsPipe,
     FindByKeyValuePipe,
     JsonPipe,
-    NgClass
+    NgClass,
+    SummaryDividerComponent,
+    GeneralBadgeComponent
   ]
 })
 export class DraftSummaryComponent implements OnInit, OnDestroy {
@@ -54,10 +60,19 @@ export class DraftSummaryComponent implements OnInit, OnDestroy {
   @Input() profileData: any;
   @Input() collaborationOptions: any;
   @Input() highlightOpenness: any;
+  @Input() automaticPublishing: any;
+  @Input() accountSettingsFoldOpen: any;
+  @Input() isModalSummaryView: boolean;
 
   collaborationHeader = $localize`:@@collaborationHeader:Yhteistyö`;
   accountSettingsHeader = $localize`:@@accountSettings:Tiliasetukset`;
   highlightOpennessHeader = $localize`:@@highlightOpenAccessPublications:Korosta avoimia julkaisuja profiilissasi`;
+  automaticPublishingHeader = $localize`:@@automaticPublishingHeader:Tietojen automaattinen julkaiseminen`;
+  automaticPublishingBullet = $localize`:@@automaticPublishingCheckboxLabel:Julkaise päivittyneet tiedot automaattisesti.`;
+  primary = $localize`:@@primary:Ensisijainen`;
+
+  dataToBePublished = $localize`:@@dataToBePublished:Julkaistavat tiedot`;
+
   selectedData: any;
 
   checkGroupPatchItem = checkGroupPatchItem;
@@ -109,4 +124,6 @@ export class DraftSummaryComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.patchPayloadSub?.unsubscribe();
   }
+
+  protected readonly event = event;
 }

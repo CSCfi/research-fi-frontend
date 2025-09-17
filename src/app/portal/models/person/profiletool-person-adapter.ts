@@ -66,7 +66,7 @@ export function convertToProfileToolFormat(profile: any, localeId: string) {
     contact.push(links);
 
     profileFormattedTemp.push({
-      id: 'contact', label: 'Yhteystiedot', fields: contact
+      id: 'contact', label: $localize`:@@contactInfo:Yhteystiedot`, fields: contact
     });
 
     // 2/10 --- DESCRIPTION

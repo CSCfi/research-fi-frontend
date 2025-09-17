@@ -3,31 +3,17 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 <aside *ngIf="hasCheckedOption || isEditorView" class="group-wrapper">
-  <div class="card-content-wrapper mx-1">
+  <div class="card-content-wrapper">
 <app-collaboration-view [hasEditRights]="isEditorView" [label]="label" [hasCheckedOption]="hasCheckedOption"
                         [collaborationOptions]="collaborationOptions"
                         (handleOpenDialog)="openDialog()"></app-collaboration-view>
 
 <!-- Basic views -->
-<div *ngIf="isEditorView" class="row gx-0 mt-3">
-  <ng-container *ngFor="let option of collaborationOptions">
-    <mat-checkbox
-            class="py-1 py-lg-0 w-100"
-            *ngIf="option?.selected"
-            [checked]="true"
-            disabled
-            color="primary"
-    >
-      {{ option[nameLocale] }}
-    </mat-checkbox>
-  </ng-container>
-</div>
-
-<div *ngIf="!isEditorView" class="row mt-3">
+<div [ngClass]="isEditorView ? 'row mt-3 gx-1' : 'row mt-3'">
   <div class="col-12">
     <ul>
       <ng-container *ngFor="let option of collaborationOptions">
-        <li>{{ option[nameLocale] }}</li>
+        <li *ngIf="option?.selected">{{ option[nameLocale] }}</li>
       </ng-container>
     </ul>
   </div>

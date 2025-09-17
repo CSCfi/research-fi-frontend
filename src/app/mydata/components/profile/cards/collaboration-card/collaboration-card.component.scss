@@ -14,15 +14,13 @@ app-collaboration-card {
   .mat-checkbox-disabled span.mat-checkbox-label {
     color: inherit;
   }
-}
-
-li {
-  margin-bottom: 10px;
-}
-
-.group-wrapper {
-  background: #fff;
-  border: 1px solid #e8e8f5;
-  padding: 16px;
-  margin-bottom: 16px;
+  li {
+    margin-bottom: 10px;
+  }
+  .group-wrapper {
+    background: #fff;
+    border: 1px solid #e8e8f5;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
 }

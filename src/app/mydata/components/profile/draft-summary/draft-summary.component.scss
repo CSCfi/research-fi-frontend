@@ -8,6 +8,11 @@
 /*
  * Theme colors defined in profile.component-theme.scss
  */
+.draft-summary-wrap {
+  li {
+    margin-bottom: 6px;
+  }
+}
 
 /*  TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.*/
 #collaboration-options-panel .mat-checkbox-disabled .mat-checkbox-label {
@@ -27,3 +32,59 @@
   background: #4546b9 !important;
   border-color: #4546b9;
 }
+
+.draft-summary-panel-header {
+  border-bottom: 1.5px solid #0000001a;
+  background: transparent !important;
+  //background: var(--purple-light-bg, #F7F7FB) !important;
+  font-weight: bold;
+  margin-top: 16px;
+  &:hover {
+    background: transparent !important;
+  }
+  .mat-expansion-panel-header {
+    cursor: initial !important;
+  }
+  &:first-of-type {
+    background: var(--purple-light-bg, #F7F7FB) !important;
+    border: 1px solid var(--purple-bg, #E8E8F5) !important;
+  }
+}
+
+.mat-expansion-panel-spacing {
+  margin: 0px !important;
+  border-radius: 0px;
+  .mat-expansion-panel-header {
+    //background: var(--purple-light-bg, #F7F7FB) !important;
+  }
+}
+
+.mat-expansion-panel-header {
+  color: rgba(0, 0, 0, 0.87);
+  //max-height: 48px;
+  &:hover {
+    background: transparent !important;
+    }
+  --mat-expansion-header-indicator-color: #4546b9 !important;
+}
+
+.mat-expansion-indicator {
+  margin-right: 8px;
+  //width: 1px;
+  //height: 1px;
+  &::after {
+    //width: 1px;
+    //height: 1px;
+  }
+}
+
+.mat-expansion-panel-header[aria-disabled="true"] .mat-expansion-panel-header-title {
+  color: rgba(0, 0, 0, 0.87) !important;
+}
+
+.mat-expansion-panel-content {
+  mat-checkbox:first-of-type {
+    //margin-top: 14px !important;
+  }
+}
+

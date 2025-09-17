@@ -37,8 +37,16 @@ export class DraftService {
 
   public showLogoutConfirmModal = new BehaviorSubject<boolean>(false);
 
+  // These will be compoined
+  private profileHiddenPayloadSub = new BehaviorSubject<any>([]);
+  profileHiddenPayloadSubObs =  this.profileHiddenPayloadSub.asObservable();
   private highlightOpennessPayloadSub = new BehaviorSubject<any>([]);
   highlightOpennessPayloadSubObs =  this.highlightOpennessPayloadSub.asObservable();
+  private automaticPublishingPayloadSub = new BehaviorSubject<any>([]);
+  automaticPublishingPayloadSubObs =  this.automaticPublishingPayloadSub.asObservable();
+
+  private settingsPayloadSub= new BehaviorSubject<any>([]);
+  settingsPayloadSubObs= this.automaticPublishingPayloadSub.asObservable();
 
   // Wait until all the payloads are empty (
   edited$ = combineLatest([
@@ -47,9 +55,10 @@ export class DraftService {
     this.fundingsService.currentFundingPayload,
     this.patchService.currentPatchItems,
     this.collaborationsService.currentCollaborationsPayload,
-    this.highlightOpennessPayloadSubObs
+    this.highlightOpennessPayloadSubObs,
+    this.automaticPublishingPayloadSubObs
   ]).pipe(
-    map(([pubs, datasets, fundings, patches, collabs, highlightOpenness]) => !!(pubs.length || datasets.length || fundings.length || patches.length || collabs.length || highlightOpenness.length))
+    map(([pubs, datasets, fundings, patches, collabs, highlightOpenness, automaticPublishing]) => !!(pubs.length || datasets.length || fundings.length || patches.length || collabs.length || highlightOpenness.length || automaticPublishing.length))
   );
 
   constructor(private appSettingsService: AppSettingsService,
@@ -92,6 +101,12 @@ export class DraftService {
       const draftHighlightOpennessPayload = JSON.parse(
         sessionStorage.getItem(Constants.draftHighlightOpenness)
       );
+      const draftAutomaticPublishingPayload = JSON.parse(
+        sessionStorage.getItem(Constants.draftAutomaticPublishing)
+      );
+      const draftProfileHidden = JSON.parse(
+        sessionStorage.getItem(Constants.draftProfileHidden)
+      );
 
       // Profile, publications, datasets, collaborations and fundings have separate draft data
       const draftItems = [
@@ -123,10 +138,17 @@ export class DraftService {
         }
       });
 
-      // Openness highlight states don't have a service for simplicity
+      // Openness highlight and automatic publishing states don't have a service for simplicity
       if (draftHighlightOpennessPayload) {
         this.highlightOpennessPayloadSub.next(draftHighlightOpennessPayload);
       }
+      if (draftAutomaticPublishingPayload) {
+        this.automaticPublishingPayloadSub.next(draftAutomaticPublishingPayload);
+      }
+      if (draftProfileHidden) {
+        this.profileHiddenPayloadSub.next(draftProfileHidden);
+      }
+
 
       //TODO: check if initial values are changed
     }
@@ -194,6 +216,7 @@ export class DraftService {
     });
     //this.clearSessionStorageData();
     this.highlightOpennessPayloadSub.next([]);
+    this.automaticPublishingPayloadSub.next([]);
   }
 
   clearSessionStorageData() {
@@ -205,6 +228,7 @@ export class DraftService {
       sessionStorage.removeItem(Constants.draftFundingPatchPayload);
       sessionStorage.removeItem(Constants.draftCollaborationPatchPayload);
       sessionStorage.removeItem(Constants.draftHighlightOpenness);
+      sessionStorage.removeItem(Constants.draftAutomaticPublishing);
     }
   }
 
@@ -288,18 +312,40 @@ export class DraftService {
   }
 
   /*
- * Patch highlight openness state to backend
- */
-  private patchHighlightOpennessPromise() {
+* Patch settings api states to backend
+*/
+  private patchSettingsApiPromise() {
     return new Promise((resolve, reject) => {
       this.profileService
-        .setHighlightOpennessState(this.highlightOpennessPayloadSub.getValue()[0])
+        .patchSettingsDataStates([this.profileHiddenPayloadSub.getValue()[0],this.automaticPublishingPayloadSub.getValue()[0],this.highlightOpennessPayloadSub.getValue()[0]])
         .pipe(takeUntil(this.unsubscribe))
         .subscribe({
           next: (result) => {
             resolve(true);
+            sessionStorage.removeItem(Constants.draftProfileHidden);
+            sessionStorage.removeItem(Constants.draftAutomaticPublishing);
             sessionStorage.removeItem(Constants.draftHighlightOpenness);
             this.profileService.highlightOpennessInitialState$.next(this.highlightOpennessPayloadSub.getValue()[0]);
+          },
+          error: (error) => {
+            reject(error);
+          },
+        });
+    });
+  }
+
+  /*
+* Patch settings api states to backend
+*/
+  patchAutomaticPublishingPromise(state: boolean) {
+    return new Promise((resolve, reject) => {
+      this.profileService
+        .patchAutomaticPublishingState(state)
+        .pipe(takeUntil(this.unsubscribe))
+        .subscribe({
+          next: (result) => {
+            resolve(true);
+            sessionStorage.removeItem(Constants.draftAutomaticPublishing);
           },
           error: (error) => {
             reject(error);
@@ -362,10 +408,19 @@ export class DraftService {
 
   public addToHighlightOpennessPayload(value: boolean){
     sessionStorage.setItem(Constants.draftHighlightOpenness, JSON.stringify([value]));
-    if (value !== this.profileService.getHighlightOpennessInitialState()) {
+    if (value !== this.profileService.getHighlightOpennessInitialStateValue()) {
       this.highlightOpennessPayloadSub.next([value]);
     } else {
       this.highlightOpennessPayloadSub.next([]);
+    }
+  }
+
+  public addToAutomaticPublishingPayload(value: boolean){
+    sessionStorage.setItem(Constants.draftAutomaticPublishing, JSON.stringify([value]));
+    if (value !== this.profileService.getAutomaticPublishingInitialStateValue()) {
+      this.automaticPublishingPayloadSub.next([value]);
+    } else {
+      this.automaticPublishingPayloadSub.next([]);
     }
   }
 
@@ -396,8 +451,8 @@ export class DraftService {
         payload: this.collaborationsService.confirmedPayload,
       },
       {
-        handler: () => this.patchHighlightOpennessPromise(),
-        payload: this.highlightOpennessPayloadSub.getValue(),
+        handler: () => this.patchSettingsApiPromise(),
+        payload:[1],
       },
     ];
 
