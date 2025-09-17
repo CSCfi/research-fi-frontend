@@ -543,6 +543,10 @@ mat-table {
     }
 }
 
+.mat-mdc-progress-spinner {
+  padding: 0px !important;
+}
+
 // Mat modal
 .mat-mdc-dialog-content {
   --mdc-dialog-supporting-text-color: rgba(0, 0, 0, 0.87);

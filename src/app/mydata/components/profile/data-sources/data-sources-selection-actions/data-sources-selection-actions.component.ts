@@ -61,7 +61,7 @@ export class DataSourcesSelectionActionsComponent implements OnInit, OnDestroy {
       id: 'publish',
       label: $localize`:@@makePublic:Aseta julkiseksi`,
       dialogTitle: $localize`:@@showDataToPublishInService:Aseta valitut tiedot julkiseksi Tiedejatutkimus.fi -palvelussa`,
-      dialogPreviewLabel: $localize`:@@showDataToPublish:Näytä julkaistavat tiedot`,
+      dialogPreviewLabel: $localize`:@@dataToBePublished:Julkaistavat tiedot`,
       dialogPreviewLabelToggled: $localize`:@@hideDataToPublish:Piilota julkaistavat tiedot`,
       patchButtonLabel: $localize`:@@publish:Julkaise`,
     },
@@ -88,14 +88,9 @@ export class DataSourcesSelectionActionsComponent implements OnInit, OnDestroy {
   dialogTemplate: any;
   dialogTitle: string;
   selectedAction: string = '';
+
+  // First is the publish button
   dialogActions: DialogAction[] = [
-    {
-      label: '',
-      labelToggle: { on: '', off: '' },
-      primary: false,
-      method: 'preview',
-      flexStart: true,
-    },
     { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'cancel' },
     { label: '', primary: true, method: '' },
   ];
@@ -131,15 +126,10 @@ export class DataSourcesSelectionActionsComponent implements OnInit, OnDestroy {
     this.showDialog = true;
     this.selectedAction = action.id;
     this.dialogTitle = action.dialogTitle;
-    // Preview button content changes on toggle
-    // Set initial label
-    this.dialogActions[0].label = action.dialogPreviewLabel;
-    this.dialogActions[0].labelToggle.on = action.dialogPreviewLabel;
-    this.dialogActions[0].labelToggle.off = action.dialogPreviewLabelToggled;
 
     // Set patch button label and method
-    this.dialogActions[2].label = action.patchButtonLabel;
-    this.dialogActions[2].method = action.id;
+    this.dialogActions[1].label = action.patchButtonLabel;
+    this.dialogActions[1].method = action.id;
 
     // Used for item count in action based selection indicator
     switch (action.id) {

@@ -2861,9 +2861,9 @@
         <source>Jatka</source>
         <target>Fortsätt</target>
       </trans-unit>
-      <trans-unit id="showDataToPublish" datatype="html">
-        <source>Näytä julkaistavat tiedot</source>
-        <target>Visa uppgifter som ska publiceras</target>
+      <trans-unit id="dataToBePublished" datatype="html">
+        <source>Julkaistavat tiedot</source>
+        <target>Uppgifter som ska publiceras</target>
       </trans-unit>
       <trans-unit id="hideDataToPublish" datatype="html">
         <source>Piilota julkaistavat tiedot</source>
