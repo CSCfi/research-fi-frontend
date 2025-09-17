@@ -158,8 +158,8 @@
       <trans-unit id="accountSettings" datatype="html">
         <source>Tiliasetukset</source>
       </trans-unit>
-      <trans-unit id="showDataToPublish" datatype="html">
-        <source>Näytä julkaistavat tiedot</source>
+      <trans-unit id="dataToBePublished" datatype="html">
+        <source>Julkaistavat tiedot</source>
       </trans-unit>
       <trans-unit id="connectionProblemDeleteProfile" datatype="html">
         <source>Yhteysongelma. Profiilin poisto ei onnistu. Kokeile hetken kuluttua uudestaan....</source>

@@ -7,7 +7,7 @@
     <mat-expansion-panel hideToggle disabled="true" (click)="$event.preventDefault()"
                          class="draft-summary-panel-header">
       <mat-expansion-panel-header aria-disabled="true" (click)="$event.preventDefault()">
-        <mat-panel-title>Julkaistavat tiedot</mat-panel-title>
+        <mat-panel-title>{{dataToBePublished}}</mat-panel-title>
       </mat-expansion-panel-header>
     </mat-expansion-panel>
     <ng-container *ngFor="let group of profileData; let i = index">
