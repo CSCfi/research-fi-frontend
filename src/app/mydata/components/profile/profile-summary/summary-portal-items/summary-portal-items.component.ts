@@ -123,7 +123,7 @@ export class SummaryPortalItemsComponent implements OnInit, OnChanges {
 
     if (this.fieldType === FieldTypes.activityPublication) {
       if (this.highlightOpenness && dataCopy?.items) {
-        let openPublications = dataCopy.items.filter(item => item.openAccess !== 0 || (item.selfArchivedCode && item.selfArchivedCode === '1')).sort(this.comparePublicationYearsPublications).reverse();
+        let openPublications = dataCopy.items.filter(item => item.openAccess === 1 || item.openAccess === '1' || (item.selfArchivedCode && item.selfArchivedCode === '1')).sort(this.comparePublicationYearsPublications).reverse();
         if (openPublications.length > 0) {
           openPublications = openPublications.filter((item) => item.itemMeta.show);
           this.hasOpenPublications = (openPublications.length > 0);
@@ -131,7 +131,7 @@ export class SummaryPortalItemsComponent implements OnInit, OnChanges {
           this.hasOpenPublications = false;
         }
 
-        const nonOpenPublications = dataCopy.items.filter(item => !(item.openAccess !== 0 || (item.selfArchivedCode && item.selfArchivedCode === '1'))).sort(this.comparePublicationYearsPublications).reverse();
+        const nonOpenPublications = dataCopy.items.filter(item => !(item.openAccess === 1 || item.openAccess === '1' || (item.selfArchivedCode && item.selfArchivedCode === '1'))).sort(this.comparePublicationYearsPublications).reverse();
         const concatPublications = openPublications.concat(nonOpenPublications);
 
         // Add tag to mark row has a caption
