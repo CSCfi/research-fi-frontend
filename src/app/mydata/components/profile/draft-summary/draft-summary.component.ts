@@ -71,6 +71,8 @@ export class DraftSummaryComponent implements OnInit, OnDestroy {
   automaticPublishingBullet = $localize`:@@automaticPublishingCheckboxLabel:Julkaise päivittyneet tiedot automaattisesti.`;
   primary = $localize`:@@primary:Ensisijainen`;
 
+  dataToBePublished = $localize`:@@dataToBePublished:Julkaistavat tiedot`;
+
   selectedData: any;
 
   checkGroupPatchItem = checkGroupPatchItem;
