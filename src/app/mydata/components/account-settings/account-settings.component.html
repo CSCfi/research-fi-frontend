@@ -37,6 +37,69 @@
           <app-general-info-banner [bannerContent]="automaticPublishingBannerContent"></app-general-info-banner>
         </div>-->
 
+        <!-- Automatic publishing section -->
+        <ng-container *ngIf="this.automaticPublishingState === false">
+          <div class="row pb-1 mt-3 bordered-section">
+            <div class="col-12 pt-3 pb-2">
+              <h3>{{automaticPublishingTitle}}</h3>
+              <div class="pt-2">{{automaticPublishingAccountSettingsInfoText1}}</div>
+              <li class="ms-4">{{ automaticPublsihingInfoTextBullet1 }}
+                <a [href]="automaticPublsihingInfoTextBullet2Link"
+                   target="_blank" class="fw-bold">{{ automaticPublsihingInfoTextBullet2 }}
+                  <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"
+                                   class="open-in-new-link"></app-svg-sprites>
+                </a></li>
+            </div>
+
+            <br>
+            <div class="col-12 button-row">
+              <app-secondary-button
+                      (click)="
+                openDialog({
+                  title: automaticPublishingModalTitleEnable,
+                  template: automaticPublishingTemplate,
+                  actions: automaticPublishingDialogActionsEnable,
+                  disableDialogClose: true
+                })
+              "
+                      i18n-content="@@enableAutomaticPublishing"
+                      content="Ota automaattinen julkaiseminen käyttöön"
+              ></app-secondary-button>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="this.automaticPublishingState === true">
+          <div class="row pb-1 mt-3 bordered-section">
+            <div class="col-12 pt-3 pb-2">
+              <h3>{{automaticPublishingTitle}}</h3>
+              <div class="pt-2">{{automaticPublishingAccountSettingsInfoText1}}</div>
+              <li class="ms-4">{{ automaticPublsihingInfoTextBullet1 }}
+                <a [href]="automaticPublsihingInfoTextBullet2Link"
+                   target="_blank" class="fw-bold">{{ automaticPublsihingInfoTextBullet2 }}
+                  <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"
+                                   class="open-in-new-link"></app-svg-sprites>
+                </a></li>
+            </div>
+
+            <br>
+            <div class="col-12 button-row">
+              <app-secondary-button
+                      (click)="
+                openDialog({
+                  title: automaticPublishingModalTitleDisable,
+                  template: automaticPublishingTemplate,
+                  actions: automaticPublishingDialogActionsDisable,
+                  disableDialogClose: true
+                })
+              "
+                      i18n-content="@@disableAutomaticPublishing"
+                      content="Ota automaattinen julkaiseminen pois käytöstä"
+              ></app-secondary-button>
+            </div>
+          </div>
+        </ng-container>
+
         <!-- Orcid section -->
         <div class="row pb-1 mt-3 py-3 bordered-section d-none">
           <div class="col-12 px-0">
@@ -343,69 +406,6 @@
                                 content="Julkaise profiili"
           ></app-secondary-button>
           </div>
-          </div>
-        </ng-container>
-
-        <!-- Automatic publishing section -->
-        <ng-container *ngIf="this.automaticPublishingState === false">
-          <div class="row pb-1 mt-3 bordered-section">
-            <div class="col-12 pt-3 pb-2">
-              <h3>{{automaticPublishingTitle}}</h3>
-              <div class="pt-2">{{automaticPublishingAccountSettingsInfoText1}}</div>
-              <li class="ms-4">{{ automaticPublsihingInfoTextBullet1 }}
-                <a [href]="automaticPublsihingInfoTextBullet2Link"
-                   target="_blank" class="fw-bold">{{ automaticPublsihingInfoTextBullet2 }}
-                  <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"
-                                   class="open-in-new-link"></app-svg-sprites>
-                </a></li>
-            </div>
-
-            <br>
-            <div class="col-12 button-row">
-              <app-secondary-button
-                      (click)="
-                openDialog({
-                  title: automaticPublishingModalTitleEnable,
-                  template: automaticPublishingTemplate,
-                  actions: automaticPublishingDialogActionsEnable,
-                  disableDialogClose: true
-                })
-              "
-                      i18n-content="@@enableAutomaticPublishing"
-                      content="Ota automaattinen julkaiseminen käyttöön"
-              ></app-secondary-button>
-            </div>
-          </div>
-        </ng-container>
-
-        <ng-container *ngIf="this.automaticPublishingState === true">
-          <div class="row pb-1 mt-3 bordered-section">
-            <div class="col-12 pt-3 pb-2">
-              <h3>{{automaticPublishingTitle}}</h3>
-              <div class="pt-2">{{automaticPublishingAccountSettingsInfoText1}}</div>
-              <li class="ms-4">{{ automaticPublsihingInfoTextBullet1 }}
-                <a [href]="automaticPublsihingInfoTextBullet2Link"
-                   target="_blank" class="fw-bold">{{ automaticPublsihingInfoTextBullet2 }}
-                  <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"
-                                   class="open-in-new-link"></app-svg-sprites>
-                </a></li>
-            </div>
-
-            <br>
-            <div class="col-12 button-row">
-              <app-secondary-button
-                      (click)="
-                openDialog({
-                  title: automaticPublishingModalTitleDisable,
-                  template: automaticPublishingTemplate,
-                  actions: automaticPublishingDialogActionsDisable,
-                  disableDialogClose: true
-                })
-              "
-                      i18n-content="@@disableAutomaticPublishing"
-                      content="Ota automaattinen julkaiseminen pois käytöstä"
-              ></app-secondary-button>
-            </div>
           </div>
         </ng-container>
       </div>
