@@ -33,35 +33,34 @@ import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, Ma
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
-  selector: 'app-profile-items-table',
-  templateUrl: './profile-items-table.component.html',
-  styleUrls: ['./profile-items-table.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  standalone: true,
-  imports: [
-    MatTable,
-    MatSort,
-    MatColumnDef,
-    MatHeaderCellDef,
-    MatHeaderCell,
-    MatCheckbox,
-    MatCellDef,
-    MatCell,
-    NgFor,
-    MatSortHeader,
-    NgIf,
-    SecondaryButtonComponent,
-    DatasetAuthorComponent,
-    MatHeaderRowDef,
-    MatHeaderRow,
-    MatRowDef,
-    MatRow,
-    MatPaginator,
-    CutContentPipe,
-    GetValuePipe,
-    IsPortalItemPipe,
-    SvgSpritesComponent
-  ]
+    selector: 'app-profile-items-table',
+    templateUrl: './profile-items-table.component.html',
+    styleUrls: ['./profile-items-table.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    imports: [
+        MatTable,
+        MatSort,
+        MatColumnDef,
+        MatHeaderCellDef,
+        MatHeaderCell,
+        MatCheckbox,
+        MatCellDef,
+        MatCell,
+        NgFor,
+        MatSortHeader,
+        NgIf,
+        SecondaryButtonComponent,
+        DatasetAuthorComponent,
+        MatHeaderRowDef,
+        MatHeaderRow,
+        MatRowDef,
+        MatRow,
+        MatPaginator,
+        CutContentPipe,
+        GetValuePipe,
+        IsPortalItemPipe,
+        SvgSpritesComponent
+    ]
 })
 export class ProfileItemsTableComponent implements OnInit, OnChanges {
   @Input() columns: EditorModalColumn[];

@@ -16,8 +16,7 @@ import { FiltersComponent } from '../../../../../portal/components/results/filte
     selector: 'app-data-sources-filters',
     templateUrl: './data-sources-filters.component.html',
     styleUrls: ['./data-sources-filters.component.scss'],
-    standalone: true,
-    imports: [FiltersComponent],
+    imports: [FiltersComponent]
 })
 
 /*

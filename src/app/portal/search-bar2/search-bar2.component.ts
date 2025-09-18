@@ -6,11 +6,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
-  selector: 'app-search-bar2',
-  standalone: true,
-  imports: [CommonModule, MatRippleModule, FormsModule, SvgSpritesComponent],
-  templateUrl: './search-bar2.component.html',
-  styleUrls: ['./search-bar2.component.scss']
+    selector: 'app-search-bar2',
+    imports: [CommonModule, MatRippleModule, FormsModule, SvgSpritesComponent],
+    templateUrl: './search-bar2.component.html',
+    styleUrls: ['./search-bar2.component.scss']
 })
 export class SearchBar2Component {
   route = inject(ActivatedRoute);

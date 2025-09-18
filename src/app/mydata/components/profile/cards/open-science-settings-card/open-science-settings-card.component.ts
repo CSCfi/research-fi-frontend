@@ -8,17 +8,16 @@ import { NgIf } from '@angular/common';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
-  selector: 'app-open-science-settings-card',
-  standalone: true,
-  imports: [
-    HasSelectedItemsPipe,
-    ProfileEditorCardHeaderComponent,
-    MatCheckbox,
-    NgIf,
-    SvgSpritesComponent
-  ],
-  templateUrl: './open-science-settings-card.component.html',
-  styleUrl: './open-science-settings-card.component.scss'
+    selector: 'app-open-science-settings-card',
+    imports: [
+        HasSelectedItemsPipe,
+        ProfileEditorCardHeaderComponent,
+        MatCheckbox,
+        NgIf,
+        SvgSpritesComponent
+    ],
+    templateUrl: './open-science-settings-card.component.html',
+    styleUrl: './open-science-settings-card.component.scss'
 })
 
 export class OpenScienceSettingsCardComponent {

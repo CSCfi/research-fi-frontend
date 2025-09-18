@@ -3,11 +3,10 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'app-filter-limit-button',
-  standalone: true,
-  imports: [CommonModule, MatButtonModule],
-  templateUrl: './filter-limit-button.component.html',
-  styleUrls: ['./filter-limit-button.component.scss']
+    selector: 'app-filter-limit-button',
+    imports: [CommonModule, MatButtonModule],
+    templateUrl: './filter-limit-button.component.html',
+    styleUrls: ['./filter-limit-button.component.scss']
 })
 export class FilterLimitButtonComponent {
   @Input() value = 0;

@@ -36,7 +36,6 @@ import { BannerDividerComponent } from '../../../shared/components/banner-divide
     selector: 'app-privacy',
     templateUrl: './privacy.component.html',
     styleUrls: ['./privacy.component.scss'],
-    standalone: true,
     imports: [
         BannerDividerComponent,
         BreadcrumbComponent,
@@ -45,7 +44,7 @@ import { BannerDividerComponent } from '../../../shared/components/banner-divide
         NgIf,
         MatButton,
         SanitizeHtmlPipe,
-    ],
+    ]
 })
 export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
   focusSub: Subscription;

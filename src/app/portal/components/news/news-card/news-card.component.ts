@@ -14,27 +14,26 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     templateUrl: './news-card.component.html',
     styleUrls: ['./news-card.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
-  imports: [
-    MatCard,
-    MatCardHeader,
-    MatCardTitle,
-    NgIf,
-    NgSwitch,
-    NgSwitchCase,
-    NgSwitchDefault,
-    RouterLink,
-    MatCardSubtitle,
-    MatCardContent,
-    NgClass,
-    MatCardActions,
-    MatCardFooter,
-    DatePipe,
-    CutContentPipe,
-    HighlightSearchPipe,
-    SafeUrlPipe,
-    SvgSpritesComponent
-  ]
+    imports: [
+        MatCard,
+        MatCardHeader,
+        MatCardTitle,
+        NgIf,
+        NgSwitch,
+        NgSwitchCase,
+        NgSwitchDefault,
+        RouterLink,
+        MatCardSubtitle,
+        MatCardContent,
+        NgClass,
+        MatCardActions,
+        MatCardFooter,
+        DatePipe,
+        CutContentPipe,
+        HighlightSearchPipe,
+        SafeUrlPipe,
+        SvgSpritesComponent
+    ]
 })
 export class NewsCardComponent implements OnInit {
   @Input() itemTypeFundingCalls = false;

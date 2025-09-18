@@ -32,21 +32,20 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     templateUrl: './service-info.component.html',
     styleUrls: ['./service-info.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
-  imports: [
-    BannerDividerComponent,
-    BreadcrumbComponent,
-    MatAccordion,
-    NgFor,
-    MatExpansionPanel,
-    MatExpansionPanelHeader,
-    MatExpansionPanelTitle,
-    NgIf,
-    ReviewComponent,
-    DialogComponent,
-    SanitizeHtmlPipe,
-    SvgSpritesComponent
-  ]
+    imports: [
+        BannerDividerComponent,
+        BreadcrumbComponent,
+        MatAccordion,
+        NgFor,
+        MatExpansionPanel,
+        MatExpansionPanelHeader,
+        MatExpansionPanelTitle,
+        NgIf,
+        ReviewComponent,
+        DialogComponent,
+        SanitizeHtmlPipe,
+        SvgSpritesComponent
+    ]
 })
 export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('mainFocus') mainFocus: ElementRef;

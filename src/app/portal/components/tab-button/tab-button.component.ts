@@ -5,11 +5,10 @@ import { RouterLink } from '@angular/router';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
-  selector: 'app-tab-button',
-  standalone: true,
-  imports: [CommonModule, CountUpModule, RouterLink,  SvgSpritesComponent],
-  templateUrl: './tab-button.component.html',
-  styleUrls: ['./tab-button.component.scss']
+    selector: 'app-tab-button',
+    imports: [CommonModule, CountUpModule, RouterLink, SvgSpritesComponent],
+    templateUrl: './tab-button.component.html',
+    styleUrls: ['./tab-button.component.scss']
 })
 export class TabButtonComponent {
   @Input() label: string;

@@ -14,10 +14,9 @@ import { NgIf } from '@angular/common';
 import { BannerDividerComponent } from '@shared/components/banner-divider/banner-divider.component';
 
 @Component({
-  selector: 'app-mydata-terms',
-  templateUrl: './mydata-terms.component.html',
-  standalone: true,
-  imports: [NgIf, SanitizeHtmlPipe, BannerDividerComponent]
+    selector: 'app-mydata-terms',
+    templateUrl: './mydata-terms.component.html',
+    imports: [NgIf, SanitizeHtmlPipe, BannerDividerComponent]
 })
 
 /*

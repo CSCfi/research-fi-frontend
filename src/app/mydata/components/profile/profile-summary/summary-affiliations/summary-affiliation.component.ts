@@ -15,7 +15,6 @@ import { NgIf, NgFor, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/c
 @Component({
     selector: 'app-summary-affiliations',
     templateUrl: './summary-affiliation.component.html',
-    standalone: true,
     imports: [
         NgIf,
         NgFor,
@@ -24,7 +23,7 @@ import { NgIf, NgFor, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/c
         NgSwitchCase,
         NgSwitchDefault,
         GetItemsByPipe,
-    ],
+    ]
 })
 export class SummaryAffiliationsComponent implements OnInit {
   @Input() data: any;

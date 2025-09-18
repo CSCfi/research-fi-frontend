@@ -1,4 +1,4 @@
-import { mergeApplicationConfig, ApplicationConfig, makeStateKey, TransferState, APP_INITIALIZER } from '@angular/core';
+import { mergeApplicationConfig, ApplicationConfig, makeStateKey, TransferState, inject, provideAppInitializer } from '@angular/core';
 import { provideServerRendering } from '@angular/platform-server';
 import { appConfig } from './app.config';
 
@@ -32,12 +32,10 @@ export function transferStateFactory(transferState: TransferState) {
 const serverConfig: ApplicationConfig = {
   providers: [
     provideServerRendering(),
-    {
-      provide: APP_INITIALIZER,
-      useFactory: transferStateFactory,
-      deps: [TransferState],
-      multi: true,
-    },
+    provideAppInitializer(() => {
+        const initializerFn = (transferStateFactory)(inject(TransferState));
+        return initializerFn();
+      }),
   ],
 };
 

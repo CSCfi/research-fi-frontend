@@ -13,13 +13,12 @@ import { BannerDividerComponent } from '../../../../shared/components/banner-div
     templateUrl: './open-science-and-research-indicators.component.html',
     styleUrls: ['./open-science-and-research-indicators.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
     imports: [
         BannerDividerComponent,
         NgFor,
         CutContentPipe,
         SafeUrlPipe,
-    ],
+    ]
 })
 export class OpenScienceAndResearchIndicatorsComponent implements OnInit {
   currentLocale = '';

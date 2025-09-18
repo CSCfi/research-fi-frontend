@@ -34,7 +34,6 @@ import { NgIf, NgStyle, NgTemplateOutlet, NgClass, NgFor } from '@angular/common
     templateUrl: './dialog-template.component.html',
     styleUrls: ['./dialog-template.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
     imports: [
         NgIf,
         NgStyle,
@@ -46,7 +45,7 @@ import { NgIf, NgStyle, NgTemplateOutlet, NgClass, NgFor } from '@angular/common
         NgFor,
         PrimaryActionButtonComponent,
         SecondaryButtonComponent,
-    ],
+    ]
 })
 export class DialogTemplateComponent
   implements OnInit, AfterViewInit, OnDestroy

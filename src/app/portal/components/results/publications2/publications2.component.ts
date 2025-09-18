@@ -49,17 +49,16 @@ import { TagDoiComponent } from '@shared/components/tags/tag-doi/tag-doi.compone
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
-  selector: 'app-publications2',
-  templateUrl: './publications2.component.html',
-  styleUrls: ['./publications2.component.scss'],
-  imports: [CdkTableModule, FormsModule, AsyncPipe, JsonPipe, NgForOf, NgIf, LimitPipe, NgArrayPipesModule,
-    // SharedModule, //TODO do not depend on shared module
-    FormsModule,
-    RouterModule,
-    SearchBar2Component, OrganizationFilterComponent, FilterOptionComponent, CollapsibleComponent, MatButtonModule, NgStyle, FilterLimitButtonComponent, FirstDigitPipe, FirstLetterPipe, RouterLink,
-    LayoutModule, ColumnSorterComponent, NgTemplateOutlet, NgMathPipesModule, PaginationComponent, PrimaryActionButtonComponent, SecondaryButtonComponent, TagPeerReviewedComponent, TagOpenAccessComponent, TagDoiComponent, SvgSpritesComponent
-  ],
-  standalone: true
+    selector: 'app-publications2',
+    templateUrl: './publications2.component.html',
+    styleUrls: ['./publications2.component.scss'],
+    imports: [CdkTableModule, FormsModule, AsyncPipe, JsonPipe, NgForOf, NgIf, LimitPipe, NgArrayPipesModule,
+        // SharedModule, //TODO do not depend on shared module
+        FormsModule,
+        RouterModule,
+        SearchBar2Component, OrganizationFilterComponent, FilterOptionComponent, CollapsibleComponent, MatButtonModule, NgStyle, FilterLimitButtonComponent, FirstDigitPipe, FirstLetterPipe, RouterLink,
+        LayoutModule, ColumnSorterComponent, NgTemplateOutlet, NgMathPipesModule, PaginationComponent, PrimaryActionButtonComponent, SecondaryButtonComponent, TagPeerReviewedComponent, TagOpenAccessComponent, TagDoiComponent, SvgSpritesComponent
+    ]
 })
 export class Publications2Component implements OnDestroy {
   route = inject(ActivatedRoute);

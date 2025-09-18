@@ -17,14 +17,13 @@ import { MatButton } from '@angular/material/button';
     selector: 'app-notification-banner',
     templateUrl: './notification-banner.component.html',
     styleUrls: ['./notification-banner.component.scss'],
-    standalone: true,
-  imports: [
-    CollapseModule,
-    NgIf,
-    NgFor,
-    MatButton,
-    SvgSpritesComponent
-  ]
+    imports: [
+        CollapseModule,
+        NgIf,
+        NgFor,
+        MatButton,
+        SvgSpritesComponent
+    ]
 })
 export class NotificationBannerComponent implements OnInit {
   isCollapsed = true;

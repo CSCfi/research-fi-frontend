@@ -31,25 +31,24 @@ import { PeerReviewedPipe } from '@shared/pipes/peer-reviewed.pipe';
     selector: 'app-panel-array-item',
     templateUrl: './panel-array-item.component.html',
     styleUrls: ['./panel-array-item.component.scss'],
-    standalone: true,
-  imports: [
-    NgIf,
-    NgSwitch,
-    NgSwitchCase,
-    NgFor,
-    ActivityItemComponent,
-    NgTemplateOutlet,
-    NgSwitchDefault,
-    GetLocalizedValuesPipe,
-    ParseDatePipe,
-    NgClass,
-    TagOpenAccessComponent,
-    JsonPipe,
-    TagDoiComponent,
-    TagPeerReviewedComponent,
-    FirstLetterPipe,
-    PeerReviewedPipe
-  ]
+    imports: [
+        NgIf,
+        NgSwitch,
+        NgSwitchCase,
+        NgFor,
+        ActivityItemComponent,
+        NgTemplateOutlet,
+        NgSwitchDefault,
+        GetLocalizedValuesPipe,
+        ParseDatePipe,
+        NgClass,
+        TagOpenAccessComponent,
+        JsonPipe,
+        TagDoiComponent,
+        TagPeerReviewedComponent,
+        FirstLetterPipe,
+        PeerReviewedPipe
+    ]
 })
 export class PanelArrayItemComponent implements OnInit {
   @Input() set item(item: any) {

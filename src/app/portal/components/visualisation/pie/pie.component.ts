@@ -26,7 +26,6 @@ import { SafeUrlPipe } from '../../../pipes/safe-url.pipe';
     selector: 'app-pie',
     templateUrl: './pie.component.html',
     styleUrls: ['./pie.component.scss'],
-    standalone: true,
     imports: [NgIf, SafeUrlPipe]
 })
 export class PieComponent implements OnInit, OnChanges {

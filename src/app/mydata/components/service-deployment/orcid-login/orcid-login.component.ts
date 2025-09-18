@@ -8,11 +8,10 @@ import { PrimaryActionButtonComponent } from '../../../../shared/components/butt
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
-  selector: 'app-orcid-login',
-  templateUrl: './orcid-login.component.html',
-  styleUrls: ['./orcid-login.component.scss'],
-  standalone: true,
-  imports: [PrimaryActionButtonComponent, SvgSpritesComponent]
+    selector: 'app-orcid-login',
+    templateUrl: './orcid-login.component.html',
+    styleUrls: ['./orcid-login.component.scss'],
+    imports: [PrimaryActionButtonComponent, SvgSpritesComponent]
 })
 export class OrcidLoginComponent implements OnInit, OnDestroy {
   profileName: string;

@@ -30,23 +30,22 @@ import { NgSwitch, NgSwitchCase, NgIf, NgSwitchDefault, NgClass } from '@angular
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
-  selector: 'app-search-portal',
-  templateUrl: './search-portal.component.html',
-  styleUrls: ['./search-portal.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  standalone: true,
-  imports: [
-    NgSwitch,
-    NgSwitchCase,
-    SearchComponent,
-    NgIf,
-    NgSwitchDefault,
-    NgClass,
-    MatProgressSpinner,
-    SearchPortalResultsComponent,
-    ThousandSeparatorPipe,
-    SvgSpritesComponent
-  ]
+    selector: 'app-search-portal',
+    templateUrl: './search-portal.component.html',
+    styleUrls: ['./search-portal.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    imports: [
+        NgSwitch,
+        NgSwitchCase,
+        SearchComponent,
+        NgIf,
+        NgSwitchDefault,
+        NgClass,
+        MatProgressSpinner,
+        SearchPortalResultsComponent,
+        ThousandSeparatorPipe,
+        SvgSpritesComponent
+    ]
 })
 export class SearchPortalComponent implements OnInit, OnDestroy {
   @Input() data: any;

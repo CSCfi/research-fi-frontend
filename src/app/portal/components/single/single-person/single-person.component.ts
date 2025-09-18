@@ -54,26 +54,25 @@ import {
 type Field = { key: string; label?: string };
 
 @Component({
-  selector: 'app-single-person',
-  templateUrl: './single-person.component.html',
-  styleUrls: ['./single-person.component.scss'],
-  standalone: true,
-  imports: [
-    SearchBarComponent,
-    NgIf,
-    RouterLink,
-    BreadcrumbComponent,
-    AsyncPipe,
-    JoinItemsPipe,
-    JsonPipe,
-    PersonProfileViewComponent,
-    CollaborationCardComponent,
-    ContactCardComponent,
-    MatCard,
-    RelatedLinksComponent,
-    RelatedLinksNewComponent,
-    DataSourcesInfoCardComponent
-  ]
+    selector: 'app-single-person',
+    templateUrl: './single-person.component.html',
+    styleUrls: ['./single-person.component.scss'],
+    imports: [
+        SearchBarComponent,
+        NgIf,
+        RouterLink,
+        BreadcrumbComponent,
+        AsyncPipe,
+        JoinItemsPipe,
+        JsonPipe,
+        PersonProfileViewComponent,
+        CollaborationCardComponent,
+        ContactCardComponent,
+        MatCard,
+        RelatedLinksComponent,
+        RelatedLinksNewComponent,
+        DataSourcesInfoCardComponent
+    ]
 })
 export class SinglePersonComponent implements OnInit {
   protected readonly groupTypes = GroupTypes;

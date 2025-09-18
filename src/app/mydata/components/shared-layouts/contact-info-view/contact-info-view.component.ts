@@ -13,24 +13,23 @@ import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { checkGroupSelected } from '@mydata/utils';
 
 @Component({
-  selector: 'app-contact-info-view',
-  standalone: true,
-  imports: [
-    EditorModalComponent,
-    EmptyCardComponent,
-    FilterPipe,
-    HasSelectedItemsPipe,
-    JoinAllGroupItemsPipe,
-    NgForOf,
-    NgIf,
-    NgSwitchCase,
-    ProfileEditorCardHeaderComponent,
-    SvgSpritesComponent,
-    NgSwitch,
-    JsonPipe
-  ],
-  templateUrl: './contact-info-view.component.html',
-  styleUrl: './contact-info-view.component.scss'
+    selector: 'app-contact-info-view',
+    imports: [
+        EditorModalComponent,
+        EmptyCardComponent,
+        FilterPipe,
+        HasSelectedItemsPipe,
+        JoinAllGroupItemsPipe,
+        NgForOf,
+        NgIf,
+        NgSwitchCase,
+        ProfileEditorCardHeaderComponent,
+        SvgSpritesComponent,
+        NgSwitch,
+        JsonPipe
+    ],
+    templateUrl: './contact-info-view.component.html',
+    styleUrl: './contact-info-view.component.scss'
 })
 export class ContactInfoViewComponent {
   @Input() contactFields: string;

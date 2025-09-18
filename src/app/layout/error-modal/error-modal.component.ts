@@ -26,8 +26,7 @@ import { DialogComponent } from '../../shared/components/dialog/dialog.component
 @Component({
     selector: 'app-error-modal',
     templateUrl: './error-modal.component.html',
-    standalone: true,
-    imports: [NgIf, DialogComponent],
+    imports: [NgIf, DialogComponent]
 })
 export class ErrorModalComponent implements OnInit {
   @ViewChild('errorModal', { static: true }) private modal: TemplateRef<any>;

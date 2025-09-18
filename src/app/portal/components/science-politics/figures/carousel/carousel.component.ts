@@ -16,14 +16,13 @@ import { NgIf, NgFor } from '@angular/common';
     selector: 'app-carousel',
     templateUrl: './carousel.component.html',
     styleUrls: ['./carousel.component.scss'],
-    standalone: true,
     imports: [
         NgIf,
         SecondaryButtonComponent,
         RouterLink,
         NgFor,
         CutContentPipe,
-    ],
+    ]
 })
 export class CarouselComponent implements OnInit, OnChanges {
   @Input() data: any[];

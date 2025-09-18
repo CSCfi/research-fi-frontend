@@ -39,33 +39,32 @@ import { MatIcon } from '@angular/material/icon';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
-  selector: 'app-single-project',
-  templateUrl: './single-project.component.html',
-  styleUrls: ['./single-project.component.scss'],
-  standalone: true,
-  imports: [
-    SearchBarComponent,
-    NgIf,
-    RouterLink,
-    BreadcrumbComponent,
-    NgFor,
-    TooltipModule,
-    NgClass,
-    NgSwitch,
-    NgSwitchDefault,
-    OrcidComponent,
-    NgSwitchCase,
-    MatCard,
-    MatCardTitle,
-    SingleResultLinkComponent,
-    RelatedLinksComponent,
-    ShareComponent,
-    DatePipe,
-    ThousandSeparatorPipe,
-    JsonPipe,
-    MatIcon,
-    SvgSpritesComponent
-  ]
+    selector: 'app-single-project',
+    templateUrl: './single-project.component.html',
+    styleUrls: ['./single-project.component.scss'],
+    imports: [
+        SearchBarComponent,
+        NgIf,
+        RouterLink,
+        BreadcrumbComponent,
+        NgFor,
+        TooltipModule,
+        NgClass,
+        NgSwitch,
+        NgSwitchDefault,
+        OrcidComponent,
+        NgSwitchCase,
+        MatCard,
+        MatCardTitle,
+        SingleResultLinkComponent,
+        RelatedLinksComponent,
+        ShareComponent,
+        DatePipe,
+        ThousandSeparatorPipe,
+        JsonPipe,
+        MatIcon,
+        SvgSpritesComponent
+    ]
 })
 export class SingleProjectComponent implements OnInit, OnDestroy {
   public singleId: any;

@@ -34,21 +34,20 @@ import {
     templateUrl: './account-settings.component.html',
     styleUrls: ['./account-settings.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
-  imports: [
-    NgIf,
-    SecondaryButtonComponent,
-    MatProgressSpinner,
-    PrimaryActionButtonComponent,
-    DialogComponent,
-    AsyncPipe,
-    BannerDividerComponent,
-    SvgSpritesComponent,
-    MydataSideNavigationComponent,
-    StickyFooterComponent,
-    AutomaticPublishingSettingsComponent,
-    GeneralInfoBannerComponent
-  ]
+    imports: [
+        NgIf,
+        SecondaryButtonComponent,
+        MatProgressSpinner,
+        PrimaryActionButtonComponent,
+        DialogComponent,
+        AsyncPipe,
+        BannerDividerComponent,
+        SvgSpritesComponent,
+        MydataSideNavigationComponent,
+        StickyFooterComponent,
+        AutomaticPublishingSettingsComponent,
+        GeneralInfoBannerComponent
+    ]
 })
 export class AccountSettingsComponent implements OnInit {
   orcid: any;

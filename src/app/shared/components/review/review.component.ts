@@ -25,7 +25,6 @@ import { NgIf, NgFor } from '@angular/common';
     templateUrl: './review.component.html',
     styleUrls: ['./review.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
     imports: [
         NgIf,
         RouterLink,
@@ -40,7 +39,7 @@ import { NgIf, NgFor } from '@angular/common';
         SecondaryButtonComponent,
         PrimaryActionButtonComponent,
         MatButton,
-    ],
+    ]
 })
 export class ReviewComponent implements OnInit, OnDestroy {
   underReview = false;

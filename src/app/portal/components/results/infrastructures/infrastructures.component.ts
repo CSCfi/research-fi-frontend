@@ -39,20 +39,19 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     selector: 'app-infrastructures',
     templateUrl: './infrastructures.component.html',
     styleUrls: ['./infrastructures.component.scss'],
-    standalone: true,
-  imports: [
-    NgIf,
-    MatProgressSpinner,
-    TableComponent,
-    NgFor,
-    RouterLink,
-    TooltipModule,
-    ResultsPaginationComponent,
-    NoResultsComponent,
-    HighlightSearchPipe,
-    HandleInfrastructureLinkPipe,
-    SvgSpritesComponent
-  ]
+    imports: [
+        NgIf,
+        MatProgressSpinner,
+        TableComponent,
+        NgFor,
+        RouterLink,
+        TooltipModule,
+        ResultsPaginationComponent,
+        NoResultsComponent,
+        HighlightSearchPipe,
+        HandleInfrastructureLinkPipe,
+        SvgSpritesComponent
+    ]
 })
 export class InfrastructuresComponent
   implements OnInit, OnDestroy, AfterViewInit

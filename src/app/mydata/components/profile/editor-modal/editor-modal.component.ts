@@ -47,20 +47,19 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     templateUrl: './editor-modal.component.html',
     styleUrls: ['./editor-modal.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
-  imports: [
-    NgIf,
-    MatCheckbox,
-    AutofocusDirective,
-    ProfilePanelComponent,
-    MatTabGroup,
-    MatTab,
-    ProfileItemsTableComponent,
-    MatTabLabel,
-    SearchPortalComponent,
-    DialogComponent,
-    SvgSpritesComponent
-  ]
+    imports: [
+        NgIf,
+        MatCheckbox,
+        AutofocusDirective,
+        ProfilePanelComponent,
+        MatTabGroup,
+        MatTab,
+        ProfileItemsTableComponent,
+        MatTabLabel,
+        SearchPortalComponent,
+        DialogComponent,
+        SvgSpritesComponent
+    ]
 })
 export class EditorModalComponent implements OnInit {
   @Input() dialogData: { data: any; trigger: number };

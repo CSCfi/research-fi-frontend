@@ -25,20 +25,19 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     selector: 'app-table-card',
     templateUrl: './table-card.component.html',
     styleUrls: ['./table-card.component.scss'],
-    standalone: true,
-  imports: [
-    NgFor,
-    NgClass,
-    NgSwitch,
-    NgIf,
-    TooltipModule,
-    NgSwitchCase,
-    MatCheckbox,
-    NgSwitchDefault,
-    TableCellComponent,
-    MatIcon,
-    SvgSpritesComponent
-  ]
+    imports: [
+        NgFor,
+        NgClass,
+        NgSwitch,
+        NgIf,
+        TooltipModule,
+        NgSwitchCase,
+        MatCheckbox,
+        NgSwitchDefault,
+        TableCellComponent,
+        MatIcon,
+        SvgSpritesComponent
+    ]
 })
 export class TableCardComponent implements OnInit, OnChanges {
   @Input() index: number;

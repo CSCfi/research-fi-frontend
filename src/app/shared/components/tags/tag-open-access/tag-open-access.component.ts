@@ -14,14 +14,13 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     selector: 'app-tag-open-access',
     templateUrl: './tag-open-access.component.html',
     styleUrls: ['./tag-open-access.component.scss'],
-    standalone: true,
-  imports: [
-    NgIf,
-    NgTemplateOutlet,
-    MatIcon,
-    NgClass,
-    SvgSpritesComponent
-  ]
+    imports: [
+        NgIf,
+        NgTemplateOutlet,
+        MatIcon,
+        NgClass,
+        SvgSpritesComponent
+    ]
 })
 export class TagOpenAccessComponent implements OnInit {
   @Input() link: string;

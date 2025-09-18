@@ -19,14 +19,13 @@ import { NgFor, NgIf } from '@angular/common';
     templateUrl: './figure-filters.component.html',
     styleUrls: ['./figure-filters.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
     imports: [
         NgFor,
         MatChipListbox,
         MatChipOption,
         NgIf,
         FiguresInfoComponent,
-    ],
+    ]
 })
 export class FigureFiltersComponent implements OnInit, OnChanges {
   @Output() clicked = new EventEmitter<boolean>();

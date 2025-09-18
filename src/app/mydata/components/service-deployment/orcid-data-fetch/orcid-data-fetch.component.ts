@@ -12,13 +12,12 @@ import { PrimaryActionButtonComponent } from '../../../../shared/components/butt
     selector: 'app-orcid-data-fetch',
     templateUrl: './orcid-data-fetch.component.html',
     styleUrls: ['./orcid-data-fetch.component.scss'],
-    standalone: true,
     imports: [
         PrimaryActionButtonComponent,
         MatProgressSpinner,
         NgIf,
         DialogComponent,
-    ],
+    ]
 })
 export class OrcidDataFetchComponent implements OnInit, OnDestroy {
   @Input() userData: any;

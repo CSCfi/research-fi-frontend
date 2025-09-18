@@ -22,16 +22,15 @@ export interface BannerContent {
 }
 
 @Component({
-  selector: 'app-general-info-banner',
-  standalone: true,
-  imports: [
-    SvgSpritesComponent,
-    RouterLink,
-    NgIf,
-    NgClass
-  ],
-  templateUrl: './general-info-banner.component.html',
-  styleUrl: './general-info-banner.component.scss'
+    selector: 'app-general-info-banner',
+    imports: [
+        SvgSpritesComponent,
+        RouterLink,
+        NgIf,
+        NgClass
+    ],
+    templateUrl: './general-info-banner.component.html',
+    styleUrl: './general-info-banner.component.scss'
 })
 export class GeneralInfoBannerComponent {
   @Input() bannerContent: BannerContent;
