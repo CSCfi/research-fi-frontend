@@ -15,14 +15,13 @@ import { SecondaryButtonComponent } from '../secondary-button/secondary-button.c
 @Component({
     selector: 'app-sort-by-button',
     templateUrl: './sort-by-button.component.html',
-    standalone: true,
     imports: [
         SecondaryButtonComponent,
         MatMenuTrigger,
         MatMenu,
         MatMenuItem,
         NgFor,
-    ],
+    ]
 })
 
 /*

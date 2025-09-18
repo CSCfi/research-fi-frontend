@@ -29,15 +29,14 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     selector: 'app-external-links',
     templateUrl: './external-links.component.html',
     styleUrls: ['./external-links.component.scss'],
-    standalone: true,
-  imports: [
-    BannerDividerComponent,
-    NgFor,
-    DividerComponent,
-    NgClass,
-    MatIcon,
-    SvgSpritesComponent
-  ]
+    imports: [
+        BannerDividerComponent,
+        NgFor,
+        DividerComponent,
+        NgClass,
+        MatIcon,
+        SvgSpritesComponent
+    ]
 })
 export class ExternalLinksComponent
   implements OnInit, AfterViewInit, OnDestroy

@@ -33,7 +33,6 @@ import { BannerDividerComponent } from '../../../shared/components/banner-divide
     selector: 'app-accessibility',
     templateUrl: './accessibility.component.html',
     styleUrls: ['./accessibility.component.scss'],
-    standalone: true,
     imports: [
         BannerDividerComponent,
         BreadcrumbComponent,
@@ -41,7 +40,7 @@ import { BannerDividerComponent } from '../../../shared/components/banner-divide
         NgIf,
         DialogComponent,
         SanitizeHtmlPipe,
-    ],
+    ]
 })
 export class AccessibilityComponent
   implements OnInit, AfterViewInit, OnDestroy

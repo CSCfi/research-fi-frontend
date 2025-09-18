@@ -43,31 +43,30 @@ import { NgIf, NgFor, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/c
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
-  selector: 'app-profile-panel',
-  templateUrl: './profile-panel.component.html',
-  standalone: true,
-  imports: [
-    NgIf,
-    MatAccordion,
-    NgFor,
-    MatExpansionPanel,
-    MatExpansionPanelHeader,
-    MatExpansionPanelTitle,
-    NgSwitch,
-    NgSwitchCase,
-    MatCheckbox,
-    NgSwitchDefault,
-    MatRadioButton,
-    PanelArrayItemComponent,
-    SecondaryButtonComponent,
-    PrimaryBadgeComponent,
-    SearchPortalComponent,
-    JoinItemsPipe,
-    FilterPipe,
-    JoinDataSourcesPipe,
-    FindSelectedItemPipe,
-    SvgSpritesComponent
-  ]
+    selector: 'app-profile-panel',
+    templateUrl: './profile-panel.component.html',
+    imports: [
+        NgIf,
+        MatAccordion,
+        NgFor,
+        MatExpansionPanel,
+        MatExpansionPanelHeader,
+        MatExpansionPanelTitle,
+        NgSwitch,
+        NgSwitchCase,
+        MatCheckbox,
+        NgSwitchDefault,
+        MatRadioButton,
+        PanelArrayItemComponent,
+        SecondaryButtonComponent,
+        PrimaryBadgeComponent,
+        SearchPortalComponent,
+        JoinItemsPipe,
+        FilterPipe,
+        JoinDataSourcesPipe,
+        FindSelectedItemPipe,
+        SvgSpritesComponent
+    ]
 })
 export class ProfilePanelComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() primarySource: string;

@@ -11,8 +11,7 @@ import { SecondaryButtonComponent } from '../../../../../shared/components/butto
 @Component({
     selector: 'app-empty-card',
     templateUrl: './empty-card.component.html',
-    standalone: true,
-    imports: [SecondaryButtonComponent],
+    imports: [SecondaryButtonComponent]
 })
 export class EmptyCardComponent implements OnInit {
   @Output() onButtonClick = new EventEmitter<any>();

@@ -38,7 +38,6 @@ import { BannerDividerComponent } from '../../../../shared/components/banner-div
     templateUrl: './news.component.html',
     styleUrls: ['./news.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
     imports: [
         BannerDividerComponent,
         RouterLink,
@@ -47,7 +46,7 @@ import { BannerDividerComponent } from '../../../../shared/components/banner-div
         LatestNewsComponent,
         NewsResultsComponent,
         AsyncPipe,
-    ],
+    ]
 })
 export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('serviceInfoLink') serviceInfoLink: ElementRef;

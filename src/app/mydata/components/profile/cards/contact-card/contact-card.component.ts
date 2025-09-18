@@ -29,23 +29,22 @@ import {
 } from '@mydata/components/shared-layouts/contact-info-view/contact-info-view.component';
 
 @Component({
-  selector: 'app-contact-card',
-  templateUrl: './contact-card.component.html',
-  standalone: true,
-  imports: [
-    ProfileEditorCardHeaderComponent,
-    NgIf,
-    EmptyCardComponent,
-    NgFor,
-    NgSwitch,
-    NgSwitchCase,
-    EditorModalComponent,
-    FilterPipe,
-    JoinAllGroupItemsPipe,
-    HasSelectedItemsPipe,
-    SvgSpritesComponent,
-    ContactInfoViewComponent
-  ]
+    selector: 'app-contact-card',
+    templateUrl: './contact-card.component.html',
+    imports: [
+        ProfileEditorCardHeaderComponent,
+        NgIf,
+        EmptyCardComponent,
+        NgFor,
+        NgSwitch,
+        NgSwitchCase,
+        EditorModalComponent,
+        FilterPipe,
+        JoinAllGroupItemsPipe,
+        HasSelectedItemsPipe,
+        SvgSpritesComponent,
+        ContactInfoViewComponent
+    ]
 })
 export class ContactCardComponent implements OnInit, OnChanges {
   @Input() data: any;

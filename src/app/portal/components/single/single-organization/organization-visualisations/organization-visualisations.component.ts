@@ -27,12 +27,11 @@ import { NgIf } from '@angular/common';
     selector: 'app-organization-visualisations',
     templateUrl: './organization-visualisations.component.html',
     styleUrls: ['./organization-visualisations.component.scss'],
-    standalone: true,
     imports: [
         NgIf,
         MatProgressSpinner,
         SafeUrlPipe,
-    ],
+    ]
 })
 export class OrganizationVisualisationsComponent implements OnInit, OnDestroy {
   @Input() item: Organization;

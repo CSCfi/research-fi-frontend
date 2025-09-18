@@ -31,28 +31,27 @@ import { GeneralBadgeComponent } from '@shared/components/general-badge/general-
     selector: 'app-draft-summary',
     templateUrl: './draft-summary.component.html',
     styleUrls: ['./draft-summary.component.scss'],
-    standalone: true,
-  imports: [
-    MatAccordion,
-    NgFor,
-    NgIf,
-    MatExpansionPanel,
-    MatExpansionPanelHeader,
-    MatExpansionPanelTitle,
-    NgSwitch,
-    NgSwitchCase,
-    NgSwitchDefault,
-    PanelArrayItemComponent,
-    PrimaryBadgeComponent,
-    MatCheckbox,
-    JoinItemsPipe,
-    countFieldItemsPipe,
-    FindByKeyValuePipe,
-    JsonPipe,
-    NgClass,
-    SummaryDividerComponent,
-    GeneralBadgeComponent
-  ]
+    imports: [
+        MatAccordion,
+        NgFor,
+        NgIf,
+        MatExpansionPanel,
+        MatExpansionPanelHeader,
+        MatExpansionPanelTitle,
+        NgSwitch,
+        NgSwitchCase,
+        NgSwitchDefault,
+        PanelArrayItemComponent,
+        PrimaryBadgeComponent,
+        MatCheckbox,
+        JoinItemsPipe,
+        countFieldItemsPipe,
+        FindByKeyValuePipe,
+        JsonPipe,
+        NgClass,
+        SummaryDividerComponent,
+        GeneralBadgeComponent
+    ]
 })
 export class DraftSummaryComponent implements OnInit, OnDestroy {
   fieldTypes = FieldTypes;

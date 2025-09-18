@@ -21,12 +21,11 @@ import { NgFor, NgIf } from '@angular/common';
     selector: 'app-news-pagination',
     templateUrl: './news-pagination.component.html',
     styleUrls: ['./news-pagination.component.scss'],
-    standalone: true,
     imports: [
         NgFor,
         NgIf,
         SecondaryButtonComponent,
-    ],
+    ]
 })
 export class NewsPaginationComponent implements OnInit, OnChanges, OnDestroy {
   page: number;

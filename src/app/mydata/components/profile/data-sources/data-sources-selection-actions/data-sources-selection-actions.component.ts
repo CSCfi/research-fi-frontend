@@ -27,7 +27,6 @@ type Action = 'publish' | 'hide' | 'share';
     selector: 'app-data-sources-selection-actions',
     templateUrl: './data-sources-selection-actions.component.html',
     styleUrls: ['./data-sources-selection-actions.component.scss'],
-    standalone: true,
     imports: [
         NgFor,
         NgIf,
@@ -41,7 +40,7 @@ type Action = 'publish' | 'hide' | 'share';
         MatCheckbox,
         DraftSummaryComponent,
         FilterPipe,
-    ],
+    ]
 })
 export class DataSourcesSelectionActionsComponent implements OnInit, OnDestroy {
   @Input() selectedItems: any[];

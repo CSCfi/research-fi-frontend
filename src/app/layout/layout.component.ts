@@ -24,7 +24,6 @@ import { ErrorModalComponent } from './error-modal/error-modal.component';
     selector: 'app-layout',
     templateUrl: './layout.component.html',
     styleUrls: ['./layout.component.scss'],
-    standalone: true,
     imports: [
         ErrorModalComponent,
         HeaderComponent,
@@ -32,7 +31,7 @@ import { ErrorModalComponent } from './error-modal/error-modal.component';
         MatProgressSpinner,
         BannerDividerComponent,
         FooterComponent,
-    ],
+    ]
 })
 
 /*

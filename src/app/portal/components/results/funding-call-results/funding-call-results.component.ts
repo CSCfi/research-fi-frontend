@@ -32,14 +32,13 @@ import { NgIf } from '@angular/common';
     selector: 'app-funding-call-results',
     templateUrl: './funding-call-results.component.html',
     styleUrls: ['./funding-call-results.component.scss'],
-    standalone: true,
     imports: [
         NgIf,
         MatProgressSpinner,
         TableComponent,
         ResultsPaginationComponent,
         NoResultsComponent,
-    ],
+    ]
 })
 export class FundingCallResultsComponent
   implements OnInit, OnDestroy, AfterViewInit

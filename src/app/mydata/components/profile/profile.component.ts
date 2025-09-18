@@ -44,28 +44,27 @@ import {
 } from '@shared/components/general-info-banner/general-info-banner.component';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  standalone: true,
-  imports: [
-    NgIf,
-    WelcomeDialogComponent,
-    ContactCardComponent,
-    ProfileSummaryComponent,
-    MatProgressSpinner,
-    CollaborationCardComponent,
-    MydataBetaInfoComponent,
-    AsyncPipe,
-    BannerDividerComponent,
-    MydataSideNavigationComponent,
-    StickyFooterComponent,
-    JsonPipe,
-    NameAndOrcidViewComponent,
-    OpenScienceSettingsCardComponent,
-    GeneralInfoBannerComponent
-  ]
+    selector: 'app-profile',
+    templateUrl: './profile.component.html',
+    styleUrls: ['./profile.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    imports: [
+        NgIf,
+        WelcomeDialogComponent,
+        ContactCardComponent,
+        ProfileSummaryComponent,
+        MatProgressSpinner,
+        CollaborationCardComponent,
+        MydataBetaInfoComponent,
+        AsyncPipe,
+        BannerDividerComponent,
+        MydataSideNavigationComponent,
+        StickyFooterComponent,
+        JsonPipe,
+        NameAndOrcidViewComponent,
+        OpenScienceSettingsCardComponent,
+        GeneralInfoBannerComponent
+    ]
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   @Output() emitHighlightOpenness = new BehaviorSubject<boolean>(false);

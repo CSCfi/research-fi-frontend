@@ -38,23 +38,22 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     selector: 'app-single-infrastructure',
     templateUrl: './single-infrastructure.component.html',
     styleUrls: ['./single-infrastructure.component.scss'],
-    standalone: true,
-  imports: [
-    SearchBarComponent,
-    NgIf,
-    RouterLink,
-    BreadcrumbComponent,
-    NgFor,
-    TooltipModule,
-    NgClass,
-    NgSwitch,
-    MatCard,
-    MatCardTitle,
-    SingleResultLinkComponent,
-    RelatedLinksComponent,
-    ShareComponent,
-    SvgSpritesComponent
-  ]
+    imports: [
+        SearchBarComponent,
+        NgIf,
+        RouterLink,
+        BreadcrumbComponent,
+        NgFor,
+        TooltipModule,
+        NgClass,
+        NgSwitch,
+        MatCard,
+        MatCardTitle,
+        SingleResultLinkComponent,
+        RelatedLinksComponent,
+        ShareComponent,
+        SvgSpritesComponent
+    ]
 })
 export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   public singleId: any;

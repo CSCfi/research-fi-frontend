@@ -21,8 +21,7 @@ import { NgIf } from '@angular/common';
     selector: 'app-result-count',
     templateUrl: './result-count.component.html',
     styleUrls: ['./result-count.component.scss'],
-    standalone: true,
-    imports: [NgIf, FormsModule],
+    imports: [NgIf, FormsModule]
 })
 export class ResultCountComponent implements OnInit, OnChanges {
   @Input() pagination: boolean;

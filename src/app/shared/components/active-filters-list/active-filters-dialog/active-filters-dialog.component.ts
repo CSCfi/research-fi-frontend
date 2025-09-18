@@ -24,13 +24,12 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     selector: 'app-active-filters-dialog',
     templateUrl: './active-filters-dialog.component.html',
     styleUrls: ['./active-filters-dialog.component.scss'],
-    standalone: true,
-  imports: [
-    NgFor,
-    NgIf,
-    MatButton,
-    SvgSpritesComponent
-  ]
+    imports: [
+        NgFor,
+        NgIf,
+        MatButton,
+        SvgSpritesComponent
+    ]
 })
 export class ActiveFiltersDialogComponent implements OnInit {
   @Input() data: any;

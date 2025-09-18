@@ -12,14 +12,13 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
 @Component({
     selector: 'app-cancel-deployment',
     templateUrl: './cancel-deployment.component.html',
-    standalone: true,
-  imports: [
-    NgIf,
-    MatProgressSpinner,
-    SecondaryButtonComponent,
-    BannerDividerComponent,
-    SvgSpritesComponent
-  ]
+    imports: [
+        NgIf,
+        MatProgressSpinner,
+        SecondaryButtonComponent,
+        BannerDividerComponent,
+        SvgSpritesComponent
+    ]
 })
 export class CancelDeploymentComponent implements OnInit {
   previousStep: number;

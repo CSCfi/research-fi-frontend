@@ -28,7 +28,6 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
     host: {
         '(window:resize)': 'onResize($event)'
     },
-    standalone: true,
     imports: [NgIf, MatProgressSpinner, BarComponent, PieComponent]
 })
 export class VisualisationComponent implements OnInit {

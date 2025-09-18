@@ -13,11 +13,10 @@ import { SecondaryButtonComponent } from '../../../../shared/components/buttons/
 import { TertiaryButtonComponent } from '@shared/components/buttons/tertiary-button/tertiary-button.component';
 
 @Component({
-  selector: 'app-share',
-  templateUrl: './share.component.html',
-  styleUrls: ['./share.component.scss'],
-  standalone: true,
-  imports: [SecondaryButtonComponent, CdkCopyToClipboard, NgIf, TertiaryButtonComponent]
+    selector: 'app-share',
+    templateUrl: './share.component.html',
+    styleUrls: ['./share.component.scss'],
+    imports: [SecondaryButtonComponent, CdkCopyToClipboard, NgIf, TertiaryButtonComponent]
 })
 export class ShareComponent implements OnInit, OnChanges {
   @Input() big = true;

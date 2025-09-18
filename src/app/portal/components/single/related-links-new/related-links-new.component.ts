@@ -17,16 +17,15 @@ import {
 } from '@mydata/components/profile/cards/profile-editor-card-header/profile-editor-card-header.component';
 
 @Component({
-  selector: 'app-related-links-new',
-  standalone: true,
-  imports: [
-    NgFor,
-    NgIf,
-    RouterLink,
-    ProfileEditorCardHeaderComponent
-  ],
-  templateUrl: './related-links-new.component.html',
-  styleUrl: './related-links-new.component.scss'
+    selector: 'app-related-links-new',
+    imports: [
+        NgFor,
+        NgIf,
+        RouterLink,
+        ProfileEditorCardHeaderComponent
+    ],
+    templateUrl: './related-links-new.component.html',
+    styleUrl: './related-links-new.component.scss'
 })
 export class RelatedLinksNewComponent {
   @Input() id: any;

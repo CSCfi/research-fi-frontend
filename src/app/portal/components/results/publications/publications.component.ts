@@ -42,22 +42,21 @@ import { HighlightSearchPipe } from '@portal/pipes/highlight.pipe';
     selector: 'app-publications',
     templateUrl: './publications.component.html',
     styleUrls: ['./publications.component.scss'],
-    standalone: true,
-  imports: [
-    NgIf,
-    MatProgressSpinner,
-    TableComponent,
-    NgFor,
-    RouterLink,
-    TagPeerReviewedComponent,
-    TagOpenAccessComponent,
-    TagDoiComponent,
-    ResultsPaginationComponent,
-    NoResultsComponent,
-    LinksPipe,
-    CutContentPipe,
-    HighlightSearchPipe
-  ]
+    imports: [
+        NgIf,
+        MatProgressSpinner,
+        TableComponent,
+        NgFor,
+        RouterLink,
+        TagPeerReviewedComponent,
+        TagOpenAccessComponent,
+        TagDoiComponent,
+        ResultsPaginationComponent,
+        NoResultsComponent,
+        LinksPipe,
+        CutContentPipe,
+        HighlightSearchPipe
+    ]
 })
 export class PublicationsComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() resultData: Search;

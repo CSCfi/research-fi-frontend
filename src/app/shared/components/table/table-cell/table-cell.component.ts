@@ -5,12 +5,11 @@ import { NgIf, NgTemplateOutlet } from '@angular/common';
 @Component({
     selector: 'app-table-cell',
     templateUrl: './table-cell.component.html',
-    standalone: true,
     imports: [
         NgIf,
         RouterLink,
         NgTemplateOutlet,
-    ],
+    ]
 })
 export class TableCellComponent implements OnInit {
   @Input() data: any;

@@ -16,14 +16,13 @@ import { MatIcon } from '@angular/material/icon';
     selector: 'app-organization-information',
     templateUrl: './organization-information.component.html',
     styleUrls: ['./organization-information.component.scss'],
-    standalone: true,
-  imports: [
-    NgFor,
-    NgIf,
-    TooltipModule,
-    FilterEmptyFieldPipe,
-    MatIcon
-  ]
+    imports: [
+        NgFor,
+        NgIf,
+        TooltipModule,
+        FilterEmptyFieldPipe,
+        MatIcon
+    ]
 })
 export class OrganizationInformationComponent implements OnInit {
   @Input() item: any;

@@ -8,21 +8,20 @@ import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { CollapsibleComponent } from '@portal/components/collapsible/collapsible.component';
 
 @Component({
-  selector: 'app-organization-filter',
-  templateUrl: './organization-filter.component.html',
-  styleUrls: ['./organization-filter.component.scss'],
-  imports: [
-    NgIf,
-    AsyncPipe,
-    FilterOptionComponent,
-    LimitPipe,
-    NgArrayPipesModule,
-    NgForOf,
-    FormsModule,
-    CdkAccordionModule,
-    CollapsibleComponent
-  ],
-  standalone: true
+    selector: 'app-organization-filter',
+    templateUrl: './organization-filter.component.html',
+    styleUrls: ['./organization-filter.component.scss'],
+    imports: [
+        NgIf,
+        AsyncPipe,
+        FilterOptionComponent,
+        LimitPipe,
+        NgArrayPipesModule,
+        NgForOf,
+        FormsModule,
+        CdkAccordionModule,
+        CollapsibleComponent
+    ]
 })
 export class OrganizationFilterComponent {
   @Input() filterData: unknown;

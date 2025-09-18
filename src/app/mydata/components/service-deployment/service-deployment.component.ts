@@ -18,25 +18,24 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
 
 type Step = { label: string; icon: string; loading?: boolean };
 @Component({
-  selector: 'app-service-deployment',
-  templateUrl: './service-deployment.component.html',
-  styleUrls: ['./service-deployment.component.scss'],
-  standalone: true,
-  imports: [
-    NgIf,
-    MatProgressSpinner,
-    NgSwitch,
-    NgSwitchCase,
-    PrimaryActionButtonComponent,
-    ServiceTermsComponent,
-    OrcidLoginComponent,
-    OrcidDataFetchComponent,
-    SecondaryButtonComponent,
-    RouterLink,
-    OrcidComponent,
-    BannerDividerComponent,
-    SvgSpritesComponent
-  ]
+    selector: 'app-service-deployment',
+    templateUrl: './service-deployment.component.html',
+    styleUrls: ['./service-deployment.component.scss'],
+    imports: [
+        NgIf,
+        MatProgressSpinner,
+        NgSwitch,
+        NgSwitchCase,
+        PrimaryActionButtonComponent,
+        ServiceTermsComponent,
+        OrcidLoginComponent,
+        OrcidDataFetchComponent,
+        SecondaryButtonComponent,
+        RouterLink,
+        OrcidComponent,
+        BannerDividerComponent,
+        SvgSpritesComponent
+    ]
 })
 export class ServiceDeploymentComponent implements OnInit, OnDestroy {
   step: number;

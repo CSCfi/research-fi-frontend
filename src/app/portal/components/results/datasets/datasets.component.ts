@@ -31,22 +31,21 @@ import { TagDoiComponent } from '@shared/components/tags/tag-doi/tag-doi.compone
     selector: 'app-datasets',
     templateUrl: './datasets.component.html',
     styleUrls: ['./datasets.component.scss'],
-    standalone: true,
-  imports: [
-    NgIf,
-    MatProgressSpinner,
-    TableComponent,
-    NgFor,
-    RouterLink,
-    NgTemplateOutlet,
-    ResultsPaginationComponent,
-    NoResultsComponent,
-    HighlightSearchPipe,
-    MatIcon,
-    TagOpenAccessComponent,
-    TagDoiComponent,
-    JsonPipe
-  ]
+    imports: [
+        NgIf,
+        MatProgressSpinner,
+        TableComponent,
+        NgFor,
+        RouterLink,
+        NgTemplateOutlet,
+        ResultsPaginationComponent,
+        NoResultsComponent,
+        HighlightSearchPipe,
+        MatIcon,
+        TagOpenAccessComponent,
+        TagDoiComponent,
+        JsonPipe
+    ]
 })
 export class DatasetsComponent implements OnInit {
   @Input() resultData: Search;

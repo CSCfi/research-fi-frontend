@@ -28,23 +28,22 @@ import { MatIcon } from '@angular/material/icon';
     selector: 'app-single-funding-call',
     templateUrl: './single-funding-call.component.html',
     styleUrls: ['./single-funding-call.component.scss'],
-    standalone: true,
-  imports: [
-    NgIf,
-    RouterLink,
-    BreadcrumbComponent,
-    NgFor,
-    TooltipModule,
-    NgClass,
-    MatCard,
-    MatCardTitle,
-    SingleResultLinkComponent,
-    ShareComponent,
-    JsonPipe,
-    DatePipe,
-    NgArrayPipesModule,
-    MatIcon
-  ]
+    imports: [
+        NgIf,
+        RouterLink,
+        BreadcrumbComponent,
+        NgFor,
+        TooltipModule,
+        NgClass,
+        MatCard,
+        MatCardTitle,
+        SingleResultLinkComponent,
+        ShareComponent,
+        JsonPipe,
+        DatePipe,
+        NgArrayPipesModule,
+        MatIcon
+    ]
 })
 export class SingleFundingCallComponent implements OnInit {
   newUiToggle = true;

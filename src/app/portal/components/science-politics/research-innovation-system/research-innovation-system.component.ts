@@ -35,20 +35,19 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     selector: 'app-research-innovation-system',
     templateUrl: './research-innovation-system.component.html',
     styleUrls: ['./research-innovation-system.component.scss'],
-    standalone: true,
-  imports: [
-    BannerDividerComponent,
-    MatAccordion,
-    NgFor,
-    MatExpansionPanel,
-    MatExpansionPanelHeader,
-    MatExpansionPanelTitle,
-    NgClass,
-    NgIf,
-    RouterLink,
-    SafeUrlPipe,
-    SvgSpritesComponent
-  ]
+    imports: [
+        BannerDividerComponent,
+        MatAccordion,
+        NgFor,
+        MatExpansionPanel,
+        MatExpansionPanelHeader,
+        MatExpansionPanelTitle,
+        NgClass,
+        NgIf,
+        RouterLink,
+        SafeUrlPipe,
+        SvgSpritesComponent
+    ]
 })
 export class ResearchInnovationSystemComponent
   implements OnInit, AfterViewInit, OnDestroy

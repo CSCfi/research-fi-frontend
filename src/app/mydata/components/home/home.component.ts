@@ -22,13 +22,12 @@ import { map, take } from 'rxjs/operators';
     selector: 'app-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss'],
-    standalone: true,
-  imports: [
-    PrimaryActionButtonComponent,
-    RouterLink,
-    SecondaryButtonComponent,
-    BannerDividerComponent
-  ]
+    imports: [
+        PrimaryActionButtonComponent,
+        RouterLink,
+        SecondaryButtonComponent,
+        BannerDividerComponent
+    ]
 })
 export class HomeComponent implements OnInit {
   title = $localize`:@@home:Etusivu`;

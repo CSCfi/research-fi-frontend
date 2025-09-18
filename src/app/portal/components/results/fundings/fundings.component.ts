@@ -33,14 +33,13 @@ import { NgIf } from '@angular/common';
     selector: 'app-fundings',
     templateUrl: './fundings.component.html',
     styleUrls: ['./fundings.component.scss'],
-    standalone: true,
     imports: [
         NgIf,
         MatProgressSpinner,
         TableComponent,
         ResultsPaginationComponent,
         NoResultsComponent,
-    ],
+    ]
 })
 export class FundingsComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() resultData: Search;

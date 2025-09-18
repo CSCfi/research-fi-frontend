@@ -16,12 +16,11 @@ import { MatChipListbox, MatChipOption } from '@angular/material/chips';
     selector: 'app-funding-call-category-filters',
     templateUrl: './funding-call-category-filters.component.html',
     styleUrls: ['./funding-call-category-filters.component.scss'],
-    standalone: true,
     imports: [
         MatChipListbox,
         NgFor,
         MatChipOption,
-    ],
+    ]
 })
 export class FundingCallCategoryFiltersComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute) {}

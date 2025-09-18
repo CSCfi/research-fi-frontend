@@ -50,27 +50,26 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     templateUrl: './search-bar.component.html',
     styleUrls: ['./search-bar.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
-  imports: [
-    FormsModule,
-    MatButton,
-    MatMenuTrigger,
-    NgIf,
-    MatMenu,
-    NgFor,
-    MatMenuItem,
-    ReactiveFormsModule,
-    NgStyle,
-    ClickOutsideDirective,
-    NgClass,
-    MatProgressSpinner,
-    ListItemComponent,
-    RouterLink,
-    NotificationBannerComponent,
-    AsyncPipe,
-    HighlightSearchPipe,
-    SvgSpritesComponent
-  ]
+    imports: [
+        FormsModule,
+        MatButton,
+        MatMenuTrigger,
+        NgIf,
+        MatMenu,
+        NgFor,
+        MatMenuItem,
+        ReactiveFormsModule,
+        NgStyle,
+        ClickOutsideDirective,
+        NgClass,
+        MatProgressSpinner,
+        ListItemComponent,
+        RouterLink,
+        NotificationBannerComponent,
+        AsyncPipe,
+        HighlightSearchPipe,
+        SvgSpritesComponent
+    ]
 })
 export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('searchTargetMenuTrigger') searchTargetMenuTrigger: MatMenuTrigger;

@@ -45,7 +45,6 @@ import { TabNavigationComponent } from '../tab-navigation/tab-navigation.compone
     selector: 'app-home-page',
     templateUrl: './home-page.component.html',
     styleUrls: ['./home-page.component.scss'],
-    standalone: true,
     imports: [
         SearchBarComponent,
         TabNavigationComponent,
@@ -58,7 +57,7 @@ import { TabNavigationComponent } from '../tab-navigation/tab-navigation.compone
         ReviewComponent,
         DialogComponent,
         SafeUrlPipe,
-    ],
+    ]
 })
 export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   allData: any[];

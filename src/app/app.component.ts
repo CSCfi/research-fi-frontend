@@ -20,8 +20,7 @@ import { ResizeService } from '@shared/services/resize.service';
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
-    standalone: true,
-  imports: [LayoutComponent, RouterOutlet, JsonPipe]
+    imports: [LayoutComponent, RouterOutlet, JsonPipe]
 })
 export class AppComponent {
   title = 'research-fi-portal';

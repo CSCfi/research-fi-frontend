@@ -16,12 +16,11 @@ import { NgFor, NgIf } from '@angular/common';
     selector: 'app-related-links',
     templateUrl: './related-links.component.html',
     styleUrls: ['./related-links.component.scss'],
-    standalone: true,
     imports: [
         NgFor,
         NgIf,
         RouterLink,
-    ],
+    ]
 })
 export class RelatedLinksComponent implements OnInit, OnDestroy {
   @Input() id: any;

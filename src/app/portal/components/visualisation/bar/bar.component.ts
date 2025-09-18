@@ -26,8 +26,7 @@ import { SafeUrlPipe } from '../../../pipes/safe-url.pipe';
     selector: 'app-bar',
     templateUrl: './bar.component.html',
     styleUrls: ['./bar.component.scss'],
-    standalone: true,
-    imports: [NgIf, SafeUrlPipe],
+    imports: [NgIf, SafeUrlPipe]
 })
 export class BarComponent implements OnChanges {
   @Input() data: Visual;

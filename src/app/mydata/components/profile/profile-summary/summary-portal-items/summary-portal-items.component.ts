@@ -19,24 +19,23 @@ import { FilterLimitButtonComponent } from '@portal/components/filter-limit-butt
 import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
-  selector: 'app-summary-portal-items',
-  templateUrl: './summary-portal-items.component.html',
-  styleUrls: ['./summary-portal-items.component.scss'],
-  standalone: true,
-  imports: [
-    NgFor,
-    NgIf,
-    PanelArrayItemComponent,
-    SummaryDividerComponent,
-    MatButton,
-    LowerCasePipe,
-    NgClass,
-    JsonPipe,
-    HasSelectedItemsPipe,
-    TertiaryButtonComponent,
-    FilterLimitButtonComponent,
-    MatCheckbox
-  ]
+    selector: 'app-summary-portal-items',
+    templateUrl: './summary-portal-items.component.html',
+    styleUrls: ['./summary-portal-items.component.scss'],
+    imports: [
+        NgFor,
+        NgIf,
+        PanelArrayItemComponent,
+        SummaryDividerComponent,
+        MatButton,
+        LowerCasePipe,
+        NgClass,
+        JsonPipe,
+        HasSelectedItemsPipe,
+        TertiaryButtonComponent,
+        FilterLimitButtonComponent,
+        MatCheckbox
+    ]
 })
 
 export class SummaryPortalItemsComponent implements OnInit, OnChanges {

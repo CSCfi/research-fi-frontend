@@ -13,20 +13,19 @@ import { DialogComponent } from '../../../shared/components/dialog/dialog.compon
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
-  selector: 'app-welcome-stepper',
-  templateUrl: './welcome-stepper.component.html',
-  styleUrls: ['./welcome-stepper.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  standalone: true,
-  imports: [
-    MatStepper,
-    MatStep,
-    MatStepLabel,
-    MatStepContent,
-    DialogComponent,
-    AsyncPipe,
-    SvgSpritesComponent
-  ]
+    selector: 'app-welcome-stepper',
+    templateUrl: './welcome-stepper.component.html',
+    styleUrls: ['./welcome-stepper.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    imports: [
+        MatStepper,
+        MatStep,
+        MatStepLabel,
+        MatStepContent,
+        DialogComponent,
+        AsyncPipe,
+        SvgSpritesComponent
+    ]
 })
 
 export class WelcomeStepperComponent implements OnInit {
