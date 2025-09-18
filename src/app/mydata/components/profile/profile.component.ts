@@ -209,7 +209,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
       //this.highlightOpennessInitialState$ = this.profileService.getHighlighOpennessInitialStateObservable();
       }
     );
-
   }
 
   ngOnDestroy() {
