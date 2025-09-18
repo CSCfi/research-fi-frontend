@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, ApplicationConfig, ErrorHandler, importProvidersFrom } from '@angular/core';
+import { APP_ID, APP_INITIALIZER, ApplicationConfig, ErrorHandler, importProvidersFrom } from '@angular/core';
 
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import {
@@ -88,6 +88,8 @@ export const appConfig: ApplicationConfig = {
 
     { provide: DateAdapter, useClass: NativeDateAdapter },
     { provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS },
+
+    { provide: APP_ID,  useValue: 'serverApp' },
 
     provideClientHydration(),
     provideRouter(routes, inMemoryScrollingFeature),
