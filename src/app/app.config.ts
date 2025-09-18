@@ -42,7 +42,6 @@ export const appConfig: ApplicationConfig = {
   providers: [
     importProvidersFrom(
       BrowserModule,
-      BrowserModule.withServerTransition({ appId: 'serverApp' }),
       AuthConfigModule,
     ),
     provideAnimations(),
