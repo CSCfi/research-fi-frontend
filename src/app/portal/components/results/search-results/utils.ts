@@ -8,7 +8,7 @@
 import {
   ElementRef,
   ApplicationRef,
-  Injector, ComponentFactoryResolver
+  Injector,
 } from '@angular/core';
 import { DomPortalOutlet } from '@angular/cdk/portal';
 
