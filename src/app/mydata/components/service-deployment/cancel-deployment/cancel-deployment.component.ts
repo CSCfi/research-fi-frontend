@@ -32,7 +32,7 @@ export class CancelDeploymentComponent implements OnInit {
   ) {
     // Look for previous step
     this.previousStep =
-      this.router.getCurrentNavigation().previousNavigation?.finalUrl.queryParams?.step;
+      this.router.currentNavigation().previousNavigation?.finalUrl.queryParams?.step;
   }
 
   ngOnInit(): void {

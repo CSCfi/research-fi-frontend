@@ -19,6 +19,7 @@ import {
   PLATFORM_ID,
   ViewEncapsulation,
   ViewChild,
+  DOCUMENT
 } from '@angular/core';
 import { MatSelectionList, MatListOption } from '@angular/material/list';
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
@@ -34,7 +35,7 @@ import { DatasetFilterService } from 'src/app/portal/services/filters/dataset-fi
 import { InfrastructureFilterService } from 'src/app/portal/services/filters/infrastructure-filter.service';
 import { OrganizationFilterService } from 'src/app/portal/services/filters/organization-filter.service';
 import { NewsFilterService } from 'src/app/portal/services/filters/news-filter.service';
-import { isPlatformBrowser, DOCUMENT, NgTemplateOutlet, NgIf, NgFor, NgClass, JsonPipe } from '@angular/common';
+import { isPlatformBrowser, NgTemplateOutlet, NgIf, NgFor, NgClass, JsonPipe } from '@angular/common';
 import { DataService } from 'src/app/portal/services/data.service';
 import { FundingCallFilterService } from '@portal/services/filters/funding-call-filter.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';

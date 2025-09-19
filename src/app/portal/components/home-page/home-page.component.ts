@@ -17,8 +17,9 @@ import {
   ChangeDetectorRef,
   LOCALE_ID,
   OnDestroy,
+  DOCUMENT
 } from '@angular/core';
-import { DOCUMENT, NgFor, NgIf, NgStyle } from '@angular/common';
+import { NgFor, NgIf, NgStyle } from '@angular/common';
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
 import { map } from 'rxjs/operators';
