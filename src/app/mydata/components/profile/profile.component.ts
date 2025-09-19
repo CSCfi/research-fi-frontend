@@ -9,7 +9,8 @@ import {
   Component,
   OnInit,
   ViewEncapsulation,
-  ViewChild, ChangeDetectorRef, OnDestroy, Output, EventEmitter, Inject
+  ViewChild, ChangeDetectorRef, OnDestroy, Output, EventEmitter, Inject,
+  DOCUMENT
 } from '@angular/core';
 import { ProfileService } from '@mydata/services/profile.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
@@ -24,7 +25,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { ProfileSummaryComponent } from './profile-summary/profile-summary.component';
 import { ContactCardComponent } from './cards/contact-card/contact-card.component';
 import { WelcomeDialogComponent } from './welcome-dialog/welcome-dialog.component';
-import { NgIf, AsyncPipe, JsonPipe, DOCUMENT } from '@angular/common';
+import { NgIf, AsyncPipe, JsonPipe } from '@angular/common';
 import { BannerDividerComponent } from '@shared/components/banner-divider/banner-divider.component';
 import {
   MydataSideNavigationComponent
@@ -114,7 +115,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     // Find if user has navigated to profile route from service deployment stepper
     // Display welcome dialog if so
     this.previousRoute = this.router
-      .getCurrentNavigation()
+      .currentNavigation()
       .previousNavigation?.finalUrl.toString();
   }
 

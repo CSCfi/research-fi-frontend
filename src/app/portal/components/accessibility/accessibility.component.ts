@@ -15,13 +15,14 @@ import {
   ViewChild,
   ElementRef,
   PLATFORM_ID,
+  DOCUMENT
 } from '@angular/core';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
 import { Subscription } from 'rxjs';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { ActivatedRoute } from '@angular/router';
-import { DOCUMENT, isPlatformBrowser, NgIf } from '@angular/common';
+import { isPlatformBrowser, NgIf } from '@angular/common';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { SanitizeHtmlPipe } from '../../../shared/pipes/sanitize-html.pipe';
 import { DialogComponent } from '../../../shared/components/dialog/dialog.component';

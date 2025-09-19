@@ -17,9 +17,10 @@ import {
   PLATFORM_ID,
   Renderer2,
   ViewEncapsulation,
-  HostListener
+  HostListener,
+  DOCUMENT
 } from '@angular/core';
-import { DOCUMENT, PlatformLocation, NgClass, NgIf, NgFor } from '@angular/common';
+import { PlatformLocation, NgClass, NgIf, NgFor } from '@angular/common';
 import { ResizeService } from 'src/app/shared/services/resize.service';
 import { Observable, Subscription, take } from 'rxjs';
 import { WINDOW } from 'src/app/shared/services/window.service';

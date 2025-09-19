@@ -19,8 +19,9 @@ import {
   ViewEncapsulation,
   LOCALE_ID,
   OnDestroy,
+  DOCUMENT
 } from '@angular/core';
-import { DOCUMENT, isPlatformBrowser, NgIf, NgFor, NgStyle, NgClass, AsyncPipe } from '@angular/common';
+import { isPlatformBrowser, NgIf, NgFor, NgStyle, NgClass, AsyncPipe } from '@angular/common';
 import { SearchService } from '@portal/services/search.service';
 import { SortService } from '@portal/services/sort.service';
 import { AutosuggestService } from '@portal/services/autosuggest.service';

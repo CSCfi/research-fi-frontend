@@ -14,9 +14,10 @@ import {
   EventEmitter,
   OnInit,
   OnDestroy,
+  DOCUMENT
 } from '@angular/core';
 import { fromEvent, Subscription } from 'rxjs';
-import { DOCUMENT } from '@angular/common';
+
 import { filter } from 'rxjs/operators';
 
 @Directive({

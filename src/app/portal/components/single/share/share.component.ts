@@ -5,9 +5,9 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, Inject, LOCALE_ID, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Inject, LOCALE_ID, Input, OnChanges, DOCUMENT } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { DOCUMENT, NgIf } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { CdkCopyToClipboard } from '@angular/cdk/clipboard';
 import { SecondaryButtonComponent } from '../../../../shared/components/buttons/secondary-button/secondary-button.component';
 import { TertiaryButtonComponent } from '@shared/components/buttons/tertiary-button/tertiary-button.component';

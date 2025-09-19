@@ -8,7 +8,7 @@
 @use 'migration' as *;
 
 @mixin app-mydata-shared-theme($theme) {
-  --mdc-snackbar-supporting-text-color: #000;
+  --mat-snackbar-supporting-text-color: #000;
 
   $primary: map-get($theme, primary);
   $warn: map-get($theme, warn);
@@ -30,7 +30,7 @@
   }
 
   .mat-mdc-snackbar-container {
-    --mdc-snackbar-container-color: transparent !important;
+    --mat-snackbar-container-color: transparent !important;
   }
 
   .mat-mdc-snackbar-surface {

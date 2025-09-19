@@ -4,7 +4,8 @@ import {
   Input,
   OnChanges,
   SimpleChanges,
-  Inject, ViewChild, ElementRef
+  Inject, ViewChild, ElementRef,
+  DOCUMENT
 } from '@angular/core';
 import * as d3 from 'd3v4';
 import * as c from 'd3-scale-chromatic';
@@ -18,7 +19,7 @@ import { PublicationVisual } from 'src/app/portal/models/visualisation/publicati
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { FundingVisual } from 'src/app/portal/models/visualisation/funding-visual.model';
 import { StaticDataService } from 'src/app/portal/services/static-data.service';
-import { DOCUMENT, NgIf } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { DataService } from 'src/app/portal/services/data.service';
 import { SafeUrlPipe } from '../../../pipes/safe-url.pipe';
 

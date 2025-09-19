@@ -1,5 +1,5 @@
-import { DOCUMENT } from '@angular/common';
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+
+import { Component, Inject, OnDestroy, OnInit, DOCUMENT } from '@angular/core';
 import { Router } from '@angular/router';
 import { OrcidAccoungLinkingService } from '@mydata/services/orcid-account-linking.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';

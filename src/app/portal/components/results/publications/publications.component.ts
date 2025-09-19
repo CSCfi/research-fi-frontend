@@ -18,8 +18,9 @@ import {
   ViewChildren,
   TemplateRef,
   QueryList,
+  DOCUMENT
 } from '@angular/core';
-import { DOCUMENT, NgIf, NgFor } from '@angular/common';
+import { NgIf, NgFor } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
