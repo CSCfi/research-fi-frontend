@@ -10,10 +10,11 @@ import {
   PLATFORM_ID,
   ViewEncapsulation,
   ChangeDetectorRef,
-  TemplateRef
+  TemplateRef,
+  DOCUMENT
 } from '@angular/core';
 import { TabChangeService } from 'src/app/portal/services/tab-change.service';
-import { DOCUMENT, isPlatformBrowser, Location, ViewportScroller, NgFor, NgIf } from '@angular/common';
+import { isPlatformBrowser, Location, ViewportScroller, NgFor, NgIf } from '@angular/common';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
 import { ActivatedRoute} from '@angular/router';

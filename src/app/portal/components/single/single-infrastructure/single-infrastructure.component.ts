@@ -13,8 +13,9 @@ import {
   OnDestroy,
   LOCALE_ID,
   Inject,
+  DOCUMENT
 } from '@angular/core';
-import { DOCUMENT, NgIf, NgFor, NgClass, NgSwitch } from '@angular/common';
+import { NgIf, NgFor, NgClass, NgSwitch } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
 import { SearchService } from '../../../services/search.service';

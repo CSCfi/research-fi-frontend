@@ -1,4 +1,4 @@
-import { DOCUMENT, NgIf, NgFor, NgTemplateOutlet, JsonPipe } from '@angular/common';
+import { NgIf, NgFor, NgTemplateOutlet, JsonPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -10,6 +10,7 @@ import {
   TemplateRef,
   ViewChild,
   ViewChildren,
+  DOCUMENT
 } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { HighlightSearchPipe } from '@portal/pipes/highlight.pipe';

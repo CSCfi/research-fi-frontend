@@ -5,6 +5,7 @@ import {
   LOCALE_ID,
   OnInit,
   ViewChild,
+  DOCUMENT
 } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AppSettingsService } from '@shared/services/app-settings.service';
@@ -16,7 +17,7 @@ import { SingleItemService } from '@portal/services/single-item.service';
 import { TabChangeService } from '@portal/services/tab-change.service';
 import { UtilityService } from '@shared/services/utility.service';
 import MetaTags from 'src/assets/static-data/meta-tags.json';
-import { DOCUMENT, NgIf, NgFor, NgClass, JsonPipe, DatePipe } from '@angular/common';
+import { NgIf, NgFor, NgClass, JsonPipe, DatePipe } from '@angular/common';
 import { NgArrayPipesModule } from 'ngx-pipes';
 import { ShareComponent } from '../share/share.component';
 import { SingleResultLinkComponent } from '../single-result-link/single-result-link.component';

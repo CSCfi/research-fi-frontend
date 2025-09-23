@@ -16,7 +16,7 @@
     "sourceMap": true,
     "declaration": false,
     "experimentalDecorators": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
@@ -26,10 +26,18 @@
       "dom"
     ],
     "paths": {
-      "@portal/*": ["src/app/portal/*"],
-      "@mydata/*": ["src/app/mydata/*"],
-      "@shared/*": ["src/app/shared/*"],
-      "core-js/es7/reflect": ["node_modules/core-js/proposals/reflect-metadata"]
+      "@portal/*": [
+        "src/app/portal/*"
+      ],
+      "@mydata/*": [
+        "src/app/mydata/*"
+      ],
+      "@shared/*": [
+        "src/app/shared/*"
+      ],
+      "core-js/es7/reflect": [
+        "node_modules/core-js/proposals/reflect-metadata"
+      ]
     }
   },
   "angularCompilerOptions": {
@@ -37,5 +45,6 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": false
-  }
+  },
+  "exclude": ["**/*.spec.ts"]
 }
