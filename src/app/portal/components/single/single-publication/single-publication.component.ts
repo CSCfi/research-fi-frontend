@@ -544,7 +544,10 @@ export class SinglePublicationComponent
   }
 
   openSnackBar() {
-    this.snackBar.open($localize`:@@referCopied:Viite kopioitu leikepöydälle`);
+    this.snackBar.open($localize`:@@referCopied:Viite kopioitu leikepöydälle`, $localize`:@@close:Sulje`, {
+      panelClass: ['snackbar-container', 'success'],
+      duration: 6000
+    });
   }
 
   getCitations() {
