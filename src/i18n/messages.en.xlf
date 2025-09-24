@@ -3352,6 +3352,10 @@
         <source>Piilota valitut tiedot tiedejatutkimus.fi -palvelusta</source>
         <target state="new">Hide selected information from Research.fi service</target>
       </trans-unit>
+      <trans-unit id="showDataToPublish" datatype="html">
+        <source>Näytä julkaistavat tiedot</source>
+        <target>Show information about to be published</target>
+      </trans-unit>
       <trans-unit id="showDataToHide" datatype="html">
         <source>Näytä piilotettavat tiedot</source>
         <target>Show information about to be hidden</target>
