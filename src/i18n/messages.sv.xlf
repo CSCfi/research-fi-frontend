@@ -3353,6 +3353,10 @@
         <source>Näytä piilotettavat tiedot</source>
         <target>Visa uppgifter som ska döljas</target>
       </trans-unit>
+      <trans-unit id="showDataToPublish" datatype="html">
+        <source>Näytä julkaistavat tiedot</source>
+        <target>Visa uppgifter som ska publiceras</target>
+      </trans-unit>
       <trans-unit id="closeDataToHide" datatype="html">
         <source>Sulje piilotettavat tiedot</source>
         <target>Stäng uppgifter som ska döljas</target>

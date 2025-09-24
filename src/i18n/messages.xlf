@@ -341,6 +341,9 @@
       <trans-unit id="showDataToHide" datatype="html">
         <source>Näytä piilotettavat tiedot</source>
       </trans-unit>
+      <trans-unit id="showDataToPublish" datatype="html">
+        <source>Näytä julkaistavat tiedot</source>
+      </trans-unit>
       <trans-unit id="closeDataToHide" datatype="html">
         <source>Sulje piilotettavat tiedot</source>
       </trans-unit>
