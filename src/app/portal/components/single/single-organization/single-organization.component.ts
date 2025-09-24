@@ -49,29 +49,28 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     selector: 'app-single-organization',
     templateUrl: './single-organization.component.html',
     styleUrls: ['./single-organization.component.scss'],
-    standalone: true,
-  imports: [
-    SearchBarComponent,
-    NgIf,
-    RouterLink,
-    BreadcrumbComponent,
-    NgFor,
-    MatTabGroup,
-    MatTab,
-    OrganizationInformationComponent,
-    OrganizationSubUnitsComponent,
-    OrganizationVisualisationsComponent,
-    MatCard,
-    MatCardTitle,
-    NewsCardComponent,
-    SingleResultLinkComponent,
-    RelatedLinksComponent,
-    ShareComponent,
-    SafeUrlPipe,
-    FilterEmptyFieldPipe,
-    MatIcon,
-    SvgSpritesComponent
-  ]
+    imports: [
+        SearchBarComponent,
+        NgIf,
+        RouterLink,
+        BreadcrumbComponent,
+        NgFor,
+        MatTabGroup,
+        MatTab,
+        OrganizationInformationComponent,
+        OrganizationSubUnitsComponent,
+        OrganizationVisualisationsComponent,
+        MatCard,
+        MatCardTitle,
+        NewsCardComponent,
+        SingleResultLinkComponent,
+        RelatedLinksComponent,
+        ShareComponent,
+        SafeUrlPipe,
+        FilterEmptyFieldPipe,
+        MatIcon,
+        SvgSpritesComponent
+    ]
 })
 export class SingleOrganizationComponent implements OnInit, OnDestroy {
   linkFields = [{ label: $localize`:@@links:Linkit`, field: 'homepage' }];

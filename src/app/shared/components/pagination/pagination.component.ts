@@ -19,7 +19,6 @@ import { NgIf, NgFor, AsyncPipe } from '@angular/common';
     selector: 'app-pagination',
     templateUrl: './pagination.component.html',
     styleUrls: ['./pagination.component.scss'],
-    standalone: true,
     imports: [
         NgIf,
         SecondaryButtonComponent,
@@ -27,7 +26,7 @@ import { NgIf, NgFor, AsyncPipe } from '@angular/common';
         TooltipModule,
         ResultCountComponent,
         AsyncPipe,
-    ],
+    ]
 })
 export class PaginationComponent implements OnChanges {
   @Input() page = 1;

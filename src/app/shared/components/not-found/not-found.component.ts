@@ -5,8 +5,7 @@ import { BannerDividerComponent } from '../banner-divider/banner-divider.compone
     selector: 'app-not-found',
     templateUrl: './not-found.component.html',
     styleUrls: ['./not-found.component.scss'],
-    standalone: true,
-    imports: [BannerDividerComponent],
+    imports: [BannerDividerComponent]
 })
 export class NotFoundComponent implements OnInit {
   constructor() {}

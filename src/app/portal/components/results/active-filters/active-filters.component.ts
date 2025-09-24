@@ -40,8 +40,7 @@ import { ProjectFilterService } from '@portal/services/filters/project-filter.se
     selector: 'app-active-filters',
     templateUrl: './active-filters.component.html',
     styleUrls: ['./active-filters.component.scss'],
-    standalone: true,
-    imports: [NgIf, ActiveFiltersListComponent],
+    imports: [NgIf, ActiveFiltersListComponent]
 })
 export class ActiveFiltersComponent
   implements OnInit, OnDestroy, AfterContentInit

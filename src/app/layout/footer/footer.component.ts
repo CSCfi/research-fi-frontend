@@ -24,22 +24,21 @@ function email(strings) {
 }
 
 @Component({
-  selector: 'app-footer',
-  standalone: true,
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  imports: [
-    // SharedModule,
-    AsyncPipe,
-    NgIf,
-    RouterLink,
-    MatButtonModule,
-    ReviewComponent,
-    DialogComponent,
-    WelcomeStepperComponent,
-    SvgSpritesComponent
-  ]
+    selector: 'app-footer',
+    templateUrl: './footer.component.html',
+    styleUrls: ['./footer.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    imports: [
+        // SharedModule,
+        AsyncPipe,
+        NgIf,
+        RouterLink,
+        MatButtonModule,
+        ReviewComponent,
+        DialogComponent,
+        WelcomeStepperComponent,
+        SvgSpritesComponent
+    ]
 })
 export class FooterComponent {
   locale = inject(LOCALE_ID);

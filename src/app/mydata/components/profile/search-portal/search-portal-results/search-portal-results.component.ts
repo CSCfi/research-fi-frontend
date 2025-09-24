@@ -35,33 +35,32 @@ import { NgIf, NgFor } from '@angular/common';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
-  selector: 'app-search-portal-results',
-  templateUrl: './search-portal-results.component.html',
-  styleUrls: ['./search-portal-results.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  standalone: true,
-  imports: [
-    NgIf,
-    MatTable,
-    MatSort,
-    MatColumnDef,
-    MatHeaderCellDef,
-    MatHeaderCell,
-    MatCellDef,
-    MatCell,
-    MatCheckbox,
-    NgFor,
-    MatSortHeader,
-    DatasetAuthorComponent,
-    MatHeaderRowDef,
-    MatHeaderRow,
-    MatRowDef,
-    MatRow,
-    MatPaginator,
-    CutContentPipe,
-    GetValuePipe,
-    SvgSpritesComponent
-  ]
+    selector: 'app-search-portal-results',
+    templateUrl: './search-portal-results.component.html',
+    styleUrls: ['./search-portal-results.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    imports: [
+        NgIf,
+        MatTable,
+        MatSort,
+        MatColumnDef,
+        MatHeaderCellDef,
+        MatHeaderCell,
+        MatCellDef,
+        MatCell,
+        MatCheckbox,
+        NgFor,
+        MatSortHeader,
+        DatasetAuthorComponent,
+        MatHeaderRowDef,
+        MatHeaderRow,
+        MatRowDef,
+        MatRow,
+        MatPaginator,
+        CutContentPipe,
+        GetValuePipe,
+        SvgSpritesComponent
+    ]
 })
 export class SearchPortalResultsComponent
   implements OnInit, OnChanges, OnDestroy

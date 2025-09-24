@@ -4,8 +4,7 @@ import { DialogComponent } from '../../../../shared/components/dialog/dialog.com
 @Component({
     selector: 'app-welcome-dialog',
     templateUrl: './welcome-dialog.component.html',
-    standalone: true,
-    imports: [DialogComponent],
+    imports: [DialogComponent]
 })
 export class WelcomeDialogComponent implements OnInit {
   showDialog = true;

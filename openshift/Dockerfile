@@ -6,7 +6,7 @@
 # :license: MIT
 
 # Stage 1: Build Angular application
-FROM docker-registry.default.svc:5000/researchfi/node:14.15.0-alpine as builder
+FROM docker-registry.default.svc:5000/researchfi/22.19.0-alpine as builder
 COPY . /app
 WORKDIR /app
 RUN chown -R node:node /app
@@ -15,7 +15,7 @@ RUN npm install
 RUN npm run build:ssr
 
 # Stage 2: Serve Angular application
-FROM docker-registry.default.svc:5000/researchfi/node:14.15.0-alpine as angular
+FROM docker-registry.default.svc:5000/researchfi/22.19.0-alpine as angular
 COPY --from=builder /app/dist/ /dist/
 ### NOTE: Copying of style file leads into increased TTFB value and therefore poor performance
 ### Do not use this file copy method.

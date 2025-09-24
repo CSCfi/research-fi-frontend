@@ -42,29 +42,28 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     selector: 'app-single-dataset',
     templateUrl: './single-dataset.component.html',
     styleUrls: ['./single-dataset.component.scss'],
-    standalone: true,
-  imports: [
-    SearchBarComponent,
-    NgIf,
-    RouterLink,
-    BreadcrumbComponent,
-    NgFor,
-    SecondaryButtonComponent,
-    MatMenuTrigger,
-    MatMenu,
-    MatMenuItem,
-    NgClass,
-    TooltipModule,
-    DatasetAuthorComponent,
-    MatCard,
-    MatCardTitle,
-    SingleResultLinkComponent,
-    RelatedLinksComponent,
-    ShareComponent,
-    MatProgressSpinner,
-    SafeUrlPipe,
-    SvgSpritesComponent
-  ]
+    imports: [
+        SearchBarComponent,
+        NgIf,
+        RouterLink,
+        BreadcrumbComponent,
+        NgFor,
+        SecondaryButtonComponent,
+        MatMenuTrigger,
+        MatMenu,
+        MatMenuItem,
+        NgClass,
+        TooltipModule,
+        DatasetAuthorComponent,
+        MatCard,
+        MatCardTitle,
+        SingleResultLinkComponent,
+        RelatedLinksComponent,
+        ShareComponent,
+        MatProgressSpinner,
+        SafeUrlPipe,
+        SvgSpritesComponent
+    ]
 })
 export class SingleDatasetComponent implements OnInit {
   public singleId: any;

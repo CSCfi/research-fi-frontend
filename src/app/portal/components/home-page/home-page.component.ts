@@ -17,8 +17,9 @@ import {
   ChangeDetectorRef,
   LOCALE_ID,
   OnDestroy,
+  DOCUMENT
 } from '@angular/core';
-import { DOCUMENT, NgFor, NgIf, NgStyle } from '@angular/common';
+import { NgFor, NgIf, NgStyle } from '@angular/common';
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
 import { map } from 'rxjs/operators';
@@ -45,7 +46,6 @@ import { TabNavigationComponent } from '../tab-navigation/tab-navigation.compone
     selector: 'app-home-page',
     templateUrl: './home-page.component.html',
     styleUrls: ['./home-page.component.scss'],
-    standalone: true,
     imports: [
         SearchBarComponent,
         TabNavigationComponent,
@@ -58,7 +58,7 @@ import { TabNavigationComponent } from '../tab-navigation/tab-navigation.compone
         ReviewComponent,
         DialogComponent,
         SafeUrlPipe,
-    ],
+    ]
 })
 export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   allData: any[];

@@ -4,15 +4,14 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
-  selector: 'app-filter-option',
-  templateUrl: './filter-option.component.html',
-  styleUrls: ['./filter-option.component.scss'],
-  imports: [
-    FormsModule,
-    MatRippleModule,
-    MatCheckboxModule
-  ],
-  standalone: true
+    selector: 'app-filter-option',
+    templateUrl: './filter-option.component.html',
+    styleUrls: ['./filter-option.component.scss'],
+    imports: [
+        FormsModule,
+        MatRippleModule,
+        MatCheckboxModule
+    ]
 })
 export class FilterOptionComponent {
   @Input() label = "";

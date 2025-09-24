@@ -8,7 +8,9 @@
 @use 'migration' as *;
 
 @mixin app-mydata-shared-theme($theme) {
-  --mdc-snackbar-supporting-text-color: #000;
+  .mat-mdc-snackbar-container {
+    --mat-snackbar-supporting-text-color: #000 !important;
+  }
 
   $primary: map-get($theme, primary);
   $warn: map-get($theme, warn);
@@ -30,42 +32,97 @@
   }
 
   .mat-mdc-snackbar-container {
-    --mdc-snackbar-container-color: transparent !important;
+    --mat-snackbar-container-color: transparent !important;
   }
 
   .mat-mdc-snackbar-surface {
-    background: transparent !important;
+    color: transparent;
     .mdc-button__label {
       color: #4546b9 !important;
       font-weight: bold;
     }
   }
 
-  .mat-mdc-snack-bar-container {
+  .mat-mdc-snack-bar-container  {
     margin-top: 77px;
     border-radius: 5px;
     &.success {
-      background: #A9D7AE;
-      color: black !important;
-      border: 1px solid #014C07;
-      .mat-mdc-button {
-        color: #014C07;
-      }
-      .mdc-button__label {
-        color: #014C07 !important;
-        font-weight: bold;
+      .mat-mdc-snackbar-surface {
+        background: #A9D7AE !important;
+        color: black !important;
+        border: 1px solid #014C07;
+
+        .mdc-snackbar__label {
+          display: flex;
+          margin-left: 8px;
+          &::before {
+            content: url("/assets/img/icons/icon-success.svg");
+            width: 20px;
+            height: 20px;
+            display: flex;
+            margin-right: 20px;
+            align-self: center;
+          }
+        }
+
+        .mat-mdc-button {
+          color: #014C07;
+        }
+
+        .mdc-button__label {
+          display: flex;
+          color: #014C07 !important;
+          font-weight: bold;
+          &::after {
+            content: url("/assets/img/icons/icon-close-green.svg");
+            width: 13px;
+            height: 13px;
+            display: flex;
+            margin-left: 14px;
+            align-self: center;
+            margin-right: 5px;
+          }
+        }
       }
     }
     &.error {
-      background: #F2B58C;
-      color: black !important;
-      border: 1px solid #622E04;
-      .mat-mdc-button {
-        color: #fff;
-      }
-      .mdc-button__label {
-        color: #622E04 !important;
-        font-weight: bold;
+      .mat-mdc-snackbar-surface {
+        background: #F2B58C;
+        color: black !important;
+        border: 1px solid #622E04;
+
+        .mdc-snackbar__label {
+          display: flex;
+          margin-left: 8px;
+          &::before {
+            content: url("/assets/img/icons/icon-exclamation-triangle.svg");
+            width: 20px;
+            height: 20px;
+            display: flex;
+            margin-left: -5px;
+            margin-right: 20px;
+            align-self: center;
+          }
+        }
+
+        .mat-mdc-button {
+          color: #fff;
+        }
+
+        .mdc-button__label {
+          display: flex;
+          color: #622E04 !important;
+          font-weight: bold;
+          &::after {
+            content: url("/assets/img/icons/icon-close-orange.svg");
+            width: 13px;
+            height: 13px;
+            display: flex;
+            margin-left: 14px;
+            align-self: center;
+            margin-right: 5px;
+          }
+        }
       }
     }
   }

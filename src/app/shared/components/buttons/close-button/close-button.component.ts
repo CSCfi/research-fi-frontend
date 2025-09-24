@@ -5,8 +5,7 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     selector: 'app-close-button',
     templateUrl: './close-button.component.html',
     styleUrls: ['../buttons-shared.scss'],
-    standalone: true,
-  imports: [SvgSpritesComponent]
+    imports: [SvgSpritesComponent]
 })
 export class CloseButtonComponent implements OnInit {
   constructor() {}

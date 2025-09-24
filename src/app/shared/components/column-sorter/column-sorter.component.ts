@@ -3,13 +3,12 @@ import { JsonPipe, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
-  selector: 'app-column-sorter',
-  templateUrl: './column-sorter.component.html',
-  styleUrls: ['./column-sorter.component.scss'],
-  imports: [
-    NgSwitch, NgSwitchCase, NgIf, SvgSpritesComponent, JsonPipe
-  ],
-  standalone: true
+    selector: 'app-column-sorter',
+    templateUrl: './column-sorter.component.html',
+    styleUrls: ['./column-sorter.component.scss'],
+    imports: [
+        NgSwitch, NgSwitchCase, NgIf, SvgSpritesComponent, JsonPipe
+    ]
 })
 export class ColumnSorterComponent {
   @Input() name: string;

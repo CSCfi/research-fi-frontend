@@ -41,7 +41,6 @@ import { FiltersComponent } from '../../results/filters/filters.component';
     selector: 'app-news-results',
     templateUrl: './news-results.component.html',
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
     imports: [
         NgIf,
         FiltersComponent,
@@ -53,7 +52,7 @@ import { FiltersComponent } from '../../results/filters/filters.component';
         NewsPaginationComponent,
         AsyncPipe,
         ThousandSeparatorPipe,
-    ],
+    ]
 })
 export class NewsResultsComponent
   implements OnInit, AfterViewInit, OnDestroy, OnChanges

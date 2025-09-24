@@ -17,8 +17,7 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     selector: 'app-activity-item',
     templateUrl: './activity-item.component.html',
     styleUrls: ['./activity-item.component.scss'],
-    standalone: true,
-  imports: [NgFor, NgIf, RouterLink, JsonPipe, FirstLetterPipe, CapitalizeFirstLetterPipe, NgClass, SvgSpritesComponent]
+    imports: [NgFor, NgIf, RouterLink, JsonPipe, FirstLetterPipe, CapitalizeFirstLetterPipe, NgClass, SvgSpritesComponent]
 })
 export class ActivityItemComponent implements OnInit {
   @Input() rows: any[];

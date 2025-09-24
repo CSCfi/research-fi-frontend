@@ -6,19 +6,18 @@ import { ClickOutsideDirective } from '@shared/directives/click-outside.directiv
 import { CapitalizeFirstLetterPipe } from '@shared/pipes/capitalize-first-letter.pipe';
 
 @Component({
-  selector: 'app-sort-dropdown-menu',
-  standalone: true,
-  imports: [
-    ClickOutsideDirective,
-    FormsModule,
-    MatRadioButton,
-    MatRadioGroup,
-    NgForOf,
-    NgIf,
-    CapitalizeFirstLetterPipe
-  ],
-  templateUrl: './sort-dropdown-menu.component.html',
-  styleUrl: './sort-dropdown-menu.component.scss'
+    selector: 'app-sort-dropdown-menu',
+    imports: [
+        ClickOutsideDirective,
+        FormsModule,
+        MatRadioButton,
+        MatRadioGroup,
+        NgForOf,
+        NgIf,
+        CapitalizeFirstLetterPipe
+    ],
+    templateUrl: './sort-dropdown-menu.component.html',
+    styleUrl: './sort-dropdown-menu.component.scss'
 })
 export class SortDropdownMenuComponent implements OnChanges {
   @Input() showMenuTrigger= false;

@@ -27,31 +27,30 @@ import {
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
-  selector: 'app-profile-summary-view',
-  standalone: true,
-  templateUrl: './profile-summary-view.component.html',
-  styleUrl: './profile-summary-view.component.scss',
-  imports: [
-    NgIf,
-    NgFor,
-    SummaryDividerComponent,
-    NgSwitch,
-    NgSwitchCase,
-    NgSwitchDefault,
-    GetItemsByPipe,
-    JsonPipe,
-    CheckLangPipe,
-    HasSelectedItemsPipe,
-    JoinItemsPipe,
-    PanelArrayItemComponent,
-    TertiaryButtonComponent,
-    SummaryPortalItemsComponent,
-    FormatAndSortTimespanPipe,
-    GeneralBadgeComponent,
-    CountSelectedItemsPipe,
-    SortDropdownMenuComponent,
-    AsyncPipe
-  ]
+    selector: 'app-profile-summary-view',
+    templateUrl: './profile-summary-view.component.html',
+    styleUrl: './profile-summary-view.component.scss',
+    imports: [
+        NgIf,
+        NgFor,
+        SummaryDividerComponent,
+        NgSwitch,
+        NgSwitchCase,
+        NgSwitchDefault,
+        GetItemsByPipe,
+        JsonPipe,
+        CheckLangPipe,
+        HasSelectedItemsPipe,
+        JoinItemsPipe,
+        PanelArrayItemComponent,
+        TertiaryButtonComponent,
+        SummaryPortalItemsComponent,
+        FormatAndSortTimespanPipe,
+        GeneralBadgeComponent,
+        CountSelectedItemsPipe,
+        SortDropdownMenuComponent,
+        AsyncPipe
+    ]
 })
 
 

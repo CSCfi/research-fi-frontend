@@ -9,19 +9,18 @@ import { CapitalizeFirstLetterPipe } from '@shared/pipes/capitalize-first-letter
 import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
-  selector: 'app-name-and-orcid-view',
-  standalone: true,
-  imports: [
-    NgIf,
-    SvgSpritesComponent,
-    TertiaryButtonComponent,
-    NgClass,
-    CdkCopyToClipboard,
-    ShareComponent,
-    CapitalizeFirstLetterPipe
-  ],
-  templateUrl: './name-and-orcid-view.component.html',
-  styleUrl: './name-and-orcid-view.component.scss'
+    selector: 'app-name-and-orcid-view',
+    imports: [
+        NgIf,
+        SvgSpritesComponent,
+        TertiaryButtonComponent,
+        NgClass,
+        CdkCopyToClipboard,
+        ShareComponent,
+        CapitalizeFirstLetterPipe
+    ],
+    templateUrl: './name-and-orcid-view.component.html',
+    styleUrl: './name-and-orcid-view.component.scss'
 })
 export class NameAndOrcidViewComponent implements OnInit {
   @Input() data: any;

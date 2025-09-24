@@ -12,8 +12,7 @@ import { PaginationComponent } from '../../../../shared/components/pagination/pa
 @Component({
     selector: 'app-results-pagination',
     templateUrl: './results-pagination.component.html',
-    standalone: true,
-    imports: [PaginationComponent],
+    imports: [PaginationComponent]
 })
 export class ResultsPaginationComponent implements OnInit {
   @Input() data: any;

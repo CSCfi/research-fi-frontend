@@ -48,25 +48,24 @@ import {
     templateUrl: './profile-summary.component.html',
     styleUrls: ['./profile-summary.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
-  imports: [
-    NgFor,
-    NgIf,
-    SecondaryButtonComponent,
-    NgSwitch,
-    NgSwitchCase,
-    SummaryAffiliationsComponent,
-    SummaryPortalItemsComponent,
-    NgSwitchDefault,
-    SummaryDividerComponent,
-    PanelArrayItemComponent,
-    EditorModalComponent,
-    JoinItemsPipe,
-    HasSelectedItemsPipe,
-    TertiaryButtonComponent,
-    ProfileSummaryViewComponent,
-    PersonProfileViewComponent
-  ]
+    imports: [
+        NgFor,
+        NgIf,
+        SecondaryButtonComponent,
+        NgSwitch,
+        NgSwitchCase,
+        SummaryAffiliationsComponent,
+        SummaryPortalItemsComponent,
+        NgSwitchDefault,
+        SummaryDividerComponent,
+        PanelArrayItemComponent,
+        EditorModalComponent,
+        JoinItemsPipe,
+        HasSelectedItemsPipe,
+        TertiaryButtonComponent,
+        ProfileSummaryViewComponent,
+        PersonProfileViewComponent
+    ]
 })
 export class ProfileSummaryComponent implements OnChanges, OnDestroy, OnChanges {
   @Input() profileData: any;

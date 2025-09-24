@@ -36,22 +36,21 @@ import { CollaborationsService } from '@mydata/services/collaborations.service';
 import { DraftService } from '@mydata/services/draft.service';
 
 @Component({
-  selector: 'app-data-sources',
-  templateUrl: './data-sources.component.html',
-  styleUrls: ['./data-sources.component.scss'],
-  standalone: true,
-  imports: [
-    NgTemplateOutlet,
-    DataSourcesFiltersComponent,
-    SortByButtonComponent,
-    NgIf,
-    ActiveFiltersListComponent,
-    DataSourcesTableComponent,
-    DataSourcesSelectionActionsComponent,
-    BannerDividerComponent,
-    MydataSideNavigationComponent,
-    StickyFooterComponent
-  ]
+    selector: 'app-data-sources',
+    templateUrl: './data-sources.component.html',
+    styleUrls: ['./data-sources.component.scss'],
+    imports: [
+        NgTemplateOutlet,
+        DataSourcesFiltersComponent,
+        SortByButtonComponent,
+        NgIf,
+        ActiveFiltersListComponent,
+        DataSourcesTableComponent,
+        DataSourcesSelectionActionsComponent,
+        BannerDividerComponent,
+        MydataSideNavigationComponent,
+        StickyFooterComponent
+    ]
 })
 export class DataSourcesComponent implements OnInit, OnDestroy {
   orcidData: Record<string, unknown>;

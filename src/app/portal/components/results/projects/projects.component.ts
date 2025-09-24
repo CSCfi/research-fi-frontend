@@ -33,14 +33,13 @@ import { NgIf } from '@angular/common';
     selector: 'app-projects',
     templateUrl: './projects.component.html',
     styleUrls: ['./projects.component.scss'],
-    standalone: true,
     imports: [
         NgIf,
         MatProgressSpinner,
         TableComponent,
         ResultsPaginationComponent,
         NoResultsComponent,
-    ],
+    ]
 })
 export class ProjectsComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() resultData: Search;

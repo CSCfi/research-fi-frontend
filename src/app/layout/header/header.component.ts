@@ -17,9 +17,10 @@ import {
   PLATFORM_ID,
   Renderer2,
   ViewEncapsulation,
-  HostListener
+  HostListener,
+  DOCUMENT
 } from '@angular/core';
-import { DOCUMENT, PlatformLocation, NgClass, NgIf, NgFor } from '@angular/common';
+import { PlatformLocation, NgClass, NgIf, NgFor } from '@angular/common';
 import { ResizeService } from 'src/app/shared/services/resize.service';
 import { Observable, Subscription, take } from 'rxjs';
 import { WINDOW } from 'src/app/shared/services/window.service';
@@ -48,26 +49,25 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
 type DomainObject = { label: string; locale: string; url: string };
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  standalone: true,
-  imports: [
-    NgClass,
-    NgIf,
-    RouterLink,
-    DialogComponent,
-    CloseButtonComponent,
-    NgFor,
-    RouterLinkActive,
-    ClickOutsideDirective,
-    MatMenuTrigger,
-    MatMenu,
-    MatMenuItem,
-    PrimaryActionButtonComponent,
-    SvgSpritesComponent
-  ]
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    imports: [
+        NgClass,
+        NgIf,
+        RouterLink,
+        DialogComponent,
+        CloseButtonComponent,
+        NgFor,
+        RouterLinkActive,
+        ClickOutsideDirective,
+        MatMenuTrigger,
+        MatMenu,
+        MatMenuItem,
+        PrimaryActionButtonComponent,
+        SvgSpritesComponent
+    ]
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild('mainNavbar', { static: true }) mainNavbar: ElementRef;

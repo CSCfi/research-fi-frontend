@@ -5,16 +5,15 @@ import { MatRipple } from '@angular/material/core';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
-  selector: 'app-tertiary-button',
-  templateUrl: './tertiary-button.component.html',
-  styleUrls: ['../buttons-shared.scss', './tertiary-button.component.scss'],
-  standalone: true,
-  imports: [
-    MatRipple,
-    NgIf,
-    NgClass,
-    SvgSpritesComponent
-  ]
+    selector: 'app-tertiary-button',
+    templateUrl: './tertiary-button.component.html',
+    styleUrls: ['../buttons-shared.scss', './tertiary-button.component.scss'],
+    imports: [
+        MatRipple,
+        NgIf,
+        NgClass,
+        SvgSpritesComponent
+    ]
 })
 export class TertiaryButtonComponent {
   @Input() iconAfter: boolean;

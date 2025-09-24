@@ -96,7 +96,7 @@ app-search .input {
 
 // Funding call filter chips
 .mat-mdc-standard-chip .mdc-evolution-chip__text-label {
-  --mdc-chip-label-text-weight: 500;
+  --mat-chip-label-text-weight: 500;
 }
 
 // Search filters
@@ -218,8 +218,8 @@ mat-chip-option {
   width: 16px !important;
   height: 16px !important;
   padding: 12px 10px !important;
-  --mdc-checkbox-selected-checkmark-color: #fff;
-  --mdc-checkbox-selected-icon-color: #4546b9;
+  --mat-checkbox-selected-checkmark-color: #fff;
+  --mat-checkbox-selected-icon-color: #4546b9;
 }
 
 .mdc-checkbox__background {
@@ -475,4 +475,20 @@ app-news-card mat-card-content p:last-child {
 
 a {
   //text-decoration-color: #2868c6 !important;
+}
+
+.cdk-visually-hidden {
+  border:0;
+  clip:rect(0 0 0 0);
+  height:1px;
+  margin:-1px;
+  overflow:hidden;
+  padding:0;
+  position:absolute;
+  width:1px;
+  white-space:nowrap;
+  outline:0;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  left:0
 }

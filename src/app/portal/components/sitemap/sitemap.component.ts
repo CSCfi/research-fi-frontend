@@ -21,12 +21,11 @@ import { BannerDividerComponent } from '../../../shared/components/banner-divide
     selector: 'app-sitemap',
     templateUrl: './sitemap.component.html',
     styleUrls: ['./sitemap.component.scss'],
-    standalone: true,
     imports: [
         BannerDividerComponent,
         BreadcrumbComponent,
         RouterLink,
-    ],
+    ]
 })
 export class SitemapComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('mainFocus') mainFocus: ElementRef;

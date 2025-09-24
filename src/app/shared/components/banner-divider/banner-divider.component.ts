@@ -6,13 +6,12 @@ import { NgStyle, NgIf, NgTemplateOutlet } from '@angular/common';
     selector: 'app-banner-divider',
     templateUrl: './banner-divider.component.html',
     styleUrls: ['./banner-divider.component.scss'],
-    standalone: true,
     imports: [
         NgStyle,
         NgIf,
         NgTemplateOutlet,
         NotificationBannerComponent,
-    ],
+    ]
 })
 export class BannerDividerComponent implements OnInit {
   @Input() template: TemplateRef<any>;

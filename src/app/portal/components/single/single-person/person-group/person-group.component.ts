@@ -16,7 +16,6 @@ import { NgFor, NgIf } from '@angular/common';
     selector: 'app-person-group',
     templateUrl: './person-group.component.html',
     styleUrls: ['./person-group.component.scss'],
-    standalone: true,
     imports: [
         NgFor,
         NgIf,
@@ -24,7 +23,7 @@ import { NgFor, NgIf } from '@angular/common';
         RouterLink,
         PersonGroupAdditionalComponent,
         CheckEmptyFieldsPipe,
-    ],
+    ]
 })
 export class PersonGroupComponent implements OnInit {
   @Input() label: string;

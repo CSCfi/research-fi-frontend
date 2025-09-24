@@ -39,18 +39,17 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     selector: 'app-data-sources-table',
     templateUrl: './data-sources-table.component.html',
     styleUrls: ['./data-sources-table.component.scss'],
-    standalone: true,
-  imports: [
-    NgIf,
-    TableComponent_1,
-    PaginationComponent,
-    NgFor,
-    MatMenuTrigger,
-    MatMenu,
-    MatMenuItem,
-    AsyncPipe,
-    SvgSpritesComponent
-  ]
+    imports: [
+        NgIf,
+        TableComponent_1,
+        PaginationComponent,
+        NgFor,
+        MatMenuTrigger,
+        MatMenu,
+        MatMenuItem,
+        AsyncPipe,
+        SvgSpritesComponent
+    ]
 })
 export class DataSourcesTableComponent
   implements OnInit, AfterViewInit, OnChanges, OnDestroy

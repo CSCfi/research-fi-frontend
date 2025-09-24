@@ -33,14 +33,13 @@ import { NgIf } from '@angular/common';
     selector: 'app-organizations',
     templateUrl: './organizations.component.html',
     styleUrls: ['./organizations.component.scss'],
-    standalone: true,
     imports: [
         NgIf,
         MatProgressSpinner,
         TableComponent,
         ResultsPaginationComponent,
         NoResultsComponent,
-    ],
+    ]
 })
 export class OrganizationsComponent
   implements OnInit, OnDestroy, AfterViewInit

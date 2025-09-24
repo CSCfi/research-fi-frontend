@@ -28,22 +28,21 @@ import { DraftService } from '@mydata/services/draft.service';
 import { Constants } from '@mydata/constants';
 
 @Component({
-  selector: 'app-collaboration-card',
-  templateUrl: './collaboration-card.component.html',
-  styleUrls: ['./collaboration-card.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  standalone: true,
-  imports: [
-    ProfileEditorCardHeaderComponent,
-    NgIf,
-    EmptyCardComponent,
-    NgFor,
-    MatCheckbox,
-    DialogComponent,
-    CollaborationViewComponent,
-    JsonPipe,
-    NgClass
-  ]
+    selector: 'app-collaboration-card',
+    templateUrl: './collaboration-card.component.html',
+    styleUrls: ['./collaboration-card.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    imports: [
+        ProfileEditorCardHeaderComponent,
+        NgIf,
+        EmptyCardComponent,
+        NgFor,
+        MatCheckbox,
+        DialogComponent,
+        CollaborationViewComponent,
+        JsonPipe,
+        NgClass
+    ]
 })
 export class CollaborationCardComponent implements OnInit, OnDestroy {
   @Input() label: string;

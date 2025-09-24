@@ -21,15 +21,14 @@ type SortOption = { label: string; value: string };
     templateUrl: './sort.component.html',
     styleUrls: ['./sort.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
-  imports: [
-    SecondaryButtonComponent,
-    MatMenuTrigger,
-    MatMenu,
-    MatMenuItem,
-    NgFor,
-    SvgSpritesComponent
-  ]
+    imports: [
+        SecondaryButtonComponent,
+        MatMenuTrigger,
+        MatMenu,
+        MatMenuItem,
+        NgFor,
+        SvgSpritesComponent
+    ]
 })
 export class SortComponent implements OnInit, OnDestroy {
   tabLink: string;
