@@ -55,6 +55,9 @@ export class ShareComponent implements OnInit, OnChanges {
   }
 
   openSnackBar() {
-    this.snackBar.open(this.message);
+    this.snackBar.open($localize`:@@referCopied:Viite kopioitu leikepöydälle`, $localize`:@@close:Sulje`, {
+      panelClass: ['snackbar-container', 'success'],
+      duration: 6000
+    });
   }
 }
