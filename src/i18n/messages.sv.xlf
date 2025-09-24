@@ -2919,7 +2919,7 @@
       </trans-unit>
       <trans-unit id="dataSavingError" datatype="html">
         <source>Virhe tiedon tallennuksessa</source>
-        <target>Error saving data</target>
+        <target>Fel vid sparande av data</target>
       </trans-unit>
       <trans-unit id="draftUpdated" datatype="html">
         <source>Luonnos päivitetty</source>
@@ -2979,27 +2979,27 @@
       </trans-unit>
       <trans-unit id="searchForMissingPublication" datatype="html">
         <source>Puuttuvan julkaisun hakeminen</source>
-        <target>Searching for a missing publication</target>
+        <target>Söker efter en saknad publikation</target>
       </trans-unit>
       <trans-unit id="searchForMissingDataset" datatype="html">
         <source>Puuttuvan tutkimusaineiston hakeminen</source>
-        <target>Searching for a missing research data</target>
+        <target>Söker efter saknade forskningsdata</target>
       </trans-unit>
       <trans-unit id="searchForMissingFunding" datatype="html">
         <source>Puuttuvan hankkeen hakeminen</source>
-        <target state="new">Searching for a missing project</target>
+        <target>Söker efter ett saknat projekt</target>
       </trans-unit>
       <trans-unit id="searchForPublicationWithName" datatype="html">
         <source>Hae omalla nimelläsi tai julkaisun nimellä</source>
-        <target>Search for a publication under the name of the author or publication</target>
+        <target>Sök efter en publikation med författarens eller publikations namn</target>
       </trans-unit>
       <trans-unit id="searchForDatasetWithName" datatype="html">
         <source>Hae nimellä tai organisaatiolla</source>
-        <target>Search for research data under the name of the author or organization </target>
+        <target>Sök efter forskningsdata med författarens eller organisationens namn</target>
       </trans-unit>
       <trans-unit id="searchForFundingWithName" datatype="html">
         <source>Hae hankkeen tai vastuullisen tutkijan nimellä</source>
-        <target state="new">Search for a project with project name or principal investigator name</target>
+        <target>Sök efter ett projekt med projektets namn eller huvudforskarens namn</target>
       </trans-unit>
       <trans-unit id="dataSourceIsResearchFi" datatype="html">
         <source>Tietolähteenä käytetään Tiedejatutkimus.fi-palvelua</source>
