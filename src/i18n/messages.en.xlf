@@ -3188,7 +3188,7 @@
       </trans-unit>
       <trans-unit id="myDataEditorModalPublicationTabInfo" datatype="html">
         <source>Tiedejatutkimus.fi-palvelusta löytyvät julkaisut, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. Julkaisuja, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä &quot;Hae muita julkaisuja&quot; -toiminnolla.</source>
-        <target state="new">Research data with your ORCID iD in Research.fi are automatically added to your information. Datasets that are not associated with your ORCID iD can be added using the &quot;Search for other research data&quot; function.</target>
+        <target state="new">Publications found in the Research.fi service that include your ORCID iD are automatically added to your information. Publications not linked to your ORCID iD can be added using the “Search for other publications” feature.</target>
       </trans-unit>
       <trans-unit id="myDataEditorModalPublicationChooseItems" datatype="html">
         <source>Voit valita profiiliisi julkaisuja alla olevasta listasta.</source>
