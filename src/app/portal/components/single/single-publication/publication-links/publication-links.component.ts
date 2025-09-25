@@ -14,7 +14,6 @@ import { MatCard, MatCardTitle } from '@angular/material/card';
 @Component({
     selector: 'app-publication-links',
     templateUrl: './publication-links.component.html',
-    standalone: true,
     imports: [
         MatCard,
         MatCardTitle,
@@ -22,7 +21,7 @@ import { MatCard, MatCardTitle } from '@angular/material/card';
         NgIf,
         SingleResultLinkComponent,
         IsUrlPipe,
-    ],
+    ]
 })
 export class PublicationLinksComponent {
   @Input() item: any;

@@ -25,7 +25,6 @@ import { BannerDividerComponent } from '../../../../../shared/components/banner-
     templateUrl: './single-indicator.component.html',
     styleUrls: ['./single-indicator.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
     imports: [
         BannerDividerComponent,
         RouterLink,
@@ -36,7 +35,7 @@ import { BannerDividerComponent } from '../../../../../shared/components/banner-
         SecondaryButtonComponent,
         NgFor,
         SafeUrlPipe,
-    ],
+    ]
 })
 export class SingleIndicatorComponent implements OnInit {
 

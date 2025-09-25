@@ -4,11 +4,10 @@ import { RouterLink } from '@angular/router';
 import { CountUpModule } from 'ngx-countup';
 
 @Component({
-  selector: 'app-tab-navigation-button',
-  standalone: true,
-  imports: [CommonModule, RouterLink, RouterLink, CountUpModule],
-  templateUrl: './tab-navigation-button.component.html',
-  styleUrls: ['./tab-navigation-button.component.scss']
+    selector: 'app-tab-navigation-button',
+    imports: [CommonModule, RouterLink, RouterLink, CountUpModule],
+    templateUrl: './tab-navigation-button.component.html',
+    styleUrls: ['./tab-navigation-button.component.scss']
 })
 export class TabNavigationButtonComponent {
   @Input() label: string;

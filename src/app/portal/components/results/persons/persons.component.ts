@@ -38,7 +38,6 @@ import { NgIf, NgFor } from '@angular/common';
     templateUrl: '../persons/persons.component.html',
     styleUrls: ['./persons.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
     imports: [
         NgIf,
         MatProgressSpinner,
@@ -48,7 +47,7 @@ import { NgIf, NgFor } from '@angular/common';
         ResultsPaginationComponent,
         NoResultsComponent,
         HighlightSearchPipe,
-    ],
+    ]
 })
 export class PersonsComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() resultData: Search;

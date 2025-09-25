@@ -11,15 +11,14 @@ import { ProfileService } from '@mydata/services/profile.service';
 import { NotificationService } from '@shared/services/notification.service';
 
 @Component({
-  selector: 'app-mydata-side-navigation',
-  standalone: true,
-  imports: [
-    NgForOf,
-    NgIf,
-    RouterLinkActive
-  ],
-  templateUrl: './mydata-side-navigation.component.html',
-  styleUrl: './mydata-side-navigation.component.scss'
+    selector: 'app-mydata-side-navigation',
+    imports: [
+        NgForOf,
+        NgIf,
+        RouterLinkActive
+    ],
+    templateUrl: './mydata-side-navigation.component.html',
+    styleUrl: './mydata-side-navigation.component.scss'
 })
 export class MydataSideNavigationComponent implements OnInit, OnDestroy {
   private lang: string;

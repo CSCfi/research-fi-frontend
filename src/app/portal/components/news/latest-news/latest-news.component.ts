@@ -17,14 +17,13 @@ import { NgIf, NgFor } from '@angular/common';
 @Component({
     selector: 'app-latest-news',
     templateUrl: './latest-news.component.html',
-    standalone: true,
     imports: [
         NgIf,
         NgFor,
         NewsCardComponent,
         MatProgressSpinner,
         SecondaryButtonComponent,
-    ],
+    ]
 })
 export class LatestNewsComponent implements OnInit, OnDestroy {
   data: any = [];

@@ -5,16 +5,15 @@ import { MatCheckbox } from '@angular/material/checkbox';
 import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-automatic-publishing-settings',
-  standalone: true,
-  imports: [
-    FixExternalUrlPipe,
-    SvgSpritesComponent,
-    MatCheckbox,
-    NgIf
-  ],
-  templateUrl: './automatic-publishing-settings.component.html',
-  styleUrl: './automatic-publishing-settings.component.scss'
+    selector: 'app-automatic-publishing-settings',
+    imports: [
+        FixExternalUrlPipe,
+        SvgSpritesComponent,
+        MatCheckbox,
+        NgIf
+    ],
+    templateUrl: './automatic-publishing-settings.component.html',
+    styleUrl: './automatic-publishing-settings.component.scss'
 })
 export class AutomaticPublishingSettingsComponent implements OnInit {
   @Input() usedInPublishModal: boolean;

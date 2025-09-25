@@ -51,7 +51,6 @@ import { BannerDividerComponent } from '../../../../../shared/components/banner-
     templateUrl: './single-figure.component.html',
     styleUrls: ['./single-figure.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
     imports: [
         BannerDividerComponent,
         NgIf,
@@ -67,7 +66,7 @@ import { BannerDividerComponent } from '../../../../../shared/components/banner-
         FigureFiltersComponent,
         CarouselComponent,
         SafeUrlPipe,
-    ],
+    ]
 })
 export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChildren('content') content: QueryList<ElementRef>;

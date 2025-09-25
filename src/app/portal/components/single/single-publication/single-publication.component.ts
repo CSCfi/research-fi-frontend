@@ -14,6 +14,7 @@ import {
   Inject,
   LOCALE_ID,
   AfterViewInit,
+  DOCUMENT
 } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
@@ -22,7 +23,7 @@ import { TabChangeService } from '../../../services/tab-change.service';
 import { StaticDataService } from '../../../services/static-data.service';
 import { SettingsService } from '../../../services/settings.service';
 import { Subscription } from 'rxjs';
-import { DOCUMENT, NgIf, NgFor, NgClass, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
+import { NgIf, NgFor, NgClass, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
 import { HttpHeaders } from '@angular/common/http';
 import { UtilityService } from 'src/app/shared/services/utility.service';
 import { Search } from 'src/app/portal/models/search.model';
@@ -50,32 +51,31 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     selector: 'app-single-publication',
     templateUrl: './single-publication.component.html',
     styleUrls: ['./single-publication.component.scss'],
-    standalone: true,
-  imports: [
-    SearchBarComponent,
-    NgIf,
-    RouterLink,
-    BreadcrumbComponent,
-    NgFor,
-    TooltipModule,
-    NgClass,
-    OrcidComponent,
-    NgSwitch,
-    NgSwitchCase,
-    NgSwitchDefault,
-    PublicationLinksComponent,
-    MatCard,
-    MatCardTitle,
-    RelatedLinksComponent,
-    SecondaryButtonComponent,
-    ShareComponent,
-    DialogComponent,
-    CdkCopyToClipboard,
-    MatProgressSpinner,
-    CleanCitationPipe,
-    MatIcon,
-    SvgSpritesComponent
-  ]
+    imports: [
+        SearchBarComponent,
+        NgIf,
+        RouterLink,
+        BreadcrumbComponent,
+        NgFor,
+        TooltipModule,
+        NgClass,
+        OrcidComponent,
+        NgSwitch,
+        NgSwitchCase,
+        NgSwitchDefault,
+        PublicationLinksComponent,
+        MatCard,
+        MatCardTitle,
+        RelatedLinksComponent,
+        SecondaryButtonComponent,
+        ShareComponent,
+        DialogComponent,
+        CdkCopyToClipboard,
+        MatProgressSpinner,
+        CleanCitationPipe,
+        MatIcon,
+        SvgSpritesComponent
+    ]
 })
 export class SinglePublicationComponent
   implements OnInit, AfterViewInit, OnDestroy
@@ -224,7 +224,7 @@ export class SinglePublicationComponent
 
   mediumFields = [
     {
-      label: $localize`Lehti`,
+      label: $localize`Lehti/Sarja`,
       field: 'journalName',
       link: true,
       linkPath: '/results/publications/' /*, lang: true */,
@@ -544,7 +544,10 @@ export class SinglePublicationComponent
   }
 
   openSnackBar() {
-    this.snackBar.open($localize`:@@referCopied:Viite kopioitu leikepöydälle`);
+    this.snackBar.open($localize`:@@referCopied:Viite kopioitu leikepöydälle`, $localize`:@@close:Sulje`, {
+      panelClass: ['snackbar-container', 'success'],
+      duration: 6000
+    });
   }
 
   getCitations() {

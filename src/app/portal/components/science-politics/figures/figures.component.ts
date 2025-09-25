@@ -50,25 +50,24 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     selector: 'app-figures',
     templateUrl: './figures.component.html',
     styleUrls: ['./figures.component.scss'],
-    standalone: true,
-  imports: [
-    BannerDividerComponent,
-    NgIf,
-    NgClass,
-    MatProgressSpinner,
-    NgFor,
-    FormsModule,
-    ReactiveFormsModule,
-    FigureFiltersComponent,
-    ScrollSpyDirective,
-    MatButton,
-    NgTemplateOutlet,
-    RouterLink,
-    MatChip,
-    CutContentPipe,
-    MatIcon,
-    SvgSpritesComponent
-  ]
+    imports: [
+        BannerDividerComponent,
+        NgIf,
+        NgClass,
+        MatProgressSpinner,
+        NgFor,
+        FormsModule,
+        ReactiveFormsModule,
+        FigureFiltersComponent,
+        ScrollSpyDirective,
+        MatButton,
+        NgTemplateOutlet,
+        RouterLink,
+        MatChip,
+        CutContentPipe,
+        MatIcon,
+        SvgSpritesComponent
+    ]
 })
 export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   currentSection: any;

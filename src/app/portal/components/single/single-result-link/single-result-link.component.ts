@@ -16,13 +16,12 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     selector: 'app-single-result-link',
     templateUrl: './single-result-link.component.html',
     styleUrls: ['./single-result-link.component.scss'],
-    standalone: true,
-  imports: [
-    NgIf,
-    TrimLinkPrefixPipe,
-    FixExternalUrlPipe,
-    SvgSpritesComponent
-  ]
+    imports: [
+        NgIf,
+        TrimLinkPrefixPipe,
+        FixExternalUrlPipe,
+        SvgSpritesComponent
+    ]
 })
 export class SingleResultLinkComponent {
   @Input() tag: string;

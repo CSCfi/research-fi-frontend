@@ -13,16 +13,15 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     selector: 'app-service-terms',
     templateUrl: './service-terms.component.html',
     styleUrls: ['./service-terms.component.scss'],
-    standalone: true,
-  imports: [
-    MatCheckbox,
-    FormsModule,
-    MyDataTerms,
-    PrimaryActionButtonComponent,
-    NgIf,
-    DialogComponent,
-    SvgSpritesComponent
-  ]
+    imports: [
+        MatCheckbox,
+        FormsModule,
+        MyDataTerms,
+        PrimaryActionButtonComponent,
+        NgIf,
+        DialogComponent,
+        SvgSpritesComponent
+    ]
 })
 export class ServiceTermsComponent implements OnInit {
   dialogTitle: string;

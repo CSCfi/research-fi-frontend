@@ -16,13 +16,12 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     selector: 'app-mydata-beta-info',
     templateUrl: './mydata-beta-info.component.html',
     styleUrls: ['./mydata-beta-info.component.scss'],
-    standalone: true,
-  imports: [
-    NgClass,
-    NgIf,
-    MatButton,
-    SvgSpritesComponent
-  ]
+    imports: [
+        NgClass,
+        NgIf,
+        MatButton,
+        SvgSpritesComponent
+    ]
 })
 export class MydataBetaInfoComponent implements OnInit {
   @Input() template: TemplateRef<any>;

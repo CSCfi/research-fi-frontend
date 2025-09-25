@@ -5,7 +5,7 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
-import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
+import { Component, Inject, LOCALE_ID, OnInit, DOCUMENT } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Person } from '@portal/models/person/person.model';
 import { Search } from '@portal/models/search.model';
@@ -17,7 +17,7 @@ import { UtilityService } from '@shared/services/utility.service';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { delay, map, switchMap, take } from 'rxjs/operators';
 
-import { DOCUMENT, NgIf, NgFor, NgTemplateOutlet, NgClass, AsyncPipe, JsonPipe } from '@angular/common';
+import { NgIf, NgFor, NgTemplateOutlet, NgClass, AsyncPipe, JsonPipe } from '@angular/common';
 import { PersonPublication } from '@portal/models/person/person-publication.model';
 import { CheckEmptyFieldsPipe } from '../../../pipes/check-empty-fields.pipe';
 import { JoinItemsPipe } from '../../../../shared/pipes/join-items.pipe';
@@ -54,26 +54,25 @@ import {
 type Field = { key: string; label?: string };
 
 @Component({
-  selector: 'app-single-person',
-  templateUrl: './single-person.component.html',
-  styleUrls: ['./single-person.component.scss'],
-  standalone: true,
-  imports: [
-    SearchBarComponent,
-    NgIf,
-    RouterLink,
-    BreadcrumbComponent,
-    AsyncPipe,
-    JoinItemsPipe,
-    JsonPipe,
-    PersonProfileViewComponent,
-    CollaborationCardComponent,
-    ContactCardComponent,
-    MatCard,
-    RelatedLinksComponent,
-    RelatedLinksNewComponent,
-    DataSourcesInfoCardComponent
-  ]
+    selector: 'app-single-person',
+    templateUrl: './single-person.component.html',
+    styleUrls: ['./single-person.component.scss'],
+    imports: [
+        SearchBarComponent,
+        NgIf,
+        RouterLink,
+        BreadcrumbComponent,
+        AsyncPipe,
+        JoinItemsPipe,
+        JsonPipe,
+        PersonProfileViewComponent,
+        CollaborationCardComponent,
+        ContactCardComponent,
+        MatCard,
+        RelatedLinksComponent,
+        RelatedLinksNewComponent,
+        DataSourcesInfoCardComponent
+    ]
 })
 export class SinglePersonComponent implements OnInit {
   protected readonly groupTypes = GroupTypes;

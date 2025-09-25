@@ -13,12 +13,11 @@ import { MatIcon } from '@angular/material/icon';
     selector: 'app-orcid',
     templateUrl: './orcid.component.html',
     styleUrls: ['./orcid.component.scss'],
-    standalone: true,
-  imports: [
-    NgIf,
-    NgTemplateOutlet,
-    MatIcon
-  ]
+    imports: [
+        NgIf,
+        NgTemplateOutlet,
+        MatIcon
+    ]
 })
 export class OrcidComponent implements OnInit {
   @Input() orcid: string;

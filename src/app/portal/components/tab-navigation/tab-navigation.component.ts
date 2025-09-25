@@ -31,11 +31,10 @@ type Counts = { publications: number, persons: number, fundings: number, dataset
 const EPSILON = 1;
 
 @Component({
-  selector: 'app-tab-navigation',
-  standalone: true,
-  imports: [CommonModule, TabButtonComponent, RouterLink, TabNavigationButtonComponent, TooltipModule, SvgSpritesComponent],
-  templateUrl: './tab-navigation.component.html',
-  styleUrls: ['./tab-navigation.component.scss']
+    selector: 'app-tab-navigation',
+    imports: [CommonModule, TabButtonComponent, RouterLink, TabNavigationButtonComponent, TooltipModule, SvgSpritesComponent],
+    templateUrl: './tab-navigation.component.html',
+    styleUrls: ['./tab-navigation.component.scss']
 })
 export class TabNavigationComponent {
   @Input() homepage = false;

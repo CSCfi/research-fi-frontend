@@ -9,14 +9,13 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     selector: 'app-primary-action-button',
     templateUrl: './primary-action-button.component.html',
     styleUrls: ['../buttons-shared.scss'],
-    standalone: true,
-  imports: [
-    MatRipple,
-    NgIf,
-    NgClass,
-    MatIcon,
-    SvgSpritesComponent
-  ]
+    imports: [
+        MatRipple,
+        NgIf,
+        NgClass,
+        MatIcon,
+        SvgSpritesComponent
+    ]
 })
 export class PrimaryActionButtonComponent implements OnInit {
   @Input() iconAfter: boolean;

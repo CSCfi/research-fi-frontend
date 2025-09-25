@@ -18,14 +18,13 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     templateUrl: './figures-info.component.html',
     styleUrls: ['./figures-info.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
-  imports: [
-    ClickOutsideDirective,
-    NgIf,
-    NgClass,
-    MatIcon,
-    SvgSpritesComponent
-  ]
+    imports: [
+        ClickOutsideDirective,
+        NgIf,
+        NgClass,
+        MatIcon,
+        SvgSpritesComponent
+    ]
 })
 export class FiguresInfoComponent implements OnInit, OnDestroy {
   @Input() labelText: string;

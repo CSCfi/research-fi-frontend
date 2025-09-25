@@ -1,5 +1,5 @@
-import { DOCUMENT } from '@angular/common';
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+
+import { Component, Inject, OnDestroy, OnInit, DOCUMENT } from '@angular/core';
 import { Router } from '@angular/router';
 import { OrcidAccoungLinkingService } from '@mydata/services/orcid-account-linking.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
@@ -8,11 +8,10 @@ import { PrimaryActionButtonComponent } from '../../../../shared/components/butt
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 
 @Component({
-  selector: 'app-orcid-login',
-  templateUrl: './orcid-login.component.html',
-  styleUrls: ['./orcid-login.component.scss'],
-  standalone: true,
-  imports: [PrimaryActionButtonComponent, SvgSpritesComponent]
+    selector: 'app-orcid-login',
+    templateUrl: './orcid-login.component.html',
+    styleUrls: ['./orcid-login.component.scss'],
+    imports: [PrimaryActionButtonComponent, SvgSpritesComponent]
 })
 export class OrcidLoginComponent implements OnInit, OnDestroy {
   profileName: string;

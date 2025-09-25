@@ -25,15 +25,14 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     templateUrl: './active-filters-list.component.html',
     styleUrls: ['./active-filters-list.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
-  imports: [
-    NgFor,
-    NgIf,
-    MatButton,
-    ActiveFiltersDialogComponent,
-    DialogComponent,
-    SvgSpritesComponent
-  ]
+    imports: [
+        NgFor,
+        NgIf,
+        MatButton,
+        ActiveFiltersDialogComponent,
+        DialogComponent,
+        SvgSpritesComponent
+    ]
 })
 export class ActiveFiltersListComponent implements OnInit {
 

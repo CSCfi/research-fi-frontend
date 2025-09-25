@@ -10,19 +10,18 @@ import {
 } from '@mydata/components/shared-layouts/name-and-orcid-view/name-and-orcid-view.component';
 
 @Component({
-  selector: 'app-person-profile-view',
-  standalone: true,
-  imports: [
-    ProfileSummaryViewComponent,
-    EditorModalComponent,
-    HasSelectedItemsPipe,
-    NgForOf,
-    NgIf,
-    NameAndOrcidViewComponent,
-    JsonPipe
-  ],
-  templateUrl: './person-profile-view.component.html',
-  styleUrl: './person-profile-view.component.scss'
+    selector: 'app-person-profile-view',
+    imports: [
+        ProfileSummaryViewComponent,
+        EditorModalComponent,
+        HasSelectedItemsPipe,
+        NgForOf,
+        NgIf,
+        NameAndOrcidViewComponent,
+        JsonPipe
+    ],
+    templateUrl: './person-profile-view.component.html',
+    styleUrl: './person-profile-view.component.scss'
 })
 export class PersonProfileViewComponent {
   @Input() displayData: any;

@@ -20,22 +20,21 @@ import {
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
-  selector: 'app-sticky-footer',
-  standalone: true,
-  imports: [
-    AsyncPipe,
-    MatButton,
-    NgIf,
-    PrimaryActionButtonComponent,
-    SecondaryButtonComponent,
-    DraftSummaryComponent,
-    DialogComponent,
-    RouterLink,
-    TertiaryButtonComponent,
-    AutomaticPublishingSettingsComponent
-  ],
-  templateUrl: './sticky-footer.component.html',
-  styleUrl: './sticky-footer.component.scss'
+    selector: 'app-sticky-footer',
+    imports: [
+        AsyncPipe,
+        MatButton,
+        NgIf,
+        PrimaryActionButtonComponent,
+        SecondaryButtonComponent,
+        DraftSummaryComponent,
+        DialogComponent,
+        RouterLink,
+        TertiaryButtonComponent,
+        AutomaticPublishingSettingsComponent
+    ],
+    templateUrl: './sticky-footer.component.html',
+    styleUrl: './sticky-footer.component.scss'
 })
 export class StickyFooterComponent implements OnInit, OnDestroy {
   public accountSettingsFoldOpen = new BehaviorSubject<boolean>(false);

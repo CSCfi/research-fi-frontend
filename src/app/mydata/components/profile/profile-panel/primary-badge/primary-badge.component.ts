@@ -13,8 +13,7 @@ import { MatRipple } from '@angular/material/core';
     selector: 'app-primary-badge',
     templateUrl: './primary-badge.component.html',
     styleUrls: ['./primary-badge.component.scss'],
-    standalone: true,
-    imports: [MatRipple],
+    imports: [MatRipple]
 })
 export class PrimaryBadgeComponent {
   @Input() label: string;

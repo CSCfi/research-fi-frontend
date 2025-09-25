@@ -8,8 +8,7 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     selector: 'app-tag-doi',
     templateUrl: './tag-doi.component.html',
     styleUrls: ['./tag-doi.component.scss'],
-    standalone: true,
-  imports: [TrimLinkPrefixPipe, MatIcon, NgIf, SvgSpritesComponent]
+    imports: [TrimLinkPrefixPipe, MatIcon, NgIf, SvgSpritesComponent]
 })
 export class TagDoiComponent implements OnInit {
   @Input() linkDoi: string;

@@ -1217,10 +1217,6 @@
         <source>Julkaisun tekijät siinä järjestyksessä, jossa ne on listattu alkuperäisessä julkaisussa. Jos tekijöitä on yli 20, kaikkia ei ole välttämättä ilmoitettu.</source>
         <target state="translated">Fullständig information om publikationens upphovspersoner anges i den form och i den ordning som de nämns i den ursprungliga publikationen eller källdatabasen.</target>
       </trans-unit>
-      <trans-unit id="3294281240991807762" datatype="html">
-        <source>Lehti</source>
-        <target>Journal</target>
-      </trans-unit>
       <trans-unit id="3537901381707941652" datatype="html">
         <source>Emojulkaisun nimi</source>
         <target state="translated">Moderpublikationens namn</target>
@@ -2754,9 +2750,7 @@
         <target>Har du redan en profil?</target>
       </trans-unit>
       <trans-unit id="importingDataWait" datatype="html">
-        <source>
-          <x id="INTERPOLATION" equiv-text="{{orcidDataFetchWaitingText}}"/>
-        </source>
+        <source><x id="INTERPOLATION" equiv-text="{{orcidDataFetchWaitingText}}"/></source>
         <target state="new">Uppgifterna hämtas, vänta en stund...</target>
       </trans-unit>
       <trans-unit id="importMyOrcidData" datatype="html">
@@ -2796,9 +2790,7 @@
         <target>Radera profil</target>
       </trans-unit>
       <trans-unit id="deletingProfileWait" datatype="html">
-        <source>
-          <x id="INTERPOLATION" equiv-text="{{deleteProfileWait}}"/>
-        </source>
+        <source><x id="INTERPOLATION" equiv-text="{{deleteProfileWait}}"/></source>
         <target state="new">Radera profil, vänta ett ögonblick...</target>
       </trans-unit>
       <trans-unit id="connectionProblemDeleteProfile" datatype="html">
@@ -2919,7 +2911,7 @@
       </trans-unit>
       <trans-unit id="dataSavingError" datatype="html">
         <source>Virhe tiedon tallennuksessa</source>
-        <target>Error saving data</target>
+        <target>Fel vid sparande av data</target>
       </trans-unit>
       <trans-unit id="draftUpdated" datatype="html">
         <source>Luonnos päivitetty</source>
@@ -2979,27 +2971,27 @@
       </trans-unit>
       <trans-unit id="searchForMissingPublication" datatype="html">
         <source>Puuttuvan julkaisun hakeminen</source>
-        <target>Searching for a missing publication</target>
+        <target>Söker efter en saknad publikation</target>
       </trans-unit>
       <trans-unit id="searchForMissingDataset" datatype="html">
         <source>Puuttuvan tutkimusaineiston hakeminen</source>
-        <target>Searching for a missing research data</target>
+        <target>Söker efter saknade forskningsdata</target>
       </trans-unit>
       <trans-unit id="searchForMissingFunding" datatype="html">
         <source>Puuttuvan hankkeen hakeminen</source>
-        <target state="new">Searching for a missing project</target>
+        <target>Söker efter ett saknat projekt</target>
       </trans-unit>
       <trans-unit id="searchForPublicationWithName" datatype="html">
         <source>Hae omalla nimelläsi tai julkaisun nimellä</source>
-        <target>Search for a publication under the name of the author or publication</target>
+        <target>Sök efter en publikation med författarens eller publikations namn</target>
       </trans-unit>
       <trans-unit id="searchForDatasetWithName" datatype="html">
         <source>Hae nimellä tai organisaatiolla</source>
-        <target>Search for research data under the name of the author or organization </target>
+        <target>Sök efter forskningsdata med författarens eller organisationens namn</target>
       </trans-unit>
       <trans-unit id="searchForFundingWithName" datatype="html">
         <source>Hae hankkeen tai vastuullisen tutkijan nimellä</source>
-        <target state="new">Search for a project with project name or principal investigator name</target>
+        <target>Sök efter ett projekt med projektets namn eller huvudforskarens namn</target>
       </trans-unit>
       <trans-unit id="dataSourceIsResearchFi" datatype="html">
         <source>Tietolähteenä käytetään Tiedejatutkimus.fi-palvelua</source>
@@ -3195,7 +3187,7 @@
       </trans-unit>
       <trans-unit id="myDataEditorModalPublicationTabInfo" datatype="html">
         <source>Tiedejatutkimus.fi-palvelusta löytyvät julkaisut, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. Julkaisuja, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä &quot;Hae muita julkaisuja&quot; -toiminnolla.</source>
-        <target state="new">Forskningsdata som finns i tjänsten Forskning.fi och som har din ORCID-kod läggs automatiskt till din uppgifter. Dataset som inte är kopplat till din ORCID-kod kan du lägga till med funktionen &quot;Hämta annat forskningsdata&quot;.</target>
+        <target state="new">Publikationer som finns i tjänsten Research.fi och som har ditt ORCID-kod läggs automatiskt till i din information. Publikationer som inte är kopplade till ditt ORCID-kod kan du lägga till med funktionen ”Sök andra publikationer”.</target>
       </trans-unit>
       <trans-unit id="myDataEditorModalPublicationChooseItems" datatype="html">
         <source>Voit valita profiiliisi julkaisuja alla olevasta listasta.</source>
@@ -3353,6 +3345,10 @@
         <source>Näytä piilotettavat tiedot</source>
         <target>Visa uppgifter som ska döljas</target>
       </trans-unit>
+      <trans-unit id="showDataToPublish" datatype="html">
+        <source>Näytä julkaistavat tiedot</source>
+        <target>Visa uppgifter som ska publiceras</target>
+      </trans-unit>
       <trans-unit id="closeDataToHide" datatype="html">
         <source>Sulje piilotettavat tiedot</source>
         <target>Stäng uppgifter som ska döljas</target>
@@ -3366,8 +3362,7 @@
         <target state="new">Inga</target>
       </trans-unit>
       <trans-unit id="orcidTemplateStatusSubstring2" datatype="html">
-        <source>
-        </source>
+        <source> </source>
         <target state="new">kopplade till din ORCID-kod</target>
       </trans-unit>
       <trans-unit id="authSuccessText1" datatype="html">
@@ -3399,10 +3394,8 @@
         <target state="new">Aktiviteter och priser</target>
       </trans-unit>
       <trans-unit id="deleteProfileConnProblem" datatype="html">
-        <source>
-          <x id="INTERPOLATION" equiv-text="{{connectionProblemDeleteProfile}}"/>
-        </source>
-        <target state="new">Connection issue. Deleting the profile failed. Try it again in a while.</target>
+        <source><x id="INTERPOLATION" equiv-text="{{connectionProblemDeleteProfile}}"/> </source>
+        <target state="new">Connection issue. Deleting the profile failed. Try it again in a while. </target>
       </trans-unit>
       <trans-unit id="collaborationHeader" datatype="html">
         <source>Yhteistyö</source>
@@ -4417,7 +4410,7 @@
         <target state="new">Inaktivera automatisk publicering</target>
       </trans-unit>
       <trans-unit id="automaticPublishingModalTitle" datatype="html">
-        <source>Haluatko ottaa automaattisen julkaisemisen käyttöön?</source>
+        <source> Haluatko ottaa automaattisen julkaisemisen käyttöön?</source>
         <target state="new"> Vill du aktivera automatisk publicering?</target>
       </trans-unit>
       <trans-unit id="automaticPublishingTitle" datatype="html">
@@ -4479,6 +4472,10 @@
       <trans-unit id="automaticPublishingDisabledToast" datatype="html">
         <source>Automaattinen julkaiseminen on otettu pois käytöstä ja muutokset on tallennettu tiliasetuksiisi.</source>
         <target state="new">Automatisk publicering har inaktiverats och ändringarna har sparats i dina kontoinställningar.</target>
+      </trans-unit>
+      <trans-unit id="1516107290746506404" datatype="html">
+        <source>Lehti/Sarja</source>
+        <target state="new">Journal/Serie</target>
       </trans-unit>
     </body>
   </file>

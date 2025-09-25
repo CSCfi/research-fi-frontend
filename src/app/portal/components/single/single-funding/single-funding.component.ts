@@ -41,28 +41,27 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     selector: 'app-single-funding',
     templateUrl: './single-funding.component.html',
     styleUrls: ['./single-funding.component.scss'],
-    standalone: true,
-  imports: [
-    SearchBarComponent,
-    NgIf,
-    RouterLink,
-    BreadcrumbComponent,
-    NgFor,
-    TooltipModule,
-    NgClass,
-    NgSwitch,
-    NgSwitchDefault,
-    OrcidComponent,
-    NgSwitchCase,
-    MatCard,
-    MatCardTitle,
-    SingleResultLinkComponent,
-    RelatedLinksComponent,
-    ShareComponent,
-    DatePipe,
-    ThousandSeparatorPipe,
-    SvgSpritesComponent
-  ]
+    imports: [
+        SearchBarComponent,
+        NgIf,
+        RouterLink,
+        BreadcrumbComponent,
+        NgFor,
+        TooltipModule,
+        NgClass,
+        NgSwitch,
+        NgSwitchDefault,
+        OrcidComponent,
+        NgSwitchCase,
+        MatCard,
+        MatCardTitle,
+        SingleResultLinkComponent,
+        RelatedLinksComponent,
+        ShareComponent,
+        DatePipe,
+        ThousandSeparatorPipe,
+        SvgSpritesComponent
+    ]
 })
 export class SingleFundingComponent implements OnInit, OnDestroy {
   public singleId: any;

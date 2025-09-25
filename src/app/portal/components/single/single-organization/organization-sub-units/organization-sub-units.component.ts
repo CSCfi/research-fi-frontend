@@ -15,14 +15,13 @@ import { MatIcon } from '@angular/material/icon';
     selector: 'app-organization-sub-units',
     templateUrl: './organization-sub-units.component.html',
     styleUrls: ['./organization-sub-units.component.scss'],
-    standalone: true,
-  imports: [
-    NgFor,
-    NgIf,
-    TooltipModule,
-    RouterLink,
-    MatIcon
-  ]
+    imports: [
+        NgFor,
+        NgIf,
+        TooltipModule,
+        RouterLink,
+        MatIcon
+    ]
 })
 export class OrganizationSubUnitsComponent implements OnInit {
   @Input() item: any;

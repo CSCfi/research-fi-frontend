@@ -14,13 +14,12 @@ import { NgIf, NgFor } from '@angular/common';
     selector: 'app-person-group-additional',
     templateUrl: './person-group-additional.component.html',
     styleUrls: ['./person-group-additional.component.scss'],
-    standalone: true,
     imports: [
         NgIf,
         NgFor,
         SingleResultLinkComponent,
         CheckEmptyFieldsPipe,
-    ],
+    ]
 })
 export class PersonGroupAdditionalComponent implements OnInit {
   @Input() fields: any[];

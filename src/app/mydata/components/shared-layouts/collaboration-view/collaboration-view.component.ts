@@ -11,18 +11,17 @@ import { CollaborationsService } from '@mydata/services/collaborations.service';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 
 @Component({
-  selector: 'app-collaboration-view',
-  standalone: true,
-  imports: [
-    DialogComponent,
-    EmptyCardComponent,
-    MatCheckbox,
-    NgForOf,
-    NgIf,
-    ProfileEditorCardHeaderComponent
-  ],
-  templateUrl: './collaboration-view.component.html',
-  styleUrl: './collaboration-view.component.scss'
+    selector: 'app-collaboration-view',
+    imports: [
+        DialogComponent,
+        EmptyCardComponent,
+        MatCheckbox,
+        NgForOf,
+        NgIf,
+        ProfileEditorCardHeaderComponent
+    ],
+    templateUrl: './collaboration-view.component.html',
+    styleUrl: './collaboration-view.component.scss'
 })
 export class CollaborationViewComponent implements OnInit {
   @Input() collaborationOptions: [];

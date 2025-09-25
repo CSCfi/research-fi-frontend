@@ -25,15 +25,14 @@ import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.
     selector: 'app-search',
     templateUrl: './search.component.html',
     styleUrls: ['./search.component.scss'],
-    standalone: true,
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    NgIf,
-    TooltipModule,
-    PrimaryActionButtonComponent,
-    SvgSpritesComponent
-  ]
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        NgIf,
+        TooltipModule,
+        PrimaryActionButtonComponent,
+        SvgSpritesComponent
+    ]
 })
 export class SearchComponent implements OnInit, AfterViewInit {
   @Input() placeholder: string;
