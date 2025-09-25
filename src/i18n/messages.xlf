@@ -140,14 +140,10 @@
         <source>Poista profiili</source>
       </trans-unit>
       <trans-unit id="deletingProfileWait" datatype="html">
-        <source>
-          <x id="INTERPOLATION" equiv-text="{{deleteProfileWait}}"/>
-        </source>
+        <source><x id="INTERPOLATION" equiv-text="{{deleteProfileWait}}"/></source>
       </trans-unit>
       <trans-unit id="deleteProfileConnProblem" datatype="html">
-        <source>
-          <x id="INTERPOLATION" equiv-text="{{connectionProblemDeleteProfile}}"/>
-        </source>
+        <source><x id="INTERPOLATION" equiv-text="{{connectionProblemDeleteProfile}}"/> </source>
       </trans-unit>
       <trans-unit id="hideProfile" datatype="html">
         <source>Piilota profiili</source>
@@ -384,8 +380,7 @@
         <source>Ei ORCID-tunnukseen yhdistettyjä </source>
       </trans-unit>
       <trans-unit id="orcidTemplateStatusSubstring2" datatype="html">
-        <source>
-        </source>
+        <source> </source>
       </trans-unit>
       <trans-unit id="searchForOther" datatype="html">
         <source>Hae muita</source>
@@ -622,9 +617,7 @@
         <source>Tuo Orcid-tietoni</source>
       </trans-unit>
       <trans-unit id="importingDataWait" datatype="html">
-        <source>
-          <x id="INTERPOLATION" equiv-text="{{orcidDataFetchWaitingText}}"/>
-        </source>
+        <source><x id="INTERPOLATION" equiv-text="{{orcidDataFetchWaitingText}}"/></source>
       </trans-unit>
       <trans-unit id="orcidDataFetchWaitingText" datatype="html">
         <source>Tietoja tuodaan, odota hetki...</source>
@@ -2417,9 +2410,6 @@
       <trans-unit id="OKMPublicationType" datatype="html">
         <source>OKM:n julkaisutyyppiluokitus</source>
       </trans-unit>
-      <trans-unit id="3294281240991807762" datatype="html">
-        <source>Lehti</source>
-      </trans-unit>
       <trans-unit id="parentPublicationPublisher" datatype="html">
         <source>Emojulkaisun toimittajat</source>
       </trans-unit>
@@ -3330,7 +3320,7 @@
         <source>Tietojen automaattinen julkaiseminen on nyt mahdollista</source>
       </trans-unit>
       <trans-unit id="automaticPublishingModalTitle" datatype="html">
-        <source>Haluatko ottaa automaattisen julkaisemisen käyttöön?</source>
+        <source> Haluatko ottaa automaattisen julkaisemisen käyttöön?</source>
       </trans-unit>
       <trans-unit id="automaticPublishingTitle" datatype="html">
         <source>Tietojen automaattinen julkaiseminen</source>
@@ -3364,6 +3354,9 @@
       </trans-unit>
       <trans-unit id="automaticPublishingEnabledToast" datatype="html">
         <source>Automaattinen julkaiseminen on otettu käyttöön ja muutokset on tallennettu tiliasetuksiisi.</source>
+      </trans-unit>
+      <trans-unit id="1516107290746506404" datatype="html">
+        <source>Lehti/Sarja</source>
       </trans-unit>
     </body>
   </file>

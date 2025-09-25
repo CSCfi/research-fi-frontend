@@ -1214,10 +1214,6 @@
         <source>Julkaisun tekijät siinä järjestyksessä, jossa ne on listattu alkuperäisessä julkaisussa. Jos tekijöitä on yli 20, kaikkia ei ole välttämättä ilmoitettu.</source>
         <target>Publication authors in the order they are listed in the original publication. If there are more than 20 authors, not all of them will necessarily be mentioned.</target>
       </trans-unit>
-      <trans-unit id="3294281240991807762" datatype="html">
-        <source>Lehti</source>
-        <target>Journal</target>
-      </trans-unit>
       <trans-unit id="3537901381707941652" datatype="html">
         <source>Emojulkaisun nimi</source>
         <target>Parent publication name</target>
@@ -2751,9 +2747,7 @@
         <target>Already have a profile?</target>
       </trans-unit>
       <trans-unit id="importingDataWait" datatype="html">
-        <source>
-          <x id="INTERPOLATION" equiv-text="{{orcidDataFetchWaitingText}}"/>
-        </source>
+        <source><x id="INTERPOLATION" equiv-text="{{orcidDataFetchWaitingText}}"/></source>
         <target state="new">Importing data, please wait...</target>
       </trans-unit>
       <trans-unit id="importMyOrcidData" datatype="html">
@@ -2793,16 +2787,12 @@
         <target>Delete profile</target>
       </trans-unit>
       <trans-unit id="deletingProfileWait" datatype="html">
-        <source>
-          <x id="INTERPOLATION" equiv-text="{{deleteProfileWait}}"/>
-        </source>
+        <source><x id="INTERPOLATION" equiv-text="{{deleteProfileWait}}"/></source>
         <target state="new">Deleting profile, please wait...</target>
       </trans-unit>
       <trans-unit id="deleteProfileConnProblem" datatype="html">
-        <source>
-          <x id="INTERPOLATION" equiv-text="{{connectionProblemDeleteProfile}}"/>
-        </source>
-        <target state="new">Connection issue. Deleting the profile failed. Try it again in a while.</target>
+        <source><x id="INTERPOLATION" equiv-text="{{connectionProblemDeleteProfile}}"/> </source>
+        <target state="new">Connection issue. Deleting the profile failed. Try it again in a while. </target>
       </trans-unit>
       <trans-unit id="hideProfile" datatype="html">
         <source>Piilota profiili</source>
@@ -3198,7 +3188,7 @@
       </trans-unit>
       <trans-unit id="myDataEditorModalPublicationTabInfo" datatype="html">
         <source>Tiedejatutkimus.fi-palvelusta löytyvät julkaisut, joissa on ORCID-tunnuksesi, lisätään tietoihisi automaattisesti. Julkaisuja, joihin ei ole liitetty ORCID-tunnustasi, voit lisätä &quot;Hae muita julkaisuja&quot; -toiminnolla.</source>
-        <target state="new">Research data with your ORCID iD in Research.fi are automatically added to your information. Datasets that are not associated with your ORCID iD can be added using the &quot;Search for other research data&quot; function.</target>
+        <target state="new">Publications found in the Research.fi service that include your ORCID iD are automatically added to your information. Publications not linked to your ORCID iD can be added using the “Search for other publications” feature.</target>
       </trans-unit>
       <trans-unit id="myDataEditorModalPublicationChooseItems" datatype="html">
         <source>Voit valita profiiliisi julkaisuja alla olevasta listasta.</source>
@@ -3373,8 +3363,7 @@
         <target state="new">No</target>
       </trans-unit>
       <trans-unit id="orcidTemplateStatusSubstring2" datatype="html">
-        <source>
-        </source>
+        <source> </source>
         <target state="new">connected to your ORCID iD</target>
       </trans-unit>
       <trans-unit id="authSuccessText1" datatype="html">
@@ -4418,8 +4407,8 @@
         <target state="new">Disable automatic publishing</target>
       </trans-unit>
       <trans-unit id="automaticPublishingModalTitle" datatype="html">
-        <source>Haluatko ottaa automaattisen julkaisemisen käyttöön?</source>
-        <target state="new">Do you want to enable automatic publishing?</target>
+        <source> Haluatko ottaa automaattisen julkaisemisen käyttöön?</source>
+        <target state="new"> Do you want to enable automatic publishing?</target>
       </trans-unit>
       <trans-unit id="automaticPublishingTitle" datatype="html">
         <source>Tietojen automaattinen julkaiseminen</source>
@@ -4480,6 +4469,10 @@
       <trans-unit id="automaticPublishingDisabledToast" datatype="html">
         <source>Automaattinen julkaiseminen on otettu pois käytöstä ja muutokset on tallennettu tiliasetuksiisi.</source>
         <target state="new">Automatic publishing has been disabled and the changes have been saved to your account settings.</target>
+      </trans-unit>
+      <trans-unit id="1516107290746506404" datatype="html">
+        <source>Lehti/Sarja</source>
+        <target state="new">Journal/Series</target>
       </trans-unit>
     </body>
   </file>

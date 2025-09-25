@@ -224,7 +224,7 @@ export class SinglePublicationComponent
 
   mediumFields = [
     {
-      label: $localize`Lehti`,
+      label: $localize`Lehti/Sarja`,
       field: 'journalName',
       link: true,
       linkPath: '/results/publications/' /*, lang: true */,
