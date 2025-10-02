@@ -1042,7 +1042,7 @@
         "projectsDataDisclaimerLink": "Vilka uppgifter om projekten finns i tjänsten? ",
         "projects": "Projekt",
         "projectsExternalLinks": "Projektets webbplats",
-        "noProjectLinks": "Projektet har inga tillgängliga länkar i portalen {$INTERPOLATION} ",
+        "noProjectLinks": "Projektet har inga tillgängliga länkar i portalen",
         "relatedProjects": "Relaterade till detta projekt (På kommande) ",
         "projectSource": "Projektinformationens källa",
         "spAbbreviation": "Förkortning",

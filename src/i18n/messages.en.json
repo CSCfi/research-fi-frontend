@@ -1040,7 +1040,7 @@
         "projectsDataDisclaimerLink": "What information about projects does the service contain? ",
         "projects": "Projects",
         "projectsExternalLinks": "Website of the project",
-        "noProjectLinks": "The project has no links available in this portal {$INTERPOLATION} ",
+        "noProjectLinks": "The project has no links available in this portal",
         "relatedProjects": "Related to this project (Coming soon) ",
         "projectSource": "Source of project information",
         "spAbbreviation": "Abbreviation",
