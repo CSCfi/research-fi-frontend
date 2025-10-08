@@ -1,0 +1,17 @@
+<p>cv-tool works!</p>
+<mat-radio-group
+        aria-labelledby="test"
+        class="form-group"
+        required="true"
+>
+  <mat-radio-button
+          class="radio-button"
+          *ngFor="let target of targets; let i = index"
+          [value]="target"
+          [checked]="initialSelections[i]"
+          (change)="changeSelection(i)"
+  >
+    {{ target }}
+  </mat-radio-button>
+</mat-radio-group>
+<app-primary-action-button content="Generoi CV" (click)="generate()"></app-primary-action-button>

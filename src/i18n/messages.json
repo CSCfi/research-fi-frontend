@@ -1196,6 +1196,15 @@
         "cv_15_other_merits_bullet1": "muut ansioluettelon käyttötilanteen kannalta olennaiset tehtävät ja sidonnaisuudet (esim. toimiminen yrityksessä tai järjestössä)",
         "cv_15_other_merits_bullet2": "muut yhteiskunnalliset ansiot ja tunnustukset, haluttaessa suomalainen sotilasarvo",
         "cv_15_other_merits_bullet3": "muu ansioluettelon käyttötilanteen kannalta olennainen osaaminen",
-        "cv_15_other_merits_after": "Kirjoita sisältö tähän"
+        "cv_15_other_merits_after": "Kirjoita sisältö tähän",
+        "import_radio_buttons_title": "Valitse CV-pohjaan tuotavat tiedot",
+        "import_radio_button1": "Kaikki julkaistut ja julkaisemattomat profiilin tiedot",
+        "import_radio_button2": "Vain julkaistut profiilin tiedot",
+        "language_radio_buttons_title": "Valitse CV:n kieli",
+        "language_radio_button1": "Englanti",
+        "language_radio_button2": "Suomi",
+        "language_radio_button3": "Ruotsi",
+        "download_cv_button_title": "Lataa CV",
+        "publication_list_radio_buttons_title": "Valitse julkaisuluettelon viittaustapa"
     }
 }

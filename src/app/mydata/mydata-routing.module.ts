@@ -19,6 +19,7 @@ import { OrcidProfileResolverService } from './resolvers/orcid-profile-resolver.
 import { MyDataProfileResolverService } from './resolvers/mydata-profile-resolver.service';
 import { MyDataTerms } from './components/mydata-terms/mydata-terms.component';
 import { AccountSettingsComponent } from '@mydata/components/account-settings/account-settings.component';
+import { CvToolComponent } from '@mydata/components/cv-tool/cv-tool.component';
 
 const routes: Routes = [
   {
@@ -47,6 +48,16 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     resolve: {
       pages: PageResolverService,
+      orcidProfile: OrcidProfileResolverService,
+      myDataProfile: MyDataProfileResolverService,
+    },
+  },
+  {
+    path: 'profile/cv-tool',
+    pathMatch: 'full',
+    component: CvToolComponent,
+    canActivate: [AuthGuard],
+    resolve: {
       orcidProfile: OrcidProfileResolverService,
       myDataProfile: MyDataProfileResolverService,
     },

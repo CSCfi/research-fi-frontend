@@ -1194,7 +1194,20 @@
         "cv_15_other_merits_bullet1": "Other positions and commitments of relevance in terms of the purpose of the CV (such as work in companies or organisations)",
         "cv_15_other_merits_bullet2": "Other societal merits and honours; Finnish military rank, if desirable",
         "cv_15_other_merits_bullet3": "Other expertise of relevance in terms of the purpose of the CV",
-        "cv_15_other_merits_after": "Write content here"
+        "cv_15_other_merits_after": "Write content here",
+        "cv_tool_heading": "CV tool",
+        "cv_intro_1_start": "Create a CV based on your profile using the TENK CV template",
+        "cv_intro_1_link": "https://tenk.fi/en/advice-and-materials/template-researchers-curriculum-vitae",
+        "cv_intro_1_link_after": "The CV is generated as a Word document that you can freely edit. Please note that not all information required by the CV template is available in the Research.fi service. Missing fields are marked in red in the template. You can also download a publication list that includes all your publications found in the profile tool according to the publication classification of the Ministry of Education and Culture.",
+        "import_radio_buttons_title": "Select the information to include in the CV template",
+        "import_radio_button1": "All published and unpublished profile data",
+        "import_radio_button2": "Only published profile data",
+        "language_radio_buttons_title": "Select CV language",
+        "language_radio_button1": "English",
+        "language_radio_button2": "Finnish",
+        "language_radio_button3": "Swedish",
+        "download_cv_button_title": "Download CV",
+        "publication_list_radio_buttons_title": "Select citation style for the publication list"
     }
 }
 
