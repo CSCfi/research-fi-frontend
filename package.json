@@ -29,7 +29,11 @@
     "test2": "ng test",
     "serve2": "node dist/research-fi/proxy-server.mjs",
     "build-and-serve": "npm run build:ssr && dotenvx run -- npm run serve2",
-    "analyze-webpack": "ng build --configuration=production --localize --stats-json && webpack-bundle-analyzer dist/research-fi/stats.json"
+    "analyze-webpack": "ng build --configuration=production --localize --stats-json && webpack-bundle-analyzer dist/research-fi/stats.json",
+    "i18n:convert": "npm run i18n:convert:fi && npm run i18n:convert:sv && npm run i18n:convert:en",
+    "i18n:convert:fi": "xliff-to-json-converter --source src/i18n/messages.fin.xlf --destination src/i18n/messages.json",
+    "i18n:convert:sv": "xliff-to-json-converter --source src/i18n/messages.sv.xlf --destination src/i18n/messages.sv.json",
+    "i18n:convert:en": "xliff-to-json-converter --source src/i18n/messages.en.xlf --destination src/i18n/messages.en.json"
   },
   "private": true,
   "dependencies": {
@@ -52,7 +56,9 @@
     "d3-scale-chromatic": "^2.0.0",
     "d3-zoom": "^2.0.0",
     "d3v4": "^4.2.2",
+    "docx": "^9.5.1",
     "express": "^4.18.2",
+    "file-saver": "^2.0.5",
     "lodash-es": "^4.17.21",
     "ngx-bootstrap": "20.0.2",
     "ngx-countup": "^13.0.0",
@@ -75,6 +81,7 @@
     "@angular/cli": "^20.3.2",
     "@angular/compiler-cli": "^20.3.1",
     "@angular/language-service": "^20.3.1",
+    "@ni/xliff-to-json-converter": "^1.1.8",
     "@playwright/test": "^1.39.0",
     "@types/d3": "^7.1.0",
     "@types/express": "^4.17.17",
