@@ -86,7 +86,7 @@
       <!-- AFFILIATIONS -->
       <div class="pt-2" *ngIf="sectionName === groupTypes.affiliation">
         <!-- Iterate primary affiliations -->
-        <div *ngFor="let item of ((data | formatAndSortTimespan: groupTypes.activitiesAndRewards).items); let i = index">
+        <div *ngFor="let item of ((data | formatAndSortTimespan: groupTypes.affiliation).items); let i = index">
           <ng-container *ngIf="(item.itemMeta.primaryValue && (item.itemMeta.show|| isPortalSinglePage))">
             <div class="row mb-4">
               <div class="col-4 col-sm-3 fw-bold">
