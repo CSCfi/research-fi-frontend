@@ -57,6 +57,8 @@ export class SummaryPortalItemsComponent implements OnInit, OnChanges {
   showOnlyPeerReviewed  = $localize`:@@showOnlyPeerReviewed:Näytä vain vertaisarvioidut`;
   noPeerReviewedPublications = $localize`:@@noPeerReviewedPublications:Ei vertaisarvioituja julkaisuja`;
 
+  publicationYearMissing = $localize`:@@publicationYearMissing:Julkaisuvuosi puuttuuu`;
+
   showMorePrefix = $localize`:@@showAll:Näytä kaikki`;
   showLessPrefix = $localize`:@@showLess:Näytä vähemmän`;
 
@@ -91,11 +93,25 @@ export class SummaryPortalItemsComponent implements OnInit, OnChanges {
   }
 
   comparePublicationYearsPublications(a, b) {
+    if (a.publicationYear === undefined) {
+      a.publicationYear = 0;
+    }
+    if (b.publicationYear === undefined) {
+      b.publicationYear = 0;
+    }
     return a.publicationYear - b.publicationYear;
   }
 
   comparePublicationYearsDatasetOrFunding(a, b) {
-    return a.year - b.year;
+    let tempA = a.year;
+    let tempB = b.year;
+    if (tempA === undefined) {
+      tempA = 0;
+    }
+    if (tempB === undefined) {
+      tempB = 0;
+    }
+    return tempA - tempB;
   }
 
   arrangeOpenPublicationsFirst(a, b) {
