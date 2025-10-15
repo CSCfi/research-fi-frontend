@@ -15,9 +15,13 @@
       "prefix": "app",
       "i18n": {
         "sourceLocale": {
-          "code": "fi"
+          "code": "fi-FI"
         },
         "locales": {
+          "fi": {
+            "translation": "src/i18n/messages.fi.json",
+            "baseHref": "/fi/"
+          },
           "en": {
             "translation": "src/i18n/messages.en.json",
             "baseHref": "/en/"
