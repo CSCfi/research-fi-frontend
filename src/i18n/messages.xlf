@@ -3358,6 +3358,9 @@
       <trans-unit id="1516107290746506404" datatype="html">
         <source>Lehti/Sarja</source>
       </trans-unit>
+      <trans-unit id="publicationYearMissing" datatype="html">
+        <source>Julkaisuvuosi puuttuu</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

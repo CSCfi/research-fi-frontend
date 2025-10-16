@@ -15,27 +15,34 @@
   </div>
     <div class="summary-panel" *ngFor="let item of sortedItems.slice(0, itemDisplayCount); index as i">
 
+    <!-- YEAR CAPTIONS -->
     <ng-container *ngIf="item.itemMeta.show && fieldType !== FieldTypes.activityActivitiesAndRewards && fieldType !== FieldTypes.activityActivitiesAndRewardsOrcid && fieldType !== FieldTypes.activityActivitiesAndRewards">
 
-      <!-- PUBLICATIONS OR DATASETS YEAR (FIRST)-->
+      <!-- OPEN ACCESS PUBLICATION CAPTION OR DATASETS YEAR (FIRST)-->
       <div *ngIf="i === 0 && (fieldType === FieldTypes.activityPublication || fieldType === FieldTypes.activityOrcidPublication || fieldType === FieldTypes.activityDataset || fieldType === FieldTypes.activityDatasetOrcid)" class="year-caption">
         <h3 *ngIf="hasOpenPublications && highlightOpenness">{{openAccessPublications}}</h3>
         <div class="fw-normal" *ngIf="!hasOpenPublications && highlightOpenness">{{noOpenAccessPublications}}</div>
         <span *ngIf="fieldType === fieldTypes.activityDataset">{{sortedItems.slice(0, itemDisplayCount)[i].year}}</span>
       </div>
 
-      <!-- PUBLICATIONS YEAR (NOT FIRST)-->
+
       <div *ngIf="item?.nonOpenCaptionRow && highlightOpenness" class="year-caption mt-4"><h3>{{otherPublications}}</h3></div>
+
+      <!-- PUBLICATION YEAR CAPTION (FIRST)-->
       <div *ngIf="i === 0 && (fieldType === FieldTypes.activityPublication || fieldType === FieldTypes.activityOrcidPublication)" class="year-caption">
-        {{sortedItems.slice(0, itemDisplayCount)[i].publicationYear}}
+        <span *ngIf="sortedItems.slice(0, itemDisplayCount)[i].publicationYear !== 0">{{sortedItems.slice(0, itemDisplayCount)[i].publicationYear}}</span>
+        <span *ngIf="sortedItems.slice(0, itemDisplayCount)[i].publicationYear === 0">{{publicationYearMissing}}</span>
       </div>
+
+      <!-- PUBLICATION YEAR CAPTION (NOT FIRST) -->
       <div *ngIf="i > 0 && sortedItems.slice(0, itemDisplayCount)[i].publicationYear !== sortedItems.slice(0, itemDisplayCount)[i-1].publicationYear" class="year-caption">
-        {{sortedItems.slice(0, itemDisplayCount)[i].publicationYear}}
+        <span *ngIf="sortedItems.slice(0, itemDisplayCount)[i].publicationYear !== 0">{{sortedItems.slice(0, itemDisplayCount)[i].publicationYear}}</span>
+        <span *ngIf="sortedItems.slice(0, itemDisplayCount)[i].publicationYear === 0">{{publicationYearMissing}}</span>
       </div>
 
       <!-- DATASETS YEAR (NOT FIRST) -->
       <div *ngIf="i > 0 && sortedItems.slice(0, itemDisplayCount)[i].year !== sortedItems.slice(0, itemDisplayCount)[i-1].year" class="year-caption">
-        {{sortedItems.slice(0, itemDisplayCount)[i].publicationYear}}
+        {{sortedItems.slice(0, itemDisplayCount)[i].year}}
         <span *ngIf="fieldType === fieldTypes.activityDataset">{{sortedItems.slice(0, itemDisplayCount)[i].year}}</span>
       </div>
 
