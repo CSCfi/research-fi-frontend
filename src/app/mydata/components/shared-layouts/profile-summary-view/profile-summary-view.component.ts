@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, LOCALE_ID, OnInit, Output } from '@angular/core';
 import { sortItemsByNew } from '@mydata/utils';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { GetItemsByPipe } from '@mydata/pipes/get-items-by.pipe';
@@ -25,6 +25,7 @@ import {
   SortDropdownMenuComponent
 } from '@mydata/components/shared-layouts/profile-summary-view/sort-dropdown-menu/sort-dropdown-menu.component';
 import { BehaviorSubject } from 'rxjs';
+import { checkTranslation } from '@portal/models/person/profiletool-person-adapter';
 
 @Component({
     selector: 'app-profile-summary-view',
@@ -77,8 +78,6 @@ export class ProfileSummaryViewComponent implements OnInit  {
   sortItemsByNew = sortItemsByNew;
   showSortMenu = false;
 
-  locale = 'Fi';
-
   columns = [
     {
       label: $localize`:@@organizationUnit:Organisaation yksikkö`,
@@ -95,7 +94,7 @@ export class ProfileSummaryViewComponent implements OnInit  {
     },
   ];
 
-  constructor(private appSettingsService: AppSettingsService, private utils: ModelUtilsService) {}
+  constructor(private appSettingsService: AppSettingsService, private utils: ModelUtilsService, @Inject(LOCALE_ID) protected locale: string) {}
 
   openDialog(event: MouseEvent, index: number) {
     event.stopPropagation();
@@ -114,7 +113,11 @@ export class ProfileSummaryViewComponent implements OnInit  {
   ngOnInit(): void {
     switch (this.sectionName) {
       case 'education': {
-        //degree: this.utils.checkTranslation('name', item);
+        if (this.data) {
+          this.data.items.map((item) => {
+            item.name = checkTranslation('name', item, this.locale);
+          });
+        }
       }
     }
     this.locale = this.appSettingsService.capitalizedLocale;
