@@ -131,7 +131,7 @@ export class EditorModalComponent implements OnInit {
 
     switch (this.dialogData.data.id) {
       case 'publication': {
-        this.addFromPortalTabString = $localize`:@@publications:julkaisuja`;
+        this.addFromPortalTabString = $localize`:@@publicationsPluralPart:julkaisuja`;
         this.portalItemGroupStringPlural = $localize`:@@publications:julkaisut`;
         this.tableColumns = PublicationColumns;
         this.selectItemsTabLabel = $localize`:@@selectPublications:Valitse julkaisut`;
@@ -140,7 +140,7 @@ export class EditorModalComponent implements OnInit {
         break;
       }
       case 'dataset': {
-        this.addFromPortalTabString = $localize`:@@datasets:aineistoja`;
+        this.addFromPortalTabString = $localize`:@@datasetsPluralPart:aineistoja`;
         this.portalItemGroupStringPlural = $localize`:@@datasets:aineistot`;
         this.tableColumns = DatasetColumns;
         this.selectItemsTabLabel = $localize`:@@selectDatasets:Valitse aineistot`;
@@ -149,7 +149,7 @@ export class EditorModalComponent implements OnInit {
         break;
       }
       case 'funding': {
-        this.addFromPortalTabString = $localize`:@@fundings:rahoitusmyöntöjä`;
+        this.addFromPortalTabString = $localize`:@@fundingsPluralPart:rahoitusmyöntöjä`;
         this.selectItemsTabLabel = $localize`:@@selectGrantedFunding:Valitse myönnetty rahoitus`;
         this.portalItemGroupStringPlural = $localize`:@@fundings:rahoitusmyönnöt`;
         this.tableColumns = FundingColumns;
@@ -157,7 +157,7 @@ export class EditorModalComponent implements OnInit {
         break;
       }
       case 'activitiesAndRewards': {
-        this.addFromPortalTabString = $localize`:@@activities:aktiviteetteja`;
+        this.addFromPortalTabString = $localize`:@@activitiesPluralPart:aktiviteetteja`;
         this.selectItemsTabLabel = $localize`:@@selectActivities:Valitse aktiviteetit`;
         this.portalItemGroupStringPlural = $localize`:@@activities:aktiviteetit`;
         this.tableColumns = ActivityColumns;
