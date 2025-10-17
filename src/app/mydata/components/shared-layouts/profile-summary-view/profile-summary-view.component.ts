@@ -1,11 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, LOCALE_ID, OnInit, Output } from '@angular/core';
 import { sortItemsByNew } from '@mydata/utils';
 import { AppSettingsService } from '@shared/services/app-settings.service';
 import { GetItemsByPipe } from '@mydata/pipes/get-items-by.pipe';
-import { SummaryDividerComponent } from '@mydata/components/profile/profile-summary/summary-divider/summary-divider.component';
+import {
+  SummaryDividerComponent
+} from '@mydata/components/profile/profile-summary/summary-divider/summary-divider.component';
 import { NgIf, NgFor, NgSwitch, NgSwitchCase, NgSwitchDefault, JsonPipe, AsyncPipe } from '@angular/common';
 import { ModelUtilsService } from '@shared/services/model-util.service';
-import { CheckLangPipe} from '@mydata/pipes/check-lang.pipe';
+import { CheckLangPipe } from '@mydata/pipes/check-lang.pipe';
 import { FieldTypes } from '@mydata/constants/fieldTypes';
 import { HasSelectedItemsPipe } from '@mydata/pipes/has-selected-items.pipe';
 import { JoinItemsPipe } from '@shared/pipes/join-items.pipe';
@@ -25,37 +27,36 @@ import {
   SortDropdownMenuComponent
 } from '@mydata/components/shared-layouts/profile-summary-view/sort-dropdown-menu/sort-dropdown-menu.component';
 import { BehaviorSubject } from 'rxjs';
-import { checkTranslation } from '@portal/models/person/profiletool-person-adapter';
 
 @Component({
-    selector: 'app-profile-summary-view',
-    templateUrl: './profile-summary-view.component.html',
-    styleUrl: './profile-summary-view.component.scss',
-    imports: [
-        NgIf,
-        NgFor,
-        SummaryDividerComponent,
-        NgSwitch,
-        NgSwitchCase,
-        NgSwitchDefault,
-        GetItemsByPipe,
-        JsonPipe,
-        CheckLangPipe,
-        HasSelectedItemsPipe,
-        JoinItemsPipe,
-        PanelArrayItemComponent,
-        TertiaryButtonComponent,
-        SummaryPortalItemsComponent,
-        FormatAndSortTimespanPipe,
-        GeneralBadgeComponent,
-        CountSelectedItemsPipe,
-        SortDropdownMenuComponent,
-        AsyncPipe
-    ]
+  selector: 'app-profile-summary-view',
+  templateUrl: './profile-summary-view.component.html',
+  styleUrl: './profile-summary-view.component.scss',
+  imports: [
+    NgIf,
+    NgFor,
+    SummaryDividerComponent,
+    NgSwitch,
+    NgSwitchCase,
+    NgSwitchDefault,
+    GetItemsByPipe,
+    JsonPipe,
+    CheckLangPipe,
+    HasSelectedItemsPipe,
+    JoinItemsPipe,
+    PanelArrayItemComponent,
+    TertiaryButtonComponent,
+    SummaryPortalItemsComponent,
+    FormatAndSortTimespanPipe,
+    GeneralBadgeComponent,
+    CountSelectedItemsPipe,
+    SortDropdownMenuComponent,
+    AsyncPipe
+  ]
 })
 
 
-export class ProfileSummaryViewComponent implements OnInit  {
+export class ProfileSummaryViewComponent implements OnInit {
   @Input() data: any;
   @Input() isPortalSinglePage: any;
   @Input() sectionName: string;
@@ -81,20 +82,21 @@ export class ProfileSummaryViewComponent implements OnInit  {
   columns = [
     {
       label: $localize`:@@organizationUnit:Organisaation yksikkö`,
-      field: 'departmentName',
+      field: 'departmentName'
     },
     { label: $localize`:@@title:Nimike`, field: 'positionName' },
     {
       label: $localize`:@@researchCommunity:Tutkimusyhteisö`,
-      field: 'researchCommunity',
+      field: 'researchCommunity'
     },
     {
       label: $localize`:@@roleInResearchCommunity:Rooli tutkimusyhteisössä`,
-      field: 'roleInResearchCommunity',
-    },
+      field: 'roleInResearchCommunity'
+    }
   ];
 
-  constructor(private appSettingsService: AppSettingsService, private utils: ModelUtilsService, @Inject(LOCALE_ID) protected locale: string) {}
+  constructor(private appSettingsService: AppSettingsService, private utils: ModelUtilsService, @Inject(LOCALE_ID) protected locale: string) {
+  }
 
   openDialog(event: MouseEvent, index: number) {
     event.stopPropagation();
@@ -115,7 +117,7 @@ export class ProfileSummaryViewComponent implements OnInit  {
       case 'education': {
         if (this.data) {
           this.data.items.map((item) => {
-            item.name = checkTranslation('name', item, this.locale);
+            item.name = this.utils.checkTranslation('name', item);
           });
         }
       }
