@@ -155,8 +155,8 @@
              *ngFor="let item of ((data | formatAndSortTimespan: groupTypes.education).items); let i = index">
           <ng-container *ngIf="item.itemMeta.show || isPortalSinglePage">
             <div class="row">
-              <div class="col-12 gx-0"><span class="fw-bold">{{ item['name' + locale] }}</span>
-                <div *ngIf="item?.timing > 0">{{ item?.timing }}</div>
+              <div class="col-12 gx-0"><span class="fw-bold">{{ item['name'] }}</span>
+                <div *ngIf="item?.timing?.length > 0">{{ item?.timing }}</div>
                 <!-- TODO: add checkLang pipe -->
                 <div class="col-12 gx-0">{{ item.degreeGrantingInstitutionName }}</div>
               </div>
