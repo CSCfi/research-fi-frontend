@@ -253,7 +253,7 @@ function formatActivityItems(items: any, localeId: string){
 }
 
 // Point of language test is to populate data if no content available in current locale.
-function checkTranslation(field, item, localeId) {
+export function checkTranslation(field, item, localeId) {
   //console.log('!!!!! checking translation', field, item, localeId);
   if (!item) {
     return undefined;
