@@ -676,7 +676,8 @@ const translations_fi = {
   'cv_15_other_merits_bullet1': 'muut ansioluettelon käyttötilanteen kannalta olennaiset tehtävät ja sidonnaisuudet (esim. toimiminen yrityksessä tai järjestössä)',
   'cv_15_other_merits_bullet2': 'muut yhteiskunnalliset ansiot ja tunnustukset, haluttaessa suomalainen sotilasarvo',
   'cv_15_other_merits_bullet3': 'muu ansioluettelon käyttötilanteen kannalta olennainen osaaminen',
-  'cv_15_other_merits_after': 'Kirjoita sisältö tähän'
+  'cv_15_other_merits_after': 'Kirjoita sisältö tähän',
+  'cv_publication_list': 'Julkaisuluettelo'
 };
 
 const translations_sv = {
@@ -763,7 +764,8 @@ const translations_sv = {
   'cv_15_other_merits_bullet1': 'övriga arbetsuppgifter och bindningar som är relevanta i respektive situation där meritförteckningen används (t.ex. verksamhet i ett företag eller en organisation)',
   'cv_15_other_merits_bullet2': 'övriga samhälleliga meriter och utmärkelser, samt om sökanden så vill, finländsk militär grad',
   'cv_15_other_merits_bullet3': 'övrig kompetens som är relevant i respektive situation där meritförteckningen används',
-  'cv_15_other_merits_after': 'Skriv innehållet här'
+  'cv_15_other_merits_after': 'Skriv innehållet här',
+  'cv_publication_list': 'Publikationslista'
 };
 
 const translations_en = {
@@ -850,7 +852,8 @@ const translations_en = {
   'cv_15_other_merits_bullet1': 'Other positions and commitments of relevance in terms of the purpose of the CV (such as work in companies or organisations)',
   'cv_15_other_merits_bullet2': 'Other societal merits and honours; Finnish military rank, if desirable',
   'cv_15_other_merits_bullet3': 'Other expertise of relevance in terms of the purpose of the CV',
-  'cv_15_other_merits_after': 'Write content here'
+  'cv_15_other_merits_after': 'Write content here',
+  'cv_publication_list': 'List of publications'
 };
 
 export function getTranslations(language: string) {

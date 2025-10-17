@@ -10,6 +10,9 @@ import {
 } from 'docx';
 import * as docx from 'docx';
 import * as translations from '@mydata/components/cv-tool/cv-template-builder/CvTranslations';
+import * as cvDataformatter from '@mydata/components/cv-tool/cv-template-builder/CvDataFormatter';
+import { checkTranslation as checkTranslation} from '@portal/models/person/profiletool-person-adapter';
+
 
 export interface cvTopLevelParagraph {
   paragraphTitle: string;
@@ -17,15 +20,44 @@ export interface cvTopLevelParagraph {
   bulletsList?: string[];
 }
 
+export interface cvDataFormatted {
+  firstNames: string;
+  lastName: string;
+  orcid: string;
+  date: string;
+  degrees: any[];
+  otherEducationAndExpertise: any[];
+  currentEmployment: any[];
+  previousWorkExperience: any[]
+  researchFundingAndGrants: any[];
+  researchSupervisionAndLeadershipExperience: any[];
+  teachingMerits: any[];
+  awardsAndHonors: any[];
+  researchDatasets: any[];
+  publications: any[];
+}
+
+export const citationStyle = {
+  'APA': 0,
+  'Chichago': 1,
+  'MLA': 2
+}
+
 export class CvTemplateBuilderComponent {
 
   allTranslations: any;
+
+
 
   private getTranslation(translationKey: string) {
     return this.allTranslations[translationKey];
   }
 
-  public buildCvTemplate(lang: string): Document {
+  public buildCvTemplate(lang: string, profileData: any, orcidId: string, filterVisible: boolean, isPublicationList: boolean, citationStyle: number): Document {
+    let cvData: cvDataFormatted = cvDataformatter.formatCvData(lang, profileData, orcidId, filterVisible);
+
+    console.log('cvData', cvData);
+
     this.allTranslations = translations.getTranslations(lang);
 
     let bulletsSec1 = [this.getTranslation('cv_1_bullet1'), this.getTranslation('cv_1_bullet2'), this.getTranslation('cv_1_bullet3'), this.getTranslation('cv_1_bullet4')];
@@ -122,86 +154,231 @@ export class CvTemplateBuilderComponent {
       bulletsList: bulletsSec15
     };
 
-    console.log('getTranslation', this.getTranslation('cv_1_bullet1'));
+    //let firstName = profileData[0].items[0].fields[0]
 
-    const filledTemplate = new docx.Document({
-      styles: {
-        default: {
-          heading1: {
-            run: {
-              font: "Calibri",
-              size: 52,
-              bold: true,
-              color: "FFFFFF",
+    if (!isPublicationList) {
+      // CV TEMPLATE
+      const cvTemplate = new docx.Document({
+        styles: {
+          default: {
+            heading1: {
+              run: {
+                font: "Calibri",
+                size: 52,
+                bold: true,
+              },
+              paragraph: {
+                alignment: AlignmentType.CENTER,
+                spacing: { line: 276, before: 20 * 72 * 0.1, after: 20 * 72 * 0.05 },
+              },
             },
-            paragraph: {
-              alignment: AlignmentType.CENTER,
-              spacing: { line: 276, before: 20 * 72 * 0.1, after: 20 * 72 * 0.05 },
+            heading2: {
+              run: {
+                font: "Calibri",
+                size: 26,
+                bold: true,
+              },
+              paragraph: {
+                spacing: { line: 276, before: 30 * 72 * 0.1, after: 20 * 72 * 0.05 },
+              },
             },
           },
-          heading2: {
-            run: {
-              font: "Calibri",
-              size: 26,
-              bold: true,
+          paragraphStyles: [
+            {
+              id: "baseParagraphBlue",
+              name: "Blue base paragraph",
+              basedOn: "Normal",
+              next: "Normal",
+              run: {
+                font: "Calibri",
+                color: "66A4FB",
+              },
+              paragraph: {
+                spacing: { line: 276 },
+              },
             },
-            paragraph: {
-              spacing: { line: 276, before: 30 * 72 * 0.1, after: 20 * 72 * 0.05 },
+            {
+              id: "baseParagraphBlack",
+              name: "Black base paragraph",
+              basedOn: "Normal",
+              next: "Normal",
+              run: {
+                font: "Calibri",
+                color: "000000",
+              },
+              paragraph: {
+                spacing: { line: 276 },
+              },
             },
-          },
+          ],
+
         },
-        paragraphStyles: [
+        sections: [
           {
-            id: "baseParagraphBlue",
-            name: "Blue base paragraph",
-            basedOn: "Normal",
-            next: "Normal",
-            run: {
-              font: "Calibri",
-              color: "66A4FB",
+            properties: {},
+            children: [
+              new docx.Paragraph({
+                text: this.getTranslation('cv_title:Ansioluettelo'),
+                heading: HeadingLevel.TITLE,
+                style: "heading1",
+              }),
+              new docx.Paragraph({
+                text: this.getTranslation('cv_preface1'),
+                style: "baseParagraphBlue",
+              }),
+              this.createBulletBlue(this.getTranslation('cv_bullet1')),
+              this.createBulletBlue(this.getTranslation('cv_bullet2')),
+
+              ...this.createMainLevelParagraph(paragraphContentSec1),
+              this.createBulletBlack(cvData.firstNames),
+              this.createBulletBlack(cvData.lastName),
+              this.createBulletBlack(cvData.orcid),
+              this.createBulletBlack(cvData.date),
+              ...this.createMainLevelParagraph(paragraphContentSec2),
+              ...this.createDegreesRows(cvData.degrees, lang),
+              ...this.createMainLevelParagraph(paragraphContentSec3),
+              ...this.createMainLevelParagraph(paragraphContentSec4),
+              ...this.createMainLevelParagraph(paragraphContentSec5),
+              ...this.createEmploymentRows(cvData.currentEmployment, lang),
+              ...this.createMainLevelParagraph(paragraphContentSec6),
+              ...this.createEmploymentRows(cvData.previousWorkExperience, lang),
+              ...this.createMainLevelParagraph(paragraphContentSec7),
+              ...this.createMainLevelParagraph(paragraphContentSec8),
+              ...this.createMainLevelParagraph(paragraphContentSec9),
+              ...this.createMainLevelParagraph(paragraphContentSec10),
+              ...this.createMainLevelParagraph(paragraphContentSec11),
+              ...this.createMainLevelParagraph(paragraphContentSec12),
+              ...this.createMainLevelParagraph(paragraphContentSec13),
+              ...this.createMainLevelParagraph(paragraphContentSec14),
+              ...this.createMainLevelParagraph(paragraphContentSec15)
+            ]
+          }
+        ]
+      });
+      return cvTemplate;
+    }
+    else {
+      // PUBLICATION LIST TEMPLATE
+      const publicationListTemplate = new docx.Document({
+        styles: {
+          default: {
+            heading1: {
+              run: {
+                font: "Calibri",
+                size: 52,
+                bold: true,
+              },
+              paragraph: {
+                alignment: AlignmentType.CENTER,
+                spacing: { line: 276, before: 20 * 72 * 0.1, after: 20 * 72 * 0.05 },
+              },
             },
-            paragraph: {
-              spacing: { line: 276 },
+            heading2: {
+              run: {
+                font: "Calibri",
+                size: 26,
+                bold: true,
+              },
+              paragraph: {
+                spacing: { line: 276, before: 30 * 72 * 0.1, after: 20 * 72 * 0.05 },
+              },
             },
           },
-        ],
-      },
-      sections: [
-        {
-          properties: {},
-          children: [
-            new docx.Paragraph({
-              text: this.getTranslation('cv_title:Ansioluettelo'),
-              heading: HeadingLevel.TITLE,
-              style: "heading1",
-            }),
-            new docx.Paragraph({
-              text: this.getTranslation('cv_preface1'),
-              style: "baseParagraphBlue",
-            }),
-            this.createBulletBlue(this.getTranslation('cv_bullet1')),
-            this.createBulletBlue(this.getTranslation('cv_bullet2')),
+          paragraphStyles: [
+            {
+              id: "baseParagraphBlue",
+              name: "Blue base paragraph",
+              basedOn: "Normal",
+              next: "Normal",
+              run: {
+                font: "Calibri",
+                color: "66A4FB",
+              },
+              paragraph: {
+                spacing: { line: 276 },
+              },
+            },
+            {
+              id: "baseParagraphBlack",
+              name: "Black base paragraph",
+              basedOn: "Normal",
+              next: "Normal",
+              run: {
+                font: "Calibri",
+                color: "000000",
+              },
+              paragraph: {
+                spacing: { line: 276 },
+              },
+            },
+          ],
 
-            ...this.createMainLevelParagraph(paragraphContentSec1),
-            ...this.createMainLevelParagraph(paragraphContentSec2),
-            ...this.createMainLevelParagraph(paragraphContentSec3),
-            ...this.createMainLevelParagraph(paragraphContentSec4),
-            ...this.createMainLevelParagraph(paragraphContentSec5),
-            ...this.createMainLevelParagraph(paragraphContentSec6),
-            ...this.createMainLevelParagraph(paragraphContentSec7),
-            ...this.createMainLevelParagraph(paragraphContentSec8),
-            ...this.createMainLevelParagraph(paragraphContentSec9),
-            ...this.createMainLevelParagraph(paragraphContentSec10),
-            ...this.createMainLevelParagraph(paragraphContentSec11),
-            ...this.createMainLevelParagraph(paragraphContentSec12),
-            ...this.createMainLevelParagraph(paragraphContentSec13),
-            ...this.createMainLevelParagraph(paragraphContentSec14),
-            ...this.createMainLevelParagraph(paragraphContentSec15)
-          ]
-        }
-      ]
+        },
+        sections: [
+          {
+            properties: {},
+            children: [
+              new docx.Paragraph({
+                text: this.getTranslation('cv_publication_list:Julkaisuluettelo'),
+                heading: HeadingLevel.TITLE,
+                style: "heading1",
+              }),
+              new docx.Paragraph({
+                text: 'Instructions text here',
+                style: "baseParagraphBlue",
+              }),
+              ...this.createPublicationRows(cvData.publications, citationStyle)
+            ]
+          }
+        ]
+      });
+      return publicationListTemplate;
+    }
+  }
+
+  private createPublicationRows(publicationsData, citationStyle: number){
+    let ret: docx.Paragraph[] = [];
+
+    publicationsData.forEach((publication) => {
+      // TODO add citation formatting for TTV publications with publication-citation.model.ts adapter
+      //console.log('publication', publication);
+
+      if (publication['authorsText'] && publication['journalName']){
+        ret.push(this.createBaseParagraph(publication['authorsText']));
+        ret.push(this.createBaseParagraph(publication['journalName']));
+        ret.push(this.createBaseParagraph(publication['doi']));
+        ret.push(this.createBaseParagraph(''));
+      }
     });
-    return filledTemplate;
+    return ret;
+  }
+
+  private createDegreesRows(degreeData, lang){
+    const langCapitalized = lang[0].toUpperCase() + lang.slice(1);
+    let ret: docx.Paragraph[] = [];
+
+    degreeData.forEach((degree) => {
+      if (degree['name' + langCapitalized] && degree['degreeGrantingInstitutionName']){
+        ret.push(this.createBulletBlack(degree['name' + langCapitalized] + ' - ' + degree['degreeGrantingInstitutionName']));
+      }
+    });
+    return ret;
+  }
+
+  private createEmploymentRows(employmentData, lang){
+    const langCapitalized = lang[0].toUpperCase() + lang.slice(1);
+    let ret: docx.Paragraph[] = [];
+
+    employmentData.forEach((employment) => {
+      if (employment['organizationName'] || employment['positionName' + langCapitalized]) {
+        ret.push(this.createBaseParagraph(employment['organizationName']));
+        employment['positionName' + langCapitalized] ? ret.push(this.createBaseParagraph(employment['positionName' + langCapitalized])) : undefined;
+        employment['departmentName'] ? ret.push(this.createBaseParagraph(employment['departmentName'])) : undefined;
+        ret.push(this.createBaseParagraph(employment?.startDate?.year + ' - ' + employment?.endDate?.year));
+        ret.push(this.createBaseParagraph(''));
+      }
+    });
+    return ret;
   }
 
   private createMainLevelParagraph(elements: cvTopLevelParagraph) {
@@ -221,6 +398,23 @@ export class CvTemplateBuilderComponent {
     }
 
     return ret;
+  }
+
+  public createBaseParagraph(text: string): Paragraph {
+    return new Paragraph({
+      text: text,
+      style: "baseParagraphBlack",
+    });
+  }
+
+  public createBulletBlack(text: string): Paragraph {
+    return new Paragraph({
+      text: text,
+      style: "baseParagraphBlack",
+      bullet: {
+        level: 0
+      }
+    });
   }
 
   public createBulletBlue(text: string): Paragraph {

@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import { checkTranslation as checkTranslation} from '@portal/models/person/profiletool-person-adapter';
 
 export interface cvDataFormatted {
-  firstName: string;
+  firstNames: string;
   lastName: string;
   orcid: string;
+  date: string;
   degrees: any[];
   otherEducationAndExpertise: any[];
   currentEmployment: any[];
@@ -17,6 +19,15 @@ export interface cvDataFormatted {
 }
 
 
+function getDateNow() {
+  let d = new Date(),
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear();
+
+  return [day, month, year].join('.');
+}
+
 export function formatCvData(lang: string, profileData, orcid: string, filterVisible: boolean) {
   console.log('formatCvData', JSON.stringify(profileData), filterVisible);
 
@@ -28,7 +39,7 @@ export function formatCvData(lang: string, profileData, orcid: string, filterVis
   let primaryAffiliations = [];
   let nonPrimaryAffiliations = [];
   affiliations.forEach(affiliation => {
-    if (affiliation.itemMeta.primaryAffiliation === true) {
+    if (affiliation.itemMeta.primaryValue === true) {
       primaryAffiliations.push(affiliation);
     }
     else {
@@ -48,9 +59,10 @@ export function formatCvData(lang: string, profileData, orcid: string, filterVis
     awardsAndHonors: [],
     currentEmployment: primaryAffiliations,
     degrees: parsedEducation,
-    firstName: visibleNames[0].firstName,
+    firstNames: visibleNames[0].firstNames,
     lastName: visibleNames[0].lastName,
     orcid: orcid,
+    date: getDateNow(),
     otherEducationAndExpertise: [],
     previousWorkExperience: nonPrimaryAffiliations,
     publications: parsedPublications,
