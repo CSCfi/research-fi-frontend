@@ -102,7 +102,7 @@ export class CvToolComponent implements OnInit {
   fullName: string;
 
   cvFileName = 'CV';
-  publicationListFileName = 'puiblications_list'
+  publicationListFileName = 'publications_list'
 
 
   templateBuilder = new CvTemplateBuilderComponent();
@@ -112,13 +112,8 @@ export class CvToolComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchProfileData().then(profileData => {
+
     });
-    this.orcidId = this.route.snapshot.data.orcidProfile.orcid;
-    console.log(this.route.snapshot.data.orcidProfile.name);
-    this.cvFileName = this.route.snapshot.data.orcidProfile.name;
-    this.cvFileName = this.cvFileName.replaceAll(' ', '_');
-    this.publicationListFileName = this.cvFileName + "_-_Publication_list.docx"
-      this.cvFileName = this.cvFileName + "_-_CV.docx"
   }
 
   changeImportSelection(input){
@@ -158,7 +153,13 @@ export class CvToolComponent implements OnInit {
               cloneDeep(value.profileData)
             );
             this.profileData = clone(value.profileData);
-            console.log('profileData', this.profileData);
+            this.fullName = this.profileData[0].fields[0].items.filter(item => item.itemMeta.show === true)[0].fullName;
+            console.log('profileData', this.profileData, this.fullName);
+            this.orcidId = this.route.snapshot.data.orcidProfile.orcid;
+            this.cvFileName = this.fullName;
+            this.cvFileName = this.cvFileName.replaceAll(' ', '_');
+            this.publicationListFileName = this.cvFileName + "_-_Publication_list.docx";
+            this.cvFileName = this.cvFileName + "_-_CV.docx";
           }
         });
   }

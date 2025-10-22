@@ -18,6 +18,7 @@ export interface cvTopLevelParagraph {
   paragraphTitle: string;
   preFaceTexts?: string[];
   bulletsList?: string[];
+  activityContent?: string[];
 }
 
 export interface cvDataFormatted {
@@ -35,6 +36,7 @@ export interface cvDataFormatted {
   awardsAndHonors: any[];
   researchDatasets: any[];
   publications: any[];
+  activities: any[];
 }
 
 export const citationStyle = {
@@ -217,11 +219,8 @@ export class CvTemplateBuilderComponent {
           {
             properties: {},
             children: [
-              new docx.Paragraph({
-                text: this.getTranslation('cv_title:Ansioluettelo'),
-                heading: HeadingLevel.TITLE,
-                style: "heading1",
-              }),
+              this.createHeading(this.getTranslation('cv_title')),
+
               new docx.Paragraph({
                 text: this.getTranslation('cv_preface1'),
                 style: "baseParagraphBlue",
@@ -230,26 +229,41 @@ export class CvTemplateBuilderComponent {
               this.createBulletBlue(this.getTranslation('cv_bullet2')),
 
               ...this.createMainLevelParagraph(paragraphContentSec1),
-              this.createBulletBlack(cvData.firstNames),
-              this.createBulletBlack(cvData.lastName),
-              this.createBulletBlack(cvData.orcid),
-              this.createBulletBlack(cvData.date),
+              this.createBaseParagraph(''),
+              this.createBaseParagraph(cvData.firstNames),
+              this.createBaseParagraph(cvData.lastName),
+              this.createBaseParagraph(cvData.orcid),
+              this.createBaseParagraph(cvData.date),
               ...this.createMainLevelParagraph(paragraphContentSec2),
+              this.createBaseParagraph(''),
               ...this.createDegreesRows(cvData.degrees, lang),
               ...this.createMainLevelParagraph(paragraphContentSec3),
               ...this.createMainLevelParagraph(paragraphContentSec4),
               ...this.createMainLevelParagraph(paragraphContentSec5),
+              this.createBaseParagraph(''),
               ...this.createEmploymentRows(cvData.currentEmployment, lang),
               ...this.createMainLevelParagraph(paragraphContentSec6),
+              this.createBaseParagraph(''),
               ...this.createEmploymentRows(cvData.previousWorkExperience, lang),
               ...this.createMainLevelParagraph(paragraphContentSec7),
               ...this.createMainLevelParagraph(paragraphContentSec8),
               ...this.createMainLevelParagraph(paragraphContentSec9),
               ...this.createMainLevelParagraph(paragraphContentSec10),
+              ...this.createActivityRows(cvData.activities, ['12.1.'], true, lang),
               ...this.createMainLevelParagraph(paragraphContentSec11),
               ...this.createMainLevelParagraph(paragraphContentSec12),
+              ...this.createActivityRows(cvData.activities, ['9.'], true, lang),
               ...this.createMainLevelParagraph(paragraphContentSec13),
+              ...this.createActivityRows(cvData.activities, ['5.1.','5.2.','5.5.','5.6.','5.7.','5.8.','8.1.'], true, lang),
+              ...this.createActivityRows(cvData.activities, ['3.1', '3.2'], true, lang),
+              ...this.createActivityRows(cvData.activities, ['2.1'], true, lang),
+              ...this.createActivityRows(cvData.activities, ['2.3.','2.4.'], true, lang),
+              ...this.createActivityRows(cvData.activities, ['1.'], true, lang),
+              ...this.createActivityRows(cvData.activities, ['5.3','5.4','5.5','5.6'], true, lang),
+              ...this.createActivityRows(cvData.activities, ['5.3', '5.4','5.5','5.6'], true, lang),
+              ...this.createActivityRows(cvData.activities, ['8.6.1', '8.6.2', '8.6.3'], true, lang),
               ...this.createMainLevelParagraph(paragraphContentSec14),
+              ...this.createActivityRows(cvData.activities, ['4', '5'], false, lang),
               ...this.createMainLevelParagraph(paragraphContentSec15)
             ]
           }
@@ -267,6 +281,7 @@ export class CvTemplateBuilderComponent {
                 font: "Calibri",
                 size: 52,
                 bold: true,
+                color: "000000",
               },
               paragraph: {
                 alignment: AlignmentType.CENTER,
@@ -318,15 +333,8 @@ export class CvTemplateBuilderComponent {
           {
             properties: {},
             children: [
-              new docx.Paragraph({
-                text: this.getTranslation('cv_publication_list:Julkaisuluettelo'),
-                heading: HeadingLevel.TITLE,
-                style: "heading1",
-              }),
-              new docx.Paragraph({
-                text: 'Instructions text here',
-                style: "baseParagraphBlue",
-              }),
+              this.createHeading(this.getTranslation('cv_publication_list')),
+
               ...this.createPublicationRows(cvData.publications, citationStyle)
             ]
           }
@@ -344,10 +352,10 @@ export class CvTemplateBuilderComponent {
       //console.log('publication', publication);
 
       if (publication['authorsText'] && publication['journalName']){
+        ret.push(this.createBaseParagraph(''));
         ret.push(this.createBaseParagraph(publication['authorsText']));
         ret.push(this.createBaseParagraph(publication['journalName']));
         ret.push(this.createBaseParagraph(publication['doi']));
-        ret.push(this.createBaseParagraph(''));
       }
     });
     return ret;
@@ -359,7 +367,7 @@ export class CvTemplateBuilderComponent {
 
     degreeData.forEach((degree) => {
       if (degree['name' + langCapitalized] && degree['degreeGrantingInstitutionName']){
-        ret.push(this.createBulletBlack(degree['name' + langCapitalized] + ' - ' + degree['degreeGrantingInstitutionName']));
+        ret.push(this.createBaseParagraph(degree['name' + langCapitalized] + ' - ' + degree['degreeGrantingInstitutionName']));
       }
     });
     return ret;
@@ -381,6 +389,102 @@ export class CvTemplateBuilderComponent {
     return ret;
   }
 
+  private createActivityRows(activityData, activityCodes: string[], includeSubclasses: boolean, lang: string){
+    const langCapitalized = lang[0].toUpperCase() + lang.slice(1);
+    let ret: docx.Paragraph[] = [];
+    activityCodes.forEach((activityCode) => {
+      activityData.forEach((activity) => {
+        if (includeSubclasses) {
+          if (activity?.activityTypeCode?.startsWith(activityCode)) {
+            activity = this.formatTiming(activity);
+            ret.push(this.createBaseParagraph(''));
+            if (activity['type']?.length > 0) {
+
+              const activityType: any = this.capitalizeFirstLetter(activity['type']);
+              ret.push(this.createBaseParagraph(activityType));
+            }
+            if (activity['name' + langCapitalized]?.length > 0) {
+              ret.push(this.createBaseParagraph(activity['name' + langCapitalized]));
+            }
+            if (activity['organizationName' + langCapitalized]?.length > 0) {
+              ret.push(this.createBaseParagraph(activity['organizationName' + langCapitalized]));
+            }
+            if (activity['positionName' + langCapitalized]?.length > 0) {
+              ret.push(this.createBaseParagraph(activity['positionName' + langCapitalized]));
+            }
+            ret.push(this.createBaseParagraph(activity['timing']));
+          }
+        }
+        else {
+          if (activity?.activityTypeCode === activityCode) {
+            activity = this.formatTiming(activity);
+            ret.push(this.createBaseParagraph(''));
+            if (activity['type']?.length > 0) {
+              const activityType: any = this.capitalizeFirstLetter(activity['type']);
+              ret.push(this.createBaseParagraph(activityType))
+            }
+            if (activity['name' + langCapitalized]?.length > 0) {
+              ret.push(this.createBaseParagraph(activity['name' + langCapitalized]));
+            }
+            if (activity['organizationName' + langCapitalized]?.length > 0) {
+              ret.push(this.createBaseParagraph(activity['organizationName' + langCapitalized]));
+            }
+            if (activity['positionName' + langCapitalized]?.length > 0) {
+              ret.push(this.createBaseParagraph(activity['positionName' + langCapitalized]));
+            }
+            ret.push(this.createBaseParagraph(activity['timing']));
+          }
+        }
+
+      });
+    });
+
+    return ret;
+  }
+
+  private formatTiming(item){
+    // Show single year
+      if (item.startDate.year === item.endDate.year) {
+        if (item.endDate.year === 0) {
+          item.timing = '';
+        } else {
+          item.timing = item.startDate.year.toString();
+        }
+      }
+      // Start date missing
+      else if (item.startDate.year === 0) {
+        if (item.endDate.year > 0) {
+          item.timing = item.endDate.year.toString();
+        }
+        // Start and end date missing
+        else {
+          item.timing = '';
+        }
+        // End date missing
+      } else if (item.endDate.year === 0) {
+        item.timing = item.startDate.year?.toString();
+      }
+      // Regular case
+      else {
+        item.timing = item.startDate.year + ' - ' + item.endDate.year;
+      }
+      return item;
+  }
+
+  private capitalizeFirstLetter(value: any): unknown {
+    if (!value || value.length === 0) {
+      return '';
+    }
+    return (value[0].toUpperCase() + value.slice(1)).toString();
+  }
+
+  public createHeading(text: string): Paragraph {
+    return new Paragraph({
+      text: text,
+      heading: HeadingLevel.HEADING_1,
+    });
+  }
+
   private createMainLevelParagraph(elements: cvTopLevelParagraph) {
     let ret: docx.Paragraph[] = [];
 
@@ -391,7 +495,6 @@ export class CvTemplateBuilderComponent {
     }));
 
     if (elements.bulletsList) {
-      console.log('elements.bulletsList', elements);
       elements.bulletsList.forEach(bullet => {
         ret.push(this.createBulletBlue(bullet));
       });
@@ -404,6 +507,7 @@ export class CvTemplateBuilderComponent {
     return new Paragraph({
       text: text,
       style: "baseParagraphBlack",
+      indent: {left: 350 },
     });
   }
 

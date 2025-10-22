@@ -16,6 +16,7 @@ export interface cvDataFormatted {
   awardsAndHonors: any[];
   researchDatasets: any[];
   publications: any[];
+  activities: any[];
 }
 
 
@@ -31,9 +32,7 @@ function getDateNow() {
 export function formatCvData(lang: string, profileData, orcid: string, filterVisible: boolean) {
   console.log('formatCvData', JSON.stringify(profileData), filterVisible);
 
-
   let visibleNames = profileData[0].fields[0].items.filter(item => filterVisible ? item.itemMeta.show === true : item);
-  console.log('visibleNames', visibleNames);
 
   let affiliations = profileData[2].fields[0].items.filter(item => filterVisible ? item.itemMeta.show === true : item);
   let primaryAffiliations = [];
@@ -68,6 +67,7 @@ export function formatCvData(lang: string, profileData, orcid: string, filterVis
     publications: parsedPublications,
     researchDatasets: parsedDatasets,
     researchFundingAndGrants: parsedFundings,
+    activities: parsedActivities,
     researchSupervisionAndLeadershipExperience: [],
     teachingMerits: []
   }
