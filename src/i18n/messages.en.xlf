@@ -4474,6 +4474,10 @@
         <source>Lehti/Sarja</source>
         <target state="new">Journal/Series</target>
       </trans-unit>
+      <trans-unit id="publicationYearMissing" datatype="html">
+        <source>Julkaisuvuosi puuttuu</source>
+        <target state="new">Publication year missing</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
