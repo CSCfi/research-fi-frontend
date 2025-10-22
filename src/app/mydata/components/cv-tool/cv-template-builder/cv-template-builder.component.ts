@@ -46,21 +46,17 @@ export const citationStyle = {
 }
 
 export class CvTemplateBuilderComponent {
-
-  allTranslations: any;
-
-
+  langCode = 'fi';
 
   private getTranslation(translationKey: string) {
-    return this.allTranslations[translationKey];
+    return translations.getTranslation(this.langCode, translationKey);
   }
 
   public buildCvTemplate(lang: string, profileData: any, orcidId: string, filterVisible: boolean, isPublicationList: boolean, citationStyle: number): Document {
     let cvData: cvDataFormatted = cvDataformatter.formatCvData(lang, profileData, orcidId, filterVisible);
+    this.langCode = lang;
 
     console.log('cvData', cvData);
-
-    this.allTranslations = translations.getTranslations(lang);
 
     let bulletsSec1 = [this.getTranslation('cv_1_bullet1'), this.getTranslation('cv_1_bullet2'), this.getTranslation('cv_1_bullet3'), this.getTranslation('cv_1_bullet4')];
     let paragraphContentSec1: cvTopLevelParagraph = {
@@ -236,15 +232,15 @@ export class CvTemplateBuilderComponent {
               this.createBaseParagraph(cvData.date),
               ...this.createMainLevelParagraph(paragraphContentSec2),
               this.createBaseParagraph(''),
-              ...this.createDegreesRows(cvData.degrees, lang),
+              ...this.createDegreesRows(cvData.degrees),
               ...this.createMainLevelParagraph(paragraphContentSec3),
               ...this.createMainLevelParagraph(paragraphContentSec4),
               ...this.createMainLevelParagraph(paragraphContentSec5),
               this.createBaseParagraph(''),
-              ...this.createEmploymentRows(cvData.currentEmployment, lang),
+              ...this.createEmploymentRows(cvData.currentEmployment),
               ...this.createMainLevelParagraph(paragraphContentSec6),
               this.createBaseParagraph(''),
-              ...this.createEmploymentRows(cvData.previousWorkExperience, lang),
+              ...this.createEmploymentRows(cvData.previousWorkExperience),
               ...this.createMainLevelParagraph(paragraphContentSec7),
               ...this.createMainLevelParagraph(paragraphContentSec8),
               ...this.createMainLevelParagraph(paragraphContentSec9),
@@ -361,26 +357,24 @@ export class CvTemplateBuilderComponent {
     return ret;
   }
 
-  private createDegreesRows(degreeData, lang){
-    const langCapitalized = lang[0].toUpperCase() + lang.slice(1);
+  private createDegreesRows(degreeData){
     let ret: docx.Paragraph[] = [];
 
     degreeData.forEach((degree) => {
-      if (degree['name' + langCapitalized] && degree['degreeGrantingInstitutionName']){
-        ret.push(this.createBaseParagraph(degree['name' + langCapitalized] + ' - ' + degree['degreeGrantingInstitutionName']));
+      if (degree['name'] && degree['degreeGrantingInstitutionName']){
+        ret.push(this.createBaseParagraph(degree['name'] + ' - ' + degree['degreeGrantingInstitutionName']));
       }
     });
     return ret;
   }
 
-  private createEmploymentRows(employmentData, lang){
-    const langCapitalized = lang[0].toUpperCase() + lang.slice(1);
+  private createEmploymentRows(employmentData){
     let ret: docx.Paragraph[] = [];
 
     employmentData.forEach((employment) => {
-      if (employment['organizationName'] || employment['positionName' + langCapitalized]) {
+      if (employment['organizationName'] || employment['name']) {
         ret.push(this.createBaseParagraph(employment['organizationName']));
-        employment['positionName' + langCapitalized] ? ret.push(this.createBaseParagraph(employment['positionName' + langCapitalized])) : undefined;
+        employment['name'] ? ret.push(this.createBaseParagraph(employment['name'])) : undefined;
         employment['departmentName'] ? ret.push(this.createBaseParagraph(employment['departmentName'])) : undefined;
         ret.push(this.createBaseParagraph(employment?.startDate?.year + ' - ' + employment?.endDate?.year));
         ret.push(this.createBaseParagraph(''));
@@ -400,7 +394,7 @@ export class CvTemplateBuilderComponent {
             ret.push(this.createBaseParagraph(''));
             if (activity['type']?.length > 0) {
 
-              const activityType: any = this.capitalizeFirstLetter(activity['type']);
+              const activityType: any = this.capitalizeFirstLetter(activity['activityTypeName' + langCapitalized]);
               ret.push(this.createBaseParagraph(activityType));
             }
             if (activity['name' + langCapitalized]?.length > 0) {
@@ -420,7 +414,7 @@ export class CvTemplateBuilderComponent {
             activity = this.formatTiming(activity);
             ret.push(this.createBaseParagraph(''));
             if (activity['type']?.length > 0) {
-              const activityType: any = this.capitalizeFirstLetter(activity['type']);
+              const activityType: any = this.capitalizeFirstLetter(activity['activityTypeName' + langCapitalized]);
               ret.push(this.createBaseParagraph(activityType))
             }
             if (activity['name' + langCapitalized]?.length > 0) {

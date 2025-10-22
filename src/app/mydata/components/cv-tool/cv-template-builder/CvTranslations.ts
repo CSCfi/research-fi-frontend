@@ -866,8 +866,8 @@ export function getTranslations(language: string) {
   }
 }
 
-export function getTranslation(language, translationKey){
-  return this.getTranslations(language)[translationKey];
+export function getTranslation(language: string, translationKey: string){
+  return getTranslations(language)[translationKey];
 }
 
 export function getActivityTypeCodeTranslations(language: string) {

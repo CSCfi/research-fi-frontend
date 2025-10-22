@@ -24,6 +24,7 @@ import { AppSettingsService } from '@shared/services/app-settings.service';
 import { DraftService } from '@mydata/services/draft.service';
 import { SecondaryButtonComponent } from '@shared/components/buttons/secondary-button/secondary-button.component';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
+import * as translations from '@mydata/components/cv-tool/cv-template-builder/CvTranslations';
 
 export interface cvEducation {
   dateOfDegree?: string;
@@ -112,7 +113,6 @@ export class CvToolComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchProfileData().then(profileData => {
-
     });
   }
 
@@ -131,14 +131,14 @@ export class CvToolComponent implements OnInit {
   generateCv(cvContent?:
              CvContent) {
     docx.Packer.toBlob(this.templateBuilder.buildCvTemplate(this.langAbbreviations[this.langSelection], this.profileData, this.orcidId, (this.importSelection === 1), false, this.citationStyleSelection)).then((blob) => {
-      console.log(blob);
+      this.cvFileName = this.fullName + "_-_" + translations.getTranslation(this.langAbbreviations[this.langSelection], 'cv_title') + ".docx";
       saveAs(blob, this.cvFileName);
     });
   }
 
   generatePublicationsList(cvContent?: CvContent) {
     docx.Packer.toBlob(this.templateBuilder.buildCvTemplate(this.langAbbreviations[this.langSelection], this.profileData, this.orcidId, (this.importSelection === 1), true, this.citationStyleSelection)).then((blob) => {
-      console.log(blob);
+      this.publicationListFileName = this.fullName + "_-_" + translations.getTranslation(this.langAbbreviations[this.langSelection], 'cv_publication_list') + ".docx";
       saveAs(blob, this.publicationListFileName);
     });
   }
@@ -154,12 +154,9 @@ export class CvToolComponent implements OnInit {
             );
             this.profileData = clone(value.profileData);
             this.fullName = this.profileData[0].fields[0].items.filter(item => item.itemMeta.show === true)[0].fullName;
+            this.fullName = this.fullName.replaceAll(' ', '_');
             console.log('profileData', this.profileData, this.fullName);
             this.orcidId = this.route.snapshot.data.orcidProfile.orcid;
-            this.cvFileName = this.fullName;
-            this.cvFileName = this.cvFileName.replaceAll(' ', '_');
-            this.publicationListFileName = this.cvFileName + "_-_Publication_list.docx";
-            this.cvFileName = this.cvFileName + "_-_CV.docx";
           }
         });
   }
