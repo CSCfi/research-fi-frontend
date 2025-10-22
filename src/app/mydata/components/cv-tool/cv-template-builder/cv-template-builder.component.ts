@@ -1,0 +1,527 @@
+import { Component } from '@angular/core';
+import {
+  AlignmentType,
+  Document,
+  HeadingLevel,
+  Paragraph,
+  TabStopPosition,
+  TabStopType,
+  TextRun
+} from 'docx';
+import * as docx from 'docx';
+import * as translations from '@mydata/components/cv-tool/cv-template-builder/CvTranslations';
+import * as cvDataformatter from '@mydata/components/cv-tool/cv-template-builder/CvDataFormatter';
+import { checkTranslation as checkTranslation} from '@portal/models/person/profiletool-person-adapter';
+
+
+export interface cvTopLevelParagraph {
+  paragraphTitle: string;
+  preFaceTexts?: string[];
+  bulletsList?: string[];
+  activityContent?: string[];
+}
+
+export interface cvDataFormatted {
+  firstNames: string;
+  lastName: string;
+  orcid: string;
+  date: string;
+  degrees: any[];
+  otherEducationAndExpertise: any[];
+  currentEmployment: any[];
+  previousWorkExperience: any[]
+  researchFundingAndGrants: any[];
+  researchSupervisionAndLeadershipExperience: any[];
+  teachingMerits: any[];
+  awardsAndHonors: any[];
+  researchDatasets: any[];
+  publications: any[];
+  activities: any[];
+}
+
+export const citationStyle = {
+  'APA': 0,
+  'Chichago': 1,
+  'MLA': 2
+}
+
+export class CvTemplateBuilderComponent {
+  langCode = 'fi';
+
+  private getTranslation(translationKey: string) {
+    return translations.getTranslation(this.langCode, translationKey);
+  }
+
+  public buildCvTemplate(lang: string, profileData: any, orcidId: string, filterVisible: boolean, isPublicationList: boolean, citationStyle: number): Document {
+    let cvData: cvDataFormatted = cvDataformatter.formatCvData(lang, profileData, orcidId, filterVisible);
+    this.langCode = lang;
+
+    console.log('cvData', cvData);
+
+    let bulletsSec1 = [this.getTranslation('cv_1_bullet1'), this.getTranslation('cv_1_bullet2'), this.getTranslation('cv_1_bullet3'), this.getTranslation('cv_1_bullet4')];
+    let paragraphContentSec1: cvTopLevelParagraph = {
+      paragraphTitle: this.getTranslation('cv_1_personal_info_title'),
+      bulletsList: bulletsSec1
+    };
+
+    let bulletsSec2 = [this.getTranslation('cv_2_bullet_1'),this.getTranslation('cv_2_bullet_2')];
+    let paragraphContentSec2: cvTopLevelParagraph = {
+      paragraphTitle: this.getTranslation('cv_2_degrees_heading'),
+      bulletsList: bulletsSec2
+    };
+
+    let bulletsSec3 = [this.getTranslation('cv_3_other_edu_bullet1')];
+    let paragraphContentSec3: cvTopLevelParagraph = {
+      paragraphTitle: this.getTranslation('cv_3_other_edu_title'),
+      bulletsList: bulletsSec3
+    };
+
+    let bulletsSec4 = [this.getTranslation('cv_4_language_skills_bullet1'), this.getTranslation('cv_4_language_skills_bullet2')];
+    let paragraphContentSec4: cvTopLevelParagraph = {
+      paragraphTitle: this.getTranslation('cv_4_language_skills_title'),
+      bulletsList: bulletsSec4
+    };
+
+    let bulletsSec5 = [this.getTranslation('cv_5_employment_bullet1'), this.getTranslation('cv_5_employment_bullet2'), this.getTranslation('cv_5_employment_bullet3'), this.getTranslation('cv_5_employment_bullet4')];
+    let paragraphContentSec5: cvTopLevelParagraph = {
+      paragraphTitle: this.getTranslation('cv_5_employment_title'),
+      bulletsList: bulletsSec5
+    };
+
+    let bulletsSec6 = [this.getTranslation('cv_6_previous_experience_bullet1'), this.getTranslation('cv_6_previous_experience_bullet2')];
+    let paragraphContentSec6: cvTopLevelParagraph = {
+      paragraphTitle:this.getTranslation('cv_6_previous_experience_title'),
+      bulletsList: bulletsSec6
+    };
+
+    let prefaceTextsSec7 = [this.getTranslation('cv_7_career_breaks_title_after')];
+    let bulletsSec7 = [this.getTranslation('cv_7_career_breaks_bullet1')];
+    let paragraphContentSec7: cvTopLevelParagraph = {
+      paragraphTitle: this.getTranslation('cv_7_career_breaks_title'),
+      bulletsList: bulletsSec7,
+      preFaceTexts: prefaceTextsSec7
+    };
+
+    let bulletsSec8 = [this.getTranslation('cv_8_fundings_and_grants_bullet1')];
+    let paragraphContentSec8: cvTopLevelParagraph = {
+      paragraphTitle: this.getTranslation('cv_8_fundings_and_grants_title'),
+      bulletsList: bulletsSec8
+    };
+
+    let bulletsSec9 = [this.getTranslation('cv_9_research_bullet1'), this.getTranslation('cv_9_research_bullet2'), this.getTranslation('cv_9_research_bullet3'), this.getTranslation('cv_9_research_bullet4'), this.getTranslation('cv_9_research_bullet5')];
+    let paragraphContentSec9: cvTopLevelParagraph = {
+      paragraphTitle: this.getTranslation('cv_9_research_output_title`'),
+      bulletsList: bulletsSec9
+    };
+
+    let bulletsSec10 = [this.getTranslation('cv_10_supervision_and_leadership_bullet1'), this.getTranslation('cv_10_supervision_and_leadership_bullet2')];
+    let paragraphContentSec10: cvTopLevelParagraph = {
+      paragraphTitle: this.getTranslation('cv_10_supervision_and_leadership_title'),
+      bulletsList: bulletsSec10
+    };
+
+    let prefaceTextsSec11 = [this.getTranslation('cv_11_teaching_merits_title_after')];
+    let bulletsSec11 = [this.getTranslation('cv_11_teaching_merits_bullet1'), this.getTranslation('cv_11_teaching_merits_bullet2'), this.getTranslation('cv_11_teaching_merits_bullet3'), this.getTranslation('cv_11_teaching_merits_bullet4')];
+    let paragraphContentSec11: cvTopLevelParagraph = {
+      paragraphTitle: this.getTranslation('cv_11_teaching_merits_title'),
+      bulletsList: bulletsSec11,
+      preFaceTexts: prefaceTextsSec11
+    };
+
+    let bulletsSec12 = [this.getTranslation('cv_12_awards_and_honours_bullet1'), this.getTranslation('cv_12_awards_and_honours_bullet2')];
+    let paragraphContentSec12: cvTopLevelParagraph = {
+      paragraphTitle: this.getTranslation('cv_12_awards_and_honours_title'),
+      bulletsList: bulletsSec12
+    };
+
+    let bulletsSec13 = [this.getTranslation('cv_13_other_key_merits_bullet1'), this.getTranslation('cv_13_other_key_merits_bullet2'), this.getTranslation('cv_13_other_key_merits_bullet3'), this.getTranslation('cv_13_other_key_merits_bullet4'), this.getTranslation('cv_13_other_key_merits_bullet5'), this.getTranslation('cv_13_other_key_merits_bullet6'), this.getTranslation('cv_13_other_key_merits_bullet7'), this.getTranslation('cv_13_other_key_merits_bullet8'), this.getTranslation('cv_13_other_key_merits_bullet9'), this.getTranslation('cv_13_other_key_merits_bullet10')];
+    let paragraphContentSec13: cvTopLevelParagraph = {
+      paragraphTitle: this.getTranslation('cv_13_other_key_merits_title'),
+      bulletsList: bulletsSec13
+    };
+
+    let bulletsSec14 = [this.getTranslation('cv_14_scientific_impact_bullet1'), this.getTranslation('cv_14_scientific_impact_bullet2'), this.getTranslation('cv_14_scientific_impact_bullet3'), this.getTranslation('cv_14_scientific_impact_bullet4'), this.getTranslation('cv_14_scientific_impact_bullet5')];
+    let paragraphContentSec14: cvTopLevelParagraph = {
+      paragraphTitle: this.getTranslation('cv_14_scientific_impact_title1'),
+      bulletsList: bulletsSec14
+    };
+
+    let bulletsSec15 = [this.getTranslation('cv_15_other_merits_bullet1'), this.getTranslation('cv_15_other_merits_bullet2'), this.getTranslation('cv_15_other_merits_bullet3')];
+    let paragraphContentSec15: cvTopLevelParagraph = {
+      paragraphTitle: this.getTranslation('cv_15_other_merits_title'),
+      bulletsList: bulletsSec15
+    };
+
+    //let firstName = profileData[0].items[0].fields[0]
+
+    if (!isPublicationList) {
+      // CV TEMPLATE
+      const cvTemplate = new docx.Document({
+        styles: {
+          default: {
+            heading1: {
+              run: {
+                font: "Calibri",
+                size: 52,
+                bold: true,
+              },
+              paragraph: {
+                alignment: AlignmentType.CENTER,
+                spacing: { line: 276, before: 20 * 72 * 0.1, after: 20 * 72 * 0.05 },
+              },
+            },
+            heading2: {
+              run: {
+                font: "Calibri",
+                size: 26,
+                bold: true,
+              },
+              paragraph: {
+                spacing: { line: 276, before: 30 * 72 * 0.1, after: 20 * 72 * 0.05 },
+              },
+            },
+          },
+          paragraphStyles: [
+            {
+              id: "baseParagraphBlue",
+              name: "Blue base paragraph",
+              basedOn: "Normal",
+              next: "Normal",
+              run: {
+                font: "Calibri",
+                color: "66A4FB",
+              },
+              paragraph: {
+                spacing: { line: 276 },
+              },
+            },
+            {
+              id: "baseParagraphBlack",
+              name: "Black base paragraph",
+              basedOn: "Normal",
+              next: "Normal",
+              run: {
+                font: "Calibri",
+                color: "000000",
+              },
+              paragraph: {
+                spacing: { line: 276 },
+              },
+            },
+          ],
+
+        },
+        sections: [
+          {
+            properties: {},
+            children: [
+              this.createHeading(this.getTranslation('cv_title')),
+
+              new docx.Paragraph({
+                text: this.getTranslation('cv_preface1'),
+                style: "baseParagraphBlue",
+              }),
+              this.createBulletBlue(this.getTranslation('cv_bullet1')),
+              this.createBulletBlue(this.getTranslation('cv_bullet2')),
+
+              ...this.createMainLevelParagraph(paragraphContentSec1),
+              this.createBaseParagraph(''),
+              this.createBaseParagraph(cvData.firstNames),
+              this.createBaseParagraph(cvData.lastName),
+              this.createBaseParagraph(cvData.orcid),
+              this.createBaseParagraph(cvData.date),
+              ...this.createMainLevelParagraph(paragraphContentSec2),
+              this.createBaseParagraph(''),
+              ...this.createDegreesRows(cvData.degrees),
+              ...this.createMainLevelParagraph(paragraphContentSec3),
+              ...this.createMainLevelParagraph(paragraphContentSec4),
+              ...this.createMainLevelParagraph(paragraphContentSec5),
+              this.createBaseParagraph(''),
+              ...this.createEmploymentRows(cvData.currentEmployment),
+              ...this.createMainLevelParagraph(paragraphContentSec6),
+              this.createBaseParagraph(''),
+              ...this.createEmploymentRows(cvData.previousWorkExperience),
+              ...this.createMainLevelParagraph(paragraphContentSec7),
+              ...this.createMainLevelParagraph(paragraphContentSec8),
+              ...this.createMainLevelParagraph(paragraphContentSec9),
+              ...this.createMainLevelParagraph(paragraphContentSec10),
+              ...this.createActivityRows(cvData.activities, ['12.1.'], true, lang),
+              ...this.createMainLevelParagraph(paragraphContentSec11),
+              ...this.createMainLevelParagraph(paragraphContentSec12),
+              ...this.createActivityRows(cvData.activities, ['9.'], true, lang),
+              ...this.createMainLevelParagraph(paragraphContentSec13),
+              ...this.createActivityRows(cvData.activities, ['5.1.','5.2.','5.5.','5.6.','5.7.','5.8.','8.1.'], true, lang),
+              ...this.createActivityRows(cvData.activities, ['3.1', '3.2'], true, lang),
+              ...this.createActivityRows(cvData.activities, ['2.1'], true, lang),
+              ...this.createActivityRows(cvData.activities, ['2.3.','2.4.'], true, lang),
+              ...this.createActivityRows(cvData.activities, ['1.'], true, lang),
+              ...this.createActivityRows(cvData.activities, ['5.3','5.4','5.5','5.6'], true, lang),
+              ...this.createActivityRows(cvData.activities, ['5.3', '5.4','5.5','5.6'], true, lang),
+              ...this.createActivityRows(cvData.activities, ['8.6.1', '8.6.2', '8.6.3'], true, lang),
+              ...this.createMainLevelParagraph(paragraphContentSec14),
+              ...this.createActivityRows(cvData.activities, ['4', '5'], false, lang),
+              ...this.createMainLevelParagraph(paragraphContentSec15)
+            ]
+          }
+        ]
+      });
+      return cvTemplate;
+    }
+    else {
+      // PUBLICATION LIST TEMPLATE
+      const publicationListTemplate = new docx.Document({
+        styles: {
+          default: {
+            heading1: {
+              run: {
+                font: "Calibri",
+                size: 52,
+                bold: true,
+                color: "000000",
+              },
+              paragraph: {
+                alignment: AlignmentType.CENTER,
+                spacing: { line: 276, before: 20 * 72 * 0.1, after: 20 * 72 * 0.05 },
+              },
+            },
+            heading2: {
+              run: {
+                font: "Calibri",
+                size: 26,
+                bold: true,
+              },
+              paragraph: {
+                spacing: { line: 276, before: 30 * 72 * 0.1, after: 20 * 72 * 0.05 },
+              },
+            },
+          },
+          paragraphStyles: [
+            {
+              id: "baseParagraphBlue",
+              name: "Blue base paragraph",
+              basedOn: "Normal",
+              next: "Normal",
+              run: {
+                font: "Calibri",
+                color: "66A4FB",
+              },
+              paragraph: {
+                spacing: { line: 276 },
+              },
+            },
+            {
+              id: "baseParagraphBlack",
+              name: "Black base paragraph",
+              basedOn: "Normal",
+              next: "Normal",
+              run: {
+                font: "Calibri",
+                color: "000000",
+              },
+              paragraph: {
+                spacing: { line: 276 },
+              },
+            },
+          ],
+
+        },
+        sections: [
+          {
+            properties: {},
+            children: [
+              this.createHeading(this.getTranslation('cv_publication_list')),
+
+              ...this.createPublicationRows(cvData.publications, citationStyle)
+            ]
+          }
+        ]
+      });
+      return publicationListTemplate;
+    }
+  }
+
+  private createPublicationRows(publicationsData, citationStyle: number){
+    let ret: docx.Paragraph[] = [];
+
+    publicationsData.forEach((publication) => {
+      // TODO add citation formatting for TTV publications with publication-citation.model.ts adapter
+      //console.log('publication', publication);
+
+      if (publication['authorsText'] && publication['journalName']){
+        ret.push(this.createBaseParagraph(''));
+        ret.push(this.createBaseParagraph(publication['authorsText']));
+        ret.push(this.createBaseParagraph(publication['journalName']));
+        ret.push(this.createBaseParagraph(publication['doi']));
+      }
+    });
+    return ret;
+  }
+
+  private createDegreesRows(degreeData){
+    let ret: docx.Paragraph[] = [];
+
+    degreeData.forEach((degree) => {
+      if (degree['name'] && degree['degreeGrantingInstitutionName']){
+        ret.push(this.createBaseParagraph(degree['name'] + ' - ' + degree['degreeGrantingInstitutionName']));
+      }
+    });
+    return ret;
+  }
+
+  private createEmploymentRows(employmentData){
+    let ret: docx.Paragraph[] = [];
+
+    employmentData.forEach((employment) => {
+      if (employment['organizationName'] || employment['name']) {
+        ret.push(this.createBaseParagraph(employment['organizationName']));
+        employment['name'] ? ret.push(this.createBaseParagraph(employment['name'])) : undefined;
+        employment['departmentName'] ? ret.push(this.createBaseParagraph(employment['departmentName'])) : undefined;
+        ret.push(this.createBaseParagraph(employment?.startDate?.year + ' - ' + employment?.endDate?.year));
+        ret.push(this.createBaseParagraph(''));
+      }
+    });
+    return ret;
+  }
+
+  private createActivityRows(activityData, activityCodes: string[], includeSubclasses: boolean, lang: string){
+    const langCapitalized = lang[0].toUpperCase() + lang.slice(1);
+    let ret: docx.Paragraph[] = [];
+    activityCodes.forEach((activityCode) => {
+      activityData.forEach((activity) => {
+        if (includeSubclasses) {
+          if (activity?.activityTypeCode?.startsWith(activityCode)) {
+            activity = this.formatTiming(activity);
+            ret.push(this.createBaseParagraph(''));
+            if (activity['type']?.length > 0) {
+
+              const activityType: any = this.capitalizeFirstLetter(activity['activityTypeName' + langCapitalized]);
+              ret.push(this.createBaseParagraph(activityType));
+            }
+            if (activity['name' + langCapitalized]?.length > 0) {
+              ret.push(this.createBaseParagraph(activity['name' + langCapitalized]));
+            }
+            if (activity['organizationName' + langCapitalized]?.length > 0) {
+              ret.push(this.createBaseParagraph(activity['organizationName' + langCapitalized]));
+            }
+            if (activity['positionName' + langCapitalized]?.length > 0) {
+              ret.push(this.createBaseParagraph(activity['positionName' + langCapitalized]));
+            }
+            ret.push(this.createBaseParagraph(activity['timing']));
+          }
+        }
+        else {
+          if (activity?.activityTypeCode === activityCode) {
+            activity = this.formatTiming(activity);
+            ret.push(this.createBaseParagraph(''));
+            if (activity['type']?.length > 0) {
+              const activityType: any = this.capitalizeFirstLetter(activity['activityTypeName' + langCapitalized]);
+              ret.push(this.createBaseParagraph(activityType))
+            }
+            if (activity['name' + langCapitalized]?.length > 0) {
+              ret.push(this.createBaseParagraph(activity['name' + langCapitalized]));
+            }
+            if (activity['organizationName' + langCapitalized]?.length > 0) {
+              ret.push(this.createBaseParagraph(activity['organizationName' + langCapitalized]));
+            }
+            if (activity['positionName' + langCapitalized]?.length > 0) {
+              ret.push(this.createBaseParagraph(activity['positionName' + langCapitalized]));
+            }
+            ret.push(this.createBaseParagraph(activity['timing']));
+          }
+        }
+
+      });
+    });
+
+    return ret;
+  }
+
+  private formatTiming(item){
+    // Show single year
+      if (item.startDate.year === item.endDate.year) {
+        if (item.endDate.year === 0) {
+          item.timing = '';
+        } else {
+          item.timing = item.startDate.year.toString();
+        }
+      }
+      // Start date missing
+      else if (item.startDate.year === 0) {
+        if (item.endDate.year > 0) {
+          item.timing = item.endDate.year.toString();
+        }
+        // Start and end date missing
+        else {
+          item.timing = '';
+        }
+        // End date missing
+      } else if (item.endDate.year === 0) {
+        item.timing = item.startDate.year?.toString();
+      }
+      // Regular case
+      else {
+        item.timing = item.startDate.year + ' - ' + item.endDate.year;
+      }
+      return item;
+  }
+
+  private capitalizeFirstLetter(value: any): unknown {
+    if (!value || value.length === 0) {
+      return '';
+    }
+    return (value[0].toUpperCase() + value.slice(1)).toString();
+  }
+
+  public createHeading(text: string): Paragraph {
+    return new Paragraph({
+      text: text,
+      heading: HeadingLevel.HEADING_1,
+    });
+  }
+
+  private createMainLevelParagraph(elements: cvTopLevelParagraph) {
+    let ret: docx.Paragraph[] = [];
+
+    ret.push(new docx.Paragraph({
+      text: elements.paragraphTitle,
+      heading: HeadingLevel.HEADING_2,
+      style: "heading2",
+    }));
+
+    if (elements.bulletsList) {
+      elements.bulletsList.forEach(bullet => {
+        ret.push(this.createBulletBlue(bullet));
+      });
+    }
+
+    return ret;
+  }
+
+  public createBaseParagraph(text: string): Paragraph {
+    return new Paragraph({
+      text: text,
+      style: "baseParagraphBlack",
+      indent: {left: 350 },
+    });
+  }
+
+  public createBulletBlack(text: string): Paragraph {
+    return new Paragraph({
+      text: text,
+      style: "baseParagraphBlack",
+      bullet: {
+        level: 0
+      }
+    });
+  }
+
+  public createBulletBlue(text: string): Paragraph {
+    return new Paragraph({
+      text: text,
+      style: "baseParagraphBlue",
+      bullet: {
+        level: 0
+      }
+    });
+  }
+}

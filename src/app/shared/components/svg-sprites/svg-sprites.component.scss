@@ -301,6 +301,10 @@
   .primary-button-icon {
     color: #fff !important;
     fill: #fff !important;
+    .download-icon {
+      color: #fff !important;
+      fill: #fff !important;
+    }
   }
 
   .edit-icon {
@@ -363,12 +367,14 @@
       margin-right: -22px;
     }
   }
+
   .copy-icon, .download-icon {
     color: #4546b9;
     fill: #4546b9;
-    width: 16px;
-    height: 16px;
-    margin-top: -4px;
+    width: 22px;
+    height: 22px;
+    margin-top: -3px;
+    margin-left: 8px;
     margin-right: 8px;
   }
 

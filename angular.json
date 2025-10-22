@@ -15,15 +15,19 @@
       "prefix": "app",
       "i18n": {
         "sourceLocale": {
-          "code": "fi"
+          "code": "fi-FI"
         },
         "locales": {
+          "fi": {
+            "translation": "src/i18n/messages.fi.json",
+            "baseHref": "/fi/"
+          },
           "en": {
-            "translation": "src/i18n/messages.en.xlf",
+            "translation": "src/i18n/messages.en.json",
             "baseHref": "/en/"
           },
           "sv": {
-            "translation": "src/i18n/messages.sv.xlf",
+            "translation": "src/i18n/messages.sv.json",
             "baseHref": "/sv/"
           }
         }
@@ -119,13 +123,13 @@
           "builder": "ng-extract-i18n-merge:ng-extract-i18n-merge",
           "options": {
             "buildTarget": "research-fi:build",
-            "format": "xlf",
+            "format": "json",
             "includeContext": false,
             "sort": "stableAppendNew",
             "outputPath": "src/i18n",
             "targetFiles": [
-              "messages.en.xlf",
-              "messages.sv.xlf"
+              "messages.en.json",
+              "messages.sv.json"
             ]
           }
         },
@@ -133,11 +137,11 @@
           "builder": "ng-extract-i18n-merge:ng-extract-i18n-merge",
           "options": {
             "browserTarget": "research-fi:build",
-            "format": "xlf",
+            "format": "json",
             "outputPath": "src/i18n",
             "targetFiles": [
-              "messages.en.xlf",
-              "messages.sv.xlf"
+              "messages.en.json",
+              "messages.sv.json"
             ]
           }
         },

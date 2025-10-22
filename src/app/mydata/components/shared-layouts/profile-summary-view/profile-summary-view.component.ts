@@ -27,6 +27,7 @@ import {
   SortDropdownMenuComponent
 } from '@mydata/components/shared-layouts/profile-summary-view/sort-dropdown-menu/sort-dropdown-menu.component';
 import { BehaviorSubject } from 'rxjs';
+import { checkTranslation } from '@portal/models/person/profiletool-person-adapter';
 
 @Component({
   selector: 'app-profile-summary-view',

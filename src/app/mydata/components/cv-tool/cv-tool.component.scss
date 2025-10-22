@@ -1,0 +1,13 @@
+.cv-tool-wrap {
+  app-svg-sprites {
+    margin-left: -4px;
+  }
+  .bordered-section {
+    display: flex;
+    align-content: space-between;
+    background: #fff;
+    border: 1px solid #e8e8f5;
+    padding: 10px;
+    min-height: 210px;
+  }
+}
