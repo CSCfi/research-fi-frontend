@@ -110,7 +110,7 @@ export class CvTemplateBuilderComponent {
 
     let bulletsSec9 = [this.getTranslation('cv_9_research_bullet1'), this.getTranslation('cv_9_research_bullet2'), this.getTranslation('cv_9_research_bullet3'), this.getTranslation('cv_9_research_bullet4'), this.getTranslation('cv_9_research_bullet5')];
     let paragraphContentSec9: cvTopLevelParagraph = {
-      paragraphTitle: this.getTranslation('cv_9_research_output_title`'),
+      paragraphTitle: this.getTranslation('cv_9_research_output_title'),
       bulletsList: bulletsSec9
     };
 
