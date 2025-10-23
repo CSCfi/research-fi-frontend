@@ -11,7 +11,8 @@ import {
 import * as docx from 'docx';
 import * as translations from '@mydata/components/cv-tool/cv-template-builder/CvTranslations';
 import * as cvDataformatter from '@mydata/components/cv-tool/cv-template-builder/CvDataFormatter';
-import { checkTranslation as checkTranslation} from '@portal/models/person/profiletool-person-adapter';
+import { checkTranslation as checkTranslation } from '@portal/models/person/profiletool-person-adapter';
+import { PublicationCitationAdapter } from '@portal/models/publication/publication-citation.model';
 
 
 export interface cvTopLevelParagraph {
@@ -29,7 +30,7 @@ export interface cvDataFormatted {
   degrees: any[];
   otherEducationAndExpertise: any[];
   currentEmployment: any[];
-  previousWorkExperience: any[]
+  previousWorkExperience: any[];
   researchFundingAndGrants: any[];
   researchSupervisionAndLeadershipExperience: any[];
   teachingMerits: any[];
@@ -43,10 +44,34 @@ export const citationStyle = {
   'APA': 0,
   'Chichago': 1,
   'MLA': 2
-}
+};
+
 
 export class CvTemplateBuilderComponent {
   langCode = 'fi';
+
+  constructor() {
+  }
+
+
+  private adaptCitations(publicationItem, citationStyle: number) {
+    let citationAdapter = new PublicationCitationAdapter();
+    let citationsObject = citationAdapter.adapt(publicationItem);
+    switch (citationStyle) {
+      case 0: {
+        return citationsObject.apa;
+      }
+      case 1: {
+        return citationsObject.chicago;
+      }
+      case 2: {
+        return citationsObject.mla;
+      }
+      default: {
+        return undefined;
+      }
+    }
+  }
 
   private getTranslation(translationKey: string) {
     return translations.getTranslation(this.langCode, translationKey);
@@ -64,7 +89,7 @@ export class CvTemplateBuilderComponent {
       bulletsList: bulletsSec1
     };
 
-    let bulletsSec2 = [this.getTranslation('cv_2_bullet_1'),this.getTranslation('cv_2_bullet_2')];
+    let bulletsSec2 = [this.getTranslation('cv_2_bullet_1'), this.getTranslation('cv_2_bullet_2')];
     let paragraphContentSec2: cvTopLevelParagraph = {
       paragraphTitle: this.getTranslation('cv_2_degrees_heading'),
       bulletsList: bulletsSec2
@@ -90,7 +115,7 @@ export class CvTemplateBuilderComponent {
 
     let bulletsSec6 = [this.getTranslation('cv_6_previous_experience_bullet1'), this.getTranslation('cv_6_previous_experience_bullet2')];
     let paragraphContentSec6: cvTopLevelParagraph = {
-      paragraphTitle:this.getTranslation('cv_6_previous_experience_title'),
+      paragraphTitle: this.getTranslation('cv_6_previous_experience_title'),
       bulletsList: bulletsSec6
     };
 
@@ -110,7 +135,7 @@ export class CvTemplateBuilderComponent {
 
     let bulletsSec9 = [this.getTranslation('cv_9_research_bullet1'), this.getTranslation('cv_9_research_bullet2'), this.getTranslation('cv_9_research_bullet3'), this.getTranslation('cv_9_research_bullet4'), this.getTranslation('cv_9_research_bullet5')];
     let paragraphContentSec9: cvTopLevelParagraph = {
-      paragraphTitle: this.getTranslation('cv_9_research_output_title`'),
+      paragraphTitle: this.getTranslation('cv_9_research_output_title'),
       bulletsList: bulletsSec9
     };
 
@@ -161,54 +186,54 @@ export class CvTemplateBuilderComponent {
           default: {
             heading1: {
               run: {
-                font: "Calibri",
+                font: 'Calibri',
                 size: 52,
-                bold: true,
+                bold: true
               },
               paragraph: {
                 alignment: AlignmentType.CENTER,
-                spacing: { line: 276, before: 20 * 72 * 0.1, after: 20 * 72 * 0.05 },
-              },
+                spacing: { line: 276, before: 20 * 72 * 0.1, after: 20 * 72 * 0.05 }
+              }
             },
             heading2: {
               run: {
-                font: "Calibri",
+                font: 'Calibri',
                 size: 26,
-                bold: true,
+                bold: true
               },
               paragraph: {
-                spacing: { line: 276, before: 30 * 72 * 0.1, after: 20 * 72 * 0.05 },
-              },
-            },
+                spacing: { line: 276, before: 30 * 72 * 0.1, after: 20 * 72 * 0.05 }
+              }
+            }
           },
           paragraphStyles: [
             {
-              id: "baseParagraphBlue",
-              name: "Blue base paragraph",
-              basedOn: "Normal",
-              next: "Normal",
+              id: 'baseParagraphBlue',
+              name: 'Blue base paragraph',
+              basedOn: 'Normal',
+              next: 'Normal',
               run: {
-                font: "Calibri",
-                color: "66A4FB",
+                font: 'Calibri',
+                color: '66A4FB'
               },
               paragraph: {
-                spacing: { line: 276 },
-              },
+                spacing: { line: 276 }
+              }
             },
             {
-              id: "baseParagraphBlack",
-              name: "Black base paragraph",
-              basedOn: "Normal",
-              next: "Normal",
+              id: 'baseParagraphBlack',
+              name: 'Black base paragraph',
+              basedOn: 'Normal',
+              next: 'Normal',
               run: {
-                font: "Calibri",
-                color: "000000",
+                font: 'Calibri',
+                color: '000000'
               },
               paragraph: {
-                spacing: { line: 276 },
-              },
-            },
-          ],
+                spacing: { line: 276 }
+              }
+            }
+          ]
 
         },
         sections: [
@@ -219,7 +244,7 @@ export class CvTemplateBuilderComponent {
 
               new docx.Paragraph({
                 text: this.getTranslation('cv_preface1'),
-                style: "baseParagraphBlue",
+                style: 'baseParagraphBlue'
               }),
               this.createBulletBlue(this.getTranslation('cv_bullet1')),
               this.createBulletBlue(this.getTranslation('cv_bullet2')),
@@ -250,13 +275,13 @@ export class CvTemplateBuilderComponent {
               ...this.createMainLevelParagraph(paragraphContentSec12),
               ...this.createActivityRows(cvData.activities, ['9.'], true, lang),
               ...this.createMainLevelParagraph(paragraphContentSec13),
-              ...this.createActivityRows(cvData.activities, ['5.1.','5.2.','5.5.','5.6.','5.7.','5.8.','8.1.'], true, lang),
+              ...this.createActivityRows(cvData.activities, ['5.1.', '5.2.', '5.5.', '5.6.', '5.7.', '5.8.', '8.1.'], true, lang),
               ...this.createActivityRows(cvData.activities, ['3.1', '3.2'], true, lang),
               ...this.createActivityRows(cvData.activities, ['2.1'], true, lang),
-              ...this.createActivityRows(cvData.activities, ['2.3.','2.4.'], true, lang),
+              ...this.createActivityRows(cvData.activities, ['2.3.', '2.4.'], true, lang),
               ...this.createActivityRows(cvData.activities, ['1.'], true, lang),
-              ...this.createActivityRows(cvData.activities, ['5.3','5.4','5.5','5.6'], true, lang),
-              ...this.createActivityRows(cvData.activities, ['5.3', '5.4','5.5','5.6'], true, lang),
+              ...this.createActivityRows(cvData.activities, ['5.3', '5.4', '5.5', '5.6'], true, lang),
+              ...this.createActivityRows(cvData.activities, ['5.3', '5.4', '5.5', '5.6'], true, lang),
               ...this.createActivityRows(cvData.activities, ['8.6.1', '8.6.2', '8.6.3'], true, lang),
               ...this.createMainLevelParagraph(paragraphContentSec14),
               ...this.createActivityRows(cvData.activities, ['4', '5'], false, lang),
@@ -266,63 +291,62 @@ export class CvTemplateBuilderComponent {
         ]
       });
       return cvTemplate;
-    }
-    else {
+    } else {
       // PUBLICATION LIST TEMPLATE
       const publicationListTemplate = new docx.Document({
         styles: {
           default: {
             heading1: {
               run: {
-                font: "Calibri",
+                font: 'Calibri',
                 size: 52,
                 bold: true,
-                color: "000000",
+                color: '000000'
               },
               paragraph: {
                 alignment: AlignmentType.CENTER,
-                spacing: { line: 276, before: 20 * 72 * 0.1, after: 20 * 72 * 0.05 },
-              },
+                spacing: { line: 276, before: 20 * 72 * 0.1, after: 20 * 72 * 0.05 }
+              }
             },
             heading2: {
               run: {
-                font: "Calibri",
+                font: 'Calibri',
                 size: 26,
-                bold: true,
+                bold: true
               },
               paragraph: {
-                spacing: { line: 276, before: 30 * 72 * 0.1, after: 20 * 72 * 0.05 },
-              },
-            },
+                spacing: { line: 276, before: 30 * 72 * 0.1, after: 20 * 72 * 0.05 }
+              }
+            }
           },
           paragraphStyles: [
             {
-              id: "baseParagraphBlue",
-              name: "Blue base paragraph",
-              basedOn: "Normal",
-              next: "Normal",
+              id: 'baseParagraphBlue',
+              name: 'Blue base paragraph',
+              basedOn: 'Normal',
+              next: 'Normal',
               run: {
-                font: "Calibri",
-                color: "66A4FB",
+                font: 'Calibri',
+                color: '66A4FB'
               },
               paragraph: {
-                spacing: { line: 276 },
-              },
+                spacing: { line: 276 }
+              }
             },
             {
-              id: "baseParagraphBlack",
-              name: "Black base paragraph",
-              basedOn: "Normal",
-              next: "Normal",
+              id: 'baseParagraphBlack',
+              name: 'Black base paragraph',
+              basedOn: 'Normal',
+              next: 'Normal',
               run: {
-                font: "Calibri",
-                color: "000000",
+                font: 'Calibri',
+                color: '000000'
               },
               paragraph: {
-                spacing: { line: 276 },
-              },
-            },
-          ],
+                spacing: { line: 276 }
+              }
+            }
+          ]
 
         },
         sections: [
@@ -340,35 +364,42 @@ export class CvTemplateBuilderComponent {
     }
   }
 
-  private createPublicationRows(publicationsData, citationStyle: number){
+  private createPublicationRows(publicationsData, citationStyle: number) {
     let ret: docx.Paragraph[] = [];
 
     publicationsData.forEach((publication) => {
-      // TODO add citation formatting for TTV publications with publication-citation.model.ts adapter
-      //console.log('publication', publication);
+      ret.push(this.createBaseParagraph(''));
 
-      if (publication['authorsText'] && publication['journalName']){
-        ret.push(this.createBaseParagraph(''));
-        ret.push(this.createBaseParagraph(publication['authorsText']));
-        ret.push(this.createBaseParagraph(publication['journalName']));
-        ret.push(this.createBaseParagraph(publication['doi']));
+      if (publication.dataSources[0].registeredDataSource === 'ORCID') {
+        if (citationStyle === 0) {
+          ret.push(this.createBaseParagraph(publication['authorsText'] + ' (' + publication['publicationYear'] + ').' + publication['publicationName'] + '. doi: ' + publication['doi']));
+        } else if (citationStyle === 1) {
+          ret.push(this.createBaseParagraph(publication['authorsText'] + ' ' + publication['publicationYear'] + '. "' + publication['publicationName'] + '". doi: ' + publication['doi']));
+        } else if (citationStyle === 2) {
+          ret.push(this.createBaseParagraph(publication['authorsText'] + ' "' + publication['publicationName'] + '", ' + publication['publicationYear'] + '. doi: ' + publication['doi']));
+        }
+      } else {
+        let citationString = this.adaptCitations(publication, citationStyle);
+        citationString = citationString.replace('<i>', '');
+        citationString = citationString.replace('</i>', '');
+        ret.push(this.createBaseParagraph(citationString));
       }
     });
     return ret;
   }
 
-  private createDegreesRows(degreeData){
+  private createDegreesRows(degreeData) {
     let ret: docx.Paragraph[] = [];
 
     degreeData.forEach((degree) => {
-      if (degree['name'] && degree['degreeGrantingInstitutionName']){
+      if (degree['name'] && degree['degreeGrantingInstitutionName']) {
         ret.push(this.createBaseParagraph(degree['name'] + ' - ' + degree['degreeGrantingInstitutionName']));
       }
     });
     return ret;
   }
 
-  private createEmploymentRows(employmentData){
+  private createEmploymentRows(employmentData) {
     let ret: docx.Paragraph[] = [];
 
     employmentData.forEach((employment) => {
@@ -383,7 +414,7 @@ export class CvTemplateBuilderComponent {
     return ret;
   }
 
-  private createActivityRows(activityData, activityCodes: string[], includeSubclasses: boolean, lang: string){
+  private createActivityRows(activityData, activityCodes: string[], includeSubclasses: boolean, lang: string) {
     const langCapitalized = lang[0].toUpperCase() + lang.slice(1);
     let ret: docx.Paragraph[] = [];
     activityCodes.forEach((activityCode) => {
@@ -408,14 +439,13 @@ export class CvTemplateBuilderComponent {
             }
             ret.push(this.createBaseParagraph(activity['timing']));
           }
-        }
-        else {
+        } else {
           if (activity?.activityTypeCode === activityCode) {
             activity = this.formatTiming(activity);
             ret.push(this.createBaseParagraph(''));
             if (activity['type']?.length > 0) {
               const activityType: any = this.capitalizeFirstLetter(activity['activityTypeName' + langCapitalized]);
-              ret.push(this.createBaseParagraph(activityType))
+              ret.push(this.createBaseParagraph(activityType));
             }
             if (activity['name' + langCapitalized]?.length > 0) {
               ret.push(this.createBaseParagraph(activity['name' + langCapitalized]));
@@ -436,33 +466,33 @@ export class CvTemplateBuilderComponent {
     return ret;
   }
 
-  private formatTiming(item){
+  private formatTiming(item) {
     // Show single year
-      if (item.startDate.year === item.endDate.year) {
-        if (item.endDate.year === 0) {
-          item.timing = '';
-        } else {
-          item.timing = item.startDate.year.toString();
-        }
+    if (item.startDate.year === item.endDate.year) {
+      if (item.endDate.year === 0) {
+        item.timing = '';
+      } else {
+        item.timing = item.startDate.year.toString();
       }
-      // Start date missing
-      else if (item.startDate.year === 0) {
-        if (item.endDate.year > 0) {
-          item.timing = item.endDate.year.toString();
-        }
-        // Start and end date missing
-        else {
-          item.timing = '';
-        }
-        // End date missing
-      } else if (item.endDate.year === 0) {
-        item.timing = item.startDate.year?.toString();
+    }
+    // Start date missing
+    else if (item.startDate.year === 0) {
+      if (item.endDate.year > 0) {
+        item.timing = item.endDate.year.toString();
       }
-      // Regular case
+      // Start and end date missing
       else {
-        item.timing = item.startDate.year + ' - ' + item.endDate.year;
+        item.timing = '';
       }
-      return item;
+      // End date missing
+    } else if (item.endDate.year === 0) {
+      item.timing = item.startDate.year?.toString();
+    }
+    // Regular case
+    else {
+      item.timing = item.startDate.year + ' - ' + item.endDate.year;
+    }
+    return item;
   }
 
   private capitalizeFirstLetter(value: any): unknown {
@@ -475,7 +505,7 @@ export class CvTemplateBuilderComponent {
   public createHeading(text: string): Paragraph {
     return new Paragraph({
       text: text,
-      heading: HeadingLevel.HEADING_1,
+      heading: HeadingLevel.HEADING_1
     });
   }
 
@@ -485,7 +515,7 @@ export class CvTemplateBuilderComponent {
     ret.push(new docx.Paragraph({
       text: elements.paragraphTitle,
       heading: HeadingLevel.HEADING_2,
-      style: "heading2",
+      style: 'heading2'
     }));
 
     if (elements.bulletsList) {
@@ -500,15 +530,15 @@ export class CvTemplateBuilderComponent {
   public createBaseParagraph(text: string): Paragraph {
     return new Paragraph({
       text: text,
-      style: "baseParagraphBlack",
-      indent: {left: 350 },
+      style: 'baseParagraphBlack',
+      indent: { left: 350 }
     });
   }
 
   public createBulletBlack(text: string): Paragraph {
     return new Paragraph({
       text: text,
-      style: "baseParagraphBlack",
+      style: 'baseParagraphBlack',
       bullet: {
         level: 0
       }
@@ -518,7 +548,7 @@ export class CvTemplateBuilderComponent {
   public createBulletBlue(text: string): Paragraph {
     return new Paragraph({
       text: text,
-      style: "baseParagraphBlue",
+      style: 'baseParagraphBlue',
       bullet: {
         level: 0
       }
