@@ -380,8 +380,8 @@ export class CvTemplateBuilderComponent {
         }
       } else {
         let citationString = this.adaptCitations(publication, citationStyle);
-        citationString = citationString.replace('<i>', '');
-        citationString = citationString.replace('</i>', '');
+        citationString = citationString.replaceAll('<i>', '');
+        citationString = citationString.replaceAll('</i>', '');
         ret.push(this.createBaseParagraph(citationString));
       }
     });
