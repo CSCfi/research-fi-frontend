@@ -51,6 +51,7 @@ export class CollaborationCardComponent implements OnInit, OnDestroy {
 
   originalCollaborationOptions;
   collaborationOptions = [];
+  collaborationOptionsInit = [];
   showDialog: boolean;
   hasCheckedOption: boolean = false;
 
@@ -72,7 +73,10 @@ export class CollaborationCardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.nameLocale = 'name' + this.appSettingsService.capitalizedLocale;
     const collabFields = this.data.filter(item => item.id === 'cooperation');
-    this.collaborationOptions = collabFields[0].fields;
+    this.collaborationOptionsInit = collabFields[0].fields;
+    this.collaborationOptionsInit = this.collaborationOptionsInit.sort((a, b) => a.order - b.order);
+
+    this.collaborationOptions = this.collaborationOptionsInit;
     this.checkForSelection();
     this.dataHasBeenResetSub = this.draftService.dataHasBeenReset.subscribe(val => {
       if (val === true) {
@@ -82,8 +86,7 @@ export class CollaborationCardComponent implements OnInit, OnDestroy {
   }
 
   public resetInitialValue() {
-    const collabFields = this.data.filter(item => item.id === 'cooperation');
-    this.collaborationOptions = collabFields[0].fields;
+    this.collaborationOptions = this.collaborationOptionsInit;
     this.checkForSelection();
   }
 
