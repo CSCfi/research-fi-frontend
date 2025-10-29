@@ -19,6 +19,7 @@ export interface cvTopLevelParagraph {
   paragraphTitle: string;
   preFaceTexts?: string[];
   bulletsList?: string[];
+  bulletsAfter?: string;
   activityContent?: string[];
 }
 
@@ -86,37 +87,43 @@ export class CvTemplateBuilderComponent {
     let bulletsSec1 = [this.getTranslation('cv_1_bullet1'), this.getTranslation('cv_1_bullet2'), this.getTranslation('cv_1_bullet3'), this.getTranslation('cv_1_bullet4')];
     let paragraphContentSec1: cvTopLevelParagraph = {
       paragraphTitle: this.getTranslation('cv_1_personal_info_title'),
-      bulletsList: bulletsSec1
+      bulletsList: bulletsSec1,
+      bulletsAfter: this.getTranslation('cv_1_bullets_after')
     };
 
     let bulletsSec2 = [this.getTranslation('cv_2_bullet_1'), this.getTranslation('cv_2_bullet_2')];
     let paragraphContentSec2: cvTopLevelParagraph = {
       paragraphTitle: this.getTranslation('cv_2_degrees_heading'),
-      bulletsList: bulletsSec2
+      bulletsList: bulletsSec2,
+      bulletsAfter: this.getTranslation('cv_1_bullets_after')
     };
 
     let bulletsSec3 = [this.getTranslation('cv_3_other_edu_bullet1')];
     let paragraphContentSec3: cvTopLevelParagraph = {
       paragraphTitle: this.getTranslation('cv_3_other_edu_title'),
-      bulletsList: bulletsSec3
+      bulletsList: bulletsSec3,
+      bulletsAfter: this.getTranslation('cv_1_bullets_after')
     };
 
     let bulletsSec4 = [this.getTranslation('cv_4_language_skills_bullet1'), this.getTranslation('cv_4_language_skills_bullet2')];
     let paragraphContentSec4: cvTopLevelParagraph = {
       paragraphTitle: this.getTranslation('cv_4_language_skills_title'),
-      bulletsList: bulletsSec4
+      bulletsList: bulletsSec4,
+      bulletsAfter: this.getTranslation('cv_1_bullets_after')
     };
 
     let bulletsSec5 = [this.getTranslation('cv_5_employment_bullet1'), this.getTranslation('cv_5_employment_bullet2'), this.getTranslation('cv_5_employment_bullet3'), this.getTranslation('cv_5_employment_bullet4')];
     let paragraphContentSec5: cvTopLevelParagraph = {
       paragraphTitle: this.getTranslation('cv_5_employment_title'),
-      bulletsList: bulletsSec5
+      bulletsList: bulletsSec5,
+      bulletsAfter: this.getTranslation('cv_1_bullets_after')
     };
 
     let bulletsSec6 = [this.getTranslation('cv_6_previous_experience_bullet1'), this.getTranslation('cv_6_previous_experience_bullet2')];
     let paragraphContentSec6: cvTopLevelParagraph = {
       paragraphTitle: this.getTranslation('cv_6_previous_experience_title'),
-      bulletsList: bulletsSec6
+      bulletsList: bulletsSec6,
+      bulletsAfter: this.getTranslation('cv_1_bullets_after')
     };
 
     let prefaceTextsSec7 = [this.getTranslation('cv_7_career_breaks_title_after')];
@@ -124,25 +131,29 @@ export class CvTemplateBuilderComponent {
     let paragraphContentSec7: cvTopLevelParagraph = {
       paragraphTitle: this.getTranslation('cv_7_career_breaks_title'),
       bulletsList: bulletsSec7,
-      preFaceTexts: prefaceTextsSec7
+      preFaceTexts: prefaceTextsSec7,
+      bulletsAfter: this.getTranslation('cv_1_bullets_after')
     };
 
     let bulletsSec8 = [this.getTranslation('cv_8_fundings_and_grants_bullet1')];
     let paragraphContentSec8: cvTopLevelParagraph = {
       paragraphTitle: this.getTranslation('cv_8_fundings_and_grants_title'),
-      bulletsList: bulletsSec8
+      bulletsList: bulletsSec8,
+      bulletsAfter: this.getTranslation('cv_1_bullets_after')
     };
 
     let bulletsSec9 = [this.getTranslation('cv_9_research_bullet1'), this.getTranslation('cv_9_research_bullet2'), this.getTranslation('cv_9_research_bullet3'), this.getTranslation('cv_9_research_bullet4'), this.getTranslation('cv_9_research_bullet5')];
     let paragraphContentSec9: cvTopLevelParagraph = {
       paragraphTitle: this.getTranslation('cv_9_research_output_title'),
-      bulletsList: bulletsSec9
+      bulletsList: bulletsSec9,
+      bulletsAfter: this.getTranslation('cv_1_bullets_after')
     };
 
     let bulletsSec10 = [this.getTranslation('cv_10_supervision_and_leadership_bullet1'), this.getTranslation('cv_10_supervision_and_leadership_bullet2')];
     let paragraphContentSec10: cvTopLevelParagraph = {
       paragraphTitle: this.getTranslation('cv_10_supervision_and_leadership_title'),
-      bulletsList: bulletsSec10
+      bulletsList: bulletsSec10,
+      bulletsAfter: this.getTranslation('cv_1_bullets_after')
     };
 
     let prefaceTextsSec11 = [this.getTranslation('cv_11_teaching_merits_title_after')];
@@ -150,31 +161,36 @@ export class CvTemplateBuilderComponent {
     let paragraphContentSec11: cvTopLevelParagraph = {
       paragraphTitle: this.getTranslation('cv_11_teaching_merits_title'),
       bulletsList: bulletsSec11,
-      preFaceTexts: prefaceTextsSec11
+      preFaceTexts: prefaceTextsSec11,
+      bulletsAfter: this.getTranslation('cv_1_bullets_after')
     };
 
     let bulletsSec12 = [this.getTranslation('cv_12_awards_and_honours_bullet1'), this.getTranslation('cv_12_awards_and_honours_bullet2')];
     let paragraphContentSec12: cvTopLevelParagraph = {
       paragraphTitle: this.getTranslation('cv_12_awards_and_honours_title'),
-      bulletsList: bulletsSec12
+      bulletsList: bulletsSec12,
+      bulletsAfter: this.getTranslation('cv_1_bullets_after')
     };
 
     let bulletsSec13 = [this.getTranslation('cv_13_other_key_merits_bullet1'), this.getTranslation('cv_13_other_key_merits_bullet2'), this.getTranslation('cv_13_other_key_merits_bullet3'), this.getTranslation('cv_13_other_key_merits_bullet4'), this.getTranslation('cv_13_other_key_merits_bullet5'), this.getTranslation('cv_13_other_key_merits_bullet6'), this.getTranslation('cv_13_other_key_merits_bullet7'), this.getTranslation('cv_13_other_key_merits_bullet8'), this.getTranslation('cv_13_other_key_merits_bullet9'), this.getTranslation('cv_13_other_key_merits_bullet10')];
     let paragraphContentSec13: cvTopLevelParagraph = {
       paragraphTitle: this.getTranslation('cv_13_other_key_merits_title'),
-      bulletsList: bulletsSec13
+      bulletsList: bulletsSec13,
+      bulletsAfter: this.getTranslation('cv_1_bullets_after')
     };
 
     let bulletsSec14 = [this.getTranslation('cv_14_scientific_impact_bullet1'), this.getTranslation('cv_14_scientific_impact_bullet2'), this.getTranslation('cv_14_scientific_impact_bullet3'), this.getTranslation('cv_14_scientific_impact_bullet4'), this.getTranslation('cv_14_scientific_impact_bullet5')];
     let paragraphContentSec14: cvTopLevelParagraph = {
       paragraphTitle: this.getTranslation('cv_14_scientific_impact_title1'),
-      bulletsList: bulletsSec14
+      bulletsList: bulletsSec14,
+      bulletsAfter: this.getTranslation('cv_1_bullets_after')
     };
 
     let bulletsSec15 = [this.getTranslation('cv_15_other_merits_bullet1'), this.getTranslation('cv_15_other_merits_bullet2'), this.getTranslation('cv_15_other_merits_bullet3')];
     let paragraphContentSec15: cvTopLevelParagraph = {
       paragraphTitle: this.getTranslation('cv_15_other_merits_title'),
-      bulletsList: bulletsSec15
+      bulletsList: bulletsSec15,
+      bulletsAfter: this.getTranslation('cv_1_bullets_after')
     };
 
     //let firstName = profileData[0].items[0].fields[0]
@@ -532,6 +548,11 @@ export class CvTemplateBuilderComponent {
       elements.bulletsList.forEach(bullet => {
         ret.push(this.createBulletBlue(bullet));
       });
+    }
+
+    if (elements.bulletsAfter) {
+      ret.push(this.createBaseParagraph(''));
+      ret.push(this.createBaseParagraph(elements.bulletsAfter));
     }
 
     return ret;
