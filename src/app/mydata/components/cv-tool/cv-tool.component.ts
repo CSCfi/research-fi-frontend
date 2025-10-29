@@ -92,6 +92,7 @@ export class CvToolComponent implements OnInit {
   download_cv_button_title = $localize`:@@download_cv_button_title:Lataa CV`;
 
   citationStyleSelection = 0;
+  publication_list = $localize`:@@publication_list:Julkaisuluettelo`;
   publication_list_radio_buttons_title = $localize`:@@publication_list_radio_buttons_title:Valise julkaisuluettelon viittaustapa`;
   publicationListTargets = ['APA', 'Chicago', 'MLA']
   publicationListInitialSelections = [true, false, false];

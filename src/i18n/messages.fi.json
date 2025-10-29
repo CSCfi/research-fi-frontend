@@ -1201,11 +1201,11 @@
         "cv_15_other_merits_bullet2": "muut yhteiskunnalliset ansiot ja tunnustukset, haluttaessa suomalainen sotilasarvo",
         "cv_15_other_merits_bullet3": "muu ansioluettelon käyttötilanteen kannalta olennainen osaaminen",
         "cv_15_other_merits_after": "Kirjoita sisältö tähän",
-        "cv_tool_heading": "CV-työkalu ",
+        "cv_tool_heading": "CV-työkalu",
         "cv_intro_1_start": "Luo",
         "cv_intro_1_link_text": "TENKin ansioluettelomallin",
         "cv_intro_1_link": "https://tenk.fi/fi/ohjeet-ja-aineistot/tutkijan-ansioluettelomalli",
-        "cv_intro_1_link_after": "mukainen CV profiilisi pohjalta. CV luodaan Word-tiedostona, jota käyttäjä voi muokata vapaasti. Huomioithan, että Tiedejatutkimus.fi-palvelusta ei löydy kaikkia ansioluettelomallissa vaadittuja tietoja. Puuttuvat kentät on merkitty pohjaan punaisella.",
+        "cv_intro_1_link_after": "mukainen CV profiilisi pohjalta. CV luodaan Word-tiedostona, jota käyttäjä voi muokata vapaasti. Huomioithan, että Tiedejatutkimus.fi-palvelusta ei löydy kaikkia ansioluettelomallissa vaadittuja tietoja.",
         "cv_intro_1_link_after_2": "Voit myös ladata julkaisuluettelon, joka listaa kaikki profiilityökalusta löytyvät julkaisusi Opetus- ja kulttuuriministeriön julkaisuluokituksen mukaisesti.",
         "import_radio_buttons_title": "Valitse CV-pohjaan tuotavat tiedot",
         "import_radio_button1": "Kaikki julkaistut ja julkaisemattomat profiilin tiedot",
@@ -1215,6 +1215,7 @@
         "language_radio_button2": "Suomi",
         "language_radio_button3": "Ruotsi",
         "download_cv_button_title": "Lataa CV",
-        "publication_list_radio_buttons_title": "Valitse julkaisuluettelon viittaustapa"
+        "publication_list_radio_buttons_title": "Valitse julkaisuluettelon viittaustapa",
+        "publication_list": "Julkaisuluettelo"
     }
 }
