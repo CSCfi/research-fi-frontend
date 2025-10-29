@@ -42,7 +42,7 @@ export interface cvDataFormatted {
 
 export const citationStyle = {
   'APA': 0,
-  'Chichago': 1,
+  'Chicago': 1,
   'MLA': 2
 };
 
@@ -285,6 +285,7 @@ export class CvTemplateBuilderComponent {
               ...this.createActivityRows(cvData.activities, ['8.6.1', '8.6.2', '8.6.3'], true, lang),
               ...this.createMainLevelParagraph(paragraphContentSec14),
               ...this.createActivityRows(cvData.activities, ['4', '5'], false, lang),
+              
               ...this.createMainLevelParagraph(paragraphContentSec15)
             ]
           }
@@ -370,13 +371,22 @@ export class CvTemplateBuilderComponent {
     publicationsData.forEach((publication) => {
       ret.push(this.createBaseParagraph(''));
 
+      let publicationYearStrApa = publication['publicationYear'] ? ' (' + publication['publicationYear'] + ').' : '';
+      let publicationYearStrChicago = publication['publicationYear'] ? publication['publicationYear'] + '. ' : '';
+      let publicationYearStrMla = publication['publicationYear'] ? ', ' + publication['publicationYear'] + '.' : '';
+
+      let publicationNameStrApa = publication['publicationName'] ? ' ' + publication['publicationName'] + '.' : '';
+      let publicationNameStrChicagoMla = publication['publicationName'] ? ' "' + publication['publicationName'] + '"' : '';
+
+      let publicationDoiStr = publication['doi'] ? ' doi: ' + publication['doi'] : '';
+
       if (publication.dataSources[0].registeredDataSource === 'ORCID') {
         if (citationStyle === 0) {
-          ret.push(this.createBaseParagraph(publication['authorsText'] + ' (' + publication['publicationYear'] + ').' + publication['publicationName'] + '. doi: ' + publication['doi']));
+          ret.push(this.createBaseParagraph(publication['authorsText'] + publicationYearStrApa + publicationNameStrApa + publicationDoiStr));
         } else if (citationStyle === 1) {
-          ret.push(this.createBaseParagraph(publication['authorsText'] + ' ' + publication['publicationYear'] + '. "' + publication['publicationName'] + '". doi: ' + publication['doi']));
+          ret.push(this.createBaseParagraph(publication['authorsText'] + publicationYearStrChicago + publicationNameStrChicagoMla + publicationDoiStr));
         } else if (citationStyle === 2) {
-          ret.push(this.createBaseParagraph(publication['authorsText'] + ' "' + publication['publicationName'] + '", ' + publication['publicationYear'] + '. doi: ' + publication['doi']));
+          ret.push(this.createBaseParagraph(publication['authorsText'] + publicationNameStrChicagoMla + publicationYearStrMla + publicationDoiStr));
         }
       } else {
         let citationString = this.adaptCitations(publication, citationStyle);
