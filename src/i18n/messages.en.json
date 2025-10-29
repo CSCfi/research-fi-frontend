@@ -1203,7 +1203,7 @@
         "cv_intro_1_start": "Create a CV based on your profile using the",
         "cv_intro_1_link_text": "TENK CV template",
         "cv_intro_1_link": "https://tenk.fi/en/advice-and-materials/template-researchers-curriculum-vitae",
-        "cv_intro_1_link_after": "The CV is generated as a Word document that you can freely edit. Please note that not all information required by the CV template is available in the Research.fi service. Missing fields are marked in red in the template.",
+        "cv_intro_1_link_after": "The CV is generated as a Word document that you can freely edit. Please note that not all information required by the CV template is available in the Research.fi service.",
         "cv_intro_1_link_after_2": "You can also download a publication list that includes all your publications found in the profile tool according to the publication classification of the Ministry of Education and Culture.",
         "import_radio_buttons_title": "Select the information to include in the CV template",
         "import_radio_button1": "All published and unpublished profile data",
@@ -1213,7 +1213,8 @@
         "language_radio_button2": "Finnish",
         "language_radio_button3": "Swedish",
         "download_cv_button_title": "Download CV",
-        "publication_list_radio_buttons_title": "Select citation style for the publication list"
+        "publication_list_radio_buttons_title": "Select citation style for the publication list",
+        "publication_list": "Publication list"
     }
 }
 
