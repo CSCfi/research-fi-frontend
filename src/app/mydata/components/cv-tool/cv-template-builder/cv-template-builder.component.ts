@@ -405,6 +405,16 @@ export class CvTemplateBuilderComponent {
     }
   }
 
+  private comparePublicationYearsPublications(a, b) {
+    if (a.publicationYear === undefined) {
+      a.publicationYear = 0;
+    }
+    if (b.publicationYear === undefined) {
+      b.publicationYear = 0;
+    }
+    return b.publicationYear - a.publicationYear;
+  }
+
   private createPublicationRows(publicationsData, citationStyle: number) {
     let retCombined: docx.Paragraph[] = [];
     let validTtvPublications: docx.Paragraph[] = [];
@@ -412,6 +422,8 @@ export class CvTemplateBuilderComponent {
     let retOrcidPublications: docx.Paragraph[] = [];
 
     retCombined.push(this.createBaseParagraph(''));
+    
+    publicationsData = publicationsData.sort(this.comparePublicationYearsPublications);
 
     publicationsData.forEach((publication) => {
       let publicationYearStrApa = publication['publicationYear'] ? ' (' + publication['publicationYear'] + ').' : '';

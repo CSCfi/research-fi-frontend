@@ -1217,6 +1217,7 @@
         "download_cv_button_title": "Lataa CV",
         "publication_list_radio_buttons_title": "Valitse julkaisuluettelon viittaustapa",
         "publication_list": "Julkaisuluettelo",
+        "download_publication_list_button_title": "Lataa julkaisuluettelo",
         "publication_list_note_title": "Huomio",
         "publication_list_note_text": "Julkaisut profiilityökalussa eivät välttämättä täytä julkaisuluettelon vaatimuksia. Tarkista viitetietojen oikeellisuus ennen kuin jaat tai lähetät luettelon eteenpäin."
     }
