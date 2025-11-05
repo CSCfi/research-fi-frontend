@@ -66,7 +66,7 @@ export class ActiveFiltersComponent
     embargo: $localize`:@@datasetAccessEmbargo:Embargo`,
     // Funding-call status
     closed: $localize`:@@closedCalls:Päättyneet haut`,
-    currentlyOpen: $localize`:@@openCalls:Avoimet haut pl. tulevat`,
+    currentlyOpen: $localize`:@@openCalls:Avoimet haut`,
     future: $localize`:@@futureCalls:Tulevat haut`,
     continuous: $localize`:@@continuousCalls:Jatkuvat haut`,
   };
