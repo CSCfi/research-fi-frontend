@@ -11,97 +11,117 @@
         <div class="row d-flex justify-content-between pt-3">
           <div class="col-12 gx-0">
             <div class="row">
-              <h1 class="col-12 gx-0 pb-2 mb-4">{{cvToolTitle}}</h1>
+              <h1 class="col-12 gx-0 pb-2 mb-4">{{ cvToolTitle }}</h1>
             </div>
-            <div>{{cv_intro_1_start}} <a [href]="cv_intro_1_link" target="_blank">{{cv_intro_1_link_text}} <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites></a> {{cv_intro_1_link_after}}</div>
+            <div>{{ cv_intro_1_start }} <a [href]="cv_intro_1_link" target="_blank">{{ cv_intro_1_link_text }}
+              <app-svg-sprites [iconName]="'open_in_new'" cssClass="open_in_new-icon"></app-svg-sprites>
+            </a> {{ cv_intro_1_link_after }}
+            </div>
             <br/>
-            <div class="mb-4">{{cv_intro_1_link_after_2}}</div>
+            <div class="mb-4">{{ cv_intro_1_link_after_2 }}</div>
 
             <div class="row gx-0">
-            <div class="col-12 col-md-6 mb-3">
-              <div class="row bordered-section">
-              <h3 class="my-3">CV</h3>
-              <h4 class="mt-3" id="import_radio_buttons_title">{{import_radio_buttons_title}}</h4>
-              <mat-radio-group
-                      aria-labelledby="import_radio_buttons_title"
-                      class="form-group"
-                      required="true"
-              >
-                <mat-radio-button
-                        class="radio-button"
-                        *ngFor="let target of importTargets; let i = index"
-                        [value]="target"
-                        [checked]="importInitialSelections[i]"
-                        (change)="changeImportSelection(i)"
-                >
-                  {{ target }}
-                </mat-radio-button>
-              </mat-radio-group>
-
-              <h4 class="mt-3" id="language_radio_buttons_title">{{language_radio_buttons_title}}</h4>
-              <mat-radio-group
-                      aria-labelledby="language_radio_buttons_title"
-                      class="form-group"
-                      required="true"
-              >
-                <mat-radio-button
-                        class="radio-button"
-                        *ngFor="let target of langTargets; let i = index"
-                        [value]="target"
-                        [checked]="langInitialSelections[i]"
-                        (change)="changeLangSelection(i)"
-                >
-                  {{ target }}
-                </mat-radio-button>
-              </mat-radio-group>
-                <app-primary-action-button
-                        class="my-3"
-                        content="{{download_cv_button_title}}"
-                        [svgSymbolName]="'download'"
-                        [svgCssClass]="'download-icon primary-button-icon'"
-                        [noSmIcon]="true"
-                        [big]="true"
-                        [iconAfter]="true"
-                        (click)="generateCv()"
-                ></app-primary-action-button>
-          </div>
-            </div>
-            <div class="col-12 col-md-6 gx-md-5">
-              <div class="row bordered-section">
-              <h3 class="my-3">{{publication_list}}</h3>
-                <h4 class="mt-3" id="publication_list_radio_buttons_title">{{publication_list_radio_buttons_title}}</h4>
-                <mat-radio-group
-                        aria-labelledby="publication_list_radio_buttons_title"
-                        class="form-group"
-                        required="true"
-                >
-                  <mat-radio-button
-                          class="radio-button"
-                          *ngFor="let target of publicationListTargets; let i = index"
-                          [value]="target"
-                          [checked]="publicationListInitialSelections[i]"
-                          (change)="changeCitationStyleSelection(i)"
+              <div class="col-12 col-md-6 d-flex mb-3 align-items-stretch">
+                <div class="row bordered-section">
+                  <h3 class="my-3">CV</h3>
+                  <h4 class="mt-3" id="import_radio_buttons_title">{{ import_radio_buttons_title }}</h4>
+                  <mat-radio-group
+                          aria-labelledby="import_radio_buttons_title"
+                          class="form-group"
+                          required="true"
                   >
-                    {{ target }}
-                  </mat-radio-button>
-                </mat-radio-group>
-                <app-primary-action-button
-                        class="my-3"
-                        content="{{download_publication_list_button_title}}"
-                        [svgSymbolName]="'download'"
-                        [svgCssClass]="'download-icon primary-button-icon'"
-                        [noSmIcon]="true"
-                        [big]="true"
-                        [iconAfter]="true"
-                        (click)="generatePublicationsList()"
-                ></app-primary-action-button>
+                    <mat-radio-button
+                            class="radio-button"
+                            *ngFor="let target of importTargets; let i = index"
+                            [value]="target"
+                            [checked]="importInitialSelections[i]"
+                            (change)="changeImportSelection(i)"
+                    >
+                      {{ target }}
+                    </mat-radio-button>
+                  </mat-radio-group>
+
+                  <h4 class="mt-3" id="language_radio_buttons_title">{{ language_radio_buttons_title }}</h4>
+                  <mat-radio-group
+                          aria-labelledby="language_radio_buttons_title"
+                          class="form-group"
+                          required="true"
+                  >
+                    <mat-radio-button
+                            class="radio-button"
+                            *ngFor="let target of langTargets; let i = index"
+                            [value]="target"
+                            [checked]="langInitialSelections[i]"
+                            (change)="changeLangSelection(i)"
+                    >
+                      {{ target }}
+                    </mat-radio-button>
+                  </mat-radio-group>
+                  <app-primary-action-button
+                          class="my-3"
+                          content="{{download_cv_button_title}}"
+                          [svgSymbolName]="'download'"
+                          [svgCssClass]="'download-icon primary-button-icon'"
+                          [noSmIcon]="true"
+                          [big]="true"
+                          [iconAfter]="true"
+                          (click)="generateCv()"
+                  ></app-primary-action-button>
+                </div>
+              </div>
+              <div class="col-12 col-md-6 gx-md-5 mb-3">
+                <div class="row bordered-section">
+                  <h3 class="my-3">{{ publication_list }}</h3>
+                  <h4 class="mt-3"
+                      id="publication_list_radio_buttons_title">{{ publication_list_radio_buttons_title }}</h4>
+                  <mat-radio-group
+                          aria-labelledby="publication_list_radio_buttons_title"
+                          class="form-group"
+                          required="true"
+                  >
+                    <mat-radio-button
+                            class="radio-button"
+                            *ngFor="let target of publicationListTargets; let i = index"
+                            [value]="target"
+                            [checked]="publicationListInitialSelections[i]"
+                            (change)="changeCitationStyleSelection(i)"
+                    >
+                      {{ target }}
+                    </mat-radio-button>
+                  </mat-radio-group>
+                  <app-primary-action-button
+                          class="my-3"
+                          content="{{download_publication_list_button_title}}"
+                          [svgSymbolName]="'download'"
+                          [svgCssClass]="'download-icon primary-button-icon'"
+                          [noSmIcon]="true"
+                          [big]="true"
+                          [iconAfter]="true"
+                          (click)="generatePublicationsList()"
+                  ></app-primary-action-button>
+
+                  <div class="note-box-wrap my-3">
+                    <div class="note-box">
+
+                      <div class="d-flex flex-row">
+                        <div class="info-circle-pad">
+                          <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-box-large"></app-svg-sprites>
+                        </div>
+                        <div class="d-flex flex-column">
+                          <h4>{{ publication_list_note_title }}</h4>
+                          <div class="note-info-text">{{ publication_list_note_text }}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
               </div>
             </div>
-            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
   </div>
 </main>
 

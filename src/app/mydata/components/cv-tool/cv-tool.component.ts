@@ -99,6 +99,9 @@ export class CvToolComponent implements OnInit {
 
   download_publication_list_button_title = $localize`:@@download_publication_list_button_title:Lataa julkaisuluettelo`;
 
+  publication_list_note_title = $localize`:@@publication_list_note_title:Huomio`;
+  publication_list_note_text = $localize`:@@publication_list_note_text:from-localizations-file`;
+
   profileData: any;
   orcidId: string;
   fullName: string;

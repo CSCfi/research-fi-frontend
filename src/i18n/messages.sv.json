@@ -1216,6 +1216,8 @@
         "language_radio_button3": "Svenska",
         "download_cv_button_title": "Ladda ner CV",
         "publication_list_radio_buttons_title": "Välj referensstil för publikationsförteckningen",
-        "publication_list": "Publikationsförteckning"
+        "publication_list": "Publikationsförteckning",
+        "publication_list_note_title": "Obs",
+        "publication_list_note_text": "Publikationerna i profilen uppfyller inte alltid kraven för publikationslistan. Kontrollera att referensuppgifterna är korrekta innan du delar eller skickar listan vidare."
     }
 }
