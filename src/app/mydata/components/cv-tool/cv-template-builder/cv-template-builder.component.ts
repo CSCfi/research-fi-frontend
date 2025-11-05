@@ -55,7 +55,11 @@ export class CvTemplateBuilderComponent {
   }
 
 
-  private adaptCitations(publicationItem, citationStyle: number) {
+  private isCitationValid(publication: any) {
+    return (publication?.authorsText?.length > 0 && !!publication?.publicationYear && publication?.publicationName?.length > 0 && publication?.publicationChannel.length > 0);
+  }
+
+  private adaptCitation(publicationItem, citationStyle: number) {
     let citationAdapter = new PublicationCitationAdapter();
     let citationsObject = citationAdapter.adapt(publicationItem);
     switch (citationStyle) {
@@ -257,6 +261,7 @@ export class CvTemplateBuilderComponent {
             properties: {},
             children: [
               this.createHeading(this.getTranslation('cv_title')),
+              this.createBaseParagraph(''),
 
               new docx.Paragraph({
                 text: this.getTranslation('cv_preface1'),
@@ -362,6 +367,19 @@ export class CvTemplateBuilderComponent {
               paragraph: {
                 spacing: { line: 276 }
               }
+            },
+            {
+              id: 'baseParagraphRed',
+              name: 'Red base paragraph',
+              basedOn: 'Normal',
+              next: 'Normal',
+              run: {
+                font: 'Calibri',
+                color: 'ff0000'
+              },
+              paragraph: {
+                spacing: { line: 276 }
+              }
             }
           ]
 
@@ -372,7 +390,13 @@ export class CvTemplateBuilderComponent {
             children: [
               this.createHeading(this.getTranslation('cv_publication_list')),
 
-              ...this.createPublicationRows(cvData.publications, citationStyle)
+              this.createBaseParagraphBlue(this.getTranslation('publication_list_preface1')),
+              this.createBaseParagraph(this.getTranslation('')),
+              this.createBulletBlue(this.getTranslation('publication_list_bullet1')),
+
+              // Citation validation is disabled
+              //this.createBulletBlue(this.getTranslation('publication_list_bullet2')),
+              ...this.createPublicationRows(cvData.publications, citationStyle),
             ]
           }
         ]
@@ -382,11 +406,14 @@ export class CvTemplateBuilderComponent {
   }
 
   private createPublicationRows(publicationsData, citationStyle: number) {
-    let ret: docx.Paragraph[] = [];
+    let retCombined: docx.Paragraph[] = [];
+    let validTtvPublications: docx.Paragraph[] = [];
+    let notValidTtvPublications: docx.Paragraph[] = [];
+    let retOrcidPublications: docx.Paragraph[] = [];
+
+    retCombined.push(this.createBaseParagraph(''));
 
     publicationsData.forEach((publication) => {
-      ret.push(this.createBaseParagraph(''));
-
       let publicationYearStrApa = publication['publicationYear'] ? ' (' + publication['publicationYear'] + ').' : '';
       let publicationYearStrChicago = publication['publicationYear'] ? publication['publicationYear'] + '. ' : '';
       let publicationYearStrMla = publication['publicationYear'] ? ', ' + publication['publicationYear'] + '.' : '';
@@ -394,24 +421,40 @@ export class CvTemplateBuilderComponent {
       let publicationNameStrApa = publication['publicationName'] ? ' ' + publication['publicationName'] + '.' : '';
       let publicationNameStrChicagoMla = publication['publicationName'] ? ' "' + publication['publicationName'] + '"' : '';
 
-      let publicationDoiStr = publication['doi'] ? ' doi: ' + publication['doi'] : '';
+      let publicationDoiStr = publication['doi'] != null ? ' doi: ' + publication['doi'] : '';
 
       if (publication.dataSources[0].registeredDataSource === 'ORCID') {
         if (citationStyle === 0) {
-          ret.push(this.createBaseParagraph(publication['authorsText'] + publicationYearStrApa + publicationNameStrApa + publicationDoiStr));
+          retOrcidPublications.push(this.createBaseParagraph(publication['authorsText'] + publicationYearStrApa + publicationNameStrApa + publicationDoiStr));
         } else if (citationStyle === 1) {
-          ret.push(this.createBaseParagraph(publication['authorsText'] + publicationYearStrChicago + publicationNameStrChicagoMla + publicationDoiStr));
+          retOrcidPublications.push(this.createBaseParagraph(publication['authorsText'] + publicationYearStrChicago + publicationNameStrChicagoMla + publicationDoiStr));
         } else if (citationStyle === 2) {
-          ret.push(this.createBaseParagraph(publication['authorsText'] + publicationNameStrChicagoMla + publicationYearStrMla + publicationDoiStr));
+          retOrcidPublications.push(this.createBaseParagraph(publication['authorsText'] + publicationNameStrChicagoMla + publicationYearStrMla + publicationDoiStr));
         }
+        retOrcidPublications.push(this.createBaseParagraph(''));
       } else {
-        let citationString = this.adaptCitations(publication, citationStyle);
+        let citationString = this.adaptCitation(publication, citationStyle);
         citationString = citationString.replaceAll('<i>', '');
         citationString = citationString.replaceAll('</i>', '');
-        ret.push(this.createBaseParagraph(citationString));
+
+        // Citation validation is disabled
+        if (true || this.isCitationValid(publication)) {
+          validTtvPublications.push(this.createBaseParagraph(citationString));
+          validTtvPublications.push(this.createBaseParagraph(''));
+        } else {
+          notValidTtvPublications.push(this.createBaseParagraphRed(citationString));
+          notValidTtvPublications.push(this.createBaseParagraph(''));
+        }
       }
     });
-    return ret;
+    retCombined = retCombined.concat(validTtvPublications);
+
+    // Citation validation is disabled
+    //retCombined.push(this.createBulletBlue(this.getTranslation('publication_list_highlighted_publications_bullet1')));
+
+    retCombined = retCombined.concat(notValidTtvPublications);
+    retCombined = retCombined.concat(retOrcidPublications);
+    return retCombined;
   }
 
   private createDegreesRows(degreeData) {
@@ -562,6 +605,22 @@ export class CvTemplateBuilderComponent {
     return new Paragraph({
       text: text,
       style: 'baseParagraphBlack',
+      indent: { left: 350 }
+    });
+  }
+
+  public createBaseParagraphBlue(text: string): Paragraph {
+    return new Paragraph({
+      text: text,
+      style: 'baseParagraphBlue',
+      indent: { left: 350 }
+    });
+  }
+
+  public createBaseParagraphRed(text: string): Paragraph {
+    return new Paragraph({
+      text: text,
+      style: 'baseParagraphRed',
       indent: { left: 350 }
     });
   }

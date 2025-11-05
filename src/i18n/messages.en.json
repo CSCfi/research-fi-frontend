@@ -1214,7 +1214,9 @@
         "language_radio_button3": "Swedish",
         "download_cv_button_title": "Download CV",
         "publication_list_radio_buttons_title": "Select citation style for the publication list",
-        "publication_list": "Publication list"
+        "publication_list": "Publication list",
+        "publication_list_note_title": "Note",
+        "publication_list_note_text": "Publications in the profile may not always meet the requirements for the publication list. Please verify the accuracy of the reference details before sharing or sending the list."
     }
 }
 
