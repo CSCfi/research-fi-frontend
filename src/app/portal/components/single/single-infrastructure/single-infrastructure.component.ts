@@ -183,7 +183,7 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   tabData: any;
   currentLocale: string;
   serviceHeader = $localize`:@@infraServiceHeader:Palvelu`;
-  showMore = $localize`:@@showMore:Näytä enemmän`;
+  showMore = $localize`:@@showMoreFilters:Näytä enemmän`;
   showLess = $localize`:@@showLess:Näytä vähemmän`;
   relatedData: {};
   focusSub: Subscription;

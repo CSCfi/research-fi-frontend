@@ -91,7 +91,7 @@ export class SinglePublicationComponent
   private metaTags = MetaTags.singlePublication;
   private commonTags = MetaTags.common;
 
-  showMore = $localize`:@@showMore:Näytä enemmän`;
+  showMore = $localize`:@@showMoreFilters:Näytä enemmän`;
   showLess = $localize`:@@showLess:Näytä vähemmän`;
 
   infoFields = [

@@ -25,7 +25,7 @@
           </ng-container>
 
           <div style='display: flex'>
-            <app-filter-limit-button [(value)]='filterLimits.year' [step]='10' [min]='10' [max]='yearFilters.length'i18n="@@showMore">
+            <app-filter-limit-button [(value)]='filterLimits.year' [step]='10' [min]='10' [max]='yearFilters.length'i18n="@@showMoreFilters">
               Näytä enemmän
             </app-filter-limit-button>
 
@@ -322,7 +322,7 @@
           </ng-container>
 
           <div style='display: flex'>
-            <app-filter-limit-button [(value)]='filterLimits.language' [step]='10' [min]='10' [max]='languageCodeFilters.length' i18n="@@showMore">
+            <app-filter-limit-button [(value)]='filterLimits.language' [step]='10' [min]='10' [max]='languageCodeFilters.length' i18n="@@showMoreFilters">
               Näytä enemmän
             </app-filter-limit-button>
 
@@ -393,7 +393,7 @@
     <div style='margin: 1rem'></div>
 
     <div>
-      <app-collapsible [label]='labelText.publisherOpenAccess' hasTooltip='true'>
+      <app-collapsible [label]='labelText.publicationChannelOa' hasTooltip='true'>
         <ng-container tooltip>
           <p>
             <strong><ng-container i18n='@@publication2.publisherOpenAccess.A.title'>Kokonaan avoin julkaisukanava: </ng-container></strong>

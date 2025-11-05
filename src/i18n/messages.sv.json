@@ -166,6 +166,7 @@
         "yearRangeEnd": "Slut",
         "yearFilterSeparateSelection": "Välj en åt gången",
         "showMore": "Visa mer",
+        "showMoreFilters": "Visa mer",
         "showLess": "Visa mindre",
         "selectAll": "Välj alla",
         "open": "Öppna",
@@ -1205,7 +1206,7 @@
         "cv_intro_1_start": "Skapa ett CV enligt",
         "cv_intro_1_link_text": "TENK:s meritförteckningsmall",
         "cv_intro_1_link": "https://tenk.fi/sv/anvisningar-och-material/modell-till-meritforteckning-forskare",
-        "cv_intro_1_link_after": "baserat på din profil. CV:n skapas som en Word-fil som användaren fritt kan redigera. Observera att inte all information som krävs i CV-mallen finns tillgänglig i tjänsten Forskning.fi. Saknade fält har markerats med rött i mallen.",
+        "cv_intro_1_link_after": "baserat på din profil. CV:n skapas som en Word-fil som användaren fritt kan redigera. Observera att inte all information som krävs i CV-mallen finns tillgänglig i tjänsten Forskning.fi.",
         "cv_intro_1_link_after_2": "Du kan också ladda ner en publikationsförteckning som listar alla dina publikationer i profilverktyget enligt undervisnings- och kulturministeriets publikationsklassificering.",
         "import_radio_buttons_title": "Välj den information som ska inkluderas i CV-mallen",
         "import_radio_button1": "Alla publicerade och opublicerade profiluppgifter",
@@ -1215,6 +1216,10 @@
         "language_radio_button2": "Finska",
         "language_radio_button3": "Svenska",
         "download_cv_button_title": "Ladda ner CV",
-        "publication_list_radio_buttons_title": "Välj referensstil för publikationsförteckningen"
+        "publication_list_radio_buttons_title": "Välj referensstil för publikationsförteckningen",
+        "publication_list": "Publikationsförteckning",
+        "download_publication_list_button_title": "Ladda ner publikationsförteckningen",
+        "publication_list_note_title": "Obs",
+        "publication_list_note_text": "Publikationerna i profilen uppfyller inte alltid kraven för publikationslistan. Kontrollera att referensuppgifterna är korrekta innan du delar eller skickar listan vidare."
     }
 }

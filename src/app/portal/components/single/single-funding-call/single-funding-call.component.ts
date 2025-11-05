@@ -56,7 +56,7 @@ export class SingleFundingCallComponent implements OnInit {
   tabQueryParams: any;
   private metaTags = MetaTags.singleFundingCall;
   private commonTags = MetaTags.common;
-  showMore = $localize`:@@showMore:Näytä enemmän`;
+  showMore = $localize`:@@showMoreFilters:Näytä enemmän`;
   showLess = $localize`:@@showLess:Näytä vähemmän`;
   contactInfoHeading = $localize`:@@contactInfo:Yhteystiedot`;
 
