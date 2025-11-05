@@ -173,7 +173,7 @@ export class SingleProjectComponent implements OnInit, OnDestroy {
   funderFields: any[];
   currentLocale: string;
   tabData: any;
-  showMore = $localize`:@@showMore:Näytä enemmän`;
+  showMore = $localize`:@@showMoreFilters:Näytä enemmän`;
   showLess = $localize`:@@showLess:Näytä vähemmän`;
   relatedData: any;
   focusSub: Subscription;
