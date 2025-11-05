@@ -108,7 +108,7 @@ export class Publications2Component implements OnDestroy {
     language: $localize`:@@language:Kieli`,
     jufoLevel: $localize`:@@jufoLevel:Julkaisufoorumitaso`,
     openAccess: $localize`:@@openAccess:Avoin saatavuus`,
-    publisherOpenAccess: $localize`:@@publisherOpenAccess:Julkaisukanavan avoin saatavuus`,
+    publicationChannelOa: $localize`:@@publicationChannelOa:Julkaisukanavan avoin saatavuus`,
     selfArchivedCode: $localize`:@@selfArchivedCode:Rinnakkaistallenne`,
   }
 
