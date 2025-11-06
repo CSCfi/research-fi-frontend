@@ -682,7 +682,8 @@ const translations_fi = {
   "publication_list_preface1": "*Huom: Sinisellä merkityt tekstit sisältävät ohjeita ja lisätietoja. Poista kaikki siniset tekstit ennen julkaisuluettelon lähettämistä.",
   "publication_list_bullet1": "Mallin käyttäjää pyydetään tarkistamaan viitetietojen oikeellisuus. Viitetiedot muodostetaan palveluun ladattujen tietojen perusteella, eivätkä ne välttämättä vastaa lähdejärjestelmän tietoja.",
   "publication_list_bullet2": "Jos jokin seuraavista tiedoista puuttuu, julkaisu merkitään punaisella mallin lopussa: tekijät, julkaisuvuosi, julkaisun otsikko, julkaisukanava, vuosikerta/numero, sivunumerot.",
-  "publication_list_highlighted_publications_bullet1": "Alla olevista viitetiedoista puuttuu jokin seuraavista tiedoista: tekijät, julkaisuvuosi, julkaisun otsikko, julkaisukanava, vuosikerta/numero, sivunumerot."
+  "publication_list_highlighted_publications_bullet1": "Alla olevista viitetiedoista puuttuu jokin seuraavista tiedoista: tekijät, julkaisuvuosi, julkaisun otsikko, julkaisukanava, vuosikerta/numero, sivunumerot.",
+  "present_term": "nykyhetki"
 };
 
 const translations_sv = {
@@ -775,7 +776,8 @@ const translations_sv = {
   "publication_list_preface1": "*Texter markerade med blått innehåller instruktioner och tilläggsinformation. Ta bort alla blåa texter innan publikationslistan skickas vidare.",
   "publication_list_bullet1": "Användaren av mallen ombeds kontrollera att referensuppgifterna är korrekta. Referenserna genereras utifrån de uppgifter som laddats upp till tjänsten och motsvarar inte nödvändigtvis uppgifterna i källsystemet.",
   "publication_list_bullet2": "Om någon av följande uppgifter saknas markeras publikationen med rött i slutet av mallen: författare, publiceringsår, publikationens titel, publiceringskanal, volym/nummer, sidnummer.",
-  "publication_list_highlighted_publications_bullet1": "Någon av följande uppgifter saknas i referenserna nedan: författare, publiceringsår, publikationens titel, publiceringskanal, volym/nummer, sidnummer."
+  "publication_list_highlighted_publications_bullet1": "Någon av följande uppgifter saknas i referenserna nedan: författare, publiceringsår, publikationens titel, publiceringskanal, volym/nummer, sidnummer.",
+  "present_term": "nuvarande"
 };
 
 const translations_en = {
@@ -868,7 +870,8 @@ const translations_en = {
   "publication_list_preface1": "*Texts marked in blue contain instructions and additional information. Please remove all blue text before submitting the publication list.",
   "publication_list_bullet1": "Users of the template are asked to verify the accuracy of the reference details. The references are generated based on the data uploaded to the service and may not fully match the information in the source system.",
   "publication_list_bullet2": "If any of the following details are missing, the publication will be marked in red at the end of the template: authors, year of publication, title, publication channel, volume/issue, page numbers.",
-  "publication_list_highlighted_publications_bullet1": "One or more of the following details are missing from the references below: authors, year of publication, title, publication channel, volume/issue, page numbers."
+  "publication_list_highlighted_publications_bullet1": "One or more of the following details are missing from the references below: authors, year of publication, title, publication channel, volume/issue, page numbers.",
+  "present_term": "present"
 };
 
 export function getTranslations(language: string) {
