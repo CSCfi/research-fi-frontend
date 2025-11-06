@@ -1218,7 +1218,8 @@
         "publication_list": "Publication list",
         "download_publication_list_button_title": "Download the publication list",
         "publication_list_note_title": "Note",
-        "publication_list_note_text": "Publications in the profile may not always meet the requirements for the publication list. Please verify the accuracy of the reference details before sharing or sending the list."
+        "publication_list_note_text": "Publications in the profile may not always meet the requirements for the publication list. Please verify the accuracy of the reference details before sharing or sending the list.",
+        "cvTool": "CV tool"
     }
 }
 
