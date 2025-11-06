@@ -1220,6 +1220,7 @@
         "publication_list": "Publikationsförteckning",
         "download_publication_list_button_title": "Ladda ner publikationsförteckningen",
         "publication_list_note_title": "Obs",
-        "publication_list_note_text": "Publikationerna i profilen uppfyller inte alltid kraven för publikationslistan. Kontrollera att referensuppgifterna är korrekta innan du delar eller skickar listan vidare."
+        "publication_list_note_text": "Publikationerna i profilen uppfyller inte alltid kraven för publikationslistan. Kontrollera att referensuppgifterna är korrekta innan du delar eller skickar listan vidare.",
+        "cvTool": "CV-verktyg"
     }
 }
