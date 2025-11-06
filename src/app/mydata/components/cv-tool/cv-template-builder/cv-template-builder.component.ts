@@ -13,6 +13,8 @@ import * as translations from '@mydata/components/cv-tool/cv-template-builder/Cv
 import * as cvDataformatter from '@mydata/components/cv-tool/cv-template-builder/CvDataFormatter';
 import { checkTranslation as checkTranslation } from '@portal/models/person/profiletool-person-adapter';
 import { PublicationCitationAdapter } from '@portal/models/publication/publication-citation.model';
+import { FormatAndSortTimespanPipe } from '@shared/pipes/format-and-sort-timespan.pipe';
+import { GroupTypes } from '@mydata/constants/groupTypes';
 
 
 export interface cvTopLevelParagraph {
@@ -47,6 +49,7 @@ export const citationStyle = {
   'MLA': 2
 };
 
+const groupTypes = GroupTypes;
 
 export class CvTemplateBuilderComponent {
   langCode = 'fi';
@@ -433,7 +436,7 @@ export class CvTemplateBuilderComponent {
       let publicationNameStrApa = publication['publicationName'] ? ' ' + publication['publicationName'] + '.' : '';
       let publicationNameStrChicagoMla = publication['publicationName'] ? ' "' + publication['publicationName'] + '"' : '';
 
-      let publicationDoiStr = publication['doi'] != null ? ' doi: ' + publication['doi'] : '';
+      let publicationDoiStr = publication['doi']?.length > 0 ? ' doi: ' + publication['doi'] : '';
 
       if (publication.dataSources[0].registeredDataSource === 'ORCID') {
         if (citationStyle === 0) {
@@ -474,7 +477,10 @@ export class CvTemplateBuilderComponent {
 
     degreeData.forEach((degree) => {
       if (degree['name'] && degree['degreeGrantingInstitutionName']) {
-        ret.push(this.createBaseParagraph(degree['name'] + ' - ' + degree['degreeGrantingInstitutionName']));
+        ret.push(this.createBaseParagraph(degree['name']));
+        ret.push(this.createBaseParagraph(degree['degreeGrantingInstitutionName']));
+        ret.push(this.createBaseParagraph(degree['timing']));
+        ret.push(this.createBaseParagraph(''));
       }
     });
     return ret;
@@ -484,11 +490,12 @@ export class CvTemplateBuilderComponent {
     let ret: docx.Paragraph[] = [];
 
     employmentData.forEach((employment) => {
-      if (employment['organizationName'] || employment['name']) {
+      console.log('employment', employment);
+      if (employment['organizationName'] || employment['positionName']) {
         ret.push(this.createBaseParagraph(employment['organizationName']));
-        employment['name'] ? ret.push(this.createBaseParagraph(employment['name'])) : undefined;
+        employment['positionName'] ? ret.push(this.createBaseParagraph(employment['positionName'])) : undefined;
         employment['departmentName'] ? ret.push(this.createBaseParagraph(employment['departmentName'])) : undefined;
-        ret.push(this.createBaseParagraph(employment?.startDate?.year + ' - ' + employment?.endDate?.year));
+        ret.push(this.createBaseParagraph(employment?.timing));
         ret.push(this.createBaseParagraph(''));
       }
     });
@@ -502,7 +509,7 @@ export class CvTemplateBuilderComponent {
       activityData.forEach((activity) => {
         if (includeSubclasses) {
           if (activity?.activityTypeCode?.startsWith(activityCode)) {
-            activity = this.formatTiming(activity);
+
             ret.push(this.createBaseParagraph(''));
             if (activity['type']?.length > 0) {
 
@@ -518,11 +525,13 @@ export class CvTemplateBuilderComponent {
             if (activity['positionName' + langCapitalized]?.length > 0) {
               ret.push(this.createBaseParagraph(activity['positionName' + langCapitalized]));
             }
-            ret.push(this.createBaseParagraph(activity['timing']));
+            if (activity['timing']?.length > 0) {
+              ret.push(this.createBaseParagraph(activity['timing']));
+            }
           }
         } else {
           if (activity?.activityTypeCode === activityCode) {
-            activity = this.formatTiming(activity);
+
             ret.push(this.createBaseParagraph(''));
             if (activity['type']?.length > 0) {
               const activityType: any = this.capitalizeFirstLetter(activity['activityTypeName' + langCapitalized]);
@@ -537,7 +546,9 @@ export class CvTemplateBuilderComponent {
             if (activity['positionName' + langCapitalized]?.length > 0) {
               ret.push(this.createBaseParagraph(activity['positionName' + langCapitalized]));
             }
-            ret.push(this.createBaseParagraph(activity['timing']));
+            if (activity['timing']?.length > 0) {
+              ret.push(this.createBaseParagraph(activity['timing']));
+            }
           }
         }
 
@@ -545,35 +556,6 @@ export class CvTemplateBuilderComponent {
     });
 
     return ret;
-  }
-
-  private formatTiming(item) {
-    // Show single year
-    if (item.startDate.year === item.endDate.year) {
-      if (item.endDate.year === 0) {
-        item.timing = '';
-      } else {
-        item.timing = item.startDate.year.toString();
-      }
-    }
-    // Start date missing
-    else if (item.startDate.year === 0) {
-      if (item.endDate.year > 0) {
-        item.timing = item.endDate.year.toString();
-      }
-      // Start and end date missing
-      else {
-        item.timing = '';
-      }
-      // End date missing
-    } else if (item.endDate.year === 0) {
-      item.timing = item.startDate.year?.toString();
-    }
-    // Regular case
-    else {
-      item.timing = item.startDate.year + ' - ' + item.endDate.year;
-    }
-    return item;
   }
 
   private capitalizeFirstLetter(value: any): unknown {
