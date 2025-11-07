@@ -293,7 +293,6 @@ export class CvTemplateBuilderComponent {
               ...this.createMainLevelParagraph(paragraphContentSec7),
               ...this.createMainLevelParagraph(paragraphContentSec8),
               ...this.createMainLevelParagraph(paragraphContentSec9),
-              ...this.createActivityRows(cvData.activities, ['6'], true, lang),
               ...this.createMainLevelParagraph(paragraphContentSec10),
               ...this.createActivityRows(cvData.activities, ['12.1'], true, lang),
               ...this.createMainLevelParagraph(paragraphContentSec11),
