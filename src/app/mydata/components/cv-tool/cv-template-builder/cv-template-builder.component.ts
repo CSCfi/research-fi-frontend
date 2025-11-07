@@ -275,8 +275,8 @@ export class CvTemplateBuilderComponent {
 
               ...this.createMainLevelParagraph(paragraphContentSec1),
               this.createBaseParagraph(''),
-              this.createBaseParagraph(cvData.firstNames),
               this.createBaseParagraph(cvData.lastName),
+              this.createBaseParagraph(cvData.firstNames),
               this.createBaseParagraph(cvData.orcid),
               this.createBaseParagraph(cvData.date),
               ...this.createMainLevelParagraph(paragraphContentSec2),
@@ -305,11 +305,10 @@ export class CvTemplateBuilderComponent {
               ...this.createActivityRows(cvData.activities, ['2.3.', '2.4.'], true, lang),
               ...this.createActivityRows(cvData.activities, ['1.'], true, lang),
               ...this.createActivityRows(cvData.activities, ['5.3', '5.4', '5.5', '5.6'], true, lang),
-              ...this.createActivityRows(cvData.activities, ['5.3', '5.4', '5.5', '5.6'], true, lang),
               ...this.createActivityRows(cvData.activities, ['8.6.1', '8.6.2', '8.6.3'], true, lang),
+              ...this.createActivityRows(cvData.activities, ['10.'], true, lang),
               ...this.createMainLevelParagraph(paragraphContentSec14),
-              ...this.createActivityRows(cvData.activities, ['4', '5'], false, lang),
-              
+              ...this.createActivityRows(cvData.activities, ['4.', '5.'], true, lang),
               ...this.createMainLevelParagraph(paragraphContentSec15)
             ]
           }
@@ -415,7 +414,7 @@ export class CvTemplateBuilderComponent {
     if (b.publicationYear === undefined) {
       b.publicationYear = 0;
     }
-    return b.publicationYear - a.publicationYear;
+    return a.publicationYear - b.publicationYear;
   }
 
   private createPublicationRows(publicationsData, citationStyle: number) {
@@ -425,16 +424,14 @@ export class CvTemplateBuilderComponent {
     let retOrcidPublications: docx.Paragraph[] = [];
 
     retCombined.push(this.createBaseParagraph(''));
-    
-    publicationsData = publicationsData.sort(this.comparePublicationYearsPublications);
 
     publicationsData.forEach((publication) => {
-      let publicationYearStrApa = publication['publicationYear'] ? ' (' + publication['publicationYear'] + ').' : '';
-      let publicationYearStrChicago = publication['publicationYear'] ? publication['publicationYear'] + '. ' : '';
-      let publicationYearStrMla = publication['publicationYear'] ? ', ' + publication['publicationYear'] + '.' : '';
+      let publicationYearStrApa = publication['publicationYear']?.length > 0 ? ' (' + publication['publicationYear'] + ').' : '';
+      let publicationYearStrChicago = publication['publicationYear']?.length > 0 ? publication['publicationYear'] + '. ' : '';
+      let publicationYearStrMla = publication['publicationYear']?.length > 0 ? ', ' + publication['publicationYear'] + '.' : '';
 
-      let publicationNameStrApa = publication['publicationName'] ? ' ' + publication['publicationName'] + '.' : '';
-      let publicationNameStrChicagoMla = publication['publicationName'] ? ' "' + publication['publicationName'] + '"' : '';
+      let publicationNameStrApa = publication['publicationName']?.length > 0 ? ' ' + publication['publicationName'] + '.' : '';
+      let publicationNameStrChicagoMla = publication['publicationName']?.length > 0 ? ' "' + publication['publicationName'] + '"' : '';
 
       let publicationDoiStr = publication['doi']?.length > 0 ? ' doi: ' + publication['doi'] : '';
 
@@ -462,13 +459,15 @@ export class CvTemplateBuilderComponent {
         }
       }
     });
-    retCombined = retCombined.concat(validTtvPublications);
+    retCombined = retCombined.concat(validTtvPublications.sort(this.comparePublicationYearsPublications));
 
     // Citation validation is disabled
     //retCombined.push(this.createBulletBlue(this.getTranslation('publication_list_highlighted_publications_bullet1')));
-
-    retCombined = retCombined.concat(notValidTtvPublications);
-    retCombined = retCombined.concat(retOrcidPublications);
+    publicationsData = publicationsData.sort(this.comparePublicationYearsPublications);
+    retCombined = retCombined.concat(notValidTtvPublications.sort(this.comparePublicationYearsPublications));
+    retCombined = retCombined.concat(this.createBulletBlue(this.getTranslation('publication_list_orcid')));
+    retCombined = retCombined.concat(this.createBaseParagraph(''));
+    retCombined = retCombined.concat(retOrcidPublications.sort(this.comparePublicationYearsPublications));
     return retCombined;
   }
 
@@ -477,9 +476,9 @@ export class CvTemplateBuilderComponent {
 
     degreeData.forEach((degree) => {
       if (degree['name'] && degree['degreeGrantingInstitutionName']) {
+        ret.push(this.createBaseParagraph(degree['timing']));
         ret.push(this.createBaseParagraph(degree['name']));
         ret.push(this.createBaseParagraph(degree['degreeGrantingInstitutionName']));
-        ret.push(this.createBaseParagraph(degree['timing']));
         ret.push(this.createBaseParagraph(''));
       }
     });
@@ -492,10 +491,10 @@ export class CvTemplateBuilderComponent {
     employmentData.forEach((employment) => {
       console.log('employment', employment);
       if (employment['organizationName'] || employment['positionName']) {
+        ret.push(this.createBaseParagraph(employment?.timing));
         ret.push(this.createBaseParagraph(employment['organizationName']));
         employment['positionName'] ? ret.push(this.createBaseParagraph(employment['positionName'])) : undefined;
         employment['departmentName'] ? ret.push(this.createBaseParagraph(employment['departmentName'])) : undefined;
-        ret.push(this.createBaseParagraph(employment?.timing));
         ret.push(this.createBaseParagraph(''));
       }
     });
@@ -510,6 +509,9 @@ export class CvTemplateBuilderComponent {
         if (includeSubclasses) {
           if (activity?.activityTypeCode?.startsWith(activityCode)) {
 
+            if (activity['timing']?.length > 0) {
+              ret.push(this.createBaseParagraph(activity['timing']));
+            }
             ret.push(this.createBaseParagraph(''));
             if (activity['type']?.length > 0) {
 
@@ -524,15 +526,15 @@ export class CvTemplateBuilderComponent {
             }
             if (activity['positionName' + langCapitalized]?.length > 0) {
               ret.push(this.createBaseParagraph(activity['positionName' + langCapitalized]));
-            }
-            if (activity['timing']?.length > 0) {
-              ret.push(this.createBaseParagraph(activity['timing']));
             }
           }
         } else {
           if (activity?.activityTypeCode === activityCode) {
 
             ret.push(this.createBaseParagraph(''));
+            if (activity['timing']?.length > 0) {
+              ret.push(this.createBaseParagraph(activity['timing']));
+            }
             if (activity['type']?.length > 0) {
               const activityType: any = this.capitalizeFirstLetter(activity['activityTypeName' + langCapitalized]);
               ret.push(this.createBaseParagraph(activityType));
@@ -545,9 +547,6 @@ export class CvTemplateBuilderComponent {
             }
             if (activity['positionName' + langCapitalized]?.length > 0) {
               ret.push(this.createBaseParagraph(activity['positionName' + langCapitalized]));
-            }
-            if (activity['timing']?.length > 0) {
-              ret.push(this.createBaseParagraph(activity['timing']));
             }
           }
         }
