@@ -680,9 +680,10 @@ const translations_fi = {
   'cv_publication_list': 'Julkaisuluettelo',
   "publication_list_title": "Julkaisuluettelo",
   "publication_list_preface1": "*Huom: Sinisellä merkityt tekstit sisältävät ohjeita ja lisätietoja. Poista kaikki siniset tekstit ennen julkaisuluettelon lähettämistä.",
-  "publication_list_bullet1": "Mallin käyttäjää pyydetään tarkistamaan viitetietojen oikeellisuus. Viitetiedot muodostetaan palveluun ladattujen tietojen perusteella, eivätkä ne välttämättä vastaa lähdejärjestelmän tietoja.",
+  "publication_list_bullet1": "Viitetiedot perustuvat eri lähteistä tuotuihin tietoihin, eikä niiden oikeellisuutta voida taata. Käyttäjää pyydetään tarkistamaan kaikki tiedot huolellisesti. ORCID-palvelusta tuodut julkaisutiedot on sijoitettu tiedoston loppuun, ja niissä on havaittu erityisen paljon puuttuvia tietoja.",
   "publication_list_bullet2": "Jos jokin seuraavista tiedoista puuttuu, julkaisu merkitään punaisella mallin lopussa: tekijät, julkaisuvuosi, julkaisun otsikko, julkaisukanava, vuosikerta/numero, sivunumerot.",
   "publication_list_highlighted_publications_bullet1": "Alla olevista viitetiedoista puuttuu jokin seuraavista tiedoista: tekijät, julkaisuvuosi, julkaisun otsikko, julkaisukanava, vuosikerta/numero, sivunumerot.",
+  "publication_list_orcid": 'Alla olevassa listassa näkyvät ORCID-palvelusta tuodut julkaisutiedot.',
   "present_term": "nykyhetki"
 };
 
@@ -774,9 +775,10 @@ const translations_sv = {
   'cv_publication_list': 'Publikationslista',
   "publication_list_title": "Publikationsförteckning",
   "publication_list_preface1": "*Texter markerade med blått innehåller instruktioner och tilläggsinformation. Ta bort alla blåa texter innan publikationslistan skickas vidare.",
-  "publication_list_bullet1": "Användaren av mallen ombeds kontrollera att referensuppgifterna är korrekta. Referenserna genereras utifrån de uppgifter som laddats upp till tjänsten och motsvarar inte nödvändigtvis uppgifterna i källsystemet.",
+  "publication_list_bullet1": "Referensuppgifterna baseras på information från olika källor, och deras korrekthet kan inte garanteras. Användaren uppmanas att granska alla uppgifter noggrant. Publikationsuppgifter hämtade från ORCID-tjänsten finns längst ner i filen, och dessa poster har visat sig innehålla särskilt många brister.",
   "publication_list_bullet2": "Om någon av följande uppgifter saknas markeras publikationen med rött i slutet av mallen: författare, publiceringsår, publikationens titel, publiceringskanal, volym/nummer, sidnummer.",
   "publication_list_highlighted_publications_bullet1": "Någon av följande uppgifter saknas i referenserna nedan: författare, publiceringsår, publikationens titel, publiceringskanal, volym/nummer, sidnummer.",
+  "publication_list_orcid": 'Listan nedan visar publikationsuppgifter från ORCID-tjänsten.',
   "present_term": "nuvarande"
 };
 
@@ -868,9 +870,10 @@ const translations_en = {
   'cv_publication_list': 'List of publications',
   "publication_list_title": "Publication list",
   "publication_list_preface1": "*Texts marked in blue contain instructions and additional information. Please remove all blue text before submitting the publication list.",
-  "publication_list_bullet1": "Users of the template are asked to verify the accuracy of the reference details. The references are generated based on the data uploaded to the service and may not fully match the information in the source system.",
+  "publication_list_bullet1": "The reference data is based on information imported from various sources, and its accuracy cannot be guaranteed. Users are requested to carefully review all entries. Publication data imported from the ORCID service is listed at the end of the file, and these entries have been found to contain a particularly high number of missing details.",
   "publication_list_bullet2": "If any of the following details are missing, the publication will be marked in red at the end of the template: authors, year of publication, title, publication channel, volume/issue, page numbers.",
   "publication_list_highlighted_publications_bullet1": "One or more of the following details are missing from the references below: authors, year of publication, title, publication channel, volume/issue, page numbers.",
+  "publication_list_orcid": 'The list below shows publication data retrieved from the ORCID service.',
   "present_term": "present"
 };
 
