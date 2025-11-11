@@ -25,6 +25,7 @@ import { DraftService } from '@mydata/services/draft.service';
 import { SecondaryButtonComponent } from '@shared/components/buttons/secondary-button/secondary-button.component';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 import * as translations from '@mydata/components/cv-tool/cv-template-builder/CvTranslations';
+import { StickyFooterComponent } from '@mydata/components/sticky-footer/sticky-footer.component';
 
 export interface cvEducation {
   dateOfDegree?: string;
@@ -55,7 +56,8 @@ export interface CvContent {
     MydataSideNavigationComponent,
     BannerDividerComponent,
     SecondaryButtonComponent,
-    SvgSpritesComponent
+    SvgSpritesComponent,
+    StickyFooterComponent
   ],
   templateUrl: './cv-tool.component.html',
   styleUrl: './cv-tool.component.scss'
