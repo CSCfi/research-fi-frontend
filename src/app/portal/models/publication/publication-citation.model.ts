@@ -110,7 +110,7 @@ export class PublicationCitationAdapter
 
       const journal = `<i>${item.journalName || item.conferenceName}</i>`;
 
-      const volume = item.volume ? ', <i>' + item.volume + '</i>' : '';
+      const volume = item.volume ? '<i>' + item.volume + '</i>' : '';
 
       const number = item.issueNumber ? '(' + item.issueNumber + ')' : '';
 
