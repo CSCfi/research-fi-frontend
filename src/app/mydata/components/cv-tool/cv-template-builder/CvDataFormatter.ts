@@ -193,7 +193,7 @@ export function formatCvData(lang: string, profileData, orcid: string, filterVis
     degrees: parsedEducation,
     firstNames: visibleNames[0].firstNames,
     lastName: visibleNames[0].lastName,
-    orcid: orcid,
+    orcid: 'https://orcid.org/' + orcid,
     date: getDateNow(),
     otherEducationAndExpertise: [],
     previousWorkExperience: nonPrimaryAffiliations,
