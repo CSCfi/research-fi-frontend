@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
   AlignmentType,
-  Document,
+  Document, ExternalHyperlink,
   HeadingLevel,
   Paragraph,
   TabStopPosition,
@@ -265,19 +265,15 @@ export class CvTemplateBuilderComponent {
             children: [
               this.createHeading(this.getTranslation('cv_title')),
               this.createBaseParagraph(''),
-
-              new docx.Paragraph({
-                text: this.getTranslation('cv_preface1'),
-                style: 'baseParagraphBlue'
-              }),
+              this.createHyperlinkMidText(this.getTranslation('cv_preface1'), this.getTranslation('cv_preface1_link'), this.getTranslation('cv_preface1_link'), this.getTranslation('cv_preface1_after_link')),
+              this.createHyperlinkMidTextBulleted(this.getTranslation('cv_bullet1'), this.getTranslation('cv_bullet1_link'), this.getTranslation('cv_bullet1_link'), ''),
               this.createBulletBlue(this.getTranslation('cv_bullet1')),
               this.createBulletBlue(this.getTranslation('cv_bullet2')),
-
               ...this.createMainLevelParagraph(paragraphContentSec1),
               this.createBaseParagraph(''),
               this.createBaseParagraph(cvData.lastName),
               this.createBaseParagraph(cvData.firstNames),
-              this.createBaseParagraph(cvData.orcid),
+              this.createHyperlink(cvData.orcid, cvData.orcid),
               this.createBaseParagraph(cvData.date),
               ...this.createMainLevelParagraph(paragraphContentSec2),
               this.createBaseParagraph(''),
@@ -398,7 +394,7 @@ export class CvTemplateBuilderComponent {
 
               // Citation validation is disabled
               //this.createBulletBlue(this.getTranslation('publication_list_bullet2')),
-              ...this.createPublicationRows(cvData.publications, citationStyle),
+              ...this.createPublicationRows(cvData.publications, citationStyle)
             ]
           }
         ]
@@ -508,13 +504,11 @@ export class CvTemplateBuilderComponent {
       activityData.forEach((activity) => {
         if (includeSubclasses) {
           if (activity?.activityTypeCode?.startsWith(activityCode)) {
-
+            ret.push(this.createBaseParagraph(''));
             if (activity['timing']?.length > 0) {
               ret.push(this.createBaseParagraph(activity['timing']));
             }
-            ret.push(this.createBaseParagraph(''));
             if (activity['type']?.length > 0) {
-
               const activityType: any = this.capitalizeFirstLetter(activity['activityTypeName' + langCapitalized]);
               ret.push(this.createBaseParagraph(activityType));
             }
@@ -530,7 +524,6 @@ export class CvTemplateBuilderComponent {
           }
         } else {
           if (activity?.activityTypeCode === activityCode) {
-
             ret.push(this.createBaseParagraph(''));
             if (activity['timing']?.length > 0) {
               ret.push(this.createBaseParagraph(activity['timing']));
@@ -618,15 +611,75 @@ export class CvTemplateBuilderComponent {
     });
   }
 
-  public createBulletBlack(text: string): Paragraph {
+  public createHyperlink(text: string, link: string): Paragraph {
     return new Paragraph({
-      text: text,
+      indent: { left: 350 },
       style: 'baseParagraphBlack',
-      bullet: {
-        level: 0
-      }
+      children: [
+        new ExternalHyperlink({
+          children: [
+            new TextRun({
+              text: text,
+              style: 'Hyperlink'
+            })
+          ],
+          link: link
+        })
+      ]
     });
   }
+
+  public createHyperlinkMidText(textBefore: string, linkText: string, link: string, textAfter: string): Paragraph {
+    return new Paragraph({
+      style: 'baseParagraphBlue',
+      children: [
+        new TextRun({
+          text: textBefore + ' ',
+          style: 'baseParagraphBlue',
+        }),
+        new ExternalHyperlink({
+          children: [
+            new TextRun({
+              text: linkText,
+              style: 'Hyperlink'
+            }),
+          ],
+          link: link
+        }),
+        new TextRun({
+          text: ' ' + textAfter,
+          style: 'baseParagraphBlue'
+        })]
+    });
+  }
+
+  public createHyperlinkMidTextBulleted(textBefore: string, linkText: string, link: string, textAfter: string): Paragraph {
+    return new Paragraph({
+      style: 'baseParagraphBlue',
+      bullet: {
+        level: 0
+      },
+      children: [
+        new TextRun({
+          text: textBefore + ' ',
+          style: 'baseParagraphBlue',
+        }),
+        new ExternalHyperlink({
+          children: [
+            new TextRun({
+              text: linkText,
+              style: 'Hyperlink'
+            }),
+          ],
+          link: link
+        }),
+        new TextRun({
+          text: ' ' + textAfter,
+          style: 'baseParagraphBlue'
+        })]
+    });
+  }
+
 
   public createBulletBlue(text: string): Paragraph {
     return new Paragraph({
