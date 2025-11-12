@@ -1,19 +1,14 @@
-import { Component } from '@angular/core';
 import {
   AlignmentType,
   Document, ExternalHyperlink,
   HeadingLevel,
   Paragraph,
-  TabStopPosition,
-  TabStopType,
   TextRun
 } from 'docx';
 import * as docx from 'docx';
 import * as translations from '@mydata/components/cv-tool/cv-template-builder/CvTranslations';
 import * as cvDataformatter from '@mydata/components/cv-tool/cv-template-builder/CvDataFormatter';
-import { checkTranslation as checkTranslation } from '@portal/models/person/profiletool-person-adapter';
 import { PublicationCitationAdapter } from '@portal/models/publication/publication-citation.model';
-import { FormatAndSortTimespanPipe } from '@shared/pipes/format-and-sort-timespan.pipe';
 import { GroupTypes } from '@mydata/constants/groupTypes';
 
 
@@ -265,9 +260,9 @@ export class CvTemplateBuilderComponent {
             children: [
               this.createHeading(this.getTranslation('cv_title')),
               this.createBaseParagraph(''),
-              this.createHyperlinkMidText(this.getTranslation('cv_preface1'), this.getTranslation('cv_preface1_link'), this.getTranslation('cv_preface1_link'), this.getTranslation('cv_preface1_after_link')),
+              this.createHyperlinkMidText(this.getTranslation('cv_preface1'), this.getTranslation('cv_preface1_link_text'), this.getTranslation('cv_preface1_link'), this.getTranslation('cv_preface1_after_link')),
+              this.createBaseParagraph(''),
               this.createHyperlinkMidTextBulleted(this.getTranslation('cv_bullet1'), this.getTranslation('cv_bullet1_link'), this.getTranslation('cv_bullet1_link'), ''),
-              this.createBulletBlue(this.getTranslation('cv_bullet1')),
               this.createBulletBlue(this.getTranslation('cv_bullet2')),
               ...this.createMainLevelParagraph(paragraphContentSec1),
               this.createBaseParagraph(''),
@@ -386,7 +381,7 @@ export class CvTemplateBuilderComponent {
           {
             properties: {},
             children: [
-              this.createHeading(this.getTranslation('cv_publication_list')),
+              this.createHeading(this.getTranslation('publication_list_title')),
 
               this.createBaseParagraphBlue(this.getTranslation('publication_list_preface1')),
               this.createBaseParagraph(this.getTranslation('')),
@@ -461,7 +456,7 @@ export class CvTemplateBuilderComponent {
     //retCombined.push(this.createBulletBlue(this.getTranslation('publication_list_highlighted_publications_bullet1')));
     publicationsData = publicationsData.sort(this.comparePublicationYearsPublications);
     retCombined = retCombined.concat(notValidTtvPublications.sort(this.comparePublicationYearsPublications));
-    retCombined = retCombined.concat(this.createBulletBlue(this.getTranslation('publication_list_orcid')));
+    retCombined = retCombined.concat(this.createBulletBlue(this.getTranslation('publication_list_bullet_orcid')));
     retCombined = retCombined.concat(this.createBaseParagraph(''));
     retCombined = retCombined.concat(retOrcidPublications.sort(this.comparePublicationYearsPublications));
     return retCombined;

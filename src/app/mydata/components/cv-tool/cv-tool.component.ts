@@ -146,7 +146,7 @@ export class CvToolComponent implements OnInit {
 
   generatePublicationsList(cvContent?: CvContent) {
     docx.Packer.toBlob(this.templateBuilder.buildCvTemplate(this.langAbbreviations[this.langSelection], this.profileData, this.orcidId, (this.importSelection === 1), true, this.citationStyleSelection)).then((blob) => {
-      this.publicationListFileName = this.fullName + "_-_" + translations.getTranslation(this.langAbbreviations[this.langSelection], 'cv_publication_list').replaceAll(' ', '_') + '_(' + this.citationStyles[this.citationStyleSelection] + ')' + ".docx";
+      this.publicationListFileName = this.fullName + "_-_" + translations.getTranslation(this.langAbbreviations[this.langSelection], 'publication_list_title').replaceAll(' ', '_') + '_(' + this.citationStyles[this.citationStyleSelection] + ')' + ".docx";
       saveAs(blob, this.publicationListFileName);
     });
   }
