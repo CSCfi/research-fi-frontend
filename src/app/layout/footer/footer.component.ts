@@ -124,7 +124,7 @@ export class FooterComponent {
     this.showDiscardChangesDialog = true;
   }
 
-  doDiscardChangesDialogAction(action: string | undefined) {
+  doDiscardChangesDialogAction(action: string) {
     console.log('action', action)
     this.discardChangesDialog.closeAll();
     this.dialogTitle = '';
