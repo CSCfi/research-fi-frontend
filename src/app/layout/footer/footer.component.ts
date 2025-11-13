@@ -54,7 +54,7 @@ export class FooterComponent {
 
   // Discard changes dialog variables
   showDiscardChangesDialog: boolean;
-  discardChangesDialogTitle = $localize`:@@leaveReviewHeader:Anna palautetta tai kysy`;
+  discardChangesDialogTitle = $localize`:@@discardChangesAndLogout:Hylkää muutokset ja kirjaudu ulos`;
   logout = $localize`:@@logout:Kirjaudu ulos`;
   discardChangesAndLogout = $localize`:@@discardChangesAndLogout:Hylkää muutokset ja kirjaudu ulos`;
   discardChangesAndLogoutActions = [
