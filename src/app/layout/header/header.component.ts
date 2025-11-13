@@ -45,6 +45,7 @@ import { ClickOutsideDirective } from '../../shared/directives/click-outside.dir
 import { CloseButtonComponent } from '../../shared/components/buttons/close-button/close-button.component';
 import { DialogComponent } from '../../shared/components/dialog/dialog.component';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
+import { DialogEventsService } from '@shared/services/dialog-events.service';
 
 type DomainObject = { label: string; locale: string; url: string };
 
@@ -124,18 +125,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isAuthenticatedBool = false;
   loggedIn: boolean;
 
-  // Dialog variables
-  showDialog: boolean;
-  dialogTemplate: any;
-  dialogTitle: any;
-  dialogActions: any[];
-  basicDialogActions = [
-    { label: $localize`:@@close:Sulje`, primary: true, method: 'close' }
-  ];
 
   myDataBetaTextContent: string;
   isInMydataRoute = false;
   isInScienceAndInnovationRoute = false;
+
+  discardChangesAndLogoutRequest: Subscription
 
   constructor(
     private resizeService: ResizeService,
@@ -153,7 +148,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private privacyService: PrivacyService,
     public appSettingsService: AppSettingsService,
     private oidcSecurityService: OidcSecurityService,
-    private draftService: DraftService
+    private draftService: DraftService,
+    private dialogEventsService: DialogEventsService,
   ) {
     this.lang = localeId;
     this.routeEvent(router);
@@ -286,6 +282,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (isPlatformBrowser(this.platformId)) {
       // Set mobile status
       this.appSettingsService.updateMobileStatus(this.mobile);
+      this.discardChangesAndLogoutRequest = this.dialogEventsService.getDiscardChangesAndLogoutRequestedSubject().subscribe(state => {
+        if (state === true) {
+          this.draftService.clearDraftAndLogout();
+        }
+      });
 
       // Get page data from API and set to localStorage. This data is used to generate content on certain pages
       if (!this.cmsContentService.pageDataLoaded) {
@@ -373,6 +374,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (isPlatformBrowser(this.platformId)) {
       this.resizeSub?.unsubscribe();
+      this.discardChangesAndLogoutRequest.unsubscribe();
     }
     this.routeSub?.unsubscribe();
     this.newPageSub?.unsubscribe();
@@ -433,9 +435,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (isPlatformBrowser(this.platformId)) {
       const draftProfile = this.draftService.getDraftProfile();
       if (draftProfile) {
-        this.draftService.showLogoutConfirmModal.next(true);
+        this.dialogEventsService.setDiscardChangesModalVisibleState(true);
+        //this.draftService.showLogoutConfirmModal.next(true);
       } else {
         this.draftService.clearDraftAndLogout();
+        this.dialogEventsService.changesDiscarded();
       }
     }
   }
@@ -467,33 +471,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   changeFocus(target) {
     this.tabChangeService.targetFocus(target);
-  }
-
-  openDialog(title, template, actions) {
-    // Set text content for MyData beta
-    // Note: Data isn't available through resolver in layout module
-    this.cmsContentService.pageData.pipe(take(1)).subscribe((data) => {
-      this.myDataBetaTextContent = data.find(
-        (item) => item.id === 'mydata_beta_text'
-      )['content' + this.appSettingsService.capitalizedLocale];
-    });
-
-    this.dialogTitle = title;
-    this.showDialog = true;
-    this.dialogTemplate = template;
-    this.dialogActions = actions;
-  }
-
-  doDialogAction(action: string) {
-    if (action === 'logout') {
-      this.draftService.clearDraftPayloadData();
-      this.draftService.clearSessionStorageData();
-      this.oidcSecurityService.logoff();
-    }
-
-    this.dialogTitle = '';
-    this.showDialog = false;
-    this.dialogTemplate = null;
   }
 
   login() {
