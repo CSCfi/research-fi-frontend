@@ -1,11 +1,11 @@
 <!-- Modal dialog -->
 <app-dialog
         *ngIf="showDialog"
-
         [template]="dialogTemplate"
         [title]="dialogTitle"
         [extraContentTemplate]="dialogExtraContentTemplate"
         (onActionClick)="doDialogAction($event)"
+        (onDialogClose)="closeDialog()"
         [actions]="currentDialogActions"
 ></app-dialog>
 

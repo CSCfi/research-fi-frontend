@@ -18,6 +18,7 @@ import { ReviewComponent } from '@shared/components/review/review.component';
 import { DialogComponent } from '@shared/components/dialog/dialog.component';
 import { WelcomeStepperComponent } from '@mydata/components/welcome-stepper/welcome-stepper.component';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
+import { MatDialog } from '@angular/material/dialog';
 
 function email(strings) {
   return `${strings[0]}@csc.fi`;
@@ -51,6 +52,20 @@ export class FooterComponent {
   buildInfo = '';
   showReviewButton: boolean;
 
+  // Discard changes dialog variables
+  showDiscardChangesDialog: boolean;
+  discardChangesDialogTitle = $localize`:@@leaveReviewHeader:Anna palautetta tai kysy`;
+  logout = $localize`:@@logout:Kirjaudu ulos`;
+  discardChangesAndLogout = $localize`:@@discardChangesAndLogout:Hylkää muutokset ja kirjaudu ulos`;
+  discardChangesAndLogoutActions = [
+    { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'close' },
+    {
+      label: this.discardChangesAndLogout,
+      primary: true,
+      method: 'discardChangesAndLogout',
+    },
+  ];
+
   // Dialog variables
   showDialog: boolean;
   dialogTemplate: any;
@@ -59,12 +74,14 @@ export class FooterComponent {
   basicDialogActions = [];
 
   quickstartState$ = this.dialogEventsService.getQuickstartState();
+  discardChangesModalVisible$ = this.dialogEventsService.getDiscardChangesModalVisibleState();
 
   constructor(
     private appConfigService: AppConfigService,
     private appSettingsService: AppSettingsService,
     private dialogEventsService: DialogEventsService,
-    private router: Router
+    private router: Router,
+    public discardChangesDialog: MatDialog,
   ) {
     this.buildInfo = this.appConfigService.buildInfo !== 'prod' ? this.appConfigService.buildInfo : '';
     this.showReviewButton = true;
@@ -102,6 +119,29 @@ export class FooterComponent {
   close() {
     this.showReviewButton = false;
   }
+
+  openDiscardChangesDialog() {
+    this.showDiscardChangesDialog = true;
+  }
+
+  doDiscardChangesDialogAction(action: string) {
+    console.log('action', action)
+    this.discardChangesDialog.closeAll();
+    this.dialogTitle = '';
+    this.showDiscardChangesDialog = false;
+
+    switch (action) {
+      case 'discardChangesAndLogout': {
+        this.dialogEventsService.discardChangesAndLogout();
+        break;
+      }
+      default: {
+        this.dialogEventsService.setDiscardChangesModalVisibleState(false);
+        break;
+      }
+    }
+  }
+
 
   openDialog(template) {
     this.showDialog = true;

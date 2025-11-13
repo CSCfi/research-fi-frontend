@@ -18,6 +18,7 @@ import {
   AutomaticPublishingSettingsComponent
 } from '@mydata/components/automatic-publishing-settings/automatic-publishing-settings.component';
 import { BehaviorSubject } from 'rxjs';
+import { DialogEventsService } from '@shared/services/dialog-events.service';
 
 @Component({
     selector: 'app-sticky-footer',
@@ -63,6 +64,7 @@ export class StickyFooterComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     public draftService: DraftService,
     public collaborationsService: CollaborationsService,
+    private dialogEventService: DialogEventsService
   ) {
     //this.profileService.initializeProfileVisibilityAndSettings();
   }
@@ -84,7 +86,6 @@ export class StickyFooterComponent implements OnInit, OnDestroy {
   publishUpdatedProfile = $localize`:@@publishUpdatedProfile:Julkaise päivitetty profiili`;
   discardChanges = $localize`:@@discardChanges:Hylkää muutokset`;
   logout = $localize`:@@logout:Kirjaudu ulos`;
-  discardChangesAndLogout = $localize`:@@discardChangesAndLogout:Hylkää muutokset ja kirjaudu ulos`;
   republishUpdatedProfile = $localize`:@@mydata.profile.republish-modal.title:Julkaise piilotettu profiili`;
   republishText = $localize`:@@publish:Julkaise`;
   unpublishedChanges = $localize`:@@unpublishedChanges:Julkaisemattomia muutoksia`;
@@ -114,15 +115,6 @@ export class StickyFooterComponent implements OnInit, OnDestroy {
     },
   ];
 
-  discardChangesAndLogoutActions = [
-    { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'close' },
-    {
-      label: this.discardChangesAndLogout,
-      primary: true,
-      method: 'discardChangesAndLogout',
-    },
-  ];
-
   republishActions = [
     { label: $localize`:@@cancel:Peruuta`, primary: false, method: 'close' },
     {
@@ -133,7 +125,7 @@ export class StickyFooterComponent implements OnInit, OnDestroy {
   ];
 
   showDiscardChangesAndLogout(){
-    this.openDialog(this.logout,this.discardChangesTemplate, undefined, this.discardChangesAndLogoutActions, false);
+    this.dialogEventService.setDiscardChangesModalVisibleState(true);
   }
 
   openDialog(title: string, template: any, extraContentTemplate: any, actions: any, disableDialogClose: boolean) {
@@ -167,10 +159,6 @@ export class StickyFooterComponent implements OnInit, OnDestroy {
       }
       case 'discard': {
         this.draftService.clearDraftData();
-        break;
-      }
-      case 'discardChangesAndLogout': {
-        this.draftService.clearDraftAndLogout();
         break;
       }
       case 'republish': {
