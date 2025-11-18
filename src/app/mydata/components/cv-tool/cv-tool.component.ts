@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NgForOf, NgIf } from '@angular/common';
+import { NgForOf } from '@angular/common';
 import {
   PrimaryActionButtonComponent
 } from '@shared/components/buttons/primary-action-button/primary-action-button.component';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import * as docx from 'docx';
 import { saveAs } from 'file-saver';
@@ -17,12 +17,6 @@ import {
 import { BannerDividerComponent } from '@shared/components/banner-divider/banner-divider.component';
 import { clone, cloneDeep } from 'lodash-es';
 import { ProfileService } from '@mydata/services/profile.service';
-import { CollaborationsService } from '@mydata/services/collaborations.service';
-import { PatchService } from '@mydata/services/patch.service';
-import { NotificationService } from '@shared/services/notification.service';
-import { AppSettingsService } from '@shared/services/app-settings.service';
-import { DraftService } from '@mydata/services/draft.service';
-import { SecondaryButtonComponent } from '@shared/components/buttons/secondary-button/secondary-button.component';
 import { SvgSpritesComponent } from '@shared/components/svg-sprites/svg-sprites.component';
 import * as translations from '@mydata/components/cv-tool/cv-template-builder/CvTranslations';
 import { StickyFooterComponent } from '@mydata/components/sticky-footer/sticky-footer.component';
@@ -47,15 +41,12 @@ export interface CvContent {
 @Component({
   selector: 'app-cv-tool',
   imports: [
-    NgIf,
     PrimaryActionButtonComponent,
-    RouterLink,
     MatRadioButton,
     MatRadioGroup,
     NgForOf,
     MydataSideNavigationComponent,
     BannerDividerComponent,
-    SecondaryButtonComponent,
     SvgSpritesComponent,
     StickyFooterComponent
   ],
