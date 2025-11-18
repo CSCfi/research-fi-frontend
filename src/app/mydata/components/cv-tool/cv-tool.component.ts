@@ -154,7 +154,6 @@ export class CvToolComponent implements OnInit {
             this.profileData = clone(value.profileData);
             this.fullName = this.profileData[0].fields[0].items.filter(item => item.itemMeta.show === true)[0].fullName;
             this.fullName = this.fullName.replaceAll(' ', '_');
-            console.log('profileData', this.profileData, this.fullName);
             this.orcidId = this.route.snapshot.data.orcidProfile.orcid;
           }
         });
