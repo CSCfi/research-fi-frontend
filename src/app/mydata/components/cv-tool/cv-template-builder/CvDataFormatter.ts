@@ -130,7 +130,6 @@ function customSort(a, b) {
 }
 
 export function formatCvData(lang: string, profileData, orcid: string, filterVisible: boolean) {
-  console.log('formatCvData', JSON.stringify(profileData), filterVisible);
 
   let visibleNames = profileData[0].fields[0].items.filter(item => filterVisible ? item.itemMeta.show === true : item);
 

@@ -84,8 +84,6 @@ export class CvTemplateBuilderComponent {
     let cvData: cvDataFormatted = cvDataformatter.formatCvData(lang, profileData, orcidId, filterVisible);
     this.langCode = lang;
 
-    console.log('cvData', cvData);
-
     let bulletsSec1 = [this.getTranslation('cv_1_bullet1'), this.getTranslation('cv_1_bullet2'), this.getTranslation('cv_1_bullet3'), this.getTranslation('cv_1_bullet4')];
     let paragraphContentSec1: cvTopLevelParagraph = {
       paragraphTitle: this.getTranslation('cv_1_personal_info_title'),
@@ -484,7 +482,6 @@ export class CvTemplateBuilderComponent {
     let ret: docx.Paragraph[] = [];
 
     employmentData.forEach((employment) => {
-      console.log('employment', employment);
       if (employment['organizationName'] || employment['positionName']) {
         ret.push(this.createBaseParagraph(employment?.timing));
         ret.push(this.createBaseParagraph(employment['organizationName']));

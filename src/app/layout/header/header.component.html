@@ -91,14 +91,6 @@
                 <ng-template #betaInfoTemplate>
                     <div class="px-3" [innerHTML]="myDataBetaTextContent"></div>
                 </ng-template>
-
-                <app-dialog
-                        *ngIf="showDialog"
-                        [template]="dialogTemplate"
-                        [title]="dialogTitle"
-                        (onActionClick)="doDialogAction($event)"
-                        [actions]="dialogActions"
-                ></app-dialog>
             </div>
         </div>
         <nav class="nav-top col-auto px-0" [class.beta-mobile-menu]="appSettings.beta">

@@ -142,9 +142,29 @@
     </button>
   </div>
 
+  <ng-template #discardChangesTemplate>
+    <div class="row">
+      <div class="col">
+        <p i18n="@@discardSessionChanges">
+          Hylätäänkö julkaisemattomat muutokset?
+        </p>
+      </div>
+    </div>
+  </ng-template>
+
   <ng-template #reviewDialog>
     <app-review (onClose)="closeDialog()"></app-review>
   </ng-template>
+
+  <!-- Discard changes dialog -->
+  <app-dialog
+          *ngIf="discardChangesModalVisible$ | async"
+          [template]="discardChangesTemplate"
+          [title]="discardChangesDialogTitle"
+          (onActionClick)="doDiscardChangesDialogAction($event)"
+          (onDialogClose)="doDiscardChangesDialogAction($event)"
+          [actions]="discardChangesAndLogoutActions"
+  ></app-dialog>
 
   <app-dialog
     *ngIf="showDialog"
