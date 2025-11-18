@@ -136,13 +136,18 @@ export class AppSettingsService {
             exact: true,
           },
           {
-            label: $localize`:@@dataAndSources:Tiedot ja tietolähteet`,
-            link: '/mydata/profile/data-sources',
+            label: $localize`:@@cvTool:CV-työkalu`,
+            link: '/mydata/profile/cv-tool',
             exact: true,
           },
           {
             label: $localize`:@@accountSettings:Tiliasetukset`,
             link: '/mydata/profile/account-settings',
+            exact: true,
+          },
+          {
+            label: $localize`:@@dataAndSources:Tiedot ja tietolähteet`,
+            link: '/mydata/profile/data-sources',
             exact: true,
           },
           {
@@ -168,12 +173,17 @@ export class AppSettingsService {
         link: '/mydata/profile',
       },
       {
-        label: $localize`:@@dataAndSources:Tiedot ja tietolähteet`,
-        link: '/mydata/profile/data-sources',
+        label: $localize`:@@cvTool:CV-työkalu`,
+        link: '/mydata/profile/cv-tool',
+        exact: true,
       },
       {
         label: $localize`:@@accountSettings:Tiliasetukset`,
         link: '/mydata/profile/account-settings',
+      },
+      {
+        label: $localize`:@@dataAndSources:Tiedot ja tietolähteet`,
+        link: '/mydata/profile/data-sources',
       },
       {
         label: $localize`:@@logout:Kirjaudu ulos`,

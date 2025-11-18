@@ -1,0 +1,25 @@
+.cv-tool-wrap {
+  app-svg-sprites {
+    margin-left: -4px;
+  }
+  .bordered-section {
+    display: flex;
+    align-content: space-between;
+    background: #fff;
+    border: 1px solid #e8e8f5;
+    padding: 10px;
+    min-height: 210px;
+  }
+  .note-box {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    gap: 8px;
+    border-radius: 4px;
+    border: 1px solid var(--purple-bg, #E8E8F5);
+    background: var(--purple-light-bg, #F7F7FB);
+  }
+  .info-circle-pad {
+    margin: 0px 16px 0px 6px;
+  }
+}
