@@ -908,10 +908,7 @@ export function getActivityTypeCodeTranslations(language: string) {
 }
 
 export function getActivityTypeTranslated(language: string, code: string) {
-  code = code.replace(".", "_");
-
   if (language === 'fi') {
-    console.log('test', activity_type_codes_fi[code]);
     return activity_type_codes_fi;
   } else if (language === 'sv') {
     return activity_type_codes_sv;
