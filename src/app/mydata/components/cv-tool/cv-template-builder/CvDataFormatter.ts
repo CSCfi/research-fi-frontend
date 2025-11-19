@@ -71,8 +71,11 @@ function getDateNow() {
           // End date missing
         } else if (item.endDate.year === 0) {
           item.timing = item.startDate.year.toString();
-          if (dataType === groupTypes.activitiesAndRewards || dataType === groupTypes.education) {
+          if (dataType === groupTypes.activitiesAndRewards || dataType === groupTypes.education || dataType === groupTypes.affiliation) {
             item.timing = item.timing + ' - ' + presentLocalization;
+            if (dataType === groupTypes.affiliation) {
+              item.employmentContinues = true;
+            }
           }
         }
         // Regular case
@@ -144,15 +147,14 @@ export function formatCvData(lang: string, profileData, orcid: string, filterVis
     return item;
   });
 
-
-  let primaryAffiliations = [];
-  let nonPrimaryAffiliations = [];
+  let currentEmployment = [];
+  let previousWorkExperience = [];
   parsedAffiliations.forEach(affiliation => {
-    if (affiliation.itemMeta.primaryValue === true) {
-      primaryAffiliations.push(affiliation);
+    if (affiliation.itemMeta.primaryValue === true || affiliation.employmentContinues) {
+      currentEmployment.push(affiliation);
     }
     else {
-      nonPrimaryAffiliations.push(affiliation);
+      previousWorkExperience.push(affiliation);
     }
   });
 
@@ -188,14 +190,14 @@ export function formatCvData(lang: string, profileData, orcid: string, filterVis
 
   let formattedData: cvDataFormatted = {
     awardsAndHonors: [],
-    currentEmployment: primaryAffiliations,
+    currentEmployment: currentEmployment,
     degrees: parsedEducation,
     firstNames: visibleNames[0].firstNames,
     lastName: visibleNames[0].lastName,
     orcid: 'https://orcid.org/' + orcid,
     date: getDateNow(),
     otherEducationAndExpertise: [],
-    previousWorkExperience: nonPrimaryAffiliations,
+    previousWorkExperience: previousWorkExperience,
     publications: parsedPublications,
     researchDatasets: parsedDatasets,
     researchFundingAndGrants: parsedFundings,
