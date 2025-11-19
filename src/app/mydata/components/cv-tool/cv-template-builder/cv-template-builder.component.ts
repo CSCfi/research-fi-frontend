@@ -510,8 +510,12 @@ export class CvTemplateBuilderComponent {
             if (activity['timing']?.length > 0) {
               ret.push(this.createBaseParagraph(activity['timing']));
             }
-            if (activity['type']?.length > 0) {
+            if (activity['activityTypeName']?.length > 0) {
               const activityType: any = this.capitalizeFirstLetter(activity['activityTypeName' + langCapitalized]);
+              ret.push(this.createBaseParagraph(activityType));
+            }
+            if (activity['roleName' + langCapitalized]?.length > 0) {
+              const activityType: any = this.capitalizeFirstLetter(activity['roleName' + langCapitalized]);
               ret.push(this.createBaseParagraph(activityType));
             }
             if (activity['name' + langCapitalized]?.length > 0) {
@@ -519,6 +523,9 @@ export class CvTemplateBuilderComponent {
             }
             if (activity['organizationName' + langCapitalized]?.length > 0) {
               ret.push(this.createBaseParagraph(activity['organizationName' + langCapitalized]));
+            }
+            if (activity['departmentName' + langCapitalized]?.length > 0) {
+              ret.push(this.createBaseParagraph(activity['departmentName' + langCapitalized]));
             }
             if (activity['positionName' + langCapitalized]?.length > 0) {
               ret.push(this.createBaseParagraph(activity['positionName' + langCapitalized]));
@@ -530,8 +537,12 @@ export class CvTemplateBuilderComponent {
             if (activity['timing']?.length > 0) {
               ret.push(this.createBaseParagraph(activity['timing']));
             }
-            if (activity['type']?.length > 0) {
+            if (activity['activityTypeName' + langCapitalized]?.length > 0) {
               const activityType: any = this.capitalizeFirstLetter(activity['activityTypeName' + langCapitalized]);
+              ret.push(this.createBaseParagraph(activityType));
+            }
+            if (activity['roleName' + langCapitalized]?.length > 0) {
+              const activityType: any = this.capitalizeFirstLetter(activity['roleName' + langCapitalized]);
               ret.push(this.createBaseParagraph(activityType));
             }
             if (activity['name' + langCapitalized]?.length > 0) {
@@ -539,6 +550,9 @@ export class CvTemplateBuilderComponent {
             }
             if (activity['organizationName' + langCapitalized]?.length > 0) {
               ret.push(this.createBaseParagraph(activity['organizationName' + langCapitalized]));
+            }
+            if (activity['departmentName' + langCapitalized]?.length > 0) {
+              ret.push(this.createBaseParagraph(activity['departmentName' + langCapitalized]));
             }
             if (activity['positionName' + langCapitalized]?.length > 0) {
               ret.push(this.createBaseParagraph(activity['positionName' + langCapitalized]));
