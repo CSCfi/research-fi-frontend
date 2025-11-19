@@ -410,58 +410,62 @@ export class CvTemplateBuilderComponent {
     return a.publicationYear - b.publicationYear;
   }
 
-  private createPublicationRows(publicationsData, citationStyle: number) {
-    let retCombined: docx.Paragraph[] = [];
-    let validTtvPublications: docx.Paragraph[] = [];
-    let notValidTtvPublications: docx.Paragraph[] = [];
-    let retOrcidPublications: docx.Paragraph[] = [];
+  private formatPublicationCitation(publication: any, citationStyle: number){
+    let publicationDoiStr = publication['doi']?.length > 0 ? ' doi: ' + publication['doi'] : '';
 
-    retCombined.push(this.createBaseParagraph(''));
+    if (publication.dataSources[0].registeredDataSource === 'ORCID') {
+      if (citationStyle === 0) {
+        const publicationYearStrApa = publication['publicationYear']?.length > 0 ? ' (' + publication['publicationYear'] + ').' : '';
+        const publicationNameStrApa = publication['publicationName']?.length > 0 ? ' ' + publication['publicationName'] + '.' : '';
+        return publication['authorsText'] + publicationYearStrApa + publicationNameStrApa + publicationDoiStr;
+      } else if (citationStyle === 1) {
+        const publicationYearStrChicago = publication['publicationYear']?.length > 0 ? publication['publicationYear'] + '. ' : '';
+        const publicationNameStrChicago = publication['publicationName']?.length > 0 ? ' "' + publication['publicationName'] + '"' : '';
+        return publication['authorsText'] + publicationYearStrChicago + publicationNameStrChicago + publicationDoiStr;
+      } else if (citationStyle === 2) {
+        const publicationYearStrMla = publication['publicationYear']?.length > 0 ? ', ' + publication['publicationYear'] + '.' : '';
+        const publicationNameStrMla = publication['publicationName']?.length > 0 ? ' "' + publication['publicationName'] + '"' : '';
+        return publication['authorsText'] + publicationNameStrMla + publicationYearStrMla + publicationDoiStr;
+      }
+    } else {
+      let citationString = this.adaptCitation(publication, citationStyle);
+      citationString = citationString.replaceAll('<i>', '');
+      citationString = citationString.replaceAll('</i>', '');
+      return citationString;
+    }
+    return '';
+  }
+
+  private createPublicationRows(publicationsData, citationStyle: number) {
+    let orcidPublications = [];
+    let ttvPublications = [];
+    let formattedPublications: docx.Paragraph[] = [];
 
     publicationsData.forEach((publication) => {
-      let publicationYearStrApa = publication['publicationYear']?.length > 0 ? ' (' + publication['publicationYear'] + ').' : '';
-      let publicationYearStrChicago = publication['publicationYear']?.length > 0 ? publication['publicationYear'] + '. ' : '';
-      let publicationYearStrMla = publication['publicationYear']?.length > 0 ? ', ' + publication['publicationYear'] + '.' : '';
-
-      let publicationNameStrApa = publication['publicationName']?.length > 0 ? ' ' + publication['publicationName'] + '.' : '';
-      let publicationNameStrChicagoMla = publication['publicationName']?.length > 0 ? ' "' + publication['publicationName'] + '"' : '';
-
-      let publicationDoiStr = publication['doi']?.length > 0 ? ' doi: ' + publication['doi'] : '';
-
       if (publication.dataSources[0].registeredDataSource === 'ORCID') {
-        if (citationStyle === 0) {
-          retOrcidPublications.push(this.createBaseParagraph(publication['authorsText'] + publicationYearStrApa + publicationNameStrApa + publicationDoiStr));
-        } else if (citationStyle === 1) {
-          retOrcidPublications.push(this.createBaseParagraph(publication['authorsText'] + publicationYearStrChicago + publicationNameStrChicagoMla + publicationDoiStr));
-        } else if (citationStyle === 2) {
-          retOrcidPublications.push(this.createBaseParagraph(publication['authorsText'] + publicationNameStrChicagoMla + publicationYearStrMla + publicationDoiStr));
-        }
-        retOrcidPublications.push(this.createBaseParagraph(''));
+        orcidPublications.push(publication);
       } else {
-        let citationString = this.adaptCitation(publication, citationStyle);
-        citationString = citationString.replaceAll('<i>', '');
-        citationString = citationString.replaceAll('</i>', '');
-
-        // Citation validation is disabled
-        if (true || this.isCitationValid(publication)) {
-          validTtvPublications.push(this.createBaseParagraph(citationString));
-          validTtvPublications.push(this.createBaseParagraph(''));
-        } else {
-          notValidTtvPublications.push(this.createBaseParagraphRed(citationString));
-          notValidTtvPublications.push(this.createBaseParagraph(''));
-        }
+        ttvPublications.push(publication);
       }
     });
-    retCombined = retCombined.concat(validTtvPublications.sort(this.comparePublicationYearsPublications));
 
-    // Citation validation is disabled
-    //retCombined.push(this.createBulletBlue(this.getTranslation('publication_list_highlighted_publications_bullet1')));
-    publicationsData = publicationsData.sort(this.comparePublicationYearsPublications);
-    retCombined = retCombined.concat(notValidTtvPublications.sort(this.comparePublicationYearsPublications));
-    retCombined = retCombined.concat(this.createBulletBlue(this.getTranslation('publication_list_bullet_orcid')));
-    retCombined = retCombined.concat(this.createBaseParagraph(''));
-    retCombined = retCombined.concat(retOrcidPublications.sort(this.comparePublicationYearsPublications));
-    return retCombined;
+    orcidPublications = orcidPublications.sort(this.comparePublicationYearsPublications);
+    ttvPublications = ttvPublications.sort(this.comparePublicationYearsPublications);
+
+    ttvPublications.forEach((publication) => {
+      formattedPublications.push(this.createBaseParagraph(this.formatPublicationCitation(publication, citationStyle)));
+      formattedPublications.push(this.createBaseParagraph(''));
+    });
+
+    formattedPublications = formattedPublications.concat(this.createBulletBlue(this.getTranslation('publication_list_bullet_orcid')));
+    formattedPublications.push(this.createBaseParagraph(''));
+
+    orcidPublications.forEach((publication) => {
+      formattedPublications.push(this.createBaseParagraph(this.formatPublicationCitation(publication, citationStyle)));
+      formattedPublications.push(this.createBaseParagraph(''));
+    });
+
+    return formattedPublications;
   }
 
   private createDegreesRows(degreeData) {
