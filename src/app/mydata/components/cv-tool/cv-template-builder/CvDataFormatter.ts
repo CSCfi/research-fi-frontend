@@ -71,11 +71,14 @@ function getDateNow() {
           // End date missing
         } else if (item.endDate.year === 0) {
           item.timing = item.startDate.year.toString();
-          if (dataType === groupTypes.activitiesAndRewards || dataType === groupTypes.education || dataType === groupTypes.affiliation) {
+          if (dataType === groupTypes.education || dataType === groupTypes.affiliation) {
             item.timing = item.timing + ' - ' + presentLocalization;
             if (dataType === groupTypes.affiliation) {
               item.employmentContinues = true;
             }
+          }
+          if (dataType === groupTypes.affiliation) {
+            item.employmentContinues = true;
           }
         }
         // Regular case
