@@ -510,7 +510,7 @@ export class CvTemplateBuilderComponent {
             if (activity['timing']?.length > 0) {
               ret.push(this.createBaseParagraph(activity['timing']));
             }
-            if (activity['activityTypeName']?.length > 0) {
+            if (activity['activityTypeName' + langCapitalized]?.length > 0) {
               const activityType: any = this.capitalizeFirstLetter(activity['activityTypeName' + langCapitalized]);
               ret.push(this.createBaseParagraph(activityType));
             }
