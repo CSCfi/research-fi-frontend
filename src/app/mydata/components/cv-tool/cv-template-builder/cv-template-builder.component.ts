@@ -449,8 +449,10 @@ export class CvTemplateBuilderComponent {
       }
     });
 
-    orcidPublications = orcidPublications.sort(this.comparePublicationYearsPublications);
-    ttvPublications = ttvPublications.sort(this.comparePublicationYearsPublications);
+    orcidPublications = orcidPublications.sort(this.comparePublicationYearsPublications).reverse();
+    ttvPublications = ttvPublications.sort(this.comparePublicationYearsPublications).reverse();
+
+    formattedPublications.push(this.createBaseParagraph(''));
 
     ttvPublications.forEach((publication) => {
       formattedPublications.push(this.createBaseParagraph(this.formatPublicationCitation(publication, citationStyle)));
