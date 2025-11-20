@@ -174,18 +174,8 @@ export function formatCvData(lang: string, profileData, orcid: string, filterVis
   let parsedPublications = filterVisible === true ? profileData[4].fields[0].items.filter(item => item.itemMeta.show === true) : profileData[4].fields[0].items;
 
   let parsedDatasets = profileData[5].fields[0].items.filter(item =>  filterVisible === true ? profileData[4].fields[0].items : item);
-  parsedDatasets = parsedDatasets.map(item => {
-    item.name = checkTranslation('name', item, lang) ?? '';
-    return item;
-  });
 
   let parsedFundings = profileData[6].fields[0].items.filter(item => filterVisible ? item.itemMeta.show === true : item);
-  parsedFundings = parsedFundings.map(item => {
-    item.name = checkTranslation('projectName', item, lang) ?? '';
-    item.funder.name = checkTranslation('funderName', item, lang) ?? '';
-    return item;
-  });
-
 
   let parsedActivities = profileData[7].fields[0].items.filter(item => filterVisible ? item.itemMeta.show === true : item);
 

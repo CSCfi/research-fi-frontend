@@ -281,7 +281,11 @@ export class CvTemplateBuilderComponent {
               ...this.createEmploymentRows(cvData.previousWorkExperience),
               ...this.createMainLevelParagraph(paragraphContentSec7),
               ...this.createMainLevelParagraph(paragraphContentSec8),
+              this.createBaseParagraph(''),
+              ...this.createFundingRows(cvData.researchFundingAndGrants),
               ...this.createMainLevelParagraph(paragraphContentSec9),
+              this.createBaseParagraph(''),
+              ...this.createDatasetRows(cvData.researchDatasets),
               ...this.createMainLevelParagraph(paragraphContentSec10),
               ...this.createMainLevelParagraph(paragraphContentSec11),
               ...this.createMainLevelParagraph(paragraphContentSec12),
@@ -493,6 +497,56 @@ export class CvTemplateBuilderComponent {
         ret.push(this.createBaseParagraph(employment['organizationName']));
         employment['positionName'] ? ret.push(this.createBaseParagraph(employment['positionName'])) : undefined;
         employment['departmentName'] ? ret.push(this.createBaseParagraph(employment['departmentName'])) : undefined;
+        ret.push(this.createBaseParagraph(''));
+      }
+    });
+    return ret;
+  }
+
+  private createDatasetRows(fundingData) {
+    let ret: docx.Paragraph[] = [];
+
+    fundingData.forEach((dataset) => {
+            if (true) {
+              let year = '';
+              if (dataset['year']) {
+                year = dataset['year'].toString();
+              }
+
+              if (dataset['name']?.length > 0) {
+                const datasetName: any = this.capitalizeFirstLetter(dataset['name']);
+                ret.push(this.createBaseParagraph(datasetName + ' ' + year));
+              }
+
+              if (dataset['doi']?.length > 0) {
+                const doiLink = 'https://doi.org/' + dataset['doi'];
+                ret.push(this.createHyperlink(doiLink, doiLink));
+              }
+              ret.push(this.createBaseParagraph(''));
+            }
+    });
+    return ret;
+  }
+
+  private createFundingRows(fundingData) {
+    let ret: docx.Paragraph[] = [];
+
+    fundingData.forEach((funding) => {
+     if (funding['name']) {
+       if (funding['year']) {
+         ret.push(this.createBaseParagraph(funding['year'].toString()));
+       }
+       if (funding['funder']?.typeOfFundingName?.length > 0) {
+         const funderName: string =  <string>this.capitalizeFirstLetter((funding['funder'].typeOfFundingName).toString());
+         ret.push(this.createBaseParagraph(funderName));
+       }
+       if (funding['funder']?.name?.length > 0) {
+         const funderName: string =  <string>this.capitalizeFirstLetter((funding['funder'].name).toString());
+         ret.push(this.createBaseParagraph(funderName));
+       }
+       if (funding['name']?.length > 0) {
+         ret.push(this.createBaseParagraph(funding['name']));
+       }
         ret.push(this.createBaseParagraph(''));
       }
     });
