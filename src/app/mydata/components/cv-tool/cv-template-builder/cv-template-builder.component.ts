@@ -292,13 +292,13 @@ export class CvTemplateBuilderComponent {
               ...this.createMainLevelParagraph(paragraphContentSec13),
               ...this.createActivityRows(cvData.activities, ['12.1'], true, lang),
               ...this.createActivityRows(cvData.activities, ['9'], true, lang),
-              ...this.createActivityRows(cvData.activities, ['8.2.1','8.3.1','8.4.1'], true, lang),
+              ...this.createActivityRows(cvData.activities, ['8.2.1', '8.3.1', '8.4.1'], true, lang),
               ...this.createActivityRows(cvData.activities, ['8.5.1'], true, lang),
               ...this.createActivityRows(cvData.activities, ['5.1', '5.2', '5.5', '5.6', '5.7', '5.8', '8.1'], true, lang),
               ...this.createActivityRows(cvData.activities, ['3.1.2', '3.2.1'], true, lang),
               ...this.createActivityRows(cvData.activities, ['8.5.1'], true, lang),
               ...this.createActivityRows(cvData.activities, ['2.1'], true, lang),
-              ...this.createActivityRows(cvData.activities, ['2.3','2.4'], true, lang),
+              ...this.createActivityRows(cvData.activities, ['2.3', '2.4'], true, lang),
               ...this.createActivityRows(cvData.activities, ['1'], true, lang),
               ...this.createActivityRows(cvData.activities, ['5.3', '5.4', '5.5', '5.6'], true, lang),
               ...this.createActivityRows(cvData.activities, ['8.6.1', '8.6.2', '8.6.3'], true, lang),
@@ -414,7 +414,7 @@ export class CvTemplateBuilderComponent {
     return a.publicationYear - b.publicationYear;
   }
 
-  private formatPublicationCitation(publication: any, citationStyle: number){
+  private formatPublicationCitation(publication: any, citationStyle: number) {
     let publicationDoiStr = publication['doi']?.length > 0 ? ' doi: ' + publication['doi'] : '';
 
     if (publication.dataSources[0].registeredDataSource === 'ORCID') {
@@ -503,27 +503,32 @@ export class CvTemplateBuilderComponent {
     return ret;
   }
 
-  private createDatasetRows(fundingData) {
+  private createDatasetRows(datasetData) {
     let ret: docx.Paragraph[] = [];
 
-    fundingData.forEach((dataset) => {
-            if (true) {
-              let year = '';
-              if (dataset['year']) {
-                year = dataset['year'].toString();
-              }
+    datasetData.forEach((dataset) => {
+      let year = '';
+      if (dataset['year']) {
+        year = dataset['year'].toString();
+      }
 
-              if (dataset['name']?.length > 0) {
-                const datasetName: any = this.capitalizeFirstLetter(dataset['name']);
-                ret.push(this.createBaseParagraph(datasetName + ' ' + year));
-              }
-
-              if (dataset['doi']?.length > 0) {
-                const doiLink = 'https://doi.org/' + dataset['doi'];
-                ret.push(this.createHyperlink(doiLink, doiLink));
-              }
-              ret.push(this.createBaseParagraph(''));
-            }
+      if (dataset['name']?.length > 0) {
+        const datasetName: any = this.capitalizeFirstLetter(dataset['name']);
+        ret.push(this.createBaseParagraph(datasetName + ' ' + year));
+        if (dataset['doi']?.length > 0) {
+          const doiLink = 'https://doi.org/' + dataset['doi'];
+          ret.push(this.createHyperlink(doiLink, doiLink));
+        } else if (dataset['urn']?.length > 0) {
+          ret.push(this.createHyperlink('https://urn.fi/' + dataset['urn'], 'https://urn.fi/' + dataset['urn']));
+        } else if (dataset['fairdataUrl']?.length > 0) {
+          const datasetUrl = dataset['fairdataUrl'];
+          ret.push(this.createHyperlink(datasetUrl, datasetUrl));
+        } else if (dataset['url']?.length > 0) {
+          // const datasetUrl = dataset['url'].substring(4, dataset['url'].length);
+          // ret.push(this.createHyperlink(datasetUrl, datasetUrl));
+        }
+        ret.push(this.createBaseParagraph(''));
+      }
     });
     return ret;
   }
@@ -532,21 +537,21 @@ export class CvTemplateBuilderComponent {
     let ret: docx.Paragraph[] = [];
 
     fundingData.forEach((funding) => {
-     if (funding['name']) {
-       if (funding['year']) {
-         ret.push(this.createBaseParagraph(funding['year'].toString()));
-       }
-       if (funding['funder']?.typeOfFundingName?.length > 0) {
-         const funderName: string =  <string>this.capitalizeFirstLetter((funding['funder'].typeOfFundingName).toString());
-         ret.push(this.createBaseParagraph(funderName));
-       }
-       if (funding['funder']?.name?.length > 0) {
-         const funderName: string =  <string>this.capitalizeFirstLetter((funding['funder'].name).toString());
-         ret.push(this.createBaseParagraph(funderName));
-       }
-       if (funding['name']?.length > 0) {
-         ret.push(this.createBaseParagraph(funding['name']));
-       }
+      if (funding['name']) {
+        if (funding['year']) {
+          ret.push(this.createBaseParagraph(funding['year'].toString()));
+        }
+        if (funding['funder']?.typeOfFundingName?.length > 0) {
+          const funderName: string = <string>this.capitalizeFirstLetter((funding['funder'].typeOfFundingName).toString());
+          ret.push(this.createBaseParagraph(funderName));
+        }
+        if (funding['funder']?.name?.length > 0) {
+          const funderName: string = <string>this.capitalizeFirstLetter((funding['funder'].name).toString());
+          ret.push(this.createBaseParagraph(funderName));
+        }
+        if (funding['name']?.length > 0) {
+          ret.push(this.createBaseParagraph(funding['name']));
+        }
         ret.push(this.createBaseParagraph(''));
       }
     });
@@ -705,14 +710,14 @@ export class CvTemplateBuilderComponent {
       children: [
         new TextRun({
           text: textBefore + ' ',
-          style: 'baseParagraphBlue',
+          style: 'baseParagraphBlue'
         }),
         new ExternalHyperlink({
           children: [
             new TextRun({
               text: linkText,
               style: 'Hyperlink'
-            }),
+            })
           ],
           link: link
         }),
@@ -732,14 +737,14 @@ export class CvTemplateBuilderComponent {
       children: [
         new TextRun({
           text: textBefore + ' ',
-          style: 'baseParagraphBlue',
+          style: 'baseParagraphBlue'
         }),
         new ExternalHyperlink({
           children: [
             new TextRun({
               text: linkText,
               style: 'Hyperlink'
-            }),
+            })
           ],
           link: link
         }),
