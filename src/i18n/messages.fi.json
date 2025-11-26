@@ -1207,7 +1207,7 @@
         "cv_intro_1_link_text": "TENKin ansioluettelomallin",
         "cv_intro_1_link": "https://tenk.fi/fi/ohjeet-ja-aineistot/tutkijan-ansioluettelomalli",
         "cv_intro_1_link_after": "mukainen CV profiilisi pohjalta. CV luodaan Word-tiedostona, jota käyttäjä voi muokata vapaasti. Huomioithan, että Tiedejatutkimus.fi-palvelusta ei löydy kaikkia ansioluettelomallissa vaadittuja tietoja.",
-        "cv_intro_1_link_after_2": "Voit myös ladata julkaisuluettelon, joka listaa kaikki profiilityökalusta löytyvät julkaisusi Opetus- ja kulttuuriministeriön julkaisuluokituksen mukaisesti.",
+        "cv_intro_1_link_after_2": "Voit myös ladata julkaisuluettelon, joka listaa kaikki profiilityökalusta löytyvät julkaisusi.",
         "import_radio_buttons_title": "Valitse CV-pohjaan tuotavat tiedot",
         "import_radio_button1": "Kaikki julkaistut ja julkaisemattomat profiilin tiedot",
         "import_radio_button2": "Vain julkaistut profiilin tiedot",
