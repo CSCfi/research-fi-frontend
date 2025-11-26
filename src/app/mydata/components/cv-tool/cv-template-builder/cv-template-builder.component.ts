@@ -524,8 +524,8 @@ export class CvTemplateBuilderComponent {
           const datasetUrl = dataset['fairdataUrl'];
           ret.push(this.createHyperlink(datasetUrl, datasetUrl));
         } else if (dataset['url']?.length > 0) {
-          // const datasetUrl = dataset['url'].substring(4, dataset['url'].length);
-          // ret.push(this.createHyperlink(datasetUrl, datasetUrl));
+          const orcidUrl = dataset['url'];
+          ret.push(this.createHyperlink(orcidUrl, orcidUrl));
         }
         ret.push(this.createBaseParagraph(''));
       }

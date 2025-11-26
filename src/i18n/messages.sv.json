@@ -1207,7 +1207,7 @@
         "cv_intro_1_link_text": "TENK:s meritförteckningsmall",
         "cv_intro_1_link": "https://tenk.fi/sv/anvisningar-och-material/modell-till-meritforteckning-forskare",
         "cv_intro_1_link_after": "baserat på din profil. CV:n skapas som en Word-fil som användaren fritt kan redigera. Observera att inte all information som krävs i CV-mallen finns tillgänglig i tjänsten Forskning.fi.",
-        "cv_intro_1_link_after_2": "Du kan också ladda ner en publikationsförteckning som listar alla dina publikationer i profilverktyget enligt undervisnings- och kulturministeriets publikationsklassificering.",
+        "cv_intro_1_link_after_2": "Du kan också ladda ner en publikationsförteckning som listar alla dina publikationer i profilverktyget.",
         "import_radio_buttons_title": "Välj den information som ska inkluderas i CV-mallen",
         "import_radio_button1": "Alla publicerade och opublicerade profiluppgifter",
         "import_radio_button2": "Endast publicerade profiluppgifter",
