@@ -424,12 +424,102 @@
     height: 16px;
   }
 
+  .create-new-diamond-icon {
+    color: #4546b9;
+    fill: #4546b9;
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    &.large-icon {
+      width: 100px;
+      height: 100px;
+      max-width: unset !important;
+      max-height: unset !important;
+    }
+  }
+
   .table-column-icon {
     //margin-top: 15px;
   }
 
   .sort-order, .sort-order-asc, .sort-order-desc {
 
+  }
+
+  .fade-in-image3 {
+    width: calc(50% - 1rem);
+    max-width: 80vh;
+    aspect-ratio: 1 / 1;
+    animation: burst 1s cubic-bezier(0,.46,.26,.99) alternate-reverse infinite;
+    display: inline-block;
+  }
+
+  .fade-in-image {
+    margin-left: 1rem;
+    animation: scale 2s cubic-bezier(.65,.97,.34,.08) alternate-reverse infinite, fade 2s linear alternate-reverse infinite;
+  }
+
+  @keyframes burst {
+    from {
+      opacity:0;
+      transform: scale(0.5);
+    }
+  }
+
+  @keyframes fade {
+    from {
+      opacity:0.5;
+    }
+  }
+
+  @keyframes scale {
+    from {
+      transform: scale(0.5);
+    }
+  }
+
+  .fade-in-image2 {
+    width: 100px;
+    height: 100px;
+    max-width: unset;
+    max-height: unset;
+    animation: fadeInOut 5s;
+    animation-name: fadeInOut;
+    animation-iteration-count: infinite;
+    -webkit-animation: fadeInOut 5s;
+    -moz-animation: fadeInOut 5s;
+    -o-animation: fadeInOut 5s;
+    -ms-animation: fadeInOut 5s;
+  }
+
+  @keyframes fadeInOut {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+    0% { opacity: 0; }
+  }
+
+  @-moz-keyframes fadeInOut {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+    0% { opacity: 0; }
+  }
+
+  @-webkit-keyframes fadeInOut {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+    0% { opacity: 0; }
+  }
+
+  @-o-keyframes fadeInOut {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+    0% { opacity: 0; }
+  }
+
+  @-ms-keyframes fadeInOut {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+    0% { opacity: 0; }
   }
 
   @media (max-width: 991px) {

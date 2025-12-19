@@ -1,0 +1,288 @@
+<div class="generate-description-wrap group-wrapper py-3 ps-2 pe-3">
+  <div class="row pb-3 justify-content-between">
+    <h2 class="col order-1">
+      {{ data?.label ?? 'Tutkimustoiminnan kuvaus' }}
+    </h2>
+    <div class="col-6 order-2 order-md-3 gx-0 gx-sm-3">
+      <div class="d-flex justify-content-end">
+        <app-tertiary-button
+                class="switch-choices-button"
+                [content]="(currentlyVisibleBiographiesObs$.getValue().fi.length < 1 && currentlyVisibleBiographiesObs$.getValue().en.length < 1 && currentlyVisibleBiographiesObs$.getValue().sv.length < 1) ? selectString : editString"
+                [announce]="hasSelectedItems"
+                [announceText]="data?.label + ' ' + noPublicDataText"
+                [svgSymbolName]="'edit'"
+                [svgCssClass]="'open_in_new-icon button-icon'"
+                (click)="openDialog('generate')"
+        ></app-tertiary-button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div *ngIf="currentlyVisibleBiographiesObs$.getValue().fi.length < 1 && currentlyVisibleBiographiesObs$.getValue().en.length < 1 && currentlyVisibleBiographiesObs$.getValue().sv.length < 1" class="row pt-2 pb-3 justify-content-between">
+    <div class="col align-self-center fst-italic order-3 order-md-2 mt-3 mt-md-0"
+         i18n="@@youHaveNotSelectedAnyPublicData">
+      {{ noPublicDataText }}
+    </div>
+  </div>
+
+  <div *ngIf="(currentlyVisibleBiographiesObs$.getValue().fi.length > 0 || currentlyVisibleBiographiesObs$.getValue().en.length > 0 && currentlyVisibleBiographiesObs$.getValue().sv.length > 0) && !((enTranslationOngoing$ | async) && (svTranslationOngoing$ | async))" class="row">
+    <div class="mb-2 d-flex flex-row font-weight-500">{{ languageVersionsTitle }}:
+      <div class="lang-tab-button" [ngClass]="{'selected': (selectedLanguageTab === 0)}" role="button"
+           tabindex="0" (keydown.enter)="setSelectLanguageTab(0, false)" (click)="setSelectLanguageTab(0, false)">FI
+      </div>
+      <div class="lang-tab-button" [ngClass]="{'selected': (selectedLanguageTab === 1), 'disabled': currentlyVisibleBiographiesObs$.getValue().en.length < 1}" role="button"
+           tabindex="0" (keydown.enter)="currentlyVisibleBiographiesObs$.getValue().en.length > 0 ? setSelectLanguageTab(1, false) : undefined" (click)="currentlyVisibleBiographiesObs$.getValue().en.length > 0 ? setSelectLanguageTab(1, false) : undefined">EN
+      </div>
+      <div class="lang-tab-button" [ngClass]="{'selected': (selectedLanguageTab === 2), 'disabled': currentlyVisibleBiographiesObs$.getValue().sv.length < 1}" role="button"
+           tabindex="0" (keydown.enter)="currentlyVisibleBiographiesObs$.getValue().sv.length > 0 ? setSelectLanguageTab(2, false) : undefined" (click)="currentlyVisibleBiographiesObs$.getValue().sv.length > 0 ? setSelectLanguageTab(2, false) : undefined">SV
+      </div>
+      <div *ngIf="isBiographyAiGeneratedObs$.getValue() === true" role="button" class="select-language-button"
+           tabindex="0" (keydown.enter)="openDialog('selectLanguageVersions')"
+           (click)="openDialog('selectLanguageVersions')">
+        {{ selectLanguageVersionsText }}
+      </div>
+    </div>
+    <br/>
+  </div>
+  <div class="row pt-2 pb-3 justify-content-between">
+    <div *ngIf="selectedLanguageTab === 0">
+      <div>{{ currentlyVisibleBiographiesObs$.getValue().fi }}</div>
+    </div>
+    <div *ngIf="selectedLanguageTab === 1">
+      <div>{{ currentlyVisibleBiographiesObs$.getValue().en }}</div>
+    </div>
+    <div *ngIf="selectedLanguageTab === 2">
+      <div>{{ currentlyVisibleBiographiesObs$.getValue().sv }}</div>
+    </div>
+  </div>
+
+  <div *ngIf="keywordsSelectedInDraft" class="row">
+    <h3 id="mock-data-checkbox-label" class="keywords-checkbox-label">{{ keywordsText }}</h3>
+    <div>{{selectedKeywordsStr}}</div>
+  </div>
+
+  <div class="language-versions-info-box" *ngIf="isBiographyAiGeneratedObs$ && (enTranslationOngoing$ | async) || (svTranslationOngoing$ | async)">
+    <div class="d-flex flex-row additional-info-wrap">
+      <div class="info-circle-wrap d-flex flex-column">
+        <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-box-large"></app-svg-sprites>
+      </div>
+
+      <div>
+        <div>{{ generatingLanguageVersionsInfoText }}</div>
+        <div class="d-flex flex-row justify-content-center">
+          <app-svg-sprites [iconName]="'create-new-diamond'"
+                           cssClass="create-new-diamond-icon large-icon fade-in-image"></app-svg-sprites>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="language-versions-info-box"
+       *ngIf="(isBiographyAiGeneratedObs$ | async) === false">
+    <div class="d-flex flex-row additional-info-wrap">
+      <div class="info-circle-wrap d-flex flex-column">
+        <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-box-large"></app-svg-sprites>
+      </div>
+
+      <div>
+        <h3>{{ researchDescriptionGenerationDone }}</h3>
+        <app-secondary-button (keydown.enter)="openDialog('reviewAndCreateLanguageVersionsButtonText')"
+                              (click)="openDialog('reviewAndCreateLanguageVersions')" content="{{reviewAndCreateLanguageVersionsButtonText}}"></app-secondary-button>
+      </div>
+    </div>
+  </div>
+
+  <div class="language-versions-info-box"
+       *ngIf="(isBiographyAiGeneratedObs$ | async) === true &&  !(enTranslationOngoing$| async) && !(svTranslationOngoing$ | async) && (aiGeneratedBiographiesObs$.getValue().en.length > 0 && langVersionEnUsed$.getValue() === false) && (aiGeneratedBiographiesObs$.getValue().sv.length > 0 && langVersionSvUsed$.getValue() === false)">
+    <div class="d-flex flex-row additional-info-wrap">
+      <div class="info-circle-wrap d-flex flex-column">
+        <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-box-large"></app-svg-sprites>
+      </div>
+
+      <div>
+        <h3>{{ languageVersionsGenerationDone }}</h3>
+        <div class="mb-3">{{ languageVersionsInstructionBoxText }}</div>
+        <app-secondary-button (keydown.enter)="openDialog('selectLanguageVersions')"
+                              (click)="openDialog('selectLanguageVersions')" content="{{selectLanguageVersionsText}}"></app-secondary-button>
+      </div>
+    </div>
+  </div>
+
+  <div class="language-versions-info-box"
+       *ngIf="(isBiographyAiGeneratedObs$ | async) === true && !(enTranslationOngoing$ | async) && !(svTranslationOngoing$ | async) && userEditedBiographiesObs$.getValue().en.length > 0 && userEditedBiographiesObs$.getValue().sv.length > 0 && currentlyVisibleBiographiesObs$.getValue().sv.length < 1 && currentlyVisibleBiographiesObs$.getValue().sv.length < 1">
+    <div class="d-flex flex-row additional-info-wrap">
+      <div class="info-circle-wrap d-flex flex-column">
+        <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-box-large"></app-svg-sprites>
+      </div>
+
+      <div>
+        <h3>{{ notAllLanguageVersionsSelectedTitle }}</h3>
+        <div class="mb-3">{{ languageVersionsInstructionBoxText }}</div>
+        <app-secondary-button (keydown.enter)="openDialog('selectLanguageVersions')"
+                              (click)="openDialog('selectLanguageVersions')" content="{{selectLanguageVersionsText}}"></app-secondary-button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Editor modal -->
+  <ng-template #editorTemplate>
+    <div class="profile-tool-modal">
+      <div>
+        <div class="row d-flex justify-content-between pb-2">
+          <div class="col-12 col-lg-auto font-size-big">
+            <div class="purple-box">
+              <div class="modal-width-prefer-wrapper"></div>
+              <label class="datasource-label">{{ selectDescriptionSourceTitle }}</label>
+              <div class="d-flex flex-row">
+                <app-simple-dropdown [options]="descriptionOptions" [selection]="descriptionSource" (onSelected)="selectDescriptionSource($event)"
+                                     aria-labelledby="datasource-label"
+                                     [disabled]="biographyGenerationOngoing$ | async"></app-simple-dropdown>
+              </div>
+              <div *ngIf="descriptionSource === 0">
+                <div *ngIf="contentCreationStep === 1" class="content-container">
+                  <div class="mb-3">{{ aitta_modalIntroText }}</div>
+
+                  <label class="language-select-label">{{ selectDescriptionLanguageTitle }}</label>
+                  <div class="d-flex flex-row">
+                    <app-simple-dropdown [options]="descriptionLanguages"
+                                         (onSelected)="selectDescriptionLanguage($event)"
+                                         aria-labelledby="language-select-label"
+                                         class="language-dropdown"></app-simple-dropdown>
+                    <app-secondary-button (click)="generateBiography()" content="{{generateDescriptionButtonText}}"
+                                          [svgSymbolName]="'create-new-diamond'"
+                                          [svgCssClass]="'create-new-diamond-icon'"
+                                          class="ms-3"></app-secondary-button>
+                  </div>
+                  <div class="d-flex flex-column">
+                    <label id="mock-data-checkbox-label" class="keywords-checkbox-label">{{ keywordsText }}</label>
+                    <mat-checkbox aria-labelledby="mock-data-checkbox-label" [checked]="useMockData" color="primary"
+                                  (change)=toggleUseMockData()>
+                      {{ useMockDataLabel }}
+                    </mat-checkbox>
+                  </div>
+                </div>
+                <div *ngIf="biographyGenerationOngoing$ | async" class="content-container">
+                  <div class="">{{ generatingDescriptionInfoText }}</div>
+                  <div class="d-flex flex-row justify-content-center">
+                    <app-svg-sprites [iconName]="'create-new-diamond'"
+                                     cssClass="create-new-diamond-icon large-icon fade-in-image"></app-svg-sprites>
+                  </div>
+                </div>
+
+                <div *ngIf="contentCreationStep === 3" class="content-container">
+                  <div class="d-flex flex-column">
+                    <label class="biography-label">{{ editDescriptionLabel }}</label>
+                    <textarea aria-labelledby="biography-label"
+                              (change)="biographyFieldTextChange($event, 0, true)">{{ aiGeneratedBiographies['fi'] }}</textarea>
+                  </div>
+                  <div class="d-flex flex-row additional-info-wrap">
+                    <div class="info-circle-margin d-flex flex-column justify-content-center">
+                      <app-svg-sprites [iconName]="'info'" cssClass="info-icon info-box-large"></app-svg-sprites>
+                    </div>
+                    <div>
+                      <div class="info-text-paragraph">{{ aiGeneratedTextMayContainErrors }}</div>
+                      <div class="info-text-paragraph">{{ languageVersionInfo }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="descriptionSource === 1" class="row">
+                <ng-container *ngFor="let biography of notAiBiographies; let i = index">
+
+                  <div id="biography-lang-versions-id"
+                       class="mb-2 d-flex flex-row font-weight-500">{{ languageVersionsTitle }}:
+                    <div [ngClass]="selectedLanguageTabModal === 0 ? 'lang-tab-button selected' : 'lang-tab-button'"
+                         role="button"
+                         tabindex="0" (keydown.enter)="setSelectLanguageTab(0, true)"
+                         (click)="setSelectLanguageTab(0, true)">FI
+                    </div>
+                    <div [ngClass]="selectedLanguageTabModal === 1 ? 'lang-tab-button selected' : 'lang-tab-button'"
+                         role="button"
+                         tabindex="0" (keydown.enter)="setSelectLanguageTab(1, true)"
+                         (click)="setSelectLanguageTab(1, true)">EN
+                    </div>
+                    <div [ngClass]="selectedLanguageTabModal === 2 ? 'lang-tab-button selected' : 'lang-tab-button'"
+                         role="button"
+                         tabindex="0" (keydown.enter)="setSelectLanguageTab(2, true)"
+                         (click)="setSelectLanguageTab(2, true)">SV
+                    </div>
+                  </div>
+                  <div class="biography-container">
+                    <mat-checkbox aria-labelledby="biography-lang-versions-id"
+                                  [checked]="i === selectedNotAiBiographyIndex" color="primary"
+                                  (change)=setSelectedBiographyIndex(i)>
+                      {{ biography[languageCodes[selectedLanguageTabModal]] }}
+                    </mat-checkbox>
+                  </div>
+                  <br/>
+                </ng-container>
+              </div>
+            </div>
+            <div class="d-flex flex-column">
+              <label id="keywords-checkbox-label" class="keywords-checkbox-label">{{ keywordsText }}</label>
+              <mat-checkbox aria-labelledby="keywords-checkbox-label" [checked]="keywordsSelected" color="primary"
+                            (change)=toggleKeywordsSelected()>
+                {{ selectedKeywordsStr }}
+              </mat-checkbox>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <!-- Language select moodal -->
+  <ng-template #selectLanguageVersionsTemplate>
+    <div class="profile-tool-modal select-language-modal">
+      <div>
+        <div class="row d-flex justify-content-between pb-2">
+          <div class="col-12 col-lg-auto font-size-big">
+            <div class="purple-box">
+              <div class="content-container">
+                <div class="row">
+                  <div class="col-4 d-flex flex-column">
+                    <label class="biography-label">{{ originalDescriptionLabel }}</label>
+                    <p>{{ userEditedBiographiesObs$.getValue().fi }}</p>
+                  </div>
+                  <div class="col-4 d-flex flex-column">
+                    <label class="biography-label">{{ editDescriptionLabelEn }}</label>
+                    <textarea name="story" rows="5" cols="33"
+                              (change)="biographyFieldTextChange($event, 1, false)">{{ userEditedBiographiesObs$.getValue().en }}</textarea>
+                    <mat-checkbox [checked]="languageVersionEnChecked" color="primary"
+                                  (change)="languageVersionEnChecked = !languageVersionEnChecked">
+                      {{ importLanguageVersionsToProfile }}
+                    </mat-checkbox>
+                  </div>
+                  <div class="col-4 d-flex flex-column">
+                    <label id="use-keywords-label-sv" class="biography-label">{{ editDescriptionLabelSv }}</label>
+                    <textarea name="story" rows="5" cols="33"
+                              (change)="biographyFieldTextChange($event, 2, false)">{{ userEditedBiographiesObs$.getValue().sv }}</textarea>
+                    <mat-checkbox [checked]="languageVersionSvChecked" color="primary"
+                                  (change)="languageVersionSvChecked = !languageVersionSvChecked">
+                      {{ importLanguageVersionsToProfile }}
+                    </mat-checkbox>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-width-prefer-wrapper-lang-modal"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <app-dialog
+          *ngIf="showDialog$  | async"
+          [template]="contentCreationStep !== 4 ? editorTemplate : selectLanguageVersionsTemplate"
+          [title]="contentCreationStep !== 4 ? descriptionOfResearchText : selectLanguageVersionsText"
+          [underTitle]="contentCreationStep !== 4 ? selectInformationToDisplayInProfile : ''"
+          [actions]="dialogActions"
+          (onActionClick)="doDialogAction($event)"
+          [selectedItemsCount]="0"
+          [useNewTemplate]=true
+  >
+  </app-dialog>
+</div>

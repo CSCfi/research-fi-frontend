@@ -1,0 +1,162 @@
+<!-- Modal header -->
+<div class="modal-template-wrap">
+  <div *ngIf="data.title" class="row justify-content-between modal-header not-bordered">
+    <!-- Title -->
+    <div class="col-8 col-sm-auto d-flex justify-content-center flex-column">
+      <h2 class="dialog-title h5 d-inline-block pe-2">
+        <!-- Icon removed. Component deprecated.
+        <fa-icon
+          *ngIf="data.icon"
+          [icon]="data.icon"
+          class="primary-color pe-3"
+        >
+        </fa-icon
+        -->
+        {{ data.title }}
+      </h2>
+      <div *ngIf="data.underTitle">{{ data.underTitle }}</div>
+      <ng-container *ngIf="data.headerInfoTemplate"
+      >
+        <ng-container [ngTemplateOutlet]="data.headerInfoTemplate"></ng-container
+        >
+      </ng-container>
+    </div>
+    <!-- Close button -->
+    <div
+            class="col-auto text-end px-0 mt-1 mt-sm-0 me-3 me-xl-0 align-self-sm-center order-2 order-sm-3"
+            [class.d-lg-none]="data.hideClose"
+            #closeButton
+    >
+      <app-close-button
+              (click)="close()"
+              (keydown.enter)="close()"
+              tabindex="-1"
+      ></app-close-button>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <!-- Default desktop horizontal padding is 1rem, target 2rem with content (row class does this automatically) -->
+
+  <mat-dialog-content [class.no-actions]="data.actions.length === 0">
+    <div class="row">
+      <div class="col px-0 px-lg-3" [ngClass]="data.noPadding ? 'px-0' : 'py-3'">
+        <ng-container [ngTemplateOutlet]="data.template"></ng-container>
+      </div>
+
+      <!-- Mobile extra content. E.g. MyData patch summary -->
+      <ng-container
+              *ngIf="mobile && displayExtraContent && data.extraContentTemplate"
+      >
+        <div class="row px-0 pb-3 mb-5">
+          <div class="col">
+            <ng-container
+                    [ngTemplateOutlet]="data.extraContentTemplate"
+            ></ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <!-- Footer -->
+    <div *ngIf="data.footerTemplate">
+      <hr/>
+      <div class="row">
+        <div class="col" [class.px-0]="data.noPadding">
+          <ng-container [ngTemplateOutlet]="data.footerTemplate"></ng-container>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <!-- Actions -->
+  <mat-dialog-actions
+          class="row align-items-start"
+          *ngIf="dialogActions?.length"
+          [class.justify-content-center]="mobile && dialogActions.length === 1"
+  >
+    <!-- Selected items indicator -->
+    <div
+            class="col align-self-center"
+            *ngIf="!data.useNewTemplate && data.selectedItemsCount >= 0"
+            aria-live="polite"
+    >
+      {{ data.selectedItemsCount }}
+      <ng-container i18n="@@selected">valittu</ng-container>
+    </div>
+    <!-- Some actions are spread into two columns -->
+    <ng-container *ngIf="data.spreadActions; else singleColumnActions">
+      <ng-container *ngFor="let group of dialogActions; let i = index">
+        <div class="col px-0" [class.col-auto]="i === 0">
+          <!-- First array items should be on the left side -->
+          <div
+                  class="row"
+                  [ngClass]="i === 0 ? 'justify-content-start' : 'justify-content-end'"
+          >
+            <ng-container *ngFor="let action of group">
+              <div class="col-auto py-2 align-self-center">
+                <app-primary-action-button
+                        *ngIf="action.primary"
+                        (click)="doAction(action)"
+                        [content]="action.label"
+                ></app-primary-action-button>
+
+                <app-secondary-button
+                        *ngIf="!action.primary"
+                        (click)="doAction(action)"
+                        [content]="action.label"
+                ></app-secondary-button>
+
+                <app-tertiary-button
+                        *ngIf="action.tertiary"
+                        (click)="doAction(action)"
+                        [content]="action.label"
+                ></app-tertiary-button>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+
+    <!-- Regular single column render -->
+    <ng-template #singleColumnActions>
+      <ng-container *ngFor="let action of dialogActions; let i = index">
+        <div class="col-auto py-2 align-self-center">
+          <app-primary-action-button
+                  *ngIf="action.primary && !action.tertiary"
+                  (click)="doAction(action)"
+                  [content]="action.label"
+          ></app-primary-action-button>
+
+          <app-secondary-button
+                  *ngIf="!action.primary && !action.tertiary"
+                  (click)="doAction(action)"
+                  [content]="action.label"
+          ></app-secondary-button>
+
+          <app-tertiary-button
+                  *ngIf="action.tertiary"
+                  (click)="doAction(action)"
+                  [content]="action.label"
+          ></app-tertiary-button>
+        </div>
+      </ng-container>
+    </ng-template>
+  </mat-dialog-actions>
+
+  <!-- Desktop extra content -->
+  <!-- Eg. mydata profile / publish / display data to publish toggle -->
+  <mat-dialog-content
+          *ngIf="!mobile && displayExtraContent && data.extraContentTemplate"
+  >
+    <div class="row px-3 pb-4">
+      <div class="col">
+        <ng-container
+                [ngTemplateOutlet]="data.extraContentTemplate"
+        ></ng-container>
+      </div>
+    </div
+    >
+  </mat-dialog-content>
+</div>

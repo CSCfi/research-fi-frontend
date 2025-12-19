@@ -106,12 +106,17 @@
                 *ngIf="action.primary"
                 (click)="doAction(action)"
                 [content]="action.label"
+                [svgSymbolName]="action.svgSymbolName"
+                [svgCssClass]="action.svgCssClass"
+                [iconAfter]="true"
               ></app-primary-action-button>
 
               <app-secondary-button
                 *ngIf="!action.primary"
                 (click)="doAction(action)"
                 [content]="action.label"
+                [svgSymbolName]="action.svgSymbolName"
+                [svgCssClass]="action.svgCssClass"
               ></app-secondary-button>
             </div>
           </ng-container>
@@ -128,12 +133,16 @@
           *ngIf="action.primary"
           (click)="doAction(action)"
           [content]="action.label"
+          [svgSymbolName]="action.svgSymbolName"
+          [svgCssClass]="action.svgCssClass"
         ></app-primary-action-button>
 
         <app-secondary-button
           *ngIf="!action.primary"
           (click)="doAction(action)"
           [content]="action.label"
+          [svgSymbolName]="action.svgSymbolName"
+          [svgCssClass]="action.svgCssClass"
         ></app-secondary-button>
       </div>
     </ng-container>

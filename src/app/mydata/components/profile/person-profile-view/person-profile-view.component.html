@@ -9,9 +9,12 @@
 
 <!-- Slice first contact info out and two last infos. These are used in other views. -->
 <div *ngIf="displayData">
-  <ng-container *ngFor="let group of displayData.slice(1, isPortalSinglePage ? -4 : -1); let i = index">
+  <ng-container *ngFor="let group of displayData.slice(0, isPortalSinglePage ? -4 : -1); let i = index">
       <ng-container *ngFor="let field of group.fields">
-            <app-profile-summary-view
+        <app-generate-description *ngIf="i === 1 && !isPortalSinglePage" [data]="field" [fullProfiledata]="displayData"></app-generate-description>
+
+        <app-profile-summary-view
+                    *ngIf="i > 0"
                     [isPortalSinglePage]="isPortalSinglePage"
                     [data]="field"
                     [sectionName]="group.id"

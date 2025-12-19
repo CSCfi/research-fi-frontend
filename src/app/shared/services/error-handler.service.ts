@@ -24,8 +24,8 @@ export class ErrorHandlerService implements ErrorHandler {
 
   handleError(error) {
     setTimeout(async () => {
-      error.orcid = this.appSettingsService.userOrcid;
-      error.url = this.router.url;
+      //error.orcid = this.appSettingsService.userOrcid;
+      //error.url = this.router.url;
 
       console.error(error);
       this.logger.log(error);

@@ -1,0 +1,12 @@
+<div class="custom-select">
+  <button class="select-button" (click)="openMenu()" [disabled]="disabled">
+    <span class="selected-value">{{options[selection]}}</span>
+    <span class="arrow"></span>
+  </button>
+
+  <ul [ngClass]="menuOpen ? 'select-dropdown' : 'select-dropdown d-none'">
+    @for (option of options; track option; let  i = $index) {
+      <li (click)="select(i)" role="button" tabindex="i">{{ option }}</li>
+    }
+  </ul>
+</div>

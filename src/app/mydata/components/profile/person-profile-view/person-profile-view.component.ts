@@ -8,18 +8,20 @@ import { JsonPipe, NgForOf, NgIf } from '@angular/common';
 import {
   NameAndOrcidViewComponent
 } from '@mydata/components/shared-layouts/name-and-orcid-view/name-and-orcid-view.component';
+import { GenerateDescriptionComponent } from '@mydata/components/generate-description/generate-description.component';
 
 @Component({
     selector: 'app-person-profile-view',
-    imports: [
-        ProfileSummaryViewComponent,
-        EditorModalComponent,
-        HasSelectedItemsPipe,
-        NgForOf,
-        NgIf,
-        NameAndOrcidViewComponent,
-        JsonPipe
-    ],
+  imports: [
+    ProfileSummaryViewComponent,
+    EditorModalComponent,
+    HasSelectedItemsPipe,
+    NgForOf,
+    NgIf,
+    NameAndOrcidViewComponent,
+    JsonPipe,
+    GenerateDescriptionComponent
+  ],
     templateUrl: './person-profile-view.component.html',
     styleUrl: './person-profile-view.component.scss'
 })
