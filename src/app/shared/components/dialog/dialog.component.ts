@@ -23,6 +23,7 @@ import {
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { DialogTemplateComponent } from './dialog-template/dialog-template.component';
+import { ModalTemplateComponent } from '@shared/components/dialog/modal-template/modal-template.component';
 
 @Component({
     selector: 'app-dialog',
@@ -31,6 +32,7 @@ import { DialogTemplateComponent } from './dialog-template/dialog-template.compo
 })
 export class DialogComponent implements OnInit, OnDestroy, OnChanges {
   @Input() title: string;
+  @Input() underTitle: string;
   @Input() template: TemplateRef<any>;
   @Input() footerTemplate: any;
   @Input() actions: any[];
@@ -47,10 +49,13 @@ export class DialogComponent implements OnInit, OnDestroy, OnChanges {
   @Input() headerInfoTemplate: TemplateRef<any>;
   @Input() selectedItemsCount: number;
   @Input() svgCssClass: string;
+  @Input() useNewTemplate: true;
+
+
   @Output() onDialogClose = new EventEmitter<any>();
   @Output() onActionClick = new EventEmitter<any>();
 
-  dialogRef: MatDialogRef<DialogTemplateComponent>;
+  dialogRef: MatDialogRef<DialogTemplateComponent> | MatDialogRef<ModalTemplateComponent>;
 
   dialogResultSub: Subscription;
 
@@ -101,30 +106,61 @@ export class DialogComponent implements OnInit, OnDestroy, OnChanges {
       height: 'unset',
     };
 
-    this.dialogRef = this.dialog.open(DialogTemplateComponent, {
-      ...(this.small ? smallDialogSettings : dialogSettings),
-      autoFocus: true,
-      data: {
-        title: this.title,
-        template: this.template,
-        footerTemplate: this.footerTemplate,
-        actions: this.actions || [],
-        extraContentTemplate: this.extraContentTemplate,
-        spreadActions: spreadActions,
-        icon: this.icon,
-        centerTitle: checkInput(this.centerTitle),
-        noPadding: checkInput(this.noPadding),
-        wide: checkInput(this.wide),
-        headerInfoTemplate: this.headerInfoTemplate,
-        hideClose: this.hideClose,
-        selectedItemsCount: this.selectedItemsCount,
-      },
-      panelClass: ['responsive-dialog', this.extraClass],
-      disableClose: this.disableClose ? true : false,
-      position: this.position ? this.handlePosition() : null,
-      ariaLabel: this.title + ' dialog',
-    });
-
+    if (this.useNewTemplate === true) {
+      console.log('Using new template', this.actions, spreadActions);
+      this.dialogRef = this.dialog.open(ModalTemplateComponent, {
+        ...(this.small ? smallDialogSettings : dialogSettings),
+        autoFocus: true,
+        data: {
+          title: this.title,
+          template: this.template,
+          footerTemplate: this.footerTemplate,
+          actions: this.actions || [],
+          extraContentTemplate: this.extraContentTemplate,
+          spreadActions: spreadActions,
+          icon: this.icon,
+          centerTitle: checkInput(this.centerTitle),
+          noPadding: checkInput(this.noPadding),
+          wide: checkInput(this.wide),
+          headerInfoTemplate: this.headerInfoTemplate,
+          hideClose: this.hideClose,
+          selectedItemsCount: this.selectedItemsCount,
+          underTitle: this.underTitle,
+          useNewTemplate: this.useNewTemplate
+        },
+        panelClass: ['responsive-dialog', this.extraClass],
+        disableClose: this.disableClose ? true : false,
+        position: this.position ? this.handlePosition() : null,
+        ariaLabel: this.title + ' dialog',
+      });
+    }
+    else {
+      console.log('Using dialog');
+      this.dialogRef = this.dialog.open(DialogTemplateComponent, {
+        ...(this.small ? smallDialogSettings : dialogSettings),
+        autoFocus: true,
+        data: {
+          title: this.title,
+          template: this.template,
+          footerTemplate: this.footerTemplate,
+          actions: this.actions || [],
+          extraContentTemplate: this.extraContentTemplate,
+          spreadActions: spreadActions,
+          icon: this.icon,
+          centerTitle: checkInput(this.centerTitle),
+          noPadding: checkInput(this.noPadding),
+          wide: checkInput(this.wide),
+          headerInfoTemplate: this.headerInfoTemplate,
+          hideClose: this.hideClose,
+          selectedItemsCount: this.selectedItemsCount,
+          underTitle: this.underTitle,
+        },
+        panelClass: ['responsive-dialog', this.extraClass],
+        disableClose: this.disableClose ? true : false,
+        position: this.position ? this.handlePosition() : null,
+        ariaLabel: this.title + ' dialog',
+      });
+    }
     // Only display uppermost dialog
     const handleDialogVisibility = () => {
       const openDialogs = this.dialog.openDialogs;
